@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,7 +24,7 @@ namespace s3d
 
 		virtual ~ISiv3DImageFormat() = default;
 
-		virtual bool init() = 0;
+		virtual void init() = 0;
 
 		virtual ImageFormat getFormatFromReader(const IReader& reader, const FilePath& pathHint) const = 0;
 
@@ -38,12 +38,14 @@ namespace s3d
 
 		virtual bool save(const Image& image, ImageFormat format, const FilePath& path) const = 0;
 
-		virtual MemoryWriter encode(const Image& image, ImageFormat format) const = 0;
+		virtual ByteArray encode(const Image& image, ImageFormat format) const = 0;
 
 		virtual bool encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const = 0;
 
 		virtual bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const = 0;
 
 		virtual bool encodePPM(IWriter& writer, const Image& image, PPMType format) const = 0;
+
+		virtual bool encodeWebP(IWriter& writer, const Image& image, bool lossless, double quality, WebPMethod method) const = 0;
 	};
 }

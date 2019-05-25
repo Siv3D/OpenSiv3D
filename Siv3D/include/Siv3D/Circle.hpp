@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,7 +16,7 @@
 # include "Array.hpp"
 # include "Geometry2D.hpp"
 # include "MathConstants.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
@@ -28,7 +28,7 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -56,7 +56,7 @@ namespace s3d
 		/// </summary>
 		size_type r;
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		Circle() = default;
 
@@ -135,7 +135,7 @@ namespace s3d
 		/// 円の半径
 		/// </param>
 		constexpr Circle(Arg::topRight_<position_type> topRight, size_type _r) noexcept
-			: center(topRight->x + _r, topRight->y + _r)
+			: center(topRight->x - _r, topRight->y + _r)
 			, r(_r) {}
 
 		/// <summary>
@@ -180,28 +180,25 @@ namespace s3d
 			: center(rightCenter->x - _r, rightCenter->y)
 			, r(_r) {}
 
-		Circle(const position_type& p0, const position_type& p1) noexcept
-			: center((p0 + p1) / 2.0)
-			, r(p0.distanceFrom(p1) / 2.0) {}
+		Circle(const position_type& p0, const position_type& p1) noexcept;
 
 		Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept;
 
 		explicit Circle(const Line& diameter) noexcept
 			: Circle(diameter.begin, diameter.end) {}
 
-		Circle(Arg::center_<position_type> _center, const position_type& p) noexcept
-			: center(_center.value())
-			, r(p.distanceFrom(_center.value())) {}
+		Circle(Arg::center_<position_type> _center, const position_type& p) noexcept;
 
-		constexpr bool operator ==(const Circle& circle) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Circle& circle) const noexcept
 		{
 			return center == circle.center
 				&& r == circle.r;
 		}
 
-		constexpr bool operator !=(const Circle& circle) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Circle& circle) const noexcept
 		{
-			return !(*this == circle);
+			return center != circle.center
+				|| r != circle.r;
 		}
 
 		constexpr Circle& set(value_type _x, value_type _y, size_type _r) noexcept
@@ -228,7 +225,7 @@ namespace s3d
 
 		constexpr Circle& set(Arg::topRight_<position_type> topRight, size_type _r) noexcept
 		{
-			return set(topRight->x + _r, topRight->y + _r, _r);
+			return set(topRight->x - _r, topRight->y + _r, _r);
 		}
 
 		constexpr Circle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept
@@ -299,7 +296,7 @@ namespace s3d
 
 		constexpr Circle& setPos(Arg::topRight_<position_type> topRight) noexcept
 		{
-			return setCenter(topRight->x + r, topRight->y + r);
+			return setCenter(topRight->x - r, topRight->y + r);
 		}
 
 		constexpr Circle& setPos(Arg::bottomLeft_<position_type> bottomLeft) noexcept
@@ -338,12 +335,12 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ center.movedBy(_x, _y), r };
 		}
 
-		constexpr Circle movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Circle movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -359,94 +356,103 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr Circle stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr Circle stretched(value_type size) const noexcept
 		{
 			return Circle(center, r + size);
 		}
 
-		Ellipse stretched(double _x, double _y) const noexcept;
+		[[nodiscard]] Ellipse stretched(double _x, double _y) const noexcept;
 
-		constexpr Circle scaled(double s) const noexcept
+		[[nodiscard]] constexpr Circle scaled(double s) const noexcept
 		{
 			return Circle(center, r * s);
 		}
 
-		Ellipse scaled(double sx, double sy) const noexcept;
+		[[nodiscard]] Ellipse scaled(double sx, double sy) const noexcept;
 
-		constexpr position_type top() const noexcept
+		[[nodiscard]] constexpr position_type top() const noexcept
 		{
 			return{ center.x, center.y - r };
 		}
 
-		constexpr position_type right() const noexcept
+		[[nodiscard]] constexpr position_type right() const noexcept
 		{
 			return{ center.x + r, center.y };
 		}
 
-		constexpr position_type bottom() const noexcept
+		[[nodiscard]] constexpr position_type bottom() const noexcept
 		{
 			return{ center.x, center.y + r };
 		}
 
-		constexpr position_type left() const noexcept
+		[[nodiscard]] constexpr position_type left() const noexcept
 		{
 			return{ center.x - r, center.y };
 		}
 
-		constexpr Line lineDiameter() const noexcept
+		[[nodiscard]] constexpr Line lineDiameter() const noexcept
 		{
 			return{ left(), right() };
 		}
 
-		constexpr value_type area() const noexcept
+		[[nodiscard]] constexpr value_type area() const noexcept
 		{
 			return r * r * Math::Pi;
 		}
 
-		constexpr value_type perimeter() const noexcept
+		[[nodiscard]] constexpr value_type perimeter() const noexcept
 		{
 			return 2 * r * Math::Pi;
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Circle& paint(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const Circle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
-		const Circle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
 
-		const Circle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+
+		//const Circle& paintPie(Image& dst, double startAngle, double angle, const Color& color) const;
+
+		//const Circle& overwritePie(Image& dst, double startAngle, double angle, const Color& color) const;
+
+		//const Circle& paintArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
+
+		//const Circle& overwriteArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
+
 
 		/// <summary>
 		/// 円を描きます。
@@ -471,10 +477,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
-		{
-			return drawFrame(thickness * 0.5, thickness * 0.5, color);
-		}
+		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		/// <summary>
 		/// 円の枠を描きます。
@@ -573,11 +576,11 @@ namespace s3d
 		/// </returns>
 		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		TexturedCircle operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedCircle operator ()(const Texture& texture) const;
 
-		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon(uint32 quality = 24) const;
+		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
 	};
 }
 
@@ -589,17 +592,14 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Circle& value)
-	{
-		Formatter(formatData, Vec3(value.x, value.y, value.r));
-	}
+	void Formatter(FormatData& formatData, const Circle& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)
 	{
 		return output << CharType('(')
-			<< value.x << CharType(',')
-			<< value.y << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
+			<< value.y << CharType(',') << CharType(' ')
 			<< value.r << CharType(')');
 	}
 
@@ -638,15 +638,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Circle& value)
+	template <>
+	struct formatter<s3d::Circle, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y, value.r);
-	}
+		template <class Context>
+		auto format(const s3d::Circle& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.r);
+		}
+	};
 }

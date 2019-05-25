@@ -1,8 +1,9 @@
 ﻿//-----------------------------------------------
 //
-//	This file is part of the HamFramework for Siv3D.
+//	This file is part of the Siv3D HamFramework.
 //
-//	Copyright (C) 2014-2018 HAMSTRO
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -95,7 +96,7 @@ namespace s3d
 
 void Main()
 {
-	Graphics::SetBackground(Palette::Seagreen);
+	Scene::SetBackground(Palette::Seagreen);
 
 	const Font font(30, Typeface::Medium);
 	const double keySize = font.fontSize() * 1.5;
@@ -126,7 +127,7 @@ void Main()
 			penPos.x += glyph.xAdvance;
 		}
 
-		InputDeviceSymbol::DrawInteractive(KeyF1, Vec2(100, 200), font, keySize);
+		InputDeviceSymbol::DrawInteractive(KeyF2, Vec2(100, 200), font, keySize);
 		InputDeviceSymbol::DrawInteractive(KeyUp, Vec2(100, 250), font, keySize);
 		InputDeviceSymbol::DrawInteractive(KeyEnter, Vec2(100, 300), font, keySize);
 		InputDeviceSymbol::DrawInteractive(KeyBackspace, Vec2(100, 350), font, keySize);

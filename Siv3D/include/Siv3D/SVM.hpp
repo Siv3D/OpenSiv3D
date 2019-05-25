@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,7 +14,7 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Array.hpp"
-# include "../ThirdParty/libsvm/svm.h"
+# include <ThirdParty/libsvm/svm.h>
 
 namespace s3d
 {
@@ -24,27 +24,7 @@ namespace s3d
 
 		using Label = double;
 
-		inline Paramter DefaultParameter(size_t maxIndex)
-		{
-			Paramter param;
-			param.svm_type		= C_SVC;
-			param.kernel_type	= RBF;
-			param.degree		= 3;
-			param.gamma			= 1.0 / maxIndex;
-			param.coef0			= 0;
-			param.nu			= 0.5;
-			param.cache_size	= 100;
-			param.C				= 1;
-			param.eps			= 1e-3;
-			param.p				= 0.1;
-			param.shrinking		= 1;
-			param.probability	= 0;
-			param.nr_weight		= 0;
-			param.weight_label	= nullptr;
-			param.weight		= nullptr;
-
-			return param;
-		}
+		Paramter DefaultParameter(size_t maxIndex);
 
 		template <size_t _Dimensions>
 		struct SupportVector
@@ -67,9 +47,9 @@ namespace s3d
 		{
 		private:
 
-			class CProblem;
+			class ProblemDetail;
 
-			std::shared_ptr<CProblem> pImpl;
+			std::shared_ptr<ProblemDetail> pImpl;
 
 		public:
 
@@ -111,26 +91,26 @@ namespace s3d
 
 			void release();
 
-			explicit operator bool() const;
+			[[nodiscard]] explicit operator bool() const;
 
-			bool hasData() const;
+			[[nodiscard]] bool hasData() const;
 
-			size_t num_SVs() const;
+			[[nodiscard]] size_t num_SVs() const;
 
-			int32 getMaxIndex() const;
+			[[nodiscard]] int32 getMaxIndex() const;
 
 			bool trainAndSaveModel(const FilePath& path, const Paramter& param) const;
 
-			PredictModel trainAndCreateModel(const Paramter& param) const;
+			[[nodiscard]] PredictModel trainAndCreateModel(const Paramter& param) const;
 		};
 
 		class PredictModel
 		{
 		private:
 
-			class CPredictModel;
+			class PredictModelDetail;
 
-			std::shared_ptr<CPredictModel> pImpl;
+			std::shared_ptr<PredictModelDetail> pImpl;
 
 		public:
 
@@ -141,34 +121,35 @@ namespace s3d
 			PredictModel(std::unique_ptr<svm_model*>&& ppModel);
 
 			~PredictModel();
-			explicit operator bool() const;
 
-			bool hasData() const;
+			[[nodiscard]] explicit operator bool() const;
+
+			[[nodiscard]] bool hasData() const;
 
 			bool load(const FilePath& path);
 
 			void release();
 
-			size_t num_classes() const;
+			[[nodiscard]] size_t num_classes() const;
 
-			Array<int32> getLabels() const;
+			[[nodiscard]] Array<int32> getLabels() const;
 
-			Label predict(const Array<double>& vector) const;
+			[[nodiscard]] Label predict(const Array<double>& vector) const;
 
-			Label predict(const Array<std::pair<int32, double>>& vector) const;
+			[[nodiscard]] Label predict(const Array<std::pair<int32, double>>& vector) const;
 
-			Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
+			[[nodiscard]] Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
 
-			Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
+			[[nodiscard]] Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
 		};
 
-		SparseSupportVector ParseSVMLight(StringView view);
+		[[nodiscard]] SparseSupportVector ParseSVMLight(StringView view);
 
-		Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
+		[[nodiscard]] Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
 
 		bool SaveSVMLight(const FilePath& path, const Array<SparseSupportVector>& vector);
 
-		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
+		[[nodiscard]] double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
 	}
 
 	void Formatter(FormatData& formatData, const SVM::SparseSupportVector& value);

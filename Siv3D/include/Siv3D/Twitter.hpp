@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -31,14 +31,18 @@ namespace s3d
 		/// <returns>
 		/// ブラウザを起動できたら true, それ以外の場合は false
 		/// </returns>
-		bool OpenTweetWindow(const String& text);
+		bool OpenTweetWindow(StringView text);
 
-		bool OpenLikeWindow(uint64 id);
+		bool OpenLikeWindow(uint64 tweetID);
 
-		bool OpenRetweetWindow(uint64 id);
+		bool OpenRetweetWindow(uint64 tweetID);
 
-		bool OpenMiniProfileWindow(const String& screenName);
+		bool OpenMiniProfileWindow(StringView screen_name);
 
-		bool OpenFollowWindow(const String& screenName);
+		bool OpenMiniProfileWindow(uint64 user_id);
+
+		bool OpenFollowWindow(StringView screen_name);
+
+		bool OpenFollowWindow(uint64 user_id);
 	}
 }

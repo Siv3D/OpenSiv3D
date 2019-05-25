@@ -1,7 +1,9 @@
-﻿//----------------------------------------------------------------------------------------
+﻿//-----------------------------------------------
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,108 +28,155 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
-
 # ifndef SIV3D_INCLUDED
-
-	# define SIV3D_INCLUDED
-
+#	define SIV3D_INCLUDED
 # endif
 
 //////////////////////////////////////////////////
 //
-//	Utilities
+// Utilities
 //
 //////////////////////////////////////////////////
 
-	// Platform
-	# include "Siv3D/Platform.hpp"
+// プラットフォーム
+// Platform
+# include <Siv3D/Platform.hpp>
 
-	// Library version
-	# include "Siv3D/Version.hpp"
+// ライブラリのバージョン
+// Library version
+# include <Siv3D/Version.hpp>
 
-	// Types
-	# include "Siv3D/Types.hpp"
+// 基本型
+// Types
+# include <Siv3D/Types.hpp>
 
-	// Forward declarations
-	# include "Siv3D/Fwd.hpp"
+// 前方宣言
+// Forward declarations
+# include <Siv3D/Fwd.hpp>
 
-	// Place holder
-	# include "Siv3D/PlaceHolder.hpp"
+// プレースホルダー
+// Place holder
+# include <Siv3D/PlaceHolder.hpp>
 
-	// Non-copyable mixin
-	# include "Siv3D/Uncopyable.hpp"
+// コピー禁止 Mixin
+// Non-copyable mixin
+# include <Siv3D/Uncopyable.hpp>
 
-	// Named parameter
-	# include "Siv3D/NamedParameter.hpp"
+// 名前付き引数
+// Named parameter
+# include <Siv3D/NamedParameter.hpp>
 
-	// Meta
-	# include "Siv3D/Meta.hpp"
+// 定義済み名前付き引数
+// Predefined named parameters
+# include <Siv3D/PredefinedNamedParameter.hpp>
 
-	// Utilities
-	# include "Siv3D/Utility.hpp"
+// 範囲をインデックス値とセットで列挙するユーティリティー
+// Indexed iterator
+# include <Siv3D/Indexed.hpp>
 
-	// Functor
-	# include "Siv3D/Functor.hpp"
+// メタ関数
+// Meta
+# include <Siv3D/Meta.hpp>
 
-	// Byte
-	# include "Siv3D/Byte.hpp"
+// 型特性
+// Type traits
+# include <Siv3D/TypeTraits.hpp>
 
-	// ByteArray view
-	# include "Siv3D/ByteArrayView.hpp"
+// ユーティリティー
+// Utilities
+# include <Siv3D/Utility.hpp>
 
-	// Thread
-	# include "Siv3D/Threading.hpp"
+// ファンクター
+// Functor
+# include <Siv3D/Functor.hpp>
 
-	// Task
-	# include "Siv3D/ConcurrentTask.hpp"
+// バイト
+// Byte
+# include <Siv3D/Byte.hpp>
 
-	// Memory alignment
-	# include "Siv3D/AlignedMemory.hpp"	
+// バイト配列ビュー形式への変換アダプター
+// Adapter for byte array view
+# include <Siv3D/ByteArrayViewAdapter.hpp>
 
-	// Aligned allocator
-	# include "Siv3D/AlignedAllocator.hpp"
+// バイト配列ビュー
+// Byte array view
+# include <Siv3D/ByteArrayView.hpp>
 
-	// Array
-	# include "Siv3D/Array.hpp"
+// スレッド
+// Thread
+# include <Siv3D/Threading.hpp>
 
-	// Hash table
-	# include "Siv3D/HashTable.hpp"
+// 並列実行タスク
+// Concurrent task
+# include <Siv3D/ConcurrentTask.hpp>
 
-	// Hash set
-	# include "Siv3D/HashSet.hpp"
+// メモリアライメント
+// Memory alignment
+# include <Siv3D/AlignedMemory.hpp>	
 
-	// kd-tree
-	# include "Siv3D/KDTree.hpp"
+// メモリアライメント対応アロケーター
+// Aligned allocator
+# include <Siv3D/AlignedAllocator.hpp>
 
-	// Indexed iterator
-	# include "Siv3D/Indexed.hpp"
+// 動的配列（一次元）
+// Array
+# include <Siv3D/Array.hpp>
 
-	// Range
-	# include "Siv3D/Step.hpp"
+// 動的配列（二次元）
+// 2D array
+# include <Siv3D/Grid.hpp>
 
-	// 2D range
-	# include "Siv3D/Step2D.hpp"
+// ハッシュテーブル
+// Hash table
+# include <Siv3D/HashTable.hpp>
 
-	// Infinite list
-	# include "Siv3D/InfiniteList.hpp"
+// ハッシュセット
+// Hash set
+# include <Siv3D/HashSet.hpp>
 
-	// 2D array
-	# include "Siv3D/Grid.hpp"
+// kd 木
+// kd-tree
+# include <Siv3D/KDTree.hpp>
 
-	// Optional
-	# include "Siv3D/Optional.hpp"
+// 範囲
+// Range
+# include <Siv3D/Step.hpp>
 
-	// unspecified
-	# include "Siv3D/Unspecified.hpp"
+// 2D 範囲
+// 2D range
+# include <Siv3D/Step2D.hpp>
 
-	// 型特性
-	# include "Siv3D/TypeTraits.hpp"
+// 無限リスト
+// Infinite list
+# include <Siv3D/InfiniteList.hpp>
 
-	// イテレータによる範囲の表現
-	# include "Siv3D/RangeIterator.hpp"
+// 無効値を持つ値
+// Optional
+# include <Siv3D/Optional.hpp>
 
-	// map 省略表記
-	# include "Siv3D/Evaluater.hpp"
+// 特に指定しないことを表す無効値
+// Representation of an unspecified value
+# include <Siv3D/Unspecified.hpp>
+
+// ハッシュ
+// Hash
+# include <Siv3D/Hash.hpp>
+
+// イテレータによる範囲の表現
+// Range iterator
+# include <Siv3D/RangeIterator.hpp>
+
+// map と each の省略表記
+// simple each and map
+# include <Siv3D/Evaluater.hpp>
+
+// スコープ・ガード
+// Scope guard
+# include <Siv3D/ScopeGuard.hpp>
+
+// エラー
+// Error
+# include <Siv3D/Error.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -135,65 +184,85 @@
 //
 //////////////////////////////////////////////////
 
-	// Character
-	# include "Siv3D/Char.hpp"
+// 文字
+// Character
+# include <Siv3D/Char.hpp>
 
-	// String view
-	# include "Siv3D/StringView.hpp"
+// 文字列ビュー
+// String view
+# include <Siv3D/StringView.hpp>
 
-	// String
-	# include "Siv3D/String.hpp"
+// 文字列
+// String
+# include <Siv3D/String.hpp>
 
-	// Unicode
-	# include "Siv3D/Unicode.hpp"
+// Unicode
+// Unicode
+# include <Siv3D/Unicode.hpp>
 
-	// Letter case
-	# include "Siv3D/LetterCase.hpp"
+// アルファベットの大文字・小文字
+// Letter case
+# include <Siv3D/LetterCase.hpp>
 
-	// Number
-	# include "Siv3D/Number.hpp"
+// 数値
+// Number
+# include <Siv3D/Number.hpp>
 
-	// 多倍長整数
-	# include "Siv3D/BigInt.hpp"
+// 多倍長整数
+// Arbitrary precision integer type
+# include <Siv3D/BigInt.hpp>
 
-	// 多倍長浮動小数点数
-	# include "Siv3D/BigFloat.hpp"
+// 多倍長浮動小数点数
+// 100 decimal digits precision floating point type
+# include <Siv3D/BigFloat.hpp>
 
-	// Format
-	# include "Siv3D/BoolFormat.hpp"
+// フォーマット (bool 型)
+// Format (bool)
+# include <Siv3D/FormatBool.hpp>
 
-	// Format
-	# include "Siv3D/IntFormat.hpp"
+// フォーマット (整数型)
+// Format (integer)
+# include <Siv3D/FormatInt.hpp>
 
-	// Format
-	# include "Siv3D/FloatFormat.hpp"
+// フォーマット (浮動小数点数型)
+// Format
+# include <Siv3D/FormatFloat.hpp>
 
-	// Format
-	# include "Siv3D/Format.hpp"
+// 文字列フォーマット
+// Format
+# include <Siv3D/Format.hpp>
 
-	// Formatting literal
-	# include "Siv3D/FormatLiteral.hpp"
+// 文字列フォーマットリテラル
+// Formatting literal
+# include <Siv3D/FormatLiteral.hpp>
 
-	// Format
-	# include "Siv3D/FormatUtility.hpp"
-	
-	// Text to bool conversion
-	# include "Siv3D/ParseBool.hpp"
-	
-	// Text to integer conversion
-	# include "Siv3D/ParseInt.hpp"
-	
-	// Text to float conversion
-	# include "Siv3D/ParseFloat.hpp"
-	
-	// Text to value conversion
-	# include "Siv3D/Parse.hpp"
+// 文字列フォーマットユーティリティ
+// Format
+# include <Siv3D/FormatUtility.hpp>
 
-	//// Regular expression
-	//# include "Siv3D/Regex.hpp"
+// 文字列 → bool 変換
+// Text to bool conversion
+# include <Siv3D/ParseBool.hpp>
 
-	// Emoji formatting
-	# include "Siv3D/EmojiDictionary.hpp"
+// 文字列 → 整数 変換
+// Text to integer conversion
+# include <Siv3D/ParseInt.hpp>
+
+// 文字列 → 浮動小数点数 変換
+// Text to float conversion
+# include <Siv3D/ParseFloat.hpp>
+
+// 文字列 → 値 変換
+// Text to value conversion
+# include <Siv3D/Parse.hpp>
+
+// 正規表現
+// Regular expression
+//# include <Siv3D/Regex.hpp>
+
+// 絵文字判定
+// Emoji formatting
+# include <Siv3D/EmojiDictionary.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -201,38 +270,53 @@
 //
 //////////////////////////////////////////////////
 
-	// Duration
-	# include "Siv3D/Duration.hpp"
+// 時間の表現
+// Duration
+# include <Siv3D/Duration.hpp>
 
-	// Date
-	# include "Siv3D/Date.hpp"
+// 曜日
+// Day of week
+# include <Siv3D/DayOfWeek.hpp>
 
-	// Date and time
-	# include "Siv3D/DateTime.hpp"
+// 日付
+// Date
+# include <Siv3D/Date.hpp>
 
-	// Time
-	# include "Siv3D/Time.hpp"
+// 日付と時刻
+// Date and time
+# include <Siv3D/DateTime.hpp>
 
-	// Stopwatch
-	# include "Siv3D/Stopwatch.hpp"
+// 時間
+// Time
+# include <Siv3D/Time.hpp>
 
-	// スピードを変更可能なストップウォッチ
-	# include "Siv3D/CustomStopwatch.hpp"
+// 経過時間の計測
+// Stopwatch
+# include <Siv3D/Stopwatch.hpp>
 
-	// Countdown timer
-	# include "Siv3D/Timer.hpp"
+// スピードを変更可能なストップウォッチ
+// Stopwatch with Variable Speed
+# include <Siv3D/CustomStopwatch.hpp>
 
-	// Profiler
-	# include "Siv3D/TimeProfiler.hpp"
+// カウントダウンタイマー
+// Countdown timer
+# include <Siv3D/Timer.hpp>
 
-	// 処理にかかった時間の測定
-	# include "Siv3D/MillisecClock.hpp"
+// プロファイラー
+// Profiler
+# include <Siv3D/TimeProfiler.hpp>
 
-	// 処理にかかった時間の測定
-	# include "Siv3D/MicrosecClock.hpp"
+// Clock Counter in Milliseconds
+// 処理にかかった時間の測定
+# include <Siv3D/MillisecClock.hpp>
 
-	// 処理にかかった CPU サイクル数の測定
-	# include "Siv3D/RDTSCClock.hpp"
+// Clock Counter in Microseconds
+// 処理にかかった時間の測定
+# include <Siv3D/MicrosecClock.hpp>
+
+// Clock Counter in CPU Clocks
+// 処理にかかった CPU サイクル数の測定
+# include <Siv3D/RDTSCClock.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -240,104 +324,131 @@
 //
 //////////////////////////////////////////////////
 
-	// Files and directories
-	# include "Siv3D/FileSystem.hpp"
+// ファイルとディレクトリ
+// Files and directories
+# include <Siv3D/FileSystem.hpp>
 
-	// Resource files
-	# include "Siv3D/Resource.hpp"
+// リソースファイルの管理
+// Resource files
+# include <Siv3D/Resource.hpp>
 
-	////// ファイルとディレクトリの変更の監視
-	////# include "Siv3D/FileMonitor.hpp"
+// ファイルとディレクトリの変更の監視
+// Directory Watcher
+# include <Siv3D/DirectoryWatcher.hpp>
 
-	// IReader interface
-	# include "Siv3D/IReader.hpp"
+// IReader インタフェース
+// IReader interface
+# include <Siv3D/IReader.hpp>
 
-	// IWriter interface
-	# include "Siv3D/IWriter.hpp"
+// IReader インタフェース
+// IWriter interface
+# include <Siv3D/IWriter.hpp>
 
-	// メモリ範囲への Reader インタフェース
-	# include "Siv3D/ReaderView.hpp"
+// メモリ範囲への IReader インタフェース
+// Memory Range IReader Wrapper
+# include <Siv3D/ReaderView.hpp>
 
-	// Memory mapped file
-	# include "Siv3D/MemoryMapping.hpp"
+// メモリマップトファイル
+// Memory mapped file
+# include <Siv3D/MemoryMapping.hpp>
 
-	// Writable memory mapped file
-	# include "Siv3D/WritableMemoryMapping.hpp"
+// 書き込み可能なメモリマップトファイル
+// Writable memory mapped file
+# include <Siv3D/WritableMemoryMapping.hpp>
 
-	// 読み込み用バッファ
-	# include "Siv3D/ByteArray.hpp"
+// 読み込み用バッファ
+// Binary Large Object (reader)
+# include <Siv3D/ByteArray.hpp>
 
-	// 書き込み用バッファ
-	# include "Siv3D/MemoryWriter.hpp"
+// 書き込み用バッファ
+// Binary Large Object (writer)
+# include <Siv3D/MemoryWriter.hpp>
 
-	// Binary file reader
-	# include "Siv3D/BinaryReader.hpp"
+// 読み込み専用バイナリファイル
+// Binary file reader
+# include <Siv3D/BinaryReader.hpp>
 
-	// Binary file writer
-	# include "Siv3D/BinaryWriter.hpp"
+// 書き込み専用バイナリファイル
+// Binary file writer
+# include <Siv3D/BinaryWriter.hpp>
 
-	// Text encoding
-	# include "Siv3D/TextEncoding.hpp"
+// 文字列エンコード
+// Text encoding
+# include <Siv3D/TextEncoding.hpp>
 
-	//Text file reader
-	# include "Siv3D/TextReader.hpp"
+// 読み込み専用テキストファイル
+//Text file reader
+# include <Siv3D/TextReader.hpp>
 
-	// Text file writer
-	# include "Siv3D/TextWriter.hpp"
+// 書き込み専用テキストファイル
+// Text file writer
+# include <Siv3D/TextWriter.hpp>
 
-	// Base64
-	# include "Siv3D/Base64.hpp"
+// Base64
+// Base64
+# include <Siv3D/Base64.hpp>
 
-	// MD5
-	# include "Siv3D/MD5.hpp"
+// MD5
+// MD5
+# include <Siv3D/MD5.hpp>
 
-	// xxHash
-	# include "Siv3D/XXHash.hpp"
+// xxHash
+// xxHash
+# include <Siv3D/XXHash.hpp>
 
-	// License management
-	# include "Siv3D/LicenseManager.hpp"
+// ライセンス出力の管理
+// License management
+# include <Siv3D/LicenseManager.hpp>
 
-	// Logger
-	# include "Siv3D/Logger.hpp"
+// ログ出力
+// Logger
+# include <Siv3D/Logger.hpp>
 
-	////// AES128 による暗号化
-	////# include "Siv3D/Crypto.hpp"
+//// AES128 による暗号化
+//# include <Siv3D/Crypto.hpp>
 
-	// Lossless compression with Zstandard algorithm
-	# include "Siv3D/Compression.hpp"
+// Zstandard 方式による可逆圧縮
+// Lossless compression with Zstandard algorithm
+# include <Siv3D/Compression.hpp>
 
-	////// アーカイブファイルからの読み込み
-	////# include "Siv3D/ArchivedFileReader.hpp"
+//// アーカイブファイルからの読み込み
+//# include <Siv3D/ArchivedFileReader.hpp>
 
-	////// アーカイブファイル
-	////# include "Siv3D/FileArchive.hpp"
+//// アーカイブファイル
+//# include <Siv3D/FileArchive.hpp>
 
-	// CSV ファイルデータの読み書き
-	# include "Siv3D/CSVData.hpp"
+// CSV ファイルデータの読み書き
+// CSV File Reader/Writer
+# include <Siv3D/CSVData.hpp>
 
-	// INI ファイルデータの読み書き
-	# include "Siv3D/INIData.hpp"
+// INI ファイルデータの読み書き
+// INI File Reader/Writer
+# include <Siv3D/INIData.hpp>
 
-	// XML ファイルの読み込み
-	# include "Siv3D/XMLReader.hpp"
+// XML ファイルの読み込み
+// XML Parser
+# include <Siv3D/XMLReader.hpp>
 
-	// JSON ファイルの読み込み
-	# include "Siv3D/JSONReader.hpp"
+// JSON ファイルの読み込み
+// JSON Parser
+# include <Siv3D/JSONReader.hpp>
 
-	//// JSON ファイルの書き出し
-	//# include "Siv3D/JSONWriter.hpp"
+//// JSON ファイルの書き出し
+//# include <Siv3D/JSONWriter.hpp>
 
-	// TOML ファイルの読み込み
-	# include "Siv3D/TOMLReader.hpp"
+// TOML ファイルの読み込み
+// TOML Parser
+# include <Siv3D/TOMLReader.hpp>
 
-	//// ZIP 圧縮ファイルの読み込み
-	//# include "Siv3D/ZIPReader.hpp"
+//// ZIP 圧縮ファイルの読み込み
+//# include <Siv3D/ZIPReader.hpp>
 
-	//// ZIP 圧縮ファイルの書き出し
-	//# include "Siv3D/ZIPWriter.hpp"
+//// ZIP 圧縮ファイルの書き出し
+//# include <Siv3D/ZIPWriter.hpp>
 
-	// HTML ファイルの書き出し
-	# include "Siv3D/HTMLWriter.hpp"
+// HTML ファイルの書き出し
+// HTML Document Writer
+# include <Siv3D/HTMLWriter.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -345,11 +456,13 @@
 //
 //////////////////////////////////////////////////
 
-	// RGB color
-	# include "Siv3D/Color.hpp"
+// RGB カラー
+// RGB color
+# include <Siv3D/Color.hpp>
 
-	// HSV color
-	# include "Siv3D/HSV.hpp"
+// HSV カラー
+// HSV color
+# include <Siv3D/HSV.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -357,74 +470,91 @@
 //
 //////////////////////////////////////////////////
 
-	// Vector
-	# include "Siv3D/PointVector.hpp"
+// 二次元座標と 2D/3D/4D ベクトル
+// 2D point and 2D/3D/4D vectors
+# include <Siv3D/PointVector.hpp>
 
-	// 円座標
-	# include "Siv3D/Circular.hpp"
+// 円座標
+# include <Siv3D/Circular.hpp>
 
-	// 円座標
-	# include "Siv3D/OffsetCircular.hpp"
+// オフセット付き円座標
+# include <Siv3D/OffsetCircular.hpp>
 
-	// 円柱座標
-	# include "Siv3D/Cylindrical.hpp"
+// 円柱座標
+# include <Siv3D/Cylindrical.hpp>
 
-	// 球面座標
-	# include "Siv3D/Spherical.hpp"
+// 球面座標
+# include <Siv3D/Spherical.hpp>
 
-	// 3x2 matrix
-	# include "Siv3D/Mat3x2.hpp"
+// 3x2 行列
+// 3x2 matrix
+# include <Siv3D/Mat3x2.hpp>
 
-	// 線分
-	# include "Siv3D/Line.hpp"
+// 線分
+// Line Segment
+# include <Siv3D/Line.hpp>
 
-	// 長方形
-	# include "Siv3D/Rectangle.hpp"
+// 長方形
+// Rectangle
+# include <Siv3D/Rectangle.hpp>
 
-	// 円
-	# include "Siv3D/Circle.hpp"
+// 円
+// Circle
+# include <Siv3D/Circle.hpp>
 
-	// 楕円
-	# include "Siv3D/Ellipse.hpp"
+// 楕円
+// Ellipse
+# include <Siv3D/Ellipse.hpp>
 
-	// 三角形
-	# include "Siv3D/Triangle.hpp"
+// 三角形
+// Triangle
+# include <Siv3D/Triangle.hpp>
 
-	// 四角形
-	# include "Siv3D/Quad.hpp"
+// 凸四角形
+// Convex quadrilateral
+# include <Siv3D/Quad.hpp>
 
-	// 角丸長方形
-	# include "Siv3D/RoundRect.hpp"
+// 角丸長方形
+// Rounded rectangle
+# include <Siv3D/RoundRect.hpp>
 
-	// 連続した複数の線分
-	# include "Siv3D/LineString.hpp"
+// 点の集合（とそれをつないで表現される線分）
+// A sequence of points (and the line segments connecting them)
+# include <Siv3D/LineString.hpp>
 
-	// 多角形
-	# include "Siv3D/Polygon.hpp"
+// 多角形
+// Polygon
+# include <Siv3D/Polygon.hpp>
 
-	// 2 次ベジェ曲線
-	# include "Siv3D/Bezier2.hpp"
+// 複数の多角形
+# include <Siv3D/MultiPolygon.hpp>
 
-	// 3 次ベジェ曲線
-	# include "Siv3D/Bezier3.hpp"
+// 2 次ベジェ曲線
+# include <Siv3D/Bezier2.hpp>
 
-	// Float 型の長方形
-	# include "Siv3D/FloatRect.hpp"
+// 3 次ベジェ曲線
+# include <Siv3D/Bezier3.hpp>
 
-	// Float 型の四角形
-	# include "Siv3D/FloatQuad.hpp"
+// Float 型の長方形
+# include <Siv3D/FloatRect.hpp>
 
-	// 2D 形状
-	# include "Siv3D/Shape2D.hpp"
+// Float 型の四角形
+# include <Siv3D/FloatQuad.hpp>
 
-	//// 2D 図形の Variant
-	//# include "Siv3D/ShapeVariant2D.hpp"
+// 2D 形状コレクション
+// 2D Shapes Collection
+# include <Siv3D/Shape2D.hpp>
 
-	// 2D 交差判定
-	# include "Siv3D/Intersection.hpp"
+//// 2D 図形の Variant
+//# include <Siv3D/ShapeVariant2D.hpp>
 
-	// 2D 幾何
-	# include "Siv3D/Geometry2D.hpp"
+// 2D 交差判定
+// 2D Shaoe Intersection
+# include <Siv3D/Intersection.hpp>
+
+// 2D 幾何
+// 2D Geometry Processing
+# include <Siv3D/Geometry2D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -432,41 +562,57 @@
 //
 //////////////////////////////////////////////////
 
-	// Distribution
-	# include "Siv3D/Distribution.hpp"
-	
-	// Hardware RNG
-	# include "Siv3D/HardwareRNG.hpp"
-	
-	// Xorshift RNG
-	# include "Siv3D/Xorshift.hpp"
-	
-	// SFMT RNG
-	# include "Siv3D/SFMT.hpp"
-	
-	// Mersenne Twister RNG
-	# include "Siv3D/MersenneTwister.hpp"
-	
-	// Default RNG
-	# include "Siv3D/DefaultRNG.hpp"
+// 乱数の分布
+// Distribution
+# include <Siv3D/Distribution.hpp>
 
-	// 乱数ユーティリティ
-	# include "Siv3D/Random.hpp"
+// ハードウェア乱数生成器
+// Hardware RNG
+# include <Siv3D/HardwareRNG.hpp>
 
-	// ランダムな Point の作成
-	# include "Siv3D/RandomPoint.hpp"
+// SFMT 方式による乱数生成器
+// SFMT RNG
+# include <Siv3D/SFMT.hpp>
 
-	// ランダムな Vec2 の作成
-	# include "Siv3D/RandomVec2.hpp"
+// メルセンヌ・ツイスタ方式による乱数生成器
+// Mersenne Twister RNG
+# include <Siv3D/MersenneTwister.hpp>
 
-	// ランダムな Vec3 の作成
-	# include "Siv3D/RandomVec3.hpp"
+// その他の乱数生成器
+// Other RNGs
+# include <Siv3D/RNG.hpp>
 
-	// ランダムな Vec4 の作成
-	# include "Siv3D/RandomVec4.hpp"
+// デフォルトの乱数生成器
+// Default RNG
+# include <Siv3D/DefaultRNG.hpp>
 
-	// ランダムな色の作成
-	# include "Siv3D/RandomColor.hpp"
+// 乱数ユーティリティ
+// RNG Utilities
+# include <Siv3D/Random.hpp>
+
+// ランダムな Point の作成
+// Random Point Generation
+# include <Siv3D/RandomPoint.hpp>
+
+// ランダムな Vec2 の作成
+// Random Vec2 Generation
+# include <Siv3D/RandomVec2.hpp>
+
+// ランダムな Vec3 の作成
+// Random Vec3 Generation
+# include <Siv3D/RandomVec3.hpp>
+
+// ランダムな Vec4 の作成
+// Random Vec4 Generation
+# include <Siv3D/RandomVec4.hpp>
+
+// ランダムな色の作成
+// Random Color Generation
+# include <Siv3D/RandomColor.hpp>
+
+// ランダムなサンプリング
+// Random Sampling
+# include <Siv3D/Sample.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -474,41 +620,57 @@
 //
 //////////////////////////////////////////////////
 
-	// 数学定数
-	# include "Siv3D/MathConstants.hpp"
+// 数学定数
+// Math Constants
+# include <Siv3D/MathConstants.hpp>
 
-	// 数学関数
-	# include "Siv3D/Math.hpp"
+// 数学関数
+// Math Functions
+# include <Siv3D/Math.hpp>
 
-	// 線形補間
-	# include "Siv3D/Lerp.hpp"
+// 線形補間
+// Interpolation
+# include <Siv3D/Interpolation.hpp>
 
-	// イージング関数
-	# include "Siv3D/Easing.hpp"
+// イージング関数
+// Easing
+# include <Siv3D/Easing.hpp>
 
-	// イージング ユーティリティ
-	# include "Siv3D/EasingController.hpp"
+// イージング ユーティリティ
+// Easing Utility
+# include <Siv3D/EasingController.hpp>
 
-	// トランジション
-	# include "Siv3D/Transition.hpp"
+// トランジション
+// Transition
+# include <Siv3D/Transition.hpp>
 
-	// 周期関数
-	# include "Siv3D/Periodic.hpp"
+// 周期関数
+// Periodic Functions
+# include <Siv3D/Periodic.hpp>
 
-	// Perlin Noise
-	# include "Siv3D/PerlinNoise.hpp"
+// Perlin ノイズ
+// Perlin Noise
+# include <Siv3D/PerlinNoise.hpp>
 
-	// スプライン
-	# include "Siv3D/Spline.hpp"
+// ノイズ生成
+// Noise
+# include <Siv3D/NoiseGenerator.hpp>
 
-	// SIMD
-	# include "Siv3D/SIMDMath.hpp"
+// スプライン
+// Spline
+# include <Siv3D/Spline.hpp>
 
-	// 半精度浮動小数点数
-	# include "Siv3D/HalfFloat.hpp"
+// SIMD 演算
+// SIMD
+# include <Siv3D/SIMDMath.hpp>
 
-	// 数式パーサ
-	# include "Siv3D/MathParser.hpp"
+// 半精度浮動小数点数
+// Half-Pecision Floating-Point
+# include <Siv3D/HalfFloat.hpp>
+
+// 数式パーサ
+// Math Parser
+# include <Siv3D/MathParser.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -516,38 +678,45 @@
 //
 //////////////////////////////////////////////////
 
-	// 画像
-	# include "Siv3D/Image.hpp"
+// 画像
+// Image
+# include <Siv3D/Image.hpp>
 
-	// Region of Image
-	# include "Siv3D/ImageRegion.hpp"
+// 画像の領域
+// Region of Image
+# include <Siv3D/ImageRegion.hpp>
 
-	// 画像デコーダ・エンコーダインタフェース
-	# include "Siv3D/ImageFormat.hpp"
+// 画像デコーダ・エンコーダインタフェース
+# include <Siv3D/ImageFormat.hpp>
 
-	// 画像処理
-	# include "Siv3D/ImageProcessing.hpp"
+// 画像処理
+# include <Siv3D/ImageProcessing.hpp>
 
-	// 画像のフォーマット
-	# include "Siv3D/TextureFormat.hpp"
+// 画像のフォーマット
+# include <Siv3D/TextureFormat.hpp>
 
-	// Exif
-	# include "Siv3D/Exif.hpp"
+// Exif
+# include <Siv3D/Exif.hpp>
 
-	// Color components
-	# include "Siv3D/ColorComponents.hpp"
+// Color components
+//# include <Siv3D/ColorComponents.hpp>
 
-	//// カスタムカラーフォーマットの画像
-	//# include "Siv3D/CustomImage.hpp"
+//// カスタムカラーフォーマットの画像
+//# include <Siv3D/CustomImage.hpp>
 
-	//// QR コードの作成と認識
-	//# include "Siv3D/QR.hpp"
+// QR code
+# include <Siv3D/QR.hpp>
 
-	//// 手書き文字認識
-	//# include "Siv3D/HandwritingRecognizer.hpp"
+// OpenCV bridge
+# include <Siv3D/OpenCV_Bridge.hpp>
 
-	//// 手書き文字認識用の学習データ作成
-	//# include "Siv3D/HandwritingTrainer.hpp"
+//// 手書き文字認識
+//# include <Siv3D/HandwritingRecognizer.hpp>
+
+//// 手書き文字認識用の学習データ作成
+//# include <Siv3D/HandwritingTrainer.hpp>
+
+# include <Siv3D/SDF.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -555,20 +724,23 @@
 //
 //////////////////////////////////////////////////
 
-	// 音声波形のサンプル
-	# include "Siv3D/WaveSample.hpp"
+// 音声波形のサンプル
+# include <Siv3D/WaveSample.hpp>
 
-	// 波形デコーダ・エンコーダインタフェース
-	# include "Siv3D/AudioFormat.hpp"
+// 波形デコーダ・エンコーダインタフェース
+# include <Siv3D/AudioFormat.hpp>
 
-	// 音声波形
-	# include "Siv3D/Wave.hpp"
+// 音声波形
+# include <Siv3D/Wave.hpp>
 
-	//// 音声波形のテンポ・ピッチ変更
-	//# include "Siv3D/WaveStretcher.hpp"
+// Sound Font
+# include <Siv3D/SoundFont.hpp>
 
-	// FFT
-	# include "Siv3D/FFT.hpp"
+//// 音声波形のテンポ・ピッチ変更
+//# include <Siv3D/WaveStretcher.hpp>
+
+// FFT
+# include <Siv3D/FFT.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -576,12 +748,14 @@
 //
 //////////////////////////////////////////////////
 
-	//// GIF アニメーションの書き出し
-	//# include "Siv3D/AnimatedGIFWriter.hpp"
-	//// 動画ファイルの読み込み
-	//# include "Siv3D/VideoReader.hpp"
-	//// 動画ファイルの書き出し
-	//# include "Siv3D/VideoWriter.hpp"
+// GIF アニメーションの書き出し
+# include <Siv3D/AnimatedGIFWriter.hpp>
+
+//// 動画ファイルの読み込み
+//# include <Siv3D/VideoReader.hpp>
+
+// 動画ファイルの書き出し
+# include <Siv3D/VideoWriter.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -589,29 +763,34 @@
 //
 //////////////////////////////////////////////////
 
-	//// シリアル通信
-	//# include "Siv3D/Serial.hpp"
-	//// パイプサーバー
-	//# include "Siv3D/PipeServer.hpp"
-	//// インターネット
-	//# include "Siv3D/Internet.hpp"
-	//// HTTP
-	//# include "Siv3D/HTTPClient.hpp"
-	
-	// Twitter
-	# include "Siv3D/Twitter.hpp"
-	
-	// IPv4
-	# include "Siv3D/IPv4.hpp"
+//// シリアル通信
+//# include <Siv3D/Serial.hpp>
+//// パイプサーバー
+//# include <Siv3D/PipeServer.hpp>
+//// インターネット
+//# include <Siv3D/Internet.hpp>
+//// HTTP
+//# include <Siv3D/HTTPClient.hpp>
 
-	// Network
-	# include "Siv3D/Network.hpp"
-	
-	// TCP Server
-	# include "Siv3D/TCPServer.hpp"
-	
-	// TCP Client
-	# include "Siv3D/TCPClient.hpp"
+// Twitter への投稿
+// Twitter
+# include <Siv3D/Twitter.hpp>
+
+// IPv4
+// IPv4
+# include <Siv3D/IPv4.hpp>
+
+// ネットワーク
+// Network
+# include <Siv3D/Network.hpp>
+
+// TCP サーバー
+// TCP Server
+# include <Siv3D/TCPServer.hpp>
+
+// TCP クライアント
+// TCP Client
+# include <Siv3D/TCPClient.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -619,38 +798,73 @@
 //
 //////////////////////////////////////////////////
 
-	// System
-	# include "Siv3D/System.hpp"
+// System
+# include <Siv3D/System.hpp>
 
-	// CPU
-	# include "Siv3D/CPU.hpp"
+// CPU
+# include <Siv3D/CPU.hpp>
 
-	// Console Output
-	# include "Siv3D/Console.hpp"
+// コンソール入出力
+// Console Input/Output
+# include <Siv3D/Console.hpp>
 
-	// Monitor Information
-	# include "Siv3D/Monitor.hpp"
-	
-	// Window
-	# include "Siv3D/Window.hpp"
-	
-	// Message Box
-	# include "Siv3D/MessageBox.hpp"
+// Monitor Information
+# include <Siv3D/Monitor.hpp>
 
-	// Clipboard
-	# include "Siv3D/Clipboard.hpp"
-	
-	// Drag and Drop
-	# include "Siv3D/DragDrop.hpp"
-	
-	//// ダイアログ
-	//# include "Siv3D/Dialog.hpp"
+// 高 DPI
+// High DPI
+# include <Siv3D/HighDPI.hpp>
 
-	// システムの電源の情報
-	# include "Siv3D/PowerStatus.hpp"
+// ウィンドウ
+// Window
+# include <Siv3D/Window.hpp>
 
-	// プロファイリング
-	# include "Siv3D/Profiler.hpp"
+// ウィンドウに対するユーザアクション
+// User Action on Window
+# include <Siv3D/UserAction.hpp>
+
+// メッセージボックス
+// Message Box
+# include <Siv3D/MessageBox.hpp>
+
+// クリップボード
+// Clipboard
+# include <Siv3D/Clipboard.hpp>
+
+// ドラッグ & ドロップ
+// Drag and Drop
+# include <Siv3D/DragDrop.hpp>
+
+// ファイル拡張子フィルタ
+// File Extension Filter
+# include <Siv3D/FileFilter.hpp>
+
+// ファイルダイアログ
+// File Dialog
+# include <Siv3D/Dialog.hpp>
+
+// 電源情報
+// Power status
+# include <Siv3D/PowerStatus.hpp>
+
+// プロファイラー
+// Profiling
+# include <Siv3D/Profiler.hpp>
+
+//////////////////////////////////////////////////
+//
+//	Text to speech
+//
+//////////////////////////////////////////////////
+
+// Language code
+# include <Siv3D/LanguageCode.hpp>
+
+// Text to speech
+# include <Siv3D/TextToSpeech.hpp>
+
+// Text to speech
+# include <Siv3D/Say.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -658,56 +872,55 @@
 //
 //////////////////////////////////////////////////
 
-	// Mouse Cursor
-	# include "Siv3D/Cursor.hpp"
-	
-	// 入力状態
-	# include "Siv3D/Key.hpp"
-	
-	// 2 つのキーの組み合わせ
-	# include "Siv3D/KeyConjunction.hpp"
-	
-	// 2 つ以上のキーの組み合わせ
-	# include "Siv3D/KeyGroup.hpp"
-	
-	// Keyboard
-	# include "Siv3D/Keyboard.hpp"
-	
-	// Mouse
-	# include "Siv3D/Mouse.hpp"
-	
-	// テキスト入力
-	# include "Siv3D/TextInput.hpp"
-	
-	// Gamepad
-	# include "Siv3D/Gamepad.hpp"
+// Mouse Cursor
+# include <Siv3D/Cursor.hpp>
 
-	// Joystick deadzone
-	# include "Siv3D/DeadZone.hpp"
+// 入力状態
+# include <Siv3D/Key.hpp>
 
-	// XInput 対応ゲームコントローラー
-	# include "Siv3D/XInput.hpp"
+// 2 つのキーの組み合わせ
+# include <Siv3D/KeyConjunction.hpp>
 
-	// Joy-Con
-	# include "Siv3D/JoyCon.hpp"
+// 2 つ以上のキーの組み合わせ
+# include <Siv3D/KeyGroup.hpp>
 
-	// Pro-Controller
-	# include "Siv3D/ProController.hpp"
+// Keyboard
+# include <Siv3D/Keyboard.hpp>
 
-	//// マイク入力
-	//# include "Siv3D/Recorder.hpp"
-	//// タッチ
-	//# include "Siv3D/Touch.hpp"
-	//// ペンタブレット
-	//# include "Siv3D/Pentablet.hpp"
-	//// 入力全般
-	//# include "Siv3D/Input.hpp"
-	//// Kinect V1
-	//# include "Siv3D/KinectV1.hpp"
-	//// Kinect V2
-	//# include "Siv3D/KinectV2.hpp"
-	// Tobii
-	//# include "Siv3D/Tobii.hpp"
+// Mouse
+# include <Siv3D/Mouse.hpp>
+
+// テキスト入力
+// Text input
+# include <Siv3D/TextInput.hpp>
+
+// ゲームパッド
+// Gamepad
+# include <Siv3D/Gamepad.hpp>
+
+// Joystick deadzone
+# include <Siv3D/DeadZone.hpp>
+
+// XInput 対応ゲームコントローラー
+# include <Siv3D/XInput.hpp>
+
+// Joy-Con
+# include <Siv3D/JoyCon.hpp>
+
+// Pro-Controller
+# include <Siv3D/ProController.hpp>
+
+// マイク入力
+# include <Siv3D/Microphone.hpp>
+
+//// タッチ
+//# include <Siv3D/Touch.hpp>
+//// ペンタブレット
+//# include <Siv3D/Pentablet.hpp>
+//// Kinect V1
+//# include <Siv3D/KinectV1.hpp>
+//// Kinect V2
+//# include <Siv3D/KinectV2.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -715,11 +928,13 @@
 //
 //////////////////////////////////////////////////
 
-	// オーディオ
-	# include "Siv3D/Audio.hpp"
+// オーディオ
+// Audio
+# include <Siv3D/Audio.hpp>
 
-	//// サウンドの拍カウント
-	//# include "Siv3D/SoundBeat.hpp"
+//// サウンドの拍カウント
+//# include <Siv3D/SoundBeat.hpp>
+
 
 //////////////////////////////////////////////////
 //
@@ -727,56 +942,76 @@
 //
 //////////////////////////////////////////////////
 
-	// 2D 頂点データ
-	# include "Siv3D/Vertex2D.hpp"
+// 描画画面
+// Scene
+# include <Siv3D/Scene.hpp>
 
-	// 2D スプライト
-	# include "Siv3D/Sprite.hpp"
+// 2D 頂点データ
+// 2D Vertex
+# include <Siv3D/Vertex2D.hpp>
 
-	// Blend State
-	# include "Siv3D/BlendState.hpp"
+// 2D スプライト
+// 2D Sprite
+# include <Siv3D/Sprite.hpp>
 
-	// Rasterizer State
-	# include "Siv3D/RasterizerState.hpp"
+// ブレンドステート
+// Blend State
+# include <Siv3D/BlendState.hpp>
 
-	//// デプスステートとステンシルステート
-	//# include "Siv3D/DepthStencilState.hpp"
+// ラスタライザーステート
+// Rasterizer State
+# include <Siv3D/RasterizerState.hpp>
 
-	// Sampler State
-	# include "Siv3D/SamplerState.hpp"
+//// デプスステートとステンシルステート
+//# include <Siv3D/DepthStencilState.hpp>
 
-	// シェーダ
-	# include "Siv3D/Shader.hpp"
+// サンプラーステート
+// Sampler State
+# include <Siv3D/SamplerState.hpp>
 
-	// 頂点シェーダ
-	# include "Siv3D/VertexShader.hpp"
+// シェーダ
+// Shader
+# include <Siv3D/ShaderCommon.hpp>
 
-	// ピクセルシェーダ
-	# include "Siv3D/PixelShader.hpp"
+// 頂点シェーダ
+// Vertex Shader
+# include <Siv3D/VertexShader.hpp>
 
-	// 定数バッファ
-	# include "Siv3D/ConstantBuffer.hpp"
+// ピクセルシェーダ
+// Pixel Shader
+# include <Siv3D/PixelShader.hpp>
 
-	//// 頂点レイアウト
-	//# include "Siv3D/InputLayout.hpp"
+// 定数バッファ
+// Constant Buffer
+# include <Siv3D/ConstantBuffer.hpp>
 
-	// グラフィックス全般
-	# include "Siv3D/Graphics.hpp"
+//// 頂点レイアウト
+//# include <Siv3D/InputLayout.hpp>
 
-	// スクリーンショット
-	# include "Siv3D/ScreenCapture.hpp"
+// グラフィックス全般
+# include <Siv3D/Graphics.hpp>
 
-	// 2D グラフィックス設定
-	# include "Siv3D/Graphics2D.hpp"
+// スクリーンショット
+// Screen capture
+# include <Siv3D/ScreenCapture.hpp>
 
-	// 2D グラフィックス設定
-	# include "Siv3D/RenderStateBlock2D.hpp"
+// 2D グラフィックス設定
+# include <Siv3D/Graphics2D.hpp>
 
-	// 2D グラフィックス設定
-	# include "Siv3D/ViewportBlock2D.hpp"
+// 2D グラフィックス設定
+# include <Siv3D/ScopedRenderStates2D.hpp>
 
-	// 2D 座標変換
-	# include "Siv3D/Transformer2D.hpp"
+// 2D グラフィックス設定
+# include <Siv3D/ScopedViewport2D.hpp>
+
+// 2D グラフィックス設定
+# include <Siv3D/ScopedColor2D.hpp>
+
+// 2D 座標変換
+# include <Siv3D/Transformer2D.hpp>
+
+// 2D グラフィックス設定
+# include <Siv3D/Camera2D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -784,26 +1019,29 @@
 //
 //////////////////////////////////////////////////
 
-	// Texture
-	# include "Siv3D/Texture.hpp"
-	
-	// 領域を指定したテクスチャ
-	# include "Siv3D/TextureRegion.hpp"
-	
-	// 円に貼り付けたテクスチャ
-	# include "Siv3D/TexturedCircle.hpp"
-	
-	// 四角形に貼り付けたテクスチャ
-	# include "Siv3D/TexturedQuad.hpp"
-	
-	// 角丸長方形に貼り付けたテクスチャ
-	# include "Siv3D/TexturedRoundRect.hpp"
-	
-	// 動的テクスチャ
-	# include "Siv3D/DynamicTexture.hpp"
-	
-	// レンダーテクスチャ
-	# include "Siv3D/RenderTexture.hpp"
+// Texture Description
+# include <Siv3D/TextureDesc.hpp>
+
+// Texture
+# include <Siv3D/Texture.hpp>
+
+// 領域を指定したテクスチャ
+# include <Siv3D/TextureRegion.hpp>
+
+// 円に貼り付けたテクスチャ
+# include <Siv3D/TexturedCircle.hpp>
+
+// 四角形に貼り付けたテクスチャ
+# include <Siv3D/TexturedQuad.hpp>
+
+// 角丸長方形に貼り付けたテクスチャ
+# include <Siv3D/TexturedRoundRect.hpp>
+
+// 動的テクスチャ
+# include <Siv3D/DynamicTexture.hpp>
+
+// レンダーテクスチャ
+//# include <Siv3D/RenderTexture.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -811,17 +1049,20 @@
 //
 //////////////////////////////////////////////////
 
-	// Outline Glyph
-	# include "Siv3D/OutlineGlyph.hpp"
+// Outline Glyph
+# include <Siv3D/OutlineGlyph.hpp>
 
-	// Font
-	# include "Siv3D/Font.hpp"
-	
-	// Emoji
-	# include "Siv3D/Emoji.hpp"
-	
-	// Icon
-	# include "Siv3D/Icon.hpp"
+// フォント
+// Font
+# include <Siv3D/Font.hpp>
+
+// 絵文字コレクション
+// Emoji
+# include <Siv3D/Emoji.hpp>
+
+// アイコンコレクション
+// Icon
+# include <Siv3D/Icon.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -829,57 +1070,38 @@
 //
 //////////////////////////////////////////////////
 
-	// Text Editor
-	# include "Siv3D/TextEditor.hpp"
+// 単体 GUI
+// Stand-alone GUI
+# include <Siv3D/SimpleGUI.hpp>
 
-	// Text box
-	# include "Siv3D/TextBox.hpp"
+// テキストボックス
+// Text box
+# include <Siv3D/TextBox.hpp>
 
-//////////////////////////////////////////////////
-//
-//	Effect
-//
-//////////////////////////////////////////////////
-
-	// Effect
-	# include "Siv3D/Effect.hpp"
+// Text Editor
+//# include <Siv3D/TextEditor.hpp>
 
 //////////////////////////////////////////////////
 //
-//	Standard GUI
+//	Particle System / Effect
 //
 //////////////////////////////////////////////////
 
-	//// ウィジェットのスタイル
-	//# include "Siv3D/WidgetStyle.hpp"
-	//// IWidget インタフェース
-	//# include "Siv3D/IWidget.hpp"
-	//// テキストウィジェット
-	//# include "Siv3D/GUIText.hpp"
-	//// 改行ウィジェット
-	//# include "Siv3D/GUINewLine.hpp"
-	//// テクスチャウィジェット
-	//# include "Siv3D/GUITexture.hpp"
-	//// 水平線ウィジェット
-	//# include "Siv3D/GUIHorizontalLine.hpp"
-	//// ボタンウィジェット
-	//# include "Siv3D/GUIButton.hpp"
-	//// トグルスイッチウィジェット
-	//# include "Siv3D/GUIToggleSwitch.hpp"
-	//// 水平スライダーウィジェット
-	//# include "Siv3D/GUISlider.hpp"
-	//// チェックボックスウィジェット
-	//# include "Siv3D/GUICheckBox.hpp"
-	//// ラジオボタンウィジェット
-	//# include "Siv3D/GUIRadioButton.hpp"
-	//// テキスト入力フィールドウィジェット
-	//# include "Siv3D/GUITextField.hpp"
-	//// テキスト入力エリアウィジェット
-	//# include "Siv3D/GUITextArea.hpp"
-	//// カラーパレットウィジェット
-	//# include "Siv3D/GUIColorPalette.hpp"
-	//// GUI
-	//# include "Siv3D/GUI.hpp"
+// 簡易エフェクト
+// Effect
+# include <Siv3D/Effect.hpp>
+
+// 2D パーティクルシステム
+// 2D Particle system (Particle)
+# include <Siv3D/Particle2D.hpp>
+
+// 2D パーティクルシステム
+// 2D Particle system (Emitter)
+# include <Siv3D/Emitter2D.hpp>
+
+// 2D パーティクルシステム
+// 2D Particle system (System)
+# include <Siv3D/ParticleSystem2D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -887,10 +1109,10 @@
 //
 //////////////////////////////////////////////////
 
-	//// ムービー (AVI, WMV 等に対応)
-	//# include "Siv3D/VideoPlayer.hpp"
-	//// メディアプレイヤー (AVI, WMV, MP4 等に対応)
-	//# include "Siv3D/MediaPlayer.hpp"
+//// ムービー (AVI, WMV 等に対応)
+//# include <Siv3D/VideoPlayer.hpp>
+//// メディアプレイヤー (AVI, WMV, MP4 等に対応)
+//# include <Siv3D/MediaPlayer.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -898,10 +1120,12 @@
 //
 //////////////////////////////////////////////////
 
-	//// Web カメラ
-	//# include "Siv3D/Webcam.hpp"
-	//// AR マーカー
-	//# include "Siv3D/AR.hpp"
+// Web カメラ
+// Webcam
+# include <Siv3D/Webcam.hpp>
+
+//// AR マーカー
+//# include <Siv3D/AR.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -909,59 +1133,66 @@
 //
 //////////////////////////////////////////////////
 
-	//// DirectXMath ユーティリティ
-	//# include "Siv3D/DirectXMathUtility.hpp"
-	//// クォータニオン
-	//# include "Siv3D/Quaternion.hpp"
-	//// 4x4 行列
-	//# include "Siv3D/Mat4x4.hpp"
-	//// レイ
-	//# include "Siv3D/Ray.hpp"
-	//// 3D 線分
-	//# include "Siv3D/Line3D.hpp"
-	//// 3D 三角形
-	//# include "Siv3D/Triangle3D.hpp"
-	//// メッシュデータ
-	//# include "Siv3D/MeshData.hpp"
-	//// メッシュ
-	//# include "Siv3D/Mesh.hpp"
-	//// 動的メッシュ
-	//# include "Siv3D/DynamicMesh.hpp"
-	//// 変換情報を持ったメッシュ
-	//# include "Siv3D/TransformedMesh.hpp"
-	//// パーティクル
-	//# include "Siv3D/Particle.hpp"
-	//// 平面
-	//# include "Siv3D/Plane.hpp"
-	//// 球
-	//# include "Siv3D/Sphere.hpp"
-	//// ボックス
-	//# include "Siv3D/Box.hpp"
-	//// 円盤
-	//# include "Siv3D/Disc.hpp"
-	//// 円柱
-	//# include "Siv3D/Cylinder.hpp"
-	//// 円錐
-	//# include "Siv3D/Cone.hpp"
-	//// 3D 幾何
-	//# include "Siv3D/Geometry3D.hpp"
-	//// OBJ ファイル読み込み
-	//# include "Siv3D/ModelLoader.hpp"
-	//// 3D モデル
-	//# include "Siv3D/Model.hpp"
-	//// 3D カメラ
-	//# include "Siv3D/Camera.hpp"
-	//// フォグ
-	//# include "Siv3D/Fog.hpp"
-	//// ライト
-	//# include "Siv3D/Light.hpp"
-	//// 3D グラフィックス設定
-	//# include "Siv3D/Graphics3D.hpp"
-	//// ポストエフェクト
-	//# include "Siv3D/PostEffect.hpp"
+//// DirectXMath ユーティリティ
+//# include <Siv3D/DirectXMathUtility.hpp>
+//// クォータニオン
+//# include <Siv3D/Quaternion.hpp>
+//// 4x4 行列
+//# include <Siv3D/Mat4x4.hpp>
 
-	// Navigation Mesh
-	# include "Siv3D/NavMesh.hpp"
+// レイ
+// Ray
+# include <Siv3D/Ray.hpp>
+
+//// 3D 線分
+//# include <Siv3D/Line3D.hpp>
+//// 3D 三角形
+//# include <Siv3D/Triangle3D.hpp>
+//// メッシュデータ
+//# include <Siv3D/MeshData.hpp>
+//// メッシュ
+//# include <Siv3D/Mesh.hpp>
+//// 動的メッシュ
+//# include <Siv3D/DynamicMesh.hpp>
+//// 変換情報を持ったメッシュ
+//# include <Siv3D/TransformedMesh.hpp>
+//// パーティクル
+//# include <Siv3D/Particle.hpp>
+//// 平面
+//# include <Siv3D/Plane.hpp>
+
+// 球
+// Sphere
+# include <Siv3D/Sphere.hpp>
+
+//// ボックス
+//# include <Siv3D/Box.hpp>
+//// 円盤
+//# include <Siv3D/Disc.hpp>
+//// 円柱
+//# include <Siv3D/Cylinder.hpp>
+//// 円錐
+//# include <Siv3D/Cone.hpp>
+//// 3D 幾何
+//# include <Siv3D/Geometry3D.hpp>
+//// OBJ ファイル読み込み
+//# include <Siv3D/ModelLoader.hpp>
+//// 3D モデル
+//# include <Siv3D/Model.hpp>
+//// 3D カメラ
+//# include <Siv3D/Camera.hpp>
+//// フォグ
+//# include <Siv3D/Fog.hpp>
+//// ライト
+//# include <Siv3D/Light.hpp>
+//// 3D グラフィックス設定
+//# include <Siv3D/Graphics3D.hpp>
+//// ポストエフェクト
+//# include <Siv3D/PostEffect.hpp>
+
+// ナビゲーションメッシュ
+// Navigation Mesh
+# include <Siv3D/NavMesh.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -969,23 +1200,27 @@
 //
 //////////////////////////////////////////////////
 
-	// アセットハンドル
-	# include "Siv3D/AssetHandle.hpp"
+// アセットハンドル
+# include <Siv3D/AssetHandle.hpp>
 
-	// Asset Management
-	# include "Siv3D/Asset.hpp"
+// アセット管理
+// Asset Management
+# include <Siv3D/Asset.hpp>
 
-	// Audio Asset
-	# include "Siv3D/AudioAsset.hpp"
+// オーディオアセット
+// Audio Asset
+# include <Siv3D/AudioAsset.hpp>
 
-	// Texture Asset
-	# include "Siv3D/TextureAsset.hpp"
+// テクスチャアセット
+// Texture Asset
+# include <Siv3D/TextureAsset.hpp>
 
-	// Font Asset
-	# include "Siv3D/FontAsset.hpp"
+// フォントアセット
+// Font Asset
+# include <Siv3D/FontAsset.hpp>
 
-	//// GUI Asset
-	//# include "Siv3D/GUIAsset.hpp"
+//// GUI Asset
+//# include <Siv3D/GUIAsset.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -993,8 +1228,9 @@
 //
 //////////////////////////////////////////////////
 
-	// 2D Physics
-	# include "Siv3D/Physics2D.hpp"
+// 2D 物理演算
+// 2D Physics
+# include <Siv3D/Physics2D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1002,8 +1238,13 @@
 //
 //////////////////////////////////////////////////
 
-	// SVM
-	# include "Siv3D/SVM.hpp"
+// SVM
+// SVM
+# include <Siv3D/SVM.hpp>
+
+// 自然言語処理（日本語）
+// NLP (Japanese)
+# include <Siv3D/NLP_Japanese.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1011,8 +1252,13 @@
 //
 //////////////////////////////////////////////////
 
-	// Script
-	# include "Siv3D/Script.hpp"
+// スクリプト
+// Script
+# include <Siv3D/Script.hpp>
+
+// マネージドスクリプト
+// ManagedScript
+# include <Siv3D/ManagedScript.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1020,30 +1266,40 @@
 //
 //////////////////////////////////////////////////
 
-	// Debug Output
-	# include "Siv3D/Print.hpp"
-	
-	//// Add-on
-	//# include "Siv3D/Addon.hpp"
-	
-	// Serialization
-	# include "Siv3D/Serialize.hpp"
+// デバッグ表示
+// Debug Output
+# include <Siv3D/Print.hpp>
 
-	// GPU Driver
-	# include "Siv3D/HighPerfoemanceGPU.hpp"
+//// Add-on
+//# include <Siv3D/Addon.hpp>
+
+// シリアライズ
+// Serialization
+# include <Siv3D/Serialization.hpp>
+
+// GPU ドライバー
+// GPU Driver
+# include <Siv3D/DiscreteGPU.hpp>
+
+// 静的リンクライブラリ
+// Static Libs (MSVC)
+# include <Siv3D/WindowsStaticLibs.hpp>
+
+// シーン管理
+// Scene Manager
+# include <Siv3D/SceneManager.hpp>
 
 //////////////////////////////////////////////////
 //
-//	Namespace
+// using namespace を無効にするには NO_S3D_USING マクロを定義します
 //
-//	* define NO_S3D_USING to disable using namespace *
+// define NO_S3D_USING to disable using namespace
 //
 //////////////////////////////////////////////////
 
 # ifndef NO_S3D_USING
 
-	using namespace s3d;
-	using namespace s3d::Literals;
-	using namespace std::literals;
+using namespace s3d;
+using namespace std::literals;
 
 # endif

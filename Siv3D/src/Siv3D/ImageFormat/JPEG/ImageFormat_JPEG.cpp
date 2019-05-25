@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,13 +13,13 @@
 # if defined(SIV3D_TARGET_LINUX)
 # include <turbojpeg.h>
 # else
-# include "../../../ThirdParty/libjpeg-turbo/turbojpeg.h"
+# include <libjpeg-turbo/turbojpeg.h>
 # endif
 
-# include "ImageFormat_JPEG.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include "ImageFormat_JPEG.hpp"
 
 namespace s3d
 {
@@ -42,8 +42,8 @@ namespace s3d
 		static constexpr uint8 EXIF_SIGN0[] = { 0xFF, 0xD8, 0xFF, 0xE1 };
 		static constexpr uint8 EXIF_SIGN1[] = { 'E', 'x', 'i', 'f' };
 
-		return (::memcmp(bytes, JFIF_SIGN0, sizeof(JFIF_SIGN0)) == 0 && ::memcmp(bytes + 6, JFIF_SIGN1, sizeof(JFIF_SIGN1)) == 0)
-			|| (::memcmp(bytes, EXIF_SIGN0, sizeof(EXIF_SIGN0)) == 0 && ::memcmp(bytes + 6, EXIF_SIGN1, sizeof(EXIF_SIGN1)) == 0);
+		return (std::memcmp(bytes, JFIF_SIGN0, sizeof(JFIF_SIGN0)) == 0 && std::memcmp(bytes + 6, JFIF_SIGN1, sizeof(JFIF_SIGN1)) == 0)
+			|| (std::memcmp(bytes, EXIF_SIGN0, sizeof(EXIF_SIGN0)) == 0 && std::memcmp(bytes + 6, EXIF_SIGN1, sizeof(EXIF_SIGN1)) == 0);
 	}
 
 	Size ImageFormat_JPEG::getSize(const IReader& reader) const
@@ -111,7 +111,7 @@ namespace s3d
 	{
 		const int64 size = reader.size();
 		
-		uint8* buffer = static_cast<uint8*>(::malloc(static_cast<size_t>(size)));
+		uint8* buffer = static_cast<uint8*>(std::malloc(static_cast<size_t>(size)));
 		
 		reader.read(buffer, size);
 
@@ -136,7 +136,7 @@ namespace s3d
 
 		::tjDestroy(tj);
 
-		::free(buffer);
+		std::free(buffer);
 
 		return image;
 	}
@@ -154,7 +154,7 @@ namespace s3d
 		const int32 height = image.height();
 
 		const size_t size = ::tjBufSize(width, height, TJSAMP::TJSAMP_420);
-		uint8* buffer = static_cast<uint8*>(::malloc(size));
+		uint8* buffer = static_cast<uint8*>(std::malloc(size));
 
 		unsigned long retJPEGsize = 0;
 
@@ -178,7 +178,7 @@ namespace s3d
 
 		const bool result = static_cast<int64>(retJPEGsize) == writer.write(buffer, retJPEGsize);
 
-		::free(buffer);
+		std::free(buffer);
 
 		return result;
 	}

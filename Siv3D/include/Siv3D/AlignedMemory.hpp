@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,8 @@
 # include <cstdlib>
 # include <memory>
 # include <type_traits>
-# include "Fwd.hpp"
+# include "Platform.hpp"
+# include "PlatformDetail.hpp"
 
 namespace s3d
 {
@@ -32,49 +33,28 @@ namespace s3d
 	template <class Type, size_t Alignment = alignof(Type)>
 	[[nodiscard]] inline Type* AlignedMalloc(const size_t n = 1)
 	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		return static_cast<Type*>(::_aligned_malloc(sizeof(Type) * n, Alignment));
-
-	# else
-
-		if constexpr (Alignment > Platform::AllocatorAlignment)
-		{
-			void* p;
-			::posix_memalign(&p, Alignment, sizeof(Type) * n);
-			return static_cast<Type*>(p);
-		}
-		else
-		{
-			return static_cast<Type*>(::malloc(sizeof(Type) * n));
-		}
-	
-	# endif	
+		return static_cast<Type*>(Platform::AlignedMalloc(sizeof(Type) * n, Alignment));
 	}
 
 	/// <summary>
 	/// AlignedMalloc() で確保したメモリ領域を解放します。
+	/// Deallocates the space previously allocated by AlignedMalloc(),
 	/// </summary>
 	/// <param name="p">
 	/// 解放するメモリ領域の先頭ポインタ
+	/// Pointer to the memory to deallocate
 	/// </param>
 	/// <remarks>
 	/// p が nullptr の場合は何も起こりません。
+	/// The function accepts and does nothing with the null pointer.
 	/// </remarks>
 	/// <returns>
 	/// なし
+	/// (none)
 	/// </returns>
 	inline void AlignedFree(void* const p)
 	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		::_aligned_free(p);
-
-	# else
-
-		::free(p);
-
-	# endif
+		Platform::AlignedFree(p);
 	}
 
 	/// <summary>
@@ -89,7 +69,7 @@ namespace s3d
 	/// <returns>
 	/// 確保したメモリ領域の先頭ポインタ
 	/// </returns>
-	template <class Type, class ...Args>
+	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
 	[[nodiscard]] inline Type* AlignedNew(Args&&... args)
 	{
 		Type* p = AlignedMalloc<Type>();
@@ -172,7 +152,7 @@ namespace s3d
 	/// </summary>
 	template <class Type>
 	struct IsOverAligned
-		: std::bool_constant<(alignof(Type) > Platform::AllocatorAlignment)> {};
+		: std::bool_constant<(alignof(Type)> Platform::AllocatorAlignment)> {};
 
 	template <class Type> constexpr bool IsOverAligned_v = IsOverAligned<Type>::value;
 
@@ -185,7 +165,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した unique_ptr
 	/// </returns>
-	template <class Type, class ...Args>
+	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
 	[[nodiscard]] auto MakeUnique(Args&&... args)
 	{
 		if constexpr (IsOverAligned_v<Type>)
@@ -207,7 +187,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した shared_ptr
 	/// </returns>
-	template <class Type, class ...Args>
+	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
 	[[nodiscard]] auto MakeShared(Args&&... args)
 	{
 		if constexpr (IsOverAligned_v<Type>)

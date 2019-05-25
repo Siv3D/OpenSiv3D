@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -238,13 +238,13 @@ namespace s3d
 
 		[[nodiscard]] size_t CountCodePoints(std::u16string_view view) noexcept;
 
-		[[nodiscard]] size_t CountCodePoints(const StringView view) noexcept;
+		[[nodiscard]] size_t CountCodePoints(StringView view) noexcept;
 
 		struct Translator_UTF8toUTF32
 		{
 		private:
 
-			std::array<char8, 4> m_buffer;
+			char8 m_buffer[4];
 
 			uint32 m_count = 0;
 

@@ -2,48 +2,47 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/StringView.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include "CScript.hpp"
-
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
+# include "AngelScript/scriptgrid.h"
 # include "AngelScript/scriptstdstring.h"
 
 namespace s3d
 {
 	namespace detail
 	{
-		static void MessageCallback(const AngelScript::asSMessageInfo* msg, void*)
+		static constexpr StringView GetMessageType(const AngelScript::asEMsgType msgType)
 		{
-			const char *type = "ERR ";
-			if (msg->type == AngelScript::asMSGTYPE_WARNING)
-				type = "WARN";
-			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
-				type = "INFO";
+			constexpr std::array<StringView, 3> types =
+			{
+				U"error"_sv, U"warning"_sv, U"info"_sv
+			};
 
-			//char buf[512];
+			return types[msgType];
+		}
 
-			//sprintf_s(buf, "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+		static void MessageCallback(const AngelScript::asSMessageInfo* msg, void* pMessageArray)
+		{
+			const StringView type = GetMessageType(msg->type);
+			const String section = Unicode::Widen(msg->section);
+			const String message = Unicode::Widen(msg->message);
 
-			String type_s = U"Error";
-			if (msg->type == AngelScript::asMSGTYPE_WARNING)
-				type_s = U"Warning";
-			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
-				type_s = U"Info";
+			const String fullMessage = U"[{}] {}({}): {}"_fmt(type, FileSystem::FileName(section), msg->row, message);
+			const String logMessage = U"{}({}): {}: {}"_fmt(section, msg->row, type, message);
+			Logger(logMessage);
 
-			Logger(U"{} : (Line {}) : {}"_fmt(type_s, msg->row, Unicode::Widen(msg->message)));
-
-			//std::cout << buf;
-			
-			//::OutputDebugStringA(buf);
-
-			//Siv3DEngine::GetLogger()->writeRaw(L"<p class=\"fail\">" + CharacterSet::Widen(buf).xmlEscape() + L"</p>\n");
+			Array<String>* messageArray = static_cast<Array<String>*>(pMessageArray);
+			messageArray->push_back(fullMessage);
 		}
 	}
 
@@ -62,11 +61,15 @@ namespace s3d
 
 	CScript::~CScript()
 	{
+		LOG_TRACE(U"CScript::~CScript()");
+
 		shutdown();
 	}
 
 	bool CScript::init()
 	{
+		LOG_TRACE(U"CScript::init()");
+
 		m_engine = AngelScript::asCreateScriptEngine(ANGELSCRIPT_VERSION);
 
 		if (!m_engine)
@@ -74,7 +77,7 @@ namespace s3d
 			return false;
 		}
 
-		if (m_engine->SetMessageCallback(asFUNCTION(detail::MessageCallback), 0, AngelScript::asCALL_CDECL) < 0)
+		if (m_engine->SetMessageCallback(asFUNCTION(detail::MessageCallback), &m_messageArray, AngelScript::asCALL_CDECL) < 0)
 		{
 			return false;
 		}
@@ -89,46 +92,124 @@ namespace s3d
 			return false;
 		}
 
+		if (m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1) < 0)
+		{
+			return false;
+		}
+
+		if (m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1) < 0)
+		{
+			return false;
+		}
+
 
 		AngelScript::RegisterScriptArray(m_engine);
+		AngelScript::RegisterScriptGrid(m_engine);
 		RegisterTypes(m_engine);
+		RegisterUtility(m_engine);
+		RegisterNamedArg(m_engine);
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
-		//RegisterDate(m_engine);
-		//RegisterDateTime(m_engine);
+		RegisterNone_t(m_engine);
+		RegisterOptional(m_engine);
+		RegisterDuration(m_engine);
+		RegisterDate(m_engine);
+		RegisterDateTime(m_engine);
+		RegisterTime(m_engine);
+		RegisterStopwatch(m_engine);
+		RegisterCustomStopwatch(m_engine);
+		RegisterTimer(m_engine);
+		//RegisterTimeProfiler(m_engine);
+
+		RegisterMillisecClock(m_engine);
+		RegisterMicrosecClock(m_engine);
+		RegisterRDTSCClock(m_engine);
 		RegisterColor(m_engine);
 		RegisterColorF(m_engine);
+		RegisterPalette(m_engine);
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
+		RegisterFloat2(m_engine);
 		RegisterVec2(m_engine);
-		//RegisterVec3(m_engine);
-		//RegisterVec4(m_engine);
+		RegisterVec3(m_engine);
+		RegisterVec4(m_engine);
+		RegisterCircular(m_engine);
+		RegisterOffsetCircular(m_engine);
+		RegisterMat3x2(m_engine);
+		RegisterBezier2(m_engine);
+		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
 		RegisterRect(m_engine);
 		RegisterRectF(m_engine);
 		RegisterCircle(m_engine);
-		//RegisterEllipse(m_engine);
+		RegisterEllipse(m_engine);
 		RegisterTriangle(m_engine);
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
+		RegisterPolygon(m_engine);
+		//RegisterMultiPolygon(m_engine);
+		RegisterLineString(m_engine);
 
+		RegisterFloatRect(m_engine);
+
+		RegisterLineStyle(m_engine);
+		RegisterShape2D(m_engine);
+
+		RegisterRandom(m_engine);
+		RegisterMathConstants(m_engine);
+		RegisterMath(m_engine);
+
+		RegisterPeriodic(m_engine);
+		RegisterEasing(m_engine);
+
+		RegisterImage(m_engine);
+		
+		RegisterTextToSpeech(m_engine);
+		RegisterSay(m_engine);
+		RegisterKey(m_engine);
+		RegisterMouse(m_engine);
+
+		RegisterSoundFont(m_engine);
+		RegisterWave(m_engine);
+		RegisterAudio(m_engine);
+
+		RegisterTexture(m_engine);
+		RegisterTextureRegion(m_engine);
+		RegisterTexturedQuad(m_engine);
+		RegisterTexturedCircle(m_engine);
+		RegisterTexturedRoundRect(m_engine);
+		RegisterDynamicTexture(m_engine);
+		RegisterFont(m_engine);
+		RegisterDrawableText(m_engine);
+		RegisterTransformer2D(m_engine);
+		RegisterScopedViewport2D(m_engine);
+
+		RegisterEmoji(m_engine);
+		RegisterIcon(m_engine);
+
+		RegisterPrint(m_engine);
+
+		RegisterSystem(m_engine);
+		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
-		RegisterRandom(m_engine);
+		RegisterScene(m_engine);
+		RegisterProfiler(m_engine);
+		RegisterDialog(m_engine);
 
-		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
+		auto nullScript = std::make_unique<ScriptData>(ScriptData::Null{}, m_engine);
 
 		if (!nullScript->isInitialized())
 		{
 			return false;
 		}
 
-		m_scripts.setNullData(nullScript);
+		m_scripts.setNullData(std::move(nullScript));
 
 		m_shutDown = false;
 
-		LOG_INFO(U"ℹ️ Script initialized");
+		LOG_INFO(U"ℹ️ CScript initialized");
 		
 		return true;
 	}
@@ -154,14 +235,18 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		const auto script = std::make_shared<ScriptData>(ScriptData::Code{}, code, m_engine, compileOption);
+		auto script = std::make_unique<ScriptData>(ScriptData::Code{}, code, m_engine, compileOption);
 
 		if (!script->isInitialized())
 		{
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(std::move(script));
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	ScriptID CScript::createFromFile(const FilePath& path, const int32 compileOption)
@@ -173,14 +258,18 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		const auto script = std::make_shared<ScriptData>(ScriptData::File{}, path, m_engine, compileOption);
+		auto script = std::make_unique<ScriptData>(ScriptData::File{}, path, m_engine, compileOption);
 
 		if (!script->isInitialized())
 		{
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(std::move(script));
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	void CScript::release(const ScriptID handleID)
@@ -201,6 +290,38 @@ namespace s3d
 	bool CScript::compiled(const ScriptID handleID)
 	{
 		return m_scripts[handleID]->compileSucceeded();
+	}
+
+	void CScript::setSystemUpdateCallback(const ScriptID handleID, const std::function<bool(void)>& callback)
+	{
+		return m_scripts[handleID]->setSystemUpdateCallback(callback);
+	}
+
+	bool CScript::reload(const ScriptID handleID, const int32 compileOption)
+	{
+		return m_scripts[handleID]->reload(compileOption, handleID.value());
+	}
+
+	const FilePath& CScript::path(const ScriptID handleID)
+	{
+		return m_scripts[handleID]->path();
+	}
+
+	Array<String> CScript::retrieveMessagesInternal()
+	{
+		Array<String> results;
+		results.swap(m_messageArray);
+		return results;
+	}
+
+	const Array<String>& CScript::retrieveMessages(const ScriptID handleID)
+	{
+		return m_scripts[handleID]->getMessages();
+	}
+
+	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	{
+		return m_scripts[ScriptID(static_cast<ScriptID::ValueType>(scriptID))]->getSystemUpdateCallback();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

@@ -2,19 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <string.h>
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Duration.hpp"
-# include "Hash.hpp"
+# include "DayOfWeek.hpp"
 
 namespace s3d
 {
@@ -23,11 +22,18 @@ namespace s3d
 
 	namespace detail
 	{
-		constexpr int32 DaysInMonth[2][12]
+		inline constexpr int32 DaysInMonth[2][12]
 		{
 			{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },	// common year
 			{ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }	// leap year
 		};
+
+		inline constexpr int32 GetDayOfWeek(int32 year, int32 month, int32 day) noexcept
+		{
+			return ((month == 1 || month == 2) ?
+				((year - 1) + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400 + (13 * (month + 12) + 8) / 5 + day) % 7
+				: (year + year / 4 - year / 100 + year / 400 + (13 * month + 8) / 5 + day) % 7);
+		}
 	}
 
 	/// <summary>
@@ -51,45 +57,26 @@ namespace s3d
 		int32 day;
 
 		/// <summary>
-		/// 曜日
+		/// デフォルトコンストラクタ
 		/// </summary>
-		enum DayOfWeek : int32
-		{
-			/// <summary>
-			/// 日曜日
-			/// </summary>
-			Sunday,
+		Date() noexcept = default;
 
-			/// <summary>
-			/// 月曜日
-			/// </summary>
-			Monday,
-
-			/// <summary>
-			/// 火曜日
-			/// </summary>
-			Tuesday,
-
-			/// <summary>
-			/// 水曜日
-			/// </summary>
-			Wednesday,
-
-			/// <summary>
-			/// 木曜日
-			/// </summary>
-			Thursday,
-
-			/// <summary>
-			/// 金曜日
-			/// </summary>
-			Friday,
-
-			/// <summary>
-			/// 土曜日
-			/// </summary>
-			Saturday
-		};
+		/// <summary>
+		/// 日付を作成します。
+		/// </summary>
+		/// <param name="_year">
+		/// 西暦
+		/// </param>
+		/// <param name="_month">
+		/// 月
+		/// </param>
+		/// <param name="_day">
+		/// 日
+		/// </param>
+		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1) noexcept
+			: year(_year)
+			, month(_month)
+			, day(_day) {}
 
 		/// <summary>
 		/// 曜日を返します。
@@ -99,9 +86,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] constexpr DayOfWeek dayOfWeek() const noexcept
 		{
-			return static_cast<DayOfWeek>((month == 1 || month == 2) ?
-				((year - 1) + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400 + (13 * (month + 12) + 8) / 5 + day) % 7
-				: (year + year / 4 - year / 100 + year / 400 + (13 * month + 8) / 5 + day) % 7);
+			return DayOfWeek{ detail::GetDayOfWeek(year, month, day) };
 		}
 
 		/// <summary>
@@ -110,7 +95,7 @@ namespace s3d
 		/// <returns>
 		/// 日本語の曜日
 		/// </returns>
-		[[nodiscard]] const String& dayOfWeekJP() const;
+		[[nodiscard]] String dayOfWeekJP() const;
 
 		/// <summary>
 		/// 曜日を英語で返します。
@@ -118,7 +103,7 @@ namespace s3d
 		/// <returns>
 		/// 英語の曜日
 		/// </returns>
-		[[nodiscard]] const String& dayOfWeekEN() const;
+		[[nodiscard]] String dayOfWeekEN() const;
 
 		/// <summary>
 		/// 現在のローカルの年月日と一致するかを返します。
@@ -174,28 +159,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Date() noexcept = default;
-
-		/// <summary>
-		/// 日付を作成します。
-		/// </summary>
-		/// <param name="_year">
-		/// 西暦
-		/// </param>
-		/// <param name="_month">
-		/// 月
-		/// </param>
-		/// <param name="_day">
-		/// 日
-		/// </param>
-		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1) noexcept
-			: year(_year)
-			, month(_month)
-			, day(_day) {}
-
-		/// <summary>
 		/// 日付を指定したフォーマットの文字列で返します。
 		/// フォーマット指定のパターンは以下の通りです。
 		///
@@ -221,37 +184,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた日付
 		/// </returns>
-		[[nodiscard]] String format(const String& format = U"yyyy/M/d") const;
-
-		/// <summary>
-		/// 昨日のローカルの日付を返します。
-		/// </summary>
-		/// <returns>
-		/// 昨日のローカルの日付
-		/// </returns>
-		[[nodiscard]] static Date Yesterday()
-		{
-			return Today() - Days(1);
-		}
-
-		/// <summary>
-		/// 現在のローカルの日付を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在のローカルの日付
-		/// </returns>
-		[[nodiscard]] static Date Today();
-
-		/// <summary>
-		/// 明日のローカルの日付を返します。
-		/// </summary>
-		/// <returns>
-		/// 明日のローカルの日付
-		/// </returns>
-		[[nodiscard]] static Date Tomorrow()
-		{
-			return Today() + Days(1);
-		}
+		[[nodiscard]] String format(StringView format = U"yyyy/M/d"_sv) const;
 
 		/// <summary>
 		/// 日付を進めます。
@@ -273,10 +206,105 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Date& operator -=(const Days& days)
+		Date& operator -=(const Days& days);
+
+		/// <summary>
+		/// 2 つの日付が等しいかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 2 つの日付が等しい場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator ==(const Date& other) const noexcept
 		{
-			return *this += (-days);
+			return (year == other.year) && (month == other.month) && (day == other.day);
 		}
+
+		/// <summary>
+		/// 2 つの日付が異なるかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 2 つの日付が異なる場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator !=(const Date& other) const noexcept
+		{
+			return (year != other.year) || (month != other.month) || (day != other.day);
+		}
+
+		/// <summary>
+		/// 日付の &lt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <(const Date& other) const noexcept;
+
+		/// <summary>
+		/// 日付の &gt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >(const Date& other) const noexcept;
+
+		/// <summary>
+		/// 日付の &lt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <=(const Date& other) const noexcept;
+
+		/// <summary>
+		/// 日付の &gt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >=(const Date& other) const noexcept;
+
+		[[nodiscard]] size_t hash() const noexcept;
+
+		/// <summary>
+		/// 昨日のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 昨日のローカルの日付
+		/// </returns>
+		[[nodiscard]] static Date Yesterday();
+
+		/// <summary>
+		/// 現在のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のローカルの日付
+		/// </returns>
+		[[nodiscard]] static Date Today();
+
+		/// <summary>
+		/// 明日のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 明日のローカルの日付
+		/// </returns>
+		[[nodiscard]] static Date Tomorrow();
 	};
 
 	/// <summary>
@@ -305,10 +333,7 @@ namespace s3d
 	/// <returns>
 	/// 戻した結果の日付
 	/// </returns>
-	[[nodiscard]] inline Date operator -(const Date& date, const Days& days)
-	{
-		return date + (-days);
-	}
+	[[nodiscard]] Date operator -(const Date& date, const Days& days);
 
 	/// <summary>
 	/// 2 つの日付の間の日数を計算します。
@@ -323,108 +348,6 @@ namespace s3d
 	/// 2 つの日付の間の日数
 	/// </returns>
 	[[nodiscard]] Days operator -(const Date& to, const Date& from);
-
-	/// <summary>
-	/// 2 つの日付が等しいかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 2 つの日付が等しい場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline constexpr bool operator ==(const Date& a, const Date& b) noexcept
-	{
-		return a.year == b.year && a.month == b.month && a.day == b.day;
-	}
-
-	/// <summary>
-	/// 2 つの日付が異なるかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 2 つの日付が異なる場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline constexpr bool operator !=(const Date& a, const Date& b) noexcept
-	{
-		return !(a == b);
-	}
-
-	/// <summary>
-	/// 日付の &lt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <(const Date& a, const Date& b)
-	{
-		return ::memcmp(&a, &b, sizeof(Date)) < 0;
-	}
-
-	/// <summary>
-	/// 日付の &gt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >(const Date& a, const Date& b)
-	{
-		return ::memcmp(&a, &b, sizeof(Date)) > 0;
-	}
-
-	/// <summary>
-	/// 日付の &lt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <=(const Date& a, const Date& b)
-	{
-		return !(a > b);
-	}
-
-	/// <summary>
-	/// 日付の &gt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >=(const Date& a, const Date& b)
-	{
-		return !(a < b);
-	}
 }
 
 //////////////////////////////////////////////////
@@ -435,10 +358,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Date& value)
-	{
-		formatData.string.append(value.format());
-	}
+	void Formatter(FormatData& formatData, const Date& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Date& value)
@@ -460,7 +380,7 @@ namespace std
 	{
 		[[nodiscard]] size_t operator()(const s3d::Date& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(value);
+			return value.hash();
 		}
 	};
 }

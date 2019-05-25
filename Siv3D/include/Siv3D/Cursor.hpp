@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Array.hpp"
 # include "PointVector.hpp"
 
 namespace s3d
@@ -44,7 +45,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Point Pos();
+		[[nodiscard]] Point Pos();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
@@ -52,7 +53,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Point PreviousPos();
+		[[nodiscard]] Point PreviousPos();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
@@ -60,7 +61,7 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
 		/// </returns>
-		Point Delta();
+		[[nodiscard]] Point Delta();
 
 		/// <summary>
 		/// マウスカーソルの位置を返します（クライアント座標）
@@ -68,7 +69,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Vec2 PosF();
+		[[nodiscard]] Vec2 PosF();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
@@ -76,7 +77,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Vec2 PreviousPosF();
+		[[nodiscard]] Vec2 PreviousPosF();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
@@ -84,7 +85,7 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
 		/// </returns>
-		Vec2 DeltaF();
+		[[nodiscard]] Vec2 DeltaF();
 
 		/// <summary>
 		/// マウスカーソルの位置を返します（クライアント座標）
@@ -92,7 +93,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Point PosRaw();
+		[[nodiscard]] Point PosRaw();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
@@ -100,7 +101,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（クライアント座標）
 		/// </returns>
-		Point PreviousPosRaw();
+		[[nodiscard]] Point PreviousPosRaw();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
@@ -108,7 +109,7 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
 		/// </returns>
-		Point DeltaRaw();
+		[[nodiscard]] Point DeltaRaw();
 
 		/// <summary>
 		/// マウスカーソルの位置を返します（スクリーン座標）
@@ -116,7 +117,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（スクリーン座標）
 		/// </returns>
-		Point ScreenPos();
+		[[nodiscard]] Point ScreenPos();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（スクリーン座標）
@@ -124,7 +125,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（スクリーン座標）
 		/// </returns>
-		Point PreviousScreenPos();
+		[[nodiscard]] Point PreviousScreenPos();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（スクリーン座標）
@@ -132,22 +133,19 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（スクリーン座標）
 		/// </returns>
-		Point ScreenDelta();
+		[[nodiscard]] Point ScreenDelta();
+
+		[[nodiscard]] Array<std::pair<Point, uint64>> GetBuffer();
 
 		void SetPos(int32 x, int32 y);
 
-		inline void SetPos(const Point& pos)
-		{
-			SetPos(pos.x, pos.y);
-		}
+		void SetPos(const Point& pos);
 
-		bool OnClientRect();
+		[[nodiscard]] bool OnClientRect();
 
-		void SetTransformLocal(const Mat3x2& matrix);
+		void SetLocalTransform(const Mat3x2& matrix);
 
-		void SetTransformCamera(const Mat3x2& matrix);
-
-		void SetTransformScreen(const Mat3x2& matrix);
+		void SetCameraTransform(const Mat3x2& matrix);
 
 		/// <summary>
 		/// クライアント座標系のカーソル位置に適用されている座標変換を返します。
@@ -155,11 +153,9 @@ namespace s3d
 		/// <returns>
 		/// 適用されている座標変換
 		/// </returns>
-		const Mat3x2& GetTransformLocal();
+		[[nodiscard]] const Mat3x2& GetLocalTransform();
 
-		const Mat3x2& GetTransformCamera();
-
-		const Mat3x2& GetTransformScreen();
+		[[nodiscard]] const Mat3x2& GetCameraTransform();
 
 		/// <summary>
 		/// マウスカーソルの移動範囲をクライアント画面に制限します
@@ -170,15 +166,14 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void ClipClientRect(bool clip);
+		void ClipToWindow(bool clip);
 
-		void SetStyle(CursorStyle style);
+		void RequestStyle(CursorStyle style);
 
-		CursorStyle GetStyle();
-	}
+		void SetDefaultStyle(CursorStyle style);
 
-	namespace win::Cursor
-	{
-		void ClipRect(const Optional<Rect>& rect);
+		[[nodiscard]] CursorStyle GetRequestedStyle();
+
+		[[nodiscard]] CursorStyle GetDefaultStyle();
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,8 @@
 # include "IScreenCapture.hpp"
 # include <Siv3D/ScreenCapture.hpp>
 # include <Siv3D/DateTime.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/DynamicTexture.hpp>
 
 namespace s3d
 {
@@ -20,7 +22,7 @@ namespace s3d
 	{
 		void SaveCurrentFrame()
 		{
-			const FilePath path = Siv3DEngine::GetScreenCapture()->getDefaultScreenshotDirectory() + DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png";
+			const FilePath path = Siv3DEngine::Get<ISiv3DScreenCapture>()->getDefaultScreenshotDirectory() + DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png";
 
 			SaveCurrentFrame(path);
 		}
@@ -32,7 +34,34 @@ namespace s3d
 				return;
 			}
 
-			Siv3DEngine::GetScreenCapture()->requestScreenCapture(path);
+			Siv3DEngine::Get<ISiv3DScreenCapture>()->requestScreenCapture(path);
+		}
+
+		void RequestCurrentFrame()
+		{
+			Siv3DEngine::Get<ISiv3DScreenCapture>()->requestScreenCapture(FilePath());
+		}
+
+		bool HasNewFrame()
+		{
+			return Siv3DEngine::Get<ISiv3DScreenCapture>()->hasNewFrame();
+		}
+
+		const Image& GetFrame()
+		{
+			return Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture();
+		}
+
+		bool GetFrame(Image& image)
+		{
+			image = Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture();
+
+			return !!image;
+		}
+
+		bool GetFrame(DynamicTexture& texture)
+		{
+			return texture.fill(Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture());
 		}
 	}
 }

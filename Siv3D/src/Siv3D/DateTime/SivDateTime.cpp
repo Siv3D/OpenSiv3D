@@ -2,41 +2,23 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Fwd.hpp>
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-# include <Siv3D/Windows.hpp>
-
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-# include <sys/time.h>
-
-# endif
-
+# include <Siv3D/Char.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/ByteArrayViewAdapter.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			static constexpr DateTime ToDateTime(const SYSTEMTIME& in)
-			{
-				return{ in.wYear, in.wMonth, in.wDay, in.wHour, in.wMinute, in.wSecond, in.wMilliseconds };
-			}
-
-		# endif
-
 		static constexpr int32 TimeToMillisecCount(const int32 hour, const int32 minute, const int32 second, const int32 milliseconds)
 		{
 			return hour * (60 * 60 * 1000)
@@ -45,62 +27,62 @@ namespace s3d
 				+ milliseconds;
 		}
 
-		static const String MonthEnglish[12]
+		static constexpr StringView MonthEnglish[12]
 		{
-			U"January",
-			U"February",
-			U"March",
-			U"April",
-			U"May",
-			U"June",
-			U"July",
-			U"August",
-			U"September",
-			U"October",
-			U"November",
-			U"December",
+			U"January"_sv,
+			U"February"_sv,
+			U"March"_sv,
+			U"April"_sv,
+			U"May"_sv,
+			U"June"_sv,
+			U"July"_sv,
+			U"August"_sv,
+			U"September"_sv,
+			U"October"_sv,
+			U"November"_sv,
+			U"December"_sv,
 		};
 
-		static const String AMPM[2]
+		static constexpr StringView AMPM[2]
 		{
-			U"AM",
-			U"PM",
+			U"AM"_sv,
+			U"PM"_sv,
 		};
 
-		static const String FormatPatterns[22]
+		static constexpr StringView FormatPatterns[22]
 		{
-			U"yyyy",
-			U"yy",
-			U"y",
-			U"MMMM",
-			U"MMM",
-			U"MM",
-			U"M",
-			U"dd",
-			U"d",
-			U"EEEE",
-			U"EEE",
-			U"E",
-			U"a",
-			U"HH",
-			U"H",
-			U"hh",
-			U"h",
-			U"mm",
-			U"ss",
-			U"S",
-			U"SS",
-			U"SSS"
+			U"yyyy"_sv,
+			U"yy"_sv,
+			U"y"_sv,
+			U"MMMM"_sv,
+			U"MMM"_sv,
+			U"MM"_sv,
+			U"M"_sv,
+			U"dd"_sv,
+			U"d"_sv,
+			U"EEEE"_sv,
+			U"EEE"_sv,
+			U"E"_sv,
+			U"a"_sv,
+			U"HH"_sv,
+			U"H"_sv,
+			U"hh"_sv,
+			U"h"_sv,
+			U"mm"_sv,
+			U"ss"_sv,
+			U"S"_sv,
+			U"SS"_sv,
+			U"SSS"_sv,
 		};
 	}
 
-	static String GetFormattedElement(const DateTime& date, const String& format, const bool isCalendar)
+	static String GetFormattedElement(const DateTime& date, const StringView format, const bool isCalendar)
 	{
 		const size_t formatIndex = std::distance(
 			std::begin(detail::FormatPatterns),
 			std::find(std::begin(detail::FormatPatterns),
-			isCalendar ? std::begin(detail::FormatPatterns) + 12 : std::end(detail::FormatPatterns),
-			format)
+				isCalendar ? std::begin(detail::FormatPatterns) + 12 : std::end(detail::FormatPatterns),
+				format)
 		);
 
 		if (isCalendar && formatIndex >= 12)
@@ -117,9 +99,9 @@ namespace s3d
 		case 2:	// y	年 (1-)
 			return ToString(date.year);
 		case 3:	// MMMM	英語の月 (January-December)
-			return detail::MonthEnglish[date.month - 1];
+			return String(detail::MonthEnglish[date.month - 1]);
 		case 4:	// MMM	英語の月の略称 (Jan-Dec)
-			return detail::MonthEnglish[date.month - 1].substr(0, 3);
+			return String(detail::MonthEnglish[date.month - 1].substr(0, 3));
 		case 5:	// MM	2 桁の月 (01-12)
 			return Pad(date.month, { 2, U'0' });
 		case 6:	// M	1-2 桁の月 (1-12)
@@ -135,7 +117,7 @@ namespace s3d
 		case 11: // E	日本語の曜日 (日-土)
 			return date.dayOfWeekJP();
 		case 12: // a	午前/午後 (AM/PM)
-			return detail::AMPM[date.hour > 11];
+			return String(detail::AMPM[date.hour > 11]);
 		case 13: // HH	24 時間表記の 2 桁の時 (00-23)
 			return Pad(date.hour, { 2, U'0' });
 		case 14: // H	24 時間表記の時 (0-23)
@@ -159,7 +141,7 @@ namespace s3d
 		}
 	}
 
-	static String FormatDateTime(const DateTime& date, const String& format, const bool isCalendar)
+	static String FormatDateTime(const DateTime & date, const StringView format, const bool isCalendar)
 	{
 		String formattedDateTime, keyPattern;
 
@@ -229,57 +211,29 @@ namespace s3d
 		return formattedDateTime;
 	}
 
-	String Date::format(const String& format) const
+	String Date::format(const StringView format) const
 	{
 		return FormatDateTime(*this, format, true);
 	}
 
-	String DateTime::format(const String& format) const
+	String DateTime::format(const StringView format) const
 	{
 		return FormatDateTime(*this, format, false);
 	}
 
-	DateTime DateTime::Now()
+	DateTime& DateTime::operator +=(const Days & days)
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			SYSTEMTIME sysTime;
-			::GetLocalTime(&sysTime);
-			return detail::ToDateTime(sysTime);
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-            ::timeval tv;
-            ::tm lt;
-            ::gettimeofday(&tv, nullptr);
-            ::localtime_r(&tv.tv_sec, &lt);
-            return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
-                lt.tm_hour, lt.tm_min, lt.tm_sec, tv.tv_usec / 1000);
-
-		# endif
+		Date::operator +=(days);
+		return *this;
 	}
 
-	DateTime DateTime::NowUTC()
+	DateTime& DateTime::operator -=(const Days & days)
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			SYSTEMTIME sysTime;
-			::GetSystemTime(&sysTime);
-			return detail::ToDateTime(sysTime);
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-            ::timeval tv;
-            ::tm gt;
-            ::gettimeofday(&tv, nullptr);
-            ::gmtime_r(&tv.tv_sec, &gt);
-            return DateTime((1900 + gt.tm_year), (1 + gt.tm_mon), (gt.tm_mday),
-                gt.tm_hour, gt.tm_min, gt.tm_sec, tv.tv_usec / 1000);
-
-		# endif
+		Date::operator -=(days);
+		return *this;
 	}
 
-	DateTime& DateTime::operator +=(const Milliseconds& _milliseconds)
+	DateTime& DateTime::operator +=(const Milliseconds & _milliseconds)
 	{
 		const int64 millisecIn1Day = 86400 * 1000;
 
@@ -315,13 +269,77 @@ namespace s3d
 		return *this;
 	}
 
-	Milliseconds operator -(const DateTime& a, const DateTime& b)
+	DateTime & DateTime::operator -=(const Milliseconds & _milliseconds)
+	{
+		return *this += (-_milliseconds);
+	}
+
+	bool DateTime::operator ==(const DateTime & other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(DateTime)) == 0;
+	}
+
+	bool DateTime::operator !=(const DateTime & other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(DateTime)) != 0;
+	}
+
+	bool DateTime::operator <(const DateTime & other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(DateTime)) < 0;
+	}
+
+	bool DateTime::operator >(const DateTime & other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(DateTime)) > 0;
+	}
+
+	bool DateTime::operator <=(const DateTime & other) const noexcept
+	{
+		return !(*this > other);
+	}
+
+	bool DateTime::operator >=(const DateTime & other) const noexcept
+	{
+		return !(*this < other);
+	}
+
+	size_t DateTime::hash() const noexcept
+	{
+		return s3d::Hash::FNV1a(*this);
+	}
+
+	DateTime operator +(const DateTime & dateTime, const Days & days)
+	{
+		return DateTime(dateTime) += days;
+	}
+
+	DateTime operator -(const DateTime & dateTime, const Days & days)
+	{
+		return DateTime(dateTime) -= days;
+	}
+
+	DateTime operator +(const DateTime & dateTime, const Milliseconds & milliseconds)
+	{
+		return DateTime(dateTime) += milliseconds;
+	}
+
+	DateTime operator -(const DateTime & dateTime, const Milliseconds & milliseconds)
+	{
+		return DateTime(dateTime) -= milliseconds;
+	}
+
+	Duration operator -(const DateTime & a, const DateTime & b)
 	{
 		const auto diffDays = Date(a) - Date(b);
 		const auto aMillisec = detail::TimeToMillisecCount(a.hour, a.minute, a.second, a.milliseconds);
 		const auto bMillisec = detail::TimeToMillisecCount(b.hour, b.minute, b.second, b.milliseconds);
 
-		return Milliseconds(diffDays.count() * (86400 * 1000) + (aMillisec - bMillisec));
+		return Duration((static_cast<int64>(diffDays.count()) * (86400 * 1000) + (aMillisec - bMillisec)) / 1000.0);
+	}
+
+	void Formatter(FormatData & formatData, const DateTime & value)
+	{
+		formatData.string.append(value.format());
 	}
 }
-

@@ -2,13 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/IReader.hpp>
+# include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/MemoryWriter.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "CImageFormat.hpp"
 # include "BMP/ImageFormat_BMP.hpp"
 # include "PNG/ImageFormat_PNG.hpp"
@@ -16,11 +21,7 @@
 # include "GIF/ImageFormat_GIF.hpp"
 # include "PPM/ImageFormat_PPM.hpp"
 # include "TGA/ImageFormat_TGA.hpp"
-# include <Siv3D/IReader.hpp>
-# include <Siv3D/BinaryReader.hpp>
-# include <Siv3D/MemoryWriter.hpp>
-# include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Logger.hpp>
+# include "WebP/ImageFormat_WebP.hpp"
 
 namespace s3d
 {
@@ -31,21 +32,29 @@ namespace s3d
 
 	CImageFormat::~CImageFormat()
 	{
-
+		LOG_TRACE(U"CImageFormat::~CImageFormat()");
 	}
 
-	bool CImageFormat::init()
+	void CImageFormat::init()
 	{
+		LOG_TRACE(U"CImageFormat::init()");
+
 		m_imageFormats.push_back(std::make_unique<ImageFormat_BMP>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PNG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_JPEG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_GIF>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PPM>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_TGA>());
+		m_imageFormats.push_back(std::make_unique<ImageFormat_WebP>());
 
-		LOG_INFO(U"ℹ️ Image decoder/encoder initialized");
+		Array<String> extensions;
+		for (const auto& format : m_imageFormats)
+		{
+			extensions.append(format->possibleExtexsions());
+		}
 
-		return true;
+		LOG_DEBUG(U"Supported image file extensions: {}"_fmt(extensions.join(U", "_sv, U""_sv, U""_sv)));
+		LOG_INFO(U"ℹ️ CImageFormat initialized");
 	}
 
 	ImageFormat CImageFormat::getFormatFromReader(const IReader& reader, const FilePath& pathHint) const
@@ -133,23 +142,23 @@ namespace s3d
 		return (*it)->save(image, path);
 	}
 
-	MemoryWriter CImageFormat::encode(const Image& image, ImageFormat format) const
+	ByteArray CImageFormat::encode(const Image& image, ImageFormat format) const
 	{
 		const auto it = findFormat(format);
 
 		if (it == m_imageFormats.end())
 		{
-			return MemoryWriter();
+			return ByteArray();
 		}
 
 		MemoryWriter writer;
 
 		if (!(*it)->encode(image, writer))
 		{
-			return MemoryWriter();
+			return ByteArray();
 		}
 
-		return writer;
+		return writer.retrieve();
 	}
 
 	bool CImageFormat::encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const
@@ -198,6 +207,23 @@ namespace s3d
 		if (const ImageFormat_PPM* ppm = dynamic_cast<ImageFormat_PPM*>(p->get()))
 		{
 			return ppm->encode(image, writer, type);
+		}
+
+		return false;
+	}
+
+	bool CImageFormat::encodeWebP(IWriter& writer, const Image& image, const bool lossless, const double quality, const WebPMethod method) const
+	{
+		const auto p = findFormat(ImageFormat::WebP);
+
+		if (p == m_imageFormats.end())
+		{
+			return false;
+		}
+
+		if (const ImageFormat_WebP* webP = dynamic_cast<ImageFormat_WebP*>(p->get()))
+		{
+			return webP->encode(image, writer, lossless, quality, method);
 		}
 
 		return false;

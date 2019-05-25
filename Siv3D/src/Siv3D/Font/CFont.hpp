@@ -2,17 +2,19 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "IFont.hpp"
-# include "../AssetHandleManager/AssetHandleManager.hpp"
+# include <Siv3D/Font.hpp>
+# include <AssetHandleManager/AssetHandleManager.hpp>
 # include "FontData.hpp"
+# include "FontFace.hpp"
+# include "IFont.hpp"
 
 namespace s3d
 {
@@ -20,9 +22,7 @@ namespace s3d
 	{
 	private:
 
-		FT_Library m_library = nullptr;
-
-		AssetHandleManager<FontID, FontData> m_fonts{ U"Font" };
+		FT_Library m_freeType = nullptr;
 
 		FontFace m_colorEmoji;
 
@@ -30,9 +30,7 @@ namespace s3d
 
 		FontFace m_awesomeIconBrands;
 
-		//EmojiDatabase m_emojiDataBase;
-
-		//EmojiDatabase2 m_emojiDataBase2;
+		AssetHandleManager<FontID, FontData> m_fonts{ U"Font" };
 
 		bool loadColorEmojiFace();
 
@@ -44,7 +42,15 @@ namespace s3d
 
 		~CFont() override;
 
-		bool init() override;
+		void init() override;
+
+		Image getColorEmoji(StringView emoji) override;
+
+		Image getColorEmojiSilhouette(StringView emoji) override;
+
+		Image getAwesomeIcon(uint16 code, int32 size) override;
+
+		Optional<const FontFace&> getAwesomeIconFontFaceFotCode(uint16 code) const override;
 
 		FontID create(Typeface typeface, int32 fontSize, FontStyle style) override;
 
@@ -68,6 +74,8 @@ namespace s3d
 
 		OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) override;
 
+		const Texture& getTexture(FontID handleID) override;
+
 		RectF getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale) override;
 
 		RectF getRegion(FontID handleID, const String& codePoints, double lineSpacingScale) override;
@@ -78,12 +86,8 @@ namespace s3d
 
 		bool draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
-		Image getColorEmoji(StringView emoji) override;
+		Rect paint(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
 
-		Image getColorEmojiSilhouette(StringView emoji) override;
-
-		Image getAwesomeIcon(uint16 code, int32 size) override;
-
-		//size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const override;
+		Rect overwrite(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
 	};
 }

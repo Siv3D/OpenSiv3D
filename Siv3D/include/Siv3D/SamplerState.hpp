@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -84,9 +84,9 @@ namespace s3d
 
 			BorderAniso,
 			
-			Default2D = RepeatLinear,
+			Default2D = ClampLinear,
 			
-			Default3D = RepeatAniso,
+			Default3D = ClampAniso,
 		};
 
 	public:
@@ -95,7 +95,7 @@ namespace s3d
 
 		using StorageType = std::array<uint32, 5>;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -124,12 +124,12 @@ namespace s3d
 			StorageType _data;
 		};
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		explicit SamplerState(
-			TextureAddressMode _addressU = TextureAddressMode::Repeat,
-			TextureAddressMode _addressV = TextureAddressMode::Repeat,
-			TextureAddressMode _addressW = TextureAddressMode::Repeat,
+			TextureAddressMode _addressU = TextureAddressMode::Clamp,
+			TextureAddressMode _addressV = TextureAddressMode::Clamp,
+			TextureAddressMode _addressW = TextureAddressMode::Clamp,
 			TextureFilter _min = TextureFilter::Linear,
 			TextureFilter _mag = TextureFilter::Linear,
 			TextureFilter _mip = TextureFilter::Linear,
@@ -148,15 +148,9 @@ namespace s3d
 
 		SamplerState(Predefined predefined);
 
-		bool operator ==(const SamplerState& b) const noexcept
-		{
-			return _data == b._data;
-		}
+		[[nodiscard]] bool operator ==(const SamplerState& b) const noexcept;
 
-		bool operator !=(const SamplerState& b) const noexcept
-		{
-			return _data != b._data;
-		}
+		[[nodiscard]] bool operator !=(const SamplerState& b) const noexcept;
 
 		/// <summary>
 		/// 
@@ -253,7 +247,7 @@ namespace std
 	{
 		size_t operator()(const s3d::SamplerState& keyVal) const noexcept
 		{
-			return s3d::Hash::FNV1a(keyVal._data);
+			return s3d::Hash::FNV1a(&keyVal._data, sizeof(keyVal));
 		}
 	};
 }

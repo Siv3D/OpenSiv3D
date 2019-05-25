@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -48,40 +48,13 @@
 # include <functional>
 # include <cmath>
 # include "MathConstants.hpp"
-# include "Lerp.hpp"
+# include "Interpolation.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		inline double ElasticAP(double t, double a, const double p)
-		{
-			if (t == 0)
-			{
-				return 0.0;
-			}
-			else if (t == 1)
-			{
-				return 1.0;
-			}
-
-			double s;
-
-			if (a < 1.0)
-			{
-				a = 1.0;
-
-				s = p / 4.0f;
-			}
-			else
-			{
-				s = p / Math::TwoPi * std::asin(1.0 / a);
-			}
-
-			t -= 1.0;
-
-			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::TwoPi / p));
-		}
+		[[nodiscard]] double ElasticAP(double t, double a, const double p) noexcept;
 	}
 
 	/// <summary>
@@ -92,57 +65,57 @@ namespace s3d
 	/// </remarks>
 	namespace Easing
 	{
-		[[nodiscard]] inline constexpr double Linear(const double t)
+		[[nodiscard]] inline constexpr double Linear(const double t) noexcept
 		{
 			return t;
 		}
 
-		[[nodiscard]] inline double Sine(const double t)
+		[[nodiscard]] inline double Sine(const double t) noexcept
 		{
 			return 1.0 - std::cos(t * Math::HalfPi);
 		}
 
-		[[nodiscard]] inline constexpr double Quad(const double t)
+		[[nodiscard]] inline constexpr double Quad(const double t) noexcept
 		{
 			return t * t;
 		}
 
-		[[nodiscard]] inline constexpr double Cubic(const double t)
+		[[nodiscard]] inline constexpr double Cubic(const double t) noexcept
 		{
 			return t * t * t;
 		}
 
-		[[nodiscard]] inline constexpr double Quart(const double t)
+		[[nodiscard]] inline constexpr double Quart(const double t) noexcept
 		{
 			return (t * t) * (t * t);
 		}
 
-		[[nodiscard]] inline constexpr double Quint(const double t)
+		[[nodiscard]] inline constexpr double Quint(const double t) noexcept
 		{
 			return (t * t) * (t * t) * t;
 		}
 
-		[[nodiscard]] inline double Expo(const double t)
+		[[nodiscard]] inline double Expo(const double t) noexcept
 		{
 			return t == 0.0 ? 0.0 : std::exp2(10.0 * (t - 1.0));
 		}
 
-		[[nodiscard]] inline double Circ(const double t)
+		[[nodiscard]] inline double Circ(const double t) noexcept
 		{
 			return 1.0 - std::sqrt(1.0 - t * t);
 		}
 
-		[[nodiscard]] inline constexpr double Back(const double t)
+		[[nodiscard]] inline constexpr double Back(const double t) noexcept
 		{
 			return t * t * (2.70158 * t - 1.70158);
 		}
 
-		[[nodiscard]] inline double Elastic(const double t)
+		[[nodiscard]] inline double Elastic(const double t) noexcept
 		{
 			return detail::ElasticAP(t, 1.0, 0.3);
 		}
 
-		[[nodiscard]] inline constexpr double Bounce(double t)
+		[[nodiscard]] inline constexpr double Bounce(double t) noexcept
 		{
 			t = 1.0 - t;
 
@@ -202,5 +175,173 @@ namespace s3d
 	[[nodiscard]] inline constexpr Type EaseInOut(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, EaseInOut(f, t));
+	}
+
+
+	[[nodiscard]] inline constexpr double EaseInLinear(const double t) noexcept
+	{
+		return Easing::Linear(t);
+	}
+
+	[[nodiscard]] inline double EaseInSine(const double t) noexcept
+	{
+		return Easing::Sine(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInQuad(const double t) noexcept
+	{
+		return Easing::Quad(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInCubic(const double t) noexcept
+	{
+		return Easing::Cubic(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInQuart(const double t) noexcept
+	{
+		return Easing::Quart(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInQuint(const double t) noexcept
+	{
+		return Easing::Quint(t);
+	}
+
+	[[nodiscard]] inline double EaseInExpo(const double t) noexcept
+	{
+		return Easing::Expo(t);
+	}
+
+	[[nodiscard]] inline double EaseInCirc(const double t) noexcept
+	{
+		return Easing::Circ(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInBack(const double t) noexcept
+	{
+		return Easing::Back(t);
+	}
+
+	[[nodiscard]] inline double EaseInElastic(const double t) noexcept
+	{
+		return Easing::Elastic(t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInBounce(double t) noexcept
+	{
+		return Easing::Bounce(t);
+	}
+
+
+	[[nodiscard]] inline constexpr double EaseOutLinear(const double t) noexcept
+	{
+		return EaseOut(Easing::Linear, t);
+	}
+
+	[[nodiscard]] inline double EaseOutSine(const double t) noexcept
+	{
+		return EaseOut(Easing::Sine, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutQuad(const double t) noexcept
+	{
+		return EaseOut(Easing::Quad, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutCubic(const double t) noexcept
+	{
+		return EaseOut(Easing::Cubic, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutQuart(const double t) noexcept
+	{
+		return EaseOut(Easing::Quart, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutQuint(const double t) noexcept
+	{
+		return EaseOut(Easing::Quint, t);
+	}
+
+	[[nodiscard]] inline double EaseOutExpo(const double t) noexcept
+	{
+		return EaseOut(Easing::Expo, t);
+	}
+
+	[[nodiscard]] inline double EaseOutCirc(const double t) noexcept
+	{
+		return EaseOut(Easing::Circ, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutBack(const double t) noexcept
+	{
+		return EaseOut(Easing::Back, t);
+	}
+
+	[[nodiscard]] inline double EaseOutElastic(const double t) noexcept
+	{
+		return EaseOut(Easing::Elastic, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseOutBounce(double t) noexcept
+	{
+		return EaseOut(Easing::Bounce, t);
+	}
+
+
+	[[nodiscard]] inline constexpr double EaseInOutLinear(const double t) noexcept
+	{
+		return EaseInOut(Easing::Linear, t);
+	}
+
+	[[nodiscard]] inline double EaseInOutSine(const double t) noexcept
+	{
+		return EaseInOut(Easing::Sine, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutQuad(const double t) noexcept
+	{
+		return EaseInOut(Easing::Quad, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutCubic(const double t) noexcept
+	{
+		return EaseInOut(Easing::Cubic, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutQuart(const double t) noexcept
+	{
+		return EaseInOut(Easing::Quart, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutQuint(const double t) noexcept
+	{
+		return EaseInOut(Easing::Quint, t);
+	}
+
+	[[nodiscard]] inline double EaseInOutExpo(const double t) noexcept
+	{
+		return EaseInOut(Easing::Expo, t);
+	}
+
+	[[nodiscard]] inline double EaseInOutCirc(const double t) noexcept
+	{
+		return EaseInOut(Easing::Circ, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutBack(const double t) noexcept
+	{
+		return EaseInOut(Easing::Back, t);
+	}
+
+	[[nodiscard]] inline double EaseInOutElastic(const double t) noexcept
+	{
+		return EaseInOut(Easing::Elastic, t);
+	}
+
+	[[nodiscard]] inline constexpr double EaseInOutBounce(double t) noexcept
+	{
+		return EaseInOut(Easing::Bounce, t);
 	}
 }

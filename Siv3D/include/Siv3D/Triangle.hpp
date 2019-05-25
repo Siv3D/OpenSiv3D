@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,7 +17,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
+		inline constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
 	}
 
 	struct Triangle
@@ -28,12 +28,12 @@ namespace s3d
 
 		position_type p0, p1, p2;
 		
-		position_type& p(size_t index)
+		[[nodiscard]] position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const
+		[[nodiscard]] const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
 		}
@@ -90,12 +90,12 @@ namespace s3d
 			return *this = triangle;
 		}
 
-		constexpr Triangle movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Triangle movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y) };
 		}
 
-		constexpr Triangle movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Triangle movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -123,68 +123,72 @@ namespace s3d
 			return setCentroid(pos.x, pos.y);
 		}
 
-		constexpr position_type centroid() const noexcept
+		[[nodiscard]] constexpr position_type centroid() const noexcept
 		{
-			return (p0 + p1 + p2) / 3.0;
+			return position_type((p0.x + p1.x + p2.x) / 3.0, (p0.y + p1.y + p2.y) / 3.0);
 		}
 
-		Triangle stretched(value_type size) const noexcept;
+		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
 
-		Triangle rotated(value_type angle) const noexcept
+		[[nodiscard]] Triangle rotated(value_type angle) const noexcept
 		{
 			return rotatedAt(centroid(), angle);
 		}
 
-		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		[[nodiscard]] Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
 		}
 
-		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]] Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
-		value_type area() const noexcept;
+		[[nodiscard]] value_type area() const noexcept;
 
-		value_type perimeter() const noexcept;
+		[[nodiscard]] value_type perimeter() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Triangle& paint(Image& dst, const Color& color) const;
 
 		const Triangle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		const Triangle& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+
+		const Triangle& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 
-		const Triangle& draw(const ColorF(&colors)[3]) const;
+		const Triangle& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const;
 
 		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 
@@ -202,8 +206,8 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)
 	{
 		return output << CharType('(')
-			<< value.p0 << CharType(',')
-			<< value.p1 << CharType(',')
+			<< value.p0 << CharType(',') << CharType(' ')
+			<< value.p1 << CharType(',') << CharType(' ')
 			<< value.p2 << CharType(')');
 	}
 
@@ -242,15 +246,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Triangle& value)
+	template <>
+	struct formatter<s3d::Triangle, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.p0, value.p1, value.p2);
-	}
+		template <class Context>
+		auto format(const s3d::Triangle& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.p0, value.p1, value.p2);
+		}
+	};
 }

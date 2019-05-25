@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -77,19 +77,27 @@ namespace s3d
 		return ToHex(r).lpad(2, U'0') + ToHex(g).lpad(2, U'0') + ToHex(b).lpad(2, U'0');
 	}
 
+	size_t Color::hash() const noexcept
+	{
+		return std::hash<uint32>()(asUint32());
+	}
+
 	void Formatter(FormatData& formatData, const Color& value)
 	{
-		const size_t bufferSize = 12 * 4 + 6;
+		const size_t bufferSize = 12 * 4 + 9;
 		char32 buf[bufferSize];
 		char32* p = buf;
 
 		*(p++) = U'(';
 		detail::AppendInt(&p, value.r);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.g);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.b);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.a);
 		*(p++) = U')';
 
@@ -98,6 +106,12 @@ namespace s3d
 
 	ColorF::ColorF(const Vec3& rgb, const double _a) noexcept
 		: ColorF(rgb.x, rgb.y, rgb.z, _a)
+	{
+
+	}
+
+	ColorF::ColorF(const Vec4& rgba) noexcept
+		: ColorF(rgba.x, rgba.y, rgba.z, rgba.w)
 	{
 
 	}
@@ -179,7 +193,7 @@ namespace s3d
 		return{ a, b, g, r };
 	}
 
-	size_t ColorF::hash() const
+	size_t ColorF::hash() const noexcept
 	{
 		return std::hash<s3d::Vec4>()(rgba());
 	}
@@ -187,5 +201,94 @@ namespace s3d
 	void Formatter(FormatData& formatData, const ColorF& value)
 	{
 		Formatter(formatData, value.rgba());
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& IStream(std::basic_istream<CharType>& input, Color& value)
+	{
+		CharType unused;
+		input >> unused;
+
+		if (unused == CharType('#'))
+		{
+			String code;
+			input >> code;
+			value = ColorF(U'#' + code);
+		}
+		else
+		{
+			uint32 cols[4];
+			input
+				>> cols[0] >> unused
+				>> cols[1] >> unused
+				>> cols[2] >> unused;
+
+			if (unused == CharType(','))
+			{
+				input >> cols[3] >> unused;
+			}
+			else
+			{
+				cols[3] = 255;
+			}
+
+			value.r = cols[0];
+			value.g = cols[1];
+			value.b = cols[2];
+			value.a = cols[3];
+		}
+
+		return input;
+	}
+
+	std::istream& operator >>(std::istream& input, Color& value)
+	{
+		return IStream<char>(input, value);
+	}
+
+	std::wistream& operator >>(std::wistream& input, Color& value)
+	{
+		return IStream<wchar_t>(input, value);
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& IStream(std::basic_istream<CharType>& input, ColorF& value)
+	{
+		CharType unused;
+		input >> unused;
+
+		if (unused == CharType('#'))
+		{
+			String code;
+			input >> code;
+			value = ColorF(U'#' + code);
+		}
+		else
+		{
+			input >> value.r >> unused
+				>> value.g >> unused
+				>> value.b >> unused;
+
+			if (unused == CharType(','))
+			{
+				input >> value.a >> unused;
+			}
+			else
+			{
+				value.a = 1.0;
+			}
+		}
+
+		return input;
+	}
+
+	std::istream& operator >>(std::istream& input, ColorF& value)
+	{
+		return IStream<char>(input, value);
+	}
+
+	std::wistream& operator >>(std::wistream& input, ColorF& value)
+	{
+		return IStream<wchar_t>(input, value);
 	}
 }

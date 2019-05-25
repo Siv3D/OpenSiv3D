@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include "Array.hpp"
 # include "KeyConjunction.hpp"
 
 namespace s3d
@@ -29,23 +30,13 @@ namespace s3d
 			append(args...);
 		}
 
-		void append() {}
+		void append();
 
-		void append(const Key& key)
-		{
-			(m_keys << key).unique();
-		}
+		void append(const Key& key);
 
-		void append(const KeyConjunction& conjunction)
-		{
-			(m_keyConjunctions << conjunction).unique();
-		}
+		void append(const KeyConjunction& conjunction);
 
-		void append(const KeyGroup& group)
-		{
-			m_keys.append(group.m_keys).unique();
-			m_keyConjunctions.append(group.m_keyConjunctions).unique();
-		}
+		void append(const KeyGroup& group);
 
 	public:
 
@@ -55,135 +46,50 @@ namespace s3d
 			append(args...);
 		}
 
-		template <class Type>
-		KeyGroup& operator |=(const Type& key)
-		{
-			append(key);
-			return *this;
-		}
+		KeyGroup& operator |=(const Key& key);
 
-		bool down() const
-		{
-			return m_keys.any([](const Key& k) { return k.down(); })
-				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.down(); });
-		}
+		KeyGroup& operator |=(const KeyConjunction& conjunction);
 
-		bool pressed() const
-		{
-			return m_keys.any([](const Key& k) { return k.pressed(); })
-				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.pressed(); });
-		}
+		KeyGroup& operator |=(const KeyGroup& group);
 
-		bool up() const
-		{
-			return m_keys.any([](const Key& k) { return k.up(); })
-				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.up(); });
-		}
+		[[nodiscard]] bool down() const;
 
-		int32 num_pressed() const
-		{
-			int32 num = 0;
+		[[nodiscard]] bool pressed() const;
 
-			for (const auto& key : m_keys)
-			{
-				num += key.pressed();
-			}
+		[[nodiscard]] bool up() const;
 
-			for (const auto& keyConjunction : m_keyConjunctions)
-			{
-				num += keyConjunction.pressed();
-			}
+		[[nodiscard]] int32 num_pressed() const;
 
-			return num;
-		}
+		[[nodiscard]] Duration pressedDuration() const;
 
-		Duration pressedDuration() const
-		{
-			Duration duration(0);
+		[[nodiscard]] const Array<Key>& keys() const;
 
-			for (const auto& key : m_keys)
-			{
-				duration = std::max(key.pressedDuration(), duration);
-			}
+		[[nodiscard]] const Array<KeyConjunction>& keyConjunctions() const;
 
-			for (const auto& keyConjunction : m_keyConjunctions)
-			{
-				duration = std::max(keyConjunction.pressedDuration(), duration);
-			}
-
-			return duration;
-		}
-
-		const Array<Key>& keys() const
-		{
-			return m_keys;
-		}
-
-		const Array<KeyConjunction>& keyConjunctions() const
-		{
-			return m_keyConjunctions;
-		}
-
-		String name() const
-		{
-			return m_keys.join(U"|") + m_keyConjunctions.join(U"|");
-		}
+		[[nodiscard]] String name() const;
 	};
 
-	inline KeyGroup operator |(const Key& key1, const Key& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const Key& key1, const Key& key2);
 
-	inline KeyGroup operator |(const Key& key1, const KeyConjunction& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const Key& key1, const KeyConjunction& key2);
 
-	inline KeyGroup operator |(const Key& key1, const KeyGroup& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const Key& key1, const KeyGroup& key2);
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const Key& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyConjunction& key1, const Key& key2);
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const KeyConjunction& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyConjunction& key1, const KeyConjunction& key2);
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const KeyGroup& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyConjunction& key1, const KeyGroup& key2);
 
-	inline KeyGroup operator |(const KeyGroup& key1, const Key& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyGroup& key1, const Key& key2);
 
-	inline KeyGroup operator |(const KeyGroup& key1, const KeyConjunction& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyGroup& key1, const KeyConjunction& key2);
 
-	inline KeyGroup operator |(const KeyGroup& key1, const KeyGroup& key2)
-	{
-		return KeyGroup(key1, key2);
-	}
+	[[nodiscard]] KeyGroup operator |(const KeyGroup& key1, const KeyGroup& key2);
 
-	inline bool operator ==(const KeyGroup& group1, const KeyGroup& group2)
-	{
-		return group1.keys() == group2.keys() && group1.keyConjunctions() == group2.keyConjunctions();
-	}
+	[[nodiscard]] bool operator ==(const KeyGroup& group1, const KeyGroup& group2);
 
-	inline bool operator !=(const KeyGroup& group1, const KeyGroup& group2)
-	{
-		return group1.keys() != group2.keys() || group1.keyConjunctions() != group2.keyConjunctions();
-	}
+	[[nodiscard]] bool operator !=(const KeyGroup& group1, const KeyGroup& group2);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -199,10 +105,7 @@ namespace s3d
 //
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const KeyGroup& group)
-	{
-		formatData.string.append(group.name());
-	}
+	void Formatter(FormatData& formatData, const KeyGroup& group);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const KeyGroup& group)

@@ -10,8 +10,8 @@ gif_lib.h - service library for decoding and encoding GIF images
 //
 //  This file is modified for the Siv3D Engine.
 //
-//  Copyright (C) 2008-2018 Ryo Suzuki
-//  Copyright (C) 2016-2018 OpenSiv3D Project
+//  Copyright (c) 2008-2019 Ryo Suzuki
+//  Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //-----------------------------------------------
 

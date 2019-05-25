@@ -2,16 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# ifdef SIV3D_CONCURRENT
+
 # include <future>
+# include <type_traits>
 # include "Fwd.hpp"
+# include "PlatformDetail.hpp"
 
 namespace s3d
 {
@@ -34,27 +38,21 @@ namespace s3d
 
 		ConcurrentTask() = default;
 
-		template <class Fty, class... Args>
-		ConcurrentTask(Fty&& f, Args&&... args)
+		template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
+		explicit ConcurrentTask(Fty&& f, Args&&... args)
 			: std::future<Type>(std::async(std::launch::async, std::forward<Fty>(f), std::forward<Args>(args)...)) {}
 
 		[[nodiscard]] bool is_done() const
 		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			return _Is_ready();
-
-		# else
-
-			return wait_for(std::chrono::seconds(0)) == std::future_status::ready;
-
-		# endif	
+			return SIV3D_CONCURRENT_TASK_IS_DONE;
 		}
 	};
 
-	template <class Fty, class... Args>
+	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
 	[[nodiscard]] inline auto CreateConcurrentTask(Fty&& f, Args&&... args)
 	{
-		return ConcurrentTask<std::result_of_t<std::decay_t<Fty>(std::decay_t<Args>...)>>(std::forward<Fty>(f), std::forward<Args>(args)...);
+		return ConcurrentTask<std::invoke_result_t<std::decay_t<Fty>, std::decay_t<Args>...>>(std::forward<Fty>(f), std::forward<Args>(args)...);
 	}
 }
+
+# endif

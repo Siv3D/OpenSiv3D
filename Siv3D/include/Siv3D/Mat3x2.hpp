@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <cassert>
 # include "PointVector.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -70,18 +70,20 @@ namespace s3d
 			return Scale({ sx, sy }, center);
 		}
 
-		[[nodiscard]] static Mat3x2 Rotate(double angle, const Float2& center = Float2(0, 0)) noexcept
+		[[nodiscard]] static Mat3x2 Rotate(double angle, const Float2& center = Float2(0, 0)) noexcept;
+
+		[[nodiscard]] static constexpr Mat3x2 ShearX(double sx) noexcept
 		{
-			Mat3x2 m;
-			const float s = std::sin(static_cast<float>(angle));
-			const float c = std::cos(static_cast<float>(angle));
-			m._11 = c;
-			m._12 = s;
-			m._21 = -s;
-			m._22 = c;
-			m._31 = center.x - center.x * c + center.y * s;
-			m._32 = center.y - center.x * s - center.y * c;
-			return m;
+			return Mat3x2(1.0f, 0.0f,
+				-static_cast<float>(sx), 1.0f,
+				0.0f, 0.0f);
+		}
+
+		[[nodiscard]] static constexpr Mat3x2 ShearY(double sy) noexcept
+		{
+			return Mat3x2(1.0f, static_cast<float>(sy),
+				0.0f, 1.0f,
+				0.0f, 0.0f);
 		}
 
 		[[nodiscard]] static constexpr Mat3x2 Screen(double width, double height) noexcept
@@ -96,62 +98,42 @@ namespace s3d
 						  -1.0f, 1.0f);
 		}
 
-		[[nodiscard]] Mat3x2 translated(const Float2& v) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Mat3x2& m) const noexcept
 		{
-			Mat3x2 result;
-			result.setProduct(*this, Translate(v));
-			return result;
+			return (_11 == m._11) && (_12 == m._12)
+				&& (_21 == m._21) && (_22 == m._22)
+				&& (_31 == m._31) && (_32 == m._32);
 		}
 
-		[[nodiscard]] Mat3x2 translated(double x, double y) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Mat3x2& m) const noexcept
 		{
-			return translated({ x, y });
+			return (_11 != m._11) || (_12 != m._12)
+				|| (_21 != m._21) || (_22 != m._22)
+				|| (_31 != m._31) || (_32 != m._32);
 		}
 
-		[[nodiscard]] Mat3x2 scaled(double s, const Float2& center = Float2(0, 0)) const noexcept
-		{
-			return scaled({ s, s }, center);
-		}
+		[[nodiscard]] Mat3x2 translated(const Float2& v) const noexcept;
 
-		[[nodiscard]] Mat3x2 scaled(const Float2& scale, const Float2& center = Float2(0, 0)) const noexcept
-		{
-			Mat3x2 result;
-			result.setProduct(*this, Scale(scale, center));
-			return result;
-		}
+		[[nodiscard]] Mat3x2 translated(double x, double y) const noexcept;
 
-		[[nodiscard]] Mat3x2 scaled(double sx, double sy, const Float2& center = Float2(0, 0)) const noexcept
-		{
-			return scaled({ sx, sy }, center);
-		}
+		[[nodiscard]] Mat3x2 scaled(double s, const Float2& center = Float2(0, 0)) const noexcept;
 
-		[[nodiscard]] Mat3x2 rotated(double angle, const Float2& center = Float2(0, 0)) const noexcept
-		{
-			Mat3x2 result;
-			result.setProduct(*this, Rotate(angle, center));
-			return result;
-		}
+		[[nodiscard]] Mat3x2 scaled(const Float2& scale, const Float2& center = Float2(0, 0)) const noexcept;
+
+		[[nodiscard]] Mat3x2 scaled(double sx, double sy, const Float2& center = Float2(0, 0)) const noexcept;
+
+		[[nodiscard]] Mat3x2 rotated(double angle, const Float2& center = Float2(0, 0)) const noexcept;
+
+		[[nodiscard]] Mat3x2 shearedX(double sx) const noexcept;
+
+		[[nodiscard]] Mat3x2 shearedY(double sy) const noexcept;
 
 		[[nodiscard]] constexpr float determinant() const noexcept
 		{
 			return (_11 * _22) - (_12 * _21);
 		}
 
-		[[nodiscard]] Mat3x2 inversed() const noexcept
-		{
-			const float det = determinant();
-			assert(det != 0.0f);
-			const float detInv = 1.0f / det;
-
-			Mat3x2 out;
-			out._11 = (_22) * detInv;
-			out._12 = (-_12) * detInv;
-			out._21 = (-_21) * detInv;
-			out._22 = (_11) * detInv;
-			out._31 = (_21*_32 - _22*_31) * detInv;
-			out._32 = (_12*_31 - _11*_32) * detInv;
-			return out;
-		}
+		[[nodiscard]] Mat3x2 inversed() const noexcept;
 
 		constexpr void setProduct(const Mat3x2 &a, const Mat3x2 &b) noexcept
 		{
@@ -264,7 +246,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 
 }

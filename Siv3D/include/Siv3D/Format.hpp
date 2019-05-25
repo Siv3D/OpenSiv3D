@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,11 +13,12 @@
 # include <xmmintrin.h>
 # include <sstream>
 # include "Fwd.hpp"
-# include "BoolFormat.hpp"
-# include "IntFormat.hpp"
-# include "FloatFormat.hpp"
+# include "FormatBool.hpp"
+# include "FormatInt.hpp"
+# include "FormatFloat.hpp"
 # include "FormatLiteral.hpp"
 # include "String.hpp"
+# include "Optional.hpp"
 # include "Unicode.hpp"
 
 namespace s3d
@@ -31,10 +32,13 @@ namespace s3d
 
 		struct DecimalPlace
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) noexcept : value(v) {}
+			explicit constexpr DecimalPlace(int32 v = 5) noexcept
+				: value(v) {}
 			
 			int32 value;
-		} decimalPlace;
+		} decimalPlace = DecimalPlace(5);
+
+		FormatData() = default;
 	};
 
 	/// <summary>
@@ -55,11 +59,14 @@ namespace s3d
 		return FormatData::DecimalPlace(width);
 	}
 
-	namespace Literals
+	inline namespace Literals
 	{
-		[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
+		inline namespace DecimalPlaceLiterals
 		{
-			return DecimalPlace(static_cast<int32>(width));
+			[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
+			{
+				return DecimalPlace(static_cast<int32>(width));
+			}
 		}
 	}
 
@@ -228,9 +235,13 @@ namespace s3d
 		{
 			return m_head + Format_impl()(value) + m_tail;
 		}
+
+		void FormatterHelper(String& dst, const std::wostringstream& ws);
 	}
 
-	constexpr auto Format = detail::Format_impl();
+	inline constexpr auto Format = detail::Format_impl();
+
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace);
 
 	void Formatter(FormatData& formatData, int32);
 
@@ -256,93 +267,31 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, bool value);
 
-	inline void Formatter(FormatData& formatData, const char value)
-	{
-		Formatter(formatData, static_cast<int32>(value));
-	}
+	void Formatter(FormatData& formatData, const char value);
 
-	inline void Formatter(FormatData& formatData, const int8 value)
-	{
-		Formatter(formatData, static_cast<int32>(value));
-	}
+	void Formatter(FormatData& formatData, const int8 value);
 
-	inline void Formatter(FormatData& formatData, const uint8 value)
-	{
-		Formatter(formatData, static_cast<uint32>(value));
-	}
+	void Formatter(FormatData& formatData, const uint8 value);
 
-	inline void Formatter(FormatData& formatData, const int16 value)
-	{
-		Formatter(formatData, static_cast<int32>(value));
-	}
+	void Formatter(FormatData& formatData, const int16 value);
 
-	inline void Formatter(FormatData& formatData, const uint16 value)
-	{
-		Formatter(formatData, static_cast<uint32>(value));
-	}
+	void Formatter(FormatData& formatData, const uint16 value);
 
-	inline void Formatter(FormatData& formatData, const long value)
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
+	void Formatter(FormatData& formatData, const long value);
 
-		Formatter(formatData, static_cast<int32>(value));
+	void Formatter(FormatData& formatData, const unsigned long value);
 
-	# else
-
-		Formatter(formatData, static_cast<long long>(value));
-
-	# endif	
-	}
-
-	inline void Formatter(FormatData& formatData, const unsigned long value)
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		Formatter(formatData, static_cast<uint32>(value));
-
-	# else
-
-		Formatter(formatData, static_cast<unsigned long long>(value));
-
-	# endif	
-	}
-
-	inline void Formatter(FormatData& formatData, const float value)
-	{
-		Formatter(formatData, static_cast<double>(value));
-	}
+	void Formatter(FormatData& formatData, const float value);
     
-   	inline void Formatter(FormatData& formatData, const long double value)
-    {
-        Formatter(formatData, static_cast<double>(value));
-    }
+	void Formatter(FormatData& formatData, const long double value);
 
 	void Formatter(FormatData& formatData, __m128 value);
 
-	inline void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
-	{
-		formatData.decimalPlace = decimalPlace;
-	}
+	void Formatter(FormatData& formatData, const char32* const str);
 
-	inline void Formatter(FormatData& formatData, const char32* const str)
-	{
-		formatData.string.append(str);
-	}
+	void Formatter(FormatData& formatData, const std::u32string& str);
 
-	inline void Formatter(FormatData& formatData, const std::u32string& str)
-	{
-		formatData.string.append(str.begin(), str.end());
-	}
-
-	//inline void Formatter(FormatData& formatData, const char16_t* const str)
-	//{
-	//	formatData.string.append(Unicode::FromUTF16(str));
-	//}
-
-	//inline void Formatter(FormatData& formatData, const std::u16string& str)
-	//{
-	//	formatData.string.append(Unicode::FromUTF16(str));
-	//}
+	void Formatter(FormatData& formatData, const String& value);
 
 	template <class Iterator>
 	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)
@@ -359,7 +308,7 @@ namespace s3d
 			}
 			else
 			{
-				formatData.string.push_back(U',');
+				formatData.string.append(U", "_sv);
 			}
 
 			Formatter(formatData, *begin);
@@ -401,46 +350,38 @@ namespace s3d
 
 		Formatter(formatData, pair.first);
 
-		formatData.string.push_back(U',');
+		formatData.string.append(U", "_sv);
 	
 		Formatter(formatData, pair.second);
 
 		formatData.string.push_back(U'}');
 	}
 
-	inline void Formatter(FormatData& formatData, const None_t&)
-	{
-		formatData.string.append(U"none", 4);
-	}
+	void Formatter(FormatData& formatData, const None_t&);
 
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Optional<Type>& value)
 	{
 		if (value)
 		{
-			formatData.string.append(U"Optional ", 9);
+			formatData.string.append(U"Optional "_sv);
 
 			Formatter(formatData, value.value());
 		}
 		else
 		{
-			formatData.string.append(U"none", 4);
+			Formatter(formatData, none);
 		}
 	}
 
-	inline void Formatter(FormatData& formatData, const String& value)
-	{
-		formatData.string.append(value);
-	}
-
-	template <class Type>
+	template <class Type, class = decltype(std::declval<std::wostream>() << std::declval<Type>())>
 	inline void Formatter(FormatData& formatData, const Type& value)
 	{
 		std::wostringstream wos;
 
 		wos << value;
 
-		formatData.string.append(Unicode::FromWString(wos.str()));
+		detail::FormatterHelper(formatData.string, wos);
 	}
 }
 
@@ -448,66 +389,125 @@ namespace s3d
 {
 	namespace detail
 	{
-		template <class Char>
-		std::basic_string<Char> GetTag(const Char*& format_str)
+		template <class ParseContext>
+		auto GetFmtTag(String& tag, ParseContext& ctx)
 		{
-			const Char* beg = format_str;
+			auto it = fmt_s3d::internal::null_terminating_iterator<s3d::char32>(ctx);
 
-			if (*format_str == Char(':'))
+			if (*it == ':')
 			{
-				++format_str;
+				++it;
 			}
 
-			const Char *end = format_str;
+			auto end = it;
 
-			while (*end && *end != Char('}'))
+			while (*end && *end != '}')
 			{
 				++end;
 			}
 
-			if (*end != Char('}'))
-			{
-				FMT_THROW(fmt::FormatError("missing '}' in format string"));
-			}
+			tag.assign(fmt_s3d::internal::pointer_from(it), fmt_s3d::internal::pointer_from(end));
 
-			format_str = end + 1;
+			return fmt_s3d::internal::pointer_from(end);
+		}
 
-			return std::basic_string<Char>(beg, end);
+		inline constexpr size_t MakeFmtArgLength_impl(const StringView view)
+		{
+			return view.size();
+		}
+
+		template <class... Args>
+		inline constexpr size_t MakeFmtArgLength_impl(const StringView view, const Args&... args)
+		{
+			return view.size() + MakeFmtArgLength_impl(args...);
+		}
+
+		inline String MakeFmtArg_impl(String& result, const StringView view)
+		{
+			return result.append(view);
+		}
+
+		template <class... Args>
+		inline String MakeFmtArg_impl(String& result, const StringView view, const Args&... args)
+		{
+			result.append(view);
+			return MakeFmtArg_impl(result, args...);
+		}
+
+		template <class... Args>
+		inline String MakeFmtArg(const StringView view, const Args&... args)
+		{
+			String result;
+			result.reserve(MakeFmtArgLength_impl(view, args...));
+			result.append(view);
+			return MakeFmtArg_impl(result, args...);
 		}
 	}
 }
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::StringView& value)
+	template <>
+	struct formatter<s3d::String, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"{" + tag + U"}";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.to_string());
-	}
+		template <class Context>
+		auto format(const s3d::String& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(U"{:", tag, U"}");
 
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::String& value)
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), wstring_view(value.data(), value.size()));
+		}
+	};
+
+	template <>
+	struct formatter<s3d::StringView, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"{" + tag + U"}";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.str());
-	}
+		template <class Context>
+		auto format(const s3d::StringView value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(U"{:", tag, U"}");
 
-	template <class Char, class ArgFormatter, class Type>
-	void format_arg(BasicFormatter<Char, ArgFormatter> &f, const Char*& format_str, const Type &value)
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), wstring_view(value.data(), value.size()));
+		}
+	};
+	
+	template <class Type>
+	struct formatter<Type, s3d::char32>
 	{
-		const s3d::String us = s3d::Format(value);
+		s3d::String tag;
 		
-		BasicStringRef<Char> str(&us[0], us.size());
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 		
-		using MakeArg = internal::MakeArg<BasicFormatter<Char>>;
-		
-		format_str = f.format(format_str, MakeArg(str));
-	}
+		template <class Context>
+		auto format(const Type& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(U"{:", tag, U"}");
+			
+			const s3d::String s = s3d::Format(value);
+			
+			const basic_string_view<s3d::char32> str(s.data(), s.size());
+			
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), str);
+		}
+	};
 }

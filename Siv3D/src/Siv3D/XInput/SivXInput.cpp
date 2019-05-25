@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,7 +12,7 @@
 # include <Siv3D/XInput.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Circular.hpp>
-# include "../Siv3DEngine.hpp"
+# include <Siv3DEngine.hpp>
 # include "IXInput.hpp"
 
 namespace s3d
@@ -21,7 +21,7 @@ namespace s3d
 	{
 		static constexpr int32 Get4Direction(const double angle)
 		{
-			const double deg = Math::Degrees(angle);
+			const double deg = Math::ToDegrees(angle);
 
 			if (deg <= -145.0)
 				return 2;
@@ -37,7 +37,7 @@ namespace s3d
 
 		static constexpr int32 Get8Direction(const double angle)
 		{
-			const double deg = Math::Degrees(angle);
+			const double deg = Math::ToDegrees(angle);
 
 			if (deg <= -157.5)
 				return 4;
@@ -87,27 +87,32 @@ namespace s3d
 
 		bool XInput_impl::isConnected() const
 		{
-			return Siv3DEngine::GetXInput()->isConnected(userIndex);
+			return Siv3DEngine::Get<ISiv3DXInput>()->isConnected(userIndex);
+		}
+
+		XInput_impl::operator bool() const
+		{
+			return isConnected();
 		}
 
 		void XInput_impl::setLeftTriggerDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::GetXInput()->setDeadZone(userIndex, DeadZoneIndex::LefTrigger, deadZone);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::LefTrigger, deadZone);
 		}
 
 		void XInput_impl::setRightTriggerDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::GetXInput()->setDeadZone(userIndex, DeadZoneIndex::RightTrigger, deadZone);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::RightTrigger, deadZone);
 		}
 
 		void XInput_impl::setLeftThumbDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::GetXInput()->setDeadZone(userIndex, DeadZoneIndex::LeftThumb, deadZone);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::LeftThumb, deadZone);
 		}
 
 		void XInput_impl::setRightThumbDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::GetXInput()->setDeadZone(userIndex, DeadZoneIndex::RightThumb, deadZone);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::RightThumb, deadZone);
 		}
 
 		Optional<int32> XInput_impl::leftThumbD4(const double threshold) const
@@ -160,32 +165,32 @@ namespace s3d
 
 		void XInput_impl::setVibration(const double leftMotorSpeed, const double rightMotorSpeed) const
 		{
-			return Siv3DEngine::GetXInput()->setVibration(userIndex, leftMotorSpeed, rightMotorSpeed);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setVibration(userIndex, leftMotorSpeed, rightMotorSpeed);
 		}
 
 		std::pair<double, double> XInput_impl::getVibration() const
 		{
-			return Siv3DEngine::GetXInput()->getVibration(userIndex);
+			return Siv3DEngine::Get<ISiv3DXInput>()->getVibration(userIndex);
 		}
 
 		void XInput_impl::stopVibration() const
 		{
-			return Siv3DEngine::GetXInput()->setVibration(userIndex, 0.0, 0.0);
+			return Siv3DEngine::Get<ISiv3DXInput>()->setVibration(userIndex, 0.0, 0.0);
 		}
 
 		void XInput_impl::pauseVibration() const
 		{
-			return Siv3DEngine::GetXInput()->pauseVibration(userIndex);
+			return Siv3DEngine::Get<ISiv3DXInput>()->pauseVibration(userIndex);
 		}
 
 		void XInput_impl::resumeVibration() const
 		{
-			return Siv3DEngine::GetXInput()->resumeVibration(userIndex);
+			return Siv3DEngine::Get<ISiv3DXInput>()->resumeVibration(userIndex);
 		}
 
 		const XInput_impl& XInput_helper::operator()(const size_t userIndex) const
 		{
-			return Siv3DEngine::GetXInput()->getInput(userIndex);
+			return Siv3DEngine::Get<ISiv3DXInput>()->getInput(userIndex);
 		}
 	}
 }

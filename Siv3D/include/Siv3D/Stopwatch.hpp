@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,6 +18,7 @@ namespace s3d
 {
 	/// <summary>
 	/// ストップウォッチ
+	/// Stopwatch
 	/// </summary>
 	class Stopwatch
 	{
@@ -53,7 +54,7 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit Stopwatch(const MicrosecondsF& time, bool startImmediately = false)
+		explicit Stopwatch(const Duration& time, bool startImmediately = false)
 		{
 			set(time);
 
@@ -179,15 +180,7 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間
 		/// </returns>
-		[[nodiscard]] Milliseconds elapsed() const { return Milliseconds(ms()); }
-
-		/// <summary>
-		/// ストップウォッチの経過時間を返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間
-		/// </returns>
-		[[nodiscard]] MillisecondsF elapsedF() const { return MillisecondsF(msF()); }
+		[[nodiscard]] Duration elapsed() const { return SecondsF(sF()); }
 
 		/// <summary>
 		/// ストップウォッチが動作中であるかを示します（一時停止していることもあります）。
@@ -279,11 +272,11 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void set(const MicrosecondsF& time)
+		void set(const Duration& time)
 		{
 			m_isStarted = true;
 
-			m_accumulationMicrosec = static_cast<int64>(time.count());
+			m_accumulationMicrosec = static_cast<int64>(time.count() * (1000LL * 1000LL));
 
 			m_startTimeMicrosec = Time::GetMicrosec();
 		}
@@ -316,49 +309,25 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた経過時間
 		/// </returns>
-		[[nodiscard]] String format(const String& pattern = U"H:mm:ss.xx") const;
+		[[nodiscard]] String format(StringView format = U"H:mm:ss.xx"_sv) const;
 	};
 
-	[[nodiscard]] inline bool operator <(const Stopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() < time;
-	}
+	[[nodiscard]] bool operator <(const Stopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator <=(const Stopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() <= time;
-	}
+	[[nodiscard]] bool operator <=(const Stopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >(const Stopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() > time;
-	}
+	[[nodiscard]] bool operator >(const Stopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >=(const Stopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() >= time;
-	}
+	[[nodiscard]] bool operator >=(const Stopwatch& s, const MicrosecondsF& time);
 
 
-	[[nodiscard]] inline bool operator <(const MicrosecondsF& time, const Stopwatch& s)
-	{
-		return time < s.elapsedF();
-	}
+	[[nodiscard]] bool operator <(const MicrosecondsF& time, const Stopwatch& s);
 
-	[[nodiscard]] inline bool operator <=(const MicrosecondsF& time, const Stopwatch& s)
-	{
-		return time <= s.elapsedF();
-	}
+	[[nodiscard]] bool operator <=(const MicrosecondsF& time, const Stopwatch& s);
 
-	[[nodiscard]] inline bool operator >(const MicrosecondsF& time, const Stopwatch& s)
-	{
-		return time > s.elapsedF();
-	}
+	[[nodiscard]] bool operator >(const MicrosecondsF& time, const Stopwatch& s);
 
-	[[nodiscard]] inline bool operator >=(const MicrosecondsF& time, const Stopwatch& s)
-	{
-		return time >= s.elapsedF();
-	}
+	[[nodiscard]] bool operator >=(const MicrosecondsF& time, const Stopwatch& s);
 }
 
 //////////////////////////////////////////////////
@@ -369,10 +338,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Stopwatch& value)
-	{
-		formatData.string.append(value.format());
-	}
+	void Formatter(FormatData& formatData, const Stopwatch& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Stopwatch& value)

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,12 +14,11 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Step.hpp"
-# include "BigNumber.hpp"
 
 namespace s3d
 {
 	template <class Type>
-	class infinite_list
+	class InfiniteList
 	{
 	private:
 
@@ -29,7 +28,7 @@ namespace s3d
 
 	public:
 
-		class infinite_iterator : public std::iterator<std::forward_iterator_tag, Type>
+		class Iterator
 		{
 		private:
 
@@ -68,15 +67,15 @@ namespace s3d
 
 		public:
 
-			infinite_iterator()
+			Iterator()
 				: m_currentValue(Type())
 				, m_step(Type()) {}
 
-			infinite_iterator(Type startValue, Type step)
+			Iterator(Type startValue, Type step)
 				: m_currentValue(startValue)
 				, m_step(step) {}
 
-			infinite_iterator& operator ++()
+			Iterator& operator ++()
 			{
 				checkOverflow<Type>();
 
@@ -85,11 +84,11 @@ namespace s3d
 				return *this;
 			}
 
-			infinite_iterator operator ++(int)
+			Iterator operator ++(int)
 			{
 				checkOverflow<Type>();
 
-				infinite_iterator tmp = *this;
+				Iterator tmp = *this;
 
 				m_currentValue += m_step;
 
@@ -100,9 +99,9 @@ namespace s3d
 
 			const Type* operator ->() const { return &m_currentValue; }
 
-			constexpr bool operator ==(const infinite_iterator&) const { return false; }
+			constexpr bool operator ==(const Iterator&) const { return false; }
 
-			constexpr bool operator !=(const infinite_iterator&) const { return true; }
+			constexpr bool operator !=(const Iterator&) const { return true; }
 
 			Type currentValue() const { return m_currentValue; }
 
@@ -110,9 +109,9 @@ namespace s3d
 		};
 
 		using value_type = Type;
-		using iterator = infinite_iterator;
+		using iterator = Iterator;
 
-		infinite_list(Type startValue = 0, Type step = 1)
+		InfiniteList(Type startValue = 0, Type step = 1)
 			: m_startValue(startValue)
 			, m_step(step) {}
 
@@ -155,12 +154,6 @@ namespace s3d
 			return new_array;
 		}
 	};
-
-	template<class T = int32, class S = int32>
-	inline auto InfiniteList(T startValue = 0, S step = 1)
-	{
-		return infinite_list<std::common_type_t<T, S>>(startValue, step);
-	}
 
 	namespace detail
 	{
@@ -267,18 +260,18 @@ namespace s3d
 
 	template <class Type>
 	template <class Fty>
-	inline auto infinite_list<Type>::filter(Fty f) const
+	inline auto InfiniteList<Type>::filter(Fty f) const
 	{
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
-		return detail::F_InfStep<infinite_list, value_type, decltype(tuple)>(*this, tuple);
+		return detail::F_InfStep<InfiniteList, value_type, decltype(tuple)>(*this, tuple);
 	}
 
 	template <class Type>
 	template <class Fty>
-	inline auto infinite_list<Type>::map(Fty f) const
+	inline auto InfiniteList<Type>::map(Fty f) const
 	{
 		using Ret = std::result_of_t<Fty(value_type)>;
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
-		return detail::F_InfStep<infinite_list, Ret, decltype(tuple)>(*this, tuple);
+		return detail::F_InfStep<InfiniteList, Ret, decltype(tuple)>(*this, tuple);
 	}
 }

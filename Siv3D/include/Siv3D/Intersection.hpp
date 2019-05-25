@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -32,7 +32,7 @@ namespace s3d
 		bool Intersect(const Point& a, const Quad&			b) noexcept;
 		bool Intersect(const Point& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Point& a, const Polygon&		b) noexcept;
-		//bool Intersect(const Point& a, const MultiPolygon&	b);
+		bool Intersect(const Point& a, const MultiPolygon&	b) noexcept;
 		//bool Intersect(const Point& a, const LineString&	b);
 
 		bool Intersect(const Vec2& a, const Point&			b) noexcept;
@@ -48,7 +48,7 @@ namespace s3d
 		bool Intersect(const Vec2& a, const Quad&			b) noexcept;
 		bool Intersect(const Vec2& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Vec2& a, const Polygon&		b) noexcept;
-		//bool Intersect(const Vec2& a, const MultiPolygon&	b);
+		bool Intersect(const Vec2& a, const MultiPolygon&	b) noexcept;
 		//bool Intersect(const Vec2& a, const LineString&		b);
 
 		bool Intersect(const Line& a, const Point&			b) noexcept;
@@ -145,7 +145,7 @@ namespace s3d
 		bool Intersect(const Circle& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Circle& a, const Polygon&			b) noexcept;
 		//bool Intersect(const Circle& a, const MultiPolygon&		b);
-		//bool Intersect(const Circle& a, const LineString&		b);
+		bool Intersect(const Circle& a, const LineString&		b) noexcept;
 
 		bool Intersect(const Ellipse& a, const Point&			b) noexcept;
 		bool Intersect(const Ellipse& a, const Vec2&			b) noexcept;
@@ -227,8 +227,8 @@ namespace s3d
 		//bool Intersect(const Polygon& a, const MultiPolygon&	b);
 		//bool Intersect(const Polygon& a, const LineString&		b);
 
-		//bool Intersect(const MultiPolygon& a, const Point&			b);
-		//bool Intersect(const MultiPolygon& a, const Vec2&			b);
+		bool Intersect(const MultiPolygon& a, const Point&			b) noexcept;
+		bool Intersect(const MultiPolygon& a, const Vec2&			b) noexcept;
 		//bool Intersect(const MultiPolygon& a, const Line&			b);
 		//bool Intersect(const MultiPolygon& a, const Bezier2&		 b);
 		//bool Intersect(const MultiPolygon& a, const Bezier3&		 b);
@@ -250,7 +250,7 @@ namespace s3d
 		//bool Intersect(const LineString& a, const Bezier3&		 b);
 		//bool Intersect(const LineString& a, const Rect&			b);
 		//bool Intersect(const LineString& a, const RectF&		b);
-		//bool Intersect(const LineString& a, const Circle&		b);
+		bool Intersect(const LineString& a, const Circle&		b) noexcept;
 		//bool Intersect(const LineString& a, const Ellipse&		b);
 		//bool Intersect(const LineString& a, const Triangle&		b);
 		//bool Intersect(const LineString& a, const Quad&			b);
@@ -307,49 +307,49 @@ namespace s3d
 		//bool Contains(const Circle& a, const MultiPolygon&		b);
 		bool Contains(const Circle& a, const LineString&	b) noexcept;
 
-		//bool Contains(const Ellipse& a, const Point&			b) noexcept;
-		//bool Contains(const Ellipse& a, const Vec2&			b) noexcept;
-		//bool Contains(const Ellipse& a, const Line&			b) noexcept;
+		bool Contains(const Ellipse& a, const Point&		b) noexcept;
+		bool Contains(const Ellipse& a, const Vec2&			b) noexcept;
+		bool Contains(const Ellipse& a, const Line&			b) noexcept;
 		//bool Contains(const Ellipse& a, const Bezier2&			b);
 		//bool Contains(const Ellipse& a, const Bezier3&			b);
-		////bool Contains(const Ellipse& a, const Rect&			b);
-		////bool Contains(const Ellipse& a, const RectF&			b);
+		bool Contains(const Ellipse& a, const Rect&			b) noexcept;
+		bool Contains(const Ellipse& a, const RectF&		b) noexcept;
 		////bool Contains(const Ellipse& a, const Circle&			b);
 		////bool Contains(const Ellipse& a, const Ellipse&			b);
-		////bool Contains(const Ellipse& a, const Triangle&		b);
-		////bool Contains(const Ellipse& a, const Quad&			b);
+		bool Contains(const Ellipse& a, const Triangle&		b) noexcept;
+		bool Contains(const Ellipse& a, const Quad&			b) noexcept;
 		////bool Contains(const Ellipse& a, const RoundRect&		b);
 		////bool Contains(const Ellipse& a, const Polygon&			b);
 		////bool Contains(const Ellipse& a, const MultiPolygon&	b);
 		////bool Contains(const Ellipse& a, const LineString&		b);
 
-		//bool Contains(const Triangle& a, const Point&			b) noexcept;
-		//bool Contains(const Triangle& a, const Vec2&			b) noexcept;
-		//bool Contains(const Triangle& a, const Line&			b) noexcept;
+		bool Contains(const Triangle& a, const Point&			b) noexcept;
+		bool Contains(const Triangle& a, const Vec2&			b) noexcept;
+		bool Contains(const Triangle& a, const Line&			b) noexcept;
 		////bool Contains(const Triangle& a, const Bezier2&		 b);
 		////bool Contains(const Triangle& a, const Bezier3&		 b);
-		//bool Contains(const Triangle& a, const Rect&			b) noexcept;
-		//bool Contains(const Triangle& a, const RectF&			b) noexcept;
+		bool Contains(const Triangle& a, const Rect&			b) noexcept;
+		bool Contains(const Triangle& a, const RectF&			b) noexcept;
 		//bool Contains(const Triangle& a, const Circle&			b) noexcept;
 		////bool Contains(const Triangle& a, const Ellipse&		b);
-		//bool Contains(const Triangle& a, const Triangle&		b) noexcept;
-		//bool Contains(const Triangle& a, const Quad&			b) noexcept;
+		bool Contains(const Triangle& a, const Triangle&		b) noexcept;
+		bool Contains(const Triangle& a, const Quad&			b) noexcept;
 		//bool Contains(const Triangle& a, const RoundRect&		b) noexcept;
 		//bool Contains(const Triangle& a, const Polygon&		b) noexcept;
 		////bool Contains(const Triangle& a, const MultiPolygon&	b);
 		////bool Contains(const Triangle& a, const LineString&		b);
 
-		//bool Contains(const Quad& a, const Point&				b) noexcept;
-		//bool Contains(const Quad& a, const Vec2&				b) noexcept;
-		//bool Contains(const Quad& a, const Line&				b) noexcept;
+		bool Contains(const Quad& a, const Point&				b) noexcept;
+		bool Contains(const Quad& a, const Vec2&				b) noexcept;
+		bool Contains(const Quad& a, const Line&				b) noexcept;
 		////bool Contains(const Quad& a, const Bezier2&		 b);
 		////bool Contains(const Quad& a, const Bezier3&		 b);
-		//bool Contains(const Quad& a, const Rect&				b) noexcept;
-		//bool Contains(const Quad& a, const RectF&				b) noexcept;
+		bool Contains(const Quad& a, const Rect&				b) noexcept;
+		bool Contains(const Quad& a, const RectF&				b) noexcept;
 		//bool Contains(const Quad& a, const Circle&				b) noexcept;
 		////bool Contains(const Quad& a, const Ellipse&			b);
-		//bool Contains(const Quad& a, const Triangle&			b) noexcept;
-		//bool Contains(const Quad& a, const Quad&				b) noexcept;
+		bool Contains(const Quad& a, const Triangle&			b) noexcept;
+		bool Contains(const Quad& a, const Quad&				b) noexcept;
 		//bool Contains(const Quad& a, const RoundRect&			b) noexcept;
 		//bool Contains(const Quad& a, const Polygon&			b) noexcept;
 		////bool Contains(const Quad& a, const MultiPolygon&		b);

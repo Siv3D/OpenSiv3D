@@ -1,12 +1,14 @@
 //-----------------------------------------------
 //
-//    This file is part of the HamFramework for Siv3D.
+//	This file is part of the Siv3D HamFramework.
 //
-//    Copyright (C) 2014-2018 HAMSTRO
-//    Copyright (c) 2017 OpenSiv3D Project
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
-//    Licensed under the MIT License.
+//	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::SevenSegment is originally created by Hotaka Okumoto (OpenSiv3D Project)
 //-----------------------------------------------
 
 # pragma once
@@ -159,7 +161,7 @@ void Main()
 			n = Random(-99999, 99999);
 		}
 		
-		SevenSegment::DrawText(Format(n).lpad(6), Vec2(20, 20), 70, 8, 4, 10, ColorF(0, 1, 0), ColorF(0.25));
+		SevenSegment::DrawText(Format(n).lpad(6), Vec2(20, 20), 70, 8, 4, 10, ColorF(0, 1, 0), ColorF(0.2));
 	}
 }
 

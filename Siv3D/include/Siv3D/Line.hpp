@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Geometry2D.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -30,7 +31,12 @@ namespace s3d
 
 			bool hasAlignedDot;
 
-			constexpr Parameters operator ()(double _dotOffset) const
+			constexpr Parameters operator ()(double _dotOffset) const noexcept
+			{
+				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
+			}
+
+			constexpr Parameters offset(double _dotOffset) const noexcept
 			{
 				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
 			}
@@ -46,6 +52,8 @@ namespace s3d
 
 		bool hasAlignedDot = true;
 
+		constexpr LineStyle() = default;
+
 		constexpr LineStyle(const Parameters& params)
 			: dotOffset(params.dotOffset)
 			, hasCap(params.hasCap)
@@ -53,27 +61,27 @@ namespace s3d
 			, isDotted(params.isDotted)
 			, hasAlignedDot(params.hasAlignedDot) {}
 
-		constexpr bool isSquareCap() const noexcept
+		[[nodiscard]] constexpr bool isSquareCap() const noexcept
 		{
 			return hasCap && !isRound && !isDotted;
 		}
 
-		constexpr bool isRoundCap() const noexcept
+		[[nodiscard]] constexpr bool isRoundCap() const noexcept
 		{
 			return hasCap && isRound && !isDotted;
 		}
 
-		constexpr bool isNoCap() const noexcept
+		[[nodiscard]] constexpr bool isNoCap() const noexcept
 		{
 			return !hasCap && !isRound && !isDotted;
 		}
 
-		constexpr bool isSquareDot() const noexcept
+		[[nodiscard]] constexpr bool isSquareDot() const noexcept
 		{
 			return hasCap && !isRound && isDotted;
 		}
 
-		constexpr bool isRoundDot() const noexcept
+		[[nodiscard]] constexpr bool isRoundDot() const noexcept
 		{
 			return hasCap && isRound && isDotted;
 		}
@@ -125,15 +133,16 @@ namespace s3d
 			: begin(p0)
 			, end(p1) {}
 		
-		constexpr bool operator ==(const Line& line) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Line& line) const noexcept
 		{
 			return begin == line.begin
 				&& end == line.end;
 		}
 		
-		constexpr bool operator !=(const Line& line) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Line& line) const noexcept
 		{
-			return !(*this == line);
+			return begin != line.begin
+				|| end != line.end;
 		}
 		
 		constexpr Line& set(value_type x0, value_type y0, value_type x1, value_type y1) noexcept
@@ -163,12 +172,12 @@ namespace s3d
 			return *this = line;
 		}
 		
-		constexpr Line movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Line movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ begin.movedBy(x, y), end.movedBy(x, y) };
 		}
 		
-		constexpr Line movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Line movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -185,23 +194,18 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		Line stretched(const value_type length) const noexcept
-		{
-			const position_type v = vector().setLength(length);
+		[[nodiscard]] Line stretched(value_type length) const noexcept;
 
-			return Line(begin - v, end + v);
-		}
-
-		Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
-		{
-			const position_type v = vector().normalized();
-
-			return Line(begin - v * lengthBegin, end + v * lengthEnd);
-		}
+		[[nodiscard]] Line stretched(value_type lengthBegin, value_type lengthEnd) const noexcept;
 		
-		constexpr position_type vector() const noexcept
+		[[nodiscard]] constexpr position_type vector() const noexcept
 		{
 			return end - begin;
+		}
+
+		[[nodiscard]] constexpr Line reversed() const noexcept
+		{
+			return{ end, begin };
 		}
 		
 		constexpr Line& reverse() noexcept
@@ -212,45 +216,37 @@ namespace s3d
 			return *this;
 		}
 		
-		constexpr Line reversed() const noexcept
-		{
-			return{ end, begin };
-		}
+		[[nodiscard]] value_type length() const noexcept;
 		
-		value_type length() const noexcept
-		{
-			return begin.distanceFrom(end);
-		}
-		
-		constexpr value_type lengthSq() const noexcept
+		[[nodiscard]] constexpr value_type lengthSq() const noexcept
 		{
 			return begin.distanceFromSq(end);
 		}
 		
-		constexpr position_type center() const noexcept
+		[[nodiscard]] constexpr position_type center() const noexcept
 		{
-			return (begin + end) * 0.5;
+			return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);
 		}
 		
-		position_type closest(const position_type& pos) const noexcept;
+		[[nodiscard]] position_type closest(const position_type& pos) const noexcept;
 
-		RectF boundingRect() const noexcept;
+		[[nodiscard]] RectF boundingRect() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 		
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
-		Optional<position_type> intersectsAt(const Line& line) const;
+		[[nodiscard]] Optional<position_type> intersectsAt(const Line& line) const;
 
-		Optional<position_type> intersectsAtPrecise(const Line& line) const;
+		[[nodiscard]] Optional<position_type> intersectsAtPrecise(const Line& line) const;
 
 		// rotated
 		
@@ -268,29 +264,17 @@ namespace s3d
 		
 		const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 		
-		const Line& draw(const ColorF& color = Palette::White) const
-		{
-			return draw(LineStyle::Default, 1.0, color);
-		}
+		const Line& draw(const ColorF& color = Palette::White) const;
 
-		const Line& draw(const ColorF(&colors)[2]) const
-		{
-			return draw(LineStyle::Default, 1.0, colors);
-		}
+		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
 
-		const Line& draw(double thickness, const ColorF& color = Palette::White) const
-		{
-			return draw(LineStyle::Default, thickness, color);
-		}
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
 
-		const Line& draw(double thickness, const ColorF(&colors)[2]) const
-		{
-			return draw(LineStyle::Default, thickness, colors);
-		}
+		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
 		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		const Line& draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
 
@@ -306,19 +290,14 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Line& value)
-	{
-		Formatter(formatData, Vec4(value.begin.x, value.begin.y, value.end.x, value.end.y));
-	}
+	void Formatter(FormatData& formatData, const Line& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line& value)
 	{
 		return output << CharType('(')
-			<< value.begin.x << CharType(',')
-			<< value.begin.y << CharType(',')
-			<< value.end.x << CharType(',')
-			<< value.end.y << CharType(')');
+			<< value.begin	<< CharType(',') << CharType(' ')
+			<< value.end	<< CharType(')');
 	}
 
 	template <class CharType>
@@ -326,10 +305,8 @@ namespace s3d
 	{
 		CharType unused;
 		return input >> unused
-			>> value.begin.x >> unused
-			>> value.begin.y >> unused
-			>> value.end.x >> unused
-			>> value.end.y >> unused;
+			>> value.begin >> unused
+			>> value.end >> unused;
 	}
 }
 
@@ -357,15 +334,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Line& value)
+	template <>
+	struct formatter<s3d::Line, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.begin.x, value.begin.y, value.end.x, value.end.y);
-	}
+		template <class Context>
+		auto format(const s3d::Line& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin, value.end);
+		}
+	};
 }

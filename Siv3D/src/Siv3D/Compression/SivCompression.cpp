@@ -2,14 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../../ThirdParty/zstd/zstd.h"
+# include <zstd/zstd.h>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
@@ -19,7 +19,7 @@ namespace s3d
 {
 	namespace Compression
 	{
-		ByteArray Compress(const ByteArrayView view, const int32 compressionLevel)
+		ByteArray Compress(const ByteArrayViewAdapter view, const int32 compressionLevel)
 		{
 			const size_t bufferSize = ZSTD_compressBound(view.size());
 
@@ -65,6 +65,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return ByteArray();
 			}
 
@@ -84,6 +85,7 @@ namespace s3d
 					
 					if (ZSTD_isError(toRead))
 					{
+						ZSTD_freeCStream(cStream);
 						return ByteArray();
 					}
 
@@ -100,6 +102,8 @@ namespace s3d
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
 
+			ZSTD_freeCStream(cStream);
+
 			if (remainingToFlush)
 			{
 				return ByteArray();
@@ -110,7 +114,7 @@ namespace s3d
 			return ByteArray(std::move(buffer));
 		}
 
-		bool CompressToFile(const ByteArrayView view, const FilePath& outputPath, const int32 compressionLevel)
+		bool CompressToFile(const ByteArrayViewAdapter view, const FilePath& outputPath, const int32 compressionLevel)
 		{
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
 			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
@@ -129,6 +133,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -138,6 +143,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -166,6 +172,8 @@ namespace s3d
 					{
 						writer.clear();
 
+						ZSTD_freeCStream(cStream);
+
 						return false;
 					}
 
@@ -181,6 +189,8 @@ namespace s3d
 			ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
+
+			ZSTD_freeCStream(cStream);
 
 			if (remainingToFlush)
 			{
@@ -220,6 +230,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -229,6 +240,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -246,6 +258,8 @@ namespace s3d
 					{
 						writer.clear();
 
+						ZSTD_freeCStream(cStream);
+
 						return false;
 					}
 
@@ -261,6 +275,8 @@ namespace s3d
 			ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
+
+			ZSTD_freeCStream(cStream);
 
 			if (remainingToFlush)
 			{
@@ -321,6 +337,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return ByteArray();
 			}
 
@@ -340,6 +357,7 @@ namespace s3d
 
 					if (ZSTD_isError(toRead))
 					{
+						ZSTD_freeDStream(dStream);
 						return ByteArray();
 					}
 
@@ -371,6 +389,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -380,6 +399,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -407,6 +427,8 @@ namespace s3d
 					if (ZSTD_isError(toRead))
 					{
 						writer.clear();
+
+						ZSTD_freeDStream(dStream);
 
 						return false;
 					}
@@ -446,6 +468,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -455,6 +478,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -471,6 +495,8 @@ namespace s3d
 					if (ZSTD_isError(toRead))
 					{
 						writer.clear();
+
+						ZSTD_freeDStream(dStream);
 
 						return false;
 					}

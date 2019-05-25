@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -65,33 +65,7 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
-		Array()
-			: base_type() {}
-
-		Array(const size_type count, const value_type& value)
-			: base_type(count, value) {}
-
-		explicit Array(const size_type count)
-			: base_type(count, false) {}
-
-		template <class InputIt>
-		Array(InputIt first, InputIt last)
-			: base_type(first, last) {}
-
-		Array(const Array& other)
-			: base_type(other) {}
-
-		Array(Array&& other) noexcept
-			: base_type(std::move(other)) {}
-
-		Array(std::initializer_list<value_type> init)
-			: base_type(init.begin(), init.end()) {}
-
-		template <class Fty, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, value_type>>* = nullptr>
-		Array(const size_type size, Arg::generator_<Fty> generator)
-			: Array(Generate<Fty>(size, *generator)) {}
-
-		template <class Fty, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, value_type>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
 			Array new_array(size);
@@ -103,6 +77,72 @@ namespace s3d
 
 			return new_array;
 		}
+
+		/// <summary>
+		/// インデックス付きジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="generator">
+		/// ジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		/// <returns>
+		/// 作成した配列
+		/// </returns>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, size_t>>* = nullptr>
+		static Array IndexedGenerate(const size_type size, Fty indexedGenerator)
+		{
+			Array new_array(size);
+
+			size_t i = 0;
+
+			for (auto& value : new_array)
+			{
+				value = indexedGenerator(i++);
+			}
+
+			return new_array;
+		}
+
+		Array();
+
+		Array(const size_type count, const value_type& value);
+
+		explicit Array(const size_type count);
+
+		template <class InputIt>
+		Array(InputIt first, InputIt last)
+			: base_type(first, last) {}
+
+		Array(const Array& other);
+
+		Array(Array&& other) noexcept;
+
+		Array(std::initializer_list<value_type> init);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty>>* = nullptr>
+		Array(const size_type size, Arg::generator_<Fty> generator)
+			: Array(Generate<Fty>(size, *generator)) {}
+
+		/// <summary>
+		/// インデックス付きジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="indexedGenerator">
+		/// インデックス付きジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, size_t>>* = nullptr>
+		Array(const size_type size, Arg::indexedGenerator_<Fty> indexedGenerator)
+			: Array(IndexedGenerate<Fty>(size, *indexedGenerator)) {}
 
 		Array& operator =(const Array& other) = default;
 
@@ -122,20 +162,11 @@ namespace s3d
 			push_back(tmp);
 		}
 
-		void swap(Array& other)
-		{
-			base_type::swap(other);
-		}
+		void swap(Array& other);
 
-		size_t count() const noexcept
-		{
-			return size();
-		}
+		size_t count() const noexcept;
 
-		bool isEmpty() const noexcept
-		{
-			return empty();
-		}
+		bool isEmpty() const noexcept;
 
 		/// <summary>
 		/// 配列に要素が含まれているかを返します。
@@ -143,32 +174,15 @@ namespace s3d
 		/// <returns>
 		/// 配列に要素が含まれている場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const noexcept
-		{
-			return !empty();
-		}
+		explicit operator bool() const noexcept;
 
-		void release()
-		{
-			clear();
+		void release();
 
-			shrink_to_fit();
-		}
+		size_t size_bytes() const noexcept;
 
-		size_t size_bytes() const noexcept
-		{
-			return size() * sizeof(value_type);
-		}
+		void push_front(const value_type& value);
 
-		void push_front(const value_type& value)
-		{
-			insert(begin(), value);
-		}
-
-		void pop_front()
-		{
-			erase(begin());
-		}
+		void pop_front();
 
 		/// <summary>
 		/// 要素にアクセスします。
@@ -263,14 +277,9 @@ namespace s3d
 			return std::move(base_type::at(index));
 		}
 
-		Array& operator <<(const value_type& value)
-		{
-			push_back(value);
+		Array& operator <<(const value_type& value);
 
-			return *this;
-		}
-
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] bool all(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -284,7 +293,7 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] bool any(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -298,24 +307,13 @@ namespace s3d
 			return false;
 		}
 
-		Array& append(const Array& other_array)
-		{
-			insert(end(), other_array.begin(), other_array.end());
+		Array& append(const Array& other_array);
 
-			return *this;
-		}
+		[[nodiscard]] value_type& choice();
 
-		[[nodiscard]] value_type& choice()
-		{
-			return choice(GetDefaultRNG());
-		}
+		[[nodiscard]] const value_type& choice() const;
 
-		[[nodiscard]] const value_type& choice() const
-		{
-			return choice(GetDefaultRNG());
-		}
-
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] value_type& choice(URBG&& rbg)
 		{
 			if (empty())
@@ -328,7 +326,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			if (empty())
@@ -341,57 +339,29 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, std::enable_if_t<std::is_scalar_v<Size_t>>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr>
 		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;
 
 			result.reserve(std::min(n, size()));
 
-			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
+			std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
 			return result;
 		}
 
-		[[nodiscard]] Array<Array<value_type>, std::allocator<Array<value_type>>> chunk(const size_t n) const
-		{
-			Array<Array<value_type>, std::allocator<Array<value_type>>> result;
+		[[nodiscard]] Array<Array<value_type>> chunk(size_t n) const;
 
-			if (n == 0)
-			{
-				return result;
-			}
+		[[nodiscard]] size_t count(const value_type& value) const;
 
-			for (size_t i = 0; i < (size() + n - 1) / n; ++i)
-			{
-				result.push_back(slice(i * n, n));
-			}
-
-			return result;
-		}
-
-		[[nodiscard]] size_t count(const value_type& value) const
-		{
-			size_t result = 0;
-
-			for (const auto& v : *this)
-			{
-				if (v == value)
-				{
-					++result;
-				}
-			}
-
-			return result;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
@@ -407,23 +377,17 @@ namespace s3d
 			return result;
 		}
 
-		[[nodiscard]] Array drop(const size_t n) const
-		{
-			if (n >= size())
-			{
-				return Array();
-			}
+		Array& drop(size_t n);
 
-			return Array(begin() + n, end());
-		}
+		[[nodiscard]] Array dropped(size_t n) const;
 
-		template <class Fty>
-		[[nodiscard]] Array drop_while(Fty f) const
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
+		[[nodiscard]] Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool&>>* = nullptr>
 		Array& each(Fty f)
 		{
 			for (auto& v : *this)
@@ -434,7 +398,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		const Array& each(Fty f) const
 		{
 			for (const auto& v : *this)
@@ -445,7 +409,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, bool&>>* = nullptr>
 		Array& each_index(Fty f)
 		{
 			size_t i = 0;
@@ -458,7 +422,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, bool>>* = nullptr>
 		const Array& each_index(Fty f) const
 		{
 			size_t i = 0;
@@ -471,24 +435,11 @@ namespace s3d
 			return *this;
 		}
 
-		[[nodiscard]] const value_type& fetch(const size_t index, const value_type& defaultValue) const
-		{
-			if (index >= size())
-			{
-				return defaultValue;
-			}
+		[[nodiscard]] const value_type& fetch(const size_t index, const value_type& defaultValue) const;
 
-			return operator[](index);
-		}
+		Array& fill(const value_type& value);
 
-		Array& fill(const value_type& value)
-		{
-			std::fill(begin(), end(), value);
-
-			return *this;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array filter(Fty f) const
 		{
 			Array new_array;
@@ -504,110 +455,32 @@ namespace s3d
 			return new_array;
 		}
 
-		[[nodiscard]] Array<Array<value_type>, std::allocator<Array<value_type>>> in_groups(const size_t group) const
-		{
-			Array<Array<value_type>, std::allocator<Array<value_type>>> result;
+		[[nodiscard]] Array<Array<value_type>> in_groups(size_t group) const;
 
-			if (group == 0)
-			{
-				return result;
-			}
+		[[nodiscard]] bool includes(const value_type& value) const;
 
-			const size_t div = size() / group;
-			const size_t mod = size() % group;
-			size_t index = 0;
-
-			for (size_t i = 0; i < group; ++i)
-			{
-				const size_t length = div + (mod > 0 && mod > i);
-
-				result.push_back(slice(index, length));
-
-				index += length;
-			}
-
-			return result;
-		}
-
-		[[nodiscard]] bool includes(const value_type& value) const
-		{
-			for (const auto& v : *this)
-			{
-				if (v == value)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
 		}
 
-		[[nodiscard]] bool isSorted() const
-		{
-			const size_t size_ = size();
+		[[nodiscard]] bool isSorted() const;
 
-			if (size_ <= 1)
-			{
-				return true;
-			}
+		[[nodiscard]] String join(StringView sep = U", "_sv, StringView begin = U"{"_sv, StringView end = U"}"_sv) const;
 
-			const value_type* p = data();
-
-			for (size_t i = 0; i < size_ - 1; ++i)
-			{
-				if (p[i] > p[i + 1])
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		[[nodiscard]] String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
-		{
-			String s;
-
-			s.append(begin);
-
-			value_type isFirst = true;
-
-			for (const auto& v : *this)
-			{
-				if (isFirst)
-				{
-					isFirst = false;
-				}
-				else
-				{
-					s.append(sep);
-				}
-
-				s.append(ToString(v));
-			}
-
-			s.append(end);
-
-			return s;
-		}
-
-		Array& keep_if(std::function<value_type(value_type)> f)
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
+		Array& keep_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), std::not_fn(f)), end());
 
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		auto map(Fty f) const
 		{
-			Array<std::result_of_t<Fty(value_type)>> new_array;
+			Array<std::decay_t<std::invoke_result_t<Fty, bool>>> new_array;
 
 			new_array.reserve(size());
 
@@ -619,7 +492,7 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] bool none(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -633,8 +506,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, bool, bool>>>
+		auto reduce(Fty f, R init) const
 		{
 			auto value = init;
 
@@ -646,7 +519,7 @@ namespace s3d
 			return value;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool, bool>>* = nullptr>
 		auto reduce1(Fty f) const
 		{
 			if (empty())
@@ -657,7 +530,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			std::result_of_t<Fty(value_type, value_type)> value = *it++;
+			std::invoke_result_t<Fty, value_type, value_type> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -667,68 +540,17 @@ namespace s3d
 			return value;
 		}
 
-		Array& remove(const value_type& value)
-		{
-			erase(std::remove(begin(), end(), value), end());
+		Array& remove(const value_type& value);
 
-			return *this;
-		}
+		[[nodiscard]] Array removed(const value_type& value) const &;
 
-		[[nodiscard]] Array removed(const value_type& value) const &
-		{
-			Array new_array;
+		[[nodiscard]] Array removed(const value_type& value) &&;
 
-			for (const auto& v : *this)
-			{
-				if (v != value)
-				{
-					new_array.push_back(v);
-				}
-			}
+		Array& remove_at(size_t index);
 
-			return new_array;
-		}
+		[[nodiscard]] Array removed_at(size_t index) const;
 
-		[[nodiscard]] Array removed(const value_type& value) &&
-		{
-			erase(std::remove(begin(), end(), value), end());
-
-			shrink_to_fit();
-
-			return std::move(*this);
-		}
-
-		Array& remove_at(const size_t index)
-		{
-			if (index >= size())
-			{
-				throw std::out_of_range("Array::remove_at() index out of range");
-			}
-
-			erase(begin() + index);
-
-			return *this;
-		}
-
-		[[nodiscard]] Array removed_at(const size_t index) const
-		{
-			if (index >= size())
-			{
-				throw std::out_of_range("Array::removed_at() index out of range");
-			}
-
-			Array new_array;
-
-			new_array.reserve(size() - 1);
-
-			new_array.insert(new_array.end(), begin(), begin() + index);
-
-			new_array.insert(new_array.end(), begin() + index + 1, end());
-
-			return new_array;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		Array& remove_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), f), end());
@@ -736,7 +558,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array removed_if(Fty f) const &
 		{
 			Array new_array;
@@ -752,7 +574,7 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
@@ -762,48 +584,13 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& replace(const value_type& oldValue, const value_type& newValue)
-		{
-			for (auto& v : *this)
-			{
-				if (v == oldValue)
-				{
-					v = newValue;
-				}
-			}
+		Array& replace(const value_type& oldValue, const value_type& newValue);
 
-			return *this;
-		}
+		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) const &;
 
-		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) const &
-		{
-			Array new_array;
+		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) &&;
 
-			new_array.reserve(size());
-
-			for (const auto& v : *this)
-			{
-				if (v == oldValue)
-				{
-					new_array.push_back(newValue);
-				}
-				else
-				{
-					new_array.push_back(v);
-				}
-			}
-
-			return new_array;
-		}
-
-		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) &&
-		{
-			replace(oldValue, newValue);
-
-			return std::move(*this);
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		Array& replace_if(Fty f, const value_type& newValue)
 		{
 			for (auto& v : *this)
@@ -817,7 +604,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) const &
 		{
 			Array new_array;
@@ -839,7 +626,7 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) &&
 		{
 			replace_if(f, newValue);
@@ -847,26 +634,13 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& reverse()
-		{
-			std::reverse(begin(), end());
+		Array& reverse();
 
-			return *this;
-		}
+		[[nodiscard]] Array reversed() const &;
 
-		[[nodiscard]] Array reversed() const &
-		{
-			return Array(rbegin(), rend());
-		}
+		[[nodiscard]] Array reversed() &&;
 
-		[[nodiscard]] Array reversed() &&
-		{
-			reverse();
-
-			return std::move(*this);
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool&>>* = nullptr>
 		Array& reverse_each(Fty f)
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
@@ -877,7 +651,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		const Array& reverse_each(Fty f) const
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
@@ -888,54 +662,15 @@ namespace s3d
 			return *this;
 		}
 
-		Array& rotate(std::ptrdiff_t count = 1)
-		{
-			if (empty())
-			{
-				;
-			}
-			else if (count > 0) // rotation to the left
-			{
-				if (static_cast<size_t>(count) > size())
-				{
-					count %= size();
-				}
+		Array& rotate(std::ptrdiff_t count = 1);
 
-				std::rotate(begin(), begin() + count, end());
-			}
-			else if (count < 0) // rotation to the right
-			{
-				count = -count;
+		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) const &;
 
-				if (static_cast<size_t>(count) > size())
-				{
-					count %= size();
-				}
+		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) &&;
 
-				std::rotate(rbegin(), rbegin() + count, rend());
-			}
+		Array& shuffle();
 
-			return *this;
-		}
-
-		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) const &
-		{
-			return Array(*this).rotate(count);
-		}
-
-		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) &&
-		{
-			rotate(count);
-
-			return std::move(*this);
-		}
-
-		Array& shuffle()
-		{
-			return shuffle(GetDefaultRNG());
-		}
-
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		Array& shuffle(URBG&& rbg)
 		{
 			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
@@ -943,23 +678,17 @@ namespace s3d
 			return *this;
 		}
 
-		[[nodiscard]] Array shuffled() const &
-		{
-			return shuffled(GetDefaultRNG());
-		}
+		[[nodiscard]] Array shuffled() const &;
 
-		[[nodiscard]] Array shuffled() &&
-		{
-			return shuffled(GetDefaultRNG());
-		}
+		[[nodiscard]] Array shuffled() &&;
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array shuffled(URBG&& rbg) const &
 		{
 			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array shuffled(URBG&& rbg) &&
 		{
 			shuffle(std::forward<URBG>(rbg));
@@ -967,41 +696,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		[[nodiscard]] Array slice(const size_t index) const
-		{
-			if (index >= size())
-			{
-				return Array();
-			}
+		[[nodiscard]] Array slice(size_t index) const;
 
-			return Array(begin() + index, end());
-		}
+		[[nodiscard]] Array slice(size_t index, size_t length) const;
 
-		[[nodiscard]] Array slice(const size_t index, const size_t length) const
-		{
-			if (index >= size())
-			{
-				return Array();
-			}
+		Array& sort();
 
-			return Array(begin() + index, begin() + std::min(index + length, size()));
-		}
+		Array& stable_sort();
 
-		Array& sort()
-		{
-			std::sort(begin(), end());
-
-			return *this;
-		}
-
-		Array& stable_sort()
-		{
-			std::sort(begin(), end());
-
-			return *this;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		Array& sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
@@ -1009,7 +712,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		Array& stable_sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
@@ -1017,43 +720,27 @@ namespace s3d
 			return *this;
 		}
 
-		[[nodiscard]] Array sorted() const &
-		{
-			return Array(*this).sort();
-		}
+		[[nodiscard]] Array sorted() const &;
 
-		[[nodiscard]] Array stable_sorted() const &
-		{
-			return Array(*this).sort();
-		}
+		[[nodiscard]] Array stable_sorted() const &;
 
-		[[nodiscard]] Array sorted() &&
-		{
-			sort();
+		[[nodiscard]] Array sorted() &&;
 
-			return std::move(*this);
-		}
+		[[nodiscard]] Array stable_sorted() &&;
 
-		[[nodiscard]] Array stable_sorted() &&
-		{
-			sort();
-
-			return std::move(*this);
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		[[nodiscard]] Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		[[nodiscard]] Array stable_sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		[[nodiscard]] Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
@@ -1061,7 +748,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		[[nodiscard]] Array stable_sorted_by(Fty f) &&
 		{
 			sort_by(f);
@@ -1069,67 +756,27 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		[[nodiscard]] size_t sum() const
-		{
-			return count(true);
-		}
+		[[nodiscard]] size_t sum() const;
 
-		[[nodiscard]] Array take(const size_t n) const
-		{
-			return Array(begin(), begin() + std::min(n, size()));
-		}
+		[[nodiscard]] Array take(size_t n) const;
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		[[nodiscard]] Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
 
-		Array& unique()
-		{
-			sort();
+		Array& unique();
 
-			erase(std::unique(begin(), end()), end());
+		[[nodiscard]] Array uniqued() const &;
 
-			return *this;
-		}
+		[[nodiscard]] Array uniqued() &&;
 
-		[[nodiscard]] Array uniqued() const &
-		{
-			return Array(*this).unique();
-		}
+		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const;
 
-		[[nodiscard]] Array uniqued() &&
-		{
-			sort();
+	# ifdef SIV3D_CONCURRENT
 
-			erase(std::unique(begin(), end()), end());
-
-			shrink_to_fit();
-
-			return std::move(*this);
-		}
-
-		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const
-		{
-			Array new_array;
-
-			new_array.reserve(indices.size());
-
-			for (auto index : indices)
-			{
-				if (index >= size())
-				{
-					throw std::out_of_range("Array::values_at() index out of range");
-				}
-
-				new_array.push_back(operator[](index));
-			}
-
-			return new_array;
-		}
-
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
 		size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
 			if (isEmpty())
@@ -1164,7 +811,7 @@ namespace s3d
 			return result;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool&>>* = nullptr>
 		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
 		{
 			if (isEmpty())
@@ -1197,7 +844,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
 			if (isEmpty())
@@ -1230,10 +877,10 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
-			Array<std::result_of_t<Fty(value_type)>> new_array;
+			Array<std::decay_t<std::invoke_result_t<Fty, bool>>> new_array;
 
 			if (isEmpty())
 			{
@@ -1275,5 +922,7 @@ namespace s3d
 
 			return new_array;
 		}
+
+	# endif
 	};
 }

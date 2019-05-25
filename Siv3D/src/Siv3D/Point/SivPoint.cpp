@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -52,13 +52,14 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Point& value)
 	{
-		const size_t bufferSize = 12 * 2 + 4;
+		const size_t bufferSize = 12 * 2 + 5;
 		char32 buf[bufferSize];
 		char32* p = buf;
 
 		*(p++) = U'(';
 		detail::AppendInt(&p, value.x);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.y);
 		*(p++) = U')';
 

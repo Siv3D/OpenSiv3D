@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/BigFloat.hpp>
 # include <cstring>
-# include "CBigFloat.hpp"
-# include "../BigInt/CBigInt.hpp"
+# include <Siv3D/BigFloat.hpp>
+# include <BigInt/BigIntDetail.hpp>
+# include "BigFloatDetail.hpp"
 
 namespace s3d
 {
@@ -22,62 +22,50 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
+	BigFloat::BigFloat()
+		: BigFloat(0.0)
+	{
+
+	}
+
 	BigFloat::BigFloat(const int64 i)
-		: pImpl(std::make_unique<CBigFloat>())
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const uint64 i)
-		: pImpl(std::make_unique<CBigFloat>())
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const long double f)
-		: pImpl(std::make_unique<CBigFloat>())
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(f);
 	}
 
 	BigFloat::BigFloat(const BigInt& number)
-		: pImpl(std::make_unique<CBigFloat>())
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(number);
 	}
 
-	BigFloat::BigFloat(const char* number)
-		: pImpl(std::make_unique<CBigFloat>())
+	BigFloat::BigFloat(const std::string_view number)
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(number);
 	}
 
-	BigFloat::BigFloat(const char32* number)
-		: pImpl(std::make_unique<CBigFloat>())
-	{
-		assign(number);
-	}
-
-	BigFloat::BigFloat(const std::string& number)
-		: pImpl(std::make_unique<CBigFloat>())
-	{
-		assign(number);
-	}
-
-	BigFloat::BigFloat(const std::wstring& number)
-		: pImpl(std::make_unique<CBigFloat>())
-	{
-		assign(number);
-	}
-
-	BigFloat::BigFloat(const String& number)
-		: pImpl(std::make_unique<CBigFloat>())
+	BigFloat::BigFloat(const StringView number)
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const BigFloat& other)
-		: pImpl(std::make_unique<CBigFloat>())
+		: pImpl(std::make_unique<BigFloatDetail>())
 	{
 		assign(other);
 	}
@@ -129,33 +117,21 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat& BigFloat::assign(const char* number)
+	BigFloat& BigFloat::assign(const std::string_view number)
 	{
+# if defined(SIV3D_TARGET_LINUX)
+		// work around (clang)
+		const std::string s{ number };
+		this->pImpl->data.assign(s);
+# else
 		this->pImpl->data.assign(number);
+# endif
 		return *this;
 	}
 
-	BigFloat& BigFloat::assign(const char32* number)
+	BigFloat& BigFloat::assign(const StringView number)
 	{
-		this->pImpl->data.assign(std::string(number, number + std::char_traits<char32>::length(number)));
-		return *this;
-	}
-
-	BigFloat& BigFloat::assign(const std::string& number)
-	{
-		this->pImpl->data.assign(number);
-		return *this;
-	}
-
-	BigFloat& BigFloat::assign(const std::wstring& number)
-	{
-		this->pImpl->data.assign(std::string(number.begin(), number.end()));
-		return *this;
-	}
-	
-	BigFloat& BigFloat::assign(const String& number)
-	{
-		this->pImpl->data.assign(std::string(number.begin(), number.end()));
+		this->pImpl->data.assign(Unicode::NarrowAscii(number));
 		return *this;
 	}
 
@@ -171,11 +147,56 @@ namespace s3d
 		return *this;
 	}
 
+	BigFloat& BigFloat::operator =(int64 i)
+	{
+		return assign(i);
+	}
+
+	BigFloat& BigFloat::operator =(uint64 i)
+	{
+		return assign(i);
+	}
+
+	BigFloat& BigFloat::operator =(long double f)
+	{
+		return assign(f);
+	}
+
+	BigFloat& BigFloat::operator =(const BigInt& number)
+	{
+		return assign(number);
+	}
+
+	BigFloat& BigFloat::operator =(const std::string_view number)
+	{
+		return assign(number);
+	}
+
+	BigFloat& BigFloat::operator =(const StringView number)
+	{
+		return assign(number);
+	}
+
+	BigFloat& BigFloat::operator =(const BigFloat& other)
+	{
+		return assign(other);
+	}
+
+	BigFloat& BigFloat::operator =(BigFloat&& other)
+	{
+		return assign(std::move(other));
+	}
+
 	////////////////////////////////////////////////////////////////
 	//
 	//	+, ++
 	//
 	////////////////////////////////////////////////////////////////
+
+	const BigFloat& BigFloat::operator +() const
+	{
+		return *this;
+	}
 
 	BigFloat& BigFloat::operator ++()
 	{
@@ -214,7 +235,7 @@ namespace s3d
 	BigFloat BigFloat::operator +(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data + CBigFloat::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data + BigFloatDetail::value_type(number.pImpl->data);
 		return tmp;
 	}
 
@@ -245,7 +266,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator +=(const BigInt& number)
 	{
-		this->pImpl->data += CBigFloat::value_type(number.pImpl->data);
+		this->pImpl->data += BigFloatDetail::value_type(number.pImpl->data);
 		return *this;
 	}
 
@@ -260,6 +281,19 @@ namespace s3d
 	//	-, --
 	//
 	////////////////////////////////////////////////////////////////
+
+	BigFloat BigFloat::operator -() const &
+	{
+		BigFloat tmp;
+		tmp.pImpl->data = -(this->pImpl->data);
+		return tmp;
+	}
+
+	BigFloat BigFloat::operator -() &&
+	{
+		this->pImpl->data = -(this->pImpl->data);
+		return std::move(*this);
+	}
 
 	BigFloat& BigFloat::operator --()
 	{
@@ -298,7 +332,7 @@ namespace s3d
 	BigFloat BigFloat::operator -(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data - CBigFloat::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data - BigFloatDetail::value_type(number.pImpl->data);
 		return tmp;
 	}
 
@@ -329,7 +363,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator -=(const BigInt& number)
 	{
-		this->pImpl->data -= CBigFloat::value_type(number.pImpl->data);
+		this->pImpl->data -= BigFloatDetail::value_type(number.pImpl->data);
 		return *this;
 	}
 
@@ -369,7 +403,7 @@ namespace s3d
 	BigFloat BigFloat::operator *(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data * CBigFloat::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data * BigFloatDetail::value_type(number.pImpl->data);
 		return tmp;
 	}
 
@@ -400,7 +434,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator *=(const BigInt& number)
 	{
-		this->pImpl->data *= CBigFloat::value_type(number.pImpl->data);
+		this->pImpl->data *= BigFloatDetail::value_type(number.pImpl->data);
 		return *this;
 	}
 
@@ -440,7 +474,7 @@ namespace s3d
 	BigFloat BigFloat::operator /(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data / CBigFloat::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data / BigFloatDetail::value_type(number.pImpl->data);
 		return tmp;
 	}
 
@@ -471,7 +505,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator /=(const BigInt& number)
 	{
-		this->pImpl->data /= CBigFloat::value_type(number.pImpl->data);
+		this->pImpl->data /= BigFloatDetail::value_type(number.pImpl->data);
 		return *this;
 	}
 
@@ -536,7 +570,7 @@ namespace s3d
 			return 1;
 		}
 
-		return this->pImpl->data.compare(CBigFloat::value_type(number.pImpl->data));
+		return this->pImpl->data.compare(BigFloatDetail::value_type(number.pImpl->data));
 	}
 
 	int32 BigFloat::compare(const BigFloat& number) const
@@ -634,8 +668,30 @@ namespace s3d
 	String BigFloat::str() const
 	{
 		const std::string t = stdStr();
-		
+
 		return String(t.begin(), t.end());
+	}
+
+
+	inline namespace Literals
+	{
+		inline namespace BigNumLiterals
+		{
+			BigFloat operator ""_bigF(const unsigned long long int i)
+			{
+				return BigFloat(i);
+			}
+
+			BigFloat operator ""_bigF(const char* number, size_t)
+			{
+				return BigFloat(number);
+			}
+
+			BigFloat operator ""_bigF(const char32* number, size_t)
+			{
+				return BigFloat(number);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -698,7 +754,7 @@ namespace s3d
 
 		input >> s;
 
-		value.assign(s);
+		value.assign(Unicode::FromWString(s));
 
 		return input;
 	}
@@ -709,12 +765,12 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigFloat::CBigFloat& BigFloat::detail()
+	BigFloat::BigFloatDetail& BigFloat::detail()
 	{
 		return *pImpl;
 	}
 
-	const BigFloat::CBigFloat& BigFloat::detail() const
+	const BigFloat::BigFloatDetail& BigFloat::detail() const
 	{
 		return *pImpl;
 	}

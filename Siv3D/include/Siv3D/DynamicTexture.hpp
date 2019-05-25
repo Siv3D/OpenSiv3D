@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,8 +25,6 @@ namespace s3d
 	/// </remarks>
 	class DynamicTexture : public Texture
 	{
-	private:
-
 	public:
 
 		DynamicTexture() = default;
@@ -35,15 +33,15 @@ namespace s3d
 
 		DynamicTexture(uint32 width, uint32 height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
-		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)
-			: DynamicTexture(size.x, size.y, format, desc) {}
+		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
-		DynamicTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)
-			: DynamicTexture(size.x, size.y, color, format, desc) {}
+		DynamicTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
 		explicit DynamicTexture(const Image& image, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
 		bool fill(const ColorF& color);
+
+		bool fillRegion(const ColorF& color, const Rect& rect);
 
 		/// <summary>
 		/// 動的テクスチャの中身を同じ大きさの画像で更新します。
@@ -56,5 +54,11 @@ namespace s3d
 		/// 動的テクスチャの更新か作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
 		bool fill(const Image& image);
+
+		bool fillRegion(const Image& image, const Rect& rect);
+
+		bool fillIfNotBusy(const Image& image);
+
+		bool fillRegionIfNotBusy(const Image& image, const Rect& rect);
 	};
 }

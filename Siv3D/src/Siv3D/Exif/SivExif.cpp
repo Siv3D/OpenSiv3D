@@ -2,25 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <easyexif/exif.h>
 # include <Siv3D/Exif.hpp>
 # include <Siv3D/BinaryReader.hpp>
-# include "../../ThirdParty/easyexif/exif.h"
 
 namespace s3d
 {
-	Optional<ExifInfo> ExifInfo::Read(const FilePath& path)
+	Optional<Exif> Exif::Read(const FilePath& path)
 	{
 		return Read(BinaryReader(path));
 	}
 
-	Optional<ExifInfo> ExifInfo::Read(const IReader& reader)
+	Optional<Exif> Exif::Read(const IReader& reader)
 	{
 		Array<uint8> data(static_cast<size_t>(reader.size()));
 
@@ -33,7 +33,7 @@ namespace s3d
 			return none;
 		}
 
-		ExifInfo result;
+		Exif result;
 		result.imageDescription = Unicode::Widen(info.ImageDescription);
 		result.make = Unicode::Widen(info.Make);
 		result.model = Unicode::Widen(info.Model);

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -59,49 +59,49 @@ namespace s3d
 			: x(static_cast<value_type>(v.x))
 			, y(static_cast<value_type>(v.y)) {}
 
-		constexpr value_type elem(size_t index) const noexcept
+		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
 		{
 			return index == 0 ? x
 				: index == 1 ? y
 				: 0;
 		}
 
-		constexpr Vector2D operator +() const noexcept
+		[[nodiscard]] constexpr Vector2D operator +() const noexcept
 		{
 			return *this;
 		}
 
-		constexpr Vector2D operator -() const noexcept
+		[[nodiscard]] constexpr Vector2D operator -() const noexcept
 		{
 			return{ -x, -y };
 		}
 
-		constexpr Vector2D operator +(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr Vector2D operator +(const Vector2D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y };
 		}
 
-		constexpr Vector2D operator -(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr Vector2D operator -(const Vector2D& v) const noexcept
 		{
 			return{ x - v.x, y - v.y };
 		}
 
-		constexpr Vector2D operator *(value_type s) const noexcept
+		[[nodiscard]] constexpr Vector2D operator *(value_type s) const noexcept
 		{
 			return{ x * s, y * s };
 		}
 
-		constexpr Vector2D operator *(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr Vector2D operator *(const Vector2D& v) const noexcept
 		{
 			return{ x * v.x, y * v.y };
 		}
 
-		constexpr Vector2D operator /(value_type s) const noexcept
+		[[nodiscard]] constexpr Vector2D operator /(value_type s) const noexcept
 		{
 			return *this * (static_cast<value_type>(1.0) / s);
 		}
 
-		constexpr Vector2D operator /(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr Vector2D operator /(const Vector2D& v) const noexcept
 		{
 			return{ x / v.x, y / v.y };
 		}
@@ -141,51 +141,14 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr bool operator ==(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Vector2D& v) const noexcept
 		{
 			return v.x == x && v.y == y;
 		}
 
-		constexpr bool operator !=(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Vector2D& v) const noexcept
 		{
 			return v.x != x || v.y != y;
-		}
-
-		/// <summary>
-		/// Vector2D{ x, x }
-		/// </summary>
-		constexpr Vector2D xx() const noexcept
-		{
-			return{ x, x };
-		}
-
-		/// <summary>
-		/// Vector2D{ x, y }
-		/// </summary>
-		constexpr Vector2D xy() const noexcept
-		{
-			return{ x, y };
-		}
-
-		/// <summary>
-		/// Vector2D{ y, x }
-		/// </summary>
-		constexpr Vector2D yx() const noexcept
-		{
-			return{ y, x };
-		}
-
-		/// <summary>
-		/// Vector2D{ y, y }
-		/// </summary>
-		constexpr Vector2D yy() const noexcept
-		{
-			return{ y, y };
-		}
-
-		constexpr Point asPoint() const noexcept
-		{
-			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
 		}
 
 		constexpr Vector2D& set(value_type _x, value_type _y) noexcept
@@ -220,43 +183,43 @@ namespace s3d
 			return *this += v;
 		}
 
+		[[nodiscard]] Vector2D clamped(const RectF& rect) const noexcept;
+
 		Vector2D& clamp(const RectF& rect) noexcept;
 
-		[[nodiscard]] Vector2D clamped(const RectF& rect) noexcept;
-
-		constexpr bool isZero() const noexcept
+		[[nodiscard]] constexpr bool isZero() const noexcept
 		{
 			return x == static_cast<value_type>(0.0)
 				&& y == static_cast<value_type>(0.0);
 		}
 
-		bool hasNaN() const noexcept
+		[[nodiscard]] bool hasNaN() const noexcept
 		{
 			return std::isnan(x)
 				|| std::isnan(y);
 		}
 
-		constexpr value_type dot(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr value_type dot(const Vector2D& v) const noexcept
 		{
 			return x * v.x + y * v.y;
 		}
 
-		constexpr value_type cross(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr value_type cross(const Vector2D& v) const noexcept
 		{
 			return x * v.y - y * v.x;
 		}
 
-		value_type length() const noexcept
+		[[nodiscard]] value_type length() const noexcept
 		{
 			return std::sqrt(lengthSq());
 		}
 
-		constexpr value_type lengthSq() const noexcept
+		[[nodiscard]] constexpr value_type lengthSq() const noexcept
 		{
 			return dot(*this);
 		}
 
-		value_type lengthInv() const noexcept
+		[[nodiscard]] value_type lengthInv() const noexcept
 		{
 			return static_cast<value_type>(1.0) / length();
 		}
@@ -273,22 +236,36 @@ namespace s3d
 			return *this *= (_length / len);
 		}
 
-		value_type distanceFrom(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] Vector2D clampLength(value_type maxLength) const noexcept
+		{
+			const value_type len = length();
+
+			if (len <= maxLength)
+			{
+				return *this;
+			}
+			else
+			{
+				return *this * (maxLength / len);
+			}
+		}
+
+		[[nodiscard]] value_type distanceFrom(value_type _x, value_type _y) const noexcept
 		{
 			return distanceFrom({ _x, _y });
 		}
 
-		value_type distanceFrom(const Vector2D& v) const noexcept
+		[[nodiscard]] value_type distanceFrom(const Vector2D& v) const noexcept
 		{
 			return (*this - v).length();
 		}
 
-		constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept
 		{
 			return distanceFromSq({ _x, _y });
 		}
 
-		constexpr value_type distanceFromSq(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr value_type distanceFromSq(const Vector2D& v) const noexcept
 		{
 			return (*this - v).lengthSq();
 		}
@@ -335,16 +312,53 @@ namespace s3d
 			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
 		}
 
+		[[nodiscard]] constexpr Point asPoint() const noexcept
+		{
+			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
+		}
+
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
+		}
+
+		/// <summary>
+		/// Vector2D{ x, x }
+		/// </summary>
+		[[nodiscard]] constexpr Vector2D xx() const noexcept
+		{
+			return{ x, x };
+		}
+
+		/// <summary>
+		/// Vector2D{ x, y }
+		/// </summary>
+		[[nodiscard]] constexpr Vector2D xy() const noexcept
+		{
+			return{ x, y };
+		}
+
+		/// <summary>
+		/// Vector2D{ y, x }
+		/// </summary>
+		[[nodiscard]] constexpr Vector2D yx() const noexcept
+		{
+			return{ y, x };
+		}
+
+		/// <summary>
+		/// Vector2D{ y, y }
+		/// </summary>
+		[[nodiscard]] constexpr Vector2D yy() const noexcept
+		{
+			return{ y, y };
 		}
  
 		/// <summary>
 		/// Vector2D{ 0, 0 }
 		/// </summary>
-		static constexpr Vector2D Zero() noexcept
+		[[nodiscard]] static constexpr Vector2D Zero() noexcept
 		{
 			return{ 0, 0 };
 		}
@@ -352,7 +366,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 1, 1 }
 		/// </summary>
-		static constexpr Vector2D One() noexcept
+		[[nodiscard]] static constexpr Vector2D One() noexcept
 		{
 			return{ 1, 1 };
 		}
@@ -360,7 +374,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ value, value }
 		/// </summary>
-		static constexpr Vector2D All(value_type value = 1) noexcept
+		[[nodiscard]] static constexpr Vector2D All(value_type value = 1) noexcept
 		{
 			return{ value, value };
 		}
@@ -368,7 +382,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 1, 0 }
 		/// </summary>
-		static constexpr Vector2D UnitX() noexcept
+		[[nodiscard]] static constexpr Vector2D UnitX() noexcept
 		{
 			return{ 1, 0 };
 		}
@@ -376,7 +390,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, 1 }
 		/// </summary>
-		static constexpr Vector2D UnitY() noexcept
+		[[nodiscard]] static constexpr Vector2D UnitY() noexcept
 		{
 			return{ 0, 1 };
 		}
@@ -384,7 +398,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ -length, 0 }
 		/// </summary>
-		static constexpr Vector2D Left(value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Vector2D Left(value_type length = 1) noexcept
 		{
 			return{ -length, 0 };
 		}
@@ -392,7 +406,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ length, 0 }
 		/// </summary>
-		static constexpr Vector2D Right(value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Vector2D Right(value_type length = 1) noexcept
 		{
 			return{ length, 0 };
 		}
@@ -400,7 +414,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, -length }
 		/// </summary>
-		static constexpr Vector2D Up(value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Vector2D Up(value_type length = 1) noexcept
 		{
 			return{ 0, -length };
 		}
@@ -408,20 +422,21 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, length }
 		/// </summary>
-		static constexpr Vector2D Down(value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Vector2D Down(value_type length = 1) noexcept
 		{
 			return{ 0, length };
 		}
 	};
 
 	template <class Type, class U>
-	inline constexpr Vector2D<Type> operator *(U s, const Vector2D<Type>& v) noexcept
+	[[nodiscard]] inline constexpr Vector2D<Type> operator *(U s, const Vector2D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);
 	}
 
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
+	using SizeF		= Vec2;
 }
 
 //////////////////////////////////////////////////
@@ -440,7 +455,7 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector2D<Type>& value)
 	{
 		return os << CharType('(')
-			<< value.x << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
 			<< value.y << CharType(')');
 	}
 
@@ -478,15 +493,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter, class Type>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Vector2D<Type>& value)
+	template <class Type>
+	struct formatter<s3d::Vector2D<Type>, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y);
-	}
+		template <class Context>
+		auto format(const s3d::Vector2D<Type>& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y);
+		}
+	};
 }

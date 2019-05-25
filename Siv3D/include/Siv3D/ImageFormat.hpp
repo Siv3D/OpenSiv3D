@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -136,6 +136,32 @@ namespace s3d
 		BinaryRGB = P6
 	};
 
+	/// <summary>
+	/// WebP の圧縮方法
+	/// </summary>
+	enum class WebPMethod
+	{
+		/// <summary>
+		/// 高速圧縮	(圧縮率と品質： 最低、	速度： 早い)
+		/// </summary>
+		Fast,
+
+		/// <summary>
+		/// 通常圧縮	(圧縮率と品質： 普通、	速度： 普通)
+		/// </summary>
+		Default,
+
+		/// <summary>
+		/// 高圧縮	(圧縮率と品質： 高、	速度： 遅い)
+		/// </summary>
+		Quality,
+
+		/// <summary>
+		/// 最高圧縮	(圧縮率と品質： 最高、	速度： 非常に遅い)
+		/// </summary>
+		BestQuality,
+	};
+
 	class IImageFormat
 	{
 	public:
@@ -159,14 +185,14 @@ namespace s3d
 
 	namespace ImageProcessing
 	{
-		ImageFormat GetFormat(const FilePath& path);
+		[[nodiscard]] ImageFormat GetFormat(const FilePath& path);
 
-		ImageFormat GetFormat(const IReader& reader);
+		[[nodiscard]] ImageFormat GetFormat(const IReader& reader);
 
-		ImageFormat GetFormatFromFilePath(const FilePath& path);
+		[[nodiscard]] ImageFormat GetFormatFromFilePath(const FilePath& path);
 
-		Size GetSize(const FilePath& path);
+		[[nodiscard]] Size GetSize(const FilePath& path);
 
-		Size GetSize(const IReader& reader);
+		[[nodiscard]] Size GetSize(const IReader& reader);
 	}
 }

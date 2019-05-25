@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -75,15 +75,9 @@ namespace s3d
 			return{ r, theta + Math::Pi, phi + Math::Pi };
 		}
 
-		[[nodiscard]] Vec3 operator +(const Vec3& v) const
-		{
-			return toVec3() + v;
-		}
+		[[nodiscard]] Vec3 operator +(const Vec3& v) const;
 
-		[[nodiscard]] Vec3 operator -(const Vec3& v) const
-		{
-			return toVec3() - v;
-		}
+		[[nodiscard]] Vec3 operator -(const Vec3& v) const;
 
 		[[nodiscard]] Vec3 toFloat3() const
 		{
@@ -112,17 +106,14 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Spherical& value)
-	{
-		Formatter(formatData, Vec3(value.r, value.theta, value.phi));
-	}
+	void Formatter(FormatData& formatData, const Spherical& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Spherical& value)
 	{
 		return output		<< CharType('(')
-			<< value.r		<< CharType(',')
-			<< value.theta	<< CharType(',')
+			<< value.r		<< CharType(',') << CharType(' ')
+			<< value.theta	<< CharType(',') << CharType(' ')
 			<< value.phi	<< CharType(')');
 	}
 
@@ -161,15 +152,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Spherical& value)
+	template <>
+	struct formatter<s3d::Spherical, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.r, value.theta, value.phi);
-	}
+		template <class Context>
+		auto format(const s3d::Spherical& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.theta, value.phi);
+		}
+	};
 }

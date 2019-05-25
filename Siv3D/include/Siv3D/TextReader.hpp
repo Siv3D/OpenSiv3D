@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,9 +25,9 @@ namespace s3d
 	{
 	private:
 
-		class CTextReader;
+		class TextReaderDetail;
 
-		std::shared_ptr<CTextReader> pImpl;
+		std::shared_ptr<TextReaderDetail> pImpl;
 
 	public:
 
@@ -35,11 +35,6 @@ namespace s3d
 		/// デフォルトコンストラクタ
 		/// </summary>
 		TextReader();
-
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
-		~TextReader();
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -50,11 +45,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		explicit TextReader(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified)
-			: TextReader()
-		{
-			open(path, encoding);
-		}
+		explicit TextReader(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -81,11 +72,12 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		explicit TextReader(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding = unspecified)
-			: TextReader()
-		{
-			open(reader, encoding);
-		}
+		explicit TextReader(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding = unspecified);
+
+		/// <summary>
+		/// デストラクタ
+		/// </summary>
+		~TextReader();
 
 		/// <summary>
 		/// テキストファイルを開きます。

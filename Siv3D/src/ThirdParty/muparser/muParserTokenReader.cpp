@@ -902,7 +902,7 @@ namespace mu
     std::size_t iEnd(0), iSkip(0);
 
     // parser over escaped '\"' end replace them with '"'
-    for(iEnd=(int)strBuf.find( _T("\"") ); iEnd!=0 && iEnd!=string_type::npos; iEnd=(int)strBuf.find( _T("\""), iEnd))
+    for(iEnd=(int)strBuf.find( _T('\"') ); iEnd!=0 && iEnd!=string_type::npos; iEnd=(int)strBuf.find( _T('\"'), iEnd))
     {
       if (strBuf[iEnd-1]!='\\') break;
       strBuf.replace(iEnd-1, 2, _T("\"") );
@@ -920,7 +920,7 @@ namespace mu
 		m_pParser->m_vStringBuf.push_back(strTok); // Store string in internal buffer
     a_Tok.SetString(strTok, m_pParser->m_vStringBuf.size());
 
-    m_iPos += (int)strTok.length() + 2 + (int)iSkip;  // +2 wg AnfÅErungszeichen; +iSkip fÅE entfernte escape zeichen
+    m_iPos += (int)strTok.length() + 2 + (int)iSkip;  // +2 for quotes; +iSkip for escape characters 
     m_iSynFlags = noANY ^ ( noARG_SEP | noBC | noOPT | noEND );
 
     return true;

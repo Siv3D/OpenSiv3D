@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,6 +24,8 @@ namespace s3d
 			XInput_impl(size_t _userIndex);
 
 			bool isConnected() const;
+
+			explicit operator bool() const;
 
 			/// <summary>
 			/// 左トリガーにデッドゾーンを設定します。
@@ -174,13 +176,13 @@ namespace s3d
 			/// </summary>
 			double rightThumbY;
 	
-			Optional<int32> leftThumbD4(double threshold = 0.2) const;
+			[[nodiscard]] Optional<int32> leftThumbD4(double threshold = 0.2) const;
 
-			Optional<int32> leftThumbD8(double threshold = 0.2) const;
+			[[nodiscard]] Optional<int32> leftThumbD8(double threshold = 0.2) const;
 
-			Optional<int32> rightThumbD4(double threshold = 0.2) const;
+			[[nodiscard]] Optional<int32> rightThumbD4(double threshold = 0.2) const;
 
-			Optional<int32> rightThumbD8(double threshold = 0.2) const;
+			[[nodiscard]] Optional<int32> rightThumbD8(double threshold = 0.2) const;
 			
 			/// <summary>
 			/// バイブレーションを設定します。
@@ -196,7 +198,7 @@ namespace s3d
 			/// </returns>
 			void setVibration(double leftMotorSpeed, double rightMotorSpeed) const;
 
-			std::pair<double, double> getVibration() const;
+			[[nodiscard]] std::pair<double, double> getVibration() const;
 
 			/// <summary>
 			/// バイブレーションを停止します。

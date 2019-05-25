@@ -109,7 +109,7 @@ namespace s3d
 	//    http://javascript.poly2tri.googlecode.com/hg/index.html
 	//
 	// FIXME: what is ignoreFills and ignoreHoles for?  kaen?
-	bool Triangulate(const Array<Array<Vec2>>& inputPolygons, const Array<Vec2>& boundingPolygon, Array<Float2> &vertices, Array<uint32>& indices)
+	bool Triangulate(const Array<Array<Vec2>>& inputPolygons, const Array<Vec2>& boundingPolygon, Array<Float2> &vertices, Array<uint16>& indices)
 	{
 		// Use clipper to clean.  This upscales the floating point input
 		PolyTree polyTree;
@@ -193,13 +193,13 @@ namespace s3d
 			const size_t num_triangles = cdt.GetTriangles().size();
 			indices.resize(num_triangles * 3);
 			const auto begin = &base[0];
-			uint32* pDstIndex = indices.data();
+			uint16* pDstIndex = indices.data();
 
 			for (auto& currentTriangle : cdt.GetTriangles())
 			{
-				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(0) - begin);
-				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(1) - begin);
-				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(2) - begin);
+				*pDstIndex++ = static_cast<uint16>(currentTriangle->GetPoint(0) - begin);
+				*pDstIndex++ = static_cast<uint16>(currentTriangle->GetPoint(1) - begin);
+				*pDstIndex++ = static_cast<uint16>(currentTriangle->GetPoint(2) - begin);
 			}
 
 			break;

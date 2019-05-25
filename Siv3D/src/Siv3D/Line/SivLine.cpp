@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,9 +14,10 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/XXHash.hpp>
+# include <Siv3D/ByteArrayViewAdapter.hpp>
 # include <Siv3D/Shape2D.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -52,6 +53,25 @@ namespace s3d
 		}
 	}
 
+	Line Line::stretched(const value_type length) const noexcept
+	{
+		const position_type v = vector().setLength(length);
+
+		return Line(begin - v, end + v);
+	}
+
+	Line Line::stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
+	{
+		const position_type v = vector().normalized();
+
+		return Line(begin - v * lengthBegin, end + v * lengthEnd);
+	}
+
+	Line::value_type Line::length() const noexcept
+	{
+		return begin.distanceFrom(end);
+	}
+
 	Line::position_type Line::closest(const position_type& pos) const noexcept
 	{
 		Vec2 v = end - begin;
@@ -84,7 +104,7 @@ namespace s3d
 		const auto[y1, y2] = std::minmax(begin.y, end.y);
 		return RectF(x1, y1, x2 - x1, y2 - y1);
 	}
-	
+
 	//
 	// `Line::intersectsAt()` is based on
 	// https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
@@ -135,7 +155,7 @@ namespace s3d
 		// Two line segments are not parallel but do not intersect
 		return none;
 	}
-
+	
 	Optional<Line::position_type> Line::intersectsAtPrecise(const Line& line) const
 	{
 		if (*this == line)
@@ -162,7 +182,7 @@ namespace s3d
 			}
 		}
 	}
-
+	
 	const Line& Line::paintArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
 	{
 		Shape2D::Arrow(begin, end, width, headSize).asPolygon().paint(dst, color);
@@ -177,21 +197,41 @@ namespace s3d
 		return *this;
 	}
 
+	const Line& Line::draw(const ColorF& color) const
+	{
+		return draw(LineStyle::Default, 1.0, color);
+	}
+
+	const Line& Line::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		return draw(LineStyle::Default, 1.0, colorBegin, colorEnd);
+	}
+
+	const Line& Line::draw(double thickness, const ColorF& color) const
+	{
+		return draw(LineStyle::Default, thickness, color);
+	}
+
+	const Line& Line::draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		return draw(LineStyle::Default, thickness, colorBegin, colorEnd);
+	}
+
 	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF& color) const
 	{
 		const Float4 colorF = color.toFloat4();
 
-		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness), { colorF, colorF });
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLine(style, begin, end, static_cast<float>(thickness), { colorF, colorF });
 
 		return *this;
 	}
 
-	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const
+	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness),
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLine(style, begin, end, static_cast<float>(thickness),
 		{
-			colors[0].toFloat4(),
-			colors[1].toFloat4()
+			colorBegin.toFloat4(),
+			colorEnd.toFloat4()
 		});
 
 		return *this;
@@ -202,5 +242,14 @@ namespace s3d
 		Shape2D::Arrow(begin, end, width, headSize).draw(color);
 
 		return *this;
+	}
+
+	void Formatter(FormatData& formatData, const Line& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.begin);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.end);
+		formatData.string.push_back(U')');
 	}
 }

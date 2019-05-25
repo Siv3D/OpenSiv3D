@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -51,14 +51,21 @@ namespace s3d
 
 		Type* const m_data = AlignedMalloc<Type>();
 
+		bool m_hasDirty = false;
+
+		bool update()
+		{
+			return m_base._internal_update(m_data, Size);
+		}
+
 	public:
 
-		static const char* Name()
+		[[nodiscard]] static const char* Name()
 		{
 			return Type::Name();
 		}
 
-		static constexpr uint32 BindingPoint()
+		[[nodiscard]] static constexpr uint32 BindingPoint()
 		{
 			return Type::BindingPoint();
 		}
@@ -80,52 +87,60 @@ namespace s3d
 			AlignedFree(m_data);
 		}
 
-		constexpr size_t getDataSize() const noexcept
+		[[nodiscard]] constexpr size_t getDataSize() const noexcept
 		{
 			return Size;
 		}
 
-		const float* getPtr() const
+		[[nodiscard]] const float* getPtr() const
 		{
 			return static_cast<const float*>(static_cast<const void*>(m_data));
 		}
 
-		Type& get()
+		[[nodiscard]] Type& get()
+		{
+			m_hasDirty = true;
+			return *m_data;
+		}
+
+		[[nodiscard]] const Type& get() const
 		{
 			return *m_data;
 		}
 
-		const Type& get() const
+		bool _update_if_dirty()
 		{
-			return *m_data;
+			if (!m_hasDirty)
+			{
+				return true;
+			}
+
+			return update();
 		}
 
-		bool _internal_update()
-		{
-			return m_base._internal_update(m_data, Size);
-		}
-
-		const detail::ConstantBufferBase& base() const
+		[[nodiscard]] const detail::ConstantBufferBase& base() const
 		{
 			return m_base;
 		}
 
-		Type& operator *()
+		[[nodiscard]] Type& operator *()
+		{
+			m_hasDirty = true;
+			return *m_data;
+		}
+
+		[[nodiscard]] const Type& operator *() const
 		{
 			return *m_data;
 		}
 
-		const Type& operator *() const
+		[[nodiscard]] Type* operator ->()
 		{
-			return *m_data;
-		}
-
-		Type* operator ->()
-		{
+			m_hasDirty = true;
 			return m_data;
 		}
 
-		const Type* operator ->() const
+		[[nodiscard]] const Type* operator ->() const
 		{
 			return *m_data;
 		}

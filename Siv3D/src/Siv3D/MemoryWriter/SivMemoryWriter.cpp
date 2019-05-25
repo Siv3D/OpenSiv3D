@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,12 +12,12 @@
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/ReaderView.hpp>
-# include "CMemoryWriter.hpp"
+# include "MemoryWriterDetail.hpp"
 
 namespace s3d
 {
 	MemoryWriter::MemoryWriter()
-		: pImpl(std::make_shared<CMemoryWriter>())
+		: pImpl(std::make_shared<MemoryWriterDetail>())
 	{
 
 	}
@@ -75,5 +75,10 @@ namespace s3d
 	ByteArrayView MemoryWriter::view() const
 	{
 		return ByteArrayView(pImpl->data(), static_cast<size_t>(pImpl->size()));
+	}
+
+	ByteArray MemoryWriter::retrieve()
+	{
+		return pImpl->retrieve();
 	}
 }

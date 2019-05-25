@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,7 +17,7 @@ namespace s3d
 {
 	struct InputState
 	{
-		MillisecondsF pressedDuration{ 0 };
+		Duration _pressedDuration{ 0 };
 
 		Stopwatch stopwatch = Stopwatch{ true };
 
@@ -43,23 +43,23 @@ namespace s3d
 			}
 			else if (up)
 			{
-				pressedDuration = stopwatch.elapsedF();
+				_pressedDuration = stopwatch.elapsed();
 
 				stopwatch.reset();
 			}
 			else if (pressed)
 			{
-				pressedDuration = stopwatch.elapsedF();
+				_pressedDuration = stopwatch.elapsed();
 			}
 			else
 			{
-				pressedDuration = MillisecondsF(0);
+				_pressedDuration = Duration(0);
 			}
 		}
 
 		void clear()
 		{
-			pressedDuration = MillisecondsF(0);
+			_pressedDuration = Duration(0);
 
 			stopwatch.restart();
 

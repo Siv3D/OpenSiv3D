@@ -2,34 +2,34 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3DEngine.hpp>
+# include <Texture/ITexture.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "CAsset.hpp"
-# include "../Siv3DEngine.hpp"
-# include "../Texture/ITexture.hpp"
-# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		String GetAssetTypeName(const AssetType assetType)
+		constexpr StringView GetAssetTypeName(const AssetType assetType)
 		{
 			switch (assetType)
 			{
 			case AssetType::Audio:
-				return U"Audio";
+				return U"Audio"_sv;
 			case AssetType::Texture:
-				return U"Texture";
+				return U"Texture"_sv;
 			case AssetType::Font:
-				return U"Font";
+				return U"Font"_sv;
 			default:
-				return U"";
+				return U"Unknown"_sv;
 			}
 		}
 	}
@@ -41,7 +41,9 @@ namespace s3d
 
 	CAsset::~CAsset()
 	{
-		Siv3DEngine::GetTexture()->update(Largest<size_t>());
+		LOG_TRACE(U"CAsset::~CAsset()");
+
+		Siv3DEngine::Get<ISiv3DTexture>()->updateAsync(Largest<size_t>);
 		
 		// wait for all
 		for (auto& assetList : m_assetLists)
@@ -53,16 +55,16 @@ namespace s3d
 		}
 	}
 
-	bool CAsset::init()
+	void CAsset::init()
 	{
-		LOG_INFO(U"ℹ️ Asset initialized");
+		LOG_TRACE(U"CAsset::init()");
 
-		return true;
+		LOG_INFO(U"ℹ️ Asset initialized");
 	}
 
 	void CAsset::update()
 	{
-
+		Siv3DEngine::Get<ISiv3DTexture>()->updateAsync(4);
 	}
 
 	bool CAsset::registerAsset(const AssetType assetType, const String& name, std::unique_ptr<IAsset>&& asset)
@@ -78,7 +80,7 @@ namespace s3d
 
 		auto result = assetList.emplace(name, std::move(asset));
 
-		LOG_DEBUG(U"{}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
 
 		if (result.first.value()->getParameter().loadAsync)
 		{
@@ -153,7 +155,7 @@ namespace s3d
 
 			pAsset->preload();
 
-			LOG_DEBUG(U"{}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
 		return pAsset->loadSucceeded();
@@ -178,7 +180,7 @@ namespace s3d
 
 		pAsset->release();
 
-		LOG_DEBUG(U"{}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)
@@ -214,7 +216,7 @@ namespace s3d
 
 		assetList.erase(it);
 
-		LOG_DEBUG(U"{}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::unregisterAll(const AssetType assetType)

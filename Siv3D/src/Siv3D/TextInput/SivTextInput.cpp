@@ -2,20 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
-# include "ITextInput.hpp"
+# include <Siv3DEngine.hpp>
 # include <Siv3D/TextInput.hpp>
-# include <Siv3D/Window.hpp>
+# include <Siv3D/Char.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/Logger.hpp>
+# include "ITextInput.hpp"
 
 namespace s3d
 {
@@ -23,12 +24,12 @@ namespace s3d
 	{
 		String GetRawInput()
 		{
-			return Siv3DEngine::GetTextInput()->getChars();
+			return Siv3DEngine::Get<ISiv3DTextInput>()->getChars();
 		}
 		
 		size_t UpdateText(String& text, size_t cursorPos, const TextInputMode mode)
 		{
-			const String chars = Siv3DEngine::GetTextInput()->getChars();
+			const String chars = Siv3DEngine::Get<ISiv3DTextInput>()->getChars();
 			
 			if (chars.empty())
 			{
@@ -90,27 +91,27 @@ namespace s3d
 		
 		String GetEditingText()
 		{
-			return Siv3DEngine::GetTextInput()->getEditingText();
+			return Siv3DEngine::Get<ISiv3DTextInput>()->getEditingText();
 		}
 	}
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	namespace win::TextInput
+	namespace Platform::Windows::TextInput
 	{
 		void DisableIME()
 		{
-			Siv3DEngine::GetTextInput()->enableIME(false);
+			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(false);
 		}
 
 		const Array<String>& GetCandidates()
 		{
-			return Siv3DEngine::GetTextInput()->getCandidates();
+			return Siv3DEngine::Get<ISiv3DTextInput>()->getCandidates();
 		}
 
 		std::pair<int32, int32> GetCursorIndex()
 		{
-			return Siv3DEngine::GetTextInput()->getCursorIndex();
+			return Siv3DEngine::Get<ISiv3DTextInput>()->getCursorIndex();
 		}
 
 		void DrawCandidateWindow(const Font& font,
@@ -122,10 +123,10 @@ namespace s3d
 		{
 			const double candidatesMargin = 4.0;
 			const String editingText = s3d::TextInput::GetEditingText();
-			const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
+			const auto[editingCursorIndex, editingTargetlength] = GetCursorIndex();
 			const bool hasEditingTarget = (editingTargetlength > 0);
 			const String editingTargetText = editingText.substr(editingCursorIndex, editingTargetlength);
-			const auto cadidates = win::TextInput::GetCandidates();
+			const auto cadidates = GetCandidates();
 			const double candidateItemHeight = font.height() + candidatesMargin;
 
 			double boxWidth = 0.0;
@@ -136,7 +137,7 @@ namespace s3d
 			}
 
 			const double leftOffset = hasEditingTarget ? font(U"1  ").region().w : 0.0;
-			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, Window::Width() - boxWidth - leftOffset - 12.0), basePos.y);
+			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, s3d::Scene::Width() - boxWidth - leftOffset - 12.0), basePos.y);
 
 			boxWidth += leftOffset + 5;
 

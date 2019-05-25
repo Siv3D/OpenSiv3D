@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,8 @@
 
 # include "CEffect.hpp"
 # include <Siv3D/Time.hpp>
+# include <Siv3D/EngineError.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -21,23 +23,25 @@ namespace s3d
 
 	CEffect::~CEffect()
 	{
+		LOG_TRACE(U"CEffect::~CEffect()");
+
 		m_effects.destroy();
 	}
 
-	bool CEffect::init()
+	void CEffect::init()
 	{
-		const auto nullEffect = std::make_shared<EffectData>(EffectData::Null{});
+		LOG_TRACE(U"CEffect::init()");
+
+		auto nullEffect = std::make_unique<EffectData>(EffectData::Null{});
 
 		if (!nullEffect->isInitialized())
 		{
-			return false;
+			throw EngineError(U"Null Effect initialization failed");
 		}
 
-		m_effects.setNullData(nullEffect);
+		m_effects.setNullData(std::move(nullEffect));
 
-		LOG_INFO(U"ℹ️ Effect initialized");
-
-		return true;
+		LOG_INFO(U"ℹ️ CEffect initialized");
 	}
 
 	void CEffect::update()
@@ -63,14 +67,14 @@ namespace s3d
 
 	EffectID CEffect::create()
 	{
-		const auto effet = std::make_shared<EffectData>(EffectData::Null{});
+		auto effet = std::make_unique<EffectData>(EffectData::Null{});
 
 		if (!effet->isInitialized())
 		{
 			return EffectID::NullAsset();
 		}
 
-		return m_effects.add(effet);
+		return m_effects.add(std::move(effet));
 	}
 
 	void CEffect::release(const EffectID handleID)

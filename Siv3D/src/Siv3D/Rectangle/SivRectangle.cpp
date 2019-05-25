@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,8 +19,8 @@
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -255,7 +255,7 @@ namespace s3d
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h), color.toFloat4());
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addRect(FloatRect(x, y, x + w, y + h), color.toFloat4());
 
 		return *this;
 	}
@@ -263,7 +263,7 @@ namespace s3d
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF(&colors)[4]) const
 	{
-		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h),
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addRect(FloatRect(x, y, x + w, y + h),
 			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
 
 		return *this;
@@ -272,7 +272,7 @@ namespace s3d
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addRectFrame(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addRectFrame(
 			FloatRect(x + innerThickness, y + innerThickness, x + w - innerThickness, y + h - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
 			color.toFloat4()
@@ -323,20 +323,20 @@ namespace s3d
 			++pVertex;
 		}
 
-		static const uint32 rectIndexTable[6] = { 0, 1, 4, 4, 1, 5 };
+		static const uint16 rectIndexTable[6] = { 0, 1, 4, 4, 1, 5 };
 
-		for (uint32 ty = 0; ty < 3; ++ty)
+		for (uint16 ty = 0; ty < 3; ++ty)
 		{
-			for (uint32 tx = 0; tx < 3; ++tx)
+			for (uint16 tx = 0; tx < 3; ++tx)
 			{
-				for (uint32 k = 0; k < 6; ++k)
+				for (uint16 k = 0; k < 6; ++k)
 				{
 					sprite.indices[(ty * 3 + tx) * 6 + k] = (ty * 4) + tx + rectIndexTable[k];
 				}
 			}
 		}
 
-		sprite.draw(Siv3DEngine::GetRenderer2D()->getBoxShadowTexture());
+		sprite.draw(Siv3DEngine::Get<ISiv3DRenderer2D>()->getBoxShadowTexture());
 
 		return *this;
 	}
@@ -367,17 +367,20 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Rect& value)
 	{
-		const size_t bufferSize = 12 * 4 + 6;
+		const size_t bufferSize = 12 * 4 + 9;
 		char32 buf[bufferSize];
 		char32* p = buf;
 
 		*(p++) = U'(';
 		detail::AppendInt(&p, value.x);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.y);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.w);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.h);
 		*(p++) = U')';
 

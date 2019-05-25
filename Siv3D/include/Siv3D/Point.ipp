@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -41,12 +41,6 @@ namespace s3d
 		return{ x * v.x, y * v.y };
 	}
 
-	template <class Type>
-	constexpr Vector2D<Type> Point::operator /(const Vector2D<Type>& v) const noexcept
-	{
-		return{ x / v.x, y / v.y };
-	}
-
 	constexpr Float2 Point::operator /(const float s) const noexcept
 	{
 		return{ x / s, y / s };
@@ -58,9 +52,20 @@ namespace s3d
 	}
 
 	template <class Type>
+	constexpr Vector2D<Type> Point::operator /(const Vector2D<Type>& v) const noexcept
+	{
+		return{ x / v.x, y / v.y };
+	}
+
+	template <class Type>
 	constexpr Vector2D<Type> Point::movedBy(const Vector2D<Type>& v) const noexcept
 	{
 		return{ x + v.x, y + v.y };
+	}
+
+	inline double Point::distanceFrom(const double _x, const double _y) const noexcept
+	{
+		return distanceFrom(Vec2(_x, _y));
 	}
 
 	inline double Point::distanceFrom(const Point& p) const noexcept
@@ -72,6 +77,11 @@ namespace s3d
 	Type Point::distanceFrom(const Vector2D<Type>& p) const noexcept
 	{
 		return std::sqrt(distanceFromSq(p));
+	}
+
+	inline constexpr double Point::distanceFromSq(const double _x, const double _y) const noexcept
+	{
+		return distanceFromSq(Vec2(_x, _y));
 	}
 
 	inline constexpr double Point::distanceFromSq(const Point& p) const noexcept

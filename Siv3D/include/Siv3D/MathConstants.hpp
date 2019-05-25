@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <limits>
 
 namespace s3d
 {
@@ -91,26 +92,29 @@ namespace s3d
 		constexpr double E = 2.7182818284590452354;
 	}
 
-	namespace Literals
+	inline namespace Literals
 	{
-		constexpr double operator ""_pi(long double x)
+		inline namespace MathLiterals
 		{
-			return static_cast<double>(x * Math::Pi);
-		}
+			[[nodiscard]] inline constexpr double operator ""_pi(long double x)
+			{
+				return static_cast<double>(x * Math::Pi);
+			}
 
-		constexpr double operator ""_pi(unsigned long long x)
-		{
-			return static_cast<double>(x * Math::Pi);
-		}
+			[[nodiscard]] inline constexpr double operator ""_pi(unsigned long long x)
+			{
+				return static_cast<double>(x * Math::Pi);
+			}
 
-		constexpr double operator ""_deg(long double deg)
-		{
-			return static_cast<double>(deg * Math::Pi / 180);
-		}
+			[[nodiscard]] inline constexpr double operator ""_deg(long double deg)
+			{
+				return static_cast<double>(deg * Math::Pi / 180);
+			}
 
-		constexpr double operator ""_deg(unsigned long long deg)
-		{
-			return static_cast<double>(deg * Math::Pi / 180);
+			[[nodiscard]] inline constexpr double operator ""_deg(unsigned long long deg)
+			{
+				return static_cast<double>(deg * Math::Pi / 180);
+			}
 		}
 	}
 }

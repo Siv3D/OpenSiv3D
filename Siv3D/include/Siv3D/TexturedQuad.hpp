@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,6 +26,8 @@ namespace s3d
 
 		Float2 center;
 
+		TexturedQuad();
+
 		TexturedQuad(
 			const Texture& _texture,
 			float l,
@@ -33,36 +35,22 @@ namespace s3d
 			float r,
 			float b,
 			const Quad& _quad,
-			const Float2& _center)
-			: quad(_quad)
-			, texture(_texture)
-			, uvRect(l, t, r, b)
-			, center(_center) {}
+			const Float2& _center);
 
 		TexturedQuad(
 			const Texture& _texture,
 			const FloatRect& _uvRect,
 			const Quad& _quad,
-			const Float2& _center)
-			: quad(_quad)
-			, texture(_texture)
-			, uvRect(_uvRect)
-			, center(_center) {}
+			const Float2& _center);
 
 		const Quad& draw(const ColorF& diffuse = Palette::White) const;
 
 		Quad draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
-		Quad draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(pos.x, pos.y, diffuse);
-		}
+		Quad draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 
 		Quad drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
-		Quad drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
-		{
-			return drawAt(pos.x, pos.y, diffuse);
-		}
+		Quad drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 	};
 }

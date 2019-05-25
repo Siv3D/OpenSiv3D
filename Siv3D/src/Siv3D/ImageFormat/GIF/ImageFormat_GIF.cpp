@@ -2,18 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../../../ThirdParty/giflib/gif_lib.h"
 # include "ImageFormat_GIF.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <giflib/gif_lib.h>
 
 namespace s3d
 {
@@ -51,8 +51,8 @@ namespace s3d
 		static constexpr uint8 GIF_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
 		static constexpr uint8 GIF_SIGN89a[] = { 'G', 'I', 'F', '8', '9', 'a' };
 
-		return ::memcmp(bytes, GIF_SIGN87a, sizeof(GIF_SIGN87a)) == 0
-			|| ::memcmp(bytes, GIF_SIGN89a, sizeof(GIF_SIGN89a)) == 0;
+		return std::memcmp(bytes, GIF_SIGN87a, sizeof(GIF_SIGN87a)) == 0
+			|| std::memcmp(bytes, GIF_SIGN89a, sizeof(GIF_SIGN89a)) == 0;
 	}
 
 	Size ImageFormat_GIF::getSize(const IReader& reader) const

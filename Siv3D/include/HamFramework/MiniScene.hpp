@@ -1,8 +1,9 @@
 ﻿//-----------------------------------------------
 //
-//	This file is part of the HamFramework for Siv3D.
+//	This file is part of the Siv3D HamFramework.
 //
-//	Copyright (C) 2014-2018 HAMSTRO
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -73,23 +74,23 @@ namespace s3d
 
 void Main()
 {
-	const double speed = 8.0;
+	const Font fontTitle(95, Typeface::Heavy);
+	constexpr Size blockSize(40, 20);
+	constexpr double speed = 500.0;
 	Circle ball;
 	Vec2 ballSpeed;
 	Array<Rect> blocks;
-
 	MiniScene<String> scene;
 
 	scene[U"Title"] = [&]()
 	{
-		Circle(Cursor::Pos(), 100).draw();
+		fontTitle(U"Breakout").drawAt(Scene::Width() / 2, 100);
 
 		if (MouseL.down())
 		{
-			const Size blockSize(40, 20);
 			ball.set(320, 400, 8);
 			ballSpeed.set(0, -speed);
-			blocks = Iota2D(Window::Width() / blockSize.x, 5).asArray()
+			blocks = Iota2D(Scene::Width() / blockSize.x, 5).asArray()
 				.map([=](Point p) { return Rect(p * blockSize, blockSize).moveBy(0, 60); });
 
 			scene.changeState(U"Game");
@@ -98,8 +99,8 @@ void Main()
 
 	scene[U"Game"] = [&]()
 	{
-		const Rect bar(Arg::center(Cursor::Pos().x, 420), 60, 10);
-		ball.moveBy(ballSpeed * (System::DeltaTime() / 0.01667));
+		const Rect paddle(Arg::center(Cursor::Pos().x, 500), 60, 10);
+		ball.moveBy(ballSpeed * Scene::DeltaTime());
 
 		for (auto it = blocks.begin(); it != blocks.end(); ++it)
 		{
@@ -111,26 +112,26 @@ void Main()
 			}
 		}
 
-		if (ball.y < 0 && ballSpeed.y <  0)
+		if (ball.y < 0 && ballSpeed.y < 0)
 		{
 			ballSpeed.y *= -1;
 		}
 
-		if ((ball.x < 0 && ballSpeed.x < 0) || (Window::Width() < ball.x && ballSpeed.x > 0))
+		if ((ball.x < 0 && ballSpeed.x < 0) || (Scene::Width() < ball.x && ballSpeed.x > 0))
 		{
 			ballSpeed.x *= -1;
 		}
 
-		if (ballSpeed.y > 0 && bar.intersects(ball))
+		if (ballSpeed.y > 0 && paddle.intersects(ball))
 		{
-			ballSpeed = Vec2((ball.x - bar.center().x) / 8, -ballSpeed.y).setLength(speed);
+			ballSpeed = Vec2((ball.x - paddle.center().x) * 10, -ballSpeed.y).setLength(speed);
 		}
 
-		blocks.each([](const Rect& b) { b.stretched(-1).draw(HSV(b.y - 40)); });
+		blocks.each([](const Rect & b) { b.stretched(-1).draw(HSV(b.y - 40)); });
 		ball.draw();
-		bar.draw();
+		paddle.draw();
 
-		if (ball.y > 500)
+		if (ball.y > (Scene::Height() + 20))
 		{
 			scene.changeState(U"Title");
 		}

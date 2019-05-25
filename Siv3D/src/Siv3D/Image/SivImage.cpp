@@ -1,38 +1,44 @@
-Ôªø//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
-# include "../ImageFormat/IImageFormat.hpp"
-
-# include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MemoryWriter.hpp>
-# include <Siv3D/Number.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/ByteArray.hpp>
+# include <Siv3D/Dialog.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/MultiPolygon.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
+# include <Siv3DEngine.hpp>
+# include <ImageFormat/IImageFormat.hpp>
+# include <ObjectDetection/IObjectDetection.hpp>
+
+# include <opencv2/imgproc.hpp>
+# include <opencv2/photo.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static constexpr bool IsValidSize(const size_t width, const size_t height)
+		[[nodiscard]] inline constexpr bool IsValidSize(const size_t width, const size_t height)
 		{
-			return width <= Image::MaxWidth && height <= Image::MaxHeight;
+			return (width <= Image::MaxWidth) && (height <= Image::MaxHeight);
 		}
 
-		static constexpr int32 ConvertBorderType(const BorderType borderType)
+		[[nodiscard]] static constexpr int32 ConvertBorderType(const BorderType borderType)
 		{
 			switch (borderType)
 			{
@@ -70,72 +76,6 @@ namespace s3d
 			}
 		}
 
-		static void ToBinaryFromR(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = (pSrc->r <= threshold ? 0 : 255);
-
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToBinaryFromA(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = (pSrc->a <= threshold ? 0 : 255);
-
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToGrayScale(const Image& from, cv::Mat_<uint8>& to)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = pSrc->grayscale0_255();
-
-					++pSrc;
-				}
-			}
-		}
-
 		static void SetupGammmaTable(const double gamma, uint8 table[256])
 		{
 			const double gammaInv = 1.0 / gamma;
@@ -146,7 +86,7 @@ namespace s3d
 			}
 		}
 
-		static Color GetAverage(const Image& src, const Rect& rect)
+		static Color GetAverage(const Image & src, const Rect & rect)
 		{
 			const int32 count = rect.area();
 
@@ -182,7 +122,7 @@ namespace s3d
 			return Color(sumR / count, sumG / count, sumB / count, sumA / count);
 		}
 
-		static void FillRect(Image& dst, const Rect& rect, const Color& color)
+		static void FillRect(Image & dst, const Rect & rect, const Color & color)
 		{
 			const size_t imgWidth = dst.width();
 			const int32 height = rect.h;
@@ -202,47 +142,183 @@ namespace s3d
 				pLine += imgWidth;
 			}
 		}
-	}
 
-	Image Image::Generate(const size_t width, const size_t height, std::function<Color(void)> generator)
-	{
-		Image new_image(width, height);
-
-		if (!new_image.isEmpty())
+		[[nodiscard]] static MultiPolygon ToPolygonsWithoutHoles(const cv::Mat_<uint8>& gray)
 		{
-			Color* pDst = new_image.data();
-			const Color* pDstEnd = pDst + new_image.num_pixels();
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
 
-			while (pDst != pDstEnd)
+			try
 			{
-				(*pDst++) = generator();
+				cv::findContours(gray, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE, { 0, 0 });
 			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (const auto& contour : contours)
+			{
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
+				{
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					Vec2* pDst = external.data();
+					const Vec2* const pDstEnd = pDst + externalSize;
+					const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+					while (pDst != pDstEnd)
+					{
+						pDst->set(pSrc->x, pSrc->y);
+						++pDst; --pSrc;
+					}
+				}
+
+				polygons.emplace_back(external);
+			}
+
+			return polygons;
 		}
 
-		return new_image;
-	}
-
-	Image Image::Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator)
-	{
-		Image new_image(width, height);
-
-		if (!new_image.isEmpty())
+		[[nodiscard]] static MultiPolygon ToPolygons(const cv::Mat_<uint8>& gray)
 		{
-			const double sx = 1.0 / (width - 1);
-			const double sy = 1.0 / (height - 1);
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
+			std::vector<cv::Vec4i> hierarchy;
 
-			Color* pDst = new_image.data();
-
-			for (uint32 y = 0; y < height; ++y)
+			try
 			{
-				for (uint32 x = 0; x < width; ++x)
+				cv::findContours(gray, contours, hierarchy, cv::RETR_CCOMP, cv::CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
+			{
+				const auto& contour = contours[i];
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
 				{
-					(*pDst++) = generator({ sx * x, sy * y });
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					{
+						Vec2* pDst = external.data();
+						const Vec2* const pDstEnd = pDst + externalSize;
+						const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+						while (pDst != pDstEnd)
+						{
+							pDst->set(pSrc->x, pSrc->y);
+							++pDst; --pSrc;
+						}
+					}
+
+					for (size_t k = 0; k < externalSize; ++k)
+					{
+						const Vec2& a = external[k];
+
+						for (size_t m = k + 1; m < externalSize; ++m)
+						{
+							if (Vec2& b = external[m]; a == b)
+							{
+								b += ((external[m - 1] - b).normalized() * 0.5).rotated(90_deg);
+							}
+						}
+					}
+
+					//{
+					//	Vec2* pDst = external.data();
+					//	const Vec2* pDstEnd = external.data() + externalSize - 1;
+
+					//	while (pDst != pDstEnd)
+					//	{
+					//		*pDst += ((*(pDst + 1) - *pDst).normalized() * 0.01);
+					//		++pDst;
+					//	}
+					//}
+				}
+
+				Array<Array<Vec2>> holes;
+				{
+					for (int32 k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
+					{
+						const auto& holeContour = contours[k];
+						const size_t holeSize = holeContour.size();
+
+						Array<Vec2> hole(holeSize);
+						{
+							Vec2* pDst = hole.data();
+							const Vec2* const pDstEnd = pDst + holeSize;
+							const cv::Point* pSrc = holeContour.data() + (holeSize - 1);
+
+							while (pDst != pDstEnd)
+							{
+								pDst->set(pSrc->x, pSrc->y);
+								++pDst; --pSrc;
+							}
+						}
+
+						holes.push_back(std::move(hole));
+					}
+				}
+
+				Polygon polygon;
+
+				try
+				{
+					polygon = Polygon(external, holes);
+				}
+				catch (std::runtime_error&)
+				{
+					polygon = Polygon(external);
+				}
+
+				polygons.push_back(std::move(polygon));
+			}
+
+			return polygons;
+		}
+
+		[[nodiscard]] static Polygon SelectLargestPolygon(const MultiPolygon& polygons)
+		{
+			if (!polygons)
+			{
+				return Polygon();
+			}
+			else if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
 				}
 			}
-		}
 
-		return new_image;
+			return polygons[index];
+		}
 	}
 
 	Image::Image(Image&& image) noexcept
@@ -253,30 +329,102 @@ namespace s3d
 		image.m_width = image.m_height = 0;
 	}
 
-	Image::Image(size_t width, size_t height)
-		: m_data(detail::IsValidSize(width, height) ? width * height : 0)
-		, m_width(detail::IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
-		, m_height(detail::IsValidSize(width, height) ? static_cast<uint32>(height) : 0)
+	Image::Image(const size_t size)
+		: Image(size, size)
 	{
 	
 	}
 
-	Image::Image(size_t width, size_t height, const Color& color)
+	Image::Image(const size_t size, const Color& color)
+		: Image(size, size, color)
+	{
+	
+	}
+
+	Image::Image(const Size& size)
+		: Image(size.x, size.y)
+	{
+	
+	}
+
+	Image::Image(const Size& size, const Color& color)
+		: Image(size.x, size.y, color)
+	{
+	
+	}
+
+	Image::Image(const Size& size, Arg::generator_<std::function<Color(void)>> generator)
+		: Image(size.x, size.y, generator)
+	{
+	
+	}
+
+	Image::Image(const Size& size, Arg::generator_<std::function<Color(Point)>> generator)
+		: Image(size.x, size.y, generator)
+	{
+	
+	}
+
+	Image::Image(const Size& size, Arg::generator_<std::function<Color(Vec2)>> generator)
+		: Image(size.x, size.y, generator)
+	{
+	
+	}
+
+	Image::Image(const Size& size, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+		: Image(size.x, size.y, generator)
+	{
+	
+	}
+
+	Image::Image(const size_t width, const size_t height)
+		: m_data(detail::IsValidSize(width, height) ? width * height : 0)
+		, m_width(detail::IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
+		, m_height(detail::IsValidSize(width, height) ? static_cast<uint32>(height) : 0)
+	{
+
+	}
+
+	Image::Image(const size_t width, const size_t height, const Color& color)
 		: m_data(detail::IsValidSize(width, height) ? width * height : 0, color)
 		, m_width(detail::IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
 		, m_height(detail::IsValidSize(width, height) ? static_cast<uint32>(height) : 0)
+	{
+
+	}
+
+	Image::Image(const size_t width, const size_t height, Arg::generator_<std::function<Color(void)>> generator)
+		: Image(Generate(width, height, *generator))
+	{
+	
+	}
+
+	Image::Image(const size_t width, const size_t height, Arg::generator_<std::function<Color(Point)>> generator)
+		: Image(Generate(width, height, *generator))
+	{
+	
+	}
+
+	Image::Image(const size_t width, const size_t height, Arg::generator_<std::function<Color(Vec2)>> generator)
+		: Image(Generate(width, height, *generator))
+	{
+	
+	}
+
+	Image::Image(const size_t width, const size_t height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+		: Image(Generate0_1(width, height, *generator))
 	{
 	
 	}
 
 	Image::Image(const FilePath& path)
-		: Image(Siv3DEngine::GetImageFormat()->load(path))
+		: Image(Siv3DEngine::Get<ISiv3DImageFormat>()->load(path))
 	{
 
 	}
 
-	Image::Image(IReader&& reader, ImageFormat format)
-		: Image(Siv3DEngine::GetImageFormat()->decode(std::move(reader), format))
+	Image::Image(IReader&& reader, const ImageFormat format)
+		: Image(Siv3DEngine::Get<ISiv3DImageFormat>()->decode(std::move(reader), format))
 	{
 
 	}
@@ -301,12 +449,12 @@ namespace s3d
 
 	Image::Image(const Emoji& emoji)
 	{
-		*this = Emoji::LoadImage(emoji.codePoints);
+		*this = Emoji::CreateImage(emoji.codePoints);
 	}
 
 	Image::Image(const Icon& icon)
 	{
-		*this = Icon::LoadImage(icon.code, icon.size);
+		*this = Icon::CreateImage(icon.code, icon.size);
 	}
 
 	Image::Image(const Grid<Color>& grid)
@@ -317,7 +465,7 @@ namespace s3d
 			return;
 		}
 
-		::memcpy(m_data.data(), grid.data(), grid.size_bytes());
+		std::memcpy(m_data.data(), grid.data(), grid.size_bytes());
 	}
 
 	Image::Image(const Grid<ColorF>& grid)
@@ -347,6 +495,48 @@ namespace s3d
 		image.m_width = image.m_height = 0;
 
 		return *this;
+	}
+
+	Image& Image::assign(const Image& image)
+	{
+		return operator =(image);
+	}
+
+	Image& Image::assign(Image&& image)
+	{
+		return operator =(std::move(image));
+	}
+
+	void Image::release()
+	{
+		clear();
+
+		shrink_to_fit();
+	}
+
+	void Image::swap(Image& image) noexcept
+	{
+		m_data.swap(image.m_data);
+
+		std::swap(m_width, image.m_width);
+
+		std::swap(m_height, image.m_height);
+	}
+
+	Image Image::cloned() const
+	{
+		return *this;
+	}
+
+	void Image::fill(const Color& color)
+	{
+		Color* pDst = m_data.data();
+		Color* const pDstEnd = pDst + m_data.size();
+
+		while (pDst != pDstEnd)
+		{
+			*pDst++ = color;
+		}
 	}
 
 	void Image::resize(const size_t width, const size_t height)
@@ -423,7 +613,7 @@ namespace s3d
 		const int32 h = static_cast<int32>(m_height);
 		const int32 w = static_cast<int32>(m_width);
 
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// [Siv3D ToDo] ç≈ìKâª
 		for (int32 y = 0; y < rect.h; ++y)
 		{
 			const int32 sy = y + rect.y;
@@ -445,15 +635,64 @@ namespace s3d
 		return tmp;
 	}
 
+	Image Image::clipped(const int32 x, const int32 y, const int32 w, const int32 h) const
+	{
+		return clipped(Rect(x, y, w, h));
+	}
+
+	Image Image::clipped(const Point& pos, const int32 w, const int32 h) const
+	{
+		return clipped(Rect(pos, w, h));
+	}
+
+	Image Image::clipped(const int32 x, const int32 y, const Size& size) const
+	{
+		return clipped(Rect(x, y, size));
+	}
+
+	Image Image::clipped(const Point& pos, const Size& size) const
+	{
+		return clipped(Rect(pos, size));
+	}
+
+	Image Image::squareClipped() const
+	{
+		const int32 size = std::min(m_width, m_height);
+
+		return clipped((m_width - size) / 2, (m_height - size) / 2, size, size);
+	}
+
+	Image& Image::forEach(std::function<void(Color&)> function)
+	{
+		for (auto& pixel : m_data)
+		{
+			function(pixel);
+		}
+
+		return *this;
+	}
+
+	Image& Image::swapRB()
+	{
+		for (auto& pixel : m_data)
+		{
+			const uint32 t = pixel.r;
+			pixel.r = pixel.b;
+			pixel.b = t;
+		}
+
+		return *this;
+	}
+
 	ColorF Image::sample_Repeat(const double x, const double y) const
 	{
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Repeat(iy, ix);
-		const Color& c2 = getPixel_Repeat(iy, ix + 1);
-		const Color& c3 = getPixel_Repeat(iy + 1, ix);
-		const Color& c4 = getPixel_Repeat(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Repeat(ix, iy);
+		const Color& c2 = getPixel_Repeat(ix + 1, iy);
+		const Color& c3 = getPixel_Repeat(ix, iy + 1);
+		const Color& c4 = getPixel_Repeat(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -471,10 +710,10 @@ namespace s3d
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Clamp(iy, ix);
-		const Color& c2 = getPixel_Clamp(iy, ix + 1);
-		const Color& c3 = getPixel_Clamp(iy + 1, ix);
-		const Color& c4 = getPixel_Clamp(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Clamp(ix, iy);
+		const Color& c2 = getPixel_Clamp(ix + 1, iy);
+		const Color& c3 = getPixel_Clamp(ix, iy + 1);
+		const Color& c4 = getPixel_Clamp(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -492,10 +731,10 @@ namespace s3d
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Mirror(iy, ix);
-		const Color& c2 = getPixel_Mirror(iy, ix + 1);
-		const Color& c3 = getPixel_Mirror(iy + 1, ix);
-		const Color& c4 = getPixel_Mirror(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Mirror(ix, iy);
+		const Color& c2 = getPixel_Mirror(ix + 1, iy);
+		const Color& c3 = getPixel_Mirror(ix, iy + 1);
+		const Color& c4 = getPixel_Mirror(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -547,26 +786,46 @@ namespace s3d
 
 		return true;
 	}
-	
+
 	bool Image::save(const FilePath& path, ImageFormat format) const
 	{
 		if (isEmpty())
 		{
+			LOG_FAIL(U"Image::save(): Image is empty");
 			return false;
 		}
 
 		if (format == ImageFormat::Unspecified)
 		{
-			format = Siv3DEngine::GetImageFormat()->getFormatFromFilePath(path);
+			format = Siv3DEngine::Get<ISiv3DImageFormat>()->getFormatFromFilePath(path);
 		}
 
-		return Siv3DEngine::GetImageFormat()->save(*this, format, path);
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->save(*this, format, path);
+	}
+
+	bool Image::saveWithDialog() const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::saveWithDialog(): Image is empty");
+			return false;
+		}
+
+		if (const auto path = Dialog::SaveImage())
+		{
+			return save(path.value());
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool Image::savePNG(const FilePath& path, const PNGFilter::Flag filterFlag) const
 	{
 		if (isEmpty())
 		{
+			LOG_FAIL(U"Image::savePNG(): Image is empty");
 			return false;
 		}
 
@@ -577,13 +836,14 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::GetImageFormat()->encodePNG(writer, *this, filterFlag);
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodePNG(writer, *this, filterFlag);
 	}
 
 	bool Image::saveJPEG(const FilePath& path, const int32 quality) const
 	{
 		if (isEmpty())
 		{
+			LOG_FAIL(U"Image::saveJPEG(): Image is empty");
 			return false;
 		}
 
@@ -594,13 +854,14 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::GetImageFormat()->encodeJPEG(writer, *this, quality);
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodeJPEG(writer, *this, quality);
 	}
 
 	bool Image::savePPM(const FilePath& path, const PPMType format) const
 	{
 		if (isEmpty())
 		{
+			LOG_FAIL(U"Image::savePPM(): Image is empty");
 			return false;
 		}
 
@@ -611,14 +872,33 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::GetImageFormat()->encodePPM(writer, *this, format);
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodePPM(writer, *this, format);
 	}
 
-	MemoryWriter Image::encode(ImageFormat format) const
+	bool Image::saveWebP(const FilePath& path, const bool lossless, const double quality, const WebPMethod method) const
 	{
 		if (isEmpty())
 		{
-			return MemoryWriter();
+			LOG_FAIL(U"Image::saveWebP(): Image is empty");
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodeWebP(writer, *this, lossless, quality, method);
+	}
+
+	ByteArray Image::encode(ImageFormat format) const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::encode(): Image is empty");
+			return ByteArray();
 		}
 
 		if (format == ImageFormat::Unspecified)
@@ -626,12 +906,84 @@ namespace s3d
 			format = ImageFormat::PNG;
 		}
 
-		return Siv3DEngine::GetImageFormat()->encode(*this, format);
+		return Siv3DEngine::Get<ISiv3DImageFormat>()->encode(*this, format);
+	}
+
+	ByteArray Image::encodePNG(const PNGFilter::Flag filterFlag) const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::encodePNG(): Image is empty");
+			return ByteArray();
+		}
+
+		MemoryWriter writer;
+
+		if (!Siv3DEngine::Get<ISiv3DImageFormat>()->encodePNG(writer, *this, filterFlag))
+		{
+			return ByteArray();
+		}
+
+		return writer.retrieve();
+	}
+
+	ByteArray Image::encodeJPEG(const int32 quality) const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::encodeJPEG(): Image is empty");
+			return ByteArray();
+		}
+
+		MemoryWriter writer;
+
+		if (!Siv3DEngine::Get<ISiv3DImageFormat>()->encodeJPEG(writer, *this, quality))
+		{
+			return ByteArray();
+		}
+
+		return writer.retrieve();
+	}
+
+	ByteArray Image::encodePPM(const PPMType format) const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::encodePPM(): Image is empty");
+			return ByteArray();
+		}
+
+		MemoryWriter writer;
+
+		if (!Siv3DEngine::Get<ISiv3DImageFormat>()->encodePPM(writer, *this, format))
+		{
+			return ByteArray();
+		}
+
+		return writer.retrieve();
+	}
+
+	ByteArray Image::encodeWebP(const bool lossless, const double quality, const WebPMethod method) const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::encodeWebP(): Image is empty");
+			return ByteArray();
+		}
+
+		MemoryWriter writer;
+
+		if (!Siv3DEngine::Get<ISiv3DImageFormat>()->encodeWebP(writer, *this, lossless, quality, method))
+		{
+			return ByteArray();
+		}
+
+		return writer.retrieve();
 	}
 
 	Image& Image::negate()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -639,7 +991,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			for (auto& pixel : m_data)
 			{
@@ -652,7 +1004,7 @@ namespace s3d
 
 	Image Image::negated() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -672,7 +1024,7 @@ namespace s3d
 
 	Image& Image::grayscale()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -680,7 +1032,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			for (auto& pixel : m_data)
 			{
@@ -693,7 +1045,7 @@ namespace s3d
 
 	Image Image::grayscaled() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -713,7 +1065,7 @@ namespace s3d
 
 	Image& Image::sepia(const int32 level)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -721,12 +1073,12 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			const double levn = Clamp(level, 0, 255);
-			const double levr = 0.956*levn;
-			const double levg = 0.274*levn;
-			const double levb = -1.108*levn;
+			const double levr = 0.956 * levn;
+			const double levg = 0.274 * levn;
+			const double levb = -1.108 * levn;
 
 			for (auto& pixel : m_data)
 			{
@@ -739,7 +1091,7 @@ namespace s3d
 
 	Image Image::sepiaed(const int32 level) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -750,9 +1102,9 @@ namespace s3d
 		Image image(*this);
 
 		const double levn = Clamp(level, 0, 255);
-		const double levr = 0.956*levn;
-		const double levg = 0.274*levn;
-		const double levb = -1.108*levn;
+		const double levr = 0.956 * levn;
+		const double levg = 0.274 * levn;
+		const double levb = -1.108 * levn;
 
 		for (auto& pixel : image)
 		{
@@ -764,7 +1116,7 @@ namespace s3d
 
 	Image& Image::postarize(const int32 level)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -772,7 +1124,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			uint8 colorTable[256];
 
@@ -791,7 +1143,7 @@ namespace s3d
 
 	Image Image::postarized(const int32 level) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -817,7 +1169,7 @@ namespace s3d
 
 	Image& Image::brighten(const int32 level)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -825,7 +1177,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			if (level < 0)
 			{
@@ -852,7 +1204,7 @@ namespace s3d
 
 	Image Image::brightened(const int32 level) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -886,7 +1238,7 @@ namespace s3d
 
 	Image& Image::mirror()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -894,7 +1246,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			const int32 h = m_height, w = m_width, wHalf = m_width / 2;
 			Color* line = m_data.data();
@@ -920,7 +1272,7 @@ namespace s3d
 
 	Image Image::mirrored() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -933,7 +1285,7 @@ namespace s3d
 		const Color* pSrc = data();
 		Color* pDst = image.data();
 		const size_t width = m_width;
-		
+
 		for (uint32 y = 0; y < m_height; ++y)
 		{
 			for (uint32 x = 0; x < m_width; ++x)
@@ -947,7 +1299,7 @@ namespace s3d
 
 	Image& Image::flip()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -955,7 +1307,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			const int32 h = m_height, s = stride();
 			Array<Color> line(m_width);
@@ -978,7 +1330,7 @@ namespace s3d
 
 	Image Image::flipped() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -990,7 +1342,7 @@ namespace s3d
 
 		const size_t _stride = stride();
 		const Color* pSrc = data() + (m_height - 1) * m_width;
-		Color* pDst = image.data();
+		Color * pDst = image.data();
 
 		for (uint32 y = 0; y < m_height; ++y)
 		{
@@ -1004,7 +1356,7 @@ namespace s3d
 
 	Image& Image::rotate90()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1012,8 +1364,8 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// 2. èàóù
+		// [Siv3D ToDo] ç≈ìKâª
 		{
 			Image tmp(m_height, m_width);
 
@@ -1033,7 +1385,7 @@ namespace s3d
 
 	Image Image::rotated90() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1043,7 +1395,7 @@ namespace s3d
 
 		Image image(m_height, m_width);
 
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// [Siv3D ToDo] ç≈ìKâª
 		for (uint32 y = 0; y < m_height; ++y)
 		{
 			for (uint32 x = 0; x < m_width; ++x)
@@ -1064,7 +1416,7 @@ namespace s3d
 
 	Image Image::rotated180() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1094,7 +1446,7 @@ namespace s3d
 
 	Image& Image::rotate270()
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1102,8 +1454,8 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// 2. èàóù
+		// [Siv3D ToDo] ç≈ìKâª
 		{
 			Image tmp(m_height, m_width);
 
@@ -1123,7 +1475,7 @@ namespace s3d
 
 	Image Image::rotated270() const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1146,7 +1498,7 @@ namespace s3d
 
 	Image& Image::gammaCorrect(const double gamma)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1154,7 +1506,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			uint8 colorTable[256];
 
@@ -1173,7 +1525,7 @@ namespace s3d
 
 	Image Image::gammaCorrected(const double gamma) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1199,7 +1551,7 @@ namespace s3d
 
 	Image& Image::threshold(const uint8 threshold, const bool inverse)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1207,7 +1559,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			const uint32 a = inverse ? 0 : 0x00FFffFF, b = inverse ? 0x00FFffFF : 0;
 
@@ -1230,7 +1582,7 @@ namespace s3d
 
 	Image Image::thresholded(const uint8 threshold, const bool inverse) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1258,9 +1610,9 @@ namespace s3d
 		return image;
 	}
 
-	Image& Image::adaptiveThreshold(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse)
+	Image & Image::adaptiveThreshold(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1273,32 +1625,18 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
 			static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
 
 			cv::Mat_<uint8> gray(m_height, m_width);
 
-			detail::ToGrayScale(*this, gray);
+			OpenCV_Bridge::ToGrayScale(*this, gray);
 
-			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
+			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY, blockSize, c);
 
-			{
-				Color* pDst = m_data.data();
-
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					const uint8* line = &gray(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						pDst->r = pDst->g = pDst->b = line[x];
-
-						++pDst;
-					}
-				}
-			}
+			OpenCV_Bridge::FromGrayScale(gray, *this, true);
 		}
 
 		return *this;
@@ -1306,7 +1644,7 @@ namespace s3d
 
 	Image Image::adaptiveThresholded(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1319,44 +1657,30 @@ namespace s3d
 			}
 		}
 
-		Image image(*this);
-
 		static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
 		static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
 
 		cv::Mat_<uint8> gray(m_height, m_width);
 
-		detail::ToGrayScale(*this, gray);
+		OpenCV_Bridge::ToGrayScale(*this, gray);
 
-		cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
+		cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY, blockSize, c);
 
-		{
-			Color* pDst = image.data();
+		Image image(*this);
 
-			for (uint32 y = 0; y < m_height; ++y)
-			{
-				const uint8* line = &gray(y, 0);
-
-				for (uint32 x = 0; x < m_width; ++x)
-				{
-					pDst->r = pDst->g = pDst->b = line[x];
-
-					++pDst;
-				}
-			}
-		}
+		OpenCV_Bridge::FromGrayScale(gray, image, true);
 
 		return image;
 	}
 
-	Image& Image::mosaic(const int32 size)
+	Image & Image::mosaic(const int32 size)
 	{
 		return mosaic(size, size);
 	}
 
 	Image& Image::mosaic(const int32 horizontal, const int32 vertical)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1369,7 +1693,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			const uint32 xPiece = m_width / horizontal;
 			const uint32 yPiece = m_height / vertical;
@@ -1379,25 +1703,25 @@ namespace s3d
 			{
 				for (xP = 0; xP < xPiece; ++xP)
 				{
-					const Rect rc(xP*horizontal, yP*vertical, horizontal, vertical);
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, vertical);
 					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
 				}
 
-				const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, vertical);
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, vertical);
 				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
 			}
 
-			if (yP * vertical < m_height)
+			if (yP* vertical < m_height)
 			{
 				const int32 tY = m_height - yP * vertical;
 
 				for (xP = 0; xP < xPiece; ++xP)
 				{
-					const Rect rc(xP*horizontal, yP*vertical, horizontal, tY);
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, tY);
 					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
 				}
 
-				const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, tY);
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, tY);
 				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
 			}
 		}
@@ -1412,7 +1736,7 @@ namespace s3d
 
 	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1435,25 +1759,25 @@ namespace s3d
 		{
 			for (xP = 0; xP < xPiece; ++xP)
 			{
-				const Rect rc(xP*horizontal, yP*vertical, horizontal, vertical);
+				const Rect rc(xP * horizontal, yP * vertical, horizontal, vertical);
 				detail::FillRect(image, rc, detail::GetAverage(image, rc));
 			}
 
-			const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, vertical);
+			const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, vertical);
 			detail::FillRect(image, rc, detail::GetAverage(image, rc));
 		}
 
-		if (yP*vertical < m_height)
+		if (yP* vertical < m_height)
 		{
 			const int32 tY = m_height - yP * vertical;
 
 			for (xP = 0; xP < xPiece; ++xP)
 			{
-				const Rect rc(xP*horizontal, yP*vertical, horizontal, tY);
+				const Rect rc(xP * horizontal, yP * vertical, horizontal, tY);
 				detail::FillRect(image, rc, detail::GetAverage(image, rc));
 			}
 
-			const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, tY);
+			const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, tY);
 			detail::FillRect(image, rc, detail::GetAverage(image, rc));
 		}
 
@@ -1467,7 +1791,7 @@ namespace s3d
 
 	Image& Image::spread(const int32 horizontal, const int32 vertical)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1480,8 +1804,8 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// 2. èàóù
+		// [Siv3D ToDo] ç≈ìKâª
 		{
 			Image tmp(m_width, m_height);
 
@@ -1516,7 +1840,7 @@ namespace s3d
 
 	Image Image::spreaded(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1537,7 +1861,7 @@ namespace s3d
 
 		const int32 v2 = vertical * 2;
 
-		// [Siv3D ToDo] ÊúÄÈÅ©Âåñ
+		// [Siv3D ToDo] ç≈ìKâª
 		for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
 		{
 			for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
@@ -1553,14 +1877,14 @@ namespace s3d
 		return image;
 	}
 
-	Image& Image::blur(const int32 size)
+	Image & Image::blur(const int32 size)
 	{
 		return blur(size, size);
 	}
 
 	Image& Image::blur(const int32 horizontal, const int32 vertical)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1573,7 +1897,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			Image tmp(m_width, m_height);
 
@@ -1596,7 +1920,7 @@ namespace s3d
 
 	Image Image::blurred(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1622,7 +1946,7 @@ namespace s3d
 
 	Image& Image::medianBlur(int32 apertureSize)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1640,7 +1964,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			Image tmp(m_width, m_height);
 
@@ -1658,7 +1982,7 @@ namespace s3d
 
 	Image Image::medianBlurred(int32 apertureSize) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1687,9 +2011,14 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
+	{
+		return gaussianBlur(size, size, borderType);
+	}
+
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1702,7 +2031,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			Image tmp(m_width, m_height);
 
@@ -1718,9 +2047,14 @@ namespace s3d
 		return *this;
 	}
 
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const
+	{
+		return gaussianBlurred(size, size, borderType);
+	}
+
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1746,7 +2080,7 @@ namespace s3d
 
 	Image& Image::dilate(const int32 iterations)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1754,7 +2088,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
 			cv::dilate(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
@@ -1765,7 +2099,7 @@ namespace s3d
 
 	Image Image::dilated(const int32 iterations) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1783,7 +2117,7 @@ namespace s3d
 
 	Image& Image::erode(const int32 iterations)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1791,7 +2125,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
 			cv::erode(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
@@ -1802,7 +2136,7 @@ namespace s3d
 
 	Image Image::eroded(const int32 iterations) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1818,9 +2152,9 @@ namespace s3d
 		return image;
 	}
 
-	Image& Image::floodFill(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
+	Image& Image::floodFill(const Point & pos, const Color & color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1833,7 +2167,7 @@ namespace s3d
 			}
 		}
 
-		// 2. Âá¶ÁêÜ
+		// 2. èàóù
 		{
 			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
 			{
@@ -1845,9 +2179,9 @@ namespace s3d
 
 					for (uint32 x = 0; x < m_width; ++x)
 					{
-						line[x][0] = pSrc->r;
+						line[x][0] = pSrc->b;
 						line[x][1] = pSrc->g;
-						line[x][2] = pSrc->b;
+						line[x][2] = pSrc->r;
 
 						++pSrc;
 					}
@@ -1857,7 +2191,7 @@ namespace s3d
 			cv::floodFill(
 				mat,
 				{ pos.x, pos.y },
-				cv::Scalar(color.r, color.g, color.b),
+				cv::Scalar(color.b, color.g, color.r),
 				nullptr,
 				cv::Scalar::all(lowerDifference),
 				cv::Scalar::all(upperDifference),
@@ -1873,9 +2207,9 @@ namespace s3d
 
 					for (uint32 x = 0; x < m_width; ++x)
 					{
-						pDst->r = line[x][0];
+						pDst->r = line[x][2];
 						pDst->g = line[x][1];
-						pDst->b = line[x][2];
+						pDst->b = line[x][0];
 
 						++pDst;
 					}
@@ -1886,9 +2220,9 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
+	Image Image::floodFilled(const Point & pos, const Color & color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1905,51 +2239,20 @@ namespace s3d
 
 		{
 			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
-			{
-				const Color* pSrc = &m_data[0];
 
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					auto* line = &mat(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						line[x][0] = pSrc->r;
-						line[x][1] = pSrc->g;
-						line[x][2] = pSrc->b;
-
-						++pSrc;
-					}
-				}
-			}
+			OpenCV_Bridge::ToMatVec3b(*this, mat);
 
 			cv::floodFill(
 				mat,
 				{ pos.x, pos.y },
-				cv::Scalar(color.r, color.g, color.b),
+				cv::Scalar(color.b, color.g, color.r),
 				nullptr,
 				cv::Scalar::all(lowerDifference),
 				cv::Scalar::all(upperDifference),
 				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE
 			);
 
-			{
-				Color* pDst = image[0];
-
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					const auto* line = &mat(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						pDst->r = line[x][0];
-						pDst->g = line[x][1];
-						pDst->b = line[x][2];
-
-						++pDst;
-					}
-				}
-			}
+			OpenCV_Bridge::FromMat(mat, image, true);
 		}
 
 		return image;
@@ -1957,7 +2260,7 @@ namespace s3d
 
 	Image& Image::scale(int32 width, int32 height, Interpolation interpolation)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -1976,9 +2279,9 @@ namespace s3d
 
 		const uint32 targetWidth = width, targetHeight = height;
 
-		// 3. Âá¶ÁêÜ
+		// 3. èàóù
 		{
-			// TODO ÂÜçÊ§úË®é
+			// TODO çƒåüì¢
 			if (interpolation == Interpolation::Unspecified)
 			{
 				if (targetWidth >= m_width && targetHeight >= m_height)
@@ -2010,7 +2313,7 @@ namespace s3d
 
 	Image Image::scaled(int32 width, int32 height, Interpolation interpolation) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -2029,9 +2332,9 @@ namespace s3d
 
 		const uint32 targetWidth = width, targetHeight = height;
 
-		// 3. Âá¶ÁêÜ
+		// 3. èàóù
 		{
-			// TODO ÂÜçÊ§úË®é
+			// TODO çƒåüì¢
 			if (interpolation == Interpolation::Unspecified)
 			{
 				if (targetWidth >= m_width && targetHeight >= m_height)
@@ -2059,12 +2362,12 @@ namespace s3d
 		}
 	}
 
-	Image& Image::scale(const Size& size, const Interpolation interpolation)
+	Image& Image::scale(const Size & size, const Interpolation interpolation)
 	{
 		return scale(size.x, size.y, interpolation);
 	}
 
-	Image Image::scaled(const Size& size, const Interpolation interpolation) const
+	Image Image::scaled(const Size & size, const Interpolation interpolation) const
 	{
 		return scaled(size.x, size.y, interpolation);
 	}
@@ -2083,26 +2386,26 @@ namespace s3d
 	{
 		if (!scaleUp)
 		{
-			width	= std::min(width, static_cast<int32>(m_width));
-			height	= std::min(height, static_cast<int32>(m_height));
+			width = std::min(width, static_cast<int32>(m_width));
+			height = std::min(height, static_cast<int32>(m_height));
 		}
 
 		const int32 w = m_width;
 		const int32 h = m_height;
-		double ws = static_cast<double>(width) / w;	// ‰Ωï% scaling„Åô„Çã„Åã
+		double ws = static_cast<double>(width) / w;	// âΩ% scalingÇ∑ÇÈÇ©
 		double hs = static_cast<double>(height) / h;
 
 		int32 targetWidth, targetHeight;
 
 		if (ws < hs)
 		{
-			targetWidth		= width;
-			targetHeight	= std::max(static_cast<int32>(h * ws), 1);
+			targetWidth = width;
+			targetHeight = std::max(static_cast<int32>(h * ws), 1);
 		}
 		else
 		{
-			targetWidth		= std::max(static_cast<int32>(w * hs), 1);
-			targetHeight	= height;
+			targetWidth = std::max(static_cast<int32>(w * hs), 1);
+			targetHeight = height;
 		}
 
 		return scale(targetWidth, targetHeight, interpolation);
@@ -2112,37 +2415,37 @@ namespace s3d
 	{
 		if (!scaleUp)
 		{
-			width	= std::min(width, static_cast<int32>(m_width));
-			height	= std::min(height, static_cast<int32>(m_height));
+			width = std::min(width, static_cast<int32>(m_width));
+			height = std::min(height, static_cast<int32>(m_height));
 		}
 
 		const int32 w = m_width;
 		const int32 h = m_height;
-		double ws = static_cast<double>(width) / w;	// ‰Ωï% scaling„Åô„Çã„Åã
+		double ws = static_cast<double>(width) / w;	// âΩ% scalingÇ∑ÇÈÇ©
 		double hs = static_cast<double>(height) / h;
 
 		int32 targetWidth, targetHeight;
 
 		if (ws < hs)
 		{
-			targetWidth		= width;
-			targetHeight	= std::max(static_cast<int32>(h * ws), 1);
+			targetWidth = width;
+			targetHeight = std::max(static_cast<int32>(h * ws), 1);
 		}
 		else
 		{
-			targetWidth		= std::max(static_cast<int32>(w * hs), 1);
-			targetHeight	= height;
+			targetWidth = std::max(static_cast<int32>(w * hs), 1);
+			targetHeight = height;
 		}
 
 		return scaled(targetWidth, targetHeight, interpolation);
 	}
 
-	Image& Image::fit(const Size& size, const bool scaleUp, const Interpolation interpolation)
+	Image& Image::fit(const Size & size, const bool scaleUp, const Interpolation interpolation)
 	{
 		return fit(size.x, size.y, scaleUp, interpolation);
 	}
 
-	Image Image::fitted(const Size& size, const bool scaleUp, const Interpolation interpolation) const
+	Image Image::fitted(const Size & size, const bool scaleUp, const Interpolation interpolation) const
 	{
 		return fitted(size.x, size.y, scaleUp, interpolation);
 	}
@@ -2159,17 +2462,17 @@ namespace s3d
 
 	Image& Image::border(int32 top, int32 right, int32 bottom, int32 left, const Color& color)
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
 				return *this;
 			}
 
-			top		= std::max(0, top);
-			right	= std::max(0, right);
-			bottom	= std::max(0, bottom);
-			left	= std::max(0, left);
+			top = std::max(0, top);
+			right = std::max(0, right);
+			bottom = std::max(0, bottom);
+			left = std::max(0, left);
 
 			if (top == 0 && right == 0 && bottom == 0 && left == 0)
 			{
@@ -2187,7 +2490,7 @@ namespace s3d
 
 		for (uint32 y = 0; y < m_height; ++y)
 		{
-			::memcpy(pDst, pSrc, srcStride);
+			std::memcpy(pDst, pSrc, srcStride);
 			pSrc += srcStep;
 			pDst += dstStep;
 		}
@@ -2199,7 +2502,7 @@ namespace s3d
 
 	Image Image::bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color) const
 	{
-		// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+		// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 		{
 			if (isEmpty())
 			{
@@ -2227,7 +2530,7 @@ namespace s3d
 
 		for (uint32 y = 0; y < m_height; ++y)
 		{
-			::memcpy(pDst, pSrc, srcStride);
+			std::memcpy(pDst, pSrc, srcStride);
 			pSrc += srcStep;
 			pDst += dstStep;
 		}
@@ -2260,208 +2563,79 @@ namespace s3d
 		return ImageRegion(*this, rect);
 	}
 
+	Polygon Image::alphaToPolygon(const uint32 threshold, const bool allowHoles) const
+	{
+		return detail::SelectLargestPolygon(alphaToPolygons(threshold, allowHoles));
+	}
+
+	Polygon Image::alphaToPolygonCentered(const uint32 threshold, const bool allowHoles) const
+	{
+		return alphaToPolygon(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	MultiPolygon Image::alphaToPolygons(const uint32 threshold, const bool allowHoles) const
+	{
+		if (isEmpty())
+		{
+			MultiPolygon();
+		}
+
+		cv::Mat_<uint8> gray(height(), width());
+
+		OpenCV_Bridge::AlphaToBinary(*this, gray, threshold);
+
+		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+	}
+
+	MultiPolygon Image::alphaToPolygonsCentered(const uint32 threshold, const bool allowHoles) const
+	{
+		return alphaToPolygons(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	Polygon Image::grayscaleToPolygon(const uint32 threshold, const bool allowHoles) const
+	{
+		return detail::SelectLargestPolygon(grayscaleToPolygons(threshold, allowHoles));
+	}
+
+	Polygon Image::grayscaleToPolygonCentered(const uint32 threshold, const bool allowHoles) const
+	{
+		return grayscaleToPolygon(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	MultiPolygon Image::grayscaleToPolygons(const uint32 threshold, const bool allowHoles) const
+	{
+		if (isEmpty())
+		{
+			MultiPolygon();
+		}
+
+		cv::Mat_<uint8> gray(height(), width());
+
+		OpenCV_Bridge::RedToBinary(*this, gray, threshold);
+
+		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+	}
+
+	MultiPolygon Image::grayscaleToPolygonsCentered(const uint32 threshold, const bool allowHoles) const
+	{
+		return grayscaleToPolygons(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	Array<Rect> Image::detectObjects(const HaarCascade cascade, const int32 minNeighbors, const Size& minSize, const Optional<Size>& maxSize) const
+	{
+		return Siv3DEngine::Get<ISiv3DObjectDetection>()->detect(*this, cascade, minNeighbors, minSize, maxSize.value_or(Size(0, 0)));
+	}
+
+	Array<Rect> Image::detectObjects(const HaarCascade cascade, const Array<Rect>& regions, const int32 minNeighbors, const Size& minSize, const Optional<Size>& maxSize) const
+	{
+		return Siv3DEngine::Get<ISiv3DObjectDetection>()->detect(*this, cascade, regions, minNeighbors, minSize, maxSize.value_or(Size(0, 0)));
+	}
 
 	namespace ImageProcessing
 	{
-		Polygon FindExternalContour(const Image& image, bool useAlpha, uint32 threshold)
-		{
-			const auto polygons = ImageProcessing::FindExternalContours(image, useAlpha, threshold);
-
-			if (polygons.isEmpty())
-			{
-				return Polygon();
-			}
-
-			if (polygons.size() == 1)
-			{
-				return polygons.front();
-			}
-
-			double maxArea = 0.0;
-
-			size_t index = 0;
-
-			for (size_t i = 0; i < polygons.size(); ++i)
-			{
-				const double area = polygons[i].area();
-
-				if (area > maxArea)
-				{
-					maxArea = area;
-
-					index = i;
-				}
-			}
-
-			return polygons[index];
-		}
-
-		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha, uint32 threshold)
-		{
-			if (!image)
-			{
-				return{};
-			}
-
-			cv::Mat_<uint8> gray(image.height(), image.width());
-
-			if (useAlpha)
-			{
-				detail::ToBinaryFromA(image, gray, threshold);
-			}
-			else
-			{
-				detail::ToBinaryFromR(image, gray, threshold);
-			}
-
-			std::vector<std::vector<cv::Point>> contours;
-
-			try
-			{
-				cv::findContours(gray, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
-			}
-			catch (cv::Exception&)
-			{
-				//LOG_FAIL(LogMessage::Image003);
-
-				return{};
-			}
-
-			Array<Polygon> result;
-
-			for (const auto& contour : contours)
-			{
-				Array<Vec2> external;
-
-				external.reserve(contour.size());
-
-				for (int i = static_cast<int>(contour.size()) - 1; i >= 0; --i)
-				{
-					external.emplace_back(contour[i].x, contour[i].y);
-				}
-
-				if (external.size() >= 3)
-				{
-					result.emplace_back(external);
-				}
-			}
-
-			return result;
-		}
-
-		Polygon FindContour(const Image& image, bool useAlpha, uint32 threshold)
-		{
-			const auto polygons = ImageProcessing::FindContours(image, useAlpha, threshold);
-
-			if (polygons.isEmpty())
-			{
-				return Polygon();
-			}
-
-			if (polygons.size() == 1)
-			{
-				return polygons.front();
-			}
-
-			double maxArea = 0.0;
-
-			size_t index = 0;
-
-			for (size_t i = 0; i < polygons.size(); ++i)
-			{
-				const double area = polygons[i].area();
-
-				if (area > maxArea)
-				{
-					maxArea = area;
-
-					index = i;
-				}
-			}
-
-			return polygons[index];
-		}
-
-		Array<Polygon> FindContours(const Image& image, bool useAlpha, uint32 threshold)
-		{
-			if (!image)
-			{
-				return{};
-			}
-
-			cv::Mat_<uint8> gray(image.height(), image.width());
-
-			if (useAlpha)
-			{
-				detail::ToBinaryFromA(image, gray, threshold);
-			}
-			else
-			{
-				detail::ToBinaryFromR(image, gray, threshold);
-			}
-
-			std::vector<std::vector<cv::Point>> contours;
-
-			std::vector<cv::Vec4i> hierarchy;
-
-			try
-			{
-				cv::findContours(gray, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
-			}
-			catch (cv::Exception&)
-			{
-				//LOG_FAIL(LogMessage::Image003);
-
-				return{};
-			}
-
-			Array<Polygon> result;
-
-			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
-			{
-				const auto& contour = contours[i];
-
-				Array<Vec2> external;
-
-				external.reserve(contour.size());
-
-				for (int k = static_cast<int>(contour.size()) - 1; k >= 0; --k)
-				{
-					external.emplace_back(contour[k].x, contour[k].y);
-				}
-
-				Array<Array<Vec2>> holes;
-
-				for (int k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
-				{
-					const auto& contour2 = contours[k];
-
-					Array<Vec2> hole;
-
-					hole.reserve(contour2.size());
-
-					for (const auto& p : contour2)
-					{
-						hole.emplace_back(p.x, p.y);
-					}
-
-					std::reverse(hole.begin(), hole.end());
-
-					holes.push_back(std::move(hole));
-				}
-
-				if (external.size() >= 3)
-				{
-					result.emplace_back(external, holes);
-				}
-			}
-
-			return result;
-		}
-
 		void Sobel(const Image& src, Image& dst, const int32 dx, const int32 dy, int32 apertureSize)
 		{
-			// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 			{
 				if (!src)
 				{
@@ -2479,46 +2653,30 @@ namespace s3d
 				}
 			}
 
-			// 2. Âá∫ÂäõÁîªÂÉè„ÅÆ„Çµ„Ç§„Ç∫Â§âÊõ¥
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. Âá¶ÁêÜ
+			// 3. èàóù
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
 				cv::Sobel(gray, detected_edges, CV_8U, dx, dy, apertureSize);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
 		void Laplacian(const Image& src, Image& dst, int32 apertureSize)
 		{
-			// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 			{
 				if (!src)
 				{
@@ -2536,46 +2694,30 @@ namespace s3d
 				}
 			}
 
-			// 2. Âá∫ÂäõÁîªÂÉè„ÅÆ„Çµ„Ç§„Ç∫Â§âÊõ¥
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. Âá¶ÁêÜ
+			// 3. èàóù
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
 				cv::Laplacian(gray, detected_edges, CV_8U, apertureSize);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
 		void Canny(const Image& src, Image& dst, const uint8 lowThreshold, const uint8 highThreshold, int32 apertureSize, const bool useL2Gradient)
 		{
-			// 1. „Éë„É©„É°„Éº„Çø„ÉÅ„Çß„ÉÉ„ÇØ
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
 			{
 				if (!src)
 				{
@@ -2593,18 +2735,18 @@ namespace s3d
 				}
 			}
 
-			// 2. Âá∫ÂäõÁîªÂÉè„ÅÆ„Çµ„Ç§„Ç∫Â§âÊõ¥
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. Âá¶ÁêÜ
+			// 3. èàóù
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
@@ -2612,25 +2754,230 @@ namespace s3d
 
 				cv::Canny(detected_edges, detected_edges, lowThreshold, highThreshold, apertureSize, useL2Gradient);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
+		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, double sigma_s, double sigma_r)
+		{
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. èàóù
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::edgePreservingFilter(matSrc, matDst,
+					filterType == EdgePreservingFilterType::Recursive
+					? cv::RECURS_FILTER : cv::NORMCONV_FILTER,
+					static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				OpenCV_Bridge::FromMat(matDst, dst, true);
+			}
+		}
+
+		void DetailEnhance(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. èàóù
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::detailEnhance(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				OpenCV_Bridge::FromMat(matDst, dst, true);
+			}
+		}
+
+		void Stylization(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. èoóÕâÊëúÇÃÉTÉCÉYïœçX
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. èàóù
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::stylization(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				OpenCV_Bridge::FromMat(matDst, dst, true);
+			}
+		}
+
+		ColorF SSIM(const Image& image1, const Image& image2)
+		{
+			if (image1.size() != image2.size())
+			{
+				return ColorF(1.0);
+			}
+
+			const double C1 = 6.5025, C2 = 58.5225;
+			const int32 x = image1.width(), y = image1.height();
+
+			cv::Mat_<cv::Vec3f> I1(y, x), I2(y, x);
+			OpenCV_Bridge::ToMatVec3f255(image1, I1);
+			OpenCV_Bridge::ToMatVec3f255(image2, I2);
+
+			cv::Mat I2_2 = I2.mul(I2);        // I2^2
+			cv::Mat I1_2 = I1.mul(I1);        // I1^2
+			cv::Mat I1_I2 = I1.mul(I2);        // I1 * I2
+
+			/*************************** END INITS **********************************/
+
+			cv::Mat mu1, mu2;   // PRELIMINARY COMPUTING
+			cv::GaussianBlur(I1, mu1, cv::Size(11, 11), 1.5);
+			cv::GaussianBlur(I2, mu2, cv::Size(11, 11), 1.5);
+
+
+			cv::Mat mu1_2 = mu1.mul(mu1);
+			cv::Mat mu2_2 = mu2.mul(mu2);
+			cv::Mat mu1_mu2 = mu1.mul(mu2);
+
+			cv::Mat sigma1_2, sigma2_2, sigma12;
+
+			cv::GaussianBlur(I1_2, sigma1_2, cv::Size(11, 11), 1.5);
+			sigma1_2 -= mu1_2;
+
+			cv::GaussianBlur(I2_2, sigma2_2, cv::Size(11, 11), 1.5);
+			sigma2_2 -= mu2_2;
+
+			cv::GaussianBlur(I1_I2, sigma12, cv::Size(11, 11), 1.5);
+			sigma12 -= mu1_mu2;
+
+			///////////////////////////////// FORMULA ////////////////////////////////
+			cv::Mat t1, t2, t3;
+
+			t1 = 2 * mu1_mu2 + C1;
+			t2 = 2 * sigma12 + C2;
+			t3 = t1.mul(t2);              // t3 = ((2*mu1_mu2 + C1).*(2*sigma12 + C2))
+
+			t1 = mu1_2 + mu2_2 + C1;
+			t2 = sigma1_2 + sigma2_2 + C2;
+			t1 = t1.mul(t2);               // t1 =((mu1_2 + mu2_2 + C1).*(sigma1_2 + sigma2_2 + C2))
+
+			cv::Mat ssim_map;
+			cv::divide(t3, t1, ssim_map);      // ssim_map =  t3./t1;
+
+			cv::Scalar mssim = cv::mean(ssim_map); // mssim = average of ssim map
+			return ColorF(mssim[2], mssim[1], mssim[0], 1.0);
+		}
+
+		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)
+		{
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
+			{
+				if (!image || !maskImage)
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = std::max(radius, 0);
+			}
+
+			// 2. èàóù
+			{
+				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
+
+				OpenCV_Bridge::ToMatVec3b(image, matSrc);
+
+				cv::Mat_<uint8> matMask(image.height(), image.width());
+
+				OpenCV_Bridge::RedToBinary(maskImage, matMask, 254);
+
+				cv::Mat_<cv::Vec3b> matDst;
+
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+
+				OpenCV_Bridge::FromMat(matDst, result, true);
+			}
+		}
+
+		void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius)
+		{
+			// 1. ÉpÉâÉÅÅ[É^É`ÉFÉbÉN
+			{
+				if (!image || maskImage.isEmpty())
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = std::max(radius, 0);
+			}
+
+			// 2. èàóù
+			{
+				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
+
+				OpenCV_Bridge::ToMatVec3b(image, matSrc);
+
+				cv::Mat_<uint8> matMask(static_cast<int32>(maskImage.height()), static_cast<int32>(maskImage.width()), const_cast<uint8*>(maskImage.data()), static_cast<int32>(maskImage.width()));
+
+				cv::Mat_<cv::Vec3b> matDst;
+
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+
+				OpenCV_Bridge::FromMat(matDst, result, true);
+			}
+		}
 	}
 }

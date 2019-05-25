@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -123,7 +123,7 @@ namespace s3d
 			const int32 resultWidth = imageWidth / scale;
 			const int32 resultHeight = imageHeight / scale;
 
-			detail::SDFPixel* const pPixels = static_cast<detail::SDFPixel*>(::malloc(sizeof(detail::SDFPixel) * num_pixels));
+			detail::SDFPixel* const pPixels = static_cast<detail::SDFPixel*>(std::malloc(sizeof(detail::SDFPixel) * num_pixels));
 			{
 				const Color* pSrc = image.data();
 				const Color* const pSrcEnd = pSrc + num_pixels;
@@ -131,7 +131,7 @@ namespace s3d
 
 				while (pSrc != pSrcEnd)
 				{
-					pDst->distance = Largest<float>();
+					pDst->distance = Largest<float>;
 					pDst->border.set(-1, -1);
 					pDst->white = (pSrc->r == 255);
 
@@ -323,7 +323,7 @@ namespace s3d
 				}
 			}
 
-			::free(pPixels);
+			std::free(pPixels);
 
 			return result;
 		}

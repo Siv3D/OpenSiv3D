@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,9 +13,12 @@
 # include "FontData.hpp"
 # include FT_OPENTYPE_VALIDATE_H
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/TextureRegion.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -96,6 +99,45 @@ namespace s3d
 			return;
 		}
 
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		if (FileSystem::IsResource(filePath))
+		{
+			m_resource = FontResourceHolder(filePath);
+
+			if (const FT_Error error = ::FT_New_Memory_Face(library, static_cast<const FT_Byte*>(m_resource.data()), static_cast<FT_Long>(m_resource.size()), 0, &m_faceText.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return;
+			}
+		}
+		else
+		{
+			if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return;
+			}
+		}
+		
+	# else
+		
 		if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
@@ -109,6 +151,8 @@ namespace s3d
 
 			return;
 		}
+
+	# endif
 
 		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_faceText.face, 0, fontSize))
 		{
@@ -134,16 +178,16 @@ namespace s3d
 			}
 		}
 
-		m_familyName	= Unicode::Widen(m_faceText.face->family_name);
-		m_styleName		= Unicode::Widen(m_faceText.face->style_name);
+		m_familyName = Unicode::Widen(m_faceText.face->family_name);
+		m_styleName = Unicode::Widen(m_faceText.face->style_name);
 
-		m_fontSize		= fontSize;
-		m_ascender		= static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
-		m_descender		= -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
-		m_lineSpacing	= m_ascender + m_descender;
-		m_bold			= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
-		m_italic		= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
-		m_noBitmap		= !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
+		m_fontSize = fontSize;
+		m_ascender = static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
+		m_descender = -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
+		m_lineSpacing = m_ascender + m_descender;
+		m_bold = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
+		m_italic = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
+		m_noBitmap = !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
 		//m_width			= (m_faceText.face->bbox.xMax - m_faceText.face->bbox.xMin) / 64;
 
 		const FT_UInt spaceGlyphIndex = ::FT_Get_Char_Index(m_faceText.face, U' ');
@@ -155,14 +199,44 @@ namespace s3d
 		else
 		{
 			m_tabWidth = static_cast<int32>(m_faceText.face->glyph->metrics.horiAdvance * 4 / 64);
-		}	
+		}
 
-		m_initialized	= true;
+		m_initialized = true;
 	}
 
 	FontData::~FontData()
 	{
 
+	}
+
+	bool FontData::isInitialized() const noexcept
+	{
+		return m_initialized;
+	}
+
+	const String& FontData::getFamilyName() const
+	{
+		return m_familyName;
+	}
+
+	const String& FontData::getStyleName() const
+	{
+		return m_styleName;
+	}
+
+	int32 FontData::getFontSize() const noexcept
+	{
+		return m_fontSize;
+	}
+
+	int32 FontData::getAscent() const noexcept
+	{
+		return m_ascender;
+	}
+
+	int32 FontData::getDescent() const noexcept
+	{
+		return m_descender;
 	}
 
 	Array<Glyph> FontData::getGlyphs(const String& codePoints)
@@ -305,6 +379,11 @@ namespace s3d
 		}
 
 		return outlineGlyph;
+	}
+
+	const Texture& FontData::getTexture() const
+	{
+		return m_texture;
 	}
 
 	RectF FontData::getBoundingRect(const String& codePoints, const double lineSpacingScale)
@@ -676,6 +755,54 @@ namespace s3d
 		}
 
 		return !needDots;
+	}
+
+	Rect FontData::paint(Image& dst, const bool overwrite, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale) const
+	{
+		Vec2 penPos(pos);
+		double maxPosX = DBL_MIN;
+		int32 lineCount = 0;
+		Image tmpImage;
+
+		for (const auto& codePoint : codePoints)
+		{
+			if (codePoint == U'\n')
+			{
+				penPos.x = pos.x;
+				penPos.y += m_lineSpacing * lineSpacingScale;
+				++lineCount;
+			}
+			else if (codePoint == U'\t')
+			{
+				maxPosX = std::max(maxPosX, penPos.x + m_tabWidth);
+				penPos.x += m_tabWidth;
+			}
+			else if (IsControl(codePoint))
+			{
+
+			}
+			else
+			{
+				const char32VH indexVH = codePoint | Horizontal;
+				const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText.face, codePoint);
+				const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji.face, codePoint) : 0;
+				const FT_Face face = (glyphIndexText != 0 || (glyphIndexEmoji == 0)) ? m_faceText.face : m_faceEmoji.face;
+				const FT_UInt glyphIndex = (glyphIndexText != 0 || (glyphIndexEmoji == 0)) ? glyphIndexText : glyphIndexEmoji;
+
+				const double startX = penPos.x;
+				int32 width = 0, xAdvance = 0;
+				paintGlyph(face, glyphIndex, dst, tmpImage, overwrite, penPos.asPoint(), color, width, xAdvance);
+				penPos.x += xAdvance;
+				maxPosX = std::max(maxPosX, startX + width);
+			}
+		}
+
+		if (!lineCount)
+		{
+			return RectF(pos, 0);
+		}
+
+		return Rect(pos, static_cast<int32>(maxPosX - pos.x), static_cast<int32>(lineCount * m_lineSpacing * lineSpacingScale));
 	}
 
 	void FontData::generateVerticalTable()
@@ -1117,5 +1244,93 @@ namespace s3d
 		m_glyphs.push_back(info);
 
 		return true;
+	}
+
+	void FontData::paintGlyph(FT_Face face, FT_UInt glyphIndex, Image& image, Image& tmpImage, const bool overwrite, const Point& penPos, const Color& color, int32& width, int32& xAdvance) const
+	{
+		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT | (m_noBitmap ? FT_LOAD_NO_BITMAP : 0)))
+		{
+			return;
+		}
+
+		if (m_bold)
+		{
+			::FT_GlyphSlot_Embolden(face->glyph);
+		}
+
+		if (m_italic)
+		{
+			::FT_GlyphSlot_Oblique(face->glyph);
+		}
+
+		const FT_GlyphSlot slot = face->glyph;
+		bool isBitmap = false;
+
+		if (face->glyph->format != FT_GLYPH_FORMAT_BITMAP)
+		{
+			if (const FT_Error error = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL))
+			{
+				return;
+			}
+		}
+		else
+		{
+			isBitmap = true;
+		}
+
+		const int32 bitmapWidth = slot->bitmap.width;
+		const int32 bitmapHeight = slot->bitmap.rows;
+		const int32 bitmapStride = slot->bitmap.pitch;
+		const uint8* bitmapBuffer = slot->bitmap.buffer;
+		const Point offset(slot->bitmap_left, m_ascender - slot->bitmap_top);
+
+		width = bitmapWidth;
+		xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
+
+		tmpImage.resize(bitmapWidth, bitmapHeight);
+
+		if (!tmpImage)
+		{
+			return;
+		}
+
+		Color* pDst = tmpImage.data();
+
+		if (isBitmap)
+		{
+			const uint8* pSrcLine = bitmapBuffer;
+
+			for (int32 y = 0; y < bitmapHeight; ++y)
+			{
+				for (int32 x = 0; x < bitmapWidth; ++x)
+				{
+					const uint32 offsetI = x / 8;
+					const uint32 offsetB = 7 - x % 8;
+
+					(*pDst++) = Color(255, ((pSrcLine[offsetI] >> offsetB) & 0x1) ? 255 : 0);
+				}
+
+				pSrcLine += bitmapStride;
+			}
+		}
+		else
+		{
+			for (int32 y = 0; y < bitmapHeight; ++y)
+			{
+				for (int32 x = 0; x < bitmapWidth; ++x)
+				{
+					(*pDst++) = Color(255, (*bitmapBuffer++));
+				}
+			}
+		}
+
+		if (overwrite)
+		{
+			tmpImage.overwrite(image, penPos + offset, color);
+		}
+		else
+		{
+			tmpImage.paint(image, penPos + offset, color);
+		}
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,11 +24,11 @@ namespace s3d
 	{
 		std::array<uint8, 16> value;
 
-		String asString() const;
+		[[nodiscard]] String asString() const;
 
-		bool operator == (const MD5Value& other) const noexcept;
+		[[nodiscard]] bool operator == (const MD5Value& other) const noexcept;
 
-		bool operator != (const MD5Value& other) const noexcept;
+		[[nodiscard]] bool operator != (const MD5Value& other) const noexcept;
 	};
 
 	/// <summary>
@@ -63,6 +63,17 @@ namespace s3d
 		/// MD5 ハッシュ値
 		/// </returns>
 		[[nodiscard]] MD5Value FromBinary(ByteArrayView view);
+
+		/// <summary>
+		/// データから MD5 ハッシュ値を計算します。
+		/// </summary>
+		/// <param name="view">
+		/// MD5 ハッシュ値を計算するデータ
+		/// </param>
+		/// <returns>
+		/// MD5 ハッシュ値
+		/// </returns>
+		[[nodiscard]] MD5Value FromBinary(ByteArrayViewAdapter view);
 
 		/// <summary>
 		/// 文字列データから MD5 ハッシュ値を計算します。
@@ -107,10 +118,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const MD5Value& value)
-	{
-		formatData.string.append(value.asString());
-	}
+	void Formatter(FormatData& formatData, const MD5Value& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const MD5Value& value)

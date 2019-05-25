@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -23,10 +23,16 @@ namespace s3d
 
 		virtual ~ISiv3DLicenseManager() = default;
 
-		virtual void setApplicationLicense(const LicenseInfo& license) = 0;
+		virtual void update() = 0;
+
+		virtual void setApplicationLicense(const String& uniqueID, const LicenseInfo& license) = 0;
 
 		virtual void addLicense(const LicenseInfo& license) = 0;
 
 		virtual const Array<LicenseInfo>& enumLicenses() const = 0;
+
+		virtual const String& getUniqueID() const = 0;
+
+		virtual void disableDefaultTrigger() = 0;
 	};
 }

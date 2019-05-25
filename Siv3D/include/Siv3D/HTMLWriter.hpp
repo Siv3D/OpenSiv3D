@@ -2,11 +2,13 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::HTMLWriter is originally created by Kenta Masuda (HAMSTRO)
 //-----------------------------------------------
 
 # pragma once
@@ -24,56 +26,33 @@ namespace s3d
 	{
 	private:
 
-		class CHTMLWriter;
+		class HTMLWriterDetail;
 
-		std::shared_ptr<CHTMLWriter> pImpl;
+		std::shared_ptr<HTMLWriterDetail> pImpl;
 
 	public:
 
-		static String DefaultStyle()
-		{
-			return String(
-UR"(body{
-  margin: 20px 40px;
-}
-table{
-  border-collapse: collapse;
-}
-tr:nth-child(even){
-  background: #f6f8fa;
-}
-th,td{
-  padding: 10px;
-  border: 1px solid #dfe2e5;
-})");
-		}
+		static String DefaultStyle();
 
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
 		HTMLWriter();
 
+		HTMLWriter(const FilePath& path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
+
 		/// <summary>
 		/// デストラクタ
 		/// </summary>
 		~HTMLWriter();
 
-		HTMLWriter(const FilePath& path, const String& title = U"Untitled", const StringView styleSheet = DefaultStyle())
-			: HTMLWriter()
-		{
-			open(path, title, styleSheet);
-		}
-
-		bool open(const FilePath& path, const String& title = U"Untitled", const StringView styleSheet = DefaultStyle());
+		bool open(const FilePath& path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
 
 		void close();
 
-		bool isOpened() const;
+		[[nodiscard]] bool isOpened() const;
 
-		explicit operator bool() const
-		{
-			return isOpened();
-		}
+		[[nodiscard]] explicit operator bool() const;
 
 		void writeRaw(StringView view);
 
@@ -93,6 +72,6 @@ th,td{
 
 		void writeImage(const FilePath& url, const Optional<Size>& size = unspecified);
 
-		const FilePath& path() const;
+		[[nodiscard]] const FilePath& path() const;
 	};
 }

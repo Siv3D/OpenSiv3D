@@ -27,12 +27,11 @@
 
 namespace mu
 {
-  const ParserErrorMsg ParserErrorMsg::m_Instance;
-
   //------------------------------------------------------------------------------
   const ParserErrorMsg& ParserErrorMsg::Instance()
   {
-    return m_Instance;
+    static const ParserErrorMsg instance;
+    return instance;
   }
 
   //------------------------------------------------------------------------------
@@ -40,23 +39,6 @@ namespace mu
   {
     return (a_iIdx<m_vErrMsg.size()) ? m_vErrMsg[a_iIdx] : string_type();
   }
-
-  //---------------------------------------------------------------------------
-  ParserErrorMsg::~ParserErrorMsg()
-  {}
-
-  //---------------------------------------------------------------------------
-  /** \brief Assignment operator is deactivated.
-  */
-  ParserErrorMsg& ParserErrorMsg::operator=(const ParserErrorMsg& )
-  {
-    assert(false);
-    return *this;
-  }
-
-  //---------------------------------------------------------------------------
-  ParserErrorMsg::ParserErrorMsg(const ParserErrorMsg&)
-  {}
 
   //---------------------------------------------------------------------------
   ParserErrorMsg::ParserErrorMsg()

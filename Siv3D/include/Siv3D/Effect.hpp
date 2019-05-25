@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -29,10 +29,14 @@ namespace s3d
 	{
 	private:
 
-		class Handle {};
+		class Tag {};
 
-		using EffectHandle = AssetHandle<Handle>;
+		using EffectHandle = AssetHandle<Tag>;
 
+		friend EffectHandle::AssetHandle();
+		
+		friend EffectHandle::AssetHandle(const IDWrapperType id) noexcept;
+		
 		friend EffectHandle::~AssetHandle();
 
 		std::shared_ptr<EffectHandle> m_handle;
@@ -50,7 +54,7 @@ namespace s3d
 		/// <summary>
 		/// エフェクトハンドルの ID を示します。
 		/// </summary>
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
 		/// <summary>
 		/// 2 つの Effect が同じかどうかを返します。
@@ -61,7 +65,7 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Effect が同じ場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Effect& effect) const;
+		[[nodiscard]] bool operator ==(const Effect& effect) const;
 
 		/// <summary>
 		/// 2 つの Effect が異なるかどうかを返します。
@@ -72,27 +76,18 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Effect が異なる場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Effect& effect) const;
+		[[nodiscard]] bool operator !=(const Effect& effect) const;
 
-		explicit operator bool() const
-		{
-			return hasEffects();
-		}
+		[[nodiscard]] explicit operator bool() const;
 
 		/// <summary>
 		/// エフェクトが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const
-		{
-			return !hasEffects();
-		}
+		[[nodiscard]] bool isEmpty() const;
 
-		bool hasEffects() const
-		{
-			return num_effects() > 0;
-		}
+		[[nodiscard]] bool hasEffects() const;
 
-		size_t num_effects() const;
+		[[nodiscard]] size_t num_effects() const;
 
 		void add(std::unique_ptr<IEffect>&& effect) const;
 
@@ -102,33 +97,17 @@ namespace s3d
 			add(std::make_unique<EffectElement>(std::forward<Args>(args)...));
 		}
 
-		void add(std::function<bool(double)> f) const
-		{
-			struct AnonymousEffect : IEffect
-			{
-				std::function<bool(double)> function;
-
-				explicit AnonymousEffect(std::function<bool(double)> _function)
-					: function(_function) {}
-
-				bool update(double timeSec) override
-				{
-					return function(timeSec);
-				}
-			};
-
-			add(std::make_unique<AnonymousEffect>(f));
-		}
+		void add(std::function<bool(double)> f) const;
 
 		void pause() const;
 
-		bool isPaused() const;
+		[[nodiscard]] bool isPaused() const;
 
 		void resume() const;
 
 		void setSpeed(double speed) const;
 
-		double getSpeed() const;
+		[[nodiscard]] double getSpeed() const;
 
 		void update() const;
 

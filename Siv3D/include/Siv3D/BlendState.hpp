@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -75,13 +75,17 @@ namespace s3d
 
 		using StorageType = uint32;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
 			struct
 			{
-				bool enable : 3;
+				bool enable : 1;
+
+				bool writeR : 1;
+
+				bool writeG : 1;
 
 				Blend src : 5;
 
@@ -89,7 +93,11 @@ namespace s3d
 
 				BlendOp op : 3;
 
-				bool alphaToCoverageEnable : 3;
+				bool alphaToCoverageEnable : 1;
+
+				bool writeB : 1;
+
+				bool writeA : 1;
 
 				Blend srcAlpha : 5;
 
@@ -101,22 +109,31 @@ namespace s3d
 			StorageType _data;
 		};
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
-		explicit BlendState(
-			bool _enable = true,
-			Blend _src = Blend::SrcAlpha,
-			Blend _dst = Blend::InvSrcAlpha,
-			BlendOp _op = BlendOp::Add,
-			Blend _srcAlpha = Blend::Zero,
-			Blend _dstAlpha = Blend::One,
-			BlendOp _opAlpha = BlendOp::Add,
-			bool _alphaToCoverageEnable = false) noexcept
+			explicit BlendState(
+				bool _enable = true,
+				Blend _src = Blend::SrcAlpha,
+				Blend _dst = Blend::InvSrcAlpha,
+				BlendOp _op = BlendOp::Add,
+				Blend _srcAlpha = Blend::Zero,
+				Blend _dstAlpha = Blend::One,
+				BlendOp _opAlpha = BlendOp::Add,
+				bool _alphaToCoverageEnable = false,
+				bool _writeR = true,
+				bool _writeG = true,
+				bool _writeB = true,
+				bool _writeA = true
+			) noexcept
 			: enable(_enable)
+			, writeR(_writeR)
+			, writeG(_writeG)
 			, src(_src)
 			, dst(_dst)
 			, op(_op)
 			, alphaToCoverageEnable(_alphaToCoverageEnable)
+			, writeB(_writeB)
+			, writeA(_writeA)
 			, srcAlpha(_srcAlpha)
 			, dstAlpha(_dstAlpha)
 			, opAlpha(_opAlpha) {}

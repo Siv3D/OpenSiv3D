@@ -1,9 +1,9 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,7 +16,7 @@
 # include "String.hpp"
 # include "NamedParameter.hpp"
 # include "Array.hpp"
-# include "Shader.hpp"
+# include "ShaderCommon.hpp"
 
 namespace s3d
 {
@@ -24,9 +24,13 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		class Tag {};
 
-		using PixelShaderHandle = AssetHandle<Handle>;
+		using PixelShaderHandle = AssetHandle<Tag>;
+		
+		friend PixelShaderHandle::AssetHandle();
+		
+		friend PixelShaderHandle::AssetHandle(const IDWrapperType id) noexcept;
 
 		friend PixelShaderHandle::~AssetHandle();
 
@@ -40,7 +44,7 @@ namespace s3d
 
 		explicit PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
 		
-		explicit PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
+		//explicit PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
 
 		virtual ~PixelShader();
 
@@ -48,18 +52,15 @@ namespace s3d
 
 		bool isEmpty() const;
 
-		explicit operator bool() const
-		{
-			return !isEmpty();
-		}
+		[[nodiscard]] explicit operator bool() const;
 
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
-		bool operator ==(const PixelShader& shader) const;
+		[[nodiscard]] bool operator ==(const PixelShader& shader) const;
 
-		bool operator !=(const PixelShader& shader) const;
+		[[nodiscard]] bool operator !=(const PixelShader& shader) const;
 
-		ByteArrayView getBinaryView() const;
+		[[nodiscard]] ByteArrayView getBinaryView() const;
 	};
 
 	using PixelShaderID = PixelShader::IDType;

@@ -2,16 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "IPrint.hpp"
 # include <Siv3D/Font.hpp>
+# include <Siv3D/Window.hpp>
+# include "IPrint.hpp"
 
 namespace s3d
 {
@@ -19,11 +20,11 @@ namespace s3d
 	{
 	private:
 
-		Font m_font;
+		std::unique_ptr<Font> m_pFont;
 
 		size_t m_maxLines = 6;
 
-		int32 m_maxWidth = 640;
+		int32 m_maxWidth = Window::DefaultClientSize.x;
 
 		int32 m_currentPosX = 0;
 
@@ -37,7 +38,7 @@ namespace s3d
 
 		~CPrint() override;
 
-		bool init() override;
+		void init() override;
 
 		void add(const String& text) override;
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,9 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Time.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3DEngine.hpp>
+# include "IScript.hpp"
 # include "ScriptData.hpp"
 
 namespace s3d
@@ -36,9 +38,7 @@ namespace s3d
 		, m_moduleData(std::make_shared<ScriptModuleData>())
 		, m_compileOption(compileOption)
 	{
-		//StopwatchMicrosec stopwatch(true);
-
-		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
 
 		AngelScript::CScriptBuilder builder;
 
@@ -48,15 +48,17 @@ namespace s3d
 
 		if (r < 0)
 		{
-			//LOG_FAIL(L"Unrecoverable error while starting a new module.");
+			LOG_FAIL(U"Unrecoverable error while starting a new module.");
 			return;
 		}
 
-		r = builder.AddSectionFromMemory("", code.toUTF8().c_str(), static_cast<uint32>(code.length()), 0);
+		const std::string codeUTF8 = code.toUTF8();
+
+		r = builder.AddSectionFromMemory("", codeUTF8.c_str(), static_cast<uint32>(codeUTF8.length()), 0);
 
 		if (r < 0)
 		{
-			//LOG_FAIL(L"Please correct the errors in the script and try again.");
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
 			return;
 		}
 
@@ -64,19 +66,13 @@ namespace s3d
 
 		if (r < 0)
 		{
-			//LOG_FAIL(L"Please correct the errors in the script and try again.");
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
 			return;
 		}
 
-		//const auto elapsed = stopwatch.elapsed();
-
-		//LOG_SCRIPT(L"スクリプトコードのビルド完了。 build time : {}"_fmt, elapsed);
-
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
-
 		m_moduleData->context = m_engine->CreateContext();
-
-		m_moduleData->withoutLineCues = withoutLineCues();
+		m_moduleData->withLineCues = withLineCues();
 
 		m_complieSucceeded = true;
 
@@ -89,19 +85,12 @@ namespace s3d
 		, m_compileOption(compileOption)
 		, m_fromFile(true)
 	{
-		if (path.isEmpty())
+		if (path.isEmpty() || !FileSystem::IsFile(path))
 		{
 			return;
 		}
 
-		if (!FileSystem::IsFile(path))
-		{
-			return;
-		}
-
-		//StopwatchMicrosec stopwatch(true);
-
-		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
 
 		AngelScript::CScriptBuilder builder;
 
@@ -109,9 +98,10 @@ namespace s3d
 
 		m_fullpath = FileSystem::FullPath(path);
 
-		//m_monitor.monitor(m_fullpath);
+		m_initialized = true;
 
-		int r = builder.StartNewModule(m_engine, m_moduleName.c_str());
+
+		int32 r = builder.StartNewModule(m_engine, m_moduleName.c_str());
 
 		if (r < 0)
 		{
@@ -123,7 +113,7 @@ namespace s3d
 
 		if (r < 0)
 		{
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
 			return;
 		}
 
@@ -131,23 +121,15 @@ namespace s3d
 
 		if (r < 0)
 		{
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
 			return;
 		}
 
-		//const auto elapsed = stopwatch.elapsed();
-
-		//LOG_SCRIPT(L"\"{}\" のビルド完了。 build time : {}"_fmt, m_fullpath, elapsed);
-
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
-
 		m_moduleData->context = m_engine->CreateContext();
-
-		m_moduleData->withoutLineCues = withoutLineCues();
+		m_moduleData->withLineCues = withLineCues();
 
 		m_complieSucceeded = true;
-
-		m_initialized = true;
 	}
 
 	AngelScript::asIScriptFunction* ScriptData::getFunction(const String& decl)
@@ -197,13 +179,92 @@ namespace s3d
 		return m_complieSucceeded;
 	}
 
-	bool ScriptData::withoutLineCues() const
+	void ScriptData::setSystemUpdateCallback(const std::function<bool(void)>& callback)
 	{
-		return !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues);
+		m_systemUpdateCallback = callback;
+	}
+
+	const std::function<bool(void)>& ScriptData::getSystemUpdateCallback() const
+	{
+		return m_systemUpdateCallback;
+	}
+
+	const Array<String>& ScriptData::getMessages() const
+	{
+		return m_messages;
+	}
+
+	bool ScriptData::reload(const int32 compileOption, const uint64 scriptID)
+	{
+		if (!m_fromFile)
+		{
+			return false;
+		}
+
+		m_moduleData = std::make_shared<ScriptModuleData>();
+		m_functions.clear();
+		m_moduleName.clear();
+		m_messages.clear();
+		m_complieSucceeded = false;
+		m_compileOption = compileOption;
+
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
+
+		AngelScript::CScriptBuilder builder;
+
+		m_moduleName = detail::GenerateModuleName();
+
+		int r = builder.StartNewModule(m_engine, m_moduleName.c_str());
+
+		if (r < 0)
+		{
+			LOG_FAIL(U"Unrecoverable error while starting a new module.");
+			return false;
+		}
+
+		r = builder.AddSectionFromFile(m_fullpath);
+
+		if (r < 0)
+		{
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
+			return false;
+		}
+
+		r = builder.BuildModule();
+
+		if (r < 0)
+		{
+			m_messages = Siv3DEngine::Get<ISiv3DScript>()->retrieveMessagesInternal();
+			return false;
+		}
+
+		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
+		m_moduleData->context = m_engine->CreateContext();
+		m_moduleData->scriptID = scriptID;
+		m_moduleData->withLineCues = withLineCues();
+
+		m_complieSucceeded = true;
+
+		return true;
+	}
+
+	const FilePath& ScriptData::path() const
+	{
+		return m_fullpath;
+	}
+
+	bool ScriptData::withLineCues() const
+	{
+		return !!(m_compileOption & ScriptCompileOption::BuildWithLineCues);
 	}
 
 	bool ScriptData::isInitialized() const
 	{
 		return m_initialized;
+	}
+
+	void ScriptData::setScriptID(const uint64 id)
+	{
+		m_moduleData->scriptID = id;
 	}
 }

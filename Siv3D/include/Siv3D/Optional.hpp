@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,18 +14,15 @@
 # include <stdexcept>
 # include <memory>
 # include <cassert>
-# include "Platform.hpp"
 
 //////////////////////////////////////////////////////////////////////////////
 //
-//	Copyright (C) 2011 - 2012 Andrzej Krzemienski.
+//	Copyright (C) 2011 - 2017 Andrzej Krzemienski.
 //
 //	Use, modification, and distribution is subject to the Boost Software
 //	License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //	http://www.boost.org/LICENSE_1_0.txt)
 //
-
-# define OPTIONAL_REQUIRES(...) typename std::enable_if_t<__VA_ARGS__::value, bool> = false
 
 namespace s3d
 {
@@ -33,25 +30,32 @@ namespace s3d
 
 	template <class Type> class Optional<Type&>;
 
-	// workaround: std utility functions aren't constexpr yet
-	template <class Type>
-	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>& t) noexcept
-	{
-		return static_cast<Type&&>(t);
-	}
 
-	template <class Type>
-	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>&& t) noexcept
-	{
-		static_assert(!std::is_lvalue_reference_v<Type>);
-		return static_cast<Type&&>(t);
-	}
+	inline constexpr struct TrivialInit_t {} TrivialInit{};
 
-	template <class Type>
-	inline constexpr typename std::remove_reference_t<Type>&& constexpr_move(Type&& t) noexcept
+	inline constexpr struct InPlace_t {} InPlace{};
+
+	struct None_t
 	{
-		return static_cast<typename std::remove_reference_t<Type>&&>(t);
-	}
+		struct init {};
+
+		explicit constexpr None_t(init) {}
+	};
+
+	/// <summary>
+	/// 無効値
+	/// </summary>
+	inline constexpr None_t none{ None_t::init() };
+
+	class BadOptionalAccess : public std::exception
+	{
+	public:
+
+		[[nodiscard]] const char* what() const noexcept
+		{
+			return ("Bad optional access");
+		}
+	};
 
 	namespace detail
 	{
@@ -67,13 +71,13 @@ namespace s3d
 			constexpr static bool value = has_overload<Type>(true);
 		};
 
-		template <class Type, OPTIONAL_REQUIRES(!has_overloaded_addressof<Type>)>
+		template <class Type, std::enable_if_t<!has_overloaded_addressof<Type>::value>* = nullptr>
 		constexpr Type* static_addressof(Type& ref)
 		{
 			return &ref;
 		}
 
-		template <class Type, OPTIONAL_REQUIRES(has_overloaded_addressof<Type>)>
+		template <class Type, std::enable_if_t<has_overloaded_addressof<Type>::value>* = nullptr>
 		Type* static_addressof(Type& ref)
 		{
 			return std::addressof(ref);
@@ -84,152 +88,135 @@ namespace s3d
 		{
 			return v;
 		}
-	}
 
-	inline constexpr struct trivial_init_t {} trivial_init{};
-
-	inline constexpr struct in_place_t {} in_place{};
-
-	struct None_t
-	{
-		struct init {};
-
-		constexpr explicit None_t(init) {}
-	};
-
-	/// <summary>
-	/// 無効値
-	/// </summary>
-	inline constexpr None_t none{ None_t::init() };
-
-	class S3D_EXCEPTION_ABI bad_optional_access : public std::logic_error
-	{
-	public:
-		explicit bad_optional_access(const std::string& what_arg)
-			: logic_error{ what_arg } {}
-
-		explicit bad_optional_access(const char* what_arg)
-			: logic_error{ what_arg } {}
-	};
-
-	template <class Type>
-	union storage_t
-	{
-		unsigned char dummy_;
-		
-		Type value_;
-
-		constexpr storage_t(trivial_init_t) noexcept
-			: dummy_() {};
-
-		template <class... Args>
-		constexpr storage_t(Args&&... args)
-			: value_(constexpr_forward<Args>(args)...) {}
-
-		~storage_t() {}
-	};
-
-	template <class Type>
-	union constexpr_storage_t
-	{
-		unsigned char dummy_;
-		
-		Type value_;
-
-		constexpr constexpr_storage_t(trivial_init_t) noexcept
-			: dummy_() {};
-
-		template <class... Args>
-		constexpr constexpr_storage_t(Args&&... args)
-			: value_(constexpr_forward<Args>(args)...) {}
-
-		~constexpr_storage_t() = default;
-	};
-
-	template <class Type>
-	struct optional_base
-	{
-		bool init_;
-		
-		storage_t<Type> storage_;
-
-		constexpr optional_base() noexcept
-			: init_(false)
-			, storage_(trivial_init) {};
-
-		explicit constexpr optional_base(const Type& v)
-			: init_(true)
-			, storage_(v) {}
-
-		explicit constexpr optional_base(Type&& v)
-			: init_(true)
-			, storage_(constexpr_move(v)) {}
-
-		template <class... Args> explicit optional_base(in_place_t, Args&&... args)
-			: init_(true)
-			, storage_(constexpr_forward<Args>(args)...) {}
-
-		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		explicit optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
-			: init_(true)
-			, storage_(il, std::forward<Args>(args)...) {}
-
-		~optional_base()
+		namespace swap_ns
 		{
-			if (init_)
+			using std::swap;
+
+			template <class T>
+			void adl_swap(T& t, T& u) noexcept(noexcept(swap(t, u)))
 			{
-				storage_.value_.~Type();
+				swap(t, u);
 			}
-		}
-	};
 
-	template <class Type>
-	struct constexpr_optional_base
-	{
-		bool init_;
-
-		constexpr_storage_t<Type> storage_;
-
-		constexpr constexpr_optional_base() noexcept
-			: init_(false)
-			, storage_(trivial_init) {};
-
-		explicit constexpr constexpr_optional_base(const Type& v)
-			: init_(true)
-			, storage_(v) {}
-
-		explicit constexpr constexpr_optional_base(Type&& v)
-			: init_(true)
-			, storage_(constexpr_move(v)) {}
-
-		template <class... Args> explicit constexpr constexpr_optional_base(in_place_t, Args&&... args)
-			: init_(true)
-			, storage_(constexpr_forward<Args>(args)...) {}
-
-		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		constexpr explicit constexpr_optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
-			: init_(true)
-			, storage_(il, std::forward<Args>(args)...) {}
-
-		~constexpr_optional_base() = default;
-	};
-
-	template <class Type>
-	using OptionalBase = std::conditional_t<std::is_trivially_destructible_v<Type>, constexpr_optional_base<typename std::remove_const_t<Type>>, optional_base<typename std::remove_const_t<Type>>>;
-
-	namespace detail
-	{
-		template <class Type>
-		struct is_optional : std::false_type {};
+		} // namespace swap_ns
 
 		template <class Type>
-		struct is_optional<Optional<Type>> : std::true_type {};
+		union Storage_t
+		{
+			unsigned char dummy_;
 
-		template <>
-		struct is_optional<None_t> : std::true_type {};
+			Type value_;
 
-		template <class Type> constexpr bool is_optional_v = is_optional<Type>::value;
+			constexpr Storage_t(TrivialInit_t) noexcept
+				: dummy_() {};
+
+			template <class... Args>
+			constexpr Storage_t(Args&&... args)
+				: value_(std::forward<Args>(args)...) {}
+
+			~Storage_t() {}
+		};
+
+		template <class Type>
+		union Constexpr_storage_t
+		{
+			unsigned char dummy_;
+
+			Type value_;
+
+			constexpr Constexpr_storage_t(TrivialInit_t) noexcept
+				: dummy_() {};
+
+			template <class... Args>
+			constexpr Constexpr_storage_t(Args&&... args)
+				: value_(std::forward<Args>(args)...) {}
+
+			~Constexpr_storage_t() = default;
+		};
+
+		template <class Type>
+		struct optional_base
+		{
+			bool init_;
+
+			Storage_t<Type> storage_;
+
+			constexpr optional_base() noexcept
+				: init_(false)
+				, storage_(TrivialInit) {};
+
+			explicit constexpr optional_base(const Type& v)
+				: init_(true)
+				, storage_(v) {}
+
+			explicit constexpr optional_base(Type&& v)
+				: init_(true)
+				, storage_(std::move(v)) {}
+
+			template <class... Args> explicit optional_base(InPlace_t, Args&&... args)
+				: init_(true)
+				, storage_(std::forward<Args>(args)...) {}
+
+			template <class U, class... Args, std::enable_if_t<std::is_constructible_v<Type, std::initializer_list<U>>>* = nullptr>
+			explicit optional_base(InPlace_t, std::initializer_list<U> il, Args&&... args)
+				: init_(true)
+				, storage_(il, std::forward<Args>(args)...) {}
+
+			~optional_base()
+			{
+				if (init_)
+				{
+					storage_.value_.~Type();
+				}
+			}
+		};
+
+		template <class Type>
+		struct constexpr_optional_base
+		{
+			bool init_;
+
+			Constexpr_storage_t<Type> storage_;
+
+			constexpr constexpr_optional_base() noexcept
+				: init_(false)
+				, storage_(TrivialInit) {};
+
+			explicit constexpr constexpr_optional_base(const Type& v)
+				: init_(true)
+				, storage_(v) {}
+
+			explicit constexpr constexpr_optional_base(Type&& v)
+				: init_(true)
+				, storage_(std::move(v)) {}
+
+			template <class... Args> explicit constexpr constexpr_optional_base(InPlace_t, Args&&... args)
+				: init_(true)
+				, storage_(std::forward<Args>(args)...) {}
+
+			template <class U, class... Args, std::enable_if_t<std::is_constructible_v<Type, std::initializer_list<U>>>* = nullptr>
+			explicit constexpr constexpr_optional_base(InPlace_t, std::initializer_list<U> il, Args&&... args)
+				: init_(true)
+				, storage_(il, std::forward<Args>(args)...) {}
+
+			~constexpr_optional_base() = default;
+		};
 	}
+
+	template <class Type>
+	using OptionalBase = std::conditional_t<std::is_trivially_destructible_v<Type>, detail::constexpr_optional_base<typename std::remove_const_t<Type>>, detail::optional_base<typename std::remove_const_t<Type>>>;
+
+	template <class Type>
+	struct IsOptional : std::false_type {};
+
+	template <class Type>
+	struct IsOptional<Optional<Type>> : std::true_type {};
+
+	template <>
+	struct IsOptional<None_t> : std::true_type {};
+
+	template <class Type> constexpr bool IsOptional_v = IsOptional<Type>::value;
 
 	/// <summary>
 	/// Optional
@@ -238,7 +225,7 @@ namespace s3d
 	class Optional : private OptionalBase<Type>
 	{
 		static_assert(!std::is_same_v<std::decay_t<Type>, None_t>, "bad Type");
-		static_assert(!std::is_same_v<std::decay_t<Type>, in_place_t>, "bad Type");
+		static_assert(!std::is_same_v<std::decay_t<Type>, InPlace_t>, "bad Type");
 
 		Type* dataptr()
 		{
@@ -347,7 +334,7 @@ namespace s3d
 		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
-		constexpr Optional(const Type& v)
+		constexpr Optional(const value_type& v)
 			: OptionalBase<Type>(v) {}
 
 		/// <summary>
@@ -356,8 +343,8 @@ namespace s3d
 		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
-		constexpr Optional(Type&& v)
-			: OptionalBase<Type>(constexpr_move(v)) {}
+		constexpr Optional(value_type&& v)
+			: OptionalBase<Type>(std::move(v)) {}
 
 		/// <summary>
 		/// コンストラクタ
@@ -366,8 +353,8 @@ namespace s3d
 		/// 値のコンストラクタ引数
 		/// </param>
 		template <class... Args>
-		constexpr explicit Optional(in_place_t, Args&&... args)
-			: OptionalBase<Type>(in_place_t{}, constexpr_forward<Args>(args)...) {}
+		explicit constexpr Optional(InPlace_t, Args&&... args)
+			: OptionalBase<Type>(InPlace_t{}, std::forward<Args>(args)...) {}
 
 		/// <summary>
 		/// コンストラクタ
@@ -375,9 +362,9 @@ namespace s3d
 		/// <param name="args">
 		/// 値のコンストラクタ引数
 		/// </param>
-		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		constexpr explicit Optional(in_place_t, std::initializer_list<U> il, Args&&... args)
-			: OptionalBase<Type>(in_place_t{}, il, constexpr_forward<Args>(args)...) {}
+		template <class U, class... Args, std::enable_if_t<std::is_constructible_v<Type, std::initializer_list<U>>>* = nullptr>
+		explicit constexpr Optional(InPlace_t, std::initializer_list<U> il, Args&&... args)
+			: OptionalBase<Type>(InPlace_t{}, il, std::forward<Args>(args)...) {}
 
 		/// <summary>
 		/// デストラクタ
@@ -493,7 +480,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(std::swap(std::declval<Type&>(), std::declval<Type&>())))
+		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(detail::swap_ns::adl_swap(std::declval<Type&>(), std::declval<Type&>())))
 		{
 			if (has_value() == true && rhs.has_value() == false) { rhs.initialize(std::move(**this)); clear(); }
 			else if (has_value() == false && rhs.has_value() == true) { initialize(std::move(*rhs)); rhs.clear(); }
@@ -531,7 +518,7 @@ namespace s3d
 		/// <returns>
 		/// 中身へのポインタ
 		/// </returns>
-		constexpr Type const* operator -> () const
+		constexpr value_type const* operator -> () const
 		{
 			assert(has_value());
 			return dataptr();
@@ -546,7 +533,7 @@ namespace s3d
 		/// <returns>
 		/// 中身へのポインタ
 		/// </returns>
-		Type* operator -> ()
+		value_type* operator -> ()
 		{
 			assert(has_value());
 			return dataptr();
@@ -561,7 +548,7 @@ namespace s3d
 		/// <returns>
 		/// 中身の参照
 		/// </returns>
-		constexpr Type const& operator * () const
+		constexpr value_type const& operator* () const
 		{
 			assert(has_value());
 			return contained_val();
@@ -576,7 +563,7 @@ namespace s3d
 		/// <returns>
 		/// 中身の参照
 		/// </returns>
-		Type& operator * ()
+		value_type& operator * ()
 		{
 			assert(has_value());
 			return contained_val();
@@ -585,17 +572,17 @@ namespace s3d
 		/// <summary>
 		/// 中身の参照を返します。
 		/// </summary>
-		/// <exception cref="bad_optional_access">
+		/// <exception cref="BadOptionalAccess">
 		/// 中身が none の場合 throw されます。
 		/// </exception>
 		/// <returns>
 		/// 中身の参照
 		/// </returns>
-		constexpr Type const& value() const
+		constexpr value_type const& value() const
 		{
 			if (!has_value())
 			{
-				throw bad_optional_access("bad Optional access");
+				throw BadOptionalAccess{};
 			}
 
 			return contained_val();
@@ -604,17 +591,17 @@ namespace s3d
 		/// <summary>
 		/// 中身の参照を返します。
 		/// </summary>
-		/// <exception cref="bad_optional_access">
+		/// <exception cref="BadOptionalAccess">
 		/// 中身が none の場合 throw されます。
 		/// </exception>
 		/// <returns>
 		/// 中身の参照
 		/// </returns>
-		Type& value()
+		value_type& value()
 		{
 			if (!has_value())
 			{
-				throw bad_optional_access("bad Optional access");
+				throw BadOptionalAccess{};
 			}
 
 			return contained_val();
@@ -630,9 +617,9 @@ namespace s3d
 		/// 中身がある場合はその値、それ以外の場合は v
 		/// </returns>
 		template <class V>
-		constexpr Type value_or(V&& v) const&
+		constexpr value_type value_or(V&& v) const&
 		{
-			return *this ? **this : detail::convert<Type>(constexpr_forward<V>(v));
+			return *this ? **this : detail::convert<Type>(std::forward<V>(v));
 		}
 
 		/// <summary>
@@ -645,9 +632,21 @@ namespace s3d
 		/// 中身がある場合はその値、それ以外の場合は v
 		/// </returns>
 		template <class V>
-		Type value_or(V&& v) &&
+		value_type value_or(V&& v) &&
 		{
-			return *this ? constexpr_move(const_cast<Optional<Type>&>(*this).contained_val()) : detail::convert<Type>(constexpr_forward<V>(v));
+			return *this ? std::move(const_cast<Optional<Type>&>(*this).contained_val()) : detail::convert<Type>(std::forward<V>(v));
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<value_type, Fty>>* = nullptr>
+		constexpr value_type value_or_eval(Fty f) const&
+		{
+			return *this ? **this : f();
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<value_type, Fty>>* = nullptr>
+		value_type value_or_eval(Fty f) &&
+		{
+			return *this ? std::move(const_cast<Optional<Type>&>(*this).contained_val()) : f();
 		}
 
 		/// <summary>
@@ -670,7 +669,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void reset(const Type& v)
+		void reset(const value_type& v)
 		{
 			emplace(v);
 		}
@@ -682,33 +681,9 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional_v<std::result_of_t<Fty(Type)>>>* = nullptr>
-		std::result_of_t<Fty(Type)> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
 		/// なし
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type)>>
-			&& std::is_void_v<std::result_of_t<Fty(Type)>>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, value_type&>>* = nullptr>
 		void then(Fty f)
 		{
 			if (has_value())
@@ -724,57 +699,9 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type)>>
-			&& !std::is_void_v<std::result_of_t<Fty(Type)>>>* = nullptr>
-		Optional<std::result_of_t<Fty(Type)>> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional_v<std::result_of_t<Fty(Type)>>>* = nullptr>
-		std::result_of_t<Fty(Type)> then(Fty f) const
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
 		/// なし
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type)>>
-			&& std::is_void_v<std::result_of_t<Fty(Type)>>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, value_type>>* = nullptr>
 		void then(Fty f) const
 		{
 			if (has_value())
@@ -792,10 +719,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type)>>
-			&& !std::is_void_v<std::result_of_t<Fty(Type)>>>* = nullptr>
-		Optional<std::result_of_t<Fty(Type)>> then(Fty f) const
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, value_type&>>>
+		Optional<R> map(Fty f)
 		{
 			if (has_value())
 			{
@@ -808,54 +733,24 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
 		/// </summary>
-		/// <param name="f1">
-		/// 中身があるときに呼び出す関数
-		/// </param>
-		/// </summary>
-		/// <param name="f2">
-		/// 中身が無いときに呼び出す関数
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// なし
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2)
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, value_type>>>
+		Optional<R> map(Fty f) const
 		{
 			if (has_value())
 			{
-				f1(value());
+				return f(value());
 			}
 			else
 			{
-				f2();
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
-		/// </summary>
-		/// <param name="f1">
-		/// 中身があるときに呼び出す関数
-		/// </param>
-		/// </summary>
-		/// <param name="f2">
-		/// 中身が無いときに呼び出す関数
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2) const
-		{
-			if (has_value())
-			{
-				f1(value());
-			}
-			else
-			{
-				f2();
+				return none;
 			}
 		}
 	};
@@ -867,7 +762,7 @@ namespace s3d
 	class Optional<Type&>
 	{
 		static_assert(!std::is_same_v<Type, None_t>, "bad Type");
-		static_assert(!std::is_same_v<Type, in_place_t>, "bad Type");
+		static_assert(!std::is_same_v<Type, InPlace_t>, "bad Type");
 			
 		Type* ref;
 
@@ -914,10 +809,10 @@ namespace s3d
 		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
-		explicit constexpr Optional(in_place_t, Type& v) noexcept
+		explicit constexpr Optional(InPlace_t, Type& v) noexcept
 			: ref(detail::static_addressof(v)) {}
 
-		explicit Optional(in_place_t, Type&&) = delete;
+		explicit Optional(InPlace_t, Type&&) = delete;
 
 		/// <summary>
 		/// デストラクタ
@@ -1063,7 +958,7 @@ namespace s3d
 		/// <summary>
 		/// 中身の参照を返します。
 		/// </summary>
-		/// <exception cref="bad_optional_access">
+		/// <exception cref="BadOptionalAccess">
 		/// 中身が none の場合 throw されます。
 		/// </exception>
 		/// <returns>
@@ -1073,7 +968,7 @@ namespace s3d
 		{
 			if (!ref)
 			{
-				throw bad_optional_access("bad Optional access");		
+				throw BadOptionalAccess{};
 			}
 
 			return *ref;
@@ -1091,7 +986,13 @@ namespace s3d
 		template <class V>
 		constexpr std::decay_t<Type> value_or(V&& v) const
 		{
-			return *this ? **this : detail::convert<std::decay_t<Type>>(constexpr_forward<V>(v));
+			return *this ? **this : detail::convert<std::decay_t<Type>>(std::forward<V>(v));
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<std::decay_t<Type>, Fty>>* = nullptr>
+		constexpr std::decay_t<Type> value_or_eval(Fty f) const
+		{
+			return *this ? **this : f();
 		}
 
 		/// <summary>
@@ -1126,33 +1027,9 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
-		std::result_of_t<Fty(Type&)> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
 		/// なし
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type&)>>
-			&& std::is_void_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		void then(Fty f)
 		{
 			if (has_value())
@@ -1168,57 +1045,9 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type&)>>
-			&& !std::is_void_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
-		Optional<std::result_of_t<Fty(Type&)>> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
-		std::result_of_t<Fty(Type&)> then(Fty f) const
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
 		/// なし
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type&)>>
-			&& std::is_void_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, const Type&>>* = nullptr>
 		void then(Fty f) const
 		{
 			if (has_value())
@@ -1236,10 +1065,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional_v<std::result_of_t<Fty(Type&)>>
-			&& !std::is_void_v<std::result_of_t<Fty(Type&)>>>* = nullptr>
-		Optional<std::result_of_t<Fty(Type&)>> then(Fty f) const
+		template <class Fty, class R = std::invoke_result_t<Fty, Type&>>
+		Optional<R> map(Fty f)
 		{
 			if (has_value())
 			{
@@ -1252,54 +1079,24 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
 		/// </summary>
-		/// <param name="f1">
-		/// 中身があるときに呼び出す関数
-		/// </param>
-		/// </summary>
-		/// <param name="f2">
-		/// 中身が無いときに呼び出す関数
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// なし
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2)
+		template <class Fty, class R = std::invoke_result_t<Fty, const Type&>>
+		Optional<R> map(Fty f) const
 		{
 			if (has_value())
 			{
-				f1(value());
+				return f(value());
 			}
 			else
 			{
-				f2();
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
-		/// </summary>
-		/// <param name="f1">
-		/// 中身があるときに呼び出す関数
-		/// </param>
-		/// </summary>
-		/// <param name="f2">
-		/// 中身が無いときに呼び出す関数
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2) const
-		{
-			if (has_value())
-			{
-				f1(value());
-			}
-			else
-			{
-				f2();
+				return none;
 			}
 		}
 	};
@@ -1635,30 +1432,17 @@ namespace s3d
 	}
 
 	template <class Type>
-	constexpr Optional<std::decay_t<Type>> make_Optional(Type&& v)
+	constexpr Optional<std::decay_t<Type>> MakeOptional(Type&& v)
 	{
-		return Optional<std::decay_t<Type>>(constexpr_forward<Type>(v));
+		return Optional<std::decay_t<Type>>(std::forward<Type>(v));
 	}
 
 	template <class U>
-	constexpr Optional<U&> make_Optional(std::reference_wrapper<U> v)
+	constexpr Optional<U&> MakeOptional(std::reference_wrapper<U> v)
 	{
 		return Optional<U&>(v.get());
 	}
-
-	template <class Type>
-	struct IsOptional : std::false_type {};
-
-	template <class Type>
-	struct IsOptional<Optional<Type>> : std::true_type {};
-
-	template <>
-	struct IsOptional<None_t> : std::true_type {};
-
-	template <class Type> constexpr bool IsOptional_v = IsOptional<Type>::value;
 }
-
-# undef OPTIONAL_REQUIRES
 
 //////////////////////////////////////////////////
 //

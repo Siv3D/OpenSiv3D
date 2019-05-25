@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,7 +22,7 @@ namespace s3d
 
 		virtual ~ISiv3DProfiler() = default;
 
-		virtual bool init() = 0;
+		virtual void init() = 0;
 
 		virtual bool beginFrame() = 0;
 
@@ -30,11 +30,11 @@ namespace s3d
 
 		virtual int32 getFPS() const = 0;
 
+		virtual String getSimpleStatistics() const = 0;
 
 		virtual void reportDrawcalls(size_t drawcalls, size_t triangles) = 0;
 
-		virtual Statistics getStatistics() const = 0;
-
+		virtual Statistics getStatistics() const noexcept = 0;
 
 		virtual void setAssetCreationWarningEnabled(bool enabled) = 0;
 
@@ -43,6 +43,3 @@ namespace s3d
 		virtual void reportAssetRelease() = 0;
 	};
 }
-
-# define ASSET_CREATION()	s3d::Siv3DEngine::GetProfiler()->reportAssetCreation()
-# define ASSET_RELEASE()	s3d::Siv3DEngine::GetProfiler()->reportAssetRelease() 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,7 +25,7 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -46,7 +46,7 @@ namespace s3d
 
 		value_type b;
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 	
 		Ellipse() = default;
 
@@ -114,25 +114,27 @@ namespace s3d
 
 		constexpr bool operator !=(const Ellipse& ellipse) const noexcept
 		{
-			return !(*this == ellipse);
+			return center != ellipse.center
+				|| a != ellipse.a
+				|| b != ellipse.b;
 		}
 
-		constexpr Vec2 top() const noexcept
+		[[nodiscard]] constexpr Vec2 top() const noexcept
 		{
 			return{ x, y - b };
 		}
 
-		constexpr Vec2 bottom() const noexcept
+		[[nodiscard]] constexpr Vec2 bottom() const noexcept
 		{ 
 			return{ x, y + b };
 		}
 
-		constexpr Vec2 left() const noexcept
+		[[nodiscard]] constexpr Vec2 left() const noexcept
 		{ 
 			return{ x - a, y };
 		}
 
-		constexpr Vec2 right() const noexcept
+		[[nodiscard]] constexpr Vec2 right() const noexcept
 		{
 			return{ x + a, y };
 		}
@@ -206,12 +208,12 @@ namespace s3d
 			return setCenter(_center.x, _center.y);
 		}
 
-		constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ center.movedBy(_x, _y), a, b };
 		}
 
-		constexpr Ellipse movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Ellipse movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -227,67 +229,67 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr Ellipse stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr Ellipse stretched(value_type size) const noexcept
 		{
 			return Ellipse(center, a + size, b + size);
 		}
 
-		constexpr Ellipse stretched(double _x, double _y) const noexcept
+		[[nodiscard]] constexpr Ellipse stretched(double _x, double _y) const noexcept
 		{
 			return Ellipse(center, a + _x, b + _y);
 		}
 
-		constexpr Ellipse scaled(double s) const noexcept
+		[[nodiscard]] constexpr Ellipse scaled(double s) const noexcept
 		{
 			return Ellipse(center, a * s, b * s);
 		}
 
-		constexpr Ellipse scaled(double sx, double sy) const noexcept
+		[[nodiscard]] constexpr Ellipse scaled(double sx, double sy) const noexcept
 		{
 			return Ellipse(center, a * sx, b * sy);
 		}
 
-		constexpr value_type area() const noexcept
+		[[nodiscard]] constexpr value_type area() const noexcept
 		{
 			return a * b * Math::Pi;
 		}
 
-		constexpr RectF boundingRect() const noexcept
+		[[nodiscard]] constexpr RectF boundingRect() const noexcept
 		{
 			return RectF(center.movedBy(-a, -b), a * 2, b * 2);
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Ellipse& paint(Image& dst, const Color& color) const;
 
@@ -295,7 +297,11 @@ namespace s3d
 
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
 
-		const Ellipse& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+		const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Ellipse& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+	
+		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
 	};
 }
 
@@ -307,18 +313,15 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Ellipse& value)
-	{
-		Formatter(formatData, Vec4(value.x, value.y, value.a, value.b));
-	}
+	void Formatter(FormatData& formatData, const Ellipse& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ellipse& value)
 	{
 		return output << CharType('(')
-			<< value.x << CharType(',')
-			<< value.y << CharType(',')
-			<< value.a << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
+			<< value.y << CharType(',') << CharType(' ')
+			<< value.a << CharType(',') << CharType(' ')
 			<< value.b << CharType(')');
 	}
 
@@ -358,15 +361,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Ellipse& value)
+	template <>
+	struct formatter<s3d::Ellipse, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y, value.a, value.b);
-	} 
+		template <class Context>
+		auto format(const s3d::Ellipse& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.a, value.b);
+		}
+	};
 }

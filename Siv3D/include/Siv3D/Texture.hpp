@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,27 +24,25 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		struct Tag {};
 
-		using TextureHandle = AssetHandle<Handle>;
+		using TextureHandle = AssetHandle<Tag>;
+		
+		std::shared_ptr<TextureHandle> m_handle;
+
+		friend TextureHandle::AssetHandle();
+		
+		friend TextureHandle::AssetHandle(const IDWrapperType) noexcept;
 		
 		friend TextureHandle::~AssetHandle();
 
-		std::shared_ptr<TextureHandle> m_handle;
-
-		struct BackBuffer {};
-
 		struct Dynamic {};
-
-		struct Render {};
-
-		explicit Texture(BackBuffer);
 
 		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
 		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format, TextureDesc desc);
 
-		Texture(Render, const Size& size, uint32 multisampleCount);
+		//Texture(Render, const Size& size, uint32 multisampleCount);
 
 	public:
 
@@ -68,7 +66,6 @@ namespace s3d
 		/// 画像が空の場合、空のテクスチャを作成します。
 		/// </remarks>
 		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
-
 
 		Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
 
@@ -123,11 +120,11 @@ namespace s3d
 		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
 		/// </remarks>
 		Texture(const Color& rgb, const FilePath& alpha, TextureDesc desc = TextureDesc::Unmipped);
-
-		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Unmipped);
+		
+		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
 		explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
-
+		
 		/// <summary>
 		/// デストラクタ
 		/// </summary>
@@ -147,7 +144,7 @@ namespace s3d
 		/// <summary>
 		/// テクスチャが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
 		/// <summary>
 		/// テクスチャが空ではないかを返します。
@@ -155,7 +152,7 @@ namespace s3d
 		/// <returns>
 		/// テクスチャが空ではない場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
@@ -163,7 +160,7 @@ namespace s3d
 		/// <summary>
 		/// テクスチャハンドルの ID を示します。
 		/// </summary>
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
 		/// <summary>
 		/// 2 つの Texture が同じかどうかを返します。
@@ -174,7 +171,7 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Texture が同じ場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Texture& texture) const;
+		[[nodiscard]] bool operator ==(const Texture& texture) const;
 
 		/// <summary>
 		/// 2 つの Texture が異なるかどうかを返します。
@@ -185,50 +182,31 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Texture が異なる場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Texture& texture) const;
+		[[nodiscard]] bool operator !=(const Texture& texture) const;
 
-		int32 width() const;
+		[[nodiscard]] int32 width() const;
 
-		int32 height() const;
+		[[nodiscard]] int32 height() const;
 
-		Size size() const;
+		[[nodiscard]] Size size() const;
 
-		TextureDesc getDesc() const;
+		[[nodiscard]] TextureDesc getDesc() const;
 
-		bool isMipped() const;
+		[[nodiscard]] bool isMipped() const;
 
-		bool isSDF() const;
+		[[nodiscard]] bool isSDF() const;
 
-		Rect region(int32 x, int32 y) const
-		{
-			return{ x, y, size() };
-		}
+		[[nodiscard]] Rect region(int32 x, int32 y) const;
 
-		Rect region(const Point& pos = Point(0, 0)) const
-		{
-			return region(pos.x, pos.y);
-		}
+		[[nodiscard]] Rect region(const Point& pos = Point(0, 0)) const;
 
-		RectF region(double x, double y) const
-		{
-			return{ x, y, size() };
-		}
+		[[nodiscard]] RectF region(double x, double y) const;
 
-		RectF region(const Vec2& pos) const
-		{
-			return region(pos.x, pos.y);
-		}
+		[[nodiscard]] RectF region(const Vec2& pos) const;
 
-		RectF regionAt(double x, double y) const
-		{
-			const Size s = size();
-			return{ x - s.x * 0.5, y - s.y * 0.5, s };
-		}
+		[[nodiscard]] RectF regionAt(double x, double y) const;
 
-		RectF regionAt(const Vec2& pos) const
-		{
-			return regionAt(pos.x, pos.y);
-		}
+		[[nodiscard]] RectF regionAt(const Vec2& pos) const;
 
 		/// <summary>
 		/// テクスチャを描きます。
@@ -239,10 +217,13 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF draw(const ColorF& diffuse = Palette::White) const
-		{
-			return draw(0.0, 0.0, diffuse);
-		}
+		RectF draw(const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+
+		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
 		/// <summary>
 		/// 指定した位置にテクスチャを描きます。
@@ -261,6 +242,12 @@ namespace s3d
 		/// </returns>
 		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
+		RectF draw(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF draw(double x, double y, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+
+		RectF draw(double x, double y, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
 		/// <summary>
 		/// 指定した位置にテクスチャを描きます。
 		/// </summary>
@@ -273,62 +260,36 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(pos.x, pos.y, diffuse);
-		}
+		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(topLeft->x, topLeft->y, diffuse);
-		}
+		RectF draw(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
-		RectF draw(Arg::topRight_<Vec2> topRight, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(topRight->x - width(), topRight->y, diffuse);
-		}
+		RectF draw(const Vec2& pos, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
-		RectF draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(bottomLeft->x, bottomLeft->y - height(), diffuse);
-		}
+		RectF draw(const Vec2& pos, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
-		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(bottomRight->x - width(), bottomRight->y - height(), diffuse);
-		}
 
-		RectF draw(Arg::topCenter_<Vec2> topCenter, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(topCenter->x - width() * 0.5, topCenter->y, diffuse);
-		}
+		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(bottomCenter->x - width() * 0.5, bottomCenter->y - height(), diffuse);
-		}
+		RectF draw(Arg::topRight_<Vec2> topRight, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(leftCenter->x, leftCenter->y - height() * 0.5, diffuse);
-		}
+		RectF draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(Arg::rightCenter_<Vec2>rightCenter, const ColorF& diffuse = Palette::White) const
-		{
-			return draw(rightCenter->x - width(), rightCenter->y - height() * 0.5, diffuse);
-		}
+		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const
-		{
-			return drawAt(center->x, center->y, diffuse);
-		}
+		RectF draw(Arg::topCenter_<Vec2> topCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::rightCenter_<Vec2>rightCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const;
 
 		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
-		{
-			return drawClipped(pos.x, pos.y, clipRect, diffuse);
-		}
+		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
@@ -347,6 +308,8 @@ namespace s3d
 		/// </returns>
 		RectF drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
+		RectF drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>
@@ -359,27 +322,23 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
-		{
-			return drawAt(pos.x, pos.y, diffuse);
-		}
+		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
 		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
-		{
-			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
-		}
+		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		TextureRegion operator ()(double x, double y, double w, double h) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, double w, double h) const;
 
-		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
+		[[nodiscard]] TextureRegion operator ()(const Vec2& xy, double w, double h) const;
 
-		TextureRegion operator ()(double x, double y, double size) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, double size) const;
 
-		TextureRegion operator ()(double x, double y, const Vec2& size) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, const Vec2& size) const;
 
-		TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
+		[[nodiscard]] TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
 
 		/// <summary>
 		/// テクスチャ内の範囲を表す TextureRegion を返します。
@@ -390,45 +349,49 @@ namespace s3d
 		/// <returns>
 		/// テクスチャの範囲を表す TextureRegion
 		/// </returns>
-		TextureRegion operator ()(const RectF& rect) const;
+		[[nodiscard]] TextureRegion operator ()(const RectF& rect) const;
 
-		TextureRegion uv(double u, double v, double w, double h) const;
+		[[nodiscard]] TextureRegion uv(double u, double v, double w, double h) const;
 
-		TextureRegion uv(const RectF& rect) const;
+		[[nodiscard]] TextureRegion uv(const RectF& rect) const;
 
-		TextureRegion mirrored() const;
+		[[nodiscard]] TextureRegion mirrored() const;
 
-		TextureRegion mirrored(bool doMirror) const;
+		[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion flipped() const;
+		[[nodiscard]] TextureRegion flipped() const;
 
-		TextureRegion flipped(bool doFlip) const;
+		[[nodiscard]] TextureRegion flipped(bool doFlip) const;
 
-		TextureRegion scaled(double s) const;
+		[[nodiscard]] TextureRegion scaled(double s) const;
 
-		TextureRegion scaled(double xs, double ys) const;
+		[[nodiscard]] TextureRegion scaled(double xs, double ys) const;
 
-		TextureRegion scaled(const Vec2& s) const;
+		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
 
-		TextureRegion resized(double size) const;
+		[[nodiscard]] TextureRegion resized(double size) const;
 
-		TextureRegion resized(double width, double height) const;
+		[[nodiscard]] TextureRegion resized(double width, double height) const;
 
-		TextureRegion resized(const Vec2& size) const;
+		[[nodiscard]] TextureRegion resized(const Vec2& size) const;
 
-		TextureRegion repeated(double xRepeat, double yRepeat) const;
+		[[nodiscard]] TextureRegion repeated(double xRepeat, double yRepeat) const;
 
-		TextureRegion repeated(const Vec2& _repeat) const;
+		[[nodiscard]] TextureRegion repeated(const Vec2& _repeat) const;
 
-		TextureRegion mapped(double width, double height) const;
+		[[nodiscard]] TextureRegion mapped(double width, double height) const;
 
-		TextureRegion mapped(const Vec2& size) const;
+		[[nodiscard]] TextureRegion mapped(const Vec2& size) const;
 
-		TexturedQuad rotated(double angle) const;
+		[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
 
-		TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]] TextureRegion fitted(const Vec2& size, bool scaleUp = true) const;
 
-		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]] TexturedQuad rotated(double angle) const;
+
+		[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
+
+		[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 
 	using TextureID = Texture::IDType;

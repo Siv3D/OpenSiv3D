@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Siv3D-Test", "Siv3D-Test.vcxproj", "{CA8DB1CE-C63D-4835-9C37-65CA060E934F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16} = {ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Siv3D", "Siv3D.vcxproj", "{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA8DB1CE-C63D-4835-9C37-65CA060E934F}.Debug|x64.ActiveCfg = Debug|x64
+		{CA8DB1CE-C63D-4835-9C37-65CA060E934F}.Debug|x64.Build.0 = Debug|x64
+		{CA8DB1CE-C63D-4835-9C37-65CA060E934F}.Release|x64.ActiveCfg = Release|x64
+		{CA8DB1CE-C63D-4835-9C37-65CA060E934F}.Release|x64.Build.0 = Release|x64
+		{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}.Debug|x64.ActiveCfg = Debug|x64
+		{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}.Debug|x64.Build.0 = Debug|x64
+		{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}.Release|x64.ActiveCfg = Release|x64
+		{ECB3862D-B2E1-4B39-9DCF-A9E4927F1F16}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9092F9E-378A-4C32-919A-8FCA5EE9827D}
+	EndGlobalSection
+EndGlobal

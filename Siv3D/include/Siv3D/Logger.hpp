@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -47,6 +47,7 @@ namespace s3d
 		App,		// Normal
 		Info,		// Normal
 		Debug,		// More
+		Trace,		// More
 	};
 
 	namespace detail
@@ -55,11 +56,9 @@ namespace s3d
 		{
 			std::unique_ptr<FormatData> formatData;
 
-			LoggerBuffer()
-				: formatData(std::make_unique<FormatData>()) {}
+			LoggerBuffer();
 
-			LoggerBuffer(LoggerBuffer&& other)
-				: formatData(std::move(other.formatData)) {}
+			LoggerBuffer(LoggerBuffer&& other);
 
 			~LoggerBuffer();
 
@@ -76,10 +75,7 @@ namespace s3d
 		{
 			void writeln(const String& text) const;
 
-			void operator()(const String& text) const
-			{
-				writeln(text);
-			}
+			void operator()(const String& text) const;
 
 			template <class... Args>
 			void operator()(const Args&... args) const
@@ -87,7 +83,7 @@ namespace s3d
 				writeln(Format(args...));
 			}
 
-			template <class Type>
+			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 			LoggerBuffer operator <<(const Type& value) const
 			{
 				LoggerBuffer buf;
@@ -103,46 +99,9 @@ namespace s3d
 
 			void _outputLogOnce(LogDescription desc, uint32 id, const String& text) const;
 
-			void writeRawHTML(const String& htmlText) const;
-
 			void writeRawHTML_UTF8(std::string_view htmlText) const;
-
-			void removeOnExit() const;
 		};
 	}
 
-	constexpr auto Logger = detail::Logger_impl();
-
-	namespace detail
-	{
-		inline LoggerBuffer::~LoggerBuffer()
-		{
-			if (formatData)
-			{
-				Logger.writeln(formatData->string);
-			}
-		}
-	}
+	inline constexpr auto Logger = detail::Logger_impl();
 }
-
-# define FMTBYTES(size)			s3d::FormatDataSize(size)
-# define LOG_ERROR(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Error,MESSAGE)
-# define LOG_FAIL(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Fail,MESSAGE)
-# define LOG_WARNING(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Warning,MESSAGE)
-# define LOG_SCRIPT(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Script,MESSAGE)
-# define LOG_INFO(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Info,MESSAGE)
-
-# define LOG_ERROR_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Error,__COUNTER__,MESSAGE)
-# define LOG_FAIL_ONCE(MESSAGE)		s3d::Logger._outputLogOnce(s3d::LogDescription::Fail,__COUNTER__,MESSAGE)
-# define LOG_WARNING_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Warning,__COUNTER__,MESSAGE)
-
-# if (SIV3D_IS_DEBUG)
-
-	# define LOG_DEBUG(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
-	# define LOG_TEST(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
-
-# else
-
-	# define LOG_DEBUG(...)		((void)0)
-
-# endif

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,8 +26,8 @@ namespace s3d
 	{
 	private:
 
-		struct CBigFloat;
-		std::unique_ptr<CBigFloat> pImpl;
+		struct BigFloatDetail;
+		std::unique_ptr<BigFloatDetail> pImpl;
 
 		friend BigFloat operator /(int64 a, const BigFloat& b);
 		friend BigFloat operator /(uint64 a, const BigFloat& b);
@@ -35,7 +35,7 @@ namespace s3d
 
 	public:
 
-		BigFloat() : BigFloat(0.0) {}
+		BigFloat();
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
 		BigFloat(Integer i) : BigFloat(static_cast<int64>(i)) {}
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
@@ -46,11 +46,8 @@ namespace s3d
 		BigFloat(uint64 f);
 		BigFloat(long double f);
 		BigFloat(const BigInt& number);
-		explicit BigFloat(const char* number);
-		explicit BigFloat(const char32* number);
-		explicit BigFloat(const std::string& number);
-		explicit BigFloat(const std::wstring& number);
-		explicit BigFloat(const String& number);
+		explicit BigFloat(const std::string_view number);
+		explicit BigFloat(const StringView number);
 		BigFloat(const BigFloat& other);
 		BigFloat(BigFloat&& other);
 		~BigFloat();
@@ -65,33 +62,27 @@ namespace s3d
 		BigFloat& assign(Float f) { return assign(static_cast<long double>(f)); }
 		BigFloat& assign(long double f);
 		BigFloat& assign(const BigInt& number);
-		BigFloat& assign(const char* number);
-		BigFloat& assign(const char32* number);
-		BigFloat& assign(const std::string& number);
-		BigFloat& assign(const std::wstring& number);
-		BigFloat& assign(const String& number);
+		BigFloat& assign(const std::string_view number);
+		BigFloat& assign(const StringView number);
 		BigFloat& assign(const BigFloat& other);
 		BigFloat& assign(BigFloat&& other);
 
-		BigFloat& operator =(int64 i) { return assign(i); }
-		BigFloat& operator =(uint64 i) { return assign(i); }
+		BigFloat& operator =(int64 i);
+		BigFloat& operator =(uint64 i);
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
 		BigFloat& operator =(Integer i) { return assign(i); }
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
 		BigFloat& operator =(Integer i) { return assign(i); }
 		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
 		BigFloat& operator =(Float f) { return assign(static_cast<long double>(f)); }
-		BigFloat& operator =(long double f) { return assign(f); }
-		BigFloat& operator =(const BigInt& number) { return assign(number); }
-		BigFloat& operator =(const char* number) { return assign(number); }
-		BigFloat& operator =(const char32* number) { return assign(number); }
-		BigFloat& operator =(const std::string& number) { return assign(number); }
-		BigFloat& operator =(const std::wstring& number) { return assign(number); }
-		BigFloat& operator =(const String& number) { return assign(number); }
-		BigFloat& operator =(const BigFloat& other) { return assign(other); }
-		BigFloat& operator =(BigFloat&& other) { return assign(std::move(other)); }
+		BigFloat& operator =(long double f);
+		BigFloat& operator =(const BigInt& number);
+		BigFloat& operator =(const std::string_view number);
+		BigFloat& operator =(const StringView number);
+		BigFloat& operator =(const BigFloat& other);
+		BigFloat& operator =(BigFloat&& other);
 
-		[[nodiscard]] const BigFloat& operator +() const { return *this; }
+		[[nodiscard]] const BigFloat& operator +() const;
 		BigFloat& operator ++();
 		BigFloat operator ++(int);
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
@@ -117,7 +108,8 @@ namespace s3d
 		BigFloat& operator +=(const BigInt& number);
 		BigFloat& operator +=(const BigFloat& number);
 
-		[[nodiscard]] const BigFloat& operator -() const { return *this; }
+		[[nodiscard]] BigFloat operator -() const &;
+		[[nodiscard]] BigFloat operator -() &&;
 		BigFloat& operator --();
 		BigFloat operator --(int);
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
@@ -218,8 +210,8 @@ namespace s3d
 
 		//size_t hash() const;
 
-		CBigFloat& detail();
-		const CBigFloat& detail() const;
+		BigFloatDetail& detail();
+		const BigFloatDetail& detail() const;
 	};
 
 	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
@@ -262,21 +254,15 @@ namespace s3d
 	[[nodiscard]] BigFloat operator /(uint64 a, const BigFloat& b);
 	[[nodiscard]] BigFloat operator /(long double a, const BigFloat& b);
 
-	namespace Literals
+	inline namespace Literals
 	{
-		[[nodiscard]] inline BigFloat operator ""_bigF(unsigned long long int i)
+		inline namespace BigNumLiterals
 		{
-			return BigFloat(i);
-		}
+			[[nodiscard]] BigFloat operator ""_bigF(unsigned long long int i);
 
-		[[nodiscard]] inline BigFloat operator ""_bigF(const char* number, size_t)
-		{
-			return BigFloat(number);
-		}
+			[[nodiscard]] BigFloat operator ""_bigF(const char* number, size_t);
 
-		[[nodiscard]] inline BigFloat operator ""_bigF(const char32* number, size_t)
-		{
-			return BigFloat(number);
+			[[nodiscard]] BigFloat operator ""_bigF(const char32* number, size_t);
 		}
 	}
 
@@ -446,6 +432,15 @@ namespace s3d
 
 		[[nodiscard]] BigFloat Saturate(const BigFloat& x);
 	}
+
+	template <>
+	struct IsBigFloat<BigFloat> : std::true_type {};
+
+	template <>
+	struct IsBigNumber<BigInt> : std::true_type {};
+
+	template <>
+	struct IsBigNumber<BigFloat> : std::true_type {};
 }
 
 //////////////////////////////////////////////////

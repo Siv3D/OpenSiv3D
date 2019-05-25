@@ -1,6 +1,7 @@
 ﻿//----------------------------------------------------------------------------------------
 //
-//	Copyright (C) 2014-2018 HAMSTRO
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -27,15 +28,11 @@
 # pragma once
 # ifdef SIV3D_INCLUDED
 
-	# include <HamFramework/Camera2D.hpp>
 	# include <HamFramework/InputDeviceSymbol.hpp>
-	# include <HamFramework/JoyConSymbol.hpp>
 	# include <HamFramework/MiniScene.hpp>
-	# include <HamFramework/OptimalScreen.hpp>
+	//# include <HamFramework/OptimalScreen.hpp>
 	# include <HamFramework/PlayingCard.hpp>
 	# include <HamFramework/Rx.hpp>
-	# include <HamFramework/ScalableWindow.hpp>
-	# include <HamFramework/SceneManager.hpp>
 	# include <HamFramework/SevenSegment.hpp>
 
 # endif

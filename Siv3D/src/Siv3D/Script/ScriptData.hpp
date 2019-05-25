@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -32,7 +32,9 @@ namespace s3d
 
 		int32 m_compileOption = 0;
 
-		bool m_hasChanged = false;
+		Array<String> m_messages;
+
+		std::function<bool(void)> m_systemUpdateCallback;
 
 		bool m_fromFile = false;
 
@@ -62,8 +64,20 @@ namespace s3d
 
 		bool compileSucceeded() const;
 
-		bool withoutLineCues() const;
+		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+
+		const std::function<bool(void)>& getSystemUpdateCallback() const;
+
+		const Array<String>& getMessages() const;
+
+		bool reload(int32 compileOption, uint64 scriptID);
+
+		const FilePath& path() const;
+
+		bool withLineCues() const;
 
 		bool isInitialized() const;
+
+		void setScriptID(uint64 id);
 	};
 }

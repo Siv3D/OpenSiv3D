@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,78 +11,64 @@
 
 # pragma once
 # include "Fwd.hpp"
-# include "Format.hpp"
+# include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "Optional.hpp"
+# include "Unspecified.hpp"
 
 namespace s3d
 {
-	enum class ShowState
-	{
-		Normal,
-
-		Minimized,
-
-		Maximized,
-	};
-
-	/// <summary>
-	/// ウィンドウの状態
-	/// </summary>
-	struct WindowState
-	{
-		/// <summary>
-		/// スクリーンの幅と高さ
-		/// </summary>
-		Size screenSize;
-
-		/// <summary>
-		/// クライアント画面（描画可能域）の幅と高さ
-		/// </summary>
-		Size clientSize;
-
-		/// <summary>
-		/// 枠線を含めたウィンドウの幅と高さ
-		/// </summary>
-		Size windowSize;
-
-		/// <summary>
-		/// ウィンドウの左上の位置
-		/// </summary>
-		Point pos;
-
-		/// <summary>
-		/// ウィンドウの枠線の幅と高さ
-		/// </summary>
-		// [x] Windows | [ ] macOS | [ ] Linux
-		Size frameSize;
-
-		/// <summary>
-		/// ウィンドウのタイトルバーの高さ
-		/// </summary>
-		// [x] Windows | [ ] macOS | [ ] Linux
-		int32 titleBarHeight;
-
-		/// <summary>
-		/// ウィンドウのタイトル
-		/// </summary>
-		String title;
-
-		// [x] Windows | [ ] macOS | [ ] Linux
-		ShowState showState;
-
-		// [x] Windows | [ ] macOS | [ ] Linux
-		bool focused;
-
-		bool fullScreen;
-	};
-
 	namespace Window
 	{
 		/// <summary>
 		/// デフォルトのクライアント解像度
 		/// </summary>
-		constexpr s3d::Size DefaultClientSize(640, 480);
+		constexpr s3d::Size DefaultClientSize(800, 600);
+	}
 
+	enum class WindowStyle
+	{
+		Fixed,
+
+		Sizable,
+
+		Frameless,
+	};
+
+	enum class WindowResizeOption
+	{
+		ResizeSceneSize,
+
+		KeepSceneSize,
+
+		UseDefaultScaleMode,
+	};
+
+	struct WindowState
+	{
+		Size clientSize = Window::DefaultClientSize;
+
+		Size minimumSize = Size(240, 180);
+
+		Rect bounds = Rect(0);
+
+		Size frameSize = Size(0, 0);
+
+		int32 titleBarHeight = 0;
+
+		WindowStyle style = WindowStyle::Fixed;
+
+		double contentScale = 1.0;
+		
+		bool minimized = false;
+
+		bool maximized = false;
+
+		bool fullscreen = false;
+	};
+
+	namespace Window
+	{
 		void SetTitle(const String& title);
 
 		template <class... Args>
@@ -90,8 +76,14 @@ namespace s3d
 		{
 			SetTitle(Format(args...));
 		}
-		
-		const WindowState& GetState();
+
+		const String& GetTitle();
+
+		WindowState GetState();
+
+		void SetStyle(WindowStyle style);
+
+		WindowStyle GetStyle();
 
 		/// <summary>
 		/// ウィンドウのクライアント領域のサイズを返します。
@@ -99,10 +91,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域のサイズ
 		/// </returns>
-		inline s3d::Size Size()
-		{
-			return GetState().clientSize;
-		}
+		[[nodiscard]] Size ClientSize();
 
 		/// <summary>
 		/// ウィンドウのクライアント領域の中央の座標を返します。
@@ -110,10 +99,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の中央の座標
 		/// </returns>
-		inline Point Center()
-		{
-			return GetState().clientSize / 2;
-		}
+		[[nodiscard]] Point ClientCenter();
 
 		/// <summary>
 		/// ウィンドウのクライアント領域の幅を返します。
@@ -121,10 +107,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の幅(ピクセル）
 		/// </returns>
-		inline int32 Width()
-		{
-			return GetState().clientSize.x;
-		}
+		[[nodiscard]] int32 ClientWidth();
 
 		/// <summary>
 		/// ウィンドウのクライアント領域の高さを返します。
@@ -132,25 +115,30 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の高さ(ピクセル）
 		/// </returns>
-		inline int32 Height()
-		{
-			return GetState().clientSize.y;
-		}
-
-		/// <summary>
-		/// ウィンドウのクライアント領域と同じサイズの Rect を返します。
-		/// </summary>
-		/// <returns>
-		/// ウィンドウのクライアント領域と同じサイズの Rect
-		/// </returns>
-		inline Rect ClientRect()
-		{
-			return Rect(GetState().clientSize);
-		}
+		[[nodiscard]] int32 ClientHeight();
 
 		void SetPos(const Point& pos);
 
+		void SetPos(int32 x, int32 y);
+
 		void Centering();
+
+		/// <summary>
+		/// ウィンドウのサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいウィンドウのクライアント領域のサイズ(ピクセル）
+		/// </param>
+		/// <param name="centering">
+		/// サイズ変更後にセンタリングするか
+		/// </param>
+		/// <remarks>
+		/// フルスクリーンモードが解除されます。
+		/// </remarks>
+		/// <returns>
+		/// サイズの変更に成功したら true, それ以外の場合は false 
+		/// </returns>
+		bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
 		/// <summary>
 		/// ウィンドウのサイズを変更します。
@@ -165,55 +153,30 @@ namespace s3d
 		/// サイズ変更後にセンタリングするか
 		/// </param>
 		/// <remarks>
-		/// フルスクリーンの場合、この関数は失敗します。
+		/// フルスクリーンモードが解除されます。
 		/// </remarks>
 		/// <returns>
 		/// サイズの変更に成功したら true, それ以外の場合は false 
 		/// </returns>
-		bool Resize(int32 width, int32 height, bool centering = true);
+		bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
-		/// <summary>
-		/// ウィンドウのサイズを変更します。
-		/// </summary>
-		/// <param name="size">
-		/// 新しいウィンドウのクライアント領域のサイズ(ピクセル）
-		/// </param>
-		/// <param name="centering">
-		/// サイズ変更後にセンタリングするか
-		/// </param>
-		/// <remarks>
-		/// フルスクリーンの場合、この関数は失敗します。
-		/// </remarks>
-		/// <returns>
-		/// サイズの変更に成功したら true, それ以外の場合は false 
-		/// </returns>
-		inline bool Resize(const s3d::Size& size, bool centering = true)
-		{
-			return Resize(size.x, size.y, centering);
-		}
+		void Maximize();
 
-		void SetBaseSize(const s3d::Size& size);
+		void Restore();
 
-		s3d::Size BaseSize();
+		void Minimize();
 
-		inline Point BaseCenter()
-		{
-			return BaseSize() / 2;
-		}
-
-		inline int32 BaseWidth()
-		{
-			return BaseSize().x;
-		}
-
-		inline int32 BaseHeight()
-		{
-			return BaseSize().y;
-		}
-
-		inline Rect BaseClientRect()
-		{
-			return Rect(BaseSize());
-		}
+		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified);
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Platform::Windows::Window
+	{
+		void* GetHWND();
+
+		bool ChangeDisplayResolution(const Size& size);
+	}
+
+# endif
 }

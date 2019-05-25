@@ -2,16 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CProfiler.hpp"
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/MessageBox.hpp>
+# include <Siv3D/Scene.hpp>
+# include "CProfiler.hpp"
 
 namespace s3d
 {
@@ -22,16 +24,16 @@ namespace s3d
 
 	CProfiler::~CProfiler()
 	{
-
+		LOG_TRACE(U"CProfiler::~CProfiler()");
 	}
 
-	bool CProfiler::init()
+	void CProfiler::init()
 	{
+		LOG_TRACE(U"CProfiler::init()");
+
 		m_fpsStopwatch.start();
 
-		LOG_INFO(U"ℹ️ Profiler initialized");
-
-		return true;
+		LOG_INFO(U"ℹ️ CProfiler initialized");
 	}
 
 	bool CProfiler::beginFrame()
@@ -66,18 +68,13 @@ namespace s3d
 			&& std::all_of(m_assetReleaseCount.begin(), m_assetReleaseCount.end(), [](int32 n) { return n > 0; }))
 		{
 			LOG_ERROR(U"🔥 Assets have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.");
-
 			System::ShowMessageBox(U"Asset creation report", U"🔥 Assets have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.", MessageBoxStyle::Error);
-
 			return false;
 		}
 
 		std::rotate(m_assetCreationCount.rbegin(), m_assetCreationCount.rbegin() + 1, m_assetCreationCount.rend());
-
 		std::rotate(m_assetReleaseCount.rbegin(), m_assetReleaseCount.rbegin() + 1, m_assetReleaseCount.rend());
-
 		m_assetCreationCount[0] = m_assetReleaseCount[0] = 0;
-
 		return true;
 	}
 
@@ -91,6 +88,20 @@ namespace s3d
 		return m_currentFPS;
 	}
 
+	String CProfiler::getSimpleStatistics() const
+	{
+		const Size backBufferSize = Window::ClientSize();
+		const Size sceneSize = Scene::Size();
+		return U"{} FPS | W {}x{} | S {}x{}"_fmt(
+			m_currentFPS,
+			backBufferSize.x, backBufferSize.y,
+			sceneSize.x, sceneSize.y);
+	}
+
+	void CProfiler::setAssetCreationWarningEnabled(const bool enabled)
+	{
+		m_assetCreationWarningEnabled = enabled;
+	}
 
 	void CProfiler::reportDrawcalls(const size_t drawcalls, const size_t triangles)
 	{
@@ -99,15 +110,9 @@ namespace s3d
 		m_currentStatistics.triangles += triangles;
 	}
 
-	Statistics CProfiler::getStatistics() const
+	Statistics CProfiler::getStatistics() const noexcept
 	{
 		return m_previousStatistics;
-	}
-
-
-	void CProfiler::setAssetCreationWarningEnabled(const bool enabled)
-	{
-		m_assetCreationWarningEnabled = enabled;
 	}
 
 	void CProfiler::reportAssetCreation()

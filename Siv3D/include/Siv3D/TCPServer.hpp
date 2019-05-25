@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,9 +24,9 @@ namespace s3d
 	{
 	private:
 
-		class CTCPServer;
+		class TCPServerDetail;
 
-		std::shared_ptr<CTCPServer> pImpl;
+		std::shared_ptr<TCPServerDetail> pImpl;
 
 	public:
 
@@ -46,21 +46,21 @@ namespace s3d
 
 		void cancelAccept();
 
-		bool isAccepting() const;
+		[[nodiscard]] bool isAccepting() const;
 
 		void disconnect();
 
-		bool hasSession() const;
+		[[nodiscard]] bool hasSession() const;
 
-		bool hasSession(SessionID id) const;
+		[[nodiscard]] bool hasSession(SessionID id) const;
 
-		size_t num_sessions() const;
+		[[nodiscard]] size_t num_sessions() const;
 
-		Array<SessionID> getSessionIDs() const;
+		[[nodiscard]] Array<SessionID> getSessionIDs() const;
 
-		uint16 port() const;
+		[[nodiscard]] uint16 port() const;
 
-		size_t available(const Optional<SessionID>& id = unspecified);
+		[[nodiscard]] size_t available(const Optional<SessionID>& id = unspecified);
 
 		bool skip(size_t size, const Optional<SessionID>& id = unspecified);
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -50,27 +50,27 @@ namespace s3d
 
 	namespace TextInput
 	{
-		String GetRawInput();
+		[[nodiscard]] String GetRawInput();
 
-		size_t UpdateText(String& text, size_t cursorPos, TextInputMode mode = TextInputMode::Default);
+		[[nodiscard]] size_t UpdateText(String& text, size_t cursorPos, TextInputMode mode = TextInputMode::Default);
 
 		inline void UpdateText(String& text, TextInputMode mode = TextInputMode::Default)
 		{
-			UpdateText(text, text.length(), mode);
+			(void)UpdateText(text, text.length(), mode);
 		}
 		
-		String GetEditingText();
+		[[nodiscard]] String GetEditingText();
 	}
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	namespace win::TextInput
+	namespace Platform::Windows::TextInput
 	{
 		void DisableIME();
 
-		const Array<String>& GetCandidates();
+		[[nodiscard]] const Array<String>& GetCandidates();
 
-		std::pair<int32, int32> GetCursorIndex();
+		[[nodiscard]] std::pair<int32, int32> GetCursorIndex();
 
 		void DrawCandidateWindow(const Font& font,
 			const Vec2& basePos,

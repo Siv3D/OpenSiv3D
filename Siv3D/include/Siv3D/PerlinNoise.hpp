@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,10 +26,7 @@ namespace s3d
 
 	public:
 
-		explicit PerlinNoise(uint32 seed = 0)
-		{
-			reseed(seed);
-		}
+		explicit PerlinNoise(uint32 seed = 0);
 
 		void reseed(uint32 seed);
 

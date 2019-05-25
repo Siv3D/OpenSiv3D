@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,11 +19,11 @@ namespace s3d
 	//
 	// https://github.com/mayanklahiri/easyexif/blob/master/exif.h
 	//
-	struct ExifInfo
+	struct Exif
 	{
-		static Optional<ExifInfo> Read(const FilePath& path);
+		[[nodiscard]] static Optional<Exif> Read(const FilePath& path);
 
-		static Optional<ExifInfo> Read(const IReader& reader);
+		[[nodiscard]] static Optional<Exif> Read(const IReader& reader);
 
 		String imageDescription;	// Image description
 		String make;				// Camera manufacturer's name

@@ -2,17 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CFFT.hpp"
 # include <Siv3D/FFT.hpp>
 # include <Siv3D/Wave.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/AlignedMemory.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include "CFFT.hpp"
 
 namespace s3d
 {
@@ -23,20 +24,27 @@ namespace s3d
 
 	CFFT::~CFFT()
 	{
+		LOG_TRACE(U"CFFT::~CFFT()");
+
 		AlignedFree(m_workBuffer);
 
 		AlignedFree(m_inoutBuffer);
 
 		for (auto& setup : m_setups)
 		{
-			::pffft_destroy_setup(setup);
+			if (setup)
+			{
+				::pffft_destroy_setup(setup);
+			}
 
 			setup = nullptr;
 		}
 	}
 
-	bool CFFT::init()
+	void CFFT::init()
 	{
+		LOG_TRACE(U"CFFT::init()");
+
 		int32 i = 0;
 
 		for (auto& setup : m_setups)
@@ -48,9 +56,7 @@ namespace s3d
 
 		m_workBuffer = AlignedMalloc<float, 16>(16384);
 
-		LOG_INFO(U"ℹ️ FFT initialized");
-
-		return true;
+		LOG_INFO(U"ℹ️ CFFT initialized");
 	}
 
 	void CFFT::fft(FFTResult& result, const Wave& wave, uint32 pos, const FFTSampleLength sampleLength)
@@ -82,9 +88,30 @@ namespace s3d
 		doFFT(result, wave.samplingRate(), sampleLength);
 	}
 
+	void CFFT::fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, const uint32 samplingRate, const FFTSampleLength sampleLength)
+	{
+		const int32 samples = 256 << static_cast<int32>(sampleLength);
+
+		float* pDst = m_inoutBuffer;
+
+		for (size_t samplesLeft = samples; samplesLeft; --samplesLeft)
+		{
+			if (pos == 0)
+			{
+				pos = static_cast<uint32>(wave.size());
+			}
+
+			const auto& sample = wave[--pos];
+
+			*pDst++ = (static_cast<int32>(sample.left) + static_cast<int32>(sample.right)) / (32768.0f * 2);
+		}
+
+		doFFT(result, samplingRate, sampleLength);
+	}
+
 	void CFFT::fft(FFTResult& result, const float* input, size_t size, const uint32 samplingRate, const FFTSampleLength sampleLength)
 	{
-		::memcpy(m_inoutBuffer, input, sizeof(float) * size);
+		std::memcpy(m_inoutBuffer, input, sizeof(float) * size);
 
 		doFFT(result, samplingRate, sampleLength);
 	}

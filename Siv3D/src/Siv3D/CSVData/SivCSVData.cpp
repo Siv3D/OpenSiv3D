@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,6 +16,14 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		std::u32string ToU32String(StringView view)
+		{
+			return std::u32string(view.begin(), view.end());
+		}
+	}
+
 	Optional<String> CSVData::getItem(const size_t row, const size_t column) const
 	{
 		if (!inBounds(row, column))
@@ -28,7 +36,7 @@ namespace s3d
 
 	bool CSVData::inBounds(const size_t row, const size_t column) const
 	{
-		return row < m_data.size() && column < m_data[row].size();
+		return (row < m_data.size()) && (column < m_data[row].size());
 	}
 
 	bool CSVData::loadFromTextReader(TextReader& reader, const StringView separators, const StringView quotes, const StringView escapes)
@@ -38,7 +46,7 @@ namespace s3d
 			return false;
 		}
 
-		const boost::escaped_list_separator<char32> separator(escapes.to_string(), separators.to_string(), quotes.to_string());
+		const boost::escaped_list_separator<char32> separator(detail::ToU32String(escapes), detail::ToU32String(separators), detail::ToU32String(quotes));
 
 		String str;
 

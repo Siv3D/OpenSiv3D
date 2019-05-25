@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -83,12 +83,12 @@ namespace s3d
 		/// <remarks>
 		/// { 0.0, 1.0, DeadZoneType::None }
 		/// </remarks>
-		static constexpr DeadZone Disabled()
+		[[nodiscard]] static constexpr DeadZone Disabled()
 		{
 			return DeadZone{ 0.0, 1.0, DeadZoneType::None };
 		}
 
-		double apply(double value) const;
+		[[nodiscard]] double apply(double value) const;
 
 		void apply(double& x, double& y) const;
 	};

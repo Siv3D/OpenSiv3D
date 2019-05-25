@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -44,9 +44,11 @@ namespace s3d
 		{
 			Gamepad_impl(size_t _userIndex);
 
-			bool isConnected() const;
+			[[nodiscard]] bool isConnected() const;
 
-			const GamepadInfo& getInfo() const;
+			[[nodiscard]] explicit operator bool() const;
+
+			[[nodiscard]] const GamepadInfo& getInfo() const;
 
 			/// <summary>
 			/// ユーザインデックス
@@ -65,12 +67,12 @@ namespace s3d
 
 			Key povRight;
 
-			Optional<int32> povD8() const;
+			[[nodiscard]] Optional<int32> povD8() const;
 		};
 
 		struct Gamepad_helper
 		{
-			const Gamepad_impl& operator()(size_t userIndex) const;
+			[[nodiscard]] const Gamepad_impl& operator()(size_t userIndex) const;
 
 			static constexpr size_t MaxUserCount = 16;
 		};
@@ -80,6 +82,6 @@ namespace s3d
 
 	namespace System
 	{
-		Array<GamepadInfo> EnumerateGamepads();
+		[[nodiscard]] Array<GamepadInfo> EnumerateGamepads();
 	}
 }

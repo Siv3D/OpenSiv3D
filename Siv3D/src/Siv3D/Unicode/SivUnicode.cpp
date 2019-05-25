@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <miniutf/miniutf.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/Unicode.hpp>
-# include "../../ThirdParty/miniutf/miniutf.hpp"
 
 namespace s3d::detail
 {
@@ -121,7 +121,7 @@ namespace s3d::detail
 		}
 	}
 
-	[[nodiscard]] static constexpr size_t UTF16Length(const StringView view) noexcept
+	[[nodiscard]] size_t UTF16Length(const StringView view) noexcept
 	{
 		size_t length = 0;
 
@@ -136,7 +136,7 @@ namespace s3d::detail
 		return length;
 	}
 
-	[[nodiscard]] static size_t UTF16Length(const std::string_view view) noexcept
+	[[nodiscard]] size_t UTF16Length(const std::string_view view) noexcept
 	{
 		size_t length = 0;
 
@@ -155,7 +155,7 @@ namespace s3d::detail
 		return length;
 	}
 
-	static void UTF16Encode(char16** s, const char32_t codePoint) noexcept
+	void UTF16Encode(char16** s, const char32_t codePoint) noexcept
 	{
 		if (codePoint < 0x10000)
 		{
@@ -213,93 +213,7 @@ namespace s3d::detail
 
 		return length;
 	}
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	[[nodiscard]] static size_t UTF32Length(const std::wstring_view view)
-	{
-		size_t length = 0;
-
-		const char16* pSrc = static_cast<const char16*>(static_cast<const void*>(view.data()));
-		const char16* const pSrcEnd = pSrc + view.size();
-
-		while (pSrc != pSrcEnd)
-		{
-			int32 offset;
-
-			utf16_decode(pSrc, pSrcEnd - pSrc, offset);
-
-			pSrc += offset;
-
-			++length;
-		}
-
-		return length;
-	}
-
-# endif
-
 }
-
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-# include <Siv3D/Windows.hpp>
-
-namespace s3d::detail
-{
-	[[nodiscard]] static std::string FromString(const std::u16string_view view, const uint32 code)
-	{
-		if (view.empty())
-		{
-			return std::string();
-		}
-
-		const int32 length = ::WideCharToMultiByte(code, 0,
-			static_cast<const wchar_t*>(static_cast<const void*>(view.data())),
-			static_cast<int>(view.length()), nullptr, 0, nullptr, nullptr);
-
-		std::string result(length, '\0');
-
-		if (length != ::WideCharToMultiByte(code, 0,
-			static_cast<const wchar_t*>(static_cast<const void*>(view.data())),
-			static_cast<int>(view.length()), &result[0], length, nullptr, nullptr))
-		{
-			result.clear();
-		}
-
-		return result;
-	}
-
-	[[nodiscard]] static std::u16string ToString(const std::string_view view, const uint32 code)
-	{
-		if (view.empty())
-		{
-			return std::u16string();
-		}
-
-		const int32 length = ::MultiByteToWideChar(code, 0, view.data(), static_cast<int32>(view.length()),
-			nullptr, 0);
-
-		if (length == 0)
-		{
-			return std::u16string();
-		}
-
-		std::u16string result(length, u'\0');
-
-		if (length != ::MultiByteToWideChar(code, 0, view.data(), static_cast<int32>(view.length()),		
-			static_cast<wchar_t*>(static_cast<void*>(&result[0])), length))
-		{
-			result.clear();
-		}
-
-		return result;
-	}
-}
-
-# endif
-
 
 namespace s3d
 {
@@ -310,25 +224,12 @@ namespace s3d
 			return String(asciiText.begin(), asciiText.end());
 		}
 
-		String Widen(const std::string_view view)
-		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			return FromUTF16(detail::ToString(view, CP_ACP));
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-			return FromUTF8(view);
-
-		# endif
-		}
-
 		std::string NarrowAscii(const StringView asciiText)
 		{
 			std::string result(asciiText.length(), '\0');
 		
-			const char32* pSrc = asciiText.begin();
-			const char32* const pSrcEnd = asciiText.end();
+			const char32* pSrc = asciiText.data();
+			const char32* const pSrcEnd = pSrc + asciiText.size();
 			char* pDst = &result[0];
 
 			while (pSrc != pSrcEnd)
@@ -337,71 +238,6 @@ namespace s3d
 			}
 
 			return result;
-		}
-
-		std::string Narrow(const StringView view)
-		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			return detail::FromString(ToUTF16(view), CP_THREAD_ACP);
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-			return ToUTF8(view);
-
-		# endif
-		}
-
-		std::wstring ToWString(const StringView view)
-		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			std::wstring result(detail::UTF16Length(view), u'0');
-
-			const char32* pSrc = view.data();
-			const char32* const pSrcEnd = pSrc + view.size();
-			char16* pDst = static_cast<char16*>(static_cast<void*>(&result[0]));
-
-			while (pSrc != pSrcEnd)
-			{
-				detail::UTF16Encode(&pDst, *pSrc++);
-			}
-
-			return result;
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-			return std::wstring(view.begin(), view.end());
-
-		# endif
-		}
-
-		String FromWString(const std::wstring_view view)
-		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			String result(detail::UTF32Length(view), '0');
-
-			const char16* pSrc = static_cast<const char16*>(static_cast<const void*>(view.data()));
-			const char16* const pSrcEnd = pSrc + view.size();
-			char32* pDst = &result[0];
-
-			while (pSrc != pSrcEnd)
-			{
-				int32 offset;
-
-				*pDst++ = detail::utf16_decode(pSrc, pSrcEnd - pSrc, offset);
-
-				pSrc += offset;
-			}
-
-			return result;
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-			return String(view.begin(), view.end());
-
-		# endif
 		}
 
 		String FromUTF8(const std::string_view view)
@@ -633,7 +469,7 @@ namespace s3d
 		{
 			m_buffer[m_count++] = code;
 
-			const auto result = detail::utf8_decode_check(m_buffer.data(), m_count);
+			const auto result = detail::utf8_decode_check(m_buffer, m_count);
 
 			if (result.offset != -1)
 			{

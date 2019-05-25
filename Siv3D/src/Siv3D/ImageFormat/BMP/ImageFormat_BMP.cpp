@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "ImageFormat_BMP.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include "ImageFormat_BMP.hpp"
 
 namespace s3d
 {
@@ -58,7 +58,7 @@ namespace s3d
 	{
 		static constexpr uint8 signature[] = { 0x42, 0x4d };
 
-		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
+		return std::memcmp(bytes, signature, sizeof(signature)) == 0;
 	}
 
 	Size ImageFormat_BMP::getSize(const IReader& reader) const
@@ -113,7 +113,7 @@ namespace s3d
 				const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
-				uint8* const buffer = static_cast<uint8*>(::malloc(rowSize * 4));
+				uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize * 4));
 
 				for (int32 y = 0; y < height; ++y)
 				{
@@ -139,7 +139,7 @@ namespace s3d
 					pDstLine += lineStep;
 				}
 
-				::free(buffer);
+				std::free(buffer);
 
 				break;
 			}
@@ -150,7 +150,7 @@ namespace s3d
 				const int32 depthBytes = depth / 8;
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
-				uint8* const buffer = static_cast<uint8*>(::malloc(rowSize * 4));
+				uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize * 4));
 
 				for (int32 y = 0; y < height; ++y)
 				{
@@ -176,7 +176,7 @@ namespace s3d
 					pDstLine += lineStep;
 				}
 
-				::free(buffer);
+				std::free(buffer);
 
 				break;
 			}
@@ -221,7 +221,7 @@ namespace s3d
 
 		const Color* pSrcLine = image[height - 1];
 
-		uint8* const line = static_cast<uint8*>(::calloc(rowSize, sizeof(uint8)));
+		uint8* const line = static_cast<uint8*>(std::calloc(rowSize, sizeof(uint8)));
 
 		for (int32 y = 0; y < height; ++y)
 		{
@@ -241,7 +241,7 @@ namespace s3d
 			pSrcLine -= width;
 		}
 
-		::free(line);
+		std::free(line);
 
 		return true;
 	}

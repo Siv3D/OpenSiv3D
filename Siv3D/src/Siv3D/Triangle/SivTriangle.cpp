@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,12 +11,14 @@
 
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Circular.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Line.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -119,25 +121,39 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
-	const Triangle& Triangle::draw(const ColorF& color) const
+	const Triangle& Triangle::paintFrame(Image& dst, const int32 thickness, const Color& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addTriangle({ p0, p1, p2 }, color.toFloat4());
+		LineString{ p0, p1, p2 }.paintClosed(dst, thickness, color);
 
 		return *this;
 	}
 
-	const Triangle& Triangle::draw(const ColorF(&colors)[3]) const
+	const Triangle& Triangle::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
 	{
-		Siv3DEngine::GetRenderer2D()->addTriangle(	
+		LineString{ p0, p1, p2 }.overwriteClosed(dst, thickness, color, antialiased);
+
+		return *this;
+	}
+
+	const Triangle& Triangle::draw(const ColorF& color) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTriangle({ p0, p1, p2 }, color.toFloat4());
+
+		return *this;
+	}
+
+	const Triangle& Triangle::draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTriangle(
 			{ p0, p1, p2 },
-			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4() });
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4() });
 
 		return *this;
 	}
 
 	const Triangle& Triangle::drawFrame(double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 3, none,
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(LineStyle::SquareCap, &p0, 3, none,
 			static_cast<float>(thickness), false, color.toFloat4(), true);
 
 		return *this;
@@ -149,7 +165,7 @@ namespace s3d
 
 		const Triangle t = stretched(offset);
 
-		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
 			static_cast<float>(innerThickness + outerThickness),
 			outerThickness == 0.0, color.toFloat4(), true);
 
@@ -168,9 +184,9 @@ namespace s3d
 	{
 		formatData.string.push_back(U'(');
 		Formatter(formatData, value.p0);
-		formatData.string.push_back(U',');
+		formatData.string.append(U", "_sv);
 		Formatter(formatData, value.p1);
-		formatData.string.push_back(U',');
+		formatData.string.append(U", "_sv);
 		Formatter(formatData, value.p2);
 		formatData.string.push_back(U')');
 	}

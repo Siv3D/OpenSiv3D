@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/ParseFloat.hpp>
-# include "../../ThirdParty/double-conversion/double-conversion.h"
+# include <double-conversion/double-conversion.h>
 
 namespace s3d
 {
@@ -23,9 +23,11 @@ namespace s3d
 		{
 			using namespace double_conversion;
 
-			const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
-                StringToDoubleConverter::ALLOW_LEADING_SPACES |
-				StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
+			const int flags =
+				  StringToDoubleConverter::ALLOW_LEADING_SPACES
+				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
+				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
+				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
 			int unused;
@@ -36,9 +38,11 @@ namespace s3d
 		{
 			using namespace double_conversion;
 
-            const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
-                StringToDoubleConverter::ALLOW_LEADING_SPACES |
-                StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
+			const int flags =		
+				  StringToDoubleConverter::ALLOW_LEADING_SPACES
+				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
+				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
+				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
 			int unused;
@@ -62,50 +66,5 @@ namespace s3d
 	long double ParseFloat<long double>(const StringView view)
 	{
 		return detail::ParseDouble(view);
-	}
-
-	template <>
-	Optional<float> ParseFloatOpt<float>(const StringView view)
-	{
-		const float result = detail::ParseFloat(view);
-
-		if (std::isnan(result))
-		{
-			return none;
-		}
-		else
-		{
-			return result;
-		}
-	}
-
-	template <>
-	Optional<double> ParseFloatOpt<double>(const StringView view)
-	{
-		const double result = detail::ParseDouble(view);
-
-		if (std::isnan(result))
-		{
-			return none;
-		}
-		else
-		{
-			return result;
-		}
-	}
-
-	template <>
-	Optional<long double> ParseFloatOpt<long double>(const StringView view)
-	{
-		const long double result = detail::ParseDouble(view);
-
-		if (std::isnan(result))
-		{
-			return none;
-		}
-		else
-		{
-			return result;
-		}
 	}
 }

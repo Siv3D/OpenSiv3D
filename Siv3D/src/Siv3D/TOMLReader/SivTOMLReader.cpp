@@ -2,14 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
+// s3d::TOMLReader is originally created by azaika (OpenSiv3D Project)
+//-----------------------------------------------
 
-# include "../../ThirdParty/cpptoml/cpptoml.h"
+# include <cpptoml/cpptoml.h>
 # include <Siv3D/TOMLReader.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/String.hpp>
@@ -285,6 +287,46 @@ namespace s3d
 		return TOMLValueType::Unknown;
 	}
 
+	bool TOMLValue::isTable() const noexcept
+	{
+		return getType() == TOMLValueType::Table;
+	}
+
+	bool TOMLValue::isArray() const noexcept
+	{
+		return getType() == TOMLValueType::Array;
+	}
+
+	bool TOMLValue::isTableArray() const noexcept
+	{
+		return getType() == TOMLValueType::TableArray;
+	}
+
+	bool TOMLValue::isString() const noexcept
+	{
+		return getType() == TOMLValueType::String;
+	}
+
+	bool TOMLValue::isBool() const noexcept
+	{
+		return getType() == TOMLValueType::Bool;
+	}
+
+	bool TOMLValue::isNumber() const noexcept
+	{
+		return getType() == TOMLValueType::Number;
+	}
+
+	bool TOMLValue::isDate() const noexcept
+	{
+		return getType() == TOMLValueType::Date;
+	}
+
+	bool TOMLValue::isDateTime() const noexcept
+	{
+		return getType() == TOMLValueType::DateTime;
+	}
+
 	template <>
 	Optional<int64> TOMLValue::getOpt<int64>() const
 	{
@@ -342,21 +384,6 @@ namespace s3d
 	//
 	//  TOMLValue(Table)
 	//
-
-	size_t TOMLValue::memberCount() const
-	{
-		if (isEmpty())
-		{
-			return 0;
-		}
-
-		if (auto&& table = m_detail->ptr->as_table())
-		{
-			return table->size();
-		}
-
-		return 0;
-	}
 
 	bool TOMLValue::hasMember(const String& name) const
 	{
@@ -502,7 +529,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<String>(in_place, getString());
+		return Optional<String>(InPlace, getString());
 	}
 
 	////////////////////////////////
@@ -535,7 +562,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<Date>(in_place, getDate());
+		return Optional<Date>(InPlace, getDate());
 	}
 
 	////////////////////////////////
@@ -610,7 +637,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<DateTime>(in_place, getDateTime());
+		return Optional<DateTime>(InPlace, getDateTime());
 	}
 
 	////////////////////////////////
@@ -681,6 +708,11 @@ namespace s3d
 		return m_detail != nullptr;
 	}
 
+	TOMLReader::operator bool() const noexcept
+	{
+		return isOpened();
+	}
+
 	////////////////////////////////
 	//
 	//  Format
@@ -689,5 +721,13 @@ namespace s3d
 	void Formatter(FormatData& formatData, const TOMLValue& value)
 	{
 		formatData.string.append(value.format());
+	}
+
+	void Formatter(FormatData& formatData, const TOMLReader& reader)
+	{
+		if (!reader.isEmpty())
+		{
+			Formatter(formatData, static_cast<TOMLValue>(reader));
+		}
 	}
 }

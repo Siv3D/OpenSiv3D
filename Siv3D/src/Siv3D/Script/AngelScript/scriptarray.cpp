@@ -6,6 +6,8 @@
 #include <string>
 
 #include "scriptarray.h"
+#include <Siv3D/Random.hpp>
+#include <Siv3D/Logger.hpp>
 
 using namespace std;
 
@@ -67,7 +69,7 @@ CScriptArray* CScriptArray::Create(asITypeInfo *ti, asUINT length)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Array: Out of memory");
 
 		return 0;
 	}
@@ -86,7 +88,7 @@ CScriptArray* CScriptArray::Create(asITypeInfo *ti, void *initList)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Array: Out of memory");
 
 		return 0;
 	}
@@ -105,7 +107,7 @@ CScriptArray* CScriptArray::Create(asITypeInfo *ti, asUINT length, void *defVal)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Array: Out of memory");
 
 		return 0;
 	}
@@ -281,6 +283,10 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "T &opIndex(uint index)", asMETHODPR(CScriptArray, At, (asUINT), void*), asCALL_THISCALL); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("Array<T>", "const T &opIndex(uint index) const", asMETHODPR(CScriptArray, At, (asUINT) const, const void*), asCALL_THISCALL); assert( r >= 0 );
 
+	r = engine->RegisterObjectMethod("Array<T>", "T& choice()", asMETHODPR(CScriptArray, Choice, (), void*), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "const T& choice() const", asMETHODPR(CScriptArray, Choice, () const, const void*), asCALL_THISCALL); assert(r >= 0);
+
+
 	// operator<<
 	r = engine->RegisterObjectMethod("Array<T>", "Array<T> &opShl(const T&in)", asMETHOD(CScriptArray, InsertLastRet), asCALL_THISCALL); assert(r >= 0);
 
@@ -311,10 +317,14 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "void insertAt(uint index, const Array<T>& arr)", asMETHODPR(CScriptArray, InsertAt, (asUINT, const CScriptArray &), void), asCALL_THISCALL); assert(r >= 0);
 
 	// removeAt
-	r = engine->RegisterObjectMethod("Array<T>", "void removeAt(uint index)", asMETHOD(CScriptArray, RemoveAt), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "void remove_at(uint index)", asMETHOD(CScriptArray, RemoveAt), asCALL_THISCALL); assert(r >= 0);
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "uint count() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert(r >= 0);
+
+
+	r = engine->RegisterObjectMethod("Array<T>", "void sort()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert(r >= 0);
+
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "void sortAsc()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert( r >= 0 );
@@ -618,7 +628,7 @@ void CScriptArray::Reserve(asUINT maxElements)
 		// Out of memory
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Array: Out of memory");
 		return;
 	}
 
@@ -650,7 +660,7 @@ void CScriptArray::RemoveRange(asUINT start, asUINT count)
 		// If this is called from a script we raise a script exception
 		asIScriptContext *ctx = asGetActiveContext();
 		if (ctx)
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		return;
 	}
 
@@ -709,7 +719,7 @@ void CScriptArray::Resize(int delta, asUINT at)
 			// Out of memory
 			asIScriptContext *ctx = asGetActiveContext();
 			if( ctx )
-				ctx->SetException("Out of memory");
+				ctx->SetException("Array: Out of memory");
 			return;
 		}
 
@@ -759,7 +769,7 @@ bool CScriptArray::CheckMaxSize(asUINT numElements)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Too large array size");
+			ctx->SetException("Array: Too large array size");
 
 		return false;
 	}
@@ -790,7 +800,7 @@ void CScriptArray::InsertAt(asUINT index, void *value)
 		// If this is called from a script we raise a script exception
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		return;
 	}
 
@@ -807,7 +817,7 @@ void CScriptArray::InsertAt(asUINT index, const CScriptArray &arr)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if (ctx)
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		return;
 	}
 
@@ -817,7 +827,7 @@ void CScriptArray::InsertAt(asUINT index, const CScriptArray &arr)
 		// called from a script, but let's check for it anyway
 		asIScriptContext *ctx = asGetActiveContext();
 		if (ctx)
-			ctx->SetException("Mismatching array types");
+			ctx->SetException("Array: Mismatching array types");
 		return;
 	}
 
@@ -880,7 +890,7 @@ void CScriptArray::RemoveAt(asUINT index)
 		// If this is called from a script we raise a script exception
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		return;
 	}
 
@@ -906,7 +916,7 @@ const void *CScriptArray::At(asUINT index) const
 		// If this is called from a script we raise a script exception
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		return 0;
 	}
 
@@ -918,6 +928,28 @@ const void *CScriptArray::At(asUINT index) const
 void *CScriptArray::At(asUINT index)
 {
 	return const_cast<void*>(const_cast<const CScriptArray *>(this)->At(index));
+}
+
+const void* CScriptArray::Choice() const
+{
+	if (buffer == 0 || buffer->numElements == 0)
+	{
+		asIScriptContext *ctx = asGetActiveContext();
+		if (ctx)
+			ctx->SetException("Array: Index out of bounds");
+		return nullptr;
+	}
+
+	const s3d::uint32 index = s3d::Random<s3d::uint32>(0, buffer->numElements - 1);
+	
+	if ((subTypeId & asTYPEID_MASK_OBJECT) && !(subTypeId & asTYPEID_OBJHANDLE))
+		return *(void**)(buffer->data + elementSize * index);
+	else
+		return buffer->data + elementSize * index;
+}
+void* CScriptArray::Choice()
+{
+	return const_cast<void*>(const_cast<const CScriptArray *>(this)->Choice());
 }
 
 void* CScriptArray::AtFront()
@@ -960,7 +992,7 @@ void CScriptArray::CreateBuffer(SArrayBuffer **buf, asUINT numElements)
 		// Oops, out of memory
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Array: Out of memory");
 	}
 }
 
@@ -1314,15 +1346,15 @@ int CScriptArray::Find(asUINT startAt, void *value) const
 
 				if( cache && cache->eqFuncReturnCode == asMULTIPLE_FUNCTIONS )
 #if defined(_MSC_VER) && _MSC_VER >= 1500 && !defined(__S3E__)
-					sprintf_s(tmp, 512, "Type '%s' has multiple matching opEquals or opCmp methods", subType->GetName());
+					sprintf_s(tmp, 512, "Array: Type '%s' has multiple matching opEquals or opCmp methods", subType->GetName());
 #else
-					sprintf(tmp, "Type '%s' has multiple matching opEquals or opCmp methods", subType->GetName());
+					sprintf(tmp, "Array: Type '%s' has multiple matching opEquals or opCmp methods", subType->GetName());
 #endif
 				else
 #if defined(_MSC_VER) && _MSC_VER >= 1500 && !defined(__S3E__)
-					sprintf_s(tmp, 512, "Type '%s' does not have a matching opEquals or opCmp method", subType->GetName());
+					sprintf_s(tmp, 512, "Array: Type '%s' does not have a matching opEquals or opCmp method", subType->GetName());
 #else
-					sprintf(tmp, "Type '%s' does not have a matching opEquals or opCmp method", subType->GetName());
+					sprintf(tmp, "Array: Type '%s' does not have a matching opEquals or opCmp method", subType->GetName());
 #endif
 				ctx->SetException(tmp);
 			}
@@ -1499,7 +1531,7 @@ void CScriptArray::Sort(asUINT startAt, asUINT count, bool asc)
 		// Throw an exception
 		if( ctx )
 		{
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 		}
 
 		return;
@@ -1575,7 +1607,7 @@ void CScriptArray::Sort(asIScriptFunction *func, asUINT startAt, asUINT count)
 
 		// Throw an exception
 		if (ctx)
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Array: Index out of bounds");
 
 		return;
 	}

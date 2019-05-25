@@ -2,16 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-
-# include "../IAudio.hpp"
+# include <Audio/IAudio.hpp>
 
 namespace s3d
 {
@@ -39,6 +38,8 @@ namespace s3d
 
 		void setLoop(AudioID handleID, bool loop, int64 loopBeginSample, int64 loopEndSample) override;
 
+		Optional<AudioLoopTiming> getLoop(AudioID handleID) override;
+
 		bool play(AudioID handleID, const SecondsF& fadeinDuration) override;
 
 		void pause(AudioID handleID, const SecondsF& fadeoutDuration) override;
@@ -60,6 +61,8 @@ namespace s3d
 		uint64 samplesPlayed(AudioID handleID) override;
 
 		const Wave& getWave(AudioID handleID) override;
+
+		void setPosSample(AudioID handleID, int64 sample) override;
 
 		void setVolume(AudioID handleID, const std::pair<double, double>& volume) override;
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,6 +14,7 @@
 # include "Array.hpp"
 # include "String.hpp"
 # include "PointVector.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -91,16 +92,25 @@ namespace s3d
 
 		void AcceptText(bool accept);
 
-		Optional<DragStatus> DragOver();
+		[[nodiscard]] Optional<DragStatus> DragOver();
 
-		bool HasNewFilePaths();
+		[[nodiscard]] bool HasNewFilePaths();
 
-		bool HasNewText();
+		[[nodiscard]] bool HasNewText();
 
 		void Clear();
 
-		Array<DroppedFilePath> GetDroppedFilePaths();
+		[[nodiscard]] Array<DroppedFilePath> GetDroppedFilePaths();
 
-		Array<DroppedText> GetDroppedText();
+		[[nodiscard]] Array<DroppedText> GetDroppedText();
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Platform::Windows::DragDrop
+	{
+		Optional<int32> MakeDragDrop(const FilePath& path);
+	}
+
+# endif
 }

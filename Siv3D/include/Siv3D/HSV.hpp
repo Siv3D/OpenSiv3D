@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -96,10 +96,7 @@ namespace s3d
 		/// <param name="color">
 		/// RGB カラー
 		/// </param>
-		HSV(const Color& color) noexcept
-		{
-			convertFrom(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0);
-		}
+		HSV(const Color& color) noexcept;
 
 		/// <summary>
 		/// 色を作成します。
@@ -107,10 +104,7 @@ namespace s3d
 		/// <param name="col">
 		/// RGB カラー
 		/// </param>
-		HSV(const ColorF& color) noexcept
-		{
-			convertFrom(color.r, color.g, color.b, color.a);
-		}
+		HSV(const ColorF& color) noexcept;
 
 		/// <summary>
 		/// HSV の値を加算します。
@@ -121,7 +115,7 @@ namespace s3d
 		/// <returns>
 		/// 加算した結果
 		/// </returns>
-		constexpr HSV operator +(const HSV& hsv) const noexcept
+		[[nodiscard]] constexpr HSV operator +(const HSV& hsv) const noexcept
 		{
 			return{ h + hsv.h, Clamp(s + hsv.s, 0.0, 1.0), Clamp(v + hsv.v, 0.0, 1.0), a };
 		}
@@ -135,12 +129,12 @@ namespace s3d
 		/// <returns>
 		/// 減算した結果
 		/// </returns>
-		constexpr HSV operator -(const HSV& hsv) const noexcept
+		[[nodiscard]] constexpr HSV operator -(const HSV& hsv) const noexcept
 		{
 			return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
 		}
 
-		constexpr HSV lerp(const HSV& other, const double f) const noexcept
+		[[nodiscard]] constexpr HSV lerp(const HSV& other, const double f) const noexcept
 		{
 			return{ h + (other.h - h) * f,
 					s + (other.s - s) * f,
@@ -149,32 +143,12 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// RGB 値から HSV 値に変換します。
-		/// </summary>
-		/// <param name="r">
-		/// R [0.0, 1.0]
-		/// </param>
-		/// <param name="g">
-		/// G [0.0, 1.0]
-		/// </param>
-		/// <param name="b">
-		/// B [0.0, 1.0]
-		/// </param>
-		/// <param name="_a">
-		/// A [0.0, 1.0]
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void convertFrom(double r, double g, double b, double a = 1.0) noexcept;
-
-		/// <summary>
 		/// Color 型に変換します。
 		/// </summary>
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		Color toColor() const noexcept;
+		[[nodiscard]] Color toColor() const noexcept;
 
 		/// <summary>
 		/// Color 型に変換します。
@@ -185,7 +159,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		Color toColor(const uint32 alpha) const noexcept
+		[[nodiscard]] Color toColor(const uint32 alpha) const noexcept
 		{
 			return toColor().setA(alpha);
 		}
@@ -196,7 +170,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		ColorF toColorF() const noexcept;
+		[[nodiscard]] ColorF toColorF() const noexcept;
 
 		/// <summary>
 		/// ColorF 型に変換します。
@@ -207,7 +181,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		ColorF toColorF(const double alpha) const noexcept
+		[[nodiscard]] ColorF toColorF(const double alpha) const noexcept
 		{
 			return toColorF().setA(alpha);
 		}
@@ -215,14 +189,14 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ h, s, v }
 		/// </summary>
-		Vec3 hsv() const noexcept;
+		[[nodiscard]] Vec3 hsv() const noexcept;
 
 		/// <summary>
 		/// Vector4D{ h, s, v, a }
 		/// </summary>
-		Vec4 hsva() const noexcept;
+		[[nodiscard]] Vec4 hsva() const noexcept;
 
-		size_t hash() const;
+		[[nodiscard]] size_t hash() const;
 	};
 
 	/// <summary>
@@ -234,7 +208,7 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	Color HueToColor(double hue) noexcept;
+	[[nodiscard]] Color HueToColor(double hue) noexcept;
 
 	/// <summary>
 	/// 色相から ColorF を作成します。
@@ -245,7 +219,7 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	ColorF HueToColorF(double hue) noexcept;
+	[[nodiscard]] ColorF HueToColorF(double hue) noexcept;
 }
 
 //////////////////////////////////////////////////
@@ -262,9 +236,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const HSV& value)
 	{
 		return output << CharType('(')
-			<< value.h << CharType(',')
-			<< value.s << CharType(',')
-			<< value.v << CharType(')')
+			<< value.h << CharType(',') << CharType(' ')
+			<< value.s << CharType(',') << CharType(' ')
+			<< value.v << CharType(')') << CharType(' ')
 			<< value.a << CharType(')');
 	}
 
@@ -315,15 +289,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::HSV& value)
+	template <>
+	struct formatter<s3d::HSV, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.h, value.s, value.v, value.a);
-	}
+		template <class Context>
+		auto format(const s3d::HSV& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.h, value.s, value.v, value.a);
+		}
+	};
 }

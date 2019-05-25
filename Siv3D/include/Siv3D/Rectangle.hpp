@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
 # include "Intersection.hpp"
@@ -32,10 +32,10 @@ namespace s3d
 		using size_type = SizeType;
 
 		using value_type = typename size_type::value_type;
-		
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
-		
-        union
+
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+			union
 		{
 			struct
 			{
@@ -74,12 +74,12 @@ namespace s3d
 			};
 		};
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Rectangle() = default;
+			/// <summary>
+			/// デフォルトコンストラクタ
+			/// </summary>
+			Rectangle() = default;
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -123,15 +123,12 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の左上の点の Y 座標
 		/// </param>
-		/// <param name="_w">
-		/// 長方形の幅
+		/// <param name="_size">
+		/// 長方形の縦横の大きさ
 		/// </param>
-		/// <param name="_h">
-		/// 長方形の高さ
-		/// </param>
-		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
+		constexpr Rectangle(value_type _x, value_type _y, value_type _size) noexcept
 			: pos(_x, _y)
-			, size(_w, _h) {}
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -142,12 +139,15 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の左上の点の Y 座標
 		/// </param>
-		/// <param name="_size">
-		/// 長方形の縦横の大きさ
+		/// <param name="_w">
+		/// 長方形の幅
 		/// </param>
-		constexpr Rectangle(value_type _x, value_type _y, value_type _size) noexcept
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
 			: pos(_x, _y)
-			, size(_size, _size) {}
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -772,7 +772,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, value_type _size) noexcept
+		constexpr Rectangle& set(const position_type& _pos, value_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size, _size);
 		}
@@ -792,7 +792,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(const position_type& _pos, value_type _w, value_type _h) noexcept
 		{
 			return set(_pos.x, _pos.y, _w, _h);
 		}
@@ -809,7 +809,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, size_type _size) noexcept
+		constexpr Rectangle& set(const position_type& _pos, const size_type& _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size.x, _size.y);
 		}
@@ -1172,7 +1172,7 @@ namespace s3d
 		/// <returns>
 		/// 移動した長方形
 		/// </returns>
-		constexpr Rectangle movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Rectangle movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ pos.movedBy(_x, _y), size };
 		}
@@ -1186,7 +1186,7 @@ namespace s3d
 		/// <returns>
 		/// 移動した長方形
 		/// </returns>
-		constexpr Rectangle movedBy(const size_type& v) const noexcept
+		[[nodiscard]] constexpr Rectangle movedBy(const size_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -1232,7 +1232,7 @@ namespace s3d
 		/// <returns>
 		/// 伸縮した長方形
 		/// </returns>
-		constexpr Rectangle stretched(value_type xy) const noexcept
+		[[nodiscard]] constexpr Rectangle stretched(value_type xy) const noexcept
 		{
 			return stretched({ xy, xy });
 		}
@@ -1249,7 +1249,7 @@ namespace s3d
 		/// <returns>
 		/// 伸縮した長方形
 		/// </returns>
-		constexpr Rectangle stretched(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Rectangle stretched(value_type _x, value_type _y) const noexcept
 		{
 			return stretched({ _x, _y });
 		}
@@ -1263,7 +1263,7 @@ namespace s3d
 		/// <returns>
 		/// 伸縮した長方形
 		/// </returns>
-		constexpr Rectangle stretched(const size_type& xy) const noexcept
+		[[nodiscard]] constexpr Rectangle stretched(const size_type& xy) const noexcept
 		{
 			return{ pos - xy, size + xy * 2 };
 		}
@@ -1286,119 +1286,119 @@ namespace s3d
 		/// <returns>
 		/// 伸縮した長方形
 		/// </returns>
-		constexpr Rectangle stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
+		[[nodiscard]] constexpr Rectangle stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
 		{
 			return{ pos.x - left, pos.y - top, size.x + left + right, size.y + top + bottom };
 		}
 
-		constexpr Rectangle<Vec2> scaled(double s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaled(double s) const noexcept
 		{
 			return scaled(s, s);
 		}
 
-		constexpr Rectangle<Vec2> scaled(double sx, double sy) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaled(double sx, double sy) const noexcept
 		{
 			return Rectangle<Vec2>(Arg::center(x + w * 0.5, y + h * 0.5), w * sx, h * sy);
 		}
 
-		constexpr Rectangle<Vec2> scaled(const Vec2& s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaled(const Vec2& s) const noexcept
 		{
 			return scaled(s.x, s.y);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(double _x, double _y, double s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(double _x, double _y, double s) const noexcept
 		{
 			return scaledAt(_x, _y, s, s);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(double _x, double _y, double sx, double sy) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(double _x, double _y, double sx, double sy) const noexcept
 		{
 			return Rectangle<Vec2>(_x + (x - _x) * sx, _y + (y - _y) * sy, w * sx, h * sy);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(double _x, double _y, const Vec2& s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(double _x, double _y, const Vec2& s) const noexcept
 		{
 			return scaledAt(_x, _y, s.x, s.y);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, double s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, double s) const noexcept
 		{
 			return scaledAt(_pos.x, _pos.y, s, s);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, double sx, double sy) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, double sx, double sy) const noexcept
 		{
 			return scaledAt(_pos.x, _pos.y, sx, sy);
 		}
 
-		constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, const Vec2& s) const noexcept
+		[[nodiscard]] constexpr Rectangle<Vec2> scaledAt(const Vec2& _pos, const Vec2& s) const noexcept
 		{
 			return scaledAt(_pos.x, _pos.y, s.x, s.y);
 		}
 
-		constexpr size_type tl() const noexcept
+		[[nodiscard]] constexpr size_type tl() const noexcept
 		{
 			return pos;
 		}
 
-		constexpr size_type tr() const noexcept
+		[[nodiscard]] constexpr size_type tr() const noexcept
 		{
 			return{ x + w, y };
 		}
 
-		constexpr size_type bl() const noexcept
+		[[nodiscard]] constexpr size_type bl() const noexcept
 		{
 			return{ x, y + h };
 		}
 
-		constexpr size_type br() const noexcept
+		[[nodiscard]] constexpr size_type br() const noexcept
 		{
 			return{ x + w, y + h };
 		}
 
-		constexpr Vec2 topCenter() const noexcept
+		[[nodiscard]] constexpr Vec2 topCenter() const noexcept
 		{
 			return{ x + w * 0.5, y };
 		}
 
-		constexpr Vec2 bottomCenter() const noexcept
+		[[nodiscard]] constexpr Vec2 bottomCenter() const noexcept
 		{
 			return{ x + w * 0.5, y + h };
 		}
 
-		constexpr Vec2 leftCenter() const noexcept
+		[[nodiscard]] constexpr Vec2 leftCenter() const noexcept
 		{
 			return{ x, y + h * 0.5 };
 		}
 
-		constexpr Vec2 rightCenter() const noexcept
+		[[nodiscard]] constexpr Vec2 rightCenter() const noexcept
 		{
 			return{ x + w, y + h * 0.5 };
 		}
 
-		constexpr Vec2 center() const noexcept
+		[[nodiscard]] constexpr Vec2 center() const noexcept
 		{
 			return{ x + w * 0.5, y + h * 0.5 };
 		}
 
-		constexpr Line top() const noexcept
+		[[nodiscard]] constexpr Line top() const noexcept
 		{
 			return{ tl(), tr() };
 		}
 
-		constexpr Line right() const noexcept
+		[[nodiscard]] constexpr Line right() const noexcept
 		{
 			return{ tr(), br() };
 		}
 
-		constexpr Line bottom() const noexcept
+		[[nodiscard]] constexpr Line bottom() const noexcept
 		{
-			return{ bl(), br() };
+			return{ br(), bl() };
 		}
 
-		constexpr Line left() const noexcept
+		[[nodiscard]] constexpr Line left() const noexcept
 		{
-			return{ tl(), bl() };
+			return{ bl(), tl() };
 		}
 
 		/// <summary>
@@ -1407,7 +1407,7 @@ namespace s3d
 		/// <returns>
 		/// 長方形の面積
 		/// </returns>
-		constexpr value_type area() const noexcept
+		[[nodiscard]] constexpr value_type area() const noexcept
 		{
 			return w * h;
 		}
@@ -1418,7 +1418,7 @@ namespace s3d
 		/// <returns>
 		/// 長方形の周の長さ
 		/// </returns>
-		constexpr value_type perimeter() const noexcept
+		[[nodiscard]] constexpr value_type perimeter() const noexcept
 		{
 			return (w + h) * 2;
 		}
@@ -1432,7 +1432,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotated(double angle) const noexcept
+		[[nodiscard]] Quad rotated(double angle) const noexcept
 		{
 			const Vec2 cent(x + w * 0.5, y + h * 0.5);
 			const double cx = cent.x;
@@ -1443,14 +1443,14 @@ namespace s3d
 			const double y1 = size.y * 0.5;
 			const double s = std::sin(angle);
 			const double c = std::cos(angle);
-			const double x0c = x0*c;
-			const double x0s = x0*s;
-			const double x1c = x1*c;
-			const double x1s = x1*s;
-			const double y0c = y0*c;
-			const double y0s = y0*s;
-			const double y1c = y1*c;
-			const double y1s = y1*s;
+			const double x0c = x0 * c;
+			const double x0s = x0 * s;
+			const double x1c = x1 * c;
+			const double x1s = x1 * s;
+			const double y0c = y0 * c;
+			const double y0s = y0 * s;
+			const double y1c = y1 * c;
+			const double y1s = y1 * s;
 			return{ { x0c - y0s + cx, x0s + y0c + cy },{ x1c - y0s + cx, x1s + y0c + cy },{ x1c - y1s + cx, x1s + y1c + cy },{ x0c - y1s + cx, x0s + y1c + cy } };
 		}
 
@@ -1469,11 +1469,11 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(double _x, double _y, double angle) const noexcept
+		[[nodiscard]] Quad rotatedAt(double _x, double _y, double angle) const noexcept
 		{
 			return rotatedAt({ _x, _y }, angle);
 		}
-		
+
 		/// <summary>
 		/// 長方形を回転させた図形を返します。
 		/// </summary>
@@ -1486,7 +1486,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(const Vec2& _pos, double angle) const noexcept
+		[[nodiscard]] Quad rotatedAt(const Vec2& _pos, double angle) const noexcept
 		{
 			Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
 
@@ -1509,7 +1509,7 @@ namespace s3d
 			return quad;
 		}
 
-		constexpr Quad shearedX(double vx) const noexcept
+		[[nodiscard]] constexpr Quad shearedX(double vx) const noexcept
 		{
 			return{
 				Vec2(x + vx, y),
@@ -1518,7 +1518,7 @@ namespace s3d
 				Vec2(x - vx, y + h) };
 		}
 
-		constexpr Quad shearedY(double vy) const noexcept
+		[[nodiscard]] constexpr Quad shearedY(double vy) const noexcept
 		{
 			return{
 				Vec2(x, y - vy),
@@ -1527,52 +1527,47 @@ namespace s3d
 				Vec2(x, y + h - vy) };
 		}
 
-		RoundRect rounded(double r) const noexcept;
+		[[nodiscard]] RoundRect rounded(double r) const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Rectangle& paint(Image& dst, const Color& color) const;
 
 		const Rectangle& overwrite(Image& dst, const Color& color) const;
 
-		const Rectangle& paintFrame(Image& image, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const Rectangle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
-		const Rectangle& overwriteFrame(Image& image, int32 innerThickness, int32 outerThickness, const Color& color) const;
-
-
-		//// paintFrame
-
-		//// overpaintFrame
+		const Rectangle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
 		/// <summary>
 		/// 長方形を描きます。
@@ -1684,11 +1679,11 @@ namespace s3d
 		/// </returns>
 		const Rectangle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		TexturedQuad operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedQuad operator ()(const Texture& texture) const;
 
-		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 
 	/// <summary>
@@ -1718,9 +1713,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Rectangle<SizeType>& value)
 	{
 		return output << CharType('(')
-			<< value.x << CharType(',')
-			<< value.y << CharType(',')
-			<< value.w << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
+			<< value.y << CharType(',') << CharType(' ')
+			<< value.w << CharType(',') << CharType(' ')
 			<< value.h << CharType(')');
 	}
 
@@ -1760,15 +1755,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter, class SizeType>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Rectangle<SizeType>& value)
+	template <class SizeType>
+	struct formatter<s3d::Rectangle<SizeType>, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y, value.w, value.h);
-	}
+		template <class Context>
+		auto format(const s3d::Rectangle<SizeType>& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.w, value.h);
+		}
+	};
 }

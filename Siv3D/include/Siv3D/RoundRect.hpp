@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,7 +25,7 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -39,7 +39,7 @@ namespace s3d
 
 		value_type r;
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		RoundRect() = default;
 
@@ -107,17 +107,6 @@ namespace s3d
 			return *this = roundRect;
 		}
 
-		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept
-		{
-			rect.setCenter(_x, _y);
-			return *this;
-		}
-
-		constexpr RoundRect& setCenter(const position_type& _center) noexcept
-		{
-			return setCenter(_center.x, _center.y);
-		}
-
 		constexpr RoundRect& setPos(value_type _x, value_type _y) noexcept
 		{
 			rect.setPos(_x, _y);
@@ -127,6 +116,17 @@ namespace s3d
 		constexpr RoundRect& setPos(const position_type& _center) noexcept
 		{
 			return setPos(_center.x, _center.y);
+		}
+
+		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept
+		{
+			rect.setCenter(_x, _y);
+			return *this;
+		}
+
+		constexpr RoundRect& setCenter(const position_type& _center) noexcept
+		{
+			return setCenter(_center.x, _center.y);
 		}
 
 		constexpr RoundRect& setSize(value_type _w, value_type _h) noexcept
@@ -140,12 +140,12 @@ namespace s3d
 			return setSize(_size.x, _size.y);
 		}
 
-		constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ rect.movedBy(_x, _y), r };
 		}
 
-		constexpr RoundRect movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr RoundRect movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -161,70 +161,74 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr RoundRect stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type size) const noexcept
 		{
 			return RoundRect(rect.stretched(size), r);
 		}
 
-		constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept
 		{
 			return RoundRect(rect.stretched(_x, _y), r);
 		}
 
-		constexpr RoundRect stretched(const size_type& xy) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(const size_type& xy) const noexcept
 		{
 			return RoundRect(rect.stretched(xy.x, xy.y), r);
 		}
 
-		constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
 		{
 			return RoundRect(rect.stretched(top, right, bottom, left), r);
 		}
 
-		constexpr position_type center() const noexcept
+		[[nodiscard]] constexpr position_type center() const noexcept
 		{
 			return rect.center();
 		}
 
-		constexpr double area() const noexcept
+		[[nodiscard]] constexpr double area() const noexcept
 		{
 			return rect.area() - (4 - Math::Pi) * r * r;
 		}
 
-		constexpr double perimeter() const noexcept
+		[[nodiscard]] constexpr double perimeter() const noexcept
 		{
 			return rect.perimeter() + r * (2 * Math::Pi - 8);
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const RoundRect& paint(Image& dst, const Color& color) const;
 
 		const RoundRect& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		const RoundRect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+
+		const RoundRect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
 
 		const RoundRect& draw(const ColorF& color = Palette::White) const;
 
@@ -255,11 +259,11 @@ namespace s3d
 		/// </returns>
 		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		TexturedRoundRect operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedRoundRect operator ()(const Texture& texture) const;
 
-		TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 
@@ -277,10 +281,10 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const RoundRect& value)
 	{
 		return	output << CharType('(')
-			<< value.x << CharType(',')
-			<< value.y << CharType(',')
-			<< value.w << CharType(',')
-			<< value.h << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
+			<< value.y << CharType(',') << CharType(' ')
+			<< value.w << CharType(',') << CharType(' ')
+			<< value.h << CharType(',') << CharType(' ')
 			<< value.r << CharType(')');
 	}
 
@@ -321,15 +325,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::RoundRect& value)
+	template <>
+	struct formatter<s3d::RoundRect, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y, value.w, value.h, value.r);
-	} 
+		template <class Context>
+		auto format(const s3d::RoundRect& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.w, value.h, value.r);
+		}
+	};
 }

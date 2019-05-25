@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,9 +11,8 @@
 
 # pragma once
 # include <string>
-# include <cwctype>
 # include "Fwd.hpp"
-# include "Char.hpp"
+# include "TypeTraits.hpp"
 # include "StringView.hpp"
 # include "Functor.hpp"
 
@@ -44,6 +43,11 @@ namespace s3d
 
 	public:
 
+		template <class StringViewIsh>
+		using IsStringViewIsh = std::enable_if_t<
+			std::conjunction_v<std::is_convertible<const StringViewIsh&, StringView>,
+			std::negation<std::is_convertible<const StringViewIsh&, const char32*>>>>;
+
 		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
 		
 		/// <summary>
@@ -57,8 +61,7 @@ namespace s3d
 		/// <param name="text">
 		/// コピーする文字列
 		/// </param>
-		String(const String& text)
-			: m_string(text.m_string) {}
+		String(const String& text);
 
 		/// <summary>
 		/// 文字列をコピーして新しい文字列を作成します。
@@ -66,86 +69,53 @@ namespace s3d
 		/// <param name="text">
 		/// コピーする文字列
 		/// </param>
-		String(const string_type& text)
-			: m_string(text) {}
+		String(const string_type& text);
 
-		String(const String& text, size_type pos)
-			: m_string(text.m_string, pos) {}
+		String(const String& text, size_type pos);
 
-		String(const String& text, size_type pos, size_type count)
-			: m_string(text.m_string, pos, count) {}
+		String(const String& text, size_type pos, size_type count);
 
-		String(const value_type* text)
-			: m_string(text) {}
+		String(const value_type* text);
 
-		String(const value_type* text, size_type count)
-			: m_string(text, count) {}
+		String(const value_type* text, size_type count);
 
-		String(std::initializer_list<value_type> ilist)
-			: m_string(ilist) {}
+		String(std::initializer_list<value_type> ilist);
 
-		String(size_t count, value_type ch)
-			: m_string(count, ch) {}
+		String(size_t count, value_type ch);
 
 		template <class Iterator>
 		String(Iterator first, Iterator last)
 			: m_string(first, last) {}
 
-		String(String&& text) noexcept
-			: m_string(std::move(text.m_string)) {}
+		String(String&& text) noexcept;
 
-		String(string_type&& text) noexcept
-			: m_string(std::move(text)) {}
+		String(string_type&& text) noexcept;
 
-		explicit String(StringView view)
-			: m_string(view.begin(), view.end()) {}
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		explicit String(const StringViewIsh& viewish)
+			: m_string(viewish.data(), viewish.size()) {}
 
-		operator StringView() const noexcept
+		operator StringView() const noexcept;
+
+		String& operator =(const String& text);
+
+		String& operator =(const string_type& text);
+
+		String& operator =(String&& text) noexcept;
+
+		String& operator =(string_type&& text) noexcept;
+
+		String& operator =(const value_type* text);
+
+		String& operator =(std::initializer_list<value_type> ilist);
+
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& operator =(const StringViewIsh& viewish)
 		{
-			return StringView(m_string.data(), m_string.size());
+			return assign(viewish);
 		}
 
-		String& operator =(const String& text)
-		{
-			return assign(text);
-		}
-
-		String& operator =(const string_type& text)
-		{
-			return assign(text);
-		}
-
-		String& operator =(String&& text) noexcept
-		{
-			return assign(std::move(text));
-		}
-
-		String& operator =(string_type&& text) noexcept
-		{
-			return assign(std::move(text));
-		}
-
-		String& operator =(const value_type* text)
-		{
-			return assign(text);
-		}
-
-		String& operator =(std::initializer_list<value_type> ilist)
-		{
-			return assign(ilist);
-		}
-
-		String& operator =(StringView view)
-		{
-			return assign(view);
-		}
-
-		String& operator <<(value_type ch)
-		{
-			m_string.push_back(ch);
-
-			return *this;
-		}
+		String& operator <<(value_type ch);
 
 		String& assign(const String& text);
 
@@ -161,7 +131,13 @@ namespace s3d
 
 		String& assign(std::initializer_list<value_type> ilist);
 
-		String& assign(StringView view);
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& assign(const StringViewIsh& viewish)
+		{
+			m_string.assign(viewish.data(), viewish.size());
+
+			return *this;
+		}
 
 		template <class Iterator>
 		String& assign(Iterator first, Iterator last)
@@ -171,34 +147,20 @@ namespace s3d
 			return *this;
 		}
 
-		String& operator +=(const String& text)
-		{
-			return append(text);
-		}
+		String& operator +=(const String& text);
 
-		String& operator +=(const string_type& text)
-		{
-			return append(text);
-		}
+		String& operator +=(const string_type& text);
 
-		String& operator +=(const value_type ch)
-		{
-			return append(ch);
-		}
+		String& operator +=(const value_type ch);
 
-		String& operator +=(const value_type* text)
-		{
-			return append(text);
-		}
+		String& operator +=(const value_type* text);
 
-		String& operator +=(std::initializer_list<value_type> ilist)
-		{
-			return append(ilist);
-		}
+		String& operator +=(std::initializer_list<value_type> ilist);
 
-		String& operator +=(StringView view)
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& operator +=(const StringViewIsh& viewish)
 		{
-			return append(view);
+			return append(viewish);
 		}
 
 		String& append(const String& text);
@@ -215,7 +177,13 @@ namespace s3d
 
 		String& append(size_t count, value_type ch);
 
-		String& append(StringView view);
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& append(const StringViewIsh& viewish)
+		{
+			m_string.append(viewish.data(), viewish.size());
+
+			return *this;
+		}
 
 		template <class Iterator>
 		String& append(Iterator first, Iterator last)
@@ -271,6 +239,26 @@ namespace s3d
 		String& insert(size_t offset, const value_type* text);
 
 		/// <summary>
+		/// 指定した位置に文字列を挿入します。
+		/// </summary>
+		/// <param name="offset">
+		/// 挿入する位置
+		/// </param>
+		/// <param name="text">
+		/// 挿入する文字列
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+		String& insert(size_t offset, const StringViewIsh& text)
+		{
+			m_string.insert(offset, text.data(), text.size());
+
+			return *this;
+		}
+
+		/// <summary>
 		/// 指定した位置に文字を指定した個数だけ挿入します。
 		/// </summary>
 		/// <param name="offset">
@@ -297,7 +285,7 @@ namespace s3d
 		/// 挿入する文字
 		/// </param>
 		/// <returns>
-		/// *this
+		/// イテレータ
 		/// </returns>
 		iterator insert(const_iterator where, value_type ch);
 
@@ -314,9 +302,9 @@ namespace s3d
 		/// 挿入する文字
 		/// </param>
 		/// <returns>
-		/// *this
+		/// イテレータ
 		/// </returns>
-		void insert(const_iterator where, size_t count, value_type ch);
+		iterator insert(const_iterator where, size_t count, value_type ch);
 
 		/// <summary>
 		/// 指定した位置に指定した範囲の文字列を挿入します。
@@ -331,12 +319,12 @@ namespace s3d
 		/// 範囲の終了位置
 		/// </param>
 		/// <returns>
-		/// *this
+		/// イテレータ
 		/// </returns>
 		template <class Iterator>
-		void insert(const_iterator where, Iterator first, Iterator last)
+		iterator insert(const_iterator where, Iterator first, Iterator last)
 		{
-			m_string.insert(where, first, last);
+			return m_string.insert(where, first, last);
 		}
 
 		/// <summary>
@@ -665,10 +653,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void push_front(value_type ch)
-		{
-			insert(begin(), ch);
-		}
+		void push_front(value_type ch);
 
 		/// <summary>
 		/// 末尾に文字を追加します。
@@ -679,10 +664,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void push_back(value_type ch)
-		{
-			m_string.push_back(ch);
-		}
+		void push_back(value_type ch);
 
 		/// <summary>
 		/// 先頭の文字を削除します。
@@ -690,10 +672,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void pop_front()
-		{
-			m_string.erase(m_string.begin());
-		}
+		void pop_front();
 
 		/// <summary>
 		/// 末尾の文字を削除します。
@@ -701,10 +680,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void pop_back()
-		{
-			m_string.pop_back();
-		}
+		void pop_back();
 
 		/// <summary>
 		/// 先頭の文字への参照を返します。
@@ -1254,10 +1230,7 @@ namespace s3d
 		/// <returns>
 		/// 等しければ true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool operator ==(const String& text) const
-		{
-			return m_string == text.m_string;
-		}
+		[[nodiscard]] bool operator ==(const String& text) const;
 
 		/// <summary>
 		/// 文字列が等しくないかを調べます。
@@ -1268,10 +1241,7 @@ namespace s3d
 		/// <returns>
 		/// 等しくなければ true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool operator !=(const String& text) const
-		{
-			return m_string != text.m_string;
-		}
+		[[nodiscard]] bool operator !=(const String& text) const;
 
 		/// <summary>
 		/// 文字列の &lt; 比較を行います。
@@ -1282,10 +1252,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		[[nodiscard]] bool operator <(const String& text) const
-		{
-			return m_string < text.m_string;
-		}
+		[[nodiscard]] bool operator <(const String& text) const;
 
 		/// <summary>
 		/// 文字列の &gt; 比較を行います。
@@ -1296,10 +1263,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		[[nodiscard]] bool operator >(const String& text) const
-		{
-			return m_string > text.m_string;
-		}
+		[[nodiscard]] bool operator >(const String& text) const;
 
 		/// <summary>
 		/// 文字列の &lt;= 比較を行います。
@@ -1310,10 +1274,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		[[nodiscard]] bool operator <=(const String& text) const
-		{
-			return m_string <= text.m_string;
-		}
+		[[nodiscard]] bool operator <=(const String& text) const;
 
 		/// <summary>
 		/// 文字列の &gt;= 比較を行います。
@@ -1324,10 +1285,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		[[nodiscard]] bool operator >=(const String& text) const
-		{
-			return m_string >= text.m_string;
-		}
+		[[nodiscard]] bool operator >=(const String& text) const;
 
 		/// <summary>
 		/// 全ての文字が条件を満たすかを返します。
@@ -1338,7 +1296,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たさない文字が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] bool all(Fty f = Id) const
 		{
 			for (const auto v : m_string)
@@ -1361,7 +1319,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たす文字が 1 つでもあれば true, それ以外の場合は false
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] bool any(Fty f = Id) const
 		{
 			for (const auto v : m_string)
@@ -1447,7 +1405,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字の個数
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
@@ -1472,7 +1430,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String drop(size_t n) const;
+		[[nodiscard]] String dropped(size_t n) const;
 
 		/// <summary>
 		/// 文字列の先頭から、指定された条件を満たす連続した文字を削除した新しい文字列を返します。
@@ -1483,8 +1441,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		template <class Fty>
-		[[nodiscard]] String drop_while(Fty f) const
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		[[nodiscard]] String dropped_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
@@ -1498,7 +1456,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
 		String& each(Fty f)
 		{
 			for (auto& v : m_string)
@@ -1518,7 +1476,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
 		const String& each(Fty f) const
 		{
 			for (const auto v : m_string)
@@ -1538,7 +1496,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
 		String& each_index(Fty f)
 		{
 			size_t i = 0;
@@ -1560,7 +1518,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
 		const String& each_index(Fty f) const
 		{
 			size_t i = 0;
@@ -1640,7 +1598,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String filter(Fty f) const
 		{
 			String new_array;
@@ -1701,7 +1659,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
@@ -1828,12 +1786,11 @@ namespace s3d
 		/// <returns>
 		/// 文字列の各文字に関数を適用した戻り値からなる配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
 		auto map(Fty f) const
 		{
-			using ValueType = std::result_of_t<Fty(value_type)>;
-
-			Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
+			using T = std::decay_t<std::invoke_result_t<Fty, char32>>;
+			Array<T, std::allocator<T>> new_array;
 
 			new_array.reserve(size());
 
@@ -1862,7 +1819,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たす文字が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] bool none(Fty f = Id) const
 		{
 			for (const auto v : m_string)
@@ -1973,7 +1930,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		String& remove_if(Fty f)
 		{
 			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), f), m_string.end());
@@ -1990,7 +1947,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String removed_if(Fty f) const &
 		{
 			String new_string;
@@ -2015,7 +1972,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String removed_if(Fty f) &&
 		{
 			remove_if(f);
@@ -2105,7 +2062,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		String& replace_if(Fty f, const value_type newChar)
 		{
 			for (auto& v : m_string)
@@ -2131,7 +2088,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) const &&
 		{
 			return String(*this).replace_if(f, newChar);
@@ -2149,7 +2106,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) &
 		{
 			replace_if(f, newChar);
@@ -2190,7 +2147,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
 		String& reverse_each(Fty f)
 		{
 			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
@@ -2210,7 +2167,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
 		const String& reverse_each(Fty f) const
 		{
 			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
@@ -2346,7 +2303,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		String& shuffle(URBG&& rbg)
 		{
 			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
@@ -2379,7 +2336,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] String shuffled(URBG&& rbg) const &
 		{
 			return String(*this).shuffle(std::forward<URBG>(rbg));
@@ -2394,7 +2351,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] String shuffled(URBG&& rbg) &&
 		{
 			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
@@ -2560,7 +2517,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		String& sort_by(Fty f)
 		{
 			std::sort(m_string.begin(), m_string.end(), f);
@@ -2593,7 +2550,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		[[nodiscard]] String sorted_by(Fty f) const &
 		{
 			return String(*this).sort_by(f);
@@ -2608,7 +2565,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		[[nodiscard]] String sorted_by(Fty f) &&
 		{
 			std::sort(m_string.begin(), m_string.end(), f);
@@ -2636,7 +2593,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]] String take_while(Fty f) const
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
@@ -2703,137 +2660,165 @@ namespace s3d
 		[[nodiscard]] String xml_escaped() const;
 	};
 
-	[[nodiscard]] inline String operator +(const String& lhs, const String& rhs)
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String::value_type lhs, const StringViewIsh& rhs)
 	{
-		return lhs.str() + rhs.str();
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]]inline String operator +(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]] String operator +(const String::value_type lhs, const String& rhs);
+
+	[[nodiscard]] String operator +(const String::value_type lhs, String&& rhs);
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String::value_type* lhs, const StringViewIsh& rhs)
 	{
-		return lhs + rhs.str();
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]]inline String operator +(const String::value_type lhs, const String& rhs)
+	[[nodiscard]] String operator +(const String::value_type* lhs, const String& rhs);
+
+	[[nodiscard]] String operator +(const String::value_type* lhs, String&& rhs);
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type rhs)
 	{
-		return lhs + rhs.str();
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type* rhs)
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type* rhs)
 	{
-		return lhs.str() + rhs;
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
 	}
 
-	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type rhs)
+	template <class StringViewIshT, class StringViewIshU, class = String::IsStringViewIsh<StringViewIshT>, class = String::IsStringViewIsh<StringViewIshU>>
+	[[nodiscard]] inline String operator +(const StringViewIshT& lhs, const StringViewIshU& rhs)
 	{
-		return lhs.str() + rhs;
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]] inline String operator +(String&& lhs, const String& rhs)
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String& rhs)
 	{
-		return std::move(lhs.append(rhs));
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]] inline String operator +(const String& lhs, String&& rhs)
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, String&& rhs)
 	{
 		return std::move(rhs.insert(0, lhs));
 	}
 
-	[[nodiscard]] inline String operator +(String&& lhs, String&& rhs)
+	[[nodiscard]] String operator +(const String& lhs, const String::value_type rhs);
+
+	[[nodiscard]] String operator +(const String& lhs, const String::value_type* rhs);
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String& lhs, const StringViewIsh& rhs)
 	{
-		if (rhs.size() <= lhs.capacity() - lhs.size() || rhs.capacity() - rhs.size() < lhs.size())
-		{
-			return std::move(lhs.append(rhs));
-		}
-		else
-		{
-			return std::move(rhs.insert(0, lhs));
-		}
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
-	[[nodiscard]]inline String operator +(const String::value_type* lhs, String&& rhs)
-	{
-		return std::move(rhs.insert(0, lhs));
-	}
+	[[nodiscard]] String operator +(const String& lhs, const String& rhs);
 
-	[[nodiscard]]inline String operator +(const String::value_type lhs, String&& rhs)
-	{
-		rhs.push_front(lhs);
+	[[nodiscard]] String operator +(const String& lhs, String&& rhs);
 
-		return std::move(rhs);
-	}
+	[[nodiscard]] String operator +(String&& lhs, const String::value_type rhs);
 
-	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type* rhs)
+	[[nodiscard]] String operator +(String&& lhs, const String::value_type* rhs);
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(String&& lhs, const StringViewIsh& rhs)
 	{
 		return std::move(lhs.append(rhs));
 	}
 
-	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type rhs)
-	{
-		return std::move(lhs << rhs);
-	}
+	[[nodiscard]] String operator +(String&& lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator ==(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs == rhs.str();
-	}
+	[[nodiscard]] String operator +(String&& lhs, String&& rhs);
 
-	[[nodiscard]]inline bool operator ==(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() == rhs;
-	}
 
-	[[nodiscard]]inline bool operator !=(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs != rhs.str();
-	}
+	[[nodiscard]] bool operator ==(const String::value_type* lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator !=(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() != rhs;
-	}
+	[[nodiscard]] bool operator ==(const String& lhs, const String::value_type* rhs);
 
-	[[nodiscard]]inline bool operator <(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs < rhs.str();
-	}
+	[[nodiscard]] bool operator !=(const String::value_type* lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator <(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() < rhs;
-	}
+	[[nodiscard]] bool operator !=(const String& lhs, const String::value_type* rhs);
 
-	[[nodiscard]]inline bool operator >(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs > rhs.str();
-	}
+	[[nodiscard]] bool operator <(const String::value_type* lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator >(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() > rhs;
-	}
+	[[nodiscard]] bool operator <(const String& lhs, const String::value_type* rhs);
 
-	[[nodiscard]]inline bool operator <=(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs <= rhs.str();
-	}
+	[[nodiscard]] bool operator >(const String::value_type* lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator <=(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() <= rhs;
-	}
+	[[nodiscard]] bool operator >(const String& lhs, const String::value_type* rhs);
 
-	[[nodiscard]]inline bool operator >=(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs >= rhs.str();
-	}
+	[[nodiscard]] bool operator <=(const String::value_type* lhs, const String& rhs);
 
-	[[nodiscard]]inline bool operator >=(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]] bool operator <=(const String& lhs, const String::value_type* rhs);
+
+	[[nodiscard]] bool operator >=(const String::value_type* lhs, const String& rhs);
+
+	[[nodiscard]] bool operator >=(const String& lhs, const String::value_type* rhs);
+
+	//////////////////////////////////////////////////
+	//
+	//	Literals
+	//
+	//////////////////////////////////////////////////
+
+	inline namespace Literals
 	{
-		return lhs.str() >= rhs;
+		inline namespace StringLiterals
+		{
+			[[nodiscard]] inline String operator ""_s(const char32_t* text, const size_t length) noexcept
+			{
+				return String(text, length);
+			}
+		}
 	}
 
 	using FilePath = String;
+
+	template <class E>
+	struct IsMemoryContiguousContainer<std::basic_string<E>> : std::bool_constant<std::is_trivially_copyable_v<E>> {};
+
+	template <>
+	struct IsMemoryContiguousContainer<String> : std::true_type {};
 }
+
 
 //////////////////////////////////////////////////
 //
@@ -2865,7 +2850,7 @@ namespace std
 	{
 		[[nodiscard]] size_t operator()(const s3d::String& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(s3d::ByteArrayView(value.data(), value.size_bytes()));
+			return s3d::Hash::FNV1a(value.data(), value.size_bytes());
 		}
 	};
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,40 +17,22 @@
 namespace s3d
 {
 	/// <summary>
-	/// 表現できる最大の数値を返します。
-	/// </summary>
-	/// <returns>
 	/// 表現できる最大の数値
-	/// </returns>
+	/// </summary>
 	template <class Type>
-	[[nodiscard]] inline constexpr Type Largest()
-	{
-		return std::numeric_limits<Type>::max();
-	}
+	constexpr Type Largest = std::numeric_limits<Type>::max();
 
 	/// <summary>
-	/// 表現できる最小の数値を返します。
-	/// </summary>
-	/// <returns>
 	/// 表現できる最小の数値
-	/// </returns>
+	/// </summary>
 	template <class Type>
-	[[nodiscard]] inline constexpr Type Smallest()
-	{
-		return std::numeric_limits<Type>::lowest();
-	}
+	constexpr Type Smallest = std::numeric_limits<Type>::lowest();
 
 	/// <summary>
-	/// 正の無限大を返します。
-	/// </summary>
-	/// <returns>
 	/// 正の無限大
-	/// </returns>
-	template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
-	[[nodiscard]] inline constexpr Type Infinity()
-	{
-		return std::numeric_limits<Type>::infinity();
-	}
+	/// </summary>
+	template <class Type>
+	constexpr Type Inf = std::numeric_limits<Type>::infinity();
     
     /// <summary>
     /// 数値が非数 (NaN) であるかを示します。
@@ -61,10 +43,17 @@ namespace s3d
     /// <returns>
     /// 数値が非数 (NaN) である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
-	[[nodiscard]] inline bool IsNaN(const Type value)
+    template <class Type>
+	[[nodiscard]] inline bool IsNaN([[maybe_unused]] const Type value)
     {
-        return std::isnan(value);
+		if constexpr (std::is_floating_point_v<Type>)
+		{
+			return std::isnan(value);
+		}
+		else
+		{
+			return false;
+		}
     }
     
     /// <summary>

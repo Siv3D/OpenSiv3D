@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,14 +11,11 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "PlatformDetail.hpp"
 # include "Array.hpp"
 # include "String.hpp"
 # include "Optional.hpp"
 # include "DateTime.hpp"
-
-# ifdef SetCurrentDirectory
-#	undef SetCurrentDirectory
-# endif
 
 namespace s3d
 {
@@ -51,18 +48,29 @@ namespace s3d
 	{
 		/// <summary>
 		/// ファイル名が既に使われていた場合、コピーを失敗させる。
+		/// Report an error.
 		/// </summary>
-		Fail_if_Exists,
+		None,
+
+		/// <summary>
+		/// ファイル名が既に使われていた場合、エラーを発生させずにスキップする。
+		/// Keep the existing file, without reporting an error.
+		/// </summary>
+		SkipExisting,
 
 		/// <summary>
 		/// ファイル名が既に使われていた場合、ファイルを上書きする。
+		/// Replace the existing file.
 		/// </summary>
-		Overwrite_if_Exists,
+		OverwriteExisting,
 
 		/// <summary>
-		/// ファイル名が既に使われていた場合、別名でコピーする。
+		/// ファイルが既に存在する場合、コピーするファイルが新しければ上書きする。
+		/// Replace the existing file only if it is older than the file being copied.
 		/// </summary>
-		Rename_if_Exists,
+		UpdateExisting,
+
+		Default = None,
 	};
 
 	enum class SpecialFolder
@@ -107,7 +115,7 @@ namespace s3d
 		/// <returns>
 		/// 存在する場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool Exists(const FilePath& path);
+		[[nodiscard]] bool Exists(FilePathView path);
 
 		/// <summary>
 		/// 指定したパスがディレクトリであるかを返します。
@@ -118,7 +126,7 @@ namespace s3d
 		/// <returns>
 		/// ディレクトリである場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool IsDirectory(const FilePath& path);
+		[[nodiscard]] bool IsDirectory(FilePathView path);
 
 		/// <summary>
 		/// 指定したパスがファイルであるかを返します。
@@ -129,7 +137,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルである場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool IsFile(const FilePath& path);
+		[[nodiscard]] bool IsFile(FilePathView path);
 
 		/// <summary>
 		/// 指定したパスが exe に埋め込まれたリソースであるかを返します。
@@ -140,7 +148,7 @@ namespace s3d
 		/// <returns>
 		/// リソースである場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool IsResource(const FilePath& path);
+		[[nodiscard]] bool IsResource(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルの絶対パスを返します。（例: "C:/Users/Siv/Desktop/picture.png"）
@@ -151,7 +159,9 @@ namespace s3d
 		/// <returns>
 		/// ファイルの絶対パス。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] FilePath FullPath(const FilePath& path);
+		[[nodiscard]] FilePath FullPath(FilePathView path);
+
+		[[nodiscard]] Platform::NativeFilePath NativePath(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルの .を含まない拡張子を小文字にして返します。（例: "png"）
@@ -162,7 +172,7 @@ namespace s3d
 		/// <returns>
 		/// 小文字の拡張子。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] String Extension(const FilePath& path);
+		[[nodiscard]] String Extension(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルの、親ディレクトリを含まずに、拡張子を含んだ名前を返します。（例: "picture.png"）
@@ -173,7 +183,7 @@ namespace s3d
 		/// <returns>
 		/// ファイル名。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] String FileName(const FilePath& path);
+		[[nodiscard]] String FileName(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルの、親ディレクトリと拡張子を含まない名前を返します。（例: "picture"）
@@ -184,7 +194,7 @@ namespace s3d
 		/// <returns>
 		/// ファイル名。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] String BaseName(const FilePath& path);
+		[[nodiscard]] String BaseName(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルの親ディレクトリを返します。（例: "C:/Users/Siv/Desktop/"）
@@ -195,7 +205,7 @@ namespace s3d
 		/// <returns>
 		/// 親ディレクトリ。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] FilePath ParentPath(const FilePath& path, size_t level = 0, FilePath* baseFullPath = nullptr);
+		[[nodiscard]] FilePath ParentPath(FilePathView path, size_t level = 0, FilePath* baseFullPath = nullptr);
 
 		/// <summary>
 		/// 指定したファイルのドライブのパスを返します。（例: "C:/"）
@@ -206,32 +216,18 @@ namespace s3d
 		/// <returns>
 		/// ドライブのパス。失敗した場合は空の文字列
 		/// </returns>
-		[[nodiscard]] FilePath VolumePath(const FilePath& path);
+		[[nodiscard]] FilePath VolumePath(FilePathView path);
 
 		/// <summary>
-		/// 指定したファイルのパスを正規化します
+		/// 指定したディレクトリが空であるかを返します。
 		/// </summary>
 		/// <param name="path">
 		/// パス
 		/// </param>
 		/// <returns>
-		/// 正規化したパス
+		/// ディレクトリが空である場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] inline FilePath NormalizedPath(const FilePath& path)
-		{
-			return FullPath(path).lowercased();
-		}
-
-		/// <summary>
-		/// 指定したファイルかディレクトリが空であるかを返します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// 成功の場合は true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool IsEmpty(const FilePath& path);
+		[[nodiscard]] bool IsEmptyDirectory(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルかディレクトリのサイズを返します。
@@ -245,7 +241,7 @@ namespace s3d
 		/// <returns>
 		/// サイズ
 		/// </returns>
-		[[nodiscard]] int64 Size(const FilePath& path);
+		[[nodiscard]] int64 Size(FilePathView path);
 
 		/// <summary>
 		/// 指定したファイルのサイズを返します。
@@ -259,7 +255,7 @@ namespace s3d
 		/// <returns>
 		/// サイズ
 		/// </returns>
-		[[nodiscard]] int64 FileSize(const FilePath& path);
+		[[nodiscard]] int64 FileSize(FilePathView path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの作成日時を返します。
@@ -270,7 +266,7 @@ namespace s3d
 		/// <returns>
 		/// 作成日時。ファイルが存在しない場合 none
 		/// </returns>
-		[[nodiscard]] Optional<DateTime> CreationTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> CreationTime(FilePathView path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの更新日時を返します。
@@ -281,7 +277,7 @@ namespace s3d
 		/// <returns>
 		/// 更新日時。ファイルが存在しない場合 none
 		/// </returns>
-		[[nodiscard]] Optional<DateTime> WriteTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> WriteTime(FilePathView path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリのアクセス日時を返します。
@@ -292,7 +288,7 @@ namespace s3d
 		/// <returns>
 		/// アクセス日時。ファイルが存在しない場合 none
 		/// </returns>
-		[[nodiscard]] Optional<DateTime> AccessTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> AccessTime(FilePathView path);
 
 		/// <summary>
 		/// 指定したディレクトリにあるファイルとディレクトリの一覧を返します。
@@ -311,7 +307,7 @@ namespace s3d
 		/// <returns>
 		/// プログラムが起動したパス
 		/// </returns>
-		[[nodiscard]] const FilePath& InitialPath();
+		[[nodiscard]] const FilePath& InitialDirectory();
 
 		/// <summary>
 		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
@@ -327,7 +323,9 @@ namespace s3d
 		/// <returns>
 		/// カレントパス
 		/// </returns>
-		[[nodiscard]] FilePath CurrentPath();
+		[[nodiscard]] FilePath CurrentDirectory();
+
+		bool ChangeCurrentDirectory(FilePathView path);
 
 		/// <summary>
 		/// 特殊フォルダのパスを返します。
@@ -346,7 +344,15 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
 		/// </returns>
-		[[nodiscard]] FilePath TempDirectoryPath();
+		[[nodiscard]] FilePath TemporaryDirectoryPath();
+
+		/// <summary>
+		/// 一時ファイル用の固有なファイルパスを返します。拡張子は ".tmp" です。
+		/// </summary>
+		/// <returns>
+		/// 一時ファイル用のファイルパス
+		/// </returns>
+		[[nodiscard]] FilePath UniqueFilePath(FilePathView directory = TemporaryDirectoryPath());
 
 		/// <summary>
 		/// 指定したパスを相対パスに変換します。
@@ -360,15 +366,7 @@ namespace s3d
 		/// <returns>
 		/// 相対パス
 		/// </returns>
-		[[nodiscard]] FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
-
-		/// <summary>
-		/// 一時ファイル用の固有なファイルパスを返します。拡張子は ".tmp" です。
-		/// </summary>
-		/// <returns>
-		/// 一時ファイル用のファイルパス
-		/// </returns>
-		[[nodiscard]] FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
+		[[nodiscard]] FilePath RelativePath(FilePathView path, FilePathView start = FileSystem::CurrentDirectory());
 
 		/// <summary>
 		/// ディレクトリを作成します。
@@ -379,7 +377,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool CreateDirectories(const FilePath& path);
+		bool CreateDirectories(FilePathView path);
 
 		/// <summary>
 		/// 指定したパスまでの親ディレクトリを作成します。
@@ -390,7 +388,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool CreateParentDirectories(const FilePath& path);
+		bool CreateParentDirectories(FilePathView path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
@@ -407,7 +405,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
+		bool Copy(FilePathView from, FilePathView to, CopyOption copyOption = CopyOption::Default);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを削除します。
@@ -421,7 +419,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Remove(const FilePath& path, bool allowUndo = false);
+		bool Remove(FilePathView path, bool allowUndo = false);
 
 		/// <summary>
 		/// ディレクトリの中身を削除します。
@@ -429,13 +427,10 @@ namespace s3d
 		/// <param name="path">
 		/// ディレクトリのパス
 		/// </param>
-		/// <param name="allowUndo">
-		/// ごみ箱に送る場合は true, それ以外の場合は false
-		/// </param>
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool RemoveContents(const FilePath& path, bool allowUndo = false);
+		bool RemoveContents(FilePathView path, bool allowUndo = false);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの名前を変更します。
@@ -446,59 +441,12 @@ namespace s3d
 		/// <param name="to">
 		/// 変更後のパス
 		/// </param>
-		/// <param name="copyOption">
-		/// 名前衝突時のふるまい
-		/// </param>
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
-
-		/// <summary>
-		/// ファイルまたはディレクトリを移動します。
-		/// </summary>
-		/// <param name="from">
-		/// 移動前のディレクトリのパス
-		/// </param>
-		/// <param name="to">
-		/// 移動後のディレクトリのパス
-		/// </param>
-		/// <param name="copyOption">
-		/// 名前衝突時のふるまい
-		/// </param>
-		/// <remarks>
-		/// この関数は Rename() と同じです。
-		/// </remarks>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		//bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
-
-		/// <summary>
-		/// ディレクトリの中身を移動します。
-		/// </summary>
-		/// <param name="from">
-		/// 移動前のディレクトリのパス
-		/// </param>
-		/// <param name="to">
-		/// 移動後のディレクトリのパス
-		/// </param>
-		/// <param name="copyOption">
-		/// 名前衝突時のふるまい
-		/// </param>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
+		bool Rename(FilePathView from, FilePathView to);
 		
-		bool IsSandBoxed();
-	}
-
-	namespace win::FileSystem
-	{
-		[[nodiscard]] FilePath WorkingDirectory();
-
-		void SetCurrentDirectory(const FilePath& path);
+		[[nodiscard]] bool IsSandBoxed();
 	}
 
 	namespace linux::FileSystem

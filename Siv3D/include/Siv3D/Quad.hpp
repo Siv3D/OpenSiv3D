@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -23,12 +24,12 @@ namespace s3d
 
 		position_type p0, p1, p2, p3;
 		
-		position_type& p(size_t index) noexcept
+		[[nodiscard]] position_type& p(size_t index) noexcept
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const noexcept
+		[[nodiscard]] const position_type& p(size_t index) const noexcept
 		{
 			return (&p0)[index];
 		}
@@ -70,12 +71,12 @@ namespace s3d
 			return *this = quad;
 		}
 
-		constexpr Quad movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Quad movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y), p3.movedBy(x, y) };
 		}
 
-		constexpr Quad movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Quad movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -94,62 +95,66 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		Quad stretched(value_type size) const noexcept;
+		[[nodiscard]] Quad stretched(value_type size) const noexcept;
 
-		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		[[nodiscard]] Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
 		}
 
-		Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]] Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
-		value_type area() const noexcept;
+		[[nodiscard]] value_type area() const noexcept;
 
-		value_type perimeter() const noexcept;
+		[[nodiscard]] value_type perimeter() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Quad& paint(Image& dst, const Color& color) const;
 
 		const Quad& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		const Quad& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+
+		const Quad& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
 		const Quad& draw(const ColorF& color = Palette::White) const;
 
-		const Quad& draw(const ColorF(&colors)[4]) const;
+		const Quad& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
 		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		TexturedQuad operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedQuad operator ()(const Texture& texture) const;
 
-		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 
@@ -167,9 +172,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quad& value)
 	{
 		return	output << CharType('(')
-			<< value.p0 << CharType(',')
-			<< value.p1 << CharType(',')
-			<< value.p2 << CharType(',')
+			<< value.p0 << CharType(',') << CharType(' ')
+			<< value.p1 << CharType(',') << CharType(' ')
+			<< value.p2 << CharType(',') << CharType(' ')
 			<< value.p3 << CharType(')');
 	}
 
@@ -209,15 +214,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Quad& value)
+	template <>
+	struct formatter<s3d::Quad, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.p0, value.p1, value.p2, value.p3);
-	}
+		template <class Context>
+		auto format(const s3d::Quad& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.p0, value.p1, value.p2, value.p3);
+		}
+	};
 }

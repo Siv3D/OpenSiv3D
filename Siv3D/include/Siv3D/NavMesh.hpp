@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,8 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "PointVector.hpp"
-# include "Triangle.hpp"
-# include "MathConstants.hpp"
+# include "Math.hpp"
 
 namespace s3d
 {
@@ -25,7 +24,7 @@ namespace s3d
 
 		double cellHeight = 0.2;
 
-		double agentMaxSlope = 45_deg;
+		double agentMaxSlope = Math::ToRadians(45);
 
 		double agentHeight = 2.0;
 
@@ -33,7 +32,7 @@ namespace s3d
 
 		double agentRadius = 0.25;
 
-		static constexpr NavMeshConfig Default()
+		[[nodiscard]] static constexpr NavMeshConfig Default()
 		{
 			return NavMeshConfig();
 		}
@@ -43,9 +42,9 @@ namespace s3d
 	{
 	private:
 
-		class CNavMesh;
+		class NavMeshDetail;
 
-		std::shared_ptr<CNavMesh> pImpl;
+		std::shared_ptr<NavMeshDetail> pImpl;
 
 	public:
 
@@ -57,6 +56,6 @@ namespace s3d
 
 		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
 
-		Array<Vec3> query(const Vec3& start, const Vec3& end) const;
+		[[nodiscard]] Array<Vec3> query(const Vec3& start, const Vec3& end) const;
 	};
 }

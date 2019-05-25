@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,7 +12,7 @@
 # pragma once
 # include "Duration.hpp"
 # include "Easing.hpp"
-# include "System.hpp"
+# include "Scene.hpp"
 
 namespace s3d
 {
@@ -20,44 +20,20 @@ namespace s3d
 	{
 	private:
 
-		double m_inDurationMillisec = 0.0;
+		double m_inDuration = 0.0;
 
-		double m_outDurationMillisec = 0.0;
+		double m_outDuration = 0.0;
 
 		double m_value = 0.0;
 
 	public:
 
-		explicit constexpr Transition(const MillisecondsF& inDuration = SecondsF(0.2), const MillisecondsF& outDuration = SecondsF(0.1), double initialValue = 0.0) noexcept
-			: m_inDurationMillisec(static_cast<double>(inDuration.count()))
-			, m_outDurationMillisec(static_cast<double>(outDuration.count()))
+		explicit constexpr Transition(const Duration& inDuration = SecondsF(0.2), const Duration& outDuration = SecondsF(0.1), double initialValue = 0.0) noexcept
+			: m_inDuration(static_cast<double>(inDuration.count()))
+			, m_outDuration(static_cast<double>(outDuration.count()))
 			, m_value(initialValue) {}
 
-		void update(bool in, double deltaSec = System::DeltaTime())
-		{
-			const double deltaMillisec = deltaSec * 1000.0;
-
-			if (in)
-			{
-				if (m_inDurationMillisec <= 0.0)
-				{
-					m_value = 1.0;
-					return;
-				}
-
-				m_value = std::min(m_value + (deltaMillisec / m_inDurationMillisec), 1.0);
-			}
-			else
-			{
-				if (m_outDurationMillisec <= 0.0)
-				{
-					m_value = 0.0;
-					return;
-				}
-
-				m_value = std::max(m_value - (deltaMillisec / m_outDurationMillisec), 0.0);
-			}
-		}
+		void update(bool in, double deltaSec = Scene::DeltaTime());
 
 		[[nodiscard]] constexpr double value() const noexcept
 		{

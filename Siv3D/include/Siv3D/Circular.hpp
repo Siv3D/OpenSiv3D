@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,7 +12,7 @@
 # pragma once
 # include <iostream>
 # include "Fwd.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 # include "PointVector.hpp"
 # include "MathConstants.hpp"
 
@@ -93,6 +93,18 @@ namespace s3d
 			return toVec2() - v;
 		}
 
+		[[nodiscard]] constexpr CircularBase rotated(double angle) const noexcept
+		{
+			return CircularBase(*this).rotate(angle);
+		}
+
+		constexpr CircularBase& rotate(double angle) noexcept
+		{
+			theta += angle;
+
+			return *this;
+		}
+
 		[[nodiscard]] Float2 toFloat2() const noexcept
 		{
 			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
@@ -134,7 +146,7 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const CircularBase<Oclock>& value)
 	{
 		return output << CharType('(')
-			<< value.r << CharType(',')
+			<< value.r << CharType(',') << CharType(' ')
 			<< value.theta << CharType(')');
 	}
 
@@ -172,15 +184,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter, s3d::int32 Oclock>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::CircularBase<Oclock>& value)
+	template <s3d::int32 Oclock>
+	struct formatter<s3d::CircularBase<Oclock>, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.r, value.theta);
-	}
+		template <class Context>
+		auto format(const s3d::CircularBase<Oclock>& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.theta);
+		}
+	};
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,11 +25,9 @@ namespace s3d
 		{
 			std::unique_ptr<FormatData> formatData;
 
-			ConsoleBuffer()
-				: formatData(std::make_unique<FormatData>()) {}
+			ConsoleBuffer();
 
-			ConsoleBuffer(ConsoleBuffer&& other)
-				: formatData(std::move(other.formatData)) {}
+			ConsoleBuffer(ConsoleBuffer&& other);
 
 			~ConsoleBuffer();
 
@@ -46,12 +44,11 @@ namespace s3d
 		{
 			void open() const;
 
-			void write(const String& text) const
-			{
-				open();
+			void write(const char32_t* text) const;
 
-				std::cout << text;
-			}
+			void write(StringView text) const;
+
+			void write(const String& text) const;
 
 			template <class... Args>
 			void write(const Args&... args) const
@@ -59,10 +56,7 @@ namespace s3d
 				return write(Format(args...));
 			}
 
-			void writeln(const String& text) const
-			{
-				write(text + U'\n');
-			}
+			void writeln(const String& text) const;
 
 			template <class... Args>
 			void writeln(const Args&... args) const
@@ -70,10 +64,7 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
-			void operator()(const String& text) const
-			{
-				writeln(text);
-			}
+			void operator()(const String& text) const;
 
 			template <class... Args>
 			void operator()(const Args&... args) const
@@ -81,7 +72,7 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
-			template <class Type>
+			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 			ConsoleBuffer operator <<(const Type& value) const
 			{
 				ConsoleBuffer buf;
@@ -125,16 +116,5 @@ namespace s3d
 		};
 	}
 
-	constexpr auto Console = detail::Console_impl();
-
-	namespace detail
-	{
-		inline ConsoleBuffer::~ConsoleBuffer()
-		{
-			if (formatData)
-			{
-				Console.writeln(formatData->string);
-			}
-		}
-	}
+	inline constexpr auto Console = detail::Console_impl();
 }

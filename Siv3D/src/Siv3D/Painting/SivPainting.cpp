@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -511,7 +511,7 @@ namespace s3d
 			{
 				for (int32 y = 0; y < height; ++y)
 				{
-					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+					std::memcpy(pDst, pSrc, (width * sizeof(Color)));
 
 					pSrc += srcWidth;
 					pDst += dstWidth;
@@ -560,7 +560,7 @@ namespace s3d
 			{
 				for (int32 y = 0; y < height; ++y)
 				{
-					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+					std::memcpy(pDst, pSrc, (width * sizeof(Color)));
 
 					pSrc += srcWidth;
 					pDst += dstWidth;
@@ -613,7 +613,7 @@ namespace s3d
 			{
 				for (int32 y = 0; y < height; ++y)
 				{
-					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+					std::memcpy(pDst, pSrc, (width * sizeof(Color)));
 
 					pSrc += srcWidth;
 					pDst += dstWidth;
@@ -1249,7 +1249,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	const Circle& Circle::paintFrame(Image& dst, const double innerThickness, const double outerThickness, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
 		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
@@ -1438,7 +1438,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	const Circle& Circle::overwriteFrame(Image& dst, const double innerThickness, const double outerThickness, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
 		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
@@ -1741,7 +1741,7 @@ namespace s3d
 		return *this;
 	}
 
-	const LineString& LineString::paint(Image& dst, const int32 thickness, const Color& color, const bool isClosed) const
+	const LineString& LineString::_paint(Image& dst, const int32 thickness, const Color& color, const bool isClosed) const
 	{
 		if (!dst)
 		{
@@ -1762,7 +1762,7 @@ namespace s3d
 		return *this;
 	}
 
-	const LineString& LineString::overwrite(Image& dst, const int32 thickness, const Color& color, const bool isClosed, const bool antialiased) const
+	const LineString& LineString::_overwrite(Image& dst, const int32 thickness, const Color& color, bool antialiased, const bool isClosed) const
 	{
 		if (!dst || isEmpty())
 		{

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,22 +11,28 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Optional.hpp"
+# include "Uncopyable.hpp"
+# include "Color.hpp"
 # include "BlendState.hpp"
 # include "RasterizerState.hpp"
 # include "SamplerState.hpp"
 # include "Rectangle.hpp"
 # include "Mat3x2.hpp"
+# include "Cursor.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 2D グラフィックス
-	/// </summary>
-	/// <remarks>
-	/// 2D　グラフィックスに関連する機能を提供します。
-	/// </remarks>
 	namespace Graphics2D
 	{
+		void SetColorMul(const ColorF& color);
+
+		[[nodiscard]] ColorF GetColorMul();
+
+		void SetColorAdd(const ColorF& color);
+
+		[[nodiscard]] ColorF GetColorAdd();
+
 		/// <summary>
 		/// 2D 描画のブレンドステートを設定します。
 		/// </summary>
@@ -44,7 +50,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のブレンドステート
 		/// </returns>
-		BlendState GetBlendState();
+		[[nodiscard]] BlendState GetBlendState();
 
 		/// <summary>
 		/// 2D 描画のラスタライザーステートを設定します。
@@ -63,9 +69,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のラスタライザーステート
 		/// </returns>
-		RasterizerState GetRasterizerState();
-
-
+		[[nodiscard]] RasterizerState GetRasterizerState();
 
 		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
 
@@ -78,10 +82,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		inline void SetSamplerState(const SamplerState& samplerState)
-		{
-			SetSamplerState(0, samplerState);
-		}
+		void SetSamplerState(const SamplerState& samplerState);
 
 		/// <summary>
 		/// 現在の 2D 描画のサンプラーステートを取得します。
@@ -92,41 +93,28 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のサンプラーステート
 		/// </returns>
-		SamplerState GetSamplerState(uint32 slot);
-
-		inline SamplerState GetSamplerState()
-		{
-			return GetSamplerState(0);
-		}
-
-		/// <summary>
-		/// 現在の 2D 描画のサンプラーステートを取得します。
-		/// </summary>
-		/// <returns>
-		/// 現在の 2D 描画のサンプラーステート
-		/// </returns>
-		SamplerState GetSamplerState();
+		[[nodiscard]] SamplerState GetSamplerState(uint32 slot = 0);
 
 		void SetScissorRect(const Rect& rect);
 
-		Rect GetScissorRect();
+		[[nodiscard]] Rect GetScissorRect();
 
 		void SetViewport(const Optional<Rect>& viewport);
 
-		Optional<Rect> GetViewport();
-		
-		void SetTransformLocal(const Mat3x2& matrix);
+		[[nodiscard]] Optional<Rect> GetViewport();
 
-		void SetTransformCamera(const Mat3x2& matrix);
+		void SetLocalTransform(const Mat3x2& transform);
 
-		void SetTransformScreen(const Mat3x2& matrix);
-		
-		const Mat3x2& GetTransformLocal();
+		[[nodiscard]] const Mat3x2& GetLocalTransform();
 
-		const Mat3x2& GetTransformCamera();
+		void SetCameraTransform(const Mat3x2& transform);
 
-		const Mat3x2& GetTransformScreen();
+		[[nodiscard]] const Mat3x2& GetCameraTransform();
 
-		double GetMaxScaling();
+		[[nodiscard]] double GetMaxScaling();
+
+		void SetSDFParameters(const Float4& parameters);
+
+		[[nodiscard]] Float4 GetSDFParameters();
 	}
 }

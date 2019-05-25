@@ -2,25 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/MemoryMapping.hpp>
-# include "CMemoryMapping.hpp"
+# include <MemoryMapping/MemoryMappingDetail.hpp>
 
 namespace s3d
 {
 	MemoryMapping::MemoryMapping()
-		: pImpl(std::make_shared<CMemoryMapping>())
+		: pImpl(std::make_shared<MemoryMappingDetail>())
 	{
 
 	}
 
-	bool MemoryMapping::open(const FilePath& path, const bool mapAll)
+	bool MemoryMapping::open(FilePathView path, const bool mapAll)
 	{
 		return pImpl->open(path, mapAll);
 	}

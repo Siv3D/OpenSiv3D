@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,6 +18,7 @@
 # include "Format.hpp"
 # include "Color.hpp"
 # include "Intersection.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -57,38 +58,6 @@ namespace s3d
 			return index == 0 ? x
 				: index == 1 ? y
 				: 0;
-		}
-
-		/// <summary>
-		/// Point{ x, x }
-		/// </summary>
-		[[nodiscard]] constexpr Point xx() const noexcept
-		{
-			return{ x, x };
-		}
-
-		/// <summary>
-		/// Point{ x, y }
-		/// </summary>
-		[[nodiscard]] constexpr Point xy() const noexcept
-		{
-			return *this;
-		}
-
-		/// <summary>
-		/// Point{ y, x }
-		/// </summary>
-		[[nodiscard]] constexpr Point yx() const noexcept
-		{
-			return{ y, x };
-		}
-
-		/// <summary>
-		/// Point{ y, y }
-		/// </summary>
-		[[nodiscard]] constexpr Point yy() const noexcept
-		{
-			return{ y, y };
 		}
 
 		[[nodiscard]] constexpr Point operator +() const noexcept
@@ -139,6 +108,10 @@ namespace s3d
 			return{ x / s, y / s };
 		}
 
+		[[nodiscard]] constexpr Float2 operator /(float s) const noexcept;
+
+		[[nodiscard]] constexpr Vec2 operator /(double s) const noexcept;
+
 		[[nodiscard]] constexpr Point operator /(const Point& p) const noexcept
 		{
 			return{ x / p.x, y / p.y };
@@ -146,10 +119,6 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]] constexpr Vector2D<Type> operator /(const Vector2D<Type>& v) const noexcept;
-
-		[[nodiscard]] constexpr Float2 operator /(float s) const noexcept;
-
-		[[nodiscard]] constexpr Vec2 operator /(double s) const noexcept;
 
 		constexpr Point& operator +=(const Point& p) noexcept
 		{
@@ -226,10 +195,14 @@ namespace s3d
 			return x == 0 && y == 0;
 		}
 
+		[[nodiscard]] double distanceFrom(double _x, double _y) const noexcept;
+
 		[[nodiscard]] double distanceFrom(const Point& p) const noexcept;
 
 		template <class Type>
 		[[nodiscard]] Type distanceFrom(const Vector2D<Type>& p) const noexcept;
+
+		[[nodiscard]] constexpr double distanceFromSq(double _x, double _y) const noexcept;
 
 		[[nodiscard]] constexpr double distanceFromSq(const Point& p) const noexcept;
 
@@ -268,6 +241,38 @@ namespace s3d
 		const Point& paint(Image& dst, const Color& color) const;
 
 		const Point& overwrite(Image& dst, const Color& color) const;
+
+		/// <summary>
+		/// Point{ x, x }
+		/// </summary>
+		[[nodiscard]] constexpr Point xx() const noexcept
+		{
+			return{ x, x };
+		}
+
+		/// <summary>
+		/// Point{ x, y }
+		/// </summary>
+		[[nodiscard]] constexpr Point xy() const noexcept
+		{
+			return *this;
+		}
+
+		/// <summary>
+		/// Point{ y, x }
+		/// </summary>
+		[[nodiscard]] constexpr Point yx() const noexcept
+		{
+			return{ y, x };
+		}
+
+		/// <summary>
+		/// Point{ y, y }
+		/// </summary>
+		[[nodiscard]] constexpr Point yy() const noexcept
+		{
+			return{ y, y };
+		}
 
 		/// <summary>
 		/// Point{ 0, 0 }
@@ -365,7 +370,7 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Point& value)
 	{
 		return output << CharType('(')
-			<< value.x << CharType(',')
+			<< value.x << CharType(',') << CharType(' ')
 			<< value.y << CharType(')');
 	}
 
@@ -403,15 +408,27 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Point& value)
+	template <>
+	struct formatter<s3d::Point, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.x, value.y);
-	}
+		template <class Context>
+		auto format(const s3d::Point& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y);
+		}
+	};
 }

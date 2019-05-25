@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace SVM
 	{
-		class Problem::CProblem
+		class Problem::ProblemDetail
 		{
 		private:
 
@@ -36,9 +36,9 @@ namespace s3d
 
 		public:
 
-			CProblem();
+			ProblemDetail();
 
-			~CProblem();
+			~ProblemDetail();
 
 			bool load(const double* pSupportVectors, size_t num_dataset, size_t dimensions);
 
@@ -59,7 +59,7 @@ namespace s3d
 			PredictModel trainAndCreateModel(const Paramter& param) const;
 		};
 
-		class PredictModel::CPredictModel
+		class PredictModel::PredictModelDetail
 		{
 		private:
 
@@ -67,9 +67,9 @@ namespace s3d
 
 		public:
 
-			CPredictModel();
+			PredictModelDetail();
 
-			~CPredictModel();
+			~PredictModelDetail();
 
 			bool hasData() const;
 

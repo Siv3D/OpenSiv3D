@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -46,62 +46,30 @@ namespace s3d
 			: m_key1(key1)
 			, m_key2(key2) {}
 
-		bool down() const
-		{
-			return m_key1.pressed() && m_key2.down();
-		}
+		[[nodiscard]] bool down() const;
 
-		bool pressed() const
-		{
-			const auto t1 = m_key1.pressedDuration();
-			const auto t2 = m_key2.pressedDuration();
+		[[nodiscard]] bool pressed() const;
 
-			if (t1 < t2)
-			{
-				return false;
-			}
+		[[nodiscard]] bool up() const;
 
-			return m_key1.pressed() && m_key2.pressed();
-		}
+		[[nodiscard]] Duration pressedDuration() const;
 
-		bool up() const
-		{
-			return m_key1.pressed() && m_key2.up();
-		}
-
-		Duration pressedDuration() const
-		{
-			const auto t1 = m_key1.pressedDuration();
-			const auto t2 = m_key2.pressedDuration();
-			const bool pr = m_key1.pressed() && m_key2.pressed();
-
-			if (!pr || t1 < t2)
-			{
-				return Duration(0);
-			}
-
-			return t2;
-		}
-
-		const Key& key1() const noexcept
+		[[nodiscard]] const Key& key1() const noexcept
 		{
 			return m_key1;
 		}
 
-		const Key& key2() const noexcept
+		[[nodiscard]] const Key& key2() const noexcept
 		{
 			return m_key2;
 		}
 
-		constexpr uint64 asUint64() const noexcept
+		[[nodiscard]] constexpr uint64 asUint64() const noexcept
 		{
 			return (uint64(m_key1.asUint32()) << 32) | uint64(m_key2.asUint32());
 		}
 
-		String name() const
-		{
-			return m_key1.name() + U'+' + m_key2.name();
-		}
+		[[nodiscard]] String name() const;
 	};
 
 	/// <summary>
@@ -116,7 +84,7 @@ namespace s3d
 	/// <returns>
 	/// キーの組み合わせ（プラス）
 	/// </returns>
-	inline constexpr KeyConjunction operator +(const Key& key1, const Key& key2) noexcept
+	[[nodiscard]] inline constexpr KeyConjunction operator +(const Key& key1, const Key& key2) noexcept
 	{
 		return{ key1, key2 };
 	}
@@ -133,7 +101,7 @@ namespace s3d
 	/// <returns>
 	/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool operator ==(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator ==(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() == conjunction2.asUint64();
 	}
@@ -150,27 +118,27 @@ namespace s3d
 	/// <returns>
 	/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool operator !=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator !=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() != conjunction2.asUint64();
 	}
 
-	inline constexpr bool operator <(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator <(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() < conjunction2.asUint64();
 	}
 
-	inline constexpr bool operator <=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator <=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() <= conjunction2.asUint64();
 	}
 
-	inline constexpr bool operator >(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator >(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() > conjunction2.asUint64();
 	}
 
-	inline constexpr bool operator >=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	[[nodiscard]] inline constexpr bool operator >=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
 		return conjunction1.asUint64() >= conjunction2.asUint64();
 	}
@@ -189,10 +157,7 @@ namespace s3d
 //
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const KeyConjunction& conjunction)
-	{
-		formatData.string.append(conjunction.name());
-	}
+	void Formatter(FormatData& formatData, const KeyConjunction& conjunction);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const KeyConjunction& conjunction)

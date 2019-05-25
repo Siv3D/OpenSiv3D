@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,35 +11,35 @@
 
 # include <ctime>
 # include <Siv3D/Fwd.hpp>
-# include <Siv3D/Windows.hpp>
 # include <Siv3D/Date.hpp>
+# include <Siv3D/ByteArrayViewAdapter.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static const String DayOfWeekJapanese[8]
+		static constexpr StringView DayOfWeekJapanese[8]
 		{
-			U"日",
-			U"月",
-			U"火",
-			U"水",
-			U"木",
-			U"金",
-			U"土",
-			U"null",
+			U"日"_sv,
+			U"月"_sv,
+			U"火"_sv,
+			U"水"_sv,
+			U"木"_sv,
+			U"金"_sv,
+			U"土"_sv,
+			U"null"_sv,
 		};
 
-		static const String DayOfWeekEnglish[8]
+		static constexpr StringView DayOfWeekEnglish[8]
 		{
-			U"Sunday",
-			U"Monday",
-			U"Tuesday",
-			U"Wednesday",
-			U"Thursday",
-			U"Friday",
-			U"Saturday",
-			U"null",
+			U"Sunday"_sv,
+			U"Monday"_sv,
+			U"Tuesday"_sv,
+			U"Wednesday"_sv,
+			U"Thursday"_sv,
+			U"Friday"_sv,
+			U"Saturday"_sv,
+			U"null"_sv,
 		};
 
 		static constexpr bool IsLeapYear(const int32 year)
@@ -93,51 +93,26 @@ namespace s3d
 		}
 	}
 
-	const String& Date::dayOfWeekJP() const
+	String Date::dayOfWeekJP() const
 	{
-		const int32 dow = dayOfWeek();
-		return detail::DayOfWeekJapanese[dow < 0 ? 7 : dow];
+		const int32 dow = FromEnum(dayOfWeek());
+		return String(detail::DayOfWeekJapanese[dow < 0 ? 7 : dow]);
 	}
 
-	const String& Date::dayOfWeekEN() const
+	String Date::dayOfWeekEN() const
 	{
-		const int32 dow = dayOfWeek();
-		return detail::DayOfWeekEnglish[dow < 0 ? 7 : dow];
+		const int32 dow = FromEnum(dayOfWeek());
+		return String(detail::DayOfWeekEnglish[dow < 0 ? 7 : dow]);
 	}
 
-	bool Date::isToday() const
+	Date Date::Yesterday()
 	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		SYSTEMTIME sysTime;
-		::GetLocalTime(&sysTime);
-		return (day == sysTime.wDay && month == sysTime.wMonth && year == sysTime.wYear);
-
-	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-		::time_t t = ::time(nullptr);
-        ::tm lt;
-        ::localtime_r(&t, &lt);
-		return (day == lt.tm_mday && month == (1 + lt.tm_mon) && year == (1900 + lt.tm_year));
-
-	# endif
+		return Today() - Days(1);
 	}
 
-	Date Date::Today()
+	Date Date::Tomorrow()
 	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		SYSTEMTIME sysTime;
-		::GetLocalTime(&sysTime);
-		return Date(sysTime.wYear, sysTime.wMonth, sysTime.wDay);
-
-	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-		::time_t t = ::time(nullptr);
-		::tm* lt = ::localtime(&t);
-		return Date(1900 + lt->tm_year, lt->tm_mon + 1, lt->tm_mday);
-
-	# endif
+		return Today() + Days(1);
 	}
 
 	Date& Date::operator +=(const Days& days)
@@ -145,13 +120,53 @@ namespace s3d
 		return *this = detail::EpochDaysToDate(detail::DateToEpochDays(*this) + days.count());
 	}
 
+	Date& Date::operator -=(const Days& days)
+	{
+		return *this += (-days);
+	}
+
+	bool Date::operator <(const Date& other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(Date)) < 0;
+	}
+
+	bool Date::operator >(const Date& other) const noexcept
+	{
+		return std::memcmp(this, &other, sizeof(Date)) > 0;
+	}
+
+	bool Date::operator <=(const Date& other) const noexcept
+	{
+		return !(*this > other);
+	}
+
+	bool Date::operator >=(const Date& other) const noexcept
+	{
+		return !(*this < other);
+	}
+
+	size_t Date::hash() const noexcept
+	{
+		return s3d::Hash::FNV1a(*this);
+	}
+
 	Date operator +(const Date& date, const Days& days)
 	{
 		return detail::EpochDaysToDate(detail::DateToEpochDays(date) + days.count());
 	}
 
+	Date operator -(const Date& date, const Days& days)
+	{
+		return date + (-days);
+	}
+
 	Days operator -(const Date& to, const Date& from)
 	{
 		return Days(detail::DateToEpochDays(to) - detail::DateToEpochDays(from));
+	}
+
+	void Formatter(FormatData& formatData, const Date& value)
+	{
+		formatData.string.append(value.format());
 	}
 }

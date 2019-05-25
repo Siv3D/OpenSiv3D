@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,69 +12,72 @@
 # pragma once
 # include "Fwd.hpp"
 
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 # include <ThirdParty/nanoflann/nanoflann.hpp>
-S3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
-	template <class DatasetAdapter>
-	class KDAdapter
+	namespace detail
 	{
-	public:
-
-		using point_type = typename DatasetAdapter::point_type;
-
-		using element_type = typename DatasetAdapter::element_type;
-
-		using dataset_type = typename DatasetAdapter::dataset_type;
-
-		static constexpr int32 Dimensions = DatasetAdapter::Dimensions;
-
-		static_assert(sizeof(point_type) == sizeof(element_type) * Dimensions);
-
-	private:
-
-		const dataset_type& m_dataset;
-
-	public:
-
-		explicit KDAdapter(const dataset_type& dataset)
-			: m_dataset(dataset) {}
-
-		size_t kdtree_get_point_count() const
+		template <class DatasetAdapter>
+		class KDAdapter
 		{
-			return std::size(m_dataset);
-		}
+		public:
 
-		element_type kdtree_get_pt(const size_t index, const size_t dim) const
-		{
-			return DatasetAdapter::GetElement(m_dataset, index, dim);
-		}
+			using point_type = typename DatasetAdapter::point_type;
 
-		element_type kdtree_distance(const element_type* p0, const size_t index_p1, size_t) const
-		{
-			return DatasetAdapter::DistanceSq(m_dataset, index_p1, p0);
-		}
+			using element_type = typename DatasetAdapter::element_type;
 
-		template <class BBOX>
-		bool kdtree_get_bbox(BBOX&) const
-		{
-			return false;
-		}
+			using dataset_type = typename DatasetAdapter::dataset_type;
 
-		static const element_type* GetPointer(const point_type& point)
-		{
-			return DatasetAdapter::GetPointer(point);
-		}
-	};
+			static constexpr int32 Dimensions = DatasetAdapter::Dimensions;
+
+			static_assert(sizeof(point_type) == sizeof(element_type) * Dimensions);
+
+		private:
+
+			const dataset_type& m_dataset;
+
+		public:
+
+			explicit KDAdapter(const dataset_type& dataset)
+				: m_dataset(dataset) {}
+
+			[[nodiscard]] size_t kdtree_get_point_count() const
+			{
+				return std::size(m_dataset);
+			}
+
+			[[nodiscard]] element_type kdtree_get_pt(const size_t index, const size_t dim) const
+			{
+				return DatasetAdapter::GetElement(m_dataset, index, dim);
+			}
+
+			[[nodiscard]] element_type kdtree_distance(const element_type* p0, const size_t index_p1, size_t) const
+			{
+				return DatasetAdapter::DistanceSq(m_dataset, index_p1, p0);
+			}
+
+			template <class BBOX>
+			bool kdtree_get_bbox(BBOX&) const
+			{
+				return false;
+			}
+
+			[[nodiscard]] static const element_type* GetPointer(const point_type& point)
+			{
+				return DatasetAdapter::GetPointer(point);
+			}
+		};
+	}
 
 	template <class DatasetAdapter>
 	class KDTree
 	{
 	public:
 
-		using adapter_type = KDAdapter<DatasetAdapter>;
+		using adapter_type = detail::KDAdapter<DatasetAdapter>;
 
 		using point_type = typename adapter_type::point_type;
 
@@ -111,12 +114,12 @@ namespace s3d
 			m_index.freeIndex();
 		}
 
-		size_t usedMemory() const
+		[[nodiscard]] size_t usedMemory() const
 		{
 			return m_index.usedMemory();
 		}
 
-		Array<size_t> knnSearch(size_t k, const point_type& point) const
+		[[nodiscard]] Array<size_t> knnSearch(size_t k, const point_type& point) const
 		{
 			Array<size_t> results;
 
@@ -136,7 +139,7 @@ namespace s3d
 			results.resize(k);
 		}
 
-		Array<size_t> radiusSearch(const point_type& point, const element_type radius, const bool sortByDistance = false) const
+		[[nodiscard]] Array<size_t> radiusSearch(const point_type& point, const element_type radius, const bool sortByDistance = false) const
 		{
 			Array<size_t> results;
 
@@ -160,5 +163,14 @@ namespace s3d
 				results[i] = matches[i].first;
 			}
 		}
+	};
+
+	template <class Dataset, class Point, class Element, int32 Dim>
+	struct KDTreeAdapter
+	{
+		using dataset_type	= Dataset;
+		using point_type	= Point;
+		using element_type	= Element;
+		static constexpr int32 Dimensions = Dim;
 	};
 }

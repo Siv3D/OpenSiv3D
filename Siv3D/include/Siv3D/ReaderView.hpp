@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Utility.hpp"
 # include "IReader.hpp"
 # include "ByteArrayView.hpp"
 
@@ -78,11 +79,14 @@ namespace s3d
 
 		int64 read(void* buffer, int64 size) override
 		{
-			assert(buffer != nullptr || size == 0);
+			if (!buffer)
+			{
+				return 0;
+			}
 
 			const int64 readSize = Clamp<int64>(size, 0, m_size - m_pos);
 
-			::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
+			std::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
 
 			m_pos += readSize;
 
@@ -91,11 +95,14 @@ namespace s3d
 
 		int64 read(void* buffer, int64 pos, int64 size) override
 		{
-			assert(buffer != nullptr || size == 0);
+			if (!buffer)
+			{
+				return 0;
+			}
 
 			const int64 readSize = Clamp<int64>(size, 0, m_size - pos);
 
-			::memcpy(buffer, m_ptr + pos, static_cast<size_t>(readSize));
+			std::memcpy(buffer, m_ptr + pos, static_cast<size_t>(readSize));
 
 			m_pos = pos + readSize;
 
@@ -115,22 +122,28 @@ namespace s3d
 
 		int64 lookahead(void* buffer, int64 size) const override
 		{
-			assert(buffer != nullptr || size == 0);
+			if (!buffer)
+			{
+				return 0;
+			}
 
 			const int64 readSize = Clamp<int64>(size, 0, m_size - m_pos);
 
-			::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
+			std::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
 
 			return readSize;
 		}
 
 		int64 lookahead(void* buffer, int64 pos, int64 size) const override
 		{
-			assert(buffer != nullptr || size == 0);
+			if (!buffer)
+			{
+				return 0;
+			}
 
 			const int64 readSize = Clamp<int64>(size, 0, m_size - pos);
 
-			::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
+			std::memcpy(buffer, m_ptr + m_pos, static_cast<size_t>(readSize));
 
 			return readSize;
 		}

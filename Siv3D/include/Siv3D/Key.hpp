@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -55,7 +55,7 @@ namespace s3d
 		/// <returns>
 		/// キーが押され始めた場合 true, 押されていなかったり、すでに押されていたりした場合は false
 		/// </returns>
-		bool down() const;
+		[[nodiscard]] bool down() const;
 
 		/// <summary>
 		/// キーが押されていることを示します。
@@ -63,7 +63,7 @@ namespace s3d
 		/// <returns>
 		/// キーが押されている場合 true, それ以外の場合は false
 		/// </returns>
-		bool pressed() const;
+		[[nodiscard]] bool pressed() const;
 
 		/// <summary>
 		/// キーが離されたことを示します。
@@ -71,86 +71,80 @@ namespace s3d
 		/// <returns>
 		/// キーが離された場合 true, 押されていたり、すでに離されていたりした場合は false
 		/// </returns>
-		bool up() const;
+		[[nodiscard]] bool up() const;
 
-		Duration pressedDuration() const;
+		[[nodiscard]] Duration pressedDuration() const;
 
-		constexpr InputDevice inputDevice() const noexcept
+		[[nodiscard]] constexpr InputDevice inputDevice() const noexcept
 		{
 			return m_device;
 		}
 
-		constexpr uint8 code() const noexcept
+		[[nodiscard]] constexpr uint8 code() const noexcept
 		{
 			return m_code;
 		}
 
-		constexpr uint8 userIndex() const noexcept
+		[[nodiscard]] constexpr uint8 userIndex() const noexcept
 		{
 			return m_userIndex;
 		}
 
-		constexpr uint32 asUint32() const noexcept
+		[[nodiscard]] constexpr uint32 asUint32() const noexcept
 		{
 			return (uint32(m_device) << 24) | (uint32(m_userIndex) << 16) | (uint32(m_code) << 8);
 		}
 
-		String name() const;
+		[[nodiscard]] String name() const;
+
+		/// <summary>
+		/// 2 つのキーが同じキーを示しているかを返します。
+		/// </summary>
+		/// <param name="other">
+		/// 比較するキー
+		/// </param>
+		/// <returns>
+		/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator ==(const Key& other) const noexcept
+		{
+			return asUint32() == other.asUint32();
+		}
+
+		/// <summary>
+		/// 2 つのキーが異なるキーを示しているかを返します。
+		/// </summary>
+		/// <param name="other">
+		/// 比較するキー
+		/// </param>
+		/// <returns>
+		/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator !=(const Key& other) const noexcept
+		{
+			return asUint32() != other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator <(const Key& other) const noexcept
+		{
+			return asUint32() < other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator <=(const Key& other) const noexcept
+		{
+			return asUint32() <= other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator >(const Key& other) const noexcept
+		{
+			return asUint32() > other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator >=(const Key& other) const noexcept
+		{
+			return asUint32() >= other.asUint32();
+		}
 	};
-
-	/// <summary>
-	/// 2 つのキーが同じキーを示しているかを返します。
-	/// </summary>
-	/// <param name="key1">
-	/// 比較するキー
-	/// </param>
-	/// <param name="key2">
-	/// 比較するキー
-	/// </param>
-	/// <returns>
-	/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
-	/// </returns>
-	constexpr inline bool operator ==(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() == key2.asUint32();
-	}
-
-	/// <summary>
-	/// 2 つのキーが異なるキーを示しているかを返します。
-	/// </summary>
-	/// <param name="key1">
-	/// 比較するキー
-	/// </param>
-	/// <param name="key2">
-	/// 比較するキー
-	/// </param>
-	/// <returns>
-	/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
-	/// </returns>
-	constexpr inline bool operator !=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() != key2.asUint32();
-	}
-
-	constexpr inline bool operator <(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() < key2.asUint32();
-	}
-
-	constexpr inline bool operator <=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() <= key2.asUint32();
-	}
-
-	constexpr inline bool operator >(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() > key2.asUint32();
-	}
-
-	constexpr inline bool operator >=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() >= key2.asUint32();
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -166,10 +160,7 @@ namespace s3d
 //
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Key& key)
-	{
-		formatData.string.append(key.name());
-	}
+	void Formatter(FormatData& formatData, const Key& key);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Key& key)

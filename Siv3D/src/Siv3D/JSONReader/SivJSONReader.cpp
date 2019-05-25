@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # define RAPIDJSON_SSE2
-# include "../../ThirdParty/rapidjson/rapidjson.h"
-# include "../../ThirdParty/rapidjson/document.h"
+# include <rapidjson/rapidjson.h>
+# include <rapidjson/document.h>
 # include <Siv3D/JSONReader.hpp>
 # include <Siv3D/TextReader.hpp>
 
@@ -245,6 +245,36 @@ namespace s3d
 		}
 	}
 
+	bool JSONValue::isNull() const
+	{
+		return getType() == JSONValueType::Null;
+	}
+
+	bool JSONValue::isBool() const
+	{
+		return getType() == JSONValueType::Bool;
+	}
+
+	bool JSONValue::isObject() const
+	{
+		return getType() == JSONValueType::Object;
+	}
+
+	bool JSONValue::isArray() const
+	{
+		return getType() == JSONValueType::Array;
+	}
+
+	bool JSONValue::isString() const
+	{
+		return getType() == JSONValueType::String;
+	}
+
+	bool JSONValue::isNumber() const
+	{
+		return getType() == JSONValueType::Number;
+	}
+
 	size_t JSONValue::memberCount() const
 	{
 		if (!isObject())
@@ -327,7 +357,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<String>(in_place, m_detail->value->GetString(), m_detail->value->GetStringLength());
+		return Optional<String>(InPlace, m_detail->value->GetString(), m_detail->value->GetStringLength());
 	}
 
 	template Optional<String> JSONValue::getOpt<String>() const;
@@ -384,7 +414,7 @@ namespace s3d
 	template <>
 	Optional<float> JSONValue::getOpt<float>() const
 	{
-		if (isEmpty() || !m_detail->value->IsFloat())
+		if (isEmpty() || !m_detail->value->IsNumber())
 		{
 			return none;
 		}
@@ -395,7 +425,7 @@ namespace s3d
 	template <>
 	Optional<double> JSONValue::getOpt<double>() const
 	{
-		if (isEmpty() || !m_detail->value->IsDouble())
+		if (isEmpty() || !m_detail->value->IsNumber())
 		{
 			return none;
 		}
@@ -453,7 +483,7 @@ namespace s3d
 
 	bool JSONReader::open(const FilePath& path)
 	{
-		if (isOpend())
+		if (isOpened())
 		{
 			close();
 		}
@@ -480,7 +510,7 @@ namespace s3d
 
 	bool JSONReader::open(const std::shared_ptr<IReader>& reader)
 	{
-		if (isOpend())
+		if (isOpened())
 		{
 			close();
 		}
@@ -512,8 +542,13 @@ namespace s3d
 		m_document->document = rapidjson::GenericDocument<rapidjson::UTF32<char32>>{};
 	}
 
-	bool JSONReader::isOpend() const
+	bool JSONReader::isOpened() const
 	{
 		return m_detail->value.has_value();
+	}
+
+	JSONReader::operator bool() const
+	{
+		return isOpened();
 	}
 }

@@ -1,8 +1,9 @@
 ﻿//-----------------------------------------------
 //
-//	This file is part of the HamFramework for Siv3D.
+//	This file is part of the Siv3D HamFramework.
 //
-//	Copyright (C) 2014-2018 HAMSTRO
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -371,10 +372,10 @@ void Main()
 	Rx::CursorPosStream cps;
 	cps
 		.distinctUntilChanged() // 値が変化したときだけ
-		.subscribe(Log);
+		.subscribe(Logger);
 	cps
 		.delay(600ms) // 600ms 遅らせる
-		.filter([](Point p) { return p.x < 320; }) // 条件を満たすとき
+		.filter([](Point p) { return p.x < 400; }) // 条件を満たすとき
 		.subscribe([](Point p) { Circle(p, 50).draw(Palette::Blue); });
 	cps
 		.delay(400ms) // 400ms 遅らせる
@@ -387,6 +388,8 @@ void Main()
 
 	while (System::Update())
 	{
+		Rect(400, Scene::Height()).draw(ColorF(0.4));
+
 		cps.update();
 	}
 }

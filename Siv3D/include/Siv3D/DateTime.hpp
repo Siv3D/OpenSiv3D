@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -38,21 +38,6 @@ namespace s3d
 		/// ミリ秒 [0-999]
 		/// </summary>
 		int32 milliseconds;
-
-		/// <summary>
-		/// 日付と時刻の妥当性を返します。
-		/// </summary>
-		/// <remarks>
-		/// 日付と時刻が正しい範囲の値であれば true, それ以外の場合は false
-		/// </remarks>
-		[[nodiscard]] constexpr bool isValid() const noexcept
-		{
-			return Date::isValid()
-				&& (0 <= hour && hour <= 23)
-				&& (0 <= minute && minute <= 59)
-				&& (0 <= second && second <= 59)
-				&& (0 <= milliseconds && milliseconds <= 999);
-		}
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -134,20 +119,19 @@ namespace s3d
 			, milliseconds(_milliseconds) {}
 
 		/// <summary>
-		/// 現在のローカルの日付と時刻を返します。
+		/// 日付と時刻の妥当性を返します。
 		/// </summary>
-		/// <returns>
-		/// 現在のローカルの日付と時刻
-		/// </returns>
-		[[nodiscard]] static DateTime Now();
-
-		/// <summary>
-		/// 現在の協定世界時刻 (UTC) の日付と時刻を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の協定世界時刻 (UTC) の日付と時刻
-		/// </returns>
-		[[nodiscard]] static DateTime NowUTC();
+		/// <remarks>
+		/// 日付と時刻が正しい範囲の値であれば true, それ以外の場合は false
+		/// </remarks>
+		[[nodiscard]] constexpr bool isValid() const noexcept
+		{
+			return Date::isValid()
+				&& (0 <= hour && hour <= 23)
+				&& (0 <= minute && minute <= 59)
+				&& (0 <= second && second <= 59)
+				&& (0 <= milliseconds && milliseconds <= 999);
+		}
 
 		/// <summary>
 		/// 日付と時刻を指定したフォーマットの文字列で返します。
@@ -185,7 +169,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた日付と時刻
 		/// </returns>
-		[[nodiscard]] String format(const String& pattern = U"yyyy/M/d HH:mm:ss") const;
+		[[nodiscard]] String format(StringView format = U"yyyy/M/d HH:mm:ss"_sv) const;
 
 		/// <summary>
 		/// 日付と時刻を進めます。
@@ -196,11 +180,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		DateTime& operator +=(const Days& days)
-		{
-			Date::operator +=(days);
-			return *this;
-		}
+		DateTime& operator +=(const Days& days);
 
 		/// <summary>
 		/// 日付と時刻を戻します。
@@ -211,11 +191,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		DateTime& operator -=(const Days& days)
-		{
-			Date::operator -=(days);
-			return *this;
-		}
+		DateTime& operator -=(const Days& days);
 
 		/// <summary>
 		/// 日付と時刻を進めます。
@@ -237,10 +213,91 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		DateTime& operator -= (const Milliseconds& _milliseconds)
-		{
-			return *this += (-_milliseconds);
-		}
+		DateTime& operator -= (const Milliseconds& _milliseconds);
+
+		/// <summary>
+		/// 2 つの日付と時刻が等しいかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 2 つの日付と時刻が等しい場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator ==(const DateTime& other) const noexcept;
+
+		/// <summary>
+		/// 2 つの日付と時刻が異なるかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 2 つの日付と時刻が異なる場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator !=(const DateTime& other) const noexcept;
+
+		/// <summary>
+		/// 日付と時刻の &lt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <(const DateTime& other) const noexcept;
+
+		/// <summary>
+		/// 日付と時刻の &gt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >(const DateTime& other) const noexcept;
+
+		/// <summary>
+		/// 日付と時刻の &lt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <=(const DateTime& other) const noexcept;
+
+		/// <summary>
+		/// 日付と時刻の &gt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >=(const DateTime& other) const noexcept;
+
+		[[nodiscard]] size_t hash() const noexcept;
+
+		/// <summary>
+		/// 現在のローカルの日付と時刻を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のローカルの日付と時刻
+		/// </returns>
+		[[nodiscard]] static DateTime Now();
+
+		/// <summary>
+		/// 現在の協定世界時刻 (UTC) の日付と時刻を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在の協定世界時刻 (UTC) の日付と時刻
+		/// </returns>
+		[[nodiscard]] static DateTime NowUTC();
 	};
 
 	/// <summary>
@@ -255,10 +312,7 @@ namespace s3d
 	/// <returns>
 	/// 進めた結果の日付と時刻
 	/// </returns>
-	[[nodiscard]] inline DateTime operator +(const DateTime& dateTime, const Days& days)
-	{
-		return DateTime(dateTime) += days;
-	}
+	[[nodiscard]] DateTime operator +(const DateTime& dateTime, const Days& days);
 
 	/// <summary>
 	/// 日付と時刻を戻します。
@@ -272,10 +326,7 @@ namespace s3d
 	/// <returns>
 	/// 戻した結果の日付と時刻
 	/// </returns>
-	[[nodiscard]] inline DateTime operator -(const DateTime& dateTime, const Days& days)
-	{
-		return DateTime(dateTime) -= days;
-	}
+	[[nodiscard]] DateTime operator -(const DateTime& dateTime, const Days& days);
 
 	/// <summary>
 	/// 日付と時刻を進めます。
@@ -289,10 +340,7 @@ namespace s3d
 	/// <returns>
 	/// 進めた結果の時刻と日付
 	/// </returns>
-	[[nodiscard]] inline DateTime operator +(const DateTime& dateTime, const Milliseconds& milliseconds)
-	{
-		return DateTime(dateTime) += milliseconds;
-	}
+	[[nodiscard]] DateTime operator +(const DateTime& dateTime, const Milliseconds& milliseconds);
 
 	/// <summary>
 	/// 日付と時刻を戻します
@@ -306,10 +354,7 @@ namespace s3d
 	/// <returns>
 	/// 戻した結果の時刻と日付
 	/// </returns>
-	[[nodiscard]] inline DateTime operator -(const DateTime& dateTime, const Milliseconds& milliseconds)
-	{
-		return DateTime(dateTime) -= milliseconds;
-	}
+	[[nodiscard]] DateTime operator -(const DateTime& dateTime, const Milliseconds& milliseconds);
 
 	/// <summary>
 	/// 2 つの日付と時刻の間の時間を計算します。
@@ -323,109 +368,7 @@ namespace s3d
 	/// <returns>
 	/// 2 つの日付の間の時間（ミリ秒）
 	/// </returns>
-	[[nodiscard]] Milliseconds operator -(const DateTime& a, const DateTime& b);
-
-	/// <summary>
-	/// 2 つの日付と時刻が等しいかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 2 つの日付と時刻が等しい場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline bool operator ==(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) == 0;
-	}
-
-	/// <summary>
-	/// 2 つの日付と時刻が異なるかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 2 つの日付と時刻が異なる場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline bool operator !=(const DateTime& a, const DateTime& b)
-	{
-		return !(a == b);
-	}
-
-	/// <summary>
-	/// 日付と時刻の &lt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) < 0;
-	}
-
-	/// <summary>
-	/// 日付と時刻の &gt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) > 0;
-	}
-
-	/// <summary>
-	/// 日付と時刻の &lt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <=(const DateTime& a, const DateTime& b)
-	{
-		return !(a > b);
-	}
-
-	/// <summary>
-	/// 日付と時刻の &gt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >=(const DateTime& a, const DateTime& b)
-	{
-		return !(a < b);
-	}
+	[[nodiscard]] Duration operator -(const DateTime& a, const DateTime& b);
 }
 
 //////////////////////////////////////////////////
@@ -436,10 +379,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const DateTime& value)
-	{
-		formatData.string.append(value.format());
-	}
+	void Formatter(FormatData& formatData, const DateTime& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const DateTime& value)
@@ -461,7 +401,7 @@ namespace std
 	{
 		[[nodiscard]] size_t operator()(const s3d::DateTime& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(value);
+			return value.hash();
 		}
 	};
 }

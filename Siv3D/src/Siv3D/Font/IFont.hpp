@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,6 +15,8 @@
 
 namespace s3d
 {
+	struct FontFace;
+
 	class ISiv3DFont
 	{
 	public:
@@ -23,7 +25,15 @@ namespace s3d
 
 		virtual ~ISiv3DFont() = default;
 
-		virtual bool init() = 0;
+		virtual void init() = 0;
+
+		virtual Image getColorEmoji(StringView emoji) = 0;
+
+		virtual Image getColorEmojiSilhouette(StringView emoji) = 0;
+
+		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
+
+		virtual Optional<const FontFace&> getAwesomeIconFontFaceFotCode(uint16 code) const = 0;
 
 		virtual FontID create(Typeface typeface, int32 fontSize, FontStyle style) = 0;
 
@@ -47,6 +57,8 @@ namespace s3d
 
 		virtual OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) = 0;
 
+		virtual const Texture& getTexture(FontID handleID) = 0;
+
 		virtual RectF getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale) = 0;
 
 		virtual RectF getRegion(FontID handleID, const String& codePoints, double lineSpacingScale) = 0;
@@ -57,12 +69,8 @@ namespace s3d
 
 		virtual bool draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
 
-		virtual Image getColorEmoji(StringView emoji) = 0;
+		virtual Rect paint(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) = 0;
 
-		virtual Image getColorEmojiSilhouette(StringView emoji) = 0;
-
-		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
-
-		//virtual size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const = 0;
+		virtual Rect overwrite(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) = 0;
 	};
 }

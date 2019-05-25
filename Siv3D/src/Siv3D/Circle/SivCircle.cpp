@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,11 +19,18 @@
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
+	Circle::Circle(const position_type& p0, const position_type& p1) noexcept
+		: center((p0 + p1) / 2.0)
+		, r(p0.distanceFrom(p1) / 2.0)
+	{
+	
+	}
+
 	Circle::Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept
 	{
 		if (p0 == p1)
@@ -46,6 +53,13 @@ namespace s3d
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
 		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
+	}
+
+	Circle::Circle(Arg::center_<position_type> _center, const position_type& p) noexcept
+		: center(_center.value())
+		, r(p.distanceFrom(_center.value()))
+	{
+	
 	}
 
 	Ellipse Circle::stretched(const double _x, const double _y) const noexcept
@@ -95,7 +109,7 @@ namespace s3d
 
 	const Circle& Circle::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addCircle(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
 			center,
 			static_cast<float>(r),
 			color.toFloat4()
@@ -104,13 +118,21 @@ namespace s3d
 		return *this;
 	}
 
+	const Circle& Circle::drawFrame(const double thickness, const ColorF& color) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	}
+
 	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addCircleFrame(
+		const Float4 colorF = color.toFloat4();
+
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			color.toFloat4()
+			colorF,
+			colorF
 		);
 
 		return *this;
@@ -118,7 +140,7 @@ namespace s3d
 
 	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
 	{
-		Siv3DEngine::GetRenderer2D()->addCircleFrame(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
@@ -131,7 +153,7 @@ namespace s3d
 
 	const Circle& Circle::drawPie(double startAngle, double angle, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addCirclePie(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCirclePie(
 			center,
 			static_cast<float>(r),
 			static_cast<float>(startAngle),
@@ -144,7 +166,7 @@ namespace s3d
 
 	const Circle& Circle::drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addCircleArc(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleArc(
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(startAngle),
@@ -176,16 +198,16 @@ namespace s3d
 		const float centerY = static_cast<float>(center.y + offset.y);
 		const Float4 colorF = color.toFloat4();
 
-		const uint32 quality = static_cast<uint32>(Min(scaledShadowR * 0.225f + 18.0f, 255.0f));
+		const uint16 quality = static_cast<uint16>(Min(scaledShadowR * 0.225f + 18.0f, 255.0f));
 
-		const uint32 outerVertexSize = quality;
-		const uint32 innnerVertexSize = quality;
+		const uint16 outerVertexSize = quality;
+		const uint16 innnerVertexSize = quality;
 
-		const uint32 outerIndexSize = quality * 6;
-		const uint32 innnerIndexSize = quality * 3;
+		const uint16 outerIndexSize = quality * 6;
+		const uint16 innnerIndexSize = quality * 3;
 
-		const uint32 vertexSize = outerVertexSize + innnerVertexSize + 1;
-		const uint32 indexSize = outerIndexSize + innnerIndexSize;
+		const uint16 vertexSize = outerVertexSize + innnerVertexSize + 1;
+		const uint16 indexSize = outerIndexSize + innnerIndexSize;
 
 		Sprite sprite(vertexSize, indexSize);
 
@@ -216,7 +238,7 @@ namespace s3d
 			v->color = colorF;
 		}
 
-		for (uint32 i = 0; i < quality; ++i)
+		for (uint16 i = 0; i < quality; ++i)
 		{
 			sprite.indices[i * 6 + 0] = i % (outerVertexSize);
 			sprite.indices[i * 6 + 1] = (i + 1) % (outerVertexSize);
@@ -226,14 +248,14 @@ namespace s3d
 			sprite.indices[i * 6 + 5] = (i + 1) % (outerVertexSize)+outerVertexSize;
 		}
 
-		for (uint32 i = 0; i < quality; ++i)
+		for (uint16 i = 0; i < quality; ++i)
 		{
 			sprite.indices[outerIndexSize + i * 3 + 0] = outerVertexSize + (i + 0);
 			sprite.indices[outerIndexSize + i * 3 + 1] = vertexSize - 1;
 			sprite.indices[outerIndexSize + i * 3 + 2] = outerVertexSize + (i + 1) % quality;
 		}
 
-		sprite.draw(Siv3DEngine::GetRenderer2D()->getBoxShadowTexture());
+		sprite.draw(Siv3DEngine::Get<ISiv3DRenderer2D>()->getBoxShadowTexture());
 
 		return *this;
 	}
@@ -262,10 +284,11 @@ namespace s3d
 		double xMin = center.x, xMax = center.x;
 		const double yMin = center.y - r;
 		double yMax = center.y;
+		const double d = (Math::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			*pPos += Circular(r, i * (Math::TwoPi / n));
+			*pPos += Circular(r, i * d);
 
 			if (pPos->x < xMin)
 			{
@@ -284,10 +307,10 @@ namespace s3d
 			++pPos;
 		}
 
-		Array<uint32> indices(3 * (n - 2));
-		uint32* pIndex = indices.data();
+		Array<uint16> indices(3 * (n - 2));
+		uint16* pIndex = indices.data();
 
-		for (uint32 i = 0; i < n - 2; ++i)
+		for (uint16 i = 0; i < n - 2; ++i)
 		{
 			++pIndex;
 			(*pIndex++) = i + 1;
@@ -295,5 +318,10 @@ namespace s3d
 		}
 
 		return Polygon(vertices, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
+	}
+
+	void Formatter(FormatData& formatData, const Circle& value)
+	{
+		Formatter(formatData, Vec3(value.x, value.y, value.r));
 	}
 }

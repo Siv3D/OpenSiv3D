@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "ImageFormat_TGA.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include "ImageFormat_TGA.hpp"
 
 namespace s3d
 {
@@ -98,7 +98,7 @@ namespace s3d
 		const int32 pixelSize = hed.bpp / 8;
 		const int32 size = width * height*pixelSize;
 
-		uint8* readPixels = static_cast<uint8*>(::malloc(size));
+		uint8* readPixels = static_cast<uint8*>(std::malloc(size));
 		reader.read(readPixels, size);
 
 		Image image(width, height);
@@ -153,7 +153,7 @@ namespace s3d
 		}
 		}
 
-		::free(readPixels);
+		std::free(readPixels);
 
 		return image;
 	}
@@ -182,13 +182,13 @@ namespace s3d
 
 		writer.write(hed);
 
-		uint8* line = static_cast<uint8*>(::malloc(stride));
+		uint8* line = static_cast<uint8*>(std::malloc(stride));
 
 		const Color* pSrc = image[0];
 
 		for (size_t y = 0; y < height; ++y)
 		{
-			::memcpy(line, pSrc, stride);
+			std::memcpy(line, pSrc, stride);
 
 			size_t index = 0;
 
@@ -204,7 +204,7 @@ namespace s3d
 			pSrc += width;
 		}
 
-		::free(line);
+		std::free(line);
 
 		return true;
 	}
