@@ -38,6 +38,8 @@ namespace s3d
 
 		[[nodiscard]] Array<DisplayOutput> EnumOutputs();
 
+		[[nodiscard]] Array<Size> GetFullscreenResolutions(double minRefreshRate = 49.0);
+
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		[[nodiscard]] Optional<double> GetTargetFrameRateHz();
