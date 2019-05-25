@@ -9,8 +9,6 @@
 //
 //-----------------------------------------------
 
-//# include <X11/Xlib.h>
-
 # include <Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Window/IWindow.hpp>

@@ -448,9 +448,4 @@ namespace s3d
 		
 		[[nodiscard]] bool IsSandBoxed();
 	}
-
-	namespace linux::FileSystem
-	{
-		[[nodiscard]] Array<FilePath> GetFontDirectories();
-	}
 }
