@@ -12,12 +12,15 @@
 # pragma once
 # include <Siv3D/Image.hpp>
 # include <Clipboard/IClipboard.hpp>
+# include <GLFW/glfw3.h>
 
 namespace s3d
 {
 	class CClipboard : public ISiv3DClipboard
 	{
 	private:
+
+		GLFWwindow* m_window = nullptr;
 		
 		uint64 m_changeCount = 0;
 

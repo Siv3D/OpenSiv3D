@@ -17,12 +17,6 @@ namespace s3d
 {
 	class CTextToSpeech : public ISiv3DTextToSpeech
 	{
-	private:
-		
-		class CTextToSpeechDetail;
-		
-		std::unique_ptr<CTextToSpeechDetail> m_detail;
-		
 	public:
 		
 		CTextToSpeech();

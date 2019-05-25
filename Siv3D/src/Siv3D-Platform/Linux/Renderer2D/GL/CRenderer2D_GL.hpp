@@ -16,15 +16,107 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
-//# include "D3D11SpriteBatch.hpp"
-//# include "D3D11Renderer2DCommand.hpp"
 # include <Renderer2D/Vertex2DBuilder.hpp>
+# include <GL/glew.h>
+# include <GLFW/glfw3.h>
+# include "GLSpriteBatch.hpp"
+# include "GLRenderer2DCommand.hpp"
+
 
 namespace s3d
 {
+	class ShaderPipeline
+	{
+	private:
+		
+		GLuint m_pipeline = 0;
+		
+	public:
+		
+		~ShaderPipeline()
+		{
+			if (m_pipeline)
+			{
+				::glDeleteProgramPipelines(1, &m_pipeline);
+				m_pipeline = 0;
+			}
+		}
+		
+		bool init()
+		{
+			::glGenProgramPipelines(1, &m_pipeline);
+			
+			return m_pipeline != 0;
+		}
+		
+		void setVS(GLuint vsProgramHandle)
+		{
+			::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgramHandle);
+		}
+		
+		void setPS(GLuint psProgramHandle)
+		{
+			::glUseProgramStages(m_pipeline, GL_FRAGMENT_SHADER_BIT, psProgramHandle);
+		}
+		
+		void use()
+		{
+			::glUseProgram(0);
+			::glBindProgramPipeline(m_pipeline);
+		}
+	};
+	
+	struct VscbSprite
+	{
+		static constexpr const char* Name()
+		{
+			return "vscbSprite";
+		}
+		
+		static constexpr uint32 BindingPoint()
+		{
+			return 0;
+		}
+		
+		Float4 transform[2];
+		
+		Float4 colorMul;
+	};
+	
+	struct PscbSprite
+	{
+		static constexpr const char* Name()
+		{
+			return "pscbSprite";
+		}
+		
+		static constexpr uint32 BindingPoint()
+		{
+			return 1;
+		}
+		
+		Float4 colorAdd;
+		
+		Float4 sdfParam;
+	};
+	
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
+		
+		Array<VertexShader> m_standardVSs;
+		Array<PixelShader> m_standardPSs;
+		
+		BufferCreatorFunc m_bufferCreator;
+		
+		ShaderPipeline m_pipeline;
+		
+		ConstantBuffer<VscbSprite> m_vscbSprite;
+		ConstantBuffer<PscbSprite> m_pscbSprite;
+		
+		GLSpriteBatch m_batches;
+		
+		GLRenderer2DCommand m_commands;
 		
 		std::unique_ptr<Texture> m_boxShadowTexture;
 
@@ -40,7 +132,7 @@ namespace s3d
 
 		std::pair<float, FloatRect> getLetterboxingTransform() const override;
 
-		void drawResolved() override;
+		void drawFullscreen(bool) override {} // do nothing for OpenGL
 
 		void setColorMul(const Float4& color) override;
 
@@ -124,7 +216,7 @@ namespace s3d
 
 		void addSprite(const Sprite& sprite, uint16 startIndex, uint16 indexCount) override;
 
-		void addSprite(const Texture& texture, const Sprite& sprite, uint16 startIndex, uint16 indexCount);
+		void addSprite(const Texture& texture, const Sprite& sprite, uint16 startIndex, uint16 indexCount) override;
 
 		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) override;
 

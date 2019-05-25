@@ -82,7 +82,7 @@ namespace s3d
 	
 	AudioFormat_MP3::AudioFormat_MP3()
 	{
-		const FilePath libPath = Resource(U"engine/lib/mpg123/libmpg123.0.dylib");
+		const FilePath libPath = Resource(U"engine/lib/mpg123/libmpg123.so.0.44.8");
 		
 		m_mpg123 = DLL::LoadLibrary(libPath.narrow().c_str());
 		

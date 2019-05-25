@@ -90,7 +90,7 @@ namespace s3d
 		
 		if (!m_window)
 		{
-			throw EngineError(U"glfwCreateWindow() failed");
+			throw EngineError(U"glfwCreateWindow() failed. [OpenGL 4.1 is not supported]");
 		}
 		
 		::glfwSetWindowSizeLimits(m_window, m_state.minimumSize.x, m_state.minimumSize.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
@@ -173,6 +173,11 @@ namespace s3d
 		float xScale, yScale;
 		::glfwGetWindowContentScale(m_window, &xScale, &yScale);
 		m_state.contentScale = std::max(xScale, yScale);
+
+		if ((m_scaleMode == ScaleMode::ResizeFill) && (m_state.bounds.size != Siv3DEngine::Get<ISiv3DGraphics>()->getSceneSize()))
+		{
+			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(m_state.bounds.size);
+		}
 	}
 
 	void CWindow::setWindowTitle(const String& title)
@@ -291,6 +296,8 @@ namespace s3d
 		const Size newSize(std::max(size.x, m_state.minimumSize.x), std::max(size.y, m_state.minimumSize.y));
 
 		::glfwSetWindowSize(m_window, newSize.x, newSize.y);
+
+		Siv3DEngine::Get<ISiv3DGraphics>()->clear();
 
 		if (centering)
 		{

@@ -78,6 +78,10 @@ namespace s3d
 		
 		bool fill(const ColorF& color, bool wait);
 		
+		bool fillRegion(const ColorF& color, const Rect& rect);
+		
 		bool fill(const void* src, uint32 stride, bool wait);
+		
+		bool fillRegion(const void* src, uint32 stride, const Rect& rect, bool wait);
 	};
 }

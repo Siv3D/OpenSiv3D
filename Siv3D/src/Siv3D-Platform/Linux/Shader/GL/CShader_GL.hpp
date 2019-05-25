@@ -33,13 +33,13 @@ namespace s3d
 
 		bool init();
 
-		VertexShaderID createVS(ByteArray&& binary) override;
+		VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
 		VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		//VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&) override
+		VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&);
 
-		PixelShaderID createPS(ByteArray&& binary) override;
+		PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
 		PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		//PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints);
 
 		void release(VertexShaderID handleID) override;
 		void release(PixelShaderID handleID) override;
@@ -47,7 +47,11 @@ namespace s3d
 		ByteArrayView getBinaryView(VertexShaderID handleID) override;
 		ByteArrayView getBinaryView(PixelShaderID handleID) override;
 
-		void setVS(VertexShaderID handleID) override;
-		void setPS(PixelShaderID handleID) override;
+		void setVS(VertexShaderID handleID) override {}
+		void setPS(PixelShaderID handleID) override {}
+		
+		GLuint getVSProgram(VertexShaderID handleID);
+		GLuint getPSProgram(PixelShaderID handleID);
+		void setPSSamplerUniform(PixelShaderID handleID);
 	};
 }

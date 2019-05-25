@@ -13,9 +13,14 @@
 # include <memory>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Graphics/IGraphics.hpp>
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
+# include "SceneTexture.hpp"
+# include "BlendState/GLBlendState.hpp"
+# include "RasterizerState/GLRasterizerState.hpp"
+# include "SamplerState/GLSamplerState.hpp"
 
 namespace s3d
 {
@@ -25,11 +30,22 @@ namespace s3d
 
 		GLFWwindow* m_window = nullptr;
 		
+		std::unique_ptr<GLBlendState> m_pBlendState;
+		std::unique_ptr<GLRasterizerState> m_pRasterizerState;
+		std::unique_ptr<GLSamplerState> m_pSamplerState;
+		
 		ColorF m_clearColor = Palette::DefaultBackground;
+		ColorF m_letterboxColor = Palette::DefaultLetterbox;
+		bool m_skipClearScene = false;
 		
 		Optional<double> m_targetFrameRateHz;
 		
 		double m_lastFlipTimeMillisec = 0;
+		
+		SceneTexture m_sceneTexture;
+		TextureFilter m_sceneTextureFilter = Scene::DefaultFilter;
+		
+		Size m_frameBufferSize = Size(0, 0);
 
 	public:
 
@@ -44,6 +60,10 @@ namespace s3d
 		void clear() override;
 
 		void flush() override;
+		
+		void setSceneTextureFilter(TextureFilter textureFilter) override;
+		
+		TextureFilter getSceneTextureFilter() const override;
 
 		void setBackgroundColor(const ColorF& color) override;
 
@@ -72,5 +92,11 @@ namespace s3d
 		void requestScreenCapture() override;
 
 		const Image& getScreenCapture() const override;
+		
+		GLBlendState* getBlendState() { return m_pBlendState.get(); }
+		
+		GLRasterizerState* getRasterizerState() { return m_pRasterizerState.get(); }
+		
+		GLSamplerState* getSamplerState() { return m_pSamplerState.get(); }
 	};
 }
