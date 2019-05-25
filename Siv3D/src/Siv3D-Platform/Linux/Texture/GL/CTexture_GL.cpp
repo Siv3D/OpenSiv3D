@@ -46,7 +46,7 @@ namespace s3d
 	
 	CTexture_GL::~CTexture_GL()
 	{
-		LOG_TRACE(U"CTexture_D3D11::~CTexture_D3D11()");
+		LOG_TRACE(U"CTexture_GL::~CTexture_GL()");
 
 		m_textures.destroy();
 	}
