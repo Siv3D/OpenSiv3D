@@ -355,3 +355,14 @@ siv3d.a
 *.jppmdl
 Screenshot/
 AS_DEBUG/
+
+## CMake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+
+## ninja
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
