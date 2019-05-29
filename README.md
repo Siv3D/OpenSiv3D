@@ -13,5 +13,10 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | [**0.4.0b**](https://siv3d.github.io/#getting-started)     | 24 May 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
 | macOS           | [**0.4.0b**](https://siv3d.github.io/#getting-started)     | 24 May 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.2 or newer |
-| Linux           | **0.4.0α** (experimental)  | ?? ???? 2019 | |
+| Linux           | [See below](#linux-build)     |  | Clang 8.0.0- / GCC 8.3.0- |
 | iOS | TBA  |  |  |
+
+## Linux Build
+[`linux` branch](https://github.com/Siv3D/OpenSiv3D/tree/linux) provides the latest and only version for building the entire OpenSiv3D library for Linux system.  
+Please follow the install instruction: https://github.com/Siv3D/OpenSiv3D/blob/linux/Linux/README.md (`linux branch`)  
+Some functionality may be missing or limited.

@@ -13,6 +13,7 @@
 # include <future>
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/Windows.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/EngineMessageBox.hpp>
@@ -113,6 +114,7 @@ namespace s3d
 		}
 		catch (const Error& error)
 		{
+			Window::SetFullscreen(false); // メッセージボックスを表示するためにフルスクリーンモードを解除
 			EngineMessageBox::ShowError(U"Error:\n{}"_fmt(error.what()));
 			return;
 		}
