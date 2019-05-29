@@ -49,5 +49,5 @@ You can build the sample with `cmake` like OpenSiv3D.
 	- It contains resource files to execute an application.
 
 ### Note
-- Change the path of `libSiv3D.a` in `CMakeLists.txt` properly, when you copy or move `App` directory.
+- Change the path of `libSiv3D.a` and include directories in `CMakeLists.txt` properly, when you copy or move `App` directory.
 - Mke sure that the `resources/` directory is in the same directory as the executable file when runnning the application.
