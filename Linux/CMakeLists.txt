@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required (VERSION 2.6)
 
 find_package(PkgConfig)
 
@@ -636,7 +636,6 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/GLFW/xkb_unicode.c"
 	"../Siv3D/src/ThirdParty/RtAudio/RtAudio.cpp"
 )
-
 
 add_library(Siv3D STATIC ${SOURCE_FILES})
 
