@@ -14,7 +14,6 @@ The dependent libraries are as follows:
 - Boost
 - AngelScript
 - GLib2
-- zstd
 - udev
 - libdl
 

@@ -14,7 +14,6 @@
 - Boost
 - AngelScript
 - GLib2
-- zstd
 - udev
 - libdl
 
