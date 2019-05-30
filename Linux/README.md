@@ -35,19 +35,19 @@ Wayland and Mir are not supported.
 
 ### Note
 - Using `-DCMAKE_BUILD_TYPE=Debug`, it is compiled with `-g3 -O0`.
-- The above example uses `ninja`, but you can compile with` make`.
+- The above example uses `ninja`, but you can also compile with `make`.
 
 
 ## Compiling an application
 Sample files required to compile an application are in `Linux/App` directory.
 You can build the sample with `cmake` like OpenSiv3D.
 - `Main.cpp`
-	- Sample of source of an application.
+	- Sample source of the application.
 - `CMakeLists.txt`
-	- Sample of `CMakeLists.txt` to build an application.
+	- Sample of `CMakeLists.txt` to build the application.
 - `resources/` directory
-	- It contains resource files to execute an application.
+	- It contains resource files required by the application.
 
 ### Note
 - Change the path of `libSiv3D.a` and include directories in `CMakeLists.txt` properly, when you copy or move `App` directory.
-- Mke sure that the `resources/` directory is in the same directory as the executable file when runnning the application.
+- Make sure that the `resources/` directory is in the same directory as the executable file when runnning the application.
