@@ -439,6 +439,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D-Platform/Linux/Mouse/CMouse.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/NLP/SivNLP_Japanese.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Network/CNetwork.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/PowerStatus/SivPowerStatus.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Renderer2D/GL/CRenderer2D_GL.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Renderer2D/GL/GLRenderer2DCommand.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Renderer2D/GL/GLSpriteBatch.cpp"
