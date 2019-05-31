@@ -40,7 +40,12 @@ namespace s3d
 		/// </summary>
 		AAC,
 
-		//ogg, opus, aac, ...
+		/// <summary>
+		/// Ogg Vorbis
+		/// </summary>
+		OggVorbis,
+
+		//opus, aac, ...
 
 		/// <summary>
 		/// 指定しない / データと拡張子から判断
@@ -84,7 +89,7 @@ namespace s3d
 
 		virtual const Array<String>& possibleExtexsions() const = 0;
 
-		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
+		virtual bool isHeader(const uint8(&bytes)[16], const IReader& reader) const = 0;
 
 		virtual Wave decodeFromFile(const FilePath& path) const = 0;
 

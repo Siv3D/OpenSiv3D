@@ -234,12 +234,16 @@ namespace s3d
 		}
 
 		// [Siv3D ToDo]
-		if (format != AudioFormat::WAVE)
+		if (format == AudioFormat::WAVE)
 		{
-			return false;
+			return saveWAVE(path);
+		}
+		else if (format == AudioFormat::OggVorbis)
+		{
+			return saveOggVorbis(path);
 		}
 
-		return saveWAVE(path);
+		return false;
 	}
 
 	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)
@@ -257,6 +261,23 @@ namespace s3d
 		}
 
 		return Siv3DEngine::Get<ISiv3DAudioFormat>()->encodeWAVE(writer, *this, format);
+	}
+
+	bool Wave::saveOggVorbis(const FilePath& path, const int32 quality)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::Get<ISiv3DAudioFormat>()->encodeOggVorbis(writer, *this, quality);
 	}
 
 	void Wave::remove_silence_tail(const float value)

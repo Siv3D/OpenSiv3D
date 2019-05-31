@@ -194,6 +194,8 @@ namespace s3d
 
 		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
 
+		bool saveOggVorbis(const FilePath& path, int32 quality = 60);
+
 		//[[nodiscard]] MemoryWriter encode(AudioFormat format = AudioFormat::WAVE) const;
 	};
 }

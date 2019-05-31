@@ -31,7 +31,7 @@ namespace s3d
 		return extensions;
 	}
 
-	bool AudioFormat_AAC::isHeader(const uint8(&bytes)[16]) const
+	bool AudioFormat_AAC::isHeader(const uint8(&bytes)[16], const IReader&) const
 	{
 		// M4V MPEG-4 video/QuickTime file
 		static constexpr uint8 M4V_SIGNx[] = { 0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32 };

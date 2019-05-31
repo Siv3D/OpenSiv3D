@@ -32,7 +32,7 @@ namespace s3d
 		return extensions;
 	}
 
-	bool AudioFormat_MP3::isHeader(const uint8(&bytes)[16]) const
+	bool AudioFormat_MP3::isHeader(const uint8(&bytes)[16], const IReader&) const
 	{
 		static constexpr uint8 MPEG1_SIGN[] = { 0xFF, 0xFB };
 		static constexpr uint8 MP3_SIGN[] = { 0x49, 0x44, 0x33 };
