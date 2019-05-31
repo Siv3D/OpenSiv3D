@@ -13,7 +13,7 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | [**0.4.0b**](https://siv3d.github.io/#getting-started)     | 24 May 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
 | macOS           | [**0.4.0b**](https://siv3d.github.io/#getting-started)     | 24 May 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.2 or newer |
-| Linux           | [See below](#linux-build)     |  | Clang 8.0.0- / GCC 8.3.0- |
+| Linux           | [See below](#linux-build)     |  | Test compilers: Clang 8.0.0 / GCC 8.3.0 |
 | iOS | TBA  |  |  |
 
 ## Linux Build
