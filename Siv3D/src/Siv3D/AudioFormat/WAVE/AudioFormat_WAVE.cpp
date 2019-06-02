@@ -89,7 +89,7 @@ namespace s3d
 		return extensions;
 	}
 
-	bool AudioFormat_WAVE::isHeader(const uint8(&bytes)[16]) const
+	bool AudioFormat_WAVE::isHeader(const uint8(&bytes)[16], const IReader&) const
 	{
 		static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
 

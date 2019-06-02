@@ -1092,6 +1092,17 @@
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
+		2CB4A5E622A14A7100BF96EA /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E422A14A7100BF96EA /* os_types.h */; };
+		2CB4A5EB22A14A7E00BF96EA /* vorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E822A14A7E00BF96EA /* vorbisfile.h */; };
+		2CB4A5EC22A14A7E00BF96EA /* codec.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E922A14A7E00BF96EA /* codec.h */; };
+		2CB4A5ED22A14A7E00BF96EA /* vorbisenc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5EA22A14A7E00BF96EA /* vorbisenc.h */; };
+		2CB4A5F122A14C2900BF96EA /* AudioFormat_OggVorbis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4A5EF22A14C2900BF96EA /* AudioFormat_OggVorbis.cpp */; };
+		2CB4A5F222A14C2900BF96EA /* AudioFormat_OggVorbis.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5F022A14C2900BF96EA /* AudioFormat_OggVorbis.hpp */; };
+		2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4A5F522A14E5300BF96EA /* libogg.a */; };
+		2CB4A5FE22A150C900BF96EA /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4A5FD22A150C900BF96EA /* libvorbisfile.a */; };
+		2CB4A60022A150DC00BF96EA /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4A5FF22A150DC00BF96EA /* libvorbis.a */; };
+		2CB4A60222A150E900BF96EA /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4A60122A150E900BF96EA /* libvorbisenc.a */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2508,6 +2519,18 @@
 		2CA6286422226DC70009DFE1 /* svm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svm.h; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CB4A5E322A14A7100BF96EA /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ogg.h; sourceTree = "<group>"; };
+		2CB4A5E422A14A7100BF96EA /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_types.h; sourceTree = "<group>"; };
+		2CB4A5E822A14A7E00BF96EA /* vorbisfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbisfile.h; sourceTree = "<group>"; };
+		2CB4A5E922A14A7E00BF96EA /* codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codec.h; sourceTree = "<group>"; };
+		2CB4A5EA22A14A7E00BF96EA /* vorbisenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbisenc.h; sourceTree = "<group>"; };
+		2CB4A5EF22A14C2900BF96EA /* AudioFormat_OggVorbis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_OggVorbis.cpp; sourceTree = "<group>"; };
+		2CB4A5F022A14C2900BF96EA /* AudioFormat_OggVorbis.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_OggVorbis.hpp; sourceTree = "<group>"; };
+		2CB4A5F522A14E5300BF96EA /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../Siv3D/lib/macOS/libogg/libogg.a; sourceTree = "<group>"; };
+		2CB4A5FB22A14FE100BF96EA /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = ../Siv3D/lib/macOS/libvorbis/Vorbis.framework; sourceTree = "<group>"; };
+		2CB4A5FD22A150C900BF96EA /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisfile.a; sourceTree = "<group>"; };
+		2CB4A5FF22A150DC00BF96EA /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbis.a; sourceTree = "<group>"; };
+		2CB4A60122A150E900BF96EA /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisenc.a; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2521,10 +2544,14 @@
 				2C461AA122705C3200828870 /* Foundation.framework in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 				2C461AA42270674100828870 /* libboost_filesystem.a in Frameworks */,
+				2CB4A60022A150DC00BF96EA /* libvorbis.a in Frameworks */,
+				2CB4A60222A150E900BF96EA /* libvorbisenc.a in Frameworks */,
+				2CB4A5FE22A150C900BF96EA /* libvorbisfile.a in Frameworks */,
 				2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */,
 				2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */,
 				2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */,
 				2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */,
+				2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */,
 				2C461AAE2270767100828870 /* libpng.a in Frameworks */,
 				2C461AB42270775A00828870 /* libGLEW.a in Frameworks */,
 				2C461AB62270779B00828870 /* libwebp.a in Frameworks */,
@@ -2551,6 +2578,11 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CB4A60122A150E900BF96EA /* libvorbisenc.a */,
+				2CB4A5FF22A150DC00BF96EA /* libvorbis.a */,
+				2CB4A5FD22A150C900BF96EA /* libvorbisfile.a */,
+				2CB4A5FB22A14FE100BF96EA /* Vorbis.framework */,
+				2CB4A5F522A14E5300BF96EA /* libogg.a */,
 				2C461AD02270864D00828870 /* OpenAL.framework */,
 				2C461AC32270802900828870 /* libopencv_imgcodecs.a */,
 				2C461AC22270802900828870 /* libopencv_videoio.a */,
@@ -2640,10 +2672,12 @@
 				2C460CCA226EEDAF00828870 /* libjpeg-turbo */,
 				2C460C54226EEDAF00828870 /* libpng */,
 				2C461048226EEDB300828870 /* libsvm */,
+				2CB4A5E722A14A7E00BF96EA /* libvorbis */,
 				2C460F50226EEDB200828870 /* libwebp */,
 				2C460F42226EEDB200828870 /* miniutf */,
 				2C460F21226EEDB200828870 /* msdf */,
 				2C460FBB226EEDB300828870 /* muparser */,
+				2CB4A5E222A14A7100BF96EA /* ogg */,
 				2C460FD1226EEDB300828870 /* pffft */,
 				2C460FD4226EEDB300828870 /* poly2tri */,
 				2C460F0B226EEDB200828870 /* QRCode */,
@@ -5082,12 +5116,13 @@
 		2C461763226EEF3D00828870 /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
-				2C461764226EEF3D00828870 /* SivAudioFormat.cpp */,
+				2C461767226EEF3D00828870 /* AudioFormatFactory.cpp */,
+				2C46176B226EEF3D00828870 /* CAudioFormat.cpp */,
 				2C461765226EEF3D00828870 /* CAudioFormat.hpp */,
 				2C461766226EEF3D00828870 /* IAudioFormat.hpp */,
-				2C461767226EEF3D00828870 /* AudioFormatFactory.cpp */,
+				2CB4A5EE22A14C2900BF96EA /* OggVorbis */,
+				2C461764226EEF3D00828870 /* SivAudioFormat.cpp */,
 				2C461768226EEF3D00828870 /* WAVE */,
-				2C46176B226EEF3D00828870 /* CAudioFormat.cpp */,
 			);
 			path = AudioFormat;
 			sourceTree = "<group>";
@@ -6648,6 +6683,34 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CB4A5E222A14A7100BF96EA /* ogg */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4A5E322A14A7100BF96EA /* ogg.h */,
+				2CB4A5E422A14A7100BF96EA /* os_types.h */,
+			);
+			path = ogg;
+			sourceTree = "<group>";
+		};
+		2CB4A5E722A14A7E00BF96EA /* libvorbis */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4A5E822A14A7E00BF96EA /* vorbisfile.h */,
+				2CB4A5E922A14A7E00BF96EA /* codec.h */,
+				2CB4A5EA22A14A7E00BF96EA /* vorbisenc.h */,
+			);
+			path = libvorbis;
+			sourceTree = "<group>";
+		};
+		2CB4A5EE22A14C2900BF96EA /* OggVorbis */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4A5EF22A14C2900BF96EA /* AudioFormat_OggVorbis.cpp */,
+				2CB4A5F022A14C2900BF96EA /* AudioFormat_OggVorbis.hpp */,
+			);
+			path = OggVorbis;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -6691,6 +6754,7 @@
 				2C461420226EEDB500828870 /* muParserBase.h in Headers */,
 				2C4618AD226EEF4100828870 /* TextBoxDetail.hpp in Headers */,
 				2C461A86226F517000828870 /* CGamepad.hpp in Headers */,
+				2CB4A5EC22A14A7E00BF96EA /* codec.h in Headers */,
 				2C4618F9226EEF4100828870 /* MathParserDetail.hpp in Headers */,
 				2C461115226EEDB500828870 /* ftmemory.h in Headers */,
 				2C461A3E226F2D0000828870 /* cocoa_platform.h in Headers */,
@@ -6727,6 +6791,7 @@
 				2C461973226EEF4100828870 /* INetwork.hpp in Headers */,
 				2C4618DC226EEF4100828870 /* CObjectDetection.hpp in Headers */,
 				2C4619E9226F0CD700828870 /* BinaryReaderDetail.hpp in Headers */,
+				2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */,
 				2C461381226EEDB500828870 /* diy-fp.h in Headers */,
 				2C461168226EEDB500828870 /* hb-shape-plan.h in Headers */,
 				2C4618CF226EEF4100828870 /* ManagedScriptDetail.hpp in Headers */,
@@ -6763,6 +6828,7 @@
 				2C461470226EEDB500828870 /* Box2D.h in Headers */,
 				2C4613A5226EEDB500828870 /* arithmetics.hpp in Headers */,
 				2C461151226EEDB500828870 /* tsf.h in Headers */,
+				2CB4A5ED22A14A7E00BF96EA /* vorbisenc.h in Headers */,
 				2C461436226EEDB500828870 /* sweep.h in Headers */,
 				2C461499226EEDB500828870 /* xma2defs.h in Headers */,
 				2C266A7F228AACD0001C7DAD /* GLRenderer2DCommand.hpp in Headers */,
@@ -6773,6 +6839,7 @@
 				2C461968226EEF4100828870 /* FrameDelta.hpp in Headers */,
 				2C4610F9226EEDB500828870 /* ftsizes.h in Headers */,
 				2C461459226EEDB500828870 /* b2MouseJoint.h in Headers */,
+				2CB4A5EB22A14A7E00BF96EA /* vorbisfile.h in Headers */,
 				2C461104226EEDB500828870 /* fttrigon.h in Headers */,
 				2C4613E2226EEDB500828870 /* error_private.h in Headers */,
 				2C4618E7226EEF4100828870 /* IImageFormat.hpp in Headers */,
@@ -7065,6 +7132,7 @@
 				2C461A58226F2F5900828870 /* CWindow.hpp in Headers */,
 				2C4613B7226EEDB500828870 /* types.h in Headers */,
 				2C4610FA226EEDB500828870 /* fttypes.h in Headers */,
+				2CB4A5F222A14C2900BF96EA /* AudioFormat_OggVorbis.hpp in Headers */,
 				2C461966226EEF4100828870 /* SystemLog.hpp in Headers */,
 				2C461160226EEDB500828870 /* hb-buffer.h in Headers */,
 				2C461434226EEDB500828870 /* advancing_front.h in Headers */,
@@ -7115,6 +7183,7 @@
 				2C46194F226EEF4100828870 /* IClipboard.hpp in Headers */,
 				2C46148D226EEDB500828870 /* b2EdgeShape.h in Headers */,
 				2C461480226EEDB500828870 /* b2Collision.h in Headers */,
+				2CB4A5E622A14A7100BF96EA /* os_types.h in Headers */,
 				2C461AE02270A18200828870 /* CShader_GL.hpp in Headers */,
 				2C4619D0226F03BC00828870 /* TTS.hpp in Headers */,
 				2C4610F8226EEDB500828870 /* ftpcfdrv.h in Headers */,
@@ -7507,6 +7576,7 @@
 				2C46183A226EEF4100828870 /* SivPrint.cpp in Sources */,
 				2C461878226EEF4100828870 /* SivPerlinNoise.cpp in Sources */,
 				2C461837226EEF4100828870 /* SivTextureAsset.cpp in Sources */,
+				2CB4A5F122A14C2900BF96EA /* AudioFormat_OggVorbis.cpp in Sources */,
 				2C4619BF226EFE5C00828870 /* VideoWriterDetail.cpp in Sources */,
 				2C461948226EEF4100828870 /* SivConsole.cpp in Sources */,
 				2C4618F8226EEF4100828870 /* SivMathParser.cpp in Sources */,
@@ -7878,16 +7948,18 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
-					../Siv3D/lib/macOS/boost,
-					../Siv3D/lib/macOS/harfbuzz,
-					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/angelscript,
-					../Siv3D/lib/macOS/libpng,
-					../Siv3D/lib/macOS/zlib,
-					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/boost,
+					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
+					../Siv3D/lib/macOS/harfbuzz,
+					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/libogg,
+					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
+					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7948,16 +8020,18 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
-					../Siv3D/lib/macOS/boost,
-					../Siv3D/lib/macOS/harfbuzz,
-					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/angelscript,
-					../Siv3D/lib/macOS/libpng,
-					../Siv3D/lib/macOS/zlib,
-					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/boost,
+					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
+					../Siv3D/lib/macOS/harfbuzz,
+					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/libogg,
+					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
+					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;

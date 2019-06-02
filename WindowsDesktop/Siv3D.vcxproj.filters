@@ -985,6 +985,15 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\TextReader">
       <UniqueIdentifier>{683d81cd-1d04-4ccb-82ae-5b5c4e205ba1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\OggVorbis">
+      <UniqueIdentifier>{edcb84d6-2172-4abc-a1f0-63eed243261b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\libvorbis">
+      <UniqueIdentifier>{2d5a4222-d0a0-4c63-b709-ad0e51aa5ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\ogg">
+      <UniqueIdentifier>{618613c7-b6f6-4878-8dcd-319787b03a27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3390,6 +3399,24 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
       <Filter>include\ThirdParty\angelscript</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\AudioFormat_OggVorbis.hpp">
+      <Filter>src\Siv3D\AudioFormat\OggVorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libvorbis\vorbisenc.h">
+      <Filter>src\ThirdParty\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libvorbis\vorbisfile.h">
+      <Filter>src\ThirdParty\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libvorbis\codec.h">
+      <Filter>src\ThirdParty\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\ogg\ogg.h">
+      <Filter>src\ThirdParty\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\ogg\os_types.h">
+      <Filter>src\ThirdParty\ogg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5134,6 +5161,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Graphics\SivGraphics_Platform.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\AudioFormat_OggVorbis.cpp">
+      <Filter>src\Siv3D\AudioFormat\OggVorbis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
