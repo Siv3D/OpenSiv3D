@@ -27,7 +27,7 @@ namespace s3d
 
 		const Array<String>& possibleExtexsions() const override;
 
-		bool isHeader(const uint8(&bytes)[16]) const override;
+		bool isHeader(const uint8(&bytes)[16], const IReader& reader) const override;
 
 		Wave decodeFromFile(const FilePath& path) const override;
 
