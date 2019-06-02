@@ -33,5 +33,7 @@ namespace s3d
 		virtual Wave decode(IReader&& reader, AudioFormat format) const = 0;
 
 		virtual bool encodeWAVE(IWriter& writer, const Wave& wave, WAVEFormat format) const = 0;
+
+		virtual bool encodeOggVorbis(IWriter& writer, const Wave& wave, int32 quality) const = 0;
 	};
 }

@@ -38,25 +38,28 @@ add_executable(Siv3D_App ${SOURCE_FILES})
 
 target_link_libraries(Siv3D_App
 	${OPENCV4_LIBRARIES}
-	-lpng
-	-lgobject-2.0
-	-lglib-2.0
-	-lgio-2.0
-	-lfreetype
-	-lharfbuzz
-	-lzstd
-	-lpthread
-	-ldl
-	-lwebp
 	-lOpenGL
 	-lGLEW
 	-lX11
-	-lboost_filesystem
-	-lopenal
-	-lgif
-	-lturbojpeg
 	-langelscript
-	-ludev 
+	-lpthread
+	-ldl
+	-ludev
+	-lfreetype
+	-lharfbuzz
+	-lglib-2.0
+	-lgobject-2.0
+	-lgio-2.0
+	-lpng
+	-lturbojpeg
+	-lgif
+	-lwebp
+	-lopenal
+	-logg
+	-lvorbis
+	-lvorbisenc
+	-lvorbisfile
+	-lboost_filesystem
 
 	${PROJECT_SOURCE_DIR}/../Release/libSiv3D.a
 )

@@ -43,5 +43,7 @@ namespace s3d
 		Wave decode(IReader&& reader, AudioFormat format) const override;
 
 		bool encodeWAVE(IWriter& writer, const Wave& wave, WAVEFormat format) const override;
+
+		bool encodeOggVorbis(IWriter& writer, const Wave& wave, int32 quality) const override;
 	};
 }

@@ -12,6 +12,7 @@
 # include <AudioFormat/WAVE/AudioFormat_WAVE.hpp>
 # include <AudioFormat/MP3/AudioFormat_MP3.hpp>
 # include <AudioFormat/AAC/AudioFormat_AAC.hpp>
+# include <AudioFormat/OggVorbis/AudioFormat_OggVorbis.hpp>
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
@@ -79,6 +80,8 @@ namespace s3d
 		m_audioFormats.push_back(std::make_unique<AudioFormat_AAC>());
 
 	# endif
+
+		m_audioFormats.push_back(std::make_unique<AudioFormat_OggVorbis>());
 
 		LOG_INFO(U"ℹ️ CAudioFormat initialized");
 	}
@@ -183,6 +186,23 @@ namespace s3d
 		return false;
 	}
 
+	bool CAudioFormat::encodeOggVorbis(IWriter& writer, const Wave& wave, const int32 quality) const
+	{
+		const auto p = findFormat(AudioFormat::OggVorbis);
+
+		if (p == m_audioFormats.end())
+		{
+			return false;
+		}
+
+		if (const AudioFormat_OggVorbis * wav = dynamic_cast<AudioFormat_OggVorbis*>(p->get()))
+		{
+			return wav->encode(wave, quality, writer);
+		}
+
+		return false;
+	}
+
 	Array<std::unique_ptr<IAudioFormat>>::const_iterator CAudioFormat::findFormat(const AudioFormat format) const
 	{
 		for (auto it = m_audioFormats.begin(); it != m_audioFormats.end(); ++it)
@@ -217,7 +237,7 @@ namespace s3d
 
 		for (auto it = m_audioFormats.begin(); it != m_audioFormats.end(); ++it)
 		{
-			if ((*it)->isHeader(header))
+			if ((*it)->isHeader(header, reader))
 			{
 				return it;
 			}

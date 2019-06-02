@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	class AudioFormat_WAVE : public IAudioFormat
+	class AudioFormat_OggVorbis : public IAudioFormat
 	{
 	public:
 
@@ -29,6 +29,6 @@ namespace s3d
 
 		Wave decode(IReader& reader) const override;
 
-		bool encode(const Wave& wave, IWriter& writer, WAVEFormat format) const;
+		bool encode(const Wave& wave, int32 quality, IWriter& writer) const;
 	};
 }
