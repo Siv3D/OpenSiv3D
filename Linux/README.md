@@ -11,6 +11,7 @@ The dependent libraries are as follows:
 - libpng, libjpeg-turbo, giflib, libwebp
 - FreeType2, HarfBuzz
 - OpenAL
+- libogg, libvorbis
 - Boost
 - AngelScript
 - GLib2
