@@ -44,6 +44,8 @@ namespace s3d
 
 		static FileFilter AAC();
 
+		static FileFilter OggVorbis();
+
 		static FileFilter AllAudioFiles();
 
 		static FileFilter Text();

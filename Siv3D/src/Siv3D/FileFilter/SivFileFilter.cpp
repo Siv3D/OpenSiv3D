@@ -68,9 +68,14 @@ namespace s3d
 		return{ U"AAC",{ U"m4a" } };
 	}
 
+	FileFilter FileFilter::OggVorbis()
+	{
+		return{ U"Ogg Vorbis",{ U"ogg" } };
+	}
+
 	FileFilter FileFilter::AllAudioFiles()
 	{
-		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a" } };
+		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg" } };
 	}
 
 	FileFilter FileFilter::Text()

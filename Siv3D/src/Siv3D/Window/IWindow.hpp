@@ -56,7 +56,7 @@ namespace s3d
 
 		virtual void minimize() = 0;
 
-		virtual bool setFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution) = 0;
+		virtual bool setFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution, WindowResizeOption option) = 0;
 
 		virtual void* getHandle() const = 0;
 

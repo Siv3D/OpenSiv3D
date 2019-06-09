@@ -45,7 +45,7 @@ namespace s3d
 		/// </summary>
 		OggVorbis,
 
-		//opus, aac, ...
+		//opus, ...
 
 		/// <summary>
 		/// 指定しない / データと拡張子から判断
