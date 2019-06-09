@@ -18,7 +18,7 @@
 - [FeatureDetector](https://github.com/Mysticial/FeatureDetector)
 - [FastNoiseSIMD (0.7)](https://github.com/Auburns/FastNoiseSIMD)
 - [fmt (5.1.0)](https://github.com/fmtlib/fmt)
-- [Font Awesome (5.7.2)](https://fontawesome.com/)
+- [Font Awesome (5.9.0)](https://fontawesome.com/)
 - [FreeType (2.8.0)](https://www.freetype.org/)
 - [frontal cat face detector](https://github.com/opencv/opencv/blob/master/data/lbpcascades/lbpcascade_frontalcatface.xml)
 - [gif-h](https://github.com/ginsweater/gif-h)
