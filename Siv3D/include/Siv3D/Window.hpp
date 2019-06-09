@@ -166,7 +166,7 @@ namespace s3d
 
 		void Minimize();
 
-		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified);
+		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
 	}
 
 # if defined(SIV3D_TARGET_WINDOWS)

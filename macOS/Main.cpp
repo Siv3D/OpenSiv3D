@@ -1,43 +1,46 @@
-
-# include <Siv3D.hpp> // OpenSiv3D v0.4.0 beta
+# define SIV3D_WINDOWS_HIGH_DPI // Windows で最大解像度のフルスクリーンを実現するのに必要
+# include <Siv3D.hpp>
 
 void Main()
 {
-	// Set background color to sky blue
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	// 現在のモニタで使用可能なフルスクリーン解像度を取得
+	const Array<Size> resolutions = Graphics::GetFullscreenResolutions();
 	
-	// Create a new font
-	const Font font(60);
+	if (!resolutions)
+	{
+		throw Error(U"フルスクリーンモードを利用できません。");
+	}
 	
-	// Create a new texture that contains a cat emoji
-	const Texture cat(Emoji(U"🐈"));
+	// 選択肢を作成
+	const Array<String> options = resolutions.map(Format);
 	
-	// Coordinates of the cat
-	Vec2 catPos(640, 450);
+	// 最大のフルスクリーン解像度にする
+	size_t index = resolutions.size() - 1;
+	if (!Window::SetFullscreen(true, resolutions[index]))
+	{
+		throw Error(U"フルスクリーンモードへの切り替えに失敗しました。");
+	}
 	
 	while (System::Update())
 	{
-		// Put a message in the middle of the screen
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
-		
-		// Display the texture with animated size
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
-		
-		// Draw a translucent red circle that follows the mouse cursor
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
-		
-		// When [A] key is down
-		if (KeyA.down())
+		// 100px 四方の正方形で画面を埋める
+		for (auto p : step(Scene::Size() / 100 + Point(1, 1)))
 		{
-			// Print `Hello!`
-			Print << U"Hello!";
+			if (IsOdd(p.x + p.y))
+			{
+				Rect(p * 100, 100).draw(Palette::Seagreen);
+			}
 		}
 		
-		// When [Move the cat] button is pushed
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		Circle(Cursor::Pos(), 20).draw();
+		
+		// フルスクリーン解像度を変更する
+		if (SimpleGUI::RadioButtons(index, options, Vec2(20, 20)))
 		{
-			// Move the cat's coordinates to a random position in the screen
-			catPos = RandomVec2(Scene::Rect());
+			if (!Window::SetFullscreen(true, resolutions[index]))
+			{
+				throw Error(U"フルスクリーン解像度の切り替えに失敗しました。");
+			}
 		}
 	}
 }

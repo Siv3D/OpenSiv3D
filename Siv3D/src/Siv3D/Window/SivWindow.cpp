@@ -120,9 +120,9 @@ namespace s3d
 			Siv3DEngine::Get<ISiv3DWindow>()->minimize();
 		}
 
-		bool SetFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution)
+		bool SetFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution, const WindowResizeOption option)
 		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->setFullscreen(fullscreen, fullscreenResolution);
+			return Siv3DEngine::Get<ISiv3DWindow>()->setFullscreen(fullscreen, fullscreenResolution, option);
 		}
 	}
 
