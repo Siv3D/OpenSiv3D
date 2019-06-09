@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/DLL.hpp>
 # include <Siv3DEngine.hpp>
 # include <Profiler/IProfiler.hpp>
 # include <Graphics/IGraphics.hpp>
@@ -613,6 +614,34 @@ namespace s3d
 		if (!m_hWnd)
 		{
 			throw EngineError(U"CreateWindowExW() failed");
+		}
+
+		// Disable touch feedback visualization that causes frame rate drops
+		if (HMODULE user32 = DLL::LoadSystemLibrary(L"User32.dll"))
+		{
+			if (decltype(SetWindowFeedbackSetting) * pSetWindowFeedbackSetting = DLL::GetFunctionNoThrow(user32, "SetWindowFeedbackSetting"))
+			{
+				static constexpr std::array<FEEDBACK_TYPE, 11> feedbackTypes =
+				{
+					FEEDBACK_TOUCH_CONTACTVISUALIZATION,
+					FEEDBACK_PEN_BARRELVISUALIZATION,
+					FEEDBACK_PEN_TAP,
+					FEEDBACK_PEN_DOUBLETAP,
+					FEEDBACK_PEN_PRESSANDHOLD,
+					FEEDBACK_PEN_RIGHTTAP,
+					FEEDBACK_TOUCH_TAP,
+					FEEDBACK_TOUCH_DOUBLETAP,
+					FEEDBACK_TOUCH_PRESSANDHOLD,
+					FEEDBACK_TOUCH_RIGHTTAP,
+					FEEDBACK_GESTURE_PRESSANDTAP,
+				};
+
+				for (const auto& feedbackType : feedbackTypes)
+				{
+					BOOL val = FALSE;
+					pSetWindowFeedbackSetting(m_hWnd, feedbackType, 0, sizeof(BOOL), &val);
+				}
+			}
 		}
 	}
 
