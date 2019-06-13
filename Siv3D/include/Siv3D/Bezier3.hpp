@@ -54,9 +54,9 @@ namespace s3d
 
 		// paint, overpaint
 	
-		const Bezier3& draw(const ColorF& color = Palette::White) const;
+		const Bezier3& draw(const ColorF& color = Palette::White, uint32 quality = 24) const;
 
-		const Bezier3& draw(double thickness, const ColorF& color = Palette::White) const;
+		const Bezier3& draw(double thickness, const ColorF& color = Palette::White, uint32 quality = 24) const;
 	};
 
 	struct Bezier3Path

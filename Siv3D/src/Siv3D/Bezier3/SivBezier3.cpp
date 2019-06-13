@@ -46,14 +46,14 @@ namespace s3d
 		return pts;
 	}
 
-	const Bezier3& Bezier3::draw(const ColorF& color) const
+	const Bezier3& Bezier3::draw(const ColorF& color, const uint32 quality) const
 	{
-		return draw(1.0, color);
+		return draw(1.0, color, quality);
 	}
 
-	const Bezier3& Bezier3::draw(const double thickness, const ColorF& color) const
+	const Bezier3& Bezier3::draw(const double thickness, const ColorF& color, const uint32 quality) const
 	{
-		getLineString().draw(thickness, color);
+		getLineString(quality).draw(thickness, color);
 
 		return *this;
 	}
