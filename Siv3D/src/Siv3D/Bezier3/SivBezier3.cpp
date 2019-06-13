@@ -46,6 +46,30 @@ namespace s3d
 		return pts;
 	}
 
+	const Bezier3& Bezier3::paint(Image& dst, const Color& color) const
+	{
+		return paint(dst, 1, color);
+	}
+
+	const Bezier3& Bezier3::paint(Image& dst, const int32 thickness, const Color& color) const
+	{
+		getLineString().paint(dst, thickness, color);
+
+		return *this;
+	}
+
+	const Bezier3& Bezier3::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		return overwrite(dst, 1, color, antialiased);
+	}
+
+	const Bezier3& Bezier3::overwrite(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
+	{
+		getLineString().overwrite(dst, thickness, color, antialiased);
+
+		return *this;
+	}
+
 	const Bezier3& Bezier3::draw(const ColorF& color, const uint32 quality) const
 	{
 		return draw(1.0, color, quality);

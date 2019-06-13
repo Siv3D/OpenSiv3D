@@ -51,7 +51,15 @@ namespace s3d
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
-		// paint, overpaint
+		const Bezier2& paint(Image& dst, const Color& color) const;
+
+		const Bezier2& paint(Image& dst, int32 thickness, const Color& color) const;
+
+
+		const Bezier2& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		const Bezier2& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
 
 		const Bezier2& draw(const ColorF& color = Palette::White, uint32 quality = 24) const;
 
