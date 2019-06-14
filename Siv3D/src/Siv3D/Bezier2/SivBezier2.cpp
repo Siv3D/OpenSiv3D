@@ -45,14 +45,38 @@ namespace s3d
 		return pts;
 	}
 
-	const Bezier2& Bezier2::draw(const ColorF& color) const
+	const Bezier2& Bezier2::paint(Image& dst, const Color& color) const
 	{
-		return draw(1.0, color);
+		return paint(dst, 1, color);
 	}
 
-	const Bezier2& Bezier2::draw(const double thickness, const ColorF& color) const
+	const Bezier2& Bezier2::paint(Image& dst, const int32 thickness, const Color& color) const
 	{
-		getLineString().draw(thickness, color);
+		getLineString().paint(dst, thickness, color);
+
+		return *this;
+	}
+
+	const Bezier2& Bezier2::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		return overwrite(dst, 1, color, antialiased);
+	}
+
+	const Bezier2& Bezier2::overwrite(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
+	{
+		getLineString().overwrite(dst, thickness, color, antialiased);
+
+		return *this;
+	}
+
+	const Bezier2& Bezier2::draw(const ColorF& color, const uint32 quality) const
+	{
+		return draw(1.0, color, quality);
+	}
+
+	const Bezier2& Bezier2::draw(const double thickness, const ColorF& color, const uint32 quality) const
+	{
+		getLineString(quality).draw(thickness, color);
 
 		return *this;
 	}
