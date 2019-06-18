@@ -134,6 +134,12 @@ namespace s3d
 		[[nodiscard]] bool intersects(const Polygon& polygon) const;
 
 		template <class Shape2DType>
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
+		template <class Shape2DType>
 		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);

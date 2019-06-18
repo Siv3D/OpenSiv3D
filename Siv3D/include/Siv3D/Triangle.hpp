@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
@@ -28,14 +29,34 @@ namespace s3d
 
 		position_type p0, p1, p2;
 		
-		[[nodiscard]] position_type& p(size_t index)
+		[[nodiscard]] constexpr position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
 		
-		[[nodiscard]] const position_type& p(size_t index) const
+		[[nodiscard]] constexpr const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
+		}
+
+		[[nodiscard]] constexpr Line side(size_t index) const
+		{
+			if (index == 0)
+			{
+				return Line(p0, p1);
+			}
+			else if (index == 1)
+			{
+				return Line(p1, p2);
+			}
+			else if (index == 2)
+			{
+				return Line(p2, p0);
+			}
+			else
+			{
+				throw std::out_of_range("Triangle::side() index out of range");
+			}
 		}
 
 		Triangle() = default;
@@ -150,6 +171,12 @@ namespace s3d
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		{
+			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
