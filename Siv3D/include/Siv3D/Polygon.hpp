@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "PointVector.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
