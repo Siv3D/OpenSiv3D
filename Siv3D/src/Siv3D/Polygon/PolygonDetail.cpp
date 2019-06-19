@@ -216,6 +216,11 @@ namespace s3d
 
 	void Polygon::PolygonDetail::moveBy(const double x, const double y)
 	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
 		for (auto& point : m_polygon.outer())
 		{
 			point.moveBy(x, y);
@@ -250,6 +255,11 @@ namespace s3d
 
 	void Polygon::PolygonDetail::rotateAt(const Vec2& pos, const double angle)
 	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
 		if (!pos.isZero())
 		{
 			for (auto& point : m_polygon.outer())
@@ -343,6 +353,11 @@ namespace s3d
 
 	void Polygon::PolygonDetail::transform(const double s, const double c, const Vec2& pos)
 	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
 		for (auto& point : m_polygon.outer())
 		{
 			const double x = point.x * c - point.y * s + pos.x;
@@ -389,6 +404,11 @@ namespace s3d
 
 	void Polygon::PolygonDetail::scale(const double s)
 	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
 		for (auto& point : m_polygon.outer())
 		{
 			point *= s;
