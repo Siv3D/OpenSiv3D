@@ -17,6 +17,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
 # include <boost/geometry/strategies/strategies.hpp>
 # include <boost/geometry/algorithms/centroid.hpp>
+# include <boost/geometry/algorithms/is_valid.hpp>
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
@@ -92,9 +93,14 @@ namespace s3d
 
 	}
 
-	Polygon::PolygonDetail::PolygonDetail(const Vec2* const pOuterVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
+	Polygon::PolygonDetail::PolygonDetail(const Vec2* const pOuterVertex, const size_t vertexSize, Array<Array<Vec2>> _holes, const bool checkValidity)
 	{
 		if (vertexSize < 3)
+		{
+			return;
+		}
+
+		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
 		{
 			return;
 		}
@@ -115,9 +121,14 @@ namespace s3d
 		Triangulate(m_holes, m_polygon.outer(), m_vertices, m_indices);
 	}
 
-	Polygon::PolygonDetail::PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect)
+	Polygon::PolygonDetail::PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
 	{
 		if (vertexSize < 3)
+		{
+			return;
+		}
+
+		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
 		{
 			return;
 		}
@@ -131,9 +142,14 @@ namespace s3d
 		m_indices = indices;
 	}
 
-	Polygon::PolygonDetail::PolygonDetail(const Float2* const pOuterVertex, const size_t vertexSize, const Array<uint16>& indices)
+	Polygon::PolygonDetail::PolygonDetail(const Float2* const pOuterVertex, const size_t vertexSize, const Array<uint16>& indices, const bool checkValidity)
 	{
 		if (vertexSize < 3)
+		{
+			return;
+		}
+
+		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
 		{
 			return;
 		}
@@ -147,8 +163,13 @@ namespace s3d
 		m_indices = indices;
 	}
 
-	Polygon::PolygonDetail::PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect)
+	Polygon::PolygonDetail::PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
 	{
+		if (checkValidity && !boost::geometry::is_valid(gRing(outer.begin(), outer.end())))
+		{
+			return;
+		}
+
 		m_polygon.outer().assign(outer.begin(), outer.end());
 
 		for (const auto& hole : holes)
@@ -660,7 +681,7 @@ namespace s3d
 			holeResults.push_back(std::move(result2));
 		}
 
-		return Polygon(result, holeResults);
+		return Polygon(result, holeResults, true);
 	}
 
 	bool Polygon::PolygonDetail::append(const Polygon& polygon)
@@ -697,7 +718,7 @@ namespace s3d
 			}
 		}
 
-		*this = PolygonDetail(outer.data(), outer.size(), holes);
+		*this = PolygonDetail(outer.data(), outer.size(), holes, false);
 
 		return true;
 	}

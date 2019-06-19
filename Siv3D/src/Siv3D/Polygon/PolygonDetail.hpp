@@ -43,13 +43,13 @@ namespace s3d
 
 		PolygonDetail();
 
-		PolygonDetail(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes);
+		PolygonDetail(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes, bool checkValidity);
 
-		PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect);
+		PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect, bool checkValidity);
 
-		PolygonDetail(const Float2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices);
+		PolygonDetail(const Float2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, bool checkValidity);
 
-		PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect);
+		PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, bool checkValidity);
 
 		void copyFrom(PolygonDetail& other);
 

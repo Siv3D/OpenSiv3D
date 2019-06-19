@@ -34,32 +34,32 @@ namespace s3d
 		pImpl->moveFrom(*polygon.pImpl);
 	}
 
-	Polygon::Polygon(const Vec2* outer, const size_t size, const Array<Array<Vec2>>& holes)
-		: pImpl(std::make_unique<PolygonDetail>(outer, size, holes))
+	Polygon::Polygon(const Vec2* outer, const size_t size, const Array<Array<Vec2>>& holes, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer, size, holes, checkValidity))
 	{
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes)
-		: Polygon(outer.data(), outer.size(), holes)
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const bool checkValidity)
+		: Polygon(outer.data(), outer.size(), holes, checkValidity)
 	{
 	
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint16>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<PolygonDetail>(outer.data(), outer.size(), indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer.data(), outer.size(), indices, boundingRect, checkValidity))
 	{
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<PolygonDetail>(outer, holes, vertices, indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer, holes, vertices, indices, boundingRect, checkValidity))
 	{
 
 	}
 
 	Polygon::Polygon(const Shape2D& shape)
-		: pImpl(std::make_unique<PolygonDetail>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
+		: pImpl(std::make_unique<PolygonDetail>(shape.vertices().data(), shape.vertices().size(), shape.indices(), false))
 	{
 
 	}
