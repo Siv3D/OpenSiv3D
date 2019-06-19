@@ -88,7 +88,7 @@ namespace s3d
 
 		void minimize() override;
 
-		bool setFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution) override;
+		bool setFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution, WindowResizeOption option) override;
 
 		void* getHandle() const override;
 

@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/DLL.hpp>
 # include <Siv3DEngine.hpp>
 # include <Profiler/IProfiler.hpp>
 # include <Graphics/IGraphics.hpp>
@@ -42,8 +43,10 @@ namespace s3d
 			}
 		}
 
-		void SetFullscreen(HWND hWnd, RECT& storedWindowRect, const uint32 baseWindowStyle)
+		Size SetFullscreen(HWND hWnd, RECT& storedWindowRect, const uint32 baseWindowStyle)
 		{
+			Size result(0, 0);
+
 			::GetWindowRect(hWnd, &storedWindowRect);
 			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
@@ -55,6 +58,8 @@ namespace s3d
 				fullscreenWindowRect.top = rect->y;
 				fullscreenWindowRect.right = (rect->x + rect->w);
 				fullscreenWindowRect.bottom = (rect->y + rect->h);
+
+				result = rect->size;
 			}
 			else
 			{
@@ -68,6 +73,8 @@ namespace s3d
 					devMode.dmPosition.x + static_cast<LONG>(devMode.dmPelsWidth),
 					devMode.dmPosition.y + static_cast<LONG>(devMode.dmPelsHeight)
 				};
+
+				result.set(static_cast<int32>(devMode.dmPelsWidth), static_cast<int32>(devMode.dmPelsHeight));
 			}
 
 			::SetWindowPos(
@@ -81,6 +88,8 @@ namespace s3d
 
 			::ShowWindow(hWnd, SW_MAXIMIZE);
 			::ValidateRect(hWnd, nullptr); // disable WM_PAINT
+
+			return result;
 		}
 
 		bool CheckFullscreenSize(const Size& targetSize)
@@ -247,7 +256,7 @@ namespace s3d
 		if (m_state.fullscreen)
 		{
 			m_state.style = style;
-			setFullscreen(false, unspecified);
+			setFullscreen(false, unspecified, WindowResizeOption::KeepSceneSize);
 			return;
 		}
 
@@ -371,24 +380,35 @@ namespace s3d
 		::ShowWindow(m_hWnd, SW_MINIMIZE);
 	}
 
-	bool CWindow::setFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution)
+	bool CWindow::setFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution, const WindowResizeOption option)
 	{
 		LOG_TRACE(U"CWindow::setFullscreen({})"_fmt(fullscreen));
+
+		const auto ResizeScene = [option, scaleMode = m_scaleMode](const Size& size)
+		{
+			if ((option == WindowResizeOption::ResizeSceneSize)
+				|| ((option == WindowResizeOption::UseDefaultScaleMode) && (scaleMode == ScaleMode::ResizeFill)))
+			{
+				Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(size);
+			}
+		};
 
 		if (m_state.fullscreen == false) // 現在ウィンドウモード
 		{
 			// ウィンドウモードにする
-			if (fullscreen == false)
+			if (fullscreen == false) // 変更の必要なし
 			{
-				return false;
+				ResizeScene(m_state.clientSize);
+				return true;
 			}
 
 			// フルスクリーンモードにする		
 			if (!fullscreenResolution) // サイズ指定なし
 			{
-				detail::SetFullscreen(m_hWnd, m_storedWindowRect, getBaseWindowStyle()); // フルスクリーンモードに
+				const Size result = detail::SetFullscreen(m_hWnd, m_storedWindowRect, getBaseWindowStyle()); // フルスクリーンモードに
 				detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 				m_state.fullscreen = true;
+				ResizeScene(result);
 				return true;
 			}
 
@@ -413,6 +433,7 @@ namespace s3d
 			detail::SetFullscreen(m_hWnd, m_storedWindowRect, getBaseWindowStyle()); // フルスクリーンモードに
 			detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 			m_state.fullscreen = true;
+			ResizeScene(targetSize);
 			return true;
 		}
 		else // 現在フルスクリーン
@@ -420,14 +441,16 @@ namespace s3d
 			// ウィンドウモードにする
 			if (fullscreen == false)
 			{
+				const Size size(m_storedWindowRect.right - m_storedWindowRect.left, m_storedWindowRect.bottom - m_storedWindowRect.top);
+
 				::SetWindowLongW(m_hWnd, GWL_STYLE, getBaseWindowStyle());
 				::SetWindowPos(
 					m_hWnd,
 					HWND_NOTOPMOST,
 					m_storedWindowRect.left,
 					m_storedWindowRect.top,
-					(m_storedWindowRect.right - m_storedWindowRect.left),
-					(m_storedWindowRect.bottom - m_storedWindowRect.top),
+					size.x,
+					size.y,
 					SWP_FRAMECHANGED | SWP_NOACTIVATE);
 
 				::ShowWindow(m_hWnd, SW_NORMAL);
@@ -441,12 +464,14 @@ namespace s3d
 
 				detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 				m_state.fullscreen = false;
+				ResizeScene(size);
 				return true;
 			}
 
 			// フルスクリーンモードにする		
 			if (!fullscreenResolution) // サイズ指定なし
 			{
+				ResizeScene(m_state.clientSize);
 				return true; // 何も更新しない
 			}
 
@@ -465,6 +490,7 @@ namespace s3d
 			}
 
 			detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
+			ResizeScene(targetSize);
 			return true;
 		}
 	}
@@ -589,6 +615,34 @@ namespace s3d
 		{
 			throw EngineError(U"CreateWindowExW() failed");
 		}
+
+		// Disable touch feedback visualization that causes frame rate drops
+		if (HMODULE user32 = DLL::LoadSystemLibrary(L"User32.dll"))
+		{
+			if (decltype(SetWindowFeedbackSetting) * pSetWindowFeedbackSetting = DLL::GetFunctionNoThrow(user32, "SetWindowFeedbackSetting"))
+			{
+				static constexpr std::array<FEEDBACK_TYPE, 11> feedbackTypes =
+				{
+					FEEDBACK_TOUCH_CONTACTVISUALIZATION,
+					FEEDBACK_PEN_BARRELVISUALIZATION,
+					FEEDBACK_PEN_TAP,
+					FEEDBACK_PEN_DOUBLETAP,
+					FEEDBACK_PEN_PRESSANDHOLD,
+					FEEDBACK_PEN_RIGHTTAP,
+					FEEDBACK_TOUCH_TAP,
+					FEEDBACK_TOUCH_DOUBLETAP,
+					FEEDBACK_TOUCH_PRESSANDHOLD,
+					FEEDBACK_TOUCH_RIGHTTAP,
+					FEEDBACK_GESTURE_PRESSANDTAP,
+				};
+
+				for (const auto& feedbackType : feedbackTypes)
+				{
+					BOOL val = FALSE;
+					pSetWindowFeedbackSetting(m_hWnd, feedbackType, 0, sizeof(BOOL), &val);
+				}
+			}
+		}
 	}
 
 	void CWindow::doResizeBackBuffer()
@@ -616,7 +670,7 @@ namespace s3d
 
 		LOG_TRACE(U"CWindow::doToggleFullscreen()");
 
-		setFullscreen(!m_state.fullscreen, unspecified);
+		setFullscreen(!m_state.fullscreen, unspecified, WindowResizeOption::KeepSceneSize);
 		
 		m_toggleFullscreenRequest	= false;
 	}

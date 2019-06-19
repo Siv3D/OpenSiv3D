@@ -1560,6 +1560,37 @@ namespace s3d
 			return results;
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b)
+		{
+			if (Geometry2D::Intersect(a.begin, b) && Geometry2D::Intersect(a.end, b))
+			{
+				return Optional<Array<Vec2>>();
+			}
+
+			bool hasIntersection = false;
+			Array<Vec2> results;
+
+			for (size_t i = 0; i < 3; ++i)
+			{
+				if (const auto point = b.side(i).intersectsAt(a))
+				{
+					hasIntersection = true;
+
+					if (IsFinite(point->x))
+					{
+						results << point.value();
+					}
+				}
+			}
+
+			if (!hasIntersection)
+			{
+				return none;
+			}
+
+			return results;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Bezier2 IntersectAt
@@ -1927,6 +1958,15 @@ namespace s3d
 		}
 
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Triangle IntersectAt
+		//
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b)
 		{
 			return IntersectAt(b, a);
 		}
