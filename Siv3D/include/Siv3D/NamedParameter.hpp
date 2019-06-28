@@ -98,9 +98,9 @@ namespace s3d
 		}
 
 		template <class... Args>
-		constexpr NamedParameter<Tag, std::tuple<Args...>> operator()(const Args&... args) const
+		constexpr NamedParameter<Tag, std::tuple<std::decay_t<Args >...>> operator() (Args&&... args) const
 		{
-			return NamedParameter<Tag, std::tuple<Args...>>(std::make_tuple(args...));
+			return NamedParameter<Tag, std::tuple<std::decay_t<Args >...>>(std::make_tuple(std::forward<Args>(args)...));
 		}
 
 		template <class Type>

@@ -36,13 +36,13 @@ namespace s3d
 
 		Polygon(Polygon&& polygon);
 
-		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {});
+		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
-		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {});
+		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
-		Polygon(const Array<Vec2>& outer, const Array<IndexType>& indices, const RectF& boundingRect);
+		Polygon(const Array<Vec2>& outer, const Array<IndexType>& indices, const RectF& boundingRect, bool checkValidity = false);
 
-		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<IndexType>& indices, const RectF& boundingRect);
+		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<IndexType>& indices, const RectF& boundingRect, bool checkValidity = false);
 
 		Polygon(const Shape2D& shape);
 

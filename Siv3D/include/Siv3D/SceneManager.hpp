@@ -689,7 +689,6 @@ namespace s3d
 /* example
 
 # include <Siv3D.hpp>
-# include <HamFramework.hpp>
 
 struct GameData
 {
