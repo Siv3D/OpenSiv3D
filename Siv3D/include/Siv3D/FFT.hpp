@@ -108,10 +108,13 @@ namespace s3d
 		/// <param name="sampleLength">
 		/// FFT サンプル数
 		/// </param>
+		/// <param name="offsetTimeSec">
+		/// 解析位置のオフセット（秒）
+		/// </param>
 		/// <returns>
 		/// FFT の結果
 		/// </returns>
-		void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTime = -Scene::DeltaTime());
+		void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTimeSec = Scene::DeltaTime());
 
 		/// <summary>
 		/// FFT を実行します。

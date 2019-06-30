@@ -11,7 +11,7 @@
 
 # include <Siv3DEngine.hpp>
 # include <Siv3D/FFT.hpp>
-//# include <Siv3D/Audio.hpp>
+# include <Siv3D/Audio.hpp>
 # include "IFFT.hpp"
 
 namespace s3d
@@ -23,14 +23,14 @@ namespace s3d
 
 	namespace FFT
 	{
-		//void Analyze(FFTResult& result, const Audio& audio, const FFTSampleLength sampleLength, double offsetTime)
-		//{
-		//	const int32 samples = 256 << static_cast<int32>(sampleLength);
+		void Analyze(FFTResult& result, const Audio& audio, const FFTSampleLength sampleLength, const double offsetTimeSec)
+		{
+			const int32 samples = 256 << static_cast<int32>(sampleLength);
 
-		//	const int32 offset = static_cast<int32>(audio.samplingRate() * offsetTime);
+			const int32 offset = static_cast<int32>(audio.samplingRate() * offsetTimeSec);
 
-		//	Analyze(result, audio.getWave(), Max(static_cast<int32>(audio.posSample()) + samples / 2 + offset, 0), sampleLength);
-		//}
+			Analyze(result, audio.getWave(), Max(static_cast<int32>(audio.posSample()) + samples / 2 + offset, 0), sampleLength);
+		}
 
 		void Analyze(FFTResult& result, const Wave& wave, const uint32 pos, const FFTSampleLength sampleLength)
 		{
