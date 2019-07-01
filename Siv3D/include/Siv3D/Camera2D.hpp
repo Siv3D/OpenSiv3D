@@ -94,6 +94,10 @@ namespace s3d
 		Camera2DParameters();
 
 		~Camera2DParameters();
+
+		static Camera2DParameters Default();
+
+		static Camera2DParameters MouseOnly();
 	};
 
 	class Camera2D : public BasicCamera2D
@@ -121,9 +125,9 @@ namespace s3d
 
 		Camera2D() = default;
 
-		explicit Camera2D(double scale, const Camera2DParameters& setting = Camera2DParameters()) noexcept;
+		explicit Camera2D(double scale, const Camera2DParameters& setting = Camera2DParameters::Default()) noexcept;
 
-		Camera2D(const Vec2& center, double scale = 1.0, const Camera2DParameters& setting = Camera2DParameters()) noexcept;
+		Camera2D(const Vec2& center, double scale = 1.0, const Camera2DParameters& setting = Camera2DParameters::Default()) noexcept;
 
 		~Camera2D() = default;
 
