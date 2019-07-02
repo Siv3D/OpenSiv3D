@@ -11,7 +11,7 @@
 
 # pragma once
 # include "Platform.hpp"
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 extern "C"
 {

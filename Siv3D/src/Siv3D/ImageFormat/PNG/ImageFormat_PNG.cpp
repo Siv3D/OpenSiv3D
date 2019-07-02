@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(LINUX)
 # include <png.h>
 # else
 # include <libpng/png.h>

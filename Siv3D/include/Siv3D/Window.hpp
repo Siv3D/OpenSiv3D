@@ -169,7 +169,7 @@ namespace s3d
 		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
 	}
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::Window
 	{

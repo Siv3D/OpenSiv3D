@@ -11,7 +11,7 @@
 
 # pragma once
 # include "Platform.hpp"
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 #	pragma comment (linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #	pragma comment (lib, "Dwmapi")

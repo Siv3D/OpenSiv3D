@@ -24,7 +24,7 @@
 # include <Siv3D/DynamicTexture.hpp>
 # include "FontFace.hpp"
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 # include <Siv3D/Windows.hpp>
 
@@ -106,7 +106,7 @@ namespace s3d
 
 		using CommonGlyphIndex = uint32;
 
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS)
 
 		FontResourceHolder m_resource;
 

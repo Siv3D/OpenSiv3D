@@ -232,7 +232,7 @@ namespace s3d
 		const String textTail = m_text.substr(m_cursorIndex, String::npos);
 		const String editingText = TextInput::GetEditingText();
 
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS)
 	
 		const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
 		const bool hasEditingTarget = (editingTargetlength > 0);
@@ -285,7 +285,7 @@ namespace s3d
 			pos.x += glyph.xAdvance;
 		}
 
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS)
 
 		Platform::Windows::TextInput::DrawCandidateWindow(m_font, Vec2(begX + candidateWindowPosOffset.x * hasEditingTarget, pos.y + fontHeight + candidateWindowPosOffset.y));
 

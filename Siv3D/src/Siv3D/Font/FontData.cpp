@@ -99,7 +99,7 @@ namespace s3d
 			return;
 		}
 
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS)
 
 		if (FileSystem::IsResource(filePath))
 		{
