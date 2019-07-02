@@ -655,7 +655,15 @@ public:
         lhs.swap(rhs);
     }
 
+	bool contains(const Key& key) const
+	{
+		return find(key) != end();
+	}
 
+	bool contains(const Key& key, std::size_t precalculated_hash) const
+	{
+		return find(key, precalculated_hash) != end();
+	}
     
 private:
     ht m_ht;
