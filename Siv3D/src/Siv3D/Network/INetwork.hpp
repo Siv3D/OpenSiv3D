@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {
@@ -25,5 +26,7 @@ namespace s3d
 		virtual void init() = 0;
 
 		virtual Optional<IPv4> getMachineIP() const = 0;
+
+		virtual Array<IPv4> getMachineIPs() const = 0;
 	};
 }
