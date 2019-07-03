@@ -102,7 +102,7 @@ namespace s3d
 		}
 	}
 	
-	bool Texture_GL::fill(const ColorF& color, bool wait)
+	bool Texture_GL::fill(const ColorF& color, bool)
 	{
 		if (!m_isDynamic)
 		{
@@ -118,7 +118,28 @@ namespace s3d
 		return true;
 	}
 	
-	bool Texture_GL::fill(const void* src, uint32 stride, bool wait)
+	bool Texture_GL::fillRegion(const ColorF& color, const Rect& rect)
+	{
+		if (!m_isDynamic)
+		{
+			return false;
+		}
+		
+		if ((rect.x + rect.w) > m_size.x || (rect.y + rect.h) > m_size.y)
+		{
+			return false;
+		}
+		
+		Image image(rect.size, color);
+		
+		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		
+		::glTexSubImage2D(GL_TEXTURE_2D, 0, rect.x, rect.y, rect.w, rect.h, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+		
+		return true;
+	}
+	
+	bool Texture_GL::fill(const void* src, const uint32 stride, bool)
 	{
 		if (!m_isDynamic)
 		{
@@ -128,6 +149,39 @@ namespace s3d
 		::glBindTexture(GL_TEXTURE_2D, m_texture);
 		
 		::glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, src);
+		
+		return true;
+	}
+	
+	bool Texture_GL::fillRegion(const void* src, const uint32 stride, const Rect& rect, bool wait)
+	{
+		if (!m_isDynamic)
+		{
+			return false;
+		}
+		
+		Array<uint32> newData(rect.w * rect.h);
+		
+		if (newData.isEmpty())
+		{
+			return true;
+		}
+		
+		uint32* pDst = newData.data();
+
+		for (int32 y = rect.y; y < rect.y + rect.h; ++y)
+		{
+			const uint32* line = static_cast<const uint32*>(src) + (stride/sizeof(uint32)) * y;
+			
+			for (int32 x = rect.x; x < rect.x + rect.w; ++x)
+			{
+				*pDst++ = line[x];
+			}
+		}
+		
+		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		
+		::glTexSubImage2D(GL_TEXTURE_2D, 0, rect.x, rect.y, rect.w, rect.h, GL_RGBA, GL_UNSIGNED_BYTE, newData.data());
 		
 		return true;
 	}

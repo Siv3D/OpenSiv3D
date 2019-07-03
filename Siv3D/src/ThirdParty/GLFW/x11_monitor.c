@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <limits.h>
@@ -90,6 +101,94 @@ static GLFWvidmode vidmodeFromModeInfo(const XRRModeInfo* mi,
 
     return mode;
 }
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+# include <assert.h>
+# include <X11/extensions/render.h>
+
+GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos, int* w, int* h)
+{
+	_GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+	assert(monitor != NULL);
+
+	_GLFW_REQUIRE_INIT();
+
+	XRRScreenResources* sr = NULL;
+	XRRCrtcInfo* ci = NULL;
+
+	sr = XRRGetScreenResourcesCurrent(_glfw.x11.display, _glfw.x11.root);
+	ci = XRRGetCrtcInfo(_glfw.x11.display, sr, monitor->x11.crtc);
+
+	if (xpos)
+		*xpos = (int)ci->x;
+	if (ypos)
+		*ypos = (int)ci->y;
+	if (w)
+		*w = (int)ci->width;
+	if (h)
+		*h = (int)ci->height;
+
+	XRRFreeCrtcInfo(ci);
+	XRRFreeScreenResources(sr);
+}
+
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
+									  int* xpos, int* ypos, int* w, int* h,
+									  int* wx, int* wy, int* ww, int* wh)
+{
+	_GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+	assert(monitor != NULL);
+
+	_GLFW_REQUIRE_INIT();
+
+	XRRScreenResources* sr = NULL;
+	XRRCrtcInfo* ci = NULL;
+
+	sr = XRRGetScreenResourcesCurrent(_glfw.x11.display, _glfw.x11.root);
+	ci = XRRGetCrtcInfo(_glfw.x11.display, sr, monitor->x11.crtc);
+
+	if (displayID)
+		*displayID = monitor->x11.crtc;
+
+	if (name)
+	{
+		XRROutputInfo* oi = NULL;
+		oi = XRRGetOutputInfo(_glfw.x11.display, sr, monitor->x11.output);
+		int nameLen = oi->nameLen;
+		*name = (char*)malloc(sizeof(char) * (nameLen + 1)); //caller must free this memory.
+		for (int i = 0; i < nameLen; ++i)
+		{
+			(*name)[i] = oi->name[i];
+		}
+		(*name)[nameLen] = '\0';
+		XRRFreeOutputInfo(oi);
+	}
+
+	if (xpos)
+		*xpos = (int)ci->x;
+	if (ypos)
+		*ypos = (int)ci->y;
+	if (w)
+		*w = (int)ci->width;
+	if (h)
+		*h = (int)ci->height;
+	if (wx)
+		*xpos = (int)ci->x;
+	if (wy)
+		*ypos = (int)ci->y;
+	if (ww)
+		*w = (int)ci->width;
+	if (wh)
+		*h = (int)ci->height;
+
+	XRRFreeCrtcInfo(ci);
+	XRRFreeScreenResources(sr);
+}
+//
+//-----------------------------------------------
 
 
 //////////////////////////////////////////////////////////////////////////

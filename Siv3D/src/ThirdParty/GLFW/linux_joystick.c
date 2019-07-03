@@ -432,3 +432,72 @@ void _glfwPlatformUpdateGamepadGUID(char* guid)
 {
 }
 
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+//
+
+GLFWAPI const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version)
+{
+	_GLFWjoystick* js = _glfw.joysticks + joy;
+	_GLFWjoystickLinux* linjs = &js->linjs;
+
+	if(!_glfwPlatformPollJoystick(js, 0))
+		return NULL;
+
+	struct udev* udev = udev_new();
+	if (udev)
+	{
+		char* path = strdup(linjs->path);
+		char* sysname = basename(path);
+
+		struct udev_device* dev = udev_device_new_from_subsystem_sysname(udev, "input", sysname);
+		struct udev_device* hid_dev = udev_device_get_parent_with_subsystem_devtype(dev, "hid", NULL);
+
+		const char* uevent_str = udev_device_get_sysattr_value(hid_dev, "uevent");
+		if (uevent_str)
+		{
+			char *temp = strdup(uevent_str);
+			char *saveptr, *line, *key, *value;
+			for(line = strtok_r(temp, "\n", &saveptr); line != NULL; line = strtok_r(NULL, "\n", &saveptr))
+			{
+				key = line;
+				value = strchr(line, '=');
+				if (value)
+				{
+					*value = '\0';
+					value++;
+
+					if (strcmp(key, "HID_ID") == 0)
+					{
+						int bus_type;
+						sscanf(value, "%x:%x:%x", &bus_type, vendorID, productID);
+						break;
+					}
+				}
+			}
+			free(temp);
+		}
+		udev_device_unref(hid_dev);
+		udev_device_unref(dev);
+		free(path);
+	}
+	else
+	{
+		if (vendorID) *vendorID = 0;
+		if (productID) *productID = 0;
+	}
+	udev_unref(udev);
+
+	//driver version
+	if (version)
+	{
+		*version = js->version;
+	}
+
+	return js->name;
+}
+
+//
+//-----------------------------------------------

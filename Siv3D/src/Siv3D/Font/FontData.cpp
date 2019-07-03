@@ -364,7 +364,7 @@ namespace s3d
 
 		detail::OutLineData outlineData;
 		FT_Outline_Decompose(&m_faceText.face->glyph->outline, &funcs, &outlineData);
-		outlineGlyph.contourPaths = outlineData.contourPaths;
+		outlineGlyph.contourPaths = std::move(outlineData.contourPaths);
 
 		for (auto& contourPath : outlineGlyph.contourPaths)
 		{

@@ -90,7 +90,7 @@ namespace s3d
 		
 		if (!m_window)
 		{
-			throw EngineError(U"glfwCreateWindow() failed");
+			throw EngineError(U"glfwCreateWindow() failed. [OpenGL 4.1 is not supported]");
 		}
 		
 		::glfwSetWindowSizeLimits(m_window, m_state.minimumSize.x, m_state.minimumSize.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
@@ -173,6 +173,11 @@ namespace s3d
 		float xScale, yScale;
 		::glfwGetWindowContentScale(m_window, &xScale, &yScale);
 		m_state.contentScale = std::max(xScale, yScale);
+
+		if ((m_scaleMode == ScaleMode::ResizeFill) && (m_state.bounds.size != Siv3DEngine::Get<ISiv3DGraphics>()->getSceneSize()))
+		{
+			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(m_state.bounds.size);
+		}
 	}
 
 	void CWindow::setWindowTitle(const String& title)
@@ -225,7 +230,7 @@ namespace s3d
 		if (m_state.fullscreen)
 		{
 			m_state.style = style;
-			setFullscreen(false, unspecified);
+			setFullscreen(false, unspecified, WindowResizeOption::KeepSceneSize);
 			return;
 		}
 
@@ -292,6 +297,8 @@ namespace s3d
 
 		::glfwSetWindowSize(m_window, newSize.x, newSize.y);
 
+		Siv3DEngine::Get<ISiv3DGraphics>()->clear();
+
 		if (centering)
 		{
 			if (const auto monitors = System::EnumerateActiveMonitors())
@@ -328,15 +335,25 @@ namespace s3d
 		::glfwIconifyWindow(m_window);
 	}
 
-	bool CWindow::setFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution)
+	bool CWindow::setFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution, WindowResizeOption option)
 	{
 		LOG_TRACE(U"CWindow::setFullscreen({})"_fmt(fullscreen));
+
+		const auto ResizeScene = [option, scaleMode = m_scaleMode](const Size& size)
+		{
+			if ((option == WindowResizeOption::ResizeSceneSize)
+				|| ((option == WindowResizeOption::UseDefaultScaleMode) && (scaleMode == ScaleMode::ResizeFill)))
+			{
+				Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(size);
+			}
+		};
 		
 		if (!m_state.fullscreen) // Windowed
 		{
 			if (!fullscreen) // to Windowed
 			{
-				return false;
+				ResizeScene(m_state.clientSize);
+				return true;
 			}
 			
 			if (!fullscreenResolution)
@@ -347,6 +364,7 @@ namespace s3d
 				m_storedWindowRect = m_state.bounds;
 				detail::SetFullscreen(m_window, size);
 				m_state.fullscreen = true;
+				ResizeScene(size);
 				return true;
 			}
 			
@@ -360,6 +378,7 @@ namespace s3d
 			m_storedWindowRect = m_state.bounds;
 			detail::SetFullscreen(m_window, targetSize);
 			m_state.fullscreen = true;
+			ResizeScene(targetSize);
 			return true;
 		}
 		else // Fullscreen
@@ -369,11 +388,13 @@ namespace s3d
 				::glfwSetWindowMonitor(m_window, nullptr, m_storedWindowRect.x, m_storedWindowRect.y,
 									   m_storedWindowRect.w, m_storedWindowRect.h, GLFW_DONT_CARE);
 				m_state.fullscreen = false;
+				ResizeScene(Size(m_storedWindowRect.w, m_storedWindowRect.h));
 				return true;
 			}
 			
 			if (!fullscreenResolution)
 			{
+				ResizeScene(m_state.clientSize);
 				return true;
 			}
 			
@@ -385,7 +406,7 @@ namespace s3d
 			}
 			
 			detail::SetFullscreen(m_window, targetSize);
-			
+			ResizeScene(targetSize);
 			return true;
 		}
 	}
@@ -451,7 +472,7 @@ namespace s3d
 
 		LOG_TRACE(U"CWindow::doToggleFullscreen()");
 
-		setFullscreen(!m_state.fullscreen, unspecified);
+		setFullscreen(!m_state.fullscreen, unspecified, WindowResizeOption::KeepSceneSize);
 		
 		m_toggleFullscreenRequest	= false;
 	}

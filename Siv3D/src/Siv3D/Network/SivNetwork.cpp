@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -20,6 +20,11 @@ namespace s3d
 		Optional<IPv4> GetPrivateIPv4()
 		{
 			return Siv3DEngine::Get<ISiv3DNetwork>()->getMachineIP();
+		}
+
+		Array<IPv4> GetPrivateIPv4s()
+		{
+			return Siv3DEngine::Get<ISiv3DNetwork>()->getMachineIPs();
 		}
 	}
 }

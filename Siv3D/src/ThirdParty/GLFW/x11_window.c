@@ -25,7 +25,31 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+#include <stdbool.h>
+
+void s3d_DraggingEntered(bool isFilePath);
+void s3d_DraggingUpdated(void);
+void s3d_DraggingExited(void);
+void s3d_DataDropped(const char* text);
+//
+//-----------------------------------------------
 
 #include <X11/cursorfont.h>
 #include <X11/Xmd.h>
@@ -1584,12 +1608,18 @@ static void processEvent(XEvent *event)
                                &reply);
                 }
             }
+			//-----------------------------------------------
+			//
+			//  [Siv3D]
+			//
             else if (event->xclient.message_type == _glfw.x11.XdndEnter)
             {
                 // A drag operation has entered the window
                 unsigned long i, count;
                 Atom* formats = NULL;
                 const GLFWbool list = event->xclient.data.l[1] & 1;
+
+				bool isFilePath = false;
 
                 _glfw.x11.xdnd.source  = event->xclient.data.l[0];
                 _glfw.x11.xdnd.version = event->xclient.data.l[1] >> 24;
@@ -1616,12 +1646,21 @@ static void processEvent(XEvent *event)
                     if (formats[i] == _glfw.x11.text_uri_list)
                     {
                         _glfw.x11.xdnd.format = _glfw.x11.text_uri_list;
+						isFilePath = true;
+                        break;
+                    }
+                    else if (formats[i] == _glfw.x11.text_plain)
+                    {
+                        _glfw.x11.xdnd.format = _glfw.x11.text_plain;
+						isFilePath = false;
                         break;
                     }
                 }
 
                 if (list && formats)
                     XFree(formats);
+
+				s3d_DraggingEntered(isFilePath);
             }
             else if (event->xclient.message_type == _glfw.x11.XdndDrop)
             {
@@ -1704,11 +1743,23 @@ static void processEvent(XEvent *event)
                 XSendEvent(_glfw.x11.display, _glfw.x11.xdnd.source,
                            False, NoEventMask, &reply);
                 XFlush(_glfw.x11.display);
+
+				s3d_DraggingUpdated();
             }
+			else if(event->xclient.message_type == _glfw.x11.XdndLeave)
+			{
+				s3d_DraggingExited();
+			}
+			//
+			//-----------------------------------------------
 
             return;
         }
 
+		//-----------------------------------------------
+		//
+		//  [Siv3D]
+		//
         case SelectionNotify:
         {
             if (event->xselection.property == _glfw.x11.XdndSelection)
@@ -1720,6 +1771,8 @@ static void processEvent(XEvent *event)
                                               event->xselection.property,
                                               event->xselection.target,
                                               (unsigned char**) &data);
+
+				s3d_DataDropped(data);
 
                 if (result)
                 {
@@ -1757,6 +1810,8 @@ static void processEvent(XEvent *event)
 
             return;
         }
+		//
+		//-----------------------------------------------
 
         case FocusIn:
         {
@@ -2765,6 +2820,24 @@ void _glfwPlatformGetCursorPos(_GLFWwindow* window, double* xpos, double* ypos)
     if (ypos)
         *ypos = childY;
 }
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+void siv3dGetRootCursorPos(_GLFWwindow* window, double* root_x, double* root_y)
+{
+	Window root, win;
+	int wx, wy, rx, ry;
+	unsigned int mask;
+
+	XQueryPointer(_glfw.x11.display, window->x11.handle, &root, &win, &rx, &ry, &wx, &wy, &mask);
+
+	if (root_x) *root_x = ry;
+	if (root_y) *root_y = ry;
+}
+//
+//-----------------------------------------------
 
 void _glfwPlatformSetCursorPos(_GLFWwindow* window, double x, double y)
 {

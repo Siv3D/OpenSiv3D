@@ -19,7 +19,7 @@ namespace s3d
 	{
 		static Array<FilePath> GetResourceFilePaths()
 		{
-			const FilePath resourcePath = FileSystem::ModulePath() + U"/Contents/Resources/";
+			const FilePath resourcePath = FileSystem::ModulePath() + U"/resources/";
 			
 			Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, true);
 			
@@ -47,7 +47,7 @@ namespace s3d
 			return path;
 		}
 		
-		const FilePath resourcePath = FileSystem::ModulePath() + U"/Contents/Resources/";
+		const FilePath resourcePath = FileSystem::ModulePath() + U"/resources/";
 		
 		return resourcePath + path;
 	}

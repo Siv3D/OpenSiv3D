@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/TextReader.hpp>
 # include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CShader_GL.hpp"
@@ -60,33 +61,87 @@ namespace s3d
 		return true;
 	}
 	
-	VertexShaderID CShader_GL::createVS(ByteArray&& binary)
+	VertexShaderID CShader_GL::createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints)
 	{
-		// [Siv3D ToDo]
-		return VertexShaderID::NullAsset();
+		TextReader reader(std::move(binary));
+		
+		if (!reader)
+		{
+			return VertexShaderID::NullAsset();
+		}
+		
+		return createVSFromSource(reader.readAll(), bindingPoints);
 	}
 	
 	VertexShaderID CShader_GL::createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
 	{
-		// [Siv3D ToDo]
-		return VertexShaderID::NullAsset();
+		TextReader reader(path);
+		
+		if (!reader)
+		{
+			return VertexShaderID::NullAsset();
+		}
+		
+		return createVSFromSource(reader.readAll(), bindingPoints);
 	}
 	
-	//VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&) override
-	
-	PixelShaderID CShader_GL::createPS(ByteArray&& binary)
+	VertexShaderID CShader_GL::createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
 	{
-		// [Siv3D ToDo]
-		return PixelShaderID::NullAsset();
+		auto vertexShader = std::make_unique<VertexShader_GL>(source);
+		
+		if (!vertexShader->isInitialized())
+		{
+			return VertexShaderID::NullAsset();
+		}
+		
+		for (const auto& bindingPoint : bindingPoints)
+		{
+			vertexShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
+		}
+		
+		return m_vertexShaders.add(std::move(vertexShader));
+	}
+	
+	PixelShaderID CShader_GL::createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints)
+	{
+		TextReader reader(std::move(binary));
+		
+		if (!reader)
+		{
+			return PixelShaderID::NullAsset();
+		}
+		
+		return createPSFromSource(reader.readAll(), bindingPoints);
 	}
 
 	PixelShaderID CShader_GL::createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
 	{
-		// [Siv3D ToDo]
-		return PixelShaderID::NullAsset();
+		TextReader reader(path);
+		
+		if (!reader)
+		{
+			return PixelShaderID::NullAsset();
+		}
+		
+		return createPSFromSource(reader.readAll(), bindingPoints);
 	}
 	
-	//PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+	PixelShaderID CShader_GL::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
+	{
+		auto pixelShader = std::make_unique<PixelShader_GL>(source);
+		
+		if (!pixelShader->isInitialized())
+		{
+			return PixelShaderID::NullAsset();
+		}
+		
+		for (const auto& bindingPoint : bindingPoints)
+		{
+			pixelShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
+		}
+		
+		return m_pixelShaders.add(std::move(pixelShader));
+	}
 	
 	void CShader_GL::release(const VertexShaderID handleID)
 	{
@@ -109,14 +164,19 @@ namespace s3d
 		// [Siv3D ToDo]
 		return ByteArrayView();
 	}
-	
-	void CShader_GL::setVS(const VertexShaderID handleID)
+
+	GLuint CShader_GL::getVSProgram(const VertexShaderID handleID)
 	{
-		
+		return m_vertexShaders[handleID]->getProgram();
 	}
 	
-	void CShader_GL::setPS(const PixelShaderID handleID)
+	GLuint CShader_GL::getPSProgram(const PixelShaderID handleID)
 	{
-		
+		return m_pixelShaders[handleID]->getProgram();
+	}
+	
+	void CShader_GL::setPSSamplerUniform(const PixelShaderID handleID)
+	{
+		m_pixelShaders[handleID]->setPSSamplerUniform();
 	}
 }

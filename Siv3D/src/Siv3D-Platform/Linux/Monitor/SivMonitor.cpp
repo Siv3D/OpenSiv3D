@@ -16,7 +16,7 @@
 
 extern"C"
 {
-	GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, uint32_t* unitNumber,
+	GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
 										  int* xpos, int* ypos, int* w, int* h,
 										  int* wx, int* wy, int* ww, int* wh);
 }
@@ -28,25 +28,26 @@ namespace s3d
 		Array<Monitor> EnumerateActiveMonitors()
 		{
 			Array<Monitor> results;
-			
+
 			int32 numMonitors;
 			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
-			
+
 			for (int32 i = 0; i < numMonitors; ++i)
 			{
 				GLFWmonitor* monitor = monitors[i];
-				
+
 				Monitor result;
 				result.name = Unicode::Widen(::glfwGetMonitorName(monitor));
-				
-				uint32 displayID, unitNumber;
+
+				uint32 displayID;
 				int32 xPos, yPos, width, height;
 				int32 wx, wy, ww, wh;
-				glfwGetMonitorInfo_Siv3D(monitor, &displayID, &unitNumber,
+				char* name = nullptr;
+				glfwGetMonitorInfo_Siv3D(monitor, &displayID, &name,
 										 &xPos, &yPos, &width, &height,
 										 &wx, &wy, &ww, &wh);
 				result.id = Format(displayID);
-				result.displayDeviceName = Format(unitNumber);
+				result.displayDeviceName = Unicode::Widen(name);
 				result.displayRect.x = xPos;
 				result.displayRect.y = yPos;
 				result.displayRect.w = width;
@@ -56,13 +57,15 @@ namespace s3d
 				result.workArea.w = ww;
 				result.workArea.h = wh;
 				result.isPrimary = (i == 0);
-				
+
 				results.push_back(result);
+
+				free(name); //free monitor name buffer.
 			}
-			
+
 			return results;
 		}
-		
+
 		size_t GetCurrentMonitorIndex()
 		{
 			const auto& state = Window::GetState();

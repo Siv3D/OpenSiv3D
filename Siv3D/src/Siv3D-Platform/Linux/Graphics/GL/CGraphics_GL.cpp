@@ -27,6 +27,25 @@
 
 namespace s3d
 {
+	static void GLDebugMessageARB(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const GLvoid* userParam)
+	{
+		// [Siv3D ToDo] Linux でのデバッグ用
+	}
+	
+	static void GLDebugMessageAMD(GLuint id, GLuint category, GLenum severity, GLsizei length, const GLchar *message, GLvoid* userParam)
+	{
+		// [Siv3D ToDo] Linux でのデバッグ用
+	}
+	
+	static void CheckGLError()
+	{
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			LOG_ERROR(U"OpenGL Error: 0x{}"_fmt(ToHex(err)));
+		}
+	}
+	
 	CGraphics_GL::CGraphics_GL()
 	{
 
@@ -49,8 +68,26 @@ namespace s3d
 			throw EngineError(U"glefInit() failed");
 		}
 		
-		clear();
+		if (Platform::DebugBuild && GLEW_ARB_debug_output)
+		{
+			::glDebugMessageCallbackARB(GLDebugMessageARB, nullptr);
+			LOG_INFO(U"ℹ️ GLEW_ARB_debug_output available");
+		}
+		else if (Platform::DebugBuild && GLEW_AMD_debug_output)
+		{
+			::glDebugMessageCallbackAMD(GLDebugMessageAMD, nullptr);
+			LOG_INFO(U"ℹ️ GLEW_AMD_debug_output available");
+		}
 		
+		::glfwGetFramebufferSize(m_window, &m_frameBufferSize.x, &m_frameBufferSize.y);
+		
+		if (!m_sceneTexture.init())
+		{
+			throw EngineError(U"SceneTexture::init() failed");
+		}
+		
+		clear();
+
 		if (CShader_GL* shader = dynamic_cast<CShader_GL*>(Siv3DEngine::Get<ISiv3DShader>()))
 		{
 			shader->init();
@@ -68,6 +105,10 @@ namespace s3d
 		{
 			throw EngineError(U"dynamic_cast<CTexture_GL*> failed");
 		}
+		
+		m_pBlendState = std::make_unique<GLBlendState>();
+		m_pRasterizerState = std::make_unique<GLRasterizerState>();
+		m_pSamplerState = std::make_unique<GLSamplerState>();
 
 		if (CRenderer2D_GL * renderer2D = dynamic_cast<CRenderer2D_GL*>(Siv3DEngine::Get<ISiv3DRenderer2D>()))
 		{
@@ -115,35 +156,73 @@ namespace s3d
 			m_lastFlipTimeMillisec = countMillisec;
 		}
 		
+		if (m_sceneTexture.hasCaptureRequest())
+		{
+			m_sceneTexture.capture();
+		}
+		
+		if constexpr (Platform::DebugBuild)
+		{
+			CheckGLError();
+		}
+		
 		return true;
 	}
 
 	void CGraphics_GL::clear()
 	{
-		::glClearColor(
-					   static_cast<float>(m_clearColor.r),
-					   static_cast<float>(m_clearColor.g),
-					   static_cast<float>(m_clearColor.b),
-					   1.0f);
+		if (!m_skipClearScene)
+		{
+			m_sceneTexture.clear(m_clearColor);
+		}
+		m_skipClearScene = false;
 		
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		::glClearColor(
+					   static_cast<float>(m_letterboxColor.r),
+					   static_cast<float>(m_letterboxColor.g),
+					   static_cast<float>(m_letterboxColor.b),
+					   1.0f);
 		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void CGraphics_GL::flush()
 	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->flush();
-
-		// [Siv3D ToDo]
+		::glfwGetFramebufferSize(m_window, &m_frameBufferSize.x, &m_frameBufferSize.y);
+		
+		// Scene に 2D 描画
+		{
+			m_sceneTexture.bindSceneFrameBuffer();
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->flush();
+		}
+		
+		// ウィンドウに Scene を描画
+		{
+			getBlendState()->set(BlendState::Opaque);
+			getRasterizerState()->set(RasterizerState::SolidCullNone);
+			getSamplerState()->setPS(0, none);
+			m_sceneTexture.resolve(m_sceneTextureFilter == TextureFilter::Linear);
+		}
+	}
+	
+	void CGraphics_GL::setSceneTextureFilter(const TextureFilter textureFilter)
+	{
+		m_sceneTextureFilter = textureFilter;
+	}
+	
+	TextureFilter CGraphics_GL::getSceneTextureFilter() const
+	{
+		return m_sceneTextureFilter;
 	}
 
 	void CGraphics_GL::setBackgroundColor(const ColorF& color)
 	{
-		// [Siv3D ToDo]
+		m_clearColor = color;
 	}
 
 	void CGraphics_GL::setLetterboxColor(const ColorF& color)
 	{
-		// [Siv3D ToDo]
+		m_letterboxColor = color;
 	}
 
 	void CGraphics_GL::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
@@ -155,8 +234,7 @@ namespace s3d
 
 	Optional<double> CGraphics_GL::getTargetFrameRateHz() const
 	{
-		// [Siv3D ToDo]
-		return none;
+		return m_targetFrameRateHz;
 	}
 
 	double CGraphics_GL::getDPIScaling() const
@@ -173,26 +251,22 @@ namespace s3d
 
 	void CGraphics_GL::skipClearScreen()
 	{
-		// [Siv3D ToDo]
+		m_skipClearScene = true;
 	}
 
 	const Size& CGraphics_GL::getBackBufferSize() const
 	{
-		// [Siv3D ToDo]
-		static Size dummy(800, 600);
-		return dummy;
+		return m_frameBufferSize;
 	}
 
 	const Size& CGraphics_GL::getSceneSize() const
 	{
-		// [Siv3D ToDo]
-		static Size dummy(800, 600);
-		return dummy;
+		return m_sceneTexture.getSize();
 	}
 
 	void CGraphics_GL::setSceneSize(const Size& sceneSize)
 	{
-		// [Siv3D ToDo]
+		m_sceneTexture.resize(sceneSize, m_clearColor);
 	}
 
 	void CGraphics_GL::resizeBuffers(const Size& backBufferSize, const Size& sceneSize)
@@ -202,19 +276,17 @@ namespace s3d
 
 	Optional<Rect> CGraphics_GL::getFullscreenRect()
 	{
-		// [Siv3D ToDo]
+		// do nothing for OpenGL
 		return (none);
 	}
 
 	void CGraphics_GL::requestScreenCapture()
 	{
-		// [Siv3D ToDo]
+		m_sceneTexture.requestCapture();
 	}
 
 	const Image& CGraphics_GL::getScreenCapture() const
 	{
-		// [Siv3D ToDo]
-		static Image dummy;
-		return dummy;
+		return m_sceneTexture.getImage();
 	}
 }
