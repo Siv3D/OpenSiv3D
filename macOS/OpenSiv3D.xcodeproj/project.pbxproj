@@ -707,8 +707,6 @@
 		2C4618AB226EEF4100828870 /* SivTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461657226EEF3500828870 /* SivTextBox.cpp */; };
 		2C4618AC226EEF4100828870 /* TextBoxDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461658226EEF3500828870 /* TextBoxDetail.cpp */; };
 		2C4618AD226EEF4100828870 /* TextBoxDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461659226EEF3500828870 /* TextBoxDetail.hpp */; };
-		2C4618AE226EEF4100828870 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C46165B226EEF3500828870 /* MemoryMappingDetail.hpp */; };
-		2C4618AF226EEF4100828870 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46165C226EEF3500828870 /* MemoryMappingDetail.cpp */; };
 		2C4618B0226EEF4100828870 /* SivMemoryMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46165D226EEF3500828870 /* SivMemoryMapping.cpp */; };
 		2C4618B1226EEF4100828870 /* SivTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46165F226EEF3500828870 /* SivTimer.cpp */; };
 		2C4618B2226EEF4100828870 /* SivTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461661226EEF3500828870 /* SivTwitter.cpp */; };
@@ -1092,6 +1090,8 @@
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
+		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
 		2CB4A5E622A14A7100BF96EA /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E422A14A7100BF96EA /* os_types.h */; };
 		2CB4A5EB22A14A7E00BF96EA /* vorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E822A14A7E00BF96EA /* vorbisfile.h */; };
@@ -1809,8 +1809,6 @@
 		2C461657226EEF3500828870 /* SivTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextBox.cpp; sourceTree = "<group>"; };
 		2C461658226EEF3500828870 /* TextBoxDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBoxDetail.cpp; sourceTree = "<group>"; };
 		2C461659226EEF3500828870 /* TextBoxDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBoxDetail.hpp; sourceTree = "<group>"; };
-		2C46165B226EEF3500828870 /* MemoryMappingDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappingDetail.hpp; sourceTree = "<group>"; };
-		2C46165C226EEF3500828870 /* MemoryMappingDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryMappingDetail.cpp; sourceTree = "<group>"; };
 		2C46165D226EEF3500828870 /* SivMemoryMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryMapping.cpp; sourceTree = "<group>"; };
 		2C46165F226EEF3500828870 /* SivTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimer.cpp; sourceTree = "<group>"; };
 		2C461661226EEF3500828870 /* SivTwitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTwitter.cpp; sourceTree = "<group>"; };
@@ -2519,6 +2517,8 @@
 		2CA6286422226DC70009DFE1 /* svm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svm.h; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappingDetail.hpp; sourceTree = "<group>"; };
+		2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryMappingDetail.cpp; sourceTree = "<group>"; };
 		2CB4A5E322A14A7100BF96EA /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ogg.h; sourceTree = "<group>"; };
 		2CB4A5E422A14A7100BF96EA /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_types.h; sourceTree = "<group>"; };
 		2CB4A5E822A14A7E00BF96EA /* vorbisfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbisfile.h; sourceTree = "<group>"; };
@@ -4302,8 +4302,6 @@
 		2C46165A226EEF3500828870 /* MemoryMapping */ = {
 			isa = PBXGroup;
 			children = (
-				2C46165B226EEF3500828870 /* MemoryMappingDetail.hpp */,
-				2C46165C226EEF3500828870 /* MemoryMappingDetail.cpp */,
 				2C46165D226EEF3500828870 /* SivMemoryMapping.cpp */,
 			);
 			path = MemoryMapping;
@@ -5972,6 +5970,7 @@
 				2C461A7B226F4E3E00828870 /* Keyboard */,
 				2C461A10226F1E3900828870 /* LicenseManager */,
 				2C461A0B226F1C8F00828870 /* Logger */,
+				2CB3582222CC2CDD00D1B555 /* MemoryMapping */,
 				2C4619F0226F0EAE00828870 /* MessageBox */,
 				2C4619FE226F14CF00828870 /* Microphone */,
 				2C461AB72270792300828870 /* Monitor */,
@@ -6683,6 +6682,15 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CB3582222CC2CDD00D1B555 /* MemoryMapping */ = {
+			isa = PBXGroup;
+			children = (
+				2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */,
+				2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */,
+			);
+			path = MemoryMapping;
+			sourceTree = "<group>";
+		};
 		2CB4A5E222A14A7100BF96EA /* ogg */ = {
 			isa = PBXGroup;
 			children = (
@@ -6740,6 +6748,7 @@
 				2C4613F1226EEDB500828870 /* zstd.h in Headers */,
 				2C461141226EEDB500828870 /* ftlzw.h in Headers */,
 				2C461105226EEDB500828870 /* ftbbox.h in Headers */,
+				2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */,
 				2C46113D226EEDB500828870 /* ftgxval.h in Headers */,
 				2C461139226EEDB500828870 /* ftttdrv.h in Headers */,
 				2C461944226EEF4100828870 /* IGUI.hpp in Headers */,
@@ -7042,7 +7051,6 @@
 				2C461976226EEF4100828870 /* IKeyboard.hpp in Headers */,
 				2C461422226EEDB500828870 /* muParserBytecode.h in Headers */,
 				2C461A69226F3A7B00828870 /* CSystem.hpp in Headers */,
-				2C4618AE226EEF4100828870 /* MemoryMappingDetail.hpp in Headers */,
 				2C461356226EEDB500828870 /* DetourCommon.h in Headers */,
 				2C46183C226EEF4100828870 /* IPrint.hpp in Headers */,
 				2C461397226EEDB500828870 /* Shape.h in Headers */,
@@ -7688,7 +7696,6 @@
 				2C4617E5226EEF4100828870 /* SivScript.cpp in Sources */,
 				2C4618A5226EEF4100828870 /* SivColor.cpp in Sources */,
 				2C46135D226EEDB500828870 /* DetourNavMesh.cpp in Sources */,
-				2C4618AF226EEF4100828870 /* MemoryMappingDetail.cpp in Sources */,
 				2C461A64226F398300828870 /* CTextInput.cpp in Sources */,
 				2C46135A226EEDB500828870 /* RecastArea.cpp in Sources */,
 				2C46180A226EEF4100828870 /* Script_Mat3x2.cpp in Sources */,
@@ -7803,6 +7810,7 @@
 				2C461812226EEF4100828870 /* Script_Duration.cpp in Sources */,
 				2C461469226EEDB500828870 /* b2Island.cpp in Sources */,
 				2C461876226EEF4100828870 /* SivDialog.cpp in Sources */,
+				2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */,
 				2C46199D226EEF4100828870 /* SivTextInput.cpp in Sources */,
 				2C461481226EEDB500828870 /* b2Distance.cpp in Sources */,
 				2C46180E226EEF4100828870 /* Script_Bezier3.cpp in Sources */,

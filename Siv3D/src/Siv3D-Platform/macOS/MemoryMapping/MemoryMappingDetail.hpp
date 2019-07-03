@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,19 +12,10 @@
 # pragma once
 # include <Siv3D/String.hpp>
 # include <Siv3D/MemoryMapping.hpp>
-
-# if defined (SIV3D_TARGET_WINDOWS)
-
-	# include <windows.h>
-
-# else
-
-	# include <unistd.h>
-	# include <fcntl.h>
-	# include <sys/stat.h>
-	# include <sys/mman.h>
-
-# endif
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/mman.h>
 
 namespace s3d
 {
@@ -32,17 +23,7 @@ namespace s3d
 	{
 	private:
 
-	# if defined (SIV3D_TARGET_WINDOWS)
-
-		HANDLE m_fileHandle = INVALID_HANDLE_VALUE;
-
-		HANDLE m_mapHandle = INVALID_HANDLE_VALUE;
-
-	# else
-
 		int m_fileHandle = -1;
-
-	# endif
 
 		uint64 m_fileSize = 0;
 
