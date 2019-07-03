@@ -45,7 +45,7 @@ namespace s3d
 		explicit BigInt(std::string_view number);
 		explicit BigInt(StringView number);
 		BigInt(const BigInt& other);
-		BigInt(BigInt&& other);
+		BigInt(BigInt&& other) noexcept;
 		~BigInt();
 
 		BigInt& assign(int64 i);
@@ -57,7 +57,7 @@ namespace s3d
 		BigInt& assign(std::string_view number);
 		BigInt& assign(StringView number);
 		BigInt& assign(const BigInt& other);
-		BigInt& assign(BigInt&& other);
+		BigInt& assign(BigInt&& other) noexcept;
 
 		BigInt& operator =(int64 i);
 		BigInt& operator =(uint64 i);
@@ -68,7 +68,7 @@ namespace s3d
 		BigInt& operator =(const std::string_view number);
 		BigInt& operator =(const StringView number);
 		BigInt& operator =(const BigInt& other);
-		BigInt& operator =(BigInt&& other);
+		BigInt& operator =(BigInt&& other) noexcept;
 
 		[[nodiscard]] const BigInt& operator +() const;
 		BigInt& operator ++();

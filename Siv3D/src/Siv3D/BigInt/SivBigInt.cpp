@@ -58,7 +58,7 @@ namespace s3d
 		assign(other);
 	}
 
-	BigInt::BigInt(BigInt&& other)
+	BigInt::BigInt(BigInt&& other) noexcept
 		: pImpl(std::move(other.pImpl))
 	{
 
@@ -111,7 +111,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt& BigInt::assign(BigInt&& other)
+	BigInt& BigInt::assign(BigInt&& other) noexcept
 	{
 		this->pImpl = std::move(other.pImpl);
 		return *this;
@@ -142,7 +142,7 @@ namespace s3d
 		return assign(other);
 	}
 	
-	BigInt& BigInt::operator =(BigInt&& other)
+	BigInt& BigInt::operator =(BigInt&& other) noexcept
 	{
 		return assign(std::move(other));
 	}
