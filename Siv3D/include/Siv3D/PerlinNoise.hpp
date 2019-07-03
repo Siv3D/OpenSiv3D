@@ -22,7 +22,7 @@ namespace s3d
 	{
 	private:
 
-		int32 p[512];
+		uint8 p[512];
 
 	public:
 

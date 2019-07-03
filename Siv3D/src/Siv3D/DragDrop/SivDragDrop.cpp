@@ -59,7 +59,7 @@ namespace s3d
 		}
 	}
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::DragDrop
 	{

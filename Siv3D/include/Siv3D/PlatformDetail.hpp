@@ -13,7 +13,7 @@
 # include <string>
 # include "Fwd.hpp"
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 #	include <intrin.h>
 # endif
 
@@ -30,7 +30,7 @@ namespace s3d::Platform
 	constexpr size_t PointerSize = 8;
 	constexpr size_t AllocatorAlignment = 16;
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	constexpr size_t PointerSize = 8;
 	constexpr size_t AllocatorAlignment = 16;
@@ -48,11 +48,11 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	inline constexpr bool HasEmbeddedResource = true;
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	inline constexpr bool HasEmbeddedResource = false;
 
@@ -69,7 +69,7 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	inline void* AlignedMalloc(size_t size, size_t alignment)
 	{
@@ -81,7 +81,7 @@ namespace s3d::Platform
 		::_aligned_free(p);
 	}
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	inline void* AlignedMalloc(size_t size, size_t alignment)
 	{
@@ -115,11 +115,11 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	using NativeFilePath = std::wstring;
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	using NativeFilePath = std::string;
 
@@ -135,14 +135,14 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	__forceinline uint64 Rdtsc()
 	{
 		return ::__rdtsc();
 	}
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	inline uint64 Rdtsc()
 	{
@@ -165,11 +165,11 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	# define SIV3D_CONCURRENT_TASK_IS_DONE base_type::_Is_ready()
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	# define SIV3D_CONCURRENT_TASK_IS_DONE (base_type::wait_for(std::chrono::seconds(0)) == std::future_status::ready)
 

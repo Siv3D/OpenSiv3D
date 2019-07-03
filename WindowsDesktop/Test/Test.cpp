@@ -19,7 +19,7 @@ void RunTest()
 
 TEST_CASE("Platform.Pointer")
 {
-# if !defined(SIV3D_TARGET_WINDOWS) && !defined(SIV3D_TARGET_MACOS) && !defined(SIV3D_TARGET_LINUX)
+# if !SIV3D_PLATFORM(WINDOWS) && !SIV3D_PLATFORM(MACOS) && !SIV3D_PLATFORM(LINUX)
 
 	FAIL("Target platform is not defined");
 

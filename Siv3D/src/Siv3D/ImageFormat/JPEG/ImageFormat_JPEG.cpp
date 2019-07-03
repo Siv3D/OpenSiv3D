@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(LINUX)
 # include <turbojpeg.h>
 # else
 # include <libjpeg-turbo/turbojpeg.h>

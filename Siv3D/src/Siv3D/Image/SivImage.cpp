@@ -2586,11 +2586,11 @@ namespace s3d
 			MultiPolygon();
 		}
 
-		cv::Mat_<uint8> gray(height(), width());
+		cv::Mat_<uint8> gray(height() * 2, width() * 2);
 
-		OpenCV_Bridge::AlphaToBinary(*this, gray, threshold);
+		OpenCV_Bridge::AlphaToBinary2x(*this, gray, threshold);
 
-		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+		return allowHoles ? detail::ToPolygons(gray).scale(0.5) : detail::ToPolygonsWithoutHoles(gray).scale(0.5);
 	}
 
 	MultiPolygon Image::alphaToPolygonsCentered(const uint32 threshold, const bool allowHoles) const
@@ -2615,11 +2615,11 @@ namespace s3d
 			MultiPolygon();
 		}
 
-		cv::Mat_<uint8> gray(height(), width());
+		cv::Mat_<uint8> gray(height() * 2, width() * 2);
 
-		OpenCV_Bridge::RedToBinary(*this, gray, threshold);
+		OpenCV_Bridge::RedToBinary2x(*this, gray, threshold);
 
-		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+		return allowHoles ? detail::ToPolygons(gray).scale(0.5) : detail::ToPolygonsWithoutHoles(gray).scale(0.5);
 	}
 
 	MultiPolygon Image::grayscaleToPolygonsCentered(const uint32 threshold, const bool allowHoles) const

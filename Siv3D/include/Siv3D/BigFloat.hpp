@@ -49,7 +49,7 @@ namespace s3d
 		explicit BigFloat(const std::string_view number);
 		explicit BigFloat(const StringView number);
 		BigFloat(const BigFloat& other);
-		BigFloat(BigFloat&& other);
+		BigFloat(BigFloat&& other) noexcept;
 		~BigFloat();
 
 		BigFloat& assign(int64 i);
@@ -65,7 +65,7 @@ namespace s3d
 		BigFloat& assign(const std::string_view number);
 		BigFloat& assign(const StringView number);
 		BigFloat& assign(const BigFloat& other);
-		BigFloat& assign(BigFloat&& other);
+		BigFloat& assign(BigFloat&& other) noexcept;
 
 		BigFloat& operator =(int64 i);
 		BigFloat& operator =(uint64 i);
@@ -80,7 +80,7 @@ namespace s3d
 		BigFloat& operator =(const std::string_view number);
 		BigFloat& operator =(const StringView number);
 		BigFloat& operator =(const BigFloat& other);
-		BigFloat& operator =(BigFloat&& other);
+		BigFloat& operator =(BigFloat&& other) noexcept;
 
 		[[nodiscard]] const BigFloat& operator +() const;
 		BigFloat& operator ++();

@@ -122,7 +122,7 @@ namespace s3d
 			m_fileHandle, 0, PAGE_READONLY,
 			static_cast<uint64>(offset + mappingSize) >> 32, (offset + mappingSize) & 0xffFFffFF, nullptr);
 
-		if (m_mapHandle == INVALID_HANDLE_VALUE)
+		if (m_mapHandle == 0)
 		{
 			return;
 		}

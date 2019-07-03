@@ -70,7 +70,7 @@ namespace s3d
 		assign(other);
 	}
 
-	BigFloat::BigFloat(BigFloat&& other)
+	BigFloat::BigFloat(BigFloat&& other) noexcept
 		: pImpl(std::move(other.pImpl))
 	{
 
@@ -119,7 +119,7 @@ namespace s3d
 
 	BigFloat& BigFloat::assign(const std::string_view number)
 	{
-# if defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(LINUX)
 		// work around (clang)
 		const std::string s{ number };
 		this->pImpl->data.assign(s);
@@ -141,7 +141,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat& BigFloat::assign(BigFloat&& other)
+	BigFloat& BigFloat::assign(BigFloat&& other) noexcept
 	{
 		this->pImpl = std::move(other.pImpl);
 		return *this;
@@ -182,7 +182,7 @@ namespace s3d
 		return assign(other);
 	}
 
-	BigFloat& BigFloat::operator =(BigFloat&& other)
+	BigFloat& BigFloat::operator =(BigFloat&& other) noexcept
 	{
 		return assign(std::move(other));
 	}

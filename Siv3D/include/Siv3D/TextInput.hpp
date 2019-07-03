@@ -62,7 +62,7 @@ namespace s3d
 		[[nodiscard]] String GetEditingText();
 	}
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::TextInput
 	{

@@ -12,7 +12,7 @@
 # pragma once
 # include <Siv3D/Platform.hpp>
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 # include <Siv3D/Windows.hpp>
 
@@ -60,7 +60,7 @@ namespace s3d
 
 # endif
 
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 # include <dlfcn.h>
 

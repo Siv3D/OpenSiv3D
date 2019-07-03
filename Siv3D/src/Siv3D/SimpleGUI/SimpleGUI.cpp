@@ -612,7 +612,7 @@ namespace s3d
 					const String textTail = text.text.substr(text.cursorPos, String::npos);
 					const String editingText = TextInput::GetEditingText();
 
-				# if defined(SIV3D_TARGET_WINDOWS)
+				# if SIV3D_PLATFORM(WINDOWS)
 
 					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
 					const bool hasEditingTarget = (editingTargetlength > 0);
@@ -733,7 +733,7 @@ namespace s3d
 
 				if (TextInput::GetEditingText().isEmpty()
 					&&
-				# if defined(SIV3D_TARGET_MACOS)
+				# if SIV3D_PLATFORM(MACOS)
 
 					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
 

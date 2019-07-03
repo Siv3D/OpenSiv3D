@@ -18,6 +18,11 @@
 //
 //////////////////////////////////////////////////
 
+# define SIV3D_PLATFORM(X) SIV3D_PRIVATE_DEFINITION_##X()
+# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 0
+# define SIV3D_PRIVATE_DEFINITION_MACOS() 0
+# define SIV3D_PRIVATE_DEFINITION_LINUX() 0
+
 # if defined(_WIN32)
 
 	/// <summary>
@@ -31,6 +36,9 @@
 	/// Name of the Target Platform
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Windows Desktop"
+
+	# undef SIV3D_PRIVATE_DEFINITION_WINDOWS
+	# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 1
 
 # elif defined(__APPLE__) && defined(__MACH__)
 
@@ -46,6 +54,9 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"macOS"
 
+	# undef SIV3D_PRIVATE_DEFINITION_MACOS
+	# define SIV3D_PRIVATE_DEFINITION_MACOS() 1
+
 # elif defined(__linux__)
 
 	/// <summary>
@@ -59,6 +70,9 @@
 	/// Name of the Target Platform
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Linux"
+
+	# undef SIV3D_PRIVATE_DEFINITION_LINUX
+	# define SIV3D_PRIVATE_DEFINITION_LINUX() 1
 
 # else
 
@@ -74,7 +88,7 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	# if defined(_WIN64)
 
@@ -101,7 +115,7 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS) || defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	# define SIV3D_HAVE_SSE2
 
@@ -119,11 +133,11 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	# define SIV3D_HAVE_M128_MEMBERS
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 # else
 
@@ -165,7 +179,7 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
     # define SIV3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
 			 __pragma(warning(push))					\
@@ -190,7 +204,7 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 192127702)
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192127702)
 
 	# error このプロジェクトをビルドするには Visual Studio 2019 16.1 以降が必要です。
 	# error Visual Studio 2019 16.1 or later is required to build this project.
@@ -204,7 +218,7 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	# pragma warning(disable : 26444 26451 26495)
 
