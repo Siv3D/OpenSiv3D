@@ -102,6 +102,8 @@ namespace s3d
 
 		using IDType = FontHandle::IDWrapperType;
 
+		static constexpr int32 MaxSize = 256;
+
 		Font();
 
 		explicit Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
