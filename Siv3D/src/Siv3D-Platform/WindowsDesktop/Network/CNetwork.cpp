@@ -74,4 +74,16 @@ namespace s3d
 
 		return none;
 	}
+
+	Array<IPv4> CNetwork::getMachineIPs() const
+	{
+		if (auto ip = getMachineIP())
+		{
+			return{ ip.value() };
+		}
+		else
+		{
+			return{};
+		}
+	}
 }

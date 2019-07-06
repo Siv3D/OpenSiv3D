@@ -94,7 +94,7 @@ namespace s3d
 
 	FontData::FontData(const FT_Library library, const FilePath& filePath, const FilePath& emojiFilePath, const int32 fontSize, const FontStyle style)
 	{
-		if (!InRange(fontSize, 1, 256))
+		if (!InRange(fontSize, 1, Font::MaxSize))
 		{
 			return;
 		}

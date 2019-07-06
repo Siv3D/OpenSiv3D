@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Optional.hpp"
 # include "IPv4.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
@@ -32,5 +33,7 @@ namespace s3d
 	namespace Network
 	{
 		[[nodiscard]] Optional<IPv4> GetPrivateIPv4();
+
+		[[nodiscard]] Array<IPv4> GetPrivateIPv4s();
 	}
 }

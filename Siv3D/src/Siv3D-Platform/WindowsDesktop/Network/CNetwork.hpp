@@ -30,5 +30,7 @@ namespace s3d
 		void init() override;
 
 		Optional<IPv4> getMachineIP() const override;
+
+		Array<IPv4> getMachineIPs() const override;
 	};
 }
