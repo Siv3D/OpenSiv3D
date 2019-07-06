@@ -29,7 +29,7 @@ endif()
 
 #set(CMAKE_BUILD_TYPE Release)
 
-pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2 openal opencv4)
+pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2 openal opencv4 ogg vorbis)
 include_directories(
 	"/usr/include"
 
@@ -181,7 +181,6 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Math/SivMath.cpp"
 	"../Siv3D/src/Siv3D/MathParser/MathParserDetail.cpp"
 	"../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp"
-	"../Siv3D/src/Siv3D/MemoryMapping/MemoryMappingDetail.cpp"
 	"../Siv3D/src/Siv3D/MemoryMapping/SivMemoryMapping.cpp"
 	"../Siv3D/src/Siv3D/MemoryWriter/MemoryWriterDetail.cpp"
 	"../Siv3D/src/Siv3D/MemoryWriter/SivMemoryWriter.cpp"
@@ -434,6 +433,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D-Platform/Linux/Graphics/SivGraphics_Platform.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Keyboard/CKeyboard.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Logger/CLogger.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/MemoryMapping/MemoryMappingDetail.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/MessageBox/SivMessageBox.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Microphone/MicrophoneDetail.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Monitor/SivMonitor.cpp"
