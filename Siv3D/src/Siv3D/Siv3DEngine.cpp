@@ -56,5 +56,6 @@ namespace s3d
 	Siv3DEngine::~Siv3DEngine()
 	{
 		ReleaseAllComponents(m_interfaces);
+		pEngine = nullptr;
 	}
 }
