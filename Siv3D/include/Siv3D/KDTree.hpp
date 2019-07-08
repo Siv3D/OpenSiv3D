@@ -139,6 +139,17 @@ namespace s3d
 			results.resize(k);
 		}
 
+		void knnSearch(Array<size_t>& results, Array<element_type>& distanceSqResults, size_t k, const point_type& point) const
+		{
+			results.resize(k);
+			distanceSqResults.resize(k);
+
+			k = m_index.knnSearch(adapter_type::GetPointer(point), k, &results[0], &distanceSqResults[0]);
+
+			results.resize(k);
+			distanceSqResults.resize(k);
+		}
+
 		[[nodiscard]] Array<size_t> radiusSearch(const point_type& point, const element_type radius, const bool sortByDistance = false) const
 		{
 			Array<size_t> results;
