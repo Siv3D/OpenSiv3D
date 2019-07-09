@@ -1728,8 +1728,8 @@ namespace s3d
 				const float invThickness = 1.0f / thickness;
 				float distance = 0.0f;
 
-				pVertex[0].tex.set(0.0f + uOffset, vInfo);
-				pVertex[1].tex.set(0.0f + uOffset, vInfo);
+				pVertex[0].tex.set(uOffset, vInfo);
+				pVertex[1].tex.set(uOffset, vInfo);
 
 				for (IndexType i = 1; i < vertexSize / 2; ++i)
 				{
