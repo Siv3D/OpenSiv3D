@@ -106,6 +106,8 @@ namespace s3d
 
 		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
+		Audio(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, float silenceValue = 0.01f);
+
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		virtual ~Audio();
@@ -158,7 +160,7 @@ namespace s3d
 
 		void stop(const Duration& fadeoutDuration = SecondsF(0.0)) const;
 
-		void playOneShot(double volume = 1.0, double pitch = 1.0) const;
+		void playOneShot(double volume = 1.0, double speed = 1.0) const;
 
 		void stopAllShots() const;
 

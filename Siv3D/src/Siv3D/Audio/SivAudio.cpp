@@ -209,6 +209,12 @@ namespace s3d
 		setLoop(loopBegin, loopEnd);
 	}
 
+	Audio::Audio(const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate, const float silenceValue)
+		: Audio(Wave(instrumrnt, key, duration, velocity, samplingRate, silenceValue))
+	{
+
+	}
+
 	Audio::Audio(IReader&& reader, const AudioFormat format)
 		: Audio(Wave(std::move(reader), format))
 	{
@@ -346,9 +352,9 @@ namespace s3d
 		Siv3DEngine::Get<ISiv3DAudio>()->stop(m_handle->id(), fadeoutDuration);
 	}
 
-	void Audio::playOneShot(const double volume, const double pitch) const
+	void Audio::playOneShot(const double volume, const double speed) const
 	{
-		Siv3DEngine::Get<ISiv3DAudio>()->playOneShot(m_handle->id(), volume, pitch);
+		Siv3DEngine::Get<ISiv3DAudio>()->playOneShot(m_handle->id(), volume, speed);
 	}
 
 	void Audio::stopAllShots() const
