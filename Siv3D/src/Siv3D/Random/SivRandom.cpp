@@ -43,6 +43,46 @@ namespace s3d
 		return GetDefaultRNG().generateReal() < p;
 	}
 
+	uint8 RandomUint8()
+	{
+		return static_cast<uint8>(UniformDistribution<uint16>(Smallest<uint8>, Largest<uint8>)(GetDefaultRNG()));
+	}
+
+	uint16 RandomUint16()
+	{
+		return UniformDistribution<uint16>(Smallest<uint16>, Largest<uint16>)(GetDefaultRNG());
+	}
+
+	uint32 RandomUint32()
+	{
+		return UniformDistribution<uint32>(Smallest<uint32>, Largest<uint32>)(GetDefaultRNG());
+	}
+
+	uint64 RandomUint64()
+	{
+		return GetDefaultRNG()();
+	}
+
+	int8 RandomInt8()
+	{
+		return static_cast<int8>(UniformDistribution<int16>(Smallest<int8>, Largest<int8>)(GetDefaultRNG()));
+	}
+
+	int16 RandomInt16()
+	{
+		return UniformDistribution<int16>(Smallest<int16>, Largest<int16>)(GetDefaultRNG());
+	}
+
+	int32 RandomInt32()
+	{
+		return UniformDistribution<int32>(Smallest<int32>, Largest<int32>)(GetDefaultRNG());
+	}
+
+	int64 RandomInt64()
+	{
+		return UniformDistribution<int64>(Smallest<int64>, Largest<int64>)(GetDefaultRNG());
+	}
+
 	Point RandomPoint(const std::pair<int32, int32>& xMinMax, const std::pair<int32, int32>& yMinMax)
 	{
 		Point p;

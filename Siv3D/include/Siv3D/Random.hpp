@@ -117,6 +117,22 @@ namespace s3d
 	/// </returns>
 	bool RandomBool(double p = 0.5);
 
+	uint8 RandomUint8();
+
+	uint16 RandomUint16();
+
+	uint32 RandomUint32();
+
+	uint64 RandomUint64();
+
+	int8 RandomInt8();
+
+	int16 RandomInt16();
+
+	int32 RandomInt32();
+
+	int64 RandomInt64();
+
 	/// <summary>
 	/// コンテナの中身をシャッフルします。
 	/// </summary>
