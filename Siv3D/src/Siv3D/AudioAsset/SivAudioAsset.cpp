@@ -145,6 +145,30 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Audio, name, std::make_unique<AudioAssetData>(path, loop, parameter));
 	}
 
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const AssetParameter& parameter)
+	{
+		return Register(name, instrumrnt, key, duration, 1.0, Wave::DefaultSamplingRate, 0.01f, parameter);
+	}
+
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, const AssetParameter& parameter)
+	{
+		return Register(name, instrumrnt, key, duration, velocity, Wave::DefaultSamplingRate, 0.01f, parameter);
+	}
+
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, Arg::samplingRate_<uint32> samplingRate, const AssetParameter& parameter)
+	{
+		return Register(name, instrumrnt, key, duration, velocity, samplingRate, 0.01f, parameter);
+	}
+
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, Arg::samplingRate_<uint32> samplingRate, const float silenceValue, const AssetParameter& parameter)
+	{
+		return Register(name, AudioAssetData(FilePath(), none, parameter,
+			[=](AudioAssetData& a) { a.audio = Audio(instrumrnt, key, duration, velocity, samplingRate, silenceValue); return !!a.audio; },
+			AudioAssetData::DefaultUpdate,
+			AudioAssetData::DefaultRelease
+		));
+	}
+
 	bool AudioAsset::Register(const AssetName& name, const AudioAssetData& data)
 	{
 		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Audio, name, std::make_unique<AudioAssetData>(data));

@@ -73,6 +73,14 @@ namespace s3d
 
 		static bool Register(const AssetName& name, const FilePath& path, const Optional<AudioLoopTiming>& loop, const AssetParameter& parameter = AssetParameter{});
 
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, float silenceValue, const AssetParameter& parameter = AssetParameter{});
+
 		static bool Register(const AssetName& name, const AudioAssetData& data);
 
 		[[nodiscard]] static bool IsRegistered(const AssetName& name);
