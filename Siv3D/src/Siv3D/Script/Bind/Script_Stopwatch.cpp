@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -76,7 +76,16 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int64 us64() const", asMETHOD(BindType, us64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double usF() const", asMETHOD(BindType, usF), asCALL_THISCALL); assert(r >= 0);
 
+	# if SIV3D_PLATFORM(WINDOWS)
+		
 		r = engine->RegisterObjectMethod(TypeName, "Duration elapsed() const", asMETHOD(BindType, elapsed), asCALL_THISCALL); assert(r >= 0);
+	
+	# else
+	
+		// [Siv3D ToDo]
+		
+	# endif
+		
 		r = engine->RegisterObjectMethod(TypeName, "bool isStarted() const", asMETHOD(BindType, isStarted), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isPaused() const", asMETHOD(BindType, isPaused), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isRunning() const", asMETHOD(BindType, isRunning), asCALL_THISCALL); assert(r >= 0);

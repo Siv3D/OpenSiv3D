@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -74,10 +74,18 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int64 us() const", asMETHOD(BindType, us), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int64 us64() const", asMETHOD(BindType, us64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double usF() const", asMETHOD(BindType, usF), asCALL_THISCALL); assert(r >= 0);
-
+		
+	# if SIV3D_PLATFORM(WINDOWS)
+		
 		r = engine->RegisterObjectMethod(TypeName, "Duration duration() const", asMETHOD(BindType, duration), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Duration remaining() const", asMETHOD(BindType, remaining), asCALL_THISCALL); assert(r >= 0);
 
+	# else
+	
+		// [Siv3D ToDo]
+		
+	# endif
+		
 		r = engine->RegisterObjectMethod(TypeName, "double progress1_0() const", asMETHOD(BindType, progress1_0), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double progress0_1() const", asMETHOD(BindType, progress0_1), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool reachedZero() const", asMETHOD(BindType, reachedZero), asCALL_THISCALL); assert(r >= 0);
