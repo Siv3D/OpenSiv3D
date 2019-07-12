@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -51,6 +51,13 @@ namespace s3d
 
 		Type* const m_data = AlignedMalloc<Type>();
 
+		bool m_hasDirty = false;
+
+		bool update()
+		{
+			return m_base._internal_update(m_data, Size);
+		}
+
 	public:
 
 		[[nodiscard]] static const char* Name()
@@ -92,6 +99,7 @@ namespace s3d
 
 		[[nodiscard]] Type& get()
 		{
+			m_hasDirty = true;
 			return *m_data;
 		}
 
@@ -100,9 +108,14 @@ namespace s3d
 			return *m_data;
 		}
 
-		bool _internal_update()
+		bool _update_if_dirty()
 		{
-			return m_base._internal_update(m_data, Size);
+			if (!m_hasDirty)
+			{
+				return true;
+			}
+
+			return update();
 		}
 
 		[[nodiscard]] const detail::ConstantBufferBase& base() const
@@ -112,6 +125,7 @@ namespace s3d
 
 		[[nodiscard]] Type& operator *()
 		{
+			m_hasDirty = true;
 			return *m_data;
 		}
 
@@ -122,6 +136,7 @@ namespace s3d
 
 		[[nodiscard]] Type* operator ->()
 		{
+			m_hasDirty = true;
 			return m_data;
 		}
 

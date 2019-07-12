@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -68,7 +68,7 @@ namespace s3d
 			, y(static_cast<value_type>(v.y))
 			, z(static_cast<value_type>(v.z)) {}
 
-		constexpr value_type elem(size_t index) const noexcept
+		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
 		{
 			return index == 0 ? x
 				 : index == 1 ? y
@@ -76,42 +76,42 @@ namespace s3d
 				 : 0;
 		}
 
-		constexpr Vector3D operator +() const noexcept
+		[[nodiscard]] constexpr Vector3D operator +() const noexcept
 		{
 			return *this;
 		}
 
-		constexpr Vector3D operator -() const noexcept
+		[[nodiscard]] constexpr Vector3D operator -() const noexcept
 		{
 			return{ -x, -y, -z };
 		}
 
-		constexpr Vector3D operator +(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D operator +(const Vector3D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y, z + v.z };
 		}
 
-		constexpr Vector3D operator -(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D operator -(const Vector3D& v) const noexcept
 		{
 			return{ x - v.x, y - v.y, z - v.z };
 		}
 
-		constexpr Vector3D operator *(value_type s) const noexcept
+		[[nodiscard]] constexpr Vector3D operator *(value_type s) const noexcept
 		{
 			return{ x * s, y * s, z * s };
 		}
 
-		constexpr Vector3D operator *(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D operator *(const Vector3D& v) const noexcept
 		{
 			return{ x * v.x, y * v.y, z * v.z };
 		}
 
-		constexpr Vector3D operator /(value_type s) const noexcept
+		[[nodiscard]] constexpr Vector3D operator /(value_type s) const noexcept
 		{
 			return *this * (static_cast<value_type>(1.0) / s);
 		}
 
-		constexpr Vector3D operator /(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D operator /(const Vector3D& v) const noexcept
 		{
 			return{ x / v.x, y / v.y, z  / v.z };
 		}
@@ -151,12 +151,12 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr bool operator ==(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Vector3D& v) const noexcept
 		{
 			return v.x == x && v.y == y && v.z == z;
 		}
 
-		constexpr bool operator !=(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Vector3D& v) const noexcept
 		{
 			return v.x != x || v.y != y || v.z != z;
 		}
@@ -205,41 +205,41 @@ namespace s3d
 			return *this += v;
 		}
 
-		constexpr bool isZero() const noexcept
+		[[nodiscard]] constexpr bool isZero() const noexcept
 		{
 			return x == static_cast<value_type>(0.0)
 				&& y == static_cast<value_type>(0.0)
 				&& z == static_cast<value_type>(0.0);
 		}
 
-		bool hasNaN() const noexcept
+		[[nodiscard]] bool hasNaN() const noexcept
 		{
 			return std::isnan(x)
 				|| std::isnan(y)
 				|| std::isnan(z);
 		}
 
-		constexpr Type dot(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Type dot(const Vector3D& v) const noexcept
 		{
 			return x * v.x + y * v.y + z * v.z;
 		}
 
-		constexpr Vector3D cross(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D cross(const Vector3D& v) const noexcept
 		{
 			return{ y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x };
 		}
 
-		value_type length() const noexcept
+		[[nodiscard]] value_type length() const noexcept
 		{
 			return std::sqrt(lengthSq());
 		}
 
-		constexpr value_type lengthSq() const noexcept
+		[[nodiscard]] constexpr value_type lengthSq() const noexcept
 		{
 			return dot(*this);
 		}
 
-		value_type lengthInv() const noexcept
+		[[nodiscard]] value_type lengthInv() const noexcept
 		{
 			return static_cast<value_type>(1.0) / length();
 		}
@@ -256,22 +256,36 @@ namespace s3d
 			return *this *= (_length / len);
 		}
 
-		value_type distanceFrom(double _x, double _y, double _z) const noexcept
+		[[nodiscard]] Vector3D clampLength(value_type maxLength) const noexcept
+		{
+			const value_type len = length();
+
+			if (len <= maxLength)
+			{
+				return *this;
+			}
+			else
+			{
+				return *this * (maxLength / len);
+			}
+		}
+
+		[[nodiscard]] value_type distanceFrom(double _x, double _y, double _z) const noexcept
 		{
 			return (*this - Vector3D(_x, _y, _z)).length();
 		}
 
-		value_type distanceFrom(const Vector3D& v) const noexcept
+		[[nodiscard]] value_type distanceFrom(const Vector3D& v) const noexcept
 		{
 			return (*this - v).length();
 		}
 
-		constexpr value_type distanceFromSq(double _x, double _y, double _z) const noexcept
+		[[nodiscard]] constexpr value_type distanceFromSq(double _x, double _y, double _z) const noexcept
 		{
 			return (*this - Vector3D(_x, _y, _z)).lengthSq();
 		}
 
-		constexpr value_type distanceFromSq(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr value_type distanceFromSq(const Vector3D& v) const noexcept
 		{
 			return (*this - v).lengthSq();
 		}
@@ -294,7 +308,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ x, x }
 		/// </summary>
-		constexpr Vector2D<value_type> xx() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> xx() const noexcept
 		{
 			return{ x, x };
 		}
@@ -302,7 +316,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ x, y }
 		/// </summary>
-		constexpr Vector2D<value_type> xy() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> xy() const noexcept
 		{
 			return{ x, y };
 		}
@@ -310,7 +324,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ x, z }
 		/// </summary>
-		constexpr Vector2D<value_type> xz() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> xz() const noexcept
 		{
 			return{ x, z };
 		}
@@ -318,7 +332,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ y, x }
 		/// </summary>
-		constexpr Vector2D<value_type> yx() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> yx() const noexcept
 		{
 			return{ y, x };
 		}
@@ -326,7 +340,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ y, y }
 		/// </summary>
-		constexpr Vector2D<value_type> yy() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> yy() const noexcept
 		{
 			return{ y, y };
 		}
@@ -334,7 +348,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ y, z }
 		/// </summary>
-		constexpr Vector2D<value_type> yz() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> yz() const noexcept
 		{
 			return{ y, z };
 		}
@@ -342,7 +356,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ z, x }
 		/// </summary>
-		constexpr Vector2D<value_type> zx() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> zx() const noexcept
 		{
 			return{ z, x };
 		}
@@ -350,7 +364,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ z, y }
 		/// </summary>
-		constexpr Vector2D<value_type> zy() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> zy() const noexcept
 		{
 			return{ z, y };
 		}
@@ -358,7 +372,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ z, z }
 		/// </summary>
-		constexpr Vector2D<value_type> zz() const noexcept
+		[[nodiscard]] constexpr Vector2D<value_type> zz() const noexcept
 		{
 			return{ z, z };
 		}
@@ -366,7 +380,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ x, x, x }
 		/// </summary>
-		constexpr Vector3D xxx() const noexcept
+		[[nodiscard]] constexpr Vector3D xxx() const noexcept
 		{
 			return{ x, x, x };
 		}
@@ -374,7 +388,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ y, y, y }
 		/// </summary>
-		constexpr Vector3D yyy() const noexcept
+		[[nodiscard]] constexpr Vector3D yyy() const noexcept
 		{
 			return{ y, y, y };
 		}
@@ -382,7 +396,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ z, z, z }
 		/// </summary>
-		constexpr Vector3D zzz() const noexcept
+		[[nodiscard]] constexpr Vector3D zzz() const noexcept
 		{
 			return{ z, z, z };
 		}
@@ -390,7 +404,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ x, y, z }
 		/// </summary>
-		constexpr Vector3D xyz() const noexcept
+		[[nodiscard]] constexpr Vector3D xyz() const noexcept
 		{
 			return{ x, y, z };
 		}
@@ -398,7 +412,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ x, z, y }
 		/// </summary>
-		constexpr Vector3D xzy() const noexcept
+		[[nodiscard]] constexpr Vector3D xzy() const noexcept
 		{
 			return{ x, z, y };
 		}
@@ -406,7 +420,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ y, x, z }
 		/// </summary>
-		constexpr Vector3D yxz() const noexcept
+		[[nodiscard]] constexpr Vector3D yxz() const noexcept
 		{
 			return{ y, x, z };
 		}
@@ -414,7 +428,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ y, z, x }
 		/// </summary>
-		constexpr Vector3D yzx() const noexcept
+		[[nodiscard]] constexpr Vector3D yzx() const noexcept
 		{
 			return{ y, z, x };
 		}
@@ -422,7 +436,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ z, x, y }
 		/// </summary>
-		constexpr Vector3D zxy() const noexcept
+		[[nodiscard]] constexpr Vector3D zxy() const noexcept
 		{
 			return{ z, x, y };
 		}
@@ -430,7 +444,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ z, y, x }
 		/// </summary>
-		constexpr Vector3D zyx() const noexcept
+		[[nodiscard]] constexpr Vector3D zyx() const noexcept
 		{
 			return{ z, y, x };
 		}
@@ -438,7 +452,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, 0 }
 		/// </summary>
-		static constexpr Vector3D Zero()
+		[[nodiscard]] static constexpr Vector3D Zero()
 		{
 			return{ 0, 0, 0 };
 		}
@@ -446,7 +460,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 1, 1, 1 }
 		/// </summary>
-		static constexpr Vector3D One()
+		[[nodiscard]] static constexpr Vector3D One()
 		{
 			return{ 1, 1, 1 };
 		}
@@ -454,7 +468,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ value, value, value }
 		/// </summary>
-		static constexpr Vector3D All(value_type value = 1)
+		[[nodiscard]] static constexpr Vector3D All(value_type value = 1)
 		{
 			return{ value, value, value };
 		}
@@ -462,7 +476,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 1, 0, 0 }
 		/// </summary>
-		static constexpr Vector3D UnitX()
+		[[nodiscard]] static constexpr Vector3D UnitX()
 		{
 			return{ 1, 0, 0 };
 		}
@@ -470,7 +484,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 1, 0 }
 		/// </summary>
-		static constexpr Vector3D UnitY()
+		[[nodiscard]] static constexpr Vector3D UnitY()
 		{
 			return{ 0, 1, 0 };
 		}
@@ -478,7 +492,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, 1 }
 		/// </summary>
-		static constexpr Vector3D UnitZ()
+		[[nodiscard]] static constexpr Vector3D UnitZ()
 		{
 			return{ 0, 0, 1 };
 		}
@@ -486,7 +500,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ -length, 0, 0 }
 		/// </summary>
-		static constexpr Vector3D Left(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Left(value_type length = 1)
 		{
 			return{ -length, 0, 0 };
 		}
@@ -494,7 +508,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ length, 0, 0 }
 		/// </summary>
-		static constexpr Vector3D Right(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Right(value_type length = 1)
 		{
 			return{ length, 0, 0 };
 		}
@@ -502,7 +516,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, length, 0 }
 		/// </summary>
-		static constexpr Vector3D Up(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Up(value_type length = 1)
 		{
 			return{ 0, length, 0 };
 		}
@@ -510,7 +524,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, -length, 0 }
 		/// </summary>
-		static constexpr Vector3D Down(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Down(value_type length = 1)
 		{
 			return{ 0, -length, 0 };
 		}
@@ -518,7 +532,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, length }
 		/// </summary>
-		static constexpr Vector3D Forward(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Forward(value_type length = 1)
 		{
 			return{ 0, 0, length };
 		}
@@ -526,14 +540,14 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, -length }
 		/// </summary>
-		static constexpr Vector3D Backward(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Backward(value_type length = 1)
 		{
 			return{ 0, 0, -length };
 		}
 	};
 
 	template <class Type, class U>
-	inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
+	[[nodiscard]] inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);
 	}
@@ -598,7 +612,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Vec3, s3d::char32>

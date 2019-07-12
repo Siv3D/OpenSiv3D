@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,16 +24,19 @@
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/MultiPolygon.hpp>
+# include <Polygon/PolygonDetail.hpp>
 # include "Polynomial.hpp"
-# include "../Polygon/CPolygon.hpp"
 
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry.hpp>
+# include <boost/geometry/geometries/point_xy.hpp>
 # include <boost/geometry/algorithms/within.hpp>
 # include <boost/geometry/algorithms/distance.hpp>
-S3D_DISABLE_MSVC_WARNINGS_POP()
-S3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -428,6 +431,11 @@ namespace s3d
 			return Intersect(Vec2(a), b);
 		}
 
+		bool Intersect(const Point& a, const LineString& b) noexcept
+		{
+			return Intersect(Vec2(a), b);
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Vec2 vs
@@ -519,6 +527,24 @@ namespace s3d
 			for (const auto& polygon : b)
 			{
 				if (Intersect(a, polygon))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Vec2& a, const LineString& b) noexcept
+		{
+			if(b.isEmpty())
+			{
+				return false;
+			}
+
+			for(size_t i = 0; i < b.size()-1; ++i)
+			{
+				if(Intersect(a,Line(b[i],b[i+1])))
 				{
 					return true;
 				}
@@ -1431,6 +1457,16 @@ namespace s3d
 		//
 		//	LineString vs
 		//
+		bool Intersect(const LineString& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		bool Intersect(const LineString& a, const Circle& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1555,6 +1591,37 @@ namespace s3d
 				{
 					return none;
 				}
+			}
+
+			return results;
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b)
+		{
+			if (Geometry2D::Intersect(a.begin, b) && Geometry2D::Intersect(a.end, b))
+			{
+				return Optional<Array<Vec2>>();
+			}
+
+			bool hasIntersection = false;
+			Array<Vec2> results;
+
+			for (size_t i = 0; i < 3; ++i)
+			{
+				if (const auto point = b.side(i).intersectsAt(a))
+				{
+					hasIntersection = true;
+
+					if (IsFinite(point->x))
+					{
+						results << point.value();
+					}
+				}
+			}
+
+			if (!hasIntersection)
+			{
+				return none;
 			}
 
 			return results;
@@ -1927,6 +1994,15 @@ namespace s3d
 		}
 
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Triangle IntersectAt
+		//
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -2518,6 +2594,11 @@ namespace s3d
 		{
 			return Distance(Vec2(a), b);
 		}
+		
+		double Distance(const Point& a, const RoundRect& b)
+		{
+			return Distance(Vec2(a),b);
+		}
 
 		double Distance(const Point& a, const Polygon& b)
 		{
@@ -2571,6 +2652,75 @@ namespace s3d
 		double Distance(const Vec2& a, const Quad& b)
 		{
 			return boost::geometry::distance(gVec2(a.x, a.y), detail::MakeQuad(b));
+		}
+
+		enum class Region
+		{
+			TL,T ,TR,
+			L ,C ,R,
+			BL,B ,BR
+		};
+		
+		Region FindRoundRectRegion(const Vec2& p, const detail::RoundRectParts& r)
+		{
+			//top
+			if (p.y < r.circleTL.center.y)
+			{
+				if (p.x < r.circleTL.center.x)
+					return Region::TL;
+				else if (p.x > r.circleTR.center.x)
+					return Region::TR;
+				else
+					return Region::T;
+
+			}
+			//bottom
+			else if (p.y > r.circleBL.center.y)
+			{
+				if (p.x < r.circleTL.center.x)
+					return Region::BL;
+				else if (p.x > r.circleTR.center.x)
+					return Region::BR;
+				else
+					return Region::B;
+			}
+			//center
+			else
+			{
+				if (p.x < r.circleTL.center.x)
+					return Region::L;
+				else if (p.x > r.circleTR.center.x)
+					return Region::R;
+				else
+					return Region::C;
+			}
+		}
+
+		double Distance(const Vec2& a, const RoundRect& b)
+		{
+			auto p = detail::RoundRectParts(b);
+			switch (FindRoundRectRegion(a, p))
+			{
+			case Region::TL:
+				return Distance(a, p.circleTL);
+			case Region::T:
+				return Distance(a, p.rectB);
+			case Region::TR:
+				return Distance(a, p.circleTR);
+			case Region::L:
+				return Distance(a, p.rectA);
+			case Region::C:
+				return 0.0;
+			case Region::R:
+				return Distance(a, p.rectA);
+			case Region::BL:
+				return Distance(a, p.circleBL);
+			case Region::B:
+				return Distance(a, p.rectB);
+			case Region::BR:
+			default:
+				return Distance(a, p.circleBR);
+			}
 		}
 
 		double Distance(const Vec2& a, const Polygon& b)
@@ -2789,6 +2939,11 @@ namespace s3d
 			return std::max(0.0, Distance(a.center, b) - a.r);
 		}
 		
+		double Distance(const Circle& a, const RoundRect& b)
+		{
+			return std::max(0.0, Distance(a.center, b) - a.r);
+		}
+
 		double Distance(const Circle& a, const Polygon& b)
 		{
 			return std::max(0.0, Distance(a.center, b) - a.r);
@@ -2905,6 +3060,25 @@ namespace s3d
 		double Distance(const Quad& a, const LineString& b)
 		{
 			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeLineString(b));
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	RoundRect vs
+		//
+		double Distance(const RoundRect& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const RoundRect& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const RoundRect& a, const Circle& b)
+		{
+			return Distance(b, a);
 		}
 
 		////////////////////////////////////////////////////////////////////

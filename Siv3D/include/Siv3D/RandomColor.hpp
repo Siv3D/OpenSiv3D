@@ -2,74 +2,38 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Random.hpp"
+# include <utility>
 # include "Color.hpp"
 # include "HSV.hpp"
-# include "NamedParameter.hpp"
 
 namespace s3d
 {
-	inline Color RandomColor()
-	{
-		return HueToColor(Random(360.0));
-	}
+	Color RandomColor();
 
-	inline Color RandomColor(
+	Color RandomColor(
 		const std::pair<uint32, uint32>& rMinMax,
 		const std::pair<uint32, uint32>& gMinMax,
-		const std::pair<uint32, uint32>& bMinMax
-	)
-	{
-		Color c;
-		c.r = Random(rMinMax.first, rMinMax.second);
-		c.g = Random(gMinMax.first, gMinMax.second);
-		c.b = Random(bMinMax.first, bMinMax.second);
-		c.a = 255;
-		return c;
-	}
+		const std::pair<uint32, uint32>& bMinMax);
 
-	inline ColorF RandomColorF()
-	{
-		return HueToColorF(Random(360.0));
-	}
+	ColorF RandomColorF();
 
-	inline ColorF RandomColorF(
+	ColorF RandomColorF(
 		const std::pair<double, double>& rMinMax,
 		const std::pair<double, double>& gMinMax,
-		const std::pair<double, double>& bMinMax
-	)
-	{
-		ColorF c;
-		c.r = Random(rMinMax.first, rMinMax.second);
-		c.g = Random(gMinMax.first, gMinMax.second);
-		c.b = Random(bMinMax.first, bMinMax.second);
-		c.a = 255;
-		return c;
-	}
+		const std::pair<double, double>& bMinMax);
 
-	inline HSV RandomHSV()
-	{
-		return{ Random(360.0), 1.0, 1.0 };
-	}
+	HSV RandomHSV();
 
-	inline HSV RandomHSV(
+	HSV RandomHSV(
 		const std::pair<double, double>& hMinMax,
 		const std::pair<double, double>& sMinMax,
-		const std::pair<double, double>& vMinMax
-	)
-	{
-		HSV hsv;
-		hsv.h = Random(hMinMax.first, hMinMax.second);
-		hsv.s = Random(sMinMax.first, sMinMax.second);
-		hsv.v = Random(vMinMax.first, vMinMax.second);
-		return hsv;
-	}
+		const std::pair<double, double>& vMinMax);
 }

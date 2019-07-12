@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,6 +24,8 @@ namespace s3d
 		using base_type = Array<WaveSample>;
 
 		uint32 m_samplingRate = DefaultSamplingRate;
+
+		void remove_silence_tail(float value);
 
 	public:
 
@@ -98,44 +100,38 @@ namespace s3d
 		/// </summary>
 		static constexpr uint32 MaxSamplingRate = 192000;
 
-		Wave() = default;
+		Wave();
 
-		explicit Wave(size_t num_samples, Arg::samplingRate_<uint32> samplingRate)
-			: base_type(num_samples)
-			, m_samplingRate(*samplingRate) {}
+		Wave(const Wave& wave) = default;
 
-		explicit Wave(const Duration& duration, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		Wave(Wave&& wave) = default;
 
-		Wave(size_t num_samples, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate)
-			: base_type(num_samples, sample)
-			, m_samplingRate(*samplingRate) {}
+		explicit Wave(size_t num_samples, Arg::samplingRate_<uint32> samplingRate);
 
-		Wave(const Duration& duration, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		explicit Wave(const Duration& duration, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
-		Wave(size_t num_samples, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		Wave(size_t num_samples, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate);
 
-		Wave(const Duration& duration, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		Wave(const Duration& duration, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+
+		Wave(size_t num_samples, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+
+		Wave(const Duration& duration, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
 		explicit Wave(const FilePath& path);
 
 		explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
-		Wave(const Wave& wave) = default;
-
 		template <class InputIt>
-		Wave(InputIt first, InputIt last, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
+		Wave(InputIt first, InputIt last, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate)
 			: base_type(first, last)
 			, m_samplingRate(*samplingRate) {}
 
-		explicit Wave(const Array<WaveSample>& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
-			: base_type(samples)
-			, m_samplingRate(*samplingRate) {}
+		explicit Wave(const Array<WaveSample>& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
-		explicit Wave(Array<WaveSample>&& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
-			: base_type(std::move(samples))
-			, m_samplingRate(*samplingRate) {}
+		explicit Wave(Array<WaveSample>&& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
-		Wave(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		Wave(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, float silenceValue = 0.01f);
 
 		[[nodiscard]] uint32 samplingRate() const noexcept
 		{
@@ -162,109 +158,43 @@ namespace s3d
 			return static_cast<double>(size()) / m_samplingRate;
 		}
 
-		void fillZero()
-		{
-			fill(WaveSample::Zero());
-		}
+		void fillZero();
 
-		Wave& operator =(const Array<WaveSample>& other)
-		{
-			base_type::operator=(other);
+		Wave& operator =(const Array<WaveSample>& other);
 
-			return *this;
-		}
+		Wave& operator =(Array<WaveSample>&& other) noexcept;
 
-		Wave& operator =(Array<WaveSample>&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
+		Wave& operator =(const Wave& other);
 
-			return *this;
-		}
+		Wave& operator =(Wave&& other) noexcept;
 
-		Wave& operator =(const Wave& other)
-		{
-			base_type::operator=(other);
+		void assign(const Wave& other);
 
-			return *this;
-		}
-
-		Wave& operator =(Wave&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
-
-			return *this;
-		}
-
-		void assign(const Wave& other)
-		{
-			base_type::operator=(other);
-		}
-
-		void assign(Wave&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
-		}
+		void assign(Wave&& other) noexcept;
 		
-		Wave& operator <<(const WaveSample& sample)
-		{
-			base_type::push_back(sample);
+		Wave& operator <<(const WaveSample& sample);
 
-			return *this;
-		}
+		void swap(Wave& other);
 
-		void swap(Wave& other)
-		{
-			base_type::swap(other);
-		}
+		Wave& append(const Array<WaveSample>& other);
 
-		Wave& append(const Array<WaveSample>& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
+		Wave& append(const Wave& other);
 
-			return *this;
-		}
+		Wave& remove_at(const size_t index);
 
-		Wave& append(const Wave& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
+		Wave& reverse();
 
-			return *this;
-		}
+		Wave& rotate(std::ptrdiff_t count = 1);
 
-		Wave& remove_at(const size_t index)
-		{
-			base_type::remove_at(index);
+		Wave slice(size_t index) const;
 
-			return *this;
-		}
-
-		Wave& reverse()
-		{
-			base_type::reverse();
-
-			return *this;
-		}
-
-		Wave& rotate(std::ptrdiff_t count = 1)
-		{
-			base_type::rotate(count);
-
-			return *this;
-		}
-
-		Wave slice(const size_t index) const
-		{
-			return Wave(base_type::slice(index), Arg::samplingRate = m_samplingRate);
-		}
-
-		Wave slice(const size_t index, const size_t length) const
-		{
-			return Wave(base_type::slice(index, length), Arg::samplingRate = m_samplingRate);
-		}
+		Wave slice(size_t index, size_t length) const;
 
 		bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
 
 		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
+
+		bool saveOggVorbis(const FilePath& path, int32 quality = 60);
 
 		//[[nodiscard]] MemoryWriter encode(AudioFormat format = AudioFormat::WAVE) const;
 	};

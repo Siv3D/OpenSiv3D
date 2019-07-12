@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,10 +11,8 @@
 
 # pragma once
 # include "String.hpp"
-
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
-# include "ThirdParty/fmt/format.h"
-S3D_DISABLE_MSVC_WARNINGS_POP()
+# define FMT_USE_EXTERN_TEMPLATES 1
+# include <ThirdParty/fmt/format.h>
 
 namespace s3d
 {
@@ -22,7 +20,7 @@ namespace s3d
 	{
 		struct FormatHelper
 		{
-			const fmt::basic_string_view<char32> str;
+			const fmt_s3d::basic_string_view<char32> str;
 
 			FormatHelper() = default;
 
@@ -32,7 +30,7 @@ namespace s3d
 			template <class... Args>
 			[[nodiscard]] String operator()(Args&& ...args) const
 			{
-				return fmt::format(str, std::forward<Args>(args)...);
+				return fmt_s3d::format(str, std::forward<Args>(args)...);
 			}
 		};
 	}
@@ -56,14 +54,11 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-	namespace Literals
+	inline namespace Literals
 	{
-		[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t length);
+		inline namespace FormatLiterals
+		{
+			[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t length);
+		}
 	}
 }
-
-# ifndef NO_S3D_USING
-
-	using namespace s3d::Literals;
-
-# endif

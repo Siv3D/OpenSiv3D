@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,20 +26,25 @@ namespace s3d
 			return a + t * (b - a);
 		}
 
-		static constexpr double Grad(int32 hash, double x, double y, double z) noexcept
+		static constexpr double Grad(uint8 hash, double x, double y, double z) noexcept
 		{
-			const int32 h = hash & 15;
+			const uint8 h = hash & 15;
 			const double u = h < 8 ? x : y;
 			const double v = h < 4 ? y : h == 12 || h == 14 ? x : z;
 			return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 		}
 	}
 
+	PerlinNoise::PerlinNoise(const uint32 seed)
+	{
+		reseed(seed);
+	}
+
 	void PerlinNoise::reseed(const uint32 seed)
 	{
-		for (int32 i = 0; i < 256; ++i)
+		for (size_t i = 0; i < 256; ++i)
 		{
-			p[i] = i;
+			p[i] = static_cast<uint8>(i);
 		}
 
 		std::shuffle(std::begin(p), std::begin(p) + 256, DefaultRNGType(seed));

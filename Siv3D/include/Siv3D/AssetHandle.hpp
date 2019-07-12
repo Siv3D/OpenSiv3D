@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,13 +24,23 @@ namespace s3d
 
 		inline static const ValueType NullAssetID = 0;
 
-		inline static const  ValueType InvalidID = Largest<ValueType>();
+		inline static const ValueType InvalidID = Largest<ValueType>;
 
 	private:
 
 		ValueType m_value = NullAssetID;
 
 	public:
+
+		[[nodiscard]] static constexpr AssetIDWrapper NullAsset() noexcept
+		{
+			return AssetIDWrapper(NullAssetID);
+		}
+
+		[[nodiscard]] static constexpr AssetIDWrapper InvalidValue() noexcept
+		{
+			return AssetIDWrapper(InvalidID);
+		}
 
 		constexpr AssetIDWrapper() = default;
 
@@ -56,16 +66,6 @@ namespace s3d
 		{
 			return m_value != other.m_value;
 		}
-
-		[[nodiscard]] static constexpr AssetIDWrapper NullAsset() noexcept
-		{
-			return AssetIDWrapper(NullAssetID);
-		}
-
-		[[nodiscard]] static constexpr AssetIDWrapper InvalidValue() noexcept
-		{
-			return AssetIDWrapper(InvalidID);
-		}
 	};
 
 	template <class Type>
@@ -79,10 +79,9 @@ namespace s3d
 
 		using IDWrapperType = AssetIDWrapper<Type>;
 
-		constexpr AssetHandle() = default;
+		AssetHandle();
 
-		explicit constexpr AssetHandle(IDWrapperType id) noexcept
-			: m_id(id) {}
+		explicit AssetHandle(IDWrapperType id) noexcept;
 
 		~AssetHandle();
 

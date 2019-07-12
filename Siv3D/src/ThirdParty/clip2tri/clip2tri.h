@@ -14,5 +14,5 @@
 
 namespace s3d
 {
-	bool Triangulate(const Array<Array<Vec2>>& inputPolygons, const Array<Vec2>& boundingPolygon, Array<Float2> &vertices, Array<uint32>& indices);
+	bool Triangulate(const Array<Array<Vec2>>& inputPolygons, const Array<Vec2>& boundingPolygon, Array<Float2> &vertices, Array<uint16>& indices);
 }

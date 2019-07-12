@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,7 +25,7 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -46,7 +46,7 @@ namespace s3d
 
 		value_type b;
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 	
 		Ellipse() = default;
 
@@ -114,7 +114,9 @@ namespace s3d
 
 		constexpr bool operator !=(const Ellipse& ellipse) const noexcept
 		{
-			return !(*this == ellipse);
+			return center != ellipse.center
+				|| a != ellipse.a
+				|| b != ellipse.b;
 		}
 
 		[[nodiscard]] constexpr Vec2 top() const noexcept
@@ -311,10 +313,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Ellipse& value)
-	{
-		Formatter(formatData, Vec4(value.x, value.y, value.a, value.b));
-	}
+	void Formatter(FormatData& formatData, const Ellipse& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ellipse& value)
@@ -362,7 +361,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Ellipse, s3d::char32>

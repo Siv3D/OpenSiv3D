@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,8 +14,8 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Spline.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -24,6 +24,174 @@ namespace s3d
 		static constexpr bool Open = false;
 
 		static constexpr bool Closed = true;
+	}
+
+	LineString::LineString(const LineString& lines)
+		: base_type(lines.begin(), lines.end())
+	{
+
+	}
+
+	LineString::LineString(LineString&& lines)
+		: base_type(std::move(lines))
+	{
+
+	}
+
+	LineString::LineString(const Array<Vec2>& points)
+		: base_type(points.begin(), points.end())
+	{
+
+	}
+
+	LineString::LineString(Array<Vec2>&& points)
+		: base_type(std::move(points))
+	{
+
+	}
+
+	LineString& LineString::operator =(const Array<Vec2>& other)
+	{
+		base_type::operator=(other);
+
+		return *this;
+	}
+
+	LineString& LineString::operator =(Array<Vec2>&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+
+		return *this;
+	}
+
+	LineString& LineString::operator =(const LineString& other)
+	{
+		base_type::operator=(other);
+
+		return *this;
+	}
+
+	LineString& LineString::operator =(LineString&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+
+		return *this;
+	}
+
+	void LineString::assign(const LineString& other)
+	{
+		base_type::operator=(other);
+	}
+
+	void LineString::assign(LineString&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+	}
+
+	LineString& LineString::operator <<(const Vec2& value)
+	{
+		base_type::push_back(value);
+
+		return *this;
+	}
+
+	void LineString::swap(LineString& other) noexcept
+	{
+		base_type::swap(other);
+	}
+
+	LineString& LineString::append(const Array<Vec2>& other)
+	{
+		base_type::insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	LineString& LineString::append(const LineString& other)
+	{
+		base_type::insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	LineString& LineString::remove(const Vec2& value)
+	{
+		base_type::remove(value);
+
+		return *this;
+	}
+
+	LineString& LineString::remove_at(const size_t index)
+	{
+		base_type::remove_at(index);
+
+		return *this;
+	}
+
+	LineString& LineString::reverse()
+	{
+		base_type::reverse();
+
+		return *this;
+	}
+
+	LineString& LineString::rotate(const std::ptrdiff_t count)
+	{
+		base_type::rotate(count);
+
+		return *this;
+	}
+
+	LineString& LineString::shuffle()
+	{
+		base_type::shuffle();
+
+		return *this;
+	}
+
+	LineString LineString::slice(const size_t index) const
+	{
+		return LineString(base_type::slice(index));
+	}
+
+	LineString LineString::slice(const size_t index, const size_t length) const
+	{
+		return LineString(base_type::slice(index, length));
+	}
+
+	size_t LineString::num_lines() const noexcept
+	{
+		return size() < 2 ? 0 : size() - 1;
+	}
+
+	Line LineString::line(const size_t index) const
+	{
+		return{ base_type::operator[](index), base_type::operator[](index + 1) };
+	}
+
+	LineString LineString::movedBy(const double x, const double y) const
+	{
+		return LineString(*this).moveBy(x, y);
+	}
+
+	LineString LineString::movedBy(const Vec2& v) const
+	{
+		return movedBy(v.x, v.y);
+	}
+
+	LineString& LineString::moveBy(const double x, const double y) noexcept
+	{
+		for (auto& point : *this)
+		{
+			point.moveBy(x, y);
+		}
+
+		return *this;
+	}
+
+	LineString& LineString::moveBy(const Vec2& v) noexcept
+	{
+		return moveBy(v.x, v.y);
 	}
 
 	RectF LineString::calculateBoundingRect() const noexcept
@@ -253,10 +421,10 @@ namespace s3d
 			return *this;
 		}
 
-		Siv3DEngine::GetRenderer2D()->addLineString(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(
 			style,
 			data(),
-			static_cast<uint32>(size()),
+			static_cast<uint16>(size()),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
@@ -270,5 +438,10 @@ namespace s3d
 	void LineString::_drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const int32 interpolation, const bool isClosed) const
 	{
 		_catmullRom(interpolation, isClosed)._draw(style, thickness, color, isClosed);
+	}
+
+	void Formatter(FormatData& formatData, const LineString& value)
+	{
+		formatData.string.append(value.join(U", "_sv, U"("_sv, U")"_sv));
 	}
 }

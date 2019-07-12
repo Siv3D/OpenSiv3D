@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -46,74 +46,6 @@ namespace s3d
 		[[nodiscard]] Array<Image> GenerateMips(const Image& src);
 
 		[[nodiscard]] Image GenerateSDF(const Image& image, const uint32 scale, const double spread = 16.0);
-
-		/// <summary>
-		/// 画像から最大の輪郭を抽出します。
-		/// </summary>
-		/// <param name="image">
-		/// 画像
-		/// </param>
-		/// <param name="useAlpha">
-		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
-		/// </param>
-		/// <param name="threshold">
-		/// 閾値
-		/// </param>
-		/// <returns>
-		/// 輪郭から構成された Polygon
-		/// </returns>
-		[[nodiscard]] Polygon FindExternalContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
-
-		/// <summary>
-		/// 画像から輪郭を抽出します。
-		/// </summary>
-		/// <param name="image">
-		/// 画像
-		/// </param>
-		/// <param name="useAlpha">
-		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
-		/// </param>
-		/// <param name="threshold">
-		/// 閾値
-		/// </param>
-		/// <returns>
-		/// 輪郭から構成された Polygon の Array
-		/// </returns>
-		[[nodiscard]] MultiPolygon FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
-
-		/// <summary>
-		/// 画像から穴を含む最大の輪郭を抽出します。
-		/// </summary>
-		/// <param name="image">
-		/// 画像
-		/// </param>
-		/// <param name="useAlpha">
-		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
-		/// </param>
-		/// <param name="threshold">
-		/// 閾値
-		/// </param>
-		/// <returns>
-		/// 輪郭から構成された Polygon
-		/// </returns>
-		[[nodiscard]] Polygon FindContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
-
-		/// <summary>
-		/// 画像から穴を含む輪郭を抽出します。
-		/// </summary>
-		/// <param name="image">
-		/// 画像
-		/// </param>
-		/// <param name="useAlpha">
-		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
-		/// </param>
-		/// <param name="threshold">
-		/// 閾値
-		/// </param>
-		/// <returns>
-		/// 輪郭から構成された Polygon の Array
-		/// </returns>
-		[[nodiscard]] MultiPolygon FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		void Sobel(const Image& src, Image& dst, int32 dx = 1, int32 dy = 1, int32 apertureSize = 3);
 

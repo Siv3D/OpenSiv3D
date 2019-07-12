@@ -2,20 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <array>
+# include <cassert>
 # include <cstring>
+# include <array>
 # include "Fwd.hpp"
-# include "HardwareRNG.hpp"
-# include "Xorshift.hpp"
-# include "ThirdParty/SFMT/SFMT.hpp"
+# include "Number.hpp"
+# include <ThirdParty/SFMT/SFMT.hpp>
 
 namespace s3d
 {
@@ -29,7 +29,7 @@ namespace s3d
 	{
 	private:
 
-		detail::SFMT_T m_sfmt;
+		sfmt::SFMT_T m_sfmt;
 
 	public:
 
@@ -43,19 +43,7 @@ namespace s3d
 		/// 乱数エンジンを作成し、内部状態を非決定的な乱数で初期化します。
 		/// Constructs the engine and initializes the state with non-deterministic random numbers
 		/// </summary>
-		SFMT19937_64()
-		{
-			HardwareRNG rng;
-
-			uint32 keys[32];
-
-			for (auto& key : keys)
-			{
-				key = rng();
-			}
-
-			detail::sfmt_init_by_array(&m_sfmt, keys, 16);
-		}
+		SFMT19937_64();
 
 		/// <summary>
 		/// 乱数エンジンを作成し、内部状態を初期化します。
@@ -65,10 +53,7 @@ namespace s3d
 		/// 内部状態の初期化に使われるシード値
 		/// seed value to use in the initialization of the internal state
 		/// </param>
-		explicit SFMT19937_64(const uint64 seed)
-		{
-			this->seed(seed);
-		}
+		explicit SFMT19937_64(uint64 seed);
 
 		/// <summary>
 		/// 乱数エンジンを作成し、内部状態を初期化します。
@@ -78,10 +63,7 @@ namespace s3d
 		/// 内部状態の初期化に使われるシード値
 		/// seed values to use in the initialization of the internal state
 		/// </param>
-		explicit SFMT19937_64(const std::array<uint64, 16>& seeds)
-		{
-			this->seed(seeds);
-		}
+		explicit SFMT19937_64(const std::array<uint64, 16>& seeds);
 
 		/// <summary>
 		/// 新しいシード値で乱数エンジンの内部状態を再初期化します。
@@ -91,19 +73,7 @@ namespace s3d
 		/// 内部状態の初期化に使われるシード値
 		/// seed value to use in the initialization of the internal state
 		/// </param>
-		void seed(const uint64 seed)
-		{
-			SplitMix64 splitmix64(seed);
-
-			uint32 keys[32];
-
-			for (auto& key : keys)
-			{
-				key = static_cast<uint32>(splitmix64.next());
-			}
-
-			detail::sfmt_init_by_array(&m_sfmt, keys, static_cast<int32>(std::size(keys)));
-		}
+		void seed(uint64 seed);
 
 		/// <summary>
 		/// 新しいシード値で乱数エンジンの内部状態を再初期化します。
@@ -113,19 +83,7 @@ namespace s3d
 		/// 内部状態の初期化に使われるシード値
 		/// seed values to use in the initialization of the internal state
 		/// </param>
-		void seed(const std::array<uint64, 16>& seeds)
-		{
-			uint32 keys[32];
-
-			for (size_t i = 0; i < 16; ++i)
-			{
-				keys[i * 2] = static_cast<uint32>(seeds[i] >> 32);
-				
-				keys[i * 2 + 1] = static_cast<uint32>(seeds[i] & 0xffFFffFF);
-			}
-
-			detail::sfmt_init_by_array(&m_sfmt, keys, static_cast<int32>(std::size(keys)));
-		}
+		void seed(const std::array<uint64, 16>& seeds);
 
 		/// <summary>
 		/// 生成される乱数の最小値を返します。
@@ -137,7 +95,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] static constexpr result_type min()
 		{
-			return std::numeric_limits<result_type>::min();
+			return Smallest<result_type>;
 		}
 
 		/// <summary>
@@ -150,7 +108,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] static constexpr result_type max()
 		{
-			return std::numeric_limits<result_type>::max();
+			return Largest<result_type>;
 		}
 
 		/// <summary>
@@ -163,7 +121,7 @@ namespace s3d
 		/// </returns>
 		result_type operator()()
 		{
-			return detail::sfmt_genrand_uint64(&m_sfmt);
+			return sfmt::sfmt_genrand_uint64(&m_sfmt);
 		}
 
 		/// <summary>
@@ -176,7 +134,7 @@ namespace s3d
 		/// </returns>
 		double generateReal()
 		{
-			return detail::sfmt_genrand_res53(&m_sfmt);
+			return sfmt::sfmt_genrand_res53(&m_sfmt);
 		}
 	};
 }

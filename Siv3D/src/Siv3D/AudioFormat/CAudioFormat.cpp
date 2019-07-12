@@ -2,24 +2,23 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CAudioFormat.hpp"
-# include "WAVE/AudioFormat_WAVE.hpp"
-# include "MP3/AudioFormat_MP3_Windows.hpp"
-# include "MP3/AudioFormat_MP3_mpg123.hpp"
-# include "AAC/AudioFormat_AAC_Windows.hpp"
-# include "AAC/AudioFormat_AAC_macOS.hpp"
+# include <AudioFormat/WAVE/AudioFormat_WAVE.hpp>
+# include <AudioFormat/MP3/AudioFormat_MP3.hpp>
+# include <AudioFormat/AAC/AudioFormat_AAC.hpp>
+# include <AudioFormat/OggVorbis/AudioFormat_OggVorbis.hpp>
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/WritableMemoryMapping.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include "CAudioFormat.hpp"
 
 namespace s3d
 {
@@ -66,23 +65,25 @@ namespace s3d
 
 	CAudioFormat::~CAudioFormat()
 	{
-
+		LOG_TRACE(U"CAudioFormat::~CAudioFormat()");
 	}
 
-	bool CAudioFormat::init()
+	void CAudioFormat::init()
 	{
+		LOG_TRACE(U"CAudioFormat::init()");
+
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
 		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
 
-	# if defined(SIV3D_TARGET_WINDOWS) || defined(SIV3D_TARGET_MACOS)
+	# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
 
 		m_audioFormats.push_back(std::make_unique<AudioFormat_AAC>());
 
 	# endif
 
-		LOG_INFO(U"ℹ️ AudioFormat initialized");
-		
-		return true;
+		m_audioFormats.push_back(std::make_unique<AudioFormat_OggVorbis>());
+
+		LOG_INFO(U"ℹ️ CAudioFormat initialized");
 	}
 
 	AudioFormat CAudioFormat::getFormatFromReader(const IReader& reader, const FilePath& pathHint) const
@@ -126,7 +127,7 @@ namespace s3d
 			return Wave();
 		}
 		
-	# if defined(SIV3D_TARGET_MACOS)
+	# if SIV3D_PLATFORM(MACOS)
 
 		if ((*it)->format() == AudioFormat::AAC)
 		{
@@ -154,7 +155,7 @@ namespace s3d
 			return Wave();
 		}
 
-	# if defined(SIV3D_TARGET_MACOS)
+	# if SIV3D_PLATFORM(MACOS)
 
 		if ((*it)->format() == AudioFormat::AAC)
 		{
@@ -180,6 +181,23 @@ namespace s3d
 		if (const AudioFormat_WAVE* wav = dynamic_cast<AudioFormat_WAVE*>(p->get()))
 		{
 			return wav->encode(wave, writer, format);
+		}
+
+		return false;
+	}
+
+	bool CAudioFormat::encodeOggVorbis(IWriter& writer, const Wave& wave, const int32 quality) const
+	{
+		const auto p = findFormat(AudioFormat::OggVorbis);
+
+		if (p == m_audioFormats.end())
+		{
+			return false;
+		}
+
+		if (const AudioFormat_OggVorbis * wav = dynamic_cast<AudioFormat_OggVorbis*>(p->get()))
+		{
+			return wav->encode(wave, quality, writer);
 		}
 
 		return false;
@@ -219,7 +237,7 @@ namespace s3d
 
 		for (auto it = m_audioFormats.begin(); it != m_audioFormats.end(); ++it)
 		{
-			if ((*it)->isHeader(header))
+			if ((*it)->isHeader(header, reader))
 			{
 				return it;
 			}

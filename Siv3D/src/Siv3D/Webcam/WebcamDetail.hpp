@@ -1,16 +1,17 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "IWebcam.hpp"
+# include <atomic>
+# include <thread>
 # include <Siv3D/Webcam.hpp>
 # include <Siv3D/Image.hpp>
 # include <opencv2/videoio.hpp>
@@ -25,77 +26,95 @@ namespace s3d
 
 		Active,
 
-		Pause,
-
 		Stop,
 
 		HasError,
 	};
 
-	struct WebcamData
-	{
-		cv::VideoCapture m_capture;
+	//struct WebcamData
+	//{
+	//	cv::VideoCapture m_capture;
 
-		Size m_resolution = Size(0, 0);
+	//	Size m_resolution = Size(0, 0);
 
-		cv::Mat_<cv::Vec3b> m_frame;
+	//	cv::Mat_<cv::Vec3b> m_frame;
 
-		Image m_image;
+	//	Image m_image;
 
-		std::thread m_thread;
+	//	std::thread m_thread;
 
-		std::atomic<WebcamState> m_state = WebcamState::None;
+	//	std::atomic<WebcamState> m_state = WebcamState::None;
 
-		std::mutex m_imageMutex;
+	//	std::mutex m_imageMutex;
 
-		std::atomic<int32> m_newFrameCount = 0;
+	//	std::atomic<int32> m_newFrameCount = 0;
 
-		static void OnRunning(WebcamData& webcam, const int32 index);
+	//	static void OnRunning(WebcamData& webcam);
 
-		~WebcamData();
+	//	~WebcamData();
 
-		bool open(size_t index);
+	//	bool open(size_t index);
 
-		void initResolution();
+	//	bool isOpened() const;
 
-		bool setResolution(const Size& resolution);
+	//	void initResolution();
 
-		bool retrieve();
+	//	bool setResolution(const Size& resolution);
 
-		void release();
+	//	bool retrieve();
 
-		const Size& getResolution() const;
+	//	void release();
 
-		bool start(int32 index);
+	//	const Size& getResolution() const;
 
-		void stop();
+	//	bool start();
 
-		bool hasNewFrame() const;
+	//	void stop();
 
-		bool getFrame(Image& image);
+	//	bool hasNewFrame() const;
 
-		bool getFrame(DynamicTexture& texture);
-	};
+	//	bool getFrame(Image& image);
+
+	//	bool getFrame(DynamicTexture& texture);
+	//};
 
 	class Webcam::WebcamDetail
 	{
 	private:
 
-		size_t m_index = 0;
+		bool m_initialized = false;
 
-		bool m_available = false;
+		int32 m_index = 0;
 
-		bool m_isActive = false;
+		cv::VideoCapture m_capture;
 
-		WebcamData m_webcam;
+		Size m_currentResolution = Size(0, 0);
+
+		std::thread m_thread;
+
+		std::atomic<WebcamState> m_state = WebcamState::None;
+
+		cv::Mat_<cv::Vec3b> m_frame;
+
+		std::mutex m_imageMutex;
+
+		Image m_image;
+
+		std::atomic<int32> m_newFrameCount = 0;
+
+		bool open();
+
+		static void OnRunning(WebcamDetail& webcam);
 
 	public:
+
+		WebcamDetail();
 
 		WebcamDetail(size_t index);
 
 		~WebcamDetail();
 
-		bool isAvailable() const;
+		bool isAvailable();
 
 		bool start();
 

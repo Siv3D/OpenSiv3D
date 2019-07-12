@@ -378,8 +378,8 @@ namespace mu
     {
       switch(a_Callback.GetCode())
       {
-      case cmOPRT_POSTFIX: Error(ecINVALID_POSTFIX_IDENT, -1, a_sName);
-      case cmOPRT_INFIX:   Error(ecINVALID_INFIX_IDENT, -1, a_sName);
+      case cmOPRT_POSTFIX: Error(ecINVALID_POSTFIX_IDENT, -1, a_sName); break;
+      case cmOPRT_INFIX:   Error(ecINVALID_INFIX_IDENT, -1, a_sName); break;
       default:             Error(ecINVALID_NAME, -1, a_sName);
       }
     }
@@ -412,8 +412,7 @@ namespace mu
   void ParserBase::SetExpr(const string_type &a_sExpr)
   {
     // Check locale compatibility
-    std::locale loc;
-    if (m_pTokenReader->GetArgSep()==std::use_facet<numpunct<char_type> >(loc).decimal_point())
+    if (m_pTokenReader->GetArgSep()==std::use_facet<numpunct<char_type> >(s_locale).decimal_point())
       Error(ecLOCALE);
 
     // <ibg> 20060222: Bugfix for Borland-Kylix:
@@ -1232,7 +1231,8 @@ namespace mu
                   Error(ecUNEXPECTED_ARG_SEP, m_pTokenReader->GetPos());
 
                 ++stArgCount.top();
-                // fallthrough intentional (no break!)
+                // Falls through.
+                // intentional (no break!)
 
         case cmEND:
                 ApplyRemainingOprt(stOpt, stVal);
@@ -1290,7 +1290,8 @@ namespace mu
         //case cmXOR:
         case cmIF:
                 m_nIfElseCounter++;
-                // fallthrough intentional (no break!)
+                // Falls through.
+                // intentional (no break!)
 
         case cmLAND:
         case cmLOR:

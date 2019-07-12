@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -27,44 +27,21 @@ namespace s3d
 
 		Texture texture;
 
-		std::function<bool(TextureAssetData&)> onPreload = DefaultPreload;
+		std::function<bool(TextureAssetData&)> onPreload;
 
-		std::function<bool(TextureAssetData&)> onUpdate = DefaultUpdate;
+		std::function<bool(TextureAssetData&)> onUpdate;
 
-		std::function<bool(TextureAssetData&)> onRelease = DefaultRelease;
+		std::function<bool(TextureAssetData&)> onRelease;
 
-		static const String& Name()
-		{
-			static const String name = U"Texture";
+		static const String& Name();
 
-			return name;
-		}
+		static bool DefaultPreload(TextureAssetData& asset);
 
-		static bool DefaultPreload(TextureAssetData& asset)
-		{
-			if (asset.texture)
-			{
-				return true;
-			}
+		static bool DefaultUpdate(TextureAssetData&);
 
-			asset.texture = Texture(asset.path, asset.desc);
+		static bool DefaultRelease(TextureAssetData& asset);
 
-			return !asset.texture.isEmpty();
-		}
-
-		static bool DefaultUpdate(TextureAssetData&)
-		{
-			return true;
-		}
-
-		static bool DefaultRelease(TextureAssetData& asset)
-		{
-			asset.texture.release();
-
-			return true;
-		}
-
-		TextureAssetData() = default;
+		TextureAssetData();
 
 		explicit TextureAssetData(
 			const FilePath& _path,
@@ -74,49 +51,13 @@ namespace s3d
 			std::function<bool(TextureAssetData&)> _onUpdate = DefaultUpdate,
 			std::function<bool(TextureAssetData&)> _onRelease = DefaultRelease);
 
-		bool preload() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				m_state = onPreload(*this) ? State::LoadSucceeded : State::LoadFailed;
-			}
+		bool preload() override;
 
-			return (m_state == State::LoadSucceeded);
-		}
+		void preloadAsync() override;
 
-		void preloadAsync() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				launchLoading([this]() { return onPreload(*this); });
+		bool update() override;
 
-				m_state = State::PreloadingAsync;
-			}
-		}
-
-		bool update() override
-		{
-			if (!isPreloaded())
-			{
-				return false;
-			}
-
-			return onUpdate(*this);
-		}
-
-		bool release() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				return true;
-			}
-
-			const bool result = onRelease(*this);
-
-			m_state = State::Uninitialized;
-
-			return result;
-		}
+		bool release() override;
 	};
 
 	/// <summary>
@@ -127,6 +68,8 @@ namespace s3d
 	public:
 
 		TextureAsset(const AssetName& name);
+
+		TextureAsset(const AssetName& name, const Texture& dummy);
 
 		static bool Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter = AssetParameter{});
 

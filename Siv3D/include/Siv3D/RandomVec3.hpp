@@ -2,148 +2,61 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Random.hpp"
+# include <utility>
 # include "PointVector.hpp"
-# include "Rectangle.hpp"
-# include "MathConstants.hpp"
 
 namespace s3d
 {
-	inline Vec3 RandomVec3onUnitSphere()
-	{
-		const double theta = Random(Math::Pi);
-		const double phi = Random(Math::TwoPi);
-		const double s = std::sin(theta);
-		return{ s * std::cos(phi), s * std::sin(phi), std::cos(theta) };
-	}
+	Vec3 RandomVec3onUnitSphere();
 
-	inline Vec3 RandomVec3insideUnitSphere()
-	{
-		for (;;)
-		{
-			Vec3 v;
-			v.x = 2.0 * Random() - 1.0;
-			v.y = 2.0 * Random() - 1.0;
-			v.z = 2.0 * Random() - 1.0;
+	Vec3 RandomVec3insideUnitSphere();
 
-			if (v.lengthSq() < 1.0)
-			{
-				return v;
-			}
-		}
-	}
+	Vec3 RandomVec3();
 
-	inline Vec3 RandomVec3()
-	{
-		return RandomVec3onUnitSphere();
-	}
+	Vec3 RandomVec3(double length);
 
-	inline Vec3 RandomVec3(const double length)
-	{
-		return RandomVec3() * length;
-	}
+	Vec3 RandomVec3(
+		double x,
+		double y,
+		const std::pair<double, double>& zMinMax);
 
-	inline Vec3 RandomVec3(
-		const double x,
-		const double y,
-		const std::pair<double, double>& zMinMax
-	)
-	{
-		Vec3 v;
-		v.x = x;
-		v.y = y;
-		v.z = Random(zMinMax.first, zMinMax.second);
-		return v;
-	}
-
-	inline Vec3 RandomVec3(
-		const double x,
+	Vec3 RandomVec3(
+		double x,
 		const std::pair<double, double>& yMinMax,
-		const double z
-	)
-	{
-		Vec3 v;
-		v.x = x;
-		v.y = Random(yMinMax.first, yMinMax.second);
-		v.z = z;
-		return v;
-	}
+		double z);
 
-	inline Vec3 RandomVec3(
+	Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
-		const double y,
-		const double z
-	)
-	{
-		Vec3 v;
-		v.x = Random(xMinMax.first, xMinMax.second);
-		v.y = y;
-		v.z = z;
-		return v;
-	}
+		double y,
+		double z);
 
-	inline Vec3 RandomVec3(
-		const double x,
+	Vec3 RandomVec3(
+		double x,
 		const std::pair<double, double>& yMinMax,
-		const std::pair<double, double>& zMinMax
-	)
-	{
-		Vec3 v;
-		v.x = x;
-		v.y = Random(yMinMax.first, yMinMax.second);
-		v.z = Random(zMinMax.first, zMinMax.second);
-		return v;
-	}
+		const std::pair<double, double>& zMinMax);
 
-	inline Vec3 RandomVec3(
+	Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
-		const double y,
-		const std::pair<double, double>& zMinMax
-	)
-	{
-		Vec3 v;
-		v.x = Random(xMinMax.first, xMinMax.second);
-		v.y = y;
-		v.z = Random(zMinMax.first, zMinMax.second);
-		return v;
-	}
+		double y,
+		const std::pair<double, double>& zMinMax);
 
-	inline Vec3 RandomVec3(
+	Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
-		const double z
-	)
-	{
-		Vec3 v;
-		v.x = Random(xMinMax.first, xMinMax.second);
-		v.y = Random(yMinMax.first, yMinMax.second);
-		v.z = z;
-		return v;
-	}
+		double z);
 
-	inline Vec3 RandomVec3(
+	Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
-		const std::pair<double, double>& zMinMax
-	)
-	{
-		Vec3 v;
-		v.x = Random(xMinMax.first, xMinMax.second);
-		v.y = Random(yMinMax.first, yMinMax.second);
-		v.z = Random(zMinMax.first, zMinMax.second);
-		return v;
-	}
+		const std::pair<double, double>& zMinMax);
 
-	inline Vec3 RandomVec3(const double xMax, const double yMax, const double zMax)
-	{
-		return RandomVec3({ 0.0, xMax }, { 0.0, yMax }, { 0.0, zMax });
-	}
+	Vec3 RandomVec3(double xMax, double yMax, double zMax);
 }

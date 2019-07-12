@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,16 +24,26 @@ namespace s3d
 
 		size_t m_num_customLicenes = 0;
 
+		String m_uniqueID;
+
+		bool m_openIfF1KeyPressed = true;
+
 	public:
 
 		CLicenseManager();
 
 		~CLicenseManager() override;
 
-		void setApplicationLicense(const LicenseInfo& license) override;
+		void update() override;
+
+		void setApplicationLicense(const String& uniqueID, const LicenseInfo& license) override;
 
 		void addLicense(const LicenseInfo& license) override;
 
 		const Array<LicenseInfo>& enumLicenses() const override;
+
+		const String& getUniqueID() const override;
+
+		void disableDefaultTrigger() override;
 	};
 }

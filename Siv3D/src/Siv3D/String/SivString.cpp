@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,6 +12,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/DefaultRNG.hpp>
 
 namespace s3d
@@ -22,6 +23,108 @@ namespace s3d
 		{
 			return (ch <= 0x20u) || ((ch - 0x7Fu) <= (0x9Fu - 0x7Fu));
 		};
+	}
+
+	String::String(const String& text)
+		: m_string(text.m_string)
+	{
+	
+	}
+
+	String::String(const string_type& text)
+		: m_string(text)
+	{
+	
+	}
+
+	String::String(const String& text, size_type pos)
+		: m_string(text.m_string, pos)
+	{
+	
+	}
+
+	String::String(const String& text, size_type pos, size_type count)
+		: m_string(text.m_string, pos, count)
+	{
+	
+	}
+
+	String::String(const value_type* text)
+		: m_string(text)
+	{
+	
+	}
+
+	String::String(const value_type* text, size_type count)
+		: m_string(text, count)
+	{
+	
+	}
+
+	String::String(std::initializer_list<value_type> ilist)
+		: m_string(ilist)
+	{
+	
+	}
+
+	String::String(size_t count, value_type ch)
+		: m_string(count, ch)
+	{
+	
+	}
+
+	String::String(String&& text) noexcept
+		: m_string(std::move(text.m_string))
+	{
+	
+	}
+
+	String::String(string_type&& text) noexcept
+		: m_string(std::move(text))
+	{
+	
+	}
+
+	String::operator StringView() const noexcept
+	{
+		return StringView(m_string.data(), m_string.size());
+	}
+
+	String& String::operator =(const String& text)
+	{
+		return assign(text);
+	}
+
+	String& String::operator =(const string_type& text)
+	{
+		return assign(text);
+	}
+
+	String& String::operator =(String&& text) noexcept
+	{
+		return assign(std::move(text));
+	}
+
+	String& String::operator =(string_type&& text) noexcept
+	{
+		return assign(std::move(text));
+	}
+
+	String& String::operator =(const value_type* text)
+	{
+		return assign(text);
+	}
+
+	String& String::operator =(std::initializer_list<value_type> ilist)
+	{
+		return assign(ilist);
+	}
+
+	String& String::operator <<(const value_type ch)
+	{
+		m_string.push_back(ch);
+
+		return *this;
 	}
 
 	String& String::assign(const String& text)
@@ -71,6 +174,31 @@ namespace s3d
 		m_string.assign(ilist);
 
 		return *this;
+	}
+
+	String& String::operator +=(const String& text)
+	{
+		return append(text);
+	}
+
+	String& String::operator +=(const string_type& text)
+	{
+		return append(text);
+	}
+
+	String& String::operator +=(const value_type ch)
+	{
+		return append(ch);
+	}
+
+	String& String::operator +=(const value_type* text)
+	{
+		return append(text);
+	}
+
+	String& String::operator +=(std::initializer_list<value_type> ilist)
+	{
+		return append(ilist);
 	}
 
 	String& String::append(const String& text)
@@ -155,9 +283,9 @@ namespace s3d
 		return m_string.insert(where, ch);
 	}
 
-	void String::insert(const_iterator where, const size_t count, const value_type ch)
+	String::iterator String::insert(const_iterator where, const size_t count, const value_type ch)
 	{
-		m_string.insert(where, count, ch);
+		return m_string.insert(where, count, ch);
 	}
 
 	String& String::erase(const size_t offset, const size_t count)
@@ -192,6 +320,26 @@ namespace s3d
 		clear();
 		
 		shrink_to_fit();
+	}
+
+	void String::push_front(const value_type ch)
+	{
+		insert(begin(), ch);
+	}
+
+	void String::push_back(const value_type ch)
+	{
+		m_string.push_back(ch);
+	}
+
+	void String::pop_front()
+	{
+		m_string.erase(m_string.begin());
+	}
+
+	void String::pop_back()
+	{
+		m_string.pop_back();
 	}
 
 	void String::resize(const size_t newSize)
@@ -344,6 +492,36 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	bool String::operator ==(const String& text) const
+	{
+		return m_string == text.m_string;
+	}
+
+	bool String::operator !=(const String& text) const
+	{
+		return m_string != text.m_string;
+	}
+
+	bool String::operator <(const String& text) const
+	{
+		return m_string < text.m_string;
+	}
+
+	bool String::operator >(const String& text) const
+	{
+		return m_string > text.m_string;
+	}
+
+	bool String::operator <=(const String& text) const
+	{
+		return m_string <= text.m_string;
+	}
+
+	bool String::operator >=(const String& text) const
+	{
+		return m_string >= text.m_string;
 	}
 
 	String& String::capitalize() noexcept
@@ -1167,6 +1345,157 @@ namespace s3d
 
 		return new_string;
 	}
+
+	String operator +(const String::value_type lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String::value_type lhs, String && rhs)
+	{
+		rhs.push_front(lhs);
+		return std::move(rhs);
+	}
+
+	String operator +(const String::value_type* lhs, const String& rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String::value_type * lhs, String && rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	String operator +(const String& lhs, const String::value_type rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String & lhs, const String::value_type * rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
+	}
+
+	String operator +(const String& lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String & lhs, String && rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	String operator +(String && lhs, const String::value_type rhs)
+	{
+		return std::move(lhs << rhs);
+	}
+
+	String operator +(String && lhs, const String::value_type * rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	String operator +(String&& lhs, const String& rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	String operator +(String&& lhs, String&& rhs)
+	{
+		if (rhs.size() <= lhs.capacity() - lhs.size() || rhs.capacity() - rhs.size() < lhs.size())
+		{
+			return std::move(lhs.append(rhs));
+		}
+		else
+		{
+			return std::move(rhs.insert(0, lhs));
+		}
+	}
+
+	bool operator ==(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs == rhs.str();
+	}
+
+	bool operator ==(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() == rhs;
+	}
+
+	bool operator !=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs != rhs.str();
+	}
+
+	bool operator !=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() != rhs;
+	}
+
+	bool operator <(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs < rhs.str();
+	}
+
+	bool operator <(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() < rhs;
+	}
+
+	bool operator >(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs > rhs.str();
+	}
+
+	bool operator >(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() > rhs;
+	}
+
+	bool operator <=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs <= rhs.str();
+	}
+
+	bool operator <=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() <= rhs;
+	}
+
+	bool operator >=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs >= rhs.str();
+	}
+
+	bool operator >=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() >= rhs;
+	}
+
 
 	std::ostream& operator <<(std::ostream& output, const String& value)
 	{

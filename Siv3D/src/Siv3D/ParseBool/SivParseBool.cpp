@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,17 +11,16 @@
 
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/StringView.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/ParseBool.hpp>
+# include <Siv3D/Error.hpp>
+# include <Siv3D/Format.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {
 	bool ParseBool(const StringView view)
-	{
-		return ParseBoolOpt(view).value_or(false);
-	}
-
-	Optional<bool> ParseBoolOpt(const StringView view)
 	{
 		const char32* start = view.data();
 		const char32* end = start + view.size();
@@ -38,7 +37,7 @@ namespace s3d
 
 		if (start >= end)
 		{
-			return none;
+			throw ParseError(U"ParseBool(\"{}\") failed"_fmt(view));
 		}
 
 		if ((end - start) == 4)
@@ -62,7 +61,19 @@ namespace s3d
 				return false;
 			}
 		}
+		
+		throw ParseError(U"ParseBool(\"{}\") failed"_fmt(view));
+	}
 
-		return none;
+	Optional<bool> ParseBoolOpt(const StringView view)
+	{
+		try
+		{
+			return ParseBool(view);
+		}
+		catch (const ParseError&)
+		{
+			return none;
+		}
 	}
 }

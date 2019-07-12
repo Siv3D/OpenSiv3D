@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,8 +13,8 @@
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TexturedRoundRect.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -29,10 +29,40 @@ namespace s3d
 		}
 	}
 
+	TexturedRoundRect::TexturedRoundRect()
+	{
+
+	}
+
+	TexturedRoundRect::TexturedRoundRect(
+		const Texture& _texture,
+		float l,
+		float t,
+		float r,
+		float b,
+		const RoundRect& _rect)
+		: rect(_rect)
+		, texture(_texture)
+		, uvRect(l, t, r, b)
+	{
+	
+	}
+
+	TexturedRoundRect::TexturedRoundRect(
+		const Texture& _texture,
+		const FloatRect& _uvRect,
+		const RoundRect& _rect)
+		: rect(_rect)
+		, texture(_texture)
+		, uvRect(_uvRect)
+	{
+	
+	}
+
 	const RoundRect& TexturedRoundRect::draw(const ColorF& diffuse) const
 	{
 		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, rect.r });
-		const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
+		const float scale = Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
 		const int32 quality = detail::CaluculateFanQuality(rr * scale);
 		const double radDelta = Math::HalfPi / (quality - 1);
 
@@ -115,12 +145,12 @@ namespace s3d
 		}
 
 		{
-			uint32* pIndex = sprite.indices.data();
+			uint16* pIndex = sprite.indices.data();
 
-			for (uint32 i = 0; i < (vertexSize - 2); ++i)
+			for (uint16 i = 0; i < (vertexSize - 2); ++i)
 			{
 				pIndex[i * 3 + 1] = i + 1;
-				pIndex[i * 3 + 2] = (i + 2 < vertexSize) ? (i + 2) : 0;
+				pIndex[i * 3 + 2] = (i + 2u < vertexSize) ? (i + 2) : 0;
 			}
 		}
 
@@ -132,5 +162,10 @@ namespace s3d
 	RoundRect TexturedRoundRect::drawAt(const double x, const double y, const ColorF& diffuse) const
 	{
 		return TexturedRoundRect(texture, uvRect, RoundRect(Arg::center(x, y), rect.w, rect.h, rect.r)).draw(diffuse);
+	}
+
+	RoundRect TexturedRoundRect::drawAt(const Vec2& pos, const ColorF& diffuse) const
+	{
+		return drawAt(pos.x, pos.y, diffuse);
 	}
 }

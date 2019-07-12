@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CCPU.hpp"
-# include "../../ThirdParty/FeatureDetector/cpu_x86.h"
-# include <Siv3D/Logger.hpp>
+# include <FeatureDetector/cpu_x86.h>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Array.hpp>
+# include "CCPU.hpp"
 
 namespace s3d
 {
@@ -23,11 +23,13 @@ namespace s3d
 
 	CCPU::~CCPU()
 	{
-
+		LOG_TRACE(U"CCPU::~CCPU()");
 	}
 
-	bool CCPU::init()
+	void CCPU::init()
 	{
+		LOG_TRACE(U"CCPU::init()");
+
 		FeatureDetector::cpu_x86 cpuFeature;
 
 		cpuFeature.detect_host();
@@ -53,9 +55,9 @@ namespace s3d
 
 			if (static_cast<uint32>(nExIDs) >= 0x80000004)
 			{
-				::memcpy(brand, &extData[8], sizeof(cpui));
-				::memcpy(brand + 16, &extData[12], sizeof(cpui));
-				::memcpy(brand + 32, &extData[16], sizeof(cpui));
+				std::memcpy(brand, &extData[8], sizeof(cpui));
+				std::memcpy(brand + 16, &extData[12], sizeof(cpui));
+				std::memcpy(brand + 32, &extData[16], sizeof(cpui));
 			}
 
 			m_feature.name = Unicode::FromUTF8(brand);
@@ -157,9 +159,8 @@ namespace s3d
 			features.emplace_back(U"AVX-512 F");
 		}
 
-		LOG_INFO(U"ℹ️ Instruction set extensions: {0}"_fmt(features.join(U", ", U"", U"")));
-
-		return true;
+		LOG_INFO(U"ℹ️ Instruction set extensions: {0}"_fmt(features.join(U", "_sv, U""_sv, U""_sv)));
+		LOG_INFO(U"ℹ️ CCPU initialized");
 	}
 
 	void CCPU::setFeature(const CPUFeature& feature)

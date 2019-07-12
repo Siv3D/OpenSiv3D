@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,12 +11,31 @@
 
 # include <Siv3D/Microphone.hpp>
 # include <Siv3D/Math.hpp>
-# include "MicrophoneDetail_Windows.hpp"
-# include "MicrophoneDetail_macOS.hpp"
-# include "MicrophoneDetail_Linux.hpp"
+# include <Microphone/MicrophoneDetail.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		uint32 ToSamplingRate(RecordingFormat format) noexcept
+		{
+			switch (format)
+			{
+			case RecordingFormat::S11025:
+				return 11025;
+			case RecordingFormat::S22050:
+				return 22050;
+			default:
+			case RecordingFormat::S44100:
+				return 44100;
+			case RecordingFormat::S48000:
+				return 48000;
+			case RecordingFormat::S96000:
+				return 96000;
+			}
+		}
+	}
+
 	Microphone::Microphone()
 		: pImpl(std::make_shared<MicrophoneDetail>())
 	{

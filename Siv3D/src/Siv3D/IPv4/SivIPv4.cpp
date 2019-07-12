@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,5 +22,10 @@ namespace s3d
 	String IPv4::toStr() const
 	{
 		return Format(asUint8[0], U'.', asUint8[1], U'.', asUint8[2], U'.', asUint8[3]);
+	}
+
+	void Formatter(FormatData& formatData, const IPv4& value)
+	{
+		formatData.string.append(value.toStr());
 	}
 }

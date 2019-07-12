@@ -2,11 +2,13 @@
 //
 //	This file is part of the Siv3D HamFramework.
 //
-//	Copyright (c) 2014-2018 HAMSTRO
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (C) 2014-2019 HAMSTRO
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::PlayingCard is originally created by Yuta Ishii (OpenSiv3D Project)
 //-----------------------------------------------
 
 # pragma once
@@ -612,7 +614,7 @@ namespace s3d
 				{
 					const char32 c[4] = { static_cast<char32>(Card::GetSuit(m_card.suit)), U'\x1f482', U'\x1f478', U'\x1f474' };
 
-					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
+					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9 % 4]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
 
 					if (m_card.isKing())
 					{
@@ -1062,8 +1064,8 @@ namespace s3d
 
 void Main()
 {
-	Window::Resize(1280, 720);
-	Graphics::SetBackground(Palette::Darkgreen);
+	Window::Resize(DisplayResolution::HD_1280x720);
+	Scene::SetBackground(Palette::Darkgreen);
 
 	const PlayingCard::Pack pack(75, Palette::Red);
 	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
@@ -1074,13 +1076,19 @@ void Main()
 		{
 			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
 
-			if (pack.regionAt(center).leftClicked())
+			if (pack.regionAt(center).mouseOver())
 			{
-				cards[i].flip();
+				Cursor::RequestStyle(CursorStyle::Hand);
+
+				if (MouseL.down())
+				{
+					cards[i].flip();
+				}
 			}
 
 			pack(cards[i]).drawAt(center);
 		}
 	}
 }
+
 */

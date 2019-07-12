@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -29,44 +29,21 @@ namespace s3d
 
 		Font font;
 
-		std::function<bool(FontAssetData&)> onPreload = DefaultPreload;
+		std::function<bool(FontAssetData&)> onPreload;
 
-		std::function<bool(FontAssetData&)> onUpdate = DefaultUpdate;
+		std::function<bool(FontAssetData&)> onUpdate;
 
-		std::function<bool(FontAssetData&)> onRelease = DefaultRelease;
+		std::function<bool(FontAssetData&)> onRelease;
 
-		static const String& Name()
-		{
-			static const String name = U"Font";
+		static const String& Name();
 
-			return name;
-		}
+		static bool DefaultPreload(FontAssetData& asset);
 
-		static bool DefaultPreload(FontAssetData& asset)
-		{
-			if (asset.font)
-			{
-				return true;
-			}
+		static bool DefaultUpdate(FontAssetData&);
 
-			asset.font = Font(asset.fontSize, asset.path, asset.style);
+		static bool DefaultRelease(FontAssetData& asset);
 
-			return !asset.font.isEmpty();
-		}
-
-		static bool DefaultUpdate(FontAssetData&)
-		{
-			return true;
-		}
-
-		static bool DefaultRelease(FontAssetData& asset)
-		{
-			asset.font.release();
-
-			return true;
-		}
-
-		FontAssetData() = default;
+		FontAssetData();
 
 		explicit FontAssetData(
 			int32 fontSize,
@@ -86,49 +63,13 @@ namespace s3d
 			std::function<bool(FontAssetData&)> _onUpdate = DefaultUpdate,
 			std::function<bool(FontAssetData&)> _onRelease = DefaultRelease);
 
-		bool preload() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				m_state = onPreload(*this) ? State::LoadSucceeded : State::LoadFailed;
-			}
+		bool preload() override;
 
-			return (m_state == State::LoadSucceeded);
-		}
+		void preloadAsync() override;
 
-		void preloadAsync() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				launchLoading([this]() { return onPreload(*this); });
+		bool update() override;
 
-				m_state = State::PreloadingAsync;
-			}
-		}
-
-		bool update() override
-		{
-			if (!isPreloaded())
-			{
-				return false;
-			}
-
-			return onUpdate(*this);
-		}
-
-		bool release() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				return true;
-			}
-
-			const bool result = onRelease(*this);
-
-			m_state = State::Uninitialized;
-
-			return result;
-		}
+		bool release() override;
 	};
 
 	/// <summary>

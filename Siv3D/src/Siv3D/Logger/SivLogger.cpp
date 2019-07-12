@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,39 +17,54 @@ namespace s3d
 {
 	namespace detail
 	{
+		LoggerBuffer::LoggerBuffer()
+			: formatData(std::make_unique<FormatData>())
+		{
+		
+		}
+
+		LoggerBuffer::LoggerBuffer(LoggerBuffer&& other)
+			: formatData(std::move(other.formatData))
+		{
+		
+		}
+
+		LoggerBuffer::~LoggerBuffer()
+		{
+			if (formatData)
+			{
+				Logger.writeln(formatData->string);
+			}
+		}
+
 		void Logger_impl::writeln(const String& text) const
 		{
-			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
+			Siv3DEngine::Get<ISiv3DLogger>()->write(LogDescription::App, text);
+		}
+
+		void Logger_impl::operator()(const String& text) const
+		{
+			writeln(text);
 		}
 
 		void Logger_impl::setOutputLevel(const OutputLevel level) const
 		{
-			Siv3DEngine::GetLogger()->setOutputLevel(level);
+			Siv3DEngine::Get<ISiv3DLogger>()->setOutputLevel(level);
 		}
 
 		void Logger_impl::_outputLog(const LogDescription desc, const String& text) const
 		{
-			Siv3DEngine::GetLogger()->write(desc, text);
+			Siv3DEngine::Get<ISiv3DLogger>()->write(desc, text);
 		}
 
 		void Logger_impl::_outputLogOnce(const LogDescription desc, const uint32 id, const String& text) const
 		{
-			Siv3DEngine::GetLogger()->writeOnce(desc, id, text);
-		}
-
-		void Logger_impl::writeRawHTML(const String& htmlText) const
-		{
-			Siv3DEngine::GetLogger()->writeRawHTML(htmlText);
+			Siv3DEngine::Get<ISiv3DLogger>()->writeOnce(desc, id, text);
 		}
 
 		void Logger_impl::writeRawHTML_UTF8(const std::string_view htmlText) const
 		{
-			Siv3DEngine::GetLogger()->writeRawHTML_UTF8(htmlText);
-		}
-
-		void Logger_impl::removeOnExit() const
-		{
-			Siv3DEngine::GetLogger()->removeOnExit();
+			Siv3DEngine::Get<ISiv3DLogger>()->writeRawHTML_UTF8(htmlText);
 		}
 	}
 }

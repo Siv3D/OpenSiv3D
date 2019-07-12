@@ -148,6 +148,9 @@ TSFDEF int  tsf_bank_note_off(tsf* f, int bank, int preset_number, int key);
 // Stop playing all notes (end with sustain and release)
 TSFDEF void tsf_note_off_all(tsf* f);
 
+// Returns the number of active voices
+TSFDEF int tsf_active_voice_count(tsf* f);
+
 // Render output samples into a buffer
 // You can either render as signed 16-bit values (tsf_render_short) or
 // as 32-bit float values (tsf_render_float)
@@ -914,7 +917,6 @@ static void tsf_voice_lfo_process(struct tsf_voice_lfo* e, int blockSamples)
 
 static void tsf_voice_kill(struct tsf_voice* v)
 {
-	v->region = TSF_NULL;
 	v->playingPreset = -1;
 }
 
@@ -1340,6 +1342,14 @@ TSFDEF void tsf_note_off_all(tsf* f)
 		tsf_voice_end(v, f->outSampleRate);
 }
 
+TSFDEF int tsf_active_voice_count(tsf* f)
+{
+	int count = 0;
+	struct tsf_voice *v = f->voices, *vEnd = v + f->voiceNum;
+	for (; v != vEnd; v++) if (v->playingPreset != -1) count++;
+	return count;
+}
+
 TSFDEF void tsf_render_short(tsf* f, short* buffer, int samples, int flag_mixing)
 {
 	float *floatSamples;
@@ -1527,7 +1537,7 @@ TSFDEF void tsf_channel_note_on(tsf* f, int channel, int key, float vel)
 
 TSFDEF void tsf_channel_note_off(tsf* f, int channel, int key)
 {
-	struct tsf_voice *v = f->voices, *vEnd = v + f->voiceNum, *vMatchFirst = TSF_NULL, *vMatchLast;
+	struct tsf_voice *v = f->voices, *vEnd = v + f->voiceNum, *vMatchFirst = TSF_NULL, *vMatchLast = TSF_NULL;
 	for (; v != vEnd; v++)
 	{
 		//Find the first and last entry in the voices list with matching channel, key and look up the smallest play index

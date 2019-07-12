@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -160,10 +160,7 @@ namespace s3d
 //
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Key& key)
-	{
-		formatData.string.append(key.name());
-	}
+	void Formatter(FormatData& formatData, const Key& key);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Key& key)

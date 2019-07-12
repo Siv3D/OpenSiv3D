@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -96,10 +96,7 @@ namespace s3d
 		/// <param name="color">
 		/// RGB カラー
 		/// </param>
-		HSV(const Color& color) noexcept
-		{
-			convertFrom(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0);
-		}
+		HSV(const Color& color) noexcept;
 
 		/// <summary>
 		/// 色を作成します。
@@ -107,10 +104,7 @@ namespace s3d
 		/// <param name="col">
 		/// RGB カラー
 		/// </param>
-		HSV(const ColorF& color) noexcept
-		{
-			convertFrom(color.r, color.g, color.b, color.a);
-		}
+		HSV(const ColorF& color) noexcept;
 
 		/// <summary>
 		/// HSV の値を加算します。
@@ -147,26 +141,6 @@ namespace s3d
 					v + (other.v - v) * f,
 					a + (other.a - a) * f };
 		}
-
-		/// <summary>
-		/// RGB 値から HSV 値に変換します。
-		/// </summary>
-		/// <param name="r">
-		/// R [0.0, 1.0]
-		/// </param>
-		/// <param name="g">
-		/// G [0.0, 1.0]
-		/// </param>
-		/// <param name="b">
-		/// B [0.0, 1.0]
-		/// </param>
-		/// <param name="_a">
-		/// A [0.0, 1.0]
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void convertFrom(double r, double g, double b, double a = 1.0) noexcept;
 
 		/// <summary>
 		/// Color 型に変換します。
@@ -315,7 +289,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::HSV, s3d::char32>

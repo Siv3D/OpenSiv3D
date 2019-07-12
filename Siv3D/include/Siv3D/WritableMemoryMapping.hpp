@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -37,9 +37,9 @@ namespace s3d
 	{
 	private:
 
-		class CWritableMemoryMapping;
+		class WritableMemoryMappingDetail;
 
-		std::shared_ptr<CWritableMemoryMapping> pImpl;
+		std::shared_ptr<WritableMemoryMappingDetail> pImpl;
 
 	public:
 
@@ -50,11 +50,7 @@ namespace s3d
 
 		explicit WritableMemoryMapping(const FilePath& path,
 			MMFOpenMode_if_Exists ifExists = MMFOpenMode_if_Exists::Truncate,
-			MMFOpenMode_if_NotFound ifNotFound = MMFOpenMode_if_NotFound::Create)
-			: WritableMemoryMapping()
-		{
-			open(path, ifExists, ifNotFound);
-		}
+			MMFOpenMode_if_NotFound ifNotFound = MMFOpenMode_if_NotFound::Create);
 
 		bool open(const FilePath& path,
 			MMFOpenMode_if_Exists ifExists = MMFOpenMode_if_Exists::Truncate,

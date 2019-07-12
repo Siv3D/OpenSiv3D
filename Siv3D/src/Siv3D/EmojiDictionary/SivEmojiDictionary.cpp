@@ -2,22 +2,28 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/EmojiDictionary.hpp>
-# include "CEmojiDictionary.hpp"
+# include "EmojiDictionaryDetail.hpp"
 
 namespace s3d
 {
 	EmojiDictionary::EmojiDictionary()
-		: pImpl(std::make_shared<CEmojiDictionary>())
+		: pImpl(std::make_shared<EmojiDictionaryDetail>())
 	{
 
+	}
+
+	EmojiDictionary::EmojiDictionary(const FilePath& path)
+		: EmojiDictionary()
+	{
+		load(path);
 	}
 
 	EmojiDictionary::~EmojiDictionary()
@@ -38,6 +44,11 @@ namespace s3d
 	void EmojiDictionary::clear()
 	{
 		pImpl->clear();
+	}
+
+	const Array<Array<uint32>>& EmojiDictionary::getList() const
+	{
+		return pImpl->getList();
 	}
 }
 

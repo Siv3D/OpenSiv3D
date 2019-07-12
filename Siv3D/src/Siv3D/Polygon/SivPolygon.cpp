@@ -2,22 +2,22 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CPolygon.hpp"
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include "PolygonDetail.hpp"
 
 namespace s3d
 {
 	Polygon::Polygon()
-		: pImpl(std::make_unique<CPolygon>())
+		: pImpl(std::make_unique<PolygonDetail>())
 	{
 
 	}
@@ -34,28 +34,40 @@ namespace s3d
 		pImpl->moveFrom(*polygon.pImpl);
 	}
 
-	Polygon::Polygon(const Vec2* outer, const size_t size, const Array<Array<Vec2>>& holes)
-		: pImpl(std::make_unique<CPolygon>(outer, size, holes))
+	Polygon::Polygon(const Vec2* outer, const size_t size, const Array<Array<Vec2>>& holes, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer, size, holes, checkValidity))
 	{
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint32>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const bool checkValidity)
+		: Polygon(outer.data(), outer.size(), holes, checkValidity)
+	{
+	
+	}
+
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer.data(), outer.size(), indices, boundingRect, checkValidity))
 	{
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<CPolygon>(outer, holes, vertices, indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
+		: pImpl(std::make_unique<PolygonDetail>(outer, holes, vertices, indices, boundingRect, checkValidity))
 	{
 
 	}
 
 	Polygon::Polygon(const Shape2D& shape)
-		: pImpl(std::make_unique<CPolygon>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
+		: pImpl(std::make_unique<PolygonDetail>(shape.vertices().data(), shape.vertices().size(), shape.indices(), false))
 	{
 
+	}
+
+	Polygon::Polygon(std::initializer_list<Vec2> outer)
+		: Polygon(outer.begin(), outer.size())
+	{
+	
 	}
 
 	Polygon::~Polygon()
@@ -112,7 +124,7 @@ namespace s3d
 		return pImpl->vertices();
 	}
 	
-	const Array<uint32>& Polygon::indices() const
+	const Array<uint16>& Polygon::indices() const
 	{
 		return pImpl->indices();
 	}
@@ -165,6 +177,11 @@ namespace s3d
 		return result;
 	}
 
+	Polygon Polygon::movedBy(const Vec2& v) const
+	{
+		return movedBy(v.x, v.y);
+	}
+
 	Polygon& Polygon::moveBy(const double x, const double y)
 	{
 		pImpl->moveBy(x, y);
@@ -172,9 +189,19 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon& Polygon::moveBy(const Vec2& v)
+	{
+		return moveBy(v.x, v.y);
+	}
+
 	Polygon Polygon::rotated(const double angle) const
 	{
 		return rotatedAt(Vec2(0, 0), angle);
+	}
+
+	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
+	{
+		return rotatedAt(Vec2(x, y), angle);
 	}
 
 	Polygon Polygon::rotatedAt(const Vec2& pos, const double angle) const
@@ -191,6 +218,11 @@ namespace s3d
 		pImpl->rotateAt(Vec2(0, 0), angle);
 
 		return *this;
+	}
+
+	Polygon& Polygon::rotateAt(const double x, const double y, const double angle)
+	{
+		return rotateAt(Vec2(x, y), angle);
 	}
 
 	Polygon& Polygon::rotateAt(const Vec2& pos, const double angle)
@@ -368,7 +400,7 @@ namespace s3d
 
 		const size_t num_triangles = indices.size() / 3;
 		const Float2* pVertex = vertices.data();
-		const uint32* pIndex = indices.data();
+		const uint16* pIndex = indices.data();
 
 		for (size_t i = 0; i < num_triangles; ++i)
 		{
@@ -395,7 +427,7 @@ namespace s3d
 
 		const size_t num_triangles = indices.size() / 3;
 		const Float2* pVertex = vertices.data();
-		const uint32* pIndex = indices.data();
+		const uint16* pIndex = indices.data();
 
 		for (size_t i = 0; i < num_triangles; ++i)
 		{
@@ -410,8 +442,75 @@ namespace s3d
 		pImpl->drawTransformed(s, c, pos, color);
 	}
 
-	const Polygon::CPolygon* Polygon::_detail() const
+	const Polygon::PolygonDetail* Polygon::_detail() const
 	{
 		return pImpl.get();
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& OStream(std::basic_ostream<CharType>& output, const Polygon& value)
+	{
+		output << CharType('(');
+
+		output << CharType('(');
+
+		bool b = false;
+
+		for (const auto& point : value.outer())
+		{
+			if (std::exchange(b, true))
+			{
+				output << CharType(',');
+			}
+
+			output << point;
+		}
+
+		output << CharType(')');
+
+		if (value.inners())
+		{
+			output << CharType(',');
+
+			output << CharType('(');
+
+			b = false;
+
+			for (const auto& hole : value.inners())
+			{
+				if (std::exchange(b, true))
+				{
+					output << CharType(',');
+
+					output << CharType('(');
+				}
+
+				bool b2 = false;
+
+				for (const auto& point : hole)
+				{
+					if (std::exchange(b2, true))
+					{
+						output << CharType(',');
+					}
+
+					output << point;
+				}
+
+				output << CharType(')');
+			}
+		}
+
+		return output << CharType(')');
+	}
+
+	std::ostream& operator <<(std::ostream& output, const Polygon& value)
+	{
+		return OStream(output, value);
+	}
+
+	std::wostream& operator <<(std::wostream& output, const Polygon& value)
+	{
+		return OStream(output, value);
 	}
 }

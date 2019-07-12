@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -20,7 +20,11 @@ namespace s3d
 	{
 		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
+		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
+
 		void AlphaToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
+
+		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
 		void ToGrayScale(const Image& from, cv::Mat_<uint8>& to);
 

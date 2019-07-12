@@ -2,18 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::HTMLWriter is originally created by Kenta Masuda (HAMSTRO)
 //-----------------------------------------------
 
 # include <Siv3D/HTMLWriter.hpp>
 # include <Siv3D/Base64.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/MemoryWriter.hpp>
-# include "CHTMLWriter.hpp"
+# include "HTMLWriterDetail.hpp"
 
 namespace s3d
 {
@@ -64,10 +66,34 @@ namespace s3d
 		}
 	}
 
+	String HTMLWriter::DefaultStyle()
+	{
+		return String(
+UR"(body{
+  margin: 20px 40px;
+}
+table{
+  border-collapse: collapse;
+}
+tr:nth-child(even){
+  background: #f6f8fa;
+}
+th,td{
+  padding: 10px;
+  border: 1px solid #dfe2e5;
+})");
+	}
+
 	HTMLWriter::HTMLWriter()
-		: pImpl(std::make_shared<CHTMLWriter>())
+		: pImpl(std::make_shared<HTMLWriterDetail>())
 	{
 
+	}
+
+	HTMLWriter::HTMLWriter(const FilePath& path, const String& title, const StringView styleSheet)
+		: HTMLWriter()
+	{
+		open(path, title, styleSheet);
 	}
 
 	HTMLWriter::~HTMLWriter()
@@ -88,6 +114,11 @@ namespace s3d
 	bool HTMLWriter::isOpened() const
 	{
 		return pImpl->isOpened();
+	}
+
+	HTMLWriter::operator bool() const
+	{
+		return isOpened();
 	}
 
 	void HTMLWriter::writeRaw(const StringView view)

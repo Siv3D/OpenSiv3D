@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,78 +18,92 @@
 namespace s3d
 {
 	/// <summary>
-	/// 日数
+	/// 日数 (int32)
+	/// Days (int32)
 	/// </summary>
 	using Days = std::chrono::duration<int32, std::ratio<86400>>;
 
 	/// <summary>
-	/// 日数
+	/// 日数 (double)
+	/// Days (double)
 	/// </summary>
 	using DaysF = std::chrono::duration<double, std::ratio<86400>>;
 
 
 	/// <summary>
-	/// 時間
+	/// 時間 (int32)
+	/// Hours (int32)
 	/// </summary>
 	using Hours = std::chrono::hours;
 
 	/// <summary>
-	/// 時間
+	/// 時間 (double)
+	/// Hours (double)
 	/// </summary>
 	using HoursF = std::chrono::duration<double, std::ratio<3600>>;
 
 
 	/// <summary>
-	/// 分
+	/// 分 (int32)
+	/// Minutes (int32)
 	/// </summary>
 	using Minutes = std::chrono::minutes;
 
 	/// <summary>
-	/// 分
+	/// 分 (double)
+	/// Minutes (double)
 	/// </summary>
 	using MinutesF = std::chrono::duration<double, std::ratio<60>>;
 
 
 	/// <summary>
-	/// 秒
+	/// 秒 (int64)
+	/// Seconds (int64)
 	/// </summary>
 	using Seconds = std::chrono::seconds;
 
 	/// <summary>
-	/// 秒
+	/// 秒 (double)
+	/// Seconds (double)
 	/// </summary>
 	using SecondsF = std::chrono::duration<double>;
 
 
 	/// <summary>
-	/// ミリ秒
+	/// ミリ秒 (int64)
+	/// Milliseconds (int64)
 	/// </summary>
 	using Milliseconds = std::chrono::milliseconds;
 
 	/// <summary>
-	/// ミリ秒
+	/// ミリ秒 (double)
+	/// Milliseconds (double)
 	/// </summary>
 	using MillisecondsF = std::chrono::duration<double, std::milli>;
 
 
 	/// <summary>
-	/// マイクロ秒
+	/// マイクロ秒 (int64)
+	/// Microseconds (int64)
 	/// </summary>
 	using Microseconds = std::chrono::microseconds;
 
 	/// <summary>
-	/// マイクロ秒
+	/// マイクロ秒 (double)
+	/// Microseconds (double)
 	/// </summary>
 	using MicrosecondsF = std::chrono::duration<double, std::micro>;
 
 
 	/// <summary>
-	/// ナノ秒
+	/// ナノ秒 (int64)
+	/// Nanoseconds (int64)
 	/// </summary>
 	using Nanoseconds = std::chrono::nanoseconds;
 
 	/// <summary>
-	/// ナノ秒
+	/// ナノ秒 (double)
+	/// Nanoseconds (double)
 	/// </summary>
 	using NanosecondsF = std::chrono::duration<double, std::nano>;
 
@@ -110,16 +124,19 @@ namespace s3d
 		return std::chrono::duration_cast<DurationTo>(duration);
 	}
 
-	namespace Literals
+	inline namespace Literals
 	{
-		[[nodiscard]] inline constexpr Days operator ""_d(unsigned long long days)
+		inline namespace DurationLiterals
 		{
-			return Days(days);
-		}
+			[[nodiscard]] inline constexpr Days operator ""_d(unsigned long long days)
+			{
+				return Days(days);
+			}
 
-		[[nodiscard]] inline constexpr DaysF operator ""_d(long double days)
-		{
-			return DaysF(days);
+			[[nodiscard]] inline constexpr DaysF operator ""_d(long double days)
+			{
+				return DaysF(days);
+			}
 		}
 	}
 
@@ -154,7 +171,7 @@ namespace s3d
 	/// <returns>
 	/// フォーマットされた時間
 	/// </returns>
-	[[nodiscard]] String FormatTime(const Duration& duration, const String& format);
+	[[nodiscard]] String FormatTime(const Duration& duration, StringView format);
 }
 
 //////////////////////////////////////////////////

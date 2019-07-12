@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -27,44 +27,21 @@ namespace s3d
 
 		Audio audio;
 
-		std::function<bool(AudioAssetData&)> onPreload = DefaultPreload;
+		std::function<bool(AudioAssetData&)> onPreload;
 
-		std::function<bool(AudioAssetData&)> onUpdate = DefaultUpdate;
+		std::function<bool(AudioAssetData&)> onUpdate;
 
-		std::function<bool(AudioAssetData&)> onRelease = DefaultRelease;
+		std::function<bool(AudioAssetData&)> onRelease;
 
-		static const String& Name()
-		{
-			static const String name = U"Audio";
+		static const String& Name();
 
-			return name;
-		}
+		static bool DefaultPreload(AudioAssetData& asset);
 
-		static bool DefaultPreload(AudioAssetData& asset)
-		{
-			if (asset.audio)
-			{
-				return true;
-			}
+		static bool DefaultUpdate(AudioAssetData&);
 
-			asset.audio = Audio(asset.path, asset.loop);
+		static bool DefaultRelease(AudioAssetData& asset);
 
-			return !asset.audio.isEmpty();
-		}
-
-		static bool DefaultUpdate(AudioAssetData&)
-		{
-			return true;
-		}
-
-		static bool DefaultRelease(AudioAssetData& asset)
-		{
-			asset.audio.release();
-
-			return true;
-		}
-
-		AudioAssetData() = default;
+		AudioAssetData();
 
 		explicit AudioAssetData(
 			const FilePath& _path,
@@ -74,49 +51,13 @@ namespace s3d
 			std::function<bool(AudioAssetData&)> _onUpdate = DefaultUpdate,
 			std::function<bool(AudioAssetData&)> _onRelease = DefaultRelease);
 
-		bool preload() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				m_state = onPreload(*this) ? State::LoadSucceeded : State::LoadFailed;
-			}
+		bool preload() override;
 
-			return (m_state == State::LoadSucceeded);
-		}
+		void preloadAsync() override;
 
-		void preloadAsync() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				launchLoading([this]() { return onPreload(*this); });
+		bool update() override;
 
-				m_state = State::PreloadingAsync;
-			}
-		}
-
-		bool update() override
-		{
-			if (!isPreloaded())
-			{
-				return false;
-			}
-
-			return onUpdate(*this);
-		}
-
-		bool release() override
-		{
-			if (m_state == State::Uninitialized)
-			{
-				return true;
-			}
-
-			const bool result = onRelease(*this);
-
-			m_state = State::Uninitialized;
-
-			return result;
-		}
+		bool release() override;
 	};
 
 	/// <summary>
@@ -131,6 +72,14 @@ namespace s3d
 		static bool Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter = AssetParameter{});
 
 		static bool Register(const AssetName& name, const FilePath& path, const Optional<AudioLoopTiming>& loop, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, float silenceValue, const AssetParameter& parameter = AssetParameter{});
 
 		static bool Register(const AssetName& name, const AudioAssetData& data);
 

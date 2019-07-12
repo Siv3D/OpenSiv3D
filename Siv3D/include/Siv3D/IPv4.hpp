@@ -1,17 +1,18 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <iostream>
 # include "Fwd.hpp"
-# include "Format.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
@@ -31,7 +32,7 @@ namespace s3d
 
 		explicit IPv4(const String& ipv4);
 
-		[[nodiscard]] static constexpr IPv4 localhost() noexcept
+		[[nodiscard]] static constexpr IPv4 Localhost() noexcept
 		{
 			return{ 127,0,0,1 };
 		}
@@ -48,10 +49,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const IPv4& value)
-	{
-		formatData.string.append(value.toStr());
-	}
+	void Formatter(FormatData& formatData, const IPv4& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const IPv4& value)

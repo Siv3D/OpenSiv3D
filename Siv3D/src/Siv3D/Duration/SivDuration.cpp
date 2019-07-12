@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,34 +11,35 @@
 
 # include <Siv3D/Duration.hpp>
 # include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {
-	static const String FormatPatterns[]
+	static constexpr StringView FormatPatterns[]
 	{
-		U"DD",
-		U"D",
-		U"dd",
-		U"d",
-		U"HH",
-		U"H",
-		U"hh",
-		U"h",
-		U"MM",
-		U"M",
-		U"mm",
-		U"m",
-		U"SS",
-		U"S",
-		U"ss",
-		U"s",
-		U"X",
-		U"x",
-		U"xx",
-		U"xxx",
+		U"DD"_sv,
+		U"D"_sv,
+		U"dd"_sv,
+		U"d"_sv,
+		U"HH"_sv,
+		U"H"_sv,
+		U"hh"_sv,
+		U"h"_sv,
+		U"MM"_sv,
+		U"M"_sv,
+		U"mm"_sv,
+		U"m"_sv,
+		U"SS"_sv,
+		U"S"_sv,
+		U"ss"_sv,
+		U"s"_sv,
+		U"X"_sv,
+		U"x"_sv,
+		U"xx"_sv,
+		U"xxx"_sv,
 	};
 
-	static String GetFormattedElement(const int64 us, const String& format)
+	static String GetFormattedElement(const int64 us, const StringView format)
 	{
 		const size_t formatIndex = std::distance(
 			std::begin(FormatPatterns),
@@ -90,7 +91,7 @@ namespace s3d
 		}
 	}
 
-	String FormatTime(const Duration& duration, const String& format)
+	String FormatTime(const Duration& duration, const StringView format)
 	{
 		int64 us = DurationCast<Microseconds>(duration).count();
 
@@ -201,14 +202,14 @@ namespace s3d
 	{
 		Formatter(formatData, minutes.count());
 
-		formatData.string.append(U"min", 3);
+		formatData.string.append(U"min"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const MinutesF& minutes)
 	{
 		Formatter(formatData, minutes.count());
 
-		formatData.string.append(U"min", 3);
+		formatData.string.append(U"min"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const Seconds& seconds)
@@ -229,41 +230,41 @@ namespace s3d
 	{
 		Formatter(formatData, milliseconds.count());
 
-		formatData.string.append(U"ms", 2);
+		formatData.string.append(U"ms"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const MillisecondsF& milliseconds)
 	{
 		Formatter(formatData, milliseconds.count());
 
-		formatData.string.append(U"ms", 2);
+		formatData.string.append(U"ms"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const Microseconds& microseconds)
 	{
 		Formatter(formatData, microseconds.count());
 
-		formatData.string.append(U"us", 2);
+		formatData.string.append(U"us"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const MicrosecondsF& microseconds)
 	{
 		Formatter(formatData, microseconds.count());
 
-		formatData.string.append(U"us", 2);
+		formatData.string.append(U"us"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const Nanoseconds& nanoseconds)
 	{
 		Formatter(formatData, nanoseconds.count());
 
-		formatData.string.append(U"ns", 2);
+		formatData.string.append(U"ns"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds)
 	{
 		Formatter(formatData, nanoseconds.count());
 
-		formatData.string.append(U"ns", 2);
+		formatData.string.append(U"ns"_sv);
 	}
 }

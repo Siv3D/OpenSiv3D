@@ -189,7 +189,7 @@ CV_EXPORTS_W void fastNlMeansDenoisingColored( InputArray src, OutputArray dst,
         float h = 3, float hColor = 3,
         int templateWindowSize = 7, int searchWindowSize = 21);
 
-/** @brief Modification of fastNlMeansDenoising function for images sequence where consequtive images have been
+/** @brief Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
 captured in small period of time. For example video. This version of the function is for grayscale
 images or for manual manipulation with colorspaces. For more details see
 <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.131.6394>
@@ -216,7 +216,7 @@ CV_EXPORTS_W void fastNlMeansDenoisingMulti( InputArrayOfArrays srcImgs, OutputA
         int imgToDenoiseIndex, int temporalWindowSize,
         float h = 3, int templateWindowSize = 7, int searchWindowSize = 21);
 
-/** @brief Modification of fastNlMeansDenoising function for images sequence where consequtive images have been
+/** @brief Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
 captured in small period of time. For example video. This version of the function is for grayscale
 images or for manual manipulation with colorspaces. For more details see
 <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.131.6394>
@@ -376,43 +376,6 @@ results, default value is 0.85.
  */
 CV_EXPORTS_W Ptr<TonemapDrago> createTonemapDrago(float gamma = 1.0f, float saturation = 1.0f, float bias = 0.85f);
 
-/** @brief This algorithm decomposes image into two layers: base layer and detail layer using bilateral filter
-and compresses contrast of the base layer thus preserving all the details.
-
-This implementation uses regular bilateral filter from opencv.
-
-Saturation enhancement is possible as in ocvTonemapDrago.
-
-For more information see @cite DD02 .
- */
-class CV_EXPORTS_W TonemapDurand : public Tonemap
-{
-public:
-
-    CV_WRAP virtual float getSaturation() const = 0;
-    CV_WRAP virtual void setSaturation(float saturation) = 0;
-
-    CV_WRAP virtual float getContrast() const = 0;
-    CV_WRAP virtual void setContrast(float contrast) = 0;
-
-    CV_WRAP virtual float getSigmaSpace() const = 0;
-    CV_WRAP virtual void setSigmaSpace(float sigma_space) = 0;
-
-    CV_WRAP virtual float getSigmaColor() const = 0;
-    CV_WRAP virtual void setSigmaColor(float sigma_color) = 0;
-};
-
-/** @brief Creates TonemapDurand object
-
-@param gamma gamma value for gamma correction. See createTonemap
-@param contrast resulting contrast on logarithmic scale, i. e. log(max / min), where max and min
-are maximum and minimum luminance values of the resulting image.
-@param saturation saturation enhancement value. See createTonemapDrago
-@param sigma_space bilateral filter sigma in color space
-@param sigma_color bilateral filter sigma in coordinate space
- */
-CV_EXPORTS_W Ptr<TonemapDurand>
-createTonemapDurand(float gamma = 1.0f, float contrast = 4.0f, float saturation = 1.0f, float sigma_space = 2.0f, float sigma_color = 2.0f);
 
 /** @brief This is a global tonemapping operator that models human visual system.
 
@@ -502,7 +465,7 @@ class CV_EXPORTS_W AlignMTB : public AlignExposures
 {
 public:
     CV_WRAP virtual void process(InputArrayOfArrays src, std::vector<Mat>& dst,
-                                 InputArray times, InputArray response) = 0;
+                                 InputArray times, InputArray response) CV_OVERRIDE = 0;
 
     /** @brief Short version of process, that doesn't take extra arguments.
 
@@ -646,7 +609,7 @@ class CV_EXPORTS_W MergeDebevec : public MergeExposures
 {
 public:
     CV_WRAP virtual void process(InputArrayOfArrays src, OutputArray dst,
-                                 InputArray times, InputArray response) = 0;
+                                 InputArray times, InputArray response) CV_OVERRIDE = 0;
     CV_WRAP virtual void process(InputArrayOfArrays src, OutputArray dst, InputArray times) = 0;
 };
 
@@ -669,7 +632,7 @@ class CV_EXPORTS_W MergeMertens : public MergeExposures
 {
 public:
     CV_WRAP virtual void process(InputArrayOfArrays src, OutputArray dst,
-                                 InputArray times, InputArray response) = 0;
+                                 InputArray times, InputArray response) CV_OVERRIDE = 0;
     /** @brief Short version of process, that doesn't take extra arguments.
 
     @param src vector of input images
@@ -705,7 +668,7 @@ class CV_EXPORTS_W MergeRobertson : public MergeExposures
 {
 public:
     CV_WRAP virtual void process(InputArrayOfArrays src, OutputArray dst,
-                                 InputArray times, InputArray response) = 0;
+                                 InputArray times, InputArray response) CV_OVERRIDE = 0;
     CV_WRAP virtual void process(InputArrayOfArrays src, OutputArray dst, InputArray times) = 0;
 };
 
@@ -730,7 +693,7 @@ CV_EXPORTS_W void decolor( InputArray src, OutputArray grayscale, OutputArray co
 //! @addtogroup photo_clone
 //! @{
 
-/** @example cloning_demo.cpp
+/** @example samples/cpp/tutorial_code/photo/seamless_cloning/cloning_demo.cpp
 An example using seamlessClone function
 */
 /** @brief Image editing tasks concern either global changes (color/intensity corrections, filters,
@@ -836,7 +799,7 @@ CV_EXPORTS_W void edgePreservingFilter(InputArray src, OutputArray dst, int flag
 CV_EXPORTS_W void detailEnhance(InputArray src, OutputArray dst, float sigma_s = 10,
         float sigma_r = 0.15f);
 
-/** @example npr_demo.cpp
+/** @example samples/cpp/tutorial_code/photo/non_photorealistic_rendering/npr_demo.cpp
 An example using non-photorealistic line drawing functions
 */
 /** @brief Pencil-like non-photorealistic line drawing
@@ -868,9 +831,5 @@ CV_EXPORTS_W void stylization(InputArray src, OutputArray dst, float sigma_s = 6
 //! @} photo
 
 } // cv
-
-#ifndef DISABLE_OPENCV_24_COMPATIBILITY
-#include "opencv2/photo/photo_c.h"
-#endif
 
 #endif

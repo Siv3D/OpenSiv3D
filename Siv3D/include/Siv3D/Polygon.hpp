@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "PointVector.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
@@ -21,11 +22,13 @@ namespace s3d
 	{
 	private:
 
-		class CPolygon;
+		class PolygonDetail;
 
-		std::unique_ptr<CPolygon> pImpl;
+		std::unique_ptr<PolygonDetail> pImpl;
 
 	public:
+
+		using IndexType = uint16;
 
 		Polygon();
 
@@ -33,19 +36,17 @@ namespace s3d
 
 		Polygon(Polygon&& polygon);
 
-		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {});
+		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
-		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {})
-			: Polygon(outer.data(), outer.size(), holes) {}
+		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
-		Polygon(const Array<Vec2>& outer, const Array<uint32>& indices, const RectF& boundingRect);
+		Polygon(const Array<Vec2>& outer, const Array<IndexType>& indices, const RectF& boundingRect, bool checkValidity = false);
 
-		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect);
+		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<IndexType>& indices, const RectF& boundingRect, bool checkValidity = false);
 
 		Polygon(const Shape2D& shape);
 
-		explicit Polygon(std::initializer_list<Vec2> outer)
-			: Polygon(outer.begin(), outer.size()) {}
+		explicit Polygon(std::initializer_list<Vec2> outer);
 
 		~Polygon();
 
@@ -69,7 +70,7 @@ namespace s3d
 
 		[[nodiscard]] const Array<Float2>& vertices() const;
 		
-		[[nodiscard]] const Array<uint32>& indices() const;
+		[[nodiscard]] const Array<IndexType>& indices() const;
 		
 		[[nodiscard]] const RectF& boundingRect() const;
 
@@ -83,33 +84,21 @@ namespace s3d
 
 		[[nodiscard]] Polygon movedBy(double x, double y) const;
 
-		[[nodiscard]] Polygon movedBy(const Vec2& v) const
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]] Polygon movedBy(const Vec2& v) const;
 
 		Polygon& moveBy(double x, double y);
 
-		Polygon& moveBy(const Vec2& v)
-		{
-			return moveBy(v.x, v.y);
-		}
+		Polygon& moveBy(const Vec2& v);
 
 		[[nodiscard]] Polygon rotated(double angle) const;
 
-		[[nodiscard]] Polygon rotatedAt(double x, double y, double angle) const
-		{
-			return rotatedAt(Vec2(x, y), angle);
-		}
+		[[nodiscard]] Polygon rotatedAt(double x, double y, double angle) const;
 
 		[[nodiscard]] Polygon rotatedAt(const Vec2& pos, double angle) const;
 
 		Polygon& rotate(double angle);
 
-		Polygon& rotateAt(double x, double y, double angle)
-		{
-			return rotateAt(Vec2(x, y), angle);
-		}
+		Polygon& rotateAt(double x, double y, double angle);
 
 		Polygon& rotateAt(const Vec2& pos, double angle);
 
@@ -144,6 +133,12 @@ namespace s3d
 		}
 
 		[[nodiscard]] bool intersects(const Polygon& polygon) const;
+
+		template <class Shape2DType>
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
 
 		template <class Shape2DType>
 		[[nodiscard]] bool contains(const Shape2DType& shape) const
@@ -199,7 +194,7 @@ namespace s3d
 
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 
-		const CPolygon* _detail() const;
+		const PolygonDetail* _detail() const;
 	};
 }
 
@@ -211,62 +206,8 @@ namespace s3d
 
 namespace s3d
 {
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Polygon& value)
-	{
-		output << CharType('(');
-
-		output << CharType('(');
-
-		bool b = false;
-
-		for (const auto& point : value.outer())
-		{
-			if (std::exchange(b, true))
-			{
-				output << CharType(',');
-			}
-
-			output << point;
-		}
-
-		output << CharType(')');
-
-		if (value.inners())
-		{
-			output << CharType(',');
-
-			output << CharType('(');
-
-			b = false;
-
-			for (const auto& hole : value.inners())
-			{
-				if (std::exchange(b, true))
-				{
-					output << CharType(',');
-
-					output << CharType('(');
-				}
-
-				bool b2 = false;
-
-				for (const auto& point : hole)
-				{
-					if (std::exchange(b2, true))
-					{
-						output << CharType(',');
-					}
-
-					output << point;
-				}
-
-				output << CharType(')');
-			}
-		}
-
-		return output << CharType(')');
-	}
+	std::ostream& operator <<(std::ostream& output, const Polygon& value);
+	std::wostream& operator <<(std::wostream& output, const Polygon& value);
 }
 
 //////////////////////////////////////////////////

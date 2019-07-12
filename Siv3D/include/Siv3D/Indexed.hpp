@@ -2,130 +2,75 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iterator>
+# include <type_traits>
 # include <functional>
+# include <tuple>
 
 namespace s3d
 {
-	template <class Iterator>
-	class IndexedIterator
+	template <class Type, class It = decltype(std::begin(std::declval<Type>())), class = decltype(std::end(std::declval<Type>()))>
+	inline constexpr auto IndexedRef(Type&& iterable)
 	{
-	private:
+		// Reference: http://reedbeta.com/blog/python-like-enumerate-in-cpp17/
 
-		size_t m_index = 0;
-
-		Iterator m_it;
-
-	public:
-
-		using iterator_category	= typename std::iterator_traits<Iterator>::iterator_category;
-		using value_type		= typename std::iterator_traits<Iterator>::value_type;
-		using difference_type	= typename std::iterator_traits<Iterator>::difference_type;
-		using pointer			= typename std::iterator_traits<Iterator>::pointer;
-		using reference			= typename std::iterator_traits<Iterator>::reference;
-
-		IndexedIterator(size_t index, Iterator it)
-			: m_index(index)
-			, m_it(it) {}
-
-		IndexedIterator& operator ++()
+		struct Iterator
 		{
-			++m_index;
-
-			++m_it;
-		
-			return *this;
-		}
-
-		[[nodiscard]] auto operator *() const noexcept
-		{
-			if constexpr (std::is_lvalue_reference_v<decltype(*m_it)>)
-			{
-				return std::make_pair(m_index, std::ref(*m_it));
-			}
-			else
-			{
-				return std::make_pair(m_index, *m_it);
-			}
-		}
-
-		[[nodiscard]] bool operator ==(const IndexedIterator& other) const
-		{
-			return m_it == other.m_it;
-		}
-
-		[[nodiscard]] bool operator !=(const IndexedIterator& other) const
-		{
-			return m_it != other.m_it;
-		}
-	};
-
-	namespace detail
-	{
-		template <class Range>
-		class Indexed_impl
-		{
-		private:
-
-			const Range& m_range;
-
-		public:
-
-			Indexed_impl(const Range& range)
-				: m_range(range) {}
-
-			[[nodiscard]] auto begin() const
-			{
-				return IndexedIterator<decltype(std::begin(m_range))>(0, std::begin(m_range));
-			}
-
-			[[nodiscard]] auto end() const
-			{
-				return IndexedIterator<decltype(std::begin(m_range))>(std::size(m_range), std::end(m_range));
-			}
+			size_t index;
+			It it;
+			bool operator != (const Iterator& other) const { return it != other.it; }
+			void operator ++() { ++index; ++it; }
+			auto operator *() const { return std::tie(index, *it); }
 		};
 
-		template <class Range>
-		class IndexedRef_impl
+		struct IterableWrapper
 		{
-		private:
-
-			Range & m_range;
-
-		public:
-
-			IndexedRef_impl(Range& range)
-				: m_range(range) {}
-
-			[[nodiscard]] auto begin() const
-			{
-				return IndexedIterator<decltype(std::begin(m_range))>(0, std::begin(m_range));
-			}
-
-			[[nodiscard]] auto end() const
-			{
-				return IndexedIterator<decltype(std::begin(m_range))>(std::size(m_range), std::end(m_range));
-			}
+			Type iterable;
+			auto begin() { return Iterator{ 0, std::begin(iterable) }; }
+			auto end() { return Iterator{ 0, std::end(iterable) }; }
 		};
+
+		return IterableWrapper{ std::forward<Type>(iterable) };
 	}
 
-	template <class Range>
-	[[nodiscard]] inline detail::Indexed_impl<Range> Indexed(const Range& range)
+	template <class Type, class It = decltype(std::cbegin(std::declval<Type>())), class = decltype(std::cend(std::declval<Type>()))>
+	inline constexpr auto Indexed(Type&& iterable)
 	{
-		return detail::Indexed_impl<Range>(range);
+		return IndexedRef<Type, It>(std::forward<Type>(iterable));
 	}
 
-	template <class Range>
-	[[nodiscard]] inline detail::IndexedRef_impl<Range> IndexedRef(Range& range)
+	template <class Type, class It = decltype(std::rbegin(std::declval<Type>())), class = decltype(std::rend(std::declval<Type>()))>
+	inline constexpr auto IndexedRefReversed(Type&& iterable)
 	{
-		return detail::IndexedRef_impl<Range>(range);
+		struct Iterator
+		{
+			size_t index;
+			It it;
+			bool operator != (const Iterator& other) const { return it != other.it; }
+			void operator ++() { --index; ++it; }
+			auto operator *() const { return std::tie(index, *it); }
+		};
+
+		struct IterableWrapper
+		{
+			Type iterable;
+			auto begin() { return Iterator{ std::size(iterable) - 1, std::rbegin(iterable) }; }
+			auto end() { return Iterator{ 0, std::rend(iterable) }; }
+		};
+
+		return IterableWrapper{ std::forward<Type>(iterable) };
+	}
+
+	template <class Type, class It = decltype(std::crbegin(std::declval<Type>())), class = decltype(std::crend(std::declval<Type>()))>
+	inline constexpr auto IndexedReversed(Type&& iterable)
+	{
+		return IndexedRefReversed<Type, It>(std::forward<Type>(iterable));
 	}
 }

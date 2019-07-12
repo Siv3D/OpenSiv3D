@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,7 +16,7 @@
 # include "Array.hpp"
 # include "Geometry2D.hpp"
 # include "MathConstants.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
@@ -28,7 +28,7 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -56,7 +56,7 @@ namespace s3d
 		/// </summary>
 		size_type r;
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		Circle() = default;
 
@@ -180,18 +180,14 @@ namespace s3d
 			: center(rightCenter->x - _r, rightCenter->y)
 			, r(_r) {}
 
-		Circle(const position_type& p0, const position_type& p1) noexcept
-			: center((p0 + p1) / 2.0)
-			, r(p0.distanceFrom(p1) / 2.0) {}
+		Circle(const position_type& p0, const position_type& p1) noexcept;
 
 		Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept;
 
 		explicit Circle(const Line& diameter) noexcept
 			: Circle(diameter.begin, diameter.end) {}
 
-		Circle(Arg::center_<position_type> _center, const position_type& p) noexcept
-			: center(_center.value())
-			, r(p.distanceFrom(_center.value())) {}
+		Circle(Arg::center_<position_type> _center, const position_type& p) noexcept;
 
 		[[nodiscard]] constexpr bool operator ==(const Circle& circle) const noexcept
 		{
@@ -201,7 +197,8 @@ namespace s3d
 
 		[[nodiscard]] constexpr bool operator !=(const Circle& circle) const noexcept
 		{
-			return !(*this == circle);
+			return center != circle.center
+				|| r != circle.r;
 		}
 
 		constexpr Circle& set(value_type _x, value_type _y, size_type _r) noexcept
@@ -595,10 +592,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Circle& value)
-	{
-		Formatter(formatData, Vec3(value.x, value.y, value.r));
-	}
+	void Formatter(FormatData& formatData, const Circle& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)
@@ -644,7 +638,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Circle, s3d::char32>

@@ -1,41 +1,54 @@
-# OpenSiv3D Linux版について
-OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加えてLinuxに移植したものです。
+# OpenSiv3D for Linux
 
-## 依存ライブラリ・パッケージ
-コンパイルと実行には以下のライブラリやパッケージが必要です。
-- CMake 2.8 以上
-- Clang 5, LLVM または GCC 7.2.0 以上
-  - 開発にはClang 5とLLVMを使っています
-  - CMakeLists.txt を編集すればGCCをコンパイラに指定できます
-  - C++17に対応しているGCC 7.1.0 でもコンパイルできるかもしれません（未確認）
-- boost
-  - 必要なboostのバージョンについては `OpenSiv3D/Dependencies/README.md` を参照してください。
+
+## Requirements
+To build OpenSiv3D, CMake and C++ compiler like GCC are required.
+
+The dependent libraries are as follows:
+- X11, Xi, Xinerama, Xcursor, Xrandr
 - OpenGL
-- GLEW
-- glib2
-- libpng
-- turbojpeg
-- X11
-- X11 Input extension (Xi)
-- X11 RandR extension (Xrandr)
-- X11 Xinerama extension (Xinerama)
-- X11 cursor management library (XCursor)
-- FreeType2
-- HarfBuzz
+- OpenCV4
+- libpng, libjpeg-turbo, giflib, libwebp
+- FreeType2, HarfBuzz
 - OpenAL
-- OpenCV
-- Box2D
+- libogg, libvorbis
+- Boost
+- AngelScript
+- GLib2
 - udev
-  - ジョイスティックの情報取得のため
-- UPower
-  - D-Bus越しに電源情報を取得します
+- libdl
 
-アプリケーションのコンパイル時のオプション等は`Linux/Test/CMakeLists.txt`を参考にしてください。
+Supported display server is X11.
+Wayland and Mir are not supported.
 
-# 注意点・留意点
-- Cursor::ScreenPos()とCursor::PreviousScreenPos()はそれぞれCursor::Pos()とCursor::PreviousPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
-- Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
-- リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
-- ライセンス等の問題によりAACエンコーダ/デコーダが実装されていません。音声ファイルを再生する場合は別のフォーマットを使ってください。
-- ジョイスティックのハットスイッチの情報は取得できませんが、追ってサポートする予定です。
-- その他未実装の機能等については [こちら](https://github.com/wynd2608/OpenSiv3D/issues) を参照ください。
+
+## Compiling OpenSiv3D
+1. Clone source and change branch.
+	1. `git clone https://github.com/Siv3D/OpenSiv3D.git`
+	1. `cd OpenSiv3D`
+	1. `git checkout linux`
+1. Make a directory to build. (In this example, make `Linux/build`).
+	1. `mkdir Linux/build`
+	1. `cd Linux/build`
+1. Compile OpenSiv3D. If build succeeds, `libSiv3D.a` is obtained.
+	1. `cmake -DCMAKE_BUILD_TYPE=Release -GNinja ..`
+	1. `ninja`
+
+### Note
+- Using `-DCMAKE_BUILD_TYPE=Debug`, it is compiled with `-g3 -O0`.
+- The above example uses `ninja`, but you can also compile with `make`.
+
+
+## Compiling an application
+Sample files required to compile an application are in `Linux/App` directory.
+You can build the sample with `cmake` like OpenSiv3D.
+- `Main.cpp`
+	- Sample source of the application.
+- `CMakeLists.txt`
+	- Sample of `CMakeLists.txt` to build the application.
+- `resources/` directory
+	- It contains resource files required by the application.
+
+### Note
+- Change the path of `libSiv3D.a` and include directories in `CMakeLists.txt` properly, when you copy or move `App` directory.
+- Make sure that the `resources/` directory is in the same directory as the executable file when runnning the application.

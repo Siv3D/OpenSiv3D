@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -42,16 +42,7 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit Timer(double timeSec = 0.0, bool startImmediately = false)
-			: m_initialTimeMicrosec(static_cast<int64>(timeSec * 1'000'000))
-		{
-			set(SecondsF(timeSec));
-
-			if (startImmediately)
-			{
-				start();
-			}
-		}
+		explicit Timer(double timeSec = 0.0, bool startImmediately = false);
 
 		/// <summary>
 		/// タイマーを作成します。
@@ -59,16 +50,7 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit Timer(const Duration& time = SecondsF(0.0), bool startImmediately = false)
-			: m_initialTimeMicrosec(static_cast<int64>(time.count() * 1'000'000))
-		{
-			set(time);
-
-			if (startImmediately)
-			{
-				start();
-			}
-		}
+		explicit Timer(const Duration& time, bool startImmediately = false);
 
 		/// <summary>
 		/// タイマーを開始・再開します。
@@ -76,19 +58,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void start()
-		{
-			if (!m_pausing)
-			{
-				return;
-			}
-
-			m_isStarted = true;
-
-			m_pausing = false;
-
-			m_startTimeMicrosec = Time::GetMicrosec();
-		}
+		void start();
 
 		/// <summary>
 		/// タイマーの残り時間を[日]で返します。
@@ -216,22 +186,7 @@ namespace s3d
 		/// <returns>
 		/// タイマーの残り時間[マイクロ秒]
 		/// </returns>
-		[[nodiscard]] int64 us() const
-		{
-			const int64 t = Time::GetMicrosec();
-
-			if (!m_isStarted)
-			{
-				return 0;
-			}
-
-			if (m_pausing)
-			{
-				return Max<int64>(m_accumulationMicrosec, 0);
-			}
-
-			return Max<int64>(m_accumulationMicrosec - (t - m_startTimeMicrosec), 0);
-		}
+		[[nodiscard]] int64 us() const;
 
 		/// <summary>
 		/// タイマーの残り時間を[マイクロ秒]で返します。
@@ -258,15 +213,7 @@ namespace s3d
 		/// <returns>
 		/// タイマーの初期設定時間
 		/// </returns>
-		[[nodiscard]] Milliseconds duration() const { return Milliseconds(m_initialTimeMicrosec / 1'000); }
-
-		/// <summary>
-		/// タイマーの初期設定時間を返します。
-		/// </summary>
-		/// <returns>
-		/// タイマーの初期設定時間
-		/// </returns>
-		[[nodiscard]] MillisecondsF durationF() const { return MillisecondsF(m_initialTimeMicrosec / 1'000.0); }
+		[[nodiscard]] Duration duration() const { return SecondsF(m_initialTimeMicrosec / static_cast<double>(1000LL * 1000LL)); }
 
 		/// <summary>
 		/// タイマーの残り時間を返します。
@@ -274,15 +221,7 @@ namespace s3d
 		/// <returns>
 		/// タイマーの残り時間
 		/// </returns>
-		[[nodiscard]] Milliseconds remaining() const { return Milliseconds(ms()); }
-
-		/// <summary>
-		/// タイマーの残り時間を返します。
-		/// </summary>
-		/// <returns>
-		/// タイマーの残り時間
-		/// </returns>
-		[[nodiscard]] MillisecondsF remainingF() const { return MillisecondsF(msF()); }
+		[[nodiscard]] Duration remaining() const { return SecondsF(sF()); }
 
 		/// <summary>
 		/// タイマーの進み具合を 1 から 0 の範囲で返します。
@@ -376,12 +315,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void restart()
-		{
-			set(MicrosecondsF(m_initialTimeMicrosec));
-			
-			start();
-		}
+		void restart();
 		
 		/// <summary>
 		/// タイマーの残り時間を変更して、タイマーを開始します。
@@ -389,12 +323,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void restart(const MicrosecondsF& time)
-		{
-			set(time);
-
-			start();
-		}
+		void restart(const Duration& time);
 
 		/// <summary>
 		/// タイマーの残り時間を変更します。
@@ -405,11 +334,11 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void set(const MicrosecondsF& time)
+		void set(const Duration& time)
 		{
 			m_isStarted = true;
 
-			m_accumulationMicrosec = static_cast<int64>(time.count());
+			m_accumulationMicrosec = static_cast<int64>(time.count() * (1000LL * 1000LL));
 
 			m_startTimeMicrosec = Time::GetMicrosec();
 		}
@@ -442,53 +371,26 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた残り時間
 		/// </returns>
-		[[nodiscard]] String format(const String& pattern = U"H:mm:ss.xx") const
-		{
-			return Stopwatch(remainingF(), false).format(pattern);
-		}
+		[[nodiscard]] String format(StringView format = U"H:mm:ss.xx"_sv) const;
 	};
 
 
-	[[nodiscard]] inline bool operator <(const Timer& timer, const MicrosecondsF& time)
-	{
-		return timer.remainingF() < time;
-	}
+	[[nodiscard]] bool operator <(const Timer& timer, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator <=(const Timer& timer, const MicrosecondsF& time)
-	{
-		return timer.remainingF() <= time;
-	}
+	[[nodiscard]] bool operator <=(const Timer& timer, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >(const Timer& timer, const MicrosecondsF& time)
-	{
-		return timer.remainingF() > time;
-	}
+	[[nodiscard]] bool operator >(const Timer& timer, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >=(const Timer& timer, const MicrosecondsF& time)
-	{
-		return timer.remainingF() >= time;
-	}
+	[[nodiscard]] bool operator >=(const Timer& timer, const MicrosecondsF& time);
 
 
-	[[nodiscard]] inline bool operator <(const MicrosecondsF& time, const Timer& timer)
-	{
-		return time < timer.remainingF();
-	}
+	[[nodiscard]] bool operator <(const MicrosecondsF& time, const Timer& timer);
 
-	[[nodiscard]] inline bool operator <=(const MicrosecondsF& time, const Timer& timer)
-	{
-		return time <= timer.remainingF();
-	}
+	[[nodiscard]] bool operator <=(const MicrosecondsF& time, const Timer& timer);
 
-	[[nodiscard]] inline bool operator >(const MicrosecondsF& time, const Timer& timer)
-	{
-		return time > timer.remainingF();
-	}
+	[[nodiscard]] bool operator >(const MicrosecondsF& time, const Timer& timer);
 
-	[[nodiscard]] inline bool operator >=(const MicrosecondsF& time, const Timer& timer)
-	{
-		return time >= timer.remainingF();
-	}
+	[[nodiscard]] bool operator >=(const MicrosecondsF& time, const Timer& timer);
 }
 
 //////////////////////////////////////////////////
@@ -499,10 +401,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Timer& value)
-	{
-		formatData.string.append(value.format());
-	}
+	void Formatter(FormatData& formatData, const Timer& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Timer& value)

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,6 +18,7 @@
 # include "Format.hpp"
 # include "Color.hpp"
 # include "Intersection.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -407,7 +408,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Point, s3d::char32>

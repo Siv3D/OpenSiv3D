@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -40,7 +40,12 @@ namespace s3d
 		/// </summary>
 		AAC,
 
-		//ogg, opus, aac, ...
+		/// <summary>
+		/// Ogg Vorbis
+		/// </summary>
+		OggVorbis,
+
+		//opus, ...
 
 		/// <summary>
 		/// 指定しない / データと拡張子から判断
@@ -84,7 +89,7 @@ namespace s3d
 
 		virtual const Array<String>& possibleExtexsions() const = 0;
 
-		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
+		virtual bool isHeader(const uint8(&bytes)[16], const IReader& reader) const = 0;
 
 		virtual Wave decodeFromFile(const FilePath& path) const = 0;
 

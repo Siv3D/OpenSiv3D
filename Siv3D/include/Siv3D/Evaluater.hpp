@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	template <class Type, class Allocator, class Fty, class Ret = std::result_of_t<Fty(Type)>>
+	template <class Type, class Allocator, class Fty, class Ret = std::invoke_result_t<Fty, Type>>
 	auto operator >>(const Array<Type, Allocator>& array, Fty f)
 	{
 		if constexpr (std::is_same_v<Ret, void>)
@@ -60,19 +60,20 @@ namespace s3d
 				}
 			}
 			
-			template <class Fty, class Ret = std::result_of_t<Fty(ValueType)>>
-			auto operator >>(Fty f)
+			template <class Fty, class Ret = std::invoke_result_t<Fty, ValueType>, std::enable_if_t<std::is_void_v<Ret>>* = nullptr>
+			void operator >>(Fty f)
 			{
 				m_isFinal = false;
 				
-				if constexpr (std::is_same_v<Ret, void>)
-				{
-					m_step.each(f);
-				}
-				else
-				{
-					return Evaluater_impl<StepClass, Ret, typename decltype(m_step.map(f))::functions_type>{ m_step.map(f) };
-				}
+				m_step.each(f);		
+			}
+
+			template <class Fty, class Ret = std::invoke_result_t<Fty, ValueType>, std::enable_if_t<!std::is_void_v<Ret>>* = nullptr>
+			auto operator >>(Fty f)
+			{
+				m_isFinal = false;
+
+				return Evaluater_impl<StepClass, Ret, typename decltype(m_step.map(f))::functions_type>{ m_step.map(f) };
 			}
 			
 			auto get()
@@ -83,36 +84,16 @@ namespace s3d
 			}
 		};
 	}
-	
-# if defined(SIV3D_TARGET_WINDOWS)
-	
-	template <class T, class N, class S, bool isScalar, class Fty, class Ret = std::result_of_t<Fty(T)>>
-	constexpr auto operator >>(const steps_class<T, N, S, isScalar>& s, Fty f)
+
+	template <class T, class N, class S, class Fty, class Ret = std::invoke_result_t<Fty, T>, std::enable_if_t<std::is_void_v<Ret>>* = nullptr>
+	inline constexpr void operator >>(const Step<T, N, S>& s, Fty f)
 	{
-		if constexpr (std::is_same_v<Ret, void>)
-		{
-			s.each(f);
-		}
-		else
-		{
-			return detail::Evaluater_impl<steps_class<T, N, S, isScalar>, Ret, typename decltype(s.map(f))::functions_type>{ s.map(f) };
-		}
+		s.each(f);
 	}
-	
-# else
-	
-	template <class T, class N, class S, class Fty, class Ret = std::result_of_t<Fty(T)>>
-	constexpr auto operator >>(const steps_class<T, N, S>& s, Fty f)
-	{
-		if constexpr (std::is_same_v<Ret, void>)
-		{
-			s.each(f);
-		}
-		else
-		{
-			return detail::Evaluater_impl<steps_class<T, N, S>, Ret, typename decltype(s.map(f))::functions_type>{ s.map(f) };
-		}
+
+	template <class T, class N, class S, class Fty, class Ret = std::invoke_result_t<Fty, T>, std::enable_if_t<!std::is_void_v<Ret>>* = nullptr>
+	inline constexpr auto operator >>(const Step<T, N, S>& s, Fty f)
+	{	
+		return detail::Evaluater_impl<Step<T, N, S>, Ret, typename decltype(s.map(f))::functions_type>{ s.map(f) };
 	}
-	
-# endif
 }

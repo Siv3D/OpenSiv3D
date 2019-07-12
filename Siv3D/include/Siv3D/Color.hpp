@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -171,7 +171,7 @@ namespace s3d
 		/// <returns>
 		/// 反転した色
 		/// </returns>
-		constexpr Color operator ~() const noexcept
+		[[nodiscard]] constexpr Color operator ~() const noexcept
 		{
 			return{ static_cast<uint8>(~r), static_cast<uint8>(~g), static_cast<uint8>(~b), a };
 		}
@@ -185,7 +185,7 @@ namespace s3d
 		/// <returns>
 		/// 等しければ true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Color& color) const noexcept
+		[[nodiscard]] bool operator ==(const Color& color) const noexcept
 		{
 			return asUint32() == color.asUint32();
 		}
@@ -199,7 +199,7 @@ namespace s3d
 		/// <returns>
 		/// 等しくなければ true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Color& color) const noexcept
+		[[nodiscard]] bool operator !=(const Color& color) const noexcept
 		{
 			return !(*this == color);
 		}
@@ -280,7 +280,7 @@ namespace s3d
 		/// <returns>
 		/// グレースケール値
 		/// </returns>
-		constexpr uint8 grayscale0_255() const noexcept
+		[[nodiscard]] constexpr uint8 grayscale0_255() const noexcept
 		{
 			return static_cast<uint8>(0.299*r + 0.587*g + 0.114*b);
 		}
@@ -291,17 +291,17 @@ namespace s3d
 		/// <returns>
 		/// グレースケール値
 		/// </returns>
-		constexpr double grayscale() const noexcept
+		[[nodiscard]] constexpr double grayscale() const noexcept
 		{
 			return (0.299 / 255.0 * r) + (0.587 / 255.0 * g) + (0.114 / 255.0 * b);
 		}
 
-		uint32 asUint32() const noexcept
+		[[nodiscard]] uint32 asUint32() const noexcept
 		{
 			return *static_cast<const uint32*>(static_cast<const void*>(this));
 		}
 
-		constexpr Color lerp(const Color& other, const double f) const noexcept
+		[[nodiscard]] constexpr Color lerp(const Color& other, const double f) const noexcept
 		{
 			return{ static_cast<uint32>(int32(r) + (int32(other.r) - int32(r)) * f),
 					static_cast<uint32>(int32(g) + (int32(other.g) - int32(g)) * f),
@@ -318,9 +318,11 @@ namespace s3d
 		/// <returns>
 		/// ガンマを適用した値
 		/// </returns>
-		Color gamma(double gamma) const noexcept;
+		[[nodiscard]] Color gamma(double gamma) const noexcept;
 
-		String toHex() const;
+		[[nodiscard]] String toHex() const;
+
+		[[nodiscard]] size_t hash() const noexcept;
 	};
 
 	/// <summary>
@@ -427,6 +429,14 @@ namespace s3d
 		explicit ColorF(const Vec3& rgb, double _a = 1.0) noexcept;
 
 		/// <summary>
+		/// 色を作成します。
+		/// </summary>
+		/// <param name="rgba">
+		/// 赤・緑・青・アルファ [0.0, 1.0]
+		/// </param>
+		explicit ColorF(const Vec4& rgba) noexcept;
+
+		/// <summary>
 		/// 色をコピーします。
 		/// </summary>
 		/// <param name="color">
@@ -504,7 +514,7 @@ namespace s3d
 		/// <returns>
 		/// 加算した色
 		/// </returns>
-		constexpr ColorF operator +(const ColorF& color) const noexcept
+		[[nodiscard]] constexpr ColorF operator +(const ColorF& color) const noexcept
 		{
 			return{ r + color.r, g + color.g, b + color.b, a };
 		}
@@ -535,7 +545,7 @@ namespace s3d
 		/// <returns>
 		/// 減算した色
 		/// </returns>
-		constexpr ColorF operator -(const ColorF& color) const noexcept
+		[[nodiscard]] constexpr ColorF operator -(const ColorF& color) const noexcept
 		{
 			return{ r - color.r, g - color.g, b - color.b, a };
 		}
@@ -566,7 +576,7 @@ namespace s3d
 		/// <returns>
 		/// 乗算した結果
 		/// </returns>
-		constexpr ColorF operator *(const double s) const noexcept
+		[[nodiscard]] constexpr ColorF operator *(const double s) const noexcept
 		{
 			return{ r * s, g * s, b * s, a };
 		}
@@ -597,7 +607,7 @@ namespace s3d
 		/// <returns>
 		/// 乗算した色
 		/// </returns>
-		constexpr ColorF operator *(const ColorF& color) const noexcept
+		[[nodiscard]] constexpr ColorF operator *(const ColorF& color) const noexcept
 		{
 			return{ r * color.r, g * color.g, b * color.b, a * color.a };
 		}
@@ -618,6 +628,34 @@ namespace s3d
 			b *= color.b;
 			a *= color.a;
 			return *this;
+		}
+
+		/// <summary>
+		/// 色が等しいかを調べます。
+		/// </summary>
+		/// <param name="color">
+		/// 比較対象の色
+		/// </param>
+		/// <returns>
+		/// 等しければ true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator ==(const ColorF& color) const noexcept
+		{
+			return (r == color.r) && (g == color.g) && (b == color.b) && (a == color.a);
+		}
+
+		/// <summary>
+		/// 色が等しくないかを調べます。
+		/// </summary>
+		/// <param name="color">
+		/// 比較対象の色
+		/// </param>
+		/// <returns>
+		/// 等しくなければ true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator !=(const ColorF& color) const noexcept
+		{
+			return (r != color.r) || (g != color.g) || (b != color.b) || (a != color.a);
 		}
 
 		/// <summary>
@@ -699,7 +737,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		constexpr Color toColor() const noexcept
+		[[nodiscard]] constexpr Color toColor() const noexcept
 		{
 			return Color(r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5)
 					   , g >= 1.0 ? 255 : g <= 0.0 ? 0 : static_cast<uint8>(g * 255.0 + 0.5)
@@ -707,9 +745,9 @@ namespace s3d
 					   , a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
 		}
 
-		Float4 toFloat4() const;
+		[[nodiscard]] Float4 toFloat4() const;
 
-		Vec4 toVec4() const;
+		[[nodiscard]] Vec4 toVec4() const;
 
 		/// <summary>
 		/// ガンマを適用した値を返します。
@@ -720,7 +758,7 @@ namespace s3d
 		/// <returns>
 		/// ガンマを適用した値
 		/// </returns>
-		ColorF gamma(double gamma) const noexcept;
+		[[nodiscard]] ColorF gamma(double gamma) const noexcept;
 
 		/// <summary>
 		/// グレースケール値 [0.0, 1.0] を計算します。
@@ -728,12 +766,12 @@ namespace s3d
 		/// <returns>
 		/// グレースケール値
 		/// </returns>
-		constexpr double grayscale() const noexcept
+		[[nodiscard]] constexpr double grayscale() const noexcept
 		{
 			return 0.299 * r + 0.587 * g + 0.114 * b;
 		}
 
-		constexpr ColorF lerp(const ColorF& other, const double f) const noexcept
+		[[nodiscard]] constexpr ColorF lerp(const ColorF& other, const double f) const noexcept
 		{
 			return{ r + (other.r - r) * f,
 					g + (other.g - g) * f,
@@ -744,49 +782,49 @@ namespace s3d
 		/// <summary>
 		/// Vec2(r, g)
 		/// </summary>
-		Vec2 rg() const noexcept;
+		[[nodiscard]] Vec2 rg() const noexcept;
 
 		/// <summary>
 		/// Vec2(g, b)
 		/// </summary>
-		Vec2 gb() const noexcept;
+		[[nodiscard]] Vec2 gb() const noexcept;
 
 		/// <summary>
 		/// Vec2(b, a)
 		/// </summary>
-		Vec2 ba() const noexcept;
+		[[nodiscard]] Vec2 ba() const noexcept;
 
 		/// <summary>
 		/// Vec3(r, g, b)
 		/// </summary>
-		Vec3 rgb() const noexcept;
+		[[nodiscard]] Vec3 rgb() const noexcept;
 
 		/// <summary>
 		/// Vec3(g, b, a)
 		/// </summary>
-		Vec3 gba() const noexcept;
+		[[nodiscard]] Vec3 gba() const noexcept;
 
 		/// <summary>
 		/// Vec3(b, g, r)
 		/// </summary>
-		Vec3 bgr() const noexcept;
+		[[nodiscard]] Vec3 bgr() const noexcept;
 
 		/// <summary>
 		/// Vec4(r, g, b, a)
 		/// </summary>
-		Vec4 rgba() const noexcept;
+		[[nodiscard]] Vec4 rgba() const noexcept;
 
 		/// <summary>
 		/// Vec4(a, r, g, b)
 		/// </summary>
-		Vec4 argb() const noexcept;
+		[[nodiscard]] Vec4 argb() const noexcept;
 
 		/// <summary>
 		/// Vec4(a, b, g, r)
 		/// </summary>
-		Vec4 abgr() const noexcept;
+		[[nodiscard]] Vec4 abgr() const noexcept;
 
-		size_t hash() const;
+		[[nodiscard]] size_t hash() const noexcept;
 	};
 
 	/// <summary>
@@ -801,7 +839,7 @@ namespace s3d
 	/// <returns>
 	/// 乗算した結果
 	/// </returns>
-	inline constexpr ColorF operator *(const double s, const ColorF& color) noexcept
+	[[nodiscard]] inline constexpr ColorF operator *(const double s, const ColorF& color) noexcept
 	{
 		return{ s * color.r, s * color.g, s * color.b, color.a };
 	}
@@ -815,7 +853,7 @@ namespace s3d
 	/// <returns>
 	/// Color(255, 255, 255, alpha)
 	/// </returns>
-	inline constexpr Color Alpha(const uint32 alpha) noexcept
+	[[nodiscard]] inline constexpr Color Alpha(const uint32 alpha) noexcept
 	{
 		return Color(255, alpha);
 	}
@@ -829,7 +867,7 @@ namespace s3d
 	/// <returns>
 	/// ColorF(1.0, 1.0, 1.0, alpha)
 	/// </returns>
-	inline constexpr ColorF AlphaF(const double alpha) noexcept
+	[[nodiscard]] inline constexpr ColorF AlphaF(const double alpha) noexcept
 	{
 		return ColorF(1.0, alpha);
 	}
@@ -843,17 +881,17 @@ namespace s3d
 	/// <returns>
 	/// ColorF(1.0, 1.0, 1.0, 1.0 - transparency)
 	/// </returns>
-	inline constexpr ColorF Transparency(const double transparency) noexcept
+	[[nodiscard]] inline constexpr ColorF Transparency(const double transparency) noexcept
 	{
 		return ColorF(1.0, 1.0 - transparency);
 	}
 
-	inline constexpr Color ToColor(const float rgb) noexcept
+	[[nodiscard]] inline constexpr Color ToColor(const float rgb) noexcept
 	{
 		return Color((rgb >= 1.0f ? 255 : rgb <= 0.0f ? 0 : static_cast<uint8>(rgb * 255.0f + 0.5f)));
 	}
 
-	inline constexpr Color ToColor(const double rgb) noexcept
+	[[nodiscard]] inline constexpr Color ToColor(const double rgb) noexcept
 	{
 		return Color(rgb >= 1.0 ? 255 : rgb <= 0.0 ? 0 : static_cast<uint8>(rgb * 255.0 + 0.5));
 	}
@@ -919,74 +957,11 @@ namespace s3d
 			<< value.a << CharType(')');
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Color& value)
-	{
-		CharType unused;
-		input >> unused;
+	std::istream& operator >>(std::istream& input, Color& value);
+	std::wistream& operator >>(std::wistream& input, Color& value);
 
-		if (unused == CharType('#'))
-		{
-			String code;
-			input >> code;
-			value = ColorF(U'#' + code);
-		}
-		else
-		{
-			uint32 cols[4];
-			input
-				>> cols[0] >> unused
-				>> cols[1] >> unused
-				>> cols[2] >> unused;
-
-			if (unused == CharType(','))
-			{
-				input >> cols[3] >> unused;
-			}
-			else
-			{
-				cols[3] = 255;
-			}
-
-			value.r = cols[0];
-			value.g = cols[1];
-			value.b = cols[2];
-			value.a = cols[3];
-		}
-
-		return input;
-	}
-
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, ColorF& value)
-	{
-		CharType unused;
-		input >> unused;
-		
-		if (unused == CharType('#'))
-		{
-			String code;
-			input >> code;
-			value = ColorF(U'#' + code);
-		}
-		else 
-		{
-			input >> value.r >> unused
-				>> value.g >> unused
-				>> value.b >> unused;
-
-			if (unused == CharType(','))
-			{
-				input >> value.a >> unused;
-			}
-			else
-			{
-				value.a = 1.0;
-			}
-		}
-
-		return input;
-	}
+	std::istream& operator >>(std::istream& input, ColorF& value);
+	std::wistream& operator >>(std::wistream& input, ColorF& value);
 }
 
 //////////////////////////////////////////////////
@@ -1002,7 +977,7 @@ namespace std
 	{
 		[[nodiscard]] size_t operator ()(const s3d::Color& value) const noexcept
 		{
-			return hash<s3d::uint32>()(*((s3d::uint32*)&value));
+			return value.hash();
 		}
 	};
 
@@ -1022,7 +997,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Color, s3d::char32>

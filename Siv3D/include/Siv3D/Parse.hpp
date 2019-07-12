@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,6 +12,7 @@
 # pragma once
 # include <sstream>
 # include "Fwd.hpp"
+# include "Error.hpp"
 # include "ParseBool.hpp"
 # include "ParseInt.hpp"
 # include "ParseFloat.hpp"
@@ -30,11 +31,15 @@ namespace s3d
 	/// <param name="text">
 	/// 変換する文字列
 	/// </param>
+	/// <exception cref="ParseError">
+	/// パースエラーが発生したときに例外が投げられます。
+	/// Thrown when a parsing error occurs
+	/// </exception>
 	/// <returns>
 	/// 文字列から変換されたデータ
 	/// </returns>
 	template <class Type>
-	[[nodiscard]] inline Type Parse(const String& text)
+	[[nodiscard]] inline Type Parse(StringView text)
 	{
 		if constexpr (std::is_integral_v<Type>)
 		{
@@ -48,11 +53,9 @@ namespace s3d
 		{
 			Type to;
 
-			std::wistringstream ws(text.toWstr());
-
-			if (ws >> to)
+			if (!(std::wistringstream{ Unicode::ToWString(text) } >> to))
 			{
-				return to;
+				throw ParseError(U"Parse({}) failed"_fmt(text));
 			}
 
 			return to;
@@ -60,42 +63,16 @@ namespace s3d
 	}
 
 	template <>
-	[[nodiscard]] inline bool Parse<bool>(const String& text)
-	{
-		return ParseBool(text);
-	}
+	[[nodiscard]] bool Parse<bool>(StringView text);
 
 	template <>
-	[[nodiscard]] inline char Parse<char>(const String& text)
-	{
-		const String t = text.trimmed();
-
-		if (t.isEmpty())
-		{
-			return 0;
-		}
-
-		return static_cast<char>(t[0]);
-	}
+	[[nodiscard]] char Parse<char>(StringView text);
 
 	template <>
-	[[nodiscard]] inline char32 Parse<char32>(const String& text)
-	{
-		const String t = text.trimmed();
-
-		if (t.isEmpty())
-		{
-			return 0;
-		}
-
-		return t[0];
-	}
+	[[nodiscard]] char32 Parse<char32>(StringView text);
 
 	template <>
-	[[nodiscard]] inline String Parse<String>(const String& text)
-	{
-		return text.trimmed();
-	}
+	[[nodiscard]] String Parse<String>(StringView text);
 
 	////////////////////////////////////////////////////////////////
 	//
@@ -113,7 +90,7 @@ namespace s3d
 	/// 文字列から変換されたデータの Optional, 失敗した場合は none
 	/// </returns>
 	template <class Type>
-	[[nodiscard]] inline Optional<Type> ParseOpt(const String& text)
+	[[nodiscard]] inline Optional<Type> ParseOpt(StringView text)
 	{
 		if constexpr (std::is_integral_v<Type>)
 		{
@@ -121,13 +98,14 @@ namespace s3d
 		}
 		else if constexpr (std::is_floating_point_v<Type>)
 		{
-			return ParseFloatOpt<Type>(text);
+			// ParseFloat does not retrun none
+			return ParseFloat<Type>(text);
 		}
 		else
 		{
 			Type to;
 
-			if (std::wistringstream{ text.toWstr() } >> to)
+			if (std::wistringstream{ Unicode::ToWString(text) } >> to)
 			{
 				return Optional<Type>(std::move(to));
 			}
@@ -137,49 +115,16 @@ namespace s3d
 	}
 
 	template <>
-	[[nodiscard]] inline Optional<bool> ParseOpt<bool>(const String& text)
-	{
-		return ParseBoolOpt(text);
-	}
+	[[nodiscard]] Optional<bool> ParseOpt<bool>(StringView text);
 
 	template <>
-	[[nodiscard]] inline Optional<char> ParseOpt<char>(const String& text)
-	{
-		const String t = text.trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return static_cast<char>(t[0]);
-	}
+	[[nodiscard]] Optional<char> ParseOpt<char>(StringView text);
 
 	template <>
-	[[nodiscard]] inline Optional<char32> ParseOpt<char32>(const String& text)
-	{
-		const String t = text.trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return t[0];
-	}
+	[[nodiscard]] Optional<char32> ParseOpt<char32>(StringView text);
 
 	template <>
-	[[nodiscard]] inline Optional<String> ParseOpt<String>(const String& text)
-	{
-		String t = text.trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return Optional<String>(std::move(t));
-	}
+	[[nodiscard]] Optional<String> ParseOpt<String>(StringView text);
 
 	////////////////////////////////////////////////////////////////
 	//
@@ -200,7 +145,7 @@ namespace s3d
 	/// 文字列から変換されたデータの, 失敗した場合は defaultValue
 	/// </returns>
 	template <class Type, class U>
-	[[nodiscard]] Type ParseOr(const String& text, U&& defaultValue)
+	[[nodiscard]] Type ParseOr(StringView text, U&& defaultValue)
 	{
 		return ParseOpt<Type>(text).value_or(std::forward<U>(defaultValue));
 	}

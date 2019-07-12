@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -203,37 +203,19 @@ namespace s3d
 		//	Type
 		//
 
-		JSONValueType getType() const;
+		[[nodiscard]] JSONValueType getType() const;
 
-		[[nodiscard]] bool isNull() const
-		{
-			return getType() == JSONValueType::Null;
-		}
+		[[nodiscard]] bool isNull() const;
 
-		[[nodiscard]] bool isBool() const
-		{
-			return getType() == JSONValueType::Bool;
-		}
+		[[nodiscard]] bool isBool() const;
 
-		[[nodiscard]] bool isObject() const
-		{
-			return getType() == JSONValueType::Object;
-		}
+		[[nodiscard]] bool isObject() const;
 
-		[[nodiscard]] bool isArray() const
-		{
-			return getType() == JSONValueType::Array;
-		}
+		[[nodiscard]] bool isArray() const;
 
-		[[nodiscard]] bool isString() const
-		{
-			return getType() == JSONValueType::String;
-		}
+		[[nodiscard]] bool isString() const;
 
-		[[nodiscard]] bool isNumber() const
-		{
-			return getType() == JSONValueType::Number;
-		}
+		[[nodiscard]] bool isNumber() const;
 
 		////////////////////////////////
 		//
@@ -342,9 +324,6 @@ namespace s3d
 
 		[[nodiscard]] bool isOpened() const;
 
-		[[nodiscard]] explicit operator bool() const
-		{
-			return isOpened();
-		}
+		[[nodiscard]] explicit operator bool() const;
 	};
 }

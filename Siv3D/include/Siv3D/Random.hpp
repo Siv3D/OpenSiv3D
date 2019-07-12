@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,10 +26,7 @@ namespace s3d
 	/// <returns>
 	/// [0, 1) の範囲の乱数
 	/// </returns>
-	inline double Random()
-	{
-		return GetDefaultRNG().generateReal();
-	}
+	double Random();
 
 	/// <summary>
 	/// 指定した型と範囲の乱数を返します。
@@ -67,7 +64,7 @@ namespace s3d
 	template <class Type>
 	inline Type Random(const Type& max)
 	{
-		return Random<Type>(0, max);
+		return UniformDistribution<Type>(0, max)(GetDefaultRNG());
 	}
 
 	/// <summary>
@@ -86,10 +83,7 @@ namespace s3d
 	/// 指定した型と範囲の乱数
 	/// </returns>
 	template <>
-	inline char32 Random<char32>(const char32& min, const char32& max)
-	{
-		return static_cast<char32>(UniformDistribution<uint32>(min, max)(GetDefaultRNG()));
-	}
+	char32 Random<char32>(const char32& min, const char32& max);
 
 	/// <summary>
 	/// 指定した型と範囲の乱数を返します。
@@ -107,10 +101,7 @@ namespace s3d
 	/// 指定した型と範囲の乱数
 	/// </returns>
 	template <>
-	inline Duration Random<Duration>(const Duration& min, const Duration& max)
-	{
-		return Duration(Random(min.count(), max.count()));
-	}
+	Duration Random<Duration>(const Duration& min, const Duration& max);
 
 	/// <summary>
 	/// 2 値の乱数を返します。
@@ -124,69 +115,23 @@ namespace s3d
 	/// <returns>
 	/// 確率 p でtrue, 確率 (1-p) で false
 	/// </returns>
-	inline bool RandomBool(const double p = 0.5)
-	{
-		return GetDefaultRNG().generateReal() < p;
-	}
+	bool RandomBool(double p = 0.5);
 
-	/// <summary>
-	/// イテレータの範囲からランダムに値を選択します。
-	/// </summary>
-	/// <param name="begin">
-	/// 開始位置
-	/// </param>
-	/// <param name="end">
-	/// 終了位置
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// イテレータの範囲からランダムに選択された値
-	/// </returns>
-	template <class Iterator>
-	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline auto RandomSelect(Iterator begin, Iterator end)
-	{
-		assert(begin != end);
-		std::advance(begin, Random(std::distance(begin, end) - 1));
-		return *begin;
-	}
+	uint8 RandomUint8();
 
-	/// <summary>
-	/// コンテナの中からランダムに値を選択します。
-	/// </summary>
-	/// <param name="c">
-	/// コンテナ
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// コンテナの中からランダムに選択された値
-	/// </returns>
-	template <class Container>
-	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline auto RandomSelect(const Container& c)
-	{
-		return RandomSelect(std::begin(c), std::end(c));
-	}
+	uint16 RandomUint16();
 
-	/// <summary>
-	/// リストの中からランダムに値を選択します。
-	/// </summary>
-	/// <param name="ilist">
-	/// 値のリスト
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// リストの中からランダムに選択された値
-	/// </returns>
-	template <class Type>
-	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline Type RandomSelect(std::initializer_list<Type> ilist)
-	{
-		return RandomSelect(std::begin(ilist), std::end(ilist));
-	}
+	uint32 RandomUint32();
+
+	uint64 RandomUint64();
+
+	int8 RandomInt8();
+
+	int16 RandomInt16();
+
+	int32 RandomInt32();
+
+	int64 RandomInt64();
 
 	/// <summary>
 	/// コンテナの中身をシャッフルします。

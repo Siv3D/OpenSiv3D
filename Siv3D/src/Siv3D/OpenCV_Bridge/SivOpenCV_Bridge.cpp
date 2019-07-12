@@ -2,15 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/OpenCV_Bridge.hpp>
-# if __has_include(<opencv2/core.hpp>)
 
 namespace s3d
 {
@@ -64,6 +63,37 @@ namespace s3d
 			}
 		}
 
+		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold)
+		{
+			assert(from.width() * 2 == to.cols);
+			assert(from.height() * 2 == to.rows);
+
+			if (!from)
+			{
+				return;
+			}
+
+			const int32 height = from.height();
+			const int32 width = from.width();
+			const Color* pSrc = from.data();
+			const size_t dstStride = to.step.p[0];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* pDst = to.data + (2 * dstStride) * y;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					const uint8 a = (pSrc->r <= threshold ? 0 : 255);
+					*pDst = a;
+					*(pDst + 1) = a;
+					*(pDst + dstStride) = a;
+					*(pDst + dstStride + 1) = a;
+					++pSrc; pDst += 2;
+				}
+			}
+		}
+
 		void AlphaToBinary(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
 		{
 			assert(from.width() == to.cols);
@@ -108,6 +138,37 @@ namespace s3d
 					}
 
 					pDstLine += dstStepBytes;
+				}
+			}
+		}
+
+		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold)
+		{
+			assert(from.width() * 2 == to.cols);
+			assert(from.height() * 2 == to.rows);
+
+			if (!from)
+			{
+				return;
+			}
+
+			const int32 height = from.height();
+			const int32 width = from.width();
+			const Color* pSrc = from.data();
+			const size_t dstStride = to.step.p[0];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* pDst = to.data + (2 * dstStride) * y;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					const uint8 a = (pSrc->a <= threshold ? 0 : 255);
+					*pDst = a;
+					*(pDst + 1) = a;
+					*(pDst + dstStride) = a;
+					*(pDst + dstStride + 1) = a;
+					++pSrc; pDst += 2;
 				}
 			}
 		}
@@ -431,5 +492,3 @@ namespace s3d
 		}
 	}
 }
-
-# endif

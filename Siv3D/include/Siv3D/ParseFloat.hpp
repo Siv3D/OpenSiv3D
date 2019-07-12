@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,16 +25,4 @@ namespace s3d
 
 	template <>
 	long double ParseFloat<long double>(StringView view);
-
-	template <class FloatType>
-	Optional<FloatType> ParseFloatOpt(StringView view);
-
-	template <>
-	Optional<float> ParseFloatOpt<float>(StringView view);
-
-	template <>
-	Optional<double> ParseFloatOpt<double>(StringView view);
-
-	template <>
-	Optional<long double> ParseFloatOpt<long double>(StringView view);
 }

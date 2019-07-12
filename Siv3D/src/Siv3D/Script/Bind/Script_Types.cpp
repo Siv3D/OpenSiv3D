@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -101,7 +101,7 @@ namespace s3d
 		r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>()); assert(r >= 0);
 		r = engine->RegisterObjectType("DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Transformer2D", sizeof(Transformer2D), asOBJ_VALUE | asGetTypeTraits<Transformer2D>()); assert(r >= 0);
-		r = engine->RegisterObjectType("ViewportBlock2D", sizeof(ViewportBlock2D), asOBJ_VALUE | asGetTypeTraits<ViewportBlock2D>()); assert(r >= 0);
+		r = engine->RegisterObjectType("ScopedViewport2D", sizeof(ScopedViewport2D), asOBJ_VALUE | asGetTypeTraits<ScopedViewport2D>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -111,7 +111,10 @@ namespace s3d
 		r = engine->RegisterObjectType("PrintBuffer", 0, asOBJ_REF); assert(r >= 0);
 		r = engine->RegisterObjectType("Print_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
-		r = engine->RegisterEnum("WindowEvent"); assert(r >= 0);
+		r = engine->RegisterEnum("UserAction"); assert(r >= 0);
+		r = engine->RegisterEnum("WindowStyle"); assert(r >= 0);
+		r = engine->RegisterEnum("WindowResizeOption"); assert(r >= 0);
+		r = engine->RegisterEnum("ScaleMode"); assert(r >= 0);
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
 		r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
@@ -185,7 +188,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Font") == static_cast<int32>(ScriptTypeID::Font));
 		assert(engine->GetTypeIdByDecl("DrawableText") == static_cast<int32>(ScriptTypeID::DrawableText));
 		assert(engine->GetTypeIdByDecl("Transformer2D") == static_cast<int32>(ScriptTypeID::Transformer2D));
-		assert(engine->GetTypeIdByDecl("ViewportBlock2D") == static_cast<int32>(ScriptTypeID::ViewportBlock2D));
+		assert(engine->GetTypeIdByDecl("ScopedViewport2D") == static_cast<int32>(ScriptTypeID::ScopedViewport2D));
 
 		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
 		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));

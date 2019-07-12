@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -33,7 +33,11 @@ namespace s3d
 
 		constexpr Vec3 point_at(double distance) const noexcept
 		{
-			return origin + distance * direction;
+			return Vec3(
+				origin.x + distance * direction.x,
+				origin.y + distance * direction.y,
+				origin.z + distance * direction.z
+				);
 		}
 
 		constexpr Ray& setOrigin(const Vec3& _origin) noexcept

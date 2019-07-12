@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -40,7 +40,7 @@ namespace s3d
 		new(self) LineStyle::Parameters(style);
 	}
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS)
 
 	static LineStyle ConvToLineStyle(const LineStyle::Parameters& params)
 	{
@@ -103,7 +103,7 @@ namespace s3d
 
 			//r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters opCall(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0); // AngelScript のバグ?
 			
-		# if defined(SIV3D_TARGET_WINDOWS)
+		# if SIV3D_PLATFORM(WINDOWS)
 
 			r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
 
@@ -124,7 +124,7 @@ namespace s3d
 			}
 			r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-		# if defined(SIV3D_TARGET_WINDOWS)
+		# if SIV3D_PLATFORM(WINDOWS)
 
 			r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle), asCALL_CDECL_OBJLAST); assert(r >= 0);
 

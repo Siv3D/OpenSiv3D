@@ -1,215 +1,51 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/String.hpp>
 # include <Siv3D/System.hpp>
-# include "SystemUtility.hpp"
-# include "../Siv3DEngine.hpp"
-# include "../System/ISystem.hpp"
-# include "../Window/IWindow.hpp"
-//# include "../Audio/IAudio.hpp"
+# include <Siv3D/UserAction.hpp>
+# include <Siv3DEngine.hpp>
+# include "ISystem.hpp"
 
 namespace s3d
 {
 	namespace System
 	{
-		bool Update(bool clearGraphics)
+		bool Update()
 		{
-			if (!Siv3DEngine::GetSystem()->update(clearGraphics))
-			{
-				Siv3DEngine::GetWindow()->show(false);
-
-				//Siv3DEngine::GetAudio()->fadeMasterVolume();
-
-				return false;
-			}
-			
-			return true;
+			return Siv3DEngine::Get<ISiv3DSystem>()->update();
 		}
 
 		void Exit()
 		{
-			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::ExitFlag);
+			Siv3DEngine::Get<ISiv3DSystem>()->reportUserActions(UserAction::ExitFlag);
 		}
 
-		void SetExitEvent(const uint32 windowEventFlag)
+		void SetTerminationTriggers(const uint32 userActionFlags)
 		{
-			Siv3DEngine::GetSystem()->setExitEvent(windowEventFlag);
+			Siv3DEngine::Get<ISiv3DSystem>()->setTerminationTriggers(userActionFlags);
 		}
 
-		uint32 GetPreviousEvent()
+		uint32 GetTerminationTriggers()
 		{
-			return Siv3DEngine::GetSystem()->getPreviousEvent();
-		}
-		
-		double DeltaTime(const double maxDuration)
-		{
-			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
+			return Siv3DEngine::Get<ISiv3DSystem>()->getTerminationTriggers();
 		}
 
-		int32 FrameCount()
+		uint32 GetUserActions()
 		{
-			return Siv3DEngine::GetSystem()->getUserFrameCount();
+			return Siv3DEngine::Get<ISiv3DSystem>()->getUserActions();
 		}
 
-		void SetFrameCount(const int32 count)
+		void Sleep(const Duration& duration)
 		{
-			Siv3DEngine::GetSystem()->setUserFrameCount(count);
+			Sleep(static_cast<int32>(duration.count() * 1000));
 		}
 	}
 }
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-# include <Siv3D/Windows.hpp>
-# include <Siv3D/FileSystem.hpp>
-
-namespace s3d
-{
-	namespace System
-	{
-		void Sleep(int32 milliseconds)
-		{
-			if (milliseconds < 0)
-			{
-				return;
-			}
-
-			// システムクロックの精度を上げる
-			::timeBeginPeriod(1);
-
-			::Sleep(milliseconds);
-
-			::timeEndPeriod(1);
-		}
-
-		bool LaunchBrowser(const FilePath& url)
-		{
-			const bool isWebPage = url.starts_with(U"http://") || url.starts_with(U"https://");
-
-			// Web 上のコンテンツもしくは HTML ファイルでなければ処理を返す
-			if (!isWebPage)
-			{
-				const String extension = FileSystem::Extension(url);
-
-				if (extension != U"html" && extension != U"htm")
-				{
-					return false;
-				}		
-			}
-
-			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, L"open", url.toWstr().c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
-		}
-	}
-}
-
-# elif defined(SIV3D_TARGET_MACOS)
-
-# include <unistd.h>
-# include <Siv3D/FileSystem.hpp>
-
-bool macOS_LaunchBrowser(const char* url);
-
-namespace s3d
-{
-	namespace System
-	{
-		void Sleep(int32 milliseconds)
-		{
-			if (milliseconds < 0)
-			{
-				return;
-			}
-
-			::usleep(static_cast<uint32>(milliseconds) * 1000);
-		}
-
-		bool LaunchBrowser(const FilePath& _url)
-		{
-			const bool isWebPage = _url.starts_with(U"http://") || _url.starts_with(U"https://");
-			FilePath url = _url;
-			
-			if (!isWebPage)
-			{
-				const String extension = FileSystem::Extension(_url);
-				
-				if (extension != U"html" && extension != U"htm")
-				{
-					return false;
-				}
-				
-				url.insert(0, U"file://");
-			}
-			
-			return macOS_LaunchBrowser(url.narrow().c_str());
-		}
-	}
-}
-
-# elif defined(SIV3D_TARGET_LINUX)
-
-# include <stdlib.h>
-# include <unistd.h>
-# include <Siv3D/FileSystem.hpp>
-
-namespace s3d
-{
-	namespace System
-	{
-		void Sleep(int32 milliseconds)
-		{
-			if (milliseconds < 0)
-			{
-				return;
-			}
-
-			::usleep(static_cast<uint32>(milliseconds) * 1000);
-		}
-
-		bool LaunchBrowser(const FilePath& _url)
-		{
-			const bool isWebPage = _url.starts_with(U"http://") || _url.starts_with(U"https://");
-			FilePath url = _url;
-			
-			if (!isWebPage)
-			{
-				const String extension = FileSystem::Extension(_url);
-				
-				if (extension != U"html" && extension != U"htm")
-				{
-					return false;
-				}
-				
-				url.insert(0, U"file://");
-			}
-
-			if (system("which xdg-open >/dev/null 2>&1"))
-			{
-				//There isn't xdg-open command.
-				return false;
-			}
-
-			String command = U"xdg-open ";
-			command += url;
-			command += U" >/dev/null 2>&1";
-
-			if (system(command.narrow().c_str()) == 0)
-			{
-				return true;
-			}
-
-			return false;
-		}
-	}
-}
-
-# endif

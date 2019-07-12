@@ -47,7 +47,7 @@ namespace mu
 
     \author (C) 2004-2011 Ingo Berg
 */
-class ParserCallback
+class API_EXPORT_CXX ParserCallback
 {
 public:
     ParserCallback(fun_type0  a_pFun, bool a_bAllowOpti);

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -55,10 +55,10 @@ namespace s3d
 			//r = engine->RegisterGlobalFunction("float ToDegrees(float)", asFUNCTIONPR(Math::ToDegrees, (float), float), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double ToDegrees(double)", asFUNCTIONPR(Math::ToDegrees, (double), double), asCALL_CDECL); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("int32 Abs(int8)", asFUNCTION(AbsPrimitive<int8>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("int32 Abs(int16)", asFUNCTION(AbsPrimitive<int16>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("int32 Abs(int32)", asFUNCTION(AbsPrimitive<int32>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("int64 Abs(int64)", asFUNCTION(AbsPrimitive<int64>), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int32 Abs(int8)", asFUNCTION((int32(*)(int8))AbsPrimitive), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int32 Abs(int16)", asFUNCTION((int32(*)(int16))AbsPrimitive), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int32 Abs(int32)", asFUNCTION((int32(*)(int32))AbsPrimitive), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int64 Abs(int64)", asFUNCTION((int64(*)(int64))AbsPrimitive), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("float Abs(float)", asFUNCTIONPR(Math::Abs, (float), float), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double Abs(double)", asFUNCTIONPR(Math::Abs, (double), double), asCALL_CDECL); assert(r >= 0);
 

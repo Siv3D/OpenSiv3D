@@ -2,24 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_LINUX)
+# if SIV3D_PLATFORM(LINUX)
 # include <png.h>
 # else
-# include "../../../ThirdParty/libpng/png.h"
+# include <libpng/png.h>
 # endif
 
-# include "ImageFormat_PNG.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include "ImageFormat_PNG.hpp"
 
 namespace s3d
 {
@@ -53,7 +53,7 @@ namespace s3d
 	{
 		static constexpr uint8 signature[] = { 0x89, 'P', 'N', 'G', 0x0D, 0x0A, 0x1A, 0x0A };
 
-		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
+		return std::memcmp(bytes, signature, sizeof(signature)) == 0;
 	}
 
 	Size ImageFormat_PNG::getSize(const IReader& reader) const

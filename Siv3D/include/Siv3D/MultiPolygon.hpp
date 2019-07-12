@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -84,100 +84,35 @@ namespace s3d
 
 		MultiPolygon() = default;
 
-		MultiPolygon(const MultiPolygon& polygons)
-			: base_type(polygons.begin(), polygons.end())
-		{
+		MultiPolygon(const MultiPolygon& polygons);
 
-		}
+		MultiPolygon(MultiPolygon&& polygons);
 
-		MultiPolygon(MultiPolygon&& polygons)
-			: base_type(std::move(polygons))
-		{
+		explicit MultiPolygon(const Array<Polygon>& polygons);
 
-		}
+		explicit MultiPolygon(Array<Polygon>&& polygons);
 
-		explicit MultiPolygon(const Array<Polygon>& polygons)
-			: base_type(polygons.begin(), polygons.end())
-		{
+		MultiPolygon& operator =(const Array<Polygon>& other);
 
-		}
+		MultiPolygon& operator =(Array<Polygon>&& other) noexcept;
 
-		explicit MultiPolygon(Array<Polygon>&& polygons)
-			: base_type(std::move(polygons))
-		{
+		MultiPolygon& operator =(const MultiPolygon& other);
 
-		}
+		MultiPolygon& operator =(MultiPolygon&& other) noexcept;
 
-		MultiPolygon& operator =(const Array<Polygon>& other)
-		{
-			base_type::operator=(other);
+		void assign(const MultiPolygon& other);
 
-			return *this;
-		}
+		void assign(MultiPolygon&& other) noexcept;
 
-		MultiPolygon& operator =(Array<Polygon>&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
+		MultiPolygon& operator <<(const Polygon& polygon);
 
-			return *this;
-		}
+		void swap(MultiPolygon& other) noexcept;
 
-		MultiPolygon& operator =(const MultiPolygon& other)
-		{
-			base_type::operator=(other);
+		MultiPolygon& append(const Array<Polygon>& other);
 
-			return *this;
-		}
+		MultiPolygon& append(const MultiPolygon& other);
 
-		MultiPolygon& operator =(MultiPolygon&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
-
-			return *this;
-		}
-
-		void assign(const MultiPolygon& other)
-		{
-			base_type::operator=(other);
-		}
-
-		void assign(MultiPolygon&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
-		}
-
-		MultiPolygon& operator <<(const Polygon& polygon)
-		{
-			base_type::push_back(polygon);
-
-			return *this;
-		}
-
-		void swap(MultiPolygon& other) noexcept
-		{
-			base_type::swap(other);
-		}
-
-		MultiPolygon& append(const Array<Polygon>& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
-
-			return *this;
-		}
-
-		MultiPolygon& append(const MultiPolygon& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
-
-			return *this;
-		}
-
-		MultiPolygon& remove_at(const size_t index)
-		{
-			base_type::remove_at(index);
-
-			return *this;
-		}
+		MultiPolygon& remove_at(size_t index);
 
 		template <class Fty>
 		MultiPolygon& remove_if(Fty f)
@@ -187,26 +122,11 @@ namespace s3d
 			return *this;
 		}
 
-		MultiPolygon& reverse()
-		{
-			base_type::reverse();
+		MultiPolygon& reverse();
 
-			return *this;
-		}
+		MultiPolygon& rotate(std::ptrdiff_t count = 1);
 
-		MultiPolygon& rotate(std::ptrdiff_t count = 1)
-		{
-			base_type::rotate(count);
-
-			return *this;
-		}
-
-		MultiPolygon& shuffle()
-		{
-			base_type::shuffle();
-
-			return *this;
-		}
+		MultiPolygon& shuffle();
 
 		template <class URBG>
 		MultiPolygon& shuffle(URBG&& rbg)
@@ -216,40 +136,17 @@ namespace s3d
 			return *this;
 		}
 
-		MultiPolygon slice(const size_t index) const
-		{
-			return MultiPolygon(base_type::slice(index));
-		}
+		MultiPolygon slice(const size_t index) const;
 
-		MultiPolygon slice(const size_t index, const size_t length) const
-		{
-			return MultiPolygon(base_type::slice(index, length));
-		}
+		MultiPolygon slice(size_t index, size_t length) const;
 
-		MultiPolygon& moveBy(double x, double y) noexcept
-		{
-			for (auto& polygon : *this)
-			{
-				polygon.moveBy(x, y);
-			}
+		MultiPolygon& moveBy(double x, double y) noexcept;
 
-			return *this;
-		}
+		MultiPolygon& moveBy(const Vec2& v) noexcept;
 
-		MultiPolygon& moveBy(const Vec2& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		[[nodiscard]] MultiPolygon movedBy(double x, double y) const;
 
-		[[nodiscard]] MultiPolygon movedBy(double x, double y) const
-		{
-			return MultiPolygon(*this).moveBy(x, y);
-		}
-
-		[[nodiscard]] MultiPolygon movedBy(const Vec2& v) const
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]] MultiPolygon movedBy(const Vec2& v) const;
 
 		[[nodiscard]] MultiPolygon rotated(double angle) const;
 
@@ -327,10 +224,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const MultiPolygon& value)
-	{
-		formatData.string.append(value.join(U", ", U"(", U")"));
-	}
+	void Formatter(FormatData& formatData, const MultiPolygon& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const MultiPolygon& value)

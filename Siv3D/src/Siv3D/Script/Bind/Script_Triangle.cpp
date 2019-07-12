@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -85,6 +85,7 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& p(uint32)", asMETHODPR(ShapeType, p, (size_t), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& p(uint32) const", asMETHODPR(ShapeType, p, (size_t) const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line side(uint32) const", asMETHOD(ShapeType, side), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Triangle& set(double, double, double, double, double, double)", asMETHODPR(ShapeType, set, (double, double, double, double, double, double), ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Triangle& set(const Vec2& in, const Vec2& in, const Vec2& in)", asMETHODPR(ShapeType, set, (const Vec2&, const Vec2&, const Vec2&), ShapeType&), asCALL_THISCALL); assert(r >= 0);

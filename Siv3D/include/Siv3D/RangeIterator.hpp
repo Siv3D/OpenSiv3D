@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,9 +19,9 @@ namespace s3d
 	{
 	public:
 
-		using value_type		= typename Iterator::value_type;
-		using difference_type	= typename Iterator::difference_type;
-		using reference			= typename Iterator::reference;
+		using value_type		= typename std::iterator_traits<Iterator>::value_type;
+		using difference_type	= typename std::iterator_traits<Iterator>::difference_type;
+		using reference			= typename std::iterator_traits<Iterator>::reference;
 		using size_type			= size_t;
 		using const_iterator	= Iterator;
 		using iterator			= Iterator;
@@ -56,6 +56,11 @@ namespace s3d
 			return m_begin == m_end;
 		}
 
+		[[nodiscard]] constexpr bool isEmpty() const
+		{
+			return empty();
+		}
+
 		[[nodiscard]] constexpr explicit operator bool() const
 		{
 			return !empty();
@@ -63,7 +68,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr bool equal(const RangeIterator& other) const
 		{
-			return m_begin == other.m_begin && m_end == other.m_end;
+			return (m_begin == other.m_begin) && (m_end == other.m_end);
 		}
 	};
 }

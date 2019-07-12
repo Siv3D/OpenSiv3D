@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,8 @@
 
 # include <Siv3D/BigInt.hpp>
 # include <Siv3D/BigFloat.hpp>
-# include "CBigInt.hpp"
+# include <Siv3D/Unicode.hpp>
+# include "BigIntDetail.hpp"
 
 namespace s3d
 {
@@ -21,55 +22,43 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
+	BigInt::BigInt()
+		: BigInt(0)
+	{
+	
+	}
+	
 	BigInt::BigInt(const int64 i)
-		: pImpl(std::make_unique<CBigInt>())
+		: pImpl(std::make_unique<BigIntDetail>())
 	{
 		assign(i);
 	}
 
 	BigInt::BigInt(const uint64 i)
-		: pImpl(std::make_unique<CBigInt>())
+		: pImpl(std::make_unique<BigIntDetail>())
 	{
 		assign(i);
 	}
 
-	BigInt::BigInt(const char* number)
-		: pImpl(std::make_unique<CBigInt>())
+	BigInt::BigInt(const std::string_view number)
+		: pImpl(std::make_unique<BigIntDetail>())
 	{
 		assign(number);
 	}
 
-	BigInt::BigInt(const char32* number)
-		: pImpl(std::make_unique<CBigInt>())
-	{
-		assign(number);
-	}
-
-	BigInt::BigInt(const std::string& number)
-		: pImpl(std::make_unique<CBigInt>())
-	{
-		assign(number);
-	}
-
-	BigInt::BigInt(const std::wstring& number)
-		: pImpl(std::make_unique<CBigInt>())
-	{
-		assign(number);
-	}
-
-	BigInt::BigInt(const String& number)
-		: pImpl(std::make_unique<CBigInt>())
+	BigInt::BigInt(const StringView number)
+		: pImpl(std::make_unique<BigIntDetail>())
 	{
 		assign(number);
 	}
 
 	BigInt::BigInt(const BigInt& other)
-		: pImpl(std::make_unique<CBigInt>())
+		: pImpl(std::make_unique<BigIntDetail>())
 	{
 		assign(other);
 	}
 
-	BigInt::BigInt(BigInt&& other)
+	BigInt::BigInt(BigInt&& other) noexcept
 		: pImpl(std::move(other.pImpl))
 	{
 
@@ -104,33 +93,15 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt& BigInt::assign(const char* number)
+	BigInt& BigInt::assign(const std::string_view number)
 	{
 		this->pImpl->data.assign(number);
 		return *this;
 	}
 
-	BigInt& BigInt::assign(const char32* number)
+	BigInt& BigInt::assign(const StringView number)
 	{
-		this->pImpl->data.assign(std::string(number, number + std::char_traits<char32>::length(number)));
-		return *this;
-	}
-
-	BigInt& BigInt::assign(const std::string& number)
-	{
-		this->pImpl->data.assign(number);
-		return *this;
-	}
-
-	BigInt& BigInt::assign(const std::wstring& number)
-	{
-		this->pImpl->data.assign(std::string(number.begin(), number.end()));
-		return *this;
-	}
-
-	BigInt& BigInt::assign(const String& number)
-	{
-		this->pImpl->data.assign(std::string(number.begin(), number.end()));
+		this->pImpl->data.assign(Unicode::NarrowAscii(number));
 		return *this;
 	}
 
@@ -140,10 +111,40 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt& BigInt::assign(BigInt&& other)
+	BigInt& BigInt::assign(BigInt&& other) noexcept
 	{
 		this->pImpl = std::move(other.pImpl);
 		return *this;
+	}
+
+	BigInt& BigInt::operator =(int64 i)
+	{
+		return assign(i);
+	}
+	
+	BigInt& BigInt::operator =(uint64 i)
+	{
+		return assign(i);
+	}
+
+	BigInt& BigInt::operator =(const std::string_view number)
+	{
+		return assign(number);
+	}
+	
+	BigInt& BigInt::operator =(const StringView number)
+	{
+		return assign(number);
+	}
+	
+	BigInt& BigInt::operator =(const BigInt& other)
+	{
+		return assign(other);
+	}
+	
+	BigInt& BigInt::operator =(BigInt&& other) noexcept
+	{
+		return assign(std::move(other));
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -151,6 +152,11 @@ namespace s3d
 	//	+, ++
 	//
 	////////////////////////////////////////////////////////////////
+
+	const BigInt& BigInt::operator +() const
+	{
+		return *this;
+	}
 
 	BigInt& BigInt::operator ++()
 	{
@@ -812,6 +818,27 @@ namespace s3d
 	{
 		const std::string t = stdStr();
 		return String(t.begin(), t.end());
+	}
+
+	inline namespace Literals
+	{
+		inline namespace BigNumLiterals
+		{
+			BigInt operator ""_big(const unsigned long long int i)
+			{
+				return BigInt(i);
+			}
+
+			BigInt operator ""_big(const char* number, size_t)
+			{
+				return BigInt(number);
+			}
+
+			BigInt operator ""_big(const char32* number, size_t)
+			{
+				return BigInt(number);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -2367,7 +2394,7 @@ namespace s3d
 
 		input >> s;
 
-		value.assign(s);
+		value.assign(Unicode::FromWString(s));
 
 		return input;
 	}

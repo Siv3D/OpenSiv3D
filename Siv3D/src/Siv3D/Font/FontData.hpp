@@ -1,9 +1,9 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,19 +15,21 @@
 # include FT_FREETYPE_H
 # include FT_SYNTHESIS_H
 # include FT_TRUETYPE_TABLES_H
-# include "../../ThirdParty/harfbuzz/hb.h"
-# include "../../ThirdParty/harfbuzz/hb-ft.h"
-# include <Siv3D/Windows.hpp>
+# include <harfbuzz/hb.h>
+# include <harfbuzz/hb-ft.h>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/ByteArray.hpp>
 # include <Siv3D/DynamicTexture.hpp>
+# include "FontFace.hpp"
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+# include <Siv3D/Windows.hpp>
 
 namespace s3d
 {
-# if defined(SIV3D_TARGET_WINDOWS)
-
 	class FontResourceHolder
 	{
 	private:
@@ -71,9 +73,12 @@ namespace s3d
 			return m_size;
 		}
 	};
+}
 
 # endif
 
+namespace s3d
+{
 	struct GlyphInfo
 	{
 		Rect bitmapRect = { 0,0,0,0 };
@@ -89,73 +94,6 @@ namespace s3d
 		int32 width = 0;
 	};
 
-	struct FontFace
-	{
-		FT_Face face = nullptr;
-
-		hb_font_t* hbFont = nullptr;
-
-		hb_buffer_t* buffer = nullptr;
-
-		FontFace()
-			: buffer(::hb_buffer_create())
-		{
-
-		}
-
-		~FontFace()
-		{
-			destroy();
-		}
-
-		explicit operator bool() const noexcept
-		{
-			return face != nullptr;
-			//return face && hbFont;
-		}
-
-		std::pair<const hb_glyph_info_t*, size_t> get(const StringView view)
-		{
-			::hb_buffer_reset(buffer);
-
-			::hb_buffer_add_utf32(buffer, reinterpret_cast<const uint32*>(view.data()), static_cast<int32>(view.length()), 0, static_cast<int32>(view.length()));
-
-			::hb_buffer_guess_segment_properties(buffer);
-
-			::hb_shape(hbFont, buffer, nullptr, 0);
-
-			uint32 glyphCount = 0;
-
-			const hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(buffer, &glyphCount);
-
-			return{ glyphInfo, glyphCount };
-		}
-
-		void destroy()
-		{
-			if (hbFont)
-			{
-				::hb_font_destroy(hbFont);
-
-				hbFont = nullptr;
-			}
-
-			if (buffer)
-			{
-				::hb_buffer_destroy(buffer);
-
-				buffer = nullptr;
-			}
-
-			if (face)
-			{
-				::FT_Done_Face(face);
-
-				face = nullptr;
-			}
-		}
-	};
-
 	class FontData
 	{
 	private:
@@ -168,7 +106,7 @@ namespace s3d
 
 		using CommonGlyphIndex = uint32;
 
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS)
 
 		FontResourceHolder m_resource;
 
@@ -218,16 +156,6 @@ namespace s3d
 
 		bool m_initialized = false;
 
-		//bool loadFromFile(const FilePath& path)
-		//{
-		//	return true;
-		//}
-
-		//bool loadFromResource(const FilePath& path)
-		//{
-		//	return true;
-		//}
-
 		void generateVerticalTable();
 
 		bool render(const String& codePoints);
@@ -250,41 +178,25 @@ namespace s3d
 
 		~FontData();
 
-		bool isInitialized() const noexcept
-		{
-			return m_initialized;
-		}
+		bool isInitialized() const noexcept;
 
-		const String& getFamilyName() const
-		{
-			return m_familyName;
-		}
+		const String& getFamilyName() const;
 
-		const String& getStyleName() const
-		{
-			return m_styleName;
-		}
+		const String& getStyleName() const;
 
-		int32 getFontSize() const noexcept
-		{
-			return m_fontSize;
-		}
+		int32 getFontSize() const noexcept;
 
-		int32 getAscent() const noexcept
-		{
-			return m_ascender;
-		}
+		int32 getAscent() const noexcept;
 
-		int32 getDescent() const noexcept
-		{
-			return m_descender;
-		}
+		int32 getDescent() const noexcept;
 
 		Array<Glyph> getGlyphs(const String& codePoints);
 
 		Array<Glyph> getVerticalGlyphs(const String& codePoints);
 
 		OutlineGlyph getOutlineGlyph(char32 codePoint);
+
+		const Texture& getTexture() const;
 
 		RectF getBoundingRect(const String& codePoints, double lineSpacingScale);
 

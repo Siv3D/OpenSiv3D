@@ -48,7 +48,7 @@ namespace mu
     muparser(at)beltoforion.de
     </small>
   */
-  /* final */ class Parser : public ParserBase
+  /* final */ class API_EXPORT_CXX Parser : public ParserBase
   {
   public:
 

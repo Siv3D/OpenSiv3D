@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Array.hpp"
 # include "PointVector.hpp"
 
 namespace s3d
@@ -134,17 +135,17 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] Point ScreenDelta();
 
+		[[nodiscard]] Array<std::pair<Point, uint64>> GetBuffer();
+
 		void SetPos(int32 x, int32 y);
 
 		void SetPos(const Point& pos);
 
 		[[nodiscard]] bool OnClientRect();
 
-		void SetTransformLocal(const Mat3x2& matrix);
+		void SetLocalTransform(const Mat3x2& matrix);
 
-		void SetTransformCamera(const Mat3x2& matrix);
-
-		void SetTransformScreen(const Mat3x2& matrix);
+		void SetCameraTransform(const Mat3x2& matrix);
 
 		/// <summary>
 		/// クライアント座標系のカーソル位置に適用されている座標変換を返します。
@@ -152,11 +153,9 @@ namespace s3d
 		/// <returns>
 		/// 適用されている座標変換
 		/// </returns>
-		[[nodiscard]] const Mat3x2& GetTransformLocal();
+		[[nodiscard]] const Mat3x2& GetLocalTransform();
 
-		[[nodiscard]] const Mat3x2& GetTransformCamera();
-
-		[[nodiscard]] const Mat3x2& GetTransformScreen();
+		[[nodiscard]] const Mat3x2& GetCameraTransform();
 
 		/// <summary>
 		/// マウスカーソルの移動範囲をクライアント画面に制限します
@@ -167,7 +166,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void ClipClientRect(bool clip);
+		void ClipToWindow(bool clip);
 
 		void RequestStyle(CursorStyle style);
 
@@ -177,13 +176,4 @@ namespace s3d
 
 		[[nodiscard]] CursorStyle GetDefaultStyle();
 	}
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	namespace Windows::Cursor
-	{
-		void ClipRect(const Optional<Rect>& rect);
-	}
-
-# endif
 }

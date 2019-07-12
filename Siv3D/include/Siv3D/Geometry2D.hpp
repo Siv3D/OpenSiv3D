@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,7 +26,7 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b);
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b);
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b);
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b);
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Quad& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Polygon& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b);
@@ -81,7 +81,7 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Polygon& b);
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b);
 
-		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b);
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier2& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier3& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Rect& b);
@@ -141,7 +141,7 @@ namespace s3d
 		//double Distance(const Point& a, const Ellipse&		b);
 		double Distance(const Point& a, const Triangle&		b);
 		double Distance(const Point& a, const Quad&			b);
-		//double Distance(const Point& a, const RoundRect&		b);
+		double Distance(const Point& a, const RoundRect&		b);
 		double Distance(const Point& a, const Polygon&		b);
 		//double Distance(const Point& a, const MultiPolygon&	b);
 		double Distance(const Point& a, const LineString&		b);
@@ -157,7 +157,7 @@ namespace s3d
 		//double Distance(const Vec2& a, const Ellipse&			b);
 		double Distance(const Vec2& a, const Triangle&		b);
 		double Distance(const Vec2& a, const Quad&			b);
-		//double Distance(const Vec2& a, const RoundRect&		b);
+		double Distance(const Vec2& a, const RoundRect&		b);
 		double Distance(const Vec2& a, const Polygon&			b);
 		//double Distance(const Vec2& a, const MultiPolygon&	b);
 		double Distance(const Vec2& a, const LineString&		b);
@@ -221,7 +221,7 @@ namespace s3d
 		//double Distance(const Circle& a, const Ellipse&		b);
 		double Distance(const Circle& a, const Triangle&		b);
 		double Distance(const Circle& a, const Quad&			b);
-		//double Distance(const Circle& a, const RoundRect&		b);
+		double Distance(const Circle& a, const RoundRect&		b);
 		double Distance(const Circle& a, const Polygon&			b);
 		//double Distance(const Circle& a, const MultiPolygon&	b);
 		double Distance(const Circle& a, const LineString&		b);
@@ -274,6 +274,22 @@ namespace s3d
 		//double Distance(const Quad& a, const MultiPolygon&	b);
 		double Distance(const Quad& a, const LineString&		b);
 
+		double Distance(const RoundRect& a, const Point&		b);
+		double Distance(const RoundRect& a, const Vec2&			b);
+		//double Distance(const RoundRect& a, const Line&			b);
+		//double Distance(const RoundRect& a, const Bezier2&		b);
+		//double Distance(const RoundRect& a, const Bezier3&		b);
+		//double Distance(const RoundRect& a, const Rect&			b);
+		//double Distance(const RoundRect& a, const RectF&			b);
+		double Distance(const RoundRect& a, const Circle&		b);
+		//double Distance(const RoundRect& a, const Ellipse&		b);
+		//double Distance(const RoundRect& a, const Triangle&		b);
+		//double Distance(const RoundRect& a, const Quad&			b);
+		//double Distance(const RoundRect& a, const RoundRect&		b);
+		//double Distance(const RoundRect& a, const Polygon&		b);
+		//double Distance(const RoundRect& a, const MultiPolygon&	b);
+		//double Distance(const RoundRect& a, const LineString&		b);
+
 		double Distance(const Polygon& a, const Point&			b);
 		double Distance(const Polygon& a, const Vec2&			b);
 		double Distance(const Polygon& a, const Line&			b);
@@ -321,5 +337,16 @@ namespace s3d
 		double Distance(const LineString& a, const Polygon&		b);
 		//double Distance(const LineString& a, const MultiPolygon&	b);
 		double Distance(const LineString& a, const LineString&		b);
+
+		Polygon ConvexHull(const Array<Vec2>& points);
+
+		Array<Polygon> Subtract(const Polygon& a, const Polygon& b);
+		Array<Polygon> And(const Polygon& a, const Polygon& b);
+		Array<Polygon> Or(const Polygon& a, const Polygon& b);
+		Array<Polygon> Xor(const Polygon& a, const Polygon& b);
+
+		double FrechetDistance(const LineString& a, const LineString& b);
+
+		double HausdorffDistance(const LineString& a, const LineString& b);
 	}
 }

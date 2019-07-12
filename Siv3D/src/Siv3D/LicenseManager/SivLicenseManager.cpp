@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,9 +12,9 @@
 # include <Siv3D/LicenseManager.hpp>
 # include <Siv3D/TextWriter.hpp>
 # include <Siv3D/System.hpp>
-# include "../Siv3DEngine.hpp"
+# include <Siv3DEngine.hpp>
+# include <EngineDirectory/EngineDirectory.hpp>
 # include "ILicenseManager.hpp"
-# include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
 {
@@ -51,25 +51,27 @@ constexpr static char8 licenseC2[] = u8R"-(<div class="c2">)-";
 
 	namespace LicenseManager
 	{
-		void SetApplicationLicense(const LicenseInfo& license)
+		void SetApplicationLicense(const String& uniqueID, const LicenseInfo& license)
 		{
-			Siv3DEngine::GetLicenseManager()->setApplicationLicense(license);
+			Siv3DEngine::Get<ISiv3DLicenseManager>()->setApplicationLicense(uniqueID, license);
 		}
 
 		void AddLicense(const LicenseInfo& license)
 		{
-			Siv3DEngine::GetLicenseManager()->addLicense(license);
+			Siv3DEngine::Get<ISiv3DLicenseManager>()->addLicense(license);
 		}
 
 		const Array<LicenseInfo>& EnumLicenses()
 		{
-			return Siv3DEngine::GetLicenseManager()->enumLicenses();
+			return Siv3DEngine::Get<ISiv3DLicenseManager>()->enumLicenses();
 		}
 
 		void ShowInBrowser()
 		{
-			const FilePath path = EngineDirectory::LicensePath();
+			const String& uniqueID = Siv3DEngine::Get<ISiv3DLicenseManager>()->getUniqueID();
 
+			const FilePath path = uniqueID ? EngineDirectory::ApplicationLicensePath(uniqueID)
+				: EngineDirectory::DefaultLicensePath();
 			{
 				TextWriter writer(path);
 				writer.writeUTF8(header);
@@ -93,6 +95,11 @@ constexpr static char8 licenseC2[] = u8R"-(<div class="c2">)-";
 			}
 			
 			System::LaunchBrowser(path);
+		}
+
+		void DisableDefaultTrigger()
+		{
+			Siv3DEngine::Get<ISiv3DLicenseManager>()->disableDefaultTrigger();
 		}
 	}
 }

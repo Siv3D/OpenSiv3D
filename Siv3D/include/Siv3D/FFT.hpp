@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,7 +12,7 @@
 # pragma once
 # include "Array.hpp"
 # include "Wave.hpp"
-# include "System.hpp"
+# include "Scene.hpp"
 
 namespace s3d
 {
@@ -93,6 +93,8 @@ namespace s3d
 		double resolution = Wave::DefaultSamplingRate / 8192.0;
 
 		uint32 samplingRate = Wave::DefaultSamplingRate;
+
+		FFTResult();
 	};
 
 	namespace FFT
@@ -106,10 +108,13 @@ namespace s3d
 		/// <param name="sampleLength">
 		/// FFT サンプル数
 		/// </param>
+		/// <param name="offsetTimeSec">
+		/// 解析位置のオフセット（秒）
+		/// </param>
 		/// <returns>
 		/// FFT の結果
 		/// </returns>
-		void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTime = -System::DeltaTime());
+		void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTimeSec = Scene::DeltaTime());
 
 		/// <summary>
 		/// FFT を実行します。

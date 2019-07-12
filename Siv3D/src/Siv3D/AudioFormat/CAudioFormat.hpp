@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -32,7 +32,7 @@ namespace s3d
 
 		~CAudioFormat() override;
 
-		bool init() override;
+		void init() override;
 
 		AudioFormat getFormatFromReader(const IReader& reader, const FilePath& pathHint) const override;
 
@@ -43,5 +43,7 @@ namespace s3d
 		Wave decode(IReader&& reader, AudioFormat format) const override;
 
 		bool encodeWAVE(IWriter& writer, const Wave& wave, WAVEFormat format) const override;
+
+		bool encodeOggVorbis(IWriter& writer, const Wave& wave, int32 quality) const override;
 	};
 }

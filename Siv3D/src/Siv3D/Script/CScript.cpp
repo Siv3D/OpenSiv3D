@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CScript.hpp"
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include "CScript.hpp"
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
 # include "AngelScript/scriptgrid.h"
@@ -61,11 +61,15 @@ namespace s3d
 
 	CScript::~CScript()
 	{
+		LOG_TRACE(U"CScript::~CScript()");
+
 		shutdown();
 	}
 
 	bool CScript::init()
 	{
+		LOG_TRACE(U"CScript::init()");
+
 		m_engine = AngelScript::asCreateScriptEngine(ANGELSCRIPT_VERSION);
 
 		if (!m_engine)
@@ -179,7 +183,7 @@ namespace s3d
 		RegisterFont(m_engine);
 		RegisterDrawableText(m_engine);
 		RegisterTransformer2D(m_engine);
-		RegisterViewportBlock2D(m_engine);
+		RegisterScopedViewport2D(m_engine);
 
 		RegisterEmoji(m_engine);
 		RegisterIcon(m_engine);
@@ -190,21 +194,22 @@ namespace s3d
 		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
+		RegisterScene(m_engine);
 		RegisterProfiler(m_engine);
 		RegisterDialog(m_engine);
 
-		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
+		auto nullScript = std::make_unique<ScriptData>(ScriptData::Null{}, m_engine);
 
 		if (!nullScript->isInitialized())
 		{
 			return false;
 		}
 
-		m_scripts.setNullData(nullScript);
+		m_scripts.setNullData(std::move(nullScript));
 
 		m_shutDown = false;
 
-		LOG_INFO(U"ℹ️ Script initialized");
+		LOG_INFO(U"ℹ️ CScript initialized");
 		
 		return true;
 	}
@@ -230,14 +235,14 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		const auto script = std::make_shared<ScriptData>(ScriptData::Code{}, code, m_engine, compileOption);
+		auto script = std::make_unique<ScriptData>(ScriptData::Code{}, code, m_engine, compileOption);
 
 		if (!script->isInitialized())
 		{
 			return ScriptID::NullAsset();
 		}
 
-		const ScriptID id = m_scripts.add(script);
+		const ScriptID id = m_scripts.add(std::move(script));
 
 		m_scripts[id]->setScriptID(id.value());
 
@@ -253,14 +258,14 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		const auto script = std::make_shared<ScriptData>(ScriptData::File{}, path, m_engine, compileOption);
+		auto script = std::make_unique<ScriptData>(ScriptData::File{}, path, m_engine, compileOption);
 
 		if (!script->isInitialized())
 		{
 			return ScriptID::NullAsset();
 		}
 
-		const ScriptID id = m_scripts.add(script);
+		const ScriptID id = m_scripts.add(std::move(script));
 
 		m_scripts[id]->setScriptID(id.value());
 

@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "IProfiler.hpp"
 # include <Siv3D/Profiler.hpp>
 # include <Siv3D/Stopwatch.hpp>
+# include "IProfiler.hpp"
 
 namespace s3d
 {
@@ -53,7 +53,7 @@ namespace s3d
 
 		~CProfiler() override;
 
-		bool init() override;
+		void init() override;
 
 		bool beginFrame() override;
 
@@ -64,12 +64,14 @@ namespace s3d
 		//
 		int32 getFPS() const override;
 
+		String getSimpleStatistics() const override;
+
 		//
 		// Stats
 		//
 		void reportDrawcalls(size_t drawcalls, size_t triangles) override;
 
-		Statistics getStatistics() const override;
+		Statistics getStatistics() const noexcept override;
 
 		//
 		// Asset creation

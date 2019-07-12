@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # define RAPIDJSON_SSE2
-# include "../../ThirdParty/rapidjson/rapidjson.h"
-# include "../../ThirdParty/rapidjson/document.h"
+# include <rapidjson/rapidjson.h>
+# include <rapidjson/document.h>
 # include <Siv3D/JSONReader.hpp>
 # include <Siv3D/TextReader.hpp>
 
@@ -243,6 +243,36 @@ namespace s3d
 		default:
 			return JSONValueType::Number;
 		}
+	}
+
+	bool JSONValue::isNull() const
+	{
+		return getType() == JSONValueType::Null;
+	}
+
+	bool JSONValue::isBool() const
+	{
+		return getType() == JSONValueType::Bool;
+	}
+
+	bool JSONValue::isObject() const
+	{
+		return getType() == JSONValueType::Object;
+	}
+
+	bool JSONValue::isArray() const
+	{
+		return getType() == JSONValueType::Array;
+	}
+
+	bool JSONValue::isString() const
+	{
+		return getType() == JSONValueType::String;
+	}
+
+	bool JSONValue::isNumber() const
+	{
+		return getType() == JSONValueType::Number;
 	}
 
 	size_t JSONValue::memberCount() const
@@ -515,5 +545,10 @@ namespace s3d
 	bool JSONReader::isOpened() const
 	{
 		return m_detail->value.has_value();
+	}
+
+	JSONReader::operator bool() const
+	{
+		return isOpened();
 	}
 }

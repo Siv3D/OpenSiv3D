@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -29,10 +29,14 @@ namespace s3d
 	{
 	private:
 
-		class Handle {};
+		class Tag {};
 
-		using EffectHandle = AssetHandle<Handle>;
+		using EffectHandle = AssetHandle<Tag>;
 
+		friend EffectHandle::AssetHandle();
+		
+		friend EffectHandle::AssetHandle(const IDWrapperType id) noexcept;
+		
 		friend EffectHandle::~AssetHandle();
 
 		std::shared_ptr<EffectHandle> m_handle;
@@ -74,23 +78,14 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] bool operator !=(const Effect& effect) const;
 
-		[[nodiscard]] explicit operator bool() const
-		{
-			return hasEffects();
-		}
+		[[nodiscard]] explicit operator bool() const;
 
 		/// <summary>
 		/// エフェクトが空かどうかを示します。
 		/// </summary>
-		[[nodiscard]] bool isEmpty() const
-		{
-			return !hasEffects();
-		}
+		[[nodiscard]] bool isEmpty() const;
 
-		[[nodiscard]] bool hasEffects() const
-		{
-			return num_effects() > 0;
-		}
+		[[nodiscard]] bool hasEffects() const;
 
 		[[nodiscard]] size_t num_effects() const;
 
@@ -102,23 +97,7 @@ namespace s3d
 			add(std::make_unique<EffectElement>(std::forward<Args>(args)...));
 		}
 
-		void add(std::function<bool(double)> f) const
-		{
-			struct AnonymousEffect : IEffect
-			{
-				std::function<bool(double)> function;
-
-				explicit AnonymousEffect(std::function<bool(double)> _function)
-					: function(_function) {}
-
-				bool update(double timeSec) override
-				{
-					return function(timeSec);
-				}
-			};
-
-			add(std::make_unique<AnonymousEffect>(f));
-		}
+		void add(std::function<bool(double)> f) const;
 
 		void pause() const;
 

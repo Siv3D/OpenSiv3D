@@ -2,11 +2,13 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::TOMLReader is originally created by azaika (OpenSiv3D Project)
 //-----------------------------------------------
 
 # pragma once
@@ -65,11 +67,11 @@ namespace s3d
 
 		TOMLTableIterator operator ++(int);
 
-		TOMLTableMember operator *() const;
+		[[nodiscard]] TOMLTableMember operator *() const;
 
-		bool operator ==(const TOMLTableIterator& other) const noexcept;
+		[[nodiscard]] bool operator ==(const TOMLTableIterator& other) const noexcept;
 
-		bool operator !=(const TOMLTableIterator& other) const noexcept;
+		[[nodiscard]] bool operator !=(const TOMLTableIterator& other) const noexcept;
 	};
 
 	class TOMLTableView
@@ -86,12 +88,12 @@ namespace s3d
 			: m_begin(begin)
 			, m_end(end) {}
 
-		TOMLTableIterator begin() const
+		[[nodiscard]] TOMLTableIterator begin() const
 		{
 			return m_begin;
 		}
 
-		TOMLTableIterator end() const
+		[[nodiscard]] TOMLTableIterator end() const
 		{
 			return m_end;
 		}
@@ -115,11 +117,11 @@ namespace s3d
 
 		TOMLArrayIterator operator +(size_t index) const;
 
-		TOMLValue operator *() const;
+		[[nodiscard]] TOMLValue operator *() const;
 
-		bool operator ==(const TOMLArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator ==(const TOMLArrayIterator& other) const noexcept;
 
-		bool operator !=(const TOMLArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator !=(const TOMLArrayIterator& other) const noexcept;
 	};
 
 	class TOMLArrayView
@@ -136,17 +138,17 @@ namespace s3d
 			: m_begin(begin)
 			, m_end(end) {}
 
-		TOMLArrayIterator begin() const
+		[[nodiscard]] TOMLArrayIterator begin() const
 		{
 			return m_begin;
 		}
 
-		TOMLArrayIterator end() const
+		[[nodiscard]] TOMLArrayIterator end() const
 		{
 			return m_end;
 		}
 
-		TOMLValue operator [](size_t index) const;
+		[[nodiscard]] TOMLValue operator [](size_t index) const;
 	};
 
 	class TOMLTableArrayIterator
@@ -167,11 +169,11 @@ namespace s3d
 
 		TOMLTableArrayIterator operator +(size_t index) const;
 
-		TOMLValue operator *() const;
+		[[nodiscard]] TOMLValue operator *() const;
 
-		bool operator ==(const TOMLTableArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator ==(const TOMLTableArrayIterator& other) const noexcept;
 
-		bool operator !=(const TOMLTableArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator !=(const TOMLTableArrayIterator& other) const noexcept;
 	};
 
 	class TOMLTableArrayView
@@ -188,17 +190,17 @@ namespace s3d
 			: m_begin(begin)
 			, m_end(end) {}
 
-		TOMLTableArrayIterator begin() const
+		[[nodiscard]] TOMLTableArrayIterator begin() const
 		{
 			return m_begin;
 		}
 
-		TOMLTableArrayIterator end() const
+		[[nodiscard]] TOMLTableArrayIterator end() const
 		{
 			return m_end;
 		}
 
-		TOMLValue operator [](size_t index) const;
+		[[nodiscard]] TOMLValue operator [](size_t index) const;
 	};
 
 	class TOMLValue
@@ -257,88 +259,62 @@ namespace s3d
 		explicit TOMLValue(const detail::TOMLValueDetail&);
 
 		template <class Type>
-		Type get() const
+		[[nodiscard]] Type get() const
 		{
 			return getOpt<Type>().value_or(Type());
 		}
 
 		template <class Type, class U>
-		Type getOr(U&& defaultValue) const
+		[[nodiscard]] Type getOr(U&& defaultValue) const
 		{
 			return getOpt<Type>().value_or(std::forward<U>(defaultValue));
 		}
 
 		template <class Type>
-		Optional<Type> getOpt() const
+		[[nodiscard]] Optional<Type> getOpt() const
 		{
 			return getOpt_<Type>();
 		}
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		TOMLValueType getType() const;
+		[[nodiscard]] TOMLValueType getType() const;
 
-		bool isTable() const noexcept
-		{
-			return getType() == TOMLValueType::Table;
-		}
+		[[nodiscard]] bool isTable() const noexcept;
 		
-		bool isArray() const noexcept
-		{
-			return getType() == TOMLValueType::Array;
-		}
+		[[nodiscard]] bool isArray() const noexcept;
 
-		bool isTableArray() const noexcept
-		{
-			return getType() == TOMLValueType::TableArray;
-		}
+		[[nodiscard]] bool isTableArray() const noexcept;
 
-		bool isString() const noexcept
-		{
-			return getType() == TOMLValueType::String;
-		}
+		[[nodiscard]] bool isString() const noexcept;
 
-		bool isBool() const noexcept
-		{
-			return getType() == TOMLValueType::Bool;
-		}
+		[[nodiscard]] bool isBool() const noexcept;
 
-		bool isNumber() const noexcept
-		{
-			return getType() == TOMLValueType::Number;
-		}
+		[[nodiscard]] bool isNumber() const noexcept;
 
-		bool isDate() const noexcept
-		{
-			return getType() == TOMLValueType::Date;
-		}
+		[[nodiscard]] bool isDate() const noexcept;
 
-		bool isDateTime() const noexcept
-		{
-			return getType() == TOMLValueType::DateTime;
-		}
+		[[nodiscard]] bool isDateTime() const noexcept;
 
-		size_t memberCount() const;
+		[[nodiscard]] bool hasMember(const String& name) const;
 
-		bool hasMember(const String& name) const;
+		[[nodiscard]] TOMLTableView tableView() const;
 
-		TOMLTableView tableView() const;
+		[[nodiscard]] TOMLValue operator [](const String& path) const;
 
-		TOMLValue operator [](const String& path) const;
+		[[nodiscard]] size_t arrayCount() const;
 
-		size_t arrayCount() const;
+		[[nodiscard]] TOMLArrayView arrayView() const;
 
-		TOMLArrayView arrayView() const;
+		[[nodiscard]] TOMLTableArrayView tableArrayView() const;
 
-		TOMLTableArrayView tableArrayView() const;
+		[[nodiscard]] String getString() const;
 
-		String getString() const;
+		[[nodiscard]] Date getDate() const;
 
-		Date getDate() const;
+		[[nodiscard]] DateTime getDateTime() const;
 
-		DateTime getDateTime() const;
-
-		String format() const;
+		[[nodiscard]] String format() const;
 	};
 
 	template <>
@@ -394,21 +370,12 @@ namespace s3d
 
 		void close();
 
-		bool isOpened() const noexcept;
+		[[nodiscard]] bool isOpened() const noexcept;
 
-		explicit operator bool() const noexcept
-		{
-			return isOpened();
-		}
+		[[nodiscard]] explicit operator bool() const noexcept;
 	};
 
 	void Formatter(FormatData& formatData, const TOMLValue& value);
 
-	inline void Formatter(FormatData& formatData, const TOMLReader& reader)
-	{
-		if (!reader.isEmpty())
-		{
-			Formatter(formatData, static_cast<TOMLValue>(reader));
-		}
-	}
+	void Formatter(FormatData& formatData, const TOMLReader& reader);
 }

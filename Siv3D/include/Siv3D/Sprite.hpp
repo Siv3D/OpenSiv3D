@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -29,17 +29,15 @@ namespace s3d
 		/// <remarks>
 		/// サイズは 3 の倍数でなければなりません。
 		/// </remarks>
-		Array<uint32> indices;
+		Array<uint16> indices;
 
-		Sprite() = default;
+		Sprite();
 
-		Sprite(uint32 vertexSize, uint32 indexSize)
-			: vertices(vertexSize)
-			, indices(indexSize) {}
+		Sprite(size_t vertexSize, size_t indexSize);
 
-		Sprite(Array<Vertex2D> _vertices, Array<uint32> _indices)
-			: vertices(std::move(_vertices))
-			, indices(std::move(_indices)) {}
+		Sprite(Array<Vertex2D> _vertices, Array<uint16> _indices);
+
+		~Sprite();
 
 		void draw() const;
 

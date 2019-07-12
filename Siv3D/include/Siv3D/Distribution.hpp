@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -189,26 +189,23 @@ namespace s3d
 		}
 	};
 
-	template <class Type = size_t>
 	class DiscreteDistribution
 	{
 	private:
 
-		using distribution_type = std::discrete_distribution<Type>;
+		using distribution_type = std::discrete_distribution<size_t>;
 
 		distribution_type m_distribution;
 
 	public:
 
-		using result_type = Type;
+		using result_type = size_t;
 
 		DiscreteDistribution() = default;
 
-		explicit DiscreteDistribution(std::initializer_list<double> ilist)
-			: m_distribution(ilist) {}
+		explicit DiscreteDistribution(std::initializer_list<double> ilist);
 
-		explicit DiscreteDistribution(const Array<double>& weights)
-			: m_distribution(weights.begin(), weights.end()) {}
+		explicit DiscreteDistribution(const Array<double>& weights);
 
 		template <size_t Size>
 		explicit DiscreteDistribution(const std::array<double, Size>& weights)
@@ -218,32 +215,29 @@ namespace s3d
 		explicit DiscreteDistribution(Iterator begin, Iterator end)
 			: m_distribution(begin, end) {}
 
-		[[nodiscard]] Array<double> probabilities() const
-		{
-			const std::vector<double> results = m_distribution.probabilities();
+		DiscreteDistribution& operator =(std::initializer_list<double> ilist);
 
-			return Array<double>(results.begin(), results.end());
+		template <size_t Size>
+		DiscreteDistribution& operator =(const std::array<double, Size>& weights)
+		{
+			m_distribution = distribution_type(weights.begin(), weights.end());
+			return *this;
 		}
 
+		DiscreteDistribution& operator =(const Array<double>& weights);
+
+		[[nodiscard]] Array<double> probabilities() const;
+
 		template <class Engine>
-		result_type operator()(Engine& engine) const
+		result_type operator()(Engine& engine)
 		{
 			return m_distribution(engine);
 		}
 
-		[[nodiscard]] size_t min() const
-		{
-			return m_distribution.min();
-		}
+		[[nodiscard]] size_t min() const;
 
-		[[nodiscard]] size_t max() const
-		{
-			return m_distribution.max();
-		}
+		[[nodiscard]] size_t max() const;
 
-		[[nodiscard]] size_t size() const
-		{
-			return m_distribution.probabilities().size();
-		}
+		[[nodiscard]] size_t size() const;
 	};
 }

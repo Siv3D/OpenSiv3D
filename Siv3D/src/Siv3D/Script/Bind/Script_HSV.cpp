@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -86,7 +86,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "HSV opSub(const HSV& in) const", asMETHODPR(HSV, operator-, (const HSV&) const, HSV), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "HSV lerp(const HSV& in, double) const", asMETHOD(HSV, lerp), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void convertFrom(double r, double g, double b, double a = 1.0)", asMETHOD(HSV, convertFrom), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Color toColor() const", asMETHODPR(HSV, toColor, () const, Color), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color toColor(uint32) const", asMETHODPR(HSV, toColor, (uint32) const, Color), asCALL_THISCALL); assert(r >= 0);

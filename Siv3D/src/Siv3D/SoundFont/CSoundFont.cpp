@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,8 +15,8 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/Resource.hpp>
-# include <Siv3D/Logger.hpp>
-# include "../EngineDirectory/EngineDirectory.hpp"
+# include <Siv3D/EngineLog.hpp>
+# include <EngineDirectory/EngineDirectory.hpp>
 
 namespace s3d
 {
@@ -27,6 +27,8 @@ namespace s3d
 
 	CSoundFont::~CSoundFont()
 	{
+		LOG_TRACE(U"CSoundFont::~CSoundFont()");
+
 		if (m_standardSoundFont)
 		{
 			::tsf_close(m_standardSoundFont);
@@ -35,6 +37,8 @@ namespace s3d
 
 	bool CSoundFont::init()
 	{
+		LOG_TRACE(U"CSoundFont::init()");
+
 		if (m_standardSoundFont)
 		{
 			return true;
@@ -47,7 +51,7 @@ namespace s3d
 
 		const String soundFontName = U"GMGSx.sf2";
 		const FilePath soundFontDirectory = EngineDirectory::CurrectVersionCommon() + U"soundfont/";
-		const FilePath soundFontResourcePath = Resource(U"engine/soundfont/" + soundFontName + U".zst");
+		const FilePath soundFontResourcePath = Resource(U"engine/soundfont/" + soundFontName + U".zstdcmp");
 
 		if (!FileSystem::Exists(soundFontDirectory + soundFontName)
 			&& FileSystem::Exists(soundFontResourcePath))
@@ -67,7 +71,7 @@ namespace s3d
 			return false;
 		}
 
-		LOG_INFO(U"ℹ️ SoundFont initialized");
+		LOG_INFO(U"ℹ️ CSoundFont initialized");
 
 		return true;
 	}

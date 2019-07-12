@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,9 +24,9 @@ namespace s3d
 	{
 	private:
 
-		class CTextBox;
+		class TextBoxDetail;
 
-		std::shared_ptr<CTextBox> pImpl;
+		std::shared_ptr<TextBoxDetail> pImpl;
 
 	public:
 
@@ -46,10 +46,7 @@ namespace s3d
 			
 			Style() = default;
 			
-			static Style Default()
-			{
-				return Style{};
-			}
+			static Style Default();
 		};
 
 		enum class State

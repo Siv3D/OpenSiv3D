@@ -2,18 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "AudioFormat_WAVE.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include "AudioFormat_WAVE.hpp"
 
 namespace s3d
 {
@@ -73,7 +73,7 @@ namespace s3d
 		template <size_t Size>
 		inline bool MemEqual(const uint8(&s1)[Size], const uint8(&s2)[Size])
 		{
-			return ::memcmp(s1, s2, Size) == 0;
+			return std::memcmp(s1, s2, Size) == 0;
 		}
 	}
 
@@ -89,11 +89,11 @@ namespace s3d
 		return extensions;
 	}
 
-	bool AudioFormat_WAVE::isHeader(const uint8(&bytes)[16]) const
+	bool AudioFormat_WAVE::isHeader(const uint8(&bytes)[16], const IReader&) const
 	{
 		static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
 
-		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
+		return std::memcmp(bytes, signature, sizeof(signature)) == 0;
 	}
 
 	Wave AudioFormat_WAVE::decodeFromFile(const FilePath& path) const

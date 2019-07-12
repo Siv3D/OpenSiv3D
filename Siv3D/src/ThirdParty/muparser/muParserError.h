@@ -103,20 +103,17 @@ enum EErrorCodes
 class ParserErrorMsg
 {
 public:
-    typedef ParserErrorMsg self_type;
-
-    ParserErrorMsg& operator=(const ParserErrorMsg &);
-    ParserErrorMsg(const ParserErrorMsg&);
-    ParserErrorMsg();
-
-   ~ParserErrorMsg();
-
     static const ParserErrorMsg& Instance();
     string_type operator[](unsigned a_iIdx) const;
 
 private:
+    ParserErrorMsg& operator=(const ParserErrorMsg &) = delete;
+    ParserErrorMsg(const ParserErrorMsg&) = delete;
+    ParserErrorMsg();
+
+   ~ParserErrorMsg() = default;
+
     std::vector<string_type>  m_vErrMsg;  ///< A vector with the predefined error messages
-    static const self_type m_Instance;    ///< The instance pointer
 };
 
 //---------------------------------------------------------------------------
@@ -125,7 +122,7 @@ private:
 
   Part of the math parser package.
 */
-class ParserError
+class API_EXPORT_CXX ParserError
 {
 private:
 

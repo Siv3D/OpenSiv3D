@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -45,7 +45,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void log() const { Logger(us(), U"us"); }
+		void log() const { Logger(us(), U"us"_sv); }
 
 		/// <summary>
 		/// 経過時間をデバッグ表示します。
@@ -53,6 +53,6 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void print() const { Print(us(), U"us"); }
+		void print() const { Print(us(), U"us"_sv); }
 	};
 }

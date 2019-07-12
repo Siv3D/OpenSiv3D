@@ -1,17 +1,15 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Dialog.hpp>
-# include <Siv3D/Image.hpp>
-# include <Siv3D/Texture.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
 
@@ -19,7 +17,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		const Array<FileFilter> OpenImageFilters =
+		static const Array<FileFilter> OpenImageFilters =
 		{
 			FileFilter::AllImageFiles(),
 			FileFilter::PNG(),
@@ -30,7 +28,7 @@ namespace s3d
 			FileFilter::PPM(),
 		};
 
-		const Array<FileFilter> OpenAudioFilters =
+		static const Array<FileFilter> OpenAudioFilters =
 		{
 			FileFilter::AllAudioFiles(),
 			FileFilter::WAVE(),
@@ -38,14 +36,20 @@ namespace s3d
 			FileFilter::AAC()
 		};
 
-		const Array<FileFilter> SaveImageFilters =
+		static const Array<FileFilter> SaveImageFilters =
 		{
 			FileFilter::PNG(),
 			FileFilter::JPEG(),
 			FileFilter::BMP(),
 			FileFilter::GIF(),
 			FileFilter::TGA(),
+			FileFilter::WebP(),
 			FileFilter::PPM(),
+		};
+
+		static const Array<FileFilter> SaveWaveFilters =
+		{
+			FileFilter::WAVE(),
 		};
 	}
 
@@ -126,6 +130,11 @@ namespace s3d
 		Optional<FilePath> SaveImage(const FilePath& defaultPath, const String& title)
 		{
 			return SaveFile(detail::SaveImageFilters, defaultPath, title);
+		}
+
+		Optional<FilePath> SaveWave(const FilePath& defaultPath, const String& title)
+		{
+			return SaveFile(detail::SaveWaveFilters, defaultPath, title);
 		}
 	}
 }

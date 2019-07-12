@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,12 +13,12 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/HSV.hpp>
-# include "CMathParser.hpp"
+# include "MathParserDetail.hpp"
 
 namespace s3d
 {
 	MathParser::MathParser()
-		: pImpl(std::make_shared<CMathParser>())
+		: pImpl(std::make_shared<MathParserDetail>())
 	{
 
 	}
@@ -129,17 +129,17 @@ namespace s3d
 		return pImpl->getExpression();
 	}
 
-	Optional<const std::map<std::wstring, double*>&> MathParser::getUsedVariables() const
+	HashTable<String, double*> MathParser::getUsedVariables() const
 	{
 		return pImpl->getUsedVariables();
 	}
 
-	Optional<const std::map<std::wstring, double*>&> MathParser::getVariables() const
+	HashTable<String, double*> MathParser::getVariables() const
 	{
 		return pImpl->getVariables();
 	}
 
-	Optional<const std::map<std::wstring, double>&> MathParser::getConstants() const
+	HashTable<String, double> MathParser::getConstants() const
 	{
 		return pImpl->getConstants();
 	}
@@ -222,5 +222,15 @@ namespace s3d
 		pImpl->eval(&hsva.h, 4);
 
 		return hsva;
+	}
+
+	double Eval(const String& expression)
+	{
+		return MathParser(expression).eval();
+	}
+
+	Optional<double> EvalOpt(const String& expression)
+	{
+		return MathParser(expression).evalOpt();
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,7 @@
 
 # define XXH_STATIC_LINKING_ONLY
 # define XXH_PRIVATE_API
-# include "../../ThirdParty/zstd/common/xxhash.h"
+# include <zstd/common/xxhash.h>
 # include <Siv3D/XXHash.hpp>
 # include <Siv3D/BinaryReader.hpp>
 
@@ -19,7 +19,12 @@ namespace s3d
 {
 	namespace Hash
 	{
-		uint64 XXHash(ByteArrayView view, const uint64 seed)
+		uint64 XXHash(const ByteArrayView view, const uint64 seed)
+		{
+			return XXH64(view.data(), view.size_bytes(), seed);
+		}
+
+		uint64 XXHash(const ByteArrayViewAdapter view, const uint64 seed)
 		{
 			return XXH64(view.data(), view.size_bytes(), seed);
 		}
@@ -36,7 +41,7 @@ namespace s3d
 
 			if (int64 sizeToRead = reader.size())
 			{
-				Byte* const buffer = static_cast<Byte*>(::malloc(bufferSize));
+				Byte* const buffer = static_cast<Byte*>(std::malloc(bufferSize));
 
 				while (sizeToRead)
 				{
@@ -47,7 +52,7 @@ namespace s3d
 					sizeToRead -= readSize;
 				}
 
-				::free(buffer);
+				std::free(buffer);
 			}
 
 			return XXH64_digest(&state);

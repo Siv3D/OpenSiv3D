@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,9 +14,8 @@
 # include <mutex>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/String.hpp>
-# include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Profiler/IProfiler.hpp"
+# include <Siv3D/EngineLog.hpp>
+# include "AssetReport.hpp"
 
 namespace s3d
 {
@@ -25,7 +24,7 @@ namespace s3d
 	{
 	private:
 
-		using MapType = HashTable<IDType, std::shared_ptr<Data>>;
+		using MapType = HashTable<IDType, std::unique_ptr<Data>>;
 
 		MapType m_data;
 
@@ -45,34 +44,33 @@ namespace s3d
 		explicit AssetHandleManager(const String& name)
 			: m_assetTypeName(name) {}
 
-		void setNullData(const std::shared_ptr<Data>& data)
+		void setNullData(std::unique_ptr<Data>&& data)
 		{
-			m_data.emplace(IDType(IDType::NullAssetID), data);
+			m_data.emplace(IDType(IDType::NullAssetID), std::move(data));
 
 			LOG_DEBUG(U"💠 Created {0}[0(null)]"_fmt(m_assetTypeName));
 		}
 
 		Data* operator [](const IDType id)
 		{
-			std::lock_guard<std::mutex> lock(m_mutex);
+			std::lock_guard lock(m_mutex);
 
 			return m_data[id].get();
 		}
 
-		IDType add(const std::shared_ptr<Data>& data, [[maybe_unused]] const String& info = U"")
+		IDType add(std::unique_ptr<Data>&& data, [[maybe_unused]] const String& info = U"")
 		{
-			std::lock_guard<std::mutex> lock(m_mutex);
+			std::lock_guard lock(m_mutex);
 
 			if (++m_idCount == IDType::InvalidID)
 			{
 				m_idFilled = true;
-
 				m_idCount = 0;
 			}
 
 			if (!m_idFilled)
 			{
-				m_data.emplace(m_idCount, data);
+				m_data.emplace(m_idCount, std::move(data));
 
 				LOG_DEBUG(U"💠 Created {0}[{1}] {2}"_fmt(m_assetTypeName, m_idCount, info));
 
@@ -91,7 +89,7 @@ namespace s3d
 				{
 					if (m_data.find(IDType(++m_idCount)) == m_data.end())
 					{
-						m_data.emplace(m_idCount, data);
+						m_data.emplace(m_idCount, std::move(data));
 
 						LOG_DEBUG(U"💠 Created {0}[{1}] {2}"_fmt(m_assetTypeName, m_idCount, info));
 
@@ -110,7 +108,7 @@ namespace s3d
 				return;
 			}
 
-			std::lock_guard<std::mutex> lock(m_mutex);
+			std::lock_guard lock(m_mutex);
 
 			const auto it = m_data.find(id);
 
@@ -120,12 +118,12 @@ namespace s3d
 
 			m_data.erase(it);
 
-			ASSET_RELEASE();
+			ReportAssetRelease();
 		}
 
 		void destroy()
 		{
-			std::lock_guard<std::mutex> lock(m_mutex);
+			std::lock_guard lock(m_mutex);
 
 			for (const auto& data : m_data)
 			{

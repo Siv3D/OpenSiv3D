@@ -2,19 +2,19 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/ScopedRenderStates2D.hpp>
+# include <Siv3D/ScopedViewport2D.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/EngineError.hpp>
 # include "CPrint.hpp"
-# include <Siv3D/RenderStateBlock2D.hpp>
-# include <Siv3D/ViewportBlock2D.hpp>
-# include <Siv3D/Window.hpp>
-
-# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -25,22 +25,29 @@ namespace s3d
 
 	CPrint::~CPrint()
 	{
-
+		LOG_TRACE(U"CPrint::~CPrint()");
 	}
 
-	bool CPrint::init()
+	void CPrint::init()
 	{
-		m_font = Font(16);
+		LOG_TRACE(U"CPrint::init()");
 
-		return !!m_font;
+		m_pFont = std::make_unique<Font>(16, Typeface::Medium);
+
+		if (!*m_pFont)
+		{
+			throw EngineError(U"Loading Font for Print failed");
+		}
+
+		LOG_INFO(U"ℹ️ CPrint initialized");
 	}
 
 	void CPrint::add(const String& text)
 	{
-		m_maxWidth = std::max((Window::Width() - 20), 40);
-		m_maxLines = std::max((Window::Height() - 20) / m_font.height(), 1) + 1;
+		m_maxWidth = std::max((Scene::Width() - 20), 40);
+		m_maxLines = std::max((Scene::Height() - 20) / m_pFont->height(), 1) + 1;
 
-		const Array<int32> xAdvances = m_font(text).getXAdvances();
+		const Array<int32> xAdvances = (*m_pFont)(text).getXAdvances();
 
 		m_messageLines.emplace_back();
 
@@ -90,12 +97,12 @@ namespace s3d
 
 	void CPrint::draw()
 	{
-		RenderStateBlock2D rb(BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D);
-		ViewportBlock2D vp(0, 0, Window::Size());
+		ScopedRenderStates2D rb(BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D);
+		ScopedViewport2D vp(0, 0, Scene::Size());
 
 		String text;
 
-		const int32 height = m_font.height();
+		const int32 height = m_pFont->height();
 		const double overflowOffset = m_messageLines.size() == m_maxLines ? -20 : 0;
 		int32 lineCount = 0;
 
@@ -106,8 +113,9 @@ namespace s3d
 				text.push_back(ch.first);
 			}
 
-			m_font(text).draw(10.85, 8.85 + lineCount * height + overflowOffset, Palette::Black);
-			m_font(text).draw(10, 8 + lineCount * height + overflowOffset);
+			const DrawableText drawText = (*m_pFont)(text);
+			drawText.draw(10.85, 8.85 + lineCount * height + overflowOffset, Palette::Black);
+			drawText.draw(10, 8 + lineCount * height + overflowOffset);
 
 			text.clear();
 
@@ -116,9 +124,9 @@ namespace s3d
 
 		if (m_unhandledEditingtext)
 		{
-			m_font(m_unhandledEditingtext).region(1, 1).draw();
-
-			m_font(m_unhandledEditingtext).draw(1, 1, Palette::Black);
+			const DrawableText drawText = (*m_pFont)(m_unhandledEditingtext);
+			drawText.region(1, 1).draw();
+			drawText.draw(1, 1, Palette::Black);
 		}
 	}
 

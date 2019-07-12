@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,23 +13,26 @@
 # include <vector>
 # include <string>
 # include <algorithm>
-# include <future>
+# include <random>
 # include "Fwd.hpp"
-# include "AlignedAllocator.hpp"
 # include "Meta.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 # include "Threading.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
 # include "DefaultRNG.hpp"
 
+# ifdef SIV3D_CONCURRENT
+#	include <future>
+# endif
+
 namespace s3d
 {
 	/// <summary>
 	/// 動的配列
 	/// </summary>
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	template <class Type, class Allocator = std::allocator<Type>>
 	class Array : protected std::vector<Type, Allocator>
 	{
 	private:
@@ -82,28 +85,6 @@ namespace s3d
 		using base_type::resize;
 
 		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Array()
-			: base_type() {}
-
-		/// <summary>
-		/// ジェネレータを用いて配列を作成します。
-		/// </summary>
-		/// <param name="size">
-		/// 配列の要素数
-		/// </param>
-		/// <param name="generator">
-		/// ジェネレータ
-		/// </param>
-		/// <remarks>
-		/// 各要素の値をジェネレータ関数により初期化します。
-		/// </remarks>
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
-		Array(const size_type size, Arg::generator_<Fty> generator)
-			: Array(Generate<Fty>(size, *generator)) {}
-
-		/// <summary>
 		/// ジェネレータを用いて配列を作成します。
 		/// </summary>
 		/// <param name="size">
@@ -118,7 +99,7 @@ namespace s3d
 		/// <returns>
 		/// 作成した配列
 		/// </returns>
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
 			Array new_array(size);
@@ -130,6 +111,82 @@ namespace s3d
 
 			return new_array;
 		}
+
+		/// <summary>
+		/// インデックス付きジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="generator">
+		/// ジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		/// <returns>
+		/// 作成した配列
+		/// </returns>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		static Array IndexedGenerate(const size_type size, Fty indexedGenerator)
+		{
+			Array new_array(size);
+
+			size_t i = 0;
+
+			for (auto& value : new_array)
+			{
+				value = indexedGenerator(i++);
+			}
+
+			return new_array;
+		}
+
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		Array()
+			: base_type() {}
+
+		Array(const Array& other) = default;
+
+		Array(Array&& other) = default;
+
+		Array& operator =(const Array& other) = default;
+
+		Array& operator =(Array&& other) = default;
+
+		/// <summary>
+		/// ジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="generator">
+		/// ジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		Array(const size_type size, Arg::generator_<Fty> generator)
+			: Array(Generate<Fty>(size, *generator)) {}
+
+		/// <summary>
+		/// インデックス付きジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="indexedGenerator">
+		/// インデックス付きジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		Array(const size_type size, Arg::indexedGenerator_<Fty> indexedGenerator)
+			: Array(IndexedGenerate<Fty>(size, *indexedGenerator)) {}
 
 		/// <summary>
 		/// 他の配列と要素を入れ替えます。
@@ -246,9 +303,9 @@ namespace s3d
 		/// <summary>
 		/// 要素にアクセスします。
 		/// </summary>
-		/// <returns>
+		/// <param name="index">
 		/// 要素へのインデックス
-		/// </returns>
+		/// </param>
 		/// <returns>
 		/// 要素への参照
 		/// </returns>
@@ -377,7 +434,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たさない要素が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool all(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -400,7 +457,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool any(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -461,7 +518,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] value_type& choice(URBG&& rbg)
 		{
 			if (empty())
@@ -483,7 +540,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			if (empty())
@@ -508,7 +565,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素
 		/// </returns>
-		template <class Size_t, std::enable_if_t<std::is_scalar_v<Size_t>>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr>
 		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
@@ -529,7 +586,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;
@@ -550,9 +607,9 @@ namespace s3d
 		/// <returns>
 		/// 指定された要素数づつに分割された配列の配列
 		/// </returns>
-		[[nodiscard]] Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> chunk(const size_t n) const
+		[[nodiscard]] Array<Array<value_type>> chunk(const size_t n) const
 		{
-			Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> result;
+			Array<Array<value_type>> result;
 
 			if (n == 0)
 			{
@@ -600,7 +657,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素の個数
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
@@ -614,6 +671,13 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array& drop(size_t n)
+		{
+			erase(begin(), begin() + std::min(n, size()));
+
+			return *this;
 		}
 
 		/// <summary>
@@ -647,7 +711,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件が真になる要素を先頭から除いた新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
@@ -662,7 +726,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Array& each(Fty f)
 		{
 			for (auto& v : *this)
@@ -682,7 +746,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Array& each(Fty f) const
 		{
 			for (const auto& v : *this)
@@ -702,7 +766,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, Type&>>* = nullptr>
 		Array& each_index(Fty f)
 		{
 			size_t i = 0;
@@ -724,7 +788,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, Type>>* = nullptr>
 		const Array& each_index(Fty f) const
 		{
 			size_t i = 0;
@@ -784,7 +848,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たす要素のみからなる新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array filter(Fty f) const
 		{
 			Array new_array;
@@ -809,9 +873,9 @@ namespace s3d
 		/// <returns>
 		/// 指定された分割数に分割した配列の配列
 		/// </returns>
-		[[nodiscard]] Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> in_groups(const size_t group) const
+		[[nodiscard]] Array<Array<value_type>> in_groups(const size_t group) const
 		{
-			Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> result;
+			Array<Array<value_type>> result;
 
 			if (group == 0)
 			{
@@ -865,7 +929,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
@@ -915,7 +979,7 @@ namespace s3d
 		/// <returns>
 		/// 要素を指定した文字列で連結した結果の文字列
 		/// </returns>
-		[[nodiscard]] String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
+		[[nodiscard]] String join(const StringView sep = U", "_sv, const StringView begin = U"{"_sv, const StringView end = U"}"_sv) const
 		{
 			String s;
 
@@ -951,7 +1015,8 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& keep_if(std::function<bool(const value_type&)> f)
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		Array& keep_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), std::not_fn(f)), end());
 
@@ -967,11 +1032,10 @@ namespace s3d
 		/// <returns>
 		/// 配列の各要素に関数を適用した戻り値からなる配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		auto map(Fty f) const
-			-> Array<decltype(f(std::declval<value_type>()))>
 		{
-			Array<decltype(f(std::declval<value_type>()))> new_array;
+			Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_array;
 
 			new_array.reserve(size());
 
@@ -992,7 +1056,7 @@ namespace s3d
 		/// <returns>
 		/// 条件を満たす要素が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool none(Fty f = Id) const
 		{
 			for (const auto& v : *this)
@@ -1018,8 +1082,8 @@ namespace s3d
 		/// <returns>
 		/// 最終的に得られた単一の値
 		/// </returns>
-		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, Type, Type>>>
+		auto reduce(Fty f, R init) const
 		{
 			auto value = init;
 
@@ -1040,7 +1104,7 @@ namespace s3d
 		/// <returns>
 		/// 最終的に得られた単一の値
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type, Type>>* = nullptr>
 		auto reduce1(Fty f) const
 		{
 			if (empty())
@@ -1051,7 +1115,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			std::result_of_t<Fty(value_type, value_type)> value = *it++;
+			std::invoke_result_t<Fty, value_type, value_type> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -1176,7 +1240,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		Array& remove_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), f), end());
@@ -1193,7 +1257,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array removed_if(Fty f) const &
 		{
 			Array new_array;
@@ -1218,7 +1282,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
@@ -1317,7 +1381,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		Array& replace_if(Fty f, const value_type& newValue)
 		{
 			for (auto& v : *this)
@@ -1343,7 +1407,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) const &
 		{
 			Array new_array;
@@ -1377,7 +1441,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) &&
 		{
 			replace_if(f, newValue);
@@ -1431,7 +1495,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Array& reverse_each(Fty f)
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
@@ -1451,7 +1515,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Array& reverse_each(Fty f) const
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
@@ -1551,7 +1615,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		Array& shuffle(URBG&& rbg)
 		{
 			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
@@ -1590,7 +1654,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた配列
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array shuffled(URBG&& rbg) const &
 		{
 			return Array(*this).shuffle(std::forward<URBG>(rbg));
@@ -1605,7 +1669,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた配列
 		/// </returns>
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array shuffled(URBG&& rbg) &&
 		{
 			shuffle(std::forward<URBG>(rbg));
@@ -1691,7 +1755,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		Array& sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
@@ -1708,7 +1772,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		Array& stable_sort_by(Fty f)
 		{
 			std::stable_sort(begin(), end(), f);
@@ -1777,7 +1841,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
@@ -1792,7 +1856,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Array stable_sorted_by(Fty f) const &
 		{
 			return Array(*this).stable_sort_by(f);
@@ -1807,7 +1871,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
@@ -1824,7 +1888,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Array stable_sorted_by(Fty f) &&
 		{
 			stable_sort_by(f);
@@ -1872,10 +1936,7 @@ namespace s3d
 
 		// do nothing
 		template <class T = Type, std::enable_if_t<!Meta::HasPlus_v<T>>* = nullptr>
-		const Array& sum() const
-		{
-			return *this;
-		}
+		void sum() const = delete;
 
 		/// <summary>
 		/// 精度の高い配列の全要素の合計を返します。
@@ -1900,6 +1961,9 @@ namespace s3d
 			return static_cast<T>(s);
 		}
 
+		template <class T = Type, std::enable_if_t<!std::is_floating_point_v<T>>* = nullptr>
+		[[nodiscard]] auto sumF() const & = delete;
+
 		/// <summary>
 		/// 配列の先頭から指定された要素数分取り出した新しい配列を返します。
 		/// </summary>
@@ -1923,7 +1987,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
@@ -2003,6 +2067,8 @@ namespace s3d
 			return new_array;
 		}
 
+	# ifdef SIV3D_CONCURRENT
+
 		/// <summary>
 		/// 条件に合う要素の個数を並列化して数えます。
 		/// </summary>
@@ -2015,7 +2081,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった要素の個数
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
 			if (isEmpty())
@@ -2062,7 +2128,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
 		{
 			if (isEmpty())
@@ -2109,7 +2175,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
 			if (isEmpty())
@@ -2154,11 +2220,10 @@ namespace s3d
 		/// <returns>
 		/// 配列の各要素に関数を適用した戻り値からなる配列
 		/// </returns>
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
-			-> Array<decltype(f(std::declval<value_type>()))>
 		{
-			Array<decltype(f(std::declval<value_type>()))> new_array;
+			Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_array;
 
 			if (isEmpty())
 			{
@@ -2200,6 +2265,8 @@ namespace s3d
 
 			return new_array;
 		}
+
+	# endif
 	};
 
 	template <class Type, class Allocator>
@@ -2245,6 +2312,24 @@ namespace s3d
 	Array(std::initializer_list<Type>) -> Array<Type>;
 
 # endif
+
+	template <class E>
+	struct IsMemoryContiguousContainer<std::vector<E>> : std::bool_constant<std::is_trivially_copyable_v<E>> {};
+
+	template <class E>
+	struct IsMemoryContiguousContainer<Array<E>> : std::bool_constant<std::is_trivially_copyable_v<E>> {};
+
+	template <class Type>
+	auto MakeArray()
+	{
+		return Array<std::decay_t<Type>>{};
+	}
+
+	template <class Type, class... Types>
+	auto MakeArray(Type&& first, Types&&... args)
+	{
+		return Array<std::decay_t<Type>>{ std::forward<Type>(first), std::forward<Types>(args)... };
+	}
 }
 
 # include "BoolArray.hpp"

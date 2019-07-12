@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,6 +12,7 @@
 # pragma once
 # include <memory>
 # include "Fwd.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
@@ -19,9 +20,9 @@ namespace s3d
 	{
 	private:
 
-		class CMemoryMapping;
+		class MemoryMappingDetail;
 
-		std::shared_ptr<CMemoryMapping> pImpl;
+		std::shared_ptr<MemoryMappingDetail> pImpl;
 
 	public:
 
@@ -30,13 +31,13 @@ namespace s3d
 		/// </summary>
 		MemoryMapping();
 
-		explicit MemoryMapping(const FilePath& path, bool mapAll = true)
+		explicit MemoryMapping(const FilePathView path, bool mapAll = true)
 			: MemoryMapping()
 		{
 			open(path, mapAll);
 		}
 
-		bool open(const FilePath& path, bool mapAll = true);
+		bool open(FilePathView path, bool mapAll = true);
 
 		void close();
 

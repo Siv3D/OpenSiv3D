@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -46,42 +46,13 @@ namespace s3d
 			: m_key1(key1)
 			, m_key2(key2) {}
 
-		[[nodiscard]] bool down() const
-		{
-			return m_key1.pressed() && m_key2.down();
-		}
+		[[nodiscard]] bool down() const;
 
-		[[nodiscard]] bool pressed() const
-		{
-			const auto t1 = m_key1.pressedDuration();
-			const auto t2 = m_key2.pressedDuration();
+		[[nodiscard]] bool pressed() const;
 
-			if (t1 < t2)
-			{
-				return false;
-			}
+		[[nodiscard]] bool up() const;
 
-			return m_key1.pressed() && m_key2.pressed();
-		}
-
-		[[nodiscard]] bool up() const
-		{
-			return m_key1.pressed() && m_key2.up();
-		}
-
-		[[nodiscard]] Duration pressedDuration() const
-		{
-			const auto t1 = m_key1.pressedDuration();
-			const auto t2 = m_key2.pressedDuration();
-			const bool pr = m_key1.pressed() && m_key2.pressed();
-
-			if (!pr || t1 < t2)
-			{
-				return Duration(0);
-			}
-
-			return t2;
-		}
+		[[nodiscard]] Duration pressedDuration() const;
 
 		[[nodiscard]] const Key& key1() const noexcept
 		{
@@ -98,10 +69,7 @@ namespace s3d
 			return (uint64(m_key1.asUint32()) << 32) | uint64(m_key2.asUint32());
 		}
 
-		[[nodiscard]] String name() const
-		{
-			return m_key1.name() + U'+' + m_key2.name();
-		}
+		[[nodiscard]] String name() const;
 	};
 
 	/// <summary>
@@ -189,10 +157,7 @@ namespace s3d
 //
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const KeyConjunction& conjunction)
-	{
-		formatData.string.append(conjunction.name());
-	}
+	void Formatter(FormatData& formatData, const KeyConjunction& conjunction);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const KeyConjunction& conjunction)

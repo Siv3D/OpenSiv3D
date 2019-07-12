@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -43,9 +43,13 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		class Tag {};
 
-		using AudioHandle = AssetHandle<Handle>;
+		using AudioHandle = AssetHandle<Tag>;
+		
+		friend AudioHandle::AssetHandle();
+		
+		friend AudioHandle::AssetHandle(const IDWrapperType id) noexcept;
 
 		friend AudioHandle::~AssetHandle();
 
@@ -102,6 +106,8 @@ namespace s3d
 
 		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
+		Audio(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, float silenceValue = 0.01f);
+
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		virtual ~Audio();
@@ -144,13 +150,17 @@ namespace s3d
 
 		void setLoop(Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
+		Optional<AudioLoopTiming> getLoop() const;
+
+		bool isLoop() const;
+
 		bool play(const Duration& fadeinDuration = SecondsF(0.0)) const;
 
 		void pause(const Duration& fadeoutDuration = SecondsF(0.0)) const;
 
 		void stop(const Duration& fadeoutDuration = SecondsF(0.0)) const;
 
-		void playOneShot(double volume = 1.0, double pitch = 1.0) const;
+		void playOneShot(double volume = 1.0, double speed = 1.0) const;
 
 		void stopAllShots() const;
 

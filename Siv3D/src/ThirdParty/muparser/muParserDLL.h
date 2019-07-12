@@ -25,16 +25,7 @@
 #ifndef MU_PARSER_DLL_H
 #define MU_PARSER_DLL_H
 
-#if defined(WIN32) || defined(_WIN32)
-    #ifdef MUPARSERLIB_EXPORTS
-        #define API_EXPORT(TYPE) __declspec(dllexport) TYPE __cdecl
-    #else
-        #define API_EXPORT(TYPE) __declspec(dllimport) TYPE __cdecl
-    #endif
-#else
-    #define API_EXPORT(TYPE) TYPE
-#endif
-
+#include "muParserFixes.h"
 
 #ifdef __cplusplus
 extern "C"

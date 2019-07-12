@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "IImageFormat.hpp"
 # include <Siv3D/Array.hpp>
 # include <Siv3D/ImageFormat.hpp>
+# include "IImageFormat.hpp"
 
 namespace s3d
 {
@@ -32,7 +32,7 @@ namespace s3d
 
 		~CImageFormat() override;
 
-		bool init() override;
+		void init() override;
 
 		ImageFormat getFormatFromReader(const IReader& reader, const FilePath& pathHint) const override;
 
@@ -46,12 +46,14 @@ namespace s3d
 
 		bool save(const Image& image, ImageFormat format, const FilePath& path) const override;
 
-		MemoryWriter encode(const Image& image, ImageFormat format) const override;
+		ByteArray encode(const Image& image, ImageFormat format) const override;
 
 		bool encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const override;
 
 		bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const override;
 
 		bool encodePPM(IWriter& writer, const Image& image, PPMType format) const override;
+
+		bool encodeWebP(IWriter& writer, const Image& image, bool lossless, double quality, WebPMethod method) const override;
 	};
 }

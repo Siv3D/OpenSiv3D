@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,6 +16,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// バイトを表現する型
+	/// </summary>
 	enum class Byte : unsigned char { };
 
 	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
@@ -57,7 +60,7 @@ namespace s3d
 	}
 
 	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	inline constexpr Byte& operator>>=(Byte& value, const Integer shift) noexcept
+	inline constexpr Byte& operator >>=(Byte& value, const Integer shift) noexcept
 	{
 		return value = (value >> shift);
 	}
@@ -75,7 +78,12 @@ namespace s3d
 	inline constexpr Byte& operator ^=(Byte& x, const Byte y) noexcept
 	{
 		return x = (x ^ y);
-	}	
+	}
+
+	inline constexpr uint8 AsUint8(Byte value) noexcept
+	{
+		return static_cast<uint8>(value);
+	}
 }
 
 //////////////////////////////////////////////////

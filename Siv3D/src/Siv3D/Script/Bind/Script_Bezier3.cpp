@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -65,7 +65,7 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "const Bezier3& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Bezier3& draw(double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Bezier3& draw(const ColorF& in = Palette::White, uint32 quality = 24) const", asMETHODPR(ShapeType, draw, (const ColorF&, uint32) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Bezier3& draw(double, const ColorF& in = Palette::White, uint32 quality = 24) const", asMETHODPR(ShapeType, draw, (double, const ColorF&, uint32) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -33,7 +33,7 @@ namespace s3d
 		bool Intersect(const Point& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Point& a, const Polygon&		b) noexcept;
 		bool Intersect(const Point& a, const MultiPolygon&	b) noexcept;
-		//bool Intersect(const Point& a, const LineString&	b);
+		bool Intersect(const Point& a, const LineString&	b) noexcept;
 
 		bool Intersect(const Vec2& a, const Point&			b) noexcept;
 		bool Intersect(const Vec2& a, const Vec2&			b) noexcept;
@@ -49,7 +49,7 @@ namespace s3d
 		bool Intersect(const Vec2& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Vec2& a, const Polygon&		b) noexcept;
 		bool Intersect(const Vec2& a, const MultiPolygon&	b) noexcept;
-		//bool Intersect(const Vec2& a, const LineString&		b);
+		bool Intersect(const Vec2& a, const LineString&		b) noexcept;
 
 		bool Intersect(const Line& a, const Point&			b) noexcept;
 		bool Intersect(const Line& a, const Vec2&			b) noexcept;
@@ -243,8 +243,8 @@ namespace s3d
 		//bool Intersect(const MultiPolygon& a, const MultiPolygon&	b);
 		//bool Intersect(const MultiPolygon& a, const LineString&		b);
 
-		//bool Intersect(const LineString& a, const Point&		b);
-		//bool Intersect(const LineString& a, const Vec2&			b);
+		bool Intersect(const LineString& a, const Point&		b) noexcept;
+		bool Intersect(const LineString& a, const Vec2&			b) noexcept;
 		//bool Intersect(const LineString& a, const Line&			b);
 		//bool Intersect(const LineString& a, const Bezier2&		 b);
 		//bool Intersect(const LineString& a, const Bezier3&		 b);

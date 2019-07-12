@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,12 +12,13 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
+		inline constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
 	}
 
 	struct Triangle
@@ -28,14 +29,34 @@ namespace s3d
 
 		position_type p0, p1, p2;
 		
-		[[nodiscard]] position_type& p(size_t index)
+		[[nodiscard]] constexpr position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
 		
-		[[nodiscard]] const position_type& p(size_t index) const
+		[[nodiscard]] constexpr const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
+		}
+
+		[[nodiscard]] constexpr Line side(size_t index) const
+		{
+			if (index == 0)
+			{
+				return Line(p0, p1);
+			}
+			else if (index == 1)
+			{
+				return Line(p1, p2);
+			}
+			else if (index == 2)
+			{
+				return Line(p2, p0);
+			}
+			else
+			{
+				throw std::out_of_range("Triangle::side() index out of range");
+			}
 		}
 
 		Triangle() = default;
@@ -125,7 +146,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr position_type centroid() const noexcept
 		{
-			return (p0 + p1 + p2) / 3.0;
+			return position_type((p0.x + p1.x + p2.x) / 3.0, (p0.y + p1.y + p2.y) / 3.0);
 		}
 
 		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
@@ -150,6 +171,12 @@ namespace s3d
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		{
+			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
@@ -246,7 +273,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Triangle, s3d::char32>

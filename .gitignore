@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+*.rsuser
 *.suo
 *.user
 *.userosscache
@@ -19,8 +20,10 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
 bld/
+[Bb]in/
 [Oo]bj/
 [Ll]og/
 
@@ -59,7 +62,7 @@ StyleCopReport.xml
 # Files built by Visual Studio
 *_i.c
 *_p.c
-*_i.h
+*_h.h
 *.ilk
 *.meta
 *.obj
@@ -76,6 +79,7 @@ StyleCopReport.xml
 *.tlh
 *.tmp
 *.tmp_proj
+*_wpftmp.csproj
 *.log
 *.vspscc
 *.vssscc
@@ -220,13 +224,15 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
-# Including strong name files can present a security risk 
+# Including strong name files can present a security risk
 # (https://github.com/github/gitignore/pull/2483#issue-259490424)
 #*.snk
 
 # Since there are multiple workflows, uncomment next line to ignore bower_components
 # (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
 #bower_components/
+# ASP.NET Core default setup: bower directory is configured as wwwroot/lib/ and bower restore is true
+**/wwwroot/lib/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -290,8 +296,8 @@ paket-files/
 .idea/
 *.sln.iml
 
-# CodeRush
-.cr/
+# CodeRush personal settings
+.cr/personal
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
@@ -316,7 +322,7 @@ __pycache__/
 # OpenCover UI analysis results
 OpenCover/
 
-# Azure Stream Analytics local run output 
+# Azure Stream Analytics local run output
 ASALocalRun/
 
 # MSBuild Binary and Structured Log
@@ -325,130 +331,38 @@ ASALocalRun/
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
 
-# MFractors (Xamarin productivity tool) working folder 
+# MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
-##
+# Local History for Visual Studio
+.localhistory/
+
+## Xcode
+.DS_Store
+xcshareddata/
+xcuserdata/
+project.xcworkspace/
+Contents/
+
 ## Siv3D
-##
-
-# dependencies files
-[Dd]ependencies/*/
-
-# Visual Studio
-[Ii]ntermediate/
-[Dd]ebug-x64/
-[Dd]ebug-x86/
-[Rr]elease-x64/
-[Rr]elease-x86/
-
-# Libraries
-Siv3D_d.lib
-Siv3D.lib
+Dependencies/*/
+Siv3D/lib/*/Siv3D_d.lib
+Siv3D/lib/*/Siv3D.lib
 libSiv3D.a
 siv3d.a
+*.exe
+*.html
+*.jppmdl
+Screenshot/
+AS_DEBUG/
 
-# Xcode
-**/*.xcodeproj/*
-!**/*.xcodeproj/project.pbxproj
-!**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
-Xcode/bin/*
-!Xcode/bin/engine/
-!Xcode/bin/example/
-!Xcode/bin/test/
-!Xcode/bin/nlp/
-
-# Linux
+## CMake
 CMakeCache.txt
 CMakeFiles
-Makefile
-*.swp
-*.cmake
-Linux/Test/engine
-Linux/Test/example
-Linux/Test/resources
-Linux/Test/Siv3D_Test
+cmake_install.cmake
 
-# Othres
-AS_DEBUG/
-*.html
-*.exe
-
-# Extensions
-*.jppmdl
-!jumanpp_v2.exe
-
-# =========================
-# Operating System Files
-# =========================
-
-# Windows
-# =========================
-
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# OSX
-# =========================
-
-# General
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Linux
-# =========================
-
-*~
-
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
-
-# KDE directory preferences
-.directory
-
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
-
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
+## ninja
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja

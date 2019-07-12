@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -75,15 +75,9 @@ namespace s3d
 			return{ r, phi + Math::Pi, -y };
 		}
 
-		[[nodiscard]] Vec3 operator +(const Vec3& v) const
-		{
-			return toVec3() + v;
-		}
+		[[nodiscard]] Vec3 operator +(const Vec3& v) const;
 
-		[[nodiscard]] Vec3 operator -(const Vec3& v) const
-		{
-			return toVec3() - v;
-		}
+		[[nodiscard]] Vec3 operator -(const Vec3& v) const;
 
 		[[nodiscard]] Vec3 toFloat3() const
 		{
@@ -110,10 +104,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Cylindrical& value)
-	{
-		Formatter(formatData, Vec3(value.r, value.phi, value.y));
-	}
+	void Formatter(FormatData& formatData, const Cylindrical& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Cylindrical& value)
@@ -159,7 +150,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Cylindrical, s3d::char32>

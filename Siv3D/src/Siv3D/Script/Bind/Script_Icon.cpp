@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -31,9 +31,14 @@ namespace s3d
 		new(self) BindType(code, size);
 	}
 
-	static Image IconLoadImage(uint32 code, int32 size)
+	static Image IconCreateImage(uint32 code, int32 size)
 	{
-		return Icon::LoadImage(code, size);
+		return Icon::CreateImage(code, size);
+	}
+
+	static Image IconCreateMSDFImage(uint32 code, double scale)
+	{
+		return Icon::CreateMSDFImage(code, scale);
 	}
 
 	void RegisterIcon(asIScriptEngine* engine)
@@ -49,7 +54,8 @@ namespace s3d
 
 		r = engine->SetDefaultNamespace("Icon"); assert(r >= 0);
 		{
-			r = engine->RegisterGlobalFunction("Image LoadImage(uint32 code, int32 size)", asFUNCTION(IconLoadImage), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image CreateImage(uint32 code, int32 size)", asFUNCTION(IconCreateImage), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image CreateMSDFImage(uint32 code, double scale)", asFUNCTION(IconCreateMSDFImage), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

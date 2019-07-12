@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,7 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/TextureFormat.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include "ScriptBind.hpp"
 
@@ -81,17 +82,16 @@ namespace s3d
 
 		int32 r = 0;
 		
-		r = engine->RegisterEnumValue("TextureDesc", "Unmipped", 0); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "UnmippedSRGB", 1); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "Mipped", 2); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "MippedSRGB", 3); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "JPEG2000", 4); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "SDF", 5); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "For3D", 3); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "Unmipped", static_cast<int32>(TextureDesc::Unmipped)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "UnmippedSRGB", static_cast<int32>(TextureDesc::UnmippedSRGB)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "Mipped", static_cast<int32>(TextureDesc::Mipped)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "MippedSRGB", static_cast<int32>(TextureDesc::MippedSRGB)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "SDF", static_cast<int32>(TextureDesc::SDF)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureDesc", "For3D", static_cast<int32>(TextureDesc::For3D)); assert(r >= 0);
 
-		r = engine->RegisterEnumValue("TextureFormat", "Unknown", 0); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm", 1); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm_SRGB", 2); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureFormat", "Unknown", static_cast<int32>(TextureFormat::Unknown)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm", static_cast<int32>(TextureFormat::R8G8B8A8_Unorm)); assert(r >= 0);
+		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm_SRGB", static_cast<int32>(TextureFormat::R8G8B8A8_Unorm_SRGB)); assert(r >= 0);
 		
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Texture& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
@@ -102,8 +102,8 @@ namespace s3d
 		//explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructFFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Color& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructCFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Emoji& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructEmT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Icon& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructIcT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Emoji& in, TextureDesc = TextureDesc::Mipped)", asFUNCTION(ConstructEmT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Icon& in, TextureDesc = TextureDesc::Mipped)", asFUNCTION(ConstructIcT), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod(TypeName, "Texture& opAssign(const Texture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
