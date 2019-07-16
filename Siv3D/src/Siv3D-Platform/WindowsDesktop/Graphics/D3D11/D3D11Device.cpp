@@ -410,7 +410,17 @@ namespace s3d
 
 		if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, hasDebugLayer ? D3D11_CREATE_DEVICE_DEBUG : 0))
 		{
-			throw EngineError(U"D3D11Device::createDevice() failed");
+			if constexpr (Platform::DebugBuild)
+			{
+				if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, 0))
+				{
+					throw EngineError(U"D3D11Device::createDevice() failed");
+				}
+			}
+			else
+			{
+				throw EngineError(U"D3D11Device::createDevice() failed");
+			}
 		}
 	}
 
