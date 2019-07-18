@@ -664,9 +664,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\tttags.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ttunpat.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\ft2build.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib_private.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-blob.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-buffer.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-common.h" />
@@ -1314,14 +1312,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\dgif_lib.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\egif_lib.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gifalloc.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_err.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_font.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_quantize.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\openbsd-reallocarray.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\libsvm\svm.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\msdf\core\Bitmap.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\msdf\core\Contour.cpp" />

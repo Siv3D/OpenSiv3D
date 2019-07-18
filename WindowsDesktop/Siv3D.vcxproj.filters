@@ -373,9 +373,6 @@
     <Filter Include="src\Siv3D\ImageFormat\WebP">
       <UniqueIdentifier>{b0ba28d8-275d-490c-ac21-0ed8939c4a42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ThirdParty\giflib">
-      <UniqueIdentifier>{8812a1e6-9eb1-480c-8d3c-268ebd399833}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\ThirdParty\libjpeg-turbo">
       <UniqueIdentifier>{fc8794c9-d057-4feb-84d0-bf0fc143464c}</UniqueIdentifier>
     </Filter>
@@ -993,6 +990,9 @@
     </Filter>
     <Filter Include="src\ThirdParty\ogg">
       <UniqueIdentifier>{618613c7-b6f6-4878-8dcd-319787b03a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\giflib">
+      <UniqueIdentifier>{15a544f0-4c7d-487a-80bd-1c94cb7cd019}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -2057,15 +2057,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\IImageFormat.hpp">
       <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.h">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib.h">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib_private.h">
-      <Filter>src\ThirdParty\giflib</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.hpp">
       <Filter>src\Siv3D\ImageFormat\GIF</Filter>
@@ -3417,6 +3408,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\ogg\os_types.h">
       <Filter>src\ThirdParty\ogg</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib.h">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -4081,30 +4075,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.cpp">
       <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_quantize.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gifalloc.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\openbsd-reallocarray.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\dgif_lib.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\egif_lib.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_err.c">
-      <Filter>src\ThirdParty\giflib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_font.c">
-      <Filter>src\ThirdParty\giflib</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp">
       <Filter>src\Siv3D\ImageFormat\GIF</Filter>

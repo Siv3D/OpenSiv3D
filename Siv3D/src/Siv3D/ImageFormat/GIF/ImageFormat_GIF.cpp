@@ -15,6 +15,20 @@
 # include <Siv3D/BinaryWriter.hpp>
 # include <giflib/gif_lib.h>
 
+extern "C"
+{
+	// libgif/libutil
+	int
+	GifQuantizeBuffer(unsigned int Width,
+		unsigned int Height,
+		int* ColorMapSize,
+		GifByteType* RedInput,
+		GifByteType* GreenInput,
+		GifByteType* BlueInput,
+		GifByteType* OutputBuffer,
+		GifColorType* OutputColorMap);
+}
+
 namespace s3d
 {
 	namespace detail
