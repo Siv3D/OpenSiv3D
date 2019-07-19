@@ -63,8 +63,8 @@ namespace s3d
 		static constexpr uint32 MaxVertexArraySize		= 65536 * 64; // 4,194,304
 		static constexpr uint32 MaxIndexArraySize		= 65536 * 64; // 4,194,304
 
-		static constexpr uint32 VertexBufferSize		= 65536;// 65536;
-		static constexpr uint32 IndexBufferSize			= VertexBufferSize * 4; // 524,288
+		static constexpr uint32 VertexBufferSize		= 65535;// 65535;
+		static constexpr uint32 IndexBufferSize			= (VertexBufferSize + 1) * 4; // 524,288
 
 	public:
 
