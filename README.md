@@ -11,9 +11,9 @@
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows | [**0.4.0**](https://siv3d.github.io/#getting-started)     | 12 July 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
-| macOS           | [**0.4.0**](https://siv3d.github.io/#getting-started)     | 12 July 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.1 or newer |
-| Linux           | [**0.4.0**](https://siv3d.github.io/#getting-started)*     | 12 July 2019 | Tested compilers: Clang 8.0.0 / GCC 8.3.0 |
+| Windows | [**0.4.0**](https://siv3d.github.io/#getting-started) | 20 July 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
+| macOS           | [**0.4.0**](https://siv3d.github.io/#getting-started) | 20 July 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.1 or newer |
+| Linux           | [**0.4.0**](https://siv3d.github.io/#getting-started)* | 20 July 2019 | Tested compilers: Clang 8.0.0 / GCC 8.3.0 |
 | iOS | TBA  |  |  |
 
 <small>* Some functionality may be missing or limited</small>
