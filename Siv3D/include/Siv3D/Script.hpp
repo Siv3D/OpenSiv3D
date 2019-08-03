@@ -326,12 +326,12 @@ namespace s3d
 
 			const int32 r = m_moduleData->context->Execute();
 
-			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
+			if (r == AngelScript::asEXECUTION_EXCEPTION)
 			{
 				LOG_ERROR(U"[script exception] An exception '{}' occurred."_fmt(Unicode::Widen(m_moduleData->context->GetExceptionString())));
 				return false;
 			}
-			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
+			else if (r == AngelScript::asEXECUTION_SUSPENDED)
 			{
 				System::Exit();
 			}
@@ -355,11 +355,11 @@ namespace s3d
 
 			const int32 r = m_moduleData->context->Execute();
 
-			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
+			if (r == AngelScript::asEXECUTION_EXCEPTION)
 			{
 				return Unicode::Widen(m_moduleData->context->GetExceptionString());
 			}
-			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
+			else if (r == AngelScript::asEXECUTION_SUSPENDED)
 			{
 				System::Exit();
 			}
