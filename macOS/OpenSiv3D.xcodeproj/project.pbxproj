@@ -245,17 +245,7 @@
 		2C4613A9226EEDB500828870 /* import-font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F40226EEDB200828870 /* import-font.cpp */; };
 		2C4613AA226EEDB500828870 /* msdfgen.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F41226EEDB200828870 /* msdfgen.h */; };
 		2C4613AB226EEDB500828870 /* miniutf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F43226EEDB200828870 /* miniutf.hpp */; };
-		2C4613AC226EEDB500828870 /* egif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F45226EEDB200828870 /* egif_lib.c */; };
-		2C4613AD226EEDB500828870 /* dgif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F46226EEDB200828870 /* dgif_lib.c */; };
-		2C4613AE226EEDB500828870 /* gif_hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F47226EEDB200828870 /* gif_hash.h */; };
-		2C4613AF226EEDB500828870 /* gif_lib_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F48226EEDB200828870 /* gif_lib_private.h */; };
-		2C4613B0226EEDB500828870 /* openbsd-reallocarray.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F49226EEDB200828870 /* openbsd-reallocarray.c */; };
-		2C4613B1226EEDB500828870 /* gifalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F4A226EEDB200828870 /* gifalloc.c */; };
-		2C4613B2226EEDB500828870 /* gif_hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F4B226EEDB200828870 /* gif_hash.c */; };
-		2C4613B3226EEDB500828870 /* gif_quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F4C226EEDB200828870 /* gif_quantize.c */; };
-		2C4613B4226EEDB500828870 /* gif_font.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F4D226EEDB200828870 /* gif_font.c */; };
 		2C4613B5226EEDB500828870 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F4E226EEDB200828870 /* gif_lib.h */; };
-		2C4613B6226EEDB500828870 /* gif_err.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460F4F226EEDB200828870 /* gif_err.c */; };
 		2C4613B7226EEDB500828870 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F51226EEDB200828870 /* types.h */; };
 		2C4613B8226EEDB500828870 /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F52226EEDB200828870 /* encode.h */; };
 		2C4613B9226EEDB500828870 /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460F53226EEDB200828870 /* decode.h */; };
@@ -1089,6 +1079,8 @@
 		2C461AFC227138DE00828870 /* GraphicsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AF9227138DE00828870 /* GraphicsFactory.cpp */; };
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
+		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
+		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
@@ -1346,17 +1338,7 @@
 		2C460F40226EEDB200828870 /* import-font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "import-font.cpp"; sourceTree = "<group>"; };
 		2C460F41226EEDB200828870 /* msdfgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msdfgen.h; sourceTree = "<group>"; };
 		2C460F43226EEDB200828870 /* miniutf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = miniutf.hpp; sourceTree = "<group>"; };
-		2C460F45226EEDB200828870 /* egif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egif_lib.c; sourceTree = "<group>"; };
-		2C460F46226EEDB200828870 /* dgif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dgif_lib.c; sourceTree = "<group>"; };
-		2C460F47226EEDB200828870 /* gif_hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_hash.h; sourceTree = "<group>"; };
-		2C460F48226EEDB200828870 /* gif_lib_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib_private.h; sourceTree = "<group>"; };
-		2C460F49226EEDB200828870 /* openbsd-reallocarray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "openbsd-reallocarray.c"; sourceTree = "<group>"; };
-		2C460F4A226EEDB200828870 /* gifalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gifalloc.c; sourceTree = "<group>"; };
-		2C460F4B226EEDB200828870 /* gif_hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_hash.c; sourceTree = "<group>"; };
-		2C460F4C226EEDB200828870 /* gif_quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_quantize.c; sourceTree = "<group>"; };
-		2C460F4D226EEDB200828870 /* gif_font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_font.c; sourceTree = "<group>"; };
 		2C460F4E226EEDB200828870 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
-		2C460F4F226EEDB200828870 /* gif_err.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_err.c; sourceTree = "<group>"; };
 		2C460F51226EEDB200828870 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		2C460F52226EEDB200828870 /* encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encode.h; sourceTree = "<group>"; };
 		2C460F53226EEDB200828870 /* decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decode.h; sourceTree = "<group>"; };
@@ -2192,6 +2174,8 @@
 		2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics_Platform.cpp; sourceTree = "<group>"; };
 		2C461B012289806400828870 /* SceneTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTexture.hpp; sourceTree = "<group>"; };
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
+		2C60A7B622F5A98F00A5D629 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../Siv3D/lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
+		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -2547,12 +2531,14 @@
 				2CB4A60022A150DC00BF96EA /* libvorbis.a in Frameworks */,
 				2CB4A60222A150E900BF96EA /* libvorbisenc.a in Frameworks */,
 				2CB4A5FE22A150C900BF96EA /* libvorbisfile.a in Frameworks */,
+				2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */,
 				2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */,
 				2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */,
 				2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */,
 				2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */,
 				2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */,
 				2C461AAE2270767100828870 /* libpng.a in Frameworks */,
+				2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */,
 				2C461AB42270775A00828870 /* libGLEW.a in Frameworks */,
 				2C461AB62270779B00828870 /* libwebp.a in Frameworks */,
 				2C461AB2227076D000828870 /* libz.a in Frameworks */,
@@ -2578,6 +2564,8 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C60A7D622F5AA7500A5D629 /* libutil.a */,
+				2C60A7B622F5A98F00A5D629 /* libgif.a */,
 				2CB4A60122A150E900BF96EA /* libvorbisenc.a */,
 				2CB4A5FF22A150DC00BF96EA /* libvorbis.a */,
 				2CB4A5FD22A150C900BF96EA /* libvorbisfile.a */,
@@ -3115,17 +3103,7 @@
 		2C460F44226EEDB200828870 /* giflib */ = {
 			isa = PBXGroup;
 			children = (
-				2C460F45226EEDB200828870 /* egif_lib.c */,
-				2C460F46226EEDB200828870 /* dgif_lib.c */,
-				2C460F47226EEDB200828870 /* gif_hash.h */,
-				2C460F48226EEDB200828870 /* gif_lib_private.h */,
-				2C460F49226EEDB200828870 /* openbsd-reallocarray.c */,
-				2C460F4A226EEDB200828870 /* gifalloc.c */,
-				2C460F4B226EEDB200828870 /* gif_hash.c */,
-				2C460F4C226EEDB200828870 /* gif_quantize.c */,
-				2C460F4D226EEDB200828870 /* gif_font.c */,
 				2C460F4E226EEDB200828870 /* gif_lib.h */,
-				2C460F4F226EEDB200828870 /* gif_err.c */,
 			);
 			path = giflib;
 			sourceTree = "<group>";
@@ -6809,7 +6787,6 @@
 				2C461874226EEF4100828870 /* ICodec.hpp in Headers */,
 				2C461146226EEDB500828870 /* ftcid.h in Headers */,
 				2C461440226EEDB500828870 /* b2EdgeAndCircleContact.h in Headers */,
-				2C4613AF226EEDB500828870 /* gif_lib_private.h in Headers */,
 				2C46187B226EEF4100828870 /* CSoundFont.hpp in Headers */,
 				2C4618C9226EEF4100828870 /* IAssetDetail.hpp in Headers */,
 				2C46137D226EEDB500828870 /* fixed-dtoa.h in Headers */,
@@ -7117,7 +7094,6 @@
 				2C46193F226EEF4100828870 /* BigIntDetail.hpp in Headers */,
 				2C461352226EEDB500828870 /* DetourAlloc.h in Headers */,
 				2C46192D226EEF4100828870 /* HTMLWriterDetail.hpp in Headers */,
-				2C4613AE226EEDB500828870 /* gif_hash.h in Headers */,
 				2C461455226EEDB500828870 /* b2RopeJoint.h in Headers */,
 				2C266A79228AA6C8001C7DAD /* GLBlendState.hpp in Headers */,
 				2C461453226EEDB500828870 /* b2PrismaticJoint.h in Headers */,
@@ -7323,7 +7299,6 @@
 				2C4618B0226EEF4100828870 /* SivMemoryMapping.cpp in Sources */,
 				2C461A9F2270011200828870 /* TextReaderDetail_Platform.mm in Sources */,
 				2C461972226EEF4100828870 /* NetworkFactory.cpp in Sources */,
-				2C4613B0226EEDB500828870 /* openbsd-reallocarray.c in Sources */,
 				2C46182B226EEF4100828870 /* Script_Line.cpp in Sources */,
 				2C46184D226EEF4100828870 /* SivKeyConjunction.cpp in Sources */,
 				2C46183E226EEF4100828870 /* ProfilerFactory.cpp in Sources */,
@@ -7389,7 +7364,6 @@
 				2C4618C4226EEF4100828870 /* CLicenseManager.cpp in Sources */,
 				2C46145B226EEDB500828870 /* b2WheelJoint.cpp in Sources */,
 				2C4617FC226EEF4100828870 /* Script_Timer.cpp in Sources */,
-				2C4613B3226EEDB500828870 /* gif_quantize.c in Sources */,
 				2C461956226EEF4100828870 /* SivCircle.cpp in Sources */,
 				2C46196C226EEF4100828870 /* SivQuad.cpp in Sources */,
 				2C461834226EEF4100828870 /* Script_TextToSpeech.cpp in Sources */,
@@ -7487,7 +7461,6 @@
 				2C461884226EEF4100828870 /* SivAnimatedGIFWriter.cpp in Sources */,
 				2C461827226EEF4100828870 /* Script_Point.cpp in Sources */,
 				2C461AE822712B0200828870 /* TextureFactory.cpp in Sources */,
-				2C4613B1226EEDB500828870 /* gifalloc.c in Sources */,
 				2C4613D0226EEDB500828870 /* divsufsort.c in Sources */,
 				2C461931226EEF4100828870 /* SivDynamicTexture.cpp in Sources */,
 				2C46136A226EEDB500828870 /* RecastAlloc.cpp in Sources */,
@@ -7727,7 +7700,6 @@
 				2C46191F226EEF4100828870 /* SivBinaryReader.cpp in Sources */,
 				2C4618BE226EEF4100828870 /* SivStopwatch.cpp in Sources */,
 				2C4618AC226EEF4100828870 /* TextBoxDetail.cpp in Sources */,
-				2C4613B6226EEDB500828870 /* gif_err.c in Sources */,
 				2C4618F4226EEF4100828870 /* CImageFormat.cpp in Sources */,
 				2C461859226EEF4100828870 /* P2DistanceJointDetail.cpp in Sources */,
 				2C4613CA226EEDB500828870 /* huf_compress.c in Sources */,
@@ -7737,7 +7709,6 @@
 				2C461A3C226F2D0000828870 /* cocoa_init.m in Sources */,
 				2C46185A226EEF4100828870 /* P2WheelJointDetail.cpp in Sources */,
 				2C4619A4226EEF4100828870 /* CFont.cpp in Sources */,
-				2C4613AC226EEDB500828870 /* egif_lib.c in Sources */,
 				2C461375226EEDB500828870 /* FastNoiseSIMD_avx2.cpp in Sources */,
 				2C461981226EEF4100828870 /* SivQR.cpp in Sources */,
 				2C461152226EEDB500828870 /* format.cc in Sources */,
@@ -7761,7 +7732,6 @@
 				2C46188D226EEF4100828870 /* SivHSV.cpp in Sources */,
 				2C461851226EEF4100828870 /* CSVM.cpp in Sources */,
 				2C461996226EEF4100828870 /* SivBezier3.cpp in Sources */,
-				2C4613B4226EEDB500828870 /* gif_font.c in Sources */,
 				2C461898226EEF4100828870 /* SivIcon.cpp in Sources */,
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
 				2C461810226EEF4100828870 /* Script_Profiler.cpp in Sources */,
@@ -7845,7 +7815,6 @@
 				2C4617D5226EEF4100828870 /* SivCPU.cpp in Sources */,
 				2C46191D226EEF4100828870 /* SivParticle2D.cpp in Sources */,
 				2C4613D1226EEDB500828870 /* fastcover.c in Sources */,
-				2C4613B2226EEDB500828870 /* gif_hash.c in Sources */,
 				2C4619B2226EF33F00828870 /* CXInput.cpp in Sources */,
 				2C461431226EEDB500828870 /* sweep.cc in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
@@ -7888,7 +7857,6 @@
 				2C4618A8226EEF4100828870 /* SivLineString.cpp in Sources */,
 				2C4619A2226EEF4100828870 /* SivFont.cpp in Sources */,
 				2C461357226EEDB500828870 /* Recast.cpp in Sources */,
-				2C4613AD226EEDB500828870 /* dgif_lib.c in Sources */,
 				2C4618B6226EEF4100828870 /* SivThreading.cpp in Sources */,
 				2C461A79226F4C1500828870 /* CMouse.cpp in Sources */,
 				2C4617E3226EEF4100828870 /* ScriptData.cpp in Sources */,
@@ -7961,6 +7929,7 @@
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
 					../Siv3D/lib/macOS/harfbuzz,
+					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,
@@ -8033,6 +8002,7 @@
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
 					../Siv3D/lib/macOS/harfbuzz,
+					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,

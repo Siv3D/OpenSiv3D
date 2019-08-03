@@ -22,7 +22,7 @@
 - [FreeType (2.8.0)](https://www.freetype.org/)
 - [frontal cat face detector](https://github.com/opencv/opencv/blob/master/data/lbpcascades/lbpcascade_frontalcatface.xml)
 - [gif-h](https://github.com/ginsweater/gif-h)
-- [giflib (5.1.4)](https://sourceforge.net/projects/giflib/)
+- [giflib (5.2.1)](https://sourceforge.net/projects/giflib/)
 - [GLEW (2.1.0)](http://glew.sourceforge.net/)
 - [GLFW (3.3)](https://github.com/glfw/glfw)
 - [HarfBuzz (1.4.6)](https://github.com/harfbuzz/harfbuzz)
