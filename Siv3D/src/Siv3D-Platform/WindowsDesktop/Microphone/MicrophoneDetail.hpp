@@ -23,7 +23,7 @@ namespace s3d
 
 		Array<WaveSampleS16> m_buffer;
 
-		WAVEHDR m_wh;
+		WAVEHDR m_wh = {};
 
 		uint32 m_samplingRate = Wave::DefaultSamplingRate;
 

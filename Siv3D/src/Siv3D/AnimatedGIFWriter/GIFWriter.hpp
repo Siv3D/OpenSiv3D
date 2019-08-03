@@ -769,10 +769,10 @@ inline void GifWriteLzwImage(s3d::IWriter * f, uint8_t * image, uint32_t left, u
 
 struct GifWriter
 {
-	s3d::IWriter* w;
+	s3d::IWriter* w = nullptr;
 	//FILE* f;
-	uint8_t* oldImage;
-	bool firstFrame;
+	uint8_t* oldImage = nullptr;
+	bool firstFrame = false;
 };
 
 // Creates a gif file.

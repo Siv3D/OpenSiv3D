@@ -701,6 +701,7 @@ namespace s3d
 
 		if (FAILED(p->QueryInterface(IID_IDropTarget, (void**)&m_pDropTarget)))
 		{
+			p->Release();
 			throw EngineError(U"DropTarget::QueryInterface() failed");
 		}
 

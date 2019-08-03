@@ -21,11 +21,11 @@ namespace s3d
 	/// </summary>
 	struct FontAssetData : IAsset
 	{
-		int32 fontSize;
+		int32 fontSize = 0;
 
 		FilePath path;
 
-		FontStyle style;
+		FontStyle style = FontStyle::Default;
 
 		Font font;
 

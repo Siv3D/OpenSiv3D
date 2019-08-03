@@ -161,6 +161,11 @@ namespace s3d
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::Get<ISiv3DGraphics>());
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::Get<ISiv3DTexture>());
 
+		if (!pGraphics || !pTexture)
+		{
+			return;
+		}
+
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		setVS(m_standardVSs[StandardVSIndex::Sprite]);
 
