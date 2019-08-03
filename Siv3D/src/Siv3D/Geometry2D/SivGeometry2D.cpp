@@ -2366,7 +2366,7 @@ namespace s3d
 
 		bool Contains(const Triangle& a, const Line& b) noexcept
 		{
-			return Intersect(b.begin, a) && Intersect(b.begin, a);
+			return Intersect(b.begin, a) && Intersect(b.end, a);
 		}
 
 		bool Contains(const Triangle& a, const Rect& b) noexcept
@@ -2409,7 +2409,7 @@ namespace s3d
 
 		bool Contains(const Quad& a, const Line& b) noexcept
 		{
-			return Intersect(b.begin, a) && Intersect(b.begin, a);
+			return Intersect(b.begin, a) && Intersect(b.end, a);
 		}
 
 		bool Contains(const Quad& a, const Rect& b) noexcept
