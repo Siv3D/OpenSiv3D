@@ -72,7 +72,7 @@ namespace s3d
 
 				const bool reversed	= header->bmiHeader.biHeight > 0;
 				const int32 width	= header->bmiHeader.biWidth;
-				const int32 height	= reversed ? header->bmiHeader.biHeight : -header->bmiHeader.biHeight;	
+				const int32 height	= reversed ? header->bmiHeader.biHeight : -header->bmiHeader.biHeight;
 				const bool hasAlpha = (depth == 32)
 					&& !HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width * height);
 				image.resize(width, height);
@@ -89,70 +89,74 @@ namespace s3d
 						const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
 						const int32 lineStep = reversed ? -width : width;
 						Color* pDstLine = image[reversed ? height - 1 : 0];
-						uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize));
 
-						for (int32 y = 0; y < height; ++y)
+						if (uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize)))
 						{
-							if (y == height - 1)
+							for (int32 y = 0; y < height; ++y)
 							{
-								reader.read(buffer, width);
-							}
-							else
-							{
-								reader.read(buffer, rowSize);
+								if (y == height - 1)
+								{
+									reader.read(buffer, width);
+								}
+								else
+								{
+									reader.read(buffer, rowSize);
+								}
+
+								const uint8* pSrc = buffer;
+								const Color* const pDstEnd = pDstLine + width;
+
+								for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+								{
+									const uint8* src = palette + (static_cast<size_t>(*pSrc++) << 2);
+
+									pDst->set(src[2], src[1], src[0]);
+								}
+
+								pDstLine += lineStep;
 							}
 
-							const uint8* pSrc = buffer;
-							const Color* const pDstEnd = pDstLine + width;
-
-							for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-							{
-								const uint8 *src = palette + ((*pSrc++) << 2);
-							
-								pDst->set(src[2], src[1], src[0]);
-							}
-
-							pDstLine += lineStep;
+							std::free(buffer);
 						}
-
-						std::free(buffer);
 
 						break;
 					}
 				case 24:
 				case 32:
 					{
-						const size_t rowSize = depth == 24 ? width * 3 + width % 4 : width * 4;			
+						const size_t rowSize = (depth == 24) ? (width * 3 + width % 4) : (width * 4);			
 						const int32 depthBytes = depth / 8;
 						const int32 lineStep = reversed ? -width : width;
 						Color* pDstLine = image[reversed ? height - 1 : 0];
-						uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize));
-
-						for (int32 y = 0; y < height; ++y)
+						
+						if (uint8 * const buffer = static_cast<uint8*>(std::malloc(rowSize)))
 						{
-							if (y == height - 1)
+							for (int32 y = 0; y < height; ++y)
 							{
-								reader.read(buffer, depthBytes * width);
+								if (y == height - 1)
+								{
+									reader.read(buffer, depthBytes * width);
+								}
+								else
+								{
+									reader.read(buffer, rowSize);
+								}
+
+								const Color* const pDstEnd = pDstLine + width;
+								const uint8* pSrc = buffer;
+
+								for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+								{
+									pDst->set(pSrc[2], pSrc[1], pSrc[0], hasAlpha ? pSrc[3] : 255);
+
+									pSrc += depthBytes;
+								}
+
+								pDstLine += lineStep;
 							}
-							else
-							{
-								reader.read(buffer, rowSize);
-							}
 
-							const Color* const pDstEnd = pDstLine + width;
-							const uint8* pSrc = buffer;
-
-							for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-							{
-								pDst->set(pSrc[2], pSrc[1], pSrc[0], hasAlpha ? pSrc[3] : 255);
-
-								pSrc += depthBytes;
-							}
-
-							pDstLine += lineStep;
+							std::free(buffer);
 						}
-
-						std::free(buffer);
 
 						break;
 					}
@@ -248,9 +252,12 @@ namespace s3d
 
 			if (const HGLOBAL hGlobal = static_cast<HGLOBAL>(::GetClipboardData(CF_UNICODETEXT)))
 			{
-				text = Unicode::FromWString(static_cast<const wchar_t*>(::GlobalLock(hGlobal)));
+				if (const void* p = ::GlobalLock(hGlobal))
+				{
+					text = Unicode::FromWString(static_cast<const wchar_t*>(p));
 
-				::GlobalUnlock(hGlobal);
+					::GlobalUnlock(hGlobal);
+				}
 
 				text.remove(L'\r');
 			}
@@ -328,13 +335,14 @@ namespace s3d
 
 		if (HANDLE hData = ::GlobalAlloc(GMEM_MOVEABLE, size))
 		{
-			void* pDst = ::GlobalLock(hData);
+			if (void* pDst = ::GlobalLock(hData))
+			{
+				std::memcpy(pDst, text.data(), size);
 
-			std::memcpy(pDst, text.data(), size);
+				::GlobalUnlock(hData);
 
-			::GlobalUnlock(hData);
-
-			::SetClipboardData(CF_UNICODETEXT, hData);
+				::SetClipboardData(CF_UNICODETEXT, hData);
+			}
 		}
 
 		::CloseClipboard();
@@ -389,7 +397,11 @@ namespace s3d
 			m_sequenceNumber = ::GetClipboardSequenceNumber();
 		}
 
-		::DeleteObject(hBitmap);
+		if (hBitmap)
+		{
+			::DeleteObject(hBitmap);
+		}
+
 		::ReleaseDC(nullptr, hDC);
 	}
 
