@@ -169,6 +169,12 @@ namespace s3d
 		const size_t width = image.width();
 		const size_t height = image.height();
 		const size_t stride = image.stride();
+		uint8* line = static_cast<uint8*>(std::malloc(stride));
+
+		if (!line)
+		{
+			return false;
+		}
 
 		const TGAHeader hed =
 		{
@@ -187,8 +193,6 @@ namespace s3d
 		};
 
 		writer.write(hed);
-
-		uint8* line = static_cast<uint8*>(std::malloc(stride));
 
 		const Color* pSrc = image[0];
 

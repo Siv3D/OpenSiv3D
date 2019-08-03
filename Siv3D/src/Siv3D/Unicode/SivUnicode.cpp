@@ -99,9 +99,9 @@ namespace s3d::detail
 		}
 		else
 		{
-			*(*s)++ = static_cast<uint8>(0xEF);
-			*(*s)++ = static_cast<uint8>(0xBF);
-			*(*s)++ = static_cast<uint8>(0xBD);
+			*(*s)++ = static_cast<char8>(uint8(0xEF));
+			*(*s)++ = static_cast<char8>(uint8(0xBF));
+			*(*s)++ = static_cast<char8>(uint8(0xBD));
 		}
 	}
 

@@ -21,70 +21,70 @@ namespace s3d
 		{
 			String result;
 
-			if (ns < 1'000'000ULL)
+			if (ns < 1'000'000ULL) // < 1000us
 			{
-				if (ns < 1'000ULL) // 0 - 999
+				if (ns < 1'000ULL) // < 1us
 				{
 					result.append(ToString(ns));
 					result.append(U"ns", 2);
 				}
 				else
 				{
-					if (ns < 10'000ULL) // 1,000 - 9,999
+					if (ns < 10'000ULL) // < 10us
 					{
 						result.append(ToFixed(ns / 1'000.0, 2));
 						result.append(U"us", 2);
 					}
-					else if (ns < 100'000ULL) // 10,000 - 99,999
+					else if (ns < 100'000ULL) // < 100us
 					{
 						result.append(ToFixed(ns / 1'000.0, 1));
 						result.append(U"us", 2);
 					}
-					else // 100,000 - 999,999
+					else // < 1000us
 					{
 						result.append(ToString(ns / 1'000ULL));
 						result.append(U"us", 2);
 					}
 				}
 			}
-			else if (ns < 1'000'000'000ULL)
+			else if (ns < 1'000'000'000ULL) // < 1000ms
 			{
-				if (ns < 10'000'000ULL) // 1,000,000 - 9,999,999
+				if (ns < 10'000'000ULL) // < 10ms
 				{
 					result.append(ToFixed(ns / 1'000'000.0, 2));
 					result.append(U"ms", 2);
 				}
-				else if (ns < 100'000'000ULL) // 10,000,000 - 99,999,999
+				else if (ns < 100'000'000ULL) // < 100ms
 				{
 					result.append(ToFixed(ns / 1'000'000.0, 1));
 					result.append(U"ms", 2);
 				}
-				else // 100,000,000 - 999,999,999
+				else // < 1000ms
 				{
 					result.append(ToString(ns / 1'000'000ULL));
 					result.append(U"ms", 2);
 				}
 			}
-			else
+			else // >= 1s
 			{
-				if (ns < 10'000'000'000ULL) // 1,000,000,000 - 9,999,999,999
+				if (ns < 10'000'000'000ULL) // < 10s
 				{
 					result.append(ToFixed(ns / 1'000'000'000.0, 2));
 					result.push_back(U's');
 				}
-				else if (ns < 100'000'000'000ULL) // 10,000,000,000 - 99,999,999,999
+				else if (ns < 100'000'000'000ULL) // < 100s
 				{
 					result.append(ToFixed(ns / 1'000'000'000.0, 1));
 					result.push_back(U's');
 				}
-				else if (ns < 100'000'000'000ULL) // 100,000,000,000 - 999,999,999,999
+				else if (ns <= 1000'000'000'000ULL) // <= 1000s
 				{
 					result.append(ToString(ns / 1'000'000'000ULL));
 					result.push_back(U's');
 				}
-				else // 1'000,000,000,000 -
+				else // > 1000s
 				{
-					result.assign(U">999s");
+					result.assign(U">1000s");
 				}
 			}
 

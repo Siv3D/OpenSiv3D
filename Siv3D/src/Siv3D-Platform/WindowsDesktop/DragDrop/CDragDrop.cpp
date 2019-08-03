@@ -666,7 +666,8 @@ namespace s3d
 			STGMEDIUM medium = {};
 			medium.tymed = TYMED_HGLOBAL;
 			medium.hGlobal = ::GlobalAlloc(GMEM_MOVEABLE, sizeof(DROPFILES) + path_size_bytes);
-			void* p = ::GlobalLock(medium.hGlobal);
+			
+			if (void* p = ::GlobalLock(medium.hGlobal))
 			{
 				((DROPFILES*)p)->pFiles = sizeof(DROPFILES);
 				((DROPFILES*)p)->fWide = true;
