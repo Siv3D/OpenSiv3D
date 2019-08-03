@@ -152,33 +152,35 @@ namespace s3d
 				const int32 depthBytes = depth / 8;
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
-				uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize * 4));
 
-				for (int32 y = 0; y < height; ++y)
+				if (uint8 * const buffer = static_cast<uint8*>(std::malloc(rowSize * 4)))
 				{
-					if (height - y < 4)
+					for (int32 y = 0; y < height; ++y)
 					{
-						reader.read(buffer, rowSize * (height - y));
+						if (height - y < 4)
+						{
+							reader.read(buffer, rowSize * (height - y));
+						}
+						else if (y % 4 == 0)
+						{
+							reader.read(buffer, rowSize * 4);
+						}
+
+						const Color* const pDstEnd = pDstLine + width;
+						uint8* pSrc = &buffer[rowSize * (y % 4)];
+
+						for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+						{
+							pDst->set(pSrc[2], pSrc[1], pSrc[0]);
+
+							pSrc += depthBytes;
+						}
+
+						pDstLine += lineStep;
 					}
-					else if (y % 4 == 0)
-					{
-						reader.read(buffer, rowSize * 4);
-					}
 
-					const Color* const pDstEnd = pDstLine + width;
-					uint8* pSrc = &buffer[rowSize * (y%4)];
-
-					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-					{
-						pDst->set(pSrc[2], pSrc[1], pSrc[0]);
-
-						pSrc += depthBytes;
-					}
-
-					pDstLine += lineStep;
+					std::free(buffer);
 				}
-
-				std::free(buffer);
 
 				break;
 			}

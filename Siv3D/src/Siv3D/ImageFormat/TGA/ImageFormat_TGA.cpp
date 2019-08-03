@@ -99,6 +99,12 @@ namespace s3d
 		const int32 size = width * height*pixelSize;
 
 		uint8* readPixels = static_cast<uint8*>(std::malloc(size));
+
+		if (!readPixels)
+		{
+			return Image();
+		}
+
 		reader.read(readPixels, size);
 
 		Image image(width, height);
@@ -106,51 +112,51 @@ namespace s3d
 		switch (hed.bpp)
 		{
 		case 24:
-		{
-			const bool reversed = !(hed.attrib & 0x20);
-			Color* pLine = image[reversed ? height - 1 : 0];
-			const uint8* pSrc = &readPixels[0];
-			int32 step = reversed ? -width : width;
-
-			for (int32 y = 0; y < height; ++y)
 			{
-				Color* pDst = pLine;
+				const bool reversed = !(hed.attrib & 0x20);
+				Color* pLine = image[reversed ? height - 1 : 0];
+				const uint8* pSrc = &readPixels[0];
+				int32 step = reversed ? -width : width;
 
-				for (int32 x = 0; x < width; ++x)
+				for (int32 y = 0; y < height; ++y)
 				{
-					pDst->set(pSrc[2], pSrc[1], pSrc[0]);
-					pSrc += 3;
-					++pDst;
+					Color* pDst = pLine;
+
+					for (int32 x = 0; x < width; ++x)
+					{
+						pDst->set(pSrc[2], pSrc[1], pSrc[0]);
+						pSrc += 3;
+						++pDst;
+					}
+
+					pLine += step;
 				}
 
-				pLine += step;
+				break;
 			}
-
-			break;
-		}
 		case 32:
-		{
-			const bool reversed = !(hed.attrib & 0x20);
-			Color* pLine = image[reversed ? height - 1 : 0];
-			const uint8* pSrc = &readPixels[0];
-			int32 step = reversed ? -width : width;
-
-			for (int y = 0; y < height; ++y)
 			{
-				Color* pDst = pLine;
+				const bool reversed = !(hed.attrib & 0x20);
+				Color* pLine = image[reversed ? height - 1 : 0];
+				const uint8* pSrc = &readPixels[0];
+				int32 step = reversed ? -width : width;
 
-				for (int32 x = 0; x < width; ++x)
+				for (int y = 0; y < height; ++y)
 				{
-					pDst->set(pSrc[2], pSrc[1], pSrc[0], pSrc[3]);
-					pSrc += 4;
-					++pDst;
+					Color* pDst = pLine;
+
+					for (int32 x = 0; x < width; ++x)
+					{
+						pDst->set(pSrc[2], pSrc[1], pSrc[0], pSrc[3]);
+						pSrc += 4;
+						++pDst;
+					}
+
+					pLine += step;
 				}
 
-				pLine += step;
+				break;
 			}
-
-			break;
-		}
 		}
 
 		std::free(readPixels);

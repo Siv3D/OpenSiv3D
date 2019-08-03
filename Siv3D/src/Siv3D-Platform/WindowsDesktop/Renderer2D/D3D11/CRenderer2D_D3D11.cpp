@@ -393,6 +393,11 @@ namespace s3d
 	{
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::Get<ISiv3DGraphics>());
 
+		if (!pGraphics)
+		{
+			return;
+		}
+
 		const Float2 sceneSize = pGraphics->getSceneSize();
 		auto[s, viewRect] = getLetterboxingTransform();
 		

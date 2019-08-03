@@ -171,6 +171,7 @@ namespace s3d
 
 		WebPPicture picture;
 		WebPConfig config;
+		WebPAuxStats stats;
 
 		if (!::WebPPictureInit(&picture) || !::WebPConfigInit(&config))
 		{
@@ -198,7 +199,6 @@ namespace s3d
 				return false;
 			}
 
-			WebPAuxStats stats;
 			picture.writer		= detail::WebPWriteCallback;
 			picture.custom_ptr	= &writer;
 			picture.stats		= &stats;
@@ -228,7 +228,6 @@ namespace s3d
 				return false;
 			}
 
-			WebPAuxStats stats;
 			picture.writer		= detail::WebPWriteCallback;
 			picture.custom_ptr	= &writer;
 			picture.stats		= &stats;

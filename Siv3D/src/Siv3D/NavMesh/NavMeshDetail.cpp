@@ -274,13 +274,10 @@ namespace s3d
 
 		rcCalcGridSize(cfg.bmin, cfg.bmax, cellSize, &cfg.width, &cfg.height);
 
-		if (cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON)
-		{
-			return false;
-		}
-
-		//LOG_DEBUG(U"{0}x{1} cells"_fmt(cfg.width, cfg.height));
-		//LOG_DEBUG(U"{0} verts, {1} tris"_fmt(m_vertices.size(), m_indices.size() / 3));
+		//if (cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON)
+		//{
+		//	return false;
+		//}
 
 		cfg.width	= static_cast<int32>((cfg.bmax[0] - cfg.bmin[0]) / cellSize + 1);
 		cfg.height	= static_cast<int32>((cfg.bmax[2] - cfg.bmin[2]) / cellSize + 1);

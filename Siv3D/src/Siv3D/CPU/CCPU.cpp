@@ -17,6 +17,7 @@
 namespace s3d
 {
 	CCPU::CCPU()
+		: m_feature()
 	{
 
 	}
