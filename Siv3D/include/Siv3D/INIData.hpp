@@ -121,7 +121,7 @@ namespace s3d
 
 		[[nodiscard]] bool isEmpty() const;
 
-		[[nodiscard]] explicit operator bool() const { return isEmpty(); }
+		[[nodiscard]] explicit operator bool() const { return !isEmpty(); }
 
 		[[nodiscard]] bool hasSection(const Section& section) const;
 
