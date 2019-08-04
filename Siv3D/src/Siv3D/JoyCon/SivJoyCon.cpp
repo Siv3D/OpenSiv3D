@@ -47,10 +47,10 @@ namespace s3d
 
 			// body
 			{
-				Circle(base.tl().movedBy(3.0, 3.6), 3.0).drawPie(0_deg, -90_deg, color);
-				RectF(base.tl().movedBy(0.0, 3.6), Vec2(3.0, 8.63)).draw(color);
+				Circle(base.pos.movedBy(3.0, 3.6), 3.0).drawPie(0_deg, -90_deg, color);
+				RectF(base.pos.movedBy(0.0, 3.6), Vec2(3.0, 8.63)).draw(color);
 				Circle(base.bl().movedBy(3.0, -3.1), 3.0).drawPie(180_deg, 90_deg, color);
-				RectF(base.tl().movedBy(3.00, 0.6), Vec2(1.82, 14.63)).draw(color);
+				RectF(base.pos.movedBy(3.00, 0.6), Vec2(1.82, 14.63)).draw(color);
 			}
 
 			// arrow
@@ -94,14 +94,16 @@ namespace s3d
 
 			if (covered)
 			{
+				const Vec2 tr = base.tr();
+
 				// strap body
-				Circle(base.tr().movedBy(-2.08, 2.33), 1.73).drawPie(0_deg, 90_deg, defaultButtonColor);
-				RectF(base.tr().movedBy(-2.08, 2.33), Vec2(1.73, 11.0 + 0.17)).draw(defaultButtonColor);
+				Circle(tr.movedBy(-2.08, 2.33), 1.73).drawPie(0_deg, 90_deg, defaultButtonColor);
+				RectF(tr.movedBy(-2.08, 2.33), Vec2(1.73, 11.0 + 0.17)).draw(defaultButtonColor);
 				Circle(base.br().movedBy(-2.08, -2.0 + 0.17), 1.73).drawPie(90_deg, 90_deg, defaultButtonColor);
 
 				// SL, SR
-				RoundRect(base.tr().moveBy(-0.45, 3.1), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSL, guide.buttonSL));
-				RoundRect(base.tr().moveBy(-0.45, 9.0), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSR, guide.buttonSR));
+				RoundRect(tr.movedBy(-0.45, 3.1), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSL, guide.buttonSL));
+				RoundRect(tr.movedBy(-0.45, 9.0), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSR, guide.buttonSR));
 			}
 			else
 			{
@@ -140,10 +142,11 @@ namespace s3d
 
 			// body
 			{
-				Circle(base.tr().movedBy(-3.0, 3.6), 3.0).drawPie(0_deg, 90_deg, color);
-				RectF(base.tr().movedBy(-3.0, 3.6), Vec2(3.0, 8.63)).draw(color);
+				const Vec2 tr = base.tr();
+				Circle(tr.movedBy(-3.0, 3.6), 3.0).drawPie(0_deg, 90_deg, color);
+				RectF(tr.movedBy(-3.0, 3.6), Vec2(3.0, 8.63)).draw(color);
 				Circle(base.br().movedBy(-3.0, -3.1), 3.0).drawPie(180_deg, -90_deg, color);
-				RectF(base.tr().movedBy(-4.82, 0.6), Vec2(1.82, 14.63)).draw(color);
+				RectF(tr.movedBy(-4.82, 0.6), Vec2(1.82, 14.63)).draw(color);
 			}
 
 			// ABXY
@@ -188,13 +191,13 @@ namespace s3d
 			if (covered)
 			{
 				// strap body
-				Circle(base.tl().movedBy(2.08, 2.33), 1.73).drawPie(0_deg, -90_deg, defaultButtonColor);
-				RectF(base.tl().movedBy(0.35, 2.33), Vec2(1.73, 11.0 + 0.17)).draw(defaultButtonColor);
+				Circle(base.pos.movedBy(2.08, 2.33), 1.73).drawPie(0_deg, -90_deg, defaultButtonColor);
+				RectF(base.pos.movedBy(0.35, 2.33), Vec2(1.73, 11.0 + 0.17)).draw(defaultButtonColor);
 				Circle(base.bl().movedBy(2.08, -2.0 + 0.17), 1.73).drawPie(180_deg, 90_deg, defaultButtonColor);
 
 				// SL, SR
-				RoundRect(base.tl().moveBy(0.0, 3.1), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSR, guide.buttonSR));
-				RoundRect(base.tl().moveBy(0.0, 9.0), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSL, guide.buttonSL));
+				RoundRect(base.pos.movedBy(0.0, 3.1), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSR, guide.buttonSR));
+				RoundRect(base.pos.movedBy(0.0, 9.0), Vec2(0.45, 2.0), 0.1).draw(buttonColor(joycon.buttonSL, guide.buttonSL));
 			}
 			else
 			{

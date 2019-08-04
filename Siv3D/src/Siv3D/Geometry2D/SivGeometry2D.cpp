@@ -288,7 +288,7 @@ namespace s3d
 		{
 			const double minX = std::min({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
 			const double maxX = std::max({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
-			const double minY = std::min({ bezier.p0.x, bezier.p1.y, bezier.p2.y });
+			const double minY = std::min({ bezier.p0.y, bezier.p1.y, bezier.p2.y });
 			const double maxY = std::max({ bezier.p0.y, bezier.p1.y, bezier.p2.y });
 			return{ minX, minY, maxX - minX,maxY - minY };
 		}
@@ -297,7 +297,7 @@ namespace s3d
 		{
 			const double minX = std::min({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
 			const double maxX = std::max({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
-			const double minY = std::min({ bezier.p0.x, bezier.p1.y, bezier.p2.y, bezier.p3.y });
+			const double minY = std::min({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
 			const double maxY = std::max({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
 			return{ minX, minY, maxX - minX,maxY - minY };
 		}
@@ -2704,19 +2704,17 @@ namespace s3d
 			case Region::TL:
 				return Distance(a, p.circleTL);
 			case Region::T:
+			case Region::B:
 				return Distance(a, p.rectB);
 			case Region::TR:
 				return Distance(a, p.circleTR);
 			case Region::L:
+			case Region::R:
 				return Distance(a, p.rectA);
 			case Region::C:
 				return 0.0;
-			case Region::R:
-				return Distance(a, p.rectA);
 			case Region::BL:
 				return Distance(a, p.circleBL);
-			case Region::B:
-				return Distance(a, p.rectB);
 			case Region::BR:
 			default:
 				return Distance(a, p.circleBR);

@@ -51,7 +51,6 @@ namespace s3d
 	void RegisterNamedArg(asIScriptEngine *engine)
 	{
 		static constexpr uint8 namedArgDummy = 0;
-		const char TypeName[] = "samplingRate";
 
 		int32 r = 0;	
 

@@ -1097,7 +1097,7 @@ namespace s3d
 
 	void P2Line::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getLine().draw(thickness / Graphics2D::GetMaxScaling(), color);
+		drawFrame(thickness, color);
 	}
 
 	Line P2Line::getLine() const
@@ -1175,14 +1175,7 @@ namespace s3d
 
 	void P2LineString::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		if (m_closed)
-		{
-			getLineString().drawClosed(thickness / Graphics2D::GetMaxScaling(), color);
-		}
-		else
-		{
-			getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color);
-		}
+		drawFrame(thickness, color);
 	}
 
 	const LineString& P2LineString::getLineString() const
@@ -1234,7 +1227,7 @@ namespace s3d
 
 	void P2Circle::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getCircle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+		drawFrame(thickness, color);
 	}
 
 	Circle P2Circle::getCircle() const
@@ -1338,7 +1331,7 @@ namespace s3d
 
 	void P2Triangle::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getTriangle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+		drawFrame(thickness, color);
 	}
 
 	Triangle P2Triangle::getTriangle() const
@@ -1385,7 +1378,7 @@ namespace s3d
 
 	void P2Quad::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+		drawFrame(thickness, color);
 	}
 
 	Quad P2Quad::getQuad() const
