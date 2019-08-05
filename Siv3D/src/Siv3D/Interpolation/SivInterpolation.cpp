@@ -118,7 +118,7 @@ namespace s3d
 			return result;
 		}
 
-		Float2 SmoothDamp(const Float2 from, Float2 to, Float2& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float2 SmoothDamp(const Float2& from, Float2 to, Float2& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
 		{
 			const float omega = 2.0f / smoothTime;
 			const float x = omega * deltaTime;
@@ -149,7 +149,7 @@ namespace s3d
 			return result;
 		}
 
-		Vec2 SmoothDamp(const Vec2 from, Vec2 to, Vec2& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec2 SmoothDamp(const Vec2& from, Vec2 to, Vec2& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
 		{
 			const double omega = 2.0 / smoothTime;
 			const double x = omega * deltaTime;
@@ -180,7 +180,7 @@ namespace s3d
 			return result;
 		}
 
-		Float3 SmoothDamp(const Float3 from, Float3 to, Float3& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float3 SmoothDamp(const Float3& from, Float3 to, Float3& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
 		{
 			const float omega = 2.0f / smoothTime;
 			const float x = omega * deltaTime;
@@ -211,7 +211,7 @@ namespace s3d
 			return result;
 		}
 
-		Vec3 SmoothDamp(const Vec3 from, Vec3 to, Vec3& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec3 SmoothDamp(const Vec3& from, Vec3 to, Vec3& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
 		{
 			const double omega = 2.0 / smoothTime;
 			const double x = omega * deltaTime;
@@ -242,7 +242,7 @@ namespace s3d
 			return result;
 		}
 
-		Float4 SmoothDamp(const Float4 from, Float4 to, Float4& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float4 SmoothDamp(const Float4& from, Float4 to, Float4& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
 		{
 			const float omega = 2.0f / smoothTime;
 			const float x = omega * deltaTime;
@@ -273,7 +273,7 @@ namespace s3d
 			return result;
 		}
 
-		Vec4 SmoothDamp(const Vec4 from, Vec4 to, Vec4& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec4 SmoothDamp(const Vec4& from, Vec4 to, Vec4& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
 		{
 			const double omega = 2.0 / smoothTime;
 			const double x = omega * deltaTime;

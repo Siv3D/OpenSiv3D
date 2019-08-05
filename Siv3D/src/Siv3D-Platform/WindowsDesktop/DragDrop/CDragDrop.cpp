@@ -666,7 +666,8 @@ namespace s3d
 			STGMEDIUM medium = {};
 			medium.tymed = TYMED_HGLOBAL;
 			medium.hGlobal = ::GlobalAlloc(GMEM_MOVEABLE, sizeof(DROPFILES) + path_size_bytes);
-			void* p = ::GlobalLock(medium.hGlobal);
+			
+			if (void* p = ::GlobalLock(medium.hGlobal))
 			{
 				((DROPFILES*)p)->pFiles = sizeof(DROPFILES);
 				((DROPFILES*)p)->fWide = true;
@@ -701,6 +702,7 @@ namespace s3d
 
 		if (FAILED(p->QueryInterface(IID_IDropTarget, (void**)&m_pDropTarget)))
 		{
+			p->Release();
 			throw EngineError(U"DropTarget::QueryInterface() failed");
 		}
 

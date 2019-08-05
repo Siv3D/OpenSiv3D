@@ -181,7 +181,7 @@ namespace s3d
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Float2 opMul_r(float) const", asFUNCTIONPR(operator*, (float, const Float2&), Float2), asCALL_CDECL_OBJLAST);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 opMul_r(float) const", asFUNCTIONPR(operator*, (float, const Float2&), Float2), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 opImplConv() const", asFUNCTION(ConvToVec2), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}

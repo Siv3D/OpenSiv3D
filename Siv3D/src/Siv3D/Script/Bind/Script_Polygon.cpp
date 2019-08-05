@@ -51,15 +51,20 @@ namespace s3d
 	{
 		asITypeInfo* typeID = asGetActiveContext()->GetEngine()->GetTypeInfoByDecl("Array<Vec2>");
 
-		void* mem = ::malloc(self.outer().size_bytes() + sizeof(asUINT));
+		if (void* mem = std::malloc(self.outer().size_bytes() + sizeof(asUINT)))
+		{
+			*(asUINT*)mem = static_cast<asUINT>(self.outer().size());
+			std::memcpy(((asUINT*)mem) + 1, self.outer().data(), self.outer().size_bytes());
 
-		*(asUINT*)mem = static_cast<asUINT>(self.outer().size());
-		::memcpy(((asUINT*)mem) + 1, self.outer().data(), self.outer().size_bytes());
+			const auto p = CScriptArray::Create(typeID, mem);
+			std::free(mem);
 
-		const auto p =  CScriptArray::Create(typeID, mem);
-		::free(mem);
-
-		return p;
+			return p;
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	static bool ConvToBool(const Polygon& polygon)

@@ -113,33 +113,35 @@ namespace s3d
 				const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
-				uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize * 4));
-
-				for (int32 y = 0; y < height; ++y)
+				
+				if (uint8 * const buffer = static_cast<uint8*>(std::malloc(rowSize * 4)))
 				{
-					if (height - y < 4)
+					for (int32 y = 0; y < height; ++y)
 					{
-						reader.read(buffer, rowSize * (height - y));
-					}
-					else if (y % 4 == 0)
-					{
-						reader.read(buffer, rowSize * 4);
+						if (height - y < 4)
+						{
+							reader.read(buffer, rowSize * (height - y));
+						}
+						else if (y % 4 == 0)
+						{
+							reader.read(buffer, rowSize * 4);
+						}
+
+						uint8* tmp = &buffer[rowSize * (y % 4)];
+						const Color* const pDstEnd = pDstLine + width;
+
+						for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+						{
+							const uint8* src = palette + (static_cast<size_t>(*tmp++) << 2);
+
+							pDst->set(src[2], src[1], src[0]);
+						}
+
+						pDstLine += lineStep;
 					}
 
-					uint8* tmp = &buffer[rowSize * (y % 4)];
-					const Color* const pDstEnd = pDstLine + width;
-
-					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-					{
-						const uint8 *src = palette + ((*tmp++) << 2);
-							
-						pDst->set(src[2], src[1], src[0]);
-					}
-
-					pDstLine += lineStep;
+					std::free(buffer);
 				}
-
-				std::free(buffer);
 
 				break;
 			}
@@ -150,33 +152,35 @@ namespace s3d
 				const int32 depthBytes = depth / 8;
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
-				uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize * 4));
 
-				for (int32 y = 0; y < height; ++y)
+				if (uint8 * const buffer = static_cast<uint8*>(std::malloc(rowSize * 4)))
 				{
-					if (height - y < 4)
+					for (int32 y = 0; y < height; ++y)
 					{
-						reader.read(buffer, rowSize * (height - y));
+						if (height - y < 4)
+						{
+							reader.read(buffer, rowSize * (height - y));
+						}
+						else if (y % 4 == 0)
+						{
+							reader.read(buffer, rowSize * 4);
+						}
+
+						const Color* const pDstEnd = pDstLine + width;
+						uint8* pSrc = &buffer[rowSize * (y % 4)];
+
+						for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+						{
+							pDst->set(pSrc[2], pSrc[1], pSrc[0]);
+
+							pSrc += depthBytes;
+						}
+
+						pDstLine += lineStep;
 					}
-					else if (y % 4 == 0)
-					{
-						reader.read(buffer, rowSize * 4);
-					}
 
-					const Color* const pDstEnd = pDstLine + width;
-					uint8* pSrc = &buffer[rowSize * (y%4)];
-
-					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-					{
-						pDst->set(pSrc[2], pSrc[1], pSrc[0]);
-
-						pSrc += depthBytes;
-					}
-
-					pDstLine += lineStep;
+					std::free(buffer);
 				}
-
-				std::free(buffer);
 
 				break;
 			}
@@ -221,27 +225,28 @@ namespace s3d
 
 		const Color* pSrcLine = image[height - 1];
 
-		uint8* const line = static_cast<uint8*>(std::calloc(rowSize, sizeof(uint8)));
-
-		for (int32 y = 0; y < height; ++y)
+		if (uint8 * const line = static_cast<uint8*>(std::calloc(rowSize, sizeof(uint8))))
 		{
-			uint8* pDst = line;
-			const Color* pSrc = pSrcLine;
-
-			for (int32 x = 0; x < width; ++x)
+			for (int32 y = 0; y < height; ++y)
 			{
-				*pDst++ = pSrc->b;
-				*pDst++ = pSrc->g;
-				*pDst++ = pSrc->r;
-				++pSrc;
+				uint8* pDst = line;
+				const Color* pSrc = pSrcLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					*pDst++ = pSrc->b;
+					*pDst++ = pSrc->g;
+					*pDst++ = pSrc->r;
+					++pSrc;
+				}
+
+				writer.write(line, rowSize);
+
+				pSrcLine -= width;
 			}
 
-			writer.write(line, rowSize);
-
-			pSrcLine -= width;
+			std::free(line);
 		}
-
-		std::free(line);
 
 		return true;
 	}

@@ -429,7 +429,7 @@ size_t ZSTD_ldm_generateSequences(
      */
     assert(ldmState->window.nextSrc >= (BYTE const*)src + srcSize);
     /* The input could be very large (in zstdmt), so it must be broken up into
-     * chunks to enforce the maximmum distance and handle overflow correction.
+     * chunks to enforce the maximum distance and handle overflow correction.
      */
     assert(sequences->pos <= sequences->size);
     assert(sequences->size <= sequences->capacity);
@@ -447,7 +447,7 @@ size_t ZSTD_ldm_generateSequences(
         if (ZSTD_window_needOverflowCorrection(ldmState->window, chunkEnd)) {
             U32 const ldmHSize = 1U << params->hashLog;
             U32 const correction = ZSTD_window_correctOverflow(
-                &ldmState->window, /* cycleLog */ 0, maxDist, src);
+                &ldmState->window, /* cycleLog */ 0, maxDist, chunkStart);
             ZSTD_ldm_reduceTable(ldmState->hashTable, ldmHSize, correction);
         }
         /* 2. We enforce the maximum offset allowed.

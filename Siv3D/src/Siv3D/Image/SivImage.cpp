@@ -492,7 +492,7 @@ namespace s3d
 		}
 	}
 
-	Image& Image::operator =(Image&& image)
+	Image& Image::operator =(Image&& image) noexcept
 	{
 		m_data = std::move(image.m_data);
 		m_width = image.m_width;
@@ -508,7 +508,7 @@ namespace s3d
 		return operator =(image);
 	}
 
-	Image& Image::assign(Image&& image)
+	Image& Image::assign(Image&& image) noexcept
 	{
 		return operator =(std::move(image));
 	}

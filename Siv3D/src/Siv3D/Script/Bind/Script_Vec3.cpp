@@ -170,6 +170,6 @@ namespace s3d
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Vec3 opMul_r(double) const", asFUNCTIONPR(operator*, (double, const Vec3&), Vec3), asCALL_CDECL_OBJLAST);
+		r = engine->RegisterObjectMethod(TypeName, "Vec3 opMul_r(double) const", asFUNCTIONPR(operator*, (double, const Vec3&), Vec3), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
 }

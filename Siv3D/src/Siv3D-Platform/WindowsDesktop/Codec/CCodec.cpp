@@ -234,6 +234,7 @@ namespace s3d
 
 		if (FAILED(pMFReaderStream->Open()))
 		{
+			pMFReaderStream->Release();
 			return Wave();
 		}
 

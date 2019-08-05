@@ -31,7 +31,7 @@ namespace s3d
 
 		static constexpr int32 Get8Direction(const int32 angle)
 		{
-			const int32 deg = angle / 100;
+			const double deg = angle / 100.0;
 
 			if (deg <= 22.5)
 				return 0;
@@ -55,7 +55,8 @@ namespace s3d
 	}
 
 	CGamepad::CGamepad()
-		: m_inputs{ {detail::Gamepad_impl(0), detail::Gamepad_impl(1),
+		: m_states()
+		, m_inputs{ {detail::Gamepad_impl(0), detail::Gamepad_impl(1),
 					detail::Gamepad_impl(2), detail::Gamepad_impl(3),
 					detail::Gamepad_impl(4), detail::Gamepad_impl(5),
 					detail::Gamepad_impl(6), detail::Gamepad_impl(7),

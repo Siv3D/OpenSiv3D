@@ -122,9 +122,7 @@ namespace s3d
 
 	String& String::operator <<(const value_type ch)
 	{
-		m_string.push_back(ch);
-
-		return *this;
+		return append(ch);
 	}
 
 	String& String::assign(const String& text)

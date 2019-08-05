@@ -283,9 +283,7 @@ namespace s3d
 		ogg_page og;
 		ogg_packet op;
 
-		int eos = 0;
-
-		while (!eos)
+		for(;;)
 		{
 			const int result = ::ogg_stream_flush(&os, &og);
 
@@ -301,6 +299,7 @@ namespace s3d
 		const size_t READ = 4096;
 		const WaveSample* pSrc = wave.data();
 		size_t pos_read = 0;
+		int eos = 0;
 
 		while (!eos)
 		{

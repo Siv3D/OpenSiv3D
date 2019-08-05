@@ -440,11 +440,11 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Image& operator =(Image&& image);
+		Image& operator =(Image&& image) noexcept;
 
 		Image& assign(const Image& image);
 
-		Image& assign(Image&& image);
+		Image& assign(Image&& image) noexcept;
 
 		/// <summary>
 		/// 画像の幅（ピクセル）

@@ -353,7 +353,9 @@ namespace s3d
 			return FontID::NullAsset();
 		}
 
-		return m_fonts.add(std::move(font), U"(`{0} {1}` size: {2})"_fmt(font->getFamilyName(), font->getStyleName(), fontSize));
+		const String info = U"(`{0} {1}` size: {2})"_fmt(font->getFamilyName(), font->getStyleName(), fontSize);
+
+		return m_fonts.add(std::move(font), info);
 	}
 
 	void CFont::release(const FontID handleID)

@@ -62,13 +62,13 @@ namespace s3d
 		[[nodiscard]] float SmoothDamp(float from, float to, float& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
 		[[nodiscard]] double SmoothDamp(double from, double to, double& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
 
-		[[nodiscard]] Float2 SmoothDamp(Float2 from, Float2 to, Float2& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
-		[[nodiscard]] Vec2 SmoothDamp(Vec2 from, Vec2 to, Vec2& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
+		[[nodiscard]] Float2 SmoothDamp(const Float2& from, Float2 to, Float2& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
+		[[nodiscard]] Vec2 SmoothDamp(const Vec2& from, Vec2 to, Vec2& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
 
-		[[nodiscard]] Float3 SmoothDamp(Float3 from, Float3 to, Float3& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
-		[[nodiscard]] Vec3 SmoothDamp(Vec3 from, Vec3 to, Vec3& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
+		[[nodiscard]] Float3 SmoothDamp(const Float3& from, Float3 to, Float3& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
+		[[nodiscard]] Vec3 SmoothDamp(const Vec3& from, Vec3 to, Vec3& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
 
-		[[nodiscard]] Float4 SmoothDamp(Float4 from, Float4 to, Float4& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
-		[[nodiscard]] Vec4 SmoothDamp(Vec4 from, Vec4 to, Vec4& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
+		[[nodiscard]] Float4 SmoothDamp(const Float4& from, Float4 to, Float4& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
+		[[nodiscard]] Vec4 SmoothDamp(const Vec4& from, Vec4 to, Vec4& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
 	}
 }

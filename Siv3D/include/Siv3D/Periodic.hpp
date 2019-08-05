@@ -33,7 +33,7 @@ namespace s3d
 
 		[[nodiscard]] inline double Square0_1(double periodSec, double t = Scene::Time())
 		{
-			return std::fmod(t, periodSec) < (periodSec * 0.5);
+			return (std::fmod(t, periodSec) < (periodSec * 0.5)) ? 1.0 : 0.0;
 		}
 
 		[[nodiscard]] inline double Square0_1(const Duration& period, double t = Scene::Time())

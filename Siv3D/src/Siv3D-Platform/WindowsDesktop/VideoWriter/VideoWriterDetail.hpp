@@ -26,13 +26,13 @@ namespace s3d
 
 		Size m_frameSize = Size(0, 0);
 
-		UINT32 m_bitRate;
+		UINT32 m_bitRate = 0;
 
-		GUID m_encodingFormat;
+		GUID m_encodingFormat = {};
 
-		GUID m_inputFormat;
+		GUID m_inputFormat = {};
 
-		DWORD m_streamIndex;
+		DWORD m_streamIndex = 0;
 
 		ComPtr<IMFSinkWriter> m_sinkWriter;
 
@@ -40,9 +40,9 @@ namespace s3d
 
 		bool m_initiated = false;
 
-		LONGLONG m_rtStart;
+		LONGLONG m_rtStart = 0;
 
-		UINT64 m_rtDuration;
+		UINT64 m_rtDuration = 0;
 
 		HRESULT initializeSinkWriter(const FilePath& path);
 

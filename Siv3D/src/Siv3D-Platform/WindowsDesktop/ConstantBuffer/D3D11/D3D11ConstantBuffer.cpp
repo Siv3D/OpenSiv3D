@@ -61,6 +61,11 @@ namespace s3d
 		{
 			CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::Get<ISiv3DGraphics>());
 
+			if (!graphics)
+			{
+				return false;
+			}
+
 			m_context = graphics->getContext();
 
 			D3D11_BUFFER_DESC desc;
