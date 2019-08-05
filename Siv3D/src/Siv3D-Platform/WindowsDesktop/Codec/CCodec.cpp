@@ -289,7 +289,10 @@ namespace s3d
 		}
 
 		// Create a partial media type that specifies uncompressed PCM audio.
-		hr = m_functions.p_MFCreateMediaType(&pPartialType);
+		if (SUCCEEDED(hr))
+		{
+			hr = m_functions.p_MFCreateMediaType(&pPartialType);
+		}
 
 		if (SUCCEEDED(hr))
 		{

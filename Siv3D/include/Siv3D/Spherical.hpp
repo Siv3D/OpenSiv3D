@@ -79,7 +79,7 @@ namespace s3d
 
 		[[nodiscard]] Vec3 operator -(const Vec3& v) const;
 
-		[[nodiscard]] Vec3 toFloat3() const
+		[[nodiscard]] Float3 toFloat3() const
 		{
 			const double s = std::sin(theta);
 			return{ r * s * std::cos(phi), r * std::cos(theta), r * s * std::sin(phi) };

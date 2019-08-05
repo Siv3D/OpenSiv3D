@@ -492,7 +492,7 @@ namespace s3d
 
 					selectedAdapterIndex = maxDedicatedMemoryAdapterIndex;
 				}
-				else if (targetDevice == TargetD3DDevice::Hardware_FavorIntegrated)
+				else // targetDevice == TargetD3DDevice::Hardware_FavorIntegrated
 				{
 					for (size_t adapterIndex = 0; adapterIndex < m_adapters.size(); ++adapterIndex)
 					{

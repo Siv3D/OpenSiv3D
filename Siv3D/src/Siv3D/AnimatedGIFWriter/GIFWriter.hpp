@@ -162,7 +162,7 @@ inline void GifSwapPixels(uint8_t * image, int pixA, int pixB)
 	uint8_t rB = image[pixB * 4];
 	uint8_t gB = image[pixB * 4 + 1];
 	uint8_t bB = image[pixB * 4 + 2];
-	uint8_t aB = image[pixA * 4 + 3];
+	uint8_t aB = image[pixB * 4 + 3];
 
 	image[pixA * 4] = rB;
 	image[pixA * 4 + 1] = gB;
