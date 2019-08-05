@@ -32,14 +32,15 @@ namespace s3d
 		{
 			String result = std::move(value);
 
+			const size_t endIndex = result.starts_with(U'-') ? 1 : 0;
+
 			size_t count = 0;
 
-			for (size_t i = result.size(); i != 0; --i)
+			for (size_t i = result.size(); i != endIndex; --i)
 			{
-				if (++count == 4 && !(i == 1 && result[0] == U'-'))
+				if (++count == 4)
 				{
 					result.insert(i, separator);
-
 					count = 1;
 				}
 			}
@@ -52,15 +53,16 @@ namespace s3d
 			String result = std::move(value);
 
 			const size_t zeroPos = result.lastIndexOf(U'.');
+			const size_t startIndex = (zeroPos == String::npos) ? result.size() : zeroPos;
+			const size_t endIndex = result.starts_with(U'-') ? 1 : 0;
 
 			size_t count = 0;
 
-			for (size_t i = (zeroPos == String::npos) ? result.size() : zeroPos; i != 0; --i)
+			for (size_t i = startIndex; i != endIndex; --i)
 			{
-				if (++count == 4 && !(i == 1 && result[0] == U'-'))
+				if (++count == 4)
 				{
 					result.insert(i, separator);
-
 					count = 1;
 				}
 			}

@@ -123,11 +123,11 @@ namespace s3d
 			const int32 resultWidth = imageWidth / scale;
 			const int32 resultHeight = imageHeight / scale;
 
-			detail::SDFPixel* const pPixels = static_cast<detail::SDFPixel*>(std::malloc(sizeof(detail::SDFPixel) * num_pixels));
+			Array<detail::SDFPixel> pixels(num_pixels);
 			{
 				const Color* pSrc = image.data();
 				const Color* const pSrcEnd = pSrc + num_pixels;
-				detail::SDFPixel* pDst = pPixels;
+				detail::SDFPixel* pDst = pixels.data();
 
 				while (pSrc != pSrcEnd)
 				{
@@ -141,7 +141,7 @@ namespace s3d
 			}
 
 			{
-				detail::SDFPixel* pDst = pPixels;
+				detail::SDFPixel* pDst = pixels.data();
 
 				for (int32 y = 0; y < imageHeight; ++y)
 				{
@@ -168,7 +168,7 @@ namespace s3d
 
 			{
 				constexpr float sqrt2 = 1.41421356237f;
-				detail::SDFPixel* pixel = pPixels;
+				detail::SDFPixel* pixel = pixels.data();
 
 				for (int32 y = 0; y < imageHeight; ++y)
 				{
@@ -220,7 +220,7 @@ namespace s3d
 					}
 				}
 
-				pixel = pPixels + num_pixels - 1;
+				pixel = pixels.data() + num_pixels - 1;
 
 				for (int32 y = imageHeight - 1; y >= 0; --y)
 				{
@@ -274,7 +274,7 @@ namespace s3d
 			}
 
 			{
-				detail::SDFPixel* pDst = pPixels;
+				detail::SDFPixel* pDst = pixels.data();
 				detail::SDFPixel* const pDstEnd = pDst + num_pixels;
 
 				while (pDst != pDstEnd)
@@ -291,7 +291,7 @@ namespace s3d
 			Image result(resultWidth, resultHeight, Color(255, 255));
 			{
 				const float div = 1.0f / (scale * scale * static_cast<float>(spread));
-				const detail::SDFPixel* pSrcLine = pPixels;
+				const detail::SDFPixel* pSrcLine = pixels.data();
 				Color* pDst = result.data();
 
 				for (int32 y = 0; y < imageHeight; y += scale)
@@ -322,8 +322,6 @@ namespace s3d
 					pSrcLine += (imageWidth * scale);
 				}
 			}
-
-			std::free(pPixels);
 
 			return result;
 		}

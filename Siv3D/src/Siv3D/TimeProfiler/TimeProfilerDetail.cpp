@@ -109,10 +109,7 @@ namespace s3d
 
 	void TimeProfiler::TimeProfilerDetail::begin(const String& label)
 	{
-		if (auto p = begin_impl(label))
-		{
-			*p = Time::GetNanosec();
-		}
+		begin_impl(label);
 	}
 
 	void TimeProfiler::TimeProfilerDetail::end()
@@ -122,7 +119,7 @@ namespace s3d
 		end_impl(endNanosec);
 	}
 
-	uint64* TimeProfiler::TimeProfilerDetail::begin_impl(const String& label)
+	void TimeProfiler::TimeProfilerDetail::begin_impl(const String& label)
 	{
 		auto it = m_data.find(label);
 
@@ -130,7 +127,7 @@ namespace s3d
 		{
 			if (m_index == UINT16_MAX)
 			{
-				return nullptr;
+				return;
 			}
 
 			it = m_data.emplace(label, TimeProfile{}).first;
@@ -140,12 +137,12 @@ namespace s3d
 
 		if (it->second.open)
 		{
-			return nullptr;
+			return;
 		}
 
 		m_labels.push_back(label);
 
-		return &(it.value().begin);
+		it.value().begin = Time::GetNanosec();
 	}
 
 	void TimeProfiler::TimeProfilerDetail::end_impl(const uint64 end)

@@ -47,7 +47,7 @@ namespace s3d
 
 		Array<String> m_labels;
 
-		uint64* begin_impl(const String& label);
+		void begin_impl(const String& label);
 
 		void end_impl(const uint64 endNanosec);
 
