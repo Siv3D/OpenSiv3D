@@ -63,4 +63,4 @@
 - [TinyXML-2 (7.0.1)](https://github.com/leethomason/tinyxml2)
 - [xxHash](https://github.com/Cyan4973/xxHash)
 - [zlib](https://www.zlib.net/)
-- [Zstandard (v1.3.8)](https://github.com/facebook/zstd)
+- [Zstandard (v1.4.2)](https://github.com/facebook/zstd)

@@ -40,7 +40,7 @@
 
 /**
  * FORCE_INLINE_TEMPLATE is used to define C "templates", which take constant
- * parameters. They must be inlined for the compiler to elimininate the constant
+ * parameters. They must be inlined for the compiler to eliminate the constant
  * branches.
  */
 #define FORCE_INLINE_TEMPLATE static INLINE_KEYWORD FORCE_INLINE_ATTR
@@ -126,6 +126,13 @@
         PREFETCH_L2(_ptr + _pos);         \
     }                                     \
 }
+
+/* vectorization */
+#if !defined(__clang__) && defined(__GNUC__)
+#  define DONT_VECTORIZE __attribute__((optimize("no-tree-vectorize")))
+#else
+#  define DONT_VECTORIZE
+#endif
 
 /* disable warnings */
 #ifdef _MSC_VER    /* Visual Studio */
