@@ -1,43 +1,31 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.4.0
+# include <Siv3D.hpp> // OpenSiv3D v0.4.1 pre
 
 void Main()
 {
-	// 背景を水色にする
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	//ChildProcess child = Process::Spawn(U"C:/Windows/System32/notepad.exe");
+	//ChildProcess child = Process::Spawn(U"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", U"https://siv3d.github.io/");
+	ChildProcess child = Process::Spawn(U"Console.exe", Pipe::StdInOut);
 
-	// 大きさ 60 のフォントを用意
-	const Font font(60);
-
-	// 猫のテクスチャを用意
-	const Texture cat(Emoji(U"🐈"));
-
-	// 猫の座標
-	Vec2 catPos(640, 450);
+	if (!child)
+	{
+		return;
+	}
 
 	while (System::Update())
 	{
-		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
-
-		// 大きさをアニメーションさせて猫を表示する
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
-
-		// マウスカーソルに追従する半透明の赤い円を描く
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
-
-		// [A] キーが押されたら
-		if (KeyA.down())
+		if (KeyT.down())
 		{
-			// Hello とデバッグ表示する
-			Print << U"Hello!";
+			child.terminate(); // 強制的に終了
 		}
 
-		// ボタンが押されたら
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		if (MouseR.down())
 		{
-			// 猫の座標を画面内のランダムな位置に移動する
-			catPos = RandomVec2(Scene::Rect());
+			Print << child.isValid();
+			Print << child.isRunning();
+			Print << child.getExitCode();
 		}
 	}
 }
+
+

@@ -186,6 +186,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Process.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
@@ -467,6 +468,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\IPrint.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Process\ChildProcessDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\QR\QRDecoderDetail.hpp" />
@@ -1075,6 +1077,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Process\ChildProcessDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Process\SivProcess.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ProController\SivProController.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />

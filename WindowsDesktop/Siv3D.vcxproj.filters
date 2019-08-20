@@ -994,6 +994,9 @@
     <Filter Include="src\ThirdParty\giflib">
       <UniqueIdentifier>{15a544f0-4c7d-487a-80bd-1c94cb7cd019}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Process">
+      <UniqueIdentifier>{2d8af415-32f6-425d-b8a2-5ed1a4ff236a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3417,6 +3420,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h">
       <Filter>src\ThirdParty\zstd</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Process.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Process\ChildProcessDetail.hpp">
+      <Filter>src\Siv3D\Process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5146,6 +5155,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\cover.c">
       <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Process\ChildProcessDetail.cpp">
+      <Filter>src\Siv3D\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Process\SivProcess.cpp">
+      <Filter>src\Siv3D\Process</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
