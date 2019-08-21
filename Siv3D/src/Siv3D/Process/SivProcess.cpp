@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Process.hpp>
-# include "ChildProcessDetail.hpp"
+# include <Process/ChildProcessDetail.hpp>
 
 namespace s3d
 {
