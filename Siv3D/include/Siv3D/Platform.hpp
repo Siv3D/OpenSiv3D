@@ -204,10 +204,10 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192127702)
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192227905)
 
-	# error このプロジェクトをビルドするには Visual Studio 2019 16.1 以降が必要です。
-	# error Visual Studio 2019 16.1 or later is required to build this project.
+	# error このプロジェクトをビルドするには Visual Studio 2019 16.2 以降が必要です。
+	# error Visual Studio 2019 16.2 or later is required to build this project.
 
 # endif
 
