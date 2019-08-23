@@ -16,6 +16,23 @@
 
 namespace s3d
 {
+	class OPStream : public std::ostream, std::streambuf
+	{
+	private:
+		
+		std::string m_buffer;
+		
+		NSFileHandle* m_writeHandle = nullptr;
+		
+	public:
+		
+		OPStream();
+		
+		void setWriteHandle(NSFileHandle* writeHandle);
+		
+		int overflow(int c);
+	};
+	
 	class NSTaskWrapper
 	{
 	private:
@@ -23,20 +40,24 @@ namespace s3d
 		NSTask* m_task = nullptr;
 		
 		NSPipe* m_ips = nullptr;
+		NSFileHandle* m_writeHandle = nullptr;
 		
 		NSPipe* m_ops = nullptr;
+		NSFileHandle* m_readHandle = nullptr;
 		
 		bool m_valid = false;
 		
-		std::ostringstream m_os;
+		std::stringstream m_is;
 		
-		std::istringstream m_is;
+		OPStream m_os;
 		
 	public:
 		
-		NSTaskWrapper() = default;
+		NSTaskWrapper();
 		
 		NSTaskWrapper(const char* path, const char* command, Pipe pipe);
+		
+		~NSTaskWrapper();
 		
 		bool isValid() const;
 		
