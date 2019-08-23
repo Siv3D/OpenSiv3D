@@ -851,6 +851,10 @@
 // Profiling
 # include <Siv3D/Profiler.hpp>
 
+// プロセス
+// Process
+# include <Siv3D/Process.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Text to speech

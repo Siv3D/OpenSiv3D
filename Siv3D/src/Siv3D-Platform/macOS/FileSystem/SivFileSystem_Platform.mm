@@ -196,8 +196,8 @@ namespace s3d
 				NSDesktopDirectory,
 				NSDocumentDirectory,
 				NSCachesDirectory,
-				NSMusicDirectory,
 				NSPicturesDirectory,
+				NSMusicDirectory,
 				NSMoviesDirectory,
 				NSLibraryDirectory, // (dummy)
 				NSLibraryDirectory, // (dummy)

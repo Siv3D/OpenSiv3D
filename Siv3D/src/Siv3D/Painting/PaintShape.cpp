@@ -572,7 +572,7 @@ namespace s3d
 
 			if (fabs(r) > DBL_EPSILON)
 			{
-				r = (thickness + oddThickness * XY_ONE*0.5) / std::sqrt(r);
+				r = (thickness + static_cast<double>(oddThickness) * XY_ONE * 0.5) / std::sqrt(r);
 				dp.x = cvRound2(dy * r);
 				dp.y = cvRound2(dx * r);
 

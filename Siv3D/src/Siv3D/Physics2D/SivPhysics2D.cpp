@@ -1283,7 +1283,7 @@ namespace s3d
 
 	void P2Rect::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+		drawFrame(thickness, color);
 	}
 
 	Quad P2Rect::getQuad() const

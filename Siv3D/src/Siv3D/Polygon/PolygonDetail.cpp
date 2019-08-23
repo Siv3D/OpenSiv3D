@@ -188,7 +188,7 @@ namespace s3d
 		m_boundingRect = boundingRect;
 	}
 
-	void Polygon::PolygonDetail::copyFrom(PolygonDetail& other)
+	void Polygon::PolygonDetail::copyFrom(const PolygonDetail& other)
 	{
 		m_polygon = other.m_polygon;
 
