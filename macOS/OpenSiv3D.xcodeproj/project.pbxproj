@@ -1099,6 +1099,11 @@
 		2CBC64E422F849F0001610DB /* fse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64AA22F849F0001610DB /* fse.h */; };
 		2CBC64E522F849F0001610DB /* zstd_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64AB22F849F0001610DB /* zstd_internal.h */; };
 		2CBC64E622F849F0001610DB /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64AC22F849F0001610DB /* error_private.c */; };
+		2CBC64F5230D5776001610DB /* ChildProcessDetail.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64F3230D5776001610DB /* ChildProcessDetail.mm */; };
+		2CBC64F6230D5776001610DB /* ChildProcessDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64F4230D5776001610DB /* ChildProcessDetail.hpp */; };
+		2CBC64F9230D68DD001610DB /* SivProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64F8230D68DC001610DB /* SivProcess.cpp */; };
+		2CBC64FC230D7073001610DB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */; };
+		2CBC64FD230D7073001610DB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2523,6 +2528,11 @@
 		2CBC64AA22F849F0001610DB /* fse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
 		2CBC64AB22F849F0001610DB /* zstd_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
 		2CBC64AC22F849F0001610DB /* error_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
+		2CBC64F3230D5776001610DB /* ChildProcessDetail.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChildProcessDetail.mm; sourceTree = "<group>"; };
+		2CBC64F4230D5776001610DB /* ChildProcessDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChildProcessDetail.hpp; sourceTree = "<group>"; };
+		2CBC64F8230D68DC001610DB /* SivProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProcess.cpp; sourceTree = "<group>"; };
+		2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSTaskWrapper.mm; sourceTree = "<group>"; };
+		2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -5883,6 +5893,7 @@
 				2C4619A7226EEFEC00828870 /* Network */,
 				2C461A13226F20C900828870 /* NLP */,
 				2C4619D3226F075D00828870 /* PowerStatus */,
+				2CBC64F2230D5776001610DB /* Process */,
 				2C461AED22712EE500828870 /* Renderer2D */,
 				2C461A96226F705800828870 /* Resource */,
 				2C461AD2227089CC00828870 /* ScreenCapture */,
@@ -6022,6 +6033,7 @@
 				2C461754226EEF3D00828870 /* Point */,
 				2C46170D226EEF3A00828870 /* Polygon */,
 				2C4615A3226EEF2F00828870 /* Print */,
+				2CBC64F7230D68DC001610DB /* Process */,
 				2C46172C226EEF3C00828870 /* ProController */,
 				2C4615AB226EEF2F00828870 /* Profiler */,
 				2C461795226EEF3F00828870 /* QR */,
@@ -6709,6 +6721,25 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		2CBC64F2230D5776001610DB /* Process */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */,
+				2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */,
+				2CBC64F3230D5776001610DB /* ChildProcessDetail.mm */,
+				2CBC64F4230D5776001610DB /* ChildProcessDetail.hpp */,
+			);
+			path = Process;
+			sourceTree = "<group>";
+		};
+		2CBC64F7230D68DC001610DB /* Process */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC64F8230D68DC001610DB /* SivProcess.cpp */,
+			);
+			path = Process;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -7106,6 +7137,7 @@
 				2C4613F2226EEDB500828870 /* fwd.h in Headers */,
 				2C461147226EEDB500828870 /* ftglyph.h in Headers */,
 				2C46193F226EEF4100828870 /* BigIntDetail.hpp in Headers */,
+				2CBC64F6230D5776001610DB /* ChildProcessDetail.hpp in Headers */,
 				2C461352226EEDB500828870 /* DetourAlloc.h in Headers */,
 				2C46192D226EEF4100828870 /* HTMLWriterDetail.hpp in Headers */,
 				2C461455226EEDB500828870 /* b2RopeJoint.h in Headers */,
@@ -7185,6 +7217,7 @@
 				2C461480226EEDB500828870 /* b2Collision.h in Headers */,
 				2CB4A5E622A14A7100BF96EA /* os_types.h in Headers */,
 				2C461AE02270A18200828870 /* CShader_GL.hpp in Headers */,
+				2CBC64FD230D7073001610DB /* NSTaskWrapper.hpp in Headers */,
 				2C4619D0226F03BC00828870 /* TTS.hpp in Headers */,
 				2C4610F8226EEDB500828870 /* ftpcfdrv.h in Headers */,
 				2C46114F226EEDB500828870 /* ftrender.h in Headers */,
@@ -7250,6 +7283,9 @@
 					2C1778B11CE0D5DB00BB8AD0 = {
 						CreatedOnToolsVersion = 7.3.1;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 0;
 							};
@@ -7516,6 +7552,7 @@
 				2C461A3A226F2D0000828870 /* cocoa_joystick.m in Sources */,
 				2C4619B7226EFC2900828870 /* WritableMemoryMappingDetail.cpp in Sources */,
 				2C461432226EEDB500828870 /* sweep_context.cc in Sources */,
+				2CBC64FC230D7073001610DB /* NSTaskWrapper.mm in Sources */,
 				2C4619BA226EFD9F00828870 /* SivWebcam_Platform.mm in Sources */,
 				2C46188E226EEF4100828870 /* SivJSONReader.cpp in Sources */,
 				2C46144D226EEDB500828870 /* b2EdgeAndCircleContact.cpp in Sources */,
@@ -7592,6 +7629,7 @@
 				2C461987226EEF4100828870 /* SivTextureFormat.cpp in Sources */,
 				2C461A4A226F2D0000828870 /* cocoa_window.m in Sources */,
 				2C4613A1226EEDB500828870 /* save-bmp.cpp in Sources */,
+				2CBC64F9230D68DD001610DB /* SivProcess.cpp in Sources */,
 				2C46183D226EEF4100828870 /* SivEasing.cpp in Sources */,
 				2C461952226EEF4100828870 /* SivPoint.cpp in Sources */,
 				2C46137A226EEDB500828870 /* qrcode.cpp in Sources */,
@@ -7657,6 +7695,7 @@
 				2C4605B8226EE90D00828870 /* Siv3DMain.cpp in Sources */,
 				2C46139D226EEDB500828870 /* Contour.cpp in Sources */,
 				2C461474226EEDB500828870 /* b2Draw.cpp in Sources */,
+				2CBC64F5230D5776001610DB /* ChildProcessDetail.mm in Sources */,
 				2C461484226EEDB500828870 /* b2DynamicTree.cpp in Sources */,
 				2C4618CC226EEF4100828870 /* SivAsset.cpp in Sources */,
 				2C461868226EEF4100828870 /* P2RopeJointDetail.cpp in Sources */,
@@ -7911,6 +7950,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Siv3D-Test.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/App/";
@@ -7990,6 +8030,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Siv3D-Test.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/App/";
@@ -8167,7 +8208,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../dependencies/boost_1_70_0,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -8228,7 +8269,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../dependencies/boost_1_70_0,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
