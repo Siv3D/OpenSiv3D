@@ -337,7 +337,7 @@ namespace s3d
 		return m_dummyValue;
 	}
 
-	const String& INIData::getGlobalVaue(const Name& name)
+	const String& INIData::getGlobalValue(const Name& name)
 	{
 		return getValue(Section(), name);
 	}
