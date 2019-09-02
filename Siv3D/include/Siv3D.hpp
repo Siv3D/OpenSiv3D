@@ -765,8 +765,7 @@
 
 //// シリアル通信
 //# include <Siv3D/Serial.hpp>
-//// パイプサーバー
-//# include <Siv3D/PipeServer.hpp>
+
 //// インターネット
 //# include <Siv3D/Internet.hpp>
 //// HTTP
