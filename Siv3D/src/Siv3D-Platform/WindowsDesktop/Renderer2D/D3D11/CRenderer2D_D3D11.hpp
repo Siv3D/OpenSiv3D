@@ -24,11 +24,6 @@ namespace s3d
 {
 	struct SpriteCB0
 	{
-		static constexpr std::string_view Name()
-		{
-			return "SpriteCB0";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;
@@ -41,11 +36,6 @@ namespace s3d
 
 	struct SpriteCB1
 	{
-		static constexpr std::string_view Name()
-		{
-			return "SpriteCB1";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 1;
@@ -58,11 +48,6 @@ namespace s3d
 
 	struct FullscreenTriangleCB0
 	{
-		static constexpr std::string_view Name()
-		{
-			return "FullscreenTriangleCB0";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;

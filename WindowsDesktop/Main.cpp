@@ -3,15 +3,7 @@
 
 struct PoissonDisk
 {
-	static constexpr std::string_view Name()
-	{
-		return "PoissonDisk";
-	}
-
-	static constexpr uint32 BindingPoint()
-	{
-		return 2;
-	}
+	static constexpr uint32 BindingPoint() { return 2; }
 
 	Float2 pixelSize;
 	float discRadius;
