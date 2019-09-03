@@ -15,6 +15,10 @@ void Main()
 	// 猫の座標
 	Vec2 catPos(640, 450);
 
+	const PixelShader ps(U"test.hlsl");
+
+	Print << !!ps;
+
 	while (System::Update())
 	{
 		// テキストを画面の中心に描く

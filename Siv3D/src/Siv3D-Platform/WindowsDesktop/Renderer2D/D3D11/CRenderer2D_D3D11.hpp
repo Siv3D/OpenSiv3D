@@ -71,6 +71,63 @@ namespace s3d
 		Float4 texScale;
 	};
 
+	struct D3D11StandardVS2D
+	{
+		VertexShader sprite;
+		VertexShader fullscreen_triangle_resolve;
+		VertexShader fullscreen_triangle_draw;
+
+		bool ok() const
+		{
+			return sprite
+				&& fullscreen_triangle_resolve
+				&& fullscreen_triangle_draw;
+		}
+	};
+
+	struct D3D11StandardPS2D
+	{
+		// PS
+		PixelShader shape;
+		PixelShader texture;
+		PixelShader square_dot;
+		PixelShader round_dot;
+		PixelShader sdf;
+		PixelShader fullscreen_triangle_resolve;
+		PixelShader fullscreen_triangle_draw;
+
+		// PixelShaderID キャッシュ
+		PixelShaderID shapeID;
+		PixelShaderID textureID;
+		PixelShaderID square_dotID;
+		PixelShaderID round_dotID;
+		PixelShaderID sdfID;
+		PixelShaderID fullscreen_triangle_resolveID;
+		PixelShaderID fullscreen_triangle_drawID;
+
+		bool setup()
+		{
+			const bool initialized = 
+				shape
+				&& texture
+				&& square_dot
+				&& round_dot
+				&& sdf
+				&& fullscreen_triangle_resolve
+				&& fullscreen_triangle_draw;
+
+			shapeID							= shape.id();
+			textureID						= texture.id();
+			square_dotID					= square_dot.id();
+			round_dotID						= round_dot.id();
+			sdfID							= sdf.id();
+			fullscreen_triangle_resolveID	= fullscreen_triangle_resolve.id();
+			fullscreen_triangle_drawID		= fullscreen_triangle_draw.id();
+
+			return initialized;
+		}
+	};
+
 	class CRenderer2D_D3D11 : public ISiv3DRenderer2D
 	{
 	private:
@@ -78,8 +135,8 @@ namespace s3d
 		ID3D11Device* m_device = nullptr;
 		ID3D11DeviceContext* m_context = nullptr;
 
-		Array<VertexShader> m_standardVSs;
-		Array<PixelShader> m_standardPSs;
+		std::unique_ptr<D3D11StandardVS2D> m_standardVS;
+		std::unique_ptr<D3D11StandardPS2D> m_standardPS;
 
 		ConstantBuffer<SpriteCB0> m_cbSprite0;
 		ConstantBuffer<SpriteCB1> m_cbSprite1;
@@ -92,9 +149,6 @@ namespace s3d
 		BufferCreatorFunc m_bufferCreator;
 
 		std::unique_ptr<Texture> m_boxShadowTexture;
-
-		void setVS(const VertexShader& vs);
-		void setPS(const PixelShader& ps);
 
 	public:
 

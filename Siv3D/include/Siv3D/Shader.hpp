@@ -23,6 +23,7 @@ namespace s3d
 		// HLSL compile options
 		struct HLSLCompileOption
 		{
+			// see D3DCOMPILE Constants
 			enum Flag
 			{
 				Debug				= (1 << 0),

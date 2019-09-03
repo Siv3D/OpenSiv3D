@@ -62,7 +62,7 @@ namespace s3d
 		m_combinedTransforms = { m_combinedTransforms.back() };
 		m_commands.emplace_back(RendererCommand::Transform, 0);
 
-		m_pixelShaders = { m_pixelShaders.back() };
+		m_PSs = { PixelShaderID::InvalidValue() };
 		m_commands.emplace_back(RendererCommand::SetPS, 0);
 
 		m_scissorRects = { m_scissorRects.back() };
@@ -90,7 +90,7 @@ namespace s3d
 			m_currentPSSamplerStates[i] = m_psSamplerStates[i].front();
 		}
 		m_currentCombinedTransform = m_combinedTransforms.front();
-		m_currentPixelShader = m_pixelShaders.front();
+		m_currentPS = PixelShaderID::InvalidValue();
 		m_currentScissorRect = m_scissorRects.front();
 		m_currentViewport = m_viewports.front();
 		for (size_t i = 0; i < m_currentPSTextures.size(); ++i)
@@ -162,8 +162,8 @@ namespace s3d
 
 		if (m_changes.has(RendererCommand::SetPS))
 		{
-			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_pixelShaders.size()));
-			m_pixelShaders.push_back(m_currentPixelShader);
+			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_PSs.size()));
+			m_PSs.push_back(m_currentPS);
 		}
 
 		if (m_changes.has(RendererCommand::ScissorRect))
@@ -508,42 +508,76 @@ namespace s3d
 		return m_currentMaxScaling;
 	}
 
-	void D3D11Renderer2DCommand::pushPS(const size_t psIndex)
+	void D3D11Renderer2DCommand::pushStandardPS(const PixelShaderID& id)
 	{
 		constexpr auto command = RendererCommand::SetPS;
-		auto& current = m_currentPixelShader;
-		auto& buffer = m_pixelShaders;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
 
 		if (!m_changes.has(command))
 		{
-			if (psIndex != current)
+			if (id != current)
 			{
-				current = psIndex;
+				current = id;
 				m_changes.set(command);
 			}
 		}
 		else
 		{
-			if (psIndex == buffer.back())
+			if (id == buffer.back())
 			{
-				current = psIndex;
+				current = id;
 				m_changes.clear(command);
 			}
 			else
 			{
-				current = psIndex;
+				current = id;
 			}
 		}
 	}
 
-	size_t D3D11Renderer2DCommand::getPS(const uint32 index) const
+	void D3D11Renderer2DCommand::pushCustomPS(const PixelShader& ps)
 	{
-		return m_pixelShaders[index];
+		const auto id = ps.id();
+		constexpr auto command = RendererCommand::SetPS;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
+
+		if (!m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
 	}
 
-	size_t D3D11Renderer2DCommand::getCurrentPS() const
+	const PixelShaderID& D3D11Renderer2DCommand::getPS(const uint32 index) const
 	{
-		return m_currentPixelShader;
+		return m_PSs[index];
 	}
 
 	void D3D11Renderer2DCommand::pushScissorRect(const Rect& rect)
