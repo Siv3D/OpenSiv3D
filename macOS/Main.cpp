@@ -10,14 +10,23 @@ void Main()
 	
 	// 猫のテクスチャを用意
 	const Texture cat(Emoji(U"🐈"));
-	
+	const Texture windmill(U"example/windmill.png");
+
 	// 猫の座標
 	Vec2 catPos(640, 450);
+
+	const PixelShader ps(U"example/shader/rgb_shift.frag", { { U"pscbSprite", 1 } });
+	Print << !!ps;
 	
 	while (System::Update())
 	{
+		{
+			ScopedCustomShader2D shader(ps);
+			windmill.draw(10, 10);
+		}
+		
 		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+		font(U"Hello, Siv3D!🐣").drawAt(400, 400, Palette::Black);
 		
 		// 大きさをアニメーションさせて猫を表示する
 		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);

@@ -157,6 +157,7 @@ namespace s3d
 		
 		ScopeGuard cleanUp = [this]()
 		{
+			m_currentCustomPS.reset();
 			m_batches.reset();
 			m_commands.reset();
 		};
@@ -516,13 +517,20 @@ namespace s3d
 	
 	void CRenderer2D_GL::setCustomPS(const Optional<PixelShader>& ps)
 	{
-		// [Siv3D ToDo]
+		if (ps && !ps->isEmpty())
+		{
+			m_currentCustomPS = ps.value();
+			m_commands.pushCustomPS(ps.value());
+		}
+		else
+		{
+			m_currentCustomPS.reset();
+		}
 	}
 	
 	Optional<PixelShader> CRenderer2D_GL::getCustomPS() const
 	{
-		// [Siv3D ToDo]
-		return(none);
+		return m_currentCustomPS;
 	}
 
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
@@ -531,7 +539,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareCappedLine(m_bufferCreator, begin, end, thickness, colors))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -541,7 +552,10 @@ namespace s3d
 			
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLine(m_bufferCreator, begin, end, thickness, colors, startAngle))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
@@ -553,7 +567,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildUncappedLine(m_bufferCreator, begin, end, thickness, colors))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -561,7 +578,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareDotLine(m_bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), getMaxScaling()))
 			{
-				m_commands.pushStandardPS(m_standardPS->square_dotID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->square_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -569,7 +589,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundDotLine(m_bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), style.hasAlignedDot))
 			{
-				m_commands.pushStandardPS(m_standardPS->round_dotID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->round_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -579,7 +602,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, pts, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -588,7 +614,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, pts, colors))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -597,7 +626,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -606,7 +638,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, colors))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -615,7 +650,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -624,7 +662,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -633,7 +674,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleFrame(m_bufferCreator, center, rInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -642,7 +686,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -651,7 +698,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -660,7 +710,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -669,7 +722,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipseFrame(m_bufferCreator, center, aInner, bInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -678,7 +734,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -687,7 +746,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -696,7 +758,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -707,7 +772,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, isClosed, getMaxScaling()))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -717,7 +785,10 @@ namespace s3d
 			
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, getMaxScaling(), startAngle, endAngle))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
@@ -731,7 +802,10 @@ namespace s3d
 			
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, getMaxScaling(), startAngle, endAngle))
 			{
-				m_commands.pushStandardPS(m_standardPS->shapeID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -739,7 +813,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildDotLineString(m_bufferCreator, pts, size, offset, thickness, color, isClosed, true, static_cast<float>(style.dotOffset), false, getMaxScaling()))
 			{
-				m_commands.pushStandardPS(m_standardPS->square_dotID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->square_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -747,7 +824,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildDotLineString(m_bufferCreator, pts, size, offset, thickness, color, isClosed, false, static_cast<float>(style.dotOffset), style.hasAlignedDot, getMaxScaling()))
 			{
-				m_commands.pushStandardPS(m_standardPS->round_dotID);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->round_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -757,7 +837,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildShape2D(m_bufferCreator, vertices, indices, offset, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -766,7 +849,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildShape2DTransformed(m_bufferCreator, vertices, indices, s, c, offset, color))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -775,7 +861,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildShape2DFrame(m_bufferCreator, pts, size, thickness, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -784,7 +873,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, sprite, startIndex, indexCount))
 		{
-			m_commands.pushStandardPS(m_standardPS->shapeID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -793,7 +885,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, sprite, startIndex, indexCount))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(count);
 		}
@@ -803,7 +898,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, color))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -813,7 +911,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, colors))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -823,7 +924,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedCircle(m_bufferCreator, circle, uv, color, getMaxScaling()))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -833,7 +937,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedQuad(m_bufferCreator, quad, uv, color))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -845,7 +952,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedParticles(m_bufferCreator, particles, sizeOverLifeTimeFunc, colorOverLifeTimeFunc))
 		{
-			m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}

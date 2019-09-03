@@ -163,6 +163,8 @@ namespace s3d
 		GLRenderer2DCommand m_commands;
 		
 		std::unique_ptr<Texture> m_boxShadowTexture;
+		
+		Optional<PixelShader> m_currentCustomPS;
 
 	public:
 
