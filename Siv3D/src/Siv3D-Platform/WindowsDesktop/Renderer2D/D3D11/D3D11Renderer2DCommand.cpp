@@ -33,6 +33,7 @@ namespace s3d
 	{
 		m_commands.clear();
 		m_changes.reset();
+		m_reservedPSs.clear();
 		m_reservedTextures.clear();
 
 		// Buffer リセット
