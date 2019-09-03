@@ -2533,6 +2533,7 @@
 		2CBC64F8230D68DC001610DB /* SivProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProcess.cpp; sourceTree = "<group>"; };
 		2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSTaskWrapper.mm; sourceTree = "<group>"; };
 		2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
+		2CBC6511231E6A06001610DB /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6337,6 +6338,7 @@
 				2CA627BA22226DC70009DFE1 /* SDF.hpp */,
 				2CA6277822226DC60009DFE1 /* Serialization.hpp */,
 				2CA6279022226DC70009DFE1 /* SFMT.hpp */,
+				2CBC6511231E6A06001610DB /* Shader.hpp */,
 				2CA6281222226DC70009DFE1 /* ShaderCommon.hpp */,
 				2CA6279222226DC70009DFE1 /* Shape2D.hpp */,
 				2CA627E322226DC70009DFE1 /* SIMDMath.hpp */,

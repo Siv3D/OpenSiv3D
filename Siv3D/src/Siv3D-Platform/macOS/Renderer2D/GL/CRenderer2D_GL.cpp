@@ -484,6 +484,17 @@ namespace s3d
 	{
 		return m_commands.getCurrentSdfParam();
 	}
+	
+	void CRenderer2D_GL::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		// [Siv3D ToDo]
+	}
+	
+	Optional<PixelShader> CRenderer2D_GL::getCustomPS() const
+	{
+		// [Siv3D ToDo]
+		return(none);
+	}
 
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{

@@ -175,6 +175,10 @@ namespace s3d
 		void setSDFParameters(const Float4& parameters) override;
 
 		Float4 getSDFParameters() const override;
+		
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+		
+		Optional<PixelShader> getCustomPS() const override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 
