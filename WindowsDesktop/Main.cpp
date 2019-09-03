@@ -15,12 +15,19 @@ void Main()
 	// 猫の座標
 	Vec2 catPos(640, 450);
 
+	const Texture windmill(U"example/windmill.png");
 	const PixelShader ps(U"test.hlsl");
 
 	Print << !!ps;
 
 	while (System::Update())
 	{
+		//Graphics2D::SetCustomPixelShader(ps);
+
+		windmill.draw(10, 10);
+
+		//Graphics2D::SetCustomPixelShader(none);
+
 		// テキストを画面の中心に描く
 		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
 

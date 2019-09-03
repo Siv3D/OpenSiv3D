@@ -117,8 +117,11 @@ namespace s3d
 
 		[[nodiscard]] Float4 GetSDFParameters();
 
-		void SetCustomPixelShader(const Optional<PixelShader>& ps);
+		namespace detail
+		{
+			void SetCustomPixelShader(const Optional<PixelShader>& ps);
 
-		[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
+			[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
+		}
 	}
 }
