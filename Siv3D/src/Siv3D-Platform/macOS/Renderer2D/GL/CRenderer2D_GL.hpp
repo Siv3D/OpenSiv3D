@@ -68,11 +68,6 @@ namespace s3d
 	
 	struct VscbSprite
 	{
-		static constexpr const char* Name()
-		{
-			return "vscbSprite";
-		}
-		
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;
@@ -85,11 +80,6 @@ namespace s3d
 	
 	struct PscbSprite
 	{
-		static constexpr const char* Name()
-		{
-			return "pscbSprite";
-		}
-		
 		static constexpr uint32 BindingPoint()
 		{
 			return 1;
