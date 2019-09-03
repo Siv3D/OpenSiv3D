@@ -225,6 +225,8 @@ namespace s3d
 		void setCustomPS(const Optional<PixelShader>& ps) override;
 		
 		Optional<PixelShader> getCustomPS() const override;
+		
+		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 

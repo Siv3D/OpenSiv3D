@@ -19,6 +19,7 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/HashTable.hpp>
 
 namespace s3d
@@ -60,6 +61,8 @@ namespace s3d
 		Transform,
 		
 		SetPS,
+		
+		SetCB,
 		
 		ScissorRect,
 		
@@ -123,6 +126,16 @@ namespace s3d
 		uint32 indexCount = 0;
 	};
 	
+	struct CBCommand
+	{
+		ShaderStage stage = ShaderStage::Vertex;
+		uint32 slot = 0;
+		uint32 offset = 0;
+		uint32 num_vectors = 0;
+		uint32 cbBaseIndex = 0;
+		detail::ConstantBufferBase cbBase;
+	};
+	
 	class GLRenderer2DCommand
 	{
 	private:
@@ -132,7 +145,8 @@ namespace s3d
 		CurrentBatchStateChanges m_changes;
 		
 		Array<DrawCommand> m_draws;
-		
+		Array<__m128> m_constants;
+		Array<CBCommand> m_CBs;
 
 		Array<Float4> m_colorMuls = { Float4(1.0f, 1.0f, 1.0f, 1.0f) };
 		Array<Float4> m_colorAdds = { Float4(0.0f, 0.0f, 0.0f, 0.0f) };
@@ -213,6 +227,10 @@ namespace s3d
 		void pushStandardPS(const PixelShaderID& id);
 		void pushCustomPS(const PixelShader& ps);
 		const PixelShaderID& getPS(uint32 index) const;
+		
+		void pushCB(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+		CBCommand& getCB(uint32 index);
+		const __m128* getConstantsPtr(uint32 offset) const;
 		
 		void pushScissorRect(const Rect& rect);
 		const Rect& getScissorRect(uint32 index) const;

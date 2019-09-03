@@ -288,17 +288,21 @@ namespace s3d
 					
 					LOG_COMMAND(U"SetPS[{}]"_fmt(index));
 					break;
+				}
+				case RendererCommand::SetCB:
+				{
+					auto& cb = m_commands.getCB(index);
+					const __m128* p = m_commands.getConstantsPtr(cb.offset);
 					
-					/*
-					const size_t standadPSIndex = m_commands.getPS(index);
-
-					const PixelShaderID psID = m_standardPSs[standadPSIndex].id();
-					m_pipeline.setPS(pShader->getPSProgram(psID));
-					pShader->setPSSamplerUniform(psID);
+					if (cb.num_vectors)
+					{
+						::glBindBufferBase(GL_UNIFORM_BUFFER, cb.slot, cb.cbBase._detail()->getHandle());
+						cb.cbBase._internal_update(p, cb.num_vectors * 16);
+					}
 					
-					LOG_COMMAND(U"SetPS[standadPSIndex = {}] {}"_fmt(index, standadPSIndex));
+					LOG_COMMAND(U"SetCB[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+																										index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
-					 */
 				}
 				case RendererCommand::ScissorRect:
 				{
@@ -533,6 +537,11 @@ namespace s3d
 		return m_currentCustomPS;
 	}
 
+	void CRenderer2D_GL::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
+	}
+	
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		if (style.isSquareCap())
