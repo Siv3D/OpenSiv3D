@@ -3,11 +3,11 @@
 layout(location = 0) in vec4 Color;
 layout(location = 1) in vec2 Tex;
 		
-uniform sampler2D Tex0;
+uniform sampler2D Texture0;
 		
 layout(location = 0) out vec4 FragColor;
 
-layout(std140) uniform pscbSprite
+layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
 	vec4 g_sdfParam;
@@ -41,12 +41,12 @@ const vec2 poisson[12] = vec2[12](
 		
 void main()
 {
-	vec4 accum = texture(Tex0, Tex);
+	vec4 accum = texture(Texture0, Tex);
 
 	for (int tap = 0; tap < 12; ++tap)
 	{
 		vec2 texCoord = Tex + (g_pixelSize * poisson[tap] * g_discRadius);
-		accum.rgb += texture(Tex0, texCoord).rgb;
+		accum.rgb += texture(Texture0, texCoord).rgb;
 	}
 
 	accum.rgb /= 13.0;

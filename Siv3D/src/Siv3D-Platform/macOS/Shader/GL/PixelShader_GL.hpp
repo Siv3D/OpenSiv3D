@@ -80,7 +80,7 @@ namespace s3d
 			
 			if (m_psProgram)
 			{
-				const int32 t = ::glGetUniformLocation(m_psProgram, "Tex0");
+				const int32 t = ::glGetUniformLocation(m_psProgram, "Texture0");
 				
 				if (t != -1)
 				{

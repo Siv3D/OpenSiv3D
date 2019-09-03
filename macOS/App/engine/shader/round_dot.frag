@@ -5,7 +5,7 @@ layout(location = 1) in vec2 Tex;
 		
 layout(location = 0) out vec4 FragColor;
 
-layout(std140) uniform pscbSprite
+layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
 	vec4 g_sdfParam;

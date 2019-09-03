@@ -88,7 +88,7 @@ namespace s3d
 		// 標準 VS をロード
 		{
 			m_standardVS = std::make_unique<GLStandardVS2D>();
-			m_standardVS->sprite = VertexShader(Resource(U"engine/shader/sprite.vert"), { { U"vscbSprite", 0 } });
+			m_standardVS->sprite = VertexShader(Resource(U"engine/shader/sprite.vert"), { { U"VSConstants2D", 0 } });
 			if (!m_standardVS->ok())
 			{
 				throw EngineError(U"CRenderer2D_GL::m_standardVSs initialization failed");
@@ -98,11 +98,11 @@ namespace s3d
 		// 標準 PS をロード
 		{
 			m_standardPS = std::make_unique<GLStandardPS2D>();
-			m_standardPS->shape			= PixelShader(Resource(U"engine/shader/shape.frag"), { { U"pscbSprite", 1 } });
-			m_standardPS->texture		= PixelShader(Resource(U"engine/shader/texture.frag"), { { U"pscbSprite", 1 } });
-			m_standardPS->square_dot	= PixelShader(Resource(U"engine/shader/square_dot.frag"), { { U"pscbSprite", 1 } });
-			m_standardPS->round_dot		= PixelShader(Resource(U"engine/shader/round_dot.frag"), { { U"pscbSprite", 1 } });
-			m_standardPS->sdf			= PixelShader(Resource(U"engine/shader/sdf.frag"), { { U"pscbSprite", 1 } });
+			m_standardPS->shape			= PixelShader(Resource(U"engine/shader/shape.frag"), { { U"PSConstants2D", 1 } });
+			m_standardPS->texture		= PixelShader(Resource(U"engine/shader/texture.frag"), { { U"PSConstants2D", 1 } });
+			m_standardPS->square_dot	= PixelShader(Resource(U"engine/shader/square_dot.frag"), { { U"PSConstants2D", 1 } });
+			m_standardPS->round_dot		= PixelShader(Resource(U"engine/shader/round_dot.frag"), { { U"PSConstants2D", 1 } });
+			m_standardPS->sdf			= PixelShader(Resource(U"engine/shader/sdf.frag"), { { U"PSConstants2D", 1 } });
 			if (!m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL::m_standardPSs initialization failed");
@@ -178,8 +178,8 @@ namespace s3d
 		BatchInfo batchInfo;
 		size_t profile_drawcalls = 0, profile_vertices = 0;
 		
-		::glBindBufferBase(GL_UNIFORM_BUFFER, m_vscbSprite.BindingPoint(), m_vscbSprite.base()._detail()->getHandle());
-		::glBindBufferBase(GL_UNIFORM_BUFFER, m_pscbSprite.BindingPoint(), m_pscbSprite.base()._detail()->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, m_vsConstants2D.BindingPoint(), m_vsConstants2D.base()._detail()->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, m_psConstants2D.BindingPoint(), m_psConstants2D.base()._detail()->getHandle());
 		
 		LOG_COMMAND(U"--Renderer2D commands--");
 		
@@ -202,8 +202,8 @@ namespace s3d
 				}
 			case RendererCommand::Draw:
 				{
-					m_vscbSprite._update_if_dirty();
-					m_pscbSprite._update_if_dirty();
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
 					
 					const DrawCommand& draw = m_commands.getDraw(index);
 					const uint32 indexCount = draw.indexCount;
@@ -221,16 +221,16 @@ namespace s3d
 				}
 				case RendererCommand::ColorMul:
 				{
-					m_vscbSprite->colorMul = m_commands.getColorMul(index);
+					m_vsConstants2D->colorMul = m_commands.getColorMul(index);
 					
-					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(index, m_vscbSprite->colorMul));
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(index, m_vsConstants2D->colorMul));
 					break;
 				}
 				case RendererCommand::ColorAdd:
 				{
-					m_pscbSprite->colorAdd = m_commands.getColorAdd(index);
+					m_psConstants2D->colorAdd = m_commands.getColorAdd(index);
 					
-					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(index, m_pscbSprite->colorAdd));
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(index, m_psConstants2D->colorAdd));
 					break;
 				}
 				case RendererCommand::BlendState:
@@ -266,8 +266,8 @@ namespace s3d
 				{
 					transform = m_commands.getCombinedTransform(index);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vscbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vscbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(index, matrix));
 					break;
@@ -333,8 +333,8 @@ namespace s3d
 					
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vscbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vscbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {})"_fmt(index,
 																																		  rect.x, rect.y, rect.w, rect.h));
@@ -368,9 +368,9 @@ namespace s3d
 				}
 				case RendererCommand::SDFParam:
 				{
-					m_pscbSprite->sdfParam = m_commands.getSdfParam(index);
+					m_psConstants2D->sdfParam = m_commands.getSdfParam(index);
 					
-					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_pscbSprite->sdfParam));
+					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_psConstants2D->sdfParam));
 					break;
 				}
 				default:

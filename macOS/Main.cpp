@@ -6,7 +6,6 @@ struct PoissonDisk
 	Float2 pixelSize;
 	float discRadius;
 	float _unused;
-
 	static constexpr uint32 BindingPoint() { return 2; }
 };
 
@@ -16,7 +15,7 @@ void Main()
 	
 	const Texture texture(U"example/windmill.png");
 	const PixelShader ps(U"example/shader/poisson_disc.frag",
-									{ { U"pscbSprite", 1 }, { U"PoissonDisc", 2 } });
+									{ { U"PSConstants2D", 1 }, { U"PoissonDisc", 2 } });
 	
 	ConstantBuffer<PoissonDisk> cb;
 	double discRadius = 0.0;

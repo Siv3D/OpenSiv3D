@@ -66,7 +66,7 @@ namespace s3d
 		}
 	};
 	
-	struct VscbSprite
+	struct VSConstants2D
 	{
 		static constexpr uint32 BindingPoint()
 		{
@@ -78,7 +78,7 @@ namespace s3d
 		Float4 colorMul;
 	};
 	
-	struct PscbSprite
+	struct PSConstants2D
 	{
 		static constexpr uint32 BindingPoint()
 		{
@@ -145,8 +145,8 @@ namespace s3d
 		
 		ShaderPipeline m_pipeline;
 		
-		ConstantBuffer<VscbSprite> m_vscbSprite;
-		ConstantBuffer<PscbSprite> m_pscbSprite;
+		ConstantBuffer<VSConstants2D> m_vsConstants2D;
+		ConstantBuffer<PSConstants2D> m_psConstants2D;
 		
 		GLSpriteBatch m_batches;
 		
