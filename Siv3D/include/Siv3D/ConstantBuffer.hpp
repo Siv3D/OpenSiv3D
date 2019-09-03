@@ -28,6 +28,10 @@ namespace s3d
 
 		public:
 
+			ConstantBufferBase() = default;
+
+			ConstantBufferBase(const ConstantBufferBase&) = default;
+
 			explicit ConstantBufferBase(size_t size);
 
 			bool _internal_update(const void* data, size_t size);

@@ -289,6 +289,29 @@ namespace s3d
 					LOG_COMMAND(U"SetPS[{}] "_fmt(index));
 					break;
 				}
+			case RendererCommand::SetCB:
+				{
+					auto& cb = m_commands.getCB(index);
+					const __m128* p = m_commands.getConstantsPtr(cb.offset);
+
+					if (cb.num_vectors)
+					{
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							m_context->VSSetConstantBuffers(cb.slot, 1, cb.cbBase._detail()->getBufferPtr());
+						}
+						else if (cb.stage == ShaderStage::Pixel)
+						{
+							m_context->PSSetConstantBuffers(cb.slot, 1, cb.cbBase._detail()->getBufferPtr());							
+						}
+
+						cb.cbBase._internal_update(p, cb.num_vectors * 16);
+					}
+
+					LOG_COMMAND(U"SetCB[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
 			case RendererCommand::ScissorRect:
 				{
 					const auto& scissorRect = m_commands.getScissorRect(index);
@@ -571,6 +594,11 @@ namespace s3d
 	Optional<PixelShader> CRenderer2D_D3D11::getCustomPS() const
 	{
 		return m_currentCustomPS;
+	}
+
+	void CRenderer2D_D3D11::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
 	}
 
 	void CRenderer2D_D3D11::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])

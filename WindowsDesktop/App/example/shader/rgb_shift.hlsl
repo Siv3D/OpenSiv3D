@@ -35,7 +35,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	const float2 ra = texture0.Sample(sampler0, input.tex + float2(-0.02, 0.0)).ra;
 	const float2 ga = texture0.Sample(sampler0, input.tex + float2(0.0, 0.0)).ga;
 	const float2 ba = texture0.Sample(sampler0, input.tex + float2(0.02, 0.0)).ba;
-	const float4 texColor = float4(ra.x, ga.x, ba.x, max(max(ra.y, ga.y), ba.y));
+	const float4 texColor = float4(ra.x, ga.x, ba.x, (ra.y + ga.y + ba.y) / 3);
 
 	return OutputColor(texColor * input.color);
 }

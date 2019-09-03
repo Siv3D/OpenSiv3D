@@ -141,6 +141,11 @@ namespace s3d
 			{
 				return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCustomPS();
 			}
+
+			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, slot, buffer, data, num_vectors);
+			}
 		}
 	}
 }

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "D3D11Renderer2DCommand.hpp"
+# include <Siv3D/ConstantBuffer.hpp>
 
 namespace s3d
 {
@@ -38,6 +39,8 @@ namespace s3d
 
 		// Buffer リセット
 		m_draws.clear();
+		m_constants.clear();
+		m_CBs.clear();
 		m_commands.emplace_back(RendererCommand::SetBuffers, 0);
 		m_commands.emplace_back(RendererCommand::UpdateBuffers, 0);
 		
@@ -165,6 +168,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_PSs.size()));
 			m_PSs.push_back(m_currentPS);
+		}
+
+		if (m_changes.has(RendererCommand::SetCB))
+		{
+			assert(!m_CBs.isEmpty());
+			m_commands.emplace_back(RendererCommand::SetCB, static_cast<uint32>(m_CBs.size()) - 1);
 		}
 
 		if (m_changes.has(RendererCommand::ScissorRect))
@@ -579,6 +588,35 @@ namespace s3d
 	const PixelShaderID& D3D11Renderer2DCommand::getPS(const uint32 index) const
 	{
 		return m_PSs[index];
+	}
+
+	void D3D11Renderer2DCommand::pushCB(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		constexpr auto command = RendererCommand::SetCB;
+
+		flush();
+		const __m128* pData = reinterpret_cast<const __m128*>(data);
+		const uint32 offset = static_cast<uint32>(m_constants.size());
+		m_constants.insert(m_constants.end(), pData, pData + num_vectors);
+
+		CBCommand cb;
+		cb.stage = stage;
+		cb.slot = slot;
+		cb.offset = offset;
+		cb.num_vectors = num_vectors;
+		cb.cbBase = buffer;
+		m_CBs.push_back(cb);
+		m_changes.set(command);
+	}
+
+	CBCommand& D3D11Renderer2DCommand::getCB(const uint32 index)
+	{
+		return m_CBs[index];
+	}
+
+	const __m128* D3D11Renderer2DCommand::getConstantsPtr(const uint32 offset) const
+	{
+		return m_constants.data() + offset;
 	}
 
 	void D3D11Renderer2DCommand::pushScissorRect(const Rect& rect)
