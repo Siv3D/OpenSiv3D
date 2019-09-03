@@ -975,6 +975,7 @@
 // シェーダ
 // Shader
 # include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Shader.hpp>
 
 // 頂点シェーダ
 // Vertex Shader

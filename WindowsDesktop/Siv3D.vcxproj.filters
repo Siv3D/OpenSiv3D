@@ -5165,5 +5165,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Process\ChildProcessDetail.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Process</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Shader\SivShader.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

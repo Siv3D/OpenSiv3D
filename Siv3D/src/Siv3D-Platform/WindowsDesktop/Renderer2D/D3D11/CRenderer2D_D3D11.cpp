@@ -78,8 +78,6 @@ namespace s3d
 		m_device = device;
 		m_context = context;
 
-		//m_spriteVS.load(device, Resource(U"engine/shader/sprite.vs"));
-		//m_fullscreenTrignaleVS.load(device, Resource(U"engine/shader/fullscreen-triangle.vs"));
 		m_standardVSs.emplace_back(Resource(U"engine/shader/sprite.vs"));
 		m_standardVSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_resolve.vs"));
 		m_standardVSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_draw.vs"));
