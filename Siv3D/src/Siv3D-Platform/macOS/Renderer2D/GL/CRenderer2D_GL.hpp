@@ -100,12 +100,56 @@ namespace s3d
 		Float4 sdfParam;
 	};
 	
+	struct GLStandardVS2D
+	{
+		VertexShader sprite;
+		
+		bool ok() const
+		{
+			return !!sprite;
+		}
+	};
+	
+	struct GLStandardPS2D
+	{
+		PixelShader shape;
+		PixelShader texture;
+		PixelShader square_dot;
+		PixelShader round_dot;
+		PixelShader sdf;
+		
+		// PixelShaderID キャッシュ
+		PixelShaderID shapeID;
+		PixelShaderID textureID;
+		PixelShaderID square_dotID;
+		PixelShaderID round_dotID;
+		PixelShaderID sdfID;
+		
+		bool setup()
+		{
+			const bool initialized =
+			shape
+			&& texture
+			&& square_dot
+			&& round_dot
+			&& sdf;
+			
+			shapeID			= shape.id();
+			textureID		= texture.id();
+			square_dotID	= square_dot.id();
+			round_dotID		= round_dot.id();
+			sdfID			= sdf.id();
+			
+			return initialized;
+		}
+	};
+	
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
 		
-		Array<VertexShader> m_standardVSs;
-		Array<PixelShader> m_standardPSs;
+		std::unique_ptr<GLStandardVS2D> m_standardVS;
+		std::unique_ptr<GLStandardPS2D> m_standardPS;
 		
 		BufferCreatorFunc m_bufferCreator;
 		

@@ -18,6 +18,7 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/PixelShader.hpp>
 # include <Siv3D/HashTable.hpp>
 
 namespace s3d
@@ -140,7 +141,7 @@ namespace s3d
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 		float m_currentMaxScaling = 1.0f;
-		Array<size_t> m_pixelShaders = { 0 };
+		Array<PixelShaderID> m_PSs;
 		Array<Rect> m_scissorRects = { Rect(0) };
 		Array<Optional<Rect>> m_viewports = { none };
 		std::array<Array<TextureID>, SamplerState::MaxSamplerCount> m_psTextures;
@@ -155,12 +156,13 @@ namespace s3d
 		Mat3x2 m_currentLocalTransform = Mat3x2::Identity();
 		Mat3x2 m_currentCameraTransform = Mat3x2::Identity();
 		Mat3x2 m_currentCombinedTransform = Mat3x2::Identity();
-		size_t m_currentPixelShader = m_pixelShaders.front();
+		PixelShaderID m_currentPS = PixelShaderID::InvalidValue();
 		Rect m_currentScissorRect = m_scissorRects.front();
 		Optional<Rect> m_currentViewport = m_viewports.front();
 		std::array<TextureID, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		Float4 m_currentSdfParam = m_sdfParams.front();
 		
+		HashTable<PixelShaderID, PixelShader> m_reservedPSs;
 		HashTable<TextureID, Texture> m_reservedTextures;
 		
 	public:
@@ -208,9 +210,9 @@ namespace s3d
 		const Mat3x2& getCurrentCombinedTransform() const;
 		float getCurrentMaxScaling() const noexcept;
 		
-		void pushPS(size_t psIndex);
-		size_t getPS(uint32 index) const;
-		size_t getCurrentPS() const;
+		void pushStandardPS(const PixelShaderID& id);
+		void pushCustomPS(const PixelShader& ps);
+		const PixelShaderID& getPS(uint32 index) const;
 		
 		void pushScissorRect(const Rect& rect);
 		const Rect& getScissorRect(uint32 index) const;
