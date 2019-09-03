@@ -150,6 +150,8 @@ namespace s3d
 
 		std::unique_ptr<Texture> m_boxShadowTexture;
 
+		Optional<PixelShader> m_currentCustomPS;
+
 	public:
 
 		CRenderer2D_D3D11();
