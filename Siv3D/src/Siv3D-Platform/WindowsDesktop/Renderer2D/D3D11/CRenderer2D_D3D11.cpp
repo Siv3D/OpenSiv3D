@@ -554,6 +554,17 @@ namespace s3d
 		return m_commands.getCurrentSdfParam();
 	}
 
+	void CRenderer2D_D3D11::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		// [Siv3D ToDo]
+	}
+
+	Optional<PixelShader> CRenderer2D_D3D11::getCustomPS() const
+	{
+		// [Siv3D ToDo]
+		return(none);
+	}
+
 	void CRenderer2D_D3D11::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		if (style.isSquareCap())

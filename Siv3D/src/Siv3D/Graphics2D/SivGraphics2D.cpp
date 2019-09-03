@@ -129,5 +129,15 @@ namespace s3d
 		{
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getSDFParameters();
 		}
+
+		void SetCustomPixelShader(const Optional<PixelShader>& ps)
+		{
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->setCustomPS(ps);
+		}
+
+		Optional<PixelShader> GetCustomPixelShader()
+		{
+			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCustomPS();
+		}
 	}
 }

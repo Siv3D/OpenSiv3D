@@ -19,7 +19,7 @@
 # include "SamplerState.hpp"
 # include "Rectangle.hpp"
 # include "Mat3x2.hpp"
-# include "Cursor.hpp"
+# include "PixelShader.hpp"
 
 namespace s3d
 {
@@ -116,5 +116,9 @@ namespace s3d
 		void SetSDFParameters(const Float4& parameters);
 
 		[[nodiscard]] Float4 GetSDFParameters();
+
+		void SetCustomPixelShader(const Optional<PixelShader>& ps);
+
+		[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
 	}
 }
