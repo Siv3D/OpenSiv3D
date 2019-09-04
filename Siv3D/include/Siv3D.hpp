@@ -1048,7 +1048,7 @@
 # include <Siv3D/DynamicTexture.hpp>
 
 // レンダーテクスチャ
-//# include <Siv3D/RenderTexture.hpp>
+# include <Siv3D/RenderTexture.hpp>
 
 //////////////////////////////////////////////////
 //

@@ -203,6 +203,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
