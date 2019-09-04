@@ -88,5 +88,8 @@ namespace s3d
 		void capture();
 		
 		const Image& getImage() const;
+		
+		
+		void setFrameBuffer(GLuint frameBuffer);
 	};
 }

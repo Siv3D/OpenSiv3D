@@ -12,27 +12,55 @@ struct PoissonDisk
 void Main()
 {
 	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	const Font font(60);
+	const Texture cat(Emoji(U"🐈"));
+	const PixelShader rgbShiftPS(U"example/shader/rgb_shift.frag");
+	Vec2 catPos(640, 450);
 	
-	const Texture texture(U"example/windmill.png");
-	const PixelShader ps(U"example/shader/poisson_disc.frag",
+	const Texture windmill(U"example/windmill.png");
+	const PixelShader poissonDiscPS(U"example/shader/poisson_disc.frag",
 									{ { U"PSConstants2D", 1 }, { U"PoissonDisc", 2 } });
-	
-	ConstantBuffer<PoissonDisk> cb;
+	ConstantBuffer<PoissonDisk> poissonDiscCB;
 	double discRadius = 0.0;
 	
-	RenderTexture ren(400, 300, Palette::Seagreen);
-
+	RenderTexture rt(400, 600, Palette::Seagreen);
+	
 	while (System::Update())
 	{
+		rt.clear(HSV(Scene::Time() * 60, 0.5, 1.0));
+		
 		SimpleGUI::Slider(U"discRadius", discRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
-		cb->pixelSize = Float2(1.0, 1.0) / texture.size();
-		cb->discRadius = static_cast<float>(discRadius);
+		poissonDiscCB->pixelSize = Float2(1.0, 1.0) / windmill.size();
+		poissonDiscCB->discRadius = static_cast<float>(discRadius);
 		{
-			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, cb);
-			ScopedCustomShader2D shader(ps);
-			texture.draw(10, 10);
+			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, poissonDiscCB);
+			ScopedRenderTarget2D target(rt);
+			{
+				ScopedCustomShader2D shader(poissonDiscPS);
+				windmill.draw(10, 10);
+			}
+			Circle(0,0,50).draw(Palette::White);
 		}
 		
-		ren.draw(380, 280);
+		rt.scaled(0.5).draw();
+		
+		//*
+		font(U"Hello, Siv3D!🐣").drawAt(400, 400, Palette::Black);
+		
+		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+		
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+		
+		if (KeyA.down())
+		{
+			Print << U"Hello!";
+		}
+		
+		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		{
+			catPos = RandomVec2(Scene::Rect());
+		}
+		
+		//*/
 	}
 }

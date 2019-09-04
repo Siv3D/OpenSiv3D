@@ -304,6 +304,23 @@ namespace s3d
 																										index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
 				}
+				case RendererCommand::SetRT:
+				{
+					const auto& rt = m_commands.getRT(index);
+					
+					if (rt) // 通常と異なる RenderTexture
+					{
+						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						pGraphics->getRenderTarget().setFrameBuffer(frameBuffer);
+					}
+					else // [BackBuffer]
+					{
+						pGraphics->getRenderTarget().bindSceneFrameBuffer();
+					}
+					
+					LOG_COMMAND(U"SetRT[{}]"_fmt(index));
+					break;
+				}
 				case RendererCommand::ScissorRect:
 				{
 					const auto& r = m_commands.getScissorRect(index);
@@ -540,6 +557,38 @@ namespace s3d
 	void CRenderer2D_GL::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
+	}
+	
+	void CRenderer2D_GL::setRT(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+			
+			const TextureID textureID = rt->id();
+			const auto& currentPSTextures = m_commands.getCurrentPSTextures();
+			
+			for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+			{
+				if (currentPSTextures[slot] == textureID)
+				{
+					m_commands.pushPSTexture(slot, Texture());
+					hasChanged = true;
+				}
+			}
+			
+			if (hasChanged)
+			{
+				m_commands.flush();
+			}
+		}
+		
+		m_commands.pushRT(rt);
+	}
+	
+	Optional<RenderTexture> CRenderer2D_GL::getRT() const
+	{
+		return m_commands.getCurrentRT();
 	}
 	
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])

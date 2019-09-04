@@ -20,6 +20,7 @@
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
+# include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/HashTable.hpp>
 
 namespace s3d
@@ -63,6 +64,8 @@ namespace s3d
 		SetPS,
 		
 		SetCB,
+		
+		SetRT,
 		
 		ScissorRect,
 		
@@ -156,6 +159,7 @@ namespace s3d
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 		float m_currentMaxScaling = 1.0f;
 		Array<PixelShaderID> m_PSs;
+		Array<Optional<RenderTexture>> m_RTs = { none };
 		Array<Rect> m_scissorRects = { Rect(0) };
 		Array<Optional<Rect>> m_viewports = { none };
 		std::array<Array<TextureID>, SamplerState::MaxSamplerCount> m_psTextures;
@@ -171,6 +175,7 @@ namespace s3d
 		Mat3x2 m_currentCameraTransform = Mat3x2::Identity();
 		Mat3x2 m_currentCombinedTransform = Mat3x2::Identity();
 		PixelShaderID m_currentPS = PixelShaderID::InvalidValue();
+		Optional<RenderTexture> m_currentRT = none;
 		Rect m_currentScissorRect = m_scissorRects.front();
 		Optional<Rect> m_currentViewport = m_viewports.front();
 		std::array<TextureID, SamplerState::MaxSamplerCount> m_currentPSTextures;
@@ -232,6 +237,10 @@ namespace s3d
 		CBCommand& getCB(uint32 index);
 		const __m128* getConstantsPtr(uint32 offset) const;
 		
+		void pushRT(const Optional<RenderTexture>& rt);
+		const Optional<RenderTexture>& getRT(uint32 index) const;
+		const Optional<RenderTexture>& getCurrentRT() const;
+		
 		void pushScissorRect(const Rect& rect);
 		const Rect& getScissorRect(uint32 index) const;
 		const Rect& getCurrentScissorRect() const;
@@ -242,6 +251,7 @@ namespace s3d
 		
 		void pushPSTexture(uint32 slot, const Texture& texture);
 		const TextureID& getPSTexture(uint32 slot, uint32 index) const;
+		const std::array<TextureID, SamplerState::MaxSamplerCount>& getCurrentPSTextures() const;
 		
 		void pushSdfParam(const Float4& param);
 		const Float4& getSdfParam(uint32 index) const;

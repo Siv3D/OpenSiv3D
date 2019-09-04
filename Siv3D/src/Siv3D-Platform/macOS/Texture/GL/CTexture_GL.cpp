@@ -219,6 +219,11 @@ namespace s3d
 		return m_textures[handleID]->getTexture();
 	}
 	
+	GLuint CTexture_GL::getFrameBuffer(const TextureID handleID)
+	{
+		return m_textures[handleID]->getFrameBuffer();
+	}
+	
 	bool CTexture_GL::isMainThread() const
 	{
 		return std::this_thread::get_id() == m_id;

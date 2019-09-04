@@ -1106,6 +1106,7 @@
 		2CBC64FD230D7073001610DB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */; };
 		2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */; };
 		2CBC6519231F89A7001610DB /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */; };
+		2CBC651C2320169C001610DB /* SivScopedRenderTarget2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2540,6 +2541,8 @@
 		2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader2D.cpp; sourceTree = "<group>"; };
 		2CBC6516231F8987001610DB /* RenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderTexture.hpp; sourceTree = "<group>"; };
 		2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
+		2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderTarget2D.cpp; sourceTree = "<group>"; };
+		2CBC651D232016CD001610DB /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6058,6 +6061,7 @@
 				2C461603226EEF3200828870 /* ScopedColor2D */,
 				2CBC6513231E8A6D001610DB /* ScopedCustomShader2D */,
 				2C4615C9226EEF3000828870 /* ScopedRenderStates2D */,
+				2CBC651A2320169C001610DB /* ScopedRenderTarget2D */,
 				2C461605226EEF3200828870 /* ScopedViewport2D */,
 				2C46174A226EEF3D00828870 /* ScreenCapture */,
 				2C46153E226EEF2F00828870 /* Script */,
@@ -6341,6 +6345,7 @@
 				2CA6281F22226DC70009DFE1 /* ScopedColor2D.hpp */,
 				2CBC6512231E8A55001610DB /* ScopedCustomShader2D.hpp */,
 				2CA6276F22226DC60009DFE1 /* ScopedRenderStates2D.hpp */,
+				2CBC651D232016CD001610DB /* ScopedRenderTarget2D.hpp */,
 				2CA6282222226DC70009DFE1 /* ScopedViewport2D.hpp */,
 				2CA6280E22226DC70009DFE1 /* ScopeGuard.hpp */,
 				2CA627BD22226DC70009DFE1 /* ScreenCapture.hpp */,
@@ -6766,6 +6771,14 @@
 				2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */,
 			);
 			path = RenderTexture;
+			sourceTree = "<group>";
+		};
+		2CBC651A2320169C001610DB /* ScopedRenderTarget2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */,
+			);
+			path = ScopedRenderTarget2D;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7633,6 +7646,7 @@
 				2C4617E8226EEF4100828870 /* Script_MathConstants.cpp in Sources */,
 				2C4617EC226EEF4100828870 /* Script_Palette.cpp in Sources */,
 				2C461915226EEF4100828870 /* SivTextureDesc.cpp in Sources */,
+				2CBC651C2320169C001610DB /* SivScopedRenderTarget2D.cpp in Sources */,
 				2C46183A226EEF4100828870 /* SivPrint.cpp in Sources */,
 				2C461878226EEF4100828870 /* SivPerlinNoise.cpp in Sources */,
 				2C461837226EEF4100828870 /* SivTextureAsset.cpp in Sources */,

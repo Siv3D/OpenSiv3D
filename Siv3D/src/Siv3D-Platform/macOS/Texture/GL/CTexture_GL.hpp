@@ -83,5 +83,7 @@ namespace s3d
 		
 		
 		GLuint getTexture(TextureID handleID);
+		
+		GLuint getFrameBuffer(TextureID handleID);
 	};
 }

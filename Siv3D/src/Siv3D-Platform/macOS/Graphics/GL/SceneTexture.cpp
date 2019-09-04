@@ -384,4 +384,9 @@ namespace s3d
 	{
 		return m_image;
 	}
+	
+	void SceneTexture::setFrameBuffer(const GLuint frameBuffer)
+	{
+		::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	}
 }

@@ -72,6 +72,11 @@ namespace s3d
 			return m_texture;
 		}
 		
+		GLuint getFrameBuffer() const
+		{
+			return m_frameBuffer;
+		}
+		
 		Size getSize() const
 		{
 			return m_size;
