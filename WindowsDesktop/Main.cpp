@@ -23,19 +23,23 @@ void Main()
 	ConstantBuffer<PoissonDisk> poissonDiscCB;
 	double discRadius = 0.0;
 
-	RenderTexture ren(400, 300, Palette::Seagreen);
+	RenderTexture rt(400, 600, Palette::Seagreen);
 
 	while (System::Update())
 	{
+		rt.clear(HSV(Scene::Time() * 60, 0.5, 1.0));
+
 		SimpleGUI::Slider(U"discRadius", discRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
 		poissonDiscCB->pixelSize = Float2(1.0, 1.0) / windmill.size();
 		poissonDiscCB->discRadius = static_cast<float>(discRadius);
-		{	
+		{
 			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, poissonDiscCB);
 			ScopedCustomShader2D shader(poissonDiscPS);
+			ScopedRenderTarget2D target(rt);
 			windmill.draw(10, 10);
 		}
-		
+
+		rt.scaled(0.5).draw();
 
 		//*
 		font(U"Hello, Siv3D!🐣").drawAt(400, 400, Palette::Black);
@@ -53,8 +57,6 @@ void Main()
 		{
 			catPos = RandomVec2(Scene::Rect());
 		}
-
-		ren.draw(380, 280);
 
 		//*/
 	}

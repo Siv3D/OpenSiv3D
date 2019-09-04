@@ -184,32 +184,10 @@ namespace s3d
 		return m_textures[handleID]->getTexture();
 	}
 
-	//void CTexture_D3D11::clearRT(const TextureID handleID, const ColorF& color)
-	//{
-	//	m_textures[handleID]->clearRT(m_context, color);
-	//}
-
-	//void CTexture_D3D11::beginResize(const TextureID handleID)
-	//{
-	//	m_textures[handleID]->beginResize();
-	//}
-
-	//bool CTexture_D3D11::endResizeBackBuffer(const TextureID handleID)
-	//{
-	//	return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
-	//}
-
-	//bool CTexture_D3D11::endResizeRT(const TextureID handleID, const Size& size, const uint32 multisampleCount)
-	//{
-	//	return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size, multisampleCount);
-	//}
-
-	
-
-	//ID3D11RenderTargetView* CTexture_D3D11::getRTV(const TextureID handleID)
-	//{
-	//	return m_textures[handleID]->getRTV();
-	//}
+	ID3D11RenderTargetView* CTexture_D3D11::getRTV(const TextureID handleID)
+	{
+		return m_textures[handleID]->getRTV();
+	}
 
 
 

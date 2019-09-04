@@ -16,6 +16,7 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
+# include <Siv3D/RenderTexture.hpp>
 # include "D3D11SpriteBatch.hpp"
 # include "D3D11Renderer2DCommand.hpp"
 # include <Renderer2D/Vertex2DBuilder.hpp>
@@ -198,6 +199,10 @@ namespace s3d
 		Optional<PixelShader> getCustomPS() const override;
 
 		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
+
+		void setRT(const Optional<RenderTexture>& rt) override;
+
+		Optional<RenderTexture> getRT() const override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 

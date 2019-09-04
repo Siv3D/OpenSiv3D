@@ -56,7 +56,7 @@ namespace s3d
 
 		ID3D11Texture2D* getTexture(TextureID handleID);
 
-		//ID3D11RenderTargetView* getRTV(TextureID handleID);
+		ID3D11RenderTargetView* getRTV(TextureID handleID);
 
 		void clearRT(TextureID handleID, const ColorF& color) override;
 

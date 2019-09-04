@@ -135,5 +135,7 @@ namespace s3d
 
 		// レンダーターゲットを設定
 		void setRenderTarget(RenderTargetType renderTargetType);
+
+		void setRenderTarget(ID3D11RenderTargetView* const rtv);
 	};
 }

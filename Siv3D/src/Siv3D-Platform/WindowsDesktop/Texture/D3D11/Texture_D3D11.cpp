@@ -411,6 +411,11 @@ namespace s3d
 		return m_texture.Get();
 	}
 
+	ID3D11RenderTargetView* Texture_D3D11::getRTV()
+	{
+		return m_renderTargetView.Get();
+	}
+
 	/*
 
 	void Texture_D3D11::beginResize()

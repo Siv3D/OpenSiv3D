@@ -1006,6 +1006,9 @@
     <Filter Include="src\Siv3D\RenderTexture">
       <UniqueIdentifier>{57fc0f95-7e02-404f-a932-20bec5e2cad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScopedRenderTarget2D">
+      <UniqueIdentifier>{7c4fae43-7898-4d59-9860-0931b447260e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3441,6 +3444,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5185,6 +5191,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp">
       <Filter>src\Siv3D\RenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderTarget2D\SivScopedRenderTarget2D.cpp">
+      <Filter>src\Siv3D\ScopedRenderTarget2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

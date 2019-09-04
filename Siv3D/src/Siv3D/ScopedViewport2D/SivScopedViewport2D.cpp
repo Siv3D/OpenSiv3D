@@ -19,6 +19,12 @@ namespace s3d
 		Graphics2D::SetViewport(viewport);
 	}
 
+	ScopedViewport2D::ScopedViewport2D(int32 w, int32 h)
+		: ScopedViewport2D(Rect(0, 0, w, h)) {}
+
+	ScopedViewport2D::ScopedViewport2D(const Size& size)
+		: ScopedViewport2D(Rect(0, 0, size)) {}
+
 	ScopedViewport2D::ScopedViewport2D(const int32 x, const int32 y, const int32 w, const int32 h)
 		: ScopedViewport2D(Rect(x, y, w, h)) {}
 

@@ -77,6 +77,8 @@ namespace s3d
 
 		ID3D11Texture2D* getTexture();
 
+		ID3D11RenderTargetView* getRTV();
+
 	//	
 
 	//	void beginResize();

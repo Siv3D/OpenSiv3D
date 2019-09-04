@@ -320,6 +320,15 @@ namespace s3d
 		m_context->OMSetRenderTargets(static_cast<UINT>(pRTV.size()), pRTV.data(), nullptr);
 	}
 
+	void D3D11RenderTarget::setRenderTarget(ID3D11RenderTargetView* const rtv)
+	{
+		std::array<ID3D11RenderTargetView*, 3> pRTV = {};
+
+		pRTV[0] = rtv;
+
+		m_context->OMSetRenderTargets(static_cast<UINT>(pRTV.size()), pRTV.data(), nullptr);
+	}
+
 	void D3D11RenderTarget::resolveScene()
 	{
 		// 必要に応じて [2D Resolved シーン] を作成、リサイズ
