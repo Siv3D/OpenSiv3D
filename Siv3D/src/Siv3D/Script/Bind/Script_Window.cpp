@@ -18,21 +18,21 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	void SetFullscreen1(bool fullscreen, const CScriptOptional& fullscreenResolution, WindowResizeOption resizeOption)
+	bool SetFullscreen1(bool fullscreen, const CScriptOptional& fullscreenResolution, WindowResizeOption resizeOption)
 	{
 		if (fullscreenResolution.HasValue())
 		{
-			Window::SetFullscreen(fullscreen , *static_cast<const Size*>(fullscreenResolution.At()), resizeOption);
+			return Window::SetFullscreen(fullscreen , *static_cast<const Size*>(fullscreenResolution.At()), resizeOption);
 		}
 		else
 		{
-			Window::SetFullscreen(fullscreen, unspecified, resizeOption);
+			return Window::SetFullscreen(fullscreen, unspecified, resizeOption);
 		}
 	}
 
-	void SetFullscreen2(bool fullscreen, uint8, WindowResizeOption resizeOption)
+	bool SetFullscreen2(bool fullscreen, uint8, WindowResizeOption resizeOption)
 	{
-		Window::SetFullscreen(fullscreen, unspecified, resizeOption);
+		return Window::SetFullscreen(fullscreen, unspecified, resizeOption);
 	}
 
 	void RegisterWindow(asIScriptEngine* engine)
@@ -77,8 +77,8 @@ namespace s3d
 			r = engine->RegisterGlobalFunction("void Restore()", asFUNCTION(Window::Restore), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("void Minimize()", asFUNCTION(Window::Minimize), asCALL_CDECL); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("void SetFullscreen(bool, const Optional<Point>& in = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize)", asFUNCTION(SetFullscreen1), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void SetFullscreen(bool, None_t, WindowResizeOption option = WindowResizeOption::ResizeSceneSize)", asFUNCTION(SetFullscreen2), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool SetFullscreen(bool, const Optional<Point>& in = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize)", asFUNCTION(SetFullscreen1), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool SetFullscreen(bool, None_t, WindowResizeOption option = WindowResizeOption::ResizeSceneSize)", asFUNCTION(SetFullscreen2), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

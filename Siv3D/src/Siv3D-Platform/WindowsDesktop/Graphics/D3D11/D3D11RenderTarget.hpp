@@ -110,5 +110,7 @@ namespace s3d
 		void resizeBuffers(const Size& backBufferSize, const Size& sceneSize);
 
 		const BackBuffer& getBackBuffer() const;
+
+		std::pair<ID3D11Texture2D*, Size> getCaptureTexture();
 	};
 }

@@ -166,16 +166,16 @@ namespace s3d
 
 		void Minimize();
 
-		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
+		[[nodiscard]] bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
 	}
 
 # if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::Window
 	{
-		void* GetHWND();
+		[[nodiscard]] void* GetHWND();
 
-		bool ChangeDisplayResolution(const Size& size);
+		[[nodiscard]] bool ChangeDisplayResolution(const Size& size);
 	}
 
 # endif

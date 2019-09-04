@@ -135,7 +135,7 @@ namespace s3d
 
 		[[nodiscard]] const String& getValue(const Section& section, const Name& name) const;
 
-		[[nodiscard]] const String& getGlobalVaue(const Name& name);
+		[[nodiscard]] const String& getGlobalValue(const Name& name);
 
 		[[nodiscard]] const Value& operator [](const String& section_and_name) const;
 

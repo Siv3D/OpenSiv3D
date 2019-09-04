@@ -215,7 +215,7 @@ namespace s3d
 		{
 			return false;
 		}
-		m_locationTexture = ::glGetUniformLocation(m_copyProgram, "Tex0");
+		m_locationTexture = ::glGetUniformLocation(m_copyProgram, "Texture0");
 		
 		::glGenVertexArrays(1, &m_vertexArray);
 		::glBindVertexArray(m_vertexArray);

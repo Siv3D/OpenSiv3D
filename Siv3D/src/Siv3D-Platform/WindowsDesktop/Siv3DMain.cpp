@@ -114,7 +114,7 @@ namespace s3d
 		}
 		catch (const Error& error)
 		{
-			Window::SetFullscreen(false); // メッセージボックスを表示するためにフルスクリーンモードを解除
+			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
 			EngineMessageBox::ShowError(U"Error:\n{}"_fmt(error.what()));
 			return;
 		}

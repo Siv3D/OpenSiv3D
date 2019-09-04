@@ -66,13 +66,8 @@ namespace s3d
 		}
 	};
 	
-	struct VscbSprite
+	struct VSConstants2D
 	{
-		static constexpr const char* Name()
-		{
-			return "vscbSprite";
-		}
-		
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;
@@ -83,13 +78,8 @@ namespace s3d
 		Float4 colorMul;
 	};
 	
-	struct PscbSprite
+	struct PSConstants2D
 	{
-		static constexpr const char* Name()
-		{
-			return "pscbSprite";
-		}
-		
 		static constexpr uint32 BindingPoint()
 		{
 			return 1;
@@ -100,25 +90,71 @@ namespace s3d
 		Float4 sdfParam;
 	};
 	
+	struct GLStandardVS2D
+	{
+		VertexShader sprite;
+		
+		bool ok() const
+		{
+			return !!sprite;
+		}
+	};
+	
+	struct GLStandardPS2D
+	{
+		PixelShader shape;
+		PixelShader texture;
+		PixelShader square_dot;
+		PixelShader round_dot;
+		PixelShader sdf;
+		
+		// PixelShaderID キャッシュ
+		PixelShaderID shapeID;
+		PixelShaderID textureID;
+		PixelShaderID square_dotID;
+		PixelShaderID round_dotID;
+		PixelShaderID sdfID;
+		
+		bool setup()
+		{
+			const bool initialized =
+			shape
+			&& texture
+			&& square_dot
+			&& round_dot
+			&& sdf;
+			
+			shapeID			= shape.id();
+			textureID		= texture.id();
+			square_dotID	= square_dot.id();
+			round_dotID		= round_dot.id();
+			sdfID			= sdf.id();
+			
+			return initialized;
+		}
+	};
+	
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
 		
-		Array<VertexShader> m_standardVSs;
-		Array<PixelShader> m_standardPSs;
+		std::unique_ptr<GLStandardVS2D> m_standardVS;
+		std::unique_ptr<GLStandardPS2D> m_standardPS;
 		
 		BufferCreatorFunc m_bufferCreator;
 		
 		ShaderPipeline m_pipeline;
 		
-		ConstantBuffer<VscbSprite> m_vscbSprite;
-		ConstantBuffer<PscbSprite> m_pscbSprite;
+		ConstantBuffer<VSConstants2D> m_vsConstants2D;
+		ConstantBuffer<PSConstants2D> m_psConstants2D;
 		
 		GLSpriteBatch m_batches;
 		
 		GLRenderer2DCommand m_commands;
 		
 		std::unique_ptr<Texture> m_boxShadowTexture;
+		
+		Optional<PixelShader> m_currentCustomPS;
 
 	public:
 
@@ -175,6 +211,12 @@ namespace s3d
 		void setSDFParameters(const Float4& parameters) override;
 
 		Float4 getSDFParameters() const override;
+		
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+		
+		Optional<PixelShader> getCustomPS() const override;
+		
+		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 

@@ -140,7 +140,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい書き込み位置（バイト）
 		/// </returns>
-		int64 seekEnd();
+		int64 seekToEnd();
 
 		/// <summary>
 		/// ファイルにデータを書き込みます。

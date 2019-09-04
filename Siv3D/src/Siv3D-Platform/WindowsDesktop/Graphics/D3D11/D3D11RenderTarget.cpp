@@ -302,4 +302,36 @@ namespace s3d
 	{
 		return m_backBuffer;
 	}
+
+	std::pair<ID3D11Texture2D*, Size> D3D11RenderTarget::getCaptureTexture()
+	{
+		if (m_backBuffer.size == m_msScene.size)
+		{
+			return{ m_backBuffer.texture.Get(), m_backBuffer.size };
+		}
+		else
+		{
+			if (m_sceneTextureFilter == TextureFilter::Nearest)
+			{
+				if (m_msScene.size != m_resolvedScene.size)
+				{
+					detail::CreateRenderTarget2D(m_device, m_resolvedScene, m_msScene.size, 1);
+				}
+
+				// resolve
+				{
+					m_context->OMSetRenderTargets(0, nullptr, nullptr);
+
+					m_context->ResolveSubresource(m_resolvedScene.texture.Get(), 0,
+						m_msScene.texture.Get(), 0, DXGI_FORMAT_R8G8B8A8_UNORM);
+				}
+
+				return{ m_resolvedScene.texture.Get(), m_msScene.size };
+			}
+			else
+			{
+				return{ m_resolvedScene.texture.Get(), m_msScene.size };
+			}
+		}
+	}
 }

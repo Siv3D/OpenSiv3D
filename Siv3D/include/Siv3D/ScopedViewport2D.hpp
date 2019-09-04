@@ -22,7 +22,7 @@ namespace s3d
 
 		Optional<Optional<Rect>> m_oldViewport;
 
-		void clear();
+		void clear() noexcept;
 
 	public:
 
@@ -38,10 +38,10 @@ namespace s3d
 
 		ScopedViewport2D(const Point& pos, const Size& size);
 
-		ScopedViewport2D(ScopedViewport2D&& other);
+		ScopedViewport2D(ScopedViewport2D&& other) noexcept;
 
 		~ScopedViewport2D();
 
-		ScopedViewport2D& operator =(ScopedViewport2D&& other);
+		ScopedViewport2D& operator =(ScopedViewport2D&& other) noexcept;
 	};
 }

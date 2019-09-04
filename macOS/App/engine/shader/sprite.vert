@@ -8,7 +8,7 @@ layout(location = 0) out vec4 Color;
 layout(location = 1) out vec2 Tex;
 out vec4 gl_Position;
 		
-layout(std140) uniform vscbSprite
+layout(std140) uniform VSConstants2D
 {
 	vec4 g_transform[2];
 	vec4 g_colorMul;

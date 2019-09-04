@@ -24,11 +24,6 @@ namespace s3d
 {
 	struct SpriteCB0
 	{
-		static constexpr std::string_view Name()
-		{
-			return "SpriteCB0";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;
@@ -41,11 +36,6 @@ namespace s3d
 
 	struct SpriteCB1
 	{
-		static constexpr std::string_view Name()
-		{
-			return "SpriteCB1";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 1;
@@ -58,17 +48,69 @@ namespace s3d
 
 	struct FullscreenTriangleCB0
 	{
-		static constexpr std::string_view Name()
-		{
-			return "FullscreenTriangleCB0";
-		}
-
 		static constexpr uint32 BindingPoint()
 		{
 			return 0;
 		}
 
 		Float4 texScale;
+	};
+
+	struct D3D11StandardVS2D
+	{
+		VertexShader sprite;
+		VertexShader fullscreen_triangle_resolve;
+		VertexShader fullscreen_triangle_draw;
+
+		bool ok() const
+		{
+			return sprite
+				&& fullscreen_triangle_resolve
+				&& fullscreen_triangle_draw;
+		}
+	};
+
+	struct D3D11StandardPS2D
+	{
+		// PS
+		PixelShader shape;
+		PixelShader texture;
+		PixelShader square_dot;
+		PixelShader round_dot;
+		PixelShader sdf;
+		PixelShader fullscreen_triangle_resolve;
+		PixelShader fullscreen_triangle_draw;
+
+		// PixelShaderID キャッシュ
+		PixelShaderID shapeID;
+		PixelShaderID textureID;
+		PixelShaderID square_dotID;
+		PixelShaderID round_dotID;
+		PixelShaderID sdfID;
+		PixelShaderID fullscreen_triangle_resolveID;
+		PixelShaderID fullscreen_triangle_drawID;
+
+		bool setup()
+		{
+			const bool initialized = 
+				shape
+				&& texture
+				&& square_dot
+				&& round_dot
+				&& sdf
+				&& fullscreen_triangle_resolve
+				&& fullscreen_triangle_draw;
+
+			shapeID							= shape.id();
+			textureID						= texture.id();
+			square_dotID					= square_dot.id();
+			round_dotID						= round_dot.id();
+			sdfID							= sdf.id();
+			fullscreen_triangle_resolveID	= fullscreen_triangle_resolve.id();
+			fullscreen_triangle_drawID		= fullscreen_triangle_draw.id();
+
+			return initialized;
+		}
 	};
 
 	class CRenderer2D_D3D11 : public ISiv3DRenderer2D
@@ -78,8 +120,8 @@ namespace s3d
 		ID3D11Device* m_device = nullptr;
 		ID3D11DeviceContext* m_context = nullptr;
 
-		Array<VertexShader> m_standardVSs;
-		Array<PixelShader> m_standardPSs;
+		std::unique_ptr<D3D11StandardVS2D> m_standardVS;
+		std::unique_ptr<D3D11StandardPS2D> m_standardPS;
 
 		ConstantBuffer<SpriteCB0> m_cbSprite0;
 		ConstantBuffer<SpriteCB1> m_cbSprite1;
@@ -93,8 +135,7 @@ namespace s3d
 
 		std::unique_ptr<Texture> m_boxShadowTexture;
 
-		void setVS(const VertexShader& vs);
-		void setPS(const PixelShader& ps);
+		Optional<PixelShader> m_currentCustomPS;
 
 	public:
 
@@ -151,6 +192,12 @@ namespace s3d
 		void setSDFParameters(const Float4& parameters) override;
 
 		Float4 getSDFParameters() const override;
+
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+
+		Optional<PixelShader> getCustomPS() const override;
+
+		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 
