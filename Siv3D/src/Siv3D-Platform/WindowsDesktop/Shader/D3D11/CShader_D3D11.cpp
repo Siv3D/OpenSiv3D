@@ -332,7 +332,7 @@ namespace s3d
 
 	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlslFilePath, const FilePath& toFilePath, const ShaderStage stage, const String& entryPoint, uint32 flags) const
 	{
-		LOG_TRACE(U"CShader_D3D11::compileHLSLToFile(hlslFilePath = {}, stage = {}, entryPoint = {}, flags = {:#x})"_fmt(
+		LOG_TRACE(U"CShader_D3D11::compileHLSLToFile(hlslFilePath = {}, stage = {}, entryPoint = {}, flags = {:#X})"_fmt(
 			hlslFilePath, Unicode::Widen(detail::StageToTarget(stage)), entryPoint, flags));
 
 		// HLSL ソースコード

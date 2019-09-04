@@ -23,6 +23,8 @@ void Main()
 	ConstantBuffer<PoissonDisk> poissonDiscCB;
 	double discRadius = 0.0;
 
+	RenderTexture ren(400, 300, Palette::Seagreen);
+
 	while (System::Update())
 	{
 		SimpleGUI::Slider(U"discRadius", discRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
@@ -51,6 +53,9 @@ void Main()
 		{
 			catPos = RandomVec2(Scene::Rect());
 		}
+
+		ren.draw(380, 280);
+
 		//*/
 	}
 }

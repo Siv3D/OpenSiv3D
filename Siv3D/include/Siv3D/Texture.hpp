@@ -38,11 +38,13 @@ namespace s3d
 
 		struct Dynamic {};
 
+		struct Render {};
+
 		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
 		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format, TextureDesc desc);
 
-		//Texture(Render, const Size& size, uint32 multisampleCount);
+		Texture(Render, uint32 width, uint32 height, TextureFormat format);
 
 	public:
 

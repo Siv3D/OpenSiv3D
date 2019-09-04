@@ -145,17 +145,19 @@ namespace s3d
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	//TextureID CTexture_D3D11::createRT(const Size& size, const uint32 multisampleCount)
-	//{
-	//	const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Render{}, m_device, size, multisampleCount);
+	TextureID CTexture_D3D11::createRT(const Size& size, const TextureFormat format)
+	{
+		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
 
-	//	if (!texture->isInitialized())
-	//	{
-	//		return TextureID::NullAsset();
-	//	}
+		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, size, format, desc);
 
-	//	return m_textures.add(texture, U"(Render target, size:{0}x{1})"_fmt(size.x, size.y));
-	//}
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+
+		return m_textures.add(std::move(texture), U"(Render, size: {0}x{1})"_fmt(size.x, size.y));
+	}
 
 	void CTexture_D3D11::release(const TextureID handleID)
 	{
@@ -215,6 +217,11 @@ namespace s3d
 	//{
 	//	m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
 	//}
+
+	void CTexture_D3D11::clearRT(const TextureID handleID, const ColorF& color)
+	{
+		return m_textures[handleID]->clearRT(m_context, color);
+	}
 
 	bool CTexture_D3D11::fill(const TextureID handleID, const ColorF& color, const bool wait)
 	{

@@ -25,13 +25,17 @@ namespace s3d
 	{
 	private:
 
+		// [メインテクスチャ]
 		ComPtr<ID3D11Texture2D> m_texture;
 
+		// [ステージング・テクスチャ]
 		ComPtr<ID3D11Texture2D> m_textureStaging;
 
+		// [シェーダ・リソース・ビュー]
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 
-	//	ComPtr<ID3D11RenderTargetView> m_renderTargetView;
+		// [レンダー・ターゲット・ビュー]
+		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 
 		Texture2DDesc_D3D11 m_desc;
 
@@ -42,7 +46,7 @@ namespace s3d
 	//	struct Null {};
 	//	struct BackBuffer {};
 		struct Dynamic {};
-	//	struct Render {};
+		struct Render {};
 
 	//	Texture_D3D11() = default;
 
@@ -52,7 +56,7 @@ namespace s3d
 
 		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
-	//	Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
+		Texture_D3D11(Render, ID3D11Device* device, const Size& size, TextureFormat format, TextureDesc desc);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
 
@@ -73,7 +77,7 @@ namespace s3d
 
 		ID3D11Texture2D* getTexture();
 
-	//	void clearRT(ID3D11DeviceContext* context, const ColorF& color);
+	//	
 
 	//	void beginResize();
 
@@ -81,6 +85,8 @@ namespace s3d
 
 	//	bool endResize(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
+
+		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
 
 		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
 

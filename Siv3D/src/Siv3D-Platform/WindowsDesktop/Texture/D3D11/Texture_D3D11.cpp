@@ -237,7 +237,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(hr));
 				return;
 			}
 
@@ -248,7 +248,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_textureStaging);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -258,45 +258,66 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
 
 		m_initialized = true;
 	}
-	/*
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* const device, const Size& size, const uint32 multisampleCount)
-	{
-		m_desc = D3D11Texture2DDesc(size,
-			TextureFormat::R8G8B8A8_Unorm, TextureDesc::Unmipped,
-			1, multisampleCount, 0,
+
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat format, const TextureDesc desc)
+		: m_desc(size,
+			format,
+			desc,
+			1,
+			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE,
-			0, 0);
-
-		const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeD3D11Desc();
-
-		if (FAILED(device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture)))
+			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
+			0, 0)
+	{
+		// サイズチェック
+		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
 		{
 			return;
 		}
 
-		const D3D11_RENDER_TARGET_VIEW_DESC rtDesc = m_desc.makeD3D11RTVDesc();
-
-		if (FAILED(device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView)))
+		// [メインテクスチャ] を作成
 		{
-			return;
+			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				return;
+			}
 		}
 
-		if (!createShaderResourceView(device))
+		// [シェーダ・リソース・ビュー] を作成
 		{
-			return;
+			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
+			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
+		}
+
+		// [レンダー・ターゲット・ビュー] を作成
+		{
+			const D3D11_RENDER_TARGET_VIEW_DESC rtDesc = m_desc.makeD3D11_RENDER_TARGET_VIEW_DESC();
+			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
 		}
 
 		m_initialized = true;
 	}
-	*/
+
 	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc desc)
 		: m_desc(image.size(),
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm,
@@ -313,7 +334,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -323,7 +344,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -352,7 +373,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -362,7 +383,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -390,22 +411,7 @@ namespace s3d
 		return m_texture.Get();
 	}
 
-
 	/*
-	void Texture_D3D11::clearRT(ID3D11DeviceContext* const context, const ColorF& color)
-	{
-		const ColorF clearColor = m_desc.isSRGB ? color.gamma(1.0 / 2.2) : color;
-
-		const float colors[4]
-		{
-			static_cast<float>(clearColor.r),
-			static_cast<float>(clearColor.g),
-			static_cast<float>(clearColor.b),
-			static_cast<float>(clearColor.a),
-		};
-
-		context->ClearRenderTargetView(m_renderTargetView.Get(), colors);
-	}
 
 	void Texture_D3D11::beginResize()
 	{
@@ -426,6 +432,22 @@ namespace s3d
 		return isInitialized();
 	}
 	*/
+
+	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
+	{
+		const ColorF clearColor = m_desc.isSRGB() ? color.gamma(1.0 / 2.2) : color;
+
+		const float colors[4]
+		{
+			static_cast<float>(clearColor.r),
+			static_cast<float>(clearColor.g),
+			static_cast<float>(clearColor.b),
+			static_cast<float>(clearColor.a),
+		};
+
+		context->ClearRenderTargetView(m_renderTargetView.Get(), colors);
+	}
+
 	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const ColorF& color, const bool wait)
 	{
 		if (!m_textureStaging)

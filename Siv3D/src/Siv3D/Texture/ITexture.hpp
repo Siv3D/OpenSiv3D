@@ -33,7 +33,7 @@ namespace s3d
 
 		virtual TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) = 0;
 
-		//virtual TextureID createRT(const Size& size, uint32 multisampleCount) = 0;
+		virtual TextureID createRT(const Size& size, TextureFormat format) = 0;
 
 		virtual void release(TextureID handleID) = 0;
 
@@ -45,7 +45,7 @@ namespace s3d
 
 		//virtual ID3D11Texture2D* getTexture(TextureID handleID) = 0;
 
-		//virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
+		virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
 
 
 
