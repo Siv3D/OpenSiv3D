@@ -19,6 +19,8 @@ void Main()
 	
 	ConstantBuffer<PoissonDisk> cb;
 	double discRadius = 0.0;
+	
+	RenderTexture ren(400, 300, Palette::Seagreen);
 
 	while (System::Update())
 	{
@@ -30,5 +32,7 @@ void Main()
 			ScopedCustomShader2D shader(ps);
 			texture.draw(10, 10);
 		}
+		
+		ren.draw(380, 280);
 	}
 }

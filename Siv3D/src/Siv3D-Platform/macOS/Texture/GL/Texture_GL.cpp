@@ -14,6 +14,15 @@
 
 namespace s3d
 {
+	static void CheckGLError()
+	{
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			LOG_ERROR(U"OpenGL Error: 0x{}"_fmt(ToHex(err)));
+		}
+	}
+	
 	Texture_GL::Texture_GL(Null)
 	{
 		::glGenTextures(1, &m_texture);
@@ -38,13 +47,13 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(const Image& image, const TextureDesc desc)
 	{
-		::glGenTextures(1, &m_texture);
-		
-		::glBindTexture(GL_TEXTURE_2D, m_texture);
-		
-		::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
-		
-		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		// [メインテクスチャ] を作成
+		{
+			::glGenTextures(1, &m_texture);
+			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		}
 		
 		m_size = image.size();
 		m_format = TextureFormat::R8G8B8A8_Unorm;
@@ -94,12 +103,64 @@ namespace s3d
 		m_initialized = true;
 	}
 	
+	Texture_GL::Texture_GL(const Render&, const Size& size, const TextureFormat format, const TextureDesc desc)
+	{
+		// [メインテクスチャ] を作成
+		{
+			::glGenTextures(1, &m_texture);
+			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		}
+
+		// [フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = size;
+		m_format = format;
+		m_textureDesc = desc;
+		m_isDynamic = false;
+		m_initialized = true;
+	}
+	
 	Texture_GL::~Texture_GL()
 	{
+		if (m_frameBuffer)
+		{
+			::glDeleteFramebuffers(1, &m_frameBuffer);
+			m_frameBuffer = 0;
+		}
+		
 		if (m_texture)
 		{
 			::glDeleteTextures(1, &m_texture);
 		}
+	}
+	
+	void Texture_GL::clearRT(const ColorF& color)
+	{
+		if (!m_frameBuffer)
+		{
+			return;
+		}
+		
+		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+
+		::glClearColor(
+					   static_cast<float>(color.r),
+					   static_cast<float>(color.g),
+					   static_cast<float>(color.b),
+					   1.0f);
+		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 	
 	bool Texture_GL::fill(const ColorF& color, bool)

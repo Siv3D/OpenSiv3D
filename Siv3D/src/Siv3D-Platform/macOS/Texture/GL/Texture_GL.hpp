@@ -24,6 +24,8 @@ namespace s3d
 		
 		GLuint m_texture = 0;
 		
+		GLuint m_frameBuffer = 0;
+		
 		Size m_size = { 0, 0 };
 		
 		TextureFormat m_format = TextureFormat::Unknown;
@@ -44,6 +46,8 @@ namespace s3d
 		
 		struct Null {};
 		
+		struct Render {};
+		
 		Texture_GL() = default;
 		
 		Texture_GL(Null);
@@ -53,6 +57,8 @@ namespace s3d
 		Texture_GL(const Image& image, const Array<Image>& mipmaps, TextureDesc desc);
 		
 		Texture_GL(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		
+		Texture_GL(const Render&, const Size& size, TextureFormat format, TextureDesc desc);
 		
 		~Texture_GL();
 		
@@ -75,6 +81,8 @@ namespace s3d
 		{
 			return m_textureDesc;
 		}
+		
+		void clearRT(const ColorF& color);
 		
 		bool fill(const ColorF& color, bool wait);
 		
