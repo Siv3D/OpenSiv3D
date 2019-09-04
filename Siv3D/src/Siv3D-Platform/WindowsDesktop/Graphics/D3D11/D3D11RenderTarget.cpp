@@ -75,6 +75,15 @@ namespace s3d
 
 			rt.size = size;
 		}
+
+		constexpr std::array<float, 4> ToFloatx4(const ColorF& color) noexcept
+		{
+			return {
+				static_cast<float>(color.r),
+				static_cast<float>(color.g),
+				static_cast<float>(color.b),
+				static_cast<float>(color.a) };
+		}
 	}
 
 	D3D11RenderTarget::D3D11RenderTarget(const D3D11Device& device, const D3D11SwapChain& swapChain)
@@ -84,6 +93,7 @@ namespace s3d
 	{
 		LOG_TRACE(U"D3D11RenderTarget::D3D11RenderTarget()");
 
+		// バックバッファのサイズを取得
 		{
 			DXGI_SWAP_CHAIN_DESC1 desc = {};
 			m_swapChain1->GetDesc1(&desc);
@@ -91,7 +101,10 @@ namespace s3d
 			LOG_TRACE(U"D3D11RenderTarget::m_backBuffer.size = {}"_fmt(m_backBuffer.size));
 		}
 
+		// [BackBuffer] を作成
 		detail::CreateRTVFromBackBuffer(m_device, m_swapChain1, m_backBuffer);
+
+		// [2DMS シーン] を作成
 		detail::CreateRenderTarget2D(m_device, m_msScene, m_backBuffer.size, SampleCount);
 
 		clear(true);
@@ -110,53 +123,34 @@ namespace s3d
 		{
 			if (!clearAll)
 			{
-				clearTarget &= ~ClearTarget::RenderTarget2D;
+				clearTarget &= ~ClearTarget::MultiSampledScene;
 			}
 
 			m_skipClearScreen = false;
 		}
 
+		// [BackBuffer] をクリア
 		if (clearTarget & ClearTarget::BackBuffer)
 		{
-			const float colors[4]
-			{
-				static_cast<float>(m_letterboxColor.r),
-				static_cast<float>(m_letterboxColor.g),
-				static_cast<float>(m_letterboxColor.b),
-				static_cast<float>(m_letterboxColor.a),
-			};
-
-			m_context->ClearRenderTargetView(m_backBuffer.renderTargetView.Get(), colors);
+			const auto colors = detail::ToFloatx4(m_letterboxColor);
+			m_context->ClearRenderTargetView(m_backBuffer.renderTargetView.Get(), colors.data());
 		}
 
-		if (clearTarget & ClearTarget::RenderTarget2D)
+		// [2DMS シーン] をクリア
+		if (clearTarget & ClearTarget::MultiSampledScene)
 		{
-			const float colors[4]
-			{
-				static_cast<float>(m_backgroundColor.r),
-				static_cast<float>(m_backgroundColor.g),
-				static_cast<float>(m_backgroundColor.b),
-				static_cast<float>(m_backgroundColor.a),
-			};
-
-			m_context->ClearRenderTargetView(m_msScene.renderTargetView.Get(), colors);
+			const auto colors = detail::ToFloatx4(m_backgroundColor);
+			m_context->ClearRenderTargetView(m_msScene.renderTargetView.Get(), colors.data());
 		}
 
-		ID3D11RenderTargetView* pRTV[3]
-		{
-			m_msScene.renderTargetView.Get(),
-			nullptr,
-			nullptr,
-		};
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+		setRenderTarget(RenderTargetType::MultiSampledScene);
 	}
 
 	void D3D11RenderTarget::resolve()
 	{
 		if (m_backBuffer.size == m_msScene.size)
 		{
-			m_context->OMSetRenderTargets(0, nullptr, nullptr);
+			unbindAllRenderTargets();
 
 			m_context->ResolveSubresource(m_backBuffer.texture.Get(), 0,
 				m_msScene.texture.Get(), 0, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -165,13 +159,7 @@ namespace s3d
 		{
 			if (m_sceneTextureFilter == TextureFilter::Nearest)
 			{
-				ID3D11RenderTargetView* pRTV[3]
-				{
-					m_backBuffer.renderTargetView.Get(),
-					nullptr,
-					nullptr,
-				};
-				m_context->OMSetRenderTargets(3, pRTV, nullptr);
+				setRenderTarget(RenderTargetType::BackBuffer);
 				m_context->PSSetShaderResources(0, 1, m_msScene.shaderResourceView.GetAddressOf());
 
 				// draw
@@ -185,26 +173,9 @@ namespace s3d
 			}
 			else
 			{
-				if (m_msScene.size != m_resolvedScene.size)
-				{
-					detail::CreateRenderTarget2D(m_device, m_resolvedScene, m_msScene.size, 1);
-				}
+				resolveScene();
 
-				// resolve
-				{
-					m_context->OMSetRenderTargets(0, nullptr, nullptr);
-
-					m_context->ResolveSubresource(m_resolvedScene.texture.Get(), 0,
-						m_msScene.texture.Get(), 0, DXGI_FORMAT_R8G8B8A8_UNORM);
-				}
-
-				ID3D11RenderTargetView* pRTV[3]
-				{
-					m_backBuffer.renderTargetView.Get(),
-					nullptr,
-					nullptr,
-				};
-				m_context->OMSetRenderTargets(3, pRTV, nullptr);
+				setRenderTarget(RenderTargetType::BackBuffer);
 				m_context->PSSetShaderResources(0, 1, m_resolvedScene.shaderResourceView.GetAddressOf());
 
 				// draw
@@ -263,7 +234,7 @@ namespace s3d
 			return;
 		}
 
-		m_context->OMSetRenderTargets(0, nullptr, nullptr);
+		unbindAllRenderTargets();
 		m_msScene.reset();
 		detail::CreateRenderTarget2D(m_device, m_msScene, sceneSize, SampleCount);
 		clear(true);
@@ -273,7 +244,7 @@ namespace s3d
 	{
 		LOG_TRACE(U"D3D11RenderTarget::resizeBuffers(backBufferSize = {}, sceneSize = {})"_fmt(backBufferSize, sceneSize));
 
-		m_context->OMSetRenderTargets(0, nullptr, nullptr);
+		unbindAllRenderTargets();
 		m_backBuffer.reset();
 		{
 			DXGI_SWAP_CHAIN_DESC1 desc = {};
@@ -311,27 +282,58 @@ namespace s3d
 		}
 		else
 		{
+			// Nearest の場合 resolve されていないので resolve
 			if (m_sceneTextureFilter == TextureFilter::Nearest)
 			{
-				if (m_msScene.size != m_resolvedScene.size)
-				{
-					detail::CreateRenderTarget2D(m_device, m_resolvedScene, m_msScene.size, 1);
-				}
-
-				// resolve
-				{
-					m_context->OMSetRenderTargets(0, nullptr, nullptr);
-
-					m_context->ResolveSubresource(m_resolvedScene.texture.Get(), 0,
-						m_msScene.texture.Get(), 0, DXGI_FORMAT_R8G8B8A8_UNORM);
-				}
-
-				return{ m_resolvedScene.texture.Get(), m_msScene.size };
+				resolveScene();
 			}
-			else
+
+			return{ m_resolvedScene.texture.Get(), m_msScene.size };
+		}
+	}
+
+	void D3D11RenderTarget::unbindAllRenderTargets()
+	{
+		m_context->OMSetRenderTargets(0, nullptr, nullptr);
+	}
+
+	void D3D11RenderTarget::setRenderTarget(const RenderTargetType renderTargetType)
+	{
+		std::array<ID3D11RenderTargetView*, 3> pRTV = {};
+
+		switch (renderTargetType)
+		{
+		case RenderTargetType::BackBuffer:
 			{
-				return{ m_resolvedScene.texture.Get(), m_msScene.size };
+				// [BackBuffer]
+				pRTV[0] = m_backBuffer.renderTargetView.Get();
+				break;
+			}
+		case RenderTargetType::MultiSampledScene:
+			{
+				// [2DMS シーン]
+				pRTV[0] = m_msScene.renderTargetView.Get();
+				break;
 			}
 		}
+
+		m_context->OMSetRenderTargets(static_cast<UINT>(pRTV.size()), pRTV.data(), nullptr);
+	}
+
+	void D3D11RenderTarget::resolveScene()
+	{
+		// 必要に応じて [2D Resolved シーン] を作成、リサイズ
+		if (m_resolvedScene.size != m_msScene.size)
+		{
+			m_resolvedScene.reset();
+			detail::CreateRenderTarget2D(m_device, m_resolvedScene, m_msScene.size, 1);
+		}
+
+		// バインドをすべて解除
+		unbindAllRenderTargets();
+
+		// [2DMS シーン] → [2D Resolved シーン] へ resolve
+		m_context->ResolveSubresource(m_resolvedScene.texture.Get(), 0,
+			m_msScene.texture.Get(), 0, DXGI_FORMAT_R8G8B8A8_UNORM);
 	}
 }
