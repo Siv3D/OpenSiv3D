@@ -144,7 +144,7 @@ namespace s3d
 
 	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
-		auto texture = std::make_unique<Texture_GL>(size, pData, stride, format, desc);
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Dynamic{}, size, pData, stride, format, desc);
 		
 		if (!texture->isInitialized())
 		{
