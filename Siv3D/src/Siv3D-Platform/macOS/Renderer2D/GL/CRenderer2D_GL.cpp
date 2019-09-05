@@ -266,8 +266,8 @@ namespace s3d
 				{
 					transform = m_commands.getCombinedTransform(index);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(index, matrix));
 					break;
@@ -324,7 +324,7 @@ namespace s3d
 				case RendererCommand::ScissorRect:
 				{
 					const auto& r = m_commands.getScissorRect(index);
-					::glScissor(r.x, currentRenderTargetSize.y - r.h - r.y, r.w, r.h);
+					::glScissor(r.x, r.y, r.w, r.h);
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(index, r));
 					break;
 				}
@@ -346,12 +346,12 @@ namespace s3d
 						rect.h = static_cast<float>(currentRenderTargetSize.y);
 					}
 					
-					::glViewport(rect.x, currentRenderTargetSize.y - rect.h - rect.y, rect.w, rect.h);
+					::glViewport(rect.x, rect.y, rect.w, rect.h);
 					
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {})"_fmt(index,
 																																		  rect.x, rect.y, rect.w, rect.h));
