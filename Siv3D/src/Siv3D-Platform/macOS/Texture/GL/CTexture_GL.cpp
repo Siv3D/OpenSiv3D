@@ -193,6 +193,11 @@ namespace s3d
 	{
 		m_textures[handleID]->clearRT(color);
 	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Image& image)
+	{
+		return m_textures[handleID]->readRT(image);
+	}
 
 	bool CTexture_GL::fill(const TextureID handleID, const ColorF& color, const bool wait)
 	{

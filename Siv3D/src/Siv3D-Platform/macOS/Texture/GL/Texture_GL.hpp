@@ -89,6 +89,8 @@ namespace s3d
 		
 		void clearRT(const ColorF& color);
 		
+		void readRT(Image& image);
+		
 		bool fill(const ColorF& color, bool wait);
 		
 		bool fillRegion(const ColorF& color, const Rect& rect);

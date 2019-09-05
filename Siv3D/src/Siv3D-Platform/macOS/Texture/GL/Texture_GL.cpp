@@ -163,6 +163,22 @@ namespace s3d
 		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 	
+	void Texture_GL::readRT(Image& image)
+	{
+		if (!m_frameBuffer)
+		{
+			return;
+		}
+		
+		image.resize(m_size);
+		
+		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+		{
+			::glReadPixels(0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
 	bool Texture_GL::fill(const ColorF& color, bool)
 	{
 		if (!m_isDynamic)
