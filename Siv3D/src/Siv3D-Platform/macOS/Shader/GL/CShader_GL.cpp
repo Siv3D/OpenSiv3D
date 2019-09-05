@@ -75,6 +75,8 @@ namespace s3d
 	
 	VertexShaderID CShader_GL::createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
 	{
+		LOG_TRACE(U"CShader_GL::createVSFromFile(path = \"{}\""_fmt(path));
+		
 		TextReader reader(path);
 		
 		if (!reader)
@@ -116,6 +118,8 @@ namespace s3d
 
 	PixelShaderID CShader_GL::createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
 	{
+		LOG_TRACE(U"CShader_GL::createPSFromFile(path = \"{}\""_fmt(path));
+		
 		TextReader reader(path);
 		
 		if (!reader)
