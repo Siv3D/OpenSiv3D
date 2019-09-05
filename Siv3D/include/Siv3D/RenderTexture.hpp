@@ -34,6 +34,6 @@ namespace s3d
 
 		void clear(const ColorF& color);
 
-		//void readAsImage(Image& image);
+		void readAsImage(Image& image);
 	};
 }

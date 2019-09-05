@@ -29,7 +29,7 @@ namespace s3d
 		ComPtr<ID3D11Texture2D> m_texture;
 
 		// [ステージング・テクスチャ]
-		ComPtr<ID3D11Texture2D> m_textureStaging;
+		ComPtr<ID3D11Texture2D> m_stagingTexture;
 
 		// [シェーダ・リソース・ビュー]
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
@@ -37,22 +37,25 @@ namespace s3d
 		// [レンダー・ターゲット・ビュー]
 		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 
+		enum class TextureType
+		{
+			Normal,
+
+			Dynamic,
+
+			Render,
+		};
+
 		Texture2DDesc_D3D11 m_desc;
+
+		TextureType m_type = TextureType::Normal;
 
 		bool m_initialized = false;
 
 	public:
 
-	//	struct Null {};
-	//	struct BackBuffer {};
 		struct Dynamic {};
 		struct Render {};
-
-	//	Texture_D3D11() = default;
-
-	//	Texture_D3D11(Null, ID3D11Device* device);
-
-	//	Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
 		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
@@ -66,29 +69,15 @@ namespace s3d
 
 		const Texture2DDesc_D3D11& getDesc() const noexcept;
 
-		
-
-	//	ID3D11RenderTargetView* getRTV()
-	//	{
-	//		return m_renderTargetView.Get();
-	//	}
-
 		ID3D11ShaderResourceView** getSRVPtr();
 
 		ID3D11Texture2D* getTexture();
 
 		ID3D11RenderTargetView* getRTV();
 
-	//	
-
-	//	void beginResize();
-
-	//	bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
-
-	//	bool endResize(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
-
-
 		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
+
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
 
 		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
 

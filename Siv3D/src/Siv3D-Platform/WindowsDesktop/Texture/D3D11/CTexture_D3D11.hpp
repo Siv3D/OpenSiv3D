@@ -60,6 +60,8 @@ namespace s3d
 
 		void clearRT(TextureID handleID, const ColorF& color) override;
 
+		void readRT(TextureID handleID, Image& image) override;
+
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 
 		bool fillRegion(TextureID handleID, const ColorF& color, const Rect& rect) override;

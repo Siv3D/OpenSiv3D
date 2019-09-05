@@ -49,4 +49,9 @@ namespace s3d
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->clearRT(m_handle->id(), color);
 	}
+
+	void RenderTexture::readAsImage(Image& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
 }

@@ -201,6 +201,11 @@ namespace s3d
 		return m_textures[handleID]->clearRT(m_context, color);
 	}
 
+	void CTexture_D3D11::readRT(const TextureID handleID, Image& image)
+	{
+		return m_textures[handleID]->readRT(m_device, m_context, image);
+	}
+
 	bool CTexture_D3D11::fill(const TextureID handleID, const ColorF& color, const bool wait)
 	{
 		return m_textures[handleID]->fill(m_context, color, wait);
