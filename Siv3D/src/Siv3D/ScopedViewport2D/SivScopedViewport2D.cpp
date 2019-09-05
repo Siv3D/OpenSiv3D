@@ -16,7 +16,7 @@ namespace s3d
 	ScopedViewport2D::ScopedViewport2D(const Optional<Rect>& viewport)
 		: m_oldViewport(Graphics2D::GetViewport())
 	{
-		Graphics2D::SetViewport(viewport);
+		Graphics2D::Internal::SetViewport(viewport);
 	}
 
 	ScopedViewport2D::ScopedViewport2D(int32 w, int32 h)
@@ -46,7 +46,7 @@ namespace s3d
 
 	ScopedViewport2D::~ScopedViewport2D()
 	{
-		m_oldViewport.then(Graphics2D::SetViewport);
+		m_oldViewport.then(Graphics2D::Internal::SetViewport);
 	}
 
 	ScopedViewport2D& ScopedViewport2D::operator =(ScopedViewport2D&& other) noexcept

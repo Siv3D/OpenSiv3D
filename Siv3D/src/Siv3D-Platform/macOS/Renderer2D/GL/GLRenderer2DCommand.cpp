@@ -742,6 +742,37 @@ namespace s3d
 		return m_currentViewport;
 	}
 	
+	void GLRenderer2DCommand::pushPSTextureUnbound(const uint32 slot)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+		
+		const auto id = TextureID::InvalidValue();
+		const auto command = ToEnum<RendererCommand>(FromEnum(RendererCommand::PSTexture0) + slot);
+		auto& current = m_currentPSTextures[slot];
+		auto& buffer = m_psTextures[slot];
+		
+		if (!m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+			}
+		}
+	}
+	
 	void GLRenderer2DCommand::pushPSTexture(const uint32 slot, const Texture& texture)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);

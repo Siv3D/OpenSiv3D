@@ -74,6 +74,8 @@ namespace s3d
 
 		virtual Float4 getSDFParameters() const = 0;
 
+		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
 		virtual void setCustomPS(const Optional<PixelShader>& ps) = 0;
 
 		virtual Optional<PixelShader> getCustomPS() const = 0;
