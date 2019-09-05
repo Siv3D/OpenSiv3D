@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/ByteArray.hpp>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
 
@@ -23,7 +24,7 @@ namespace s3d
 
 		GLuint m_psProgram = 0;
 		
-		Optional<GLint> m_textureIndex;
+		Array<std::pair<uint32, GLint>> m_textureIndices;
 		
 		bool m_initialized = false;
 		
@@ -80,11 +81,16 @@ namespace s3d
 			
 			if (m_psProgram)
 			{
-				const int32 t = ::glGetUniformLocation(m_psProgram, "Texture0");
-				
-				if (t != -1)
+				for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
 				{
-					m_textureIndex = t;
+					const std::string name = Format(U"Texture", slot).narrow();
+					
+					const GLint location = ::glGetUniformLocation(m_psProgram, name.c_str());
+					
+					if (location != -1)
+					{
+						m_textureIndices.emplace_back(slot, location);
+					}
 				}
 			}
 			
@@ -103,11 +109,14 @@ namespace s3d
 		
 		void setPSSamplerUniform()
 		{
-			if (m_textureIndex)
+			if (m_textureIndices)
 			{
 				::glUseProgram(m_psProgram);
 				
-				::glUniform1i(m_textureIndex.value(), 0);
+				for (auto[slot, location] : m_textureIndices)
+				{
+					::glUniform1i(location, slot);
+				}
 				
 				::glUseProgram(0);
 			}

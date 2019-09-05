@@ -536,6 +536,18 @@ namespace s3d
 		return m_commands.getCurrentSdfParam();
 	}
 	
+	void CRenderer2D_GL::setPSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commands.pushPSTexture(slot, texture.value());
+		}
+		else
+		{
+			m_commands.pushPSTextureUnbound(slot);
+		}
+	}
+	
 	void CRenderer2D_GL::setCustomPS(const Optional<PixelShader>& ps)
 	{
 		if (ps && !ps->isEmpty())
