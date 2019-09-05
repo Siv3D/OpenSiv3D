@@ -42,11 +42,21 @@ namespace s3d
 
 		void SetSamplerState(const uint32 slot, const SamplerState& samplerState)
 		{
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return;
+			}
+
 			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSSamplerState(slot, samplerState);
 		}
 
 		SamplerState GetSamplerState(const uint32 slot)
 		{
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return SamplerState::Default2D;
+			}
+
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getPSSamplerState(slot);
 		}
 
@@ -108,6 +118,16 @@ namespace s3d
 		Float4 GetSDFParameters()
 		{
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getSDFParameters();
+		}
+
+		void SetTexture(const uint32 slot, const Optional<Texture>& texture)
+		{
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return;
+			}
+
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSTexture(slot, texture);
 		}
 
 		namespace Internal

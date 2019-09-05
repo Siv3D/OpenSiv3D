@@ -78,6 +78,8 @@ namespace s3d
 		// 現在の SDF 描画用のパラメータを取得
 		[[nodiscard]] Float4 GetSDFParameters();
 
+		void SetTexture(uint32 slot, const Optional<Texture>& texture);
+
 		namespace Internal
 		{
 			void SetColorMul(const ColorF& color);
