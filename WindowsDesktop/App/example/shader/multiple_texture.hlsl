@@ -36,6 +36,5 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
 	float4 texColor = texture0.Sample(sampler0, input.tex);
 	texColor.a *= texture1.Sample(sampler1, input.tex).a;
-
 	return OutputColor(texColor * input.color);
 }
