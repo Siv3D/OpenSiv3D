@@ -14,9 +14,9 @@
 namespace s3d
 {
 	ScopedCustomShader2D::ScopedCustomShader2D(const Optional<PixelShader>& ps)
-		: m_oldPS(Graphics2D::detail::GetCustomPixelShader())
+		: m_oldPS(Graphics2D::Internal::GetCustomPixelShader())
 	{
-		Graphics2D::detail::SetCustomPixelShader(ps);
+		Graphics2D::Internal::SetCustomPixelShader(ps);
 	}
 
 	ScopedCustomShader2D::ScopedCustomShader2D(ScopedCustomShader2D&& other) noexcept
@@ -28,7 +28,7 @@ namespace s3d
 
 	ScopedCustomShader2D::~ScopedCustomShader2D()
 	{
-		m_oldPS.then(Graphics2D::detail::SetCustomPixelShader);
+		m_oldPS.then(Graphics2D::Internal::SetCustomPixelShader);
 	}
 
 	ScopedCustomShader2D& ScopedCustomShader2D::operator =(ScopedCustomShader2D&& other) noexcept

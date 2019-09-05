@@ -14,9 +14,9 @@
 namespace s3d
 {
 	ScopedColorMul2D::ScopedColorMul2D(const ColorF& color)
-		: m_oldColor(Graphics2D::GetColorMul())
+		: m_oldColor(Graphics2D::Internal::GetColorMul())
 	{
-		Graphics2D::SetColorMul(color);
+		Graphics2D::Internal::SetColorMul(color);
 	}
 
 	ScopedColorMul2D::ScopedColorMul2D(const double rgb, const double a)
@@ -33,7 +33,7 @@ namespace s3d
 
 	ScopedColorMul2D::~ScopedColorMul2D()
 	{
-		m_oldColor.then(Graphics2D::SetColorMul);
+		m_oldColor.then(Graphics2D::Internal::SetColorMul);
 	}
 
 	ScopedColorMul2D& ScopedColorMul2D::operator =(ScopedColorMul2D&& other) noexcept
@@ -53,9 +53,9 @@ namespace s3d
 	}
 
 	ScopedColorAdd2D::ScopedColorAdd2D(const ColorF& color)
-		: m_oldColor(Graphics2D::GetColorAdd())
+		: m_oldColor(Graphics2D::Internal::GetColorAdd())
 	{
-		Graphics2D::SetColorAdd(color);
+		Graphics2D::Internal::SetColorAdd(color);
 	}
 
 	ScopedColorAdd2D::ScopedColorAdd2D(const double rgb, const double a)
@@ -72,7 +72,7 @@ namespace s3d
 
 	ScopedColorAdd2D::~ScopedColorAdd2D()
 	{
-		m_oldColor.then(Graphics2D::SetColorAdd);
+		m_oldColor.then(Graphics2D::Internal::SetColorAdd);
 	}
 
 	ScopedColorAdd2D& ScopedColorAdd2D::operator =(ScopedColorAdd2D&& other) noexcept
