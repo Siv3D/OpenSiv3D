@@ -68,6 +68,9 @@ namespace s3d
 		m_PSs = { PixelShaderID::InvalidValue() };
 		m_commands.emplace_back(RendererCommand::SetPS, 0);
 		
+		m_RTs = { m_RTs.back() };
+		m_commands.emplace_back(RendererCommand::SetRT, 0);
+		
 		m_scissorRects = { m_scissorRects.back() };
 		m_commands.emplace_back(RendererCommand::ScissorRect, 0);
 		
@@ -94,6 +97,7 @@ namespace s3d
 		}
 		m_currentCombinedTransform = m_combinedTransforms.front();
 		m_currentPS = PixelShaderID::InvalidValue();
+		m_currentRT = m_RTs.front();
 		m_currentScissorRect = m_scissorRects.front();
 		m_currentViewport = m_viewports.front();
 		for (size_t i = 0; i < m_currentPSTextures.size(); ++i)
@@ -173,6 +177,12 @@ namespace s3d
 		{
 			assert(!m_CBs.isEmpty());
 			m_commands.emplace_back(RendererCommand::SetCB, static_cast<uint32>(m_CBs.size()) - 1);
+		}
+		
+		if (m_changes.has(RendererCommand::SetRT))
+		{
+			m_commands.emplace_back(RendererCommand::SetRT, static_cast<uint32>(m_RTs.size()));
+			m_RTs.push_back(m_currentRT);
 		}
 		
 		if (m_changes.has(RendererCommand::ScissorRect))
@@ -618,6 +628,44 @@ namespace s3d
 		return m_constants.data() + offset;
 	}
 	
+	void GLRenderer2DCommand::pushRT(const Optional<RenderTexture>& rt)
+	{
+		constexpr auto command = RendererCommand::SetRT;
+		auto& current = m_currentRT;
+		auto& buffer = m_RTs;
+		
+		if (!m_changes.has(command))
+		{
+			if (rt != current)
+			{
+				current = rt;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (rt == buffer.back())
+			{
+				current = rt;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = rt;
+			}
+		}
+	}
+	
+	const Optional<RenderTexture>& GLRenderer2DCommand::getRT(const uint32 index) const
+	{
+		return m_RTs[index];
+	}
+	
+	const Optional<RenderTexture>& GLRenderer2DCommand::getCurrentRT() const
+	{
+		return m_currentRT;
+	}
+	
 	void GLRenderer2DCommand::pushScissorRect(const Rect& rect)
 	{
 		constexpr auto command = RendererCommand::ScissorRect;
@@ -738,6 +786,11 @@ namespace s3d
 	const TextureID& GLRenderer2DCommand::getPSTexture(const uint32 slot, const uint32 index) const
 	{
 		return m_psTextures[slot][index];
+	}
+	
+	const std::array<TextureID, SamplerState::MaxSamplerCount>& GLRenderer2DCommand::getCurrentPSTextures() const
+	{
+		return m_currentPSTextures;
 	}
 	
 	void GLRenderer2DCommand::pushSdfParam(const Float4& param)

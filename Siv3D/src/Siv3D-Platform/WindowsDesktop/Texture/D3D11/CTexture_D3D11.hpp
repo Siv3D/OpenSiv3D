@@ -44,7 +44,7 @@ namespace s3d
 
 		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
 
-		//TextureID createRT(const Size& size, uint32 multisampleCount) override;
+		TextureID createRT(const Size& size, TextureFormat format) override;
 
 		void release(TextureID handleID) override;
 
@@ -56,9 +56,11 @@ namespace s3d
 
 		ID3D11Texture2D* getTexture(TextureID handleID);
 
-		//void clearRT(TextureID handleID, const ColorF& color) override;
+		ID3D11RenderTargetView* getRTV(TextureID handleID);
 
-		//ID3D11RenderTargetView* getRTV(TextureID handleID);
+		void clearRT(TextureID handleID, const ColorF& color) override;
+
+		void readRT(TextureID handleID, Image& image) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 

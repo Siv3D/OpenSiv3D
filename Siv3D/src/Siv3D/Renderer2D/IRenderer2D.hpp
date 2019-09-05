@@ -80,6 +80,10 @@ namespace s3d
 
 		virtual void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
 
+		virtual void setRT(const Optional<RenderTexture>& rt) = 0;
+
+		virtual Optional<RenderTexture> getRT() const = 0;
+
 		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;

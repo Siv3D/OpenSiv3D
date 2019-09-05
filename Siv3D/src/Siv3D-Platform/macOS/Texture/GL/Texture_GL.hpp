@@ -22,7 +22,22 @@ namespace s3d
 	{
 	private:
 		
+		enum class TextureType
+		{
+			// 通常テクスチャ
+			Normal,
+			
+			// 動的テクスチャ
+			Dynamic,
+			
+			// レンダーテクスチャ
+			Render,
+		};
+		
+		// [メインテクスチャ]
 		GLuint m_texture = 0;
+		
+		GLuint m_frameBuffer = 0;
 		
 		Size m_size = { 0, 0 };
 		
@@ -30,8 +45,8 @@ namespace s3d
 		
 		TextureDesc m_textureDesc = TextureDesc::Unmipped;
 		
-		bool m_isDynamic = false;
-		
+		TextureType m_type = TextureType::Normal;
+
 		bool m_initialized = false;
 		
 		bool isSRGB() const
@@ -43,6 +58,8 @@ namespace s3d
 	public:
 		
 		struct Null {};
+		struct Dynamic {};
+		struct Render {};
 		
 		Texture_GL() = default;
 		
@@ -52,30 +69,29 @@ namespace s3d
 		
 		Texture_GL(const Image& image, const Array<Image>& mipmaps, TextureDesc desc);
 		
-		Texture_GL(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		Texture_GL(const Dynamic&, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		
+		Texture_GL(const Render&, const Size& size, TextureFormat format, TextureDesc desc);
 		
 		~Texture_GL();
 		
-		bool isInitialized() const noexcept
-		{
-			return m_initialized;
-		}
+		bool isInitialized() const noexcept;
 		
-		GLuint getTexture() const
-		{
-			return m_texture;
-		}
+		GLuint getTexture() const noexcept;
 		
-		Size getSize() const
-		{
-			return m_size;
-		}
+		GLuint getFrameBuffer() const noexcept;
 		
-		TextureDesc getDesc() const
-		{
-			return m_textureDesc;
-		}
+		Size getSize() const noexcept;
 		
+		TextureDesc getDesc() const noexcept;
+		
+		// レンダーテクスチャを指定した色でクリアする
+		void clearRT(const ColorF& color);
+		
+		// レンダーテクスチャの内容を Image によコピーする
+		void readRT(Image& image);
+		
+		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(const ColorF& color, bool wait);
 		
 		bool fillRegion(const ColorF& color, const Rect& rect);

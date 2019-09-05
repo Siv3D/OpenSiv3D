@@ -376,12 +376,15 @@ namespace s3d
 			::glReadPixels(0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, m_image.data());
 		}
 		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		
-		m_image.flip();
 	}
 	
 	const Image& SceneTexture::getImage() const
 	{
 		return m_image;
+	}
+	
+	void SceneTexture::setFrameBuffer(const GLuint frameBuffer)
+	{
+		::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	}
 }

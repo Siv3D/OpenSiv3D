@@ -159,63 +159,7 @@ namespace s3d
 			}
 		}
 	}
-	/*
-	Texture_D3D11::Texture_D3D11(Null, ID3D11Device* const device)
-	{
-		m_desc = D3D11Texture2DDesc(Size(16, 16),
-			TextureFormat::R8G8B8A8_Unorm, TextureDesc::Unmipped,
-			1, 1, 0,
-			D3D11_USAGE_IMMUTABLE,
-			D3D11_BIND_SHADER_RESOURCE,
-			0, 0);
 
-		const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeD3D11Desc();
-		const Image image(m_desc.size, Palette::Yellow);
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
-
-		if (FAILED(device->CreateTexture2D(&d3d11Desc, &initData, &m_texture)))
-		{
-			return;
-		}
-
-		if (!createShaderResourceView(device))
-		{
-			return;
-		}
-
-		m_initialized = true;
-	}
-
-	Texture_D3D11::Texture_D3D11(BackBuffer, ID3D11Device* const device, IDXGISwapChain* const swapChain)
-	{
-		if (FAILED(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), &m_texture)))
-		{
-			return;
-		}
-
-		D3D11_TEXTURE2D_DESC d3d11Desc;
-		m_texture->GetDesc(&d3d11Desc);
-
-		m_desc = D3D11Texture2DDesc(Size(d3d11Desc.Width, d3d11Desc.Height),
-			detail::FromDXGIFormat(d3d11Desc.Format), TextureDesc::Unmipped,
-			d3d11Desc.MipLevels, d3d11Desc.SampleDesc.Count, d3d11Desc.SampleDesc.Quality,
-			d3d11Desc.Usage,
-			d3d11Desc.BindFlags,
-			d3d11Desc.CPUAccessFlags, d3d11Desc.MiscFlags);
-
-		if (FAILED(device->CreateRenderTargetView(m_texture.Get(), nullptr, &m_renderTargetView)))
-		{
-			return;
-		}
-
-		if (FAILED(device->CreateShaderResourceView(m_texture.Get(), nullptr, &m_shaderResourceView)))
-		{
-			return;
-		}
-
-		m_initialized = true;
-	}
-	*/
 	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc _desc)
 		: m_desc(size,
 			format,
@@ -237,7 +181,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(hr));
 				return;
 			}
 
@@ -245,10 +189,10 @@ namespace s3d
 			d3d11Desc.BindFlags			= 0;
 			d3d11Desc.CPUAccessFlags	= D3D11_CPU_ACCESS_WRITE;
 
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_textureStaging);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_stagingTexture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -258,45 +202,68 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
 
+		m_type = TextureType::Dynamic;
 		m_initialized = true;
 	}
-	/*
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* const device, const Size& size, const uint32 multisampleCount)
-	{
-		m_desc = D3D11Texture2DDesc(size,
-			TextureFormat::R8G8B8A8_Unorm, TextureDesc::Unmipped,
-			1, multisampleCount, 0,
+
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat format, const TextureDesc desc)
+		: m_desc(size,
+			format,
+			desc,
+			1,
+			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE,
-			0, 0);
-
-		const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeD3D11Desc();
-
-		if (FAILED(device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture)))
+			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
+			0, 0)
+	{
+		// サイズチェック
+		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
 		{
 			return;
 		}
 
-		const D3D11_RENDER_TARGET_VIEW_DESC rtDesc = m_desc.makeD3D11RTVDesc();
-
-		if (FAILED(device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView)))
+		// [メインテクスチャ] を作成
 		{
-			return;
+			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				return;
+			}
 		}
 
-		if (!createShaderResourceView(device))
+		// [シェーダ・リソース・ビュー] を作成
 		{
-			return;
+			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
+			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
 		}
 
+		// [レンダー・ターゲット・ビュー] を作成
+		{
+			const D3D11_RENDER_TARGET_VIEW_DESC rtDesc = m_desc.makeD3D11_RENDER_TARGET_VIEW_DESC();
+			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
+		}
+
+		m_type = TextureType::Render;
 		m_initialized = true;
 	}
-	*/
+
 	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc desc)
 		: m_desc(image.size(),
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm,
@@ -313,7 +280,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -323,11 +290,12 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
 
+		m_type = TextureType::Normal;
 		m_initialized = true;
 	}
 
@@ -352,7 +320,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
@@ -362,11 +330,12 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
 				return;
 			}
 		}
 			
+		m_type = TextureType::Normal;
 		m_initialized = true;
 	}
 
@@ -390,11 +359,19 @@ namespace s3d
 		return m_texture.Get();
 	}
 
-
-	/*
-	void Texture_D3D11::clearRT(ID3D11DeviceContext* const context, const ColorF& color)
+	ID3D11RenderTargetView* Texture_D3D11::getRTV()
 	{
-		const ColorF clearColor = m_desc.isSRGB ? color.gamma(1.0 / 2.2) : color;
+		return m_renderTargetView.Get();
+	}
+
+	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
+	{
+		if (m_type != TextureType::Render)
+		{
+			return;
+		}
+
+		const ColorF clearColor = m_desc.isSRGB() ? color.gamma(1.0 / 2.2) : color;
 
 		const float colors[4]
 		{
@@ -407,35 +384,86 @@ namespace s3d
 		context->ClearRenderTargetView(m_renderTargetView.Get(), colors);
 	}
 
-	void Texture_D3D11::beginResize()
+	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image)
 	{
-		*this = Texture_D3D11();
+		if (m_type != TextureType::Render)
+		{
+			return;
+		}
+
+		const Size size = m_desc.size;
+
+		if (!m_stagingTexture)
+		{
+			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
+				DXGI_FORMAT_R8G8B8A8_UNORM,
+				size.x, size.y,
+				1, 1,
+				0,
+				D3D11_USAGE_STAGING,
+				D3D11_CPU_ACCESS_READ,
+				1, 0,
+				0);
+
+			if (FAILED(device->CreateTexture2D(&desc, nullptr, &m_stagingTexture)))
+			{
+				return;
+			}
+		}
+
+		context->CopyResource(m_stagingTexture.Get(), m_texture.Get());
+
+		image.resize(size);
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))
+			{
+				return;
+			}
+
+			if (!mapped.pData)
+			{
+				return;
+			}
+
+			const size_t srcStride = mapped.RowPitch;
+			const size_t dstStride = image.stride();
+
+			if (srcStride == dstStride)
+			{
+				std::memcpy(image.data(), mapped.pData, image.size_bytes());
+			}
+			else
+			{
+				const size_t width = image.width();
+				const size_t height = image.height();
+
+				const uint8* pSrc = static_cast<const uint8*>(mapped.pData);
+				Color* pDst = image.data();
+
+				for (size_t y = 0; y < height; ++y)
+				{
+					std::memcpy(pDst, pSrc, dstStride);
+					pDst += width;
+					pSrc += srcStride;
+				}
+			}
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
 	}
 
-	bool Texture_D3D11::endResize(BackBuffer, ID3D11Device* const device, IDXGISwapChain* const swapChain)
-	{
-		*this = Texture_D3D11(BackBuffer{}, device, swapChain);
-
-		return isInitialized();
-	}
-
-	bool Texture_D3D11::endResize(Render, ID3D11Device* const device, const Size& size, const uint32 multisampleCount)
-	{
-		*this = Texture_D3D11(Render{}, device, size, multisampleCount);
-
-		return isInitialized();
-	}
-	*/
 	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const ColorF& color, const bool wait)
 	{
-		if (!m_textureStaging)
+		if (m_type != TextureType::Dynamic)
 		{
 			return false;
 		}
 
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
-			if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, & mapped)))
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, & mapped)))
 			{
 				return false;
 			}
@@ -447,30 +475,30 @@ namespace s3d
 
 			if (m_desc.stride() > mapped.RowPitch)
 			{
-				context->Unmap(m_textureStaging.Get(), 0);
+				context->Unmap(m_stagingTexture.Get(), 0);
 				return false;
 			}
 
 			detail::FillByColor(mapped.pData, m_desc.size, mapped.RowPitch, color, m_desc.format);
 
-			context->Unmap(m_textureStaging.Get(), 0);
+			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
 
 		return true;
 	}
 
 	bool Texture_D3D11::fillRegion(ID3D11DeviceContext* context, const ColorF& color, const Rect& rect)
 	{
-		if (!m_textureStaging)
+		if (m_type != TextureType::Dynamic)
 		{
 			return false;
 		}
 
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
-			if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, 0, & mapped)))
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, 0, & mapped)))
 			{
 				return false;
 			}
@@ -482,30 +510,30 @@ namespace s3d
 
 			if (m_desc.stride() > mapped.RowPitch)
 			{
-				context->Unmap(m_textureStaging.Get(), 0);
+				context->Unmap(m_stagingTexture.Get(), 0);
 				return false;
 			}
 
 			detail::FillRegionByColor(mapped.pData, m_desc.size, mapped.RowPitch, rect, color, m_desc.format);
 
-			context->Unmap(m_textureStaging.Get(), 0);
+			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
 
 		return true;
 	}
 
 	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const void* src, const uint32 stride, const bool wait)
 	{
-		if (!m_textureStaging)
+		if (m_type != TextureType::Dynamic)
 		{
 			return false;
 		}
 
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
-			if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
 			{
 				return false;
 			}
@@ -517,30 +545,30 @@ namespace s3d
 
 			if (m_desc.stride() > mapped.RowPitch)
 			{
-				context->Unmap(m_textureStaging.Get(), 0);
+				context->Unmap(m_stagingTexture.Get(), 0);
 				return false;
 			}
 
 			detail::FillByImage(mapped.pData, m_desc.size, mapped.RowPitch, src, stride, m_desc.format);
 
-			context->Unmap(m_textureStaging.Get(), 0);
+			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
 
 		return true;
 	}
 
 	bool Texture_D3D11::fillRegion(ID3D11DeviceContext* context, const void* src, uint32 stride, const Rect& rect, const bool wait)
 	{
-		if (!m_textureStaging)
+		if (m_type != TextureType::Dynamic)
 		{
 			return false;
 		}
 
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
-			if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
 			{
 				return false;
 			}
@@ -552,13 +580,13 @@ namespace s3d
 
 			if (m_desc.stride() > mapped.RowPitch)
 			{
-				context->Unmap(m_textureStaging.Get(), 0);
+				context->Unmap(m_stagingTexture.Get(), 0);
 				return false;
 			}
 
 			detail::FillRegionByImage(mapped.pData, m_desc.size, mapped.RowPitch, src, stride, rect, m_desc.format);
 
-			context->Unmap(m_textureStaging.Get(), 0);
+			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
 		const int32 leftX = std::clamp(rect.x, 0, m_desc.size.x);
@@ -574,7 +602,7 @@ namespace s3d
 		}
 
 		D3D11_BOX box = CD3D11_BOX(leftX, topY, 0, rightX, bottomY, 1);
-		context->CopySubresourceRegion(m_texture.Get(), 0, leftX, topY, 0, m_textureStaging.Get(), 0, &box);
+		context->CopySubresourceRegion(m_texture.Get(), 0, leftX, topY, 0, m_stagingTexture.Get(), 0, &box);
 
 		return true;
 	}
