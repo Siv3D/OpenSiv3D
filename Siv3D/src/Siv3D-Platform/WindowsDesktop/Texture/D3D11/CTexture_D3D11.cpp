@@ -94,7 +94,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(size:{0}x{1})"_fmt(image.width(), image.height()));
+		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::create(const Image& image, const Array<Image>& mips, TextureDesc desc)
@@ -111,7 +112,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(size: {0}x{1})"_fmt(image.width(), image.height()));
+		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
@@ -123,7 +125,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(Dynamic, size: {0}x{1})"_fmt(size.x, size.y));
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
@@ -144,7 +147,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(Render, size: {0}x{1})"_fmt(size.x, size.y));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	void CTexture_D3D11::release(const TextureID handleID)

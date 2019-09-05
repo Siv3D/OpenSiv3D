@@ -12,6 +12,7 @@
 # include <array>
 # include <Siv3D/Functor.hpp>
 # include <Siv3D/TextureFormat.hpp>
+# include <Siv3D/StringView.hpp>
 
 enum DXGI_FORMAT
 {
@@ -142,15 +143,20 @@ enum DXGI_FORMAT
 
 namespace s3d
 {
-	static constexpr std::array<TextureFormatProperty, 3> Propertytable =
+	static constexpr std::array<std::pair<TextureFormatProperty, StringView>, 3> Propertytable =
 	{ {
-		{ DXGI_FORMAT_UNKNOWN, 0, 0, false }, // Unknown
-		{ DXGI_FORMAT_R8G8B8A8_UNORM, 4, 4, false }, // R8G8B8A8_Unorm
-		{ DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4, 4, true }, // R8G8B8A8_Unorm_SRGB
+		{{ DXGI_FORMAT_UNKNOWN, 0, 0, false }, U"Unknown"},
+		{{ DXGI_FORMAT_R8G8B8A8_UNORM, 4, 4, false }, U"R8G8B8A8_Unorm" },
+		{{ DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4, 4, true }, U"R8G8B8A8_Unorm_SRGB" },
 	} };
 
-	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat format)
+	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat textureFormat)
 	{
-		return Propertytable[FromEnum(format)];
+		return Propertytable[FromEnum(textureFormat)].first;
+	}
+
+	StringView ToString(TextureFormat textureFormat) noexcept
+	{
+		return Propertytable[FromEnum(textureFormat)].second;
 	}
 }

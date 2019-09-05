@@ -27,12 +27,16 @@ namespace s3d
 	{
 		int32 DXGIFormat;
 		
+		// 1 ピクセル当たりのサイズ
 		uint32 pixelSize;
 
+		// チャンネル数
 		uint32 num_channels;
 		
 		bool isSRGB;
 	};
 
-	[[nodiscard]] const TextureFormatProperty& GetTextureFormatProperty(TextureFormat format);
+	[[nodiscard]] const TextureFormatProperty& GetTextureFormatProperty(TextureFormat textureFormat);
+
+	[[nodiscard]] StringView ToString(TextureFormat textureFormat) noexcept;
 }
