@@ -39,10 +39,13 @@ namespace s3d
 
 		enum class TextureType
 		{
+			// 通常テクスチャ
 			Normal,
 
+			// 動的テクスチャ
 			Dynamic,
 
+			// レンダーテクスチャ
 			Render,
 		};
 
@@ -75,10 +78,13 @@ namespace s3d
 
 		ID3D11RenderTargetView* getRTV();
 
+		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
 
+		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
 
+		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
 
 		bool fillRegion(ID3D11DeviceContext* context, const ColorF& color, const Rect& rect);

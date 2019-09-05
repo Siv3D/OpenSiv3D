@@ -54,38 +54,30 @@ namespace s3d
 	{
 		LOG_TRACE(U"CTexture_D3D11::init()");
 
+		// device と context をコピー
 		m_device = device;
 		m_context = context;
 
-		const Image image(16, Palette::Yellow);
-		const Array<Image> mips = {
-			Image(8, Palette::Yellow), Image(4, Palette::Yellow),
-			Image(2, Palette::Yellow), Image(1, Palette::Yellow)
-		};
-
-		auto nullTexture = std::make_unique<Texture_D3D11>(device, image, mips, TextureDesc::Mipped);
-
-		if (!nullTexture->isInitialized())
+		// null テクスチャを作成し、管理に登録
 		{
-			throw EngineError(U"Null Texture initialization failed");
-		}
+			const Image image(16, Palette::Yellow);
+			const Array<Image> mips = {
+				Image(8, Palette::Yellow), Image(4, Palette::Yellow),
+				Image(2, Palette::Yellow), Image(1, Palette::Yellow)
+			};
 
-		m_textures.setNullData(std::move(nullTexture));
+			auto nullTexture = std::make_unique<Texture_D3D11>(device, image, mips, TextureDesc::Mipped);
+
+			if (!nullTexture->isInitialized())
+			{
+				throw EngineError(U"Null Texture initialization failed");
+			}
+
+			m_textures.setNullData(std::move(nullTexture));
+		}
 
 		LOG_INFO(U"ℹ️ CTexture_D3D11 initialized");
 	}
-
-	//TextureID CTexture_D3D11::createFromBackBuffer()
-	//{
-	//	const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
-
-	//	if (!texture->isInitialized())
-	//	{
-	//		return TextureID::NullAsset();
-	//	}
-
-	//	return m_textures.add(texture, U"(Back buffer)");
-	//}
 
 	void CTexture_D3D11::updateAsync(size_t)
 	{
@@ -106,7 +98,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(size:{0}x{1})"_fmt(image.width(), image.height()));
+		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::create(const Image& image, const Array<Image>& mips, TextureDesc desc)
@@ -123,7 +116,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(size: {0}x{1})"_fmt(image.width(), image.height()));
+		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
@@ -135,7 +129,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(Dynamic, size: {0}x{1})"_fmt(size.x, size.y));
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
@@ -156,7 +151,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(std::move(texture), U"(Render, size: {0}x{1})"_fmt(size.x, size.y));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
 	}
 
 	void CTexture_D3D11::release(const TextureID handleID)
@@ -188,13 +184,6 @@ namespace s3d
 	{
 		return m_textures[handleID]->getRTV();
 	}
-
-
-
-	//void CTexture_D3D11::setPS(const uint32 slot, const TextureID handleID)
-	//{
-	//	m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
-	//}
 
 	void CTexture_D3D11::clearRT(const TextureID handleID, const ColorF& color)
 	{

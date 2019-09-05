@@ -37,6 +37,7 @@ namespace s3d
 		// [メインテクスチャ]
 		GLuint m_texture = 0;
 		
+		// [フレームバッファ]
 		GLuint m_frameBuffer = 0;
 		
 		Size m_size = { 0, 0 };
@@ -48,12 +49,6 @@ namespace s3d
 		TextureType m_type = TextureType::Normal;
 
 		bool m_initialized = false;
-		
-		bool isSRGB() const
-		{
-			// [Siv3D ToDo]
-			return false;
-		}
 		
 	public:
 		
@@ -84,6 +79,8 @@ namespace s3d
 		Size getSize() const noexcept;
 		
 		TextureDesc getDesc() const noexcept;
+		
+		TextureFormat getFormat() const noexcept;
 		
 		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(const ColorF& color);

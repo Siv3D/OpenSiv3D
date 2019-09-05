@@ -165,6 +165,11 @@ namespace s3d
 		return m_textureDesc;
 	}
 	
+	TextureFormat Texture_GL::getFormat() const noexcept
+	{
+		return m_format;
+	}
+	
 	void Texture_GL::clearRT(const ColorF& color)
 	{
 		if (m_type != TextureType::Render)
@@ -186,6 +191,13 @@ namespace s3d
 	{
 		if (m_type != TextureType::Render)
 		{
+			return;
+		}
+		
+		if (const auto prop = GetTextureFormatProperty(m_format);
+			(prop.num_channels != 4) || (prop.pixelSize != 4)) // RGBA 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): This format is not supported");
 			return;
 		}
 		
