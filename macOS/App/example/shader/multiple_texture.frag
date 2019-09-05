@@ -23,6 +23,5 @@ void main()
 {
 	vec4 texColor = texture(Texture0, Tex);
 	texColor.a *= texture(Texture1, Tex).a;
-
 	FragColor = OutputColor(texColor * Color);
 }
