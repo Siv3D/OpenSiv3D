@@ -54,23 +54,27 @@ namespace s3d
 	{
 		LOG_TRACE(U"CTexture_D3D11::init()");
 
+		// device と context をコピー
 		m_device = device;
 		m_context = context;
 
-		const Image image(16, Palette::Yellow);
-		const Array<Image> mips = {
-			Image(8, Palette::Yellow), Image(4, Palette::Yellow),
-			Image(2, Palette::Yellow), Image(1, Palette::Yellow)
-		};
-
-		auto nullTexture = std::make_unique<Texture_D3D11>(device, image, mips, TextureDesc::Mipped);
-
-		if (!nullTexture->isInitialized())
+		// null テクスチャを作成し、管理に登録
 		{
-			throw EngineError(U"Null Texture initialization failed");
-		}
+			const Image image(16, Palette::Yellow);
+			const Array<Image> mips = {
+				Image(8, Palette::Yellow), Image(4, Palette::Yellow),
+				Image(2, Palette::Yellow), Image(1, Palette::Yellow)
+			};
 
-		m_textures.setNullData(std::move(nullTexture));
+			auto nullTexture = std::make_unique<Texture_D3D11>(device, image, mips, TextureDesc::Mipped);
+
+			if (!nullTexture->isInitialized())
+			{
+				throw EngineError(U"Null Texture initialization failed");
+			}
+
+			m_textures.setNullData(std::move(nullTexture));
+		}
 
 		LOG_INFO(U"ℹ️ CTexture_D3D11 initialized");
 	}
