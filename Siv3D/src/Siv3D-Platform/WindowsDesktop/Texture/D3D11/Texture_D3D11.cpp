@@ -170,11 +170,13 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0)
 	{
+		// サイズをチェック
 		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
 		{
 			return;
 		}
 
+		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
 		{
 			D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
@@ -185,18 +187,22 @@ namespace s3d
 				return;
 			}
 
-			d3d11Desc.Usage				= D3D11_USAGE_STAGING;
-			d3d11Desc.BindFlags			= 0;
-			d3d11Desc.CPUAccessFlags	= D3D11_CPU_ACCESS_WRITE;
-
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_stagingTexture);
-				FAILED(hr))
+			// [ステージング・テクスチャ] を作成
 			{
-				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
-				return;
+				d3d11Desc.Usage = D3D11_USAGE_STAGING;
+				d3d11Desc.BindFlags = 0;
+				d3d11Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_stagingTexture);
+					FAILED(hr))
+				{
+					LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
+					return;
+				}
 			}
 		}
 
+		// [シェーダ・リソース・ビュー] を作成
 		{
 			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
@@ -221,7 +227,7 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0)
 	{
-		// サイズチェック
+		// サイズをチェック
 		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
 		{
 			return;
@@ -274,6 +280,7 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0)
 	{
+		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
 		{
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
@@ -285,6 +292,7 @@ namespace s3d
 			}
 		}
 
+		// [シェーダ・リソース・ビュー] を作成
 		{
 			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
@@ -310,11 +318,15 @@ namespace s3d
 			0, 0)
 	{
 		Array<D3D11_SUBRESOURCE_DATA> initData(m_desc.mipLevels);
-		initData[0] = { image.data(), image.stride(), 0 };
-		for (uint32 i = 0; i < mips.size(); ++i)
 		{
-			initData[i + 1] = { mips[i].data(), mips[i].stride(), 0 };
+			initData[0] = { image.data(), image.stride(), 0 };
+			for (uint32 i = 0; i < mips.size(); ++i)
+			{
+				initData[i + 1] = { mips[i].data(), mips[i].stride(), 0 };
+			}
 		}
+
+		// [メインテクスチャ] を作成
 		{
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
@@ -325,6 +337,7 @@ namespace s3d
 			}
 		}
 
+		// [シェーダ・リソース・ビュー] を作成
 		{
 			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
@@ -391,8 +404,17 @@ namespace s3d
 			return;
 		}
 
+		if (const auto prop = GetTextureFormatProperty(m_desc.format);
+			(prop.num_channels != 4) || (prop.pixelSize != 4)) // RGBA 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): This format is not supported");
+			return;
+		}
+
+		// テクスチャのサイズ
 		const Size size = m_desc.size;
 
+		// [ステージング・テクスチャ] が未作成の場合、作成
 		if (!m_stagingTexture)
 		{
 			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
@@ -411,10 +433,13 @@ namespace s3d
 			}
 		}
 
+		// [メインテクスチャ] から [ステージング・テクスチャ] にコピー
 		context->CopyResource(m_stagingTexture.Get(), m_texture.Get());
 
+		// Image をテクスチャのサイズにリサイズ
 		image.resize(size);
 
+		// [ステージング・テクスチャ] から Image にコピー
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
 			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))

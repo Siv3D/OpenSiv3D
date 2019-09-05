@@ -75,18 +75,6 @@ namespace s3d
 		LOG_INFO(U"ℹ️ CTexture_D3D11 initialized");
 	}
 
-	//TextureID CTexture_D3D11::createFromBackBuffer()
-	//{
-	//	const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
-
-	//	if (!texture->isInitialized())
-	//	{
-	//		return TextureID::NullAsset();
-	//	}
-
-	//	return m_textures.add(texture, U"(Back buffer)");
-	//}
-
 	void CTexture_D3D11::updateAsync(size_t)
 	{
 		// do nothing
@@ -188,13 +176,6 @@ namespace s3d
 	{
 		return m_textures[handleID]->getRTV();
 	}
-
-
-
-	//void CTexture_D3D11::setPS(const uint32 slot, const TextureID handleID)
-	//{
-	//	m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
-	//}
 
 	void CTexture_D3D11::clearRT(const TextureID handleID, const ColorF& color)
 	{
