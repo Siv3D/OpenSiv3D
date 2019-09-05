@@ -14,34 +14,34 @@
 namespace s3d
 {
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState)
-		: m_oldBlendState(Graphics2D::Internal::GetBlendState())
+		: m_oldBlendState(Graphics2D::GetBlendState())
 	{
 		Graphics2D::Internal::SetBlendState(blendState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState)
-		: m_oldRasterizerState(Graphics2D::Internal::GetRasterizerState())
+		: m_oldRasterizerState(Graphics2D::GetRasterizerState())
 	{
 		Graphics2D::Internal::SetRasterizerState(rasterizerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState)
-		: m_oldSamplerState(Graphics2D::Internal::GetSamplerState())
+		: m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
 		Graphics2D::Internal::SetSamplerState(samplerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState)
-		: m_oldBlendState(Graphics2D::Internal::GetBlendState())
-		, m_oldRasterizerState(Graphics2D::Internal::GetRasterizerState())
+		: m_oldBlendState(Graphics2D::GetBlendState())
+		, m_oldRasterizerState(Graphics2D::GetRasterizerState())
 	{
 		Graphics2D::Internal::SetBlendState(blendState);
 		Graphics2D::Internal::SetRasterizerState(rasterizerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState)
-		: m_oldBlendState(Graphics2D::Internal::GetBlendState())
-		, m_oldSamplerState(Graphics2D::Internal::GetSamplerState())
+		: m_oldBlendState(Graphics2D::GetBlendState())
+		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
 		Graphics2D::Internal::SetBlendState(blendState);
 		Graphics2D::Internal::SetSamplerState(samplerState);
@@ -51,8 +51,8 @@ namespace s3d
 		: ScopedRenderStates2D(blendState, rasterizerState) {}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerState& samplerState)
-		: m_oldRasterizerState(Graphics2D::Internal::GetRasterizerState())
-		, m_oldSamplerState(Graphics2D::Internal::GetSamplerState())
+		: m_oldRasterizerState(Graphics2D::GetRasterizerState())
+		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
 		Graphics2D::Internal::SetRasterizerState(rasterizerState);
 		Graphics2D::Internal::SetSamplerState(samplerState);
@@ -65,9 +65,9 @@ namespace s3d
 		: ScopedRenderStates2D(rasterizerState, samplerState) {}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerState& samplerState)
-		: m_oldBlendState(Graphics2D::Internal::GetBlendState())
-		, m_oldRasterizerState(Graphics2D::Internal::GetRasterizerState())
-		, m_oldSamplerState(Graphics2D::Internal::GetSamplerState())
+		: m_oldBlendState(Graphics2D::GetBlendState())
+		, m_oldRasterizerState(Graphics2D::GetRasterizerState())
+		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
 		Graphics2D::Internal::SetBlendState(blendState);
 		Graphics2D::Internal::SetRasterizerState(rasterizerState);

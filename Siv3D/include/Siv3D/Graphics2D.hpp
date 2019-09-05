@@ -27,6 +27,33 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
+		// 現在のグローバル乗算カラーを取得
+		[[nodiscard]] ColorF GetColorMul();
+
+		// 現在のグローバル加算カラーを取得
+		[[nodiscard]] ColorF GetColorAdd();
+
+		// 現在のブレンドステートを取得
+		[[nodiscard]] BlendState GetBlendState();
+
+		// 現在のラスタライザーステートを取得
+		[[nodiscard]] RasterizerState GetRasterizerState();
+
+		// サンプラーステートを設定
+		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
+
+		// 現在のサンプラーステートを取得
+		[[nodiscard]] SamplerState GetSamplerState(uint32 slot = 0);
+
+		// 現在のカスタムビューポートを取得
+		[[nodiscard]] Optional<Rect> GetViewport();
+
+		// 現在のカスタムピクセルシェーダを取得
+		[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
+
+		// 現在のレンダーターゲットを取得
+		[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
+
 		// シザー矩形を設定
 		// *RasterizerState で有効化
 		void SetScissorRect(const Rect& rect);
@@ -55,39 +82,21 @@ namespace s3d
 		{
 			void SetColorMul(const ColorF& color);
 
-			[[nodiscard]] ColorF GetColorMul();
-
 			void SetColorAdd(const ColorF& color);
-
-			[[nodiscard]] ColorF GetColorAdd();
 
 			void SetBlendState(const BlendState& blendState);
 
-			[[nodiscard]] BlendState GetBlendState();
-
 			void SetRasterizerState(const RasterizerState& rasterizerState);
-
-			[[nodiscard]] RasterizerState GetRasterizerState();
-
-			void SetSamplerState(uint32 slot, const SamplerState& samplerState);
 
 			void SetSamplerState(const SamplerState& samplerState);
 
-			[[nodiscard]] SamplerState GetSamplerState(uint32 slot = 0);
-
 			void SetViewport(const Optional<Rect>& viewport);
 
-			[[nodiscard]] Optional<Rect> GetViewport();
-
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
-
-			[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
 
 			void SetConstantBuffer(ShaderStage stage, uint32 slot, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		
 			void SetRenderTarget(const Optional<RenderTexture>& rt);
-
-			[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
 		}
 
 		// 定数バッファを設定

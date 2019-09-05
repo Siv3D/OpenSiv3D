@@ -14,7 +14,7 @@
 namespace s3d
 {
 	ScopedViewport2D::ScopedViewport2D(const Optional<Rect>& viewport)
-		: m_oldViewport(Graphics2D::Internal::GetViewport())
+		: m_oldViewport(Graphics2D::GetViewport())
 	{
 		Graphics2D::Internal::SetViewport(viewport);
 	}

@@ -14,7 +14,7 @@
 namespace s3d
 {
 	ScopedColorMul2D::ScopedColorMul2D(const ColorF& color)
-		: m_oldColor(Graphics2D::Internal::GetColorMul())
+		: m_oldColor(Graphics2D::GetColorMul())
 	{
 		Graphics2D::Internal::SetColorMul(color);
 	}
@@ -53,7 +53,7 @@ namespace s3d
 	}
 
 	ScopedColorAdd2D::ScopedColorAdd2D(const ColorF& color)
-		: m_oldColor(Graphics2D::Internal::GetColorAdd())
+		: m_oldColor(Graphics2D::GetColorAdd())
 	{
 		Graphics2D::Internal::SetColorAdd(color);
 	}

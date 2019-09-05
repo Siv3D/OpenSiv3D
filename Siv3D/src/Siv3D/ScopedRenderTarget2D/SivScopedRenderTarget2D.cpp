@@ -15,8 +15,8 @@
 namespace s3d
 {
 	ScopedRenderTarget2D::ScopedRenderTarget2D(const Optional<RenderTexture>& rt)
-		: m_oldRenderTarget(Graphics2D::Internal::GetRenderTarget())
-		, m_oldViewport(Graphics2D::Internal::GetViewport())
+		: m_oldRenderTarget(Graphics2D::GetRenderTarget())
+		, m_oldViewport(Graphics2D::GetViewport())
 	{
 		Graphics2D::Internal::SetRenderTarget(rt);
 		Graphics2D::Internal::SetViewport(rt ? Rect(rt->size()) : Scene::Rect());
