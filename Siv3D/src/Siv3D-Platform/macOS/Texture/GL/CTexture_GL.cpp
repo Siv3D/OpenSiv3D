@@ -177,6 +177,22 @@ namespace s3d
 		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getFormat()));
 		return m_textures.add(std::move(texture), info);
 	}
+	
+	TextureID CTexture_GL::createRT(const Image& image)
+	{
+		const TextureDesc desc = TextureDesc::UnmippedSRGB;
+		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getFormat()));
+		return m_textures.add(std::move(texture), info);
+	}
 
 	void CTexture_GL::release(const TextureID handleID)
 	{

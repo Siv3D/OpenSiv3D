@@ -77,7 +77,7 @@ namespace s3d
 		m_initialized = true;
 	}
 	
-	Texture_GL::Texture_GL(const Dynamic&, const Size& size, const void* pData, const uint32, const TextureFormat format, const TextureDesc desc)
+	Texture_GL::Texture_GL(Dynamic, const Size& size, const void* pData, const uint32, const TextureFormat format, const TextureDesc desc)
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -94,7 +94,7 @@ namespace s3d
 		m_initialized = true;
 	}
 	
-	Texture_GL::Texture_GL(const Render&, const Size& size, const TextureFormat format, const TextureDesc desc)
+	Texture_GL::Texture_GL(Render, const Size& size, const TextureFormat format, const TextureDesc desc)
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -117,6 +117,35 @@ namespace s3d
 		}
 		
 		m_size = size;
+		m_format = format;
+		m_textureDesc = desc;
+		m_type = TextureType::Render;
+		m_initialized = true;
+	}
+	
+	Texture_GL::Texture_GL(Render, const Image& image, const TextureFormat format, const TextureDesc desc)
+	{
+		// [メインテクスチャ] を作成
+		{
+			::glGenTextures(1, &m_texture);
+			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		}
+		
+		// [フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = image.size();
 		m_format = format;
 		m_textureDesc = desc;
 		m_type = TextureType::Render;
