@@ -172,8 +172,8 @@ namespace s3d
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		detail::SetVS(m_standardVS->sprite);
 
-		m_context->VSSetConstantBuffers(m_vsConstants2D.BindingPoint(), 1, m_vsConstants2D.base()._detail()->getBufferPtr());
-		m_context->PSSetConstantBuffers(m_psConstants2D.BindingPoint(), 1, m_psConstants2D.base()._detail()->getBufferPtr());
+		m_context->VSSetConstantBuffers(0, 1, m_vsConstants2D.base()._detail()->getBufferPtr());
+		m_context->PSSetConstantBuffers(0, 1, m_psConstants2D.base()._detail()->getBufferPtr());
 
 		Size currentRenderTargetSize = pGraphics->getSceneSize();
 		Mat3x2 transform = Mat3x2::Identity();
@@ -465,7 +465,7 @@ namespace s3d
 
 			m_cbFullscreenTriangle0->texScale.set(sceneSize, 0.0f, 0.0f);
 			m_cbFullscreenTriangle0._update_if_dirty();
-			m_context->VSSetConstantBuffers(m_cbFullscreenTriangle0.BindingPoint(), 1, m_cbFullscreenTriangle0.base()._detail()->getBufferPtr());
+			m_context->VSSetConstantBuffers(0, 1, m_cbFullscreenTriangle0.base()._detail()->getBufferPtr());
 
 			pGraphics->getBlendState()->set(BlendState::Opaque);
 			pGraphics->getRasterizerState()->set(RasterizerState::Default2D);

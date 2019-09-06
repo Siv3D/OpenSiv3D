@@ -167,9 +167,9 @@ namespace s3d
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setCustomPS(ps);
 			}
 
-			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+			void SetConstantBuffer(const ShaderStage stage, const uint32 index, const detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, slot, buffer, data, num_vectors);
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, index, buffer, data, num_vectors);
 			}
 
 			void SetRenderTarget(const Optional<RenderTexture>& rt)

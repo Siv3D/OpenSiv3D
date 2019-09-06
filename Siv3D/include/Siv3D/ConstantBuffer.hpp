@@ -64,11 +64,6 @@ namespace s3d
 
 	public:
 
-		[[nodiscard]] static constexpr uint32 BindingPoint()
-		{
-			return Type::BindingPoint();
-		}
-
 		ConstantBuffer()
 			: m_base(Size)
 		{

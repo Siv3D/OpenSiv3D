@@ -25,11 +25,6 @@ namespace s3d
 {
 	struct VSConstants2D
 	{
-		static constexpr uint32 BindingPoint()
-		{
-			return 0;
-		}
-
 		Float4 transform[2];
 
 		Float4 colorMul;
@@ -37,11 +32,6 @@ namespace s3d
 
 	struct PSConstants2D
 	{
-		static constexpr uint32 BindingPoint()
-		{
-			return 0;
-		}
-
 		Float4 colorAdd;
 
 		Float4 sdfParam;
@@ -49,11 +39,6 @@ namespace s3d
 
 	struct FullscreenTriangleCB0
 	{
-		static constexpr uint32 BindingPoint()
-		{
-			return 0;
-		}
-
 		Float4 texScale;
 	};
 
