@@ -123,6 +123,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MillisecClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MSRenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MultiPolygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
@@ -1045,6 +1046,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MultiPolygon\SivMultiPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp" />
