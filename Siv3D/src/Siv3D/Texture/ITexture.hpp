@@ -35,6 +35,8 @@ namespace s3d
 
 		virtual TextureID createRT(const Size& size, TextureFormat format) = 0;
 
+		virtual TextureID createRT(const Image& image) = 0;
+
 		virtual void release(TextureID handleID) = 0;
 
 		virtual Size getSize(TextureID handleID) = 0;

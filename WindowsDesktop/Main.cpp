@@ -9,29 +9,24 @@ struct GameOfLife
 void Main()
 {
 	Window::Resize(1280, 720);
-	Scene::SetBackground(ColorF(0.5));
 	constexpr Size FieldSize(1280, 720);
 	const PixelShader ps(U"example/shader/game_of_life.hlsl");
-	ConstantBuffer<GameOfLife> cb;
-	cb->pixelSize = Float2(1.0f, 1.0f) / FieldSize;
-
-	const Texture init(Image(FieldSize, Arg::generator = []() { return Color(RandomBool() * 255); }));	
-	RenderTexture rt0(FieldSize, ColorF(0.0)), rt1(FieldSize, ColorF(0.0));
-	{
-		ScopedRenderTarget2D target(rt0);
-		init.draw();
-	}
+	const ConstantBuffer<GameOfLife> cb({ Float2(1.0f, 1.0f) / FieldSize });
+	RenderTexture rt0(Image(FieldSize, Arg::generator = [](){ return Color(RandomBool() * 255); }));
+	RenderTexture rt1(FieldSize, ColorF(0.0));
 
 	while (System::Update())
 	{
-		ScopedRenderStates2D sampler(SamplerState::ClampNearest);
-		rt0.draw(ColorF(0.0, 1.0, 0.0));
-
 		{
-			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-			ScopedRenderTarget2D target(rt1);
-			ScopedCustomShader2D shader(ps);
-			rt0.draw();
+			ScopedRenderStates2D sampler(SamplerState::ClampNearest);
+			rt0.draw(ColorF(0.0, 1.0, 0.0));
+
+			{
+				Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
+				ScopedCustomShader2D shader(ps);
+				ScopedRenderTarget2D target(rt1);
+				rt0.draw();
+			}
 		}
 
 		std::swap(rt0, rt1);

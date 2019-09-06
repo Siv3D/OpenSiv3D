@@ -32,6 +32,8 @@ namespace s3d
 
 		RenderTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
 
+		RenderTexture(const Image& image);
+
 		void clear(const ColorF& color);
 
 		void readAsImage(Image& image);
