@@ -18,7 +18,7 @@ cbuffer VSConstants2D : register(b0)
 	float4 g_colorMul;
 }
 
-cbuffer PSConstants2D : register(b1)
+cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;

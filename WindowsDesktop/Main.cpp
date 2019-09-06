@@ -4,7 +4,7 @@ struct GameOfLife
 {
 	Float2 pixelSize;
 	Float2 _unused;
-	static constexpr uint32 BindingPoint() { return 2; }
+	static constexpr uint32 BindingPoint() { return 1; }
 };
 
 void Main()

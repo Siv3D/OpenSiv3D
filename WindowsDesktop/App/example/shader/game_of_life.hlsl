@@ -12,13 +12,13 @@
 Texture2D		texture0 : register(t0);
 SamplerState	sampler0 : register(s0);
 
-cbuffer PSConstants2D : register(b1)
+cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
 }
 
-cbuffer GameOfLife : register(b2)
+cbuffer GameOfLife : register(b1)
 {
 	float2 g_pixelSize;
 }

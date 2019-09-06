@@ -172,8 +172,8 @@ namespace s3d
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		detail::SetVS(m_standardVS->sprite);
 
-		m_context->VSSetConstantBuffers(m_cbSprite0.BindingPoint(), 1, m_cbSprite0.base()._detail()->getBufferPtr());
-		m_context->PSSetConstantBuffers(m_cbSprite1.BindingPoint(), 1, m_cbSprite1.base()._detail()->getBufferPtr());
+		m_context->VSSetConstantBuffers(m_vsConstants2D.BindingPoint(), 1, m_vsConstants2D.base()._detail()->getBufferPtr());
+		m_context->PSSetConstantBuffers(m_psConstants2D.BindingPoint(), 1, m_psConstants2D.base()._detail()->getBufferPtr());
 
 		Size currentRenderTargetSize = pGraphics->getSceneSize();
 		Mat3x2 transform = Mat3x2::Identity();
@@ -204,8 +204,8 @@ namespace s3d
 				}
 			case RendererCommand::Draw:
 				{
-					m_cbSprite0._update_if_dirty();
-					m_cbSprite1._update_if_dirty();
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
 
 					const DrawCommand& draw = m_commands.getDraw(index);
 					const uint32 indexCount = draw.indexCount;
@@ -222,14 +222,14 @@ namespace s3d
 				}
 			case RendererCommand::ColorMul:
 				{
-					m_cbSprite0->colorMul = m_commands.getColorMul(index);
+					m_vsConstants2D->colorMul = m_commands.getColorMul(index);
 
 					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(index, m_cbSprite0->colorMul));
 					break;
 				}
 			case RendererCommand::ColorAdd:
 				{
-					m_cbSprite1->colorAdd = m_commands.getColorAdd(index);
+					m_psConstants2D->colorAdd = m_commands.getColorAdd(index);
 
 					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(index, m_cbSprite1->colorAdd));
 					break;
@@ -267,8 +267,8 @@ namespace s3d
 				{
 					transform = m_commands.getCombinedTransform(index);
 					const Mat3x2 matrix = transform * screenMat;
-					m_cbSprite0->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_cbSprite0->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(index, matrix));
 					break;
@@ -362,8 +362,8 @@ namespace s3d
 
 					screenMat = Mat3x2::Screen(vp.Width, vp.Height);
 					const Mat3x2 matrix = transform * screenMat;
-					m_cbSprite0->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_cbSprite0->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(index,
 						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
@@ -396,7 +396,7 @@ namespace s3d
 				}
 			case RendererCommand::SDFParam:
 				{
-					m_cbSprite1->sdfParam = m_commands.getSdfParam(index);
+					m_psConstants2D->sdfParam = m_commands.getSdfParam(index);
 
 					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_cbSprite1->sdfParam));
 					break;

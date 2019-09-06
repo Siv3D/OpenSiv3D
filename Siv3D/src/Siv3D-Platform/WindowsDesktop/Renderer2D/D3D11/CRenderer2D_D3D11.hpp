@@ -23,7 +23,7 @@
 
 namespace s3d
 {
-	struct SpriteCB0
+	struct VSConstants2D
 	{
 		static constexpr uint32 BindingPoint()
 		{
@@ -35,11 +35,11 @@ namespace s3d
 		Float4 colorMul;
 	};
 
-	struct SpriteCB1
+	struct PSConstants2D
 	{
 		static constexpr uint32 BindingPoint()
 		{
-			return 1;
+			return 0;
 		}
 
 		Float4 colorAdd;
@@ -124,8 +124,8 @@ namespace s3d
 		std::unique_ptr<D3D11StandardVS2D> m_standardVS;
 		std::unique_ptr<D3D11StandardPS2D> m_standardPS;
 
-		ConstantBuffer<SpriteCB0> m_cbSprite0;
-		ConstantBuffer<SpriteCB1> m_cbSprite1;
+		ConstantBuffer<VSConstants2D> m_vsConstants2D;
+		ConstantBuffer<PSConstants2D> m_psConstants2D;
 		ConstantBuffer<FullscreenTriangleCB0> m_cbFullscreenTriangle0;
 
 		ComPtr<ID3D11InputLayout> m_inputLayout;
