@@ -101,13 +101,18 @@ namespace s3d
 		}
 	}
 	
-	GLuint PixelShader_GL::getUniformBlockIndex(const char* const name)
+	void PixelShader_GL::setUniformBlockBinding(const char* const name, const GLuint index)
 	{
-		return ::glGetUniformBlockIndex(m_psProgram, name);
+		const GLuint blockIndex = ::glGetUniformBlockIndex(m_psProgram, name);
+		
+		::glUniformBlockBinding(m_psProgram, blockIndex, index);
 	}
 	
-	void PixelShader_GL::setUniformBlockBinding(const char* const name, GLuint index)
+	void PixelShader_GL::setUniformBlockBindings(const Array<BindingPoint>& bindingPoints)
 	{
-		::glUniformBlockBinding(m_psProgram, getUniformBlockIndex(name), index);
+		for (auto[name, index] : bindingPoints)
+		{
+			setUniformBlockBinding(name.narrow().c_str(), index);
+		}
 	}
 }

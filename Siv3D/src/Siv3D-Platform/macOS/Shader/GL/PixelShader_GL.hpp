@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Array.hpp>
+# include <Siv3D/ShaderCommon.hpp>
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
 
@@ -43,9 +44,9 @@ namespace s3d
 		GLint getProgram() const;
 		
 		void setPSSamplerUniform();
-		
-		GLuint getUniformBlockIndex(const char* const name);
-		
+
 		void setUniformBlockBinding(const char* const name, GLuint index);
+		
+		void setUniformBlockBindings(const Array<BindingPoint>& bindingPoints);
 	};
 }

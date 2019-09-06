@@ -96,11 +96,8 @@ namespace s3d
 			return VertexShaderID::NullAsset();
 		}
 		
-		for (const auto& bindingPoint : bindingPoints)
-		{
-			vertexShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
-		}
-		
+		vertexShader->setUniformBlockBindings(bindingPoints);
+
 		return m_vertexShaders.add(std::move(vertexShader));
 	}
 	
@@ -139,11 +136,8 @@ namespace s3d
 			return PixelShaderID::NullAsset();
 		}
 		
-		for (const auto& bindingPoint : bindingPoints)
-		{
-			pixelShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
-		}
-		
+		pixelShader->setUniformBlockBindings(bindingPoints);
+
 		return m_pixelShaders.add(std::move(pixelShader));
 	}
 	
