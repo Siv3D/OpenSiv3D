@@ -23,6 +23,13 @@ cbuffer PoissonDisk : register(b1)
 	float2 g_pixelSize;
 	float  g_discRadius;
 }
+// [C++]
+//struct PoissonDisk
+//{
+//	Float2 pixelSize;
+//	float discRadius;
+//	float _unused;
+//};
 
 struct VS_OUTPUT
 {

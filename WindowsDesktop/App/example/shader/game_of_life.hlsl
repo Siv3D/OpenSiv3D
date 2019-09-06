@@ -22,6 +22,12 @@ cbuffer GameOfLife : register(b1)
 {
 	float2 g_pixelSize;
 }
+// [C++]
+//struct GameOfLife
+//{
+//	Float2 pixelSize;
+//	Float2 _unused = {};
+//};
 
 struct VS_OUTPUT
 {
