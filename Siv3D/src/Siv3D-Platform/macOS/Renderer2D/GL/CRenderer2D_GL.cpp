@@ -98,11 +98,11 @@ namespace s3d
 		// 標準 PS をロード
 		{
 			m_standardPS = std::make_unique<GLStandardPS2D>();
-			m_standardPS->shape			= PixelShader(Resource(U"engine/shader/shape.frag"), { { U"PSConstants2D", 1 } });
-			m_standardPS->texture		= PixelShader(Resource(U"engine/shader/texture.frag"), { { U"PSConstants2D", 1 } });
-			m_standardPS->square_dot	= PixelShader(Resource(U"engine/shader/square_dot.frag"), { { U"PSConstants2D", 1 } });
-			m_standardPS->round_dot		= PixelShader(Resource(U"engine/shader/round_dot.frag"), { { U"PSConstants2D", 1 } });
-			m_standardPS->sdf			= PixelShader(Resource(U"engine/shader/sdf.frag"), { { U"PSConstants2D", 1 } });
+			m_standardPS->shape			= PixelShader(Resource(U"engine/shader/shape.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->texture		= PixelShader(Resource(U"engine/shader/texture.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->square_dot	= PixelShader(Resource(U"engine/shader/square_dot.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->round_dot		= PixelShader(Resource(U"engine/shader/round_dot.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->sdf			= PixelShader(Resource(U"engine/shader/sdf.frag"), { { U"PSConstants2D", 0 } });
 			if (!m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL::m_standardPSs initialization failed");
@@ -178,8 +178,11 @@ namespace s3d
 		BatchInfo batchInfo;
 		size_t profile_drawcalls = 0, profile_vertices = 0;
 		
-		::glBindBufferBase(GL_UNIFORM_BUFFER, m_vsConstants2D.BindingPoint(), m_vsConstants2D.base()._detail()->getHandle());
-		::glBindBufferBase(GL_UNIFORM_BUFFER, m_psConstants2D.BindingPoint(), m_psConstants2D.base()._detail()->getHandle());
+		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, 0);
+		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, m_vsConstants2D.base()._detail()->getHandle());
+		
+		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, 0);
+		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, m_psConstants2D.base()._detail()->getHandle());
 		
 		LOG_COMMAND(U"--Renderer2D commands--");
 		
@@ -296,7 +299,8 @@ namespace s3d
 					
 					if (cb.num_vectors)
 					{
-						::glBindBufferBase(GL_UNIFORM_BUFFER, cb.slot, cb.cbBase._detail()->getHandle());
+						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
+						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cb.cbBase._detail()->getHandle());
 						cb.cbBase._internal_update(p, cb.num_vectors * 16);
 					}
 					

@@ -270,6 +270,60 @@ namespace s3d
 		m_initialized = true;
 	}
 
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Image& image, TextureFormat format, TextureDesc desc)
+		: m_desc(image.size(),
+			format,
+			desc,
+			1,
+			1, 0,
+			D3D11_USAGE_DEFAULT,
+			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
+			0, 0)
+	{
+		// サイズをチェック
+		if (!InRange(image.width(), 1, Image::MaxWidth) || !InRange(image.height(), 1, Image::MaxHeight))
+		{
+			return;
+		}
+
+		// [メインテクスチャ] を作成
+		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
+		{
+			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				return;
+			}
+		}
+
+		// [シェーダ・リソース・ビュー] を作成
+		{
+			const D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = m_desc.makeSHADER_RESOURCE_VIEW_DESC();
+			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
+		}
+
+		// [レンダー・ターゲット・ビュー] を作成
+		{
+			const D3D11_RENDER_TARGET_VIEW_DESC rtDesc = m_desc.makeD3D11_RENDER_TARGET_VIEW_DESC();
+			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
+				FAILED(hr))
+			{
+				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				return;
+			}
+		}
+
+		m_type = TextureType::Render;
+		m_initialized = true;
+	}
+
 	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc desc)
 		: m_desc(image.size(),
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm,

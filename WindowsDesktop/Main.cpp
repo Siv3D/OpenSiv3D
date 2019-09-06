@@ -1,32 +1,53 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
+// 定数バッファ (PS_1)
+struct PoissonDisk
+{
+	// 1 ピクセルあたりの UV サイズ
+	Float2 pixelSize;
+
+	// サンプリング半径
+	float diskRadius;
+
+	// 定数バッファのサイズを
+	// 16 の倍数にするためのパディング用の値
+	float _unused = 0.0f;
+};
+
 void Main()
 {
-	Window::Resize(960, 600);
+	// シーンの背景色を淡い水色に設定
 	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
-	const Texture emoji(Emoji::CreateSilhouetteImage(U"🍎"));
+
 	const Texture windmill(U"example/windmill.png");
-	const PixelShader ps(U"example/shader/multiple_texture.hlsl");
-	RenderTexture renderTexture(windmill.size());
+
+	// Poisson-Disc Sampling 用のピクセルシェーダ
+	// シェーダファイルの拡張子は、Windows では hlsl, macOS/Linux では frag を選択
+	// {} 内は定数バッファの名前と、対応する定数インデックス
+	const PixelShader ps(U"example/shader/poisson_disk" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),
+		{ { U"PSConstants2D", 0 }, { U"PoissonDisk", 1 } });
+
+	// 定数バッファ
+	ConstantBuffer<PoissonDisk> cb;
+	cb->pixelSize = Float2(1.0, 1.0) / windmill.size();
+
+	// サンプリング半径
+	double diskRadius = 0.0;
 
 	while (System::Update())
 	{
-		renderTexture.clear(ColorF(1.0, 0.0));
-		{
-			BlendState blend;
-			blend.srcAlpha = Blend::One;
-			ScopedRenderStates2D states(blend);
-			ScopedRenderTarget2D target(renderTexture);
-			emoji.scaled(2).rotated(Scene::Time() * 60_deg).drawAt(renderTexture.size() / 2);
-		}
+		// サンプリング半径をスライダーで変更
+		SimpleGUI::Slider(U"diskRadius", diskRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
 
-		Rect(0, 140, 480, 320).draw(Palette::Black).movedBy(480, 0).draw(Palette::White);
-		renderTexture.draw(0, 140);
+		cb->diskRadius = static_cast<float>(diskRadius);
 
-		Graphics2D::SetTexture(1, renderTexture);
 		{
+			// 定数バッファを設定
+			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
+
+			// Poisson-Disc Sampling 用のシェーダを開始
 			ScopedCustomShader2D shader(ps);
-			windmill.draw(480, 140);
+			windmill.draw(10, 10);
 		}
 	}
 }

@@ -141,22 +141,29 @@ enum DXGI_FORMAT
 	DXGI_FORMAT_FORCE_UINT = 0xffffffff
 } DXGI_FORMAT;
 
+enum GL_CONSTANTS
+{
+	GL_RGBA = 0x00001908,
+	GL_UNSIGNED_BYTE = 0x00001401,
+	GL_SRGB8_ALPHA8 = 0x00008C43,
+};
+
 namespace s3d
 {
-	static constexpr std::array<std::pair<TextureFormatProperty, StringView>, 3> Propertytable =
+	static constexpr std::array<TextureFormatProperty, 3> Propertytable =
 	{ {
-		{{ DXGI_FORMAT_UNKNOWN, 0, 0, false }, U"Unknown"},
-		{{ DXGI_FORMAT_R8G8B8A8_UNORM, 4, 4, false }, U"R8G8B8A8_Unorm" },
-		{{ DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4, 4, true }, U"R8G8B8A8_Unorm_SRGB" },
+		{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
+		{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
+		{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, true },
 	} };
 
 	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat textureFormat)
 	{
-		return Propertytable[FromEnum(textureFormat)].first;
+		return Propertytable[FromEnum(textureFormat)];
 	}
 
 	StringView ToString(TextureFormat textureFormat) noexcept
 	{
-		return Propertytable[FromEnum(textureFormat)].second;
+		return Propertytable[FromEnum(textureFormat)].name;
 	}
 }

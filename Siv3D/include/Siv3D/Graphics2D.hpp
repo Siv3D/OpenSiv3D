@@ -96,16 +96,16 @@ namespace s3d
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
 
-			void SetConstantBuffer(ShaderStage stage, uint32 slot, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+			void SetConstantBuffer(ShaderStage stage, uint32 index, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		
 			void SetRenderTarget(const Optional<RenderTexture>& rt);
 		}
 
 		// 定数バッファを設定
 		template <class Type>
-		inline void SetConstantBuffer(ShaderStage stage, const ConstantBuffer<Type>& buffer)
+		inline void SetConstantBuffer(ShaderStage stage, uint32 index, const ConstantBuffer<Type>& buffer)
 		{
-			Internal::SetConstantBuffer(stage, buffer.BindingPoint(), buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
+			Internal::SetConstantBuffer(stage, index, buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
 		}
 	}
 }

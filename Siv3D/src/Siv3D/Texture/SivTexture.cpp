@@ -79,6 +79,12 @@ namespace s3d
 		ReportAssetCreation();
 	}
 
+	Texture::Texture(Render, const Image& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
 	Texture::Texture()
 		: m_handle(std::make_shared<TextureHandle>())
 	{

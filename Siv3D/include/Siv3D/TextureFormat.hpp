@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
@@ -25,7 +26,15 @@ namespace s3d
 
 	struct TextureFormatProperty
 	{
+		StringView name;
+
 		int32 DXGIFormat;
+
+		int32 GLInternalFormat;
+
+		int32 GLFormat;
+
+		int32 GLType;
 		
 		// 1 ピクセル当たりのサイズ
 		uint32 pixelSize;

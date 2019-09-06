@@ -23,10 +23,8 @@ namespace s3d
 			
 			size_t m_bufferSize = 0;
 			
-			mutable GLuint m_uniformBufferHandle = 0;
-			
-			void init() const;
-			
+			mutable GLuint m_uniformBuffer = 0;
+
 		public:
 			
 			explicit ConstantBufferDetail(size_t size);
