@@ -50,14 +50,19 @@ static const float2 offsets[8] =
 float4 PS(VS_OUTPUT input) : SV_Target
 {
 	const float c = texture0.Sample(sampler0, input.tex).r;
-	int n = 0;
+	float n = 0;
 
 	for (int i = 0; i < 8; ++i)
 	{
 		n += texture0.Sample(sampler0, input.tex + offsets[i] * g_pixelSize).r;
 	}
 
-	const int r = (c == 0 && n == 3) || (c == 1 && (n == 2 || n == 3));
-
-	return float4(r, r, r, 1.0);
+	if ((c == 0 && n == 3) || (c == 1 && (n == 2 || n == 3)))
+	{
+		return float4(1.0, 1.0, 1.0, 1.0);
+	}
+	else
+	{
+		return float4(0.0, 0.0, 0.0, 1.0);
+	}
 }
