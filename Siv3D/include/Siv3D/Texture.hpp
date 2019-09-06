@@ -196,6 +196,8 @@ namespace s3d
 
 		[[nodiscard]] TextureDesc getDesc() const;
 
+		[[nodiscard]] TextureFormat getFormat() const;
+
 		[[nodiscard]] bool isMipped() const;
 
 		[[nodiscard]] bool isSDF() const;

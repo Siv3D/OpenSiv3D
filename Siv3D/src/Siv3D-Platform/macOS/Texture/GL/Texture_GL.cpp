@@ -126,7 +126,14 @@ namespace s3d
 		// [メインテクスチャ] を作成
 		{
 			if (format == TextureFormat::R8G8B8A8_Unorm
-				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB)
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB
+				|| format == TextureFormat::R16G16_Float
+				|| format == TextureFormat::R32_Float
+				|| format == TextureFormat::R10G10B10A2_Unorm
+				|| format == TextureFormat::R11G11B10_UFloat
+				|| format == TextureFormat::R16G16B16A16_Float
+				|| format == TextureFormat::R32G32_Float
+				|| format == TextureFormat::R32G32B32A32_Float)
 			{
 				::glGenTextures(1, &m_texture);
 				::glBindTexture(GL_TEXTURE_2D, m_texture);

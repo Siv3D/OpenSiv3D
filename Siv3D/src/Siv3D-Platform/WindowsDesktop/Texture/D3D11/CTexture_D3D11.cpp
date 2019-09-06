@@ -186,6 +186,11 @@ namespace s3d
 		return m_textures[handleID]->getDesc().desc;
 	}
 
+	TextureFormat CTexture_D3D11::getFormat(const TextureID handleID)
+	{
+		return m_textures[handleID]->getDesc().format;
+	}
+
 	ID3D11ShaderResourceView** CTexture_D3D11::getSRVPtr(const TextureID handleID)
 	{
 		return m_textures[handleID]->getSRVPtr();

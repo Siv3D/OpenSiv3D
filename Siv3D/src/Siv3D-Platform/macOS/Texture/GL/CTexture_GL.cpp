@@ -209,6 +209,11 @@ namespace s3d
 		return m_textures[handleID]->getDesc();
 	}
 	
+	TextureFormat CTexture_GL::getFormat(const TextureID handleID)
+	{
+		return m_textures[handleID]->getFormat();
+	}
+	
 	void CTexture_GL::clearRT(TextureID handleID, const ColorF& color)
 	{
 		m_textures[handleID]->clearRT(color);
