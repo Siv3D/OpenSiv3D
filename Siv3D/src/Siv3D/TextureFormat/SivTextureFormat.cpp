@@ -152,9 +152,9 @@ namespace s3d
 {
 	static constexpr std::array<TextureFormatProperty, 3> Propertytable =
 	{ {
-		{ U"Unknown", 0, 0, 0, DXGI_FORMAT_UNKNOWN, 0, 0, false },
-		{ U"R8G8B8A8_Unorm", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, DXGI_FORMAT_R8G8B8A8_UNORM, 4, 4, false },
-		{ U"R8G8B8A8_Unorm_SRGB", GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4, 4, true },
+		{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
+		{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
+		{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, true },
 	} };
 
 	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat textureFormat)
