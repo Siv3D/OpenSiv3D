@@ -28,7 +28,7 @@ cbuffer PoissonDisk : register(b1)
 //{
 //	Float2 pixelSize;
 //	float discRadius;
-//	float _unused;
+//	float _unused = 0.0f;
 //};
 
 struct VS_OUTPUT
