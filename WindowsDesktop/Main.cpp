@@ -3,7 +3,7 @@
 struct GameOfLife
 {
 	Float2 pixelSize;
-	Float2 _unused;
+	Float2 _unused = {};
 };
 
 void Main()
