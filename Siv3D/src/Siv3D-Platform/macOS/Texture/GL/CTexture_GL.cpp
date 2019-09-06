@@ -180,7 +180,7 @@ namespace s3d
 	
 	TextureID CTexture_GL::createRT(const Image& image)
 	{
-		const TextureDesc desc = TextureDesc::UnmippedSRGB;
+		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
 		
 		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);

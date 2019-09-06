@@ -16,6 +16,9 @@ namespace s3d
 {
 	Texture_GL::Texture_GL(Null)
 	{
+		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
 			::glGenTextures(1, &m_texture);
@@ -24,13 +27,14 @@ namespace s3d
 			for (uint32 i = 0; i < 5; ++i)
 			{
 				const Image mipmap(16 >> i, 16 >> i, Palette::Yellow);
-				::glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
+				::glTexImage2D(GL_TEXTURE_2D, i, prop.GLInternalFormat, mipmap.width(), mipmap.height(), 0,
+							   prop.GLFormat, prop.GLType, mipmap.data());
 			}
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
 		}
 		
 		m_size = Size(16, 16);
-		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_format = format;
 		m_textureDesc = TextureDesc::Mipped;
 		m_type = TextureType::Normal;
 		m_initialized = true;
@@ -38,16 +42,20 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(const Image& image, const TextureDesc desc)
 	{
+		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
 			::glGenTextures(1, &m_texture);
 			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, image.width(), image.height(), 0,
+						   prop.GLFormat, prop.GLType, image.data());
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 		}
 		
 		m_size = image.size();
-		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_format = format;
 		m_textureDesc = desc;
 		m_type = TextureType::Normal;
 		m_initialized = true;
@@ -55,23 +63,28 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
+		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
 			::glGenTextures(1, &m_texture);
 			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, image.width(), image.height(), 0,
+						   prop.GLFormat, prop.GLType, image.data());
 			
 			for (uint32 i = 0; i < mipmaps.size(); ++i)
 			{
 				const Image& mipmap = mipmaps[i];
 				
-				::glTexImage2D(GL_TEXTURE_2D, (i + 1), GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
+				::glTexImage2D(GL_TEXTURE_2D, (i + 1), prop.GLInternalFormat, mipmap.width(), mipmap.height(), 0,
+							   prop.GLFormat, prop.GLType, mipmap.data());
 			}
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(mipmaps.size()));
 		}
 		
 		m_size = image.size();
-		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_format = format;
 		m_textureDesc = desc;
 		m_type = TextureType::Normal;
 		m_initialized = true;
@@ -79,12 +92,24 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(Dynamic, const Size& size, const void* pData, const uint32, const TextureFormat format, const TextureDesc desc)
 	{
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			if (format == TextureFormat::R8G8B8A8_Unorm
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, size.x, size.y, 0,
+							   prop.GLFormat, prop.GLType, pData);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in DynamicTexture"_fmt(ToString(format)));
+				return;
+			}
 		}
 		
 		m_size = size;
@@ -96,14 +121,26 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(Render, const Size& size, const TextureFormat format, const TextureDesc desc)
 	{
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			if (format == TextureFormat::R8G8B8A8_Unorm
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, size.x, size.y, 0,
+							   prop.GLFormat, prop.GLType, nullptr);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture"_fmt(ToString(format)));
+				return;
+			}
 		}
-
+		
 		// [フレームバッファ] を作成
 		{
 			::glGenFramebuffers(1, &m_frameBuffer);
@@ -125,12 +162,24 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(Render, const Image& image, const TextureFormat format, const TextureDesc desc)
 	{
+		const auto& prop = GetTextureFormatProperty(format);
+		
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			if (format == TextureFormat::R8G8B8A8_Unorm
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, image.width(), image.height(), 0,
+							   prop.GLFormat, prop.GLType, image.data());
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture (init with Image)"_fmt(ToString(format)));
+				return;
+			}
 		}
 		
 		// [フレームバッファ] を作成
@@ -207,7 +256,7 @@ namespace s3d
 		}
 		
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-
+		
 		::glClearColor(
 					   static_cast<float>(color.r),
 					   static_cast<float>(color.g),
@@ -305,7 +354,7 @@ namespace s3d
 		}
 		
 		uint32* pDst = newData.data();
-
+		
 		for (int32 y = rect.y; y < rect.y + rect.h; ++y)
 		{
 			const uint32* line = static_cast<const uint32*>(src) + (stride/sizeof(uint32)) * y;
