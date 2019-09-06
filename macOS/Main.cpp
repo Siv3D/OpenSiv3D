@@ -4,7 +4,6 @@ struct GameOfLife
 {
 	Float2 pixelSize;
 	Float2 _unused;
-	static constexpr uint32 BindingPoint() { return 1; }
 };
 
 void Main()
@@ -29,7 +28,7 @@ void Main()
 		rt0.draw(ColorF(0.0, 1.0, 0.0));
 		
 		{
-			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, cb);
+			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
 			ScopedRenderTarget2D target(rt1);
 			ScopedCustomShader2D shader(ps);
 			rt0.draw();

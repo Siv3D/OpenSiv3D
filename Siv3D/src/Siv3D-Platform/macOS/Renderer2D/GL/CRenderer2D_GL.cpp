@@ -178,10 +178,10 @@ namespace s3d
 		BatchInfo batchInfo;
 		size_t profile_drawcalls = 0, profile_vertices = 0;
 		
-		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, m_vsConstants2D.BindingPoint());
+		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, 0);
 		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, m_vsConstants2D.base()._detail()->getHandle());
 		
-		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, m_psConstants2D.BindingPoint());
+		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, 0);
 		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, m_psConstants2D.base()._detail()->getHandle());
 		
 		LOG_COMMAND(U"--Renderer2D commands--");
