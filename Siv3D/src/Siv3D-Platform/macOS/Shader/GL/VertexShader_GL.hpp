@@ -41,7 +41,7 @@ namespace s3d
 		
 		GLint getProgram() const;
 
-		void setUniformBlockBinding(const char* const name, GLuint index);
+		void setUniformBlockBinding(const String& name, GLuint index);
 		
 		void setUniformBlockBindings(const Array<BindingPoint>& bindingPoints);
 	};

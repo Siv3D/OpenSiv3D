@@ -101,9 +101,15 @@ namespace s3d
 		}
 	}
 	
-	void PixelShader_GL::setUniformBlockBinding(const char* const name, const GLuint index)
+	void PixelShader_GL::setUniformBlockBinding(const String& name, const GLuint index)
 	{
-		const GLuint blockIndex = ::glGetUniformBlockIndex(m_psProgram, name);
+		const GLuint blockIndex = ::glGetUniformBlockIndex(m_psProgram, name.narrow().c_str());
+		
+		if (blockIndex == GL_INVALID_INDEX)
+		{
+			LOG_FAIL(U"Uniform block `{}` not found"_fmt(name));
+			return;
+		}
 		
 		::glUniformBlockBinding(m_psProgram, blockIndex, index);
 	}
@@ -112,7 +118,7 @@ namespace s3d
 	{
 		for (auto[name, index] : bindingPoints)
 		{
-			setUniformBlockBinding(name.narrow().c_str(), index);
+			setUniformBlockBinding(name, index);
 		}
 	}
 }

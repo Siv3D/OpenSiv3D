@@ -69,9 +69,15 @@ namespace s3d
 		return m_vsProgram;
 	}
 	
-	void VertexShader_GL::setUniformBlockBinding(const char* const name, const GLuint index)
+	void VertexShader_GL::setUniformBlockBinding(const String& name, const GLuint index)
 	{
-		const GLuint blockIndex = ::glGetUniformBlockIndex(m_vsProgram, name);
+		const GLuint blockIndex = ::glGetUniformBlockIndex(m_vsProgram, name.narrow().c_str());
+
+		if (blockIndex == GL_INVALID_INDEX)
+		{
+			LOG_FAIL(U"Uniform block `{}` not found"_fmt(name));
+			return;
+		}
 		
 		::glUniformBlockBinding(m_vsProgram, blockIndex, index);
 	}
@@ -80,7 +86,7 @@ namespace s3d
 	{
 		for (auto[name, index] : bindingPoints)
 		{
-			setUniformBlockBinding(name.narrow().c_str(), index);
+			setUniformBlockBinding(name, index);
 		}
 	}
 }
