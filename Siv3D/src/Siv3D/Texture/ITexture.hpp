@@ -43,6 +43,8 @@ namespace s3d
 
 		virtual TextureDesc getDesc(TextureID handleID) = 0;
 
+		virtual TextureFormat getFormat(TextureID handleID) = 0;
+
 		virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
 
 		virtual void readRT(TextureID handleID, Image& image) = 0;

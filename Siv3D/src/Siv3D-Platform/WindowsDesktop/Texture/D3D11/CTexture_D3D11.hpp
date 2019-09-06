@@ -54,6 +54,8 @@ namespace s3d
 
 		TextureDesc getDesc(TextureID handleID) override;
 
+		TextureFormat getFormat(TextureID handleID) override;
+
 		ID3D11ShaderResourceView** getSRVPtr(TextureID handleID);
 
 		ID3D11Texture2D* getTexture(TextureID handleID);

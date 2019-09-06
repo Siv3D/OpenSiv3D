@@ -41,10 +41,10 @@ namespace s3d
 		R16G16B16A16_Float,
 
 		// 64
-		RG32_Float,
+		R32G32_Float,
 
 		// 128
-		RGBA32_Float,
+		R32G32B32A32_Float,
 	};
 
 	struct TextureFormatProperty
