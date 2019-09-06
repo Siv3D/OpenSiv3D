@@ -1,34 +1,40 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
+struct GameOfLife
+{
+	Float2 pixelSize;
+	Float2 _unused;
+	static constexpr uint32 BindingPoint() { return 2; }
+};
+
 void Main()
 {
-	Window::Resize(960, 600);
+	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.5));
+	constexpr Size FieldSize(1280, 720);
+	const PixelShader ps(U"example/shader/game_of_life.frag",{{ U"PSConstants2D", 1 }, { U"GameOfLife", 2 }});
+	ConstantBuffer<GameOfLife> cb;
+	cb->pixelSize = Float2(1.0f, 1.0f) / FieldSize;
 	
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
-	const Texture emoji(Emoji::CreateSilhouetteImage(U"🍎"));
-	const Texture windmill(U"example/windmill.png");
-	const PixelShader ps(U"example/shader/multiple_texture.frag",
-						 {{ U"PSConstants2D", 1 }});
-	RenderTexture renderTexture(480, 320);
-
+	const Texture init(Image(FieldSize, Arg::generator = []() { return Color(RandomBool() * 255); }));
+	RenderTexture rt0(FieldSize, ColorF(0.0)), rt1(FieldSize, ColorF(0.0));
+	{
+		ScopedRenderTarget2D target(rt0);
+		init.draw();
+	}
+	
 	while (System::Update())
 	{
-		renderTexture.clear(ColorF(1.0, 0.0));
-		{
-			BlendState blend;
-			blend.srcAlpha = Blend::One;
-			ScopedRenderStates2D states(blend);
-			ScopedRenderTarget2D target(renderTexture);
-			emoji.scaled(2).rotated(Scene::Time() * 60_deg).drawAt(renderTexture.size() / 2);
-		}
+		ScopedRenderStates2D sampler(SamplerState::ClampNearest);
+		rt0.draw(ColorF(0.0, 1.0, 0.0));
 		
-		Rect(0, 140, 480, 320).draw(Palette::Black).movedBy(480, 0).draw(Palette::White);
-		renderTexture.draw(0, 140);
-		
-		Graphics2D::SetTexture(1, renderTexture);
 		{
+			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, cb);
+			ScopedRenderTarget2D target(rt1);
 			ScopedCustomShader2D shader(ps);
-			windmill.draw(480, 140);
+			rt0.draw();
 		}
+		
+		std::swap(rt0, rt1);
 	}
 }
