@@ -78,19 +78,19 @@ namespace s3d
 			LOG_FAIL(U"Uniform block `{}` not found"_fmt(name));
 			return;
 		}
-		else
-		{
-			LOG_DEBUG(U"Uniform block `{}`: binding = {}"_fmt(name, index));
-		}
+
+		const GLuint uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, index);
 		
-		::glUniformBlockBinding(m_vsProgram, blockIndex, index);
+		LOG_DEBUG(U"Uniform block `{}`: binding = VS_{} ({})"_fmt(name, index,uniformBlockBinding));
+		
+		::glUniformBlockBinding(m_vsProgram, blockIndex, uniformBlockBinding);
 	}
 	
 	void VertexShader_GL::setUniformBlockBindings(const Array<BindingPoint>& bindingPoints)
 	{
 		for (auto[name, index] : bindingPoints)
 		{
-			setUniformBlockBinding(name, Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, index));
+			setUniformBlockBinding(name, index);
 		}
 	}
 }

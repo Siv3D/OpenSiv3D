@@ -110,19 +110,19 @@ namespace s3d
 			LOG_FAIL(U"Uniform block `{}` not found"_fmt(name));
 			return;
 		}
-		else
-		{
-			LOG_DEBUG(U"Uniform block `{}`: binding = {}"_fmt(name, index));
-		}
-		
-		::glUniformBlockBinding(m_psProgram, blockIndex, index);
+
+		const GLuint uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, index);
+
+		LOG_DEBUG(U"Uniform block `{}`: binding = PS_{} ({})"_fmt(name, index,uniformBlockBinding));
+
+		::glUniformBlockBinding(m_psProgram, blockIndex, uniformBlockBinding);
 	}
 	
 	void PixelShader_GL::setUniformBlockBindings(const Array<BindingPoint>& bindingPoints)
 	{
 		for (auto[name, index] : bindingPoints)
 		{
-			setUniformBlockBinding(name, Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, index));
+			setUniformBlockBinding(name, index);
 		}
 	}
 }
