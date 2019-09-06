@@ -78,6 +78,10 @@ namespace s3d
 			LOG_FAIL(U"Uniform block `{}` not found"_fmt(name));
 			return;
 		}
+		else
+		{
+			LOG_DEBUG(U"Uniform block `{}`: binding = {}"_fmt(name, index));
+		}
 		
 		::glUniformBlockBinding(m_vsProgram, blockIndex, index);
 	}
@@ -86,7 +90,7 @@ namespace s3d
 	{
 		for (auto[name, index] : bindingPoints)
 		{
-			setUniformBlockBinding(name, index);
+			setUniformBlockBinding(name, Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, index));
 		}
 	}
 }

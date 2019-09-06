@@ -4,7 +4,7 @@ struct GameOfLife
 {
 	Float2 pixelSize;
 	Float2 _unused;
-	static constexpr uint32 BindingPoint() { return 2; }
+	static constexpr uint32 BindingPoint() { return 1; }
 };
 
 void Main()
@@ -12,7 +12,7 @@ void Main()
 	Window::Resize(1280, 720);
 	Scene::SetBackground(ColorF(0.5));
 	constexpr Size FieldSize(1280, 720);
-	const PixelShader ps(U"example/shader/game_of_life.frag",{{ U"PSConstants2D", 1 }, { U"GameOfLife", 2 }});
+	const PixelShader ps(U"example/shader/game_of_life.frag",{{ U"PSConstants2D", 0 }, { U"GameOfLife", 1 }});
 	ConstantBuffer<GameOfLife> cb;
 	cb->pixelSize = Float2(1.0f, 1.0f) / FieldSize;
 	
@@ -34,6 +34,8 @@ void Main()
 			ScopedCustomShader2D shader(ps);
 			rt0.draw();
 		}
+		
+		Circle(200,200,100).draw();
 		
 		std::swap(rt0, rt1);
 	}

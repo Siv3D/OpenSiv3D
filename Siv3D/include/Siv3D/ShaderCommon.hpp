@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -28,4 +28,22 @@ namespace s3d
 		
 		uint32 index;
 	};
+	
+	namespace Shader
+	{
+		namespace Internal
+		{
+			constexpr uint32 MakeUniformBlockBinding(ShaderStage stage, uint32 index) noexcept
+			{
+				if (stage == ShaderStage::Vertex)
+				{
+					return index;
+				}
+				else
+				{
+					return index + 12;
+				}
+			}
+		}
+	}
 }
