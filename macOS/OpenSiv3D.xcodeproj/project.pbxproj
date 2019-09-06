@@ -1027,6 +1027,7 @@
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
 		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
 		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
+		2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
@@ -2136,6 +2137,8 @@
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
 		2C60A7B622F5A98F00A5D629 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../Siv3D/lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
+		2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
+		2C69A45A232299D9002BC8D4 /* MSRenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MSRenderTexture.hpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -6029,6 +6032,7 @@
 				2C4615B3226EEF2F00828870 /* MersenneTwister */,
 				2C4616DE226EEF3800828870 /* Microphone */,
 				2C4615EA226EEF3100828870 /* Mouse */,
+				2C69A457232299B1002BC8D4 /* MSRenderTexture */,
 				2C46172A226EEF3B00828870 /* MultiPolygon */,
 				2C461618226EEF3200828870 /* NavMesh */,
 				2C461783226EEF3E00828870 /* Network */,
@@ -6126,6 +6130,14 @@
 				2C461666226EEF3500828870 /* XXHash */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C69A457232299B1002BC8D4 /* MSRenderTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */,
+			);
+			path = MSRenderTexture;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -6292,6 +6304,7 @@
 				2CA627A522226DC70009DFE1 /* MillisecClock.hpp */,
 				2CA627C122226DC70009DFE1 /* Monitor.hpp */,
 				2CA627B822226DC70009DFE1 /* Mouse.hpp */,
+				2C69A45A232299D9002BC8D4 /* MSRenderTexture.hpp */,
 				2CA6276022226DC60009DFE1 /* MultiPolygon.hpp */,
 				2CA6275F22226DC60009DFE1 /* NamedParameter.hpp */,
 				2CA627DF22226DC70009DFE1 /* NavMesh.hpp */,
@@ -7752,6 +7765,7 @@
 				2C461868226EEF4100828870 /* P2RopeJointDetail.cpp in Sources */,
 				2C461478226EEDB500828870 /* b2Settings.cpp in Sources */,
 				2C461823226EEF4100828870 /* Script_TextureRegion.cpp in Sources */,
+				2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */,
 				2C46186F226EEF4100828870 /* SivOutlineGlyph.cpp in Sources */,
 				2C461833226EEF4100828870 /* Script_MillisecClock.cpp in Sources */,
 				2C461462226EEDB500828870 /* b2Joint.cpp in Sources */,
