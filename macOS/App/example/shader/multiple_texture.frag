@@ -8,6 +8,7 @@ uniform sampler2D Texture1;
 		
 layout(location = 0) out vec4 FragColor;
 
+// PS_0
 layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
