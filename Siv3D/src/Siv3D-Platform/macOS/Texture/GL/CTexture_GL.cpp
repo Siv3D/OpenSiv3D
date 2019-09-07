@@ -193,6 +193,21 @@ namespace s3d
 		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getFormat()));
 		return m_textures.add(std::move(texture), info);
 	}
+	
+	TextureID CTexture_GL::createMSRT(const Size& size, const TextureFormat format)
+	{
+		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::MSRender(), size, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getFormat()));
+		return m_textures.add(std::move(texture), info);
+	}
 
 	void CTexture_GL::release(const TextureID handleID)
 	{
@@ -222,6 +237,11 @@ namespace s3d
 	void CTexture_GL::readRT(const TextureID handleID, Image& image)
 	{
 		return m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::resolveMSRT(const TextureID handleID)
+	{
+		m_textures[handleID]->resolveMSRT();
 	}
 
 	bool CTexture_GL::fill(const TextureID handleID, const ColorF& color, const bool wait)
