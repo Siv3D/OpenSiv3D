@@ -2,20 +2,18 @@
 
 void Main()
 {
-	MSRenderTexture msRen(400, 300, Palette::Seagreen);
+	MSRenderTexture msRen(400, 300);
 	
 	while (System::Update())
 	{
-		msRen.resolve();
-		msRen.draw();
-
-		//
-		// 順序の問題あり（要解決）
-		
-		//msRen.clear(ColorF(HSV(Scene::Time()*60)));
+		msRen.clear(Palette::Seagreen);
 		{
 			ScopedRenderTarget2D target(msRen);
-			Rect(Cursor::Pos(), 100, 40).rotated(45_deg).draw(ColorF(0.0));
+			Rect(Arg::center(200, 150), 100, 40).rotated(Scene::Time() * 20_deg).draw();
 		}
+		
+		Graphics2D::Flush();
+		msRen.resolve();
+		msRen.draw();
 	}
 }
