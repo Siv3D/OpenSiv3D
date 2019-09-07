@@ -80,6 +80,8 @@ namespace s3d
 
 		void SetTexture(uint32 slot, const Optional<Texture>& texture);
 
+		void Flush();
+
 		namespace Internal
 		{
 			void SetColorMul(const ColorF& color);

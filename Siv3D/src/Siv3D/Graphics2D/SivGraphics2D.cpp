@@ -130,6 +130,11 @@ namespace s3d
 			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSTexture(slot, texture);
 		}
 
+		void Flush()
+		{
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->flush();
+		}
+
 		namespace Internal
 		{
 			void SetColorMul(const ColorF& color)
