@@ -51,6 +51,12 @@ namespace s3d
 
 	}
 
+	RenderTexture::RenderTexture(MSRender, const uint32 width, const uint32 height, const TextureFormat format)
+		: Texture(Texture::MSRender{}, width, height, format)
+	{
+
+	}
+
 	void RenderTexture::clear(const ColorF& color)
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->clearRT(m_handle->id(), color);

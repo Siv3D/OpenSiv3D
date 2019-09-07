@@ -22,11 +22,15 @@ namespace s3d
 	{
 	private:
 
+		static constexpr uint32 SampleCount = 4;
+
 		ID3D11Device* m_device = nullptr;
 
 		ID3D11DeviceContext* m_context = nullptr;
 
 		AssetHandleManager<TextureID, Texture_D3D11> m_textures{ U"Texture" };
+
+		std::array<bool, 10> m_multiSampleAvailable = {};
 
 	public:
 
@@ -48,6 +52,8 @@ namespace s3d
 
 		TextureID createRT(const Image& image) override;
 
+		TextureID createMSRT(const Size& size, TextureFormat format) override;
+
 		void release(TextureID handleID) override;
 
 		Size getSize(TextureID handleID) override;
@@ -58,13 +64,13 @@ namespace s3d
 
 		ID3D11ShaderResourceView** getSRVPtr(TextureID handleID);
 
-		ID3D11Texture2D* getTexture(TextureID handleID);
-
 		ID3D11RenderTargetView* getRTV(TextureID handleID);
 
 		void clearRT(TextureID handleID, const ColorF& color) override;
 
 		void readRT(TextureID handleID, Image& image) override;
+
+		void resolveMSRT(const TextureID handleID) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 

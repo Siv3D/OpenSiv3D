@@ -58,7 +58,10 @@ namespace s3d
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc;
 		rtvDesc.Format = DXGI_FORMAT(GetTextureFormatProperty(format).DXGIFormat);
 		rtvDesc.ViewDimension = (multisampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS;
-		rtvDesc.Texture2D = { 0 };
+		if (rtvDesc.ViewDimension == D3D11_RTV_DIMENSION_TEXTURE2D)
+		{
+			rtvDesc.Texture2D = { 0 };
+		}
 		return rtvDesc;
 	}
 }

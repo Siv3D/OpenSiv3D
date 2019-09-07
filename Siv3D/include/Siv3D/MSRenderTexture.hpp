@@ -12,11 +12,12 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Texture.hpp"
+# include "RenderTexture.hpp"
 # include "TextureFormat.hpp"
 
 namespace s3d
 {
-	class MSRenderTexture : public Texture
+	class MSRenderTexture : public RenderTexture
 	{
 	private:
 
@@ -36,5 +37,8 @@ namespace s3d
 		void resolve();
 
 		void clear(const ColorF& color);
+
+		// TextureFormat::R8G8B8A8_Unorm のみサポート
+		void readAsImage(Image& image);
 	};
 }
