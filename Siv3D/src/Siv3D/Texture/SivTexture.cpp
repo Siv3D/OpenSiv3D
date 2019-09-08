@@ -192,6 +192,11 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DTexture>()->getDesc(m_handle->id());
 	}
 
+	TextureFormat Texture::getFormat() const
+	{
+		return Siv3DEngine::Get<ISiv3DTexture>()->getFormat(m_handle->id());
+	}
+
 	bool Texture::isMipped() const
 	{
 		return detail::IsMipped(Siv3DEngine::Get<ISiv3DTexture>()->getDesc(m_handle->id()));
