@@ -34,6 +34,7 @@ namespace s3d
 	{
 		m_requested = false;
 
+		// [ステージング・テクスチャ] が未作成か異なるサイズの場合、再作成
 		if (size != m_image.size())
 		{
 			if (m_stagingTexture)
@@ -56,11 +57,13 @@ namespace s3d
 				return false;
 			}
 
+			// Image をテクスチャのサイズにリサイズ
 			m_image.resize(size);
 		}
 
 		m_context->CopyResource(m_stagingTexture.Get(), texture);
 
+		// [ステージング・テクスチャ] から Image にコピー
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		{
 			if (FAILED(m_context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))
