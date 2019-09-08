@@ -74,6 +74,8 @@ namespace s3d
 
 		TextureDesc getDesc(TextureID handleID) override;
 
+		TextureFormat getFormat(TextureID handleID) override;
+
 		void clearRT(TextureID handleID, const ColorF& color) override;
 
 		void readRT(TextureID handleID, Image& image) override;
