@@ -498,7 +498,7 @@ namespace s3d
 			bool hasChanged = false;
 			size_t row = 0;
 			const int32 labelPosX = static_cast<int32>(region.x + detail::RadioButtonPadding * 2 + detail::RadioButtonSize);		
-			const double baseY = center.y - static_cast<double>((options.size() * 40 - 4) / 2 + 18);
+			const double baseY = center.y - (static_cast<double>(options.size()) * 40 - 4) / 2 + 18;
 
 			for (const auto& option : options)
 			{
