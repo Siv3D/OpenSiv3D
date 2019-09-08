@@ -12,17 +12,24 @@
 Texture2D		texture0 : register(t0);
 SamplerState	sampler0 : register(s0);
 
-cbuffer PSConstants2D : register(b1)
+cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
 }
 
-cbuffer PoissonDisk : register(b2)
+cbuffer PoissonDisk : register(b1)
 {
 	float2 g_pixelSize;
-	float  g_discRadius;
+	float  g_diskRadius;
 }
+// [C++]
+//struct PoissonDisk
+//{
+//	Float2 pixelSize;
+//	float diskRadius;
+//	float _unused = 0.0f;
+//};
 
 struct VS_OUTPUT
 {
@@ -58,7 +65,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	for (int tap = 0; tap < 12; ++tap)
 	{
-		float2 texCoord = input.tex + (g_pixelSize * poisson[tap] * g_discRadius);
+		float2 texCoord = input.tex + (g_pixelSize * poisson[tap] * g_diskRadius);
 		accum.rgb += texture0.Sample(sampler0, texCoord).rgb;
 	}
 

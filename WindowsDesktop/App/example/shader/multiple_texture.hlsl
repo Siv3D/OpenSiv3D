@@ -14,7 +14,7 @@ Texture2D		texture1 : register(t1);
 SamplerState	sampler0 : register(s0);
 SamplerState	sampler1 : register(s1);
 
-cbuffer PSConstants2D : register(b1)
+cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;

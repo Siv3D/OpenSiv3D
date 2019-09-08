@@ -64,6 +64,8 @@ namespace s3d
 
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, TextureFormat format, TextureDesc desc);
 
+		Texture_D3D11(Render, ID3D11Device* device, const Image& image, TextureFormat format, TextureDesc desc);
+
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, const Array<Image>& mips, TextureDesc desc);

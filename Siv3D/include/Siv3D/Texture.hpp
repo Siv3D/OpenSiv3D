@@ -46,6 +46,8 @@ namespace s3d
 
 		Texture(Render, uint32 width, uint32 height, TextureFormat format);
 
+		Texture(Render, const Image& image);
+
 	public:
 
 		using IDType = TextureHandle::IDWrapperType;

@@ -7,17 +7,26 @@ uniform sampler2D Texture0;
 		
 layout(location = 0) out vec4 FragColor;
 
+// PS_0
 layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
 	vec4 g_sdfParam;
 };
 
-layout(std140) uniform PoissonDisc
+// PS_1
+layout(std140) uniform PoissonDisk
 {
 	vec2  g_pixelSize;
-	float g_discRadius;
+	float g_diskRadius;
 };
+// [C++]
+//struct PoissonDisk
+//{
+//	Float2 pixelSize;
+//	float diskRadius;
+//	float _unused = 0.0f;
+//};
 
 vec4 OutputColor(const vec4 color)
 {
@@ -45,7 +54,7 @@ void main()
 
 	for (int tap = 0; tap < 12; ++tap)
 	{
-		vec2 texCoord = Tex + (g_pixelSize * poisson[tap] * g_discRadius);
+		vec2 texCoord = Tex + (g_pixelSize * poisson[tap] * g_diskRadius);
 		accum.rgb += texture(Texture0, texCoord).rgb;
 	}
 
