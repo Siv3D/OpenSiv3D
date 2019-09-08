@@ -3,8 +3,6 @@
 
 void Main()
 {
-	Print << _MSC_FULL_VER;
-
 	while (System::Update())
 	{
 

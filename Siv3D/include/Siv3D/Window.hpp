@@ -138,7 +138,7 @@ namespace s3d
 		/// <returns>
 		/// サイズの変更に成功したら true, それ以外の場合は false 
 		/// </returns>
-		bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
+		[[nodiscard]] bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
 		/// <summary>
 		/// ウィンドウのサイズを変更します。
@@ -158,7 +158,7 @@ namespace s3d
 		/// <returns>
 		/// サイズの変更に成功したら true, それ以外の場合は false 
 		/// </returns>
-		bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
+		[[nodiscard]] bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
 		void Maximize();
 
@@ -166,16 +166,16 @@ namespace s3d
 
 		void Minimize();
 
-		bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
+		[[nodiscard]] bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
 	}
 
 # if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::Window
 	{
-		void* GetHWND();
+		[[nodiscard]] void* GetHWND();
 
-		bool ChangeDisplayResolution(const Size& size);
+		[[nodiscard]] bool ChangeDisplayResolution(const Size& size);
 	}
 
 # endif
