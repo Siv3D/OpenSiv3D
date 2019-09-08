@@ -453,6 +453,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D-Platform/Linux/Resource/SivResource.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/ScreenCapture/CScreenCapture_Platform.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Shader/GL/CShader_GL.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/Shader/GL/PixelShader_GL.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/Shader/GL/VertexShader_GL.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Shader/ShaderFactory.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Siv3DMain.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/System/CSystem.cpp"

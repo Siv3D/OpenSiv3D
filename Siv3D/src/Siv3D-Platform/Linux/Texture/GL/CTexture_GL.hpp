@@ -66,6 +66,8 @@ namespace s3d
 
 		TextureID createRT(const Size& size, TextureFormat format) override;
 
+		TextureID createRT(const Image& image) override;
+
 		void release(TextureID handleID) override;
 
 		Size getSize(TextureID handleID) override;
