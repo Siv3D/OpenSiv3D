@@ -28,8 +28,9 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b);
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Line& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b);
 
 		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Circle& b);
 		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Ellipse& b);
@@ -44,8 +45,9 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b);
 
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b);
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b);
@@ -54,8 +56,9 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b);
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b);
 
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b);
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier2& b);
@@ -66,8 +69,9 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const RoundRect& b);
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b);
 
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b);
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier2& b);
@@ -78,8 +82,9 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b);
 
 		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier2& b);
@@ -90,8 +95,9 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b);
 
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Line& b);
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Bezier2& b);
@@ -102,8 +108,22 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const Polygon& b);
 		//Optional<Array<Vec2>> IntersectAt(const Quad& a, const LineString& b);
+
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Line& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Bezier2& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Bezier3& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Rect& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const RectF& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Circle& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Ellipse& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Triangle& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const RoundRect& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Polygon& b);
+		//Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const LineString& b);
 
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Line& b);
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Bezier2& b);
@@ -114,20 +134,22 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Polygon& b);
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const LineString& b);
 
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier2& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier3& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Quad& b);
+		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const RoundRect& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Polygon& b);
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b);
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b);
 
 
 		double Distance(const Point& a, const Point&			b) noexcept;

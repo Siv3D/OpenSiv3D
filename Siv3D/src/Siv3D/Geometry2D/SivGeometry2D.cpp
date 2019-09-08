@@ -773,6 +773,26 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const Line& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Bezier2 vs
@@ -887,6 +907,26 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const Rect& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	RectF vs
@@ -965,6 +1005,26 @@ namespace s3d
 			for (size_t i = 0; i < num_triangles; ++i)
 			{
 				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const RectF& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
 				{
 					return true;
 				}
@@ -1100,6 +1160,26 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const Ellipse& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Triangle vs
@@ -1226,6 +1306,26 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const Triangle& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Quad vs
@@ -1293,6 +1393,26 @@ namespace s3d
 				const Triangle b0 = b.triangle(i);
 
 				if (Intersect(a0, b0) || Intersect(a1, b0))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Quad& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
 				{
 					return true;
 				}
@@ -1385,6 +1505,26 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const RoundRect& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Polygon vs
@@ -1439,6 +1579,26 @@ namespace s3d
 			return a.intersects(b);
 		}
 
+		bool Intersect(const Polygon& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	MultiPolygon vs
@@ -1467,11 +1627,70 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const LineString& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		bool Intersect(const LineString& a, const Circle& b) noexcept
 		{
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const LineString& a, const Ellipse& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const Polygon& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const LineString& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			//todo: boundingrect
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 
 		////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////
@@ -1625,6 +1844,26 @@ namespace s3d
 			}
 
 			return results;
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = a.intersectsAt(Line(b[i], b[i + 1])))
+				{
+					points.push_back(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
 		}
 
 		////////////////////////////////////////////////////////////////////
@@ -1810,6 +2049,29 @@ namespace s3d
 			return IntersectAt(RectF(a), b);
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for(auto o:at.value())
+					{
+						points.push_back(o);
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	RectF IntersectAt
@@ -1882,6 +2144,29 @@ namespace s3d
 			if (!hasIntersection)
 			{
 				return none;
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for (auto o : at.value())
+					{
+						points.push_back(o);
+					}
+				}
 			}
 
 			return detail::RemoveDuplication(std::move(points));
@@ -1969,6 +2254,29 @@ namespace s3d
 			return detail::RemoveDuplication(std::move(points));
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for (auto o : at.value())
+					{
+						points.push_back(o);
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Ellipse IntersectAt
@@ -1998,6 +2306,29 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for (auto o : at.value())
+					{
+						points.push_back(o);
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Triangle IntersectAt
@@ -2005,6 +2336,29 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b)
 		{
 			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for (auto o : at.value())
+					{
+						points.push_back(o);
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
 		}
 
 		////////////////////////////////////////////////////////////////////
@@ -2016,6 +2370,62 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	LineString IntersectAt
+		//
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
+				{
+					for (auto o : at.value())
+					{
+						points.push_back(o);
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
 
 		////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////
