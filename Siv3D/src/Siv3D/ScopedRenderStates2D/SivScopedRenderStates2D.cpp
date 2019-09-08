@@ -89,7 +89,7 @@ namespace s3d
 	ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState)
 		: ScopedRenderStates2D(blendState, rasterizerState, samplerState) {}
 
-	ScopedRenderStates2D::ScopedRenderStates2D(ScopedRenderStates2D&& block)
+	ScopedRenderStates2D::ScopedRenderStates2D(ScopedRenderStates2D&& block) noexcept
 	{
 		m_oldBlendState = block.m_oldBlendState;
 		m_oldRasterizerState = block.m_oldRasterizerState;
@@ -109,7 +109,7 @@ namespace s3d
 		}
 	}
 
-	ScopedRenderStates2D& ScopedRenderStates2D::operator =(ScopedRenderStates2D&& block)
+	ScopedRenderStates2D& ScopedRenderStates2D::operator =(ScopedRenderStates2D&& block) noexcept
 	{
 		if (!m_oldBlendState && block.m_oldBlendState)
 		{
@@ -131,7 +131,7 @@ namespace s3d
 		return *this;
 	}
 
-	void ScopedRenderStates2D::clear()
+	void ScopedRenderStates2D::clear() noexcept
 	{
 		m_oldBlendState.reset();
 		m_oldRasterizerState.reset();

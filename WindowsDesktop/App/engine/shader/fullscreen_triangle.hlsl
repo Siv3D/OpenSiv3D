@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-cbuffer vscbSprite : register(b0)
+cbuffer VSConstantsFullscreenTriangle : register(b0)
 {
 	float4 g_texScale;
 }

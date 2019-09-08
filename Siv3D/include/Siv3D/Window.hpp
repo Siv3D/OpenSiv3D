@@ -138,7 +138,7 @@ namespace s3d
 		/// <returns>
 		/// サイズの変更に成功したら true, それ以外の場合は false 
 		/// </returns>
-		[[nodiscard]] bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
+		bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
 		/// <summary>
 		/// ウィンドウのサイズを変更します。
@@ -158,7 +158,7 @@ namespace s3d
 		/// <returns>
 		/// サイズの変更に成功したら true, それ以外の場合は false 
 		/// </returns>
-		[[nodiscard]] bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
+		bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
 
 		void Maximize();
 

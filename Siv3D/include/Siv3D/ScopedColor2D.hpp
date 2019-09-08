@@ -22,7 +22,7 @@ namespace s3d
 
 		Optional<ColorF> m_oldColor;
 
-		void clear();
+		void clear() noexcept;
 
 	public:
 
@@ -34,11 +34,11 @@ namespace s3d
 
 		ScopedColorMul2D(double r, double g, double b, double a = 1.0);
 
-		ScopedColorMul2D(ScopedColorMul2D&& other);
+		ScopedColorMul2D(ScopedColorMul2D&& other) noexcept;
 
 		~ScopedColorMul2D();
 
-		ScopedColorMul2D& operator =(ScopedColorMul2D&& other);
+		ScopedColorMul2D& operator =(ScopedColorMul2D&& other) noexcept;
 	};
 
 	class ScopedColorAdd2D : Uncopyable
@@ -47,7 +47,7 @@ namespace s3d
 
 		Optional<ColorF> m_oldColor;
 
-		void clear();
+		void clear() noexcept;
 
 	public:
 
@@ -59,10 +59,10 @@ namespace s3d
 
 		ScopedColorAdd2D(double r, double g, double b, double a = 0.0);
 
-		ScopedColorAdd2D(ScopedColorAdd2D&& other);
+		ScopedColorAdd2D(ScopedColorAdd2D&& other) noexcept;
 
 		~ScopedColorAdd2D();
 
-		ScopedColorAdd2D& operator =(ScopedColorAdd2D&& other);
+		ScopedColorAdd2D& operator =(ScopedColorAdd2D&& other) noexcept;
 	};
 }

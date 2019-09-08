@@ -17,6 +17,7 @@
 # include <Siv3D/Circle.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 
 namespace s3d
 {

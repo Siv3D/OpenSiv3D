@@ -28,6 +28,10 @@ namespace s3d
 
 		public:
 
+			ConstantBufferBase() = default;
+
+			ConstantBufferBase(const ConstantBufferBase&) = default;
+
 			explicit ConstantBufferBase(size_t size);
 
 			bool _internal_update(const void* data, size_t size);
@@ -59,11 +63,6 @@ namespace s3d
 		}
 
 	public:
-
-		[[nodiscard]] static const char* Name()
-		{
-			return Type::Name();
-		}
 
 		[[nodiscard]] static constexpr uint32 BindingPoint()
 		{

@@ -36,7 +36,7 @@ namespace s3d
 		GLuint m_msFrameBuffer = 0;
 		GLuint m_msTexture = 0;
 		
-		GLuint m_resolvedFrameBuffer;
+		GLuint m_resolvedFrameBuffer = 0;
 		GLuint m_resolvedTexture = 0;
 
 	# else

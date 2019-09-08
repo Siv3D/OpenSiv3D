@@ -1104,6 +1104,7 @@
 		2CBC64F9230D68DD001610DB /* SivProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64F8230D68DC001610DB /* SivProcess.cpp */; };
 		2CBC64FC230D7073001610DB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */; };
 		2CBC64FD230D7073001610DB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */; };
+		2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2533,6 +2534,9 @@
 		2CBC64F8230D68DC001610DB /* SivProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProcess.cpp; sourceTree = "<group>"; };
 		2CBC64FA230D7073001610DB /* NSTaskWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSTaskWrapper.mm; sourceTree = "<group>"; };
 		2CBC64FB230D7073001610DB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
+		2CBC6511231E6A06001610DB /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		2CBC6512231E8A55001610DB /* ScopedCustomShader2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.hpp; sourceTree = "<group>"; };
+		2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader2D.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6048,6 +6052,7 @@
 				2C461799226EEF3F00828870 /* Say */,
 				2C46178E226EEF3F00828870 /* Scene */,
 				2C461603226EEF3200828870 /* ScopedColor2D */,
+				2CBC6513231E8A6D001610DB /* ScopedCustomShader2D */,
 				2C4615C9226EEF3000828870 /* ScopedRenderStates2D */,
 				2C461605226EEF3200828870 /* ScopedViewport2D */,
 				2C46174A226EEF3D00828870 /* ScreenCapture */,
@@ -6329,6 +6334,7 @@
 				2CA6281722226DC70009DFE1 /* Scene.hpp */,
 				2CA6278722226DC70009DFE1 /* SceneManager.hpp */,
 				2CA6281F22226DC70009DFE1 /* ScopedColor2D.hpp */,
+				2CBC6512231E8A55001610DB /* ScopedCustomShader2D.hpp */,
 				2CA6276F22226DC60009DFE1 /* ScopedRenderStates2D.hpp */,
 				2CA6282222226DC70009DFE1 /* ScopedViewport2D.hpp */,
 				2CA6280E22226DC70009DFE1 /* ScopeGuard.hpp */,
@@ -6337,6 +6343,7 @@
 				2CA627BA22226DC70009DFE1 /* SDF.hpp */,
 				2CA6277822226DC60009DFE1 /* Serialization.hpp */,
 				2CA6279022226DC70009DFE1 /* SFMT.hpp */,
+				2CBC6511231E6A06001610DB /* Shader.hpp */,
 				2CA6281222226DC70009DFE1 /* ShaderCommon.hpp */,
 				2CA6279222226DC70009DFE1 /* Shape2D.hpp */,
 				2CA627E322226DC70009DFE1 /* SIMDMath.hpp */,
@@ -6738,6 +6745,14 @@
 				2CBC64F8230D68DC001610DB /* SivProcess.cpp */,
 			);
 			path = Process;
+			sourceTree = "<group>";
+		};
+		2CBC6513231E8A6D001610DB /* ScopedCustomShader2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */,
+			);
+			path = ScopedCustomShader2D;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7474,6 +7489,7 @@
 				2C4618AA226EEF4100828870 /* SivRasterizerState.cpp in Sources */,
 				2C4618D0226EEF4100828870 /* SivFFT.cpp in Sources */,
 				2C4617D3226EEF4100828870 /* CPUFactory.cpp in Sources */,
+				2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */,
 				2CBC64D622F849F0001610DB /* entropy_common.c in Sources */,
 				2C461A18226F2AFD00828870 /* SivFileSystem_Platform.mm in Sources */,
 				2C461801226EEF4100828870 /* Script_Rect.cpp in Sources */,

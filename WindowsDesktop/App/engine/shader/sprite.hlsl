@@ -12,13 +12,13 @@
 Texture2D		texture0 : register(t0);
 SamplerState	sampler0 : register(s0);
 
-cbuffer vscbSprite : register(b0)
+cbuffer VSConstants2D : register(b0)
 {
 	row_major float2x4 g_transform;
 	float4 g_colorMul;
 }
 
-cbuffer pscbSprite : register(b1)
+cbuffer PSConstants2D : register(b1)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;

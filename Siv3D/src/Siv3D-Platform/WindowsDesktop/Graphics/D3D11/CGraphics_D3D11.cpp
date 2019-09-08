@@ -91,8 +91,8 @@ namespace s3d
 
 		if (m_pScreenCapture->isRequested())
 		{
-			const BackBuffer& backBuffer = m_renderTarget->getBackBuffer();
-			m_pScreenCapture->capture(backBuffer.texture.Get(), backBuffer.size);
+			auto[texture, size] = m_renderTarget->getCaptureTexture();
+			m_pScreenCapture->capture(texture, size);
 		}
 
 		return true;

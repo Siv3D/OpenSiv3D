@@ -19,7 +19,8 @@
 # include "SamplerState.hpp"
 # include "Rectangle.hpp"
 # include "Mat3x2.hpp"
-# include "Cursor.hpp"
+# include "PixelShader.hpp"
+# include "ConstantBuffer.hpp"
 
 namespace s3d
 {
@@ -116,5 +117,20 @@ namespace s3d
 		void SetSDFParameters(const Float4& parameters);
 
 		[[nodiscard]] Float4 GetSDFParameters();
+
+		namespace detail
+		{
+			void SetCustomPixelShader(const Optional<PixelShader>& ps);
+
+			[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
+
+			void SetConstantBuffer(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+		}
+
+		template <class Type>
+		inline void SetConstantBuffer(ShaderStage stage, const ConstantBuffer<Type>& buffer)
+		{
+			detail::SetConstantBuffer(stage, buffer.BindingPoint(), buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
+		}
 	}
 }

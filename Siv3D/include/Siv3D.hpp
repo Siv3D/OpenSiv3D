@@ -765,8 +765,7 @@
 
 //// シリアル通信
 //# include <Siv3D/Serial.hpp>
-//// パイプサーバー
-//# include <Siv3D/PipeServer.hpp>
+
 //// インターネット
 //# include <Siv3D/Internet.hpp>
 //// HTTP
@@ -976,6 +975,7 @@
 // シェーダ
 // Shader
 # include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Shader.hpp>
 
 // 頂点シェーダ
 // Vertex Shader
@@ -1010,6 +1010,9 @@
 
 // 2D グラフィックス設定
 # include <Siv3D/ScopedColor2D.hpp>
+
+// 2D グラフィックス設定
+# include <Siv3D/ScopedCustomShader2D.hpp>
 
 // 2D 座標変換
 # include <Siv3D/Transformer2D.hpp>
