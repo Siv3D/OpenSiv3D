@@ -12,10 +12,7 @@
 # pragma once
 # include <Siv3D/Process.hpp>
 # include <boost/process/child.hpp>
-
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 # include <boost/process/pipe.hpp>
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -28,6 +25,7 @@ namespace s3d
 		boost::process::ipstream m_ips;
 
 		boost::process::child m_child;
+
 
 	public:
 
