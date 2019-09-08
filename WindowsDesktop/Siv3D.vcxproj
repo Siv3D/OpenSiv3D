@@ -186,6 +186,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Process.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
@@ -370,6 +371,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Microphone\MicrophoneDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Mouse\CMouse.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Network\CNetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Process\ChildProcessDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\CRenderer2D_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\D3D11Renderer2DCommand.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\D3D11SpriteBatch.hpp" />
@@ -868,6 +870,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Network\CNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\NLP\SivNLP_Japanese.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\PowerStatus\SivPowerStatus.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Process\ChildProcessDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\D3D11Renderer2DCommand.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Renderer2D\D3D11\D3D11SpriteBatch.cpp" />
@@ -1075,6 +1078,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Process\SivProcess.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ProController\SivProController.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
