@@ -98,5 +98,7 @@ namespace s3d
 		GLRasterizerState* getRasterizerState() { return m_pRasterizerState.get(); }
 		
 		GLSamplerState* getSamplerState() { return m_pSamplerState.get(); }
+		
+		SceneTexture& getRenderTarget() { return m_sceneTexture; }
 	};
 }

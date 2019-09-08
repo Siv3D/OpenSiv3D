@@ -266,8 +266,8 @@ namespace s3d
 				{
 					transform = m_commands.getCombinedTransform(index);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(index, matrix));
 					break;
@@ -304,10 +304,27 @@ namespace s3d
 																										index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
 				}
+				case RendererCommand::SetRT:
+				{
+					const auto& rt = m_commands.getRT(index);
+					
+					if (rt) // 通常と異なる RenderTexture
+					{
+						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						pGraphics->getRenderTarget().setFrameBuffer(frameBuffer);
+					}
+					else // [BackBuffer]
+					{
+						pGraphics->getRenderTarget().bindSceneFrameBuffer();
+					}
+					
+					LOG_COMMAND(U"SetRT[{}]"_fmt(index));
+					break;
+				}
 				case RendererCommand::ScissorRect:
 				{
 					const auto& r = m_commands.getScissorRect(index);
-					::glScissor(r.x, currentRenderTargetSize.y - r.h - r.y, r.w, r.h);
+					::glScissor(r.x, r.y, r.w, r.h);
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(index, r));
 					break;
 				}
@@ -329,12 +346,12 @@ namespace s3d
 						rect.h = static_cast<float>(currentRenderTargetSize.y);
 					}
 					
-					::glViewport(rect.x, currentRenderTargetSize.y - rect.h - rect.y, rect.w, rect.h);
+					::glViewport(rect.x, rect.y, rect.w, rect.h);
 					
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = transform * screenMat;
-					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {})"_fmt(index,
 																																		  rect.x, rect.y, rect.w, rect.h));
@@ -540,6 +557,38 @@ namespace s3d
 	void CRenderer2D_GL::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
+	}
+	
+	void CRenderer2D_GL::setRT(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+			
+			const TextureID textureID = rt->id();
+			const auto& currentPSTextures = m_commands.getCurrentPSTextures();
+			
+			for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+			{
+				if (currentPSTextures[slot] == textureID)
+				{
+					m_commands.pushPSTexture(slot, Texture());
+					hasChanged = true;
+				}
+			}
+			
+			if (hasChanged)
+			{
+				m_commands.flush();
+			}
+		}
+		
+		m_commands.pushRT(rt);
+	}
+	
+	Optional<RenderTexture> CRenderer2D_GL::getRT() const
+	{
+		return m_commands.getCurrentRT();
 	}
 	
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
