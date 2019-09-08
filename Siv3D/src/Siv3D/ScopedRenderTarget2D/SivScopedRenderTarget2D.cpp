@@ -15,11 +15,11 @@
 namespace s3d
 {
 	ScopedRenderTarget2D::ScopedRenderTarget2D(const Optional<RenderTexture>& rt)
-		: m_oldRenderTarget(Graphics2D::detail::GetRenderTarget())
+		: m_oldRenderTarget(Graphics2D::GetRenderTarget())
 		, m_oldViewport(Graphics2D::GetViewport())
 	{
-		Graphics2D::detail::SetRenderTarget(rt);
-		Graphics2D::SetViewport(rt ? Rect(rt->size()) : Scene::Rect());
+		Graphics2D::Internal::SetRenderTarget(rt);
+		Graphics2D::Internal::SetViewport(rt ? Rect(rt->size()) : Scene::Rect());
 	}
 
 	ScopedRenderTarget2D::ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept
@@ -32,8 +32,8 @@ namespace s3d
 
 	ScopedRenderTarget2D::~ScopedRenderTarget2D()
 	{
-		m_oldRenderTarget.then(Graphics2D::detail::SetRenderTarget);
-		m_oldViewport.then(Graphics2D::SetViewport);
+		m_oldRenderTarget.then(Graphics2D::Internal::SetRenderTarget);
+		m_oldViewport.then(Graphics2D::Internal::SetViewport);
 	}
 
 	ScopedRenderTarget2D& ScopedRenderTarget2D::operator =(ScopedRenderTarget2D&& other) noexcept

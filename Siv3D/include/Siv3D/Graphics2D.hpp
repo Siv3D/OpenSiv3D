@@ -27,84 +27,40 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
-		void SetColorMul(const ColorF& color);
-
+		// 現在のグローバル乗算カラーを取得
 		[[nodiscard]] ColorF GetColorMul();
 
-		void SetColorAdd(const ColorF& color);
-
+		// 現在のグローバル加算カラーを取得
 		[[nodiscard]] ColorF GetColorAdd();
 
-		/// <summary>
-		/// 2D 描画のブレンドステートを設定します。
-		/// </summary>
-		/// <param name="blendState">
-		/// ブレンドステート
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void SetBlendState(const BlendState& blendState);
-
-		/// <summary>
-		/// 現在の 2D 描画のブレンドステートを取得します。
-		/// </summary>
-		/// <returns>
-		/// 現在の 2D 描画のブレンドステート
-		/// </returns>
+		// 現在のブレンドステートを取得
 		[[nodiscard]] BlendState GetBlendState();
 
-		/// <summary>
-		/// 2D 描画のラスタライザーステートを設定します。
-		/// </summary>
-		/// <param name="rasterizerState">
-		/// ラスタライザーステート
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void SetRasterizerState(const RasterizerState& rasterizerState);
-
-		/// <summary>
-		/// 現在の 2D 描画のラスタライザーステートを取得します。
-		/// </summary>
-		/// <returns>
-		/// 現在の 2D 描画のラスタライザーステート
-		/// </returns>
+		// 現在のラスタライザーステートを取得
 		[[nodiscard]] RasterizerState GetRasterizerState();
 
+		// サンプラーステートを設定
 		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
 
-		/// <summary>
-		/// 2D 描画のサンプラーステートを設定します。
-		/// </summary>
-		/// <param name="rasterizerState">
-		/// サンプラーステート
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void SetSamplerState(const SamplerState& samplerState);
-
-		/// <summary>
-		/// 現在の 2D 描画のサンプラーステートを取得します。
-		/// </summary>
-		/// <param name="slot">
-		/// スロット
-		/// </param>
-		/// <returns>
-		/// 現在の 2D 描画のサンプラーステート
-		/// </returns>
+		// 現在のサンプラーステートを取得
 		[[nodiscard]] SamplerState GetSamplerState(uint32 slot = 0);
 
-		void SetScissorRect(const Rect& rect);
-
-		[[nodiscard]] Rect GetScissorRect();
-
-		void SetViewport(const Optional<Rect>& viewport);
-
+		// 現在のカスタムビューポートを取得
 		[[nodiscard]] Optional<Rect> GetViewport();
 
+		// 現在のカスタムピクセルシェーダを取得
+		[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
+
+		// 現在のレンダーターゲットを取得
+		[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
+
+		// シザー矩形を設定
+		// *RasterizerState で有効化
+		void SetScissorRect(const Rect& rect);
+
+		// 現在のシザー矩形を取得
+		[[nodiscard]] Rect GetScissorRect();
+		
 		void SetLocalTransform(const Mat3x2& transform);
 
 		[[nodiscard]] const Mat3x2& GetLocalTransform();
@@ -113,29 +69,43 @@ namespace s3d
 
 		[[nodiscard]] const Mat3x2& GetCameraTransform();
 
+		// 現在の描画の拡大率係数を取得
 		[[nodiscard]] double GetMaxScaling();
 
+		// SDF 描画用のパラメータを設定
 		void SetSDFParameters(const Float4& parameters);
 
+		// 現在の SDF 描画用のパラメータを取得
 		[[nodiscard]] Float4 GetSDFParameters();
 
-		namespace detail
+		void SetTexture(uint32 slot, const Optional<Texture>& texture);
+
+		namespace Internal
 		{
+			void SetColorMul(const ColorF& color);
+
+			void SetColorAdd(const ColorF& color);
+
+			void SetBlendState(const BlendState& blendState);
+
+			void SetRasterizerState(const RasterizerState& rasterizerState);
+
+			void SetSamplerState(const SamplerState& samplerState);
+
+			void SetViewport(const Optional<Rect>& viewport);
+
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
 
-			[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
-
-			void SetConstantBuffer(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+			void SetConstantBuffer(ShaderStage stage, uint32 slot, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		
 			void SetRenderTarget(const Optional<RenderTexture>& rt);
-
-			[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
 		}
 
+		// 定数バッファを設定
 		template <class Type>
 		inline void SetConstantBuffer(ShaderStage stage, const ConstantBuffer<Type>& buffer)
 		{
-			detail::SetConstantBuffer(stage, buffer.BindingPoint(), buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
+			Internal::SetConstantBuffer(stage, buffer.BindingPoint(), buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
 		}
 	}
 }

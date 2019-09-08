@@ -249,6 +249,8 @@ namespace s3d
 		const Optional<Rect>& getViewport(uint32 index) const;
 		const Optional<Rect>& getCurrentViewport() const;
 		
+		// Texture を PS から解除
+		void pushPSTextureUnbound(uint32 slot);
 		void pushPSTexture(uint32 slot, const Texture& texture);
 		const TextureID& getPSTexture(uint32 slot, uint32 index) const;
 		const std::array<TextureID, SamplerState::MaxSamplerCount>& getCurrentPSTextures() const;

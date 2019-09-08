@@ -20,19 +20,9 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
-		void SetColorMul(const ColorF& color)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorMul(color.toFloat4());
-		}
-
 		ColorF GetColorMul()
 		{
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getColorMul();
-		}
-
-		void SetColorAdd(const ColorF& color)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorAdd(color.toFloat4());
 		}
 
 		ColorF GetColorAdd()
@@ -40,19 +30,9 @@ namespace s3d
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getColorAdd();
 		}
 
-		void SetBlendState(const BlendState& blendState)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setBlendState(blendState);
-		}
-
 		BlendState GetBlendState()
 		{
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getBlendState();
-		}
-
-		void SetRasterizerState(const RasterizerState& rasterizerState)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setRasterizerState(rasterizerState);
 		}
 
 		RasterizerState GetRasterizerState()
@@ -62,17 +42,37 @@ namespace s3d
 
 		void SetSamplerState(const uint32 slot, const SamplerState& samplerState)
 		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSSamplerState(slot, samplerState);
-		}
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return;
+			}
 
-		void SetSamplerState(const SamplerState& samplerState)
-		{
-			SetSamplerState(0, samplerState);
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSSamplerState(slot, samplerState);
 		}
 
 		SamplerState GetSamplerState(const uint32 slot)
 		{
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return SamplerState::Default2D;
+			}
+
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getPSSamplerState(slot);
+		}
+
+		Optional<Rect> GetViewport()
+		{
+			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getViewport();
+		}
+
+		Optional<PixelShader> GetCustomPixelShader()
+		{
+			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCustomPS();
+		}
+
+		Optional<RenderTexture> GetRenderTarget()
+		{
+			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT();
 		}
 
 		void SetScissorRect(const Rect& rect)
@@ -83,16 +83,6 @@ namespace s3d
 		Rect GetScissorRect()
 		{
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getScissorRect();
-		}
-
-		void SetViewport(const Optional<Rect>& viewport)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setViewport(viewport);
-		}
-
-		Optional<Rect> GetViewport()
-		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getViewport();
 		}
 
 		void SetLocalTransform(const Mat3x2& transform)
@@ -130,19 +120,54 @@ namespace s3d
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getSDFParameters();
 		}
 
-		namespace detail
+		void SetTexture(const uint32 slot, const Optional<Texture>& texture)
 		{
+			if (slot >= SamplerState::MaxSamplerCount)
+			{
+				return;
+			}
+
+			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSTexture(slot, texture);
+		}
+
+		namespace Internal
+		{
+			void SetColorMul(const ColorF& color)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorMul(color.toFloat4());
+			}
+
+			void SetColorAdd(const ColorF& color)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorAdd(color.toFloat4());
+			}
+
+			void SetBlendState(const BlendState& blendState)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setBlendState(blendState);
+			}
+
+			void SetRasterizerState(const RasterizerState& rasterizerState)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRasterizerState(rasterizerState);
+			}
+
+			void SetSamplerState(const SamplerState& samplerState)
+			{
+				s3d::Graphics2D::SetSamplerState(0, samplerState);
+			}
+
+			void SetViewport(const Optional<Rect>& viewport)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setViewport(viewport);
+			}
+
 			void SetCustomPixelShader(const Optional<PixelShader>& ps)
 			{
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setCustomPS(ps);
 			}
 
-			Optional<PixelShader> GetCustomPixelShader()
-			{
-				return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCustomPS();
-			}
-
-			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 			{
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, slot, buffer, data, num_vectors);
 			}
@@ -150,11 +175,6 @@ namespace s3d
 			void SetRenderTarget(const Optional<RenderTexture>& rt)
 			{
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRT(rt);
-			}
-
-			Optional<RenderTexture> GetRenderTarget()
-			{
-				return Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT();
 			}
 		}
 	}

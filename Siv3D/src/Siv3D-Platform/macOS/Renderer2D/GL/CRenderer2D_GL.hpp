@@ -213,6 +213,8 @@ namespace s3d
 
 		Float4 getSDFParameters() const override;
 		
+		void setPSTexture(uint32 slot, const Optional<Texture>& texture) override;
+		
 		void setCustomPS(const Optional<PixelShader>& ps) override;
 		
 		Optional<PixelShader> getCustomPS() const override;
