@@ -20,5 +20,10 @@ vec4 OutputColor(const vec4 color)
 		
 void main()
 {
-	FragColor = OutputColor(texture(Texture0, Tex) * Color);
+	vec2 ra = texture(Texture0, Tex + vec2(-0.02, 0.0)).ra;
+	vec2 ga = texture(Texture0, Tex + vec2(0.0, 0.0)).ga;
+	vec2 ba = texture(Texture0, Tex + vec2(+0.02, 0.0)).ba;
+	vec4 texColor = vec4(ra.x, ga.x, ba.x, (ra.y + ga.y + ba.y) / 3);	
+
+	FragColor = OutputColor(texColor * Color);
 }

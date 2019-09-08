@@ -33,10 +33,13 @@ namespace s3d
 	{
 		m_commands.clear();
 		m_changes.reset();
+		m_reservedPSs.clear();
 		m_reservedTextures.clear();
 		
 		// Buffer リセット
 		m_draws.clear();
+		m_constants.clear();
+		m_CBs.clear();
 		m_commands.emplace_back(RendererCommand::SetBuffers, 0);
 		m_commands.emplace_back(RendererCommand::UpdateBuffers, 0);
 		
@@ -62,7 +65,7 @@ namespace s3d
 		m_combinedTransforms = { m_combinedTransforms.back() };
 		m_commands.emplace_back(RendererCommand::Transform, 0);
 		
-		m_pixelShaders = { m_pixelShaders.back() };
+		m_PSs = { PixelShaderID::InvalidValue() };
 		m_commands.emplace_back(RendererCommand::SetPS, 0);
 		
 		m_scissorRects = { m_scissorRects.back() };
@@ -90,7 +93,7 @@ namespace s3d
 			m_currentPSSamplerStates[i] = m_psSamplerStates[i].front();
 		}
 		m_currentCombinedTransform = m_combinedTransforms.front();
-		m_currentPixelShader = m_pixelShaders.front();
+		m_currentPS = PixelShaderID::InvalidValue();
 		m_currentScissorRect = m_scissorRects.front();
 		m_currentViewport = m_viewports.front();
 		for (size_t i = 0; i < m_currentPSTextures.size(); ++i)
@@ -162,8 +165,14 @@ namespace s3d
 		
 		if (m_changes.has(RendererCommand::SetPS))
 		{
-			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_pixelShaders.size()));
-			m_pixelShaders.push_back(m_currentPixelShader);
+			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_PSs.size()));
+			m_PSs.push_back(m_currentPS);
+		}
+		
+		if (m_changes.has(RendererCommand::SetCB))
+		{
+			assert(!m_CBs.isEmpty());
+			m_commands.emplace_back(RendererCommand::SetCB, static_cast<uint32>(m_CBs.size()) - 1);
 		}
 		
 		if (m_changes.has(RendererCommand::ScissorRect))
@@ -508,42 +517,105 @@ namespace s3d
 		return m_currentMaxScaling;
 	}
 	
-	void GLRenderer2DCommand::pushPS(const size_t psIndex)
+	void GLRenderer2DCommand::pushStandardPS(const PixelShaderID& id)
 	{
 		constexpr auto command = RendererCommand::SetPS;
-		auto& current = m_currentPixelShader;
-		auto& buffer = m_pixelShaders;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
 		
 		if (!m_changes.has(command))
 		{
-			if (psIndex != current)
+			if (id != current)
 			{
-				current = psIndex;
+				current = id;
 				m_changes.set(command);
 			}
 		}
 		else
 		{
-			if (psIndex == buffer.back())
+			if (id == buffer.back())
 			{
-				current = psIndex;
+				current = id;
 				m_changes.clear(command);
 			}
 			else
 			{
-				current = psIndex;
+				current = id;
 			}
 		}
 	}
 	
-	size_t GLRenderer2DCommand::getPS(const uint32 index) const
+	void GLRenderer2DCommand::pushCustomPS(const PixelShader& ps)
 	{
-		return m_pixelShaders[index];
+		const auto id = ps.id();
+		constexpr auto command = RendererCommand::SetPS;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
+		
+		if (!m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+				
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+				
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
 	}
 	
-	size_t GLRenderer2DCommand::getCurrentPS() const
+	const PixelShaderID& GLRenderer2DCommand::getPS(const uint32 index) const
 	{
-		return m_currentPixelShader;
+		return m_PSs[index];
+	}
+	
+	void GLRenderer2DCommand::pushCB(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		constexpr auto command = RendererCommand::SetCB;
+		
+		flush();
+		const __m128* pData = reinterpret_cast<const __m128*>(data);
+		const uint32 offset = static_cast<uint32>(m_constants.size());
+		m_constants.insert(m_constants.end(), pData, pData + num_vectors);
+		
+		CBCommand cb;
+		cb.stage = stage;
+		cb.slot = slot;
+		cb.offset = offset;
+		cb.num_vectors = num_vectors;
+		cb.cbBase = buffer;
+		m_CBs.push_back(cb);
+		m_changes.set(command);
+	}
+	
+	CBCommand& GLRenderer2DCommand::getCB(const uint32 index)
+	{
+		return m_CBs[index];
+	}
+	
+	const __m128* GLRenderer2DCommand::getConstantsPtr(const uint32 offset) const
+	{
+		return m_constants.data() + offset;
 	}
 	
 	void GLRenderer2DCommand::pushScissorRect(const Rect& rect)

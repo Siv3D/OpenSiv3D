@@ -247,6 +247,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Say/SivSay.cpp"
 	"../Siv3D/src/Siv3D/Scene/SivScene.cpp"
 	"../Siv3D/src/Siv3D/ScopedColor2D/SivScopedColor2D.cpp"
+	"../Siv3D/src/Siv3D/ScopedCustomShader2D/SivScopedCustomShader2D.cpp"
 	"../Siv3D/src/Siv3D/ScopedRenderStates2D/SivScopedRenderStates2D.cpp"
 	"../Siv3D/src/Siv3D/ScopedViewport2D/SivScopedViewport2D.cpp"
 	"../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp"
