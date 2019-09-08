@@ -606,6 +606,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/zstd/compress/hist.c"
 	"../Siv3D/src/ThirdParty/zstd/compress/huf_compress.c"
 	"../Siv3D/src/ThirdParty/zstd/compress/zstd_compress.c"
+	"../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_literals.c"
+	"../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_sequences.c"
 	"../Siv3D/src/ThirdParty/zstd/compress/zstd_double_fast.c"
 	"../Siv3D/src/ThirdParty/zstd/compress/zstd_fast.c"
 	"../Siv3D/src/ThirdParty/zstd/compress/zstd_lazy.c"
