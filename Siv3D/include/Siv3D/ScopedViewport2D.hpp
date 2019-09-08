@@ -30,6 +30,10 @@ namespace s3d
 
 		explicit ScopedViewport2D(const Optional<Rect>& viewport);
 
+		ScopedViewport2D(int32 w, int32 h);
+
+		ScopedViewport2D(const Size& size);
+
 		ScopedViewport2D(int32 x, int32 y, int32 w, int32 h);
 
 		ScopedViewport2D(const Point& pos, int32 w, int32 h);

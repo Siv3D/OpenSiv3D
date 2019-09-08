@@ -73,19 +73,12 @@ namespace s3d
 		ReportAssetCreation();
 	}
 
-	/*
-	Texture::Texture(BackBuffer)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createFromBackBuffer()))
+	Texture::Texture(Render, const uint32 width, const uint32 height, TextureFormat format)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(Size(width, height), format)))
 	{
-
+		ReportAssetCreation();
 	}
 
-	Texture::Texture(Render, const Size& size, const uint32 multisampleCount)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createRT(size, multisampleCount)))
-	{
-		ASSET_CREATION();
-	}
-	*/
 	Texture::Texture()
 		: m_handle(std::make_shared<TextureHandle>())
 	{

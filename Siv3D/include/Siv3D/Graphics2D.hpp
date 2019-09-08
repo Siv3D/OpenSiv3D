@@ -21,6 +21,7 @@
 # include "Mat3x2.hpp"
 # include "PixelShader.hpp"
 # include "ConstantBuffer.hpp"
+# include "RenderTexture.hpp"
 
 namespace s3d
 {
@@ -125,6 +126,10 @@ namespace s3d
 			[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
 
 			void SetConstantBuffer(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+		
+			void SetRenderTarget(const Optional<RenderTexture>& rt);
+
+			[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
 		}
 
 		template <class Type>

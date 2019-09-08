@@ -99,7 +99,7 @@ namespace s3d
 	{
 		std::lock_guard lock(m_scrollMutex);
 		
-		m_scrollInternal.moveBy(h, v);
+		m_scrollInternal.moveBy(v, h);
 	}
 
 	void CMouse::onMouseButtonUpdated(const int32 index, const bool pressed)

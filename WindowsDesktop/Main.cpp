@@ -1,56 +1,37 @@
-﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.4.1
-
-struct PoissonDisk
-{
-	static constexpr uint32 BindingPoint() { return 2; }
-
-	Float2 pixelSize;
-	float discRadius;
-	float _unused;
-};
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
 void Main()
 {
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
-	const Font font(60);
-	const Texture cat(Emoji(U"🐈"));
-	const PixelShader rgbShiftPS(U"example/shader/rgb_shift.hlsl");
-	Vec2 catPos(640, 450);
+	Window::Resize(1600, 600);
 
-	const Texture windmill(U"example/windmill.png");
-	const PixelShader poissonDiscPS(U"example/shader/poisson_disc.hlsl");
-	ConstantBuffer<PoissonDisk> poissonDiscCB;
-	double discRadius = 0.0;
+	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	const Texture emoji(Emoji(U"😇"));
+	RenderTexture renderTexture(600, 600, Palette::White);
+
+	Image image(renderTexture.size(), Palette::White);
+	DynamicTexture dynamicTexture(image);
 
 	while (System::Update())
 	{
-		SimpleGUI::Slider(U"discRadius", discRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
-		poissonDiscCB->pixelSize = Float2(1.0, 1.0) / windmill.size();
-		poissonDiscCB->discRadius = static_cast<float>(discRadius);
-		{	
-			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, poissonDiscCB);
-			ScopedCustomShader2D shader(poissonDiscPS);
-			windmill.draw(10, 10);
-		}
-		
-
-		//*
-		font(U"Hello, Siv3D!🐣").drawAt(400, 400, Palette::Black);
-
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
-
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
-
-		if (KeyA.down())
+		if (MouseL.pressed())
 		{
-			Print << U"Hello!";
+			{
+				ScopedRenderTarget2D target(renderTexture);
+				emoji.drawAt(Cursor::Pos());
+			}
+			renderTexture.readAsImage(image);
+			image.dilate(3);
+			dynamicTexture.fill(image);
 		}
 
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		renderTexture.draw();
+		emoji.drawAt(Cursor::Pos());
+
+		if (SimpleGUI::Button(U"Clear", Vec2(620, 20)))
 		{
-			catPos = RandomVec2(Scene::Rect());
+			renderTexture.clear(Palette::White);
 		}
-		//*/
+
+		dynamicTexture.draw(800, 0);
 	}
 }

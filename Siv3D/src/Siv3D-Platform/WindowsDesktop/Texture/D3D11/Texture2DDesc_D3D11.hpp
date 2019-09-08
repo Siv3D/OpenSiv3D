@@ -52,16 +52,12 @@ namespace s3d
 
 		uint32 stride() const noexcept;
 
+		bool isSRGB() const noexcept;
+
 		D3D11_TEXTURE2D_DESC makeTEXTURE2D_DESC() const noexcept;
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC makeSHADER_RESOURCE_VIEW_DESC() const noexcept;
 
-		//	D3D11_RENDER_TARGET_VIEW_DESC makeD3D11RTVDesc() const noexcept
-		//	{
-		//		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc;
-		//		rtvDesc.Format = DXGIFormat;
-		//		rtvDesc.ViewDimension = (multisampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS;
-		//		return rtvDesc;
-		//	}
+		D3D11_RENDER_TARGET_VIEW_DESC makeD3D11_RENDER_TARGET_VIEW_DESC() const noexcept;
 	};
 }

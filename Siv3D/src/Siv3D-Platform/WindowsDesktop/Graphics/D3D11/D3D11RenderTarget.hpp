@@ -54,9 +54,18 @@ namespace s3d
 		enum Target
 		{
 			BackBuffer = 0b0001,
-			RenderTarget2D = 0b0010,
-			All = BackBuffer | RenderTarget2D,
+			MultiSampledScene = 0b0010,
+			All = BackBuffer | MultiSampledScene,
 		};
+	};
+
+	enum class RenderTargetType
+	{
+		// [BackBuffer]
+		BackBuffer,
+
+		// [2DMS シーン]
+		MultiSampledScene,
 	};
 
 	class D3D11RenderTarget
@@ -69,8 +78,13 @@ namespace s3d
 		ID3D11DeviceContext* m_context = nullptr;
 		IDXGISwapChain1* m_swapChain1 = nullptr;
 
+		// [BackBuffer]
 		BackBuffer m_backBuffer;
+
+		// [2DMS シーン]
 		RenderTarget2D m_msScene;
+
+		// [2D Resolved シーン]
 		RenderTarget2D m_resolvedScene;
 
 		int32 m_clearTarget = ClearTarget::All;
@@ -80,6 +94,9 @@ namespace s3d
 		ColorF m_backgroundColor = Palette::DefaultBackground;
 
 		TextureFilter m_sceneTextureFilter = Scene::DefaultFilter;
+
+		// [2DMS シーン] を [2D Resolved シーン] へ resolve
+		void resolveScene();
 
 	public:
 
@@ -112,5 +129,13 @@ namespace s3d
 		const BackBuffer& getBackBuffer() const;
 
 		std::pair<ID3D11Texture2D*, Size> getCaptureTexture();
+
+		// 全てのレンダーターゲットを解除
+		void unbindAllRenderTargets();
+
+		// レンダーターゲットを設定
+		void setRenderTarget(RenderTargetType renderTargetType);
+
+		void setRenderTarget(ID3D11RenderTargetView* const rtv);
 	};
 }

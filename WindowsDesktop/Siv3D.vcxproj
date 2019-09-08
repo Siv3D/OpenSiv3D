@@ -203,6 +203,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedColor2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
@@ -1092,6 +1094,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RNG\SivRNG.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SamplerState\SivSamplerState.cpp" />
@@ -1100,6 +1103,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedColor2D\SivScopedColor2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader2D\SivScopedCustomShader2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderStates2D\SivScopedRenderStates2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderTarget2D\SivScopedRenderTarget2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedViewport2D\SivScopedViewport2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp" />

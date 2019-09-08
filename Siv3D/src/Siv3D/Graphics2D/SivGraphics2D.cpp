@@ -146,6 +146,16 @@ namespace s3d
 			{
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, slot, buffer, data, num_vectors);
 			}
+
+			void SetRenderTarget(const Optional<RenderTexture>& rt)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRT(rt);
+			}
+
+			Optional<RenderTexture> GetRenderTarget()
+			{
+				return Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT();
+			}
 		}
 	}
 }

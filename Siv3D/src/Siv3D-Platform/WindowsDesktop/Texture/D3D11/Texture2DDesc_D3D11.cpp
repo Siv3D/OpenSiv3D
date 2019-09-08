@@ -33,6 +33,11 @@ namespace s3d
 		return GetTextureFormatProperty(format).pixelSize * size.x;
 	}
 
+	bool Texture2DDesc_D3D11::isSRGB() const noexcept
+	{
+		return GetTextureFormatProperty(format).isSRGB;
+	}
+
 	D3D11_TEXTURE2D_DESC Texture2DDesc_D3D11::makeTEXTURE2D_DESC() const noexcept
 	{
 		return CD3D11_TEXTURE2D_DESC(DXGI_FORMAT(GetTextureFormatProperty(format).DXGIFormat), size.x, size.y, 1, mipLevels, bindFlags, usage,
@@ -46,5 +51,14 @@ namespace s3d
 		srvDesc.ViewDimension = (multisampleCount == 1) ? D3D11_SRV_DIMENSION_TEXTURE2D : D3D11_SRV_DIMENSION_TEXTURE2DMS;
 		srvDesc.Texture2D = { 0, mipLevels };
 		return srvDesc;
+	}
+
+	D3D11_RENDER_TARGET_VIEW_DESC Texture2DDesc_D3D11::makeD3D11_RENDER_TARGET_VIEW_DESC() const noexcept
+	{
+		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc;
+		rtvDesc.Format = DXGI_FORMAT(GetTextureFormatProperty(format).DXGIFormat);
+		rtvDesc.ViewDimension = (multisampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS;
+		rtvDesc.Texture2D = { 0 };
+		return rtvDesc;
 	}
 }

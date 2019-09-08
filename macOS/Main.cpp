@@ -1,34 +1,37 @@
-
 # include <Siv3D.hpp> // OpenSiv3D v0.4.1
-
-struct PoissonDisk
-{
-	Float2 pixelSize;
-	float discRadius;
-	float _unused;
-	static constexpr uint32 BindingPoint() { return 2; }
-};
 
 void Main()
 {
+	Window::Resize(1600, 600);
+	
 	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	const Texture emoji(Emoji(U"😇"));
+	RenderTexture renderTexture(600, 600, Palette::White);
 	
-	const Texture texture(U"example/windmill.png");
-	const PixelShader ps(U"example/shader/poisson_disc.frag",
-									{ { U"PSConstants2D", 1 }, { U"PoissonDisc", 2 } });
+	Image image(renderTexture.size(), Palette::White);
+	DynamicTexture dynamicTexture(image);
 	
-	ConstantBuffer<PoissonDisk> cb;
-	double discRadius = 0.0;
-
 	while (System::Update())
 	{
-		SimpleGUI::Slider(U"discRadius", discRadius, 0.0, 8.0, Vec2(10, 340), 120, 200);
-		cb->pixelSize = Float2(1.0, 1.0) / texture.size();
-		cb->discRadius = static_cast<float>(discRadius);
+		if (MouseL.pressed())
 		{
-			Graphics2D::SetConstantBuffer(ShaderStage::Pixel, cb);
-			ScopedCustomShader2D shader(ps);
-			texture.draw(10, 10);
+			{
+				ScopedRenderTarget2D target(renderTexture);
+				emoji.drawAt(Cursor::Pos());
+			}
+			renderTexture.readAsImage(image);
+			image.dilate(3);
+			dynamicTexture.fill(image);
 		}
+		
+		renderTexture.draw();
+		emoji.drawAt(Cursor::Pos());
+		
+		if (SimpleGUI::Button(U"Clear", Vec2(620, 20)))
+		{
+			renderTexture.clear(Palette::White);
+		}
+		
+		dynamicTexture.draw(800, 0);
 	}
 }

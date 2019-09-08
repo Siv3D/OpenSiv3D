@@ -62,12 +62,18 @@ namespace s3d
 		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
 
 		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+		
+		TextureID createRT(const Size& size, TextureFormat format) override;
 
 		void release(TextureID handleID) override;
 
 		Size getSize(TextureID handleID) override;
 
 		TextureDesc getDesc(TextureID handleID) override;
+		
+		void clearRT(TextureID handleID, const ColorF& color) override;
+		
+		void readRT(TextureID handleID, Image& image) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 
@@ -79,5 +85,7 @@ namespace s3d
 		
 		
 		GLuint getTexture(TextureID handleID);
+		
+		GLuint getFrameBuffer(TextureID handleID);
 	};
 }
