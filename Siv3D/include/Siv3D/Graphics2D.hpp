@@ -101,6 +101,8 @@ namespace s3d
 			void SetConstantBuffer(ShaderStage stage, uint32 index, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		
 			void SetRenderTarget(const Optional<RenderTexture>& rt);
+
+			void SetInternalConstantBufferValue(ShaderStage stage, const Float4& value);
 		}
 
 		// 定数バッファを設定

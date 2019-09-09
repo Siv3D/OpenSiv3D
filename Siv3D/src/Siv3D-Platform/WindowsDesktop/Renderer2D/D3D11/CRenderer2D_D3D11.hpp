@@ -35,6 +35,8 @@ namespace s3d
 		Float4 colorAdd;
 
 		Float4 sdfParam;
+
+		Float4 internalParam;
 	};
 
 	struct FullscreenTriangleCB0
@@ -186,6 +188,8 @@ namespace s3d
 		Optional<PixelShader> getCustomPS() const override;
 
 		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
+
+		void setInternalConstantBufferValue(ShaderStage stage, const Float4& value);
 
 		void setRT(const Optional<RenderTexture>& rt) override;
 

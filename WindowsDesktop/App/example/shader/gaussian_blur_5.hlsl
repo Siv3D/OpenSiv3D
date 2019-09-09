@@ -16,19 +16,9 @@ cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
-}
-
-cbuffer PoissonDisk : register(b1)
-{
 	float2 g_pixelSize;
 	float2 g_direction;
 }
-// [C++]
-//struct GaussianBlur
-//{
-//	Float2 pixelSize;
-//	Float2 direction;
-//};
 
 struct VS_OUTPUT
 {
@@ -47,14 +37,11 @@ float4 OutputColor(const float4 color)
 //
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-	const float2 offset1 = 1.38461538461538 * g_direction;
-	const float2 offset2 = 3.23076923076923 * g_direction;
+	const float2 offset1 = 1.33333333333333 * g_direction;
 
-	float4 color = texture0.Sample(sampler0, input.tex) * 0.227027027027027;
-	color += texture0.Sample(sampler0, input.tex + (offset1 * g_pixelSize)) * 0.316216216216216;
-	color += texture0.Sample(sampler0, input.tex - (offset1 * g_pixelSize)) * 0.316216216216216;
-	color += texture0.Sample(sampler0, input.tex + (offset2 * g_pixelSize)) * 0.070270270270270;
-	color += texture0.Sample(sampler0, input.tex - (offset2 * g_pixelSize)) * 0.070270270270270;
+	float4 color = texture0.Sample(sampler0, input.tex) * 0.294117647058824;
+	color += texture0.Sample(sampler0, input.tex + (offset1 * g_pixelSize)) * 0.352941176470588;
+	color += texture0.Sample(sampler0, input.tex - (offset1 * g_pixelSize)) * 0.352941176470588;
 
 	return color;
 }

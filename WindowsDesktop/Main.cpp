@@ -1,168 +1,107 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
-struct GaussianBlur
+namespace s3d
 {
-	Float2 pixelSize;
-	Float2 direction;
-};
-
-void GaussianBlurH(
-	const PixelShader& ps,
-	ConstantBuffer<GaussianBlur>& cb,
-	const TextureRegion& textureRegion, RenderTexture& rt)
-{
-	cb->pixelSize = Float2(1.0f, 1.0f) / textureRegion.texture.size();
-	cb->direction = Float2(1.0f, 0.0f);
-	Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
+	namespace Shader
 	{
-		ScopedCustomShader2D shader(ps);
-		ScopedRenderTarget2D target(rt);
-		textureRegion.draw();
-	}
-}
-
-void GaussianBlurV(
-	const PixelShader& ps,
-	ConstantBuffer<GaussianBlur>& cb,
-	const TextureRegion& textureRegion, RenderTexture& rt)
-{
-	cb->pixelSize = Float2(1.0f, 1.0f) / textureRegion.texture.size();
-	cb->direction = Float2(0.0f, 1.0f);
-	Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-	{
-		ScopedCustomShader2D shader(ps);
-		ScopedRenderTarget2D target(rt);
-		textureRegion.draw();
-	}
-}
-
-void GaussianBlurHV(const PixelShader& ps,
-	ConstantBuffer<GaussianBlur>& cb,
-	const TextureRegion& textureRegion,
-	RenderTexture& rt0,
-	RenderTexture& rt1)
-{
-	cb->pixelSize = Float2(1.0f, 1.0f) / textureRegion.texture.size();
-	cb->direction = Float2(1.0f, 0.0f);
-	Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-	{
-		ScopedCustomShader2D shader(ps);
-
+		void DownSample(const TextureRegion& textureRegion, RenderTexture& rt)
 		{
-			ScopedRenderTarget2D target(rt0);
-			textureRegion.draw();
+			ScopedRenderTarget2D target(rt);
+			ScopedRenderStates2D states(BlendState::Default, SamplerState::ClampLinear, RasterizerState::Default2D);
+			textureRegion.resized(rt.size()).draw();
 		}
 
-		cb->direction = Float2(0.0f, 1.0f);
-		Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-
+		void GaussianBlurH(const PixelShader& ps, const TextureRegion& textureRegion, RenderTexture& rt)
 		{
-			ScopedRenderTarget2D target(rt1);
-			rt0.draw();
-		}
-	}
-}
-
-void GaussianBlurHV_Half(const PixelShader& ps,
-	ConstantBuffer<GaussianBlur>& cb,
-	const TextureRegion& textureRegion,
-	RenderTexture& rt0,
-	RenderTexture& rt1)
-{
-	cb->pixelSize = Float2(1.0f, 1.0f) / textureRegion.texture.size();
-	cb->direction = Float2(1.0f, 0.0f);
-	Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-	{
-		ScopedCustomShader2D shader(ps);
-
-		{
-			ScopedRenderTarget2D target(rt0);
-			textureRegion.scaled(0.5).draw();
+			const Float4 value(Float2(1.0f, 1.0f) / textureRegion.texture.size(), Float2(1.0f, 0.0f));
+			Graphics2D::Internal::SetInternalConstantBufferValue(ShaderStage::Pixel, value);
+			{
+				ScopedCustomShader2D shader(ps);
+				ScopedRenderTarget2D target(rt);
+				textureRegion.draw();
+			}
 		}
 
-		cb->direction = Float2(0.0f, 1.0f);
-		Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
-
+		void GaussianBlurV(const PixelShader& ps, const TextureRegion& textureRegion, RenderTexture& rt)
 		{
-			ScopedRenderTarget2D target(rt1);
-			rt0.draw();
+			const Float4 value(Float2(1.0f, 1.0f) / textureRegion.texture.size(), Float2(0.0f, 1.0f));
+			Graphics2D::Internal::SetInternalConstantBufferValue(ShaderStage::Pixel, value);
+			{
+				ScopedCustomShader2D shader(ps);
+				ScopedRenderTarget2D target(rt);
+				textureRegion.draw();
+			}
 		}
-	}
-}
-
-void GaussianBlurHV_N(const PixelShader& ps,
-	ConstantBuffer<GaussianBlur>& cb,
-	const TextureRegion& textureRegion,
-	RenderTexture& rt0,
-	RenderTexture& rt1,
-	size_t n)
-{
-	if (n)
-	{
-		GaussianBlurHV(ps, cb, textureRegion, rt0, rt1);
-		--n;
-	}
-
-	while (n--)
-	{
-		GaussianBlurHV(ps, cb, rt1, rt0, rt1);
 	}
 }
 
 void Main()
 {
-	const PixelShader ps(U"example/shader/gaussian_blur.hlsl");
-	const Texture texture(U"example/windmill.png");
+	Window::Resize(1280, 720);
+	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_5.hlsl");
+	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_9.hlsl");
+	const PixelShader gaussianBlur(U"example/shader/gaussian_blur_13.hlsl");
+	const Texture texture(Image(U"example/bay.jpg").scale(1280, 720));
+	//const Texture texture(U"example/siv3d-kun.png");
 	const Size size = texture.size();
-	ConstantBuffer<GaussianBlur> cb;
 
-	const Size regionSize(400, 300);
-	RenderTexture rtA(regionSize / 2, ColorF(1.0, 1.0)), rtB(regionSize / 2, ColorF(1.0, 1.0));
-	RenderTexture scene(800, 600, ColorF(0.8, 0.9, 1.0));
-
-	// Create a new font
-	const Font font(60);
-
-	// Create a new texture that contains a cat emoji
-	//const Array<std::pair<Texture, Vec2>> emojis =
-	//{
-	//	{ Texture(Emoji(U"🐈")), RandomVec2(Scene::Rect()) },
-	//	{ Texture(Emoji(U"🍔")), RandomVec2(Scene::Rect()) },
-	//	{ Texture(Emoji(U"🌳")), RandomVec2(Scene::Rect()) },
-	//	{ Texture(Emoji(U"🌎")), RandomVec2(Scene::Rect()) },
-	//};
-
-	const Array<String> emojics =
-	{
-		U"🐈",U"🍔",U"🌳",U"🌎",
-		U"🍉",U"🚧",U"🔥",U"🔑",
-		U"🤔",U"💦",U"🐤",U"🏯",
-	};
-	const Array<Texture> emojis = emojics.map([](const String& s) { return Texture(Emoji(s)); });
-
-	Vec2 catPos(640, 450);
+	RenderTexture rtA(size, ColorF(0.0)), rtB(size, ColorF(0.0));
+	RenderTexture rtA2(size/2, ColorF(0.0)), rtB2(size/2, ColorF(0.0));
+	RenderTexture rtA4(size / 4, ColorF(0.0)), rtB4(size / 4, ColorF(0.0));
+	RenderTexture rtA8(size / 8, ColorF(0.0)), rtB8(size / 8, ColorF(0.0));
+	size_t index = 0;
 
 	while (System::Update())
 	{
-		scene.clear(ColorF(0.2, 0.3, 0.4));
+		if (MouseL.down())
 		{
-			ScopedRenderTarget2D target(scene);
-
-			for (auto [i, emoji] : Indexed(emojis))
-			{
-				emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(100 + i % 4 * 200, 100 + i / 4 * 200);
-			}
-
-			// When [Move the cat] button is pushed
-			if (SimpleGUI::ButtonAt(U"Gaussian blur", Vec2(400, 400)))
-			{
-			}
+			++index %= 4;
 		}
 
-		const Rect window(Arg::center = Cursor::Pos(), Size(400, 300));
-		GaussianBlurHV_Half(ps, cb, scene(window), rtA, rtB);
-		GaussianBlurHV_N(ps, cb, rtB, rtA, rtB, 10);
-		scene.draw();
-		rtB.scaled(2).draw(window.pos).draw(ColorF(0.3, 0.6, 1.0, 0.4));
+		if (index == 0)
+		{
+			texture.draw();
+			continue;
+		}
+
+		Shader::GaussianBlurH(gaussianBlur, texture, rtA);
+		Shader::GaussianBlurV(gaussianBlur, rtA, rtB);
+
+		Shader::DownSample(rtB, rtB2);
+
+		Shader::GaussianBlurH(gaussianBlur, rtB2, rtA2);
+		Shader::GaussianBlurV(gaussianBlur, rtA2, rtB2);
+
+		Shader::DownSample(rtB2, rtB4);
+
+		Shader::GaussianBlurH(gaussianBlur, rtB4, rtA4);
+		Shader::GaussianBlurV(gaussianBlur, rtA4, rtB4);
+
+		Shader::DownSample(rtB4, rtB8);
+
+		Shader::GaussianBlurH(gaussianBlur, rtB8, rtA8);
+		Shader::GaussianBlurV(gaussianBlur, rtA8, rtB8);
+
+		texture.draw();
+
+		const Vec2 pos = Cursor::PosF();
+		const RoundRect rr(pos, 600, 400, 8);
+		rr(rtB8(pos / 8, 75, 50).scaled(8)).draw();
+
+		if (2 <= index)
+		{
+			rr.draw(ColorF(1.0, 0.7));
+		}
+
+		if (3 <= index)
+		{
+			RoundRect(rr.rect.pos, rr.rect.w, 40, rr.r).draw(ColorF(0.5));
+			RectF(rr.rect.pos, rr.rect.w, 40).stretched(-rr.r, 0,0,0).draw(ColorF(0.5));
+		}
+
+		if (3 <= index)
+		{
+			rr.drawFrame(2, 0, ColorF(0.5));
+		}
 	}
 }

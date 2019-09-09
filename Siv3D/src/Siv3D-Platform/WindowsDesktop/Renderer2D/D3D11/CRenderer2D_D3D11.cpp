@@ -398,7 +398,14 @@ namespace s3d
 				{
 					m_psConstants2D->sdfParam = m_commands.getSdfParam(index);
 
-					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_cbSprite1->sdfParam));
+					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_psConstants2D->sdfParam));
+					break;
+				}
+			case RendererCommand::InternalPSConstants:
+				{
+					m_psConstants2D->internalParam = m_commands.getInternalPSConstants(index);
+
+					LOG_COMMAND(U"InternalPSConstants[{}] {}"_fmt(index, m_psConstants2D->internalParam));
 					break;
 				}
 			default:
@@ -628,6 +635,18 @@ namespace s3d
 	void CRenderer2D_D3D11::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
+	}
+
+	void CRenderer2D_D3D11::setInternalConstantBufferValue(const ShaderStage stage, const Float4& value)
+	{
+		if (stage == ShaderStage::Vertex)
+		{
+			// [Siv3D ToDo] v0.4.1 では未実装
+		}
+		else if (stage == ShaderStage::Pixel)
+		{
+			m_commands.pushInternalPSConstants(value);
+		}
 	}
 
 	void CRenderer2D_D3D11::setRT(const Optional<RenderTexture>& rt)

@@ -16,19 +16,9 @@ cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
-}
-
-cbuffer PoissonDisk : register(b1)
-{
 	float2 g_pixelSize;
 	float2 g_direction;
 }
-// [C++]
-//struct GaussianBlur
-//{
-//	Float2 pixelSize;
-//	Float2 direction;
-//};
 
 struct VS_OUTPUT
 {

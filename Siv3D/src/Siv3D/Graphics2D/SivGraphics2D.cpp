@@ -181,6 +181,11 @@ namespace s3d
 			{
 				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRT(rt);
 			}
+
+			void SetInternalConstantBufferValue(const ShaderStage stage, const Float4& value)
+			{
+				Siv3DEngine::Get<ISiv3DRenderer2D>()->setInternalConstantBufferValue(stage, value);
+			}
 		}
 	}
 }
