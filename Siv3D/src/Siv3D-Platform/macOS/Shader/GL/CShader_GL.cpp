@@ -61,7 +61,7 @@ namespace s3d
 		return true;
 	}
 	
-	VertexShaderID CShader_GL::createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_GL::createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings)
 	{
 		TextReader reader(std::move(binary));
 		
@@ -70,10 +70,10 @@ namespace s3d
 			return VertexShaderID::NullAsset();
 		}
 		
-		return createVSFromSource(reader.readAll(), bindingPoints);
+		return createVSFromSource(reader.readAll(), bindings);
 	}
 	
-	VertexShaderID CShader_GL::createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_GL::createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		LOG_TRACE(U"CShader_GL::createVSFromFile(path = \"{}\")"_fmt(path));
 		
@@ -84,10 +84,10 @@ namespace s3d
 			return VertexShaderID::NullAsset();
 		}
 		
-		return createVSFromSource(reader.readAll(), bindingPoints);
+		return createVSFromSource(reader.readAll(), bindings);
 	}
 	
-	VertexShaderID CShader_GL::createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_GL::createVSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings)
 	{
 		auto vertexShader = std::make_unique<VertexShader_GL>(source);
 		
@@ -96,12 +96,12 @@ namespace s3d
 			return VertexShaderID::NullAsset();
 		}
 		
-		vertexShader->setUniformBlockBindings(bindingPoints);
+		vertexShader->setUniformBlockBindings(bindings);
 
 		return m_vertexShaders.add(std::move(vertexShader));
 	}
 	
-	PixelShaderID CShader_GL::createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_GL::createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings)
 	{
 		TextReader reader(std::move(binary));
 		
@@ -110,10 +110,10 @@ namespace s3d
 			return PixelShaderID::NullAsset();
 		}
 		
-		return createPSFromSource(reader.readAll(), bindingPoints);
+		return createPSFromSource(reader.readAll(), bindings);
 	}
 
-	PixelShaderID CShader_GL::createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_GL::createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		LOG_TRACE(U"CShader_GL::createPSFromFile(path = \"{}\")"_fmt(path));
 		
@@ -124,10 +124,10 @@ namespace s3d
 			return PixelShaderID::NullAsset();
 		}
 		
-		return createPSFromSource(reader.readAll(), bindingPoints);
+		return createPSFromSource(reader.readAll(), bindings);
 	}
 	
-	PixelShaderID CShader_GL::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_GL::createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings)
 	{
 		auto pixelShader = std::make_unique<PixelShader_GL>(source);
 		
@@ -136,7 +136,7 @@ namespace s3d
 			return PixelShaderID::NullAsset();
 		}
 		
-		pixelShader->setUniformBlockBindings(bindingPoints);
+		pixelShader->setUniformBlockBindings(bindings);
 
 		return m_pixelShaders.add(std::move(pixelShader));
 	}
