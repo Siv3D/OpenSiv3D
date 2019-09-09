@@ -52,18 +52,18 @@ namespace s3d
 		void init(ID3D11Device* device, ID3D11DeviceContext* context);
 
 		// コンパイル済みシェーダから VS を作成
-		VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
+		VertexShaderID createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
 		
 		// シェーダファイル（ソースコードまたはコンパイル済みバイナリ）から VS を作成
-		VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;	
-		//VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&) override
+		VertexShaderID createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		//VertexShaderID createVSFromSource(const String&, const Array<ConstantBufferBinding>&) override
 
 		// コンパイル済みシェーダから PS を作成
-		PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
 		
 		// シェーダファイル（ソースコードまたはコンパイル済みバイナリ）から PS を作成
-		PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		//PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		//PixelShaderID createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindingPoints) override;
 
 		// 指定した VS を管理から除外
 		void release(VertexShaderID handleID) override;

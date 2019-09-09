@@ -73,9 +73,9 @@ namespace s3d
 		// 標準 VS をロード
 		{
 			m_standardVS = std::make_unique<D3D11StandardVS2D>();
-			m_standardVS->sprite						= VertexShader(Resource(U"engine/shader/sprite.vs"));
-			m_standardVS->fullscreen_triangle_resolve	= VertexShader(Resource(U"engine/shader/fullscreen_triangle_resolve.vs"));
-			m_standardVS->fullscreen_triangle_draw		= VertexShader(Resource(U"engine/shader/fullscreen_triangle_draw.vs"));
+			m_standardVS->sprite						= VertexShader(Resource(U"engine/shader/sprite.vs"), {{ U"VSConstants2D", 0 }});
+			m_standardVS->fullscreen_triangle_resolve	= VertexShader(Resource(U"engine/shader/fullscreen_triangle_resolve.vs"), {});
+			m_standardVS->fullscreen_triangle_draw		= VertexShader(Resource(U"engine/shader/fullscreen_triangle_draw.vs"), {});
 			if (!m_standardVS->ok())
 			{
 				throw EngineError(U"CRenderer2D_D3D11::m_standardVS initialization failed");
@@ -85,13 +85,13 @@ namespace s3d
 		// 標準 PS をロード
 		{
 			m_standardPS = std::make_unique<D3D11StandardPS2D>();
-			m_standardPS->shape							= PixelShader(Resource(U"engine/shader/shape.ps"));
-			m_standardPS->texture						= PixelShader(Resource(U"engine/shader/texture.ps"));
-			m_standardPS->square_dot					= PixelShader(Resource(U"engine/shader/square_dot.ps"));
-			m_standardPS->round_dot						= PixelShader(Resource(U"engine/shader/round_dot.ps"));
-			m_standardPS->sdf							= PixelShader(Resource(U"engine/shader/sdf.ps"));
-			m_standardPS->fullscreen_triangle_resolve	= PixelShader(Resource(U"engine/shader/fullscreen_triangle_resolve.ps"));
-			m_standardPS->fullscreen_triangle_draw		= PixelShader(Resource(U"engine/shader/fullscreen_triangle_draw.ps"));
+			m_standardPS->shape							= PixelShader(Resource(U"engine/shader/shape.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->texture						= PixelShader(Resource(U"engine/shader/texture.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->square_dot					= PixelShader(Resource(U"engine/shader/square_dot.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->round_dot						= PixelShader(Resource(U"engine/shader/round_dot.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->sdf							= PixelShader(Resource(U"engine/shader/sdf.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->fullscreen_triangle_resolve	= PixelShader(Resource(U"engine/shader/fullscreen_triangle_resolve.ps"), {});
+			m_standardPS->fullscreen_triangle_draw		= PixelShader(Resource(U"engine/shader/fullscreen_triangle_draw.ps"), {});
 			if (!m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_D3D11::m_standardPS initialization failed");

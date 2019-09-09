@@ -38,9 +38,9 @@ namespace s3d
 void Main()
 {
 	Window::Resize(1280, 720);
-	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_5.hlsl");
-	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_9.hlsl");
-	const PixelShader gaussianBlur(U"example/shader/gaussian_blur_13.hlsl");
+	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_5.hlsl", {{ U"PSConstants2D", 0 }});
+	//const PixelShader gaussianBlur(U"example/shader/gaussian_blur_9.hlsl", {{ U"PSConstants2D", 0 }});
+	const PixelShader gaussianBlur(U"example/shader/gaussian_blur_13.hlsl", {{ U"PSConstants2D", 0 }});
 	const Texture texture(Image(U"example/bay.jpg").scale(1280, 720));
 	//const Texture texture(U"example/siv3d-kun.png");
 	const Size size = texture.size();

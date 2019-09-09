@@ -24,13 +24,13 @@ namespace s3d
 
 		virtual ~ISiv3DShader() = default;
 
-		virtual VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) = 0;
-		virtual VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) = 0;
-		//virtual VertexShaderID createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
+		virtual VertexShaderID createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) = 0;
+		virtual VertexShaderID createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) = 0;
+		//virtual VertexShaderID createVSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings) = 0;
 
-		virtual PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) = 0;
-		virtual PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) = 0;
-		//virtual PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
+		virtual PixelShaderID createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) = 0;
+		virtual PixelShaderID createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) = 0;
+		//virtual PixelShaderID createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings) = 0;
 
 		virtual void release(VertexShaderID handleID) = 0;
 		virtual void release(PixelShaderID handleID) = 0;

@@ -157,7 +157,7 @@ namespace s3d
 		LOG_INFO(U"ℹ️ CShader_D3D11 initialized");
 	}
 
-	VertexShaderID CShader_D3D11::createVS(ByteArray&& binary, const Array<BindingPoint>&)
+	VertexShaderID CShader_D3D11::createVS(ByteArray&& binary, const Array<ConstantBufferBinding>&)
 	{
 		// VS を作成
 		auto vertexShader = std::make_unique<VertexShader_D3D11>(std::move(binary), m_device);
@@ -171,7 +171,7 @@ namespace s3d
 		return m_vertexShaders.add(std::move(vertexShader));
 	}
 
-	VertexShaderID CShader_D3D11::createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_D3D11::createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		// HLSL ソースコード
 		ByteArray hlslSourceCode;
@@ -199,7 +199,7 @@ namespace s3d
 			{
 				// そのまま VS を作成
 				LOG_DEBUG(U"CShader_D3D11::createVSFromFile(): `{}` is a precompiled shader file"_fmt(path));
-				return createVS(reader.readAll(), bindingPoints);
+				return createVS(reader.readAll(), bindings);
 			}
 
 			// HLSL ソースコード
@@ -217,10 +217,10 @@ namespace s3d
 		}
 
 		// VS を作成
-		return createVS(std::move(compiledBinary), bindingPoints);
+		return createVS(std::move(compiledBinary), bindings);
 	}
 
-	PixelShaderID CShader_D3D11::createPS(ByteArray&& binary, const Array<BindingPoint>&)
+	PixelShaderID CShader_D3D11::createPS(ByteArray&& binary, const Array<ConstantBufferBinding>&)
 	{
 		// PS を作成
 		auto pixelShader = std::make_unique<PixelShader_D3D11>(std::move(binary), m_device);
@@ -234,7 +234,7 @@ namespace s3d
 		return m_pixelShaders.add(std::move(pixelShader));
 	}
 
-	PixelShaderID CShader_D3D11::createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_D3D11::createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		// HLSL ソースコード
 		ByteArray hlslSourceCode;
@@ -262,7 +262,7 @@ namespace s3d
 			{
 				// そのまま PS を作成
 				LOG_DEBUG(U"CShader_D3D11::createVSFromFile(): `{}` is a precompiled shader file"_fmt(path));
-				return createPS(reader.readAll(), bindingPoints);
+				return createPS(reader.readAll(), bindings);
 			}
 
 			// HLSL ソースコード
@@ -280,7 +280,7 @@ namespace s3d
 		}
 
 		// PS を作成
-		return createPS(std::move(compiledBinary), bindingPoints);
+		return createPS(std::move(compiledBinary), bindings);
 	}
 
 	//PixelShaderID CShader_D3D11::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)

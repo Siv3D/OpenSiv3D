@@ -42,9 +42,9 @@ namespace s3d
 
 		VertexShader();
 
-		explicit VertexShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
+		VertexShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings);
 		
-		//explicit VertexShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
+		//VertexShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings);
 
 		virtual ~VertexShader();
 

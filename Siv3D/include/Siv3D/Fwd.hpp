@@ -979,7 +979,7 @@ namespace s3d
 	//	ShaderCommon.hpp
 	//
 	enum class ShaderStage;
-	struct BindingPoint;
+	struct ConstantBufferBinding;
 
 	//////////////////////////////////////////////////////
 	//
