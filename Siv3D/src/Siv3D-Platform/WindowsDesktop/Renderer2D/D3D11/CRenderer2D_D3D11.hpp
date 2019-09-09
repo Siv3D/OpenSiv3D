@@ -189,7 +189,7 @@ namespace s3d
 
 		void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 
-		void setInternalConstantBufferValue(ShaderStage stage, const Float4& value);
+		void setInternalConstantBufferValue(ShaderStage stage, const Float4& value) override;
 
 		void setRT(const Optional<RenderTexture>& rt) override;
 
