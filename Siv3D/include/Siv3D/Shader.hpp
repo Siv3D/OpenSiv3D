@@ -15,6 +15,12 @@
 
 namespace s3d
 {
+	namespace Shader
+	{
+
+
+	}
+
 # if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::Shader

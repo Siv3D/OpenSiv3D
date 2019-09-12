@@ -223,6 +223,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SDF.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Serialization.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
