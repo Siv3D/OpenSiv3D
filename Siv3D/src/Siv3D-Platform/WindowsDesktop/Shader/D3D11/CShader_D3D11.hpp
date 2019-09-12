@@ -42,6 +42,9 @@ namespace s3d
 		// PS の管理
 		AssetHandleManager<PixelShaderID, PixelShader_D3D11> m_pixelShaders{ U"PixelShader" };
 
+		// Shader:: 用の内部シェーダ
+		Array<PixelShader> m_enginePSs;
+
 	public:
 
 		CShader_D3D11();

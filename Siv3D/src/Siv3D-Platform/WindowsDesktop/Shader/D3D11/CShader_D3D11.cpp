@@ -122,6 +122,9 @@ namespace s3d
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle.hlsl", U"engine/shader/fullscreen_triangle_draw.vs", ShaderStage::Vertex, U"VS_Draw");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_resolve.hlsl", U"engine/shader/fullscreen_triangle_resolve.ps", ShaderStage::Pixel, U"PS");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_draw.hlsl", U"engine/shader/fullscreen_triangle_draw.ps", ShaderStage::Pixel, U"PS");
+
+			compileHLSLToFile(U"engine/shader/copy.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
+			compileHLSLToFile(U"engine/shader/gaussian_blur_9.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
 		}
 
 	# endif
@@ -153,6 +156,8 @@ namespace s3d
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
+
+		//m_enginePSs << PixelShader();
 
 		LOG_INFO(U"ℹ️ CShader_D3D11 initialized");
 	}
