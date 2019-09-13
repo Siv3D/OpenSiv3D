@@ -1028,6 +1028,7 @@
 		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
 		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
 		2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */; };
+		2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
@@ -2139,6 +2140,7 @@
 		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
 		2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
 		2C69A45A232299D9002BC8D4 /* MSRenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MSRenderTexture.hpp; sourceTree = "<group>"; };
+		2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShader.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -4771,6 +4773,7 @@
 			isa = PBXGroup;
 			children = (
 				2C46170A226EEF3A00828870 /* IShader.hpp */,
+				2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -7423,6 +7426,7 @@
 				2C4619C9226F01E300828870 /* CTextToSpeech.mm in Sources */,
 				2CBC64E322F849F0001610DB /* zstd_common.c in Sources */,
 				2C4618B3226EEF4100828870 /* SivCamera2D.cpp in Sources */,
+				2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */,
 				2C4617D2226EEF4100828870 /* CCPU.cpp in Sources */,
 				2C4618DE226EEF4100828870 /* WindowFactory.cpp in Sources */,
 				2C461A47226F2D0000828870 /* posix_thread.c in Sources */,
