@@ -522,7 +522,8 @@ namespace s3d
 
 	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image)
 	{
-		if (m_type != TextureType::Render)
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
 		{
 			return;
 		}

@@ -57,6 +57,6 @@ namespace s3d
 
 	void MSRenderTexture::readAsImage(Image& image)
 	{
-		// [Siv3D ToDo]
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
 }
