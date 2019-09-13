@@ -11,6 +11,7 @@
 
 # include <Siv3D/Windows.hpp>
 # include <Siv3D/DLL.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
@@ -63,6 +64,9 @@ namespace s3d
 	CShader_D3D11::~CShader_D3D11()
 	{
 		LOG_TRACE(U"CShader_D3D11::~CShader_D3D11()");
+
+		// エンジン PS を破棄
+		m_enginePSs.clear();
 
 		// PS の管理を破棄
 		m_pixelShaders.destroy();
@@ -157,7 +161,11 @@ namespace s3d
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
-		//m_enginePSs << PixelShader();
+		// エンジン PS をロード
+		{
+			m_enginePSs << PixelShader(Resource(U"engine/shader/copy.ps"), {});
+			m_enginePSs << PixelShader(Resource(U"engine/shader/gaussian_blur_9.ps"), {{ U"PSConstants2D", 0 }});
+		}
 
 		LOG_INFO(U"ℹ️ CShader_D3D11 initialized");
 	}
