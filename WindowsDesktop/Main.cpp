@@ -2,42 +2,18 @@
 
 void Main()
 {
-	const Array<Polygon> polygons =
-	{
-		Shape2D::Star(280, Vec2(400, 300)),
-		Rect(Arg::center(400,300), 200).asPolygon(),
-		Circle(400, 300, 280).asPolygon()
-	};
-
-	size_t polygonIndex = 0;
+	const Font font(120);
 
 	while (System::Update())
 	{
-		if (MouseL.down())
+		const int32 i = Scene::FrameCount();
+
+		if (4 <= i)
 		{
-			++polygonIndex %= polygons.size();
+			return;
 		}
 
-		const Rect rect(Arg::center = Cursor::Pos(), 120, 60);
-
-		ScopedRenderStates2D rast(RasterizerState::SolidCullBack);
-		{
-			const Array<Polygon> results = Geometry2D::Subtract(polygons[polygonIndex], rect.asPolygon());
-
-			for (auto[i, result] : Indexed(results))
-			{
-				result.draw(HSV(i * 60, 0.5));
-
-				for (const auto& hole : result.inners())
-				{
-					for (size_t i : step(hole.size() - 1))
-					{
-						Line(hole[i], hole[i + 1]).drawArrow();
-					}
-				}
-			}
-		}
-
-		//polygon.draw();
+		font(i).draw();
+		ScreenCapture::SaveCurrentFrame(U"Screenshot/{}.png"_fmt(i));		
 	}
 }
