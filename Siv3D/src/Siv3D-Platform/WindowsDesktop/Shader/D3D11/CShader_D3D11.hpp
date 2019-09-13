@@ -86,6 +86,9 @@ namespace s3d
 		// 指定した PS を context にセット
 		void setPS(PixelShaderID handleID) override;
 
+		// エンジン PS を取得
+		const PixelShader& getEnginePS(const EnginePS ps) const override;
+
 		// HLSL シェーダコンパイラが利用可能かを返す
 		bool hasHLSLCompiler() const noexcept;
 

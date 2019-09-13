@@ -165,6 +165,11 @@ namespace s3d
 		{
 			m_enginePSs << PixelShader(Resource(U"engine/shader/copy.ps"), {});
 			m_enginePSs << PixelShader(Resource(U"engine/shader/gaussian_blur_9.ps"), {{ U"PSConstants2D", 0 }});
+
+			if (!m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError(U"CShader_D3D11::m_enginePSs initialization failed");
+			}
 		}
 
 		LOG_INFO(U"ℹ️ CShader_D3D11 initialized");
@@ -335,6 +340,11 @@ namespace s3d
 	{
 		// 指定した PS を context にセット
 		m_context->PSSetShader(m_pixelShaders[handleID]->getShader(), nullptr, 0);
+	}
+
+	const PixelShader& CShader_D3D11::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
 	}
 
 	bool CShader_D3D11::hasHLSLCompiler() const noexcept

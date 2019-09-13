@@ -16,6 +16,12 @@
 
 namespace s3d
 {
+	enum class EnginePS
+	{
+		Copy,
+		GaussianBlur_9,
+	};
+
 	class ISiv3DShader
 	{
 	public:
@@ -40,5 +46,7 @@ namespace s3d
 
 		virtual void setVS(VertexShaderID handleID) = 0;
 		virtual void setPS(PixelShaderID handleID) = 0;
+
+		virtual const PixelShader& getEnginePS(EnginePS ps) const = 0;
 	};
 }
