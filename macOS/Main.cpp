@@ -2,26 +2,21 @@
 
 void Main()
 {
-	Window::Resize(1280, 720);
-	const Texture texture(Image(U"example/bay.jpg").scale(1280, 720));
-	
-	constexpr Size blurAreaSize(480, 320);
-	RenderTexture rtA(blurAreaSize), rtB(blurAreaSize);
-	RenderTexture rtA4(blurAreaSize / 4), rtB4(blurAreaSize / 4);
-	RenderTexture rtA8(blurAreaSize / 8), rtB8(blurAreaSize / 8);
+	MSRenderTexture rt(100, 100, ColorF(0.0, 1.0));
+	Image image;
 	
 	while (System::Update())
 	{
-		const Point cursorPos = Cursor::Pos();
-		const Rect blurArea(cursorPos, blurAreaSize);
-		
-		Shader::GaussianBlur(texture(blurArea), rtB, rtA);
-		Shader::Downsample(rtA, rtA4);
-		Shader::GaussianBlur(rtA4, rtB4, rtA4);
-		Shader::Downsample(rtA4, rtA8);
-		Shader::GaussianBlur(rtA8, rtB8, rtA8);
-		
-		texture.draw();
-		RoundRect(cursorPos, blurAreaSize, 40)(rtA8.resized(blurAreaSize)).draw();
+		if (MouseL.down())
+		{
+			{
+				ScopedRenderTarget2D target(rt);
+				Circle(50, 50, 40).draw();
+			}
+			Graphics2D::Flush();
+			rt.resolve();
+			rt.readAsImage(image);
+			image.save(U"s.png");
+		}
 	}
 }
