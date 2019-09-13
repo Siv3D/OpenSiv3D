@@ -65,7 +65,7 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier3& b);
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b);
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const RectF& b);
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b);
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Ellipse& b);
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Triangle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Quad& b);

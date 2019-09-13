@@ -88,6 +88,8 @@ namespace s3d
 		PSTexture7,
 
 		SDFParam,
+
+		InternalPSConstants,
 	};
 
 	class CurrentBatchStateChanges
@@ -164,6 +166,7 @@ namespace s3d
 		Array<Optional<Rect>> m_viewports = { none };
 		std::array<Array<TextureID>, SamplerState::MaxSamplerCount> m_psTextures;
 		Array<Float4> m_sdfParams = { Float4(0.0f, 0.0f, 0.0f, 0.0f) };
+		Array<Float4> m_internalPSConstants = { Float4(0.0f, 0.0f, 0.0f, 0.0f) };
 
 		DrawCommand m_currentDraw;
 		Float4 m_currentColorMul = m_colorMuls.front();
@@ -180,6 +183,7 @@ namespace s3d
 		Optional<Rect> m_currentViewport = m_viewports.front();
 		std::array<TextureID, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		Float4 m_currentSdfParam = m_sdfParams.front();
+		Float4 m_currentInternalPSConstants = m_internalPSConstants.front();
 
 		HashTable<PixelShaderID, PixelShader> m_reservedPSs;
 		HashTable<TextureID, Texture> m_reservedTextures;
@@ -259,5 +263,8 @@ namespace s3d
 		void pushSdfParam(const Float4& param);
 		const Float4& getSdfParam(uint32 index) const;
 		const Float4& getCurrentSdfParam() const;
+
+		void pushInternalPSConstants(const Float4& value);
+		const Float4& getInternalPSConstants(uint32 index) const;
 	};
 }

@@ -118,9 +118,9 @@ namespace s3d
 		::glUniformBlockBinding(m_psProgram, blockIndex, uniformBlockBinding);
 	}
 	
-	void PixelShader_GL::setUniformBlockBindings(const Array<BindingPoint>& bindingPoints)
+	void PixelShader_GL::setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings)
 	{
-		for (auto[name, index] : bindingPoints)
+		for (auto[name, index] : bindings)
 		{
 			setUniformBlockBinding(name, index);
 		}

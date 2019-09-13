@@ -58,14 +58,14 @@ namespace s3d
 
 	}
 
-	PixelShader::PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints)
-		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromFile(std::move(path), bindingPoints)))
+	PixelShader::PixelShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
+		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromFile(std::move(path), bindings)))
 	{
 
 	}
 	
-	//PixelShader::PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints)
-	//	: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromSource(source.value(), bindingPoints)))
+	//PixelShader::PixelShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings)
+	//	: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromSource(source.value(), bindings)))
 	//{
 	//	
 	//}

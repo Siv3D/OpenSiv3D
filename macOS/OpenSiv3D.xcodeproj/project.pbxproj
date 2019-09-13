@@ -915,7 +915,6 @@
 		2C4619EE226F0DF700828870 /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4619EC226F0DF700828870 /* BinaryWriterDetail.hpp */; };
 		2C4619EF226F0DF700828870 /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4619ED226F0DF700828870 /* BinaryWriterDetail.cpp */; };
 		2C4619F2226F0EAE00828870 /* SivMessageBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4619F1226F0EAE00828870 /* SivMessageBox.mm */; };
-		2C4619F5226F0F8B00828870 /* SivEngineMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4619F4226F0F8B00828870 /* SivEngineMessageBox.cpp */; };
 		2C4619F9226F10F500828870 /* DirectoryWatcherDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4619F7226F10F500828870 /* DirectoryWatcherDetail.hpp */; };
 		2C4619FA226F10F500828870 /* DirectoryWatcherDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4619F8226F10F500828870 /* DirectoryWatcherDetail.cpp */; };
 		2C4619FD226F12AA00828870 /* SivEngineLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4619FC226F12AA00828870 /* SivEngineLog.cpp */; };
@@ -1027,6 +1026,9 @@
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
 		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
 		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
+		2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */; };
+		2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */; };
+		2C69A45F232B7F0A002BC8D4 /* SivEngineMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
@@ -2023,7 +2025,6 @@
 		2C4619EC226F0DF700828870 /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
 		2C4619ED226F0DF700828870 /* BinaryWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryWriterDetail.cpp; sourceTree = "<group>"; };
 		2C4619F1226F0EAE00828870 /* SivMessageBox.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivMessageBox.mm; sourceTree = "<group>"; };
-		2C4619F4226F0F8B00828870 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C4619F7226F10F500828870 /* DirectoryWatcherDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DirectoryWatcherDetail.hpp; sourceTree = "<group>"; };
 		2C4619F8226F10F500828870 /* DirectoryWatcherDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectoryWatcherDetail.cpp; sourceTree = "<group>"; };
 		2C4619FC226F12AA00828870 /* SivEngineLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineLog.cpp; sourceTree = "<group>"; };
@@ -2136,6 +2137,10 @@
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
 		2C60A7B622F5A98F00A5D629 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../Siv3D/lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
+		2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
+		2C69A45A232299D9002BC8D4 /* MSRenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MSRenderTexture.hpp; sourceTree = "<group>"; };
+		2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShader.cpp; sourceTree = "<group>"; };
+		2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -4768,6 +4773,7 @@
 			isa = PBXGroup;
 			children = (
 				2C46170A226EEF3A00828870 /* IShader.hpp */,
+				2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -5467,14 +5473,6 @@
 			path = MessageBox;
 			sourceTree = "<group>";
 		};
-		2C4619F3226F0F8B00828870 /* EnigneMessageBox */ = {
-			isa = PBXGroup;
-			children = (
-				2C4619F4226F0F8B00828870 /* SivEngineMessageBox.cpp */,
-			);
-			path = EnigneMessageBox;
-			sourceTree = "<group>";
-		};
 		2C4619F6226F10F500828870 /* DirectoryWatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -5894,7 +5892,7 @@
 				2C461A19226F2B6300828870 /* DLL */,
 				2C461A87226F55E700828870 /* DragDrop */,
 				2C4619FB226F12AA00828870 /* EngineLog */,
-				2C4619F3226F0F8B00828870 /* EnigneMessageBox */,
+				2C69A45D232B7F0A002BC8D4 /* EngineMessageBox */,
 				2C461A16226F2AFD00828870 /* FileSystem */,
 				2C461A80226F517000828870 /* Gamepad */,
 				2C461AF5227138DE00828870 /* Graphics */,
@@ -6029,6 +6027,7 @@
 				2C4615B3226EEF2F00828870 /* MersenneTwister */,
 				2C4616DE226EEF3800828870 /* Microphone */,
 				2C4615EA226EEF3100828870 /* Mouse */,
+				2C69A457232299B1002BC8D4 /* MSRenderTexture */,
 				2C46172A226EEF3B00828870 /* MultiPolygon */,
 				2C461618226EEF3200828870 /* NavMesh */,
 				2C461783226EEF3E00828870 /* Network */,
@@ -6126,6 +6125,22 @@
 				2C461666226EEF3500828870 /* XXHash */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C69A457232299B1002BC8D4 /* MSRenderTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */,
+			);
+			path = MSRenderTexture;
+			sourceTree = "<group>";
+		};
+		2C69A45D232B7F0A002BC8D4 /* EngineMessageBox */ = {
+			isa = PBXGroup;
+			children = (
+				2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */,
+			);
+			path = EngineMessageBox;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -6292,6 +6307,7 @@
 				2CA627A522226DC70009DFE1 /* MillisecClock.hpp */,
 				2CA627C122226DC70009DFE1 /* Monitor.hpp */,
 				2CA627B822226DC70009DFE1 /* Mouse.hpp */,
+				2C69A45A232299D9002BC8D4 /* MSRenderTexture.hpp */,
 				2CA6276022226DC60009DFE1 /* MultiPolygon.hpp */,
 				2CA6275F22226DC60009DFE1 /* NamedParameter.hpp */,
 				2CA627DF22226DC70009DFE1 /* NavMesh.hpp */,
@@ -7410,6 +7426,7 @@
 				2C4619C9226F01E300828870 /* CTextToSpeech.mm in Sources */,
 				2CBC64E322F849F0001610DB /* zstd_common.c in Sources */,
 				2C4618B3226EEF4100828870 /* SivCamera2D.cpp in Sources */,
+				2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */,
 				2C4617D2226EEF4100828870 /* CCPU.cpp in Sources */,
 				2C4618DE226EEF4100828870 /* WindowFactory.cpp in Sources */,
 				2C461A47226F2D0000828870 /* posix_thread.c in Sources */,
@@ -7512,6 +7529,7 @@
 				2C461912226EEF4100828870 /* Siv3DEngine.cpp in Sources */,
 				2C4617CF226EEF4100828870 /* Vertex2DBuilder.cpp in Sources */,
 				2C4618A6226EEF4100828870 /* SivDateTime.cpp in Sources */,
+				2C69A45F232B7F0A002BC8D4 /* SivEngineMessageBox.cpp in Sources */,
 				2C4618E2226EEF4100828870 /* ParticleSystem2DDetail.cpp in Sources */,
 				2CBC64B522F849F0001610DB /* zstd_compress_sequences.c in Sources */,
 				2C4618EB226EEF4100828870 /* ImageFormat_TGA.cpp in Sources */,
@@ -7752,6 +7770,7 @@
 				2C461868226EEF4100828870 /* P2RopeJointDetail.cpp in Sources */,
 				2C461478226EEDB500828870 /* b2Settings.cpp in Sources */,
 				2C461823226EEF4100828870 /* Script_TextureRegion.cpp in Sources */,
+				2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */,
 				2C46186F226EEF4100828870 /* SivOutlineGlyph.cpp in Sources */,
 				2C461833226EEF4100828870 /* Script_MillisecClock.cpp in Sources */,
 				2C461462226EEDB500828870 /* b2Joint.cpp in Sources */,
@@ -7868,7 +7887,6 @@
 				2C4617F2226EEF4100828870 /* Script_ColorF.cpp in Sources */,
 				2C461445226EEDB500828870 /* b2PolygonAndCircleContact.cpp in Sources */,
 				2C461890226EEF4100828870 /* SivPainting.cpp in Sources */,
-				2C4619F5226F0F8B00828870 /* SivEngineMessageBox.cpp in Sources */,
 				2CBC64DB22F849F0001610DB /* xxhash.c in Sources */,
 				2C4618E3226EEF4100828870 /* SivParticleSystem2D.cpp in Sources */,
 				2C46145F226EEDB500828870 /* b2RevoluteJoint.cpp in Sources */,

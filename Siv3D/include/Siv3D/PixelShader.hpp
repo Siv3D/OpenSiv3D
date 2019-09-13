@@ -42,9 +42,9 @@ namespace s3d
 
 		PixelShader();
 
-		explicit PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
+		PixelShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings);
 		
-		//explicit PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
+		//PixelShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings);
 
 		virtual ~PixelShader();
 

@@ -18,6 +18,7 @@ cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
+	float4 g_internal;
 }
 
 struct VS_OUTPUT

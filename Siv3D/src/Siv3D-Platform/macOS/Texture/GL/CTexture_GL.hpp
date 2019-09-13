@@ -66,6 +66,8 @@ namespace s3d
 		TextureID createRT(const Size& size, TextureFormat format) override;
 		
 		TextureID createRT(const Image& image) override;
+		
+		TextureID createMSRT(const Size& size, TextureFormat format) override;
 
 		void release(TextureID handleID) override;
 
@@ -78,6 +80,8 @@ namespace s3d
 		void clearRT(TextureID handleID, const ColorF& color) override;
 		
 		void readRT(TextureID handleID, Image& image) override;
+		
+		void resolveMSRT(const TextureID handleID) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 

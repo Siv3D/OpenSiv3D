@@ -58,6 +58,42 @@ namespace s3d
 		m_device = device;
 		m_context = context;
 
+		// 4x MSAA サポート状況を取得
+		{
+			constexpr std::array<TextureFormat, 10> formats =
+			{
+				TextureFormat::Unknown,
+				TextureFormat::R8G8B8A8_Unorm,
+				TextureFormat::R8G8B8A8_Unorm_SRGB,
+				TextureFormat::R16G16_Float,
+				TextureFormat::R32_Float,
+				TextureFormat::R10G10B10A2_Unorm,
+				TextureFormat::R11G11B10_UFloat,
+				TextureFormat::R16G16B16A16_Float,
+				TextureFormat::R32G32_Float,
+				TextureFormat::R32G32B32A32_Float,
+			};
+
+			LOG_INFO(U"4x MSAA support:");
+
+			for (size_t i = 1; i < formats.size(); ++i)
+			{
+				const String formatStr(ToString(formats[i]));
+				const int32 dxgiFormat = GetTextureFormatProperty(formats[i]).DXGIFormat;
+
+				if (UINT quality = 0; SUCCEEDED(m_device->CheckMultisampleQualityLevels(
+					DXGI_FORMAT(dxgiFormat), 4, &quality)) && (0 < quality))
+				{
+					m_multiSampleAvailable[i] = true;
+					LOG_DEBUG(U"{} ✔"_fmt(formatStr));
+				}
+				else
+				{
+					LOG_DEBUG(U"{} ✘"_fmt(formatStr));
+				}
+			}
+		}
+
 		// null テクスチャを作成し、管理に登録
 		{
 			const Image image(16, Palette::Yellow);
@@ -171,6 +207,27 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
+	TextureID CTexture_D3D11::createMSRT(const Size& size, const TextureFormat format)
+	{
+		if (!m_multiSampleAvailable[FromEnum(format)]) // もし 4x MSAA がサポートされていなければ
+		{
+			LOG_FAIL(U"TextureFormat {} does not support 4x MSAA on this hardware");
+			return TextureID::NullAsset();
+		}
+
+		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+
+		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::MSRender(), m_device, size, format, desc);
+
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+
+		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		return m_textures.add(std::move(texture), info);
+	}
+
 	void CTexture_D3D11::release(const TextureID handleID)
 	{
 		m_textures.erase(handleID);
@@ -196,11 +253,6 @@ namespace s3d
 		return m_textures[handleID]->getSRVPtr();
 	}
 
-	ID3D11Texture2D* CTexture_D3D11::getTexture(const TextureID handleID)
-	{
-		return m_textures[handleID]->getTexture();
-	}
-
 	ID3D11RenderTargetView* CTexture_D3D11::getRTV(const TextureID handleID)
 	{
 		return m_textures[handleID]->getRTV();
@@ -208,12 +260,17 @@ namespace s3d
 
 	void CTexture_D3D11::clearRT(const TextureID handleID, const ColorF& color)
 	{
-		return m_textures[handleID]->clearRT(m_context, color);
+		m_textures[handleID]->clearRT(m_context, color);
 	}
 
 	void CTexture_D3D11::readRT(const TextureID handleID, Image& image)
 	{
-		return m_textures[handleID]->readRT(m_device, m_context, image);
+		m_textures[handleID]->readRT(m_device, m_context, image);
+	}
+
+	void CTexture_D3D11::resolveMSRT(const TextureID handleID)
+	{
+		m_textures[handleID]->resolveMSRT(m_context);
 	}
 
 	bool CTexture_D3D11::fill(const TextureID handleID, const ColorF& color, const bool wait)

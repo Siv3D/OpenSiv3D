@@ -2201,6 +2201,33 @@ namespace s3d
 			return IntersectAt(b, Ellipse(a));
 		}
 
+		//
+		//	https://stackoverflow.com/a/14146166
+		//
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b)
+		{
+			if (a == b)
+			{
+				return Optional{Array<Vec2>{}};
+			}
+
+			const Vec2 ac = a.center, bc = b.center;
+			const double d = ac.distanceFrom(bc);
+
+			if ((a.r + b.r) < d || d < std::abs(a.r - b.r))
+			{
+				return none;
+			}
+
+			const double tA = (a.r * a.r - b.r * b.r + d * d) / (2 * d);
+			const double tH = std::sqrt(a.r * a.r - tA * tA);
+
+			const Vec2 p = (bc - ac) / d * tA + ac;
+			const Vec2 o = (bc - ac) / d * tH;
+
+			return {{{p.x + o.y, p.y - o.x},{p.x - o.y,p.y + o.x}}};
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b)
 		{
 			bool hasIntersection = false;

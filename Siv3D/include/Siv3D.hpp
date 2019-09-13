@@ -1053,6 +1053,9 @@
 // レンダーテクスチャ
 # include <Siv3D/RenderTexture.hpp>
 
+// レンダーテクスチャ
+# include <Siv3D/MSRenderTexture.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Font

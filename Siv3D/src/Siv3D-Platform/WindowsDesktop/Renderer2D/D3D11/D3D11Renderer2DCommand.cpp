@@ -88,6 +88,9 @@ namespace s3d
 		m_sdfParams = { m_sdfParams.back() };
 		m_commands.emplace_back(RendererCommand::SDFParam, 0);
 
+		m_internalPSConstants = { m_internalPSConstants.back() };
+		m_commands.emplace_back(RendererCommand::InternalPSConstants, 0);
+
 		m_currentColorMul = m_colorMuls.front();
 		m_currentColorAdd = m_colorAdds.front();
 		m_currentBlendState = m_blendStates.front();
@@ -106,6 +109,7 @@ namespace s3d
 			m_currentPSTextures[i] = TextureID::InvalidValue();
 		}
 		m_currentSdfParam = m_sdfParams.front();
+		m_currentInternalPSConstants = m_internalPSConstants.front();
 	}
 
 	const Array<std::pair<RendererCommand, uint32>>& D3D11Renderer2DCommand::getList() const
@@ -213,6 +217,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(RendererCommand::SDFParam, static_cast<uint32>(m_sdfParams.size()));
 			m_sdfParams.push_back(m_currentSdfParam);
+		}
+
+		if (m_changes.has(RendererCommand::InternalPSConstants))
+		{
+			m_commands.emplace_back(RendererCommand::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
+			m_internalPSConstants.push_back(m_currentInternalPSConstants);
 		}
 
 		m_changes.reset();
@@ -861,5 +871,38 @@ namespace s3d
 	const Float4& D3D11Renderer2DCommand::getCurrentSdfParam() const
 	{
 		return m_currentSdfParam;
+	}
+
+	void D3D11Renderer2DCommand::pushInternalPSConstants(const Float4& value)
+	{
+		constexpr auto command = RendererCommand::InternalPSConstants;
+		auto& current = m_currentInternalPSConstants;
+		auto& buffer = m_internalPSConstants;
+
+		if (!m_changes.has(command))
+		{
+			if (value != current)
+			{
+				current = value;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (value == buffer.back())
+			{
+				current = value;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = value;
+			}
+		}
+	}
+
+	const Float4& D3D11Renderer2DCommand::getInternalPSConstants(const uint32 index) const
+	{
+		return m_internalPSConstants[index];
 	}
 }

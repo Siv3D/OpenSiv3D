@@ -40,9 +40,9 @@ namespace s3d
 		Pixel,
 	};
 
-	struct BindingPoint
+	struct ConstantBufferBinding
 	{
-		String bufferName;
+		String name;
 		
 		uint32 index;
 	};

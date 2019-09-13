@@ -121,6 +121,12 @@ namespace s3d
 	
 	Texture_GL::Texture_GL(Render, const Size& size, const TextureFormat format, const TextureDesc desc)
 	{
+		// サイズをチェック
+		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
+		{
+			return;
+		}
+		
 		const auto& prop = GetTextureFormatProperty(format);
 		
 		// [メインテクスチャ] を作成
@@ -148,7 +154,7 @@ namespace s3d
 			}
 		}
 		
-		// [フレームバッファ] を作成
+		// [メインテクスチャ・フレームバッファ] を作成
 		{
 			::glGenFramebuffers(1, &m_frameBuffer);
 			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
@@ -189,7 +195,7 @@ namespace s3d
 			}
 		}
 		
-		// [フレームバッファ] を作成
+		// [メインテクスチャ・フレームバッファ] を作成
 		{
 			::glGenFramebuffers(1, &m_frameBuffer);
 			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
@@ -208,8 +214,113 @@ namespace s3d
 		m_initialized = true;
 	}
 	
+	Texture_GL::Texture_GL(MSRender, const Size& size, const TextureFormat format, const TextureDesc desc)
+	{
+		// サイズをチェック
+		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
+		{
+			return;
+		}
+		
+		const auto& prop = GetTextureFormatProperty(format);
+		
+		// [マルチサンプル・テクスチャ] を作成
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB
+				|| format == TextureFormat::R16G16_Float
+				|| format == TextureFormat::R32_Float
+				|| format == TextureFormat::R10G10B10A2_Unorm
+				|| format == TextureFormat::R11G11B10_UFloat
+				|| format == TextureFormat::R16G16B16A16_Float
+				|| format == TextureFormat::R32G32_Float
+				|| format == TextureFormat::R32G32B32A32_Float)
+			{
+				::glGenTextures(1, &m_multiSampledTexture);
+				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_multiSampledTexture);
+				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, prop.GLInternalFormat, size.x, size.y, GL_FALSE);
+				//::glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in MSRenderTexture"_fmt(ToString(format)));
+				return;
+			}
+		}
+		
+		// [フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, m_multiSampledTexture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in MSRenderTexture"_fmt(ToString(format)));
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		// [メインテクスチャ] を作成
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm
+				|| format == TextureFormat::R8G8B8A8_Unorm_SRGB
+				|| format == TextureFormat::R16G16_Float
+				|| format == TextureFormat::R32_Float
+				|| format == TextureFormat::R10G10B10A2_Unorm
+				|| format == TextureFormat::R11G11B10_UFloat
+				|| format == TextureFormat::R16G16B16A16_Float
+				|| format == TextureFormat::R32G32_Float
+				|| format == TextureFormat::R32G32B32A32_Float)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, prop.GLInternalFormat, size.x, size.y, 0,
+							   prop.GLFormat, prop.GLType, nullptr);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture"_fmt(ToString(format)));
+				return;
+			}
+		}
+		
+		// [resolved フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_resolvedFrameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_resolvedFrameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = size;
+		m_format = format;
+		m_textureDesc = desc;
+		m_type = TextureType::MSRender;
+		m_initialized = true;
+	}
+	
 	Texture_GL::~Texture_GL()
 	{
+		// [resolved フレームバッファ] を破棄
+		if (m_resolvedFrameBuffer)
+		{
+			::glDeleteFramebuffers(1, &m_resolvedFrameBuffer);
+			m_resolvedFrameBuffer = 0;
+		}
+		
+		// [マルチサンプルテクスチャ] を破棄
+		if (m_multiSampledTexture)
+		{
+			::glDeleteTextures(1, &m_multiSampledTexture);
+			m_multiSampledTexture = 0;
+		}
+		
 		// [フレームバッファ] を破棄
 		if (m_frameBuffer)
 		{
@@ -257,7 +368,8 @@ namespace s3d
 	
 	void Texture_GL::clearRT(const ColorF& color)
 	{
-		if (m_type != TextureType::Render)
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
 		{
 			return;
 		}
@@ -270,6 +382,8 @@ namespace s3d
 					   static_cast<float>(color.b),
 					   static_cast<float>(color.a));
 		::glClear(GL_COLOR_BUFFER_BIT);
+
+		//::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	
 	void Texture_GL::readRT(Image& image)
@@ -293,6 +407,21 @@ namespace s3d
 			::glReadPixels(0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
 		}
 		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	void Texture_GL::resolveMSRT()
+	{
+		if (m_type != TextureType::MSRender)
+		{
+			return;
+		}
+		
+		::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer);
+		::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_resolvedFrameBuffer);
+		::glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+		
+		::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 	}
 	
 	bool Texture_GL::fill(const ColorF& color, bool)
