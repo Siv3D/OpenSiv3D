@@ -37,12 +37,14 @@ namespace s3d
 		: MSRenderTexture(width, height, format)
 	{
 		clear(color);
+		resolve();
 	}
 
 	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat format)
 		: MSRenderTexture(size.x, size.y, format)
 	{
 		clear(color);
+		resolve();
 	}
 
 	void MSRenderTexture::resolve()
