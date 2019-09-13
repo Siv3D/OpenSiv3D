@@ -78,8 +78,10 @@ namespace s3d
 		// 現在の SDF 描画用のパラメータを取得
 		[[nodiscard]] Float4 GetSDFParameters();
 
+		// マルチテクスチャ用のテクスチャをセット
 		void SetTexture(uint32 slot, const Optional<Texture>& texture);
 
+		// 現在までの 2D 描画を実行
 		void Flush();
 
 		namespace Internal
