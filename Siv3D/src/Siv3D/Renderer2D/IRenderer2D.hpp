@@ -82,6 +82,8 @@ namespace s3d
 
 		virtual void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
 
+		virtual void setInternalConstantBufferValue(ShaderStage stage, const Float4& value) = 0;
+
 		virtual void setRT(const Optional<RenderTexture>& rt) = 0;
 
 		virtual Optional<RenderTexture> getRT() const = 0;

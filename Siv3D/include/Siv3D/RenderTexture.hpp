@@ -18,7 +18,11 @@ namespace s3d
 {
 	class RenderTexture : public Texture
 	{
-	private:
+	protected:
+
+		struct MSRender {};
+
+		RenderTexture(MSRender, uint32 width, uint32 height, TextureFormat format);
 
 	public:
 
@@ -36,6 +40,7 @@ namespace s3d
 
 		void clear(const ColorF& color);
 
+		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image);
 	};
 }

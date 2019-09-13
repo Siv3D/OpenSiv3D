@@ -42,6 +42,9 @@ namespace s3d
 		// PS の管理
 		AssetHandleManager<PixelShaderID, PixelShader_D3D11> m_pixelShaders{ U"PixelShader" };
 
+		// Shader:: 用の内部シェーダ
+		Array<PixelShader> m_enginePSs;
+
 	public:
 
 		CShader_D3D11();
@@ -52,18 +55,18 @@ namespace s3d
 		void init(ID3D11Device* device, ID3D11DeviceContext* context);
 
 		// コンパイル済みシェーダから VS を作成
-		VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
+		VertexShaderID createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
 		
 		// シェーダファイル（ソースコードまたはコンパイル済みバイナリ）から VS を作成
-		VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;	
-		//VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&) override
+		VertexShaderID createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		//VertexShaderID createVSFromSource(const String&, const Array<ConstantBufferBinding>&) override
 
 		// コンパイル済みシェーダから PS を作成
-		PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
 		
 		// シェーダファイル（ソースコードまたはコンパイル済みバイナリ）から PS を作成
-		PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		//PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		//PixelShaderID createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindingPoints) override;
 
 		// 指定した VS を管理から除外
 		void release(VertexShaderID handleID) override;
@@ -82,6 +85,9 @@ namespace s3d
 		
 		// 指定した PS を context にセット
 		void setPS(PixelShaderID handleID) override;
+
+		// エンジン PS を取得
+		const PixelShader& getEnginePS(const EnginePS ps) const override;
 
 		// HLSL シェーダコンパイラが利用可能かを返す
 		bool hasHLSLCompiler() const noexcept;

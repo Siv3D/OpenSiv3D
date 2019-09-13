@@ -25,20 +25,33 @@ namespace s3d
 		enum class TextureType
 		{
 			// 通常テクスチャ
+			// [メインテクスチャ]
 			Normal,
 			
 			// 動的テクスチャ
+			// [メインテクスチャ]
 			Dynamic,
 			
 			// レンダーテクスチャ
+			// [メインテクスチャ]<-[フレームバッファ]
 			Render,
+			
+			// マルチサンプル・レンダーテクスチャ
+			// [マルチサンプル・テクスチャ]<-[フレームバッファ], [メインテクスチャ]<-[resolved フレームバッファ]
+			MSRender,
 		};
 		
 		// [メインテクスチャ]
 		GLuint m_texture = 0;
 		
+		// [マルチサンプル・テクスチャ]
+		GLuint m_multiSampledTexture = 0;
+		
 		// [フレームバッファ]
 		GLuint m_frameBuffer = 0;
+		
+		// [resolved フレームバッファ]
+		GLuint m_resolvedFrameBuffer = 0;
 		
 		Size m_size = { 0, 0 };
 		
@@ -55,6 +68,7 @@ namespace s3d
 		struct Null {};
 		struct Dynamic {};
 		struct Render {};
+		struct MSRender {};
 		
 		Texture_GL() = default;
 		
@@ -69,6 +83,8 @@ namespace s3d
 		Texture_GL(Render, const Size& size, TextureFormat format, TextureDesc desc);
 		
 		Texture_GL(Render, const Image& image, TextureFormat format, TextureDesc desc);
+		
+		Texture_GL(MSRender, const Size& size, TextureFormat format, TextureDesc desc);
 		
 		~Texture_GL();
 		
@@ -89,6 +105,8 @@ namespace s3d
 		
 		// レンダーテクスチャの内容を Image によコピーする
 		void readRT(Image& image);
+		
+		void resolveMSRT();
 		
 		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(const ColorF& color, bool wait);

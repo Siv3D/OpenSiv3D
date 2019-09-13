@@ -47,6 +47,6 @@ namespace s3d
 
 		void setUniformBlockBinding(const String& name, GLuint index);
 		
-		void setUniformBlockBindings(const Array<BindingPoint>& bindingPoints);
+		void setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings);
 	};
 }

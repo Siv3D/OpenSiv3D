@@ -9,6 +9,7 @@ layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
 	vec4 g_sdfParam;
+	vec4 g_internal;	
 };
 
 vec4 OutputColor(const vec4 color)

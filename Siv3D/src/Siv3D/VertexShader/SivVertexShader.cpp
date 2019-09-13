@@ -58,14 +58,14 @@ namespace s3d
 
 	}
 
-	VertexShader::VertexShader(const FilePath& path, const Array<BindingPoint>& bindingPoints)
-		: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createVSFromFile(std::move(path), bindingPoints)))
+	VertexShader::VertexShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
+		: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createVSFromFile(std::move(path), bindings)))
 	{
 
 	}
 	
-	//VertexShader::VertexShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints)
-	//	: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVSFromSource(source.value(), bindingPoints)))
+	//VertexShader::VertexShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings)
+	//	: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVSFromSource(source.value(), bindings)))
 	//{
 	//	
 	//}

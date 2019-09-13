@@ -11,6 +11,7 @@
 
 # include <Siv3D/Windows.hpp>
 # include <Siv3D/DLL.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
@@ -63,6 +64,9 @@ namespace s3d
 	CShader_D3D11::~CShader_D3D11()
 	{
 		LOG_TRACE(U"CShader_D3D11::~CShader_D3D11()");
+
+		// エンジン PS を破棄
+		m_enginePSs.clear();
 
 		// PS の管理を破棄
 		m_pixelShaders.destroy();
@@ -122,6 +126,9 @@ namespace s3d
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle.hlsl", U"engine/shader/fullscreen_triangle_draw.vs", ShaderStage::Vertex, U"VS_Draw");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_resolve.hlsl", U"engine/shader/fullscreen_triangle_resolve.ps", ShaderStage::Pixel, U"PS");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_draw.hlsl", U"engine/shader/fullscreen_triangle_draw.ps", ShaderStage::Pixel, U"PS");
+
+			compileHLSLToFile(U"engine/shader/copy.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
+			compileHLSLToFile(U"engine/shader/gaussian_blur_9.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
 		}
 
 	# endif
@@ -154,10 +161,21 @@ namespace s3d
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
+		// エンジン PS をロード
+		{
+			m_enginePSs << PixelShader(Resource(U"engine/shader/copy.ps"), {});
+			m_enginePSs << PixelShader(Resource(U"engine/shader/gaussian_blur_9.ps"), {{ U"PSConstants2D", 0 }});
+
+			if (!m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError(U"CShader_D3D11::m_enginePSs initialization failed");
+			}
+		}
+
 		LOG_INFO(U"ℹ️ CShader_D3D11 initialized");
 	}
 
-	VertexShaderID CShader_D3D11::createVS(ByteArray&& binary, const Array<BindingPoint>&)
+	VertexShaderID CShader_D3D11::createVS(ByteArray&& binary, const Array<ConstantBufferBinding>&)
 	{
 		// VS を作成
 		auto vertexShader = std::make_unique<VertexShader_D3D11>(std::move(binary), m_device);
@@ -171,7 +189,7 @@ namespace s3d
 		return m_vertexShaders.add(std::move(vertexShader));
 	}
 
-	VertexShaderID CShader_D3D11::createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_D3D11::createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		// HLSL ソースコード
 		ByteArray hlslSourceCode;
@@ -199,7 +217,7 @@ namespace s3d
 			{
 				// そのまま VS を作成
 				LOG_DEBUG(U"CShader_D3D11::createVSFromFile(): `{}` is a precompiled shader file"_fmt(path));
-				return createVS(reader.readAll(), bindingPoints);
+				return createVS(reader.readAll(), bindings);
 			}
 
 			// HLSL ソースコード
@@ -217,10 +235,10 @@ namespace s3d
 		}
 
 		// VS を作成
-		return createVS(std::move(compiledBinary), bindingPoints);
+		return createVS(std::move(compiledBinary), bindings);
 	}
 
-	PixelShaderID CShader_D3D11::createPS(ByteArray&& binary, const Array<BindingPoint>&)
+	PixelShaderID CShader_D3D11::createPS(ByteArray&& binary, const Array<ConstantBufferBinding>&)
 	{
 		// PS を作成
 		auto pixelShader = std::make_unique<PixelShader_D3D11>(std::move(binary), m_device);
@@ -234,7 +252,7 @@ namespace s3d
 		return m_pixelShaders.add(std::move(pixelShader));
 	}
 
-	PixelShaderID CShader_D3D11::createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_D3D11::createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
 	{
 		// HLSL ソースコード
 		ByteArray hlslSourceCode;
@@ -262,7 +280,7 @@ namespace s3d
 			{
 				// そのまま PS を作成
 				LOG_DEBUG(U"CShader_D3D11::createVSFromFile(): `{}` is a precompiled shader file"_fmt(path));
-				return createPS(reader.readAll(), bindingPoints);
+				return createPS(reader.readAll(), bindings);
 			}
 
 			// HLSL ソースコード
@@ -280,7 +298,7 @@ namespace s3d
 		}
 
 		// PS を作成
-		return createPS(std::move(compiledBinary), bindingPoints);
+		return createPS(std::move(compiledBinary), bindings);
 	}
 
 	//PixelShaderID CShader_D3D11::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
@@ -322,6 +340,11 @@ namespace s3d
 	{
 		// 指定した PS を context にセット
 		m_context->PSSetShader(m_pixelShaders[handleID]->getShader(), nullptr, 0);
+	}
+
+	const PixelShader& CShader_D3D11::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
 	}
 
 	bool CShader_D3D11::hasHLSLCompiler() const noexcept

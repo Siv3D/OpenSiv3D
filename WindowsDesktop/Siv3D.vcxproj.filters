@@ -1009,6 +1009,9 @@
     <Filter Include="src\Siv3D\ScopedRenderTarget2D">
       <UniqueIdentifier>{7c4fae43-7898-4d59-9860-0931b447260e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MSRenderTexture">
+      <UniqueIdentifier>{32e12050-6719-40e1-9a0f-a70e9597c03a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3447,6 +3450,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MSRenderTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -4463,9 +4472,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineLog\SivEngineLog.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\EngineLog</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EnigneMessageBox\SivEngineMessageBox.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\EngineMessageBox</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Graphics\D3D11\D3D11Device.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Graphics\D3D11</Filter>
     </ClCompile>
@@ -5183,9 +5189,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Process\ChildProcessDetail.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Process</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Shader\SivShader.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader2D\SivScopedCustomShader2D.cpp">
       <Filter>src\Siv3D\ScopedCustomShader2D</Filter>
     </ClCompile>
@@ -5194,6 +5197,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderTarget2D\SivScopedRenderTarget2D.cpp">
       <Filter>src\Siv3D\ScopedRenderTarget2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp">
+      <Filter>src\Siv3D\MSRenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Shader\SivShader_Platform.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp">
+      <Filter>src\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineMessageBox\SivEngineMessageBox.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\EngineMessageBox</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

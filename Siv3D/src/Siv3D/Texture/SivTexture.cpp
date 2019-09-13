@@ -85,6 +85,12 @@ namespace s3d
 
 	}
 
+	Texture::Texture(MSRender, uint32 width, uint32 height, TextureFormat format)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createMSRT(Size(width, height), format)))
+	{
+
+	}
+
 	Texture::Texture()
 		: m_handle(std::make_shared<TextureHandle>())
 	{

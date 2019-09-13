@@ -12,6 +12,7 @@ layout(std140) uniform PSConstants2D
 {
 	vec4 g_colorAdd;
 	vec4 g_sdfParam;
+	vec4 g_internal;
 };
 
 // PS_1

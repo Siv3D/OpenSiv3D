@@ -40,6 +40,8 @@ namespace s3d
 
 		struct Render {};
 
+		struct MSRender {};
+
 		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
 		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format, TextureDesc desc);
@@ -47,6 +49,8 @@ namespace s3d
 		Texture(Render, uint32 width, uint32 height, TextureFormat format);
 
 		Texture(Render, const Image& image);
+
+		Texture(MSRender, uint32 width, uint32 height, TextureFormat format);
 
 	public:
 
