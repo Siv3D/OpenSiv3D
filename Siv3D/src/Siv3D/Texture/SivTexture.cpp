@@ -61,19 +61,19 @@ namespace s3d
 		}
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createDynamic(Size(width, height), pData, stride, format, desc)))
 	{
 		ReportAssetCreation();
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createDynamic(Size(width, height), color, format, desc)))
 	{
 		ReportAssetCreation();
 	}
 
-	Texture::Texture(Render, const uint32 width, const uint32 height, TextureFormat format)
+	Texture::Texture(Render, const uint32 width, const uint32 height, const TextureFormat& format)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(Size(width, height), format)))
 	{
 		ReportAssetCreation();
@@ -85,7 +85,7 @@ namespace s3d
 
 	}
 
-	Texture::Texture(MSRender, uint32 width, uint32 height, TextureFormat format)
+	Texture::Texture(MSRender, uint32 width, uint32 height, const TextureFormat& format)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createMSRT(Size(width, height), format)))
 	{
 

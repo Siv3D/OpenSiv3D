@@ -278,7 +278,9 @@ namespace s3d
 	{
 		if (m_backBuffer.size == m_msScene.size)
 		{
-			return{ m_backBuffer.texture.Get(), m_backBuffer.size };
+			resolveScene();
+
+			return{ m_resolvedScene.texture.Get(), m_msScene.size };
 		}
 		else
 		{

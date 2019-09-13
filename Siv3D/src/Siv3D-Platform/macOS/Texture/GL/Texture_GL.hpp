@@ -78,13 +78,13 @@ namespace s3d
 		
 		Texture_GL(const Image& image, const Array<Image>& mipmaps, TextureDesc desc);
 		
-		Texture_GL(Dynamic, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		Texture_GL(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 		
-		Texture_GL(Render, const Size& size, TextureFormat format, TextureDesc desc);
+		Texture_GL(Render, const Size& size, const TextureFormat& format, TextureDesc desc);
 		
-		Texture_GL(Render, const Image& image, TextureFormat format, TextureDesc desc);
+		Texture_GL(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
 		
-		Texture_GL(MSRender, const Size& size, TextureFormat format, TextureDesc desc);
+		Texture_GL(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
 		
 		~Texture_GL();
 		

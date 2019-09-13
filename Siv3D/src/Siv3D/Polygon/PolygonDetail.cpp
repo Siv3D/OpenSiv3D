@@ -966,7 +966,7 @@ namespace s3d
 			{
 				const auto& resultHole = inners[i];
 
-				holes[i].assign(resultHole.rbegin(), resultHole.rend());
+				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
 
 			return Polygon(outer, holes);

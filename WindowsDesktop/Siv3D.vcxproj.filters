@@ -5210,5 +5210,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineMessageBox\SivEngineMessageBox.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\EngineMessageBox</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TextureFormat.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

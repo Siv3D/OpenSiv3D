@@ -71,13 +71,13 @@ namespace s3d
 		struct Render {};
 		struct MSRender {};
 
-		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
-		Texture_D3D11(Render, ID3D11Device* device, const Size& size, TextureFormat format, TextureDesc desc);
+		Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
 
-		Texture_D3D11(Render, ID3D11Device* device, const Image& image, TextureFormat format, TextureDesc desc);
+		Texture_D3D11(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc);
 
-		Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, TextureFormat format, TextureDesc desc);
+		Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
 

@@ -19,7 +19,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat format)
+		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat& format)
 		{
 			const size_t num_pixels = size.x * size.y;
 
@@ -78,18 +78,18 @@ namespace s3d
 
 			for (size_t i = 1; i < formats.size(); ++i)
 			{
-				const String formatStr(ToString(formats[i]));
-				const int32 dxgiFormat = GetTextureFormatProperty(formats[i]).DXGIFormat;
+				const String name(formats[i].name());
+				const int32 dxgiFormat = formats[i].DXGIFormat();
 
 				if (UINT quality = 0; SUCCEEDED(m_device->CheckMultisampleQualityLevels(
 					DXGI_FORMAT(dxgiFormat), 4, &quality)) && (0 < quality))
 				{
 					m_multiSampleAvailable[i] = true;
-					LOG_DEBUG(U"{} ✔"_fmt(formatStr));
+					LOG_DEBUG(U"{} ✔"_fmt(name));
 				}
 				else
 				{
-					LOG_DEBUG(U"{} ✘"_fmt(formatStr));
+					LOG_DEBUG(U"{} ✘"_fmt(name));
 				}
 			}
 		}
@@ -134,7 +134,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
@@ -152,11 +152,11 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 	{
 		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Dynamic(), m_device, size, pData, stride, format, desc);
 
@@ -165,20 +165,20 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	TextureID CTexture_D3D11::createRT(const Size& size, const TextureFormat format)
+	TextureID CTexture_D3D11::createRT(const Size& size, const TextureFormat& format)
 	{
-		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
 
 		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, size, format, desc);
 
@@ -187,7 +187,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
@@ -203,19 +203,19 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getDesc().format));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_D3D11::createMSRT(const Size& size, const TextureFormat format)
+	TextureID CTexture_D3D11::createMSRT(const Size& size, const TextureFormat& format)
 	{
-		if (!m_multiSampleAvailable[FromEnum(format)]) // もし 4x MSAA がサポートされていなければ
+		if (!m_multiSampleAvailable[FromEnum(format.value())]) // もし 4x MSAA がサポートされていなければ
 		{
 			LOG_FAIL(U"TextureFormat {} does not support 4x MSAA on this hardware");
 			return TextureID::NullAsset();
 		}
 
-		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
 
 		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::MSRender(), m_device, size, format, desc);
 
@@ -224,7 +224,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getDesc().format));
+		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
