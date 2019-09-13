@@ -388,7 +388,8 @@ namespace s3d
 	
 	void Texture_GL::readRT(Image& image)
 	{
-		if (m_type != TextureType::Render)
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
 		{
 			return;
 		}
@@ -402,7 +403,7 @@ namespace s3d
 		
 		image.resize(m_size);
 		
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+		::glBindFramebuffer(GL_FRAMEBUFFER, (m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer);
 		{
 			::glReadPixels(0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
 		}
