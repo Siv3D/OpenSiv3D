@@ -22,19 +22,19 @@ namespace s3d
 
 		struct MSRender {};
 
-		RenderTexture(MSRender, uint32 width, uint32 height, TextureFormat format);
+		RenderTexture(MSRender, uint32 width, uint32 height, const TextureFormat& format);
 
 	public:
 
 		RenderTexture();
 
-		RenderTexture(uint32 width, uint32 height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(uint32 width, uint32 height, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
-		explicit RenderTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		explicit RenderTexture(const Size& size, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
-		RenderTexture(uint32 width, uint32 height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(uint32 width, uint32 height, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
-		RenderTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
 		RenderTexture(const Image& image);
 

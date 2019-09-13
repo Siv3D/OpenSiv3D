@@ -89,10 +89,6 @@ namespace s3d
 		r = engine->RegisterEnumValue("TextureDesc", "SDF", static_cast<int32>(TextureDesc::SDF)); assert(r >= 0);
 		r = engine->RegisterEnumValue("TextureDesc", "For3D", static_cast<int32>(TextureDesc::For3D)); assert(r >= 0);
 
-		r = engine->RegisterEnumValue("TextureFormat", "Unknown", static_cast<int32>(TextureFormat::Unknown)); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm", static_cast<int32>(TextureFormat::R8G8B8A8_Unorm)); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm_SRGB", static_cast<int32>(TextureFormat::R8G8B8A8_Unorm_SRGB)); assert(r >= 0);
-		
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Texture& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);

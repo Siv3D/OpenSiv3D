@@ -174,6 +174,7 @@ namespace s3d
 		RegisterWave(m_engine);
 		RegisterAudio(m_engine);
 
+		RegisterTextureFormat(m_engine);
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);
 		RegisterTexturedQuad(m_engine);
