@@ -25,6 +25,9 @@ namespace s3d
 		
 		AssetHandleManager<PixelShaderID, PixelShader_GL> m_pixelShaders{ U"PixelShader" };
 		
+		// [エンジン PS]
+		Array<PixelShader> m_enginePSs;
+		
 	public:
 
 		CShader_GL();
@@ -49,6 +52,9 @@ namespace s3d
 
 		void setVS(VertexShaderID handleID) override {}
 		void setPS(PixelShaderID handleID) override {}
+		
+		// エンジン PS を取得
+		const PixelShader& getEnginePS(const EnginePS ps) const override;
 		
 		GLuint getVSProgram(VertexShaderID handleID);
 		GLuint getPSProgram(PixelShaderID handleID);

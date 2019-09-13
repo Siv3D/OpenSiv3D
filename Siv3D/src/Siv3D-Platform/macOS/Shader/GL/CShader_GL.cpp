@@ -11,6 +11,7 @@
 
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/TextReader.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CShader_GL.hpp"
@@ -25,8 +26,14 @@ namespace s3d
 	CShader_GL::~CShader_GL()
 	{
 		LOG_TRACE(U"CShader_GL::~CShader_GL()");
+		
+		// [エンジン PS] を破棄
+		m_enginePSs.clear();
 
+		// PS の管理を破棄
 		m_pixelShaders.destroy();
+	
+		// VS の管理を破棄
 		m_vertexShaders.destroy();
 	}
 	
@@ -54,6 +61,17 @@ namespace s3d
 			}
 			
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
+		}
+		
+		// [エンジン PS] をロード
+		{
+			m_enginePSs << PixelShader(Resource(U"engine/shader/copy.frag"), {});
+			m_enginePSs << PixelShader(Resource(U"engine/shader/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }});
+			
+			if (!m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError(U"CShader_GL::m_enginePSs initialization failed");
+			}
 		}
 		
 		LOG_INFO(U"ℹ️ CShader_GL initialized");
@@ -161,6 +179,11 @@ namespace s3d
 	{
 		// [Siv3D ToDo]
 		return ByteArrayView();
+	}
+	
+	const PixelShader& CShader_GL::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
 	}
 
 	GLuint CShader_GL::getVSProgram(const VertexShaderID handleID)
