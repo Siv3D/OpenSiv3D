@@ -850,7 +850,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\DLL\SivDLL.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\DragDrop\CDragDrop.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineLog\SivEngineLog.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EnigneMessageBox\SivEngineMessageBox.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineMessageBox\SivEngineMessageBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\FileSystem\SivFileSystem_Platform.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Gamepad\CGamepad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Gamepad\SivGamepad_Platform.cpp" />

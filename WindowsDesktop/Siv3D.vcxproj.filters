@@ -4472,9 +4472,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineLog\SivEngineLog.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\EngineLog</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EnigneMessageBox\SivEngineMessageBox.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\EngineMessageBox</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Graphics\D3D11\D3D11Device.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Graphics\D3D11</Filter>
     </ClCompile>
@@ -5209,6 +5206,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp">
       <Filter>src\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\EngineMessageBox\SivEngineMessageBox.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\EngineMessageBox</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
