@@ -20,7 +20,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat format)
+		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat& format)
 		{
 			const size_t num_pixels = size.x * size.y;
 			
@@ -117,7 +117,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getFormat()));
+		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 
@@ -140,11 +140,11 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getFormat()));
+		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 	{
 		auto texture = std::make_unique<Texture_GL>(Texture_GL::Dynamic{}, size, pData, stride, format, desc);
 		
@@ -153,20 +153,20 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getFormat()));
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 		
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 	
-	TextureID CTexture_GL::createRT(const Size& size, const TextureFormat format)
+	TextureID CTexture_GL::createRT(const Size& size, const TextureFormat& format)
 	{
-		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
 		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render{}, size, format, desc);
 		
 		if (!texture->isInitialized())
@@ -174,7 +174,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getFormat()));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 	
@@ -190,13 +190,13 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), ToString(texture->getFormat()));
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 	
-	TextureID CTexture_GL::createMSRT(const Size& size, const TextureFormat format)
+	TextureID CTexture_GL::createMSRT(const Size& size, const TextureFormat& format)
 	{
-		const TextureDesc desc = GetTextureFormatProperty(format).isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
 		
 		auto texture = std::make_unique<Texture_GL>(Texture_GL::MSRender(), size, format, desc);
 		
@@ -205,7 +205,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, ToString(texture->getFormat()));
+		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
 		return m_textures.add(std::move(texture), info);
 	}
 

@@ -21,28 +21,30 @@ namespace s3d
 
 	}
 
-	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const TextureFormat format)
+	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const TextureFormat& format)
 		: RenderTexture(RenderTexture::MSRender{}, width, height, format)
 	{
 
 	}
 
-	MSRenderTexture::MSRenderTexture(const Size& size, const TextureFormat format)
+	MSRenderTexture::MSRenderTexture(const Size& size, const TextureFormat& format)
 		: MSRenderTexture(size.x, size.y, format)
 	{
 
 	}
 
-	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format)
+	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format)
 		: MSRenderTexture(width, height, format)
 	{
 		clear(color);
+		resolve();
 	}
 
-	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat format)
+	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format)
 		: MSRenderTexture(size.x, size.y, format)
 	{
 		clear(color);
+		resolve();
 	}
 
 	void MSRenderTexture::resolve()
@@ -57,6 +59,6 @@ namespace s3d
 
 	void MSRenderTexture::readAsImage(Image& image)
 	{
-		// [Siv3D ToDo]
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
 }

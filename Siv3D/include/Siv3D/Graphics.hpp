@@ -34,12 +34,16 @@ namespace s3d
 
 	namespace Graphics
 	{
+		// 現在のフレームのクリアをスキップ
 		void SkipClearScreen();
 
 		[[nodiscard]] Array<DisplayOutput> EnumOutputs();
 
+		// フルスクリーンとして使用できる解像度を取得
 		[[nodiscard]] Array<Size> GetFullscreenResolutions(double minRefreshRate = 49.0);
 
+		// フレームレートの上限を変更
+		// none にするとモニターに合わせる
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		[[nodiscard]] Optional<double> GetTargetFrameRateHz();

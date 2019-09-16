@@ -21,25 +21,25 @@ namespace s3d
 
 	}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat format)
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat& format)
 		: Texture(Texture::Render{}, width, height, format)
 	{
 
 	}
 
-	RenderTexture::RenderTexture(const Size& size, const TextureFormat format)
+	RenderTexture::RenderTexture(const Size& size, const TextureFormat& format)
 		: RenderTexture(size.x, size.y, format)
 	{
 
 	}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format)
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format)
 		: RenderTexture(width, height, format)
 	{
 		clear(color);
 	}
 
-	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat format)
+	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format)
 		: RenderTexture(size.x, size.y, format)
 	{
 		clear(color);
@@ -51,7 +51,7 @@ namespace s3d
 
 	}
 
-	RenderTexture::RenderTexture(MSRender, const uint32 width, const uint32 height, const TextureFormat format)
+	RenderTexture::RenderTexture(MSRender, const uint32 width, const uint32 height, const TextureFormat& format)
 		: Texture(Texture::MSRender{}, width, height, format)
 	{
 

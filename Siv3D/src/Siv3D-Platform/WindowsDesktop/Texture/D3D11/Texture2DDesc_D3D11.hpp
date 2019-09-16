@@ -45,7 +45,7 @@ namespace s3d
 
 		Texture2DDesc_D3D11() = default;
 
-		Texture2DDesc_D3D11(const Size& _size, TextureFormat _format, TextureDesc _desc,
+		Texture2DDesc_D3D11(const Size& _size, const TextureFormat& _format, TextureDesc _desc,
 			uint32 _mipLevels, uint32 _multisampleCount, uint32 _multismapleQuality,
 			D3D11_USAGE _usage, uint32 _bindFlags,
 			uint32 _CPUAccessFlags, uint32 _miscFlags) noexcept;

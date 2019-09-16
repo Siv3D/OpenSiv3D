@@ -707,8 +707,7 @@ namespace s3d
 	//
 	//	TextureFormat.hpp
 	//
-	enum class TextureFormat;
-	struct TextureFormatProperty;
+	class TextureFormat;
 
 	//////////////////////////////////////////////////////
 	//

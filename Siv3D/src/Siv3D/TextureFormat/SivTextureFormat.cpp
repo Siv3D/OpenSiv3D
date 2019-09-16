@@ -163,7 +163,28 @@ enum GL_CONSTANTS
 
 namespace s3d
 {
-	static constexpr std::array<TextureFormatProperty, 10> Propertytable =
+	struct TextureFormatData
+	{
+		StringView name;
+
+		int32 DXGIFormat;
+
+		int32 GLInternalFormat;
+
+		int32 GLFormat;
+
+		int32 GLType;
+
+		// 1 ピクセル当たりのサイズ
+		uint32 pixelSize;
+
+		// チャンネル数
+		uint32 num_channels;
+
+		bool isSRGB;
+	};
+	
+	static constexpr std::array<TextureFormatData, 10> Propertytable =
 	{ {
 		{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
 		{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
@@ -177,13 +198,43 @@ namespace s3d
 		{ U"R32G32B32A32_Float", DXGI_FORMAT_R32G32B32A32_FLOAT, GL_RGBA32F, GL_RGBA, GL_FLOAT, 16, 4, false },
 	} };
 
-	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat textureFormat)
+	StringView TextureFormat::name() const noexcept
 	{
-		return Propertytable[FromEnum(textureFormat)];
+		return Propertytable[FromEnum(m_value)].name;
 	}
 
-	StringView ToString(TextureFormat textureFormat) noexcept
+	int32 TextureFormat::DXGIFormat() const noexcept
 	{
-		return Propertytable[FromEnum(textureFormat)].name;
+		return Propertytable[FromEnum(m_value)].DXGIFormat;
+	}
+
+	int32 TextureFormat::GLInternalFormat() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLInternalFormat;
+	}
+
+	int32 TextureFormat::GLFormat() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLFormat;
+	}
+
+	int32 TextureFormat::GLType() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLType;
+	}
+
+	uint32 TextureFormat::pixelSize() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].pixelSize;
+	}
+
+	uint32 TextureFormat::num_channels() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].num_channels;
+	}
+
+	bool TextureFormat::isSRGB() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].isSRGB;
 	}
 }

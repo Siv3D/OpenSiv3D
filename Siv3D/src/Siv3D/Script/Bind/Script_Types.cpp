@@ -91,7 +91,7 @@ namespace s3d
 		r = engine->RegisterObjectType("Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Audio", sizeof(Audio), asOBJ_VALUE | asGetTypeTraits<Audio>()); assert(r >= 0);
 
-
+		r = engine->RegisterObjectType("TextureFormat", sizeof(TextureFormat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
@@ -118,8 +118,8 @@ namespace s3d
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
 		r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
+		r = engine->RegisterEnum("TextureFormatValue"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
-		r = engine->RegisterEnum("TextureFormat"); assert(r >= 0);
 		r = engine->RegisterEnum("Typeface"); assert(r >= 0);
 		r = engine->RegisterEnum("FontStyle"); assert(r >= 0);
 		r = engine->RegisterEnum("PianoKey"); assert(r >= 0);
@@ -179,6 +179,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Wave") == static_cast<int32>(ScriptTypeID::Wave));
 		assert(engine->GetTypeIdByDecl("Audio") == static_cast<int32>(ScriptTypeID::Audio));
 
+		assert(engine->GetTypeIdByDecl("TextureFormat") == static_cast<int32>(ScriptTypeID::TextureFormat));
 		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
 		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));
 		assert(engine->GetTypeIdByDecl("TexturedQuad") == static_cast<int32>(ScriptTypeID::TexturedQuad));

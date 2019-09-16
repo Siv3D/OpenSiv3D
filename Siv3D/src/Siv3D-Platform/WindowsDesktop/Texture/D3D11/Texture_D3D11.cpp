@@ -19,11 +19,10 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void FillByColor(void* const buffer, const Size& size, const uint32 dstStride, const ColorF& color, const TextureFormat format)
+		static void FillByColor(void* const buffer, const Size& size, const uint32 dstStride, const ColorF& color, const TextureFormat& format)
 		{
-			const auto prop = GetTextureFormatProperty(format);
-			const uint32 pixelSize = prop.pixelSize;
-			const uint32 num_channels = prop.num_channels;
+			const uint32 pixelSize = format.pixelSize();
+			const uint32 num_channels = format.num_channels();
 
 			if (pixelSize == 4 && num_channels == 4)
 			{
@@ -45,11 +44,10 @@ namespace s3d
 			}
 		}
 
-		static void FillRegionByColor(void* const buffer, const Size& size, const uint32 dstStride, const Rect& rect, const ColorF& color, const TextureFormat format)
+		static void FillRegionByColor(void* const buffer, const Size& size, const uint32 dstStride, const Rect& rect, const ColorF& color, const TextureFormat& format)
 		{
-			const auto prop = GetTextureFormatProperty(format);
-			const uint32 pixelSize = prop.pixelSize;
-			const uint32 num_channels = prop.num_channels;
+			const uint32 pixelSize = format.pixelSize();
+			const uint32 num_channels = format.num_channels();
 
 			const int32 leftX = std::clamp(rect.x, 0, size.x);
 			const int32 rightX = std::clamp(rect.x + rect.w, 0, size.x);
@@ -86,11 +84,10 @@ namespace s3d
 			}
 		}
 
-		static void FillByImage(void* const buffer, const Size& size, const uint32 dstStride, const void* pData, const uint32 srcStride, const TextureFormat format)
+		static void FillByImage(void* const buffer, const Size& size, const uint32 dstStride, const void* pData, const uint32 srcStride, const TextureFormat& format)
 		{
-			const auto prop = GetTextureFormatProperty(format);
-			const uint32 pixelSize = prop.pixelSize;
-			const uint32 num_channels = prop.num_channels;
+			const uint32 pixelSize = format.pixelSize();
+			const uint32 num_channels = format.num_channels();
 
 			if (pixelSize == 4 && num_channels == 4)
 			{
@@ -115,11 +112,10 @@ namespace s3d
 			}
 		}
 
-		static void FillRegionByImage(void* const buffer, const Size& size, const uint32 dstStride, const void* pData, const uint32 srcStride, const Rect& rect, const TextureFormat format)
+		static void FillRegionByImage(void* const buffer, const Size& size, const uint32 dstStride, const void* pData, const uint32 srcStride, const Rect& rect, const TextureFormat& format)
 		{
-			const auto prop = GetTextureFormatProperty(format);
-			const uint32 pixelSize = prop.pixelSize;
-			const uint32 num_channels = prop.num_channels;
+			const uint32 pixelSize = format.pixelSize();
+			const uint32 num_channels = format.num_channels();
 
 			const int32 leftX = std::clamp(rect.x, 0, size.x);
 			const int32 topY = std::clamp(rect.y, 0, size.y);
@@ -160,7 +156,7 @@ namespace s3d
 		}
 	}
 
-	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc _desc)
+	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc _desc)
 		: m_desc(size,
 			format,
 			_desc,
@@ -217,7 +213,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat format, const TextureDesc desc)
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc)
 		: m_desc(size,
 			format,
 			desc,
@@ -270,7 +266,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Image& image, TextureFormat format, TextureDesc desc)
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc)
 		: m_desc(image.size(),
 			format,
 			desc,
@@ -324,7 +320,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, const TextureFormat format, const TextureDesc desc)
+	Texture_D3D11::Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc)
 		: m_desc(size,
 			format,
 			desc,
@@ -522,13 +518,13 @@ namespace s3d
 
 	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image)
 	{
-		if (m_type != TextureType::Render)
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
 		{
 			return;
 		}
 
-		if (const auto prop = GetTextureFormatProperty(m_desc.format);
-			(prop.num_channels != 4) || (prop.pixelSize != 4)) // RGBA 形式以外なら失敗
+		if ((m_desc.format.num_channels() != 4) || (m_desc.format.pixelSize() != 4)) // RGBA 形式以外なら失敗
 		{
 			LOG_FAIL(U"Texture_D3D11::readRT(): This format is not supported");
 			return;
@@ -610,7 +606,7 @@ namespace s3d
 		}
 
 		context->ResolveSubresource(m_texture.Get(), 0,
-			m_multiSampledTexture.Get(), 0, DXGI_FORMAT(GetTextureFormatProperty(m_desc.format).DXGIFormat));
+			m_multiSampledTexture.Get(), 0, DXGI_FORMAT(m_desc.format.DXGIFormat()));
 	}
 
 	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const ColorF& color, const bool wait)

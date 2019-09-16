@@ -35,7 +35,7 @@ namespace s3d
 		self->~DynamicTexture();
 	}
 
-	static void ConstructITfTd(const Image& image, TextureFormat format, TextureDesc desc, BindType* self)
+	static void ConstructITfTd(const Image& image, const TextureFormat& format, TextureDesc desc, BindType* self)
 	{
 		new(self) BindType(image, format, desc);
 	}
@@ -64,7 +64,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const DynamicTexture& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructITfTd), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, const TextureFormat& in format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructITfTd), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// Ctrs
 		// ...

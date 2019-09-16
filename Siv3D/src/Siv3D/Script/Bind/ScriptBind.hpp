@@ -93,6 +93,7 @@ namespace s3d
 		Wave,
 		Audio,
 
+		TextureFormat,
 		Texture,
 		TextureRegion,
 		TexturedQuad,
@@ -181,6 +182,7 @@ namespace s3d
 	void RegisterWave(AngelScript::asIScriptEngine* engine);
 	void RegisterAudio(AngelScript::asIScriptEngine* engine);
 
+	void RegisterTextureFormat(AngelScript::asIScriptEngine* engine);
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
