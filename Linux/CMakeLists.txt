@@ -320,6 +320,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Script/Bind/Script_System.cpp"
 	"../Siv3D/src/Siv3D/Script/Bind/Script_TextToSpeech.cpp"
 	"../Siv3D/src/Siv3D/Script/Bind/Script_Texture.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_TextureFormat.cpp"
 	"../Siv3D/src/Siv3D/Script/Bind/Script_TextureRegion.cpp"
 	"../Siv3D/src/Siv3D/Script/Bind/Script_TexturedCircle.cpp"
 	"../Siv3D/src/Siv3D/Script/Bind/Script_TexturedQuad.cpp"

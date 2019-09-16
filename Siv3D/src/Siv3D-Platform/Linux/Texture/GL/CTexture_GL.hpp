@@ -60,15 +60,15 @@ namespace s3d
 
 		TextureID create(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
 
-		TextureID createRT(const Size& size, TextureFormat format) override;
+		TextureID createRT(const Size& size, const TextureFormat& format) override;
 
 		TextureID createRT(const Image& image) override;
 
-		TextureID createMSRT(const Size& size, TextureFormat format) override;
+		TextureID createMSRT(const Size& size, const TextureFormat& format) override;
 
 		void release(TextureID handleID) override;
 
