@@ -152,7 +152,6 @@ namespace s3d
 		/// <summary>
 		/// 共有データへの参照を取得します。
 		/// </summary>
-		/// </param>
 		/// <returns>
 		/// 共有データへの参照
 		/// </returns>
