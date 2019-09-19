@@ -165,7 +165,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 
 	LOG_TRACE(U"MainThread");
-	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 	{
 		const std::future<void> f = std::async(std::launch::async, MainThread);
 
@@ -176,7 +176,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			::Sleep(1);
 		}
 	}
-	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 	
 	return 0;
 }
