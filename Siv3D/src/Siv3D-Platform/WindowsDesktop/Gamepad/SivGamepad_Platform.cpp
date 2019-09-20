@@ -107,10 +107,12 @@ namespace s3d
 
 				if (::joyGetDevCapsW(i, &caps, sizeof(caps)) == JOYERR_NOERROR)
 				{
-					GamepadInfo info;
-					info.index = i;
-					info.vendorID = caps.wMid;
-					info.productID = caps.wPid;
+					GamepadInfo info
+					{
+						.index		= i,
+						.vendorID	= caps.wMid,
+						.productID	= caps.wPid,
+					};
 
 					if (const auto name = detail::FindGamepadName(info.vendorID, info.productID))
 					{

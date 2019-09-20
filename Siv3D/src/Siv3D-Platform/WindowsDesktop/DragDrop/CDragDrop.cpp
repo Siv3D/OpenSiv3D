@@ -663,9 +663,11 @@ namespace s3d
 			formatetc.lindex = -1;
 			formatetc.tymed = TYMED_HGLOBAL;
 
-			STGMEDIUM medium = {};
-			medium.tymed = TYMED_HGLOBAL;
-			medium.hGlobal = ::GlobalAlloc(GMEM_MOVEABLE, sizeof(DROPFILES) + path_size_bytes);
+			STGMEDIUM medium
+			{
+				.tymed		= TYMED_HGLOBAL,
+				.hGlobal	= ::GlobalAlloc(GMEM_MOVEABLE, sizeof(DROPFILES) + path_size_bytes)
+			};
 			
 			if (void* p = ::GlobalLock(medium.hGlobal))
 			{

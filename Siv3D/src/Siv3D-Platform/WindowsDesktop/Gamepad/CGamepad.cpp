@@ -88,9 +88,11 @@ namespace s3d
 		{
 			auto& state = m_states[userIndex];
 
-			JOYINFOEX info = {};
-			info.dwSize = sizeof(JOYINFOEX);
-			info.dwFlags = JOY_RETURNALL;
+			JOYINFOEX info
+			{
+				.dwSize		= sizeof(JOYINFOEX),
+				.dwFlags	= JOY_RETURNALL
+			};
 			JOYCAPSW caps = {};
 
 			if ((state.connected || deviceChanged)
