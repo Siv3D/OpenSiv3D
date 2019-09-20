@@ -773,7 +773,7 @@ namespace s3d
 
 		if (m_desc.format != TextureFormatValue::R32G32B32A32_Float) // RGBA32F 形式以外なら失敗
 		{
-			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float2> is not supported in this format");
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float4> is not supported in this format");
 			return;
 		}
 
