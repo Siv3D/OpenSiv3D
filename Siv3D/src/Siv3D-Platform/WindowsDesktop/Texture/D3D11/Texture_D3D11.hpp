@@ -77,6 +77,12 @@ namespace s3d
 
 		Texture_D3D11(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc);
 
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+
 		Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
@@ -96,6 +102,15 @@ namespace s3d
 
 		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<float>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float2>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float4>& image);
 
 		void resolveMSRT(ID3D11DeviceContext* context);
 

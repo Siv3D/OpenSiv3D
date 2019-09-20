@@ -85,6 +85,24 @@ namespace s3d
 
 	}
 
+	Texture::Texture(Render, const Grid<float>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
+	Texture::Texture(Render, const Grid<Float2>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
+	Texture::Texture(Render, const Grid<Float4>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
 	Texture::Texture(MSRender, uint32 width, uint32 height, const TextureFormat& format)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createMSRT(Size(width, height), format)))
 	{

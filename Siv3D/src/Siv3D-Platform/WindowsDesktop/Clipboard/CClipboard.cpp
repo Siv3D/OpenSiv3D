@@ -352,15 +352,20 @@ namespace s3d
 
 	void CClipboard::setImage(const Image& image)
 	{
-		HDC hDC = ::GetDC(nullptr);
-		BITMAPINFO header = {};
-		header.bmiHeader.biSize			= sizeof(BITMAPINFOHEADER);
-		header.bmiHeader.biWidth		= image.width();
-		header.bmiHeader.biHeight		= -image.height();
-		header.bmiHeader.biPlanes		= 1;
-		header.bmiHeader.biBitCount		= 32;
-		header.bmiHeader.biCompression	= BI_RGB;
+		const BITMAPINFO header
+		{
+			.bmiHeader
+			{
+				.biSize			= sizeof(BITMAPINFOHEADER),
+				.biWidth		= image.width(),
+				.biHeight		= -image.height(),
+				.biPlanes		= 1,
+				.biBitCount		= 32,
+				.biCompression	= BI_RGB,
+			}
+		};
 
+		HDC hDC = ::GetDC(nullptr);
 		void* bitmapData;
 		HBITMAP hBitmap = ::CreateDIBSection(hDC, &header, DIB_RGB_COLORS, &bitmapData, nullptr, 0);
 

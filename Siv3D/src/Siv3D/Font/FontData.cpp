@@ -354,13 +354,15 @@ namespace s3d
 			return outlineGlyph;
 		}
 
-		FT_Outline_Funcs funcs;
-		funcs.move_to	= detail::MoveTo;
-		funcs.line_to	= detail::LineTo;
-		funcs.conic_to	= detail::ConicTo;
-		funcs.cubic_to	= detail::CubicTo;
-		funcs.shift		= 0;
-		funcs.delta		= 0;
+		const FT_Outline_Funcs funcs
+		{
+			.move_to	= detail::MoveTo,
+			.line_to	= detail::LineTo,
+			.conic_to	= detail::ConicTo,
+			.cubic_to	= detail::CubicTo,
+			.shift		= 0,
+			.delta		= 0
+		};
 
 		detail::OutLineData outlineData;
 		FT_Outline_Decompose(&m_faceText.face->glyph->outline, &funcs, &outlineData);

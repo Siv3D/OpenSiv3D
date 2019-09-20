@@ -548,15 +548,18 @@ namespace s3d
 	{
 		LOG_TRACE(U"CWindow::registerWindowClass()");
 
-		WNDCLASSEX windowClass		= {};
-		windowClass.cbSize			= sizeof(WNDCLASSEX);
-		windowClass.style			= CS_HREDRAW | CS_VREDRAW;
-		windowClass.lpfnWndProc		= WindowProc;
-		windowClass.hInstance		= m_hInstance;
-		windowClass.hIcon			= ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(100));
-		windowClass.hCursor			= nullptr;
-		windowClass.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH));
-		windowClass.lpszClassName	= m_windowClassName.c_str();
+		WNDCLASSEX windowClass
+		{
+			.cbSize			= sizeof(WNDCLASSEX),
+			.style			= CS_HREDRAW | CS_VREDRAW,
+			.lpfnWndProc	= WindowProc,
+			.hInstance		= m_hInstance,
+			.hIcon			= ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(100)),
+			.hCursor		= nullptr,
+			.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH)),
+			.lpszClassName	= m_windowClassName.c_str()
+		};
+
 		if (!::RegisterClassExW(&windowClass))
 		{
 			throw EngineError(U"RegisterClassExW() failed");
