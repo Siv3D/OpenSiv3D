@@ -66,4 +66,19 @@ namespace s3d
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
+
+	void RenderTexture::read(Grid<float>& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
+
+	void RenderTexture::read(Grid<Float2>& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
+
+	void RenderTexture::read(Grid<Float4>& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
 }

@@ -268,6 +268,21 @@ namespace s3d
 		m_textures[handleID]->readRT(m_device, m_context, image);
 	}
 
+	void CTexture_D3D11::readRT(const TextureID handleID, Grid<float>& image)
+	{
+		m_textures[handleID]->readRT(m_device, m_context, image);
+	}
+
+	void CTexture_D3D11::readRT(const TextureID handleID, Grid<Float2>& image)
+	{
+		m_textures[handleID]->readRT(m_device, m_context, image);
+	}
+
+	void CTexture_D3D11::readRT(const TextureID handleID, Grid<Float4>& image)
+	{
+		m_textures[handleID]->readRT(m_device, m_context, image);
+	}
+
 	void CTexture_D3D11::resolveMSRT(const TextureID handleID)
 	{
 		m_textures[handleID]->resolveMSRT(m_context);

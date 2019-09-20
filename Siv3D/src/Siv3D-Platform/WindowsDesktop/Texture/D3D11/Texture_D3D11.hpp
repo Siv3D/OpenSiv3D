@@ -97,6 +97,15 @@ namespace s3d
 		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
 
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<float>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float2>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float4>& image);
+
 		void resolveMSRT(ID3D11DeviceContext* context);
 
 		// 動的テクスチャを指定した色で塗りつぶす

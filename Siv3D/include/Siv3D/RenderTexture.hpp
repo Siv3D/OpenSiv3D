@@ -42,5 +42,14 @@ namespace s3d
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image);
+
+		// TextureFormat::R32_Float のみサポート
+		void read(Grid<float>& data);
+
+		// TextureFormat::R32G32_Float のみサポート
+		void read(Grid<Float2>& data);
+
+		// TextureFormat::R32G32B32A32_Float のみサポート
+		void read(Grid<Float4>& data);
 	};
 }

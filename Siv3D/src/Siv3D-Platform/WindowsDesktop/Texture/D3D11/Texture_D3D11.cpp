@@ -524,9 +524,10 @@ namespace s3d
 			return;
 		}
 
-		if ((m_desc.format.num_channels() != 4) || (m_desc.format.pixelSize() != 4)) // RGBA 形式以外なら失敗
+		if ((m_desc.format != TextureFormatValue::R8G8B8A8_Unorm)
+			&& (m_desc.format != TextureFormatValue::R8G8B8A8_Unorm_SRGB)) // RGBA8 形式以外なら失敗
 		{
-			LOG_FAIL(U"Texture_D3D11::readRT(): This format is not supported");
+			LOG_FAIL(U"Texture_D3D11::readRT(): Image is not supported in this format");
 			return;
 		}
 
@@ -537,7 +538,7 @@ namespace s3d
 		if (!m_stagingTexture)
 		{
 			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
-				DXGI_FORMAT_R8G8B8A8_UNORM,
+				static_cast<DXGI_FORMAT>(m_desc.format.DXGIFormat()),
 				size.x, size.y,
 				1, 1,
 				0,
@@ -585,6 +586,252 @@ namespace s3d
 
 				const uint8* pSrc = static_cast<const uint8*>(mapped.pData);
 				Color* pDst = image.data();
+
+				for (size_t y = 0; y < height; ++y)
+				{
+					std::memcpy(pDst, pSrc, dstStride);
+					pDst += width;
+					pSrc += srcStride;
+				}
+			}
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+	}
+
+	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<float>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+
+		if (m_desc.format != TextureFormatValue::R32_Float) // R32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<float> is not supported in this format");
+			return;
+		}
+
+		// テクスチャのサイズ
+		const Size size = m_desc.size;
+
+		// [ステージング・テクスチャ] が未作成の場合、作成
+		if (!m_stagingTexture)
+		{
+			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
+				static_cast<DXGI_FORMAT>(m_desc.format.DXGIFormat()),
+				size.x, size.y,
+				1, 1,
+				0,
+				D3D11_USAGE_STAGING,
+				D3D11_CPU_ACCESS_READ,
+				1, 0,
+				0);
+
+			if (FAILED(device->CreateTexture2D(&desc, nullptr, &m_stagingTexture)))
+			{
+				return;
+			}
+		}
+
+		// [メインテクスチャ] から [ステージング・テクスチャ] にコピー
+		context->CopyResource(m_stagingTexture.Get(), m_texture.Get());
+
+		// Image をテクスチャのサイズにリサイズ
+		image.resize(size);
+
+		// [ステージング・テクスチャ] から Image にコピー
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))
+			{
+				return;
+			}
+
+			if (!mapped.pData)
+			{
+				return;
+			}
+
+			const size_t srcStride = mapped.RowPitch;
+			const size_t dstStride = image.width() * sizeof(float);
+
+			if (srcStride == dstStride)
+			{
+				std::memcpy(image.data(), mapped.pData, image.size_bytes());
+			}
+			else
+			{
+				const size_t width = image.width();
+				const size_t height = image.height();
+
+				const uint8* pSrc = static_cast<const uint8*>(mapped.pData);
+				float* pDst = image.data();
+
+				for (size_t y = 0; y < height; ++y)
+				{
+					std::memcpy(pDst, pSrc, dstStride);
+					pDst += width;
+					pSrc += srcStride;
+				}
+			}
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+	}
+
+	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float2>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+
+		if (m_desc.format != TextureFormatValue::R32G32_Float) // RG32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float2> is not supported in this format");
+			return;
+		}
+
+		// テクスチャのサイズ
+		const Size size = m_desc.size;
+
+		// [ステージング・テクスチャ] が未作成の場合、作成
+		if (!m_stagingTexture)
+		{
+			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
+				static_cast<DXGI_FORMAT>(m_desc.format.DXGIFormat()),
+				size.x, size.y,
+				1, 1,
+				0,
+				D3D11_USAGE_STAGING,
+				D3D11_CPU_ACCESS_READ,
+				1, 0,
+				0);
+
+			if (FAILED(device->CreateTexture2D(&desc, nullptr, &m_stagingTexture)))
+			{
+				return;
+			}
+		}
+
+		// [メインテクスチャ] から [ステージング・テクスチャ] にコピー
+		context->CopyResource(m_stagingTexture.Get(), m_texture.Get());
+
+		// Image をテクスチャのサイズにリサイズ
+		image.resize(size);
+
+		// [ステージング・テクスチャ] から Image にコピー
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))
+			{
+				return;
+			}
+
+			if (!mapped.pData)
+			{
+				return;
+			}
+
+			const size_t srcStride = mapped.RowPitch;
+			const size_t dstStride = image.width() * sizeof(Float2);
+
+			if (srcStride == dstStride)
+			{
+				std::memcpy(image.data(), mapped.pData, image.size_bytes());
+			}
+			else
+			{
+				const size_t width = image.width();
+				const size_t height = image.height();
+
+				const uint8* pSrc = static_cast<const uint8*>(mapped.pData);
+				Float2* pDst = image.data();
+
+				for (size_t y = 0; y < height; ++y)
+				{
+					std::memcpy(pDst, pSrc, dstStride);
+					pDst += width;
+					pSrc += srcStride;
+				}
+			}
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+	}
+
+	void Texture_D3D11::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float4>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+
+		if (m_desc.format != TextureFormatValue::R32G32B32A32_Float) // RGBA32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float2> is not supported in this format");
+			return;
+		}
+
+		// テクスチャのサイズ
+		const Size size = m_desc.size;
+
+		// [ステージング・テクスチャ] が未作成の場合、作成
+		if (!m_stagingTexture)
+		{
+			const D3D11_TEXTURE2D_DESC desc = CD3D11_TEXTURE2D_DESC(
+				static_cast<DXGI_FORMAT>(m_desc.format.DXGIFormat()),
+				size.x, size.y,
+				1, 1,
+				0,
+				D3D11_USAGE_STAGING,
+				D3D11_CPU_ACCESS_READ,
+				1, 0,
+				0);
+
+			if (FAILED(device->CreateTexture2D(&desc, nullptr, &m_stagingTexture)))
+			{
+				return;
+			}
+		}
+
+		// [メインテクスチャ] から [ステージング・テクスチャ] にコピー
+		context->CopyResource(m_stagingTexture.Get(), m_texture.Get());
+
+		// Image をテクスチャのサイズにリサイズ
+		image.resize(size);
+
+		// [ステージング・テクスチャ] から Image にコピー
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_READ, 0, &mapped)))
+			{
+				return;
+			}
+
+			if (!mapped.pData)
+			{
+				return;
+			}
+
+			const size_t srcStride = mapped.RowPitch;
+			const size_t dstStride = image.width() * sizeof(Float4);
+
+			if (srcStride == dstStride)
+			{
+				std::memcpy(image.data(), mapped.pData, image.size_bytes());
+			}
+			else
+			{
+				const size_t width = image.width();
+				const size_t height = image.height();
+
+				const uint8* pSrc = static_cast<const uint8*>(mapped.pData);
+				Float4* pDst = image.data();
 
 				for (size_t y = 0; y < height; ++y)
 				{

@@ -52,6 +52,12 @@ namespace s3d
 
 		virtual void readRT(TextureID handleID, Image& image) = 0;
 
+		virtual void readRT(TextureID handleID, Grid<float>& image) = 0;
+
+		virtual void readRT(TextureID handleID, Grid<Float2>& image) = 0;
+
+		virtual void readRT(TextureID handleID, Grid<Float4>& image) = 0;
+
 		virtual void resolveMSRT(TextureID handleID) = 0;
 
 
