@@ -352,7 +352,6 @@ namespace s3d
 
 	void CClipboard::setImage(const Image& image)
 	{
-		HDC hDC = ::GetDC(nullptr);
 		const BITMAPINFO header
 		{
 			.bmiHeader
@@ -366,6 +365,7 @@ namespace s3d
 			}
 		};
 
+		HDC hDC = ::GetDC(nullptr);
 		void* bitmapData;
 		HBITMAP hBitmap = ::CreateDIBSection(hDC, &header, DIB_RGB_COLORS, &bitmapData, nullptr, 0);
 

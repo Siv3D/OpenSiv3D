@@ -84,6 +84,7 @@ namespace s3d
 				if (--m_refCount == 0)
 				{
 					delete this;
+					return 0;
 				}
 
 				return m_refCount;
@@ -255,7 +256,7 @@ namespace s3d
 		{
 		private:
 
-			std::atomic<uint32> m_refCount;
+			std::atomic<uint32> m_refCount = { 0 };
 
 		public:
 
@@ -275,6 +276,7 @@ namespace s3d
 				if (--m_refCount == 0)
 				{
 					delete this;
+					return 0;
 				}
 
 				return m_refCount;
@@ -330,7 +332,7 @@ namespace s3d
 
 			if (src->ptd)
 			{
-				dst->ptd = (DVTARGETDEVICE*)CoTaskMemAlloc(sizeof(DVTARGETDEVICE));
+				dst->ptd = static_cast<DVTARGETDEVICE*>(::CoTaskMemAlloc(sizeof(DVTARGETDEVICE)));
 
 				*(dst->ptd) = *(src->ptd);
 			}
@@ -342,7 +344,7 @@ namespace s3d
 		{
 		private:
 
-			std::atomic<uint32> m_refCount;
+			std::atomic<uint32> m_refCount = { 0 };
 
 			size_t m_index = 0;
 
@@ -381,6 +383,7 @@ namespace s3d
 				if (--m_refCount == 0)
 				{
 					delete this;
+					return 0;
 				}
 
 				return m_refCount;
@@ -473,11 +476,14 @@ namespace s3d
 
 			PVOID pDst = ::GlobalAlloc(GMEM_FIXED, size);
 
-			const PVOID pSrc = ::GlobalLock(hMem);
+			if (pDst)
 			{
-				std::memcpy(pDst, pSrc, size);
+				if (const PVOID pSrc = ::GlobalLock(hMem))
+				{
+					std::memcpy(pDst, pSrc, size);
 
-				::GlobalUnlock(hMem);
+					::GlobalUnlock(hMem);
+				}
 			}
 
 			return pDst;
@@ -487,7 +493,7 @@ namespace s3d
 		{
 		private:
 
-			std::atomic<uint32> m_refCount;
+			std::atomic<uint32> m_refCount = { 0 };
 
 			Array<FORMATETC> m_formatEtcs;
 
@@ -536,6 +542,7 @@ namespace s3d
 				if (--m_refCount == 0)
 				{
 					delete this;
+					return 0;
 				}
 
 				return m_refCount;
