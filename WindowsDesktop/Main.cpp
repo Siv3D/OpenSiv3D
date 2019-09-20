@@ -2,9 +2,9 @@
 
 void Main()
 {
-	RenderTexture rt(40, 40, ColorF(0.0), TextureFormat::R32_Float);
+	Grid<float> grid(40, 40, 1.0f);
 
-	Grid<float> grid;
+	RenderTexture rt(grid);
 
 	while (System::Update())
 	{

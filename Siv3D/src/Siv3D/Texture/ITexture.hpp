@@ -38,6 +38,12 @@ namespace s3d
 
 		virtual TextureID createRT(const Image& image) = 0;
 
+		virtual TextureID createRT(const Grid<float>& image) = 0;
+
+		virtual TextureID createRT(const Grid<Float2>& image) = 0;
+
+		virtual TextureID createRT(const Grid<Float4>& image) = 0;
+
 		virtual TextureID createMSRT(const Size& size, const TextureFormat& format) = 0;
 
 		virtual void release(TextureID handleID) = 0;

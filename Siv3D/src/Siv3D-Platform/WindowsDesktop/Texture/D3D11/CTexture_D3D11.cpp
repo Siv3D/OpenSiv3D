@@ -193,8 +193,56 @@ namespace s3d
 
 	TextureID CTexture_D3D11::createRT(const Image& image)
 	{
-		const TextureDesc desc = TextureDesc::UnmippedSRGB;
+		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+
+		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, image, format, desc);
+
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
+		return m_textures.add(std::move(texture), info);
+	}
+
+	TextureID CTexture_D3D11::createRT(const Grid<float>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32_Float;
+
+		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, image, format, desc);
+
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
+		return m_textures.add(std::move(texture), info);
+	}
+
+	TextureID CTexture_D3D11::createRT(const Grid<Float2>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32_Float;
+
+		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, image, format, desc);
+
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
+		return m_textures.add(std::move(texture), info);
+	}
+
+	TextureID CTexture_D3D11::createRT(const Grid<Float4>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
 
 		auto texture = std::make_unique<Texture_D3D11>(Texture_D3D11::Render(), m_device, image, format, desc);
 

@@ -51,6 +51,25 @@ namespace s3d
 
 	}
 
+	RenderTexture::RenderTexture(const Grid<float>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+	RenderTexture::RenderTexture(const Grid<Float2>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+	RenderTexture::RenderTexture(const Grid<Float4>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+
 	RenderTexture::RenderTexture(MSRender, const uint32 width, const uint32 height, const TextureFormat& format)
 		: Texture(Texture::MSRender{}, width, height, format)
 	{

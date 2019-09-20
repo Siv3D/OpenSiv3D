@@ -52,6 +52,12 @@ namespace s3d
 
 		TextureID createRT(const Image& image) override;
 
+		TextureID createRT(const Grid<float>& image) override;
+
+		TextureID createRT(const Grid<Float2>& image) override;
+
+		TextureID createRT(const Grid<Float4>& image) override;
+
 		TextureID createMSRT(const Size& size, const TextureFormat& format) override;
 
 		void release(TextureID handleID) override;
