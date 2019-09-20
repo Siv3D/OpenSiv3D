@@ -81,6 +81,12 @@ namespace s3d
 		
 		void readRT(TextureID handleID, Image& image) override;
 		
+		void readRT(TextureID handleID, Grid<float>& image) override;
+		
+		void readRT(TextureID handleID, Grid<Float2>& image) override;
+		
+		void readRT(TextureID handleID, Grid<Float4>& image) override;
+		
 		void resolveMSRT(const TextureID handleID) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;

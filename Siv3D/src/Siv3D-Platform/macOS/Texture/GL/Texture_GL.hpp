@@ -103,8 +103,17 @@ namespace s3d
 		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(const ColorF& color);
 		
-		// レンダーテクスチャの内容を Image によコピーする
+		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(Image& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<float>& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float2>& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float4>& image);
 		
 		void resolveMSRT();
 		

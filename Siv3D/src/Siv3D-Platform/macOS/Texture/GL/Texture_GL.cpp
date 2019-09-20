@@ -383,9 +383,10 @@ namespace s3d
 			return;
 		}
 		
-		if ((m_format.num_channels() != 4) || (m_format.pixelSize() != 4)) // RGBA 形式以外なら失敗
+		if ((m_format != TextureFormatValue::R8G8B8A8_Unorm)
+			&& (m_format != TextureFormatValue::R8G8B8A8_Unorm_SRGB)) // RGBA8 形式以外なら失敗
 		{
-			LOG_FAIL(U"Texture_D3D11::readRT(): This format is not supported");
+			LOG_FAIL(U"Texture_D3D11::readRT(): Image is not supported in this format");
 			return;
 		}
 		
@@ -393,7 +394,76 @@ namespace s3d
 		
 		::glBindFramebuffer(GL_FRAMEBUFFER, (m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer);
 		{
-			::glReadPixels(0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	void Texture_GL::readRT(Grid<float>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+		
+		if (m_format != TextureFormatValue::R32_Float) // R32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<float> is not supported in this format");
+			return;
+		}
+		
+		image.resize(m_size);
+		
+		::glBindFramebuffer(GL_FRAMEBUFFER, (m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer);
+		{
+			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	void Texture_GL::readRT(Grid<Float2>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+		
+		if (m_format != TextureFormatValue::R32G32_Float) // RG32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float2> is not supported in this format");
+			return;
+		}
+		
+		image.resize(m_size);
+		
+		::glBindFramebuffer(GL_FRAMEBUFFER, (m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer);
+		{
+			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	void Texture_GL::readRT(Grid<Float4>& image)
+	{
+		if (m_type != TextureType::Render
+			&& m_type != TextureType::MSRender)
+		{
+			return;
+		}
+		
+		if (m_format != TextureFormatValue::R32G32B32A32_Float) // RGBA32F 形式以外なら失敗
+		{
+			LOG_FAIL(U"Texture_D3D11::readRT(): Grid<Float4> is not supported in this format");
+			return;
+		}
+		
+		image.resize(m_size);
+		
+		::glBindFramebuffer(GL_FRAMEBUFFER, (m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer);
+		{
+			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
 		}
 		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
