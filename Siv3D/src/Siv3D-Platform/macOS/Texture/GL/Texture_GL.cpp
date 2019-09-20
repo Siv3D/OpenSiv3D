@@ -205,6 +205,123 @@ namespace s3d
 		m_initialized = true;
 	}
 	
+	Texture_GL::Texture_GL(Render, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc)
+	{
+		// [メインテクスチャ] を作成
+		{
+			if (format == TextureFormat::R32_Float)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
+							   static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
+							   format.GLFormat(), format.GLType(), image.data());
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture (init with Grid<float>)"_fmt(format.name()));
+				return;
+			}
+		}
+		
+		// [メインテクスチャ・フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = image.size();
+		m_format = format;
+		m_textureDesc = desc;
+		m_type = TextureType::Render;
+		m_initialized = true;
+	}
+	
+	Texture_GL::Texture_GL(Render, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc)
+	{
+		// [メインテクスチャ] を作成
+		{
+			if (format == TextureFormat::R32G32_Float)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
+							   static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
+							   format.GLFormat(), format.GLType(), image.data());
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture (init with Grid<Float2>)"_fmt(format.name()));
+				return;
+			}
+		}
+		
+		// [メインテクスチャ・フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = image.size();
+		m_format = format;
+		m_textureDesc = desc;
+		m_type = TextureType::Render;
+		m_initialized = true;
+	}
+	
+	Texture_GL::Texture_GL(Render, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc)
+	{
+		// [メインテクスチャ] を作成
+		{
+			if (format == TextureFormat::R32G32B32A32_Float)
+			{
+				::glGenTextures(1, &m_texture);
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
+							   static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
+							   format.GLFormat(), format.GLType(), image.data());
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				LOG_FAIL(U"TextureFormat `{}` is not supported in RenderTexture (init with Grid<Float4>)"_fmt(format.name()));
+				return;
+			}
+		}
+		
+		// [メインテクスチャ・フレームバッファ] を作成
+		{
+			::glGenFramebuffers(1, &m_frameBuffer);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+		m_size = image.size();
+		m_format = format;
+		m_textureDesc = desc;
+		m_type = TextureType::Render;
+		m_initialized = true;
+	}
+	
 	Texture_GL::Texture_GL(MSRender, const Size& size, const TextureFormat& format, const TextureDesc desc)
 	{
 		// サイズをチェック

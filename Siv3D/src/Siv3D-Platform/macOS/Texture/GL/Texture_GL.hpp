@@ -84,6 +84,12 @@ namespace s3d
 		
 		Texture_GL(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
 		
+		Texture_GL(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_GL(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_GL(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+		
 		Texture_GL(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
 		
 		~Texture_GL();
