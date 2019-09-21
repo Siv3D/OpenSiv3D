@@ -1112,6 +1112,7 @@
 		2CBC651C2320169C001610DB /* SivScopedRenderTarget2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */; };
 		2CC4770F2321436700633195 /* PixelShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4770E2321436700633195 /* PixelShader_GL.cpp */; };
 		2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC47710232144B700633195 /* VertexShader_GL.cpp */; };
+		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2554,6 +2555,8 @@
 		2CBC651D232016CD001610DB /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
 		2CC4770E2321436700633195 /* PixelShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_GL.cpp; sourceTree = "<group>"; };
 		2CC47710232144B700633195 /* VertexShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader_GL.cpp; sourceTree = "<group>"; };
+		2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SIMD_Float4.hpp; sourceTree = "<group>"; };
+		2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSIMD_Float4.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6077,6 +6080,7 @@
 				2C4616CD226EEF3800828870 /* SFMT */,
 				2C461709226EEF3A00828870 /* Shader */,
 				2C46166C226EEF3600828870 /* Shape2D */,
+				2CEACB462336515700C6EE98 /* SIMD_Float4 */,
 				2C461644226EEF3400828870 /* SimpleGUI */,
 				2C4616F0226EEF3900828870 /* Siv3DEngine.cpp */,
 				2C46176E226EEF3E00828870 /* Siv3DEngine.hpp */,
@@ -6381,6 +6385,7 @@
 				2CBC6511231E6A06001610DB /* Shader.hpp */,
 				2CA6281222226DC70009DFE1 /* ShaderCommon.hpp */,
 				2CA6279222226DC70009DFE1 /* Shape2D.hpp */,
+				2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */,
 				2CA627E322226DC70009DFE1 /* SIMDMath.hpp */,
 				2CA627B522226DC70009DFE1 /* SimpleGUI.hpp */,
 				2CA6275622226DC60009DFE1 /* SoundFont.hpp */,
@@ -6804,6 +6809,14 @@
 				2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */,
 			);
 			path = ScopedRenderTarget2D;
+			sourceTree = "<group>";
+		};
+		2CEACB462336515700C6EE98 /* SIMD_Float4 */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */,
+			);
+			path = SIMD_Float4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7409,6 +7422,7 @@
 				2C4618BF226EEF4100828870 /* SivTextureRegion.cpp in Sources */,
 				2C46143B226EEDB500828870 /* b2Fixture.cpp in Sources */,
 				2CBC64DF22F849F0001610DB /* pool.c in Sources */,
+				2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */,
 				2C4619F2226F0EAE00828870 /* SivMessageBox.mm in Sources */,
 				2C461984226EEF4100828870 /* TextReaderDetail.cpp in Sources */,
 				2C4618D5226EEF4100828870 /* TCPServerDetail.cpp in Sources */,
