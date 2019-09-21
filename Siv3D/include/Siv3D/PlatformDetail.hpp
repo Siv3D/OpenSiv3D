@@ -181,24 +181,3 @@ namespace s3d::Platform
 # error Unimplemented
 
 # endif
-
-
-//////////////////////////////////////////////////
-//
-// __vectorcall
-//
-//////////////////////////////////////////////////
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-# define SIV3D_VECTOR_CALL __vectorcall
-
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
-
-# define SIV3D_VECTOR_CALL
-
-# else
-
-# error Unimplemented
-
-# endif

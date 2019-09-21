@@ -668,6 +668,10 @@
 // Half-Pecision Floating-Point
 # include <Siv3D/HalfFloat.hpp>
 
+// SIMD 対応 Float4
+// SIMD Float4
+# include <Siv3D/SIMD_Float4.hpp>
+
 // 数式パーサ
 // Math Parser
 # include <Siv3D/MathParser.hpp>

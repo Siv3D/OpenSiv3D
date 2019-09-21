@@ -1012,6 +1012,9 @@
     <Filter Include="src\Siv3D\MSRenderTexture">
       <UniqueIdentifier>{32e12050-6719-40e1-9a0f-a70e9597c03a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SIMD_Float4">
+      <UniqueIdentifier>{a748f559-54e0-43da-b5f4-2e8bee153da2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3456,6 +3459,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5212,6 +5218,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TextureFormat.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SIMD_Float4\SivSIMD_Float4.cpp">
+      <Filter>src\Siv3D\SIMD_Float4</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
