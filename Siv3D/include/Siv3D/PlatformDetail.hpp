@@ -41,6 +41,7 @@ namespace s3d::Platform
 
 # endif
 
+
 //////////////////////////////////////////////////
 //
 // 実行ファイル埋め込みリソース
@@ -108,6 +109,7 @@ namespace s3d::Platform
 
 # endif
 
+
 //////////////////////////////////////////////////
 //
 // ファイルパスのネイティブ文字列型
@@ -128,6 +130,7 @@ namespace s3d::Platform
 # error Unimplemented
 
 # endif
+
 
 //////////////////////////////////////////////////
 //
@@ -172,6 +175,27 @@ namespace s3d::Platform
 # elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	# define SIV3D_CONCURRENT_TASK_IS_DONE (base_type::wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+
+# else
+
+# error Unimplemented
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+// __vectorcall
+//
+//////////////////////////////////////////////////
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+# define SIV3D_VECTOR_CALL __vectorcall
+
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+
+# define SIV3D_VECTOR_CALL
 
 # else
 
