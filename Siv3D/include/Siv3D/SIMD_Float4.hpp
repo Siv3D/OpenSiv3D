@@ -16,6 +16,8 @@
 
 namespace s3d
 {
+	# define SIV3D_PERMUTE_PS(v, c) _mm_shuffle_ps(v, v, c)
+
 	namespace detail
 	{
 		inline constexpr __m128 cM128_One{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -57,8 +59,13 @@ namespace s3d
 		SIMD_Float4(const Vector4D<U>& v) noexcept
 			: SIMD_Float4(static_cast<float>(v.x), static_cast<float>(v.y), static_cast<float>(v.z), static_cast<float>(v.w)) {}
 
-		SIMD_Float4(__m128 _vec) noexcept
+		constexpr SIMD_Float4(__m128 _vec) noexcept
 			: vec(_vec) {}
+
+		SIV3D_VECTOR_CALL operator __m128() const noexcept
+		{
+			return vec;
+		}
 
 		[[nodiscard]] float elem(size_t index) const noexcept
 		{
@@ -77,21 +84,21 @@ namespace s3d
 
 		[[nodiscard]] float getY() const noexcept
 		{
-			const __m128 temp = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(1, 1, 1, 1));
+			const __m128 temp = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(1, 1, 1, 1));
 			
 			return _mm_cvtss_f32(temp);
 		}
 
 		[[nodiscard]] float getZ() const noexcept
 		{
-			const __m128 temp = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(2, 2, 2, 2));
+			const __m128 temp = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(2, 2, 2, 2));
 
 			return _mm_cvtss_f32(temp);
 		}
 
 		[[nodiscard]] float getW() const noexcept
 		{
-			const __m128 temp = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(3, 3, 3, 3));
+			const __m128 temp = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(3, 3, 3, 3));
 
 			return _mm_cvtss_f32(temp);
 		}
@@ -105,35 +112,35 @@ namespace s3d
 
 		void SIV3D_VECTOR_CALL setY(float y) noexcept
 		{
-			const __m128 swapped = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(3, 2, 0, 1));
+			const __m128 swapped = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(3, 2, 0, 1));
 
 			const __m128 y000 = _mm_set_ss(y);
 
 			vec = _mm_move_ss(swapped, y000);
 
-			vec = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(3, 2, 0, 1));
+			vec = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(3, 2, 0, 1));
 		}
 
 		void SIV3D_VECTOR_CALL setZ(float z) noexcept
 		{
-			const __m128 swapped = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(3, 0, 1, 2));
+			const __m128 swapped = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(3, 0, 1, 2));
 
 			const __m128 z000 = _mm_set_ss(z);
 
 			vec = _mm_move_ss(swapped, z000);
 
-			vec = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(3, 0, 1, 2));
+			vec = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(3, 0, 1, 2));
 		}
 
 		void SIV3D_VECTOR_CALL setW(float w) noexcept
 		{
-			const __m128 swapped = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(0, 2, 1, 3));
+			const __m128 swapped = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(0, 2, 1, 3));
 
 			const __m128 w000 = _mm_set_ss(w);
 
 			vec = _mm_move_ss(swapped, w000);
 
-			vec = _mm_shuffle_ps(vec, vec, _MM_SHUFFLE(0, 2, 1, 3));
+			vec = SIV3D_PERMUTE_PS(vec, _MM_SHUFFLE(0, 2, 1, 3));
 		}
 
 		[[nodiscard]] SIMD_Float4 SIV3D_VECTOR_CALL operator +() const noexcept
