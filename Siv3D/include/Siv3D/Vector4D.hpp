@@ -73,7 +73,8 @@ namespace s3d
 			, z(static_cast<value_type>(_z))
 			, w(static_cast<value_type>(_w)) {}
 
-		constexpr Vector4D(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept
+		template <class U, class V>
+		constexpr Vector4D(const Vector2D<U>& xy, const Vector2D<V>& zw) noexcept
 			: x(static_cast<value_type>(xy.x))
 			, y(static_cast<value_type>(xy.y))
 			, z(static_cast<value_type>(zw.x))
