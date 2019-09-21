@@ -62,7 +62,7 @@ namespace s3d
 		constexpr SIMD_Float4(__m128 _vec) noexcept
 			: vec(_vec) {}
 
-		SIV3D_VECTOR_CALL operator __m128() const noexcept
+		constexpr SIV3D_VECTOR_CALL operator __m128() const noexcept
 		{
 			return vec;
 		}
