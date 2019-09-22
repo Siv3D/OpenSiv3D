@@ -102,6 +102,7 @@ namespace s3d
 
 			inline constexpr Int4A m128_Infinity{ 0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000 };
 			inline constexpr Int4A m128_QNaN{ 0x7FC00000, 0x7FC00000, 0x7FC00000, 0x7FC00000 };
+			inline constexpr Int4A m128_AbsMask{ 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF };
 			inline constexpr Uint4A m128_Mask3{ 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000 };
 
 			inline constexpr uint32 u_SELECT_0 = 0x00000000;
@@ -141,7 +142,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetUint(uint32 x, uint32 y, uint32 z, uint32 w)
 		{
-			__m128i temp = _mm_set_epi32(static_cast<int>(w), static_cast<int>(z), static_cast<int>(y), static_cast<int>(x));
+			const __m128i temp = _mm_set_epi32(static_cast<int>(w), static_cast<int>(z), static_cast<int>(y), static_cast<int>(x));
 
 			return _mm_castsi128_ps(temp);
 		}
@@ -153,7 +154,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetAllUint(uint32 value)
 		{
-			__m128i temp = _mm_set1_epi32(static_cast<int>(value));
+			const __m128i temp = _mm_set1_epi32(static_cast<int>(value));
 
 			return _mm_castsi128_ps(temp);
 		}
@@ -248,21 +249,21 @@ namespace s3d
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL GetUintY(__m128 v)
 		{
-			__m128i yyyy = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(1, 1, 1, 1));
+			const __m128i yyyy = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(1, 1, 1, 1));
 
 			return static_cast<uint32>(_mm_cvtsi128_si32(yyyy));
 		}
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL GetUintZ(__m128 v)
 		{
-			__m128i zzzz = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(2, 2, 2, 2));
+			const __m128i zzzz = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(2, 2, 2, 2));
 
 			return static_cast<uint32>(_mm_cvtsi128_si32(zzzz));
 		}
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL GetUintW(__m128 v)
 		{
-			__m128i wwww = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(3, 3, 3, 3));
+			const __m128i wwww = _mm_shuffle_epi32(_mm_castps_si128(v), _MM_SHUFFLE(3, 3, 3, 3));
 
 			return static_cast<uint32>(_mm_cvtsi128_si32(wwww));
 		}
@@ -345,7 +346,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetUintX(__m128 v, uint32 x)
 		{
-			__m128i x000 = _mm_cvtsi32_si128(static_cast<int>(x));
+			const __m128i x000 = _mm_cvtsi32_si128(static_cast<int>(x));
 
 			return _mm_move_ss(v, _mm_castsi128_ps(x000));
 		}
@@ -354,7 +355,7 @@ namespace s3d
 		{
 			__m128 result = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(3, 2, 0, 1));
 
-			__m128i y000 = _mm_cvtsi32_si128(static_cast<int>(y));
+			const __m128i y000 = _mm_cvtsi32_si128(static_cast<int>(y));
 
 			result = _mm_move_ss(result, _mm_castsi128_ps(y000));
 
@@ -365,7 +366,7 @@ namespace s3d
 		{
 			__m128 result = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(3, 0, 1, 2));
 
-			__m128i z000 = _mm_cvtsi32_si128(static_cast<int>(z));
+			const __m128i z000 = _mm_cvtsi32_si128(static_cast<int>(z));
 
 			result = _mm_move_ss(result, _mm_castsi128_ps(z000));
 
@@ -376,7 +377,7 @@ namespace s3d
 		{
 			__m128 result = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(0, 2, 1, 3));
 
-			__m128i w000 = _mm_cvtsi32_si128(static_cast<int>(w));
+			const __m128i w000 = _mm_cvtsi32_si128(static_cast<int>(w));
 
 			result = _mm_move_ss(result, _mm_castsi128_ps(w000));
 
@@ -390,11 +391,47 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Select(__m128 v1, __m128 v2, __m128 control)
 		{
-			__m128 t1 = _mm_andnot_ps(control, v1);
+			const __m128 t1 = _mm_andnot_ps(control, v1);
 
-			__m128 t2 = _mm_and_ps(v2, control);
+			const __m128 t2 = _mm_and_ps(v2, control);
 
 			return _mm_or_ps(t1, t2);
+		}
+
+		//
+		// 比較
+		//
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsZero(__m128 v)
+		{
+			const __m128 zeros = _mm_setzero_ps();
+
+			const __m128 temp = _mm_cmpeq_ps(v, zeros);
+
+			return (_mm_movemask_ps(temp) == 0x0f);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsNaN(__m128 v)
+		{
+			const __m128 temp = _mm_cmpneq_ps(v, v);
+
+			return (_mm_movemask_ps(temp) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsInfinite(__m128 v)
+		{
+			__m128 temp = _mm_and_ps(v, constants::m128_AbsMask);
+
+			temp = _mm_cmpeq_ps(temp, constants::m128_Infinity);
+
+			return (_mm_movemask_ps(temp) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Equal(__m128 v1, __m128 v2)
+		{
+			const __m128 temp = _mm_cmpeq_ps(v1, v2);
+			
+			return (_mm_movemask_ps(temp) == 0x0f);
 		}
 
 
@@ -433,7 +470,7 @@ namespace s3d
 		
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL MultiplyAdd(__m128 v1, __m128 v2, __m128 v3)
 		{
-			__m128 mul = _mm_mul_ps(v1, v2);
+			const __m128 mul = _mm_mul_ps(v1, v2);
 
 			return _mm_add_ps(mul, v3);
 		}
@@ -480,6 +517,38 @@ namespace s3d
 		//
 		// 3D-Vector 計算
 		//
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3IsZero(__m128 v)
+		{
+			const __m128 zeros = _mm_setzero_ps();
+
+			const __m128 temp = _mm_cmpeq_ps(v, zeros);
+
+			return ((_mm_movemask_ps(temp) & 7) == 7);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3IsNaN(__m128 v)
+		{
+			const __m128 temp = _mm_cmpneq_ps(v, v);
+
+			return ((_mm_movemask_ps(temp) & 7) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3IsInfinite(__m128 v)
+		{
+			__m128 temp = _mm_and_ps(v, constants::m128_AbsMask);
+
+			temp = _mm_cmpeq_ps(temp, constants::m128_Infinity);
+			
+			return ((_mm_movemask_ps(temp) & 7) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3Equal(__m128 v1, __m128 v2)
+		{
+			const __m128 temp = _mm_cmpeq_ps(v1, v2);
+
+			return ((_mm_movemask_ps(temp) & 7) == 7);
+		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector3Normalize(__m128 v)
 		{

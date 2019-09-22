@@ -1154,8 +1154,8 @@
 //# include <Siv3D/DirectXMathUtility.hpp>
 //// クォータニオン
 //# include <Siv3D/Quaternion.hpp>
-//// 4x4 行列
-//# include <Siv3D/Mat4x4.hpp>
+// 4x4 行列
+# include <Siv3D/Mat4x4.hpp>
 
 // レイ
 // Ray
