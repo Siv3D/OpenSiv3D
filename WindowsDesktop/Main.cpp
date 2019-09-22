@@ -5,6 +5,7 @@
 
 # ifdef USE_DIRECTXMATH
 
+# define _XM_SSE3_INTRINSICS_
 # include <DirectXMath.h>
 
 void Show(const DirectX::XMMATRIX& mat)
@@ -22,9 +23,9 @@ using DXVec4 = DirectX::XMVECTOR;
 
 //# define GLM_FORCE_DEPTH_ZERO_TO_ONE
 //# define GLM_FORCE_LEFT_HANDED
-//# define GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
-//# define GLM_FORCE_SSE42
-//
+# define GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
+# define GLM_FORCE_SSE42
+
 //SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 //SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
 //# include <glm/vec4.hpp>
@@ -44,12 +45,12 @@ using DXVec4 = DirectX::XMVECTOR;
 //}
 
 
-//
+
 //void Show(const glm::mat4& mat)
 //{
 //	for (auto i : step(4))
 //	{
-//		Print << 8_dp << Vec4(mat[i].x, mat[i].y, mat[i].z, mat[i].w);
+//		Print << 12_dp << Vec4(mat[i].x, mat[i].y, mat[i].z, mat[i].w);
 //	}
 //}
 
@@ -160,7 +161,7 @@ namespace s3d
 			const float aspectRatio	= static_cast<float>(m_aspectRatio);
 			const float nearClip	= static_cast<float>(m_nearClip);
 			const float farClip		= static_cast<float>(m_farClip);
-			const Mat4x4 proj = Mat4x4::PerspectiveFovLH(fov, aspectRatio, nearClip, farClip);
+			const Mat4x4 proj = Mat4x4::PerspectiveFovLH_ZO(fov, aspectRatio, nearClip, farClip);
 			
 			const SIMD_Float4 eyePosition(m_eyePosition, 0.0f);
 			const SIMD_Float4 focusPosition(m_focusPosition, 0.0f);
@@ -219,45 +220,70 @@ namespace s3d
 
 # endif
 
-	Vec3 SIV3D_VECTOR_CALL ToScreenPos(SIMD_Float4 worldPos, Mat4x4 viewProjMat)
+	Float3 SIV3D_VECTOR_CALL GetScenePos(SIMD_Float4 worldPos, Mat4x4 viewProjMat, const Float2& sceneResolution)
 	{
-		const SIMD_Float4 out = SIMD::Vector3TransformCoord(worldPos, viewProjMat);
-		const Vec2 resolution = Scene::Size();
-
-		Vec3 v = out.xyz();
-		v.x += 1.0;
-		v.y += 1.0;
-		v.x *= 0.5 * resolution.x;
-		v.y *= 0.5;
-		v.y = 1.0 - v.y;
-		v.y *= resolution.y;
-
+		Float3 v = SIMD::Vector3TransformCoord(worldPos, viewProjMat).xyz();
+		v.x += 1.0f;
+		v.y += 1.0f;
+		v.x *= 0.5f * sceneResolution.x;
+		v.y *= 0.5f;
+		v.y = 1.0f - v.y;
+		v.y *= sceneResolution.y;
 		return v;
 	}
 
 	struct alignas(16) SIMD_Triangle3D
 	{
-		SIMD_Float4 p0, p1, p2;
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			struct
+			{
+				SIMD_Float4 p0, p1, p2;
+			};
+			SIMD_Float4 vec[3];
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+		void draw(const Mat4x4& vp, const ColorF& color) const
+		{
+			Float3 out[3];
+
+			SIMD::Vector3TransformCoordStream(out, vec, 3, vp);
+
+			const Float2 resolution = Scene::Size();
+
+			for (auto& v : out)
+			{
+				v.x += 1.0f;
+				v.y += 1.0f;
+				v.x *= 0.5f * resolution.x;
+				v.y *= 0.5f;
+				v.y = 1.0f - v.y;
+				v.y *= resolution.y;
+			}
+
+			Triangle(out[0].xy(), out[1].xy(), out[2].xy()).draw(color);
+		}
 	};
 
 	void Draw3D(const SIMD_Triangle3D& triangle, const Mat4x4& vp, const ColorF& color)
 	{
-		const Vec3 t0 = ToScreenPos(triangle.p0, vp);
-		const Vec3 t1 = ToScreenPos(triangle.p1, vp);
-		const Vec3 t2 = ToScreenPos(triangle.p2, vp);
+		const Float2 sceneResolution = Scene::Size();
+		const Vec3 t0 = GetScenePos(triangle.p0, vp, sceneResolution);
+		const Vec3 t1 = GetScenePos(triangle.p1, vp, sceneResolution);
+		const Vec3 t2 = GetScenePos(triangle.p2, vp, sceneResolution);
 		Triangle(t0.xy(), t1.xy(), t2.xy()).draw(color);
 	}
 }
 
 void Main()
 {
-	Mat4x4 m = Mat4x4::Identity();
-	//Print << m;
-	//Print << Parse<Mat4x4>(Format(Mat4x4::Identity()));
-
 	{
-		BasicCamera3D camera;
-		Print << 8_dp << camera.getMat4x4();
+		//BasicCamera3D camera;
+		//Print << 8_dp << camera.getMat4x4();
 		//Show(camera.getDXMat4x4());
 	}
 
@@ -320,13 +346,89 @@ void Main()
 	constexpr double fov = 45_deg;
 	const double aspectRatio = static_cast<double>(Scene::Width()) / Scene::Height();
 
+	//Print << U"PerspectiveFovLH_ZO";
+	//Print << 12_dp << Mat4x4::PerspectiveFovLH_ZO(float(fov), aspectRatio, 0.1f, 100.0f);
+	//Print << U"glm::perspectiveFovLH_ZO";
+	//Show(glm::perspectiveFovLH_ZO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
+
+	//Print << U"PerspectiveFovLH_NO";
+	//Print << 12_dp << Mat4x4::PerspectiveFovLH_NO(float(fov), aspectRatio, 0.1f, 100.0f);
+	//Print << U"glm::perspectiveFovLH_NO";
+	//Show(glm::perspectiveFovLH_NO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
+
+	//Print << U"PerspectiveFovRH_ZO";
+	//Print << 12_dp << Mat4x4::PerspectiveFovRH_ZO(float(fov), aspectRatio, 0.1f, 100.0f);
+	//Print << U"glm::perspectiveFovRH_ZO";
+	//Show(glm::perspectiveFovRH_ZO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
+
+	//Print << U"PerspectiveFovRH_NO";
+	//Print << 12_dp << Mat4x4::PerspectiveFovRH_NO(float(fov), aspectRatio, 0.1f, 100.0f);
+	//Print << U"glm::perspectiveFovRH_NO";
+	//Show(glm::perspectiveFovRH_NO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
+
+	//Print << U"LookAtLH";
+	//Print << 12_dp << Mat4x4::LookAtLH(SIMD_Float4(Vec3(1, 4, -3), 0.0f), SIMD_Float4(0.1f, 0.2f, 0.3f, 0.0f), SIMD_Float4(0.0f, 1.0f, 0.0f, 0.0f));
+	//Print << U"glm::lookAtLH";
+	//Show(glm::lookAtLH<float>(glm::vec3(1, 4, -3), glm::vec3(0.1f, 0.2f, 0.3f), glm::vec3(0.0f, 1.0f, 0.0f)));
+
+	//Print << U"LookAtRH";
+	//Print << 12_dp << Mat4x4::LookAtRH(SIMD_Float4(Vec3(1, 4, -3), 0.0f), SIMD_Float4(0.1f, 0.2f, 0.3f, 0.0f), SIMD_Float4(0.0f, 1.0f, 0.0f, 0.0f));
+	//Print << U"glm::lookAtRH";
+	//Show(glm::lookAtRH<float>(glm::vec3(1, 4, -3), glm::vec3(0.1f, 0.2f, 0.3f), glm::vec3(0.0f, 1.0f, 0.0f)));
+
+	//Print << U"Translation";
+	//Print << 12_dp << Mat4x4::Translation(0.1f, 0.2f, 0.3f);
+	//Print << U"glm::translate";
+	//Show(glm::translate(glm::identity<glm::mat4x4>(), glm::vec3(0.1f, 0.2f, 0.3f)));
+
+	//Print << U"Scaling";
+	//Print << 12_dp << Mat4x4::Scaling(0.1f, 0.2f, 0.3f);
+	//Print << U"glm::scale";
+	//Show(glm::scale(glm::identity<glm::mat4x4>(), glm::vec3(0.1f, 0.2f, 0.3f)));
+
+	//Print << U"RotationX";
+	//Print << 12_dp << Mat4x4::RotationX(0.1f);
+	//Print << U"glm::rotateX";
+	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(1.0f, 0.0f, 0.0f)));
+
+	//Print << U"RotationY";
+	//Print << 12_dp << Mat4x4::RotationY(0.1f);
+	//Print << U"glm::rotateY";
+	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(0.0f, 1.0f, 0.0f)));
+
+	//Print << U"RotationZ";
+	//Print << 12_dp << Mat4x4::RotationZ(0.1f);
+	//Print << U"glm::rotateZ";
+	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(0.0f, 0.0f, 1.0f)));
+
+	//{
+	//	const Vec3 eyePositon = Cylindrical(6, 2 * 30_deg, Sin(2) * 4);
+
+	//	BasicCamera3D camera(eyePositon, focusPosition, upDirection, fov, aspectRatio);
+	//	Print << camera.getMat4x4();
+
+	//	float determinant;
+	//	Print << Mat4x4::Inverse(determinant, camera.getMat4x4());
+	//	Print << determinant;
+
+	//	Print << Mat4x4::Inverse(camera.getMat4x4())* camera.getMat4x4();
+	//	Print << camera.getMat4x4() * Mat4x4::Inverse(camera.getMat4x4());
+
+	//	Print << Mat4x4::Determinant(camera.getMat4x4());
+	//}
+
+	//Print << 12_dp << LookAtLH(SIMD_Float4(Vec3(0, 4, -4), 0.0f), SIMD_Float4(focusPosition, 0.0f), SIMD_Float4(upDirection, 0.0f));
+
 	while (System::Update())
 	{
-		//ClearPrint();
+		ClearPrint();
 
 		const Vec3 eyePositon = Cylindrical(6, Scene::Time() * 30_deg, Sin(Scene::Time()) * 4);
 
 		BasicCamera3D camera(eyePositon, focusPosition, upDirection, fov, aspectRatio);
+
+
+
 		{
 			ScopedRenderStates2D blend(RasterizerState::SolidCullBack);
 
@@ -349,12 +451,13 @@ void Main()
 
 			for (auto p : step(12))
 			{
-				const SIMD_Float4 p0(verticesTransformed[indices[p * 3 + 0]], 0.0f);
-				const SIMD_Float4 p1(verticesTransformed[indices[p * 3 + 1]], 0.0f);
-				const SIMD_Float4 p2(verticesTransformed[indices[p * 3 + 2]], 0.0f);
+				const SIMD_Float4 p0(verticesTransformed[indices[p * 3 + 0]], 1.0f);
+				const SIMD_Float4 p1(verticesTransformed[indices[p * 3 + 1]], 1.0f);
+				const SIMD_Float4 p2(verticesTransformed[indices[p * 3 + 2]], 1.0f);
 
-				const SIMD_Triangle3D triangle0{ p0, p1, p2};
-				Draw3D(triangle0, viewProjMat, HSV(p * 30, 0.9, 0.9));
+				const SIMD_Triangle3D triangle{ p0, p1, p2};
+				//triangle.draw(viewProjMat, HSV(p * 30, 0.9, 0.9));
+				Draw3D(triangle, viewProjMat, HSV(p * 30, 0.9, 0.9));
 			}
 		}
 	}
