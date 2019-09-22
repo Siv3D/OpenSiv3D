@@ -14,7 +14,9 @@
 # include <thread>
 # include <Siv3D/Webcam.hpp>
 # include <Siv3D/Image.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/videoio.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {

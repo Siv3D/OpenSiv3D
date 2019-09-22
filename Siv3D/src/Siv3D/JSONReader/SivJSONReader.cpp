@@ -9,9 +9,12 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Fwd.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # define RAPIDJSON_SSE2
 # include <rapidjson/rapidjson.h>
 # include <rapidjson/document.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/JSONReader.hpp>
 # include <Siv3D/TextReader.hpp>
 
