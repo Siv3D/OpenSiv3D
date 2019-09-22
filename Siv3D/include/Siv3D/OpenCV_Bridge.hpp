@@ -10,8 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
 # if __has_include(<opencv2/core.hpp>)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/core.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include "Image.hpp"
 
 namespace s3d
