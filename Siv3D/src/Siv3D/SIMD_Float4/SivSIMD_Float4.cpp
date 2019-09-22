@@ -15,8 +15,10 @@ namespace s3d
 {
 	void Formatter(FormatData& formatData, const SIMD_Float4& value)
 	{
-		alignas(16) float values[4];
-		_mm_store_ps(values, value.vec);
-		Formatter(formatData, Vec4(values[0], values[1], values[2], values[3]));
+		SIMD::Float4A fv;
+
+		fv.vec = value.vec;
+
+		Formatter(formatData, Vec4(fv.f[0], fv.f[1], fv.f[2], fv.f[3]));
 	}
 }

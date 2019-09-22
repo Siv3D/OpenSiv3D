@@ -274,7 +274,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetByIndex(__m128 v, float value, size_t index)
 		{
-			assert(i < 4);
+			assert(index < 4);
 
 			Float4A fv;
 
