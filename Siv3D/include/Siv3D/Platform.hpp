@@ -18,10 +18,10 @@
 //
 //////////////////////////////////////////////////
 
-# define SIV3D_PLATFORM(X) SIV3D_PRIVATE_DEFINITION_##X()
-# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 0
-# define SIV3D_PRIVATE_DEFINITION_MACOS() 0
-# define SIV3D_PRIVATE_DEFINITION_LINUX() 0
+# define SIV3D_PLATFORM(X) SIV3D_PLATFORM_PRIVATE_DEFINITION_##X()
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 0
 
 # if defined(_WIN32)
 
@@ -37,8 +37,8 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Windows Desktop"
 
-	# undef SIV3D_PRIVATE_DEFINITION_WINDOWS
-	# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 1
 
 # elif defined(__APPLE__) && defined(__MACH__)
 
@@ -54,8 +54,8 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"macOS"
 
-	# undef SIV3D_PRIVATE_DEFINITION_MACOS
-	# define SIV3D_PRIVATE_DEFINITION_MACOS() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 1
 
 # elif defined(__linux__)
 
@@ -71,39 +71,12 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Linux"
 
-	# undef SIV3D_PRIVATE_DEFINITION_LINUX
-	# define SIV3D_PRIVATE_DEFINITION_LINUX() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 1
 
 # else
 
 	# error Unsupported platform
-
-# endif
-
-
-//////////////////////////////////////////////////
-//
-// ターゲット Windows プラットフォーム
-// Target Windows Platform
-//
-//////////////////////////////////////////////////
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-	# if defined(_WIN64)
-
-		/// <summary>
-		/// ターゲット Windows プラットフォーム: 64-bit デスクトップ
-		/// Target Windows platform: 64-bit desktop application
-		/// </summary>
-		# define SIV3D_TARGET_WINDOWS_DESKTOP_X64
-
-	# else
-
-		# error Windows 32-bit 版のサポートは終了しました。
-		# error Windows 32-bit is no longer supported.
-
-	# endif
 
 # endif
 
@@ -144,8 +117,6 @@
 	# error Unimplemented
 
 # endif
-
-
 
 
 //////////////////////////////////////////////////
@@ -233,6 +204,22 @@ namespace s3d
 	# error Visual Studio 2019 16.2 or later is required to build this project.
 
 # endif
+
+
+//////////////////////////////////////////////////
+//
+// Windows システムのチェック
+// Target Windows system check
+//
+//////////////////////////////////////////////////
+
+# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64)
+
+	# error Windows 32-bit 版のサポートは終了しました。
+	# error Windows 32-bit is no longer supported.
+
+# endif
+
 
 //////////////////////////////////////////////////
 //
