@@ -23,7 +23,7 @@
 #	pragma comment (lib, "ws2_32")
 #	pragma comment (lib, "strmiids")
 
-#	if (SIV3D_DEBUG)
+#	if SIV3D_BUILD_TYPE(DEBUG)
 
 #		pragma comment (lib, "Siv3D_d")
 #		pragma comment (lib, "zlib/zlib_d")

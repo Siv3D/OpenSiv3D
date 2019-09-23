@@ -97,6 +97,38 @@
 
 //////////////////////////////////////////////////
 //
+//	ビルド設定マクロ
+//	Build Type Macros
+//
+//////////////////////////////////////////////////
+
+# define SIV3D_BUILD_TYPE(X) SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_##X()
+# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 0
+# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 0
+
+# if defined(_DEBUG) || defined(DEBUG)
+
+	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG
+	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 1
+
+# else
+
+	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE
+	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 1
+
+# endif
+
+namespace s3d
+{
+	namespace Platform
+	{
+		inline constexpr bool DebugBuild = SIV3D_BUILD_TYPE(DEBUG);
+	}
+}
+
+
+//////////////////////////////////////////////////
+//
 //	__vectorcall
 //
 //////////////////////////////////////////////////
@@ -114,32 +146,6 @@
 	# error Unimplemented
 
 # endif
-
-
-//////////////////////////////////////////////////
-//
-//	ビルド設定
-//	Build Configuration
-//
-//////////////////////////////////////////////////
-
-# if defined(_DEBUG) || defined(DEBUG)
-
-	# define SIV3D_DEBUG		1
-
-# else
-
-	# define SIV3D_DEBUG		0
-
-# endif
-
-namespace s3d
-{
-	namespace Platform
-	{
-		inline constexpr bool DebugBuild = (SIV3D_DEBUG == 1);
-	}
-}
 
 
 //////////////////////////////////////////////////
