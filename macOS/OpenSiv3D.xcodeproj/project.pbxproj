@@ -1114,6 +1114,7 @@
 		2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC47710232144B700633195 /* VertexShader_GL.cpp */; };
 		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
 		2CEACB4C2337435900C6EE98 /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */; };
+		2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2560,6 +2561,8 @@
 		2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSIMD_Float4.cpp; sourceTree = "<group>"; };
 		2CEACB492337433800C6EE98 /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
 		2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
+		2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCamera3D.cpp; sourceTree = "<group>"; };
+		2CEACB5023386B1400C6EE98 /* Camera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera3D.hpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -5941,6 +5944,7 @@
 		2C46FE75226EE90700828870 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CEACB4D23386AFA00C6EE98 /* Camera3D */,
 				2C461613226EEF3200828870 /* AnimatedGIFWriter */,
 				2C461683226EEF3600828870 /* Asset */,
 				2C461640226EEF3400828870 /* AssetHandleManager */,
@@ -6205,6 +6209,7 @@
 				2CA627FB22226DC70009DFE1 /* ByteArrayView.hpp */,
 				2CA6275122226DC60009DFE1 /* ByteArrayViewAdapter.hpp */,
 				2CA6275822226DC60009DFE1 /* Camera2D.hpp */,
+				2CEACB5023386B1400C6EE98 /* Camera3D.hpp */,
 				2CA6280722226DC70009DFE1 /* Char.hpp */,
 				2CA627A122226DC70009DFE1 /* Circle.hpp */,
 				2CA627DE22226DC70009DFE1 /* Circular.hpp */,
@@ -6830,6 +6835,14 @@
 				2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */,
 			);
 			path = Mat4x4;
+			sourceTree = "<group>";
+		};
+		2CEACB4D23386AFA00C6EE98 /* Camera3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */,
+			);
+			path = Camera3D;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -8014,6 +8027,7 @@
 				2C4618A8226EEF4100828870 /* SivLineString.cpp in Sources */,
 				2C4619A2226EEF4100828870 /* SivFont.cpp in Sources */,
 				2C461357226EEDB500828870 /* Recast.cpp in Sources */,
+				2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */,
 				2C4618B6226EEF4100828870 /* SivThreading.cpp in Sources */,
 				2C461A79226F4C1500828870 /* CMouse.cpp in Sources */,
 				2C4617E3226EEF4100828870 /* ScriptData.cpp in Sources */,
