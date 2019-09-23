@@ -385,7 +385,7 @@ namespace s3d
 		HMODULE moduleDXGI = DLL::LoadSystemLibrary(L"dxgi.dll");
 		decltype(CreateDXGIFactory1)* pCreateDXGIFactory1 = DLL::GetFunction(moduleDXGI, "CreateDXGIFactory1");
 
-		const bool hasDebugLayer = Platform::DebugBuild
+		const bool hasDebugLayer = SIV3D_BUILD_TYPE(DEBUG)
 			? (DLL::LoadSystemLibrary(L"D3D11_1SDKLayers.dll") != nullptr)
 			: false;
 
@@ -410,7 +410,7 @@ namespace s3d
 
 		if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, hasDebugLayer ? D3D11_CREATE_DEVICE_DEBUG : 0))
 		{
-			if constexpr (Platform::DebugBuild)
+			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
 				if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, 0))
 				{

@@ -85,9 +85,9 @@ int main()
 		return -1;
 	}
 	
-	//Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	//Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 
 	Main();
 	
-	//Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	//Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 }

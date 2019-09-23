@@ -260,9 +260,9 @@
 // Regular expression
 //# include <Siv3D/Regex.hpp>
 
-// 絵文字判定
-// Emoji formatting
-# include <Siv3D/EmojiDictionary.hpp>
+// 絵文字リスト
+// Emoji list
+# include <Siv3D/EmojiList.hpp>
 
 //////////////////////////////////////////////////
 //

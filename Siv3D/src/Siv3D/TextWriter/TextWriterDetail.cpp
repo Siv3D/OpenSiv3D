@@ -144,7 +144,7 @@ namespace s3d
 				{
 					if (ch == '\n' && previous != '\r')
 					{
-						m_binaryWriter.write(u8"\r\n", sizeof(char) * 2);
+						m_binaryWriter.write("\r\n", sizeof(char) * 2);
 					}
 					else
 					{
@@ -173,7 +173,7 @@ namespace s3d
 
 						if (ch == '\n' && previous != '\r')
 						{
-							m_binaryWriter.write(u8"\r\n", 2);
+							m_binaryWriter.write("\r\n", 2);
 						}
 						else
 						{
@@ -285,7 +285,7 @@ namespace s3d
 		case TextEncoding::UTF8_NO_BOM:
 		case TextEncoding::UTF8:
 			{
-				m_binaryWriter.write(u8"\r\n", 2);
+				m_binaryWriter.write("\r\n", 2);
 				break;
 			}
 		case TextEncoding::UTF16LE:
@@ -321,7 +321,7 @@ namespace s3d
 				{
 					if (ch == '\n' && previous != '\r')
 					{
-						m_binaryWriter.write(u8"\r\n", sizeof(char) * 2);
+						m_binaryWriter.write("\r\n", sizeof(char) * 2);
 					}
 					else
 					{

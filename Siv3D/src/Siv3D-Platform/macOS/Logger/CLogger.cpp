@@ -24,7 +24,7 @@ namespace s3d
 	namespace detail
 	{
 		static constexpr std::string_view HeaderA =
-			u8"<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"UTF-8\" />\n<title>"sv;
+			"<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"UTF-8\" />\n<title>"sv;
 
 		static constexpr std::string_view HeaderB =
 u8R"(</title>
@@ -46,11 +46,11 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 <body>
 <h2>)"sv;
 
-		static constexpr std::string_view HeaderC = u8"</h2>\n<div class=\"messages\">\n";
+		static constexpr std::string_view HeaderC = "</h2>\n<div class=\"messages\">\n";
 
-		static constexpr std::string_view DivEnd = u8"</div>\n"sv;
+		static constexpr std::string_view DivEnd = "</div>\n"sv;
 
-		static constexpr std::string_view Footer = u8"</div>\n</body>\n</html>"sv;
+		static constexpr std::string_view Footer = "</div>\n</body>\n</html>"sv;
 
 		static constexpr std::array<StringView, 8> LogLevelStr =
 		{
@@ -108,7 +108,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 	{
 		m_active = false;
 
-		if constexpr (!Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(RELEASE))
 		{
 			if (!m_hasImportantLog)
 			{
@@ -117,7 +117,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 		}
 
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
-		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + u8" Log";
+		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + " Log";
 		FilePath path;
 		
 		if (FileSystem::IsSandBoxed())
@@ -166,7 +166,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 			detail::OutputDebug(timeStamp, desc, text);
 
 			m_buffer.append(detail::LogLevelDiv[FromEnum(desc)]);
-			m_buffer.append(std::to_string(timeStamp) + u8": ");
+			m_buffer.append(std::to_string(timeStamp) + ": ");
 			m_buffer.append(text.xml_escaped().toUTF8());
 			m_buffer.append(detail::DivEnd);
 
@@ -195,7 +195,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 			detail::OutputDebug(timeStamp, desc, text);
 
 			m_buffer.append(detail::LogLevelDiv[FromEnum(desc)]);
-			m_buffer.append(std::to_string(timeStamp) + u8": ");
+			m_buffer.append(std::to_string(timeStamp) + ": ");
 			m_buffer.append(text.xml_escaped().toUTF8());
 			m_buffer.append(detail::DivEnd);
 

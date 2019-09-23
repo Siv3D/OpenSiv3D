@@ -189,7 +189,7 @@ namespace s3d
 			--m_displayInfoCheckCount;
 		}
 
-		if constexpr (Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 		{
 			const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 			const String titleText = m_title + U" (Debug Build) | " + statistics;
@@ -206,7 +206,7 @@ namespace s3d
 	{
 		if (m_title != title)
 		{
-			if constexpr (Platform::DebugBuild)
+			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
 				const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 				m_titleText = title + U" (Debug Build) | " + statistics;

@@ -12,21 +12,21 @@
 # include <queue>
 # include <Siv3D/String.hpp>
 # include <Siv3D/BinaryReader.hpp>
-# include "EmojiDictionaryDetail.hpp"
+# include "EmojiListDetail.hpp"
 
 namespace s3d
 {
-	EmojiDictionary::EmojiDictionaryDetail::EmojiDictionaryDetail()
+	EmojiList::EmojiDictionaryDetail::EmojiDictionaryDetail()
 	{
 
 	}
 
-	EmojiDictionary::EmojiDictionaryDetail::~EmojiDictionaryDetail()
+	EmojiList::EmojiDictionaryDetail::~EmojiDictionaryDetail()
 	{
 		clear();
 	}
 
-	bool EmojiDictionary::EmojiDictionaryDetail::load(const FilePath& path)
+	bool EmojiList::EmojiDictionaryDetail::load(const FilePath& path)
 	{
 		clear();
 
@@ -54,7 +54,7 @@ namespace s3d
 
 				size_to_read -= (sizeof(uint32) + length * sizeof(uint32));
 
-				m_codePoints.push_back(Array<uint32>(std::begin(buffer), std::begin(buffer) + length));
+				m_codePoints.push_back(String(std::begin(buffer), std::begin(buffer) + length));
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace s3d
 
 		{
 			std::vector<size_t> parent = { 0, 0 };
-			Array<uint32> prv = {};
+			String prv;
 
 			for (const auto& codePoint : m_codePoints)
 			{
@@ -156,7 +156,7 @@ namespace s3d
 		return true;
 	}
 
-	size_t EmojiDictionary::EmojiDictionaryDetail::check(String::const_iterator it, const String::const_iterator& itEnd)
+	size_t EmojiList::EmojiDictionaryDetail::check(String::const_iterator it, const String::const_iterator& itEnd)
 	{
 		size_t emojiLength = 0;
 		size_t currentLength = 0;
@@ -212,7 +212,7 @@ namespace s3d
 		return emojiLength;
 	}
 
-	void EmojiDictionary::EmojiDictionaryDetail::clear()
+	void EmojiList::EmojiDictionaryDetail::clear()
 	{
 		m_codePoints.clear();
 
@@ -235,7 +235,7 @@ namespace s3d
 		}
 	}
 
-	const Array<Array<uint32>>& EmojiDictionary::EmojiDictionaryDetail::getList() const
+	const Array<String>& EmojiList::EmojiDictionaryDetail::getList() const
 	{
 		return m_codePoints;
 	}

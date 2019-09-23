@@ -13,7 +13,7 @@
 # include <Siv3D/RNG.hpp>
 # include <Siv3D/HardwareRNG.hpp>
 
-# if defined(SIV3D_HAVE_SSE2)
+# if SIV3D_WITH_FEATURE(SSE2)
 
 	# define HAVE_SSE2
 
