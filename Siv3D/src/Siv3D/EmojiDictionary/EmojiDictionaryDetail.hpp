@@ -32,7 +32,7 @@ namespace s3d
 		
 		size_t m_isEmojiUint8Length = 0;
 
-		Array<Array<uint32>> m_codePoints;
+		Array<String> m_codePoints;
 
 		const size_t rootNode = 1;
 
@@ -48,6 +48,6 @@ namespace s3d
 
 		void clear();
 
-		const Array<Array<uint32>>& getList() const;
+		const Array<String>& getList() const;
 	};
 }

@@ -46,7 +46,7 @@ namespace s3d
 		pImpl->clear();
 	}
 
-	const Array<Array<uint32>>& EmojiDictionary::getList() const
+	const Array<String>& EmojiDictionary::getList() const
 	{
 		return pImpl->getList();
 	}

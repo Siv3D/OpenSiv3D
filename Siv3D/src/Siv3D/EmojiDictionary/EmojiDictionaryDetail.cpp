@@ -54,7 +54,7 @@ namespace s3d
 
 				size_to_read -= (sizeof(uint32) + length * sizeof(uint32));
 
-				m_codePoints.push_back(Array<uint32>(std::begin(buffer), std::begin(buffer) + length));
+				m_codePoints.push_back(String(std::begin(buffer), std::begin(buffer) + length));
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace s3d
 
 		{
 			std::vector<size_t> parent = { 0, 0 };
-			Array<uint32> prv = {};
+			String prv;
 
 			for (const auto& codePoint : m_codePoints)
 			{
@@ -235,7 +235,7 @@ namespace s3d
 		}
 	}
 
-	const Array<Array<uint32>>& EmojiDictionary::EmojiDictionaryDetail::getList() const
+	const Array<String>& EmojiDictionary::EmojiDictionaryDetail::getList() const
 	{
 		return m_codePoints;
 	}

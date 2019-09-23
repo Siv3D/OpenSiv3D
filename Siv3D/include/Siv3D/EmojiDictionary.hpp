@@ -39,6 +39,6 @@ namespace s3d
 
 		void clear();
 
-		const Array<Array<uint32>>& getList() const;
+		const Array<String>& getList() const;
 	};
 }
