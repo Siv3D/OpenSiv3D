@@ -1115,6 +1115,9 @@
 		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
 		2CEACB4C2337435900C6EE98 /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */; };
 		2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */; };
+		2CEACB562338756800C6EE98 /* SivAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB552338756800C6EE98 /* SivAABB.cpp */; };
+		2CEACB592338757900C6EE98 /* SivLine3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB582338757900C6EE98 /* SivLine3D.cpp */; };
+		2CEACB5C2338758B00C6EE98 /* SivTriangle3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2563,6 +2566,12 @@
 		2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCamera3D.cpp; sourceTree = "<group>"; };
 		2CEACB5023386B1400C6EE98 /* Camera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera3D.hpp; sourceTree = "<group>"; };
+		2CEACB512338752500C6EE98 /* AABB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AABB.hpp; sourceTree = "<group>"; };
+		2CEACB522338753500C6EE98 /* Line3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Line3D.hpp; sourceTree = "<group>"; };
+		2CEACB532338755200C6EE98 /* Triangle3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle3D.hpp; sourceTree = "<group>"; };
+		2CEACB552338756800C6EE98 /* SivAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAABB.cpp; sourceTree = "<group>"; };
+		2CEACB582338757900C6EE98 /* SivLine3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine3D.cpp; sourceTree = "<group>"; };
+		2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -5944,7 +5953,7 @@
 		2C46FE75226EE90700828870 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CEACB4D23386AFA00C6EE98 /* Camera3D */,
+				2CEACB542338756800C6EE98 /* AABB */,
 				2C461613226EEF3200828870 /* AnimatedGIFWriter */,
 				2C461683226EEF3600828870 /* Asset */,
 				2C461640226EEF3400828870 /* AssetHandleManager */,
@@ -5964,6 +5973,7 @@
 				2C4616C9226EEF3800828870 /* ByteArray */,
 				2C46166A226EEF3500828870 /* ByteArrayView */,
 				2C461662226EEF3500828870 /* Camera2D */,
+				2CEACB4D23386AFA00C6EE98 /* Camera3D */,
 				2C46175B226EEF3D00828870 /* Circle */,
 				2C461750226EEF3D00828870 /* Clipboard */,
 				2C4615F8226EEF3100828870 /* Codec */,
@@ -6028,6 +6038,7 @@
 				2C461730226EEF3C00828870 /* KeyGroup */,
 				2C46167B226EEF3600828870 /* LicenseManager */,
 				2C461620226EEF3300828870 /* Line */,
+				2CEACB572338757900C6EE98 /* Line3D */,
 				2C461650226EEF3400828870 /* LineString */,
 				2C4617AB226EEF4000828870 /* Logger */,
 				2C46168B226EEF3700828870 /* ManagedScript */,
@@ -6124,6 +6135,7 @@
 				2C4616F1226EEF3900828870 /* Transformer2D */,
 				2C46169B226EEF3700828870 /* Transition */,
 				2C4615F3226EEF3100828870 /* Triangle */,
+				2CEACB5A2338758B00C6EE98 /* Triangle3D */,
 				2C461660226EEF3500828870 /* Twitter */,
 				2C4617AF226EEF4000828870 /* Unicode */,
 				2C461664226EEF3500828870 /* Vector2D */,
@@ -6186,6 +6198,7 @@
 		2CA6271C22226DC60009DFE1 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CEACB512338752500C6EE98 /* AABB.hpp */,
 				2CA6274522226DC60009DFE1 /* AlignedAllocator.hpp */,
 				2CA6274822226DC60009DFE1 /* AlignedMemory.hpp */,
 				2CA6272F22226DC60009DFE1 /* AnimatedGIFWriter.hpp */,
@@ -6304,6 +6317,7 @@
 				2CA6273E22226DC60009DFE1 /* LetterCase.hpp */,
 				2CA627EF22226DC70009DFE1 /* LicenseManager.hpp */,
 				2CA627F422226DC70009DFE1 /* Line.hpp */,
+				2CEACB522338753500C6EE98 /* Line3D.hpp */,
 				2CA627DB22226DC70009DFE1 /* LineString.hpp */,
 				2CA6272422226DC60009DFE1 /* Logger.hpp */,
 				2CA627EB22226DC70009DFE1 /* ManagedScript.hpp */,
@@ -6435,6 +6449,7 @@
 				2CA6281B22226DC70009DFE1 /* Transformer2D.hpp */,
 				2CA6280B22226DC70009DFE1 /* Transition.hpp */,
 				2CA6277D22226DC60009DFE1 /* Triangle.hpp */,
+				2CEACB532338755200C6EE98 /* Triangle3D.hpp */,
 				2CA627E222226DC70009DFE1 /* Twitter.hpp */,
 				2CA6280822226DC70009DFE1 /* Types.hpp */,
 				2CA6273422226DC60009DFE1 /* TypeTraits.hpp */,
@@ -6843,6 +6858,30 @@
 				2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */,
 			);
 			path = Camera3D;
+			sourceTree = "<group>";
+		};
+		2CEACB542338756800C6EE98 /* AABB */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB552338756800C6EE98 /* SivAABB.cpp */,
+			);
+			path = AABB;
+			sourceTree = "<group>";
+		};
+		2CEACB572338757900C6EE98 /* Line3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB582338757900C6EE98 /* SivLine3D.cpp */,
+			);
+			path = Line3D;
+			sourceTree = "<group>";
+		};
+		2CEACB5A2338758B00C6EE98 /* Triangle3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */,
+			);
+			path = Triangle3D;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7750,6 +7789,7 @@
 				2C461AEC22712B0200828870 /* CTexture_GL.cpp in Sources */,
 				2C461953226EEF4100828870 /* SivDeadZone.cpp in Sources */,
 				2C461992226EEF4100828870 /* SivWritableMemoryMapping.cpp in Sources */,
+				2CEACB562338756800C6EE98 /* SivAABB.cpp in Sources */,
 				2C4619EA226F0CD700828870 /* BinaryReaderDetail.cpp in Sources */,
 				2C461855226EEF4100828870 /* SivDuration.cpp in Sources */,
 				2C461428226EEDB500828870 /* muParserBytecode.cpp in Sources */,
@@ -7793,6 +7833,7 @@
 				2C461829226EEF4100828870 /* Script_DrawableText.cpp in Sources */,
 				2C4619A3226EEF4100828870 /* FontFactory.cpp in Sources */,
 				2CBC64B322F849F0001610DB /* zstd_fast.c in Sources */,
+				2CEACB592338757900C6EE98 /* SivLine3D.cpp in Sources */,
 				2C461ADF2270A18200828870 /* CShader_GL.cpp in Sources */,
 				2C461921226EEF4100828870 /* SivDefaultRNG.cpp in Sources */,
 				2C461910226EEF4100828870 /* SivJoyCon.cpp in Sources */,
@@ -7810,6 +7851,7 @@
 				2C461474226EEDB500828870 /* b2Draw.cpp in Sources */,
 				2CBC64F5230D5776001610DB /* ChildProcessDetail.mm in Sources */,
 				2C461484226EEDB500828870 /* b2DynamicTree.cpp in Sources */,
+				2CEACB5C2338758B00C6EE98 /* SivTriangle3D.cpp in Sources */,
 				2C4618CC226EEF4100828870 /* SivAsset.cpp in Sources */,
 				2C461868226EEF4100828870 /* P2RopeJointDetail.cpp in Sources */,
 				2C461478226EEDB500828870 /* b2Settings.cpp in Sources */,
