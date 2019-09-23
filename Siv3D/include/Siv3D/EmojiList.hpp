@@ -27,6 +27,8 @@ namespace s3d
 
 	public:
 
+		using const_iterator = typename Array<String>::const_iterator;
+
 		EmojiList();
 
 		EmojiList(const FilePath& path);
@@ -35,10 +37,25 @@ namespace s3d
 		
 		bool load(const FilePath& path);
 
-		[[nodiscard]] size_t check(String::const_iterator it, const String::const_iterator& itEnd);
+		[[nodiscard]] bool isEmpty() const noexcept;
+
+		[[nodiscard]] explicit operator bool() const noexcept
+		{
+			return !isEmpty();
+		}
+
+		[[nodiscard]] size_t size() const noexcept;
+
+		[[nodiscard]] StringView operator[](size_t index) const noexcept;
 
 		void clear();
 
-		const Array<String>& getList() const;
+		[[nodiscard]] const_iterator begin() const noexcept;
+
+		[[nodiscard]] const_iterator end() const noexcept;
+
+		[[nodiscard]] const Array<String>& getList() const;
+
+		[[nodiscard]] size_t check(String::const_iterator it, const String::const_iterator& itEnd);
 	};
 }

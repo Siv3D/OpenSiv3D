@@ -36,9 +36,19 @@ namespace s3d
 		return pImpl->load(path);
 	}
 
-	size_t EmojiList::check(String::const_iterator it, const String::const_iterator& itEnd)
+	bool EmojiList::isEmpty() const noexcept
 	{
-		return pImpl->check(it, itEnd);
+		return pImpl->getList().isEmpty();
+	}
+
+	size_t EmojiList::size() const noexcept
+	{
+		return pImpl->getList().size();
+	}
+
+	StringView EmojiList::operator[](const size_t index) const noexcept
+	{
+		return pImpl->getList()[index];
 	}
 
 	void EmojiList::clear()
@@ -46,9 +56,24 @@ namespace s3d
 		pImpl->clear();
 	}
 
+	EmojiList::const_iterator EmojiList::begin() const noexcept
+	{
+		return pImpl->getList().begin();
+	}
+
+	EmojiList::const_iterator EmojiList::end() const noexcept
+	{
+		return pImpl->getList().end();
+	}
+
 	const Array<String>& EmojiList::getList() const
 	{
 		return pImpl->getList();
+	}
+
+	size_t EmojiList::check(String::const_iterator it, const String::const_iterator& itEnd)
+	{
+		return pImpl->check(it, itEnd);
 	}
 }
 
