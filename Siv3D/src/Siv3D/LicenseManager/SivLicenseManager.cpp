@@ -18,14 +18,14 @@
 
 namespace s3d
 {
-constexpr static char8 header[] =
-u8R"(<!DOCTYPE html>
+constexpr static char header[] =
+R"(<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
 <title>Licenses</title>
 <style>
-body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
+body		{ background-color: #f9f9f9; font-family: 'Segoe UI','Meiryo','Hiragino Kaku Gothic Pro','Osaka','MS PGothic','Arial',sans-serif; }
 h3			{ color: #333333; text-align: center; font-size: 28px; }
 div			{ font-size: 14px; line-height: 2; word-wrap: break-word; }
 div.c0		{ color: #333333; text-align: center; font-size: 20px; }
@@ -36,18 +36,18 @@ div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9
 <body>
 <h3>Licenses</h3>)";
 
-constexpr static char8 footer[] =
-u8R"-(<br>
+constexpr static char footer[] =
+R"-(<br>
 </body>
 </html>)-";
 
-constexpr static char8 divEnd[] = u8"</div>\n";
+constexpr static char divEnd[] = "</div>\n";
 
-constexpr static char8 licenseC0[] = u8R"-(<div class="c0">)-";
+constexpr static char licenseC0[] = R"-(<div class="c0">)-";
 
-constexpr static char8 licenseC1[] = u8R"-(<div class="c1">)-";
+constexpr static char licenseC1[] = R"-(<div class="c1">)-";
 
-constexpr static char8 licenseC2[] = u8R"-(<div class="c2">)-";
+constexpr static char licenseC2[] = R"-(<div class="c2">)-";
 
 	namespace LicenseManager
 	{

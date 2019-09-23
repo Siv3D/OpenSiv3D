@@ -59,7 +59,9 @@ namespace s3d
 	// the use of this software, even if advised of the possibility of such damage.
 	//
 	//M*/
-	enum { XY_SHIFT = 16, XY_ONE = 1 << XY_SHIFT, DRAWING_STORAGE_BLOCK = (1 << 12) - 256 };
+	constexpr int32 XY_SHIFT = 16;
+	constexpr int32 XY_ONE = 1 << XY_SHIFT;
+	constexpr int32 DRAWING_STORAGE_BLOCK = (1 << 12) - 256;
 
 	inline int cvRound2(double value)
 	{

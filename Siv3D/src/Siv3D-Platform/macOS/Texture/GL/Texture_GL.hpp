@@ -84,6 +84,12 @@ namespace s3d
 		
 		Texture_GL(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
 		
+		Texture_GL(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_GL(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_GL(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+		
 		Texture_GL(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
 		
 		~Texture_GL();
@@ -103,8 +109,17 @@ namespace s3d
 		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(const ColorF& color);
 		
-		// レンダーテクスチャの内容を Image によコピーする
+		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(Image& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<float>& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float2>& image);
+		
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float4>& image);
 		
 		void resolveMSRT();
 		

@@ -51,6 +51,25 @@ namespace s3d
 
 	}
 
+	RenderTexture::RenderTexture(const Grid<float>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+	RenderTexture::RenderTexture(const Grid<Float2>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+	RenderTexture::RenderTexture(const Grid<Float4>& image)
+		: Texture(Texture::Render{}, image)
+	{
+
+	}
+
+
 	RenderTexture::RenderTexture(MSRender, const uint32 width, const uint32 height, const TextureFormat& format)
 		: Texture(Texture::MSRender{}, width, height, format)
 	{
@@ -63,6 +82,21 @@ namespace s3d
 	}
 
 	void RenderTexture::readAsImage(Image& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
+
+	void RenderTexture::read(Grid<float>& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
+
+	void RenderTexture::read(Grid<Float2>& image)
+	{
+		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
+	}
+
+	void RenderTexture::read(Grid<Float4>& image)
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}

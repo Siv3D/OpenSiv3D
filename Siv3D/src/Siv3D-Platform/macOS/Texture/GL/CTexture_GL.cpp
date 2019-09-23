@@ -194,6 +194,54 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 	
+	TextureID CTexture_GL::createRT(const Grid<float>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Grid<Float2>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Grid<Float4>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
 	TextureID CTexture_GL::createMSRT(const Size& size, const TextureFormat& format)
 	{
 		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
@@ -237,6 +285,21 @@ namespace s3d
 	void CTexture_GL::readRT(const TextureID handleID, Image& image)
 	{
 		return m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<float>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<Float2>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<Float4>& image)
+	{
+		m_textures[handleID]->readRT(image);
 	}
 	
 	void CTexture_GL::resolveMSRT(const TextureID handleID)

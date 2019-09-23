@@ -279,15 +279,15 @@ namespace s3d
 
 		ComPtr<IEnumSpObjectTokens> pEnum;
 
-		if (SUCCEEDED(detail::GetEnumTokens(SPCAT_VOICES, languageID, pEnum)))
+		if (detail::GetEnumTokens(SPCAT_VOICES, languageID, pEnum))
 		{
 
 		}
-		else if (pEnum.Reset(); SUCCEEDED(detail::GetEnumTokens(L"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech Server\\v11.0\\Voices", languageID, pEnum)))
+		else if (pEnum.Reset(); detail::GetEnumTokens(L"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech Server\\v11.0\\Voices", languageID, pEnum))
 		{
 
 		}
-		else if (pEnum.Reset(); SUCCEEDED(detail::GetEnumTokens(L"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech_OneCore\\Voices", languageID, pEnum)))
+		else if (pEnum.Reset(); detail::GetEnumTokens(L"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech_OneCore\\Voices", languageID, pEnum))
 		{
 
 		}

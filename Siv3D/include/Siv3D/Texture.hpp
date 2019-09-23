@@ -50,6 +50,12 @@ namespace s3d
 
 		Texture(Render, const Image& image);
 
+		Texture(Render, const Grid<float>& image);
+
+		Texture(Render, const Grid<Float2>& image);
+
+		Texture(Render, const Grid<Float4>& image);
+
 		Texture(MSRender, uint32 width, uint32 height, const TextureFormat& format);
 
 	public:
