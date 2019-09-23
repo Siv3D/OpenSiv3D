@@ -26,12 +26,6 @@
 # if defined(_WIN32)
 
 	/// <summary>
-	/// ターゲットプラットフォーム: Windows
-	/// Target platform: Windows
-	/// </summary>
-	# define SIV3D_TARGET_WINDOWS
-
-	/// <summary>
 	/// ターゲットプラットフォームの名前
 	/// Name of the Target Platform
 	/// </summary>
@@ -43,12 +37,6 @@
 # elif defined(__APPLE__) && defined(__MACH__)
 
 	/// <summary>
-	/// ターゲットプラットフォーム: macOS
-	/// Target platform: macOS
-	/// </summary>
-	# define SIV3D_TARGET_MACOS
-
-	/// <summary>
 	/// ターゲットプラットフォームの名前
 	/// Name of the Target Platform
 	/// </summary>
@@ -58,12 +46,6 @@
 	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 1
 
 # elif defined(__linux__)
-
-	/// <summary>
-	/// ターゲットプラットフォーム: Linux
-	/// Target platform: Linux
-	/// </summary>
-	# define SIV3D_TARGET_LINUX
 
 	/// <summary>
 	/// ターゲットプラットフォームの名前
