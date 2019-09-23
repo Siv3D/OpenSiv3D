@@ -68,12 +68,12 @@ namespace s3d
 			throw EngineError(U"glefInit() failed");
 		}
 		
-		if (Platform::DebugBuild && GLEW_ARB_debug_output)
+		if (SIV3D_BUILD_TYPE(DEBUG) && GLEW_ARB_debug_output)
 		{
 			::glDebugMessageCallbackARB(GLDebugMessageARB, nullptr);
 			LOG_INFO(U"ℹ️ GLEW_ARB_debug_output available");
 		}
-		else if (Platform::DebugBuild && GLEW_AMD_debug_output)
+		else if (SIV3D_BUILD_TYPE(DEBUG) && GLEW_AMD_debug_output)
 		{
 			::glDebugMessageCallbackAMD(GLDebugMessageAMD, nullptr);
 			LOG_INFO(U"ℹ️ GLEW_AMD_debug_output available");
@@ -161,7 +161,7 @@ namespace s3d
 			m_sceneTexture.capture();
 		}
 		
-		if constexpr (Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 		{
 			CheckGLError();
 		}

@@ -108,7 +108,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 	{
 		m_active = false;
 
-		if constexpr (!Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(RELEASE))
 		{
 			if (!m_hasImportantLog)
 			{
