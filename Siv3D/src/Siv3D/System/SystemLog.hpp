@@ -25,7 +25,7 @@ namespace s3d
 
 			LOG_INFO(U"⌛ Preparing for setup...");
 
-			if constexpr (Platform::DebugBuild)
+			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
 				LOG_INFO(U"ℹ️ Siv3D Engine (Debug build) version " SIV3D_VERSION U" (" SIV3D_PLATFORM_NAME U")");
 			}
