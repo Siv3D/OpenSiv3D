@@ -129,14 +129,14 @@ namespace s3d
 			inline constexpr __m128 m128_NegateZ{ 1.0f, 1.0f, -1.0f, 1.0f };
 			inline constexpr __m128 m128_NegateW{ 1.0f, 1.0f, 1.0f, -1.0f };
 
-			inline constexpr Int4A m128_Infinity{ 0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000 };
-			inline constexpr Int4A m128_QNaN{ 0x7FC00000, 0x7FC00000, 0x7FC00000, 0x7FC00000 };
-			inline constexpr Int4A m128_AbsMask{ 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF };
-			inline constexpr Uint4A m128_Mask3{ 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000 };
+			inline constexpr Int4A m128_Infinity{ { 0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000 } };
+			inline constexpr Int4A m128_QNaN{ { 0x7FC00000, 0x7FC00000, 0x7FC00000, 0x7FC00000 } };
+			inline constexpr Int4A m128_AbsMask{ { 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF } };
+			inline constexpr Uint4A m128_Mask3{ { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000 } };
 
 			inline constexpr uint32 u_SELECT_0 = 0x00000000;
 			inline constexpr uint32 u_SELECT_1 = 0xFFFFFFFF;
-			inline constexpr Uint4A m128_Select1110{ u_SELECT_1, u_SELECT_1, u_SELECT_1, u_SELECT_0 };
+			inline constexpr Uint4A m128_Select1110{ { u_SELECT_1, u_SELECT_1, u_SELECT_1, u_SELECT_0 } };
 
 			inline constexpr uint32 SwizzleX = 0;
 			inline constexpr uint32 SwizzleY = 1;
