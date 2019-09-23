@@ -73,7 +73,8 @@ namespace s3d
 			, z(static_cast<value_type>(_z))
 			, w(static_cast<value_type>(_w)) {}
 
-		constexpr Vector4D(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept
+		template <class U, class V>
+		constexpr Vector4D(const Vector2D<U>& xy, const Vector2D<V>& zw) noexcept
 			: x(static_cast<value_type>(xy.x))
 			, y(static_cast<value_type>(xy.y))
 			, z(static_cast<value_type>(zw.x))
@@ -620,7 +621,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D Zero()
+		[[nodiscard]] static constexpr Vector4D Zero() noexcept
 		{
 			return{ 0, 0, 0, 0 };
 		}
@@ -628,7 +629,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 1, 1, 1, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D One()
+		[[nodiscard]] static constexpr Vector4D One() noexcept
 		{
 			return{ 1, 1, 1, 1 };
 		}
@@ -636,7 +637,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ value, value, value, value }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D All(value_type value = 1)
+		[[nodiscard]] static constexpr Vector4D All(value_type value = 1) noexcept
 		{
 			return{ value, value, value, value };
 		}
@@ -644,7 +645,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 1, 0, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitX()
+		[[nodiscard]] static constexpr Vector4D UnitX() noexcept
 		{
 			return{ 1, 0, 0, 0 };
 		}
@@ -652,7 +653,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 1, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitY()
+		[[nodiscard]] static constexpr Vector4D UnitY() noexcept
 		{
 			return{ 0, 1, 0, 0 };
 		}
@@ -660,7 +661,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 1, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitZ()
+		[[nodiscard]] static constexpr Vector4D UnitZ() noexcept
 		{
 			return{ 0, 0, 1, 0 };
 		}
@@ -668,7 +669,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 0, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitW()
+		[[nodiscard]] static constexpr Vector4D UnitW() noexcept
 		{
 			return{ 0, 0, 0, 1 };
 		}

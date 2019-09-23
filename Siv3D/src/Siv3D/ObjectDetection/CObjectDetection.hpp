@@ -11,7 +11,10 @@
 
 # pragma once
 # include <array>
+# include <Siv3D/Fwd.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/objdetect/objdetect.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include "IObjectDetection.hpp"
 
 namespace s3d

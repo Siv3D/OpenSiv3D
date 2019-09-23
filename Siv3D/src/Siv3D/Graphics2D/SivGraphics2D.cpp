@@ -110,6 +110,18 @@ namespace s3d
 			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
 		}
 
+		Size GetRenderTargetSize()
+		{
+			if (const auto rt = Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT())
+			{
+				return rt->size();
+			}
+			else
+			{
+				return Scene::Size();
+			}
+		}
+
 		void SetSDFParameters(const Float4& parameters)
 		{
 			Siv3DEngine::Get<ISiv3DRenderer2D>()->setSDFParameters(parameters);

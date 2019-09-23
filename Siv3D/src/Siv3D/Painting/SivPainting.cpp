@@ -10,7 +10,10 @@
 //-----------------------------------------------
 
 # include <smmintrin.h>
+# include <Siv3D/Fwd.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/imgproc.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/PointVector.hpp>
