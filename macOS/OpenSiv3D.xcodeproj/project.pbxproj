@@ -808,9 +808,6 @@
 		2C461955226EEF4100828870 /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46175A226EEF3D00828870 /* SivBigFloat.cpp */; };
 		2C461956226EEF4100828870 /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46175C226EEF3D00828870 /* SivCircle.cpp */; };
 		2C461957226EEF4100828870 /* SivInterpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C46175E226EEF3D00828870 /* SivInterpolation.cpp */; };
-		2C461958226EEF4100828870 /* EmojiDictionaryDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461760226EEF3D00828870 /* EmojiDictionaryDetail.cpp */; };
-		2C461959226EEF4100828870 /* EmojiDictionaryDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461761226EEF3D00828870 /* EmojiDictionaryDetail.hpp */; };
-		2C46195A226EEF4100828870 /* SivEmojiDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461762226EEF3D00828870 /* SivEmojiDictionary.cpp */; };
 		2C46195B226EEF4100828870 /* SivAudioFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461764226EEF3D00828870 /* SivAudioFormat.cpp */; };
 		2C46195C226EEF4100828870 /* CAudioFormat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461765226EEF3D00828870 /* CAudioFormat.hpp */; };
 		2C46195D226EEF4100828870 /* IAudioFormat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461766226EEF3D00828870 /* IAudioFormat.hpp */; };
@@ -1118,6 +1115,9 @@
 		2CEACB562338756800C6EE98 /* SivAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB552338756800C6EE98 /* SivAABB.cpp */; };
 		2CEACB592338757900C6EE98 /* SivLine3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB582338757900C6EE98 /* SivLine3D.cpp */; };
 		2CEACB5C2338758B00C6EE98 /* SivTriangle3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */; };
+		2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */; };
+		2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */; };
+		2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1925,9 +1925,6 @@
 		2C46175A226EEF3D00828870 /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
 		2C46175C226EEF3D00828870 /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2C46175E226EEF3D00828870 /* SivInterpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInterpolation.cpp; sourceTree = "<group>"; };
-		2C461760226EEF3D00828870 /* EmojiDictionaryDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiDictionaryDetail.cpp; sourceTree = "<group>"; };
-		2C461761226EEF3D00828870 /* EmojiDictionaryDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiDictionaryDetail.hpp; sourceTree = "<group>"; };
-		2C461762226EEF3D00828870 /* SivEmojiDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiDictionary.cpp; sourceTree = "<group>"; };
 		2C461764226EEF3D00828870 /* SivAudioFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioFormat.cpp; sourceTree = "<group>"; };
 		2C461765226EEF3D00828870 /* CAudioFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAudioFormat.hpp; sourceTree = "<group>"; };
 		2C461766226EEF3D00828870 /* IAudioFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAudioFormat.hpp; sourceTree = "<group>"; };
@@ -2196,7 +2193,6 @@
 		2CA6274022226DC60009DFE1 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Key.hpp; sourceTree = "<group>"; };
 		2CA6274122226DC60009DFE1 /* AudioFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat.hpp; sourceTree = "<group>"; };
 		2CA6274222226DC60009DFE1 /* ImageFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat.hpp; sourceTree = "<group>"; };
-		2CA6274322226DC60009DFE1 /* EmojiDictionary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiDictionary.hpp; sourceTree = "<group>"; };
 		2CA6274422226DC60009DFE1 /* TextureFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureFormat.hpp; sourceTree = "<group>"; };
 		2CA6274522226DC60009DFE1 /* AlignedAllocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AlignedAllocator.hpp; sourceTree = "<group>"; };
 		2CA6274622226DC60009DFE1 /* NoiseGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NoiseGenerator.hpp; sourceTree = "<group>"; };
@@ -2572,6 +2568,10 @@
 		2CEACB552338756800C6EE98 /* SivAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAABB.cpp; sourceTree = "<group>"; };
 		2CEACB582338757900C6EE98 /* SivLine3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine3D.cpp; sourceTree = "<group>"; };
 		2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
+		2CEACB5D2338921600C6EE98 /* EmojiList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EmojiList.hpp; sourceTree = "<group>"; };
+		2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiListDetail.cpp; sourceTree = "<group>"; };
+		2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiListDetail.hpp; sourceTree = "<group>"; };
+		2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiList.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -5057,16 +5057,6 @@
 			path = Interpolation;
 			sourceTree = "<group>";
 		};
-		2C46175F226EEF3D00828870 /* EmojiDictionary */ = {
-			isa = PBXGroup;
-			children = (
-				2C461760226EEF3D00828870 /* EmojiDictionaryDetail.cpp */,
-				2C461761226EEF3D00828870 /* EmojiDictionaryDetail.hpp */,
-				2C461762226EEF3D00828870 /* SivEmojiDictionary.cpp */,
-			);
-			path = EmojiDictionary;
-			sourceTree = "<group>";
-		};
 		2C461763226EEF3D00828870 /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
@@ -6000,7 +5990,7 @@
 				2C4616E2226EEF3800828870 /* Ellipse */,
 				2C46153C226EEF2E00828870 /* Emitter2D */,
 				2C46163A226EEF3400828870 /* Emoji */,
-				2C46175F226EEF3D00828870 /* EmojiDictionary */,
+				2CEACB5E2338923B00C6EE98 /* EmojiList */,
 				2C4615EE226EEF3100828870 /* EngineDirectory */,
 				2C4615BD226EEF3000828870 /* Error */,
 				2C461634226EEF3300828870 /* Exif */,
@@ -6257,7 +6247,7 @@
 				2CA6274E22226DC60009DFE1 /* Ellipse.hpp */,
 				2CA6272122226DC60009DFE1 /* Emitter2D.hpp */,
 				2CA6275422226DC60009DFE1 /* Emoji.hpp */,
-				2CA6274322226DC60009DFE1 /* EmojiDictionary.hpp */,
+				2CEACB5D2338921600C6EE98 /* EmojiList.hpp */,
 				2CA6281A22226DC70009DFE1 /* EngineError.hpp */,
 				2CA6273A22226DC60009DFE1 /* EngineLog.hpp */,
 				2CA6273F22226DC60009DFE1 /* EngineMessageBox.hpp */,
@@ -6884,6 +6874,16 @@
 			path = Triangle3D;
 			sourceTree = "<group>";
 		};
+		2CEACB5E2338923B00C6EE98 /* EmojiList */ = {
+			isa = PBXGroup;
+			children = (
+				2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */,
+				2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */,
+				2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */,
+			);
+			path = EmojiList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -7091,6 +7091,7 @@
 				2C461140226EEDB500828870 /* tttags.h in Headers */,
 				2C461412226EEDB500828870 /* memorybuffer.h in Headers */,
 				2C461128226EEDB500828870 /* svtteng.h in Headers */,
+				2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */,
 				2C461954226EEF4100828870 /* BigFloatDetail.hpp in Headers */,
 				2C46183F226EEF4100828870 /* IProfiler.hpp in Headers */,
 				2CBC64CA22F849F0001610DB /* zstd.h in Headers */,
@@ -7117,7 +7118,6 @@
 				2C461426226EEDB500828870 /* muParserDef.h in Headers */,
 				2CBC64E022F849F0001610DB /* huf.h in Headers */,
 				2C4617E7226EEF4100828870 /* ScriptBind.hpp in Headers */,
-				2C461959226EEF4100828870 /* EmojiDictionaryDetail.hpp in Headers */,
 				2C4617E2226EEF4100828870 /* ScriptData.hpp in Headers */,
 				2C46112B226EEDB500828870 /* svpostnm.h in Headers */,
 				2C46194D226EEF4100828870 /* CScreenCapture.hpp in Headers */,
@@ -7530,6 +7530,7 @@
 				2C46190A226EEF4100828870 /* SivString.cpp in Sources */,
 				2C46181E226EEF4100828870 /* Script_Texture.cpp in Sources */,
 				2C46187D226EEF4100828870 /* SoundFontFactory.cpp in Sources */,
+				2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */,
 				2C461883226EEF4100828870 /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2C461A57226F2F5900828870 /* CWindow.cpp in Sources */,
 				2C46115F226EEDB500828870 /* quirc.c in Sources */,
@@ -7742,7 +7743,6 @@
 				2C461828226EEF4100828870 /* Script_Circular.cpp in Sources */,
 				2C461A4D226F2D0000828870 /* context.c in Sources */,
 				2C46195B226EEF4100828870 /* SivAudioFormat.cpp in Sources */,
-				2C46195A226EEF4100828870 /* SivEmojiDictionary.cpp in Sources */,
 				2C461A3B226F2D0000828870 /* monitor.c in Sources */,
 				2C461377226EEDB500828870 /* FastNoiseSIMD.cpp in Sources */,
 				2C46146F226EEDB500828870 /* b2ContactManager.cpp in Sources */,
@@ -7823,7 +7823,6 @@
 				2C4617E0226EEF4100828870 /* scriptstdstring.cpp in Sources */,
 				2C4617E9226EEF4100828870 /* Script_Audio.cpp in Sources */,
 				2C4619A0226EEF4100828870 /* FontFace.cpp in Sources */,
-				2C461958226EEF4100828870 /* EmojiDictionaryDetail.cpp in Sources */,
 				2C461872226EEF4100828870 /* SivGeometry2D.cpp in Sources */,
 				2C46137F226EEDB500828870 /* fixed-dtoa.cc in Sources */,
 				2C461371226EEDB500828870 /* FastNoiseSIMD_avx512.cpp in Sources */,
@@ -8027,6 +8026,7 @@
 				2C4617D5226EEF4100828870 /* SivCPU.cpp in Sources */,
 				2C46191D226EEF4100828870 /* SivParticle2D.cpp in Sources */,
 				2C4619B2226EF33F00828870 /* CXInput.cpp in Sources */,
+				2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */,
 				2C461431226EEDB500828870 /* sweep.cc in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
 				2C46192E226EEF4100828870 /* SivTexturedCircle.cpp in Sources */,
