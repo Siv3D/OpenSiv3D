@@ -668,6 +668,10 @@
 // Half-Pecision Floating-Point
 # include <Siv3D/HalfFloat.hpp>
 
+// SIMD 対応 Float4
+// SIMD Float4
+# include <Siv3D/SIMD_Float4.hpp>
+
 // 数式パーサ
 // Math Parser
 # include <Siv3D/MathParser.hpp>
@@ -1146,21 +1150,34 @@
 //
 //////////////////////////////////////////////////
 
-//// DirectXMath ユーティリティ
-//# include <Siv3D/DirectXMathUtility.hpp>
-//// クォータニオン
+// クォータニオン
+// Quaternion
 //# include <Siv3D/Quaternion.hpp>
-//// 4x4 行列
-//# include <Siv3D/Mat4x4.hpp>
+
+// 4x4 行列
+// 4x4 matrix
+# include <Siv3D/Mat4x4.hpp>
+
+// 3D カメラ
+// 3D camera
+# include <Siv3D/Camera3D.hpp>
 
 // レイ
 // Ray
 # include <Siv3D/Ray.hpp>
 
-//// 3D 線分
-//# include <Siv3D/Line3D.hpp>
-//// 3D 三角形
-//# include <Siv3D/Triangle3D.hpp>
+// 3D 線分
+// 3D Line segment
+# include <Siv3D/Line3D.hpp>
+
+// 3D 三角形
+// 3D Triangle
+# include <Siv3D/Triangle3D.hpp>
+
+// 軸平行境界ボックス (AABB)
+// Axis Aligned Bounding Box (AABB)
+# include <Siv3D/AABB.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ
@@ -1192,8 +1209,6 @@
 //# include <Siv3D/ModelLoader.hpp>
 //// 3D モデル
 //# include <Siv3D/Model.hpp>
-//// 3D カメラ
-//# include <Siv3D/Camera.hpp>
 //// フォグ
 //# include <Siv3D/Fog.hpp>
 //// ライト

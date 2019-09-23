@@ -39,6 +39,18 @@ namespace s3d
 		}
 	}
 
+	INIKey::INIKey()
+	{
+
+	}
+
+	INIKey::INIKey(const String& _name, const String& _value)
+		: name(_name)
+		, value(_value)
+	{
+	
+	}
+
 	INISection::INISection()
 	{
 

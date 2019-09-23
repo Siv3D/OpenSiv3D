@@ -25,11 +25,9 @@ namespace s3d
 
 		String value;
 
-		INIKey() = default;
+		INIKey();
 
-		INIKey(const String& _name, const String& _value)
-			: name(_name)
-			, value(_value) {}
+		INIKey(const String& _name, const String& _value);
 	};
 
 	struct INISection

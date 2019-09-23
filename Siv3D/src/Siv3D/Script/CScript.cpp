@@ -46,14 +46,6 @@ namespace s3d
 		}
 	}
 
-	ScriptModuleData::~ScriptModuleData()
-	{
-		if (context)
-		{
-			context->Release();
-		}
-	}
-
 	CScript::CScript()
 	{
 
