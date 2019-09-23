@@ -72,6 +72,9 @@ namespace s3d
 		// 現在の描画の拡大率係数を取得
 		[[nodiscard]] double GetMaxScaling();
 
+		// 現在のレンダーターゲットのサイズを取得
+		[[nodiscard]] Size GetRenderTargetSize();
+
 		// SDF 描画用のパラメータを設定
 		void SetSDFParameters(const Float4& parameters);
 
