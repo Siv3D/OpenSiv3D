@@ -12,7 +12,7 @@
 # include <queue>
 # include <Siv3D/String.hpp>
 # include <Siv3D/BinaryReader.hpp>
-# include "EmojiDictionaryDetail.hpp"
+# include "EmojiListDetail.hpp"
 
 namespace s3d
 {

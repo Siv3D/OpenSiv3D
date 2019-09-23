@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/EmojiDictionary.hpp>
-# include "EmojiDictionaryDetail.hpp"
+# include <Siv3D/EmojiList.hpp>
+# include "EmojiListDetail.hpp"
 
 namespace s3d
 {

@@ -11,7 +11,7 @@
 
 # pragma once
 # include <FID/FID.h>
-# include <Siv3D/EmojiDictionary.hpp>
+# include <Siv3D/EmojiList.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
