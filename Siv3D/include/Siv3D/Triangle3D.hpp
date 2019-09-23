@@ -41,18 +41,7 @@ namespace s3d::experimental
 
 	struct alignas(16) SIMD_Triangle3D
 	{
-	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
-
-		union
-		{
-			struct
-			{
-				SIMD_Float4 p0, p1, p2;
-			};
-			SIMD_Float4 vec[3];
-		};
-
-	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+		SIMD_Float4 vec[3];
 
 		SIMD_Triangle3D() = default;
 
@@ -65,14 +54,10 @@ namespace s3d::experimental
 		SIMD_Triangle3D& operator=(SIMD_Triangle3D&&) = default;
 
 		constexpr SIMD_Triangle3D(SIMD_Float4 _p0, SIMD_Float4 _p1, SIMD_Float4 _p2) noexcept
-			: p0(_p0)
-			, p1(_p1)
-			, p2(_p2) {}
+			: vec{ _p0, _p1, _p2 } {}
 
 		SIMD_Triangle3D(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept
-			: p0(_p0, 0.0f)
-			, p1(_p1, 0.0f)
-			, p2(_p2, 0.0f) {}
+			: vec{ { _p0, 0.0f }, { _p1, 0.0f }, { _p2, 0.0f } } {}
 
 		void draw(const Mat4x4& vp, const ColorF& color) const;
 	};
