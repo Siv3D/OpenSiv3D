@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class EmojiDictionary
+	class EmojiList
 	{
 	private:
 
@@ -27,11 +27,11 @@ namespace s3d
 
 	public:
 
-		EmojiDictionary();
+		EmojiList();
 
-		EmojiDictionary(const FilePath& path);
+		EmojiList(const FilePath& path);
 	
-		~EmojiDictionary();
+		~EmojiList();
 		
 		bool load(const FilePath& path);
 

@@ -3,7 +3,7 @@
 
 void Main()
 {
-	EmojiDictionary emojis(Resource(U"engine/emoji/noto7_dictionary.dat"));
+	EmojiList emojis(Resource(U"engine/emoji/noto7_dictionary.dat"));
 
 	//Logger << emojis.getList();
 

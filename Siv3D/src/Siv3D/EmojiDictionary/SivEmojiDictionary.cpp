@@ -14,39 +14,39 @@
 
 namespace s3d
 {
-	EmojiDictionary::EmojiDictionary()
+	EmojiList::EmojiList()
 		: pImpl(std::make_shared<EmojiDictionaryDetail>())
 	{
 
 	}
 
-	EmojiDictionary::EmojiDictionary(const FilePath& path)
-		: EmojiDictionary()
+	EmojiList::EmojiList(const FilePath& path)
+		: EmojiList()
 	{
 		load(path);
 	}
 
-	EmojiDictionary::~EmojiDictionary()
+	EmojiList::~EmojiList()
 	{
 
 	}
 
-	bool EmojiDictionary::load(const FilePath& path)
+	bool EmojiList::load(const FilePath& path)
 	{
 		return pImpl->load(path);
 	}
 
-	size_t EmojiDictionary::check(String::const_iterator it, const String::const_iterator& itEnd)
+	size_t EmojiList::check(String::const_iterator it, const String::const_iterator& itEnd)
 	{
 		return pImpl->check(it, itEnd);
 	}
 
-	void EmojiDictionary::clear()
+	void EmojiList::clear()
 	{
 		pImpl->clear();
 	}
 
-	const Array<String>& EmojiDictionary::getList() const
+	const Array<String>& EmojiList::getList() const
 	{
 		return pImpl->getList();
 	}

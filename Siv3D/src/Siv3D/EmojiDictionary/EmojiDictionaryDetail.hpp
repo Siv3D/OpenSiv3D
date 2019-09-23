@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	class EmojiDictionary::EmojiDictionaryDetail
+	class EmojiList::EmojiDictionaryDetail
 	{
 	private:
 		
