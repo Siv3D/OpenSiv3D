@@ -607,9 +607,6 @@
     <Filter Include="include\ThirdParty\cereal\types\concepts">
       <UniqueIdentifier>{0056a058-c8d5-48ea-bc11-6ff21adb8395}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\EmojiDictionary">
-      <UniqueIdentifier>{cb89e898-5fc5-4561-8c86-397fa5f21b94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\ThirdParty\FID">
       <UniqueIdentifier>{9a0b9ceb-f516-48e7-a615-1ebd28edc36b}</UniqueIdentifier>
     </Filter>
@@ -1029,6 +1026,9 @@
     </Filter>
     <Filter Include="src\Siv3D\AABB">
       <UniqueIdentifier>{a93830ec-3d2b-438b-a3ff-61ad261bfa57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\EmojiList">
+      <UniqueIdentifier>{cb89e898-5fc5-4561-8c86-397fa5f21b94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -2736,14 +2736,8 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\concepts\pair_associative_container.hpp">
       <Filter>include\ThirdParty\cereal\types\concepts</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\FID\FID.h">
       <Filter>src\ThirdParty\FID</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\EmojiDictionary\EmojiDictionaryDetail.hpp">
-      <Filter>src\Siv3D\EmojiDictionary</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp">
       <Filter>include\Siv3D</Filter>
@@ -3491,6 +3485,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\EmojiList.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\EmojiList\EmojiListDetail.hpp">
+      <Filter>src\Siv3D\EmojiList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -4382,14 +4382,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.cpp">
       <Filter>src\Siv3D\ParticleSystem2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp">
-      <Filter>src\Siv3D\EmojiDictionary</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp">
       <Filter>src\ThirdParty\FID</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\EmojiDictionaryDetail.cpp">
-      <Filter>src\Siv3D\EmojiDictionary</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\SivDirectoryWatcher.cpp">
       <Filter>src\Siv3D\DirectoryWatcher</Filter>
@@ -5266,6 +5260,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AABB\SivAABB.cpp">
       <Filter>src\Siv3D\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiList\SivEmojiList.cpp">
+      <Filter>src\Siv3D\EmojiList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiList\EmojiListDetail.cpp">
+      <Filter>src\Siv3D\EmojiList</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

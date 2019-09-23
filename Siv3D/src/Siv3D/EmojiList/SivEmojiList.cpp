@@ -9,46 +9,71 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/EmojiDictionary.hpp>
-# include "EmojiDictionaryDetail.hpp"
+# include <Siv3D/EmojiList.hpp>
+# include "EmojiListDetail.hpp"
 
 namespace s3d
 {
-	EmojiDictionary::EmojiDictionary()
+	EmojiList::EmojiList()
 		: pImpl(std::make_shared<EmojiDictionaryDetail>())
 	{
 
 	}
 
-	EmojiDictionary::EmojiDictionary(const FilePath& path)
-		: EmojiDictionary()
+	EmojiList::EmojiList(const FilePath& path)
+		: EmojiList()
 	{
 		load(path);
 	}
 
-	EmojiDictionary::~EmojiDictionary()
+	EmojiList::~EmojiList()
 	{
 
 	}
 
-	bool EmojiDictionary::load(const FilePath& path)
+	bool EmojiList::load(const FilePath& path)
 	{
 		return pImpl->load(path);
 	}
 
-	size_t EmojiDictionary::check(String::const_iterator it, const String::const_iterator& itEnd)
+	bool EmojiList::isEmpty() const noexcept
 	{
-		return pImpl->check(it, itEnd);
+		return pImpl->getList().isEmpty();
 	}
 
-	void EmojiDictionary::clear()
+	size_t EmojiList::size() const noexcept
+	{
+		return pImpl->getList().size();
+	}
+
+	StringView EmojiList::operator[](const size_t index) const noexcept
+	{
+		return pImpl->getList()[index];
+	}
+
+	void EmojiList::clear()
 	{
 		pImpl->clear();
 	}
 
-	const Array<Array<uint32>>& EmojiDictionary::getList() const
+	EmojiList::const_iterator EmojiList::begin() const noexcept
+	{
+		return pImpl->getList().begin();
+	}
+
+	EmojiList::const_iterator EmojiList::end() const noexcept
+	{
+		return pImpl->getList().end();
+	}
+
+	const Array<String>& EmojiList::getList() const
 	{
 		return pImpl->getList();
+	}
+
+	size_t EmojiList::check(String::const_iterator it, const String::const_iterator& itEnd)
+	{
+		return pImpl->check(it, itEnd);
 	}
 }
 

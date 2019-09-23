@@ -64,7 +64,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\EmojiList.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Error.hpp" />
@@ -429,7 +429,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\CEffect.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\EffectData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp" />
-    <ClInclude Include="..\Siv3D\src\Siv3D\EmojiDictionary\EmojiDictionaryDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\EmojiList\EmojiListDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FFT\CFFT.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FFT\IFFT.hpp" />
@@ -978,8 +978,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\SivEffect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Emitter2D\SivEmitter2D.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\EmojiDictionaryDetail.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiList\EmojiListDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiList\SivEmojiList.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />

@@ -28,7 +28,7 @@ namespace s3d
 		GLFWwindow* m_window = nullptr;
 
 		String m_title		= U"Siv3D App";
-		String m_titleText	= Platform::DebugBuild ? U"Siv3D App (Debug Build)" : U"Siv3D App";
+		String m_titleText	= SIV3D_BUILD_TYPE(DEBUG) ? U"Siv3D App (Debug Build)" : U"Siv3D App";
 
 		// Internal state
 		WindowState m_state;

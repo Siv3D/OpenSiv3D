@@ -28,7 +28,7 @@ namespace s3d
 
 		std::mutex m_mutex;
 
-		OutputLevel m_outputLevel = Platform::DebugBuild ? OutputLevel::More : OutputLevel::Normal;
+		OutputLevel m_outputLevel = SIV3D_BUILD_TYPE(DEBUG) ? OutputLevel::More : OutputLevel::Normal;
 
 		bool m_active = true;
 

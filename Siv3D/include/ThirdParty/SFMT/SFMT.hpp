@@ -12,7 +12,7 @@
 # pragma once
 # include <Siv3D/Platform.hpp>
 
-# if defined(SIV3D_HAVE_SSE2)
+# if SIV3D_WITH_FEATURE(SSE2)
 
 	# define HAVE_SSE2
 
@@ -725,7 +725,7 @@ namespace s3d::sfmt
 
 # endif
 
-# if defined(HAVE_SSE2)
+# if SIV3D_WITH_FEATURE(SSE2)
 
 	# undef HAVE_SSE2
 
