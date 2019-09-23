@@ -2,12 +2,11 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.4.1
 
 //# define USE_DIRECTXMATH
+//# define USE_GLM
 
 # ifdef USE_DIRECTXMATH
-
 # define _XM_SSE3_INTRINSICS_
 # include <DirectXMath.h>
-
 void Show(const DirectX::XMMATRIX& mat)
 {
 	for (auto i : step(4))
@@ -15,221 +14,52 @@ void Show(const DirectX::XMMATRIX& mat)
 		Print << 8_dp << Vec4(mat.r[i].m128_f32[0], mat.r[i].m128_f32[1], mat.r[i].m128_f32[2], mat.r[i].m128_f32[3]);
 	}
 }
-
-using DXMat4x4 = DirectX::XMMATRIX;
-using DXVec4 = DirectX::XMVECTOR;
-
 # endif
 
+# ifdef USE_GLM
 //# define GLM_FORCE_DEPTH_ZERO_TO_ONE
 //# define GLM_FORCE_LEFT_HANDED
 # define GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
 # define GLM_FORCE_SSE42
-
-//SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
-//SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
-//# include <glm/vec4.hpp>
-//# include <glm/mat4x4.hpp>
-//# include <glm/ext/matrix_transform.hpp>
-//# include <glm/ext/matrix_clip_space.hpp>
-//SIV3D_DISABLE_MSVC_WARNINGS_POP()
-//SIV3D_DISABLE_MSVC_WARNINGS_POP()
-
-//glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
-//{
-//	glm::mat4 Projection = glm::perspective(glm::pi<float>() * 0.25f, 4.0f / 3.0f, 0.1f, 100.f);
-//	glm::mat4 View = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -Translate));
-//	View = glm::rotate(View, Rotate.y, glm::vec3(-1.0f, 0.0f, 0.0f));
-//	View = glm::rotate(View, Rotate.x, glm::vec3(0.0f, 1.0f, 0.0f));
-//	return Projection * View;
-//}
-
-
-
-//void Show(const glm::mat4& mat)
-//{
-//	for (auto i : step(4))
-//	{
-//		Print << 12_dp << Vec4(mat[i].x, mat[i].y, mat[i].z, mat[i].w);
-//	}
-//}
-
-//namespace s3d
-//{
-
-//struct alignas(16) SIMD_Line3D
-//{
-//	SIMD_Float4 begin;
-//
-//	SIMD_Float4 end;
-//};
-//
-//	Vec3 ToScreenPos(const Vec3& worldPos, const glm::mat4x4& vp)
-//	{
-//		const glm::vec4 pos{ worldPos.x, worldPos.y, worldPos.z, 1.0f };
-//		glm::vec4 transformed = vp * pos;
-//		transformed.x /= transformed.w;
-//		transformed.y /= transformed.w;
-//		transformed.z /= transformed.w;
-//		const Vec2 resolution = Scene::Size();
-//
-//		Vec3 v(transformed.x, transformed.y, transformed.z);
-//		v.x += 1.0;
-//		v.y += 1.0;
-//		v.x *= 0.5 * resolution.x;
-//		v.y *= 0.5;
-//		v.y = 1.0 - v.y;
-//		v.y *= resolution.y;
-//
-//		return v;
-//	}
-
-//	void Draw3D(const Triangle3D& triangle, const glm::mat4x4& vp, const ColorF& color)
-//	{
-//		const Vec3 t0 = ToScreenPos(triangle.p0, vp);
-//		const Vec3 t1 = ToScreenPos(triangle.p1, vp);
-//		const Vec3 t2 = ToScreenPos(triangle.p2, vp);
-//		Triangle(t0.xy(), t1.xy(), t2.xy()).draw(color);
-//	}
-//}
-
-namespace s3d
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
+# include <glm/vec4.hpp>
+# include <glm/mat4x4.hpp>
+# include <glm/ext/matrix_transform.hpp>
+# include <glm/ext/matrix_clip_space.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+void Show(const glm::mat4& mat)
 {
-	class BasicCamera3D
+	for (auto i : step(4))
 	{
-	protected:
-
-		Vec3 m_eyePosition = Vec3(0, 4, -4);
-
-		Vec3 m_focusPosition = Vec3(0, 0, 0);
-
-		Vec3 m_upDirection = Vec3(0, 1, 0);
-
-		double m_fov = 45_deg;
-
-		double m_aspectRatio = 1.0;
-
-		double m_nearClip = 0.1;
-
-		double m_farClip = 1000000.0;
-
-	public:
-
-		BasicCamera3D() = default;
-
-		BasicCamera3D(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection, double fov, double aspectRatio) noexcept
-			: m_eyePosition(eyePosition)
-			, m_focusPosition(focusPosition)
-			, m_upDirection(upDirection)
-			, m_fov(fov)
-			, m_aspectRatio(aspectRatio) {}
-
-		virtual ~BasicCamera3D() = default;
-
-		void setEyePosition(const Vec3& eyePosition) noexcept
-		{
-			m_eyePosition = eyePosition;
-		}
-
-		void setFocusPosition(const Vec3& focusPosition) noexcept
-		{
-			m_focusPosition = focusPosition;
-		}
-
-	# ifdef USE_DIRECTXMATH
-
-		[[nodiscard]] DXMat4x4 SIV3D_VECTOR_CALL getDXMat4x4() const
-		{
-			const float nearClip = static_cast<float>(m_nearClip);
-			const float farClip = static_cast<float>(m_farClip);
-
-			const DXVec4 eye{ static_cast<float>(m_eyePosition.x), static_cast<float>(m_eyePosition.y), static_cast<float>(m_eyePosition.z), 0.0f };
-			const DXVec4 lookAt{ static_cast<float>(m_focusPosition.x), static_cast<float>(m_focusPosition.y), static_cast<float>(m_focusPosition.z), 0.0f };
-			const DXVec4 up{ static_cast<float>(m_upDirection.x), static_cast<float>(m_upDirection.y), static_cast<float>(m_upDirection.z), 0.0f };
-
-			const DirectX::XMMATRIX proj = DirectX::XMMatrixPerspectiveFovLH(static_cast<float>(m_fov), static_cast<float>(m_aspectRatio), nearClip, farClip);
-			const DirectX::XMMATRIX view = DirectX::XMMatrixLookAtLH(eye, lookAt, up);
-
-			return DirectX::XMMatrixMultiply(view, proj);
-		}
-
-	# endif
-
-		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getMat4x4() const
-		{
-			const float fov			= static_cast<float>(m_fov);
-			const float aspectRatio	= static_cast<float>(m_aspectRatio);
-			const float nearClip	= static_cast<float>(m_nearClip);
-			const float farClip		= static_cast<float>(m_farClip);
-			const Mat4x4 proj = Mat4x4::PerspectiveFovLH_ZO(fov, aspectRatio, nearClip, farClip);
-			
-			const SIMD_Float4 eyePosition(m_eyePosition, 0.0f);
-			const SIMD_Float4 focusPosition(m_focusPosition, 0.0f);
-			const SIMD_Float4 upDirection(m_upDirection, 0.0f);
-			const Mat4x4 view = Mat4x4::LookAtLH(eyePosition, focusPosition, upDirection);
-
-			return view * proj;
-		}
-
-		//[[nodiscard]] GLMat4x4 getGLMat4x4() const
-		//{
-		//	constexpr float nearClip = 0.1f;
-		//	constexpr float farClip = 1000000.0f;
-
-		//	const glm::vec3 eye(m_eye.x, m_eye.y, m_eye.z);
-		//	const glm::vec3 lookAt(m_lookAt.x, m_lookAt.y, m_lookAt.z);
-		//	const glm::vec3 up(0.0f, 1.0f, 0.0f);
-
-		//	const GLMat4x4 glProj = glm::perspective(static_cast<float>(m_fov), static_cast<float>(m_aspect), nearClip, farClip);
-		//	const GLMat4x4 glView = glm::lookAtLH(eye, lookAt, up);
-		//	return glProj * glView;
-		//}
-	};
-
-# ifdef USE_DIRECTXMATH
-
-	Vec3 ToScreenPos(const Vec3& worldPos, const DirectX::XMMATRIX& vp)
-	{
-		const DirectX::XMVECTOR pos{ static_cast<float>(worldPos.x), static_cast<float>(worldPos.y), static_cast<float>(worldPos.z), 0.0f };
-		const DirectX::XMVECTOR out = DirectX::XMVector3TransformCoord(pos, vp);
-		const Vec2 resolution = Scene::Size();
-
-		Vec3 v(out.m128_f32[0], out.m128_f32[1], out.m128_f32[2]);
-		v.x += 1.0;
-		v.y += 1.0;
-		v.x *= 0.5 * resolution.x;
-		v.y *= 0.5;
-		v.y = 1.0 - v.y;
-		v.y *= resolution.y;
-
-		return v;
+		Print << 12_dp << Vec4(mat[i].x, mat[i].y, mat[i].z, mat[i].w);
 	}
-
-	struct Triangle3D
-	{
-		Vec3 p0, p1, p2;
-	};
-
-	void Draw3D(const Triangle3D& triangle, const DirectX::XMMATRIX& vp, const ColorF& color)
-	{
-		const Vec3 t0 = ToScreenPos(triangle.p0, vp);
-		const Vec3 t1 = ToScreenPos(triangle.p1, vp);
-		const Vec3 t2 = ToScreenPos(triangle.p2, vp);
-		Triangle(t0.xy(), t1.xy(), t2.xy()).draw(color);
-	}
-
+}
 # endif
 
-	Float3 SIV3D_VECTOR_CALL GetScenePos(SIMD_Float4 worldPos, Mat4x4 viewProjMat, const Float2& sceneResolution)
+namespace s3d::experimental
+{
+	namespace Graphics3D
 	{
-		Float3 v = SIMD::Vector3TransformCoord(worldPos, viewProjMat).xyz();
-		v.x += 1.0f;
-		v.y += 1.0f;
-		v.x *= 0.5f * sceneResolution.x;
-		v.y *= 0.5f;
-		v.y = 1.0f - v.y;
-		v.y *= sceneResolution.y;
-		return v;
+		[[nodiscard]] Float3 SIV3D_VECTOR_CALL WorldToScreenPoint(SIMD_Float4 worldPos, Mat4x4 viewProjMat,
+			const Float2& sceneSize = Graphics2D::GetRenderTargetSize())
+		{
+			Float3 v = SIMD::Vector3TransformCoord(worldPos, viewProjMat).xyz();
+			v.x += 1.0f;
+			v.y += 1.0f;
+			v.x *= 0.5f * sceneSize.x;
+			v.y *= 0.5f;
+			v.y = 1.0f - v.y;
+			v.y *= sceneSize.y;
+			return v;
+		}
+
+		[[nodiscard]] Float3 SIV3D_VECTOR_CALL WorldToScreenPoint(const Vec3& worldPos, Mat4x4 viewProjMat,
+			const Float2& sceneSize = Graphics2D::GetRenderTargetSize())
+		{
+			return WorldToScreenPoint(SIMD_Float4(worldPos, 0.0f), viewProjMat, sceneSize);
+		}
 	}
 
 	struct alignas(16) SIMD_Triangle3D
@@ -247,13 +77,33 @@ namespace s3d
 
 	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
+		SIMD_Triangle3D() = default;
+
+		SIMD_Triangle3D(const SIMD_Triangle3D&) = default;
+
+		SIMD_Triangle3D& operator=(const SIMD_Triangle3D&) = default;
+
+		SIMD_Triangle3D(SIMD_Triangle3D&&) = default;
+
+		SIMD_Triangle3D& operator=(SIMD_Triangle3D&&) = default;
+
+		constexpr SIMD_Triangle3D(SIMD_Float4 _p0, SIMD_Float4 _p1, SIMD_Float4 _p2) noexcept
+			: p0(_p0)
+			, p1(_p1)
+			, p2(_p2) {}
+
+		SIMD_Triangle3D(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept
+			: p0(_p0, 0.0f)
+			, p1(_p1, 0.0f)
+			, p2(_p2, 0.0f) {}
+
 		void draw(const Mat4x4& vp, const ColorF& color) const
 		{
 			Float3 out[3];
 
 			SIMD::Vector3TransformCoordStream(out, vec, 3, vp);
 
-			const Float2 resolution = Scene::Size();
+			const Float2 resolution = Graphics2D::GetRenderTargetSize();
 
 			for (auto& v : out)
 			{
@@ -269,196 +119,202 @@ namespace s3d
 		}
 	};
 
-	void Draw3D(const SIMD_Triangle3D& triangle, const Mat4x4& vp, const ColorF& color)
+	struct alignas(16) SIMD_Line3D
 	{
-		const Float2 sceneResolution = Scene::Size();
-		const Vec3 t0 = GetScenePos(triangle.p0, vp, sceneResolution);
-		const Vec3 t1 = GetScenePos(triangle.p1, vp, sceneResolution);
-		const Vec3 t2 = GetScenePos(triangle.p2, vp, sceneResolution);
-		Triangle(t0.xy(), t1.xy(), t2.xy()).draw(color);
-	}
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			struct
+			{
+				SIMD_Float4 begin, end;
+			};
+			SIMD_Float4 vec[2];
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+		SIMD_Line3D() = default;
+
+		SIMD_Line3D(const SIMD_Line3D&) = default;
+
+		SIMD_Line3D& operator=(const SIMD_Line3D&) = default;
+
+		SIMD_Line3D(SIMD_Line3D&&) = default;
+
+		SIMD_Line3D& operator=(SIMD_Line3D&&) = default;
+
+		constexpr SIMD_Line3D(SIMD_Float4 _begin, SIMD_Float4 _end) noexcept
+			: begin(_begin)
+			, end(_end) {}
+
+		SIMD_Line3D(const Float3& _begin, const Float3& _end) noexcept
+			: begin(_begin, 0.0f)
+			, end(_end, 0.0f) {}
+
+		void draw(const Mat4x4& vp, const ColorF& color) const
+		{
+			Float3 out[2];
+
+			SIMD::Vector3TransformCoordStream(out, vec, 2, vp);
+
+			const Float2 resolution = Graphics2D::GetRenderTargetSize();
+
+			for (auto& v : out)
+			{
+				v.x += 1.0f;
+				v.y += 1.0f;
+				v.x *= 0.5f * resolution.x;
+				v.y *= 0.5f;
+				v.y = 1.0f - v.y;
+				v.y *= resolution.y;
+			}
+
+			Line(out[0].xy(), out[1].xy()).draw(2, color);
+		}
+	};
+
+	struct AABB
+	{
+		Vec3 center;
+
+		Vec3 size;
+
+		AABB() = default;
+
+		AABB(const AABB&) = default;
+
+		AABB& operator=(const AABB&) = default;
+
+		AABB(AABB&&) = default;
+
+		AABB& operator=(AABB&&) = default;
+
+		constexpr AABB(const Vec3& _center, const Vec3& _size) noexcept
+			: center(_center)
+			, size(_size) {}
+
+		void draw(const Mat4x4& vp, const ColorF& color) const
+		{
+			constexpr size_t vertexCount = 8;
+			const Float3 c = center;
+			const Float3 s = size * 0.5;
+			const std::array<Float3, vertexCount> vertices =
+			{
+				Float3(c.x - s.x, c.y + s.y, c.z - s.z),
+				Float3(c.x + s.x, c.y + s.y, c.z - s.z),
+				Float3(c.x - s.x, c.y - s.y, c.z - s.z),
+				Float3(c.x + s.x, c.y - s.y, c.z - s.z),
+
+				Float3(c.x + s.x, c.y + s.y, c.z + s.z),
+				Float3(c.x - s.x, c.y + s.y, c.z + s.z),
+				Float3(c.x + s.x, c.y - s.y, c.z + s.z),
+				Float3(c.x - s.x, c.y - s.y, c.z + s.z),
+			};
+			static constexpr std::array<uint32, 36> indices =
+			{
+				0, 1, 2, 2, 1, 3,
+				5, 4, 0, 0, 4, 1,
+				1, 4, 3, 3, 4, 6,
+				5, 0, 7, 7, 0, 2,
+				4, 5, 6, 6, 5, 7,
+				2, 3, 7, 7, 3, 6,
+			};
+
+			std::array<Float3, vertexCount> out;
+
+			SIMD::Vector3TransformCoordStream(out.data(), vertices.data(), vertexCount, vp);
+
+			const Float2 resolution = Graphics2D::GetRenderTargetSize();
+
+			for (auto& v : out)
+			{
+				v.x += 1.0f;
+				v.y += 1.0f;
+				v.x *= 0.5f * resolution.x;
+				v.y *= 0.5f;
+				v.y = 1.0f - v.y;
+				v.y *= resolution.y;
+			}
+
+			for (auto ii : step(indices.size() / 3))
+			{
+				const Float3 p0 = out[indices[ii * 3 + 0]];
+				const Float3 p1 = out[indices[ii * 3 + 1]];
+				const Float3 p2 = out[indices[ii * 3 + 2]];
+				Triangle(p0.xy(), p1.xy(), p2.xy()).draw(color);
+			}
+		}
+	};
 }
 
 void Main()
 {
-	{
-		//BasicCamera3D camera;
-		//Print << 8_dp << camera.getMat4x4();
-		//Show(camera.getDXMat4x4());
-	}
-
-	/*
-	const SIMD_Float4 ev(0.1f, 0.2f, 0.3f, 0.4f);
-	SIMD_Float4 ev2(0.1f, 0.2f, 0.3f, 0.4f);
-	Print << ev2;
-	ev2.setX(1.1f);
-	Print << ev2;
-	ev2.setY(2.2f);
-	Print << ev2;
-	ev2.setZ(3.3f);
-	Print << ev2;
-	ev2.setW(4.4f);
-	Print << ev2;
-	Print << U"---";
-	Print << Float4(ev.getX(), ev.getY(), ev.getZ(), ev.getW());
-	Print << Float4(ev.elem(0), ev.elem(1), ev.elem(2), ev.elem(3));
-	Print << Parse<SIMD_Float4>(U"(0.1, 0.2, 0.3, 0.4)");
-	Print << SIMD_Float4(0.1f, 0.2f, 0.3f, 0.4f);
-	Print << SIMD_Float4(0.1234f);
-	SIMD_Float4 f0(0.1f, Random(0.2f), Random(0.2f), Random(0.2f));
-	Print << f0;
-	Print << (f0 + f0 + f0);
-	Print << U"---";
-	Print << ev.fastReciprocal();
-	Print << ev.reciprocal();
-	Print << ev.xy();
-	Print << ev.xyz();
-	*/
-
-
-	constexpr std::array<Vec3, 8> vertices =
-	{
-		Vec3(-1, 1, -1),
-		Vec3(1, 1, -1),
-		Vec3(-1, -1, -1),
-		Vec3(1, -1, -1),
-
-		Vec3(1, 1, 1),
-		Vec3(-1, 1, 1),
-		Vec3(1, -1, 1),
-		Vec3(-1, -1, 1),
-	};
-
-	constexpr std::array<uint32, 36> indices =
-	{
-		0, 1, 2, 2, 1, 3,
-		5, 4, 0, 0, 4, 1,
-		1, 4, 3, 3, 4, 6,
-		5, 0, 7, 7, 0, 2,
-		4, 5, 6, 6, 5, 7,
-		2, 3, 7, 7, 3, 6,
-	};
-
 	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.05, 0.3, 0.7));
 
-	constexpr Vec3 focusPosition(0, 0, 0);
-	constexpr Vec3 upDirection(0, 1, 0);
+	RenderTexture rt(100, 100, ColorF(0.0), TextureFormat::R32_Float);
+	Grid<float> heightMap;
+	Grid<Float3> positions;
+
 	constexpr double fov = 45_deg;
-	const double aspectRatio = static_cast<double>(Scene::Width()) / Scene::Height();
-
-	//Print << U"PerspectiveFovLH_ZO";
-	//Print << 12_dp << Mat4x4::PerspectiveFovLH_ZO(float(fov), aspectRatio, 0.1f, 100.0f);
-	//Print << U"glm::perspectiveFovLH_ZO";
-	//Show(glm::perspectiveFovLH_ZO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
-
-	//Print << U"PerspectiveFovLH_NO";
-	//Print << 12_dp << Mat4x4::PerspectiveFovLH_NO(float(fov), aspectRatio, 0.1f, 100.0f);
-	//Print << U"glm::perspectiveFovLH_NO";
-	//Show(glm::perspectiveFovLH_NO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
-
-	//Print << U"PerspectiveFovRH_ZO";
-	//Print << 12_dp << Mat4x4::PerspectiveFovRH_ZO(float(fov), aspectRatio, 0.1f, 100.0f);
-	//Print << U"glm::perspectiveFovRH_ZO";
-	//Show(glm::perspectiveFovRH_ZO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
-
-	//Print << U"PerspectiveFovRH_NO";
-	//Print << 12_dp << Mat4x4::PerspectiveFovRH_NO(float(fov), aspectRatio, 0.1f, 100.0f);
-	//Print << U"glm::perspectiveFovRH_NO";
-	//Show(glm::perspectiveFovRH_NO(float(fov), 1280.0f, 720.0f, 0.1f, 100.0f));
-
-	//Print << U"LookAtLH";
-	//Print << 12_dp << Mat4x4::LookAtLH(SIMD_Float4(Vec3(1, 4, -3), 0.0f), SIMD_Float4(0.1f, 0.2f, 0.3f, 0.0f), SIMD_Float4(0.0f, 1.0f, 0.0f, 0.0f));
-	//Print << U"glm::lookAtLH";
-	//Show(glm::lookAtLH<float>(glm::vec3(1, 4, -3), glm::vec3(0.1f, 0.2f, 0.3f), glm::vec3(0.0f, 1.0f, 0.0f)));
-
-	//Print << U"LookAtRH";
-	//Print << 12_dp << Mat4x4::LookAtRH(SIMD_Float4(Vec3(1, 4, -3), 0.0f), SIMD_Float4(0.1f, 0.2f, 0.3f, 0.0f), SIMD_Float4(0.0f, 1.0f, 0.0f, 0.0f));
-	//Print << U"glm::lookAtRH";
-	//Show(glm::lookAtRH<float>(glm::vec3(1, 4, -3), glm::vec3(0.1f, 0.2f, 0.3f), glm::vec3(0.0f, 1.0f, 0.0f)));
-
-	//Print << U"Translation";
-	//Print << 12_dp << Mat4x4::Translation(0.1f, 0.2f, 0.3f);
-	//Print << U"glm::translate";
-	//Show(glm::translate(glm::identity<glm::mat4x4>(), glm::vec3(0.1f, 0.2f, 0.3f)));
-
-	//Print << U"Scaling";
-	//Print << 12_dp << Mat4x4::Scaling(0.1f, 0.2f, 0.3f);
-	//Print << U"glm::scale";
-	//Show(glm::scale(glm::identity<glm::mat4x4>(), glm::vec3(0.1f, 0.2f, 0.3f)));
-
-	//Print << U"RotationX";
-	//Print << 12_dp << Mat4x4::RotationX(0.1f);
-	//Print << U"glm::rotateX";
-	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(1.0f, 0.0f, 0.0f)));
-
-	//Print << U"RotationY";
-	//Print << 12_dp << Mat4x4::RotationY(0.1f);
-	//Print << U"glm::rotateY";
-	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(0.0f, 1.0f, 0.0f)));
-
-	//Print << U"RotationZ";
-	//Print << 12_dp << Mat4x4::RotationZ(0.1f);
-	//Print << U"glm::rotateZ";
-	//Show(glm::rotate(glm::identity<glm::mat4x4>(), 0.1f, glm::vec3(0.0f, 0.0f, 1.0f)));
-
-	//{
-	//	const Vec3 eyePositon = Cylindrical(6, 2 * 30_deg, Sin(2) * 4);
-
-	//	BasicCamera3D camera(eyePositon, focusPosition, upDirection, fov, aspectRatio);
-	//	Print << camera.getMat4x4();
-
-	//	float determinant;
-	//	Print << Mat4x4::Inverse(determinant, camera.getMat4x4());
-	//	Print << determinant;
-
-	//	Print << Mat4x4::Inverse(camera.getMat4x4())* camera.getMat4x4();
-	//	Print << camera.getMat4x4() * Mat4x4::Inverse(camera.getMat4x4());
-
-	//	Print << Mat4x4::Determinant(camera.getMat4x4());
-	//}
-
-	//Print << 12_dp << LookAtLH(SIMD_Float4(Vec3(0, 4, -4), 0.0f), SIMD_Float4(focusPosition, 0.0f), SIMD_Float4(upDirection, 0.0f));
+	constexpr Vec3 focusPosition(50, 0, -50);
+	Vec3 eyePositon(0, 100, 0);
+	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePositon, focusPosition);
 
 	while (System::Update())
 	{
-		ClearPrint();
+		eyePositon = Cylindrical(Arg::r = 80, Arg::phi = Scene::Time() * 30_deg, Arg::y = 50) + Vec3(50, 0, -50);
+		camera.setView(eyePositon, focusPosition);
+		const Mat4x4 mat = camera.getMat4x4();
 
-		const Vec3 eyePositon = Cylindrical(6, Scene::Time() * 30_deg, Sin(Scene::Time()) * 4);
+		rt.read(heightMap);
+		{
+			positions.resize(heightMap.size());
 
-		BasicCamera3D camera(eyePositon, focusPosition, upDirection, fov, aspectRatio);
+			for (auto p : step(heightMap.size()))
+			{
+				positions[p] = Float3(p.x, heightMap[p], -p.y);
+			}
+		}
 
+		{
+			ScopedRenderTarget2D target(rt);
+			ScopedRenderStates2D blend(BlendState::Additive);
 
+			if (MouseL.pressed())
+			{
+				Circle(Cursor::Pos(), 8).draw(ColorF(Scene::DeltaTime() * 24.0));
+			}
+		}
 
+		if (positions)
 		{
 			ScopedRenderStates2D blend(RasterizerState::SolidCullBack);
 
-			const auto viewProjMat = camera.getMat4x4();
-
-			std::array<Vec3, vertices.size()> verticesTransformed;
-
-			for (auto i : step(vertices.size()))
+			for (auto x : step(positions.width() - 1))
 			{
-				verticesTransformed[i] = vertices[i];
+				for (auto y : step(positions.height()))
+				{
+					const Float3 begin = positions[{x, y}];
+					const Float3 end = positions[{x + 1, y}];
+					const ColorF color = HSV(120 - (begin.y + end.y) * 3, 0.75, 0.7);
+					experimental::SIMD_Line3D(begin, end).draw(mat, color);
+				}
 			}
 
-			/*
-			for (auto p : step(12))
+			for (auto x : step(positions.width()))
 			{
-				const Triangle3D triangle0{ verticesTransformed[indices[p * 3 + 0]], verticesTransformed[indices[p * 3 + 1]], verticesTransformed[indices[p * 3 + 2]] };
-				Draw3D(triangle0, viewProjMat, HSV(p * 30, 0.9, 0.9));
-			}
-			*/
-
-			for (auto p : step(12))
-			{
-				const SIMD_Float4 p0(verticesTransformed[indices[p * 3 + 0]], 1.0f);
-				const SIMD_Float4 p1(verticesTransformed[indices[p * 3 + 1]], 1.0f);
-				const SIMD_Float4 p2(verticesTransformed[indices[p * 3 + 2]], 1.0f);
-
-				const SIMD_Triangle3D triangle{ p0, p1, p2};
-				//triangle.draw(viewProjMat, HSV(p * 30, 0.9, 0.9));
-				Draw3D(triangle, viewProjMat, HSV(p * 30, 0.9, 0.9));
+				for (auto y : step(positions.height() - 1))
+				{
+					const Float3 begin = positions[{x, y}];
+					const Float3 end = positions[{x, y + 1}];
+					const ColorF color = HSV(120 - (begin.y + end.y) * 3, 0.75, 0.7);
+					experimental::SIMD_Line3D(begin, end).draw(mat, color);
+				}
 			}
 		}
+
+		rt.draw(ColorF(0.1));
 	}
 }

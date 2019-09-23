@@ -37,6 +37,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArrayViewAdapter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Camera3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Clipboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp" />
@@ -938,6 +939,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2D\SivCamera2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Camera3D\SivCamera3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp" />

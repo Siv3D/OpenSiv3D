@@ -1018,6 +1018,9 @@
     <Filter Include="src\Siv3D\Mat4x4">
       <UniqueIdentifier>{1b5bb4ba-154e-4929-978a-95cd89121222}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Camera3D">
+      <UniqueIdentifier>{411c5887-b0d8-4b05-91ad-5566fc8f84e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3468,6 +3471,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat4x4.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Camera3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5230,6 +5236,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat4x4\SivMat4x4.cpp">
       <Filter>src\Siv3D\Mat4x4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Camera3D\SivCamera3D.cpp">
+      <Filter>src\Siv3D\Camera3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

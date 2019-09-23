@@ -1150,12 +1150,16 @@
 //
 //////////////////////////////////////////////////
 
-//// DirectXMath ユーティリティ
-//# include <Siv3D/DirectXMathUtility.hpp>
 //// クォータニオン
 //# include <Siv3D/Quaternion.hpp>
+
 // 4x4 行列
+// 4x4 matrix
 # include <Siv3D/Mat4x4.hpp>
+
+// 3D カメラ
+// 3D camera
+# include <Siv3D/Camera3D.hpp>
 
 // レイ
 // Ray
@@ -1196,8 +1200,6 @@
 //# include <Siv3D/ModelLoader.hpp>
 //// 3D モデル
 //# include <Siv3D/Model.hpp>
-//// 3D カメラ
-//# include <Siv3D/Camera.hpp>
 //// フォグ
 //# include <Siv3D/Fog.hpp>
 //// ライト
