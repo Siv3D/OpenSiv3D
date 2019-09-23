@@ -48,6 +48,7 @@ include_directories(
 )
 
 set(SOURCE_FILES
+	"../Siv3D/src/Siv3D/AABB/SivAABB.cpp"
 	"../Siv3D/src/Siv3D/AnimatedGIFWriter/AnimatedGIFWriterDetail.cpp"
 	"../Siv3D/src/Siv3D/AnimatedGIFWriter/SivAnimatedGIFWriter.cpp"
 	"../Siv3D/src/Siv3D/Asset/AssetFactory.cpp"
@@ -81,6 +82,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/CPU/SivCPU.cpp"
 	"../Siv3D/src/Siv3D/CSVData/SivCSVData.cpp"
 	"../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp"
+	"../Siv3D/src/Siv3D/Camera3D/SivCamera3D.cpp"
 	"../Siv3D/src/Siv3D/Circle/SivCircle.cpp"
 	"../Siv3D/src/Siv3D/Clipboard/ClipboardFactory.cpp"
 	"../Siv3D/src/Siv3D/Clipboard/SivClipboard.cpp"
@@ -171,6 +173,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/LicenseManager/LicenseManagerFactory.cpp"
 	"../Siv3D/src/Siv3D/LicenseManager/SivLicenseManager.cpp"
 	"../Siv3D/src/Siv3D/Line/SivLine.cpp"
+	"../Siv3D/src/Siv3D/Line3D/SivLine3D.cpp"
 	"../Siv3D/src/Siv3D/LineString/SivLineString.cpp"
 	"../Siv3D/src/Siv3D/Logger/LoggerFactory.cpp"
 	"../Siv3D/src/Siv3D/Logger/SivLogger.cpp"
@@ -179,6 +182,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/ManagedScript/ManagedScriptDetail.cpp"
 	"../Siv3D/src/Siv3D/ManagedScript/SivManagedScript.cpp"
 	"../Siv3D/src/Siv3D/Mat3x2/SivMat3x2.cpp"
+	"../Siv3D/src/Siv3D/Mat4x4/SivMat4x4.cpp"
 	"../Siv3D/src/Siv3D/Math/SivMath.cpp"
 	"../Siv3D/src/Siv3D/MathParser/MathParserDetail.cpp"
 	"../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp"
@@ -243,6 +247,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/RoundRect/SivRoundRect.cpp"
 	"../Siv3D/src/Siv3D/SDF/SivSDF.cpp"
 	"../Siv3D/src/Siv3D/SFMT/SivSFMT.cpp"
+	"../Siv3D/src/Siv3D/SIMD_Float4/SivSIMD_Float4.cpp"
 	"../Siv3D/src/Siv3D/SVM/CSVM.cpp"
 	"../Siv3D/src/Siv3D/SVM/SivSVM.cpp"
 	"../Siv3D/src/Siv3D/SamplerState/SivSamplerState.cpp"
@@ -387,6 +392,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Transformer2D/SivTransformer2D.cpp"
 	"../Siv3D/src/Siv3D/Transition/SivTransition.cpp"
 	"../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp"
+	"../Siv3D/src/Siv3D/Triangle3D/SivTriangle3D.cpp"
 	"../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp"
 	"../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp"
 	"../Siv3D/src/Siv3D/Vector2D/SivVector2D.cpp"
