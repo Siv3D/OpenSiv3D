@@ -6173,10 +6173,10 @@
 		2CA6271222226DC60009DFE1 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				2CA6271322226DC60009DFE1 /* Siv3D.hpp */,
-				2CA6271422226DC60009DFE1 /* HamFramework.hpp */,
 				2CA6271522226DC60009DFE1 /* HamFramework */,
+				2CA6271422226DC60009DFE1 /* HamFramework.hpp */,
 				2CA6271C22226DC60009DFE1 /* Siv3D */,
+				2CA6271322226DC60009DFE1 /* Siv3D.hpp */,
 				2CA6282822226DC70009DFE1 /* ThirdParty */,
 			);
 			path = include;
@@ -6185,12 +6185,12 @@
 		2CA6271522226DC60009DFE1 /* HamFramework */ = {
 			isa = PBXGroup;
 			children = (
-				2CA6271622226DC60009DFE1 /* PlayingCard.hpp */,
-				2CA6271722226DC60009DFE1 /* SevenSegment.hpp */,
-				2CA6271822226DC60009DFE1 /* Rx.hpp */,
 				2CA6271922226DC60009DFE1 /* InputDeviceSymbol.hpp */,
 				2CA6271A22226DC60009DFE1 /* MiniScene.hpp */,
 				2CA6271B22226DC60009DFE1 /* OptimalScreen.hpp */,
+				2CA6271622226DC60009DFE1 /* PlayingCard.hpp */,
+				2CA6271822226DC60009DFE1 /* Rx.hpp */,
+				2CA6271722226DC60009DFE1 /* SevenSegment.hpp */,
 			);
 			path = HamFramework;
 			sourceTree = "<group>";
@@ -6446,10 +6446,10 @@
 				2CA6282422226DC70009DFE1 /* TimeProfiler.hpp */,
 				2CA627BF22226DC70009DFE1 /* Timer.hpp */,
 				2CA6277F22226DC60009DFE1 /* TOMLReader.hpp */,
-				2CA6281B22226DC70009DFE1 /* Transformer2D.hpp */,
 				2CA6280B22226DC70009DFE1 /* Transition.hpp */,
 				2CA6277D22226DC60009DFE1 /* Triangle.hpp */,
 				2CEACB532338755200C6EE98 /* Triangle3D.hpp */,
+				2CA6281B22226DC70009DFE1 /* Transformer2D.hpp */,
 				2CA627E222226DC70009DFE1 /* Twitter.hpp */,
 				2CA6280822226DC70009DFE1 /* Types.hpp */,
 				2CA6273422226DC60009DFE1 /* TypeTraits.hpp */,
@@ -6482,14 +6482,14 @@
 		2CA6282822226DC70009DFE1 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				2CA6282922226DC70009DFE1 /* SFMT */,
 				2CA6282B22226DC70009DFE1 /* angelscript */,
-				2CA6282D22226DC70009DFE1 /* fmt */,
-				2CA6283122226DC70009DFE1 /* tsl */,
-				2CA6283622226DC70009DFE1 /* nanoflann */,
 				2CA6283822226DC70009DFE1 /* Catch2 */,
 				2CA6283A22226DC70009DFE1 /* cereal */,
+				2CA6282D22226DC70009DFE1 /* fmt */,
 				2CA6286322226DC70009DFE1 /* libsvm */,
+				2CA6283622226DC70009DFE1 /* nanoflann */,
+				2CA6282922226DC70009DFE1 /* SFMT */,
+				2CA6283122226DC70009DFE1 /* tsl */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
