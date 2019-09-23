@@ -13,8 +13,8 @@
 
 //////////////////////////////////////////////////
 //
-// ターゲットプラットフォーム
-// Target Platform
+//	プラットフォームマクロ
+//	Platform Macros
 //
 //////////////////////////////////////////////////
 
@@ -65,14 +65,28 @@
 
 //////////////////////////////////////////////////
 //
-// SSE2 サポート
-// SSE2 Support
+//	機能マクロ
+//	Feature Macros
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# define SIV3D_WITH_FEATURE(X) SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_##X()
+# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 0
 
-	# define SIV3D_HAVE_SSE2
+# if SIV3D_PLATFORM(WINDOWS)
+
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
+
+# elif SIV3D_PLATFORM(MACOS)
+
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
+
+# elif SIV3D_PLATFORM(LINUX)
+
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
 
 # else
 
@@ -83,7 +97,7 @@
 
 //////////////////////////////////////////////////
 //
-// __vectorcall
+//	__vectorcall
 //
 //////////////////////////////////////////////////
 
@@ -104,8 +118,8 @@
 
 //////////////////////////////////////////////////
 //
-// ビルド設定
-// Build Configuration
+//	ビルド設定
+//	Build Configuration
 //
 //////////////////////////////////////////////////
 
@@ -130,8 +144,8 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
-// コンパイラ拡張
-// Compiler Extensions
+//	コンパイラ拡張
+//	Compiler Extensions
 //
 //////////////////////////////////////////////////
 
@@ -155,8 +169,8 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
-// Visual Studio のバージョンチェック
-// MSVC Version Check
+//	Visual Studio のバージョンチェック
+//	MSVC Version Check
 //
 //////////////////////////////////////////////////
 
@@ -170,8 +184,8 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
-// Windows システムのチェック
-// Target Windows system check
+//	Windows システムのチェック
+//	Target Windows system check
 //
 //////////////////////////////////////////////////
 
@@ -185,8 +199,8 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
-// 警告抑制
-// Disable warning messages
+//	警告抑制
+//	Disable warning messages
 //
 //////////////////////////////////////////////////
 
