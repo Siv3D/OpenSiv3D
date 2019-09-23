@@ -1021,6 +1021,15 @@
     <Filter Include="src\Siv3D\Camera3D">
       <UniqueIdentifier>{411c5887-b0d8-4b05-91ad-5566fc8f84e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Line3D">
+      <UniqueIdentifier>{8d6baf83-4e81-4147-ac16-3d8600a94165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Triangle3D">
+      <UniqueIdentifier>{f8d967e7-0174-4cd4-97c6-dedc7fd8e587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AABB">
+      <UniqueIdentifier>{a93830ec-3d2b-438b-a3ff-61ad261bfa57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3474,6 +3483,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Triangle3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Line3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5239,6 +5257,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera3D\SivCamera3D.cpp">
       <Filter>src\Siv3D\Camera3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line3D\SivLine3D.cpp">
+      <Filter>src\Siv3D\Line3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp">
+      <Filter>src\Siv3D\Triangle3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AABB\SivAABB.cpp">
+      <Filter>src\Siv3D\AABB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

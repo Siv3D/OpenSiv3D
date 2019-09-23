@@ -19,6 +19,7 @@
     <ClInclude Include="..\Siv3D\include\HamFramework\Rx.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\LanguageCode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Line3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp" />
@@ -268,6 +270,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Triangle3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TypeTraits.hpp" />
@@ -910,6 +913,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Window\WindowProc.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\WritableMemoryMapping\WritableMemoryMappingDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\XInput\CXInput.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AABB\SivAABB.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetReport.cpp" />
@@ -1033,6 +1037,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line3D\SivLine3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LineString\SivLineString.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
@@ -1251,6 +1256,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Transformer2D\SivTransformer2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Transition\SivTransition.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp" />

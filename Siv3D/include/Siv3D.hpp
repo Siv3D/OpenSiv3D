@@ -1150,7 +1150,8 @@
 //
 //////////////////////////////////////////////////
 
-//// クォータニオン
+// クォータニオン
+// Quaternion
 //# include <Siv3D/Quaternion.hpp>
 
 // 4x4 行列
@@ -1165,10 +1166,18 @@
 // Ray
 # include <Siv3D/Ray.hpp>
 
-//// 3D 線分
-//# include <Siv3D/Line3D.hpp>
-//// 3D 三角形
-//# include <Siv3D/Triangle3D.hpp>
+// 3D 線分
+// 3D Line segment
+# include <Siv3D/Line3D.hpp>
+
+// 3D 三角形
+// 3D Triangle
+# include <Siv3D/Triangle3D.hpp>
+
+// 軸平行境界ボックス (AABB)
+// Axis Aligned Bounding Box (AABB)
+# include <Siv3D/AABB.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ

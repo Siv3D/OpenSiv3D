@@ -1223,6 +1223,37 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Line3D.hpp
+	//
+	namespace experimental
+	{
+		struct Line3D;
+
+		struct SIMD_Line3D;
+	}
+	
+	//////////////////////////////////////////////////////
+	//
+	//	Triangle3D.hpp
+	//
+	namespace experimental
+	{
+		struct Triangle3D;
+
+		struct SIMD_Triangle3D;
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	AABB.hpp
+	//
+	namespace experimental
+	{
+		struct AABB;
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Sphere.hpp
 	//
 	struct Sphere;
