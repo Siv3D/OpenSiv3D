@@ -10,9 +10,7 @@
 //-----------------------------------------------
 
 Texture2D		texture0 : register(t0);
-Texture2D		texture1 : register(t1);
 SamplerState	sampler0 : register(s0);
-SamplerState	sampler1 : register(s1);
 
 cbuffer PSConstants2D : register(b0)
 {
@@ -35,7 +33,5 @@ float4 OutputColor(const float4 color)
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-	float4 texColor = texture0.Sample(sampler0, input.tex);
-	texColor.a *= texture1.Sample(sampler1, input.tex).a;
-	return OutputColor(texColor * input.color);
+	return OutputColor(texture0.Sample(sampler0, input.tex) * input.color);
 }
