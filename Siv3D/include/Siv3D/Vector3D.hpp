@@ -52,15 +52,15 @@ namespace s3d
 
 		template <class Z>
 		constexpr Vector3D(const Vector2D<value_type>& xy, Z _z) noexcept
-			: x(static_cast<value_type>(xy.x))
-			, y(static_cast<value_type>(xy.y))
+			: x(xy.x)
+			, y(xy.y)
 			, z(static_cast<value_type>(_z)) {}
 
 		template <class X>
 		constexpr Vector3D(X _x, const Vector2D<value_type>& yz) noexcept
 			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(yz.x))
-			, z(static_cast<value_type>(yz.y)) {}
+			, y(yz.x)
+			, z(yz.y) {}
 
 		template <class U>
 		constexpr Vector3D(const Vector3D<U>& v) noexcept
