@@ -10,8 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/ByteArray.hpp>
-# include <Siv3D/Optional.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/ShaderCommon.hpp>
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
 
@@ -23,7 +23,7 @@ namespace s3d
 
 		GLuint m_psProgram = 0;
 		
-		Optional<GLint> m_textureIndex;
+		Array<std::pair<uint32, GLint>> m_textureIndices;
 		
 		bool m_initialized = false;
 		
@@ -33,94 +33,20 @@ namespace s3d
 		
 		PixelShader_GL() = default;
 		
-		PixelShader_GL(Null)
-		{
-			m_initialized = true;
-		}
+		PixelShader_GL(Null);
 		
-		~PixelShader_GL()
-		{
-			if (m_psProgram)
-			{
-				::glDeleteProgram(m_psProgram);
-			}
-		}
+		~PixelShader_GL();
 		
-		PixelShader_GL(const String& source)
-		{
-			const std::string sourceUTF8 = source.toUTF8();
-			
-			const char* pSource = sourceUTF8.c_str();
-			
-			m_psProgram = ::glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, &pSource);
-			
-			GLint status = GL_FALSE;
-			
-			::glGetProgramiv(m_psProgram, GL_LINK_STATUS, &status);
-			
-			GLint logLen = 0;
-			
-			::glGetProgramiv(m_psProgram, GL_INFO_LOG_LENGTH, &logLen);
-			
-			if (logLen > 4)
-			{
-				std::string log(logLen + 1, '\0');
-				
-				::glGetProgramInfoLog(m_psProgram, logLen, &logLen, &log[0]);
-				
-				LOG_FAIL(U"❌ Pixel shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
-			}
-			
-			if (status == GL_FALSE)
-			{
-				::glDeleteProgram(m_psProgram);
-				
-				m_psProgram = 0;
-			}
-			
-			if (m_psProgram)
-			{
-				const int32 t = ::glGetUniformLocation(m_psProgram, "Tex0");
-				
-				if (t != -1)
-				{
-					m_textureIndex = t;
-				}
-			}
-			
-			m_initialized = m_psProgram != 0;
-		}
+		PixelShader_GL(const String& source);
 		
-		bool isInitialized() const noexcept
-		{
-			return m_initialized;
-		}
+		bool isInitialized() const noexcept;
 		
-		GLint getProgram() const
-		{
-			return m_psProgram;
-		}
+		GLint getProgram() const;
 		
-		void setPSSamplerUniform()
-		{
-			if (m_textureIndex)
-			{
-				::glUseProgram(m_psProgram);
-				
-				::glUniform1i(m_textureIndex.value(), 0);
-				
-				::glUseProgram(0);
-			}
-		}
+		void setPSSamplerUniform();
+
+		void setUniformBlockBinding(const String& name, GLuint index);
 		
-		GLuint getUniformBlockIndex(const char* const name)
-		{
-			return ::glGetUniformBlockIndex(m_psProgram, name);
-		}
-		
-		void setUniformBlockBinding(const char* const name, GLuint index)
-		{
-			::glUniformBlockBinding(m_psProgram, getUniformBlockIndex(name), index);
-		}
+		void setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings);
 	};
 }
