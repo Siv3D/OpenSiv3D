@@ -1,72 +1,66 @@
+
 # include <Siv3D.hpp> // OpenSiv3D v0.4.1
- 
- void Main()
- {
- 	Window::Resize(1280, 720);
- 	Scene::SetBackground(ColorF(0.05, 0.3, 0.7));
- 
- 	RenderTexture rt(100, 100, ColorF(0.0), TextureFormat::R32_Float);
- 	Grid<float> heightMap;
- 	Grid<Float3> positions;
- 
- 	constexpr double fov = 45_deg;
- 	constexpr Vec3 focusPosition(50, 0, -50);
- 	Vec3 eyePositon(0, 100, 0);
- 	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePositon, focusPosition);
- 
- 	while (System::Update())
- 	{
- 		eyePositon = Cylindrical(Arg::r = 80, Arg::phi = Scene::Time() * 30_deg, Arg::y = 50) + Vec3(50, 0, -50);
- 		camera.setView(eyePositon, focusPosition);
- 		const Mat4x4 mat = camera.getMat4x4();
- 
- 		rt.read(heightMap);
- 		{
- 			positions.resize(heightMap.size());
- 
- 			for (auto p : step(heightMap.size()))
- 			{
- 				positions[p] = Float3(p.x, heightMap[p], -p.y);
- 			}
- 		}
- 
- 		{
- 			ScopedRenderTarget2D target(rt);
- 			ScopedRenderStates2D blend(BlendState::Additive);
- 
- 			if (MouseL.pressed())
- 			{
- 				Circle(Cursor::Pos(), 8).draw(ColorF(Scene::DeltaTime() * 24.0));
- 			}
- 		}
- 
- 		if (positions)
- 		{
- 			ScopedRenderStates2D culling(RasterizerState::SolidCullBack);
- 
- 			for (auto x : step(positions.width() - 1))
- 			{
- 				for (auto y : step(positions.height()))
- 				{
- 					const Float3 begin = positions[{x, y}];
- 					const Float3 end = positions[{x + 1, y}];
- 					const ColorF color = HSV(120 - (begin.y + end.y) * 3, 0.75, 0.7);
- 					experimental::Line3D(begin, end).draw(mat, color);
- 				}
- 			}
- 
- 			for (auto x : step(positions.width()))
- 			{
- 				for (auto y : step(positions.height() - 1))
- 				{
- 					const Float3 begin = positions[{x, y}];
- 					const Float3 end = positions[{x, y + 1}];
- 					const ColorF color = HSV(120 - (begin.y + end.y) * 3, 0.75, 0.7);
- 					experimental::Line3D(begin, end).draw(mat, color);
- 				}
- 			}
- 		}
- 
- 		rt.draw(ColorF(0.1));
- 	}
- }
+
+void Main()
+{
+	// 背景を水色にする
+	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	
+	// 大きさ 60 のフォントを用意
+	const Font font(60);
+	
+	// 猫のテクスチャを用意
+	const Texture cat(Emoji(U"🐈"));
+	
+	// 猫の座標
+	Vec2 catPos(640, 450);
+	
+	while (System::Update())
+	{
+		// テキストを画面の中心に描く
+		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+		
+		// 大きさをアニメーションさせて猫を表示する
+		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+		
+		// マウスカーソルに追従する半透明の赤い円を描く
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+		
+		// [A] キーが押されたら
+		if (KeyA.down())
+		{
+			// Hello とデバッグ表示する
+			Print << U"Hello!";
+		}
+		
+		// ボタンが押されたら
+		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		{
+			// 猫の座標を画面内のランダムな位置に移動する
+			catPos = RandomVec2(Scene::Rect());
+		}
+	}
+}
+
+//
+// = お役立ちリンク =
+//
+// OpenSiv3D リファレンス
+// https://siv3d.github.io/ja-jp/
+//
+// チュートリアル
+// https://siv3d.github.io/ja-jp/tutorial/basic/
+//
+// よくある間違い
+// https://siv3d.github.io/ja-jp/articles/mistakes/
+//
+// サポートについて
+// https://siv3d.github.io/ja-jp/support/support/
+//
+// Siv3D Slack (ユーザコミュニティ) への参加
+// https://siv3d.github.io/ja-jp/community/community/
+//
+// 新機能の提案やバグの報告
+// https://github.com/Siv3D/OpenSiv3D/issues
+//
+
