@@ -20,7 +20,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat format)
+		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat& format)
 		{
 			const size_t num_pixels = size.x * size.y;
 			
@@ -117,7 +117,8 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 		
-		return m_textures.add(std::move(texture), U"(size:{0}x{1})"_fmt(image.width(), image.height()));
+		const String info = U"(type: Normal, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	TextureID CTexture_GL::create(const Image& image, const Array<Image>& mips, const TextureDesc desc)
@@ -138,27 +139,122 @@ namespace s3d
 		{
 			return TextureID::NullAsset();
 		}
-		
-		return m_textures.add(std::move(texture), U"(size:{0}x{1})"_fmt(image.width(), image.height()));
+
+		const String info = U"(type: Normal, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 	{
-		auto texture = std::make_unique<Texture_GL>(size, pData, stride, format, desc);
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Dynamic{}, size, pData, stride, format, desc);
 		
 		if (!texture->isInitialized())
 		{
 			return TextureID::NullAsset();
 		}
 		
-		return m_textures.add(std::move(texture), U"(Dynamic, size:{0}x{1})"_fmt(size.x, size.y));
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
-	TextureID CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 		
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
+	}
+	
+	TextureID CTexture_GL::createRT(const Size& size, const TextureFormat& format)
+	{
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render{}, size, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Image& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Grid<float>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Grid<Float2>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createRT(const Grid<Float4>& image)
+	{
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::Render(), image, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: Render, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+	
+	TextureID CTexture_GL::createMSRT(const Size& size, const TextureFormat& format)
+	{
+		const TextureDesc desc = format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped;
+		
+		auto texture = std::make_unique<Texture_GL>(Texture_GL::MSRender(), size, format, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return TextureID::NullAsset();
+		}
+		
+		const String info = U"(type: MSRender, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	void CTexture_GL::release(const TextureID handleID)
@@ -174,6 +270,41 @@ namespace s3d
 	TextureDesc CTexture_GL::getDesc(const TextureID handleID)
 	{
 		return m_textures[handleID]->getDesc();
+	}
+	
+	TextureFormat CTexture_GL::getFormat(const TextureID handleID)
+	{
+		return m_textures[handleID]->getFormat();
+	}
+	
+	void CTexture_GL::clearRT(TextureID handleID, const ColorF& color)
+	{
+		m_textures[handleID]->clearRT(color);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Image& image)
+	{
+		return m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<float>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<Float2>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::readRT(const TextureID handleID, Grid<Float4>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+	
+	void CTexture_GL::resolveMSRT(const TextureID handleID)
+	{
+		m_textures[handleID]->resolveMSRT();
 	}
 
 	bool CTexture_GL::fill(const TextureID handleID, const ColorF& color, const bool wait)
@@ -199,6 +330,11 @@ namespace s3d
 	GLuint CTexture_GL::getTexture(const TextureID handleID)
 	{
 		return m_textures[handleID]->getTexture();
+	}
+	
+	GLuint CTexture_GL::getFrameBuffer(const TextureID handleID)
+	{
+		return m_textures[handleID]->getFrameBuffer();
 	}
 	
 	bool CTexture_GL::isMainThread() const

@@ -10,9 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# include <atomic>
 # include <thread>
 # include <mutex>
-# include <atomic>
 # include <Texture/ITexture.hpp>
 # include <AssetHandleManager/AssetHandleManager.hpp>
 # include "Texture_GL.hpp"
@@ -60,15 +60,41 @@ namespace s3d
 
 		TextureID create(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
+		
+		TextureID createRT(const Size& size, const TextureFormat& format) override;
+		
+		TextureID createRT(const Image& image) override;
+		
+		TextureID createRT(const Grid<float>& image) override;
+		
+		TextureID createRT(const Grid<Float2>& image) override;
+		
+		TextureID createRT(const Grid<Float4>& image) override;
+		
+		TextureID createMSRT(const Size& size, const TextureFormat& format) override;
 
 		void release(TextureID handleID) override;
 
 		Size getSize(TextureID handleID) override;
 
 		TextureDesc getDesc(TextureID handleID) override;
+		
+		TextureFormat getFormat(TextureID handleID) override;
+		
+		void clearRT(TextureID handleID, const ColorF& color) override;
+		
+		void readRT(TextureID handleID, Image& image) override;
+		
+		void readRT(TextureID handleID, Grid<float>& image) override;
+		
+		void readRT(TextureID handleID, Grid<Float2>& image) override;
+		
+		void readRT(TextureID handleID, Grid<Float4>& image) override;
+		
+		void resolveMSRT(const TextureID handleID) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 
@@ -80,5 +106,7 @@ namespace s3d
 		
 		
 		GLuint getTexture(TextureID handleID);
+		
+		GLuint getFrameBuffer(TextureID handleID);
 	};
 }

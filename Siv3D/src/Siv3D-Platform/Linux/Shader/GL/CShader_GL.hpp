@@ -25,6 +25,9 @@ namespace s3d
 		
 		AssetHandleManager<PixelShaderID, PixelShader_GL> m_pixelShaders{ U"PixelShader" };
 		
+		// [エンジン PS]
+		Array<PixelShader> m_enginePSs;
+		
 	public:
 
 		CShader_GL();
@@ -33,13 +36,13 @@ namespace s3d
 
 		bool init();
 
-		VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
-		VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		VertexShaderID createVSFromSource(const String&, const Array<BindingPoint>&);
+		VertexShaderID createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
+		VertexShaderID createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		VertexShaderID createVSFromSource(const String&, const Array<ConstantBufferBinding>&);
 
-		PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) override;
-		PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
-		PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints);
+		PixelShaderID createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) override;
+		PixelShaderID createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) override;
+		PixelShaderID createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings);
 
 		void release(VertexShaderID handleID) override;
 		void release(PixelShaderID handleID) override;
@@ -49,6 +52,9 @@ namespace s3d
 
 		void setVS(VertexShaderID handleID) override {}
 		void setPS(PixelShaderID handleID) override {}
+		
+		// エンジン PS を取得
+		const PixelShader& getEnginePS(const EnginePS ps) const override;
 		
 		GLuint getVSProgram(VertexShaderID handleID);
 		GLuint getPSProgram(PixelShaderID handleID);

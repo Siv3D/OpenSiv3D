@@ -16,8 +16,8 @@
 namespace s3d
 {
 	class NSTaskWrapper;
-	
-	class ChildProcess ::ChildProcessDetail
+
+	class ChildProcess::ChildProcessDetail
 	{
 	private:
 

@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cassert>
 # include <Siv3D/ConstantBuffer.hpp>
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
@@ -20,21 +21,19 @@ namespace s3d
 		class ConstantBufferBase::ConstantBufferDetail
 		{
 		private:
-			
+
 			size_t m_bufferSize = 0;
-			
-			mutable GLuint m_uniformBufferHandle = 0;
-			
-			void init() const;
-			
+
+			mutable GLuint m_uniformBuffer = 0;
+
 		public:
-			
+
 			explicit ConstantBufferDetail(size_t size);
-			
+
 			~ConstantBufferDetail();
-			
+
 			bool update(const void* data, size_t size);
-			
+
 			GLuint getHandle() const;
 		};
 	}
