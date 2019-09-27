@@ -46,14 +46,14 @@ namespace s3d
 		[[nodiscard]] s3d::Rect Rect();
 
 
-		inline ScaleMode DefaultScaleMode = ScaleMode::AspectFit;
+		inline constexpr ScaleMode DefaultScaleMode = ScaleMode::AspectFit;
 
 		void SetScaleMode(ScaleMode scaleMode);
 
 		[[nodiscard]] ScaleMode GetScaleMode();
 
 
-		inline TextureFilter DefaultFilter = TextureFilter::Linear;
+		inline constexpr TextureFilter DefaultFilter = TextureFilter::Linear;
 
 		void SetTextureFilter(TextureFilter textureFilter);
 
