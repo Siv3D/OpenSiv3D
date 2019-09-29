@@ -11,6 +11,8 @@
 
 # include "ChildProcessDetail.hpp"
 # include <boost/process/io.hpp>
+# include <boost/process/start_dir.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Unicode.hpp>
 
 namespace s3d
@@ -24,20 +26,21 @@ namespace s3d
 	{
 		const std::wstring pathW = path.toWstr();
 		const std::wstring commandW = command.toWstr();
+		const std::wstring startDir = FileSystem::ParentPath(path).toWstr();
 
 		switch (pipe)
 		{
 		case Pipe::None:
-			m_child = boost::process::child(pathW, commandW);
+			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir);
 			break;
 		case Pipe::StdIn:
-			m_child = boost::process::child(pathW, commandW, boost::process::std_out > m_ips);
+			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_out > m_ips);
 			break;
 		case Pipe::StdOut:
-			m_child = boost::process::child(pathW, commandW, boost::process::std_in < m_ops);
+			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_in < m_ops);
 			break;
 		case Pipe::StdInOut:
-			m_child = boost::process::child(pathW, commandW, boost::process::std_out > m_ips, boost::process::std_in < m_ops);
+			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_out > m_ips, boost::process::std_in < m_ops);
 			break;
 		}
 	}
