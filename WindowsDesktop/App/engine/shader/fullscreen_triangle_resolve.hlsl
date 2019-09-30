@@ -9,20 +9,22 @@
 //
 //-----------------------------------------------
 
-Texture2DMS<float4, 4> texture0 : register(t0);
+Texture2DMS<float4, 4> g_texture0 : register(t0);
 
-struct VS_OUTPUT
+struct PSInput
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	float4 position	: SV_POSITION;
+	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
-float4 PS(VS_OUTPUT input) : SV_Target
+float4 PS(PSInput input) : SV_TARGET
 {
-	float3 result = texture0.Load(input.tex.xy, 0).rgb;
-	result += texture0.Load(input.tex.xy, 1).rgb;
-	result += texture0.Load(input.tex.xy, 2).rgb;
-	result += texture0.Load(input.tex.xy, 3).rgb;
-	return float4(result / 4, 1);
+	float4 texColor0 = g_texture0.Load(input.uv, 0);
+	float4 texColor1 = g_texture0.Load(input.uv, 1);
+	float4 texColor2 = g_texture0.Load(input.uv, 2);
+	float4 texColor3 = g_texture0.Load(input.uv, 3);
+	float4 texColor  = texColor0 + texColor1 + texColor2 + texColor3;
+
+	return float4(texColor.rgb / 4, 1);
 }

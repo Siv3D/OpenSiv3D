@@ -1,12 +1,7 @@
-#version 410
-		
-layout(location = 0) in vec4 Color;
-layout(location = 1) in vec2 Tex;
-		
+#version 410		
+
 uniform sampler2D Texture0;
 uniform sampler2D Texture1;
-		
-layout(location = 0) out vec4 FragColor;
 
 // PS_0
 layout(std140) uniform PSConstants2D
@@ -16,14 +11,24 @@ layout(std140) uniform PSConstants2D
 	vec4 g_internal;
 };
 
-vec4 OutputColor(const vec4 color)
-{
-	return color + g_colorAdd;
-}
+//
+// PSInput
+//
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 UV;
+		
+//
+// PSOutput
+//
+layout(location = 0) out vec4 FragColor;
 		
 void main()
 {
-	vec4 texColor = texture(Texture0, Tex);
-	texColor.a *= texture(Texture1, Tex).r;
-	FragColor = OutputColor(texColor * Color);
+	vec4 texColor = texture(Texture0, UV);
+	
+	float mask = texture(Texture1, UV).r;
+
+	texColor.a *= mask;
+
+	FragColor = (texColor * Color) + g_colorAdd;
 }

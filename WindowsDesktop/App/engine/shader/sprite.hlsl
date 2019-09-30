@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-Texture2D		texture0 : register(t0);
-SamplerState	sampler0 : register(s0);
+Texture2D		g_texture0 : register(t0);
+SamplerState	g_sampler0 : register(s0);
 
 cbuffer VSConstants2D : register(b0)
 {
@@ -25,68 +25,72 @@ cbuffer PSConstants2D : register(b0)
 	float4 g_internal;
 }
 
-struct VS_INPUT
+struct VSInput
 {
 	float2 position	: POSITION;
-	float2 tex		: TEXCOORD0;
+	float2 uv		: TEXCOORD0;
 	float4 color	: COLOR0;
 };
 
-struct VS_OUTPUT
+struct PSInput
 {
 	float4 position	: SV_POSITION;
-	float2 tex		: TEXCOORD0;
 	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
-float4 StandardTransform(const float2 pos)
+float4 StandardTransform(float2 pos)
 {
-	float4 output;
-	output.xy	= g_transform._13_14 + pos.x * g_transform._11_12 + pos.y * g_transform._21_22;
-	output.z	= g_transform._23;
-	output.w	= g_transform._24;
-	return output;
+	float4 result;
+	result.xy	= g_transform._13_14 + pos.x * g_transform._11_12 + pos.y * g_transform._21_22;
+	result.z	= g_transform._23;
+	result.w	= g_transform._24;
+	return result;
 }
 
-float4 OutputColor(const float4 color)
+PSInput VS(VSInput input)
 {
-	return color + g_colorAdd;
+	PSInput result;
+	result.position	= StandardTransform(input.position);
+	result.color	= input.color * g_colorMul;
+	result.uv		= input.uv;
+	return result;
 }
 
-VS_OUTPUT VS(VS_INPUT input)
+float4 PS_Shape(PSInput input) : SV_TARGET
 {
-	VS_OUTPUT output;
-	output.position	= StandardTransform(input.position);
-	output.tex		= input.tex;
-	output.color	= input.color * g_colorMul;
-	return output;
+	return input.color + g_colorAdd;
 }
 
-float4 PS_Shape(VS_OUTPUT input) : SV_Target
+float4 PS_Texture(PSInput input) : SV_TARGET
 {
-	return OutputColor(input.color);
+	float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+
+	return (texColor * input.color) + g_colorAdd;
 }
 
-float4 PS_Texture(VS_OUTPUT input) : SV_Target
+float4 PS_SquareDot(PSInput input) : SV_TARGET
 {
-	return OutputColor(texture0.Sample(sampler0, input.tex) * input.color);
-}
+	float tr = input.uv.y;
+	
+	float d = abs(fmod(input.uv.x, 3.0) - 1.0);
 
-float4 PS_SquareDot(VS_OUTPUT input) : SV_Target
-{
-	const float tr = input.tex.y;
-	const float d = abs(fmod(input.tex.x, 3.0) - 1.0);
-	const float range = 1.0 - tr;
+	float range = 1.0 - tr;
+	
 	input.color.a *= (d < range) ? 1.0 : (d < 1.0) ? ((1.0 - d) / tr) : 0.0;
-	return OutputColor(input.color);
+	
+	return input.color + g_colorAdd;
 }
 
-float4 PS_RoundDot(VS_OUTPUT input) : SV_Target
+float4 PS_RoundDot(PSInput input) : SV_TARGET
 {
-	const float t = fmod(input.tex.x, 2.0);
-	input.tex.x = abs(1 - t) * 2.0;
-	input.color.a *= 1.0 - saturate(pow(dot(input.tex, input.tex), 8));
-	return OutputColor(input.color);
+	float t = fmod(input.uv.x, 2.0);
+	
+	input.uv.x = abs(1 - t) * 2.0;
+	
+	input.color.a *= 1.0 - saturate(pow(dot(input.uv, input.uv), 8));
+	
+	return input.color + g_colorAdd;
 }
 
 float median(float r, float g, float b)
@@ -94,16 +98,24 @@ float median(float r, float g, float b)
 	return max(min(r, g), min(max(r, g), b));
 }
 
-float4 PS_SDF(VS_OUTPUT input) : SV_Target
+float4 PS_SDF(PSInput input) : SV_TARGET
 {
-	const float pxRange = g_sdfParam.x;
+	float pxRange = g_sdfParam.x;
+	
 	float2 size;
-	texture0.GetDimensions(size.x, size.y);
-	const float2 msdfUnit = pxRange / size;
-	const float3 s = texture0.Sample(sampler0, input.tex).rgb;
+	g_texture0.GetDimensions(size.x, size.y);
+	
+	float2 msdfUnit = pxRange / size;
+	
+	float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
+	
 	float sigDist = median(s.r, s.g, s.b) - 0.5;
-	sigDist *= dot(msdfUnit, 0.5 / fwidth(input.tex));
-	const float a = saturate(sigDist + 0.5);
+	
+	sigDist *= dot(msdfUnit, 0.5 / fwidth(input.uv));
+	
+	float a = saturate(sigDist + 0.5);
 
-	return OutputColor(float4(input.color.rgb, input.color.a * a));
+	input.color.a *= a;
+
+	return input.color + g_colorAdd;
 }

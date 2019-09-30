@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-Texture2D		texture0 : register(t0);
-SamplerState	sampler0 : register(s0);
+Texture2D		g_texture0 : register(t0);
+SamplerState	g_sampler0 : register(s0);
 
 cbuffer PSConstants2D : register(b0)
 {
@@ -32,17 +32,12 @@ cbuffer PoissonDisk : register(b1)
 //	float _unused = 0.0f;
 //};
 
-struct VS_OUTPUT
+struct PSInput
 {
 	float4 position	: SV_POSITION;
-	float2 tex		: TEXCOORD0;
 	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
-
-float4 OutputColor(const float4 color)
-{
-	return color + g_colorAdd;
-}
 
 static const float2 poisson[12] =
 {
@@ -60,17 +55,20 @@ static const float2 poisson[12] =
        float2(-0.791559, -0.597705)
 };
 
-float4 PS(VS_OUTPUT input) : SV_Target
+float4 PS(PSInput input) : SV_TARGET
 {
-	float4 accum = texture0.Sample(sampler0, input.tex);
+	float2 offsetScale = g_pixelSize * g_diskRadius;
+
+	float4 accum = g_texture0.Sample(g_sampler0, input.uv);
 
 	for (int tap = 0; tap < 12; ++tap)
 	{
-		float2 texCoord = input.tex + (g_pixelSize * poisson[tap] * g_diskRadius);
-		accum.rgb += texture0.Sample(sampler0, texCoord).rgb;
+		float2 uv = input.uv + (poisson[tap] * offsetScale);
+		
+		accum += g_texture0.Sample(g_sampler0, uv);
 	}
 
-	accum.rgb /= 13.0;
+	accum /= 13.0;
 
-	return OutputColor(accum * input.color);
+	return (accum * input.color) + g_colorAdd;
 }

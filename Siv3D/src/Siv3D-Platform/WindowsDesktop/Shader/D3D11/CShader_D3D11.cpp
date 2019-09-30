@@ -126,9 +126,10 @@ namespace s3d
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle.hlsl", U"engine/shader/fullscreen_triangle_draw.vs", ShaderStage::Vertex, U"VS_Draw");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_resolve.hlsl", U"engine/shader/fullscreen_triangle_resolve.ps", ShaderStage::Pixel, U"PS");
 			compileHLSLToFile(U"engine/shader/fullscreen_triangle_draw.hlsl", U"engine/shader/fullscreen_triangle_draw.ps", ShaderStage::Pixel, U"PS");
-
 			compileHLSLToFile(U"engine/shader/copy.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
-			compileHLSLToFile(U"engine/shader/gaussian_blur_9.hlsl", U"engine/shader/copy.ps", ShaderStage::Pixel, U"PS");
+			compileHLSLToFile(U"engine/shader/gaussian_blur_9.hlsl", U"engine/shader/gaussian_blur_9.ps", ShaderStage::Pixel, U"PS");
+			
+			throw EngineError(U"Engine shaders have compiled. Rebuild required.");
 		}
 
 	# endif
