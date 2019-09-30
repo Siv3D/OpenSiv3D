@@ -1,11 +1,6 @@
 #version 410
-		
-layout(location = 0) in vec4 Color;
-layout(location = 1) in vec2 Tex;
-		
+
 uniform sampler2D Texture0;
-		
-layout(location = 0) out vec4 FragColor;
 
 layout(std140) uniform PSConstants2D
 {
@@ -14,10 +9,16 @@ layout(std140) uniform PSConstants2D
 	vec4 g_internal;	
 };
 
-vec4 OutputColor(const vec4 color)
-{
-	return color + g_colorAdd;
-}
+//
+// PSInput
+//
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 UV;
+
+//
+// PSOutput
+//
+layout(location = 0) out vec4 FragColor;
 
 float median(float r, float g, float b)
 {
@@ -29,10 +30,12 @@ void main()
 	float pxRange = g_sdfParam.x;
 	vec2 size = textureSize(Texture0, 0);
 	vec2 msdfUnit = pxRange / size;
-	vec3 s = texture(Texture0, Tex).rgb;
+	vec3 s = texture(Texture0, UV).rgb;
 	float sigDist = median(s.r, s.g, s.b) - 0.5;
-	sigDist *= dot(msdfUnit, 0.5 / fwidth(Tex));
+	sigDist *= dot(msdfUnit, 0.5 / fwidth(UV));
+	
 	float a = clamp(sigDist + 0.5, 0.0, 1.0);
+	vec4 color = vec4(Color.rgb, Color.a * a);
 
-	FragColor = OutputColor(vec4(Color.rgb, Color.a * a));
+	FragColor = color + g_colorAdd;
 }
