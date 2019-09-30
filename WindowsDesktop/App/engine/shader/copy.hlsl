@@ -9,17 +9,19 @@
 //
 //-----------------------------------------------
 
-Texture2D		texture0 : register(t0);
-SamplerState	sampler0 : register(s0);
+Texture2D		g_texture0 : register(t0);
+SamplerState	g_sampler0 : register(s0);
 
-struct VS_OUTPUT
+struct PSInput
 {
 	float4 position	: SV_POSITION;
-	float2 tex		: TEXCOORD0;
 	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
-float4 PS(VS_OUTPUT input) : SV_Target
+float4 PS(PSInput input) : SV_TARGET
 {
-	return texture0.Sample(sampler0, input.tex);
+	float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+
+	return texColor;
 }

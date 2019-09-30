@@ -9,10 +9,10 @@
 //
 //-----------------------------------------------
 
-Texture2D		texture0 : register(t0);
-Texture2D		texture1 : register(t1);
-SamplerState	sampler0 : register(s0);
-SamplerState	sampler1 : register(s1);
+Texture2D		g_texture0 : register(t0);
+Texture2D		g_texture1 : register(t1);
+SamplerState	g_sampler0 : register(s0);
+SamplerState	g_sampler1 : register(s1);
 
 cbuffer PSConstants2D : register(b0)
 {
@@ -21,23 +21,20 @@ cbuffer PSConstants2D : register(b0)
 	float4 g_internal;
 }
 
-struct VS_OUTPUT
+struct PSInput
 {
 	float4 position	: SV_POSITION;
-	float2 tex		: TEXCOORD0;
 	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
-float4 OutputColor(const float4 color)
+float4 PS(PSInput input) : SV_TARGET
 {
-	return color + g_colorAdd;
-}
-
-float4 PS(VS_OUTPUT input) : SV_Target
-{
-	float4 texColor0 = texture0.Sample(sampler0, input.tex);
-	float4 texColor1 = texture1.Sample(sampler1, input.tex);
+	float4 texColor0 = g_texture0.Sample(g_sampler0, input.uv);
+	
+	float4 texColor1 = g_texture1.Sample(g_sampler1, input.uv);
+	
 	texColor0.rgb = (texColor0.rgb * 0.5 + texColor1.rgb * 0.5);
 
-	return OutputColor(texColor0 * input.color);
+	return (texColor0 * input.color) + g_colorAdd;
 }

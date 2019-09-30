@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-Texture2D		texture0 : register(t0);
-SamplerState	sampler0 : register(s0);
+Texture2D		g_texture0 : register(t0);
+SamplerState	g_sampler0 : register(s0);
 
 cbuffer PSConstants2D : register(b0)
 {
@@ -30,17 +30,12 @@ cbuffer GameOfLife : register(b1)
 //	Float2 _unused = {};
 //};
 
-struct VS_OUTPUT
+struct PSInput
 {
 	float4 position	: SV_POSITION;
-	float2 tex		: TEXCOORD0;
 	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
-
-float4 OutputColor(const float4 color)
-{
-	return color + g_colorAdd;
-}
 
 static const float2 offsets[8] =
 {
@@ -54,14 +49,15 @@ static const float2 offsets[8] =
        float2(1, 1),
 };
 
-float4 PS(VS_OUTPUT input) : SV_Target
+float4 PS(PSInput input) : SV_TARGET
 {
-	const float c = texture0.Sample(sampler0, input.tex).r;
+	float c = g_texture0.Sample(g_sampler0, input.uv).r;
+	
 	float n = 0;
 
 	for (int i = 0; i < 8; ++i)
 	{
-		n += texture0.Sample(sampler0, input.tex + offsets[i] * g_pixelSize).r;
+		n += g_texture0.Sample(g_sampler0, input.uv + offsets[i] * g_pixelSize).r;
 	}
 
 	if ((c == 0 && n == 3) || (c == 1 && (n == 2 || n == 3)))
