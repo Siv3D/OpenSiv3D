@@ -82,6 +82,9 @@ namespace s3d
 
 	namespace System
 	{
+		/// <summary>
+		/// 使用可能なゲームパッドの一覧を返します。
+		/// </summary>
 		[[nodiscard]] Array<GamepadInfo> EnumerateGamepads();
 	}
 }

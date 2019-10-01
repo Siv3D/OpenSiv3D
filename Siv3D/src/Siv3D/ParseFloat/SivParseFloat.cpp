@@ -13,12 +13,15 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/ParseFloat.hpp>
+# include <Siv3D/Error.hpp>
 # include <double-conversion/double-conversion.h>
 
 namespace s3d
 {
 	namespace detail
 	{
+		inline static constexpr double sNaN = std::numeric_limits<double>::signaling_NaN();
+
 		static float ParseFloat(const StringView view)
 		{
 			using namespace double_conversion;
@@ -28,10 +31,17 @@ namespace s3d
 				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
 				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
 				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
+			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
 
 			int unused;
-			return static_cast<float>(conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused));
+			const double result = conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused);
+
+			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
+			{
+				throw ParseError(U"ParseFloat<float>(\"{}\") failed"_fmt(view));
+			}
+
+			return static_cast<float>(result);
 		}
 
 		static double ParseDouble(const StringView view)
@@ -43,10 +53,17 @@ namespace s3d
 				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
 				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
 				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
+			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
 
 			int unused;
-			return conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), true, &unused);
+			const double result = conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused);
+
+			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
+			{
+				throw ParseError(U"ParseFloat<double>(\"{}\") failed"_fmt(view));
+			}
+
+			return result;
 		}
 	}
 
