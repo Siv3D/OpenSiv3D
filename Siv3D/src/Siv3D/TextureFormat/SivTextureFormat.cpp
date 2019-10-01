@@ -12,6 +12,7 @@
 # include <array>
 # include <Siv3D/Functor.hpp>
 # include <Siv3D/TextureFormat.hpp>
+# include <Siv3D/StringView.hpp>
 
 enum DXGI_FORMAT
 {
@@ -140,17 +141,101 @@ enum DXGI_FORMAT
 	DXGI_FORMAT_FORCE_UINT = 0xffffffff
 } DXGI_FORMAT;
 
+enum GL_CONSTANTS
+{
+	GL_RGBA = 0x1908,
+	GL_UNSIGNED_BYTE = 0x1401,
+	GL_SRGB8_ALPHA8 = 0x8C43,
+	GL_RG16F = 0x822F,
+	GL_RG = 0x8227,
+	GL_HALF_FLOAT = 0x140B,
+	GL_R32F = 0x822E,
+	GL_RED = 0x1903,
+	GL_FLOAT = 0x1406,
+	GL_RGB10_A2 = 0x8059,
+	GL_UNSIGNED_INT_10_10_10_2 = 0x8036,
+	GL_R11F_G11F_B10F = 0x8C3A,
+	GL_RGB = 0x1907,
+	GL_RGBA8 = 0x8058,
+	GL_RGBA16F = 0x881A,
+	GL_RG32F = 0x8230,
+	GL_RGBA32F = 0x8814,
+};
+
 namespace s3d
 {
-	static constexpr std::array<TextureFormatProperty, 3> Propertytable =
+	struct TextureFormatData
+	{
+		StringView name;
+
+		int32 DXGIFormat;
+
+		int32 GLInternalFormat;
+
+		int32 GLFormat;
+
+		int32 GLType;
+
+		// 1 ピクセル当たりのサイズ
+		uint32 pixelSize;
+
+		// チャンネル数
+		uint32 num_channels;
+
+		bool isSRGB;
+	};
+	
+	static constexpr std::array<TextureFormatData, 10> Propertytable =
 	{ {
-		{ DXGI_FORMAT_UNKNOWN, 0, 0, false }, // Unknown
-		{ DXGI_FORMAT_R8G8B8A8_UNORM, 4, 4, false }, // R8G8B8A8_Unorm
-		{ DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4, 4, true }, // R8G8B8A8_Unorm_SRGB
+		{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
+		{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
+		{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, true },
+		{ U"R16G16_Float", DXGI_FORMAT_R16G16_FLOAT, GL_RG16F, GL_RG, GL_HALF_FLOAT, 4, 2, false },
+		{ U"R32_Float", DXGI_FORMAT_R32_FLOAT, GL_R32F, GL_RED, GL_FLOAT, 4, 1, false },
+		{ U"R10G10B10A2_Unorm", DXGI_FORMAT_R10G10B10A2_UNORM, GL_RGB10_A2, GL_RGBA, GL_UNSIGNED_INT_10_10_10_2, 4, 4, false },
+		{ U"R11G11B10_UFloat", DXGI_FORMAT_R11G11B10_FLOAT, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT, 4, 3, false },
+		{ U"R16G16B16A16_Float", DXGI_FORMAT_R16G16B16A16_FLOAT, GL_RGBA16F, GL_RGBA, GL_HALF_FLOAT, 8, 4, false },
+		{ U"R32G32_Float", DXGI_FORMAT_R32G32_FLOAT, GL_RG32F, GL_RG, GL_FLOAT, 8, 2, false },
+		{ U"R32G32B32A32_Float", DXGI_FORMAT_R32G32B32A32_FLOAT, GL_RGBA32F, GL_RGBA, GL_FLOAT, 16, 4, false },
 	} };
 
-	const TextureFormatProperty& GetTextureFormatProperty(const TextureFormat format)
+	StringView TextureFormat::name() const noexcept
 	{
-		return Propertytable[FromEnum(format)];
+		return Propertytable[FromEnum(m_value)].name;
+	}
+
+	int32 TextureFormat::DXGIFormat() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].DXGIFormat;
+	}
+
+	int32 TextureFormat::GLInternalFormat() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLInternalFormat;
+	}
+
+	int32 TextureFormat::GLFormat() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLFormat;
+	}
+
+	int32 TextureFormat::GLType() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].GLType;
+	}
+
+	uint32 TextureFormat::pixelSize() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].pixelSize;
+	}
+
+	uint32 TextureFormat::num_channels() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].num_channels;
+	}
+
+	bool TextureFormat::isSRGB() const noexcept
+	{
+		return Propertytable[FromEnum(m_value)].isSRGB;
 	}
 }

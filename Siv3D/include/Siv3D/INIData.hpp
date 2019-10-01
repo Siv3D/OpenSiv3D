@@ -25,11 +25,9 @@ namespace s3d
 
 		String value;
 
-		INIKey() = default;
+		INIKey();
 
-		INIKey(const String& _name, const String& _value)
-			: name(_name)
-			, value(_value) {}
+		INIKey(const String& _name, const String& _value);
 	};
 
 	struct INISection
@@ -121,7 +119,7 @@ namespace s3d
 
 		[[nodiscard]] bool isEmpty() const;
 
-		[[nodiscard]] explicit operator bool() const { return isEmpty(); }
+		[[nodiscard]] explicit operator bool() const { return !isEmpty(); }
 
 		[[nodiscard]] bool hasSection(const Section& section) const;
 
@@ -135,7 +133,7 @@ namespace s3d
 
 		[[nodiscard]] const String& getValue(const Section& section, const Name& name) const;
 
-		[[nodiscard]] const String& getGlobalVaue(const Name& name);
+		[[nodiscard]] const String& getGlobalValue(const Name& name);
 
 		[[nodiscard]] const Value& operator [](const String& section_and_name) const;
 

@@ -235,7 +235,7 @@ namespace s3d
 				writer.write(column);
 			}
 
-			writer.writeUTF8(u8"\r\n");
+			writer.writeUTF8("\r\n");
 		}
 
 		return true;

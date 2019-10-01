@@ -15,43 +15,6 @@
 
 namespace s3d
 {
-	//namespace detail
-	//{
-	//	static constexpr uint32 blendOpTable[6] =
-	//	{
-	//		0,
-	//		GL_FUNC_ADD,
-	//		GL_FUNC_SUBTRACT,
-	//		GL_FUNC_REVERSE_SUBTRACT,
-	//		GL_MIN,
-	//		GL_MAX
-	//	};
-
-	//	static constexpr uint32 blendTable[20] =
-	//	{
-	//		0,
-	//		GL_ZERO,
-	//		GL_ONE,
-	//		GL_SRC_COLOR,
-	//		GL_ONE_MINUS_SRC_COLOR,
-	//		GL_SRC_ALPHA,
-	//		GL_ONE_MINUS_SRC_ALPHA,
-	//		GL_DST_ALPHA,
-	//		GL_ONE_MINUS_DST_ALPHA,
-	//		GL_DST_COLOR,
-	//		GL_ONE_MINUS_DST_COLOR,
-	//		GL_SRC_ALPHA_SATURATE,
-	//		0,
-	//		0,
-	//		GL_CONSTANT_COLOR,
-	//		GL_ONE_MINUS_CONSTANT_COLOR,
-	//		GL_SRC1_COLOR,
-	//		GL_ONE_MINUS_SRC1_COLOR,
-	//		GL_SRC1_ALPHA,
-	//		GL_ONE_MINUS_SRC1_ALPHA,
-	//	};
-	//}
-	
 	GLRasterizerState::GLRasterizerState()
 	{
 		::glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -88,7 +51,8 @@ namespace s3d
 				
 				::glFrontFace(GL_CW);
 				
-				::glCullFace(state.cullMode == CullMode::Front ? GL_FRONT : GL_BACK);
+				// CullMode::Front = GL_BACK, CullMode::Back = GL_FRONT
+				::glCullFace(state.cullMode == CullMode::Front ? GL_BACK : GL_FRONT);
 			}
 		}
 		

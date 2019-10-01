@@ -18,7 +18,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		static constexpr int32 Get8Direction(const int32 deg)
+		static constexpr int32 Get8Direction(const double deg)
 		{
 			if (deg <= 22.5)
 				return 0;

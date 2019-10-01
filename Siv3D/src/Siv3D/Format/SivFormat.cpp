@@ -14,6 +14,7 @@
 # include <Siv3D/FormatInt.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/SIMDMath.hpp>
 
 namespace s3d
 {
@@ -196,15 +197,11 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, __m128 value)
 	{
-	# if defined(SIV3D_HAVE_M128_MEMBERS)
+		SIMD::Float4A fv;
 
-		Formatter(formatData, Vec4(value.m128_f32[0], value.m128_f32[1], value.m128_f32[2], value.m128_f32[3]));
+		fv.vec = value;
 
-	# else
-
-		Formatter(formatData, Vec4(value[0], value[1], value[2], value[3]));
-
-	# endif
+		Formatter(formatData, Vec4(fv.f[0], fv.f[1], fv.f[2], fv.f[3]));
 	}
 
 	void Formatter(FormatData& formatData, const char32* const str)

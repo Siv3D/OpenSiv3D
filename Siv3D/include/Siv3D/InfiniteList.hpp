@@ -52,7 +52,7 @@ namespace s3d
 					}
 					else if (m_step < 0)
 					{
-						if (m_step < 0 && m_currentValue < std::numeric_limits<Type>::min() - m_step)
+						if (m_currentValue < std::numeric_limits<Type>::min() - m_step)
 						{
 							overflow = true;
 						}

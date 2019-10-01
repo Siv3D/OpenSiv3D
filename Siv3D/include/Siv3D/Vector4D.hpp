@@ -56,41 +56,41 @@ namespace s3d
 		constexpr Vector4D(X _x, Y _y, const Vector2D<value_type>& zw) noexcept
 			: x(static_cast<value_type>(_x))
 			, y(static_cast<value_type>(_y))
-			, z(static_cast<value_type>(zw.x))
-			, w(static_cast<value_type>(zw.y)) {}
+			, z(zw.x)
+			, w(zw.y) {}
 
 		template <class X, class W>
 		constexpr Vector4D(X _x, const Vector2D<value_type>& yz, W _w) noexcept
 			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(yz.x))
-			, z(static_cast<value_type>(yz.y))
+			, y(yz.x)
+			, z(yz.y)
 			, w(static_cast<value_type>(_w)) {}
 
 		template <class Z, class W>
 		constexpr Vector4D(const Vector2D<value_type>& xy, Z _z, W _w) noexcept
-			: x(static_cast<value_type>(xy.x))
-			, y(static_cast<value_type>(xy.y))
+			: x(xy.x)
+			, y(xy.y)
 			, z(static_cast<value_type>(_z))
 			, w(static_cast<value_type>(_w)) {}
 
 		constexpr Vector4D(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept
-			: x(static_cast<value_type>(xy.x))
-			, y(static_cast<value_type>(xy.y))
-			, z(static_cast<value_type>(zw.x))
-			, w(static_cast<value_type>(zw.y)) {}
+			: x(xy.x)
+			, y(xy.y)
+			, z(zw.x)
+			, w(zw.y) {}
 
 		template <class X>
 		constexpr Vector4D(X _x, const Vector3D<value_type>& yzw) noexcept
 			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(yzw.x))
-			, z(static_cast<value_type>(yzw.y))
-			, w(static_cast<value_type>(yzw.z)) {}
+			, y(yzw.x)
+			, z(yzw.y)
+			, w(yzw.z) {}
 
 		template <class Z>
 		constexpr Vector4D(const Vector3D<value_type>& xyz, Z _z) noexcept
-			: x(static_cast<value_type>(xyz.x))
-			, y(static_cast<value_type>(xyz.y))
-			, z(static_cast<value_type>(xyz.z))
+			: x(xyz.x)
+			, y(xyz.y)
+			, z(xyz.z)
 			, w(static_cast<value_type>(_z)) {}
 
 		template <class U>
@@ -620,7 +620,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D Zero()
+		[[nodiscard]] static constexpr Vector4D Zero() noexcept
 		{
 			return{ 0, 0, 0, 0 };
 		}
@@ -628,7 +628,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 1, 1, 1, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D One()
+		[[nodiscard]] static constexpr Vector4D One() noexcept
 		{
 			return{ 1, 1, 1, 1 };
 		}
@@ -636,7 +636,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ value, value, value, value }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D All(value_type value = 1)
+		[[nodiscard]] static constexpr Vector4D All(value_type value = 1) noexcept
 		{
 			return{ value, value, value, value };
 		}
@@ -644,7 +644,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 1, 0, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitX()
+		[[nodiscard]] static constexpr Vector4D UnitX() noexcept
 		{
 			return{ 1, 0, 0, 0 };
 		}
@@ -652,7 +652,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 1, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitY()
+		[[nodiscard]] static constexpr Vector4D UnitY() noexcept
 		{
 			return{ 0, 1, 0, 0 };
 		}
@@ -660,7 +660,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 1, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitZ()
+		[[nodiscard]] static constexpr Vector4D UnitZ() noexcept
 		{
 			return{ 0, 0, 1, 0 };
 		}
@@ -668,7 +668,7 @@ namespace s3d
 		/// <summary>
 		/// Vector4D{ 0, 0, 0, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitW()
+		[[nodiscard]] static constexpr Vector4D UnitW() noexcept
 		{
 			return{ 0, 0, 0, 1 };
 		}

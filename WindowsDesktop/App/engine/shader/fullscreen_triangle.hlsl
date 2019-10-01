@@ -9,50 +9,49 @@
 //
 //-----------------------------------------------
 
-cbuffer vscbSprite : register(b0)
+cbuffer VSConstantsFullscreenTriangle : register(b0)
 {
 	float4 g_texScale;
 }
 
-struct VS_OUTPUT
+struct PSInput
 {
-	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
-	float4 color : COLOR0;
+	float4 position	: SV_POSITION;
+	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
-VS_OUTPUT VS_Resolve(uint id: SV_VERTEXID)
+PSInput VS_Resolve(uint id: SV_VERTEXID)
 {
-	VS_OUTPUT output;
+	PSInput result;
 
-	output.position.x = (float)(id / 2) * 4.0 - 1.0;
-	output.position.y = (float)(id % 2) * 4.0 - 1.0;
-	output.position.z = 0.0;
-	output.position.w = 1.0;
+	result.position.x = (float)(id / 2) * 4.0 - 1.0;
+	result.position.y = (float)(id % 2) * 4.0 - 1.0;
+	result.position.z = 0.0;
+	result.position.w = 1.0;
 
-	output.tex.x = (float)(id / 2) * 2.0;
-	output.tex.y = 1.0 - (float)(id % 2) * 2.0;
+	result.color = 1.0;
 
-	output.tex *= g_texScale.xy;
+	result.uv.x = (float)(id / 2) * 2.0;
+	result.uv.y = 1.0 - (float)(id % 2) * 2.0;
+	result.uv *= g_texScale.xy;
 
-	output.color = 1.0;
-
-	return output;
+	return result;
 }
 
-VS_OUTPUT VS_Draw(uint id: SV_VERTEXID)
+PSInput VS_Draw(uint id: SV_VERTEXID)
 {
-	VS_OUTPUT output;
+	PSInput result;
 
-	output.position.x = (float)(id / 2) * 4.0 - 1.0;
-	output.position.y = (float)(id % 2) * 4.0 - 1.0;
-	output.position.z = 0.0;
-	output.position.w = 1.0;
+	result.position.x = (float)(id / 2) * 4.0 - 1.0;
+	result.position.y = (float)(id % 2) * 4.0 - 1.0;
+	result.position.z = 0.0;
+	result.position.w = 1.0;
 
-	output.tex.x = (float)(id / 2) * 2.0;
-	output.tex.y = 1.0 - (float)(id % 2) * 2.0;
+	result.color = 1.0;
 
-	output.color = 1.0;
+	result.uv.x = (float)(id / 2) * 2.0;
+	result.uv.y = 1.0 - (float)(id % 2) * 2.0;
 
-	return output;
+	return result;
 }

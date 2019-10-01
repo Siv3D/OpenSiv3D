@@ -50,9 +50,12 @@ namespace s3d
 
 			if (HRSRC hrs = ::FindResourceW(hModule, &pathW[1], L"FILE"))
 			{
-				m_pResource = ::LockResource(::LoadResource(hModule, hrs));
+				if (HGLOBAL resource = ::LoadResource(hModule, hrs))
+				{
+					m_pResource = ::LockResource(resource);
 
-				m_size = ::SizeofResource(hModule, hrs);
+					m_size = ::SizeofResource(hModule, hrs);
+				}
 			}
 		}
 

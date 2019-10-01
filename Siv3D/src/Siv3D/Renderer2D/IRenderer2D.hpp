@@ -14,6 +14,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/ParticleSystem2D.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 
 namespace s3d
 {
@@ -72,6 +73,20 @@ namespace s3d
 		virtual void setSDFParameters(const Float4& parameters) = 0;
 
 		virtual Float4 getSDFParameters() const = 0;
+
+		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+		virtual void setCustomPS(const Optional<PixelShader>& ps) = 0;
+
+		virtual Optional<PixelShader> getCustomPS() const = 0;
+
+		virtual void setConstant(ShaderStage stage, uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
+
+		virtual void setInternalConstantBufferValue(ShaderStage stage, const Float4& value) = 0;
+
+		virtual void setRT(const Optional<RenderTexture>& rt) = 0;
+
+		virtual Optional<RenderTexture> getRT() const = 0;
 
 		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 

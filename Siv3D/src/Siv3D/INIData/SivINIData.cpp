@@ -19,24 +19,36 @@ namespace s3d
 	{
 		static void WriteNewLine(TextWriter& writer)
 		{
-			writer.writeUTF8(u8"\r\n");
+			writer.writeUTF8("\r\n");
 		}
 
 		static void WriteSection(TextWriter& writer, const INIData::Section& section)
 		{
-			writer.writeUTF8(u8"[");
+			writer.writeUTF8("[");
 			writer.write(section);
-			writer.writeUTF8(u8"]");
+			writer.writeUTF8("]");
 			WriteNewLine(writer);
 		}
 
 		static void WriteValue(TextWriter& writer, const INIData::Name& name, const INIData::Value& value)
 		{
 			writer.write(name);
-			writer.writeUTF8(u8" = ");
+			writer.writeUTF8(" = ");
 			writer.write(value);
 			WriteNewLine(writer);
 		}
+	}
+
+	INIKey::INIKey()
+	{
+
+	}
+
+	INIKey::INIKey(const String& _name, const String& _value)
+		: name(_name)
+		, value(_value)
+	{
+	
 	}
 
 	INISection::INISection()
@@ -337,7 +349,7 @@ namespace s3d
 		return m_dummyValue;
 	}
 
-	const String& INIData::getGlobalVaue(const Name& name)
+	const String& INIData::getGlobalValue(const Name& name)
 	{
 		return getValue(Section(), name);
 	}

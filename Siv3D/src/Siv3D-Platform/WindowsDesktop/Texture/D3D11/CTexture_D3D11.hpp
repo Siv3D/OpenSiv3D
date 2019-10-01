@@ -22,11 +22,15 @@ namespace s3d
 	{
 	private:
 
+		static constexpr uint32 SampleCount = 4;
+
 		ID3D11Device* m_device = nullptr;
 
 		ID3D11DeviceContext* m_context = nullptr;
 
 		AssetHandleManager<TextureID, Texture_D3D11> m_textures{ U"Texture" };
+
+		std::array<bool, 10> m_multiSampleAvailable = {};
 
 	public:
 
@@ -40,11 +44,21 @@ namespace s3d
 
 		TextureID create(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
 
-		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
 
-		//TextureID createRT(const Size& size, uint32 multisampleCount) override;
+		TextureID createRT(const Size& size, const TextureFormat& format) override;
+
+		TextureID createRT(const Image& image) override;
+
+		TextureID createRT(const Grid<float>& image) override;
+
+		TextureID createRT(const Grid<Float2>& image) override;
+
+		TextureID createRT(const Grid<Float4>& image) override;
+
+		TextureID createMSRT(const Size& size, const TextureFormat& format) override;
 
 		void release(TextureID handleID) override;
 
@@ -52,13 +66,23 @@ namespace s3d
 
 		TextureDesc getDesc(TextureID handleID) override;
 
+		TextureFormat getFormat(TextureID handleID) override;
+
 		ID3D11ShaderResourceView** getSRVPtr(TextureID handleID);
 
-		ID3D11Texture2D* getTexture(TextureID handleID);
+		ID3D11RenderTargetView* getRTV(TextureID handleID);
 
-		//void clearRT(TextureID handleID, const ColorF& color) override;
+		void clearRT(TextureID handleID, const ColorF& color) override;
 
-		//ID3D11RenderTargetView* getRTV(TextureID handleID);
+		void readRT(TextureID handleID, Image& image) override;
+
+		void readRT(TextureID handleID, Grid<float>& image) override;
+
+		void readRT(TextureID handleID, Grid<Float2>& image) override;
+
+		void readRT(TextureID handleID, Grid<Float4>& image) override;
+
+		void resolveMSRT(const TextureID handleID) override;
 
 		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
 

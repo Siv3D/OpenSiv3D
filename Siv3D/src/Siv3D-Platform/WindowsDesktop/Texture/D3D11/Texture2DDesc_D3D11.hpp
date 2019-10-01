@@ -45,23 +45,19 @@ namespace s3d
 
 		Texture2DDesc_D3D11() = default;
 
-		Texture2DDesc_D3D11(const Size& _size, TextureFormat _format, TextureDesc _desc,
+		Texture2DDesc_D3D11(const Size& _size, const TextureFormat& _format, TextureDesc _desc,
 			uint32 _mipLevels, uint32 _multisampleCount, uint32 _multismapleQuality,
 			D3D11_USAGE _usage, uint32 _bindFlags,
 			uint32 _CPUAccessFlags, uint32 _miscFlags) noexcept;
 
 		uint32 stride() const noexcept;
 
+		bool isSRGB() const noexcept;
+
 		D3D11_TEXTURE2D_DESC makeTEXTURE2D_DESC() const noexcept;
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC makeSHADER_RESOURCE_VIEW_DESC() const noexcept;
 
-		//	D3D11_RENDER_TARGET_VIEW_DESC makeD3D11RTVDesc() const noexcept
-		//	{
-		//		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc;
-		//		rtvDesc.Format = DXGIFormat;
-		//		rtvDesc.ViewDimension = (multisampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS;
-		//		return rtvDesc;
-		//	}
+		D3D11_RENDER_TARGET_VIEW_DESC makeD3D11_RENDER_TARGET_VIEW_DESC() const noexcept;
 	};
 }

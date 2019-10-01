@@ -74,124 +74,64 @@ namespace s3d
 		}
 
 		template <>
-		inline void SetArg<bool>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const bool& value)
-		{
-			moduleData->context->SetArgByte(argIndex, value);
-		}
+		void SetArg<bool>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const bool& value);
 
 		template <>
-		inline void SetArg<bool&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, bool& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<bool&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, bool& value);
 
 		template <>
-		inline void SetArg<int8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int8& value)
-		{
-			moduleData->context->SetArgByte(argIndex, value);
-		}
+		void SetArg<int8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int8& value);
 
 		template <>
-		inline void SetArg<int8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int8& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<int8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int8& value);
 
 		template <>
-		inline void SetArg<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint8& value)
-		{
-			moduleData->context->SetArgByte(argIndex, value);
-		}
+		void SetArg<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint8& value);
 
 		template <>
-		inline void SetArg<uint8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint8& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<uint8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint8& value);
 
 		template <>
-		inline void SetArg<int16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int16& value)
-		{
-			moduleData->context->SetArgWord(argIndex, value);
-		}
+		void SetArg<int16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int16& value);
 
 		template <>
-		inline void SetArg<int16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int16& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<int16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int16& value);
 
 		template <>
-		inline void SetArg<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint16& value)
-		{
-			moduleData->context->SetArgWord(argIndex, value);
-		}
+		void SetArg<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint16& value);
 
 		template <>
-		inline void SetArg<uint16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint16& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<uint16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint16& value);
 
 		template <>
-		inline void SetArg<int32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int32& value)
-		{
-			moduleData->context->SetArgDWord(argIndex, value);
-		}
+		void SetArg<int32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int32& value);
 
 		template <>
-		inline void SetArg<int32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int32& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<int32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int32& value);
 
 		template <>
-		inline void SetArg<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint32& value)
-		{
-			moduleData->context->SetArgDWord(argIndex, value);
-		}
+		void SetArg<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint32& value);
 
 		template <>
-		inline void SetArg<uint32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint32& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<uint32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint32& value);
 
 		template <>
-		inline void SetArg<int64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int64& value)
-		{
-			moduleData->context->SetArgQWord(argIndex, value);
-		}
+		void SetArg<int64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int64& value);
 
 		template <>
-		inline void SetArg<int64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int64& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<int64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int64& value);
 
 		template <>
-		inline void SetArg<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint64& value)
-		{
-			moduleData->context->SetArgQWord(argIndex, value);
-		}
+		void SetArg<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint64& value);
 
 		template <>
-		inline void SetArg<uint64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint64& value)
-		{
-			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
-		}
+		void SetArg<uint64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint64& value);
 
 		template <>
-		inline void SetArg<float>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const float& value)
-		{
-			moduleData->context->SetArgFloat(argIndex, value);
-		}
+		void SetArg<float>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const float& value);
 
 		template <>
-		inline void SetArg<double>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const double& value)
-		{
-			moduleData->context->SetArgDouble(argIndex, value);
-		}
+		void SetArg<double>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const double& value);
 
 		template <class Type>
 		inline Type GetReturnValue(const std::shared_ptr<ScriptModuleData>& moduleData)
@@ -200,76 +140,40 @@ namespace s3d
 		}
 
 		template <>
-		inline void GetReturnValue<void>(const std::shared_ptr<ScriptModuleData>&)
-		{
-			return;
-		}
+		void GetReturnValue<void>(const std::shared_ptr<ScriptModuleData>&);
 
 		template <>
-		inline bool GetReturnValue<bool>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return !!moduleData->context->GetReturnByte();
-		}
+		bool GetReturnValue<bool>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline int8 GetReturnValue<int8>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnByte();
-		}
+		int8 GetReturnValue<int8>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline uint8 GetReturnValue<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnByte();
-		}
+		uint8 GetReturnValue<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline int16 GetReturnValue<int16>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnWord();
-		}
+		int16 GetReturnValue<int16>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline uint16 GetReturnValue<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnWord();
-		}
+		uint16 GetReturnValue<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline int32 GetReturnValue<int32>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnDWord();
-		}
+		int32 GetReturnValue<int32>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline uint32 GetReturnValue<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnDWord();
-		}
+		uint32 GetReturnValue<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline int64 GetReturnValue<int64>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnQWord();
-		}
+		int64 GetReturnValue<int64>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline uint64 GetReturnValue<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnQWord();
-		}
+		uint64 GetReturnValue<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline float GetReturnValue<float>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnFloat();
-		}
+		float GetReturnValue<float>(const std::shared_ptr<ScriptModuleData>& moduleData);
 
 		template <>
-		inline double GetReturnValue<double>(const std::shared_ptr<ScriptModuleData>& moduleData)
-		{
-			return moduleData->context->GetReturnDouble();
-		}
+		double GetReturnValue<double>(const std::shared_ptr<ScriptModuleData>& moduleData);
 	}
 
 
@@ -326,12 +230,12 @@ namespace s3d
 
 			const int32 r = m_moduleData->context->Execute();
 
-			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
+			if (r == AngelScript::asEXECUTION_EXCEPTION)
 			{
 				LOG_ERROR(U"[script exception] An exception '{}' occurred."_fmt(Unicode::Widen(m_moduleData->context->GetExceptionString())));
 				return false;
 			}
-			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
+			else if (r == AngelScript::asEXECUTION_SUSPENDED)
 			{
 				System::Exit();
 			}
@@ -355,11 +259,11 @@ namespace s3d
 
 			const int32 r = m_moduleData->context->Execute();
 
-			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
+			if (r == AngelScript::asEXECUTION_EXCEPTION)
 			{
 				return Unicode::Widen(m_moduleData->context->GetExceptionString());
 			}
-			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
+			else if (r == AngelScript::asEXECUTION_SUSPENDED)
 			{
 				System::Exit();
 			}

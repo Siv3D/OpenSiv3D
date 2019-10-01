@@ -111,11 +111,6 @@ namespace s3d
 		const size_t mappingSize = static_cast<size_t>(
 			requestSize && ((offset + requestSize) < m_fileSize) ? requestSize : (m_fileSize - offset));
 
-		if (mappingSize <= 0)
-		{
-			return;
-		}
-
 		const size_t internalOffset = offset / detail::GetGranularity() * detail::GetGranularity();
 
 		m_mapHandle = ::CreateFileMappingW(

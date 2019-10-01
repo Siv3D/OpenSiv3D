@@ -440,11 +440,11 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Image& operator =(Image&& image);
+		Image& operator =(Image&& image) noexcept;
 
 		Image& assign(const Image& image);
 
-		Image& assign(Image&& image);
+		Image& assign(Image&& image) noexcept;
 
 		/// <summary>
 		/// 画像の幅（ピクセル）
@@ -1040,7 +1040,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Image& postarize(int32 level);
+		Image& posterize(int32 level);
 
 		/// <summary>
 		/// ポスタライズ処理を行った画像を返します。
@@ -1051,7 +1051,7 @@ namespace s3d
 		/// <returns>
 		/// ポスタライズ処理を行った画像
 		/// </returns>
-		[[nodiscard]] Image postarized(int32 level) const;
+		[[nodiscard]] Image posterized(int32 level) const;
 
 		/// <summary>
 		/// 明るさを変更します。

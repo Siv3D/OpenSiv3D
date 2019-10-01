@@ -30,7 +30,7 @@ namespace s3d
 
 		FilePath m_directory;
 
-		OVERLAPPED m_overlapped;
+		OVERLAPPED m_overlapped = {};
 
 		Array<uint8> m_buffer;
 

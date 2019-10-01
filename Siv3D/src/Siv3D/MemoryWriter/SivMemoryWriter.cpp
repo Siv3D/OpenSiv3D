@@ -52,7 +52,7 @@ namespace s3d
 		return pImpl->setPos(pos) == pos;
 	}
 
-	int64 MemoryWriter::seekEnd()
+	int64 MemoryWriter::seekToEnd()
 	{
 		return pImpl->setPos(pImpl->size());
 	}

@@ -16,35 +16,35 @@ namespace s3d
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState)
 		: m_oldBlendState(Graphics2D::GetBlendState())
 	{
-		Graphics2D::SetBlendState(blendState);
+		Graphics2D::Internal::SetBlendState(blendState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState)
 		: m_oldRasterizerState(Graphics2D::GetRasterizerState())
 	{
-		Graphics2D::SetRasterizerState(rasterizerState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState)
 		: m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
-		Graphics2D::SetSamplerState(samplerState);
+		Graphics2D::Internal::SetSamplerState(samplerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState)
 		: m_oldBlendState(Graphics2D::GetBlendState())
 		, m_oldRasterizerState(Graphics2D::GetRasterizerState())
 	{
-		Graphics2D::SetBlendState(blendState);
-		Graphics2D::SetRasterizerState(rasterizerState);
+		Graphics2D::Internal::SetBlendState(blendState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState)
 		: m_oldBlendState(Graphics2D::GetBlendState())
 		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
-		Graphics2D::SetBlendState(blendState);
-		Graphics2D::SetSamplerState(samplerState);
+		Graphics2D::Internal::SetBlendState(blendState);
+		Graphics2D::Internal::SetSamplerState(samplerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState)
@@ -54,8 +54,8 @@ namespace s3d
 		: m_oldRasterizerState(Graphics2D::GetRasterizerState())
 		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
-		Graphics2D::SetRasterizerState(rasterizerState);
-		Graphics2D::SetSamplerState(samplerState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+		Graphics2D::Internal::SetSamplerState(samplerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const BlendState& blendState)
@@ -69,9 +69,9 @@ namespace s3d
 		, m_oldRasterizerState(Graphics2D::GetRasterizerState())
 		, m_oldSamplerState(Graphics2D::GetSamplerState())
 	{
-		Graphics2D::SetBlendState(blendState);
-		Graphics2D::SetRasterizerState(rasterizerState);
-		Graphics2D::SetSamplerState(samplerState);
+		Graphics2D::Internal::SetBlendState(blendState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+		Graphics2D::Internal::SetSamplerState(samplerState);
 	}
 
 	ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState, const RasterizerState& rasterizerState)
@@ -89,7 +89,7 @@ namespace s3d
 	ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState)
 		: ScopedRenderStates2D(blendState, rasterizerState, samplerState) {}
 
-	ScopedRenderStates2D::ScopedRenderStates2D(ScopedRenderStates2D&& block)
+	ScopedRenderStates2D::ScopedRenderStates2D(ScopedRenderStates2D&& block) noexcept
 	{
 		m_oldBlendState = block.m_oldBlendState;
 		m_oldRasterizerState = block.m_oldRasterizerState;
@@ -99,17 +99,17 @@ namespace s3d
 
 	ScopedRenderStates2D::~ScopedRenderStates2D()
 	{
-		m_oldBlendState.then(Graphics2D::SetBlendState);
+		m_oldBlendState.then(Graphics2D::Internal::SetBlendState);
 
-		m_oldRasterizerState.then(Graphics2D::SetRasterizerState);
+		m_oldRasterizerState.then(Graphics2D::Internal::SetRasterizerState);
 
 		if (m_oldSamplerState)
 		{
-			Graphics2D::SetSamplerState(m_oldSamplerState.value());
+			Graphics2D::Internal::SetSamplerState(m_oldSamplerState.value());
 		}
 	}
 
-	ScopedRenderStates2D& ScopedRenderStates2D::operator =(ScopedRenderStates2D&& block)
+	ScopedRenderStates2D& ScopedRenderStates2D::operator =(ScopedRenderStates2D&& block) noexcept
 	{
 		if (!m_oldBlendState && block.m_oldBlendState)
 		{
@@ -131,7 +131,7 @@ namespace s3d
 		return *this;
 	}
 
-	void ScopedRenderStates2D::clear()
+	void ScopedRenderStates2D::clear() noexcept
 	{
 		m_oldBlendState.reset();
 		m_oldRasterizerState.reset();

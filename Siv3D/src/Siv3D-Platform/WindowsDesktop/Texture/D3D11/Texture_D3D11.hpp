@@ -25,34 +25,65 @@ namespace s3d
 	{
 	private:
 
+		// [メインテクスチャ]
 		ComPtr<ID3D11Texture2D> m_texture;
 
-		ComPtr<ID3D11Texture2D> m_textureStaging;
+		// [マルチサンプル・テクスチャ]
+		ComPtr<ID3D11Texture2D> m_multiSampledTexture;
 
+		// [ステージング・テクスチャ]
+		ComPtr<ID3D11Texture2D> m_stagingTexture;
+
+		// [レンダー・ターゲット・ビュー]
+		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
+
+		// [シェーダ・リソース・ビュー]
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 
-	//	ComPtr<ID3D11RenderTargetView> m_renderTargetView;
+		enum class TextureType
+		{
+			// 通常テクスチャ
+			// [メインテクスチャ]<-[シェーダ・リソース・ビュー]
+			Normal,
+
+			// 動的テクスチャ
+			// [メインテクスチャ]<-[シェーダ・リソース・ビュー], [ステージング・テクスチャ]
+			Dynamic,
+
+			// レンダーテクスチャ
+			// [メインテクスチャ]<-[レンダー・ターゲット・ビュー]<-[シェーダ・リソース・ビュー]
+			Render,
+
+			// マルチサンプル・レンダーテクスチャ
+			// [マルチサンプル・テクスチャ]<-[レンダー・ターゲット・ビュー], [メインテクスチャ]<-[シェーダ・リソース・ビュー]
+			MSRender,
+		};
 
 		Texture2DDesc_D3D11 m_desc;
+
+		TextureType m_type = TextureType::Normal;
 
 		bool m_initialized = false;
 
 	public:
 
-	//	struct Null {};
-	//	struct BackBuffer {};
 		struct Dynamic {};
-	//	struct Render {};
+		struct Render {};
+		struct MSRender {};
 
-	//	Texture_D3D11() = default;
+		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
-	//	Texture_D3D11(Null, ID3D11Device* device);
+		Texture_D3D11(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
 
-	//	Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+		Texture_D3D11(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc);
 
-		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
 
-	//	Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_D3D11(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+
+		Texture_D3D11(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
 
@@ -62,26 +93,28 @@ namespace s3d
 
 		const Texture2DDesc_D3D11& getDesc() const noexcept;
 
-		
-
-	//	ID3D11RenderTargetView* getRTV()
-	//	{
-	//		return m_renderTargetView.Get();
-	//	}
-
 		ID3D11ShaderResourceView** getSRVPtr();
 
-		ID3D11Texture2D* getTexture();
+		ID3D11RenderTargetView* getRTV();
 
-	//	void clearRT(ID3D11DeviceContext* context, const ColorF& color);
+		// レンダーテクスチャを指定した色でクリアする
+		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
 
-	//	void beginResize();
+		// レンダーテクスチャの内容を Image にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
 
-	//	bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<float>& image);
 
-	//	bool endResize(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float2>& image);
 
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float4>& image);
 
+		void resolveMSRT(ID3D11DeviceContext* context);
+
+		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
 
 		bool fillRegion(ID3D11DeviceContext* context, const ColorF& color, const Rect& rect);

@@ -114,7 +114,7 @@ namespace s3d
 		}
 		catch (const Error& error)
 		{
-			Window::SetFullscreen(false); // メッセージボックスを表示するためにフルスクリーンモードを解除
+			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
 			EngineMessageBox::ShowError(U"Error:\n{}"_fmt(error.what()));
 			return;
 		}
@@ -142,7 +142,7 @@ namespace s3d
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	SIMPLE_LOG(U"WinMain");
 	SIMPLE_LOG(U"Siv3D for Windows");
@@ -165,7 +165,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 
 	LOG_TRACE(U"MainThread");
-	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 	{
 		const std::future<void> f = std::async(std::launch::async, MainThread);
 
@@ -176,7 +176,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			::Sleep(1);
 		}
 	}
-	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
+	Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
 	
 	return 0;
 }

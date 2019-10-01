@@ -51,7 +51,7 @@ namespace s3d
 
 		PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, bool checkValidity);
 
-		void copyFrom(PolygonDetail& other);
+		void copyFrom(const PolygonDetail& other);
 
 		void moveFrom(PolygonDetail& other);
 

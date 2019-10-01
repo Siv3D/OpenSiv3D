@@ -28,6 +28,10 @@ namespace s3d
 
 		public:
 
+			ConstantBufferBase() = default;
+
+			ConstantBufferBase(const ConstantBufferBase&) = default;
+
 			explicit ConstantBufferBase(size_t size);
 
 			bool _internal_update(const void* data, size_t size);
@@ -39,9 +43,13 @@ namespace s3d
 	template <class Type>
 	class ConstantBuffer
 	{
-	private:
+	public:
 
 		static constexpr size_t Size = sizeof(Type);
+
+		static constexpr size_t Alignment = std::max<size_t>(alignof(Type), 16);
+
+	private:
 
 		static_assert(Size <= 16 * 4096); // <= 64KB
 
@@ -49,7 +57,7 @@ namespace s3d
 
 		detail::ConstantBufferBase m_base;
 
-		Type* const m_data = AlignedMalloc<Type>();
+		Type* const m_data = AlignedMalloc<Type, Alignment>();
 
 		bool m_hasDirty = false;
 
@@ -60,16 +68,6 @@ namespace s3d
 
 	public:
 
-		[[nodiscard]] static const char* Name()
-		{
-			return Type::Name();
-		}
-
-		[[nodiscard]] static constexpr uint32 BindingPoint()
-		{
-			return Type::BindingPoint();
-		}
-
 		ConstantBuffer()
 			: m_base(Size)
 		{
@@ -79,6 +77,7 @@ namespace s3d
 		explicit ConstantBuffer(const Type& data)
 			: ConstantBuffer()
 		{
+			m_hasDirty = true;
 			*m_data = data;
 		}
 

@@ -16,8 +16,14 @@ namespace s3d
 	ScopedViewport2D::ScopedViewport2D(const Optional<Rect>& viewport)
 		: m_oldViewport(Graphics2D::GetViewport())
 	{
-		Graphics2D::SetViewport(viewport);
+		Graphics2D::Internal::SetViewport(viewport);
 	}
+
+	ScopedViewport2D::ScopedViewport2D(int32 w, int32 h)
+		: ScopedViewport2D(Rect(0, 0, w, h)) {}
+
+	ScopedViewport2D::ScopedViewport2D(const Size& size)
+		: ScopedViewport2D(Rect(0, 0, size)) {}
 
 	ScopedViewport2D::ScopedViewport2D(const int32 x, const int32 y, const int32 w, const int32 h)
 		: ScopedViewport2D(Rect(x, y, w, h)) {}
@@ -31,7 +37,7 @@ namespace s3d
 	ScopedViewport2D::ScopedViewport2D(const Point& pos, const Size& size)
 		: ScopedViewport2D(Rect(pos, size)) {}
 
-	ScopedViewport2D::ScopedViewport2D(ScopedViewport2D&& other)
+	ScopedViewport2D::ScopedViewport2D(ScopedViewport2D&& other) noexcept
 	{
 		m_oldViewport = other.m_oldViewport;
 
@@ -40,10 +46,10 @@ namespace s3d
 
 	ScopedViewport2D::~ScopedViewport2D()
 	{
-		m_oldViewport.then(Graphics2D::SetViewport);
+		m_oldViewport.then(Graphics2D::Internal::SetViewport);
 	}
 
-	ScopedViewport2D& ScopedViewport2D::operator =(ScopedViewport2D&& other)
+	ScopedViewport2D& ScopedViewport2D::operator =(ScopedViewport2D&& other) noexcept
 	{
 		if (!m_oldViewport && other.m_oldViewport)
 		{
@@ -55,7 +61,7 @@ namespace s3d
 		return *this;
 	}
 
-	void ScopedViewport2D::clear()
+	void ScopedViewport2D::clear() noexcept
 	{
 		m_oldViewport.reset();
 	}

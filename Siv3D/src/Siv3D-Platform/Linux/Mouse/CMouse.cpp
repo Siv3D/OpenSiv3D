@@ -31,11 +31,11 @@ namespace s3d
 		LOG_TRACE(U"CMouse::init()");
 
 		m_glfwWindow = static_cast<GLFWwindow*>(Siv3DEngine::Get<ISiv3DWindow>()->getHandle());
-		
+
 		m_buttonsInternal.fill(MouseButtonState::Released);
-		
+
 		::glfwSetScrollCallback(m_glfwWindow, OnScroll);
-		
+
 		::glfwSetMouseButtonCallback(m_glfwWindow, OnMouseButtonUpdated);
 
 		LOG_INFO(U"ℹ️ CMouse initialized");
@@ -45,27 +45,27 @@ namespace s3d
 	{
 		{
 			std::lock_guard<std::mutex> lock(m_buttonMutex);
-			
+
 			for (uint32 i = 0; i < MouseButtonCount; ++i)
 			{
 				auto& state = m_buttonsInternal[i];
-				
+
 				const bool pressed = (state == MouseButtonState::Pressed) || (state == MouseButtonState::Tapped);
-				
+
 				m_states[i].update(pressed);
-				
+
 				if (state == MouseButtonState::Tapped)
 				{
 					state = MouseButtonState::Released;
 				}
 			}
 		}
-		
+
 		{
 			std::lock_guard<std::mutex> lock(m_scrollMutex);
-			
+
 			m_scroll = m_scrollInternal;
-			
+
 			m_scrollInternal.set(0.0, 0.0);
 		}
 	}
@@ -89,25 +89,25 @@ namespace s3d
 	{
 		return m_states[index]._pressedDuration;
 	}
-	
+
 	const Vec2& CMouse::wheel() const
 	{
 		return m_scroll;
 	}
-	
+
 	void CMouse::onScroll(const double v, const double h)
 	{
 		std::lock_guard lock(m_scrollMutex);
-		
-		m_scrollInternal.moveBy(h, v);
+
+		m_scrollInternal.moveBy(v, h);
 	}
 
 	void CMouse::onMouseButtonUpdated(const int32 index, const bool pressed)
 	{
 		std::lock_guard<std::mutex> lock(m_buttonMutex);
-		
+
 		auto& state = m_buttonsInternal[index];
-		
+
 		if(state == MouseButtonState::Released)
 		{
 			if(pressed)
@@ -130,12 +130,12 @@ namespace s3d
 			}
 		}
 	}
-	
+
 	void CMouse::OnScroll(GLFWwindow*, const double h, const double v)
 	{
 		Siv3DEngine::Get<ISiv3DMouse>()->onScroll(h, -v);
 	}
-	
+
 	void CMouse::OnMouseButtonUpdated(GLFWwindow*, const int button, const int action, int)
 	{
 		Siv3DEngine::Get<ISiv3DMouse>()->onMouseButtonUpdated(button, (action == GLFW_PRESS));

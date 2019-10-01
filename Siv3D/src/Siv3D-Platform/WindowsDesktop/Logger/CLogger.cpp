@@ -24,10 +24,10 @@ namespace s3d
 	namespace detail
 	{
 		static constexpr std::string_view HeaderA =
-			u8"<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"UTF-8\" />\n<title>"sv;
+			"<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"UTF-8\" />\n<title>"sv;
 
-		static constexpr std::string_view HeaderB =
-u8R"(</title>
+		static const std::string HeaderB =
+Unicode::ToUTF8(UR"(</title>
 <style>
 body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
 h2			{ color: #333333; text-align: center; font-size: 28px; }
@@ -44,13 +44,13 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 </style>
 </head>
 <body>
-<h2>)"sv;
+<h2>)");
 
-		static constexpr std::string_view HeaderC = u8"</h2>\n<div class=\"messages\">\n";
+		static constexpr std::string_view HeaderC = "</h2>\n<div class=\"messages\">\n";
 
-		static constexpr std::string_view DivEnd = u8"</div>\n"sv;
+		static constexpr std::string_view DivEnd = "</div>\n"sv;
 
-		static constexpr std::string_view Footer = u8"</div>\n</body>\n</html>"sv;
+		static constexpr std::string_view Footer = "</div>\n</body>\n</html>"sv;
 
 		static constexpr std::array<StringView, 8> LogLevelStr =
 		{
@@ -66,14 +66,14 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 
 		static constexpr std::array<std::string_view, 8> LogLevelDiv =
 		{
-			u8R"(<div class="error">)"sv,
-			u8R"(<div class="fail">)"sv,
-			u8R"(<div class="warning">)"sv,
-			u8R"(<div class="script">)"sv,
-			u8R"(<div class="app">)"sv,
-			u8R"(<div class="info">)"sv,
-			u8R"(<div class="debug">)"sv,
-			u8R"(<div class="trace">)"sv,
+			R"(<div class="error">)"sv,
+			R"(<div class="fail">)"sv,
+			R"(<div class="warning">)"sv,
+			R"(<div class="script">)"sv,
+			R"(<div class="app">)"sv,
+			R"(<div class="info">)"sv,
+			R"(<div class="debug">)"sv,
+			R"(<div class="trace">)"sv,
 		};
 
 		static void OutputDebug(const int64 timeStamp, const LogDescription desc, const String& text)
@@ -108,7 +108,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 	{
 		m_active = false;
 
-		if constexpr (!Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(RELEASE))
 		{
 			if (!m_hasImportantLog)
 			{
@@ -117,7 +117,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 		}
 
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
-		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + u8" Log";
+		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + " Log";
 
 		if (TextWriter writer{ fileName + U"_log.html", TextEncoding::UTF8 })
 		{
@@ -156,7 +156,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 			detail::OutputDebug(timeStamp, desc, text);
 
 			m_buffer.append(detail::LogLevelDiv[FromEnum(desc)]);
-			m_buffer.append(std::to_string(timeStamp) + u8": ");
+			m_buffer.append(std::to_string(timeStamp) + ": ");
 			m_buffer.append(text.xml_escaped().toUTF8());
 			m_buffer.append(detail::DivEnd);
 
@@ -185,7 +185,7 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 			detail::OutputDebug(timeStamp, desc, text);
 
 			m_buffer.append(detail::LogLevelDiv[FromEnum(desc)]);
-			m_buffer.append(std::to_string(timeStamp) + u8": ");
+			m_buffer.append(std::to_string(timeStamp) + ": ");
 			m_buffer.append(text.xml_escaped().toUTF8());
 			m_buffer.append(detail::DivEnd);
 

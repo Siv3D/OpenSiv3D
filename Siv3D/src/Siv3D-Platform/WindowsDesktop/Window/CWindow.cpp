@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Graphics.hpp>
 # include <Siv3D/DLL.hpp>
 # include <Siv3DEngine.hpp>
 # include <Profiler/IProfiler.hpp>
@@ -189,7 +190,7 @@ namespace s3d
 			--m_displayInfoCheckCount;
 		}
 
-		if constexpr (Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 		{
 			const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 			const String titleText = m_title + U" (Debug Build) | " + statistics;
@@ -206,7 +207,7 @@ namespace s3d
 	{
 		if (m_title != title)
 		{
-			if constexpr (Platform::DebugBuild)
+			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
 				const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 				m_titleText = title + U" (Debug Build) | " + statistics;
@@ -332,8 +333,19 @@ namespace s3d
 
 		::SetWindowLongW(m_hWnd, GWL_STYLE, getBaseWindowStyle());
 
-		RECT windowRect = { 0, 0, newSize.x, newSize.y };
-		::AdjustWindowRect(&windowRect, getBaseWindowStyle(), FALSE);
+		RECT windowRect;
+		{
+			if (const double dpiScaling = Graphics::GetDPIScaling(); dpiScaling == 1.0)
+			{
+				windowRect = RECT{ 0, 0, newSize.x, newSize.y };
+			}
+			else
+			{
+				windowRect = RECT{ 0, 0, static_cast<int32>((newSize.x - 1.5) / dpiScaling), static_cast<int32>((newSize.y - 3.0) / dpiScaling) };
+			}
+
+			::AdjustWindowRect(&windowRect, getBaseWindowStyle(), FALSE);
+		}
 
 		if (centering)
 		{
@@ -548,15 +560,18 @@ namespace s3d
 	{
 		LOG_TRACE(U"CWindow::registerWindowClass()");
 
-		WNDCLASSEX windowClass		= {};
-		windowClass.cbSize			= sizeof(WNDCLASSEX);
-		windowClass.style			= CS_HREDRAW | CS_VREDRAW;
-		windowClass.lpfnWndProc		= WindowProc;
-		windowClass.hInstance		= m_hInstance;
-		windowClass.hIcon			= ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(100));
-		windowClass.hCursor			= nullptr;
-		windowClass.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH));
-		windowClass.lpszClassName	= m_windowClassName.c_str();
+		WNDCLASSEX windowClass
+		{
+			.cbSize			= sizeof(WNDCLASSEX),
+			.style			= CS_HREDRAW | CS_VREDRAW,
+			.lpfnWndProc	= WindowProc,
+			.hInstance		= m_hInstance,
+			.hIcon			= ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(100)),
+			.hCursor		= nullptr,
+			.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH)),
+			.lpszClassName	= m_windowClassName.c_str()
+		};
+
 		if (!::RegisterClassExW(&windowClass))
 		{
 			throw EngineError(U"RegisterClassExW() failed");

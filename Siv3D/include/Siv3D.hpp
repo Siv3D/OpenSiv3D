@@ -260,9 +260,9 @@
 // Regular expression
 //# include <Siv3D/Regex.hpp>
 
-// 絵文字判定
-// Emoji formatting
-# include <Siv3D/EmojiDictionary.hpp>
+// 絵文字リスト
+// Emoji list
+# include <Siv3D/EmojiList.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -668,6 +668,10 @@
 // Half-Pecision Floating-Point
 # include <Siv3D/HalfFloat.hpp>
 
+// SIMD 対応 Float4
+// SIMD Float4
+# include <Siv3D/SIMD_Float4.hpp>
+
 // 数式パーサ
 // Math Parser
 # include <Siv3D/MathParser.hpp>
@@ -765,8 +769,7 @@
 
 //// シリアル通信
 //# include <Siv3D/Serial.hpp>
-//// パイプサーバー
-//# include <Siv3D/PipeServer.hpp>
+
 //// インターネット
 //# include <Siv3D/Internet.hpp>
 //// HTTP
@@ -850,6 +853,10 @@
 // プロファイラー
 // Profiling
 # include <Siv3D/Profiler.hpp>
+
+// プロセス
+// Process
+# include <Siv3D/Process.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -972,6 +979,7 @@
 // シェーダ
 // Shader
 # include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Shader.hpp>
 
 // 頂点シェーダ
 // Vertex Shader
@@ -1007,6 +1015,12 @@
 // 2D グラフィックス設定
 # include <Siv3D/ScopedColor2D.hpp>
 
+// 2D グラフィックス設定
+# include <Siv3D/ScopedCustomShader2D.hpp>
+
+// 2D グラフィックス設定
+# include <Siv3D/ScopedRenderTarget2D.hpp>
+
 // 2D 座標変換
 # include <Siv3D/Transformer2D.hpp>
 
@@ -1041,7 +1055,10 @@
 # include <Siv3D/DynamicTexture.hpp>
 
 // レンダーテクスチャ
-//# include <Siv3D/RenderTexture.hpp>
+# include <Siv3D/RenderTexture.hpp>
+
+// レンダーテクスチャ
+# include <Siv3D/MSRenderTexture.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1133,21 +1150,34 @@
 //
 //////////////////////////////////////////////////
 
-//// DirectXMath ユーティリティ
-//# include <Siv3D/DirectXMathUtility.hpp>
-//// クォータニオン
+// クォータニオン
+// Quaternion
 //# include <Siv3D/Quaternion.hpp>
-//// 4x4 行列
-//# include <Siv3D/Mat4x4.hpp>
+
+// 4x4 行列
+// 4x4 matrix
+# include <Siv3D/Mat4x4.hpp>
+
+// 3D カメラ
+// 3D camera
+# include <Siv3D/Camera3D.hpp>
 
 // レイ
 // Ray
 # include <Siv3D/Ray.hpp>
 
-//// 3D 線分
-//# include <Siv3D/Line3D.hpp>
-//// 3D 三角形
-//# include <Siv3D/Triangle3D.hpp>
+// 3D 線分
+// 3D Line segment
+# include <Siv3D/Line3D.hpp>
+
+// 3D 三角形
+// 3D Triangle
+# include <Siv3D/Triangle3D.hpp>
+
+// 軸平行境界ボックス (AABB)
+// Axis Aligned Bounding Box (AABB)
+# include <Siv3D/AABB.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ
@@ -1179,8 +1209,6 @@
 //# include <Siv3D/ModelLoader.hpp>
 //// 3D モデル
 //# include <Siv3D/Model.hpp>
-//// 3D カメラ
-//# include <Siv3D/Camera.hpp>
 //// フォグ
 //# include <Siv3D/Fog.hpp>
 //// ライト

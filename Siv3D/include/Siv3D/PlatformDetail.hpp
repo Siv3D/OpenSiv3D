@@ -25,12 +25,7 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
-
-	constexpr size_t PointerSize = 8;
-	constexpr size_t AllocatorAlignment = 16;
-
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 	constexpr size_t PointerSize = 8;
 	constexpr size_t AllocatorAlignment = 16;
@@ -40,6 +35,7 @@ namespace s3d::Platform
 # error Unimplemented
 
 # endif
+
 
 //////////////////////////////////////////////////
 //
@@ -108,6 +104,7 @@ namespace s3d::Platform
 
 # endif
 
+
 //////////////////////////////////////////////////
 //
 // ファイルパスのネイティブ文字列型
@@ -128,6 +125,7 @@ namespace s3d::Platform
 # error Unimplemented
 
 # endif
+
 
 //////////////////////////////////////////////////
 //

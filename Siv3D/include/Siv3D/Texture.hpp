@@ -38,11 +38,25 @@ namespace s3d
 
 		struct Dynamic {};
 
-		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
+		struct Render {};
 
-		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format, TextureDesc desc);
+		struct MSRender {};
 
-		//Texture(Render, const Size& size, uint32 multisampleCount);
+		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
+
+		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, const TextureFormat& format, TextureDesc desc);
+
+		Texture(Render, uint32 width, uint32 height, const TextureFormat& format);
+
+		Texture(Render, const Image& image);
+
+		Texture(Render, const Grid<float>& image);
+
+		Texture(Render, const Grid<Float2>& image);
+
+		Texture(Render, const Grid<Float4>& image);
+
+		Texture(MSRender, uint32 width, uint32 height, const TextureFormat& format);
 
 	public:
 
@@ -191,6 +205,8 @@ namespace s3d
 		[[nodiscard]] Size size() const;
 
 		[[nodiscard]] TextureDesc getDesc() const;
+
+		[[nodiscard]] TextureFormat getFormat() const;
 
 		[[nodiscard]] bool isMipped() const;
 

@@ -16,7 +16,7 @@ namespace s3d
 	ScopedColorMul2D::ScopedColorMul2D(const ColorF& color)
 		: m_oldColor(Graphics2D::GetColorMul())
 	{
-		Graphics2D::SetColorMul(color);
+		Graphics2D::Internal::SetColorMul(color);
 	}
 
 	ScopedColorMul2D::ScopedColorMul2D(const double rgb, const double a)
@@ -25,7 +25,7 @@ namespace s3d
 	ScopedColorMul2D::ScopedColorMul2D(const double r, const double g, const double b, const double a)
 		: ScopedColorMul2D(ColorF(r, g, b, a)) {}
 
-	ScopedColorMul2D::ScopedColorMul2D(ScopedColorMul2D&& other)
+	ScopedColorMul2D::ScopedColorMul2D(ScopedColorMul2D&& other) noexcept
 	{
 		m_oldColor = other.m_oldColor;
 		other.clear();
@@ -33,10 +33,10 @@ namespace s3d
 
 	ScopedColorMul2D::~ScopedColorMul2D()
 	{
-		m_oldColor.then(Graphics2D::SetColorMul);
+		m_oldColor.then(Graphics2D::Internal::SetColorMul);
 	}
 
-	ScopedColorMul2D& ScopedColorMul2D::operator =(ScopedColorMul2D&& other)
+	ScopedColorMul2D& ScopedColorMul2D::operator =(ScopedColorMul2D&& other) noexcept
 	{
 		if (!m_oldColor && other.m_oldColor)
 		{
@@ -47,7 +47,7 @@ namespace s3d
 		return *this;
 	}
 
-	void ScopedColorMul2D::clear()
+	void ScopedColorMul2D::clear() noexcept
 	{
 		m_oldColor.reset();
 	}
@@ -55,7 +55,7 @@ namespace s3d
 	ScopedColorAdd2D::ScopedColorAdd2D(const ColorF& color)
 		: m_oldColor(Graphics2D::GetColorAdd())
 	{
-		Graphics2D::SetColorAdd(color);
+		Graphics2D::Internal::SetColorAdd(color);
 	}
 
 	ScopedColorAdd2D::ScopedColorAdd2D(const double rgb, const double a)
@@ -64,7 +64,7 @@ namespace s3d
 	ScopedColorAdd2D::ScopedColorAdd2D(const double r, const double g, const double b, const double a)
 		: ScopedColorAdd2D(ColorF(r, g, b, a)) {}
 
-	ScopedColorAdd2D::ScopedColorAdd2D(ScopedColorAdd2D&& other)
+	ScopedColorAdd2D::ScopedColorAdd2D(ScopedColorAdd2D&& other) noexcept
 	{
 		m_oldColor = other.m_oldColor;
 		other.clear();
@@ -72,10 +72,10 @@ namespace s3d
 
 	ScopedColorAdd2D::~ScopedColorAdd2D()
 	{
-		m_oldColor.then(Graphics2D::SetColorAdd);
+		m_oldColor.then(Graphics2D::Internal::SetColorAdd);
 	}
 
-	ScopedColorAdd2D& ScopedColorAdd2D::operator =(ScopedColorAdd2D&& other)
+	ScopedColorAdd2D& ScopedColorAdd2D::operator =(ScopedColorAdd2D&& other) noexcept
 	{
 		if (!m_oldColor && other.m_oldColor)
 		{
@@ -86,7 +86,7 @@ namespace s3d
 		return *this;
 	}
 
-	void ScopedColorAdd2D::clear()
+	void ScopedColorAdd2D::clear() noexcept
 	{
 		m_oldColor.reset();
 	}

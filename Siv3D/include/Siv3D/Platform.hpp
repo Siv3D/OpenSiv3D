@@ -13,23 +13,17 @@
 
 //////////////////////////////////////////////////
 //
-// ターゲットプラットフォーム
-// Target Platform
+//	プラットフォームマクロ
+//	Platform Macros
 //
 //////////////////////////////////////////////////
 
-# define SIV3D_PLATFORM(X) SIV3D_PRIVATE_DEFINITION_##X()
-# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 0
-# define SIV3D_PRIVATE_DEFINITION_MACOS() 0
-# define SIV3D_PRIVATE_DEFINITION_LINUX() 0
+# define SIV3D_PLATFORM(X) SIV3D_PLATFORM_PRIVATE_DEFINITION_##X()
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 0
 
 # if defined(_WIN32)
-
-	/// <summary>
-	/// ターゲットプラットフォーム: Windows
-	/// Target platform: Windows
-	/// </summary>
-	# define SIV3D_TARGET_WINDOWS
 
 	/// <summary>
 	/// ターゲットプラットフォームの名前
@@ -37,16 +31,10 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Windows Desktop"
 
-	# undef SIV3D_PRIVATE_DEFINITION_WINDOWS
-	# define SIV3D_PRIVATE_DEFINITION_WINDOWS() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 1
 
 # elif defined(__APPLE__) && defined(__MACH__)
-
-	/// <summary>
-	/// ターゲットプラットフォーム: macOS
-	/// Target platform: macOS
-	/// </summary>
-	# define SIV3D_TARGET_MACOS
 
 	/// <summary>
 	/// ターゲットプラットフォームの名前
@@ -54,16 +42,10 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"macOS"
 
-	# undef SIV3D_PRIVATE_DEFINITION_MACOS
-	# define SIV3D_PRIVATE_DEFINITION_MACOS() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 1
 
 # elif defined(__linux__)
-
-	/// <summary>
-	/// ターゲットプラットフォーム: Linux
-	/// Target platform: Linux
-	/// </summary>
-	# define SIV3D_TARGET_LINUX
 
 	/// <summary>
 	/// ターゲットプラットフォームの名前
@@ -71,8 +53,8 @@
 	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Linux"
 
-	# undef SIV3D_PRIVATE_DEFINITION_LINUX
-	# define SIV3D_PRIVATE_DEFINITION_LINUX() 1
+	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 1
 
 # else
 
@@ -83,41 +65,28 @@
 
 //////////////////////////////////////////////////
 //
-// ターゲット Windows プラットフォーム
-// Target Windows Platform
+//	機能マクロ
+//	Feature Macros
 //
 //////////////////////////////////////////////////
+
+# define SIV3D_WITH_FEATURE(X) SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_##X()
+# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 0
 
 # if SIV3D_PLATFORM(WINDOWS)
 
-	# if defined(_WIN64)
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
 
-		/// <summary>
-		/// ターゲット Windows プラットフォーム: 64-bit デスクトップ
-		/// Target Windows platform: 64-bit desktop application
-		/// </summary>
-		# define SIV3D_TARGET_WINDOWS_DESKTOP_X64
+# elif SIV3D_PLATFORM(MACOS)
 
-	# else
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
 
-		# error Windows 32-bit 版のサポートは終了しました。
-		# error Windows 32-bit is no longer supported.
+# elif SIV3D_PLATFORM(LINUX)
 
-	# endif
-
-# endif
-
-
-//////////////////////////////////////////////////
-//
-// SSE2 サポート
-// SSE2 Support
-//
-//////////////////////////////////////////////////
-
-# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
-
-	# define SIV3D_HAVE_SSE2
+	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
+	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
 
 # else
 
@@ -128,38 +97,24 @@
 
 //////////////////////////////////////////////////
 //
-// __m128 のメンバ
-// __m128 members
+//	ビルド設定マクロ
+//	Build Type Macros
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS)
-
-	# define SIV3D_HAVE_M128_MEMBERS
-
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
-
-# else
-
-	# error Unimplemented
-
-# endif
-
-
-//////////////////////////////////////////////////
-//
-// ビルド設定
-// Build Configuration
-//
-//////////////////////////////////////////////////
+# define SIV3D_BUILD_TYPE(X) SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_##X()
+# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 0
+# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 0
 
 # if defined(_DEBUG) || defined(DEBUG)
 
-	# define SIV3D_DEBUG		1
+	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG
+	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 1
 
 # else
 
-	# define SIV3D_DEBUG		0
+	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE
+	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 1
 
 # endif
 
@@ -167,15 +122,36 @@ namespace s3d
 {
 	namespace Platform
 	{
-		inline constexpr bool DebugBuild = (SIV3D_DEBUG == 1);
+		inline constexpr bool DebugBuild = SIV3D_BUILD_TYPE(DEBUG);
 	}
 }
 
 
 //////////////////////////////////////////////////
 //
-// コンパイラ拡張
-// Compiler Extensions
+//	__vectorcall
+//
+//////////////////////////////////////////////////
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	# define SIV3D_VECTOR_CALL __vectorcall
+
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+
+	# define SIV3D_VECTOR_CALL
+
+# else
+
+	# error Unimplemented
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+//	コンパイラ拡張
+//	Compiler Extensions
 //
 //////////////////////////////////////////////////
 
@@ -199,22 +175,38 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
-// Visual Studio のバージョンチェック
-// MSVC Version Check
+//	Visual Studio のバージョンチェック
+//	MSVC Version Check
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192127702)
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192328105)
 
-	# error このプロジェクトをビルドするには Visual Studio 2019 16.1 以降が必要です。
-	# error Visual Studio 2019 16.1 or later is required to build this project.
+	# error このプロジェクトをビルドするには Visual Studio 2019 16.3 以降が必要です。
+	# error Visual Studio 2019 16.3 or later is required to build this project.
 
 # endif
 
+
 //////////////////////////////////////////////////
 //
-// 警告抑制
-// Disable warning messages
+//	Windows システムのチェック
+//	Target Windows system check
+//
+//////////////////////////////////////////////////
+
+# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64)
+
+	# error Windows 32-bit 版のサポートは終了しました。
+	# error Windows 32-bit is no longer supported.
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+//	警告抑制
+//	Disable warning messages
 //
 //////////////////////////////////////////////////
 

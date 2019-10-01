@@ -61,31 +61,54 @@ namespace s3d
 		}
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createDynamic(Size(width, height), pData, stride, format, desc)))
 	{
 		ReportAssetCreation();
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createDynamic(Size(width, height), color, format, desc)))
 	{
 		ReportAssetCreation();
 	}
 
-	/*
-	Texture::Texture(BackBuffer)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createFromBackBuffer()))
+	Texture::Texture(Render, const uint32 width, const uint32 height, const TextureFormat& format)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(Size(width, height), format)))
+	{
+		ReportAssetCreation();
+	}
+
+	Texture::Texture(Render, const Image& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
 	{
 
 	}
 
-	Texture::Texture(Render, const Size& size, const uint32 multisampleCount)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createRT(size, multisampleCount)))
+	Texture::Texture(Render, const Grid<float>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
 	{
-		ASSET_CREATION();
+
 	}
-	*/
+
+	Texture::Texture(Render, const Grid<Float2>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
+	Texture::Texture(Render, const Grid<Float4>& image)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createRT(image)))
+	{
+
+	}
+
+	Texture::Texture(MSRender, uint32 width, uint32 height, const TextureFormat& format)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::Get<ISiv3DTexture>()->createMSRT(Size(width, height), format)))
+	{
+
+	}
+
 	Texture::Texture()
 		: m_handle(std::make_shared<TextureHandle>())
 	{
@@ -191,6 +214,11 @@ namespace s3d
 	TextureDesc Texture::getDesc() const
 	{
 		return Siv3DEngine::Get<ISiv3DTexture>()->getDesc(m_handle->id());
+	}
+
+	TextureFormat Texture::getFormat() const
+	{
+		return Siv3DEngine::Get<ISiv3DTexture>()->getFormat(m_handle->id());
 	}
 
 	bool Texture::isMipped() const

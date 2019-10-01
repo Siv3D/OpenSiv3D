@@ -188,7 +188,7 @@ namespace s3d
 		m_boundingRect = boundingRect;
 	}
 
-	void Polygon::PolygonDetail::copyFrom(PolygonDetail& other)
+	void Polygon::PolygonDetail::copyFrom(const PolygonDetail& other)
 	{
 		m_polygon = other.m_polygon;
 
@@ -734,7 +734,7 @@ namespace s3d
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				const auto& resultHole = result.inners()[i];
+				const auto resultHole = result.inners()[i];
 
 				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
@@ -925,7 +925,7 @@ namespace s3d
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				const auto& resultHole = result.inners()[i];
+				const auto resultHole = result.inners()[i];
 
 				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
@@ -966,7 +966,7 @@ namespace s3d
 			{
 				const auto& resultHole = inners[i];
 
-				holes[i].assign(resultHole.rbegin(), resultHole.rend());
+				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
 
 			return Polygon(outer, holes);

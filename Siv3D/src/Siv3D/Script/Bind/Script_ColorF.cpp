@@ -128,7 +128,7 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "uint64 hash() const", asMETHOD(ColorF, hash), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "ColorF opMul_r(double) const", asFUNCTIONPR(operator*, (double, const ColorF&), ColorF), asCALL_CDECL_OBJLAST);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF opMul_r(double) const", asFUNCTIONPR(operator*, (double, const ColorF&), ColorF), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Color opImplConv() const", asMETHOD(ColorF, toColor), asCALL_THISCALL); assert(r >= 0);
 

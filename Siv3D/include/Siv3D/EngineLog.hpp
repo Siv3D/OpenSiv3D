@@ -24,7 +24,7 @@ namespace s3d
 
 # define SIMPLE_LOG(MESSAGE) s3d::detail::OutputEnginelog(MESSAGE)
 
-# if SIV3D_DEBUG
+# if SIV3D_BUILD_TYPE(DEBUG)
 
 #	define LOG_TEST(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Trace,MESSAGE)
 #	define LOG_TRACE(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Trace,MESSAGE)

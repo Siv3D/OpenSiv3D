@@ -9,8 +9,6 @@
 //
 //-----------------------------------------------
 
-# include <cassert>
-
 # include "GLConstantBuffer.hpp"
 
 namespace s3d
@@ -25,25 +23,24 @@ namespace s3d
 		
 		ConstantBufferBase::ConstantBufferDetail::~ConstantBufferDetail()
 		{
-			if (m_uniformBufferHandle)
+			if (m_uniformBuffer)
 			{
-				::glDeleteBuffers(1, &m_uniformBufferHandle);
+				::glDeleteBuffers(1, &m_uniformBuffer);
+				m_uniformBuffer = 0;
 			}
 		}
 		
 		bool ConstantBufferBase::ConstantBufferDetail::update(const void* const data, const size_t size)
 		{
-			if (!m_uniformBufferHandle)
+			if (!m_uniformBuffer)
 			{
-				init();
+				::glGenBuffers(1, &m_uniformBuffer);
 			}
 			
 			assert(size <= m_bufferSize);
 			
-			::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBufferHandle);
-			
+			::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBuffer);
 			::glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
-			
 			::glBindBuffer(GL_UNIFORM_BUFFER, 0);
 			
 			return true;
@@ -51,17 +48,12 @@ namespace s3d
 		
 		GLuint ConstantBufferBase::ConstantBufferDetail::getHandle() const
 		{
-			if (!m_uniformBufferHandle)
+			if (!m_uniformBuffer)
 			{
-				init();
+				::glGenBuffers(1, &m_uniformBuffer);
 			}
 			
-			return m_uniformBufferHandle;
-		}
-		
-		void ConstantBufferBase::ConstantBufferDetail::init() const
-		{
-			::glGenBuffers(1, &m_uniformBufferHandle);
+			return m_uniformBuffer;
 		}
 	}
 }

@@ -37,29 +37,18 @@
 
 namespace s3d
 {
-	struct StandardVSIndex
+	namespace detail
 	{
-		enum Type
+		static void SetVS(const VertexShader& vs)
 		{
-			Sprite,
-			FullscreenTriangle_Resolve,
-			FullscreenTriangle_Draw,
-		};
-	};
+			Siv3DEngine::Get<ISiv3DShader>()->setVS(vs.id());
+		}
 
-	struct StandardPSIndex
-	{
-		enum Type
+		static void SetPS(const PixelShader& ps)
 		{
-			Shape,
-			Texture,
-			SquareDot,
-			RoundDot,
-			SDF,
-			FullscreenTriangle_Resolve,
-			FullscreenTriangle_Draw,
-		};
-	};
+			Siv3DEngine::Get<ISiv3DShader>()->setPS(ps.id());
+		}
+	}
 
 	CRenderer2D_D3D11::CRenderer2D_D3D11()
 	{
@@ -75,31 +64,41 @@ namespace s3d
 	{
 		LOG_TRACE(U"CRenderer2D_D3D11::init()");
 
-		m_device = device;
-		m_context = context;
-
-		//m_spriteVS.load(device, Resource(U"engine/shader/sprite.vs"));
-		//m_fullscreenTrignaleVS.load(device, Resource(U"engine/shader/fullscreen-triangle.vs"));
-		m_standardVSs.emplace_back(Resource(U"engine/shader/sprite.vs"));
-		m_standardVSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_resolve.vs"));
-		m_standardVSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_draw.vs"));
-		if (!m_standardVSs.all([](const VertexShader& vs) { return !!vs; }))
+		// device と context のコピー
 		{
-			throw EngineError(U"CRenderer2D_D3D11::m_standardVSs initialization failed");
+			m_device = device;
+			m_context = context;
 		}
 
-		m_standardPSs.emplace_back(Resource(U"engine/shader/shape.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/texture.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/square_dot.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/round_dot.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/sdf.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_resolve.ps"));
-		m_standardPSs.emplace_back(Resource(U"engine/shader/fullscreen_triangle_draw.ps"));
-		if (!m_standardPSs.all([](const PixelShader& ps) { return !!ps; }))
+		// 標準 VS をロード
 		{
-			throw EngineError(U"CRenderer2D_D3D11::m_standardPSs initialization failed");
+			m_standardVS = std::make_unique<D3D11StandardVS2D>();
+			m_standardVS->sprite						= VertexShader(Resource(U"engine/shader/sprite.vs"), {{ U"VSConstants2D", 0 }});
+			m_standardVS->fullscreen_triangle_resolve	= VertexShader(Resource(U"engine/shader/fullscreen_triangle_resolve.vs"), {});
+			m_standardVS->fullscreen_triangle_draw		= VertexShader(Resource(U"engine/shader/fullscreen_triangle_draw.vs"), {});
+			if (!m_standardVS->ok())
+			{
+				throw EngineError(U"CRenderer2D_D3D11::m_standardVS initialization failed");
+			}
+		}
+		
+		// 標準 PS をロード
+		{
+			m_standardPS = std::make_unique<D3D11StandardPS2D>();
+			m_standardPS->shape							= PixelShader(Resource(U"engine/shader/shape.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->texture						= PixelShader(Resource(U"engine/shader/texture.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->square_dot					= PixelShader(Resource(U"engine/shader/square_dot.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->round_dot						= PixelShader(Resource(U"engine/shader/round_dot.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->sdf							= PixelShader(Resource(U"engine/shader/sdf.ps"), {{ U"PSConstants2D", 0 }});
+			m_standardPS->fullscreen_triangle_resolve	= PixelShader(Resource(U"engine/shader/fullscreen_triangle_resolve.ps"), {});
+			m_standardPS->fullscreen_triangle_draw		= PixelShader(Resource(U"engine/shader/fullscreen_triangle_draw.ps"), {});
+			if (!m_standardPS->setup())
+			{
+				throw EngineError(U"CRenderer2D_D3D11::m_standardPS initialization failed");
+			}
 		}
 
+		// 標準 InputLayout を作成
 		{
 			const D3D11_INPUT_ELEMENT_DESC layout[3] = {
 				{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT,       0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -107,7 +106,7 @@ namespace s3d
 				{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
-			const ByteArrayView vsView = Siv3DEngine::Get<ISiv3DShader>()->getBinaryView(m_standardVSs[StandardVSIndex::Sprite].id());
+			const ByteArrayView vsView = Siv3DEngine::Get<ISiv3DShader>()->getBinaryView(m_standardVS->sprite.id());
 
 			if (FAILED(m_device->CreateInputLayout(layout, 3, vsView.data(), vsView.size(), &m_inputLayout)))
 			{
@@ -115,16 +114,19 @@ namespace s3d
 			}
 		}
 
+		// Batch 管理を初期化
 		if (!m_batches.init(device, context))
 		{
 			throw EngineError(U"D3D11SpriteBatch::init() failed");
 		}
 
+		// バッファ作成関数を作成
 		m_bufferCreator = [this](IndexType vertexSize, IndexType indexSize)
 		{
 			return m_batches.getBuffer(vertexSize, indexSize, m_commands);
 		};
 
+		// シャドウ画像を作成
 		{
 			const Image boxShadowImage(Resource(U"engine/texture/box-shadow/256.png"));
 
@@ -139,7 +141,7 @@ namespace s3d
 
 			m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
 
-			if (!(*m_boxShadowTexture))
+			if (m_boxShadowTexture->isEmpty())
 			{
 				throw EngineError(U"Failed to create CRenderer2D_D3D11::m_boxShadowTexture");
 			}
@@ -152,6 +154,7 @@ namespace s3d
 	{
 		ScopeGuard cleanUp = [this]()
 		{
+			m_currentCustomPS.reset();
 			m_batches.reset();
 			m_commands.reset();
 		};
@@ -161,11 +164,16 @@ namespace s3d
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::Get<ISiv3DGraphics>());
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::Get<ISiv3DTexture>());
 
-		m_context->IASetInputLayout(m_inputLayout.Get());
-		setVS(m_standardVSs[StandardVSIndex::Sprite]);
+		if (!pGraphics || !pTexture)
+		{
+			return;
+		}
 
-		m_context->VSSetConstantBuffers(m_cbSprite0.BindingPoint(), 1, m_cbSprite0.base()._detail()->getBufferPtr());
-		m_context->PSSetConstantBuffers(m_cbSprite1.BindingPoint(), 1, m_cbSprite1.base()._detail()->getBufferPtr());
+		m_context->IASetInputLayout(m_inputLayout.Get());
+		detail::SetVS(m_standardVS->sprite);
+
+		m_context->VSSetConstantBuffers(0, 1, m_vsConstants2D.base()._detail()->getBufferPtr());
+		m_context->PSSetConstantBuffers(0, 1, m_psConstants2D.base()._detail()->getBufferPtr());
 
 		Size currentRenderTargetSize = pGraphics->getSceneSize();
 		Mat3x2 transform = Mat3x2::Identity();
@@ -196,8 +204,8 @@ namespace s3d
 				}
 			case RendererCommand::Draw:
 				{
-					m_cbSprite0._update_if_dirty();
-					m_cbSprite1._update_if_dirty();
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
 
 					const DrawCommand& draw = m_commands.getDraw(index);
 					const uint32 indexCount = draw.indexCount;
@@ -214,14 +222,14 @@ namespace s3d
 				}
 			case RendererCommand::ColorMul:
 				{
-					m_cbSprite0->colorMul = m_commands.getColorMul(index);
+					m_vsConstants2D->colorMul = m_commands.getColorMul(index);
 
 					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(index, m_cbSprite0->colorMul));
 					break;
 				}
 			case RendererCommand::ColorAdd:
 				{
-					m_cbSprite1->colorAdd = m_commands.getColorAdd(index);
+					m_psConstants2D->colorAdd = m_commands.getColorAdd(index);
 
 					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(index, m_cbSprite1->colorAdd));
 					break;
@@ -259,18 +267,66 @@ namespace s3d
 				{
 					transform = m_commands.getCombinedTransform(index);
 					const Mat3x2 matrix = transform * screenMat;
-					m_cbSprite0->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_cbSprite0->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(index, matrix));
 					break;
 				}
 			case RendererCommand::SetPS:
 				{
-					const size_t standadPSIndex = m_commands.getPS(index);
-					setPS(m_standardPSs[standadPSIndex]);
+					const auto& psID = m_commands.getPS(index);
 
-					LOG_COMMAND(U"SetPS[standadPSIndex = {}] {}"_fmt(index, standadPSIndex));
+					if (psID == PixelShaderID::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+					}
+					else
+					{
+						Siv3DEngine::Get<ISiv3DShader>()->setPS(psID);
+					}
+
+					LOG_COMMAND(U"SetPS[{}] "_fmt(index));
+					break;
+				}
+			case RendererCommand::SetCB:
+				{
+					auto& cb = m_commands.getCB(index);
+					const __m128* p = m_commands.getConstantsPtr(cb.offset);
+
+					if (cb.num_vectors)
+					{
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							m_context->VSSetConstantBuffers(cb.slot, 1, cb.cbBase._detail()->getBufferPtr());
+						}
+						else if (cb.stage == ShaderStage::Pixel)
+						{
+							m_context->PSSetConstantBuffers(cb.slot, 1, cb.cbBase._detail()->getBufferPtr());							
+						}
+
+						cb.cbBase._internal_update(p, cb.num_vectors * 16);
+					}
+
+					LOG_COMMAND(U"SetCB[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
+			case RendererCommand::SetRT:
+				{
+					const auto& rt = m_commands.getRT(index);
+					
+					if (rt) // 通常と異なる RenderTexture
+					{
+						ID3D11RenderTargetView* const rtv = pTexture->getRTV(rt->id());
+						pGraphics->getRenderTarget()->setRenderTarget(rtv);
+					}
+					else // [BackBuffer]
+					{
+						pGraphics->getRenderTarget()->setRenderTarget(RenderTargetType::MultiSampledScene);
+					}
+
+					LOG_COMMAND(U"SetRT[{}]"_fmt(index));
 					break;
 				}
 			case RendererCommand::ScissorRect:
@@ -306,8 +362,8 @@ namespace s3d
 
 					screenMat = Mat3x2::Screen(vp.Width, vp.Height);
 					const Mat3x2 matrix = transform * screenMat;
-					m_cbSprite0->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
-					m_cbSprite0->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(index,
 						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
@@ -340,9 +396,16 @@ namespace s3d
 				}
 			case RendererCommand::SDFParam:
 				{
-					m_cbSprite1->sdfParam = m_commands.getSdfParam(index);
+					m_psConstants2D->sdfParam = m_commands.getSdfParam(index);
 
-					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_cbSprite1->sdfParam));
+					LOG_COMMAND(U"SDFParam[{}] {}"_fmt(index, m_psConstants2D->sdfParam));
+					break;
+				}
+			case RendererCommand::InternalPSConstants:
+				{
+					m_psConstants2D->internalParam = m_commands.getInternalPSConstants(index);
+
+					LOG_COMMAND(U"InternalPSConstants[{}] {}"_fmt(index, m_psConstants2D->internalParam));
 					break;
 				}
 			default:
@@ -388,6 +451,11 @@ namespace s3d
 	{
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::Get<ISiv3DGraphics>());
 
+		if (!pGraphics)
+		{
+			return;
+		}
+
 		const Float2 sceneSize = pGraphics->getSceneSize();
 		auto[s, viewRect] = getLetterboxingTransform();
 		
@@ -399,12 +467,12 @@ namespace s3d
 
 		if (multisample)
 		{
-			setVS(m_standardVSs[StandardVSIndex::FullscreenTriangle_Resolve]);
-			setPS(m_standardPSs[StandardPSIndex::FullscreenTriangle_Resolve]);
+			detail::SetVS(m_standardVS->fullscreen_triangle_resolve);
+			detail::SetPS(m_standardPS->fullscreen_triangle_resolve);
 
 			m_cbFullscreenTriangle0->texScale.set(sceneSize, 0.0f, 0.0f);
 			m_cbFullscreenTriangle0._update_if_dirty();
-			m_context->VSSetConstantBuffers(m_cbFullscreenTriangle0.BindingPoint(), 1, m_cbFullscreenTriangle0.base()._detail()->getBufferPtr());
+			m_context->VSSetConstantBuffers(0, 1, m_cbFullscreenTriangle0.base()._detail()->getBufferPtr());
 
 			pGraphics->getBlendState()->set(BlendState::Opaque);
 			pGraphics->getRasterizerState()->set(RasterizerState::Default2D);
@@ -412,8 +480,8 @@ namespace s3d
 		}
 		else
 		{
-			setVS(m_standardVSs[StandardVSIndex::FullscreenTriangle_Draw]);
-			setPS(m_standardPSs[StandardPSIndex::FullscreenTriangle_Draw]);
+			detail::SetVS(m_standardVS->fullscreen_triangle_draw);
+			detail::SetPS(m_standardPS->fullscreen_triangle_draw);
 
 			pGraphics->getBlendState()->set(BlendState::Opaque);
 			pGraphics->getRasterizerState()->set(RasterizerState::Default2D);
@@ -534,13 +602,95 @@ namespace s3d
 		return m_commands.getCurrentSdfParam();
 	}
 
+	void CRenderer2D_D3D11::setPSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commands.pushPSTexture(slot, texture.value());
+		}
+		else
+		{
+			m_commands.pushPSTextureUnbound(slot);
+		}
+	}
+
+	void CRenderer2D_D3D11::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		if (ps && !ps->isEmpty())
+		{
+			m_currentCustomPS = ps.value();
+			m_commands.pushCustomPS(ps.value());
+		}
+		else
+		{
+			m_currentCustomPS.reset();
+		}
+	}
+
+	Optional<PixelShader> CRenderer2D_D3D11::getCustomPS() const
+	{
+		return m_currentCustomPS;
+	}
+
+	void CRenderer2D_D3D11::setConstant(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		m_commands.pushCB(stage, slot, buffer, data, num_vectors);
+	}
+
+	void CRenderer2D_D3D11::setInternalConstantBufferValue(const ShaderStage stage, const Float4& value)
+	{
+		if (stage == ShaderStage::Vertex)
+		{
+			// [Siv3D ToDo] v0.4.1 では未実装
+		}
+		else if (stage == ShaderStage::Pixel)
+		{
+			m_commands.pushInternalPSConstants(value);
+		}
+	}
+
+	void CRenderer2D_D3D11::setRT(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+
+			const TextureID textureID = rt->id();
+			const auto& currentPSTextures = m_commands.getCurrentPSTextures();
+
+			for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+			{
+				if (currentPSTextures[slot] == textureID)
+				{
+					m_commands.pushPSTexture(slot, Texture());
+					hasChanged = true;
+				}
+			}
+
+			if (hasChanged)
+			{
+				m_commands.flush();
+			}
+		}
+		
+		m_commands.pushRT(rt);
+	}
+
+	Optional<RenderTexture> CRenderer2D_D3D11::getRT() const
+	{
+		return m_commands.getCurrentRT();
+	}
+
 	void CRenderer2D_D3D11::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		if (style.isSquareCap())
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareCappedLine(m_bufferCreator, begin, end, thickness, colors))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -550,7 +700,10 @@ namespace s3d
 
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLine(m_bufferCreator, begin, end, thickness, colors, startAngle))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 
 				const float thicknessHalf = thickness * 0.5f;
@@ -562,7 +715,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildUncappedLine(m_bufferCreator, begin, end, thickness, colors))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -570,7 +726,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareDotLine(m_bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), getMaxScaling()))
 			{
-				m_commands.pushPS(StandardPSIndex::SquareDot);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->square_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -578,7 +737,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundDotLine(m_bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), style.hasAlignedDot))
 			{
-				m_commands.pushPS(StandardPSIndex::RoundDot);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->round_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -588,7 +750,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, pts, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -597,7 +762,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, pts, colors))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -606,7 +774,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -615,7 +786,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, colors))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -624,7 +798,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -633,7 +810,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -642,7 +822,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleFrame(m_bufferCreator, center, rInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -651,7 +834,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -660,7 +846,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -669,7 +858,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -678,7 +870,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipseFrame(m_bufferCreator, center, aInner, bInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -687,7 +882,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -696,7 +894,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -705,7 +906,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -716,7 +920,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildSquareCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, isClosed, getMaxScaling()))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -726,7 +933,10 @@ namespace s3d
 
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, getMaxScaling(), startAngle, endAngle))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			
 				const float thicknessHalf = thickness * 0.5f;
@@ -740,7 +950,10 @@ namespace s3d
 
 			if (const uint16 indexCount = Vertex2DBuilder::BuildRoundCappedLineString(m_bufferCreator, pts, size, offset, thickness, inner, color, getMaxScaling(), startAngle, endAngle))
 			{
-				m_commands.pushPS(StandardPSIndex::Shape);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->shapeID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -748,7 +961,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildDotLineString(m_bufferCreator, pts, size, offset, thickness, color, isClosed, true, static_cast<float>(style.dotOffset), false, getMaxScaling()))
 			{
-				m_commands.pushPS(StandardPSIndex::SquareDot);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->square_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -756,7 +972,10 @@ namespace s3d
 		{
 			if (const uint16 indexCount = Vertex2DBuilder::BuildDotLineString(m_bufferCreator, pts, size, offset, thickness, color, isClosed, false, static_cast<float>(style.dotOffset), style.hasAlignedDot, getMaxScaling()))
 			{
-				m_commands.pushPS(StandardPSIndex::RoundDot);
+				if (!m_currentCustomPS)
+				{
+					m_commands.pushStandardPS(m_standardPS->round_dotID);
+				}
 				m_commands.pushDraw(indexCount);
 			}
 		}
@@ -766,7 +985,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildShape2D(m_bufferCreator, vertices, indices, offset, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -775,7 +997,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildShape2DTransformed(m_bufferCreator, vertices, indices, s, c, offset, color))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -784,7 +1009,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildShape2DFrame(m_bufferCreator, pts, size, thickness, color, getMaxScaling()))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(indexCount);
 		}
 	}
@@ -793,7 +1021,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, sprite, startIndex, indexCount))
 		{
-			m_commands.pushPS(StandardPSIndex::Shape);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
 			m_commands.pushDraw(count);
 		}
 	}
@@ -802,7 +1033,10 @@ namespace s3d
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, sprite, startIndex, indexCount))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(count);
 		}
@@ -812,7 +1046,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, color))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -822,7 +1059,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, colors))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -832,7 +1072,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedCircle(m_bufferCreator, circle, uv, color, getMaxScaling()))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -842,7 +1085,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedQuad(m_bufferCreator, quad, uv, color))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -854,7 +1100,10 @@ namespace s3d
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildTexturedParticles(m_bufferCreator, particles, sizeOverLifeTimeFunc, colorOverLifeTimeFunc))
 		{
-			m_commands.pushPS(texture.isSDF() ? StandardPSIndex::SDF : StandardPSIndex::Texture);
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(texture.isSDF() ? m_standardPS->sdfID : m_standardPS->textureID);
+			}
 			m_commands.pushPSTexture(0, texture);
 			m_commands.pushDraw(indexCount);
 		}
@@ -863,15 +1112,5 @@ namespace s3d
 	const Texture& CRenderer2D_D3D11::getBoxShadowTexture() const
 	{
 		return *m_boxShadowTexture;
-	}
-
-	void CRenderer2D_D3D11::setVS(const VertexShader& vs)
-	{
-		Siv3DEngine::Get<ISiv3DShader>()->setVS(vs.id());
-	}
-
-	void CRenderer2D_D3D11::setPS(const PixelShader& ps)
-	{
-		Siv3DEngine::Get<ISiv3DShader>()->setPS(ps.id());
 	}
 }

@@ -15,6 +15,20 @@
 # include <Siv3D/BinaryWriter.hpp>
 # include <giflib/gif_lib.h>
 
+extern "C"
+{
+	// libgif/libutil
+	int
+	GifQuantizeBuffer(unsigned int Width,
+		unsigned int Height,
+		int* ColorMapSize,
+		GifByteType* RedInput,
+		GifByteType* GreenInput,
+		GifByteType* BlueInput,
+		GifByteType* OutputBuffer,
+		GifColorType* OutputColorMap);
+}
+
 namespace s3d
 {
 	namespace detail
@@ -142,6 +156,11 @@ namespace s3d
 		const int32 width = frame->ImageDesc.Width;
 		const int32 height = frame->ImageDesc.Height;
 
+		if (!width || !height)
+		{
+			return image;
+		}
+
 		image.resize(width, height);
 		Color* pDst = image.data();
 
@@ -152,13 +171,12 @@ namespace s3d
 
 			for (int32 x = 0; x < width; ++x)
 			{
-				++srcOffset;
-
-				++dstOffset;
-
 				const uint8 index = frame->RasterBits[srcOffset];
 
 				*(pDst + dstOffset) = palette[index];
+
+				++srcOffset;
+				++dstOffset;
 			}
 		}
 

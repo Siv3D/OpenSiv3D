@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/TextureFormat.hpp>
 
 namespace s3d
 {
@@ -29,11 +30,21 @@ namespace s3d
 
 		virtual TextureID create(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
 
-		virtual TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) = 0;
+		virtual TextureID createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) = 0;
 
-		virtual TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) = 0;
+		virtual TextureID createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
 
-		//virtual TextureID createRT(const Size& size, uint32 multisampleCount) = 0;
+		virtual TextureID createRT(const Size& size, const TextureFormat& format) = 0;
+
+		virtual TextureID createRT(const Image& image) = 0;
+
+		virtual TextureID createRT(const Grid<float>& image) = 0;
+
+		virtual TextureID createRT(const Grid<Float2>& image) = 0;
+
+		virtual TextureID createRT(const Grid<Float4>& image) = 0;
+
+		virtual TextureID createMSRT(const Size& size, const TextureFormat& format) = 0;
 
 		virtual void release(TextureID handleID) = 0;
 
@@ -41,12 +52,19 @@ namespace s3d
 
 		virtual TextureDesc getDesc(TextureID handleID) = 0;
 
-		//virtual ID3D11ShaderResourceView** getSRVPtr(TextureID handleID) = 0;
+		virtual TextureFormat getFormat(TextureID handleID) = 0;
 
-		//virtual ID3D11Texture2D* getTexture(TextureID handleID) = 0;
+		virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
 
-		//virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
+		virtual void readRT(TextureID handleID, Image& image) = 0;
 
+		virtual void readRT(TextureID handleID, Grid<float>& image) = 0;
+
+		virtual void readRT(TextureID handleID, Grid<Float2>& image) = 0;
+
+		virtual void readRT(TextureID handleID, Grid<Float4>& image) = 0;
+
+		virtual void resolveMSRT(TextureID handleID) = 0;
 
 
 		virtual bool fill(TextureID handleID, const ColorF& color, bool wait) = 0;

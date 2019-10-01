@@ -250,20 +250,22 @@ namespace s3d
 		constexpr float regionMinSize			= 8.0f;
 		constexpr float regionMergeSize			= 20.0f;
 
-		rcConfig cfg = {};
-		cfg.cs = cellSize;
-		cfg.ch = cellHeight;
-		cfg.walkableSlopeAngle		= agentMaxSlope;
-		cfg.walkableHeight			= static_cast<int32>(std::ceil(agentHeight / cellHeight));
-		cfg.walkableClimb			= static_cast<int32>(std::floor(agentMaxClimb / cellHeight));
-		cfg.walkableRadius			= static_cast<int32>(std::ceil(agentRadius / cellSize));
-		cfg.maxEdgeLen				= static_cast<int32>(edgeMaxLen / cellSize);
-		cfg.maxSimplificationError	= 1.3f;
-		cfg.minRegionArea			= static_cast<int32>(regionMinSize * regionMinSize);
-		cfg.mergeRegionArea			= static_cast<int32>(regionMergeSize * regionMergeSize);
-		cfg.maxVertsPerPoly			= 6;
-		cfg.detailSampleDist		= (detailSampleDist < 0.9f) ? 0 : cellSize * detailSampleDist;
-		cfg.detailSampleMaxError	= cellHeight * detailSampleMaxError;
+		rcConfig cfg
+		{
+			.cs						= cellSize,
+			.ch						= cellHeight,
+			.walkableSlopeAngle		= agentMaxSlope,
+			.walkableHeight			= static_cast<int32>(std::ceil(agentHeight / cellHeight)),
+			.walkableClimb			= static_cast<int32>(std::floor(agentMaxClimb / cellHeight)),
+			.walkableRadius			= static_cast<int32>(std::ceil(agentRadius / cellSize)),
+			.maxEdgeLen				= static_cast<int32>(edgeMaxLen / cellSize),
+			.maxSimplificationError	= 1.3f,
+			.minRegionArea			= static_cast<int32>(regionMinSize * regionMinSize),
+			.mergeRegionArea		= static_cast<int32>(regionMergeSize * regionMergeSize),
+			.maxVertsPerPoly		= 6,
+			.detailSampleDist		= (detailSampleDist < 0.9f) ? 0 : cellSize * detailSampleDist,
+			.detailSampleMaxError	= cellHeight * detailSampleMaxError
+		};
 
 		rcVcopy(cfg.bmin, m_bmin);
 		rcVcopy(cfg.bmax, m_bmax);
@@ -274,13 +276,10 @@ namespace s3d
 
 		rcCalcGridSize(cfg.bmin, cfg.bmax, cellSize, &cfg.width, &cfg.height);
 
-		if (cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON)
-		{
-			return false;
-		}
-
-		//LOG_DEBUG(U"{0}x{1} cells"_fmt(cfg.width, cfg.height));
-		//LOG_DEBUG(U"{0} verts, {1} tris"_fmt(m_vertices.size(), m_indices.size() / 3));
+		//if (cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON)
+		//{
+		//	return false;
+		//}
 
 		cfg.width	= static_cast<int32>((cfg.bmax[0] - cfg.bmin[0]) / cellSize + 1);
 		cfg.height	= static_cast<int32>((cfg.bmax[2] - cfg.bmin[2]) / cellSize + 1);

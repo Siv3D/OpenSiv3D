@@ -82,7 +82,7 @@ namespace s3d
 		::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 		::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		::glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		::glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, Platform::DebugBuild ? GLFW_TRUE : GLFW_FALSE);
+		::glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, SIV3D_BUILD_TYPE(DEBUG) ? GLFW_TRUE : GLFW_FALSE);
 		::glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 		m_window = ::glfwCreateWindow(m_state.clientSize.x, m_state.clientSize.y,
@@ -131,7 +131,7 @@ namespace s3d
 
 	void CWindow::update()
 	{
-		if constexpr (Platform::DebugBuild)
+		if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 		{
 			const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 			const String titleText = m_title + U" (Debug Build) | " + statistics;
@@ -173,8 +173,9 @@ namespace s3d
 		float xScale, yScale;
 		::glfwGetWindowContentScale(m_window, &xScale, &yScale);
 		m_state.contentScale = std::max(xScale, yScale);
-
-		if ((m_scaleMode == ScaleMode::ResizeFill) && (m_state.bounds.size != Siv3DEngine::Get<ISiv3DGraphics>()->getSceneSize()))
+		
+		if ((m_scaleMode == ScaleMode::ResizeFill)
+			&& (m_state.bounds.size != Siv3DEngine::Get<ISiv3DGraphics>()->getSceneSize()))
 		{
 			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(m_state.bounds.size);
 		}
@@ -184,7 +185,7 @@ namespace s3d
 	{
 		if (m_title != title)
 		{
-			if constexpr (Platform::DebugBuild)
+			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
 				const String statistics = Siv3DEngine::Get<ISiv3DProfiler>()->getSimpleStatistics();
 				m_titleText = title + U" (Debug Build) | " + statistics;
@@ -296,7 +297,7 @@ namespace s3d
 		const Size newSize(std::max(size.x, m_state.minimumSize.x), std::max(size.y, m_state.minimumSize.y));
 
 		::glfwSetWindowSize(m_window, newSize.x, newSize.y);
-
+		
 		Siv3DEngine::Get<ISiv3DGraphics>()->clear();
 
 		if (centering)
@@ -338,7 +339,7 @@ namespace s3d
 	bool CWindow::setFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution, WindowResizeOption option)
 	{
 		LOG_TRACE(U"CWindow::setFullscreen({})"_fmt(fullscreen));
-
+		
 		const auto ResizeScene = [option, scaleMode = m_scaleMode](const Size& size)
 		{
 			if ((option == WindowResizeOption::ResizeSceneSize)

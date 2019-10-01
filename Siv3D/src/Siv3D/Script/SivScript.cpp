@@ -16,6 +16,14 @@
 
 namespace s3d
 {
+	ScriptModuleData::~ScriptModuleData()
+	{
+		if (context)
+		{
+			context->Release();
+		}
+	}
+
 	namespace detail
 	{
 		uint64 scriptStepCounter = 0;
@@ -30,6 +38,199 @@ namespace s3d
 			{
 				ctx->Suspend();
 			}
+		}
+
+		template <>
+		void SetArg<bool>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const bool& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+
+		template <>
+		void SetArg<bool&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, bool& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<int8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int8& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+
+		template <>
+		void SetArg<int8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int8& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint8& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+
+		template <>
+		void SetArg<uint8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint8& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<int16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int16& value)
+		{
+			moduleData->context->SetArgWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<int16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int16& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint16& value)
+		{
+			moduleData->context->SetArgWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<uint16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint16& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<int32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int32& value)
+		{
+			moduleData->context->SetArgDWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<int32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int32& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint32& value)
+		{
+			moduleData->context->SetArgDWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<uint32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint32& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<int64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int64& value)
+		{
+			moduleData->context->SetArgQWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<int64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int64& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint64& value)
+		{
+			moduleData->context->SetArgQWord(argIndex, value);
+		}
+
+		template <>
+		void SetArg<uint64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint64& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
+		void SetArg<float>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const float& value)
+		{
+			moduleData->context->SetArgFloat(argIndex, value);
+		}
+
+		template <>
+		void SetArg<double>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const double& value)
+		{
+			moduleData->context->SetArgDouble(argIndex, value);
+		}
+
+
+		template <>
+		void GetReturnValue<void>(const std::shared_ptr<ScriptModuleData>&)
+		{
+			return;
+		}
+
+		template <>
+		bool GetReturnValue<bool>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return !!moduleData->context->GetReturnByte();
+		}
+
+		template <>
+		int8 GetReturnValue<int8>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnByte();
+		}
+
+		template <>
+		uint8 GetReturnValue<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnByte();
+		}
+
+		template <>
+		int16 GetReturnValue<int16>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnWord();
+		}
+
+		template <>
+		uint16 GetReturnValue<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnWord();
+		}
+
+		template <>
+		int32 GetReturnValue<int32>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDWord();
+		}
+
+		template <>
+		uint32 GetReturnValue<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDWord();
+		}
+
+		template <>
+		int64 GetReturnValue<int64>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnQWord();
+		}
+
+		template <>
+		uint64 GetReturnValue<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnQWord();
+		}
+
+		template <>
+		float GetReturnValue<float>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnFloat();
+		}
+
+		template <>
+		double GetReturnValue<double>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDouble();
 		}
 	}
 

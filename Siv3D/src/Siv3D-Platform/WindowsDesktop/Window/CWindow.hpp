@@ -27,7 +27,7 @@ namespace s3d
 		HINSTANCE m_hInstance = nullptr;
 		std::wstring m_windowClassName;
 		String m_title		= U"Siv3D App";
-		String m_titleText	= Platform::DebugBuild ? U"Siv3D App (Debug Build)" : U"Siv3D App";
+		String m_titleText	= SIV3D_BUILD_TYPE(DEBUG) ? U"Siv3D App (Debug Build)" : U"Siv3D App";
 		bool m_displayChanged = false;
 
 		// Internal state

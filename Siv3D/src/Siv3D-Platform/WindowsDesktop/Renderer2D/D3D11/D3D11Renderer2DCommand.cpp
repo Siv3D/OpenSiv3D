@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "D3D11Renderer2DCommand.hpp"
+# include <Siv3D/ConstantBuffer.hpp>
 
 namespace s3d
 {
@@ -33,10 +34,13 @@ namespace s3d
 	{
 		m_commands.clear();
 		m_changes.reset();
+		m_reservedPSs.clear();
 		m_reservedTextures.clear();
 
 		// Buffer リセット
 		m_draws.clear();
+		m_constants.clear();
+		m_CBs.clear();
 		m_commands.emplace_back(RendererCommand::SetBuffers, 0);
 		m_commands.emplace_back(RendererCommand::UpdateBuffers, 0);
 		
@@ -62,8 +66,11 @@ namespace s3d
 		m_combinedTransforms = { m_combinedTransforms.back() };
 		m_commands.emplace_back(RendererCommand::Transform, 0);
 
-		m_pixelShaders = { m_pixelShaders.back() };
+		m_PSs = { PixelShaderID::InvalidValue() };
 		m_commands.emplace_back(RendererCommand::SetPS, 0);
+
+		m_RTs = { m_RTs.back() };
+		m_commands.emplace_back(RendererCommand::SetRT, 0);
 
 		m_scissorRects = { m_scissorRects.back() };
 		m_commands.emplace_back(RendererCommand::ScissorRect, 0);
@@ -81,6 +88,9 @@ namespace s3d
 		m_sdfParams = { m_sdfParams.back() };
 		m_commands.emplace_back(RendererCommand::SDFParam, 0);
 
+		m_internalPSConstants = { m_internalPSConstants.back() };
+		m_commands.emplace_back(RendererCommand::InternalPSConstants, 0);
+
 		m_currentColorMul = m_colorMuls.front();
 		m_currentColorAdd = m_colorAdds.front();
 		m_currentBlendState = m_blendStates.front();
@@ -90,7 +100,8 @@ namespace s3d
 			m_currentPSSamplerStates[i] = m_psSamplerStates[i].front();
 		}
 		m_currentCombinedTransform = m_combinedTransforms.front();
-		m_currentPixelShader = m_pixelShaders.front();
+		m_currentPS = PixelShaderID::InvalidValue();
+		m_currentRT = m_RTs.front();
 		m_currentScissorRect = m_scissorRects.front();
 		m_currentViewport = m_viewports.front();
 		for (size_t i = 0; i < m_currentPSTextures.size(); ++i)
@@ -98,6 +109,7 @@ namespace s3d
 			m_currentPSTextures[i] = TextureID::InvalidValue();
 		}
 		m_currentSdfParam = m_sdfParams.front();
+		m_currentInternalPSConstants = m_internalPSConstants.front();
 	}
 
 	const Array<std::pair<RendererCommand, uint32>>& D3D11Renderer2DCommand::getList() const
@@ -162,8 +174,20 @@ namespace s3d
 
 		if (m_changes.has(RendererCommand::SetPS))
 		{
-			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_pixelShaders.size()));
-			m_pixelShaders.push_back(m_currentPixelShader);
+			m_commands.emplace_back(RendererCommand::SetPS, static_cast<uint32>(m_PSs.size()));
+			m_PSs.push_back(m_currentPS);
+		}
+
+		if (m_changes.has(RendererCommand::SetCB))
+		{
+			assert(!m_CBs.isEmpty());
+			m_commands.emplace_back(RendererCommand::SetCB, static_cast<uint32>(m_CBs.size()) - 1);
+		}
+
+		if (m_changes.has(RendererCommand::SetRT))
+		{
+			m_commands.emplace_back(RendererCommand::SetRT, static_cast<uint32>(m_RTs.size()));
+			m_RTs.push_back(m_currentRT);
 		}
 
 		if (m_changes.has(RendererCommand::ScissorRect))
@@ -193,6 +217,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(RendererCommand::SDFParam, static_cast<uint32>(m_sdfParams.size()));
 			m_sdfParams.push_back(m_currentSdfParam);
+		}
+
+		if (m_changes.has(RendererCommand::InternalPSConstants))
+		{
+			m_commands.emplace_back(RendererCommand::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
+			m_internalPSConstants.push_back(m_currentInternalPSConstants);
 		}
 
 		m_changes.reset();
@@ -508,42 +538,143 @@ namespace s3d
 		return m_currentMaxScaling;
 	}
 
-	void D3D11Renderer2DCommand::pushPS(const size_t psIndex)
+	void D3D11Renderer2DCommand::pushStandardPS(const PixelShaderID& id)
 	{
 		constexpr auto command = RendererCommand::SetPS;
-		auto& current = m_currentPixelShader;
-		auto& buffer = m_pixelShaders;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
 
 		if (!m_changes.has(command))
 		{
-			if (psIndex != current)
+			if (id != current)
 			{
-				current = psIndex;
+				current = id;
 				m_changes.set(command);
 			}
 		}
 		else
 		{
-			if (psIndex == buffer.back())
+			if (id == buffer.back())
 			{
-				current = psIndex;
+				current = id;
 				m_changes.clear(command);
 			}
 			else
 			{
-				current = psIndex;
+				current = id;
 			}
 		}
 	}
 
-	size_t D3D11Renderer2DCommand::getPS(const uint32 index) const
+	void D3D11Renderer2DCommand::pushCustomPS(const PixelShader& ps)
 	{
-		return m_pixelShaders[index];
+		const auto id = ps.id();
+		constexpr auto command = RendererCommand::SetPS;
+		auto& current = m_currentPS;
+		auto& buffer = m_PSs;
+
+		if (!m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+
+				if (m_reservedPSs.find(id) == m_reservedPSs.end())
+				{
+					m_reservedPSs.emplace(id, ps);
+				}
+			}
+		}
 	}
 
-	size_t D3D11Renderer2DCommand::getCurrentPS() const
+	const PixelShaderID& D3D11Renderer2DCommand::getPS(const uint32 index) const
 	{
-		return m_currentPixelShader;
+		return m_PSs[index];
+	}
+
+	void D3D11Renderer2DCommand::pushCB(const ShaderStage stage, const uint32 slot, const s3d::detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		constexpr auto command = RendererCommand::SetCB;
+
+		flush();
+		const __m128* pData = reinterpret_cast<const __m128*>(data);
+		const uint32 offset = static_cast<uint32>(m_constants.size());
+		m_constants.insert(m_constants.end(), pData, pData + num_vectors);
+
+		CBCommand cb;
+		cb.stage = stage;
+		cb.slot = slot;
+		cb.offset = offset;
+		cb.num_vectors = num_vectors;
+		cb.cbBase = buffer;
+		m_CBs.push_back(cb);
+		m_changes.set(command);
+	}
+
+	CBCommand& D3D11Renderer2DCommand::getCB(const uint32 index)
+	{
+		return m_CBs[index];
+	}
+
+	const __m128* D3D11Renderer2DCommand::getConstantsPtr(const uint32 offset) const
+	{
+		return m_constants.data() + offset;
+	}
+
+	void D3D11Renderer2DCommand::pushRT(const Optional<RenderTexture>& rt)
+	{
+		constexpr auto command = RendererCommand::SetRT;
+		auto& current = m_currentRT;
+		auto& buffer = m_RTs;
+
+		if (!m_changes.has(command))
+		{
+			if (rt != current)
+			{
+				current = rt;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (rt == buffer.back())
+			{
+				current = rt;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = rt;
+			}
+		}
+	}
+
+	const Optional<RenderTexture>& D3D11Renderer2DCommand::getRT(const uint32 index) const
+	{
+		return m_RTs[index];
+	}
+	
+	const Optional<RenderTexture>& D3D11Renderer2DCommand::getCurrentRT() const
+	{
+		return m_currentRT;
 	}
 
 	void D3D11Renderer2DCommand::pushScissorRect(const Rect& rect)
@@ -622,6 +753,37 @@ namespace s3d
 		return m_currentViewport;
 	}
 
+	void D3D11Renderer2DCommand::pushPSTextureUnbound(const uint32 slot)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		const auto id = TextureID::InvalidValue();
+		const auto command = ToEnum<RendererCommand>(FromEnum(RendererCommand::PSTexture0) + slot);
+		auto& current = m_currentPSTextures[slot];
+		auto& buffer = m_psTextures[slot];
+
+		if (!m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+			}
+		}
+	}
+
 	void D3D11Renderer2DCommand::pushPSTexture(const uint32 slot, const Texture& texture)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
@@ -668,6 +830,11 @@ namespace s3d
 		return m_psTextures[slot][index];
 	}
 
+	const std::array<TextureID, SamplerState::MaxSamplerCount>& D3D11Renderer2DCommand::getCurrentPSTextures() const
+	{
+		return m_currentPSTextures;
+	}
+
 	void D3D11Renderer2DCommand::pushSdfParam(const Float4& param)
 	{
 		constexpr auto command = RendererCommand::SDFParam;
@@ -704,5 +871,38 @@ namespace s3d
 	const Float4& D3D11Renderer2DCommand::getCurrentSdfParam() const
 	{
 		return m_currentSdfParam;
+	}
+
+	void D3D11Renderer2DCommand::pushInternalPSConstants(const Float4& value)
+	{
+		constexpr auto command = RendererCommand::InternalPSConstants;
+		auto& current = m_currentInternalPSConstants;
+		auto& buffer = m_internalPSConstants;
+
+		if (!m_changes.has(command))
+		{
+			if (value != current)
+			{
+				current = value;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (value == buffer.back())
+			{
+				current = value;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = value;
+			}
+		}
+	}
+
+	const Float4& D3D11Renderer2DCommand::getInternalPSConstants(const uint32 index) const
+	{
+		return m_internalPSConstants[index];
 	}
 }

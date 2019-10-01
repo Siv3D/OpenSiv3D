@@ -162,7 +162,7 @@ inline void GifSwapPixels(uint8_t * image, int pixA, int pixB)
 	uint8_t rB = image[pixB * 4];
 	uint8_t gB = image[pixB * 4 + 1];
 	uint8_t bB = image[pixB * 4 + 2];
-	uint8_t aB = image[pixA * 4 + 3];
+	uint8_t aB = image[pixB * 4 + 3];
 
 	image[pixA * 4] = rB;
 	image[pixA * 4 + 1] = gB;
@@ -687,9 +687,14 @@ inline void GifWriteLzwImage(s3d::IWriter * f, uint8_t * image, uint32_t left, u
 
 	FPutc((uint8_t)minCodeSize, f); // min code size 8 bits
 
-	GifLzwNode * codetree = (GifLzwNode*)GIF_TEMP_MALLOC(sizeof(GifLzwNode) * 4096);
+	GifLzwNode* codetree = (GifLzwNode*)GIF_TEMP_MALLOC(sizeof(GifLzwNode) * 4096);
 
-	::memset(codetree, 0, sizeof(GifLzwNode) * 4096);
+	if (!codetree)
+	{
+		return;
+	}
+
+	std::memset(codetree, 0, sizeof(GifLzwNode) * 4096);
 
 	int32_t curCode = -1;
 	uint32_t codeSize = (uint32_t)minCodeSize + 1;
@@ -769,10 +774,10 @@ inline void GifWriteLzwImage(s3d::IWriter * f, uint8_t * image, uint32_t left, u
 
 struct GifWriter
 {
-	s3d::IWriter* w;
+	s3d::IWriter* w = nullptr;
 	//FILE* f;
-	uint8_t* oldImage;
-	bool firstFrame;
+	uint8_t* oldImage = nullptr;
+	bool firstFrame = false;
 };
 
 // Creates a gif file.

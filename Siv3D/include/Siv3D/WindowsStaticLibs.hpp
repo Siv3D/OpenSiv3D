@@ -23,12 +23,14 @@
 #	pragma comment (lib, "ws2_32")
 #	pragma comment (lib, "strmiids")
 
-#	if (SIV3D_DEBUG)
+#	if SIV3D_BUILD_TYPE(DEBUG)
 
 #		pragma comment (lib, "Siv3D_d")
 #		pragma comment (lib, "zlib/zlib_d")
 #		pragma comment (lib, "libpng/libpng16_d")
 #		pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
+#		pragma comment (lib, "libgif/libgif_d")
+#		pragma comment (lib, "libgif/libutil_d")
 #		pragma comment (lib, "libwebp/libwebp_debug")
 #		pragma comment (lib, "libogg/libogg_static_d")
 #		pragma comment (lib, "libvorbis/libvorbis_d")
@@ -47,6 +49,7 @@
 #		pragma comment (lib, "jumanpp/jpp_rnn_d")
 #		pragma comment (lib, "jumanpp/jpp_core_d")
 #		pragma comment (lib, "jumanpp/jumanpp_v2_d")
+#		pragma comment (lib, "boost/libboost_filesystem-vc142-mt-sgd-x64-1_70")
 
 # else
 
@@ -54,6 +57,8 @@
 #		pragma comment (lib, "zlib/zlib")
 #		pragma comment (lib, "libpng/libpng16")
 #		pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
+#		pragma comment (lib, "libgif/libgif")
+#		pragma comment (lib, "libgif/libutil")
 #		pragma comment (lib, "libwebp/libwebp")
 #		pragma comment (lib, "libogg/libogg_static")
 #		pragma comment (lib, "libvorbis/libvorbis")
@@ -72,6 +77,7 @@
 #		pragma comment (lib, "jumanpp/jpp_rnn")
 #		pragma comment (lib, "jumanpp/jpp_core")
 #		pragma comment (lib, "jumanpp/jumanpp_v2")
+#		pragma comment (lib, "boost/libboost_filesystem-vc142-mt-s-x64-1_70")
 
 #	endif
 

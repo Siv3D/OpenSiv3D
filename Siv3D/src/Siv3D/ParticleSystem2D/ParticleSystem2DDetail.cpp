@@ -49,8 +49,8 @@ namespace s3d
 		const ParticleSystem2DParameters& parameters, const Texture& texture)
 		: m_position(position)
 		, m_force(force)
-		, m_emitter(std::move(emitter))
 		, m_parameters(parameters)
+		, m_emitter(std::move(emitter))
 		, m_particleTexture(texture)
 	{
 

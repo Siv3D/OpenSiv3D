@@ -52,15 +52,15 @@ namespace s3d
 
 		template <class Z>
 		constexpr Vector3D(const Vector2D<value_type>& xy, Z _z) noexcept
-			: x(static_cast<value_type>(xy.x))
-			, y(static_cast<value_type>(xy.y))
+			: x(xy.x)
+			, y(xy.y)
 			, z(static_cast<value_type>(_z)) {}
 
 		template <class X>
 		constexpr Vector3D(X _x, const Vector2D<value_type>& yz) noexcept
 			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(yz.x))
-			, z(static_cast<value_type>(yz.y)) {}
+			, y(yz.x)
+			, z(yz.y) {}
 
 		template <class U>
 		constexpr Vector3D(const Vector3D<U>& v) noexcept
@@ -452,7 +452,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Zero()
+		[[nodiscard]] static constexpr Vector3D Zero() noexcept
 		{
 			return{ 0, 0, 0 };
 		}
@@ -460,7 +460,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 1, 1, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D One()
+		[[nodiscard]] static constexpr Vector3D One() noexcept
 		{
 			return{ 1, 1, 1 };
 		}
@@ -468,7 +468,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ value, value, value }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D All(value_type value = 1)
+		[[nodiscard]] static constexpr Vector3D All(value_type value = 1) noexcept
 		{
 			return{ value, value, value };
 		}
@@ -476,7 +476,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 1, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D UnitX()
+		[[nodiscard]] static constexpr Vector3D UnitX() noexcept
 		{
 			return{ 1, 0, 0 };
 		}
@@ -484,7 +484,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 1, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D UnitY()
+		[[nodiscard]] static constexpr Vector3D UnitY() noexcept
 		{
 			return{ 0, 1, 0 };
 		}
@@ -492,7 +492,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D UnitZ()
+		[[nodiscard]] static constexpr Vector3D UnitZ() noexcept
 		{
 			return{ 0, 0, 1 };
 		}
@@ -500,7 +500,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ -length, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Left(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Left(value_type length = 1) noexcept
 		{
 			return{ -length, 0, 0 };
 		}
@@ -508,7 +508,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ length, 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Right(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Right(value_type length = 1) noexcept
 		{
 			return{ length, 0, 0 };
 		}
@@ -516,7 +516,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, length, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Up(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Up(value_type length = 1) noexcept
 		{
 			return{ 0, length, 0 };
 		}
@@ -524,7 +524,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, -length, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Down(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Down(value_type length = 1) noexcept
 		{
 			return{ 0, -length, 0 };
 		}
@@ -532,7 +532,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, length }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Forward(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Forward(value_type length = 1) noexcept
 		{
 			return{ 0, 0, length };
 		}
@@ -540,7 +540,7 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ 0, 0, -length }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector3D Backward(value_type length = 1)
+		[[nodiscard]] static constexpr Vector3D Backward(value_type length = 1) noexcept
 		{
 			return{ 0, 0, -length };
 		}

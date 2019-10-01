@@ -1,4 +1,4 @@
-//-----------------------------------------------
+ï»¿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -66,7 +66,7 @@ namespace s3d
 			pixel.b = b >= 255.0 ? 255 : b <= 0.0 ? 0 : static_cast<uint8>(b);
 		}
 
-		static void SetupPostarizeTable(const int32 level, uint8 table[256])
+		static void SetupPosterizeTable(const int32 level, uint8 table[256])
 		{
 			const int32 levN = Clamp(level, 2, 256) - 1;
 
@@ -492,7 +492,7 @@ namespace s3d
 		}
 	}
 
-	Image& Image::operator =(Image&& image)
+	Image& Image::operator =(Image&& image) noexcept
 	{
 		m_data = std::move(image.m_data);
 		m_width = image.m_width;
@@ -508,7 +508,7 @@ namespace s3d
 		return operator =(image);
 	}
 
-	Image& Image::assign(Image&& image)
+	Image& Image::assign(Image&& image) noexcept
 	{
 		return operator =(std::move(image));
 	}
@@ -619,7 +619,7 @@ namespace s3d
 		const int32 h = static_cast<int32>(m_height);
 		const int32 w = static_cast<int32>(m_width);
 
-		// [Siv3D ToDo] Å“K‰»
+		// [Siv3D ToDo] æœ€é©åŒ–
 		for (int32 y = 0; y < rect.h; ++y)
 		{
 			const int32 sy = y + rect.y;
@@ -989,7 +989,7 @@ namespace s3d
 
 	Image& Image::negate()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -997,7 +997,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			for (auto& pixel : m_data)
 			{
@@ -1010,7 +1010,7 @@ namespace s3d
 
 	Image Image::negated() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1030,7 +1030,7 @@ namespace s3d
 
 	Image& Image::grayscale()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1038,7 +1038,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			for (auto& pixel : m_data)
 			{
@@ -1051,7 +1051,7 @@ namespace s3d
 
 	Image Image::grayscaled() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1071,7 +1071,7 @@ namespace s3d
 
 	Image& Image::sepia(const int32 level)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1079,7 +1079,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			const double levn = Clamp(level, 0, 255);
 			const double levr = 0.956 * levn;
@@ -1097,7 +1097,7 @@ namespace s3d
 
 	Image Image::sepiaed(const int32 level) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1120,9 +1120,9 @@ namespace s3d
 		return image;
 	}
 
-	Image& Image::postarize(const int32 level)
+	Image& Image::posterize(const int32 level)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1130,11 +1130,11 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			uint8 colorTable[256];
 
-			detail::SetupPostarizeTable(level, colorTable);
+			detail::SetupPosterizeTable(level, colorTable);
 
 			for (auto& pixel : m_data)
 			{
@@ -1147,9 +1147,9 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::postarized(const int32 level) const
+	Image Image::posterized(const int32 level) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1161,7 +1161,7 @@ namespace s3d
 
 		uint8 colorTable[256];
 
-		detail::SetupPostarizeTable(level, colorTable);
+		detail::SetupPosterizeTable(level, colorTable);
 
 		for (auto& pixel : image)
 		{
@@ -1175,7 +1175,7 @@ namespace s3d
 
 	Image& Image::brighten(const int32 level)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1183,7 +1183,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			if (level < 0)
 			{
@@ -1210,7 +1210,7 @@ namespace s3d
 
 	Image Image::brightened(const int32 level) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1244,7 +1244,7 @@ namespace s3d
 
 	Image& Image::mirror()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1252,7 +1252,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			const int32 h = m_height, w = m_width, wHalf = m_width / 2;
 			Color* line = m_data.data();
@@ -1278,7 +1278,7 @@ namespace s3d
 
 	Image Image::mirrored() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1305,7 +1305,7 @@ namespace s3d
 
 	Image& Image::flip()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1313,7 +1313,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			const int32 h = m_height, s = stride();
 			Array<Color> line(m_width);
@@ -1336,7 +1336,7 @@ namespace s3d
 
 	Image Image::flipped() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1362,7 +1362,7 @@ namespace s3d
 
 	Image& Image::rotate90()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1370,8 +1370,8 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
-		// [Siv3D ToDo] Å“K‰»
+		// 2. å‡¦ç†
+		// [Siv3D ToDo] æœ€é©åŒ–
 		{
 			Image tmp(m_height, m_width);
 
@@ -1391,7 +1391,7 @@ namespace s3d
 
 	Image Image::rotated90() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1401,7 +1401,7 @@ namespace s3d
 
 		Image image(m_height, m_width);
 
-		// [Siv3D ToDo] Å“K‰»
+		// [Siv3D ToDo] æœ€é©åŒ–
 		for (uint32 y = 0; y < m_height; ++y)
 		{
 			for (uint32 x = 0; x < m_width; ++x)
@@ -1422,7 +1422,7 @@ namespace s3d
 
 	Image Image::rotated180() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1452,7 +1452,7 @@ namespace s3d
 
 	Image& Image::rotate270()
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1460,8 +1460,8 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
-		// [Siv3D ToDo] Å“K‰»
+		// 2. å‡¦ç†
+		// [Siv3D ToDo] æœ€é©åŒ–
 		{
 			Image tmp(m_height, m_width);
 
@@ -1481,7 +1481,7 @@ namespace s3d
 
 	Image Image::rotated270() const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1504,7 +1504,7 @@ namespace s3d
 
 	Image& Image::gammaCorrect(const double gamma)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1512,7 +1512,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			uint8 colorTable[256];
 
@@ -1531,7 +1531,7 @@ namespace s3d
 
 	Image Image::gammaCorrected(const double gamma) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1557,7 +1557,7 @@ namespace s3d
 
 	Image& Image::threshold(const uint8 threshold, const bool inverse)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1565,7 +1565,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			const uint32 a = inverse ? 0 : 0x00FFffFF, b = inverse ? 0x00FFffFF : 0;
 
@@ -1588,7 +1588,7 @@ namespace s3d
 
 	Image Image::thresholded(const uint8 threshold, const bool inverse) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1618,7 +1618,7 @@ namespace s3d
 
 	Image & Image::adaptiveThreshold(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1631,7 +1631,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
 			static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
@@ -1650,7 +1650,7 @@ namespace s3d
 
 	Image Image::adaptiveThresholded(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1686,7 +1686,7 @@ namespace s3d
 
 	Image& Image::mosaic(const int32 horizontal, const int32 vertical)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1699,7 +1699,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			const uint32 xPiece = m_width / horizontal;
 			const uint32 yPiece = m_height / vertical;
@@ -1742,7 +1742,7 @@ namespace s3d
 
 	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1797,7 +1797,7 @@ namespace s3d
 
 	Image& Image::spread(const int32 horizontal, const int32 vertical)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1810,8 +1810,8 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
-		// [Siv3D ToDo] Å“K‰»
+		// 2. å‡¦ç†
+		// [Siv3D ToDo] æœ€é©åŒ–
 		{
 			Image tmp(m_width, m_height);
 
@@ -1846,7 +1846,7 @@ namespace s3d
 
 	Image Image::spreaded(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1867,7 +1867,7 @@ namespace s3d
 
 		const int32 v2 = vertical * 2;
 
-		// [Siv3D ToDo] Å“K‰»
+		// [Siv3D ToDo] æœ€é©åŒ–
 		for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
 		{
 			for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
@@ -1890,7 +1890,7 @@ namespace s3d
 
 	Image& Image::blur(const int32 horizontal, const int32 vertical)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1903,7 +1903,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			Image tmp(m_width, m_height);
 
@@ -1926,7 +1926,7 @@ namespace s3d
 
 	Image Image::blurred(const int32 horizontal, const int32 vertical) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1952,7 +1952,7 @@ namespace s3d
 
 	Image& Image::medianBlur(int32 apertureSize)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -1970,7 +1970,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			Image tmp(m_width, m_height);
 
@@ -1988,7 +1988,7 @@ namespace s3d
 
 	Image Image::medianBlurred(int32 apertureSize) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2024,7 +2024,7 @@ namespace s3d
 
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2037,7 +2037,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			Image tmp(m_width, m_height);
 
@@ -2060,7 +2060,7 @@ namespace s3d
 
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2086,7 +2086,7 @@ namespace s3d
 
 	Image& Image::dilate(const int32 iterations)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2094,7 +2094,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
 			cv::dilate(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
@@ -2105,7 +2105,7 @@ namespace s3d
 
 	Image Image::dilated(const int32 iterations) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2123,7 +2123,7 @@ namespace s3d
 
 	Image& Image::erode(const int32 iterations)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2131,7 +2131,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
 			cv::erode(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
@@ -2142,7 +2142,7 @@ namespace s3d
 
 	Image Image::eroded(const int32 iterations) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2160,7 +2160,7 @@ namespace s3d
 
 	Image& Image::floodFill(const Point & pos, const Color & color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2173,7 +2173,7 @@ namespace s3d
 			}
 		}
 
-		// 2. ˆ—
+		// 2. å‡¦ç†
 		{
 			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
 			{
@@ -2228,7 +2228,7 @@ namespace s3d
 
 	Image Image::floodFilled(const Point & pos, const Color & color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2266,7 +2266,7 @@ namespace s3d
 
 	Image& Image::scale(int32 width, int32 height, Interpolation interpolation)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2285,9 +2285,9 @@ namespace s3d
 
 		const uint32 targetWidth = width, targetHeight = height;
 
-		// 3. ˆ—
+		// 3. å‡¦ç†
 		{
-			// TODO ÄŒŸ“¢
+			// TODO å†æ¤œè¨
 			if (interpolation == Interpolation::Unspecified)
 			{
 				if (targetWidth >= m_width && targetHeight >= m_height)
@@ -2319,7 +2319,7 @@ namespace s3d
 
 	Image Image::scaled(int32 width, int32 height, Interpolation interpolation) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2338,9 +2338,9 @@ namespace s3d
 
 		const uint32 targetWidth = width, targetHeight = height;
 
-		// 3. ˆ—
+		// 3. å‡¦ç†
 		{
-			// TODO ÄŒŸ“¢
+			// TODO å†æ¤œè¨
 			if (interpolation == Interpolation::Unspecified)
 			{
 				if (targetWidth >= m_width && targetHeight >= m_height)
@@ -2398,7 +2398,7 @@ namespace s3d
 
 		const int32 w = m_width;
 		const int32 h = m_height;
-		double ws = static_cast<double>(width) / w;	// ‰½% scaling‚·‚é‚©
+		double ws = static_cast<double>(width) / w;	// ä½•% scalingã™ã‚‹ã‹
 		double hs = static_cast<double>(height) / h;
 
 		int32 targetWidth, targetHeight;
@@ -2427,7 +2427,7 @@ namespace s3d
 
 		const int32 w = m_width;
 		const int32 h = m_height;
-		double ws = static_cast<double>(width) / w;	// ‰½% scaling‚·‚é‚©
+		double ws = static_cast<double>(width) / w;	// ä½•% scalingã™ã‚‹ã‹
 		double hs = static_cast<double>(height) / h;
 
 		int32 targetWidth, targetHeight;
@@ -2468,7 +2468,7 @@ namespace s3d
 
 	Image& Image::border(int32 top, int32 right, int32 bottom, int32 left, const Color& color)
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2508,7 +2508,7 @@ namespace s3d
 
 	Image Image::bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color) const
 	{
-		// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+		// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 		{
 			if (isEmpty())
 			{
@@ -2641,7 +2641,7 @@ namespace s3d
 	{
 		void Sobel(const Image& src, Image& dst, const int32 dx, const int32 dy, int32 apertureSize)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2659,14 +2659,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
@@ -2682,7 +2682,7 @@ namespace s3d
 
 		void Laplacian(const Image& src, Image& dst, int32 apertureSize)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2700,14 +2700,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
@@ -2723,7 +2723,7 @@ namespace s3d
 
 		void Canny(const Image& src, Image& dst, const uint8 lowThreshold, const uint8 highThreshold, int32 apertureSize, const bool useL2Gradient)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2741,14 +2741,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
@@ -2766,7 +2766,7 @@ namespace s3d
 
 		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, double sigma_s, double sigma_r)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2774,14 +2774,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
@@ -2800,7 +2800,7 @@ namespace s3d
 
 		void DetailEnhance(const Image& src, Image& dst, double sigma_s, double sigma_r)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2808,14 +2808,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
@@ -2831,7 +2831,7 @@ namespace s3d
 
 		void Stylization(const Image& src, Image& dst, double sigma_s, double sigma_r)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!src)
 				{
@@ -2839,14 +2839,14 @@ namespace s3d
 				}
 			}
 
-			// 2. o—Í‰æ‘œ‚ÌƒTƒCƒY•ÏX
+			// 2. å‡ºåŠ›ç”»åƒã®ã‚µã‚¤ã‚ºå¤‰æ›´
 			{
 				dst.resize(src.size());
 
 				::memcpy(dst.data(), src.data(), dst.size_bytes());
 			}
 
-			// 3. ˆ—
+			// 3. å‡¦ç†
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
@@ -2920,7 +2920,7 @@ namespace s3d
 
 		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!image || !maskImage)
 				{
@@ -2935,7 +2935,7 @@ namespace s3d
 				radius = std::max(radius, 0);
 			}
 
-			// 2. ˆ—
+			// 2. å‡¦ç†
 			{
 				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
 
@@ -2955,7 +2955,7 @@ namespace s3d
 
 		void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius)
 		{
-			// 1. ƒpƒ‰ƒ[ƒ^ƒ`ƒFƒbƒN
+			// 1. ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
 			{
 				if (!image || maskImage.isEmpty())
 				{
@@ -2970,7 +2970,7 @@ namespace s3d
 				radius = std::max(radius, 0);
 			}
 
-			// 2. ˆ—
+			// 2. å‡¦ç†
 			{
 				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
 

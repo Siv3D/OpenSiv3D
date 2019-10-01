@@ -24,7 +24,7 @@ namespace s3d
 		Optional<RasterizerState> m_oldRasterizerState;
 		Optional<SamplerState> m_oldSamplerState;
 
-		void clear();
+		void clear() noexcept;
 
 	public:
 
@@ -60,10 +60,10 @@ namespace s3d
 
 		ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState);
 
-		ScopedRenderStates2D(ScopedRenderStates2D&& block);
+		ScopedRenderStates2D(ScopedRenderStates2D&& block) noexcept;
 
 		~ScopedRenderStates2D();
 
-		ScopedRenderStates2D& operator =(ScopedRenderStates2D&& block);
+		ScopedRenderStates2D& operator =(ScopedRenderStates2D&& block) noexcept;
 	};
 }
