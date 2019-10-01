@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Graphics.hpp>
 # include <Siv3D/DLL.hpp>
 # include <Siv3DEngine.hpp>
 # include <Profiler/IProfiler.hpp>
@@ -332,8 +333,19 @@ namespace s3d
 
 		::SetWindowLongW(m_hWnd, GWL_STYLE, getBaseWindowStyle());
 
-		RECT windowRect = { 0, 0, newSize.x, newSize.y };
-		::AdjustWindowRect(&windowRect, getBaseWindowStyle(), FALSE);
+		RECT windowRect;
+		{
+			if (const double dpiScaling = Graphics::GetDPIScaling(); dpiScaling == 1.0)
+			{
+				windowRect = RECT{ 0, 0, newSize.x, newSize.y };
+			}
+			else
+			{
+				windowRect = RECT{ 0, 0, static_cast<int32>((newSize.x - 1.5) / dpiScaling), static_cast<int32>((newSize.y - 3.0) / dpiScaling) };
+			}
+
+			::AdjustWindowRect(&windowRect, getBaseWindowStyle(), FALSE);
+		}
 
 		if (centering)
 		{
