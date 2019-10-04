@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -69,9 +69,9 @@ namespace s3d
 		[[nodiscard]] const Array<Array<Vec2>>& inners() const;
 
 		[[nodiscard]] const Array<Float2>& vertices() const;
-		
+
 		[[nodiscard]] const Array<IndexType>& indices() const;
-		
+
 		[[nodiscard]] const RectF& boundingRect() const;
 
 		[[nodiscard]] size_t num_triangles() const;
@@ -109,6 +109,10 @@ namespace s3d
 		[[nodiscard]] Polygon scaled(double s) const;
 
 		Polygon& scale(double s);
+
+		[[nodiscard]] Polygon scaled(const Vec2& s) const;
+
+		Polygon& scale(const Vec2& s);
 
 		[[nodiscard]] double area() const;
 

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -28,12 +28,12 @@ namespace s3d
 		using value_type = position_type::value_type;
 
 		position_type p0, p1, p2;
-		
+
 		[[nodiscard]] constexpr position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
-		
+
 		[[nodiscard]] constexpr const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
@@ -76,7 +76,7 @@ namespace s3d
 
 		Triangle(value_type x, value_type y, value_type sides, value_type angle) noexcept
 			: Triangle(Triangle(sides, angle).moveBy(x, y)) {}
-			
+
 		Triangle(const position_type& pos, value_type sides, value_type angle) noexcept
 			: Triangle(pos.x, pos.y, sides, angle) {}
 

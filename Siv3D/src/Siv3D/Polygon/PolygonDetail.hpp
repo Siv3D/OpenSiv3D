@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -63,12 +63,14 @@ namespace s3d
 
 		void scale(double s);
 
+		void scale(const Vec2& s);
+
 		double area() const;
 
 		double perimeter() const;
 
 		Vec2 centroid() const;
-		
+
 		Polygon calculateConvexHull() const;
 
 		Polygon calculateBuffer(double distance) const;
