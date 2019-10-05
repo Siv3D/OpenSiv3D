@@ -219,6 +219,62 @@ namespace s3d
 		formatData.string.append(value);
 	}
 
+# if __has_include(<compare>) && SIV3D_PLATFORM(WINDOWS)
+
+	void Formatter(FormatData& formatData, const std::strong_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+	}
+
+	void Formatter(FormatData& formatData, const std::weak_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+	}
+
+	void Formatter(FormatData& formatData, const std::partial_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else if (std::is_eq(value))
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"UN"_sv);
+		}
+	}
+
+# endif
+
 	void Formatter(FormatData& formatData, const None_t&)
 	{
 		formatData.string.append(U"none"_sv);

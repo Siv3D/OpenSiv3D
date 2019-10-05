@@ -12,6 +12,9 @@
 # pragma once
 # include <xmmintrin.h>
 # include <sstream>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Fwd.hpp"
 # include "FormatBool.hpp"
 # include "FormatInt.hpp"
@@ -292,6 +295,16 @@ namespace s3d
 	void Formatter(FormatData& formatData, const std::u32string& str);
 
 	void Formatter(FormatData& formatData, const String& value);
+
+# if __has_include(<compare>) && SIV3D_PLATFORM(WINDOWS)
+
+	void Formatter(FormatData& formatData, std::strong_ordering value);
+
+	void Formatter(FormatData& formatData, std::weak_ordering value);
+
+	void Formatter(FormatData& formatData, std::partial_ordering value);
+
+# endif
 
 	template <class Iterator>
 	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)
