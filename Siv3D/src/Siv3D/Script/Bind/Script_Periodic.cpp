@@ -25,7 +25,7 @@ namespace s3d
 		{
 			r = engine->RegisterGlobalFunction("double Sine0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Sine0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double Square0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Square0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("double Tringle0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Tringle0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Triangle0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Triangle0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double Sawtooth0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Sawtooth0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double Jump0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Jump0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
 		}

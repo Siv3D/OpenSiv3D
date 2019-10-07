@@ -41,16 +41,16 @@ namespace s3d
 			return Square0_1(period.count(), t);
 		}
 
-		[[nodiscard]] inline double Tringle0_1(double periodSec, double t = Scene::Time())
+		[[nodiscard]] inline double Triangle0_1(double periodSec, double t = Scene::Time())
 		{
 			const double x = std::fmod(t, periodSec) / (periodSec * 0.5);
 
 			return x <= 1.0 ? x : 2.0 - x;
 		}
 
-		[[nodiscard]] inline double Tringle0_1(const Duration& period, double t = Scene::Time())
+		[[nodiscard]] inline double Triangle0_1(const Duration& period, double t = Scene::Time())
 		{
-			return Tringle0_1(period.count(), t);
+			return Triangle0_1(period.count(), t);
 		}
 
 		[[nodiscard]] inline double Sawtooth0_1(double periodSec, double t = Scene::Time())
