@@ -125,7 +125,7 @@ namespace s3d
 
 		if (m_encoding != TextEncoding::Unknown)
 		{
-			m_reader = std::move(reader);
+			m_reader = reader;
 
 			m_opened = m_reader->isOpened();
 
