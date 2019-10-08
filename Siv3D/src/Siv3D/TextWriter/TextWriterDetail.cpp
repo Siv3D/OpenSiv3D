@@ -23,7 +23,7 @@ namespace s3d
 		close();
 	}
 
-	bool TextWriter::TextWriterDetail::open(const FilePath& path, const OpenMode openMode, const TextEncoding encoding)
+	bool TextWriter::TextWriterDetail::open(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
 	{
 		if (isOpened())
 		{
