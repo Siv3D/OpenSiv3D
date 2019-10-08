@@ -2147,6 +2147,7 @@
 		2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script_TextureFormat.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
 		2CA6271622226DC60009DFE1 /* PlayingCard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlayingCard.hpp; sourceTree = "<group>"; };
@@ -2561,14 +2562,14 @@
 		2CEACB492337433800C6EE98 /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
 		2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCamera3D.cpp; sourceTree = "<group>"; };
-		2CEACB5023386B1400C6EE98 /* Camera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera3D.hpp; sourceTree = "<group>"; };
+		2CEACB5023386B1400C6EE98 /* Camera3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera3D.hpp; sourceTree = "<group>"; };
 		2CEACB512338752500C6EE98 /* AABB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AABB.hpp; sourceTree = "<group>"; };
 		2CEACB522338753500C6EE98 /* Line3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Line3D.hpp; sourceTree = "<group>"; };
 		2CEACB532338755200C6EE98 /* Triangle3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle3D.hpp; sourceTree = "<group>"; };
 		2CEACB552338756800C6EE98 /* SivAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAABB.cpp; sourceTree = "<group>"; };
 		2CEACB582338757900C6EE98 /* SivLine3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine3D.cpp; sourceTree = "<group>"; };
 		2CEACB5B2338758B00C6EE98 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
-		2CEACB5D2338921600C6EE98 /* EmojiList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EmojiList.hpp; sourceTree = "<group>"; };
+		2CEACB5D2338921600C6EE98 /* EmojiList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiList.hpp; sourceTree = "<group>"; };
 		2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiListDetail.cpp; sourceTree = "<group>"; };
 		2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiListDetail.hpp; sourceTree = "<group>"; };
 		2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiList.cpp; sourceTree = "<group>"; };
@@ -6248,6 +6249,7 @@
 				2CA6272122226DC60009DFE1 /* Emitter2D.hpp */,
 				2CA6275422226DC60009DFE1 /* Emoji.hpp */,
 				2CEACB5D2338921600C6EE98 /* EmojiList.hpp */,
+				2C984DB0234CB87F00709607 /* Endian.hpp */,
 				2CA6281A22226DC70009DFE1 /* EngineError.hpp */,
 				2CA6273A22226DC60009DFE1 /* EngineLog.hpp */,
 				2CA6273F22226DC60009DFE1 /* EngineMessageBox.hpp */,
