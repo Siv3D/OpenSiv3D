@@ -90,6 +90,10 @@
 // Functor
 # include <Siv3D/Functor.hpp>
 
+// エンディアン
+// Endian
+# include <Siv3D/Endian.hpp>
+
 // バイト
 // Byte
 # include <Siv3D/Byte.hpp>

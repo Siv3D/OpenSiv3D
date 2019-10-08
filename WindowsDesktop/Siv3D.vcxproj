@@ -65,6 +65,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Emitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EmojiList.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Endian.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Error.hpp" />

@@ -79,7 +79,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		TextWriter(const FilePath& path, TextEncoding encoding);
+		TextWriter(FilePathView path, TextEncoding encoding);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -93,7 +93,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default);
+		explicit TextWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -107,7 +107,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, TextEncoding encoding);
+		bool open(FilePathView path, TextEncoding encoding);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -124,7 +124,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default);
+		bool open(FilePathView path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default);
 
 		/// <summary>
 		/// テキストファイルをクローズします。

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -124,8 +124,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Polygon transformed(double s, double c, const Vec2& in) const", asMETHOD(ShapeType, transformed), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Polygon& transform(double s, double c, const Vec2& in)", asMETHOD(ShapeType, transform), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Polygon scaled(double s) const", asMETHOD(ShapeType, scaled), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Polygon& scale(double s)", asMETHOD(ShapeType, scale), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon scaled(double s) const", asMETHODPR(ShapeType, scaled, (double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon& scale(double s)", asMETHODPR(ShapeType, scale, (double), ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon scaled(const Vec2& s) const", asMETHODPR(ShapeType, scaled, (const Vec2&) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon& scale(const Vec2& s)", asMETHODPR(ShapeType, scale, (const Vec2&), ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "double area() const", asMETHOD(ShapeType, area), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double perimeter() const", asMETHOD(ShapeType, perimeter), asCALL_THISCALL); assert(r >= 0);

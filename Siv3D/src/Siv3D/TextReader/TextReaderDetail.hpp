@@ -42,7 +42,7 @@ namespace s3d
 
 		~TextReaderDetail();
 
-		bool open(const FilePath& path, const Optional<TextEncoding>& encoding);
+		bool open(FilePathView path, const Optional<TextEncoding>& encoding);
 
 		bool open(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding);
 

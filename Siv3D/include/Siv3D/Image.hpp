@@ -650,6 +650,17 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 画像データを一次元の配列で返します。
+		/// </summary>
+		/// <returns>
+		/// 画像データの一次元配列への const 参照
+		/// </returns>
+		[[nodiscard]] const Array<Color>& asArray() const noexcept
+		{
+			return m_data;
+		}
+
+		/// <summary>
 		/// 画像の先頭位置のイテレータを取得します。
 		/// </summary>
 		/// <returns>
