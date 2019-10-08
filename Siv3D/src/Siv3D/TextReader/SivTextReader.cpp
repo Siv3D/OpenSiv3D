@@ -20,7 +20,7 @@ namespace s3d
 
 	}
 
-	TextReader::TextReader(const FilePath& path, const Optional<TextEncoding>& encoding)
+	TextReader::TextReader(const FilePathView path, const Optional<TextEncoding>& encoding)
 		: TextReader()
 	{
 		open(path, encoding);
@@ -37,7 +37,7 @@ namespace s3d
 
 	}
 
-	bool TextReader::open(const FilePath& path, const Optional<TextEncoding>& encoding)
+	bool TextReader::open(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		return pImpl->open(path, encoding);
 	}
