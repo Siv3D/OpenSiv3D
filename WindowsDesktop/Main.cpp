@@ -3,15 +3,21 @@
 
 void Main()
 {
-	Print << U"(10 <=> 15): " << (10 <=> 15);
-	Print << U"(10 <=> 10): " << (10 <=> 10);
-	Print << U"(10 <=> 5): " << (10 <=> 5);
+	Print << U"{:#x}"_fmt(uint16(0x1122));
+	Print << U"{:#x}"_fmt(uint32(0x11223344));
+	Print << U"{:#x}"_fmt(uint64(0x1122334455667788));
 
-	Print << U"(5.5 <=> 7.5): " << (5.5 <=> 7.5);
-	Print << U"(5.5 <=> 5.5): " << (5.5 <=> 5.5);
-	Print << U"(5.5 <=> 2.5): " << (5.5 <=> 2.5);
-	Print << U"(5.5 <=> Inf): " << (5.5 <=> Inf<double>);
-	Print << U"(5.5 <=> NaN): " << (5.5 <=> QNaN<double>);
+	Print << U"{:#x}"_fmt(SwapEndian(uint16(0x1122)));
+	Print << U"{:#x}"_fmt(SwapEndian(uint32(0x11223344)));
+	Print << U"{:#x}"_fmt(SwapEndian(uint64(0x1122334455667788)));
+
+	Print << U"{:#x}"_fmt(uint16(0xFFEE));
+	Print << U"{:#x}"_fmt(uint32(0xFFEEDDCC));
+	Print << U"{:#x}"_fmt(uint64(0xFFEEDDCCBBAA9988));
+
+	Print << U"{:#x}"_fmt(SwapEndian(uint16(0xFFEE)));
+	Print << U"{:#x}"_fmt(SwapEndian(uint32(0xFFEEDDCC)));
+	Print << U"{:#x}"_fmt(SwapEndian(uint64(0xFFEEDDCCBBAA9988)));
 
 	while (System::Update())
 	{
