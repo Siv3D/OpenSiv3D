@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# include <string>
 # include <mutex>
 # include <thread>
 # include <memory>

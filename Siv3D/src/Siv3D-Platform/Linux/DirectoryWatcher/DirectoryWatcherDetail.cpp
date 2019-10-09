@@ -9,8 +9,6 @@
 //
 //-----------------------------------------------
 
-# include <fcntl.h>
-# include <vector>
 # include <boost/filesystem.hpp>
 
 # include <Siv3D/FileSystem.hpp>
