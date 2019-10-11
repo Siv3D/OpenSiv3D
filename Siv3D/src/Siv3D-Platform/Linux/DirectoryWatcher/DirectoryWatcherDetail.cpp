@@ -21,7 +21,7 @@ namespace s3d
 {
 	DirectoryWatcher::DirectoryWatcherDetail::DirectoryWatcherDetail(const FilePath& directory)
 	{
-		if (!FileSystem::IsDirectory(directory))
+		if (directory.isEmpty() ||  !FileSystem::IsDirectory(directory))
 		{
 			LOG_FAIL(U"❌ DirectoryWatcher: `{}` is not a directory"_fmt(directory));
 			return;
