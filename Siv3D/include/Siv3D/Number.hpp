@@ -31,8 +31,20 @@ namespace s3d
 	/// <summary>
 	/// 正の無限大
 	/// </summary>
-	template <class Type>
-	constexpr Type Inf = std::numeric_limits<Type>::infinity();
+	template <class FloatingPoint>
+	constexpr FloatingPoint Inf = std::numeric_limits<FloatingPoint>::infinity();
+
+	/// <summary>
+	/// qNaN
+	/// </summary>
+	template <class FloatingPoint>
+	constexpr FloatingPoint QNaN = std::numeric_limits<FloatingPoint>::quiet_NaN();
+
+	/// <summary>
+	/// sNaN
+	/// </summary>
+	template <class FloatingPoint>
+	constexpr FloatingPoint SNaN = std::numeric_limits<FloatingPoint>::signaling_NaN();
     
     /// <summary>
     /// 数値が非数 (NaN) であるかを示します。

@@ -45,7 +45,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		explicit TextReader(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified);
+		explicit TextReader(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -91,7 +91,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified);
+		bool open(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
 		/// <summary>
 		/// テキストファイルを開きます。
