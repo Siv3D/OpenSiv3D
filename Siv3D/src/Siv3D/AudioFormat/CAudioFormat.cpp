@@ -74,13 +74,7 @@ namespace s3d
 
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
 		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
-
-	# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
-
 		m_audioFormats.push_back(std::make_unique<AudioFormat_AAC>());
-
-	# endif
-
 		m_audioFormats.push_back(std::make_unique<AudioFormat_OggVorbis>());
 
 		LOG_INFO(U"ℹ️ CAudioFormat initialized");
@@ -127,7 +121,7 @@ namespace s3d
 			return Wave();
 		}
 		
-	# if SIV3D_PLATFORM(MACOS)
+	# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 		if ((*it)->format() == AudioFormat::AAC)
 		{
@@ -155,7 +149,7 @@ namespace s3d
 			return Wave();
 		}
 
-	# if SIV3D_PLATFORM(MACOS)
+	# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
 		if ((*it)->format() == AudioFormat::AAC)
 		{

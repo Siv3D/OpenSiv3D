@@ -60,6 +60,10 @@ target_link_libraries(Siv3D_App
 	-lvorbisenc
 	-lvorbisfile
 	-lboost_filesystem
+	-lavformat
+	-lavcodec
+	-lavutil
+	-lswresample
 
 	${PROJECT_SOURCE_DIR}/../Build/libSiv3D.a
 )
