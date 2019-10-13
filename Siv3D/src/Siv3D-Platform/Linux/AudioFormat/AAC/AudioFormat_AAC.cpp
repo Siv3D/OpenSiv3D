@@ -115,6 +115,8 @@ namespace s3d
 				const std::string pathUTF8 = path.toUTF8();
 				const char* path_char = pathUTF8.c_str();
 
+				m_path = path;
+
 				// open file.
 				if (avformat_open_input(&m_format_context, path_char, nullptr, nullptr) != 0)
 				{
