@@ -17,6 +17,7 @@
 - GLib2
 - udev
 - libdl
+- libavcode, libavformat, libavutil, libswresample
 
 ディスプレイサーバにはX11のみをサポートしています。
 Wayland及びMirはサポートしていません。
