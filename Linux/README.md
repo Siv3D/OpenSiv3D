@@ -27,9 +27,9 @@ Wayland and Mir are not supported.
 	1. `git clone https://github.com/Siv3D/OpenSiv3D.git`
 	1. `cd OpenSiv3D`
 	1. `git checkout linux`
-1. Make a directory to build. (In this example, make `Linux/build`).
-	1. `mkdir Linux/build`
-	1. `cd Linux/build`
+1. Make a directory to Build. (In this example, make `Linux/Build`).
+	1. `mkdir Linux/Build`
+	1. `cd Linux/Build`
 1. Compile OpenSiv3D. If build succeeds, `libSiv3D.a` is obtained.
 	1. `cmake -DCMAKE_BUILD_TYPE=Release -GNinja ..`
 	1. `ninja`
