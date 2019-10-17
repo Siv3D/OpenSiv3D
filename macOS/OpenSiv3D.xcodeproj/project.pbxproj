@@ -1107,6 +1107,8 @@
 		2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */; };
 		2CBC6519231F89A7001610DB /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */; };
 		2CBC651C2320169C001610DB /* SivScopedRenderTarget2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */; };
+		2CC1701D2355F5CE00A15A3D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */; };
+		2CC1701F2355F5E800A15A3D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC1701E2355F5E800A15A3D /* CoreMedia.framework */; };
 		2CC4770F2321436700633195 /* PixelShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4770E2321436700633195 /* PixelShader_GL.cpp */; };
 		2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC47710232144B700633195 /* VertexShader_GL.cpp */; };
 		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
@@ -2555,6 +2557,8 @@
 		2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
 		2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderTarget2D.cpp; sourceTree = "<group>"; };
 		2CBC651D232016CD001610DB /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
+		2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2CC1701E2355F5E800A15A3D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CC4770E2321436700633195 /* PixelShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_GL.cpp; sourceTree = "<group>"; };
 		2CC47710232144B700633195 /* VertexShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader_GL.cpp; sourceTree = "<group>"; };
 		2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SIMD_Float4.hpp; sourceTree = "<group>"; };
@@ -2584,6 +2588,7 @@
 				2C461AD12270864D00828870 /* OpenAL.framework in Frameworks */,
 				2C461AA62270743100828870 /* AudioToolbox.framework in Frameworks */,
 				2C461AA122705C3200828870 /* Foundation.framework in Frameworks */,
+				2CC1701F2355F5E800A15A3D /* CoreMedia.framework in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 				2C461AA42270674100828870 /* libboost_filesystem.a in Frameworks */,
 				2CB4A60022A150DC00BF96EA /* libvorbis.a in Frameworks */,
@@ -2593,6 +2598,7 @@
 				2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */,
 				2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */,
 				2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */,
+				2CC1701D2355F5CE00A15A3D /* AVFoundation.framework in Frameworks */,
 				2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */,
 				2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */,
 				2C461AAE2270767100828870 /* libpng.a in Frameworks */,
@@ -2622,6 +2628,8 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CC1701E2355F5E800A15A3D /* CoreMedia.framework */,
+				2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */,
 				2C60A7D622F5AA7500A5D629 /* libutil.a */,
 				2C60A7B622F5A98F00A5D629 /* libgif.a */,
 				2CB4A60122A150E900BF96EA /* libvorbisenc.a */,
