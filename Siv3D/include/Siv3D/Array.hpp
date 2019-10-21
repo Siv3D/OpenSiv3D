@@ -203,17 +203,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の要素数を返します。
-		/// </summary>
-		/// <returns>
-		/// 配列の要素数
-		/// </returns>
-		[[nodiscard]] size_t count() const noexcept
-		{
-			return size();
-		}
-
-		/// <summary>
 		/// 配列の要素数が 0 であるかを返します。
 		/// </summary>
 		/// <returns>

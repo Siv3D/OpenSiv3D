@@ -1358,20 +1358,6 @@ namespace s3d
 		[[nodiscard]] String capitalized() && ;
 
 		/// <summary>
-		/// 文字列の長さを返します。
-		/// </summary>
-		/// <remarks>
-		/// 絵文字などが使用されている場合、必ずしも見かけ上の文字数と一致しない事に注意してください。
-		/// </remarks>
-		/// <returns>
-		/// 文字列の長さ
-		/// </returns>
-		[[nodiscard]] size_t count() const noexcept
-		{
-			return m_string.length();
-		}
-
-		/// <summary>
 		/// 指定した文字の個数を数えます。
 		/// </summary>
 		/// <param name="ch">

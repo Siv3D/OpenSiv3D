@@ -54,11 +54,6 @@ namespace s3d
 		base_type::swap(other);
 	}
 
-	size_t Array<bool>::count() const noexcept
-	{
-		return size();
-	}
-
 	bool Array<bool>::isEmpty() const noexcept
 	{
 		return empty();

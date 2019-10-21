@@ -164,8 +164,6 @@ namespace s3d
 
 		void swap(Array& other);
 
-		size_t count() const noexcept;
-
 		bool isEmpty() const noexcept;
 
 		/// <summary>
