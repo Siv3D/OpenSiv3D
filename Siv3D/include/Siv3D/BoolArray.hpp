@@ -377,6 +377,8 @@ namespace s3d
 
 		Array& drop(size_t n);
 
+		Array& dropBack(size_t n);
+
 		[[nodiscard]] Array dropped(size_t n) const;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>

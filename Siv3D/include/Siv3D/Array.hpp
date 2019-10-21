@@ -669,6 +669,13 @@ namespace s3d
 			return *this;
 		}
 
+		Array& dropBack(size_t n)
+		{
+			erase(end() - std::min(n, size()), end());
+
+			return *this;
+		}
+
 		/// <summary>
 		/// 指定した個数だけ先頭から要素を除いた新しい配列を作成します。
 		/// </summary>

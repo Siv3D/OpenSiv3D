@@ -1407,6 +1407,8 @@ namespace s3d
 			return result;
 		}
 
+		String& dropBack(size_t n);
+
 		/// <summary>
 		/// 指定された数だけ先頭の文字を削除した新しい文字列を返します。
 		/// </summary>

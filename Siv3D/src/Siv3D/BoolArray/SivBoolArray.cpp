@@ -149,6 +149,13 @@ namespace s3d
 		return *this;
 	}
 
+	Array<bool>& Array<bool>::dropBack(const size_t n)
+	{
+		erase(end() - std::min(n, size()), end());
+
+		return *this;
+	}
+
 	Array<bool> Array<bool>::dropped(const size_t n) const
 	{
 		if (n >= size())

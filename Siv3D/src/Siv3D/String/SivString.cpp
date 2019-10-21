@@ -582,6 +582,13 @@ namespace s3d
 		}
 	}
 
+	String& String::dropBack(const size_t n)
+	{
+		erase(end() - std::min(n, size()), end());
+
+		return *this;
+	}
+
 	String String::dropped(const size_t n) const
 	{
 		if (n >= m_string.size())
