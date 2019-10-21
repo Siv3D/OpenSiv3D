@@ -2486,6 +2486,12 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] std::wstring toWstr() const;
 
+		String& rsort();
+
+		[[nodiscard]] String rsorted() const&;
+
+		[[nodiscard]] String rsorted()&&;
+
 		/// <summary>
 		/// 文字列を辞書順でソートします。
 		/// </summary>

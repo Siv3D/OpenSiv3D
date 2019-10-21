@@ -1584,6 +1584,28 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		Array& rsort()
+		{
+			std::sort(begin(), end(), std::greater<>());
+
+			return *this;
+		}
+
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		[[nodiscard]] Array rsorted() const&
+		{
+			return Array(*this).rsort();
+		}
+
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		[[nodiscard]] Array rsorted() &&
+		{
+			rsort();
+
+			return std::move(*this);
+		}
+
 		/// <summary>
 		/// 配列をランダムに並び替えます。
 		/// </summary>

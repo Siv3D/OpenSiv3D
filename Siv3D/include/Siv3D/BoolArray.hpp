@@ -666,6 +666,12 @@ namespace s3d
 
 		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) &&;
 
+		Array& rsort();
+
+		[[nodiscard]] Array rsorted() const&;
+
+		[[nodiscard]] Array rsorted() &&;
+
 		Array& shuffle();
 
 		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>

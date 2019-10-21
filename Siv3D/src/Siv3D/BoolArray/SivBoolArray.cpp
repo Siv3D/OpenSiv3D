@@ -426,6 +426,25 @@ namespace s3d
 		return std::move(*this);
 	}
 
+	Array<bool>& Array<bool>::rsort()
+	{
+		std::sort(begin(), end(), std::greater<>());
+
+		return *this;
+	}
+
+	Array<bool> Array<bool>::rsorted() const&
+	{
+		return Array(*this).rsort();
+	}
+
+	Array<bool> Array<bool>::rsorted() &&
+	{
+		rsort();
+
+		return std::move(*this);
+	}
+
 	Array<bool>& Array<bool>::shuffle()
 	{
 		return shuffle(GetDefaultRNG());
