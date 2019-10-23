@@ -385,7 +385,7 @@ namespace s3d
 		{
 			if (!m_model)
 			{
-				return Math::NaN;
+				return Math::Constants::NaN;
 			}
 
 			Array<svm_node> node(vector.size() + 1);
@@ -406,7 +406,7 @@ namespace s3d
 		{
 			if (!m_model)
 			{
-				return Math::NaN;
+				return Math::Constants::NaN;
 			}
 
 			Array<svm_node> node(vector.size() + 1);
@@ -429,7 +429,7 @@ namespace s3d
 			{
 				probabilities.clear();
 
-				return Math::NaN;
+				return Math::Constants::NaN;
 			}
 
 			Array<svm_node> node(vector.size() + 1);
@@ -454,7 +454,7 @@ namespace s3d
 			{
 				probabilities.clear();
 
-				return Math::NaN;
+				return Math::Constants::NaN;
 			}
 
 			Array<svm_node> node(vector.size() + 1);

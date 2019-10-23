@@ -171,7 +171,7 @@ namespace s3d
 
 	double MathParser::eval() const
 	{
-		return evalOr(Math::NaN);
+		return evalOr(Math::Constants::NaN);
 	}
 
 	Array<double> MathParser::evalArray() const

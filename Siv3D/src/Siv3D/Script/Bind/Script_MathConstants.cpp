@@ -38,12 +38,12 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const double QuarterPi", (void*)&Math::QuarterPi); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const float QuarterPiF", (void*)&Math::QuarterPiF); assert(r >= 0);
 
-			r = engine->RegisterGlobalProperty("const double QNaN", (void*)&Math::QNaN); assert(r >= 0);
-			r = engine->RegisterGlobalProperty("const double NaN", (void*)&Math::NaN); assert(r >= 0);
-			r = engine->RegisterGlobalProperty("const double Inf", (void*)&Math::Inf); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double QNaN", (void*)&Math::Constants::QNaN); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double NaN", (void*)&Math::Constants::NaN); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double Inf", (void*)&Math::Constants::Inf); assert(r >= 0);
 
-			r = engine->RegisterGlobalProperty("const double GoldenRatio", (void*)&Math::GoldenRatio); assert(r >= 0);
-			r = engine->RegisterGlobalProperty("const double E", (void*)&Math::E); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double Phi", (void*)&Math::Constants::Phi); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double E", (void*)&Math::Constants::E); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
