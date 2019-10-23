@@ -25,6 +25,21 @@ namespace s3d
 		}
 	}
 
+	DateTime DateTime::Yesterday()
+	{
+		return Date::Yesterday();
+	}
+
+	DateTime DateTime::Today()
+	{
+		return Date::Today();
+	}
+
+	DateTime DateTime::Tomorrow()
+	{
+		return Date::Tomorrow();
+	}
+
 	DateTime DateTime::Now()
 	{
 		SYSTEMTIME sysTime;
