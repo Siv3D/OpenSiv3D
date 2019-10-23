@@ -944,7 +944,7 @@ namespace s3d
 		/// </summary>
 		[[nodiscard]] inline constexpr float ToRadians(float x) noexcept
 		{
-			return x * (PiF / 180.0f);
+			return x * (Constants::PiF / 180.0f);
 		}
 
 		/// <summary>
@@ -952,7 +952,7 @@ namespace s3d
 		/// </summary>
 		[[nodiscard]] inline constexpr double ToRadians(double x) noexcept
 		{
-			return x * (Pi / 180.0);
+			return x * (Constants::Pi / 180.0);
 		}
 
 		/// <summary>
@@ -1033,7 +1033,7 @@ namespace s3d
 		/// </summary>
 		[[nodiscard]] inline constexpr float ToDegrees(float x) noexcept
 		{
-			return x * (180.0f / PiF);
+			return x * (180.0f / Constants::PiF);
 		}
 
 		/// <summary>
@@ -1041,7 +1041,7 @@ namespace s3d
 		/// </summary>
 		[[nodiscard]] inline constexpr double ToDegrees(double x) noexcept
 		{
-			return x * (180.0 / Pi);
+			return x * (180.0 / Constants::Pi);
 		}
 
 		/// <summary>

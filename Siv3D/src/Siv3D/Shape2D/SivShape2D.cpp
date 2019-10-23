@@ -52,7 +52,7 @@ namespace s3d
 
 	Shape2D Shape2D::Cross(const double r, const double width, const Vec2& center, const double angle)
 	{
-		return Plus(r, width, center, angle + Math::QuarterPi);
+		return Plus(r, width, center, angle + Math::Constants::QuarterPi);
 	}
 
 	Shape2D Shape2D::Plus(const double r, const double width, const Vec2& center, const double angle)
@@ -96,7 +96,7 @@ namespace s3d
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			*pPos++ += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
+			*pPos++ += Circular(r, angle + i * (Math::Constants::TwoPi / n)).toFloat2();
 		}
 
 		uint16* pIndex = shape.m_indices.data();
@@ -140,7 +140,7 @@ namespace s3d
 
 		for (uint32 i = 0; i < n * 2; ++i)
 		{
-			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
+			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Constants::Pi / n)).toFloat2();
 		}
 
 		uint16* pIndex = shape.m_indices.data();
@@ -231,10 +231,10 @@ namespace s3d
 		constexpr std::array<int32, 2> sign{ { 1, -1 } };
 		const float firstAngle = std::atan2(h, w);
 		const Float2 direction = target - center;
-		const float flagAngle = std::fmod(std::atan2(direction.y, direction.x) + Math::TwoPiF, Math::TwoPiF);
-		const float remainderAngle = std::fmod(flagAngle + Math::HalfPiF, Math::HalfPiF);
-		const int32 dividedAngleIndex = static_cast<int32>(flagAngle / Math::HalfPiF);
-		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
+		const float flagAngle = std::fmod(std::atan2(direction.y, direction.x) + Math::Constants::TwoPiF, Math::Constants::TwoPiF);
+		const float remainderAngle = std::fmod(flagAngle + Math::Constants::HalfPiF, Math::Constants::HalfPiF);
+		const int32 dividedAngleIndex = static_cast<int32>(flagAngle / Math::Constants::HalfPiF);
+		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::Constants::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
 		const Float2 pointingRootCenter(sign[((a + 2) / 4) % 2] * w * 0.25f * (1.0f + ((a + 3) / 2) % 2), sign[((a) / 4) % 2] * h * 0.25f * (1.0f + ((a + 1) / 2) % 2));
 		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2(w * 0.25f * prf, 0.0f) : Float2(0.0f, h * 0.25f * prf));
 		const uint16 indexOffset = ((a + 1) / 2) % 4;

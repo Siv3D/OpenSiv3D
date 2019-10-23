@@ -16,64 +16,17 @@ namespace s3d
 {
 	namespace Math
 	{
-		/// <summary>
-		/// π
-		/// </summary>
-		constexpr double Pi = 3.1415926535897932385;
-
-		/// <summary>
-		/// π (float)
-		/// </summary>
-		constexpr float PiF = 3.1415926535897932385f;
-
-		/// <summary>
-		/// 2π
-		/// </summary>
-		constexpr double TwoPi = Pi * 2.0;
-
-		/// <summary>
-		/// 2π (float)
-		/// </summary>
-		constexpr float TwoPiF = PiF * 2.0f;
-
-		/// <summary>
-		/// (1/2)π
-		/// </summary>
-		constexpr double HalfPi = Pi / 2.0;
-
-		/// <summary>
-		/// (1/2)π (float)
-		/// </summary>
-		constexpr float HalfPiF = PiF / 2.0f;
-
-		/// <summary>
-		/// (1/3)π
-		/// </summary>
-		constexpr double OneThirdPi = Pi / 3.0;
-
-		/// <summary>
-		/// (1/3)π (float)
-		/// </summary>
-		constexpr float OneThirdPiF = PiF / 3.0f;
-
-		/// <summary>
-		/// (1/4)π
-		/// </summary>
-		constexpr double QuarterPi = Pi / 4.0;
-
-		/// <summary>
-		/// (1/4)π (float)
-		/// </summary>
-		constexpr float QuarterPiF = PiF / 4.0f;
-
-		namespace Constants
+		inline namespace Constants
 		{
 			template <class T> inline constexpr T E_v			= T(2.718281828459045235360287471352662498L);
 			template <class T> inline constexpr T Log2E_v		= T(1.442695040888963407359924681001892137L);
 			template <class T> inline constexpr T Log10E_v		= T(0.434294481903251827651128918916605082L);
 			template <class T> inline constexpr T Pi_v			= T(3.141592653589793238462643383279502884L);
+			template <class T> inline constexpr T QuarterPi_v	= T(0.785398163397448309615660845819875721L);
+			template <class T> inline constexpr T OneThirdPi_v	= T(1.047197551196597746154214461093167628L);
 			template <class T> inline constexpr T HalfPi_v		= T(1.570796326794896619231321691639751442L);
 			template <class T> inline constexpr T TwoPi_v		= T(6.283185307179586476925286766559005768L);
+			template <class T> inline constexpr T InvTwoPi_v	= T(0.159154943091895335768883763372514362L);
 			template <class T> inline constexpr T InvPi_v		= T(0.318309886183790671537767526745028724L);
 			template <class T> inline constexpr T InvSqrtPi_v	= T(0.564189583547756286948079451560772586L);
 			template <class T> inline constexpr T Ln2_v			= T(0.693147180559945309417232121458176568L);
@@ -87,6 +40,33 @@ namespace s3d
 			template <class T> inline constexpr T QNaN_v		= std::numeric_limits<T>::quiet_NaN();
 			template <class T> inline constexpr T NaN_v			= std::numeric_limits<T>::signaling_NaN();
 			template <class T> inline constexpr T Inf_v			= std::numeric_limits<T>::infinity();
+
+
+			/// <summary>
+			/// (float) π
+			/// </summary>
+			inline constexpr float PiF			= Pi_v<float>;
+
+			/// <summary>
+			/// (float) π/4
+			/// </summary>
+			inline constexpr float QuarterPiF	= QuarterPi_v<float>;
+
+			/// <summary>
+			/// (float) π/3
+			/// </summary>
+			inline constexpr float OneThirdPiF	= OneThirdPi_v<float>;
+
+			/// <summary>
+			/// (float) π/2
+			/// </summary>
+			inline constexpr float HalfPiF		= HalfPi_v<float>;
+
+			/// <summary>
+			/// (float) 2 * π
+			/// </summary>
+			inline constexpr float TwoPiF		= TwoPi_v<float>;
+
 
 			/// <summary>
 			/// 自然対数の底
@@ -110,6 +90,16 @@ namespace s3d
 			inline constexpr double Pi			= Pi_v<double>;
 
 			/// <summary>
+			/// π/4
+			/// </summary>
+			inline constexpr double QuarterPi	= QuarterPi_v<double>;
+
+			/// <summary>
+			/// π/3
+			/// </summary>
+			inline constexpr double OneThirdPi	= OneThirdPi_v<double>;
+
+			/// <summary>
 			/// π/2
 			/// </summary>
 			inline constexpr double HalfPi		= HalfPi_v<double>;
@@ -118,7 +108,12 @@ namespace s3d
 			/// 2 * π
 			/// </summary>
 			inline constexpr double TwoPi		= TwoPi_v<double>;
-	
+
+			/// <summary>
+			/// 1 / (2π)
+			/// </summary>
+			inline constexpr double InvTwoPi	= InvTwoPi_v<double>;
+
 			/// <summary>
 			/// 1 / π
 			/// </summary>

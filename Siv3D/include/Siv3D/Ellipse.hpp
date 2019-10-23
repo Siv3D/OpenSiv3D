@@ -251,7 +251,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr value_type area() const noexcept
 		{
-			return a * b * Math::Pi;
+			return a * b * Math::Constants::Pi;
 		}
 
 		[[nodiscard]] constexpr RectF boundingRect() const noexcept

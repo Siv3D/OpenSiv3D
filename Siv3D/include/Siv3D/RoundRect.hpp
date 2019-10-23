@@ -188,12 +188,12 @@ namespace s3d
 
 		[[nodiscard]] constexpr double area() const noexcept
 		{
-			return rect.area() - (4 - Math::Pi) * r * r;
+			return rect.area() - (4 - Math::Constants::Pi) * r * r;
 		}
 
 		[[nodiscard]] constexpr double perimeter() const noexcept
 		{
-			return rect.perimeter() + r * (2 * Math::Pi - 8);
+			return rect.perimeter() + r * (2 * Math::Constants::Pi - 8);
 		}
 
 		template <class Shape2DType>
