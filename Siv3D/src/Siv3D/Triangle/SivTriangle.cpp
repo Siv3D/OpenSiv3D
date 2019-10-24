@@ -37,9 +37,9 @@ namespace s3d
 	}
 
 	Triangle::Triangle(const value_type sides, const value_type angle) noexcept
-		: p0(Circular(1.0 / detail::Sqrt3 * sides, angle))
-		, p1(Circular(1.0 / detail::Sqrt3 * sides, 2.0 * Math::OneThirdPi + angle))
-		, p2(Circular(1.0 / detail::Sqrt3 * sides, 4.0 * Math::OneThirdPi + angle))
+		: p0(Circular(Math::Constants::InvSqrt3 * sides, angle))
+		, p1(Circular(Math::Constants::InvSqrt3 * sides, 2.0 * Math::Constants::OneThirdPi + angle))
+		, p2(Circular(Math::Constants::InvSqrt3 * sides, 4.0 * Math::Constants::OneThirdPi + angle))
 	{
 
 	}

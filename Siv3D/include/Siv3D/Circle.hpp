@@ -397,12 +397,12 @@ namespace s3d
 
 		[[nodiscard]] constexpr value_type area() const noexcept
 		{
-			return r * r * Math::Pi;
+			return r * r * Math::Constants::Pi;
 		}
 
 		[[nodiscard]] constexpr value_type perimeter() const noexcept
 		{
-			return 2 * r * Math::Pi;
+			return 2 * r * Math::Constants::Pi;
 		}
 
 		template <class Shape2DType>

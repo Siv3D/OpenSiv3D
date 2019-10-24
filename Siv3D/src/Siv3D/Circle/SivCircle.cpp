@@ -211,7 +211,7 @@ namespace s3d
 
 		Sprite sprite(vertexSize, indexSize);
 
-		const float radDelta = Math::TwoPiF / quality;
+		const float radDelta = Math::Constants::TwoPiF / quality;
 
 		for (uint32 i = 0; i < quality; ++i)
 		{
@@ -284,7 +284,7 @@ namespace s3d
 		double xMin = center.x, xMax = center.x;
 		const double yMin = center.y - r;
 		double yMax = center.y;
-		const double d = (Math::TwoPi / n);
+		const double d = (Math::Constants::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{

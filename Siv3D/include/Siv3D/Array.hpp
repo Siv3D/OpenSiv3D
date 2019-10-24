@@ -203,17 +203,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の要素数を返します。
-		/// </summary>
-		/// <returns>
-		/// 配列の要素数
-		/// </returns>
-		[[nodiscard]] size_t count() const noexcept
-		{
-			return size();
-		}
-
-		/// <summary>
 		/// 配列の要素数が 0 であるかを返します。
 		/// </summary>
 		/// <returns>
@@ -676,6 +665,13 @@ namespace s3d
 		Array& drop(size_t n)
 		{
 			erase(begin(), begin() + std::min(n, size()));
+
+			return *this;
+		}
+
+		Array& dropBack(size_t n)
+		{
+			erase(end() - std::min(n, size()), end());
 
 			return *this;
 		}
@@ -1591,6 +1587,28 @@ namespace s3d
 		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
+
+			return std::move(*this);
+		}
+
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		Array& rsort()
+		{
+			std::sort(begin(), end(), std::greater<>());
+
+			return *this;
+		}
+
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		[[nodiscard]] Array rsorted() const&
+		{
+			return Array(*this).rsort();
+		}
+
+		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>> * = nullptr>
+		[[nodiscard]] Array rsorted() &&
+		{
+			rsort();
 
 			return std::move(*this);
 		}

@@ -279,7 +279,7 @@ namespace s3d
 
 			for (; i < count; ++i)
 			{
-				dst[i] = Math::NaN;
+				dst[i] = Math::Constants::NaN;
 			}
 		}
 		catch (mu::Parser::exception_type& e)
@@ -288,7 +288,7 @@ namespace s3d
 
 			for (size_t i = 0; i < count; ++i)
 			{
-				dst[i] = Math::NaN;
+				dst[i] = Math::Constants::NaN;
 			}
 		}
 	}

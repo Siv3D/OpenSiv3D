@@ -64,7 +64,7 @@ namespace s3d
 		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, rect.r });
 		const float scale = Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
 		const int32 quality = detail::CaluculateFanQuality(rr * scale);
-		const double radDelta = Math::HalfPi / (quality - 1);
+		const double radDelta = Math::Constants::HalfPi / (quality - 1);
 
 		Array<Float2> fanPositions(quality);
 

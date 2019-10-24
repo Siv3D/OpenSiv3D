@@ -96,7 +96,7 @@ namespace s3d
 		double xMin = center.x, xMax = center.x;
 		const double yMin = center.y - b;
 		double yMax = center.y;
-		const double d = (Math::TwoPi / n);
+		const double d = (Math::Constants::TwoPi / n);
 		
 		for (uint32 i = 0; i < n; ++i)
 		{

@@ -72,7 +72,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr Cylindrical operator -() const noexcept
 		{
-			return{ r, phi + Math::Pi, -y };
+			return{ r, phi + Math::Constants::Pi, -y };
 		}
 
 		[[nodiscard]] Vec3 operator +(const Vec3& v) const;

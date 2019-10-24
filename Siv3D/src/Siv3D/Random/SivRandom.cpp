@@ -106,7 +106,7 @@ namespace s3d
 
 	Vec2 RandomVec2()
 	{
-		const double theta = Random(Math::TwoPi);
+		const double theta = Random(Math::Constants::TwoPi);
 		return{ std::cos(theta), std::sin(theta) };
 	}
 
@@ -141,7 +141,7 @@ namespace s3d
 	Vec2 RandomVec2(const Circle& circle)
 	{
 		const double r = std::sqrt(Random()) * circle.r;
-		const double theta = Random(Math::TwoPi);
+		const double theta = Random(Math::Constants::TwoPi);
 		return circle.center.movedBy(std::cos(theta) * r, std::sin(theta) * r);
 	}
 
@@ -172,8 +172,8 @@ namespace s3d
 
 	Vec3 RandomVec3onUnitSphere()
 	{
-		const double theta = Random(Math::Pi);
-		const double phi = Random(Math::TwoPi);
+		const double theta = Random(Math::Constants::Pi);
+		const double phi = Random(Math::Constants::TwoPi);
 		const double s = std::sin(theta);
 		return{ s * std::cos(phi), s * std::sin(phi), std::cos(theta) };
 	}

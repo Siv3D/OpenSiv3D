@@ -28,12 +28,12 @@ namespace s3d
 
 		[[nodiscard]] static constexpr double Clamp(const double theta) noexcept
 		{
-			return theta <= -Math::Pi ? theta + Math::TwoPi : theta;
+			return theta <= -Math::Constants::Pi ? theta + Math::Constants::TwoPi : theta;
 		}
         
 		[[nodiscard]] static constexpr double Clock() noexcept
 		{
-			return Oclock * (Math::TwoPi / 12);
+			return Oclock * (Math::Constants::TwoPi / 12);
 		}
 
 		[[nodiscard]] static constexpr double Offset(const double theta) noexcept
@@ -80,7 +80,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr CircularBase operator -() const noexcept
 		{
-			return{ r, Clamp(theta - Math::Pi) };
+			return{ r, Clamp(theta - Math::Constants::Pi) };
 		}
 
 		[[nodiscard]] Vec2 operator +(const Vec2& v) const noexcept

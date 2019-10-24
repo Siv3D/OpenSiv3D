@@ -474,10 +474,12 @@ namespace s3d
 			}
 		}
 
+		const Float2 sf(s);
+
 		for (auto& point : m_vertices)
 		{
-			point.x *= s.x;
-			point.y *= s.y;
+			point.x *= sf.x;
+			point.y *= sf.y;
 		}
 
 		// [Siv3D ToDo] 不要に

@@ -594,8 +594,6 @@ namespace s3d
 
 		[[nodiscard]] Size size() const noexcept { return Size{ m_width, m_height }; }
 
-		[[nodiscard]] size_type count() const noexcept { return m_data.size(); }
-
 		[[nodiscard]] size_type size_elements() const noexcept { return m_data.size(); }
 
 		[[nodiscard]] size_type size_bytes() const noexcept
