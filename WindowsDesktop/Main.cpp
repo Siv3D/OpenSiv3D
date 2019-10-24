@@ -3,10 +3,8 @@
 
 void Main()
 {
-	ManagedScript script(U"example/script/paint.txt");
-
 	while (System::Update())
 	{
-		script.run();
+
 	}
 }

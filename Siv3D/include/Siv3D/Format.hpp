@@ -33,13 +33,13 @@ namespace s3d
 	{
 		String string;
 
-		struct DecimalPlace
+		struct DecimalPlaces
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) noexcept
+			explicit constexpr DecimalPlaces(int32 v = 5) noexcept
 				: value(v) {}
 			
 			int32 value;
-		} decimalPlace = DecimalPlace(5);
+		} decimalPlaces = DecimalPlaces(5);
 
 		FormatData() = default;
 	};
@@ -57,18 +57,18 @@ namespace s3d
 	/// <returns>
 	/// Format に渡すマニピュレータ
 	/// </returns>
-	[[nodiscard]] inline constexpr FormatData::DecimalPlace DecimalPlace(const int32 width)
+	[[nodiscard]] inline constexpr FormatData::DecimalPlaces DecimalPlaces(const int32 width)
 	{
-		return FormatData::DecimalPlace(width);
+		return FormatData::DecimalPlaces(width);
 	}
 
 	inline namespace Literals
 	{
 		inline namespace DecimalPlaceLiterals
 		{
-			[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
+			[[nodiscard]] inline constexpr FormatData::DecimalPlaces operator ""_dp(unsigned long long width)
 			{
-				return DecimalPlace(static_cast<int32>(width));
+				return DecimalPlaces(static_cast<int32>(width));
 			}
 		}
 	}
@@ -244,7 +244,7 @@ namespace s3d
 
 	inline constexpr auto Format = detail::Format_impl();
 
-	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace);
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace);
 
 	void Formatter(FormatData& formatData, int32);
 
