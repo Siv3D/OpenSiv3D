@@ -1120,6 +1120,7 @@
 		2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */; };
 		2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */; };
 		2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */; };
+		2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8376123616A9500631B9B /* SivJSONWriter.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2577,6 +2578,8 @@
 		2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiListDetail.cpp; sourceTree = "<group>"; };
 		2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiListDetail.hpp; sourceTree = "<group>"; };
 		2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiList.cpp; sourceTree = "<group>"; };
+		2CF8375F23616A4000631B9B /* JSONWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSONWriter.hpp; sourceTree = "<group>"; };
+		2CF8376123616A9500631B9B /* SivJSONWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivJSONWriter.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6031,6 +6034,7 @@
 				2C4615B5226EEF2F00828870 /* IPv4 */,
 				2C4616EC226EEF3900828870 /* JoyCon */,
 				2C461624226EEF3300828870 /* JSONReader */,
+				2CF8376023616A9500631B9B /* JSONWriter */,
 				2C46160C226EEF3200828870 /* Key */,
 				2C461787226EEF3E00828870 /* Keyboard */,
 				2C4615C3226EEF3000828870 /* KeyConjunction */,
@@ -6308,6 +6312,7 @@
 				2CA6276122226DC60009DFE1 /* IWriter.hpp */,
 				2CA627C722226DC70009DFE1 /* JoyCon.hpp */,
 				2CA6281422226DC70009DFE1 /* JSONReader.hpp */,
+				2CF8375F23616A4000631B9B /* JSONWriter.hpp */,
 				2CA6275022226DC60009DFE1 /* KDTree.hpp */,
 				2CA6274022226DC60009DFE1 /* Key.hpp */,
 				2CA6273622226DC60009DFE1 /* Keyboard.hpp */,
@@ -6892,6 +6897,14 @@
 				2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */,
 			);
 			path = EmojiList;
+			sourceTree = "<group>";
+		};
+		2CF8376023616A9500631B9B /* JSONWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2CF8376123616A9500631B9B /* SivJSONWriter.cpp */,
+			);
+			path = JSONWriter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -8057,6 +8070,7 @@
 				2C46193B226EEF4100828870 /* SivEffect.cpp in Sources */,
 				2C46189A226EEF4100828870 /* SivRoundRect.cpp in Sources */,
 				2C461814226EEF4100828870 /* Script_LineStyle.cpp in Sources */,
+				2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */,
 				2C461A90226F56F400828870 /* CCursor.mm in Sources */,
 				2C46182D226EEF4100828870 /* Script_SoundFont.cpp in Sources */,
 				2C461439226EEDB500828870 /* b2Body.cpp in Sources */,

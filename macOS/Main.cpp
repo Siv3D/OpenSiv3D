@@ -1,55 +1,82 @@
-# include <Siv3D.hpp>
+
+# include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 void Main()
 {
-	Logger << U"Module: " << FileSystem::ModulePath();
-	Logger << U"Initial: " << FileSystem::InitialDirectory();
-	Logger << U"Current: " << FileSystem::CurrentDirectory();
-	Logger << U"FullPath1: " << FileSystem::FullPath(U"../App/example/");
-	Logger << U"FullPath2: " << FileSystem::FullPath(U"../App/example/windmill.png");
-	Logger << U"Parent1: " << FileSystem::ParentPath(U"./");
-	Logger << U"Parent2: " << FileSystem::ParentPath(U"example/windmill.png");
-	Logger << U"Relative1: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/"));
-	Logger << U"Relative2: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/windmill.png"));
-	
-	Logger << U"Exists: " << FileSystem::Exists(U"example/windmill.png");
-	Logger << U"IsDirectory: " << FileSystem::IsDirectory(U"example/windmill.png");
-	Logger << U"IsFile: " << FileSystem::IsFile(U"example/windmill.png");
-	Logger << U"IsResource: " << FileSystem::IsResource(U"example/windmill.png");
-	//Logger << U"NativePath: " << FileSystem::NativePath(U"example/windmill.png");
-	Logger << U"Extension: " << FileSystem::Extension(U"example/windmill.png");
-	Logger << U"FileName: " << FileSystem::FileName(U"example/windmill.png");
-	Logger << U"BaseName: " << FileSystem::BaseName(U"example/windmill.png");
-	Logger << U"VolumePath: " << FileSystem::VolumePath(U"example/windmill.png");
-	Logger << U"IsEmptyDirectory: " << FileSystem::Exists(U"example/");
-	//Logger << U"Size: " << FileSystem::Size(U"example/"); //permision
-	//Logger << U"Size: " << FileSystem::Size(U"example/windmill.png"); //permision
-	Logger << U"FileSize: " << FileSystem::FileSize(U"example/windmill.png");
-	Logger << U"CreationTime: " << FileSystem::CreationTime(U"example/windmill.png");
-	Logger << U"WriteTime: " << FileSystem::WriteTime(U"example/windmill.png");
-	Logger << U"AccessTime: " << FileSystem::AccessTime(U"example/windmill.png");
-	//Logger << U"DirectoryContents: " << FileSystem::DirectoryContents(U"example/svm/");
-	Logger << U"SpecialFolderPath: " << FileSystem::SpecialFolderPath(SpecialFolder::Pictures);
-	Logger << U"SpecialFolderPath: " << FileSystem::SpecialFolderPath(SpecialFolder::Caches);
-	Logger << U"TemporaryDirectoryPath: " << FileSystem::TemporaryDirectoryPath();
-	Logger << U"UniqueFilePath: " << FileSystem::UniqueFilePath();
-	Logger << U"CreateDirectories: " << FileSystem::CreateDirectories(U"test1/aaa/");
-	Logger << U"CreateParentDirectories: " << FileSystem::CreateParentDirectories(U"test2/bbb/a.png");
-	
-	Print << U"Module: " << FileSystem::ModulePath();
-	Print << U"Initial: " << FileSystem::InitialDirectory();
-	Print << U"Current: " << FileSystem::CurrentDirectory();
-	Print << U"FullPath1: " << FileSystem::FullPath(U"../App/example/");
-	Print << U"FullPath2: " << FileSystem::FullPath(U"../App/example/windmill.png");
-	Print << U"Parent1: " << FileSystem::ParentPath(U"./");
-	Print << U"Parent2: " << FileSystem::ParentPath(U"example/windmill.png");
-	Print << U"Relative1: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/"));
-	Print << U"Relative2: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/windmill.png"));
+	JSONWriter json;
 
-	const Texture texture(U"example/windmill.png");
+	json.startObject();
+	{
+		json.key(U"Window").startObject();
+		{
+			json.key(U"title").write(U"My application");
+			json.key(U"width").write(800);
+			json.key(U"height").write(600);
+			json.key(U"sizable").write(false);
+		}
+		json.endObject();
 
-    while (System::Update())
-    {
-		texture.draw();
-    }
+		json.key(U"Scene").startObject();
+		{
+			json.key(U"background").write(ColorF(0.8, 0.9, 1.0));
+		}
+		json.endObject();
+
+		json.key(U"Array").startObject();
+		{
+			json.key(U"values").writeArray({ 11, 22, 33, 44, 55 });
+		}
+		json.endObject();
+
+		json.key(U"Items").startArray();
+		{
+			json.startObject();
+			{
+				json.key(U"label").write(U"Forest");
+
+				json.key(U"pos").startObject();
+				{
+					json.key(U"x").write(100);
+					json.key(U"y").write(100);
+				}
+				json.endObject();
+			}
+			json.endObject();
+
+			json.startObject();
+			{
+				json.key(U"label").write(U"Ocean");
+
+				json.key(U"pos").startObject();
+				{
+					json.key(U"x").write(300);
+					json.key(U"y").write(200);
+				}
+				json.endObject();
+			}
+			json.endObject();
+
+			json.startObject();
+			{
+				json.key(U"label").write(U"Mountain");
+
+				json.key(U"pos").startObject();
+				{
+					json.key(U"x").write(500);
+					json.key(U"y").write(100);
+				}
+				json.endObject();
+			}
+			json.endObject();
+		}
+		json.endArray();
+	}
+	json.endObject();
+
+	json.save(U"test.json");
+
+	while (System::Update())
+	{
+
+	}
 }
