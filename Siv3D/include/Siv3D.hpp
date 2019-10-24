@@ -437,8 +437,9 @@
 // JSON Parser
 # include <Siv3D/JSONReader.hpp>
 
-//// JSON ファイルの書き出し
-//# include <Siv3D/JSONWriter.hpp>
+// JSON データの書き出し
+// JSON Writer
+# include <Siv3D/JSONWriter.hpp>
 
 // TOML ファイルの読み込み
 // TOML Parser

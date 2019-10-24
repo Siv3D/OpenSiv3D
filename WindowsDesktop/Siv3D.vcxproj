@@ -102,6 +102,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSONReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\JSONWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
@@ -1031,6 +1032,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSONReader\SivJSONReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\JSONWriter\SivJSONWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\KeyConjunction\SivKeyConjunction.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\KeyGroup\SivKeyGroup.cpp" />

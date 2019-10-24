@@ -1030,6 +1030,9 @@
     <Filter Include="src\Siv3D\EmojiList">
       <UniqueIdentifier>{cb89e898-5fc5-4561-8c86-397fa5f21b94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\JSONWriter">
+      <UniqueIdentifier>{b28e6016-cd22-46d7-afdf-44796e9401a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3495,6 +3498,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Endian.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\JSONWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5269,6 +5275,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiList\EmojiListDetail.cpp">
       <Filter>src\Siv3D\EmojiList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\JSONWriter\SivJSONWriter.cpp">
+      <Filter>src\Siv3D\JSONWriter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
