@@ -16,11 +16,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		inline constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
-	}
-
 	struct Triangle
 	{
 		using position_type = Vec2;
@@ -62,8 +57,8 @@ namespace s3d
 		Triangle() = default;
 
 		explicit constexpr Triangle(value_type sides) noexcept
-			: p0(0.0, -1.0 / detail::Sqrt3 * sides)
-			, p1(sides * 0.5, sides / (2.0 * detail::Sqrt3))
+			: p0(0.0, -Math::Constants::InvSqrt3 * sides)
+			, p1(sides * 0.5, sides / (2.0 * Math::Constants::Sqrt3))
 			, p2(-p1.x, p1.y) {}
 
 		Triangle(value_type sides, value_type angle) noexcept;

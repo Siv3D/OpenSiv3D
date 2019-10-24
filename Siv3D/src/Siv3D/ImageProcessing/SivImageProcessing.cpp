@@ -167,7 +167,7 @@ namespace s3d
 			}
 
 			{
-				constexpr float sqrt2 = 1.41421356237f;
+				constexpr float sqrt2 = Math::Constants::Sqrt2_v<float>;
 				detail::SDFPixel* pixel = pixels.data();
 
 				for (int32 y = 0; y < imageHeight; ++y)
