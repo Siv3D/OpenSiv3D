@@ -1028,6 +1028,7 @@
 		2C69A45F232B7F0A002BC8D4 /* SivEngineMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */; };
 		2C69A461232BDCB8002BC8D4 /* Script_TextureFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2150,6 +2151,8 @@
 		2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script_TextureFormat.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PoissonDisk2D.hpp; sourceTree = "<group>"; };
+		2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPoissonDisk2D.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -6074,6 +6077,7 @@
 				2C4615D5226EEF3100828870 /* Physics2D */,
 				2C461705226EEF3A00828870 /* PixelShader */,
 				2C461754226EEF3D00828870 /* Point */,
+				2C8EA7A62366F8E800A1D3B6 /* PoissonDisk2D */,
 				2C46170D226EEF3A00828870 /* Polygon */,
 				2C4615A3226EEF2F00828870 /* Print */,
 				2CBC64F7230D68DC001610DB /* Process */,
@@ -6171,6 +6175,14 @@
 				2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */,
 			);
 			path = EngineMessageBox;
+			sourceTree = "<group>";
+		};
+		2C8EA7A62366F8E800A1D3B6 /* PoissonDisk2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */,
+			);
+			path = PoissonDisk2D;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -6371,6 +6383,7 @@
 				2CA6277E22226DC60009DFE1 /* Point.hpp */,
 				2CA627D322226DC70009DFE1 /* Point.ipp */,
 				2CA6277522226DC60009DFE1 /* PointVector.hpp */,
+				2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */,
 				2CA6279622226DC70009DFE1 /* Polygon.hpp */,
 				2CA627F522226DC70009DFE1 /* PowerStatus.hpp */,
 				2CA6277B22226DC60009DFE1 /* PredefinedNamedParameter.hpp */,
@@ -7965,6 +7978,7 @@
 				2C461427226EEDB500828870 /* muParserCallback.cpp in Sources */,
 				2C46188D226EEF4100828870 /* SivHSV.cpp in Sources */,
 				2C461851226EEF4100828870 /* CSVM.cpp in Sources */,
+				2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */,
 				2C461996226EEF4100828870 /* SivBezier3.cpp in Sources */,
 				2C461898226EEF4100828870 /* SivIcon.cpp in Sources */,
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
