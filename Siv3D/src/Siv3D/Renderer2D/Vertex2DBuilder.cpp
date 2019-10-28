@@ -36,7 +36,7 @@ namespace s3d
 
 			for (int32 quality = 6; quality <= MaxSinCosTableQuality; ++quality)
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = Math::Constants::TwoPiF / quality;
 
 				for (IndexType i = 0; i < quality; ++i)
 				{
@@ -83,7 +83,7 @@ namespace s3d
 
 		inline IndexType CalculateCirclePieQuality(const float size, const float angle)
 		{
-			const float rate = std::min(Math::Abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+			const float rate = std::min(Math::Abs(angle) / (Math::Constants::TwoPiF) * 2.0f, 1.0f);
 
 			IndexType quality;
 
@@ -118,6 +118,9 @@ namespace s3d
 
 	namespace Vertex2DBuilder
 	{
+		using Math::Constants::TwoPiF;
+		using Math::Constants::HalfPiF;
+
 		uint16 BuildSquareCappedLine(BufferCreatorFunc bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
 		{
 			if (thickness <= 0.0f)
@@ -448,7 +451,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -508,7 +511,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -545,7 +548,7 @@ namespace s3d
 				return 0;
 			}
 
-			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
 			const IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
 			const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
 			auto[pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
@@ -563,9 +566,9 @@ namespace s3d
 
 			// 周
 			{
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = angle / Math::TwoPiF;
+				const float radDelta = TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + HalfPiF;
+				const float angleScale = angle / TwoPiF;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -597,7 +600,7 @@ namespace s3d
 				return 0;
 			}
 
-			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
 			const float rOuter = rInner + thickness;
 			const IndexType quality = detail::CalculateCirclePieQuality(rOuter * scale, angle);
 			const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
@@ -611,9 +614,9 @@ namespace s3d
 			{
 				const float centerX = center.x;
 				const float centerY = center.y;
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = angle / Math::TwoPiF;
+				const float radDelta = TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + HalfPiF;
+				const float angleScale = angle / TwoPiF;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -673,7 +676,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -735,7 +738,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -818,7 +821,7 @@ namespace s3d
 			
 			Array<Float2> fanPositions(quality);
 			{
-				const float radDelta = Math::HalfPiF / (quality - 1);
+				const float radDelta = HalfPiF / (quality - 1);
 
 				for (int32 i = 0; i < quality; ++i)
 				{
@@ -1857,7 +1860,7 @@ namespace s3d
 			pVertex[0].set(centerX, centerY, centerU, centerV);
 
 			// 周
-			const float radDelta = Math::TwoPiF / quality;
+			const float radDelta = TwoPiF / quality;
 
 			for (IndexType i = 1; i <= quality; ++i)
 			{

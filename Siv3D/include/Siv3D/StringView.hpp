@@ -203,7 +203,7 @@ namespace s3d
 		{
 			if (pos > m_view.size())
 			{
-				throw std::out_of_range("BasicStringView::substr()");
+				throw std::out_of_range("StringView::substr()");
 			}
 
 			return StringView(m_view.data() + pos, std::min(n, m_view.size() - pos));
@@ -455,7 +455,6 @@ namespace std
 
 namespace std
 {
-	template <class Type>
 	inline void swap(s3d::StringView& a, s3d::StringView& b) noexcept
 	{
 		a.swap(b);

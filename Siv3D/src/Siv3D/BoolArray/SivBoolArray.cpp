@@ -54,11 +54,6 @@ namespace s3d
 		base_type::swap(other);
 	}
 
-	size_t Array<bool>::count() const noexcept
-	{
-		return size();
-	}
-
 	bool Array<bool>::isEmpty() const noexcept
 	{
 		return empty();
@@ -150,6 +145,13 @@ namespace s3d
 	Array<bool>& Array<bool>::drop(const size_t n)
 	{
 		erase(begin(), begin() + std::min(n, size()));
+
+		return *this;
+	}
+
+	Array<bool>& Array<bool>::dropBack(const size_t n)
+	{
+		erase(end() - std::min(n, size()), end());
 
 		return *this;
 	}
@@ -427,6 +429,25 @@ namespace s3d
 	Array<bool> Array<bool>::rotated(const std::ptrdiff_t count) &&
 	{
 		rotate(count);
+
+		return std::move(*this);
+	}
+
+	Array<bool>& Array<bool>::rsort()
+	{
+		std::sort(begin(), end(), std::greater<>());
+
+		return *this;
+	}
+
+	Array<bool> Array<bool>::rsorted() const&
+	{
+		return Array(*this).rsort();
+	}
+
+	Array<bool> Array<bool>::rsorted() &&
+	{
+		rsort();
 
 		return std::move(*this);
 	}

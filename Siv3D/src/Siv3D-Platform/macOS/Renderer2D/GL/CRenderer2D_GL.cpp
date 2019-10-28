@@ -40,6 +40,8 @@
 
 namespace s3d
 {
+	using Math::Constants::Pi_v;
+
 	struct StandardVSIndex
 	{
 		enum Type
@@ -652,8 +654,8 @@ namespace s3d
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
-				addCirclePie(begin, thicknessHalf, startAngle, Math::PiF, colors[0]);
-				addCirclePie(end, thicknessHalf, startAngle + Math::PiF, Math::PiF, colors[1]);
+				addCirclePie(begin, thicknessHalf, startAngle, Pi_v<float>, colors[0]);
+				addCirclePie(end, thicknessHalf, startAngle + Pi_v<float>, Pi_v<float>, colors[1]);
 			}
 		}
 		else if (style.isNoCap())
@@ -885,8 +887,8 @@ namespace s3d
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
-				addCirclePie(*pts, thicknessHalf, startAngle, Math::PiF, color);
-				addCirclePie(*(pts + size - 1), thicknessHalf, endAngle, Math::PiF, color);
+				addCirclePie(*pts, thicknessHalf, startAngle, Pi_v<float>, color);
+				addCirclePie(*(pts + size - 1), thicknessHalf, endAngle, Pi_v<float>, color);
 			}
 		}
 		else if (style.isNoCap())

@@ -72,7 +72,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr Spherical operator -() const noexcept
 		{
-			return{ r, theta + Math::Pi, phi + Math::Pi };
+			return{ r, theta + Math::Constants::Pi, phi + Math::Constants::Pi };
 		}
 
 		[[nodiscard]] Vec3 operator +(const Vec3& v) const;

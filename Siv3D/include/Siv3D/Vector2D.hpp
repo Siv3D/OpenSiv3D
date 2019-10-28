@@ -296,7 +296,7 @@ namespace s3d
 		{
 			if (isZero() || v.isZero())
 			{
-				return static_cast<value_type>(Math::NaN);
+				return static_cast<value_type>(Math::Constants::NaN);
 			}
 
 			return std::atan2(cross(v), dot(v));

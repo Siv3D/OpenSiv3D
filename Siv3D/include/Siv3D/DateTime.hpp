@@ -284,6 +284,30 @@ namespace s3d
 		[[nodiscard]] size_t hash() const noexcept;
 
 		/// <summary>
+		/// 昨日のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 昨日のローカルの日付
+		/// </returns>
+		[[nodiscard]] static DateTime Yesterday();
+
+		/// <summary>
+		/// 現在のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のローカルの日付
+		/// </returns>
+		[[nodiscard]] static DateTime Today();
+
+		/// <summary>
+		/// 明日のローカルの日付を返します。
+		/// </summary>
+		/// <returns>
+		/// 明日のローカルの日付
+		/// </returns>
+		[[nodiscard]] static DateTime Tomorrow();
+
+		/// <summary>
 		/// 現在のローカルの日付と時刻を返します。
 		/// </summary>
 		/// <returns>

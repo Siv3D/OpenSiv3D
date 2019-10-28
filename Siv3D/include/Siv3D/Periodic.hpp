@@ -21,7 +21,7 @@ namespace s3d
 	{
 		[[nodiscard]] inline double Sine0_1(double periodSec, double t = Scene::Time())
 		{
-			const double x = std::fmod(t, periodSec) / (periodSec * (1.0 / Math::TwoPi));
+			const double x = std::fmod(t, periodSec) / (periodSec * Math::Constants::InvTwoPi);
 
 			return std::sin(x) * 0.5 + 0.5;
 		}

@@ -582,6 +582,13 @@ namespace s3d
 		}
 	}
 
+	String& String::dropBack(const size_t n)
+	{
+		erase(end() - std::min(n, size()), end());
+
+		return *this;
+	}
+
 	String String::dropped(const size_t n) const
 	{
 		if (n >= m_string.size())
@@ -1235,6 +1242,25 @@ namespace s3d
 	std::wstring String::toWstr() const
 	{
 		return Unicode::ToWString(*this);
+	}
+
+	String& String::rsort()
+	{
+		std::sort(begin(), end(), std::greater<>());
+
+		return *this;
+	}
+
+	String String::rsorted() const&
+	{
+		return String(*this).rsort();
+	}
+
+	String String::rsorted() &&
+	{
+		rsort();
+
+		return std::move(*this);
 	}
 
 	String& String::sort()

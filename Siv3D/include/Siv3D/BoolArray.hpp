@@ -164,8 +164,6 @@ namespace s3d
 
 		void swap(Array& other);
 
-		size_t count() const noexcept;
-
 		bool isEmpty() const noexcept;
 
 		/// <summary>
@@ -378,6 +376,8 @@ namespace s3d
 		}
 
 		Array& drop(size_t n);
+
+		Array& dropBack(size_t n);
 
 		[[nodiscard]] Array dropped(size_t n) const;
 
@@ -667,6 +667,12 @@ namespace s3d
 		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) const &;
 
 		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) &&;
+
+		Array& rsort();
+
+		[[nodiscard]] Array rsorted() const&;
+
+		[[nodiscard]] Array rsorted() &&;
 
 		Array& shuffle();
 

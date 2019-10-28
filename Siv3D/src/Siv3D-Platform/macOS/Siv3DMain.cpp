@@ -30,6 +30,33 @@ namespace s3d
 		namespace init
 		{
 			void SetModulePath(const FilePath& path);
+		
+			void SetInitialPath(const FilePath& path);
+		}
+	
+		FilePath ParentPath(FilePath path, size_t n)
+		{
+			if (path.count(U'/') <= n)
+			{
+				return FilePath(U"NN");
+			}
+
+			while (path)
+			{
+				if (path.back() == U'/')
+				{
+					if (n == 0)
+					{
+						break;
+					}
+					
+					--n;
+				}
+				
+				path.pop_back();
+			}
+			
+			return path;
 		}
 	}
 	
@@ -42,30 +69,34 @@ namespace s3d
 		{
 			return false;
 		}
-		
+
 		const String path = Unicode::Widen(path_str);
-		
-		FilePath modulePath = FileSystem::ParentPath(path, 2);
-		
+
+		FilePath modulePath = detail::ParentPath(path, 2);
+
 		if (modulePath.ends_with(U'/'))
 		{
 			modulePath.pop_back();
 		}
-
+		
+		const FilePath currentDirectory = detail::ParentPath(path, 3);
+		
+		detail::init::SetInitialPath(currentDirectory);
+		
 		detail::init::SetModulePath(modulePath);
-		
-		::chdir(FileSystem::ParentPath(path, 3).narrow().c_str());
-		
+				
+		::chdir(currentDirectory.narrow().c_str());
+
 		return true;
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
 	using namespace s3d;
 	
 	std::cout << "Siv3D for macOS\n";
-	
+
 	if (!InitPath())
 	{
 		return -1;

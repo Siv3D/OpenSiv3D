@@ -13,6 +13,7 @@
 # include <utility>
 # include <cassert>
 # include <iostream>
+# include <algorithm>
 # include "Platform.hpp"
 # include "Fwd.hpp"
 # include "Format.hpp"
@@ -208,6 +209,10 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]] constexpr Type distanceFromSq(const Vector2D<Type>& p) const noexcept;
+
+		[[nodiscard]] constexpr int32 manhattanDistanceFrom(int32 _x, int32 _y) const noexcept;
+
+		[[nodiscard]] constexpr int32 manhattanDistanceFrom(const Point& p) const noexcept;
 
 		template <class Type = double>
 		[[nodiscard]] Type length() const noexcept;

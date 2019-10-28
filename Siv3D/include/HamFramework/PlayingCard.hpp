@@ -867,7 +867,7 @@ namespace s3d
 			explicit Pack(const Font& font, const Font& fontLarge, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
 				: m_font(font)
 				, m_fontLarge(fontLarge)
-				, m_cardSize(cardWidth, cardWidth * Math::GoldenRatio)
+				, m_cardSize(cardWidth, cardWidth * Math::Constants::Phi)
 				, m_backSideColor(backSideColor)
 				, m_framethickness(frameThickness) {}
 
@@ -886,7 +886,7 @@ namespace s3d
 			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
 				: m_font(CalculateFontSize(cardWidth * 0.475))
 				, m_fontLarge(CalculateFontSize(cardWidth))
-				, m_cardSize(cardWidth, cardWidth * Math::GoldenRatio)
+				, m_cardSize(cardWidth, cardWidth * Math::Constants::Phi)
 				, m_backSideColor(backSideColor)
 				, m_framethickness(frameThickness) {}
 

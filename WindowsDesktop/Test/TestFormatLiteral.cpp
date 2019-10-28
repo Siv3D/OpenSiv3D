@@ -74,10 +74,10 @@ TEST_CASE("FormatLiteral")
 	REQUIRE(U"{:0>5}"_fmt(U"🎈") == U"0000🎈");
 	REQUIRE(U"{:🎲^5}"_fmt(U"🎈") == U"🎲🎲🎈🎲🎲");
 
-	REQUIRE(U"{:.0f}"_fmt(Math::Pi) == U"3");
-	REQUIRE(U"{:.1f}"_fmt(Math::Pi) == U"3.1");
-	REQUIRE(U"{:.2f}"_fmt(Math::Pi) == U"3.14");
-	REQUIRE(U"{:.3f}"_fmt(Math::Pi) == U"3.142");
+	REQUIRE(U"{:.0f}"_fmt(Math::Constants::Pi) == U"3");
+	REQUIRE(U"{:.1f}"_fmt(Math::Constants::Pi) == U"3.1");
+	REQUIRE(U"{:.2f}"_fmt(Math::Constants::Pi) == U"3.14");
+	REQUIRE(U"{:.3f}"_fmt(Math::Constants::Pi) == U"3.142");
 
 	REQUIRE(U"{:<{}}"_fmt(500, 6) == U"500   ");
 	REQUIRE(U"{:<.{}f}"_fmt(3.14, 1) == U"3.1");

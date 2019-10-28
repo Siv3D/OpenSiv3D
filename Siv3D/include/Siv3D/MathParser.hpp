@@ -108,7 +108,7 @@ namespace s3d
 
 		Optional<double> evalOpt() const;
 
-		double evalOr(double defaultValue = Math::NaN) const;
+		double evalOr(double defaultValue = Math::Constants::NaN) const;
 
 		double eval() const;
 

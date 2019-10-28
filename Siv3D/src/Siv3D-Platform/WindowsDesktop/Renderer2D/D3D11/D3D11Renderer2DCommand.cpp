@@ -18,7 +18,7 @@ namespace s3d
 	{
 		static float CalculateMaxScaling(const Mat3x2& mat)
 		{
-			return Float2(mat._11 + mat._21, mat._12 + mat._22).length() / 1.4142135623730950488016887f;
+			return Float2(mat._11 + mat._21, mat._12 + mat._22).length() / Math::Constants::Sqrt2_v<float>;
 		}
 	}
 

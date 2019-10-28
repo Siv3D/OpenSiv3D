@@ -130,7 +130,7 @@ namespace s3d
 			if ((0 <= qpr && qpr <= r.dot(r)) || (0 <= pqs && pqs <= s.dot(s)))
 			{
 				// Two lines are overlapping			
-				return Line::position_type(Math::QNaN, Math::QNaN);
+				return Line::position_type(Math::Constants::QNaN, Math::Constants::QNaN);
 			}
 
 			// Two lines are collinear but disjoint.
@@ -160,7 +160,7 @@ namespace s3d
 	{
 		if (*this == line)
 		{
-			return Line::position_type(Math::QNaN, Math::QNaN);
+			return Line::position_type(Math::Constants::QNaN, Math::Constants::QNaN);
 		}
 
 		Line a(*this), b(line);
