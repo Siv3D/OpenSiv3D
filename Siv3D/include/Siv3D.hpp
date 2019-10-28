@@ -661,6 +661,10 @@
 // Noise
 # include <Siv3D/NoiseGenerator.hpp>
 
+// Poisson Disk 2D
+// Poisson Disk 2D
+# include <Siv3D/PoissonDisk2D.hpp>
+
 // スプライン
 // Spline
 # include <Siv3D/Spline.hpp>
