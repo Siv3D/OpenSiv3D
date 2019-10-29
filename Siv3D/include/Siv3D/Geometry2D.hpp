@@ -360,23 +360,19 @@ namespace s3d
 		//[[nodiscard]] double Distance(const LineString& a, const MultiPolygon&	b);
 		[[nodiscard]] double Distance(const LineString& a, const LineString&		b);
 
-		//[[nodiscard]] bool Center(const Point& a) noexcept;
-		//[[nodiscard]] bool Center(const Vec2& a) noexcept;
-		//[[nodiscard]] bool Center(const Line& a) noexcept;
-		//[[nodiscard]] bool Center(const Bezier2& a) noexcept;
-		//[[nodiscard]] bool Center(const Bezier3& a) noexcept;
-		//[[nodiscard]] bool Center(const Rect& a) noexcept;
-		//[[nodiscard]] bool Center(const RectF& a) noexcept;
-		//[[nodiscard]] bool Center(const Circle& a) noexcept;
-		//[[nodiscard]] bool Center(const Ellipse& a) noexcept;
-		//[[nodiscard]] bool Center(const Triangle& a) noexcept;
-		//[[nodiscard]] bool Center(const Quad& a) noexcept;
-		//[[nodiscard]] bool Center(const RoundRect& a) noexcept;
-		//[[nodiscard]] bool Center(const Polygon& a) noexcept;
-		//[[nodiscard]] bool Center(const MultiPolygon& a) noexcept;
-		//[[nodiscard]] bool Center(const LineString& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Point& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Vec2& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Line& a) noexcept;
+		//[[nodiscard]] Vec2 Center(const Bezier2& a) noexcept;
+		//[[nodiscard]] Vec2 Center(const Bezier3& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Rect& a) noexcept;
+		[[nodiscard]] Vec2 Center(const RectF& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Circle& a) noexcept;
+		[[nodiscard]] Vec2 Center(const Ellipse& a) noexcept;
 
-		//[[nodiscard]] bool IsClockWise(const Array<Vec2>& points);
+		[[nodiscard]] bool IsClockwise(const Array<Point>& points);
+		[[nodiscard]] bool IsClockwise(const Array<Float2>& points);
+		[[nodiscard]] bool IsClockwise(const Array<Vec2>& points);
 
 		[[nodiscard]] Polygon ConvexHull(const Array<Vec2>& points);
 
