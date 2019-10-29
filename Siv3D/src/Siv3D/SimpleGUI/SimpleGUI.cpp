@@ -903,7 +903,7 @@ namespace s3d
 			// Preview
 			if (onValueBoxUpdate)
 			{
-				RectF(Arg::center = circleCenter, 36).draw(HSV(hsv.h, hsv.s, hsv.v, 1.0));
+				RectF(Arg::center = circleCenter, 36).draw(HSV(hsv, 1.0));
 			}
 
 			return (previousHSV.toColorF() != hsv.toColorF());
