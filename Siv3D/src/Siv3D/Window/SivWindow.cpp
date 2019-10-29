@@ -11,6 +11,7 @@
 
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Error.hpp>
 # include <Siv3DEngine.hpp>
 # include "IWindow.hpp"
 
@@ -97,6 +98,11 @@ namespace s3d
 
 		bool Resize(const Size& size, const WindowResizeOption option, const bool centering)
 		{
+			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
+			{
+				throw Error(U"Window::Resize(): width and height must be in the range [1, 8192]");
+			}
+
 			return Siv3DEngine::Get<ISiv3DWindow>()->resizeClient(size, option, centering);
 		}
 
