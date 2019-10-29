@@ -100,5 +100,13 @@ namespace s3d
 		bool TextBox(TextEditState& text, const Vec2& pos, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
 
 		bool TextBoxAt(TextEditState& text, const Vec2& center, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
+
+		[[nodiscard]] RectF ColorPickerRegion(const Vec2& pos);
+
+		[[nodiscard]] RectF ColorPickerRegionAt(const Vec2& center);
+
+		bool ColorPicker(HSV& hsv, const Vec2& pos, bool enabled = true);
+
+		bool ColorPickerAt(HSV& hsv, const Vec2& center, bool enabled = true);
 	}
 }
