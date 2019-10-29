@@ -1029,6 +1029,7 @@
 		2C69A461232BDCB8002BC8D4 /* Script_TextureFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */; };
+		2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2154,6 +2155,8 @@
 		2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PoissonDisk2D.hpp; sourceTree = "<group>"; };
 		2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPoissonDisk2D.cpp; sourceTree = "<group>"; };
 		2C8EA7A9236877DB00A1D3B6 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = "<group>"; };
+		2C8EA7AA2368A7D200A1D3B6 /* OBB.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OBB.hpp; sourceTree = "<group>"; };
+		2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOBB.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -6064,6 +6067,7 @@
 				2C461618226EEF3200828870 /* NavMesh */,
 				2C461783226EEF3E00828870 /* Network */,
 				2C4615B7226EEF2F00828870 /* NoiseGenerator */,
+				2C8EA7AB2368A7FE00A1D3B6 /* OBB */,
 				2C46169D226EEF3700828870 /* ObjectDetection */,
 				2C4616E4226EEF3800828870 /* OpenCV_Bridge */,
 				2C4615F1226EEF3100828870 /* OutlineGlyph */,
@@ -6184,6 +6188,14 @@
 				2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */,
 			);
 			path = PoissonDisk2D;
+			sourceTree = "<group>";
+		};
+		2C8EA7AB2368A7FE00A1D3B6 /* OBB */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */,
+			);
+			path = OBB;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -6364,6 +6376,7 @@
 				2CA6272B22226DC60009DFE1 /* NLP_Japanese.hpp */,
 				2CA6274622226DC60009DFE1 /* NoiseGenerator.hpp */,
 				2CA6274A22226DC60009DFE1 /* Number.hpp */,
+				2C8EA7AA2368A7D200A1D3B6 /* OBB.hpp */,
 				2CA6278A22226DC70009DFE1 /* OffsetCircular.hpp */,
 				2CA627D722226DC70009DFE1 /* OpenCV_Bridge.hpp */,
 				2CA627C322226DC70009DFE1 /* Optional.hpp */,
@@ -7708,6 +7721,7 @@
 				2C46184F226EEF4100828870 /* SivBlendState.cpp in Sources */,
 				2C4617D9226EEF4100828870 /* scriptarray.cpp in Sources */,
 				2C266A78228AA6C8001C7DAD /* GLBlendState.cpp in Sources */,
+				2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */,
 				2C4618EC226EEF4100828870 /* ImageFormat_WebP.cpp in Sources */,
 				2C4618DB226EEF4100828870 /* CObjectDetection.cpp in Sources */,
 				2C4619FA226F10F500828870 /* DirectoryWatcherDetail.cpp in Sources */,
