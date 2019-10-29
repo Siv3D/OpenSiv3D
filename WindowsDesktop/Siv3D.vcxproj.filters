@@ -3507,6 +3507,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PoissonDisk2D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Quaternion.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">

@@ -1159,13 +1159,13 @@
 //
 //////////////////////////////////////////////////
 
-// クォータニオン
-// Quaternion
-//# include <Siv3D/Quaternion.hpp>
-
 // 4x4 行列
 // 4x4 matrix
 # include <Siv3D/Mat4x4.hpp>
+
+// クォータニオン
+// Quaternion
+# include <Siv3D/Quaternion.hpp>
 
 // 3D カメラ
 // 3D camera

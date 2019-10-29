@@ -199,6 +199,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Quaternion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp" />
