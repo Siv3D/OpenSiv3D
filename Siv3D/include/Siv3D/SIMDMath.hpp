@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -196,12 +196,12 @@ namespace s3d
 				static __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2)
 				{
 					static const Uint4A selectMask
-					{
+					{{{
 						WhichX ? 0xFFFFFFFF : 0,
 						WhichY ? 0xFFFFFFFF : 0,
 						WhichZ ? 0xFFFFFFFF : 0,
 						WhichW ? 0xFFFFFFFF : 0,
-					};
+					}}};
 
 					__m128 shuffled1 = SIV3D_PERMUTE_PS(v1, Shuffle);
 					__m128 shuffled2 = SIV3D_PERMUTE_PS(v2, Shuffle);
@@ -1387,7 +1387,7 @@ namespace s3d
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionSlerpV(__m128 q0, __m128 q1, __m128 t)
 		{
 			static const __m128 OneMinusEpsilon{ 1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f };
-			static const Uint4A SignMask2{ 0x80000000, 0x00000000, 0x00000000, 0x00000000 };
+			static const Uint4A SignMask2{{{ 0x80000000, 0x00000000, 0x00000000, 0x00000000 }}};
 
 			__m128 CosOmega = QuaternionDot(q0, q1);
 
@@ -1468,7 +1468,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationAxis(__m128 axis, float angle)
 		{
-			assert(!Vector3Equal(axis, XMVectorZero()));
+			assert(!Vector3Equal(axis, Zero()));
 			assert(!Vector3IsInfinite(axis));
 
 			__m128 Normal = Vector3Normalize(axis);
