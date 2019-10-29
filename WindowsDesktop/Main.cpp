@@ -3,52 +3,24 @@
 
 void Main()
 {
-	Scene::SetBackground(ColorF(0.96, 0.98, 1.0));
-	Array<Vec2> points;
+	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Array<Texture> textures =
+	{
+		Texture(Icon(0xf8cc, 50)),
+		Texture(Icon(0xf11c, 60)),
+		Texture(Icon(0xf11b, 60)),
+	};
 
 	while (System::Update())
 	{
-		if (MouseR.down())
+		int32 x = 60;
+
+		for (auto i : step(3))
 		{
-			points.clear();
+			textures[i].drawAt(x, 60, ColorF(0.25));
+
+			x += textures[i].width() / 2 + textures[(i+1) % 3].width() / 2 + 25;
 		}
-
-		ClearPrint();
-		Print << Geometry2D::IsClockwise(points);
-
-		if (MouseL.down())
-		{
-			points << Cursor::Pos();
-		}
-
-		for (const auto& point : points)
-		{
-			Circle(point, 10).draw(Palette::Orange);
-		}
-
-		if (points.size() > 2)
-		{
-			if (Geometry2D::IsClockwise(points))
-			{
-				for (size_t i = 0; i < points.size(); ++i)
-				{
-					Line(points[i], points[(i + 1) % points.size()])
-						.stretched(-10)
-						.drawArrow(3, Vec2::All(20), ColorF(0.25));
-				}
-			}
-			else
-			{
-				for (size_t i = 0; i < points.size(); ++i)
-				{
-					Line(points[i], points[(i + 1) % points.size()])
-						.reversed()
-						.stretched(-10)
-						.drawArrow(3, Vec2::All(20), ColorF(0.25));
-				}
-			}
-		}
-
-		//LineString(points).draw(2);
 	}
 }
