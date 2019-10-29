@@ -125,7 +125,7 @@ namespace s3d
 			return SIMD::QuaternionSlerpV(*this, q, SIMD::SetAll(t));
 		}
 
-		[[nodiscard]] static Quaternion SIV3D_VECTOR_CALL Identity() noexcept
+		[[nodiscard]] static constexpr Quaternion SIV3D_VECTOR_CALL Identity() noexcept
 		{
 			return SIMD::constants::m128_MIdentityR3;
 		}

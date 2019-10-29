@@ -1036,6 +1036,9 @@
     <Filter Include="src\Siv3D\PoissonDisk2D">
       <UniqueIdentifier>{12e3c9cf-d4c5-4214-be17-916387f76650}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\OBB">
+      <UniqueIdentifier>{f52645c0-2d2a-49f9-bc05-4c060af25c5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3510,6 +3513,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Quaternion.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OBB.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5290,6 +5296,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PoissonDisk2D\SivPoissonDisk2D.cpp">
       <Filter>src\Siv3D\PoissonDisk2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OBB\SivOBB.cpp">
+      <Filter>src\Siv3D\OBB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

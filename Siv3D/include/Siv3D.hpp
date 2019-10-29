@@ -1187,6 +1187,10 @@
 // Axis Aligned Bounding Box (AABB)
 # include <Siv3D/AABB.hpp>
 
+// 有向境界ボックス (OBB)
+// Oriented Bounding Box (OBB)
+# include <Siv3D/OBB.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ

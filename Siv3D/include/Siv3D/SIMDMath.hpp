@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -1251,9 +1251,26 @@ namespace s3d
 		# endif
 		}
 
+		inline __m128 SIV3D_VECTOR_CALL QuaternionConjugate(__m128 q);
+		inline __m128 SIV3D_VECTOR_CALL QuaternionMultiply(__m128 q1, __m128 q2);
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector3Rotate(__m128 v, __m128 rotationQuaternion)
+		{
+			__m128 A = Select(constants::m128_Select1110.vec, v, constants::m128_Select1110.vec);
+			__m128 Q = QuaternionConjugate(rotationQuaternion);
+			__m128 Result = QuaternionMultiply(Q, A);
+			return QuaternionMultiply(Result, rotationQuaternion);
+		}
+
 		//
 		// 4D-Vector 計算
 		//
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Less(__m128 v1, __m128 v2)
+		{
+			__m128 vTemp = _mm_cmplt_ps(v1, v2);
+			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
+		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4Dot(__m128 v1, __m128 v2)
 		{
@@ -1360,6 +1377,46 @@ namespace s3d
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionDot(__m128 q0, __m128 q1)
 		{
 			return Vector4Dot(q0, q1);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionMultiply(__m128 q1, __m128 q2)
+		{
+			static const __m128 ControlWZYX{ 1.0f, -1.0f, 1.0f, -1.0f };
+			static const __m128 ControlZWXY{ 1.0f, 1.0f, -1.0f, -1.0f };
+			static const __m128 ControlYXWZ{ -1.0f, 1.0f, 1.0f, -1.0f };
+			// Copy to SSE registers and use as few as possible for x86
+			__m128 Q2X = q2;
+			__m128 Q2Y = q2;
+			__m128 Q2Z = q2;
+			__m128 vResult = q2;
+			// Splat with one instruction
+			vResult = SIV3D_PERMUTE_PS(vResult, _MM_SHUFFLE(3, 3, 3, 3));
+			Q2X = SIV3D_PERMUTE_PS(Q2X, _MM_SHUFFLE(0, 0, 0, 0));
+			Q2Y = SIV3D_PERMUTE_PS(Q2Y, _MM_SHUFFLE(1, 1, 1, 1));
+			Q2Z = SIV3D_PERMUTE_PS(Q2Z, _MM_SHUFFLE(2, 2, 2, 2));
+			// Retire Q1 and perform Q1*Q2W
+			vResult = _mm_mul_ps(vResult, q1);
+			__m128 Q1Shuffle = q1;
+			// Shuffle the copies of Q1
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(0, 1, 2, 3));
+			// Mul by Q1WZYX
+			Q2X = _mm_mul_ps(Q2X, Q1Shuffle);
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(2, 3, 0, 1));
+			// Flip the signs on y and z
+			Q2X = _mm_mul_ps(Q2X, ControlWZYX);
+			// Mul by Q1ZWXY
+			Q2Y = _mm_mul_ps(Q2Y, Q1Shuffle);
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(0, 1, 2, 3));
+			// Flip the signs on z and w
+			Q2Y = _mm_mul_ps(Q2Y, ControlZWXY);
+			// Mul by Q1YXWZ
+			Q2Z = _mm_mul_ps(Q2Z, Q1Shuffle);
+			vResult = _mm_add_ps(vResult, Q2X);
+			// Flip the signs on x and w
+			Q2Z = _mm_mul_ps(Q2Z, ControlYXWZ);
+			Q2Y = _mm_add_ps(Q2Y, Q2Z);
+			vResult = _mm_add_ps(vResult, Q2Y);
+			return vResult;
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionConjugate(__m128 q)
