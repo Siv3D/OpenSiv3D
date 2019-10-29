@@ -3623,5 +3623,85 @@ namespace s3d
 		{
 			return boost::geometry::distance(detail::MakeLineString(a), detail::MakeLineString(b));
 		}
+
+		Vec2 Center(const Point& a) noexcept
+		{
+			return a;
+		}
+
+		Vec2 Center(const Vec2& a) noexcept
+		{
+			return a;
+		}
+
+		Vec2 Center(const Line& a) noexcept
+		{
+			return a.center();
+		}
+
+		//Vec2 Center(const Bezier2& a) noexcept;
+		//Vec2 Center(const Bezier3& a) noexcept;
+		
+		Vec2 Center(const Rect& a) noexcept
+		{
+			return a.center();
+		}
+		
+		Vec2 Center(const RectF& a) noexcept
+		{
+			return a.center();
+		}
+
+		Vec2 Center(const Circle& a) noexcept
+		{
+			return a.center;
+		}
+
+		Vec2 Center(const Ellipse& a) noexcept
+		{
+			return a.center;
+		}
+
+		bool IsClockwise(const Array<Point>& points)
+		{
+			double sum = 0.0;
+
+			for (size_t i = 0; i < points.size(); ++i)
+			{
+				const auto& p0 = points[i];
+				const auto& p1 = points[(i + 1) % points.size()];
+				sum += (p1.x - p0.x) * (p1.y + p0.y);
+			}
+
+			return sum <= 0.0;
+		}
+
+		bool IsClockwise(const Array<Float2>& points)
+		{
+			double sum = 0.0;
+
+			for (size_t i = 0; i < points.size(); ++i)
+			{
+				const auto& p0 = points[i];
+				const auto& p1 = points[(i + 1) % points.size()];
+				sum += (p1.x - p0.x) * (p1.y + p0.y);
+			}
+
+			return sum <= 0.0;
+		}
+
+		bool IsClockwise(const Array<Vec2>& points)
+		{
+			double sum = 0.0;
+
+			for (size_t i = 0; i < points.size(); ++i)
+			{
+				const auto& p0 = points[i];
+				const auto& p1 = points[(i + 1) % points.size()];
+				sum += (p1.x - p0.x) * (p1.y + p0.y);
+			}
+
+			return sum <= 0.0;
+		}
 	}
 }

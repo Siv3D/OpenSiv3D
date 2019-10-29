@@ -1312,6 +1312,27 @@ namespace s3d
 		return std::move(*this);
 	}
 
+	String& String::unique_sorted()
+	{
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		return *this;
+	}
+
+	String String::uniqued_sorted() const&
+	{
+		return String(*this).unique_sorted();
+	}
+
+	String String::uniqued_sorted() &&
+	{
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		m_string.shrink_to_fit();
+
+		return std::move(*this);
+	}
+
 	String String::values_at(std::initializer_list<size_t> indices) const
 	{
 		String new_array;

@@ -66,9 +66,9 @@ namespace s3d
 		}
 	}
 
-	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace)
 	{
-		formatData.decimalPlace = decimalPlace;
+		formatData.decimalPlaces = decimalPlace;
 	}
 
 	void Formatter(FormatData& formatData, const int32 value)
@@ -98,7 +98,7 @@ namespace s3d
 	void Formatter(FormatData& formatData, const double value)
 	{
 		char32 buf[384];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, false);
 		formatData.string.append(buf, len);
 	}
 

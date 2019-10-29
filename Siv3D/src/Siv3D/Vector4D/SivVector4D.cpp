@@ -21,13 +21,13 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Vec4& value)
 	{
 		formatData.string.push_back(U'(');
-		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.z, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.z, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.w, formatData.decimalPlaces.value));
 		formatData.string.push_back(U')');
 	}
 	

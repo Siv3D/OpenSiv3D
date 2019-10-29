@@ -778,6 +778,12 @@ namespace s3d
 
 		[[nodiscard]] Array uniqued() &&;
 
+		Array& unique_sorted();
+
+		[[nodiscard]] Array uniqued_sorted() const&;
+
+		[[nodiscard]] Array uniqued_sorted() &&;
+
 		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const;
 
 	# ifdef SIV3D_CONCURRENT

@@ -117,7 +117,17 @@ namespace s3d
 
 		namespace constants
 		{
+			inline constexpr __m128 m128_Zero{ 0.0f, 0.0f, 0.0f, 0.0f };
 			inline constexpr __m128 m128_One{ 1.0f, 1.0f, 1.0f, 1.0f };
+			inline constexpr __m128 m128_OneHalf{ 0.5f, 0.5f, 0.5f, 0.5f };
+			inline constexpr __m128 m128_NegativeOne{ -1.0f, -1.0f, -1.0f, -1.0f };
+
+			inline constexpr __m128 m128_SinCoefficients0{ -0.16666667f, +0.0083333310f, -0.00019840874f, +2.7525562e-06f };
+			inline constexpr __m128 m128_SinCoefficients1{ -2.3889859e-08f, -0.16665852f /*Est1*/, +0.0083139502f /*Est2*/, -0.00018524670f /*Est3*/ };
+			inline constexpr __m128 m128_CosCoefficients0{ -0.5f, +0.041666638f, -0.0013888378f, +2.4760495e-05f };
+			inline constexpr __m128 m128_CosCoefficients1{ -2.6051615e-07f, -0.49992746f /*Est1*/, +0.041493919f /*Est2*/, -0.0012712436f /*Est3*/ };
+			inline constexpr __m128 m128_ATanCoefficients0{ -0.3333314528f, +0.1999355085f, -0.1420889944f, +0.1065626393f };
+			inline constexpr __m128 m128_ATanCoefficients1{ -0.0752896400f, +0.0429096138f, -0.0161657367f, +0.0028662257f };
 
 			inline constexpr __m128 m128_MIdentityR0{ 1.0f, 0.0f, 0.0f, 0.0f };
 			inline constexpr __m128 m128_MIdentityR1{ 0.0f, 1.0f, 0.0f, 0.0f };
@@ -129,10 +139,21 @@ namespace s3d
 			inline constexpr __m128 m128_NegateZ{ 1.0f, 1.0f, -1.0f, 1.0f };
 			inline constexpr __m128 m128_NegateW{ 1.0f, 1.0f, 1.0f, -1.0f };
 
+			inline constexpr __m128 m128_NoFraction{ 8388608.0f, 8388608.0f, 8388608.0f, 8388608.0f };
+
+			inline constexpr __m128 m128_Epsilon{ 1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f };
 			inline constexpr Int4A m128_Infinity{ { { 0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000 } } };
 			inline constexpr Int4A m128_QNaN{ { { 0x7FC00000, 0x7FC00000, 0x7FC00000, 0x7FC00000 } } };
 			inline constexpr Int4A m128_AbsMask{ { { 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF } } };
+			
+			inline constexpr Uint4A m128_MaskXY{ { { 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000, 0x00000000 } } };
 			inline constexpr Uint4A m128_Mask3{ { { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000 } } };
+			inline constexpr Uint4A m128_MaskX{ { { 0xFFFFFFFF, 0x00000000, 0x00000000, 0x00000000 } } };
+			inline constexpr Uint4A m128_MaskY{ { { 0x00000000, 0xFFFFFFFF, 0x00000000, 0x00000000 } } };
+			inline constexpr Uint4A m128_MaskZ{ { { 0x00000000, 0x00000000, 0xFFFFFFFF, 0x00000000 } } };
+			inline constexpr Uint4A m128_MaskW{ { { 0x00000000, 0x00000000, 0x00000000, 0xFFFFFFFF } } };
+
+			inline constexpr Uint4A m128_NegativeZero{ { { 0x80000000, 0x80000000, 0x80000000, 0x80000000 } } };
 
 			inline constexpr uint32 u_SELECT_0 = 0x00000000;
 			inline constexpr uint32 u_SELECT_1 = 0xFFFFFFFF;
@@ -143,12 +164,100 @@ namespace s3d
 			inline constexpr uint32 SwizzleZ = 2;
 			inline constexpr uint32 SwizzleW = 3;
 
-			inline constexpr float f_PI = 3.141592654f;
-			inline constexpr float f_2PI = 6.283185307f;
-			inline constexpr float f_1DIVPI = 0.318309886f;
-			inline constexpr float f_1DIV2PI = 0.159154943f;
-			inline constexpr float f_PIDIV2 = 1.570796327f;
-			inline constexpr float f_PIDIV4 = 0.785398163f;
+			inline constexpr float f_PI			= 3.141592654f;
+			inline constexpr float f_2PI		= 6.283185307f;
+			inline constexpr float f_1DIVPI		= 0.318309886f;
+			inline constexpr float f_1DIV2PI	= 0.159154943f;
+			inline constexpr float f_PIDIV2		= 1.570796327f;
+			inline constexpr float f_PIDIV4		= 0.785398163f;
+
+			inline constexpr __m128 m128_HalfPi{ f_PIDIV2, f_PIDIV2, f_PIDIV2, f_PIDIV2 };
+			inline constexpr __m128 m128_Pi{ f_PI, f_PI, f_PI, f_PI };
+			inline constexpr __m128 m128_TwoPi{ f_2PI, f_2PI, f_2PI, f_2PI };
+			inline constexpr __m128 m128_ReciprocalTwoPi{ f_1DIV2PI, f_1DIV2PI, f_1DIV2PI, f_1DIV2PI };
+		}
+
+		inline constexpr uint32 u_PERMUTE_0X = 0;
+		inline constexpr uint32 u_PERMUTE_0Y = 1;
+		inline constexpr uint32 u_PERMUTE_0Z = 2;
+		inline constexpr uint32 u_PERMUTE_0W = 3;
+		inline constexpr uint32 u_PERMUTE_1X = 4;
+		inline constexpr uint32 u_PERMUTE_1Y = 5;
+		inline constexpr uint32 u_PERMUTE_1Z = 6;
+		inline constexpr uint32 u_PERMUTE_1W = 7;
+
+		// PermuteHelper internal template (SSE only)
+		namespace Internal
+		{
+			// Slow path fallback for permutes that do not map to a single SSE shuffle opcode.
+			template <uint32 Shuffle, bool WhichX, bool WhichY, bool WhichZ, bool WhichW>
+			struct PermuteHelper
+			{
+				static __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2)
+				{
+					static const Uint4A selectMask
+					{{{
+						WhichX ? 0xFFFFFFFF : 0,
+						WhichY ? 0xFFFFFFFF : 0,
+						WhichZ ? 0xFFFFFFFF : 0,
+						WhichW ? 0xFFFFFFFF : 0,
+					}}};
+
+					__m128 shuffled1 = SIV3D_PERMUTE_PS(v1, Shuffle);
+					__m128 shuffled2 = SIV3D_PERMUTE_PS(v2, Shuffle);
+
+					__m128 masked1 = _mm_andnot_ps(selectMask, shuffled1);
+					__m128 masked2 = _mm_and_ps(selectMask, shuffled2);
+
+					return _mm_or_ps(masked1, masked2);
+				}
+			};
+
+			// Fast path for permutes that only read from the first vector.
+			template <uint32 Shuffle>
+			struct PermuteHelper<Shuffle, false, false, false, false>
+			{
+				static __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128) { return SIV3D_PERMUTE_PS(v1, Shuffle); }
+			};
+
+			// Fast path for permutes that only read from the second vector.
+			template <uint32 Shuffle>
+			struct PermuteHelper<Shuffle, true, true, true, true>
+			{
+				static __m128 SIV3D_VECTOR_CALL Permute(__m128, __m128 v2) { return SIV3D_PERMUTE_PS(v2, Shuffle); }
+			};
+
+			// Fast path for permutes that read XY from the first vector, ZW from the second.
+			template<uint32 Shuffle>
+			struct PermuteHelper<Shuffle, false, false, true, true>
+			{
+				static __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2) { return _mm_shuffle_ps(v1, v2, Shuffle); }
+			};
+
+			// Fast path for permutes that read XY from the second vector, ZW from the first.
+			template<uint32_t Shuffle> struct PermuteHelper<Shuffle, true, true, false, false>
+			{
+				static __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2) { return _mm_shuffle_ps(v2, v1, Shuffle); }
+			};
+		}
+
+		// General permute template
+		template <uint32 PermuteX, uint32 PermuteY, uint32 PermuteZ, uint32 PermuteW>
+		inline __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2)
+		{
+			static_assert(PermuteX <= 7, "PermuteX template parameter out of range");
+			static_assert(PermuteY <= 7, "PermuteY template parameter out of range");
+			static_assert(PermuteZ <= 7, "PermuteZ template parameter out of range");
+			static_assert(PermuteW <= 7, "PermuteW template parameter out of range");
+
+			const uint32 Shuffle = _MM_SHUFFLE(PermuteW & 3, PermuteZ & 3, PermuteY & 3, PermuteX & 3);
+
+			const bool WhichX = PermuteX > 3;
+			const bool WhichY = PermuteY > 3;
+			const bool WhichZ = PermuteZ > 3;
+			const bool WhichW = PermuteW > 3;
+
+			return Internal::PermuteHelper<Shuffle, WhichX, WhichY, WhichZ, WhichW>::Permute(v1, v2);
 		}
 
 		[[nodiscard]] inline std::pair<float, float> ScalarSinCos(float Value)
@@ -202,6 +311,12 @@ namespace s3d
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Zero()
 		{
 			return _mm_setzero_ps();
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL TrueInt()
+		{
+			__m128i V = _mm_set1_epi32(-1);
+			return _mm_castsi128_ps(V);
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL One()
@@ -590,26 +705,66 @@ namespace s3d
 			return (_mm_movemask_ps(temp) != 0);
 		}
 
-		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsInfinite(__m128 v)
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL IsInfinite(__m128 v)
 		{
-			__m128 temp = _mm_and_ps(v, constants::m128_AbsMask);
-
-			temp = _mm_cmpeq_ps(temp, constants::m128_Infinity);
-
-			return (_mm_movemask_ps(temp) != 0);
+			// Mask off the sign bit
+			__m128 vTemp = _mm_and_ps(v, constants::m128_AbsMask);
+			// Compare to infinity
+			vTemp = _mm_cmpeq_ps(vTemp, constants::m128_Infinity);
+			// If any are infinity, the signs are true.
+			return vTemp;
 		}
 
-		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Equal(__m128 v1, __m128 v2)
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Equal(__m128 v1, __m128 v2)
 		{
-			const __m128 temp = _mm_cmpeq_ps(v1, v2);
-			
-			return (_mm_movemask_ps(temp) == 0x0f);
+			return _mm_cmpeq_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL EqualInt(__m128 v1, __m128 v2)
+		{
+			__m128i V = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			return _mm_castsi128_ps(V);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Less(__m128 v1, __m128 v2)
+		{
+			return _mm_cmplt_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL LessOrEqual(__m128 v1, __m128 v2)
+		{
+			return _mm_cmple_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Round(__m128 v)
+		{
+			__m128 sign = _mm_and_ps(v, constants::m128_NegativeZero.vec);
+			__m128 sMagic = _mm_or_ps(constants::m128_NoFraction, sign);
+			__m128 R1 = _mm_add_ps(v, sMagic);
+			R1 = _mm_sub_ps(R1, sMagic);
+			__m128 R2 = _mm_and_ps(v, constants::m128_AbsMask.vec);
+			__m128 mask = _mm_cmple_ps(R2, constants::m128_NoFraction);
+			R2 = _mm_andnot_ps(mask, v);
+			R1 = _mm_and_ps(R1, mask);
+			__m128 vResult = _mm_xor_ps(R1, R2);
+			return vResult;
 		}
 
 
 		//
 		// 計算
 		//
+
+		[[nodiscard]] inline __m128 AndInt(__m128 v1, __m128 v2)
+		{
+			return _mm_and_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 OrInt(__m128 v1, __m128 v2)
+		{
+			__m128i V = _mm_or_si128(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			return _mm_castsi128_ps(V);
+		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Negate(__m128 v)
 		{
@@ -691,6 +846,264 @@ namespace s3d
 			const __m128 sqrts = _mm_sqrt_ps(v);
 
 			return _mm_div_ps(constants::m128_One, sqrts);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Abs(__m128 v)
+		{
+			__m128 vResult = _mm_setzero_ps();
+			vResult = _mm_sub_ps(vResult, v);
+			vResult = _mm_max_ps(vResult, v);
+			return vResult;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL ModAngles(__m128 angles)
+		{
+			// Modulo the range of the given angles such that -XM_PI <= Angles < XM_PI
+			__m128 vResult = _mm_mul_ps(angles, constants::m128_ReciprocalTwoPi);
+			// Use the inline function due to complexity for rounding
+			vResult = Round(vResult);
+			vResult = _mm_mul_ps(vResult, constants::m128_TwoPi);
+			vResult = _mm_sub_ps(angles, vResult);
+			return vResult;
+		}
+
+		inline void SIV3D_VECTOR_CALL SinCos(__m128* pSin, __m128* pCos, __m128 v)
+		{
+			assert(pSin != nullptr);
+			assert(pCos != nullptr);
+
+			// 11/10-degree minimax approximation
+
+			// Force the value within the bounds of pi
+			__m128 x = ModAngles(v);
+
+			// Map in [-pi/2,pi/2] with sin(y) = sin(x), cos(y) = sign*cos(x).
+			__m128 sign = _mm_and_ps(x, constants::m128_NegativeZero.vec);
+			__m128 c = _mm_or_ps(constants::m128_Pi, sign);  // pi when x >= 0, -pi when x < 0
+			__m128 absx = _mm_andnot_ps(sign, x);  // |x|
+			__m128 rflx = _mm_sub_ps(c, x);
+			__m128 comp = _mm_cmple_ps(absx, constants::m128_HalfPi);
+			__m128 select0 = _mm_and_ps(comp, x);
+			__m128 select1 = _mm_andnot_ps(comp, rflx);
+			x = _mm_or_ps(select0, select1);
+			select0 = _mm_and_ps(comp, constants::m128_One);
+			select1 = _mm_andnot_ps(comp, constants::m128_NegativeOne);
+			sign = _mm_or_ps(select0, select1);
+
+			__m128 x2 = _mm_mul_ps(x, x);
+
+			// Compute polynomial approximation of sine
+			const __m128 SC1 = constants::m128_SinCoefficients1;
+			__m128 vConstants = SIV3D_PERMUTE_PS(SC1, _MM_SHUFFLE(0, 0, 0, 0));
+			__m128 Result = _mm_mul_ps(vConstants, x2);
+
+			const __m128 SC0 = constants::m128_SinCoefficients0;
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(3, 3, 3, 3));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(2, 2, 2, 2));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(1, 1, 1, 1));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+			Result = _mm_add_ps(Result, constants::m128_One);
+			Result = _mm_mul_ps(Result, x);
+			*pSin = Result;
+
+			// Compute polynomial approximation of cosine
+			const __m128 CC1 = constants::m128_CosCoefficients1;
+			vConstants = SIV3D_PERMUTE_PS(CC1, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_mul_ps(vConstants, x2);
+
+			const __m128 CC0 = constants::m128_CosCoefficients0;
+			vConstants = SIV3D_PERMUTE_PS(CC0, _MM_SHUFFLE(3, 3, 3, 3));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(CC0, _MM_SHUFFLE(2, 2, 2, 2));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(CC0, _MM_SHUFFLE(1, 1, 1, 1));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(CC0, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+			Result = _mm_add_ps(Result, constants::m128_One);
+			Result = _mm_mul_ps(Result, sign);
+			*pCos = Result;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Sin(__m128 v)
+		{
+			// 11-degree minimax approximation
+
+			// Force the value within the bounds of pi
+			__m128 x = ModAngles(v);
+
+			// Map in [-pi/2,pi/2] with sin(y) = sin(x).
+			__m128 sign = _mm_and_ps(x, constants::m128_NegativeZero);
+			__m128 c = _mm_or_ps(constants::m128_Pi, sign);  // pi when x >= 0, -pi when x < 0
+			__m128 absx = _mm_andnot_ps(sign, x);  // |x|
+			__m128 rflx = _mm_sub_ps(c, x);
+			__m128 comp = _mm_cmple_ps(absx, constants::m128_HalfPi);
+			__m128 select0 = _mm_and_ps(comp, x);
+			__m128 select1 = _mm_andnot_ps(comp, rflx);
+			x = _mm_or_ps(select0, select1);
+
+			__m128 x2 = _mm_mul_ps(x, x);
+
+			// Compute polynomial approximation
+			const __m128 SC1 = constants::m128_SinCoefficients1;
+			__m128 vConstants = SIV3D_PERMUTE_PS(SC1, _MM_SHUFFLE(0, 0, 0, 0));
+			__m128 Result = _mm_mul_ps(vConstants, x2);
+
+			const __m128 SC0 = constants::m128_SinCoefficients0;
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(3, 3, 3, 3));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(2, 2, 2, 2));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(1, 1, 1, 1));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(SC0, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+			Result = _mm_add_ps(Result, constants::m128_One);
+			Result = _mm_mul_ps(Result, x);
+			return Result;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL ATan(__m128 v)
+		{
+			__m128 absV = Abs(v);
+			__m128 invV = _mm_div_ps(constants::m128_One, v);
+			__m128 comp = _mm_cmpgt_ps(v, constants::m128_One);
+			__m128 select0 = _mm_and_ps(comp, constants::m128_One);
+			__m128 select1 = _mm_andnot_ps(comp, constants::m128_NegativeOne);
+			__m128 sign = _mm_or_ps(select0, select1);
+			comp = _mm_cmple_ps(absV, constants::m128_One);
+			select0 = _mm_and_ps(comp, constants::m128_Zero);
+			select1 = _mm_andnot_ps(comp, sign);
+			sign = _mm_or_ps(select0, select1);
+			select0 = _mm_and_ps(comp, v);
+			select1 = _mm_andnot_ps(comp, invV);
+			__m128 x = _mm_or_ps(select0, select1);
+
+			__m128 x2 = _mm_mul_ps(x, x);
+
+			// Compute polynomial approximation
+			const __m128 TC1 = constants::m128_ATanCoefficients1;
+			__m128 vConstants = SIV3D_PERMUTE_PS(TC1, _MM_SHUFFLE(3, 3, 3, 3));
+			__m128 Result = _mm_mul_ps(vConstants, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC1, _MM_SHUFFLE(2, 2, 2, 2));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC1, _MM_SHUFFLE(1, 1, 1, 1));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC1, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			const __m128 TC0 = constants::m128_ATanCoefficients0;
+			vConstants = SIV3D_PERMUTE_PS(TC0, _MM_SHUFFLE(3, 3, 3, 3));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC0, _MM_SHUFFLE(2, 2, 2, 2));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC0, _MM_SHUFFLE(1, 1, 1, 1));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+
+			vConstants = SIV3D_PERMUTE_PS(TC0, _MM_SHUFFLE(0, 0, 0, 0));
+			Result = _mm_add_ps(Result, vConstants);
+			Result = _mm_mul_ps(Result, x2);
+			Result = _mm_add_ps(Result, constants::m128_One);
+			Result = _mm_mul_ps(Result, x);
+			__m128 result1 = _mm_mul_ps(sign, constants::m128_HalfPi);
+			result1 = _mm_sub_ps(result1, Result);
+
+			comp = _mm_cmpeq_ps(sign, constants::m128_Zero);
+			select0 = _mm_and_ps(comp, Result);
+			select1 = _mm_andnot_ps(comp, result1);
+			Result = _mm_or_ps(select0, select1);
+			return Result;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL ATan2(__m128 y, __m128 x)
+		{
+			// Return the inverse tangent of Y / X in the range of -Pi to Pi with the following exceptions:
+
+			 //     Y == 0 and X is Negative         -> Pi with the sign of Y
+			 //     y == 0 and x is positive         -> 0 with the sign of y
+			 //     Y != 0 and X == 0                -> Pi / 2 with the sign of Y
+			 //     Y != 0 and X is Negative         -> atan(y/x) + (PI with the sign of Y)
+			 //     X == -Infinity and Finite Y      -> Pi with the sign of Y
+			 //     X == +Infinity and Finite Y      -> 0 with the sign of Y
+			 //     Y == Infinity and X is Finite    -> Pi / 2 with the sign of Y
+			 //     Y == Infinity and X == -Infinity -> 3Pi / 4 with the sign of Y
+			 //     Y == Infinity and X == +Infinity -> Pi / 4 with the sign of Y
+
+			static const __m128 ATan2Constants{ constants::f_PI, constants::f_PIDIV2, constants::f_PIDIV4, constants::f_PI * 3.0f / 4.0f };
+
+			__m128 zero = Zero();
+			__m128 ATanResultValid = TrueInt();
+
+			__m128 Pi = SplatX(ATan2Constants);
+			__m128 PiOverTwo = SplatY(ATan2Constants);
+			__m128 PiOverFour = SplatZ(ATan2Constants);
+			__m128 ThreePiOverFour = SplatW(ATan2Constants);
+
+			__m128 YEqualsZero = Equal(y, zero);
+			__m128 XEqualsZero = Equal(x, zero);
+			__m128 XIsPositive = AndInt(x, constants::m128_NegativeZero);
+			XIsPositive = EqualInt(XIsPositive, zero);
+			__m128 YEqualsInfinity = IsInfinite(y);
+			__m128 XEqualsInfinity = IsInfinite(x);
+
+			__m128 YSign = AndInt(y, constants::m128_NegativeZero);
+			Pi = OrInt(Pi, YSign);
+			PiOverTwo = OrInt(PiOverTwo, YSign);
+			PiOverFour = OrInt(PiOverFour, YSign);
+			ThreePiOverFour = OrInt(ThreePiOverFour, YSign);
+
+			__m128 R1 = Select(Pi, YSign, XIsPositive);
+			__m128 R2 = Select(ATanResultValid, PiOverTwo, XEqualsZero);
+			__m128 R3 = Select(R2, R1, YEqualsZero);
+			__m128 R4 = Select(ThreePiOverFour, PiOverFour, XIsPositive);
+			__m128 R5 = Select(PiOverTwo, R4, XEqualsInfinity);
+			__m128 Result = Select(R3, R5, YEqualsInfinity);
+			ATanResultValid = EqualInt(Result, ATanResultValid);
+
+			__m128 V = Divide(y, x);
+
+			__m128 R0 = ATan(V);
+
+			R1 = Select(Pi, constants::m128_NegativeZero, XIsPositive);
+			R2 = Add(R0, R1);
+
+			return Select(Result, R2, ATanResultValid);
 		}
 
 		//
@@ -838,9 +1251,26 @@ namespace s3d
 		# endif
 		}
 
+		inline __m128 SIV3D_VECTOR_CALL QuaternionConjugate(__m128 q);
+		inline __m128 SIV3D_VECTOR_CALL QuaternionMultiply(__m128 q1, __m128 q2);
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector3Rotate(__m128 v, __m128 rotationQuaternion)
+		{
+			__m128 A = Select(constants::m128_Select1110.vec, v, constants::m128_Select1110.vec);
+			__m128 Q = QuaternionConjugate(rotationQuaternion);
+			__m128 Result = QuaternionMultiply(Q, A);
+			return QuaternionMultiply(Result, rotationQuaternion);
+		}
+
 		//
 		// 4D-Vector 計算
 		//
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Less(__m128 v1, __m128 v2)
+		{
+			__m128 vTemp = _mm_cmplt_ps(v1, v2);
+			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
+		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4Dot(__m128 v1, __m128 v2)
 		{
@@ -908,6 +1338,199 @@ namespace s3d
 			vTemp3 = _mm_mul_ps(vTemp3, vTemp1);
 			vResult = _mm_add_ps(vResult, vTemp3);
 			return vResult;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4LengthSq(__m128 v)
+		{
+			return Vector4Dot(v, v);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4Length(__m128 v)
+		{
+		# if defined(SIV3D_USE_SSE3)
+			__m128 vLengthSq = _mm_mul_ps(v, v);
+			vLengthSq = _mm_hadd_ps(vLengthSq, vLengthSq);
+			vLengthSq = _mm_hadd_ps(vLengthSq, vLengthSq);
+			vLengthSq = _mm_sqrt_ps(vLengthSq);
+			return vLengthSq;
+		# else
+			// Perform the dot product on x,y,z and w
+			__m128 vLengthSq = _mm_mul_ps(v,v);
+			// vTemp has z and w
+			__m128 vTemp = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(3,2,3,2));
+			// x+z, y+w
+			vLengthSq = _mm_add_ps(vLengthSq, vTemp);
+			// x+z,x+z,x+z,y+w
+			vLengthSq = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(1,0,0,0));
+			// ??,??,y+w,y+w
+			vTemp = _mm_shuffle_ps(vTemp, vLengthSq, _MM_SHUFFLE(3,3,0,0));
+			// ??,??,x+z+y+w,??
+			vLengthSq = _mm_add_ps(vLengthSq, vTemp);
+			// Splat the length
+			vLengthSq = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(2,2,2,2));
+			// Get the length
+			vLengthSq = _mm_sqrt_ps(vLengthSq);
+			return vLengthSq;
+		# endif
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionDot(__m128 q0, __m128 q1)
+		{
+			return Vector4Dot(q0, q1);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionMultiply(__m128 q1, __m128 q2)
+		{
+			static const __m128 ControlWZYX{ 1.0f, -1.0f, 1.0f, -1.0f };
+			static const __m128 ControlZWXY{ 1.0f, 1.0f, -1.0f, -1.0f };
+			static const __m128 ControlYXWZ{ -1.0f, 1.0f, 1.0f, -1.0f };
+			// Copy to SSE registers and use as few as possible for x86
+			__m128 Q2X = q2;
+			__m128 Q2Y = q2;
+			__m128 Q2Z = q2;
+			__m128 vResult = q2;
+			// Splat with one instruction
+			vResult = SIV3D_PERMUTE_PS(vResult, _MM_SHUFFLE(3, 3, 3, 3));
+			Q2X = SIV3D_PERMUTE_PS(Q2X, _MM_SHUFFLE(0, 0, 0, 0));
+			Q2Y = SIV3D_PERMUTE_PS(Q2Y, _MM_SHUFFLE(1, 1, 1, 1));
+			Q2Z = SIV3D_PERMUTE_PS(Q2Z, _MM_SHUFFLE(2, 2, 2, 2));
+			// Retire Q1 and perform Q1*Q2W
+			vResult = _mm_mul_ps(vResult, q1);
+			__m128 Q1Shuffle = q1;
+			// Shuffle the copies of Q1
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(0, 1, 2, 3));
+			// Mul by Q1WZYX
+			Q2X = _mm_mul_ps(Q2X, Q1Shuffle);
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(2, 3, 0, 1));
+			// Flip the signs on y and z
+			Q2X = _mm_mul_ps(Q2X, ControlWZYX);
+			// Mul by Q1ZWXY
+			Q2Y = _mm_mul_ps(Q2Y, Q1Shuffle);
+			Q1Shuffle = SIV3D_PERMUTE_PS(Q1Shuffle, _MM_SHUFFLE(0, 1, 2, 3));
+			// Flip the signs on z and w
+			Q2Y = _mm_mul_ps(Q2Y, ControlZWXY);
+			// Mul by Q1YXWZ
+			Q2Z = _mm_mul_ps(Q2Z, Q1Shuffle);
+			vResult = _mm_add_ps(vResult, Q2X);
+			// Flip the signs on x and w
+			Q2Z = _mm_mul_ps(Q2Z, ControlYXWZ);
+			Q2Y = _mm_add_ps(Q2Y, Q2Z);
+			vResult = _mm_add_ps(vResult, Q2Y);
+			return vResult;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionConjugate(__m128 q)
+		{
+			static const __m128 NegativeOne3{ -1.0f, -1.0f, -1.0f, 1.0f };
+			return _mm_mul_ps(q, NegativeOne3);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionInverse(__m128 q)
+		{
+			const __m128  zero = Zero();
+
+			__m128 L = Vector4LengthSq(q);
+			__m128 Conjugate = QuaternionConjugate(q);
+
+			__m128 Control = LessOrEqual(L, constants::m128_Epsilon);
+
+			__m128 Result = Divide(Conjugate, L);
+
+			Result = Select(Result, zero, Control);
+
+			return Result;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionSlerpV(__m128 q0, __m128 q1, __m128 t)
+		{
+			static const __m128 OneMinusEpsilon{ 1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f };
+			static const Uint4A SignMask2{{{ 0x80000000, 0x00000000, 0x00000000, 0x00000000 }}};
+
+			__m128 CosOmega = QuaternionDot(q0, q1);
+
+			const __m128 zero = Zero();
+			__m128 Control = Less(CosOmega, zero);
+			__m128 sign = Select(constants::m128_One, constants::m128_NegativeOne, Control);
+
+			CosOmega = _mm_mul_ps(CosOmega, sign);
+
+			Control = Less(CosOmega, OneMinusEpsilon);
+
+			__m128 SinOmega = _mm_mul_ps(CosOmega, CosOmega);
+			SinOmega = _mm_sub_ps(constants::m128_One, SinOmega);
+			SinOmega = _mm_sqrt_ps(SinOmega);
+
+			__m128 Omega = ATan2(SinOmega, CosOmega);
+
+			__m128 V01 = SIV3D_PERMUTE_PS(t, _MM_SHUFFLE(2, 3, 0, 1));
+			V01 = _mm_and_ps(V01, constants::m128_MaskXY);
+			V01 = _mm_xor_ps(V01, SignMask2);
+			V01 = _mm_add_ps(constants::m128_MIdentityR0, V01);
+
+			__m128 S0 = _mm_mul_ps(V01, Omega);
+			S0 = Sin(S0);
+			S0 = _mm_div_ps(S0, SinOmega);
+
+			S0 = Select(V01, S0, Control);
+
+			__m128 S1 = SplatY(S0);
+			S0 = SplatX(S0);
+
+			S1 = _mm_mul_ps(S1, sign);
+			__m128 Result = _mm_mul_ps(q0, S0);
+			S1 = _mm_mul_ps(S1, q1);
+			Result = _mm_add_ps(Result, S1);
+			return Result;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationRollPitchYawFromVector(__m128 angles)
+		{
+			static const __m128 sign = SIMD::Set(1.0f, -1.0f, -1.0f, 1.0f);
+
+			__m128 halfAngles = Multiply(angles, constants::m128_OneHalf);
+
+			__m128 sinAngles, cosAngles;
+			SinCos(&sinAngles, &cosAngles, halfAngles);
+
+			__m128 P0 = Permute<u_PERMUTE_0X, u_PERMUTE_1X, u_PERMUTE_1X, u_PERMUTE_1X>(sinAngles, cosAngles);
+			__m128 Y0 = Permute<u_PERMUTE_1Y, u_PERMUTE_0Y, u_PERMUTE_1Y, u_PERMUTE_1Y>(sinAngles, cosAngles);
+			__m128 R0 = Permute<u_PERMUTE_1Z, u_PERMUTE_1Z, u_PERMUTE_0Z, u_PERMUTE_1Z>(sinAngles, cosAngles);
+			__m128 P1 = Permute<u_PERMUTE_0X, u_PERMUTE_1X, u_PERMUTE_1X, u_PERMUTE_1X>(cosAngles, sinAngles);
+			__m128 Y1 = Permute<u_PERMUTE_1Y, u_PERMUTE_0Y, u_PERMUTE_1Y, u_PERMUTE_1Y>(cosAngles, sinAngles);
+			__m128 R1 = Permute<u_PERMUTE_1Z, u_PERMUTE_1Z, u_PERMUTE_0Z, u_PERMUTE_1Z>(cosAngles, sinAngles);
+
+			__m128 Q1 = Multiply(P1, sign);
+			__m128 Q0 = Multiply(P0, Y0);
+			Q1 = Multiply(Q1, Y1);
+			Q0 = Multiply(Q0, R0);
+			__m128 Q = MultiplyAdd(Q1, R1, Q0);
+
+			return Q;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationNormal(__m128 normalAxis, float angle)
+		{
+			__m128 N		= _mm_and_ps(normalAxis, constants::m128_Mask3);
+			N				= _mm_or_ps(N, constants::m128_MIdentityR3);
+			__m128 Scale	= _mm_set_ps1(0.5f * angle);
+			__m128 vSine;
+			__m128 vCosine;
+			SIMD::SinCos(&vSine, &vCosine, Scale);
+			Scale			= _mm_and_ps(vSine, constants::m128_Mask3);
+			vCosine			= _mm_and_ps(vCosine, constants::m128_MaskW);
+			Scale			= _mm_or_ps(Scale, vCosine);
+			N				= _mm_mul_ps(N, Scale);
+			return N;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationAxis(__m128 axis, float angle)
+		{
+			assert(!Vector3Equal(axis, Zero()));
+			assert(!Vector3IsInfinite(axis));
+
+			__m128 Normal = Vector3Normalize(axis);
+			__m128 Q = QuaternionRotationNormal(Normal, angle);
+			return Q;
 		}
 
 		//

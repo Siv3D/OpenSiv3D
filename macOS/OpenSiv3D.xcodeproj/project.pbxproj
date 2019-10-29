@@ -1028,6 +1028,8 @@
 		2C69A45F232B7F0A002BC8D4 /* SivEngineMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */; };
 		2C69A461232BDCB8002BC8D4 /* Script_TextureFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */; };
+		2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -1120,6 +1122,7 @@
 		2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */; };
 		2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */; };
 		2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */; };
+		2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8376123616A9500631B9B /* SivJSONWriter.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
 
@@ -2149,6 +2152,11 @@
 		2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script_TextureFormat.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PoissonDisk2D.hpp; sourceTree = "<group>"; };
+		2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPoissonDisk2D.cpp; sourceTree = "<group>"; };
+		2C8EA7A9236877DB00A1D3B6 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = "<group>"; };
+		2C8EA7AA2368A7D200A1D3B6 /* OBB.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OBB.hpp; sourceTree = "<group>"; };
+		2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOBB.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -2577,6 +2585,8 @@
 		2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiListDetail.cpp; sourceTree = "<group>"; };
 		2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiListDetail.hpp; sourceTree = "<group>"; };
 		2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiList.cpp; sourceTree = "<group>"; };
+		2CF8375F23616A4000631B9B /* JSONWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSONWriter.hpp; sourceTree = "<group>"; };
+		2CF8376123616A9500631B9B /* SivJSONWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivJSONWriter.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6031,6 +6041,7 @@
 				2C4615B5226EEF2F00828870 /* IPv4 */,
 				2C4616EC226EEF3900828870 /* JoyCon */,
 				2C461624226EEF3300828870 /* JSONReader */,
+				2CF8376023616A9500631B9B /* JSONWriter */,
 				2C46160C226EEF3200828870 /* Key */,
 				2C461787226EEF3E00828870 /* Keyboard */,
 				2C4615C3226EEF3000828870 /* KeyConjunction */,
@@ -6056,6 +6067,7 @@
 				2C461618226EEF3200828870 /* NavMesh */,
 				2C461783226EEF3E00828870 /* Network */,
 				2C4615B7226EEF2F00828870 /* NoiseGenerator */,
+				2C8EA7AB2368A7FE00A1D3B6 /* OBB */,
 				2C46169D226EEF3700828870 /* ObjectDetection */,
 				2C4616E4226EEF3800828870 /* OpenCV_Bridge */,
 				2C4615F1226EEF3100828870 /* OutlineGlyph */,
@@ -6070,6 +6082,7 @@
 				2C4615D5226EEF3100828870 /* Physics2D */,
 				2C461705226EEF3A00828870 /* PixelShader */,
 				2C461754226EEF3D00828870 /* Point */,
+				2C8EA7A62366F8E800A1D3B6 /* PoissonDisk2D */,
 				2C46170D226EEF3A00828870 /* Polygon */,
 				2C4615A3226EEF2F00828870 /* Print */,
 				2CBC64F7230D68DC001610DB /* Process */,
@@ -6167,6 +6180,22 @@
 				2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */,
 			);
 			path = EngineMessageBox;
+			sourceTree = "<group>";
+		};
+		2C8EA7A62366F8E800A1D3B6 /* PoissonDisk2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */,
+			);
+			path = PoissonDisk2D;
+			sourceTree = "<group>";
+		};
+		2C8EA7AB2368A7FE00A1D3B6 /* OBB */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */,
+			);
+			path = OBB;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -6308,6 +6337,7 @@
 				2CA6276122226DC60009DFE1 /* IWriter.hpp */,
 				2CA627C722226DC70009DFE1 /* JoyCon.hpp */,
 				2CA6281422226DC70009DFE1 /* JSONReader.hpp */,
+				2CF8375F23616A4000631B9B /* JSONWriter.hpp */,
 				2CA6275022226DC60009DFE1 /* KDTree.hpp */,
 				2CA6274022226DC60009DFE1 /* Key.hpp */,
 				2CA6273622226DC60009DFE1 /* Keyboard.hpp */,
@@ -6346,6 +6376,7 @@
 				2CA6272B22226DC60009DFE1 /* NLP_Japanese.hpp */,
 				2CA6274622226DC60009DFE1 /* NoiseGenerator.hpp */,
 				2CA6274A22226DC60009DFE1 /* Number.hpp */,
+				2C8EA7AA2368A7D200A1D3B6 /* OBB.hpp */,
 				2CA6278A22226DC70009DFE1 /* OffsetCircular.hpp */,
 				2CA627D722226DC70009DFE1 /* OpenCV_Bridge.hpp */,
 				2CA627C322226DC70009DFE1 /* Optional.hpp */,
@@ -6366,6 +6397,7 @@
 				2CA6277E22226DC60009DFE1 /* Point.hpp */,
 				2CA627D322226DC70009DFE1 /* Point.ipp */,
 				2CA6277522226DC60009DFE1 /* PointVector.hpp */,
+				2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */,
 				2CA6279622226DC70009DFE1 /* Polygon.hpp */,
 				2CA627F522226DC70009DFE1 /* PowerStatus.hpp */,
 				2CA6277B22226DC60009DFE1 /* PredefinedNamedParameter.hpp */,
@@ -6374,6 +6406,7 @@
 				2CA6281822226DC70009DFE1 /* Profiler.hpp */,
 				2CA627CC22226DC70009DFE1 /* QR.hpp */,
 				2CA627CB22226DC70009DFE1 /* Quad.hpp */,
+				2C8EA7A9236877DB00A1D3B6 /* Quaternion.hpp */,
 				2CA627B022226DC70009DFE1 /* Random.hpp */,
 				2CA6279822226DC70009DFE1 /* RandomColor.hpp */,
 				2CA627DA22226DC70009DFE1 /* RandomPoint.hpp */,
@@ -6892,6 +6925,14 @@
 				2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */,
 			);
 			path = EmojiList;
+			sourceTree = "<group>";
+		};
+		2CF8376023616A9500631B9B /* JSONWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2CF8376123616A9500631B9B /* SivJSONWriter.cpp */,
+			);
+			path = JSONWriter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7680,6 +7721,7 @@
 				2C46184F226EEF4100828870 /* SivBlendState.cpp in Sources */,
 				2C4617D9226EEF4100828870 /* scriptarray.cpp in Sources */,
 				2C266A78228AA6C8001C7DAD /* GLBlendState.cpp in Sources */,
+				2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */,
 				2C4618EC226EEF4100828870 /* ImageFormat_WebP.cpp in Sources */,
 				2C4618DB226EEF4100828870 /* CObjectDetection.cpp in Sources */,
 				2C4619FA226F10F500828870 /* DirectoryWatcherDetail.cpp in Sources */,
@@ -7952,6 +7994,7 @@
 				2C461427226EEDB500828870 /* muParserCallback.cpp in Sources */,
 				2C46188D226EEF4100828870 /* SivHSV.cpp in Sources */,
 				2C461851226EEF4100828870 /* CSVM.cpp in Sources */,
+				2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */,
 				2C461996226EEF4100828870 /* SivBezier3.cpp in Sources */,
 				2C461898226EEF4100828870 /* SivIcon.cpp in Sources */,
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
@@ -8057,6 +8100,7 @@
 				2C46193B226EEF4100828870 /* SivEffect.cpp in Sources */,
 				2C46189A226EEF4100828870 /* SivRoundRect.cpp in Sources */,
 				2C461814226EEF4100828870 /* Script_LineStyle.cpp in Sources */,
+				2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */,
 				2C461A90226F56F400828870 /* CCursor.mm in Sources */,
 				2C46182D226EEF4100828870 /* Script_SoundFont.cpp in Sources */,
 				2C461439226EEDB500828870 /* b2Body.cpp in Sources */,
