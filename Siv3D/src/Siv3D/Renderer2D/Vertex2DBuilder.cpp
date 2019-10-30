@@ -1180,6 +1180,45 @@ namespace s3d
 			return indexSize;
 		}
 
+		uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Vertex2D* vertices, const size_t vertexCount, const IndexType* indices, size_t indexCount)
+		{
+			if (!vertices || (vertexCount == 0) || !indices || (indexCount == 0))
+			{
+				return 0;
+			}
+
+			if (indexCount % 3 != 0)
+			{
+				indexCount -= (indexCount % 3);
+
+				if (indexCount == 0)
+				{
+					return 0;
+				}
+			}
+
+			const IndexType vertexSize = static_cast<IndexType>(vertexCount);
+			const IndexType indexSize = static_cast<IndexType>(indexCount);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (!pVertex)
+			{
+				return 0;
+			}
+
+			std::memcpy(pVertex, vertices, vertexSize * sizeof(Vertex2D));
+
+			const IndexType* const pDstEnd = pIndex + indexSize;
+			const IndexType* pSrc = indices;
+
+			while (pIndex != pDstEnd)
+			{
+				*pIndex++ = indexOffset + (*pSrc++);
+			}
+
+			return indexSize;
+		}
+
 		uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Sprite& sprite, const IndexType startIndex, IndexType indexCount)
 		{
 			if (sprite.vertices.isEmpty() || sprite.indices.isEmpty() || sprite.indices.size() <= startIndex)
@@ -1195,11 +1234,11 @@ namespace s3d
 			if (indexCount % 3 != 0)
 			{
 				indexCount -= (indexCount % 3);
-			}
 
-			if (indexCount == 0)
-			{
-				return 0;
+				if (indexCount == 0)
+				{
+					return 0;
+				}
 			}
 
 			const IndexType vertexSize = static_cast<IndexType>(sprite.vertices.size());
