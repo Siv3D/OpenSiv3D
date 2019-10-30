@@ -39,6 +39,6 @@ namespace s3d
 			: center(x, y, z)
 			, r(_r) {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }

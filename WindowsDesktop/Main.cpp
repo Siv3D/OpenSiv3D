@@ -23,16 +23,21 @@ void Main()
 				experimental::Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
 			}
 
-			//experimental::AABB(Vec3(0, 1, 0), Vec3(2, 2, 2)).draw(mat, Palette::White);
 			experimental::AABB(Vec3(-8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(0));
 			experimental::AABB(Vec3(8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(90));
 			experimental::AABB(Vec3(8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(270));
 			experimental::AABB(Vec3(-8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(180));
 
-		
-			experimental::OBB(Vec3(0, 1, 0), Vec3(2, 2, 2), Quaternion::RollPitchYaw(0, Scene::Time() * 180_deg, 0)).draw(mat, Palette::White);
-			experimental::OBB(Vec3(0, 6, 0), Vec3(2, 2, 10), Quaternion::RollPitchYaw(0, -Scene::Time() * 180_deg, 0)).draw(mat, Palette::Orange);
+			{
+				//ScopedRenderStates2D wireframe(RasterizerState::WireframeCullBack);
+				Sphere(Vec3(-8, 0.2 + Periodic::Jump0_1(0.5s), 0), 0.2).draw(mat, ColorF(0.8));
+				Sphere(Vec3(8, 0.4 + Periodic::Jump0_1(0.5s), 0), 0.4).draw(mat, ColorF(0.8));
+				Sphere(Vec3(0, 0.6 + Periodic::Jump0_1(0.5s), 8), 0.6).draw(mat, ColorF(0.8));
+				Sphere(Vec3(0, 0.8 + Periodic::Jump0_1(0.5s), -8), 0.8).draw(mat, ColorF(0.8));
+			}
 
+			experimental::OBB(Vec3(0, 1, 0), Vec3(2, 2, 2), Quaternion::RollPitchYaw(0, Scene::Time() * 180_deg, 0)).draw(mat, Palette::White);
+			experimental::OBB(Vec3(0, 6, 0), Vec3(2, 2, 10), Quaternion::RollPitchYaw(0, -Scene::Time() * 180_deg, 0)).draw(mat, Palette::Orange);	
 		}
 	}
 }
