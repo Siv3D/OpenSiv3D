@@ -71,6 +71,11 @@ namespace s3d
 			{
 				return vec;
 			}
+
+			[[nodiscard]] operator __m128i() const noexcept
+			{
+				return _mm_castps_si128(vec);
+			}
 		};
 
 		struct alignas(16) Float4A
@@ -154,6 +159,7 @@ namespace s3d
 			inline constexpr Uint4A m128_MaskW{ { { 0x00000000, 0x00000000, 0x00000000, 0xFFFFFFFF } } };
 
 			inline constexpr Uint4A m128_NegativeZero{ { { 0x80000000, 0x80000000, 0x80000000, 0x80000000 } } };
+			inline constexpr Uint4A m128_NegOneMask{ { { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF } } };
 
 			inline constexpr uint32 u_SELECT_0 = 0x00000000;
 			inline constexpr uint32 u_SELECT_1 = 0xFFFFFFFF;
@@ -185,6 +191,9 @@ namespace s3d
 		inline constexpr uint32 u_PERMUTE_1Y = 5;
 		inline constexpr uint32 u_PERMUTE_1Z = 6;
 		inline constexpr uint32 u_PERMUTE_1W = 7;
+
+		inline constexpr uint32 u_CRMASK_CR6TRUE = 0x00000080;
+		inline constexpr uint32 u_CRMASK_CR6FALSE = 0x00000020;
 
 		// PermuteHelper internal template (SSE only)
 		namespace Internal
@@ -241,9 +250,14 @@ namespace s3d
 			};
 		}
 
+		[[nodiscard]] inline bool ComparisonAnyTrue(uint32 CR)
+		{
+			return (((CR)&u_CRMASK_CR6FALSE) != u_CRMASK_CR6FALSE);
+		}
+
 		// General permute template
 		template <uint32 PermuteX, uint32 PermuteY, uint32 PermuteZ, uint32 PermuteW>
-		inline __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2)
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Permute(__m128 v1, __m128 v2)
 		{
 			static_assert(PermuteX <= 7, "PermuteX template parameter out of range");
 			static_assert(PermuteY <= 7, "PermuteY template parameter out of range");
@@ -303,20 +317,72 @@ namespace s3d
 			return{ sin, cos };
 		}
 
+		///////////////////////////////////////////////////////////////
+		//
+		//	Load
+		//
+		///////////////////////////////////////////////////////////////
 
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL LoadFloat3(const Float3* pSource)
+		{
+			const __m128 x000 = _mm_load_ss(&pSource->x);
+
+			const __m128 y000 = _mm_load_ss(&pSource->y);
+
+			const __m128 z000 = _mm_load_ss(&pSource->z);
+
+			const __m128 xy00 = _mm_unpacklo_ps(x000, y000);
+
+			return _mm_movelh_ps(xy00, z000); // xyz0
+		}
+
+		///////////////////////////////////////////////////////////////
 		//
-		// 値の作成
+		//	Store
 		//
+		///////////////////////////////////////////////////////////////
+
+		inline void SIV3D_VECTOR_CALL StoreFloat(float* pDestination, __m128 v)
+		{
+			_mm_store_ss(pDestination, v);
+		}
+
+		inline void SIV3D_VECTOR_CALL StoreFloat2(Float2* pDestination, __m128 v)
+		{
+			const __m128 t1 = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(1, 1, 1, 1));
+
+			_mm_store_ss(&pDestination->x, v);
+
+			_mm_store_ss(&pDestination->y, t1);
+		}
+
+		inline void SIV3D_VECTOR_CALL StoreFloat3(Float3* pDestination, __m128 v)
+		{
+			const __m128 t1 = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(1, 1, 1, 1));
+
+			const __m128 t2 = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(2, 2, 2, 2));
+
+			_mm_store_ss(&pDestination->x, v);
+
+			_mm_store_ss(&pDestination->y, t1);
+
+			_mm_store_ss(&pDestination->z, t2);
+		}
+
+		inline void SIV3D_VECTOR_CALL StoreFloat4(Float4* pDestination, __m128 v)
+		{
+			_mm_storeu_ps(&pDestination->x, v);
+		}
+
+		///////////////////////////////////////////////////////////////
+		//
+		//	Value
+		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Zero()
 		{
 			return _mm_setzero_ps();
-		}
-
-		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL TrueInt()
-		{
-			__m128i V = _mm_set1_epi32(-1);
-			return _mm_castsi128_ps(V);
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL One()
@@ -334,6 +400,18 @@ namespace s3d
 			return constants::m128_QNaN.vec;
 		}
 
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL TrueInt()
+		{
+			const __m128i temp = _mm_set1_epi32(-1);
+
+			return _mm_castsi128_ps(temp);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL FalseInt()
+		{
+			return _mm_setzero_ps();
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Set(float x, float y, float z, float w)
 		{
 			return _mm_set_ps(w, z, y, x);
@@ -341,7 +419,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetUint(uint32 x, uint32 y, uint32 z, uint32 w)
 		{
-			const __m128i temp = _mm_set_epi32(static_cast<int>(w), static_cast<int>(z), static_cast<int>(y), static_cast<int>(x));
+			const __m128i temp = _mm_set_epi32(static_cast<int32>(w), static_cast<int32>(z), static_cast<int32>(y), static_cast<int32>(x));
 
 			return _mm_castsi128_ps(temp);
 		}
@@ -353,15 +431,16 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetAllUint(uint32 value)
 		{
-			const __m128i temp = _mm_set1_epi32(static_cast<int>(value));
+			const __m128i temp = _mm_set1_epi32(static_cast<int32>(value));
 
 			return _mm_castsi128_ps(temp);
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 指定した成分を全要素に
+		//	Splat
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SplatX(__m128 v)
 		{
@@ -383,10 +462,11 @@ namespace s3d
 			return SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(3, 3, 3, 3));
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 要素の Get (float)
+		//	Get (float)
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline float SIV3D_VECTOR_CALL GetByIndex(__m128 v, size_t index)
 		{
@@ -425,10 +505,11 @@ namespace s3d
 			return _mm_cvtss_f32(wwww);
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 要素の Get (uint32)
+		//	Get (uint32)
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL GetUintByIndex(__m128 v, size_t index)
 		{
@@ -467,10 +548,11 @@ namespace s3d
 			return static_cast<uint32>(_mm_cvtsi128_si32(wwww));
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 要素の Set (float)
+		//	Set X/Y/Z/W (float)
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetByIndex(__m128 v, float value, size_t index)
 		{
@@ -525,10 +607,11 @@ namespace s3d
 			return SIV3D_PERMUTE_PS(result, _MM_SHUFFLE(0, 2, 1, 3));
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 要素の Set (uint32)
+		//	Set X/Y/Z/W (uint32)
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL SetUintByIndex(__m128 v, uint32 value, size_t index)
 		{
@@ -583,53 +666,11 @@ namespace s3d
 			return SIV3D_PERMUTE_PS(result, _MM_SHUFFLE(0, 2, 1, 3));
 		}
 
+		///////////////////////////////////////////////////////////////
 		//
-		// Load
+		//	Swizzle
 		//
-
-		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL LoadFloat3(const Float3* pSource)
-		{
-			const __m128 x000 = _mm_load_ss(&pSource->x);
-			
-			const __m128 y000 = _mm_load_ss(&pSource->y);
-			
-			const __m128 z000 = _mm_load_ss(&pSource->z);
-			
-			const __m128 xy00 = _mm_unpacklo_ps(x000, y000);
-			
-			return _mm_movelh_ps(xy00, z000); // xyz0
-		}
-
-
-		//
-		// Store
-		//
-
-		inline void SIV3D_VECTOR_CALL StoreFloat3(Float3* pDestination, __m128 v)
-		{
-			const __m128 T1 = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(1, 1, 1, 1));
-			
-			const __m128 T2 = SIV3D_PERMUTE_PS(v, _MM_SHUFFLE(2, 2, 2, 2));
-			
-			_mm_store_ss(&pDestination->x, v);
-			
-			_mm_store_ss(&pDestination->y, T1);
-			
-			_mm_store_ss(&pDestination->z, T2);
-		}
-
-		//
-		// その他の操作
-		//
-
-		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Select(__m128 v1, __m128 v2, __m128 control)
-		{
-			const __m128 t1 = _mm_andnot_ps(control, v1);
-
-			const __m128 t2 = _mm_and_ps(v2, control);
-
-			return _mm_or_ps(t1, t2);
-		}
+		///////////////////////////////////////////////////////////////
 
 		template <uint32 SwizzleX, uint32 SwizzleY, uint32 SwizzleZ, uint32 SwizzleW>
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Swizzle(__m128 v)
@@ -685,35 +726,26 @@ namespace s3d
 
 	# endif
 
+		///////////////////////////////////////////////////////////////
 		//
-		// 比較
+		//	Select
 		//
+		///////////////////////////////////////////////////////////////
 
-		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsZero(__m128 v)
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Select(__m128 v1, __m128 v2, __m128 control)
 		{
-			const __m128 zeros = _mm_setzero_ps();
+			const __m128 t1 = _mm_andnot_ps(control, v1);
 
-			const __m128 temp = _mm_cmpeq_ps(v, zeros);
+			const __m128 t2 = _mm_and_ps(v2, control);
 
-			return (_mm_movemask_ps(temp) == 0x0f);
+			return _mm_or_ps(t1, t2);
 		}
 
-		[[nodiscard]] inline bool SIV3D_VECTOR_CALL IsNaN(__m128 v)
-		{
-			const __m128 temp = _mm_cmpneq_ps(v, v);
-
-			return (_mm_movemask_ps(temp) != 0);
-		}
-
-		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL IsInfinite(__m128 v)
-		{
-			// Mask off the sign bit
-			__m128 vTemp = _mm_and_ps(v, constants::m128_AbsMask);
-			// Compare to infinity
-			vTemp = _mm_cmpeq_ps(vTemp, constants::m128_Infinity);
-			// If any are infinity, the signs are true.
-			return vTemp;
-		}
+		///////////////////////////////////////////////////////////////
+		//
+		//	Comparison
+		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Equal(__m128 v1, __m128 v2)
 		{
@@ -722,8 +754,19 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL EqualInt(__m128 v1, __m128 v2)
 		{
-			__m128i V = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
-			return _mm_castsi128_ps(V);
+			const __m128i v = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			return _mm_castsi128_ps(v);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Greater(__m128 v1, __m128 v2)
+		{
+			return _mm_cmpgt_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL GreaterOrEqual(__m128 v1, __m128 v2)
+		{
+			return _mm_cmpge_ps(v1, v2);
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Less(__m128 v1, __m128 v2)
@@ -736,35 +779,125 @@ namespace s3d
 			return _mm_cmple_ps(v1, v2);
 		}
 
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL InBounds(__m128 v, __m128 bounds)
+		{
+			// Test if less than or equal
+			__m128 temp1 = _mm_cmple_ps(v, bounds);
+			
+			// Negate the bounds
+			__m128 temp2 = _mm_mul_ps(bounds, constants::m128_NegativeOne);
+			
+			// Test if greater or equal (Reversed)
+			temp2 = _mm_cmple_ps(temp2, v);
+			
+			// Blend answers
+			temp1 = _mm_and_ps(temp1, temp2);
+			
+			return temp1;
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL IsNaN(__m128 v)
+		{
+			return _mm_cmpneq_ps(v, v);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL IsInfinite(__m128 v)
+		{
+			// Mask off the sign bit
+			__m128 temp = _mm_and_ps(v, constants::m128_AbsMask);
+			
+			// Compare to infinity
+			temp = _mm_cmpeq_ps(temp, constants::m128_Infinity);
+			
+			// If any are infinity, the signs are true.
+			return temp;
+		}
+
+		///////////////////////////////////////////////////////////////
+		//
+		//	Math
+		//
+		///////////////////////////////////////////////////////////////
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Min(__m128 v1, __m128 v2)
+		{
+			return _mm_min_ps(v1, v2);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Max(__m128 v1, __m128 v2)
+		{
+			return _mm_max_ps(v1, v2);
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Round(__m128 v)
 		{
-			__m128 sign = _mm_and_ps(v, constants::m128_NegativeZero.vec);
-			__m128 sMagic = _mm_or_ps(constants::m128_NoFraction, sign);
-			__m128 R1 = _mm_add_ps(v, sMagic);
-			R1 = _mm_sub_ps(R1, sMagic);
-			__m128 R2 = _mm_and_ps(v, constants::m128_AbsMask.vec);
-			__m128 mask = _mm_cmple_ps(R2, constants::m128_NoFraction);
-			R2 = _mm_andnot_ps(mask, v);
-			R1 = _mm_and_ps(R1, mask);
-			__m128 vResult = _mm_xor_ps(R1, R2);
+			const __m128 sign = _mm_and_ps(v, constants::m128_NegativeZero.vec);
+			
+			const __m128 sMagic = _mm_or_ps(constants::m128_NoFraction, sign);
+			
+			__m128 r1 = _mm_add_ps(v, sMagic);
+			
+			r1 = _mm_sub_ps(r1, sMagic);
+			
+			__m128 r2 = _mm_and_ps(v, constants::m128_AbsMask.vec);
+			
+			const __m128 mask = _mm_cmple_ps(r2, constants::m128_NoFraction);
+			
+			r2 = _mm_andnot_ps(mask, v);
+			
+			r1 = _mm_and_ps(r1, mask);
+			
+			const __m128 vResult = _mm_xor_ps(r1, r2);
+			
 			return vResult;
 		}
 
-
+		///////////////////////////////////////////////////////////////
 		//
-		// 計算
+		//	Bits
 		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 AndInt(__m128 v1, __m128 v2)
 		{
 			return _mm_and_ps(v1, v2);
 		}
 
+		[[nodiscard]] inline __m128 AndCInt(__m128 v1, __m128 v2)
+		{
+			const __m128i v = _mm_andnot_si128(_mm_castps_si128(v2), _mm_castps_si128(v1));
+			
+			return _mm_castsi128_ps(v);
+		}
+
 		[[nodiscard]] inline __m128 OrInt(__m128 v1, __m128 v2)
 		{
-			__m128i V = _mm_or_si128(_mm_castps_si128(v1), _mm_castps_si128(v2));
-			return _mm_castsi128_ps(V);
+			const __m128i v = _mm_or_si128(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			return _mm_castsi128_ps(v);
 		}
+
+		[[nodiscard]] inline __m128 NorInt(__m128 v1, __m128 v2)
+		{
+			__m128i v = _mm_or_si128(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			v = _mm_andnot_si128(v, constants::m128_NegOneMask);
+			
+			return _mm_castsi128_ps(v);
+		}
+
+		[[nodiscard]] inline __m128 XorInt(__m128 v1, __m128 v2)
+		{
+			const __m128i v = _mm_xor_si128(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			return _mm_castsi128_ps(v);
+		}
+
+		///////////////////////////////////////////////////////////////
+		//
+		//	+-*/
+		//
+		///////////////////////////////////////////////////////////////
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Negate(__m128 v)
 		{
@@ -831,6 +964,17 @@ namespace s3d
 			return _mm_div_ps(constants::m128_One, v);
 		}
 
+		///////////////////////////////////////////////////////////////
+		//
+		//	Math
+		//
+		///////////////////////////////////////////////////////////////
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL FastSqrt(__m128 v)
+		{
+			return _mm_sqrt_ps(v);
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Sqrt(__m128 v)
 		{
 			return _mm_sqrt_ps(v);
@@ -851,8 +995,11 @@ namespace s3d
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Abs(__m128 v)
 		{
 			__m128 vResult = _mm_setzero_ps();
+			
 			vResult = _mm_sub_ps(vResult, v);
+			
 			vResult = _mm_max_ps(vResult, v);
+			
 			return vResult;
 		}
 
@@ -860,10 +1007,14 @@ namespace s3d
 		{
 			// Modulo the range of the given angles such that -XM_PI <= Angles < XM_PI
 			__m128 vResult = _mm_mul_ps(angles, constants::m128_ReciprocalTwoPi);
+			
 			// Use the inline function due to complexity for rounding
 			vResult = Round(vResult);
+			
 			vResult = _mm_mul_ps(vResult, constants::m128_TwoPi);
+			
 			vResult = _mm_sub_ps(angles, vResult);
+			
 			return vResult;
 		}
 
@@ -1265,6 +1416,22 @@ namespace s3d
 		//
 		// 4D-Vector 計算
 		//
+
+		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL Vector4EqualIntR(__m128 v1, __m128 v2)
+		{
+			__m128i vTemp = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			int iTest = _mm_movemask_ps(_mm_castsi128_ps(vTemp));
+			uint32_t CR = 0;
+			if (iTest == 0xf)     // All equal?
+			{
+				CR = u_CRMASK_CR6TRUE;
+			}
+			else if (iTest == 0)  // All not equal?
+			{
+				CR = u_CRMASK_CR6FALSE;
+			}
+			return CR;
+		}
 
 		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Less(__m128 v1, __m128 v2)
 		{

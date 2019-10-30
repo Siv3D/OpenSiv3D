@@ -26,6 +26,8 @@ namespace s3d::experimental
 
 		Mat4x4 m_viewProj = Mat4x4::Identity();
 
+		Mat4x4 m_invViewProj = Mat4x4::Identity();
+
 		//
 		// Proj
 		//
@@ -117,5 +119,7 @@ namespace s3d::experimental
 		}
 
 		[[nodiscard]] Float3 worldToScreenPoint(const Float3& pos) const noexcept;
+
+		[[nodiscard]] Float3 screenToWorldPoint(const Float2& pos, float depth) const noexcept;
 	};
 }

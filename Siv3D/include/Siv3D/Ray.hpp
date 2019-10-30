@@ -21,7 +21,17 @@ namespace s3d
 
 		Vec3 direction;
 
+
+
 		Ray() = default;
+
+		Ray(const Ray&) = default;
+
+		Ray& operator=(const Ray&) = default;
+
+		Ray(Ray&&) = default;
+
+		Ray& operator=(Ray&&) = default;
 
 		constexpr Ray(const Vec3& _origin, const Vec3& normalizedDirection) noexcept
 			: origin(_origin)
@@ -51,5 +61,7 @@ namespace s3d
 			direction.set(_direction);
 			return *this;
 		}
+
+		[[nodiscard]] Optional<float> intersects(const experimental::AABB& aabb) const;
 	};
 }

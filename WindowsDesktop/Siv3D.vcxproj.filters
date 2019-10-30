@@ -1045,6 +1045,9 @@
     <Filter Include="src\ThirdParty\par_shapes">
       <UniqueIdentifier>{546559ce-85aa-4647-9f2d-bd57292a58c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Ray">
+      <UniqueIdentifier>{7295e1a7-6b70-44ac-a0ca-539f9924ef13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5311,6 +5314,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Sphere\SivSphere.cpp">
       <Filter>src\Siv3D\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Ray\SivRay.cpp">
+      <Filter>src\Siv3D\Ray</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
