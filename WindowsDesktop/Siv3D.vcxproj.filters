@@ -1042,6 +1042,9 @@
     <Filter Include="src\Siv3D\Sphere">
       <UniqueIdentifier>{298e2194-0d5b-467d-9db4-47aa069bc73b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\par_shapes">
+      <UniqueIdentifier>{546559ce-85aa-4647-9f2d-bd57292a58c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3518,6 +3521,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\OBB.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\par_shapes\par_shapes.h">
+      <Filter>src\ThirdParty\par_shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
