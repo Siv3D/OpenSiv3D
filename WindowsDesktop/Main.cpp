@@ -8,16 +8,18 @@ void Main()
 	Vec3 eyePosition(0, 10, 0);
 	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
 
-	Array<Sphere> aabbs;
+	using experimental::OBB;
+	Array<OBB> objects;
 
 	for (auto x : Range(-2, 2))
 	{
 		for (auto z : Range(2, -2, -1))
 		{
-			aabbs << Sphere(Vec3(x * 4, 1.5, z * 4), 1.5);
-			aabbs << Sphere(Vec3(x * 4, 5, z * 4), 1.5);
-			//aabbs << experimental::AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
-			//aabbs << experimental::AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
+			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
+
+			objects << OBB(Vec3(x * 4, 5, z * 4), Vec3(2, 1, 2), Quaternion::RollPitchYaw(x * 30_deg, 0, 0));
+			//objects << experimental::AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
+			//objects << experimental::AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
 		}
 	}
 
@@ -40,16 +42,16 @@ void Main()
 			const Vec3 rayEnd = camera.screenToWorldPoint(Cursor::Pos(), 0.5f);
 			const Ray cursorRay(eyePos, (rayEnd - eyePos).normalized());
 
-			aabbs.sort_by([&](const Sphere& a, const Sphere& b)
+			objects.sort_by([&](const OBB& a, const OBB& b)
 			{
 				return (eyePos.distanceFromSq(a.center)) > (eyePos.distanceFromSq(b.center));
 			});
 
 			Optional<size_t> intersectionIndex;
 
-			for (auto [i, aabb] : IndexedReversed(aabbs))
+			for (auto [i, object] : IndexedReversed(objects))
 			{
-				if (cursorRay.intersects(aabb))
+				if (cursorRay.intersects(object))
 				{
 					intersectionIndex = i;
 					Cursor::RequestStyle(CursorStyle::Hand);
@@ -57,10 +59,10 @@ void Main()
 				}
 			}
 
-			for (auto [i, aabb] : Indexed(aabbs))
+			for (auto [i, object] : Indexed(objects))
 			{
-				const HSV color((aabb.center.x * 50 + aabb.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
-				aabb.draw(mat, color);
+				const HSV color((object.center.x * 50 + object.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
+				object.draw(mat, color);
 			}
 		}
 	}

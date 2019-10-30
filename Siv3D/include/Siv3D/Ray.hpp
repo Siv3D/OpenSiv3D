@@ -65,5 +65,7 @@ namespace s3d
 		[[nodiscard]] Optional<float> intersects(const Sphere& sphere) const;
 
 		[[nodiscard]] Optional<float> intersects(const experimental::AABB& aabb) const;
+
+		[[nodiscard]] Optional<float> intersects(const experimental::OBB& obb) const;
 	};
 }
