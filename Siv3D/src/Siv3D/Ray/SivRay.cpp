@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include <Siv3D/Ray.hpp>
 # include <Siv3D/AABB.hpp>
 # include <Siv3D/SIMD_Float4.hpp>

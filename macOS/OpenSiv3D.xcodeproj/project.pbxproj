@@ -1032,6 +1032,7 @@
 		2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */; };
 		2C8EA7B0236969D300A1D3B6 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */; };
 		2C8EA7B3236969EF00A1D3B6 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */; };
+		2C8EA7B62369CE7000A1D3B6 /* SivRay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2161,6 +2162,7 @@
 		2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOBB.cpp; sourceTree = "<group>"; };
 		2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSphere.cpp; sourceTree = "<group>"; };
 		2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
+		2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRay.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -6097,6 +6099,7 @@
 				2C461779226EEF3E00828870 /* Quad */,
 				2C461726226EEF3B00828870 /* Random */,
 				2C461654226EEF3500828870 /* RasterizerState */,
+				2C8EA7B42369CE7000A1D3B6 /* Ray */,
 				2C4615B1226EEF2F00828870 /* Rectangle */,
 				2C461530226EEF2E00828870 /* Renderer2D */,
 				2CBC6517231F89A7001610DB /* RenderTexture */,
@@ -6218,6 +6221,14 @@
 				2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */,
 			);
 			path = par_shapes;
+			sourceTree = "<group>";
+		};
+		2C8EA7B42369CE7000A1D3B6 /* Ray */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */,
+			);
+			path = Ray;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -7607,6 +7618,7 @@
 				2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */,
 				2C461883226EEF4100828870 /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2C461A57226F2F5900828870 /* CWindow.cpp in Sources */,
+				2C8EA7B62369CE7000A1D3B6 /* SivRay.cpp in Sources */,
 				2C46115F226EEDB500828870 /* quirc.c in Sources */,
 				2C4617E1226EEF4100828870 /* ScriptFactory.cpp in Sources */,
 				2C4618B5226EEF4100828870 /* SivXXHash.cpp in Sources */,
