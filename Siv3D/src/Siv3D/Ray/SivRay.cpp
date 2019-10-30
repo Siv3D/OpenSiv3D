@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -73,7 +73,8 @@ namespace s3d
 
 		// Load the box.
 		__m128 vCenter = SIMD_Float4(aabb.center, 0.0f);
-		__m128 vExtents = SIMD_Float4(aabb.size * 0.5f, 0.0f);
+		__m128 vExtents = SIMD_Float4(aabb.size, 0.0f);
+		vExtents = SIMD::Multiply(vExtents, SIMD::constants::m128_OneHalf);
 
 		// Adjust ray origin to be relative to center of the box.
 		__m128 TOrigin = SIMD::Subtract(vCenter, Origin);
