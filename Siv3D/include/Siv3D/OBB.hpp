@@ -46,7 +46,7 @@ namespace s3d::experimental
 
 		void getCorners(std::array<Float3, 8>& corners) const;
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }
 

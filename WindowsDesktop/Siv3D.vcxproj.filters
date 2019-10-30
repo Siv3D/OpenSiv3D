@@ -1039,6 +1039,9 @@
     <Filter Include="src\Siv3D\OBB">
       <UniqueIdentifier>{f52645c0-2d2a-49f9-bc05-4c060af25c5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Sphere">
+      <UniqueIdentifier>{298e2194-0d5b-467d-9db4-47aa069bc73b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5299,6 +5302,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OBB\SivOBB.cpp">
       <Filter>src\Siv3D\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Sphere\SivSphere.cpp">
+      <Filter>src\Siv3D\Sphere</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

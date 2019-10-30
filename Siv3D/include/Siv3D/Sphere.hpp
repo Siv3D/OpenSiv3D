@@ -23,6 +23,14 @@ namespace s3d
 
 		Sphere() = default;
 
+		Sphere(const Sphere&) = default;
+
+		Sphere& operator=(const Sphere&) = default;
+
+		Sphere(Sphere&&) = default;
+
+		Sphere& operator=(Sphere&&) = default;
+
 		constexpr Sphere(const Vec3& _center, double _r) noexcept
 			: center(_center)
 			, r(_r) {}
@@ -30,5 +38,7 @@ namespace s3d
 		constexpr Sphere(double x, double y, double z, double _r) noexcept
 			: center(x, y, z)
 			, r(_r) {}
+
+		void draw(const Mat4x4& vp, const ColorF& color) const;
 	};
 }

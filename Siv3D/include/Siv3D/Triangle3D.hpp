@@ -35,7 +35,7 @@ namespace s3d::experimental
 			, p1(_p1)
 			, p2(_p2) {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 
 
@@ -59,6 +59,6 @@ namespace s3d::experimental
 		SIMD_Triangle3D(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept
 			: vec{ { _p0, 0.0f }, { _p1, 0.0f }, { _p2, 0.0f } } {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }

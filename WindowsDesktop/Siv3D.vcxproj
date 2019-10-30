@@ -1224,6 +1224,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Sphere\SivSphere.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Spherical\SivSpherical.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Sprite\SivSprite.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Step2D\SivStep2D.cpp" />

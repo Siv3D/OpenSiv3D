@@ -35,6 +35,6 @@ namespace s3d::experimental
 			: center(_center)
 			, size(_size) {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }

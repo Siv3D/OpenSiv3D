@@ -34,7 +34,7 @@ namespace s3d::experimental
 			: begin(_begin)
 			, end(_end) {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 
 
@@ -58,6 +58,6 @@ namespace s3d::experimental
 		SIMD_Line3D(const Float3& _begin, const Float3& _end) noexcept
 			: vec{ { _begin, 0.0f }, { _end, 0.0f } } {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }
