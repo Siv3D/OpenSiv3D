@@ -62,6 +62,8 @@ namespace s3d
 			return *this;
 		}
 
+		[[nodiscard]] Optional<float> intersects(const Sphere& sphere) const;
+
 		[[nodiscard]] Optional<float> intersects(const experimental::AABB& aabb) const;
 	};
 }

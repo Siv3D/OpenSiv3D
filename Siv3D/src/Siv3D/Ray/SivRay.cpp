@@ -11,6 +11,7 @@
 
 # include <cfloat>
 # include <Siv3D/Ray.hpp>
+# include <Siv3D/Sphere.hpp>
 # include <Siv3D/AABB.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
 # include <Siv3D/SIMDMath.hpp>
@@ -62,6 +63,58 @@ namespace s3d
 
 			return SIMD::ComparisonAnyTrue(SIMD::Vector4EqualIntR(C, SIMD::TrueInt()));
 		}
+	}
+
+	Optional<float> Ray::intersects(const Sphere& sphere) const
+	{
+		//assert(DirectX::Internal::XMVector3IsUnit(Direction));
+
+		const __m128 Origin = SIMD_Float4(origin, 0.0f);
+		const __m128 Direction = SIMD_Float4(direction, 0.0f);
+
+		__m128 vCenter = SIMD_Float4(sphere.center, 0.0f);
+		__m128 vRadius = SIMD::SetAll(static_cast<float>(sphere.r));
+
+		// l is the vector from the ray origin to the center of the sphere.
+		__m128 l = SIMD::Subtract(vCenter, Origin);
+
+		// s is the projection of the l onto the ray direction.
+		__m128 s = SIMD::Vector3Dot(l, Direction);
+
+		__m128 l2 = SIMD::Vector3Dot(l, l);
+
+		__m128 r2 = SIMD::Multiply(vRadius, vRadius);
+
+		// m2 is squared distance from the center of the sphere to the projection.
+		__m128 m2 = SIMD::NegativeMultiplySubtract(s, s, l2);
+
+		__m128 NoIntersection;
+
+		// If the ray origin is outside the sphere and the center of the sphere is
+		// behind the ray origin there is no intersection.
+		NoIntersection = SIMD::AndInt(SIMD::Less(s, SIMD::Zero()), SIMD::Greater(l2, r2));
+
+		// If the squared distance from the center of the sphere to the projection
+		// is greater than the radius squared the ray will miss the sphere.
+		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(m2, r2));
+
+		// The ray hits the sphere, compute the nearest intersection point.
+		__m128 q = SIMD::Sqrt(SIMD::Subtract(r2, m2));
+		__m128 t1 = SIMD::Subtract(s, q);
+		__m128 t2 = SIMD::Add(s, q);
+
+		__m128 OriginInside = SIMD::LessOrEqual(l2, r2);
+		__m128 t = SIMD::Select(t1, t2, OriginInside);
+
+		if (SIMD::Vector4NotEqualInt(NoIntersection, SIMD::TrueInt()))
+		{
+			float distance = 0.0f;
+			// Store the x-component to *pDist.
+			SIMD::StoreFloat(&distance, t);
+			return distance;
+		}
+
+		return none;
 	}
 
 	Optional<float> Ray::intersects(const experimental::AABB& aabb) const

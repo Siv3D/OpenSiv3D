@@ -8,14 +8,16 @@ void Main()
 	Vec3 eyePosition(0, 10, 0);
 	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
 
-	Array<experimental::AABB> aabbs;
+	Array<Sphere> aabbs;
 
 	for (auto x : Range(-2, 2))
 	{
 		for (auto z : Range(2, -2, -1))
 		{
-			aabbs << experimental::AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
-			aabbs << experimental::AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
+			aabbs << Sphere(Vec3(x * 4, 1.5, z * 4), 1.5);
+			aabbs << Sphere(Vec3(x * 4, 5, z * 4), 1.5);
+			//aabbs << experimental::AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
+			//aabbs << experimental::AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
 		}
 	}
 
@@ -38,7 +40,7 @@ void Main()
 			const Vec3 rayEnd = camera.screenToWorldPoint(Cursor::Pos(), 0.5f);
 			const Ray cursorRay(eyePos, (rayEnd - eyePos).normalized());
 
-			aabbs.sort_by([&](const experimental::AABB& a, const experimental::AABB& b)
+			aabbs.sort_by([&](const Sphere& a, const Sphere& b)
 			{
 				return (eyePos.distanceFromSq(a.center)) > (eyePos.distanceFromSq(b.center));
 			});

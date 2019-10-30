@@ -1433,9 +1433,17 @@ namespace s3d
 			return CR;
 		}
 
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4NotEqualInt(__m128 v1, __m128 v2)
+		{
+			const __m128i vTemp = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			return ((_mm_movemask_ps(_mm_castsi128_ps(vTemp)) != 0xF) != 0);
+		}
+
 		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Less(__m128 v1, __m128 v2)
 		{
-			__m128 vTemp = _mm_cmplt_ps(v1, v2);
+			const __m128 vTemp = _mm_cmplt_ps(v1, v2);
+			
 			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
 		}
 
