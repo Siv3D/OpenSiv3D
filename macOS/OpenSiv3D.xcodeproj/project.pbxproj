@@ -1030,6 +1030,8 @@
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */; };
 		2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */; };
+		2C8EA7B0236969D300A1D3B6 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */; };
+		2C8EA7B3236969EF00A1D3B6 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2157,6 +2159,8 @@
 		2C8EA7A9236877DB00A1D3B6 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = "<group>"; };
 		2C8EA7AA2368A7D200A1D3B6 /* OBB.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OBB.hpp; sourceTree = "<group>"; };
 		2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOBB.cpp; sourceTree = "<group>"; };
+		2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSphere.cpp; sourceTree = "<group>"; };
+		2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -2742,6 +2746,7 @@
 				2C460F21226EEDB200828870 /* msdf */,
 				2C460FBB226EEDB300828870 /* muparser */,
 				2CB4A5E222A14A7100BF96EA /* ogg */,
+				2C8EA7B1236969EF00A1D3B6 /* par_shapes */,
 				2C460FD1226EEDB300828870 /* pffft */,
 				2C460FD4226EEDB300828870 /* poly2tri */,
 				2C460F0B226EEDB200828870 /* QRCode */,
@@ -6116,6 +6121,7 @@
 				2C4616F0226EEF3900828870 /* Siv3DEngine.cpp */,
 				2C46176E226EEF3E00828870 /* Siv3DEngine.hpp */,
 				2C461607226EEF3200828870 /* SoundFont */,
+				2C8EA7AE236969D300A1D3B6 /* Sphere */,
 				2C461652226EEF3500828870 /* Spherical */,
 				2C4615E8226EEF3100828870 /* Sprite */,
 				2C4616E6226EEF3900828870 /* Step2D */,
@@ -6196,6 +6202,22 @@
 				2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */,
 			);
 			path = OBB;
+			sourceTree = "<group>";
+		};
+		2C8EA7AE236969D300A1D3B6 /* Sphere */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */,
+			);
+			path = Sphere;
+			sourceTree = "<group>";
+		};
+		2C8EA7B1236969EF00A1D3B6 /* par_shapes */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */,
+			);
+			path = par_shapes;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -7364,6 +7386,7 @@
 				2C4618BB226EEF4100828870 /* IGraphics.hpp in Headers */,
 				2CBC64BA22F849F0001610DB /* zstd_double_fast.h in Headers */,
 				2C461380226EEDB500828870 /* strtod.h in Headers */,
+				2C8EA7B3236969EF00A1D3B6 /* par_shapes.h in Headers */,
 				2C266A7D228AAB03001C7DAD /* GLSpriteBatch.hpp in Headers */,
 				2CBC64D322F849F0001610DB /* debug.h in Headers */,
 				2C461407226EEDB500828870 /* pow10.h in Headers */,
@@ -8108,6 +8131,7 @@
 				2C461423226EEDB500828870 /* muParserDLL.cpp in Sources */,
 				2C46115B226EEDB500828870 /* identify.c in Sources */,
 				2C46184C226EEF4100828870 /* SivVertexShader.cpp in Sources */,
+				2C8EA7B0236969D300A1D3B6 /* SivSphere.cpp in Sources */,
 				2C461802226EEF4100828870 /* Script_Circle.cpp in Sources */,
 				2C46184E226EEF4100828870 /* SivMath.cpp in Sources */,
 				2C461AB92270792400828870 /* SivMonitor.cpp in Sources */,
