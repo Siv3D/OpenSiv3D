@@ -14,7 +14,7 @@
 # include <Siv3D/Graphics2D.hpp>
 # include <Siv3D/Triangle.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	void Triangle3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{

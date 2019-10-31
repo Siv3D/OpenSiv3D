@@ -16,7 +16,7 @@
 # include <Siv3DEngine.hpp>
 # include <Renderer2D/IRenderer2D.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	namespace detail
 	{

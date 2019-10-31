@@ -13,7 +13,7 @@
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Graphics2D.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	void Line3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{

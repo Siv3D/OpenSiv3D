@@ -8,7 +8,6 @@ void Main()
 	Vec3 eyePosition(0, 10, 0);
 	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
 
-	using experimental::OBB;
 	Array<OBB> objects;
 
 	for (auto x : Range(-2, 2))
@@ -18,8 +17,8 @@ void Main()
 			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
 
 			objects << OBB(Vec3(x * 4, 5, z * 4), Vec3(2, 1, 2), Quaternion::RollPitchYaw(x * 30_deg, 0, 0));
-			//objects << experimental::AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
-			//objects << experimental::AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
+			//objects << AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
+			//objects << AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
 		}
 	}
 
@@ -34,8 +33,8 @@ void Main()
 
 			for (auto i : Range(-10, 10))
 			{
-				experimental::Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
-				experimental::Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
+				Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
+				Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
 			}
 
 			const Vec3 eyePos = camera.getEyePosition();

@@ -14,7 +14,7 @@
 # include "PointVector.hpp"
 # include "SIMD_Float4.hpp"
 
-namespace s3d::experimental
+namespace s3d
 {
 	struct Triangle3D
 	{

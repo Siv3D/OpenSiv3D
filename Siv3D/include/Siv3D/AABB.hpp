@@ -13,7 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 
-namespace s3d::experimental
+namespace s3d
 {
 	struct AABB
 	{

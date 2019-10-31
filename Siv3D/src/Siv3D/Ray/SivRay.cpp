@@ -126,7 +126,7 @@ namespace s3d
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const experimental::AABB& aabb) const
+	Optional<float> Ray::intersects(const AABB& aabb) const
 	{
 		//assert(SIMD::Internal::Vector3IsUnit(Direction));
 
@@ -187,7 +187,7 @@ namespace s3d
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const experimental::OBB& obb) const
+	Optional<float> Ray::intersects(const OBB& obb) const
 	{
 		//assert(SIMD::Internal::Vector3IsUnit(Direction));
 

@@ -14,7 +14,7 @@
 # include "PointVector.hpp"
 # include "Quaternion.hpp"
 
-namespace s3d::experimental
+namespace s3d
 {
 	struct OBB
 	{
