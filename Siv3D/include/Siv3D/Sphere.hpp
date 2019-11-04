@@ -31,6 +31,10 @@ namespace s3d
 
 		Sphere& operator=(Sphere&&) = default;
 
+		constexpr Sphere(double _r) noexcept
+			: center(0, 0, 0)
+			, r(_r) {}
+
 		constexpr Sphere(const Vec3& _center, double _r) noexcept
 			: center(_center)
 			, r(_r) {}
@@ -38,6 +42,70 @@ namespace s3d
 		constexpr Sphere(double x, double y, double z, double _r) noexcept
 			: center(x, y, z)
 			, r(_r) {}
+
+		constexpr Sphere& setPos(double x, double y, double z) noexcept
+		{
+			center.set(x, y, z);
+			return *this;
+		}
+
+		constexpr Sphere& setPos(const Vec3& pos) noexcept
+		{
+			center.set(pos);
+			return *this;
+		}
+
+		constexpr Sphere& setR(double _r) noexcept
+		{
+			r = _r;
+			return *this;
+		}
+
+		constexpr Sphere& set(const Vec3& _center, double _r) noexcept
+		{
+			center.set(_center);
+			r = _r;
+			return *this;
+		}
+
+		constexpr Sphere& set(double x, double y, double z, double _r) noexcept
+		{
+			center.set(x, y, z);
+			r = _r;
+			return *this;
+		}
+
+		[[nodiscard]] constexpr Sphere movedBy(double x, double y, double z) const noexcept
+		{
+			return{ center.movedBy(x, y, z), r };
+		}
+
+		[[nodiscard]] constexpr Sphere movedBy(const Vec3& v) const noexcept
+		{
+			return{ center.movedBy(v), r };
+		}
+
+		constexpr Sphere& moveBy(double x, double y, double z) noexcept
+		{
+			center.moveBy(x, y, z);
+			return *this;
+		}
+
+		constexpr Sphere& moveBy(const Vec3& v) noexcept
+		{
+			center.moveBy(v);
+			return *this;
+		}
+
+		[[nodiscard]] constexpr Sphere stretched(double size) const noexcept
+		{
+			return Sphere(center, r + size);
+		}
+
+		[[nodiscard]] constexpr Sphere scaled(double s) const noexcept
+		{
+			return Sphere(center, r * s);
+		}
 
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
