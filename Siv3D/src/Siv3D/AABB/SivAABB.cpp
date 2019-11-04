@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/AABB.hpp>
+# include <Siv3D/OBB.hpp>
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Graphics2D.hpp>
 # include <Siv3D/Vertex2D.hpp>
@@ -29,6 +30,11 @@ namespace s3d
 			4, 5, 6, 6, 5, 7,
 			2, 3, 7, 7, 3, 6,
 		};
+	}
+
+	OBB AABB::rotated(const Quaternion& rotation) const noexcept
+	{
+		return OBB(*this, rotation);
 	}
 
 	void AABB::draw(const Mat4x4& vp, const ColorF& color) const

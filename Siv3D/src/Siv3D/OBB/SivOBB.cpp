@@ -51,6 +51,14 @@ namespace s3d
 		}
 	}
 
+	std::array<Float3, 8> OBB::getCorners() const
+	{
+		std::array<Float3, 8> corners;	
+		getCorners(corners);
+		
+		return corners;
+	}
+
 	void OBB::getCorners(std::array<Float3, 8>& corners) const
 	{
 		// Load the box

@@ -97,24 +97,34 @@ namespace s3d
 			return SIMD::GetW(vec);
 		}
 
-		void SIV3D_VECTOR_CALL setX(float x) noexcept
+		const Quaternion& SIV3D_VECTOR_CALL setX(float x) noexcept
 		{
 			vec = SIMD::SetX(vec, x);
+			return *this;
 		}
 
-		void SIV3D_VECTOR_CALL setY(float y) noexcept
+		const Quaternion& SIV3D_VECTOR_CALL setY(float y) noexcept
 		{
 			vec = SIMD::SetY(vec, y);
+			return *this;
 		}
 
-		void SIV3D_VECTOR_CALL setZ(float z) noexcept
+		const Quaternion& SIV3D_VECTOR_CALL setZ(float z) noexcept
 		{
 			vec = SIMD::SetZ(vec, z);
+			return *this;
 		}
 
-		void SIV3D_VECTOR_CALL setW(float w) noexcept
+		const Quaternion& SIV3D_VECTOR_CALL setW(float w) noexcept
 		{
 			vec = SIMD::SetW(vec, w);
+			return *this;
+		}
+
+		constexpr Quaternion& SIV3D_VECTOR_CALL set(const Quaternion& q) noexcept
+		{
+			vec = q.vec;
+			return *this;
 		}
 
 		//[[nodiscard]] bool SIV3D_VECTOR_CALL isNaN() const;
