@@ -59,4 +59,13 @@ namespace s3d
 
 		Line(out[0].xy(), out[1].xy()).draw(2, color);
 	}
+
+	void Formatter(FormatData& formatData, const Line3D& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.begin);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.end);
+		formatData.string.push_back(U')');
+	}
 }

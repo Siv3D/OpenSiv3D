@@ -266,4 +266,13 @@ namespace s3d
 	//
 	//
 	///////////////////////////////////////////////////////////////
+
+	void Formatter(FormatData& formatData, const Ray& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.origin);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.direction);
+		formatData.string.push_back(U')');
+	}
 }
