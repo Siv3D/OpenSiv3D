@@ -22,10 +22,18 @@ void Main()
 		}
 	}
 
-	const Mat4x4 value = Mat4x4::Scaling(0.1,0.2,0.3) * Mat4x4::RotationX(15_deg) * Mat4x4::Translation(0.2222,0.333,0.444);
-	Print << value;
-	Print << U"{}"_fmt(value);
-	Print << U"{:.1f}"_fmt(value);
+	{
+		const Float4 value(1.111, 2.222, 3.333, 4.444);
+		Print << value;
+		Print << U"{}"_fmt(value);
+		Print << U"{:.1f}"_fmt(value);
+	}
+	{
+		const Vec4 value(1.111, 2.222, 3.333, 4.444);
+		Print << value;
+		Print << U"{}"_fmt(value);
+		Print << U"{:.1f}"_fmt(value);
+	}
 
 	while (System::Update())
 	{

@@ -614,8 +614,8 @@ namespace std
 
 namespace fmt_s3d
 {
-	template <>
-	struct formatter<s3d::Vec3, s3d::char32>
+	template <class Type>
+	struct formatter<s3d::Vector3D<Type>, s3d::char32>
 	{
 		s3d::String tag;
 
@@ -626,7 +626,7 @@ namespace fmt_s3d
 		}
 
 		template <class Context>
-		auto format(const s3d::Vec3& value, Context& ctx)
+		auto format(const s3d::Vector3D<Type>& value, Context& ctx)
 		{
 			const s3d::String fmt = s3d::detail::MakeFmtArg(
 				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
