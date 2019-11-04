@@ -22,7 +22,7 @@ void Main()
 		}
 	}
 
-	const Ray value(Vec3(11.111, 22.222, 33.333), Vec3(0.1, 0.2,0.3).normalize());
+	const Quaternion value = Quaternion::RollPitchYaw(10_deg, 20_deg, 30_deg);
 	Print << value;
 	Print << U"{}"_fmt(value);
 	Print << U"{:.1f}"_fmt(value);

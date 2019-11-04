@@ -1112,6 +1112,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\QRDecoderDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quaternion\SivQuaternion.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Random\SivRandom.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ray\SivRay.cpp" />
