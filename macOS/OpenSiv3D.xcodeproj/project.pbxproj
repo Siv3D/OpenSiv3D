@@ -1033,6 +1033,7 @@
 		2C8EA7B0236969D300A1D3B6 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */; };
 		2C8EA7B3236969EF00A1D3B6 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */; };
 		2C8EA7B62369CE7000A1D3B6 /* SivRay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */; };
+		2C8EA7B9236FC46D00A1D3B6 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7B8236FC46D00A1D3B6 /* SivQuaternion.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2163,6 +2164,7 @@
 		2C8EA7AF236969D300A1D3B6 /* SivSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSphere.cpp; sourceTree = "<group>"; };
 		2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
 		2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRay.cpp; sourceTree = "<group>"; };
+		2C8EA7B8236FC46D00A1D3B6 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -5969,6 +5971,7 @@
 		2C46FE75226EE90700828870 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8EA7B7236FC46D00A1D3B6 /* Quaternion */,
 				2CEACB542338756800C6EE98 /* AABB */,
 				2C461613226EEF3200828870 /* AnimatedGIFWriter */,
 				2C461683226EEF3600828870 /* Asset */,
@@ -6229,6 +6232,14 @@
 				2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */,
 			);
 			path = Ray;
+			sourceTree = "<group>";
+		};
+		2C8EA7B7236FC46D00A1D3B6 /* Quaternion */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7B8236FC46D00A1D3B6 /* SivQuaternion.cpp */,
+			);
+			path = Quaternion;
 			sourceTree = "<group>";
 		};
 		2CA6271222226DC60009DFE1 /* include */ = {
@@ -7605,6 +7616,7 @@
 				2C461937226EEF4100828870 /* SivKeyGroup.cpp in Sources */,
 				2C46193A226EEF4100828870 /* EffectData.cpp in Sources */,
 				2C46115A226EEDB500828870 /* version_db.c in Sources */,
+				2C8EA7B9236FC46D00A1D3B6 /* SivQuaternion.cpp in Sources */,
 				2C46186E226EEF4100828870 /* EngineDirectory.cpp in Sources */,
 				2C461816226EEF4100828870 /* Script_Periodic.cpp in Sources */,
 				2C461917226EEF4100828870 /* SivBezier2.cpp in Sources */,
