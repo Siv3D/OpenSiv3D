@@ -63,7 +63,7 @@ namespace s3d
 			return vec;
 		}
 
-		[[nodiscard]] Float4 toFloat4() const noexcept
+		[[nodiscard]] Float4 SIV3D_VECTOR_CALL toFloat4() const noexcept
 		{
 			Float4 result;
 

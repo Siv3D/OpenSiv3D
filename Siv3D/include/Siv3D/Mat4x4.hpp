@@ -901,30 +901,6 @@ namespace s3d
 		return{ s * m.r[0], s * m.r[1], s * m.r[2], s * m.r[3] };
 	}
 
-	void Formatter(FormatData& formatData, const Mat4x4& value);
-
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
-	{
-		return output << CharType('(')
-			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[3] << CharType(')');
-	}
-
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
-	{
-		CharType unused;
-		input >> unused
-			>> value.r[0] >> unused
-			>> value.r[1] >> unused
-			>> value.r[2] >> unused
-			>> value.r[3] >> unused;
-		return input;
-	}
-
 	namespace SIMD
 	{
 		///////////////////////////////////////////////////////////////
@@ -1486,3 +1462,86 @@ namespace s3d
 		///////////////////////////////////////////////////////////////
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Mat4x4& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
+	{
+		return output << CharType('(')
+			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[3] << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
+	{
+		CharType unused;
+		input >> unused
+			>> value.r[0] >> unused
+			>> value.r[1] >> unused
+			>> value.r[2] >> unused
+			>> value.r[3] >> unused;
+		return input;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Mat4x4>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Mat4x4& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::Mat4x4, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::Mat4x4& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"},\n{:", tag, U"},\n{:", tag, U"},\n{:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r[0], value.r[1], value.r[2], value.r[3]);
+		}
+	};
+}
+
