@@ -22,7 +22,7 @@ void Main()
 		}
 	}
 
-	const Quaternion value = Quaternion::RollPitchYaw(10_deg, 20_deg, 30_deg);
+	const Triangle3D value(Vec3(1.111,2.222,3.333), Vec3(4.444, 5.555, 6.666), Vec3(7.777, 8.888, 9.999));
 	Print << value;
 	Print << U"{}"_fmt(value);
 	Print << U"{:.1f}"_fmt(value);

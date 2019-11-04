@@ -61,4 +61,15 @@ namespace s3d
 
 		Triangle(out[0].xy(), out[1].xy(), out[2].xy()).draw(color);
 	}
+
+	void Formatter(FormatData& formatData, const Triangle3D& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.p0);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.p1);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.p2);
+		formatData.string.push_back(U')');
+	}
 }
