@@ -61,6 +61,7 @@ namespace s3d
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 }
+
 //////////////////////////////////////////////////
 //
 //	Format

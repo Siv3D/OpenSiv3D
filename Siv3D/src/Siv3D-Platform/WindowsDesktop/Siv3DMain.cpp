@@ -20,6 +20,8 @@
 # include <Siv3DEngine.hpp>
 # include <Script/IScript.hpp>
 # include <System/ISystem.hpp>
+# define FMT_USE_EXTERN_TEMPLATES 1
+# include <ThirdParty/fmt/format.h>
 
 void Main();
 
@@ -116,6 +118,12 @@ namespace s3d
 		{
 			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
 			EngineMessageBox::ShowError(U"Error:\n{}"_fmt(error.what()));
+			return;
+		}
+		catch (const fmt_s3d::format_error& error)
+		{
+			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
+			EngineMessageBox::ShowError(U"Error occured in _fmt :\n{}"_fmt(Unicode::Widen(error.what())));
 			return;
 		}
 	}
