@@ -50,3 +50,82 @@ namespace s3d
 	};
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const OBB& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const OBB& value)
+	{
+		return output << CharType('(')
+			<< value.center << CharType(',') << CharType(' ')
+			<< value.size << CharType(',') << CharType(' ')
+			<< value.orientation << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, OBB& value)
+	{
+		CharType unused;
+		return input >> unused
+			>> value.center >> unused
+			>> value.size >> unused
+			>> value.orientation >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::OBB>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::OBB& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::OBB, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::OBB& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.center, value.size, value.orientation);
+		}
+	};
+}
+

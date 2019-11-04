@@ -78,6 +78,7 @@ namespace s3d
 	{
 		return output << CharType('(')
 			<< value.p0 << CharType(',') << CharType(' ')
+			<< value.p1 << CharType(',') << CharType(' ')
 			<< value.p2 << CharType(')');
 	}
 

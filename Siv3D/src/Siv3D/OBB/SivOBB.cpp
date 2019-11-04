@@ -99,4 +99,15 @@ namespace s3d
 
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addSprite(vertices.data(), vertices.size(), detail::Indices.data(), detail::Indices.size());
 	}
+
+	void Formatter(FormatData& formatData, const OBB& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.center);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.size);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.orientation);
+		formatData.string.push_back(U')');
+	}
 }
