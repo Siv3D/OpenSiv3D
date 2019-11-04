@@ -30,6 +30,18 @@ namespace s3d
 
 		Line3D& operator=(Line3D&&) = default;
 
+		constexpr Line3D(double bx, double by, double bz, double ex, double ey, double ez) noexcept
+			: begin(bx, by, bz)
+			, end(ex, ey, ez) {}
+
+		constexpr Line3D(double bx, double by, double bz, const Vec3& _end) noexcept
+			: begin(bx, by, bz)
+			, end(_end) {}
+
+		constexpr Line3D(const Vec3& _begin, double ex, double ey, double ez) noexcept
+			: begin(_begin)
+			, end(ex, ey, ez) {}
+
 		constexpr Line3D(const Vec3& _begin, const Vec3& _end) noexcept
 			: begin(_begin)
 			, end(_end) {}
