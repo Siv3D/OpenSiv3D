@@ -192,7 +192,7 @@ namespace s3d
 		template <class Float>
 		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL slerp(Quaternion q, Float t) const noexcept
 		{
-			return SIMD::QuaternionSlerpV(*this, q, static_cast<float>(t));
+			return SIMD::QuaternionSlerp(*this, q, static_cast<float>(t));
 		}
 
 		[[nodiscard]] std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const noexcept
