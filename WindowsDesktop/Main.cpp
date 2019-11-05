@@ -1,5 +1,6 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.2
+# include <DirectXMath.h>
 
 void Main()
 {
@@ -22,18 +23,10 @@ void Main()
 		}
 	}
 
-	{
-		const Float4 value(1.111, 2.222, 3.333, 4.444);
-		Print << value;
-		Print << U"{}"_fmt(value);
-		Print << U"{:.1f}"_fmt(value);
-	}
-	{
-		const Vec4 value(1.111, 2.222, 3.333, 4.444);
-		Print << value;
-		Print << U"{}"_fmt(value);
-		Print << U"{:.1f}"_fmt(value);
-	}
+	const Quaternion q = Quaternion::RotationAxis(Vec3(1, 0.5, 0.2).normalized(), 45_deg);
+	Print << Vec3(1, 0.5, 0.2).normalized() << 45_deg;
+	Print << q;
+	Print << q.toAxisAngle();
 
 	while (System::Update())
 	{

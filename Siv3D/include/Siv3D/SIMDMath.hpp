@@ -317,6 +317,26 @@ namespace s3d
 			return{ sin, cos };
 		}
 
+		[[nodiscard]] inline float ScalarACos(float value)
+		{
+			// Clamp input to [-1,1].
+			bool nonnegative = (value >= 0.0f);
+			float x = fabsf(value);
+			float omx = 1.0f - x;
+			if (omx < 0.0f)
+			{
+				omx = 0.0f;
+			}
+			float root = sqrtf(omx);
+
+			// 7-degree minimax approximation
+			float result = ((((((-0.0012624911f * x + 0.0066700901f) * x - 0.0170881256f) * x + 0.0308918810f) * x - 0.0501743046f) * x + 0.0889789874f) * x - 0.2145988016f) * x + 1.5707963050f;
+			result *= root;
+
+			// acos(x) = pi - acos(-x) when x < 0
+			return (nonnegative ? result : constants::f_PI - result);
+		}
+
 		///////////////////////////////////////////////////////////////
 		//
 		//	Load
@@ -1658,6 +1678,11 @@ namespace s3d
 			return Result;
 		}
 
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionSlerp(__m128 q0, __m128 q1, float t)
+		{
+			return QuaternionSlerpV(q0, q1, SetAll(t));
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationRollPitchYawFromVector(__m128 angles)
 		{
 			static const __m128 sign = SIMD::Set(1.0f, -1.0f, -1.0f, 1.0f);
@@ -1706,6 +1731,16 @@ namespace s3d
 			__m128 Normal = Vector3Normalize(axis);
 			__m128 Q = QuaternionRotationNormal(Normal, angle);
 			return Q;
+		}
+
+		inline void SIV3D_VECTOR_CALL QuaternionToAxisAngle(__m128* pAxis, float* pAngle, __m128 q)
+		{
+			assert(pAxis);
+			assert(pAngle);
+
+			*pAxis = q;
+
+			*pAngle = 2.0f * ScalarACos(GetW(q));
 		}
 
 		//

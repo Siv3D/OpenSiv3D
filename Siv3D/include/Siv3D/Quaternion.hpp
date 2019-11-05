@@ -141,7 +141,14 @@ namespace s3d
 		template <class Float>
 		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL slerp(Quaternion q, Float t) const
 		{
-			return SIMD::QuaternionSlerpV(*this, q, SIMD::SetAll(t));
+			return SIMD::QuaternionSlerpV(*this, q, static_cast<float>(t));
+		}
+
+		[[nodiscard]] std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const
+		{
+			Float3 axis;
+			SIMD::StoreFloat3(&axis, SIMD::Vector3Normalize(vec));
+			return{ axis, SIMD::ScalarACos(SIMD::GetW(vec)) * 2.0f };
 		}
 
 		[[nodiscard]] static constexpr Quaternion SIV3D_VECTOR_CALL Identity() noexcept
@@ -176,11 +183,6 @@ namespace s3d
 		{
 			return SIMD::QuaternionRotationMatrix(m);
 		}
-
-		//[[nodiscard]] std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const
-		//{
-
-		//}
 	};
 }
 
