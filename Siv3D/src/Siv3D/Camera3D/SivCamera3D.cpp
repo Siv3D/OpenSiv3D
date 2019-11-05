@@ -76,6 +76,13 @@ namespace s3d::experimental
 		return result;
 	}
 
+	Ray BasicCamera3D::screenToRay(const Vec2& pos) const noexcept
+	{
+		const Vec3 rayEnd = screenToWorldPoint(pos, 0.9f);
+	
+		return Ray(m_eyePosition, (rayEnd - m_eyePosition).normalized());
+	}
+
 	void BasicCamera3D::updateProj()
 	{
 		const float aspectRatio	= static_cast<float>(m_sceneSize.x) / m_sceneSize.y;

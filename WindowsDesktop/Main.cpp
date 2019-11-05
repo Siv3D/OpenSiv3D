@@ -51,16 +51,7 @@ void Main()
 			}
 
 			const Vec3 eyePos = camera.getEyePosition();
-			const Vec3 rayEnd = camera.screenToWorldPoint(Cursor::Pos(), 0.5f);
-			const Ray cursorRay(eyePos, (rayEnd - eyePos).normalized());
-
-			//for (auto i : Range(1, 10))
-			//{
-			//	const Vec3 eyePos = camera.getEyePosition();
-			//	const Vec3 rayEnd = camera.screenToWorldPoint(Cursor::Pos(), i / 10.0);
-			//	const Ray cursorRay(eyePos, (rayEnd - eyePos).normalized());
-			//	Print << 10_dp << cursorRay;
-			//}
+			const Ray cursorRay = camera.screenToRay(Cursor::PosF());
 
 			objects.sort_by([&](const OBB& a, const OBB& b)
 			{
