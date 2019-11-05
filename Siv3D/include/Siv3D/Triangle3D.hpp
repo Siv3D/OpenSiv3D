@@ -36,6 +36,10 @@ namespace s3d
 			, p2(_p2) {}
 
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void drawFrame(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void drawFrame(const Mat4x4& vp, double thickness = 1.0, const ColorF& color = Palette::White) const;
 	};
 
 
@@ -60,6 +64,10 @@ namespace s3d
 			: vec{ { _p0, 0.0f }, { _p1, 0.0f }, { _p2, 0.0f } } {}
 
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void drawFrame(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void drawFrame(const Mat4x4& vp, double thickness = 1.0, const ColorF& color = Palette::White) const;
 	};
 }
 

@@ -17,7 +17,7 @@ namespace s3d
 {
 	void Line3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{
-		draw(vp, 2, color);
+		draw(vp, 1, color);
 	}
 
 	void Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
@@ -45,7 +45,7 @@ namespace s3d
 
 	void SIMD_Line3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{
-		draw(vp, 2, color);
+		draw(vp, 1, color);
 	}
 
 	void SIMD_Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
