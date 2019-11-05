@@ -49,6 +49,7 @@
 - [nanoflann (v1.3.0)](https://github.com/jlblancoc/nanoflann)
 - [Noto Fonts (18 Jul 2017)](https://github.com/googlefonts/noto-emoji)
 - [OpenCV (4.0.1)](https://opencv.org/)
+- [par_shapes](https://github.com/prideout/par/blob/master/par_shapes.h)
 - [pffft](https://bitbucket.org/jpommier/pffft/src/default/)
 - [Poly2Tri](https://github.com/jhasse/poly2tri)
 - [QRCode](https://github.com/ricmoo/QRCode)

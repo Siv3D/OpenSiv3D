@@ -67,6 +67,8 @@ namespace s3d
 
 		[[nodiscard]] uint16 BuildShape2DFrame(BufferCreatorFunc bufferCreator, const Float2* pts, uint16 size, float thickness, const Float4& color, float scale);
 
+		[[nodiscard]] uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Vertex2D* vertices, size_t vertexCount, const IndexType* indices, size_t indexCount);
+
 		[[nodiscard]] uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Sprite& sprite, IndexType startIndex, IndexType indexCount);
 
 		[[nodiscard]] uint16 BuildSquareCappedLineString(BufferCreatorFunc bufferCreator, const Vec2* pts, uint16 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed, float scale);

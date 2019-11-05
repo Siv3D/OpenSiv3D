@@ -14,7 +14,7 @@
 # include <Siv3D/Graphics2D.hpp>
 # include <Siv3D/Triangle.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	void Triangle3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{
@@ -60,5 +60,16 @@ namespace s3d::experimental
 		}
 
 		Triangle(out[0].xy(), out[1].xy(), out[2].xy()).draw(color);
+	}
+
+	void Formatter(FormatData& formatData, const Triangle3D& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.p0);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.p1);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.p2);
+		formatData.string.push_back(U')');
 	}
 }

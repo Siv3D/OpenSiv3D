@@ -901,30 +901,6 @@ namespace s3d
 		return{ s * m.r[0], s * m.r[1], s * m.r[2], s * m.r[3] };
 	}
 
-	void Formatter(FormatData& formatData, const Mat4x4& value);
-
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
-	{
-		return output << CharType('(')
-			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[3] << CharType(')');
-	}
-
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
-	{
-		CharType unused;
-		input >> unused
-			>> value.r[0] >> unused
-			>> value.r[1] >> unused
-			>> value.r[2] >> unused
-			>> value.r[3] >> unused;
-		return input;
-	}
-
 	namespace SIMD
 	{
 		///////////////////////////////////////////////////////////////
@@ -1435,8 +1411,137 @@ namespace s3d
 			return _mm_div_ps(t2, t0);
 		}
 
+		[[nodiscard]] inline Mat4x4 SIV3D_VECTOR_CALL MatrixRotationQuaternion(__m128 quaternion)
+		{
+			static const __m128 Constant1110{ 1.0f, 1.0f, 1.0f, 0.0f };
+
+			__m128 Q0 = _mm_add_ps(quaternion, quaternion);
+			__m128 Q1 = _mm_mul_ps(quaternion, Q0);
+
+			__m128 V0 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(3, 0, 0, 1));
+			V0 = _mm_and_ps(V0, constants::m128_Mask3.vec);
+			__m128 V1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(3, 1, 2, 2));
+			V1 = _mm_and_ps(V1, constants::m128_Mask3.vec);
+			__m128 R0 = _mm_sub_ps(Constant1110, V0);
+			R0 = _mm_sub_ps(R0, V1);
+
+			V0 = SIV3D_PERMUTE_PS(quaternion, _MM_SHUFFLE(3, 1, 0, 0));
+			V1 = SIV3D_PERMUTE_PS(Q0, _MM_SHUFFLE(3, 2, 1, 2));
+			V0 = _mm_mul_ps(V0, V1);
+
+			V1 = SIV3D_PERMUTE_PS(quaternion, _MM_SHUFFLE(3, 3, 3, 3));
+			__m128 V2 = SIV3D_PERMUTE_PS(Q0, _MM_SHUFFLE(3, 0, 2, 1));
+			V1 = _mm_mul_ps(V1, V2);
+
+			__m128 R1 = _mm_add_ps(V0, V1);
+			__m128 R2 = _mm_sub_ps(V0, V1);
+
+			V0 = _mm_shuffle_ps(R1, R2, _MM_SHUFFLE(1, 0, 2, 1));
+			V0 = SIV3D_PERMUTE_PS(V0, _MM_SHUFFLE(1, 3, 2, 0));
+			V1 = _mm_shuffle_ps(R1, R2, _MM_SHUFFLE(2, 2, 0, 0));
+			V1 = SIV3D_PERMUTE_PS(V1, _MM_SHUFFLE(2, 0, 2, 0));
+
+			Q1 = _mm_shuffle_ps(R0, V0, _MM_SHUFFLE(1, 0, 3, 0));
+			Q1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(1, 3, 2, 0));
+
+			Mat4x4 M;
+			M.r[0] = Q1;
+
+			Q1 = _mm_shuffle_ps(R0, V0, _MM_SHUFFLE(3, 2, 3, 1));
+			Q1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(1, 3, 0, 2));
+			M.r[1] = Q1;
+
+			Q1 = _mm_shuffle_ps(V1, R0, _MM_SHUFFLE(3, 2, 1, 0));
+			M.r[2] = Q1;
+			M.r[3] = constants::m128_MIdentityR3;
+			return M;
+		}
+
 		//
 		//
 		///////////////////////////////////////////////////////////////
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Mat4x4& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
+	{
+		return output << CharType('(')
+			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[3] << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
+	{
+		CharType unused;
+		input >> unused
+			>> value.r[0] >> unused
+			>> value.r[1] >> unused
+			>> value.r[2] >> unused
+			>> value.r[3] >> unused;
+		return input;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Mat4x4>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Mat4x4& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::Mat4x4, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::Mat4x4& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"},\n{:", tag, U"},\n{:", tag, U"},\n{:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r[0], value.r[1], value.r[2], value.r[3]);
+		}
+	};
+}
+
