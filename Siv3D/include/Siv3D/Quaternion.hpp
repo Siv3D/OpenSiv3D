@@ -21,9 +21,9 @@ namespace s3d
 {
 	struct alignas(16) Quaternion
 	{
-		__m128 vec;
+		__m128 vec = SIMD::constants::m128_MIdentityR3;
 
-		Quaternion() = default;
+		constexpr Quaternion() = default;
 
 		Quaternion(const Quaternion&) = default;
 
@@ -33,9 +33,6 @@ namespace s3d
 
 		Quaternion& operator=(Quaternion&&) = default;
 
-		explicit Quaternion(float _xyzw) noexcept
-			: vec(SIMD::SetAll(_xyzw)) {}
-
 		Quaternion(float _x, float _y, float _z, float _w) noexcept
 			: vec(SIMD::Set(_x, _y, _z, _w)) {}
 
@@ -43,17 +40,12 @@ namespace s3d
 		Quaternion(X _x, Y _y, Z _z, W _w) noexcept
 			: Quaternion(static_cast<float>(_x), static_cast<float>(_y), static_cast<float>(_z), static_cast<float>(_w)) {}
 
-		template <class U, class V>
-		Quaternion(const Vector2D<U> & xy, const Vector2D<V> & zw) noexcept
-			: Quaternion(static_cast<float>(xy.x), static_cast<float>(xy.y), static_cast<float>(zw.x), static_cast<float>(zw.y)) {}
+		template <class Float, std::enable_if_t<std::is_convertible_v<Float, float>>* = nullptr>
+		Quaternion(const Float3& axis, Float angle) noexcept
+			: vec{ SIMD::QuaternionRotationAxis(SIMD_Float4(axis, 0.0f), static_cast<float>(angle)) } {}
 
-		template <class U, class W>
-		Quaternion(const Vector3D<U> & xyz, W w) noexcept
-			: Quaternion(static_cast<float>(xyz.x), static_cast<float>(xyz.y), static_cast<float>(xyz.z), static_cast<float>(w)) {}
-
-		template <class U>
-		Quaternion(const Vector4D<U> & v) noexcept
-			: Quaternion(static_cast<float>(v.x), static_cast<float>(v.y), static_cast<float>(v.z), static_cast<float>(v.w)) {}
+		explicit Quaternion(Mat4x4 m) noexcept
+			: vec{ SIMD::QuaternionRotationMatrix(m) } {}
 
 		constexpr Quaternion(__m128 _vec) noexcept
 			: vec(_vec) {}
@@ -127,24 +119,83 @@ namespace s3d
 			return *this;
 		}
 
-		//[[nodiscard]] bool SIV3D_VECTOR_CALL isNaN() const;
+		void SIV3D_VECTOR_CALL multiply(const Quaternion& q) noexcept
+		{
+			vec = SIMD::QuaternionMultiply(vec, q);
+		}
 
-		//[[nodiscard]] bool SIV3D_VECTOR_CALL isInfinite() const;
+		Quaternion& SIV3D_VECTOR_CALL operator *=(const Quaternion& q) noexcept
+		{
+			multiply(q);
+			return *this;
+		}
 
-		//[[nodiscard]] bool SIV3D_VECTOR_CALL isIdentity() const;
+		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL operator *(const Quaternion& q) const noexcept
+		{
+			return SIMD::QuaternionMultiply(vec, q);
+		}
 
-		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL inverse() const
+		[[nodiscard]] Float3 operator *(const Float3& v) const noexcept
+		{
+			Float3 result;
+			SIMD::StoreFloat3(&result, SIMD::Vector3Rotate(SIMD_Float4(v, 0.0f), vec));
+			return result;
+		}
+
+		[[nodiscard]] bool SIV3D_VECTOR_CALL isIdentity() const noexcept
+		{
+			return SIMD::Vector4Equal(vec, SIMD::constants::m128_MIdentityR3);
+		}
+
+		[[nodiscard]] bool SIV3D_VECTOR_CALL isZero() const noexcept
+		{
+			return SIMD::Vector4Equal(vec, SIMD::constants::m128_Zero);
+		}
+
+		[[nodiscard]] bool SIV3D_VECTOR_CALL isNaN() const noexcept
+		{
+			return SIMD::Vector4IsNaN(vec);
+		}
+
+		[[nodiscard]] bool SIV3D_VECTOR_CALL isInfinite() const noexcept
+		{
+			return SIMD::Vector4IsInfinite(vec);
+		}
+
+		Quaternion& SIV3D_VECTOR_CALL normalize() noexcept
+		{
+			vec = SIMD::QuaternionNormalize(vec);
+			return *this;
+		}
+
+		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL normalized() const noexcept
+		{
+			return SIMD::QuaternionNormalize(vec);
+		}
+
+		Quaternion& SIV3D_VECTOR_CALL conjugate() noexcept
+		{
+			vec = SIMD::QuaternionConjugate(vec);
+			return *this;
+		}
+
+		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL conjugated() const noexcept
+		{
+			return SIMD::QuaternionConjugate(vec);
+		}
+
+		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL inverse() const noexcept
 		{
 			return SIMD::QuaternionInverse(*this);
 		}
 
 		template <class Float>
-		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL slerp(Quaternion q, Float t) const
+		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL slerp(Quaternion q, Float t) const noexcept
 		{
 			return SIMD::QuaternionSlerpV(*this, q, static_cast<float>(t));
 		}
 
-		[[nodiscard]] std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const
+		[[nodiscard]] std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const noexcept
 		{
 			Float3 axis;
 			SIMD::StoreFloat3(&axis, SIMD::Vector3Normalize(vec));
@@ -154,6 +205,11 @@ namespace s3d
 		[[nodiscard]] static constexpr Quaternion SIV3D_VECTOR_CALL Identity() noexcept
 		{
 			return SIMD::constants::m128_MIdentityR3;
+		}
+
+		[[nodiscard]] static constexpr Quaternion SIV3D_VECTOR_CALL Zero() noexcept
+		{
+			return SIMD::constants::m128_Zero;
 		}
 
 		template <class X, class Y, class Z>
@@ -208,7 +264,7 @@ namespace s3d
 		Float4 t;
 		CharType unused;
 		input >> t;
-		value = Quaternion(t);
+		value = Quaternion(SIMD_Float4(t));
 		return input;
 	}
 }

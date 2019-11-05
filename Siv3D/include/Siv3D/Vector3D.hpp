@@ -71,9 +71,9 @@ namespace s3d
 		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
 		{
 			return index == 0 ? x
-				 : index == 1 ? y
-				 : index == 2 ? z
-				 : 0;
+				: index == 1 ? y
+				: index == 2 ? z
+				: 0;
 		}
 
 		[[nodiscard]] constexpr Vector3D operator +() const noexcept
@@ -113,7 +113,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr Vector3D operator /(const Vector3D& v) const noexcept
 		{
-			return{ x / v.x, y / v.y, z  / v.z };
+			return{ x / v.x, y / v.y, z / v.z };
 		}
 
 		constexpr Vector3D& operator +=(const Vector3D& v) noexcept
@@ -546,7 +546,7 @@ namespace s3d
 		}
 	};
 
-	template <class Type, class U>
+	template <class Type, class U, std::enable_if_t<std::is_scalar_v<U>>* = nullptr>
 	[[nodiscard]] inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);

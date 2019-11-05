@@ -16,10 +16,6 @@ void Main()
 		for (auto z : Range(2, -2, -1))
 		{
 			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
-
-			objects << OBB(Vec3(x * 4, 5, z * 4), Vec3(2, 1, 2), Quaternion::RollPitchYaw(x * 30_deg, 0, 0));
-			//objects << AABB(Vec3(x * 4, 1, z * 4), Vec3(2, 2, 2));
-			//objects << AABB(Vec3(x * 4, 5, z * 4), Vec3(2, 2, 2));
 		}
 	}
 
@@ -27,6 +23,9 @@ void Main()
 	Print << Vec3(1, 0.5, 0.2).normalized() << 45_deg;
 	Print << q;
 	Print << q.toAxisAngle();
+	Print << q * (Vec3::One());
+
+	OBB box(Vec3(0, 5, 0), 2, Quaternion(Vec3(0, 1.0, 0).normalize(), 30_deg));
 
 	while (System::Update())
 	{
@@ -68,6 +67,9 @@ void Main()
 				const HSV color((object.center.x * 50 + object.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
 				object.draw(mat, color);
 			}
+
+			box.draw(mat);
+			box.orientation *= Quaternion(Vec3(1, 0, 0), 30_deg * Scene::DeltaTime());
 		}
 	}
 }

@@ -37,18 +37,15 @@ namespace s3d
 
 		constexpr OBB(double _size) noexcept
 			: center(0, 0, 0)
-			, size(_size, _size, _size)
-			, orientation(Quaternion::Identity()) {}
+			, size(_size, _size, _size) {}
 
 		constexpr OBB(double sx, double sy, double sz) noexcept
 			: center(0, 0, 0)
-			, size(sx, sy, sz)
-			, orientation(Quaternion::Identity()) {}
+			, size(sx, sy, sz) {}
 
 		constexpr OBB(const Vec3& _size) noexcept
 			: center(0, 0, 0)
-			, size(_size)
-			, orientation(Quaternion::Identity()) {}
+			, size(_size) {}
 
 		constexpr OBB(double _size, const Quaternion& _orientation) noexcept
 			: center(0, 0, 0)
@@ -67,13 +64,11 @@ namespace s3d
 
 		constexpr OBB(double x, double y, double z, double _size) noexcept
 			: center(x, y, z)
-			, size(_size, _size, _size)
-			, orientation(Quaternion::Identity()) {}
+			, size(_size, _size, _size) {}
 
 		constexpr OBB(double x, double y, double z, double sx, double sy, double sz) noexcept
 			: center(x, y, z)
-			, size(sx, sy, sz)
-			, orientation(Quaternion::Identity()) {}
+			, size(sx, sy, sz) {}
 
 		constexpr OBB(double x, double y, double z, double _size, const Quaternion& _orientation) noexcept
 			: center(x, y, z)
@@ -87,18 +82,15 @@ namespace s3d
 
 		constexpr OBB(const Vec3& _center, double _size) noexcept
 			: center(_center)
-			, size(_size, _size, _size)
-			, orientation(Quaternion::Identity()) {}
+			, size(_size, _size, _size) {}
 
 		constexpr OBB(const Vec3& _center, double sx, double sy, double sz) noexcept
 			: center(_center)
-			, size(sx, sy, sz)
-			, orientation(Quaternion::Identity()) {}
+			, size(sx, sy, sz) {}
 
 		constexpr OBB(const Vec3& _center, const Vec3& _size) noexcept
 			: center(_center)
-			, size(_size)
-			, orientation(Quaternion::Identity()) {}
+			, size(_size) {}
 
 		constexpr OBB(const Vec3& _center, double _size, const Quaternion& _orientation) noexcept
 			: center(_center)
@@ -117,8 +109,7 @@ namespace s3d
 
 		constexpr OBB(const AABB& aabb) noexcept
 			: center(aabb.center)
-			, size(aabb.size)
-			, orientation(Quaternion::Identity()) {}
+			, size(aabb.size) {}
 
 		constexpr OBB(const AABB& aabb, const Quaternion& _orientation) noexcept
 			: center(aabb.center)

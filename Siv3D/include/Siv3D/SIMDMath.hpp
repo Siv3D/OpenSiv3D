@@ -1436,6 +1436,12 @@ namespace s3d
 		//
 		// 4D-Vector 計算
 		//
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Equal(__m128 v1, __m128 v2)
+		{
+			__m128 vTemp = _mm_cmpeq_ps(v1, v2);
+			
+			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
+		}
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL Vector4EqualIntR(__m128 v1, __m128 v2)
 		{
@@ -1465,6 +1471,24 @@ namespace s3d
 			const __m128 vTemp = _mm_cmplt_ps(v1, v2);
 			
 			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4IsNaN(__m128 v)
+		{
+			// Test against itself. NaN is always not equal
+			__m128 vTempNan = _mm_cmpneq_ps(v, v);
+			// If any are NaN, the mask is non-zero
+			return (_mm_movemask_ps(vTempNan) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4IsInfinite(__m128 v)
+		{
+			// Mask off the sign bit
+			__m128 vTemp = _mm_and_ps(v, constants::m128_AbsMask);
+			// Compare to infinity
+			vTemp = _mm_cmpeq_ps(vTemp, constants::m128_Infinity);
+			// If any are infinity, the signs are true.
+			return (_mm_movemask_ps(vTemp) != 0);
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4Dot(__m128 v1, __m128 v2)
@@ -1538,6 +1562,71 @@ namespace s3d
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4LengthSq(__m128 v)
 		{
 			return Vector4Dot(v, v);
+		}
+
+		inline __m128 SIV3D_VECTOR_CALL Vector4Normalize(__m128 v)
+		{
+		# ifdef SIV3D_USE_SSE3
+
+			// Perform the dot product on x,y,z and w
+			__m128 vLengthSq = _mm_mul_ps(v, v);
+			vLengthSq = _mm_hadd_ps(vLengthSq, vLengthSq);
+			vLengthSq = _mm_hadd_ps(vLengthSq, vLengthSq);
+			// Prepare for the division
+			__m128 vResult = _mm_sqrt_ps(vLengthSq);
+			// Create zero with a single instruction
+			__m128 vZeroMask = _mm_setzero_ps();
+			// Test for a divide by zero (Must be FP to detect -0.0)
+			vZeroMask = _mm_cmpneq_ps(vZeroMask, vResult);
+			// Failsafe on zero (Or epsilon) length planes
+			// If the length is infinity, set the elements to zero
+			vLengthSq = _mm_cmpneq_ps(vLengthSq, constants::m128_Infinity.vec);
+			// Divide to perform the normalization
+			vResult = _mm_div_ps(v, vResult);
+			// Any that are infinity, set to zero
+			vResult = _mm_and_ps(vResult, vZeroMask);
+			// Select qnan or result based on infinite length
+			__m128 vTemp1 = _mm_andnot_ps(vLengthSq, constants::m128_QNaN.vec);
+			__m128 vTemp2 = _mm_and_ps(vResult, vLengthSq);
+			vResult = _mm_or_ps(vTemp1, vTemp2);
+			return vResult;
+
+		# else
+
+			// Perform the dot product on x,y,z and w
+			__m128 vLengthSq = _mm_mul_ps(v, v);
+			// vTemp has z and w
+			__m128 vTemp = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(3, 2, 3, 2));
+			// x+z, y+w
+			vLengthSq = _mm_add_ps(vLengthSq, vTemp);
+			// x+z,x+z,x+z,y+w
+			vLengthSq = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(1, 0, 0, 0));
+			// ??,??,y+w,y+w
+			vTemp = _mm_shuffle_ps(vTemp, vLengthSq, _MM_SHUFFLE(3, 3, 0, 0));
+			// ??,??,x+z+y+w,??
+			vLengthSq = _mm_add_ps(vLengthSq, vTemp);
+			// Splat the length
+			vLengthSq = SIV3D_PERMUTE_PS(vLengthSq, _MM_SHUFFLE(2, 2, 2, 2));
+			// Prepare for the division
+			__m128 vResult = _mm_sqrt_ps(vLengthSq);
+			// Create zero with a single instruction
+			__m128 vZeroMask = _mm_setzero_ps();
+			// Test for a divide by zero (Must be FP to detect -0.0)
+			vZeroMask = _mm_cmpneq_ps(vZeroMask, vResult);
+			// Failsafe on zero (Or epsilon) length planes
+			// If the length is infinity, set the elements to zero
+			vLengthSq = _mm_cmpneq_ps(vLengthSq, constants::m128_Infinity);
+			// Divide to perform the normalization
+			vResult = _mm_div_ps(v, vResult);
+			// Any that are infinity, set to zero
+			vResult = _mm_and_ps(vResult, vZeroMask);
+			// Select qnan or result based on infinite length
+			__m128 vTemp1 = _mm_andnot_ps(vLengthSq, constants::m128_QNaN);
+			__m128 vTemp2 = _mm_and_ps(vResult, vLengthSq);
+			vResult = _mm_or_ps(vTemp1, vTemp2);
+			return vResult;
+
+		# endif
 		}
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector4Length(__m128 v)
@@ -1614,6 +1703,11 @@ namespace s3d
 			return vResult;
 		}
 
+		inline __m128 SIV3D_VECTOR_CALL QuaternionNormalize(__m128 q)
+		{
+			return Vector4Normalize(q);
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionConjugate(__m128 q)
 		{
 			static const __m128 NegativeOne3{ -1.0f, -1.0f, -1.0f, 1.0f };
@@ -1622,7 +1716,7 @@ namespace s3d
 
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionInverse(__m128 q)
 		{
-			const __m128  zero = Zero();
+			const __m128 zero = Zero();
 
 			__m128 L = Vector4LengthSq(q);
 			__m128 Conjugate = QuaternionConjugate(q);
