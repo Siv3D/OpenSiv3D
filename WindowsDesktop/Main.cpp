@@ -1,75 +1,100 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.2
-# include <DirectXMath.h>
+
+struct SDFParameters
+{
+	float a = 0.0f, b = 0.0f, c = 0.0f, d = 0.0f;
+};
 
 void Main()
 {
-	constexpr double fov = 45_deg;
-	constexpr Vec3 focusPosition(0, 0, 0);
-	Vec3 eyePosition(0, 10, 0);
-	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
+	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.2, 0.6, 0.4));
+	//const Font fontO(80);
+	const Font font2(42, Typeface::Bold);
+	font2.getGlyphs(U"ABCy-._");
+	Logger << U"------";
+	const SDFFont font(42, Typeface::Bold);
+	font.getGlyphs(U"ABCy-._");
 
-	Array<OBB> objects;
+	const PixelShader ps(U"sdf" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),
+		{ { U"PSConstants2D", 0 }, { U"SDFParameters", 1 } });
 
-	for (auto x : Range(-2, 2))
+	const PixelShader psOutline(U"sdfOutline" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),
+		{ { U"PSConstants2D", 0 }, { U"SDFParameters", 1 } });
+
+	if (!ps)
 	{
-		for (auto z : Range(2, -2, -1))
-		{
-			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
-		}
+		throw Error(U"!ps");
 	}
 
-	const Quaternion q = Quaternion::RotationAxis(Vec3(1, 0.5, 0.2).normalized(), 45_deg);
-	Print << Vec3(1, 0.5, 0.2).normalized() << 45_deg;
-	Print << q;
-	Print << q.toAxisAngle();
-	Print << q * (Vec3::One());
+	if (!psOutline)
+	{
+		throw Error(U"!psOutline");
+	}
 
-	OBB box(Vec3(0, 5, 0), 2, Quaternion(Vec3(0, 1.0, 0).normalize(), 30_deg));
+	// 定数バッファ
+	ConstantBuffer<SDFParameters> cb;
+
+	double scale = 1.0;
+	double p_a = 1.0, p_b = 0.3;
+	bool outlineMode = true;
+
+	HSV outlineColor = Palette::Black;
+	HSV innerColor = Palette::White;
 
 	while (System::Update())
 	{
-		eyePosition = Cylindrical(20, Scene::Time() * 30_deg, 8 + Periodic::Sine0_1(4s) * 8);
-		camera.setView(eyePosition, focusPosition);
-		const Mat4x4 mat = camera.getMat4x4();
+		cb->a = 40 * float(p_a) * 0.5f;
+		cb->b = float(p_b);
+		Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
 
+		if (MouseR.pressed())
 		{
-			ScopedRenderStates2D culling(RasterizerState::SolidCullBack);
+			font.getTexture().scaled(scale).draw();
+		}
+		else
+		{
+			//if (outlineMode)
+			//{
+			//	ScopedCustomShader2D shader(psOutline);
+			//	font.getTexture().scaled(scale).draw(outlineColor);
+			//}
 
-			for (auto i : Range(-10, 10))
+			if (MouseL.pressed())
 			{
-				Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
-				Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
-			}
+				ScopedCustomShader2D shader(ps);
+				//font.getTexture().scaled(scale).draw(innerColor);
 
-			const Vec3 eyePos = camera.getEyePosition();
-			const Ray cursorRay = camera.screenToRay(Cursor::PosF());
+				Transformer2D tr(Mat3x2::Scale(scale));
 
-			objects.sort_by([&](const OBB& a, const OBB& b)
-			{
-				return (eyePos.distanceFromSq(a.center)) > (eyePos.distanceFromSq(b.center));
-			});
+				Vec2 penPos(5, 5);
 
-			Optional<size_t> intersectionIndex;
-
-			for (auto [i, object] : IndexedReversed(objects))
-			{
-				if (cursorRay.intersects(object))
+				for (const auto& glyph : font.getGlyphs(U"OpenSiv3D 実装会"))
 				{
-					intersectionIndex = i;
-					Cursor::RequestStyle(CursorStyle::Hand);
-					break;
+					glyph.texture.draw(penPos + glyph.offset - Vec2(5, 5), Palette::Black);
+					penPos.x += glyph.xAdvance;
 				}
 			}
-
-			for (auto [i, object] : Indexed(objects))
+			else
 			{
-				const HSV color((object.center.x * 50 + object.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
-				object.draw(mat, color);
-			}
+				Vec2 penPos(5, 5);
 
-			box.draw(mat);
-			box.orientation *= Quaternion(Vec3(1, 0, 0), 30_deg * Scene::DeltaTime());
+				for (const auto& glyph : font2.getGlyphs(U"OpenSiv3D y.,_-"))
+				{
+					glyph.texture.draw(penPos + glyph.offset, Palette::Black);
+					penPos.x += glyph.xAdvance;
+				}
+			}
 		}
+
+		//fontO(U"拡大").draw(Cursor::Pos(), ColorF(1,0,0,0.5));
+
+		SimpleGUI::Slider(U"scale", scale, 0.1, 20.0, Vec2(100, 600), 80, 200);
+		SimpleGUI::Slider(U"p_a", p_a, 0.1, 10.0, Vec2(100, 640), 80, 200);
+		SimpleGUI::CheckBox(outlineMode, U"outline", Vec2(400, 600));
+		SimpleGUI::Slider(U"p_b", p_b, 0.277, 0.51, Vec2(400, 640), 80, 200);
+		SimpleGUI::ColorPicker(outlineColor, Vec2(700, 460));
+		SimpleGUI::ColorPicker(innerColor, Vec2(700, 580));
 	}
 }
