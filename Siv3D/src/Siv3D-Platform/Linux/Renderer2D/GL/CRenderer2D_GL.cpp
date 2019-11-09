@@ -962,6 +962,18 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GL::addSprite(const Vertex2D* vertices, const size_t vertexCount, const uint16* indices, const size_t indexCount)
+	{
+		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, vertices, vertexCount, indices, indexCount))
+		{
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
+			m_commands.pushDraw(count);
+		}
+	}
+
 	void CRenderer2D_GL::addSprite(const Sprite& sprite, const uint16 startIndex, const uint16 indexCount)
 	{
 		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, sprite, startIndex, indexCount))
