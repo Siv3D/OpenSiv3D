@@ -102,6 +102,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSONReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\JSONWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NoiseGenerator.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OBB.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
@@ -144,6 +146,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlatformDetail.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PoissonDisk2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedNamedParameter.hpp" />
@@ -197,6 +200,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Quaternion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp" />
@@ -1031,6 +1035,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSONReader\SivJSONReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\JSONWriter\SivJSONWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\KeyConjunction\SivKeyConjunction.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\KeyGroup\SivKeyGroup.cpp" />
@@ -1066,6 +1071,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NoiseGenerator\NoiseGeneratorDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NoiseGenerator\SivNoiseGenerator.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OBB\SivOBB.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
@@ -1091,6 +1097,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\SivPhysics2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PoissonDisk2D\SivPoissonDisk2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />

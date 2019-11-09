@@ -2617,6 +2617,12 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] String uniqued() &&;
 
+		String& unique_sorted();
+
+		[[nodiscard]] String uniqued_sorted() const&;
+
+		[[nodiscard]] String uniqued_sorted() &&;
+
 		/// <summary>
 		/// 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。
 		/// </summary>

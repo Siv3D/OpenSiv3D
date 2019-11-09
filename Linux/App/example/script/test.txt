@@ -26,7 +26,7 @@ void Append(String& text, const String& a)
 
 void Move(Vec2& pos)
 {
-	const double speed = System::DeltaTime() * 100;
+	const double speed = Scene::DeltaTime() * 100;
 
 	if (KeyUp.pressed())
 	{

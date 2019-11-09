@@ -2055,6 +2055,45 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// ソート済みの配列から重複する要素を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Array& unique_sorted()
+		{
+			erase(std::unique(begin(), end()), end());
+
+			return *this;
+		}
+
+		/// <summary>
+		/// ソート済みの配列から重複する要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
+		[[nodiscard]] Array uniqued_sorted() const&
+		{
+			return Array(*this).unique_sorted();
+		}
+
+		/// <summary>
+		/// ソート済みの配列から重複する要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
+		[[nodiscard]] Array uniqued_sorted() &&
+		{
+			erase(std::unique(begin(), end()), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
+		}
+
+		/// <summary>
 		/// 複数のインデックスを取り、それらの要素からなる新しい配列を返します。
 		/// </summary>
 		/// <param name="indices">

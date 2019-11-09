@@ -12,6 +12,7 @@
 # pragma once
 # include <memory>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/Texture.hpp>
 # include "IGUI.hpp"
 
 namespace s3d
@@ -22,6 +23,8 @@ namespace s3d
 
 		std::unique_ptr<Font> m_defaultGUIFont;
 
+		std::unique_ptr<Texture> m_colorPickerTexture;
+
 	public:
 
 		CGUI();
@@ -31,5 +34,7 @@ namespace s3d
 		void init() override;
 
 		const Font& getDefaultGUIFont() override;
+
+		const Texture& getColorPickerTexture() override;
 	};
 }

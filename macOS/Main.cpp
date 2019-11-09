@@ -1,55 +1,38 @@
-# include <Siv3D.hpp>
+
+# include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 void Main()
 {
-	Logger << U"Module: " << FileSystem::ModulePath();
-	Logger << U"Initial: " << FileSystem::InitialDirectory();
-	Logger << U"Current: " << FileSystem::CurrentDirectory();
-	Logger << U"FullPath1: " << FileSystem::FullPath(U"../App/example/");
-	Logger << U"FullPath2: " << FileSystem::FullPath(U"../App/example/windmill.png");
-	Logger << U"Parent1: " << FileSystem::ParentPath(U"./");
-	Logger << U"Parent2: " << FileSystem::ParentPath(U"example/windmill.png");
-	Logger << U"Relative1: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/"));
-	Logger << U"Relative2: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/windmill.png"));
-	
-	Logger << U"Exists: " << FileSystem::Exists(U"example/windmill.png");
-	Logger << U"IsDirectory: " << FileSystem::IsDirectory(U"example/windmill.png");
-	Logger << U"IsFile: " << FileSystem::IsFile(U"example/windmill.png");
-	Logger << U"IsResource: " << FileSystem::IsResource(U"example/windmill.png");
-	//Logger << U"NativePath: " << FileSystem::NativePath(U"example/windmill.png");
-	Logger << U"Extension: " << FileSystem::Extension(U"example/windmill.png");
-	Logger << U"FileName: " << FileSystem::FileName(U"example/windmill.png");
-	Logger << U"BaseName: " << FileSystem::BaseName(U"example/windmill.png");
-	Logger << U"VolumePath: " << FileSystem::VolumePath(U"example/windmill.png");
-	Logger << U"IsEmptyDirectory: " << FileSystem::Exists(U"example/");
-	//Logger << U"Size: " << FileSystem::Size(U"example/"); //permision
-	//Logger << U"Size: " << FileSystem::Size(U"example/windmill.png"); //permision
-	Logger << U"FileSize: " << FileSystem::FileSize(U"example/windmill.png");
-	Logger << U"CreationTime: " << FileSystem::CreationTime(U"example/windmill.png");
-	Logger << U"WriteTime: " << FileSystem::WriteTime(U"example/windmill.png");
-	Logger << U"AccessTime: " << FileSystem::AccessTime(U"example/windmill.png");
-	//Logger << U"DirectoryContents: " << FileSystem::DirectoryContents(U"example/svm/");
-	Logger << U"SpecialFolderPath: " << FileSystem::SpecialFolderPath(SpecialFolder::Pictures);
-	Logger << U"SpecialFolderPath: " << FileSystem::SpecialFolderPath(SpecialFolder::Caches);
-	Logger << U"TemporaryDirectoryPath: " << FileSystem::TemporaryDirectoryPath();
-	Logger << U"UniqueFilePath: " << FileSystem::UniqueFilePath();
-	Logger << U"CreateDirectories: " << FileSystem::CreateDirectories(U"test1/aaa/");
-	Logger << U"CreateParentDirectories: " << FileSystem::CreateParentDirectories(U"test2/bbb/a.png");
-	
-	Print << U"Module: " << FileSystem::ModulePath();
-	Print << U"Initial: " << FileSystem::InitialDirectory();
-	Print << U"Current: " << FileSystem::CurrentDirectory();
-	Print << U"FullPath1: " << FileSystem::FullPath(U"../App/example/");
-	Print << U"FullPath2: " << FileSystem::FullPath(U"../App/example/windmill.png");
-	Print << U"Parent1: " << FileSystem::ParentPath(U"./");
-	Print << U"Parent2: " << FileSystem::ParentPath(U"example/windmill.png");
-	Print << U"Relative1: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/"));
-	Print << U"Relative2: " << FileSystem::RelativePath(FileSystem::FullPath(U"../App/example/windmill.png"));
+	constexpr double fov = 45_deg;
+	constexpr Vec3 focusPosition(0, 0, 0);
+	Vec3 eyePosition(0, 10, 0);
+	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
 
-	const Texture texture(U"example/windmill.png");
+	while (System::Update())
+	{
+		eyePosition = Cylindrical(20, Scene::Time() * 30_deg, 8 + Periodic::Sine0_1(4s) * 8);
+		camera.setView(eyePosition, focusPosition);
+		const Mat4x4 mat = camera.getMat4x4();
 
-    while (System::Update())
-    {
-		texture.draw();
-    }
+		{
+			ScopedRenderStates2D culling(RasterizerState::SolidCullBack);
+
+			for (auto i : Range(-10, 10))
+			{
+				experimental::Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
+				experimental::Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
+			}
+
+			//experimental::AABB(Vec3(0, 1, 0), Vec3(2, 2, 2)).draw(mat, Palette::White);
+			experimental::AABB(Vec3(-8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(0));
+			experimental::AABB(Vec3(8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(90));
+			experimental::AABB(Vec3(8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(270));
+			experimental::AABB(Vec3(-8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(180));
+
+		
+			experimental::OBB(Vec3(0, 1, 0), Vec3(2, 2, 2), Quaternion::RollPitchYaw(0, Scene::Time() * 180_deg, 0)).draw(mat, Palette::White);
+			experimental::OBB(Vec3(0, 6, 0), Vec3(2, 2, 10), Quaternion::RollPitchYaw(0, -Scene::Time() * 180_deg, 0)).draw(mat, Palette::Orange);
+
+		}
+	}
 }

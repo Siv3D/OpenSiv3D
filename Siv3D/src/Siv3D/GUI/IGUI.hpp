@@ -25,5 +25,7 @@ namespace s3d
 		virtual void init() = 0;
 
 		virtual const Font& getDefaultGUIFont() = 0;
+
+		virtual const Texture& getColorPickerTexture() = 0;
 	};
 }

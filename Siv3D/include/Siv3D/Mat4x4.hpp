@@ -127,7 +127,7 @@ namespace s3d
 			return Transpose(*this);
 		}
 
-		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL inverted() const noexcept
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL inverse() const noexcept
 		{
 			return Inverse(*this);
 		}
@@ -1335,6 +1335,104 @@ namespace s3d
 				pOutputStream, sizeof(Float3),
 				reinterpret_cast<const Float3*>(pInputStream), sizeof(SIMD_Float4),
 				vertexCount, m);
+		}
+
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationMatrix(Mat4x4 m)
+		{
+			static const __m128 XMPMMP{ +1.0f, -1.0f, -1.0f, +1.0f };
+			static const __m128 XMMPMP{ -1.0f, +1.0f, -1.0f, +1.0f };
+			static const __m128 XMMMPP{ -1.0f, -1.0f, +1.0f, +1.0f };
+
+			__m128 r0 = m.r[0];  // (r00, r01, r02, 0)
+			__m128 r1 = m.r[1];  // (r10, r11, r12, 0)
+			__m128 r2 = m.r[2];  // (r20, r21, r22, 0)
+
+			// (r00, r00, r00, r00)
+			__m128 r00 = SIV3D_PERMUTE_PS(r0, _MM_SHUFFLE(0, 0, 0, 0));
+			// (r11, r11, r11, r11)
+			__m128 r11 = SIV3D_PERMUTE_PS(r1, _MM_SHUFFLE(1, 1, 1, 1));
+			// (r22, r22, r22, r22)
+			__m128 r22 = SIV3D_PERMUTE_PS(r2, _MM_SHUFFLE(2, 2, 2, 2));
+
+			// x^2 >= y^2 equivalent to r11 - r00 <= 0
+			// (r11 - r00, r11 - r00, r11 - r00, r11 - r00)
+			__m128 r11mr00 = _mm_sub_ps(r11, r00);
+			__m128 x2gey2 = _mm_cmple_ps(r11mr00, constants::m128_Zero);
+
+			// z^2 >= w^2 equivalent to r11 + r00 <= 0
+			// (r11 + r00, r11 + r00, r11 + r00, r11 + r00)
+			__m128 r11pr00 = _mm_add_ps(r11, r00);
+			__m128 z2gew2 = _mm_cmple_ps(r11pr00, constants::m128_Zero);
+
+			// x^2 + y^2 >= z^2 + w^2 equivalent to r22 <= 0
+			__m128 x2py2gez2pw2 = _mm_cmple_ps(r22, constants::m128_Zero);
+
+			// (+r00, -r00, -r00, +r00)
+			__m128 t0 = _mm_mul_ps(XMPMMP, r00);
+
+			// (-r11, +r11, -r11, +r11)
+			__m128 t1 = _mm_mul_ps(XMMPMP, r11);
+
+			// (-r22, -r22, +r22, +r22)
+			__m128 t2 = _mm_mul_ps(XMMMPP, r22);
+
+			// (4*x^2, 4*y^2, 4*z^2, 4*w^2)
+			__m128 x2y2z2w2 = _mm_add_ps(t0, t1);
+			x2y2z2w2 = _mm_add_ps(t2, x2y2z2w2);
+			x2y2z2w2 = _mm_add_ps(x2y2z2w2, constants::m128_One);
+
+			// (r01, r02, r12, r11)
+			t0 = _mm_shuffle_ps(r0, r1, _MM_SHUFFLE(1, 2, 2, 1));
+			// (r10, r10, r20, r21)
+			t1 = _mm_shuffle_ps(r1, r2, _MM_SHUFFLE(1, 0, 0, 0));
+			// (r10, r20, r21, r10)
+			t1 = SIV3D_PERMUTE_PS(t1, _MM_SHUFFLE(1, 3, 2, 0));
+			// (4*x*y, 4*x*z, 4*y*z, unused)
+			__m128 xyxzyz = _mm_add_ps(t0, t1);
+
+			// (r21, r20, r10, r10)
+			t0 = _mm_shuffle_ps(r2, r1, _MM_SHUFFLE(0, 0, 0, 1));
+			// (r12, r12, r02, r01)
+			t1 = _mm_shuffle_ps(r1, r0, _MM_SHUFFLE(1, 2, 2, 2));
+			// (r12, r02, r01, r12)
+			t1 = SIV3D_PERMUTE_PS(t1, _MM_SHUFFLE(1, 3, 2, 0));
+			// (4*x*w, 4*y*w, 4*z*w, unused)
+			__m128 xwywzw = _mm_sub_ps(t0, t1);
+			xwywzw = _mm_mul_ps(XMMPMP, xwywzw);
+
+			// (4*x^2, 4*y^2, 4*x*y, unused)
+			t0 = _mm_shuffle_ps(x2y2z2w2, xyxzyz, _MM_SHUFFLE(0, 0, 1, 0));
+			// (4*z^2, 4*w^2, 4*z*w, unused)
+			t1 = _mm_shuffle_ps(x2y2z2w2, xwywzw, _MM_SHUFFLE(0, 2, 3, 2));
+			// (4*x*z, 4*y*z, 4*x*w, 4*y*w)
+			t2 = _mm_shuffle_ps(xyxzyz, xwywzw, _MM_SHUFFLE(1, 0, 2, 1));
+
+			// (4*x*x, 4*x*y, 4*x*z, 4*x*w)
+			__m128 tensor0 = _mm_shuffle_ps(t0, t2, _MM_SHUFFLE(2, 0, 2, 0));
+			// (4*y*x, 4*y*y, 4*y*z, 4*y*w)
+			__m128 tensor1 = _mm_shuffle_ps(t0, t2, _MM_SHUFFLE(3, 1, 1, 2));
+			// (4*z*x, 4*z*y, 4*z*z, 4*z*w)
+			__m128 tensor2 = _mm_shuffle_ps(t2, t1, _MM_SHUFFLE(2, 0, 1, 0));
+			// (4*w*x, 4*w*y, 4*w*z, 4*w*w)
+			__m128 tensor3 = _mm_shuffle_ps(t2, t1, _MM_SHUFFLE(1, 2, 3, 2));
+
+			// Select the row of the tensor-product matrix that has the largest
+			// magnitude.
+			t0 = _mm_and_ps(x2gey2, tensor0);
+			t1 = _mm_andnot_ps(x2gey2, tensor1);
+			t0 = _mm_or_ps(t0, t1);
+			t1 = _mm_and_ps(z2gew2, tensor2);
+			t2 = _mm_andnot_ps(z2gew2, tensor3);
+			t1 = _mm_or_ps(t1, t2);
+			t0 = _mm_and_ps(x2py2gez2pw2, t0);
+			t1 = _mm_andnot_ps(x2py2gez2pw2, t1);
+			t2 = _mm_or_ps(t0, t1);
+
+			// Normalize the row.  No division by zero is possible because the
+			// quaternion is unit-length (and the row is a nonzero multiple of
+			// the quaternion).
+			t0 = Vector4Length(t2);
+			return _mm_div_ps(t2, t0);
 		}
 
 		//

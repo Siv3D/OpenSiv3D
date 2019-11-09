@@ -560,6 +560,27 @@ namespace s3d
 		return std::move(*this);
 	}
 
+	Array<bool>& Array<bool>::unique_sorted()
+	{
+		erase(std::unique(begin(), end()), end());
+
+		return *this;
+	}
+
+	Array<bool> Array<bool>::uniqued_sorted() const&
+	{
+		return Array(*this).unique_sorted();
+	}
+
+	Array<bool> Array<bool>::uniqued_sorted() &&
+	{
+		erase(std::unique(begin(), end()), end());
+
+		shrink_to_fit();
+
+		return std::move(*this);
+	}
+
 	Array<bool> Array<bool>::values_at(std::initializer_list<size_t> indices) const
 	{
 		Array new_array;

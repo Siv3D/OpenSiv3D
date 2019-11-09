@@ -93,6 +93,21 @@ namespace s3d
 		/// <summary>
 		/// 色を作成します。
 		/// </summary>
+		/// <param name="hsv">
+		/// HSV カラー
+		/// </param>
+		/// <param name="_a">
+		/// アルファ [0.0, 1.0]
+		/// </param>
+		constexpr HSV(const HSV& hsv, double _a) noexcept
+			: h(hsv.h)
+			, s(hsv.s)
+			, v(hsv.v)
+			, a(_a) {}
+
+		/// <summary>
+		/// 色を作成します。
+		/// </summary>
 		/// <param name="color">
 		/// RGB カラー
 		/// </param>
@@ -105,6 +120,34 @@ namespace s3d
 		/// RGB カラー
 		/// </param>
 		HSV(const ColorF& color) noexcept;
+
+		/// <summary>
+		/// 色が等しいかを調べます。
+		/// </summary>
+		/// <param name="hsva">
+		/// 比較対象の色
+		/// </param>
+		/// <returns>
+		/// 等しければ true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator ==(const HSV& hsva) const noexcept
+		{
+			return (h == hsva.h) && (s == hsva.s) && (v == hsva.v) && (a == hsva.a);
+		}
+
+		/// <summary>
+		/// 色が等しくないかを調べます。
+		/// </summary>
+		/// <param name="hsva">
+		/// 比較対象の色
+		/// </param>
+		/// <returns>
+		/// 等しくなければ true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator !=(const HSV& hsva) const noexcept
+		{
+			return (h != hsva.h) || (s != hsva.s) || (v != hsva.v) || (a != hsva.a);
+		}
 
 		/// <summary>
 		/// HSV の値を加算します。

@@ -12,6 +12,7 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Error.hpp>
 # include <Siv3DEngine.hpp>
 # include <Window/IWindow.hpp>
 # include <Graphics/IGraphics.hpp>
@@ -24,6 +25,11 @@ namespace s3d
 	{
 		void Resize(const s3d::Size& size)
 		{
+			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
+			{
+				throw Error(U"Scene::Resize(): width and height must be in the range [1, 8192]");
+			}
+
 			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(size);
 		}
 

@@ -12,9 +12,13 @@
 # include <Siv3D/SimpleGUI.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/HSV.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Circle.hpp>
+# include <Siv3D/TexturedCircle.hpp>
+# include <Siv3D/Triangle.hpp>
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/KeyConjunction.hpp>
 # include <Siv3D/Keyboard.hpp>
@@ -38,6 +42,7 @@ namespace s3d
 		constexpr int32 RadioButtonSize = 19;
 		constexpr int32 RadioButtonPadding = 8;
 		constexpr int32 TextBoxHeight = 36;
+		constexpr Size  ColorPickerSize(160, 116);
 	}
 
 	TextEditState::TextEditState(const String& defaultText)
@@ -781,6 +786,127 @@ namespace s3d
 			}
 
 			return (text.text != previousText);
+		}
+
+		RectF ColorPickerRegion(const Vec2& pos)
+		{
+			return RectF(pos, detail::ColorPickerSize);
+		}
+
+		RectF ColorPickerRegionAt(const Vec2& center)
+		{
+			return RectF(Arg::center = center, detail::ColorPickerSize);
+		}
+
+		bool ColorPicker(HSV& hsv, const Vec2& pos, const bool enabled)
+		{
+			const Vec2 center = ColorPickerRegion(pos).center();
+
+			return ColorPickerAt(hsv, center, enabled);
+		}
+
+		bool ColorPickerAt(HSV& hsv, const Vec2& center, const bool enabled)
+		{
+			const HSV previousHSV = hsv;
+
+			const RectF region = ColorPickerRegionAt(center);
+			constexpr int32 circleSize = (detail::ColorPickerSize.y - 18);
+			const Vec2 circleCenter = center.movedBy(-26 + 4, 0);
+			const Circle circle(circleCenter, circleSize / 2);
+			const Circle touchCircle = circle.stretched((116 - circleSize) / 2);
+			const RectF touchRect(Arg::center = circleCenter, circleSize + 8);
+			const bool onCircle = (touchRect.mouseOver() || touchCircle.mouseOver());
+			const bool onCircleUpdate = enabled && onCircle && MouseL.pressed();
+
+			if (onCircleUpdate)
+			{
+				const Vec2 pos = Cursor::PosF();
+				const Vec2 dir = (pos - circleCenter);
+				const Circular cir(dir);
+				const double h = Math::Fmod(Math::ToDegrees(cir.theta) + 360.0, 360.0);
+				const double s = std::min((std::min(cir.r, circleSize / 2.0) / ((circleSize - 1) / 2.0)), 1.0);
+				hsv.h = h;
+				hsv.s = s;
+			}
+
+			const RectF valueBox(Arg::center = center.movedBy(56, 0), 24, 96);
+			const Vec2 valueBoxBase = valueBox.pos;
+			const RectF touchValueBox = valueBox.stretched(8, 8, 8, 4);
+			const bool onValueBox = touchValueBox.mouseOver();
+			const bool onValueBoxUpdate = enabled && onValueBox && MouseL.pressed();
+
+			if (onValueBoxUpdate)
+			{
+				const Vec2 pos = Cursor::PosF();
+				const double y = pos.y - valueBox.y;
+				const double v = Saturate(1.0 - (y / (valueBox.h - 1)));
+				hsv.v = v;
+			}
+
+			if (enabled && (onCircle || onValueBox))
+			{
+				Cursor::RequestStyle(CursorStyle::Hand);
+			}
+
+			// Background
+			{
+				region.draw();
+				RectF(Arg::center = center, 148, 104).rounded(2.2).draw(ColorF(enabled ? 0.66 : 0.75));
+			}
+
+			// HS Circle
+			{
+				circle(Siv3DEngine::Get<ISiv3DGUI>()->getColorPickerTexture()).draw();
+
+				if (!enabled)
+				{
+					circle.stretched(1).draw(ColorF(1.0, 0.5));
+				}
+
+				const double r = hsv.s * ((circleSize - 1) / 2.0);
+				const double theta = ToRadians(hsv.h);
+				const Circular cir(r, theta);
+				const Vec2 dir = cir.toVec2();
+				const ColorF color = HSV(hsv.h, hsv.s, 1.0);
+
+				if (enabled)
+				{
+					Circle(circleCenter + dir, 5)
+						.draw(color)
+						.stretched(onCircleUpdate ? 1 : 0)
+						.drawFrame(1.0, 1.0, HSV(0.0, 0.0, hsv.s));
+				}
+				else
+				{
+					Circle(circleCenter + dir, 5)
+						.draw(color)
+						.draw(ColorF(1.0, 0.5))
+						.drawFrame(1.0, 1.0, ColorF(0.75));
+				}
+			}
+
+			// V box
+			{
+				valueBox.draw(Arg::top = HSV(hsv.h, hsv.s, 1.0), Arg::bottom = HSV(hsv.h, hsv.s, 0.0));
+
+				if (!enabled)
+				{
+					valueBox.draw(ColorF(1.0, 0.5));
+				}
+
+				const double y = (1.0 - hsv.v) * valueBox.h;
+				const ColorF triangleColor(enabled ? 0.2 : 0.5);
+				Triangle(valueBoxBase.movedBy(-6, y), 10, 90_deg).draw(triangleColor);
+				Triangle(valueBoxBase.movedBy(valueBox.w + 6, y), 10, 270_deg).draw(triangleColor);
+			}
+
+			// Preview
+			if (onValueBoxUpdate)
+			{
+				RectF(Arg::center = circleCenter, 36).draw(HSV(hsv, 1.0));
+			}
+
+			return (previousHSV.toColorF() != hsv.toColorF());
 		}
 	}
 }
