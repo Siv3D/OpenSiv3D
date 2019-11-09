@@ -1,5 +1,6 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.2
+# include <DirectXMath.h>
 
 void Main()
 {
@@ -7,6 +8,24 @@ void Main()
 	constexpr Vec3 focusPosition(0, 0, 0);
 	Vec3 eyePosition(0, 10, 0);
 	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
+
+	Array<OBB> objects;
+
+	for (auto x : Range(-2, 2))
+	{
+		for (auto z : Range(2, -2, -1))
+		{
+			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
+		}
+	}
+
+	const Quaternion q = Quaternion::RotationAxis(Vec3(1, 0.5, 0.2).normalized(), 45_deg);
+	Print << Vec3(1, 0.5, 0.2).normalized() << 45_deg;
+	Print << q;
+	Print << q.toAxisAngle();
+	Print << q * (Vec3::One());
+
+	OBB box(Vec3(0, 5, 0), 2, Quaternion(Vec3(0, 1.0, 0).normalize(), 30_deg));
 
 	while (System::Update())
 	{
@@ -19,20 +38,38 @@ void Main()
 
 			for (auto i : Range(-10, 10))
 			{
-				experimental::Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
-				experimental::Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
+				Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
+				Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
 			}
 
-			//experimental::AABB(Vec3(0, 1, 0), Vec3(2, 2, 2)).draw(mat, Palette::White);
-			experimental::AABB(Vec3(-8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(0));
-			experimental::AABB(Vec3(8, 1, 8), Vec3(2, 2, 2)).draw(mat, HSV(90));
-			experimental::AABB(Vec3(8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(270));
-			experimental::AABB(Vec3(-8, 1, -8), Vec3(2, 2, 2)).draw(mat, HSV(180));
+			const Vec3 eyePos = camera.getEyePosition();
+			const Ray cursorRay = camera.screenToRay(Cursor::PosF());
 
-		
-			experimental::OBB(Vec3(0, 1, 0), Vec3(2, 2, 2), Quaternion::RollPitchYaw(0, Scene::Time() * 180_deg, 0)).draw(mat, Palette::White);
-			experimental::OBB(Vec3(0, 6, 0), Vec3(2, 2, 10), Quaternion::RollPitchYaw(0, -Scene::Time() * 180_deg, 0)).draw(mat, Palette::Orange);
+			objects.sort_by([&](const OBB& a, const OBB& b)
+			{
+				return (eyePos.distanceFromSq(a.center)) > (eyePos.distanceFromSq(b.center));
+			});
 
+			Optional<size_t> intersectionIndex;
+
+			for (auto [i, object] : IndexedReversed(objects))
+			{
+				if (cursorRay.intersects(object))
+				{
+					intersectionIndex = i;
+					Cursor::RequestStyle(CursorStyle::Hand);
+					break;
+				}
+			}
+
+			for (auto [i, object] : Indexed(objects))
+			{
+				const HSV color((object.center.x * 50 + object.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
+				object.draw(mat, color);
+			}
+
+			box.draw(mat);
+			box.orientation *= Quaternion(Vec3(1, 0, 0), 30_deg * Scene::DeltaTime());
 		}
 	}
 }

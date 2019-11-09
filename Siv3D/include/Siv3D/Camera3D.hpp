@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Mat4x4.hpp"
+# include "Ray.hpp"
 # include "Scene.hpp"
 
 namespace s3d::experimental
@@ -25,6 +26,8 @@ namespace s3d::experimental
 		Mat4x4 m_view = Mat4x4::Identity();
 
 		Mat4x4 m_viewProj = Mat4x4::Identity();
+
+		Mat4x4 m_invViewProj = Mat4x4::Identity();
 
 		//
 		// Proj
@@ -117,5 +120,9 @@ namespace s3d::experimental
 		}
 
 		[[nodiscard]] Float3 worldToScreenPoint(const Float3& pos) const noexcept;
+
+		[[nodiscard]] Float3 screenToWorldPoint(const Float2& pos, float depth) const noexcept;
+
+		[[nodiscard]] Ray screenToRay(const Vec2& pos) const noexcept;
 	};
 }

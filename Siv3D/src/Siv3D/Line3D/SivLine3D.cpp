@@ -13,7 +13,7 @@
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Graphics2D.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	void Line3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{
@@ -58,5 +58,14 @@ namespace s3d::experimental
 		}
 
 		Line(out[0].xy(), out[1].xy()).draw(2, color);
+	}
+
+	void Formatter(FormatData& formatData, const Line3D& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.begin);
+		formatData.string.append(U", "_sv);
+		Formatter(formatData, value.end);
+		formatData.string.push_back(U')');
 	}
 }

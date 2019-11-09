@@ -14,7 +14,7 @@
 # include "PointVector.hpp"
 # include "SIMD_Float4.hpp"
 
-namespace s3d::experimental
+namespace s3d
 {
 	struct Line3D
 	{
@@ -30,11 +30,23 @@ namespace s3d::experimental
 
 		Line3D& operator=(Line3D&&) = default;
 
+		constexpr Line3D(double bx, double by, double bz, double ex, double ey, double ez) noexcept
+			: begin(bx, by, bz)
+			, end(ex, ey, ez) {}
+
+		constexpr Line3D(double bx, double by, double bz, const Vec3& _end) noexcept
+			: begin(bx, by, bz)
+			, end(_end) {}
+
+		constexpr Line3D(const Vec3& _begin, double ex, double ey, double ez) noexcept
+			: begin(_begin)
+			, end(ex, ey, ez) {}
+
 		constexpr Line3D(const Vec3& _begin, const Vec3& _end) noexcept
 			: begin(_begin)
 			, end(_end) {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 	};
 
 
@@ -58,6 +70,83 @@ namespace s3d::experimental
 		SIMD_Line3D(const Float3& _begin, const Float3& _end) noexcept
 			: vec{ { _begin, 0.0f }, { _end, 0.0f } } {}
 
-		void draw(const Mat4x4& vp, const ColorF& color) const;
+		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Line3D& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line3D& value)
+	{
+		return output << CharType('(')
+			<< value.begin << CharType(',') << CharType(' ')
+			<< value.end << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Line3D& value)
+	{
+		CharType unused;
+		return input >> unused
+			>> value.begin >> unused
+			>> value.end >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Line3D>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Line3D& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::Line3D, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::Line3D& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin, value.end);
+		}
 	};
 }

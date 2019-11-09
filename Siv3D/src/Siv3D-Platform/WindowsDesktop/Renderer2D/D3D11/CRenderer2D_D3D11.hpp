@@ -233,6 +233,8 @@ namespace s3d
 
 		void addShape2DFrame(const Float2* pts, uint16 size, float thickness, const Float4& color) override;
 
+		void addSprite(const Vertex2D* vertices, size_t vertexCount, const uint16* indices, size_t indexCount) override;
+
 		void addSprite(const Sprite& sprite, uint16 startIndex, uint16 indexCount) override;
 
 		void addSprite(const Texture& texture, const Sprite& sprite, uint16 startIndex, uint16 indexCount);
