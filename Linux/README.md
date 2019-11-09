@@ -38,6 +38,7 @@ Wayland and Mir are not supported.
 ### Note
 - Using `-DCMAKE_BUILD_TYPE=Debug`, it is compiled with `-g3 -O0`.
 - The above example uses `ninja`, but you can also compile with `make`.
+- Set `CC` and `CXX` before running `cmake` to specify the compiler.
 
 
 ## Compiling an application
