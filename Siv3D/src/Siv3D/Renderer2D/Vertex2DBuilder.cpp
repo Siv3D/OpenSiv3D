@@ -420,7 +420,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& color, const float scale)
+		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			const float absR = Math::Abs(r);
 			const IndexType quality = detail::CalculateCircleQuality(absR * scale);
@@ -461,9 +461,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			{

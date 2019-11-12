@@ -43,7 +43,7 @@ namespace s3d
 
 		[[nodiscard]] uint16 BuildRectFrame(BufferCreatorFunc bufferCreator, const FloatRect& rect, float thickness, const Float4& color);
 
-		[[nodiscard]] uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& color, float scale);
+		[[nodiscard]] uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& innerColor, const Float4& outerColor, float scale);
 
 		[[nodiscard]] uint16 BuildCircleFrame(BufferCreatorFunc bufferCreator, const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor, float scale);
 
