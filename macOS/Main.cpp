@@ -3,7 +3,7 @@
 void Main()
 {
     // マイクをセットアップ
-    Microphone mic(0);
+    Microphone mic(unspecified);
 
     if (!mic)
     {
