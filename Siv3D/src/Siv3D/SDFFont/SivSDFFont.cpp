@@ -147,6 +147,12 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DSDFFont>()->getHeight(m_handle->id());
 	}
 
+	double SDFFont::pixelRange() const
+	{
+		// [Siv3D ToDo]
+		return baseSize() / 8.0;
+	}
+
 	const SDFFont& SDFFont::preload(const StringView text) const
 	{
 		Siv3DEngine::Get<ISiv3DSDFFont>()->preload(m_handle->id(), text);

@@ -90,6 +90,8 @@ namespace s3d
 
 		[[nodiscard]] double height() const;
 
+		[[nodiscard]] double pixelRange() const;
+
 		const SDFFont& preload(StringView text) const;
 
 		bool saveGlyphs(FilePathView imagePath, FilePathView jsonPath) const;
