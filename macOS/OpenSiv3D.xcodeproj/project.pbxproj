@@ -1041,6 +1041,7 @@
 		2C8EA7CB237A956400A1D3B6 /* CSDFFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C4237A956400A1D3B6 /* CSDFFont.cpp */; };
 		2C8EA7CC237A956400A1D3B6 /* SDFFontData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */; };
 		2C8EA7CD237A956400A1D3B6 /* SDFFontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */; };
+		2C8EA7CF237AB97C00A1D3B6 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8EA7CE237AB97C00A1D3B6 /* CoreAudio.framework */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2180,6 +2181,7 @@
 		2C8EA7C4237A956400A1D3B6 /* CSDFFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSDFFont.cpp; sourceTree = "<group>"; };
 		2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDFFontData.hpp; sourceTree = "<group>"; };
 		2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDFFontFactory.cpp; sourceTree = "<group>"; };
+		2C8EA7CE237AB97C00A1D3B6 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -2618,10 +2620,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C461AD12270864D00828870 /* OpenAL.framework in Frameworks */,
 				2C461AA62270743100828870 /* AudioToolbox.framework in Frameworks */,
-				2C461AA122705C3200828870 /* Foundation.framework in Frameworks */,
+				2CC1701D2355F5CE00A15A3D /* AVFoundation.framework in Frameworks */,
+				2C8EA7CF237AB97C00A1D3B6 /* CoreAudio.framework in Frameworks */,
 				2CC1701F2355F5E800A15A3D /* CoreMedia.framework in Frameworks */,
+				2C461AA122705C3200828870 /* Foundation.framework in Frameworks */,
+				2C461AD12270864D00828870 /* OpenAL.framework in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 				2C461AA42270674100828870 /* libboost_filesystem.a in Frameworks */,
 				2CB4A60022A150DC00BF96EA /* libvorbis.a in Frameworks */,
@@ -2631,7 +2635,6 @@
 				2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */,
 				2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */,
 				2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */,
-				2CC1701D2355F5CE00A15A3D /* AVFoundation.framework in Frameworks */,
 				2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */,
 				2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */,
 				2C461AAE2270767100828870 /* libpng.a in Frameworks */,
@@ -2661,6 +2664,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C8EA7CE237AB97C00A1D3B6 /* CoreAudio.framework */,
 				2CC1701E2355F5E800A15A3D /* CoreMedia.framework */,
 				2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */,
 				2C60A7D622F5AA7500A5D629 /* libutil.a */,
