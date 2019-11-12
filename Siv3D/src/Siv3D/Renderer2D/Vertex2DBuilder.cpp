@@ -693,7 +693,7 @@ namespace s3d
 			{
 				(pVertex++)->color = innerColor;
 
-				for (size_t i = 0; i < vertexSize; ++i)
+				for (size_t i = 1; i < vertexSize; ++i)
 				{
 					(pVertex++)->color = outerColor;
 				}
