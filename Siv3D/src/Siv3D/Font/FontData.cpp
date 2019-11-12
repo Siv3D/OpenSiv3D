@@ -1211,16 +1211,6 @@ namespace s3d
 		info.xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
 		info.yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
 
-		//{
-		//	String s = U"glyphIndex [{}]\n"_fmt(glyphIndex);
-		//	s += U"bitmapRect: {}\n"_fmt(info.bitmapRect);
-		//	s += U"offset: {}\n"_fmt(info.offset);
-		//	s += U"bearingY: {}\n"_fmt(info.bearingY);
-		//	s += U"xAdvance: {}\n"_fmt(info.xAdvance);
-		//	s += U"yAdvance: {}\n"_fmt(info.yAdvance);
-		//	LOG_INFO(s);
-		//}
-
 		const uint8* bitmapBuffer = slot->bitmap.buffer;
 
 		if (isBitmap)

@@ -1154,6 +1154,7 @@ namespace s3d
 	//
 	//	SDFFont.hpp
 	//
+	struct GlyphF;
 	class SDFFont;
 	struct SDFDrawableText;
 

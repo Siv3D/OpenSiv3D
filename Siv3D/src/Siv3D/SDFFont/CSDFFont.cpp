@@ -121,6 +121,33 @@ namespace s3d
 		return m_fonts.add(std::move(font), info);
 	}
 
+	SDFFontID CSDFFont::create(const std::pair<FilePath, FilePath>& prerenderedFiles, const Typeface typeface, const int32 baseSize, const FontStyle style)
+	{
+		return create(prerenderedFiles, detail::GetEngineFontPath(typeface), baseSize, style);
+	}
+
+	SDFFontID CSDFFont::create(const std::pair<FilePath, FilePath>& prerenderedFiles, const FilePath& path, const int32 baseSize, const FontStyle style)
+	{
+		const FilePath emojiPath = detail::GetEngineFontDirectory()
+			+ detail::StandardFontNames[FromEnum(detail::StandardFont::NotoEmojiRegular)];
+
+		auto font = std::make_unique<SDFFontData>(m_freeType, path, emojiPath, baseSize, style);
+
+		if (!font->isInitialized())
+		{
+			return SDFFontID::NullAsset();
+		}
+
+		if (!font->load(prerenderedFiles.first, prerenderedFiles.second))
+		{
+			return SDFFontID::NullAsset();
+		}
+
+		const String info = U"(`{0} {1}` baseSize: {2})"_fmt(font->getProperty().familyName, font->getProperty().styleName, baseSize);
+
+		return m_fonts.add(std::move(font), info);
+	}
+
 	void CSDFFont::release(const SDFFontID handleID)
 	{
 		m_fonts.erase(handleID);
@@ -141,22 +168,32 @@ namespace s3d
 		return m_fonts[handleID]->getProperty().baseSize;
 	}
 
-	int32 CSDFFont::getAscent(const SDFFontID handleID)
+	double CSDFFont::getAscent(const SDFFontID handleID)
 	{
 		return m_fonts[handleID]->getProperty().ascender;
 	}
 
-	int32 CSDFFont::getDescent(const SDFFontID handleID)
+	double CSDFFont::getDescent(const SDFFontID handleID)
 	{
 		return m_fonts[handleID]->getProperty().descender;
 	}
 
-	int32 CSDFFont::getHeight(const SDFFontID handleID)
+	double CSDFFont::getHeight(const SDFFontID handleID)
 	{
 		return m_fonts[handleID]->getProperty().height;
 	}
 
-	Array<Glyph> CSDFFont::getGlyphs(const SDFFontID handleID, const StringView codePoints)
+	void CSDFFont::preload(const SDFFontID handleID, const StringView codePoints)
+	{
+		m_fonts[handleID]->preload(codePoints);
+	}
+
+	bool CSDFFont::saveGlyphs(const SDFFontID handleID, const FilePathView imagePath, const FilePathView jsonPath)
+	{
+		return m_fonts[handleID]->saveGlyphs(imagePath, jsonPath);
+	}
+
+	Array<GlyphF> CSDFFont::getGlyphs(const SDFFontID handleID, const StringView codePoints)
 	{
 		return m_fonts[handleID]->getGlyphs(codePoints);
 	}
@@ -164,5 +201,25 @@ namespace s3d
 	const Texture& CSDFFont::getTexture(const SDFFontID handleID)
 	{
 		return m_fonts[handleID]->getTexture();
+	}
+
+	RectF CSDFFont::getBoundingRect(const SDFFontID handleID, const double fontSize, const StringView codePoints, const double lineSpacingScale)
+	{
+		return m_fonts[handleID]->getBoundingRect(fontSize, codePoints, lineSpacingScale);
+	}
+
+	RectF CSDFFont::getRegion(const SDFFontID handleID, const double fontSize, const StringView codePoints, const double lineSpacingScale)
+	{
+		return m_fonts[handleID]->getRegion(fontSize, codePoints, lineSpacingScale);
+	}
+
+	Array<double> CSDFFont::getXAdvances(const SDFFontID handleID, const double fontSize, const StringView codePoints)
+	{
+		return m_fonts[handleID]->getXAdvances(fontSize, codePoints);
+	}
+
+	RectF CSDFFont::draw(const SDFFontID handleID, const double fontSize, const StringView codePoints, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
+	{
+		return m_fonts[handleID]->draw(fontSize, codePoints, pos, color, lineSpacingScale);
 	}
 }

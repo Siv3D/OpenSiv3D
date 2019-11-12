@@ -408,17 +408,17 @@ namespace s3d
 		return m_fonts[handleID]->getTexture();
 	}
 
-	RectF CFont::getBoundingRect(FontID handleID, const String& codePoints, const double lineSpacingScale)
+	RectF CFont::getBoundingRect(const FontID handleID, const String& codePoints, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->getBoundingRect(codePoints, lineSpacingScale);
 	}
 
-	RectF CFont::getRegion(FontID handleID, const String& codePoints, const double lineSpacingScale)
+	RectF CFont::getRegion(const FontID handleID, const String& codePoints, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->getRegion(codePoints, lineSpacingScale);
 	}
 
-	Array<int32> CFont::getXAdvances(FontID handleID, const String& codePoints)
+	Array<int32> CFont::getXAdvances(const FontID handleID, const String& codePoints)
 	{
 		return m_fonts[handleID]->getXAdvances(codePoints);
 	}

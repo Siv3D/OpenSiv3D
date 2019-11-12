@@ -29,21 +29,34 @@ namespace s3d
 
 		String styleName;
 
-		double scale = 1.0;
-
 		int32 baseSize = 0;
 
-		int32 ascender = 0;
+		double scale = 1.0;
 
-		int32 descender = 0;
+		double ascender = 0;
 
-		int32 height = 0;
+		double descender = 0;
 
-		int32 tabWidth = 0;
+		double height = 0;
+
+		double tabWidth = 0;
 
 		bool isBold = false;
 
 		bool isItalic = false;
+	};
+
+	struct GlyphInfoF
+	{
+		RectF bitmapRect = { 0,0,0,0 };
+
+		Vec2 offset = { 0,0 };
+
+		double bearingY = 0;
+
+		double xAdvance = 0;
+
+		double yAdvance = 0;
 	};
 
 	class SDFFontData
@@ -68,6 +81,7 @@ namespace s3d
 		SDFFontProperty m_property;
 
 		Image m_image;
+		static constexpr Color BackgroundColor = Color(0, 0);
 		static constexpr int32 ImagePadding = 1;
 		Point m_penPos = { 0, ImagePadding };
 
@@ -75,7 +89,7 @@ namespace s3d
 
 		HashTable<CodePointVH, GlyphIndex> m_glyphTable;
 
-		Array<GlyphInfo> m_glyphInfos;
+		Array<GlyphInfoF> m_glyphInfos;
 
 		Optional<GlyphIndex> m_tofuIndex;
 
@@ -99,10 +113,24 @@ namespace s3d
 
 		[[nodiscard]] bool isInitialized() const noexcept;
 
+		[[nodiscard]] bool load(const FilePath& imagePath, const FilePath& glyphPath);
+
 		[[nodiscard]] const SDFFontProperty& getProperty() const noexcept;
 
 		[[nodiscard]] const Texture& getTexture() const;
 
-		[[nodiscard]] Array<Glyph> getGlyphs(StringView codePoints);
+		RectF getBoundingRect(double fontSize, StringView codePoints, double lineSpacingScale);
+
+		RectF getRegion(double fontSize, StringView codePoints, double lineSpacingScale);
+
+		Array<double> getXAdvances(double fontSize, StringView codePoints);
+
+		void preload(StringView codePoints);
+
+		bool saveGlyphs(FilePathView imagePath, FilePathView jsonPath);
+
+		[[nodiscard]] Array<GlyphF> getGlyphs(StringView codePoints);
+
+		RectF draw(double fontSize, StringView codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale);
 	};
 }

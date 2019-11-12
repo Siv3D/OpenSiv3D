@@ -1,100 +1,71 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
-struct SDFParameters
+struct FontSet
 {
-	float a = 0.0f, b = 0.0f, c = 0.0f, d = 0.0f;
+	SDFFont sdf;
+	Font bitmap;
 };
 
 void Main()
 {
 	Window::Resize(1280, 720);
-	Scene::SetBackground(ColorF(0.2, 0.6, 0.4));
-	//const Font fontO(80);
-	const Font font2(42, Typeface::Bold);
-	font2.getGlyphs(U"ABCy-._");
-	Logger << U"------";
-	const SDFFont font(42, Typeface::Bold);
-	font.getGlyphs(U"ABCy-._");
+	Scene::SetBackground(ColorF(0.4, 0.5, 0.6));
 
-	const PixelShader ps(U"sdf" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),
-		{ { U"PSConstants2D", 0 }, { U"SDFParameters", 1 } });
+	constexpr Vec2 pos(0, 0);
+	const String text = U"OpenSiv3D\nあいうえおかきくけこ";
 
-	const PixelShader psOutline(U"sdfOutline" SIV3D_SELECT_SHADER(U".hlsl", U".frag"),
-		{ { U"PSConstants2D", 0 }, { U"SDFParameters", 1 } });
-
-	if (!ps)
 	{
-		throw Error(U"!ps");
+		String s;
+		for (auto i : Range(32, 126))
+		{
+			s << char32(i);
+		}
+		s += text;
+
+		SDFFont(60, Typeface::Light).preload(s).saveGlyphs(U"sdf-font/light_60.png", U"sdf-font/light_60.json");
+		SDFFont(60, Typeface::Heavy).preload(s).saveGlyphs(U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json");	
 	}
 
-	if (!psOutline)
+	const Array<FontSet> fontsets =
 	{
-		throw Error(U"!psOutline");
-	}
+		{ SDFFont({ U"sdf-font/light_60.png", U"sdf-font/light_60.json" }, 60, Typeface::Light), Font(60, Typeface::Light) },
+		{ SDFFont({ U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json" }, 60, Typeface::Heavy), Font(60, Typeface::Heavy) },
+	};
 
-	// 定数バッファ
-	ConstantBuffer<SDFParameters> cb;
-
-	double scale = 1.0;
-	double p_a = 1.0, p_b = 0.3;
-	bool outlineMode = true;
-
-	HSV outlineColor = Palette::Black;
-	HSV innerColor = Palette::White;
+	size_t fontsetIndex = 0;
+	size_t method = 0;
+	double fontSize = 50;
+	double outlineThreshold = 0.0;
+	HSV outlineColor = Palette::White, innerColor = Palette::Black;
 
 	while (System::Update())
 	{
-		cb->a = 40 * float(p_a) * 0.5f;
-		cb->b = float(p_b);
-		Graphics2D::SetConstantBuffer(ShaderStage::Pixel, 1, cb);
+		const auto& fontset = fontsets[fontsetIndex];
+		const int32 baseSize = fontset.sdf.baseSize();
 
-		if (MouseR.pressed())
+		if (method == 0)
 		{
-			font.getTexture().scaled(scale).draw();
+			if (outlineThreshold > 0.0)
+			{
+				Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, outlineThreshold, 0, 0));
+				fontset.sdf(text).draw(fontSize, pos, outlineColor);
+			}
+
+			Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, 0, 0, 0));
+			fontset.sdf(text).draw(fontSize, pos, innerColor);
 		}
-		else
+		else if (method == 1)
 		{
-			//if (outlineMode)
-			//{
-			//	ScopedCustomShader2D shader(psOutline);
-			//	font.getTexture().scaled(scale).draw(outlineColor);
-			//}
-
-			if (MouseL.pressed())
-			{
-				ScopedCustomShader2D shader(ps);
-				//font.getTexture().scaled(scale).draw(innerColor);
-
-				Transformer2D tr(Mat3x2::Scale(scale));
-
-				Vec2 penPos(5, 5);
-
-				for (const auto& glyph : font.getGlyphs(U"OpenSiv3D 実装会"))
-				{
-					glyph.texture.draw(penPos + glyph.offset - Vec2(5, 5), Palette::Black);
-					penPos.x += glyph.xAdvance;
-				}
-			}
-			else
-			{
-				Vec2 penPos(5, 5);
-
-				for (const auto& glyph : font2.getGlyphs(U"OpenSiv3D y.,_-"))
-				{
-					glyph.texture.draw(penPos + glyph.offset, Palette::Black);
-					penPos.x += glyph.xAdvance;
-				}
-			}
+			Transformer2D tr(Mat3x2::Scale(fontSize / baseSize));
+			fontset.bitmap(text).draw(pos, innerColor);
 		}
 
-		//fontO(U"拡大").draw(Cursor::Pos(), ColorF(1,0,0,0.5));
-
-		SimpleGUI::Slider(U"scale", scale, 0.1, 20.0, Vec2(100, 600), 80, 200);
-		SimpleGUI::Slider(U"p_a", p_a, 0.1, 10.0, Vec2(100, 640), 80, 200);
-		SimpleGUI::CheckBox(outlineMode, U"outline", Vec2(400, 600));
-		SimpleGUI::Slider(U"p_b", p_b, 0.277, 0.51, Vec2(400, 640), 80, 200);
-		SimpleGUI::ColorPicker(outlineColor, Vec2(700, 460));
-		SimpleGUI::ColorPicker(innerColor, Vec2(700, 580));
+		SimpleGUI::RadioButtons(fontsetIndex, { U"Light 60", U"Heavy 60"}, Vec2(20, 440), 150);
+		SimpleGUI::RadioButtons(method, { U"SDFFont", U"Font" }, Vec2(20, 520), 150);
+		SimpleGUI::Slider(U"size: {:.0f}"_fmt(fontSize), fontSize, 15, 550, Vec2(20, 600), 150, 200);
+		SimpleGUI::Slider(U"outline: {:.2f}"_fmt(outlineThreshold), outlineThreshold, 0.0, 0.49, Vec2(20, 640), 150, 200, (method == 0));
+		SimpleGUI::ColorPicker(outlineColor, Vec2(400, 560));
+		SimpleGUI::ColorPicker(innerColor, Vec2(580, 560));
 	}
 }

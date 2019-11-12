@@ -64,6 +64,10 @@ namespace s3d
 
 		[[nodiscard]] RectF regionAt(const Vec2& pos) const;
 
+		[[nodiscard]] TextureRegion stretched(double x, double y) const;
+
+		[[nodiscard]] TextureRegion stretched(const Vec2& _size) const;
+
 		/// <summary>
 		/// テクスチャを描きます。
 		/// </summary>

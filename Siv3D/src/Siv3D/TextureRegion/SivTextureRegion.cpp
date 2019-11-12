@@ -14,6 +14,7 @@
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -95,6 +96,28 @@ namespace s3d
 	RectF TextureRegion::regionAt(const Vec2& pos) const
 	{
 		return regionAt(pos.x, pos.y);
+	}
+
+	TextureRegion TextureRegion::stretched(const double x, const double y) const
+	{
+		TextureRegion result(*this);
+		result.size.x += static_cast<float>(x * 2);
+		result.size.y += static_cast<float>(y * 2);
+
+		const Size textureSize = texture.size();
+		const float dx = static_cast<float>(x / textureSize.x);
+		const float dy = static_cast<float>(y / textureSize.y);
+		result.uvRect.left -= dx;
+		result.uvRect.right += dx;
+		result.uvRect.top -= dy;
+		result.uvRect.bottom += dy;
+
+		return result;
+	}
+
+	TextureRegion TextureRegion::stretched(const Vec2& _size) const
+	{
+		return stretched(_size.x, _size.y);
 	}
 
 	RectF TextureRegion::draw(const ColorF& diffuse) const

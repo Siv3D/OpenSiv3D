@@ -38,6 +38,10 @@ namespace s3d
 
 		[[nodiscard]] SDFFontID create(const FilePath& path, int32 baseSize, FontStyle style) override;
 
+		[[nodiscard]] SDFFontID create(const std::pair<FilePath, FilePath>& prerenderedFiles, Typeface typeface, int32 baseSize, FontStyle style) override;
+
+		[[nodiscard]] SDFFontID create(const std::pair<FilePath, FilePath>& prerenderedFiles, const FilePath& path, int32 baseSize, FontStyle style) override;
+
 		void release(SDFFontID handleID) override;
 
 		[[nodiscard]] const String& getFamilyName(SDFFontID handleID) override;
@@ -46,14 +50,26 @@ namespace s3d
 
 		[[nodiscard]] int32 getBaseSize(SDFFontID handleID) override;
 
-		[[nodiscard]] int32 getAscent(SDFFontID handleID) override;
+		[[nodiscard]] double getAscent(SDFFontID handleID) override;
 
-		[[nodiscard]] int32 getDescent(SDFFontID handleID) override;
+		[[nodiscard]] double getDescent(SDFFontID handleID) override;
 
-		[[nodiscard]] int32 getHeight(SDFFontID handleID) override;
+		[[nodiscard]] double getHeight(SDFFontID handleID) override;
 
-		[[nodiscard]] Array<Glyph> getGlyphs(SDFFontID handleID, StringView codePoints) override;
+		void preload(SDFFontID handleID, StringView codePoints) override;
+
+		bool saveGlyphs(SDFFontID handleID, FilePathView imagePath, FilePathView jsonPath) override;
+
+		[[nodiscard]] Array<GlyphF> getGlyphs(SDFFontID handleID, StringView codePoints) override;
 
 		[[nodiscard]] const Texture& getTexture(SDFFontID handleID) override;
+
+		[[nodiscard]] RectF getBoundingRect(SDFFontID handleID, double fontSize, StringView codePoints, double lineSpacingScale) override;
+
+		[[nodiscard]] RectF getRegion(SDFFontID handleID, double fontSize, StringView codePoints, double lineSpacingScale) override;
+
+		[[nodiscard]] Array<double> getXAdvances(SDFFontID handleID, double fontSize, StringView codePoints) override;
+
+		RectF draw(SDFFontID handleID, double fontSize, StringView codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
 	};
 }
