@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include "SDFFontData.hpp"
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>

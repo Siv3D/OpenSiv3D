@@ -1034,6 +1034,13 @@
 		2C8EA7B3236969EF00A1D3B6 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */; };
 		2C8EA7B62369CE7000A1D3B6 /* SivRay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */; };
 		2C8EA7B9236FC46D00A1D3B6 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7B8236FC46D00A1D3B6 /* SivQuaternion.cpp */; };
+		2C8EA7C7237A956400A1D3B6 /* CSDFFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7C0237A956400A1D3B6 /* CSDFFont.hpp */; };
+		2C8EA7C8237A956400A1D3B6 /* SDFFontData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C1237A956400A1D3B6 /* SDFFontData.cpp */; };
+		2C8EA7C9237A956400A1D3B6 /* ISDFFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7C2237A956400A1D3B6 /* ISDFFont.hpp */; };
+		2C8EA7CA237A956400A1D3B6 /* SivSDFFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C3237A956400A1D3B6 /* SivSDFFont.cpp */; };
+		2C8EA7CB237A956400A1D3B6 /* CSDFFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C4237A956400A1D3B6 /* CSDFFont.cpp */; };
+		2C8EA7CC237A956400A1D3B6 /* SDFFontData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */; };
+		2C8EA7CD237A956400A1D3B6 /* SDFFontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -2165,6 +2172,14 @@
 		2C8EA7B2236969EF00A1D3B6 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
 		2C8EA7B52369CE7000A1D3B6 /* SivRay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRay.cpp; sourceTree = "<group>"; };
 		2C8EA7B8236FC46D00A1D3B6 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
+		2C8EA7BE237A953C00A1D3B6 /* SDFFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDFFont.hpp; sourceTree = "<group>"; };
+		2C8EA7C0237A956400A1D3B6 /* CSDFFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CSDFFont.hpp; sourceTree = "<group>"; };
+		2C8EA7C1237A956400A1D3B6 /* SDFFontData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDFFontData.cpp; sourceTree = "<group>"; };
+		2C8EA7C2237A956400A1D3B6 /* ISDFFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ISDFFont.hpp; sourceTree = "<group>"; };
+		2C8EA7C3237A956400A1D3B6 /* SivSDFFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSDFFont.cpp; sourceTree = "<group>"; };
+		2C8EA7C4237A956400A1D3B6 /* CSDFFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSDFFont.cpp; sourceTree = "<group>"; };
+		2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDFFontData.hpp; sourceTree = "<group>"; };
+		2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDFFontFactory.cpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -5950,6 +5965,7 @@
 				2C461AED22712EE500828870 /* Renderer2D */,
 				2C461A96226F705800828870 /* Resource */,
 				2C461AD2227089CC00828870 /* ScreenCapture */,
+				2C8EA7BF237A956400A1D3B6 /* SDFFont */,
 				2C461AD52270A18200828870 /* Shader */,
 				2C46FDBD226EE90600828870 /* Siv3DMain.cpp */,
 				2C461A66226F3A7B00828870 /* System */,
@@ -6242,6 +6258,21 @@
 			path = Quaternion;
 			sourceTree = "<group>";
 		};
+		2C8EA7BF237A956400A1D3B6 /* SDFFont */ = {
+			isa = PBXGroup;
+			children = (
+				2C8EA7C0237A956400A1D3B6 /* CSDFFont.hpp */,
+				2C8EA7C1237A956400A1D3B6 /* SDFFontData.cpp */,
+				2C8EA7C2237A956400A1D3B6 /* ISDFFont.hpp */,
+				2C8EA7C3237A956400A1D3B6 /* SivSDFFont.cpp */,
+				2C8EA7C4237A956400A1D3B6 /* CSDFFont.cpp */,
+				2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */,
+				2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */,
+			);
+			name = SDFFont;
+			path = ../../Siv3D/SDFFont;
+			sourceTree = "<group>";
+		};
 		2CA6271222226DC60009DFE1 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -6481,6 +6512,7 @@
 				2CA627BD22226DC70009DFE1 /* ScreenCapture.hpp */,
 				2CA627AF22226DC70009DFE1 /* Script.hpp */,
 				2CA627BA22226DC70009DFE1 /* SDF.hpp */,
+				2C8EA7BE237A953C00A1D3B6 /* SDFFont.hpp */,
 				2CA6277822226DC60009DFE1 /* Serialization.hpp */,
 				2CA6279022226DC70009DFE1 /* SFMT.hpp */,
 				2CBC6511231E6A06001610DB /* Shader.hpp */,
@@ -7183,6 +7215,7 @@
 				2C461A50226F2D0000828870 /* osmesa_context.h in Headers */,
 				2C461ADD2270A18200828870 /* PixelShader_GL.hpp in Headers */,
 				2C4613F3226EEDB500828870 /* memorystream.h in Headers */,
+				2C8EA7C7237A956400A1D3B6 /* CSDFFont.hpp in Headers */,
 				2C461140226EEDB500828870 /* tttags.h in Headers */,
 				2C461412226EEDB500828870 /* memorybuffer.h in Headers */,
 				2C461128226EEDB500828870 /* svtteng.h in Headers */,
@@ -7248,6 +7281,7 @@
 				2C4610F1226EEDB500828870 /* pngconf.h in Headers */,
 				2C461408226EEDB500828870 /* encodings.h in Headers */,
 				2C46147F226EEDB500828870 /* b2Settings.h in Headers */,
+				2C8EA7C9237A956400A1D3B6 /* ISDFFont.hpp in Headers */,
 				2C46141B226EEDB500828870 /* muParserDLL.h in Headers */,
 				2C4619EE226F0DF700828870 /* BinaryWriterDetail.hpp in Headers */,
 				2C461A7A226F4C1500828870 /* CMouse.hpp in Headers */,
@@ -7412,6 +7446,7 @@
 				2C266A7D228AAB03001C7DAD /* GLSpriteBatch.hpp in Headers */,
 				2CBC64D322F849F0001610DB /* debug.h in Headers */,
 				2C461407226EEDB500828870 /* pow10.h in Headers */,
+				2C8EA7CC237A956400A1D3B6 /* SDFFontData.hpp in Headers */,
 				2C461970226EEF4100828870 /* WebcamDetail.hpp in Headers */,
 				2C461889226EEF4100828870 /* NavMeshDetail.hpp in Headers */,
 				2C461126226EEDB500828870 /* svbdf.h in Headers */,
@@ -7642,6 +7677,7 @@
 				2C46196F226EEF4100828870 /* SivWebcam.cpp in Sources */,
 				2C46138F226EEDB500828870 /* equation-solver.cpp in Sources */,
 				2C46199B226EEF4100828870 /* TextInputFactory.cpp in Sources */,
+				2C8EA7C8237A956400A1D3B6 /* SDFFontData.cpp in Sources */,
 				2C461934226EEF4100828870 /* SivMultiPolygon.cpp in Sources */,
 				2C461913226EEF4100828870 /* SivTransformer2D.cpp in Sources */,
 				2C461364226EEDB500828870 /* DetourNavMeshQuery.cpp in Sources */,
@@ -8025,6 +8061,7 @@
 				2C4617F6226EEF4100828870 /* Script_Icon.cpp in Sources */,
 				2C4618F7226EEF4100828870 /* MathParserDetail.cpp in Sources */,
 				2C4618C0226EEF4100828870 /* LicenseManagerFactory.cpp in Sources */,
+				2C8EA7CA237A956400A1D3B6 /* SivSDFFont.cpp in Sources */,
 				2C461955226EEF4100828870 /* SivBigFloat.cpp in Sources */,
 				2C4617ED226EEF4100828870 /* Script_MicrosecClock.cpp in Sources */,
 				2C4617F0226EEF4100828870 /* Script_ScopedViewport2D.cpp in Sources */,
@@ -8035,6 +8072,7 @@
 				2C46188C226EEF4100828870 /* SivLine.cpp in Sources */,
 				2C4619E5226F0C5200828870 /* ByteArrayDetail_Platform.cpp in Sources */,
 				2CBC64B222F849F0001610DB /* zstd_double_fast.c in Sources */,
+				2C8EA7CD237A956400A1D3B6 /* SDFFontFactory.cpp in Sources */,
 				2C461804226EEF4100828870 /* Script_None_t.cpp in Sources */,
 				2C461452226EEDB500828870 /* b2FrictionJoint.cpp in Sources */,
 				2C461845226EEF4100828870 /* SivIPv4.cpp in Sources */,
@@ -8142,6 +8180,7 @@
 				2C461918226EEF4100828870 /* SivBinaryWriter.cpp in Sources */,
 				2C4618D4226EEF4100828870 /* CFFT.cpp in Sources */,
 				2C461376226EEDB500828870 /* FastNoiseSIMD_neon.cpp in Sources */,
+				2C8EA7CB237A956400A1D3B6 /* CSDFFont.cpp in Sources */,
 				2C461839226EEF4100828870 /* CPrint.cpp in Sources */,
 				2C461394226EEDB500828870 /* edge-coloring.cpp in Sources */,
 				2C46193B226EEF4100828870 /* SivEffect.cpp in Sources */,
