@@ -13,24 +13,26 @@ void Main()
 	Scene::SetBackground(ColorF(0.4, 0.5, 0.6));
 
 	constexpr Vec2 pos(0, 0);
-	const String text = U"OpenSiv3D\nあいうえおかきくけこ";
+	const String text = U"OpenSiv3D\nあいうえお\nアイエウオ";
 
-	{
-		String s;
-		for (auto i : Range(32, 126))
-		{
-			s << char32(i);
-		}
-		s += text;
+	//{
+	//	String s;
+	//	for (auto i : Range(32, 126))
+	//	{
+	//		s << char32(i);
+	//	}
+	//	s += text;
 
-		SDFFont(60, Typeface::Light).preload(s).saveGlyphs(U"sdf-font/light_60.png", U"sdf-font/light_60.json");
-		SDFFont(60, Typeface::Heavy).preload(s).saveGlyphs(U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json");	
-	}
+	//	SDFFont(60, Typeface::Light).preload(s).saveGlyphs(U"sdf-font/light_60.png", U"sdf-font/light_60.json");
+	//	SDFFont(60, Typeface::Heavy).preload(s).saveGlyphs(U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json");
+	//	SDFFont(50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf").preload(s).saveGlyphs(U"sdf-font/logo_50.png", U"sdf-font/logo_50.json");
+	//}
 
 	const Array<FontSet> fontsets =
 	{
 		{ SDFFont({ U"sdf-font/light_60.png", U"sdf-font/light_60.json" }, 60, Typeface::Light), Font(60, Typeface::Light) },
 		{ SDFFont({ U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json" }, 60, Typeface::Heavy), Font(60, Typeface::Heavy) },
+		{ SDFFont({ U"sdf-font/logo_50.png", U"sdf-font/logo_50.json" }, 50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf"), Font(50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf") },
 	};
 
 	size_t fontsetIndex = 0;
@@ -46,11 +48,11 @@ void Main()
 
 		if (method == 0)
 		{
-			if (outlineThreshold > 0.0)
-			{
-				Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, outlineThreshold, 0, 0));
-				fontset.sdf(text).draw(fontSize, pos, outlineColor);
-			}
+			Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, outlineThreshold + 0.07, 0, 0));
+			fontset.sdf(text).draw(fontSize, pos, innerColor);
+
+			Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, outlineThreshold, 0, 0));
+			fontset.sdf(text).draw(fontSize, pos, outlineColor);
 
 			Graphics2D::SetSDFParameters(Float4(baseSize / 8.0, 0, 0, 0));
 			fontset.sdf(text).draw(fontSize, pos, innerColor);
@@ -61,7 +63,7 @@ void Main()
 			fontset.bitmap(text).draw(pos, innerColor);
 		}
 
-		SimpleGUI::RadioButtons(fontsetIndex, { U"Light 60", U"Heavy 60"}, Vec2(20, 440), 150);
+		SimpleGUI::RadioButtons(fontsetIndex, { U"Light 60", U"Heavy 60", U"Logo 50" }, Vec2(20, 400), 150);
 		SimpleGUI::RadioButtons(method, { U"SDFFont", U"Font" }, Vec2(20, 520), 150);
 		SimpleGUI::Slider(U"size: {:.0f}"_fmt(fontSize), fontSize, 15, 550, Vec2(20, 600), 150, 200);
 		SimpleGUI::Slider(U"outline: {:.2f}"_fmt(outlineThreshold), outlineThreshold, 0.0, 0.49, Vec2(20, 640), 150, 200, (method == 0));
