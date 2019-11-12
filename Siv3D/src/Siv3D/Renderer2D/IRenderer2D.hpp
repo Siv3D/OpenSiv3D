@@ -108,7 +108,7 @@ namespace s3d
 
 		virtual void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color) = 0;
 
-		virtual void addEllipse(const Float2& center, float a, float b, const Float4& color) = 0;
+		virtual void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 

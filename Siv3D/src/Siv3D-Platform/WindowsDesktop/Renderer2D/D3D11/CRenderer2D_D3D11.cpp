@@ -854,9 +854,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
+	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
