@@ -36,6 +36,7 @@
 # include <Graphics/IGraphics.hpp>
 # include <ScreenCapture/IScreenCapture.hpp>
 # include <Font/IFont.hpp>
+# include <SDFFont/ISDFFont.hpp>
 # include <GUI/IGUI.hpp>
 # include <Effect/IEffect.hpp>
 # include <Print/IPrint.hpp>
@@ -91,6 +92,7 @@ namespace s3d
 		Siv3DEngine::Get<ISiv3DGraphics>()->init();
 		Siv3DEngine::Get<ISiv3DScreenCapture>()->init();
 		Siv3DEngine::Get<ISiv3DFont>()->init();
+		Siv3DEngine::Get<ISiv3DSDFFont>()->init();
 		Siv3DEngine::Get<ISiv3DGUI>()->init();
 		Siv3DEngine::Get<ISiv3DEffect>()->init();
 		Siv3DEngine::Get<ISiv3DPrint>()->init();

@@ -45,6 +45,8 @@ namespace s3d
 				{ m20, m21, m22, m23 },
 				{ m30, m31, m32, m33 } } {}
 
+		explicit Mat4x4(Quaternion q) noexcept;
+
 		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL operator +() const noexcept
 		{
 			return *this;

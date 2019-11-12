@@ -1082,6 +1082,10 @@
 // Font
 # include <Siv3D/Font.hpp>
 
+// SDF フォント
+// SDF Font
+# include <Siv3D/SDFFont.hpp>
+
 // 絵文字コレクション
 // Emoji
 # include <Siv3D/Emoji.hpp>

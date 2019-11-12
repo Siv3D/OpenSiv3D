@@ -1,75 +1,80 @@
-﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
-# include <DirectXMath.h>
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 void Main()
 {
-	constexpr double fov = 45_deg;
-	constexpr Vec3 focusPosition(0, 0, 0);
-	Vec3 eyePosition(0, 10, 0);
-	experimental::BasicCamera3D camera(Scene::Size(), fov, eyePosition, focusPosition);
+	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.4, 0.5, 0.6));
 
-	Array<OBB> objects;
+	constexpr Vec2 pos(0, 0);
+	const String text = U"OpenSiv3D\nあいうえお\nアイエウオ";
 
-	for (auto x : Range(-2, 2))
+	/////////////////////
+	//
+	// 生成後はコメントアウト
 	{
-		for (auto z : Range(2, -2, -1))
+		String s;
+		for (auto i : Range(32, 126))
 		{
-			objects << OBB(Vec3(x * 4, 1, z * 4), Vec3(3, 2, 0.5), Quaternion::RollPitchYaw(0, x * 30_deg, 0));
+			s << char32(i);
 		}
+		s += text;
+
+		// SDF の作成には時間がかかるので、
+		// ASCII 文字と text をあらかじめ SDF 化して、フォント情報を保存しておく
+		SDFFont(60, Typeface::Light).preload(s).saveGlyphs(U"sdf-font/light_60.png", U"sdf-font/light_60.json");
+		SDFFont(60, Typeface::Heavy).preload(s).saveGlyphs(U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json");
+		SDFFont(50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf").preload(s).saveGlyphs(U"sdf-font/logo_50.png", U"sdf-font/logo_50.json");
 	}
+	/////////////////////
 
-	const Quaternion q = Quaternion::RotationAxis(Vec3(1, 0.5, 0.2).normalized(), 45_deg);
-	Print << Vec3(1, 0.5, 0.2).normalized() << 45_deg;
-	Print << q;
-	Print << q.toAxisAngle();
-	Print << q * (Vec3::One());
+	// フォント情報から SDFFont を作成
+	const Array<SDFFont> sdfFonts =
+	{
+		SDFFont({ U"sdf-font/light_60.png", U"sdf-font/light_60.json" }, 60, Typeface::Light),
+		SDFFont({ U"sdf-font/heavy_60.png", U"sdf-font/heavy_60.json" }, 60, Typeface::Heavy),
+		SDFFont({ U"sdf-font/logo_50.png", U"sdf-font/logo_50.json" }, 50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf"),
+	};
 
-	OBB box(Vec3(0, 5, 0), 2, Quaternion(Vec3(0, 1.0, 0).normalize(), 30_deg));
+	const Array<Font> fonts =
+	{
+		Font(60, Typeface::Light),
+		Font(60, Typeface::Heavy),
+		Font(50, U"example/font/LogoTypeGothic/LogoTypeGothic.otf"),
+	};
+
+	size_t fontIndex = 0, method = 0;
+	double fontSize = 80, outline1 = 0.0, outline2 = 0.0;
+	HSV innerColor = Palette::Black, outlineColor = Palette::White;
 
 	while (System::Update())
 	{
-		eyePosition = Cylindrical(20, Scene::Time() * 30_deg, 8 + Periodic::Sine0_1(4s) * 8);
-		camera.setView(eyePosition, focusPosition);
-		const Mat4x4 mat = camera.getMat4x4();
+		const auto& sdfFont = sdfFonts[fontIndex];
+		const auto& font = fonts[fontIndex];
+		const int32 baseSize = sdfFont.baseSize();
 
+		if (method == 0)
 		{
-			ScopedRenderStates2D culling(RasterizerState::SolidCullBack);
+			Graphics2D::SetSDFParameters(sdfFont.pixelRange(), outline2);
+			sdfFont(text).draw(fontSize, pos, innerColor);
 
-			for (auto i : Range(-10, 10))
-			{
-				Line3D(Vec3(-10, 0, i), Vec3(10, 0, i)).draw(mat, ColorF(0.5));
-				Line3D(Vec3(i, 0, -10), Vec3(i, 0, 10)).draw(mat, ColorF(0.5));
-			}
+			Graphics2D::SetSDFParameters(sdfFont.pixelRange(), outline1);
+			sdfFont(text).draw(fontSize, pos, outlineColor);
 
-			const Vec3 eyePos = camera.getEyePosition();
-			const Ray cursorRay = camera.screenToRay(Cursor::PosF());
-
-			objects.sort_by([&](const OBB& a, const OBB& b)
-			{
-				return (eyePos.distanceFromSq(a.center)) > (eyePos.distanceFromSq(b.center));
-			});
-
-			Optional<size_t> intersectionIndex;
-
-			for (auto [i, object] : IndexedReversed(objects))
-			{
-				if (cursorRay.intersects(object))
-				{
-					intersectionIndex = i;
-					Cursor::RequestStyle(CursorStyle::Hand);
-					break;
-				}
-			}
-
-			for (auto [i, object] : Indexed(objects))
-			{
-				const HSV color((object.center.x * 50 + object.center.z * 10), 1.0, (i == intersectionIndex) ? 1.0 : 0.3);
-				object.draw(mat, color);
-			}
-
-			box.draw(mat);
-			box.orientation *= Quaternion(Vec3(1, 0, 0), 30_deg * Scene::DeltaTime());
+			Graphics2D::SetSDFParameters(sdfFont.pixelRange());
+			sdfFont(text).draw(fontSize, pos, innerColor);
 		}
+		else if (method == 1)
+		{
+			Transformer2D tr(Mat3x2::Scale(fontSize / baseSize));
+			font(text).draw(pos, innerColor);
+		}
+
+		SimpleGUI::RadioButtons(fontIndex, { U"Light 60", U"Heavy 60", U"Logo 50" }, Vec2(20, 360), 150);
+		SimpleGUI::RadioButtons(method, { U"SDFFont", U"Font" }, Vec2(20, 480), 150);
+		SimpleGUI::Slider(U"size: {:.0f}"_fmt(fontSize), fontSize, 15, 550, Vec2(20, 560), 150, 200);
+		SimpleGUI::Slider(U"outline1: {:.2f}"_fmt(outline1), outline1, 0.0, 0.49, Vec2(20, 600), 150, 200, (method == 0));
+		SimpleGUI::Slider(U"outline2: {:.2f}"_fmt(outline2), outline2, 0.0, 0.49, Vec2(20, 640), 150, 200, (method == 0));
+		SimpleGUI::ColorPicker(innerColor, Vec2(400, 560));
+		SimpleGUI::ColorPicker(outlineColor, Vec2(580, 560));
 	}
 }

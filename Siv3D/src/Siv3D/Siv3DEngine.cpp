@@ -40,6 +40,7 @@
 # include "Renderer2D/IRenderer2D.hpp"
 # include "ScreenCapture/IScreenCapture.hpp"
 # include "Font/IFont.hpp"
+# include "SDFFont/ISDFFont.hpp"
 # include "GUI/IGUI.hpp"
 # include "Effect/IEffect.hpp"
 # include "Print/IPrint.hpp"

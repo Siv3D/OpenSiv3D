@@ -240,6 +240,11 @@ namespace s3d
 			return SIMD::QuaternionRotationMatrix(m);
 		}
 	};
+
+	inline Mat4x4::Mat4x4(Quaternion q) noexcept
+	{
+		*this = SIMD::MatrixRotationQuaternion(q.vec);
+	}
 }
 
 //////////////////////////////////////////////////
