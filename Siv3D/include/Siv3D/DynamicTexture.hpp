@@ -37,6 +37,8 @@ namespace s3d
 
 		DynamicTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
+		DynamicTexture(const Image& image, TextureDesc desc);
+
 		explicit DynamicTexture(const Image& image, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
 		bool fill(const ColorF& color);
