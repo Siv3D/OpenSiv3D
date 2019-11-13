@@ -31,7 +31,40 @@ namespace s3d
 			: left(_left)
 			, right(_right) {}
 
+		constexpr WaveSampleS16& set(int16 mono) noexcept
+		{
+			left = right = mono;
+			return *this;
+		}
+
+		constexpr WaveSampleS16& set(int16 _left, int16 _right) noexcept
+		{
+			left = _left;
+			right = _right;
+			return *this;
+		}
+
+		constexpr WaveSampleS16& set(const WaveSampleS16& sample) noexcept
+		{
+			return operator =(sample);
+		}
+
+		void swapChannel() noexcept
+		{
+			std::swap(left, right);
+		}
+
 		[[nodiscard]] constexpr WaveSample asWaveSample() const noexcept;
+
+		[[nodiscard]] static constexpr WaveSampleS16 FromF32(float mono)
+		{
+			return WaveSampleS16(static_cast<int16>(mono * 32767));
+		}
+
+		[[nodiscard]] static constexpr WaveSampleS16 FromF32(float _left, float _right)
+		{
+			return WaveSampleS16(static_cast<int16>(_left * 32767), static_cast<int16>(_right * 32767));
+		}
 
 		[[nodiscard]] static constexpr WaveSampleS16 Zero()
 		{
@@ -105,6 +138,16 @@ namespace s3d
 		[[nodiscard]] constexpr WaveSampleS16 asWaveSampleS16() const noexcept
 		{
 			return WaveSampleS16{ static_cast<int16>(left * 32767), static_cast<int16>(right * 32767) };
+		}
+
+		[[nodiscard]] static constexpr WaveSample FromS16(int16 mono)
+		{
+			return WaveSample(mono / 32768.0f);
+		}
+
+		[[nodiscard]] static constexpr WaveSample FromS16(int16 _left, int16 _right)
+		{
+			return WaveSample(_left / 32768.0f, _right / 32768.0f);
 		}
 
 		[[nodiscard]] static constexpr WaveSample Zero()
