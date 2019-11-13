@@ -274,7 +274,7 @@ namespace s3d
 				
 				for (size_t i = 0; i < write_samples; ++i)
 				{
-					m_buffer[m_writePos + i] = WaveSampleS16(pSrc[i]);
+					m_buffer[m_writePos + i].set(pSrc[i]);
 				}
 				
 				m_writePos += write_samples;
@@ -298,7 +298,7 @@ namespace s3d
 
 			for (size_t i = 0; i < samples; ++i)
 			{
-				m_buffer[m_writePos + i] = WaveSampleS16(pSrc[i]);
+				m_buffer[m_writePos + i].set(pSrc[i]);
 			}
 
 			m_writePos += samples;
@@ -368,7 +368,7 @@ namespace s3d
 				
 				for (size_t i = 0; i < write_samples; ++i)
 				{
-					m_buffer[m_writePos + i] = WaveSample(pSrc[i]).asWaveSampleS16();
+					m_buffer[m_writePos + i] = WaveSampleS16::FromF32(pSrc[i]);
 				}
 
 				m_writePos += write_samples;
@@ -392,7 +392,7 @@ namespace s3d
 			
 			for (size_t i = 0; i < samples; ++i)
 			{
-				m_buffer[m_writePos + i] = WaveSample(pSrc[i]).asWaveSampleS16();
+				m_buffer[m_writePos + i] = WaveSampleS16::FromF32(pSrc[i]);
 			}
 
 			m_writePos += samples;
