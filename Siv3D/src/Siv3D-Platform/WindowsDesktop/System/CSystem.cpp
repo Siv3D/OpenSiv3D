@@ -33,6 +33,7 @@
 # include <Audio/IAudio.hpp>
 # include <FFT/IFFT.hpp>
 # include <Network/INetwork.hpp>
+# include <ToastNotification/IToastNotification.hpp>
 # include <Graphics/IGraphics.hpp>
 # include <ScreenCapture/IScreenCapture.hpp>
 # include <Font/IFont.hpp>
@@ -88,6 +89,7 @@ namespace s3d
 		Siv3DEngine::Get<ISiv3DAudio>()->init();
 		Siv3DEngine::Get<ISiv3DFFT>()->init();
 		Siv3DEngine::Get<ISiv3DNetwork>()->init();
+		Siv3DEngine::Get<ISiv3DToastNotification>()->init();
 
 		Siv3DEngine::Get<ISiv3DGraphics>()->init();
 		Siv3DEngine::Get<ISiv3DScreenCapture>()->init();

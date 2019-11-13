@@ -62,6 +62,7 @@
 - [Simple DirectMedia Layer](https://www.libsdl.org/)
 - [TinySoundFont](https://github.com/schellingb/TinySoundFont)
 - [TinyXML-2 (7.0.1)](https://github.com/leethomason/tinyxml2)
+- [WinToast](https://github.com/mohabouje/WinToast)
 - [xxHash](https://github.com/Cyan4973/xxHash)
 - [zlib](https://www.zlib.net/)
 - [Zstandard (v1.4.2)](https://github.com/facebook/zstd)
