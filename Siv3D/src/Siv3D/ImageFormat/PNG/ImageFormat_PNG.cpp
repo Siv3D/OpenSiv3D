@@ -19,6 +19,8 @@
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/ScopeGuard.hpp>
 # include "ImageFormat_PNG.hpp"
 
 namespace s3d
@@ -80,22 +82,35 @@ namespace s3d
 	{
 		Image image;
 
+		// png_ptr
 		png_structp png_ptr = ::png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
-
-		if (!png_ptr)
 		{
-			return image;
+			if (!png_ptr)
+			{
+				return image;
+			}
 		}
 
-		png_infop info_ptr = ::png_create_info_struct(png_ptr);
-
-		if (!info_ptr)
+		ScopeGuard cleanup_struct = [&]()
 		{
 			::png_destroy_read_struct(&png_ptr, nullptr, nullptr);
+		};
 
-			return image;
+		// info_ptr
+		png_infop info_ptr = ::png_create_info_struct(png_ptr);
+		{
+			if (!info_ptr)
+			{
+				return image;
+			}
 		}
 
+		ScopeGuard cleanup_info = [&]()
+		{
+			::png_destroy_info_struct(png_ptr, &info_ptr);
+		};
+
+		// decode
 		::png_set_read_fn(png_ptr, &reader, PngReadCallback);
 
 		::png_read_info(png_ptr, info_ptr);
@@ -105,6 +120,12 @@ namespace s3d
 		int iBitDepth, iColorType;
 
 		::png_get_IHDR(png_ptr, info_ptr, &width, &height, &iBitDepth, &iColorType, nullptr, nullptr, nullptr);
+
+		if ((Image::MaxWidth < width) || (Image::MaxHeight < height))
+		{
+			LOG_FAIL(U"❌ ImageFormat_PNG::decode(): Image size ({}x{}) not supported"_fmt(width, height));
+			return image;
+		}
 
 		if (iColorType == PNG_COLOR_TYPE_PALETTE)
 		{
@@ -165,8 +186,6 @@ namespace s3d
 		::png_read_image(png_ptr, ppbRowPointers.data());
 
 		::png_read_end(png_ptr, nullptr);
-
-		::png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 
 		return image;
 	}
