@@ -14,6 +14,20 @@
 
 namespace s3d
 {
+	int Microphone::MicrophoneDetail::InputCallback_S16_1ch(void*, void* inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data)
+	{
+		Microphone::MicrophoneDetail* iData = static_cast<Microphone::MicrophoneDetail*>(data);
+		
+		if (iData->onRead_S16_1ch(static_cast<const int16*>(inputBuffer), nBufferFrames))
+		{
+			return 0;
+		}
+		else
+		{
+			return 2; // abort
+		}
+	}
+
 	int Microphone::MicrophoneDetail::InputCallback_S16_2ch(void*, void* inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data)
 	{
 		Microphone::MicrophoneDetail* iData = static_cast<Microphone::MicrophoneDetail*>(data);
@@ -33,6 +47,22 @@ namespace s3d
 		Microphone::MicrophoneDetail* iData = static_cast<Microphone::MicrophoneDetail*>(data);
 		
 		if (iData->onRead_F32_1ch(static_cast<const float*>(inputBuffer), nBufferFrames))
+		{
+			return 0;
+		}
+		else
+		{
+			return 2; // abort
+		}
+		
+		return 0;
+	}
+
+	int Microphone::MicrophoneDetail::InputCallback_F32_2ch(void*, void* inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data)
+	{
+		Microphone::MicrophoneDetail* iData = static_cast<Microphone::MicrophoneDetail*>(data);
+		
+		if (iData->onRead_F32_2ch(static_cast<const WaveSample*>(inputBuffer), nBufferFrames))
 		{
 			return 0;
 		}
@@ -86,13 +116,19 @@ namespace s3d
 		
 		if (nChannels == 0)
 		{
-			LOG_FAIL(U"❌ Microphone: deviceID [{}] has no input channels");
+			LOG_FAIL(U"❌ Microphone: deviceID [{}] has no input channels"_fmt(deviceIndex));
 			return false;
 		}
 		
 		if (!isF32 && !isS16)
 		{
-			LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support nativeFormats `{}`");
+			LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support nativeFormats `{}`"_fmt(deviceInfo.nativeFormats));
+			return false;
+		}
+		
+		if (nChannels != 1 && nChannels != 2)
+		{
+			LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support {} ch input"_fmt(nChannels));
 			return false;
 		}
 
@@ -102,7 +138,7 @@ namespace s3d
 		iParams.firstChannel	= 0;
 		
 		LOG_INFO(U"ℹ️ Microphone: deviceIndex: {}, name: {}, nChannels: {}, F32: {}, S16: {}"_fmt(deviceIndex, deviceName, nChannels, isF32, isS16));
-		
+	
 		uint32 bufferFrames = 256;
 		
 		try
@@ -227,6 +263,56 @@ namespace s3d
 	{
 		return m_writePos;
 	}
+
+	bool Microphone::MicrophoneDetail::onRead_S16_1ch(const int16* pSrc, size_t samples)
+	{
+		if (m_loop)
+		{
+			while (samples)
+			{
+				const size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
+				
+				for (size_t i = 0; i < write_samples; ++i)
+				{
+					m_buffer[m_writePos + i] = WaveSampleS16(pSrc[i]);
+				}
+				
+				m_writePos += write_samples;
+				
+				if (m_writePos >= m_buffer.size())
+				{
+					m_writePos = 0;
+				}
+				
+				samples -= write_samples;
+			}
+			
+			return true;
+		}
+		else
+		{
+			if (m_writePos + samples > m_buffer.size())
+			{
+				samples = m_buffer.size() - m_writePos;
+			}
+
+			for (size_t i = 0; i < samples; ++i)
+			{
+				m_buffer[m_writePos + i] = WaveSampleS16(pSrc[i]);
+			}
+
+			m_writePos += samples;
+			
+			if (m_writePos >= m_buffer.size())
+			{
+				m_isRecording = false;
+				
+				return false;
+			}
+			
+			return true;
+		}
+	}
 	
 	bool Microphone::MicrophoneDetail::onRead_S16_2ch(const WaveSampleS16* pSrc, size_t samples)
 	{
@@ -234,7 +320,7 @@ namespace s3d
 		{
 			while (samples)
 			{
-				size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
+				const size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
 				std::memcpy(m_buffer.data() + m_writePos, pSrc, write_samples * (2 * sizeof(int16)));
 				m_writePos += write_samples;
 				
@@ -278,11 +364,11 @@ namespace s3d
 		{
 			while (samples)
 			{
-				size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
+				const size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
 				
 				for (size_t i = 0; i < write_samples; ++i)
 				{
-					m_buffer[i] = WaveSample(pSrc[i]).asWaveSampleS16();
+					m_buffer[m_writePos + i] = WaveSample(pSrc[i]).asWaveSampleS16();
 				}
 
 				m_writePos += write_samples;
@@ -299,16 +385,16 @@ namespace s3d
 		}
 		else
 		{
-			/*
 			if (m_writePos + samples > m_buffer.size())
 			{
 				samples = m_buffer.size() - m_writePos;
 			}
 			
-			const size_t write_bytes = samples * (2 * sizeof(int16));
-			
-			::memcpy(m_buffer.data() + m_writePos, pSrc, write_bytes);
-			
+			for (size_t i = 0; i < samples; ++i)
+			{
+				m_buffer[m_writePos + i] = WaveSample(pSrc[i]).asWaveSampleS16();
+			}
+
 			m_writePos += samples;
 			
 			if (m_writePos >= m_buffer.size())
@@ -317,7 +403,56 @@ namespace s3d
 				
 				return false;
 			}
-			 */
+			
+			return true;
+		}
+	}
+
+	bool Microphone::MicrophoneDetail::onRead_F32_2ch(const WaveSample* pSrc, size_t samples)
+	{
+		if (m_loop)
+		{
+			while (samples)
+			{
+				const size_t write_samples = std::min(samples, m_buffer.size() - m_writePos);
+				
+				for (size_t i = 0; i < write_samples; ++i)
+				{
+					m_buffer[m_writePos + i] = pSrc[i].asWaveSampleS16();
+				}
+
+				m_writePos += write_samples;
+				
+				if (m_writePos >= m_buffer.size())
+				{
+					m_writePos = 0;
+				}
+				
+				samples -= write_samples;
+			}
+			
+			return true;
+		}
+		else
+		{
+			if (m_writePos + samples > m_buffer.size())
+			{
+				samples = m_buffer.size() - m_writePos;
+			}
+			
+			for (size_t i = 0; i < samples; ++i)
+			{
+				m_buffer[m_writePos + i] = pSrc[i].asWaveSampleS16();
+			}
+
+			m_writePos += samples;
+			
+			if (m_writePos >= m_buffer.size())
+			{
+				m_isRecording = false;
+				
+				return false;
+			}
 			
 			return true;
 		}

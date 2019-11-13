@@ -32,10 +32,14 @@ namespace s3d
 		bool m_isRecording = false;
 		
 		bool m_loop = true;
+
+		static int InputCallback_S16_1ch(void*, void *inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data);
 		
 		static int InputCallback_S16_2ch(void*, void *inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data);
 		
 		static int InputCallback_F32_1ch(void*, void *inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data);
+		
+		static int InputCallback_F32_2ch(void*, void *inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data);
 
 	public:
 
@@ -60,9 +64,13 @@ namespace s3d
 		const Array<WaveSampleS16>& getBuffer() const;
 
 		size_t posSample() const;
+		
+		bool onRead_S16_1ch(const int16*, size_t samples);
 
 		bool onRead_S16_2ch(const WaveSampleS16*, size_t samples);
 		
 		bool onRead_F32_1ch(const float*, size_t samples);
+		
+		bool onRead_F32_2ch(const WaveSample*, size_t samples);
 	};
 }
