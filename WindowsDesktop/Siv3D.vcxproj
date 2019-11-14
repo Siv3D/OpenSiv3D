@@ -833,6 +833,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_literals.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_sequences.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_cwksp.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h" />

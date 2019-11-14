@@ -65,4 +65,4 @@
 - [WinToast](https://github.com/mohabouje/WinToast)
 - [xxHash](https://github.com/Cyan4973/xxHash)
 - [zlib](https://www.zlib.net/)
-- [Zstandard (v1.4.2)](https://github.com/facebook/zstd)
+- [Zstandard (v1.4.4)](https://github.com/facebook/zstd)
