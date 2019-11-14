@@ -64,6 +64,6 @@ namespace s3d
 
 		void clear() override;
 
-		void onStateUpdate(size_t index, ToastNotificationState state, const Optional<int32>& option);
+		void onStateUpdate(size_t index, ToastNotificationState state, const Optional<int32>& option) override;
 	};
 }
