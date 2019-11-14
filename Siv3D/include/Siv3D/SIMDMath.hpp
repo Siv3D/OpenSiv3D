@@ -1313,6 +1313,20 @@ namespace s3d
 			return ((_mm_movemask_ps(temp) & 7) == 7);
 		}
 
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3GreaterOrEqual(__m128 v1, __m128 v2)
+		{
+			const __m128 temp = _mm_cmpge_ps(v1, v2);
+
+			return (((_mm_movemask_ps(temp) & 7) == 7) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector3LessOrEqual(__m128 v1, __m128 v2)
+		{
+			const __m128 temp = _mm_cmple_ps(v1, v2);
+			
+			return (((_mm_movemask_ps(temp) & 7) == 7) != 0);
+		}
+
 		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL Vector3Dot(__m128 v1, __m128 v2)
 		{
 		# ifdef SIV3D_USE_SSE3
@@ -1438,9 +1452,16 @@ namespace s3d
 		//
 		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4Equal(__m128 v1, __m128 v2)
 		{
-			__m128 vTemp = _mm_cmpeq_ps(v1, v2);
+			const __m128 temp = _mm_cmpeq_ps(v1, v2);
 			
-			return ((_mm_movemask_ps(vTemp) == 0x0f) != 0);
+			return ((_mm_movemask_ps(temp) == 0x0f) != 0);
+		}
+
+		[[nodiscard]] inline bool SIV3D_VECTOR_CALL Vector4EqualInt(__m128 v1, __m128 v2)
+		{
+			const __m128i temp = _mm_cmpeq_epi32(_mm_castps_si128(v1), _mm_castps_si128(v2));
+			
+			return ((_mm_movemask_ps(_mm_castsi128_ps(temp)) == 0xf) != 0);
 		}
 
 		[[nodiscard]] inline uint32 SIV3D_VECTOR_CALL Vector4EqualIntR(__m128 v1, __m128 v2)
