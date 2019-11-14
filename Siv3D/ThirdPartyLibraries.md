@@ -61,7 +61,7 @@
 - [SFMT (1.5.1)](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html)
 - [Simple DirectMedia Layer](https://www.libsdl.org/)
 - [TinySoundFont](https://github.com/schellingb/TinySoundFont)
-- [TinyXML-2 (7.0.1)](https://github.com/leethomason/tinyxml2)
+- [TinyXML-2 (7.1.0)](https://github.com/leethomason/tinyxml2)
 - [WinToast](https://github.com/mohabouje/WinToast)
 - [xxHash](https://github.com/Cyan4973/xxHash)
 - [zlib](https://www.zlib.net/)
