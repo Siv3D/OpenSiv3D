@@ -63,6 +63,27 @@ namespace s3d
 
 	namespace SimpleGUI
 	{
+		RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& _width)
+		{
+			const Font& font = detail::GetSimpleGUIFont();
+
+			const double width = _width.value_or(font(text).region().w + 20);
+
+			return RectF(pos, width, 40);
+		}
+
+		void Headline(const String& text, const Vec2& pos, const Optional<double>& _width, const bool enabled)
+		{
+			const RectF region = HeadlineRegion(text, pos, _width);
+			const Font& font = detail::GetSimpleGUIFont();
+
+			region.draw(ColorF(1.0));
+
+			const int32 labelWidth = font(text).region().w;
+			const Vec2 labelPos(region.x + (region.w - labelWidth) / 2, 40 - font.height() / 2);
+			font(text).draw(labelPos, ColorF(enabled ? 0.2 : 0.67));
+		}
+
 		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font& font = detail::GetSimpleGUIFont();
