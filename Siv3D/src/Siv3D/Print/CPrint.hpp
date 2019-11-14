@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <mutex>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/Window.hpp>
 # include "IPrint.hpp"
@@ -21,6 +22,8 @@ namespace s3d
 	private:
 
 		std::unique_ptr<Font> m_pFont;
+
+		std::mutex m_mutex;
 
 		size_t m_maxLines = 6;
 
