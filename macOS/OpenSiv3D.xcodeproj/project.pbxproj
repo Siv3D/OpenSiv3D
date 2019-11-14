@@ -1027,6 +1027,11 @@
 		2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */; };
 		2C69A45F232B7F0A002BC8D4 /* SivEngineMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */; };
 		2C69A461232BDCB8002BC8D4 /* Script_TextureFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */; };
+		2C8397C4237CF40E00E8601A /* IToastNotification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8397C2237CF40E00E8601A /* IToastNotification.hpp */; };
+		2C8397C5237CF40E00E8601A /* SivToastNotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8397C3237CF40E00E8601A /* SivToastNotification.cpp */; };
+		2C8397CA237CF44C00E8601A /* CToastNotification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8397C7237CF44C00E8601A /* CToastNotification.hpp */; };
+		2C8397CB237CF44C00E8601A /* ToastNotificationFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8397C8237CF44C00E8601A /* ToastNotificationFactory.cpp */; };
+		2C8397CC237CF44C00E8601A /* CToastNotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8397C9237CF44C00E8601A /* CToastNotification.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */; };
 		2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7AC2368A7FE00A1D3B6 /* SivOBB.cpp */; };
@@ -2163,6 +2168,12 @@
 		2C69A45B232B7AFB002BC8D4 /* SivShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShader.cpp; sourceTree = "<group>"; };
 		2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineMessageBox.cpp; sourceTree = "<group>"; };
 		2C69A460232BDCB8002BC8D4 /* Script_TextureFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script_TextureFormat.cpp; sourceTree = "<group>"; };
+		2C8397C0237CF3E200E8601A /* ToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ToastNotification.hpp; sourceTree = "<group>"; };
+		2C8397C2237CF40E00E8601A /* IToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IToastNotification.hpp; sourceTree = "<group>"; };
+		2C8397C3237CF40E00E8601A /* SivToastNotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivToastNotification.cpp; sourceTree = "<group>"; };
+		2C8397C7237CF44C00E8601A /* CToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CToastNotification.hpp; sourceTree = "<group>"; };
+		2C8397C8237CF44C00E8601A /* ToastNotificationFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToastNotificationFactory.cpp; sourceTree = "<group>"; };
+		2C8397C9237CF44C00E8601A /* CToastNotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CToastNotification.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2C8EA7A52366F8C600A1D3B6 /* PoissonDisk2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PoissonDisk2D.hpp; sourceTree = "<group>"; };
 		2C8EA7A72366F8E800A1D3B6 /* SivPoissonDisk2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPoissonDisk2D.cpp; sourceTree = "<group>"; };
@@ -5978,6 +5989,7 @@
 				2C4619C6226F01E300828870 /* TextToSpeech */,
 				2C461AE122712B0200828870 /* Texture */,
 				2C4619C3226EFFE400828870 /* Time */,
+				2C8397C6237CF44C00E8601A /* ToastNotification */,
 				2C4619C0226EFF2A00828870 /* Unicode */,
 				2C4619BB226EFE5C00828870 /* VideoWriter */,
 				2C4619B8226EFD9F00828870 /* Webcam */,
@@ -5991,7 +6003,6 @@
 		2C46FE75226EE90700828870 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C8EA7B7236FC46D00A1D3B6 /* Quaternion */,
 				2CEACB542338756800C6EE98 /* AABB */,
 				2C461613226EEF3200828870 /* AnimatedGIFWriter */,
 				2C461683226EEF3600828870 /* Asset */,
@@ -6120,6 +6131,7 @@
 				2C4615AB226EEF2F00828870 /* Profiler */,
 				2C461795226EEF3F00828870 /* QR */,
 				2C461779226EEF3E00828870 /* Quad */,
+				2C8EA7B7236FC46D00A1D3B6 /* Quaternion */,
 				2C461726226EEF3B00828870 /* Random */,
 				2C461654226EEF3500828870 /* RasterizerState */,
 				2C8EA7B42369CE7000A1D3B6 /* Ray */,
@@ -6175,6 +6187,7 @@
 				2C461668226EEF3500828870 /* Threading */,
 				2C4617A7226EEF3F00828870 /* TimeProfiler */,
 				2C46165E226EEF3500828870 /* Timer */,
+				2C8397C1237CF40E00E8601A /* ToastNotification */,
 				2C461777226EEF3E00828870 /* TOMLReader */,
 				2C4616F1226EEF3900828870 /* Transformer2D */,
 				2C46169B226EEF3700828870 /* Transition */,
@@ -6212,6 +6225,25 @@
 				2C69A45E232B7F0A002BC8D4 /* SivEngineMessageBox.cpp */,
 			);
 			path = EngineMessageBox;
+			sourceTree = "<group>";
+		};
+		2C8397C1237CF40E00E8601A /* ToastNotification */ = {
+			isa = PBXGroup;
+			children = (
+				2C8397C2237CF40E00E8601A /* IToastNotification.hpp */,
+				2C8397C3237CF40E00E8601A /* SivToastNotification.cpp */,
+			);
+			path = ToastNotification;
+			sourceTree = "<group>";
+		};
+		2C8397C6237CF44C00E8601A /* ToastNotification */ = {
+			isa = PBXGroup;
+			children = (
+				2C8397C7237CF44C00E8601A /* CToastNotification.hpp */,
+				2C8397C8237CF44C00E8601A /* ToastNotificationFactory.cpp */,
+				2C8397C9237CF44C00E8601A /* CToastNotification.cpp */,
+			);
+			path = ToastNotification;
 			sourceTree = "<group>";
 		};
 		2C8EA7A62366F8E800A1D3B6 /* PoissonDisk2D */ = {
@@ -6558,6 +6590,7 @@
 				2CA6275522226DC60009DFE1 /* Time.hpp */,
 				2CA6282422226DC70009DFE1 /* TimeProfiler.hpp */,
 				2CA627BF22226DC70009DFE1 /* Timer.hpp */,
+				2C8397C0237CF3E200E8601A /* ToastNotification.hpp */,
 				2CA6277F22226DC60009DFE1 /* TOMLReader.hpp */,
 				2CA6280B22226DC70009DFE1 /* Transition.hpp */,
 				2CA6277D22226DC60009DFE1 /* Triangle.hpp */,
@@ -7367,6 +7400,7 @@
 				2C4613A6226EEDB500828870 /* edge-coloring.h in Headers */,
 				2C461840226EEF4100828870 /* CProfiler.hpp in Headers */,
 				2C461A0E226F1C8F00828870 /* CLogger.hpp in Headers */,
+				2C8397C4237CF40E00E8601A /* IToastNotification.hpp in Headers */,
 				2C461448226EEDB500828870 /* b2CircleContact.h in Headers */,
 				2C461402226EEDB500828870 /* strfunc.h in Headers */,
 				2C461939226EEF4100828870 /* IEffect.hpp in Headers */,
@@ -7425,6 +7459,7 @@
 				2C46110D226EEDB500828870 /* ftdriver.h in Headers */,
 				2C461871226EEF4100828870 /* Polynomial.hpp in Headers */,
 				2C461143226EEDB500828870 /* t1tables.h in Headers */,
+				2C8397CA237CF44C00E8601A /* CToastNotification.hpp in Headers */,
 				2C461885226EEF4100828870 /* GIFWriter.hpp in Headers */,
 				2C461121226EEDB500828870 /* svmetric.h in Headers */,
 				2C4619B6226EFC2900828870 /* WritableMemoryMappingDetail.hpp in Headers */,
@@ -7644,6 +7679,7 @@
 				2CBC64E322F849F0001610DB /* zstd_common.c in Sources */,
 				2C4618B3226EEF4100828870 /* SivCamera2D.cpp in Sources */,
 				2C69A45C232B7AFC002BC8D4 /* SivShader.cpp in Sources */,
+				2C8397CB237CF44C00E8601A /* ToastNotificationFactory.cpp in Sources */,
 				2C4617D2226EEF4100828870 /* CCPU.cpp in Sources */,
 				2C4618DE226EEF4100828870 /* WindowFactory.cpp in Sources */,
 				2C461A47226F2D0000828870 /* posix_thread.c in Sources */,
@@ -7762,6 +7798,7 @@
 				2C4617D3226EEF4100828870 /* CPUFactory.cpp in Sources */,
 				2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */,
 				2CBC64D622F849F0001610DB /* entropy_common.c in Sources */,
+				2C8397CC237CF44C00E8601A /* CToastNotification.cpp in Sources */,
 				2C461A18226F2AFD00828870 /* SivFileSystem_Platform.mm in Sources */,
 				2C461801226EEF4100828870 /* Script_Rect.cpp in Sources */,
 				2C461850226EEF4100828870 /* SivScopedRenderStates2D.cpp in Sources */,
@@ -8100,6 +8137,7 @@
 				2C461396226EEDB500828870 /* msdfgen.cpp in Sources */,
 				2C46193E226EEF4100828870 /* CEffect.cpp in Sources */,
 				2C46180C226EEF4100828870 /* Script_Polygon.cpp in Sources */,
+				2C8397C5237CF40E00E8601A /* SivToastNotification.cpp in Sources */,
 				2C461830226EEF4100828870 /* Script_WaveSample.cpp in Sources */,
 				2C4618E0226EEF4100828870 /* SivWindow.cpp in Sources */,
 				2C461805226EEF4100828870 /* Script_Image.cpp in Sources */,
