@@ -423,11 +423,11 @@ static quirc_decode_error_t read_format(const struct quirc_code *code,
 
 	if (which) {
 		for (i = 0; i < 7; i++)
-			format = (uint16_t)((format << 1) |
-				grid_bit(code, 8, code->size - 1 - i));
+			format = (format << 1) |
+				grid_bit(code, 8, code->size - 1 - i);
 		for (i = 0; i < 8; i++)
-			format = (uint16_t)((format << 1) |
-				grid_bit(code, code->size - 8 + i, 8));
+			format = (format << 1) |
+				grid_bit(code, code->size - 8 + i, 8);
 	} else {
 		static const int xs[15] = {
 			8, 8, 8, 8, 8, 8, 8, 8, 7, 5, 4, 3, 2, 1, 0
@@ -437,7 +437,7 @@ static quirc_decode_error_t read_format(const struct quirc_code *code,
 		};
 
 		for (i = 14; i >= 0; i--)
-			format = (uint16_t)((format << 1) | grid_bit(code, xs[i], ys[i]));
+			format = (format << 1) | grid_bit(code, xs[i], ys[i]);
 	}
 
 	format ^= 0x5412;
@@ -765,7 +765,7 @@ static quirc_decode_error_t decode_byte(struct quirc_data *data,
 		return QUIRC_ERROR_DATA_UNDERFLOW;
 
 	for (i = 0; i < count; i++)
-		data->payload[data->payload_len++] = (uint8_t)(take_bits(ds, 8));
+		data->payload[data->payload_len++] = take_bits(ds, 8);
 
 	return QUIRC_SUCCESS;
 }
@@ -797,10 +797,10 @@ static quirc_decode_error_t decode_kanji(struct quirc_data *data,
 
 		if (intermediate + 0x8140 <= 0x9ffc) {
 			/* bytes are in the range 0x8140 to 0x9FFC */
-			sjw = (uint16_t)(intermediate + 0x8140);
+			sjw = intermediate + 0x8140;
 		} else {
 			/* bytes are in the range 0xE040 to 0xEBBF */
-			sjw = (uint16_t)(intermediate + 0xc140);
+			sjw = intermediate + 0xc140;
 		}
 
 		data->payload[data->payload_len++] = sjw >> 8;
@@ -874,7 +874,7 @@ static quirc_decode_error_t decode_payload(struct quirc_data *data,
 done:
 
 	/* Add nul terminator to all payloads */
-	if (data->payload_len >= sizeof(data->payload))
+	if (data->payload_len >= (int) sizeof(data->payload))
 		data->payload_len--;
 	data->payload[data->payload_len] = 0;
 
