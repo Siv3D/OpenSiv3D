@@ -25,6 +25,7 @@
 # include "../ThirdParty/cereal/cereal.hpp"
 # include "../ThirdParty/cereal/archives/binary.hpp"
 # include "../ThirdParty/cereal/types/array.hpp"
+// # include "../ThirdParty/cereal/types/atomic.hpp"
 # include "../ThirdParty/cereal/types/base_class.hpp"
 // # include "../ThirdParty/cereal/types/bitset.hpp"
 # include "../ThirdParty/cereal/types/chrono.hpp"
@@ -36,8 +37,9 @@
 // # include "../ThirdParty/cereal/types/list.hpp"
 // # include "../ThirdParty/cereal/types/map.hpp"
 # include "../ThirdParty/cereal/types/memory.hpp"
+// # include "../ThirdParty/cereal/types/optional.hpp"
 # include "../ThirdParty/cereal/types/polymorphic.hpp"
-// include "../ThirdParty/cereal/types/queue.hpp"
+// #include "../ThirdParty/cereal/types/queue.hpp"
 // # include "../ThirdParty/cereal/types/set.hpp"
 // # include "../ThirdParty/cereal/types/stack.hpp"
 # include "../ThirdParty/cereal/types/string.hpp"
@@ -46,6 +48,7 @@
 # include "../ThirdParty/cereal/types/unordered_set.hpp"
 # include "../ThirdParty/cereal/types/utility.hpp"
 // # include "../ThirdParty/cereal/types/valarray.hpp"
+// # include "../ThirdParty/cereal/types/variant.hpp"
 # include "../ThirdParty/cereal/types/vector.hpp"
 
 namespace s3d

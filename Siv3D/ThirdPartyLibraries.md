@@ -4,7 +4,7 @@
 - [Boost C++ Libraries (1.70.0)](https://www.boost.org/)
 - [Box2D (v2.3.2)](https://github.com/erincatto/Box2D)
 - [Catch (v2.5.0)](https://github.com/catchorg/Catch2)
-- [cereal (v1.2.2)](https://github.com/USCiLab/cereal)
+- [cereal (v1.3.0)](https://github.com/USCiLab/cereal)
 - [Convenient Constructs For Stepping Through a Range of Values](https://www.codeproject.com/Articles/876156/Convenient-Constructs-For-Stepping-Through-a-Range)
 - [clip2tri](https://github.com/raptor/clip2tri)
 - [Clipper (6.1.3a)](http://www.angusj.com/delphi/clipper.php)

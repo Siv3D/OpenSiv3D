@@ -307,6 +307,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Catch2\catch.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\access.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\adapters.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\binary.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\portable_binary.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\cereal.hpp" />
@@ -317,7 +318,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\traits.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\util.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\macros.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\specialize.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\array.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\atomic.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\base_class.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\bitset.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\boost_variant.hpp" />
@@ -331,6 +334,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\list.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\map.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\memory.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\optional.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\polymorphic.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\queue.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\set.hpp" />
@@ -341,7 +345,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\unordered_set.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\utility.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\valarray.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\variant.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\vector.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\version.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format-inl.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
