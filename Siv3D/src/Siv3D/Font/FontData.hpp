@@ -155,6 +155,8 @@ namespace s3d
 
 		Image m_image;
 
+		bool m_hasDirty = false;
+
 		DynamicTexture m_texture;
 
 		bool m_initialized = false;
@@ -168,6 +170,8 @@ namespace s3d
 		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
 
 		void paintGlyph(FT_Face face, FT_UInt glyphIndex, Image& image, Image& tmpImage, bool overwrite, const Point& penPos, const Color& color, int32& width, int32& xAdvance) const;
+
+		void renderIfDirty();
 
 	public:
 
@@ -199,7 +203,7 @@ namespace s3d
 
 		OutlineGlyph getOutlineGlyph(char32 codePoint);
 
-		const Texture& getTexture() const;
+		const Texture& getTexture();
 
 		RectF getBoundingRect(const String& codePoints, double lineSpacingScale);
 
