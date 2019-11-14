@@ -23,9 +23,9 @@ namespace s3d
 		return detail::FormatHelper(text, std::char_traits<char32>::length(text));
 	}
 
-	namespace Literals
+	inline namespace Literals
 	{
-		namespace FormatLiterals
+		inline namespace FormatLiterals
 		{
 			detail::FormatHelper operator ""_fmt(const char32* text, const size_t length)
 			{
