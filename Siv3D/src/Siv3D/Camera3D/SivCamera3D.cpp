@@ -15,11 +15,11 @@
 namespace s3d::experimental
 {
 	BasicCamera3D::BasicCamera3D(const Size& sceneSize, const double fov, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection) noexcept
-		: m_eyePosition(eyePosition)
+		: m_sceneSize(sceneSize)
+		, m_fov(fov)
+		, m_eyePosition(eyePosition)
 		, m_focusPosition(focusPosition)
 		, m_upDirection(upDirection)
-		, m_sceneSize(sceneSize)
-		, m_fov(fov)
 	{
 		updateProj();
 		updateView();
