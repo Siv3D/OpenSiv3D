@@ -892,6 +892,13 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	ToastNotification.hpp
+	//
+	struct ToastNotificationProperty;
+	enum class ToastNotificationState;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Cursor.hpp
 	//
 	enum class CursorStyle;

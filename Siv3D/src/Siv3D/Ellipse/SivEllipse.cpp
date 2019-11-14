@@ -55,11 +55,27 @@ namespace s3d
 
 	const Ellipse& Ellipse::draw(const ColorF& color) const
 	{
+		const Float4 colors = color.toFloat4();
+
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipse(
 			center,
 			static_cast<float>(a),
 			static_cast<float>(b),
-			color.toFloat4()
+			colors,
+			colors
+		);
+
+		return *this;
+	}
+
+	const Ellipse& Ellipse::draw(const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipse(
+			center,
+			static_cast<float>(a),
+			static_cast<float>(b),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
 		);
 
 		return *this;

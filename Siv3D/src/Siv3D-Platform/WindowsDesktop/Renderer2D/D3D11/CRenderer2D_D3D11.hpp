@@ -207,7 +207,7 @@ namespace s3d
 
 		void addRectFrame(const FloatRect& rect, float thickness, const Float4& color) override;
 
-		void addCircle(const Float2& center, float r, const Float4& color) override;
+		void addCircle(const Float2& center, float r, const Float4& innerColor, const Float4& outerColor) override;
 
 		void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 
@@ -215,7 +215,7 @@ namespace s3d
 
 		void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color) override;
 
-		void addEllipse(const Float2& center, float a, float b, const Float4& color) override;
+		void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) override;
 
 		void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 

@@ -246,6 +246,8 @@ namespace s3d
 			return Array<Glyph>(codePoints.size());
 		}
 
+		renderIfDirty();
+
 		Array<Glyph> glyphs;
 		int32 index = 0;
 
@@ -291,6 +293,8 @@ namespace s3d
 		{
 			return Array<Glyph>(codePoints.size());
 		}
+
+		renderIfDirty();
 
 		Array<Glyph> glyphs;
 		int32 index = 0;
@@ -383,8 +387,10 @@ namespace s3d
 		return outlineGlyph;
 	}
 
-	const Texture& FontData::getTexture() const
+	const Texture& FontData::getTexture()
 	{
+		renderIfDirty();
+
 		return m_texture;
 	}
 
@@ -527,6 +533,8 @@ namespace s3d
 		{
 			return RectF(pos, 0);
 		}
+
+		renderIfDirty();
 		
 		Vec2 penPos(pos);
 		double maxPosX = DBL_MIN;
@@ -577,6 +585,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		renderIfDirty();
 
 		const double width = area.w;
 		const double height = area.h;
@@ -688,6 +698,8 @@ namespace s3d
 				{
 					return false;
 				}
+
+				renderIfDirty();
 
 				const auto& dotGlyph = m_glyphs[m_glyphVHIndexTable[U'.' | Horizontal]];
 				const int32 dotWidth = dotGlyph.offset.x + dotGlyph.bitmapRect.w;
@@ -932,8 +944,6 @@ namespace s3d
 			return false;
 		}
 
-		bool hasDirty = false;
-
 		for (const auto& codePoint : codePoints)
 		{
 			const char32VH indexVH = codePoint | Horizontal;
@@ -955,7 +965,7 @@ namespace s3d
 						continue;
 					}
 
-					hasDirty = true;
+					m_hasDirty = true;
 
 					m_tofuIndex = static_cast<CommonGlyphIndex>(m_glyphs.size() - 1);
 				}
@@ -969,34 +979,9 @@ namespace s3d
 
 				renderGlyph(face, glyphIndex);
 
-				hasDirty = true;
+				m_hasDirty = true;
 
 				m_glyphVHIndexTable.emplace(indexVH, static_cast<uint32>(m_glyphs.size() - 1));
-			}
-		}
-
-		if (hasDirty)
-		{
-			if (m_image.size() == m_texture.size())
-			{
-				m_texture.fill(m_image);
-			}
-			else
-			{
-				const bool hasTexture = !!m_texture;
-				[[maybe_unused]] const Size previousSize = m_texture.size();
-				[[maybe_unused]] const Size newSize = m_image.size();
-
-				m_texture = DynamicTexture(m_image);
-
-				if (hasTexture)
-				{
-					LOG_DEBUG(U"ℹ️ Font texture resized ({0}x{1} -> {2}x{3})"_fmt(previousSize.x, previousSize.y, newSize.x, newSize.y));
-				}
-				else
-				{
-					LOG_DEBUG(U"ℹ️ Created font texture (size: {0}x{1})"_fmt(newSize.x, newSize.y));
-				}
 			}
 		}
 
@@ -1014,8 +999,6 @@ namespace s3d
 		{
 			generateVerticalTable();
 		}
-
-		bool hasDirty = false;
 
 		for (const auto& codePoint : codePoints)
 		{
@@ -1039,7 +1022,7 @@ namespace s3d
 						continue;
 					}
 
-					hasDirty = true;
+					m_hasDirty = true;
 
 					m_tofuIndex = static_cast<CommonGlyphIndex>(m_glyphs.size() - 1);
 				}
@@ -1054,7 +1037,7 @@ namespace s3d
 				{
 					renderGlyph(m_faceEmoji.face, glyphIndexEmoji);
 
-					hasDirty = true;
+					m_hasDirty = true;
 
 					const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
 
@@ -1076,7 +1059,7 @@ namespace s3d
 				{
 					renderGlyph(m_faceText.face, itV->second);
 
-					hasDirty = true;
+					m_hasDirty = true;
 
 					const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
 
@@ -1090,7 +1073,7 @@ namespace s3d
 					{
 						renderGlyph(m_faceText.face, glyphIndexText);
 
-						hasDirty = true;
+						m_hasDirty = true;
 
 						const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
 
@@ -1102,31 +1085,6 @@ namespace s3d
 						const CommonGlyphIndex index = it->second;
 						m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
 					}
-				}
-			}
-		}
-
-		if (hasDirty)
-		{
-			if (m_image.size() == m_texture.size())
-			{
-				m_texture.fill(m_image);
-			}
-			else
-			{
-				const bool hasTexture = !!m_texture;
-				[[maybe_unused]] const Size previousSize = m_texture.size();
-				[[maybe_unused]] const Size newSize = m_image.size();
-
-				m_texture = DynamicTexture(m_image);
-
-				if (hasTexture)
-				{
-					LOG_DEBUG(U"ℹ️ Font texture resized ({0}x{1} -> {2}x{3})"_fmt(previousSize.x, previousSize.y, newSize.x, newSize.y));
-				}
-				else
-				{
-					LOG_DEBUG(U"ℹ️ Created font texture (size: {0}x{1})"_fmt(newSize.x, newSize.y));
 				}
 			}
 		}
@@ -1334,5 +1292,37 @@ namespace s3d
 		{
 			tmpImage.paint(image, penPos + offset, color);
 		}
+	}
+
+	void FontData::renderIfDirty()
+	{
+		if (!m_hasDirty)
+		{
+			return;
+		}
+
+		if (m_image.size() == m_texture.size())
+		{
+			m_texture.fill(m_image);
+		}
+		else
+		{
+			const bool hasTexture = !!m_texture;
+			[[maybe_unused]] const Size previousSize = m_texture.size();
+			[[maybe_unused]] const Size newSize = m_image.size();
+
+			m_texture = DynamicTexture(m_image);
+
+			if (hasTexture)
+			{
+				LOG_DEBUG(U"ℹ️ Font texture resized ({0}x{1} -> {2}x{3})"_fmt(previousSize.x, previousSize.y, newSize.x, newSize.y));
+			}
+			else
+			{
+				LOG_DEBUG(U"ℹ️ Created font texture (size: {0}x{1})"_fmt(newSize.x, newSize.y));
+			}
+		}
+
+		m_hasDirty = false;
 	}
 }

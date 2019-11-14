@@ -420,7 +420,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& color, const float scale)
+		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			const float absR = Math::Abs(r);
 			const IndexType quality = detail::CalculateCircleQuality(absR * scale);
@@ -461,9 +461,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			{
@@ -645,7 +649,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, const float a, const float b, const Float4& color, const float scale)
+		uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			const float majorAxis = std::max(Math::Abs(a), Math::Abs(b));
 			const IndexType quality = static_cast<IndexType>(std::clamp(majorAxis * scale * 0.225f + 18.0f, 6.0f, 255.0f));
@@ -686,9 +690,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			{

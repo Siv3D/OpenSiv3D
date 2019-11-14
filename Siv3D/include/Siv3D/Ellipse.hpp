@@ -297,6 +297,8 @@ namespace s3d
 
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
 
+		const Ellipse& draw(const ColorF& innerColor, const ColorF& outerColor) const;
+
 		const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Ellipse& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
