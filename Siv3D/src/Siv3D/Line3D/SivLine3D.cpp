@@ -17,6 +17,11 @@ namespace s3d
 {
 	void Line3D::draw(const Mat4x4& vp, const ColorF& color) const
 	{
+		draw(vp, 1, color);
+	}
+
+	void Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
+	{
 		constexpr size_t vertexCount = 2;
 		const Float3 vec[vertexCount] = { begin, end };
 		Float3 out[vertexCount];
@@ -35,10 +40,15 @@ namespace s3d
 			v.y *= resolution.y;
 		}
 
-		Line(out[0].xy(), out[1].xy()).draw(2, color);
+		Line(out[0].xy(), out[1].xy()).draw(thickness, color);
 	}
 
 	void SIMD_Line3D::draw(const Mat4x4& vp, const ColorF& color) const
+	{
+		draw(vp, 1, color);
+	}
+
+	void SIMD_Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
 	{
 		constexpr size_t vertexCount = 2;
 		Float3 out[vertexCount];
@@ -57,7 +67,7 @@ namespace s3d
 			v.y *= resolution.y;
 		}
 
-		Line(out[0].xy(), out[1].xy()).draw(2, color);
+		Line(out[0].xy(), out[1].xy()).draw(thickness, color);
 	}
 
 	void Formatter(FormatData& formatData, const Line3D& value)

@@ -76,6 +76,9 @@ namespace s3d
 		[[nodiscard]] Size GetRenderTargetSize();
 
 		// SDF 描画用のパラメータを設定
+		void SetSDFParameters(double pixelRange, double offset = 0.0);
+
+		// SDF 描画用のパラメータを設定
 		void SetSDFParameters(const Float4& parameters);
 
 		// 現在の SDF 描画用のパラメータを取得

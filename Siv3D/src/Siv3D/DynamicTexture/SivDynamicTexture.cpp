@@ -27,6 +27,12 @@ namespace s3d
 
 	}
 
+	DynamicTexture::DynamicTexture(const Image& image, const TextureDesc desc)
+		: Texture(Texture::Dynamic(), image.width(), image.height(), image.data(), image.stride(), TextureFormat::R8G8B8A8_Unorm, desc)
+	{
+
+	}
+
 	DynamicTexture::DynamicTexture(const Image& image, const TextureFormat& format, const TextureDesc desc)
 		: Texture(Texture::Dynamic(), image.width(), image.height(), image.data(), image.stride(), format, desc)
 	{

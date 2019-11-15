@@ -230,6 +230,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDF.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SDFFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Serialization.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
@@ -501,6 +502,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\CSDFFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\ISDFFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />
@@ -1218,6 +1222,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\SivScript.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\CSDFFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SivSDFFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SDF\SivSDF.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SFMT\SivSFMT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />

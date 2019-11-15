@@ -109,7 +109,7 @@ float4 PS_SDF(PSInput input) : SV_TARGET
 	
 	float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
 	
-	float sigDist = median(s.r, s.g, s.b) - 0.5;
+	float sigDist = median(s.r, s.g, s.b) - 0.5 + g_sdfParam.y;
 	
 	sigDist *= dot(msdfUnit, 0.5 / fwidth(input.uv));
 	

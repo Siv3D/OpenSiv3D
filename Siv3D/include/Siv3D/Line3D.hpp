@@ -47,6 +47,8 @@ namespace s3d
 			, end(_end) {}
 
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void draw(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
 	};
 
 
@@ -71,6 +73,8 @@ namespace s3d
 			: vec{ { _begin, 0.0f }, { _end, 0.0f } } {}
 
 		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+
+		void draw(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
 	};
 }
 
