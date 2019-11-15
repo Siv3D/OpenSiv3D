@@ -80,7 +80,7 @@ namespace s3d
 			region.draw(ColorF(1.0));
 
 			const int32 labelWidth = font(text).region().w;
-			const Vec2 labelPos(region.x + (region.w - labelWidth) / 2, 40 - font.height() / 2);
+			const Vec2 labelPos(region.x + (region.w - labelWidth) / 2, region.center().y - (font.height() / 2));
 			font(text).draw(labelPos, ColorF(enabled ? 0.2 : 0.67));
 		}
 
