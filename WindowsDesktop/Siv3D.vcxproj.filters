@@ -1063,6 +1063,9 @@
     <Filter Include="src\ThirdParty\WinToast">
       <UniqueIdentifier>{94f69e09-fed9-459f-8a3a-af1a997a3604}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SimpleGUIManager">
+      <UniqueIdentifier>{62a20226-9219-41f7-8845-43867319ccf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3588,6 +3591,12 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\cereal.hpp">
       <Filter>include\ThirdParty\cereal</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUIManager.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SimpleGUIManagerDetail.hpp">
+      <Filter>src\Siv3D\SimpleGUIManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5404,6 +5413,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c">
       <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SimpleGUIManagerDetail.cpp">
+      <Filter>src\Siv3D\SimpleGUIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SivSimpleGUIManager.cpp">
+      <Filter>src\Siv3D\SimpleGUIManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

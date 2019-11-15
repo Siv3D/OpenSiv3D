@@ -1,0 +1,15 @@
+﻿
+[[Headline]]
+name = "hl-Title"
+text = "Title"
+pos = { x = 40, y = 40 }
+width = 160 #optional
+enbaled = true #optional
+
+[[Button]]
+name = "bt-Cancel"
+label = "Cancel"
+pos = { x = 40, y = 80 }
+width = 160 #optional
+enabled = true #optional
+

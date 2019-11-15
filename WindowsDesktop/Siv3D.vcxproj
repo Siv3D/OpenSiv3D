@@ -239,6 +239,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUIManager.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
@@ -514,6 +515,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\ISDFFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SimpleGUIManagerDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp" />
@@ -1244,6 +1246,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SIMD_Float4\SivSIMD_Float4.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SimpleGUIManagerDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SivSimpleGUIManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SimpleGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
