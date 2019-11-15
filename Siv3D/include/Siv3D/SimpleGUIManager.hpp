@@ -16,6 +16,8 @@
 # include "Rectangle.hpp"
 # include "Optional.hpp"
 # include "String.hpp"
+# include "HSV.hpp"
+# include "SimpleGUI.hpp"
 
 namespace s3d
 {
@@ -28,6 +30,99 @@ namespace s3d
 			String text;
 
 			Optional<double> width;
+
+			bool enabled = true;
+		};
+
+		struct Button
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			String label;
+
+			Optional<double> width;
+
+			bool enabled = true;
+		};
+
+		struct Slider
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			String label;
+
+			double value = 0.0;
+
+			double min = 0.0;
+
+			double max = 1.0;
+
+			double labelWidth = 80.0;
+
+			double sliderWidth = 120.0;
+
+			bool enabled = true;
+		};
+
+		struct VerticalSlider
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			double min = 0.0;
+
+			double max = 1.0;
+
+			double value = 0.0;
+
+			double sliderHeight = 120.0;
+
+			bool enabled = true;
+		};
+
+		struct CheckBox
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			String label;
+
+			Optional<double> width;
+
+			bool checked = false;
+
+			bool enabled = true;
+		};
+
+		struct RadioButtons
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			Array<String> options;
+
+			Optional<double> width;
+
+			size_t index = 0;
+
+			bool enabled = true;
+		};
+
+		struct TextBox
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			TextEditState state;
+
+			double width = 200.0;
+
+			Optional<size_t> maxChars;
+
+			bool enabled = true;
+		};
+
+		struct ColorPicker
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			HSV color = Palette::White;
 
 			bool enabled = true;
 		};

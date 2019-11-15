@@ -13,6 +13,7 @@ void Main()
 		{
 			if (change.first == tomlPath && change.second == FileAction::Modified)
 			{
+				ClearPrint();
 				gui.load(tomlPath);
 			}
 		}
