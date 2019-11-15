@@ -152,7 +152,7 @@ namespace s3d
 		}
 	}
 
-	XMLReader::XMLReader(const FilePath& path, const bool preserveWhitespace)
+	XMLReader::XMLReader(const FilePathView path, const bool preserveWhitespace)
 	{
 		open(path, preserveWhitespace);
 	}
@@ -167,14 +167,14 @@ namespace s3d
 		open(reader, preserveWhitespace);
 	}
 
-	bool XMLReader::open(const FilePath& path, const bool preserveWhitespace)
+	bool XMLReader::open(const FilePathView path, const bool preserveWhitespace)
 	{
 		close();
 
 		std::shared_ptr<tinyxml2::XMLDocument> document = std::make_shared<tinyxml2::XMLDocument>(true,
 			preserveWhitespace ? tinyxml2::PRESERVE_WHITESPACE : tinyxml2::COLLAPSE_WHITESPACE);
 
-		if (document->LoadFile(path.narrow().c_str()) != tinyxml2::XML_SUCCESS)
+		if (document->LoadFile(Unicode::Narrow(path).c_str()) != tinyxml2::XML_SUCCESS)
 		{
 			return false;
 		}

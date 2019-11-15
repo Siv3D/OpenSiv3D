@@ -644,7 +644,7 @@ namespace s3d
 	//
 	//  TOMLReader
 	//
-	TOMLReader::TOMLReader(const FilePath& path)
+	TOMLReader::TOMLReader(const FilePathView path)
 	{
 		open(path);
 	}
@@ -654,7 +654,7 @@ namespace s3d
 		open(reader);
 	}
 
-	bool TOMLReader::open(const FilePath& path)
+	bool TOMLReader::open(const FilePathView path)
 	{
 		if (isOpened())
 		{

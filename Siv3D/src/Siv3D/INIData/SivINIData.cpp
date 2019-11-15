@@ -242,7 +242,7 @@ namespace s3d
 
 	}
 
-	INIData::INIData(const FilePath& path)
+	INIData::INIData(const FilePathView path)
 	{
 		load(path);
 	}
@@ -252,7 +252,7 @@ namespace s3d
 		load(reader);
 	}
 
-	bool INIData::load(const FilePath& path)
+	bool INIData::load(const FilePathView path)
 	{
 		TextReader textReader(path);
 
