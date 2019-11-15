@@ -10,6 +10,13 @@
 //-----------------------------------------------
 
 # include <Siv3D/MessageBox.hpp>
+# define SIV3D_CONCURRENT
+# include <Siv3D/ConcurrentTask.hpp>
+# include <Siv3D/Monitor.hpp>
+
+# include <X11/Xlib.h>
+# include <X11/Xutil.h>
+# include <X11/Xatom.h>
 
 namespace s3d
 {
