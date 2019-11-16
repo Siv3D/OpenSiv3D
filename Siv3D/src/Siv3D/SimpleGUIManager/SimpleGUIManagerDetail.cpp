@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -240,7 +240,7 @@ namespace s3d
 
 		for (const auto& widget : m_widgets)
 		{
-			switch (WidgetType{ widget.widget.index() })
+			switch (static_cast<WidgetType>(widget.widget.index()))
 			{
 			case WidgetType::Headline:
 				{
@@ -300,7 +300,7 @@ namespace s3d
 	{
 		for (auto& widget : m_widgets)
 		{
-			switch (WidgetType{ widget.widget.index() })
+			switch (static_cast<WidgetType>(widget.widget.index()))
 			{
 			case WidgetType::Headline:
 				{
@@ -376,7 +376,7 @@ namespace s3d
 				continue;
 			}
 
-			switch (WidgetType{ widget.widget.index() })
+			switch (static_cast<WidgetType>(widget.widget.index()))
 			{
 			case WidgetType::Headline:
 				{
@@ -433,7 +433,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::Button)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::Button)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::Button"_fmt(name));
 			}
@@ -453,7 +453,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::Slider)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::Slider)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::Slider"_fmt(name));
 			}
@@ -473,7 +473,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::VerticalSlider)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::VerticalSlider)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::VerticalSlider"_fmt(name));
 			}
@@ -493,7 +493,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::CheckBox)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::CheckBox)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::CheckBox"_fmt(name));
 			}
@@ -513,7 +513,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::RadioButtons)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::RadioButtons)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::RadioButtons"_fmt(name));
 			}
@@ -533,7 +533,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::TextBox)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::TextBox)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::TextBox"_fmt(name));
 			}
@@ -553,7 +553,7 @@ namespace s3d
 				continue;
 			}
 
-			if (WidgetType{ widget.widget.index() } != WidgetType::ColorPicker)
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::ColorPicker)
 			{
 				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::ColorPicker"_fmt(name));
 			}

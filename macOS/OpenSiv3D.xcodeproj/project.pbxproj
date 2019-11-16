@@ -1130,6 +1130,9 @@
 		2CC1701F2355F5E800A15A3D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC1701E2355F5E800A15A3D /* CoreMedia.framework */; };
 		2CC4770F2321436700633195 /* PixelShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4770E2321436700633195 /* PixelShader_GL.cpp */; };
 		2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC47710232144B700633195 /* VertexShader_GL.cpp */; };
+		2CE5C852237FD81200082EEC /* SimpleGUIManagerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE5C84F237FD81200082EEC /* SimpleGUIManagerDetail.hpp */; };
+		2CE5C853237FD81200082EEC /* SimpleGUIManagerDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5C850237FD81200082EEC /* SimpleGUIManagerDetail.cpp */; };
+		2CE5C854237FD81200082EEC /* SivSimpleGUIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */; };
 		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
 		2CEACB4C2337435900C6EE98 /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */; };
 		2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */; };
@@ -2611,6 +2614,10 @@
 		2CC1701E2355F5E800A15A3D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CC4770E2321436700633195 /* PixelShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_GL.cpp; sourceTree = "<group>"; };
 		2CC47710232144B700633195 /* VertexShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader_GL.cpp; sourceTree = "<group>"; };
+		2CE5C84D237FD7E500082EEC /* SimpleGUIManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SimpleGUIManager.hpp; sourceTree = "<group>"; };
+		2CE5C84F237FD81200082EEC /* SimpleGUIManagerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SimpleGUIManagerDetail.hpp; sourceTree = "<group>"; };
+		2CE5C850237FD81200082EEC /* SimpleGUIManagerDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleGUIManagerDetail.cpp; sourceTree = "<group>"; };
+		2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleGUIManager.cpp; sourceTree = "<group>"; };
 		2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SIMD_Float4.hpp; sourceTree = "<group>"; };
 		2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSIMD_Float4.cpp; sourceTree = "<group>"; };
 		2CEACB492337433800C6EE98 /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
@@ -6162,6 +6169,7 @@
 				2C46166C226EEF3600828870 /* Shape2D */,
 				2CEACB462336515700C6EE98 /* SIMD_Float4 */,
 				2C461644226EEF3400828870 /* SimpleGUI */,
+				2CE5C84E237FD81200082EEC /* SimpleGUIManager */,
 				2C4616F0226EEF3900828870 /* Siv3DEngine.cpp */,
 				2C46176E226EEF3E00828870 /* Siv3DEngine.hpp */,
 				2C461607226EEF3200828870 /* SoundFont */,
@@ -6644,6 +6652,7 @@
 				2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */,
 				2CA627E322226DC70009DFE1 /* SIMDMath.hpp */,
 				2CA627B522226DC70009DFE1 /* SimpleGUI.hpp */,
+				2CE5C84D237FD7E500082EEC /* SimpleGUIManager.hpp */,
 				2CA6275622226DC60009DFE1 /* SoundFont.hpp */,
 				2CA6271D22226DC60009DFE1 /* Sphere.hpp */,
 				2CA627A222226DC70009DFE1 /* Spherical.hpp */,
@@ -6992,6 +7001,16 @@
 				2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */,
 			);
 			path = ScopedRenderTarget2D;
+			sourceTree = "<group>";
+		};
+		2CE5C84E237FD81200082EEC /* SimpleGUIManager */ = {
+			isa = PBXGroup;
+			children = (
+				2CE5C84F237FD81200082EEC /* SimpleGUIManagerDetail.hpp */,
+				2CE5C850237FD81200082EEC /* SimpleGUIManagerDetail.cpp */,
+				2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */,
+			);
+			path = SimpleGUIManager;
 			sourceTree = "<group>";
 		};
 		2CEACB462336515700C6EE98 /* SIMD_Float4 */ = {
@@ -7500,6 +7519,7 @@
 				2C8EA7CC237A956400A1D3B6 /* SDFFontData.hpp in Headers */,
 				2C461970226EEF4100828870 /* WebcamDetail.hpp in Headers */,
 				2C461889226EEF4100828870 /* NavMeshDetail.hpp in Headers */,
+				2CE5C852237FD81200082EEC /* SimpleGUIManagerDetail.hpp in Headers */,
 				2C461126226EEDB500828870 /* svbdf.h in Headers */,
 				2C4610F6226EEDB500828870 /* ftsnames.h in Headers */,
 				2C461363226EEDB500828870 /* RecastAlloc.h in Headers */,
@@ -7954,6 +7974,7 @@
 				2C4618B9226EEF4100828870 /* SivTexturedRoundRect.cpp in Sources */,
 				2C461924226EEF4100828870 /* PolygonDetail.cpp in Sources */,
 				2C4618E9226EEF4100828870 /* ImageFormat_PPM.cpp in Sources */,
+				2CE5C853237FD81200082EEC /* SimpleGUIManagerDetail.cpp in Sources */,
 				2C46138C226EEDB500828870 /* bignum-dtoa.cc in Sources */,
 				2C461433226EEDB500828870 /* cdt.cc in Sources */,
 				2C461444226EEDB500828870 /* b2ChainAndCircleContact.cpp in Sources */,
@@ -8127,6 +8148,7 @@
 				2CBC64B222F849F0001610DB /* zstd_double_fast.c in Sources */,
 				2C8EA7CD237A956400A1D3B6 /* SDFFontFactory.cpp in Sources */,
 				2C461804226EEF4100828870 /* Script_None_t.cpp in Sources */,
+				2CE5C854237FD81200082EEC /* SivSimpleGUIManager.cpp in Sources */,
 				2C461452226EEDB500828870 /* b2FrictionJoint.cpp in Sources */,
 				2C461845226EEF4100828870 /* SivIPv4.cpp in Sources */,
 				2C461427226EEDB500828870 /* muParserCallback.cpp in Sources */,
@@ -8561,7 +8583,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../dependencies/boost_1_70_0,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -8622,7 +8644,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../dependencies/boost_1_70_0,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
