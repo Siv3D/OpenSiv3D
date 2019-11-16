@@ -20,6 +20,10 @@ extern "C"
 # include <libswresample/swresample.h>
 }
 
+// https://ffmpeg.org/pipermail/libav-user/2013-January/003458.html
+#undef av_err2str
+#define av_err2str(errnum) av_make_error_string((char*)__builtin_alloca(AV_ERROR_MAX_STRING_SIZE), AV_ERROR_MAX_STRING_SIZE, errnum)
+
 # include <Siv3D/EngineLog.hpp>
 
 # include "AudioFormat_AAC.hpp"
