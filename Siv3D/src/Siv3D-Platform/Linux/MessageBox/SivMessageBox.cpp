@@ -100,6 +100,7 @@ namespace s3d
 				XDestroyWindow(display, no);
 			}
 
+			XDestroyWindow(display, root);
 			XCloseDisplay(display);
 		}
 
