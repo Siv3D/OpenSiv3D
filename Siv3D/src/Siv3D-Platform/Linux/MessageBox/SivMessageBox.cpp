@@ -182,21 +182,54 @@ namespace s3d
 
 			Array<std::string> messages;
 			{
-				std::string s;
-				for (size_t i = 0; message[i] != '\0'; ++i)
+				std::string m = message;
+
+				// タブ文字をスペース4文字に置換する
+				for (std::string::size_type pos; (pos = m.find("\t")) != std::string::npos; )
 				{
-					if (message[i] == '\n')
+					m.replace(pos, 1, "    ");
+				}
+
+				int32 sumLength = 0;
+				std::string s;
+				for (size_t i = 0; i < m.size(); ++i)
+				{
+					if (m.at(i) == '\n' || m.at(i) == '\r')
 					{
 						messages.emplace_back(s);
 						s.clear();
 						continue;
 					}
 
-					s += message[i];
-					const auto [w, h] = calcTextSize(s.c_str());
-					if (w > messageMaxWidth || message[i + 1] == '\0')
+					s += m.at(i);
+					if (i + 1 >= m.size())
 					{
 						messages.emplace_back(s);
+						sumLength += s.size();
+						s.clear();
+
+						continue;
+					}
+
+					// 単語の途中で改行しないようにする
+					const auto [w, h] = calcTextSize(s.c_str());
+					if (w > messageMaxWidth)
+					{
+						if (std::isalpha(m.at(i)))
+						{
+							for (int32 j = i - 1; j >= sumLength; --j)
+							{
+								if (m.at(j) == ' ')
+								{
+									s.erase(s.begin() + s.size() - (i - j), s.end());
+									i = j;
+									break;
+								}
+							}
+						}
+
+						messages.emplace_back(s);
+						sumLength += s.size();
 						s.clear();
 					}
 				}
