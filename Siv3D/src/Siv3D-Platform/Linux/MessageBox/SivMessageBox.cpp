@@ -18,6 +18,9 @@
 # include <X11/Xutil.h>
 # include <X11/Xatom.h>
 
+// X11でマクロNoneが定義されており，MessageBoxSelection::Noneと競合するためundef
+# undef None
+
 namespace s3d
 {
 	class SimpleMessageBox
@@ -406,9 +409,7 @@ namespace s3d
 				case ClientMessage:
 					if (event.xclient.data.l[0] == static_cast<int64>(wmDeleteWindowAtom))
 					{
-						// return MessageBoxSelection::None;
-						// MessageBoxSelection::None はX11でマクロ None が定義されてるので使えない
-						return static_cast<MessageBoxSelection>(4);
+						return MessageBoxSelection::None;
 					}
 					break;
 				}
