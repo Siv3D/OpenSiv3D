@@ -13,6 +13,8 @@
 # define SIV3D_CONCURRENT
 # include <Siv3D/ConcurrentTask.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/Error.hpp>
 
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
@@ -436,6 +438,11 @@ namespace s3d
 	{
 		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons)
 		{
+			if (Scene::FrameCount() == 0)
+			{
+				throw Error(U"Currentry, System::ShowMessageBox cannot be called outside of a main loop in this platform (Linux)");
+			}
+
 			auto result = CreateConcurrentTask([&]() {
 					return ShowMessageBox_Linux(title.narrow().c_str(), text.narrow().c_str(), style, buttons);
 					}).get();
