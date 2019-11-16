@@ -89,5 +89,19 @@ namespace s3d
 		[[nodiscard]] bool hasChanged(StringView name) const;
 
 		[[nodiscard]] RectF region(StringView name) const;
+
+		[[nodiscard]] bool button(StringView name) const;
+
+		[[nodiscard]] double slider(StringView name) const;
+
+		[[nodiscard]] double verticalSlider(StringView name) const;
+
+		[[nodiscard]] bool checkBox(StringView name) const;
+
+		[[nodiscard]] size_t radioButtons(StringView name) const;
+
+		[[nodiscard]] const TextEditState& textBox(StringView name) const;
+
+		[[nodiscard]] HSV colorPicker(StringView name) const;
 	};
 }

@@ -11,11 +11,124 @@
 
 # include <Siv3D/Print.hpp>
 # include <Siv3D/TOMLReader.hpp>
+# include <Siv3D/TextWriter.hpp>
 # include <Siv3D/SimpleGUI.hpp>
 # include "SimpleGUIManagerDetail.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		static void WriteHeadline(TextWriter& writer, const String& name, const SimpleGUIWidget::Headline& item)
+		{
+			writer.writeln(U"[[Headline]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"text = \"{}\""_fmt(item.text));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			if (item.width)
+			{
+				writer.writeln(U"width = {}"_fmt(item.width.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
+		static void WriteButton(TextWriter& writer, const String& name, const SimpleGUIWidget::Button& item)
+		{
+			writer.writeln(U"[[Button]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"label = \"{}\""_fmt(item.label));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			if (item.width)
+			{
+				writer.writeln(U"width = {}"_fmt(item.width.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
+		static void WriteSlider(TextWriter& writer, const String& name, const SimpleGUIWidget::Slider& item)
+		{
+			writer.writeln(U"[[Slider]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"label = \"{}\""_fmt(item.label));
+			writer.writeln(U"default = {}"_fmt(item.value));
+			writer.writeln(U"min = {}"_fmt(item.min));
+			writer.writeln(U"max = {}"_fmt(item.max));
+			writer.writeln(U"labelWidth = {}"_fmt(item.labelWidth));
+			writer.writeln(U"sliderWidth = {}"_fmt(item.sliderWidth));
+			writer.writeln();
+		}
+
+		static void WriteVerticalSlider(TextWriter& writer, const String& name, const SimpleGUIWidget::VerticalSlider& item)
+		{
+			writer.writeln(U"[[VerticalSlider]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"default = {}"_fmt(item.value));
+			writer.writeln(U"min = {}"_fmt(item.min));
+			writer.writeln(U"max = {}"_fmt(item.max));
+			writer.writeln(U"sliderHeight = {}"_fmt(item.sliderHeight));
+			writer.writeln();
+		}
+
+		static void WriteCheckBox(TextWriter& writer, const String& name, const SimpleGUIWidget::CheckBox& item)
+		{
+			writer.writeln(U"[[CheckBox]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"label = \"{}\""_fmt(item.label));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"default = {}"_fmt(item.checked));
+			if (item.width)
+			{
+				writer.writeln(U"width = {}"_fmt(item.width.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
+		static void WriteRadioButtons(TextWriter& writer, const String& name, const SimpleGUIWidget::RadioButtons& item)
+		{
+			writer.writeln(U"[[RadioButtons]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"options = {}"_fmt(item.options.map([](const String& s) { return U'\"' + s + U'\"'; }).join(U", ", U"[ ", U" ]")));	
+			writer.writeln(U"default = {}"_fmt(item.index));
+			if (item.width)
+			{
+				writer.writeln(U"width = {}"_fmt(item.width.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
+		static void WriteTextBox(TextWriter& writer, const String& name, const SimpleGUIWidget::TextBox& item)
+		{
+			writer.writeln(U"[[TextBox]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"default = \"{}\""_fmt(item.state.text));
+			writer.writeln(U"width = {}"_fmt(item.width));
+			if (item.maxChars)
+			{
+				writer.writeln(U"maxChars = {}"_fmt(item.maxChars.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
+		static void WriteColorPicker(TextWriter& writer, const String& name, const SimpleGUIWidget::ColorPicker& item)
+		{
+			writer.writeln(U"[[ColorPicker]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"default = {{ h = {}, s = {}, v = {} }}"_fmt(item.color.h, item.color.s, item.color.v));
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+	}
+
 	SimpleGUIManager::SimpleGUIManagerDetail::SimpleGUIManagerDetail()
 	{
 
@@ -118,7 +231,69 @@ namespace s3d
 
 	bool SimpleGUIManager::SimpleGUIManagerDetail::save(const FilePathView path) const
 	{
-		return(false);
+		TextWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		for (const auto& widget : m_widgets)
+		{
+			switch (WidgetType{ widget.widget.index() })
+			{
+			case WidgetType::Headline:
+				{
+					const auto& w = std::get<SimpleGUIWidget::Headline>(widget.widget);
+					detail::WriteHeadline(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::Button:
+				{
+					const auto& w = std::get<SimpleGUIWidget::Button>(widget.widget);
+					detail::WriteButton(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::Slider:
+				{
+					const auto& w = std::get<SimpleGUIWidget::Slider>(widget.widget);
+					detail::WriteSlider(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::VerticalSlider:
+				{
+					const auto& w = std::get<SimpleGUIWidget::VerticalSlider>(widget.widget);
+					detail::WriteVerticalSlider(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::CheckBox:
+				{
+					const auto& w = std::get<SimpleGUIWidget::CheckBox>(widget.widget);
+					detail::WriteCheckBox(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::RadioButtons:
+				{
+					const auto& w = std::get<SimpleGUIWidget::RadioButtons>(widget.widget);
+					detail::WriteRadioButtons(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::TextBox:
+				{
+					const auto& w = std::get<SimpleGUIWidget::TextBox>(widget.widget);
+					detail::WriteTextBox(writer, widget.name, w);
+					break;
+				}
+			case WidgetType::ColorPicker:
+				{
+					const auto& w = std::get<SimpleGUIWidget::ColorPicker>(widget.widget);
+					detail::WriteColorPicker(writer, widget.name, w);
+					break;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	void SimpleGUIManager::SimpleGUIManagerDetail::draw()
@@ -247,6 +422,146 @@ namespace s3d
 		}
 
 		return RectF(0);
+	}
+
+	bool SimpleGUIManager::SimpleGUIManagerDetail::button(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::Button)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::Button"_fmt(name));
+			}
+
+			return widget.hasChanged;
+		}
+
+		throw Error(U"SimpleGUIManager: Button `{}` does not exist"_fmt(name));
+	}
+
+	double SimpleGUIManager::SimpleGUIManagerDetail::slider(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::Slider)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::Slider"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::Slider>(widget.widget).value;
+		}
+
+		throw Error(U"SimpleGUIManager: Slider `{}` does not exist"_fmt(name));
+	}
+
+	double SimpleGUIManager::SimpleGUIManagerDetail::verticalSlider(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::VerticalSlider)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::VerticalSlider"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::VerticalSlider>(widget.widget).value;
+		}
+
+		throw Error(U"SimpleGUIManager: VerticalSlider `{}` does not exist"_fmt(name));
+	}
+
+	bool SimpleGUIManager::SimpleGUIManagerDetail::checkBox(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::CheckBox)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::CheckBox"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::CheckBox>(widget.widget).checked;
+		}
+
+		throw Error(U"SimpleGUIManager: CheckBox `{}` does not exist"_fmt(name));
+	}
+
+	size_t SimpleGUIManager::SimpleGUIManagerDetail::radioButtons(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::RadioButtons)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::RadioButtons"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::RadioButtons>(widget.widget).index;
+		}
+
+		throw Error(U"SimpleGUIManager: RadioButtons `{}` does not exist"_fmt(name));
+	}
+
+	const TextEditState& SimpleGUIManager::SimpleGUIManagerDetail::textBox(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::TextBox)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::TextBox"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::TextBox>(widget.widget).state;
+		}
+
+		throw Error(U"SimpleGUIManager: TextBox `{}` does not exist"_fmt(name));
+	}
+
+	HSV SimpleGUIManager::SimpleGUIManagerDetail::colorPicker(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (WidgetType{ widget.widget.index() } != WidgetType::ColorPicker)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::ColorPicker"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::ColorPicker>(widget.widget).color;
+		}
+
+		throw Error(U"SimpleGUIManager: ColorPicker `{}` does not exist"_fmt(name));
 	}
 
 	void SimpleGUIManager::SimpleGUIManagerDetail::print(const StringView messgae) const

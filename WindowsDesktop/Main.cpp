@@ -19,5 +19,18 @@ void Main()
 		}
 
 		gui.draw();
+
+		if (gui.button(U"bt-OK"))
+		{
+			Print << U"OK";
+		}
+		else if (gui.button(U"bt-Cancel"))
+		{
+			Print << U"Cancel";
+		}
+
+		Scene::SetBackground(gui.colorPicker(U"cp-Color"));
 	}
+
+	//gui.save(U"save.toml");
 }

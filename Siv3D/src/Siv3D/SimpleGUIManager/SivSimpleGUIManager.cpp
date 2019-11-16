@@ -55,4 +55,39 @@ namespace s3d
 	{
 		return pImpl->region(name);
 	}
+
+	bool SimpleGUIManager::button(const StringView name) const
+	{
+		return pImpl->button(name);
+	}
+
+	double SimpleGUIManager::slider(const StringView name) const
+	{
+		return pImpl->slider(name);
+	}
+
+	double SimpleGUIManager::verticalSlider(const StringView name) const
+	{
+		return pImpl->verticalSlider(name);
+	}
+
+	bool SimpleGUIManager::checkBox(const StringView name) const
+	{
+		return pImpl->checkBox(name);
+	}
+
+	size_t SimpleGUIManager::radioButtons(const StringView name) const
+	{
+		return pImpl->radioButtons(name);
+	}
+
+	const TextEditState& SimpleGUIManager::textBox(const StringView name) const
+	{
+		return pImpl->textBox(name);
+	}
+
+	HSV SimpleGUIManager::colorPicker(const StringView name) const
+	{
+		return pImpl->colorPicker(name);
+	}
 }
