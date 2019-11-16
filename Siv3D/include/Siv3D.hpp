@@ -1104,9 +1104,13 @@
 //
 //////////////////////////////////////////////////
 
-// 単体 GUI
-// Stand-alone GUI
+// SimpleGUI
+// SimpleGUI
 # include <Siv3D/SimpleGUI.hpp>
+
+// SimpleGUI マネージャー
+// SimpleGUI manager
+# include <Siv3D/SimpleGUIManager.hpp>
 
 // テキストボックス
 // Text box

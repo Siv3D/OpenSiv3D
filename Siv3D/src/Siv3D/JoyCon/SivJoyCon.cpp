@@ -299,6 +299,8 @@ namespace s3d
 		case JoyConType::JoyConR:
 			detail::DrawJoyConRShadowAt(center, _size, angle, covered, offset, blurRadius, spread, color);
 			break;
+		default:
+			break;
 		}
 
 		return *this;
@@ -318,6 +320,8 @@ namespace s3d
 			break;
 		case JoyConType::JoyConR:
 			detail::DrawJoyConRGuidedAt(*this, guide, center, _size, angle, covered, color.value_or(ColorF(1.0, 0.4, 0.3)), colorPushed, guideColor);
+			break;
+		default:
 			break;
 		}
 

@@ -78,7 +78,7 @@ namespace s3d
 
 	}
 
-	CSVData::CSVData(const FilePath& path, const StringView separators, const StringView quotes , const StringView escapes)
+	CSVData::CSVData(const FilePathView path, const StringView separators, const StringView quotes , const StringView escapes)
 	{
 		load(path, separators, quotes, escapes);
 	}
@@ -88,7 +88,7 @@ namespace s3d
 		load(reader, separators, quotes, escapes);
 	}
 
-	bool CSVData::load(const FilePath& path, const StringView separators, const StringView quotes, const StringView escapes)
+	bool CSVData::load(const FilePathView path, const StringView separators, const StringView quotes, const StringView escapes)
 	{
 		TextReader textReader(path);
 

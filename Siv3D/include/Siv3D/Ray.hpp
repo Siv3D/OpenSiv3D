@@ -60,6 +60,8 @@ namespace s3d
 			return *this;
 		}
 
+		[[nodiscard]] Optional<float> intersects(const Triangle3D& triangle) const;
+
 		[[nodiscard]] Optional<float> intersects(const Sphere& sphere) const;
 
 		[[nodiscard]] Optional<float> intersects(const AABB& aabb) const;

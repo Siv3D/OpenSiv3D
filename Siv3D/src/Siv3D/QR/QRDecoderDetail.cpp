@@ -29,114 +29,64 @@ namespace s3d
 
 	bool QRDecoder::QRDecoderDetail::decode(const Image& image, QRContent& content)
 	{
-		if (image.width() <= 16 || image.height() <= 16)
+		Array<QRContent> contents;
+
+		if (!decode(image, contents))
 		{
-			content.clear();
 			return false;
 		}
 
-		if (image.size() != m_resolution)
+		if (contents.size() == 1)
 		{
-			::quirc_resize(m_quirc, image.width(), image.height());
-
-			m_resolution = image.size();
+			content = contents.front();
+			return true;
 		}
-
-		uint8* p = ::quirc_begin(m_quirc, nullptr, nullptr);
-
-		for (const auto& pixel : image)
+		else
 		{
-			*(p++) = pixel.grayscale0_255();
+			for (const auto& c : contents)
+			{
+				if (c.isValid())
+				{
+					content = c;
+					return true;
+				}
+			}
+
+			content = contents.front();
+			return true;
 		}
-
-		::quirc_end(m_quirc);
-
-		const int32 num_codes = ::quirc_count(m_quirc);
-
-		if (!num_codes)
-		{
-			content.clear();
-			return false;
-		}
-
-		quirc_code qcode;
-		::quirc_extract(m_quirc, 0, &qcode);
-
-		quirc_data qdata;
-
-		if (::quirc_decode(&qcode, &qdata))
-		{
-			content.clear();
-			return false;
-		}
-
-		for (size_t i = 0; i < 4; ++i)
-		{
-			content.quad.p(i).set(qcode.corners[i].x, qcode.corners[i].y);
-		}
-		
-		content.version	= qdata.version;
-		content.ec		= static_cast<QRErrorCorrection>(qdata.ecc_level);
-		
-		const int32 mode = qdata.data_type;
-
-		const void* pData = static_cast<const void*>(qdata.payload);
-		const size_t size = qdata.payload_len;
-
-		if (mode == QUIRC_DATA_TYPE_NUMERIC)
-		{
-			content.text = Unicode::WidenAscii(std::string_view(static_cast<const char*>(pData), size));
-			content.mode = QRMode::Numeric;
-		}
-		else if (mode == QUIRC_DATA_TYPE_ALPHA)
-		{
-			content.text = Unicode::WidenAscii(std::string_view(static_cast<const char*>(pData), size));
-			content.mode = QRMode::Alnum;
-		}
-		else if (mode == QUIRC_DATA_TYPE_BYTE)
-		{
-			content.text = Unicode::FromUTF8(std::string_view(static_cast<const char*>(pData), size));
-			content.data.create(pData, size);
-			content.mode = QRMode::Binary;
-		}
-		else // QUIRC_DATA_TYPE_KANJI
-		{
-			// [Siv3D ToDo] macOS / Linux 対応
-			content.text = Unicode::Widen(std::string_view(static_cast<const char*>(pData), size));
-			content.data.create(pData, size);
-			content.mode = QRMode::Kanji;
-		}
-
-		return true;
 	}
 
 	bool QRDecoder::QRDecoderDetail::decode(const Image& image, Array<QRContent>& contents)
 	{
+		contents.clear();
+
+		// Image のサイズが小さければ失敗
 		if (image.width() <= 16 || image.height() <= 16)
 		{
 			return false;
 		}
 
+		// 内部バッファと異なるサイズの場合リサイズ
 		if (image.size() != m_resolution)
 		{
 			::quirc_resize(m_quirc, image.width(), image.height());
-
 			m_resolution = image.size();
 		}
 
-		uint8* p = ::quirc_begin(m_quirc, nullptr, nullptr);
-
-		for (const auto& pixel : image)
+		// 画像をバッファにコピー
 		{
-			*(p++) = pixel.grayscale0_255();
+			uint8* p = ::quirc_begin(m_quirc, nullptr, nullptr);
+
+			for (const auto& pixel : image)
+			{
+				*(p++) = pixel.grayscale0_255();
+			}
+
+			::quirc_end(m_quirc);
 		}
 
-		::quirc_end(m_quirc);
-
 		const int32 num_codes = ::quirc_count(m_quirc);
-
-		contents.resize(num_codes);
-
 		if (!num_codes)
 		{
 			return false;
@@ -146,15 +96,18 @@ namespace s3d
 
 		for (int32 index = 0; index < num_codes; ++index)
 		{
-			auto& content = contents[index];
+			QRContent content;
 
-			::quirc_extract(m_quirc, 0, &qcode);
+			::quirc_extract(m_quirc, index, &qcode);
 
 			quirc_data qdata;
+			const quirc_decode_error_t err = ::quirc_decode(&qcode, &qdata);
 
-			if (::quirc_decode(&qcode, &qdata))
+			if ((err != QUIRC_SUCCESS)
+				&& (err != QUIRC_ERROR_FORMAT_ECC)
+				&& (err != QUIRC_ERROR_DATA_ECC))
 			{
-				return false;
+				continue;
 			}
 
 			for (size_t i = 0; i < 4; ++i)
@@ -162,37 +115,41 @@ namespace s3d
 				content.quad.p(i).set(qcode.corners[i].x, qcode.corners[i].y);
 			}
 
-			content.version = qdata.version;
-			content.ec = static_cast<QRErrorCorrection>(qdata.ecc_level);
+			if (!err)
+			{
+				content.version = qdata.version;
+				content.ec = static_cast<QRErrorCorrection>(qdata.ecc_level);
 
-			const int32 mode = qdata.data_type;
+				const void* pData = static_cast<const void*>(qdata.payload);
+				const std::string_view view(static_cast<const char*>(pData), qdata.payload_len);
 
-			const void* pData = static_cast<const void*>(qdata.payload);
-			const size_t size = qdata.payload_len;
+				if (const int32 mode = qdata.data_type;
+					mode == QUIRC_DATA_TYPE_NUMERIC)
+				{
+					content.text = Unicode::WidenAscii(view);
+					content.mode = QRMode::Numeric;
+				}
+				else if (mode == QUIRC_DATA_TYPE_ALPHA)
+				{
+					content.text = Unicode::WidenAscii(view);
+					content.mode = QRMode::Alnum;
+				}
+				else if (mode == QUIRC_DATA_TYPE_BYTE)
+				{
+					content.text = Unicode::FromUTF8(view);
+					content.data.create(pData, view.size());
+					content.mode = QRMode::Binary;
+				}
+				else // QUIRC_DATA_TYPE_KANJI
+				{
+					// [Siv3D ToDo] macOS / Linux 対応
+					content.text = Unicode::Widen(view);
+					content.data.create(pData, view.size());
+					content.mode = QRMode::Kanji;
+				}
+			}
 
-			if (mode == QUIRC_DATA_TYPE_NUMERIC)
-			{
-				content.text = Unicode::WidenAscii(std::string_view(static_cast<const char*>(pData), size));
-				content.mode = QRMode::Numeric;
-			}
-			else if (mode == QUIRC_DATA_TYPE_ALPHA)
-			{
-				content.text = Unicode::WidenAscii(std::string_view(static_cast<const char*>(pData), size));
-				content.mode = QRMode::Alnum;
-			}
-			else if (mode == QUIRC_DATA_TYPE_BYTE)
-			{
-				content.text = Unicode::FromUTF8(std::string_view(static_cast<const char*>(pData), size));
-				content.data.create(pData, size);
-				content.mode = QRMode::Binary;
-			}
-			else // QUIRC_DATA_TYPE_KANJI
-			{
-				// [Siv3D ToDo] macOS / Linux 対応
-				content.text = Unicode::Widen(std::string_view(static_cast<const char*>(pData), size));
-				content.data.create(pData, size);
-				content.mode = QRMode::Kanji;
-			}
+			contents << content;
 		}
 
 		return true;

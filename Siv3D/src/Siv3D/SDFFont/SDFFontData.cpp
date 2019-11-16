@@ -731,8 +731,8 @@ namespace s3d
 		FT_Outline_Get_CBox(&slot->outline, &box);
 		const double l = box.xMin / 64.0;
 		const double b = box.yMin / 64.0;
-		const double r = box.xMax / 64.0;
-		const double t = box.yMax / 64.0;
+		//const double r = box.xMax / 64.0;
+		//const double t = box.yMax / 64.0;
 
 		const double scale = m_property.baseSize / m_property.scale;
 		const double boundingWidth = slot->metrics.width * scale / 64;

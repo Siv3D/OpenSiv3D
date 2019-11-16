@@ -299,7 +299,7 @@ namespace s3d
 
 		JSONReader();
 
-		explicit JSONReader(const FilePath& path);
+		explicit JSONReader(FilePathView path);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
 		explicit JSONReader(Reader&& reader)
@@ -310,7 +310,7 @@ namespace s3d
 
 		explicit JSONReader(const std::shared_ptr<IReader>& reader);
 
-		bool open(const FilePath& path);
+		bool open(FilePathView path);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
 		bool open(Reader&& reader)
