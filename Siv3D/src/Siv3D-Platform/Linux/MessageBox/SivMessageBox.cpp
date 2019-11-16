@@ -406,7 +406,7 @@ namespace s3d
 				case ClientMessage:
 					if (event.xclient.data.l[0] == static_cast<int64>(wmDeleteWindowAtom))
 					{
-						// return MessageBoxSelection::OK;
+						// return MessageBoxSelection::None;
 						// MessageBoxSelection::None はX11でマクロ None が定義されてるので使えない
 						return static_cast<MessageBoxSelection>(4);
 					}
