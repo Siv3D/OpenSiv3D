@@ -28,7 +28,7 @@ namespace s3d
 	class SimpleMessageBox
 	{
 	private:
-		static constexpr uint32 windowMargin = 110, buttonMarginX = 15, buttonMarginY = 2, betweenMargin = 15, messageMargin = 20, messageLineMargin = 5;
+		static constexpr uint32 windowMargin = 110, buttonMarginX = 15, buttonMarginY = 2, betweenMargin = 15, messageMargin = 20, messageLineMargin = 10;
 		static constexpr size_t iconWidth = 32, iconHeight = 32;
 		static constexpr size_t messageMaxWidth = 540;
 
@@ -202,9 +202,13 @@ namespace s3d
 				}
 			}
 
-			auto [width, height] = calcTextSize(message);
-			width = Min(width, messageMaxWidth);
-			height = (height + messageLineMargin) * messages.size();
+			size_t width = 0, height = 0;
+			for (auto&& s : messages)
+			{
+				const auto [w, h] = calcTextSize(s.c_str());
+				width = Max(width, w);
+				height += h + messageLineMargin;
+			}
 
 			const auto [okWidth, okHeight] = calcTextSize("OK");
 			const auto [cancelWidth, cancelHeight] = calcTextSize("Cancel");
@@ -315,7 +319,7 @@ namespace s3d
 				case Expose:
 					if (event.xexpose.count == 0)
 					{
-						int32 messageStringX = messageMargin + (style == MessageBoxStyle::Default ? 0 : iconWidth + messageMargin),
+						int32 messageStringX = (windowWidth - width) / 2,
 									messageStringY = windowMargin / 2;
 
 						for (size_t i = 0; i < messages.size(); ++i)
