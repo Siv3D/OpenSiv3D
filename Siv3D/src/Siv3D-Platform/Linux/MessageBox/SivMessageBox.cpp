@@ -181,7 +181,15 @@ namespace s3d
 			Array<std::string> messages;
 			{
 				std::string s;
-				for (size_t i = 0; message[i] != '\0'; ++i) {
+				for (size_t i = 0; message[i] != '\0'; ++i)
+				{
+					if (message[i] == '\n')
+					{
+						messages.emplace_back(s);
+						s.clear();
+						continue;
+					}
+
 					s += message[i];
 					const auto [w, h] = calcTextSize(s.c_str());
 					if (w > messageMaxWidth || message[i + 1] == '\0')
