@@ -316,7 +316,8 @@ namespace s3d
 						int32 messageStringX = messageMargin + (style == MessageBoxStyle::Default ? 0 : iconWidth + messageMargin),
 									messageStringY = windowMargin / 2;
 
-						for (size_t i = 0; i < messages.size(); ++i) {
+						for (size_t i = 0; i < messages.size(); ++i)
+						{
 							const auto [w, h] = calcTextSize(messages.at(i).c_str());
 							Xutf8DrawString(display, root, fontset, graphicContext, messageStringX, messageStringY + (h + messageLineMargin) * i,
 									messages.at(i).c_str(), std::strlen(messages.at(i).c_str()));
