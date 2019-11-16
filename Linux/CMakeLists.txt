@@ -395,6 +395,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/TimeProfiler/SivTimeProfiler.cpp"
 	"../Siv3D/src/Siv3D/TimeProfiler/TimeProfilerDetail.cpp"
 	"../Siv3D/src/Siv3D/Timer/SivTimer.cpp"
+	"../Siv3D/src/Siv3D/ToastNotification/SivToastNotification.cpp"
 	"../Siv3D/src/Siv3D/Transformer2D/SivTransformer2D.cpp"
 	"../Siv3D/src/Siv3D/Transition/SivTransition.cpp"
 	"../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp"
