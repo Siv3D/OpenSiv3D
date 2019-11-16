@@ -482,6 +482,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D-Platform/Linux/Texture/GL/Texture_GL.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Texture/TextureFactory.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Time/SivTime.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/ToastNotification/CToastNotification.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/ToastNotification/ToastNotificationFactory.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Unicode/SivUnicode_Platform.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/VideoWriter/VideoWriterDetail.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Window/CWindow.cpp"
