@@ -54,7 +54,6 @@ namespace s3d
 		SimpleMessageBox(MessageBoxStyle style, MessageBoxButtons buttons) : style(style), buttons(buttons)
 		{
 			display = XOpenDisplay("");
-			//root = DefaultRootWindow(display);
 			screen = DefaultScreen(display);
 			white = WhitePixel(display, screen);
 			black = BlackPixel(display, screen);
