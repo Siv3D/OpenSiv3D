@@ -466,6 +466,20 @@ namespace s3d
 		const Circle& draw(const ColorF& color = Palette::White) const;
 
 		/// <summary>
+		/// 円を描きます。
+		/// </summary>
+		/// <param name="innerColor">
+		/// 色
+		/// </param>
+		/// <param name="outerColor">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
+
+		/// <summary>
 		/// 円の枠を描きます。
 		/// </summary>
 		/// <param name="thickness">

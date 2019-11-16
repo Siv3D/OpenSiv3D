@@ -867,6 +867,10 @@
 // Process
 # include <Siv3D/Process.hpp>
 
+// Toast Notification
+// Toast Notification
+# include <Siv3D/ToastNotification.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Text to speech

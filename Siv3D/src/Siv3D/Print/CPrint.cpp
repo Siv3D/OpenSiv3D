@@ -44,6 +44,8 @@ namespace s3d
 
 	void CPrint::add(const String& text)
 	{
+		std::lock_guard lock(m_mutex);
+
 		m_maxWidth = std::max((Scene::Width() - 20), 40);
 		m_maxLines = std::max((Scene::Height() - 20) / m_pFont->height(), 1) + 1;
 
@@ -101,25 +103,28 @@ namespace s3d
 		ScopedViewport2D vp(0, 0, Scene::Size());
 
 		String text;
-
-		const int32 height = m_pFont->height();
-		const double overflowOffset = m_messageLines.size() == m_maxLines ? -20 : 0;
-		int32 lineCount = 0;
-
-		for (const auto& messageLine : m_messageLines)
 		{
-			for (const auto& ch : messageLine)
+			std::lock_guard lock(m_mutex);
+
+			const int32 height = m_pFont->height();
+			const double overflowOffset = m_messageLines.size() == m_maxLines ? -20 : 0;
+			int32 lineCount = 0;
+
+			for (const auto& messageLine : m_messageLines)
 			{
-				text.push_back(ch.first);
+				for (const auto& ch : messageLine)
+				{
+					text.push_back(ch.first);
+				}
+
+				const DrawableText drawText = (*m_pFont)(text);
+				drawText.draw(10.85, 8.85 + lineCount * height + overflowOffset, Palette::Black);
+				drawText.draw(10, 8 + lineCount * height + overflowOffset);
+
+				text.clear();
+
+				++lineCount;
 			}
-
-			const DrawableText drawText = (*m_pFont)(text);
-			drawText.draw(10.85, 8.85 + lineCount * height + overflowOffset, Palette::Black);
-			drawText.draw(10, 8 + lineCount * height + overflowOffset);
-
-			text.clear();
-
-			++lineCount;
 		}
 
 		if (m_unhandledEditingtext)
@@ -132,8 +137,9 @@ namespace s3d
 
 	void CPrint::clear()
 	{
-		m_messageLines.clear();
+		std::lock_guard lock(m_mutex);
 
+		m_messageLines.clear();
 		m_currentPosX = 0;
 	}
 

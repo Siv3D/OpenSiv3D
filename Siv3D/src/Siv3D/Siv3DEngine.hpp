@@ -39,6 +39,7 @@ namespace s3d
 	class ISiv3DAudio;
 	class ISiv3DFFT;
 	class ISiv3DNetwork;
+	class ISiv3DToastNotification;
 	class ISiv3DGraphics;
 	class ISiv3DShader;
 	class ISiv3DTexture;
@@ -115,6 +116,7 @@ namespace s3d
 			, Siv3DComponent<ISiv3DAudio>
 			, Siv3DComponent<ISiv3DFFT>
 			, Siv3DComponent<ISiv3DNetwork>
+			, Siv3DComponent<ISiv3DToastNotification>
 			, Siv3DComponent<ISiv3DGraphics>
 			, Siv3DComponent<ISiv3DShader>
 			, Siv3DComponent<ISiv3DTexture>

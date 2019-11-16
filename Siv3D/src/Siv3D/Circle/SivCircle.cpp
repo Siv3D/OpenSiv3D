@@ -109,10 +109,25 @@ namespace s3d
 
 	const Circle& Circle::draw(const ColorF& color) const
 	{
+		const Float4 colors = color.toFloat4();
+
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
 			center,
 			static_cast<float>(r),
-			color.toFloat4()
+			colors,
+			colors
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::draw(const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
+			center,
+			static_cast<float>(r),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
 		);
 
 		return *this;

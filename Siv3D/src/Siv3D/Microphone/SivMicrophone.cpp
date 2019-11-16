@@ -11,6 +11,7 @@
 
 # include <Siv3D/Microphone.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Microphone/MicrophoneDetail.hpp>
 
 namespace s3d
@@ -45,6 +46,9 @@ namespace s3d
 	Microphone::Microphone(const Optional<size_t> deviceID, const RecordingFormat format, const size_t bufferLength, const bool loop)
 		: Microphone()
 	{
+		LOG_TRACE(U"Microphone::Microphone(deviceID = {}, format = {}, bufferLength = {}, loop = {})"_fmt(
+			deviceID, detail::ToSamplingRate(format), bufferLength, loop));
+
 		pImpl->init(deviceID, format, bufferLength, loop);
 	}
 

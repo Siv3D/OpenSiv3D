@@ -34,6 +34,7 @@
 # include "Audio/IAudio.hpp"
 # include "FFT/IFFT.hpp"
 # include "Network/INetwork.hpp"
+# include "ToastNotification/IToastNotification.hpp"
 # include "Graphics/IGraphics.hpp"
 # include "Shader/IShader.hpp"
 # include "Texture/ITexture.hpp"

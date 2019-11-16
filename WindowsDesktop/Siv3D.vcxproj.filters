@@ -1054,6 +1054,15 @@
     <Filter Include="src\Siv3D\SDFFont">
       <UniqueIdentifier>{7afd45ca-4a46-4f49-a377-2b03942b8c69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ToastNotification">
+      <UniqueIdentifier>{0687db7b-5f30-4f9f-a0bc-0f8cbc252cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\ToastNotification">
+      <UniqueIdentifier>{07c1b8b3-b767-4160-9ade-125131f37973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\WinToast">
+      <UniqueIdentifier>{94f69e09-fed9-459f-8a3a-af1a997a3604}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3546,6 +3555,18 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.hpp">
       <Filter>src\Siv3D\SDFFont</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotification.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ToastNotification\IToastNotification.hpp">
+      <Filter>src\Siv3D\ToastNotification</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\ToastNotification\CToastNotification.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\ToastNotification</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.h">
+      <Filter>src\ThirdParty\WinToast</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5350,6 +5371,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.cpp">
       <Filter>src\Siv3D\SDFFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\SivToastNotification.cpp">
+      <Filter>src\Siv3D\ToastNotification</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\ToastNotification\ToastNotificationFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\ToastNotification</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\ToastNotification\CToastNotification.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\ToastNotification</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.cpp">
+      <Filter>src\ThirdParty\WinToast</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
