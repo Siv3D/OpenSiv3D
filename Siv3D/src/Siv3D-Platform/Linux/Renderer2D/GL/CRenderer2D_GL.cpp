@@ -751,9 +751,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_GL::addCircle(const Float2& center, const float r, const Float4& color)
+	void CRenderer2D_GL::addCircle(const Float2& center, const float r, const Float4& innerColor, const Float4& outerColor)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
@@ -799,9 +799,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_GL::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
+	void CRenderer2D_GL::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
