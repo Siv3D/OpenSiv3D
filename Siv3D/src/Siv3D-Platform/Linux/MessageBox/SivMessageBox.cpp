@@ -192,14 +192,42 @@ namespace s3d
 
 				int32 sumLength = 0;
 				std::string s;
+				bool isPrevCharCR = false,
+						 isPrevCharLF = false;
 				for (size_t i = 0; i < m.size(); ++i)
 				{
-					if (m.at(i) == '\n' || m.at(i) == '\r')
+					if (m.at(i) == '\n')
 					{
-						messages.emplace_back(s);
-						s.clear();
+						if (!isPrevCharCR)
+						{
+							messages.emplace_back(s);
+							s.clear();
+							isPrevCharLF = true;
+						}
+
+						isPrevCharCR = false;
+
+						sumLength++;
 						continue;
 					}
+					else if (m.at(i) == '\r')
+					{
+						if (!isPrevCharLF)
+						{
+							messages.emplace_back(s);
+							s.clear();
+
+							isPrevCharCR = true;
+						}
+
+						isPrevCharLF = false;
+
+						sumLength++;
+						continue;
+					}
+
+					isPrevCharCR = false;
+					isPrevCharLF = false;
 
 					s += m.at(i);
 					if (i + 1 >= m.size())
@@ -235,12 +263,19 @@ namespace s3d
 				}
 			}
 
+			size_t maxMessageHeight = 0;
 			size_t width = 0, height = 0;
 			for (auto&& s : messages)
 			{
-				const auto [w, h] = calcTextSize(s.c_str());
+				auto [w, h] = calcTextSize(s.c_str());
+				maxMessageHeight = Max(maxMessageHeight, h);
+			}
+
+			for (auto&& s : messages)
+			{
+				auto [w, h] = calcTextSize(s.c_str());
 				width = Max(width, w);
-				height += h + messageLineMargin;
+				height += messageLineMargin + (s.empty() ? maxMessageHeight : h);
 			}
 
 			const auto [okWidth, okHeight] = calcTextSize("OK");
@@ -358,7 +393,9 @@ namespace s3d
 						for (size_t i = 0; i < messages.size(); ++i)
 						{
 							const auto [w, h] = calcTextSize(messages.at(i).c_str());
-							Xutf8DrawString(display, root, fontset, graphicContext, messageStringX, messageStringY + (h + messageLineMargin) * i,
+
+							Xutf8DrawString(display, root, fontset, graphicContext, messageStringX,
+									messageStringY + (messageLineMargin + (messages.at(i).empty() ? maxMessageHeight : h)) * i,
 									messages.at(i).c_str(), std::strlen(messages.at(i).c_str()));
 						}
 
