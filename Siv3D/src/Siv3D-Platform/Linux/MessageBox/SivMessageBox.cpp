@@ -184,11 +184,7 @@ namespace s3d
 			{
 				std::string m = message;
 
-				// タブ文字をスペース4文字に置換する
-				for (std::string::size_type pos; (pos = m.find("\t")) != std::string::npos; )
-				{
-					m.replace(pos, 1, "    ");
-				}
+				// TODO: タブの描画処理
 
 				int32 sumLength = 0;
 				std::string s;
