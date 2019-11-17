@@ -1185,6 +1185,23 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	SimpleGUIManager.hpp
+	//
+	namespace SimpleGUIWidget
+	{
+		struct Headline;
+		struct Button;
+		struct Slider;
+		struct VerticalSlider;
+		struct CheckBox;
+		struct RadioButtons;
+		struct TextBox;
+		struct ColorPicker;
+	}
+	class SimpleGUIManager;
+
+	//////////////////////////////////////////////////////
+	//
 	//	TextBox.hpp
 	//
 	class TextBox;

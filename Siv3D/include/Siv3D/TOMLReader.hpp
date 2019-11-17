@@ -348,7 +348,7 @@ namespace s3d
 
 		TOMLReader() = default;
 
-		explicit TOMLReader(const FilePath& path);
+		explicit TOMLReader(FilePathView path);
 
 		explicit TOMLReader(const std::shared_ptr<IReader>& reader);
 
@@ -358,7 +358,7 @@ namespace s3d
 			open(std::make_shared<Reader>(std::forward<Reader>(reader)));
 		}
 
-		bool open(const FilePath& path);
+		bool open(FilePathView path);
 
 		bool open(const std::shared_ptr<IReader>& reader);
 

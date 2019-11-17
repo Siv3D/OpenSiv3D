@@ -11,6 +11,7 @@
 
 # include <cfloat>
 # include <Siv3D/Ray.hpp>
+# include <Siv3D/Triangle3D.hpp>
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/AABB.hpp>
 # include <Siv3D/OBB.hpp>
@@ -72,6 +73,104 @@ namespace s3d
 			__m128 Difference = SIMD::Subtract(SIMD::Vector4Length(q), SIMD::One());
 			return SIMD::Vector4Less(SIMD::Abs(Difference), m128_UnitQuaternionEpsilon);
 		}
+	}
+
+	Optional<float> Ray::intersects(const Triangle3D& triangle) const
+	{
+		//assert(DirectX::Internal::XMVector3IsUnit(Direction));
+		
+		__m128 Origin = SIMD_Float4(origin, 0.0f);
+		__m128 Direction = SIMD_Float4(direction, 0.0f);
+		__m128 V0 = SIMD_Float4(triangle.p0, 0.0f);
+		__m128 V1 = SIMD_Float4(triangle.p1, 0.0f);
+		__m128 V2 = SIMD_Float4(triangle.p2, 0.0f);
+
+		__m128 Zero = SIMD::Zero();
+
+		__m128 e1 = SIMD::Subtract(V1, V0);
+		__m128 e2 = SIMD::Subtract(V2, V0);
+
+		// p = Direction ^ e2;
+		__m128 p = SIMD::Vector3Cross(Direction, e2);
+
+		// det = e1 * p;
+		__m128 det = SIMD::Vector3Dot(e1, p);
+
+		__m128 u, v, t;
+
+		if (SIMD::Vector3GreaterOrEqual(det, detail::m128_RayEpsilon))
+		{
+			// Determinate is positive (front side of the triangle).
+			__m128 s = SIMD::Subtract(Origin, V0);
+
+			// u = s * p;
+			u = SIMD::Vector3Dot(s, p);
+
+			__m128 NoIntersection = SIMD::Less(u, Zero);
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(u, det));
+
+			// q = s ^ e1;
+			__m128 q = SIMD::Vector3Cross(s, e1);
+
+			// v = Direction * q;
+			v = SIMD::Vector3Dot(Direction, q);
+
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(v, Zero));
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(SIMD::Add(u, v), det));
+
+			// t = e2 * q;
+			t = SIMD::Vector3Dot(e2, q);
+
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(t, Zero));
+
+			if (SIMD::Vector4EqualInt(NoIntersection, SIMD::TrueInt()))
+			{
+				return none;
+			}
+		}
+		else if (SIMD::Vector3LessOrEqual(det, detail::m128_RayEpsilon))
+		{
+			// Determinate is negative (back side of the triangle).
+			__m128 s = SIMD::Subtract(Origin, V0);
+
+			// u = s * p;
+			u = SIMD::Vector3Dot(s, p);
+
+			__m128 NoIntersection = SIMD::Greater(u, Zero);
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(u, det));
+
+			// q = s ^ e1;
+			__m128 q = SIMD::Vector3Cross(s, e1);
+
+			// v = Direction * q;
+			v = SIMD::Vector3Dot(Direction, q);
+
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(v, Zero));
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(SIMD::Add(u, v), det));
+
+			// t = e2 * q;
+			t = SIMD::Vector3Dot(e2, q);
+
+			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(t, Zero));
+
+			if (SIMD::Vector4EqualInt(NoIntersection, SIMD::TrueInt()))
+			{
+				return none;
+			}
+		}
+		else
+		{
+			// Parallel ray.
+			return none;
+		}
+
+		t = SIMD::Divide(t, det);
+
+		// (u / det) and (v / dev) are the barycentric cooridinates of the intersection.
+
+		float distance = 0.0f;
+		SIMD::StoreFloat(&distance, t);
+		return distance;
 	}
 
 	Optional<float> Ray::intersects(const Sphere& sphere) const

@@ -29,14 +29,14 @@
 #include <locale>
 #include <cmath>
 
-#include <double-conversion/double-conversion.h>
+#include "double-conversion.h"
 
-#include <double-conversion/bignum-dtoa.h>
-#include <double-conversion/fast-dtoa.h>
-#include <double-conversion/fixed-dtoa.h>
-#include <double-conversion/ieee.h>
-#include <double-conversion/strtod.h>
-#include <double-conversion/utils.h>
+#include "bignum-dtoa.h"
+#include "fast-dtoa.h"
+#include "fixed-dtoa.h"
+#include "ieee.h"
+#include "strtod.h"
+#include "utils.h"
 
 namespace double_conversion {
 
@@ -250,6 +250,12 @@ bool DoubleToStringConverter::ToExponential(
   const int kDecimalRepCapacity = kMaxExponentialDigits + 2;
   ASSERT(kDecimalRepCapacity > kBase10MaximalLength);
   char decimal_rep[kDecimalRepCapacity];
+#ifndef NDEBUG
+  // Problem: there is an assert in StringBuilder::AddSubstring() that
+  // will pass this buffer to strlen(), and this buffer is not generally
+  // null-terminated.
+  memset(decimal_rep, 0, sizeof(decimal_rep));
+#endif
   int decimal_rep_length;
 
   if (requested_digits == -1) {
@@ -432,10 +438,10 @@ static inline bool ConsumeSubStringImpl(Iterator* current,
                                         Iterator end,
                                         const char* substring,
                                         Converter converter) {
-  ASSERT(converter((char)**current) == *substring);
+  ASSERT(converter(**current) == *substring);
   for (substring++; *substring != '\0'; substring++) {
     ++*current;
-    if (*current == end || converter((char)**current) != *substring) {
+    if (*current == end || converter(**current) != *substring) {
       return false;
     }
   }
@@ -529,7 +535,7 @@ static double SignedZero(bool sign) {
 // because it constant-propagated the radix and concluded that the last
 // condition was always true. By moving it into a separate function the
 // compiler wouldn't warn anymore.
-#if _MSC_VER
+#ifdef _MSC_VER
 #pragma optimize("",off)
 static bool IsDecimalDigitForRadix(int c, int radix) {
   return '0' <= c && c <= '9' && (c - '0') < radix;
@@ -553,7 +559,7 @@ static bool IsCharacterDigitForRadix(int c, int radix, char a_character) {
 
 // Returns true, when the iterator is equal to end.
 template<class Iterator>
-static bool Advance (Iterator* it, char separator, int base, Iterator& end) {
+static bool Advance (Iterator* it, uc16 separator, int base, Iterator& end) {
   if (separator == StringToDoubleConverter::kNoSeparator) {
     ++(*it);
     return *it == end;
@@ -565,7 +571,7 @@ static bool Advance (Iterator* it, char separator, int base, Iterator& end) {
   ++(*it);
   if (*it == end) return true;
   if (*it + 1 == end) return false;
-  if ((char)**it == separator && isDigit(*(*it + 1), base)) {
+  if (**it == separator && isDigit(*(*it + 1), base)) {
     ++(*it);
   }
   return *it == end;
@@ -581,7 +587,7 @@ static bool Advance (Iterator* it, char separator, int base, Iterator& end) {
 template<class Iterator>
 static bool IsHexFloatString(Iterator start,
                              Iterator end,
-                             char separator,
+                             uc16 separator,
                              bool allow_trailing_junk) {
   ASSERT(start != end);
 
@@ -598,8 +604,8 @@ static bool IsHexFloatString(Iterator start,
       saw_digit = true;
       if (Advance(&current, separator, 16, end)) return false;
     }
-    if (!saw_digit) return false;  // Only the '.', but no digits.
   }
+  if (!saw_digit) return false;
   if (*current != 'p' && *current != 'P') return false;
   if (Advance(&current, separator, 16, end)) return false;
   if (*current == '+' || *current == '-') {
@@ -622,7 +628,7 @@ template <int radix_log_2, class Iterator>
 static double RadixStringToIeee(Iterator* current,
                                 Iterator end,
                                 bool sign,
-                                char separator,
+                                uc16 separator,
                                 bool parse_as_hex_float,
                                 bool allow_trailing_junk,
                                 double junk_string_value,
@@ -757,7 +763,11 @@ static double RadixStringToIeee(Iterator* current,
     }
     int written_exponent = 0;
     while (IsDecimalDigitForRadix(**current, 10)) {
-      written_exponent = 10 * written_exponent + **current - '0';
+      // No need to read exponents if they are too big. That could potentially overflow
+      // the `written_exponent` variable.
+      if (abs(written_exponent) <= 100 * Double::kMaxExponent) {
+        written_exponent = 10 * written_exponent + **current - '0';
+      }
       if (Advance(current, separator, radix, end)) break;
     }
     if (is_negative) written_exponent = -written_exponent;
@@ -842,7 +852,7 @@ double StringToDoubleConverter::StringToIeee(
   }
 
   if (infinity_symbol_ != NULL) {
-    if (ConsumeFirstCharacter((char)*current, infinity_symbol_, allow_case_insensibility)) {
+    if (ConsumeFirstCharacter(*current, infinity_symbol_, allow_case_insensibility)) {
       if (!ConsumeSubString(&current, end, infinity_symbol_, allow_case_insensibility)) {
         return junk_string_value_;
       }
@@ -861,7 +871,7 @@ double StringToDoubleConverter::StringToIeee(
   }
 
   if (nan_symbol_ != NULL) {
-    if (ConsumeFirstCharacter((char)*current, nan_symbol_, allow_case_insensibility)) {
+    if (ConsumeFirstCharacter(*current, nan_symbol_, allow_case_insensibility)) {
       if (!ConsumeSubString(&current, end, nan_symbol_, allow_case_insensibility)) {
         return junk_string_value_;
       }
@@ -893,10 +903,11 @@ double StringToDoubleConverter::StringToIeee(
         (*current == 'x' || *current == 'X')) {
       ++current;
 
+      if (current == end) return junk_string_value_;  // "0x"
+
       bool parse_as_hex_float = (flags_ & ALLOW_HEX_FLOATS) &&
                 IsHexFloatString(current, end, separator_, allow_trailing_junk);
 
-      if (current == end) return junk_string_value_;  // "0x"
       if (!parse_as_hex_float && !isDigit(*current, 16)) {
         return junk_string_value_;
       }

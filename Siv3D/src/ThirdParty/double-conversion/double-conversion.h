@@ -28,7 +28,7 @@
 #ifndef DOUBLE_CONVERSION_DOUBLE_CONVERSION_H_
 #define DOUBLE_CONVERSION_DOUBLE_CONVERSION_H_
 
-#include <double-conversion/utils.h>
+#include "utils.h"
 
 namespace double_conversion {
 
@@ -519,7 +519,7 @@ class StringToDoubleConverter {
                           double junk_string_value,
                           const char* infinity_symbol,
                           const char* nan_symbol,
-                          char separator = kNoSeparator)
+                          uc16 separator = kNoSeparator)
       : flags_(flags),
         empty_string_value_(empty_string_value),
         junk_string_value_(junk_string_value),
@@ -571,7 +571,7 @@ class StringToDoubleConverter {
   const double junk_string_value_;
   const char* const infinity_symbol_;
   const char* const nan_symbol_;
-  const char separator_;
+  const uc16 separator_;
 
   template <class Iterator>
   double StringToIeee(Iterator start_pointer,

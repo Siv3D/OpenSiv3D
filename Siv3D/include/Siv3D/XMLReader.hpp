@@ -76,7 +76,7 @@ namespace s3d
 
 		XMLReader() = default;
 
-		explicit XMLReader(const FilePath& path, bool preserveWhitespace = false);
+		explicit XMLReader(FilePathView path, bool preserveWhitespace = false);
 
 		explicit XMLReader(Arg::code_<String> code, bool preserveWhitespace = false);
 
@@ -89,7 +89,7 @@ namespace s3d
 
 		explicit XMLReader(const std::shared_ptr<IReader>& reader, bool preserveWhitespace = false);
 
-		bool open(const FilePath& path, bool preserveWhitespace = false);
+		bool open(FilePathView path, bool preserveWhitespace = false);
 
 		bool open(Arg::code_<String> code, bool preserveWhitespace = false);
 

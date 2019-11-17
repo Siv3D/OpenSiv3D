@@ -37,6 +37,10 @@ namespace s3d
 
 	namespace SimpleGUI
 	{
+		[[nodiscard]] RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& width = unspecified);
+
+		void Headline(const String& text, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
+
 		[[nodiscard]] RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& width = unspecified);
 
 		[[nodiscard]] RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
