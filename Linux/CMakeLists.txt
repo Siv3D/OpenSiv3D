@@ -355,6 +355,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Shader/SivShader.cpp"
 	"../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp"
 	"../Siv3D/src/Siv3D/SimpleGUI/SimpleGUI.cpp"
+	"../Siv3D/src/Siv3D/SimpleGUIManager/SimpleGUIManagerDetail.cpp"
+	"../Siv3D/src/Siv3D/SimpleGUIManager/SivSimpleGUIManager.cpp"
 	"../Siv3D/src/Siv3D/Siv3DEngine.cpp"
 	"../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp"
 	"../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp"
