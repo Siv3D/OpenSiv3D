@@ -210,6 +210,6 @@ namespace s3d
 
 # if SIV3D_PLATFORM(WINDOWS)
 
-	# pragma warning(disable : 26444 26451 26495)
+	# pragma warning(disable : 26444 26451 26495 26812)
 
 # endif
