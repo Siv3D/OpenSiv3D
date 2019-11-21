@@ -69,6 +69,20 @@ namespace s3d
 		return params;
 	}
 
+	Camera2DParameters Camera2DParameters::NoControl()
+	{
+		Camera2DParameters params;
+		params.moveToUp = {};
+		params.moveToLeft = {};
+		params.moveToDown = {};
+		params.moveToRight = {};
+		params.zoomIn = {};
+		params.zoomOut = {};
+		params.wheelScaleFactor = 1.0;
+		params.grabSpeedFactor = 0.0;
+		return params;
+	}
+
 	Camera2D::Camera2D(const double scale, const Camera2DParameters& setting) noexcept
 		: Camera2D(Scene::CenterF(), scale, setting)
 	{
