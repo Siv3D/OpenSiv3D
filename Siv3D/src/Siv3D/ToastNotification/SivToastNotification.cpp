@@ -53,5 +53,43 @@ namespace s3d
 		}
 	}
 
+# elif SIV3D_PLATFORM(LINUX)
+
+	namespace Platform::Linux
+	{
+		namespace ToastNotification
+		{
+			bool IsAvailable()
+			{
+				return Siv3DEngine::Get<ISiv3DToastNotification>()->isAvailable();
+			}
+
+			NotificationID Show(const ToastNotificationProperty& prop)
+			{
+				return Siv3DEngine::Get<ISiv3DToastNotification>()->show(prop);
+			}
+
+			ToastNotificationState GetState(const NotificationID id)
+			{
+				return Siv3DEngine::Get<ISiv3DToastNotification>()->getState(id);
+			}
+
+			Optional<size_t> GetAction(const NotificationID id)
+			{
+				return Siv3DEngine::Get<ISiv3DToastNotification>()->getAction(id);
+			}
+
+			void Hide(const NotificationID id)
+			{
+				Siv3DEngine::Get<ISiv3DToastNotification>()->hide(id);
+			}
+
+			void Clear()
+			{
+				Siv3DEngine::Get<ISiv3DToastNotification>()->clear();
+			}
+		}
+	};
+
 # endif
 }

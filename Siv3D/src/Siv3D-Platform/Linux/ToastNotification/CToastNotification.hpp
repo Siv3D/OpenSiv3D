@@ -18,6 +18,14 @@ namespace s3d
 	class CToastNotification : public ISiv3DToastNotification
 	{
 	private:
+		bool m_available = false;
+
+		String m_serverName;
+		String m_serverVendor;
+		String m_serverVersion;
+		String m_serverSpecVersion;
+
+		Array<String> m_serverCapabilities;
 
 	public:
 

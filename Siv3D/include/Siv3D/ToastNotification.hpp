@@ -66,5 +66,15 @@ namespace s3d
 		}
 	}
 
+# elif SIV3D_PLATFORM(LINUX)
+
+	namespace Platform::Linux
+	{
+		namespace ToastNotification
+		{
+			[[nodiscard]] bool IsAvailable();
+		}
+	}
+
 # endif
 }
