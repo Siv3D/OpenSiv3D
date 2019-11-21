@@ -54,6 +54,7 @@ namespace s3d
 			{
 				PrintBuffer buf;
 
+				// U"..." (const char32*) ではない文字列リテラルを使うと、ここでエラーになります
 				Formatter(*buf.formatData, value);
 
 				return buf;

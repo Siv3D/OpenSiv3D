@@ -148,6 +148,7 @@ namespace s3d
 			template <class... Args, std::enable_if_t<!format_validation<Args...>::value>* = nullptr>
 			[[nodiscard]] String operator ()(const Args&...) const
 			{
+				// font(...) などで、U"..." (const char32*) ではない文字列が使われていることを知らせるエラーです
 				static_assert(format_validation<Args...>::value, "string literal \"\" and L\"\" cannot be used in Format(). Use U\"\" instead.");
 				
 				return String();
