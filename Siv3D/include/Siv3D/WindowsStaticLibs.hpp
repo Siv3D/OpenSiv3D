@@ -50,6 +50,7 @@
 #		pragma comment (lib, "jumanpp/jpp_core_d")
 #		pragma comment (lib, "jumanpp/jumanpp_v2_d")
 #		pragma comment (lib, "boost/libboost_filesystem-vc142-mt-sgd-x64-1_70")
+#		pragma comment (lib, "serial/serial_d")
 
 # else
 
@@ -78,6 +79,7 @@
 #		pragma comment (lib, "jumanpp/jpp_core")
 #		pragma comment (lib, "jumanpp/jumanpp_v2")
 #		pragma comment (lib, "boost/libboost_filesystem-vc142-mt-s-x64-1_70")
+#		pragma comment (lib, "serial/serial")
 
 #	endif
 
