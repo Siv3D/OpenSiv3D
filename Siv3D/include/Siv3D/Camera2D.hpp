@@ -98,6 +98,8 @@ namespace s3d
 		static Camera2DParameters Default();
 
 		static Camera2DParameters MouseOnly();
+
+		static Camera2DParameters NoControl();
 	};
 
 	class Camera2D : public BasicCamera2D
