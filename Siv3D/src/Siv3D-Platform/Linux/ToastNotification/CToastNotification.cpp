@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Window.hpp>
 # include "CToastNotification.hpp"
 
 #include <gio/gio.h>
@@ -18,17 +19,43 @@ namespace s3d
 {
 	namespace detail
 	{
-		void CloseDBusProxyAndConnection(GDBusProxy *proxy, GDBusConnection *conn)
+		const char *NAME_Notifications = "org.freedesktop.Notifications";
+		const char *OBJECT_Notifications = "/org/freedesktop/Notifications";
+		const char *INTERFACE_Notifications = "org.freedesktop.Notifications";
+
+		void CloseDBusProxyAndConnection(GDBusProxy **proxy, GDBusConnection **conn)
 		{
-			if(!proxy)
+			if(!*proxy)
 			{
-				g_object_unref(proxy);
+				g_object_unref(*proxy);
 			}
 
-			if(!conn)
+			if(!*conn)
 			{
-				g_object_unref(conn);
+				g_object_unref(*conn);
 			}
+		}
+
+		bool OpenDBusConnectionAndProxy(GDBusConnection **conn, GDBusProxy **proxy)
+		{
+			GError *error = nullptr;
+			*conn = g_bus_get_sync(G_BUS_TYPE_SESSION, nullptr, &error);
+			if(*conn == nullptr)
+			{
+				LOG_FAIL(U"❌ ToastNotification: g_bus_get_sync() failed. (message: {})"_fmt(Unicode::Widen(error->message)));
+				return false;
+			}
+
+			*proxy = g_dbus_proxy_new_sync(*conn, G_DBUS_PROXY_FLAGS_NONE, nullptr,
+					NAME_Notifications, OBJECT_Notifications, INTERFACE_Notifications, nullptr, &error);
+			if(*proxy == nullptr)
+			{
+				detail::CloseDBusProxyAndConnection(proxy, conn);
+				LOG_FAIL(U"❌ ToastNotification: g_dbus_proxy_new_sync() failed. (message: {})"_fmt(Unicode::Widen(error->message)));
+				return false;
+			}
+
+			return true;
 		}
 	}
 
@@ -48,42 +75,23 @@ namespace s3d
 	{
 		LOG_TRACE(U"CToastNotification::init()");
 
-		const char *NAME_Notifications = "org.freedesktop.Notifications";
-		const char *OBJECT_Notifications = "/org/freedesktop/Notifications";
-		const char *INTERFACE_Notifications = "org.freedesktop.Notifications";
-		const char* METHOD_GetCapabilities = "GetCapabilities";
-		const char* METHOD_GetServerInformation = "GetServerInformation";
-
 		GDBusConnection *conn = nullptr;;
 		GDBusProxy *proxy = nullptr;;
 		GError *error = nullptr;
 		GVariant *ret;
 
+		const char* METHOD_GetCapabilities = "GetCapabilities";
+		const char* METHOD_GetServerInformation = "GetServerInformation";
 
-		// Open connection to DBus
-		conn = g_bus_get_sync(G_BUS_TYPE_SESSION, nullptr, &error);
-		if(conn == nullptr)
-		{
-			LOG_FAIL(U"❌ ToastNotification: g_bus_get_sync() failed. (message: {})"_fmt(Unicode::Widen(error->message)));
-			return;
-		}
-
-		proxy = g_dbus_proxy_new_sync(conn, G_DBUS_PROXY_FLAGS_NONE, nullptr,
-			NAME_Notifications, OBJECT_Notifications, INTERFACE_Notifications, nullptr, &error);
-		if(proxy == nullptr)
-		{
-			detail::CloseDBusProxyAndConnection(proxy, conn);
-			LOG_FAIL(U"❌ ToastNotification: g_dbus_proxy_new_sync() failed. (message: {})"_fmt(Unicode::Widen(error->message)));
-			return;
-		}
-
+		bool opened = detail::OpenDBusConnectionAndProxy(&conn, &proxy);
+		if(!opened) return;
 
 		// Get server information
 		ret = g_dbus_proxy_call_sync(proxy, METHOD_GetServerInformation, g_variant_new("()"),
-			G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
+				G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
 		if(ret == nullptr)
 		{
-			detail::CloseDBusProxyAndConnection(proxy, conn);
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
 			LOG_FAIL(U"❌ ToastNotification: g_dbus_proxy_call_sync() failed. (method: {}, mesasge: {})."_fmt(Unicode::Widen(METHOD_GetServerInformation), Unicode::Widen(error->message)));
 			g_error_free(error);
 			return;
@@ -91,7 +99,7 @@ namespace s3d
 		if(!g_variant_is_of_type(ret, G_VARIANT_TYPE("(ssss)")))
 		{
 			g_variant_unref(ret);
-			detail::CloseDBusProxyAndConnection(proxy, conn);
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
 			LOG_FAIL(U"❌ ToastNotification: g_variant_is_of_type() failed.");
 			return;
 		}
@@ -114,10 +122,10 @@ namespace s3d
 
 		// Get server capabilities
 		ret = g_dbus_proxy_call_sync(proxy, METHOD_GetCapabilities, g_variant_new("()"),
-			G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
+				G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
 		if(ret == nullptr)
 		{
-			detail::CloseDBusProxyAndConnection(proxy, conn);
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
 			LOG_FAIL(U"❌ ToastNotification: g_dbus_proxy_call_sync() failed. (method: {}, mesasge: {})."_fmt(Unicode::Widen(METHOD_GetCapabilities), Unicode::Widen(error->message)));
 			g_error_free(error);
 			return;
@@ -125,7 +133,7 @@ namespace s3d
 		if(!g_variant_is_of_type(ret, G_VARIANT_TYPE("(as)")))
 		{
 			g_variant_unref(ret);
-			detail::CloseDBusProxyAndConnection(proxy, conn);
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
 			LOG_FAIL(U"❌ ToastNotification: g_variant_is_of_type() failed.");
 			return;
 		}
@@ -142,7 +150,7 @@ namespace s3d
 		LOG_INFO(U"ℹ️  ToastNotification: Notification server capabilities: {}"_fmt(m_serverCapabilities));
 
 		m_available = true;
-		detail::CloseDBusProxyAndConnection(proxy, conn);
+		detail::CloseDBusProxyAndConnection(&proxy, &conn);
 
 		LOG_INFO(U"ℹ️ CToastNotification initialized");
 	}
@@ -152,9 +160,57 @@ namespace s3d
 		return m_available;
 	}
 
-	NotificationID CToastNotification::show(const ToastNotificationProperty&)
+	NotificationID CToastNotification::show(const ToastNotificationProperty& prop)
 	{
-		return(-1);
+		const char* METHOD_Notify = "Notify";
+
+		GDBusConnection *conn = nullptr;;
+		GDBusProxy *proxy = nullptr;;
+		bool opened = detail::OpenDBusConnectionAndProxy(&conn, &proxy);
+		if(!opened) return -1;
+
+		GVariantBuilder actions_builder;
+		GVariantBuilder hints_builder;
+		g_variant_builder_init(&actions_builder, G_VARIANT_TYPE("as"));
+		g_variant_builder_init(&hints_builder, G_VARIANT_TYPE("a{sv}"));
+
+		String body = U"<b>" + prop.title + U"</b>\n\n" + prop.message;
+
+		GVariant *param = g_variant_new("(susssasa{sv}i)",
+			Unicode::Narrow(Window::GetTitle()).c_str(),
+			0,
+			"",
+			"",
+			Unicode::Narrow(body).c_str(),
+			&actions_builder,
+			&hints_builder,
+			-1
+		);
+
+		GError *error = nullptr;
+		GVariant *ret = g_dbus_proxy_call_sync(proxy, METHOD_Notify, param, G_DBUS_CALL_FLAGS_NONE,
+				-1, nullptr, &error);
+		g_variant_unref(param);
+		if(ret == nullptr)
+		{
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
+			return(-1);
+		}
+		if(!g_variant_is_of_type(ret, G_VARIANT_TYPE("(u)")))
+		{
+			g_variant_unref(ret);
+			detail::CloseDBusProxyAndConnection(&proxy, &conn);
+			LOG_FAIL(U"❌ ToastNotification: g_variant_is_of_type() failed.");
+			return -1;
+		}
+
+		guint32 id;
+		g_variant_get(ret, "(u)", &id);
+
+		g_variant_unref(ret);
+		detail::CloseDBusProxyAndConnection(&proxy, &conn);
+
+		return id;
 	}
 
 	ToastNotificationState CToastNotification::getState(const NotificationID)

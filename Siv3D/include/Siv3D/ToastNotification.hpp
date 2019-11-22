@@ -73,6 +73,8 @@ namespace s3d
 		namespace ToastNotification
 		{
 			[[nodiscard]] bool IsAvailable();
+
+			NotificationID Show(const ToastNotificationProperty& prop);
 		}
 	}
 
