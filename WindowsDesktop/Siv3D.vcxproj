@@ -231,6 +231,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDF.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFFont.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Serial.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Serialization.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
@@ -1244,6 +1245,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SivSDFFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SDF\SivSDF.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SFMT\SivSFMT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
