@@ -515,6 +515,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\CSDFFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\ISDFFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SimpleGUIManager\SimpleGUIManagerDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
@@ -817,6 +818,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\serial\serial.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\serial\v8stdint.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\win.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.h" />
@@ -1245,6 +1247,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SDFFontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SDFFont\SivSDFFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SDF\SivSDF.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SFMT\SivSFMT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />
@@ -1436,6 +1439,9 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastRasterization.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastRegion.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\list_ports_win.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\serial.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\win.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tsl\hopscotch_growth_policy.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.cpp" />

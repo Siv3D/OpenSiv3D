@@ -15,26 +15,66 @@
 
 namespace s3d
 {
-	//class Serial
-	//{
-	//private:
+	class Serial
+	{
+	private:
 
-	//	class SerialDetail;
+		class SerialDetail;
 
-	//	std::shared_ptr<SerialDetail> pImpl;
+		std::shared_ptr<SerialDetail> pImpl;
 
-	//public:
+	public:
 
-	//	Serial();
+		Serial();
 
-	//	explicit Serial(size_t index);
+		explicit Serial(const String& port, int32 baudrate = 9600);
 
-	//	~Serial();
+		~Serial();
 
-	//	[[nodiscard]] bool isAvailable() const;
+		bool open(const String& port, int32 baudrate = 9600);
 
-	//	[[nodiscard]] explicit operator bool() const;
-	//};
+		void close();
+
+		[[nodiscard]] bool isOpened() const;
+
+		[[nodiscard]] explicit operator bool() const;
+
+		[[nodiscard]] int32 baudrate() const noexcept;
+
+		[[nodiscard]] const String& port() const noexcept;
+
+		[[nodiscard]] size_t available();
+
+		void clearInput();
+
+		void clearOutput();
+
+		void clear();
+
+		size_t read(void* dst, size_t size);
+
+		Array<uint8> readBytes();
+
+		bool readBytes(Array<uint8>& dst);
+
+		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>> * = nullptr>
+		bool read(Type& to)
+		{
+			return read(std::addressof(to), sizeof(Type)) == sizeof(Type);
+		}
+
+		size_t write(const void* src, size_t size);
+
+		bool writeByte(uint8 byte);
+
+		bool writeByte(Byte byte);
+
+		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>> * = nullptr>
+		bool write(const Type& from)
+		{
+			return (write(std::addressof(from), sizeof(Type))) == sizeof(Type);
+		}
+	};
 
 	struct SerialPortInfo
 	{
