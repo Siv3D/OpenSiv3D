@@ -11,6 +11,7 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Window.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include "CToastNotification.hpp"
 
 #include <gio/gio.h>
@@ -144,6 +145,9 @@ namespace s3d
 			while(g_variant_iter_loop(iter, "s", &str))
 			{
 				m_serverCapabilities.push_back(Unicode::Widen(str));
+
+				if(strncmp(str, "body-markup", strlen("body-markup")) == 0)
+					m_markupSupported = true;
 			}
 		}
 		g_variant_unref(ret);
@@ -174,7 +178,11 @@ namespace s3d
 		g_variant_builder_init(&actions_builder, G_VARIANT_TYPE("as"));
 		g_variant_builder_init(&hints_builder, G_VARIANT_TYPE("a{sv}"));
 
-		String body = U"<b>" + prop.title + U"</b>\n\n" + prop.message;
+		String body;
+		if(m_markupSupported)
+			body = U"<b>" + prop.title + U"</b>\n\n" + prop.message;
+		else
+			body = prop.title + U"\n\n" + prop.message;
 
 		GVariant *param = g_variant_new("(susssasa{sv}i)",
 			Unicode::Narrow(Window::GetTitle()).c_str(),
@@ -190,7 +198,6 @@ namespace s3d
 		GError *error = nullptr;
 		GVariant *ret = g_dbus_proxy_call_sync(proxy, METHOD_Notify, param, G_DBUS_CALL_FLAGS_NONE,
 				-1, nullptr, &error);
-		g_variant_unref(param);
 		if(ret == nullptr)
 		{
 			detail::CloseDBusProxyAndConnection(&proxy, &conn);

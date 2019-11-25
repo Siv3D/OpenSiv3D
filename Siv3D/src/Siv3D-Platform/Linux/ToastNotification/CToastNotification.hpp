@@ -26,6 +26,7 @@ namespace s3d
 		String m_serverSpecVersion;
 
 		Array<String> m_serverCapabilities;
+		bool m_markupSupported = false;
 
 	public:
 
