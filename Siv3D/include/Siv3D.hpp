@@ -1203,6 +1203,10 @@
 // Oriented Bounding Box (OBB)
 # include <Siv3D/OBB.hpp>
 
+// 球
+// Sphere
+# include <Siv3D/Sphere.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ
@@ -1216,12 +1220,6 @@
 //// 平面
 //# include <Siv3D/Plane.hpp>
 
-// 球
-// Sphere
-# include <Siv3D/Sphere.hpp>
-
-//// ボックス
-//# include <Siv3D/Box.hpp>
 //// 円盤
 //# include <Siv3D/Disc.hpp>
 //// 円柱
