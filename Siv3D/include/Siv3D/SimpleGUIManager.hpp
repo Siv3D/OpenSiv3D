@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <variant>
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
@@ -125,6 +126,37 @@ namespace s3d
 			HSV color = Palette::White;
 
 			bool enabled = true;
+		};
+	}
+
+	namespace SimpleGUI
+	{
+		enum class WidgetType
+		{
+			Headline,
+			Button,
+			Slider,
+			VerticalSlider,
+			CheckBox,
+			RadioButtons,
+			TextBox,
+			ColorPicker,
+		};
+
+		struct Widget
+		{
+			String name;
+
+			bool hasChanged = false;
+
+			std::variant<SimpleGUIWidget::Headline,
+				SimpleGUIWidget::Button,
+				SimpleGUIWidget::Slider,
+				SimpleGUIWidget::VerticalSlider,
+				SimpleGUIWidget::CheckBox,
+				SimpleGUIWidget::RadioButtons,
+				SimpleGUIWidget::TextBox,
+				SimpleGUIWidget::ColorPicker> widget;
 		};
 	}
 

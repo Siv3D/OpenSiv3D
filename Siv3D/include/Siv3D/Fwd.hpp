@@ -1205,6 +1205,11 @@ namespace s3d
 		struct TextBox;
 		struct ColorPicker;
 	}
+	namespace SimpleGUI
+	{
+		enum class WidgetType;
+		struct Widget;
+	}
 	class SimpleGUIManager;
 
 	//////////////////////////////////////////////////////

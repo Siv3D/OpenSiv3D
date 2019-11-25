@@ -17,6 +17,8 @@
 
 namespace s3d
 {
+	using namespace SimpleGUI;
+
 	namespace detail
 	{
 		static void WriteHeadline(TextWriter& writer, const String& name, const SimpleGUIWidget::Headline& item)

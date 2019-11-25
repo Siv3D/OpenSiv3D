@@ -20,35 +20,7 @@ namespace s3d
 	{
 	private:
 
-		enum class WidgetType
-		{
-			Headline,
-			Button,
-			Slider,
-			VerticalSlider,
-			CheckBox,
-			RadioButtons,
-			TextBox,
-			ColorPicker,
-		};
-
-		struct Widget
-		{
-			String name;
-
-			bool hasChanged = false;
-
-			std::variant<SimpleGUIWidget::Headline,
-						SimpleGUIWidget::Button,
-						SimpleGUIWidget::Slider,
-						SimpleGUIWidget::VerticalSlider,
-						SimpleGUIWidget::CheckBox,
-						SimpleGUIWidget::RadioButtons,
-						SimpleGUIWidget::TextBox,
-						SimpleGUIWidget::ColorPicker> widget;
-		};
-
-		Array<Widget> m_widgets;
+		Array<SimpleGUI::Widget> m_widgets;
 
 		bool m_verbose = true;
 
