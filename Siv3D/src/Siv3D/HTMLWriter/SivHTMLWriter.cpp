@@ -90,7 +90,7 @@ th,td{
 
 	}
 
-	HTMLWriter::HTMLWriter(const FilePath& path, const String& title, const StringView styleSheet)
+	HTMLWriter::HTMLWriter(const FilePathView path, const String& title, const StringView styleSheet)
 		: HTMLWriter()
 	{
 		open(path, title, styleSheet);
@@ -101,7 +101,7 @@ th,td{
 
 	}
 
-	bool HTMLWriter::open(const FilePath& path, const String& title, const StringView styleSheet)
+	bool HTMLWriter::open(const FilePathView path, const String& title, const StringView styleSheet)
 	{
 		return pImpl->open(path, title, styleSheet);
 	}
@@ -212,7 +212,7 @@ th,td{
 		pImpl->writeRaw(U"\" width=\"" + Format(s.x) + U"\" height=\"" + Format(s.y) + U"\">\n");
 	}
 
-	void HTMLWriter::writeImage(const FilePath& url, const Optional<Size>& size)
+	void HTMLWriter::writeImage(const FilePathView url, const Optional<Size>& size)
 	{
 		pImpl->writeRaw(U"<img src=\"" + url);
 

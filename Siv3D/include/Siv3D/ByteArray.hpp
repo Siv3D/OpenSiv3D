@@ -319,7 +319,7 @@ namespace s3d
 		/// <returns>
 		/// 保存に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool save(const FilePath& path) const;
+		bool save(FilePathView path) const;
 	};
 }
 

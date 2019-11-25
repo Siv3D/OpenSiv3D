@@ -31,11 +31,11 @@ namespace s3d
 
 		EmojiList();
 
-		EmojiList(const FilePath& path);
+		EmojiList(FilePathView path);
 	
 		~EmojiList();
 		
-		bool load(const FilePath& path);
+		bool load(FilePathView path);
 
 		[[nodiscard]] bool isEmpty() const noexcept;
 

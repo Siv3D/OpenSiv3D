@@ -26,7 +26,7 @@ namespace s3d
 		clear();
 	}
 
-	bool EmojiList::EmojiDictionaryDetail::load(const FilePath& path)
+	bool EmojiList::EmojiDictionaryDetail::load(const FilePathView path)
 	{
 		clear();
 
