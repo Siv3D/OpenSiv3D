@@ -178,6 +178,13 @@ namespace s3d
 		g_variant_builder_init(&actions_builder, G_VARIANT_TYPE("as"));
 		g_variant_builder_init(&hints_builder, G_VARIANT_TYPE("a{sv}"));
 
+		if(!prop.imagePath.empty())
+		{
+			FilePath image_fullpath = FileSystem::FullPath(prop.imagePath);
+			g_variant_builder_add(&hints_builder, "{sv}",
+				"image_path", g_variant_new_string(Unicode::Narrow(image_fullpath).c_str()));
+		}
+
 		String body;
 		if(m_markupSupported)
 			body = U"<b>" + prop.title + U"</b>\n\n" + prop.message;
