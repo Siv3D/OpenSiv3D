@@ -143,6 +143,6 @@ namespace s3d
 
 		void newLine();
 
-		bool save(const FilePath& path, char32 separator = U',', char32 quote = U'\"', char32 escape = U'\\') const;
+		bool save(FilePathView path, char32 separator = U',', char32 quote = U'\"', char32 escape = U'\\') const;
 	};
 }

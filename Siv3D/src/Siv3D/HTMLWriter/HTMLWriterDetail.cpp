@@ -23,7 +23,7 @@ namespace s3d
 		close();
 	}
 
-	bool HTMLWriter::HTMLWriterDetail::open(const FilePath& path, const String& title, const StringView styleSheet)
+	bool HTMLWriter::HTMLWriterDetail::open(const FilePathView path, const String& title, const StringView styleSheet)
 	{
 		if (m_textWriter.isOpened())
 		{

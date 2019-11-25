@@ -193,7 +193,7 @@ namespace s3d
 		m_onHead = true;
 	}
 
-	bool CSVData::save(const FilePath& path, const char32 separator, const char32 quote, const char32 escape) const
+	bool CSVData::save(const FilePathView path, const char32 separator, const char32 quote, const char32 escape) const
 	{
 		TextWriter writer(path);
 

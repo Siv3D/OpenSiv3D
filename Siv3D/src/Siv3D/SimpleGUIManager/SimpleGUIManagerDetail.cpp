@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -17,6 +17,8 @@
 
 namespace s3d
 {
+	using namespace SimpleGUI;
+
 	namespace detail
 	{
 		static void WriteHeadline(TextWriter& writer, const String& name, const SimpleGUIWidget::Headline& item)
@@ -238,7 +240,21 @@ namespace s3d
 			return false;
 		}
 
-		for (const auto& widget : m_widgets)
+		// 出力をソート
+		Array<SimpleGUI::Widget> widgets = m_widgets;
+		widgets.sort_by([](const SimpleGUI::Widget& a, const SimpleGUI::Widget& b)
+		{
+			const Vec2 aPos = a.getPos(), bPos = b.getPos();
+
+			if (aPos.x == bPos.x)
+			{
+				return aPos.y < bPos.y;
+			}
+			
+			return aPos.x < bPos.x;
+		});
+
+		for (const auto& widget : widgets)
 		{
 			switch (static_cast<WidgetType>(widget.widget.index()))
 			{
@@ -354,6 +370,11 @@ namespace s3d
 		}
 	}
 
+	const Array<SimpleGUI::Widget>& SimpleGUIManager::SimpleGUIManagerDetail::widgets() const
+	{
+		return m_widgets;
+	}
+
 	bool SimpleGUIManager::SimpleGUIManagerDetail::hasChanged(const StringView name) const
 	{
 		for (const auto& widget : m_widgets)
@@ -365,6 +386,32 @@ namespace s3d
 		}
 
 		return false;
+	}
+
+	SimpleGUI::Widget& SimpleGUIManager::SimpleGUIManagerDetail::widget(const StringView name)
+	{
+		for (auto& widget : m_widgets)
+		{
+			if (widget.name == name)
+			{
+				return widget;
+			}
+		}
+
+		throw Error(U"SimpleGUIManager::widget(): widget `{}` does not exist"_fmt(name));
+	}
+
+	const SimpleGUI::Widget& SimpleGUIManager::SimpleGUIManagerDetail::widget(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name == name)
+			{
+				return widget;
+			}
+		}
+
+		throw Error(U"SimpleGUIManager::widget(): widget `{}` does not exist"_fmt(name));
 	}
 
 	RectF SimpleGUIManager::SimpleGUIManagerDetail::region(const StringView name) const

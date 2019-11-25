@@ -24,18 +24,18 @@ namespace s3d
 
 		[[nodiscard]] ByteArray Compress(ByteArrayViewAdapter view, int32 compressionLevel = DefaultCompressionLevel);
 
-		[[nodiscard]] ByteArray CompressFile(const FilePath& path, int32 compressionLevel = DefaultCompressionLevel);
+		[[nodiscard]] ByteArray CompressFile(FilePathView path, int32 compressionLevel = DefaultCompressionLevel);
 
-		bool CompressToFile(ByteArrayViewAdapter view, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool CompressToFile(ByteArrayViewAdapter view, FilePathView outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
-		bool CompressFileToFile(const FilePath& inputPath, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool CompressFileToFile(FilePathView inputPath, FilePathView outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
 		[[nodiscard]] ByteArray Decompress(ByteArrayView view);
 
-		[[nodiscard]] ByteArray DecompressFile(const FilePath& path);
+		[[nodiscard]] ByteArray DecompressFile(FilePathView path);
 
-		bool DecompressToFile(ByteArrayView view, const FilePath& outputPath);
+		bool DecompressToFile(ByteArrayView view, FilePathView outputPath);
 
-		bool DecompressFileToFile(const FilePath& inputPath, const FilePath& outputPath);
+		bool DecompressFileToFile(FilePathView inputPath, FilePathView outputPath);
 	}
 }

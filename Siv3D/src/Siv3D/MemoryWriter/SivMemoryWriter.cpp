@@ -67,7 +67,7 @@ namespace s3d
 		return pImpl->data();
 	}
 
-	bool MemoryWriter::save(const FilePath& path) const
+	bool MemoryWriter::save(const FilePathView path) const
 	{
 		return BinaryWriter(path).write(pImpl->data(), static_cast<size_t>(pImpl->size())) == pImpl->size();
 	}

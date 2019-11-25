@@ -74,7 +74,7 @@ namespace s3d
 			return FromBinary(view.data(), sizeof(char) * view.size());
 		}
 
-		MD5Value FromFile(const FilePath& path)
+		MD5Value FromFile(const FilePathView path)
 		{
 			MD5_CTX ctx;
 			MD5Value result;

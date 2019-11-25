@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	Optional<Exif> Exif::Read(const FilePath& path)
+	Optional<Exif> Exif::Read(const FilePathView path)
 	{
 		return Read(BinaryReader(path));
 	}

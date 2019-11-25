@@ -103,7 +103,7 @@ namespace s3d
 		return pImpl->lookahead(dst, pos, size);
 	}
 
-	bool ByteArray::save(const FilePath& path) const
+	bool ByteArray::save(const FilePathView path) const
 	{
 		const int64 size = pImpl->size();
 

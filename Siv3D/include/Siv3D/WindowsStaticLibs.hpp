@@ -22,6 +22,7 @@
 #	pragma comment (lib, "mfuuid")
 #	pragma comment (lib, "ws2_32")
 #	pragma comment (lib, "strmiids")
+#	pragma comment (lib, "SetupAPI")
 
 #	if SIV3D_BUILD_TYPE(DEBUG)
 

@@ -20,7 +20,7 @@ namespace s3d
 
 	}
 
-	EmojiList::EmojiList(const FilePath& path)
+	EmojiList::EmojiList(const FilePathView path)
 		: EmojiList()
 	{
 		load(path);
@@ -31,7 +31,7 @@ namespace s3d
 
 	}
 
-	bool EmojiList::load(const FilePath& path)
+	bool EmojiList::load(const FilePathView path)
 	{
 		return pImpl->load(path);
 	}
