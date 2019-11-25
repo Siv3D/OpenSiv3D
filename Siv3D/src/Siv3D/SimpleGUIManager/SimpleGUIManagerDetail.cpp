@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -240,7 +240,21 @@ namespace s3d
 			return false;
 		}
 
-		for (const auto& widget : m_widgets)
+		// 出力をソート
+		Array<SimpleGUI::Widget> widgets = m_widgets;
+		widgets.sort_by([](const SimpleGUI::Widget& a, const SimpleGUI::Widget& b)
+		{
+			const Vec2 aPos = a.getPos(), bPos = b.getPos();
+
+			if (aPos.x == bPos.x)
+			{
+				return aPos.y < bPos.y;
+			}
+			
+			return aPos.x < bPos.x;
+		});
+
+		for (const auto& widget : widgets)
 		{
 			switch (static_cast<WidgetType>(widget.widget.index()))
 			{

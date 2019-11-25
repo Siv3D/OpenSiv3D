@@ -157,6 +157,8 @@ namespace s3d
 				SimpleGUIWidget::RadioButtons,
 				SimpleGUIWidget::TextBox,
 				SimpleGUIWidget::ColorPicker> widget;
+
+			[[nodiscard]] Vec2 getPos() const;
 		};
 	}
 
