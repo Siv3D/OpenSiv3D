@@ -182,7 +182,13 @@ namespace s3d
 
 		void draw() const;
 
+		[[nodiscard]] const Array<SimpleGUI::Widget>& widgets() const;
+
 		[[nodiscard]] bool hasChanged(StringView name) const;
+
+		[[nodiscard]] SimpleGUI::Widget& widget(StringView name);
+
+		[[nodiscard]] const SimpleGUI::Widget& widget(StringView name) const;
 
 		[[nodiscard]] RectF region(StringView name) const;
 

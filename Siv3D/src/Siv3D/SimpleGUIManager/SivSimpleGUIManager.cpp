@@ -46,9 +46,24 @@ namespace s3d
 		pImpl->draw();
 	}
 
+	const Array<SimpleGUI::Widget>& SimpleGUIManager::widgets() const
+	{
+		return pImpl->widgets();
+	}
+
 	bool SimpleGUIManager::hasChanged(const StringView name) const
 	{
 		return pImpl->hasChanged(name);
+	}
+
+	SimpleGUI::Widget& SimpleGUIManager::widget(const StringView name)
+	{
+		return pImpl->widget(name);
+	}
+
+	const SimpleGUI::Widget& SimpleGUIManager::widget(const StringView name) const
+	{
+		return pImpl->widget(name);
 	}
 
 	RectF SimpleGUIManager::region(const StringView name) const

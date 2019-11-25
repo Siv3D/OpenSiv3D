@@ -356,6 +356,11 @@ namespace s3d
 		}
 	}
 
+	const Array<SimpleGUI::Widget>& SimpleGUIManager::SimpleGUIManagerDetail::widgets() const
+	{
+		return m_widgets;
+	}
+
 	bool SimpleGUIManager::SimpleGUIManagerDetail::hasChanged(const StringView name) const
 	{
 		for (const auto& widget : m_widgets)
@@ -367,6 +372,32 @@ namespace s3d
 		}
 
 		return false;
+	}
+
+	SimpleGUI::Widget& SimpleGUIManager::SimpleGUIManagerDetail::widget(const StringView name)
+	{
+		for (auto& widget : m_widgets)
+		{
+			if (widget.name == name)
+			{
+				return widget;
+			}
+		}
+
+		throw Error(U"SimpleGUIManager::widget(): widget `{}` does not exist"_fmt(name));
+	}
+
+	const SimpleGUI::Widget& SimpleGUIManager::SimpleGUIManagerDetail::widget(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name == name)
+			{
+				return widget;
+			}
+		}
+
+		throw Error(U"SimpleGUIManager::widget(): widget `{}` does not exist"_fmt(name));
 	}
 
 	RectF SimpleGUIManager::SimpleGUIManagerDetail::region(const StringView name) const
