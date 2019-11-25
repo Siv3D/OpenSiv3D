@@ -776,8 +776,8 @@
 //
 //////////////////////////////////////////////////
 
-//// シリアル通信
-//# include <Siv3D/Serial.hpp>
+// シリアル通信
+# include <Siv3D/Serial.hpp>
 
 //// インターネット
 //# include <Siv3D/Internet.hpp>
