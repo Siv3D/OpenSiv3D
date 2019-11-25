@@ -106,7 +106,7 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		[[nodiscard]] MD5Value FromFile(const FilePath& path);
+		[[nodiscard]] MD5Value FromFile(FilePathView path);
 	};
 }
 
