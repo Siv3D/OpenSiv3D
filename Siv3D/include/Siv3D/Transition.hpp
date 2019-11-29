@@ -40,6 +40,16 @@ namespace s3d
 			return m_value;
 		}
 
+		[[nodiscard]] constexpr bool isZero() const noexcept
+		{
+			return (m_value == 0.0);
+		}
+
+		[[nodiscard]] constexpr bool isOne() const noexcept
+		{
+			return (m_value == 1.0);
+		}
+
 		[[nodiscard]] constexpr double easeIn(double easingFunction(double) = Easing::Quart) const
 		{
 			return EaseIn(easingFunction, m_value);
