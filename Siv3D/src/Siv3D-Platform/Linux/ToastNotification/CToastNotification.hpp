@@ -27,6 +27,7 @@ namespace s3d
 
 		Array<String> m_serverCapabilities;
 		bool m_markupSupported = false;
+		bool m_actionsSupported = false;
 
 	public:
 
@@ -49,5 +50,7 @@ namespace s3d
 		void clear() override;
 
 		void onStateUpdate(size_t index, ToastNotificationState state, const Optional<int32>& option) override;
+
+		bool supportsActions() const;
 	};
 }

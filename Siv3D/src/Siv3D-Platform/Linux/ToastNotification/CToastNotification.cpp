@@ -148,6 +148,8 @@ namespace s3d
 
 				if(strncmp(str, "body-markup", strlen("body-markup")) == 0)
 					m_markupSupported = true;
+				if(strncmp(str, "actions", strlen("actions")) == 0)
+					m_actionsSupported = true;
 			}
 		}
 		g_variant_unref(ret);
@@ -250,5 +252,10 @@ namespace s3d
 	void CToastNotification::onStateUpdate(const size_t, const ToastNotificationState, const Optional<int32>&)
 	{
 
+	}
+
+	bool CToastNotification::supportsActions() const
+	{
+		return m_actionsSupported;
 	}
 }

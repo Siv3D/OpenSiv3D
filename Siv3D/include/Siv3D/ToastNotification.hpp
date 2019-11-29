@@ -75,6 +75,8 @@ namespace s3d
 			[[nodiscard]] bool IsAvailable();
 
 			NotificationID Show(const ToastNotificationProperty& prop);
+
+			[[nodiscard]] bool SupportsActions();
 		}
 	}
 

@@ -13,6 +13,10 @@
 # include "../Siv3DEngine.hpp"
 # include "IToastNotification.hpp"
 
+# if SIV3D_PLATFORM(LINUX)
+# include "ToastNotification/CToastNotification.hpp"
+# endif
+
 namespace s3d
 {
 # if SIV3D_PLATFORM(WINDOWS)
@@ -87,6 +91,12 @@ namespace s3d
 			void Clear()
 			{
 				Siv3DEngine::Get<ISiv3DToastNotification>()->clear();
+			}
+
+			bool SupportsActions()
+			{
+				CToastNotification* const pToastNotification = dynamic_cast<CToastNotification* const>(Siv3DEngine::Get<ISiv3DToastNotification>());
+				return pToastNotification->supportsActions();
 			}
 		}
 	};
