@@ -47,17 +47,17 @@ namespace s3d
 		resolve();
 	}
 
-	void MSRenderTexture::resolve()
+	void MSRenderTexture::resolve() const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->resolveMSRT(m_handle->id());
 	}
 
-	void MSRenderTexture::clear(const ColorF& color)
+	void MSRenderTexture::clear(const ColorF& color) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->clearRT(m_handle->id(), color);
 	}
 
-	void MSRenderTexture::readAsImage(Image& image)
+	void MSRenderTexture::readAsImage(Image& image) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}

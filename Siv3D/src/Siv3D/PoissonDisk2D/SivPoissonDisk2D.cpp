@@ -17,7 +17,7 @@
 namespace s3d
 {
 	PoissonDisk2D::PoissonDisk2D(const Size & size, const double r, const bool precalculate)
-		: PoissonDisk2D(size, r, size / 2.0 + RandomVec2(m_r / Math::Sqrt2), precalculate)
+		: PoissonDisk2D(size, r, size / 2.0 + RandomVec2(r / Math::Sqrt2), precalculate)
 	{
 	
 	}

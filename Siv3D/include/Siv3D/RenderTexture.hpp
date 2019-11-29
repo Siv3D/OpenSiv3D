@@ -44,18 +44,18 @@ namespace s3d
 
 		RenderTexture(const Grid<Float4>& image);
 
-		void clear(const ColorF& color);
+		void clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
-		void readAsImage(Image& image);
+		void readAsImage(Image& image) const;
 
 		// TextureFormat::R32_Float のみサポート
-		void read(Grid<float>& image);
+		void read(Grid<float>& image) const;
 
 		// TextureFormat::R32G32_Float のみサポート
-		void read(Grid<Float2>& image);
+		void read(Grid<Float2>& image) const;
 
 		// TextureFormat::R32G32B32A32_Float のみサポート
-		void read(Grid<Float4>& image);
+		void read(Grid<Float4>& image) const;
 	};
 }
