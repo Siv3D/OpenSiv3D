@@ -2637,6 +2637,7 @@
 		2CBC7BD0238B7CBA009B0E8E /* list_ports_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_ports_win.cc; sourceTree = "<group>"; };
 		2CBC7BD1238B7CBA009B0E8E /* unix.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix.cc; sourceTree = "<group>"; };
 		2CBC7BD2238B7CBA009B0E8E /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
+		2CBC7BDD2391352C009B0E8E /* SaturatedLinework.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SaturatedLinework.hpp; sourceTree = "<group>"; };
 		2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CC1701E2355F5E800A15A3D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CC4770E2321436700633195 /* PixelShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_GL.cpp; sourceTree = "<group>"; };
@@ -6453,6 +6454,7 @@
 				2CA6271B22226DC60009DFE1 /* OptimalScreen.hpp */,
 				2CA6271622226DC60009DFE1 /* PlayingCard.hpp */,
 				2CA6271822226DC60009DFE1 /* Rx.hpp */,
+				2CBC7BDD2391352C009B0E8E /* SaturatedLinework.hpp */,
 				2CA6271722226DC60009DFE1 /* SevenSegment.hpp */,
 			);
 			path = HamFramework;
