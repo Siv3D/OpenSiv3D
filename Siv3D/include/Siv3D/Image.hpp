@@ -970,13 +970,13 @@ namespace s3d
 
 		bool saveWithDialog() const;
 
-		bool savePNG(const FilePath& path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
+		bool savePNG(FilePathView path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
 
-		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
+		bool saveJPEG(FilePathView path, int32 quality = 90) const;
 
-		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
+		bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 
-		bool saveWebP(const FilePath& path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+		bool saveWebP(FilePathView path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
 
 		[[nodiscard]] ByteArray encode(ImageFormat format = ImageFormat::PNG) const;
 

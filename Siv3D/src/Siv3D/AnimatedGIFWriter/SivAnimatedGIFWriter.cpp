@@ -20,13 +20,13 @@ namespace s3d
 
 	}
 
-	AnimatedGIFWriter::AnimatedGIFWriter(const FilePath& path, const int32 width, const int32 height, const bool dither, const bool hasAlpha)
+	AnimatedGIFWriter::AnimatedGIFWriter(const FilePathView path, const int32 width, const int32 height, const bool dither, const bool hasAlpha)
 		: AnimatedGIFWriter(path, Size(width, height), dither, hasAlpha)
 	{
 	
 	}
 
-	AnimatedGIFWriter::AnimatedGIFWriter(const FilePath& path, const Size& size, const bool dither, const bool hasAlpha)
+	AnimatedGIFWriter::AnimatedGIFWriter(const FilePathView path, const Size& size, const bool dither, const bool hasAlpha)
 		: AnimatedGIFWriter()
 	{
 		open(path, size, dither, hasAlpha);
@@ -37,12 +37,12 @@ namespace s3d
 
 	}
 
-	bool AnimatedGIFWriter::open(const FilePath& path, const int32 width, const int32 height, const bool dither, const bool hasAlpha)
+	bool AnimatedGIFWriter::open(const FilePathView path, const int32 width, const int32 height, const bool dither, const bool hasAlpha)
 	{
 		return open(path, Size(width, height), dither, hasAlpha);
 	}
 
-	bool AnimatedGIFWriter::open(const FilePath& path, const Size& size, const bool dither, const bool hasAlpha)
+	bool AnimatedGIFWriter::open(const FilePathView path, const Size& size, const bool dither, const bool hasAlpha)
 	{
 		return pImpl->open(path, size, dither, hasAlpha);
 	}

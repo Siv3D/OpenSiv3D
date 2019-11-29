@@ -803,6 +803,13 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Serial.hpp
+	//
+	class Serial;
+	struct SerialPortInfo;
+
+	//////////////////////////////////////////////////////
+	//
 	//	IPv4.hpp
 	//
 	union IPv4;
@@ -1197,6 +1204,11 @@ namespace s3d
 		struct RadioButtons;
 		struct TextBox;
 		struct ColorPicker;
+	}
+	namespace SimpleGUI
+	{
+		enum class WidgetType;
+		struct Widget;
 	}
 	class SimpleGUIManager;
 

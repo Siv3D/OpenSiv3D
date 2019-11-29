@@ -1126,6 +1126,19 @@
 		2CBC6515231E8A6E001610DB /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6514231E8A6D001610DB /* SivScopedCustomShader2D.cpp */; };
 		2CBC6519231F89A7001610DB /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */; };
 		2CBC651C2320169C001610DB /* SivScopedRenderTarget2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */; };
+		2CBC7BB0238B7C69009B0E8E /* SerialDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BAD238B7C68009B0E8E /* SerialDetail.cpp */; };
+		2CBC7BB1238B7C69009B0E8E /* SivSerial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BAE238B7C68009B0E8E /* SivSerial.cpp */; };
+		2CBC7BB2238B7C69009B0E8E /* SerialDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC7BAF238B7C68009B0E8E /* SerialDetail.hpp */; };
+		2CBC7BD3238B7CBA009B0E8E /* v8stdint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC7BC9238B7CBA009B0E8E /* v8stdint.h */; };
+		2CBC7BD4238B7CBA009B0E8E /* list_ports_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BCA238B7CBA009B0E8E /* list_ports_linux.cc */; };
+		2CBC7BD5238B7CBA009B0E8E /* list_ports_osx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BCB238B7CBA009B0E8E /* list_ports_osx.cc */; };
+		2CBC7BD6238B7CBA009B0E8E /* serial.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BCC238B7CBA009B0E8E /* serial.cc */; };
+		2CBC7BD7238B7CBA009B0E8E /* serial.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC7BCD238B7CBA009B0E8E /* serial.h */; };
+		2CBC7BD8238B7CBA009B0E8E /* win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BCE238B7CBA009B0E8E /* win.cc */; };
+		2CBC7BD9238B7CBA009B0E8E /* win.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC7BCF238B7CBA009B0E8E /* win.h */; };
+		2CBC7BDA238B7CBA009B0E8E /* list_ports_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BD0238B7CBA009B0E8E /* list_ports_win.cc */; };
+		2CBC7BDB238B7CBA009B0E8E /* unix.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC7BD1238B7CBA009B0E8E /* unix.cc */; };
+		2CBC7BDC238B7CBA009B0E8E /* unix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC7BD2238B7CBA009B0E8E /* unix.h */; };
 		2CC1701D2355F5CE00A15A3D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */; };
 		2CC1701F2355F5E800A15A3D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC1701E2355F5E800A15A3D /* CoreMedia.framework */; };
 		2CC4770F2321436700633195 /* PixelShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4770E2321436700633195 /* PixelShader_GL.cpp */; };
@@ -2610,6 +2623,21 @@
 		2CBC6518231F89A7001610DB /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
 		2CBC651B2320169C001610DB /* SivScopedRenderTarget2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderTarget2D.cpp; sourceTree = "<group>"; };
 		2CBC651D232016CD001610DB /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
+		2CBC7BAB238B7C44009B0E8E /* Serial.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Serial.hpp; sourceTree = "<group>"; };
+		2CBC7BAD238B7C68009B0E8E /* SerialDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialDetail.cpp; sourceTree = "<group>"; };
+		2CBC7BAE238B7C68009B0E8E /* SivSerial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSerial.cpp; sourceTree = "<group>"; };
+		2CBC7BAF238B7C68009B0E8E /* SerialDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SerialDetail.hpp; sourceTree = "<group>"; };
+		2CBC7BC9238B7CBA009B0E8E /* v8stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8stdint.h; sourceTree = "<group>"; };
+		2CBC7BCA238B7CBA009B0E8E /* list_ports_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_ports_linux.cc; sourceTree = "<group>"; };
+		2CBC7BCB238B7CBA009B0E8E /* list_ports_osx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_ports_osx.cc; sourceTree = "<group>"; };
+		2CBC7BCC238B7CBA009B0E8E /* serial.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cc; sourceTree = "<group>"; };
+		2CBC7BCD238B7CBA009B0E8E /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
+		2CBC7BCE238B7CBA009B0E8E /* win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = win.cc; sourceTree = "<group>"; };
+		2CBC7BCF238B7CBA009B0E8E /* win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win.h; sourceTree = "<group>"; };
+		2CBC7BD0238B7CBA009B0E8E /* list_ports_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_ports_win.cc; sourceTree = "<group>"; };
+		2CBC7BD1238B7CBA009B0E8E /* unix.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix.cc; sourceTree = "<group>"; };
+		2CBC7BD2238B7CBA009B0E8E /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
+		2CBC7BDD2391352C009B0E8E /* SaturatedLinework.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SaturatedLinework.hpp; sourceTree = "<group>"; };
 		2CC1701C2355F5CE00A15A3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CC1701E2355F5E800A15A3D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		2CC4770E2321436700633195 /* PixelShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_GL.cpp; sourceTree = "<group>"; };
@@ -2802,6 +2830,7 @@
 				2C460EE0226EEDB200828870 /* RecastDetour */,
 				2C460CCC226EEDAF00828870 /* RFC1321 */,
 				2C461A03226F156500828870 /* RtAudio */,
+				2CBC7BC8238B7CBA009B0E8E /* serial */,
 				2C460CBF226EEDAF00828870 /* TinySoundFont */,
 				2C460C51226EEDAF00828870 /* tinyxml */,
 				2C460CC3226EEDAF00828870 /* tsl */,
@@ -6164,6 +6193,7 @@
 				2C46174A226EEF3D00828870 /* ScreenCapture */,
 				2C46153E226EEF2F00828870 /* Script */,
 				2C46176C226EEF3D00828870 /* SDF */,
+				2CBC7BAC238B7C68009B0E8E /* Serial */,
 				2C4616CD226EEF3800828870 /* SFMT */,
 				2C461709226EEF3A00828870 /* Shader */,
 				2C46166C226EEF3600828870 /* Shape2D */,
@@ -6424,6 +6454,7 @@
 				2CA6271B22226DC60009DFE1 /* OptimalScreen.hpp */,
 				2CA6271622226DC60009DFE1 /* PlayingCard.hpp */,
 				2CA6271822226DC60009DFE1 /* Rx.hpp */,
+				2CBC7BDD2391352C009B0E8E /* SaturatedLinework.hpp */,
 				2CA6271722226DC60009DFE1 /* SevenSegment.hpp */,
 			);
 			path = HamFramework;
@@ -6644,6 +6675,7 @@
 				2CA627AF22226DC70009DFE1 /* Script.hpp */,
 				2CA627BA22226DC70009DFE1 /* SDF.hpp */,
 				2C8EA7BE237A953C00A1D3B6 /* SDFFont.hpp */,
+				2CBC7BAB238B7C44009B0E8E /* Serial.hpp */,
 				2CA6277822226DC60009DFE1 /* Serialization.hpp */,
 				2CA6279022226DC70009DFE1 /* SFMT.hpp */,
 				2CBC6511231E6A06001610DB /* Shader.hpp */,
@@ -7003,6 +7035,33 @@
 			path = ScopedRenderTarget2D;
 			sourceTree = "<group>";
 		};
+		2CBC7BAC238B7C68009B0E8E /* Serial */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC7BAD238B7C68009B0E8E /* SerialDetail.cpp */,
+				2CBC7BAE238B7C68009B0E8E /* SivSerial.cpp */,
+				2CBC7BAF238B7C68009B0E8E /* SerialDetail.hpp */,
+			);
+			path = Serial;
+			sourceTree = "<group>";
+		};
+		2CBC7BC8238B7CBA009B0E8E /* serial */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC7BC9238B7CBA009B0E8E /* v8stdint.h */,
+				2CBC7BCA238B7CBA009B0E8E /* list_ports_linux.cc */,
+				2CBC7BCB238B7CBA009B0E8E /* list_ports_osx.cc */,
+				2CBC7BCC238B7CBA009B0E8E /* serial.cc */,
+				2CBC7BCD238B7CBA009B0E8E /* serial.h */,
+				2CBC7BCE238B7CBA009B0E8E /* win.cc */,
+				2CBC7BCF238B7CBA009B0E8E /* win.h */,
+				2CBC7BD0238B7CBA009B0E8E /* list_ports_win.cc */,
+				2CBC7BD1238B7CBA009B0E8E /* unix.cc */,
+				2CBC7BD2238B7CBA009B0E8E /* unix.h */,
+			);
+			path = serial;
+			sourceTree = "<group>";
+		};
 		2CE5C84E237FD81200082EEC /* SimpleGUIManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -7106,6 +7165,7 @@
 				2C46140E226EEDB500828870 /* allocators.h in Headers */,
 				2C4613FB226EEDB500828870 /* stringbuffer.h in Headers */,
 				2C461141226EEDB500828870 /* ftlzw.h in Headers */,
+				2CBC7BB2238B7C69009B0E8E /* SerialDetail.hpp in Headers */,
 				2C461105226EEDB500828870 /* ftbbox.h in Headers */,
 				2CBC64CD22F849F0001610DB /* zstd_decompress_block.h in Headers */,
 				2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */,
@@ -7311,6 +7371,7 @@
 				2C46148F226EEDB500828870 /* b2TimeOfImpact.h in Headers */,
 				2CBC64AF22F849F0001610DB /* zstd_ldm.h in Headers */,
 				2CBC64C022F849F0001610DB /* zstd_compress_sequences.h in Headers */,
+				2CBC7BD7238B7CBA009B0E8E /* serial.h in Headers */,
 				2C461426226EEDB500828870 /* muParserDef.h in Headers */,
 				2CBC64E022F849F0001610DB /* huf.h in Headers */,
 				2C4617E7226EEF4100828870 /* ScriptBind.hpp in Headers */,
@@ -7392,6 +7453,7 @@
 				2C461488226EEDB500828870 /* b2Shape.h in Headers */,
 				2CBC64E122F849F0001610DB /* mem.h in Headers */,
 				2C461154226EEDB500828870 /* cpu_x86_Linux.ipp in Headers */,
+				2CBC7BDC238B7CBA009B0E8E /* unix.h in Headers */,
 				2C461365226EEDB500828870 /* DetourMath.h in Headers */,
 				2C461853226EEF4100828870 /* CSVM.hpp in Headers */,
 				2C4618CB226EEF4100828870 /* CAsset.hpp in Headers */,
@@ -7421,6 +7483,7 @@
 				2C4618FA226EEF4100828870 /* ByteArrayDetail.hpp in Headers */,
 				2C461891226EEF4100828870 /* PaintShape.hpp in Headers */,
 				2C461110226EEDB500828870 /* tttypes.h in Headers */,
+				2CBC7BD3238B7CBA009B0E8E /* v8stdint.h in Headers */,
 				2C461404226EEDB500828870 /* stack.h in Headers */,
 				2C461A40226F2D0000828870 /* egl_context.h in Headers */,
 				2C461353226EEDB500828870 /* DetourNavMeshQuery.h in Headers */,
@@ -7444,6 +7507,7 @@
 				2C46115E226EEDB500828870 /* quirc_internal.h in Headers */,
 				2C4618E1226EEF4100828870 /* ParticleSystem2DDetail.hpp in Headers */,
 				2C461AFA227138DE00828870 /* CGraphics_GL.hpp in Headers */,
+				2CBC7BD9238B7CBA009B0E8E /* win.h in Headers */,
 				2C461372226EEDB500828870 /* FastNoiseSIMD.h in Headers */,
 				2C46137B226EEDB500828870 /* utils.h in Headers */,
 				2C46198E226EEF4100828870 /* ILogger.hpp in Headers */,
@@ -7847,6 +7911,7 @@
 				2C461495226EEDB500828870 /* b2Collision.cpp in Sources */,
 				2C4618B1226EEF4100828870 /* SivTimer.cpp in Sources */,
 				2C461852226EEF4100828870 /* SivSVM.cpp in Sources */,
+				2CBC7BD4238B7CBA009B0E8E /* list_ports_linux.cc in Sources */,
 				2C461A98226F705800828870 /* SivResource.cpp in Sources */,
 				2C4619D8226F089C00828870 /* SivDateTime_Platform.cpp in Sources */,
 				2C461949226EEF4100828870 /* SivFileFilter.cpp in Sources */,
@@ -8004,11 +8069,13 @@
 				2C461428226EEDB500828870 /* muParserBytecode.cpp in Sources */,
 				2CBC64D122F849F0001610DB /* zstd_decompress_block.c in Sources */,
 				2C46197D226EEF4100828870 /* CursorFactory.cpp in Sources */,
+				2CBC7BD5238B7CBA009B0E8E /* list_ports_osx.cc in Sources */,
 				2C461466226EEDB500828870 /* b2RopeJoint.cpp in Sources */,
 				2C461429226EEDB500828870 /* muParserError.cpp in Sources */,
 				2C461866226EEF4100828870 /* P2SliderJointDetail.cpp in Sources */,
 				2C4618FC226EEF4100828870 /* ByteArrayDetail.cpp in Sources */,
 				2C4617DC226EEF4100828870 /* scriptgrid.cpp in Sources */,
+				2CBC7BB0238B7C69009B0E8E /* SerialDetail.cpp in Sources */,
 				2C461391226EEDB500828870 /* EdgeHolder.cpp in Sources */,
 				2C461821226EEF4100828870 /* Script_TexturedQuad.cpp in Sources */,
 				2C461882226EEF4100828870 /* SivParseInt.cpp in Sources */,
@@ -8156,6 +8223,8 @@
 				2C461851226EEF4100828870 /* CSVM.cpp in Sources */,
 				2C8EA7A82366F8E900A1D3B6 /* SivPoissonDisk2D.cpp in Sources */,
 				2C461996226EEF4100828870 /* SivBezier3.cpp in Sources */,
+				2CBC7BDB238B7CBA009B0E8E /* unix.cc in Sources */,
+				2CBC7BD6238B7CBA009B0E8E /* serial.cc in Sources */,
 				2C461898226EEF4100828870 /* SivIcon.cpp in Sources */,
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
 				2C461810226EEF4100828870 /* Script_Profiler.cpp in Sources */,
@@ -8189,6 +8258,7 @@
 				2CBC64DB22F849F0001610DB /* xxhash.c in Sources */,
 				2C4618E3226EEF4100828870 /* SivParticleSystem2D.cpp in Sources */,
 				2C46145F226EEDB500828870 /* b2RevoluteJoint.cpp in Sources */,
+				2CBC7BB1238B7C69009B0E8E /* SivSerial.cpp in Sources */,
 				2CBC64CC22F849F0001610DB /* huf_decompress.c in Sources */,
 				2C46192C226EEF4100828870 /* SivHTMLWriter.cpp in Sources */,
 				2C46135C226EEDB500828870 /* RecastRegion.cpp in Sources */,
@@ -8243,6 +8313,7 @@
 				2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */,
 				2C461431226EEDB500828870 /* sweep.cc in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
+				2CBC7BDA238B7CBA009B0E8E /* list_ports_win.cc in Sources */,
 				2C46192E226EEF4100828870 /* SivTexturedCircle.cpp in Sources */,
 				2C461909226EEF4100828870 /* SivMicrophone.cpp in Sources */,
 				2C46142A226EEDB500828870 /* muParserInt.cpp in Sources */,
@@ -8281,6 +8352,7 @@
 				2C461A51226F2D0000828870 /* cocoa_monitor.m in Sources */,
 				2C4610F2226EEDB500828870 /* clip2tri.cpp in Sources */,
 				2C461848226EEF4100828870 /* NoiseGeneratorDetail.cpp in Sources */,
+				2CBC7BD8238B7CBA009B0E8E /* win.cc in Sources */,
 				2C461A9D226F716600828870 /* SivSystem_Platform.mm in Sources */,
 				2C46184A226EEF4100828870 /* SivError.cpp in Sources */,
 				2C4618A8226EEF4100828870 /* SivLineString.cpp in Sources */,
