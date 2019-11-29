@@ -51,11 +51,11 @@ namespace s3d
 		mutable bool m_isDirty = true;
 
 		// innerShape　が outerShape に含まれているか簡単なチェック
-		template <class _InnerShape>
-		[[nodiscard]] static bool IsValid(const _InnerShape& innerShape, const Rect& outerShape)
+		template <class _TargetShape>
+		[[nodiscard]] static bool IsValid(const _TargetShape& targetShape, const Rect& outerShape)
 		{
 			// [Siv3D ToDo] より厳密に
-			return outerShape.contains(Geometry2D::Center(innerShape));
+			return outerShape.contains(Geometry2D::Center(targetShape));
 		}
 
 	public:
@@ -412,7 +412,7 @@ namespace s3d
 				// まずは位置にランダム性を持たせる
 				const auto is = m_targetShape.stretched(posDist(m_rng));
 
-                // 線との交点を取る
+				// 線との交点を取る
 				const auto targetIntersects = is.intersectsAt(line);
 
 				// 内側の図形の中心から線を引き始めているが、図形があまりにも大きいと交差しないので注意
