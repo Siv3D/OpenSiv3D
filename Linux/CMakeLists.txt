@@ -1,20 +1,16 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
 
 find_package(PkgConfig)
 
 project(OpenSiv3D_Linux CXX)
 enable_language(C)
 
-set(CMAKE_CXX_COMPILER "clang++")
-#set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1 -D_GLFW_X11")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 
-set(CMAKE_C_COMPILER "clang")
-#set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1 -D_GLFW_X11")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
@@ -164,6 +160,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp"
 	"../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp"
 	"../Siv3D/src/Siv3D/JSONReader/SivJSONReader.cpp"
+	"../Siv3D/src/Siv3D/JSONWriter/SivJSONWriter.cpp"
 	"../Siv3D/src/Siv3D/JoyCon/SivJoyCon.cpp"
 	"../Siv3D/src/Siv3D/Key/SivKey.cpp"
 	"../Siv3D/src/Siv3D/KeyConjunction/SivKeyConjunction.cpp"
@@ -200,6 +197,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Network/SivNetwork.cpp"
 	"../Siv3D/src/Siv3D/NoiseGenerator/NoiseGeneratorDetail.cpp"
 	"../Siv3D/src/Siv3D/NoiseGenerator/SivNoiseGenerator.cpp"
+	"../Siv3D/src/Siv3D/OBB/SivOBB.cpp"
 	"../Siv3D/src/Siv3D/ObjectDetection/CObjectDetection.cpp"
 	"../Siv3D/src/Siv3D/ObjectDetection/ObjectDetectionFactory.cpp"
 	"../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp"
@@ -225,6 +223,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Physics2D/SivPhysics2D.cpp"
 	"../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp"
 	"../Siv3D/src/Siv3D/Point/SivPoint.cpp"
+	"../Siv3D/src/Siv3D/PoissonDisk2D/SivPoissonDisk2D.cpp"
 	"../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp"
 	"../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp"
 	"../Siv3D/src/Siv3D/Print/CPrint.cpp"
@@ -238,14 +237,20 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/QR/QRDecoderDetail.cpp"
 	"../Siv3D/src/Siv3D/QR/SivQR.cpp"
 	"../Siv3D/src/Siv3D/Quad/SivQuad.cpp"
+	"../Siv3D/src/Siv3D/Quaternion/SivQuaternion.cpp"
 	"../Siv3D/src/Siv3D/RNG/SivRNG.cpp"
 	"../Siv3D/src/Siv3D/Random/SivRandom.cpp"
+	"../Siv3D/src/Siv3D/Ray/SivRay.cpp"
 	"../Siv3D/src/Siv3D/RasterizerState/SivRasterizerState.cpp"
 	"../Siv3D/src/Siv3D/Rectangle/SivRectangle.cpp"
 	"../Siv3D/src/Siv3D/RenderTexture/SivRenderTexture.cpp"
 	"../Siv3D/src/Siv3D/Renderer2D/Vertex2DBuilder.cpp"
 	"../Siv3D/src/Siv3D/RoundRect/SivRoundRect.cpp"
 	"../Siv3D/src/Siv3D/SDF/SivSDF.cpp"
+	"../Siv3D/src/Siv3D/SDFFont/CSDFFont.cpp"
+	"../Siv3D/src/Siv3D/SDFFont/SDFFontData.cpp"
+	"../Siv3D/src/Siv3D/SDFFont/SDFFontFactory.cpp"
+	"../Siv3D/src/Siv3D/SDFFont/SivSDFFont.cpp"
 	"../Siv3D/src/Siv3D/SFMT/SivSFMT.cpp"
 	"../Siv3D/src/Siv3D/SIMD_Float4/SivSIMD_Float4.cpp"
 	"../Siv3D/src/Siv3D/SVM/CSVM.cpp"
@@ -347,12 +352,17 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Script/ScriptData.cpp"
 	"../Siv3D/src/Siv3D/Script/ScriptFactory.cpp"
 	"../Siv3D/src/Siv3D/Script/SivScript.cpp"
+	"../Siv3D/src/Siv3D/Serial/SerialDetail.cpp"
+	"../Siv3D/src/Siv3D/Serial/SivSerial.cpp"
 	"../Siv3D/src/Siv3D/Shader/SivShader.cpp"
 	"../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp"
 	"../Siv3D/src/Siv3D/SimpleGUI/SimpleGUI.cpp"
+	"../Siv3D/src/Siv3D/SimpleGUIManager/SimpleGUIManagerDetail.cpp"
+	"../Siv3D/src/Siv3D/SimpleGUIManager/SivSimpleGUIManager.cpp"
 	"../Siv3D/src/Siv3D/Siv3DEngine.cpp"
 	"../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp"
 	"../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp"
+	"../Siv3D/src/Siv3D/Sphere/SivSphere.cpp"
 	"../Siv3D/src/Siv3D/Spherical/SivSpherical.cpp"
 	"../Siv3D/src/Siv3D/Sprite/SivSprite.cpp"
 	"../Siv3D/src/Siv3D/Step2D/SivStep2D.cpp"
@@ -389,6 +399,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/TimeProfiler/SivTimeProfiler.cpp"
 	"../Siv3D/src/Siv3D/TimeProfiler/TimeProfilerDetail.cpp"
 	"../Siv3D/src/Siv3D/Timer/SivTimer.cpp"
+	"../Siv3D/src/Siv3D/ToastNotification/SivToastNotification.cpp"
 	"../Siv3D/src/Siv3D/Transformer2D/SivTransformer2D.cpp"
 	"../Siv3D/src/Siv3D/Transition/SivTransition.cpp"
 	"../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp"
@@ -475,6 +486,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D-Platform/Linux/Texture/GL/Texture_GL.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Texture/TextureFactory.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Time/SivTime.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/ToastNotification/CToastNotification.cpp"
+	"../Siv3D/src/Siv3D-Platform/Linux/ToastNotification/ToastNotificationFactory.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Unicode/SivUnicode_Platform.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/VideoWriter/VideoWriterDetail.cpp"
 	"../Siv3D/src/Siv3D-Platform/Linux/Window/CWindow.cpp"
@@ -608,6 +621,9 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/quirc/identify.c"
 	"../Siv3D/src/ThirdParty/quirc/quirc.c"
 	"../Siv3D/src/ThirdParty/quirc/version_db.c"
+	"../Siv3D/src/ThirdParty/serial/list_ports_linux.cc"
+	"../Siv3D/src/ThirdParty/serial/serial.cc"
+	"../Siv3D/src/ThirdParty/serial/unix.cc"
 	"../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp"
 	"../Siv3D/src/ThirdParty/tsl/hopscotch_growth_policy.cpp"
 	"../Siv3D/src/ThirdParty/zstd/common/debug.c"

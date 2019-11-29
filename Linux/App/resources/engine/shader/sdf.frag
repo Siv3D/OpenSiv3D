@@ -31,7 +31,7 @@ void main()
 	vec2 size = textureSize(Texture0, 0);
 	vec2 msdfUnit = pxRange / size;
 	vec3 s = texture(Texture0, UV).rgb;
-	float sigDist = median(s.r, s.g, s.b) - 0.5;
+	float sigDist = median(s.r, s.g, s.b) - 0.5 + g_sdfParam.y;
 	sigDist *= dot(msdfUnit, 0.5 / fwidth(UV));
 	
 	float a = clamp(sigDist + 0.5, 0.0, 1.0);

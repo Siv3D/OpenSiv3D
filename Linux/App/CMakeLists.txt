@@ -1,13 +1,11 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
 
 find_package(PkgConfig)
 
 project(OpenSiv3D_Linux CXX)
 enable_language(C)
 
-set(CMAKE_CXX_COMPILER "clang++")
-#set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1 -D_GLFW_X11")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -60,7 +58,11 @@ target_link_libraries(Siv3D_App
 	-lvorbisenc
 	-lvorbisfile
 	-lboost_filesystem
+	-lavformat
+	-lavcodec
+	-lavutil
+	-lswresample
 
-	${PROJECT_SOURCE_DIR}/../Build/libSiv3D.a
+	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
 )
 
