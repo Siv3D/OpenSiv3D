@@ -182,7 +182,6 @@ namespace s3d
 
 # if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192328105)
 
-	# error このプロジェクトをビルドするには Visual Studio 2019 16.3 以降が必要です。
 	# error Visual Studio 2019 16.3 or later is required to build this project.
 
 # endif
@@ -197,7 +196,6 @@ namespace s3d
 
 # if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64)
 
-	# error Windows 32-bit 版のサポートは終了しました。
 	# error Windows 32-bit is no longer supported.
 
 # endif
@@ -212,6 +210,6 @@ namespace s3d
 
 # if SIV3D_PLATFORM(WINDOWS)
 
-	# pragma warning(disable : 26444 26451 26495)
+	# pragma warning(disable : 26444 26451 26495 26812)
 
 # endif
