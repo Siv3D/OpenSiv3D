@@ -14,6 +14,34 @@
 
 namespace s3d
 {
+	namespace SimpleGUI
+	{
+		Vec2 Widget::getPos() const
+		{
+			switch (static_cast<WidgetType>(widget.index()))
+			{
+			case WidgetType::Headline:
+				return std::get<SimpleGUIWidget::Headline>(widget).pos;
+			case WidgetType::Button:
+				return std::get<SimpleGUIWidget::Button>(widget).pos;
+			case WidgetType::Slider:
+				return std::get<SimpleGUIWidget::Slider>(widget).pos;
+			case WidgetType::VerticalSlider:
+				return std::get<SimpleGUIWidget::VerticalSlider>(widget).pos;
+			case WidgetType::CheckBox:
+				return std::get<SimpleGUIWidget::CheckBox>(widget).pos;
+			case WidgetType::RadioButtons:
+				return std::get<SimpleGUIWidget::RadioButtons>(widget).pos;
+			case WidgetType::TextBox:
+				return std::get<SimpleGUIWidget::TextBox>(widget).pos;
+			case WidgetType::ColorPicker:
+				return std::get<SimpleGUIWidget::ColorPicker>(widget).pos;
+			default:
+				return Vec2(0, 0);
+			}
+		}
+	}
+
 	SimpleGUIManager::SimpleGUIManager()
 		: pImpl(std::make_shared<SimpleGUIManagerDetail>())
 	{
@@ -46,9 +74,24 @@ namespace s3d
 		pImpl->draw();
 	}
 
+	const Array<SimpleGUI::Widget>& SimpleGUIManager::widgets() const
+	{
+		return pImpl->widgets();
+	}
+
 	bool SimpleGUIManager::hasChanged(const StringView name) const
 	{
 		return pImpl->hasChanged(name);
+	}
+
+	SimpleGUI::Widget& SimpleGUIManager::widget(const StringView name)
+	{
+		return pImpl->widget(name);
+	}
+
+	const SimpleGUI::Widget& SimpleGUIManager::widget(const StringView name) const
+	{
+		return pImpl->widget(name);
 	}
 
 	RectF SimpleGUIManager::region(const StringView name) const

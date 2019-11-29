@@ -27,7 +27,7 @@ namespace s3d
 
 		~HTMLWriterDetail();
 
-		bool open(const FilePath& path, const String& title, const StringView styleSheet);
+		bool open(FilePathView path, const String& title, const StringView styleSheet);
 
 		void close();
 

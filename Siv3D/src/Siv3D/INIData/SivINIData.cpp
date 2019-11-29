@@ -412,7 +412,7 @@ namespace s3d
 		write(Section(), name, value);
 	}
 
-	bool INIData::save(const FilePath& path) const
+	bool INIData::save(const FilePathView path) const
 	{
 		TextWriter writer(path);
 

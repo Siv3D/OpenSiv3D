@@ -39,7 +39,7 @@ namespace s3d
 			return ByteArray(std::move(buffer));
 		}
 
-		ByteArray CompressFile(const FilePath& path, const int32 compressionLevel)
+		ByteArray CompressFile(const FilePathView path, const int32 compressionLevel)
 		{
 			BinaryReader reader(path);
 
@@ -114,7 +114,7 @@ namespace s3d
 			return ByteArray(std::move(buffer));
 		}
 
-		bool CompressToFile(const ByteArrayViewAdapter view, const FilePath& outputPath, const int32 compressionLevel)
+		bool CompressToFile(const ByteArrayViewAdapter view, const FilePathView outputPath, const int32 compressionLevel)
 		{
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
 			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
@@ -204,7 +204,7 @@ namespace s3d
 			return true;
 		}
 
-		bool CompressFileToFile(const FilePath& inputPath, const FilePath& outputPath, const int32 compressionLevel)
+		bool CompressFileToFile(const FilePathView inputPath, const FilePathView outputPath, const int32 compressionLevel)
 		{
 			BinaryReader reader(inputPath);
 			
@@ -311,7 +311,7 @@ namespace s3d
 			return ByteArray(std::move(outputBuffer));
 		}
 
-		ByteArray DecompressFile(const FilePath& path)
+		ByteArray DecompressFile(const FilePathView path)
 		{
 			BinaryReader reader(path);
 
@@ -370,7 +370,7 @@ namespace s3d
 			return ByteArray(std::move(buffer));
 		}
 
-		bool DecompressToFile(const ByteArrayView view, const FilePath& outputPath)
+		bool DecompressToFile(const ByteArrayView view, const FilePathView outputPath)
 		{
 			const size_t inputBufferSize = ZSTD_DStreamInSize();
 			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
@@ -442,7 +442,7 @@ namespace s3d
 			return true;
 		}
 
-		bool DecompressFileToFile(const FilePath& inputPath, const FilePath& outputPath)
+		bool DecompressFileToFile(const FilePathView inputPath, const FilePathView outputPath)
 		{
 			BinaryReader reader(inputPath);
 

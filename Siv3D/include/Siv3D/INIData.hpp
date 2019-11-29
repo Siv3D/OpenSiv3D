@@ -211,6 +211,6 @@ namespace s3d
 			write(Section(), name, value);
 		}
 
-		bool save(const FilePath& path) const;
+		bool save(FilePathView path) const;
 	};
 }

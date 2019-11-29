@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <variant>
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
@@ -128,6 +129,39 @@ namespace s3d
 		};
 	}
 
+	namespace SimpleGUI
+	{
+		enum class WidgetType
+		{
+			Headline,
+			Button,
+			Slider,
+			VerticalSlider,
+			CheckBox,
+			RadioButtons,
+			TextBox,
+			ColorPicker,
+		};
+
+		struct Widget
+		{
+			String name;
+
+			bool hasChanged = false;
+
+			std::variant<SimpleGUIWidget::Headline,
+				SimpleGUIWidget::Button,
+				SimpleGUIWidget::Slider,
+				SimpleGUIWidget::VerticalSlider,
+				SimpleGUIWidget::CheckBox,
+				SimpleGUIWidget::RadioButtons,
+				SimpleGUIWidget::TextBox,
+				SimpleGUIWidget::ColorPicker> widget;
+
+			[[nodiscard]] Vec2 getPos() const;
+		};
+	}
+
 	class SimpleGUIManager
 	{
 	private:
@@ -150,7 +184,13 @@ namespace s3d
 
 		void draw() const;
 
+		[[nodiscard]] const Array<SimpleGUI::Widget>& widgets() const;
+
 		[[nodiscard]] bool hasChanged(StringView name) const;
+
+		[[nodiscard]] SimpleGUI::Widget& widget(StringView name);
+
+		[[nodiscard]] const SimpleGUI::Widget& widget(StringView name) const;
 
 		[[nodiscard]] RectF region(StringView name) const;
 

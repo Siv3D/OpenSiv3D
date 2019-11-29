@@ -827,7 +827,7 @@ namespace s3d
 		}
 	}
 
-	bool Image::savePNG(const FilePath& path, const PNGFilter::Flag filterFlag) const
+	bool Image::savePNG(const FilePathView path, const PNGFilter::Flag filterFlag) const
 	{
 		if (isEmpty())
 		{
@@ -845,7 +845,7 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodePNG(writer, *this, filterFlag);
 	}
 
-	bool Image::saveJPEG(const FilePath& path, const int32 quality) const
+	bool Image::saveJPEG(const FilePathView path, const int32 quality) const
 	{
 		if (isEmpty())
 		{
@@ -863,7 +863,7 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodeJPEG(writer, *this, quality);
 	}
 
-	bool Image::savePPM(const FilePath& path, const PPMType format) const
+	bool Image::savePPM(const FilePathView path, const PPMType format) const
 	{
 		if (isEmpty())
 		{
@@ -881,7 +881,7 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DImageFormat>()->encodePPM(writer, *this, format);
 	}
 
-	bool Image::saveWebP(const FilePath& path, const bool lossless, const double quality, const WebPMethod method) const
+	bool Image::saveWebP(const FilePathView path, const bool lossless, const double quality, const WebPMethod method) const
 	{
 		if (isEmpty())
 		{
