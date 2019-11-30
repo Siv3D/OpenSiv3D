@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -443,6 +443,49 @@ namespace s3d
 		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
 	}
 
+	void Polygon::PolygonDetail::scale(const Vec2& s)
+	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
+		for (auto& point : m_polygon.outer())
+		{
+			point.x *= s.x;
+			point.y *= s.y;
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				point.x *= s.x;
+				point.y *= s.y;
+			}
+		}
+
+		for (auto& hole : m_holes)
+		{
+			for (auto& point : hole)
+			{
+				point.x *= s.x;
+				point.y *= s.y;
+			}
+		}
+
+		const Float2 sf(s);
+
+		for (auto& point : m_vertices)
+		{
+			point.x *= sf.x;
+			point.y *= sf.y;
+		}
+
+		// [Siv3D ToDo] 不要に
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
 	double Polygon::PolygonDetail::area() const
 	{
 		const size_t _num_triangles = m_indices.size() / 3;
@@ -494,27 +537,27 @@ namespace s3d
 
 		return result;
 	}
-	
+
 	Vec2 Polygon::PolygonDetail::centroid() const
 	{
 		if (outer().isEmpty())
 		{
 			return Vec2(0, 0);
 		}
-		
+
 		Vec2 centroid;
-		
+
 		boost::geometry::centroid(m_polygon, centroid);
-		
+
 		return centroid;
 	}
-	
+
 	Polygon Polygon::PolygonDetail::calculateConvexHull() const
 	{
 		gRing result;
-		
+
 		boost::geometry::convex_hull(m_polygon.outer(), result);
-		
+
 		return Polygon(result);
 	}
 

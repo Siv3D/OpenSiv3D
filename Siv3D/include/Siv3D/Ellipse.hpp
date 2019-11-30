@@ -251,7 +251,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr value_type area() const noexcept
 		{
-			return a * b * Math::Pi;
+			return a * b * Math::Constants::Pi;
 		}
 
 		[[nodiscard]] constexpr RectF boundingRect() const noexcept
@@ -296,6 +296,8 @@ namespace s3d
 		const Ellipse& overwrite(Image& dst, const Color& color) const;
 
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
+
+		const Ellipse& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
 		const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 

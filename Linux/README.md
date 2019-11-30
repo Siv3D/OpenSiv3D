@@ -17,6 +17,7 @@ The dependent libraries are as follows:
 - GLib2
 - udev
 - libdl
+- libavcode, libavformat, libavutil, libswresample
 
 Supported display server is X11.
 Wayland and Mir are not supported.
@@ -27,9 +28,9 @@ Wayland and Mir are not supported.
 	1. `git clone https://github.com/Siv3D/OpenSiv3D.git`
 	1. `cd OpenSiv3D`
 	1. `git checkout linux`
-1. Make a directory to build. (In this example, make `Linux/build`).
-	1. `mkdir Linux/build`
-	1. `cd Linux/build`
+1. Make a directory to Build. (In this example, make `Linux/Build`).
+	1. `mkdir Linux/Build`
+	1. `cd Linux/Build`
 1. Compile OpenSiv3D. If build succeeds, `libSiv3D.a` is obtained.
 	1. `cmake -DCMAKE_BUILD_TYPE=Release -GNinja ..`
 	1. `ninja`
@@ -37,6 +38,7 @@ Wayland and Mir are not supported.
 ### Note
 - Using `-DCMAKE_BUILD_TYPE=Debug`, it is compiled with `-g3 -O0`.
 - The above example uses `ninja`, but you can also compile with `make`.
+- Set `CC` and `CXX` before running `cmake` to specify the compiler.
 
 
 ## Compiling an application

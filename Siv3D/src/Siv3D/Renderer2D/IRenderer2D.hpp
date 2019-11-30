@@ -100,7 +100,7 @@ namespace s3d
 
 		virtual void addRectFrame(const FloatRect& rect, float thickness, const Float4& color) = 0;
 
-		virtual void addCircle(const Float2& center, float r, const Float4& color) = 0;
+		virtual void addCircle(const Float2& center, float r, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
@@ -108,7 +108,7 @@ namespace s3d
 
 		virtual void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color) = 0;
 
-		virtual void addEllipse(const Float2& center, float a, float b, const Float4& color) = 0;
+		virtual void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
@@ -125,6 +125,8 @@ namespace s3d
 		virtual void addShape2DTransformed(const Array<Float2>& vertices, const Array<uint16>& indices, float s, float c, const Float2& offset, const Float4& color) = 0;
 
 		virtual void addShape2DFrame(const Float2* pts, uint16 size, float thickness, const Float4& color) = 0;
+
+		virtual void addSprite(const Vertex2D* vertices, size_t vertexCount, const uint16* indices, size_t indexCount) = 0;
 
 		virtual void addSprite(const Sprite& sprite, uint16 startIndex, uint16 indexCount) = 0;
 

@@ -49,7 +49,7 @@ namespace s3d
 
 		CSVData();
 
-		explicit CSVData(const FilePath& path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
+		explicit CSVData(FilePathView path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		explicit CSVData(Reader&& reader, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\")
@@ -59,7 +59,7 @@ namespace s3d
 
 		explicit CSVData(const std::shared_ptr<IReader>& reader, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
-		bool load(const FilePath& path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
+		bool load(FilePathView path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		bool load(Reader&& reader, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\")
@@ -143,6 +143,6 @@ namespace s3d
 
 		void newLine();
 
-		bool save(const FilePath& path, char32 separator = U',', char32 quote = U'\"', char32 escape = U'\\') const;
+		bool save(FilePathView path, char32 separator = U',', char32 quote = U'\"', char32 escape = U'\\') const;
 	};
 }

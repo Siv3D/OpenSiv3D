@@ -66,9 +66,9 @@ namespace s3d
 		}
 	}
 
-	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace)
 	{
-		formatData.decimalPlace = decimalPlace;
+		formatData.decimalPlaces = decimalPlace;
 	}
 
 	void Formatter(FormatData& formatData, const int32 value)
@@ -98,7 +98,7 @@ namespace s3d
 	void Formatter(FormatData& formatData, const double value)
 	{
 		char32 buf[384];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, false);
 		formatData.string.append(buf, len);
 	}
 
@@ -218,6 +218,62 @@ namespace s3d
 	{
 		formatData.string.append(value);
 	}
+
+# if __has_include(<compare>) && SIV3D_PLATFORM(WINDOWS)
+
+	void Formatter(FormatData& formatData, const std::strong_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+	}
+
+	void Formatter(FormatData& formatData, const std::weak_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+	}
+
+	void Formatter(FormatData& formatData, const std::partial_ordering value)
+	{
+		if (std::is_lt(value))
+		{
+			formatData.string.append(U"LT"_sv);
+		}
+		else if (std::is_gt(value))
+		{
+			formatData.string.append(U"GT"_sv);
+		}
+		else if (std::is_eq(value))
+		{
+			formatData.string.append(U"EQ"_sv);
+		}
+		else
+		{
+			formatData.string.append(U"UN"_sv);
+		}
+	}
+
+# endif
 
 	void Formatter(FormatData& formatData, const None_t&)
 	{

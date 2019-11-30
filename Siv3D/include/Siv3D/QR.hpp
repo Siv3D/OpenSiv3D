@@ -30,6 +30,8 @@ namespace s3d
 
 	enum class QRMode
 	{
+		Invalid,
+
 		Numeric,
 
 		/// <remarks>
@@ -66,13 +68,18 @@ namespace s3d
 
 		int32 version = 0;
 
-		QRMode mode = QRMode::Numeric;
+		QRMode mode = QRMode::Invalid;
 
 		QRErrorCorrection ec = QRErrorCorrection::Low;
 
-		[[nodiscard]] explicit operator bool() const
+		[[nodiscard]] bool isValid() const noexcept
 		{
-			return (version != 0);
+			return (mode != QRMode::Invalid);
+		}
+
+		[[nodiscard]] explicit operator bool() const noexcept
+		{
+			return isValid();
 		}
 
 		void clear()
@@ -81,7 +88,7 @@ namespace s3d
 			text.clear();
 			data.release();
 			version = 0;
-			mode = QRMode::Numeric;
+			mode = QRMode::Invalid;
 			ec = QRErrorCorrection::Low;
 		}
 	};

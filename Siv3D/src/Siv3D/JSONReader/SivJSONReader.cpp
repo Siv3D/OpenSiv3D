@@ -472,7 +472,7 @@ namespace s3d
 
 	}
 
-	JSONReader::JSONReader(const FilePath& path)
+	JSONReader::JSONReader(const FilePathView path)
 		: JSONReader()
 	{
 		open(path);
@@ -484,7 +484,7 @@ namespace s3d
 		open(reader);
 	}
 
-	bool JSONReader::open(const FilePath& path)
+	bool JSONReader::open(const FilePathView path)
 	{
 		if (isOpened())
 		{

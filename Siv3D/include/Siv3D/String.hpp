@@ -1358,20 +1358,6 @@ namespace s3d
 		[[nodiscard]] String capitalized() && ;
 
 		/// <summary>
-		/// 文字列の長さを返します。
-		/// </summary>
-		/// <remarks>
-		/// 絵文字などが使用されている場合、必ずしも見かけ上の文字数と一致しない事に注意してください。
-		/// </remarks>
-		/// <returns>
-		/// 文字列の長さ
-		/// </returns>
-		[[nodiscard]] size_t count() const noexcept
-		{
-			return m_string.length();
-		}
-
-		/// <summary>
 		/// 指定した文字の個数を数えます。
 		/// </summary>
 		/// <param name="ch">
@@ -1420,6 +1406,8 @@ namespace s3d
 
 			return result;
 		}
+
+		String& dropBack(size_t n);
 
 		/// <summary>
 		/// 指定された数だけ先頭の文字を削除した新しい文字列を返します。
@@ -2500,6 +2488,12 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] std::wstring toWstr() const;
 
+		String& rsort();
+
+		[[nodiscard]] String rsorted() const&;
+
+		[[nodiscard]] String rsorted()&&;
+
 		/// <summary>
 		/// 文字列を辞書順でソートします。
 		/// </summary>
@@ -2622,6 +2616,12 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		[[nodiscard]] String uniqued() &&;
+
+		String& unique_sorted();
+
+		[[nodiscard]] String uniqued_sorted() const&;
+
+		[[nodiscard]] String uniqued_sorted() &&;
 
 		/// <summary>
 		/// 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。

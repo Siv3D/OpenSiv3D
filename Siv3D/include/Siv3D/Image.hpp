@@ -650,6 +650,17 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 画像データを一次元の配列で返します。
+		/// </summary>
+		/// <returns>
+		/// 画像データの一次元配列への const 参照
+		/// </returns>
+		[[nodiscard]] const Array<Color>& asArray() const noexcept
+		{
+			return m_data;
+		}
+
+		/// <summary>
 		/// 画像の先頭位置のイテレータを取得します。
 		/// </summary>
 		/// <returns>
@@ -959,13 +970,13 @@ namespace s3d
 
 		bool saveWithDialog() const;
 
-		bool savePNG(const FilePath& path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
+		bool savePNG(FilePathView path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
 
-		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
+		bool saveJPEG(FilePathView path, int32 quality = 90) const;
 
-		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
+		bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 
-		bool saveWebP(const FilePath& path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+		bool saveWebP(FilePathView path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
 
 		[[nodiscard]] ByteArray encode(ImageFormat format = ImageFormat::PNG) const;
 

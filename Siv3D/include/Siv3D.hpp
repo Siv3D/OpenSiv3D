@@ -90,6 +90,10 @@
 // Functor
 # include <Siv3D/Functor.hpp>
 
+// エンディアン
+// Endian
+# include <Siv3D/Endian.hpp>
+
 // バイト
 // Byte
 # include <Siv3D/Byte.hpp>
@@ -433,8 +437,9 @@
 // JSON Parser
 # include <Siv3D/JSONReader.hpp>
 
-//// JSON ファイルの書き出し
-//# include <Siv3D/JSONWriter.hpp>
+// JSON データの書き出し
+// JSON Writer
+# include <Siv3D/JSONWriter.hpp>
 
 // TOML ファイルの読み込み
 // TOML Parser
@@ -656,6 +661,10 @@
 // Noise
 # include <Siv3D/NoiseGenerator.hpp>
 
+// Poisson Disk 2D
+// Poisson Disk 2D
+# include <Siv3D/PoissonDisk2D.hpp>
+
 // スプライン
 // Spline
 # include <Siv3D/Spline.hpp>
@@ -767,8 +776,8 @@
 //
 //////////////////////////////////////////////////
 
-//// シリアル通信
-//# include <Siv3D/Serial.hpp>
+// シリアル通信
+# include <Siv3D/Serial.hpp>
 
 //// インターネット
 //# include <Siv3D/Internet.hpp>
@@ -857,6 +866,10 @@
 // プロセス
 // Process
 # include <Siv3D/Process.hpp>
+
+// Toast Notification
+// Toast Notification
+# include <Siv3D/ToastNotification.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1073,6 +1086,10 @@
 // Font
 # include <Siv3D/Font.hpp>
 
+// SDF フォント
+// SDF Font
+# include <Siv3D/SDFFont.hpp>
+
 // 絵文字コレクション
 // Emoji
 # include <Siv3D/Emoji.hpp>
@@ -1087,9 +1104,13 @@
 //
 //////////////////////////////////////////////////
 
-// 単体 GUI
-// Stand-alone GUI
+// SimpleGUI
+// SimpleGUI
 # include <Siv3D/SimpleGUI.hpp>
+
+// SimpleGUI マネージャー
+// SimpleGUI manager
+# include <Siv3D/SimpleGUIManager.hpp>
 
 // テキストボックス
 // Text box
@@ -1150,13 +1171,13 @@
 //
 //////////////////////////////////////////////////
 
-// クォータニオン
-// Quaternion
-//# include <Siv3D/Quaternion.hpp>
-
 // 4x4 行列
 // 4x4 matrix
 # include <Siv3D/Mat4x4.hpp>
+
+// クォータニオン
+// Quaternion
+# include <Siv3D/Quaternion.hpp>
 
 // 3D カメラ
 // 3D camera
@@ -1178,6 +1199,14 @@
 // Axis Aligned Bounding Box (AABB)
 # include <Siv3D/AABB.hpp>
 
+// 有向境界ボックス (OBB)
+// Oriented Bounding Box (OBB)
+# include <Siv3D/OBB.hpp>
+
+// 球
+// Sphere
+# include <Siv3D/Sphere.hpp>
+
 //// メッシュデータ
 //# include <Siv3D/MeshData.hpp>
 //// メッシュ
@@ -1191,12 +1220,6 @@
 //// 平面
 //# include <Siv3D/Plane.hpp>
 
-// 球
-// Sphere
-# include <Siv3D/Sphere.hpp>
-
-//// ボックス
-//# include <Siv3D/Box.hpp>
 //// 円盤
 //# include <Siv3D/Disc.hpp>
 //// 円柱

@@ -21,7 +21,7 @@ namespace s3d
 	//
 	struct Exif
 	{
-		[[nodiscard]] static Optional<Exif> Read(const FilePath& path);
+		[[nodiscard]] static Optional<Exif> Read(FilePathView path);
 
 		[[nodiscard]] static Optional<Exif> Read(const IReader& reader);
 

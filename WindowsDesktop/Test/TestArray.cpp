@@ -130,7 +130,6 @@ TEST_CASE("Array")
 	{
 		Array<int32> v;
 		REQUIRE(v.size() == 0);
-		REQUIRE(v.count() == 0);
 		REQUIRE(v.isEmpty() == true);
 		REQUIRE(static_cast<bool>(v) == false);
 		REQUIRE(v.size_bytes() == 0);
@@ -159,7 +158,6 @@ TEST_CASE("Array")
 	{
 		Array<int32> v = { 10, 20, 30, 40, 50 };
 		REQUIRE(v.size() == 5);
-		REQUIRE(v.count() == 5);
 		REQUIRE(v.isEmpty() == false);
 		REQUIRE(static_cast<bool>(v) == true);
 		REQUIRE(v.size_bytes() == (5 * sizeof(int32)));

@@ -582,6 +582,13 @@ namespace s3d
 		}
 	}
 
+	String& String::dropBack(const size_t n)
+	{
+		erase(end() - std::min(n, size()), end());
+
+		return *this;
+	}
+
 	String String::dropped(const size_t n) const
 	{
 		if (n >= m_string.size())
@@ -1237,6 +1244,25 @@ namespace s3d
 		return Unicode::ToWString(*this);
 	}
 
+	String& String::rsort()
+	{
+		std::sort(begin(), end(), std::greater<>());
+
+		return *this;
+	}
+
+	String String::rsorted() const&
+	{
+		return String(*this).rsort();
+	}
+
+	String String::rsorted() &&
+	{
+		rsort();
+
+		return std::move(*this);
+	}
+
 	String& String::sort()
 	{
 		std::sort(m_string.begin(), m_string.end());
@@ -1279,6 +1305,27 @@ namespace s3d
 	{
 		sort();
 
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		m_string.shrink_to_fit();
+
+		return std::move(*this);
+	}
+
+	String& String::unique_sorted()
+	{
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		return *this;
+	}
+
+	String String::uniqued_sorted() const&
+	{
+		return String(*this).unique_sorted();
+	}
+
+	String String::uniqued_sorted() &&
+	{
 		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
 
 		m_string.shrink_to_fit();

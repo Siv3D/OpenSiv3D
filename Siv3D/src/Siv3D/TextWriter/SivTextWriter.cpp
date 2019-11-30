@@ -52,24 +52,24 @@ namespace s3d
 
 	}
 
-	TextWriter::TextWriter(const FilePath& path, const TextEncoding encoding)
+	TextWriter::TextWriter(const FilePathView path, const TextEncoding encoding)
 		: TextWriter()
 	{
 		open(path, OpenMode::Trunc, encoding);
 	}
 
-	TextWriter::TextWriter(const FilePath& path, const OpenMode openMode, const TextEncoding encoding)
+	TextWriter::TextWriter(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
 		: TextWriter()
 	{
 		open(path, openMode, encoding);
 	}
 
-	bool TextWriter::open(const FilePath& path, const TextEncoding encoding)
+	bool TextWriter::open(const FilePathView path, const TextEncoding encoding)
 	{
 		return open(path, OpenMode::Trunc, encoding);
 	}
 
-	bool TextWriter::open(const FilePath& path, const OpenMode openMode, const TextEncoding encoding)
+	bool TextWriter::open(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
 	{
 		return pImpl->open(path, openMode, encoding);
 	}

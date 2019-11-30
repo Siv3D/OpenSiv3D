@@ -112,7 +112,7 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, T>>* = nullptr>
 		constexpr bool include_if(Fty f) const;
 
-		String join(StringView = U", ", StringView = U"{", StringView = U"}") const;
+		String join(StringView sep = U", ", StringView begin = U"{", StringView end = U"}") const;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, T>>* = nullptr>
 		constexpr auto map(Fty f) const;

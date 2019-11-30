@@ -296,7 +296,7 @@ namespace s3d
 		{
 			if (isZero() || v.isZero())
 			{
-				return static_cast<value_type>(Math::NaN);
+				return static_cast<value_type>(Math::Constants::NaN);
 			}
 
 			return std::atan2(cross(v), dot(v));
@@ -428,7 +428,7 @@ namespace s3d
 		}
 	};
 
-	template <class Type, class U>
+	template <class Type, class U, std::enable_if_t<std::is_scalar_v<U>>* = nullptr>
 	[[nodiscard]] inline constexpr Vector2D<Type> operator *(U s, const Vector2D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);

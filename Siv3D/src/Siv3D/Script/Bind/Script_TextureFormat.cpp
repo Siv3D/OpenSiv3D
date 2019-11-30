@@ -29,7 +29,7 @@ namespace s3d
 		new(self) BindType(format);
 	}
 
-	static void ConstructT(const TextureFormatValue& value, BindType* self)
+	static void ConstructT(TextureFormatValue value, BindType* self)
 	{
 		new(self) BindType(value);
 	}

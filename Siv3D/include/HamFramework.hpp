@@ -33,6 +33,7 @@
 	//# include <HamFramework/OptimalScreen.hpp>
 	# include <HamFramework/PlayingCard.hpp>
 	# include <HamFramework/Rx.hpp>
+	# include <HamFramework/SaturatedLinework.hpp>
 	# include <HamFramework/SevenSegment.hpp>
 
 # endif

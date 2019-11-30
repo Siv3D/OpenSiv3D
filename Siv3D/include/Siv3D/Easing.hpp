@@ -72,7 +72,7 @@ namespace s3d
 
 		[[nodiscard]] inline double Sine(const double t) noexcept
 		{
-			return 1.0 - std::cos(t * Math::HalfPi);
+			return 1.0 - std::cos(t * Math::Constants::HalfPi);
 		}
 
 		[[nodiscard]] inline constexpr double Quad(const double t) noexcept

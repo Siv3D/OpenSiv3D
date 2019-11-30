@@ -39,14 +39,14 @@ namespace s3d
 		/// </summary>
 		HTMLWriter();
 
-		HTMLWriter(const FilePath& path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
+		HTMLWriter(FilePathView path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
 
 		/// <summary>
 		/// デストラクタ
 		/// </summary>
 		~HTMLWriter();
 
-		bool open(const FilePath& path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
+		bool open(FilePathView path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
 
 		void close();
 
@@ -70,7 +70,7 @@ namespace s3d
 
 		void writeImage(const Image& image, const Optional<Size>& size = unspecified);
 
-		void writeImage(const FilePath& url, const Optional<Size>& size = unspecified);
+		void writeImage(FilePathView url, const Optional<Size>& size = unspecified);
 
 		[[nodiscard]] const FilePath& path() const;
 	};

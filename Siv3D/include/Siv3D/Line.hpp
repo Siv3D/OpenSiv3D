@@ -351,7 +351,7 @@ namespace fmt_s3d
 		auto format(const s3d::Line& value, Context& ctx)
 		{
 			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+				U"({:", tag, U"}, {:", tag, U"})"
 			);
 
 			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin, value.end);

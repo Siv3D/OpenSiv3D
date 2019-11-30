@@ -39,7 +39,7 @@ namespace s3d
 			const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, std::max(0.0, rect.r) }) + offset;
 			const float scale = Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
 			const int32 quality = detail::CaluculateFanQuality(rr * scale);
-			const double radDelta = Math::HalfPi / (quality - 1);
+			const double radDelta = Math::Constants::HalfPi / (quality - 1);
 
 			Array<Vec2> fanPositions(quality);
 
@@ -212,7 +212,7 @@ namespace s3d
 
 		Array<Vec2> fanDirections(quality);
 
-		const double radDelta = Math::HalfPi / (quality - 1);
+		const double radDelta = Math::Constants::HalfPi / (quality - 1);
 
 		for (uint32 i = 0; i < quality; ++i)
 		{
@@ -383,15 +383,15 @@ namespace s3d
 	void Formatter(FormatData& formatData, const RoundRect& value)
 	{
 		formatData.string.push_back(U'(');
-		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.w, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.h, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.h, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.r, formatData.decimalPlace.value));
+		formatData.string.append(ToString(value.r, formatData.decimalPlaces.value));
 		formatData.string.push_back(U')');
 	}
 }

@@ -42,7 +42,7 @@ namespace s3d
 
 		~AnimatedGIFWriterDetail();
 
-		bool open(const FilePath& path, const Size& size, bool dither, bool hasAlpha);
+		bool open(FilePathView path, const Size& size, bool dither, bool hasAlpha);
 
 		bool close();
 

@@ -42,7 +42,7 @@ namespace s3d
 
 		~EmojiDictionaryDetail();
 
-		bool load(const FilePath& path);
+		bool load(FilePathView path);
 
 		size_t check(String::const_iterator it, const String::const_iterator& itEnd);
 

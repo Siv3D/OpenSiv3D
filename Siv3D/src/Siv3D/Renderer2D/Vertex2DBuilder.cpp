@@ -36,7 +36,7 @@ namespace s3d
 
 			for (int32 quality = 6; quality <= MaxSinCosTableQuality; ++quality)
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = Math::Constants::TwoPiF / quality;
 
 				for (IndexType i = 0; i < quality; ++i)
 				{
@@ -83,7 +83,7 @@ namespace s3d
 
 		inline IndexType CalculateCirclePieQuality(const float size, const float angle)
 		{
-			const float rate = std::min(Math::Abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+			const float rate = std::min(Math::Abs(angle) / (Math::Constants::TwoPiF) * 2.0f, 1.0f);
 
 			IndexType quality;
 
@@ -118,6 +118,9 @@ namespace s3d
 
 	namespace Vertex2DBuilder
 	{
+		using Math::Constants::TwoPiF;
+		using Math::Constants::HalfPiF;
+
 		uint16 BuildSquareCappedLine(BufferCreatorFunc bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
 		{
 			if (thickness <= 0.0f)
@@ -417,7 +420,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& color, const float scale)
+		uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			const float absR = Math::Abs(r);
 			const IndexType quality = detail::CalculateCircleQuality(absR * scale);
@@ -448,7 +451,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -458,9 +461,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			{
@@ -508,7 +515,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -545,7 +552,7 @@ namespace s3d
 				return 0;
 			}
 
-			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
 			const IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
 			const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
 			auto[pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
@@ -563,9 +570,9 @@ namespace s3d
 
 			// 周
 			{
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = angle / Math::TwoPiF;
+				const float radDelta = TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + HalfPiF;
+				const float angleScale = angle / TwoPiF;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -597,7 +604,7 @@ namespace s3d
 				return 0;
 			}
 
-			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
 			const float rOuter = rInner + thickness;
 			const IndexType quality = detail::CalculateCirclePieQuality(rOuter * scale, angle);
 			const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
@@ -611,9 +618,9 @@ namespace s3d
 			{
 				const float centerX = center.x;
 				const float centerY = center.y;
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = angle / Math::TwoPiF;
+				const float radDelta = TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + HalfPiF;
+				const float angleScale = angle / TwoPiF;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -642,7 +649,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, const float a, const float b, const Float4& color, const float scale)
+		uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			const float majorAxis = std::max(Math::Abs(a), Math::Abs(b));
 			const IndexType quality = static_cast<IndexType>(std::clamp(majorAxis * scale * 0.225f + 18.0f, 6.0f, 255.0f));
@@ -673,7 +680,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = &pVertex[1];
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -683,9 +690,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			{
@@ -735,7 +746,7 @@ namespace s3d
 			}
 			else
 			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = TwoPiF / quality;
 				Vertex2D* pDst = pVertex;
 
 				for (IndexType i = 0; i < quality; ++i)
@@ -818,7 +829,7 @@ namespace s3d
 			
 			Array<Float2> fanPositions(quality);
 			{
-				const float radDelta = Math::HalfPiF / (quality - 1);
+				const float radDelta = HalfPiF / (quality - 1);
 
 				for (int32 i = 0; i < quality; ++i)
 				{
@@ -1177,6 +1188,45 @@ namespace s3d
 			return indexSize;
 		}
 
+		uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Vertex2D* vertices, const size_t vertexCount, const IndexType* indices, size_t indexCount)
+		{
+			if (!vertices || (vertexCount == 0) || !indices || (indexCount == 0))
+			{
+				return 0;
+			}
+
+			if (indexCount % 3 != 0)
+			{
+				indexCount -= (indexCount % 3);
+
+				if (indexCount == 0)
+				{
+					return 0;
+				}
+			}
+
+			const IndexType vertexSize = static_cast<IndexType>(vertexCount);
+			const IndexType indexSize = static_cast<IndexType>(indexCount);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (!pVertex)
+			{
+				return 0;
+			}
+
+			std::memcpy(pVertex, vertices, vertexSize * sizeof(Vertex2D));
+
+			const IndexType* const pDstEnd = pIndex + indexSize;
+			const IndexType* pSrc = indices;
+
+			while (pIndex != pDstEnd)
+			{
+				*pIndex++ = indexOffset + (*pSrc++);
+			}
+
+			return indexSize;
+		}
+
 		uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Sprite& sprite, const IndexType startIndex, IndexType indexCount)
 		{
 			if (sprite.vertices.isEmpty() || sprite.indices.isEmpty() || sprite.indices.size() <= startIndex)
@@ -1192,11 +1242,11 @@ namespace s3d
 			if (indexCount % 3 != 0)
 			{
 				indexCount -= (indexCount % 3);
-			}
 
-			if (indexCount == 0)
-			{
-				return 0;
+				if (indexCount == 0)
+				{
+					return 0;
+				}
 			}
 
 			const IndexType vertexSize = static_cast<IndexType>(sprite.vertices.size());
@@ -1857,7 +1907,7 @@ namespace s3d
 			pVertex[0].set(centerX, centerY, centerU, centerV);
 
 			// 周
-			const float radDelta = Math::TwoPiF / quality;
+			const float radDelta = TwoPiF / quality;
 
 			for (IndexType i = 1; i <= quality; ++i)
 			{

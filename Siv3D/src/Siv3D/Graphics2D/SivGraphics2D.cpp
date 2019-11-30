@@ -122,6 +122,11 @@ namespace s3d
 			}
 		}
 
+		void SetSDFParameters(const double pixelRange, const double offset)
+		{
+			SetSDFParameters(Float4(pixelRange, offset, 0.0f, 0.0f));
+		}
+
 		void SetSDFParameters(const Float4& parameters)
 		{
 			Siv3DEngine::Get<ISiv3DRenderer2D>()->setSDFParameters(parameters);

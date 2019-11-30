@@ -768,6 +768,7 @@ static void tsf_voice_envelope_nextsegment(struct tsf_voice_envelope* e, short a
 				e->slope = 0.0;
 				return;
 			}
+			/* fall through */
 		case TSF_SEGMENT_DELAY:
 			e->samplesUntilNextSegment = (int)(e->parameters.attack * outSampleRate);
 			if (e->samplesUntilNextSegment > 0)
@@ -783,6 +784,7 @@ static void tsf_voice_envelope_nextsegment(struct tsf_voice_envelope* e, short a
 				e->slope = 1.0f / e->samplesUntilNextSegment;
 				return;
 			}
+			/* fall through */
 		case TSF_SEGMENT_ATTACK:
 			e->samplesUntilNextSegment = (int)(e->parameters.hold * outSampleRate);
 			if (e->samplesUntilNextSegment > 0)
@@ -793,6 +795,7 @@ static void tsf_voice_envelope_nextsegment(struct tsf_voice_envelope* e, short a
 				e->slope = 0.0f;
 				return;
 			}
+			/* fall through */
 		case TSF_SEGMENT_HOLD:
 			e->samplesUntilNextSegment = (int)(e->parameters.decay * outSampleRate);
 			if (e->samplesUntilNextSegment > 0)
@@ -823,6 +826,7 @@ static void tsf_voice_envelope_nextsegment(struct tsf_voice_envelope* e, short a
 				}
 				return;
 			}
+			/* fall through */
 		case TSF_SEGMENT_DECAY:
 			e->segment = TSF_SEGMENT_SUSTAIN;
 			e->level = e->parameters.sustain;
@@ -1093,7 +1097,7 @@ TSFDEF tsf* tsf_load(struct tsf_stream* stream)
 	struct tsf_riffchunk chunkList;
 	struct tsf_hydra hydra;
 	float* fontSamples = TSF_NULL;
-	unsigned int fontSampleCount;
+	unsigned int fontSampleCount = 0;
 
 	if (!tsf_riffchunk_read(TSF_NULL, &chunkHead, stream) || !TSF_FourCCEquals(chunkHead.id, "sfbk"))
 	{
@@ -1226,7 +1230,8 @@ TSFDEF void tsf_set_output(tsf* f, enum TSFOutputMode outputmode, int samplerate
 
 TSFDEF void tsf_note_on(tsf* f, int preset_index, int key, float vel)
 {
-	int midiVelocity = (int)(vel * 127), voicePlayIndex;
+	short midiVelocity = (short)(vel * 127);
+	int voicePlayIndex;
 	struct tsf_region *region, *regionEnd;
 
 	if (preset_index < 0 || preset_index >= f->presetNum) return;
@@ -1459,13 +1464,17 @@ TSFDEF int tsf_channel_set_presetnumber(tsf* f, int channel, int preset_number, 
 	}
 	else preset_index = tsf_get_presetindex(f, (c->bank & 0x7FFF), preset_number);
 	if (preset_index == -1) preset_index = tsf_get_presetindex(f, 0, preset_number);
-	if (preset_index != -1) { c->presetIndex = preset_index; return 1; }
+	if (preset_index != -1)
+	{
+		c->presetIndex = (unsigned short)preset_index;
+		return 1;
+	}
 	return 0;
 }
 
 TSFDEF void tsf_channel_set_bank(tsf* f, int channel, int bank)
 {
-	tsf_channel_init(f, channel)->bank = bank;
+	tsf_channel_init(f, channel)->bank = (unsigned short)bank;
 }
 
 TSFDEF int tsf_channel_set_bank_preset(tsf* f, int channel, int bank, int preset_number)
@@ -1473,8 +1482,8 @@ TSFDEF int tsf_channel_set_bank_preset(tsf* f, int channel, int bank, int preset
 	struct tsf_channel *c = tsf_channel_init(f, channel);
 	int preset_index = tsf_get_presetindex(f, bank, preset_number);
 	if (preset_index == -1) return 0;
-	c->presetIndex = preset_index;
-	c->bank = bank;
+	c->presetIndex = (unsigned short)preset_index;
+	c->bank = (unsigned short)bank;
 	return 1;
 }
 
@@ -1508,7 +1517,7 @@ TSFDEF void tsf_channel_set_pitchwheel(tsf* f, int channel, int pitch_wheel)
 {
 	struct tsf_channel *c = tsf_channel_init(f, channel);
 	if (c->pitchWheel == pitch_wheel) return;
-	c->pitchWheel = pitch_wheel;
+	c->pitchWheel = (unsigned short)pitch_wheel;
 	tsf_channel_applypitch(f, channel, c);
 }
 
@@ -1576,18 +1585,18 @@ TSFDEF void tsf_channel_midi_control(tsf* f, int channel, int controller, int co
 	struct tsf_channel* c = tsf_channel_init(f, channel);
 	switch (controller)
 	{
-		case   7 /*VOLUME_MSB*/      : c->midiVolume     = (c->midiVolume     & 0x7F  ) | (control_value << 7); goto TCMC_SET_VOLUME;
-		case  39 /*VOLUME_LSB*/      : c->midiVolume     = (c->midiVolume     & 0x3F80) |  control_value;       goto TCMC_SET_VOLUME;
-		case  11 /*EXPRESSION_MSB*/  : c->midiExpression = (c->midiExpression & 0x7F  ) | (control_value << 7); goto TCMC_SET_VOLUME;
-		case  43 /*EXPRESSION_LSB*/  : c->midiExpression = (c->midiExpression & 0x3F80) |  control_value;       goto TCMC_SET_VOLUME;
-		case  10 /*PAN_MSB*/         : c->midiPan        = (c->midiPan        & 0x7F  ) | (control_value << 7); goto TCMC_SET_PAN;
-		case  42 /*PAN_LSB*/         : c->midiPan        = (c->midiPan        & 0x3F80) |  control_value;       goto TCMC_SET_PAN;
-		case   6 /*DATA_ENTRY_MSB*/  : c->midiData       = (c->midiData       & 0x7F)   | (control_value << 7); goto TCMC_SET_DATA;
-		case  38 /*DATA_ENTRY_LSB*/  : c->midiData       = (c->midiData       & 0x3F80) |  control_value;       goto TCMC_SET_DATA;
-		case   0 /*BANK_SELECT_MSB*/ : c->bank = 0x8000 | control_value; return; //bank select MSB alone acts like LSB
-		case  32 /*BANK_SELECT_LSB*/ : c->bank = (c->bank & 0x8000 ? ((c->bank & 0x7F) << 7) : 0) | control_value; return;
-		case 101 /*RPN_MSB*/         : c->midiRPN = ((c->midiRPN == 0xFFFF ? 0 : c->midiRPN) & 0x7F  ) | (control_value << 7); return;
-		case 100 /*RPN_LSB*/         : c->midiRPN = ((c->midiRPN == 0xFFFF ? 0 : c->midiRPN) & 0x3F80) |  control_value;       return;
+		case   7 /*VOLUME_MSB*/      : c->midiVolume     = (unsigned short)((c->midiVolume     & 0x7F  ) | (control_value << 7)); goto TCMC_SET_VOLUME;
+		case  39 /*VOLUME_LSB*/      : c->midiVolume     = (unsigned short)((c->midiVolume     & 0x3F80) |  control_value);       goto TCMC_SET_VOLUME;
+		case  11 /*EXPRESSION_MSB*/  : c->midiExpression = (unsigned short)((c->midiExpression & 0x7F  ) | (control_value << 7)); goto TCMC_SET_VOLUME;
+		case  43 /*EXPRESSION_LSB*/  : c->midiExpression = (unsigned short)((c->midiExpression & 0x3F80) |  control_value);       goto TCMC_SET_VOLUME;
+		case  10 /*PAN_MSB*/         : c->midiPan        = (unsigned short)((c->midiPan        & 0x7F  ) | (control_value << 7)); goto TCMC_SET_PAN;
+		case  42 /*PAN_LSB*/         : c->midiPan        = (unsigned short)((c->midiPan        & 0x3F80) |  control_value);       goto TCMC_SET_PAN;
+		case   6 /*DATA_ENTRY_MSB*/  : c->midiData       = (unsigned short)((c->midiData       & 0x7F)   | (control_value << 7)); goto TCMC_SET_DATA;
+		case  38 /*DATA_ENTRY_LSB*/  : c->midiData       = (unsigned short)((c->midiData       & 0x3F80) |  control_value);       goto TCMC_SET_DATA;
+		case   0 /*BANK_SELECT_MSB*/ : c->bank = (unsigned short)(0x8000 | control_value); return; //bank select MSB alone acts like LSB
+		case  32 /*BANK_SELECT_LSB*/ : c->bank = (unsigned short)((c->bank & 0x8000 ? ((c->bank & 0x7F) << 7) : 0) | control_value); return;
+		case 101 /*RPN_MSB*/         : c->midiRPN = (unsigned short)(((c->midiRPN == 0xFFFF ? 0 : c->midiRPN) & 0x7F  ) | (control_value << 7)); return;
+		case 100 /*RPN_LSB*/         : c->midiRPN = (unsigned short)(((c->midiRPN == 0xFFFF ? 0 : c->midiRPN) & 0x3F80) |  control_value); return;
 		case  98 /*NRPN_LSB*/        : c->midiRPN = 0xFFFF; return;
 		case  99 /*NRPN_MSB*/        : c->midiRPN = 0xFFFF; return;
 		case 120 /*ALL_SOUND_OFF*/   : tsf_channel_sounds_off_all(f, channel); return;

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,11 +16,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		inline constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
-	}
-
 	struct Triangle
 	{
 		using position_type = Vec2;
@@ -28,12 +23,12 @@ namespace s3d
 		using value_type = position_type::value_type;
 
 		position_type p0, p1, p2;
-		
+
 		[[nodiscard]] constexpr position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
-		
+
 		[[nodiscard]] constexpr const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
@@ -62,8 +57,8 @@ namespace s3d
 		Triangle() = default;
 
 		explicit constexpr Triangle(value_type sides) noexcept
-			: p0(0.0, -1.0 / detail::Sqrt3 * sides)
-			, p1(sides * 0.5, sides / (2.0 * detail::Sqrt3))
+			: p0(0.0, -Math::Constants::InvSqrt3 * sides)
+			, p1(sides * 0.5, sides / (2.0 * Math::Constants::Sqrt3))
 			, p2(-p1.x, p1.y) {}
 
 		Triangle(value_type sides, value_type angle) noexcept;
@@ -76,7 +71,7 @@ namespace s3d
 
 		Triangle(value_type x, value_type y, value_type sides, value_type angle) noexcept
 			: Triangle(Triangle(sides, angle).moveBy(x, y)) {}
-			
+
 		Triangle(const position_type& pos, value_type sides, value_type angle) noexcept
 			: Triangle(pos.x, pos.y, sides, angle) {}
 

@@ -43,7 +43,7 @@ namespace s3d
 
 		[[nodiscard]] uint16 BuildRectFrame(BufferCreatorFunc bufferCreator, const FloatRect& rect, float thickness, const Float4& color);
 
-		[[nodiscard]] uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& color, float scale);
+		[[nodiscard]] uint16 BuildCircle(BufferCreatorFunc bufferCreator, const Float2& center, float r, const Float4& innerColor, const Float4& outerColor, float scale);
 
 		[[nodiscard]] uint16 BuildCircleFrame(BufferCreatorFunc bufferCreator, const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor, float scale);
 
@@ -51,7 +51,7 @@ namespace s3d
 	
 		[[nodiscard]] uint16 BuildCircleArc(BufferCreatorFunc bufferCreator, const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color, float scale);
 
-		[[nodiscard]] uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, float a, float b, const Float4& color, float scale);
+		[[nodiscard]] uint16 BuildEllipse(BufferCreatorFunc bufferCreator, const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor, float scale);
 
 		[[nodiscard]] uint16 BuildEllipseFrame(BufferCreatorFunc bufferCreator, const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor, float scale);
 
@@ -66,6 +66,8 @@ namespace s3d
 		[[nodiscard]] uint16 BuildShape2DTransformed(BufferCreatorFunc bufferCreator, const Array<Float2>& vertices, const Array<uint16>& indices, float s, float c, const Float2& offset, const Float4& color);
 
 		[[nodiscard]] uint16 BuildShape2DFrame(BufferCreatorFunc bufferCreator, const Float2* pts, uint16 size, float thickness, const Float4& color, float scale);
+
+		[[nodiscard]] uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Vertex2D* vertices, size_t vertexCount, const IndexType* indices, size_t indexCount);
 
 		[[nodiscard]] uint16 BuildSprite(BufferCreatorFunc bufferCreator, const Sprite& sprite, IndexType startIndex, IndexType indexCount);
 

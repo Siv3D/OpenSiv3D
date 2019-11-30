@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -43,7 +43,7 @@ namespace s3d
 	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const bool checkValidity)
 		: Polygon(outer.data(), outer.size(), holes, checkValidity)
 	{
-	
+
 	}
 
 	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
@@ -67,7 +67,7 @@ namespace s3d
 	Polygon::Polygon(std::initializer_list<Vec2> outer)
 		: Polygon(outer.begin(), outer.size())
 	{
-	
+
 	}
 
 	Polygon::~Polygon()
@@ -118,12 +118,12 @@ namespace s3d
 	{
 		return pImpl->inners();
 	}
-	
+
 	const Array<Float2>& Polygon::vertices() const
 	{
 		return pImpl->vertices();
 	}
-	
+
 	const Array<uint16>& Polygon::indices() const
 	{
 		return pImpl->indices();
@@ -264,6 +264,22 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::scaled(const Vec2& s) const
+	{
+		Polygon result(*this);
+
+		result.scale(s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scale(const Vec2& s)
+	{
+		pImpl->scale(s);
+
+		return *this;
+	}
+
 	double Polygon::area() const
 	{
 		return pImpl->area();
@@ -278,7 +294,7 @@ namespace s3d
 	{
 		return pImpl->centroid();
 	}
-	
+
 	Polygon Polygon::calculateConvexHull() const
 	{
 		return pImpl->calculateConvexHull();

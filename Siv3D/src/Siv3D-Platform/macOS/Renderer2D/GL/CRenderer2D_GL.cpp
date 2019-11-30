@@ -40,6 +40,8 @@
 
 namespace s3d
 {
+	using Math::Constants::Pi_v;
+
 	struct StandardVSIndex
 	{
 		enum Type
@@ -652,8 +654,8 @@ namespace s3d
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
-				addCirclePie(begin, thicknessHalf, startAngle, Math::PiF, colors[0]);
-				addCirclePie(end, thicknessHalf, startAngle + Math::PiF, Math::PiF, colors[1]);
+				addCirclePie(begin, thicknessHalf, startAngle, Pi_v<float>, colors[0]);
+				addCirclePie(end, thicknessHalf, startAngle + Pi_v<float>, Pi_v<float>, colors[1]);
 			}
 		}
 		else if (style.isNoCap())
@@ -751,9 +753,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_GL::addCircle(const Float2& center, const float r, const Float4& color)
+	void CRenderer2D_GL::addCircle(const Float2& center, const float r, const Float4& innerColor, const Float4& outerColor)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
@@ -799,9 +801,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_GL::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
+	void CRenderer2D_GL::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
@@ -885,8 +887,8 @@ namespace s3d
 				m_commands.pushDraw(indexCount);
 				
 				const float thicknessHalf = thickness * 0.5f;
-				addCirclePie(*pts, thicknessHalf, startAngle, Math::PiF, color);
-				addCirclePie(*(pts + size - 1), thicknessHalf, endAngle, Math::PiF, color);
+				addCirclePie(*pts, thicknessHalf, startAngle, Pi_v<float>, color);
+				addCirclePie(*(pts + size - 1), thicknessHalf, endAngle, Pi_v<float>, color);
 			}
 		}
 		else if (style.isNoCap())
@@ -959,6 +961,18 @@ namespace s3d
 				m_commands.pushStandardPS(m_standardPS->shapeID);
 			}
 			m_commands.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GL::addSprite(const Vertex2D* vertices, const size_t vertexCount, const uint16* indices, const size_t indexCount)
+	{
+		if (const uint16 count = Vertex2DBuilder::BuildSprite(m_bufferCreator, vertices, vertexCount, indices, indexCount))
+		{
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
+			m_commands.pushDraw(count);
 		}
 	}
 

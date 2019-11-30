@@ -225,7 +225,7 @@ namespace s3d
 			}
 			else
 			{
-				result.label = Math::NaN;
+				result.label = Math::Constants::NaN;
 
 				return result;
 			}

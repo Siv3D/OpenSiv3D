@@ -75,7 +75,7 @@ namespace s3d
 		
 		auto nullAudio = std::make_unique<Audio_AL>(
 			Wave(SecondsF(0.5), Arg::generator = [](double t) {
-				return 0.5 * std::sin(t * Math::TwoPi) * std::sin(t * Math::TwoPi * 220.0 * (t * 4.0 + 1.0)); }));
+				return 0.5 * std::sin(t * Math::Constants::TwoPi) * std::sin(t * Math::Constants::TwoPi * 220.0 * (t * 4.0 + 1.0)); }));
 		
 		if (!nullAudio->isInitialized())
 		{

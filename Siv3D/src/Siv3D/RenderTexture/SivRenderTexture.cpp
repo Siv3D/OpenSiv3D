@@ -76,27 +76,27 @@ namespace s3d
 
 	}
 
-	void RenderTexture::clear(const ColorF& color)
+	void RenderTexture::clear(const ColorF& color) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->clearRT(m_handle->id(), color);
 	}
 
-	void RenderTexture::readAsImage(Image& image)
+	void RenderTexture::readAsImage(Image& image) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
 
-	void RenderTexture::read(Grid<float>& image)
+	void RenderTexture::read(Grid<float>& image) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
 
-	void RenderTexture::read(Grid<Float2>& image)
+	void RenderTexture::read(Grid<Float2>& image) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}
 
-	void RenderTexture::read(Grid<Float4>& image)
+	void RenderTexture::read(Grid<Float4>& image) const
 	{
 		Siv3DEngine::Get<ISiv3DTexture>()->readRT(m_handle->id(), image);
 	}

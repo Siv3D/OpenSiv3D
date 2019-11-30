@@ -109,10 +109,25 @@ namespace s3d
 
 	const Circle& Circle::draw(const ColorF& color) const
 	{
+		const Float4 colors = color.toFloat4();
+
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
 			center,
 			static_cast<float>(r),
-			color.toFloat4()
+			colors,
+			colors
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::draw(const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
+			center,
+			static_cast<float>(r),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
 		);
 
 		return *this;
@@ -211,7 +226,7 @@ namespace s3d
 
 		Sprite sprite(vertexSize, indexSize);
 
-		const float radDelta = Math::TwoPiF / quality;
+		const float radDelta = Math::Constants::TwoPiF / quality;
 
 		for (uint32 i = 0; i < quality; ++i)
 		{
@@ -284,7 +299,7 @@ namespace s3d
 		double xMin = center.x, xMax = center.x;
 		const double yMin = center.y - r;
 		double yMax = center.y;
-		const double d = (Math::TwoPi / n);
+		const double d = (Math::Constants::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{

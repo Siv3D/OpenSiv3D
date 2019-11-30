@@ -31,18 +31,18 @@ namespace s3d
 		/// </summary>
 		AnimatedGIFWriter();
 
-		AnimatedGIFWriter(const FilePath& path, int32 width, int32 height, bool dither = false, bool hasAlpha = false);
+		AnimatedGIFWriter(FilePathView path, int32 width, int32 height, bool dither = false, bool hasAlpha = false);
 
-		AnimatedGIFWriter(const FilePath& path, const Size& size, bool dither = false, bool hasAlpha = false);
+		AnimatedGIFWriter(FilePathView path, const Size& size, bool dither = false, bool hasAlpha = false);
 
 		/// <summary>
 		/// アニメーション GIF の作成を終了し、保存します。
 		/// </summary>
 		~AnimatedGIFWriter();
 
-		bool open(const FilePath& path, int32 width, int32 height, bool dither = false, bool hasAlpha = false);
+		bool open(FilePathView path, int32 width, int32 height, bool dither = false, bool hasAlpha = false);
 
-		bool open(const FilePath& path, const Size& size, bool dither = false, bool hasAlpha = false);
+		bool open(FilePathView path, const Size& size, bool dither = false, bool hasAlpha = false);
 
 		/// <summary>
 		/// アニメーション GIF の作成を終了し、保存します。

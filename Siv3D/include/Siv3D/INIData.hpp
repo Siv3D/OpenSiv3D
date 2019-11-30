@@ -95,7 +95,7 @@ namespace s3d
 
 		INIData();
 
-		explicit INIData(const FilePath& path);
+		explicit INIData(FilePathView path);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		explicit INIData(Reader&& reader)
@@ -105,7 +105,7 @@ namespace s3d
 
 		explicit INIData(const std::shared_ptr<IReader>& reader);
 
-		bool load(const FilePath& path);
+		bool load(FilePathView path);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		bool load(Reader&& reader)
@@ -211,6 +211,6 @@ namespace s3d
 			write(Section(), name, value);
 		}
 
-		bool save(const FilePath& path) const;
+		bool save(FilePathView path) const;
 	};
 }

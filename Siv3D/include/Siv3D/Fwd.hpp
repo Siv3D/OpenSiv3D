@@ -404,6 +404,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	JSONWriter.hpp
+	//
+	class JSONWriter;
+
+	//////////////////////////////////////////////////////
+	//
 	//	TOMLReader.hpp
 	//
 	enum class TOMLValueType;
@@ -661,6 +667,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	PoissonDisk2D.hpp
+	//
+	class PoissonDisk2D;
+
+	//////////////////////////////////////////////////////
+	//
 	//	SIMDMath.hpp
 	//
 	namespace SIMD
@@ -791,6 +803,13 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Serial.hpp
+	//
+	class Serial;
+	struct SerialPortInfo;
+
+	//////////////////////////////////////////////////////
+	//
 	//	IPv4.hpp
 	//
 	union IPv4;
@@ -877,6 +896,13 @@ namespace s3d
 	//
 	enum class Pipe;
 	class ChildProcess;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ToastNotification.hpp
+	//
+	struct ToastNotificationProperty;
+	enum class ToastNotificationState;
 
 	//////////////////////////////////////////////////////
 	//
@@ -1140,6 +1166,14 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	SDFFont.hpp
+	//
+	struct GlyphF;
+	class SDFFont;
+	struct SDFDrawableText;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Emoji.hpp
 	//
 	struct Emoji;
@@ -1155,6 +1189,28 @@ namespace s3d
 	//	SimpleGUI.hpp
 	//
 	struct TextEditState;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SimpleGUIManager.hpp
+	//
+	namespace SimpleGUIWidget
+	{
+		struct Headline;
+		struct Button;
+		struct Slider;
+		struct VerticalSlider;
+		struct CheckBox;
+		struct RadioButtons;
+		struct TextBox;
+		struct ColorPicker;
+	}
+	namespace SimpleGUI
+	{
+		enum class WidgetType;
+		struct Widget;
+	}
+	class SimpleGUIManager;
 
 	//////////////////////////////////////////////////////
 	//
@@ -1208,6 +1264,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Quaternion.hpp
+	//
+	struct Quaternion;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Camera3D.hpp
 	//
 	namespace experimental
@@ -1225,32 +1287,27 @@ namespace s3d
 	//
 	//	Line3D.hpp
 	//
-	namespace experimental
-	{
-		struct Line3D;
-
-		struct SIMD_Line3D;
-	}
+	struct Line3D;
+	struct SIMD_Line3D;
 	
 	//////////////////////////////////////////////////////
 	//
 	//	Triangle3D.hpp
 	//
-	namespace experimental
-	{
-		struct Triangle3D;
-
-		struct SIMD_Triangle3D;
-	}
+	struct Triangle3D;
+	struct SIMD_Triangle3D;
 
 	//////////////////////////////////////////////////////
 	//
 	//	AABB.hpp
 	//
-	namespace experimental
-	{
-		struct AABB;
-	}
+	struct AABB;
+
+	//////////////////////////////////////////////////////
+	//
+	//	OBB.hpp
+	//
+	struct OBB;
 
 	//////////////////////////////////////////////////////
 	//

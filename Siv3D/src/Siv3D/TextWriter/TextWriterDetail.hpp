@@ -29,7 +29,7 @@ namespace s3d
 
 		~TextWriterDetail();
 
-		bool open(const FilePath& path, OpenMode openMode, TextEncoding encoding);
+		bool open(const FilePathView path, OpenMode openMode, TextEncoding encoding);
 
 		void close();
 

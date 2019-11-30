@@ -164,8 +164,6 @@ namespace s3d
 
 		void swap(Array& other);
 
-		size_t count() const noexcept;
-
 		bool isEmpty() const noexcept;
 
 		/// <summary>
@@ -378,6 +376,8 @@ namespace s3d
 		}
 
 		Array& drop(size_t n);
+
+		Array& dropBack(size_t n);
 
 		[[nodiscard]] Array dropped(size_t n) const;
 
@@ -668,6 +668,12 @@ namespace s3d
 
 		[[nodiscard]] Array rotated(std::ptrdiff_t count = 1) &&;
 
+		Array& rsort();
+
+		[[nodiscard]] Array rsorted() const&;
+
+		[[nodiscard]] Array rsorted() &&;
+
 		Array& shuffle();
 
 		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
@@ -771,6 +777,12 @@ namespace s3d
 		[[nodiscard]] Array uniqued() const &;
 
 		[[nodiscard]] Array uniqued() &&;
+
+		Array& unique_sorted();
+
+		[[nodiscard]] Array uniqued_sorted() const&;
+
+		[[nodiscard]] Array uniqued_sorted() &&;
 
 		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const;
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -44,6 +44,8 @@ namespace s3d
 				{ m10, m11, m12, m13 },
 				{ m20, m21, m22, m23 },
 				{ m30, m31, m32, m33 } } {}
+
+		explicit Mat4x4(Quaternion q) noexcept;
 
 		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL operator +() const noexcept
 		{
@@ -127,7 +129,7 @@ namespace s3d
 			return Transpose(*this);
 		}
 
-		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL inverted() const noexcept
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL inverse() const noexcept
 		{
 			return Inverse(*this);
 		}
@@ -901,30 +903,6 @@ namespace s3d
 		return{ s * m.r[0], s * m.r[1], s * m.r[2], s * m.r[3] };
 	}
 
-	void Formatter(FormatData& formatData, const Mat4x4& value);
-
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
-	{
-		return output << CharType('(')
-			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
-			<< value.r[3] << CharType(')');
-	}
-
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
-	{
-		CharType unused;
-		input >> unused
-			>> value.r[0] >> unused
-			>> value.r[1] >> unused
-			>> value.r[2] >> unused
-			>> value.r[3] >> unused;
-		return input;
-	}
-
 	namespace SIMD
 	{
 		///////////////////////////////////////////////////////////////
@@ -1337,8 +1315,235 @@ namespace s3d
 				vertexCount, m);
 		}
 
+		[[nodiscard]] inline __m128 SIV3D_VECTOR_CALL QuaternionRotationMatrix(Mat4x4 m)
+		{
+			static const __m128 XMPMMP{ +1.0f, -1.0f, -1.0f, +1.0f };
+			static const __m128 XMMPMP{ -1.0f, +1.0f, -1.0f, +1.0f };
+			static const __m128 XMMMPP{ -1.0f, -1.0f, +1.0f, +1.0f };
+
+			__m128 r0 = m.r[0];  // (r00, r01, r02, 0)
+			__m128 r1 = m.r[1];  // (r10, r11, r12, 0)
+			__m128 r2 = m.r[2];  // (r20, r21, r22, 0)
+
+			// (r00, r00, r00, r00)
+			__m128 r00 = SIV3D_PERMUTE_PS(r0, _MM_SHUFFLE(0, 0, 0, 0));
+			// (r11, r11, r11, r11)
+			__m128 r11 = SIV3D_PERMUTE_PS(r1, _MM_SHUFFLE(1, 1, 1, 1));
+			// (r22, r22, r22, r22)
+			__m128 r22 = SIV3D_PERMUTE_PS(r2, _MM_SHUFFLE(2, 2, 2, 2));
+
+			// x^2 >= y^2 equivalent to r11 - r00 <= 0
+			// (r11 - r00, r11 - r00, r11 - r00, r11 - r00)
+			__m128 r11mr00 = _mm_sub_ps(r11, r00);
+			__m128 x2gey2 = _mm_cmple_ps(r11mr00, constants::m128_Zero);
+
+			// z^2 >= w^2 equivalent to r11 + r00 <= 0
+			// (r11 + r00, r11 + r00, r11 + r00, r11 + r00)
+			__m128 r11pr00 = _mm_add_ps(r11, r00);
+			__m128 z2gew2 = _mm_cmple_ps(r11pr00, constants::m128_Zero);
+
+			// x^2 + y^2 >= z^2 + w^2 equivalent to r22 <= 0
+			__m128 x2py2gez2pw2 = _mm_cmple_ps(r22, constants::m128_Zero);
+
+			// (+r00, -r00, -r00, +r00)
+			__m128 t0 = _mm_mul_ps(XMPMMP, r00);
+
+			// (-r11, +r11, -r11, +r11)
+			__m128 t1 = _mm_mul_ps(XMMPMP, r11);
+
+			// (-r22, -r22, +r22, +r22)
+			__m128 t2 = _mm_mul_ps(XMMMPP, r22);
+
+			// (4*x^2, 4*y^2, 4*z^2, 4*w^2)
+			__m128 x2y2z2w2 = _mm_add_ps(t0, t1);
+			x2y2z2w2 = _mm_add_ps(t2, x2y2z2w2);
+			x2y2z2w2 = _mm_add_ps(x2y2z2w2, constants::m128_One);
+
+			// (r01, r02, r12, r11)
+			t0 = _mm_shuffle_ps(r0, r1, _MM_SHUFFLE(1, 2, 2, 1));
+			// (r10, r10, r20, r21)
+			t1 = _mm_shuffle_ps(r1, r2, _MM_SHUFFLE(1, 0, 0, 0));
+			// (r10, r20, r21, r10)
+			t1 = SIV3D_PERMUTE_PS(t1, _MM_SHUFFLE(1, 3, 2, 0));
+			// (4*x*y, 4*x*z, 4*y*z, unused)
+			__m128 xyxzyz = _mm_add_ps(t0, t1);
+
+			// (r21, r20, r10, r10)
+			t0 = _mm_shuffle_ps(r2, r1, _MM_SHUFFLE(0, 0, 0, 1));
+			// (r12, r12, r02, r01)
+			t1 = _mm_shuffle_ps(r1, r0, _MM_SHUFFLE(1, 2, 2, 2));
+			// (r12, r02, r01, r12)
+			t1 = SIV3D_PERMUTE_PS(t1, _MM_SHUFFLE(1, 3, 2, 0));
+			// (4*x*w, 4*y*w, 4*z*w, unused)
+			__m128 xwywzw = _mm_sub_ps(t0, t1);
+			xwywzw = _mm_mul_ps(XMMPMP, xwywzw);
+
+			// (4*x^2, 4*y^2, 4*x*y, unused)
+			t0 = _mm_shuffle_ps(x2y2z2w2, xyxzyz, _MM_SHUFFLE(0, 0, 1, 0));
+			// (4*z^2, 4*w^2, 4*z*w, unused)
+			t1 = _mm_shuffle_ps(x2y2z2w2, xwywzw, _MM_SHUFFLE(0, 2, 3, 2));
+			// (4*x*z, 4*y*z, 4*x*w, 4*y*w)
+			t2 = _mm_shuffle_ps(xyxzyz, xwywzw, _MM_SHUFFLE(1, 0, 2, 1));
+
+			// (4*x*x, 4*x*y, 4*x*z, 4*x*w)
+			__m128 tensor0 = _mm_shuffle_ps(t0, t2, _MM_SHUFFLE(2, 0, 2, 0));
+			// (4*y*x, 4*y*y, 4*y*z, 4*y*w)
+			__m128 tensor1 = _mm_shuffle_ps(t0, t2, _MM_SHUFFLE(3, 1, 1, 2));
+			// (4*z*x, 4*z*y, 4*z*z, 4*z*w)
+			__m128 tensor2 = _mm_shuffle_ps(t2, t1, _MM_SHUFFLE(2, 0, 1, 0));
+			// (4*w*x, 4*w*y, 4*w*z, 4*w*w)
+			__m128 tensor3 = _mm_shuffle_ps(t2, t1, _MM_SHUFFLE(1, 2, 3, 2));
+
+			// Select the row of the tensor-product matrix that has the largest
+			// magnitude.
+			t0 = _mm_and_ps(x2gey2, tensor0);
+			t1 = _mm_andnot_ps(x2gey2, tensor1);
+			t0 = _mm_or_ps(t0, t1);
+			t1 = _mm_and_ps(z2gew2, tensor2);
+			t2 = _mm_andnot_ps(z2gew2, tensor3);
+			t1 = _mm_or_ps(t1, t2);
+			t0 = _mm_and_ps(x2py2gez2pw2, t0);
+			t1 = _mm_andnot_ps(x2py2gez2pw2, t1);
+			t2 = _mm_or_ps(t0, t1);
+
+			// Normalize the row.  No division by zero is possible because the
+			// quaternion is unit-length (and the row is a nonzero multiple of
+			// the quaternion).
+			t0 = Vector4Length(t2);
+			return _mm_div_ps(t2, t0);
+		}
+
+		[[nodiscard]] inline Mat4x4 SIV3D_VECTOR_CALL MatrixRotationQuaternion(__m128 quaternion)
+		{
+			static const __m128 Constant1110{ 1.0f, 1.0f, 1.0f, 0.0f };
+
+			__m128 Q0 = _mm_add_ps(quaternion, quaternion);
+			__m128 Q1 = _mm_mul_ps(quaternion, Q0);
+
+			__m128 V0 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(3, 0, 0, 1));
+			V0 = _mm_and_ps(V0, constants::m128_Mask3.vec);
+			__m128 V1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(3, 1, 2, 2));
+			V1 = _mm_and_ps(V1, constants::m128_Mask3.vec);
+			__m128 R0 = _mm_sub_ps(Constant1110, V0);
+			R0 = _mm_sub_ps(R0, V1);
+
+			V0 = SIV3D_PERMUTE_PS(quaternion, _MM_SHUFFLE(3, 1, 0, 0));
+			V1 = SIV3D_PERMUTE_PS(Q0, _MM_SHUFFLE(3, 2, 1, 2));
+			V0 = _mm_mul_ps(V0, V1);
+
+			V1 = SIV3D_PERMUTE_PS(quaternion, _MM_SHUFFLE(3, 3, 3, 3));
+			__m128 V2 = SIV3D_PERMUTE_PS(Q0, _MM_SHUFFLE(3, 0, 2, 1));
+			V1 = _mm_mul_ps(V1, V2);
+
+			__m128 R1 = _mm_add_ps(V0, V1);
+			__m128 R2 = _mm_sub_ps(V0, V1);
+
+			V0 = _mm_shuffle_ps(R1, R2, _MM_SHUFFLE(1, 0, 2, 1));
+			V0 = SIV3D_PERMUTE_PS(V0, _MM_SHUFFLE(1, 3, 2, 0));
+			V1 = _mm_shuffle_ps(R1, R2, _MM_SHUFFLE(2, 2, 0, 0));
+			V1 = SIV3D_PERMUTE_PS(V1, _MM_SHUFFLE(2, 0, 2, 0));
+
+			Q1 = _mm_shuffle_ps(R0, V0, _MM_SHUFFLE(1, 0, 3, 0));
+			Q1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(1, 3, 2, 0));
+
+			Mat4x4 M;
+			M.r[0] = Q1;
+
+			Q1 = _mm_shuffle_ps(R0, V0, _MM_SHUFFLE(3, 2, 3, 1));
+			Q1 = SIV3D_PERMUTE_PS(Q1, _MM_SHUFFLE(1, 3, 0, 2));
+			M.r[1] = Q1;
+
+			Q1 = _mm_shuffle_ps(V1, R0, _MM_SHUFFLE(3, 2, 1, 0));
+			M.r[2] = Q1;
+			M.r[3] = constants::m128_MIdentityR3;
+			return M;
+		}
+
 		//
 		//
 		///////////////////////////////////////////////////////////////
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Mat4x4& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
+	{
+		return output << CharType('(')
+			<< value.r[0] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[1] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[2] << CharType(',') << CharType('\n') << CharType(' ')
+			<< value.r[3] << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat4x4& value)
+	{
+		CharType unused;
+		input >> unused
+			>> value.r[0] >> unused
+			>> value.r[1] >> unused
+			>> value.r[2] >> unused
+			>> value.r[3] >> unused;
+		return input;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Mat4x4>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Mat4x4& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::Mat4x4, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::Mat4x4& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"},\n{:", tag, U"},\n{:", tag, U"},\n{:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r[0], value.r[1], value.r[2], value.r[3]);
+		}
+	};
+}
+

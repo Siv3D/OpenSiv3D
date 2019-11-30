@@ -12,6 +12,9 @@
 # pragma once
 # include <xmmintrin.h>
 # include <sstream>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Fwd.hpp"
 # include "FormatBool.hpp"
 # include "FormatInt.hpp"
@@ -30,13 +33,13 @@ namespace s3d
 	{
 		String string;
 
-		struct DecimalPlace
+		struct DecimalPlaces
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) noexcept
+			explicit constexpr DecimalPlaces(int32 v = 5) noexcept
 				: value(v) {}
 			
 			int32 value;
-		} decimalPlace = DecimalPlace(5);
+		} decimalPlaces = DecimalPlaces(5);
 
 		FormatData() = default;
 	};
@@ -54,18 +57,18 @@ namespace s3d
 	/// <returns>
 	/// Format に渡すマニピュレータ
 	/// </returns>
-	[[nodiscard]] inline constexpr FormatData::DecimalPlace DecimalPlace(const int32 width)
+	[[nodiscard]] inline constexpr FormatData::DecimalPlaces DecimalPlaces(const int32 width)
 	{
-		return FormatData::DecimalPlace(width);
+		return FormatData::DecimalPlaces(width);
 	}
 
 	inline namespace Literals
 	{
 		inline namespace DecimalPlaceLiterals
 		{
-			[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
+			[[nodiscard]] inline constexpr FormatData::DecimalPlaces operator ""_dp(unsigned long long width)
 			{
-				return DecimalPlace(static_cast<int32>(width));
+				return DecimalPlaces(static_cast<int32>(width));
 			}
 		}
 	}
@@ -145,7 +148,8 @@ namespace s3d
 			template <class... Args, std::enable_if_t<!format_validation<Args...>::value>* = nullptr>
 			[[nodiscard]] String operator ()(const Args&...) const
 			{
-				static_assert(format_validation<Args...>::value, "type \"char* or wchar_t*\" cannot be used in Format()");
+				// font(...) などで、U"..." (const char32*) ではない文字列が使われていることを知らせるエラーです
+				static_assert(format_validation<Args...>::value, "string literal \"\" and L\"\" cannot be used in Format(). Use U\"\" instead.");
 				
 				return String();
 			}
@@ -241,7 +245,7 @@ namespace s3d
 
 	inline constexpr auto Format = detail::Format_impl();
 
-	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace);
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace);
 
 	void Formatter(FormatData& formatData, int32);
 
@@ -292,6 +296,16 @@ namespace s3d
 	void Formatter(FormatData& formatData, const std::u32string& str);
 
 	void Formatter(FormatData& formatData, const String& value);
+
+# if __has_include(<compare>) && SIV3D_PLATFORM(WINDOWS)
+
+	void Formatter(FormatData& formatData, std::strong_ordering value);
+
+	void Formatter(FormatData& formatData, std::weak_ordering value);
+
+	void Formatter(FormatData& formatData, std::partial_ordering value);
+
+# endif
 
 	template <class Iterator>
 	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)

@@ -246,7 +246,7 @@ namespace s3d
 		return false;
 	}
 
-	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)
+	bool Wave::saveWAVE(const FilePathView path, const WAVEFormat format)
 	{
 		if (isEmpty())
 		{
@@ -263,7 +263,7 @@ namespace s3d
 		return Siv3DEngine::Get<ISiv3DAudioFormat>()->encodeWAVE(writer, *this, format);
 	}
 
-	bool Wave::saveOggVorbis(const FilePath& path, const int32 quality)
+	bool Wave::saveOggVorbis(const FilePathView path, const int32 quality)
 	{
 		if (isEmpty())
 		{

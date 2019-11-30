@@ -17,6 +17,7 @@
 - GLib2
 - udev
 - libdl
+- libavcode, libavformat, libavutil, libswresample
 
 ディスプレイサーバにはX11のみをサポートしています。
 Wayland及びMirはサポートしていません。
@@ -27,9 +28,9 @@ Wayland及びMirはサポートしていません。
 	1. `git clone https://github.com/Siv3D/OpenSiv3D.git`
 	1. `cd OpenSiv3D`
 	1. `git checkout linux`
-1. ビルド用のディレクトリを作ります。ここでは`Linux/build`とします。
-	1. `mkdir Linux/build`
-	1. `cd Linux/build`
+1. ビルド用のディレクトリを作ります。ここでは`Linux/Build`とします。
+	1. `mkdir Linux/Build`
+	1. `cd Linux/Build`
 1. ビルドを行います。ビルドに成功すると`libSiv3D.a`が得られます。
 	1. `cmake -DCMAKE_BUILD_TYPE=Release -GNinja ..`
 	1. `ninja`
@@ -37,6 +38,7 @@ Wayland及びMirはサポートしていません。
 ### 補足
 - `-DCMAKE_BUILD_TYPE=Debug`とすると、`-g3 -O0`オプションでコンパイルされます。
 - 上記の例では`ninja`を使っていますが、`make`でもコンパイルできます。
+- コンパイラを指定する場合は`cmake`を実行する前に環境変数`CC`と`CXX`を設定してください。
 
 
 ## アプリケーションのビルド

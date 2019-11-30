@@ -24,7 +24,7 @@ namespace s3d
 		close();
 	}
 
-	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePath& path, const Size& size, const bool dither, const bool hasAlpha)
+	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePathView path, const Size& size, const bool dither, const bool hasAlpha)
 	{
 		if (m_opened)
 		{

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -34,11 +34,11 @@ namespace s3d
 		MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
 		// レンダリングされたマルチサンプルテクスチャを通常のテクスチャに resolve し、描画可能にする
-		void resolve();
+		void resolve() const;
 
-		void clear(const ColorF& color);
+		void clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
-		void readAsImage(Image& image);
+		void readAsImage(Image& image) const;
 	};
 }

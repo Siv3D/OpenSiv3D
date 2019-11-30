@@ -397,12 +397,12 @@ namespace s3d
 
 		[[nodiscard]] constexpr value_type area() const noexcept
 		{
-			return r * r * Math::Pi;
+			return r * r * Math::Constants::Pi;
 		}
 
 		[[nodiscard]] constexpr value_type perimeter() const noexcept
 		{
-			return 2 * r * Math::Pi;
+			return 2 * r * Math::Constants::Pi;
 		}
 
 		template <class Shape2DType>
@@ -464,6 +464,20 @@ namespace s3d
 		/// *this
 		/// </returns>
 		const Circle& draw(const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 円を描きます。
+		/// </summary>
+		/// <param name="innerColor">
+		/// 色
+		/// </param>
+		/// <param name="outerColor">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
 		/// <summary>
 		/// 円の枠を描きます。

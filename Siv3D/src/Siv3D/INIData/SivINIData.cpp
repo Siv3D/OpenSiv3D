@@ -242,7 +242,7 @@ namespace s3d
 
 	}
 
-	INIData::INIData(const FilePath& path)
+	INIData::INIData(const FilePathView path)
 	{
 		load(path);
 	}
@@ -252,7 +252,7 @@ namespace s3d
 		load(reader);
 	}
 
-	bool INIData::load(const FilePath& path)
+	bool INIData::load(const FilePathView path)
 	{
 		TextReader textReader(path);
 
@@ -412,7 +412,7 @@ namespace s3d
 		write(Section(), name, value);
 	}
 
-	bool INIData::save(const FilePath& path) const
+	bool INIData::save(const FilePathView path) const
 	{
 		TextWriter writer(path);
 

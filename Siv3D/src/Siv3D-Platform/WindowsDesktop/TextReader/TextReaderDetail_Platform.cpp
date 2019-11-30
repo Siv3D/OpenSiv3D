@@ -47,7 +47,7 @@ namespace s3d
 		}
 	}
 
-	bool TextReader::TextReaderDetail::open(const FilePath& path, const Optional<TextEncoding>& encoding)
+	bool TextReader::TextReaderDetail::open(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		if (m_opened)
 		{
@@ -85,7 +85,7 @@ namespace s3d
 		{
 			tmpIReader.reset();
 
-			m_ifs.open(path.toWstr());
+			m_ifs.open(Unicode::ToWString(path));
 
 			m_opened = m_ifs.is_open();
 		}
@@ -125,7 +125,7 @@ namespace s3d
 
 		if (m_encoding != TextEncoding::Unknown)
 		{
-			m_reader = std::move(reader);
+			m_reader = reader;
 
 			m_opened = m_reader->isOpened();
 

@@ -36,12 +36,12 @@ namespace s3d
 			}
 			else
 			{
-				s = p / Math::TwoPi * std::asin(1.0 / a);
+				s = p * Math::Constants::InvTwoPi * std::asin(1.0 / a);
 			}
 
 			t -= 1.0;
 
-			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::TwoPi / p));
+			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::Constants::TwoPi / p));
 		}
 	}
 }

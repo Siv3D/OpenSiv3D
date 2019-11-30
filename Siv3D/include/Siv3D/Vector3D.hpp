@@ -71,9 +71,9 @@ namespace s3d
 		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
 		{
 			return index == 0 ? x
-				 : index == 1 ? y
-				 : index == 2 ? z
-				 : 0;
+				: index == 1 ? y
+				: index == 2 ? z
+				: 0;
 		}
 
 		[[nodiscard]] constexpr Vector3D operator +() const noexcept
@@ -113,7 +113,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr Vector3D operator /(const Vector3D& v) const noexcept
 		{
-			return{ x / v.x, y / v.y, z  / v.z };
+			return{ x / v.x, y / v.y, z / v.z };
 		}
 
 		constexpr Vector3D& operator +=(const Vector3D& v) noexcept
@@ -546,7 +546,7 @@ namespace s3d
 		}
 	};
 
-	template <class Type, class U>
+	template <class Type, class U, std::enable_if_t<std::is_scalar_v<U>>* = nullptr>
 	[[nodiscard]] inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);
@@ -614,8 +614,8 @@ namespace std
 
 namespace fmt_s3d
 {
-	template <>
-	struct formatter<s3d::Vec3, s3d::char32>
+	template <class Type>
+	struct formatter<s3d::Vector3D<Type>, s3d::char32>
 	{
 		s3d::String tag;
 
@@ -626,7 +626,7 @@ namespace fmt_s3d
 		}
 
 		template <class Context>
-		auto format(const s3d::Vec3& value, Context& ctx)
+		auto format(const s3d::Vector3D<Type>& value, Context& ctx)
 		{
 			const s3d::String fmt = s3d::detail::MakeFmtArg(
 				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"

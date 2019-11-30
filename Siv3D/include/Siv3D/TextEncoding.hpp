@@ -73,7 +73,7 @@ namespace s3d
 		/// <returns>
 		/// テキストファイルのエンコーディング形式
 		/// </returns>
-		[[nodiscard]] inline TextEncoding GetTextEncoding(const FilePath& path)
+		[[nodiscard]] inline TextEncoding GetTextEncoding(const FilePathView path)
 		{
 			return GetTextEncoding(BinaryReader(path));
 		}

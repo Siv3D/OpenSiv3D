@@ -95,6 +95,18 @@ namespace s3d
 		return (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
 	}
 
+	inline constexpr int32 Point::manhattanDistanceFrom(const int32 _x, const int32 _y) const noexcept
+	{
+		return manhattanDistanceFrom(Point(_x, _y));
+	}
+
+	inline constexpr int32 Point::manhattanDistanceFrom(const Point& p) const noexcept
+	{
+		const auto minXmaxX = std::minmax(x, p.x);
+		const auto minYmaxY = std::minmax(y, p.y);
+		return (minXmaxX.second - minXmaxX.first) + (minYmaxY.second - minYmaxY.first);
+	}
+
 	template <class Type>
 	Type Point::length() const noexcept
 	{

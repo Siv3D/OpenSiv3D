@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -56,9 +56,18 @@ namespace s3d
 		constexpr SIMD_Float4(__m128 _vec) noexcept
 			: vec(_vec) {}
 
-		constexpr SIV3D_VECTOR_CALL operator __m128() const noexcept
+		[[nodiscard]] constexpr SIV3D_VECTOR_CALL operator __m128() const noexcept
 		{
 			return vec;
+		}
+
+		[[nodiscard]] Float4 SIV3D_VECTOR_CALL toFloat4() const noexcept
+		{
+			Float4 result;
+
+			SIMD::StoreFloat4(&result, vec);
+
+			return result;
 		}
 
 		[[nodiscard]] float elem(size_t index) const noexcept
@@ -251,7 +260,16 @@ namespace s3d
 	{
 		return SIMD::Multiply(v.vec, s);
 	}
+}
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
 	void Formatter(FormatData& formatData, const SIMD_Float4& value);
 
 	template <class CharType>
@@ -284,4 +302,55 @@ namespace s3d
 
 		return input;
 	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::SIMD_Float4>
+	{
+		[[nodiscard]] size_t operator()(const s3d::SIMD_Float4& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
+namespace fmt_s3d
+{
+	template <>
+	struct formatter<s3d::SIMD_Float4, s3d::char32>
+	{
+		s3d::String tag;
+
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+
+		template <class Context>
+		auto format(const s3d::SIMD_Float4& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			const s3d::Float4 v = value.toFloat4();
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), v.x, v.y, v.z, v.w);
+		}
+	};
 }

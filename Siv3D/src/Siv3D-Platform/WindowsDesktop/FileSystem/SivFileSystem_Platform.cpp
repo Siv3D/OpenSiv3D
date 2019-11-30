@@ -707,8 +707,9 @@ namespace s3d
 				return false;
 			}
 
+			const auto options = detail::ToCopyOptions(copyOption) | std::filesystem::copy_options::recursive;
 			std::error_code error;
-			std::filesystem::copy(detail::ToPath(from), detail::ToPath(to), detail::ToCopyOptions(copyOption), error);
+			std::filesystem::copy(detail::ToPath(from), detail::ToPath(to), options, error);
 
 			return (error.value() == 0);
 		}

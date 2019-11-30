@@ -1,0 +1,160 @@
+﻿[[Headline]]
+name = "hl-Title"
+text = "Settings"
+pos = { x = 40, y = 40 }
+width = 120
+enabled = true
+
+[[Slider]]
+name = "sl-Brightness"
+pos = { x = 40, y = 80 }
+label = "Brightness"
+default = 0.3
+min = 0.0
+max = 1.0
+labelWidth = 120
+sliderWidth = 160
+enabled = true
+
+[[Slider]]
+name = "sl-Width"
+pos = { x = 40, y = 120 }
+label = "Width:{:.0f}"
+default = 20
+min = 1
+max = 100
+labelWidth = 120
+sliderWidth = 160
+enabled = true
+
+[[Slider]]
+name = "sl-Height"
+pos = { x = 40, y = 160 }
+label = "Height:{:.0f}"
+default = 60
+min = 1
+max = 100
+labelWidth = 120
+sliderWidth = 160
+enabled = true
+
+
+[[Headline]]
+name = "hl-Parameters"
+text = "Parameters"
+pos = { x = 40, y = 240 }
+width = 160
+enabled = true
+
+[[VerticalSlider]]
+name = "vs-Parameter0"
+pos = { x = 40, y = 280 }
+default = 0.2
+min = 0.0
+max = 1.0
+labelHeight = 120
+enabled = true
+
+[[VerticalSlider]]
+name = "vs-Parameter1"
+pos = { x = 80, y = 280 }
+default = 0.5
+min = 0.0
+max = 1.0
+labelHeight = 120
+enabled = true
+
+[[VerticalSlider]]
+name = "vs-Parameter2"
+pos = { x = 120, y = 280 }
+default = 0.8
+min = 0.0
+max = 1.0
+labelHeight = 120
+enabled = true
+
+
+[[Headline]]
+name = "hl-CheckBox"
+text = "CheckBox"
+pos = { x = 360, y = 40 }
+width = 120
+enabled = true
+
+[[CheckBox]]
+name = "cb-Item0"
+label = "Item 0"
+pos = { x = 360, y = 80 }
+default = true
+width = 160
+enabled = true
+
+[[CheckBox]]
+name = "cb-Item1"
+label = "Item 1"
+pos = { x = 360, y = 120 }
+default = false
+width = 160
+enabled = true
+
+[[CheckBox]]
+name = "cb-Item2"
+label = "Item 2"
+pos = { x = 360, y = 160 }
+default = false
+width = 160
+enabled = true
+
+
+[[Headline]]
+name = "hl-RadioButtons"
+text = "OS"
+pos = { x = 240, y = 240 }
+width = 80
+enabled = true
+
+[[RadioButtons]]
+name = "rb-Options"
+pos = { x = 240, y = 280 }
+options = [ "Windows", "macOS", "Linux" ]
+default = 1
+width = 160
+enabled = true
+
+
+[[TextBox]]
+name = "tb-Name"
+pos = { x = 400, y = 440 }
+default = "Siv3D"
+width = 160
+maxChars = 10
+enabled = true
+
+
+[[Headline]]
+name = "hl-ColorPicker"
+text = "Color"
+pos = { x = 440, y = 240 }
+width = 80
+enabled = true
+
+[[ColorPicker]]
+name = "cp-Color"
+pos = { x = 440, y = 280 }
+default = { h = 120, s = 0.5, v = 0.8 }
+enabled = true
+
+
+[[Button]]
+name = "bt-OK"
+label = "OK"
+pos = { x = 120, y = 440 }
+width = 160
+enabled = true
+
+[[Button]]
+name = "bt-Cancel"
+label = "Cancel"
+pos = { x = 120, y = 480 }
+width = 160
+enabled = true

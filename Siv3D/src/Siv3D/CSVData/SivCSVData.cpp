@@ -78,7 +78,7 @@ namespace s3d
 
 	}
 
-	CSVData::CSVData(const FilePath& path, const StringView separators, const StringView quotes , const StringView escapes)
+	CSVData::CSVData(const FilePathView path, const StringView separators, const StringView quotes , const StringView escapes)
 	{
 		load(path, separators, quotes, escapes);
 	}
@@ -88,7 +88,7 @@ namespace s3d
 		load(reader, separators, quotes, escapes);
 	}
 
-	bool CSVData::load(const FilePath& path, const StringView separators, const StringView quotes, const StringView escapes)
+	bool CSVData::load(const FilePathView path, const StringView separators, const StringView quotes, const StringView escapes)
 	{
 		TextReader textReader(path);
 
@@ -193,7 +193,7 @@ namespace s3d
 		m_onHead = true;
 	}
 
-	bool CSVData::save(const FilePath& path, const char32 separator, const char32 quote, const char32 escape) const
+	bool CSVData::save(const FilePathView path, const char32 separator, const char32 quote, const char32 escape) const
 	{
 		TextWriter writer(path);
 
