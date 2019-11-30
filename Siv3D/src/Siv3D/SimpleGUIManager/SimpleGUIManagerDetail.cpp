@@ -60,6 +60,7 @@ namespace s3d
 			writer.writeln(U"max = {}"_fmt(item.max));
 			writer.writeln(U"labelWidth = {}"_fmt(item.labelWidth));
 			writer.writeln(U"sliderWidth = {}"_fmt(item.sliderWidth));
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
 			writer.writeln();
 		}
 
@@ -72,6 +73,7 @@ namespace s3d
 			writer.writeln(U"min = {}"_fmt(item.min));
 			writer.writeln(U"max = {}"_fmt(item.max));
 			writer.writeln(U"sliderHeight = {}"_fmt(item.sliderHeight));
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
 			writer.writeln();
 		}
 
