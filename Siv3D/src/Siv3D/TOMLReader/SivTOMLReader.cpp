@@ -327,8 +327,7 @@ namespace s3d
 		return getType() == TOMLValueType::DateTime;
 	}
 
-	template <>
-	Optional<int64> TOMLValue::getOpt<int64>() const
+	Optional<int64> TOMLValue::getOptInt64() const
 	{
 		if (!isNumber())
 		{
@@ -350,8 +349,7 @@ namespace s3d
 		return none;
 	}
 
-	template <>
-	Optional<double> TOMLValue::getOpt<double>() const
+	Optional<double> TOMLValue::getOptDouble() const
 	{
 		if (!isNumber())
 		{
@@ -365,8 +363,7 @@ namespace s3d
 		return none;
 	}
 
-	template <>
-	Optional<bool> TOMLValue::getOpt<bool>() const
+	Optional<bool> TOMLValue::getOptBool() const
 	{
 		if (!isBool()) {
 			return none;
@@ -521,8 +518,7 @@ namespace s3d
 		return String();
 	}
 
-	template <>
-	Optional<String> TOMLValue::getOpt<String>() const
+	Optional<String> TOMLValue::getOptString() const
 	{
 		if (!isString())
 		{
@@ -554,8 +550,7 @@ namespace s3d
 		return Date();
 	}
 
-	template <>
-	Optional<Date> TOMLValue::getOpt<Date>() const
+	Optional<Date> TOMLValue::getOptDate() const
 	{
 		if (!isDate())
 		{
@@ -629,8 +624,7 @@ namespace s3d
 		return str;
 	}
 
-	template <>
-	Optional<DateTime> TOMLValue::getOpt<DateTime>() const
+	Optional<DateTime> TOMLValue::getOptDateTime() const
 	{
 		if (!isDateTime())
 		{

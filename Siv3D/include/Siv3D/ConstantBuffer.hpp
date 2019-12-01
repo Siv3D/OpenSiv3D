@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <algorithm>
 # include "Fwd.hpp"
 # include "AlignedMemory.hpp"
 
