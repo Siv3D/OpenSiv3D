@@ -165,6 +165,22 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		Optional<Type> getOpt_() const = delete;
 
+		Optional<String> getOptString() const;
+
+		Optional<int32> getOptInt32() const;
+
+		Optional<uint32> getOptUint32() const;
+
+		Optional<int64> getOptInt64() const;
+
+		Optional<uint64> getOptUint64() const;
+
+		Optional<float> getOptFloat() const;
+
+		Optional<double> getOptDouble() const;
+
+		Optional<bool> getOptBool() const;
+
 	public:
 
 		JSONValue();
@@ -189,6 +205,54 @@ namespace s3d
 		[[nodiscard]] Optional<Type> getOpt() const
 		{
 			return getOpt_<Type>();
+		}
+
+		template <>
+		Optional<String> getOpt<String>() const
+		{
+			return getOptString();
+		}
+
+		template <>
+		Optional<int32> getOpt<int32>() const
+		{
+			return getOptInt32();
+		}
+
+		template <>
+		Optional<uint32> getOpt<uint32>() const
+		{
+			return getOptUint32();
+		}
+
+		template <>
+		Optional<int64> getOpt<int64>() const
+		{
+			return getOptInt64();
+		}
+
+		template <>
+		Optional<uint64> getOpt<uint64>() const
+		{
+			return getOptUint64();
+		}
+
+		template <>
+		Optional<float> getOpt<float>() const
+		{
+			return getOptFloat();
+		}
+
+		template <>
+		Optional<double> getOpt<double>() const
+		{
+			return getOptDouble();
+		}
+
+		template <>
+		Optional<bool> getOpt<bool>() const
+		{
+			return getOptBool();
 		}
 		
 		[[nodiscard]] bool isEmpty() const;
@@ -258,30 +322,6 @@ namespace s3d
 		[[nodiscard]] String getString() const;
 	};
 	
-	template <>
-	Optional<String> JSONValue::getOpt<String>() const;
-
-	template <>
-	Optional<int32> JSONValue::getOpt<int32>() const;
-	
-	template <>
-	Optional<uint32> JSONValue::getOpt<uint32>() const;
-	
-	template <>
-	Optional<int64> JSONValue::getOpt<int64>() const;
-	
-	template <>
-	Optional<uint64> JSONValue::getOpt<uint64>() const;
-	
-	template <>
-	Optional<float> JSONValue::getOpt<float>() const;
-	
-	template <>
-	Optional<double> JSONValue::getOpt<double>() const;
-
-	template <>
-	Optional<bool> JSONValue::getOpt<bool>() const;
-
 	struct JSONObjectMember
 	{
 		String name;
