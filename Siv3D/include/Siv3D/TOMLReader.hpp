@@ -16,6 +16,7 @@
 # include "String.hpp"
 # include "Optional.hpp"
 # include "Parse.hpp"
+# include "DateTime.hpp"
 # include "Unicode.hpp"
 
 namespace s3d
@@ -237,6 +238,18 @@ namespace s3d
 			return ParseOpt<Type>(getString());
 		}
 
+		Optional<String> getOptString() const;
+
+		Optional<int64> getOptInt64() const;
+
+		Optional<double> getOptDouble() const;
+
+		Optional<bool> getOptBool() const;
+
+		Optional<Date> getOptDate() const;
+
+		Optional<DateTime> getOptDateTime() const;
+
 		struct Visitor
 		{
 			String& str;
@@ -274,6 +287,42 @@ namespace s3d
 		[[nodiscard]] Optional<Type> getOpt() const
 		{
 			return getOpt_<Type>();
+		}
+
+		template <>
+		Optional<String> getOpt<String>() const
+		{
+			return getOptString();
+		}
+
+		template <>
+		Optional<int64> getOpt<int64>() const
+		{
+			return getOptInt64();
+		}
+
+		template <>
+		Optional<double> getOpt<double>() const
+		{
+			return getOptDouble();
+		}
+
+		template <>
+		Optional<bool> getOpt<bool>() const
+		{
+			return getOptBool();
+		}
+
+		template <>
+		Optional<Date> getOpt<Date>() const
+		{
+			return getOptDate();
+		}
+
+		template <>
+		Optional<DateTime> getOpt<DateTime>() const
+		{
+			return getOptDateTime();
 		}
 
 		[[nodiscard]] bool isEmpty() const;
@@ -316,24 +365,6 @@ namespace s3d
 
 		[[nodiscard]] String format() const;
 	};
-
-	template <>
-	Optional<String> TOMLValue::getOpt<String>() const;
-
-	template <>
-	Optional<int64> TOMLValue::getOpt<int64>() const;
-
-	template <>
-	Optional<double> TOMLValue::getOpt<double>() const;
-
-	template <>
-	Optional<bool> TOMLValue::getOpt<bool>() const;
-
-	template <>
-	Optional<Date> TOMLValue::getOpt<Date>() const;
-
-	template <>
-	Optional<DateTime> TOMLValue::getOpt<DateTime>() const;
 	
 	struct TOMLTableMember
 	{
