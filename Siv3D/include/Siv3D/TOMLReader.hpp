@@ -289,6 +289,8 @@ namespace s3d
 			return getOpt_<Type>();
 		}
 
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
+
 		template <>
 		[[nodiscard]] inline Optional<String> getOpt<String>() const;
 
@@ -306,6 +308,8 @@ namespace s3d
 
 		template <>
 		[[nodiscard]] inline Optional<DateTime> getOpt<DateTime>() const;
+
+# endif
 
 		[[nodiscard]] bool isEmpty() const;
 

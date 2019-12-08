@@ -207,30 +207,6 @@ namespace s3d
 			return getOpt_<Type>();
 		}
 
-		template <>
-		[[nodiscard]] inline Optional<String> getOpt<String>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<int32> getOpt<int32>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<uint32> getOpt<uint32>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<int64> getOpt<int64>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<uint64> getOpt<uint64>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<float> getOpt<float>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<double> getOpt<double>() const;
-
-		template <>
-		[[nodiscard]] inline Optional<bool> getOpt<bool>() const;
-		
 		[[nodiscard]] bool isEmpty() const;
 
 		[[nodiscard]] explicit operator bool() const
