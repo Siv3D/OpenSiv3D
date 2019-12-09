@@ -289,41 +289,27 @@ namespace s3d
 			return getOpt_<Type>();
 		}
 
-		template <>
-		Optional<String> getOpt<String>() const
-		{
-			return getOptString();
-		}
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
 
 		template <>
-		Optional<int64> getOpt<int64>() const
-		{
-			return getOptInt64();
-		}
+		[[nodiscard]] inline Optional<String> getOpt<String>() const;
 
 		template <>
-		Optional<double> getOpt<double>() const
-		{
-			return getOptDouble();
-		}
+		[[nodiscard]] inline Optional<int64> getOpt<int64>() const;
 
 		template <>
-		Optional<bool> getOpt<bool>() const
-		{
-			return getOptBool();
-		}
+		[[nodiscard]] inline Optional<double> getOpt<double>() const;
 
 		template <>
-		Optional<Date> getOpt<Date>() const
-		{
-			return getOptDate();
-		}
+		[[nodiscard]] inline Optional<bool> getOpt<bool>() const;
 
 		template <>
-		Optional<DateTime> getOpt<DateTime>() const
-		{
-			return getOptDateTime();
-		}
+		[[nodiscard]] inline Optional<Date> getOpt<Date>() const;
+
+		template <>
+		[[nodiscard]] inline Optional<DateTime> getOpt<DateTime>() const;
+
+# endif
 
 		[[nodiscard]] bool isEmpty() const;
 
@@ -405,6 +391,42 @@ namespace s3d
 
 		[[nodiscard]] explicit operator bool() const noexcept;
 	};
+
+	template <>
+	[[nodiscard]] inline Optional<String> TOMLValue::getOpt<String>() const
+	{
+		return getOptString();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<int64> TOMLValue::getOpt<int64>() const
+	{
+		return getOptInt64();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<double> TOMLValue::getOpt<double>() const
+	{
+		return getOptDouble();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<bool> TOMLValue::getOpt<bool>() const
+	{
+		return getOptBool();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<Date> TOMLValue::getOpt<Date>() const
+	{
+		return getOptDate();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<DateTime> TOMLValue::getOpt<DateTime>() const
+	{
+		return getOptDateTime();
+	}
 
 	void Formatter(FormatData& formatData, const TOMLValue& value);
 

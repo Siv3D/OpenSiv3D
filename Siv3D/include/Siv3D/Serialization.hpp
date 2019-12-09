@@ -195,7 +195,7 @@ namespace s3d
 	inline void SIV3D_SERIALIZE_SAVE(Archive & archive, const Array<Type> & value)
 	{
 		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.size())));
-		archive(cereal::binary_data(value.data(), value.size() * sizeof(Array<Type>::value_type)));
+		archive(cereal::binary_data(value.data(), value.size() * sizeof(typename Array<Type>::value_type)));
 	}
 
 	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
@@ -204,7 +204,7 @@ namespace s3d
 		cereal::size_type size;
 		archive(cereal::make_size_tag(size));
 		value.resize(static_cast<size_t>(size));
-		archive(cereal::binary_data(value.data(), static_cast<size_t>(size * sizeof(Array<Type>::value_type))));
+		archive(cereal::binary_data(value.data(), static_cast<size_t>(size * sizeof(typename Array<Type>::value_type))));
 	}
 
 	template <class Archive, class Type, std::enable_if_t<!std::is_trivially_copyable_v<Type>>* = nullptr>
@@ -240,7 +240,7 @@ namespace s3d
 	{
 		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.width())));
 		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.height())));
-		archive(cereal::binary_data(value.data(), value.size_elements() * sizeof(Array<Type>::value_type)));
+		archive(cereal::binary_data(value.data(), value.size_elements() * sizeof(typename Array<Type>::value_type)));
 	}
 
 	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
@@ -250,7 +250,7 @@ namespace s3d
 		archive(cereal::make_size_tag(width));
 		archive(cereal::make_size_tag(height));
 		value.resize(static_cast<size_t>(width), static_cast<size_t>(height));
-		archive(cereal::binary_data(value.data(), static_cast<size_t>(width * height * sizeof(Array<Type>::value_type))));
+		archive(cereal::binary_data(value.data(), static_cast<size_t>(width * height * sizeof(typename Array<Type>::value_type))));
 	}
 
 	template <class Archive, class Type, std::enable_if_t<!std::is_trivially_copyable_v<Type>>* = nullptr>
