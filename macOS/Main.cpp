@@ -3,10 +3,13 @@
 
 void Main()
 {
-	ManagedScript script(U"example/script/paint.txt");
-
+	Print << FileSystem::FullPath(U"あいう/");
+	
 	while (System::Update())
 	{
-		script.run();
+		if (KeyA.down())
+		{
+			Print << Dialog::SelectFolder();
+		}
 	}
 }

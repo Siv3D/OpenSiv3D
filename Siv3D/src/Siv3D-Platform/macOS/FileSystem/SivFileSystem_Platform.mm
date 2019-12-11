@@ -154,15 +154,17 @@ namespace s3d
 			if (isRelative)
 			{
 				NSURL* bundle = [[NSBundle mainBundle] bundleURL];
-				NSURL* file = [NSURL URLWithString:path relativeToURL:bundle];
+				NSURL* file = [NSURL fileURLWithPath:path relativeToURL:bundle];
 				NSURL* absolutePath = [file absoluteURL];
-				return [absolutePath.absoluteString UTF8String];
+				NSString* str = [absolutePath path];
+				return std::string([str UTF8String], [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
 			}
 			else
 			{
-				NSURL* file = [NSURL URLWithString:path];
+				NSURL* file = [NSURL fileURLWithPath:path];
 				NSURL* absolutePath = [file absoluteURL];
-				return [absolutePath.absoluteString UTF8String];
+				NSString* str = [absolutePath path];
+				return std::string([str UTF8String], [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
 			}
 		}
 		
