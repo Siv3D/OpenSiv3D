@@ -1557,8 +1557,10 @@
     <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_xcode.S" />
     <CustomBuild Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ml64.exe /c  /nologo /Fo"$(Configuration)\as_callfunc_x64_msvc_asm.obj" /W3 /Ta "%(RootDir)%(Directory)\%(Filename)%(Extension)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\as_callfunc_x64_msvc_asm.obj;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ml64.exe /c /nologo /Fo"$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\as_callfunc_x64_msvc_asm.obj" /W3 /Ta "%(RootDir)%(Directory)\%(Filename)%(Extension)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\as_callfunc_x64_msvc_asm.obj;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ml64.exe /c /nologo /Fo"$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\as_callfunc_x64_msvc_asm.obj" /W3 /Ta "%(RootDir)%(Directory)\%(Filename)%(Extension)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\as_callfunc_x64_msvc_asm.obj;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
