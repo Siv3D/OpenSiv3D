@@ -542,6 +542,43 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\XInput\IXInput.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\abseil\numbers.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_array.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_atomic.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_builder.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_bytecode.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_compiler.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_config.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_configgroup.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_context.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_criticalsection.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_datatype.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_debug.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_gc.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_generic.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_map.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_memory.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_module.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_namespace.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_objecttype.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_outputbuffer.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_parser.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_property.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_restore.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptcode.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptengine.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptfunction.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptnode.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptobject.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_string.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_symboltable.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_texts.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_thread.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_tokendef.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_tokenizer.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_typeinfo.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_variablescope.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Box2D.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2BroadPhase.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2Collision.h" />
@@ -1321,6 +1358,44 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\XInputFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_atomic.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_builder.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_bytecode.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_mips.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_ppc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_ppc_64.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_sh4.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_gcc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_mingw.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x86.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_xenon.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_compiler.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_configgroup.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_context.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_datatype.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_gc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_generic.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_globalproperty.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_memory.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_module.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_objecttype.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_outputbuffer.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_parser.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_restore.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptcode.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptengine.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptfunction.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptnode.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptobject.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_thread.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_tokenizer.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_typeinfo.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_variablescope.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2BroadPhase.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideEdge.cpp" />
@@ -1474,6 +1549,17 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\fastcover.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_gcc.S" />
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_msvc.asm" />
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_vita.S" />
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_xcode.S" />
+    <CustomBuild Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ml64.exe /c  /nologo /Fo"$(Configuration)\as_callfunc_x64_msvc_asm.obj" /W3 /Ta "%(RootDir)%(Directory)\%(Filename)%(Extension)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\as_callfunc_x64_msvc_asm.obj;%(Outputs)</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
