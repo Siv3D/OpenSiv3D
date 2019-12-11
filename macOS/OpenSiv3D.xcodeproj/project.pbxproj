@@ -984,7 +984,6 @@
 		2C461AA62270743100828870 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AA52270743100828870 /* AudioToolbox.framework */; };
 		2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AA7227074DD00828870 /* libfreetype.a */; };
 		2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AA9227074E200828870 /* libharfbuzz.a */; };
-		2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AAB2270765E00828870 /* libangelscript.a */; };
 		2C461AAE2270767100828870 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AAD2270767100828870 /* libpng.a */; };
 		2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AAF227076CC00828870 /* libturbojpeg.a */; };
 		2C461AB2227076D000828870 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C461AB1227076D000828870 /* libz.a */; };
@@ -1155,6 +1154,84 @@
 		2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */; };
 		2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */; };
 		2CEACB642338923C00C6EE98 /* SivEmojiList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */; };
+		2CF120E823A0AE760032203C /* as_scriptnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1209823A0AE750032203C /* as_scriptnode.cpp */; };
+		2CF120E923A0AE760032203C /* as_scriptnode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF1209923A0AE750032203C /* as_scriptnode.h */; };
+		2CF120EA23A0AE760032203C /* as_generic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF1209A23A0AE750032203C /* as_generic.h */; };
+		2CF120EB23A0AE760032203C /* as_gc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1209B23A0AE750032203C /* as_gc.cpp */; };
+		2CF120EC23A0AE760032203C /* as_objecttype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1209C23A0AE750032203C /* as_objecttype.cpp */; };
+		2CF120ED23A0AE760032203C /* as_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF1209D23A0AE750032203C /* as_debug.h */; };
+		2CF120EE23A0AE760032203C /* as_callfunc_arm_gcc.S in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1209E23A0AE750032203C /* as_callfunc_arm_gcc.S */; };
+		2CF120EF23A0AE760032203C /* as_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF1209F23A0AE750032203C /* as_parser.h */; };
+		2CF120F023A0AE760032203C /* as_objecttype.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120A023A0AE750032203C /* as_objecttype.h */; };
+		2CF120F123A0AE760032203C /* as_configgroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120A123A0AE750032203C /* as_configgroup.h */; };
+		2CF120F223A0AE760032203C /* as_restore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120A223A0AE750032203C /* as_restore.h */; };
+		2CF120F323A0AE760032203C /* as_bytecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120A323A0AE750032203C /* as_bytecode.h */; };
+		2CF120F423A0AE760032203C /* as_callfunc_ppc_64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120A423A0AE750032203C /* as_callfunc_ppc_64.cpp */; };
+		2CF120F523A0AE760032203C /* as_callfunc_x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120A523A0AE750032203C /* as_callfunc_x86.cpp */; };
+		2CF120F623A0AE760032203C /* as_scriptcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120A623A0AE750032203C /* as_scriptcode.h */; };
+		2CF120F723A0AE760032203C /* as_callfunc_x64_msvc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120A723A0AE750032203C /* as_callfunc_x64_msvc.cpp */; };
+		2CF120F823A0AE760032203C /* as_string_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120A823A0AE750032203C /* as_string_util.cpp */; };
+		2CF120F923A0AE760032203C /* as_atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120A923A0AE750032203C /* as_atomic.cpp */; };
+		2CF120FA23A0AE760032203C /* as_callfunc_mips.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120AA23A0AE750032203C /* as_callfunc_mips.cpp */; };
+		2CF120FB23A0AE760032203C /* as_symboltable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120AB23A0AE750032203C /* as_symboltable.h */; };
+		2CF120FC23A0AE760032203C /* as_tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120AC23A0AE750032203C /* as_tokenizer.cpp */; };
+		2CF120FD23A0AE760032203C /* as_scriptengine.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120AD23A0AE750032203C /* as_scriptengine.h */; };
+		2CF120FE23A0AE760032203C /* as_outputbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120AE23A0AE750032203C /* as_outputbuffer.cpp */; };
+		2CF120FF23A0AE760032203C /* as_outputbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120AF23A0AE750032203C /* as_outputbuffer.h */; };
+		2CF1210023A0AE760032203C /* as_property.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120B023A0AE750032203C /* as_property.h */; };
+		2CF1210123A0AE760032203C /* as_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120B123A0AE750032203C /* as_context.h */; };
+		2CF1210223A0AE760032203C /* as_gc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120B223A0AE750032203C /* as_gc.h */; };
+		2CF1210323A0AE760032203C /* as_scriptfunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120B323A0AE750032203C /* as_scriptfunction.h */; };
+		2CF1210423A0AE760032203C /* as_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120B423A0AE750032203C /* as_context.cpp */; };
+		2CF1210523A0AE760032203C /* as_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120B523A0AE750032203C /* as_config.h */; };
+		2CF1210623A0AE760032203C /* as_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120B623A0AE750032203C /* as_parser.cpp */; };
+		2CF1210723A0AE760032203C /* as_typeinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120B723A0AE750032203C /* as_typeinfo.cpp */; };
+		2CF1210823A0AE760032203C /* as_callfunc_arm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120B823A0AE750032203C /* as_callfunc_arm.cpp */; };
+		2CF1210923A0AE760032203C /* as_scriptengine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120B923A0AE750032203C /* as_scriptengine.cpp */; };
+		2CF1210A23A0AE760032203C /* as_typeinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120BA23A0AE750032203C /* as_typeinfo.h */; };
+		2CF1210B23A0AE760032203C /* as_globalproperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120BB23A0AE750032203C /* as_globalproperty.cpp */; };
+		2CF1210C23A0AE760032203C /* as_callfunc_xenon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120BC23A0AE750032203C /* as_callfunc_xenon.cpp */; };
+		2CF1210D23A0AE760032203C /* as_restore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120BD23A0AE750032203C /* as_restore.cpp */; };
+		2CF1210E23A0AE760032203C /* as_generic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120BE23A0AE750032203C /* as_generic.cpp */; };
+		2CF1210F23A0AE760032203C /* as_callfunc_x64_gcc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120BF23A0AE750032203C /* as_callfunc_x64_gcc.cpp */; };
+		2CF1211023A0AE760032203C /* as_string_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120C023A0AE750032203C /* as_string_util.h */; };
+		2CF1211123A0AE760032203C /* as_tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120C123A0AE750032203C /* as_tokenizer.h */; };
+		2CF1211223A0AE760032203C /* as_namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120C223A0AE750032203C /* as_namespace.h */; };
+		2CF1211323A0AE760032203C /* as_module.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120C323A0AE750032203C /* as_module.h */; };
+		2CF1211423A0AE760032203C /* as_bytecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120C423A0AE750032203C /* as_bytecode.cpp */; };
+		2CF1211523A0AE760032203C /* as_memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120C523A0AE750032203C /* as_memory.cpp */; };
+		2CF1211623A0AE760032203C /* as_compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120C623A0AE750032203C /* as_compiler.cpp */; };
+		2CF1211723A0AE760032203C /* as_tokendef.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120C723A0AE750032203C /* as_tokendef.h */; };
+		2CF1211823A0AE760032203C /* as_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120C823A0AE750032203C /* as_builder.cpp */; };
+		2CF1211923A0AE760032203C /* as_thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120C923A0AE750032203C /* as_thread.cpp */; };
+		2CF1211A23A0AE760032203C /* as_callfunc_ppc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120CA23A0AE750032203C /* as_callfunc_ppc.cpp */; };
+		2CF1211B23A0AE760032203C /* as_callfunc_arm_xcode.S in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120CB23A0AE750032203C /* as_callfunc_arm_xcode.S */; };
+		2CF1211C23A0AE760032203C /* as_scriptcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120CC23A0AE750032203C /* as_scriptcode.cpp */; };
+		2CF1211D23A0AE760032203C /* as_scriptfunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120CD23A0AE750032203C /* as_scriptfunction.cpp */; };
+		2CF1211E23A0AE760032203C /* as_callfunc_arm_vita.S in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120CE23A0AE750032203C /* as_callfunc_arm_vita.S */; };
+		2CF1211F23A0AE760032203C /* as_string.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120CF23A0AE750032203C /* as_string.h */; };
+		2CF1212023A0AE760032203C /* as_atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120D023A0AE750032203C /* as_atomic.h */; };
+		2CF1212123A0AE760032203C /* as_callfunc_x64_mingw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120D123A0AE750032203C /* as_callfunc_x64_mingw.cpp */; };
+		2CF1212223A0AE760032203C /* as_compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120D223A0AE750032203C /* as_compiler.h */; };
+		2CF1212323A0AE760032203C /* as_datatype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120D323A0AE750032203C /* as_datatype.cpp */; };
+		2CF1212423A0AE760032203C /* as_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120D423A0AE750032203C /* as_map.h */; };
+		2CF1212623A0AE760032203C /* as_callfunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120D623A0AE750032203C /* as_callfunc.cpp */; };
+		2CF1212723A0AE760032203C /* as_array.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120D723A0AE750032203C /* as_array.h */; };
+		2CF1212823A0AE760032203C /* as_builder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120D823A0AE750032203C /* as_builder.h */; };
+		2CF1212923A0AE760032203C /* as_variablescope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120D923A0AE750032203C /* as_variablescope.cpp */; };
+		2CF1212A23A0AE760032203C /* as_module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120DA23A0AE750032203C /* as_module.cpp */; };
+		2CF1212B23A0AE760032203C /* as_thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120DB23A0AE750032203C /* as_thread.h */; };
+		2CF1212C23A0AE760032203C /* as_configgroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120DC23A0AE750032203C /* as_configgroup.cpp */; };
+		2CF1212D23A0AE760032203C /* as_callfunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120DD23A0AE750032203C /* as_callfunc.h */; };
+		2CF1212E23A0AE760032203C /* as_datatype.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120DE23A0AE750032203C /* as_datatype.h */; };
+		2CF1212F23A0AE760032203C /* as_variablescope.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120DF23A0AE750032203C /* as_variablescope.h */; };
+		2CF1213023A0AE760032203C /* as_scriptobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120E023A0AE750032203C /* as_scriptobject.cpp */; };
+		2CF1213123A0AE760032203C /* as_criticalsection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120E123A0AE750032203C /* as_criticalsection.h */; };
+		2CF1213323A0AE760032203C /* as_memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120E323A0AE750032203C /* as_memory.h */; };
+		2CF1213423A0AE760032203C /* as_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120E423A0AE750032203C /* as_string.cpp */; };
+		2CF1213523A0AE760032203C /* as_scriptobject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120E523A0AE750032203C /* as_scriptobject.h */; };
+		2CF1213623A0AE760032203C /* as_callfunc_sh4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF120E623A0AE750032203C /* as_callfunc_sh4.cpp */; };
+		2CF1213723A0AE760032203C /* as_texts.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF120E723A0AE750032203C /* as_texts.h */; };
 		2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8376123616A9500631B9B /* SivJSONWriter.cpp */; };
 		2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */; };
 /* End PBXBuildFile section */
@@ -2662,6 +2739,84 @@
 		2CEACB5F2338923B00C6EE98 /* EmojiListDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiListDetail.cpp; sourceTree = "<group>"; };
 		2CEACB602338923B00C6EE98 /* EmojiListDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiListDetail.hpp; sourceTree = "<group>"; };
 		2CEACB612338923B00C6EE98 /* SivEmojiList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmojiList.cpp; sourceTree = "<group>"; };
+		2CF1209823A0AE750032203C /* as_scriptnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptnode.cpp; sourceTree = "<group>"; };
+		2CF1209923A0AE750032203C /* as_scriptnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptnode.h; sourceTree = "<group>"; };
+		2CF1209A23A0AE750032203C /* as_generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_generic.h; sourceTree = "<group>"; };
+		2CF1209B23A0AE750032203C /* as_gc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_gc.cpp; sourceTree = "<group>"; };
+		2CF1209C23A0AE750032203C /* as_objecttype.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_objecttype.cpp; sourceTree = "<group>"; };
+		2CF1209D23A0AE750032203C /* as_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_debug.h; sourceTree = "<group>"; };
+		2CF1209E23A0AE750032203C /* as_callfunc_arm_gcc.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = as_callfunc_arm_gcc.S; sourceTree = "<group>"; };
+		2CF1209F23A0AE750032203C /* as_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_parser.h; sourceTree = "<group>"; };
+		2CF120A023A0AE750032203C /* as_objecttype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_objecttype.h; sourceTree = "<group>"; };
+		2CF120A123A0AE750032203C /* as_configgroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_configgroup.h; sourceTree = "<group>"; };
+		2CF120A223A0AE750032203C /* as_restore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_restore.h; sourceTree = "<group>"; };
+		2CF120A323A0AE750032203C /* as_bytecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_bytecode.h; sourceTree = "<group>"; };
+		2CF120A423A0AE750032203C /* as_callfunc_ppc_64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_ppc_64.cpp; sourceTree = "<group>"; };
+		2CF120A523A0AE750032203C /* as_callfunc_x86.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_x86.cpp; sourceTree = "<group>"; };
+		2CF120A623A0AE750032203C /* as_scriptcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptcode.h; sourceTree = "<group>"; };
+		2CF120A723A0AE750032203C /* as_callfunc_x64_msvc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_x64_msvc.cpp; sourceTree = "<group>"; };
+		2CF120A823A0AE750032203C /* as_string_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_string_util.cpp; sourceTree = "<group>"; };
+		2CF120A923A0AE750032203C /* as_atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_atomic.cpp; sourceTree = "<group>"; };
+		2CF120AA23A0AE750032203C /* as_callfunc_mips.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_mips.cpp; sourceTree = "<group>"; };
+		2CF120AB23A0AE750032203C /* as_symboltable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_symboltable.h; sourceTree = "<group>"; };
+		2CF120AC23A0AE750032203C /* as_tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_tokenizer.cpp; sourceTree = "<group>"; };
+		2CF120AD23A0AE750032203C /* as_scriptengine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptengine.h; sourceTree = "<group>"; };
+		2CF120AE23A0AE750032203C /* as_outputbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_outputbuffer.cpp; sourceTree = "<group>"; };
+		2CF120AF23A0AE750032203C /* as_outputbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_outputbuffer.h; sourceTree = "<group>"; };
+		2CF120B023A0AE750032203C /* as_property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_property.h; sourceTree = "<group>"; };
+		2CF120B123A0AE750032203C /* as_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_context.h; sourceTree = "<group>"; };
+		2CF120B223A0AE750032203C /* as_gc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_gc.h; sourceTree = "<group>"; };
+		2CF120B323A0AE750032203C /* as_scriptfunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptfunction.h; sourceTree = "<group>"; };
+		2CF120B423A0AE750032203C /* as_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_context.cpp; sourceTree = "<group>"; };
+		2CF120B523A0AE750032203C /* as_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_config.h; sourceTree = "<group>"; };
+		2CF120B623A0AE750032203C /* as_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_parser.cpp; sourceTree = "<group>"; };
+		2CF120B723A0AE750032203C /* as_typeinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_typeinfo.cpp; sourceTree = "<group>"; };
+		2CF120B823A0AE750032203C /* as_callfunc_arm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_arm.cpp; sourceTree = "<group>"; };
+		2CF120B923A0AE750032203C /* as_scriptengine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptengine.cpp; sourceTree = "<group>"; };
+		2CF120BA23A0AE750032203C /* as_typeinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_typeinfo.h; sourceTree = "<group>"; };
+		2CF120BB23A0AE750032203C /* as_globalproperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_globalproperty.cpp; sourceTree = "<group>"; };
+		2CF120BC23A0AE750032203C /* as_callfunc_xenon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_xenon.cpp; sourceTree = "<group>"; };
+		2CF120BD23A0AE750032203C /* as_restore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_restore.cpp; sourceTree = "<group>"; };
+		2CF120BE23A0AE750032203C /* as_generic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_generic.cpp; sourceTree = "<group>"; };
+		2CF120BF23A0AE750032203C /* as_callfunc_x64_gcc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_x64_gcc.cpp; sourceTree = "<group>"; };
+		2CF120C023A0AE750032203C /* as_string_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_string_util.h; sourceTree = "<group>"; };
+		2CF120C123A0AE750032203C /* as_tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_tokenizer.h; sourceTree = "<group>"; };
+		2CF120C223A0AE750032203C /* as_namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_namespace.h; sourceTree = "<group>"; };
+		2CF120C323A0AE750032203C /* as_module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_module.h; sourceTree = "<group>"; };
+		2CF120C423A0AE750032203C /* as_bytecode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_bytecode.cpp; sourceTree = "<group>"; };
+		2CF120C523A0AE750032203C /* as_memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_memory.cpp; sourceTree = "<group>"; };
+		2CF120C623A0AE750032203C /* as_compiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_compiler.cpp; sourceTree = "<group>"; };
+		2CF120C723A0AE750032203C /* as_tokendef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_tokendef.h; sourceTree = "<group>"; };
+		2CF120C823A0AE750032203C /* as_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_builder.cpp; sourceTree = "<group>"; };
+		2CF120C923A0AE750032203C /* as_thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_thread.cpp; sourceTree = "<group>"; };
+		2CF120CA23A0AE750032203C /* as_callfunc_ppc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_ppc.cpp; sourceTree = "<group>"; };
+		2CF120CB23A0AE750032203C /* as_callfunc_arm_xcode.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = as_callfunc_arm_xcode.S; sourceTree = "<group>"; };
+		2CF120CC23A0AE750032203C /* as_scriptcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptcode.cpp; sourceTree = "<group>"; };
+		2CF120CD23A0AE750032203C /* as_scriptfunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptfunction.cpp; sourceTree = "<group>"; };
+		2CF120CE23A0AE750032203C /* as_callfunc_arm_vita.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = as_callfunc_arm_vita.S; sourceTree = "<group>"; };
+		2CF120CF23A0AE750032203C /* as_string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_string.h; sourceTree = "<group>"; };
+		2CF120D023A0AE750032203C /* as_atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_atomic.h; sourceTree = "<group>"; };
+		2CF120D123A0AE750032203C /* as_callfunc_x64_mingw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_x64_mingw.cpp; sourceTree = "<group>"; };
+		2CF120D223A0AE750032203C /* as_compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_compiler.h; sourceTree = "<group>"; };
+		2CF120D323A0AE750032203C /* as_datatype.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_datatype.cpp; sourceTree = "<group>"; };
+		2CF120D423A0AE750032203C /* as_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_map.h; sourceTree = "<group>"; };
+		2CF120D623A0AE750032203C /* as_callfunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc.cpp; sourceTree = "<group>"; };
+		2CF120D723A0AE750032203C /* as_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_array.h; sourceTree = "<group>"; };
+		2CF120D823A0AE750032203C /* as_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_builder.h; sourceTree = "<group>"; };
+		2CF120D923A0AE750032203C /* as_variablescope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_variablescope.cpp; sourceTree = "<group>"; };
+		2CF120DA23A0AE750032203C /* as_module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_module.cpp; sourceTree = "<group>"; };
+		2CF120DB23A0AE750032203C /* as_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_thread.h; sourceTree = "<group>"; };
+		2CF120DC23A0AE750032203C /* as_configgroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_configgroup.cpp; sourceTree = "<group>"; };
+		2CF120DD23A0AE750032203C /* as_callfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_callfunc.h; sourceTree = "<group>"; };
+		2CF120DE23A0AE750032203C /* as_datatype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_datatype.h; sourceTree = "<group>"; };
+		2CF120DF23A0AE750032203C /* as_variablescope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_variablescope.h; sourceTree = "<group>"; };
+		2CF120E023A0AE750032203C /* as_scriptobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptobject.cpp; sourceTree = "<group>"; };
+		2CF120E123A0AE750032203C /* as_criticalsection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_criticalsection.h; sourceTree = "<group>"; };
+		2CF120E323A0AE750032203C /* as_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_memory.h; sourceTree = "<group>"; };
+		2CF120E423A0AE750032203C /* as_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_string.cpp; sourceTree = "<group>"; };
+		2CF120E523A0AE750032203C /* as_scriptobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptobject.h; sourceTree = "<group>"; };
+		2CF120E623A0AE750032203C /* as_callfunc_sh4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_sh4.cpp; sourceTree = "<group>"; };
+		2CF120E723A0AE750032203C /* as_texts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_texts.h; sourceTree = "<group>"; };
 		2CF8375F23616A4000631B9B /* JSONWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSONWriter.hpp; sourceTree = "<group>"; };
 		2CF8376123616A9500631B9B /* SivJSONWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivJSONWriter.cpp; sourceTree = "<group>"; };
 		2CFA0CAE228B988400F50DF6 /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
@@ -2687,7 +2842,6 @@
 				2C461AA8227074DD00828870 /* libfreetype.a in Frameworks */,
 				2C461AB0227076CC00828870 /* libturbojpeg.a in Frameworks */,
 				2C461AAA227074E200828870 /* libharfbuzz.a in Frameworks */,
-				2C461AAC2270765E00828870 /* libangelscript.a in Frameworks */,
 				2CB4A5F622A14E5300BF96EA /* libogg.a in Frameworks */,
 				2C461AAE2270767100828870 /* libpng.a in Frameworks */,
 				2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */,
@@ -2796,6 +2950,7 @@
 		2C460C50226EEDAF00828870 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2CF1209723A0AE750032203C /* angelscript */,
 				2C461051226EEDB400828870 /* abseil */,
 				2C460FE3226EEDB300828870 /* Box2D */,
 				2C460C58226EEDAF00828870 /* clip2tri */,
@@ -7130,6 +7285,91 @@
 			path = EmojiList;
 			sourceTree = "<group>";
 		};
+		2CF1209723A0AE750032203C /* angelscript */ = {
+			isa = PBXGroup;
+			children = (
+				2CF1209823A0AE750032203C /* as_scriptnode.cpp */,
+				2CF1209923A0AE750032203C /* as_scriptnode.h */,
+				2CF1209A23A0AE750032203C /* as_generic.h */,
+				2CF1209B23A0AE750032203C /* as_gc.cpp */,
+				2CF1209C23A0AE750032203C /* as_objecttype.cpp */,
+				2CF1209D23A0AE750032203C /* as_debug.h */,
+				2CF1209E23A0AE750032203C /* as_callfunc_arm_gcc.S */,
+				2CF1209F23A0AE750032203C /* as_parser.h */,
+				2CF120A023A0AE750032203C /* as_objecttype.h */,
+				2CF120A123A0AE750032203C /* as_configgroup.h */,
+				2CF120A223A0AE750032203C /* as_restore.h */,
+				2CF120A323A0AE750032203C /* as_bytecode.h */,
+				2CF120A423A0AE750032203C /* as_callfunc_ppc_64.cpp */,
+				2CF120A523A0AE750032203C /* as_callfunc_x86.cpp */,
+				2CF120A623A0AE750032203C /* as_scriptcode.h */,
+				2CF120A723A0AE750032203C /* as_callfunc_x64_msvc.cpp */,
+				2CF120A823A0AE750032203C /* as_string_util.cpp */,
+				2CF120A923A0AE750032203C /* as_atomic.cpp */,
+				2CF120AA23A0AE750032203C /* as_callfunc_mips.cpp */,
+				2CF120AB23A0AE750032203C /* as_symboltable.h */,
+				2CF120AC23A0AE750032203C /* as_tokenizer.cpp */,
+				2CF120AD23A0AE750032203C /* as_scriptengine.h */,
+				2CF120AE23A0AE750032203C /* as_outputbuffer.cpp */,
+				2CF120AF23A0AE750032203C /* as_outputbuffer.h */,
+				2CF120B023A0AE750032203C /* as_property.h */,
+				2CF120B123A0AE750032203C /* as_context.h */,
+				2CF120B223A0AE750032203C /* as_gc.h */,
+				2CF120B323A0AE750032203C /* as_scriptfunction.h */,
+				2CF120B423A0AE750032203C /* as_context.cpp */,
+				2CF120B523A0AE750032203C /* as_config.h */,
+				2CF120B623A0AE750032203C /* as_parser.cpp */,
+				2CF120B723A0AE750032203C /* as_typeinfo.cpp */,
+				2CF120B823A0AE750032203C /* as_callfunc_arm.cpp */,
+				2CF120B923A0AE750032203C /* as_scriptengine.cpp */,
+				2CF120BA23A0AE750032203C /* as_typeinfo.h */,
+				2CF120BB23A0AE750032203C /* as_globalproperty.cpp */,
+				2CF120BC23A0AE750032203C /* as_callfunc_xenon.cpp */,
+				2CF120BD23A0AE750032203C /* as_restore.cpp */,
+				2CF120BE23A0AE750032203C /* as_generic.cpp */,
+				2CF120BF23A0AE750032203C /* as_callfunc_x64_gcc.cpp */,
+				2CF120C023A0AE750032203C /* as_string_util.h */,
+				2CF120C123A0AE750032203C /* as_tokenizer.h */,
+				2CF120C223A0AE750032203C /* as_namespace.h */,
+				2CF120C323A0AE750032203C /* as_module.h */,
+				2CF120C423A0AE750032203C /* as_bytecode.cpp */,
+				2CF120C523A0AE750032203C /* as_memory.cpp */,
+				2CF120C623A0AE750032203C /* as_compiler.cpp */,
+				2CF120C723A0AE750032203C /* as_tokendef.h */,
+				2CF120C823A0AE750032203C /* as_builder.cpp */,
+				2CF120C923A0AE750032203C /* as_thread.cpp */,
+				2CF120CA23A0AE750032203C /* as_callfunc_ppc.cpp */,
+				2CF120CB23A0AE750032203C /* as_callfunc_arm_xcode.S */,
+				2CF120CC23A0AE750032203C /* as_scriptcode.cpp */,
+				2CF120CD23A0AE750032203C /* as_scriptfunction.cpp */,
+				2CF120CE23A0AE750032203C /* as_callfunc_arm_vita.S */,
+				2CF120CF23A0AE750032203C /* as_string.h */,
+				2CF120D023A0AE750032203C /* as_atomic.h */,
+				2CF120D123A0AE750032203C /* as_callfunc_x64_mingw.cpp */,
+				2CF120D223A0AE750032203C /* as_compiler.h */,
+				2CF120D323A0AE750032203C /* as_datatype.cpp */,
+				2CF120D423A0AE750032203C /* as_map.h */,
+				2CF120D623A0AE750032203C /* as_callfunc.cpp */,
+				2CF120D723A0AE750032203C /* as_array.h */,
+				2CF120D823A0AE750032203C /* as_builder.h */,
+				2CF120D923A0AE750032203C /* as_variablescope.cpp */,
+				2CF120DA23A0AE750032203C /* as_module.cpp */,
+				2CF120DB23A0AE750032203C /* as_thread.h */,
+				2CF120DC23A0AE750032203C /* as_configgroup.cpp */,
+				2CF120DD23A0AE750032203C /* as_callfunc.h */,
+				2CF120DE23A0AE750032203C /* as_datatype.h */,
+				2CF120DF23A0AE750032203C /* as_variablescope.h */,
+				2CF120E023A0AE750032203C /* as_scriptobject.cpp */,
+				2CF120E123A0AE750032203C /* as_criticalsection.h */,
+				2CF120E323A0AE750032203C /* as_memory.h */,
+				2CF120E423A0AE750032203C /* as_string.cpp */,
+				2CF120E523A0AE750032203C /* as_scriptobject.h */,
+				2CF120E623A0AE750032203C /* as_callfunc_sh4.cpp */,
+				2CF120E723A0AE750032203C /* as_texts.h */,
+			);
+			path = angelscript;
+			sourceTree = "<group>";
+		};
 		2CF8376023616A9500631B9B /* JSONWriter */ = {
 			isa = PBXGroup;
 			children = (
@@ -7146,6 +7386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C461ACC227081E000828870 /* CAudio_AL.hpp in Headers */,
+				2CF120FD23A0AE760032203C /* as_scriptengine.h in Headers */,
 				2CBC64DC22F849F0001610DB /* bitstream.h in Headers */,
 				2C461384226EEDB500828870 /* double-conversion.h in Headers */,
 				2C461106226EEDB500828870 /* ftgzip.h in Headers */,
@@ -7175,11 +7416,14 @@
 				2C461497226EEDB500828870 /* X3DAudio.h in Headers */,
 				2C461409226EEDB500828870 /* schema.h in Headers */,
 				2C461ADE2270A18200828870 /* VertexShader_GL.hpp in Headers */,
+				2CF1213723A0AE760032203C /* as_texts.h in Headers */,
 				2C461880226EEF4100828870 /* InputState.hpp in Headers */,
 				2C461A12226F1E3900828870 /* LicenseList.hpp in Headers */,
+				2CF1211023A0AE760032203C /* as_string_util.h in Headers */,
 				2C4613FC226EEDB500828870 /* ieee754.h in Headers */,
 				2C46115D226EEDB500828870 /* quirc.h in Headers */,
 				2C461420226EEDB500828870 /* muParserBase.h in Headers */,
+				2CF120F023A0AE760032203C /* as_objecttype.h in Headers */,
 				2C4618AD226EEF4100828870 /* TextBoxDetail.hpp in Headers */,
 				2C461A86226F517000828870 /* CGamepad.hpp in Headers */,
 				2CB4A5EC22A14A7E00BF96EA /* codec.h in Headers */,
@@ -7206,10 +7450,13 @@
 				2C461373226EEDB500828870 /* FastNoiseSIMD_internal.h in Headers */,
 				2C461458226EEDB500828870 /* b2DistanceJoint.h in Headers */,
 				2C461383226EEDB500828870 /* cached-powers.h in Headers */,
+				2CF1212223A0AE760032203C /* as_compiler.h in Headers */,
 				2CBC64DE22F849F0001610DB /* zstd_errors.h in Headers */,
 				2C461947226EEF4100828870 /* IConsole.hpp in Headers */,
 				2C461454226EEDB500828870 /* b2PulleyJoint.h in Headers */,
 				2C461354226EEDB500828870 /* DetourNavMeshBuilder.h in Headers */,
+				2CF120F623A0AE760032203C /* as_scriptcode.h in Headers */,
+				2CF120FB23A0AE760032203C /* as_symboltable.h in Headers */,
 				2C461102226EEDB500828870 /* ftbzip2.h in Headers */,
 				2C461A53226F2D0000828870 /* glew.h in Headers */,
 				2C461421226EEDB500828870 /* muParser.h in Headers */,
@@ -7232,11 +7479,14 @@
 				2C4618C9226EEF4100828870 /* IAssetDetail.hpp in Headers */,
 				2C46137D226EEDB500828870 /* fixed-dtoa.h in Headers */,
 				2C46187C226EEF4100828870 /* ISoundFont.hpp in Headers */,
+				2CF1210023A0AE760032203C /* as_property.h in Headers */,
 				2CBC64B422F849F0001610DB /* zstd_opt.h in Headers */,
 				2C46116B226EEDB500828870 /* hb.h in Headers */,
 				2C461109226EEDB500828870 /* ftdebug.h in Headers */,
+				2CF120EA23A0AE760032203C /* as_generic.h in Headers */,
 				2C461359226EEDB500828870 /* DetourAssert.h in Headers */,
 				2C4618CA226EEF4100828870 /* IAsset.hpp in Headers */,
+				2CF1213123A0AE760032203C /* as_criticalsection.h in Headers */,
 				2C461165226EEDB500828870 /* hb-font.h in Headers */,
 				2C461142226EEDB500828870 /* ftsystem.h in Headers */,
 				2C46149B226EEDB500828870 /* audiodefs.h in Headers */,
@@ -7265,6 +7515,7 @@
 				2C461379226EEDB500828870 /* qrcode.h in Headers */,
 				2C461968226EEF4100828870 /* FrameDelta.hpp in Headers */,
 				2C4610F9226EEDB500828870 /* ftsizes.h in Headers */,
+				2CF120F123A0AE760032203C /* as_configgroup.h in Headers */,
 				2C461459226EEDB500828870 /* b2MouseJoint.h in Headers */,
 				2CB4A5EB22A14A7E00BF96EA /* vorbisfile.h in Headers */,
 				2C461104226EEDB500828870 /* fttrigon.h in Headers */,
@@ -7272,6 +7523,7 @@
 				2C461137226EEDB500828870 /* ftincrem.h in Headers */,
 				2C4613AA226EEDB500828870 /* msdfgen.h in Headers */,
 				2C461430226EEDB500828870 /* shapes.h in Headers */,
+				2CF1211323A0AE760032203C /* as_module.h in Headers */,
 				2C4613F8226EEDB500828870 /* filereadstream.h in Headers */,
 				2C461124226EEDB500828870 /* svgxval.h in Headers */,
 				2C461860226EEF4100828870 /* P2ContactListner.hpp in Headers */,
@@ -7292,6 +7544,7 @@
 				2C461468226EEDB500828870 /* b2Body.h in Headers */,
 				2C4610F5226EEDB500828870 /* clipper.hpp in Headers */,
 				2C461127226EEDB500828870 /* svsfnt.h in Headers */,
+				2CF1210223A0AE760032203C /* as_gc.h in Headers */,
 				2C46197E226EEF4100828870 /* CursorState.hpp in Headers */,
 				2C46142E226EEDB500828870 /* utils.h in Headers */,
 				2C461473226EEDB500828870 /* b2StackAllocator.h in Headers */,
@@ -7303,9 +7556,12 @@
 				2C461111226EEDB500828870 /* ftvalid.h in Headers */,
 				2C461460226EEDB500828870 /* b2FrictionJoint.h in Headers */,
 				2C461965226EEF4100828870 /* UserActionManager.hpp in Headers */,
+				2CF1210323A0AE760032203C /* as_scriptfunction.h in Headers */,
+				2CF1212823A0AE760032203C /* as_builder.h in Headers */,
 				2C46139B226EEDB500828870 /* EdgeColor.h in Headers */,
 				2C461492226EEDB500828870 /* b2BroadPhase.h in Headers */,
 				2CBC64D222F849F0001610DB /* xxhash.h in Headers */,
+				2CF1212D23A0AE760032203C /* as_callfunc.h in Headers */,
 				2C4618E8226EEF4100828870 /* ImageFormat_PPM.hpp in Headers */,
 				2C461A3F226F2D0000828870 /* glfw3.h in Headers */,
 				2CBC64E422F849F0001610DB /* fse.h in Headers */,
@@ -7320,6 +7576,7 @@
 				2C46111C226EEDB500828870 /* svttcmap.h in Headers */,
 				2C4613A8226EEDB500828870 /* import-font.h in Headers */,
 				2C461487226EEDB500828870 /* b2PolygonShape.h in Headers */,
+				2CF1213523A0AE760032203C /* as_scriptobject.h in Headers */,
 				2C461A39226F2D0000828870 /* posix_thread.h in Headers */,
 				2C46141E226EEDB500828870 /* muParserToken.h in Headers */,
 				2C461169226EEDB500828870 /* hb-unicode.h in Headers */,
@@ -7327,6 +7584,7 @@
 				2C46111E226EEDB500828870 /* svgldict.h in Headers */,
 				2C46114E226EEDB500828870 /* ftbdf.h in Headers */,
 				2C461368226EEDB500828870 /* DetourNavMesh.h in Headers */,
+				2CF120F223A0AE760032203C /* as_restore.h in Headers */,
 				2C461993226EEF4100828870 /* IXInput.hpp in Headers */,
 				2C46149C226EEDB500828870 /* XAudio2.h in Headers */,
 				2C4618A0226EEF4100828870 /* AssetHandleManager.hpp in Headers */,
@@ -7352,6 +7610,7 @@
 				2C46183F226EEF4100828870 /* IProfiler.hpp in Headers */,
 				2CBC64CA22F849F0001610DB /* zstd.h in Headers */,
 				2C46140C226EEDB500828870 /* rapidjson.h in Headers */,
+				2CF1212723A0AE760032203C /* as_array.h in Headers */,
 				2C46144A226EEDB500828870 /* b2PolygonContact.h in Headers */,
 				2C461A48226F2D0000828870 /* mappings.h in Headers */,
 				2C46110C226EEDB500828870 /* pshints.h in Headers */,
@@ -7364,6 +7623,7 @@
 				2C4618D3226EEF4100828870 /* CFFT.hpp in Headers */,
 				2C46113F226EEDB500828870 /* ftchapters.h in Headers */,
 				2C46116A226EEDB500828870 /* hb-blob.h in Headers */,
+				2CF1211123A0AE760032203C /* as_tokenizer.h in Headers */,
 				2C461ACD227081E000828870 /* Audio_AL.hpp in Headers */,
 				2C461107226EEDB500828870 /* sfnt.h in Headers */,
 				2C46110E226EEDB500828870 /* autohint.h in Headers */,
@@ -7374,6 +7634,7 @@
 				2CBC7BD7238B7CBA009B0E8E /* serial.h in Headers */,
 				2C461426226EEDB500828870 /* muParserDef.h in Headers */,
 				2CBC64E022F849F0001610DB /* huf.h in Headers */,
+				2CF120FF23A0AE760032203C /* as_outputbuffer.h in Headers */,
 				2C4617E7226EEF4100828870 /* ScriptBind.hpp in Headers */,
 				2C4617E2226EEF4100828870 /* ScriptData.hpp in Headers */,
 				2C46112B226EEDB500828870 /* svpostnm.h in Headers */,
@@ -7392,6 +7653,7 @@
 				2C4618A1226EEF4100828870 /* AssetReport.hpp in Headers */,
 				2C461138226EEDB500828870 /* ftfntfmt.h in Headers */,
 				2C4618DF226EEF4100828870 /* IWindow.hpp in Headers */,
+				2CF1210523A0AE760032203C /* as_config.h in Headers */,
 				2C4610FD226EEDB500828870 /* ftheader.h in Headers */,
 				2C46196A226EEF4100828870 /* FrameCounter.hpp in Headers */,
 				2CBC64C822F849F0001610DB /* cover.h in Headers */,
@@ -7409,6 +7671,7 @@
 				2C461479226EEDB500828870 /* b2Timer.h in Headers */,
 				2C4610F1226EEDB500828870 /* pngconf.h in Headers */,
 				2C461408226EEDB500828870 /* encodings.h in Headers */,
+				2CF1212B23A0AE760032203C /* as_thread.h in Headers */,
 				2C46147F226EEDB500828870 /* b2Settings.h in Headers */,
 				2C8EA7C9237A956400A1D3B6 /* ISDFFont.hpp in Headers */,
 				2C46141B226EEDB500828870 /* muParserDLL.h in Headers */,
@@ -7440,9 +7703,11 @@
 				2C46113C226EEDB500828870 /* ftpfr.h in Headers */,
 				2CBC64CE22F849F0001610DB /* zstd_decompress_internal.h in Headers */,
 				2C46138B226EEDB500828870 /* fast-dtoa.h in Headers */,
+				2CF1211723A0AE760032203C /* as_tokendef.h in Headers */,
 				2C461467226EEDB500828870 /* b2MotorJoint.h in Headers */,
 				2C461A42226F2D0000828870 /* glfw3native.h in Headers */,
 				2C46111F226EEDB500828870 /* svpscmap.h in Headers */,
+				2CF1211F23A0AE760032203C /* as_string.h in Headers */,
 				2C46112F226EEDB500828870 /* ftadvanc.h in Headers */,
 				2C461131226EEDB500828870 /* fterrors.h in Headers */,
 				2C461119226EEDB500828870 /* svprop.h in Headers */,
@@ -7459,7 +7724,9 @@
 				2C4618CB226EEF4100828870 /* CAsset.hpp in Headers */,
 				2C4610EE226EEDB500828870 /* tinyxml2.h in Headers */,
 				2C461960226EEF4100828870 /* AudioFormat_WAVE.hpp in Headers */,
+				2CF1212023A0AE760032203C /* as_atomic.h in Headers */,
 				2C461471226EEDB500828870 /* b2Rope.h in Headers */,
+				2CF1210123A0AE760032203C /* as_context.h in Headers */,
 				2C461456226EEDB500828870 /* b2WeldJoint.h in Headers */,
 				2C4617DA226EEF4100828870 /* scriptstdstring.h in Headers */,
 				2C461942226EEF4100828870 /* CGUI.hpp in Headers */,
@@ -7498,6 +7765,7 @@
 				2C461448226EEDB500828870 /* b2CircleContact.h in Headers */,
 				2C461402226EEDB500828870 /* strfunc.h in Headers */,
 				2C461939226EEF4100828870 /* IEffect.hpp in Headers */,
+				2CF1212E23A0AE760032203C /* as_datatype.h in Headers */,
 				2CBC64C922F849F0001610DB /* divsufsort.h in Headers */,
 				2C4617DB226EEF4100828870 /* scriptbuilder.h in Headers */,
 				2C4617DF226EEF4100828870 /* scriptarray.h in Headers */,
@@ -7513,13 +7781,17 @@
 				2C46198E226EEF4100828870 /* ILogger.hpp in Headers */,
 				2C461963226EEF4100828870 /* Siv3DEngine.hpp in Headers */,
 				2C4618EA226EEF4100828870 /* ImageFormat_TGA.hpp in Headers */,
+				2CF1212F23A0AE760032203C /* as_variablescope.h in Headers */,
 				2C4618E6226EEF4100828870 /* CImageFormat.hpp in Headers */,
+				2CF120ED23A0AE760032203C /* as_debug.h in Headers */,
 				2C4613A2226EEDB500828870 /* Contour.h in Headers */,
 				2C461425226EEDB500828870 /* muParserError.h in Headers */,
 				2C461117226EEDB500828870 /* ftgloadr.h in Headers */,
 				2C461378226EEDB500828870 /* cpptoml.h in Headers */,
 				2C461928226EEF4100828870 /* ITexture.hpp in Headers */,
+				2CF1211223A0AE760032203C /* as_namespace.h in Headers */,
 				2C4617DE226EEF4100828870 /* scriptgrid.h in Headers */,
+				2CF120E923A0AE760032203C /* as_scriptnode.h in Headers */,
 				2C461163226EEDB500828870 /* hb-common.h in Headers */,
 				2C46141C226EEDB500828870 /* muParserInt.h in Headers */,
 				2C461389226EEDB500828870 /* ieee.h in Headers */,
@@ -7541,9 +7813,12 @@
 				2C46111B226EEDB500828870 /* svwinfnt.h in Headers */,
 				2C461161226EEDB500828870 /* hb-set.h in Headers */,
 				2C4613F2226EEDB500828870 /* fwd.h in Headers */,
+				2CF1212423A0AE760032203C /* as_map.h in Headers */,
 				2C461147226EEDB500828870 /* ftglyph.h in Headers */,
 				2C46193F226EEF4100828870 /* BigIntDetail.hpp in Headers */,
+				2CF1213323A0AE760032203C /* as_memory.h in Headers */,
 				2CBC64F6230D5776001610DB /* ChildProcessDetail.hpp in Headers */,
+				2CF120EF23A0AE760032203C /* as_parser.h in Headers */,
 				2C461352226EEDB500828870 /* DetourAlloc.h in Headers */,
 				2C46192D226EEF4100828870 /* HTMLWriterDetail.hpp in Headers */,
 				2C461455226EEDB500828870 /* b2RopeJoint.h in Headers */,
@@ -7566,6 +7841,7 @@
 				2C461145226EEDB500828870 /* tttables.h in Headers */,
 				2C46111D226EEDB500828870 /* svotval.h in Headers */,
 				2C461A58226F2F5900828870 /* CWindow.hpp in Headers */,
+				2CF1210A23A0AE760032203C /* as_typeinfo.h in Headers */,
 				2C4613B7226EEDB500828870 /* types.h in Headers */,
 				2C4610FA226EEDB500828870 /* fttypes.h in Headers */,
 				2CB4A5F222A14C2900BF96EA /* AudioFormat_OggVorbis.hpp in Headers */,
@@ -7640,6 +7916,7 @@
 				2C461355226EEDB500828870 /* DetourNode.h in Headers */,
 				2C46112D226EEDB500828870 /* ftcalc.h in Headers */,
 				2C4618C2226EEF4100828870 /* ILicenseManager.hpp in Headers */,
+				2CF120F323A0AE760032203C /* as_bytecode.h in Headers */,
 				2C461405226EEDB500828870 /* dtoa.h in Headers */,
 				2C4619CE226F028600828870 /* TextToSpeechDetail.hpp in Headers */,
 			);
@@ -7768,6 +8045,7 @@
 				2C461841226EEF4100828870 /* CProfiler.cpp in Sources */,
 				2C461929226EEF4100828870 /* SivTexture.cpp in Sources */,
 				2CBC64B822F849F0001610DB /* hist.c in Sources */,
+				2CF120F723A0AE760032203C /* as_callfunc_x64_msvc.cpp in Sources */,
 				2C461844226EEF4100828870 /* SivMersenneTwister.cpp in Sources */,
 				2C4617DD226EEF4100828870 /* scriptbuilder.cpp in Sources */,
 				2C461995226EEF4100828870 /* XInputFactory.cpp in Sources */,
@@ -7794,7 +8072,9 @@
 				2C46147A226EEDB500828870 /* b2Timer.cpp in Sources */,
 				2CBC64BB22F849F0001610DB /* zstd_lazy.c in Sources */,
 				2C4618C3226EEF4100828870 /* SivLicenseManager.cpp in Sources */,
+				2CF120F523A0AE760032203C /* as_callfunc_x86.cpp in Sources */,
 				2C4618A3226EEF4100828870 /* SivINIData.cpp in Sources */,
+				2CF1210B23A0AE760032203C /* as_globalproperty.cpp in Sources */,
 				2C46190A226EEF4100828870 /* SivString.cpp in Sources */,
 				2C46181E226EEF4100828870 /* Script_Texture.cpp in Sources */,
 				2C46187D226EEF4100828870 /* SoundFontFactory.cpp in Sources */,
@@ -7802,6 +8082,7 @@
 				2C461883226EEF4100828870 /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2C461A57226F2F5900828870 /* CWindow.cpp in Sources */,
 				2C8EA7B62369CE7000A1D3B6 /* SivRay.cpp in Sources */,
+				2CF1213623A0AE760032203C /* as_callfunc_sh4.cpp in Sources */,
 				2C46115F226EEDB500828870 /* quirc.c in Sources */,
 				2C4617E1226EEF4100828870 /* ScriptFactory.cpp in Sources */,
 				2C4618B5226EEF4100828870 /* SivXXHash.cpp in Sources */,
@@ -7813,6 +8094,7 @@
 				2C46196F226EEF4100828870 /* SivWebcam.cpp in Sources */,
 				2C46138F226EEDB500828870 /* equation-solver.cpp in Sources */,
 				2C46199B226EEF4100828870 /* TextInputFactory.cpp in Sources */,
+				2CF1212A23A0AE760032203C /* as_module.cpp in Sources */,
 				2C8EA7C8237A956400A1D3B6 /* SDFFontData.cpp in Sources */,
 				2C461934226EEF4100828870 /* SivMultiPolygon.cpp in Sources */,
 				2C461913226EEF4100828870 /* SivTransformer2D.cpp in Sources */,
@@ -7823,11 +8105,13 @@
 				2C461978226EEF4100828870 /* SivMemoryWriter.cpp in Sources */,
 				2C461849226EEF4100828870 /* SivSamplerState.cpp in Sources */,
 				2C46148A226EEDB500828870 /* b2EdgeShape.cpp in Sources */,
+				2CF1210F23A0AE760032203C /* as_callfunc_x64_gcc.cpp in Sources */,
 				2C461490226EEDB500828870 /* b2TimeOfImpact.cpp in Sources */,
 				2C46198A226EEF4100828870 /* SivDirectoryWatcher.cpp in Sources */,
 				2C461369226EEDB500828870 /* DetourAssert.cpp in Sources */,
 				2C4619AD226EF27700828870 /* CNetwork.mm in Sources */,
 				2C46188F226EEF4100828870 /* PaintShape.cpp in Sources */,
+				2CF1212923A0AE760032203C /* as_variablescope.cpp in Sources */,
 				2C4618C4226EEF4100828870 /* CLicenseManager.cpp in Sources */,
 				2C46145B226EEDB500828870 /* b2WheelJoint.cpp in Sources */,
 				2C4617FC226EEF4100828870 /* Script_Timer.cpp in Sources */,
@@ -7841,6 +8125,7 @@
 				2C46144B226EEDB500828870 /* b2ContactSolver.cpp in Sources */,
 				2C461943226EEF4100828870 /* GUIFactory.cpp in Sources */,
 				2C461951226EEF4100828870 /* SivClipboard.cpp in Sources */,
+				2CF1211A23A0AE760032203C /* as_callfunc_ppc.cpp in Sources */,
 				2C46182C226EEF4100828870 /* Script_Optional.cpp in Sources */,
 				2C461494226EEDB500828870 /* b2CollideEdge.cpp in Sources */,
 				2C461961226EEF4100828870 /* CAudioFormat.cpp in Sources */,
@@ -7850,12 +8135,15 @@
 				2C461435226EEDB500828870 /* advancing_front.cc in Sources */,
 				2C461388226EEDB500828870 /* diy-fp.cc in Sources */,
 				2C461156226EEDB500828870 /* cpu_x86.cpp in Sources */,
+				2CF1210623A0AE760032203C /* as_parser.cpp in Sources */,
 				2C4618F0226EEF4100828870 /* ImageFormat_JPEG.cpp in Sources */,
 				2C461990226EEF4100828870 /* LoggerFactory.cpp in Sources */,
 				2CBC64BE22F849F0001610DB /* huf_compress.c in Sources */,
+				2CF120EB23A0AE760032203C /* as_gc.cpp in Sources */,
 				2C46190B226EEF4100828870 /* SivEllipse.cpp in Sources */,
 				2C461811226EEF4100828870 /* Script_Transformer2D.cpp in Sources */,
 				2C461367226EEDB500828870 /* RecastAssert.cpp in Sources */,
+				2CF1210423A0AE760032203C /* as_context.cpp in Sources */,
 				2C46198F226EEF4100828870 /* SivLogger.cpp in Sources */,
 				2CBC64E622F849F0001610DB /* error_private.c in Sources */,
 				2C4619D5226F075E00828870 /* SivPowerStatus.mm in Sources */,
@@ -7876,6 +8164,7 @@
 				2C46189F226EEF4100828870 /* AssetReport.cpp in Sources */,
 				2C461901226EEF4100828870 /* CAudio_Null.cpp in Sources */,
 				2C461899226EEF4100828870 /* SivExif.cpp in Sources */,
+				2CF1212123A0AE760032203C /* as_callfunc_x64_mingw.cpp in Sources */,
 				2C461472226EEDB500828870 /* b2Rope.cpp in Sources */,
 				2C4617D8226EEF4100828870 /* CScript.cpp in Sources */,
 				2C461A0A226F15A000828870 /* SivDialog_Platform.mm in Sources */,
@@ -7944,6 +8233,7 @@
 				2C266A78228AA6C8001C7DAD /* GLBlendState.cpp in Sources */,
 				2C8EA7AD2368A7FE00A1D3B6 /* SivOBB.cpp in Sources */,
 				2C4618EC226EEF4100828870 /* ImageFormat_WebP.cpp in Sources */,
+				2CF1212C23A0AE760032203C /* as_configgroup.cpp in Sources */,
 				2C4618DB226EEF4100828870 /* CObjectDetection.cpp in Sources */,
 				2C4619FA226F10F500828870 /* DirectoryWatcherDetail.cpp in Sources */,
 				2C4618E5226EEF4100828870 /* ImageFormatFactory.cpp in Sources */,
@@ -7969,6 +8259,7 @@
 				2C461933226EEF4100828870 /* SivTexturedQuad.cpp in Sources */,
 				2C4619E2226F0A6800828870 /* CCodec.cpp in Sources */,
 				2C461856226EEF4100828870 /* SivCSVData.cpp in Sources */,
+				2CF120FE23A0AE760032203C /* as_outputbuffer.cpp in Sources */,
 				2C461922226EEF4100828870 /* SivPolygon.cpp in Sources */,
 				2C461351226EEDB500828870 /* RecastMeshDetail.cpp in Sources */,
 				2C461964226EEF4100828870 /* SivSystem.cpp in Sources */,
@@ -7986,9 +8277,12 @@
 				2C461997226EEF4100828870 /* TextWriterDetail.cpp in Sources */,
 				2CBC64B722F849F0001610DB /* zstd_ldm.c in Sources */,
 				2C46135B226EEDB500828870 /* RecastLayers.cpp in Sources */,
+				2CF1210C23A0AE760032203C /* as_callfunc_xenon.cpp in Sources */,
+				2CF1210823A0AE760032203C /* as_callfunc_arm.cpp in Sources */,
 				2C461945226EEF4100828870 /* SivAudioAsset.cpp in Sources */,
 				2C46194A226EEF4100828870 /* SivScreenCapture.cpp in Sources */,
 				2C461A8B226F55E700828870 /* CDragDrop.cpp in Sources */,
+				2CF1211823A0AE760032203C /* as_builder.cpp in Sources */,
 				2C46143A226EEDB500828870 /* b2World.cpp in Sources */,
 				2C461808226EEF4100828870 /* Script_Shape2D.cpp in Sources */,
 				2C46181C226EEF4100828870 /* Script_Date.cpp in Sources */,
@@ -8003,10 +8297,12 @@
 				2C46184B226EEF4100828870 /* SivVector3D.cpp in Sources */,
 				2C46181F226EEF4100828870 /* Script_Math.cpp in Sources */,
 				2C266A83228AACFC001C7DAD /* GLSpriteBatch.cpp in Sources */,
+				2CF120FA23A0AE760032203C /* as_callfunc_mips.cpp in Sources */,
 				2C4619A5226EEF4100828870 /* FontData.cpp in Sources */,
 				2C4618D7226EEF4100828870 /* SivTCPServer.cpp in Sources */,
 				2C461875226EEF4100828870 /* SivDate.cpp in Sources */,
 				2C46142F226EEDB500828870 /* shapes.cc in Sources */,
+				2CF1211E23A0AE760032203C /* as_callfunc_arm_vita.S in Sources */,
 				2C461902226EEF4100828870 /* SivAudio.cpp in Sources */,
 				2C46148B226EEDB500828870 /* b2CircleShape.cpp in Sources */,
 				2C461361226EEDB500828870 /* DetourCommon.cpp in Sources */,
@@ -8014,6 +8310,7 @@
 				2C461450226EEDB500828870 /* b2WeldJoint.cpp in Sources */,
 				2CBC64D922F849F0001610DB /* fse_decompress.c in Sources */,
 				2C461828226EEF4100828870 /* Script_Circular.cpp in Sources */,
+				2CF1213023A0AE760032203C /* as_scriptobject.cpp in Sources */,
 				2C461A4D226F2D0000828870 /* context.c in Sources */,
 				2C46195B226EEF4100828870 /* SivAudioFormat.cpp in Sources */,
 				2C461A3B226F2D0000828870 /* monitor.c in Sources */,
@@ -8033,6 +8330,7 @@
 				2C461837226EEF4100828870 /* SivTextureAsset.cpp in Sources */,
 				2CBC64DA22F849F0001610DB /* debug.c in Sources */,
 				2CB4A5F122A14C2900BF96EA /* AudioFormat_OggVorbis.cpp in Sources */,
+				2CF120F823A0AE760032203C /* as_string_util.cpp in Sources */,
 				2C4619BF226EFE5C00828870 /* VideoWriterDetail.cpp in Sources */,
 				2C461948226EEF4100828870 /* SivConsole.cpp in Sources */,
 				2C4618F8226EEF4100828870 /* SivMathParser.cpp in Sources */,
@@ -8046,12 +8344,15 @@
 				2C4618CE226EEF4100828870 /* ManagedScriptDetail.cpp in Sources */,
 				2C461894226EEF4100828870 /* TextToSpeechFactory.cpp in Sources */,
 				2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */,
+				2CF1212623A0AE760032203C /* as_callfunc.cpp in Sources */,
 				2C461486226EEDB500828870 /* b2ChainShape.cpp in Sources */,
 				2C461818226EEF4100828870 /* Script_Emoji.cpp in Sources */,
 				2C461817226EEF4100828870 /* Script_RDTSCClock.cpp in Sources */,
 				2C46188A226EEF4100828870 /* SivDistribution.cpp in Sources */,
 				2C461A1B226F2B6300828870 /* SivDLL.cpp in Sources */,
+				2CF120EE23A0AE760032203C /* as_callfunc_arm_gcc.S in Sources */,
 				2C46144E226EEDB500828870 /* b2Contact.cpp in Sources */,
+				2CF120EC23A0AE760032203C /* as_objecttype.cpp in Sources */,
 				2C461987226EEF4100828870 /* SivTextureFormat.cpp in Sources */,
 				2C461A4A226F2D0000828870 /* cocoa_window.m in Sources */,
 				2C4613A1226EEDB500828870 /* save-bmp.cpp in Sources */,
@@ -8062,6 +8363,7 @@
 				2C461496226EEDB500828870 /* svm.cpp in Sources */,
 				2C461AEC22712B0200828870 /* CTexture_GL.cpp in Sources */,
 				2C461953226EEF4100828870 /* SivDeadZone.cpp in Sources */,
+				2CF1211523A0AE760032203C /* as_memory.cpp in Sources */,
 				2C461992226EEF4100828870 /* SivWritableMemoryMapping.cpp in Sources */,
 				2CEACB562338756800C6EE98 /* SivAABB.cpp in Sources */,
 				2C4619EA226F0CD700828870 /* BinaryReaderDetail.cpp in Sources */,
@@ -8074,6 +8376,7 @@
 				2C461429226EEDB500828870 /* muParserError.cpp in Sources */,
 				2C461866226EEF4100828870 /* P2SliderJointDetail.cpp in Sources */,
 				2C4618FC226EEF4100828870 /* ByteArrayDetail.cpp in Sources */,
+				2CF1210723A0AE760032203C /* as_typeinfo.cpp in Sources */,
 				2C4617DC226EEF4100828870 /* scriptgrid.cpp in Sources */,
 				2CBC7BB0238B7C69009B0E8E /* SerialDetail.cpp in Sources */,
 				2C461391226EEDB500828870 /* EdgeHolder.cpp in Sources */,
@@ -8088,6 +8391,7 @@
 				2C46189D226EEF4100828870 /* SivFormatLiteral.cpp in Sources */,
 				2C4618C7226EEF4100828870 /* CAsset.cpp in Sources */,
 				2C46185D226EEF4100828870 /* P2PivotJointDetail.cpp in Sources */,
+				2CF1211D23A0AE760032203C /* as_scriptfunction.cpp in Sources */,
 				2C46185F226EEF4100828870 /* P2ContactListner.cpp in Sources */,
 				2C4619AA226EEFEC00828870 /* CNetwork.cpp in Sources */,
 				2CBC64BF22F849F0001610DB /* zstd_opt.c in Sources */,
@@ -8096,6 +8400,7 @@
 				2C4613A3226EEDB500828870 /* shape-description.cpp in Sources */,
 				2C46192F226EEF4100828870 /* SivBoolArray.cpp in Sources */,
 				2C46190F226EEF4100828870 /* SivCylindrical.cpp in Sources */,
+				2CF1212323A0AE760032203C /* as_datatype.cpp in Sources */,
 				2C4617E0226EEF4100828870 /* scriptstdstring.cpp in Sources */,
 				2C4617E9226EEF4100828870 /* Script_Audio.cpp in Sources */,
 				2C4619A0226EEF4100828870 /* FontFace.cpp in Sources */,
@@ -8143,8 +8448,11 @@
 				2C461842226EEF4100828870 /* SivProfiler.cpp in Sources */,
 				2C461482226EEDB500828870 /* b2CollideCircle.cpp in Sources */,
 				2C4617F3226EEF4100828870 /* Script_Say.cpp in Sources */,
+				2CF120F423A0AE760032203C /* as_callfunc_ppc_64.cpp in Sources */,
+				2CF1210E23A0AE760032203C /* as_generic.cpp in Sources */,
 				2C461832226EEF4100828870 /* Script_Stopwatch.cpp in Sources */,
 				2C461463226EEDB500828870 /* b2PrismaticJoint.cpp in Sources */,
+				2CF120E823A0AE760032203C /* as_scriptnode.cpp in Sources */,
 				2C461930226EEF4100828870 /* SivFormatFloat.cpp in Sources */,
 				2C46147C226EEDB500828870 /* b2StackAllocator.cpp in Sources */,
 				2C46187F226EEF4100828870 /* SivKey.cpp in Sources */,
@@ -8159,6 +8467,8 @@
 				2C46135A226EEDB500828870 /* RecastArea.cpp in Sources */,
 				2C46180A226EEF4100828870 /* Script_Mat3x2.cpp in Sources */,
 				2C461994226EEF4100828870 /* SivXInput.cpp in Sources */,
+				2CF120FC23A0AE760032203C /* as_tokenizer.cpp in Sources */,
+				2CF1211623A0AE760032203C /* as_compiler.cpp in Sources */,
 				2C461873226EEF4100828870 /* CodecFactory.cpp in Sources */,
 				2C461AEA22712B0200828870 /* Texture_GL.cpp in Sources */,
 				2C461819226EEF4100828870 /* Script_Wave.cpp in Sources */,
@@ -8173,6 +8483,7 @@
 				2C46189C226EEF4100828870 /* SivEmoji.cpp in Sources */,
 				2C461476226EEDB500828870 /* b2BlockAllocator.cpp in Sources */,
 				2C4617EB226EEF4100828870 /* Script_CustomStopwatch.cpp in Sources */,
+				2CF1211B23A0AE760032203C /* as_callfunc_arm_xcode.S in Sources */,
 				2C461A9B226F70FA00828870 /* SivDate_Platform.cpp in Sources */,
 				2C461831226EEF4100828870 /* Script_RectF.cpp in Sources */,
 				2C461ACF227081E000828870 /* AudioFactory.cpp in Sources */,
@@ -8225,6 +8536,7 @@
 				2C461996226EEF4100828870 /* SivBezier3.cpp in Sources */,
 				2CBC7BDB238B7CBA009B0E8E /* unix.cc in Sources */,
 				2CBC7BD6238B7CBA009B0E8E /* serial.cc in Sources */,
+				2CF1210923A0AE760032203C /* as_scriptengine.cpp in Sources */,
 				2C461898226EEF4100828870 /* SivIcon.cpp in Sources */,
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
 				2C461810226EEF4100828870 /* Script_Profiler.cpp in Sources */,
@@ -8242,6 +8554,7 @@
 				2C46180C226EEF4100828870 /* Script_Polygon.cpp in Sources */,
 				2C8397C5237CF40E00E8601A /* SivToastNotification.cpp in Sources */,
 				2C461830226EEF4100828870 /* Script_WaveSample.cpp in Sources */,
+				2CF1210D23A0AE760032203C /* as_restore.cpp in Sources */,
 				2C4618E0226EEF4100828870 /* SivWindow.cpp in Sources */,
 				2C461805226EEF4100828870 /* Script_Image.cpp in Sources */,
 				2C4618FD226EEF4100828870 /* SivSFMT.cpp in Sources */,
@@ -8314,8 +8627,10 @@
 				2C461431226EEDB500828870 /* sweep.cc in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
 				2CBC7BDA238B7CBA009B0E8E /* list_ports_win.cc in Sources */,
+				2CF120F923A0AE760032203C /* as_atomic.cpp in Sources */,
 				2C46192E226EEF4100828870 /* SivTexturedCircle.cpp in Sources */,
 				2C461909226EEF4100828870 /* SivMicrophone.cpp in Sources */,
+				2CF1211C23A0AE760032203C /* as_scriptcode.cpp in Sources */,
 				2C46142A226EEDB500828870 /* muParserInt.cpp in Sources */,
 				2C46148C226EEDB500828870 /* b2PolygonShape.cpp in Sources */,
 				2C461451226EEDB500828870 /* b2MouseJoint.cpp in Sources */,
@@ -8336,7 +8651,9 @@
 				2CF8376223616A9500631B9B /* SivJSONWriter.cpp in Sources */,
 				2C461A90226F56F400828870 /* CCursor.mm in Sources */,
 				2C46182D226EEF4100828870 /* Script_SoundFont.cpp in Sources */,
+				2CF1213423A0AE760032203C /* as_string.cpp in Sources */,
 				2C461439226EEDB500828870 /* b2Body.cpp in Sources */,
+				2CF1211423A0AE760032203C /* as_bytecode.cpp in Sources */,
 				2C4618C5226EEF4100828870 /* SivMD5.cpp in Sources */,
 				2C461423226EEDB500828870 /* muParserDLL.cpp in Sources */,
 				2C46115B226EEDB500828870 /* identify.c in Sources */,
@@ -8360,6 +8677,7 @@
 				2C461357226EEDB500828870 /* Recast.cpp in Sources */,
 				2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */,
 				2C4618B6226EEF4100828870 /* SivThreading.cpp in Sources */,
+				2CF1211923A0AE760032203C /* as_thread.cpp in Sources */,
 				2C461A79226F4C1500828870 /* CMouse.cpp in Sources */,
 				2C4617E3226EEF4100828870 /* ScriptData.cpp in Sources */,
 				2C46196E226EEF4100828870 /* SivParseBool.cpp in Sources */,
