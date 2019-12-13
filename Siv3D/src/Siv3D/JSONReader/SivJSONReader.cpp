@@ -352,8 +352,7 @@ namespace s3d
 		return String(m_detail->value->GetString(), m_detail->value->GetStringLength());
 	}
 
-	template <>
-	Optional<String> JSONValue::getOpt<String>() const
+	Optional<String> JSONValue::getOptString() const
 	{
 		if (!isString())
 		{
@@ -363,15 +362,12 @@ namespace s3d
 		return Optional<String>(InPlace, m_detail->value->GetString(), m_detail->value->GetStringLength());
 	}
 
-	template Optional<String> JSONValue::getOpt<String>() const;
-
 	////////////////////////////////
 	//
 	//	Number
 	//
 
-	template <>
-	Optional<int32> JSONValue::getOpt<int32>() const
+	Optional<int32> JSONValue::getOptInt32() const
 	{
 		if (isEmpty() || !m_detail->value->IsInt())
 		{
@@ -381,8 +377,7 @@ namespace s3d
 		return m_detail->value->GetInt();
 	}
 
-	template <>
-	Optional<uint32> JSONValue::getOpt<uint32>() const
+	Optional<uint32> JSONValue::getOptUint32() const
 	{
 		if (isEmpty() || !m_detail->value->IsUint())
 		{
@@ -392,8 +387,7 @@ namespace s3d
 		return m_detail->value->GetUint();
 	}
 
-	template <>
-	Optional<int64> JSONValue::getOpt<int64>() const
+	Optional<int64> JSONValue::getOptInt64() const
 	{
 		if (isEmpty() || !m_detail->value->IsInt64())
 		{
@@ -403,8 +397,7 @@ namespace s3d
 		return m_detail->value->GetInt64();
 	}
 
-	template <>
-	Optional<uint64> JSONValue::getOpt<uint64>() const
+	Optional<uint64> JSONValue::getOptUint64() const
 	{
 		if (isEmpty() || !m_detail->value->IsUint64())
 		{
@@ -414,8 +407,7 @@ namespace s3d
 		return m_detail->value->GetUint64();
 	}
 
-	template <>
-	Optional<float> JSONValue::getOpt<float>() const
+	Optional<float> JSONValue::getOptFloat() const
 	{
 		if (isEmpty() || !m_detail->value->IsNumber())
 		{
@@ -425,8 +417,7 @@ namespace s3d
 		return m_detail->value->GetFloat();
 	}
 
-	template <>
-	Optional<double> JSONValue::getOpt<double>() const
+	Optional<double> JSONValue::getOptDouble() const
 	{
 		if (isEmpty() || !m_detail->value->IsNumber())
 		{
@@ -436,20 +427,12 @@ namespace s3d
 		return m_detail->value->GetDouble();
 	}
 
-	template Optional<int32> JSONValue::getOpt<int32>() const;
-	template Optional<uint32> JSONValue::getOpt<uint32>() const;
-	template Optional<int64> JSONValue::getOpt<int64>() const;
-	template Optional<uint64> JSONValue::getOpt<uint64>() const;
-	template Optional<float> JSONValue::getOpt<float>() const;
-	template Optional<double> JSONValue::getOpt<double>() const;
-
 	////////////////////////////////
 	//
 	//	Bool
 	//
 
-	template <>
-	Optional<bool> JSONValue::getOpt<bool>() const
+	Optional<bool> JSONValue::getOptBool() const
 	{
 		if (!isBool())
 		{
@@ -458,8 +441,6 @@ namespace s3d
 
 		return m_detail->value->IsTrue();
 	}
-
-	template Optional<bool> JSONValue::getOpt<bool>() const;
 
 	////////////////////////////////
 	//

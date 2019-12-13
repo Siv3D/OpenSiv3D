@@ -165,6 +165,22 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		Optional<Type> getOpt_() const = delete;
 
+		Optional<String> getOptString() const;
+
+		Optional<int32> getOptInt32() const;
+
+		Optional<uint32> getOptUint32() const;
+
+		Optional<int64> getOptInt64() const;
+
+		Optional<uint64> getOptUint64() const;
+
+		Optional<float> getOptFloat() const;
+
+		Optional<double> getOptDouble() const;
+
+		Optional<bool> getOptBool() const;
+
 	public:
 
 		JSONValue();
@@ -190,7 +206,7 @@ namespace s3d
 		{
 			return getOpt_<Type>();
 		}
-		
+
 		[[nodiscard]] bool isEmpty() const;
 
 		[[nodiscard]] explicit operator bool() const
@@ -258,30 +274,6 @@ namespace s3d
 		[[nodiscard]] String getString() const;
 	};
 	
-	template <>
-	Optional<String> JSONValue::getOpt<String>() const;
-
-	template <>
-	Optional<int32> JSONValue::getOpt<int32>() const;
-	
-	template <>
-	Optional<uint32> JSONValue::getOpt<uint32>() const;
-	
-	template <>
-	Optional<int64> JSONValue::getOpt<int64>() const;
-	
-	template <>
-	Optional<uint64> JSONValue::getOpt<uint64>() const;
-	
-	template <>
-	Optional<float> JSONValue::getOpt<float>() const;
-	
-	template <>
-	Optional<double> JSONValue::getOpt<double>() const;
-
-	template <>
-	Optional<bool> JSONValue::getOpt<bool>() const;
-
 	struct JSONObjectMember
 	{
 		String name;
@@ -326,4 +318,52 @@ namespace s3d
 
 		[[nodiscard]] explicit operator bool() const;
 	};
+
+	template <>
+	[[nodiscard]] inline Optional<String> JSONValue::getOpt<String>() const
+	{
+		return getOptString();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<int32> JSONValue::getOpt<int32>() const
+	{
+		return getOptInt32();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<uint32> JSONValue::getOpt<uint32>() const
+	{
+		return getOptUint32();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<int64> JSONValue::getOpt<int64>() const
+	{
+		return getOptInt64();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<uint64> JSONValue::getOpt<uint64>() const
+	{
+		return getOptUint64();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<float> JSONValue::getOpt<float>() const
+	{
+		return getOptFloat();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<double> JSONValue::getOpt<double>() const
+	{
+		return getOptDouble();
+	}
+
+	template <>
+	[[nodiscard]] inline Optional<bool> JSONValue::getOpt<bool>() const
+	{
+		return getOptBool();
+	}
 }

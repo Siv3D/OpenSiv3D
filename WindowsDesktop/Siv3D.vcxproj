@@ -17,6 +17,7 @@
     <ClInclude Include="..\Siv3D\include\HamFramework\OptimalScreen.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\Rx.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\SaturatedLinework.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp" />

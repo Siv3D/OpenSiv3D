@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D HamFramework.
 //
@@ -288,9 +288,9 @@ namespace s3d
 				throw Error(U"SaturatedLinework::setThickness(): minThickness < 0.0");
 			}
 
-			if (maxThickness < m_minThickness)
+			if (maxThickness < minThickness)
 			{
-				throw Error(U"SaturatedLinework::setThickness(): maxThickness < m_minThickness");
+				throw Error(U"SaturatedLinework::setThickness(): maxThickness < minThickness");
 			}
 
 			if (minThickness != m_minThickness)
