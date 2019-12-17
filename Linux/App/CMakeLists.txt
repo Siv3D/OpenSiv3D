@@ -20,12 +20,14 @@ endif()
 #set(CMAKE_BUILD_TYPE Release)
 
 pkg_check_modules(OPENCV4 REQUIRED opencv4)
+pkg_check_modules(XFT REQUIRED xft)
 
 include_directories(
 	"/usr/include"
 
 	"../../Siv3D/include"
 	"../../Siv3D/include/ThirdParty"
+	${XFT_INCLUDE_DIRS}
 )
 
 set(SOURCE_FILES
@@ -36,6 +38,7 @@ add_executable(Siv3D_App ${SOURCE_FILES})
 
 target_link_libraries(Siv3D_App
 	${OPENCV4_LIBRARIES}
+	${XFT_LIBRARIES}
 	-lOpenGL
 	-lGLEW
 	-lX11
@@ -62,6 +65,7 @@ target_link_libraries(Siv3D_App
 	-lavcodec
 	-lavutil
 	-lswresample
+	-lXft
 
 	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
 )
