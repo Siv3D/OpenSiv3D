@@ -276,7 +276,6 @@ namespace s3d
 
 		uint8* data = image.dataAsUint8();
 		const auto currentIndex = [&]() {return data - image.dataAsUint8(); };
-		const auto toInteger = [&](double r)->uint8 {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
 
 		Size pos(0, 0);
 		uint8 c;
@@ -286,7 +285,7 @@ namespace s3d
 			const uint8 bit = c - '0';
 			if (c == '\n')
 			{
-				*data = toInteger(static_cast<double>(color) / maxValue);
+				*data = Color::ToUint8(static_cast<double>(color) / maxValue);
 				color = 0;
 				++data;
 				if (currentIndex() % 4 == 3)
@@ -301,7 +300,7 @@ namespace s3d
 			}
 			if (c == ' ')
 			{
-				*data = toInteger(static_cast<double>(color) / maxValue);
+				*data = Color::ToUint8(static_cast<double>(color) / maxValue);
 				++data;
 				color = 0;
 				if (currentIndex() % 4 == 3)
@@ -379,7 +378,6 @@ namespace s3d
 		Image image(size);
 
 		uint8* data = image.dataAsUint8();
-		const auto toInteger = [&](double r)->uint8 {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
 
 		Size pos(0, 0);
 		uint8 c;
@@ -392,7 +390,7 @@ namespace s3d
 					return Image();
 				}
 
-				data[0] = data[1] = data[2] = toInteger(static_cast<double>(c) / maxValue);
+				data[0] = data[1] = data[2] = Color::ToUint8(static_cast<double>(c) / maxValue);
 				data[3] = 255u;
 				data += 4;
 			}
