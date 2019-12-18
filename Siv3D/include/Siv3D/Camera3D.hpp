@@ -15,7 +15,7 @@
 # include "Ray.hpp"
 # include "Scene.hpp"
 
-namespace s3d::experimental
+namespace s3d
 {
 	class alignas(16) BasicCamera3D
 	{
@@ -114,9 +114,29 @@ namespace s3d::experimental
 			return m_upDirection;
 		}
 
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getProj() const noexcept
+		{
+			return m_proj;
+		}
+
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getView() const noexcept
+		{
+			return m_view;
+		}
+
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getViewProj() const noexcept
+		{
+			return m_viewProj;
+		}
+
 		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getMat4x4() const noexcept
 		{
 			return m_viewProj;
+		}
+
+		[[nodiscard]] Mat4x4 SIV3D_VECTOR_CALL getInvViewProj() const noexcept
+		{
+			return m_invViewProj;
 		}
 
 		[[nodiscard]] Float3 worldToScreenPoint(const Float3& pos) const noexcept;
