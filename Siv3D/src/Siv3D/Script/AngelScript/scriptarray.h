@@ -4,7 +4,7 @@
 #ifndef ANGELSCRIPT_H 
 // Avoid having to inform include path if header is already include before
 # define AS_USE_NAMESPACE
-# include "../../../../include/ThirdParty/angelscript/angelscript.h"
+# include <angelscript/angelscript.h>
 #endif
 
 // Sometimes it may be desired to use the same method names as used by C++ STL.
@@ -13,9 +13,14 @@
 //
 //  0 = off
 //  1 = on
-
 #ifndef AS_USE_STLNAMES
 #define AS_USE_STLNAMES 0
+#endif
+
+// Some prefer to use property accessors to get/set the length of the array
+// This option registers the accessors instead of the method length()
+#ifndef AS_USE_ACCESSORS
+#define AS_USE_ACCESSORS 0
 #endif
 
 BEGIN_AS_NAMESPACE
@@ -60,14 +65,14 @@ public:
 	void       *At(asUINT index);
 	const void *At(asUINT index) const;
 
-	void       *Choice();
-	const void *Choice() const;
+	void* Choice();
+	const void* Choice() const;
 
-	void       *AtFront();
-	const void *AtFront() const;
+	void* AtFront();
+	const void* AtFront() const;
 
-	void       *AtBack();
-	const void *AtBack() const;
+	void* AtBack();
+	const void* AtBack() const;
 
 	// Set value of an element. 
 	// The value arg should be a pointer to the value that will be copied to the element.

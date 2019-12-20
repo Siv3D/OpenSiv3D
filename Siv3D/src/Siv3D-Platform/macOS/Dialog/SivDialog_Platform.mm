@@ -214,7 +214,7 @@ namespace s3d
 			if ([dialog runModal] == NSModalResponseOK)
 			{
 				NSURL* url = [dialog URL];
-				result = FileSystem::FullPath(Unicode::FromUTF8([[url path] UTF8String]));
+				result = Unicode::FromUTF8([[url path] UTF8String]);
 			}
 			
 			[pool release];

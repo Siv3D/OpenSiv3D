@@ -323,6 +323,16 @@ namespace s3d
 		[[nodiscard]] String toHex() const;
 
 		[[nodiscard]] size_t hash() const noexcept;
+
+		[[nodiscard]] static constexpr uint8 ToUint8(float x) noexcept
+		{
+			return x >= 1.0f ? 255 : x <= 0.0f ? 0 : static_cast<uint8>(x * 255.0f + 0.5f);
+		}
+
+		[[nodiscard]] static constexpr uint8 ToUint8(double x) noexcept
+		{
+			return x >= 1.0 ? 255 : x <= 0.0 ? 0 : static_cast<uint8>(x * 255.0 + 0.5);
+		}
 	};
 
 	/// <summary>
@@ -739,10 +749,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] constexpr Color toColor() const noexcept
 		{
-			return Color(r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5)
-					   , g >= 1.0 ? 255 : g <= 0.0 ? 0 : static_cast<uint8>(g * 255.0 + 0.5)
-					   , b >= 1.0 ? 255 : b <= 0.0 ? 0 : static_cast<uint8>(b * 255.0 + 0.5)
-					   , a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
+			return Color(Color::ToUint8(r), Color::ToUint8(g), Color::ToUint8(b), Color::ToUint8(a));
 		}
 
 		[[nodiscard]] Float4 toFloat4() const;
@@ -888,12 +895,12 @@ namespace s3d
 
 	[[nodiscard]] inline constexpr Color ToColor(const float rgb) noexcept
 	{
-		return Color((rgb >= 1.0f ? 255 : rgb <= 0.0f ? 0 : static_cast<uint8>(rgb * 255.0f + 0.5f)));
+		return Color(Color::ToUint8(rgb));
 	}
 
 	[[nodiscard]] inline constexpr Color ToColor(const double rgb) noexcept
 	{
-		return Color(rgb >= 1.0 ? 255 : rgb <= 0.0 ? 0 : static_cast<uint8>(rgb * 255.0 + 0.5));
+		return Color(Color::ToUint8(rgb));
 	}
 
 	/// <summary>
@@ -903,10 +910,10 @@ namespace s3d
 	/// コピーする色
 	/// </param>
 	inline constexpr Color::Color(const ColorF& color) noexcept
-		: r(color.r >= 1.0 ? 255 : color.r <= 0.0 ? 0 : static_cast<uint8>(color.r * 255.0 + 0.5))
-		, g(color.g >= 1.0 ? 255 : color.g <= 0.0 ? 0 : static_cast<uint8>(color.g * 255.0 + 0.5))
-		, b(color.b >= 1.0 ? 255 : color.b <= 0.0 ? 0 : static_cast<uint8>(color.b * 255.0 + 0.5))
-		, a(color.a >= 1.0 ? 255 : color.a <= 0.0 ? 0 : static_cast<uint8>(color.a * 255.0 + 0.5)) {}
+		: r(Color::ToUint8(color.r))
+		, g(Color::ToUint8(color.g))
+		, b(Color::ToUint8(color.b))
+		, a(Color::ToUint8(color.a)) {}
 
 	/// <summary>
 	/// 新しい色を代入します。

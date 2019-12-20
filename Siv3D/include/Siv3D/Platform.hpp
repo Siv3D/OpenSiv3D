@@ -180,9 +180,9 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192328105)
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192428314)
 
-	# error Visual Studio 2019 16.3 or later is required to build this project.
+	# error Visual Studio 2019 16.4 or later is required to build this project.
 
 # endif
 

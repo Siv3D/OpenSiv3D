@@ -1272,10 +1272,7 @@ namespace s3d
 	//
 	//	Camera3D.hpp
 	//
-	namespace experimental
-	{
-		class BasicCamera3D;
-	}
+	class BasicCamera3D;
 
 	//////////////////////////////////////////////////////
 	//

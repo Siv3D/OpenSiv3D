@@ -86,7 +86,7 @@ namespace s3d
 		return Color(vals[detail::conversionTable[hueI][0]],
 					 vals[detail::conversionTable[hueI][1]],
 					 vals[detail::conversionTable[hueI][2]],
-					 a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
+					 Color::ToUint8(a));
 	}
 
 	ColorF HSV::toColorF() const noexcept

@@ -12,7 +12,7 @@
 # include <Siv3D/Camera3D.hpp>
 # include <Siv3D/Print.hpp>
 
-namespace s3d::experimental
+namespace s3d
 {
 	BasicCamera3D::BasicCamera3D(const Size& sceneSize, const double fov, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection) noexcept
 		: m_sceneSize(sceneSize)

@@ -319,6 +319,11 @@ namespace s3d
 		/// </returns>
 		SaturatedLinework& setOffsetRange(double offsetRange)
 		{
+			if (offsetRange < 0.0)
+			{
+				throw Error(U"SaturatedLinework::setOffsetRange(): offsetRange < 0.0");
+			}
+			
 			if (offsetRange != m_offsetRange)
 			{
 				m_offsetRange = offsetRange;

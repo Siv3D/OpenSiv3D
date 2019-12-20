@@ -176,7 +176,7 @@ namespace s3d
 		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
 		{
 			D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_texture);
 				FAILED(hr))
 			{
 				LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(hr));
@@ -189,7 +189,7 @@ namespace s3d
 				d3d11Desc.BindFlags = 0;
 				d3d11Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, pData ? &initData : nullptr, &m_stagingTexture);
+				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_stagingTexture);
 					FAILED(hr))
 				{
 					LOG_FAIL(U"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
