@@ -19,6 +19,7 @@
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
 # include <X11/Xatom.h>
+# include <X11/Xft/Xft.h>
 
 // X11でマクロNoneが定義されており，MessageBoxSelection::Noneと競合するためundef
 # undef None
@@ -28,7 +29,7 @@ namespace s3d
 	class SimpleMessageBox
 	{
 	private:
-		static constexpr uint32 windowMargin = 110, buttonMarginX = 15, buttonMarginY = 2, betweenMargin = 15, messageMargin = 20, messageLineMargin = 10;
+		static constexpr uint32 windowMargin = 110, buttonMarginX = 15, buttonMarginY = 4, betweenMargin = 15, messageMargin = 20, messageLineMargin = 10;
 		static constexpr size_t iconWidth = 32, iconHeight = 32;
 		static constexpr size_t messageMaxWidth = 540;
 
@@ -36,23 +37,26 @@ namespace s3d
 		::Window root;
 		::Window ok, yes, no, cancel;
 		GC graphicContext;
-		XFontSet fontset;
+
+		XftFont* xftFont;
+		XftColor color;
+		XftDraw* xftDrawRoot;
+		XftDraw* xftOk, *xftCancel, *xftYes, *xftNo;
+
+		Colormap cmap;
 
 		int32 screen;
 		uint64 white, black;
-		int32 missingCount;
-		char** missingList;
-		char* defString;
 
 		MessageBoxStyle style;
 		MessageBoxButtons buttons;
 
 		std::tuple<size_t, size_t> calcTextSize(const char* str)
 		{
-			XRectangle overallInk, overallLogical;
-			Xutf8TextExtents(fontset, str, strlen(str), &overallInk, &overallLogical);
+			XGlyphInfo extents;
+			::XftTextExtentsUtf8(display, xftFont, (FcChar8*)str, std::strlen(str), &extents);
 
-			return std::make_tuple(overallLogical.width, overallLogical.height);
+			return std::make_tuple(extents.width, extents.height);
 		}
 
 	public:
@@ -73,37 +77,43 @@ namespace s3d
 				throw std::runtime_error("Current locale is not supported");
 			}
 
-			fontset = XCreateFontSet(display, "*", &missingList, &missingCount, &defString);
-			if (fontset == nullptr)
+			xftFont = XftFontOpen(display, 0, XFT_FAMILY, XftTypeString, "", XFT_SIZE, XftTypeDouble, 14.0, nullptr);
+			if (xftFont == nullptr)
 			{
 				throw std::runtime_error("Failed to create fontset");
 			}
-			XFreeStringList(missingList);
 
+			cmap = DefaultColormap(display, 0);
+			XftColorAllocName(display, DefaultVisual(display, 0), cmap, "black", &color);
 		}
 
 		~SimpleMessageBox()
 		{
 			XFreeGC(display, graphicContext);
-			XFreeFontSet(display, fontset);
 
 			if (buttons == MessageBoxButtons::OKCancel)
 			{
+				XftDrawDestroy(xftOk);
+				XftDrawDestroy(xftCancel);
 				XDestroyWindow(display, ok);
 				XDestroyWindow(display, cancel);
 			}
 
 			if (buttons == MessageBoxButtons::OK)
 			{
+				XftDrawDestroy(xftOk);
 				XDestroyWindow(display, ok);
 			}
 
 			if (buttons == MessageBoxButtons::YesNo)
 			{
+				XftDrawDestroy(xftYes);
+				XftDrawDestroy(xftNo);
 				XDestroyWindow(display, yes);
 				XDestroyWindow(display, no);
 			}
 
+			XftDrawDestroy(xftDrawRoot);
 			XDestroyWindow(display, root);
 			XCloseDisplay(display);
 		}
@@ -289,6 +299,8 @@ namespace s3d
 
 			root = XCreateSimpleWindow(display, RootWindow(display, screen), centerX - windowWidth / 2, centerY - windowHeight / 2, windowWidth, windowHeight, 1, black, white);
 
+			xftDrawRoot = XftDrawCreate(display, root, DefaultVisual(display, 0), cmap);
+
 			auto sizeHints = XAllocSizeHints();
 			if (sizeHints)
 			{
@@ -325,7 +337,8 @@ namespace s3d
 					int32 buttonWindowX = windowWidth / 2 - (okWidth + buttonMarginX) / 2,
 								buttonWindowY = windowHeight - windowMargin / 2;
 					ok = XCreateSimpleWindow(display, root, buttonWindowX, buttonWindowY, okWidth + buttonMarginX, okHeight + buttonMarginY, 1, black, white);
-					XSelectInput(display, ok, ButtonPressMask | EnterWindowMask | LeaveWindowMask);
+					xftOk = XftDrawCreate(display, ok, DefaultVisual(display, 0), cmap);
+					XSelectInput(display, ok, ButtonPressMask | ButtonReleaseMask | EnterWindowMask | LeaveWindowMask);
 				}
 				break;
 
@@ -334,13 +347,15 @@ namespace s3d
 					int32 buttonWindowX = windowWidth / 2 - (okWidth + cancelWidth + 2 * buttonMarginX + betweenMargin) / 2,
 								buttonWindowY = windowHeight - windowMargin / 2;
 					ok = XCreateSimpleWindow(display, root, buttonWindowX, buttonWindowY, okWidth + buttonMarginX, okHeight + buttonMarginY, 1, black, white);
-					XSelectInput(display, ok, ButtonPressMask | EnterWindowMask | LeaveWindowMask);
+					xftOk = XftDrawCreate(display, ok, DefaultVisual(display, 0), cmap);
+					XSelectInput(display, ok, ButtonPressMask | ButtonReleaseMask | EnterWindowMask | LeaveWindowMask);
 				}
 				{
 					int32 buttonWindowX = windowWidth / 2 - (okWidth + cancelWidth + 2 * buttonMarginX + betweenMargin) / 2 + okWidth + buttonMarginX + betweenMargin,
 								buttonWindowY = windowHeight - windowMargin / 2;
 					cancel = XCreateSimpleWindow(display, root, buttonWindowX, buttonWindowY, cancelWidth + buttonMarginX, cancelHeight + buttonMarginY, 1, black, white);
-					XSelectInput(display, cancel, ButtonPressMask | EnterWindowMask | LeaveWindowMask);
+					xftCancel = XftDrawCreate(display, cancel, DefaultVisual(display, 0), cmap);
+					XSelectInput(display, cancel, ButtonPressMask | ButtonReleaseMask | EnterWindowMask | LeaveWindowMask);
 				}
 				break;
 
@@ -349,13 +364,15 @@ namespace s3d
 					int32 buttonWindowX = windowWidth / 2 - (yesWidth + noWidth + 2 * buttonMarginX + betweenMargin) / 2,
 								buttonWindowY = windowHeight - windowMargin / 2;
 					yes = XCreateSimpleWindow(display, root, buttonWindowX, buttonWindowY, yesWidth + buttonMarginX, yesHeight + buttonMarginY, 1, black, white);
-					XSelectInput(display, yes, ButtonPressMask | EnterWindowMask | LeaveWindowMask);
+					xftYes = XftDrawCreate(display, yes, DefaultVisual(display, 0), cmap);
+					XSelectInput(display, yes, ButtonPressMask | ButtonReleaseMask | EnterWindowMask | LeaveWindowMask);
 				}
 				{
 					int32 buttonWindowX = windowWidth / 2 - (yesWidth + noWidth + 2 * buttonMarginX + betweenMargin) / 2 + yesWidth + buttonMarginX + betweenMargin,
 								buttonWindowY = windowHeight - windowMargin / 2;
 					no = XCreateSimpleWindow(display, root, buttonWindowX, buttonWindowY, noWidth + buttonMarginX, noHeight + buttonMarginY, 1, black, white);
-					XSelectInput(display, no, ButtonPressMask | EnterWindowMask | LeaveWindowMask);
+					xftNo = XftDrawCreate(display, no, DefaultVisual(display, 0), cmap);
+					XSelectInput(display, no, ButtonPressMask | ButtonReleaseMask | EnterWindowMask | LeaveWindowMask);
 				}
 				break;
 			}
@@ -390,9 +407,9 @@ namespace s3d
 						{
 							const auto [w, h] = calcTextSize(messages.at(i).c_str());
 
-							Xutf8DrawString(display, root, fontset, graphicContext, messageStringX,
+							XftDrawStringUtf8(xftDrawRoot, &color, xftFont, messageStringX,
 									messageStringY + (messageLineMargin + (messages.at(i).empty() ? maxMessageHeight : h)) * i,
-									messages.at(i).c_str(), std::strlen(messages.at(i).c_str()));
+									(FcChar8*)messages.at(i).c_str(), std::strlen(messages.at(i).c_str()));
 						}
 
 						if (style != MessageBoxStyle::Default)
@@ -419,8 +436,8 @@ namespace s3d
 							{
 								const auto [buttonWidth, buttonHeight] = calcTextSize("OK");
 								int32 buttonStringX = buttonMarginX / 2,
-											buttonStringY = buttonHeight - buttonMarginY / 2;
-								Xutf8DrawString(display, ok, fontset, graphicContext, buttonStringX, buttonStringY, "OK", std::strlen("OK"));
+											buttonStringY = buttonHeight + buttonMarginY / 2;
+								XftDrawStringUtf8(xftOk, &color, xftFont, buttonStringX, buttonStringY, (FcChar8*)"OK", std::strlen("OK"));
 							}
 							break;
 
@@ -428,14 +445,14 @@ namespace s3d
 							{
 								const auto [buttonWidth, buttonHeight] = calcTextSize("OK");
 								int32 buttonStringX = buttonMarginX / 2,
-											buttonStringY = buttonHeight - buttonMarginY / 2;
-								Xutf8DrawString(display, ok, fontset, graphicContext, buttonStringX, buttonStringY, "OK", std::strlen("OK"));
+											buttonStringY = buttonHeight + buttonMarginY / 2;
+								XftDrawStringUtf8(xftOk, &color, xftFont, buttonStringX, buttonStringY, (FcChar8*)"OK", std::strlen("OK"));
 							}
 							{
 								const auto [buttonWidth, buttonHeight] = calcTextSize("Cancel");
 								int32 buttonStringX = buttonMarginX / 2,
-											buttonStringY = buttonHeight - buttonMarginY / 2;
-								Xutf8DrawString(display, cancel, fontset, graphicContext, buttonStringX, buttonStringY, "Cancel", std::strlen("Cancel"));
+											buttonStringY = buttonHeight + buttonMarginY / 2;
+								XftDrawStringUtf8(xftCancel, &color, xftFont, buttonStringX, buttonStringY, (FcChar8*)"Cancel", std::strlen("Cancel"));
 							}
 							break;
 
@@ -443,21 +460,30 @@ namespace s3d
 							{
 								const auto [buttonWidth, buttonHeight] = calcTextSize("Yes");
 								int32 buttonStringX = buttonMarginX / 2,
-											buttonStringY = buttonHeight - buttonMarginY / 2;
-								Xutf8DrawString(display, yes, fontset, graphicContext, buttonStringX, buttonStringY, "Yes", std::strlen("Yes"));
+											buttonStringY = buttonHeight + buttonMarginY / 2;
+								XftDrawStringUtf8(xftYes, &color, xftFont, buttonStringX, buttonStringY, (FcChar8*)"Yes", std::strlen("Yes"));
 							}
 							{
 								const auto [buttonWidth, buttonHeight] = calcTextSize("No");
 								int32 buttonStringX = buttonMarginX / 2,
-											buttonStringY = buttonHeight - buttonMarginY / 2;
-								Xutf8DrawString(display, no, fontset, graphicContext, buttonStringX, buttonStringY, "NO", std::strlen("No"));
+											buttonStringY = buttonHeight + buttonMarginY / 2;
+								XftDrawStringUtf8(xftNo, &color, xftFont, buttonStringX, buttonStringY, (FcChar8*)"No", std::strlen("No"));
 							}
 							break;
 						}
 						XFlush(display);
 					}
 					break;
+
 				case ButtonPress:
+					XSetWindowBorderWidth(display, event.xany.window, 2);
+					XFlush(display);
+					break;
+
+				case ButtonRelease:
+					XSetWindowBorderWidth(display, event.xany.window, 1);
+					XFlush(display);
+
 					for (size_t i = 0; i < buttonList.size(); ++i)
 					{
 						if (event.xany.window == *buttonList.at(i))
@@ -465,28 +491,8 @@ namespace s3d
 							return selectionList.at(i);
 						}
 					}
+					break;
 
-					break;
-				case LeaveNotify:
-					for (auto&& button : buttonList)
-					{
-						if (*button == event.xany.window)
-						{
-							XSetWindowBorderWidth(display, *button, 1);
-						}
-					}
-					XFlush(display);
-					break;
-				case EnterNotify:
-					for (auto&& button : buttonList)
-					{
-						if (*button == event.xany.window)
-						{
-							XSetWindowBorderWidth(display, *button, 2);
-						}
-					}
-					XFlush(display);
-					break;
 				case ClientMessage:
 					if (event.xclient.data.l[0] == static_cast<int64>(wmDeleteWindowAtom))
 					{
