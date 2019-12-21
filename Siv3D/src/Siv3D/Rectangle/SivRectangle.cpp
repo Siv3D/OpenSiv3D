@@ -19,15 +19,163 @@
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/OffsetCircular.hpp>
 # include <Siv3DEngine.hpp>
 # include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr uint16 CaluculateFanQuality(const double r) noexcept
+		{
+			return r <= 1.0 ? 3
+				: r <= 6.0 ? 5
+				: r <= 12.0 ? 8
+				: static_cast<uint16>(std::min(64.0, r * 0.2 + 6));
+		}
+	}
+
 	template <class SizeType>
 	RoundRect Rectangle<SizeType>::rounded(const double r) const noexcept
 	{
 		return RoundRect(*this, r);
+	}
+
+	template <class SizeType>
+	Polygon Rectangle<SizeType>::rounded(double tl, double tr, double br, double bl) const noexcept
+	{
+		constexpr double epsilon = 0.001;
+
+		tl = std::max(tl, 0.0);
+		tr = std::max(tr, 0.0);
+		br = std::max(br, 0.0);
+		bl = std::max(bl, 0.0);
+
+		if (const double t = (tl + tr); t > w)
+		{
+			const double s = w / t;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double r = (tr + br); r > h)
+		{
+			const double s = h / r;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double b = (bl + br); b > w)
+		{
+			const double s = w / b;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double l = (tl + bl); l > h)
+		{
+			const double s = h / l;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		const Vec2 tlCenter = this->tl() + Vec2(tl, tl);
+		const Vec2 trCenter = this->tr() + Vec2(-tr, tr);
+		const Vec2 brCenter = this->br() + Vec2(-br, -br);
+		const Vec2 blCenter = this->bl() + Vec2(bl, -bl);
+
+		const float scale = Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
+
+		Array<Vec2> vertices;
+
+		if (tl)
+		{
+			const int32 quality = detail::CaluculateFanQuality(tl * scale);
+			const double radDelta = Math::Constants::HalfPi / (quality - 1);
+
+			for (int32 i = 0; i < quality; ++i)
+			{
+				vertices << OffsetCircular9(tlCenter, tl, radDelta * i);
+			}
+		}
+		else
+		{
+			vertices << tlCenter;
+		}
+
+		if (tr)
+		{
+			const int32 quality = detail::CaluculateFanQuality(tr * scale);
+			const double radDelta = Math::Constants::HalfPi / (quality - 1);
+
+			for (int32 i = 0; i < quality; ++i)
+			{
+				vertices << OffsetCircular0(trCenter, tr, radDelta * i);
+			}
+		}
+		else
+		{
+			vertices << trCenter;
+		}
+
+		if (br)
+		{
+			const int32 quality = detail::CaluculateFanQuality(br * scale);
+			const double radDelta = Math::Constants::HalfPi / (quality - 1);
+
+			for (int32 i = 0; i < quality; ++i)
+			{
+				vertices << OffsetCircular3(brCenter, br, radDelta * i);
+			}
+		}
+		else
+		{
+			vertices << brCenter;
+		}
+
+		if (bl)
+		{
+			const int32 quality = detail::CaluculateFanQuality(bl * scale);
+			const double radDelta = Math::Constants::HalfPi / (quality - 1);
+
+			for (int32 i = 0; i < quality; ++i)
+			{
+				vertices << OffsetCircular6(blCenter, bl, radDelta * i);
+			}
+		}
+		else
+		{
+			vertices << blCenter;
+		}
+
+		for (auto it = vertices.begin() + 1; it != vertices.end();)
+		{
+			if (it->distanceFromSq(*(it - 1)) < epsilon)
+			{
+				it = vertices.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+
+		if (vertices.size() > 3
+			&& (vertices.front().distanceFromSq(vertices.back()) < epsilon))
+		{
+			vertices.pop_back();
+		}
+
+		return Polygon(vertices);
 	}
 
 	template <class SizeType>
