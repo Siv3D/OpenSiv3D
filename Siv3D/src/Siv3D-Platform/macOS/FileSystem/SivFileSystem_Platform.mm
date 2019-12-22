@@ -322,6 +322,11 @@ namespace s3d
 				result.erase(result.begin(), result.begin() + 7);
 			}
 			
+			if (IsDirectory(result) && !result.ends_with(U'/'))
+			{
+				result.push_back(U'/');
+			}
+			
 			return result;
 		}
 		
