@@ -1,7 +1,7 @@
 - [Abseil](https://github.com/abseil/abseil-cpp)
 - [AngelCode Scripting Library (2.34.0)](https://www.angelcode.com/angelscript/)
 - [Asio C++ Library (1.12.2)](https://github.com/chriskohlhoff/asio/)
-- [Boost C++ Libraries (1.70.0)](https://www.boost.org/)
+- [Boost C++ Libraries (1.72.0)](https://www.boost.org/)
 - [Box2D (v2.3.2)](https://github.com/erincatto/Box2D)
 - [Catch (v2.5.0)](https://github.com/catchorg/Catch2)
 - [cereal (v1.3.0)](https://github.com/USCiLab/cereal)
