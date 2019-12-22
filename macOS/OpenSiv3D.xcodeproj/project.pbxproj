@@ -8971,7 +8971,7 @@
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
-					../dependencies/boost_1_70_0,
+					../dependencies/boost_1_72_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -9032,7 +9032,7 @@
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
-					../dependencies/boost_1_70_0,
+					../dependencies/boost_1_72_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;

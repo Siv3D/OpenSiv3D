@@ -86,7 +86,7 @@ limitations under the License.)-"
 {
 UR"-(AngelCode Scripting Library)-",
 
-UR"-(Copyright (c) 2003-2017 Andreas Jonsson)-",
+UR"-(Copyright (c) 2003-2019 Andreas Jonsson)-",
 
 UR"-(This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any

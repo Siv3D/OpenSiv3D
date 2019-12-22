@@ -10,7 +10,13 @@
 //-----------------------------------------------
 
 # include "ChildProcessDetail.hpp"
+
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4189)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
 # include <boost/process/io.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
 # include <boost/process/start_dir.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Unicode.hpp>

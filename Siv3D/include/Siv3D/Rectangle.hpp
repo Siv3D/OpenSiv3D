@@ -1529,6 +1529,8 @@ namespace s3d
 
 		[[nodiscard]] RoundRect rounded(double r) const noexcept;
 
+		[[nodiscard]] Polygon rounded(double tl, double tr, double br, double bl) const noexcept;
+
 		template <class Shape2DType>
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{

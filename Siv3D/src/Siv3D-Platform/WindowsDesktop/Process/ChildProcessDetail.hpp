@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Windows.hpp>
 # include <Siv3D/Process.hpp>
 # include <boost/process/child.hpp>
 
