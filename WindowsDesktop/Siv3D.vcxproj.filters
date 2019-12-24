@@ -5703,6 +5703,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm" />
+    <CustomBuild Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
