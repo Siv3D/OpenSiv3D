@@ -120,10 +120,16 @@ namespace s3d
 			EngineMessageBox::ShowError(U"Error:\n{}"_fmt(error.what()));
 			return;
 		}
-		catch (const fmt_s3d::format_error& error)
+		catch (const fmt_s3d::format_error & error)
 		{
 			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
 			EngineMessageBox::ShowError(U"Error occured in _fmt :\n{}"_fmt(Unicode::Widen(error.what())));
+			return;
+		}
+		catch (const std::runtime_error& error)
+		{
+			static_cast<void>(Window::SetFullscreen(false)); // メッセージボックスを表示するためにフルスクリーンモードを解除
+			EngineMessageBox::ShowError(U"std::runtime_error:\n{}"_fmt(Unicode::Widen(error.what())));
 			return;
 		}
 	}
