@@ -128,13 +128,13 @@ namespace s3d
 
 		void write(char32 value);
 
-		template <class Bool, std::enable_if_t<std::is_same_v<Bool, bool>> * = nullptr>
-		void write(bool value)
+		template <class Bool, std::enable_if_t<std::is_same_v<Bool, bool>>* = nullptr>
+		void write(const Bool& value)
 		{
 			writeBool(value);
 		}
 
-		template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
+		template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>())), std::enable_if_t<!std::is_same_v<Type, bool>>* = nullptr>
 		void write(const Type& value)
 		{
 			writeString(Format(value));
