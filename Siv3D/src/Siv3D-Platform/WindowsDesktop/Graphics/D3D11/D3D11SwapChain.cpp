@@ -213,7 +213,7 @@ namespace s3d
 			m_context->Flush();
 
 			double timeToSleepMillisec = 0.0;
-			timeBeginPeriod(1);
+			::timeBeginPeriod(1);
 
 			do
 			{
@@ -228,7 +228,7 @@ namespace s3d
 				}
 			} while (timeToSleepMillisec > 0.5);
 
-			timeEndPeriod(1);
+			::timeEndPeriod(1);
 		}
 
 		const HRESULT hr = m_swapChain1->Present(0, 0);
