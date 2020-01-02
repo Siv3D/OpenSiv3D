@@ -128,8 +128,8 @@ namespace s3d
 
 		void write(char32 value);
 
-		template <class Bool, std::enable_if_t<std::is_same_v<Bool, bool>>* = nullptr>
-		void write(const Bool& value)
+		template <class Bool, std::enable_if_t<std::is_same_v<std::decay_t<Bool>, bool>>* = nullptr>
+		void write(Bool value)
 		{
 			writeBool(value);
 		}
