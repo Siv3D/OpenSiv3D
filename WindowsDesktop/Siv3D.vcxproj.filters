@@ -1075,6 +1075,9 @@
     <Filter Include="src\ThirdParty\angelscript">
       <UniqueIdentifier>{c456e030-a161-42b4-add0-577b6ef3f62e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\RobustPolygon">
+      <UniqueIdentifier>{fe8bc650-de93-4af8-90d0-7045f53219f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3735,6 +3738,12 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
       <Filter>include\ThirdParty\angelscript</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RobustPolygon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\RobustPolygon\RobustPolygonDetail.hpp">
+      <Filter>src\Siv3D\RobustPolygon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5686,6 +5695,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.cpp">
       <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RobustPolygon\SivRobustPolygon.cpp">
+      <Filter>src\Siv3D\RobustPolygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RobustPolygon\RobustPolygonDetail.cpp">
+      <Filter>src\Siv3D\RobustPolygon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

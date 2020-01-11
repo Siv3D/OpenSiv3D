@@ -372,7 +372,7 @@ namespace s3d
 				sum += (p1->x - p0->x) * (p1->y + p0->y);
 			}
 
-			return (sum <= 0.0);
+			return (sum < 0.0);
 		}
 	}
 

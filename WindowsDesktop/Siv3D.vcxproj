@@ -216,6 +216,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RobustPolygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
@@ -502,6 +503,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\QR\QRDecoderDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\IRenderer2D.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\RobustPolygon\RobustPolygonDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptarray.h" />
@@ -1182,6 +1184,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RNG\SivRNG.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RobustPolygon\RobustPolygonDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RobustPolygon\SivRobustPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SamplerState\SivSamplerState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Say\SivSay.cpp" />

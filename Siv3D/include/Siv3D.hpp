@@ -1340,6 +1340,10 @@
 // Scene Manager
 # include <Siv3D/SceneManager.hpp>
 
+// エラーチェックが堅牢な多角形
+// RobustPolygon
+# include <Siv3D/RobustPolygon.hpp>
+
 //////////////////////////////////////////////////
 //
 // using namespace を無効にするには NO_S3D_USING マクロを定義します
