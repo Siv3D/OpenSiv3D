@@ -187,7 +187,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 			PumpMessages();
 
+			::timeBeginPeriod(1);
 			::Sleep(1);
+			::timeEndPeriod(1);
 		}
 	}
 	Logger.writeRawHTML_UTF8("<hr width=\"99%\">");
