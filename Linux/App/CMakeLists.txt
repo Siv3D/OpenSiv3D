@@ -67,6 +67,6 @@ target_link_libraries(Siv3D_App
 	-lswresample
 	-lXft
 
-	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
+	${PROJECT_SOURCE_DIR}/../Build/libSiv3D.a
 )
 
