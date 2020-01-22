@@ -13,6 +13,12 @@
 # include <Siv3D/ToastNotification.hpp>
 # include <ToastNotification/IToastNotification.hpp>
 
+# include <atomic>
+# include <thread>
+# include <unordered_set>
+
+# include <gio/gio.h>
+
 namespace s3d
 {
 	class CToastNotification : public ISiv3DToastNotification
@@ -20,14 +26,27 @@ namespace s3d
 	private:
 		bool m_available = false;
 
+		Array<String> m_serverCapabilities;
+		bool m_markupSupported = false;
+		bool m_actionsSupported = false;
+
+		std::unordered_set<guint32> notificationIDs;
+
+		//Signalを受信するために接続を維持する必要がある
+		GDBusConnection *conn = nullptr;
+		GDBusProxy *proxy = nullptr;
+
 		String m_serverName;
 		String m_serverVendor;
 		String m_serverVersion;
 		String m_serverSpecVersion;
 
-		Array<String> m_serverCapabilities;
-		bool m_markupSupported = false;
-		bool m_actionsSupported = false;
+		std::atomic<bool> m_breakIteration = false;
+		std::thread m_contextIterator;
+
+		void ContextIteration();
+
+		static void signalHandler(GDBusProxy *proxy, gchar *sender_name, gchar *signal_name, GVariant *params, gpointer user_data);
 
 	public:
 

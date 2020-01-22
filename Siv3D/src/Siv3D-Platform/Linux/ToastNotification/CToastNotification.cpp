@@ -14,8 +14,6 @@
 # include <Siv3D/FileSystem.hpp>
 # include "CToastNotification.hpp"
 
-#include <gio/gio.h>
-
 namespace s3d
 {
 	namespace detail
@@ -67,7 +65,13 @@ namespace s3d
 
 	CToastNotification::~CToastNotification()
 	{
+		m_breakIteration = true;
+		if(m_contextIterator.joinable())
+			m_contextIterator.join();
+
 		clear();
+
+		detail::CloseDBusProxyAndConnection(&proxy, &conn);
 
 		LOG_TRACE(U"CToastNotification::~CToastNotification()");
 	}
@@ -76,8 +80,6 @@ namespace s3d
 	{
 		LOG_TRACE(U"CToastNotification::init()");
 
-		GDBusConnection *conn = nullptr;;
-		GDBusProxy *proxy = nullptr;;
 		GError *error = nullptr;
 		GVariant *ret;
 
@@ -155,8 +157,16 @@ namespace s3d
 		g_variant_unref(ret);
 		LOG_INFO(U"ℹ️  ToastNotification: Notification server capabilities: {}"_fmt(m_serverCapabilities));
 
+		gulong handlerID = g_signal_connect(proxy, "g-signal", G_CALLBACK(CToastNotification::signalHandler), this);
+		if(handlerID == 0)
+		{
+			LOG_FAIL(U"❌ ToastNotification: g_signal_connect() failed.");
+			return;
+		}
+
 		m_available = true;
-		detail::CloseDBusProxyAndConnection(&proxy, &conn);
+
+		m_contextIterator = std::thread(&CToastNotification::ContextIteration, this);
 
 		LOG_INFO(U"ℹ️ CToastNotification initialized");
 	}
@@ -168,12 +178,9 @@ namespace s3d
 
 	NotificationID CToastNotification::show(const ToastNotificationProperty& prop)
 	{
-		const char* METHOD_Notify = "Notify";
+		if(!m_available) return -1;
 
-		GDBusConnection *conn = nullptr;;
-		GDBusProxy *proxy = nullptr;;
-		bool opened = detail::OpenDBusConnectionAndProxy(&conn, &proxy);
-		if(!opened) return -1;
+		const char* METHOD_Notify = "Notify";
 
 		GVariantBuilder actions_builder;
 		GVariantBuilder hints_builder;
@@ -209,34 +216,37 @@ namespace s3d
 				-1, nullptr, &error);
 		if(ret == nullptr)
 		{
-			detail::CloseDBusProxyAndConnection(&proxy, &conn);
-			return(-1);
+			LOG_FAIL(U"❌ ToastNotification: g_dbus_proxy_call_sync() failed. (method: {}, mesasge: {})."_fmt(Unicode::Widen(METHOD_Notify), Unicode::Widen(error->message)));
+			g_error_free(error);
+			return -1;
 		}
 		if(!g_variant_is_of_type(ret, G_VARIANT_TYPE("(u)")))
 		{
 			g_variant_unref(ret);
-			detail::CloseDBusProxyAndConnection(&proxy, &conn);
 			LOG_FAIL(U"❌ ToastNotification: g_variant_is_of_type() failed.");
 			return -1;
 		}
 
 		guint32 id;
 		g_variant_get(ret, "(u)", &id);
-
+		notificationIDs.insert(id);
 		g_variant_unref(ret);
-		detail::CloseDBusProxyAndConnection(&proxy, &conn);
 
 		return id;
 	}
 
 	ToastNotificationState CToastNotification::getState(const NotificationID)
 	{
-		return(ToastNotificationState::None);
+		if(!m_available) return ToastNotificationState::None;
+
+		return ToastNotificationState::None;
 	}
 
 	Optional<size_t> CToastNotification::getAction(const NotificationID)
 	{
-		return(none);
+		if(!m_available) return none;
+
+		return none;
 	}
 
 	void CToastNotification::hide(const NotificationID)
@@ -246,7 +256,22 @@ namespace s3d
 
 	void CToastNotification::clear()
 	{
-
+		const char* METHOD_CloseNotification = "CloseNotification";
+		for(guint32 id : notificationIDs)
+		{
+			GVariant *param = g_variant_new("(u)", id);
+			GError *error = nullptr;
+			GVariant *ret = g_dbus_proxy_call_sync(proxy, METHOD_CloseNotification, param,
+				G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
+			if(ret == nullptr)
+			{
+				g_error_free(error);
+			}
+			else
+			{
+				g_variant_unref(ret);
+			}
+		}
 	}
 
 	void CToastNotification::onStateUpdate(const size_t, const ToastNotificationState, const Optional<int32>&)
@@ -257,5 +282,32 @@ namespace s3d
 	bool CToastNotification::supportsActions() const
 	{
 		return m_actionsSupported;
+	}
+
+	void CToastNotification::ContextIteration()
+	{
+		GMainContext* gmctx = g_main_context_default();
+		while(1)
+		{
+			g_main_context_iteration(gmctx, FALSE);
+			usleep(8 * 1000);
+			if(m_breakIteration != 0) break;
+		}
+	}
+
+	void CToastNotification::signalHandler([[maybe_unused]] GDBusProxy *proxy,
+										   [[maybe_unused]] gchar *sender_name,
+										   gchar *signal_name,
+										   GVariant *params,
+										   gpointer user_data)
+	{
+		CToastNotification* notif = static_cast<CToastNotification*>(user_data);
+		if(g_strcmp0(signal_name, "NotificationClosed") == 0
+			&& g_variant_is_of_type(params, G_VARIANT_TYPE("(uu)")))
+		{
+			guint32 id, reason;
+			g_variant_get(params, "(uu)", &id, &reason);
+			notif->notificationIDs.erase(id);
+		}
 	}
 }
