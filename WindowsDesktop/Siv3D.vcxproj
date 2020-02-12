@@ -626,8 +626,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WeldJoint.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Rope\b2Rope.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.h" />
@@ -796,13 +794,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\ogg\os_types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\par_shapes\par_shapes.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\pffft\pffft.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\utils.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\poly2tri.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc_internal.h" />
@@ -1443,8 +1434,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Rope\b2Rope.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\clipper\clipper.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\cached-powers.cc" />
@@ -1488,11 +1477,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\pffft\pffft.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\decode.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\identify.c" />

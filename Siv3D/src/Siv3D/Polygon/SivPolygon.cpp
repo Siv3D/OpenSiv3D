@@ -14,9 +14,19 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/HashSet.hpp>
 # include "PolygonDetail.hpp"
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/is_valid.hpp>
 # include <boost/geometry/algorithms/correct.hpp>
 # include <boost/geometry/extensions/algorithms/dissolve.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -121,7 +131,7 @@ namespace s3d
 		pImpl->copyFrom(*polygon.pImpl);
 	}
 
-	Polygon::Polygon(Polygon&& polygon)
+	Polygon::Polygon(Polygon&& polygon) noexcept
 		: Polygon()
 	{
 		pImpl->moveFrom(*polygon.pImpl);
@@ -175,7 +185,7 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon& Polygon::operator =(Polygon&& polygon)
+	Polygon& Polygon::operator =(Polygon&& polygon) noexcept
 	{
 		pImpl->moveFrom(*polygon.pImpl);
 

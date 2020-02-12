@@ -11,6 +11,7 @@
 
 # include "PolygonDetail.hpp"
 # include <set>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4456)
@@ -34,7 +35,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
-//# include <clip2tri/clip2tri.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Earcut/earcut.hpp>
 # include <Siv3DEngine.hpp>
 # include <Siv3D/LineString.hpp>
@@ -243,7 +244,7 @@ namespace s3d
 		m_indices = other.m_indices;
 	}
 
-	void Polygon::PolygonDetail::moveFrom(PolygonDetail& other)
+	void Polygon::PolygonDetail::moveFrom(PolygonDetail& other) noexcept
 	{
 		m_polygon = std::move(other.m_polygon);
 

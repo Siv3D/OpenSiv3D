@@ -53,7 +53,7 @@ namespace s3d
 
 		Polygon(const Polygon& polygon);
 
-		Polygon(Polygon&& polygon);
+		Polygon(Polygon&& polygon) noexcept;
 
 		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
@@ -71,7 +71,7 @@ namespace s3d
 
 		Polygon& operator =(const Polygon& polygon);
 
-		Polygon& operator =(Polygon&& polygon);
+		Polygon& operator =(Polygon&& polygon) noexcept;
 
 		[[nodiscard]] explicit operator bool() const { return !isEmpty(); }
 
