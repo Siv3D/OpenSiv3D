@@ -53,7 +53,7 @@ namespace s3d
 
 		void copyFrom(const PolygonDetail& other);
 
-		void moveFrom(PolygonDetail& other);
+		void moveFrom(PolygonDetail& other) noexcept;
 
 		void moveBy(double x, double y);
 

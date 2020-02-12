@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,10 +12,113 @@
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/HashSet.hpp>
 # include "PolygonDetail.hpp"
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+# include <boost/geometry/algorithms/is_valid.hpp>
+# include <boost/geometry/algorithms/correct.hpp>
+# include <boost/geometry/extensions/algorithms/dissolve.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
+	using CwOpenPolygon = boost::geometry::model::polygon<Vec2, false, false, Array, Array>;
+	using MultiCwOpenPolygon = boost::geometry::model::multi_polygon<CwOpenPolygon>;
+
+	namespace detail
+	{
+		[[nodiscard]] constexpr PolygonValidityFailureType Convert(boost::geometry::validity_failure_type failure) noexcept
+		{
+			// https://www.boost.org/doc/libs/1_72_0/libs/geometry/doc/html/geometry/reference/enumerations/validity_failure_type.html
+			switch (failure)
+			{
+			case boost::geometry::no_failure:
+				return PolygonValidityFailureType::OK;
+			case boost::geometry::failure_few_points:
+				return PolygonValidityFailureType::FailureFewPoints;
+			case boost::geometry::failure_wrong_topological_dimension:
+				return PolygonValidityFailureType::FailureWrongTopologicalDimension;
+			case boost::geometry::failure_spikes:
+				return PolygonValidityFailureType::FailureSpikes;
+			case boost::geometry::failure_duplicate_points:
+				return PolygonValidityFailureType::FailureDuplicatePoints;
+			case boost::geometry::failure_not_closed:
+				return PolygonValidityFailureType::FailureNotClosed;
+			case boost::geometry::failure_self_intersections:
+				return PolygonValidityFailureType::FailureSelfIntersections;
+			case boost::geometry::failure_wrong_orientation:
+				return PolygonValidityFailureType::FailureWrongOrientation;
+			case boost::geometry::failure_interior_rings_outside:
+				return PolygonValidityFailureType::FailureInteriorRingsOutside;
+			case boost::geometry::failure_nested_interior_rings:
+				return PolygonValidityFailureType::FailureNestedInteriorRings;
+			case boost::geometry::failure_disconnected_interior:
+				return PolygonValidityFailureType::FailureDisconnectedInterior;
+			case boost::geometry::failure_intersecting_interiors:
+				return PolygonValidityFailureType::FailureIntersectingInteriors;
+			case boost::geometry::failure_wrong_corner_order:
+				return PolygonValidityFailureType::FailureWrongCornerOrder;
+			case boost::geometry::failure_invalid_coordinate:
+				return PolygonValidityFailureType::FailureInvalidCoordinate;
+			default:
+				return PolygonValidityFailureType::FailureUnknown;
+			}
+		}
+
+		[[nodiscard]] static bool HasSamePoints(const Vec2* pVertex, const size_t vertexSize)
+		{
+			return (HashSet<Vec2>(pVertex, pVertex + vertexSize).size() != vertexSize);
+		}
+
+		/*
+		StringView ToString(PolygonValidityFailureType failureType) noexcept
+		{
+			switch (failureType)
+			{
+			case PolygonValidityFailureType::OK:
+				return U"OK"_sv;
+			case PolygonValidityFailureType::FailureFewPoints:
+				return U"FailureFewPoints"_sv;
+			case PolygonValidityFailureType::FailureWrongTopologicalDimension:
+				return U"FailureWrongTopologicalDimension"_sv;
+			case PolygonValidityFailureType::FailureSpikes:
+				return U"FailureSpikes"_sv;
+			case PolygonValidityFailureType::FailureDuplicatePoints:
+				return U"FailureDuplicatePoints"_sv;
+			case PolygonValidityFailureType::FailureNotClosed:
+				return U"FailureNotClosed"_sv;
+			case PolygonValidityFailureType::FailureSelfIntersections:
+				return U"FailureSelfIntersections"_sv;
+			case PolygonValidityFailureType::FailureWrongOrientation:
+				return U"FailureWrongOrientation"_sv;
+			case PolygonValidityFailureType::FailureInteriorRingsOutside:
+				return U"FailureInteriorRingsOutside"_sv;
+			case PolygonValidityFailureType::FailureNestedInteriorRings:
+				return U"FailureNestedInteriorRings"_sv;
+			case PolygonValidityFailureType::FailureDisconnectedInterior:
+				return U"FailureDisconnectedInterior"_sv;
+			case PolygonValidityFailureType::FailureIntersectingInteriors:
+				return U"FailureIntersectingInteriors"_sv;
+			case PolygonValidityFailureType::FailureWrongCornerOrder:
+				return U"FailureWrongCornerOrder"_sv;
+			case PolygonValidityFailureType::FailureInvalidCoordinate:
+				return U"FailureInvalidCoordinate"_sv;
+			case PolygonValidityFailureType::FailureUnknown:
+			default:
+				return U"FailureUnknown"_sv;
+			}
+		}
+		*/
+	}
+
 	Polygon::Polygon()
 		: pImpl(std::make_unique<PolygonDetail>())
 	{
@@ -28,7 +131,7 @@ namespace s3d
 		pImpl->copyFrom(*polygon.pImpl);
 	}
 
-	Polygon::Polygon(Polygon&& polygon)
+	Polygon::Polygon(Polygon&& polygon) noexcept
 		: Polygon()
 	{
 		pImpl->moveFrom(*polygon.pImpl);
@@ -82,7 +185,7 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon& Polygon::operator =(Polygon&& polygon)
+	Polygon& Polygon::operator =(Polygon&& polygon) noexcept
 	{
 		pImpl->moveFrom(*polygon.pImpl);
 
@@ -461,6 +564,187 @@ namespace s3d
 	const Polygon::PolygonDetail* Polygon::_detail() const
 	{
 		return pImpl.get();
+	}
+
+	bool Polygon::IsValid(const Vec2* pVertex, const size_t vertexSize)
+	{
+		PolygonValidityFailureType unused;
+		return IsValid(pVertex, vertexSize, unused);
+	}
+
+	bool Polygon::IsValid(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
+	{
+		PolygonValidityFailureType unused;
+		return IsValid(pVertex, vertexSize, holes, unused);
+	}
+
+	bool Polygon::IsValid(const Vec2* pVertex, const size_t vertexSize, PolygonValidityFailureType& validityFailureType)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		boost::geometry::validity_failure_type failure;
+		bool valid = boost::geometry::is_valid(polygon, failure);
+
+		if (valid)
+		{
+			// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+			// HashSet を使って計算
+			if (HashSet<Vec2>(pVertex, pVertex + vertexSize).size() != vertexSize)
+			{
+				valid = false;
+				failure = boost::geometry::failure_duplicate_points;
+			}
+		}
+
+		validityFailureType = detail::Convert(failure);
+
+		return valid;
+	}
+
+	bool Polygon::IsValid(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		for (const auto& hole : holes)
+		{
+			polygon.inners().emplace_back(hole.begin(), hole.end());
+		}
+
+		boost::geometry::validity_failure_type failure;
+		bool valid = boost::geometry::is_valid(polygon, failure);
+
+		if (valid)
+		{
+			// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+			// HashSet を使って計算
+			if (detail::HasSamePoints(polygon.outer().data(), polygon.outer().size()))
+			{
+				valid = false;
+				failure = boost::geometry::failure_duplicate_points;
+			}
+		}
+
+		if (valid)
+		{
+			for (const auto& inner : polygon.inners())
+			{
+				if (detail::HasSamePoints(inner.data(), inner.size()))
+				{
+					valid = false;
+					failure = boost::geometry::failure_duplicate_points;
+				}
+			}
+		}
+
+		validityFailureType = detail::Convert(failure);
+
+		return valid;
+	}
+
+	bool Polygon::IsValid(const Array<Vec2>& vertices)
+	{
+		return IsValid(vertices.data(), vertices.size());
+	}
+
+	bool Polygon::IsValid(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return IsValid(vertices.data(), vertices.size(), holes);
+	}
+
+	bool Polygon::IsValid(const Array<Vec2>& vertices, PolygonValidityFailureType& validityFailureType)
+	{
+		return IsValid(vertices.data(), vertices.size(), validityFailureType);
+	}
+
+	bool Polygon::IsValid(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType)
+	{
+		return IsValid(vertices.data(), vertices.size(), holes, validityFailureType);
+	}
+
+	Array<Polygon> Polygon::Correct(const Vec2* pVertex, const size_t vertexSize)
+	{
+		return Correct(pVertex, vertexSize, {});
+	}
+
+	Array<Polygon> Polygon::Correct(const Array<Vec2>& vertices)
+	{
+		return Correct(vertices, {});
+	}
+
+	Array<Polygon> Polygon::Correct(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		for (const auto& hole : holes)
+		{
+			polygon.inners().emplace_back(hole.begin(), hole.end());
+		}
+
+		{
+			boost::geometry::validity_failure_type failure;
+			bool valid = boost::geometry::is_valid(polygon, failure);
+
+			if (valid)
+			{
+				// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+				// HashSet を使って計算
+				if (detail::HasSamePoints(polygon.outer().data(), polygon.outer().size()))
+				{
+					valid = false;
+					failure = boost::geometry::failure_duplicate_points;
+				}
+			}
+
+			if (valid)
+			{
+				for (const auto& inner : polygon.inners())
+				{
+					if (detail::HasSamePoints(inner.data(), inner.size()))
+					{
+						valid = false;
+						failure = boost::geometry::failure_duplicate_points;
+					}
+				}
+			}
+
+			// OK
+			if (valid)
+			{
+				return{ Polygon(pVertex, vertexSize, holes) };
+			}
+		}
+
+		// dissolve
+		boost::geometry::correct(polygon);
+		MultiCwOpenPolygon solvedPolygons;
+		boost::geometry::dissolve(polygon, solvedPolygons);
+
+		Array<Polygon> results;
+
+		for (const auto& solvedPolygon : solvedPolygons)
+		{
+			Array<Array<Vec2>> retHoles;
+
+			for (const auto& hole : solvedPolygon.inners())
+			{
+				retHoles.emplace_back(hole.begin(), hole.end());
+			}
+
+			if (IsValid(solvedPolygon.outer(), retHoles))
+			{
+				results.emplace_back(solvedPolygon.outer(), retHoles);
+			}
+		}
+
+		return results;
+	}
+
+	Array<Polygon> Polygon::Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return Correct(vertices.data(), vertices.size(), holes);
 	}
 
 	template <class CharType>

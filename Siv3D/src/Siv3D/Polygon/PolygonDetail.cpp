@@ -11,6 +11,7 @@
 
 # include "PolygonDetail.hpp"
 # include <set>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4456)
@@ -34,10 +35,33 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
-# include <clip2tri/clip2tri.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# include <Earcut/earcut.hpp>
 # include <Siv3DEngine.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Renderer2D/IRenderer2D.hpp>
+
+// Earcut s3d::Vec2 adapter
+namespace mapbox::util
+{
+	template <>
+	struct nth<0, s3d::Vec2>
+	{
+		inline static auto get(const s3d::Vec2& t)
+		{
+			return t.x;
+		};
+	};
+
+	template <>
+	struct nth<1, s3d::Vec2>
+	{
+		inline static auto get(const s3d::Vec2& t)
+		{
+			return t.y;
+		};
+	};
+}
 
 namespace s3d
 {
@@ -88,6 +112,25 @@ namespace s3d
 		{
 			return std::abs((p0.x - p2.x) * (p1.y - p0.y) - (p0.x - p1.x) * (p2.y - p0.y)) * 0.5;
 		}
+
+		static void Triangulate(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, Array<Float2>& dstVertices, Array<uint16>& dstIndices)
+		{
+			Array<Vec2> vertices = outer;
+			for (const auto& hole : holes)
+			{
+				vertices.append(hole);
+			}
+
+			Array<Array<Vec2>> polygon;
+			polygon.push_back(outer);
+			for (const auto& hole : holes)
+			{
+				polygon.push_back(hole);
+			}
+
+			dstVertices.insert(dstVertices.end(), vertices.begin(), vertices.end());
+			dstIndices = mapbox::earcut<uint16>(polygon);
+		}
 	}
 
 	Polygon::PolygonDetail::PolygonDetail()
@@ -120,7 +163,7 @@ namespace s3d
 
 		m_boundingRect = detail::CalculateBoundingRect(pOuterVertex, vertexSize);
 
-		Triangulate(m_holes, m_polygon.outer(), m_vertices, m_indices);
+		detail::Triangulate(m_polygon.outer(), m_holes, m_vertices, m_indices);
 	}
 
 	Polygon::PolygonDetail::PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
@@ -201,7 +244,7 @@ namespace s3d
 		m_indices = other.m_indices;
 	}
 
-	void Polygon::PolygonDetail::moveFrom(PolygonDetail& other)
+	void Polygon::PolygonDetail::moveFrom(PolygonDetail& other) noexcept
 	{
 		m_polygon = std::move(other.m_polygon);
 

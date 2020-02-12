@@ -27,6 +27,7 @@
 # include <Polygon/PolygonDetail.hpp>
 # include "Polynomial.hpp"
 
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
@@ -34,6 +35,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/geometries/point_xy.hpp>
 # include <boost/geometry/algorithms/within.hpp>
 # include <boost/geometry/algorithms/distance.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -372,7 +374,7 @@ namespace s3d
 				sum += (p1->x - p0->x) * (p1->y + p0->y);
 			}
 
-			return (sum <= 0.0);
+			return (sum < 0.0);
 		}
 	}
 

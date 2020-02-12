@@ -18,6 +18,25 @@
 
 namespace s3d
 {
+	enum class PolygonValidityFailureType
+	{
+		OK,
+		FailureFewPoints,
+		FailureWrongTopologicalDimension,
+		FailureSpikes,
+		FailureDuplicatePoints,
+		FailureNotClosed,
+		FailureSelfIntersections,
+		FailureWrongOrientation,
+		FailureInteriorRingsOutside,
+		FailureNestedInteriorRings,
+		FailureDisconnectedInterior,
+		FailureIntersectingInteriors,
+		FailureWrongCornerOrder,
+		FailureInvalidCoordinate,
+		FailureUnknown,
+	};
+
 	class Polygon
 	{
 	private:
@@ -34,7 +53,7 @@ namespace s3d
 
 		Polygon(const Polygon& polygon);
 
-		Polygon(Polygon&& polygon);
+		Polygon(Polygon&& polygon) noexcept;
 
 		Polygon(const Vec2* outer, size_t size, const Array<Array<Vec2>>& holes = {}, bool checkValidity = false);
 
@@ -52,7 +71,7 @@ namespace s3d
 
 		Polygon& operator =(const Polygon& polygon);
 
-		Polygon& operator =(Polygon&& polygon);
+		Polygon& operator =(Polygon&& polygon) noexcept;
 
 		[[nodiscard]] explicit operator bool() const { return !isEmpty(); }
 
@@ -199,6 +218,31 @@ namespace s3d
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 
 		const PolygonDetail* _detail() const;
+
+
+		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize);
+
+		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes);
+
+		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize, PolygonValidityFailureType& validityFailureType);
+
+		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType);
+
+		[[nodiscard]] static bool IsValid(const Array<Vec2>& vertices);
+
+		[[nodiscard]] static bool IsValid(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes);
+
+		[[nodiscard]] static bool IsValid(const Array<Vec2>& vertices, PolygonValidityFailureType& validityFailureType);
+
+		[[nodiscard]] static bool IsValid(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType);
+
+		[[nodiscard]] static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize);
+
+		[[nodiscard]] static Array<Polygon> Correct(const Array<Vec2>& vertices);
+
+		[[nodiscard]] static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes);
+
+		[[nodiscard]] static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes);
 	};
 }
 

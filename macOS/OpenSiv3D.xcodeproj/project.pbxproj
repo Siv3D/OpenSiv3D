@@ -29,10 +29,6 @@
 		2C4610EF226EEDB500828870 /* png.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C55226EEDAF00828870 /* png.h */; };
 		2C4610F0226EEDB500828870 /* pnglibconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C56226EEDAF00828870 /* pnglibconf.h */; };
 		2C4610F1226EEDB500828870 /* pngconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C57226EEDAF00828870 /* pngconf.h */; };
-		2C4610F2226EEDB500828870 /* clip2tri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460C59226EEDAF00828870 /* clip2tri.cpp */; };
-		2C4610F3226EEDB500828870 /* clip2tri.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C5A226EEDAF00828870 /* clip2tri.h */; };
-		2C4610F4226EEDB500828870 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460C5C226EEDAF00828870 /* clipper.cpp */; };
-		2C4610F5226EEDB500828870 /* clipper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C5D226EEDAF00828870 /* clipper.hpp */; };
 		2C4610F6226EEDB500828870 /* ftsnames.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C60226EEDAF00828870 /* ftsnames.h */; };
 		2C4610F7226EEDB500828870 /* ftwinfnt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C61226EEDAF00828870 /* ftwinfnt.h */; };
 		2C4610F8226EEDB500828870 /* ftpcfdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460C62226EEDAF00828870 /* ftpcfdrv.h */; };
@@ -308,18 +304,6 @@
 		2C46142A226EEDB500828870 /* muParserInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FD0226EEDB300828870 /* muParserInt.cpp */; };
 		2C46142B226EEDB500828870 /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FD2226EEDB300828870 /* pffft.c */; };
 		2C46142C226EEDB500828870 /* pffft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FD3226EEDB300828870 /* pffft.h */; };
-		2C46142D226EEDB500828870 /* poly2tri.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FD5226EEDB300828870 /* poly2tri.h */; };
-		2C46142E226EEDB500828870 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FD7226EEDB300828870 /* utils.h */; };
-		2C46142F226EEDB500828870 /* shapes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FD8226EEDB300828870 /* shapes.cc */; };
-		2C461430226EEDB500828870 /* shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FD9226EEDB300828870 /* shapes.h */; };
-		2C461431226EEDB500828870 /* sweep.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FDB226EEDB300828870 /* sweep.cc */; };
-		2C461432226EEDB500828870 /* sweep_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FDC226EEDB300828870 /* sweep_context.cc */; };
-		2C461433226EEDB500828870 /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FDD226EEDB300828870 /* cdt.cc */; };
-		2C461434226EEDB500828870 /* advancing_front.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FDE226EEDB300828870 /* advancing_front.h */; };
-		2C461435226EEDB500828870 /* advancing_front.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FDF226EEDB300828870 /* advancing_front.cc */; };
-		2C461436226EEDB500828870 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FE0226EEDB300828870 /* sweep.h */; };
-		2C461437226EEDB500828870 /* sweep_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FE1226EEDB300828870 /* sweep_context.h */; };
-		2C461438226EEDB500828870 /* cdt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C460FE2226EEDB300828870 /* cdt.h */; };
 		2C461439226EEDB500828870 /* b2Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FE5226EEDB300828870 /* b2Body.cpp */; };
 		2C46143A226EEDB500828870 /* b2World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FE6226EEDB300828870 /* b2World.cpp */; };
 		2C46143B226EEDB500828870 /* b2Fixture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C460FE7226EEDB300828870 /* b2Fixture.cpp */; };
@@ -1046,6 +1030,7 @@
 		2C8EA7CC237A956400A1D3B6 /* SDFFontData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */; };
 		2C8EA7CD237A956400A1D3B6 /* SDFFontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */; };
 		2C8EA7CF237AB97C00A1D3B6 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8EA7CE237AB97C00A1D3B6 /* CoreAudio.framework */; };
+		2C938A8E23F39F12004AABF4 /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C938A8D23F39F12004AABF4 /* earcut.hpp */; };
 		2CB3582522CC2D2D00D1B555 /* MemoryMappingDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB3582322CC2D2D00D1B555 /* MemoryMappingDetail.hpp */; };
 		2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3582422CC2D2D00D1B555 /* MemoryMappingDetail.cpp */; };
 		2CB4A5E522A14A7100BF96EA /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB4A5E322A14A7100BF96EA /* ogg.h */; };
@@ -1259,10 +1244,6 @@
 		2C460C55226EEDAF00828870 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		2C460C56226EEDAF00828870 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
 		2C460C57226EEDAF00828870 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
-		2C460C59226EEDAF00828870 /* clip2tri.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clip2tri.cpp; sourceTree = "<group>"; };
-		2C460C5A226EEDAF00828870 /* clip2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clip2tri.h; sourceTree = "<group>"; };
-		2C460C5C226EEDAF00828870 /* clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipper.cpp; sourceTree = "<group>"; };
-		2C460C5D226EEDAF00828870 /* clipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipper.hpp; sourceTree = "<group>"; };
 		2C460C60226EEDAF00828870 /* ftsnames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftsnames.h; sourceTree = "<group>"; };
 		2C460C61226EEDAF00828870 /* ftwinfnt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftwinfnt.h; sourceTree = "<group>"; };
 		2C460C62226EEDAF00828870 /* ftpcfdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftpcfdrv.h; sourceTree = "<group>"; };
@@ -1540,18 +1521,6 @@
 		2C460FD0226EEDB300828870 /* muParserInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserInt.cpp; sourceTree = "<group>"; };
 		2C460FD2226EEDB300828870 /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
 		2C460FD3226EEDB300828870 /* pffft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pffft.h; sourceTree = "<group>"; };
-		2C460FD5226EEDB300828870 /* poly2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poly2tri.h; sourceTree = "<group>"; };
-		2C460FD7226EEDB300828870 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		2C460FD8226EEDB300828870 /* shapes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shapes.cc; sourceTree = "<group>"; };
-		2C460FD9226EEDB300828870 /* shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapes.h; sourceTree = "<group>"; };
-		2C460FDB226EEDB300828870 /* sweep.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep.cc; sourceTree = "<group>"; };
-		2C460FDC226EEDB300828870 /* sweep_context.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep_context.cc; sourceTree = "<group>"; };
-		2C460FDD226EEDB300828870 /* cdt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cdt.cc; sourceTree = "<group>"; };
-		2C460FDE226EEDB300828870 /* advancing_front.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = advancing_front.h; sourceTree = "<group>"; };
-		2C460FDF226EEDB300828870 /* advancing_front.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = advancing_front.cc; sourceTree = "<group>"; };
-		2C460FE0226EEDB300828870 /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
-		2C460FE1226EEDB300828870 /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
-		2C460FE2226EEDB300828870 /* cdt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdt.h; sourceTree = "<group>"; };
 		2C460FE5226EEDB300828870 /* b2Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Body.cpp; sourceTree = "<group>"; };
 		2C460FE6226EEDB300828870 /* b2World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2World.cpp; sourceTree = "<group>"; };
 		2C460FE7226EEDB300828870 /* b2Fixture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Fixture.cpp; sourceTree = "<group>"; };
@@ -2328,6 +2297,7 @@
 		2C8EA7C5237A956400A1D3B6 /* SDFFontData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDFFontData.hpp; sourceTree = "<group>"; };
 		2C8EA7C6237A956400A1D3B6 /* SDFFontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDFFontFactory.cpp; sourceTree = "<group>"; };
 		2C8EA7CE237AB97C00A1D3B6 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		2C938A8D23F39F12004AABF4 /* earcut.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
 		2C984DB0234CB87F00709607 /* Endian.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2CA6271322226DC60009DFE1 /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2CA6271422226DC60009DFE1 /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -2950,13 +2920,12 @@
 		2C460C50226EEDAF00828870 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				2CF1209723A0AE750032203C /* angelscript */,
 				2C461051226EEDB400828870 /* abseil */,
+				2CF1209723A0AE750032203C /* angelscript */,
 				2C460FE3226EEDB300828870 /* Box2D */,
-				2C460C58226EEDAF00828870 /* clip2tri */,
-				2C460C5B226EEDAF00828870 /* clipper */,
 				2C460F09226EEDB200828870 /* cpptoml */,
 				2C460F0E226EEDB200828870 /* double-conversion */,
+				2C938A8C23F39F12004AABF4 /* Earcut */,
 				2C460CE3226EEDAF00828870 /* easyexif */,
 				2C460EFF226EEDB200828870 /* FastNoiseSIMD */,
 				2C460CC5226EEDAF00828870 /* FeatureDetector */,
@@ -2978,7 +2947,6 @@
 				2CB4A5E222A14A7100BF96EA /* ogg */,
 				2C8EA7B1236969EF00A1D3B6 /* par_shapes */,
 				2C460FD1226EEDB300828870 /* pffft */,
-				2C460FD4226EEDB300828870 /* poly2tri */,
 				2C460F0B226EEDB200828870 /* QRCode */,
 				2C460CCE226EEDAF00828870 /* quirc */,
 				2C460F93226EEDB300828870 /* rapidjson */,
@@ -3012,24 +2980,6 @@
 				2C460C57226EEDAF00828870 /* pngconf.h */,
 			);
 			path = libpng;
-			sourceTree = "<group>";
-		};
-		2C460C58226EEDAF00828870 /* clip2tri */ = {
-			isa = PBXGroup;
-			children = (
-				2C460C59226EEDAF00828870 /* clip2tri.cpp */,
-				2C460C5A226EEDAF00828870 /* clip2tri.h */,
-			);
-			path = clip2tri;
-			sourceTree = "<group>";
-		};
-		2C460C5B226EEDAF00828870 /* clipper */ = {
-			isa = PBXGroup;
-			children = (
-				2C460C5C226EEDAF00828870 /* clipper.cpp */,
-				2C460C5D226EEDAF00828870 /* clipper.hpp */,
-			);
-			path = clipper;
 			sourceTree = "<group>";
 		};
 		2C460C5E226EEDAF00828870 /* freetype */ = {
@@ -3544,41 +3494,6 @@
 				2C460FD3226EEDB300828870 /* pffft.h */,
 			);
 			path = pffft;
-			sourceTree = "<group>";
-		};
-		2C460FD4226EEDB300828870 /* poly2tri */ = {
-			isa = PBXGroup;
-			children = (
-				2C460FD5226EEDB300828870 /* poly2tri.h */,
-				2C460FD6226EEDB300828870 /* common */,
-				2C460FDA226EEDB300828870 /* sweep */,
-			);
-			path = poly2tri;
-			sourceTree = "<group>";
-		};
-		2C460FD6226EEDB300828870 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				2C460FD7226EEDB300828870 /* utils.h */,
-				2C460FD8226EEDB300828870 /* shapes.cc */,
-				2C460FD9226EEDB300828870 /* shapes.h */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
-		2C460FDA226EEDB300828870 /* sweep */ = {
-			isa = PBXGroup;
-			children = (
-				2C460FDB226EEDB300828870 /* sweep.cc */,
-				2C460FDC226EEDB300828870 /* sweep_context.cc */,
-				2C460FDD226EEDB300828870 /* cdt.cc */,
-				2C460FDE226EEDB300828870 /* advancing_front.h */,
-				2C460FDF226EEDB300828870 /* advancing_front.cc */,
-				2C460FE0226EEDB300828870 /* sweep.h */,
-				2C460FE1226EEDB300828870 /* sweep_context.h */,
-				2C460FE2226EEDB300828870 /* cdt.h */,
-			);
-			path = sweep;
 			sourceTree = "<group>";
 		};
 		2C460FE3226EEDB300828870 /* Box2D */ = {
@@ -6589,6 +6504,14 @@
 			path = ../../Siv3D/SDFFont;
 			sourceTree = "<group>";
 		};
+		2C938A8C23F39F12004AABF4 /* Earcut */ = {
+			isa = PBXGroup;
+			children = (
+				2C938A8D23F39F12004AABF4 /* earcut.hpp */,
+			);
+			path = Earcut;
+			sourceTree = "<group>";
+		};
 		2CA6271222226DC60009DFE1 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -7506,7 +7429,6 @@
 				2C4613A5226EEDB500828870 /* arithmetics.hpp in Headers */,
 				2C461151226EEDB500828870 /* tsf.h in Headers */,
 				2CB4A5ED22A14A7E00BF96EA /* vorbisenc.h in Headers */,
-				2C461436226EEDB500828870 /* sweep.h in Headers */,
 				2C461499226EEDB500828870 /* xma2defs.h in Headers */,
 				2C266A7F228AACD0001C7DAD /* GLRenderer2DCommand.hpp in Headers */,
 				2C46138E226EEDB500828870 /* Vector2.h in Headers */,
@@ -7522,12 +7444,10 @@
 				2C4618E7226EEF4100828870 /* IImageFormat.hpp in Headers */,
 				2C461137226EEDB500828870 /* ftincrem.h in Headers */,
 				2C4613AA226EEDB500828870 /* msdfgen.h in Headers */,
-				2C461430226EEDB500828870 /* shapes.h in Headers */,
 				2CF1211323A0AE760032203C /* as_module.h in Headers */,
 				2C4613F8226EEDB500828870 /* filereadstream.h in Headers */,
 				2C461124226EEDB500828870 /* svgxval.h in Headers */,
 				2C461860226EEF4100828870 /* P2ContactListner.hpp in Headers */,
-				2C461437226EEDB500828870 /* sweep_context.h in Headers */,
 				2C461449226EEDB500828870 /* b2ChainAndPolygonContact.h in Headers */,
 				2C461979226EEF4100828870 /* MemoryWriterDetail.hpp in Headers */,
 				2C461411226EEDB500828870 /* en.h in Headers */,
@@ -7542,11 +7462,9 @@
 				2C46114D226EEDB500828870 /* ftautoh.h in Headers */,
 				2C4613A4226EEDB500828870 /* Bitmap.h in Headers */,
 				2C461468226EEDB500828870 /* b2Body.h in Headers */,
-				2C4610F5226EEDB500828870 /* clipper.hpp in Headers */,
 				2C461127226EEDB500828870 /* svsfnt.h in Headers */,
 				2CF1210223A0AE760032203C /* as_gc.h in Headers */,
 				2C46197E226EEF4100828870 /* CursorState.hpp in Headers */,
-				2C46142E226EEDB500828870 /* utils.h in Headers */,
 				2C461473226EEDB500828870 /* b2StackAllocator.h in Headers */,
 				2C4613AB226EEDB500828870 /* miniutf.hpp in Headers */,
 				2C461864226EEF4100828870 /* P2DistanceJointDetail.hpp in Headers */,
@@ -7567,7 +7485,6 @@
 				2CBC64E422F849F0001610DB /* fse.h in Headers */,
 				2C461157226EEDB500828870 /* cpu_x86.h in Headers */,
 				2C461900226EEF4100828870 /* CAudio_Null.hpp in Headers */,
-				2C461438226EEDB500828870 /* cdt.h in Headers */,
 				2C4613A7226EEDB500828870 /* EdgeHolder.h in Headers */,
 				2C46112E226EEDB500828870 /* ftoutln.h in Headers */,
 				2C4618FF226EEF4100828870 /* IAudio.hpp in Headers */,
@@ -7597,6 +7514,7 @@
 				2C4610FE226EEDB500828870 /* ftconfig.h in Headers */,
 				2C461903226EEF4100828870 /* AudioControlManager.hpp in Headers */,
 				2C461130226EEDB500828870 /* ftsynth.h in Headers */,
+				2C938A8E23F39F12004AABF4 /* earcut.hpp in Headers */,
 				2C461398226EEDB500828870 /* SignedDistance.h in Headers */,
 				2C461A50226F2D0000828870 /* osmesa_context.h in Headers */,
 				2C461ADD2270A18200828870 /* PixelShader_GL.hpp in Headers */,
@@ -7690,7 +7608,6 @@
 				2C4613B8226EEDB500828870 /* encode.h in Headers */,
 				2C461886226EEF4100828870 /* AnimatedGIFWriterDetail.hpp in Headers */,
 				2C4617CE226EEF4100828870 /* Vertex2DBuilder.hpp in Headers */,
-				2C46142D226EEDB500828870 /* poly2tri.h in Headers */,
 				2C461A8A226F55E700828870 /* CDragDrop.hpp in Headers */,
 				2C4617D4226EEF4100828870 /* ICPU.hpp in Headers */,
 				2C461159226EEDB500828870 /* RFC1321.hpp in Headers */,
@@ -7847,7 +7764,6 @@
 				2CB4A5F222A14C2900BF96EA /* AudioFormat_OggVorbis.hpp in Headers */,
 				2C461966226EEF4100828870 /* SystemLog.hpp in Headers */,
 				2C461160226EEDB500828870 /* hb-buffer.h in Headers */,
-				2C461434226EEDB500828870 /* advancing_front.h in Headers */,
 				2C461100226EEDB500828870 /* ftmodule.h in Headers */,
 				2C4618BB226EEF4100828870 /* IGraphics.hpp in Headers */,
 				2CBC64BA22F849F0001610DB /* zstd_double_fast.h in Headers */,
@@ -7908,7 +7824,6 @@
 				2C4610F8226EEDB500828870 /* ftpcfdrv.h in Headers */,
 				2C46114F226EEDB500828870 /* ftrender.h in Headers */,
 				2C46114C226EEDB500828870 /* ftlcdfil.h in Headers */,
-				2C4610F3226EEDB500828870 /* clip2tri.h in Headers */,
 				2C461133226EEDB500828870 /* ftstroke.h in Headers */,
 				2C461358226EEDB500828870 /* Recast.h in Headers */,
 				2C461A43226F2D0000828870 /* nsgl_context.h in Headers */,
@@ -8132,7 +8047,6 @@
 				2C461AFB227138DE00828870 /* CGraphics_GL.cpp in Sources */,
 				2C4618D2226EEF4100828870 /* FFTFactory.cpp in Sources */,
 				2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */,
-				2C461435226EEDB500828870 /* advancing_front.cc in Sources */,
 				2C461388226EEDB500828870 /* diy-fp.cc in Sources */,
 				2C461156226EEDB500828870 /* cpu_x86.cpp in Sources */,
 				2CF1210623A0AE760032203C /* as_parser.cpp in Sources */,
@@ -8266,7 +8180,6 @@
 				2C461982226EEF4100828870 /* SivSay.cpp in Sources */,
 				2C461A3A226F2D0000828870 /* cocoa_joystick.m in Sources */,
 				2C4619B7226EFC2900828870 /* WritableMemoryMappingDetail.cpp in Sources */,
-				2C461432226EEDB500828870 /* sweep_context.cc in Sources */,
 				2CBC64FC230D7073001610DB /* NSTaskWrapper.mm in Sources */,
 				2C4619BA226EFD9F00828870 /* SivWebcam_Platform.mm in Sources */,
 				2C46188E226EEF4100828870 /* SivJSONReader.cpp in Sources */,
@@ -8301,7 +8214,6 @@
 				2C4619A5226EEF4100828870 /* FontData.cpp in Sources */,
 				2C4618D7226EEF4100828870 /* SivTCPServer.cpp in Sources */,
 				2C461875226EEF4100828870 /* SivDate.cpp in Sources */,
-				2C46142F226EEDB500828870 /* shapes.cc in Sources */,
 				2CF1211E23A0AE760032203C /* as_callfunc_arm_vita.S in Sources */,
 				2C461902226EEF4100828870 /* SivAudio.cpp in Sources */,
 				2C46148B226EEDB500828870 /* b2CircleShape.cpp in Sources */,
@@ -8339,7 +8251,6 @@
 				2C4618E9226EEF4100828870 /* ImageFormat_PPM.cpp in Sources */,
 				2CE5C853237FD81200082EEC /* SimpleGUIManagerDetail.cpp in Sources */,
 				2C46138C226EEDB500828870 /* bignum-dtoa.cc in Sources */,
-				2C461433226EEDB500828870 /* cdt.cc in Sources */,
 				2C461444226EEDB500828870 /* b2ChainAndCircleContact.cpp in Sources */,
 				2C4618CE226EEF4100828870 /* ManagedScriptDetail.cpp in Sources */,
 				2C461894226EEF4100828870 /* TextToSpeechFactory.cpp in Sources */,
@@ -8624,7 +8535,6 @@
 				2C46191D226EEF4100828870 /* SivParticle2D.cpp in Sources */,
 				2C4619B2226EF33F00828870 /* CXInput.cpp in Sources */,
 				2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */,
-				2C461431226EEDB500828870 /* sweep.cc in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
 				2CBC7BDA238B7CBA009B0E8E /* list_ports_win.cc in Sources */,
 				2CF120F923A0AE760032203C /* as_atomic.cpp in Sources */,
@@ -8667,7 +8577,6 @@
 				2C461418226EEDB500828870 /* muParserTokenReader.cpp in Sources */,
 				2CBC6519231F89A7001610DB /* SivRenderTexture.cpp in Sources */,
 				2C461A51226F2D0000828870 /* cocoa_monitor.m in Sources */,
-				2C4610F2226EEDB500828870 /* clip2tri.cpp in Sources */,
 				2C461848226EEF4100828870 /* NoiseGeneratorDetail.cpp in Sources */,
 				2CBC7BD8238B7CBA009B0E8E /* win.cc in Sources */,
 				2C461A9D226F716600828870 /* SivSystem_Platform.mm in Sources */,
@@ -8687,7 +8596,6 @@
 				2C46187A226EEF4100828870 /* SivScopedViewport2D.cpp in Sources */,
 				2C461392226EEDB500828870 /* Vector2.cpp in Sources */,
 				2C46197A226EEF4100828870 /* SivScene.cpp in Sources */,
-				2C4610F4226EEDB500828870 /* clipper.cpp in Sources */,
 				2C4617D7226EEF4100828870 /* SivEmitter2D.cpp in Sources */,
 				2C266A82228AACFC001C7DAD /* GLRenderer2DCommand.cpp in Sources */,
 			);

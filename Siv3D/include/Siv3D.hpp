@@ -1340,6 +1340,7 @@
 // Scene Manager
 # include <Siv3D/SceneManager.hpp>
 
+
 //////////////////////////////////////////////////
 //
 // using namespace を無効にするには NO_S3D_USING マクロを定義します

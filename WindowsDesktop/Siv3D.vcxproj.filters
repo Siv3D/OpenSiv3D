@@ -202,21 +202,6 @@
     <Filter Include="src\Siv3D\Polygon">
       <UniqueIdentifier>{df2ff65b-1bd5-4c79-92a1-7efd567fa672}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ThirdParty\poly2tri">
-      <UniqueIdentifier>{da9569df-06da-4824-9388-7d20e50606d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\poly2tri\common">
-      <UniqueIdentifier>{fe0d8090-1781-4faa-a163-5393a0e1b8ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\poly2tri\sweep">
-      <UniqueIdentifier>{84951464-e199-4d3e-b7c7-58c23320cdce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\clipper">
-      <UniqueIdentifier>{581a22c5-f5d2-42a0-9d1b-678c98bd4426}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\clip2tri">
-      <UniqueIdentifier>{6550b68b-3000-4f48-b3c0-8c79f8a003dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\TextReader">
       <UniqueIdentifier>{c20dafdb-7bd1-4a6a-b03f-e467dd706279}</UniqueIdentifier>
     </Filter>
@@ -1075,6 +1060,9 @@
     <Filter Include="src\ThirdParty\angelscript">
       <UniqueIdentifier>{c456e030-a161-42b4-add0-577b6ef3f62e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\Earcut">
+      <UniqueIdentifier>{2fa1616a-21ee-467a-a969-f2fcbf376e47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1577,33 +1565,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp">
       <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\poly2tri.h">
-      <Filter>src\ThirdParty\poly2tri</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.h">
-      <Filter>src\ThirdParty\poly2tri\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\utils.h">
-      <Filter>src\ThirdParty\poly2tri\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.h">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.h">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.h">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.h">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp">
-      <Filter>src\ThirdParty\clipper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h">
-      <Filter>src\ThirdParty\clip2tri</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp">
       <Filter>include\Siv3D</Filter>
@@ -3735,6 +3696,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
       <Filter>include\ThirdParty\angelscript</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Earcut\earcut.hpp">
+      <Filter>src\ThirdParty\Earcut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -3943,27 +3907,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
       <Filter>src\Siv3D\Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.cc">
-      <Filter>src\ThirdParty\poly2tri\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.cc">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.cc">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.cc">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.cc">
-      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\clipper\clipper.cpp">
-      <Filter>src\ThirdParty\clipper</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.cpp">
-      <Filter>src\ThirdParty\clip2tri</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>src\Siv3D\TextEncoding</Filter>
