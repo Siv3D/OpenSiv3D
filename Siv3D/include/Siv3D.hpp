@@ -1340,9 +1340,6 @@
 // Scene Manager
 # include <Siv3D/SceneManager.hpp>
 
-// エラーチェックが堅牢な多角形
-// RobustPolygon
-# include <Siv3D/RobustPolygon.hpp>
 
 //////////////////////////////////////////////////
 //
