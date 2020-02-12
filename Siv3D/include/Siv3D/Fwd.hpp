@@ -554,6 +554,7 @@ namespace s3d
 	//
 	//	Polygon.hpp
 	//
+	enum class PolygonValidityFailureType;
 	class Polygon;
 
 	//////////////////////////////////////////////////////

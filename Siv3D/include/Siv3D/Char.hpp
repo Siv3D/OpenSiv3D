@@ -40,7 +40,7 @@ namespace s3d
 	/// Character to be checked
 	/// </param>
 	/// <returns>
-	/// 10 進数の数字である場合 true, それ以外の場合は false
+	/// ASCII 文字である場合 true, それ以外の場合は false
 	/// True if ch is an ASCII character, false otherwise
 	/// </returns>
 	[[nodiscard]] inline constexpr bool IsASCII(const char32 ch) noexcept

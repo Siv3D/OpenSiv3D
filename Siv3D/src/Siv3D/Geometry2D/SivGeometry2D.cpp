@@ -27,6 +27,7 @@
 # include <Polygon/PolygonDetail.hpp>
 # include "Polynomial.hpp"
 
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
@@ -34,6 +35,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/geometries/point_xy.hpp>
 # include <boost/geometry/algorithms/within.hpp>
 # include <boost/geometry/algorithms/distance.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -342,6 +344,37 @@ namespace s3d
 		static gLineString MakeLineString(const LineString& lines)
 		{
 			return gLineString(lines.begin(), lines.end());
+		}
+
+		template <class PointType>
+		[[nodiscard]] bool IsClockwise(const Array<PointType>& points)
+		{
+			// 頂点数が 2 以下の場合は判定できないため false を返す
+			if (points.size() <= 2)
+			{
+				return false;
+			}
+
+			const auto* const pSrcBegin = points.data();
+			const auto* const pSrcEnd = points.data() + points.size();
+			double sum = 0.0;
+
+			// 最初の頂点 -> ... -> 最後の頂点
+			for (const auto* pSrc = pSrcBegin; pSrc != (pSrcEnd - 1); ++pSrc)
+			{
+				const auto* p0 = pSrc;
+				const auto* p1 = (pSrc + 1);
+				sum += (p1->x - p0->x) * (p1->y + p0->y);
+			}
+
+			// 最後の頂点 -> 最初の頂点
+			{
+				const auto* p0 = (pSrcEnd - 1);
+				const auto* p1 = pSrcBegin;
+				sum += (p1->x - p0->x) * (p1->y + p0->y);
+			}
+
+			return (sum < 0.0);
 		}
 	}
 
@@ -3664,44 +3697,17 @@ namespace s3d
 
 		bool IsClockwise(const Array<Point>& points)
 		{
-			double sum = 0.0;
-
-			for (size_t i = 0; i < points.size(); ++i)
-			{
-				const auto& p0 = points[i];
-				const auto& p1 = points[(i + 1) % points.size()];
-				sum += (p1.x - p0.x) * (p1.y + p0.y);
-			}
-
-			return sum <= 0.0;
+			return detail::IsClockwise(points);
 		}
 
 		bool IsClockwise(const Array<Float2>& points)
 		{
-			double sum = 0.0;
-
-			for (size_t i = 0; i < points.size(); ++i)
-			{
-				const auto& p0 = points[i];
-				const auto& p1 = points[(i + 1) % points.size()];
-				sum += (p1.x - p0.x) * (p1.y + p0.y);
-			}
-
-			return sum <= 0.0;
+			return detail::IsClockwise(points);
 		}
 
 		bool IsClockwise(const Array<Vec2>& points)
 		{
-			double sum = 0.0;
-
-			for (size_t i = 0; i < points.size(); ++i)
-			{
-				const auto& p0 = points[i];
-				const auto& p1 = points[(i + 1) % points.size()];
-				sum += (p1.x - p0.x) * (p1.y + p0.y);
-			}
-
-			return sum <= 0.0;
+			return detail::IsClockwise(points);
 		}
 	}
 }

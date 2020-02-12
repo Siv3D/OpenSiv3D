@@ -28,13 +28,13 @@ namespace s3d
 
 		RenderTexture();
 
-		RenderTexture(uint32 width, uint32 height, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF(0.0, 1.0), const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
-		explicit RenderTexture(const Size& size, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		explicit RenderTexture(const Size& size, const ColorF& color = ColorF(0.0, 1.0), const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
 
-		RenderTexture(uint32 width, uint32 height, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(uint32 width, uint32 height, const TextureFormat& format);
 
-		RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(const Size& size, const TextureFormat& format);
 
 		RenderTexture(const Image& image);
 
