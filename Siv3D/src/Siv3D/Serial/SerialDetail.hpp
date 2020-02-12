@@ -34,7 +34,7 @@ namespace s3d
 
 		void close();
 
-		bool isOpened() const;
+		bool isOpened();
 
 		int32 baudrate() const noexcept;
 

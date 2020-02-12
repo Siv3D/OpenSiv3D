@@ -37,7 +37,7 @@ namespace s3d
 		{
 			m_serial.open();
 		}
-		catch(const serial::IOException& e)
+		catch(const serial::IOException&)
 		{
 			return false;
 		}
@@ -49,14 +49,36 @@ namespace s3d
 
 	void Serial::SerialDetail::close()
 	{
-		m_serial.close();
+		try
+		{
+			m_serial.close();
+		}
+		catch (const serial::IOException&)
+		{
+
+		}
+
 		m_port.clear();
 		m_baudrate = 0;
 	}
 
-	bool Serial::SerialDetail::isOpened() const
+	bool Serial::SerialDetail::isOpened()
 	{
-		return m_serial.isOpen();
+		if (!m_serial.isOpen())
+		{
+			return false;
+		}
+
+		try
+		{
+			m_serial.available();
+			return true;
+		}
+		catch (const serial::IOException&)
+		{
+			close();
+			return false;
+		}
 	}
 
 	int32 Serial::SerialDetail::baudrate() const noexcept
@@ -71,31 +93,80 @@ namespace s3d
 
 	size_t Serial::SerialDetail::available()
 	{
-		return m_serial.available();
+		try
+		{
+			return m_serial.available();
+		}
+		catch (const serial::IOException&)
+		{
+			close();
+			return 0;
+		}
 	}
 
 	void Serial::SerialDetail::clearInput()
 	{
+		if (!isOpened())
+		{
+			return;
+		}
+
 		m_serial.flushInput();
 	}
 
 	void Serial::SerialDetail::clearOutput()
 	{
+		if (!isOpened())
+		{
+			return;
+		}
+
 		m_serial.flushOutput();
 	}
 
 	void Serial::SerialDetail::clear()
 	{
+		if (!isOpened())
+		{
+			return;
+		}
+
 		m_serial.flush();
 	}
 
 	size_t Serial::SerialDetail::read(void* dst, const size_t size)
 	{
-		return m_serial.read(static_cast<uint8*>(dst), size);
+		if (!isOpened())
+		{
+			return 0;
+		}
+
+		try
+		{
+			return m_serial.read(static_cast<uint8*>(dst), size);
+		}
+		catch (const serial::IOException&)
+		{
+			close();
+			return 0;
+		}
 	}
 
 	size_t Serial::SerialDetail::write(const void* src, const size_t size)
 	{
-		return m_serial.write(static_cast<const uint8*>(src), size);
+		if (!isOpened())
+		{
+			return 0;
+		}
+
+		try
+		{
+			return m_serial.write(static_cast<const uint8*>(src), size);
+		}
+		catch (const serial::IOException&)
+		{
+			close();
+			return 0;
+		}
 	}
 }
