@@ -30,9 +30,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool MemoryMapping::isOpened() const
+	bool MemoryMapping::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	void MemoryMapping::map(const size_t offset, const size_t requestSize)

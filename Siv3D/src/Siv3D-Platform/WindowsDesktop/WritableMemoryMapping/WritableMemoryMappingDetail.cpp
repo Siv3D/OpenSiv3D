@@ -45,7 +45,7 @@ namespace s3d
 			return false;
 		}
 
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -105,7 +105,7 @@ namespace s3d
 		m_fullPath.clear();
 	}
 
-	bool WritableMemoryMapping::WritableMemoryMappingDetail::isOpened() const
+	bool WritableMemoryMapping::WritableMemoryMappingDetail::isOpen() const
 	{
 		return m_fileHandle != INVALID_HANDLE_VALUE;
 	}

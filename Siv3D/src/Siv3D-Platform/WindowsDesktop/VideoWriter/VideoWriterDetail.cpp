@@ -33,7 +33,7 @@ namespace s3d
 
 	bool VideoWriter::VideoWriterDetail::open(const FilePath& path, const Size& frameSize, const double fps)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -101,7 +101,7 @@ namespace s3d
 		m_fps = { 0,0 };
 	}
 
-	bool VideoWriter::VideoWriterDetail::isOpened() const
+	bool VideoWriter::VideoWriterDetail::isOpen() const
 	{
 		return m_initiated;
 	}

@@ -16,23 +16,23 @@ void Main()
 	while (System::Update())
 	{
 		MicrosecClock ms;
-		const bool isOpened = serial.isOpened();
+		const bool isOpen = serial.isOpen();
 		ms.print();
-		Window::SetTitle(isOpened);
+		Window::SetTitle(isOpen);
 		
-		//if (SimpleGUI::Button(U"Write 0", Vec2(200, 20), 120, isOpened))
+		//if (SimpleGUI::Button(U"Write 0", Vec2(200, 20), 120, isOpen))
 		//{
 		//	// 1 バイトのデータ (0) を書き込む
 		//	serial.writeByte(0);
 		//}
 
-		//if (SimpleGUI::Button(U"Write 1", Vec2(340, 20), 120, isOpened))
+		//if (SimpleGUI::Button(U"Write 1", Vec2(340, 20), 120, isOpen))
 		//{
 		//	// 1 バイトのデータ (1) を書き込む
 		//	serial.writeByte(1);
 		//}
 
-		//if (SimpleGUI::Button(U"Write 2", Vec2(480, 20), 120, isOpened))
+		//if (SimpleGUI::Button(U"Write 2", Vec2(480, 20), 120, isOpen))
 		//{
 		//	// 1 バイトのデータ (2) を書き込む
 		//	serial.writeByte(2);

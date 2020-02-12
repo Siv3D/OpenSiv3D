@@ -191,7 +191,7 @@ namespace s3d
 
 	bool ImageFormat_BMP::encode(const Image& image, IWriter& writer) const
 	{
-		if (!writer.isOpened())
+		if (!writer.isOpen())
 		{
 			return false;
 		}

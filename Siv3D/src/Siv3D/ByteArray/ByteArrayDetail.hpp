@@ -42,7 +42,7 @@ namespace s3d
 
 		void release();
 
-		bool isOpened() const;
+		bool isOpen() const;
 
 		int64 size() const;
 

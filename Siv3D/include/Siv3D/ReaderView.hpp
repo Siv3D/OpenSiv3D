@@ -43,7 +43,7 @@ namespace s3d
 			: m_size(view.size())
 			, m_ptr(view.data()) {}
 
-		[[nodiscard]] bool isOpened() const override
+		[[nodiscard]] bool isOpen() const override
 		{
 			return m_ptr != nullptr;
 		}

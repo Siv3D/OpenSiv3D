@@ -650,7 +650,7 @@ namespace s3d
 
 	bool TOMLReader::open(const FilePathView path)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -672,7 +672,7 @@ namespace s3d
 
 	bool TOMLReader::open(const std::shared_ptr<IReader>& reader)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -697,14 +697,14 @@ namespace s3d
 		m_detail.reset();
 	}
 
-	bool TOMLReader::isOpened() const noexcept
+	bool TOMLReader::isOpen() const noexcept
 	{
 		return m_detail != nullptr;
 	}
 
 	TOMLReader::operator bool() const noexcept
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	////////////////////////////////

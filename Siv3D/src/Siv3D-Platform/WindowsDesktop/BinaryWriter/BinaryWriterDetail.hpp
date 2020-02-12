@@ -46,7 +46,7 @@ namespace s3d
 
 		void close();
 
-		bool isOpened() const noexcept;
+		bool isOpen() const noexcept;
 
 		void clear();
 

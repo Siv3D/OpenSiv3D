@@ -58,7 +58,7 @@ namespace s3d
 
 		void close();
 
-		bool isOpened() const;
+		bool isOpen() const;
 
 		bool write(const Image& image);
 

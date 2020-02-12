@@ -79,9 +79,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool TextWriter::isOpened() const
+	bool TextWriter::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	void TextWriter::clear()

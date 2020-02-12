@@ -35,9 +35,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool BinaryWriter::isOpened() const
+	bool BinaryWriter::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	void BinaryWriter::clear()

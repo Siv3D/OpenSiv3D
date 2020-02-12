@@ -671,7 +671,7 @@ namespace s3d
 
 	bool ImageFormat_PPM::encode(const Image & image, IWriter & writer, PPMType format) const
 	{
-		if (!writer.isOpened())
+		if (!writer.isOpen())
 		{
 			return false;
 		}

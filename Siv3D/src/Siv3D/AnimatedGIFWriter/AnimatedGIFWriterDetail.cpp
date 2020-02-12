@@ -76,7 +76,7 @@ namespace s3d
 		return true;
 	}
 
-	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::isOpened() const
+	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::isOpen() const
 	{
 		return m_opened;
 	}

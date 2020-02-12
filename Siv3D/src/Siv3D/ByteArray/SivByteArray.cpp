@@ -46,9 +46,9 @@ namespace s3d
 		return pImpl->release();
 	}
 
-	bool ByteArray::isOpened() const
+	bool ByteArray::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	int64 ByteArray::size() const

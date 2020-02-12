@@ -30,14 +30,14 @@ namespace s3d
 
 	}
 
-	bool DirectoryWatcher::isOpened() const
+	bool DirectoryWatcher::isOpen() const
 	{
 		return static_cast<bool>(m_detail);
 	}
 
 	DirectoryWatcher::operator bool() const
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	Array<std::pair<FilePath, FileAction>> DirectoryWatcher::retrieveChanges() const

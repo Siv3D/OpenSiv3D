@@ -111,14 +111,14 @@ th,td{
 		pImpl->close();
 	}
 
-	bool HTMLWriter::isOpened() const
+	bool HTMLWriter::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	HTMLWriter::operator bool() const
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	void HTMLWriter::writeRaw(const StringView view)

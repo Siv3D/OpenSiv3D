@@ -41,14 +41,14 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool VideoWriter::isOpened() const
+	bool VideoWriter::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	VideoWriter::operator bool() const
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	bool VideoWriter::writeFrame(const Image& image)

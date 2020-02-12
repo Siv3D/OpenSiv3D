@@ -42,14 +42,14 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool Serial::isOpened() const
+	bool Serial::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	Serial::operator bool() const
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	int32 Serial::baudrate() const noexcept

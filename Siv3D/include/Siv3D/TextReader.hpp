@@ -133,7 +133,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルがオープンされている場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool isOpened() const;
+		[[nodiscard]] bool isOpen() const;
 
 		/// <summary>
 		/// テキストファイルがオープンされているかを返します。
@@ -141,7 +141,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルがオープンされている場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpened(); }
+		[[nodiscard]] explicit operator bool() const { return isOpen(); }
 
 		/// <summary>
 		/// テキストファイルから 1 文字読み込みます。

@@ -33,53 +33,6 @@ namespace s3d
 		HasError,
 	};
 
-	//struct WebcamData
-	//{
-	//	cv::VideoCapture m_capture;
-
-	//	Size m_resolution = Size(0, 0);
-
-	//	cv::Mat_<cv::Vec3b> m_frame;
-
-	//	Image m_image;
-
-	//	std::thread m_thread;
-
-	//	std::atomic<WebcamState> m_state = WebcamState::None;
-
-	//	std::mutex m_imageMutex;
-
-	//	std::atomic<int32> m_newFrameCount = 0;
-
-	//	static void OnRunning(WebcamData& webcam);
-
-	//	~WebcamData();
-
-	//	bool open(size_t index);
-
-	//	bool isOpened() const;
-
-	//	void initResolution();
-
-	//	bool setResolution(const Size& resolution);
-
-	//	bool retrieve();
-
-	//	void release();
-
-	//	const Size& getResolution() const;
-
-	//	bool start();
-
-	//	void stop();
-
-	//	bool hasNewFrame() const;
-
-	//	bool getFrame(Image& image);
-
-	//	bool getFrame(DynamicTexture& texture);
-	//};
-
 	class Webcam::WebcamDetail
 	{
 	private:

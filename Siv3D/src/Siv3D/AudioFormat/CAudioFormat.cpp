@@ -212,7 +212,7 @@ namespace s3d
 
 	Array<std::unique_ptr<IAudioFormat>>::const_iterator CAudioFormat::findFormat(const IReader& reader, const FilePath& pathHint) const
 	{
-		if (!reader.isOpened())
+		if (!reader.isOpen())
 		{
 			return m_audioFormats.end();
 		}

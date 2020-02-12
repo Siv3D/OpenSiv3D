@@ -387,7 +387,7 @@ namespace s3d
 
 		void close();
 
-		[[nodiscard]] bool isOpened() const noexcept;
+		[[nodiscard]] bool isOpen() const noexcept;
 
 		[[nodiscard]] explicit operator bool() const noexcept;
 	};

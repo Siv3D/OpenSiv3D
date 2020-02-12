@@ -52,14 +52,14 @@ namespace s3d
 		return pImpl->close();
 	}
 
-	bool AnimatedGIFWriter::isOpened() const noexcept
+	bool AnimatedGIFWriter::isOpen() const noexcept
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	AnimatedGIFWriter::operator bool() const noexcept
 	{
-		return isOpened();
+		return isOpen();
 	}
 
 	bool AnimatedGIFWriter::writeFrame(const Image& image, const Duration& delay)

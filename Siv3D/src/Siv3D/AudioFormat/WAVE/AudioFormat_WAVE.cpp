@@ -339,7 +339,7 @@ namespace s3d
 
 	bool AudioFormat_WAVE::encode(const Wave& wave, IWriter& writer, const WAVEFormat format) const
 	{
-		if (!wave || !writer.isOpened())
+		if (!wave || !writer.isOpen())
 		{
 			return false;
 		}

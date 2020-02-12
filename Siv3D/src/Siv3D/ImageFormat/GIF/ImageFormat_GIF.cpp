@@ -187,7 +187,7 @@ namespace s3d
 
 	bool ImageFormat_GIF::encode(const Image& image, IWriter& writer) const
 	{
-		if (!writer.isOpened())
+		if (!writer.isOpen())
 		{
 			return false;
 		}

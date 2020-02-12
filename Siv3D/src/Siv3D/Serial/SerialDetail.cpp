@@ -26,7 +26,7 @@ namespace s3d
 
 	bool Serial::SerialDetail::open(const String& port, int32 baudrate)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -62,7 +62,7 @@ namespace s3d
 		m_baudrate = 0;
 	}
 
-	bool Serial::SerialDetail::isOpened()
+	bool Serial::SerialDetail::isOpen()
 	{
 		if (!m_serial.isOpen())
 		{
@@ -106,7 +106,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clearInput()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -116,7 +116,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clearOutput()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -126,7 +126,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clear()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -136,7 +136,7 @@ namespace s3d
 
 	size_t Serial::SerialDetail::read(void* dst, const size_t size)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return 0;
 		}
@@ -154,7 +154,7 @@ namespace s3d
 
 	size_t Serial::SerialDetail::write(const void* src, const size_t size)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return 0;
 		}

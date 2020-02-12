@@ -43,7 +43,7 @@ namespace s3d
 
 		~DirectoryWatcher();
 
-		bool isOpened() const;
+		bool isOpen() const;
 
 		explicit operator bool() const;
 

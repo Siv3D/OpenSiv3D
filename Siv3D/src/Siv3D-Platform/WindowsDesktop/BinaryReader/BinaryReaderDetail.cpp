@@ -117,7 +117,7 @@ namespace s3d
 		m_fullPath.clear();
 	}
 
-	bool BinaryReader::BinaryReaderDetail::isOpened() const noexcept
+	bool BinaryReader::BinaryReaderDetail::isOpen() const noexcept
 	{
 		return m_opened;
 	}
