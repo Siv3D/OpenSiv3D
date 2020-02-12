@@ -30,7 +30,7 @@ namespace s3d
 
 	bool BinaryReader::BinaryReaderDetail::open(const FilePathView path)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -55,7 +55,7 @@ namespace s3d
 
 	void BinaryReader::BinaryReaderDetail::close()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -71,7 +71,7 @@ namespace s3d
 		m_fullPath.clear();
 	}
 
-	bool BinaryReader::BinaryReaderDetail::isOpened() const noexcept
+	bool BinaryReader::BinaryReaderDetail::isOpen() const noexcept
 	{
 		return m_pFile != nullptr;
 	}
@@ -83,7 +83,7 @@ namespace s3d
 	
 	int64 BinaryReader::BinaryReaderDetail::setPos(const int64 pos)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return 0;
 		}
@@ -95,7 +95,7 @@ namespace s3d
 	
 	int64 BinaryReader::BinaryReaderDetail::getPos()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return 0;
 		}
