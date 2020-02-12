@@ -222,7 +222,7 @@ namespace s3d
 			return Wave();
 		}
 
-		if (!reader.isOpened())
+		if (!reader.isOpen())
 		{
 			return Wave();
 		}

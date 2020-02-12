@@ -60,7 +60,7 @@ namespace s3d
 		m_pos = 0;
 	}
 
-	bool ByteArray::ByteArrayDetail::isOpened() const
+	bool ByteArray::ByteArrayDetail::isOpen() const
 	{
 		return m_view != nullptr;
 	}

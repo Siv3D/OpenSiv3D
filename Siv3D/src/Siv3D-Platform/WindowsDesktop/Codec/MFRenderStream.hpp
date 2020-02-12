@@ -462,7 +462,7 @@ namespace s3d
 
 			if (!IsValidStream()) return E_ABORT;
 
-			if (!m_reader->isOpened()) return E_FAIL;
+			if (!m_reader->isOpen()) return E_FAIL;
 
 			m_hThreadEvent = ::CreateEvent(NULL, FALSE, FALSE, NULL);
 			if (m_hThreadEvent == NULL) return E_FAIL;
@@ -553,7 +553,7 @@ namespace s3d
 			return 0;
 		}
 
-		inline bool IsValidStream(void) const { return m_reader->isOpened(); } //ストリームが有効かどうか
+		inline bool IsValidStream(void) const { return m_reader->isOpen(); } //ストリームが有効かどうか
 		inline bool IsValidThread(void) const { return m_hAsyncThread != NULL; } //スレッドが有効かどうか
 
 	private:

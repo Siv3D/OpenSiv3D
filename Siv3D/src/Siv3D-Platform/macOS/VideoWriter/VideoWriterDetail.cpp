@@ -28,7 +28,7 @@ namespace s3d
 	
 	bool VideoWriter::VideoWriterDetail::open(const FilePath& path, const Size& size, const double fps)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -50,7 +50,7 @@ namespace s3d
 	
 	void VideoWriter::VideoWriterDetail::close()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -60,14 +60,14 @@ namespace s3d
 		m_frameSize.set(0, 0);
 	}
 	
-	bool VideoWriter::VideoWriterDetail::isOpened() const
+	bool VideoWriter::VideoWriterDetail::isOpen() const
 	{
 		return m_writer.isOpened();
 	}
 	
 	bool VideoWriter::VideoWriterDetail::write(const Image& image)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return false;
 		}

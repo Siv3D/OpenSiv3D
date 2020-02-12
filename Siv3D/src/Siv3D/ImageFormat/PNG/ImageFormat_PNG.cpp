@@ -197,7 +197,7 @@ namespace s3d
 
 	bool ImageFormat_PNG::encode(const Image& image, IWriter& writer, const uint32 filterFlag) const
 	{
-		if (!writer.isOpened())
+		if (!writer.isOpen())
 		{
 			return false;
 		}

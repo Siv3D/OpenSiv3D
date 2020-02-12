@@ -46,7 +46,7 @@ namespace s3d
 
 		bool close();
 
-		bool isOpened() const;
+		bool isOpen() const;
 
 		bool writeFrame(const Image& image, int32 delay);
 

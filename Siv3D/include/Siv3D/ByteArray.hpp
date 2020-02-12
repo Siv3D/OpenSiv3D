@@ -138,7 +138,7 @@ namespace s3d
 		/// <returns>
 		/// 使用可能な場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool isOpened() const override;
+		[[nodiscard]] bool isOpen() const override;
 
 		/// <summary>
 		/// 読み込み用バッファが使用可能かを返します。
@@ -146,7 +146,7 @@ namespace s3d
 		/// <returns>
 		/// 使用可能な場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpened(); }
+		[[nodiscard]] explicit operator bool() const { return isOpen(); }
 
 		/// <summary>
 		/// 読み込み用バッファのサイズを返します。

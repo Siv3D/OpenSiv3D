@@ -38,9 +38,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool WritableMemoryMapping::isOpened() const
+	bool WritableMemoryMapping::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	void WritableMemoryMapping::map(const size_t offset, const size_t requestSize)

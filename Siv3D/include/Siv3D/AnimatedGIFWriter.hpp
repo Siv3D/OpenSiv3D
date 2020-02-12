@@ -61,7 +61,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルがオープンされている場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool isOpened() const noexcept;
+		[[nodiscard]] bool isOpen() const noexcept;
 
 		/// <summary>
 		/// 書き出し用ファイルがオープンされているかを返します。

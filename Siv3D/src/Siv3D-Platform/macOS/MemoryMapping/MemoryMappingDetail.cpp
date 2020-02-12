@@ -57,7 +57,7 @@ namespace s3d
 			return false;
 		}
 
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -93,7 +93,7 @@ namespace s3d
 		m_fullPath.clear();
 	}
 
-	bool MemoryMapping::MemoryMappingDetail::isOpened() const
+	bool MemoryMapping::MemoryMappingDetail::isOpen() const
 	{
 		return m_fileHandle != -1;
 	}

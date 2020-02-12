@@ -30,9 +30,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool BinaryReader::isOpened() const
+	bool BinaryReader::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	int64 BinaryReader::size() const

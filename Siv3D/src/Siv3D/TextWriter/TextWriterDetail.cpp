@@ -25,7 +25,7 @@ namespace s3d
 
 	bool TextWriter::TextWriterDetail::open(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
 	{
-		if (isOpened())
+		if (isOpen())
 		{
 			close();
 		}
@@ -102,7 +102,7 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::close()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -110,14 +110,14 @@ namespace s3d
 		m_binaryWriter.close();
 	}
 
-	bool TextWriter::TextWriterDetail::isOpened() const
+	bool TextWriter::TextWriterDetail::isOpen() const
 	{
-		return m_binaryWriter.isOpened();
+		return m_binaryWriter.isOpen();
 	}
 
 	void TextWriter::TextWriterDetail::clear()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -129,7 +129,7 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::write(const StringView view)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -274,7 +274,7 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::writeNewLine()
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}
@@ -304,7 +304,7 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::writeUTF8(const std::string_view view)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}

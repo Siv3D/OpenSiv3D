@@ -59,7 +59,7 @@ namespace s3d
 		m_opened = false;
 	}
 
-	bool TextReader::TextReaderDetail::isOpened() const
+	bool TextReader::TextReaderDetail::isOpen() const
 	{
 		return m_opened;
 	}

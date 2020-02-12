@@ -52,9 +52,9 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool TextReader::isOpened() const
+	bool TextReader::isOpen() const
 	{
-		return pImpl->isOpened();
+		return pImpl->isOpen();
 	}
 
 	Optional<char32> TextReader::readChar()
@@ -123,7 +123,7 @@ namespace s3d
 
 	void TextReader::readAll(String& str)
 	{
-		if (!isOpened())
+		if (!isOpen())
 		{
 			return;
 		}

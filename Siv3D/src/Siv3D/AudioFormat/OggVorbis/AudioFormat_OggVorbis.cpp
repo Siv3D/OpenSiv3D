@@ -132,7 +132,7 @@ namespace s3d
 
 	Wave AudioFormat_OggVorbis::decode(IReader& reader) const
 	{
-		if (!reader.isOpened())
+		if (!reader.isOpen())
 		{
 			return Wave();
 		}
@@ -239,7 +239,7 @@ namespace s3d
 
 	bool AudioFormat_OggVorbis::encode(const Wave& wave, int32 quality, IWriter& writer) const
 	{
-		if (!wave || !writer.isOpened())
+		if (!wave || !writer.isOpen())
 		{
 			return false;
 		}

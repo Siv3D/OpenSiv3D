@@ -89,7 +89,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルがオープンされている場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool isOpened() const override;
+		[[nodiscard]] bool isOpen() const override;
 
 		/// <summary>
 		/// バイナリファイルがオープンされているかを返します。
@@ -97,7 +97,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルがオープンされている場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpened(); }
+		[[nodiscard]] explicit operator bool() const { return isOpen(); }
 
 		/// <summary>
 		/// 現在開いているファイルの内容を消去し、書き込み位置を先頭に戻します。

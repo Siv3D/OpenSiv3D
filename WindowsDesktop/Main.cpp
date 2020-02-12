@@ -3,20 +3,69 @@
 
 void Main()
 {
-	RenderTexture r1(200, 200);
-	RenderTexture r2(Size(200, 200));
-	RenderTexture r3(200, 200, Palette::Orange);
-	RenderTexture r4(Size(200, 200), Palette::Orange);
-	RenderTexture r5(200, 200, TextureFormat::R8G8B8A8_Unorm);
-	RenderTexture r6(Size(200, 200), TextureFormat::R8G8B8A8_Unorm);
+	// シリアルポートの一覧を取得
+	const Array<SerialPortInfo> infos = System::EnumerateSerialPorts();
+	const Array<String> options = infos.map([](const SerialPortInfo& info)
+		{
+			return U"{} ({})"_fmt(info.port, info.description);
+		}) << U"none";
+
+	Serial serial;
+	size_t index = (options.size() - 1);
 
 	while (System::Update())
 	{
-		r1.draw(0, 0);
-		r2.draw(200, 0);
-		r3.draw(400, 0);
-		r4.draw(600, 0);
-		r5.draw(0, 200);
-		r6.draw(200, 200);
+		MicrosecClock ms;
+		const bool isOpen = serial.isOpen();
+		ms.print();
+		Window::SetTitle(isOpen);
+		
+		//if (SimpleGUI::Button(U"Write 0", Vec2(200, 20), 120, isOpen))
+		//{
+		//	// 1 バイトのデータ (0) を書き込む
+		//	serial.writeByte(0);
+		//}
+
+		//if (SimpleGUI::Button(U"Write 1", Vec2(340, 20), 120, isOpen))
+		//{
+		//	// 1 バイトのデータ (1) を書き込む
+		//	serial.writeByte(1);
+		//}
+
+		//if (SimpleGUI::Button(U"Write 2", Vec2(480, 20), 120, isOpen))
+		//{
+		//	// 1 バイトのデータ (2) を書き込む
+		//	serial.writeByte(2);
+		//}
+
+		if (SimpleGUI::RadioButtons(index, options, Vec2(200, 60)))
+		{
+			//ClearPrint();
+
+			if (index == (options.size() - 1))
+			{
+				serial = Serial();
+			}
+			else
+			{
+				Print << U"Open {}"_fmt(infos[index].port);
+
+				// シリアルポートをオープン
+				if (serial.open(infos[index].port))
+				{
+					Print << U"Succeeded";
+				}
+				else
+				{
+					Print << U"Failed";
+				}
+			}
+		}
+
+		//if (const size_t available = serial.available())
+		//{
+		//	// シリアル通信で受信したデータを読み込んで表示
+		//	Print << U"READ: " << serial.readBytes();
+		//}
 	}
 }

@@ -103,11 +103,11 @@ namespace s3d
 
 		void close();
 
-		[[nodiscard]] bool isOpened() const;
+		[[nodiscard]] bool isOpen() const;
 
 		[[nodiscard]] explicit operator bool() const
 		{
-			return isOpened();
+			return isOpen();
 		}
 	};
 }

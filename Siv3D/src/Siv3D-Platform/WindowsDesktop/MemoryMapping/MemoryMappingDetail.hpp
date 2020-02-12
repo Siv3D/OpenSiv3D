@@ -46,7 +46,7 @@ namespace s3d
 
 		void close();
 
-		bool isOpened() const;
+		bool isOpen() const;
 
 		void map(size_t offset, size_t requestSize);
 

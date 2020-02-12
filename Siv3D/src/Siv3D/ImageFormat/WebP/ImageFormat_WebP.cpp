@@ -164,7 +164,7 @@ namespace s3d
 
 	bool ImageFormat_WebP::encode(const Image& image, IWriter& writer, const bool lossless, const double quality, const WebPMethod method) const
 	{
-		if (!writer.isOpened())
+		if (!writer.isOpen())
 		{
 			return false;
 		}

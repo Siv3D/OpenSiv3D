@@ -64,7 +64,7 @@ namespace s3d
 
 		std::shared_ptr<IReader> tmpIReader = std::make_shared<BinaryReader>(path);
 
-		if (!tmpIReader->isOpened())
+		if (!tmpIReader->isOpen())
 		{
 			return false;
 		}
@@ -82,7 +82,7 @@ namespace s3d
 		{
 			m_reader = tmpIReader;
 
-			m_opened = m_reader->isOpened();
+			m_opened = m_reader->isOpen();
 
 			if (const size_t bomSize = Unicode::GetBOMSize(m_encoding))
 			{
@@ -135,7 +135,7 @@ namespace s3d
 		{
 			m_reader = std::move(reader);
 
-			m_opened = m_reader->isOpened();
+			m_opened = m_reader->isOpen();
 
 			if (const size_t bomSize = Unicode::GetBOMSize(m_encoding))
 			{

@@ -373,8 +373,8 @@ namespace s3d
 
 		for (uint16 i = 0; i < (vertices.size() - 2); ++i)
 		{
-			indices[i * 3 + 1] = i;
-			indices[i * 3 + 2] = i + 1;
+			indices[i * 3 + 1] = i + 1;
+			indices[i * 3 + 2] = i + 2;
 		}
 
 		return Polygon(vertices, indices, rect);

@@ -244,7 +244,7 @@ namespace s3d
 
 	Array<std::unique_ptr<IImageFormat>>::const_iterator CImageFormat::findFormat(const IReader& reader, const FilePath& pathHint) const
 	{
-		if (!reader.isOpened())
+		if (!reader.isOpen())
 		{
 			return m_imageFormats.end();
 		}

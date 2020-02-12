@@ -25,7 +25,7 @@ namespace s3d
 
 	bool HTMLWriter::HTMLWriterDetail::open(const FilePathView path, const String& title, const StringView styleSheet)
 	{
-		if (m_textWriter.isOpened())
+		if (m_textWriter.isOpen())
 		{
 			close();
 		}
@@ -48,7 +48,7 @@ namespace s3d
 
 	void HTMLWriter::HTMLWriterDetail::close()
 	{
-		if (!m_textWriter.isOpened())
+		if (!m_textWriter.isOpen())
 		{
 			return;
 		}
@@ -58,14 +58,14 @@ namespace s3d
 		m_textWriter.close();
 	}
 
-	bool HTMLWriter::HTMLWriterDetail::isOpened() const
+	bool HTMLWriter::HTMLWriterDetail::isOpen() const
 	{
-		return m_textWriter.isOpened();
+		return m_textWriter.isOpen();
 	}
 
 	void HTMLWriter::HTMLWriterDetail::writeRaw(const StringView view)
 	{
-		if (!m_textWriter.isOpened())
+		if (!m_textWriter.isOpen())
 		{
 			return;
 		}
@@ -80,7 +80,7 @@ namespace s3d
 
 	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const String& startTag, const String& endTag)
 	{
-		if (!m_textWriter.isOpened())
+		if (!m_textWriter.isOpen())
 		{
 			return;
 		}

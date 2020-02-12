@@ -33,7 +33,7 @@ namespace s3d
 		/// <returns>
 		/// Writer が使用可能な場合 true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] virtual bool isOpened() const = 0;
+		[[nodiscard]] virtual bool isOpen() const = 0;
 
 		/// <summary>
 		/// Writer のサイズを返します。

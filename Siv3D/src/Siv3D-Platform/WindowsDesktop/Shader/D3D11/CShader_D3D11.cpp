@@ -24,7 +24,7 @@ namespace s3d
 		// IReader から 4 バイト読み込む
 		static bool LookaheadFourCC(const IReader& reader, std::array<uint8, 4>& fourcc)
 		{
-			if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+			if (!reader.isOpen() || reader.size() == 0 || !reader.supportsLookahead())
 			{
 				return false;
 			}

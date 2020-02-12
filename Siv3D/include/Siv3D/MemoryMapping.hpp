@@ -41,11 +41,11 @@ namespace s3d
 
 		void close();
 
-		[[nodiscard]] bool isOpened() const;
+		[[nodiscard]] bool isOpen() const;
 
 		[[nodiscard]] explicit operator bool() const
 		{
-			return isOpened();
+			return isOpen();
 		}
 
 		void map(size_t offset = 0, size_t requestSize = 0);
