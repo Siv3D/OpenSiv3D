@@ -107,6 +107,20 @@ enabled = true
 
 
 [[Headline]]
+name = "hl-ColorPicker"
+text = "Color"
+pos = { x = 560, y = 40 }
+width = 80
+enabled = true
+
+[[ColorPicker]]
+name = "cp-Color"
+pos = { x = 560, y = 80 }
+default = { h = 120, s = 0.5, v = 0.8 }
+enabled = true
+
+
+[[Headline]]
 name = "hl-RadioButtons"
 text = "OS"
 pos = { x = 240, y = 240 }
@@ -122,26 +136,28 @@ width = 160
 enabled = true
 
 
+[[Headline]]
+name = "hl-HorizontalRadioButtons"
+text = "Alignment"
+pos = { x = 440, y = 240 }
+width = 140
+enabled = true
+
+[[HorizontalRadioButtons]]
+name = "hrb-Options"
+pos = { x = 440, y = 280 }
+options = [ "Left", "Center", "Right" ]
+default = 1
+width = 120
+enabled = true
+
+
 [[TextBox]]
 name = "tb-Name"
 pos = { x = 400, y = 440 }
 default = "Siv3D"
 width = 160
 maxChars = 10
-enabled = true
-
-
-[[Headline]]
-name = "hl-ColorPicker"
-text = "Color"
-pos = { x = 440, y = 240 }
-width = 80
-enabled = true
-
-[[ColorPicker]]
-name = "cp-Color"
-pos = { x = 440, y = 280 }
-default = { h = 120, s = 0.5, v = 0.8 }
 enabled = true
 
 

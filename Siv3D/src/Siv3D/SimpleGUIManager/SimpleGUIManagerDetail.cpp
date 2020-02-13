@@ -107,6 +107,21 @@ namespace s3d
 			writer.writeln();
 		}
 
+		static void WriteHorizontalRadioButtons(TextWriter& writer, const String& name, const SimpleGUIWidget::HorizontalRadioButtons& item)
+		{
+			writer.writeln(U"[[HorizontalRadioButtons]]");
+			writer.writeln(U"name = \"{}\""_fmt(name));
+			writer.writeln(U"pos = {{ x = {}, y = {} }}"_fmt(item.pos.x, item.pos.y));
+			writer.writeln(U"options = {}"_fmt(item.options.map([](const String& s) { return U'\"' + s + U'\"'; }).join(U", ", U"[ ", U" ]")));
+			writer.writeln(U"default = {}"_fmt(item.index));
+			if (item.itemWidth)
+			{
+				writer.writeln(U"itemWidth = {}"_fmt(item.itemWidth.value()));
+			}
+			writer.writeln(U"enabled = {}"_fmt(item.enabled));
+			writer.writeln();
+		}
+
 		static void WriteTextBox(TextWriter& writer, const String& name, const SimpleGUIWidget::TextBox& item)
 		{
 			writer.writeln(U"[[TextBox]]");
@@ -210,6 +225,13 @@ namespace s3d
 					loadRadioButtons(item);
 				}
 			}
+			else if (widgetName == U"HorizontalRadioButtons")
+			{
+				for (const auto& item : widget.tableArrayView())
+				{
+					loadHorizontalRadioButtons(item);
+				}
+			}
 			else if (widgetName == U"TextBox")
 			{
 				for (const auto& item : widget.tableArrayView())
@@ -296,6 +318,12 @@ namespace s3d
 					detail::WriteRadioButtons(writer, widget.name, w);
 					break;
 				}
+			case WidgetType::HorizontalRadioButtons:
+				{
+					const auto& w = std::get<SimpleGUIWidget::HorizontalRadioButtons>(widget.widget);
+					detail::WriteHorizontalRadioButtons(writer, widget.name, w);
+					break;
+				}
 			case WidgetType::TextBox:
 				{
 					const auto& w = std::get<SimpleGUIWidget::TextBox>(widget.widget);
@@ -354,6 +382,12 @@ namespace s3d
 				{
 					auto& w = std::get<SimpleGUIWidget::RadioButtons>(widget.widget);
 					widget.hasChanged = SimpleGUI::RadioButtons(w.index, w.options, w.pos, w.width, w.enabled);
+					break;
+				}
+			case WidgetType::HorizontalRadioButtons:
+				{
+					auto& w = std::get<SimpleGUIWidget::HorizontalRadioButtons>(widget.widget);
+					widget.hasChanged = SimpleGUI::HorizontalRadioButtons(w.index, w.options, w.pos, w.itemWidth, w.enabled);
 					break;
 				}
 			case WidgetType::TextBox:
@@ -456,6 +490,11 @@ namespace s3d
 				{
 					auto& w = std::get<SimpleGUIWidget::RadioButtons>(widget.widget);
 					return SimpleGUI::RadioButtonsRegion(w.options, w.pos, w.width);
+				}
+			case WidgetType::HorizontalRadioButtons:
+				{
+					auto& w = std::get<SimpleGUIWidget::HorizontalRadioButtons>(widget.widget);
+					return SimpleGUI::HorizontalRadioButtonsRegion(w.options, w.pos, w.itemWidth);
 				}
 			case WidgetType::TextBox:
 				{
@@ -571,6 +610,26 @@ namespace s3d
 		}
 
 		throw Error(U"SimpleGUIManager: RadioButtons `{}` does not exist"_fmt(name));
+	}
+
+	size_t SimpleGUIManager::SimpleGUIManagerDetail::horizontalRadioButtons(const StringView name) const
+	{
+		for (const auto& widget : m_widgets)
+		{
+			if (widget.name != name)
+			{
+				continue;
+			}
+
+			if (static_cast<WidgetType>(widget.widget.index()) != WidgetType::HorizontalRadioButtons)
+			{
+				throw Error(U"SimpleGUIManager: `{}` is not WidgetType::HorizontalRadioButtons"_fmt(name));
+			}
+
+			return std::get<SimpleGUIWidget::HorizontalRadioButtons>(widget.widget).index;
+		}
+
+		throw Error(U"SimpleGUIManager: HorizontalRadioButtons `{}` does not exist"_fmt(name));
 	}
 
 	const TextEditState& SimpleGUIManager::SimpleGUIManagerDetail::textBox(const StringView name) const
@@ -779,6 +838,32 @@ namespace s3d
 		r.index		= item[U"default"].getOr<size_t>(0);
 		r.width		= item[U"width"].getOpt<double>();
 		r.enabled	= item[U"enabled"].getOr<bool>(true);
+
+		w.widget = r;
+		m_widgets << w;
+	}
+
+	void SimpleGUIManager::SimpleGUIManagerDetail::loadHorizontalRadioButtons(const TOMLValue& item)
+	{
+		Widget w;
+		if (!checkName(item, w.name))
+		{
+			return;
+		}
+
+		SimpleGUIWidget::HorizontalRadioButtons r;
+		r.pos.x = item[U"pos.x"].getOr<double>(0.0);
+		r.pos.y = item[U"pos.y"].getOr<double>(0.0);
+		if (item[U"options"].isArray())
+		{
+			for (const auto& option : item[U"options"].arrayView())
+			{
+				r.options << option.getString();
+			}
+		}
+		r.index = item[U"default"].getOr<size_t>(0);
+		r.itemWidth = item[U"itemWidth"].getOpt<double>();
+		r.enabled = item[U"enabled"].getOr<bool>(true);
 
 		w.widget = r;
 		m_widgets << w;

@@ -106,6 +106,19 @@ namespace s3d
 			bool enabled = true;
 		};
 
+		struct HorizontalRadioButtons
+		{
+			Vec2 pos = Vec2(0, 0);
+
+			Array<String> options;
+
+			Optional<double> itemWidth;
+
+			size_t index = 0;
+
+			bool enabled = true;
+		};
+
 		struct TextBox
 		{
 			Vec2 pos = Vec2(0, 0);
@@ -139,6 +152,7 @@ namespace s3d
 			VerticalSlider,
 			CheckBox,
 			RadioButtons,
+			HorizontalRadioButtons,
 			TextBox,
 			ColorPicker,
 		};
@@ -155,6 +169,7 @@ namespace s3d
 				SimpleGUIWidget::VerticalSlider,
 				SimpleGUIWidget::CheckBox,
 				SimpleGUIWidget::RadioButtons,
+				SimpleGUIWidget::HorizontalRadioButtons,
 				SimpleGUIWidget::TextBox,
 				SimpleGUIWidget::ColorPicker> widget;
 
@@ -203,6 +218,8 @@ namespace s3d
 		[[nodiscard]] bool checkBox(StringView name) const;
 
 		[[nodiscard]] size_t radioButtons(StringView name) const;
+
+		[[nodiscard]] size_t horizontalRadioButtons(StringView name) const;
 
 		[[nodiscard]] const TextEditState& textBox(StringView name) const;
 

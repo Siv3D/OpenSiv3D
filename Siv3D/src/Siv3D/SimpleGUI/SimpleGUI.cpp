@@ -586,6 +586,157 @@ namespace s3d
 			return hasChanged;
 		}
 
+		RectF HorizontalRadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& _itemWidth)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			double itemWidth = 0.0;
+			{
+				if (_itemWidth)
+				{
+					itemWidth = _itemWidth.value();
+				}
+				else
+				{
+					for (const auto& option : options)
+					{
+						itemWidth = std::max<double>(itemWidth, detail::RadioButtonPadding * 3 + detail::RadioButtonSize + font(option).region().w);
+					}
+				}
+			}
+
+			const size_t itemCount = options.size();
+			const double width = (itemWidth * itemCount);
+			const double height = 40 - 4.0;
+
+			return RectF(pos, width, height);
+		}
+
+		RectF HorizontalRadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& _itemWidth)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			double itemWidth = 0.0;
+			{
+				if (_itemWidth)
+				{
+					itemWidth = _itemWidth.value();
+				}
+				else
+				{
+					for (const auto& option : options)
+					{
+						itemWidth = std::max<double>(itemWidth, detail::RadioButtonPadding * 3 + detail::RadioButtonSize + font(option).region().w);
+					}
+				}
+			}
+
+			const size_t itemCount = options.size();
+			const double width = (itemWidth * itemCount);
+			const double height = 40 - 4.0;
+
+			return RectF(Arg::center = center, width, height);
+		}
+
+		bool HorizontalRadioButtons(size_t& index, const Array<String>& options, const Vec2& pos, const Optional<double>& _itemWidth, const bool enabled)
+		{
+			const Vec2 center = HorizontalRadioButtonsRegion(options, pos, _itemWidth).center();
+
+			return HorizontalRadioButtonsAt(index, options, center, _itemWidth, enabled);
+		}
+
+		bool HorizontalRadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& _itemWidth, bool enabled)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			double itemWidth = 0.0;
+			{
+				if (_itemWidth)
+				{
+					itemWidth = _itemWidth.value();
+				}
+				else
+				{
+					for (const auto& option : options)
+					{
+						itemWidth = std::max<double>(itemWidth, detail::RadioButtonPadding * 3 + detail::RadioButtonSize + font(option).region().w);
+					}
+				}
+			}
+
+			const size_t itemCount = options.size();
+			const double width = (itemWidth * itemCount);
+			const double height = 40 - 4.0;
+			const RectF region(Arg::center = center, width, height);
+
+			region.draw();
+
+			bool hasChanged = false;
+			//int32 labelPosX = static_cast<int32>(region.x + detail::RadioButtonPadding * 2 + detail::RadioButtonSize);
+			const double baseY = center.y - (40 - 4) / 2 + 18;
+			size_t itemIndex = 0;
+
+			for (const auto& option : options)
+			{
+				const double posX = region.x + itemWidth * itemIndex;
+				const RectF radioButtonBox(Arg::leftCenter(posX + detail::RadioButtonPadding, baseY), detail::RadioButtonSize);
+				const Circle radioButton(radioButtonBox.center(), detail::RadioButtonSize / 2.0);
+				const Vec2 labelPos(static_cast<int32>(posX + detail::RadioButtonPadding * 2 + detail::RadioButtonSize), radioButton.y - font.height() / 2 - 1);
+				const bool mouseOver = enabled && radioButtonBox.mouseOver();
+				const bool checked = (index == itemIndex);
+
+				if (enabled)
+				{
+					if (checked)
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.35, 0.7, 1.0));
+
+						radioButton.stretched(-5).draw(ColorF(0.35, 0.7, 1.0));
+					}
+					else
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.5));
+					}
+
+					font(option).draw(labelPos, ColorF(0.2));
+				}
+				else
+				{
+					if (checked)
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.75));
+
+						radioButton.stretched(-5).draw(ColorF(0.75));
+					}
+					else
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.75));
+					}
+
+					font(option).draw(labelPos, ColorF(0.67));
+				}
+
+				if (mouseOver && Cursor::OnClientRect())
+				{
+					Cursor::RequestStyle(CursorStyle::Hand);
+				}
+
+				if (enabled && Cursor::OnClientRect() && radioButtonBox.leftClicked())
+				{
+					if (index != itemIndex)
+					{
+						index = itemIndex;
+
+						hasChanged = true;
+					}
+				}
+
+				++itemIndex;
+			}
+
+			return hasChanged;
+		}
+
 		RectF TextBoxRegion(const Vec2& pos, double width)
 		{
 			width = std::max(width, 40.0);

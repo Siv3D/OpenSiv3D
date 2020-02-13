@@ -32,6 +32,8 @@ namespace s3d
 				return std::get<SimpleGUIWidget::CheckBox>(widget).pos;
 			case WidgetType::RadioButtons:
 				return std::get<SimpleGUIWidget::RadioButtons>(widget).pos;
+			case WidgetType::HorizontalRadioButtons:
+				return std::get<SimpleGUIWidget::HorizontalRadioButtons>(widget).pos;
 			case WidgetType::TextBox:
 				return std::get<SimpleGUIWidget::TextBox>(widget).pos;
 			case WidgetType::ColorPicker:
@@ -122,6 +124,11 @@ namespace s3d
 	size_t SimpleGUIManager::radioButtons(const StringView name) const
 	{
 		return pImpl->radioButtons(name);
+	}
+
+	size_t SimpleGUIManager::horizontalRadioButtons(const StringView name) const
+	{
+		return pImpl->horizontalRadioButtons(name);
 	}
 
 	const TextEditState& SimpleGUIManager::textBox(const StringView name) const
