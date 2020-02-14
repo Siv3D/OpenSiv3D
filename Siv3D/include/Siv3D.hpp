@@ -411,6 +411,10 @@
 //// AES128 による暗号化
 //# include <Siv3D/Crypto.hpp>
 
+// zlib 方式による可逆圧縮
+// Lossless compression with zlib format
+# include <Siv3D/Zlib.hpp>
+
 // Zstandard 方式による可逆圧縮
 // Lossless compression with Zstandard algorithm
 # include <Siv3D/Compression.hpp>
@@ -560,6 +564,10 @@
 // 2D 幾何
 // 2D Geometry Processing
 # include <Siv3D/Geometry2D.hpp>
+
+// 長方形詰込み
+// Rectangle Packing
+# include <Siv3D/RectanglePacking.hpp>
 
 //////////////////////////////////////////////////
 //

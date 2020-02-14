@@ -250,22 +250,20 @@ namespace s3d
 		constexpr float regionMinSize			= 8.0f;
 		constexpr float regionMergeSize			= 20.0f;
 
-		rcConfig cfg
-		{
-			.cs						= cellSize,
-			.ch						= cellHeight,
-			.walkableSlopeAngle		= agentMaxSlope,
-			.walkableHeight			= static_cast<int32>(std::ceil(agentHeight / cellHeight)),
-			.walkableClimb			= static_cast<int32>(std::floor(agentMaxClimb / cellHeight)),
-			.walkableRadius			= static_cast<int32>(std::ceil(agentRadius / cellSize)),
-			.maxEdgeLen				= static_cast<int32>(edgeMaxLen / cellSize),
-			.maxSimplificationError	= 1.3f,
-			.minRegionArea			= static_cast<int32>(regionMinSize * regionMinSize),
-			.mergeRegionArea		= static_cast<int32>(regionMergeSize * regionMergeSize),
-			.maxVertsPerPoly		= 6,
-			.detailSampleDist		= (detailSampleDist < 0.9f) ? 0 : cellSize * detailSampleDist,
-			.detailSampleMaxError	= cellHeight * detailSampleMaxError
-		};
+		rcConfig cfg = {};
+		cfg.cs = cellSize;
+		cfg.ch = cellHeight;
+		cfg.walkableSlopeAngle = agentMaxSlope;
+		cfg.walkableHeight = static_cast<int32>(std::ceil(agentHeight / cellHeight));
+		cfg.walkableClimb = static_cast<int32>(std::floor(agentMaxClimb / cellHeight));
+		cfg.walkableRadius = static_cast<int32>(std::ceil(agentRadius / cellSize));
+		cfg.maxEdgeLen = static_cast<int32>(edgeMaxLen / cellSize);
+		cfg.maxSimplificationError = 1.3f;
+		cfg.minRegionArea = static_cast<int32>(regionMinSize * regionMinSize);
+		cfg.mergeRegionArea = static_cast<int32>(regionMergeSize * regionMergeSize);
+		cfg.maxVertsPerPoly = 6;
+		cfg.detailSampleDist = (detailSampleDist < 0.9f) ? 0 : cellSize * detailSampleDist;
+		cfg.detailSampleMaxError = cellHeight * detailSampleMaxError;
 
 		rcVcopy(cfg.bmin, m_bmin);
 		rcVcopy(cfg.bmax, m_bmax);

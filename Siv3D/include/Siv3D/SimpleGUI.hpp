@@ -97,6 +97,14 @@ namespace s3d
 
 		bool RadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
+		[[nodiscard]] RectF HorizontalRadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& itemWidth = unspecified);
+
+		[[nodiscard]] RectF HorizontalRadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& itemWidth = unspecified);
+
+		bool HorizontalRadioButtons(size_t& index, const Array<String>& options, const Vec2& pos, const Optional<double>& itemWidth = unspecified, bool enabled = true);
+
+		bool HorizontalRadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& itemWidth = unspecified, bool enabled = true);
+
 		[[nodiscard]] RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
 
 		[[nodiscard]] RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);

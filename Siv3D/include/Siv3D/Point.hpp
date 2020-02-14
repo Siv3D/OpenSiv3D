@@ -220,8 +220,11 @@ namespace s3d
 		template <class Type = double>
 		[[nodiscard]] constexpr Type lengthSq() const noexcept;
 
+		template <class Type = double>
+		[[nodiscard]] constexpr Vector2D<Type> lerp(const Point& other, double f) const noexcept;
+
 		template <class Type>
-		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, double f) const noexcept;
 
 		template <class Shape2DType>
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const

@@ -42,6 +42,8 @@ namespace s3d
 
 		void loadRadioButtons(const TOMLValue& item);
 
+		void loadHorizontalRadioButtons(const TOMLValue& item);
+
 		void loadTextBox(const TOMLValue& item);
 
 		void loadColorPicker(const TOMLValue& item);
@@ -77,6 +79,8 @@ namespace s3d
 		[[nodiscard]] bool checkBox(StringView name) const;
 
 		[[nodiscard]] size_t radioButtons(StringView name) const;
+
+		[[nodiscard]] size_t horizontalRadioButtons(StringView name) const;
 
 		[[nodiscard]] const TextEditState& textBox(StringView name) const;
 

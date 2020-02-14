@@ -1,71 +1,57 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
+Array<Rect> Generate()
+{
+	Array<Rect> rects(Random(4, 32));
+
+	for (auto& rect : rects)
+	{
+		const Point pos = RandomPoint(Rect(0, 0, Scene::Size() - Size(150, 150)));
+		rect.set(pos, Random(20, 150), Random(20, 150));
+	}
+
+	return rects;
+}
+
 void Main()
 {
-	// シリアルポートの一覧を取得
-	const Array<SerialPortInfo> infos = System::EnumerateSerialPorts();
-	const Array<String> options = infos.map([](const SerialPortInfo& info)
-		{
-			return U"{} ({})"_fmt(info.port, info.description);
-		}) << U"none";
-
-	Serial serial;
-	size_t index = (options.size() - 1);
+	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.99));
+	Array<Rect> input, output;
+	Size size(0, 0);
+	Point offset(0, 0);
+	Stopwatch s(true);
 
 	while (System::Update())
 	{
-		MicrosecClock ms;
-		const bool isOpen = serial.isOpen();
-		ms.print();
-		Window::SetTitle(isOpen);
-		
-		//if (SimpleGUI::Button(U"Write 0", Vec2(200, 20), 120, isOpen))
-		//{
-		//	// 1 バイトのデータ (0) を書き込む
-		//	serial.writeByte(0);
-		//}
-
-		//if (SimpleGUI::Button(U"Write 1", Vec2(340, 20), 120, isOpen))
-		//{
-		//	// 1 バイトのデータ (1) を書き込む
-		//	serial.writeByte(1);
-		//}
-
-		//if (SimpleGUI::Button(U"Write 2", Vec2(480, 20), 120, isOpen))
-		//{
-		//	// 1 バイトのデータ (2) を書き込む
-		//	serial.writeByte(2);
-		//}
-
-		if (SimpleGUI::RadioButtons(index, options, Vec2(200, 60)))
+		if (s > 1.8s)
 		{
-			//ClearPrint();
-
-			if (index == (options.size() - 1))
+			input = Generate();
+			std::tie(output, size) = RectanglePacking::Pack(input, 1024);
+			offset = (Scene::Size() - size) / 2;
+			for (auto& rect : output)
 			{
-				serial = Serial();
+				rect.moveBy(offset);
 			}
-			else
-			{
-				Print << U"Open {}"_fmt(infos[index].port);
 
-				// シリアルポートをオープン
-				if (serial.open(infos[index].port))
-				{
-					Print << U"Succeeded";
-				}
-				else
-				{
-					Print << U"Failed";
-				}
-			}
+			s.restart();
 		}
 
-		//if (const size_t available = serial.available())
-		//{
-		//	// シリアル通信で受信したデータを読み込んで表示
-		//	Print << U"READ: " << serial.readBytes();
-		//}
+		const double k = Min(s.sF() * 10, 1.0);
+		const double t = Saturate(s.sF() - 0.2);
+		const double e = EaseInOutExpo(t);
+		Rect(offset, size).draw(ColorF(0.7, e));
+
+		for (auto i : step(input.size()))
+		{
+			const auto& in = input[i];
+			const auto& out = output[i];
+			const Vec2 pos = in.pos.lerp(out.pos, e);
+			const RectF rect(pos, out.size);
+			rect.scaledAt(rect.center(), k)
+				.draw(HSV(i * 25.0, 0.65, 0.9))
+				.drawFrame(2, 0, ColorF(0.25));
+		}
 	}
 }
