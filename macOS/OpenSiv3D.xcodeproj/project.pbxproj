@@ -1004,6 +1004,9 @@
 		2C461AFC227138DE00828870 /* GraphicsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AF9227138DE00828870 /* GraphicsFactory.cpp */; };
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
+		2C5AFC6923F69F6100D4041B /* SivZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AFC6823F69F6100D4041B /* SivZlib.cpp */; };
+		2C5AFC6D23F69F7A00D4041B /* zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6B23F69F7A00D4041B /* zlib.h */; };
+		2C5AFC6E23F69F7A00D4041B /* zconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6C23F69F7A00D4041B /* zconf.h */; };
 		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
 		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
 		2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */; };
@@ -2223,6 +2226,10 @@
 		2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics_Platform.cpp; sourceTree = "<group>"; };
 		2C461B012289806400828870 /* SceneTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTexture.hpp; sourceTree = "<group>"; };
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
+		2C5AFC6623F69F3D00D4041B /* Zlib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Zlib.hpp; sourceTree = "<group>"; };
+		2C5AFC6823F69F6100D4041B /* SivZlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZlib.cpp; sourceTree = "<group>"; };
+		2C5AFC6B23F69F7A00D4041B /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		2C5AFC6C23F69F7A00D4041B /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C60A7B622F5A98F00A5D629 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../Siv3D/lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
 		2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
@@ -2958,6 +2965,7 @@
 				2C460C51226EEDAF00828870 /* tinyxml */,
 				2C460CC3226EEDAF00828870 /* tsl */,
 				2C46104A226EEDB400828870 /* XAudio2_7 */,
+				2C5AFC6A23F69F7A00D4041B /* zlib */,
 				2C460F58226EEDB200828870 /* zstd */,
 			);
 			path = ThirdParty;
@@ -6321,8 +6329,26 @@
 				2C4617B3226EEF4000828870 /* XInput */,
 				2C461718226EEF3B00828870 /* XMLReader */,
 				2C461666226EEF3500828870 /* XXHash */,
+				2C5AFC6723F69F6100D4041B /* Zlib */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C5AFC6723F69F6100D4041B /* Zlib */ = {
+			isa = PBXGroup;
+			children = (
+				2C5AFC6823F69F6100D4041B /* SivZlib.cpp */,
+			);
+			path = Zlib;
+			sourceTree = "<group>";
+		};
+		2C5AFC6A23F69F7A00D4041B /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				2C5AFC6B23F69F7A00D4041B /* zlib.h */,
+				2C5AFC6C23F69F7A00D4041B /* zconf.h */,
+			);
+			path = zlib;
 			sourceTree = "<group>";
 		};
 		2C69A457232299B1002BC8D4 /* MSRenderTexture */ = {
@@ -6827,6 +6853,7 @@
 				2CA6272222226DC60009DFE1 /* XInput.hpp */,
 				2CA6277322226DC60009DFE1 /* XMLReader.hpp */,
 				2CA627FE22226DC70009DFE1 /* XXHash.hpp */,
+				2C5AFC6623F69F3D00D4041B /* Zlib.hpp */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -7420,6 +7447,7 @@
 				2C461A02226F14CF00828870 /* MicrophoneDetail.hpp in Headers */,
 				2C46146C226EEDB500828870 /* b2WorldCallbacks.h in Headers */,
 				2C461410226EEDB500828870 /* error.h in Headers */,
+				2C5AFC6D23F69F7A00D4041B /* zlib.h in Headers */,
 				2C461A72226F3FAB00828870 /* AudioFormat_AAC.hpp in Headers */,
 				2C461967226EEF4100828870 /* ISystem.hpp in Headers */,
 				2C46149A226EEDB500828870 /* comdecl.h in Headers */,
@@ -7688,6 +7716,7 @@
 				2C4617DF226EEF4100828870 /* scriptarray.h in Headers */,
 				2C461867226EEF4100828870 /* P2PivotJointDetail.hpp in Headers */,
 				2C4617FA226EEF4100828870 /* Script_Optional.hpp in Headers */,
+				2C5AFC6E23F69F7A00D4041B /* zconf.h in Headers */,
 				2C46135E226EEDB500828870 /* RecastAssert.h in Headers */,
 				2C46115E226EEDB500828870 /* quirc_internal.h in Headers */,
 				2C4618E1226EEF4100828870 /* ParticleSystem2DDetail.hpp in Headers */,
@@ -8338,6 +8367,7 @@
 				2C4610ED226EEDB500828870 /* tinyxml2.cpp in Sources */,
 				2C46195E226EEF4100828870 /* AudioFormatFactory.cpp in Sources */,
 				2C4605B8226EE90D00828870 /* Siv3DMain.cpp in Sources */,
+				2C5AFC6923F69F6100D4041B /* SivZlib.cpp in Sources */,
 				2C46139D226EEDB500828870 /* Contour.cpp in Sources */,
 				2C461474226EEDB500828870 /* b2Draw.cpp in Sources */,
 				2CBC64F5230D5776001610DB /* ChildProcessDetail.mm in Sources */,
