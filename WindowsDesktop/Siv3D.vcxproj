@@ -82,6 +82,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Gamepad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GraphicsDriver.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HashSet.hpp" />

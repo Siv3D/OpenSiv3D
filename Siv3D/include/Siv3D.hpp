@@ -1340,6 +1340,10 @@
 // GPU Driver
 # include <Siv3D/DiscreteGPU.hpp>
 
+// D3D ドライバーの種類
+// D3D Driver Types
+# include <Siv3D/GraphicsDriver.hpp>
+
 // 静的リンクライブラリ
 // Static Libs (MSVC)
 # include <Siv3D/WindowsStaticLibs.hpp>

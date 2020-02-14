@@ -21,6 +21,11 @@
 # include <Siv3D/DLL.hpp>
 # include "D3D11Device.hpp"
 
+extern "C"
+{
+	extern int Siv3D_D3DDriverType;
+}
+
 namespace s3d
 {
 	namespace detail
@@ -408,11 +413,17 @@ namespace s3d
 		m_REFFeatureLevel = detail::GetREFFeatureLevel(pD3D11CreateDevice);
 		LOG_INFO(U"ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports {}"_fmt(detail::ToString(m_REFFeatureLevel)));
 
-		if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, hasDebugLayer ? D3D11_CREATE_DEVICE_DEBUG : 0))
+		const auto targetDevice =
+			(Siv3D_D3DDriverType == 3) ? TargetD3DDevice::Reference :
+			(Siv3D_D3DDriverType == 2) ? TargetD3DDevice::WARP :
+			(Siv3D_D3DDriverType == 1) ? TargetD3DDevice::Hardware_FavorIntegrated
+			: TargetD3DDevice::Hardware;
+
+		if (!createDevice(pD3D11CreateDevice, targetDevice, unspecified, hasDebugLayer ? D3D11_CREATE_DEVICE_DEBUG : 0))
 		{
 			if constexpr (SIV3D_BUILD_TYPE(DEBUG))
 			{
-				if (!createDevice(pD3D11CreateDevice, TargetD3DDevice::Hardware, unspecified, 0))
+				if (!createDevice(pD3D11CreateDevice, targetDevice, unspecified, 0))
 				{
 					throw EngineError(U"D3D11Device::createDevice() failed");
 				}
