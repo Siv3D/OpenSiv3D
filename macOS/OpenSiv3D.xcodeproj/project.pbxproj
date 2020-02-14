@@ -1007,6 +1007,13 @@
 		2C5AFC6923F69F6100D4041B /* SivZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AFC6823F69F6100D4041B /* SivZlib.cpp */; };
 		2C5AFC6D23F69F7A00D4041B /* zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6B23F69F7A00D4041B /* zlib.h */; };
 		2C5AFC6E23F69F7A00D4041B /* zconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6C23F69F7A00D4041B /* zconf.h */; };
+		2C5AFC7623F6CC9A00D4041B /* finders_interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7023F6CC9900D4041B /* finders_interface.h */; };
+		2C5AFC7723F6CC9A00D4041B /* empty_spaces.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7123F6CC9900D4041B /* empty_spaces.h */; };
+		2C5AFC7823F6CC9A00D4041B /* empty_space_allocators.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7223F6CC9900D4041B /* empty_space_allocators.h */; };
+		2C5AFC7923F6CC9A00D4041B /* insert_and_split.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7323F6CC9900D4041B /* insert_and_split.h */; };
+		2C5AFC7A23F6CC9A00D4041B /* best_bin_finder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7423F6CC9900D4041B /* best_bin_finder.h */; };
+		2C5AFC7B23F6CC9A00D4041B /* rect_structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC7523F6CC9900D4041B /* rect_structs.h */; };
+		2C5AFC7E23F6CCB700D4041B /* SivRectanglePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AFC7D23F6CCB700D4041B /* SivRectanglePacking.cpp */; };
 		2C60A7B722F5A98F00A5D629 /* libgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7B622F5A98F00A5D629 /* libgif.a */; };
 		2C60A7D722F5AA7500A5D629 /* libutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C60A7D622F5AA7500A5D629 /* libutil.a */; };
 		2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */; };
@@ -2230,6 +2237,14 @@
 		2C5AFC6823F69F6100D4041B /* SivZlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZlib.cpp; sourceTree = "<group>"; };
 		2C5AFC6B23F69F7A00D4041B /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C5AFC6C23F69F7A00D4041B /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		2C5AFC7023F6CC9900D4041B /* finders_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = finders_interface.h; sourceTree = "<group>"; };
+		2C5AFC7123F6CC9900D4041B /* empty_spaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = empty_spaces.h; sourceTree = "<group>"; };
+		2C5AFC7223F6CC9900D4041B /* empty_space_allocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = empty_space_allocators.h; sourceTree = "<group>"; };
+		2C5AFC7323F6CC9900D4041B /* insert_and_split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = insert_and_split.h; sourceTree = "<group>"; };
+		2C5AFC7423F6CC9900D4041B /* best_bin_finder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = best_bin_finder.h; sourceTree = "<group>"; };
+		2C5AFC7523F6CC9900D4041B /* rect_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect_structs.h; sourceTree = "<group>"; };
+		2C5AFC7D23F6CCB700D4041B /* SivRectanglePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRectanglePacking.cpp; sourceTree = "<group>"; };
+		2C5AFC7F23F6CCDC00D4041B /* RectanglePacking.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RectanglePacking.hpp; sourceTree = "<group>"; };
 		2C60A7B622F5A98F00A5D629 /* libgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgif.a; path = ../Siv3D/lib/macOS/libgif/libgif.a; sourceTree = "<group>"; };
 		2C60A7D622F5AA7500A5D629 /* libutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutil.a; path = ../Siv3D/lib/macOS/libgif/libutil.a; sourceTree = "<group>"; };
 		2C69A458232299B1002BC8D4 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
@@ -2958,6 +2973,7 @@
 				2C460CCE226EEDAF00828870 /* quirc */,
 				2C460F93226EEDB300828870 /* rapidjson */,
 				2C460EE0226EEDB200828870 /* RecastDetour */,
+				2C5AFC6F23F6CC9900D4041B /* rectpack2D */,
 				2C460CCC226EEDAF00828870 /* RFC1321 */,
 				2C461A03226F156500828870 /* RtAudio */,
 				2CBC7BC8238B7CBA009B0E8E /* serial */,
@@ -6256,6 +6272,7 @@
 				2C461654226EEF3500828870 /* RasterizerState */,
 				2C8EA7B42369CE7000A1D3B6 /* Ray */,
 				2C4615B1226EEF2F00828870 /* Rectangle */,
+				2C5AFC7C23F6CCB700D4041B /* RectanglePacking */,
 				2C461530226EEF2E00828870 /* Renderer2D */,
 				2CBC6517231F89A7001610DB /* RenderTexture */,
 				2C461534226EEF2E00828870 /* RNG */,
@@ -6349,6 +6366,27 @@
 				2C5AFC6C23F69F7A00D4041B /* zconf.h */,
 			);
 			path = zlib;
+			sourceTree = "<group>";
+		};
+		2C5AFC6F23F6CC9900D4041B /* rectpack2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C5AFC7023F6CC9900D4041B /* finders_interface.h */,
+				2C5AFC7123F6CC9900D4041B /* empty_spaces.h */,
+				2C5AFC7223F6CC9900D4041B /* empty_space_allocators.h */,
+				2C5AFC7323F6CC9900D4041B /* insert_and_split.h */,
+				2C5AFC7423F6CC9900D4041B /* best_bin_finder.h */,
+				2C5AFC7523F6CC9900D4041B /* rect_structs.h */,
+			);
+			path = rectpack2D;
+			sourceTree = "<group>";
+		};
+		2C5AFC7C23F6CCB700D4041B /* RectanglePacking */ = {
+			isa = PBXGroup;
+			children = (
+				2C5AFC7D23F6CCB700D4041B /* SivRectanglePacking.cpp */,
+			);
+			path = RectanglePacking;
 			sourceTree = "<group>";
 		};
 		2C69A457232299B1002BC8D4 /* MSRenderTexture */ = {
@@ -6760,6 +6798,7 @@
 				2CA6278122226DC70009DFE1 /* RDTSCClock.hpp */,
 				2CA627D122226DC70009DFE1 /* ReaderView.hpp */,
 				2CA627A322226DC70009DFE1 /* Rectangle.hpp */,
+				2C5AFC7F23F6CCDC00D4041B /* RectanglePacking.hpp */,
 				2CBC6516231F8987001610DB /* RenderTexture.hpp */,
 				2CA6282322226DC70009DFE1 /* Resource.hpp */,
 				2CA627B422226DC70009DFE1 /* RNG.hpp */,
@@ -6824,10 +6863,10 @@
 				2CA627BF22226DC70009DFE1 /* Timer.hpp */,
 				2C8397C0237CF3E200E8601A /* ToastNotification.hpp */,
 				2CA6277F22226DC60009DFE1 /* TOMLReader.hpp */,
+				2CA6281B22226DC70009DFE1 /* Transformer2D.hpp */,
 				2CA6280B22226DC70009DFE1 /* Transition.hpp */,
 				2CA6277D22226DC60009DFE1 /* Triangle.hpp */,
 				2CEACB532338755200C6EE98 /* Triangle3D.hpp */,
-				2CA6281B22226DC70009DFE1 /* Transformer2D.hpp */,
 				2CA627E222226DC70009DFE1 /* Twitter.hpp */,
 				2CA6280822226DC70009DFE1 /* Types.hpp */,
 				2CA6273422226DC60009DFE1 /* TypeTraits.hpp */,
@@ -7392,6 +7431,7 @@
 				2C4613A0226EEDB500828870 /* save-bmp.h in Headers */,
 				2C46140D226EEDB500828870 /* document.h in Headers */,
 				2C461103226EEDB500828870 /* ttunpat.h in Headers */,
+				2C5AFC7823F6CC9A00D4041B /* empty_space_allocators.h in Headers */,
 				2C46111A226EEDB500828870 /* svmm.h in Headers */,
 				2C46142C226EEDB500828870 /* pffft.h in Headers */,
 				2C46148E226EEDB500828870 /* b2CircleShape.h in Headers */,
@@ -7440,6 +7480,7 @@
 				2C461165226EEDB500828870 /* hb-font.h in Headers */,
 				2C461142226EEDB500828870 /* ftsystem.h in Headers */,
 				2C46149B226EEDB500828870 /* audiodefs.h in Headers */,
+				2C5AFC7923F6CC9A00D4041B /* insert_and_split.h in Headers */,
 				2C4613BB226EEDB500828870 /* FID.h in Headers */,
 				2C4618D1226EEF4100828870 /* IFFT.hpp in Headers */,
 				2C46194E226EEF4100828870 /* IScreenCapture.hpp in Headers */,
@@ -7479,6 +7520,7 @@
 				2C461449226EEDB500828870 /* b2ChainAndPolygonContact.h in Headers */,
 				2C461979226EEF4100828870 /* MemoryWriterDetail.hpp in Headers */,
 				2C461411226EEDB500828870 /* en.h in Headers */,
+				2C5AFC7623F6CC9A00D4041B /* finders_interface.h in Headers */,
 				2C461134226EEDB500828870 /* ftcache.h in Headers */,
 				2C461A63226F398300828870 /* CTextInput.hpp in Headers */,
 				2C461116226EEDB500828870 /* fthash.h in Headers */,
@@ -7524,6 +7566,7 @@
 				2CF1213523A0AE760032203C /* as_scriptobject.h in Headers */,
 				2C461A39226F2D0000828870 /* posix_thread.h in Headers */,
 				2C46141E226EEDB500828870 /* muParserToken.h in Headers */,
+				2C5AFC7A23F6CC9A00D4041B /* best_bin_finder.h in Headers */,
 				2C461169226EEDB500828870 /* hb-unicode.h in Headers */,
 				2CBC64D822F849F0001610DB /* error_private.h in Headers */,
 				2C46111E226EEDB500828870 /* svgldict.h in Headers */,
@@ -7598,6 +7641,7 @@
 				2C461489226EEDB500828870 /* b2ChainShape.h in Headers */,
 				2C4618A1226EEF4100828870 /* AssetReport.hpp in Headers */,
 				2C461138226EEDB500828870 /* ftfntfmt.h in Headers */,
+				2C5AFC7B23F6CC9A00D4041B /* rect_structs.h in Headers */,
 				2C4618DF226EEF4100828870 /* IWindow.hpp in Headers */,
 				2CF1210523A0AE760032203C /* as_config.h in Headers */,
 				2C4610FD226EEDB500828870 /* ftheader.h in Headers */,
@@ -7837,6 +7881,7 @@
 				2C46195C226EEF4100828870 /* CAudioFormat.hpp in Headers */,
 				2C461498226EEDB500828870 /* XAudio2fx.h in Headers */,
 				2C461847226EEF4100828870 /* NoiseGeneratorDetail.hpp in Headers */,
+				2C5AFC7723F6CC9A00D4041B /* empty_spaces.h in Headers */,
 				2C4619DD226F09BC00828870 /* CConsole.hpp in Headers */,
 				2C266A6A228A92E0001C7DAD /* GLConstantBuffer.hpp in Headers */,
 				2CBC64B022F849F0001610DB /* zstd_lazy.h in Headers */,
@@ -8031,6 +8076,7 @@
 				2C4617E1226EEF4100828870 /* ScriptFactory.cpp in Sources */,
 				2C4618B5226EEF4100828870 /* SivXXHash.cpp in Sources */,
 				2C46139E226EEDB500828870 /* render-sdf.cpp in Sources */,
+				2C5AFC7E23F6CCB700D4041B /* SivRectanglePacking.cpp in Sources */,
 				2C4618B8226EEF4100828870 /* SivShape2D.cpp in Sources */,
 				2C4617F1226EEF4100828870 /* Script_Color.cpp in Sources */,
 				2C461A84226F517000828870 /* SivGamepad_Platform.cpp in Sources */,
