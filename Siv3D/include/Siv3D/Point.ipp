@@ -120,6 +120,12 @@ namespace s3d
 	}
 
 	template <class Type>
+	constexpr Vector2D<Type> Point::lerp(const Point& other, const double f) const noexcept
+	{
+		return Vector2D<Type>(x + (other.x - x) * f, y + (other.y - y) * f);
+	}
+
+	template <class Type>
 	constexpr Vector2D<Type> Point::lerp(const Vector2D<Type>& other, const double f) const noexcept
 	{
 		return Vector2D<Type>(x + (other.x - x) * f, y + (other.y - y) * f);
