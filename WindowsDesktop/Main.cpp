@@ -1,16 +1,59 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
+bool Test(int32 min, int32 max)
+{
+	const size_t size = Random(min, max);
+	Array<uint8> input(size);
+	const int32 target = Random(0, 255);
+	for (auto& in : input)
+	{
+		in = static_cast<uint8>(Random(0, target));
+	}
+
+	const auto compressed = Zlib::Compress(input);
+
+	const auto decompressed = Zlib::Decompress(compressed);
+
+	Array<uint8> output(decompressed.size());
+
+	std::memcpy(output.data(), decompressed.data(), output.size_bytes());
+
+	const bool result = (input == output);
+	Logger << U"{} -> {} ({})"_fmt(input.size(), compressed.size(), result);
+
+	return result;
+}
+
+bool TestSmall()
+{
+	return Test(0, 200);
+}
+
+bool TestLarge()
+{
+	return Test(4 * 1024, 256 * 1024);
+}
+
 void Main()
 {
-	Scene::SetBackground(ColorF(0.6, 0.9, 0.8));
-
-	size_t index0 = 0, index1 = 0;
+	int32 n = 0;
 
 	while (System::Update())
 	{
-		SimpleGUI::HorizontalRadioButtons(index0, { U"Windows", U"macOS", U"Linux" }, Vec2(30, 30), unspecified);
-	
-		SimpleGUI::RadioButtons(index1, { U"Windows", U"macOS", U"Linux" }, Vec2(30, 70), unspecified);
+		if (!TestSmall())
+		{
+			Print << U"Fail S";
+		}
+
+		if (!TestLarge())
+		{
+			Print << U"Fail L";
+		}
+
+		if (++n % 100 == 0)
+		{
+			Print << n;
+		}
 	}
 }

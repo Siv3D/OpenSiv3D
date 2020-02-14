@@ -1063,6 +1063,12 @@
     <Filter Include="src\ThirdParty\Earcut">
       <UniqueIdentifier>{2fa1616a-21ee-467a-a969-f2fcbf376e47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Zlib">
+      <UniqueIdentifier>{20d4f79f-1a58-40ea-8e43-a118fe997a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\zlib">
+      <UniqueIdentifier>{f96e87cf-82af-49f4-9400-3cc49be4f6c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3699,6 +3705,15 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Earcut\earcut.hpp">
       <Filter>src\ThirdParty\Earcut</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Zlib.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zlib\zconf.h">
+      <Filter>src\ThirdParty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zlib\zlib.h">
+      <Filter>src\ThirdParty\zlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5629,6 +5644,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.cpp">
       <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Zlib\SivZlib.cpp">
+      <Filter>src\Siv3D\Zlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
