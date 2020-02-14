@@ -1,59 +1,57 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
-bool Test(int32 min, int32 max)
+Array<Rect> Generate()
 {
-	const size_t size = Random(min, max);
-	Array<uint8> input(size);
-	const int32 target = Random(0, 255);
-	for (auto& in : input)
+	Array<Rect> rects(Random(4, 32));
+
+	for (auto& rect : rects)
 	{
-		in = static_cast<uint8>(Random(0, target));
+		const Point pos = RandomPoint(Rect(0, 0, Scene::Size() - Size(150, 150)));
+		rect.set(pos, Random(20, 150), Random(20, 150));
 	}
 
-	const auto compressed = Zlib::Compress(input);
-
-	const auto decompressed = Zlib::Decompress(compressed);
-
-	Array<uint8> output(decompressed.size());
-
-	std::memcpy(output.data(), decompressed.data(), output.size_bytes());
-
-	const bool result = (input == output);
-	Logger << U"{} -> {} ({})"_fmt(input.size(), compressed.size(), result);
-
-	return result;
-}
-
-bool TestSmall()
-{
-	return Test(0, 200);
-}
-
-bool TestLarge()
-{
-	return Test(4 * 1024, 256 * 1024);
+	return rects;
 }
 
 void Main()
 {
-	int32 n = 0;
+	Window::Resize(1280, 720);
+	Scene::SetBackground(ColorF(0.99));
+	Array<Rect> input, output;
+	Size size(0, 0);
+	Point offset(0, 0);
+	Stopwatch s(true);
 
 	while (System::Update())
 	{
-		if (!TestSmall())
+		if (s > 1.8s)
 		{
-			Print << U"Fail S";
+			input = Generate();
+			std::tie(output, size) = RectanglePacking::Pack(input, 1024);
+			offset = (Scene::Size() - size) / 2;
+			for (auto& rect : output)
+			{
+				rect.moveBy(offset);
+			}
+
+			s.restart();
 		}
 
-		if (!TestLarge())
-		{
-			Print << U"Fail L";
-		}
+		const double k = Min(s.sF() * 10, 1.0);
+		const double t = Saturate(s.sF() - 0.2);
+		const double e = EaseInOutExpo(t);
+		Rect(offset, size).draw(ColorF(0.7, e));
 
-		if (++n % 100 == 0)
+		for (auto i : step(input.size()))
 		{
-			Print << n;
+			const auto& in = input[i];
+			const auto& out = output[i];
+			const Vec2 pos = in.pos.lerp(out.pos, e);
+			const RectF rect(pos, out.size);
+			rect.scaledAt(rect.center(), k)
+				.draw(HSV(i * 25.0, 0.65, 0.9))
+				.drawFrame(2, 0, ColorF(0.25));
 		}
 	}
 }

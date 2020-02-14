@@ -1069,6 +1069,12 @@
     <Filter Include="src\ThirdParty\zlib">
       <UniqueIdentifier>{f96e87cf-82af-49f4-9400-3cc49be4f6c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\rectpack2D">
+      <UniqueIdentifier>{c45e0111-3ce9-45ad-9ec9-3a1a74766887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RectanglePacking">
+      <UniqueIdentifier>{947805a6-dce7-4be8-96fb-8a27fa8e44c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3714,6 +3720,27 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zlib\zlib.h">
       <Filter>src\ThirdParty\zlib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\empty_spaces.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\finders_interface.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\insert_and_split.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\rect_structs.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\best_bin_finder.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\empty_space_allocators.h">
+      <Filter>src\ThirdParty\rectpack2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5647,6 +5674,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Zlib\SivZlib.cpp">
       <Filter>src\Siv3D\Zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RectanglePacking\SivRectanglePacking.cpp">
+      <Filter>src\Siv3D\RectanglePacking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
