@@ -1140,6 +1140,7 @@
 		2CE5C852237FD81200082EEC /* SimpleGUIManagerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE5C84F237FD81200082EEC /* SimpleGUIManagerDetail.hpp */; };
 		2CE5C853237FD81200082EEC /* SimpleGUIManagerDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5C850237FD81200082EEC /* SimpleGUIManagerDetail.cpp */; };
 		2CE5C854237FD81200082EEC /* SivSimpleGUIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */; };
+		2CE6DA7A23FC28BE003CA82B /* SivSubdivision2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6DA7923FC28BD003CA82B /* SivSubdivision2D.cpp */; };
 		2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */; };
 		2CEACB4C2337435900C6EE98 /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4B2337435900C6EE98 /* SivMat4x4.cpp */; };
 		2CEACB4F23386AFB00C6EE98 /* SivCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEACB4E23386AFB00C6EE98 /* SivCamera3D.cpp */; };
@@ -2715,6 +2716,8 @@
 		2CE5C84F237FD81200082EEC /* SimpleGUIManagerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SimpleGUIManagerDetail.hpp; sourceTree = "<group>"; };
 		2CE5C850237FD81200082EEC /* SimpleGUIManagerDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleGUIManagerDetail.cpp; sourceTree = "<group>"; };
 		2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleGUIManager.cpp; sourceTree = "<group>"; };
+		2CE6DA7923FC28BD003CA82B /* SivSubdivision2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSubdivision2D.cpp; sourceTree = "<group>"; };
+		2CE6DA7B23FC28D9003CA82B /* Subdivision2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Subdivision2D.hpp; sourceTree = "<group>"; };
 		2CEACB452336513B00C6EE98 /* SIMD_Float4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SIMD_Float4.hpp; sourceTree = "<group>"; };
 		2CEACB472336515700C6EE98 /* SivSIMD_Float4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSIMD_Float4.cpp; sourceTree = "<group>"; };
 		2CEACB492337433800C6EE98 /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
@@ -6305,6 +6308,7 @@
 				2C461677226EEF3600828870 /* Stopwatch */,
 				2C4616E0226EEF3800828870 /* String */,
 				2C46162A226EEF3300828870 /* StringView */,
+				2CE6DA7823FC28BD003CA82B /* Subdivision2D */,
 				2C4615CB226EEF3000828870 /* SVM */,
 				2C46176F226EEF3E00828870 /* System */,
 				2C461711226EEF3A00828870 /* TCPClient */,
@@ -6839,6 +6843,7 @@
 				2CA6274B22226DC60009DFE1 /* Stopwatch.hpp */,
 				2CA627D522226DC70009DFE1 /* String.hpp */,
 				2CA6279C22226DC70009DFE1 /* StringView.hpp */,
+				2CE6DA7B23FC28D9003CA82B /* Subdivision2D.hpp */,
 				2CA6274722226DC60009DFE1 /* SVM.hpp */,
 				2CA6278022226DC70009DFE1 /* System.hpp */,
 				2CA627F022226DC70009DFE1 /* TCPClient.hpp */,
@@ -7214,6 +7219,14 @@
 				2CE5C851237FD81200082EEC /* SivSimpleGUIManager.cpp */,
 			);
 			path = SimpleGUIManager;
+			sourceTree = "<group>";
+		};
+		2CE6DA7823FC28BD003CA82B /* Subdivision2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CE6DA7923FC28BD003CA82B /* SivSubdivision2D.cpp */,
+			);
+			path = Subdivision2D;
 			sourceTree = "<group>";
 		};
 		2CEACB462336515700C6EE98 /* SIMD_Float4 */ = {
@@ -8475,6 +8488,7 @@
 				2C461831226EEF4100828870 /* Script_RectF.cpp in Sources */,
 				2C461ACF227081E000828870 /* AudioFactory.cpp in Sources */,
 				2CBC64B122F849F0001610DB /* zstdmt_compress.c in Sources */,
+				2CE6DA7A23FC28BE003CA82B /* SivSubdivision2D.cpp in Sources */,
 				2C4617F5226EEF4100828870 /* Script_TexturedRoundRect.cpp in Sources */,
 				2C266A76228AA6C8001C7DAD /* GLRasterizerState.cpp in Sources */,
 				2C46144C226EEDB500828870 /* b2CircleContact.cpp in Sources */,
