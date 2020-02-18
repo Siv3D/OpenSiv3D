@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include <Siv3D/Subdivision2D.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Error.hpp>
