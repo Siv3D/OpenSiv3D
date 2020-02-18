@@ -569,6 +569,10 @@
 // Rectangle Packing
 # include <Siv3D/RectanglePacking.hpp>
 
+// 平面分割
+// Planar Subdivisions
+# include <Siv3D/Subdivision2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Random Number
@@ -1339,6 +1343,10 @@
 // GPU ドライバー
 // GPU Driver
 # include <Siv3D/DiscreteGPU.hpp>
+
+// D3D ドライバーの種類
+// D3D Driver Types
+# include <Siv3D/GraphicsDriver.hpp>
 
 // 静的リンクライブラリ
 // Static Libs (MSVC)

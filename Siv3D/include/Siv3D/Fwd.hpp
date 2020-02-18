@@ -597,6 +597,15 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Subdivision2D.hpp
+	//
+	enum class Subdivision2DPointLocation : int32;
+	enum class Subdivision2DEdgeType : int32;
+	struct VoronoiFacet;
+	class Subdivision2D;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Distribution.hpp
 	//
 	template <class Type> class UniformDistribution;
