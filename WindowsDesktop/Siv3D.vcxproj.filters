@@ -1075,6 +1075,9 @@
     <Filter Include="src\Siv3D\RectanglePacking">
       <UniqueIdentifier>{947805a6-dce7-4be8-96fb-8a27fa8e44c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Subdivision2D">
+      <UniqueIdentifier>{eb04ab4a-4a54-4c55-912d-86891afe66fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3744,6 +3747,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GraphicsDriver.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5680,6 +5686,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RectanglePacking\SivRectanglePacking.cpp">
       <Filter>src\Siv3D\RectanglePacking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Subdivision2D\SivSubdivision2D.cpp">
+      <Filter>src\Siv3D\Subdivision2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

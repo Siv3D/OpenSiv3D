@@ -569,6 +569,10 @@
 // Rectangle Packing
 # include <Siv3D/RectanglePacking.hpp>
 
+// 平面分割
+// Planar Subdivisions
+# include <Siv3D/Subdivision2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Random Number
