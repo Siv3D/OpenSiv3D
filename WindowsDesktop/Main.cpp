@@ -1,12 +1,21 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.4.3
+﻿
+
+# include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
 void Main()
 {
-	Print << Math::Lerp(10, 20, 0.6);
-	Print << Math::InvLerp(10, 20, 16);
-
 	while (System::Update())
 	{
+		Line(Vec2(100, 100), Arg::angle = 45_deg, 100)
+			.draw(LineStyle::RoundCap, 6);
 
+		Line(Vec2(100, 100), Arg::direction = Vec2(0, 200))
+			.draw(LineStyle::RoundCap, 6, Palette::Orange);
 	}
 }
+
+
+
+
+
+
