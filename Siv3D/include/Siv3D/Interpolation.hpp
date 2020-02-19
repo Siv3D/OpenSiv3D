@@ -35,7 +35,7 @@ namespace s3d
 		/// 線形補間した結果を返します。
 		/// </summary>
 		template <class T, class U, class V>
-		[[nodiscard]] inline constexpr auto Lerp(const T& v1, const U& v2, V f)
+		[[nodiscard]] inline constexpr auto Lerp(const T& v1, const U& v2, V f) noexcept
 		{
 			if constexpr(detail::HasLerp_v<T>)
 			{
@@ -70,5 +70,10 @@ namespace s3d
 
 		[[nodiscard]] Float4 SmoothDamp(const Float4& from, Float4 to, Float4& velocity, float smoothTime, float deltaTime, const Optional<float>& maxSpeed = unspecified);
 		[[nodiscard]] Vec4 SmoothDamp(const Vec4& from, Vec4 to, Vec4& velocity, double smoothTime, double deltaTime, const Optional<double>& maxSpeed = unspecified);
+
+		[[nodiscard]] inline constexpr double InvLerp(double a, double b, double value) noexcept
+		{
+			return (value - a) / (b - a);
+		}
 	}
 }
