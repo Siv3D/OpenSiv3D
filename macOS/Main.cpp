@@ -3,29 +3,15 @@
 
 void Main()
 {
-	const ZIPReader zip(U"example/zip/zip_test.zip");
-
-	if (!zip)
-	{
-		return;
-	}
-
-	for (const auto& path : zip.enumPaths())
-	{
-		Print << path;
-	}
-
-	const Texture texture1(zip.extractToMemory(U"zip_test/image/windmill.png"));
-	const Texture texture2(zip.extractToMemory(U"zip_test/image/siv3d-kun.png"));
-
-	Print << U"-----";
-	Print << zip.extract(U"zip_test/loremipsum.txt", U"unzipped1/");
-	Print << zip.extract(U"zip_test/image/*", U"unzipped2/");
-	Print << zip.extractAll(U"unzipped3/");
-
 	while (System::Update())
 	{
-		texture1.draw();
-		texture2.draw();
+		Rect(50, 50, 300)
+			.drawFrame(20, Palette::Orange, Palette::White);
+
+		Circle(200, 200, 100)
+			.drawPie(0_deg, 120_deg, Palette::Orange, Palette::White);
+
+		Circle(400, 200, 100)
+			.drawArc(0_deg, 120_deg, 10, 10, Palette::Orange, Palette::White);
 	}
 }
