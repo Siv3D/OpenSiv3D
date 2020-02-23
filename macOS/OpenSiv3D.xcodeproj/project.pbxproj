@@ -1004,6 +1004,40 @@
 		2C461AFC227138DE00828870 /* GraphicsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AF9227138DE00828870 /* GraphicsFactory.cpp */; };
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
+		2C51222824022345009ACEC9 /* ZIPReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222524022345009ACEC9 /* ZIPReaderDetail.cpp */; };
+		2C51222924022345009ACEC9 /* SivZIPReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222624022345009ACEC9 /* SivZIPReader.cpp */; };
+		2C51222A24022345009ACEC9 /* ZIPReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C51222724022345009ACEC9 /* ZIPReaderDetail.hpp */; };
+		2C51225624022360009ACEC9 /* mz_strm_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222C24022360009ACEC9 /* mz_strm_os_posix.c */; };
+		2C51225724022360009ACEC9 /* mz_strm_pkcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222D24022360009ACEC9 /* mz_strm_pkcrypt.c */; };
+		2C51225824022360009ACEC9 /* mz_strm_wzaes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51222E24022360009ACEC9 /* mz_strm_wzaes.h */; };
+		2C51225C24022360009ACEC9 /* mz_compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51223224022360009ACEC9 /* mz_compat.h */; };
+		2C51225D24022360009ACEC9 /* mz_strm_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223324022360009ACEC9 /* mz_strm_zlib.c */; };
+		2C51225F24022360009ACEC9 /* mz_zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223524022360009ACEC9 /* mz_zip.c */; };
+		2C51226024022360009ACEC9 /* mz_os.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51223624022360009ACEC9 /* mz_os.h */; };
+		2C51226124022360009ACEC9 /* mz_zip_rw.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223724022360009ACEC9 /* mz_zip_rw.c */; };
+		2C51226224022360009ACEC9 /* mz_strm_split.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51223824022360009ACEC9 /* mz_strm_split.h */; };
+		2C51226424022360009ACEC9 /* mz_strm_buf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51223A24022360009ACEC9 /* mz_strm_buf.h */; };
+		2C51226524022360009ACEC9 /* mz_crypt_apple.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223B24022360009ACEC9 /* mz_crypt_apple.c */; };
+		2C51226624022360009ACEC9 /* mz_strm.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51223C24022360009ACEC9 /* mz_strm.h */; };
+		2C51226724022360009ACEC9 /* mz_strm_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223D24022360009ACEC9 /* mz_strm_mem.c */; };
+		2C51226824022360009ACEC9 /* mz_crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51223E24022360009ACEC9 /* mz_crypt.c */; };
+		2C51226A24022360009ACEC9 /* mz_strm_wzaes.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51224024022360009ACEC9 /* mz_strm_wzaes.c */; };
+		2C51226B24022360009ACEC9 /* mz_strm_zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224124022360009ACEC9 /* mz_strm_zlib.h */; };
+		2C51226C24022360009ACEC9 /* mz_compat.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51224224022360009ACEC9 /* mz_compat.c */; };
+		2C51226D24022360009ACEC9 /* mz_strm_pkcrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224324022360009ACEC9 /* mz_strm_pkcrypt.h */; };
+		2C51226E24022360009ACEC9 /* mz_zip_rw.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224424022360009ACEC9 /* mz_zip_rw.h */; };
+		2C51226F24022360009ACEC9 /* zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224524022360009ACEC9 /* zlib.h */; };
+		2C51227024022360009ACEC9 /* mz_os.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51224624022360009ACEC9 /* mz_os.c */; };
+		2C51227124022360009ACEC9 /* mz_zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224724022360009ACEC9 /* mz_zip.h */; };
+		2C51227524022360009ACEC9 /* mz.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51224B24022360009ACEC9 /* mz.h */; };
+		2C51227724022360009ACEC9 /* mz_strm_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51224D24022360009ACEC9 /* mz_strm_buf.c */; };
+		2C51227824022360009ACEC9 /* mz_strm_split.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51224E24022360009ACEC9 /* mz_strm_split.c */; };
+		2C51227B24022360009ACEC9 /* mz_crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51225124022360009ACEC9 /* mz_crypt.h */; };
+		2C51227C24022360009ACEC9 /* zconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51225224022360009ACEC9 /* zconf.h */; };
+		2C51227D24022360009ACEC9 /* mz_strm_mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51225324022360009ACEC9 /* mz_strm_mem.h */; };
+		2C51227E24022360009ACEC9 /* mz_strm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C51225424022360009ACEC9 /* mz_strm.c */; };
+		2C51227F24022360009ACEC9 /* mz_strm_os.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51225524022360009ACEC9 /* mz_strm_os.h */; };
+		2C5122812402255F009ACEC9 /* mz_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C5122802402255F009ACEC9 /* mz_os_posix.c */; };
 		2C5AFC6923F69F6100D4041B /* SivZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AFC6823F69F6100D4041B /* SivZlib.cpp */; };
 		2C5AFC6D23F69F7A00D4041B /* zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6B23F69F7A00D4041B /* zlib.h */; };
 		2C5AFC6E23F69F7A00D4041B /* zconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5AFC6C23F69F7A00D4041B /* zconf.h */; };
@@ -2234,6 +2268,41 @@
 		2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics_Platform.cpp; sourceTree = "<group>"; };
 		2C461B012289806400828870 /* SceneTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTexture.hpp; sourceTree = "<group>"; };
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
+		2C51222324022326009ACEC9 /* ZIPReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ZIPReader.hpp; sourceTree = "<group>"; };
+		2C51222524022345009ACEC9 /* ZIPReaderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZIPReaderDetail.cpp; sourceTree = "<group>"; };
+		2C51222624022345009ACEC9 /* SivZIPReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZIPReader.cpp; sourceTree = "<group>"; };
+		2C51222724022345009ACEC9 /* ZIPReaderDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ZIPReaderDetail.hpp; sourceTree = "<group>"; };
+		2C51222C24022360009ACEC9 /* mz_strm_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_os_posix.c; sourceTree = "<group>"; };
+		2C51222D24022360009ACEC9 /* mz_strm_pkcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_pkcrypt.c; sourceTree = "<group>"; };
+		2C51222E24022360009ACEC9 /* mz_strm_wzaes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_wzaes.h; sourceTree = "<group>"; };
+		2C51223224022360009ACEC9 /* mz_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_compat.h; sourceTree = "<group>"; };
+		2C51223324022360009ACEC9 /* mz_strm_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_zlib.c; sourceTree = "<group>"; };
+		2C51223524022360009ACEC9 /* mz_zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip.c; sourceTree = "<group>"; };
+		2C51223624022360009ACEC9 /* mz_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_os.h; sourceTree = "<group>"; };
+		2C51223724022360009ACEC9 /* mz_zip_rw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_zip_rw.c; sourceTree = "<group>"; };
+		2C51223824022360009ACEC9 /* mz_strm_split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_split.h; sourceTree = "<group>"; };
+		2C51223A24022360009ACEC9 /* mz_strm_buf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_buf.h; sourceTree = "<group>"; };
+		2C51223B24022360009ACEC9 /* mz_crypt_apple.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt_apple.c; sourceTree = "<group>"; };
+		2C51223C24022360009ACEC9 /* mz_strm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm.h; sourceTree = "<group>"; };
+		2C51223D24022360009ACEC9 /* mz_strm_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_mem.c; sourceTree = "<group>"; };
+		2C51223E24022360009ACEC9 /* mz_crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_crypt.c; sourceTree = "<group>"; };
+		2C51224024022360009ACEC9 /* mz_strm_wzaes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_wzaes.c; sourceTree = "<group>"; };
+		2C51224124022360009ACEC9 /* mz_strm_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_zlib.h; sourceTree = "<group>"; };
+		2C51224224022360009ACEC9 /* mz_compat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_compat.c; sourceTree = "<group>"; };
+		2C51224324022360009ACEC9 /* mz_strm_pkcrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_pkcrypt.h; sourceTree = "<group>"; };
+		2C51224424022360009ACEC9 /* mz_zip_rw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip_rw.h; sourceTree = "<group>"; };
+		2C51224524022360009ACEC9 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		2C51224624022360009ACEC9 /* mz_os.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os.c; sourceTree = "<group>"; };
+		2C51224724022360009ACEC9 /* mz_zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_zip.h; sourceTree = "<group>"; };
+		2C51224B24022360009ACEC9 /* mz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz.h; sourceTree = "<group>"; };
+		2C51224D24022360009ACEC9 /* mz_strm_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_buf.c; sourceTree = "<group>"; };
+		2C51224E24022360009ACEC9 /* mz_strm_split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_split.c; sourceTree = "<group>"; };
+		2C51225124022360009ACEC9 /* mz_crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_crypt.h; sourceTree = "<group>"; };
+		2C51225224022360009ACEC9 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		2C51225324022360009ACEC9 /* mz_strm_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_mem.h; sourceTree = "<group>"; };
+		2C51225424022360009ACEC9 /* mz_strm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm.c; sourceTree = "<group>"; };
+		2C51225524022360009ACEC9 /* mz_strm_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_os.h; sourceTree = "<group>"; };
+		2C5122802402255F009ACEC9 /* mz_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_os_posix.c; sourceTree = "<group>"; };
 		2C5AFC6623F69F3D00D4041B /* Zlib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Zlib.hpp; sourceTree = "<group>"; };
 		2C5AFC6823F69F6100D4041B /* SivZlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZlib.cpp; sourceTree = "<group>"; };
 		2C5AFC6B23F69F7A00D4041B /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -2967,6 +3036,7 @@
 				2CB4A5E722A14A7E00BF96EA /* libvorbis */,
 				2C460F50226EEDB200828870 /* libwebp */,
 				2C460F42226EEDB200828870 /* miniutf */,
+				2C51222B24022360009ACEC9 /* minizip */,
 				2C460F21226EEDB200828870 /* msdf */,
 				2C460FBB226EEDB300828870 /* muparser */,
 				2CB4A5E222A14A7100BF96EA /* ogg */,
@@ -6350,9 +6420,58 @@
 				2C4617B3226EEF4000828870 /* XInput */,
 				2C461718226EEF3B00828870 /* XMLReader */,
 				2C461666226EEF3500828870 /* XXHash */,
+				2C51222424022345009ACEC9 /* ZIPReader */,
 				2C5AFC6723F69F6100D4041B /* Zlib */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C51222424022345009ACEC9 /* ZIPReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C51222524022345009ACEC9 /* ZIPReaderDetail.cpp */,
+				2C51222624022345009ACEC9 /* SivZIPReader.cpp */,
+				2C51222724022345009ACEC9 /* ZIPReaderDetail.hpp */,
+			);
+			path = ZIPReader;
+			sourceTree = "<group>";
+		};
+		2C51222B24022360009ACEC9 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				2C51224224022360009ACEC9 /* mz_compat.c */,
+				2C51223224022360009ACEC9 /* mz_compat.h */,
+				2C51223B24022360009ACEC9 /* mz_crypt_apple.c */,
+				2C51223E24022360009ACEC9 /* mz_crypt.c */,
+				2C51225124022360009ACEC9 /* mz_crypt.h */,
+				2C5122802402255F009ACEC9 /* mz_os_posix.c */,
+				2C51224624022360009ACEC9 /* mz_os.c */,
+				2C51223624022360009ACEC9 /* mz_os.h */,
+				2C51224D24022360009ACEC9 /* mz_strm_buf.c */,
+				2C51223A24022360009ACEC9 /* mz_strm_buf.h */,
+				2C51223D24022360009ACEC9 /* mz_strm_mem.c */,
+				2C51225324022360009ACEC9 /* mz_strm_mem.h */,
+				2C51222C24022360009ACEC9 /* mz_strm_os_posix.c */,
+				2C51225524022360009ACEC9 /* mz_strm_os.h */,
+				2C51222D24022360009ACEC9 /* mz_strm_pkcrypt.c */,
+				2C51224324022360009ACEC9 /* mz_strm_pkcrypt.h */,
+				2C51224E24022360009ACEC9 /* mz_strm_split.c */,
+				2C51223824022360009ACEC9 /* mz_strm_split.h */,
+				2C51224024022360009ACEC9 /* mz_strm_wzaes.c */,
+				2C51222E24022360009ACEC9 /* mz_strm_wzaes.h */,
+				2C51223324022360009ACEC9 /* mz_strm_zlib.c */,
+				2C51224124022360009ACEC9 /* mz_strm_zlib.h */,
+				2C51225424022360009ACEC9 /* mz_strm.c */,
+				2C51223C24022360009ACEC9 /* mz_strm.h */,
+				2C51223724022360009ACEC9 /* mz_zip_rw.c */,
+				2C51224424022360009ACEC9 /* mz_zip_rw.h */,
+				2C51223524022360009ACEC9 /* mz_zip.c */,
+				2C51224724022360009ACEC9 /* mz_zip.h */,
+				2C51224B24022360009ACEC9 /* mz.h */,
+				2C51225224022360009ACEC9 /* zconf.h */,
+				2C51224524022360009ACEC9 /* zlib.h */,
+			);
+			path = minizip;
 			sourceTree = "<group>";
 		};
 		2C5AFC6723F69F6100D4041B /* Zlib */ = {
@@ -6897,6 +7016,7 @@
 				2CA6272222226DC60009DFE1 /* XInput.hpp */,
 				2CA6277322226DC60009DFE1 /* XMLReader.hpp */,
 				2CA627FE22226DC70009DFE1 /* XXHash.hpp */,
+				2C51222324022326009ACEC9 /* ZIPReader.hpp */,
 				2C5AFC6623F69F3D00D4041B /* Zlib.hpp */,
 			);
 			path = Siv3D;
@@ -7415,10 +7535,12 @@
 				2C46113D226EEDB500828870 /* ftgxval.h in Headers */,
 				2C461139226EEDB500828870 /* ftttdrv.h in Headers */,
 				2C461944226EEF4100828870 /* IGUI.hpp in Headers */,
+				2C51222A24022345009ACEC9 /* ZIPReaderDetail.hpp in Headers */,
 				2C461497226EEDB500828870 /* X3DAudio.h in Headers */,
 				2C461409226EEDB500828870 /* schema.h in Headers */,
 				2C461ADE2270A18200828870 /* VertexShader_GL.hpp in Headers */,
 				2CF1213723A0AE760032203C /* as_texts.h in Headers */,
+				2C51226E24022360009ACEC9 /* mz_zip_rw.h in Headers */,
 				2C461880226EEF4100828870 /* InputState.hpp in Headers */,
 				2C461A12226F1E3900828870 /* LicenseList.hpp in Headers */,
 				2CF1211023A0AE760032203C /* as_string_util.h in Headers */,
@@ -7454,6 +7576,7 @@
 				2C461458226EEDB500828870 /* b2DistanceJoint.h in Headers */,
 				2C461383226EEDB500828870 /* cached-powers.h in Headers */,
 				2CF1212223A0AE760032203C /* as_compiler.h in Headers */,
+				2C51227C24022360009ACEC9 /* zconf.h in Headers */,
 				2CBC64DE22F849F0001610DB /* zstd_errors.h in Headers */,
 				2C461947226EEF4100828870 /* IConsole.hpp in Headers */,
 				2C461454226EEDB500828870 /* b2PulleyJoint.h in Headers */,
@@ -7566,6 +7689,7 @@
 				2C4618E8226EEF4100828870 /* ImageFormat_PPM.hpp in Headers */,
 				2C461A3F226F2D0000828870 /* glfw3.h in Headers */,
 				2CBC64E422F849F0001610DB /* fse.h in Headers */,
+				2C51226224022360009ACEC9 /* mz_strm_split.h in Headers */,
 				2C461157226EEDB500828870 /* cpu_x86.h in Headers */,
 				2C461900226EEF4100828870 /* CAudio_Null.hpp in Headers */,
 				2C4613A7226EEDB500828870 /* EdgeHolder.h in Headers */,
@@ -7606,7 +7730,9 @@
 				2C8EA7C7237A956400A1D3B6 /* CSDFFont.hpp in Headers */,
 				2C461140226EEDB500828870 /* tttags.h in Headers */,
 				2C461412226EEDB500828870 /* memorybuffer.h in Headers */,
+				2C51227B24022360009ACEC9 /* mz_crypt.h in Headers */,
 				2C461128226EEDB500828870 /* svtteng.h in Headers */,
+				2C51227D24022360009ACEC9 /* mz_strm_mem.h in Headers */,
 				2CEACB632338923C00C6EE98 /* EmojiListDetail.hpp in Headers */,
 				2C461954226EEF4100828870 /* BigFloatDetail.hpp in Headers */,
 				2C46183F226EEF4100828870 /* IProfiler.hpp in Headers */,
@@ -7627,6 +7753,7 @@
 				2C46116A226EEDB500828870 /* hb-blob.h in Headers */,
 				2CF1211123A0AE760032203C /* as_tokenizer.h in Headers */,
 				2C461ACD227081E000828870 /* Audio_AL.hpp in Headers */,
+				2C51225C24022360009ACEC9 /* mz_compat.h in Headers */,
 				2C461107226EEDB500828870 /* sfnt.h in Headers */,
 				2C46110E226EEDB500828870 /* autohint.h in Headers */,
 				2C461896226EEF4100828870 /* ITextToSpeech.hpp in Headers */,
@@ -7642,6 +7769,7 @@
 				2C46112B226EEDB500828870 /* svpostnm.h in Headers */,
 				2C46194D226EEF4100828870 /* CScreenCapture.hpp in Headers */,
 				2C461393226EEDB500828870 /* shape-description.h in Headers */,
+				2C51226D24022360009ACEC9 /* mz_strm_pkcrypt.h in Headers */,
 				2C46145D226EEDB500828870 /* b2Joint.h in Headers */,
 				2C461475226EEDB500828870 /* b2GrowableStack.h in Headers */,
 				2C461162226EEDB500828870 /* hb-face.h in Headers */,
@@ -7662,6 +7790,7 @@
 				2CBC64C822F849F0001610DB /* cover.h in Headers */,
 				2C4618DA226EEF4100828870 /* IObjectDetection.hpp in Headers */,
 				2C4618F1226EEF4100828870 /* ImageFormat_JPEG.hpp in Headers */,
+				2C51226F24022360009ACEC9 /* zlib.h in Headers */,
 				2C461493226EEDB500828870 /* b2Distance.h in Headers */,
 				2C46193D226EEF4100828870 /* EffectData.hpp in Headers */,
 				2C461904226EEF4100828870 /* IDragDrop.hpp in Headers */,
@@ -7698,6 +7827,7 @@
 				2C461159226EEDB500828870 /* RFC1321.hpp in Headers */,
 				2C4619A1226EEF4100828870 /* IFont.hpp in Headers */,
 				2C461123226EEDB500828870 /* svpfr.h in Headers */,
+				2C51226024022360009ACEC9 /* mz_os.h in Headers */,
 				2C4618F5226EEF4100828870 /* ImageFormat_GIF.hpp in Headers */,
 				2C461155226EEDB500828870 /* cpu_x86_Windows.ipp in Headers */,
 				2C46147B226EEDB500828870 /* b2Math.h in Headers */,
@@ -7732,9 +7862,11 @@
 				2C461456226EEDB500828870 /* b2WeldJoint.h in Headers */,
 				2C4617DA226EEF4100828870 /* scriptstdstring.h in Headers */,
 				2C461942226EEF4100828870 /* CGUI.hpp in Headers */,
+				2C51226424022360009ACEC9 /* mz_strm_buf.h in Headers */,
 				2C461150226EEDB500828870 /* ft2build.h in Headers */,
 				2C461865226EEF4100828870 /* P2WheelJointDetail.hpp in Headers */,
 				2C461A07226F156500828870 /* RtAudio.h in Headers */,
+				2C51227F24022360009ACEC9 /* mz_strm_os.h in Headers */,
 				2C461399226EEDB500828870 /* render-sdf.h in Headers */,
 				2C46147E226EEDB500828870 /* b2Draw.h in Headers */,
 				2C46191C226EEF4100828870 /* IGamepad.hpp in Headers */,
@@ -7756,6 +7888,7 @@
 				2C461404226EEDB500828870 /* stack.h in Headers */,
 				2C461A40226F2D0000828870 /* egl_context.h in Headers */,
 				2C461353226EEDB500828870 /* DetourNavMeshQuery.h in Headers */,
+				2C51225824022360009ACEC9 /* mz_strm_wzaes.h in Headers */,
 				2C4613F7226EEDB500828870 /* encodedstream.h in Headers */,
 				2C46186C226EEF4100828870 /* IMouse.hpp in Headers */,
 				2C461166226EEDB500828870 /* hb-deprecated.h in Headers */,
@@ -7812,11 +7945,14 @@
 				2C46138D226EEDB500828870 /* edge-segments.h in Headers */,
 				2C46137E226EEDB500828870 /* bignum-dtoa.h in Headers */,
 				2C266A7A228AA6C8001C7DAD /* GLSamplerState.hpp in Headers */,
+				2C51227524022360009ACEC9 /* mz.h in Headers */,
 				2C461113226EEDB500828870 /* ftpic.h in Headers */,
 				2C46111B226EEDB500828870 /* svwinfnt.h in Headers */,
 				2C461161226EEDB500828870 /* hb-set.h in Headers */,
 				2C4613F2226EEDB500828870 /* fwd.h in Headers */,
+				2C51226624022360009ACEC9 /* mz_strm.h in Headers */,
 				2CF1212423A0AE760032203C /* as_map.h in Headers */,
+				2C51227124022360009ACEC9 /* mz_zip.h in Headers */,
 				2C461147226EEDB500828870 /* ftglyph.h in Headers */,
 				2C46193F226EEF4100828870 /* BigIntDetail.hpp in Headers */,
 				2CF1213323A0AE760032203C /* as_memory.h in Headers */,
@@ -7862,6 +7998,7 @@
 				2C461970226EEF4100828870 /* WebcamDetail.hpp in Headers */,
 				2C461889226EEF4100828870 /* NavMeshDetail.hpp in Headers */,
 				2CE5C852237FD81200082EEC /* SimpleGUIManagerDetail.hpp in Headers */,
+				2C51226B24022360009ACEC9 /* mz_strm_zlib.h in Headers */,
 				2C461126226EEDB500828870 /* svbdf.h in Headers */,
 				2C4610F6226EEDB500828870 /* ftsnames.h in Headers */,
 				2C461363226EEDB500828870 /* RecastAlloc.h in Headers */,
@@ -8032,6 +8169,7 @@
 				2C4618BF226EEF4100828870 /* SivTextureRegion.cpp in Sources */,
 				2C46143B226EEDB500828870 /* b2Fixture.cpp in Sources */,
 				2CBC64DF22F849F0001610DB /* pool.c in Sources */,
+				2C51227824022360009ACEC9 /* mz_strm_split.c in Sources */,
 				2CEACB482336515700C6EE98 /* SivSIMD_Float4.cpp in Sources */,
 				2C4619F2226F0EAE00828870 /* SivMessageBox.mm in Sources */,
 				2C461984226EEF4100828870 /* TextReaderDetail.cpp in Sources */,
@@ -8049,6 +8187,7 @@
 				2CBC64B822F849F0001610DB /* hist.c in Sources */,
 				2CF120F723A0AE760032203C /* as_callfunc_x64_msvc.cpp in Sources */,
 				2C461844226EEF4100828870 /* SivMersenneTwister.cpp in Sources */,
+				2C51227024022360009ACEC9 /* mz_os.c in Sources */,
 				2C4617DD226EEF4100828870 /* scriptbuilder.cpp in Sources */,
 				2C461995226EEF4100828870 /* XInputFactory.cpp in Sources */,
 				2C4619C9226F01E300828870 /* CTextToSpeech.mm in Sources */,
@@ -8062,10 +8201,12 @@
 				2C461858226EEF4100828870 /* P2BodyDetail.cpp in Sources */,
 				2C4613BA226EEDB500828870 /* FID.cpp in Sources */,
 				2C461983226EEF4100828870 /* SivTextEncoding.cpp in Sources */,
+				2C51225D24022360009ACEC9 /* mz_strm_zlib.c in Sources */,
 				2C461911226EEF4100828870 /* SivHash.cpp in Sources */,
 				2C46188B226EEF4100828870 /* SivCustomStopwatch.cpp in Sources */,
 				2C461937226EEF4100828870 /* SivKeyGroup.cpp in Sources */,
 				2C46193A226EEF4100828870 /* EffectData.cpp in Sources */,
+				2C5122812402255F009ACEC9 /* mz_os_posix.c in Sources */,
 				2C46115A226EEDB500828870 /* version_db.c in Sources */,
 				2C8EA7B9236FC46D00A1D3B6 /* SivQuaternion.cpp in Sources */,
 				2C46186E226EEF4100828870 /* EngineDirectory.cpp in Sources */,
@@ -8136,6 +8277,7 @@
 				2C4618D2226EEF4100828870 /* FFTFactory.cpp in Sources */,
 				2CFA0CAF228B988500F50DF6 /* SceneTexture.cpp in Sources */,
 				2C461388226EEDB500828870 /* diy-fp.cc in Sources */,
+				2C51227724022360009ACEC9 /* mz_strm_buf.c in Sources */,
 				2C461156226EEDB500828870 /* cpu_x86.cpp in Sources */,
 				2CF1210623A0AE760032203C /* as_parser.cpp in Sources */,
 				2C4618F0226EEF4100828870 /* ImageFormat_JPEG.cpp in Sources */,
@@ -8243,6 +8385,7 @@
 				2C266A7B228AA6C8001C7DAD /* GLSamplerState.cpp in Sources */,
 				2C4617EA226EEF4100828870 /* Script_Vec3.cpp in Sources */,
 				2C46190C226EEF4100828870 /* SivOpenCV_Bridge.cpp in Sources */,
+				2C51226724022360009ACEC9 /* mz_strm_mem.c in Sources */,
 				2C4617EE226EEF4100828870 /* Script_Triangle.cpp in Sources */,
 				2C46187E226EEF4100828870 /* CSoundFont.cpp in Sources */,
 				2C4618C8226EEF4100828870 /* IAssetDetail.cpp in Sources */,
@@ -8301,11 +8444,13 @@
 				2CF120FA23A0AE760032203C /* as_callfunc_mips.cpp in Sources */,
 				2C4619A5226EEF4100828870 /* FontData.cpp in Sources */,
 				2C4618D7226EEF4100828870 /* SivTCPServer.cpp in Sources */,
+				2C51225F24022360009ACEC9 /* mz_zip.c in Sources */,
 				2C461875226EEF4100828870 /* SivDate.cpp in Sources */,
 				2CF1211E23A0AE760032203C /* as_callfunc_arm_vita.S in Sources */,
 				2C461902226EEF4100828870 /* SivAudio.cpp in Sources */,
 				2C46148B226EEDB500828870 /* b2CircleShape.cpp in Sources */,
 				2C461361226EEDB500828870 /* DetourCommon.cpp in Sources */,
+				2C51226124022360009ACEC9 /* mz_zip_rw.c in Sources */,
 				2CBC64C522F849F0001610DB /* divsufsort.c in Sources */,
 				2C461450226EEDB500828870 /* b2WeldJoint.cpp in Sources */,
 				2CBC64D922F849F0001610DB /* fse_decompress.c in Sources */,
@@ -8344,6 +8489,7 @@
 				2C461894226EEF4100828870 /* TextToSpeechFactory.cpp in Sources */,
 				2CC47711232144B800633195 /* VertexShader_GL.cpp in Sources */,
 				2CF1212623A0AE760032203C /* as_callfunc.cpp in Sources */,
+				2C51227E24022360009ACEC9 /* mz_strm.c in Sources */,
 				2C461486226EEDB500828870 /* b2ChainShape.cpp in Sources */,
 				2C461818226EEF4100828870 /* Script_Emoji.cpp in Sources */,
 				2C461817226EEF4100828870 /* Script_RDTSCClock.cpp in Sources */,
@@ -8368,6 +8514,7 @@
 				2C4619EA226F0CD700828870 /* BinaryReaderDetail.cpp in Sources */,
 				2C461855226EEF4100828870 /* SivDuration.cpp in Sources */,
 				2C461428226EEDB500828870 /* muParserBytecode.cpp in Sources */,
+				2C51226A24022360009ACEC9 /* mz_strm_wzaes.c in Sources */,
 				2CBC64D122F849F0001610DB /* zstd_decompress_block.c in Sources */,
 				2C46197D226EEF4100828870 /* CursorFactory.cpp in Sources */,
 				2CBC7BD5238B7CBA009B0E8E /* list_ports_osx.cc in Sources */,
@@ -8439,6 +8586,7 @@
 				2C69A459232299B1002BC8D4 /* SivMSRenderTexture.cpp in Sources */,
 				2C46186F226EEF4100828870 /* SivOutlineGlyph.cpp in Sources */,
 				2C461833226EEF4100828870 /* Script_MillisecClock.cpp in Sources */,
+				2C51226C24022360009ACEC9 /* mz_compat.c in Sources */,
 				2C461462226EEDB500828870 /* b2Joint.cpp in Sources */,
 				2C461A44226F2D0000828870 /* osmesa_context.c in Sources */,
 				2CBC64CF22F849F0001610DB /* zstd_decompress.c in Sources */,
@@ -8482,6 +8630,7 @@
 				2C46182F226EEF4100828870 /* Script_Key.cpp in Sources */,
 				2C46189C226EEF4100828870 /* SivEmoji.cpp in Sources */,
 				2C461476226EEDB500828870 /* b2BlockAllocator.cpp in Sources */,
+				2C51222824022345009ACEC9 /* ZIPReaderDetail.cpp in Sources */,
 				2C4617EB226EEF4100828870 /* Script_CustomStopwatch.cpp in Sources */,
 				2CF1211B23A0AE760032203C /* as_callfunc_arm_xcode.S in Sources */,
 				2C461A9B226F70FA00828870 /* SivDate_Platform.cpp in Sources */,
@@ -8542,6 +8691,7 @@
 				2C461838226EEF4100828870 /* PrintFactory.cpp in Sources */,
 				2C461810226EEF4100828870 /* Script_Profiler.cpp in Sources */,
 				2C4617FE226EEF4100828870 /* Script_Mouse.cpp in Sources */,
+				2C51226524022360009ACEC9 /* mz_crypt_apple.c in Sources */,
 				2C46186B226EEF4100828870 /* SivMouse.cpp in Sources */,
 				2C4619C5226EFFE400828870 /* SivTime.cpp in Sources */,
 				2C46142B226EEDB500828870 /* pffft.c in Sources */,
@@ -8551,6 +8701,7 @@
 				2C4617CD226EEF4100828870 /* SivHalfFloat.cpp in Sources */,
 				2C461870226EEF4100828870 /* SivTriangle.cpp in Sources */,
 				2C461396226EEDB500828870 /* msdfgen.cpp in Sources */,
+				2C51225724022360009ACEC9 /* mz_strm_pkcrypt.c in Sources */,
 				2C46193E226EEF4100828870 /* CEffect.cpp in Sources */,
 				2C46180C226EEF4100828870 /* Script_Polygon.cpp in Sources */,
 				2C8397C5237CF40E00E8601A /* SivToastNotification.cpp in Sources */,
@@ -8588,6 +8739,7 @@
 				2C461812226EEF4100828870 /* Script_Duration.cpp in Sources */,
 				2C461469226EEDB500828870 /* b2Island.cpp in Sources */,
 				2C461876226EEF4100828870 /* SivDialog.cpp in Sources */,
+				2C51222924022345009ACEC9 /* SivZIPReader.cpp in Sources */,
 				2CB3582622CC2D2D00D1B555 /* MemoryMappingDetail.cpp in Sources */,
 				2C46199D226EEF4100828870 /* SivTextInput.cpp in Sources */,
 				2C461481226EEDB500828870 /* b2Distance.cpp in Sources */,
@@ -8614,6 +8766,7 @@
 				2C46193C226EEF4100828870 /* EffectFactory.cpp in Sources */,
 				2C4619DC226F09BC00828870 /* CConsole.cpp in Sources */,
 				2C4613A9226EEDB500828870 /* import-font.cpp in Sources */,
+				2C51226824022360009ACEC9 /* mz_crypt.c in Sources */,
 				2C266A6C228A93CA001C7DAD /* SivConstantBuffer.cpp in Sources */,
 				2C4618BA226EEF4100828870 /* SivGraphics.cpp in Sources */,
 				2C461385226EEDB500828870 /* fast-dtoa.cc in Sources */,
@@ -8625,6 +8778,7 @@
 				2C46191D226EEF4100828870 /* SivParticle2D.cpp in Sources */,
 				2C4619B2226EF33F00828870 /* CXInput.cpp in Sources */,
 				2CEACB622338923C00C6EE98 /* EmojiListDetail.cpp in Sources */,
+				2C51225624022360009ACEC9 /* mz_strm_os_posix.c in Sources */,
 				2C461887226EEF4100828870 /* NavMeshDetail.cpp in Sources */,
 				2CBC7BDA238B7CBA009B0E8E /* list_ports_win.cc in Sources */,
 				2CF120F923A0AE760032203C /* as_atomic.cpp in Sources */,

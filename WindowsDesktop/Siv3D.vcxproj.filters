@@ -1078,6 +1078,12 @@
     <Filter Include="src\Siv3D\Subdivision2D">
       <UniqueIdentifier>{eb04ab4a-4a54-4c55-912d-86891afe66fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\minizip">
+      <UniqueIdentifier>{f5456c3e-4a21-46e7-8ae2-634e1577a422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ZIPReader">
+      <UniqueIdentifier>{1b88a22f-ad7f-47f9-8e4b-5304383624e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3750,6 +3756,63 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_os.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_buf.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_bzip.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_mem.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_os.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_pkcrypt.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_split.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_wzaes.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_zlib.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_zip.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_zip_rw.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_compat.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\mz_crypt.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\zconf.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\minizip\zlib.h">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ZIPReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ZIPReader\ZIPReaderDetail.hpp">
+      <Filter>src\Siv3D\ZIPReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
@@ -5689,6 +5752,57 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Subdivision2D\SivSubdivision2D.cpp">
       <Filter>src\Siv3D\Subdivision2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_crypt_win32.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_os.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_os_win32.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_buf.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_mem.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_os_win32.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_pkcrypt.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_split.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_wzaes.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_strm_zlib.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_zip.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_zip_rw.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_compat.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\minizip\mz_crypt.c">
+      <Filter>src\ThirdParty\minizip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ZIPReader\SivZIPReader.cpp">
+      <Filter>src\Siv3D\ZIPReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ZIPReader\ZIPReaderDetail.cpp">
+      <Filter>src\Siv3D\ZIPReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

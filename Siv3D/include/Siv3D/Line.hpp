@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Circular.hpp"
 # include "Geometry2D.hpp"
 # include "ByteArrayViewAdapter.hpp"
 
@@ -132,6 +133,14 @@ namespace s3d
 		constexpr Line(const position_type& p0, const position_type& p1) noexcept
 			: begin(p0)
 			, end(p1) {}
+
+		constexpr Line(const position_type& origin, Arg::direction_<position_type> direction) noexcept
+			: begin(origin)
+			, end(origin + direction.value()) {}
+
+		Line(const position_type& origin, Arg::angle_<value_type> angle, value_type length) noexcept
+			: begin(origin)
+			, end(origin + Circular(length, angle.value())) {}
 		
 		[[nodiscard]] constexpr bool operator ==(const Line& line) const noexcept
 		{
