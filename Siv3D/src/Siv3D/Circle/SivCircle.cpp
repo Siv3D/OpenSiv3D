@@ -138,6 +138,11 @@ namespace s3d
 		return drawFrame(thickness * 0.5, thickness * 0.5, color);
 	}
 
+	const Circle& Circle::drawFrame(const double thickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, innerColor, outerColor);
+	}
+
 	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
 	{
 		const Float4 colorF = color.toFloat4();
@@ -166,7 +171,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::drawPie(double startAngle, double angle, const ColorF& color) const
+	const Circle& Circle::drawPie(const double startAngle, const double angle, const ColorF& color) const
 	{
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCirclePie(
 			center,
@@ -179,7 +184,21 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& color) const
+	const Circle& Circle::drawPie(const double startAngle, const double angle, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCirclePie(
+			center,
+			static_cast<float>(r),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleArc(
 			center,
@@ -188,6 +207,21 @@ namespace s3d
 			static_cast<float>(angle),
 			static_cast<float>(innerThickness + outerThickness),
 			color.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleArc(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			static_cast<float>(innerThickness + outerThickness),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
 		);
 
 		return *this;

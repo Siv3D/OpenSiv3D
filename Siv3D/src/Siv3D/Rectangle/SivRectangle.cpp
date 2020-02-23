@@ -430,6 +430,19 @@ namespace s3d
 	}
 
 	template <class SizeType>
+	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addRectFrame(
+			FloatRect(x + innerThickness, y + innerThickness, x + w - innerThickness, y + h - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::drawShadow(const Vec2& offset, double blurRadius, double spread, const ColorF& color) const
 	{
 		if (blurRadius < 0.0)

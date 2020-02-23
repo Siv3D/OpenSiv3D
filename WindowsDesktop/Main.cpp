@@ -3,18 +3,15 @@
 
 void Main()
 {
-	Reseed(123);
-
-	SFMT19937_64 smft;
-	smft.deserialize(GetDefaultRNG().serialize());
-
-	for (auto i : step(10))
-	{
-		Print << (Random() == smft.generateReal());
-	}
-
 	while (System::Update())
 	{
+		Rect(50, 50, 300)
+			.drawFrame(20, Palette::Orange, Palette::White);
 
+		Circle(200, 200, 100)
+			.drawPie(0_deg, 120_deg, Palette::Orange, Palette::White);
+
+		Circle(400, 200, 100)
+			.drawArc(0_deg, 120_deg, 10, 10, Palette::Orange, Palette::White);
 	}
 }

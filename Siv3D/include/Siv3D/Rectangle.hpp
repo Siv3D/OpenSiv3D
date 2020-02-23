@@ -1644,6 +1644,11 @@ namespace s3d
 			return drawFrame(thickness * 0.5, thickness * 0.5, color);
 		}
 
+		const Rectangle& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, innerColor, outerColor);
+		}
+
 		/// <summary>
 		/// 長方形の枠を描きます。
 		/// </summary>
@@ -1660,6 +1665,8 @@ namespace s3d
 		/// *this
 		/// </returns>
 		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
 		/// <summary>
 		/// 長方形の影を描きます。
