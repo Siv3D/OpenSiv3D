@@ -136,5 +136,15 @@ namespace s3d
 		{
 			return sfmt::sfmt_genrand_res53(&m_sfmt);
 		}
+
+		[[nodiscard]] sfmt::SFMT_T serialize() const noexcept
+		{
+			return m_sfmt;
+		}
+
+		void deserialize(const sfmt::SFMT_T& data) noexcept
+		{
+			m_sfmt = data;
+		}
 	};
 }
