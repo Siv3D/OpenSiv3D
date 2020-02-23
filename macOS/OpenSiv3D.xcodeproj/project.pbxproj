@@ -8897,7 +8897,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
-					../Siv3D/lib/macOS/angelscript,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
@@ -8971,7 +8970,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
-					../Siv3D/lib/macOS/angelscript,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/glew,
