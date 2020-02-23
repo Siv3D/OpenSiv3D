@@ -30,7 +30,7 @@
 #endif
 
 /***************************************************************************/
-
+#if !defined(__APPLE__) // (OpenSiv3D) iconv のリンクを不要に
 uint8_t *mz_os_utf8_string_create(const char *string, int32_t encoding)
 {
     iconv_t cd;
@@ -84,7 +84,7 @@ uint8_t *mz_os_utf8_string_create(const char *string, int32_t encoding)
 
     return string_utf8;
 }
-
+# endif
 void mz_os_utf8_string_delete(uint8_t **string)
 {
     if (string != NULL)

@@ -897,6 +897,7 @@ int32_t mz_zip_reader_save_all(void *handle, const char *destination_dir)
         strncpy(utf8_name, reader->file_info->filename, sizeof(utf8_name) - 1);
         utf8_name[sizeof(utf8_name) - 1] = 0;
 
+	#if !defined(__APPLE__) // (OpenSiv3D) iconv のリンクを不要に
         if ((reader->encoding > 0) && (reader->file_info->flag & MZ_ZIP_FLAG_UTF8) == 0)
         {
             utf8_string = mz_os_utf8_string_create(reader->file_info->filename, reader->encoding);
@@ -907,6 +908,7 @@ int32_t mz_zip_reader_save_all(void *handle, const char *destination_dir)
                 mz_os_utf8_string_delete(&utf8_string);
             }
         }
+	# endif
 
         err = mz_path_resolve(utf8_name, resolved_name, sizeof(resolved_name));
         if (err != MZ_OK)
