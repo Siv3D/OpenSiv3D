@@ -1,4 +1,4 @@
-/* mz_zip_rw.c -- Zip reader/writer
+﻿/* mz_zip_rw.c -- Zip reader/writer
    Version 2.9.2, February 12, 2020
    part of the MiniZip project
 

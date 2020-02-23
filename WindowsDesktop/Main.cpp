@@ -3,34 +3,25 @@
 
 void Main()
 {
-	//{
-	//	const ZIPReader zip(U"example.zip");
-	//	zip.enumPaths().each(Console);
-	//	Print << zip.extract(U"example/bay.jpg", U"arcout/");
-	//	Print << zip.extractAll(U"arcout2/");
-	//}
+	const ZIPReader zip(U"example/zip/zip_test.zip");
 
-	//Console << U"---";
+	if (!zip)
+	{
+		return;
+	}
 
-	//{
-	//	const ZIPReader zip(Resource(U"arc/example.zip"));
-	//	zip.enumPaths().each(Console);
-	//	Print << zip.extract(U"example/bay.jpg", U"arcout/");
-	//	Print << zip.extractAll(U"arcout2/");
-	//}
+	for (const auto& path : zip.enumPaths())
+	{
+		Print << path;
+	}
 
-	//Console << U"---";
+	const Texture texture1(zip.extractToMemory(U"zip_test/image/windmill.png"));
+	const Texture texture2(zip.extractToMemory(U"zip_test/image/siv3d-kun.png"));
 
-	//{
-	//	const ZIPReader zip(Resource(U"arc/example2.zip"));
-	//	zip.enumPaths().each(Console);
-	//	Print << zip.extract(U"LICENSE.txt", U"arcout/");
-	//	Print << zip.extractAll(U"arcout2/");
-	//}
-
-	const ZIPReader zip(Resource(U"arc/example.zip"));
-	const Texture texture1(zip.extractToMemory(U"example/bay.jpg"));
-	const Texture texture2(zip.extractToMemory(U"example/siv3d-kun.png"));;
+	Print << U"-----";
+	Print << zip.extract(U"zip_test/loremipsum.txt", U"unzipped1/");
+	Print << zip.extract(U"zip_test/image/*", U"unzipped2/");
+	Print << zip.extractAll(U"unzipped3/");
 
 	while (System::Update())
 	{
