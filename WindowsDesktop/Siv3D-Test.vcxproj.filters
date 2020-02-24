@@ -59,7 +59,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="App\Icon.ico">
+    <Image Include="App\icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
