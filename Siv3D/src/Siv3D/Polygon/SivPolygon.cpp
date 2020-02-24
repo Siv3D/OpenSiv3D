@@ -566,6 +566,83 @@ namespace s3d
 		return pImpl.get();
 	}
 
+	bool Polygon::IsValid(const Float2* pVertex, const size_t vertexSize)
+	{
+		PolygonValidityFailureType unused;
+		return IsValid(pVertex, vertexSize, unused);
+	}
+
+	bool Polygon::IsValid(const Float2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
+	{
+		PolygonValidityFailureType unused;
+		return IsValid(pVertex, vertexSize, holes, unused);
+	}
+
+	bool Polygon::IsValid(const Float2* pVertex, const size_t vertexSize, PolygonValidityFailureType& validityFailureType)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		boost::geometry::validity_failure_type failure;
+		bool valid = boost::geometry::is_valid(polygon, failure);
+
+		if (valid)
+		{
+			// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+			// HashSet を使って計算
+			if (HashSet<Float2>(pVertex, pVertex + vertexSize).size() != vertexSize)
+			{
+				valid = false;
+				failure = boost::geometry::failure_duplicate_points;
+			}
+		}
+
+		validityFailureType = detail::Convert(failure);
+
+		return valid;
+	}
+
+	bool Polygon::IsValid(const Float2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		for (const auto& hole : holes)
+		{
+			polygon.inners().emplace_back(hole.begin(), hole.end());
+		}
+
+		boost::geometry::validity_failure_type failure;
+		bool valid = boost::geometry::is_valid(polygon, failure);
+
+		if (valid)
+		{
+			// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+			// HashSet を使って計算
+			if (detail::HasSamePoints(polygon.outer().data(), polygon.outer().size()))
+			{
+				valid = false;
+				failure = boost::geometry::failure_duplicate_points;
+			}
+		}
+
+		if (valid)
+		{
+			for (const auto& inner : polygon.inners())
+			{
+				if (detail::HasSamePoints(inner.data(), inner.size()))
+				{
+					valid = false;
+					failure = boost::geometry::failure_duplicate_points;
+				}
+			}
+		}
+
+		validityFailureType = detail::Convert(failure);
+
+		return valid;
+	}
+
 	bool Polygon::IsValid(const Vec2* pVertex, const size_t vertexSize)
 	{
 		PolygonValidityFailureType unused;
