@@ -23,16 +23,13 @@ namespace s3d
 	{
 	protected:
 
-		Vec2 m_center = Scene::CenterF();
+		Vec2 m_center = Vec2(0, 0);
 
 		double m_scale = 1.0;
 
 	public:
 
 		BasicCamera2D() = default;
-
-		explicit BasicCamera2D(double scale) noexcept
-			: BasicCamera2D(Scene::CenterF(), scale) {}
 
 		BasicCamera2D(const Vec2& center, double scale = 1.0) noexcept
 			: m_center(center)
@@ -117,7 +114,7 @@ namespace s3d
 
 		Camera2DParameters m_setting;
 
-		void updateWheel();
+		void updateWheel(const SizeF& sceneSize);
 
 		void updateControls(const double deltaTime);
 
@@ -126,8 +123,6 @@ namespace s3d
 	public:
 
 		Camera2D() = default;
-
-		explicit Camera2D(double scale, const Camera2DParameters& setting = Camera2DParameters::Default()) noexcept;
 
 		Camera2D(const Vec2& center, double scale = 1.0, const Camera2DParameters& setting = Camera2DParameters::Default()) noexcept;
 
@@ -143,7 +138,7 @@ namespace s3d
 
 		void jumpTo(const Vec2& center, double scale) noexcept;
 
-		void update(double deltaTime = Scene::DeltaTime());
+		void update(double deltaTime = Scene::DeltaTime(), const SizeF& sceneSize = Graphics2D::GetRenderTargetSize());
 
 		void draw(const ColorF& color = Palette::White) const;
 	};

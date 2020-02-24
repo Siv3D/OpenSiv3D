@@ -23,12 +23,16 @@ namespace s3d
 {
 	RectF BasicCamera2D::getRegion() const
 	{
-		return RectF(m_center - (Scene::CenterF() / m_scale), Scene::Size() / m_scale);
+		const Size rtSize = Graphics2D::GetRenderTargetSize();
+
+		return RectF(m_center - ((rtSize * 0.5) / m_scale), rtSize / m_scale);
 	}
 
 	Mat3x2 BasicCamera2D::getMat3x2() const
 	{
-		return Mat3x2::Scale(m_scale).translated(Scene::CenterF() - m_scale * m_center);
+		const Size rtSize = Graphics2D::GetRenderTargetSize();
+
+		return Mat3x2::Scale(m_scale).translated((rtSize * 0.5) - m_scale * m_center);
 	}
 
 	Transformer2D BasicCamera2D::createTransformer() const
@@ -83,12 +87,6 @@ namespace s3d
 		return params;
 	}
 
-	Camera2D::Camera2D(const double scale, const Camera2DParameters& setting) noexcept
-		: Camera2D(Scene::CenterF(), scale, setting)
-	{
-	
-	}
-
 	Camera2D::Camera2D(const Vec2& center, const double scale, const Camera2DParameters& setting) noexcept
 		: BasicCamera2D(center, scale)
 		, m_setting(setting)
@@ -130,9 +128,9 @@ namespace s3d
 		m_scaleChangeVelocity = 0.0;
 	}
 
-	void Camera2D::update(const double deltaTime)
+	void Camera2D::update(const double deltaTime, const SizeF& sceneSize)
 	{
-		updateWheel();
+		updateWheel(sceneSize);
 		updateControls(deltaTime);
 		updateMouse(deltaTime);
 
@@ -140,7 +138,7 @@ namespace s3d
 
 		if (m_pointedScale)
 		{
-			const Vec2 v = m_pointedScale->first - Scene::CenterF();
+			const Vec2 v = m_pointedScale->first - (sceneSize * 0.5);
 			m_targetCenter = m_center = (m_pointedScale->second - v / m_scale);
 		}
 		else
@@ -180,7 +178,7 @@ namespace s3d
 		}
 	}
 
-	void Camera2D::updateWheel()
+	void Camera2D::updateWheel(const SizeF& sceneSize)
 	{
 		const double wheel = Mouse::Wheel();
 
@@ -206,7 +204,7 @@ namespace s3d
 		const auto t2 = Transformer2D(Mat3x2::Identity(), true, Transformer2D::Target::SetCamera);
 
 		const Point cursorPos = Cursor::Pos();
-		const Vec2 point = m_center + (cursorPos - Scene::CenterF()) / m_scale;
+		const Vec2 point = m_center + (cursorPos - (sceneSize * 0.5)) / m_scale;
 		m_pointedScale.emplace(cursorPos, point);
 	}
 

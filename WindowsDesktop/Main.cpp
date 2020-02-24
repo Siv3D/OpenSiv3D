@@ -3,15 +3,34 @@
 
 void Main()
 {
+	Scene::SetBackground(ColorF(1.0));
+	const Texture emoji(Emoji(U"🐈"));
+
+	Camera2D camera(Vec2(0, 0), 2.0);
+
+	MSRenderTexture rtexture(Size(400, 300));
+
 	while (System::Update())
 	{
-		Rect(50, 50, 300)
-			.drawFrame(20, Palette::Orange, Palette::White);
+		camera.update();
 
-		Circle(200, 200, 100)
-			.drawPie(0_deg, 120_deg, Palette::Orange, Palette::White);
+		{
+			auto t = camera.createTransformer();
 
-		Circle(400, 200, 100)
-			.drawArc(0_deg, 120_deg, 10, 10, Palette::Orange, Palette::White);
+			emoji.drawAt(0, 0);
+		}
+
+		rtexture.clear(Palette::White);
+		{
+			ScopedRenderTarget2D rt(rtexture);
+
+			auto t = camera.createTransformer();
+
+			emoji.drawAt(0, 0);
+		}
+		Graphics2D::Flush();
+		rtexture.resolve();
+
+		rtexture.draw(400, 300);
 	}
 }
