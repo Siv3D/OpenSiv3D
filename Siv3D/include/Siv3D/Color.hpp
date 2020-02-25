@@ -333,6 +333,11 @@ namespace s3d
 		{
 			return x >= 1.0 ? 255 : x <= 0.0 ? 0 : static_cast<uint8>(x * 255.0 + 0.5);
 		}
+
+		[[nodiscard]] static constexpr Color FromRGBA32(uint32 rgba) noexcept
+		{
+			return Color((rgba >> 24) & 0xFF, (rgba >> 16) & 0xFF, (rgba >> 8) & 0xFF, rgba & 0xFF);
+		}
 	};
 
 	/// <summary>

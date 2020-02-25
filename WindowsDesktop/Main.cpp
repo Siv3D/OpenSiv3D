@@ -1,36 +1,95 @@
 ﻿
 # include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
+struct AnimationTexture
+{
+	Array<Texture> textures;
+	
+	Array<int32> delays;
+	
+	int32 duration = 0;
+
+	explicit operator bool() const noexcept
+	{
+		return !textures.isEmpty();
+	}
+
+	Size size() const noexcept
+	{
+		if (!textures)
+		{
+			return Size(0, 0);
+		}
+
+		return textures.front().size();
+	}
+
+	size_t frames() const noexcept
+	{
+		return textures.size();
+	}
+
+	size_t getFrameIndex(int32 timeMillisec) const noexcept
+	{
+		return AnimatedGIFReader::MillisecToIndex(timeMillisec, delays, duration);
+	}
+
+	const Texture& getTexture(int32 timeMillisec) const noexcept
+	{
+		return textures[getFrameIndex(timeMillisec)];
+	}
+};
+
 void Main()
 {
-	Scene::SetBackground(ColorF(1.0));
-	const Texture emoji(Emoji(U"🐈"));
+	AnimationTexture animation;
+	{
+		const AnimatedGIFReader gif(U"example/test.gif");
 
-	Camera2D camera(Vec2(0, 0), 2.0);
+		if (!gif)
+		{
+			throw Error(U"Failed to open a gif file");
+		}
 
-	MSRenderTexture rtexture(Size(400, 300));
+		Array<Image> images;
+			
+		if (gif.read(images, animation.delays, animation.duration))
+		{
+			animation.textures = images.map([](const Image& i) { return Texture(i); });
+		}
+		else
+		{
+			throw Error(U"Failed to load a gif animation");
+		}
+	}
+
+	Print << U"{}, {} frames ({} ms)"_fmt(animation.size(), animation.frames(), animation.duration);
+
+	const Point pos(10, 90);
+	bool showTiles = false;
 
 	while (System::Update())
 	{
-		camera.update();
+		const int32 timeMillisec = static_cast<int32>(Scene::Time() * 1000);
+		const auto& texture = animation.getTexture(timeMillisec);
 
+		SimpleGUI::CheckBox(showTiles, U"Show tiles", Vec2(10, 40));
+
+		if (showTiles)
 		{
-			auto t = camera.createTransformer();
-
-			emoji.drawAt(0, 0);
+			Rect(pos, texture.size()).draw();
+			{
+				ScopedViewport2D vp(pos, texture.size());
+				for (auto p : step(texture.size() / 10 + Size(1, 1)))
+				{
+					if (IsEven(p.x + p.y))
+					{
+						Rect(p * 10, 10).draw(ColorF(0.8));
+					}
+				}
+			}
 		}
 
-		rtexture.clear(Palette::White);
-		{
-			ScopedRenderTarget2D rt(rtexture);
-
-			auto t = camera.createTransformer();
-
-			emoji.drawAt(0, 0);
-		}
-		Graphics2D::Flush();
-		rtexture.resolve();
-
-		rtexture.draw(400, 300);
+		texture.draw(pos);
 	}
 }
