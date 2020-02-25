@@ -16,7 +16,7 @@
 /// ライブラリのバージョン表示
 /// Version text
 /// </summary>
-# define SIV3D_VERSION	U"0.4.3dev"
+# define SIV3D_VERSION	U"0.4.3beta"
 
 namespace s3d
 {
@@ -24,5 +24,5 @@ namespace s3d
 	/// バージョン ID
 	/// Version value
 	/// </summary>
-	inline constexpr uint32 Siv3DVersion = 200'004'030u;
+	inline constexpr uint32 Siv3DVersion = 200'004'031u;
 }
