@@ -220,6 +220,14 @@ namespace s3d
 		const PolygonDetail* _detail() const;
 
 
+		[[nodiscard]] static bool IsValid(const Float2* pVertex, size_t vertexSize);
+
+		[[nodiscard]] static bool IsValid(const Float2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes);
+
+		[[nodiscard]] static bool IsValid(const Float2* pVertex, size_t vertexSize, PolygonValidityFailureType& validityFailureType);
+
+		[[nodiscard]] static bool IsValid(const Float2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, PolygonValidityFailureType& validityFailureType);
+
 		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize);
 
 		[[nodiscard]] static bool IsValid(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes);

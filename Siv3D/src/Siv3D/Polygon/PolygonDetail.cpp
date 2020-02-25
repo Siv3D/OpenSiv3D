@@ -19,7 +19,6 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
 # include <boost/geometry/strategies/strategies.hpp>
 # include <boost/geometry/algorithms/centroid.hpp>
-# include <boost/geometry/algorithms/is_valid.hpp>
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
@@ -145,7 +144,8 @@ namespace s3d
 			return;
 		}
 
-		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
+		if (checkValidity
+			&& !IsValid(pOuterVertex, vertexSize, _holes))
 		{
 			return;
 		}
@@ -173,7 +173,8 @@ namespace s3d
 			return;
 		}
 
-		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
+		if (checkValidity
+			&& !IsValid(pOuterVertex, vertexSize))
 		{
 			return;
 		}
@@ -194,7 +195,8 @@ namespace s3d
 			return;
 		}
 
-		if (checkValidity && !boost::geometry::is_valid(gRing(pOuterVertex, pOuterVertex + vertexSize)))
+		if (checkValidity
+			&& !IsValid(pOuterVertex, vertexSize))
 		{
 			return;
 		}
@@ -210,7 +212,8 @@ namespace s3d
 
 	Polygon::PolygonDetail::PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, const bool checkValidity)
 	{
-		if (checkValidity && !boost::geometry::is_valid(gRing(outer.begin(), outer.end())))
+		if (checkValidity
+			&& !IsValid(outer, holes))
 		{
 			return;
 		}

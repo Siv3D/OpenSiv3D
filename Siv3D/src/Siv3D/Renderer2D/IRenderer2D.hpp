@@ -100,13 +100,19 @@ namespace s3d
 
 		virtual void addRectFrame(const FloatRect& rect, float thickness, const Float4& color) = 0;
 
+		virtual void addRectFrame(const FloatRect& rect, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
+
 		virtual void addCircle(const Float2& center, float r, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color) = 0;
 
+		virtual void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& innerColor, const Float4& outerColor) = 0;
+		
 		virtual void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color) = 0;
+
+		virtual void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) = 0;
 

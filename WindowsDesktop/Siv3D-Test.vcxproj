@@ -118,7 +118,7 @@
     <ClCompile Include="Test\TestUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="App\Icon.ico" />
+    <Image Include="App\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="App\Resource.rc" />

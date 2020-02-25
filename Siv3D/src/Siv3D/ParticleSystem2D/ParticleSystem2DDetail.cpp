@@ -181,12 +181,15 @@ namespace s3d
 				continue;
 			}
 
+			const double startRotationDeg = params.startRotationDeg + Random(-params.randomStartRotationDeg * 0.5, params.randomStartRotationDeg * 0.5);
+			const double angularVelocityDeg = params.startAngularVelocityDeg + Random(-params.randomStartAngularVelocityDeg * 0.5, params.randomStartAngularVelocityDeg * 0.5);
+
 			Particle2D particle(
 				m_emitter->emit(m_position, params.startSpeed),
 				params.startColor.toFloat4(),
 				static_cast<float>(params.startSize),
-				static_cast<float>(params.randomStartRotation ? Random(-180_deg, 180_deg) : Math::ToRadians(params.startRotationDeg)),
-				static_cast<float>(params.randomAngularVelocity ? Math::ToRadians(Random(-Math::Abs(params.startAngularVelocityDeg), Math::Abs(params.startAngularVelocityDeg))) : Math::ToRadians(params.startAngularVelocityDeg)),
+				static_cast<float>(Math::ToRadians(startRotationDeg)),
+				static_cast<float>(Math::ToRadians(angularVelocityDeg)),
 				static_cast<float>(params.startLifeTime),
 				static_cast<float>(remainigLifeTime)
 			);

@@ -7,7 +7,7 @@
 // Siv3D Engine Resources (DO NOT REMOVE)
 //
 //////////////////////////////////////////////////////
-DefineResource(100, ICON, Icon.ico)
+DefineResource(100, ICON, icon.ico)
 Resource(engine/shader/sprite.vs)
 Resource(engine/shader/shape.ps)
 Resource(engine/shader/texture.ps)

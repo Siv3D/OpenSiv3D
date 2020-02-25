@@ -31,10 +31,10 @@ namespace s3d
 		ColorF startColor		= ColorF(1.0);
 		double startSize		= 10.0;
 		double startRotationDeg			= 0.0;
-		double startAngularVelocityDeg	= 0.0;
-		bool randomStartRotation		= true;
-		bool randomAngularVelocity		= true;
-		BlendState blendState			= BlendState::Additive;
+		double randomStartRotationDeg	= 0.0;
+		double startAngularVelocityDeg			= 0.0;
+		double randomStartAngularVelocityDeg	= 0.0;
+		BlendState blendState	= BlendState::Additive;
 
 		SizeOverLifeTimeFunc sizeOverLifeTimeFunc;
 		ColorOverLifeTimeFunc colorOverLifeTimeFunc;

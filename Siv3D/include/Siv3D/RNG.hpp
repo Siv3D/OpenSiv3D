@@ -62,6 +62,16 @@ namespace s3d
 			z = (z ^ (z >> 27)) * 0x94d049bb133111eb;
 			return z ^ (z >> 31);
 		}
+
+		[[nodiscard]] uint64 serialize() const noexcept
+		{
+			return x;
+		}
+
+		void deserialize(uint64 data) noexcept
+		{
+			x = data;
+		}
 	};
 
 	/// <summary>
@@ -246,6 +256,16 @@ namespace s3d
 		[[nodiscard]] const std::array<uint64, 2>& currentState() const noexcept
 		{
 			return s;
+		}
+
+		[[nodiscard]] std::array<uint64, 2> serialize() const noexcept
+		{
+			return s;
+		}
+
+		void deserialize(const std::array<uint64, 2>& data) noexcept
+		{
+			s = data;
 		}
 	};
 
@@ -436,6 +456,16 @@ namespace s3d
 		[[nodiscard]] const std::array<uint64, 4>& currentState() const noexcept
 		{
 			return s;
+		}
+
+		[[nodiscard]] std::array<uint64, 4> serialize() const noexcept
+		{
+			return s;
+		}
+
+		void deserialize(const std::array<uint64, 4>& data) noexcept
+		{
+			s = data;
 		}
 	};
 }

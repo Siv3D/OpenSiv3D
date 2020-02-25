@@ -388,10 +388,10 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildRectFrame(BufferCreatorFunc bufferCreator, const FloatRect& rect, float thickness, const Float4& color)
+		uint16 BuildRectFrame(BufferCreatorFunc bufferCreator, const FloatRect& rect, float thickness, const Float4& innerColor, const Float4& outerColor)
 		{
 			constexpr IndexType vertexSize = 8, indexSize = 24;
-			auto[pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
 
 			if (!pVertex)
 			{
@@ -407,9 +407,10 @@ namespace s3d
 			pVertex[6].pos.set(rect.right + thickness, rect.bottom + thickness);
 			pVertex[7].pos.set(rect.right, rect.bottom);
 
-			for (size_t i = 0; i < 8; ++i)
+			for (size_t i = 0; i < 4; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = outerColor;
+				(pVertex++)->color = innerColor;
 			}
 
 			for (IndexType i = 0; i < indexSize; ++i)
@@ -545,7 +546,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		uint16 BuildCirclePie(BufferCreatorFunc bufferCreator, const Float2& center, const float r, const float startAngle, const float _angle, const Float4& color, const float scale)
+		uint16 BuildCirclePie(BufferCreatorFunc bufferCreator, const Float2& center, const float r, const float startAngle, const float _angle, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			if (_angle == 0.0f)
 			{
@@ -555,7 +556,7 @@ namespace s3d
 			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
 			const IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
 			const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
-			auto[pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
 
 			if (!pVertex)
 			{
@@ -582,9 +583,13 @@ namespace s3d
 				}
 			}
 
-			for (size_t i = 0; i < vertexSize; ++i)
 			{
-				(pVertex++)->color = color;
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
 			}
 
 			for (IndexType i = 0; i < quality - 1; ++i)
@@ -636,6 +641,59 @@ namespace s3d
 			for (size_t i = 0; i < vertexSize; ++i)
 			{
 				(pVertex++)->color = color;
+			}
+
+			for (IndexType i = 0; i < quality - 1; ++i)
+			{
+				for (IndexType k = 0; k < 6; ++k)
+				{
+					*pIndex++ = indexOffset + (i * 2 + detail::RectIndexTable[k]);
+				}
+			}
+
+			return indexSize;
+		}
+
+		uint16 BuildCircleArc(BufferCreatorFunc bufferCreator, const Float2& center, const float rInner, const float startAngle, const float _angle, const float thickness, const Float4& innerColor, const Float4& outerColor, const float scale)
+		{
+			if (_angle == 0.0f)
+			{
+				return 0;
+			}
+
+			const float angle = Clamp(_angle, -TwoPiF, TwoPiF);
+			const float rOuter = rInner + thickness;
+			const IndexType quality = detail::CalculateCirclePieQuality(rOuter * scale, angle);
+			const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (!pVertex)
+			{
+				return 0;
+			}
+
+			{
+				const float centerX = center.x;
+				const float centerY = center.y;
+				const float radDelta = TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + HalfPiF;
+				const float angleScale = angle / TwoPiF;
+				Vertex2D* pDst = pVertex;
+
+				for (IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = start + (radDelta * i) * angleScale;
+					const float c = std::cos(rad);
+					const float s = std::sin(rad);
+					(pDst++)->pos.set(centerX + rOuter * c, centerY - rOuter * s);
+					(pDst++)->pos.set(centerX + rInner * c, centerY - rInner * s);
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize / 2; ++i)
+			{
+				(pVertex++)->color = outerColor;
+				(pVertex++)->color = innerColor;
 			}
 
 			for (IndexType i = 0; i < quality - 1; ++i)
