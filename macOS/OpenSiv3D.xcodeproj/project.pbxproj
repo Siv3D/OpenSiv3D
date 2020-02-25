@@ -1004,6 +1004,10 @@
 		2C461AFC227138DE00828870 /* GraphicsFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AF9227138DE00828870 /* GraphicsFactory.cpp */; };
 		2C461B002271C66000828870 /* SivGraphics_Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */; };
 		2C461B022289806400828870 /* SceneTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C461B012289806400828870 /* SceneTexture.hpp */; };
+		2C4EBD172404D5C700D79359 /* AnimatedGIFReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EBD142404D5C700D79359 /* AnimatedGIFReaderDetail.cpp */; };
+		2C4EBD182404D5C700D79359 /* SivAnimatedGIFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EBD152404D5C700D79359 /* SivAnimatedGIFReader.cpp */; };
+		2C4EBD192404D5C700D79359 /* AnimatedGIFReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4EBD162404D5C700D79359 /* AnimatedGIFReaderDetail.hpp */; };
+		2C4EBD1C2404D5F500D79359 /* gif_load.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4EBD1B2404D5F500D79359 /* gif_load.h */; };
 		2C51222824022345009ACEC9 /* ZIPReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222524022345009ACEC9 /* ZIPReaderDetail.cpp */; };
 		2C51222924022345009ACEC9 /* SivZIPReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51222624022345009ACEC9 /* SivZIPReader.cpp */; };
 		2C51222A24022345009ACEC9 /* ZIPReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C51222724022345009ACEC9 /* ZIPReaderDetail.hpp */; };
@@ -2268,6 +2272,11 @@
 		2C461AFF2271C65F00828870 /* SivGraphics_Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics_Platform.cpp; sourceTree = "<group>"; };
 		2C461B012289806400828870 /* SceneTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTexture.hpp; sourceTree = "<group>"; };
 		2C46FDBD226EE90600828870 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
+		2C4EBD122404D5A800D79359 /* AnimatedGIFReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReader.hpp; sourceTree = "<group>"; };
+		2C4EBD142404D5C700D79359 /* AnimatedGIFReaderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedGIFReaderDetail.cpp; sourceTree = "<group>"; };
+		2C4EBD152404D5C700D79359 /* SivAnimatedGIFReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAnimatedGIFReader.cpp; sourceTree = "<group>"; };
+		2C4EBD162404D5C700D79359 /* AnimatedGIFReaderDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReaderDetail.hpp; sourceTree = "<group>"; };
+		2C4EBD1B2404D5F500D79359 /* gif_load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_load.h; sourceTree = "<group>"; };
 		2C51222324022326009ACEC9 /* ZIPReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ZIPReader.hpp; sourceTree = "<group>"; };
 		2C51222524022345009ACEC9 /* ZIPReaderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZIPReaderDetail.cpp; sourceTree = "<group>"; };
 		2C51222624022345009ACEC9 /* SivZIPReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZIPReader.cpp; sourceTree = "<group>"; };
@@ -3026,6 +3035,7 @@
 				2C460F54226EEDB200828870 /* FID */,
 				2C460CC1226EEDAF00828870 /* fmt */,
 				2C460C5E226EEDAF00828870 /* freetype */,
+				2C4EBD1A2404D5F500D79359 /* gif_load */,
 				2C460F44226EEDB200828870 /* giflib */,
 				2C461A37226F2D0000828870 /* GL */,
 				2C461A1C226F2D0000828870 /* GLFW */,
@@ -6213,6 +6223,7 @@
 			isa = PBXGroup;
 			children = (
 				2CEACB542338756800C6EE98 /* AABB */,
+				2C4EBD132404D5C700D79359 /* AnimatedGIFReader */,
 				2C461613226EEF3200828870 /* AnimatedGIFWriter */,
 				2C461683226EEF3600828870 /* Asset */,
 				2C461640226EEF3400828870 /* AssetHandleManager */,
@@ -6424,6 +6435,24 @@
 				2C5AFC6723F69F6100D4041B /* Zlib */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C4EBD132404D5C700D79359 /* AnimatedGIFReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C4EBD142404D5C700D79359 /* AnimatedGIFReaderDetail.cpp */,
+				2C4EBD152404D5C700D79359 /* SivAnimatedGIFReader.cpp */,
+				2C4EBD162404D5C700D79359 /* AnimatedGIFReaderDetail.hpp */,
+			);
+			path = AnimatedGIFReader;
+			sourceTree = "<group>";
+		};
+		2C4EBD1A2404D5F500D79359 /* gif_load */ = {
+			isa = PBXGroup;
+			children = (
+				2C4EBD1B2404D5F500D79359 /* gif_load.h */,
+			);
+			path = gif_load;
 			sourceTree = "<group>";
 		};
 		2C51222424022345009ACEC9 /* ZIPReader */ = {
@@ -6731,6 +6760,7 @@
 				2CEACB512338752500C6EE98 /* AABB.hpp */,
 				2CA6274522226DC60009DFE1 /* AlignedAllocator.hpp */,
 				2CA6274822226DC60009DFE1 /* AlignedMemory.hpp */,
+				2C4EBD122404D5A800D79359 /* AnimatedGIFReader.hpp */,
 				2CA6272F22226DC60009DFE1 /* AnimatedGIFWriter.hpp */,
 				2CA6276722226DC60009DFE1 /* Array.hpp */,
 				2CA6281122226DC70009DFE1 /* Asset.hpp */,
@@ -7739,6 +7769,7 @@
 				2CBC64CA22F849F0001610DB /* zstd.h in Headers */,
 				2C46140C226EEDB500828870 /* rapidjson.h in Headers */,
 				2CF1212723A0AE760032203C /* as_array.h in Headers */,
+				2C4EBD192404D5C700D79359 /* AnimatedGIFReaderDetail.hpp in Headers */,
 				2C46144A226EEDB500828870 /* b2PolygonContact.h in Headers */,
 				2C461A48226F2D0000828870 /* mappings.h in Headers */,
 				2C46110C226EEDB500828870 /* pshints.h in Headers */,
@@ -7810,6 +7841,7 @@
 				2C4619EE226F0DF700828870 /* BinaryWriterDetail.hpp in Headers */,
 				2C461A7A226F4C1500828870 /* CMouse.hpp in Headers */,
 				2C461A74226F3FAB00828870 /* AudioFormat_MP3.hpp in Headers */,
+				2C4EBD1C2404D5F500D79359 /* gif_load.h in Headers */,
 				2C461AF322712EE500828870 /* CRenderer2D_GL.hpp in Headers */,
 				2C46145E226EEDB500828870 /* b2RevoluteJoint.h in Headers */,
 				2CBC64BC22F849F0001610DB /* zstdmt_compress.h in Headers */,
@@ -8423,6 +8455,7 @@
 				2C46135B226EEDB500828870 /* RecastLayers.cpp in Sources */,
 				2CF1210C23A0AE760032203C /* as_callfunc_xenon.cpp in Sources */,
 				2CF1210823A0AE760032203C /* as_callfunc_arm.cpp in Sources */,
+				2C4EBD182404D5C700D79359 /* SivAnimatedGIFReader.cpp in Sources */,
 				2C461945226EEF4100828870 /* SivAudioAsset.cpp in Sources */,
 				2C46194A226EEF4100828870 /* SivScreenCapture.cpp in Sources */,
 				2C461A8B226F55E700828870 /* CDragDrop.cpp in Sources */,
@@ -8589,6 +8622,7 @@
 				2C51226C24022360009ACEC9 /* mz_compat.c in Sources */,
 				2C461462226EEDB500828870 /* b2Joint.cpp in Sources */,
 				2C461A44226F2D0000828870 /* osmesa_context.c in Sources */,
+				2C4EBD172404D5C700D79359 /* AnimatedGIFReaderDetail.cpp in Sources */,
 				2CBC64CF22F849F0001610DB /* zstd_decompress.c in Sources */,
 				2C461969226EEF4100828870 /* SystemFactory.cpp in Sources */,
 				2C46196B226EEF4100828870 /* SivTOMLReader.cpp in Sources */,
