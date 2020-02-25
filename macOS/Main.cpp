@@ -1,95 +1,71 @@
 
 # include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
-struct AnimationTexture
-{
-	Array<Texture> textures;
-	
-	Array<int32> delays;
-	
-	int32 duration = 0;
-
-	explicit operator bool() const noexcept
-	{
-		return !textures.isEmpty();
-	}
-
-	Size size() const noexcept
-	{
-		if (!textures)
-		{
-			return Size(0, 0);
-		}
-
-		return textures.front().size();
-	}
-
-	size_t frames() const noexcept
-	{
-		return textures.size();
-	}
-
-	size_t getFrameIndex(int32 timeMillisec) const noexcept
-	{
-		return AnimatedGIFReader::MillisecToIndex(timeMillisec, delays, duration);
-	}
-
-	const Texture& getTexture(int32 timeMillisec) const noexcept
-	{
-		return textures[getFrameIndex(timeMillisec)];
-	}
-};
-
 void Main()
 {
-	AnimationTexture animation;
-	{
-		const AnimatedGIFReader gif(U"example/test.gif");
-
-		if (!gif)
-		{
-			throw Error(U"Failed to open a gif file");
-		}
-
-		Array<Image> images;
-			
-		if (gif.read(images, animation.delays, animation.duration))
-		{
-			animation.textures = images.map([](const Image& i) { return Texture(i); });
-		}
-		else
-		{
-			throw Error(U"Failed to load a gif animation");
-		}
-	}
-
-	Print << U"{}, {} frames ({} ms)"_fmt(animation.size(), animation.frames(), animation.duration);
-
-	const Point pos(10, 90);
-	bool showTiles = false;
-
+	// 背景を水色にする
+	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+	
+	// 大きさ 60 のフォントを用意
+	const Font font(60);
+	
+	// 猫のテクスチャを用意
+	const Texture cat(Emoji(U"🐈"));
+	
+	// 猫の座標
+	Vec2 catPos(640, 450);
+	
 	while (System::Update())
 	{
-		const int32 timeMillisec = static_cast<int32>(Scene::Time() * 1000);
-		const auto& texture = animation.getTexture(timeMillisec);
-
-		SimpleGUI::CheckBox(showTiles, U"Show tiles", Vec2(10, 40));
-
-		if (showTiles)
+		// テキストを画面の中心に描く
+		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+		
+		// 大きさをアニメーションさせて猫を表示する
+		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+		
+		// マウスカーソルに追従する半透明の赤い円を描く
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+		
+		// [A] キーが押されたら
+		if (KeyA.down())
 		{
-			Rect(pos, texture.size()).draw();
-			{
-				ScopedViewport2D vp(pos, texture.size());
-				for (auto p : step(texture.size() / 10 + Size(1, 1)))
-				{
-					if (IsEven(p.x + p.y))
-					{
-						Rect(p * 10, 10).draw(ColorF(0.8));
-					}
-				}
-			}
+			// Hello とデバッグ表示する
+			Print << U"Hello!";
 		}
-
-		texture.draw(pos);
+		
+		// ボタンが押されたら
+		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
+		{
+			// 猫の座標を画面内のランダムな位置に移動する
+			catPos = RandomVec2(Scene::Rect());
+		}
 	}
 }
+
+//
+// = アドバイス =
+// macOS 10.15 Catalina で、アプリケーションを起動するたびに
+// ファイルアクセス許可のダイアログが表示される場合、プロジェクトのフォルダを
+// User/アプリケーション に移動させることで通常は表示されなくなります。
+// 特別なファイルシステム関数の使用や、Web カメラ、マイク使用時のダイアログは消せません。
+//
+// = お役立ちリンク =
+//
+// OpenSiv3D リファレンス
+// https://siv3d.github.io/ja-jp/
+//
+// チュートリアル
+// https://siv3d.github.io/ja-jp/tutorial/basic/
+//
+// よくある間違い
+// https://siv3d.github.io/ja-jp/articles/mistakes/
+//
+// サポートについて
+// https://siv3d.github.io/ja-jp/support/support/
+//
+// Siv3D Slack (ユーザコミュニティ) への参加
+// https://siv3d.github.io/ja-jp/community/community/
+//
+// 新機能の提案やバグの報告
+// https://github.com/Siv3D/OpenSiv3D/issues
+//
