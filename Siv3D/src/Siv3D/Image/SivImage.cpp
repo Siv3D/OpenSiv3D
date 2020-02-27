@@ -179,9 +179,12 @@ namespace s3d
 					}
 				}
 
-				if (Polygon polygon{ external, {}, true })
+				for (auto& polygon : Polygon::Correct(external))
 				{
-					polygons.push_back(std::move(polygon));
+					if (polygon)
+					{
+						polygons.push_back(std::move(polygon));
+					}
 				}
 			}
 
@@ -276,20 +279,12 @@ namespace s3d
 					}
 				}
 
-				Polygon polygon;
-
-				try
+				for (auto& polygon : Polygon::Correct(external, holes))
 				{
-					polygon = Polygon(external, holes, true);
-				}
-				catch (std::runtime_error&)
-				{
-					polygon = Polygon(external, {}, true);
-				}
-
-				if (polygon)
-				{
-					polygons.push_back(std::move(polygon));
+					if (polygon)
+					{
+						polygons.push_back(std::move(polygon));
+					}
 				}
 			}
 
