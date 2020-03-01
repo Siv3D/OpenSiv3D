@@ -33,7 +33,7 @@ namespace s3d
 			template <class T> inline constexpr T Ln10_v		= T(2.302585092994045684017991454684364208L);
 			template <class T> inline constexpr T Sqrt2_v		= T(1.414213562373095048801688724209698078L);
 			template <class T> inline constexpr T Sqrt3_v		= T(1.732050807568877293527446341505872366L);
-			template <class T> inline constexpr T InvSqrt2_v	= T(1.570796326794896619231321691639751442L);
+			template <class T> inline constexpr T InvSqrt2_v	= T(0.707106781186547524400844362104849039L);
 			template <class T> inline constexpr T InvSqrt3_v	= T(0.577350269189625764509148780501957456L);
 			template <class T> inline constexpr T EGamma_v		= T(0.577215664901532860606512090082402431L);
 			template <class T> inline constexpr T Phi_v			= T(1.618033988749894848204586834365638117L);
