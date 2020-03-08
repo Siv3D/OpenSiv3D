@@ -376,6 +376,22 @@ namespace s3d
 
 			return (sum < 0.0);
 		}
+
+		template <class Type>
+		[[nodiscard]] inline constexpr bool InOpenRange(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min))
+		{
+			return min < x && x < max;
+		}
+
+		[[nodiscard]] constexpr bool AxisAlignedLineIntersect(const Point& vp, int32 vl, const Point& hp, int32 hl)
+		{
+			return InOpenRange(vp.x, hp.x, hp.x + hl) && InOpenRange(hp.y, vp.y, vp.y + vl);
+		}
+
+		[[nodiscard]] constexpr bool AxisAlignedLineIntersect(const Vec2& vp, double vl, const Vec2& hp, double hl)
+		{
+			return InOpenRange(vp.x, hp.x, hp.x + hl) && InOpenRange(hp.y, vp.y, vp.y + vl);
+		}
 	}
 
 	namespace Geometry2D
@@ -2069,7 +2085,32 @@ namespace s3d
 
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b)
 		{
-			return IntersectAt(RectF(a), RectF(b));
+			if (!Geometry2D::Intersect(a, b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const auto add = [&](const Point& vp, int32 vl, const Point& hp, int32 hl)
+			{
+				if (detail::AxisAlignedLineIntersect(vp, vl, hp, hl))
+				{
+					points.emplace_back(vp.x, hp.y);
+				}
+			};
+
+			add(a.tl(), a.h, b.tl(), b.w); // a.left  vs. b.top
+			add(a.tl(), a.h, b.bl(), b.w); // a.left  vs. b.bottom
+			add(a.tr(), a.h, b.bl(), b.w); // a.right vs. b.bottom
+			add(a.tr(), a.h, b.tl(), b.w); // a.right vs. b.top
+
+			add(b.tl(), b.h, a.tl(), a.w); // b.left  vs. a.top
+			add(b.tl(), b.h, a.bl(), a.w); // b.left  vs. a.bottom
+			add(b.tr(), b.h, a.bl(), a.w); // b.right vs. a.bottom
+			add(b.tr(), b.h, a.tl(), a.w); // b.right vs. a.top
+
+			return detail::RemoveDuplication(std::move(points));
 		}
 
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b)
@@ -2126,26 +2167,30 @@ namespace s3d
 
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const RectF& b)
 		{
-			if (!a.intersects(b))
+			if (!Geometry2D::Intersect(a, b))
 			{
 				return none;
 			}
 
-			const Line linesA[4] = { a.top(), a.right(), a.bottom(), a.left() };
-			const Line linesB[4] = { b.top(), b.right(), b.bottom(), b.left() };
-
 			Array<Vec2> points;
 
-			for (size_t i = 0; i < 4; ++i)
+			const auto add = [&](const Vec2& vp, double vl, const Vec2& hp, double hl)
 			{
-				for (size_t k = 0; k < 4; ++k)
+				if (detail::AxisAlignedLineIntersect(vp, vl, hp, hl))
 				{
-					if (const auto at = linesA[i].intersectsAt(linesB[k]))
-					{
-						points.push_back(at.value());
-					}
+					points.emplace_back(vp.x, hp.y);
 				}
-			}
+			};
+
+			add(a.tl(), a.h, b.tl(), b.w); // a.left  vs. b.top
+			add(a.tl(), a.h, b.bl(), b.w); // a.left  vs. b.bottom
+			add(a.tr(), a.h, b.bl(), b.w); // a.right vs. b.bottom
+			add(a.tr(), a.h, b.tl(), b.w); // a.right vs. b.top
+
+			add(b.tl(), b.h, a.tl(), a.w); // b.left  vs. a.top
+			add(b.tl(), b.h, a.bl(), a.w); // b.left  vs. a.bottom
+			add(b.tr(), b.h, a.bl(), a.w); // b.right vs. a.bottom
+			add(b.tr(), b.h, a.tl(), a.w); // b.right vs. a.top
 
 			return detail::RemoveDuplication(std::move(points));
 		}
