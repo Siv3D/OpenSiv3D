@@ -586,14 +586,14 @@ namespace s3d
 
 		bool Intersect(const Vec2& a, const LineString& b) noexcept
 		{
-			if(b.isEmpty())
+			if (b.isEmpty())
 			{
 				return false;
 			}
 
-			for(size_t i = 0; i < b.size()-1; ++i)
+			for (size_t i = 0; i < b.size()-1; ++i)
 			{
-				if(Intersect(a,Line(b[i],b[i+1])))
+				if (Intersect(a, Line(b[i], b[i+1])))
 				{
 					return true;
 				}
@@ -738,7 +738,7 @@ namespace s3d
 			double vd = vb*vb - va*vc;
 
 			const double ERRF = 1e-15;
-			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;		
+			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
 			if (std::abs(vd) < ZEROepsilon)
 			{
 				vd = 0;
@@ -1284,7 +1284,7 @@ namespace s3d
 
 					float s1min = sepVec.dot(ta.p(i));
 					float s1max = sepVec.dot(ta.p(other[i]));
-					
+
 					if (s1min > s1max)
 					{
 						std::swap(s1min, s1max);
@@ -1292,7 +1292,7 @@ namespace s3d
 
 					float s2min = sepVec.dot(tb.p(0));
 					float s2max = sepVec.dot(tb.p(1));
-					
+
 					if (s2min > s2max)
 					{
 						std::swap(s2min, s2max);
@@ -1327,7 +1327,7 @@ namespace s3d
 		bool Intersect(const Triangle& a, const Quad& b) noexcept
 		{
 			return Intersect(a, Triangle(b.p0, b.p1, b.p2))
-				 || Intersect(a, Triangle(b.p0, b.p2, b.p3));
+				|| Intersect(a, Triangle(b.p0, b.p2, b.p3));
 		}
 
 		bool Intersect(const Triangle& a, const RoundRect& b) noexcept
@@ -1623,7 +1623,7 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
-		bool Intersect(const Polygon& a, const Polygon&	b)
+		bool Intersect(const Polygon& a, const Polygon& b)
 		{
 			return a.intersects(b);
 		}
@@ -1656,7 +1656,7 @@ namespace s3d
 		{
 			return Intersect(b, a);
 		}
-		
+
 		bool Intersect(const MultiPolygon& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1850,9 +1850,9 @@ namespace s3d
 			else
 			{
 				const double t = -vb / va;
-				
+
 				if (0 <= t && t <= 1)
-				{	
+				{
 					results.emplace_back(a.begin.lerp(a.end, t));
 				}
 				else
@@ -2027,12 +2027,12 @@ namespace s3d
 				c0.x*c0.x*ryry - 2 * c0.y*b.y*rxrx - 2 * c0.x*b.x*ryry +
 				c0.y*c0.y*rxrx + b.x*b.x*ryry + b.y*b.y*rxrx - rxrx*ryry
 			});
-			
+
 			Array<double> roots = poly.getRootsInInterval(0, 1);
 			{
 				const double ZEROepsilon = 1e-15;
 				roots.sort_by([](double a, double b) { return a < b; });
-		
+
 				for (size_t i = 1; i < roots.size();)
 				{
 					if (std::abs(roots[i] - roots[i - 1]) < ZEROepsilon)
@@ -2136,7 +2136,7 @@ namespace s3d
 			{
 				if (const auto at = IntersectAt(Line(b[i], b[i + 1]), a))
 				{
-					for(auto o:at.value())
+					for (auto o:at.value())
 					{
 						points.push_back(o);
 					}
@@ -2744,7 +2744,7 @@ namespace s3d
 				&& b.bl().distanceFromSq(a.center) <= squareR;
 		}
 
-		bool Contains(const Circle& a, const RectF&	b) noexcept
+		bool Contains(const Circle& a, const RectF& b) noexcept
 		{
 			const double squareR = a.r*a.r;
 			return b.tl().distanceFromSq(a.center) <= squareR
@@ -3109,10 +3109,10 @@ namespace s3d
 		{
 			return Distance(Vec2(a), b);
 		}
-		
+
 		double Distance(const Point& a, const RoundRect& b)
 		{
-			return Distance(Vec2(a),b);
+			return Distance(Vec2(a), b);
 		}
 
 		double Distance(const Point& a, const Polygon& b)
@@ -3175,7 +3175,7 @@ namespace s3d
 			L ,C ,R,
 			BL,B ,BR
 		};
-		
+
 		Region FindRoundRectRegion(const Vec2& p, const detail::RoundRectParts& r)
 		{
 			//top
@@ -3279,7 +3279,7 @@ namespace s3d
 		{
 			return std::max(0.0, Distance(b.center, a) - b.r);
 		}
-		
+
 		double Distance(const Line& a, const Triangle& b)
 		{
 			return boost::geometry::distance(gLine(a.begin, a.end), detail::MakeTriangle(b));
@@ -3446,12 +3446,12 @@ namespace s3d
 		{
 			return std::max(0.0, Distance(a.center, b) - a.r);
 		}
-		
+
 		double Distance(const Circle& a, const Quad& b)
 		{
 			return std::max(0.0, Distance(a.center, b) - a.r);
 		}
-		
+
 		double Distance(const Circle& a, const RoundRect& b)
 		{
 			return std::max(0.0, Distance(a.center, b) - a.r);
@@ -3719,12 +3719,12 @@ namespace s3d
 
 		//Vec2 Center(const Bezier2& a) noexcept;
 		//Vec2 Center(const Bezier3& a) noexcept;
-		
+
 		Vec2 Center(const Rect& a) noexcept
 		{
 			return a.center();
 		}
-		
+
 		Vec2 Center(const RectF& a) noexcept
 		{
 			return a.center();
