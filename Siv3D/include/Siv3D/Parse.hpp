@@ -98,8 +98,7 @@ namespace s3d
 		}
 		else if constexpr (std::is_floating_point_v<Type>)
 		{
-			// ParseFloat does not retrun none
-			return ParseFloat<Type>(text);
+			return ParseFloatOpt<Type>(text);
 		}
 		else
 		{
