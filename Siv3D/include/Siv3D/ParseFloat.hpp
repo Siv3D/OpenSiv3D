@@ -25,4 +25,17 @@ namespace s3d
 
 	template <>
 	long double ParseFloat<long double>(StringView view);
+
+
+	template <class FloatType>
+	Optional<FloatType> ParseFloatOpt(StringView view);
+
+	template <>
+	Optional<float> ParseFloatOpt<float>(StringView view);
+
+	template <>
+	Optional<double> ParseFloatOpt<double>(StringView view);
+
+	template <>
+	Optional<long double> ParseFloatOpt<long double>(StringView view);
 }
