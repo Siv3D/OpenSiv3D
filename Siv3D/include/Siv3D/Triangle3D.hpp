@@ -39,7 +39,7 @@ namespace s3d
 
 		void drawFrame(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 
-		void drawFrame(const Mat4x4& vp, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawFrame(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
 	};
 
 
