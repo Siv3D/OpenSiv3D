@@ -13,7 +13,6 @@
 - OpenAL
 - libogg, libvorbis
 - Boost
-- AngelScript
 - GLib2
 - udev
 - libdl

@@ -151,14 +151,14 @@ namespace s3d
 				}
 				else
 				{
-					// [Siv3D ToDo]
+					m_device.openStream(nullptr, &iParams, RTAUDIO_SINT16, m_samplingRate, &bufferFrames, InputCallback_S16_1ch, this);
 				}
 			}
 			else
 			{
 				if (isF32)
 				{
-					// [Siv3D ToDo]
+					m_device.openStream(nullptr, &iParams, RTAUDIO_FLOAT32, m_samplingRate, &bufferFrames, InputCallback_F32_2ch, this);
 				}
 				else
 				{

@@ -13,7 +13,6 @@ The dependent libraries are as follows:
 - OpenAL
 - libogg, libvorbis
 - Boost
-- AngelScript
 - GLib2
 - udev
 - libdl
