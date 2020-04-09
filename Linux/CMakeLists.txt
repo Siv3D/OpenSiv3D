@@ -26,7 +26,7 @@ endif()
 #set(CMAKE_BUILD_TYPE Release)
 
 message(STATUS "BOOST_ROOT=${BOOST_ROOT}")
-find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(Boost)
 message(STATUS "  Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}")
 message(STATUS "  Boost_LIBRARY_DIR=${Boost_LIBRARY_DIR}")
 message(STATUS "  Boost_LIBRARIES  =${Boost_LIBRARIES}")
