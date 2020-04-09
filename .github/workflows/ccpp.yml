@@ -1,0 +1,29 @@
+name: C/C++ CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install package
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt update
+        sudo apt install gcc-9 ninja-build
+        sudo apt install libglu1-mesa-dev xorg-dev
+    - name: cmake
+      run: |
+        mkdir build
+        cd build
+        CC=gcc-9 CXX=g++-9 cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+      working-directory: Linux
+    - name: build
+      run: cmake --build Linux/build
+    - name: test
+      run: |
+        cd Linux/build
+        ctest --output-on-failure --verbose
