@@ -16,6 +16,7 @@
 
 # define HAVE_LIBCOMP
 # define HAVE_ZLIB
+# define HAVE_STDINT_H
 
 /***************************************************************************/
 
