@@ -62,5 +62,6 @@ target_link_libraries(Siv3D_App
 	-lavcodec
 	-lavutil
 	-lswresample
+	-lz
 )
 
