@@ -25,7 +25,7 @@ endif()
 
 #set(CMAKE_BUILD_TYPE Release)
 
-pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2 openal opencv4 ogg vorbis)
+pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2 openal opencv ogg vorbis)
 include_directories(
 	"/usr/include"
 
