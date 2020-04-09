@@ -62,7 +62,7 @@ namespace s3d
 	
 	bool VideoWriter::VideoWriterDetail::isOpen() const
 	{
-		return m_writer.isOpen();
+		return m_writer.isOpened();
 	}
 	
 	bool VideoWriter::VideoWriterDetail::write(const Image& image)
