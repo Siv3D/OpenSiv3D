@@ -25,6 +25,8 @@ endif()
 
 #set(CMAKE_BUILD_TYPE Release)
 
+find_package(Boost REQUIRED COMPONENTS filesystem) 
+
 pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2 openal opencv ogg vorbis)
 include_directories(
 	"/usr/include"
@@ -41,6 +43,7 @@ include_directories(
 	"../Siv3D/src/ThirdParty/zstd/common"
 
 	${LIBSIV3D_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
 )
 
 set(SOURCE_FILES
