@@ -17,6 +17,7 @@ The dependent libraries are as follows:
 - udev
 - libdl
 - libavcode, libavformat, libavutil, libswresample
+- zlib
 
 Supported display server is X11.
 Wayland and Mir are not supported.
