@@ -120,7 +120,7 @@ namespace s3d
 		m_fullPath.clear();
 	}
 	
-	bool BinaryWriter::BinaryWriterDetail::isOpened() const noexcept
+	bool BinaryWriter::BinaryWriterDetail::isOpen() const noexcept
 	{
 		return m_pFile != nullptr;
 	}

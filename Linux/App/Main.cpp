@@ -1,5 +1,5 @@
 
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
+# include <Siv3D.hpp> // OpenSiv3D v0.4.3
 
 void Main()
 {
@@ -48,8 +48,9 @@ void Main()
 // 実行速度が遅いと感じた場合は Release ビルドを試しましょう。
 // アプリをリリースするときにも、Release ビルドにするのを忘れないように！
 //
-// 思ったように動作しない場合は「デバッグの開始」でプログラムを実行すると、
-// 出力ウィンドウに詳細なログが表示されるので、エラーの原因を見つけやすくなります。
+// OpenSiv3D Linux 版で困ったときは、
+// Siv3D ユーザコミュニティ Slack の #linux チャンネルへ！
+// Linux 版の開発協力者も募集中です。
 //
 // = お役立ちリンク =
 //
@@ -65,7 +66,7 @@ void Main()
 // サポートについて
 // https://siv3d.github.io/ja-jp/support/support/
 //
-// Siv3D Slack (ユーザコミュニティ) への参加
+// Siv3D ユーザコミュニティ Slack への参加
 // https://siv3d.github.io/ja-jp/community/community/
 //
 // 新機能の提案やバグの報告

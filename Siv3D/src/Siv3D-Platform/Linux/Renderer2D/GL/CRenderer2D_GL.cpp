@@ -741,7 +741,19 @@ namespace s3d
 
 	void CRenderer2D_GL::addRectFrame(const FloatRect& rect, const float thickness, const Float4& color)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, color))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, color, color))
+		{
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
+			m_commands.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GL::addRectFrame(const FloatRect& rect, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const uint16 indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, innerColor, outerColor))
 		{
 			if (!m_currentCustomPS)
 			{
@@ -777,7 +789,19 @@ namespace s3d
 
 	void CRenderer2D_GL::addCirclePie(const Float2& center, const float r, const float startAngle, const float angle, const Float4& color)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, color, getMaxScaling()))
+		if (const uint16 indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, color, color, getMaxScaling()))
+		{
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
+			m_commands.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GL::addCirclePie(const Float2& center, const float r, const float startAngle, const float angle, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const uint16 indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{
@@ -790,6 +814,18 @@ namespace s3d
 	void CRenderer2D_GL::addCircleArc(const Float2& center, const float rInner, const float startAngle, float angle, const float thickness, const Float4& color)
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, color, getMaxScaling()))
+		{
+			if (!m_currentCustomPS)
+			{
+				m_commands.pushStandardPS(m_standardPS->shapeID);
+			}
+			m_commands.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GL::addCircleArc(const Float2& center, const float rInner, const float startAngle, float angle, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const uint16 indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, innerColor, outerColor, getMaxScaling()))
 		{
 			if (!m_currentCustomPS)
 			{

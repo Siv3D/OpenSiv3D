@@ -13,11 +13,11 @@ The dependent libraries are as follows:
 - OpenAL
 - libogg, libvorbis
 - Boost
-- AngelScript
 - GLib2
 - udev
 - libdl
 - libavcode, libavformat, libavutil, libswresample
+- zlib
 
 Supported display server is X11.
 Wayland and Mir are not supported.

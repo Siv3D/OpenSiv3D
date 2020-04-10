@@ -63,7 +63,7 @@ void Main()
 // サポートについて
 // https://siv3d.github.io/ja-jp/support/support/
 //
-// Siv3D Slack (ユーザコミュニティ) への参加
+// Siv3D ユーザコミュニティ Slack への参加
 // https://siv3d.github.io/ja-jp/community/community/
 //
 // 新機能の提案やバグの報告

@@ -35,11 +35,11 @@ set(SOURCE_FILES
 add_executable(Siv3D_App ${SOURCE_FILES})
 
 target_link_libraries(Siv3D_App
+	${PROJECT_SOURCE_DIR}/../Build/libSiv3D.a
 	${OPENCV4_LIBRARIES}
 	-lOpenGL
 	-lGLEW
 	-lX11
-	-langelscript
 	-lpthread
 	-ldl
 	-ludev
@@ -62,7 +62,6 @@ target_link_libraries(Siv3D_App
 	-lavcodec
 	-lavutil
 	-lswresample
-
-	${PROJECT_SOURCE_DIR}/../Build/libSiv3D.a
+	-lz
 )
 
