@@ -682,8 +682,8 @@ struct result_of;
 template <typename F, typename... Args>
 struct result_of<F(Args...)> {
   // A workaround for gcc 4.4 that doesn't allow F to be a reference.
-  typedef typename std::result_of<
-    typename std::remove_reference<F>::type(Args...)>::type type;
+  typedef typename std::invoke_result<
+    typename std::remove_reference<F>::type, Args...>::type type;
 };
 }
 
