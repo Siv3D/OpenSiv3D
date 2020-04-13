@@ -1015,7 +1015,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type&>>* = nullptr>
 		Grid& each_index(Fty f)
 		{
 			if (!m_data.empty())
@@ -1026,7 +1026,7 @@ namespace s3d
 				{
 					for (size_t x = 0; x < m_width; ++x)
 					{
-						f({ x,y }, *p++);
+						f(Point(x,y), *p++);
 					}
 				}
 			}
@@ -1034,7 +1034,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type>>* = nullptr>
 		const Grid& each_index(Fty f) const
 		{
 			if (!m_data.empty())
@@ -1045,7 +1045,7 @@ namespace s3d
 				{
 					for (size_t x = 0; x < m_width; ++x)
 					{
-						f({ x,y }, *p++);
+						f(Point(x,y), *p++);
 					}
 				}
 			}
