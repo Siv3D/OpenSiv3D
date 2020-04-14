@@ -2833,7 +2833,7 @@ void siv3dGetRootCursorPos(_GLFWwindow* window, double* root_x, double* root_y)
 
 	XQueryPointer(_glfw.x11.display, window->x11.handle, &root, &win, &rx, &ry, &wx, &wy, &mask);
 
-	if (root_x) *root_x = ry;
+	if (root_x) *root_x = rx;
 	if (root_y) *root_y = ry;
 }
 //
