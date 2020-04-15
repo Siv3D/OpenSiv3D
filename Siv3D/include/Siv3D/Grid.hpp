@@ -57,11 +57,39 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		static Grid Generate(size_type w, size_type h, Fty generator)
 		{
-			Grid new_grid(w, h);
+			Grid new_grid;
+			new_grid.m_data.reserve(w * h);
+			new_grid.m_width  = w;
+			new_grid.m_height = h;
 
-			for (auto& value : new_grid)
+			for (size_type i = 0; i < w * h; ++i)
 			{
-				value = generator();
+				new_grid.m_data.push_back(generator());
+			}
+
+			return new_grid;
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
+		static Grid IndexedGenerate(const Size& size, Fty indexedGenerator)
+		{
+			return IndexedGenerate(size.x, size.y, indexedGenerator);
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
+		static Grid IndexedGenerate(size_type w, size_type h, Fty indexedGenerator)
+		{
+			Grid new_grid;
+			new_grid.reserve(w, h);
+			new_grid.m_width  = w;
+			new_grid.m_height = h;
+
+			for (size_t y = 0; y < h; ++y)
+			{
+				for (size_t x = 0; x < w; ++x)
+				{
+					new_grid.m_data.push_back(indexedGenerator(Point(x,y)));
+				}
 			}
 
 			return new_grid;
@@ -200,6 +228,14 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		Grid(const Size& size, Arg::generator_<Fty> generator)
 			: Grid(Generate<Fty>(size, *generator)) {}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
+		Grid(const size_type w, const size_type h, Arg::indexedGenerator_<Fty> indexedGenerator)
+			: Grid(IndexedGenerate<Fty>(w, h, *indexedGenerator)) {}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
+		Grid(const Size& size, Arg::indexedGenerator_<Fty> indexedGenerator)
+			: Grid(Generate<Fty>(size, *indexedGenerator)) {}
 
 		/// <summary>
 		/// コピー代入演算子

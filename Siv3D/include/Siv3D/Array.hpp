@@ -102,11 +102,12 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
-			Array new_array(size);
+			Array new_array;
+			new_array.reserve(size);
 
-			for (auto& value : new_array)
+			for (size_type i = 0; i < size; ++i)
 			{
-				value = generator();
+				new_array.push_back(generator());
 			}
 
 			return new_array;
@@ -130,13 +131,12 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
 		static Array IndexedGenerate(const size_type size, Fty indexedGenerator)
 		{
-			Array new_array(size);
+			Array new_array;
+			new_array.reserve(size);
 
-			size_t i = 0;
-
-			for (auto& value : new_array)
+			for (size_type i = 0; i < size; ++i)
 			{
-				value = indexedGenerator(i++);
+				new_array.push_back(indexedGenerator(i));
 			}
 
 			return new_array;
