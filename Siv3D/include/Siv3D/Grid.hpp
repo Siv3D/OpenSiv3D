@@ -235,7 +235,7 @@ namespace s3d
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
 		Grid(const Size& size, Arg::indexedGenerator_<Fty> indexedGenerator)
-			: Grid(Generate<Fty>(size, *indexedGenerator)) {}
+			: Grid(IndexedGenerate<Fty>(size, *indexedGenerator)) {}
 
 		/// <summary>
 		/// コピー代入演算子
