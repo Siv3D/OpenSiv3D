@@ -57,11 +57,14 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		static Grid Generate(size_type w, size_type h, Fty generator)
 		{
-			Grid new_grid(w, h);
+			Grid new_grid;
+			new_grid.m_data.reserve(w * h);
+			new_grid.m_width  = w;
+			new_grid.m_height = h;
 
-			for (auto& value : new_grid)
+			for (size_type i = 0; i < w * h; ++i)
 			{
-				value = generator();
+				new_grid.m_data.push_back(generator());
 			}
 
 			return new_grid;
