@@ -27,7 +27,6 @@ Wayland 及び Mir はサポートしていません。
 1. ソースコードのクローンとブランチ変更。
 	1. `git clone https://github.com/Siv3D/OpenSiv3D.git`
 	1. `cd OpenSiv3D`
-	1. `git checkout linux`
 1. ビルド用のディレクトリを作ります。ここでは `Linux/Build` とします。
 	1. `mkdir Linux/Build`
 	1. `cd Linux/Build`
