@@ -2217,7 +2217,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
-		Array& parallel_each(Fty f)
+		void parallel_each(Fty f)
 		{
 		# if SIV3D_PLATFORM(WINDOWS)
 
@@ -2288,7 +2288,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
-		const Array& parallel_each(Fty f) const
+		void parallel_each(Fty f) const
 		{
 		# if SIV3D_PLATFORM(WINDOWS)
 
