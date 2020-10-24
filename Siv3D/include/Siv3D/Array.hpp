@@ -24,7 +24,10 @@
 # include "DefaultRNG.hpp"
 
 # ifdef SIV3D_CONCURRENT
-#	include <future>
+	# include <future>
+	# if SIV3D_PLATFORM(WINDOWS)
+	#	include <execution>
+	# endif
 # endif
 
 namespace s3d
@@ -102,11 +105,12 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
-			Array new_array(size);
+			Array new_array;
+			new_array.reserve(size);
 
-			for (auto& value : new_array)
+			for (size_type i = 0; i < size; ++i)
 			{
-				value = generator();
+				new_array.push_back(generator());
 			}
 
 			return new_array;
@@ -130,13 +134,12 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
 		static Array IndexedGenerate(const size_type size, Fty indexedGenerator)
 		{
-			Array new_array(size);
+			Array new_array;
+			new_array.reserve(size);
 
-			size_t i = 0;
-
-			for (auto& value : new_array)
+			for (size_type i = 0; i < size; ++i)
 			{
-				value = indexedGenerator(i++);
+				new_array.push_back(indexedGenerator(i));
 			}
 
 			return new_array;
@@ -2139,31 +2142,57 @@ namespace s3d
 		/// 見つかった要素の個数
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
-		[[nodiscard]] size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		[[nodiscard]] size_t parallel_count_if(Fty f) const
 		{
+		# if SIV3D_PLATFORM(WINDOWS)
+
+			return std::count_if(std::execution::par, begin(), end(), f);
+
+		# else
+
 			if (isEmpty())
 			{
 				return 0;
 			}
 
-			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+			const size_t numThreads = Threading::GetConcurrency();
+
+			if (numThreads <= 1)
+			{
+				return count_if(f);
+			}
+
+			const size_t countPerthread = Max<size_t>(1, (size() + (numThreads - 1)) / numThreads);
 
 			Array<std::future<std::ptrdiff_t>> futures;
 
 			auto it = begin();
-			const auto last = end();
+			size_t countLeft = size();
 
-			for (; it < last - n; it += n)
+			for (size_t i = 0; i < (numThreads - 1); ++i)
 			{
+				const size_t n = Min(countPerthread, countLeft);
+
+				if (n == 0)
+				{
+					break;
+				}
+
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
 					return std::count_if(it, it + n, f);
 				}));
+
+				it += n;
+				countLeft -= n;
 			}
 
-			std::for_each(it, last, f);
-
 			size_t result = 0;
+		
+			if (countLeft)
+			{
+				result = std::count_if(it, it + countLeft, f);
+			}
 
 			for (auto& future : futures)
 			{
@@ -2171,6 +2200,8 @@ namespace s3d
 			}
 
 			return result;
+
+		# endif
 		}
 
 		/// <summary>
@@ -2186,38 +2217,62 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
-		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		Array& parallel_each(Fty f)
 		{
+		# if SIV3D_PLATFORM(WINDOWS)
+
+			std::for_each(std::execution::par, begin(), end(), f);
+
+		# else
+
 			if (isEmpty())
 			{
-				return *this;
+				return;
 			}
 
-			numThreads = std::max<size_t>(1, numThreads);
+			const size_t numThreads = Threading::GetConcurrency();
 
-			const size_t n = std::max<size_t>(1, size() / numThreads);
+			if (numThreads <= 1)
+			{
+				return each(f);
+			}
 
-			Array<std::future<void>> futures;
+			const size_t countPerthread = Max<size_t>(1, (size() + (numThreads - 1)) / numThreads);
+
+			Array<std::future<std::ptrdiff_t>> futures;
 
 			auto it = begin();
-			const auto last = end();
+			size_t countLeft = size();
 
-			for (; it < last - n; it += n)
+			for (size_t i = 0; i < (numThreads - 1); ++i)
 			{
+				const size_t n = Min(countPerthread, countLeft);
+
+				if (n == 0)
+				{
+					break;
+				}
+
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
 					std::for_each(it, it + n, f);
 				}));
+
+				it += n;
+				countLeft -= n;
 			}
 
-			std::for_each(it, last, f);
+			if (countLeft)
+			{
+				std::for_each(it, it + countLeft, f);
+			}
 
 			for (auto& future : futures)
 			{
-				future.wait();
+				future.get();
 			}
 
-			return *this;
+		# endif
 		}
 
 		/// <summary>
@@ -2233,36 +2288,62 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
-		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		const Array& parallel_each(Fty f) const
 		{
+		# if SIV3D_PLATFORM(WINDOWS)
+
+			std::for_each(std::execution::par, begin(), end(), f);
+
+		# else
+
 			if (isEmpty())
 			{
-				return *this;
+				return;
 			}
 
-			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+			const size_t numThreads = Threading::GetConcurrency();
 
-			Array<std::future<void>> futures;
+			if (numThreads <= 1)
+			{
+				return each(f);
+			}
+
+			const size_t countPerthread = Max<size_t>(1, (size() + (numThreads - 1)) / numThreads);
+
+			Array<std::future<std::ptrdiff_t>> futures;
 
 			auto it = begin();
-			const auto last = end();
+			size_t countLeft = size();
 
-			for (; it < last - n; it += n)
+			for (size_t i = 0; i < (numThreads - 1); ++i)
 			{
+				const size_t n = Min(countPerthread, countLeft);
+
+				if (n == 0)
+				{
+					break;
+				}
+
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
 					std::for_each(it, it + n, f);
 				}));
+
+				it += n;
+				countLeft -= n;
 			}
 
-			std::for_each(it, last, f);
+			if (countLeft)
+			{
+				std::for_each(it, it + countLeft, f);
+			}
 
 			for (auto& future : futures)
 			{
-				future.wait();
+				future.get();
 			}
 
-			return *this;
+		# endif
 		}
 
 		/// <summary>
@@ -2278,27 +2359,41 @@ namespace s3d
 		/// 配列の各要素に関数を適用した戻り値からなる配列
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
-		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		auto parallel_map(Fty f) const
 		{
-			Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_array;
+			using Ret = std::decay_t<std::invoke_result_t<Fty, Type>>;
 
 			if (isEmpty())
 			{
-				return new_array;
+				return Array<Ret>{};
 			}
 
-			new_array.resize(size());
+			const size_t numThreads = Threading::GetConcurrency();
 
-			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+			if (numThreads <= 1)
+			{
+				return map(f);
+			}
+
+			Array<Ret> new_array(size());
+
+			const size_t countPerthread = Max<size_t>(1, (size() + (numThreads - 1)) / numThreads);
 
 			Array<std::future<void>> futures;
 
-			auto itSrc = begin();
-			const auto itSrcEnd = end();
 			auto itDst = new_array.begin();
+			auto itSrc = begin();
+			size_t countLeft = size();
 
-			for (; itSrc < itSrcEnd - n; itSrc += n, itDst += n)
+			for (size_t i = 0; i < (numThreads - 1); ++i)
 			{
+				const size_t n = Min(countPerthread, countLeft);
+
+				if (n == 0)
+				{
+					break;
+				}
+
 				futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
 				{
 					const auto itSrcEnd = itSrc + n;
@@ -2308,16 +2403,25 @@ namespace s3d
 						*itDst++ = f(*itSrc++);
 					}
 				}));
+
+				itDst += n;
+				itSrc += n;
+				countLeft -= n;
 			}
 
-			while (itSrc != itSrcEnd)
+			if (countLeft)
 			{
-				*itDst++ = f(*itSrc++);
+				const auto itSrcEnd = end();
+
+				while (itSrc != itSrcEnd)
+				{
+					*itDst++ = f(*itSrc++);
+				}
 			}
 
 			for (auto& future : futures)
 			{
-				future.wait();
+				future.get();
 			}
 
 			return new_array;

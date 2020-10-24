@@ -169,7 +169,7 @@ namespace s3d::Platform
 
 # elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
 
-	# define SIV3D_CONCURRENT_TASK_IS_DONE (base_type::wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+	# define SIV3D_CONCURRENT_TASK_IS_DONE (base_type::valid() && (base_type::wait_for(std::chrono::seconds(0)) == std::future_status::ready))
 
 # else
 

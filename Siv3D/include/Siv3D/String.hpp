@@ -1484,7 +1484,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, char32&>>* = nullptr>
 		String& each_index(Fty f)
 		{
 			size_t i = 0;
@@ -1506,7 +1506,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, char32>>* = nullptr>
 		const String& each_index(Fty f) const
 		{
 			size_t i = 0;

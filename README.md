@@ -18,6 +18,11 @@
 
 <small>* Some functionality may be missing or limited</small>
 
+## Work in progress
+
+- **Version 0.4.3** <- current release (branch: master)
+- **Version 0.6** <- H1 2021 (branches: v6_*)
+
 ## Examples
 
 ### Hello, Siv3D!
