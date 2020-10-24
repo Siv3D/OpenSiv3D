@@ -644,10 +644,10 @@ namespace s3d
 					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
 				}
 
-				if (!src.inners()[i].empty())
-				{
-					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
-				}
+				//if (!src.inners()[i].empty())
+				//{
+				//	in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
+				//}
 			}
 		}
 
@@ -717,10 +717,10 @@ namespace s3d
 					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
 				}
 
-				if (!src.inners()[i].empty())
-				{
-					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
-				}
+				//if (!src.inners()[i].empty())
+				//{
+				//	in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
+				//}
 			}
 		}
 
