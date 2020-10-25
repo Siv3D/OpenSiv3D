@@ -29,5 +29,6 @@
 # pragma comment (lib, "zlib/zlib" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "glew/glew32s" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "Oniguruma/Oniguruma" SIV3D_DEBUG_LIB_POSTFIX(_d))
+# pragma comment (lib, "AGG/AGG" SIV3D_DEBUG_LIB_POSTFIX(_d))
 
 # undef SIV3D_DEBUG_LIB_POSTFIX
