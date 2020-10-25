@@ -77,48 +77,52 @@ namespace s3d
 
 # if __cpp_lib_concepts
 
+	# define SIV3D_CONCEPT_INTEGRAL				template <s3d::Concept::Integral Int>
+	# define SIV3D_CONCEPT_INTEGRAL_			template <s3d::Concept::Integral Int>
 	# define SIV3D_CONCEPT_SIGNED_INTEGRAL		template <s3d::Concept::SignedIntegral SignedInt>
 	# define SIV3D_CONCEPT_SIGNED_INTEGRAL_		template <s3d::Concept::SignedIntegral SignedInt>
 	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL	template <s3d::Concept::UnsignedIntegral UnsignedInt>
 	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL_	template <s3d::Concept::UnsignedIntegral UnsignedInt>
-	# define SIV3D_CONCEPT_INTEGRAL				template <s3d::Concept::Integral Int>
-	# define SIV3D_CONCEPT_INTEGRAL_			template <s3d::Concept::Integral Int>
 	# define SIV3D_CONCEPT_FLOATING_POINT		template <s3d::Concept::FloatingPoint Float>
 	# define SIV3D_CONCEPT_FLOATING_POINT_		template <s3d::Concept::FloatingPoint Float>
+	# define SIV3D_CONCEPT_SCALAR				template <s3d::Concept::Scalar Scalar>
+	# define SIV3D_CONCEPT_SCALAR_				template <s3d::Concept::Scalar Scalar>
 	# define SIV3D_CONCEPT_ARITHMETIC			template <s3d::Concept::Arithmetic Arithmetic>
 	# define SIV3D_CONCEPT_ARITHMETIC_			template <s3d::Concept::Arithmetic Arithmetic>
+	# define SIV3D_CONCEPT_ENUM					template <s3d::Concept::Enum Enum>
+	# define SIV3D_CONCEPT_ENUM_				template <s3d::Concept::Enum Enum>
+	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE	template <s3d::Concept::TriviallyCopyable TriviallyCopyable>
+	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE_	template <s3d::Concept::TriviallyCopyable TriviallyCopyable>
 	# define SIV3D_CONCEPT_URBG					template <s3d::Concept::UniformRandomBitGenerator URBG>
 	# define SIV3D_CONCEPT_URBG_				template <s3d::Concept::UniformRandomBitGenerator URBG>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS		template <s3d::Concept::Formattable... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS_	template <s3d::Concept::Formattable... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE			template <s3d::Concept::Formattable Formattable>
 	# define SIV3D_CONCEPT_FORMATTABLE_			template <s3d::Concept::Formattable Formattable>
-	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE	template <s3d::Concept::TriviallyCopyable TriviallyCopyable>
-	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE_	template <s3d::Concept::TriviallyCopyable TriviallyCopyable>
-	# define SIV3D_CONCEPT_ENUM					template <s3d::Concept::Enum Enum>
-	# define SIV3D_CONCEPT_ENUM_				template <s3d::Concept::Enum Enum>
 
 # else
 
+	# define SIV3D_CONCEPT_INTEGRAL				template <class Int, std::enable_if_t<std::is_integral_v<Int>>* = nullptr>
+	# define SIV3D_CONCEPT_INTEGRAL_			template <class Int, std::enable_if_t<std::is_integral_v<Int>>*>
 	# define SIV3D_CONCEPT_SIGNED_INTEGRAL		template <class SignedInt, std::enable_if_t<(std::is_integral_v<SignedInt>&& std::is_signed_v<SignedInt>)>* = nullptr>
 	# define SIV3D_CONCEPT_SIGNED_INTEGRAL_		template <class SignedInt, std::enable_if_t<(std::is_integral_v<SignedInt>&& std::is_signed_v<SignedInt>)>*>
 	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL	template <class UnsignedInt, std::enable_if_t<(std::is_integral_v<UnsignedInt>&& !std::is_signed_v<UnsignedInt>)>* = nullptr>
 	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL_	template <class UnsignedInt, std::enable_if_t<(std::is_integral_v<UnsignedInt>&& !std::is_signed_v<UnsignedInt>)>*>
-	# define SIV3D_CONCEPT_INTEGRAL				template <class Int, std::enable_if_t<std::is_integral_v<Int>>* = nullptr>
-	# define SIV3D_CONCEPT_INTEGRAL_			template <class Int, std::enable_if_t<std::is_integral_v<Int>>*>
 	# define SIV3D_CONCEPT_FLOATING_POINT		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>* = nullptr>
 	# define SIV3D_CONCEPT_FLOATING_POINT_		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>*>
+	# define SIV3D_CONCEPT_SCALAR				template <class Scalar, std::enable_if_t<std::is_scalar_v<Scalar>>* = nullptr>
+	# define SIV3D_CONCEPT_SCALAR_				template <class Scalar, std::enable_if_t<std::is_scalar_v<Scalar>>*>
 	# define SIV3D_CONCEPT_ARITHMETIC			template <class Arithmetic, std::enable_if_t<std::is_arithmetic_v<Arithmetic>>* = nullptr>
 	# define SIV3D_CONCEPT_ARITHMETIC_			template <class Arithmetic, std::enable_if_t<std::is_arithmetic_v<Arithmetic>>*>
+	# define SIV3D_CONCEPT_ENUM					template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>* = nullptr>
+	# define SIV3D_CONCEPT_ENUM_				template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>*>
+	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>* = nullptr>
+	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE_	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>*>
 	# define SIV3D_CONCEPT_URBG					template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
 	# define SIV3D_CONCEPT_URBG_				template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS		template <class... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS_	template <class... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE			template <class Formattable, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Formattable>()))>
 	# define SIV3D_CONCEPT_FORMATTABLE_			template <class Formattable, class>
-	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>* = nullptr>
-	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE_	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>*>
-	# define SIV3D_CONCEPT_ENUM					template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>* = nullptr>
-	# define SIV3D_CONCEPT_ENUM_				template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>*>
 
 # endif

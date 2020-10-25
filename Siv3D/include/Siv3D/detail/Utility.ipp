@@ -36,12 +36,8 @@ namespace s3d
 		return detail::Max2_impl{};
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr Type Max(const Type a, const Type b) noexcept
+	SIV3D_CONCEPT_SCALAR_
+	inline constexpr Scalar Max(const Scalar a, const Scalar b) noexcept
 	{
 		return (a < b) ? b : a;
 	}
@@ -85,12 +81,8 @@ namespace s3d
 		return detail::Min2_impl{};
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr Type Min(const Type a, const Type b) noexcept
+	SIV3D_CONCEPT_SCALAR_
+	inline constexpr Scalar Min(const Scalar a, const Scalar b) noexcept
 	{
 		return (b < a) ? b : a;
 	}
@@ -123,12 +115,8 @@ namespace s3d
 		return detail::Clamp_impl<Type>(min, max);
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr Type Clamp(const Type v, const Type min, const Type max) noexcept
+	SIV3D_CONCEPT_SCALAR_
+	inline constexpr Scalar Clamp(const Scalar v, const Scalar min, const Scalar max) noexcept
 	{
 		if (max < v)
 		{
@@ -175,12 +163,8 @@ namespace s3d
 		return detail::InRange_impl<Type>(min, max);
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr bool InRange(const Type v, const Type min, const Type max) noexcept
+	SIV3D_CONCEPT_SCALAR_
+	inline constexpr bool InRange(const Scalar v, const Scalar min, const Scalar max) noexcept
 	{
 		return (min <= v) && (v <= max);
 	}
@@ -207,12 +191,8 @@ namespace s3d
 		return detail::InOpenRange_impl<Type>(min, max);
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr bool InOpenRange(const Type v, const Type min, const Type max) noexcept
+	SIV3D_CONCEPT_SCALAR_
+	inline constexpr bool InOpenRange(const Scalar v, const Scalar min, const Scalar max) noexcept
 	{
 		return (min < v) && (v < max);
 	}

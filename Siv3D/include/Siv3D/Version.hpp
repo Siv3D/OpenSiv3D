@@ -18,5 +18,5 @@
 namespace s3d
 {
 	/// @brief ライブラリのバージョン番号 | Library version number
-	inline constexpr uint32 Siv3DVersion = 200'006'000u;
+	inline constexpr uint32 Siv3DVersion = 200'060'000u;
 }

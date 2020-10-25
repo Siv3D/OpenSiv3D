@@ -37,17 +37,13 @@ namespace s3d
 	inline constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept;
 
 	/// @brief 2 つの値のうち大きい方の値を返します。 | Returns the greater of the two.
-	/// @tparam Type 比較する値の型
+	/// @tparam Scalar 比較する値の型
 	/// @param a 比較する値 | A value to compare
 	/// @param b 比較する値 | Another value to compare
 	/// @return 2 つの値のうち大きい方の値。等しい場合は a | The greater of a and b. If they are equivalent, returns a
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
-	inline constexpr Type Max(Type a, Type b) noexcept;
+	inline constexpr Scalar Max(Scalar a, Scalar b) noexcept;
 
 	/// @brief 2 つの値のうち大きい方の値を返します。 | Returns the greater of the two.
 	/// @tparam Type 比較する値の型
@@ -95,46 +91,20 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr auto Min(PlaceHolder_t, PlaceHolder_t) noexcept;
 
-	/// <summary>
-	/// 2 つの値のうち小さい方の値を返します。
-	/// Returns the lesser of the two.
-	/// </summary>
-	/// <param name="a">
-	/// 比較する値
-	/// A value to compare
-	/// </param>
-	/// <param name="b">
-	/// 比較する値
-	/// Another value to compare
-	/// </param>
-	/// <returns>
-	/// 2 つの値のうち小さい方の値。等しい場合は a
-	/// The greater of a and b. If they are equivalent, returns a
-	/// </returns>
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-# endif
+	/// @brief 2 つの値のうち小さい方の値を返します。 | Returns the lesser of the two.
+	/// @tparam Scalar 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
+	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
-	inline constexpr Type Min(Type a, Type b) noexcept;
+	inline constexpr Scalar Min(Scalar a, Scalar b) noexcept;
 
-	/// <summary>
-	/// 2 つの値のうち小さい方の値を返します。
-	/// Returns the lesser of the two.
-	/// </summary>
-	/// <param name="a">
-	/// 比較する値
-	/// A value to compare
-	/// </param>
-	/// <param name="b">
-	/// 比較する値
-	/// Another value to compare
-	/// </param>
-	/// <returns>
-	/// 2 つの値のうち小さい方の値。等しい場合は a
-	/// The greater of a and b. If they are equivalent, returns a
-	/// </returns>
+	/// @brief 2 つの値のうち小さい方の値を返します。 | Returns the lesser of the two.
+	/// @tparam Type 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
 # if __cpp_lib_concepts
 	template <class Type>
 # else
@@ -189,13 +159,9 @@ namespace s3d
 	/// v をクランプした値
 	/// The clamped value for the v
 	/// </returns>
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
-	inline constexpr Type Clamp(Type v, Type min, Type max) noexcept;
+	inline constexpr Scalar Clamp(Scalar v, Scalar min, Scalar max) noexcept;
 
 	/// <summary>
 	/// 最小値と最大値の範囲にクランプした値を返します。
@@ -255,13 +221,9 @@ namespace s3d
 	/// 閉区間 [min, max] にある場合 true, それ以外の場合は false
 	/// Returns true if the value is in the closed interval [min, max], false otherwise
 	/// </returns>
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
-	inline constexpr bool InRange(Type v, Type min, Type max) noexcept;
+	inline constexpr bool InRange(Scalar v, Scalar min, Scalar max) noexcept;
 
 	/// <summary>
 	/// 値が閉区間 [min, max] にあるかを返します。
@@ -321,13 +283,9 @@ namespace s3d
 	/// 開区間 (min, max) にある場合 true, それ以外の場合は false
 	/// Returns true if the value is in the open interval (min, max), false otherwise
 	/// </returns>
-# if __cpp_lib_concepts
-	template <Concept::Scalar Type>
-# else
-	template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
-	inline constexpr bool InOpenRange(Type v, Type min, Type max) noexcept;
+	inline constexpr bool InOpenRange(Scalar v, Scalar min, Scalar max) noexcept;
 
 	/// <summary>
 	/// 値が開区間 (min, max) にあるかを返します。

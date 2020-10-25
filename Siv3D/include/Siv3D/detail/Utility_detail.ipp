@@ -36,13 +36,9 @@ namespace s3d::detail
 
 	struct Max2_impl
 	{
-	# if __cpp_lib_concepts
-		template <Concept::Scalar Type>
-	# else
-		template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-	# endif
+		SIV3D_CONCEPT_SCALAR
 		[[nodiscard]]
-		constexpr Type operator()(Type a, Type b) const noexcept
+		constexpr Scalar operator()(Scalar a, Scalar b) const noexcept
 		{
 			return (a < b) ? b : a;
 		}
@@ -82,13 +78,9 @@ namespace s3d::detail
 
 	struct Min2_impl
 	{
-	# if __cpp_lib_concepts
-		template <Concept::Scalar Type>
-	# else
-		template <class Type, std::enable_if_t<std::is_scalar_v<Type>>* = nullptr>
-	# endif
+		SIV3D_CONCEPT_SCALAR
 		[[nodiscard]]
-		constexpr Type operator()(Type a, Type b) const noexcept
+		constexpr Scalar operator()(Scalar a, Scalar b) const noexcept
 		{
 			return (b < a) ? b : a;
 		}
