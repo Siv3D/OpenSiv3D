@@ -10,8 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Common.hpp"
 # include <ThirdParty/scope-guard/unique_resource.h>
+# include "Common.hpp"
 
 namespace s3d
 {

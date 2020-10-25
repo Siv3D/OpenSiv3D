@@ -121,7 +121,7 @@ namespace s3d
 			|| (m_step_count.y == 0));
 	}
 
-	inline constexpr Array<Point> Step2D::asArray() const
+	inline Array<Point> Step2D::asArray() const
 	{
 		Array<Point> new_array;
 

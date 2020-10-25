@@ -34,20 +34,26 @@ namespace s3d
 
 		public:
 
+			SIV3D_NODISCARD_CXX20
 			constexpr Iterator() noexcept;
 
+			SIV3D_NODISCARD_CXX20
 			constexpr Iterator(Size steps_count, Size start, Size step) noexcept;
 
 			constexpr Iterator& operator ++() noexcept;
 
 			constexpr Iterator operator ++(int) noexcept;
 
+			[[nodiscard]]
 			constexpr const Point& operator *() const noexcept;
 
+			[[nodiscard]]
 			constexpr const Point* operator ->() const noexcept;
 
+			[[nodiscard]]
 			constexpr bool operator ==(const Iterator& r) const noexcept;
 
+			[[nodiscard]]
 			constexpr bool operator !=(const Iterator& r) const noexcept;
 		};
 
@@ -67,22 +73,31 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		constexpr Step2D(Point start, Size step_count, Size step) noexcept;
 
+		[[nodiscard]]
 		constexpr iterator begin() const noexcept;
 
+		[[nodiscard]]
 		constexpr iterator end() const noexcept;
 
+		[[nodiscard]]
 		constexpr Point startValue() const noexcept;
 
+		[[nodiscard]]
 		constexpr Size count() const noexcept;
 
+		[[nodiscard]]
 		constexpr int32 num_elements() const noexcept;
 
+		[[nodiscard]]
 		constexpr Size step() const noexcept;
 
+		[[nodiscard]]
 		constexpr bool isEmpty() const noexcept;
 
+		[[nodiscard]]
 		Array<Point> asArray() const;
 	};
 

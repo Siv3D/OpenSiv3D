@@ -26,7 +26,7 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		constexpr explicit NonNull(Pointer _pointer) noexcept
-			: pointer(_pointer)
+			: pointer{ _pointer }
 		{
 			assert(pointer != nullptr);
 		}

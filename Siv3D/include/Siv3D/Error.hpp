@@ -29,8 +29,20 @@ namespace s3d
 		Error() = default;
 
 		SIV3D_NODISCARD_CXX20
+		explicit Error(const char32* what)
+			: m_what(what) {}
+
+		SIV3D_NODISCARD_CXX20
 		explicit Error(StringView what)
 			: m_what(what) {}
+
+		SIV3D_NODISCARD_CXX20
+		explicit Error(const String& what)
+			: m_what(what) {}
+
+		SIV3D_NODISCARD_CXX20
+		explicit Error(String&& what) noexcept
+			: m_what(std::move(what)) {}
 
 		virtual ~Error() = default;
 

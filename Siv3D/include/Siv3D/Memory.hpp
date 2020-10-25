@@ -18,10 +18,10 @@ namespace s3d
 	namespace Platform
 	{
 		/// @brief ポインタのサイズ | The size of a pointer
-		constexpr size_t PointerSize = sizeof(void*);
+		inline constexpr size_t PointerSize = sizeof(void*);
 
 		/// @brief 最小のメモリアラインメント | The minimum alignment of the memory
-		constexpr size_t MinAlignment = __STDCPP_DEFAULT_NEW_ALIGNMENT__;
+		inline constexpr size_t MinAlignment = __STDCPP_DEFAULT_NEW_ALIGNMENT__;
 
 		/// @brief アライメントを指定してメモリを確保します。
 		/// @param size 確保するメモリのサイズ
