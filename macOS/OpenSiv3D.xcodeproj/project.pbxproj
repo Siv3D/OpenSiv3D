@@ -173,6 +173,7 @@
 		2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4442A02427AA7C00557D51 /* miniutf.hpp */; };
 		2C4564E1247946AF00DB01F0 /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C4564E0247946AF00DB01F0 /* int128.cc */; };
 		2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C473B172545415300CF864D /* SivInterpolation.cpp */; };
+		2C473B8F2545DDA600CF864D /* define_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C473B8E2545DDA600CF864D /* define_tables.h */; };
 		2C47B08324DD974A008D83BE /* agg_span_interpolator_trans.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEA24DD9749008D83BE /* agg_span_interpolator_trans.h */; };
 		2C47B08424DD974A008D83BE /* agg_span_interpolator_linear.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEB24DD9749008D83BE /* agg_span_interpolator_linear.h */; };
 		2C47B08524DD974A008D83BE /* agg_rasterizer_sl_clip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEC24DD9749008D83BE /* agg_rasterizer_sl_clip.h */; };
@@ -1160,6 +1161,7 @@
 		2C473B142545406B00CF864D /* Interpolation.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Interpolation.ipp; sourceTree = "<group>"; };
 		2C473B152545407A00CF864D /* Easing.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Easing.ipp; sourceTree = "<group>"; };
 		2C473B172545415300CF864D /* SivInterpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInterpolation.cpp; sourceTree = "<group>"; };
+		2C473B8E2545DDA600CF864D /* define_tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = define_tables.h; sourceTree = "<group>"; };
 		2C47AFEA24DD9749008D83BE /* agg_span_interpolator_trans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_trans.h; sourceTree = "<group>"; };
 		2C47AFEB24DD9749008D83BE /* agg_span_interpolator_linear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_linear.h; sourceTree = "<group>"; };
 		2C47AFEC24DD9749008D83BE /* agg_rasterizer_sl_clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_sl_clip.h; sourceTree = "<group>"; };
@@ -3442,12 +3444,13 @@
 		2C481E0B24460B5700A5D88D /* cpu_features */ = {
 			isa = PBXGroup;
 			children = (
-				2C481E0C24460B5700A5D88D /* bit_utils.h */,
-				2C481E0D24460B5700A5D88D /* cpuinfo_x86.h */,
-				2C481E0E24460B5700A5D88D /* cpu_features_cache_info.h */,
 				2C481E0F24460B5700A5D88D /* cpuinfo_x86.c */,
-				2C481E1024460B5700A5D88D /* cpuid_x86.h */,
+				2C481E0C24460B5700A5D88D /* bit_utils.h */,
+				2C481E0E24460B5700A5D88D /* cpu_features_cache_info.h */,
 				2C481E1124460B5700A5D88D /* cpu_features_macros.h */,
+				2C481E1024460B5700A5D88D /* cpuid_x86.h */,
+				2C481E0D24460B5700A5D88D /* cpuinfo_x86.h */,
+				2C473B8E2545DDA600CF864D /* define_tables.h */,
 			);
 			path = cpu_features;
 			sourceTree = "<group>";
@@ -4474,6 +4477,7 @@
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
 				2C47B30124DD9789008D83BE /* MathParserDetail.hpp in Headers */,
 				2C47B0E924DD974A008D83BE /* agg_pixfmt_gray.h in Headers */,
+				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
 				2C47B0A824DD974A008D83BE /* agg_font_cache_manager2.h in Headers */,
 				2C47B0DA24DD974A008D83BE /* agg_span_gradient_alpha.h in Headers */,

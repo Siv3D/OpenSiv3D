@@ -99,6 +99,7 @@ namespace s3d
 				rpd.fragmentFunction = pShader->getFunctionPS(m_standardPS->fullscreen_triangle.id());
 				rpd.colorAttachments[0].pixelFormat = m_swapchain.pixelFormat;
 				rpd.vertexDescriptor = nil;
+				rpd.sampleCount = 1;
 			}
 			m_fullscreenTriangleRenderPipelineState = [m_device newRenderPipelineStateWithDescriptor:rpd error:NULL];
 			assert(m_fullscreenTriangleRenderPipelineState);
@@ -227,6 +228,7 @@ namespace s3d
 			m_renderPassDescriptor.colorAttachments[0].loadAction  = MTLLoadActionClear;
 			m_renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
 			m_renderPassDescriptor.colorAttachments[0].texture = drawable.texture;
+			m_renderPassDescriptor.colorAttachments[0].resolveTexture = nil;
 			{
 				id<MTLRenderCommandEncoder> fullscreenTriangleCommandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
 				{

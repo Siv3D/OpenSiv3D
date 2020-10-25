@@ -101,9 +101,6 @@
 #include "stack_line_reader.h"  // Needed to parse /proc/cpuinfo
 #include "string_view.h"        // Needed to parse /proc/cpuinfo
 #elif defined(CPU_FEATURES_OS_DARWIN)
-#if !defined(HAVE_SYSCTLBYNAME)
-#error "Darwin needs support for sysctlbyname"
-#endif
 #include <sys/sysctl.h>
 #else
 #error "Unsupported OS"
