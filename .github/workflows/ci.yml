@@ -1,0 +1,62 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches:
+    - master
+    - v6_master
+    - v6_winmac
+    - v6_winmac_develop
+  pull_request:
+    branches:
+    - master
+    - v6_master
+    - v6_winmac
+    - v6_winmac_develop
+
+jobs:
+  Linux:
+
+    runs-on: ubuntu-20.04
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install packages
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt update
+        sudo apt install ninja-build
+        sudo apt install libboost-dev
+        sudo apt install libglu1-mesa-dev
+        sudo apt install xorg-dev
+
+    - name: Configure Siv3D
+      working-directory: Linux
+      run: |
+        mkdir build && cd build
+        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+
+    - name: Build Siv3D
+      working-directory: Linux
+      run: |
+        cmake --build build
+
+    - name: Configure Siv3DTest
+      working-directory: Linux/App
+      run: |
+        mkdir build && cd build
+        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+
+    - name: Build Siv3DTest
+      working-directory: Linux/App
+      run: |
+        cmake --build build
+
+    - name: Run Siv3DTest
+      working-directory: Linux/App
+      run: |
+        cd build
+        cmake -DBUILD_TESTING:BOOL=ON .
+        ctest --output-on-failure --verbose

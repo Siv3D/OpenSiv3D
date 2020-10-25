@@ -1,0 +1,93 @@
+name: C/C++ CI for Web
+
+on:
+  push:
+    branches: [ web* ]
+    tags: [ v** ]
+  pull_request:
+    branches: [ web* ]
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') }}
+    container: 
+      image: trzeci/emscripten:1.39.10-upstream
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder
+        working-directory: Web
+        run: |
+          mkdir build
+          mkdir App/build
+      - name: Create project using cmake
+        working-directory: Web/build
+        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+      - name: Build project
+        working-directory: Web/build
+        run: cmake --build . --parallel 4
+
+      - name: Create test project using cmake
+        working-directory: Web/App/build
+        run: emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
+      - name: Build test project
+        working-directory: Web/App/build
+        run: cmake --build .
+      - name: Test project
+        working-directory: Web/App
+        run: |
+          node Siv3DTest.js
+
+      - name: Bundle output
+        run: |
+          mkdir Package
+          cp -r Siv3D/include Package
+          cp Web/build/libSiv3D.a Package
+          zip -r OpenSiv3D.zip Package
+          tar -cvzf OpenSiv3D.tgz Package/*
+      - name: Save Bundles
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles
+          path: OpenSiv3D.*
+
+  deploy:
+    if: ${{ contains(github.ref, 'tags/v') }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles
+          path: .
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload Release Asset (zip)
+        id: upload-release-asset-zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: OpenSiv3D.zip
+          asset_name: OpenSiv3D.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset (tgz)
+        id: upload-release-asset-tgz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: OpenSiv3D.tgz
+          asset_name: OpenSiv3D.tgz
+          asset_content_type: application/gzip
