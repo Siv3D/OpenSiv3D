@@ -1113,24 +1113,16 @@ namespace s3d
 		return Step<decltype(a + s), N, S>(a, n, s);
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>*>
-# endif
-	inline constexpr auto step(N n)
+	SIV3D_CONCEPT_INTEGRAL_
+	inline constexpr auto step(Int n)
 	{
-		return Step<N, N, int32>(N(0), n, 1);
+		return Step<Int, Int, int32>(Int(0), n, 1);
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>*>
-# endif
-	inline constexpr auto step_backward(N n)
+	SIV3D_CONCEPT_INTEGRAL_
+	inline constexpr auto step_backward(Int n)
 	{
-		return Step<N, N, int32>(n + int32(-1), n, int32(-1));
+		return Step<Int, Int, int32>(n + int32(-1), n, int32(-1));
 	}
 
 	template <class T, class U, class S, class StartType, class CounterType, std::enable_if_t<std::is_integral_v<StartType>>*>
@@ -1202,14 +1194,10 @@ namespace s3d
 	//               Iota [beg, end)
 	//
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>*>
-# endif
-	inline constexpr auto Iota(N end)
+	SIV3D_CONCEPT_INTEGRAL_
+	inline constexpr auto Iota(Int end)
 	{
-		return Step<N, N, int32>(N(0), end, 1);
+		return Step<Int, Int, int32>(Int(0), end, 1);
 	}
 
 	template<class T, class U, class S, class StartType, class CounterType, std::enable_if_t<std::is_integral_v<StartType>>*>

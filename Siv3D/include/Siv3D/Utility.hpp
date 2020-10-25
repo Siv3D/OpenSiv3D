@@ -58,18 +58,10 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr const Type& Max(const Type& a, const Type& b) noexcept(noexcept(a < b));
 
-	/// <summary>
-	/// 渡された初期化リストの中で最大の値を返します。
-	/// Returns the greatest of the values in initializer list.
-	/// </summary>
-	/// <param name="ilist">
-	/// 比較する値の初期化リスト
-	/// Initializer list with the values to compare 
-	/// </param>
-	/// <returns>
-	/// 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値
-	/// The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
-	/// </returns>
+	/// @brief 渡された初期化リストの中で最大の値を返します。 | Returns the greatest of the values in initializer list.
+	/// @tparam Type 比較する値の型
+	/// @param ilist 比較する値の初期化リスト | Initializer list with the values to compare 
+	/// @return 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値 | The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
 	template <class Type>
 	[[nodiscard]]
 	inline constexpr Type Max(std::initializer_list<Type> ilist);
@@ -113,18 +105,10 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr const Type& Min(const Type& a, const Type& b) noexcept(noexcept(b < a));
 
-	/// <summary>
-	/// 渡された初期化リストの中で最小の値を返します。
-	/// Returns the least of the values in initializer list.
-	/// </summary>
-	/// <param name="ilist">
-	/// 比較する値の初期化リスト
-	/// Initializer list with the values to compare 
-	/// </param>
-	/// <returns>
-	/// 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値
-	/// The least value in ilist. If several values are equivalent to the least, returns the leftmost one
-	/// </returns>
+	/// @brief 渡された初期化リストの中で最小の値を返します。 | Returns the least of the values in initializer list.
+	/// @tparam Type 比較する値の型
+	/// @param ilist 比較する値の初期化リスト | Initializer list with the values to compare 
+	/// @return 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値 | The least value in ilist. If several values are equivalent to the least, returns the leftmost one
 	template <class Type>
 	[[nodiscard]]
 	inline constexpr Type Min(std::initializer_list<Type> ilist);
@@ -139,50 +123,22 @@ namespace s3d
 	[[nodiscard]]
 	constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// 最小値と最大値の範囲にクランプした値を返します。
-	/// Clamps the value to the specified minimum and maximum range
-	/// </summary>
-	/// <param name="v">
-	/// クランプする値
-	/// A value to clamp
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// v をクランプした値
-	/// The clamped value for the v
-	/// </returns>
+	/// @brief 最小値と最大値の範囲にクランプした値を返します。 | Clamps the value to the specified minimum and maximum range.
+	/// @tparam Scalar 比較する値の型
+	/// @param v クランプする値 | A value to clamp
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return v をクランプした値 | The clamped value for the v
 	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
 	inline constexpr Scalar Clamp(Scalar v, Scalar min, Scalar max) noexcept;
 
-	/// <summary>
-	/// 最小値と最大値の範囲にクランプした値を返します。
-	/// Clamps the value to the specified minimum and maximum range
-	/// </summary>
-	/// <param name="v">
-	/// クランプする値
-	/// A value to clamp
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// v をクランプした値
-	/// The clamped value for the v
-	/// </returns>
+	/// @brief 最小値と最大値の範囲にクランプした値を返します。 | Clamps the value to the specified minimum and maximum range.
+	/// @tparam Type 比較する値の型
+	/// @param v クランプする値 | A value to clamp
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return v をクランプした値 | The clamped value for the v
 # if __cpp_lib_concepts
 	template <class Type>
 # else
@@ -201,50 +157,22 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// 値が閉区間 [min, max] にあるかを返します。
-	/// Returns true if the value is in the closed interval [min, max]
-	/// </summary>
-	/// <param name="v">
-	/// 調べる値
-	/// A value
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// 閉区間 [min, max] にある場合 true, それ以外の場合は false
-	/// Returns true if the value is in the closed interval [min, max], false otherwise
-	/// </returns>
+	/// @brief 値が閉区間 [min, max] にあるかを返します。 | Returns true if the value is in the closed interval [min, max].
+	/// @tparam Scalar 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
 	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
 	inline constexpr bool InRange(Scalar v, Scalar min, Scalar max) noexcept;
 
-	/// <summary>
-	/// 値が閉区間 [min, max] にあるかを返します。
-	/// Returns true if the value is in the closed interval [min, max]
-	/// </summary>
-	/// <param name="v">
-	/// 調べる値
-	/// A value
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// 閉区間 [min, max] にある場合 true, それ以外の場合は false
-	/// Returns true if the value is in the closed interval [min, max], false otherwise
-	/// </returns>
+	/// @brief 値が閉区間 [min, max] にあるかを返します。 | Returns true if the value is in the closed interval [min, max].
+	/// @tparam Type 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
 # if __cpp_lib_concepts
 	template <class Type>
 # else
@@ -263,50 +191,22 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr auto InOpenRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// 値が開区間 (min, max) にあるかを返します。
-	/// Returns true if the value is in the open interval (min, max)
-	/// </summary>
-	/// <param name="v">
-	/// 調べる値
-	/// A value
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// 開区間 (min, max) にある場合 true, それ以外の場合は false
-	/// Returns true if the value is in the open interval (min, max), false otherwise
-	/// </returns>
+	/// @brief 値が開区間 (min, max) にあるかを返します。 | Returns true if the value is in the open interval (min, max).
+	/// @tparam Scalar 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
 	SIV3D_CONCEPT_SCALAR
 	[[nodiscard]]
 	inline constexpr bool InOpenRange(Scalar v, Scalar min, Scalar max) noexcept;
 
-	/// <summary>
-	/// 値が開区間 (min, max) にあるかを返します。
-	/// Returns true if the value is in the open interval (min, max)
-	/// </summary>
-	/// <param name="v">
-	/// 調べる値
-	/// A value
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// 開区間 (min, max) にある場合 true, それ以外の場合は false
-	/// Returns true if the value is in the open interval (min, max), false otherwise
-	/// </returns>
+	/// @brief 値が開区間 (min, max) にあるかを返します。 | Returns true if the value is in the open interval (min, max).
+	/// @tparam Type 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
 # if __cpp_lib_concepts
 	template <class Type>
 # else
@@ -340,7 +240,12 @@ namespace s3d
 
 	[[nodiscard]]
 	inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept;
-
+	
+	/// @brief 差の絶対値を返します。
+	/// @tparam Arithmetic 値の型
+	/// @param a 1 つ目の値
+	/// @param b 2 つ目の値
+	/// @return 2 つの値の差の絶対値
 	SIV3D_CONCEPT_ARITHMETIC
 	[[nodiscard]]
 	inline constexpr auto AbsDiff(Arithmetic a, Arithmetic b) noexcept;

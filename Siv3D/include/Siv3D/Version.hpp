@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Common.hpp"
+# include "Types.hpp"
 
 /// @biref ライブラリのバージョンの文字列 | Library version string
 # define SIV3D_VERSION	U"0.6.0 dev"

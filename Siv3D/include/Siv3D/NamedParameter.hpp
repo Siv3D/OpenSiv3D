@@ -10,15 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-# include <tuple>
 # include <type_traits>
+# include <tuple>
+# include <functional>
 # include <memory>
 # include <utility>
-
-# pragma once
-# include <type_traits>
-# include <functional>
-# include <tuple>
 
 namespace s3d
 {

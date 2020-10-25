@@ -12,13 +12,10 @@
 # pragma once
 # include "NamedParameter.hpp"
 
-namespace s3d
+namespace s3d::Arg
 {
-	namespace Arg
-	{
-		SIV3D_NAMED_PARAMETER(radix);				// ToString
-		SIV3D_NAMED_PARAMETER(generator);			// Array, Image
-		SIV3D_NAMED_PARAMETER(indexedGenerator);	// Array
-		SIV3D_NAMED_PARAMETER(generator0_1);		// Image
-	}
+	SIV3D_NAMED_PARAMETER(radix);				// ToString
+	SIV3D_NAMED_PARAMETER(generator);			// Array, Image
+	SIV3D_NAMED_PARAMETER(indexedGenerator);	// Array
+	SIV3D_NAMED_PARAMETER(generator0_1);		// Image
 }

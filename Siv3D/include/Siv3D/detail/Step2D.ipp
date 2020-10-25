@@ -121,6 +121,25 @@ namespace s3d
 			|| (m_step_count.y == 0));
 	}
 
+	inline constexpr Array<Point> Step2D::asArray() const
+	{
+		Array<Point> new_array;
+
+		if (isEmpty())
+		{
+			return new_array;
+		}
+
+		new_array.reserve(num_elements());
+
+		for (auto it = m_start_iterator; it != m_end_iterator; ++it)
+		{
+			new_array.push_back(*it);
+		}
+
+		return new_array;
+	}
+
 	inline constexpr auto step(const Size n) noexcept
 	{
 		return Step2D(Point(0, 0), n, Point(1, 1));

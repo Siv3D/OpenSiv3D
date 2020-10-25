@@ -177,21 +177,13 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr auto step(T a, N n, S s = 1);
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_INTEGRAL
 	[[nodiscard]]
-	inline constexpr auto step(N n);
+	inline constexpr auto step(Int n);
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_INTEGRAL
 	[[nodiscard]]
-	inline constexpr auto step_backward(N n);
+	inline constexpr auto step_backward(Int n);
 
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>, std::enable_if_t<std::is_integral_v<StartType>>* = nullptr>
 	[[nodiscard]]
@@ -206,13 +198,9 @@ namespace s3d
 	//               Iota [beg, end)
 	//
 
-# if __cpp_lib_concepts
-	template <Concept::Integral N>
-# else
-	template <class N, std::enable_if_t<std::is_integral_v<N>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_INTEGRAL
 	[[nodiscard]]
-	inline constexpr auto Iota(N end);
+	inline constexpr auto Iota(Int end);
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>, std::enable_if_t<std::is_integral_v<StartType>>* = nullptr>
 	[[nodiscard]]
