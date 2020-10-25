@@ -17,6 +17,8 @@
 #ifndef CPU_FEATURES_INCLUDE_INTERNAL_STACK_LINE_READER_H_
 #define CPU_FEATURES_INCLUDE_INTERNAL_STACK_LINE_READER_H_
 
+#define STACK_LINE_READER_BUFFER_SIZE 1024
+
 #include <stdbool.h>
 
 #include "cpu_features_macros.h"
