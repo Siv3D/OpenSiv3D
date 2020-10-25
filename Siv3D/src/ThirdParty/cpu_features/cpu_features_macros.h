@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2017 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -77,6 +77,10 @@
 
 #if (defined(_WIN64) || defined(_WIN32))
 #define CPU_FEATURES_OS_WINDOWS
+#endif
+
+#if (defined(__apple__) || defined(__APPLE__) || defined(__MACH__))
+#define CPU_FEATURES_OS_DARWIN
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////

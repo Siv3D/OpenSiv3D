@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2017 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdint.h>
+
 #include "cpu_features_macros.h"
 
 CPU_FEATURES_START_CPP_NAMESPACE

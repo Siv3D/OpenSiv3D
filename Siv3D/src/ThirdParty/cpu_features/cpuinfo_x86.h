@@ -1,4 +1,5 @@
-// Copyright 2017 Google Inc.
+// Copyright 2017 Google LLC
+// Copyright 2020 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -69,6 +70,13 @@ typedef struct {
   int avx512vpopcntdq : 1;
   int avx512_4vnniw : 1;
   int avx512_4vbmi2 : 1;
+  int avx512_second_fma : 1;
+  int avx512_4fmaps : 1;
+  int avx512_bf16 : 1;
+  int avx512_vp2intersect : 1;
+  int amx_bf16 : 1;
+  int amx_tile : 1;
+  int amx_int8 : 1;
 
   int pclmulqdq : 1;
   int smx : 1;
@@ -121,6 +129,8 @@ typedef enum {
   INTEL_WHL,       // WHISKEY LAKE
   INTEL_CNL,       // CANNON LAKE
   INTEL_ICL,       // ICE LAKE
+  INTEL_TGL,       // TIGER LAKE
+  INTEL_SPR,       // SAPPHIRE RAPIDS
   AMD_HAMMER,      // K8
   AMD_K10,         // K10
   AMD_BOBCAT,      // K14
@@ -186,6 +196,13 @@ typedef enum {
   X86_AVX512VPOPCNTDQ,
   X86_AVX512_4VNNIW,
   X86_AVX512_4VBMI2,
+  X86_AVX512_SECOND_FMA,
+  X86_AVX512_4FMAPS,
+  X86_AVX512_BF16,
+  X86_AVX512_VP2INTERSECT,
+  X86_AMX_BF16,
+  X86_AMX_TILE,
+  X86_AMX_INT8,
   X86_PCLMULQDQ,
   X86_SMX,
   X86_SGX,

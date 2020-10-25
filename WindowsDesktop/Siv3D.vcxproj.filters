@@ -2136,6 +2136,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\define_tables.h">
+      <Filter>src\ThirdParty\cpu_features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

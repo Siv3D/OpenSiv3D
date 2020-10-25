@@ -210,6 +210,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/agg/agg_vpgen_segmentator.cpp
 
   ../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
+  ../Siv3D/src/ThirdParty/cpu_features/filesystem.c
+  ../Siv3D/src/ThirdParty/cpu_features/stack_line_reader.c
+  ../Siv3D/src/ThirdParty/cpu_features/string_view.c
 
   ../Siv3D/src/ThirdParty/double-conversion/bignum-dtoa.cc
   ../Siv3D/src/ThirdParty/double-conversion/bignum.cc

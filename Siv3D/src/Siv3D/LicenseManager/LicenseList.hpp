@@ -73,7 +73,8 @@ warranty, and with no claim as to its suitability for any purpose.)-"
 {
 UR"-(cpu_features)-",
 
-UR"-(Copyright 2017 Google Inc.)-",
+UR"-(Copyright 2017 Google LLC
+Copyright 2020 Intel Corporation)-",
 
 UR"-(Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -12,26 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef CPU_FEATURES_INCLUDE_INTERNAL_CPUID_X86_H_
-#define CPU_FEATURES_INCLUDE_INTERNAL_CPUID_X86_H_
+// An interface for the filesystem that allows mocking the filesystem in
+// unittests.
+#ifndef CPU_FEATURES_INCLUDE_INTERNAL_FILESYSTEM_H_
+#define CPU_FEATURES_INCLUDE_INTERNAL_FILESYSTEM_H_
 
+#include <stddef.h>
 #include <stdint.h>
 
 #include "cpu_features_macros.h"
 
 CPU_FEATURES_START_CPP_NAMESPACE
 
-// A struct to hold the result of a call to cpuid.
-typedef struct {
-  uint32_t eax, ebx, ecx, edx;
-} Leaf;
+// Same as linux "open(filename, O_RDONLY)", retries automatically on EINTR.
+int CpuFeatures_OpenFile(const char* filename);
 
-// Returns the result of a call to the cpuid instruction.
-Leaf GetCpuidLeaf(uint32_t leaf_id, int ecx);
+// Same as linux "read(file_descriptor, buffer, buffer_size)", retries
+// automatically on EINTR.
+int CpuFeatures_ReadFile(int file_descriptor, void* buffer, size_t buffer_size);
 
-// Returns the eax value of the XCR0 register.
-uint32_t GetXCR0Eax(void);
+// Same as linux "close(file_descriptor)".
+void CpuFeatures_CloseFile(int file_descriptor);
 
 CPU_FEATURES_END_CPP_NAMESPACE
 
-#endif  // CPU_FEATURES_INCLUDE_INTERNAL_CPUID_X86_H_
+#endif  // CPU_FEATURES_INCLUDE_INTERNAL_FILESYSTEM_H_
