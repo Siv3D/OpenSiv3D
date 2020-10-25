@@ -23,8 +23,8 @@
  *   2020      Evan Nemerson <evan@nemerson.com>
  */
 
-#if !defined(SIMDE_GFNI_H)
-#define SIMDE_GFNI_H
+#if !defined(SIMDE_X86_GFNI_H)
+#define SIMDE_X86_GFNI_H
 
 #include "avx512bw.h"
 #include "avx512vl.h"
@@ -101,7 +101,6 @@ simde_x_mm_gf2p8matrix_multiply_epi64_epi8 (simde__m128i x, simde__m128i A) {
       SIMDE_VECTORIZE
     #endif
     for (size_t i = 0 ; i < (sizeof(r_.u8) / sizeof(r_.u8[0])) ; i++) {
-      q = A_.u64[i / 8];
       q = simde_endian_bswap64_le(A_.u64[i / 8]);
       q &= HEDLEY_STATIC_CAST(uint64_t, x_.u8[i]) * ones;
       q ^= q >> 4;
@@ -788,4 +787,4 @@ SIMDE_END_DECLS_
 
 HEDLEY_DIAGNOSTIC_POP
 
-#endif /* !defined(SIMDE_GFNI_H) */
+#endif /* !defined(SIMDE_X86_GFNI_H) */

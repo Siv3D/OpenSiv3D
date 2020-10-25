@@ -25,7 +25,7 @@ Anti-Grain Geometry | v2.4
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
-[simde](https://github.com/nemequ/simde) | 0.5.0
+[simde](https://github.com/nemequ/simde) | v0.6.0
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
