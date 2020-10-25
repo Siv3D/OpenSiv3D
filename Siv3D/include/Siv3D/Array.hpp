@@ -84,17 +84,21 @@ namespace s3d
 		using base_type::resize;
 
 		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		Array() = default;
 
 		/// @brief コピーコンストラクタ
 		/// @param other コピーする配列
+		SIV3D_NODISCARD_CXX20
 		Array(const Array&) = default;
 
 		/// @brief ムーブコンストラクタ
 		/// @param other ムーブする配列
+		SIV3D_NODISCARD_CXX20
 		Array(Array&&) = default;
 
 		template <class ArrayIsh, std::enable_if_t<Meta::HasAsArray<ArrayIsh>::value>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		explicit Array(ArrayIsh&& a);
 
 		/// @brief ジェネレータ関数を使った配列の作成
@@ -102,6 +106,7 @@ namespace s3d
 		/// @param size 作成する配列の要素数
 		/// @param generator ジェネレータ関数
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Array(size_type size, Arg::generator_<Fty> generator);
 
 		/// @brief インデックス指定ジェネレータ関数を使った配列の作成
@@ -109,6 +114,7 @@ namespace s3d
 		/// @param size 作成する配列の要素数
 		/// @param indexedGenerator インデックス指定ジェネレータ関数
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Array(size_type size, Arg::indexedGenerator_<Fty> indexedGenerator);
 
 		/// @brief コピー代入演算子
@@ -451,6 +457,7 @@ namespace s3d
 		Array stable_sorted_by(Fty f)&&;
 
 		template <class T = Type, std::enable_if_t<Meta::HasPlus_v<T>>* = nullptr>
+		[[nodiscard]]
 		auto sum() const;
 
 		template <class T = Type, std::enable_if_t<!Meta::HasPlus_v<T>>* = nullptr>
@@ -534,9 +541,11 @@ namespace s3d
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		[[nodiscard]]
 		static Array Generate(size_type size, Fty generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		[[nodiscard]]
 		static Array IndexedGenerate(size_type size, Fty indexedGenerator);
 	};
 
@@ -575,6 +584,7 @@ namespace s3d
 	Array(const ArrayIsh& a)->Array<typename decltype(std::declval<ArrayIsh>().asArray())::value_type>;
 
 	template <class T0, class... Ts>
+	[[nodiscard]]
 	inline auto MakeArray(T0&& first, Ts&&... args);
 }
 

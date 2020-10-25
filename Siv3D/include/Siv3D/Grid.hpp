@@ -54,40 +54,56 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		Grid() = default;
 
+		SIV3D_NODISCARD_CXX20
 		Grid(const Grid&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		Grid(Grid&&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, const value_type& value);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Grid(Size size);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(Size size, const value_type& value);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, const Array<value_type>& data);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, Array<value_type>&& data);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(Size size, const Array<value_type>& data);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(Size size, Array<value_type>&& data);
 
+		SIV3D_NODISCARD_CXX20
 		Grid(const std::initializer_list<std::initializer_list<value_type>>& set);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, Arg::generator_<Fty> generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Grid(Size size, Arg::generator_<Fty> generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, Arg::indexedGenerator_<Fty> indexedGenerator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Grid(Size size, Arg::indexedGenerator_<Fty> indexedGenerator);
 
 		Grid& operator =(const Grid&) = default;
@@ -268,14 +284,231 @@ namespace s3d
 
 		void resize(Size size, const value_type& value);
 
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		bool all(Fty f = Identity) const;
 
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		bool any(Fty f = Identity) const;
+
+		[[nodiscard]]
+		value_type& choice();
+
+		[[nodiscard]]
+		const value_type& choice() const;
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		value_type& choice(URBG&& rbg);
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		const value_type& choice(URBG&& rbg) const;
+
+		SIV3D_CONCEPT_INTEGRAL
+		[[nodiscard]]
+		Array<Type> choice(Int n) const;
+
+	# if __cpp_lib_concepts
+		template <Concept::Integral Size_t, Concept::UniformRandomBitGenerator URBG>
+	# else
+		template <class Size_t, class URBG, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr,
+			std::enable_if_t<std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
+	# endif
+		[[nodiscard]]
+		Array<Type> choice(Size_t n, URBG&& rbg) const;
+
+		[[nodiscard]]
+		size_t count(const value_type& value) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		size_t count_if(Fty f) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
+		Grid& each(Fty f);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
+		const Grid& each(Fty f) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type&>>* = nullptr>
+		Grid& each_index(Fty f);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type>>* = nullptr>
+		const Grid& each_index(Fty f) const;
+
+		[[nodiscard]]
+		const value_type& fetch(size_type y, size_type x, const value_type& defaultValue) const;
+
+		[[nodiscard]]
+		const value_type& fetch(Point pos, const value_type& defaultValue) const;
+
+		Grid& fill(const value_type& value);
+
+		[[nodiscard]]
+		bool includes(const value_type& value) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		bool includes_if(Fty f) const;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		auto map(Fty f) const;
 
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		bool none(Fty f = Identity) const;
 
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, Type, Type>>>
+		auto reduce(Fty f, R init) const;
 
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type, Type>>* = nullptr>
+		auto reduce1(Fty f) const;
 
+		Grid& replace(const value_type& oldValue, const value_type& newValue);
+
+		[[nodiscard]]
+		Grid replaced(const value_type& oldValue, const value_type& newValue) const&;
+
+		[[nodiscard]]
+		Grid replaced(const value_type& oldValue, const value_type& newValue)&&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		Grid& replace_if(Fty f, const value_type& newValue);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid replaced_if(Fty f, const value_type& newValue) const&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid replaced_if(Fty f, const value_type& newValue)&&;
+
+		Grid& reverse();
+
+		Grid& reverse_columns();
+
+		Grid& reverse_rows();
+
+		[[nodiscard]]
+		Grid reversed() const&;
+
+		[[nodiscard]]
+		Grid reversed()&&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
+		Grid& reverse_each(Fty f);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
+		const Grid& reverse_each(Fty f) const;
+
+		Grid& rotate(std::ptrdiff_t count = 1);
+
+		[[nodiscard]]
+		Grid rotated(std::ptrdiff_t count = 1) const&;
+
+		[[nodiscard]]
+		Grid rotated(std::ptrdiff_t count = 1)&&;
+
+		Grid& rotate_rows(std::ptrdiff_t count = 1);
+
+		[[nodiscard]]
+		Grid rotated_rows(std::ptrdiff_t count = 1) const&;
+
+		[[nodiscard]]
+		Grid rotated_rows(std::ptrdiff_t count = 1)&&;
+
+		SIV3D_CONCEPT_URBG
+		Grid& shuffle(URBG&& rbg);
+
+		[[nodiscard]]
+		Grid shuffled() const&;
+
+		[[nodiscard]]
+		Grid shuffled()&&;
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		Grid shuffled(URBG&& rbg) const&;
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		Grid shuffled(URBG&& rbg)&&;
+
+		[[nodiscard]]
+		Array<Type> slice(size_type y, size_type x) const;
+
+		[[nodiscard]]
+		Array<Type> slice(Point pos) const;
+
+		[[nodiscard]]
+		Array<Type> slice(size_type y, size_type x, size_t length) const;
+
+		[[nodiscard]]
+		Array<Type> slice(Point pos, size_t length) const;
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		Grid& sort();
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		Grid& stable_sort();
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		Grid& sort_by(Fty f);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		Grid& stable_sort_by(Fty f);
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]]
+		Grid sorted() const&;
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]]
+		Grid stable_sorted() const&;
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]]
+		Grid sorted()&&;
+
+		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]]
+		Grid stable_sorted()&&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid sorted_by(Fty f) const&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid stable_sorted_by(Fty f) const&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid sorted_by(Fty f)&&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
+		[[nodiscard]]
+		Grid stable_sorted_by(Fty f)&&;
+
+		template <class T = Type, std::enable_if_t<Meta::HasPlus_v<T>>* = nullptr>
+		[[nodiscard]]
+		auto sum() const;
+
+		template <class T = Type, std::enable_if_t<!Meta::HasPlus_v<T>>* = nullptr>
+		void sum() const = delete;
+
+		template <class T = Type, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
+		[[nodiscard]]
+		auto sumF() const;
+
+		template <class T = Type, std::enable_if_t<!std::is_floating_point_v<T>>* = nullptr>
+		[[nodiscard]]
+		auto sumF() const = delete;
+
+		[[nodiscard]]
+		Array<Type> values_at(std::initializer_list<Point> indices) const;
 
 		[[nodiscard]]
 		friend bool operator ==(const Grid& lhs, const Grid& rhs)
@@ -331,15 +564,19 @@ namespace s3d
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		[[nodiscard]]
 		static Grid Generate(size_type w, size_type h, Arg::generator_<Fty> generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		[[nodiscard]]
 		static Grid Generate(Size size, Arg::generator_<Fty> generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		[[nodiscard]]
 		static Grid IndexedGenerate(size_type w, size_type h, Arg::indexedGenerator_<Fty> indexedGenerator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		[[nodiscard]]
 		static Grid IndexedGenerate(Size size, Arg::indexedGenerator_<Fty> indexedGenerator);
 	};
 

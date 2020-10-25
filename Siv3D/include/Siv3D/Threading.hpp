@@ -15,10 +15,8 @@ namespace s3d
 {
 	namespace Threading
 	{
-		/// @brief サポートされるスレッド数を返します。
-		///	       Returns the number of concurrent threads supported by the implementation.
-		/// @return サポートされるスレッド数
-		///         Number of concurrent threads supported
+		/// @brief サポートされるスレッド数を返します。 | Returns the number of concurrent threads supported by the implementation.
+		/// @return サポートされるスレッド数 | Number of concurrent threads supported
 		[[nodiscard]]
 		size_t GetConcurrency() noexcept;
 	}

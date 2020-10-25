@@ -13,10 +13,13 @@
 
 namespace s3d
 {
+	/// @brief アルファベットの大文字・小文字
 	enum class LetterCase
 	{
+		/// @brief 小文字
 		Lower,
 
+		/// @brief 大文字
 		Upper,
 	};
 }

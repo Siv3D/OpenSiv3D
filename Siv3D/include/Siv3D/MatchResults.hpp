@@ -37,8 +37,10 @@ namespace s3d
 		using char_type			= StringView::value_type;
 		using string_type		= String;
 
+		SIV3D_NODISCARD_CXX20
 		MatchResults() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit MatchResults(container&& matches) noexcept;
 
 		[[nodiscard]]

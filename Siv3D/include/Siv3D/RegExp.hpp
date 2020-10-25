@@ -27,8 +27,10 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		RegExp();
 
+		SIV3D_NODISCARD_CXX20
 		explicit RegExp(StringView pattern);
 
 		[[nodiscard]]

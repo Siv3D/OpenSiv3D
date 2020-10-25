@@ -62,30 +62,39 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
+		SIV3D_NODISCARD_CXX20
 		Array() = default;
 
+		SIV3D_NODISCARD_CXX20
 		Array(const Array&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		Array(Array&&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		Array(const size_type count, const value_type& value)
 			: base_type(count, value) {}
 
+		SIV3D_NODISCARD_CXX20
 		explicit Array(const size_type count)
 			: base_type(count, false) {}
 
 		template <class InputIt>
+		SIV3D_NODISCARD_CXX20
 		Array(InputIt first, InputIt last)
 			: base_type(first, last) {}
 
+		SIV3D_NODISCARD_CXX20
 		Array(std::initializer_list<bool> init)
 			: base_type(init.begin(), init.end()) {}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Array(size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, *generator)) {}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, size_t>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		Array(size_type size, Arg::indexedGenerator_<Fty> indexedGenerator)
 			: Array(IndexedGenerate<Fty>(size, *indexedGenerator)) {}
 
@@ -1115,6 +1124,7 @@ namespace s3d
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty>>* = nullptr>
+		[[nodiscard]]
 		static Array Generate(size_type size, Fty generator)
 		{
 			Array new_array;
@@ -1129,6 +1139,7 @@ namespace s3d
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, size_t>>* = nullptr>
+		[[nodiscard]]
 		static Array IndexedGenerate(size_type size, Fty indexedGenerator)
 		{
 			Array new_array;
