@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (c) 2017-2019 offa
+// Copyright (c) 2017-2020 offa
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -149,10 +149,9 @@ namespace sr
 
         template<class RR = R, class DD = D,
             std::enable_if_t<(std::is_nothrow_move_assignable_v<RR>
-                                || std::is_nothrow_copy_assignable_v<RR>)
+                                || std::is_copy_assignable_v<RR>)
                             && (std::is_nothrow_move_assignable_v<DD>
-                                || std::is_nothrow_copy_assignable_v<DD>), int> = 0
-            >
+                                || std::is_copy_assignable_v<DD>), int> = 0>
         unique_resource& operator=(unique_resource&& other) noexcept(std::is_nothrow_assignable_v<R&, R>
                                                                     && std::is_nothrow_assignable_v<D&, D>)
         {
@@ -223,5 +222,3 @@ namespace sr
     }
 
 }
-
-

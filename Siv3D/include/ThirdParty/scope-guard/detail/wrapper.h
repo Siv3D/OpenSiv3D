@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (c) 2017-2019 offa
+// Copyright (c) 2017-2020 offa
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,11 @@ namespace sr::detail
         void reset(Wrapper<T>&& other) noexcept
         {
             value = std::move(other.value);
+        }
+
+        void reset(const Wrapper<T>& other) noexcept(std::is_nothrow_assignable_v<T, const T&>)
+        {
+            value = other.value;
         }
 
         void reset(T&& newValue) noexcept(std::is_nothrow_assignable_v<T, decltype(std::move_if_noexcept(newValue))>)
