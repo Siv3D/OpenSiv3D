@@ -15,7 +15,9 @@
 #	define PHMAP_HAVE_SSE2 1
 #	define PHMAP_HAVE_SSSE3 1
 # endif
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(26495)
 # include <ThirdParty/parallel_hashmap/phmap.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include "HeterogeneousLookupHelper.hpp"
 # include "FormatData.hpp"
 
