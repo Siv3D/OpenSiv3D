@@ -256,11 +256,13 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 {
 	using namespace s3d;
 
-	if (SIV3D_BUILD(DEBUG) &&
-		g_isDebuggerPresent &&
-		(g_applicationOptions.debugHeap == EngineOption::DebugHeap::Yes))
+	if constexpr (SIV3D_BUILD(DEBUG))
 	{
-		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+		if (g_isDebuggerPresent &&
+			(g_applicationOptions.debugHeap == EngineOption::DebugHeap::Yes))
+		{
+			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+		}
 	}
 
 	std::unique_lock ul(g_mutex); // (0)--

@@ -19,8 +19,10 @@
 #	pragma clang diagnostic ignored "-Wsign-compare"
 # endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4389)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(26495)
 # include <ThirdParty/fmt/format.h>
 # include <ThirdParty/fmt/ostream.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # ifdef __clang__
 #	pragma clang diagnostic pop
