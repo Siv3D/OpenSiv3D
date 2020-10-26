@@ -11,7 +11,7 @@ Anti-Grain Geometry | v2.4
 [DirectXMath](https://github.com/microsoft/DirectXMath) | April 2020
 [double-conversion](https://github.com/google/double-conversion) | v3.1.5
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
-[fmt](https://github.com/fmtlib/fmt) | 7.0.1
+[fmt](https://github.com/fmtlib/fmt) | 7.1.0
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
