@@ -220,6 +220,8 @@ namespace s3d
 
 		if (g_hasError)
 		{
+			ul.unlock();
+			g_cv.notify_one();
 			return;
 		}
 

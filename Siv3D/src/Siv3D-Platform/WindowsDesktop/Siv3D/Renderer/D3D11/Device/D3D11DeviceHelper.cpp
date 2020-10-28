@@ -600,7 +600,6 @@ namespace s3d::detail
 			}
 
 			LOG_WARNING(U"ℹ️ Failed to create WARP driver. Fallback to the reference driver");
-			driver = EngineOption::D3D11Driver::WARP;
 		}
 
 		if (const auto deviceInfo = CreateDeviceReference(pD3D11CreateDevice,

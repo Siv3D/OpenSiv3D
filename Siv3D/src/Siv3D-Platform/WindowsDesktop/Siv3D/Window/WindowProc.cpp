@@ -76,7 +76,6 @@ namespace s3d
 				{
 				case SC_SCREENSAVE:
 				case SC_MONITORPOWER:
-					return 0;
 				case SC_KEYMENU:
 					return 0;
 				}

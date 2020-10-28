@@ -27,7 +27,7 @@ namespace s3d
 
 		inline int32 Height() noexcept
 		{
-			return Size().x;
+			return Size().y;
 		}
 
 		inline Point Center() noexcept
