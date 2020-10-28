@@ -225,9 +225,9 @@ namespace s3d
 							CSIDL_PROGRAM_FILES,
 						};
 
-						std::array<FilePath, 11> specialFolderPaths;
+						std::array<FilePath, 11> paths;
 
-						for (size_t i = 0; i < specialFolderPaths.size(); ++i)
+						for (size_t i = 0; i < paths.size(); ++i)
 						{
 							wchar_t path[MAX_PATH];
 
@@ -236,10 +236,10 @@ namespace s3d
 								continue;
 							}
 
-							specialFolderPaths[i] = detail::NormalizePath(Unicode::FromWstring(path), true);
+							paths[i] = detail::NormalizePath(Unicode::FromWstring(path), true);
 						}
 
-						return specialFolderPaths;
+						return paths;
 					}();
 
 					resourceFilePaths = []()

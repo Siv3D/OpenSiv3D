@@ -1361,11 +1361,11 @@ namespace s3d
 		{
 			if (IsLower(v))
 			{
-				v -= 32;
+				v -= ('a' - 'A');
 			}
 			else if (IsUpper(v))
 			{
-				v += 32;
+				v += ('a' - 'A');
 			}
 		}
 
@@ -1411,7 +1411,7 @@ namespace s3d
 		{
 			if (IsLower(v))
 			{
-				v -= 32;
+				v -= ('a' - 'A');
 			}
 		}
 

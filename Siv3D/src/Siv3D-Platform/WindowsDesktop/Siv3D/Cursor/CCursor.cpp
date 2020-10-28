@@ -142,7 +142,7 @@ namespace s3d
 
 		const HDC hdc = ::GetDC(nullptr);
 		void* pData;
-		HBITMAP hBitmap = ::CreateDIBSection(hdc, (const BITMAPINFO*)&bi, DIB_RGB_COLORS, &pData, nullptr, 0);
+		HBITMAP hBitmap = ::CreateDIBSection(hdc, reinterpret_cast<const BITMAPINFO*>(&bi), DIB_RGB_COLORS, &pData, nullptr, 0);
 		ScopeGuard sgBitmap = [&hBitmap]() { ::DeleteObject(hBitmap); };
 
 		::ReleaseDC(nullptr, hdc);

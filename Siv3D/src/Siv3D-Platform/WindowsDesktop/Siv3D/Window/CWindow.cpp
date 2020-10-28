@@ -465,7 +465,7 @@ namespace s3d
 
 		// border
 		{
-			const DWORD windowStyleFlags = ::GetWindowLong(m_hWnd, GWL_STYLE);
+			const DWORD windowStyleFlags = static_cast<DWORD>(::GetWindowLongPtrW(m_hWnd, GWL_STYLE));
 			const Rect dummyWindowRect = adjustWindowRect(Point(0, 0), Size(0, 0), windowStyleFlags);		
 			m_border = dummyWindowRect.size;
 		}

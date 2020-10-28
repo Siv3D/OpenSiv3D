@@ -93,7 +93,8 @@ namespace s3d
 		m_width		= image.m_width;
 		m_height	= image.m_height;
 
-		image.m_width = image.m_height = 0;
+		image.m_width = 0;
+		image.m_height = 0;
 
 		return *this;
 	}
