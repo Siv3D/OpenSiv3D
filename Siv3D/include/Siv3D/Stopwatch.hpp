@@ -39,32 +39,32 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Stopwatch(bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
 
-		/// @brief ストップウォッチを作成します。
-		/// @param startTime 開始時点での経過時間
+		/// @brief 指定した時間だけ経過し一時停止している状態のストップウォッチを作成します。
+		/// @param startTime 経過時間
 		/// @param startImmediately 即座に計測を開始する場合は true
 		/// @param pSteadyClock 基準時刻取得用のカスタム関数。nullptr の場合はシステム時刻
 		SIV3D_NODISCARD_CXX20
 		explicit Stopwatch(const Duration& startTime, bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
 
-		/// @brief ストップウォッチが動作中であるかを示します（一時停止していることもあります）。
+		/// @brief ストップウォッチが動作中であるかを示します（開始後の一時停止も動作中に含みます）。
 		/// @return ストップウォッチが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isStarted() const;
+		bool isStarted() const noexcept;
 
 		/// @brief ストップウォッチが一時停止中であるかを示します。
 		/// @return ストップウォッチが開始後一時停止中である場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isPaused() const;
+		bool isPaused() const noexcept;
 
 		/// @brief ストップウォッチが時間を計測中であるかを示します。
 		/// @return ストップウォッチが開始されていて、なおかつ一時停止中でない場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isRunning() const;
+		bool isRunning() const noexcept;
 
 		/// @brief ストップウォッチを開始・再開します。
 		void start();
 
-		/// @brief ストップウォッチを一時停止します。
+		/// @brief 開始しているストップウォッチを一時停止します。
 		void pause();
 
 		/// @brief ストップウォッチが一時停止中である場合、再開します。
@@ -78,6 +78,7 @@ namespace s3d
 
 		/// @brief ストップウォッチの経過時間を変更します。
 		/// @param time 新しく設定する経過時間
+		/// @remark 指定した時間だけ経過している状態にします。計測中であるかの状態は引き継がれます。
 		void set(const Duration& time);
 
 		/// @brief 経過時間を [日] で返します。
@@ -170,7 +171,7 @@ namespace s3d
 		[[nodiscard]]
 		double usF() const;
 
-		/// @brief 経過時間をで返します。
+		/// @brief 経過時間を返します。
 		/// @return 経過時間
 		[[nodiscard]]
 		Duration elapsed() const;
@@ -196,7 +197,6 @@ namespace s3d
 		/// x		小数点以下 1 桁秒 (0-9)
 		/// xx		小数点以下 2 桁秒 (00-99)
 		/// xxx		小数点以下 3 桁秒 (000-999)
-		/// @param duration 時間
 		/// @param format フォーマット指定
 		/// @return フォーマットされた時間
 		[[nodiscard]]

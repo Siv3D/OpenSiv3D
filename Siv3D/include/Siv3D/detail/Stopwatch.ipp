@@ -33,17 +33,17 @@ namespace s3d
 		}
 	}
 
-	inline bool Stopwatch::isStarted() const
+	inline bool Stopwatch::isStarted() const noexcept
 	{
 		return m_isStarted;
 	}
 
-	inline bool Stopwatch::isPaused() const
+	inline bool Stopwatch::isPaused() const noexcept
 	{
 		return (m_isStarted && m_pausing);
 	}
 
-	inline bool Stopwatch::isRunning() const
+	inline bool Stopwatch::isRunning() const noexcept
 	{
 		return (m_isStarted && not m_pausing);
 	}
@@ -183,7 +183,7 @@ namespace s3d
 	{
 		const int64 t = ISteadyClock::GetMicrosec(m_pSteadyClock);
 
-		if (!m_isStarted)
+		if (not m_isStarted)
 		{
 			return 0;
 		}

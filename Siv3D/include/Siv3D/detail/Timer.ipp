@@ -13,29 +13,28 @@
 
 namespace s3d
 {
-	inline Timer::Timer(const Duration& startRemaining, const bool startImmediately, ISteadyClock* pSteadyClock)
-		: m_initialTimeMicrosec(static_cast<int64>(startRemaining.count() * 1'000'000))
+	inline Timer::Timer(const Duration& duration, const bool startImmediately, ISteadyClock* pSteadyClock)
+		: m_durationMicrosec(static_cast<int64>(duration.count() * 1'000'000))
+		, m_remainingMicrosec(m_durationMicrosec)
 		, m_pSteadyClock(pSteadyClock)
 	{
-		setRemaining(startRemaining);
-
 		if (startImmediately)
 		{
 			start();
 		}
 	}
 
-	inline bool Timer::isStarted() const
+	inline bool Timer::isStarted() const noexcept
 	{
 		return m_isStarted;
 	}
 
-	inline bool Timer::isPaused() const
+	inline bool Timer::isPaused() const noexcept
 	{
 		return (m_isStarted && m_pausing);
 	}
 
-	inline bool Timer::isRunning() const
+	inline bool Timer::isRunning() const noexcept
 	{
 		return (m_isStarted && not m_pausing);
 	}
@@ -47,7 +46,7 @@ namespace s3d
 
 	inline void Timer::start()
 	{
-		if (not m_pausing)
+		if (m_isStarted && (not m_pausing))
 		{
 			return;
 		}
@@ -76,24 +75,42 @@ namespace s3d
 		start();
 	}
 
+	inline void Timer::reset() noexcept
+	{
+		m_remainingMicrosec = m_durationMicrosec;
+
+		m_isStarted = false;
+
+		m_pausing = false;
+	}
+
 	inline void Timer::restart()
 	{
-		setRemaining(MicrosecondsF(m_initialTimeMicrosec));
+		setRemaining(MicrosecondsF(m_durationMicrosec));
 
 		start();
 	}
 
-	inline void Timer::restart(const Duration& startRemaining)
+	inline void Timer::restart(const Duration& duration)
 	{
-		setRemaining(startRemaining);
+		reset();
+
+		set(duration);
 
 		start();
+	}
+
+	inline void Timer::set(const Duration& duration)
+	{
+		m_durationMicrosec = static_cast<int64>(duration.count() * 1'000'000);
+
+		m_remainingMicrosec = m_durationMicrosec;
+
+		m_startTimeMicrosec = ISteadyClock::GetMicrosec(m_pSteadyClock);
 	}
 
 	inline void Timer::setRemaining(const Duration& remaining)
 	{
-		m_isStarted = true;
-
 		m_remainingMicrosec = static_cast<int64>(remaining.count() * (1000LL * 1000LL));
 
 		m_startTimeMicrosec = ISteadyClock::GetMicrosec(m_pSteadyClock);
@@ -180,7 +197,7 @@ namespace s3d
 
 		if (not m_isStarted)
 		{
-			return 0;
+			return m_durationMicrosec;
 		}
 
 		if (m_pausing)
@@ -203,7 +220,7 @@ namespace s3d
 
 	inline Duration Timer::duration() const
 	{
-		return SecondsF{ m_initialTimeMicrosec / static_cast<double>(1000LL * 1000LL) };
+		return SecondsF{ m_durationMicrosec / static_cast<double>(1000LL * 1000LL) };
 	}
 
 	inline Duration Timer::remaining() const
@@ -213,7 +230,14 @@ namespace s3d
 
 	inline double Timer::progress1_0() const
 	{
-		return (static_cast<double>(us()) / m_initialTimeMicrosec);
+		if (m_durationMicrosec == 0)
+		{
+			return 0.0;
+		}
+		else
+		{
+			return (static_cast<double>(us()) / m_durationMicrosec);
+		}
 	}
 
 	inline double Timer::progress0_1() const

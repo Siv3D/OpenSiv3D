@@ -114,9 +114,11 @@
     <ClCompile Include="..\Test\Siv3DTest_FileSystem.cpp" />
     <ClCompile Include="..\Test\Siv3DTest_Image.cpp" />
     <ClCompile Include="..\Test\Siv3DTest_Resource.cpp" />
+    <ClCompile Include="..\Test\Siv3DTest_Stopwatch.cpp" />
     <ClCompile Include="..\Test\Siv3DTest_TextEncoding.cpp" />
     <ClCompile Include="..\Test\Siv3DTest_TextReader.cpp" />
     <ClCompile Include="..\Test\Siv3DTest_TextWriter.cpp" />
+    <ClCompile Include="..\Test\Siv3DTest_Timer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

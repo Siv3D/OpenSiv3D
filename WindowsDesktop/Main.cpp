@@ -8,15 +8,7 @@ void Siv3DTest();
 
 void Main()
 {
-	Scene::SetResizeMode(ResizeMode::Keep);
-	Window::Resize(800, 800);
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
-
-	//const VertexShader vs = HLSL(U"vs.hlsl")
-	//	| GLSL(U"vs.vert", { {U"VSConstants2D", 0} }) | MSL(U"VS");
-
-	//const PixelShader ps = HLSL(U"ps.hlsl")
-	//	| GLSL(U"ps.frag", { {U"PSConstants2D", 0} }) | MSL(U"PS");
+	Siv3DTest();
 
 	while (System::Update())
 	{
