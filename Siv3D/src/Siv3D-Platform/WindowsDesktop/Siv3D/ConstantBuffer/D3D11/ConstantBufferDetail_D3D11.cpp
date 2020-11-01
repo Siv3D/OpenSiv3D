@@ -60,6 +60,12 @@ namespace s3d
 		CRenderer_D3D11* const pRenderer = dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
 
 		ID3D11Device* device = pRenderer->getDevice();
+
+		if (not device)
+		{
+			return false;
+		}
+
 		m_context = pRenderer->getContext();
 
 		const D3D11_BUFFER_DESC desc =

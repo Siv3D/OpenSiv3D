@@ -31,7 +31,6 @@ namespace s3d
 			VectorType change = (from - to);
 
 			// 速度を maxSpeed に制限
-			const VectorType originalTo = to;
 			if (maxSpeed)
 			{
 				const ValueType maxChange = maxSpeed.value() * smoothTime;
@@ -54,18 +53,18 @@ namespace s3d
 			// 行き過ぎを防ぐ
 			if constexpr (std::is_arithmetic_v<VectorType>)
 			{
-				if (((originalTo - from) > 0) == (result > originalTo))
+				if (((to - from) > 0) == (result > to))
 				{
-					result = originalTo;
-					velocity = (result - originalTo) / deltaTime;
+					result = to;
+					velocity = (result - to) / deltaTime;
 				}
 			}
 			else
 			{
-				if ((originalTo - from).dot(result - originalTo) > 0)
+				if ((to - from).dot(result - to) > 0)
 				{
-					result = originalTo;
-					velocity = (result - originalTo) / deltaTime;
+					result = to;
+					velocity = (result - to) / deltaTime;
 				}
 			}
 
@@ -115,42 +114,42 @@ namespace s3d
 			return detail::Damp_impl(a, b, r, dt);
 		}
 
-		float SmoothDamp(const float from, float to, float& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		float SmoothDamp(const float from, float to, float& velocity, const float smoothTime, const Optional<float>& maxSpeed, const float deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		double SmoothDamp(const double from, double to, double& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		double SmoothDamp(const double from, double to, double& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Float2 SmoothDamp(const Float2& from, const Float2& to, Float2& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float2 SmoothDamp(const Float2& from, const Float2& to, Float2& velocity, const float smoothTime, const Optional<float>& maxSpeed, const float deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Vec2 SmoothDamp(const Vec2& from, const Vec2& to, Vec2& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec2 SmoothDamp(const Vec2& from, const Vec2& to, Vec2& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Float3 SmoothDamp(const Float3& from, const Float3& to, Float3& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float3 SmoothDamp(const Float3& from, const Float3& to, Float3& velocity, const float smoothTime, const Optional<float>& maxSpeed, const float deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Vec3 SmoothDamp(const Vec3& from, const Vec3& to, Vec3& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec3 SmoothDamp(const Vec3& from, const Vec3& to, Vec3& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Float4 SmoothDamp(const Float4& from, const Float4& to, Float4& velocity, const float smoothTime, const float deltaTime, const Optional<float>& maxSpeed)
+		Float4 SmoothDamp(const Float4& from, const Float4& to, Float4& velocity, const float smoothTime, const Optional<float>& maxSpeed, const float deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}
 
-		Vec4 SmoothDamp(const Vec4& from, const Vec4& to, Vec4& velocity, const double smoothTime, const double deltaTime, const Optional<double>& maxSpeed)
+		Vec4 SmoothDamp(const Vec4& from, const Vec4& to, Vec4& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
 		}

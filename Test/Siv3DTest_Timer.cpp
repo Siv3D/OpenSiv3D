@@ -125,7 +125,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 1.0);
 		REQUIRE(t.progress0_1() > 0.0);
-		REQUIRE(InRange(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 15s);
 		REQUIRE(t.remaining() < 15s);
 		REQUIRE(14s < t);
@@ -140,7 +140,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 1.0);
 		REQUIRE(t.progress0_1() > 0.0);
-		REQUIRE(InRange(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 15s);
 		REQUIRE(t.remaining() < 15s);
 		REQUIRE(14s < t);
@@ -154,7 +154,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 1.0);
 		REQUIRE(t.progress0_1() > 0.0);
-		REQUIRE(InRange(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 15s);
 		REQUIRE(t.remaining() < 15s);
 		REQUIRE(14s < t);
@@ -168,7 +168,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 1.0);
 		REQUIRE(t.progress0_1() > 0.0);
-		REQUIRE(InRange(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (14 * 1000LL * 1000LL), (15 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 15s);
 		REQUIRE(t.remaining() < 15s);
 		REQUIRE(14s < t);
@@ -183,7 +183,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 0.2);
 		REQUIRE(t.progress0_1() > 0.8);
-		REQUIRE(InRange(t.us(), (2 * 1000LL * 1000LL), (3 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (2 * 1000LL * 1000LL), (3 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 15s);
 		REQUIRE(t.remaining() < 3s);
 		REQUIRE(2s < t);
@@ -213,7 +213,7 @@ TEST_CASE("Timer 1")
 		REQUIRE(t.reachedZero() == false);
 		REQUIRE(t.progress1_0() < 1.0);
 		REQUIRE(t.progress0_1() > 0.0);
-		REQUIRE(InRange(t.us(), (9 * 1000LL * 1000LL), (10 * 1000LL * 1000LL)));
+		REQUIRE(InRange<int64>(t.us(), (9 * 1000LL * 1000LL), (10 * 1000LL * 1000LL)));
 		REQUIRE(t.duration() == 10s);
 		REQUIRE(t.remaining() < 10s);
 		REQUIRE(9s < t);
