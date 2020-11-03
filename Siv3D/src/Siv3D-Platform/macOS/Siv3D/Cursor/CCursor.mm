@@ -64,6 +64,11 @@ namespace s3d
 
 	bool CCursor::update()
 	{
+		if (m_clipToWindow)
+		{
+			// [Siv3D ToDo]
+		}
+
 		const Vec2 clientPos = detail::GetClientCursorPos(m_window);
 		const Point screenPos = detail::CursorScreenPos_macOS();
 		
@@ -79,6 +84,28 @@ namespace s3d
 	const CursorState& CCursor::getState() const noexcept
 	{
 		return m_state;
+	}
+
+	void CCursor::setPos(const Point pos)
+	{
+
+	}
+
+	bool CCursor::isClippedToWindow() const noexcept
+	{
+		return m_clippedToWindow;
+	}
+
+	void CCursor::clipToWindow(const bool clip)
+	{
+		if (clip == m_clippedToWindow)
+		{
+			return;
+		}
+
+		m_clippedToWindow = clip;
+
+		
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point& hotSpot)

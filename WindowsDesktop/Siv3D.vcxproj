@@ -50,6 +50,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circular.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ConstantBuffer.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cursor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylindrical.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DiscreteDistribution.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Easing.ipp" />

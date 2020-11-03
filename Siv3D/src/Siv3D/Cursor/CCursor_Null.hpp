@@ -33,6 +33,12 @@ namespace s3d
 		
 		const CursorState& getState() const noexcept override;
 
+		void setPos(Point pos) override;
+
+		bool isClippedToWindow() const noexcept override;
+
+		void clipToWindow(bool clip) override;
+
 		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
 
 		void requestStyle(StringView name) override;

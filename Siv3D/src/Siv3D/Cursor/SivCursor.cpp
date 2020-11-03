@@ -22,24 +22,24 @@ namespace s3d
 			return SIV3D_ENGINE(Cursor)->getState().point.current;
 		}
 
-		Point PreviousPos()
-		{
-			return SIV3D_ENGINE(Cursor)->getState().point.previous;
-		}
-
-		Point Delta()
-		{
-			return SIV3D_ENGINE(Cursor)->getState().point.delta;
-		}
-
 		Vec2 PosF()
 		{
 			return SIV3D_ENGINE(Cursor)->getState().vec2.current;
 		}
 
+		Point PreviousPos()
+		{
+			return SIV3D_ENGINE(Cursor)->getState().point.previous;
+		}
+
 		Vec2 PreviousPosF()
 		{
 			return SIV3D_ENGINE(Cursor)->getState().vec2.previous;
+		}
+
+		Point Delta()
+		{
+			return SIV3D_ENGINE(Cursor)->getState().point.delta;
 		}
 
 		Vec2 DeltaF()
@@ -77,7 +77,22 @@ namespace s3d
 			return SIV3D_ENGINE(Cursor)->getState().screen.delta;
 		}
 
-		bool Register(const StringView name, const Image& image, const Point& hotSpot)
+		void SetPos(const Point pos)
+		{
+			SIV3D_ENGINE(Cursor)->setPos(pos);
+		}
+
+		bool IsClippedToWindow() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->isClippedToWindow();
+		}
+
+		void ClipToWindow(const bool clip)
+		{
+			SIV3D_ENGINE(Cursor)->clipToWindow(clip);
+		}
+
+		bool Register(const StringView name, const Image& image, const Point hotSpot)
 		{
 			return SIV3D_ENGINE(Cursor)->registerCursor(name, image, hotSpot);
 		}

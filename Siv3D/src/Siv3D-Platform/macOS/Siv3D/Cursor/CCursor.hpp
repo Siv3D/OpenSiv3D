@@ -26,6 +26,8 @@ namespace s3d
 		
 		CursorState m_state;
 
+		bool m_clippedToWindow = false;
+
 		static void CursorDeleter(GLFWcursor* h)
 		{
 			::glfwDestroyCursor(h);
@@ -46,6 +48,12 @@ namespace s3d
 		bool update() override;
 		
 		const CursorState& getState() const noexcept override;
+
+		void setPos(Point pos) override;
+
+		bool isClippedToWindow() const noexcept override;
+
+		void clipToWindow(bool clip) override;		
 		
 		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
 

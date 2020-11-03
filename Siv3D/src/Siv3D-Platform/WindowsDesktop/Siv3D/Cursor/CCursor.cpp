@@ -80,6 +80,11 @@ namespace s3d
 
 	bool CCursor::update()
 	{
+		if (m_clippedToWindow)
+		{
+			confineCursor();
+		}
+
 		Point lastClientPos;
 		{
 			const uint64 time = Time::GetMicrosec();
@@ -117,6 +122,40 @@ namespace s3d
 	const CursorState& CCursor::getState() const noexcept
 	{
 		return m_state;
+	}
+
+	void CCursor::setPos(const Point pos)
+	{
+		const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
+		POINT point{ static_cast<int32>(pos.x * scaling), static_cast<int32>(pos.y * scaling) };
+		::ClientToScreen(m_hWnd, &point);
+		::SetCursorPos(point.x, point.y);
+
+		update();
+	}
+
+	bool CCursor::isClippedToWindow() const noexcept
+	{
+		return m_clippedToWindow;
+	}
+
+	void CCursor::clipToWindow(const bool clip)
+	{
+		if (clip == m_clippedToWindow)
+		{
+			return;
+		}
+
+		m_clippedToWindow = clip;
+
+		if (m_clippedToWindow)
+		{
+			confineCursor();
+		}
+		else
+		{
+			::ClipCursor(nullptr);
+		}
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point& hotSpot)
@@ -249,5 +288,19 @@ namespace s3d
 	void CCursor::onSetCursor()
 	{
 		::SetCursor(m_currentCursor);
+	}
+
+	void CCursor::confineCursor()
+	{
+		RECT clientRect;
+		::GetClientRect(m_hWnd, &clientRect);
+
+		POINT leftTop{ clientRect.left, clientRect.top };
+		::ClientToScreen(m_hWnd, &leftTop);
+
+		RECT clipRect{ leftTop.x, leftTop.y,
+			leftTop.x + Max<int32>(clientRect.right - 1, 0),
+			leftTop.y + Max<int32>(clientRect.bottom - 1, 0) };
+		::ClipCursor(&clipRect);
 	}
 }

@@ -32,6 +32,12 @@ namespace s3d
 
 		virtual const CursorState& getState() const noexcept = 0;
 
+		virtual void setPos(Point pos) = 0;
+
+		virtual bool isClippedToWindow() const noexcept = 0;
+
+		virtual void clipToWindow(bool clip) = 0;
+
 		virtual bool registerCursor(StringView name, const Image& image, const Point& hotSpot) = 0;
 
 		virtual void requestStyle(StringView name) = 0;

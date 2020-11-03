@@ -37,6 +37,21 @@ namespace s3d
 		return m_state;
 	}
 
+	void CCursor_Null::setPos(const Point)
+	{
+
+	}
+
+	bool CCursor_Null::isClippedToWindow() const noexcept
+	{
+		return false;
+	}
+
+	void CCursor_Null::clipToWindow(const bool)
+	{
+
+	}
+
 	bool CCursor_Null::registerCursor(StringView, const Image&, const Point&)
 	{
 		return true;

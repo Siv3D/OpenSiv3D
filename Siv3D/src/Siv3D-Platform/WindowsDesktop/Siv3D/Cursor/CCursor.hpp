@@ -31,6 +31,8 @@ namespace s3d
 
 		CursorState m_state;
 
+		bool m_clippedToWindow = false;
+
 		static void CursorDeleter(HICON h)
 		{
 			::DestroyIcon(h);
@@ -38,6 +40,8 @@ namespace s3d
 
 		HICON m_currentCursor = ::LoadCursorW(nullptr, IDC_ARROW);
 		HashTable<String, unique_resource<HICON, decltype(&CursorDeleter)>> m_customCursors;
+
+		void confineCursor();
 
 	public:
 
@@ -50,6 +54,12 @@ namespace s3d
 		bool update() override;
 		
 		const CursorState& getState() const noexcept override;
+
+		void setPos(Point pos) override;
+
+		bool isClippedToWindow() const noexcept override;
+
+		void clipToWindow(bool clip) override;
 	
 		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
 
