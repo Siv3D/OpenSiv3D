@@ -21,6 +21,7 @@ namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static Point CursorScreenPos_Linux(GLFWwindow* window)
 		{
 			::Window root, win;
@@ -34,11 +35,24 @@ namespace s3d
 			return{ rx, ry };
 		}
 	
+		[[nodiscard]]
 		static Vec2 GetClientCursorPos(GLFWwindow* window)
 		{
 			double clientX, clientY;
 			::glfwGetCursorPos(window, &clientX, &clientY);
 			return{ clientX, clientY };
+		}
+
+		[[nodiscard]]
+		static GLFWcursor* CreateCursor(const Image& image, const Point hotSpot)
+		{
+			Array pixels = image.asArray();
+			GLFWimage cursorImage;
+			cursorImage.width	= image.width();
+			cursorImage.height	= image.height();
+			cursorImage.pixels	= (uint8*)pixels.data();
+
+			return ::glfwCreateCursor(&cursorImage, hotSpot.x, hotSpot.y);
 		}
 	}
 
@@ -80,7 +94,7 @@ namespace s3d
 		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= nullptr;
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= detail::CreateCursor(Image(16, 16, Color(0, 0)), Point::Zero());
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
 		m_defaultCursor		= m_currentCursor;
@@ -160,14 +174,8 @@ namespace s3d
 		{
 			return false;
 		}
-		
-		Array pixels = image.asArray();
-		GLFWimage cursorImage;
-		cursorImage.width	= image.width();
-		cursorImage.height	= image.height();
-		cursorImage.pixels	= (uint8*)pixels.data();
-		 
-		if (GLFWcursor* cursor = ::glfwCreateCursor(&cursorImage, hotSpot.x, hotSpot.y))
+
+		if (GLFWcursor* cursor = detail::CreateCursor(image, hotSpot))
 		{
 			m_customCursors.emplace(name, unique_resource{ cursor, CursorDeleter });
 			return true;
