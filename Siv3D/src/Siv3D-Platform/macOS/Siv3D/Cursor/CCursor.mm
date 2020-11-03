@@ -11,6 +11,7 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -41,11 +42,11 @@ namespace s3d
 			::glfwGetCursorPos(window, &clientX, &clientY);
 			return{ clientX, clientY };
 		}
-	
+
 		static void SetSystemCursor(const CursorStyle style)
 		{
 			static id hiddenCursor = nil;
-			
+
 			switch (style)
 			{
 				case CursorStyle::Arrow:
@@ -70,6 +71,7 @@ namespace s3d
 					[[NSCursor resizeLeftRightCursor] set];
 					break;
 				case CursorStyle::Hidden:
+					// [NSCursor hide], [NSCursor unhide] の挙動が怪しいので workaround
 					if (hiddenCursor == nil)
 					{
 						NSImage* data = [[NSImage alloc] initWithSize:NSMakeSize(16, 16)];
@@ -123,6 +125,11 @@ namespace s3d
 		m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
 		
 		{
+			if (not Cursor::OnClientRect())
+			{
+				m_requestedCursor = CursorStyle::Arrow;
+			}
+			
 			{
 				m_currentCursor = m_requestedCursor;
 				
