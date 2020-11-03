@@ -23,6 +23,7 @@ namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static Point GetScreenPos()
 		{
 			@autoreleasepool
@@ -36,6 +37,7 @@ namespace s3d
 			}
 		}
 	
+		[[nodiscard]]
 		static Vec2 GetClientCursorPos(GLFWwindow* window)
 		{
 			double clientX, clientY;
@@ -43,49 +45,21 @@ namespace s3d
 			return{ clientX, clientY };
 		}
 
-		static void SetSystemCursor(const CursorStyle style)
+		[[nodiscard]]
+		static GLFWcursor* CreateCursor(const Image& image, const Point hotSpot)
 		{
-			static id hiddenCursor = nil;
+			Array pixels = image.asArray();
+			GLFWimage cursorImage;
+			cursorImage.width	= image.width();
+			cursorImage.height	= image.height();
+			cursorImage.pixels	= (uint8*)pixels.data();
 
-			switch (style)
-			{
-				case CursorStyle::Arrow:
-					[[NSCursor arrowCursor] set];
-					break;
-				case CursorStyle::IBeam:
-					[[NSCursor IBeamCursor] set];
-					break;
-				case CursorStyle::Cross:
-					[[NSCursor crosshairCursor] set];
-					break;
-				case CursorStyle::Hand:
-					[[NSCursor pointingHandCursor] set];
-					break;
-				case CursorStyle::NotAllowed:
-					[[NSCursor operationNotAllowedCursor] set];
-					break;
-				case CursorStyle::ResizeUpDown:
-					[[NSCursor resizeUpDownCursor] set];
-					break;
-				case CursorStyle::ResizeLeftRight:
-					[[NSCursor resizeLeftRightCursor] set];
-					break;
-				case CursorStyle::Hidden:
-					// [NSCursor hide], [NSCursor unhide] の挙動が怪しいので workaround
-					if (hiddenCursor == nil)
-					{
-						NSImage* data = [[NSImage alloc] initWithSize:NSMakeSize(16, 16)];
-						hiddenCursor = [[NSCursor alloc] initWithImage:data
-															   hotSpot:NSZeroPoint];
-						[data release];
-					}
-					[(NSCursor*) hiddenCursor set];
-					break;
-			}
+			return ::glfwCreateCursor(&cursorImage, hotSpot.x, hotSpot.y);
 		}
 	}
 
 	CCursor::CCursor()
+		: m_systemCursors{}
 	{
 
 	}
@@ -95,6 +69,15 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::~CCursor()");
 		
 		m_customCursors.clear();
+
+		for (auto& systemCursor : m_systemCursors)
+		{
+			if (systemCursor)
+			{
+				::glfwDestroyCursor(systemCursor);
+				systemCursor = nullptr;
+			}
+		}
 	}
 
 	void CCursor::init()
@@ -103,7 +86,19 @@ namespace s3d
 		
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 
-		m_currentCursor		= CursorStyle::Arrow;
+		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= ::glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= ::glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Cross)]			= ::glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Hand)]			= ::glfwCreateStandardCursor(GLFW_POINTING_HAND_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= detail::CreateCursor(Image(16, 16, Color(0, 0)), Point::Zero());
+
+		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
 		m_defaultCursor		= m_currentCursor;
 		m_requestedCursor	= m_defaultCursor;
 	}
@@ -127,20 +122,13 @@ namespace s3d
 		{
 			if (not Cursor::OnClientRect())
 			{
-				m_requestedCursor = CursorStyle::Arrow;
+				m_requestedCursor = m_systemCursors[FromEnum(CursorStyle::Arrow)];
 			}
 			
 			{
 				m_currentCursor = m_requestedCursor;
-				
-				if (std::holds_alternative<CursorStyle>(m_currentCursor))
-				{
-					detail::SetSystemCursor(std::get<CursorStyle>(m_currentCursor));
-				}
-				else
-				{
-					::glfwSetCursor(m_window, m_customCursors[std::get<String>(m_currentCursor)].get());
-				}
+
+				::glfwSetCursor(m_window, m_currentCursor);
 			}
 
 			m_requestedCursor = m_defaultCursor;
@@ -192,14 +180,8 @@ namespace s3d
 		{
 			return false;
 		}
-		
-		Array pixels = image.asArray();
-		GLFWimage cursorImage;
-		cursorImage.width	= image.width();
-		cursorImage.height	= image.height();
-		cursorImage.pixels	= (uint8*)pixels.data();
-		 
-		if (GLFWcursor* cursor = ::glfwCreateCursor(&cursorImage, hotSpot.x, hotSpot.y))
+
+		if (GLFWcursor* cursor = detail::CreateCursor(image, hotSpot))
 		{
 			m_customCursors.emplace(name, unique_resource{ cursor, CursorDeleter });
 			return true;
@@ -215,7 +197,7 @@ namespace s3d
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			m_requestedCursor = String(name);
+			m_requestedCursor = it->second.get();
 		}
 	}
 }

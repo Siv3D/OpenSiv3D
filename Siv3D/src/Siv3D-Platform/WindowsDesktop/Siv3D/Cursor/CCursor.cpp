@@ -85,6 +85,9 @@ namespace s3d
 		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::LoadCursorW(nullptr, IDC_NO);
 		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::LoadCursorW(nullptr, IDC_SIZENS);
 		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::LoadCursorW(nullptr, IDC_SIZEWE);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::LoadCursorW(nullptr, IDC_SIZENWSE);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::LoadCursorW(nullptr, IDC_SIZENESW);
+		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::LoadCursorW(nullptr, IDC_SIZEALL);
 		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= nullptr;
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];

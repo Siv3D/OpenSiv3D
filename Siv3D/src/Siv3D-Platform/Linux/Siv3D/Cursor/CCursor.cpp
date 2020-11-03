@@ -43,6 +43,7 @@ namespace s3d
 	}
 
 	CCursor::CCursor()
+		: m_systemCursors{}
 	{
 
 	}
@@ -55,8 +56,11 @@ namespace s3d
 
 		for (auto& systemCursor : m_systemCursors)
 		{
-			::glfwDestroyCursor(systemCursor);
-			systemCursor = nullptr;
+			if (systemCursor)
+			{
+				::glfwDestroyCursor(systemCursor);
+				systemCursor = nullptr;
+			}
 		}
 	}
 
@@ -73,6 +77,9 @@ namespace s3d
 		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= nullptr;
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];

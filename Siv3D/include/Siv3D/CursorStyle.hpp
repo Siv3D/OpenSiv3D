@@ -30,6 +30,12 @@ namespace s3d
 
 		ResizeLeftRight,
 
+		ResizeNWSE,
+
+		ResizeNESW,
+
+		ResizeAll,
+
 		Hidden,
 
 		Default = Arrow,

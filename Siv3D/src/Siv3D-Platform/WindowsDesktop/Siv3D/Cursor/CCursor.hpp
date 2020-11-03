@@ -39,7 +39,7 @@ namespace s3d
 			::DestroyIcon(h);
 		}
 
-		std::array<HCURSOR, 8> m_systemCursors;
+		std::array<HCURSOR, 11> m_systemCursors;
 		HICON m_currentCursor = nullptr;
 		HICON m_defaultCursor = nullptr;
 		HICON m_requestedCursor = nullptr;
