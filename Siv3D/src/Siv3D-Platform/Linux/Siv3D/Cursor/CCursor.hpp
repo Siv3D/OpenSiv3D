@@ -35,9 +35,10 @@ namespace s3d
 			::glfwDestroyCursor(h);
 		}
 
-		std::variant<CursorStyle, String> m_currentCursor;
-		std::variant<CursorStyle, String> m_defaultCursor;
-		std::variant<CursorStyle, String> m_requestedCursor;
+		std::array<GLFWcursor*, 8> m_systemCursors;
+		GLFWcursor* m_currentCursor;
+		GLFWcursor* m_defaultCursor;
+		GLFWcursor* m_requestedCursor;
 		HashTable<String, unique_resource<GLFWcursor*, decltype(&CursorDeleter)>> m_customCursors;
 
 	public:

@@ -52,6 +52,12 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::~CCursor()");
 
 		m_customCursors.clear();
+
+		for (auto& systemCursor : m_systemCursors)
+		{
+			::glfwDestroyCursor(systemCursor);
+			systemCursor = nullptr;
+		}
 	}
 
 	void CCursor::init()
@@ -59,6 +65,19 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::init()");
 
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
+
+		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= ::glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= ::glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Cross)]			= ::glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Hand)]			= ::glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= nullptr;
+
+		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
+		m_defaultCursor		= m_currentCursor;
+		m_requestedCursor	= m_defaultCursor;
 	}
 
 	bool CCursor::update()
@@ -82,14 +101,7 @@ namespace s3d
 			{
 				m_currentCursor = m_requestedCursor;
 				
-				if (std::holds_alternative<CursorStyle>(m_currentCursor))
-				{
-					// [Siv3D ToDo]
-				}
-				else
-				{
-					::glfwSetCursor(m_window, m_customCursors[std::get<String>(m_currentCursor)].get());
-				}
+				::glfwSetCursor(m_window, m_currentCursor);
 			}
 
 			m_requestedCursor = m_defaultCursor;
@@ -127,12 +139,12 @@ namespace s3d
 
 	void CCursor::requestStyle(const CursorStyle style)
 	{
-		m_requestedCursor = style;
+		m_requestedCursor = m_systemCursors[FromEnum(style)];
 	}
 
 	void CCursor::setDefaultStyle(const CursorStyle style)
 	{
-		m_defaultCursor = style;
+		m_defaultCursor = m_systemCursors[FromEnum(style)];
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)
@@ -164,7 +176,7 @@ namespace s3d
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			m_requestedCursor = String(name);
+			m_requestedCursor = it->second.get();
 		}
 	}
 }
