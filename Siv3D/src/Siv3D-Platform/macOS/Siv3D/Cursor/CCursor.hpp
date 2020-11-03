@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <variant>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/UniqueResource.hpp>
@@ -33,7 +34,10 @@ namespace s3d
 		{
 			::glfwDestroyCursor(h);
 		}
-
+		
+		std::variant<CursorStyle, String> m_currentCursor;
+		std::variant<CursorStyle, String> m_defaultCursor;
+		std::variant<CursorStyle, String> m_requestedCursor;
 		HashTable<String, unique_resource<GLFWcursor*, decltype(&CursorDeleter)>> m_customCursors;
 		
 	public:

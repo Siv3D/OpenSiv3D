@@ -41,6 +41,46 @@ namespace s3d
 			::glfwGetCursorPos(window, &clientX, &clientY);
 			return{ clientX, clientY };
 		}
+	
+		static void SetSystemCursor(const CursorStyle style)
+		{
+			static id hiddenCursor = nil;
+			
+			switch (style)
+			{
+				case CursorStyle::Arrow:
+					[[NSCursor arrowCursor] set];
+					break;
+				case CursorStyle::IBeam:
+					[[NSCursor IBeamCursor] set];
+					break;
+				case CursorStyle::Cross:
+					[[NSCursor crosshairCursor] set];
+					break;
+				case CursorStyle::Hand:
+					[[NSCursor pointingHandCursor] set];
+					break;
+				case CursorStyle::NotAllowed:
+					[[NSCursor operationNotAllowedCursor] set];
+					break;
+				case CursorStyle::ResizeUpDown:
+					[[NSCursor resizeUpDownCursor] set];
+					break;
+				case CursorStyle::ResizeLeftRight:
+					[[NSCursor resizeLeftRightCursor] set];
+					break;
+				case CursorStyle::Hidden:
+					if (hiddenCursor == nil)
+					{
+						NSImage* data = [[NSImage alloc] initWithSize:NSMakeSize(16, 16)];
+						hiddenCursor = [[NSCursor alloc] initWithImage:data
+															   hotSpot:NSZeroPoint];
+						[data release];
+					}
+					[(NSCursor*) hiddenCursor set];
+					break;
+			}
+		}
 	}
 
 	CCursor::CCursor()
@@ -60,6 +100,10 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::init()");
 		
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
+
+		m_currentCursor		= CursorStyle::Arrow;
+		m_defaultCursor		= m_currentCursor;
+		m_requestedCursor	= m_defaultCursor;
 	}
 
 	bool CCursor::update()
@@ -77,6 +121,23 @@ namespace s3d
 		const double uiScaling = (frameBufferSize.x / virtualSize.x);
 		
 		m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
+		
+		{
+			{
+				m_currentCursor = m_requestedCursor;
+				
+				if (std::holds_alternative<CursorStyle>(m_currentCursor))
+				{
+					detail::SetSystemCursor(std::get<CursorStyle>(m_currentCursor));
+				}
+				else
+				{
+					::glfwSetCursor(m_window, m_customCursors[std::get<String>(m_currentCursor)].get());
+				}
+			}
+
+			m_requestedCursor = m_defaultCursor;
+		}
 		
 		return true;
 	}
@@ -110,12 +171,12 @@ namespace s3d
 
 	void CCursor::requestStyle(const CursorStyle style)
 	{
-
+		m_requestedCursor = style;
 	}
 
 	void CCursor::setDefaultStyle(const CursorStyle style)
 	{
-
+		m_defaultCursor = style;
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)
@@ -147,7 +208,7 @@ namespace s3d
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			::glfwSetCursor(m_window, it->second.get());
+			m_requestedCursor = String(name);
 		}
 	}
 }
