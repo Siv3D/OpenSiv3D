@@ -166,12 +166,12 @@ namespace s3d
 
 	void CCursor::requestStyle(const CursorStyle style)
 	{
-		m_requestedCursor = style;
+		m_requestedCursor = m_systemCursors[FromEnum(style)];
 	}
 
 	void CCursor::setDefaultStyle(const CursorStyle style)
 	{
-		m_defaultCursor = style;
+		m_defaultCursor = m_systemCursors[FromEnum(style)];
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)

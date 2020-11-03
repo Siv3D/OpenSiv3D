@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <variant>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/UniqueResource.hpp>
