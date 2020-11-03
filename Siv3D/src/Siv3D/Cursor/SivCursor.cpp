@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -80,6 +81,12 @@ namespace s3d
 		void SetPos(const Point pos)
 		{
 			SIV3D_ENGINE(Cursor)->setPos(pos);
+		}
+
+		bool OnClientRect()
+		{
+			return Rect(Window::GetState().frameBufferSize)
+				.intersects(SIV3D_ENGINE(Cursor)->getState().raw.current);
 		}
 
 		bool IsClippedToWindow() noexcept

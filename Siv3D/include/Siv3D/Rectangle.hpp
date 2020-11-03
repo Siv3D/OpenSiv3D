@@ -270,6 +270,12 @@ namespace s3d
 				>> value.h >> unused;
 		}
 
+		[[nodiscard]]
+		bool intersects(const Point point) const
+		{
+			return (x <= point.x) && (point.x < (x + w))
+				&& (y <= point.y) && (point.y < (y + h));
+		}
 
 
 

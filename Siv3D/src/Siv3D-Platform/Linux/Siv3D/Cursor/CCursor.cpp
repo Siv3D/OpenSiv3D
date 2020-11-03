@@ -77,6 +77,24 @@ namespace s3d
 		
 		m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
 
+		{
+			if (m_currentCursor != m_requestedCursor)
+			{
+				m_currentCursor = m_requestedCursor;
+				
+				if (std::holds_alternative<CursorStyle>(m_currentCursor))
+				{
+					// [Siv3D ToDo]
+				}
+				else
+				{
+					::glfwSetCursor(m_window, m_customCursors[std::get<String>(m_currentCursor)].get());
+				}
+			}
+
+			m_requestedCursor = m_defaultCursor;
+		}
+
 		return true;
 	}
 
@@ -109,12 +127,12 @@ namespace s3d
 
 	void CCursor::requestStyle(const CursorStyle style)
 	{
-
+		m_requestedCursor = style;
 	}
 
 	void CCursor::setDefaultStyle(const CursorStyle style)
 	{
-
+		m_defaultCursor = style;
 	}
 
 	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)
@@ -146,7 +164,7 @@ namespace s3d
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			::glfwSetCursor(m_window, it->second.get());
+			m_requestedCursor = String(name);
 		}
 	}
 }

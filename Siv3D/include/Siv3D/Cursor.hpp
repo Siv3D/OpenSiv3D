@@ -96,6 +96,11 @@ namespace s3d
 		/// @param pos 移動先の座標 (ピクセル)
 		void SetPos(Point pos);
 
+		/// @brief マウスカーソルがクライアント画面上にあるかを返します。
+		/// @return マウスカーソルがクライアント画面上にある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool OnClientRect();
+
 		/// @brief マウスカーソルの移動範囲をクライアント画面に制限されているかを返します。
 		/// @return 制限されている場合 true, それ以外の場合は false
 		[[nodiscard]]
