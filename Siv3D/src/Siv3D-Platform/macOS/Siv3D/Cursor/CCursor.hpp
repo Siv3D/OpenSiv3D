@@ -26,7 +26,7 @@ namespace s3d
 		
 		CursorState m_state;
 
-		bool m_clippedToWindow = false;
+		bool m_clipToWindow = false;
 
 		static void CursorDeleter(GLFWcursor* h)
 		{

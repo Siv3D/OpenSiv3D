@@ -686,6 +686,7 @@
 		2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextWriter.cpp; sourceTree = "<group>"; };
 		2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_Metal.hpp; sourceTree = "<group>"; };
 		2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer_Metal.mm; sourceTree = "<group>"; };
+		2C13667825518DC400F90BAC /* Cursor.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Cursor.ipp; path = detail/Cursor.ipp; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
@@ -2151,6 +2152,7 @@
 				2C4396B02535DD3000F6AECD /* Window.hpp */,
 				2C4397522535DD3000F6AECD /* WindowState.hpp */,
 				2C43973B2535DD3000F6AECD /* WindowStyle.hpp */,
+				2C13667825518DC400F90BAC /* Cursor.ipp */,
 				2C4396BD2535DD3000F6AECD /* detail */,
 				2C43973F2535DD3000F6AECD /* ImageFormat */,
 			);

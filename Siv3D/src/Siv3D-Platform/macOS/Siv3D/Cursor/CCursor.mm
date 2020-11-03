@@ -22,7 +22,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		static Point CursorScreenPos_macOS()
+		static Point GetScreenPos()
 		{
 			@autoreleasepool
 			{
@@ -70,7 +70,7 @@ namespace s3d
 		}
 
 		const Vec2 clientPos = detail::GetClientCursorPos(m_window);
-		const Point screenPos = detail::CursorScreenPos_macOS();
+		const Point screenPos = detail::GetScreenPos();
 		
 		const Vec2 frameBufferSize = SIV3D_ENGINE(Window)->getState().frameBufferSize;
 		const Vec2 virtualSize = SIV3D_ENGINE(Window)->getState().virtualSize;
@@ -88,22 +88,22 @@ namespace s3d
 
 	void CCursor::setPos(const Point pos)
 	{
-
+		::glfwSetCursorPos(m_window, pos.x, pos.y);
 	}
 
 	bool CCursor::isClippedToWindow() const noexcept
 	{
-		return m_clippedToWindow;
+		return m_clipToWindow;
 	}
 
 	void CCursor::clipToWindow(const bool clip)
 	{
-		if (clip == m_clippedToWindow)
+		if (clip == m_clipToWindow)
 		{
 			return;
 		}
 
-		m_clippedToWindow = clip;
+		m_clipToWindow = clip;
 
 		
 	}

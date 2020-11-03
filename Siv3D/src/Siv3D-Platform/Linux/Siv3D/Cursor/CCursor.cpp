@@ -92,17 +92,17 @@ namespace s3d
 
 	bool CCursor::isClippedToWindow() const noexcept
 	{
-		return m_clippedToWindow;
+		return m_clipToWindow;
 	}
 
 	void CCursor::clipToWindow(const bool clip)
 	{
-		if (clip == m_clippedToWindow)
+		if (clip == m_clipToWindow)
 		{
 			return;
 		}
 
-		m_clippedToWindow = clip;
+		m_clipToWindow = clip;
 
 
 	}
