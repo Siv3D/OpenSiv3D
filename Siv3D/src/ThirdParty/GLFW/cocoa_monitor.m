@@ -1,5 +1,5 @@
 //========================================================================
-// GLFW 3.3 macOS - www.glfw.org
+// GLFW 3.4 macOS - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2019 Camilla Löwy <elmindreda@glfw.org>
@@ -277,14 +277,20 @@ static double getFallbackRefreshRate(CGDirectDisplayID displayID)
                                             CFSTR("IOFBCurrentPixelCount"),
                                             kCFAllocatorDefault,
                                             kNilOptions);
-        if (!clockRef || !countRef)
-            break;
 
         uint32_t clock = 0, count = 0;
-        CFNumberGetValue(clockRef, kCFNumberIntType, &clock);
-        CFNumberGetValue(countRef, kCFNumberIntType, &count);
-        CFRelease(clockRef);
-        CFRelease(countRef);
+
+        if (clockRef)
+        {
+            CFNumberGetValue(clockRef, kCFNumberIntType, &clock);
+            CFRelease(clockRef);
+        }
+
+        if (countRef)
+        {
+            CFNumberGetValue(countRef, kCFNumberIntType, &count);
+            CFRelease(countRef);
+        }
 
         if (clock > 0 && count > 0)
             refreshRate = clock / (double) count;

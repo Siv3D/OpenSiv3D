@@ -1,5 +1,5 @@
 //========================================================================
-// GLFW 3.3 macOS - www.glfw.org
+// GLFW 3.4 macOS - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2009-2019 Camilla Löwy <elmindreda@glfw.org>
 //
@@ -51,7 +51,7 @@ static void swapBuffersNSGL(_GLFWwindow* window)
 
     // HACK: Simulate vsync with usleep as NSGL swap interval does not apply to
     //       windows with a non-visible occlusion state
-    if (!([window->ns.object occlusionState] & NSWindowOcclusionStateVisible))
+    if (window->ns.occluded)
     {
         int interval = 0;
         [window->context.nsgl.object getValues:&interval
@@ -172,13 +172,6 @@ GLFWbool _glfwCreateContextNSGL(_GLFWwindow* window,
         {
             _glfwInputError(GLFW_VERSION_UNAVAILABLE,
                             "NSGL: The targeted version of macOS does not support OpenGL 3.0 or 3.1 but may support 3.2 and above");
-            return GLFW_FALSE;
-        }
-
-        if (!ctxconfig->forward || ctxconfig->profile != GLFW_OPENGL_CORE_PROFILE)
-        {
-            _glfwInputError(GLFW_VERSION_UNAVAILABLE,
-                            "NSGL: The targeted version of macOS only supports forward-compatible core profile contexts for OpenGL 3.2 and above");
             return GLFW_FALSE;
         }
     }

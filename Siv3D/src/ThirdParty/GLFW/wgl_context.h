@@ -1,5 +1,5 @@
 //========================================================================
-// GLFW 3.3 WGL - www.glfw.org
+// GLFW 3.4 WGL - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2018 Camilla Löwy <elmindreda@glfw.org>
@@ -103,10 +103,6 @@ typedef BOOL (WINAPI * PFN_wglShareLists)(HGLRC,HGLRC);
 #define wglGetCurrentContext _glfw.wgl.GetCurrentContext
 #define wglMakeCurrent _glfw.wgl.MakeCurrent
 #define wglShareLists _glfw.wgl.ShareLists
-
-#define _GLFW_RECREATION_NOT_NEEDED 0
-#define _GLFW_RECREATION_REQUIRED   1
-#define _GLFW_RECREATION_IMPOSSIBLE 2
 
 #define _GLFW_PLATFORM_CONTEXT_STATE            _GLFWcontextWGL wgl
 #define _GLFW_PLATFORM_LIBRARY_CONTEXT_STATE    _GLFWlibraryWGL wgl
