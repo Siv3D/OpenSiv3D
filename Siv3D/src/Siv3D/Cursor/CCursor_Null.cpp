@@ -52,7 +52,17 @@ namespace s3d
 
 	}
 
-	bool CCursor_Null::registerCursor(StringView, const Image&, const Point&)
+	void CCursor_Null::requestStyle(const CursorStyle)
+	{
+
+	}
+
+	void CCursor_Null::setDefaultStyle(const CursorStyle)
+	{
+
+	}
+
+	bool CCursor_Null::registerCursor(const StringView, const Image&, const Point)
 	{
 		return true;
 	}

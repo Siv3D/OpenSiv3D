@@ -108,7 +108,17 @@ namespace s3d
 		
 	}
 
-	bool CCursor::registerCursor(const StringView name, const Image& image, const Point& hotSpot)
+	void CCursor::requestStyle(const CursorStyle style)
+	{
+
+	}
+
+	void CCursor::setDefaultStyle(const CursorStyle style)
+	{
+
+	}
+
+	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)
 	{
 		if (m_customCursors.contains(name))
 		{

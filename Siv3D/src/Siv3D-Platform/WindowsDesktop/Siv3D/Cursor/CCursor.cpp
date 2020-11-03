@@ -51,6 +51,7 @@ namespace s3d
 
 	CCursor::CCursor()
 		: m_clientPosBuffer{ { Time::GetMicrosec(), Point(0, 0) } }
+		, m_systemCursors{}
 	{
 
 	}
@@ -76,6 +77,19 @@ namespace s3d
 			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), clientPos);
 		}
 		update();
+
+		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= ::LoadCursorW(nullptr, IDC_ARROW);
+		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= ::LoadCursorW(nullptr, IDC_IBEAM);
+		m_systemCursors[FromEnum(CursorStyle::Cross)]			= ::LoadCursorW(nullptr, IDC_CROSS);
+		m_systemCursors[FromEnum(CursorStyle::Hand)]			= ::LoadCursorW(nullptr, IDC_HAND);
+		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::LoadCursorW(nullptr, IDC_NO);
+		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::LoadCursorW(nullptr, IDC_SIZENS);
+		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::LoadCursorW(nullptr, IDC_SIZEWE);
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= nullptr;
+
+		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
+		m_defaultCursor		= m_currentCursor;
+		m_requestedCursor	= m_defaultCursor;
 	}
 
 	bool CCursor::update()
@@ -115,6 +129,19 @@ namespace s3d
 			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
 			m_state.update(lastClientPos, lastClientPos / scaling, Point(screenPos.x, screenPos.y));
 		}
+
+		if (m_currentCursor != m_requestedCursor)
+		{
+			m_currentCursor = m_requestedCursor;
+			::SetCursor(m_currentCursor);
+		}
+		else if (m_requestedCursor == nullptr)
+		{
+			// カーソルを必ず非表示にするための workaround
+			::SetCursor(nullptr);
+		}
+
+		m_requestedCursor = m_defaultCursor;
 
 		return true;
 	}
@@ -158,7 +185,17 @@ namespace s3d
 		}
 	}
 
-	bool CCursor::registerCursor(const StringView name, const Image& image, const Point& hotSpot)
+	void CCursor::requestStyle(const CursorStyle style)
+	{
+		m_requestedCursor = m_systemCursors[FromEnum(style)];
+	}
+
+	void CCursor::setDefaultStyle(const CursorStyle style)
+	{
+		m_defaultCursor = m_systemCursors[FromEnum(style)];
+	}
+
+	bool CCursor::registerCursor(const StringView name, const Image& image, const Point hotSpot)
 	{
 		if (m_customCursors.contains(name))
 		{
@@ -240,7 +277,7 @@ namespace s3d
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			m_currentCursor = it->second.get();
+			m_requestedCursor = it->second.get();
 		}
 	}
 

@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	enum class CursorStyle : uint32;
 	class Image;
 
 	class SIV3D_NOVTABLE ISiv3DCursor
@@ -38,7 +39,11 @@ namespace s3d
 
 		virtual void clipToWindow(bool clip) = 0;
 
-		virtual bool registerCursor(StringView name, const Image& image, const Point& hotSpot) = 0;
+		virtual void setDefaultStyle(CursorStyle style) = 0;
+
+		virtual void requestStyle(CursorStyle style) = 0;
+
+		virtual bool registerCursor(StringView name, const Image& image, Point hotSpot) = 0;
 
 		virtual void requestStyle(StringView name) = 0;
 	};

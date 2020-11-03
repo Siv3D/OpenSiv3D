@@ -15,6 +15,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/UniqueResource.hpp>
+# include <Siv3D/CursorStyle.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 
@@ -38,7 +39,10 @@ namespace s3d
 			::DestroyIcon(h);
 		}
 
-		HICON m_currentCursor = ::LoadCursorW(nullptr, IDC_ARROW);
+		std::array<HCURSOR, 8> m_systemCursors;
+		HICON m_currentCursor = nullptr;
+		HICON m_defaultCursor = nullptr;
+		HICON m_requestedCursor = nullptr;
 		HashTable<String, unique_resource<HICON, decltype(&CursorDeleter)>> m_customCursors;
 
 		void confineCursor();
@@ -60,11 +64,19 @@ namespace s3d
 		bool isClippedToWindow() const noexcept override;
 
 		void clipToWindow(bool clip) override;
+
+		void requestStyle(CursorStyle style) override;
+
+		void setDefaultStyle(CursorStyle style) override;
 	
-		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
+		bool registerCursor(StringView name, const Image& image, Point hotSpot) override;
 
 		void requestStyle(StringView name) override;
 
+		////////////////////////////////////////////////////////////////
+		//
+		//	Windows
+		//
 		void handleMessage(UINT message, WPARAM wParam, LPARAM lParam);
 
 		void onSetCursor();

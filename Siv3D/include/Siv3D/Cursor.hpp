@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	enum class CursorStyle : uint32;
 	class Image;
 
 	namespace Cursor
@@ -104,8 +105,23 @@ namespace s3d
 		/// @param clip 制限を設定する場合 true, 解除する場合は false
 		void ClipToWindow(bool clip);
 
-		bool Register(StringView name, const Image& image, Point hotSpot = Point{ 0, 0 });
+		/// @brief アプリケーションのデフォルトのマウスカーソルを設定します。
+		/// @param style  カーソルのスタイル
+		void SetDefaultStyle(CursorStyle style);
 
+		/// @brief 現在のフレームのマウスカーソルを、指定したスタイルにするようリクエストします。
+		/// @param style カーソルのスタイル
+		void RequestStyle(CursorStyle style);
+
+		/// @brief カスタムのマウスカーソルを登録します。
+		/// @param name カスタムマウスカーソルの名前
+		/// @param image カスタムマウスカーソルの画像
+		/// @param hotSpot 画像中のクリック位置
+		/// @return カスタムのマウスカーソルの登録に成功した場合 true, それ以外の場合は false
+		bool RegisterCustomCursorStyle(StringView name, const Image& image, Point hotSpot = Point{ 0, 0 });
+
+		/// @brief 現在のフレームのマウスカーソルを、指定したカスタムマウスカーソルにするようリクエストします。
+		/// @param name カスタムマウスカーソルの名前
 		void RequestStyle(StringView name);
 	}
 }

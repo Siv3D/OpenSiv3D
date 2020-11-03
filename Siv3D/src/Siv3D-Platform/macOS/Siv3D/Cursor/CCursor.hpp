@@ -13,6 +13,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/UniqueResource.hpp>
+# include <Siv3D/CursorStyle.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
 
@@ -53,9 +54,13 @@ namespace s3d
 
 		bool isClippedToWindow() const noexcept override;
 
-		void clipToWindow(bool clip) override;		
+		void clipToWindow(bool clip) override;
+
+		void requestStyle(CursorStyle style) override;
+
+		void setDefaultStyle(CursorStyle style) override;
 		
-		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
+		bool registerCursor(StringView name, const Image& image, Point hotSpot) override;
 
 		void requestStyle(StringView name) override;
 	};

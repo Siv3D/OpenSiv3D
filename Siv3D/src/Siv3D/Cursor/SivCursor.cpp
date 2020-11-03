@@ -92,7 +92,17 @@ namespace s3d
 			SIV3D_ENGINE(Cursor)->clipToWindow(clip);
 		}
 
-		bool Register(const StringView name, const Image& image, const Point hotSpot)
+		void SetDefaultStyle(const CursorStyle style)
+		{
+			SIV3D_ENGINE(Cursor)->setDefaultStyle(style);
+		}
+
+		void RequestStyle(const CursorStyle style)
+		{
+			SIV3D_ENGINE(Cursor)->requestStyle(style);
+		}
+
+		bool RegisterCustomCursorStyle(const StringView name, const Image& image, const Point hotSpot)
 		{
 			return SIV3D_ENGINE(Cursor)->registerCursor(name, image, hotSpot);
 		}

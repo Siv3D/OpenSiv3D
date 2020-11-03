@@ -39,7 +39,11 @@ namespace s3d
 
 		void clipToWindow(bool clip) override;
 
-		bool registerCursor(StringView name, const Image& image, const Point& hotSpot) override;
+		void requestStyle(CursorStyle style) override;
+
+		void setDefaultStyle(CursorStyle style) override;
+
+		bool registerCursor(StringView name, const Image& image, Point hotSpot) override;
 
 		void requestStyle(StringView name) override;
 	};

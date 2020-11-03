@@ -902,6 +902,8 @@
 
 # include <Siv3D/Console.hpp>
 
+# include <Siv3D/CursorStyle.hpp>
+
 # include <Siv3D/Cursor.hpp>
 
 # include <Siv3D/Vertex2D.hpp>
