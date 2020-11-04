@@ -137,17 +137,7 @@ namespace s3d
 
 			m_state.update(clientRawPos.asPoint(), clientPos.asPoint(), screenPos);
 		}
-
-/*
-		const Vec2 clientPos = detail::GetClientCursorPos(m_window);
-		const Point screenPos = detail::GetScreenPos();
-		
-		const Vec2 frameBufferSize = SIV3D_ENGINE(Window)->getState().frameBufferSize;
-		const Vec2 virtualSize = SIV3D_ENGINE(Window)->getState().virtualSize;
-		const double uiScaling = (frameBufferSize.x / virtualSize.x);
-		
-		m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
-*/		
+	
 		{
 			if (not Cursor::OnClientRect())
 			{

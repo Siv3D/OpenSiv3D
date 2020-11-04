@@ -23,7 +23,7 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		static Point CursorScreenPos_Linux(GLFWwindow* window)
+		static Point GetScreenPos(GLFWwindow* window)
 		{
 			::Window root, win;
 			int wx, wy, rx, ry;
@@ -136,16 +136,6 @@ namespace s3d
 			m_state.update(clientRawPos.asPoint(), clientPos.asPoint(), screenPos);
 		}
 
-/*
-		const Vec2 clientPos = detail::GetClientCursorPos(m_window);
-		const Point screenPos = detail::CursorScreenPos_Linux(m_window);
-		
-		const Vec2 frameBufferSize = SIV3D_ENGINE(Window)->getState().frameBufferSize;
-		const Vec2 virtualSize = SIV3D_ENGINE(Window)->getState().virtualSize;
-		const double uiScaling = (frameBufferSize.x / virtualSize.x);
-		
-		m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
-*/
 		{
 			if (m_currentCursor != m_requestedCursor)
 			{
