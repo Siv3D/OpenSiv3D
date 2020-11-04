@@ -27,11 +27,13 @@ namespace s3d
 	{
 		static void RegisterRawInput(HWND hWnd)
 		{
-			RAWINPUTDEVICE rid;
-			rid.usUsagePage = 0x01; // HID_USAGE_PAGE_GENERIC;
-			rid.usUsage		= 0x02; // HID_USAGE_GENERIC_MOUSE;
-			rid.dwFlags		= RIDEV_INPUTSINK;
-			rid.hwndTarget	= hWnd;
+			const RAWINPUTDEVICE rid =
+			{
+				.usUsagePage	= 0x01, // HID_USAGE_PAGE_GENERIC;
+				.usUsage		= 0x02, // HID_USAGE_GENERIC_MOUSE;
+				.dwFlags		= RIDEV_INPUTSINK,
+				.hwndTarget		= hWnd,
+			};
 
 			LOG_TRACE(U"RegisterRawInputDevices()");
 			if (!::RegisterRawInputDevices(&rid, 1, sizeof(RAWINPUTDEVICE)))

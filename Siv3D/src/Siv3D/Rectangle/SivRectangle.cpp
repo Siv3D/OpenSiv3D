@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/FormatData.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -21,6 +23,32 @@ namespace s3d
 		SIV3D_ENGINE(Renderer2D)->test_renderRectangle(*this, color);
 
 		return *this;
+	}
+
+	void Rect::_Formatter(FormatData& formatData, const Rect& value)
+	{
+		formatData.string.push_back(U'(');
+		formatData.string.append(ToString(value.x));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.y));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.w));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.h));
+		formatData.string.push_back(U')');
+	}
+
+	void RectF::_Formatter(FormatData& formatData, const RectF& value)
+	{
+		formatData.string.push_back(U'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.w, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.h, formatData.decimalPlaces.value));
+		formatData.string.push_back(U')');
 	}
 
 	template struct Rectangle<Point>;

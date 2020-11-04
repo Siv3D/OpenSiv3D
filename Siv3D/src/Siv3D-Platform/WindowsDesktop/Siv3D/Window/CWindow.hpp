@@ -15,7 +15,6 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Optional.hpp>
-# include "Monitor.hpp"
 
 namespace s3d
 {
@@ -33,8 +32,6 @@ namespace s3d
 
 		String m_title = String(Window::DefaultTitle);
 		String m_actualTitle = String(SIV3D_BUILD(DEBUG) ? U"Siv3D App (Debug Build)"_sv : Window::DefaultTitle);
-
-		Array<Monitor> m_monitors;
 
 		WindowState m_state;
 		uint32 m_dpi = USER_DEFAULT_SCREEN_DPI;

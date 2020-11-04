@@ -15,6 +15,8 @@
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/DLL.hpp>
+# include <Siv3D/Monitor.hpp>
+# include <Siv3D/Indexed.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/UserAction/IUSerAction.hpp>
@@ -127,17 +129,28 @@ namespace s3d
 		detail::RegisterWindowClass(m_hInstance, m_windowClassName.c_str());
 
 		// モニタを取得
-		if (m_monitors = detail::EnumActiveMonitors();
-			m_monitors.empty())
+		const Array<Monitor> monitors = System::EnumerateActiveMonitors();
+
+		if (not monitors)
 		{
-			throw EngineError(U"EnumActiveMonitors() failed");
+			throw EngineError(U"System::EnumActiveMonitors() failed");
+		}
+
+		for (auto [i, monitor] : Indexed(monitors))
+		{
+			LOG_TRACE(U"🖥️ Monitor[{}]"_fmt(i) + monitor.format());
 		}
 
 		// ウィンドウを作成
+		for (const auto& monitor : monitors)
 		{
-			const auto& monitor = m_monitors[0];
-			const double scale = monitor.getScale();
-			m_dpi = monitor.displayDPI;
+			if (not monitor.isPrimary)
+			{
+				continue;
+			}
+
+			const double scale = monitor.scaling.value_or(1.0);
+			m_dpi = static_cast<uint32>(std::round(USER_DEFAULT_SCREEN_DPI * scale));
 			m_state.scaling = detail::GetScaling(m_dpi);
 
 			m_state.frameBufferSize = (m_state.virtualSize * scale).asPoint();
@@ -164,6 +177,8 @@ namespace s3d
 			{
 				throw EngineError(U"CreateWindowExW() failed");
 			}
+
+			break;
 		}
 
 		// Disable touch feedback visualization that causes frame rate drops

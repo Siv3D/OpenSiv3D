@@ -854,6 +854,8 @@
 
 # include <Siv3D/CPUInfo.hpp>
 
+# include <Siv3D/DisplayResplution.hpp>
+
 # include <Siv3D/Monitor.hpp>
 
 # include <Siv3D/UserAction.hpp>

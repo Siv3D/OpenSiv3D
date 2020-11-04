@@ -541,6 +541,12 @@
     <Filter Include="src\Siv3D\Interpolation">
       <UniqueIdentifier>{b3997c72-c435-4fbe-a90c-dddf0193029b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Monitor">
+      <UniqueIdentifier>{42b3f1a8-4346-4383-97c1-f4cb602fdbff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor">
+      <UniqueIdentifier>{307e8556-b1c3-49c9-907b-f823a4806fd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1297,9 +1303,6 @@
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\DPIAwareness.hpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\Monitor.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\TouchFeedback.hpp">
@@ -2148,6 +2151,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResplution.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -2463,9 +2469,6 @@
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Windows</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\DPIAwareness.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\Monitor.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\TouchFeedback.cpp">
@@ -2956,6 +2959,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Interpolation\SivInterpolation.cpp">
       <Filter>src\Siv3D\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp">
+      <Filter>src\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor\SivMonitor_Windows.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

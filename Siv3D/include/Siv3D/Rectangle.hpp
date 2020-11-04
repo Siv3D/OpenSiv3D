@@ -280,6 +280,13 @@ namespace s3d
 
 
 		const Rectangle& draw(const ColorF& color = Palette::White) const;
+
+		friend void Formatter(FormatData& formatData, const Rectangle& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Rectangle& value);
 	};
 
 	/// <summary>
