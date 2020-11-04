@@ -25,6 +25,7 @@ namespace s3d
 		return *this;
 	}
 
+	template <>
 	void Rect::_Formatter(FormatData& formatData, const Rect& value)
 	{
 		formatData.string.push_back(U'(');
@@ -38,6 +39,7 @@ namespace s3d
 		formatData.string.push_back(U')');
 	}
 
+	template <>
 	void RectF::_Formatter(FormatData& formatData, const RectF& value)
 	{
 		formatData.string.push_back(U'(');
