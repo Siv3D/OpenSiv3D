@@ -133,7 +133,7 @@ namespace s3d
 			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
 			const Vec2 clientPos = m_transformAllInv.transformPoint(clientRawPos);
 
-			m_state.update(clientRawPos, clientPos.asPoint(), screenPos);
+			m_state.update(clientRawPos.asPoint(), clientPos.asPoint(), screenPos);
 		}
 
 /*

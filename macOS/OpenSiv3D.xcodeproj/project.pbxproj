@@ -1696,6 +1696,7 @@
 		2CF21D10249FAA8F00C864C9 /* CWindow_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CWindow_macOS.mm; sourceTree = "<group>"; };
 		2CF21D12249FAA8F00C864C9 /* CWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWindow.hpp; sourceTree = "<group>"; };
 		2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
+		2CF2AF852552876700E81D12 /* Monitor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Monitor.hpp; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
 		2CFF9F6124A46481000B5A17 /* osmesa_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osmesa_context.h; sourceTree = "<group>"; };
 		2CFF9F6224A46481000B5A17 /* osmesa_context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osmesa_context.c; sourceTree = "<group>"; };
@@ -2072,6 +2073,7 @@
 				2C4396992535DD3000F6AECD /* Meta.hpp */,
 				2C4396922535DD3000F6AECD /* MicrosecClock.hpp */,
 				2C4396AE2535DD3000F6AECD /* MillisecClock.hpp */,
+				2CF2AF852552876700E81D12 /* Monitor.hpp */,
 				2C4396772535DD3000F6AECD /* NamedParameter.hpp */,
 				2C4397462535DD3000F6AECD /* Noise.hpp */,
 				2C4397632535DD3000F6AECD /* None.hpp */,
