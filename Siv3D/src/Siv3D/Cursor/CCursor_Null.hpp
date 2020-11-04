@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 
 namespace s3d
@@ -20,6 +21,10 @@ namespace s3d
 	private:
 
 		CursorState m_state;
+
+		Mat3x2 m_transformLocal		= Mat3x2::Identity();
+		Mat3x2 m_transformCamera	= Mat3x2::Identity();
+		Mat3x2 m_transformScreen	= Mat3x2::Identity();
 
 	public:
 
@@ -34,6 +39,18 @@ namespace s3d
 		const CursorState& getState() const noexcept override;
 
 		void setPos(Point pos) override;
+
+		const Mat3x2& getLocalTransform() const noexcept override;
+
+		const Mat3x2& getCameraTransform() const noexcept override;
+
+		const Mat3x2& getScreenTransform() const noexcept override;
+
+		void setLocalTransform(const Mat3x2& matrix) override;
+
+		void setCameraTransform(const Mat3x2& matrix) override;
+
+		void setScreenTransform(const Mat3x2& matrix) override;
 
 		bool isClippedToWindow() const noexcept override;
 

@@ -15,6 +15,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/UniqueResource.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/CursorStyle.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Windows/Windows.hpp>
@@ -31,6 +32,12 @@ namespace s3d
 		Array<std::pair<uint64, Point>> m_clientPosBuffer;
 
 		CursorState m_state;
+
+		Mat3x2 m_transformLocal		= Mat3x2::Identity();
+		Mat3x2 m_transformCamera	= Mat3x2::Identity();
+		Mat3x2 m_transformScreen	= Mat3x2::Identity();
+		Mat3x2 m_transformAll		= Mat3x2::Identity();
+		Mat3x2 m_transformAllInv	= Mat3x2::Identity();
 
 		bool m_clippedToWindow = false;
 
@@ -60,6 +67,18 @@ namespace s3d
 		const CursorState& getState() const noexcept override;
 
 		void setPos(Point pos) override;
+
+		const Mat3x2& getLocalTransform() const noexcept override;
+
+		const Mat3x2& getCameraTransform() const noexcept override;
+
+		const Mat3x2& getScreenTransform() const noexcept override;
+
+		void setLocalTransform(const Mat3x2& matrix) override;
+
+		void setCameraTransform(const Mat3x2& matrix) override;
+
+		void setScreenTransform(const Mat3x2& matrix) override;
 
 		bool isClippedToWindow() const noexcept override;
 

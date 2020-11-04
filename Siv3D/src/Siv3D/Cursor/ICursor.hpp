@@ -17,6 +17,7 @@
 namespace s3d
 {
 	enum class CursorStyle : uint32;
+	struct Mat3x2;
 	class Image;
 
 	class SIV3D_NOVTABLE ISiv3DCursor
@@ -34,6 +35,18 @@ namespace s3d
 		virtual const CursorState& getState() const noexcept = 0;
 
 		virtual void setPos(Point pos) = 0;
+
+		virtual const Mat3x2& getLocalTransform() const noexcept = 0;
+
+		virtual const Mat3x2& getCameraTransform() const noexcept = 0;
+
+		virtual const Mat3x2& getScreenTransform() const noexcept = 0;
+
+		virtual void setLocalTransform(const Mat3x2& matrix) = 0;
+
+		virtual void setCameraTransform(const Mat3x2& matrix) = 0;
+
+		virtual void setScreenTransform(const Mat3x2& matrix) = 0;
 
 		virtual bool isClippedToWindow() const noexcept = 0;
 

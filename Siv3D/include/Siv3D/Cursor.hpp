@@ -16,6 +16,7 @@
 namespace s3d
 {
 	enum class CursorStyle : uint32;
+	struct Mat3x2;
 	class Image;
 
 	namespace Cursor
@@ -128,6 +129,23 @@ namespace s3d
 		/// @brief 現在のフレームのマウスカーソルを、指定したカスタムマウスカーソルにするようリクエストします。
 		/// @param name カスタムマウスカーソルの名前
 		void RequestStyle(StringView name);
+
+		/// @brief マウスカーソルのクライアント座標に適用されているローカル座標変換を返します。
+		/// @return 適用されているローカル座標変換
+		[[nodiscard]]
+		const Mat3x2& GetLocalTransform() noexcept;
+
+		/// @brief マウスカーソルのクライアント座標に適用されているカメラ座標変換を返します。
+		/// @return 適用されているカメラ座標変換
+		[[nodiscard]]
+		const Mat3x2& GetCameraTransform() noexcept;
+
+		namespace Internal
+		{
+			void SetLocalTransform(const Mat3x2& matrix);
+
+			void SetCameraTransform(const Mat3x2& matrix);
+		}
 	}
 }
 

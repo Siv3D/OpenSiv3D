@@ -15,6 +15,7 @@
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CCursor.hpp"
@@ -72,11 +73,19 @@ namespace s3d
 		detail::RegisterRawInput(m_hWnd);
 
 		{
-			const Point clientPos = detail::GetCursorClientPos(m_hWnd);
+			const Point lastClientPos = detail::GetCursorClientPos(m_hWnd);
 			std::lock_guard lock(m_clientPosBufferMutex);
-			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), clientPos);
+			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), lastClientPos);
+		
+			POINT screenPos;
+			::GetCursorPos(&screenPos);
+
+			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
+			const Vec2 clientPos = m_transformAllInv.transformPoint(lastClientPos / scaling);
+
+			m_state.update(lastClientPos, clientPos, Point(screenPos.x, screenPos.y));
 		}
-		update();
+
 
 		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= ::LoadCursorW(nullptr, IDC_ARROW);
 		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= ::LoadCursorW(nullptr, IDC_IBEAM);
@@ -102,7 +111,7 @@ namespace s3d
 			confineCursor();
 		}
 
-		Point lastClientPos;
+		Point lastClientRawPos;
 		{
 			const uint64 time = Time::GetMicrosec();
 	
@@ -122,7 +131,14 @@ namespace s3d
 
 			m_clientPosBuffer.erase(m_clientPosBuffer.begin(), it);
 
-			lastClientPos = m_clientPosBuffer.back().second;
+			lastClientRawPos = m_clientPosBuffer.back().second;
+		}
+
+		{
+			auto [s, viewRect]	= SIV3D_ENGINE(Renderer)->getLetterboxComposition();
+			m_transformScreen	= Mat3x2::Scale(s).translated(viewRect.pos);
+			m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
+			m_transformAllInv	= m_transformAll.inversed();
 		}
 
 		{
@@ -130,7 +146,9 @@ namespace s3d
 			::GetCursorPos(&screenPos);
 
 			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
-			m_state.update(lastClientPos, lastClientPos / scaling, Point(screenPos.x, screenPos.y));
+			const Vec2 clientPos = m_transformAllInv.transformPoint(lastClientRawPos);
+
+			m_state.update(lastClientRawPos, clientPos, Point(screenPos.x, screenPos.y));
 		}
 
 		if (m_currentCursor != m_requestedCursor)
@@ -162,6 +180,81 @@ namespace s3d
 		::SetCursorPos(point.x, point.y);
 
 		update();
+	}
+
+	const Mat3x2& CCursor::getLocalTransform() const noexcept
+	{
+		return m_transformLocal;
+	}
+
+	const Mat3x2& CCursor::getCameraTransform() const noexcept
+	{
+		return m_transformCamera;
+	}
+
+	const Mat3x2& CCursor::getScreenTransform() const noexcept
+	{
+		return m_transformScreen;
+	}
+
+	void CCursor::setLocalTransform(const Mat3x2& matrix)
+	{
+		if (m_transformLocal == matrix)
+		{
+			return;
+		}
+
+		m_transformLocal	= matrix;
+		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
+		m_transformAllInv	= m_transformAll.inversed();
+
+		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
+		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);
+		m_state.vec2.delta		= (m_state.vec2.current - m_state.vec2.previous);
+
+		m_state.point.previous	= m_state.vec2.previous.asPoint();
+		m_state.point.current	= m_state.vec2.current.asPoint();
+		m_state.point.delta		= m_state.vec2.delta.asPoint();
+	}
+
+	void CCursor::setCameraTransform(const Mat3x2& matrix)
+	{
+		if (m_transformCamera == matrix)
+		{
+			return;
+		}
+
+		m_transformLocal	= matrix;
+		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
+		m_transformAllInv	= m_transformAll.inversed();
+
+		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
+		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);
+		m_state.vec2.delta		= (m_state.vec2.current - m_state.vec2.previous);
+
+		m_state.point.previous	= m_state.vec2.previous.asPoint();
+		m_state.point.current	= m_state.vec2.current.asPoint();
+		m_state.point.delta		= m_state.vec2.delta.asPoint();
+	}
+
+	void CCursor::setScreenTransform(const Mat3x2& matrix)
+	{
+		if (m_transformScreen == matrix)
+		{
+			return;
+		}
+
+		m_transformScreen	= matrix;
+		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
+		m_transformAllInv	= m_transformAll.inversed();
+
+		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
+		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);
+		m_state.vec2.delta		= (m_state.vec2.current - m_state.vec2.previous);
+
+		m_state.point.previous	= m_state.vec2.previous.asPoint();
+		m_state.point.current	= m_state.vec2.current.asPoint();
+		m_state.point.delta		= m_state.vec2.delta.asPoint();
 	}
 
 	bool CCursor::isClippedToWindow() const noexcept

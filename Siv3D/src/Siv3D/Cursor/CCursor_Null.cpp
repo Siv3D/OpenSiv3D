@@ -42,6 +42,36 @@ namespace s3d
 
 	}
 
+	const Mat3x2& CCursor_Null::getLocalTransform() const noexcept
+	{
+		return m_transformLocal;
+	}
+
+	const Mat3x2& CCursor_Null::getCameraTransform() const noexcept
+	{
+		return m_transformCamera;
+	}
+
+	const Mat3x2& CCursor_Null::getScreenTransform() const noexcept
+	{
+		return m_transformScreen;
+	}
+
+	void CCursor_Null::setLocalTransform(const Mat3x2&)
+	{
+
+	}
+
+	void CCursor_Null::setCameraTransform(const Mat3x2&)
+	{
+
+	}
+
+	void CCursor_Null::setScreenTransform(const Mat3x2&)
+	{
+
+	}
+
 	bool CCursor_Null::isClippedToWindow() const noexcept
 	{
 		return false;

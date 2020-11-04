@@ -118,5 +118,28 @@ namespace s3d
 		{
 			SIV3D_ENGINE(Cursor)->requestStyle(name);
 		}
+
+		const Mat3x2& GetLocalTransform() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->getLocalTransform();
+		}
+
+		const Mat3x2& GetCameraTransform() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->getCameraTransform();
+		}
+
+		namespace Internal
+		{
+			void SetLocalTransform(const Mat3x2& matrix)
+			{
+				SIV3D_ENGINE(Cursor)->setLocalTransform(matrix);
+			}
+
+			void SetCameraTransform(const Mat3x2& matrix)
+			{
+				SIV3D_ENGINE(Cursor)->setCameraTransform(matrix);
+			}
+		}
 	}
 }

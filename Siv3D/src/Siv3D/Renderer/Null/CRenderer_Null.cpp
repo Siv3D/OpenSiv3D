@@ -110,6 +110,6 @@ namespace s3d
 
 	std::pair<float, RectF> CRenderer_Null::getLetterboxComposition() const noexcept
 	{
-		return{ 0, { 0, 0, 0, 0 } };
+		return{ 1, { 0, 0, 0, 0 } };
 	}
 }
