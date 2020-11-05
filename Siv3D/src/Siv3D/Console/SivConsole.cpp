@@ -69,19 +69,21 @@ namespace s3d
 		{
 			write(s);
 
-			std::cout << '\n';
+			std::cout << std::endl;
 		}
 
 		void Console_impl::writeln(const StringView s) const
 		{
 			write(s);
 
-			std::cout << '\n';
+			std::cout << std::endl;
 		}
 
 		void Console_impl::writeln(const String& s) const
 		{
-			write(s + U'\n');
+			write(s);
+
+			std::cout << std::endl;
 		}
 
 		void Console_impl::operator()(const char32_t* s) const
