@@ -65,6 +65,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Date/SivDate_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DateTime/SivDateTime_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/EnvironmentVariable/SivEnvironmentVariable.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Keyboard/CKeyboard.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Logger/CLogger.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Monitor/SivMonitor_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/System/SivSystem_macOS_Linux.cpp
@@ -127,6 +128,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Int128/SivInt128.cpp
   ../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp
   ../Siv3D/src/Siv3D/IntFormatter/SivIntFormatter.cpp
+  ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
+  ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
   ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
   ../Siv3D/src/Siv3D/LicenseManager/LicenseManagerFactory.cpp
   ../Siv3D/src/Siv3D/LicenseManager/SivLicenseManager.cpp
