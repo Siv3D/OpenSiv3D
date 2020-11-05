@@ -280,7 +280,14 @@ namespace s3d
 				return FilePath{};
 			}
 
-			return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(detail::ToPath(path)).string()));
+			if (path.includes(U'/'))
+			{
+				return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(detail::ToPath(path)).string()));
+			}
+			else
+			{
+				return detail::NormalizePath(U"./" + Unicode::Widen(fs::weakly_canonical(detail::ToPath(path)).string()));
+			}
 		}
 
 		Platform::NativeFilePath NativePath(const FilePathView path)
