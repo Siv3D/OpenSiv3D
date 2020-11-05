@@ -221,6 +221,12 @@ namespace s3d
 		[[nodiscard]]
 		constexpr size_t lastIndexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
 
+		[[nodiscard]]
+		constexpr bool includes(value_type ch) const noexcept;
+
+		[[nodiscard]]
+		constexpr bool includes(StringView s) const noexcept;
+
 		/// <summary>
 		/// 文字列をマルチバイト文字列に変換した結果を返します。
 		/// </summary>

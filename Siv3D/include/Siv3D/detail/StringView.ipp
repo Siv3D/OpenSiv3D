@@ -327,6 +327,16 @@ namespace s3d
 		return m_view.find_last_not_of(anyof, pos);
 	}
 
+	inline constexpr bool StringView::includes(const value_type ch) const noexcept
+	{
+		return (indexOf(ch) != StringView::npos);
+	}
+
+	inline constexpr bool StringView::includes(const StringView s) const noexcept
+	{
+		return (indexOf(s) != StringView::npos);
+	}
+
 	inline void swap(StringView& a, StringView& b) noexcept
 	{
 		a.swap(b);

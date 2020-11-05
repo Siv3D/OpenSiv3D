@@ -928,12 +928,12 @@ namespace s3d
 
 	inline bool String::includes(const value_type ch) const
 	{
-		return indexOf(ch) != String::npos;
+		return (indexOf(ch) != String::npos);
 	}
 
 	inline bool String::includes(const StringView s) const
 	{
-		return indexOf(s) != String::npos;
+		return (indexOf(s) != String::npos);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
