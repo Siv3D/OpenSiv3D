@@ -910,6 +910,11 @@
 
 # include <Siv3D/Cursor.hpp>
 
+# include <Siv3D/InputDevice.hpp>
+
+# include <Siv3D/Input.hpp>
+
+
 # include <Siv3D/Vertex2D.hpp>
 
 # include <Siv3D/AssetID.hpp>
