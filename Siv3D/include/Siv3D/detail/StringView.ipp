@@ -220,10 +220,10 @@ namespace s3d
 		return (not empty()) && (front() == ch);
 	}
 
-	inline constexpr bool StringView::starts_with(const StringView text) const noexcept
+	inline constexpr bool StringView::starts_with(const StringView s) const noexcept
 	{
-		return (m_view.size() >= text.size())
-			&& (std::char_traits<value_type>::compare(m_view.data(), text.data(), text.size()) == 0);
+		return (m_view.size() >= s.size())
+			&& (std::char_traits<value_type>::compare(m_view.data(), s.data(), s.size()) == 0);
 	}
 
 	inline bool StringView::ends_with(const value_type ch) const noexcept
@@ -231,10 +231,10 @@ namespace s3d
 		return (not empty()) && (back() == ch);
 	}
 
-	inline constexpr bool StringView::ends_with(const StringView text) const noexcept
+	inline constexpr bool StringView::ends_with(const StringView s) const noexcept
 	{
-		return (m_view.size() >= text.size())
-			&& (std::char_traits<value_type>::compare(m_view.data() + m_view.size() - text.size(), text.data(), text.size()) == 0);
+		return (m_view.size() >= s.size())
+			&& (std::char_traits<value_type>::compare(m_view.data() + m_view.size() - s.size(), s.data(), s.size()) == 0);
 	}
 
 	inline constexpr StringView::size_type StringView::indexOf(const StringView s, const size_type pos) const noexcept

@@ -821,30 +821,15 @@ namespace s3d
 		[[nodiscard]]
 		String filter(Fty f) const;
 
-		/// <summary>
-		/// 指定した文字が含まれているかを調べます。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <returns>
-		/// 検索した文字が見つかった場合 true, それ以外の場合は false
-		/// </returns>
+		/// @brief 文字列が指定した文字を含むかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字を含む場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool includes(value_type ch) const;
 
-		/// <summary>
-		/// 指定した文字列が含まれているかを調べます。
-		/// </summary>
-		/// <param name="s">
-		/// 検索する文字列
-		/// </param>
-		/// <remarks>
-		/// str は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
-		/// </returns>
+		/// @brief 文字列が指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool includes(StringView s) const;
 

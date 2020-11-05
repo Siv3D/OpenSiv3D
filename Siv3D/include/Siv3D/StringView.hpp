@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief 所有権を持たない文字列クラス
 	class StringView
 	{
 	public:
@@ -155,17 +156,29 @@ namespace s3d
 		[[nodiscard]]
 		constexpr int32 compare(size_type pos1, size_type n1, const value_type* s, size_type n2) const noexcept;
 
+		/// @brief 文字列が指定した文字から始まるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字から始まる場合 true, それ以外の場合は false	
 		[[nodiscard]]
 		constexpr bool starts_with(value_type ch) const noexcept;
-
+		
+		/// @brief 文字列が指定した文字列から始まるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列から始まる場合 true, それ以外の場合は false
 		[[nodiscard]]
-		constexpr bool starts_with(StringView text) const noexcept;
+		constexpr bool starts_with(StringView s) const noexcept;
 
+		/// @brief 文字列が指定した文字で終わるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字で終わる場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool ends_with(value_type ch) const noexcept;
 
+		/// @brief 文字列が指定した文字列で終わるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列で終わる場合 true, それ以外の場合は false
 		[[nodiscard]]
-		constexpr bool ends_with(StringView text) const noexcept;
+		constexpr bool ends_with(StringView s) const noexcept;
 
 		[[nodiscard]]
 		constexpr size_type indexOf(StringView s, size_type pos = 0) const noexcept;
@@ -221,30 +234,30 @@ namespace s3d
 		[[nodiscard]]
 		constexpr size_t lastIndexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
 
+		/// @brief 文字列が指定した文字を含むかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字を含む場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool includes(value_type ch) const noexcept;
 
+		/// @brief 文字列が指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool includes(StringView s) const noexcept;
 
-		/// <summary>
-		/// 文字列をマルチバイト文字列に変換した結果を返します。
-		/// </summary>
-		/// <returns>
-		/// 変換された文字列
-		/// </returns>
+		/// @brief 文字列を std::string に変換します。
+		/// @return 変換された文字列
 		[[nodiscard]]
 		std::string narrow() const;
 
-		/// <summary>
-		/// 文字列を std::wstring に変換した結果を返します。
-		/// </summary>
-		/// <returns>
-		/// 変換された文字列
-		/// </returns>
+		/// @brief 文字列を std::wstring に変換します。
+		/// @return 変換された文字列
 		[[nodiscard]]
 		std::wstring toWstr() const;
 
+		/// @brief 文字列を UTF-8 文字列に変換します。
+		/// @return 変換された文字列
 		[[nodiscard]]
 		std::string toUTF8() const;
 
