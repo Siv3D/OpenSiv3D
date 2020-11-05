@@ -286,7 +286,7 @@ namespace s3d
 			}
 			else
 			{
-				return detail::NormalizePath(U"./" + Unicode::Widen(fs::weakly_canonical(detail::ToPath(path)).string()));
+				return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(detail::ToPath(U"./" + path)).string()));
 			}
 		}
 

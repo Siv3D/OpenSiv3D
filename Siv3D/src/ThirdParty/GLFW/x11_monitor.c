@@ -637,7 +637,7 @@ GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos,
     XRRFreeScreenResources(sr);
 }
 
-GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID,
                                       int* xpos, int* ypos, int* w, int* h,
                                       int* wx, int* wy, int* ww, int* wh)
 {
@@ -655,20 +655,6 @@ GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, 
     if (displayID)
         *displayID = monitor->x11.crtc;
 
-    if (name)
-    {
-        XRROutputInfo* oi = NULL;
-        oi = XRRGetOutputInfo(_glfw.x11.display, sr, monitor->x11.output);
-        int nameLen = oi->nameLen;
-        *name = (char*)malloc(sizeof(char) * (nameLen + 1)); //caller must free this memory.
-        for (int i = 0; i < nameLen; ++i)
-        {
-            (*name)[i] = oi->name[i];
-        }
-        (*name)[nameLen] = '\0';
-        XRRFreeOutputInfo(oi);
-    }
-
     if (xpos)
         *xpos = (int)ci->x;
     if (ypos)
@@ -678,13 +664,13 @@ GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, 
     if (h)
         *h = (int)ci->height;
     if (wx)
-        *xpos = (int)ci->x;
+        *wx = (int)ci->x;
     if (wy)
-        *ypos = (int)ci->y;
+        *wy = (int)ci->y;
     if (ww)
-        *w = (int)ci->width;
+        *ww = (int)ci->width;
     if (wh)
-        *h = (int)ci->height;
+        *wh = (int)ci->height;
 
     XRRFreeCrtcInfo(ci);
     XRRFreeScreenResources(sr);

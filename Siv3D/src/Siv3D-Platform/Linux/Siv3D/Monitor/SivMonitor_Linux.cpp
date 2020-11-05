@@ -14,7 +14,7 @@
 
 extern"C"
 {
-	GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
+	GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID,
                                       int* xpos, int* ypos, int* w, int* h,
                                       int* wx, int* wy, int* ww, int* wh);
 }
@@ -35,10 +35,9 @@ namespace s3d
 				GLFWmonitor* monitor = monitors[i];
 
 				uint32 displayID;
-				char* name = nullptr;
 				int32 xPos, yPos, width, height;
 				int32 wx, wy, ww, wh;
-				glfwGetMonitorInfo_Siv3D(monitor, &displayID, &name,
+				glfwGetMonitorInfo_Siv3D(monitor, &displayID,
 										 &xPos, &yPos, &width, &height,
 										 &wx, &wy, &ww, &wh);
 				
@@ -73,11 +72,13 @@ namespace s3d
 					}
 				}
 
+				const String name = Unicode::Widen(::glfwGetMonitorName(monitor));
+
 				const Monitor info =
 				{
-					.name				= Unicode::Widen(::glfwGetMonitorName(monitor)),
+					.name				= name,
 					.id					= Format(displayID),
-					.displayDeviceName	= Unicode::Widen(name),
+					.displayDeviceName	= name,
 					.displayRect		= Rect(xPos, yPos, width, height),
 					.workArea			= Rect(wx, wy, ww, wh),
 					.isPrimary			= (i == 0),
@@ -86,8 +87,6 @@ namespace s3d
 					.refreshRate		= refreshRate,
 				};
 
-				free(name); // free monitor name buffer
-				
 				results.push_back(info);
 			}
 			

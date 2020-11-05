@@ -130,7 +130,6 @@ namespace s3d
 		{
 			const Vec2 clientRawPos = detail::GetClientCursorPos(m_window);
 			const Point screenPos = detail::GetScreenPos(m_window);
-			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
 			const Vec2 clientPos = m_transformAllInv.transformPoint(clientRawPos);
 
 			m_state.update(clientRawPos.asPoint(), clientPos.asPoint(), screenPos);
