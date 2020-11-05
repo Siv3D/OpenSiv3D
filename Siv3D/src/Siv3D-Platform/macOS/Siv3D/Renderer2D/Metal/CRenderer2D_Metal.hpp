@@ -12,7 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
-# include <Siv3D/VertexSHader.hpp>
+# include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # import <Metal/Metal.h>
