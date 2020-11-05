@@ -18,27 +18,11 @@ namespace s3d
 {
 	class Input
 	{
-	private:
-
-		InputDeviceType m_deviceType = InputDeviceType::Undefined;
-
-		uint8 m_code = 0;
-
-		uint8 m_userIndex = 0;
-
-		[[maybe_unused]] uint8 m_reserved = 0;
-
-		[[nodiscard]]
-		constexpr uint32 asUint32() const noexcept;
-
 	public:
 
 		Input() = default;
 
-		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 userIndex = 0) noexcept
-			: m_deviceType(deviceType)
-			, m_code(code)
-			, m_userIndex(userIndex) {}
+		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 userIndex = 0) noexcept;
 
 		[[nodiscard]]
 		constexpr InputDeviceType deviceType() const noexcept;
@@ -67,55 +51,46 @@ namespace s3d
 	# if __cpp_impl_three_way_comparison
 
 		[[nodiscard]]
-		constexpr bool operator ==(const Input& other) const
-		{
-			return (asUint32() == other.asUint32());
-		}
+		constexpr bool operator ==(const Input& other) const;
 
 		[[nodiscard]]
-		constexpr auto operator <=>(const Input& other) const
-		{
-			return (asUint32() <=> other.asUint32());
-		}
+		constexpr auto operator <=>(const Input& other) const;
 
 	# else
 
 		[[nodiscard]]
-		constexpr bool operator ==(const Key& other) const noexcept
-		{
-			return asUint32() == other.asUint32();
-		}
+		constexpr bool operator ==(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr bool operator !=(const Key& other) const noexcept
-		{
-			return asUint32() != other.asUint32();
-		}
+		constexpr bool operator !=(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr bool operator <(const Key& other) const noexcept
-		{
-			return asUint32() < other.asUint32();
-		}
+		constexpr bool operator <(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr bool operator <=(const Key& other) const noexcept
-		{
-			return asUint32() <= other.asUint32();
-		}
+		constexpr bool operator <=(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr bool operator >(const Key& other) const noexcept
-		{
-			return asUint32() > other.asUint32();
-		}
+		constexpr bool operator >(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr bool operator >=(const Key& other) const noexcept
-		{
-			return asUint32() >= other.asUint32();
-		}
+		constexpr bool operator >=(const Input& other) const noexcept;
 
 	# endif
+
+	private:
+
+		InputDeviceType m_deviceType = InputDeviceType::Undefined;
+
+		uint8 m_code = 0;
+
+		uint8 m_userIndex = 0;
+
+		[[maybe_unused]] uint8 m_reserved = 0;
+
+		[[nodiscard]]
+		constexpr uint32 asUint32() const noexcept;
 	};
 }
+
+# include "detail/Input.ipp"
