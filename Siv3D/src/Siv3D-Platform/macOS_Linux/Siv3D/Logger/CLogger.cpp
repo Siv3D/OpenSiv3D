@@ -50,12 +50,12 @@ namespace s3d
 
 		const int64 timeStamp = Time::GetMillisec();
 		const StringView logTypeName = detail::LogTypeNames[FromEnum(type)];
-		const String text = U"{}: {}"_fmt(timeStamp, logTypeName) + s + U'\n';
+		const String text = U"{}: {}"_fmt(timeStamp, logTypeName) + s;
 		const std::string output = text.narrow();
 
 		std::lock_guard lock(m_mutex);
 		{
-			std::cout << output;
+			std::cout << output << std::endl;
 		}
 	}
 
