@@ -26,6 +26,17 @@
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2020 Ryo Suzuki
+//	Copyright (c) 2016-2020 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 #include <sys/param.h> // For MAXPATHLEN
 
@@ -296,6 +307,15 @@ static void createKeyTables(void)
     _glfw.ns.keycodes[0x51] = GLFW_KEY_KP_EQUAL;
     _glfw.ns.keycodes[0x43] = GLFW_KEY_KP_MULTIPLY;
     _glfw.ns.keycodes[0x4E] = GLFW_KEY_KP_SUBTRACT;
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	_glfw.ns.keycodes[0x5D] = SIV3D_KEY_JIS_YEN;
+	_glfw.ns.keycodes[0x5E] = SIV3D_KEY_JIS_UNDERSCORE;
+	//
+	//-----------------------------------------------
 
     for (scancode = 0;  scancode < 256;  scancode++)
     {

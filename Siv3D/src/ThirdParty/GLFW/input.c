@@ -27,6 +27,17 @@
 // Please use C89 style variable declarations in this file because VS 2010
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2020 Ryo Suzuki
+//	Copyright (c) 2016-2020 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <assert.h>
@@ -664,6 +675,20 @@ GLFWAPI int glfwGetKey(GLFWwindow* handle, int key)
 
     return (int) window->keys[key];
 }
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI const char* glfwGetKeysSiv3D(GLFWwindow* handle)
+{
+	_GLFWwindow* window = (_GLFWwindow*) handle;
+	assert(window != NULL);
+	
+	return window->keys;
+}
+//
+//-----------------------------------------------
 
 GLFWAPI int glfwGetMouseButton(GLFWwindow* handle, int button)
 {

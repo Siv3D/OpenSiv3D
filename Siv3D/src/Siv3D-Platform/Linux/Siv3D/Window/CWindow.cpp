@@ -91,11 +91,6 @@ namespace s3d
 		::glfwPollEvents();
 		
 		updateState();
-		
-		if (::glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown | UserAction::EscapeKeyDown);
-		}
 
 		if (::glfwWindowShouldClose(m_window))
 		{

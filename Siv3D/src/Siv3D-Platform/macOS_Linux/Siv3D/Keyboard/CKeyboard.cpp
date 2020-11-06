@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,6 +16,11 @@
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "CKeyboard.hpp"
+
+extern"C"
+{
+	GLFWAPI const char* glfwGetKeysSiv3D(GLFWwindow* window);
+}
 
 namespace s3d
 {
@@ -166,11 +171,67 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CKeyboard::init()");
 
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
+		
+		for (auto [index, glfwKey] : detail::KeyConversionTable)
+		{
+			if (const char* name = ::glfwGetKeyName(glfwKey, 0))
+			{
+				m_names[index] = Unicode::Widen(name);
+				//LOG_ERROR(U"{}: {}"_fmt(index, m_names[index]));
+			}
+		}
 	}
 
 	void CKeyboard::update()
 	{
-
+		const char* keys = ::glfwGetKeysSiv3D(m_window);
+		
+		for (auto [index, glfwKey] : detail::KeyConversionTable)
+		{
+			const bool pressed = (keys[glfwKey] == GLFW_PRESS);
+			m_states[index].update(pressed);
+		}
+		
+		{
+			const bool shiftPressed = (keys[GLFW_KEY_LEFT_SHIFT] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_SHIFT] == GLFW_PRESS);
+			m_states[0x10].update(shiftPressed);
+		}
+		
+		{
+			const bool controlPressed = (keys[GLFW_KEY_LEFT_CONTROL] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_CONTROL] == GLFW_PRESS);
+			m_states[0x11].update(controlPressed);
+		}
+		
+		{
+			const bool altPressed = (keys[GLFW_KEY_LEFT_ALT] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_ALT] == GLFW_PRESS);
+			m_states[0x12].update(altPressed);
+		}
+		
+		{
+			const bool commandPressed = (keys[GLFW_KEY_LEFT_SUPER] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_SUPER] == GLFW_PRESS);
+			m_states[0xD8].update(commandPressed);
+		}
+		
+		m_allInputs.clear();
+		
+		for (uint32 i = 8; i < 0xEF; ++i)
+		{
+			if (m_states[i].pressed)
+			{
+				m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
+			}
+		}
+		
+		{
+			if (m_states[0x1B].down)
+			{
+				SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown | UserAction::EscapeKeyDown);
+			}
+			else if (m_allInputs)
+			{
+				SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown);
+			}
+		}
 	}
 
 	bool CKeyboard::down(const uint32 index) const

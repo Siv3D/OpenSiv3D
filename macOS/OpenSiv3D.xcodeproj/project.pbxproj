@@ -672,6 +672,14 @@
 		2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */; };
 		2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */; };
 		2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */; };
+		2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE199F2555B221005826A1 /* CKeyboard.cpp */; };
+		2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19A02555B221005826A1 /* CKeyboard.hpp */; };
+		2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */; };
+		2CFE19A82555B23C005826A1 /* SivKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19A52555B23C005826A1 /* SivKeyboard.cpp */; };
+		2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19A62555B23C005826A1 /* IKeyboard.hpp */; };
+		2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AB2555B263005826A1 /* InputState.cpp */; };
+		2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19AC2555B263005826A1 /* InputState.hpp */; };
+		2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AD2555B263005826A1 /* SivInput.cpp */; };
 		2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF9F6124A46481000B5A17 /* osmesa_context.h */; };
 		2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6224A46481000B5A17 /* osmesa_context.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2CFF9F6924A473E9000B5A17 /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6824A473E9000B5A17 /* sprite.metal */; };
@@ -689,7 +697,7 @@
 		2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextWriter.cpp; sourceTree = "<group>"; };
 		2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_Metal.hpp; sourceTree = "<group>"; };
 		2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer_Metal.mm; sourceTree = "<group>"; };
-		2C13667825518DC400F90BAC /* Cursor.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Cursor.ipp; path = detail/Cursor.ipp; sourceTree = "<group>"; };
+		2C13667825518DC400F90BAC /* Cursor.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cursor.ipp; sourceTree = "<group>"; };
 		2C13667925519AC200F90BAC /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CursorStyle.hpp; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1705,6 +1713,18 @@
 		2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor.cpp; sourceTree = "<group>"; };
 		2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS.cpp; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
+		2CFE199A2555B1B6005826A1 /* InputDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputDevice.hpp; sourceTree = "<group>"; };
+		2CFE199B2555B1B6005826A1 /* Input.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Input.hpp; sourceTree = "<group>"; };
+		2CFE199C2555B1D4005826A1 /* Input.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Input.ipp; sourceTree = "<group>"; };
+		2CFE199D2555B1EF005826A1 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
+		2CFE199F2555B221005826A1 /* CKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKeyboard.cpp; sourceTree = "<group>"; };
+		2CFE19A02555B221005826A1 /* CKeyboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CKeyboard.hpp; sourceTree = "<group>"; };
+		2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardFactory.cpp; sourceTree = "<group>"; };
+		2CFE19A52555B23C005826A1 /* SivKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivKeyboard.cpp; sourceTree = "<group>"; };
+		2CFE19A62555B23C005826A1 /* IKeyboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IKeyboard.hpp; sourceTree = "<group>"; };
+		2CFE19AB2555B263005826A1 /* InputState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputState.cpp; sourceTree = "<group>"; };
+		2CFE19AC2555B263005826A1 /* InputState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputState.hpp; sourceTree = "<group>"; };
+		2CFE19AD2555B263005826A1 /* SivInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInput.cpp; sourceTree = "<group>"; };
 		2CFF9F6124A46481000B5A17 /* osmesa_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osmesa_context.h; sourceTree = "<group>"; };
 		2CFF9F6224A46481000B5A17 /* osmesa_context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osmesa_context.c; sourceTree = "<group>"; };
 		2CFF9F6824A473E9000B5A17 /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
@@ -2057,6 +2077,8 @@
 				2C43965C2535DD2F00F6AECD /* ImageInfo.hpp */,
 				2C4397532535DD3000F6AECD /* Indexed.hpp */,
 				2C4396722535DD3000F6AECD /* INIData.hpp */,
+				2CFE199B2555B1B6005826A1 /* Input.hpp */,
+				2CFE199A2555B1B6005826A1 /* InputDevice.hpp */,
 				2C4396A72535DD3000F6AECD /* Int128.hpp */,
 				2C473B122545403A00CF864D /* Interpolation.hpp */,
 				2C43969A2535DD3000F6AECD /* IntFormatter.hpp */,
@@ -2064,6 +2086,7 @@
 				2C4396A12535DD3000F6AECD /* ISteadyClock.hpp */,
 				2C4396782535DD3000F6AECD /* IWriter.hpp */,
 				2C4397762535DD3000F6AECD /* KahanSummation.hpp */,
+				2CFE199D2555B1EF005826A1 /* Keyboard.hpp */,
 				2C4396662535DD3000F6AECD /* LetterCase.hpp */,
 				2C43973D2535DD3000F6AECD /* LicenseInfo.hpp */,
 				2C43974F2535DD3000F6AECD /* LicenseManager.hpp */,
@@ -2164,7 +2187,6 @@
 				2C4396B02535DD3000F6AECD /* Window.hpp */,
 				2C4397522535DD3000F6AECD /* WindowState.hpp */,
 				2C43973B2535DD3000F6AECD /* WindowStyle.hpp */,
-				2C13667825518DC400F90BAC /* Cursor.ipp */,
 				2C4396BD2535DD3000F6AECD /* detail */,
 				2C43973F2535DD3000F6AECD /* ImageFormat */,
 			);
@@ -2195,6 +2217,7 @@
 				2C4396F32535DD3000F6AECD /* Color.ipp */,
 				2C43971D2535DD3000F6AECD /* ColorF.ipp */,
 				2C4396C52535DD3000F6AECD /* ConstantBuffer.ipp */,
+				2C13667825518DC400F90BAC /* Cursor.ipp */,
 				2C4397122535DD3000F6AECD /* Cylindrical.ipp */,
 				2C4396D72535DD3000F6AECD /* Date.ipp */,
 				2C43971B2535DD3000F6AECD /* DateTime.ipp */,
@@ -2230,6 +2253,7 @@
 				2C4396D82535DD3000F6AECD /* ImageEncoder.ipp */,
 				2C4396C02535DD3000F6AECD /* Indexed.ipp */,
 				2C43972A2535DD3000F6AECD /* INIData.ipp */,
+				2CFE199C2555B1D4005826A1 /* Input.ipp */,
 				2C4397132535DD3000F6AECD /* Int128.ipp */,
 				2C473B142545406B00CF864D /* Interpolation.ipp */,
 				2C4397082535DD3000F6AECD /* IReader.ipp */,
@@ -2645,9 +2669,11 @@
 				2C47B2CA24DD9789008D83BE /* ImageEncoder */,
 				2C47B2B424DD9789008D83BE /* ImageFormat */,
 				2C47B2F424DD9789008D83BE /* INIData */,
+				2CFE19AA2555B263005826A1 /* Input */,
 				2C47B2F624DD9789008D83BE /* Int128 */,
 				2C473B162545415300CF864D /* Interpolation */,
 				2C47B24D24DD9789008D83BE /* IntFormatter */,
+				2CFE19A32555B23C005826A1 /* Keyboard */,
 				2C47B23824DD9789008D83BE /* LicenseManager */,
 				2C47B26124DD9789008D83BE /* Logger */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
@@ -3807,6 +3833,7 @@
 				2C68507E24B768A800B98A7F /* Date */,
 				2C68507C24B768A800B98A7F /* DateTime */,
 				2C8E717B24C7458800CECCAE /* EnvironmentVariable */,
+				2CFE199E2555B221005826A1 /* Keyboard */,
 				2C68507724B768A800B98A7F /* Logger */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
 				2C68508024B768A800B98A7F /* System */,
@@ -4236,6 +4263,35 @@
 			path = "levenshtein-sse";
 			sourceTree = "<group>";
 		};
+		2CFE199E2555B221005826A1 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE199F2555B221005826A1 /* CKeyboard.cpp */,
+				2CFE19A02555B221005826A1 /* CKeyboard.hpp */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		2CFE19A32555B23C005826A1 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */,
+				2CFE19A52555B23C005826A1 /* SivKeyboard.cpp */,
+				2CFE19A62555B23C005826A1 /* IKeyboard.hpp */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		2CFE19AA2555B263005826A1 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE19AB2555B263005826A1 /* InputState.cpp */,
+				2CFE19AC2555B263005826A1 /* InputState.hpp */,
+				2CFE19AD2555B263005826A1 /* SivInput.cpp */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
 		2CFF9F6724A473E9000B5A17 /* metal */ = {
 			isa = PBXGroup;
 			children = (
@@ -4435,6 +4491,7 @@
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C4396122535DCCA00F6AECD /* svgmaskelement.h in Headers */,
 				2C47B0D024DD974A008D83BE /* agg_span_gouraud.h in Headers */,
+				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
 				2C47B0C524DD974A008D83BE /* agg_gamma_lut.h in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
@@ -4477,6 +4534,7 @@
 				2C47B0A624DD974A008D83BE /* agg_embedded_raster_fonts.h in Headers */,
 				2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */,
 				2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */,
+				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
 				2C47B0E024DD974A008D83BE /* agg_span_interpolator_adaptor.h in Headers */,
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
 				2C47B0B124DD974A008D83BE /* agg_span_subdiv_adaptor.h in Headers */,
@@ -4489,6 +4547,7 @@
 				2C47B08724DD974A008D83BE /* agg_path_storage.h in Headers */,
 				2C47B31624DD9789008D83BE /* ILogger.hpp in Headers */,
 				2C47B31024DD9789008D83BE /* BigIntDetail.hpp in Headers */,
+				2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */,
 				2C47B08924DD974A008D83BE /* agg_conv_contour.h in Headers */,
 				2C834D95248805D4006208B8 /* config.h in Headers */,
 				2C47B0BD24DD974A008D83BE /* agg_pixfmt_transposer.h in Headers */,
@@ -4691,7 +4750,9 @@
 				2C47B4A524E16B90008D83BE /* SivPrimeNumber.cpp in Sources */,
 				2C834D93248805D4006208B8 /* euc_jp.c in Sources */,
 				2C4396362535DCCA00F6AECD /* cssproperty.cpp in Sources */,
+				2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */,
 				2C423245242B155E00A16BCA /* cocoa_time.c in Sources */,
+				2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */,
 				2C4396282535DCCA00F6AECD /* svgdefselement.cpp in Sources */,
 				2C834DBC248805D4006208B8 /* gb18030.c in Sources */,
 				2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */,
@@ -4725,6 +4786,7 @@
 				2C47B36F24DD9789008D83BE /* SivError.cpp in Sources */,
 				2C47B32424DD9789008D83BE /* SivFormatUtility.cpp in Sources */,
 				2C47B35824DD9789008D83BE /* CProfiler.cpp in Sources */,
+				2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */,
 				2C834DAB248805D4006208B8 /* st.c in Sources */,
 				2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */,
 				2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */,
@@ -4788,6 +4850,7 @@
 				2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */,
 				2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
+				2CFE19A82555B23C005826A1 /* SivKeyboard.cpp in Sources */,
 				2C423244242B155E00A16BCA /* context.c in Sources */,
 				2C47B49E24DD97F2008D83BE /* muParserInt.cpp in Sources */,
 				2C4395F62535DCCA00F6AECD /* svgparser.cpp in Sources */,
@@ -4959,6 +5022,7 @@
 				2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */,
 				2C47B33324DD9789008D83BE /* TextReaderDetail.cpp in Sources */,
 				2C4396382535DCCA00F6AECD /* svggraphicselement.cpp in Sources */,
+				2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
 				2CF21D21249FAA8F00C864C9 /* WindowFactory.cpp in Sources */,
 				2C47B32924DD9789008D83BE /* SivStringView.cpp in Sources */,
