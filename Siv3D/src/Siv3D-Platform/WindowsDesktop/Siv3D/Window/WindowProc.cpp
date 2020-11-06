@@ -53,19 +53,6 @@ namespace s3d
 			{
 				LOG_TRACE(U"WM_KEYDOWN");
 
-				if (wParam == VK_ESCAPE) // Escape key
-				{
-					SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown | UserAction::EscapeKeyDown);
-				}
-				else if ((VK_BACK <= wParam) || (wParam == VK_CANCEL)) // Key
-				{
-					SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown);
-				}
-				else if ((VK_LBUTTON <= wParam) && (wParam <= VK_XBUTTON2)) // Mouse button
-				{
-					SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::MouseButtonDown);
-				}
-
 				break;
 			}
 		case WM_SYSCOMMAND:

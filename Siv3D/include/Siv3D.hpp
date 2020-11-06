@@ -914,6 +914,7 @@
 
 # include <Siv3D/Input.hpp>
 
+# include <Siv3D/Keyboard.hpp>
 
 # include <Siv3D/Vertex2D.hpp>
 

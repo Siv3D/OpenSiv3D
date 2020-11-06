@@ -54,10 +54,10 @@ namespace s3d
 	# if __cpp_impl_three_way_comparison
 
 		[[nodiscard]]
-		constexpr bool operator ==(const Input& other) const;
+		constexpr bool operator ==(const Input& other) const noexcept;
 
 		[[nodiscard]]
-		constexpr auto operator <=>(const Input& other) const;
+		constexpr auto operator <=>(const Input& other) const noexcept;
 
 	# else
 

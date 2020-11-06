@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "ISteadyClock.hpp"
 # include "Duration.hpp"
+# include "FormatData.hpp"
 
 namespace s3d
 {

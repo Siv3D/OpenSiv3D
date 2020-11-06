@@ -125,6 +125,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp
   ../Siv3D/src/Siv3D/INIData/SivINIData.cpp
+  ../Siv3D/src/Siv3D/Input/InputState.cpp
+  ../Siv3D/src/Siv3D/Input/SivInput.cpp
   ../Siv3D/src/Siv3D/Int128/SivInt128.cpp
   ../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp
   ../Siv3D/src/Siv3D/IntFormatter/SivIntFormatter.cpp

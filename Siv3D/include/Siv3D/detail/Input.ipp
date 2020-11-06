@@ -36,13 +36,13 @@ namespace s3d
 # if __cpp_impl_three_way_comparison
 
 	[[nodiscard]]
-	inline constexpr bool Input::operator ==(const Input& other) const
+	inline constexpr bool Input::operator ==(const Input& other) const noexcept
 	{
 		return (asUint32() == other.asUint32());
 	}
 
 	[[nodiscard]]
-	inline constexpr auto Input::operator <=>(const Input& other) const
+	inline constexpr auto Input::operator <=>(const Input& other) const noexcept
 	{
 		return (asUint32() <=> other.asUint32());
 	}

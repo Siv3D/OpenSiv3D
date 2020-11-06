@@ -11,12 +11,20 @@
 
 # pragma once
 # include <Siv3D/Keyboard/IKeyboard.hpp>
+# include <Siv3D/Input/InputState.hpp>
+# include <Siv3D/Common/OpenGL.hpp>
 
 namespace s3d
 {
 	class CKeyboard final : public ISiv3DKeyboard
 	{
 	private:
+
+		GLFWwindow* m_window = nullptr;
+
+		std::array<String, InputState::KeyCount> m_names;
+
+		std::array<InputState, InputState::KeyCount> m_states;
 
 		Array<Input> m_allInputs;
 
@@ -37,6 +45,8 @@ namespace s3d
 		bool up(uint32 index) const override;
 
 		Duration pressedDuration(uint32 index) const override;
+
+		const String& name(uint32 index) const override;
 
 		const Array<Input>& getAllInput() const noexcept override;
 	};

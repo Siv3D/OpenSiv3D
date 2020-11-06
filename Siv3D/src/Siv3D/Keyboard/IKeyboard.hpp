@@ -36,6 +36,8 @@ namespace s3d
 
 		virtual Duration pressedDuration(uint32 index) const = 0;
 
+		virtual const String& name(uint32 index) const = 0;
+
 		virtual const Array<Input>& getAllInput() const noexcept = 0;
 	};
 }
