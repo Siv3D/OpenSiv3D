@@ -71,7 +71,7 @@ namespace s3d
 	# if __cpp_lib_bit_cast
 		return std::bit_cast<uint64>(*this);
 	# else
-		return (uint64(m_input1.asUint32()) << 32) | m_input2.asUint32());
+		return ((uint64(m_input1.asUint32()) << 32) | m_input2.asUint32());
 	# endif
 	}
 }
