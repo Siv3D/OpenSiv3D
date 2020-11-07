@@ -31,12 +31,54 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CMouse::init()");
 
-		m_hWnd = static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle());
+		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
+
+		m_buttonsInternal.fill(MouseButtonState::Released);
+
+		::glfwSetScrollCallback(m_window, OnScroll);
+		
+		::glfwSetMouseButtonCallback(m_window, OnMouseButtonUpdated);		
 	}
 
 	void CMouse::update()
 	{
-		m_allInputs.clear();
+		{
+			std::lock_guard lock(m_buttonMutex);
+			
+			for (uint32 i = 0; i < MouseButtonCount; ++i)
+			{
+				auto& state = m_buttonsInternal[i];
+				
+				const bool pressed = (state == MouseButtonState::Pressed) || (state == MouseButtonState::Tapped);
+				
+				m_states[i].update(pressed);
+				
+				if (state == MouseButtonState::Tapped)
+				{
+					state = MouseButtonState::Released;
+				}
+			}
+		}
+
+		{
+			std::lock_guard<std::mutex> lock(m_scrollMutex);
+			
+			m_scroll = m_scrollInternal;
+			
+			m_scrollInternal.set(0.0, 0.0);
+		}
+
+		{
+			m_allInputs.clear();
+
+			for (uint32 i = 0; i < InputState::MouseButtonCount; ++i)
+			{
+				if (m_states[i].pressed)
+				{
+					m_allInputs.emplace_back(InputDeviceType::Mouse, static_cast<uint8>(i));
+				}
+			}
+		}
 	}
 
 	bool CMouse::down(const uint32 index) const
@@ -75,11 +117,47 @@ namespace s3d
 
 	void CMouse::onMouseButtonUpdated(const int32 index, const bool pressed)
 	{
-
+		std::lock_guard lock(m_buttonMutex);
+		
+		auto& state = m_buttonsInternal[index];
+		
+		if(state == MouseButtonState::Released)
+		{
+			if(pressed)
+			{
+				state = MouseButtonState::Pressed;
+			}
+		}
+		else if(state == MouseButtonState::Pressed)
+		{
+			if(!pressed)
+			{
+				state = MouseButtonState::Tapped;
+			}
+		}
+		else
+		{
+			if(pressed)
+			{
+				state = MouseButtonState::Pressed;
+			}
+		}
 	}
 
-	void CMouse::onScroll(const double v, const double h)
+	void CMouse::onScroll(const double x, const double y)
 	{
+		std::lock_guard lock(m_scrollMutex);
+		
+		m_scrollInternal.moveBy(x, y);
+	}
 
+	void CMouse::OnMouseButtonUpdated(GLFWwindow*, const int button, const int action, int)
+	{
+		SIV3D_ENGINE(Mouse)->onMouseButtonUpdated(button, (action == GLFW_PRESS));
+	}
+
+	void CMouse::OnScroll(GLFWwindow*, const double xOffset, const double yOffset)
+	{
+		SIV3D_ENGINE(Mouse)->onScroll(xOffset, -yOffset);
 	}
 }

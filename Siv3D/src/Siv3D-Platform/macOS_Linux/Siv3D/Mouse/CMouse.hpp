@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <mutex>
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Input/InputState.hpp>
 # include <Siv3D/PointVector.hpp>
@@ -21,13 +22,42 @@ namespace s3d
 	{
 	private:
 
+		enum class MouseButtonState
+		{
+			Released,
+			
+			Pressed,
+			
+			Tapped,
+		};
+
 		GLFWwindow* m_window = nullptr;
+
+		//
+		// Buttons
+		//
+		
+		std::mutex m_buttonMutex;
+
+		std::array<MouseButtonState, InputState::MouseButtonCount> m_buttonsInternal;
 
 		std::array<InputState, InputState::MouseButtonCount> m_states;
 
 		Array<Input> m_allInputs;
 
+		static void OnMouseButtonUpdated(GLFWwindow*, int button, int action, int mods);
+
+		//
+		// Scroll
+		//
+
+		std::mutex m_scrollMutex;
+
+		Vec2 m_scrollInternal{ 0.0, 0.0 };
+
 		Vec2 m_scroll{ 0.0, 0.0 };
+
+		static void OnScroll(GLFWwindow*, double xOffset, double yOffset);
 
 	public:
 

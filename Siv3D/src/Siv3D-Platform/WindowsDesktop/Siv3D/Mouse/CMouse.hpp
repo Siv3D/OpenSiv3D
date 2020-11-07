@@ -53,6 +53,6 @@ namespace s3d
 
 		void onMouseButtonUpdated(int32 index, bool pressed) override;
 
-		void onScroll(double v, double h) override;
+		void onScroll(double x, double y) override;
 	};
 }

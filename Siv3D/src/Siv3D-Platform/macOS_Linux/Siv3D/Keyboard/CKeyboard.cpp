@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -240,13 +240,15 @@ namespace s3d
 			m_states[0xD8].update(commandPressed);
 		}
 		
-		m_allInputs.clear();
-		
-		for (uint32 i = 8; i < 0xEF; ++i)
 		{
-			if (m_states[i].pressed)
+			m_allInputs.clear();
+			
+			for (uint32 i = 8; i < 0xEF; ++i)
 			{
-				m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
+				if (m_states[i].pressed)
+				{
+					m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
+				}
 			}
 		}
 		

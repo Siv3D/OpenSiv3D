@@ -78,7 +78,7 @@ namespace s3d
 
 	}
 
-	void CMouse::onScroll(const double v, const double h)
+	void CMouse::onScroll(const double x, const double y)
 	{
 
 	}

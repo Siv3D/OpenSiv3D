@@ -42,6 +42,6 @@ namespace s3d
 
 		virtual void onMouseButtonUpdated(int32 index, bool pressed) = 0;
 
-		virtual void onScroll(double v, double h) = 0;
+		virtual void onScroll(double x, double y) = 0;
 	};
 }
