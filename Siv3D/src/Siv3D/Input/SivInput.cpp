@@ -11,10 +11,26 @@
 
 # include <Siv3D/Input.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
+# include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr std::array<StringView, 8> MouseButtonNames =
+		{
+			U"MouseL",
+			U"MouseR",
+			U"MouseM",
+			U"MouseX1",
+			U"MouseX2",
+			U"MouseX3",
+			U"MouseX4",
+			U"MouseX5",
+		};
+	}
+
 	String Input::name() const
 	{
 		switch (m_deviceType)
@@ -22,6 +38,8 @@ namespace s3d
 		case InputDeviceType::Keyboard:
 			return SIV3D_ENGINE(Keyboard)->name(m_code);
 		case InputDeviceType::Mouse:
+			assert(m_code < detail::MouseButtonNames.size());
+			return String{ detail::MouseButtonNames[m_code] };
 		case InputDeviceType::Gamepad:
 		case InputDeviceType::XInput:
 		default:
@@ -36,6 +54,7 @@ namespace s3d
 		case InputDeviceType::Keyboard:
 			return SIV3D_ENGINE(Keyboard)->down(m_code);
 		case InputDeviceType::Mouse:
+			return SIV3D_ENGINE(Mouse)->down(m_code);
 		case InputDeviceType::Gamepad:
 		case InputDeviceType::XInput:
 		default:
@@ -50,6 +69,7 @@ namespace s3d
 		case InputDeviceType::Keyboard:
 			return SIV3D_ENGINE(Keyboard)->pressed(m_code);
 		case InputDeviceType::Mouse:
+			return SIV3D_ENGINE(Mouse)->pressed(m_code);
 		case InputDeviceType::Gamepad:
 		case InputDeviceType::XInput:
 		default:
@@ -64,6 +84,7 @@ namespace s3d
 		case InputDeviceType::Keyboard:
 			return SIV3D_ENGINE(Keyboard)->up(m_code);
 		case InputDeviceType::Mouse:
+			return SIV3D_ENGINE(Mouse)->up(m_code);
 		case InputDeviceType::Gamepad:
 		case InputDeviceType::XInput:
 		default:
@@ -78,6 +99,7 @@ namespace s3d
 		case InputDeviceType::Keyboard:
 			return SIV3D_ENGINE(Keyboard)->pressedDuration(m_code);
 		case InputDeviceType::Mouse:
+			return SIV3D_ENGINE(Mouse)->pressedDuration(m_code);
 		case InputDeviceType::Gamepad:
 		case InputDeviceType::XInput:
 		default:

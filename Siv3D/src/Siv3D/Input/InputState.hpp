@@ -19,6 +19,8 @@ namespace s3d
 	{
 		static constexpr size_t KeyCount = 256;
 
+		static constexpr size_t MouseButtonCount = 8;
+
 		Duration pressedDuration{ 0 };
 
 		Stopwatch stopwatch;

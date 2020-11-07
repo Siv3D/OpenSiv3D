@@ -25,11 +25,13 @@ namespace s3d
 
 		/// @brief マウスホイールのスクロール量を返します。
 		/// @return マウスホイールのスクロール量
-		double Wheel();
+		[[nodiscard]]
+		double Wheel() noexcept;
 
 		/// @brief マウスの水平ホイールのスクロール量を返します。
 		/// @return マウスの水平ホイールのスクロール量
-		double WheelH();
+		[[nodiscard]]
+		double WheelH() noexcept;
 	}
 
 	/// @brief マウス左ボタン

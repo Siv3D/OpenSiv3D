@@ -68,6 +68,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Keyboard/CKeyboard.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Logger/CLogger.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Monitor/SivMonitor_macOS_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Mouse/CMouse.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/System/SivSystem_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Unicode/SivUnicode_macOS_Linux.cpp
 
@@ -140,6 +141,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MathParser/MathParserDetail.cpp
   ../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
+  ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
+  ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
