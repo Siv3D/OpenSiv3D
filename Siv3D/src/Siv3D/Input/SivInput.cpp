@@ -31,21 +31,57 @@ namespace s3d
 
 	bool Input::down() const
 	{
-		return(false);
+		switch (m_deviceType)
+		{
+		case InputDeviceType::Keyboard:
+			return SIV3D_ENGINE(Keyboard)->down(m_code);
+		case InputDeviceType::Mouse:
+		case InputDeviceType::Gamepad:
+		case InputDeviceType::XInput:
+		default:
+			return false;
+		}
 	}
 
 	bool Input::pressed() const
 	{
-		return(false);
+		switch (m_deviceType)
+		{
+		case InputDeviceType::Keyboard:
+			return SIV3D_ENGINE(Keyboard)->pressed(m_code);
+		case InputDeviceType::Mouse:
+		case InputDeviceType::Gamepad:
+		case InputDeviceType::XInput:
+		default:
+			return false;
+		}
 	}
 
 	bool Input::up() const
 	{
-		return(false);
+		switch (m_deviceType)
+		{
+		case InputDeviceType::Keyboard:
+			return SIV3D_ENGINE(Keyboard)->up(m_code);
+		case InputDeviceType::Mouse:
+		case InputDeviceType::Gamepad:
+		case InputDeviceType::XInput:
+		default:
+			return false;
+		}
 	}
 
 	Duration Input::pressedDuration() const
 	{
-		return(Duration{ 0 });
+		switch (m_deviceType)
+		{
+		case InputDeviceType::Keyboard:
+			return SIV3D_ENGINE(Keyboard)->pressedDuration(m_code);
+		case InputDeviceType::Mouse:
+		case InputDeviceType::Gamepad:
+		case InputDeviceType::XInput:
+		default:
+			return Duration{ 0 };
+		}
 	}
 }

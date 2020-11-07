@@ -16,6 +16,7 @@
 # include "Common.hpp"
 # include "InputDevice.hpp"
 # include "Duration.hpp"
+# include "Formatter.hpp"
 
 namespace s3d
 {
@@ -93,6 +94,17 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr uint32 asUint32() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Input& value)
+		{
+			return output << value.name();
+		}
+
+		friend void Formatter(FormatData& formatData, const Input& value)
+		{
+			Formatter(formatData, value.name());
+		}
 	};
 }
 
