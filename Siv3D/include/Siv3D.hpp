@@ -912,7 +912,7 @@
 
 # include <Siv3D/InputDevice.hpp>
 
-# include <Siv3D/Input.hpp>
+# include <Siv3D/InputGroups.hpp>
 
 # include <Siv3D/Keyboard.hpp>
 

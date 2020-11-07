@@ -12,7 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Array.hpp"
-# include "Input.hpp"
+# include "InputGroups.hpp"
 
 namespace s3d
 {

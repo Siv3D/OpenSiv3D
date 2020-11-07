@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Input.hpp>
+# include <Siv3D/InputGroups.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -105,5 +105,20 @@ namespace s3d
 		default:
 			return Duration{ 0 };
 		}
+	}
+
+	InputGroup Input::operator |(const Input other) const
+	{
+		return InputGroup{ *this, other };
+	}
+
+	InputGroup Input::operator |(const InputCombination& other) const
+	{
+		return InputGroup{ *this, other };
+	}
+
+	InputGroup Input::operator |(const InputGroup& other) const
+	{
+		return InputGroup{ *this, other };
 	}
 }

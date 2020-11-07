@@ -65,6 +65,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageEncoder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\INIData.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Input.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputCombination.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputGroup.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ISteadyClock.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Interpolation.ipp" />
@@ -116,7 +118,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Input.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputCombination.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputDevice.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputGroup.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputGroups.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ISteadyClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
@@ -665,6 +670,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Input\InputState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Input\SivInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Int128\SivInt128.cpp" />

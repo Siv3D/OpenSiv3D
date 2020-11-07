@@ -562,6 +562,12 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse">
       <UniqueIdentifier>{23d7d437-f02d-407a-9070-ead571e8a4c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\InputCombination">
+      <UniqueIdentifier>{735af03b-cfa5-4892-bd3c-3e28cc5ca1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\InputGroup">
+      <UniqueIdentifier>{9a4ca829-9ff4-4ede-af7f-3509e8890f75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2202,6 +2208,21 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse\CMouse.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputCombination.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputGroup.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputCombination.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\InputGroups.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputGroup.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3037,6 +3058,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse\CMouse.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp">
+      <Filter>src\Siv3D\InputCombination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp">
+      <Filter>src\Siv3D\InputGroup</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

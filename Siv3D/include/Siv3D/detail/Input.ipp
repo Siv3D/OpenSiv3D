@@ -33,60 +33,6 @@ namespace s3d
 		return m_userIndex;
 	}
 
-# if __cpp_impl_three_way_comparison
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator ==(const Input& other) const noexcept
-	{
-		return (asUint32() == other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr auto Input::operator <=>(const Input& other) const noexcept
-	{
-		return (asUint32() <=> other.asUint32());
-	}
-
-# else
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator ==(const Input& other) const noexcept
-	{
-		return (asUint32() == other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator !=(const Input& other) const noexcept
-	{
-		return (asUint32() != other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator <(const Input& other) const noexcept
-	{
-		return (asUint32() < other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator <=(const Input& other) const noexcept
-	{
-		return (asUint32() <= other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator >(const Input& other) const noexcept
-	{
-		return (asUint32() > other.asUint32());
-	}
-
-	[[nodiscard]]
-	inline constexpr bool Input::operator >=(const Input& other) const noexcept
-	{
-		return (asUint32() >= other.asUint32());
-	}
-
-# endif
-
 	inline constexpr uint32 Input::asUint32() const noexcept
 	{
 	# if __cpp_lib_bit_cast
@@ -94,5 +40,10 @@ namespace s3d
 	# else
 		return (uint32(m_userIndex) << 16) | (uint32(m_code) << 8) | (uint32(m_deviceType));
 	# endif
+	}
+
+	inline constexpr InputCombination Input::operator +(const Input other) const noexcept
+	{
+		return{ *this, other };
 	}
 }

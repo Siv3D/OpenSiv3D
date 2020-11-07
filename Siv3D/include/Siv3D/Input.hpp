@@ -20,12 +20,17 @@
 
 namespace s3d
 {
+	class InputCombination;
+	class InputGroup;
+
 	class Input
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		Input() = default;
 
+		SIV3D_NODISCARD_CXX20
 		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 userIndex = 0) noexcept;
 
 		[[nodiscard]]
@@ -52,48 +57,74 @@ namespace s3d
 		[[nodiscard]]
 		Duration pressedDuration() const;
 
+		[[nodiscard]]
+		constexpr InputCombination operator +(Input other) const noexcept;
+
+		[[nodiscard]]
+		InputGroup operator |(Input other) const;
+		
+		[[nodiscard]]
+		InputGroup operator |(const InputCombination& other) const;
+
+		[[nodiscard]]
+		InputGroup operator |(const InputGroup& other) const;
+
+		[[nodiscard]]
+		constexpr uint32 asUint32() const noexcept;
+
 	# if __cpp_impl_three_way_comparison
 
 		[[nodiscard]]
-		constexpr bool operator ==(const Input& other) const noexcept;
+		friend constexpr bool operator ==(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() == rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr auto operator <=>(const Input& other) const noexcept;
+		friend constexpr auto operator <=>(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() <=> rhs.asUint32());
+		}
 
 	# else
 
 		[[nodiscard]]
-		constexpr bool operator ==(const Input& other) const noexcept;
+		friend constexpr bool operator ==(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() == rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr bool operator !=(const Input& other) const noexcept;
+		friend constexpr bool operator !=(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() != rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr bool operator <(const Input& other) const noexcept;
+		friend constexpr bool operator <(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() < rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr bool operator <=(const Input& other) const noexcept;
+		friend constexpr bool operator <=(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() <= rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr bool operator >(const Input& other) const noexcept;
+		friend constexpr bool operator >(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() > rhs.asUint32());
+		}
 
 		[[nodiscard]]
-		constexpr bool operator >=(const Input& other) const noexcept;
+		friend constexpr bool operator >=(Input lhs, Input rhs) noexcept
+		{
+			return (lhs.asUint32() >= rhs.asUint32());
+		}
 
 	# endif
-
-	private:
-
-		InputDeviceType m_deviceType = InputDeviceType::Undefined;
-
-		uint8 m_code = 0;
-
-		uint8 m_userIndex = 0;
-
-		SIV3D_MAYBE_UNUSED_NSDM uint8 m_reserved = 0;
-
-		[[nodiscard]]
-		constexpr uint32 asUint32() const noexcept;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Input& value)
@@ -105,7 +136,15 @@ namespace s3d
 		{
 			Formatter(formatData, value.name());
 		}
+
+	private:
+
+		InputDeviceType m_deviceType = InputDeviceType::Undefined;
+
+		uint8 m_code = 0;
+
+		uint8 m_userIndex = 0;
+
+		SIV3D_MAYBE_UNUSED_NSDM uint8 m_reserved = 0;
 	};
 }
-
-# include "detail/Input.ipp"

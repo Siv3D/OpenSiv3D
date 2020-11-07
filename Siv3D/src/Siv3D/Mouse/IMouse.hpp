@@ -12,7 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
-# include <Siv3D/Input.hpp>
+# include <Siv3D/InputGroups.hpp>
 
 namespace s3d
 {
