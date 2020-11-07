@@ -416,6 +416,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageEncoder\IImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMPHeader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Input\InputState.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\FallbackKeyName.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\IKeyboard.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\ILicenseManager.hpp" />

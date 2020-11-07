@@ -193,6 +193,27 @@
 
 # endif
 
+//////////////////////////////////////////////////
+//
+//	メンバ変数への [[maybe_unused]]
+//	[[maybe_unused]] for non-static data member
+//
+//////////////////////////////////////////////////
+
+#if defined(__cplusplus)
+
+	# if (__has_cpp_attribute(maybe_unused) && !(defined(__GNUC__)))
+
+		# define SIV3D_MAYBE_UNUSED_NSDM [[maybe_unused]]
+
+	# else
+
+		# define SIV3D_MAYBE_UNUSED_NSDM
+
+	# endif
+
+# endif
+
 
 //////////////////////////////////////////////////
 //

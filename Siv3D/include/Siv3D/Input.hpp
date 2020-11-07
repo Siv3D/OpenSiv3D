@@ -89,7 +89,7 @@ namespace s3d
 
 		uint8 m_userIndex = 0;
 
-		[[maybe_unused]] uint8 m_reserved = 0;
+		SIV3D_MAYBE_UNUSED_NSDM uint8 m_reserved = 0;
 
 		[[nodiscard]]
 		constexpr uint32 asUint32() const noexcept;

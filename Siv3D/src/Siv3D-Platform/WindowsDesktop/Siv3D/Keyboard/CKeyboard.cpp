@@ -15,6 +15,7 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Keyboard/FallbackKeyName.hpp>
 # include "CKeyboard.hpp"
 
 namespace s3d
@@ -52,6 +53,10 @@ namespace s3d
 			if (const int length = ::GetKeyNameTextW(static_cast<LPARAM>(scanCode << 16), buffer, _countof(buffer)))
 			{
 				return Unicode::FromWstring(std::wstring_view{ buffer, static_cast<size_t>(length) });
+			}
+			else if (detail::FallbackKeyNames[vk])
+			{
+				return String{ detail::FallbackKeyNames[vk] };
 			}
 			else
 			{

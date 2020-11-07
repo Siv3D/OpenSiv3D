@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -15,6 +15,7 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Keyboard/FallbackKeyName.hpp>
 # include "CKeyboard.hpp"
 
 extern"C"
@@ -154,6 +155,23 @@ namespace s3d
 			{ 0xDE, 0 }, // ? [Siv3D TODO]
 			{ 0xE2, SIV3D_KEY_JIS_UNDERSCORE }, // _ (JIS)
 		};
+
+		[[nodiscard]]
+		static String GetKeyName(const uint32 glfwKey)
+		{
+			if (const char* name = ::glfwGetKeyName(glfwKey, 0))
+			{
+				return Unicode::Widen(name);
+			}
+			else if (detail::FallbackKeyNames[vk])
+			{
+				return String{ detail::FallbackKeyNames[vk] };
+			}
+			else
+			{
+				return U"{:#04x}"_fmt(vk);
+			}
+		}
 	}
 
 	CKeyboard::CKeyboard()
@@ -174,11 +192,7 @@ namespace s3d
 		
 		for (auto [index, glfwKey] : detail::KeyConversionTable)
 		{
-			if (const char* name = ::glfwGetKeyName(glfwKey, 0))
-			{
-				m_names[index] = Unicode::Widen(name);
-				//LOG_ERROR(U"{}: {}"_fmt(index, m_names[index]));
-			}
+			m_names[index] = detail::GetKeyName(glfwKey);
 		}
 	}
 
