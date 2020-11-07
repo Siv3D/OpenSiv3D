@@ -35,9 +35,12 @@ namespace s3d
 
 		m_buttonsInternal.fill(MouseButtonState::Released);
 
-		::glfwSetScrollCallback(m_window, OnScroll);
+		if (m_window)
+		{
+			::glfwSetScrollCallback(m_window, OnScroll);
 		
-		::glfwSetMouseButtonCallback(m_window, OnMouseButtonUpdated);		
+			::glfwSetMouseButtonCallback(m_window, OnMouseButtonUpdated);		
+		}
 	}
 
 	void CMouse::update()
