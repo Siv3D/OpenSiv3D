@@ -261,11 +261,12 @@ namespace s3d
 
 		if (itSection != m_keyIndices.end()) // Section が存在
 		{
+			auto& value = itSection->second.second;
 			const size_t sectionIndex = itSection->second.first;
 
-			auto itKey = itSection->second.second.find(name);
+			auto itKey = value.find(name);
 
-			if (itKey != itSection->second.second.end()) // Key が存在
+			if (itKey != value.end()) // Key が存在
 			{
 				const size_t keyIndex = itKey->second;
 
@@ -279,7 +280,7 @@ namespace s3d
 
 				const size_t keyIndex = m_sections[sectionIndex].keys.size() - 1;
 
-				itSection->second.second.emplace(name_, keyIndex);
+				value.emplace(name_, keyIndex);
 
 				return m_sections[sectionIndex].keys[keyIndex].value;
 			}
@@ -307,10 +308,11 @@ namespace s3d
 		if (auto itSection = m_keyIndices.find(section);
 			itSection != m_keyIndices.end()) // Section が存在
 		{
-			const size_t sectionIndex = itSection->second.first;
+			const auto& value = itSection->second;
+			const size_t sectionIndex = value.first;
 
-			if (auto itKey = itSection->second.second.find(name);
-				itKey != itSection->second.second.end()) // Key が存在
+			if (auto itKey = value.second.find(name);
+				itKey != value.second.end()) // Key が存在
 			{
 				const size_t keyIndex = itKey->second;
 

@@ -50,7 +50,7 @@ namespace s3d
 
 			wchar_t buffer[128] = {};
 
-			if (const int length = ::GetKeyNameTextW(static_cast<LPARAM>(scanCode << 16), buffer, _countof(buffer)))
+			if (const int length = ::GetKeyNameTextW(static_cast<LONG>(scanCode << 16), buffer, _countof(buffer)))
 			{
 				return Unicode::FromWstring(std::wstring_view{ buffer, static_cast<size_t>(length) });
 			}

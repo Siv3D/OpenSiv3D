@@ -156,6 +156,6 @@ namespace s3d
 
 	void CMouse::OnScroll(GLFWwindow*, const double xOffset, const double yOffset)
 	{
-		SIV3D_ENGINE(Mouse)->onScroll(xOffset, -yOffset);
+		SIV3D_ENGINE(Mouse)->onScroll(-xOffset, -yOffset);
 	}
 }
