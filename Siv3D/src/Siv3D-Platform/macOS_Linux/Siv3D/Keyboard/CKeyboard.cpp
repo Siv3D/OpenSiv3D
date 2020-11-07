@@ -245,7 +245,9 @@ namespace s3d
 			
 			for (uint32 i = 8; i < 0xEF; ++i)
 			{
-				if (m_states[i].pressed)
+				const auto& state = m_states[i];
+
+				if (state.pressed || state.up)
 				{
 					m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
 				}

@@ -111,9 +111,11 @@ namespace s3d
 				{
 					const bool pressed = ((buf[i] >> 7) & 0x1);
 
-					m_states[i].update(pressed);
+					auto& state = m_states[i];
+					state.update(pressed);
 
-					if (pressed && InRange<size_t>(i, VK_BACK, 0xEF))
+					if ((state.pressed || state.up)
+						&& InRange<size_t>(i, VK_BACK, 0xEF))
 					{
 						m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
 					}

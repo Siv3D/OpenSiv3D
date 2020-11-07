@@ -78,7 +78,9 @@ namespace s3d
 
 			for (uint32 i = 0; i < InputState::MouseButtonCount; ++i)
 			{
-				if (m_states[i].pressed)
+				const auto& state = m_states[i];
+
+				if (state.pressed || state.up)
 				{
 					m_allInputs.emplace_back(InputDeviceType::Mouse, static_cast<uint8>(i));
 				}
