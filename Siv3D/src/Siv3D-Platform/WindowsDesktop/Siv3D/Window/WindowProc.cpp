@@ -16,6 +16,7 @@
 # include <Siv3D/UserAction/IUSerAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Cursor/CCursor.hpp>
+# include <Siv3D/Mouse/CMouse.hpp>
 # include "WindowProc.hpp"
 # include "CWindow.hpp"
 
@@ -182,6 +183,39 @@ namespace s3d
 					}
 
 					return 1;
+				}
+
+				break;
+			}
+		case WM_MOUSEWHEEL:
+			{
+				SIV3D_ENGINE(Mouse)->onScroll(0, static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA));
+				return 0;
+			}
+		case WM_MOUSEHWHEEL:
+			{
+				SIV3D_ENGINE(Mouse)->onScroll(static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA), 0);
+				return 0;
+			}
+		case WM_TOUCH:
+			{
+				if (const size_t num_inputs = LOWORD(wParam))
+				{
+					Array<TOUCHINPUT> touchInputs(num_inputs);
+
+					if (::GetTouchInputInfo(reinterpret_cast<HTOUCHINPUT>(lParam),
+						static_cast<uint32>(touchInputs.size()), touchInputs.data(),
+						sizeof(TOUCHINPUT)))
+					{
+						if (auto pMouse = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse)))
+						{
+							pMouse->onTouchInput(touchInputs);
+						}
+
+						::CloseTouchInputHandle(reinterpret_cast<HTOUCHINPUT>(lParam));
+
+						return 0;
+					}
 				}
 
 				break;

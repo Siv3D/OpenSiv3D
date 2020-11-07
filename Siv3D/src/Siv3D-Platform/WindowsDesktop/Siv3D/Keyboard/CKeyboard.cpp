@@ -99,22 +99,24 @@ namespace s3d
 			m_inputAttached = true;
 		}
 
-		m_allInputs.clear();
-
-		if (uint8 buf[256] = {}; 
-			::GetKeyboardState(buf))
 		{
-			static_assert(InputState::KeyCount == _countof(buf));
+			m_allInputs.clear();
 
-			for (size_t i = 0; i < _countof(buf); ++i)
+			if (uint8 buf[256] = {};
+				::GetKeyboardState(buf))
 			{
-				const bool pressed = ((buf[i] >> 7) & 0x1);
+				static_assert(InputState::KeyCount == _countof(buf));
 
-				m_states[i].update(pressed);
-
-				if (pressed && InRange<size_t>(i, VK_BACK, 0xEF))
+				for (size_t i = 0; i < _countof(buf); ++i)
 				{
-					m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
+					const bool pressed = ((buf[i] >> 7) & 0x1);
+
+					m_states[i].update(pressed);
+
+					if (pressed && InRange<size_t>(i, VK_BACK, 0xEF))
+					{
+						m_allInputs.emplace_back(InputDeviceType::Keyboard, static_cast<uint8>(i));
+					}
 				}
 			}
 		}

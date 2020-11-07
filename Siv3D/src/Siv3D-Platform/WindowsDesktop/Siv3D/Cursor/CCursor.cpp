@@ -16,6 +16,7 @@
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Mouse/CMouse.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CCursor.hpp"
@@ -80,7 +81,15 @@ namespace s3d
 			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), lastClientPos);
 		
 			POINT screenPos;
-			::GetCursorPos(&screenPos);
+			if (const auto touchPos = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
+			{
+				screenPos.x = touchPos->x;
+				screenPos.y = touchPos->y;
+			}
+			else
+			{
+				::GetCursorPos(&screenPos);
+			}
 
 			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
 			const Vec2 clientPos = m_transformAllInv.transformPoint(lastClientPos / scaling);

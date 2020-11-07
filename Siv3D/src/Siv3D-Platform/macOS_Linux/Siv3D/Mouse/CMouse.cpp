@@ -45,7 +45,7 @@ namespace s3d
 		{
 			std::lock_guard lock(m_buttonMutex);
 			
-			for (uint32 i = 0; i < MouseButtonCount; ++i)
+			for (uint32 i = 0; i < InputState::MouseButtonCount; ++i)
 			{
 				auto& state = m_buttonsInternal[i];
 				
@@ -63,9 +63,7 @@ namespace s3d
 		{
 			std::lock_guard<std::mutex> lock(m_scrollMutex);
 			
-			m_scroll = m_scrollInternal;
-			
-			m_scrollInternal.set(0.0, 0.0);
+			m_scroll = std::exchange(m_scrollInternal, Vec2(0, 0));
 		}
 
 		{

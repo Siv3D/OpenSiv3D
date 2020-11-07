@@ -19,6 +19,7 @@
 # include <Siv3D/Scene/IScene.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
+# include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/UserAction/IUSerAction.hpp>
@@ -63,6 +64,7 @@ namespace s3d
 		SIV3D_ENGINE(ImageEncoder)->init();
 		SIV3D_ENGINE(Cursor)->init();
 		SIV3D_ENGINE(Keyboard)->init();
+		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
 	}
@@ -96,6 +98,7 @@ namespace s3d
 		SIV3D_ENGINE(Renderer)->clear();
 		SIV3D_ENGINE(Cursor)->update();
 		SIV3D_ENGINE(Keyboard)->update();
+		SIV3D_ENGINE(Mouse)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{
 			return false;
