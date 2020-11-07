@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -157,19 +157,19 @@ namespace s3d
 		};
 
 		[[nodiscard]]
-		static String GetKeyName(const uint32 glfwKey)
+		static String GetKeyName(const uint32 index, const uint32 glfwKey)
 		{
 			if (const char* name = ::glfwGetKeyName(glfwKey, 0))
 			{
 				return Unicode::Widen(name);
 			}
-			else if (detail::FallbackKeyNames[vk])
+			else if (detail::FallbackKeyNames[index])
 			{
-				return String{ detail::FallbackKeyNames[vk] };
+				return String{ detail::FallbackKeyNames[index] };
 			}
 			else
 			{
-				return U"{:#04x}"_fmt(vk);
+				return U"{:#04x}"_fmt(index);
 			}
 		}
 	}
@@ -192,7 +192,21 @@ namespace s3d
 		
 		for (auto [index, glfwKey] : detail::KeyConversionTable)
 		{
-			m_names[index] = detail::GetKeyName(glfwKey);
+			m_names[index] = detail::GetKeyName(index, glfwKey);
+		}
+		
+		for (size_t i = 0; i < InputState::KeyCount; ++i)
+		{
+			auto& name = m_names[i];
+			
+			if (not name)
+			{
+				name = U"{:#04x}"_fmt(i);
+			}
+			else if (name.size() == 1 && IsLower(name.front()))
+			{
+				name.uppercase();
+			}
 		}
 	}
 

@@ -649,6 +649,7 @@
 		2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DC25158AC000904E67 /* FrameCounter.hpp */; };
 		2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DD25158AC000904E67 /* FrameCounter.cpp */; };
 		2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
+		2CB7D4E22556C532007EB42E /* FallbackKeyName.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
@@ -1681,6 +1682,7 @@
 		2C9D1078249A3D680096DA03 /* SMFT.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMFT.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FallbackKeyName.hpp; sourceTree = "<group>"; };
 		2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_Metal.hpp; sourceTree = "<group>"; };
 		2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer2D_Metal.mm; sourceTree = "<group>"; };
 		2CE18686249CC7A900ADD14A /* scope_fail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_fail.h; sourceTree = "<group>"; };
@@ -4277,6 +4279,7 @@
 			children = (
 				2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */,
 				2CFE19A52555B23C005826A1 /* SivKeyboard.cpp */,
+				2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */,
 				2CFE19A62555B23C005826A1 /* IKeyboard.hpp */,
 			);
 			path = Keyboard;
@@ -4503,6 +4506,7 @@
 				2C47B0BA24DD974A008D83BE /* agg_span_image_filter.h in Headers */,
 				2C47B32124DD9789008D83BE /* CCursor_Null.hpp in Headers */,
 				2C481E1224460B5700A5D88D /* bit_utils.h in Headers */,
+				2CB7D4E22556C532007EB42E /* FallbackKeyName.hpp in Headers */,
 				2C47B0AA24DD974A008D83BE /* agg_scanline_boolean_algebra.h in Headers */,
 				2C47B08824DD974A008D83BE /* agg_rasterizer_compound_aa.h in Headers */,
 				2C834D8C248805D4006208B8 /* st.h in Headers */,
