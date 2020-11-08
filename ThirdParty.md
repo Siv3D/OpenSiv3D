@@ -3,7 +3,7 @@
 
 Library | Version
 --- | ---
-[Abseil](https://github.com/abseil/abseil-cpp) | 20200225.2
+[Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2
 Anti-Grain Geometry | v2.4
 [Boost](https://www.boost.org/) | 1.73.0
 [Catch2](https://github.com/catchorg/Catch2) | v2.12.2
