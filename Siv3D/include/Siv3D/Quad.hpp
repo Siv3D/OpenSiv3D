@@ -11,10 +11,28 @@
 
 # pragma once
 # include "Common.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {
+	/// @brief 凸四角形
+	struct Quad
+	{
+		using position_type	= Vec2;
 
+		using value_type	= position_type::value_type;
+
+		position_type p0;
+
+		position_type p1;
+
+		position_type p2;
+
+		position_type p3;
+
+		SIV3D_NODISCARD_CXX20
+		Quad() = default;
+	};
 }
 
 # include "detail/Quad.ipp"

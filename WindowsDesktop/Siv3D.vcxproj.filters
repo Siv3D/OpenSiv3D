@@ -2172,9 +2172,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResplution.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Input.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -2233,6 +2230,24 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier3.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier2.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

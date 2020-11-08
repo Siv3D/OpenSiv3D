@@ -1730,7 +1730,7 @@
 		2CF21D12249FAA8F00C864C9 /* CWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWindow.hpp; sourceTree = "<group>"; };
 		2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain.cpp; sourceTree = "<group>"; };
 		2CF2AF852552876700E81D12 /* Monitor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Monitor.hpp; sourceTree = "<group>"; };
-		2CF2AF8625542C2500E81D12 /* DisplayResplution.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisplayResplution.hpp; sourceTree = "<group>"; };
+		2CF2AF8625542C2500E81D12 /* DisplayResolution.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisplayResolution.hpp; sourceTree = "<group>"; };
 		2CF2AF8825542C5900E81D12 /* SivMonitor_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS_Linux.cpp; sourceTree = "<group>"; };
 		2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor.cpp; sourceTree = "<group>"; };
 		2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS.cpp; sourceTree = "<group>"; };
@@ -2071,7 +2071,7 @@
 				2C4397572535DD3000F6AECD /* Demangle.hpp */,
 				2C4396A22535DD3000F6AECD /* DepthStencilState.hpp */,
 				2C4397582535DD3000F6AECD /* DiscreteDistribution.hpp */,
-				2CF2AF8625542C2500E81D12 /* DisplayResplution.hpp */,
+				2CF2AF8625542C2500E81D12 /* DisplayResolution.hpp */,
 				2C4397592535DD3000F6AECD /* Distribution.hpp */,
 				2C43966D2535DD3000F6AECD /* DLL.hpp */,
 				2C4397702535DD3000F6AECD /* Duration.hpp */,

@@ -805,16 +805,16 @@
 
 // 多角形
 // Polygon
-//# include <Siv3D/Polygon.hpp>
+# include <Siv3D/Polygon.hpp> // [Siv3D ToDo]
 
 // 複数の多角形
 //# include <Siv3D/MultiPolygon.hpp>
 
 // 2 次ベジェ曲線
-//# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier2.hpp> // [Siv3D ToDo]
 
 // 3 次ベジェ曲線
-//# include <Siv3D/Bezier3.hpp>
+# include <Siv3D/Bezier3.hpp> // [Siv3D ToDo]
 
 // Float 型の長方形
 # include <Siv3D/FloatRect.hpp>
@@ -856,7 +856,7 @@
 
 # include <Siv3D/CPUInfo.hpp>
 
-# include <Siv3D/DisplayResplution.hpp>
+# include <Siv3D/DisplayResolution.hpp>
 
 # include <Siv3D/Monitor.hpp>
 

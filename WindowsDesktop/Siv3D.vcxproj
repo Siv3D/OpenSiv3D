@@ -20,6 +20,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BetterGradientNoise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BigFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryReader.hpp" />
@@ -43,6 +45,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetHandle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetID.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetIDWrapper.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier2.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier3.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BigFloat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BigInt.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BinaryWriter.ipp" />
@@ -98,7 +102,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Window.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResplution.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EnvironmentVariable.hpp" />
@@ -273,6 +277,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PNGFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedNamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PrimeNumber.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PRNG.hpp" />

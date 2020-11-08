@@ -15,22 +15,7 @@
 
 namespace s3d
 {
-	/// @brief 三角形
-	struct Triangle
-	{
-		using position_type	= Vec2;
 
-		using value_type	= position_type::value_type;
-
-		position_type p0;
-
-		position_type p1;
-
-		position_type p2;
-
-		SIV3D_NODISCARD_CXX20
-		Triangle() = default;
-	};
 }
 
-# include "detail/Triangle.ipp"
+# include "detail/Bezier3.ipp"
