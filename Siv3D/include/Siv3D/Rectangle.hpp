@@ -322,6 +322,26 @@ namespace s3d
 
 
 
+
+
+
+
+		[[nodiscard]]
+		bool intersects(const Point point) const
+		{
+			return (x <= point.x) && (point.x < (x + w))
+				&& (y <= point.y) && (point.y < (y + h));
+		}
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		const Rectangle& draw(const ColorF& color = Palette::White) const;
+
+
+
+
+
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Rectangle& value)
 		{
@@ -343,17 +363,6 @@ namespace s3d
 				>> value.h >> unused;
 		}
 
-		[[nodiscard]]
-		bool intersects(const Point point) const
-		{
-			return (x <= point.x) && (point.x < (x + w))
-				&& (y <= point.y) && (point.y < (y + h));
-		}
-
-
-
-		const Rectangle& draw(const ColorF& color = Palette::White) const;
-
 		friend void Formatter(FormatData& formatData, const Rectangle& value)
 		{
 			_Formatter(formatData, value);
@@ -362,14 +371,10 @@ namespace s3d
 		static void _Formatter(FormatData& formatData, const Rectangle& value);
 	};
 
-	/// <summary>
-	/// 長方形（要素が int 型）
-	/// </summary>
+	/// @brief 長方形（要素が int32 型）
 	using Rect = Rectangle<Point>;
 
-	/// <summary>
-	/// 長方形（要素が double 型）
-	/// </summary>
+	/// @brief 長方形（要素が double 型）
 	using RectF = Rectangle<Vec2>;
 }
 
@@ -399,14 +404,12 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::Rectangle<Type>, s3d::char32>
 	}
 };
 
-//template <class Type>
-//struct std::hash<s3d::Rectangle<Type>>
-//{
-//	[[nodiscard]]
-//	size_t operator()(const s3d::Rectangle<Type>& value) const noexcept
-//	{
-//		return value.hash();
-//	}
-//};
-
-
+template <class Type>
+struct std::hash<s3d::Rectangle<Type>>
+{
+	[[nodiscard]]
+	size_t operator()(const s3d::Rectangle<Type>& value) const noexcept
+	{
+		return value.hash();
+	}
+};

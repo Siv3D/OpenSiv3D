@@ -198,4 +198,12 @@ namespace s3d
 	inline constexpr Rectangle<SizeType>::Rectangle(const Arg::leftCenter_<position_type> leftCenter, const size_type _size) noexcept
 		: pos{ leftCenter->x, (leftCenter->y - _size.y / 2) }
 		, size{ _size.x, _size.y } {}
+
+
+
+	template <class SizeType>
+	inline size_t Rectangle<SizeType>::hash() const noexcept
+	{
+		return Hash::FNV1a(*this);
+	}
 }

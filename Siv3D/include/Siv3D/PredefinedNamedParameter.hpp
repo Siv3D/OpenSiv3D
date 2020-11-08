@@ -26,13 +26,13 @@ namespace s3d::Arg
 	SIV3D_NAMED_PARAMETER(angle);				// Line
 	SIV3D_NAMED_PARAMETER(direction);			// Line
 
-	SIV3D_NAMED_PARAMETER(center);				// Rectangle
-	SIV3D_NAMED_PARAMETER(topLeft);				// Rectangle
-	SIV3D_NAMED_PARAMETER(topRight);			// Rectangle
-	SIV3D_NAMED_PARAMETER(bottomLeft);			// Rectangle
-	SIV3D_NAMED_PARAMETER(bottomRight);			// Rectangle
-	SIV3D_NAMED_PARAMETER(topCenter);			// Rectangle
-	SIV3D_NAMED_PARAMETER(bottomCenter);		// Rectangle
-	SIV3D_NAMED_PARAMETER(leftCenter);			// Rectangle
-	SIV3D_NAMED_PARAMETER(rightCenter);			// Rectangle
+	SIV3D_NAMED_PARAMETER(center);				// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(topLeft);				// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(topRight);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(bottomLeft);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(bottomRight);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(topCenter);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(bottomCenter);		// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(leftCenter);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(rightCenter);			// Rectangle, Circle
 }

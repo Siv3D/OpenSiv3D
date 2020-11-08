@@ -91,6 +91,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/BinaryReader/SivBinaryReader.cpp
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
+  ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
   ../Siv3D/src/Siv3D/Common/Siv3DEngine.cpp
   ../Siv3D/src/Siv3D/Console/ConsoleFactory.cpp
@@ -105,6 +106,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
   ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
+  ../Siv3D/src/Siv3D/Ellipse/SivEllipse.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
@@ -153,6 +155,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
   ../Siv3D/src/Siv3D/QR/SivQR.cpp
+  ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
   ../Siv3D/src/Siv3D/Rectangle/SivRectangle.cpp
   ../Siv3D/src/Siv3D/RegExp/RegExpDetail.cpp
@@ -182,6 +185,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
+  ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
   ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp

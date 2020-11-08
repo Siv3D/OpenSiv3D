@@ -30,5 +30,21 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		Triangle() = default;
+
+		explicit constexpr Triangle(value_type sides) noexcept;
+
+		Triangle(value_type sides, value_type angle) noexcept;
+
+		constexpr Triangle(value_type x, value_type y, value_type sides) noexcept;
+
+		constexpr Triangle(const position_type& pos, value_type sides) noexcept;
+
+		Triangle(value_type x, value_type y, value_type sides, value_type angle) noexcept;
+
+		Triangle(const position_type& pos, value_type sides, value_type angle) noexcept;
+
+		constexpr Triangle(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept;
+
+		constexpr Triangle(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept;
 	};
 }

@@ -12,6 +12,8 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "Circle.hpp"
+# include "Rectangle.hpp"
 
 namespace s3d
 {
@@ -51,5 +53,27 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		Ellipse() = default;
+
+		explicit constexpr Ellipse(double _r) noexcept;
+
+		constexpr Ellipse(double _a, double _b) noexcept;
+
+		constexpr Ellipse(double _x, double _y, double _r) noexcept;
+
+		constexpr Ellipse(double _x, double _y, double _a, double _b) noexcept;
+
+		explicit constexpr Ellipse(Vec2 _center) noexcept;
+
+		constexpr Ellipse(const Vec2& _center, double _r) noexcept;
+
+		constexpr Ellipse(const Vec2& _center, double _a, double _b) noexcept;
+
+		constexpr Ellipse(double _x, double _y, const Vec2& _axis) noexcept;
+
+		constexpr Ellipse(const Vec2& _center, const Vec2& _axis) noexcept;
+
+		explicit constexpr Ellipse(const Circle& circle) noexcept;
+
+		explicit constexpr Ellipse(const RectF& rect) noexcept;
 	};
 }

@@ -571,6 +571,18 @@
     <Filter Include="src\Siv3D\Line">
       <UniqueIdentifier>{38930810-4756-4a57-98da-927a15783b31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Circle">
+      <UniqueIdentifier>{209cf513-8c4d-48d3-b5eb-ecc36e988cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Ellipse">
+      <UniqueIdentifier>{76f567b0-eade-46b8-8823-8b7851172f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Triangle">
+      <UniqueIdentifier>{4f0650bc-885d-4f91-9c35-5afaec8f5b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Quad">
+      <UniqueIdentifier>{b4e6ea3a-9633-4366-af29-a19e42d33d31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3103,6 +3115,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp">
       <Filter>src\Siv3D\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp">
+      <Filter>src\Siv3D\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp">
+      <Filter>src\Siv3D\Ellipse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp">
+      <Filter>src\Siv3D\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp">
+      <Filter>src\Siv3D\Quad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

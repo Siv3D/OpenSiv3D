@@ -1,0 +1,51 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2020 Ryo Suzuki
+//	Copyright (c) 2016-2020 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# include <Siv3D/Circle.hpp>
+# include <Siv3D/FormatFloat.hpp>
+
+namespace s3d
+{
+	Circle::Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept
+	{
+		if (p0 == p1)
+		{
+			*this = Circle(p0, p2);
+			return;
+		}
+		else if ((p0 == p2) || (p1 == p2))
+		{
+			*this = Circle(p0, p1);
+			return;
+		}
+
+		const double a02 = 2 * (p0.x - p2.x);
+		const double b02 = 2 * (p0.y - p2.y);
+		const double c02 = (p0.y * p0.y - p2.y * p2.y) + (p0.x * p0.x - p2.x * p2.x);
+		const double a12 = 2 * (p1.x - p2.x);
+		const double b12 = 2 * (p1.y - p2.y);
+		const double c12 = (p1.y * p1.y - p2.y * p2.y) + (p1.x * p1.x - p2.x * p2.x);
+		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
+		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
+		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
+	}
+
+	void Circle::_Formatter(FormatData& formatData, const Circle& value)
+	{
+		formatData.string.push_back(U'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.r, formatData.decimalPlaces.value));
+		formatData.string.push_back(U')');
+	}
+}
