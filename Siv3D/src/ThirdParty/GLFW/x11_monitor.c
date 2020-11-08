@@ -638,8 +638,7 @@ GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos,
 }
 
 GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID,
-                                      int* xpos, int* ypos, int* w, int* h,
-                                      int* wx, int* wy, int* ww, int* wh)
+                                      int* xpos, int* ypos, int* w, int* h)
 {
     _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
     assert(monitor != NULL);
@@ -663,14 +662,6 @@ GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID,
         *w = (int)ci->width;
     if (h)
         *h = (int)ci->height;
-    if (wx)
-        *wx = (int)ci->x;
-    if (wy)
-        *wy = (int)ci->y;
-    if (ww)
-        *ww = (int)ci->width;
-    if (wh)
-        *wh = (int)ci->height;
 
     XRRFreeCrtcInfo(ci);
     XRRFreeScreenResources(sr);

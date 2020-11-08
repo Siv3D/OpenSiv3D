@@ -15,8 +15,7 @@
 extern"C"
 {
 	GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID,
-                                      int* xpos, int* ypos, int* w, int* h,
-                                      int* wx, int* wy, int* ww, int* wh);
+                                      int* xpos, int* ypos, int* w, int* h);
 }
 
 namespace s3d
@@ -36,10 +35,11 @@ namespace s3d
 
 				uint32 displayID;
 				int32 xPos, yPos, width, height;
-				int32 wx, wy, ww, wh;
 				glfwGetMonitorInfo_Siv3D(monitor, &displayID,
-										 &xPos, &yPos, &width, &height,
-										 &wx, &wy, &ww, &wh);
+										 &xPos, &yPos, &width, &height);
+
+				int32 wx, wy, ww, wh;
+				::glfwGetMonitorWorkarea(monitor, &wx, &wy, &ww, &wh);
 				
 				Optional<Size> sizeMillimeter;
 				{
