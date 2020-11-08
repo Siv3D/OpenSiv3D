@@ -36,19 +36,19 @@ namespace s3d
 			return GetState().bounds.pos;
 		}
 
-		inline bool Resize(const Size size)
+		inline bool Resize(const Size size, const bool centering)
 		{
-			return ResizeVirtual(size);
+			return ResizeVirtual(size, centering);
 		}
 
-		inline bool Resize(const int32 width, const int32 height)
+		inline bool Resize(const int32 width, const int32 height, const bool centering)
 		{
-			return ResizeVirtual(Size(width, height));
+			return ResizeVirtual(Size(width, height), centering);
 		}
 
-		inline bool ResizeVirtual(const int32 width, const int32 height)
+		inline bool ResizeVirtual(const int32 width, const int32 height, const bool centering)
 		{
-			return ResizeVirtual(Size(width, height));
+			return ResizeVirtual(Size(width, height), centering);
 		}
 
 		inline bool ResizeActual(const int32 width, const int32 height)

@@ -81,14 +81,15 @@ namespace s3d
 
 		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
 		/// @param size 新しいサイズ
+		/// @param centering ウィンドウを画面の中心に移動させるか
 		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
-		inline bool Resize(Size size);
+		inline bool Resize(Size size, bool centering = true);
 
-		inline bool Resize(int32 width, int32 height);
+		inline bool Resize(int32 width, int32 height, bool centering = true);
 
-		bool ResizeVirtual(Size size);
+		bool ResizeVirtual(Size size, bool centering = true);
 
-		inline bool ResizeVirtual(int32 width, int32 height);
+		inline bool ResizeVirtual(int32 width, int32 height, bool centering = true);
 
 		bool ResizeActual(Size size);
 

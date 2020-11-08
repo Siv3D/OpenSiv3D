@@ -75,19 +75,31 @@ namespace s3d
 			SIV3D_ENGINE(Window)->minimize();
 		}
 
-		bool ResizeVirtual(const Size size)
+		bool ResizeVirtual(const Size size, const bool centering)
 		{
-			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
+			if ((not InRange(size.x, 1, 8192))
+				|| (not InRange(size.y, 1, 8192)))
 			{
 				throw Error(U"Window::ResizeVirtual(): width and height must be in the range [1, 8192]");
 			}
 
-			return SIV3D_ENGINE(Window)->resizeByVirtualSize(size);
+			if (not SIV3D_ENGINE(Window)->resizeByVirtualSize(size))
+			{
+				return false;
+			}
+
+			if (centering)
+			{
+				Centering();
+			}
+
+			return true;
 		}
 
 		bool ResizeActual(const Size size)
 		{
-			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
+			if ((not InRange(size.x, 1, 8192))
+				|| (not InRange(size.y, 1, 8192)))
 			{
 				throw Error(U"Window::ResizeActual(): width and height must be in the range [1, 8192]");
 			}
