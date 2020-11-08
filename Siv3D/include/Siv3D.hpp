@@ -609,6 +609,8 @@
 
 # include <Siv3D/Random.hpp>
 
+# include <Siv3D/Shuffle.hpp>
+
 // ランダムな Point の作成
 // Random Point Generation
 //# include <Siv3D/RandomPoint.hpp>

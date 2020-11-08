@@ -61,14 +61,14 @@ TEST_CASE("Array::parallel_count_if()")
 TEST_CASE("Array::parallel_map()")
 {
 	{
-		Array<int32> v(64 * 1024);
+		Array<uint32> v(64 * 1024);
 		for (size_t i = 0; i < v.size(); ++i)
 		{
-			v[i] = RandomInt32();
+			v[i] = RandomUint32();
 		}
 
-		REQUIRE(v.map([](int32 n) { return n / 10.0 + std::sin(n / 10.0) + std::sqrt(n / 10.0); })
-			== v.parallel_map([](int32 n) { return n / 10.0 + std::sin(n / 10.0) + std::sqrt(n / 10.0); }));
+		REQUIRE(v.map([](uint32 n) { return n / 10.0 + std::sin(n / 10.0) + std::sqrt(n / 10.0); })
+			== v.parallel_map([](uint32 n) { return n / 10.0 + std::sin(n / 10.0) + std::sqrt(n / 10.0); }));
 
 	}
 }

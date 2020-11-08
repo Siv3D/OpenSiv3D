@@ -42,4 +42,7 @@ namespace s3d
 	template <class RealType = double>
 # endif
 	using NormalDistribution = absl::gaussian_distribution<RealType>;
+
+	/// @brief 
+	using BernoulliDistribution = absl::bernoulli_distribution;
 }

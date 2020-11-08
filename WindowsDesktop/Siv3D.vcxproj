@@ -84,6 +84,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SamplerState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Scene.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shuffle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spherical.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Stopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextEncoding.ipp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderStatge.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shuffle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SpecialFolder.hpp" />

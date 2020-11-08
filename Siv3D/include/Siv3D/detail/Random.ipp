@@ -13,6 +13,19 @@
 
 namespace s3d
 {
+	SIV3D_CONCEPT_URBG_
+	inline double Random(URBG&& urbg) noexcept
+	{
+		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG_t>)
+		{
+			return urbg.generateReal();
+		}
+		else
+		{
+			return RandomClosedOpen(0.0, 1.0, std::forward<URBG>(urbg));
+		}
+	}
+
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic Random(const Arithmetic min, const Arithmetic max)
 	{
@@ -28,42 +41,109 @@ namespace s3d
 
 	inline Duration Random(const Duration& min, const Duration& max) noexcept
 	{
-		return Duration{ Random(min.count(), max.count()) };
+		return Random(min, max, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Duration Random(const Duration& min, const Duration& max, URBG&& urbg) noexcept
+	{
+		return Duration{ Random(min.count(), max.count(), std::forward<URBG>(urbg)) };
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic Random(const Arithmetic max)
 	{
-		return Random<Arithmetic>(0, max);
+		return Random(max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic Random(const Arithmetic max, URBG&& urbg)
+	{
+		return Random<Arithmetic>(0, max, std::forward<URBG>(urbg));
 	}
 
 	inline Duration Random(const Duration& max) noexcept
 	{
-		return Duration{ Random(max.count()) };
+		return Random(max, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Duration Random(const Duration& max, URBG&& urbg) noexcept
+	{
+		return Duration{ Random(max.count(), std::forward<URBG>(urbg)) };
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic RandomOpen(const Arithmetic min, const Arithmetic max)
 	{
-		return absl::Uniform(absl::IntervalOpen, GetDefaultRNG(), min, max);
+		return RandomOpen(min, max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomOpen(const Arithmetic min, const Arithmetic max, URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalOpen, std::forward<URBG>(urbg), min, max);
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic RandomClosed(const Arithmetic min, const Arithmetic max)
 	{
-		return absl::Uniform(absl::IntervalClosed, GetDefaultRNG(), min, max);
+		return RandomClosed(min, max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomClosed(const Arithmetic min, const Arithmetic max, URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), min, max);
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic RandomOpenClosed(const Arithmetic min, const Arithmetic max)
 	{
-		return absl::Uniform(absl::IntervalOpenClosed, GetDefaultRNG(), min, max);
+		return RandomOpenClosed(min, max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomOpenClosed(const Arithmetic min, const Arithmetic max, URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), min, max);
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic RandomClosedOpen(const Arithmetic min, const Arithmetic max)
 	{
-		return absl::Uniform(absl::IntervalClosedOpen, GetDefaultRNG(), min, max);
+		return RandomClosedOpen(min, max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomClosedOpen(const Arithmetic min, const Arithmetic max, URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalClosedOpen, std::forward<URBG>(urbg), min, max);
 	}
 
 	inline bool RandomBool(const double p) noexcept
@@ -71,55 +151,104 @@ namespace s3d
 		return (GetDefaultRNG().generateReal() < p);
 	}
 
+	SIV3D_CONCEPT_URBG_
+	inline bool RandomBool(double p, URBG&& urbg) noexcept
+	{
+		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG_t>)
+		{
+			return (urbg.generateReal() < p);
+		}
+		else
+		{
+			return absl::Bernoulli(std::forward<URBG>(urbg), p);
+		}
+	}
+
 	inline uint8 RandomUint8()
 	{
-		return UniformIntDistribution<uint8>(0)(GetDefaultRNG());
+		return RandomUint8(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline uint8 RandomUint8(URBG&& urbg)
+	{
+		return absl::Uniform<uint8>(std::forward<URBG>(urbg));
 	}
 
 	inline uint16 RandomUint16()
 	{
-		return UniformIntDistribution<uint16>(0)(GetDefaultRNG());
+		return RandomUint16(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline uint16 RandomUint16(URBG&& urbg)
+	{
+		return absl::Uniform<uint16>(std::forward<URBG>(urbg));
 	}
 
 	inline uint32 RandomUint32()
 	{
-		return UniformIntDistribution<uint32>(0)(GetDefaultRNG());
+		return RandomUint32(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline uint32 RandomUint32(URBG&& urbg)
+	{
+		return absl::Uniform<uint32>(std::forward<URBG>(urbg));
 	}
 
 	inline uint64 RandomUint64()
 	{
-		return UniformIntDistribution<uint64>(0)(GetDefaultRNG());
+		return RandomUint64(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline uint64 RandomUint64(URBG&& urbg)
+	{
+		return absl::Uniform<uint64>(std::forward<URBG>(urbg));
 	}
 
 	inline int8 RandomInt8()
 	{
-		return UniformIntDistribution<int8>(0)(GetDefaultRNG());
+		return RandomInt8(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline int8 RandomInt8(URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int8>, Largest<int8>);
 	}
 
 	inline int16 RandomInt16()
 	{
-		return UniformIntDistribution<int16>(0)(GetDefaultRNG());
+		return RandomInt16(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline int16 RandomInt16(URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int16>, Largest<int16>);
 	}
 
 	inline int32 RandomInt32()
 	{
-		return UniformIntDistribution<int32>(0)(GetDefaultRNG());
+		return RandomInt32(GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline int32 RandomInt32(URBG&& urbg)
+	{
+		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int32>, Largest<int32>);
 	}
 
 	inline int64 RandomInt64()
 	{
-		return UniformIntDistribution<int64>(0)(GetDefaultRNG());
+		return RandomInt64(GetDefaultRNG());
 	}
 
-	template <class Container>
-	inline void Shuffle(Container& c)
+	SIV3D_CONCEPT_URBG_
+	inline int64 RandomInt64(URBG&& urbg)
 	{
-		std::shuffle(std::begin(c), std::end(c), GetDefaultRNG());
-	}
-
-	template <class RandomIt>
-	inline void Shuffle(RandomIt first, RandomIt last)
-	{
-		std::shuffle(first, last, GetDefaultRNG());
+		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int64>, Largest<int64>);
 	}
 }
