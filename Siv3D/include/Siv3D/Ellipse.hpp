@@ -53,5 +53,3 @@ namespace s3d
 		Ellipse() = default;
 	};
 }
-
-# include "detail/Ellipse.ipp"

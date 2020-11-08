@@ -50,5 +50,3 @@ namespace s3d
 		Circle() = default;
 	};
 }
-
-# include "detail/Circle.ipp"

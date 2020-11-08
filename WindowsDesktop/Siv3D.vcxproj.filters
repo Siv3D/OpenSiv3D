@@ -568,6 +568,9 @@
     <Filter Include="src\Siv3D\InputGroup">
       <UniqueIdentifier>{9a4ca829-9ff4-4ede-af7f-3509e8890f75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Line">
+      <UniqueIdentifier>{38930810-4756-4a57-98da-927a15783b31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2250,6 +2253,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Rectangle.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3091,6 +3100,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp">
       <Filter>src\Siv3D\InputGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp">
+      <Filter>src\Siv3D\Line</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -44,5 +44,3 @@ namespace s3d
 		RoundRect() = default;
 	};
 }
-
-# include "detail/RoundRect.ipp"

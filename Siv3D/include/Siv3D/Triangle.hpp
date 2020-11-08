@@ -32,5 +32,3 @@ namespace s3d
 		Triangle() = default;
 	};
 }
-
-# include "detail/Triangle.ipp"

@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "../Device/D3D11Device.hpp"
 

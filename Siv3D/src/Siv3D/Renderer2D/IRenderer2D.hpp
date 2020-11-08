@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/ColorHSV.hpp>
 # include <Siv3D/TextureFilter.hpp>
 

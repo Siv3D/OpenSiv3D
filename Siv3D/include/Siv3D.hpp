@@ -755,6 +755,13 @@
 // Vectors
 # include <Siv3D/PointVector.hpp>
 
+# include <Siv3D/Point.hpp>
+# include <Siv3D/Vector2D.hpp>
+# include <Siv3D/Vector3D.hpp>
+# include <Siv3D/Vector4D.hpp>
+# include <Siv3D/CommonFloat.hpp>
+# include <Siv3D/CommonVector.hpp>
+
 // 円座標
 # include <Siv3D/Circular.hpp> // [Siv3D ToDo]
 
@@ -770,6 +777,8 @@
 // 3x2 行列
 // 3x2 matrix
 # include <Siv3D/Mat3x2.hpp>
+
+# include <Siv3D/2DShapes.hpp>
 
 // 線分
 // Line Segment

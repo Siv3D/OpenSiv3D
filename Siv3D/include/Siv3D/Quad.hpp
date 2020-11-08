@@ -34,5 +34,3 @@ namespace s3d
 		Quad() = default;
 	};
 }
-
-# include "detail/Quad.ipp"

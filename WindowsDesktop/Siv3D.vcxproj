@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Addon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ApplicationOptions.hpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Quad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomPoint.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RasterizerState.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Rectangle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Resource.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RoundRect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SamplerState.ipp" />
@@ -691,6 +693,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\MathParserDetail.cpp" />
