@@ -613,7 +613,7 @@
 
 // ランダムな Point の作成
 // Random Point Generation
-//# include <Siv3D/RandomPoint.hpp>
+# include <Siv3D/RandomPoint.hpp>
 
 // ランダムな Vec2 の作成
 // Random Vec2 Generation
