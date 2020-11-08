@@ -46,5 +46,103 @@ namespace s3d
 		constexpr Triangle(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept;
 
 		constexpr Triangle(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept;
+	
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Triangle& lhs, const Triangle& rhs) noexcept
+		{
+			return (lhs.p0 == rhs.p0)
+				&& (lhs.p1 == rhs.p1)
+				&& (lhs.p2 == rhs.p2);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Triangle& lhs, const Triangle& rhs) noexcept
+		{
+			return (lhs.p0 != rhs.p0)
+				|| (lhs.p1 != rhs.p1)
+				|| (lhs.p2 != rhs.p2);
+		}
+	
+	
+		constexpr Triangle& moveBy(value_type x, value_type y) noexcept
+		{
+			p0.moveBy(x, y);
+			p1.moveBy(x, y);
+			p2.moveBy(x, y);
+			return *this;
+		}
+
+		constexpr Triangle& moveBy(const position_type& v) noexcept
+		{
+			return moveBy(v.x, v.y);
+		}
+	
+	
+
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)
+		{
+			return output << CharType('(')
+				<< value.p0 << CharType(',') << CharType(' ')
+				<< value.p1 << CharType(',') << CharType(' ')
+				<< value.p2 << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Triangle& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.p0 >> unused
+				>> value.p1 >> unused
+				>> value.p2 >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Triangle& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Triangle& value);
 	};
 }
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Triangle, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::Triangle& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.p0, value.p1, value.p2);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.p0, value.p1, value.p2);
+		}
+	}
+};
+
+template <>
+struct std::hash<s3d::Triangle>
+{
+	[[nodiscard]]
+	size_t operator()(const s3d::Triangle& value) const noexcept
+	{
+		return value.hash();
+	}
+};

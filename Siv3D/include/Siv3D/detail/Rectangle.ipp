@@ -201,6 +201,114 @@ namespace s3d
 
 
 
+
+
+
+
+
+
+
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::size_type Rectangle<SizeType>::tl() const noexcept
+	{
+		return pos;
+	}
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::size_type Rectangle<SizeType>::tr() const noexcept
+	{
+		return{ (x + w), y };
+	}
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::size_type Rectangle<SizeType>::bl() const noexcept
+	{
+		return{ x, (y + h) };
+	}
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::size_type Rectangle<SizeType>::br() const noexcept
+	{
+		return{ (x + w), (y + h) };
+	}
+
+	template <class SizeType>
+	inline constexpr Vec2 Rectangle<SizeType>::topCenter() const noexcept
+	{
+		return{ (x + w * 0.5), y };
+	}
+
+	template <class SizeType>
+	inline constexpr Vec2 Rectangle<SizeType>::bottomCenter() const noexcept
+	{
+		return{ (x + w), (y + h) };
+	}
+
+	template <class SizeType>
+	inline constexpr Vec2 Rectangle<SizeType>::leftCenter() const noexcept
+	{
+		return{ x, (y + h * 0.5) };
+	}
+
+	template <class SizeType>
+	inline constexpr Vec2 Rectangle<SizeType>::rightCenter() const noexcept
+	{
+		return{ (x + w), (y + h * 0.5) };
+	}
+
+	template <class SizeType>
+	inline constexpr Vec2 Rectangle<SizeType>::center() const noexcept
+	{
+		return{ (x + w * 0.5), (y + h * 0.5) };
+	}
+
+	template <class SizeType>
+	inline constexpr Line Rectangle<SizeType>::top() const noexcept
+	{
+		return{ tl(), tr() };
+	}
+
+	template <class SizeType>
+	inline constexpr Line Rectangle<SizeType>::right() const noexcept
+	{
+		return{ tr(), br() };
+	}
+
+	template <class SizeType>
+	inline constexpr Line Rectangle<SizeType>::bottom() const noexcept
+	{
+		return{ br(), bl() };
+	}
+
+	template <class SizeType>
+	inline constexpr Line Rectangle<SizeType>::left() const noexcept
+	{
+		return{ bl(), tl() };
+	}
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::value_type Rectangle<SizeType>::area() const noexcept
+	{
+		return (w * h);
+	}
+
+	template <class SizeType>
+	inline constexpr typename Rectangle<SizeType>::value_type Rectangle<SizeType>::perimeter() const noexcept
+	{
+		return ((w + h) * 2);
+	}
+
+
+
+
+
+
+
+
+
+
+
 	template <class SizeType>
 	inline size_t Rectangle<SizeType>::hash() const noexcept
 	{

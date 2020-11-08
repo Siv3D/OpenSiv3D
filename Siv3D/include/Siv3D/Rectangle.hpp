@@ -16,6 +16,8 @@
 
 namespace s3d
 {
+	struct Line;
+
 	/// @brief 長方形
 	/// @tparam SizeType 位置とサイズを表すベクトルの型
 	///
@@ -319,6 +321,75 @@ namespace s3d
 				|| (lhs.size != rhs.size);
 		}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+		[[nodiscard]]
+		constexpr size_type tl() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type tr() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type bl() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type br() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 topCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 bottomCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 leftCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 rightCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 center() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line top() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line right() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line bottom() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line left() const noexcept;
+
+		/// <summary>
+		/// 長方形の面積を返します。
+		/// </summary>
+		/// <returns>
+		/// 長方形の面積
+		/// </returns>
+		[[nodiscard]]
+		constexpr value_type area() const noexcept;
+
+		/// <summary>
+		/// 長方形の周の長さを返します。
+		/// </summary>
+		/// <returns>
+		/// 長方形の周の長さ
+		/// </returns>
+		[[nodiscard]]
+		constexpr value_type perimeter() const noexcept;
 
 
 

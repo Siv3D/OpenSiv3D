@@ -14,5 +14,16 @@
 
 namespace s3d
 {
-
+	void Ellipse::_Formatter(FormatData& formatData, const Ellipse& value)
+	{
+		formatData.string.push_back(U'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.a, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.b, formatData.decimalPlaces.value));
+		formatData.string.push_back(U')');
+	}
 }

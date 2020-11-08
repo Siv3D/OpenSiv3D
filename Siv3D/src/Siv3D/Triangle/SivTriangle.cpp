@@ -14,5 +14,23 @@
 
 namespace s3d
 {
+	void Triangle::_Formatter(FormatData& formatData, const Triangle& value)
+	{
+		formatData.string.append(U"(("_sv);
 
+		formatData.string.append(ToString(value.p0.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p0.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p1.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p1.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p2.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p2.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"))"_sv);
+	}
 }
