@@ -67,6 +67,9 @@ namespace s3d
 		[[nodiscard]]
 		inline Point GetPos() noexcept;
 
+		/// @brief ウィンドウを現在のモニタのワークエリアの中央に移動させます。
+		void Centering();
+
 		/// @brief ウィンドウを最大化します。
 		void Maximize();
 

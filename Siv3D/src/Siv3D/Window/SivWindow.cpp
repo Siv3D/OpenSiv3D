@@ -12,6 +12,7 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Monitor.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -43,6 +44,20 @@ namespace s3d
 		void SetPos(const Point pos)
 		{
 			SIV3D_ENGINE(Window)->setPos(pos);
+		}
+
+		void Centering()
+		{
+			try
+			{
+				const Monitor currentMonitor = System::GetCurrentMonitor();
+				const Rect workArea = System::GetCurrentMonitor().workArea;
+				const Rect windowBounds = SIV3D_ENGINE(Window)->getState().bounds;
+				const Point pos = (workArea.pos + (workArea.size - windowBounds.size) / 2);
+
+				SetPos(pos);
+			}
+			catch (const Error&) {}
 		}
 
 		void Maximize()

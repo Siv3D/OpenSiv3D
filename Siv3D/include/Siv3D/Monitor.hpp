@@ -66,5 +66,10 @@ namespace s3d
 		/// @return ウィンドウが配置されているモニターのインデックス
 		[[nodiscard]]
 		size_t GetCurrentMonitorIndex();
+
+		/// @brief ウィンドウが配置されているモニターの情報を取得します。
+		/// @return ウィンドウが配置されているモニターの情報
+		[[nodiscard]]
+		Monitor GetCurrentMonitor();
 	}
 }
