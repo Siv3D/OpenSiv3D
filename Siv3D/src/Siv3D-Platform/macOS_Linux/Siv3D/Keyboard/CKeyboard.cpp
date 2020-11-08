@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -212,6 +212,11 @@ namespace s3d
 
 	void CKeyboard::update()
 	{
+		if (not m_window)
+		{
+			return;
+		}
+		
 		const char* keys = ::glfwGetKeysSiv3D(m_window);
 		
 		for (auto [index, glfwKey] : detail::KeyConversionTable)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A22557C0F200C9838C /* SivInputGroup.cpp */; };
+		2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A42557C0F200C9838C /* SivInputCombination.cpp */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -650,6 +652,11 @@
 		2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DD25158AC000904E67 /* FrameCounter.cpp */; };
 		2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CB7D4E22556C532007EB42E /* FallbackKeyName.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */; };
+		2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4E52556E230007EB42E /* MouseFactory.cpp */; };
+		2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4E62556E230007EB42E /* SivMouse.cpp */; };
+		2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E72556E230007EB42E /* IMouse.hpp */; };
+		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
+		2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4ED2556E247007EB42E /* CMouse.hpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
@@ -689,6 +696,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C08489C2557C0A600C9838C /* InputCombination.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputCombination.hpp; sourceTree = "<group>"; };
+		2C08489D2557C0A600C9838C /* InputGroup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputGroup.hpp; sourceTree = "<group>"; };
+		2C08489E2557C0A600C9838C /* InputGroups.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputGroups.hpp; sourceTree = "<group>"; };
+		2C08489F2557C0CC00C9838C /* InputGroup.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputGroup.ipp; sourceTree = "<group>"; };
+		2C0848A02557C0CC00C9838C /* InputCombination.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputCombination.ipp; sourceTree = "<group>"; };
+		2C0848A22557C0F200C9838C /* SivInputGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputGroup.cpp; sourceTree = "<group>"; };
+		2C0848A42557C0F200C9838C /* SivInputCombination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputCombination.cpp; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -1683,6 +1697,12 @@
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FallbackKeyName.hpp; sourceTree = "<group>"; };
+		2CB7D4E32556E210007EB42E /* Mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mouse.hpp; sourceTree = "<group>"; };
+		2CB7D4E52556E230007EB42E /* MouseFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseFactory.cpp; sourceTree = "<group>"; };
+		2CB7D4E62556E230007EB42E /* SivMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMouse.cpp; sourceTree = "<group>"; };
+		2CB7D4E72556E230007EB42E /* IMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMouse.hpp; sourceTree = "<group>"; };
+		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
+		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
 		2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_Metal.hpp; sourceTree = "<group>"; };
 		2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer2D_Metal.mm; sourceTree = "<group>"; };
 		2CE18686249CC7A900ADD14A /* scope_fail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_fail.h; sourceTree = "<group>"; };
@@ -1756,6 +1776,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0848A12557C0F200C9838C /* InputGroup */ = {
+			isa = PBXGroup;
+			children = (
+				2C0848A22557C0F200C9838C /* SivInputGroup.cpp */,
+			);
+			path = InputGroup;
+			sourceTree = "<group>";
+		};
+		2C0848A32557C0F200C9838C /* InputCombination */ = {
+			isa = PBXGroup;
+			children = (
+				2C0848A42557C0F200C9838C /* SivInputCombination.cpp */,
+			);
+			path = InputCombination;
+			sourceTree = "<group>";
+		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
 			isa = PBXGroup;
 			children = (
@@ -2080,7 +2116,10 @@
 				2C4397532535DD3000F6AECD /* Indexed.hpp */,
 				2C4396722535DD3000F6AECD /* INIData.hpp */,
 				2CFE199B2555B1B6005826A1 /* Input.hpp */,
+				2C08489C2557C0A600C9838C /* InputCombination.hpp */,
 				2CFE199A2555B1B6005826A1 /* InputDevice.hpp */,
+				2C08489D2557C0A600C9838C /* InputGroup.hpp */,
+				2C08489E2557C0A600C9838C /* InputGroups.hpp */,
 				2C4396A72535DD3000F6AECD /* Int128.hpp */,
 				2C473B122545403A00CF864D /* Interpolation.hpp */,
 				2C43969A2535DD3000F6AECD /* IntFormatter.hpp */,
@@ -2107,6 +2146,7 @@
 				2C4396922535DD3000F6AECD /* MicrosecClock.hpp */,
 				2C4396AE2535DD3000F6AECD /* MillisecClock.hpp */,
 				2CF2AF852552876700E81D12 /* Monitor.hpp */,
+				2CB7D4E32556E210007EB42E /* Mouse.hpp */,
 				2C4396772535DD3000F6AECD /* NamedParameter.hpp */,
 				2C4397462535DD3000F6AECD /* Noise.hpp */,
 				2C4397632535DD3000F6AECD /* None.hpp */,
@@ -2256,6 +2296,8 @@
 				2C4396C02535DD3000F6AECD /* Indexed.ipp */,
 				2C43972A2535DD3000F6AECD /* INIData.ipp */,
 				2CFE199C2555B1D4005826A1 /* Input.ipp */,
+				2C0848A02557C0CC00C9838C /* InputCombination.ipp */,
+				2C08489F2557C0CC00C9838C /* InputGroup.ipp */,
 				2C4397132535DD3000F6AECD /* Int128.ipp */,
 				2C473B142545406B00CF864D /* Interpolation.ipp */,
 				2C4397082535DD3000F6AECD /* IReader.ipp */,
@@ -2672,6 +2714,8 @@
 				2C47B2B424DD9789008D83BE /* ImageFormat */,
 				2C47B2F424DD9789008D83BE /* INIData */,
 				2CFE19AA2555B263005826A1 /* Input */,
+				2C0848A32557C0F200C9838C /* InputCombination */,
+				2C0848A12557C0F200C9838C /* InputGroup */,
 				2C47B2F624DD9789008D83BE /* Int128 */,
 				2C473B162545415300CF864D /* Interpolation */,
 				2C47B24D24DD9789008D83BE /* IntFormatter */,
@@ -2680,6 +2724,7 @@
 				2C47B26124DD9789008D83BE /* Logger */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
+				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C47B24B24DD9789008D83BE /* ParseBool */,
 				2C47B28624DD9789008D83BE /* ParseFloat */,
 				2C47B25B24DD9789008D83BE /* ParseInt */,
@@ -3838,6 +3883,7 @@
 				2CFE199E2555B221005826A1 /* Keyboard */,
 				2C68507724B768A800B98A7F /* Logger */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
+				2CB7D4EB2556E247007EB42E /* Mouse */,
 				2C68508024B768A800B98A7F /* System */,
 				2C68507A24B768A800B98A7F /* Unicode */,
 			);
@@ -4066,6 +4112,25 @@
 			);
 			name = Siv3D;
 			path = ../Siv3D;
+			sourceTree = "<group>";
+		};
+		2CB7D4E42556E230007EB42E /* Mouse */ = {
+			isa = PBXGroup;
+			children = (
+				2CB7D4E52556E230007EB42E /* MouseFactory.cpp */,
+				2CB7D4E62556E230007EB42E /* SivMouse.cpp */,
+				2CB7D4E72556E230007EB42E /* IMouse.hpp */,
+			);
+			path = Mouse;
+			sourceTree = "<group>";
+		};
+		2CB7D4EB2556E247007EB42E /* Mouse */ = {
+			isa = PBXGroup;
+			children = (
+				2CB7D4EC2556E247007EB42E /* CMouse.cpp */,
+				2CB7D4ED2556E247007EB42E /* CMouse.hpp */,
+			);
+			path = Mouse;
 			sourceTree = "<group>";
 		};
 		2CDE6E8724A35C7B0048594F /* Metal */ = {
@@ -4531,6 +4596,7 @@
 				2C47B0C224DD974A008D83BE /* agg_vpgen_segmentator.h in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
+				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
 				2CF21D17249FAA8F00C864C9 /* CCursor.hpp in Headers */,
 				2C47B0CA24DD974A008D83BE /* agg_vpgen_clip_polygon.h in Headers */,
 				2C423257242B19ED00A16BCA /* posix_thread.h in Headers */,
@@ -4564,6 +4630,7 @@
 				2C47B08E24DD974A008D83BE /* agg_arrowhead.h in Headers */,
 				2C439F7F241DCEA9001154C2 /* strtod.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
+				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
 				2C47B0D124DD974A008D83BE /* agg_rasterizer_scanline_aa.h in Headers */,
 				2C47B0EF24DD974A008D83BE /* agg_conv_dash.h in Headers */,
 				2C4396072535DCCA00F6AECD /* point.h in Headers */,
@@ -4745,6 +4812,7 @@
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
 				2C423239242B155E00A16BCA /* input.c in Sources */,
 				2C6391032539BE5F0030F18E /* MetalVertexShader.mm in Sources */,
+				2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */,
 				2C423236242B155E00A16BCA /* vulkan.c in Sources */,
 				2C43962B2535DCCA00F6AECD /* svggeometryelement.cpp in Sources */,
 				2C47B35424DD9789008D83BE /* SivApplicationOptions.cpp in Sources */,
@@ -4822,6 +4890,7 @@
 				2C47B0FE24DD974A008D83BE /* agg_vcgen_markers_term.cpp in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
+				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
 				2C47B34F24DD9789008D83BE /* SVGDecoder.cpp in Sources */,
 				2C4396332535DCCA00F6AECD /* path.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
@@ -4965,6 +5034,7 @@
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */,
 				2C47B0E724DD974A008D83BE /* agg_vpgen_clip_polyline.cpp in Sources */,
+				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
 				2C4396082535DCCA00F6AECD /* canvas.cpp in Sources */,
 				2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */,
@@ -4983,6 +5053,7 @@
 				2C47B0DF24DD974A008D83BE /* agg_curves.cpp in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
+				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
 				2C47B30724DD9789008D83BE /* SivParseBool.cpp in Sources */,
 				2C47B6E324EAC88E008D83BE /* SivConstantBuffer.cpp in Sources */,
@@ -5054,6 +5125,7 @@
 				2C47B0D724DD974A008D83BE /* agg_rounded_rect.cpp in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2C834DB2248805D4006208B8 /* iso8859_9.c in Sources */,
+				2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */,
 				2C47B32D24DD9789008D83BE /* SivParseFloat.cpp in Sources */,
 				2C60AE72248158A500277281 /* frequency_windows.cpp in Sources */,
 				2C60AE88248158A500277281 /* displays_darwin.cpp in Sources */,
