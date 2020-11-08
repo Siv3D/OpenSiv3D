@@ -14,5 +14,28 @@
 
 namespace s3d
 {
+	void Quad::_Formatter(FormatData& formatData, const Quad& value)
+	{
+		formatData.string.append(U"(("_sv);
 
+		formatData.string.append(ToString(value.p0.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p0.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p1.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p1.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p2.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p2.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p3.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p3.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"))"_sv);
+	}
 }

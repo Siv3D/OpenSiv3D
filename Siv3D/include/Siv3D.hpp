@@ -617,7 +617,7 @@
 
 // ランダムな Vec2 の作成
 // Random Vec2 Generation
-//# include <Siv3D/RandomVec2.hpp>
+# include <Siv3D/RandomVec2.hpp>
 
 // ランダムな Vec3 の作成
 // Random Vec3 Generation

@@ -28,23 +28,64 @@ namespace s3d
 
 		position_type p2;
 
+		/// @brief 
 		SIV3D_NODISCARD_CXX20
 		Triangle() = default;
 
+		/// @brief 
+		/// @param sides 
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr Triangle(value_type sides) noexcept;
 
+		/// @brief 
+		/// @param sides 
+		/// @param angle 
+		SIV3D_NODISCARD_CXX20
 		Triangle(value_type sides, value_type angle) noexcept;
 
+		/// @brief 
+		/// @param x 
+		/// @param y 
+		/// @param sides 
+		SIV3D_NODISCARD_CXX20
 		constexpr Triangle(value_type x, value_type y, value_type sides) noexcept;
 
+		/// @brief 
+		/// @param pos 
+		/// @param sides 
+		SIV3D_NODISCARD_CXX20
 		constexpr Triangle(const position_type& pos, value_type sides) noexcept;
 
+		/// @brief 
+		/// @param x 
+		/// @param y 
+		/// @param sides 
+		/// @param angle 
+		SIV3D_NODISCARD_CXX20
 		Triangle(value_type x, value_type y, value_type sides, value_type angle) noexcept;
 
+		/// @brief 
+		/// @param pos 
+		/// @param sides 
+		/// @param angle 
+		SIV3D_NODISCARD_CXX20
 		Triangle(const position_type& pos, value_type sides, value_type angle) noexcept;
 
+		/// @brief 
+		/// @param x0 
+		/// @param y0 
+		/// @param x1 
+		/// @param y1 
+		/// @param x2 
+		/// @param y2 
+		SIV3D_NODISCARD_CXX20
 		constexpr Triangle(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept;
 
+		/// @brief 
+		/// @param _p0 
+		/// @param _p1 
+		/// @param _p2 
+		SIV3D_NODISCARD_CXX20
 		constexpr Triangle(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept;
 	
 		[[nodiscard]]
