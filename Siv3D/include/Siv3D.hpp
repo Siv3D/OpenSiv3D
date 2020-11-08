@@ -629,7 +629,7 @@
 
 // ランダムな色の作成
 // Random Color Generation
-//# include <Siv3D/RandomColor.hpp>
+# include <Siv3D/RandomColor.hpp>
 
 // ランダムなサンプリング
 // Random Sampling

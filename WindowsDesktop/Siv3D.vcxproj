@@ -83,6 +83,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Quad.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomColor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomPoint.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomVec2.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RasterizerState.ipp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\QRMode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
