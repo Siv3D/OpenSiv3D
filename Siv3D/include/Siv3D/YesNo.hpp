@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Platform.hpp"
 
 namespace s3d
 {
@@ -27,8 +28,13 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr YesNo(bool yesNo) noexcept
+			: m_yesNo{ yesNo } {}
+
+		SIV3D_NODISCARD_CXX20
 		constexpr YesNo(Helper helper) noexcept
-			: m_yesNo(helper.yesNo) {}
+			: m_yesNo{ helper.yesNo } {}
 
 		[[nodiscard]]
 		explicit constexpr operator bool() const noexcept
