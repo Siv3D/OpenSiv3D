@@ -259,9 +259,9 @@ TEST_CASE("Timer 2")
 		REQUIRE(t <= 15s);
 	}
 
-	SECTION("Timer{ 15s, false }")
+	SECTION("Timer{ 15s, StartImmediately::No }")
 	{
-		Timer t{ 15s, false };
+		Timer t{ 15s, StartImmediately::No };
 		System::Sleep(0.01s);
 
 		REQUIRE(t.isStarted() == false);
@@ -277,9 +277,9 @@ TEST_CASE("Timer 2")
 		REQUIRE(t <= 15s);
 	}
 
-	SECTION("Timer{ 15s, true }")
+	SECTION("Timer{ 15s, StartImmediately::Yes }")
 	{
-		Timer t{ 15s, true };
+		Timer t{ 15s, StartImmediately::Yes };
 		System::Sleep(0.01s);
 
 		REQUIRE(t.isStarted() == true);
@@ -295,9 +295,9 @@ TEST_CASE("Timer 2")
 		REQUIRE(t < 15s);
 	}
 
-	SECTION("Timer{ 0.001s, true }")
+	SECTION("Timer{ 0.001s, StartImmediately::Yes }")
 	{
-		Timer t{ 0.001s, true };
+		Timer t{ 0.001s, StartImmediately::Yes };
 		System::Sleep(0.01s);
 
 		REQUIRE(t.isStarted() == true);
@@ -313,9 +313,9 @@ TEST_CASE("Timer 2")
 		REQUIRE(t <= 0s);
 	}
 
-	SECTION("Timer{ 0s, true }")
+	SECTION("Timer{ 0s, StartImmediately::Yes }")
 	{
-		Timer t{ 0s, true };
+		Timer t{ 0s, StartImmediately::Yes };
 
 		REQUIRE(t.isStarted() == true);
 		REQUIRE(t.isPaused() == false);

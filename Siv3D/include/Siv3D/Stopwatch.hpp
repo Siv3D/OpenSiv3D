@@ -14,6 +14,7 @@
 # include "ISteadyClock.hpp"
 # include "Duration.hpp"
 # include "FormatData.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -35,17 +36,17 @@ namespace s3d
 	public:
 
 		/// @brief ストップウォッチを作成します。
-		/// @param startImmediately 即座に計測を開始する場合は true
+		/// @param startImmediately 即座に計測を開始する場合は `StartImmediately::Yes`
 		/// @param pSteadyClock 基準時刻取得用のカスタム関数。nullptr の場合はシステム時刻
 		SIV3D_NODISCARD_CXX20
-		explicit Stopwatch(bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
+		explicit Stopwatch(StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		/// @brief 指定した時間だけ経過し一時停止している状態のストップウォッチを作成します。
 		/// @param startTime 経過時間
-		/// @param startImmediately 即座に計測を開始する場合は true
+		/// @param startImmediately 即座に計測を開始する場合は `StartImmediately::Yes`
 		/// @param pSteadyClock 基準時刻取得用のカスタム関数。nullptr の場合はシステム時刻
 		SIV3D_NODISCARD_CXX20
-		explicit Stopwatch(const Duration& startTime, bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
+		explicit Stopwatch(const Duration& startTime, StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		/// @brief ストップウォッチが動作中であるかを示します（開始後の一時停止も動作中に含みます）。
 		/// @return ストップウォッチが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false

@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "ISteadyClock.hpp"
 # include "Duration.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -38,13 +39,13 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		explicit VariableSpeedStopwatch(bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
+		explicit VariableSpeedStopwatch(StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		SIV3D_NODISCARD_CXX20
-		explicit VariableSpeedStopwatch(double speed, bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
+		explicit VariableSpeedStopwatch(double speed, StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		SIV3D_NODISCARD_CXX20
-		explicit VariableSpeedStopwatch(const Duration& startTime, double speed = 1.0, bool startImmediately = false, ISteadyClock* pSteadyClock = nullptr);
+		explicit VariableSpeedStopwatch(const Duration& startTime, double speed = 1.0, StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		[[nodiscard]]
 		bool isStarted() const;

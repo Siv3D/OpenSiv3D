@@ -134,9 +134,9 @@ TEST_CASE("Stopwatch 1")
 
 TEST_CASE("Stopwatch 2")
 {
-	SECTION("Stopwatch{ false }")
+	SECTION("Stopwatch{ StartImmediately::No }")
 	{
-		Stopwatch s{ false };
+		Stopwatch s{ StartImmediately::No };
 		System::Sleep(0.01s);
 
 		REQUIRE(s.isStarted() == false);
@@ -148,9 +148,9 @@ TEST_CASE("Stopwatch 2")
 		REQUIRE(s <= 0s);
 	}
 
-	SECTION("Stopwatch{ true }")
+	SECTION("Stopwatch{ StartImmediately::Yes }")
 	{
-		Stopwatch s{ true };
+		Stopwatch s{ StartImmediately::Yes };
 		System::Sleep(0.01s);
 
 		REQUIRE(s.isStarted() == true);
@@ -176,9 +176,9 @@ TEST_CASE("Stopwatch 2")
 		REQUIRE(s <= 15s);
 	}
 
-	SECTION("Stopwatch{ 0s, false }")
+	SECTION("Stopwatch{ 0s, StartImmediately::No }")
 	{
-		Stopwatch s{ 0s, false };
+		Stopwatch s{ 0s, StartImmediately::No };
 		System::Sleep(0.01s);
 
 		REQUIRE(s.isStarted() == true);
@@ -190,9 +190,9 @@ TEST_CASE("Stopwatch 2")
 		REQUIRE(s <= 0s);
 	}
 
-	SECTION("Stopwatch{ 15s, false }")
+	SECTION("Stopwatch{ 15s, StartImmediately::No }")
 	{
-		Stopwatch s{ 15s, false };
+		Stopwatch s{ 15s, StartImmediately::No };
 		System::Sleep(0.01s);
 
 		REQUIRE(s.isStarted() == true);
@@ -204,9 +204,9 @@ TEST_CASE("Stopwatch 2")
 		REQUIRE(s <= 15s);
 	}
 
-	SECTION("Stopwatch{ 15s, true }")
+	SECTION("Stopwatch{ 15s, StartImmediately::Yes }")
 	{
-		Stopwatch s{ 15s, true };
+		Stopwatch s{ 15s, StartImmediately::Yes };
 		System::Sleep(0.01s);
 
 		REQUIRE(s.isStarted() == true);

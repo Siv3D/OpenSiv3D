@@ -64,6 +64,10 @@
 // Non-copyable mixin
 # include <Siv3D/Uncopyable.hpp>
 
+# include <Siv3D/YesNo.hpp>
+
+# include <Siv3D/PredefinedYesNo.hpp>
+
 // 名前付き引数
 // Named parameter
 # include <Siv3D/NamedParameter.hpp>

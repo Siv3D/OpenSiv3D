@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	inline Timer::Timer(const Duration& duration, const bool startImmediately, ISteadyClock* pSteadyClock)
+	inline Timer::Timer(const Duration& duration, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_durationMicrosec(static_cast<int64>(duration.count() * 1'000'000))
 		, m_remainingMicrosec(m_durationMicrosec)
 		, m_pSteadyClock(pSteadyClock)

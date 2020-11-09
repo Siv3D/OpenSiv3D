@@ -13,10 +13,10 @@
 
 namespace s3d
 {
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const bool startImmediately, ISteadyClock* pSteadyClock)
+	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: VariableSpeedStopwatch(1.0, startImmediately, pSteadyClock) {}
 
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const double speed, const bool startImmediately, ISteadyClock* pSteadyClock)
+	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_speed(speed)
 		, m_pSteadyClock(pSteadyClock)
 	{
@@ -26,7 +26,7 @@ namespace s3d
 		}
 	}
 
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const Duration& startTime, const double speed, const bool startImmediately, ISteadyClock* pSteadyClock)
+	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const Duration& startTime, const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_speed(speed)
 		, m_pSteadyClock(pSteadyClock)
 	{

@@ -282,7 +282,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PolygonFailureType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedNamedParameter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedYesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PrimeNumber.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
@@ -351,6 +353,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Libraries.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Windows.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\YesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Catch2\catch.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\EnumBitmask\EnumBitmask.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
