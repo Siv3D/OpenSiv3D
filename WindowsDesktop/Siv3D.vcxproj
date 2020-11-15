@@ -82,6 +82,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Polygon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Quad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomColor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomPoint.ipp" />
@@ -331,6 +332,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TriangleIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp" />
@@ -449,6 +451,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MathParser\MathParserDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\RegExp\RegExpDetail.hpp" />
@@ -493,6 +497,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\string-to-double.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Earcut\earcut.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\fmt\format-inl.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\glew.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\wglew.h" />
@@ -715,6 +720,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PrimeNumber\SivPrimeNumber.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />

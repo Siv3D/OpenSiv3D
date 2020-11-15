@@ -583,6 +583,12 @@
     <Filter Include="src\Siv3D\Quad">
       <UniqueIdentifier>{b4e6ea3a-9633-4366-af29-a19e42d33d31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Polygon">
+      <UniqueIdentifier>{72411bca-f3ba-4dc9-bd02-b3c4b375c227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Earcut">
+      <UniqueIdentifier>{85217416-1233-4ac3-850b-9d0612ecf363}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2292,6 +2298,21 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedYesNo.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.hpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.hpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Earcut\earcut.hpp">
+      <Filter>src\ThirdParty\Earcut</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Polygon.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TriangleIndex.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3148,6 +3169,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp">
       <Filter>src\Siv3D\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

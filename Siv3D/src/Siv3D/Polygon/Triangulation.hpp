@@ -10,10 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
-# include "YesNo.hpp"
+# include <Siv3D/Common.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/Vertex2D.hpp>
 
-namespace s3d
+namespace s3d::detail
 {
-	using SkipValidation	= YesNo<struct SkipValidation_tag>;
-	using StartImmediately	= YesNo<struct StartImmediately_tag>;
+	void Triangulate(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, Array<Float2>& dstVertices, Array<Vertex2D::IndexType>& dstIndices);
 }

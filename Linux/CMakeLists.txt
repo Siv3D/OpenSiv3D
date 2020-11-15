@@ -150,6 +150,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
+  ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
+  ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
+  ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
   ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp

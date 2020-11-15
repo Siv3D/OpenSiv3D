@@ -10,6 +10,7 @@ Anti-Grain Geometry | v2.4
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
 [DirectXMath](https://github.com/microsoft/DirectXMath) | April 2020
 [double-conversion](https://github.com/google/double-conversion) | v3.1.5
+[Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
