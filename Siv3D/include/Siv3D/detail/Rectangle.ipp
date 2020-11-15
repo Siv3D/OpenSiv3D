@@ -302,6 +302,19 @@ namespace s3d
 
 
 
+	template <class SizeType>
+	inline constexpr Rectangle<SizeType>& Rectangle<SizeType>::moveBy(const value_type _x, const value_type _y) noexcept
+	{
+		pos.moveBy(_x, _y);
+		return *this;
+	}
+
+	template <class SizeType>
+	inline constexpr Rectangle<SizeType>& Rectangle<SizeType>::moveBy(const size_type v) noexcept
+	{
+		pos.moveBy(v);
+		return *this;
+	}
 
 
 

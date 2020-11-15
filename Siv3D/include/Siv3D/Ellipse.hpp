@@ -12,11 +12,15 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
-# include "Circle.hpp"
-# include "Rectangle.hpp"
 
 namespace s3d
 {
+	struct Circle;
+
+	template <class SizeType> struct Rectangle;
+	using Rect = Rectangle<Point>;
+	using RectF = Rectangle<Vec2>;
+
 	/// @brief 楕円
 	struct Ellipse
 	{

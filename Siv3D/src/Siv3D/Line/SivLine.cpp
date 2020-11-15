@@ -40,6 +40,13 @@ namespace s3d
 		}
 	}
 
+	RectF Line::boundingRect() const noexcept
+	{
+		const auto [x1, x2] = std::minmax(begin.x, end.x);
+		const auto [y1, y2] = std::minmax(begin.y, end.y);
+		return{ x1, y1, (x2 - x1), (y2 - y1) };
+	}
+
 	Line::position_type Line::closest(const position_type pos) const noexcept
 	{
 		Vec2 v = end - begin;

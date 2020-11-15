@@ -13,12 +13,15 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "Circular.hpp"
-# include "Rectangle.hpp"
 # include "Optional.hpp"
 # include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
+	template <class SizeType> struct Rectangle;
+	using Rect = Rectangle<Point>;
+	using RectF = Rectangle<Vec2>;
+
 	/// @brief 線分
 	struct Line
 	{
@@ -114,7 +117,7 @@ namespace s3d
 		position_type closest(position_type pos) const noexcept;
 
 		[[nodiscard]]
-		constexpr RectF boundingRect() const noexcept;
+		RectF boundingRect() const noexcept;
 
 		template <class Shape2DType>
 		[[nodiscard]]

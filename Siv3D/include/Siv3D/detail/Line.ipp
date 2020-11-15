@@ -140,13 +140,6 @@ namespace s3d
 		return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);
 	}
 
-	inline constexpr RectF Line::boundingRect() const noexcept
-	{
-		const auto [x1, x2] = std::minmax(begin.x, end.x);
-		const auto [y1, y2] = std::minmax(begin.y, end.y);
-		return{ x1, y1, (x2 - x1), (y2 - y1) };
-	}
-
 	inline size_t Line::hash() const noexcept
 	{
 		return Hash::FNV1a(*this);

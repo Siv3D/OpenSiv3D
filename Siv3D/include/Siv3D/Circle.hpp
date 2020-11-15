@@ -12,10 +12,11 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
-# include "Line.hpp"
 
 namespace s3d
 {
+	struct Line;
+
 	/// @brief 円
 	struct Circle
 	{
