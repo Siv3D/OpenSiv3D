@@ -29,13 +29,24 @@ namespace s3d
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic Random(const Arithmetic min, const Arithmetic max)
 	{
+		return Random(min, max, GetDefaultRNG());
+	}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+# endif
+	[[nodiscard]]
+	inline Arithmetic Random(const Arithmetic min, const Arithmetic max, URBG&& urbg)
+	{
 		if constexpr (std::is_integral_v<Arithmetic>)
 		{
-			return UniformIntDistribution<Arithmetic>(min, max)(GetDefaultRNG());
+			return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), min, max);
 		}
 		else
 		{
-			return UniformRealDistribution<Arithmetic>(min, max)(GetDefaultRNG());
+			return absl::Uniform(absl::IntervalClosedOpen, std::forward<URBG>(urbg), min, max);
 		}
 	}
 
