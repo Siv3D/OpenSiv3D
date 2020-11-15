@@ -228,4 +228,46 @@ namespace s3d
 	{
 		return m_boundingRect;
 	}
+
+	void Polygon::PolygonDetail::moveBy(const Vec2 v) noexcept
+	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
+		{
+			for (auto& point : m_polygon.outer())
+			{
+				point.moveBy(v);
+			}
+
+			for (auto& hole : m_polygon.inners())
+			{
+				for (auto& point : hole)
+				{
+					point.moveBy(v);
+				}
+			}
+		}
+
+		for (auto& hole : m_holes)
+		{
+			for (auto& point : hole)
+			{
+				point.moveBy(v);
+			}
+		}
+
+		{
+			const Float2 vf{ v };
+
+			for (auto& point : m_vertices)
+			{
+				point.moveBy(vf);
+			}
+		}
+
+		m_boundingRect.moveBy(v);
+	}
 }

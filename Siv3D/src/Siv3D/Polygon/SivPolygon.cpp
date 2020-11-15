@@ -229,6 +229,32 @@ namespace s3d
 		return (*this = Polygon(pImpl->outer(), std::move(inners), skipValidation));
 	}
 
+	Polygon Polygon::movedBy(const double x, const double y) const
+	{
+		return movedBy(Vec2{ x, y });
+	}
+
+	Polygon Polygon::movedBy(const Vec2 v) const
+	{
+		Polygon result(*this);
+
+		result.moveBy(v);
+
+		return result;
+	}
+
+	Polygon& Polygon::moveBy(const double x, const double y) noexcept
+	{
+		return moveBy(Vec2{ x, y });
+	}
+
+	Polygon& Polygon::moveBy(const Vec2 v) noexcept
+	{
+		pImpl->moveBy(v);
+
+		return *this;
+	}
+
 	PolygonFailureType Polygon::Validate(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{
 		CwOpenPolygon polygon;

@@ -324,9 +324,17 @@ namespace s3d
 
 
 
+		constexpr Rectangle& moveBy(value_type _x, value_type _y) noexcept
+		{
+			pos.moveBy(_x, _y);
+			return *this;
+		}
 
-
-
+		constexpr Rectangle& moveBy(size_type v) noexcept
+		{
+			pos.moveBy(v);
+			return *this;
+		}
 
 
 

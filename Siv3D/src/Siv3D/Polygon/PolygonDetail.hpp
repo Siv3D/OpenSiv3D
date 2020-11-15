@@ -63,5 +63,7 @@ namespace s3d
 
 		[[nodiscard]]
 		const RectF& boundingRect() const noexcept;
+
+		void moveBy(Vec2 v) noexcept;
 	};
 }

@@ -131,11 +131,11 @@ namespace s3d
 		const uint64 h1 = Hash::FNV1a(a);
 		const uint64 h2 = Hash::FNV1a(b);
 
-		if (h1 < h2)
+		if (h1 <= h2)
 		{
 			return a.intersectsAt(b);
 		}
-		else if (h1 > h2)
+		else
 		{
 			return b.intersectsAt(a);
 		}

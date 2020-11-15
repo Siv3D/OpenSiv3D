@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	/// @brief Polygon の入力頂点の検証結果
 	enum class PolygonFailureType : uint32
 	{
 		OK,

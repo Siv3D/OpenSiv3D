@@ -91,11 +91,11 @@ namespace s3d
 		Polygon movedBy(double x, double y) const;
 
 		[[nodiscard]]
-		Polygon movedBy(const Vec2& v) const;
+		Polygon movedBy(Vec2 v) const;
 
-		Polygon& moveBy(double x, double y);
+		Polygon& moveBy(double x, double y) noexcept;
 
-		Polygon& moveBy(const Vec2& v);
+		Polygon& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
