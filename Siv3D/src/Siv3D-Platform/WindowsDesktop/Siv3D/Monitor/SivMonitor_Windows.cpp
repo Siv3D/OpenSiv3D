@@ -14,10 +14,13 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/DLL.hpp>
 # include <ShellScalingApi.h> // for GetDpiForMonitor()
 
 namespace s3d
 {
+	Optional<decltype(GetDpiForMonitor)*> g_pGetDpiForMonitor;
+
 	namespace detail
 	{
 		// チェック用デバイス名とモニタハンドル
@@ -25,6 +28,17 @@ namespace s3d
 
 		static BOOL CALLBACK MonitorCallback(HMONITOR hMonitor, HDC, LPRECT, LPARAM userData)
 		{
+			if (not g_pGetDpiForMonitor.has_value())
+			{
+				g_pGetDpiForMonitor = nullptr;
+
+				if (HMODULE shcore = DLL::LoadSystemLibraryNoThrow(L"Shcore.dll"))
+				{
+					decltype(GetDpiForMonitor)* pGetDpiForMonitor = DLL::GetFunctionNoThrow(shcore, "GetDpiForMonitor");
+					*g_pGetDpiForMonitor = pGetDpiForMonitor;
+				}
+			}
+
 			MONITORINFOEX monitorInfo{};
 			monitorInfo.cbSize = sizeof(monitorInfo);
 			::GetMonitorInfoW(hMonitor, &monitorInfo);
@@ -43,10 +57,17 @@ namespace s3d
 				monitor->workArea.w = (monitorInfo.rcWork.right - monitorInfo.rcWork.left);
 				monitor->workArea.h = (monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
 
-				uint32 dpiX = 0, dpiY = 0;
-				if (SUCCEEDED(::GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY)))
+				if (*g_pGetDpiForMonitor)
 				{
-					monitor->scaling = (dpiX / static_cast<double>(USER_DEFAULT_SCREEN_DPI));
+					uint32 dpiX = 0, dpiY = 0;
+					if (SUCCEEDED((*g_pGetDpiForMonitor)(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY)))
+					{
+						monitor->scaling = (dpiX / static_cast<double>(USER_DEFAULT_SCREEN_DPI));
+					}
+				}
+				else
+				{
+					monitor->scaling = 1.0;
 				}
 
 				return false;
