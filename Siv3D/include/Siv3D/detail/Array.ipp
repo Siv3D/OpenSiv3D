@@ -32,6 +32,12 @@ namespace s3d
 		: Array(IndexedGenerate<Fty>(size, *indexedGenerator)) {}
 
 	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const Arg::reserve_<size_type> size)
+	{
+		reserve(*size);
+	}
+
+	template <class Type, class Allocator>
 	inline void Array<Type, Allocator>::swap(Array& other) noexcept
 	{
 		base_type::swap(other);
@@ -225,9 +231,7 @@ namespace s3d
 # endif
 	inline Array<Type, Allocator> Array<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
 	{
-		Array result;
-
-		result.reserve(Min(n, size()));
+		Array result{ Arg::reserve = Min(n, size()) };
 
 		std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
@@ -439,9 +443,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
 	inline auto Array<Type, Allocator>::map(Fty f) const
 	{
-		Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_array;
-
-		new_array.reserve(size());
+		Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_array{ Arg::reserve = size() };
 
 		for (const auto& v : *this)
 		{
@@ -549,9 +551,7 @@ namespace s3d
 			throw std::out_of_range("Array::removed_at(): index out of range");
 		}
 
-		Array new_array;
-
-		new_array.reserve(size() - 1);
+		Array new_array{ Arg::reserve = (size() - 1) };
 
 		new_array.insert(new_array.end(), begin(), begin() + index);
 
@@ -614,9 +614,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::replaced(const value_type& oldValue, const value_type& newValue) const&
 	{
-		Array new_array;
-
-		new_array.reserve(size());
+		Array new_array{ Arg::reserve = size() };
 
 		for (const auto& v : *this)
 		{
@@ -660,9 +658,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::replaced_if(Fty f, const value_type& newValue) const&
 	{
-		Array new_array;
-
-		new_array.reserve(size());
+		Array new_array{ Arg::reserve = size() };
 
 		for (const auto& v : *this)
 		{
@@ -1098,9 +1094,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::values_at(std::initializer_list<size_t> indices) const
 	{
-		Array new_array;
-
-		new_array.reserve(indices.size());
+		Array new_array{ Arg::reserve = indices.size() };
 
 		for (auto index : indices)
 		{
@@ -1377,8 +1371,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::Generate(const size_type size, Fty generator)
 	{
-		Array new_array;
-		new_array.reserve(size);
+		Array new_array{ Arg::reserve = size };
 
 		for (size_type i = 0; i < size; ++i)
 		{
@@ -1392,8 +1385,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::IndexedGenerate(const size_type size, Fty indexedGenerator)
 	{
-		Array new_array;
-		new_array.reserve(size);
+		Array new_array{ Arg::reserve = size };
 
 		for (size_type i = 0; i < size; ++i)
 		{

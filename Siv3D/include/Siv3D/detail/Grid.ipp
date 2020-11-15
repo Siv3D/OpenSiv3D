@@ -660,9 +660,7 @@ namespace s3d
 	{
 		using ResultType = std::decay_t<std::invoke_result_t<Fty, Type>>;
 
-		Array<ResultType> new_grid;
-
-		new_grid.reserve(m_width * m_height);
+		Array<ResultType> new_grid{ Arg::reserve = (m_width * m_height) };
 
 		for (const auto& v : m_data)
 		{

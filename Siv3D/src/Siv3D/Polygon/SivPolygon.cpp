@@ -128,6 +128,13 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon& Polygon::operator =(Polygon&& polygon) noexcept
+	{
+		pImpl = std::move(polygon.pImpl);
+
+		return *this;
+	}
+
 	bool Polygon::isEmpty() const noexcept
 	{
 		return pImpl->outer().isEmpty();
@@ -195,9 +202,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array<Array<Vec2>> inners;
+		Array<Array<Vec2>> inners{ Arg::reserve = (pImpl->inners().size() + 1) };
 		{
-			inners.reserve(pImpl->inners().size() + 1);
 			inners.append(pImpl->inners());
 			inners.push_back(std::move(hole));
 		}
@@ -214,9 +220,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array<Array<Vec2>> inners;
+		Array<Array<Vec2>> inners{ Arg::reserve = (pImpl->inners().size() + holes.size()) };
 		{
-			inners.reserve(pImpl->inners().size() + holes.size());
 			inners.append(pImpl->inners());
 			inners.append(holes);
 		}

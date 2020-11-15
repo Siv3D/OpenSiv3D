@@ -13,13 +13,6 @@
 
 namespace s3d
 {
-	inline Polygon& Polygon::operator =(Polygon&& polygon) noexcept
-	{
-		pImpl = std::move(polygon.pImpl);
-
-		return *this;
-	}
-
 	inline Polygon::operator bool() const noexcept
 	{
 		return (not isEmpty());
