@@ -14,7 +14,7 @@
 # include "Optional.hpp"
 # include "PointVector.hpp"
 # include "String.hpp"
-# include "Rectangle.hpp"
+# include "2DShapes.hpp"
 # include "Array.hpp"
 
 namespace s3d

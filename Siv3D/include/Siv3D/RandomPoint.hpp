@@ -12,7 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
-# include "Rectangle.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {

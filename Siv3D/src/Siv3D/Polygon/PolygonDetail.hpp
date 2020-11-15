@@ -13,8 +13,7 @@
 # include <boost/geometry/geometries/geometries.hpp>
 # include <boost/geometry/geometries/register/point.hpp>
 # include <Siv3D/Polygon.hpp>
-# include <Siv3D/Rectangle.hpp>
-# include <Siv3D/Triangle.hpp>
+# include <Siv3D/2DShapes.hpp>
 
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Vec2, double, boost::geometry::cs::cartesian, x, y)
 
