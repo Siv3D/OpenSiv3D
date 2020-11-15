@@ -90,7 +90,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	template <class... Args, std::enable_if_t<std::is_copy_constructible_v<Type>&& std::is_constructible_v<Type, Args...>>*>
+	template <class... Args, std::enable_if_t<std::conjunction_v<std::is_copy_constructible<Type>, std::is_constructible<Type, Args...>>>*>
 	[[nodiscard]]
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_construct(Args&&... args) const&
 	{
@@ -98,7 +98,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	template <class... Args, std::enable_if_t<std::is_move_constructible_v<Type>&& std::is_constructible_v<Type, Args...>>*>
+	template <class... Args, std::enable_if_t<std::conjunction_v<std::is_move_constructible<Type>, std::is_constructible<Type, Args...>>>*>
 	[[nodiscard]]
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_construct(Args&&... args)&&
 	{
@@ -106,14 +106,14 @@ namespace s3d
 	}
 
 	template <class Type>
-	template <class Fty, std::enable_if_t<std::is_copy_constructible_v<Type>&& std::is_convertible_v<std::invoke_result_t<Fty>, Type>>*>
+	template <class Fty, std::enable_if_t<std::conjunction_v<std::is_copy_constructible<Type>, std::is_convertible<std::invoke_result_t<Fty>, Type>>>*>
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_eval(Fty&& f) const&
 	{
 		return static_cast<bool>(*this) ? **this : std::forward<Fty>(f)();
 	}
 
 	template <class Type>
-	template <class Fty, std::enable_if_t<std::is_move_constructible_v<Type>&& std::is_convertible_v<std::invoke_result_t<Fty>, Type>>*>
+	template <class Fty, std::enable_if_t<std::conjunction_v<std::is_move_constructible<Type>, std::is_convertible<std::invoke_result_t<Fty>, Type>>>*>
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_eval(Fty&& f)&&
 	{
 		return static_cast<bool>(*this) ? std::move(**this) : std::forward<Fty>(f)();

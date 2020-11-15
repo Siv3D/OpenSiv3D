@@ -69,7 +69,7 @@ namespace s3d
 		/// @brief 一様ランダムビットジェネレータ型のコンセプト
 		/// @tparam Type 型
 		template <class Type>
-		concept UniformRandomBitGenerator = std::invocable<Type&> && std::unsigned_integral<std::invoke_result_t<Type&>>;
+		concept UniformRandomBitGenerator = (std::invocable<Type&> && std::unsigned_integral<std::invoke_result_t<Type&>>);
 	}
 }
 
@@ -104,10 +104,10 @@ namespace s3d
 
 	# define SIV3D_CONCEPT_INTEGRAL				template <class Int, std::enable_if_t<std::is_integral_v<Int>>* = nullptr>
 	# define SIV3D_CONCEPT_INTEGRAL_			template <class Int, std::enable_if_t<std::is_integral_v<Int>>*>
-	# define SIV3D_CONCEPT_SIGNED_INTEGRAL		template <class SignedInt, std::enable_if_t<(std::is_integral_v<SignedInt>&& std::is_signed_v<SignedInt>)>* = nullptr>
-	# define SIV3D_CONCEPT_SIGNED_INTEGRAL_		template <class SignedInt, std::enable_if_t<(std::is_integral_v<SignedInt>&& std::is_signed_v<SignedInt>)>*>
-	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL	template <class UnsignedInt, std::enable_if_t<(std::is_integral_v<UnsignedInt>&& !std::is_signed_v<UnsignedInt>)>* = nullptr>
-	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL_	template <class UnsignedInt, std::enable_if_t<(std::is_integral_v<UnsignedInt>&& !std::is_signed_v<UnsignedInt>)>*>
+	# define SIV3D_CONCEPT_SIGNED_INTEGRAL		template <class SignedInt, std::enable_if_t<std::conjunction_v<std::is_integral<SignedInt>, std::is_signed<SignedInt>>>* = nullptr>
+	# define SIV3D_CONCEPT_SIGNED_INTEGRAL_		template <class SignedInt, std::enable_if_t<std::conjunction_v<std::is_integral<SignedInt>, std::is_signed<SignedInt>>>*>
+	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL	template <class UnsignedInt, std::enable_if_t<std::conjunction_v<std::is_integral<UnsignedInt>, !std::is_signed<UnsignedInt>>>* = nullptr>
+	# define SIV3D_CONCEPT_UNSIGNED_INTEGRAL_	template <class UnsignedInt, std::enable_if_t<std::conjunction_v<std::is_integral<UnsignedInt>, !std::is_signed<UnsignedInt>>>*>
 	# define SIV3D_CONCEPT_FLOATING_POINT		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>* = nullptr>
 	# define SIV3D_CONCEPT_FLOATING_POINT_		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>*>
 	# define SIV3D_CONCEPT_SCALAR				template <class Scalar, std::enable_if_t<std::is_scalar_v<Scalar>>* = nullptr>
@@ -118,8 +118,8 @@ namespace s3d
 	# define SIV3D_CONCEPT_ENUM_				template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>*>
 	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>* = nullptr>
 	# define SIV3D_CONCEPT_TRIVIALLY_COPYABLE_	template <class TriviallyCopyable, std::enable_if_t<std::is_trivially_copyable_v<TriviallyCopyable>>*>
-	# define SIV3D_CONCEPT_URBG					template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
-	# define SIV3D_CONCEPT_URBG_				template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	# define SIV3D_CONCEPT_URBG					template <class URBG, std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+	# define SIV3D_CONCEPT_URBG_				template <class URBG, std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS		template <class... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE_ARGS_	template <class... Args>
 	# define SIV3D_CONCEPT_FORMATTABLE			template <class Formattable, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Formattable>()))>

@@ -1311,11 +1311,7 @@ namespace s3d
 		return shuffle(GetDefaultRNG());
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::UniformRandomBitGenerator URBG>
-# else
-	template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
-# endif
+	SIV3D_CONCEPT_URBG_
 	inline String& String::shuffle(URBG&& rbg)
 	{
 		std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
@@ -1333,21 +1329,13 @@ namespace s3d
 		return shuffled(GetDefaultRNG());
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::UniformRandomBitGenerator URBG>
-# else
-	template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
-# endif
+	SIV3D_CONCEPT_URBG_
 	inline String String::shuffled(URBG&& rbg) const&
 	{
 		return String(*this).shuffle(std::forward<URBG>(rbg));
 	}
 
-# if __cpp_lib_concepts
-	template <Concept::UniformRandomBitGenerator URBG>
-# else
-	template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
-# endif
+	SIV3D_CONCEPT_URBG_
 	inline String String::shuffled(URBG&& rbg)&&
 	{
 		std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));

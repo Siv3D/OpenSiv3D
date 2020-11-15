@@ -1426,11 +1426,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-	# if __cpp_lib_concepts
-		template <Concept::UniformRandomBitGenerator URBG>
-	# else
-		template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
-	# endif
+		SIV3D_CONCEPT_URBG
 		String& shuffle(URBG&& rbg);
 
 		/// <summary>
@@ -1460,11 +1456,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-	# if __cpp_lib_concepts
-		template <Concept::UniformRandomBitGenerator URBG>
-	# else
-		template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
-	# endif
+		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
 		String shuffled(URBG&& rbg) const&;
 
@@ -1477,11 +1469,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-	# if __cpp_lib_concepts
-		template <Concept::UniformRandomBitGenerator URBG>
-	# else
-		template <class URBG, std::enable_if_t<std::is_invocable_v<URBG&> && std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
-	# endif
+		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
 		String shuffled(URBG&& rbg)&&;
 
