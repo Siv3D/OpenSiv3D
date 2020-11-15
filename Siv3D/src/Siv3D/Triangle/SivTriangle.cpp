@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Triangle.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d

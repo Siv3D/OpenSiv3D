@@ -13,7 +13,7 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "Array.hpp"
-# include "Line.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {

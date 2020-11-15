@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Line.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Hash.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
