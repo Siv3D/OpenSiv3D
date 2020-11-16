@@ -10,11 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 
 namespace s3d
 {
 	/// @brief ウィンドウスタイル
-	enum class WindowStyle
+	enum class WindowStyle : uint32
 	{
 		/// @brief サイズ変更できない枠付きのウィンドウ
 		Fixed,

@@ -40,18 +40,20 @@ namespace s3d
 
 	public:
 
-		using typename base_type::value_type;
-		using typename base_type::pointer;
-		using typename base_type::const_pointer;
-		using typename base_type::reference;
-		using typename base_type::const_reference;
-		using typename base_type::iterator;
-		using typename base_type::const_iterator;
-		using typename base_type::reverse_iterator;
-		using typename base_type::const_reverse_iterator;
-		using typename base_type::size_type;
-		using typename base_type::difference_type;
-		using typename base_type::allocator_type;
+		/// @brief 配列の要素の型
+		using value_type				= typename base_type::value_type;
+
+		using pointer					= typename base_type::pointer;
+		using const_pointer				= typename base_type::const_pointer;
+		using reference					= typename base_type::reference;
+		using const_reference			= typename base_type::const_reference;
+		using iterator					= typename base_type::iterator;
+		using const_iterator			= typename base_type::const_iterator;
+		using reverse_iterator			= typename base_type::reverse_iterator;
+		using const_reverse_iterator	= typename base_type::const_reverse_iterator;
+		using size_type					= typename base_type::size_type;
+		using difference_type			= typename base_type::difference_type;
+		using allocator_type			= typename base_type::allocator_type;
 
 		using base_type::vector;
 		using base_type::operator=;
@@ -101,7 +103,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Array(ArrayIsh&& a);
 
-		/// @brief ジェネレータ関数を使った配列の作成
+		/// @brief ジェネレータ関数を使って配列を作成します。
 		/// @tparam Fty ジェネレータ関数の型
 		/// @param size 作成する配列の要素数
 		/// @param generator ジェネレータ関数
@@ -109,7 +111,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Array(size_type size, Arg::generator_<Fty> generator);
 
-		/// @brief インデックス指定ジェネレータ関数を使った配列の作成
+		/// @brief インデックス指定ジェネレータ関数を使って配列を作成します。
 		/// @tparam Fty ジェネレータ関数の型
 		/// @param size 作成する配列の要素数
 		/// @param indexedGenerator インデックス指定ジェネレータ関数
@@ -165,8 +167,14 @@ namespace s3d
 		/// @brief 配列の先頭から要素を削除します。
 		void pop_front();
 
+		/// @brief 配列の先頭から指定した個数の要素を削除します。
+		/// @param n 削除する個数
+		/// @remark n が `size()` より多い場合は全ての要素を削除します。
 		void pop_front_N(size_t n);
 
+		/// @brief 配列の末尾から指定した個数の要素を削除します。
+		/// @param n 削除する個数
+		/// @remark n が `size()` より多い場合は全ての要素を削除します。
 		void pop_back_N(size_t n);
 
 		/// @brief 要素にアクセスします。
@@ -241,7 +249,6 @@ namespace s3d
 		[[nodiscard]]
 		const value_type& choice(URBG&& rbg) const;
 
-
 		SIV3D_CONCEPT_INTEGRAL
 		[[nodiscard]]
 		Array choice(Int n) const;
@@ -250,7 +257,7 @@ namespace s3d
 		template <Concept::Integral Size_t, Concept::UniformRandomBitGenerator URBG>
 	# else
 		template <class Size_t, class URBG, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr,
-			std::enable_if_t<std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>* = nullptr>
+			std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
 	# endif
 		[[nodiscard]]
 		Array choice(Size_t n, URBG&& rbg) const;

@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief 多倍長整数型
 	class BigInt
 	{
 	private:

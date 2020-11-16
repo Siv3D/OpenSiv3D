@@ -47,6 +47,6 @@ namespace s3d
 	class Image;
 
 
-	enum class WindowStyle;
+	enum class WindowStyle : uint32;
 	struct WindowState;
 }

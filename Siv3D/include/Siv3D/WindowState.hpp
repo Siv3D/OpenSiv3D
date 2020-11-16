@@ -19,7 +19,8 @@ namespace s3d
 {
 	namespace Window
 	{
-		inline constexpr Size DefaultClientSize = Size(800, 600);
+		/// @brief デフォルトのクライアントサイズ
+		inline constexpr Size DefaultClientSize{ 800, 600 };
 	}
 
 	/// @brief ウィンドウの状態

@@ -14,6 +14,8 @@
 
 namespace s3d
 {
+	/// @brief Yes/No パラメータのためのユーティリティクラス
+	/// @tparam Tag タグ名
 	template <class Tag>
 	struct YesNo
 	{
@@ -42,8 +44,10 @@ namespace s3d
 			return m_yesNo;
 		}
 
+		/// @brief Yes を示す定数
 		static constexpr Helper Yes{ true };
 
+		/// @brief No を示す定数
 		static constexpr Helper No{ false };
 	};
 }

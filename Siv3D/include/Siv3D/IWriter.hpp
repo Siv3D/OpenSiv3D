@@ -50,7 +50,7 @@ namespace s3d
 		virtual int64 write(const void* src, int64 size) = 0;
 
 		/// @brief Writer にデータを書き込みます。
-		/// @tparam Type 書き込む値の型
+		/// @tparam TriviallyCopyable 書き込む値の型
 		/// @param src 書き込むデータ
 		/// @return 書き込みに成功した場合 true, それ以外の場合は false
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE

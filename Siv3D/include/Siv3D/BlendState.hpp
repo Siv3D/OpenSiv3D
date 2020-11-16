@@ -20,6 +20,7 @@
 
 namespace s3d
 {
+	/// @brief ブレンドモード
 	enum class Blend : uint8
 	{
 		Zero			= 1,
@@ -57,6 +58,7 @@ namespace s3d
 		InvSrc1Alpha	= 19
 	};
 
+	/// @brief ブレンド式
 	enum class BlendOp : uint8
 	{
 		Add			= 1,

@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief 100 桁の精度を持つ浮動小数点数型
 	class BigFloat
 	{
 	private:

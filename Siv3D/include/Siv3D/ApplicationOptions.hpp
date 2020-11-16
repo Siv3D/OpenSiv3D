@@ -13,6 +13,7 @@
 
 namespace s3d
 {
+	/// @brief エンジンの設定
 	struct EngineOption
 	{
 		/// @brief デバッグヒープマネージャ (Windows のみ)
@@ -47,14 +48,20 @@ namespace s3d
 			WebGL2 = 5,
 		};
 
+		/// @brief Direct3D 11 ドライバーの種類 (Windows 版)
 		enum class D3D11Driver
 		{
+			/// @brief ハードウェア
 			Hardware,
 
+			/// @brief ハードウェア (iGPU 優先)
 			Hardware_FavorIntegrated,
 
+			/// @brief WARP ドライバーを使用
+			/// @remark やや実行が遅いですが、実行環境による影響を受けないドライバーです。
 			WARP,
 
+			/// @brief リファレンスドライバーを使用
 			Reference
 		};
 	};

@@ -34,7 +34,7 @@ namespace s3d
 
 		/// @brief ファイルを開きます。
 		/// @param path ファイルパス
-		/// @param openMode オープンモード (OpenMode の組み合わせ）
+		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
 		explicit BinaryReader(FilePathView path, OpenMode openMode = {});
 
 		/// @brief lookahead をサポートしているかを返します。
@@ -48,16 +48,17 @@ namespace s3d
 		/// @return ファイルのオープンに成功した場合 true, それ以外の場合は false
 		bool open(FilePathView path, OpenMode openMode = {});
 
-		/// @brief ファイルをクローズします。
+		/// @brief ファイルを閉じます。
+		/// @remark ファイルが開いていない場合は何もしません。
 		void close();
 
-		/// @brief ファイルがオープンされているかを返します。
-		/// @return ファイルがオープンされている場合 true, それ以外の場合は false
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isOpen() const noexcept override;
 
-		/// @brief ファイルがオープンされているかを返します。
-		/// @return ファイルがオープンされている場合 true, それ以外の場合は false	
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false	
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
@@ -121,8 +122,8 @@ namespace s3d
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
 		bool lookahead(TriviallyCopyable& dst);
 
-		/// @brief オープンしているファイルのパスを返します。
-		/// @return オープンしているファイルのパス。ファイルがオープンしていない場合は空の文字列
+		/// @brief 開いているファイルのパスを返します。
+		/// @return 開いているファイルのパス。ファイルが開いていない場合は空の文字列
 		[[nodiscard]]
 		const FilePath& path() const noexcept;
 

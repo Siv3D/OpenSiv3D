@@ -227,7 +227,7 @@ namespace s3d
 	template <Concept::Integral Size_t, Concept::UniformRandomBitGenerator URBG>
 # else
 	template <class Size_t, class URBG, std::enable_if_t<std::is_integral_v<Size_t>>*,
-		std::enable_if_t<std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+		std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	inline Array<Type, Allocator> Array<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
 	{
