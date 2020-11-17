@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBuilder.hpp>
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
 # include <Siv3D/VertexShader.hpp>
