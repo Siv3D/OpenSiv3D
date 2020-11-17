@@ -21,6 +21,6 @@ namespace s3d
 
 		Vertex2D::IndexType* pIndex;
 
-		uint32 indexOffset;
+		Vertex2D::IndexType indexOffset;
 	};
 }

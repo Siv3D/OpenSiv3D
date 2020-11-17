@@ -102,6 +102,19 @@ namespace s3d
 		};
 	}
 
+	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_D3D11::flush()
 	{
 		ScopeGuard cleanUp = [this]()
@@ -183,19 +196,6 @@ namespace s3d
 					break;
 				}
 			}
-		}
-	}
-
-	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
-	{
-		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
-		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
-
-			m_commandManager.pushDraw(indexCount);
 		}
 	}
 
