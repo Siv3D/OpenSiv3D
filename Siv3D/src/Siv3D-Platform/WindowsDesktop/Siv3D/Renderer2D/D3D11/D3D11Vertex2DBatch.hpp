@@ -14,11 +14,11 @@
 # include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBufferPointer.hpp>
+# include "D3D11Renderer2DCommand.hpp"
 
 namespace s3d
 {
-	class D3D11Renderer2DCommand {};
-
 	struct D3D11BatchInfo
 	{
 		uint32 indexCount			= 0;
@@ -63,14 +63,14 @@ namespace s3d
 
 		Array<BatchBufferPos> m_batches;
 
-		static constexpr uint32 InitialVertexArraySize	= 4096;
-		static constexpr uint32 InitialIndexArraySize	= (4096 * 8); // 32,768
+		static constexpr uint32 InitialVertexArraySize	= 4096;			// 4,096
+		static constexpr uint32 InitialIndexArraySize	= (4096 * 8);	// 32,768
 
 		static constexpr uint32 MaxVertexArraySize		= (65536 * 64); // 4,194,304
 		static constexpr uint32 MaxIndexArraySize		= (65536 * 64); // 4,194,304
 
-		static constexpr uint32 VertexBufferSize		= 65535;// 65,535;
-		static constexpr uint32 IndexBufferSize			= ((VertexBufferSize + 1) * 4); // 524,288
+		static constexpr uint32 VertexBufferSize		= 65535;						// 65,535;
+		static constexpr uint32 IndexBufferSize			= ((VertexBufferSize + 1) * 4); // 262,144
 
 		void advanceArrayWritePos(uint16 vertexSize, uint32 indexSize) noexcept;
 
@@ -84,7 +84,7 @@ namespace s3d
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 	
 		[[nodiscard]]
-		std::tuple<Vertex2D*, Vertex2D::IndexType*, Vertex2D::IndexType> requestBuffer(uint16 vertexSize, uint32 indexSize, D3D11Renderer2DCommand& command);
+		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, D3D11Renderer2DCommandManager& commandManager);
 
 		[[nodiscard]]
 		size_t num_batches() const noexcept;

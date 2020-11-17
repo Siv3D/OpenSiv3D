@@ -14,15 +14,15 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBuilder.hpp>
 # include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
 # include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
+# include "GL4Renderer2DCommand.hpp"
 # include "GL4Vertex2DBatch.hpp"
 
 namespace s3d
 {
-	class GL4Renderer2DCommand {};
-
 	struct GL4StandardVS2D
 	{
 		VertexShader sprite;
@@ -40,7 +40,7 @@ namespace s3d
 		PixelShader shape;
 		PixelShader fullscreen_triangle;
 
-		bool ok()
+		bool ok() const
 		{
 			return shape
 				&& fullscreen_triangle;
@@ -51,16 +51,16 @@ namespace s3d
 	{
 		Float4 transform[2];
 
-		Float4 colorMul;
+		Float4 colorMul{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	struct GL4PSConstants2D
 	{
-		Float4 colorAdd = Float4(0, 0, 0, 0);
+		Float4 colorAdd{ 0, 0, 0, 0 };
 
-		Float4 sdfParam = Float4(0, 0, 0, 0);
+		Float4 sdfParam{ 0, 0, 0, 0 };
 
-		Float4 internalParam = Float4(0, 0, 0, 0);
+		Float4 internalParam{ 0, 0, 0, 0 };
 	};
 
 	class CRenderer2D_GL4 final : public ISiv3DRenderer2D
@@ -77,8 +77,8 @@ namespace s3d
 		ConstantBuffer<GL4PSConstants2D> m_psConstants2D;
 
 		GL4Vertex2DBatch m_batches;
-		GL4Renderer2DCommand m_command;
-		uint32 m_draw_indexCount = 0;
+		GL4Renderer2DCommandManager m_commandManager;
+		BufferCreatorFunc m_bufferCreator;
 
 		//////////////////////////////////////////////////
 		//
@@ -96,7 +96,7 @@ namespace s3d
 
 		void init() override;
 
-		void test_renderRectangle(const RectF& rect, const ColorF& color) override;
+		void addRect(const FloatRect& rect, const Float4& color) override;
 
 		void flush();
 

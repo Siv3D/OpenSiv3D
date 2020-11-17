@@ -14,11 +14,11 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBufferPointer.hpp>
+# include "GL4Renderer2DCommand.hpp"
 
 namespace s3d
 {
-	class GL4Renderer2DCommand;
-
 	struct GL4BatchInfo
 	{
 		uint32 indexCount = 0;
@@ -82,7 +82,7 @@ namespace s3d
 		bool init();
 
 		[[nodiscard]]
-		std::tuple<Vertex2D*, Vertex2D::IndexType*, Vertex2D::IndexType> requestBuffer(uint16 vertexSize, uint32 indexSize, GL4Renderer2DCommand& command);
+		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, GL4Renderer2DCommandManager& commandManager);
 
 		[[nodiscard]]
 		size_t num_batches() const noexcept;

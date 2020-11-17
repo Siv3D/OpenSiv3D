@@ -17,6 +17,7 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
+# include "D3D11Renderer2DCommand.hpp"
 # include "D3D11Vertex2DBatch.hpp"
 
 namespace s3d
@@ -38,7 +39,7 @@ namespace s3d
 		PixelShader shape;
 		PixelShader fullscreen_triangle;
 
-		bool ok()
+		bool ok() const
 		{
 			return shape
 				&& fullscreen_triangle;
@@ -49,16 +50,16 @@ namespace s3d
 	{
 		Float4 transform[2];
 
-		Float4 colorMul = Float4(1, 1, 1, 1);
+		Float4 colorMul{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	struct D3D11PSConstants2D
 	{
-		Float4 colorAdd = Float4(0, 0, 0, 0);
+		Float4 colorAdd{ 0, 0, 0, 0 };
 
-		Float4 sdfParam = Float4(0, 0, 0, 0);
+		Float4 sdfParam{ 0, 0, 0, 0 };
 
-		Float4 internalParam = Float4(0, 0, 0, 0);
+		Float4 internalParam{ 0, 0, 0, 0 };
 	};
 
 	class CRenderer2D_D3D11 final : public ISiv3DRenderer2D
@@ -79,8 +80,8 @@ namespace s3d
 		ComPtr<ID3D11InputLayout> m_inputLayout;
 
 		D3D11Vertex2DBatch m_batches;
-		D3D11Renderer2DCommand m_command;
-		uint32 m_draw_indexCount = 0;
+		D3D11Renderer2DCommandManager m_commandManager;
+		BufferCreatorFunc m_bufferCreator;
 
 	public:
 
@@ -90,7 +91,7 @@ namespace s3d
 
 		void init() override;
 
-		void test_renderRectangle(const RectF& rect, const ColorF& color) override;
+		void addRect(const FloatRect& rect, const Float4& color) override;
 
 		void flush();
 

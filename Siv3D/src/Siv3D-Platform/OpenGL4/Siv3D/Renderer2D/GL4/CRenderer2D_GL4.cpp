@@ -25,6 +25,12 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
+/*
+#	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
+/*/
+#	define LOG_COMMAND(...) ((void)0)
+//*/
+
 namespace s3d
 {
 	CRenderer2D_GL4::CRenderer2D_GL4() = default;
@@ -93,6 +99,12 @@ namespace s3d
 			}
 		}
 
+		// バッファ作成関数を作成
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
+
 		// full screen triangle
 		{
 			::glGenVertexArrays(1, &m_vertexArray);
@@ -112,13 +124,10 @@ namespace s3d
 		ScopeGuard cleanUp = [this]()
 		{
 			m_batches.reset();
-			m_draw_indexCount = 0;
+			m_commandManager.reset();
 		};
 
-		if (m_draw_indexCount == 0)
-		{
-			return;
-		}
+		m_commandManager.flush();
 
 		pShader->setVS(m_standardVS->sprite.id());
 		pShader->setPS(m_standardPS->shape.id());
@@ -138,23 +147,71 @@ namespace s3d
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
-		auto batchInfo = m_batches.updateBuffers(0);
-		m_vsConstants2D._update_if_dirty();
-		m_psConstants2D._update_if_dirty();
+		GL4BatchInfo batchInfo;
 
-		const uint32 indexCount = m_draw_indexCount;
-		const uint32 startIndexLocation = batchInfo.startIndexLocation;
-		const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
-		const Vertex2D::IndexType* pBase = 0;
-		
-		::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation), baseVertexLocation);
-		batchInfo.startIndexLocation += indexCount;
+		for (const auto& command : m_commandManager.getCommands())
+		{
+			switch (command.type)
+			{
+			case GL4Renderer2DCommandType::Null:
+				{
+					LOG_COMMAND(U"Null");
+					break;
+				}
+			case GL4Renderer2DCommandType::SetBuffers:
+				{
+					// do nothing
+
+					LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
+					break;
+				}
+			case GL4Renderer2DCommandType::UpdateBuffers:
+				{
+					batchInfo = m_batches.updateBuffers(command.index);
+
+					LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+						command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
+					break;
+				}
+			case GL4Renderer2DCommandType::Draw:
+				{
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
+
+					const GL4DrawCommand& draw = m_commandManager.getDraw(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = batchInfo.startIndexLocation;
+					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
+					constexpr Vertex2D::IndexType* pBase = 0;
+
+					::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation), baseVertexLocation);
+					batchInfo.startIndexLocation += indexCount;
+
+					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					break;
+				}
+			}
+		}
 
 		::glBindVertexArray(0);
 
 		CheckOpenGLError();
 	}
 
+	void CRenderer2D_GL4::addRect(const FloatRect& rect, const Float4& color)
+	{
+		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	/*
 	void CRenderer2D_GL4::test_renderRectangle(const RectF& rect, const ColorF& _color)
 	{
 		constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
@@ -185,7 +242,9 @@ namespace s3d
 		}
 
 		m_draw_indexCount += 6;
+
 	}
+	*/
 
 	void CRenderer2D_GL4::drawFullScreenTriangle(const TextureFilter textureFilter)
 	{

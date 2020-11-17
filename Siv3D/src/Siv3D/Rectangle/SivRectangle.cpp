@@ -12,6 +12,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FormatData.hpp>
+# include <Siv3D/FloatRect.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -20,7 +21,7 @@ namespace s3d
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{
-		SIV3D_ENGINE(Renderer2D)->test_renderRectangle(*this, color);
+		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) }, color.toFloat4());
 
 		return *this;
 	}

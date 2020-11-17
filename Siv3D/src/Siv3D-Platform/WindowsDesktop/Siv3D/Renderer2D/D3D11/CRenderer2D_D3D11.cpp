@@ -18,6 +18,12 @@
 # include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
+/*
+#	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
+/*/
+#	define LOG_COMMAND(...) ((void)0)
+//*/
+
 namespace s3d
 {
 	CRenderer2D_D3D11::CRenderer2D_D3D11()
@@ -88,6 +94,12 @@ namespace s3d
 				throw EngineError(U"D3D11Vertex2DBatch::init() failed");
 			}
 		}
+
+		// バッファ作成関数を作成
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
 	}
 
 	void CRenderer2D_D3D11::flush()
@@ -95,13 +107,10 @@ namespace s3d
 		ScopeGuard cleanUp = [this]()
 		{
 			m_batches.reset();
-			m_draw_indexCount = 0;
+			m_commandManager.reset();
 		};
 
-		if (m_draw_indexCount == 0)
-		{
-			return;
-		}
+		m_commandManager.flush();
 
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		pShader->setVS(m_standardVS->sprite.id());
@@ -130,50 +139,64 @@ namespace s3d
 
 		pRenderer->getBackBuffer().bindRenderTarget(pRenderer->getBackBuffer().getSceneBuffer().getRTV());;
 
-		m_batches.setBuffers();
 
-		m_vsConstants2D._update_if_dirty();
-		m_psConstants2D._update_if_dirty();
+		D3D11BatchInfo batchInfo;
 
-		auto batchInfo = m_batches.updateBuffers(0);
+		for (const auto& command : m_commandManager.getCommands())
+		{
+			switch (command.type)
+			{
+			case D3D11Renderer2DCommandType::Null:
+				{
+					LOG_COMMAND(U"Null");
+					break;
+				}
+			case D3D11Renderer2DCommandType::SetBuffers:
+				{
+					m_batches.setBuffers();
 
-		const uint32 indexCount = m_draw_indexCount;
-		const uint32 startIndexLocation = batchInfo.startIndexLocation;
-		const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
+					LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
+					break;
+				}
+			case D3D11Renderer2DCommandType::UpdateBuffers:
+				{
+					batchInfo = m_batches.updateBuffers(command.index);
+					
+					LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+						command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
+					break;
+				}
+			case D3D11Renderer2DCommandType::Draw:
+				{
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
 
-		m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+					const D3D11DrawCommand& draw = m_commandManager.getDraw(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = batchInfo.startIndexLocation;
+					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
+
+					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+					batchInfo.startIndexLocation += indexCount;
+
+					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					break;
+				}
+			}
+		}
 	}
 
-	void CRenderer2D_D3D11::test_renderRectangle(const RectF& rect, const ColorF& _color)
+	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
 	{
-		constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
-		auto [pVertex, pIndex, indexOffset] = m_batches.requestBuffer(vertexSize, indexSize, m_command);
-
-		if (!pVertex)
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
-			return;
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
 		}
-
-		const Float4 color = _color.toFloat4();
-
-		const float left = float(rect.x);
-		const float right = float(rect.x + rect.w);
-		const float top = float(rect.y);
-		const float bottom = float(rect.y + rect.h);
-
-		pVertex[0].set(left, top, color);
-		pVertex[1].set(right, top, color);
-		pVertex[2].set(left, bottom, color);
-		pVertex[3].set(right, bottom, color);
-
-		static constexpr Vertex2D::IndexType RectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
-
-		for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
-		{
-			*pIndex++ = (indexOffset + RectIndexTable[i]);
-		}
-
-		m_draw_indexCount += 6;
 	}
 
 	void CRenderer2D_D3D11::drawFullScreenTriangle(const TextureFilter textureFilter)

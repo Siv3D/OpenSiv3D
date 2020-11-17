@@ -92,7 +92,7 @@ namespace s3d
 		return true;
 	}
 
-	std::tuple<Vertex2D*, Vertex2D::IndexType*, Vertex2D::IndexType> GL4Vertex2DBatch::requestBuffer(const uint16 vertexSize, const uint32 indexSize, GL4Renderer2DCommand& command)
+	Vertex2DBufferPointer GL4Vertex2DBatch::requestBuffer(const uint16 vertexSize, const uint32 indexSize, GL4Renderer2DCommandManager& commandManager)
 	{
 		// VB
 		if (const uint32 vertexArrayWritePosTarget = m_vertexArrayWritePos + vertexSize;
@@ -125,19 +125,19 @@ namespace s3d
 		if (const auto& lastbatch = m_batches.back();
 			(VertexBufferSize < (lastbatch.vertexPos + vertexSize) || IndexBufferSize < (lastbatch.indexPos + indexSize)))
 		{
-			//command.pushUpdateBuffers(static_cast<uint32>(m_batches.size()));
+			commandManager.pushUpdateBuffers(static_cast<uint32>(m_batches.size()));
 			m_batches.emplace_back();
 		}
 
 		auto& lastbatch = m_batches.back();
 		Vertex2D* const pVertex = (m_vertexArray.data() + m_vertexArrayWritePos);
 		Vertex2D::IndexType* const pIndex = (m_indexArray.data() + m_indexArrayWritePos);
-		const auto vertexPos = lastbatch.vertexPos;
+		const auto indexOffset = lastbatch.vertexPos;
 
 		advanceArrayWritePos(vertexSize, indexSize);
 		lastbatch.advance(vertexSize, indexSize);
 
-		return{ pVertex, pIndex, vertexPos };
+		return{ pVertex, pIndex, indexOffset };
 	}
 
 	size_t GL4Vertex2DBatch::num_batches() const noexcept

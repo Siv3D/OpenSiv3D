@@ -27,17 +27,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer2D_Null::init()");
 	}
 
-	void CRenderer2D_Null::flush()
-	{
-
-	}
-
-	void CRenderer2D_Null::test_renderRectangle(const RectF&, const ColorF&)
-	{
-
-	}
-
-	void CRenderer2D_Null::drawFullScreenTriangle(const TextureFilter)
+	void CRenderer2D_Null::addRect(const FloatRect&, const Float4&)
 	{
 
 	}
