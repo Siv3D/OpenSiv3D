@@ -14,10 +14,13 @@
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/TextureFilter.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBuilder.hpp>
 # import <Metal/Metal.h>
 # import <QuartzCore/CAMetalLayer.h>
-# include "Vertex2DBatch_Metal.hpp"
+# include "MetalRenderer2DCommand.hpp"
+# include "MetalVertex2DBatch.hpp"
 
 namespace s3d
 {
@@ -38,7 +41,7 @@ namespace s3d
 		PixelShader shape;
 		PixelShader fullscreen_triangle;
 
-		bool ok()
+		bool ok() const
 		{
 			return shape
 				&& fullscreen_triangle;
@@ -48,14 +51,14 @@ namespace s3d
 	struct MetalVSConstants2D
 	{
 		Float4 transform[2];
-		Float4 colorMul = Float4(1, 1, 1, 1);
+		Float4 colorMul{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	struct MetalPSConstants2D
 	{
-		Float4 colorAdd = Float4(0, 0, 0, 0);
-		Float4 sdfParam = Float4(0, 0, 0, 0);
-		Float4 internal = Float4(0, 0, 0, 0);
+		Float4 colorAdd{ 0, 0, 0, 0 };
+		Float4 sdfParam{ 0, 0, 0, 0 };
+		Float4 internal{ 0, 0, 0, 0 };
 	};
 
 	class CRenderer_Metal;
@@ -81,9 +84,9 @@ namespace s3d
 		ConstantBuffer<MetalVSConstants2D> m_vsConstants2D;
 		ConstantBuffer<MetalPSConstants2D> m_psConstants2D;
 		
-		Vertex2DBatch_Metal m_batches;
-		Renderer2DCommand_Metal m_command;
-		uint32 m_draw_indexCount = 0;
+		MetalVertex2DBatch m_batches;
+		MetalRenderer2DCommandManager m_commandManager;
+		BufferCreatorFunc m_bufferCreator;
 
 	public:
 
@@ -92,9 +95,9 @@ namespace s3d
 		~CRenderer2D_Metal() override;
 
 		void init() override;
-
-		void test_renderRectangle(const RectF& rect, const ColorF& color) override;
 		
+		void addRect(const FloatRect& rect, const Float4& color) override;
+
 		void flush(id<MTLCommandBuffer> commandBuffer);
 
 		void drawFullScreenTriangle(id<MTLCommandBuffer> commandBuffer, TextureFilter textureFilter);

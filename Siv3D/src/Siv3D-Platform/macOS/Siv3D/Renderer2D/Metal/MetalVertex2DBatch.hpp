@@ -13,13 +13,13 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex2D.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBufferPointer.hpp>
 # import <Metal/Metal.h>
+# include "MetalRenderer2DCommand.hpp"
 
 namespace s3d
 {
-	class Renderer2DCommand_Metal{};
-
-	class Vertex2DBatch_Metal
+	class MetalVertex2DBatch
 	{
 	private:
 		
@@ -42,7 +42,7 @@ namespace s3d
 		
 	public:
 		
-		void init(id<MTLDevice> device);
+		bool init(id<MTLDevice> device);
 		
 		void begin();
 		
@@ -58,6 +58,6 @@ namespace s3d
 		dispatch_semaphore_t getSemaphore() const;
 
 		[[nodiscard]]
-		std::tuple<Vertex2D*, IndexType*, IndexType> requestBuffer(uint16 vertexSize, uint32 indexSize, Renderer2DCommand_Metal& command);
+		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, MetalRenderer2DCommandManager& commandManager);
 	};
 }

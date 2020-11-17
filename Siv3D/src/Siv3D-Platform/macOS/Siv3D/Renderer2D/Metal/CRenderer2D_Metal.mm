@@ -21,6 +21,12 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ShaderCommon.hpp>
 
+/*
+#	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
+/*/
+#	define LOG_COMMAND(...) ((void)0)
+//*/
+
 namespace s3d
 {
 	CRenderer2D_Metal::CRenderer2D_Metal()
@@ -107,15 +113,44 @@ namespace s3d
 		
 		m_renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
 		
+		// Batch 管理を初期化
+		{
+			if (not m_batches.init(m_device))
+			{
+				throw EngineError(U"GL4Vertex2DBatch::init() failed");
+			}
+		}
+
+		// バッファ作成関数を作成
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
+		
 		m_batches.init(m_device);
+	}
+
+	void CRenderer2D_Metal::addRect(const FloatRect& rect, const Float4& color)
+	{
+		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
 	}
 
 	void CRenderer2D_Metal::flush(id<MTLCommandBuffer> commandBuffer)
 	{
 		ScopeGuard cleanUp = [this]()
 		{
-			m_draw_indexCount = 0;
+			m_commandManager.reset();
 		};
+		
+		m_commandManager.flush();
 		
 		m_batches.end();
 		
@@ -154,61 +189,62 @@ namespace s3d
 			{
 				id<MTLRenderCommandEncoder> sceneCommandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
 				{
+					//MetalBatchInfo batchInfo;
 					[sceneCommandEncoder setRenderPipelineState:m_sceneRenderPipelineState];
-					[sceneCommandEncoder setVertexBuffer:m_batches.getCurrentVertexBuffer()
-									offset:0
-								   atIndex:0];
 					[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 								   length:m_vsConstants2D.size()
 								  atIndex:1];
 					[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
 								   length:m_psConstants2D.size()
 								  atIndex:1];
-
-					if (m_draw_indexCount)
+					
+					for (const auto& command : m_commandManager.getCommands())
 					{
-					  [sceneCommandEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-										  indexCount:m_draw_indexCount
-										   indexType:MTLIndexTypeUInt16
-										 indexBuffer:m_batches.getCurrentIndexBuffer()
-								   indexBufferOffset:0];
+						switch (command.type)
+						{
+						case MetalRenderer2DCommandType::Null:
+							{
+								LOG_COMMAND(U"Null");
+								break;
+							}
+						case MetalRenderer2DCommandType::SetBuffers:
+							{
+								// do nothing
+
+								LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
+								break;
+							}
+						case MetalRenderer2DCommandType::UpdateBuffers:
+							{
+
+								//LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+								//	command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
+								break;
+							}
+						case MetalRenderer2DCommandType::Draw:
+							{
+								const MetalDrawCommand& draw = m_commandManager.getDraw(command.index);
+								const uint32 indexCount = draw.indexCount;
+								
+								[sceneCommandEncoder setVertexBuffer:m_batches.getCurrentVertexBuffer()
+												offset:0
+											   atIndex:0];
+								
+								[sceneCommandEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+													indexCount:indexCount
+													 indexType:MTLIndexTypeUInt16
+												   indexBuffer:m_batches.getCurrentIndexBuffer()
+											 indexBufferOffset:0];
+								
+								LOG_COMMAND(U"Draw[{}] indexCount = {}"_fmt(command.index, indexCount));
+								break;
+							}
+						}
 					}
 				}
 				[sceneCommandEncoder endEncoding];
 			}
 		}
-	}
-
-	void CRenderer2D_Metal::test_renderRectangle(const RectF& rect, const ColorF& _color)
-	{
-		constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
-		auto [pVertex, pIndex, indexOffset] = m_batches.requestBuffer(vertexSize, indexSize, m_command);
-
-		if (!pVertex)
-		{
-			return;
-		}
-
-		const Float4 color = _color.toFloat4();
-
-		const float left = float(rect.x);
-		const float right = float(rect.x + rect.w);
-		const float top = float(rect.y);
-		const float bottom = float(rect.y + rect.h);
-
-		pVertex[0].set(left, top, color);
-		pVertex[1].set(right, top, color);
-		pVertex[2].set(left, bottom, color);
-		pVertex[3].set(right, bottom, color);
-
-		static constexpr Vertex2D::IndexType RectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
-
-		for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
-		{
-			*pIndex++ = (indexOffset + RectIndexTable[i]);
-		}
-		
-		m_draw_indexCount += indexSize;
 	}
 
 	void CRenderer2D_Metal::drawFullScreenTriangle(id<MTLCommandBuffer> commandBuffer, const TextureFilter textureFilter)

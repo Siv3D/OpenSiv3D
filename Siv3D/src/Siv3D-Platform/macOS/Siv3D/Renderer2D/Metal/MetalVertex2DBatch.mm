@@ -9,11 +9,11 @@
 //
 //-----------------------------------------------
 
-# include "Vertex2DBatch_Metal.hpp"
+# include "MetalVertex2DBatch.hpp"
 
 namespace s3d
 {
-	void Vertex2DBatch_Metal::init(id<MTLDevice> device)
+	bool MetalVertex2DBatch::init(id<MTLDevice> device)
 	{
 		for(size_t i = 0; i < MaxInflightBuffers; ++i)
 		{
@@ -26,9 +26,11 @@ namespace s3d
 			m_indexBuffers[i] = [device newBufferWithLength:(sizeof(IndexType) * IndexBufferSize)
 													 options:MTLResourceStorageModeShared];
 		}
+		
+		return true;
 	}
 
-	void Vertex2DBatch_Metal::begin()
+	void MetalVertex2DBatch::begin()
 	{
 		assert(!m_isActive);
 		
@@ -40,29 +42,29 @@ namespace s3d
 		m_isActive = true;
 	}
 
-	void Vertex2DBatch_Metal::end()
+	void MetalVertex2DBatch::end()
 	{
 		assert(m_isActive);
 
 		m_isActive = false;
 	}
 
-	id<MTLBuffer> Vertex2DBatch_Metal::getCurrentVertexBuffer() const
+	id<MTLBuffer> MetalVertex2DBatch::getCurrentVertexBuffer() const
 	{
 		return m_vertexBuffers[m_currentBufferIndex];
 	}
 
-	id<MTLBuffer> Vertex2DBatch_Metal::getCurrentIndexBuffer() const
+	id<MTLBuffer> MetalVertex2DBatch::getCurrentIndexBuffer() const
 	{
 		return m_indexBuffers[m_currentBufferIndex];
 	}
 
-	dispatch_semaphore_t Vertex2DBatch_Metal::getSemaphore() const
+	dispatch_semaphore_t MetalVertex2DBatch::getSemaphore() const
 	{
 		return m_frameBoundarySemaphore;
 	}
 
-	std::tuple<Vertex2D*, Vertex2DBatch_Metal::IndexType*, Vertex2DBatch_Metal::IndexType> Vertex2DBatch_Metal::requestBuffer(const uint16 vertexSize, const uint32 indexSize, Renderer2DCommand_Metal& command)
+	Vertex2DBufferPointer MetalVertex2DBatch::requestBuffer(const uint16 vertexSize, const uint32 indexSize, MetalRenderer2DCommandManager& commandManager)
 	{
 		if (((m_currentVertexBufferWritePos + vertexSize) > VertexBufferSize)
 			|| ((m_currentIndexBufferWritePos + indexSize) > IndexBufferSize))
@@ -74,7 +76,7 @@ namespace s3d
 		+ m_currentVertexBufferWritePos;
 		IndexType* const pIndex = static_cast<IndexType*>(m_indexBuffers[m_currentBufferIndex].contents)
 		+ m_currentIndexBufferWritePos;
-		const auto indexOffset = m_currentVertexBufferWritePos;
+		const uint32 indexOffset = static_cast<uint32>(m_currentVertexBufferWritePos);
 
 		m_currentVertexBufferWritePos += vertexSize;
 		m_currentIndexBufferWritePos += indexSize;

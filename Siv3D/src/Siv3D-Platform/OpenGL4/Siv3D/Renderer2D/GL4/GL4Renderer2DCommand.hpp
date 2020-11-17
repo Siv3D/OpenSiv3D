@@ -13,7 +13,6 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex2D.hpp>
-# include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 
 namespace s3d
@@ -34,6 +33,12 @@ namespace s3d
 		GL4Renderer2DCommandType type = GL4Renderer2DCommandType::Null;
 
 		uint32 index = 0;
+		
+		GL4Renderer2DCommand() = default;
+		
+		constexpr GL4Renderer2DCommand(GL4Renderer2DCommandType _type, uint32 _index) noexcept
+			: type(_type)
+			, index(_index) {}
 	};
 
 	struct GL4DrawCommand
