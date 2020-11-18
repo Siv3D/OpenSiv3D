@@ -27,6 +27,8 @@ namespace s3d
 
 		void init() override;
 
+		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+
 		void addRect(const FloatRect& rect, const Float4& color) override;
 	};
 }

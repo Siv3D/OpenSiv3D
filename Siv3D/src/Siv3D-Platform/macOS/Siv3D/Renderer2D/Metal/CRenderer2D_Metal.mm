@@ -128,6 +128,19 @@ namespace s3d
 		};
 	}
 
+	void CRenderer2D_Metal::addLine(const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLine(m_bufferCreator, begin, end, thickness, colors))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_Metal::addRect(const FloatRect& rect, const Float4& color)
 	{
 		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))

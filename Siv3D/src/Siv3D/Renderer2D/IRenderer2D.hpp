@@ -29,6 +29,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
+		virtual void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
+
 		virtual void addRect(const FloatRect& rect, const Float4& color) = 0;
 	};
 }

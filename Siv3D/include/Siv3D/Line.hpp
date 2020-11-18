@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "Circular.hpp"
+# include "ColorHSV.hpp"
 # include "Optional.hpp"
 # include "PredefinedNamedParameter.hpp"
 
@@ -135,6 +136,21 @@ namespace s3d
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
+
+
+
+
+		const Line& draw(const ColorF& color = Palette::White) const;
+
+		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
+
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
+
+		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
+
+
+
+
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line& value)

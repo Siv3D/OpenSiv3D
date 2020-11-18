@@ -12,6 +12,8 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Hash.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -146,6 +148,38 @@ namespace s3d
 		{
 			return b.intersectsAt(a);
 		}
+	}
+
+	const Line& Line::draw(const ColorF& color) const
+	{
+		const Float4 colorF = color.toFloat4();
+		
+		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, 1.0f, { colorF, colorF });
+		
+		return *this;
+	}
+
+	const Line& Line::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, 1.0f, { colorBegin.toFloat4(), colorEnd.toFloat4() });
+		
+		return *this;
+	}
+
+	const Line& Line::draw(const double thickness, const ColorF& color) const
+	{
+		const Float4 colorF = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, static_cast<float>(thickness), { colorF, colorF });
+
+		return *this;
+	}
+
+	const Line& Line::draw(const double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, static_cast<float>(thickness), { colorBegin.toFloat4(), colorEnd.toFloat4() });
+
+		return *this;
 	}
 
 	void Line::_Formatter(FormatData& formatData, const Line& value)
