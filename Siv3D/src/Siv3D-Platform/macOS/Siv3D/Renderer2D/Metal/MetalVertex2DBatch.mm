@@ -17,14 +17,11 @@ namespace s3d
 	{
 		for(size_t i = 0; i < MaxInflightBuffers; ++i)
 		{
-			m_vertexBuffers[i] = [device newBufferWithLength:(sizeof(Vertex2D) * VertexBufferSize)
-													 options:MTLResourceStorageModeShared];
-		}
-		
-		for(size_t i = 0; i < MaxInflightBuffers; ++i)
-		{
-			m_indexBuffers[i] = [device newBufferWithLength:(sizeof(IndexType) * IndexBufferSize)
-													 options:MTLResourceStorageModeShared];
+			m_viBuffers[i].vertexBuffer = [device newBufferWithLength:(sizeof(Vertex2D) * VertexBufferSize)
+															  options:MTLResourceStorageModeShared];
+			
+			m_viBuffers[i].indexBuffer = [device newBufferWithLength:(sizeof(IndexType) * IndexBufferSize)
+															 options:MTLResourceStorageModeShared];
 		}
 		
 		return true;
@@ -35,9 +32,9 @@ namespace s3d
 		assert(!m_isActive);
 		
 		dispatch_semaphore_wait(m_frameBoundarySemaphore, DISPATCH_TIME_FOREVER);
-		++m_currentBufferIndex %= MaxInflightBuffers;
-		m_currentVertexBufferWritePos = 0;
-		m_currentIndexBufferWritePos = 0;
+		++m_currentVIBufferIndex %= MaxInflightBuffers;
+		
+		m_viBuffers[m_currentVIBufferIndex].resetWritePos();
 		
 		m_isActive = true;
 	}
@@ -51,12 +48,12 @@ namespace s3d
 
 	id<MTLBuffer> MetalVertex2DBatch::getCurrentVertexBuffer() const
 	{
-		return m_vertexBuffers[m_currentBufferIndex];
+		return m_viBuffers[m_currentVIBufferIndex].vertexBuffer;
 	}
 
 	id<MTLBuffer> MetalVertex2DBatch::getCurrentIndexBuffer() const
 	{
-		return m_indexBuffers[m_currentBufferIndex];
+		return m_viBuffers[m_currentVIBufferIndex].indexBuffer;
 	}
 
 	dispatch_semaphore_t MetalVertex2DBatch::getSemaphore() const
@@ -66,20 +63,22 @@ namespace s3d
 
 	Vertex2DBufferPointer MetalVertex2DBatch::requestBuffer(const uint16 vertexSize, const uint32 indexSize, MetalRenderer2DCommandManager& commandManager)
 	{
-		if (((m_currentVertexBufferWritePos + vertexSize) > VertexBufferSize)
-			|| ((m_currentIndexBufferWritePos + indexSize) > IndexBufferSize))
+		auto& currentVIBuffer = m_viBuffers[m_currentVIBufferIndex];
+		
+		if (((currentVIBuffer.vertexBufferWritePos + vertexSize) > VertexBufferSize)
+			|| ((currentVIBuffer.indexBufferWritePos + indexSize) > IndexBufferSize))
 		{
 			return{ nullptr, nullptr, 0 };
 		}
 		
-		Vertex2D* const pVertex = static_cast<Vertex2D*>(m_vertexBuffers[m_currentBufferIndex].contents)
-		+ m_currentVertexBufferWritePos;
-		IndexType* const pIndex = static_cast<IndexType*>(m_indexBuffers[m_currentBufferIndex].contents)
-		+ m_currentIndexBufferWritePos;
-		const uint32 indexOffset = static_cast<uint32>(m_currentVertexBufferWritePos);
+		Vertex2D* const pVertex = static_cast<Vertex2D*>(currentVIBuffer.vertexBuffer.contents)
+		+ currentVIBuffer.vertexBufferWritePos;
+		IndexType* const pIndex = static_cast<IndexType*>(currentVIBuffer.indexBuffer.contents)
+		+ currentVIBuffer.indexBufferWritePos;
+		const Vertex2D::IndexType indexOffset = static_cast<Vertex2D::IndexType>(currentVIBuffer.vertexBufferWritePos);
 
-		m_currentVertexBufferWritePos += vertexSize;
-		m_currentIndexBufferWritePos += indexSize;
+		currentVIBuffer.vertexBufferWritePos += vertexSize;
+		currentVIBuffer.indexBufferWritePos += indexSize;
 
 		return{ pVertex, pIndex, indexOffset };
 	}

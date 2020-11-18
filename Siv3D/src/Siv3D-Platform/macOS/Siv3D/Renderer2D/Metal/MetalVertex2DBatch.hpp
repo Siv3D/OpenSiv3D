@@ -19,6 +19,21 @@
 
 namespace s3d
 {
+	struct VIBuffer
+	{
+		id<MTLBuffer> vertexBuffer;
+		id<MTLBuffer> indexBuffer;
+		
+		size_t vertexBufferWritePos = 0;
+		size_t indexBufferWritePos = 0;
+		
+		void resetWritePos()
+		{
+			vertexBufferWritePos = 0;
+			indexBufferWritePos = 0;
+		}
+	};
+
 	class MetalVertex2DBatch
 	{
 	private:
@@ -28,17 +43,15 @@ namespace s3d
 		static constexpr size_t MaxInflightBuffers = 3;
 
 		dispatch_semaphore_t m_frameBoundarySemaphore = dispatch_semaphore_create(MaxInflightBuffers);
-		size_t m_currentBufferIndex = 0;
+		size_t m_currentVIBufferIndex = 0;
 		bool m_isActive = false;
 
-		std::array<id<MTLBuffer>, MaxInflightBuffers> m_vertexBuffers;
-		size_t m_currentVertexBufferWritePos = 0;
-		
-		std::array<id<MTLBuffer>, MaxInflightBuffers> m_indexBuffers;
-		size_t m_currentIndexBufferWritePos = 0;
+		std::array<VIBuffer, MaxInflightBuffers> m_viBuffers;
 		
 		static constexpr uint32 VertexBufferSize		= 65535;// 65535;
 		static constexpr uint32 IndexBufferSize			= ((VertexBufferSize + 1) * 4); // 524,288
+		
+		static_assert(VertexBufferSize <= Largest<Vertex2D::IndexType>);
 		
 	public:
 		

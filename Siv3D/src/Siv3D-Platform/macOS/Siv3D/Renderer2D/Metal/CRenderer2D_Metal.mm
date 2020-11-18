@@ -21,7 +21,7 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ShaderCommon.hpp>
 
-/*
+///*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -197,6 +197,8 @@ namespace s3d
 					[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
 								   length:m_psConstants2D.size()
 								  atIndex:1];
+					
+					LOG_COMMAND(U"---");
 					
 					for (const auto& command : m_commandManager.getCommands())
 					{
