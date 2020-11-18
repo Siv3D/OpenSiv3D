@@ -21,7 +21,7 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ShaderCommon.hpp>
 
-///*
+/*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -117,7 +117,7 @@ namespace s3d
 		{
 			if (not m_batches.init(m_device))
 			{
-				throw EngineError(U"GL4Vertex2DBatch::init() failed");
+				throw EngineError(U"MetalVertex2DBatch::init() failed");
 			}
 		}
 
@@ -126,8 +126,6 @@ namespace s3d
 		{
 			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
 		};
-		
-		m_batches.init(m_device);
 	}
 
 	void CRenderer2D_Metal::addRect(const FloatRect& rect, const Float4& color)
@@ -198,7 +196,10 @@ namespace s3d
 								   length:m_psConstants2D.size()
 								  atIndex:1];
 					
-					LOG_COMMAND(U"---");
+					MetalBatchInfo batchInfo;
+					size_t viBatchIndex = 0;
+					
+					LOG_COMMAND(U"-2D-");
 					
 					for (const auto& command : m_commandManager.getCommands())
 					{
@@ -218,27 +219,31 @@ namespace s3d
 							}
 						case MetalRenderer2DCommandType::UpdateBuffers:
 							{
+								viBatchIndex = command.index;
+								batchInfo = m_batches.updateBuffers(viBatchIndex);
+								
+								[sceneCommandEncoder setVertexBuffer:m_batches.getCurrentVertexBuffer(viBatchIndex)
+												offset:0
+											   atIndex:0];
 
-								//LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
-								//	command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
+								LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+									command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
 								break;
 							}
 						case MetalRenderer2DCommandType::Draw:
 							{
 								const MetalDrawCommand& draw = m_commandManager.getDraw(command.index);
 								const uint32 indexCount = draw.indexCount;
-								
-								[sceneCommandEncoder setVertexBuffer:m_batches.getCurrentVertexBuffer()
-												offset:0
-											   atIndex:0];
-								
+								const uint32 startIndexLocation = batchInfo.startIndexLocation;
+
 								[sceneCommandEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
 													indexCount:indexCount
 													 indexType:MTLIndexTypeUInt16
-												   indexBuffer:m_batches.getCurrentIndexBuffer()
-											 indexBufferOffset:0];
-								
-								LOG_COMMAND(U"Draw[{}] indexCount = {}"_fmt(command.index, indexCount));
+												   indexBuffer:m_batches.getCurrentIndexBuffer(viBatchIndex)
+											 indexBufferOffset:(sizeof(Vertex2D::IndexType) * startIndexLocation)];
+								batchInfo.startIndexLocation += indexCount;
+
+								LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 								break;
 							}
 						}

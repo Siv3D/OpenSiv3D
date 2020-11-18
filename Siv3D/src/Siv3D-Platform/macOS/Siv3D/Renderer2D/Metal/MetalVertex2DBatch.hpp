@@ -24,14 +24,23 @@ namespace s3d
 		id<MTLBuffer> vertexBuffer;
 		id<MTLBuffer> indexBuffer;
 		
-		size_t vertexBufferWritePos = 0;
-		size_t indexBufferWritePos = 0;
+		uint32 vertexBufferWritePos = 0;
+		uint32 indexBufferWritePos = 0;
 		
-		void resetWritePos()
+		void resetWritePos() noexcept
 		{
 			vertexBufferWritePos = 0;
 			indexBufferWritePos = 0;
 		}
+	};
+
+	struct MetalBatchInfo
+	{
+		uint32 indexCount = 0;
+
+		uint32 startIndexLocation = 0;
+
+		uint32 baseVertexLocation = 0;
 	};
 
 	class MetalVertex2DBatch
@@ -39,6 +48,8 @@ namespace s3d
 	private:
 		
 		using IndexType = Vertex2D::IndexType;
+		
+		id<MTLDevice> m_device = nil;
 
 		static constexpr size_t MaxInflightBuffers = 3;
 
@@ -46,10 +57,16 @@ namespace s3d
 		size_t m_currentVIBufferIndex = 0;
 		bool m_isActive = false;
 
-		std::array<VIBuffer, MaxInflightBuffers> m_viBuffers;
+		std::array<Array<VIBuffer>, MaxInflightBuffers> m_viBuffers;
+		size_t m_currentBatchIndex = 0;
+		uint32 m_allVertexCount = 0;
+		uint32 m_allIndexCount = 0;
+
+		static constexpr uint32 VertexBufferSize	= 65535;// 65,535;
+		static constexpr uint32 IndexBufferSize		= ((VertexBufferSize + 1) * 4); // 524,288
 		
-		static constexpr uint32 VertexBufferSize		= 65535;// 65535;
-		static constexpr uint32 IndexBufferSize			= ((VertexBufferSize + 1) * 4); // 524,288
+		static constexpr uint32 MaxVertexCount		= (65536 * 64); // 4,194,304
+		static constexpr uint32 MaxIndexCount		= (65536 * 64); // 4,194,304
 		
 		static_assert(VertexBufferSize <= Largest<Vertex2D::IndexType>);
 		
@@ -62,15 +79,21 @@ namespace s3d
 		void end();
 		
 		[[nodiscard]]
-		id<MTLBuffer> getCurrentVertexBuffer() const;
+		id<MTLBuffer> getCurrentVertexBuffer(size_t index) const;
 		
 		[[nodiscard]]
-		id<MTLBuffer> getCurrentIndexBuffer() const;
+		id<MTLBuffer> getCurrentIndexBuffer(size_t index) const;
 		
 		[[nodiscard]]
 		dispatch_semaphore_t getSemaphore() const;
 
 		[[nodiscard]]
 		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, MetalRenderer2DCommandManager& commandManager);
+		
+		[[nodiscard]]
+		size_t num_batches() const noexcept;
+
+		[[nodiscard]]
+		MetalBatchInfo updateBuffers(size_t batchIndex);
 	};
 }
