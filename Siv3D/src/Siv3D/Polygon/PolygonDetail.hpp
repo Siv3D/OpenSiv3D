@@ -64,5 +64,9 @@ namespace s3d
 		const RectF& boundingRect() const noexcept;
 
 		void moveBy(Vec2 v) noexcept;
+
+
+
+		void draw(const ColorF& color) const;
 	};
 }

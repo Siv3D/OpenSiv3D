@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
 
 namespace s3d
 {
@@ -167,6 +168,22 @@ namespace s3d
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
+
+
+
+
+
+
+
+
+
+		const Circle& draw(const ColorF& color = Palette::White) const;
+
+		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
+
+
+
+
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)

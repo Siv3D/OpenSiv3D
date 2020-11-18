@@ -11,6 +11,8 @@
 
 # include "PolygonDetail.hpp"
 # include "Triangulation.hpp"
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -99,8 +101,8 @@ namespace s3d
 			Array<Vertex2D::IndexType> indices;
 			detail::Triangulate(m_polygon.outer(), m_holes, m_vertices, indices);
 			assert(indices.size() % 3 == 0);
-			m_indices.resize(indices.size() * 3);
-			assert(m_indices.size_bytes()  == indices.size_bytes());
+			m_indices.resize(indices.size() / 3);
+			assert(m_indices.size_bytes() == indices.size_bytes());
 			std::memcpy(m_indices.data(), indices.data(), indices.size_bytes());
 		}
 
@@ -269,5 +271,13 @@ namespace s3d
 		}
 
 		m_boundingRect.moveBy(v);
+	}
+
+
+
+
+	void Polygon::PolygonDetail::draw(const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addPolygon(m_vertices, m_indices, none, color.toFloat4());
 	}
 }

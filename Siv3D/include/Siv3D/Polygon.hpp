@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
 # include "PolygonFailureType.hpp"
 # include "Vertex2D.hpp"
 # include "Triangle.hpp"
@@ -96,6 +97,13 @@ namespace s3d
 		Polygon& moveBy(double x, double y) noexcept;
 
 		Polygon& moveBy(Vec2 v) noexcept;
+
+
+
+
+		const Polygon& draw(const ColorF& color = Palette::White) const;
+
+
 
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});

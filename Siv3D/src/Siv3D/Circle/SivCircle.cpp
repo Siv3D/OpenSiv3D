@@ -11,6 +11,8 @@
 
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -36,6 +38,32 @@ namespace s3d
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
 		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
+	}
+
+	const Circle& Circle::draw(const ColorF& color) const
+	{
+		const Float4 colors = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addCircle(
+			center,
+			static_cast<float>(r),
+			colors,
+			colors
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::draw(const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addCircle(
+			center,
+			static_cast<float>(r),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
 	}
 
 	void Circle::_Formatter(FormatData& formatData, const Circle& value)

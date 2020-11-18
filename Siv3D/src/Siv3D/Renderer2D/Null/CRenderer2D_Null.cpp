@@ -36,4 +36,24 @@ namespace s3d
 	{
 
 	}
+
+	void CRenderer2D_Null::addCircle(const Float2&, const float, const Float4&, const Float4&)
+	{
+
+	}
+
+	void CRenderer2D_Null::addPolygon(const Array<Float2>&, const Array<TriangleIndex>&, const Optional<Float2>&, const Float4&)
+	{
+
+	}
+
+	void CRenderer2D_Null::addPolygon(const Vertex2D*, const size_t, const TriangleIndex*, const size_t)
+	{
+
+	}
+
+	float CRenderer2D_Null::getMaxScaling() const noexcept
+	{
+		return 1.0f;
+	}
 }

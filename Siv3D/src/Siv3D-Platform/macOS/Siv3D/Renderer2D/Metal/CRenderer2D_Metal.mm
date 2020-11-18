@@ -154,6 +154,50 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_Metal::addCircle(const Float2& center, const float r, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, indices, offset, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addPolygon(const Vertex2D* vertices, const size_t vertexCount, const TriangleIndex* indices, const size_t num_triangles)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, vertexCount, indices, num_triangles))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	float CRenderer2D_Metal::getMaxScaling() const noexcept
+	{
+		return(1.0f);
+	}
+
 	void CRenderer2D_Metal::flush(id<MTLCommandBuffer> commandBuffer)
 	{
 		ScopeGuard cleanUp = [this]()

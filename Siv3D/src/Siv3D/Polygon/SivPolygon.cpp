@@ -255,6 +255,17 @@ namespace s3d
 		return *this;
 	}
 
+
+
+	const Polygon& Polygon::draw(const ColorF& color) const
+	{
+		pImpl->draw(color);
+
+		return *this;
+	}
+
+
+
 	PolygonFailureType Polygon::Validate(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{
 		CwOpenPolygon polygon;
