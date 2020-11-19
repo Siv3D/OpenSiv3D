@@ -17,6 +17,8 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
+# include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
 
 /*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -314,7 +316,7 @@ namespace s3d
 		pRenderer->getBackBuffer().bindRenderTarget(pRenderer->getBackBuffer().getSceneBuffer().getRTV());;
 
 
-		D3D11BatchInfo batchInfo;
+		BatchInfo2D batchInfo;
 
 		for (const auto& command : m_commandManager.getCommands())
 		{

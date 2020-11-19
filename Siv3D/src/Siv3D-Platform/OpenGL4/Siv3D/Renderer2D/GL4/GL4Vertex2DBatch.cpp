@@ -154,7 +154,7 @@ namespace s3d
 		m_indexArrayWritePos = 0;
 	}
 
-	GL4BatchInfo GL4Vertex2DBatch::updateBuffers(const size_t batchIndex)
+	BatchInfo2D GL4Vertex2DBatch::updateBuffers(const size_t batchIndex)
 	{
 		assert(batchIndex < m_batches.size());
 
@@ -170,7 +170,7 @@ namespace s3d
 		::glBindVertexArray(m_vao);
 		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-		GL4BatchInfo batchInfo;
+		BatchInfo2D batchInfo;
 		const auto& currentBatch = m_batches[batchIndex];
 
 		// VB

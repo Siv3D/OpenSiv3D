@@ -127,7 +127,7 @@ namespace s3d
 		return (m_currentBatchIndex + 1);
 	}
 
-	MetalBatchInfo MetalVertex2DBatch::updateBuffers(const size_t batchIndex)
+	BatchInfo2D MetalVertex2DBatch::updateBuffers(const size_t batchIndex)
 	{
 		assert(batchIndex < num_batches());
 		

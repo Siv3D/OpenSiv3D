@@ -160,7 +160,7 @@ namespace s3d
 		m_context->IASetIndexBuffer(m_indexBuffer.Get(), indexFormat, 0);
 	}
 
-	D3D11BatchInfo D3D11Vertex2DBatch::updateBuffers(const size_t batchIndex)
+	BatchInfo2D D3D11Vertex2DBatch::updateBuffers(const size_t batchIndex)
 	{
 		assert(batchIndex < m_batches.size());
 
@@ -173,7 +173,7 @@ namespace s3d
 			indexArrayReadPos += m_batches[i].indexPos;
 		}
 
-		D3D11BatchInfo batchInfo;
+		BatchInfo2D batchInfo;
 		const auto& currentBatch = m_batches[batchIndex];
 
 		// VB

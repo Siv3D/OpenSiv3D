@@ -11,15 +11,14 @@
 
 # include "CRenderer2D_Metal.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/ScopeGuard.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Renderer/Metal/CRenderer_Metal.hpp>
 # include <Siv3D/Shader/Metal/CShader_Metal.hpp>
-# include <Siv3D/ScopeGuard.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/Vertex2D.hpp>
-# include <Siv3D/Mat3x2.hpp>
-# include <Siv3D/ShaderCommon.hpp>
 
 /*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -169,7 +168,7 @@ namespace s3d
 
 	void CRenderer2D_Metal::addRect(const FloatRect& rect, const Float4& color)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
 			//if (!m_currentCustomPS)
 			//{
@@ -357,7 +356,7 @@ namespace s3d
 								   length:m_psConstants2D.size()
 								  atIndex:1];
 					
-					MetalBatchInfo batchInfo;
+					BatchInfo2D batchInfo;
 					size_t viBatchIndex = 0;
 					
 					LOG_COMMAND(U"-2D-");

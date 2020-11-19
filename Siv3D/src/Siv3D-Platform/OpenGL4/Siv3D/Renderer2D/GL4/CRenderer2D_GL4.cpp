@@ -11,18 +11,14 @@
 
 # include "CRenderer2D_GL4.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ScopeGuard.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/BinaryReader.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ShaderCommon.hpp>
-# include <Siv3D/Resource.hpp>
-# include <Siv3D/TextReader.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
+# include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
 /*
@@ -160,7 +156,7 @@ namespace s3d
 
 	void CRenderer2D_GL4::addRect(const FloatRect& rect, const Float4& color)
 	{
-		if (const uint16 indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
 			//if (!m_currentCustomPS)
 			//{
@@ -321,7 +317,7 @@ namespace s3d
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
-		GL4BatchInfo batchInfo;
+		BatchInfo2D batchInfo;
 
 		for (const auto& command : m_commandManager.getCommands())
 		{

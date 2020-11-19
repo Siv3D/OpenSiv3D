@@ -17,6 +17,7 @@
 # include <Siv3D/TextureFilter.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Renderer2D/Vertex2DBuilder.hpp>
+# include <Siv3D/Renderer2D/Renderer2DCommon.hpp>
 # import <Metal/Metal.h>
 # import <QuartzCore/CAMetalLayer.h>
 # include "MetalRenderer2DCommand.hpp"
@@ -24,6 +25,9 @@
 
 namespace s3d
 {
+	class CRenderer_Metal;
+	class CShader_Metal;
+
 	struct MetalStandardVS2D
 	{
 		VertexShader sprite;
@@ -48,22 +52,6 @@ namespace s3d
 		}
 	};
 
-	struct MetalVSConstants2D
-	{
-		Float4 transform[2];
-		Float4 colorMul{ 1.0f, 1.0f, 1.0f, 1.0f };
-	};
-
-	struct MetalPSConstants2D
-	{
-		Float4 colorAdd{ 0, 0, 0, 0 };
-		Float4 sdfParam{ 0, 0, 0, 0 };
-		Float4 internal{ 0, 0, 0, 0 };
-	};
-
-	class CRenderer_Metal;
-	class CShader_Metal;
-
 	class CRenderer2D_Metal final : public ISiv3DRenderer2D
 	{
 	private:
@@ -81,8 +69,8 @@ namespace s3d
 		std::unique_ptr<MetalStandardVS2D> m_standardVS;
 		std::unique_ptr<MetalStandardPS2D> m_standardPS;
 		
-		ConstantBuffer<MetalVSConstants2D> m_vsConstants2D;
-		ConstantBuffer<MetalPSConstants2D> m_psConstants2D;
+		ConstantBuffer<VSConstants2D> m_vsConstants2D;
+		ConstantBuffer<PSConstants2D> m_psConstants2D;
 		
 		MetalVertex2DBatch m_batches;
 		MetalRenderer2DCommandManager m_commandManager;

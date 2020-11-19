@@ -11,18 +11,22 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/TextureFilter.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Renderer2D/Vertex2DBuilder.hpp>
-# include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
-# include <Siv3D/Shader/GL4/CShader_GL4.hpp>
+# include <Siv3D/Renderer2D/Renderer2DCommon.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
 # include "GL4Renderer2DCommand.hpp"
 # include "GL4Vertex2DBatch.hpp"
 
 namespace s3d
 {
+	class CRenderer_GL4;
+	class CShader_GL4;
+
 	struct GL4StandardVS2D
 	{
 		VertexShader sprite;
@@ -47,22 +51,6 @@ namespace s3d
 		}
 	};
 
-	struct GL4VSConstants2D
-	{
-		Float4 transform[2];
-
-		Float4 colorMul{ 1.0f, 1.0f, 1.0f, 1.0f };
-	};
-
-	struct GL4PSConstants2D
-	{
-		Float4 colorAdd{ 0, 0, 0, 0 };
-
-		Float4 sdfParam{ 0, 0, 0, 0 };
-
-		Float4 internalParam{ 0, 0, 0, 0 };
-	};
-
 	class CRenderer2D_GL4 final : public ISiv3DRenderer2D
 	{
 	private:
@@ -73,8 +61,8 @@ namespace s3d
 		std::unique_ptr<GL4StandardVS2D> m_standardVS;
 		std::unique_ptr<GL4StandardPS2D> m_standardPS;
 
-		ConstantBuffer<GL4VSConstants2D> m_vsConstants2D;
-		ConstantBuffer<GL4PSConstants2D> m_psConstants2D;
+		ConstantBuffer<VSConstants2D> m_vsConstants2D;
+		ConstantBuffer<PSConstants2D> m_psConstants2D;
 
 		GL4Vertex2DBatch m_batches;
 		GL4Renderer2DCommandManager m_commandManager;

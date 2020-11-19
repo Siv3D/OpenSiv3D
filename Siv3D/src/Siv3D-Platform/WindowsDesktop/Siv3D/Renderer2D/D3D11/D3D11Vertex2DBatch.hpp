@@ -15,19 +15,11 @@
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Renderer2D/Vertex2DBufferPointer.hpp>
+# include <Siv3D/Renderer2D/Renderer2DCommon.hpp>
 # include "D3D11Renderer2DCommand.hpp"
 
 namespace s3d
 {
-	struct D3D11BatchInfo
-	{
-		uint32 indexCount			= 0;
-
-		uint32 startIndexLocation	= 0;
-
-		uint32 baseVertexLocation	= 0;
-	};
-
 	class D3D11Vertex2DBatch
 	{
 	private:
@@ -94,6 +86,6 @@ namespace s3d
 		void setBuffers();
 
 		[[nodiscard]]
-		D3D11BatchInfo updateBuffers(size_t batchIndex);
+		BatchInfo2D updateBuffers(size_t batchIndex);
 	};
 }
