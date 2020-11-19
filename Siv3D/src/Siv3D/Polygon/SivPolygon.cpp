@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/Shape2D.hpp>
 # include <Siv3D/HashSet.hpp>
 # include "PolygonDetail.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
@@ -112,6 +113,12 @@ namespace s3d
 
 	Polygon::Polygon(std::initializer_list<Vec2> outer, const SkipValidation skipValidation)
 		: pImpl{ std::make_unique<PolygonDetail>(outer.begin(), outer.size(), Array<Array<Vec2>>{}, skipValidation) }
+	{
+
+	}
+
+	Polygon::Polygon(const Shape2D& shape)
+		: pImpl(std::make_unique<PolygonDetail>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
 	{
 
 	}

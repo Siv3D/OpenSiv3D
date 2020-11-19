@@ -794,7 +794,7 @@
 
 // 2D 形状コレクション
 // 2D Shapes Collection
-//# include <Siv3D/Shape2D.hpp>
+# include <Siv3D/Shape2D.hpp>
 
 //// 2D 図形の Variant
 //# include <Siv3D/ShapeVariant2D.hpp>

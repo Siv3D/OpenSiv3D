@@ -28,5 +28,10 @@ namespace s3d
 
 		/// @brief 頂点 2
 		value_type i2;
+
+		[[nodiscard]]
+		static constexpr TriangleIndex Zero() noexcept;
 	};
 }
+
+# include "detail/TriangleIndex.ipp"

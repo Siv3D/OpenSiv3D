@@ -21,6 +21,8 @@
 
 namespace s3d
 {
+	class Shape2D;
+
 	class Polygon
 	{
 	public:
@@ -41,7 +43,7 @@ namespace s3d
 
 		explicit Polygon(std::initializer_list<Vec2> outer, SkipValidation skipValidation = SkipValidation::No);
 
-		//Polygon(const Shape2D& shape);
+		Polygon(const Shape2D& shape);
 
 		~Polygon();
 

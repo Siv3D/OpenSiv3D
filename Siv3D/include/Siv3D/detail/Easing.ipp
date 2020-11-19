@@ -71,12 +71,12 @@ namespace s3d
 			}
 			else
 			{
-				s = p * Math::Constants::InvTwoPi * std::asin(1.0 / a);
+				s = p * Math::InvTwoPi * std::asin(1.0 / a);
 			}
 
 			t -= 1.0;
 
-			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::Constants::TwoPi / p));
+			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::TwoPi / p));
 		}
 	}
 
@@ -89,7 +89,7 @@ namespace s3d
 
 		inline double Sine(const double t) noexcept
 		{
-			return (1.0 - std::cos(t * Math::Constants::HalfPi));
+			return (1.0 - std::cos(t * Math::HalfPi));
 		}
 
 		inline constexpr double Quad(const double t) noexcept

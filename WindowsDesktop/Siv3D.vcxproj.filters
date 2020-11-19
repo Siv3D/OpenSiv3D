@@ -595,6 +595,9 @@
     <Filter Include="src\ThirdParty\plutovg">
       <UniqueIdentifier>{826f6b3e-d171-4bde-a514-4bafa2cc7014}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Shape2D">
+      <UniqueIdentifier>{fce345d3-d17e-4352-abb7-55d9831a3031}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2361,6 +2364,15 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.h">
       <Filter>src\ThirdParty\plutovg</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TriangleIndex.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3262,6 +3274,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.c">
       <Filter>src\ThirdParty\plutovg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp">
+      <Filter>src\Siv3D\Shape2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

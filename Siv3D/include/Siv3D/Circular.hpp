@@ -17,7 +17,7 @@
 namespace s3d
 {
 	/// @brief 円座標
-	template <int32 Oclock, class Float>
+	template <class Float, int32 Oclock = 0>
 	struct CircularBase
 	{
 		using value_type = Float;
@@ -87,17 +87,17 @@ namespace s3d
 		static constexpr value_type Offset(value_type theta) noexcept;
 	};
 
-	using Circular	= CircularBase<0, double>;
-	using Circular0	= CircularBase<0, double>;
-	using Circular3	= CircularBase<3, double>;
-	using Circular6	= CircularBase<6, double>;
-	using Circular9	= CircularBase<9, double>;
+	using Circular	= CircularBase<double, 0>;
+	using Circular0	= CircularBase<double, 0>;
+	using Circular3	= CircularBase<double, 3>;
+	using Circular6	= CircularBase<double, 6>;
+	using Circular9	= CircularBase<double, 9>;
 
-	using CircularF = CircularBase<0, float>;
-	using Circular0F = CircularBase<0, float>;
-	using Circular3F = CircularBase<3, float>;
-	using Circular6F = CircularBase<6, float>;
-	using Circular9F = CircularBase<9, float>;
+	using CircularF		= CircularBase<float, 0>;
+	using Circular0F	= CircularBase<float, 0>;
+	using Circular3F	= CircularBase<float, 3>;
+	using Circular6F	= CircularBase<float, 6>;
+	using Circular9F	= CircularBase<float, 9>;
 }
 
 # include "detail/Circular.ipp"

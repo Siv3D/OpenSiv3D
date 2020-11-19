@@ -14,14 +14,14 @@
 namespace s3d
 {
 	inline constexpr Triangle::Triangle(const value_type sides) noexcept
-		: p0(0.0, -Math::Constants::InvSqrt3 * sides)
-		, p1(sides * 0.5, sides / (2.0 * Math::Constants::Sqrt3))
+		: p0(0.0, -Math::InvSqrt3 * sides)
+		, p1(sides * 0.5, sides / (2.0 * Math::Sqrt3))
 		, p2(-p1.x, p1.y) {}
 
 	inline Triangle::Triangle(const value_type sides, const value_type angle) noexcept
-		: p0(Circular(Math::Constants::InvSqrt3* sides, angle))
-		, p1(Circular(Math::Constants::InvSqrt3* sides, 2.0 * Math::Constants::OneThirdPi + angle))
-		, p2(Circular(Math::Constants::InvSqrt3* sides, 4.0 * Math::Constants::OneThirdPi + angle)) {}
+		: p0(Circular(Math::InvSqrt3* sides, angle))
+		, p1(Circular(Math::InvSqrt3* sides, 2.0 * Math::OneThirdPi + angle))
+		, p2(Circular(Math::InvSqrt3* sides, 4.0 * Math::OneThirdPi + angle)) {}
 
 	inline constexpr Triangle::Triangle(const value_type x, const value_type y, const value_type sides) noexcept
 		: Triangle(Triangle(sides).moveBy(x, y)) {}

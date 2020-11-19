@@ -31,7 +31,7 @@ namespace s3d
 
 			for (int32 quality = 6; quality <= MaxSinCosTableQuality; ++quality)
 			{
-				const float radDelta = Math::Constants::TwoPiF / quality;
+				const float radDelta = Math::TwoPiF / quality;
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{

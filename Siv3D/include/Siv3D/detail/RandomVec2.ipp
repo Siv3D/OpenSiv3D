@@ -21,7 +21,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(URBG&& urbg)
 	{
-		const double theta = Random(Math::Constants::TwoPi, std::forward<URBG>(urbg));
+		const double theta = Random(Math::TwoPi, std::forward<URBG>(urbg));
 		return{ std::cos(theta), std::sin(theta) };
 	}
 
@@ -91,7 +91,7 @@ namespace s3d
 	inline Vec2 RandomVec2(const Circle& circle, URBG&& urbg)
 	{
 		const double r = (std::sqrt(Random(std::forward<URBG>(urbg))) * circle.r);
-		const double theta = Random(Math::Constants::TwoPi, std::forward<URBG>(urbg));
+		const double theta = Random(Math::TwoPi, std::forward<URBG>(urbg));
 		return circle.center.movedBy((std::cos(theta) * r), (std::sin(theta) * r));
 	}
 
