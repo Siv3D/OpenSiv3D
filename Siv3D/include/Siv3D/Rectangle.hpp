@@ -13,6 +13,8 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
+# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
@@ -409,8 +411,19 @@ namespace s3d
 
 		const Rectangle& draw(const ColorF& color = Palette::White) const;
 
+		const Rectangle& draw(const ColorF(&colors)[4]) const;
 
+		const Rectangle& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
+		const Rectangle& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
+		const Rectangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Rectangle& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
+
+		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
 
 		template <class CharType>

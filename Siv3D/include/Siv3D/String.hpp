@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <iostream>
 # include <string>
 # include "Common.hpp"
 # include "StringView.hpp"

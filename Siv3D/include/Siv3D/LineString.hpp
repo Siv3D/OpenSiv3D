@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
 # include "Array.hpp"
 # include "2DShapes.hpp"
 
@@ -35,9 +36,6 @@ namespace s3d
 		using typename base_type::size_type;
 		using typename base_type::difference_type;
 		using typename base_type::allocator_type;
-
-		LineString() = default;
-
 
 		using base_type::Array;
 		using base_type::assign;
@@ -78,14 +76,89 @@ namespace s3d
 		using base_type::size_bytes;
 		using base_type::push_front;
 		using base_type::pop_front;
+		using base_type::pop_front_N;
+		using base_type::pop_back_N;
+		using base_type::all;
+		using base_type::any;
 		using base_type::choice;
 		using base_type::fill;
 		using base_type::join;
+		using base_type::none;
 		using base_type::remove;
+
+		SIV3D_NODISCARD_CXX20
+		LineString() = default;
+
+		SIV3D_NODISCARD_CXX20
+		LineString(const LineString& lines);
+
+		SIV3D_NODISCARD_CXX20
+		LineString(LineString&& lines) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(const Array<Point>& points);
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(const Array<Vec2>& points);
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(Array<Vec2>&& points) noexcept;
+
+		LineString& operator =(const Array<Point>& other);
+
+		LineString& operator =(const Array<Vec2>& other);
+
+		LineString& operator =(Array<Vec2>&& other) noexcept;
+
+		LineString& operator =(const LineString& other);
+
+		LineString& operator =(LineString&& other) noexcept;
+
+		void assign(const Array<Point>& other);
+
+		void assign(const LineString& other);
+
+		void assign(LineString&& other) noexcept;
+
+		LineString& operator <<(const Vec2& value);
+
+		void swap(LineString& other) noexcept;
+
+
+
+
+
+
+		const LineString& draw(const ColorF & color = Palette::White) const;
+
+		const LineString& draw(double thickness, const ColorF & color = Palette::White) const;
+
+		//const LineString& draw(const LineStyle & style, double thickness, const ColorF & color = Palette::White) const;
+
+		const LineString& drawClosed(const ColorF & color = Palette::White) const;
+
+		const LineString& drawClosed(double thickness, const ColorF & color = Palette::White) const;
+
+		//const LineString& drawClosed(const LineStyle & style, double thickness, const ColorF & color = Palette::White) const;
+
+		//void drawCatmullRom(const ColorF & color = Palette::White, int32 interpolation = 24) const;
+
+		//void drawCatmullRom(double thickness, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+
+		//void drawCatmullRom(const LineStyle & style, double thickness = 1.0, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+
+		//void drawCatmullRomClosed(const ColorF & color = Palette::White, int32 interpolation = 24) const;
+
+		//void drawCatmullRomClosed(double thickness, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+
+		//void drawCatmullRomClosed(const LineStyle & style, double thickness = 1.0, const ColorF & color = Palette::White, int32 interpolation = 24) const;
 
 	private:
 
 	};
 }
+
+template <>
+inline void std::swap(s3d::LineString& a, s3d::LineString& b) noexcept;
 
 # include "detail/LineString.ipp"

@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
 
 namespace s3d
 {
@@ -123,6 +124,17 @@ namespace s3d
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
+
+
+
+		const Triangle& draw(const ColorF& color = Palette::White) const;
+
+		const Triangle& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const;
+
+
+
+
+
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)

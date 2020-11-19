@@ -829,11 +829,11 @@
 // 3 次ベジェ曲線
 # include <Siv3D/Bezier3.hpp> // [Siv3D ToDo]
 
-// Float 型の長方形
+// float 型の長方形
 # include <Siv3D/FloatRect.hpp>
 
-// Float 型の四角形
-//# include <Siv3D/FloatQuad.hpp>
+// float 型の四角形
+# include <Siv3D/FloatQuad.hpp>
 
 // 2D 形状コレクション
 // 2D Shapes Collection

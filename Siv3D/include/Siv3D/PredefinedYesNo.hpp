@@ -16,4 +16,5 @@ namespace s3d
 {
 	using SkipValidation	= YesNo<struct SkipValidation_tag>;
 	using StartImmediately	= YesNo<struct StartImmediately_tag>;
+	using IsClosed			= YesNo<struct IsClosed_tag>;
 }

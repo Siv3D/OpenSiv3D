@@ -24,4 +24,11 @@ namespace s3d
 		, p1(_p1)
 		, p2(_p2)
 		, p3(_p3) {}
+
+
+
+	inline size_t Quad::hash() const noexcept
+	{
+		return Hash::FNV1a(*this);
+	}
 }

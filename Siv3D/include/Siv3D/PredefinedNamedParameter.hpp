@@ -36,4 +36,8 @@ namespace s3d::Arg
 	SIV3D_NAMED_PARAMETER(bottomCenter);		// Rectangle, Circle
 	SIV3D_NAMED_PARAMETER(leftCenter);			// Rectangle, Circle
 	SIV3D_NAMED_PARAMETER(rightCenter);			// Rectangle, Circle
+	SIV3D_NAMED_PARAMETER(top);					// Rectangle
+	SIV3D_NAMED_PARAMETER(bottom);				// Rectangle
+	SIV3D_NAMED_PARAMETER(left);				// Rectangle
+	SIV3D_NAMED_PARAMETER(right);				// Rectangle
 }

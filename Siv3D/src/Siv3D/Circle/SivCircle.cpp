@@ -66,6 +66,44 @@ namespace s3d
 		return *this;
 	}
 
+	const Circle& Circle::drawFrame(const double thickness, const ColorF& color) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	}
+
+	const Circle& Circle::drawFrame(const double thickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, innerColor, outerColor);
+	}
+
+	const Circle& Circle::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addCircleFrame(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			color0,
+			color0
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawFrame(const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addCircleFrame(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
 	void Circle::_Formatter(FormatData& formatData, const Circle& value)
 	{
 		formatData.string.push_back(U'(');

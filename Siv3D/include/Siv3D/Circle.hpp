@@ -181,9 +181,13 @@ namespace s3d
 
 		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
+		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		const Circle& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)

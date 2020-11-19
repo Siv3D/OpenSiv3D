@@ -98,9 +98,25 @@ namespace s3d
 
 		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 
+		void addTriangle(const Float2(&points)[3], const Float4& color) override;
+
+		void addTriangle(const Float2(&points)[3], const Float4(&colors)[3]) override;
+
 		void addRect(const FloatRect& rect, const Float4& color) override;
 
+		void addRect(const FloatRect& rect, const Float4(&colors)[4]) override;
+
+		void addRectFrame(const FloatRect& rect, float thickness, const Float4& innerColor, const Float4& outerColor) override;
+
 		void addCircle(const Float2& center, float r, const Float4& innerColor, const Float4& outerColor) override;
+
+		void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;
+
+		void addQuad(const FloatQuad& quad, const Float4& color) override;
+
+		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
+
+		void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, IsClosed isClosed) override;
 
 		void addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color) override;
 

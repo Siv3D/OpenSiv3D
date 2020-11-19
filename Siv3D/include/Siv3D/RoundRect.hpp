@@ -12,6 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
+# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
@@ -42,5 +45,67 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		RoundRect() = default;
+
+		/// @brief 
+		/// @param _x 
+		/// @param _y 
+		/// @param _w 
+		/// @param _h 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(value_type _x, value_type _y, value_type _w, value_type _h, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param pos 
+		/// @param _w 
+		/// @param _h 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(position_type pos, value_type _w, value_type _h, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param _x 
+		/// @param _y 
+		/// @param size 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(value_type _x, value_type _y, size_type size, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param pos 
+		/// @param size 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(position_type pos, value_type size, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param pos 
+		/// @param size 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(position_type pos, size_type size, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param _center 
+		/// @param _w 
+		/// @param _h 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(Arg::center_<position_type> _center, value_type _w, value_type _h, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param _center 
+		/// @param size 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(Arg::center_<position_type> _center, size_type size, value_type _r) noexcept;
+
+		/// @brief 
+		/// @param _rect 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(const RectF& _rect, value_type _r) noexcept;
 	};
 }
+
+# include "detail/RoundRect.ipp"
