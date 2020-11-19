@@ -11,6 +11,20 @@
 		2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A42557C0F200C9838C /* SivInputCombination.cpp */; };
 		2C0A4D4F25669320002A4B5E /* SivLineString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D4E25669320002A4B5E /* SivLineString.cpp */; };
 		2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5025669350002A4B5E /* Renderer2DCommon.hpp */; };
+		2C0A4D622566A855002A4B5E /* plutovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D532566A855002A4B5E /* plutovg.h */; };
+		2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */; };
+		2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D552566A855002A4B5E /* sw_ft_math.h */; };
+		2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D562566A855002A4B5E /* plutovg-paint.c */; };
+		2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D572566A855002A4B5E /* sw_ft_types.h */; };
+		2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D582566A855002A4B5E /* sw_ft_raster.c */; };
+		2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */; };
+		2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */; };
+		2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */; };
+		2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5D2566A855002A4B5E /* plutovg.c */; };
+		2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5E2566A855002A4B5E /* plutovg-private.h */; };
+		2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */; };
+		2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D602566A855002A4B5E /* sw_ft_raster.h */; };
+		2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D612566A855002A4B5E /* sw_ft_math.c */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -185,159 +199,6 @@
 		2C4564E1247946AF00DB01F0 /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C4564E0247946AF00DB01F0 /* int128.cc */; };
 		2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C473B172545415300CF864D /* SivInterpolation.cpp */; };
 		2C473B8F2545DDA600CF864D /* define_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C473B8E2545DDA600CF864D /* define_tables.h */; };
-		2C47B08324DD974A008D83BE /* agg_span_interpolator_trans.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEA24DD9749008D83BE /* agg_span_interpolator_trans.h */; };
-		2C47B08424DD974A008D83BE /* agg_span_interpolator_linear.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEB24DD9749008D83BE /* agg_span_interpolator_linear.h */; };
-		2C47B08524DD974A008D83BE /* agg_rasterizer_sl_clip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEC24DD9749008D83BE /* agg_rasterizer_sl_clip.h */; };
-		2C47B08624DD974A008D83BE /* agg_conv_clip_polygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFED24DD9749008D83BE /* agg_conv_clip_polygon.h */; };
-		2C47B08724DD974A008D83BE /* agg_path_storage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEE24DD9749008D83BE /* agg_path_storage.h */; };
-		2C47B08824DD974A008D83BE /* agg_rasterizer_compound_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFEF24DD9749008D83BE /* agg_rasterizer_compound_aa.h */; };
-		2C47B08924DD974A008D83BE /* agg_conv_contour.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF024DD9749008D83BE /* agg_conv_contour.h */; };
-		2C47B08A24DD974A008D83BE /* agg_span_pattern_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF124DD9749008D83BE /* agg_span_pattern_rgba.h */; };
-		2C47B08B24DD974A008D83BE /* agg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF224DD9749008D83BE /* agg_config.h */; };
-		2C47B08C24DD974A008D83BE /* agg_pixfmt_amask_adaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF324DD9749008D83BE /* agg_pixfmt_amask_adaptor.h */; };
-		2C47B08D24DD974A008D83BE /* agg_scanline_p.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF424DD9749008D83BE /* agg_scanline_p.h */; };
-		2C47B08E24DD974A008D83BE /* agg_arrowhead.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF524DD9749008D83BE /* agg_arrowhead.h */; };
-		2C47B08F24DD974A008D83BE /* agg_array.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF624DD9749008D83BE /* agg_array.h */; };
-		2C47B09024DD974A008D83BE /* agg_renderer_scanline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF724DD9749008D83BE /* agg_renderer_scanline.h */; };
-		2C47B09124DD974A008D83BE /* agg_ellipse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF824DD9749008D83BE /* agg_ellipse.h */; };
-		2C47B09224DD974A008D83BE /* agg_color_gray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFF924DD9749008D83BE /* agg_color_gray.h */; };
-		2C47B09324DD974A008D83BE /* agg_bounding_rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFFA24DD9749008D83BE /* agg_bounding_rect.h */; };
-		2C47B09424DD974A008D83BE /* agg_vpgen_segmentator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47AFFB24DD9749008D83BE /* agg_vpgen_segmentator.cpp */; };
-		2C47B09524DD974A008D83BE /* agg_span_image_filter_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFFC24DD9749008D83BE /* agg_span_image_filter_rgba.h */; };
-		2C47B09624DD974A008D83BE /* agg_span_gouraud_gray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFFD24DD9749008D83BE /* agg_span_gouraud_gray.h */; };
-		2C47B09724DD974A008D83BE /* agg_conv_transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47AFFE24DD9749008D83BE /* agg_conv_transform.h */; };
-		2C47B09824DD974A008D83BE /* agg_trans_warp_magnifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47AFFF24DD9749008D83BE /* agg_trans_warp_magnifier.cpp */; };
-		2C47B09924DD974A008D83BE /* agg_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00024DD9749008D83BE /* agg_math.h */; };
-		2C47B09A24DD974A008D83BE /* agg_pattern_filters_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00124DD9749008D83BE /* agg_pattern_filters_rgba.h */; };
-		2C47B09B24DD974A008D83BE /* agg_conv_bspline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00224DD9749008D83BE /* agg_conv_bspline.h */; };
-		2C47B09C24DD974A008D83BE /* agg_trans_warp_magnifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00324DD9749008D83BE /* agg_trans_warp_magnifier.h */; };
-		2C47B09D24DD974A008D83BE /* agg_gsv_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B00424DD9749008D83BE /* agg_gsv_text.cpp */; };
-		2C47B09E24DD974A008D83BE /* agg_pixfmt_rgb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00524DD9749008D83BE /* agg_pixfmt_rgb.h */; };
-		2C47B09F24DD974A008D83BE /* agg_scanline_storage_bin.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00624DD9749008D83BE /* agg_scanline_storage_bin.h */; };
-		2C47B0A024DD974A008D83BE /* agg_conv_clip_polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00724DD9749008D83BE /* agg_conv_clip_polyline.h */; };
-		2C47B0A124DD974A008D83BE /* agg_shorten_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00824DD9749008D83BE /* agg_shorten_path.h */; };
-		2C47B0A224DD974A008D83BE /* agg_span_gradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00924DD9749008D83BE /* agg_span_gradient.h */; };
-		2C47B0A324DD974A008D83BE /* agg_alpha_mask_u8.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00A24DD9749008D83BE /* agg_alpha_mask_u8.h */; };
-		2C47B0A424DD974A008D83BE /* agg_span_gradient_contour.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00B24DD9749008D83BE /* agg_span_gradient_contour.h */; };
-		2C47B0A524DD974A008D83BE /* agg_span_gradient_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00C24DD9749008D83BE /* agg_span_gradient_image.h */; };
-		2C47B0A624DD974A008D83BE /* agg_embedded_raster_fonts.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00D24DD9749008D83BE /* agg_embedded_raster_fonts.h */; };
-		2C47B0A724DD974A008D83BE /* agg_span_pattern_rgb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00E24DD9749008D83BE /* agg_span_pattern_rgb.h */; };
-		2C47B0A824DD974A008D83BE /* agg_font_cache_manager2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B00F24DD9749008D83BE /* agg_font_cache_manager2.h */; };
-		2C47B0A924DD974A008D83BE /* agg_trans_perspective.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01024DD9749008D83BE /* agg_trans_perspective.h */; };
-		2C47B0AA24DD974A008D83BE /* agg_scanline_boolean_algebra.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01124DD9749008D83BE /* agg_scanline_boolean_algebra.h */; };
-		2C47B0AB24DD974A008D83BE /* agg_line_profile_aa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B01224DD9749008D83BE /* agg_line_profile_aa.cpp */; };
-		2C47B0AC24DD974A008D83BE /* agg_conv_close_polygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01324DD9749008D83BE /* agg_conv_close_polygon.h */; };
-		2C47B0AD24DD974A008D83BE /* agg_vcgen_dash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B01424DD9749008D83BE /* agg_vcgen_dash.cpp */; };
-		2C47B0AE24DD974A008D83BE /* agg_vpgen_clip_polyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01524DD9749008D83BE /* agg_vpgen_clip_polyline.h */; };
-		2C47B0AF24DD974A008D83BE /* agg_rasterizer_outline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01624DD974A008D83BE /* agg_rasterizer_outline.h */; };
-		2C47B0B024DD974A008D83BE /* agg_gsv_text.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01724DD974A008D83BE /* agg_gsv_text.h */; };
-		2C47B0B124DD974A008D83BE /* agg_span_subdiv_adaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01824DD974A008D83BE /* agg_span_subdiv_adaptor.h */; };
-		2C47B0B224DD974A008D83BE /* agg_vcgen_vertex_sequence.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01924DD974A008D83BE /* agg_vcgen_vertex_sequence.h */; };
-		2C47B0B324DD974A008D83BE /* agg_span_converter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01A24DD974A008D83BE /* agg_span_converter.h */; };
-		2C47B0B424DD974A008D83BE /* agg_path_length.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01B24DD974A008D83BE /* agg_path_length.h */; };
-		2C47B0B524DD974A008D83BE /* agg_vcgen_dash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01C24DD974A008D83BE /* agg_vcgen_dash.h */; };
-		2C47B0B624DD974A008D83BE /* agg_trans_viewport.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01D24DD974A008D83BE /* agg_trans_viewport.h */; };
-		2C47B0B724DD974A008D83BE /* agg_bspline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01E24DD974A008D83BE /* agg_bspline.h */; };
-		2C47B0B824DD974A008D83BE /* agg_pixfmt_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B01F24DD974A008D83BE /* agg_pixfmt_base.h */; };
-		2C47B0B924DD974A008D83BE /* agg_math_stroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02024DD974A008D83BE /* agg_math_stroke.h */; };
-		2C47B0BA24DD974A008D83BE /* agg_span_image_filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02124DD974A008D83BE /* agg_span_image_filter.h */; };
-		2C47B0BB24DD974A008D83BE /* agg_renderer_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02224DD974A008D83BE /* agg_renderer_base.h */; };
-		2C47B0BC24DD974A008D83BE /* agg_vcgen_bspline.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02324DD974A008D83BE /* agg_vcgen_bspline.h */; };
-		2C47B0BD24DD974A008D83BE /* agg_pixfmt_transposer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02424DD974A008D83BE /* agg_pixfmt_transposer.h */; };
-		2C47B0BE24DD974A008D83BE /* agg_image_accessors.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02524DD974A008D83BE /* agg_image_accessors.h */; };
-		2C47B0BF24DD974A008D83BE /* agg_bspline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B02624DD974A008D83BE /* agg_bspline.cpp */; };
-		2C47B0C024DD974A008D83BE /* agg_vcgen_markers_term.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02724DD974A008D83BE /* agg_vcgen_markers_term.h */; };
-		2C47B0C124DD974A008D83BE /* agg_vcgen_smooth_poly1.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02824DD974A008D83BE /* agg_vcgen_smooth_poly1.h */; };
-		2C47B0C224DD974A008D83BE /* agg_vpgen_segmentator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02924DD974A008D83BE /* agg_vpgen_segmentator.h */; };
-		2C47B0C324DD974A008D83BE /* agg_renderer_primitives.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02A24DD974A008D83BE /* agg_renderer_primitives.h */; };
-		2C47B0C424DD974A008D83BE /* agg_path_storage_integer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02B24DD974A008D83BE /* agg_path_storage_integer.h */; };
-		2C47B0C524DD974A008D83BE /* agg_gamma_lut.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02C24DD974A008D83BE /* agg_gamma_lut.h */; };
-		2C47B0C624DD974A008D83BE /* agg_pixfmt_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02D24DD974A008D83BE /* agg_pixfmt_rgba.h */; };
-		2C47B0C724DD974A008D83BE /* agg_vpgen_clip_polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B02E24DD974A008D83BE /* agg_vpgen_clip_polygon.cpp */; };
-		2C47B0C824DD974A008D83BE /* agg_glyph_raster_bin.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B02F24DD974A008D83BE /* agg_glyph_raster_bin.h */; };
-		2C47B0C924DD974A008D83BE /* agg_color_rgba.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B03024DD974A008D83BE /* agg_color_rgba.cpp */; };
-		2C47B0CA24DD974A008D83BE /* agg_vpgen_clip_polygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03124DD974A008D83BE /* agg_vpgen_clip_polygon.h */; };
-		2C47B0CB24DD974A008D83BE /* agg_renderer_raster_text.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03224DD974A008D83BE /* agg_renderer_raster_text.h */; };
-		2C47B0CC24DD974A008D83BE /* agg_span_image_filter_rgb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03324DD974A008D83BE /* agg_span_image_filter_rgb.h */; };
-		2C47B0CD24DD974A008D83BE /* agg_vcgen_contour.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03424DD974A008D83BE /* agg_vcgen_contour.h */; };
-		2C47B0CE24DD974A008D83BE /* agg_trans_affine.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03524DD974A008D83BE /* agg_trans_affine.h */; };
-		2C47B0CF24DD974A008D83BE /* agg_rasterizer_cells_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03624DD974A008D83BE /* agg_rasterizer_cells_aa.h */; };
-		2C47B0D024DD974A008D83BE /* agg_span_gouraud.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03724DD974A008D83BE /* agg_span_gouraud.h */; };
-		2C47B0D124DD974A008D83BE /* agg_rasterizer_scanline_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03824DD974A008D83BE /* agg_rasterizer_scanline_aa.h */; };
-		2C47B0D224DD974A008D83BE /* agg_renderer_markers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03924DD974A008D83BE /* agg_renderer_markers.h */; };
-		2C47B0D324DD974A008D83BE /* agg_scanline_storage_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03A24DD974A008D83BE /* agg_scanline_storage_aa.h */; };
-		2C47B0D424DD974A008D83BE /* agg_sqrt_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B03B24DD974A008D83BE /* agg_sqrt_tables.cpp */; };
-		2C47B0D524DD974A008D83BE /* agg_renderer_outline_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03C24DD974A008D83BE /* agg_renderer_outline_image.h */; };
-		2C47B0D624DD974A008D83BE /* agg_clip_liang_barsky.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03D24DD974A008D83BE /* agg_clip_liang_barsky.h */; };
-		2C47B0D724DD974A008D83BE /* agg_rounded_rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B03E24DD974A008D83BE /* agg_rounded_rect.cpp */; };
-		2C47B0D824DD974A008D83BE /* agg_conv_adaptor_vcgen.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B03F24DD974A008D83BE /* agg_conv_adaptor_vcgen.h */; };
-		2C47B0D924DD974A008D83BE /* agg_gradient_lut.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04024DD974A008D83BE /* agg_gradient_lut.h */; };
-		2C47B0DA24DD974A008D83BE /* agg_span_gradient_alpha.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04124DD974A008D83BE /* agg_span_gradient_alpha.h */; };
-		2C47B0DB24DD974A008D83BE /* agg_vcgen_stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04224DD974A008D83BE /* agg_vcgen_stroke.cpp */; };
-		2C47B0DC24DD974A008D83BE /* agg_span_interpolator_persp.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04324DD974A008D83BE /* agg_span_interpolator_persp.h */; };
-		2C47B0DD24DD974A008D83BE /* agg_line_aa_basics.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04424DD974A008D83BE /* agg_line_aa_basics.h */; };
-		2C47B0DE24DD974A008D83BE /* agg_conv_shorten_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04524DD974A008D83BE /* agg_conv_shorten_path.h */; };
-		2C47B0DF24DD974A008D83BE /* agg_curves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04624DD974A008D83BE /* agg_curves.cpp */; };
-		2C47B0E024DD974A008D83BE /* agg_span_interpolator_adaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04724DD974A008D83BE /* agg_span_interpolator_adaptor.h */; };
-		2C47B0E124DD974A008D83BE /* agg_trans_single_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04824DD974A008D83BE /* agg_trans_single_path.cpp */; };
-		2C47B0E224DD974A008D83BE /* agg_vcgen_smooth_poly1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04924DD974A008D83BE /* agg_vcgen_smooth_poly1.cpp */; };
-		2C47B0E324DD974A008D83BE /* agg_blur.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04A24DD974A008D83BE /* agg_blur.h */; };
-		2C47B0E424DD974A008D83BE /* agg_line_aa_basics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04B24DD974A008D83BE /* agg_line_aa_basics.cpp */; };
-		2C47B0E524DD974A008D83BE /* agg_trans_bilinear.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04C24DD974A008D83BE /* agg_trans_bilinear.h */; };
-		2C47B0E624DD974A008D83BE /* agg_vcgen_contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04D24DD974A008D83BE /* agg_vcgen_contour.cpp */; };
-		2C47B0E724DD974A008D83BE /* agg_vpgen_clip_polyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B04E24DD974A008D83BE /* agg_vpgen_clip_polyline.cpp */; };
-		2C47B0E824DD974A008D83BE /* agg_trans_single_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B04F24DD974A008D83BE /* agg_trans_single_path.h */; };
-		2C47B0E924DD974A008D83BE /* agg_pixfmt_gray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05024DD974A008D83BE /* agg_pixfmt_gray.h */; };
-		2C47B0EA24DD974A008D83BE /* agg_arc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B05124DD974A008D83BE /* agg_arc.cpp */; };
-		2C47B0EB24DD974A008D83BE /* agg_span_allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05224DD974A008D83BE /* agg_span_allocator.h */; };
-		2C47B0EC24DD974A008D83BE /* agg_rendering_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05324DD974A008D83BE /* agg_rendering_buffer.h */; };
-		2C47B0ED24DD974A008D83BE /* agg_trans_affine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B05424DD974A008D83BE /* agg_trans_affine.cpp */; };
-		2C47B0EE24DD974A008D83BE /* agg_pixfmt_rgb_packed.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05524DD974A008D83BE /* agg_pixfmt_rgb_packed.h */; };
-		2C47B0EF24DD974A008D83BE /* agg_conv_dash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05624DD974A008D83BE /* agg_conv_dash.h */; };
-		2C47B0F024DD974A008D83BE /* agg_rounded_rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05724DD974A008D83BE /* agg_rounded_rect.h */; };
-		2C47B0F124DD974A008D83BE /* agg_span_image_filter_gray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05824DD974A008D83BE /* agg_span_image_filter_gray.h */; };
-		2C47B0F224DD974A008D83BE /* agg_bezier_arc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05924DD974A008D83BE /* agg_bezier_arc.h */; };
-		2C47B0F324DD974A008D83BE /* agg_renderer_mclip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05A24DD974A008D83BE /* agg_renderer_mclip.h */; };
-		2C47B0F424DD974A008D83BE /* agg_ellipse_bresenham.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05B24DD974A008D83BE /* agg_ellipse_bresenham.h */; };
-		2C47B0F524DD974A008D83BE /* agg_conv_adaptor_vpgen.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05C24DD974A008D83BE /* agg_conv_adaptor_vpgen.h */; };
-		2C47B0F624DD974A008D83BE /* agg_conv_marker_adaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05D24DD974A008D83BE /* agg_conv_marker_adaptor.h */; };
-		2C47B0F724DD974A008D83BE /* agg_rasterizer_scanline_aa_nogamma.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05E24DD974A008D83BE /* agg_rasterizer_scanline_aa_nogamma.h */; };
-		2C47B0F824DD974A008D83BE /* agg_simul_eq.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B05F24DD974A008D83BE /* agg_simul_eq.h */; };
-		2C47B0F924DD974A008D83BE /* agg_color_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06024DD974A008D83BE /* agg_color_rgba.h */; };
-		2C47B0FA24DD974A008D83BE /* agg_scanline_u.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06124DD974A008D83BE /* agg_scanline_u.h */; };
-		2C47B0FB24DD974A008D83BE /* agg_conv_marker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06224DD974A008D83BE /* agg_conv_marker.h */; };
-		2C47B0FC24DD974A008D83BE /* agg_trans_double_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06324DD974A008D83BE /* agg_trans_double_path.h */; };
-		2C47B0FD24DD974A008D83BE /* agg_image_filters.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06424DD974A008D83BE /* agg_image_filters.h */; };
-		2C47B0FE24DD974A008D83BE /* agg_vcgen_markers_term.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B06524DD974A008D83BE /* agg_vcgen_markers_term.cpp */; };
-		2C47B0FF24DD974A008D83BE /* agg_span_pattern_gray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06624DD974A008D83BE /* agg_span_pattern_gray.h */; };
-		2C47B10024DD974A008D83BE /* agg_dda_line.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06724DD974A008D83BE /* agg_dda_line.h */; };
-		2C47B10124DD974A008D83BE /* agg_image_filters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B06824DD974A008D83BE /* agg_image_filters.cpp */; };
-		2C47B10224DD974A008D83BE /* agg_gamma_functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06924DD974A008D83BE /* agg_gamma_functions.h */; };
-		2C47B10324DD974A008D83BE /* agg_embedded_raster_fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B06A24DD974A008D83BE /* agg_embedded_raster_fonts.cpp */; };
-		2C47B10424DD974A008D83BE /* agg_arc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06B24DD974A008D83BE /* agg_arc.h */; };
-		2C47B10524DD974A008D83BE /* agg_rasterizer_outline_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06C24DD974A008D83BE /* agg_rasterizer_outline_aa.h */; };
-		2C47B10624DD974A008D83BE /* agg_conv_stroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06D24DD974A008D83BE /* agg_conv_stroke.h */; };
-		2C47B10724DD974A008D83BE /* agg_rendering_buffer_dynarow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06E24DD974A008D83BE /* agg_rendering_buffer_dynarow.h */; };
-		2C47B10824DD974A008D83BE /* agg_conv_gpc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B06F24DD974A008D83BE /* agg_conv_gpc.h */; };
-		2C47B10924DD974A008D83BE /* agg_vertex_sequence.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07024DD974A008D83BE /* agg_vertex_sequence.h */; };
-		2C47B10A24DD974A008D83BE /* agg_conv_concat.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07124DD974A008D83BE /* agg_conv_concat.h */; };
-		2C47B10B24DD974A008D83BE /* agg_basics.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07224DD974A008D83BE /* agg_basics.h */; };
-		2C47B10C24DD974A008D83BE /* agg_vcgen_bspline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B07324DD974A008D83BE /* agg_vcgen_bspline.cpp */; };
-		2C47B10D24DD974A008D83BE /* agg_conv_smooth_poly1.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07424DD974A008D83BE /* agg_conv_smooth_poly1.h */; };
-		2C47B10E24DD974A008D83BE /* agg_conv_unclose_polygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07524DD974A008D83BE /* agg_conv_unclose_polygon.h */; };
-		2C47B10F24DD974A008D83BE /* agg_vcgen_stroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07624DD974A008D83BE /* agg_vcgen_stroke.h */; };
-		2C47B11024DD974A008D83BE /* agg_curves.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07724DD974A008D83BE /* agg_curves.h */; };
-		2C47B11124DD974A008D83BE /* agg_bitset_iterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07824DD974A008D83BE /* agg_bitset_iterator.h */; };
-		2C47B11224DD974A008D83BE /* agg_font_cache_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07924DD974A008D83BE /* agg_font_cache_manager.h */; };
-		2C47B11324DD974A008D83BE /* agg_conv_segmentator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07A24DD974A008D83BE /* agg_conv_segmentator.h */; };
-		2C47B11424DD974A008D83BE /* agg_arrowhead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B07B24DD974A008D83BE /* agg_arrowhead.cpp */; };
-		2C47B11524DD974A008D83BE /* agg_scanline_bin.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07C24DD974A008D83BE /* agg_scanline_bin.h */; };
-		2C47B11624DD974A008D83BE /* agg_trans_double_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B07D24DD974A008D83BE /* agg_trans_double_path.cpp */; };
-		2C47B11724DD974A008D83BE /* agg_conv_curve.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07E24DD974A008D83BE /* agg_conv_curve.h */; };
-		2C47B11824DD974A008D83BE /* agg_span_solid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B07F24DD974A008D83BE /* agg_span_solid.h */; };
-		2C47B11924DD974A008D83BE /* agg_bezier_arc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B08024DD974A008D83BE /* agg_bezier_arc.cpp */; };
-		2C47B11A24DD974A008D83BE /* agg_span_gouraud_rgba.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B08124DD974A008D83BE /* agg_span_gouraud_rgba.h */; };
-		2C47B11B24DD974A008D83BE /* agg_renderer_outline_aa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B08224DD974A008D83BE /* agg_renderer_outline_aa.h */; };
 		2C47B2F824DD9789008D83BE /* SivVector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B23724DD9789008D83BE /* SivVector2D.cpp */; };
 		2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B23924DD9789008D83BE /* LicenseManagerFactory.cpp */; };
 		2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B23A24DD9789008D83BE /* CLicenseManager.hpp */; };
@@ -722,6 +583,20 @@
 		2C0A4D4C256692FC002A4B5E /* FloatQuad.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FloatQuad.ipp; sourceTree = "<group>"; };
 		2C0A4D4E25669320002A4B5E /* SivLineString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLineString.cpp; sourceTree = "<group>"; };
 		2C0A4D5025669350002A4B5E /* Renderer2DCommon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Renderer2DCommon.hpp; sourceTree = "<group>"; };
+		2C0A4D532566A855002A4B5E /* plutovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plutovg.h; sourceTree = "<group>"; };
+		2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_stroker.c; sourceTree = "<group>"; };
+		2C0A4D552566A855002A4B5E /* sw_ft_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_math.h; sourceTree = "<group>"; };
+		2C0A4D562566A855002A4B5E /* plutovg-paint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-paint.c"; sourceTree = "<group>"; };
+		2C0A4D572566A855002A4B5E /* sw_ft_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_types.h; sourceTree = "<group>"; };
+		2C0A4D582566A855002A4B5E /* sw_ft_raster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_raster.c; sourceTree = "<group>"; };
+		2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-geometry.c"; sourceTree = "<group>"; };
+		2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_stroker.h; sourceTree = "<group>"; };
+		2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-blend.c"; sourceTree = "<group>"; };
+		2C0A4D5D2566A855002A4B5E /* plutovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = plutovg.c; sourceTree = "<group>"; };
+		2C0A4D5E2566A855002A4B5E /* plutovg-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-private.h"; sourceTree = "<group>"; };
+		2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-rle.c"; sourceTree = "<group>"; };
+		2C0A4D602566A855002A4B5E /* sw_ft_raster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_raster.h; sourceTree = "<group>"; };
+		2C0A4D612566A855002A4B5E /* sw_ft_math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_math.c; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -912,159 +787,6 @@
 		2C46837A24590D8D000006C0 /* EnumBitmask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EnumBitmask.hpp; sourceTree = "<group>"; };
 		2C473B172545415300CF864D /* SivInterpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInterpolation.cpp; sourceTree = "<group>"; };
 		2C473B8E2545DDA600CF864D /* define_tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = define_tables.h; sourceTree = "<group>"; };
-		2C47AFEA24DD9749008D83BE /* agg_span_interpolator_trans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_trans.h; sourceTree = "<group>"; };
-		2C47AFEB24DD9749008D83BE /* agg_span_interpolator_linear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_linear.h; sourceTree = "<group>"; };
-		2C47AFEC24DD9749008D83BE /* agg_rasterizer_sl_clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_sl_clip.h; sourceTree = "<group>"; };
-		2C47AFED24DD9749008D83BE /* agg_conv_clip_polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_clip_polygon.h; sourceTree = "<group>"; };
-		2C47AFEE24DD9749008D83BE /* agg_path_storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_path_storage.h; sourceTree = "<group>"; };
-		2C47AFEF24DD9749008D83BE /* agg_rasterizer_compound_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_compound_aa.h; sourceTree = "<group>"; };
-		2C47AFF024DD9749008D83BE /* agg_conv_contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_contour.h; sourceTree = "<group>"; };
-		2C47AFF124DD9749008D83BE /* agg_span_pattern_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_pattern_rgba.h; sourceTree = "<group>"; };
-		2C47AFF224DD9749008D83BE /* agg_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_config.h; sourceTree = "<group>"; };
-		2C47AFF324DD9749008D83BE /* agg_pixfmt_amask_adaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_amask_adaptor.h; sourceTree = "<group>"; };
-		2C47AFF424DD9749008D83BE /* agg_scanline_p.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_p.h; sourceTree = "<group>"; };
-		2C47AFF524DD9749008D83BE /* agg_arrowhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_arrowhead.h; sourceTree = "<group>"; };
-		2C47AFF624DD9749008D83BE /* agg_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_array.h; sourceTree = "<group>"; };
-		2C47AFF724DD9749008D83BE /* agg_renderer_scanline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_scanline.h; sourceTree = "<group>"; };
-		2C47AFF824DD9749008D83BE /* agg_ellipse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_ellipse.h; sourceTree = "<group>"; };
-		2C47AFF924DD9749008D83BE /* agg_color_gray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_color_gray.h; sourceTree = "<group>"; };
-		2C47AFFA24DD9749008D83BE /* agg_bounding_rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_bounding_rect.h; sourceTree = "<group>"; };
-		2C47AFFB24DD9749008D83BE /* agg_vpgen_segmentator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vpgen_segmentator.cpp; sourceTree = "<group>"; };
-		2C47AFFC24DD9749008D83BE /* agg_span_image_filter_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_image_filter_rgba.h; sourceTree = "<group>"; };
-		2C47AFFD24DD9749008D83BE /* agg_span_gouraud_gray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gouraud_gray.h; sourceTree = "<group>"; };
-		2C47AFFE24DD9749008D83BE /* agg_conv_transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_transform.h; sourceTree = "<group>"; };
-		2C47AFFF24DD9749008D83BE /* agg_trans_warp_magnifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_trans_warp_magnifier.cpp; sourceTree = "<group>"; };
-		2C47B00024DD9749008D83BE /* agg_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_math.h; sourceTree = "<group>"; };
-		2C47B00124DD9749008D83BE /* agg_pattern_filters_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pattern_filters_rgba.h; sourceTree = "<group>"; };
-		2C47B00224DD9749008D83BE /* agg_conv_bspline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_bspline.h; sourceTree = "<group>"; };
-		2C47B00324DD9749008D83BE /* agg_trans_warp_magnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_warp_magnifier.h; sourceTree = "<group>"; };
-		2C47B00424DD9749008D83BE /* agg_gsv_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_gsv_text.cpp; sourceTree = "<group>"; };
-		2C47B00524DD9749008D83BE /* agg_pixfmt_rgb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_rgb.h; sourceTree = "<group>"; };
-		2C47B00624DD9749008D83BE /* agg_scanline_storage_bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_storage_bin.h; sourceTree = "<group>"; };
-		2C47B00724DD9749008D83BE /* agg_conv_clip_polyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_clip_polyline.h; sourceTree = "<group>"; };
-		2C47B00824DD9749008D83BE /* agg_shorten_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_shorten_path.h; sourceTree = "<group>"; };
-		2C47B00924DD9749008D83BE /* agg_span_gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gradient.h; sourceTree = "<group>"; };
-		2C47B00A24DD9749008D83BE /* agg_alpha_mask_u8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_alpha_mask_u8.h; sourceTree = "<group>"; };
-		2C47B00B24DD9749008D83BE /* agg_span_gradient_contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gradient_contour.h; sourceTree = "<group>"; };
-		2C47B00C24DD9749008D83BE /* agg_span_gradient_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gradient_image.h; sourceTree = "<group>"; };
-		2C47B00D24DD9749008D83BE /* agg_embedded_raster_fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_embedded_raster_fonts.h; sourceTree = "<group>"; };
-		2C47B00E24DD9749008D83BE /* agg_span_pattern_rgb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_pattern_rgb.h; sourceTree = "<group>"; };
-		2C47B00F24DD9749008D83BE /* agg_font_cache_manager2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_font_cache_manager2.h; sourceTree = "<group>"; };
-		2C47B01024DD9749008D83BE /* agg_trans_perspective.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_perspective.h; sourceTree = "<group>"; };
-		2C47B01124DD9749008D83BE /* agg_scanline_boolean_algebra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_boolean_algebra.h; sourceTree = "<group>"; };
-		2C47B01224DD9749008D83BE /* agg_line_profile_aa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_line_profile_aa.cpp; sourceTree = "<group>"; };
-		2C47B01324DD9749008D83BE /* agg_conv_close_polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_close_polygon.h; sourceTree = "<group>"; };
-		2C47B01424DD9749008D83BE /* agg_vcgen_dash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_dash.cpp; sourceTree = "<group>"; };
-		2C47B01524DD9749008D83BE /* agg_vpgen_clip_polyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vpgen_clip_polyline.h; sourceTree = "<group>"; };
-		2C47B01624DD974A008D83BE /* agg_rasterizer_outline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_outline.h; sourceTree = "<group>"; };
-		2C47B01724DD974A008D83BE /* agg_gsv_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_gsv_text.h; sourceTree = "<group>"; };
-		2C47B01824DD974A008D83BE /* agg_span_subdiv_adaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_subdiv_adaptor.h; sourceTree = "<group>"; };
-		2C47B01924DD974A008D83BE /* agg_vcgen_vertex_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_vertex_sequence.h; sourceTree = "<group>"; };
-		2C47B01A24DD974A008D83BE /* agg_span_converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_converter.h; sourceTree = "<group>"; };
-		2C47B01B24DD974A008D83BE /* agg_path_length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_path_length.h; sourceTree = "<group>"; };
-		2C47B01C24DD974A008D83BE /* agg_vcgen_dash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_dash.h; sourceTree = "<group>"; };
-		2C47B01D24DD974A008D83BE /* agg_trans_viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_viewport.h; sourceTree = "<group>"; };
-		2C47B01E24DD974A008D83BE /* agg_bspline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_bspline.h; sourceTree = "<group>"; };
-		2C47B01F24DD974A008D83BE /* agg_pixfmt_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_base.h; sourceTree = "<group>"; };
-		2C47B02024DD974A008D83BE /* agg_math_stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_math_stroke.h; sourceTree = "<group>"; };
-		2C47B02124DD974A008D83BE /* agg_span_image_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_image_filter.h; sourceTree = "<group>"; };
-		2C47B02224DD974A008D83BE /* agg_renderer_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_base.h; sourceTree = "<group>"; };
-		2C47B02324DD974A008D83BE /* agg_vcgen_bspline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_bspline.h; sourceTree = "<group>"; };
-		2C47B02424DD974A008D83BE /* agg_pixfmt_transposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_transposer.h; sourceTree = "<group>"; };
-		2C47B02524DD974A008D83BE /* agg_image_accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_image_accessors.h; sourceTree = "<group>"; };
-		2C47B02624DD974A008D83BE /* agg_bspline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_bspline.cpp; sourceTree = "<group>"; };
-		2C47B02724DD974A008D83BE /* agg_vcgen_markers_term.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_markers_term.h; sourceTree = "<group>"; };
-		2C47B02824DD974A008D83BE /* agg_vcgen_smooth_poly1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_smooth_poly1.h; sourceTree = "<group>"; };
-		2C47B02924DD974A008D83BE /* agg_vpgen_segmentator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vpgen_segmentator.h; sourceTree = "<group>"; };
-		2C47B02A24DD974A008D83BE /* agg_renderer_primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_primitives.h; sourceTree = "<group>"; };
-		2C47B02B24DD974A008D83BE /* agg_path_storage_integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_path_storage_integer.h; sourceTree = "<group>"; };
-		2C47B02C24DD974A008D83BE /* agg_gamma_lut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_gamma_lut.h; sourceTree = "<group>"; };
-		2C47B02D24DD974A008D83BE /* agg_pixfmt_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_rgba.h; sourceTree = "<group>"; };
-		2C47B02E24DD974A008D83BE /* agg_vpgen_clip_polygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vpgen_clip_polygon.cpp; sourceTree = "<group>"; };
-		2C47B02F24DD974A008D83BE /* agg_glyph_raster_bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_glyph_raster_bin.h; sourceTree = "<group>"; };
-		2C47B03024DD974A008D83BE /* agg_color_rgba.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_color_rgba.cpp; sourceTree = "<group>"; };
-		2C47B03124DD974A008D83BE /* agg_vpgen_clip_polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vpgen_clip_polygon.h; sourceTree = "<group>"; };
-		2C47B03224DD974A008D83BE /* agg_renderer_raster_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_raster_text.h; sourceTree = "<group>"; };
-		2C47B03324DD974A008D83BE /* agg_span_image_filter_rgb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_image_filter_rgb.h; sourceTree = "<group>"; };
-		2C47B03424DD974A008D83BE /* agg_vcgen_contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_contour.h; sourceTree = "<group>"; };
-		2C47B03524DD974A008D83BE /* agg_trans_affine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_affine.h; sourceTree = "<group>"; };
-		2C47B03624DD974A008D83BE /* agg_rasterizer_cells_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_cells_aa.h; sourceTree = "<group>"; };
-		2C47B03724DD974A008D83BE /* agg_span_gouraud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gouraud.h; sourceTree = "<group>"; };
-		2C47B03824DD974A008D83BE /* agg_rasterizer_scanline_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_scanline_aa.h; sourceTree = "<group>"; };
-		2C47B03924DD974A008D83BE /* agg_renderer_markers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_markers.h; sourceTree = "<group>"; };
-		2C47B03A24DD974A008D83BE /* agg_scanline_storage_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_storage_aa.h; sourceTree = "<group>"; };
-		2C47B03B24DD974A008D83BE /* agg_sqrt_tables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_sqrt_tables.cpp; sourceTree = "<group>"; };
-		2C47B03C24DD974A008D83BE /* agg_renderer_outline_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_outline_image.h; sourceTree = "<group>"; };
-		2C47B03D24DD974A008D83BE /* agg_clip_liang_barsky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_clip_liang_barsky.h; sourceTree = "<group>"; };
-		2C47B03E24DD974A008D83BE /* agg_rounded_rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_rounded_rect.cpp; sourceTree = "<group>"; };
-		2C47B03F24DD974A008D83BE /* agg_conv_adaptor_vcgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_adaptor_vcgen.h; sourceTree = "<group>"; };
-		2C47B04024DD974A008D83BE /* agg_gradient_lut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_gradient_lut.h; sourceTree = "<group>"; };
-		2C47B04124DD974A008D83BE /* agg_span_gradient_alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gradient_alpha.h; sourceTree = "<group>"; };
-		2C47B04224DD974A008D83BE /* agg_vcgen_stroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_stroke.cpp; sourceTree = "<group>"; };
-		2C47B04324DD974A008D83BE /* agg_span_interpolator_persp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_persp.h; sourceTree = "<group>"; };
-		2C47B04424DD974A008D83BE /* agg_line_aa_basics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_line_aa_basics.h; sourceTree = "<group>"; };
-		2C47B04524DD974A008D83BE /* agg_conv_shorten_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_shorten_path.h; sourceTree = "<group>"; };
-		2C47B04624DD974A008D83BE /* agg_curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_curves.cpp; sourceTree = "<group>"; };
-		2C47B04724DD974A008D83BE /* agg_span_interpolator_adaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_interpolator_adaptor.h; sourceTree = "<group>"; };
-		2C47B04824DD974A008D83BE /* agg_trans_single_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_trans_single_path.cpp; sourceTree = "<group>"; };
-		2C47B04924DD974A008D83BE /* agg_vcgen_smooth_poly1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_smooth_poly1.cpp; sourceTree = "<group>"; };
-		2C47B04A24DD974A008D83BE /* agg_blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_blur.h; sourceTree = "<group>"; };
-		2C47B04B24DD974A008D83BE /* agg_line_aa_basics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_line_aa_basics.cpp; sourceTree = "<group>"; };
-		2C47B04C24DD974A008D83BE /* agg_trans_bilinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_bilinear.h; sourceTree = "<group>"; };
-		2C47B04D24DD974A008D83BE /* agg_vcgen_contour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_contour.cpp; sourceTree = "<group>"; };
-		2C47B04E24DD974A008D83BE /* agg_vpgen_clip_polyline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vpgen_clip_polyline.cpp; sourceTree = "<group>"; };
-		2C47B04F24DD974A008D83BE /* agg_trans_single_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_single_path.h; sourceTree = "<group>"; };
-		2C47B05024DD974A008D83BE /* agg_pixfmt_gray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_gray.h; sourceTree = "<group>"; };
-		2C47B05124DD974A008D83BE /* agg_arc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_arc.cpp; sourceTree = "<group>"; };
-		2C47B05224DD974A008D83BE /* agg_span_allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_allocator.h; sourceTree = "<group>"; };
-		2C47B05324DD974A008D83BE /* agg_rendering_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rendering_buffer.h; sourceTree = "<group>"; };
-		2C47B05424DD974A008D83BE /* agg_trans_affine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_trans_affine.cpp; sourceTree = "<group>"; };
-		2C47B05524DD974A008D83BE /* agg_pixfmt_rgb_packed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_pixfmt_rgb_packed.h; sourceTree = "<group>"; };
-		2C47B05624DD974A008D83BE /* agg_conv_dash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_dash.h; sourceTree = "<group>"; };
-		2C47B05724DD974A008D83BE /* agg_rounded_rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rounded_rect.h; sourceTree = "<group>"; };
-		2C47B05824DD974A008D83BE /* agg_span_image_filter_gray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_image_filter_gray.h; sourceTree = "<group>"; };
-		2C47B05924DD974A008D83BE /* agg_bezier_arc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_bezier_arc.h; sourceTree = "<group>"; };
-		2C47B05A24DD974A008D83BE /* agg_renderer_mclip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_mclip.h; sourceTree = "<group>"; };
-		2C47B05B24DD974A008D83BE /* agg_ellipse_bresenham.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_ellipse_bresenham.h; sourceTree = "<group>"; };
-		2C47B05C24DD974A008D83BE /* agg_conv_adaptor_vpgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_adaptor_vpgen.h; sourceTree = "<group>"; };
-		2C47B05D24DD974A008D83BE /* agg_conv_marker_adaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_marker_adaptor.h; sourceTree = "<group>"; };
-		2C47B05E24DD974A008D83BE /* agg_rasterizer_scanline_aa_nogamma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_scanline_aa_nogamma.h; sourceTree = "<group>"; };
-		2C47B05F24DD974A008D83BE /* agg_simul_eq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_simul_eq.h; sourceTree = "<group>"; };
-		2C47B06024DD974A008D83BE /* agg_color_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_color_rgba.h; sourceTree = "<group>"; };
-		2C47B06124DD974A008D83BE /* agg_scanline_u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_u.h; sourceTree = "<group>"; };
-		2C47B06224DD974A008D83BE /* agg_conv_marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_marker.h; sourceTree = "<group>"; };
-		2C47B06324DD974A008D83BE /* agg_trans_double_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_trans_double_path.h; sourceTree = "<group>"; };
-		2C47B06424DD974A008D83BE /* agg_image_filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_image_filters.h; sourceTree = "<group>"; };
-		2C47B06524DD974A008D83BE /* agg_vcgen_markers_term.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_markers_term.cpp; sourceTree = "<group>"; };
-		2C47B06624DD974A008D83BE /* agg_span_pattern_gray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_pattern_gray.h; sourceTree = "<group>"; };
-		2C47B06724DD974A008D83BE /* agg_dda_line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_dda_line.h; sourceTree = "<group>"; };
-		2C47B06824DD974A008D83BE /* agg_image_filters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_image_filters.cpp; sourceTree = "<group>"; };
-		2C47B06924DD974A008D83BE /* agg_gamma_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_gamma_functions.h; sourceTree = "<group>"; };
-		2C47B06A24DD974A008D83BE /* agg_embedded_raster_fonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_embedded_raster_fonts.cpp; sourceTree = "<group>"; };
-		2C47B06B24DD974A008D83BE /* agg_arc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_arc.h; sourceTree = "<group>"; };
-		2C47B06C24DD974A008D83BE /* agg_rasterizer_outline_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rasterizer_outline_aa.h; sourceTree = "<group>"; };
-		2C47B06D24DD974A008D83BE /* agg_conv_stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_stroke.h; sourceTree = "<group>"; };
-		2C47B06E24DD974A008D83BE /* agg_rendering_buffer_dynarow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_rendering_buffer_dynarow.h; sourceTree = "<group>"; };
-		2C47B06F24DD974A008D83BE /* agg_conv_gpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_gpc.h; sourceTree = "<group>"; };
-		2C47B07024DD974A008D83BE /* agg_vertex_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vertex_sequence.h; sourceTree = "<group>"; };
-		2C47B07124DD974A008D83BE /* agg_conv_concat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_concat.h; sourceTree = "<group>"; };
-		2C47B07224DD974A008D83BE /* agg_basics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_basics.h; sourceTree = "<group>"; };
-		2C47B07324DD974A008D83BE /* agg_vcgen_bspline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_vcgen_bspline.cpp; sourceTree = "<group>"; };
-		2C47B07424DD974A008D83BE /* agg_conv_smooth_poly1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_smooth_poly1.h; sourceTree = "<group>"; };
-		2C47B07524DD974A008D83BE /* agg_conv_unclose_polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_unclose_polygon.h; sourceTree = "<group>"; };
-		2C47B07624DD974A008D83BE /* agg_vcgen_stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_vcgen_stroke.h; sourceTree = "<group>"; };
-		2C47B07724DD974A008D83BE /* agg_curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_curves.h; sourceTree = "<group>"; };
-		2C47B07824DD974A008D83BE /* agg_bitset_iterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_bitset_iterator.h; sourceTree = "<group>"; };
-		2C47B07924DD974A008D83BE /* agg_font_cache_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_font_cache_manager.h; sourceTree = "<group>"; };
-		2C47B07A24DD974A008D83BE /* agg_conv_segmentator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_segmentator.h; sourceTree = "<group>"; };
-		2C47B07B24DD974A008D83BE /* agg_arrowhead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_arrowhead.cpp; sourceTree = "<group>"; };
-		2C47B07C24DD974A008D83BE /* agg_scanline_bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_scanline_bin.h; sourceTree = "<group>"; };
-		2C47B07D24DD974A008D83BE /* agg_trans_double_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_trans_double_path.cpp; sourceTree = "<group>"; };
-		2C47B07E24DD974A008D83BE /* agg_conv_curve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_conv_curve.h; sourceTree = "<group>"; };
-		2C47B07F24DD974A008D83BE /* agg_span_solid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_solid.h; sourceTree = "<group>"; };
-		2C47B08024DD974A008D83BE /* agg_bezier_arc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = agg_bezier_arc.cpp; sourceTree = "<group>"; };
-		2C47B08124DD974A008D83BE /* agg_span_gouraud_rgba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_span_gouraud_rgba.h; sourceTree = "<group>"; };
-		2C47B08224DD974A008D83BE /* agg_renderer_outline_aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_renderer_outline_aa.h; sourceTree = "<group>"; };
 		2C47B23724DD9789008D83BE /* SivVector2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVector2D.cpp; sourceTree = "<group>"; };
 		2C47B23924DD9789008D83BE /* LicenseManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LicenseManagerFactory.cpp; sourceTree = "<group>"; };
 		2C47B23A24DD9789008D83BE /* CLicenseManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLicenseManager.hpp; sourceTree = "<group>"; };
@@ -1863,6 +1585,27 @@
 			path = LineString;
 			sourceTree = "<group>";
 		};
+		2C0A4D522566A855002A4B5E /* plutovg */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D532566A855002A4B5E /* plutovg.h */,
+				2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */,
+				2C0A4D552566A855002A4B5E /* sw_ft_math.h */,
+				2C0A4D562566A855002A4B5E /* plutovg-paint.c */,
+				2C0A4D572566A855002A4B5E /* sw_ft_types.h */,
+				2C0A4D582566A855002A4B5E /* sw_ft_raster.c */,
+				2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */,
+				2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */,
+				2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */,
+				2C0A4D5D2566A855002A4B5E /* plutovg.c */,
+				2C0A4D5E2566A855002A4B5E /* plutovg-private.h */,
+				2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */,
+				2C0A4D602566A855002A4B5E /* sw_ft_raster.h */,
+				2C0A4D612566A855002A4B5E /* sw_ft_math.c */,
+			);
+			path = plutovg;
+			sourceTree = "<group>";
+		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
 			isa = PBXGroup;
 			children = (
@@ -1959,7 +1702,6 @@
 			isa = PBXGroup;
 			children = (
 				2C4564DE247946AF00DB01F0 /* absl */,
-				2C47AFE924DD9749008D83BE /* agg */,
 				2C481E0B24460B5700A5D88D /* cpu_features */,
 				2C439F62241DCEA9001154C2 /* double-conversion */,
 				2C53C34A25613BCC0072831A /* Earcut */,
@@ -1974,6 +1716,7 @@
 				2C44429F2427AA7C00557D51 /* miniutf */,
 				2C47B47224DD97F1008D83BE /* muparser */,
 				2C834D4E248805D4006208B8 /* Oniguruma */,
+				2C0A4D522566A855002A4B5E /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
 				2C4397852535DDF300F6AECD /* stb */,
 				2C6106E124DB04E300BDEF72 /* xxHash */,
@@ -2245,166 +1988,6 @@
 				2C473B172545415300CF864D /* SivInterpolation.cpp */,
 			);
 			path = Interpolation;
-			sourceTree = "<group>";
-		};
-		2C47AFE924DD9749008D83BE /* agg */ = {
-			isa = PBXGroup;
-			children = (
-				2C47AFEA24DD9749008D83BE /* agg_span_interpolator_trans.h */,
-				2C47AFEB24DD9749008D83BE /* agg_span_interpolator_linear.h */,
-				2C47AFEC24DD9749008D83BE /* agg_rasterizer_sl_clip.h */,
-				2C47AFED24DD9749008D83BE /* agg_conv_clip_polygon.h */,
-				2C47AFEE24DD9749008D83BE /* agg_path_storage.h */,
-				2C47AFEF24DD9749008D83BE /* agg_rasterizer_compound_aa.h */,
-				2C47AFF024DD9749008D83BE /* agg_conv_contour.h */,
-				2C47AFF124DD9749008D83BE /* agg_span_pattern_rgba.h */,
-				2C47AFF224DD9749008D83BE /* agg_config.h */,
-				2C47AFF324DD9749008D83BE /* agg_pixfmt_amask_adaptor.h */,
-				2C47AFF424DD9749008D83BE /* agg_scanline_p.h */,
-				2C47AFF524DD9749008D83BE /* agg_arrowhead.h */,
-				2C47AFF624DD9749008D83BE /* agg_array.h */,
-				2C47AFF724DD9749008D83BE /* agg_renderer_scanline.h */,
-				2C47AFF824DD9749008D83BE /* agg_ellipse.h */,
-				2C47AFF924DD9749008D83BE /* agg_color_gray.h */,
-				2C47AFFA24DD9749008D83BE /* agg_bounding_rect.h */,
-				2C47AFFB24DD9749008D83BE /* agg_vpgen_segmentator.cpp */,
-				2C47AFFC24DD9749008D83BE /* agg_span_image_filter_rgba.h */,
-				2C47AFFD24DD9749008D83BE /* agg_span_gouraud_gray.h */,
-				2C47AFFE24DD9749008D83BE /* agg_conv_transform.h */,
-				2C47AFFF24DD9749008D83BE /* agg_trans_warp_magnifier.cpp */,
-				2C47B00024DD9749008D83BE /* agg_math.h */,
-				2C47B00124DD9749008D83BE /* agg_pattern_filters_rgba.h */,
-				2C47B00224DD9749008D83BE /* agg_conv_bspline.h */,
-				2C47B00324DD9749008D83BE /* agg_trans_warp_magnifier.h */,
-				2C47B00424DD9749008D83BE /* agg_gsv_text.cpp */,
-				2C47B00524DD9749008D83BE /* agg_pixfmt_rgb.h */,
-				2C47B00624DD9749008D83BE /* agg_scanline_storage_bin.h */,
-				2C47B00724DD9749008D83BE /* agg_conv_clip_polyline.h */,
-				2C47B00824DD9749008D83BE /* agg_shorten_path.h */,
-				2C47B00924DD9749008D83BE /* agg_span_gradient.h */,
-				2C47B00A24DD9749008D83BE /* agg_alpha_mask_u8.h */,
-				2C47B00B24DD9749008D83BE /* agg_span_gradient_contour.h */,
-				2C47B00C24DD9749008D83BE /* agg_span_gradient_image.h */,
-				2C47B00D24DD9749008D83BE /* agg_embedded_raster_fonts.h */,
-				2C47B00E24DD9749008D83BE /* agg_span_pattern_rgb.h */,
-				2C47B00F24DD9749008D83BE /* agg_font_cache_manager2.h */,
-				2C47B01024DD9749008D83BE /* agg_trans_perspective.h */,
-				2C47B01124DD9749008D83BE /* agg_scanline_boolean_algebra.h */,
-				2C47B01224DD9749008D83BE /* agg_line_profile_aa.cpp */,
-				2C47B01324DD9749008D83BE /* agg_conv_close_polygon.h */,
-				2C47B01424DD9749008D83BE /* agg_vcgen_dash.cpp */,
-				2C47B01524DD9749008D83BE /* agg_vpgen_clip_polyline.h */,
-				2C47B01624DD974A008D83BE /* agg_rasterizer_outline.h */,
-				2C47B01724DD974A008D83BE /* agg_gsv_text.h */,
-				2C47B01824DD974A008D83BE /* agg_span_subdiv_adaptor.h */,
-				2C47B01924DD974A008D83BE /* agg_vcgen_vertex_sequence.h */,
-				2C47B01A24DD974A008D83BE /* agg_span_converter.h */,
-				2C47B01B24DD974A008D83BE /* agg_path_length.h */,
-				2C47B01C24DD974A008D83BE /* agg_vcgen_dash.h */,
-				2C47B01D24DD974A008D83BE /* agg_trans_viewport.h */,
-				2C47B01E24DD974A008D83BE /* agg_bspline.h */,
-				2C47B01F24DD974A008D83BE /* agg_pixfmt_base.h */,
-				2C47B02024DD974A008D83BE /* agg_math_stroke.h */,
-				2C47B02124DD974A008D83BE /* agg_span_image_filter.h */,
-				2C47B02224DD974A008D83BE /* agg_renderer_base.h */,
-				2C47B02324DD974A008D83BE /* agg_vcgen_bspline.h */,
-				2C47B02424DD974A008D83BE /* agg_pixfmt_transposer.h */,
-				2C47B02524DD974A008D83BE /* agg_image_accessors.h */,
-				2C47B02624DD974A008D83BE /* agg_bspline.cpp */,
-				2C47B02724DD974A008D83BE /* agg_vcgen_markers_term.h */,
-				2C47B02824DD974A008D83BE /* agg_vcgen_smooth_poly1.h */,
-				2C47B02924DD974A008D83BE /* agg_vpgen_segmentator.h */,
-				2C47B02A24DD974A008D83BE /* agg_renderer_primitives.h */,
-				2C47B02B24DD974A008D83BE /* agg_path_storage_integer.h */,
-				2C47B02C24DD974A008D83BE /* agg_gamma_lut.h */,
-				2C47B02D24DD974A008D83BE /* agg_pixfmt_rgba.h */,
-				2C47B02E24DD974A008D83BE /* agg_vpgen_clip_polygon.cpp */,
-				2C47B02F24DD974A008D83BE /* agg_glyph_raster_bin.h */,
-				2C47B03024DD974A008D83BE /* agg_color_rgba.cpp */,
-				2C47B03124DD974A008D83BE /* agg_vpgen_clip_polygon.h */,
-				2C47B03224DD974A008D83BE /* agg_renderer_raster_text.h */,
-				2C47B03324DD974A008D83BE /* agg_span_image_filter_rgb.h */,
-				2C47B03424DD974A008D83BE /* agg_vcgen_contour.h */,
-				2C47B03524DD974A008D83BE /* agg_trans_affine.h */,
-				2C47B03624DD974A008D83BE /* agg_rasterizer_cells_aa.h */,
-				2C47B03724DD974A008D83BE /* agg_span_gouraud.h */,
-				2C47B03824DD974A008D83BE /* agg_rasterizer_scanline_aa.h */,
-				2C47B03924DD974A008D83BE /* agg_renderer_markers.h */,
-				2C47B03A24DD974A008D83BE /* agg_scanline_storage_aa.h */,
-				2C47B03B24DD974A008D83BE /* agg_sqrt_tables.cpp */,
-				2C47B03C24DD974A008D83BE /* agg_renderer_outline_image.h */,
-				2C47B03D24DD974A008D83BE /* agg_clip_liang_barsky.h */,
-				2C47B03E24DD974A008D83BE /* agg_rounded_rect.cpp */,
-				2C47B03F24DD974A008D83BE /* agg_conv_adaptor_vcgen.h */,
-				2C47B04024DD974A008D83BE /* agg_gradient_lut.h */,
-				2C47B04124DD974A008D83BE /* agg_span_gradient_alpha.h */,
-				2C47B04224DD974A008D83BE /* agg_vcgen_stroke.cpp */,
-				2C47B04324DD974A008D83BE /* agg_span_interpolator_persp.h */,
-				2C47B04424DD974A008D83BE /* agg_line_aa_basics.h */,
-				2C47B04524DD974A008D83BE /* agg_conv_shorten_path.h */,
-				2C47B04624DD974A008D83BE /* agg_curves.cpp */,
-				2C47B04724DD974A008D83BE /* agg_span_interpolator_adaptor.h */,
-				2C47B04824DD974A008D83BE /* agg_trans_single_path.cpp */,
-				2C47B04924DD974A008D83BE /* agg_vcgen_smooth_poly1.cpp */,
-				2C47B04A24DD974A008D83BE /* agg_blur.h */,
-				2C47B04B24DD974A008D83BE /* agg_line_aa_basics.cpp */,
-				2C47B04C24DD974A008D83BE /* agg_trans_bilinear.h */,
-				2C47B04D24DD974A008D83BE /* agg_vcgen_contour.cpp */,
-				2C47B04E24DD974A008D83BE /* agg_vpgen_clip_polyline.cpp */,
-				2C47B04F24DD974A008D83BE /* agg_trans_single_path.h */,
-				2C47B05024DD974A008D83BE /* agg_pixfmt_gray.h */,
-				2C47B05124DD974A008D83BE /* agg_arc.cpp */,
-				2C47B05224DD974A008D83BE /* agg_span_allocator.h */,
-				2C47B05324DD974A008D83BE /* agg_rendering_buffer.h */,
-				2C47B05424DD974A008D83BE /* agg_trans_affine.cpp */,
-				2C47B05524DD974A008D83BE /* agg_pixfmt_rgb_packed.h */,
-				2C47B05624DD974A008D83BE /* agg_conv_dash.h */,
-				2C47B05724DD974A008D83BE /* agg_rounded_rect.h */,
-				2C47B05824DD974A008D83BE /* agg_span_image_filter_gray.h */,
-				2C47B05924DD974A008D83BE /* agg_bezier_arc.h */,
-				2C47B05A24DD974A008D83BE /* agg_renderer_mclip.h */,
-				2C47B05B24DD974A008D83BE /* agg_ellipse_bresenham.h */,
-				2C47B05C24DD974A008D83BE /* agg_conv_adaptor_vpgen.h */,
-				2C47B05D24DD974A008D83BE /* agg_conv_marker_adaptor.h */,
-				2C47B05E24DD974A008D83BE /* agg_rasterizer_scanline_aa_nogamma.h */,
-				2C47B05F24DD974A008D83BE /* agg_simul_eq.h */,
-				2C47B06024DD974A008D83BE /* agg_color_rgba.h */,
-				2C47B06124DD974A008D83BE /* agg_scanline_u.h */,
-				2C47B06224DD974A008D83BE /* agg_conv_marker.h */,
-				2C47B06324DD974A008D83BE /* agg_trans_double_path.h */,
-				2C47B06424DD974A008D83BE /* agg_image_filters.h */,
-				2C47B06524DD974A008D83BE /* agg_vcgen_markers_term.cpp */,
-				2C47B06624DD974A008D83BE /* agg_span_pattern_gray.h */,
-				2C47B06724DD974A008D83BE /* agg_dda_line.h */,
-				2C47B06824DD974A008D83BE /* agg_image_filters.cpp */,
-				2C47B06924DD974A008D83BE /* agg_gamma_functions.h */,
-				2C47B06A24DD974A008D83BE /* agg_embedded_raster_fonts.cpp */,
-				2C47B06B24DD974A008D83BE /* agg_arc.h */,
-				2C47B06C24DD974A008D83BE /* agg_rasterizer_outline_aa.h */,
-				2C47B06D24DD974A008D83BE /* agg_conv_stroke.h */,
-				2C47B06E24DD974A008D83BE /* agg_rendering_buffer_dynarow.h */,
-				2C47B06F24DD974A008D83BE /* agg_conv_gpc.h */,
-				2C47B07024DD974A008D83BE /* agg_vertex_sequence.h */,
-				2C47B07124DD974A008D83BE /* agg_conv_concat.h */,
-				2C47B07224DD974A008D83BE /* agg_basics.h */,
-				2C47B07324DD974A008D83BE /* agg_vcgen_bspline.cpp */,
-				2C47B07424DD974A008D83BE /* agg_conv_smooth_poly1.h */,
-				2C47B07524DD974A008D83BE /* agg_conv_unclose_polygon.h */,
-				2C47B07624DD974A008D83BE /* agg_vcgen_stroke.h */,
-				2C47B07724DD974A008D83BE /* agg_curves.h */,
-				2C47B07824DD974A008D83BE /* agg_bitset_iterator.h */,
-				2C47B07924DD974A008D83BE /* agg_font_cache_manager.h */,
-				2C47B07A24DD974A008D83BE /* agg_conv_segmentator.h */,
-				2C47B07B24DD974A008D83BE /* agg_arrowhead.cpp */,
-				2C47B07C24DD974A008D83BE /* agg_scanline_bin.h */,
-				2C47B07D24DD974A008D83BE /* agg_trans_double_path.cpp */,
-				2C47B07E24DD974A008D83BE /* agg_conv_curve.h */,
-				2C47B07F24DD974A008D83BE /* agg_span_solid.h */,
-				2C47B08024DD974A008D83BE /* agg_bezier_arc.cpp */,
-				2C47B08124DD974A008D83BE /* agg_span_gouraud_rgba.h */,
-				2C47B08224DD974A008D83BE /* agg_renderer_outline_aa.h */,
-			);
-			path = agg;
 			sourceTree = "<group>";
 		};
 		2C47B23524DD9789008D83BE /* Siv3D */ = {
@@ -4546,39 +4129,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C47B0F224DD974A008D83BE /* agg_bezier_arc.h in Headers */,
+				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2C47B33B24DD9789008D83BE /* SystemMisc.hpp in Headers */,
 				2C4396162535DCCA00F6AECD /* svgpaintelement.h in Headers */,
-				2C47B0B324DD974A008D83BE /* agg_span_converter.h in Headers */,
-				2C47B09224DD974A008D83BE /* agg_color_gray.h in Headers */,
 				2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */,
 				2C4396402535DCCA00F6AECD /* svgmarkerelement.h in Headers */,
 				2C423222242B155E00A16BCA /* glfw3.h in Headers */,
-				2C47B0DE24DD974A008D83BE /* agg_conv_shorten_path.h in Headers */,
 				2C47B34924DD9789008D83BE /* CWindow_Null.hpp in Headers */,
 				2C47B6D924EAC84B008D83BE /* AssetHandleManager.hpp in Headers */,
-				2C47B0C624DD974A008D83BE /* agg_pixfmt_rgba.h in Headers */,
 				2C47B30A24DD9789008D83BE /* TextWriterDetail.hpp in Headers */,
-				2C47B11B24DD974A008D83BE /* agg_renderer_outline_aa.h in Headers */,
-				2C47B0C024DD974A008D83BE /* agg_vcgen_markers_term.h in Headers */,
-				2C47B08324DD974A008D83BE /* agg_span_interpolator_trans.h in Headers */,
 				2C42321D242B155E00A16BCA /* internal.h in Headers */,
-				2C47B0BE24DD974A008D83BE /* agg_image_accessors.h in Headers */,
-				2C47B0FD24DD974A008D83BE /* agg_image_filters.h in Headers */,
-				2C47B0F924DD974A008D83BE /* agg_color_rgba.h in Headers */,
 				2C43961E2535DCCA00F6AECD /* svglength.h in Headers */,
-				2C47B10A24DD974A008D83BE /* agg_conv_concat.h in Headers */,
 				2C6390FA2539ABAB0030F18E /* CShader_Metal.hpp in Headers */,
-				2C47B10624DD974A008D83BE /* agg_conv_stroke.h in Headers */,
-				2C47B0A324DD974A008D83BE /* agg_alpha_mask_u8.h in Headers */,
-				2C47B0A424DD974A008D83BE /* agg_span_gradient_contour.h in Headers */,
 				2C47B6E124EAC88E008D83BE /* ConstantBufferDetail_Null.hpp in Headers */,
 				2C481E1424460B5700A5D88D /* cpu_features_cache_info.h in Headers */,
-				2C47B11324DD974A008D83BE /* agg_conv_segmentator.h in Headers */,
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
-				2C47B09E24DD974A008D83BE /* agg_pixfmt_rgb.h in Headers */,
-				2C47B08A24DD974A008D83BE /* agg_span_pattern_rgba.h in Headers */,
-				2C47B09A24DD974A008D83BE /* agg_pattern_filters_rgba.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2C4396392535DCCA00F6AECD /* font.h in Headers */,
 				2C47B30624DD9789008D83BE /* IRenderer.hpp in Headers */,
@@ -4586,12 +4151,8 @@
 				2C439F89241DCEA9001154C2 /* fast-dtoa.h in Headers */,
 				2C47B48E24DD97F2008D83BE /* muParserDLL.h in Headers */,
 				2C43964D2535DCCB00F6AECD /* svgelementiter.h in Headers */,
-				2C47B0F424DD974A008D83BE /* agg_ellipse_bresenham.h in Headers */,
 				2C47B48D24DD97F2008D83BE /* muParserTemplateMagic.h in Headers */,
-				2C47B0B224DD974A008D83BE /* agg_vcgen_vertex_sequence.h in Headers */,
-				2C47B0B924DD974A008D83BE /* agg_math_stroke.h in Headers */,
 				2C439F87241DCEA9001154C2 /* ieee.h in Headers */,
-				2C47B0C324DD974A008D83BE /* agg_renderer_primitives.h in Headers */,
 				2C4396442535DCCA00F6AECD /* paint.h in Headers */,
 				2C4396232535DCCA00F6AECD /* svgdefselement.h in Headers */,
 				2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */,
@@ -4599,119 +4160,75 @@
 				2C47B33924DD9789008D83BE /* SystemLog.hpp in Headers */,
 				2C43960F2535DCCA00F6AECD /* svgdocument.h in Headers */,
 				2C4396002535DCCA00F6AECD /* rendercontext.h in Headers */,
-				2C47B0F324DD974A008D83BE /* agg_renderer_mclip.h in Headers */,
-				2C47B0FA24DD974A008D83BE /* agg_scanline_u.h in Headers */,
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2C4395FA2535DCCA00F6AECD /* svgurireference.h in Headers */,
 				2C4396242535DCCA00F6AECD /* svgparser.h in Headers */,
 				2C4395F42535DCCA00F6AECD /* affinetransform.h in Headers */,
-				2C47B0A524DD974A008D83BE /* agg_span_gradient_image.h in Headers */,
 				2C47B33A24DD9789008D83BE /* ISystem.hpp in Headers */,
-				2C47B0FB24DD974A008D83BE /* agg_conv_marker.h in Headers */,
-				2C47B0E324DD974A008D83BE /* agg_blur.h in Headers */,
 				2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */,
 				2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */,
-				2C47B11A24DD974A008D83BE /* agg_span_gouraud_rgba.h in Headers */,
 				2C42323B242B155E00A16BCA /* mappings.h in Headers */,
 				2C439F82241DCEA9001154C2 /* cached-powers.h in Headers */,
 				2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */,
 				2C834D9B248805D4006208B8 /* regint.h in Headers */,
-				2C47B10424DD974A008D83BE /* agg_arc.h in Headers */,
 				2C4395FE2535DCCA00F6AECD /* svgelementimpl.h in Headers */,
 				2C6390EE2536C5460030F18E /* MetalBackBuffer.hpp in Headers */,
 				2C47B33124DD9789008D83BE /* IRenderer2D.hpp in Headers */,
 				2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */,
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
-				2C47B0DC24DD974A008D83BE /* agg_span_interpolator_persp.h in Headers */,
 				2C47B2FD24DD9789008D83BE /* LicenseList.hpp in Headers */,
-				2C47B0CE24DD974A008D83BE /* agg_trans_affine.h in Headers */,
 				2C47B30D24DD9789008D83BE /* CDummy.hpp in Headers */,
-				2C47B10024DD974A008D83BE /* agg_dda_line.h in Headers */,
 				2C4395FD2535DCCA00F6AECD /* svggeometryelement.h in Headers */,
-				2C47B09024DD974A008D83BE /* agg_renderer_scanline.h in Headers */,
 				2CFF9F6D24A47730000B5A17 /* MetalVertex2DBatch.hpp in Headers */,
 				2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */,
-				2C47B10224DD974A008D83BE /* agg_gamma_functions.h in Headers */,
-				2C47B0B524DD974A008D83BE /* agg_vcgen_dash.h in Headers */,
-				2C47B09924DD974A008D83BE /* agg_math.h in Headers */,
 				2C47B34D24DD9789008D83BE /* BMPHeader.hpp in Headers */,
 				2C47B35624DD9789008D83BE /* IProfiler.hpp in Headers */,
-				2C47B10F24DD974A008D83BE /* agg_vcgen_stroke.h in Headers */,
 				2C47B35C24DD9789008D83BE /* CImageEncoder.hpp in Headers */,
 				2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */,
 				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
 				2C47B2FB24DD9789008D83BE /* ILicenseManager.hpp in Headers */,
-				2C47B10924DD974A008D83BE /* agg_vertex_sequence.h in Headers */,
-				2C47B0BC24DD974A008D83BE /* agg_vcgen_bspline.h in Headers */,
-				2C47B0C124DD974A008D83BE /* agg_vcgen_smooth_poly1.h in Headers */,
-				2C47B0B724DD974A008D83BE /* agg_bspline.h in Headers */,
-				2C47B0F724DD974A008D83BE /* agg_rasterizer_scanline_aa_nogamma.h in Headers */,
-				2C47B08624DD974A008D83BE /* agg_conv_clip_polygon.h in Headers */,
 				2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
 				2C43961C2535DCCA00F6AECD /* svgstopelement.h in Headers */,
 				2C53C34C25613BD40072831A /* earcut.hpp in Headers */,
-				2C47B0AC24DD974A008D83BE /* agg_conv_close_polygon.h in Headers */,
 				2C423220242B155E00A16BCA /* cocoa_platform.h in Headers */,
 				2C47B31324DD9789008D83BE /* RegExpDetail.hpp in Headers */,
-				2C47B09F24DD974A008D83BE /* agg_scanline_storage_bin.h in Headers */,
 				2C47B6F324EAC8D9008D83BE /* GL4InternalTexture2D.hpp in Headers */,
 				2C47B30224DD9789008D83BE /* BigFloatDetail.hpp in Headers */,
 				2C47B33024DD9789008D83BE /* CRenderer2D_Null.hpp in Headers */,
 				2C47B6D124EAC82A008D83BE /* CShader_Null.hpp in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
-				2C47B08524DD974A008D83BE /* agg_rasterizer_sl_clip.h in Headers */,
 				2C4396292535DCCA00F6AECD /* rect.h in Headers */,
-				2C47B10524DD974A008D83BE /* agg_rasterizer_outline_aa.h in Headers */,
-				2C47B0C424DD974A008D83BE /* agg_path_storage_integer.h in Headers */,
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
-				2C47B09324DD974A008D83BE /* agg_bounding_rect.h in Headers */,
 				2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */,
-				2C47B0CF24DD974A008D83BE /* agg_rasterizer_cells_aa.h in Headers */,
-				2C47B0BB24DD974A008D83BE /* agg_renderer_base.h in Headers */,
-				2C47B09B24DD974A008D83BE /* agg_conv_bspline.h in Headers */,
-				2C47B0A724DD974A008D83BE /* agg_span_pattern_rgb.h in Headers */,
-				2C47B0F024DD974A008D83BE /* agg_rounded_rect.h in Headers */,
 				2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */,
 				2CF21D1F249FAA8F00C864C9 /* OpenGL.hpp in Headers */,
 				2C39ECAA2564030E0021DF34 /* GL4Renderer2DCommand.hpp in Headers */,
 				2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */,
 				2C834DAC248805D4006208B8 /* oniggnu.h in Headers */,
 				2CF21D1C249FAA8F00C864C9 /* CSystem.hpp in Headers */,
-				2C47B10E24DD974A008D83BE /* agg_conv_unclose_polygon.h in Headers */,
 				2C439F472419D686001154C2 /* format-inl.h in Headers */,
-				2C47B0F524DD974A008D83BE /* agg_conv_adaptor_vpgen.h in Headers */,
 				2C43963C2535DCCA00F6AECD /* canvas.h in Headers */,
-				2C47B0B424DD974A008D83BE /* agg_path_length.h in Headers */,
 				2C47B49124DD97F2008D83BE /* muParserToken.h in Headers */,
 				2C4396052535DCCA00F6AECD /* svgproperty.h in Headers */,
-				2C47B0C824DD974A008D83BE /* agg_glyph_raster_bin.h in Headers */,
 				2C439F7E241DCEA9001154C2 /* double-to-string.h in Headers */,
-				2C47B0A024DD974A008D83BE /* agg_conv_clip_polyline.h in Headers */,
 				2C43963D2535DCCA00F6AECD /* svgelement.h in Headers */,
-				2C47B0D224DD974A008D83BE /* agg_renderer_markers.h in Headers */,
 				2C68508E24B768A800B98A7F /* BinaryReaderDetail.hpp in Headers */,
-				2C47B0FC24DD974A008D83BE /* agg_trans_double_path.h in Headers */,
-				2C47B09624DD974A008D83BE /* agg_span_gouraud_gray.h in Headers */,
 				2C47B49324DD97F2008D83BE /* muParserBase.h in Headers */,
 				2C4397952536163000F6AECD /* CShader_GL4.hpp in Headers */,
 				2C47B6F524EAC8D9008D83BE /* CRenderer2D_GL4.hpp in Headers */,
 				2C4396152535DCCA00F6AECD /* svgangle.h in Headers */,
-				2C47B10B24DD974A008D83BE /* agg_basics.h in Headers */,
-				2C47B0EB24DD974A008D83BE /* agg_span_allocator.h in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
 				2C423254242B19D100A16BCA /* egl_context.h in Headers */,
 				2C47B5B324E7670A008D83BE /* ITexture.hpp in Headers */,
-				2C47B10D24DD974A008D83BE /* agg_conv_smooth_poly1.h in Headers */,
 				2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */,
 				2C4396062535DCCA00F6AECD /* svgparserutils.h in Headers */,
 				2C6390FC2539ABAB0030F18E /* MetalVertexShader.hpp in Headers */,
 				2C439F78241DCEA9001154C2 /* utils.h in Headers */,
 				2C47B33F24DD9789008D83BE /* Siv3DComponent.hpp in Headers */,
 				2C43960B2535DCCA00F6AECD /* path.h in Headers */,
-				2C47B11724DD974A008D83BE /* agg_conv_curve.h in Headers */,
 				2C47B49424DD97F2008D83BE /* muParser.h in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
 				2C43963B2535DCCA00F6AECD /* svgpreserveaspectratio.h in Headers */,
@@ -4724,142 +4241,87 @@
 				2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */,
 				2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */,
 				2C47B6F624EAC8D9008D83BE /* GL4Vertex2DBatch.hpp in Headers */,
-				2C47B0AE24DD974A008D83BE /* agg_vpgen_clip_polyline.h in Headers */,
 				2C47B37724DD9789008D83BE /* IConsole.hpp in Headers */,
-				2C47B0F624DD974A008D83BE /* agg_conv_marker_adaptor.h in Headers */,
 				2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */,
-				2C47B0FF24DD974A008D83BE /* agg_span_pattern_gray.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C4396122535DCCA00F6AECD /* svgmaskelement.h in Headers */,
-				2C47B0D024DD974A008D83BE /* agg_span_gouraud.h in Headers */,
 				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
-				2C47B0C524DD974A008D83BE /* agg_gamma_lut.h in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
-				2C47B11824DD974A008D83BE /* agg_span_solid.h in Headers */,
-				2C47B0CD24DD974A008D83BE /* agg_vcgen_contour.h in Headers */,
-				2C47B0A224DD974A008D83BE /* agg_span_gradient.h in Headers */,
-				2C47B11124DD974A008D83BE /* agg_bitset_iterator.h in Headers */,
 				2C4396322535DCCA00F6AECD /* svgpath.h in Headers */,
 				2C53C34825613BB00072831A /* Triangulation.hpp in Headers */,
-				2C47B0BA24DD974A008D83BE /* agg_span_image_filter.h in Headers */,
 				2C47B32124DD9789008D83BE /* CCursor_Null.hpp in Headers */,
 				2C481E1224460B5700A5D88D /* bit_utils.h in Headers */,
 				2CB7D4E22556C532007EB42E /* FallbackKeyName.hpp in Headers */,
-				2C47B0AA24DD974A008D83BE /* agg_scanline_boolean_algebra.h in Headers */,
-				2C47B08824DD974A008D83BE /* agg_rasterizer_compound_aa.h in Headers */,
 				2C834D8C248805D4006208B8 /* st.h in Headers */,
+				2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */,
 				2C47B49824DD97F2008D83BE /* muParserError.h in Headers */,
-				2C47B0CB24DD974A008D83BE /* agg_renderer_raster_text.h in Headers */,
 				2C47B31B24DD9789008D83BE /* UnicodeUtility.hpp in Headers */,
 				2C39ECB4256406FA0021DF34 /* MetalRenderer2DCommand.hpp in Headers */,
-				2C47B0D524DD974A008D83BE /* agg_renderer_outline_image.h in Headers */,
 				2C63910A2539CF830030F18E /* MetalSamplerState.hpp in Headers */,
 				2C39ECB12564033C0021DF34 /* Vertex2DBuilder.hpp in Headers */,
-				2C47B11224DD974A008D83BE /* agg_font_cache_manager.h in Headers */,
 				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
 				2C4396012535DCCA00F6AECD /* canvasimpl.h in Headers */,
-				2C47B09724DD974A008D83BE /* agg_conv_transform.h in Headers */,
-				2C47B08F24DD974A008D83BE /* agg_array.h in Headers */,
 				2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */,
-				2C47B11524DD974A008D83BE /* agg_scanline_bin.h in Headers */,
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
-				2C47B09124DD974A008D83BE /* agg_ellipse.h in Headers */,
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
-				2C47B10824DD974A008D83BE /* agg_conv_gpc.h in Headers */,
 				2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */,
 				2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */,
-				2C47B0C224DD974A008D83BE /* agg_vpgen_segmentator.h in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
 				2CF21D17249FAA8F00C864C9 /* CCursor.hpp in Headers */,
-				2C47B0CA24DD974A008D83BE /* agg_vpgen_clip_polygon.h in Headers */,
+				2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */,
 				2C423257242B19ED00A16BCA /* posix_thread.h in Headers */,
 				2C439F7A241DCEA9001154C2 /* fixed-dtoa.h in Headers */,
-				2C47B0A624DD974A008D83BE /* agg_embedded_raster_fonts.h in Headers */,
 				2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */,
 				2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */,
 				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
-				2C47B0E024DD974A008D83BE /* agg_span_interpolator_adaptor.h in Headers */,
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
-				2C47B0B124DD974A008D83BE /* agg_span_subdiv_adaptor.h in Headers */,
-				2C47B0E824DD974A008D83BE /* agg_trans_single_path.h in Headers */,
 				2C47B33524DD9789008D83BE /* TextReaderDetail.hpp in Headers */,
 				2C47B34724DD9789008D83BE /* IWindow.hpp in Headers */,
 				2C47B33E24DD9789008D83BE /* Siv3DEngine.hpp in Headers */,
 				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
 				2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */,
-				2C47B08724DD974A008D83BE /* agg_path_storage.h in Headers */,
 				2C47B31624DD9789008D83BE /* ILogger.hpp in Headers */,
 				2C47B31024DD9789008D83BE /* BigIntDetail.hpp in Headers */,
 				2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */,
-				2C47B08924DD974A008D83BE /* agg_conv_contour.h in Headers */,
 				2C834D95248805D4006208B8 /* config.h in Headers */,
 				2C53C34625613BB00072831A /* PolygonDetail.hpp in Headers */,
-				2C47B0BD24DD974A008D83BE /* agg_pixfmt_transposer.h in Headers */,
-				2C47B08B24DD974A008D83BE /* agg_config.h in Headers */,
-				2C47B0F824DD974A008D83BE /* agg_simul_eq.h in Headers */,
 				2C4395FC2535DCCA00F6AECD /* pathiterator.h in Headers */,
-				2C47B0B624DD974A008D83BE /* agg_trans_viewport.h in Headers */,
-				2C47B0AF24DD974A008D83BE /* agg_rasterizer_outline.h in Headers */,
-				2C47B0D624DD974A008D83BE /* agg_clip_liang_barsky.h in Headers */,
-				2C47B08E24DD974A008D83BE /* agg_arrowhead.h in Headers */,
 				2C439F7F241DCEA9001154C2 /* strtod.h in Headers */,
+				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
 				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
-				2C47B0D124DD974A008D83BE /* agg_rasterizer_scanline_aa.h in Headers */,
-				2C47B0EF24DD974A008D83BE /* agg_conv_dash.h in Headers */,
 				2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */,
 				2C4396072535DCCA00F6AECD /* point.h in Headers */,
-				2C47B08424DD974A008D83BE /* agg_span_interpolator_linear.h in Headers */,
-				2C47B0F124DD974A008D83BE /* agg_span_image_filter_gray.h in Headers */,
-				2C47B0B024DD974A008D83BE /* agg_gsv_text.h in Headers */,
-				2C47B0D824DD974A008D83BE /* agg_conv_adaptor_vcgen.h in Headers */,
 				2C42322C242B155E00A16BCA /* nsgl_context.h in Headers */,
-				2C47B0A924DD974A008D83BE /* agg_trans_perspective.h in Headers */,
+				2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */,
 				2C4395F82535DCCA00F6AECD /* svgnumber.h in Headers */,
-				2C47B09524DD974A008D83BE /* agg_span_image_filter_rgba.h in Headers */,
 				2C4397932536163000F6AECD /* GL4VertexShader.hpp in Headers */,
-				2C47B08C24DD974A008D83BE /* agg_pixfmt_amask_adaptor.h in Headers */,
-				2C47B0D924DD974A008D83BE /* agg_gradient_lut.h in Headers */,
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
 				2C47B30124DD9789008D83BE /* MathParserDetail.hpp in Headers */,
-				2C47B0E924DD974A008D83BE /* agg_pixfmt_gray.h in Headers */,
 				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
-				2C47B0A824DD974A008D83BE /* agg_font_cache_manager2.h in Headers */,
-				2C47B0DA24DD974A008D83BE /* agg_span_gradient_alpha.h in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */,
-				2C47B09C24DD974A008D83BE /* agg_trans_warp_magnifier.h in Headers */,
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
 				2C4396262535DCCA00F6AECD /* svgsymbolelement.h in Headers */,
 				2C439F88241DCEA9001154C2 /* bignum.h in Headers */,
-				2C47B0DD24DD974A008D83BE /* agg_line_aa_basics.h in Headers */,
-				2C47B0A124DD974A008D83BE /* agg_shorten_path.h in Headers */,
 				2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */,
+				2C0A4D622566A855002A4B5E /* plutovg.h in Headers */,
 				2C4395F52535DCCA00F6AECD /* svgstyledelement.h in Headers */,
 				2C47B31D24DD9789008D83BE /* ICursor.hpp in Headers */,
-				2C47B0D324DD974A008D83BE /* agg_scanline_storage_aa.h in Headers */,
 				2C4395F12535DCCA00F6AECD /* cssproperty.h in Headers */,
 				2C68508824B768A800B98A7F /* CLogger.hpp in Headers */,
-				2C47B0E524DD974A008D83BE /* agg_trans_bilinear.h in Headers */,
 				2C43960A2535DCCA00F6AECD /* svgstring.h in Headers */,
 				2C47B36824DD9789008D83BE /* IResource.hpp in Headers */,
-				2C47B0B824DD974A008D83BE /* agg_pixfmt_base.h in Headers */,
-				2C47B10724DD974A008D83BE /* agg_rendering_buffer_dynarow.h in Headers */,
 				2C4396182535DCCA00F6AECD /* svguseelement.h in Headers */,
 				2C68509124B768A800B98A7F /* CConsole.hpp in Headers */,
 				2C42323D242B155E00A16BCA /* cocoa_joystick.h in Headers */,
-				2C47B0EE24DD974A008D83BE /* agg_pixfmt_rgb_packed.h in Headers */,
-				2C47B0CC24DD974A008D83BE /* agg_span_image_filter_rgb.h in Headers */,
 				2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
-				2C47B08D24DD974A008D83BE /* agg_scanline_p.h in Headers */,
-				2C47B0EC24DD974A008D83BE /* agg_rendering_buffer.h in Headers */,
-				2C47B11024DD974A008D83BE /* agg_curves.h in Headers */,
 				2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */,
 				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C834D9C248805D4006208B8 /* regenc.h in Headers */,
@@ -4985,7 +4447,6 @@
 			files = (
 				2C4395F92535DCCA00F6AECD /* svgelement.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
-				2C47B0C724DD974A008D83BE /* agg_vpgen_clip_polygon.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
 				2C423239242B155E00A16BCA /* input.c in Sources */,
@@ -5016,18 +4477,17 @@
 				2C47B35F24DD9789008D83BE /* ImageEncoderFactory.cpp in Sources */,
 				2C6106E524DB04E300BDEF72 /* xxhash.c in Sources */,
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
-				2C47B0AD24DD974A008D83BE /* agg_vcgen_dash.cpp in Sources */,
 				2C47B6FB24EAC98A008D83BE /* ShaderFactory.mm in Sources */,
 				2C6390ED2536C5460030F18E /* MetalBackBuffer.mm in Sources */,
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
 				2C47B35524DD9789008D83BE /* ProfilerFactory.cpp in Sources */,
-				2C47B09D24DD974A008D83BE /* agg_gsv_text.cpp in Sources */,
 				2C60AE78248158A500277281 /* instruction_set_non_windows_non_darwin.cpp in Sources */,
 				2C60AE8C248158A500277281 /* os_info_windows.cpp in Sources */,
 				2CF21D27249FAA8F00C864C9 /* Siv3DMain.cpp in Sources */,
 				2C834D98248805D4006208B8 /* unicode_fold1_key.c in Sources */,
 				2C834DBD248805D4006208B8 /* regerror.c in Sources */,
 				2C47B49A24DD97F2008D83BE /* muParserCallback.cpp in Sources */,
+				2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */,
 				2C47B6F824EAC8D9008D83BE /* CRenderer2D_GL4.cpp in Sources */,
 				2C4396412535DCCA00F6AECD /* svgpoint.cpp in Sources */,
 				2C47B34824DD9789008D83BE /* CWindow_Null.cpp in Sources */,
@@ -5045,9 +4505,9 @@
 				2C47B37624DD9789008D83BE /* ConsoleFactory.cpp in Sources */,
 				2C4396102535DCCA00F6AECD /* svgcontentutils.cpp in Sources */,
 				2C47B32524DD9789008D83BE /* SivBinaryWriter.cpp in Sources */,
-				2C47B11624DD974A008D83BE /* agg_trans_double_path.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
+				2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */,
 				2C0A4D4F25669320002A4B5E /* SivLineString.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2C834DB8248805D4006208B8 /* cp1251.c in Sources */,
@@ -5055,11 +4515,9 @@
 				2C834DAA248805D4006208B8 /* iso8859_16.c in Sources */,
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
 				2C423258242B19ED00A16BCA /* posix_thread.c in Sources */,
-				2C47B11424DD974A008D83BE /* agg_arrowhead.cpp in Sources */,
 				2C47B32E24DD9789008D83BE /* SivImage.cpp in Sources */,
 				2CF21D24249FAA8F00C864C9 /* CWindow_macOS.mm in Sources */,
-				2C47B0D424DD974A008D83BE /* agg_sqrt_tables.cpp in Sources */,
-				2C47B10C24DD974A008D83BE /* agg_vcgen_bspline.cpp in Sources */,
+				2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */,
 				2C43960D2535DCCA00F6AECD /* svggelement.cpp in Sources */,
 				2C47B36A24DD9789008D83BE /* SivResource.cpp in Sources */,
 				2C834D8D248805D4006208B8 /* ascii.c in Sources */,
@@ -5067,7 +4525,6 @@
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
-				2C47B0FE24DD974A008D83BE /* agg_vcgen_markers_term.cpp in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
@@ -5077,7 +4534,6 @@
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
-				2C47B0BF24DD974A008D83BE /* agg_bspline.cpp in Sources */,
 				2C42324F242B155E00A16BCA /* cocoa_monitor.m in Sources */,
 				2C60AE76248158A500277281 /* instruction_set_windows.cpp in Sources */,
 				2C47B36924DD9789008D83BE /* ResourceFactory.cpp in Sources */,
@@ -5087,16 +4543,13 @@
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
 				2C834DB0248805D4006208B8 /* iso8859_13.c in Sources */,
 				2C834D8A248805D4006208B8 /* unicode.c in Sources */,
-				2C47B0AB24DD974A008D83BE /* agg_line_profile_aa.cpp in Sources */,
 				2CF21D22249FAA8F00C864C9 /* CWindow.cpp in Sources */,
-				2C47B09824DD974A008D83BE /* agg_trans_warp_magnifier.cpp in Sources */,
 				2C6391052539BE6E0030F18E /* MetalPixelShader.mm in Sources */,
 				2C60AE96248158A500277281 /* sysctl_darwin.cpp in Sources */,
 				2C60AE7D248158A500277281 /* quantities_cache_darwin.cpp in Sources */,
 				2C47B31824DD9789008D83BE /* LoggerFactory.cpp in Sources */,
 				2C4395F22535DCCA00F6AECD /* svgfittoviewbox.cpp in Sources */,
 				2C60AE85248158A500277281 /* kernel_info_windows.cpp in Sources */,
-				2C47B0E224DD974A008D83BE /* agg_vcgen_smooth_poly1.cpp in Sources */,
 				2C47B34E24DD9789008D83BE /* PNGDecoder.cpp in Sources */,
 				2C47B32B24DD9789008D83BE /* SivFileSystem.cpp in Sources */,
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
@@ -5111,6 +4564,7 @@
 				2C47B6D624EAC834008D83BE /* SivVertexShader.cpp in Sources */,
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
+				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
 				2C43961B2535DCCA00F6AECD /* svgpath.cpp in Sources */,
 				2C4396372535DCCA00F6AECD /* svgmarkerelement.cpp in Sources */,
@@ -5128,6 +4582,7 @@
 				2C60AE79248158A500277281 /* architecture_windows.cpp in Sources */,
 				2C47B32324DD9789008D83BE /* SivDateTime.cpp in Sources */,
 				2C47B34124DD9789008D83BE /* CUserAction.cpp in Sources */,
+				2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */,
 				2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */,
 				2C47B33224DD9789008D83BE /* SivRectangle.cpp in Sources */,
 				2C423250242B155E00A16BCA /* window.c in Sources */,
@@ -5167,11 +4622,9 @@
 				2C47B30C24DD9789008D83BE /* DummyFactory.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
-				2C47B0E124DD974A008D83BE /* agg_trans_single_path.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
 				2C47B5B124E7670A008D83BE /* CTexture_Null.cpp in Sources */,
-				2C47B11924DD974A008D83BE /* agg_bezier_arc.cpp in Sources */,
 				2C6390FF2539BB690030F18E /* CShader_Metal.mm in Sources */,
 				2C47B30024DD9789008D83BE /* SivMathParser.cpp in Sources */,
 				2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */,
@@ -5181,10 +4634,8 @@
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
 				2C47B37024DD9789008D83BE /* ImageDecoderFactory.cpp in Sources */,
 				2C47B6F724EAC8D9008D83BE /* GL4Vertex2DBatch.cpp in Sources */,
-				2C47B09424DD974A008D83BE /* agg_vpgen_segmentator.cpp in Sources */,
 				2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */,
 				2C43962C2535DCCA00F6AECD /* canvasimpl.cpp in Sources */,
-				2C47B0E624DD974A008D83BE /* agg_vcgen_contour.cpp in Sources */,
 				2C47B6D224EAC82A008D83BE /* CShader_Null.cpp in Sources */,
 				2C47B35A24DD9789008D83BE /* Levenshtein.cpp in Sources */,
 				2C834D9D248805D4006208B8 /* iso8859_2.c in Sources */,
@@ -5215,10 +4666,9 @@
 				2C47B35224DD9789008D83BE /* SivFormatFloat.cpp in Sources */,
 				2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */,
 				2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */,
-				2C47B0C924DD974A008D83BE /* agg_color_rgba.cpp in Sources */,
+				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */,
-				2C47B0E724DD974A008D83BE /* agg_vpgen_clip_polyline.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
 				2C4396082535DCCA00F6AECD /* canvas.cpp in Sources */,
@@ -5233,9 +4683,6 @@
 				2C834D90248805D4006208B8 /* iso8859_1.c in Sources */,
 				2CF21D1A249FAA8F00C864C9 /* Renderer2DFactory.mm in Sources */,
 				2C43962D2535DCCA00F6AECD /* svgtextelement.cpp in Sources */,
-				2C47B0DB24DD974A008D83BE /* agg_vcgen_stroke.cpp in Sources */,
-				2C47B10124DD974A008D83BE /* agg_image_filters.cpp in Sources */,
-				2C47B0DF24DD974A008D83BE /* agg_curves.cpp in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
@@ -5245,7 +4692,6 @@
 				2C47B6E324EAC88E008D83BE /* SivConstantBuffer.cpp in Sources */,
 				2C60AE84248158A500277281 /* memory_darwin.cpp in Sources */,
 				2C47B35924DD9789008D83BE /* SivProfiler.cpp in Sources */,
-				2C47B0E424DD974A008D83BE /* agg_line_aa_basics.cpp in Sources */,
 				2C47B35D24DD9789008D83BE /* CImageEncoder.cpp in Sources */,
 				2C60AE8F248158A500277281 /* amounts_windows.cpp in Sources */,
 				2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */,
@@ -5280,11 +4726,11 @@
 				2C60AE7C248158A500277281 /* quantities_cache_non_windows_non_darwin.cpp in Sources */,
 				2C423228242B155E00A16BCA /* init.c in Sources */,
 				2C439F8A241DCEA9001154C2 /* bignum-dtoa.cc in Sources */,
-				2C47B0EA24DD974A008D83BE /* agg_arc.cpp in Sources */,
 				2C4396272535DCCA00F6AECD /* paint.cpp in Sources */,
 				2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */,
 				2C47B33324DD9789008D83BE /* TextReaderDetail.cpp in Sources */,
 				2C4396382535DCCA00F6AECD /* svggraphicselement.cpp in Sources */,
+				2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */,
 				2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
 				2CF21D21249FAA8F00C864C9 /* WindowFactory.cpp in Sources */,
@@ -5302,6 +4748,7 @@
 				2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
 				2C60AE8D248158A500277281 /* os_info_darwin.cpp in Sources */,
+				2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */,
 				2C4396092535DCCA00F6AECD /* svgcolor.cpp in Sources */,
 				2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */,
 				2C834DB4248805D4006208B8 /* iso8859_7.c in Sources */,
@@ -5311,7 +4758,6 @@
 				2C47B31424DD9789008D83BE /* RegExpDetail.cpp in Sources */,
 				2C53C33B25613B7F0072831A /* SivQuad.cpp in Sources */,
 				2C60AE81248158A500277281 /* vendor_id.cpp in Sources */,
-				2C47B0D724DD974A008D83BE /* agg_rounded_rect.cpp in Sources */,
 				2C53C34725613BB00072831A /* Triangulation.cpp in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2C834DB2248805D4006208B8 /* iso8859_9.c in Sources */,
@@ -5336,8 +4782,6 @@
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
-				2C47B0ED24DD974A008D83BE /* agg_trans_affine.cpp in Sources */,
-				2C47B10324DD974A008D83BE /* agg_embedded_raster_fonts.cpp in Sources */,
 				2C4CBE592437100100F8B7A6 /* glew.c in Sources */,
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2C4396312535DCCA00F6AECD /* svgpreserveaspectratio.cpp in Sources */,
