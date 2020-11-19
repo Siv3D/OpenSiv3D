@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A22557C0F200C9838C /* SivInputGroup.cpp */; };
 		2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A42557C0F200C9838C /* SivInputCombination.cpp */; };
+		2C0A4D4F25669320002A4B5E /* SivLineString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D4E25669320002A4B5E /* SivLineString.cpp */; };
+		2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5025669350002A4B5E /* Renderer2DCommon.hpp */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -716,6 +718,10 @@
 /* Begin PBXFileReference section */
 		2C0848A22557C0F200C9838C /* SivInputGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputGroup.cpp; sourceTree = "<group>"; };
 		2C0848A42557C0F200C9838C /* SivInputCombination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputCombination.cpp; sourceTree = "<group>"; };
+		2C0A4D4B256692E8002A4B5E /* FloatQuad.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FloatQuad.hpp; sourceTree = "<group>"; };
+		2C0A4D4C256692FC002A4B5E /* FloatQuad.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FloatQuad.ipp; sourceTree = "<group>"; };
+		2C0A4D4E25669320002A4B5E /* SivLineString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLineString.cpp; sourceTree = "<group>"; };
+		2C0A4D5025669350002A4B5E /* Renderer2DCommon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Renderer2DCommon.hpp; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -1849,6 +1855,14 @@
 			path = InputCombination;
 			sourceTree = "<group>";
 		};
+		2C0A4D4D25669320002A4B5E /* LineString */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D4E25669320002A4B5E /* SivLineString.cpp */,
+			);
+			path = LineString;
+			sourceTree = "<group>";
+		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
 			isa = PBXGroup;
 			children = (
@@ -2438,6 +2452,7 @@
 				2CFE19A32555B23C005826A1 /* Keyboard */,
 				2C47B23824DD9789008D83BE /* LicenseManager */,
 				2C53C33025613B540072831A /* Line */,
+				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
@@ -2746,6 +2761,7 @@
 				2C39ECAD2564033C0021DF34 /* Vertex2DBuilder.cpp */,
 				2C39ECAB256403230021DF34 /* CurrentBatchStateChanges.hpp */,
 				2C47B28E24DD9789008D83BE /* IRenderer2D.hpp */,
+				2C0A4D5025669350002A4B5E /* Renderer2DCommon.hpp */,
 				2C39ECAC2564033C0021DF34 /* Vertex2DBufferPointer.hpp */,
 				2C39ECAE2564033C0021DF34 /* Vertex2DBuilder.hpp */,
 				2C47B28B24DD9789008D83BE /* Null */,
@@ -3390,6 +3406,7 @@
 				2C53C1FF25613B0B0072831A /* FastMath.hpp */,
 				2C53C20925613B0B0072831A /* FileSystem.hpp */,
 				2C53C20E25613B0B0072831A /* FloatingPoint.hpp */,
+				2C0A4D4B256692E8002A4B5E /* FloatQuad.hpp */,
 				2C53C31B25613B0C0072831A /* FloatRect.hpp */,
 				2C53C31F25613B0C0072831A /* Format.hpp */,
 				2C53C2F825613B0C0072831A /* FormatBool.hpp */,
@@ -3590,6 +3607,7 @@
 				2C53C2C025613B0C0072831A /* EngineLog.ipp */,
 				2C53C28E25613B0C0072831A /* FastMath.ipp */,
 				2C53C29525613B0C0072831A /* FloatingPoint.ipp */,
+				2C0A4D4C256692FC002A4B5E /* FloatQuad.ipp */,
 				2C53C26025613B0C0072831A /* FloatRect.ipp */,
 				2C53C25325613B0C0072831A /* FormatBool.ipp */,
 				2C53C29225613B0C0072831A /* FormatData.ipp */,
@@ -4792,6 +4810,7 @@
 				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
 				2C47B0D124DD974A008D83BE /* agg_rasterizer_scanline_aa.h in Headers */,
 				2C47B0EF24DD974A008D83BE /* agg_conv_dash.h in Headers */,
+				2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */,
 				2C4396072535DCCA00F6AECD /* point.h in Headers */,
 				2C47B08424DD974A008D83BE /* agg_span_interpolator_linear.h in Headers */,
 				2C47B0F124DD974A008D83BE /* agg_span_image_filter_gray.h in Headers */,
@@ -5029,6 +5048,7 @@
 				2C47B11624DD974A008D83BE /* agg_trans_double_path.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
+				2C0A4D4F25669320002A4B5E /* SivLineString.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2C834DB8248805D4006208B8 /* cp1251.c in Sources */,
 				2C47B37324DD9789008D83BE /* CImageDecoder.cpp in Sources */,

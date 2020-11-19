@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -598,49 +598,6 @@
 
 //////////////////////////////////////////////////
 //
-//	乱数と分布
-//	Random and Distribution
-//
-//////////////////////////////////////////////////
-
-# include <Siv3D/HardwareRNG.hpp>
-
-# include <Siv3D/PRNG.hpp>
-
-# include <Siv3D/Distribution.hpp> // [Siv3D ToDo]
-
-# include <Siv3D/DiscreteDistribution.hpp>
-
-# include <Siv3D/Random.hpp>
-
-# include <Siv3D/Shuffle.hpp>
-
-// ランダムな Point の作成
-// Random Point Generation
-# include <Siv3D/RandomPoint.hpp>
-
-// ランダムな Vec2 の作成
-// Random Vec2 Generation
-# include <Siv3D/RandomVec2.hpp>
-
-// ランダムな Vec3 の作成
-// Random Vec3 Generation
-//# include <Siv3D/RandomVec3.hpp>
-
-// ランダムな Vec4 の作成
-// Random Vec4 Generation
-//# include <Siv3D/RandomVec4.hpp>
-
-// ランダムな色の作成
-// Random Color Generation
-# include <Siv3D/RandomColor.hpp>
-
-// ランダムなサンプリング
-// Random Sampling
-//# include <Siv3D/Sample.hpp>
-
-//////////////////////////////////////////////////
-//
 //	数学
 //	Math
 //
@@ -857,6 +814,49 @@
 // 平面分割
 // Planar Subdivisions
 //# include <Siv3D/Subdivision2D.hpp>
+
+//////////////////////////////////////////////////
+//
+//	乱数と分布
+//	Random and Distribution
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/HardwareRNG.hpp>
+
+# include <Siv3D/PRNG.hpp>
+
+# include <Siv3D/Distribution.hpp> // [Siv3D ToDo]
+
+# include <Siv3D/DiscreteDistribution.hpp>
+
+# include <Siv3D/Random.hpp>
+
+# include <Siv3D/Shuffle.hpp>
+
+// ランダムな Point の作成
+// Random Point Generation
+# include <Siv3D/RandomPoint.hpp>
+
+// ランダムな Vec2 の作成
+// Random Vec2 Generation
+# include <Siv3D/RandomVec2.hpp>
+
+// ランダムな Vec3 の作成
+// Random Vec3 Generation
+//# include <Siv3D/RandomVec3.hpp>
+
+// ランダムな Vec4 の作成
+// Random Vec4 Generation
+//# include <Siv3D/RandomVec4.hpp>
+
+// ランダムな色の作成
+// Random Color Generation
+# include <Siv3D/RandomColor.hpp>
+
+// ランダムなサンプリング
+// Random Sampling
+//# include <Siv3D/Sample.hpp>
 
 //////////////////////////////////////////////////
 //

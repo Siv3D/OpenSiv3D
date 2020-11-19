@@ -15,7 +15,7 @@
 # include "ColorHSV.hpp"
 # include "PolygonFailureType.hpp"
 # include "Vertex2D.hpp"
-# include "Triangle.hpp"
+# include "2DShapes.hpp"
 # include "TriangleIndex.hpp"
 # include "PredefinedYesNo.hpp"
 
