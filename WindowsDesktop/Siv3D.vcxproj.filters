@@ -592,6 +592,9 @@
     <Filter Include="src\Siv3D\LineString">
       <UniqueIdentifier>{553fb23a-e06a-4b58-9471-579a2ce7a6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\plutovg">
+      <UniqueIdentifier>{826f6b3e-d171-4bde-a514-4bafa2cc7014}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1998,150 +2001,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\font.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\paint.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\path.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\pathiterator.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\point.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\rect.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\rendercontext.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\strokedata.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgangle.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgclippathelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgcolor.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgcontentutils.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdefselement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdocument.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdocumentimpl.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelementimpl.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelementiter.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgenumeration.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgfittoviewbox.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggeometryelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggraphicselement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svglength.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgmarkerelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgmaskelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgnumber.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpaintelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgparser.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgparserutils.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpath.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpoint.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpreserveaspectratio.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgproperty.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgrect.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstopelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstring.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstyledelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgsvgelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgsymbolelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgtextelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgtransform.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgurireference.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svguseelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\affinetransform.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvasimpl.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\cssproperty.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h">
       <Filter>src\ThirdParty\stb</Filter>
     </ClInclude>
@@ -2339,6 +2198,168 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\Renderer2DCommon.hpp">
       <Filter>src\Siv3D\Renderer2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvasimpl.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\cssproperty.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\font.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\paint.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\path.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\pathiterator.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\point.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\rect.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\rendercontext.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\strokedata.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgangle.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgclippathelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgcolor.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgcontentutils.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdefselement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdocument.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgdocumentimpl.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelementimpl.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelementiter.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgenumeration.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgfittoviewbox.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggeometryelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svggraphicselement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svglength.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgmarkerelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgmaskelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgnumber.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpaintelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgparser.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgparserutils.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpath.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpoint.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgpreserveaspectratio.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgproperty.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgrect.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstopelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstring.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgstyledelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgsvgelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgsymbolelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgtextelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgtransform.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgurireference.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svguseelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\affinetransform.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-private.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\plutovg.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_types.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_math.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.h">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2993,6 +3014,99 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\SivAddon.cpp">
       <Filter>src\Siv3D\Addon</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\FreestandingMessageBox\FreestandingMessageBox_Windows.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\FreestandingMessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\PixelShader\GL4PixelShader.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\VertexShader\GL4VertexShader.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\CShader_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4\ConstantBufferDetail_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Interpolation\SivInterpolation.cpp">
+      <Filter>src\Siv3D\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp">
+      <Filter>src\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor\SivMonitor_Windows.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\SivKeyboard.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Keyboard\CKeyboard.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Input\SivInput.cpp">
+      <Filter>src\Siv3D\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Input\InputState.cpp">
+      <Filter>src\Siv3D\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse\CMouse.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp">
+      <Filter>src\Siv3D\InputCombination</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp">
+      <Filter>src\Siv3D\InputGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp">
+      <Filter>src\Siv3D\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp">
+      <Filter>src\Siv3D\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp">
+      <Filter>src\Siv3D\Ellipse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp">
+      <Filter>src\Siv3D\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp">
+      <Filter>src\Siv3D\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.cpp">
+      <Filter>src\Siv3D\Renderer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommand.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4\GL4Renderer2DCommand.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\LineString\SivLineString.cpp">
+      <Filter>src\Siv3D\LineString</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\cssproperty.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\font.cpp">
       <Filter>src\ThirdParty\lunasvg</Filter>
     </ClCompile>
@@ -3125,98 +3239,29 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\canvasimpl.cpp">
       <Filter>src\ThirdParty\lunasvg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\cssproperty.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-geometry.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\FreestandingMessageBox\FreestandingMessageBox_Windows.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\FreestandingMessageBox</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-paint.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\PixelShader\GL4PixelShader.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\PixelShader</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-rle.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\VertexShader\GL4VertexShader.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\VertexShader</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4\CShader_GL4.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Shader\GL4</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-blend.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4\ConstantBufferDetail_GL4.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Interpolation\SivInterpolation.cpp">
-      <Filter>src\Siv3D\Interpolation</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_math.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp">
-      <Filter>src\Siv3D\Monitor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor\SivMonitor_Windows.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp">
-      <Filter>src\Siv3D\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\SivKeyboard.cpp">
-      <Filter>src\Siv3D\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Keyboard\CKeyboard.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Input\SivInput.cpp">
-      <Filter>src\Siv3D\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Input\InputState.cpp">
-      <Filter>src\Siv3D\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp">
-      <Filter>src\Siv3D\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp">
-      <Filter>src\Siv3D\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse\CMouse.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp">
-      <Filter>src\Siv3D\InputCombination</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp">
-      <Filter>src\Siv3D\InputGroup</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp">
-      <Filter>src\Siv3D\Line</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp">
-      <Filter>src\Siv3D\Circle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp">
-      <Filter>src\Siv3D\Ellipse</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp">
-      <Filter>src\Siv3D\Triangle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp">
-      <Filter>src\Siv3D\Quad</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
-      <Filter>src\Siv3D\Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp">
-      <Filter>src\Siv3D\Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp">
-      <Filter>src\Siv3D\Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.cpp">
-      <Filter>src\Siv3D\Renderer2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommand.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4\GL4Renderer2DCommand.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\LineString\SivLineString.cpp">
-      <Filter>src\Siv3D\LineString</Filter>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.c">
+      <Filter>src\ThirdParty\plutovg</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -588,6 +588,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserToken.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Oniguruma\oniguruma.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-private.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\plutovg.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_math.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\xxHash\xxhash.h" />
@@ -891,6 +897,14 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTest.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-blend.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-geometry.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-paint.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-rle.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_math.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\xxHash\xxhash.c" />
   </ItemGroup>

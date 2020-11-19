@@ -4,7 +4,6 @@
 Library | Version
 --- | ---
 [Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2
-Anti-Grain Geometry | v2.4
 [Boost](https://www.boost.org/) | 1.73.0
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.3
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
@@ -13,15 +12,17 @@ Anti-Grain Geometry | v2.4
 [Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
+[FreeType](https://www.freetype.org/) | 
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
-[lunasvg](https://github.com/sammycage/lunasvg) | v1.3.0
+[lunasvg](https://github.com/sammycage/lunasvg) | v1.4.0
 [miniutf](https://github.com/dropbox/miniutf) | 
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
+[plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [stb_truetype](https://github.com/nothings/stb) | v1.24

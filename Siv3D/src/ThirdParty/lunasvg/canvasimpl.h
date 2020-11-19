@@ -3,21 +3,9 @@
 
 #include "canvas.h"
 
-#include <agg/agg_pixfmt_rgba.h>
-#include <agg/agg_renderer_scanline.h>
-#include <agg/agg_renderer_base.h>
-#include <agg/agg_rasterizer_scanline_aa.h>
-#include <agg/agg_trans_affine.h>
+#include <ThirdParty/plutovg/plutovg.h>
 
 namespace lunasvg {
-
-typedef agg::pixfmt_bgra32 pixel_format_t;
-typedef agg::renderer_base<pixel_format_t> renderer_base_t;
-typedef agg::renderer_scanline_aa_solid<renderer_base_t> renderer_solid_t;
-typedef agg::rasterizer_scanline_aa_nogamma<> rasterizer_t;
-
-class Pattern;
-class Gradient;
 
 class CanvasImpl
 {
@@ -37,25 +25,12 @@ public:
     unsigned int height() const;
     unsigned int stride() const;
 
-private:
-    template<typename gradient_adaptor_t>
-    void render_gradient_spread(gradient_adaptor_t& gradient_adaptor, const Gradient* gradient, double opacity, const agg::trans_affine& matrix);
-
-    template<typename gradient_function_t>
-    void render_gradient(gradient_function_t& gradient_function, const Gradient* gradient, double opacity, const agg::trans_affine& matrix);
-
-    template<typename source_t, typename span_generator_t>
-    void render_pattern(const Pattern* pattern, const agg::trans_affine& matrix);
-
-    void render_scanlines(const Paint& paint, const agg::trans_affine& matrix);
+    plutovg_surface_t* surface() const { return m_surface; }
+    plutovg_t* pluto() const { return m_pluto; }
 
 private:
-    std::unique_ptr<std::uint8_t[]> m_data;
-    agg::rendering_buffer m_buffer;
-    pixel_format_t m_pixelFormat;
-    renderer_base_t m_rendererBase;
-    renderer_solid_t m_rendererSolid;
-    rasterizer_t m_rasterizer;
+    plutovg_surface_t* m_surface;
+    plutovg_t* m_pluto;
 };
 
 } // namespace lunasvg

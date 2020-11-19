@@ -4,7 +4,7 @@
 #include <map>
 
 #define STB_TRUETYPE_IMPLEMENTATION
-#include <stb/stb_truetype.h>
+#include <ThirdParty/stb/stb_truetype.h>
 
 namespace lunasvg {
 
