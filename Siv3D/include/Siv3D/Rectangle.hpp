@@ -103,33 +103,43 @@ namespace s3d
 		/// @param _w 長方形の幅
 		/// @param _h 	長方形の高さ
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept;
+		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
+			: pos{ _x, _y }
+			, size{ _w, _h } {}
 
 		/// @brief 長方形を作成します。
 		/// @param _x 長方形の左上の点の X 座標
 		/// @param _y 長方形の左上の点の Y 座標
 		/// @param _size 長方形の大きさ
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(value_type _x, value_type _y, size_type _size) noexcept;
+		constexpr Rectangle(value_type _x, value_type _y, size_type _size) noexcept
+			: pos{ _x, _y }
+			, size{ _size } {}
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
 		/// @param _size 長方形の大きさ
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(position_type _pos, value_type _size) noexcept;
+		constexpr Rectangle(position_type _pos, value_type _size) noexcept
+			: pos{ _pos }
+			, size{ _size, _size } {}
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
 		/// @param _w 長方形の幅
 		/// @param _h 長方形の高さ
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(position_type _pos, value_type _w, value_type _h) noexcept;
+		constexpr Rectangle(position_type _pos, value_type _w, value_type _h) noexcept
+			: pos{ _pos }
+			, size{ _w, _h } {}
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
 		/// @param _size 	長方形の大きさ
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(position_type _pos, size_type _size) noexcept;
+		constexpr Rectangle(position_type _pos, size_type _size) noexcept
+			: pos{ _pos }
+			, size{ _size } {}
 
 		/// @brief 長方形を作成します。
 		/// @tparam Type 長方形のサイズの型
@@ -142,20 +152,26 @@ namespace s3d
 		/// @param _center 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(Arg::center_<position_type> _center, value_type _size) noexcept;
+		constexpr Rectangle(Arg::center_<position_type> _center, value_type _size) noexcept
+			: pos{ (_center->x - _size / 2), (_center->y - _size / 2) }
+			, size{ _size, _size } {}
 
 		/// @brief 
 		/// @param _center 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr Rectangle(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
+			: pos{ (_center->x - _w / 2), (_center->y - _h / 2) }
+			, size{ _w, _h } {}
 
 		/// @brief 
 		/// @param _center 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rectangle(Arg::center_<position_type> _center, size_type _size) noexcept;
+		constexpr Rectangle(Arg::center_<position_type> _center, size_type _size) noexcept
+			: pos{ (_center->x - _size.x / 2), (_center->y - _size.y / 2) }
+			, size{ _size.x, _size.y } {}
 
 		/// @brief 
 		/// @param topLeft 

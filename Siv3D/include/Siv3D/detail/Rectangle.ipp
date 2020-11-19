@@ -34,50 +34,10 @@ namespace s3d
 		, size{ _size, _size } {}
 
 	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const value_type _x, const value_type _y, const value_type _w, const value_type _h) noexcept
-		: pos{ _x, _y }
-		, size{ _w, _h } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const value_type _x, const value_type _y, const size_type _size) noexcept
-		: pos{ _x, _y }
-		, size{ _size } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const position_type _pos, const value_type _size) noexcept
-		: pos{ _pos }
-		, size{ _size, _size } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const position_type _pos, const value_type _w, const value_type _h) noexcept
-		: pos{ _pos }
-		, size{ _w, _h } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const position_type _pos, const size_type _size) noexcept
-		: pos{ _pos }
-		, size{ _size } {}
-
-	template <class SizeType>
 	template <class Type>
 	inline constexpr Rectangle<SizeType>::Rectangle(const Rectangle<Type>& r) noexcept
 		: pos{ static_cast<value_type>(r.x), static_cast<value_type>(r.y) }
 		, size{ static_cast<value_type>(r.w), static_cast<value_type>(r.h) } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const Arg::center_<position_type> _center, const value_type _size) noexcept
-		: pos{ (_center->x - _size / 2), (_center->y - _size / 2) }
-		, size{ _size, _size } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const Arg::center_<position_type> _center, const value_type _w, const value_type _h) noexcept
-		: pos{ (_center->x - _w / 2), (_center->y - _h / 2) }
-		, size{ _w, _h } {}
-
-	template <class SizeType>
-	inline constexpr Rectangle<SizeType>::Rectangle(const Arg::center_<position_type> _center, const size_type _size) noexcept
-		: pos{ (_center->x - _size.x / 2), (_center->y - _size.y / 2) }
-		, size{ _size.x, _size.y } {}
 
 	template <class SizeType>
 	inline constexpr Rectangle<SizeType>::Rectangle(const Arg::topLeft_<position_type> topLeft, const value_type _size) noexcept
