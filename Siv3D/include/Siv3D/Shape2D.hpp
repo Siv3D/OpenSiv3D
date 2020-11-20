@@ -79,6 +79,9 @@ namespace s3d
 
 		const Shape2D& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		const Shape2D& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+
 		[[nodiscard]]
 		Polygon asPolygon() const;
 

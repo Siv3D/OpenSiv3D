@@ -64,5 +64,8 @@ namespace s3d
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildPolygon(const BufferCreatorFunc& bufferCreator, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles);
+	
+		[[nodiscard]]
+		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, const Float2* points, size_t size, float thickness, const Float4& color, float scale);
 	}
 }

@@ -105,7 +105,9 @@ namespace s3d
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 
+		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});

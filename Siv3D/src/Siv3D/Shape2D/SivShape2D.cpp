@@ -134,7 +134,7 @@ namespace s3d
 
 		for (uint32 i = 0; i < n * 2; ++i)
 		{
-			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
+			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).fastToFloat2();
 		}
 
 		Array<TriangleIndex> indices(2 * n - 2);
@@ -151,7 +151,7 @@ namespace s3d
 
 			for (Vertex2D::IndexType i = 0; i < n - 2; ++i)
 			{
-				pDst->i0 = 0;
+				pDst->i0 = 1;
 				pDst->i1 = (i * 2 + 3);
 				pDst->i2 = (i * 2 + 5);
 				++pDst;
@@ -342,7 +342,7 @@ namespace s3d
 		const float rf = static_cast<float>(r);
 		const float innerR = static_cast<float>(1.121320307254791259765625 * rf);
 
-		const int32 quality = (8 + Min(static_cast<int32>(r / 16) * 2, 100));
+		const int32 quality = (8 + Min(static_cast<int32>(r / 14) * 2, 100));
 		const size_t vsize = (12 + quality);
 
 		Array<Float2> vertices(vsize);
@@ -422,6 +422,32 @@ namespace s3d
 		return *this;
 	}
 
+	const Shape2D& Shape2D::drawFrame(const double thickness, const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addPolygonFrame(m_vertices.data(), m_vertices.size(),
+			static_cast<float>(thickness), color.toFloat4());
+
+		return *this;
+	}
+
+	const Shape2D& Shape2D::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		const Float2* pVertex = m_vertices.data();
+		const TriangleIndex* pIndex = m_indices.data();
+		const TriangleIndex* const pIndexEnd = (pIndex + m_indices.size());
+		const Float4 colorF = color.toFloat4();
+
+		while (pIndex != pIndexEnd)
+		{
+			const Float2 points[3] = { pVertex[pIndex->i0], pVertex[pIndex->i1], pVertex[pIndex->i2] };
+
+			SIV3D_ENGINE(Renderer2D)->addPolygonFrame(points, 3, static_cast<float>(thickness), colorF);
+
+			++pIndex;
+		}
+
+		return *this;
+	}
 
 
 

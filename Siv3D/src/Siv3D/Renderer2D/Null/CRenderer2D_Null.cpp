@@ -92,6 +92,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addPolygonFrame(const Float2*, const size_t, const float, const Float4&)
+	{
+		// do nothing
+	}
+
 	float CRenderer2D_Null::getMaxScaling() const noexcept
 	{
 		return 1.0f;

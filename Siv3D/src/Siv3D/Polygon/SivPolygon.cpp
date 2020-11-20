@@ -18,6 +18,8 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/is_valid.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -271,7 +273,37 @@ namespace s3d
 		return *this;
 	}
 
+	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(thickness, color);
 
+		return *this;
+	}
+
+	const Polygon& Polygon::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const auto& indices = pImpl->indices();
+		const Float2* pVertex = pImpl->vertices().data();
+		const TriangleIndex* pIndex = indices.data();
+		const TriangleIndex* const pIndexEnd = (pIndex + indices.size());
+		const Float4 colorF = color.toFloat4();
+
+		while (pIndex != pIndexEnd)
+		{
+			const Float2 points[3] = { pVertex[pIndex->i0], pVertex[pIndex->i1], pVertex[pIndex->i2] };
+
+			SIV3D_ENGINE(Renderer2D)->addPolygonFrame(points, 3, static_cast<float>(thickness), colorF);
+
+			++pIndex;
+		}
+
+		return *this;
+	}
 
 	PolygonFailureType Polygon::Validate(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{

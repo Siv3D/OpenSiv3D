@@ -119,6 +119,9 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 	
+
+		[[nodiscard]]
+		Triangle stretched(value_type size) const noexcept;
 	
 
 
@@ -131,7 +134,9 @@ namespace s3d
 
 		const Triangle& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const;
 
+		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 
 

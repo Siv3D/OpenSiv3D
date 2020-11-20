@@ -284,6 +284,19 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GL4::addPolygonFrame(const Float2* points, const size_t size, const float thickness, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	float CRenderer2D_GL4::getMaxScaling() const noexcept
 	{
 		return(1.0f);

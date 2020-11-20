@@ -74,6 +74,8 @@ namespace s3d
 
 		virtual void addPolygon(const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) = 0;
 	
+		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
+
 		virtual float getMaxScaling() const noexcept = 0;
 	};
 }

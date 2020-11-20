@@ -68,5 +68,7 @@ namespace s3d
 
 
 		void draw(const ColorF& color) const;
+
+		void drawFrame(double thickness, const ColorF& color) const;
 	};
 }
