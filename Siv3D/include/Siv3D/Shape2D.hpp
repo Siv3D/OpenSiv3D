@@ -37,13 +37,13 @@ namespace s3d
 		static Shape2D Plus(double r, double width, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
 
 		[[nodiscard]]
-		static Shape2D Ngon(uint32 n, double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
-
-		[[nodiscard]]
 		static Shape2D Pentagon(double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
 
 		[[nodiscard]]
 		static Shape2D Hexagon(double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
+
+		[[nodiscard]]
+		static Shape2D Ngon(uint32 n, double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
 
 		[[nodiscard]]
 		static Shape2D Star(double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);

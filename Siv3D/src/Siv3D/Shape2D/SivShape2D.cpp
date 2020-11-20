@@ -71,7 +71,260 @@ namespace s3d
 		return{ std::move(vertices), std::move(indices) };
 	}
 
+	Shape2D Shape2D::Pentagon(const double r, const Vec2& center, const double angle)
+	{
+		return Ngon(5, r, center, angle);
+	}
 
+	Shape2D Shape2D::Hexagon(const double r, const Vec2& center, const double angle)
+	{
+		return Ngon(6, r, center, angle);
+	}
+
+	Shape2D Shape2D::Ngon(const uint32 n, const double r, const Vec2& center, const double angle)
+	{
+		if ((n < 3)
+			|| (r <= 0.0))
+		{
+			return{};
+		}
+
+		Array<Float2> vertices(12, center);
+		const Float2 offset(center);
+		Float2* pPos = vertices.data();
+
+		for (uint32 i = 0; i < n; ++i)
+		{
+			*pPos++ += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
+		}
+
+		Array<TriangleIndex> indices(n - 2);
+		{
+			TriangleIndex* pDst = indices.data();
+			const TriangleIndex* const pDstEnd = (pDst + indices.size());
+
+			for (Vertex2D::IndexType i = 0; pDst != pDstEnd; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = (i + 1);
+				pDst->i2 = (i + 2);
+				++pDst;
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::Star(const double r, const Vec2& center, const double angle)
+	{
+		constexpr double innerScale = 0.38196601125010515; // 2 / (3 + sqrt(5)) 
+
+		return NStar(5, r, (r * innerScale), center, angle);
+	}
+
+	Shape2D Shape2D::NStar(const uint32 n, const double rOuter, const double rInner, const Vec2& center, const double angle)
+	{
+		if (n < 2)
+		{
+			return{};
+		}
+
+		Array<Float2> vertices((n * 2), center);
+		Float2* pPos = vertices.data();
+
+		for (uint32 i = 0; i < n * 2; ++i)
+		{
+			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
+		}
+
+		Array<TriangleIndex> indices(2 * n - 2);
+		{
+			TriangleIndex* pDst = indices.data();
+
+			for (Vertex2D::IndexType i = 0; i < n; ++i)
+			{
+				pDst->i0 = i * 2 + 1;
+				pDst->i1 = (i * 2 + 2) % (n * 2);
+				pDst->i2 = (i * 2 + 3) % (n * 2);
+				++pDst;
+			}
+
+			for (Vertex2D::IndexType i = 0; i < n - 2; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = (i * 2 + 3);
+				pDst->i2 = (i * 2 + 5);
+				++pDst;
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::Arrow(const Vec2& from, const Vec2& to, const double width, const Vec2& headSize)
+	{
+		const double length = to.distanceFrom(from);
+
+		if ((length == 0.0)
+			|| (width <= 0.0)
+			|| (headSize.x <= 0.0)
+			|| (headSize.y <= 0.0))
+		{
+			return{};
+		}
+
+		const double clampedRatio = (Min(headSize.y, length) / headSize.y);
+		const Float2 direction = ((to - from) / length);
+		const Float2 normalDirection{ direction.y, -direction.x };
+		const Float2 leftOffset = (normalDirection * static_cast<float>(width) * 0.5f);
+		const Float2 clampedHeadSize = (clampedRatio * headSize);
+		const Float2 gutterOffset = (direction * clampedHeadSize.y);
+		const Float2 edgeOffset = (normalDirection * clampedHeadSize.x * 0.5f);
+
+		Array<Float2> vertices(7, to);
+		{
+			Float2* pPos = vertices.data();
+			pPos[0] = (from + leftOffset);
+			pPos[1] += (leftOffset - gutterOffset);
+			pPos[2] += (leftOffset - gutterOffset + edgeOffset);
+			pPos[4] += (-leftOffset - gutterOffset - edgeOffset);
+			pPos[5] += (-leftOffset - gutterOffset);
+			pPos[6] = (from - leftOffset);
+		}
+
+		Array<TriangleIndex> indices = { {1, 5, 0}, {0, 5, 6}, {3, 4, 2} };
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::Arrow(const Line& line, const double width, const Vec2& headSize)
+	{
+		return Arrow(line.begin, line.end, width, headSize);
+	}
+
+	Shape2D Shape2D::Rhombus(const double w, const double h, const Vec2& center, const double angle)
+	{
+		if ((w <= 0.0)
+			|| (h <= 0.0))
+		{
+			return{};
+		}
+
+		const float halfW = (static_cast<float>(w) * 0.5f);
+		const float halfH = (static_cast<float>(h) * 0.5f);
+		const float angleF = static_cast<float>(angle);
+		const float s = std::sin(angleF);
+		const float c = std::cos(angleF);
+
+		Array<Float2> vertices(4, center);
+		Float2* pPos = vertices.data();
+		(pPos++)->moveBy(halfH * s, -halfH * c);
+		(pPos++)->moveBy(halfW * c, halfW * s);
+		(pPos++)->moveBy(-halfH * s, halfH * c);
+		(pPos++)->moveBy(-halfW * c, -halfW * s);
+
+		Array<TriangleIndex> indices = { {0, 1, 3}, {2, 3, 1} };
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::RectBalloon(const RectF& rect, const Vec2& target, const double _pointingRootRatio)
+	{
+		const Float2 center = rect.center();
+		const float h = static_cast<float>(rect.h);
+		const float w = static_cast<float>(rect.w);
+		const float prf = static_cast<float>(_pointingRootRatio);
+
+		constexpr std::array<int32, 2> sign{ { 1, -1 } };
+		const float firstAngle = std::atan2(h, w);
+		const Float2 direction = target - center;
+		const float flagAngle = std::fmod(std::atan2(direction.y, direction.x) + Math::TwoPiF, Math::TwoPiF);
+		const float remainderAngle = std::fmod(flagAngle + Math::HalfPiF, Math::HalfPiF);
+		const int32 dividedAngleIndex = static_cast<int32>(flagAngle / Math::HalfPiF);
+		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
+		const Float2 pointingRootCenter(sign[((a + 2) / 4) % 2] * w * 0.25f * (1.0f + ((a + 3) / 2) % 2), sign[((a) / 4) % 2] * h * 0.25f * (1.0f + ((a + 1) / 2) % 2));
+		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2(w * 0.25f * prf, 0.0f) : Float2(0.0f, h * 0.25f * prf));
+		const Vertex2D::IndexType indexOffset = ((a + 1) / 2) % 4;
+
+		Array<Float2> vertices(7, center);
+		std::array<Vertex2D::IndexType, 4> rectIndices;
+		{
+			vertices[0 + indexOffset] += pointingRootCenter - offset;
+			vertices[1 + indexOffset] = target;
+			vertices[2 + indexOffset] += pointingRootCenter + offset;
+
+			Vertex2D::IndexType i = 0;
+
+			for (size_t rectIndex = 0; rectIndex < 4; ++rectIndex)
+			{
+				if (indexOffset == rectIndex)
+				{
+					i += 3;
+				}
+
+				rectIndices[rectIndex] = i;
+
+				vertices[i++] += Float2(sign[((rectIndex + 1) / 2) % 2] * w * 0.5f, sign[((rectIndex) / 2) % 2] * h * 0.5f);
+			}
+		}
+
+		Array<TriangleIndex> indices =
+		{
+			{ indexOffset, Vertex2D::IndexType(indexOffset + 1), Vertex2D::IndexType(indexOffset + 2)},
+			{ rectIndices[0], rectIndices[1], rectIndices[2] },
+			{ rectIndices[0], rectIndices[2], rectIndices[3] }
+		};
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::Stairs(const Vec2& base, const double w, const double h, const uint32 steps, const bool upStairs)
+	{
+		if ((steps <= 0)
+			|| (w <= 0.0)
+			|| (h <= 0.0))
+		{
+			return{};
+		}
+
+		const float offsetX = static_cast<float>(w / steps);
+		const float offsetY = static_cast<float>(h / steps);
+		const Float2 base2 = (base + Float2(upStairs ? -w : w, 0));
+
+		Array<Float2> vertices(2 + 2 * steps);
+		{
+			Float2* pPos = vertices.data();
+			*pPos++ = base;
+			*pPos++ = base2;
+
+			for (Vertex2D::IndexType i = 0; i < steps; ++i)
+			{
+				const int32 offsetIndex = i + 1;
+				*pPos++ = base2 + Float2(upStairs ? offsetX * i : -offsetX * i, -offsetY * offsetIndex);
+				*pPos++ = base2 + Float2(upStairs ? offsetX * offsetIndex : -offsetX * offsetIndex, -offsetY * offsetIndex);
+			}
+		}
+
+		Array<TriangleIndex> indices(2 * steps);
+		{
+			TriangleIndex* pDst = indices.data();
+
+			for (Vertex2D::IndexType i = 0; i < steps; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = 2 * i + 1;
+				pDst->i2 = 2 * i + 2;
+				++pDst;
+
+				pDst->i0 = 0;
+				pDst->i1 = 2 * i + 2;
+				pDst->i2 = 2 * i + 3;
+				++pDst;
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
 
 	Shape2D Shape2D::Heart(const double r, const Vec2& center, const double angle)
 	{

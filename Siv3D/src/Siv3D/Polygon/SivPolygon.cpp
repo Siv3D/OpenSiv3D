@@ -276,8 +276,9 @@ namespace s3d
 	PolygonFailureType Polygon::Validate(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{
 		CwOpenPolygon polygon;
+		auto& outer = polygon.outer();
 		{
-			polygon.outer().assign(pVertex, pVertex + vertexSize);
+			outer.assign(pVertex, pVertex + vertexSize);
 
 			polygon.inners().reserve(holes.size());
 
@@ -294,7 +295,7 @@ namespace s3d
 		{
 			// 頂点の重複は boost::geometry::is_valid() で取得できないので、
 			// HashSet を使って計算
-			if (detail::HasSamePoints(polygon.outer().data(), polygon.outer().size()))
+			if (detail::HasSamePoints(outer.data(), outer.size()))
 			{
 				valid = false;
 				failure = boost::geometry::failure_duplicate_points;

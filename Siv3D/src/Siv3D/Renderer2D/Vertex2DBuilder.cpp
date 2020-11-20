@@ -484,7 +484,6 @@ namespace s3d
 						&& (v1.dot(v2) > threshold))
 					{
 						const Float2 line = (current - back);
-						const Float2 normal = Float2{ -line.y, line.x }.normalized();
 						const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
 						const Float2 line2 = (next - current);
 
@@ -498,6 +497,7 @@ namespace s3d
 						}
 						else
 						{
+							const Float2 normal = Float2{ -line.y, line.x }.normalized();
 							buf2.push_back(current + normal * 0.001f);
 						}
 					}
@@ -516,7 +516,6 @@ namespace s3d
 						&& (v1.dot(v2) > threshold))
 					{
 						const Float2 line = (current - back);
-						const Float2 normal = Float2{ -line.y, line.x }.normalized();
 						const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
 						const Float2 line2 = (next - current);
 
@@ -530,6 +529,7 @@ namespace s3d
 						}
 						else
 						{
+							const Float2 normal = Float2{ -line.y, line.x }.normalized();
 							buf2.push_back(current - normal * 0.001f);
 						}
 					}
@@ -551,7 +551,6 @@ namespace s3d
 			}
 
 			const float thicknessHalf = (thickness * 0.5f);
-			Float2 vNormalBegin{ 0, 0 }, vNormalEnd{ 0, 0 };
 			const bool hasCap = (not isClosed);
 
 			if (isClosed)
@@ -575,7 +574,7 @@ namespace s3d
 				const Float2 p0 = buf2[0];
 				const Float2 p1 = buf2[1];
 				const Float2 line = (p1 - p0).normalize();
-				vNormalBegin = Float2(-line.y * thicknessHalf, line.x * thicknessHalf);
+				const Float2 vNormalBegin{ -line.y * thicknessHalf, line.x * thicknessHalf };
 				const Float2 lineHalf(line * thicknessHalf);
 
 				pVertex[0].pos.set(p0 + vNormalBegin - lineHalf * hasCap);
@@ -620,7 +619,7 @@ namespace s3d
 				const Float2 p0 = buf2[size - 2];
 				const Float2 p1 = buf2[size - 1];
 				const Float2 line = (p1 - p0).normalize();
-				vNormalEnd = Float2(-line.y * thicknessHalf, line.x * thicknessHalf);
+				const Float2 vNormalEnd{ -line.y * thicknessHalf, line.x * thicknessHalf };
 				const Float2 lineHalf(line * thicknessHalf);
 
 				pVertex[size * 2 - 2].pos.set(p1 + vNormalEnd + lineHalf * hasCap);

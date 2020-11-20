@@ -238,7 +238,8 @@ namespace s3d
 
 				Name name = line.substr(0, eqpos).trim();
 
-				if (auto itKey = itSection->second.second.find(name); itKey != itSection->second.second.end())
+				if (auto itKey = itSection->second.second.find(name);
+					itKey != itSection->second.second.end())
 				{
 					// error: duplicate key name
 					return false;
