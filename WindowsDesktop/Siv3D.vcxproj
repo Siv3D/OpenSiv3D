@@ -76,11 +76,13 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ISteadyClock.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Interpolation.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\KDTree.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Line.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\LineString.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Noise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Polygon.ipp" />
@@ -140,6 +142,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ISteadyClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />
@@ -150,6 +153,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorHSV.hpp" />
@@ -366,6 +370,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_base.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_bits.h" />

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cmath>
 # include "Common.hpp"
 
 namespace s3d

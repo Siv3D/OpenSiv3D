@@ -463,7 +463,7 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2;
+			Array<Float2> buf2(Arg::reserve = buf.size());
 			{
 				buf2.push_back(buf.front());
 
@@ -709,7 +709,7 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<std::pair<Float2, Float4>> buf2;
+			Array<std::pair<Float2, Float4>> buf2(Arg::reserve = buf.size());
 			{
 				buf2.push_back(buf.front());
 
@@ -1046,7 +1046,7 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2;
+			Array<Float2> buf2(Arg::reserve = buf.size());
 			{
 				buf2.push_back(buf.front());
 

@@ -277,8 +277,11 @@ namespace s3d
 	}
 
 
-
-
+	template <class SizeType>
+	inline constexpr Rectangle<Vec2> Rectangle<SizeType>::lerp(const Rectangle& other, const double f) const noexcept
+	{
+		return{ pos.lerp(other.pos, f), size.lerp(other.size, f) };
+	}
 
 
 

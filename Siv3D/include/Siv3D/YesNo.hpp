@@ -44,6 +44,12 @@ namespace s3d
 			return m_yesNo;
 		}
 
+		[[nodiscard]]
+		constexpr bool getBool() const noexcept
+		{
+			return m_yesNo;
+		}
+
 		/// @brief Yes を示す定数
 		static constexpr Helper Yes{ true };
 

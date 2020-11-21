@@ -73,7 +73,10 @@ namespace s3d
 		, r(p.distanceFrom(_center.value())) {}
 
 
-
+	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
+	{
+		return{ center.lerp(other.center, f), (r + (other.r - r) * f) };
+	}
 
 	inline size_t Circle::hash() const noexcept
 	{

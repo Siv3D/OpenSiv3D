@@ -120,6 +120,9 @@ namespace s3d
 		[[nodiscard]]
 		RectF boundingRect() const noexcept;
 
+		[[nodiscard]]
+		constexpr Line lerp(const Line& other, double f) const noexcept;
+
 		template <class Shape2DType>
 		[[nodiscard]]
 		bool intersects(const Shape2DType& other) const;

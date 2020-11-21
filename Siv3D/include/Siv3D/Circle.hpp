@@ -165,6 +165,10 @@ namespace s3d
 
 
 
+		[[nodiscard]]
+		constexpr Circle lerp(const Circle& other, double f) const noexcept;
+
+
 
 		[[nodiscard]]
 		size_t hash() const noexcept;

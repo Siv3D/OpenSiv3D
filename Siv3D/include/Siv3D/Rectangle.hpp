@@ -412,7 +412,8 @@ namespace s3d
 
 
 
-
+		[[nodiscard]]
+		constexpr Rectangle<Vec2> lerp(const Rectangle& other, double f) const noexcept;
 
 
 		[[nodiscard]]

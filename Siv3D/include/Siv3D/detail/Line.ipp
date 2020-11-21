@@ -140,6 +140,11 @@ namespace s3d
 		return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);
 	}
 
+	inline constexpr Line Line::lerp(const Line& other, const double f) const noexcept
+	{
+		return{ begin.lerp(other.begin, f), end.lerp(other.end, f) };
+	}
+
 	inline size_t Line::hash() const noexcept
 	{
 		return Hash::FNV1a(*this);

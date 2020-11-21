@@ -598,6 +598,9 @@
     <Filter Include="src\Siv3D\Shape2D">
       <UniqueIdentifier>{fce345d3-d17e-4352-abb7-55d9831a3031}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\nanoflann">
+      <UniqueIdentifier>{4f546a2d-4869-454f-9141-fc82662cff2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2371,6 +2374,21 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp">
+      <Filter>include\ThirdParty\nanoflann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\KDTree.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
   </ItemGroup>

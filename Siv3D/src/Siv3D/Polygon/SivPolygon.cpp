@@ -13,9 +13,11 @@
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/HashSet.hpp>
 # include "PolygonDetail.hpp"
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/is_valid.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>

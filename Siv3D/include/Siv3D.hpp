@@ -215,7 +215,7 @@
 
 // kd 木
 // kd-tree
-//# include <Siv3D/KDTree.hpp> // [Siv3D ToDo]
+# include <Siv3D/KDTree.hpp> // [Siv3D ToDo]
 
 //////////////////////////////////////////////////
 //
@@ -633,7 +633,7 @@
 
 // 周期関数
 // Periodic Functions
-//# include <Siv3D/Periodic.hpp>
+# include <Siv3D/Periodic.hpp>
 
 // ノイズ生成
 // Noise
