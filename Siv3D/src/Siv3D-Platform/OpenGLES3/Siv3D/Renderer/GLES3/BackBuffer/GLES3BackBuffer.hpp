@@ -18,11 +18,11 @@
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <ThirdParty/EnumBitmask/EnumBitmask.hpp>
-# include "GL4InternalTexture2D.hpp"
+# include "GLES3InternalTexture2D.hpp"
 
 namespace s3d
 {
-	enum class GL4ClearTarget
+	enum class GLES3ClearTarget
 	{
 		BackBuffer = 1 << 0,
 
@@ -30,15 +30,15 @@ namespace s3d
 
 		All = (BackBuffer | Scene),
 	};
-	DEFINE_BITMASK_OPERATORS(GL4ClearTarget);
+	DEFINE_BITMASK_OPERATORS(GLES3ClearTarget);
 
-	class CRenderer2D_GL4;
+	class CRenderer2D_GLES3;
 
-	class GL4BackBuffer
+	class GLES3BackBuffer
 	{
 	private:
 
-		CRenderer2D_GL4* pRenderer2D	= nullptr;
+		CRenderer2D_GLES3* pRenderer2D	= nullptr;
 
 		uint32 m_sampleCount			= Graphics::DefaultSampleCount;
 
@@ -50,8 +50,8 @@ namespace s3d
 
 		struct SceneBuffer
 		{
-			std::unique_ptr<GL4InternalTexture2D> scene;
-			std::unique_ptr<GL4InternalTexture2D> resolved;
+			std::unique_ptr<GLES3InternalTexture2D> scene;
+			std::unique_ptr<GLES3InternalTexture2D> resolved;
 		} m_sceneBuffers;
 
 		ColorF m_letterboxColor				= Scene::DefaultLetterBoxColor;
@@ -64,11 +64,11 @@ namespace s3d
 
 	public:
 
-		GL4BackBuffer();
+		GLES3BackBuffer();
 
-		~GL4BackBuffer();
+		~GLES3BackBuffer();
 
-		void clear(GL4ClearTarget clearTargets);
+		void clear(GLES3ClearTarget clearTargets);
 
 		void bindSceneBuffer();
 

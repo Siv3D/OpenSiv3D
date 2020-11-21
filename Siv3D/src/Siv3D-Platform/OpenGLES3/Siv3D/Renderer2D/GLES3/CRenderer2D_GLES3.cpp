@@ -30,16 +30,22 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_GLES3::~CRenderer2D_GLES3()");
 
-		if (m_uniformBuffer)
+		//////////////////////////////////////////////////
+		//
+		//	full screen triangle
+		//
+		//////////////////////////////////////////////////
+
+		if (m_sampler)
 		{
-			::glDeleteBuffers(1, &m_uniformBuffer);
-			m_uniformBuffer = 0;
+			::glDeleteSamplers(1, &m_sampler);
+			m_sampler = 0;
 		}
 
-		if (m_program)
+		if (m_vertexArray)
 		{
-			::glDeleteProgram(m_program);
-			m_program = 0;
+			::glDeleteVertexArrays(1, &m_vertexArray);
+			m_vertexArray = 0;
 		}
 
 		CheckOpenGLError();
@@ -49,121 +55,246 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_GLES3::init()");
 
+		pRenderer = dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer));
+		pShader = dynamic_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader));
+
+		// 標準 VS をロード
 		{
-			BinaryReader shader(Resource(U"engine/shader/glsl/test.vert"));
-
-			if (!shader)
+			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_GLES3:");
+			m_standardVS = std::make_unique<GLES3StandardVS2D>();
+			m_standardVS->sprite = GLSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
+			m_standardVS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
+			if (not m_standardVS->ok())
 			{
-				throw EngineError();
-			}
-
-			Array<char> source(shader.size() + 1);
-			shader.read(source.data(), shader.size());
-			const char* pSource = source.data();
-			m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
-
-			::glShaderSource(m_vertexShader, 1, &pSource, NULL);
-			::glCompileShader(m_vertexShader);
-
-			GLint status = GL_FALSE;
-			::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &status);
-
-			GLint logLen = 0;
-			::glGetShaderiv(m_vertexShader, GL_INFO_LOG_LENGTH, &logLen);
-
-			if (logLen > 4)
-			{
-				std::string log(logLen + 1, '\0');
-				::glGetShaderInfoLog(m_vertexShader, logLen, &logLen, &log[0]);
-				LOG_FAIL(U"❌ Vertex shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
-				throw EngineError();
-			}
-
-			if (status == GL_FALSE) // もしリンクに失敗していたら
-			{
-				::glDeleteShader(m_vertexShader);
-				m_vertexShader = 0;
-				throw EngineError();
+				throw EngineError(U"CRenderer2D_GLES3::m_standardVS initialization failed");
 			}
 		}
 
+		// 標準 PS をロード
 		{
-			BinaryReader shader(Resource(U"engine/shader/glsl/test.frag"));
-
-			if (!shader)
+			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GLES3:");
+			m_standardPS = std::make_unique<GLES3StandardPS2D>();
+			m_standardPS->shape = GLSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
+			if (not m_standardPS->ok())
 			{
-				throw EngineError();
-			}
-
-			Array<char> source(shader.size() + 1);
-			shader.read(source.data(), shader.size());
-			const char* pSource = source.data();
-			m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
-
-			::glShaderSource(m_pixelShader, 1, &pSource, NULL);
-			::glCompileShader(m_pixelShader);
-
-			GLint status = GL_FALSE;
-			::glGetShaderiv(m_pixelShader, GL_COMPILE_STATUS, &status);
-
-			GLint logLen = 0;
-			::glGetShaderiv(m_pixelShader, GL_INFO_LOG_LENGTH, &logLen);
-
-			// ログメッセージ
-			if (logLen > 4)
-			{
-				std::string log(logLen + 1, '\0');
-				::glGetShaderInfoLog(m_pixelShader, logLen, &logLen, &log[0]);
-				LOG_FAIL(U"❌ Pixel shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
-				throw EngineError();
-			}
-
-			if (status == GL_FALSE) // もしリンクに失敗していたら
-			{
-				::glDeleteShader(m_pixelShader);
-				m_pixelShader = 0;
-				throw EngineError();
+				throw EngineError(U"CRenderer2D_GLES3::m_standardPS initialization failed");
 			}
 		}
-
-		{
-			m_program = ::glCreateProgram();
-
-			::glAttachShader(m_program, m_vertexShader);
-			::glAttachShader(m_program, m_pixelShader);
-
-			::glLinkProgram(m_program);
-
-			::glDetachShader(m_program, m_vertexShader);
-			::glDetachShader(m_program, m_pixelShader);
-
-			::glDeleteShader(m_vertexShader);
-			::glDeleteShader(m_pixelShader);
-
-			m_vertexShader = 0;
-			m_pixelShader = 0;
-		}
-
-		{
-			const GLuint blockIndex = ::glGetUniformBlockIndex(m_program, "VSConstants2D");
-
-			if (blockIndex == GL_INVALID_INDEX)
-			{
-				LOG_FAIL(U"Uniform block `VSConstants2D` not found");
-			}
-
-			::glUniformBlockBinding(m_program, blockIndex, 0);
-		}
-
-		::glGenBuffers(1, &m_uniformBuffer);
 
 		// Batch 管理を初期化
-		if (!m_batches.init())
 		{
-			throw EngineError(U"Vertex2DBatch_GLES3::init() failed");
+			if (not m_batches.init())
+			{
+				throw EngineError(U"GLES3Vertex2DBatch::init() failed");
+			}
+		}
+
+		// バッファ作成関数を作成
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
+
+		// full screen triangle
+		{
+			::glGenVertexArrays(1, &m_vertexArray);
+			::glBindVertexArray(m_vertexArray);
+
+			::glGenSamplers(1, &m_sampler);
+			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		}
 
 		CheckOpenGLError();
+	}
+
+	void CRenderer2D_GLES3::addLine(const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLine(m_bufferCreator, begin, end, thickness, colors))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTriangle(const Float2(&points)[3], const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTriangle(const Float2(&points)[3], const Float4(&colors)[3])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, colors))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addRect(const FloatRect& rect, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addRect(const FloatRect& rect, const Float4(&colors)[4])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, colors))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addRectFrame(const FloatRect& rect, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, innerColor, outerColor))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addCircle(const Float2& center, const float r, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addCircleFrame(const Float2& center, const float rInner, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircleFrame(m_bufferCreator, center, rInner, thickness, innerColor, outerColor, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addQuad(const FloatQuad& quad, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addLineString(const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const IsClosed isClosed)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, size, offset, thickness, inner, color, isClosed, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, indices, offset, color))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addPolygon(const Vertex2D* vertices, const size_t vertexCount, const TriangleIndex* indices, const size_t num_triangles)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, vertexCount, indices, num_triangles))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commands.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addPolygonFrame(const Float2* points, const size_t size, const float thickness, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	float CRenderer2D_GLES3::getMaxScaling() const noexcept
+	{
+		return(1.0f);
 	}
 
 	void CRenderer2D_GLES3::flush()
@@ -171,52 +302,81 @@ namespace s3d
 		ScopeGuard cleanUp = [this]()
 		{
 			m_batches.reset();
-			m_draw_indexCount = 0;
+			m_commandManager.reset();
 		};
 
-		::glUseProgram(m_program);
+		m_commandManager.flush();
 
-		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneSize();
+		pShader->setVS(m_standardVS->sprite.id());
+		pShader->setPS(m_standardPS->shape.id());
+		pShader->usePipeline();
+
+		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
 
 		Mat3x2 transform = Mat3x2::Identity();
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
-		const Mat3x2 matrix = transform * screenMat;
-		
-		Float4 cb[3];
-		//cb[0] = Float4(matrix._11, -matrix._12, matrix._31, -matrix._32);
-		//cb[1] = Float4(matrix._21, -matrix._22, 0.0f, 1.0f);
-		cb[0] = Float4(matrix._11, matrix._12, matrix._31, matrix._32);
-		cb[1] = Float4(matrix._21, matrix._22, 0.0f, 1.0f);
-		cb[2] = Float4(1, 1, 1, 1);
+		const Mat3x2 matrix = (transform * screenMat);
 
+		m_vsConstants2D->transform[0] = Float4(matrix._11, -matrix._12, matrix._31, -matrix._32);
+		m_vsConstants2D->transform[1] = Float4(matrix._21, -matrix._22, 0.0f, 1.0f);
+		m_vsConstants2D->colorMul = Float4(1, 1, 1, 1);
+
+		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
+		pShader->setConstantBufferPS(0, m_psConstants2D.base());
+
+		BatchInfo2D batchInfo;
+
+		for (const auto& command : m_commandManager.getCommands())
 		{
-			::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBuffer);
-			::glBufferData(GL_UNIFORM_BUFFER, sizeof(Float4) * 3, cb, GL_STATIC_DRAW);
-			::glBindBuffer(GL_UNIFORM_BUFFER, 0);
+			switch (command.type)
+			{
+			case GLES3Renderer2DCommandType::Null:
+				{
+					LOG_COMMAND(U"Null");
+					break;
+				}
+			case GLES3Renderer2DCommandType::SetBuffers:
+				{
+					// do nothing
+
+					LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
+					break;
+				}
+			case GLES3Renderer2DCommandType::UpdateBuffers:
+				{
+					batchInfo = m_batches.updateBuffers(command.index);
+
+					LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+						command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
+					break;
+				}
+			case GLES3Renderer2DCommandType::Draw:
+				{
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
+
+					const GLES3DrawCommand& draw = m_commandManager.getDraw(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = batchInfo.startIndexLocation;
+					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
+					constexpr Vertex2D::IndexType* pBase = 0;
+
+					::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation), baseVertexLocation);
+					batchInfo.startIndexLocation += indexCount;
+
+					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					break;
+				}
+			}
 		}
-
-		{
-			const uint32 vsUniformBlockBinding = 0;
-			::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, m_uniformBuffer);
-		}
-
-		auto batchInfo = m_batches.updateBuffers(0);
-
-		const uint32 indexCount = m_draw_indexCount;
-		const uint32 startIndexLocation = batchInfo.startIndexLocation;
-		const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
-		const Vertex2D::IndexType* pBase = 0;
-		
-		// ::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation), baseVertexLocation);
-		::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation));
-
-		batchInfo.startIndexLocation += indexCount;
 
 		::glBindVertexArray(0);
 
 		CheckOpenGLError();
 	}
 
+	/*
 	void CRenderer2D_GLES3::test_renderRectangle(const RectF& rect, const ColorF& _color)
 	{
 		constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
@@ -247,5 +407,43 @@ namespace s3d
 		}
 
 		m_draw_indexCount += 6;
+
+	}
+	*/
+
+	void CRenderer2D_GLES3::drawFullScreenTriangle(const TextureFilter textureFilter)
+	{
+		// view port
+		{
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			auto [s, viewRect] = pRenderer->getLetterboxComposition();
+			::glViewport(
+				static_cast<int32>(viewRect.x),
+				static_cast<int32>(viewRect.y),
+				static_cast<int32>(viewRect.w),
+				static_cast<int32>(viewRect.h));
+		}
+
+		// render states
+		{
+			const bool linearFilter = (textureFilter == TextureFilter::Linear);
+			::glBindSampler(0, m_sampler);
+			::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
+			::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
+		}
+
+		pShader->setVS(m_standardVS->fullscreen_triangle.id());
+		pShader->setPS(m_standardPS->fullscreen_triangle.id());
+		pShader->usePipeline();
+		{
+			::glBindVertexArray(m_vertexArray);
+			{
+				::glBindBuffer(GL_ARRAY_BUFFER, 0);
+				::glDrawArrays(GL_TRIANGLES, 0, 3);
+			}
+			::glBindVertexArray(0);
+		}
+
+		CheckOpenGLError();
 	}
 }

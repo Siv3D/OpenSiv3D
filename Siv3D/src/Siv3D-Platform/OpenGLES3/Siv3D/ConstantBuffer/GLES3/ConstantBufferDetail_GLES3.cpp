@@ -9,18 +9,18 @@
 //
 //-----------------------------------------------
 
-# include "ConstantBufferDetail_GL4.hpp"
+# include "ConstantBufferDetail_GLES3.hpp"
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	ConstantBufferDetail_GL4::ConstantBufferDetail_GL4(const size_t size)
+	ConstantBufferDetail_GLES3::ConstantBufferDetail_GLES3(const size_t size)
 		: m_bufferSize(size)
 	{
 
 	}
 
-	ConstantBufferDetail_GL4::~ConstantBufferDetail_GL4()
+	ConstantBufferDetail_GLES3::~ConstantBufferDetail_GLES3()
 	{
 		if (m_uniformBuffer)
 		{
@@ -29,7 +29,7 @@ namespace s3d
 		}
 	}
 
-	bool ConstantBufferDetail_GL4::update(const void* const data, const size_t size)
+	bool ConstantBufferDetail_GLES3::update(const void* const data, const size_t size)
 	{
 		if (not m_uniformBuffer)
 		{
@@ -45,7 +45,7 @@ namespace s3d
 		return true;
 	}
 
-	GLuint ConstantBufferDetail_GL4::getHandle() const
+	GLuint ConstantBufferDetail_GLES3::getHandle() const
 	{
 		if (not m_uniformBuffer)
 		{

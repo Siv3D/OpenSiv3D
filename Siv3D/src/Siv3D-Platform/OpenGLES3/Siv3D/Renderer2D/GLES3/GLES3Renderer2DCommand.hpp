@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	enum class GL4Renderer2DCommandType : uint32
+	enum class GLES3Renderer2DCommandType : uint32
 	{
 		Null,
 
@@ -28,49 +28,49 @@ namespace s3d
 		Draw,
 	};
 
-	struct GL4Renderer2DCommand
+	struct GLES3Renderer2DCommand
 	{
-		GL4Renderer2DCommandType type = GL4Renderer2DCommandType::Null;
+		GLES3Renderer2DCommandType type = GLES3Renderer2DCommandType::Null;
 
 		uint32 index = 0;
 		
-		GL4Renderer2DCommand() = default;
+		GLES3Renderer2DCommand() = default;
 		
-		constexpr GL4Renderer2DCommand(GL4Renderer2DCommandType _type, uint32 _index) noexcept
+		constexpr GLES3Renderer2DCommand(GLES3Renderer2DCommandType _type, uint32 _index) noexcept
 			: type(_type)
 			, index(_index) {}
 	};
 
-	struct GL4DrawCommand
+	struct GLES3DrawCommand
 	{
 		uint32 indexCount = 0;
 	};
 
-	class GL4Renderer2DCommandManager
+	class GLES3Renderer2DCommandManager
 	{
 	private:
 
-		Array<GL4Renderer2DCommand> m_commands;
+		Array<GLES3Renderer2DCommand> m_commands;
 
-		CurrentBatchStateChanges<GL4Renderer2DCommandType> m_changes;
+		CurrentBatchStateChanges<GLES3Renderer2DCommandType> m_changes;
 
-		Array<GL4DrawCommand> m_draws;
+		Array<GLES3DrawCommand> m_draws;
 
-		GL4DrawCommand m_currentDraw;
+		GLES3DrawCommand m_currentDraw;
 
 	public:
 
-		GL4Renderer2DCommandManager();
+		GLES3Renderer2DCommandManager();
 
 		void reset();
 
 		void flush();
 
-		const Array<GL4Renderer2DCommand>& getCommands() const noexcept;
+		const Array<GLES3Renderer2DCommand>& getCommands() const noexcept;
 
 		void pushUpdateBuffers(uint32 batchIndex);
 
 		void pushDraw(Vertex2D::IndexType indexCount);
-		const GL4DrawCommand& getDraw(uint32 index) const noexcept;
+		const GLES3DrawCommand& getDraw(uint32 index) const noexcept;
 	};
 }

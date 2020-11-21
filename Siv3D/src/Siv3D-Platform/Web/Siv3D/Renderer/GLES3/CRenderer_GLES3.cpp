@@ -16,13 +16,16 @@
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/Window/IWindow.hpp>
-# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
+		/*
 		static void GLDebugMessageARB(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const GLvoid* userParam)
 		{
 			// [Siv3D ToDo] Linux でのデバッグ用
@@ -32,6 +35,7 @@ namespace s3d
 		{
 			// [Siv3D ToDo] Linux でのデバッグ用
 		}
+		*/
 	}
 
 	CRenderer_GLES3::CRenderer_GLES3()
@@ -44,10 +48,16 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer_GLES3::~CRenderer_GLES3()");
 	}
 
+	EngineOption::Renderer CRenderer_GLES3::getRendererType() const noexcept
+	{
+		return EngineOption::Renderer::OpenGL;
+	}	
+
 	void CRenderer_GLES3::init()
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_GLES3::init()");
 		
+		pRenderer2D = dynamic_cast<CRenderer2D_GLES3*>(SIV3D_ENGINE(Renderer2D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		::glfwMakeContextCurrent(m_window);
@@ -61,12 +71,12 @@ namespace s3d
 		
 		if (SIV3D_BUILD(DEBUG) && GLEW_ARB_debug_output)
 		{
-			::glDebugMessageCallbackARB(detail::GLDebugMessageARB, nullptr);
+			//::glDebugMessageCallbackARB(detail::GLDebugMessageARB, nullptr);
 			LOG_INFO(U"ℹ️ GLEW_ARB_debug_output available");
 		}
 		else if (SIV3D_BUILD(DEBUG) && GLEW_AMD_debug_output)
 		{
-			::glDebugMessageCallbackAMD(detail::GLDebugMessageAMD, nullptr);
+			//::glDebugMessageCallbackAMD(detail::GLDebugMessageAMD, nullptr);
 			LOG_INFO(U"ℹ️ GLEW_AMD_debug_output available");
 		}
 		
@@ -86,7 +96,10 @@ namespace s3d
 		LOG_INFO(U"GL_MAJOR_VERSION: {}"_fmt(major));
 		LOG_INFO(U"GL_MINOR_VERSION: {}"_fmt(minor));
 
-		clear();
+		m_backBuffer = std::make_unique<GLES3BackBuffer>();
+
+		SIV3D_ENGINE(Texture)->init();
+		SIV3D_ENGINE(Shader)->init();
 	}
 
 	StringView CRenderer_GLES3::getName() const
@@ -97,17 +110,14 @@ namespace s3d
 
 	void CRenderer_GLES3::clear()
 	{
-		::glClearColor(0.8f, 0.9f, 1.0f, 1.0f);
-		::glClear(GL_COLOR_BUFFER_BIT);
+		m_backBuffer->clear(GLES3ClearTarget::BackBuffer | GLES3ClearTarget::Scene);
 
 		const auto& windowState = SIV3D_ENGINE(Window)->getState();
-		const Size newFrameBufferSize = windowState.frameBufferSize;
 
-		if (m_frameBufferSize != newFrameBufferSize)
+		if (const Size frameBufferSize = windowState.frameBufferSize; 
+			(frameBufferSize != m_backBuffer->getBackBufferSize()))
 		{
-			LOG_VERBOSE(U"CRenderer_GL4::clear(): Frame buffer size: {}"_fmt(newFrameBufferSize));
-			m_frameBufferSize = newFrameBufferSize;
-			::glViewport(0, 0, m_frameBufferSize.x, m_frameBufferSize.y);
+			m_backBuffer->setBackBufferSize(frameBufferSize);
 
 			if (windowState.sizeMove)
 			{
@@ -118,7 +128,17 @@ namespace s3d
 
 	void CRenderer_GLES3::flush()
 	{
-		SIV3D_ENGINE(Renderer2D)->flush();
+		// Scene に 2D 描画
+		{
+			m_backBuffer->bindSceneBuffer();
+			pRenderer2D->flush();
+			m_backBuffer->unbind();
+		}
+
+		// ウィンドウに Scene を描画
+		{
+			m_backBuffer->updateFromSceneBuffer();
+		}
 	}
 
 	bool CRenderer_GLES3::present()
@@ -170,13 +190,58 @@ namespace s3d
 		return true;
 	}
 
-	Size CRenderer_GLES3::getFrameBufferSize() const
+	void CRenderer_GLES3::setSceneResizeMode(const ResizeMode resizeMode)
 	{
-		return m_frameBufferSize;
+		m_backBuffer->setSceneResizeMode(resizeMode);
 	}
 
-	Size CRenderer_GLES3::getSceneSize() const
+	ResizeMode CRenderer_GLES3::getSceneResizeMode() const noexcept
 	{
-		return m_sceneSize;
-	}	
+		return m_backBuffer->getSceneResizeMode();
+	}
+
+	void CRenderer_GLES3::setSceneBufferSize(const Size size)
+	{
+		m_backBuffer->setSceneBufferSize(size);
+	}
+
+	Size CRenderer_GLES3::getSceneBufferSize() const noexcept
+	{
+		return m_backBuffer->getSceneBufferSize();
+	}
+
+	void CRenderer_GLES3::setSceneTextureFilter(const TextureFilter textureFilter)
+	{
+		m_backBuffer->setSceneTextureFilter(textureFilter);
+	}
+
+	TextureFilter CRenderer_GLES3::getSceneTextureFilter() const noexcept
+	{
+		return m_backBuffer->getSceneTextureFilter();
+	}
+
+	void CRenderer_GLES3::setBackgroundColor(const ColorF& color)
+	{
+		m_backBuffer->setBackgroundColor(color);
+	}
+
+	const ColorF& CRenderer_GLES3::getBackgroundColor() const noexcept
+	{
+		return m_backBuffer->getBackgroundColor();
+	}
+
+	void CRenderer_GLES3::setLetterboxColor(const ColorF& color)
+	{
+		m_backBuffer->setLetterboxColor(color);
+	}
+
+	const ColorF& CRenderer_GLES3::getLetterboxColor() const noexcept
+	{
+		return m_backBuffer->getLetterBoxColor();
+	}
+
+	std::pair<float, RectF> CRenderer_GLES3::getLetterboxComposition() const noexcept
+	{
+		return m_backBuffer->getLetterboxComposition();
+	}
 }

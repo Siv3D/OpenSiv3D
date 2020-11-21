@@ -9,16 +9,16 @@
 //
 //-----------------------------------------------
 
-# include "GL4Renderer2DCommand.hpp"
+# include "GLES3Renderer2DCommand.hpp"
 
 namespace s3d
 {
-	GL4Renderer2DCommandManager::GL4Renderer2DCommandManager()
+	GLES3Renderer2DCommandManager::GLES3Renderer2DCommandManager()
 	{
 		reset();
 	}
 
-	void GL4Renderer2DCommandManager::reset()
+	void GLES3Renderer2DCommandManager::reset()
 	{
 		m_commands.clear();
 		m_changes.clear();
@@ -29,39 +29,39 @@ namespace s3d
 
 		// Begin a new frame
 		{
-			m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
-			m_commands.emplace_back(GL4Renderer2DCommandType::UpdateBuffers, 0);
+			m_commands.emplace_back(GLES3Renderer2DCommandType::SetBuffers, 0);
+			m_commands.emplace_back(GLES3Renderer2DCommandType::UpdateBuffers, 0);
 		}
 	}
 
-	void GL4Renderer2DCommandManager::flush()
+	void GLES3Renderer2DCommandManager::flush()
 	{
 		if (m_currentDraw.indexCount)
 		{
-			m_commands.emplace_back(GL4Renderer2DCommandType::Draw, static_cast<uint32>(m_draws.size()));
+			m_commands.emplace_back(GLES3Renderer2DCommandType::Draw, static_cast<uint32>(m_draws.size()));
 			m_draws.push_back(m_currentDraw);
 			m_currentDraw.indexCount = 0;
 		}
 
-		if (m_changes.has(GL4Renderer2DCommandType::SetBuffers))
+		if (m_changes.has(GLES3Renderer2DCommandType::SetBuffers))
 		{
-			m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
+			m_commands.emplace_back(GLES3Renderer2DCommandType::SetBuffers, 0);
 		}
 	}
 
-	const Array<GL4Renderer2DCommand>& GL4Renderer2DCommandManager::getCommands() const noexcept
+	const Array<GLES3Renderer2DCommand>& GLES3Renderer2DCommandManager::getCommands() const noexcept
 	{
 		return m_commands;
 	}
 
-	void GL4Renderer2DCommandManager::pushUpdateBuffers(const uint32 batchIndex)
+	void GLES3Renderer2DCommandManager::pushUpdateBuffers(const uint32 batchIndex)
 	{
 		flush();
 
-		m_commands.emplace_back(GL4Renderer2DCommandType::UpdateBuffers, batchIndex);
+		m_commands.emplace_back(GLES3Renderer2DCommandType::UpdateBuffers, batchIndex);
 	}
 
-	void GL4Renderer2DCommandManager::pushDraw(const Vertex2D::IndexType indexCount)
+	void GLES3Renderer2DCommandManager::pushDraw(const Vertex2D::IndexType indexCount)
 	{
 		if (m_changes.hasStateChange())
 		{
@@ -71,7 +71,7 @@ namespace s3d
 		m_currentDraw.indexCount += indexCount;
 	}
 
-	const GL4DrawCommand& GL4Renderer2DCommandManager::getDraw(const uint32 index) const noexcept
+	const GLES3DrawCommand& GLES3Renderer2DCommandManager::getDraw(const uint32 index) const noexcept
 	{
 		return m_draws[index];
 	}

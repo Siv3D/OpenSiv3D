@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	class ConstantBufferDetail_GL4 final : public IConstantBufferDetail
+	class ConstantBufferDetail_GLES3 final : public IConstantBufferDetail
 	{
 	private:
 
@@ -26,9 +26,9 @@ namespace s3d
 
 	public:
 
-		explicit ConstantBufferDetail_GL4(size_t size);
+		explicit ConstantBufferDetail_GLES3(size_t size);
 
-		~ConstantBufferDetail_GL4();
+		~ConstantBufferDetail_GLES3();
 
 		bool update(const void* data, size_t size) override;
 

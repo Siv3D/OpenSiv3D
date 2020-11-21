@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class GL4InternalTexture2D
+	class GLES3InternalTexture2D
 	{
 	private:
 
@@ -29,9 +29,9 @@ namespace s3d
 
 	public:
 
-		GL4InternalTexture2D() = default;
+		GLES3InternalTexture2D() = default;
 
-		~GL4InternalTexture2D();
+		~GLES3InternalTexture2D();
 
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
@@ -51,6 +51,6 @@ namespace s3d
 		GLuint getTexture() const noexcept;
 
 		[[nodiscard]]
-		static std::unique_ptr<GL4InternalTexture2D> CreateRenderTargetTexture2D(Size size, uint32 sampleCount = 1);
+		static std::unique_ptr<GLES3InternalTexture2D> CreateRenderTargetTexture2D(Size size, uint32 sampleCount = 1);
 	};
 }

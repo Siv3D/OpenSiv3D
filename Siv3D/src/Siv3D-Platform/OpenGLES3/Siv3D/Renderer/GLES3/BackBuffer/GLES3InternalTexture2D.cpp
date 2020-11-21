@@ -9,11 +9,11 @@
 //
 //-----------------------------------------------
 
-# include "GL4InternalTexture2D.hpp"
+# include "GLES3InternalTexture2D.hpp"
 
 namespace s3d
 {
-	GL4InternalTexture2D::~GL4InternalTexture2D()
+	GLES3InternalTexture2D::~GLES3InternalTexture2D()
 	{
 		if (m_texture)
 		{
@@ -28,22 +28,22 @@ namespace s3d
 		}
 	}
 
-	bool GL4InternalTexture2D::isEmpty() const noexcept
+	bool GLES3InternalTexture2D::isEmpty() const noexcept
 	{
 		return m_size.isZero();
 	}
 
-	GL4InternalTexture2D::operator bool() const noexcept
+	GLES3InternalTexture2D::operator bool() const noexcept
 	{
 		return (not isEmpty());
 	}
 
-	const Size& GL4InternalTexture2D::size() const noexcept
+	const Size& GLES3InternalTexture2D::size() const noexcept
 	{
 		return m_size;
 	}
 
-	void GL4InternalTexture2D::clear(const ColorF color)
+	void GLES3InternalTexture2D::clear(const ColorF color)
 	{
 		if (isEmpty())
 		{
@@ -59,21 +59,21 @@ namespace s3d
 		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	GLuint GL4InternalTexture2D::getFrameBuffer() const noexcept
+	GLuint GLES3InternalTexture2D::getFrameBuffer() const noexcept
 	{
 		return m_frameBuffer;
 	}
 
-	GLuint GL4InternalTexture2D::getTexture() const noexcept
+	GLuint GLES3InternalTexture2D::getTexture() const noexcept
 	{
 		return m_texture;
 	}
 
-	std::unique_ptr<GL4InternalTexture2D> GL4InternalTexture2D::CreateRenderTargetTexture2D(const Size size, const uint32 sampleCount)
+	std::unique_ptr<GLES3InternalTexture2D> GLES3InternalTexture2D::CreateRenderTargetTexture2D(const Size size, const uint32 sampleCount)
 	{
 		assert(sampleCount != 0);
 
-		auto p = std::make_unique<GL4InternalTexture2D>();
+		auto p = std::make_unique<GLES3InternalTexture2D>();
 
 		GLuint frameBuffer = 0;
 		GLuint texture = 0;

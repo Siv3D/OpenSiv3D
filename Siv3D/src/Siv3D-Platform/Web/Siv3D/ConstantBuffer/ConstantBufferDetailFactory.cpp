@@ -11,7 +11,7 @@
 
 # include <Siv3D/ApplicationOptions.hpp>
 # include <Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.hpp>
-# include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
+# include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
 namespace s3d
 {
@@ -24,7 +24,7 @@ namespace s3d
 		else if (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
 			|| g_applicationOptions.renderer == EngineOption::Renderer::OpenGL)
 		{
-			return new ConstantBufferDetail_GL4(size);
+			return new ConstantBufferDetail_GLES3(size);
 		}
 		else
 		{
