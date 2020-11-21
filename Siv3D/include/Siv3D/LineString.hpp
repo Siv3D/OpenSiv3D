@@ -131,9 +131,11 @@ namespace s3d
 
 		const LineString& draw(const ColorF & color = Palette::White) const;
 
-		const LineString& draw(double thickness, const ColorF & color = Palette::White) const;
+		const LineString& draw(double thickness, const ColorF& color = Palette::White) const;
 
-		//const LineString& draw(const LineStyle & style, double thickness, const ColorF & color = Palette::White) const;
+		const LineString& draw(double thickness, const Array<ColorF>& colors) const;
+
+		//const LineString& draw(const LineStyle & style, double thickness, const ColorF& color = Palette::White) const;
 
 		const LineString& drawClosed(const ColorF & color = Palette::White) const;
 

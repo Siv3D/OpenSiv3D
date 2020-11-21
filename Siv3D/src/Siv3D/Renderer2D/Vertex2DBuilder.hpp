@@ -15,6 +15,7 @@
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/TriangleIndex.hpp>
+# include <Siv3D/ColorHSV.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
@@ -58,6 +59,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, IsClosed isClosed, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, IsClosed isClosed, float scale);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildPolygon(const BufferCreatorFunc& bufferCreator, const Array<Float2>& vertices, const Array<TriangleIndex>& tirnagleIndices, const Optional<Float2>& offset, const Float4& color);

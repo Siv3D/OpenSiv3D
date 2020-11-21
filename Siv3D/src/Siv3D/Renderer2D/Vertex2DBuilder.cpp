@@ -656,6 +656,254 @@ namespace s3d
 			return indexSize;
 		}
 
+		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const IsClosed isClosed, const float scale)
+		{
+			if ((size < 2)
+				|| (32760 <= size)
+				|| (thickness <= 0.0f)
+				|| (not points))
+			{
+				return 0;
+			}
+
+			const float th2 = (0.01f / scale);
+			const double th2D = th2;
+
+			Array<std::pair<Float2, Float4>> buf(Arg::reserve = size);
+			{
+				buf.emplace_back(points[0], colors[0].toFloat4());
+
+				for (size_t i = 1; i < (size - 1); ++i)
+				{
+					const Vec2 back = points[i - 1];
+					const Vec2 current = points[i];
+
+					if (back.distanceFromSq(current) < th2D)
+					{
+						continue;
+					}
+
+					buf.emplace_back(current, colors[i].toFloat4());
+				}
+
+				const Vec2 back = points[size - 2];
+				const Vec2 current = points[size - 1];
+
+				if (back.distanceFromSq(current) >= th2D)
+				{
+					buf.emplace_back(current, colors[size - 1].toFloat4());
+				}
+
+				if (isClosed
+					&& (buf.size() >= 2)
+					&& buf.back().first.distanceFromSq(buf.front().first) <= th2)
+				{
+					buf.pop_back();
+				}
+
+				if (buf.size() < 2)
+				{
+					return 0;
+				}
+			}
+
+			const float threshold = 0.55f;
+
+			Array<std::pair<Float2, Float4>> buf2;
+			{
+				buf2.push_back(buf.front());
+
+				const size_t count = (buf.size() - 1 + static_cast<bool>(isClosed));
+
+				for (size_t i = 1; i < count; ++i)
+				{
+					const Float2 back = buf[i - 1].first;
+					const Float2 current = buf[i].first;
+					const Float2 next = buf[(i + 1) % buf.size()].first;
+					const Float4 currentColor = buf[i].second;
+
+					const Float2 v1 = (back - current).normalized();
+					const Float2 v2 = (next - current).normalized();
+
+					buf2.emplace_back(current, currentColor);
+
+					if ((not inner)
+						&& (v1.dot(v2) > threshold))
+					{
+						const Float2 line = (current - back);
+						const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+						const Float2 line2 = (next - current);
+
+						if (tangent.dot(line2) >= (-tangent).dot(line2))
+						{
+							buf2.emplace_back(current + tangent.normalized() * th2, currentColor);
+						}
+						else if (tangent.dot(line2) <= (-tangent).dot(line2))
+						{
+							buf2.emplace_back(current + (-tangent).normalized() * th2, currentColor);
+						}
+						else
+						{
+							const Float2 normal = Float2{ -line.y, line.x }.normalized();
+							buf2.emplace_back(current + normal * 0.001f, currentColor);
+						}
+					}
+				}
+
+				if (isClosed)
+				{
+					const Float2 back = buf[buf.size() - 1].first;
+					const Float2 current = buf[0].first;
+					const Float2 next = buf[1].first;
+
+					const Float2 v1 = (back - current).normalized();
+					const Float2 v2 = (next - current).normalized();
+
+					if ((not inner)
+						&& (v1.dot(v2) > threshold))
+					{
+						const Float2 line = (current - back);
+						const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+						const Float2 line2 = (next - current);
+						const Float4 currentColor = buf[0].second;
+
+						if (tangent.dot(line2) >= (-tangent).dot(line2))
+						{
+							buf2.emplace_back(current - tangent.normalized() * th2, currentColor);
+						}
+						else if (tangent.dot(line2) <= (-tangent).dot(line2))
+						{
+							buf2.emplace_back(current - (-tangent).normalized() * th2, currentColor);
+						}
+						else
+						{
+							const Float2 normal = Float2{ -line.y, line.x }.normalized();
+							buf2.emplace_back(current - normal * 0.001f, currentColor);
+						}
+					}
+				}
+				else
+				{
+					buf2.push_back(buf.back());
+				}
+			}
+
+			const Vertex2D::IndexType newSize = static_cast<Vertex2D::IndexType>(buf2.size());
+			const Vertex2D::IndexType vertexSize = (newSize * 2), indexSize = (6 * (newSize - 1) + (static_cast<bool>(isClosed) * 6));
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float thicknessHalf = (thickness * 0.5f);
+			const bool hasCap = (not isClosed);
+
+			if (isClosed)
+			{
+				const Float2 p0 = buf2.back().first;
+				const Float2 p1 = buf2[0].first;
+				const Float2 p2 = buf2[1].first;
+				const Float4 c = buf2[0].second;
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[0].set(result0, c);
+				pVertex[1].set(result1, c);
+			}
+			else
+			{
+				const Float2 p0 = buf2[0].first;
+				const Float2 p1 = buf2[1].first;
+				const Float4 c = buf2[0].second;
+				const Float2 line = (p1 - p0).normalize();
+				const Float2 vNormalBegin{ -line.y * thicknessHalf, line.x * thicknessHalf };
+				const Float2 lineHalf(line * thicknessHalf);
+
+				pVertex[0].set(p0 + vNormalBegin - lineHalf * hasCap, c);
+				pVertex[1].set(p0 - vNormalBegin - lineHalf * hasCap, c);
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (newSize - 2); ++i)
+			{
+				const Float2 p0 = buf2[i].first;
+				const Float2 p1 = buf2[i + 1].first;
+				const Float2 p2 = buf2[i + 2].first;
+				const Float4 c = buf2[i + 1].second;
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[i * 2 + 2].set(result0, c);
+				pVertex[i * 2 + 3].set(result1, c);
+			}
+
+			if (isClosed)
+			{
+				const Float2 p0 = buf2[newSize - 2].first;
+				const Float2 p1 = buf2[newSize - 1].first;
+				const Float2 p2 = buf2[0].first;
+				const Float4 c = buf2[newSize - 1].second;
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[newSize * 2 - 2].set(result0, c);
+				pVertex[newSize * 2 - 1].set(result1, c);
+			}
+			else
+			{
+				const Float2 p0 = buf2[newSize - 2].first;
+				const Float2 p1 = buf2[newSize - 1].first;
+				const Float4 c = buf2[newSize - 1].second;
+				const Float2 line = (p1 - p0).normalize();
+				const Float2 vNormalEnd{ -line.y * thicknessHalf, line.x * thicknessHalf };
+				const Float2 lineHalf(line * thicknessHalf);
+
+				pVertex[newSize * 2 - 2].set(p1 + vNormalEnd + lineHalf * hasCap, c);
+				pVertex[newSize * 2 - 1].set(p1 - vNormalEnd + lineHalf * hasCap, c);
+			}
+
+			if (offset)
+			{
+				const Float2 v = offset.value();
+				Vertex2D* pDst = pVertex;
+
+				for (Vertex2D::IndexType i = 0; i < vertexSize; ++i)
+				{
+					(pDst++)->pos.moveBy(v);
+				}
+			}
+
+			{
+				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + static_cast<bool>(isClosed));
+
+				for (Vertex2D::IndexType k = 0; k < count; ++k)
+				{
+					for (Vertex2D::IndexType i = 0; i < 6; ++i)
+					{
+						*pIndex++ = (indexOffset + (detail::RectIndexTable[i] + k * 2) % vertexSize);
+					}
+				}
+			}
+
+			return indexSize;
+		}
+
 		Vertex2D::IndexType BuildPolygon(const BufferCreatorFunc& bufferCreator, const Array<Float2>& vertices, const Array<TriangleIndex>& tirnagleIndices, const Optional<Float2>& offset, const Float4& color)
 		{
 			if (vertices.isEmpty()

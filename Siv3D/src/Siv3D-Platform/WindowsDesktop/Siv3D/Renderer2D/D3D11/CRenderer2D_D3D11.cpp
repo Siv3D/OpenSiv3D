@@ -247,6 +247,19 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, IsClosed isClosed)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, colors, size, offset, thickness, inner, isClosed, getMaxScaling()))
+		{
+			//if (!m_currentCustomPS)
+			//{
+			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			//}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_D3D11::addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, indices, offset, color))

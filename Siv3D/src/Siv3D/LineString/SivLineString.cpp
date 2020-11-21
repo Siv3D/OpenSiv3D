@@ -35,6 +35,26 @@ namespace s3d
 		return *this;
 	}
 
+	const LineString& LineString::draw(const double thickness, const Array<ColorF>& colors) const
+	{
+		if (size() != colors.size())
+		{
+			return *this;
+		}
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			data(),
+			colors.data(),
+			size(),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			IsClosed::No
+		);
+
+		return *this;
+	}
+
 	const LineString& LineString::drawClosed(const ColorF& color) const
 	{
 		return drawClosed(1.0, color);
