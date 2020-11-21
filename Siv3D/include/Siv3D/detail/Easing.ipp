@@ -165,7 +165,7 @@ namespace s3d
 		}
 	}
 
-	inline constexpr double EaseIn(double f(double), const double t)
+	inline constexpr double EaseIn(double f(double), const double t) noexcept
 	{
 		return f(t);
 	}
@@ -177,7 +177,7 @@ namespace s3d
 	}
 
 
-	inline constexpr double EaseOut(double f(double), const double t)
+	inline constexpr double EaseOut(double f(double), const double t) noexcept
 	{
 		return (1.0 - f(1.0 - t));
 	}
@@ -189,7 +189,7 @@ namespace s3d
 	}
 
 
-	inline constexpr double EaseInOut(double f(double), const double t)
+	inline constexpr double EaseInOut(double f(double), const double t) noexcept
 	{
 		return ((t < 0.5) ? (f(2.0 * t) * 0.5) : (0.5 + EaseOut(f, 2.0 * t - 1.0) * 0.5));
 	}
@@ -313,17 +313,17 @@ namespace s3d
 	}
 
 
-	inline constexpr double EaseInCirc(const double t) noexcept
+	inline double EaseInCirc(const double t) noexcept
 	{
 		return Easing::Circ(t);
 	}
 
-	inline constexpr double EaseOutCirc(const double t) noexcept
+	inline double EaseOutCirc(const double t) noexcept
 	{
 		return EaseOut(Easing::Circ, t);
 	}
 
-	inline constexpr double EaseInOutCirc(const double t) noexcept
+	inline double EaseInOutCirc(const double t) noexcept
 	{
 		return EaseInOut(Easing::Circ, t);
 	}

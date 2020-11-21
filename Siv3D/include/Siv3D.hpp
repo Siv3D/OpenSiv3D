@@ -629,7 +629,7 @@
 
 // トランジション
 // Transition
-//# include <Siv3D/Transition.hpp>
+# include <Siv3D/Transition.hpp>
 
 // 周期関数
 // Periodic Functions

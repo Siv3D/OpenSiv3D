@@ -145,13 +145,13 @@ namespace s3d
 
 
 	[[nodiscard]]
-	inline constexpr double EaseInCirc(double t) noexcept;
+	inline double EaseInCirc(double t) noexcept;
 
 	[[nodiscard]]
-	inline constexpr double EaseOutCirc(double t) noexcept;
+	inline double EaseOutCirc(double t) noexcept;
 
 	[[nodiscard]]
-	inline constexpr double EaseInOutCirc(double t) noexcept;
+	inline double EaseInOutCirc(double t) noexcept;
 
 
 	[[nodiscard]]

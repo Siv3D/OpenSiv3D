@@ -105,6 +105,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextReader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Triangle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TriangleIndex.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Unicode.ipp" />
@@ -340,6 +341,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TriangleIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
