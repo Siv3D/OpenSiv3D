@@ -10,6 +10,7 @@ Library | Version
 [DirectXMath](https://github.com/microsoft/DirectXMath) | April 2020
 [double-conversion](https://github.com/google/double-conversion) | v3.1.5
 [Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2
+[Easing Equations](http://robertpenner.com/easing/) | 
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
 [FreeType](https://www.freetype.org/) | 

@@ -621,7 +621,7 @@
 
 // イージング関数
 // Easing
-# include <Siv3D/Easing.hpp> // [Siv3D ToDo]
+# include <Siv3D/Easing.hpp>
 
 // イージング ユーティリティ
 // Easing Utility
