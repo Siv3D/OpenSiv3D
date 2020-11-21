@@ -11,7 +11,7 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include "Vertex2DBatch_GLES3.hpp"
+# include "GLES3Vertex2DBatch.hpp"
 
 namespace s3d
 {
@@ -30,7 +30,7 @@ namespace s3d
 		}
 	}
 
-	Vertex2DBatch_GLES3::Vertex2DBatch_GLES3()
+	GLES3Vertex2DBatch::GLES3Vertex2DBatch()
 		: m_vertexArray(InitialVertexArraySize)
 		, m_indexArray(InitialIndexArraySize)
 		, m_batches(1)
@@ -38,7 +38,7 @@ namespace s3d
 
 	}
 
-	Vertex2DBatch_GLES3::~Vertex2DBatch_GLES3()
+	GLES3Vertex2DBatch::~GLES3Vertex2DBatch()
 	{
 		if (m_indexBuffer)
 		{
@@ -59,7 +59,7 @@ namespace s3d
 		}
 	}
 
-	bool Vertex2DBatch_GLES3::init()
+	bool GLES3Vertex2DBatch::init()
 	{
 		::glGenVertexArrays(1, &m_vao);
 		::glGenBuffers(1, &m_vertexBuffer);
@@ -92,7 +92,7 @@ namespace s3d
 		return true;
 	}
 
-	std::tuple<Vertex2D*, Vertex2DBatch_GLES3::IndexType*, Vertex2DBatch_GLES3::IndexType> Vertex2DBatch_GLES3::requestBuffer(const uint16 vertexSize, const uint32 indexSize, Renderer2DCommand_GLES3& command)
+	Vertex2DBufferPointer GLES3Vertex2DBatch::requestBuffer(const uint16 vertexSize, const uint32 indexSize, GLES3Renderer2DCommandManager& commandManager)
 	{
 		// VB
 		if (const uint32 vertexArrayWritePosTarget = m_vertexArrayWritePos + vertexSize;
@@ -104,7 +104,7 @@ namespace s3d
 			}
 
 			const size_t newVertexArraySize = detail::CalculateNewArraySize(m_vertexArray.size(), vertexArrayWritePosTarget);
-			LOG_TRACE(U"ℹ️ Resized Vertex2DBatch_GLES3::m_vertexArray (size: {} -> {})"_fmt(m_vertexArray.size(), newVertexArraySize));
+			LOG_TRACE(U"ℹ️ Resized GLES3Vertex2DBatch::m_vertexArray (size: {} -> {})"_fmt(m_vertexArray.size(), newVertexArraySize));
 			m_vertexArray.resize(newVertexArraySize);
 		}
 
@@ -118,44 +118,43 @@ namespace s3d
 			}
 
 			const size_t newIndexArraySize = detail::CalculateNewArraySize(m_indexArray.size(), indexArrayWritePosTarget);
-			LOG_TRACE(U"ℹ️ Resized Vertex2DBatch_GLES3::m_indexArray (size: {} -> {})"_fmt(m_indexArray.size(), newIndexArraySize));
+			LOG_TRACE(U"ℹ️ Resized GLES3Vertex2DBatch::m_indexArray (size: {} -> {})"_fmt(m_indexArray.size(), newIndexArraySize));
 			m_indexArray.resize(newIndexArraySize);
 		}
 
 		if (const auto& lastbatch = m_batches.back();
 			(VertexBufferSize < (lastbatch.vertexPos + vertexSize) || IndexBufferSize < (lastbatch.indexPos + indexSize)))
 		{
-			//command.pushUpdateBuffers(static_cast<uint32>(m_batches.size()));
+			commandManager.pushUpdateBuffers(static_cast<uint32>(m_batches.size()));
 			m_batches.emplace_back();
 		}
 
 		auto& lastbatch = m_batches.back();
 		Vertex2D* const pVertex = (m_vertexArray.data() + m_vertexArrayWritePos);
-		IndexType* const pIndex = (m_indexArray.data() + m_indexArrayWritePos);
-		const auto vertexPos = lastbatch.vertexPos;
+		Vertex2D::IndexType* const pIndex = (m_indexArray.data() + m_indexArrayWritePos);
+		const auto indexOffset = lastbatch.vertexPos;
 
 		advanceArrayWritePos(vertexSize, indexSize);
 		lastbatch.advance(vertexSize, indexSize);
 
-		return{ pVertex, pIndex, vertexPos };
+		return{ pVertex, pIndex, indexOffset };
 	}
 
-	size_t Vertex2DBatch_GLES3::num_batches() const noexcept
+	size_t GLES3Vertex2DBatch::num_batches() const noexcept
 	{
 		return m_batches.size();
 	}
 
-	void Vertex2DBatch_GLES3::reset()
+	void GLES3Vertex2DBatch::reset()
 	{
 		m_batches.clear();
 		m_batches.emplace_back();
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
-		m_vertexBufferWritePos = 0;
 	}
 
-	BatchInfo_GLES3 Vertex2DBatch_GLES3::updateBuffers(const size_t batchIndex)
+	BatchInfo2D GLES3Vertex2DBatch::updateBuffers(const size_t batchIndex)
 	{
 		assert(batchIndex < m_batches.size());
 
@@ -171,7 +170,7 @@ namespace s3d
 		::glBindVertexArray(m_vao);
 		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-		BatchInfo_GLES3 batchInfo;
+		BatchInfo2D batchInfo;
 		const auto& currentBatch = m_batches[batchIndex];
 
 		// VB
@@ -186,8 +185,7 @@ namespace s3d
 			}
 
 			void* const pDst = ::glMapBufferRange(GL_ARRAY_BUFFER, sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
 				std::memcpy(pDst, pSrc, sizeof(Vertex2D) * vertexSize);
 			}
@@ -200,19 +198,18 @@ namespace s3d
 		// IB
 		if (const uint32 indexSize = currentBatch.indexPos)
 		{
-			const IndexType* pSrc = &m_indexArray[indexArrayReadPos];
+			const Vertex2D::IndexType* pSrc = &m_indexArray[indexArrayReadPos];
 
 			if (IndexBufferSize < (m_indexBufferWritePos + indexSize))
 			{
 				m_indexBufferWritePos = 0;
-				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(IndexType) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
+				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(Vertex2D::IndexType) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
 			}
 
-			void* const pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(IndexType) * m_indexBufferWritePos, sizeof(IndexType) * indexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			void* const pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize,
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
-				std::memcpy(pDst, pSrc, sizeof(IndexType) * indexSize);
+				std::memcpy(pDst, pSrc, (sizeof(Vertex2D::IndexType) * indexSize));
 			}
 			::glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
 
@@ -224,7 +221,7 @@ namespace s3d
 		return batchInfo;
 	}
 
-	void Vertex2DBatch_GLES3::advanceArrayWritePos(const uint16 vertexSize, const uint32 indexSize) noexcept
+	void GLES3Vertex2DBatch::advanceArrayWritePos(const uint16 vertexSize, const uint32 indexSize) noexcept
 	{
 		m_vertexArrayWritePos	+= vertexSize;
 		m_indexArrayWritePos	+= indexSize;

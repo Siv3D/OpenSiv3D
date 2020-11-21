@@ -14,21 +14,13 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Renderer2D/Vertex2DBufferPointer.hpp>
+# include <Siv3D/Renderer2D/Renderer2DCommon.hpp>
+# include "GLES3Renderer2DCommand.hpp"
 
 namespace s3d
 {
-	class Renderer2DCommand_GLES3;
-
-	struct BatchInfo_GLES3
-	{
-		uint32 indexCount = 0;
-
-		uint32 startIndexLocation = 0;
-
-		uint32 baseVertexLocation = 0;
-	};
-
-	class Vertex2DBatch_GLES3
+	class GLES3Vertex2DBatch
 	{
 	private:
 
@@ -45,8 +37,6 @@ namespace s3d
 			}
 		};
 
-		using IndexType = Vertex2D::IndexType;
-
 		GLuint m_vao = 0;
 
 		GLuint m_vertexBuffer = 0;
@@ -58,33 +48,33 @@ namespace s3d
 		Array<Vertex2D> m_vertexArray;
 		uint32 m_vertexArrayWritePos = 0;
 
-		Array<IndexType> m_indexArray;
+		Array<Vertex2D::IndexType> m_indexArray;
 		uint32 m_indexArrayWritePos = 0;
 
 		Array<BatchBufferPos> m_batches;
 
 		static constexpr uint32 InitialVertexArraySize	= 4096;
-		static constexpr uint32 InitialIndexArraySize	= (4096 * 8); // 32768
+		static constexpr uint32 InitialIndexArraySize	= (4096 * 8); // 32,768
 
 		static constexpr uint32 MaxVertexArraySize		= (65536 * 64); // 4,194,304
 		static constexpr uint32 MaxIndexArraySize		= (65536 * 64); // 4,194,304
 
-		static constexpr uint32 VertexBufferSize		= 65535;// 65535;
+		static constexpr uint32 VertexBufferSize		= 65535;// 65,535;
 		static constexpr uint32 IndexBufferSize			= ((VertexBufferSize + 1) * 4); // 524,288
 
 		void advanceArrayWritePos(uint16 vertexSize, uint32 indexSize) noexcept;
 
 	public:
 
-		Vertex2DBatch_GLES3();
+		GLES3Vertex2DBatch();
 
-		~Vertex2DBatch_GLES3();
+		~GLES3Vertex2DBatch();
 
 		[[nodiscard]]
 		bool init();
 
 		[[nodiscard]]
-		std::tuple<Vertex2D*, IndexType*, IndexType> requestBuffer(uint16 vertexSize, uint32 indexSize, Renderer2DCommand_GLES3& command);
+		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, GLES3Renderer2DCommandManager& commandManager);
 
 		[[nodiscard]]
 		size_t num_batches() const noexcept;
@@ -92,6 +82,6 @@ namespace s3d
 		void reset();
 
 		[[nodiscard]]
-		BatchInfo_GLES3 updateBuffers(size_t batchIndex);
+		BatchInfo2D updateBuffers(size_t batchIndex);
 	};
 }
