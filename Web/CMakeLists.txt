@@ -346,5 +346,6 @@ target_include_directories(
   ../Siv3D/src/Siv3D-Platform/Web
   ../Siv3D/src/Siv3D-Platform/OpenGLES3
   ../Siv3D/src/ThirdParty
+  ../Dependencies/boost_1_72_0
   ${LIBSIV3D_INCLUDE_DIRS}
   )

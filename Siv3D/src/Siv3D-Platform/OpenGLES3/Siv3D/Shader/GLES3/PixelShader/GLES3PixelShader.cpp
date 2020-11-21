@@ -12,16 +12,16 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ShaderStatge.hpp>
 # include <Siv3D/SamplerState.hpp>
-# include "GL4PixelShader.hpp"
+# include "GLES3PixelShader.hpp"
 
 namespace s3d
 {
-	GL4PixelShader::GL4PixelShader(Null)
+	GLES3PixelShader::GLES3PixelShader(Null)
 	{
 		m_initialized = true;
 	}
 
-	GL4PixelShader::~GL4PixelShader()
+	GLES3PixelShader::~GLES3PixelShader()
 	{
 		if (m_psProgram)
 		{
@@ -30,7 +30,7 @@ namespace s3d
 		}
 	}
 
-	GL4PixelShader::GL4PixelShader(const StringView source, const Array<ConstantBufferBinding>& bindings)
+	GLES3PixelShader::GLES3PixelShader(const StringView source, const Array<ConstantBufferBinding>& bindings)
 	{
 		// ピクセルシェーダプログラムを作成
 		{
@@ -80,22 +80,22 @@ namespace s3d
 		m_initialized = (m_psProgram != 0);
 	}
 
-	bool GL4PixelShader::isInitialized() const noexcept
+	bool GLES3PixelShader::isInitialized() const noexcept
 	{
 		return m_initialized;
 	}
 
-	const Blob& GL4PixelShader::getBinary() const noexcept
+	const Blob& GLES3PixelShader::getBinary() const noexcept
 	{
 		return m_binary;
 	}
 
-	GLint GL4PixelShader::getProgram() const
+	GLint GLES3PixelShader::getProgram() const
 	{
 		return m_psProgram;
 	}
 
-	void GL4PixelShader::setPSSamplerUniform()
+	void GLES3PixelShader::setPSSamplerUniform()
 	{
 		if (not m_textureIndices)
 		{
@@ -112,7 +112,7 @@ namespace s3d
 		::glUseProgram(0);
 	}
 
-	void GL4PixelShader::setUniformBlockBinding(const String& name, const GLuint index)
+	void GLES3PixelShader::setUniformBlockBinding(const String& name, const GLuint index)
 	{
 		const GLuint blockIndex = ::glGetUniformBlockIndex(m_psProgram, name.narrow().c_str());
 
@@ -129,7 +129,7 @@ namespace s3d
 		::glUniformBlockBinding(m_psProgram, blockIndex, uniformBlockBinding);
 	}
 
-	void GL4PixelShader::setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings)
+	void GLES3PixelShader::setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings)
 	{
 		for (const auto& binding : bindings)
 		{

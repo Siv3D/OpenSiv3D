@@ -11,16 +11,16 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ShaderStatge.hpp>
-# include "GL4VertexShader.hpp"
+# include "GLES3VertexShader.hpp"
 
 namespace s3d
 {
-	GL4VertexShader::GL4VertexShader(Null)
+	GLES3VertexShader::GLES3VertexShader(Null)
 	{
 		m_initialized = true;
 	}
 
-	GL4VertexShader::~GL4VertexShader()
+	GLES3VertexShader::~GLES3VertexShader()
 	{
 		if (m_vsProgram)
 		{
@@ -29,7 +29,7 @@ namespace s3d
 		}
 	}
 
-	GL4VertexShader::GL4VertexShader(const StringView source, const Array<ConstantBufferBinding>& bindings)
+	GLES3VertexShader::GLES3VertexShader(const StringView source, const Array<ConstantBufferBinding>& bindings)
 	{
 		// 頂点シェーダプログラムを作成
 		{
@@ -66,22 +66,22 @@ namespace s3d
 		m_initialized = (m_vsProgram != 0);
 	}
 
-	bool GL4VertexShader::isInitialized() const noexcept
+	bool GLES3VertexShader::isInitialized() const noexcept
 	{
 		return m_initialized;
 	}
 
-	const Blob& GL4VertexShader::getBinary() const noexcept
+	const Blob& GLES3VertexShader::getBinary() const noexcept
 	{
 		return m_binary;
 	}
 
-	GLint GL4VertexShader::getProgram() const
+	GLint GLES3VertexShader::getProgram() const
 	{
 		return m_vsProgram;
 	}
 
-	void GL4VertexShader::setUniformBlockBinding(const StringView name, const GLuint index)
+	void GLES3VertexShader::setUniformBlockBinding(const StringView name, const GLuint index)
 	{
 		const GLuint blockIndex = ::glGetUniformBlockIndex(m_vsProgram, name.narrow().c_str());
 
@@ -98,7 +98,7 @@ namespace s3d
 		::glUniformBlockBinding(m_vsProgram, blockIndex, uniformBlockBinding);
 	}
 
-	void GL4VertexShader::setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings)
+	void GLES3VertexShader::setUniformBlockBindings(const Array<ConstantBufferBinding>& bindings)
 	{
 		for (const auto& binding : bindings)
 		{

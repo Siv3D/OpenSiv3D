@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <compare>
 # include "Common.hpp"
 # include "ISteadyClock.hpp"
 # include "Duration.hpp"

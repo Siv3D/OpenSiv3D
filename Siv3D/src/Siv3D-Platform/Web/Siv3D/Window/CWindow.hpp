@@ -14,9 +14,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
-
-# include <GL/glew.h>
-# include <GLFW/glfw3.h>
+# include <Siv3D/Common/OpenGL.hpp>
 
 namespace s3d
 {
@@ -75,9 +73,9 @@ namespace s3d
 
 		void minimize() override;
 
-		bool setVirtualSize(const Size& size) override;
+		bool resizeByVirtualSize(const Size& virtualSize) override;
 
-		bool setFrameBufferSize(const Size& size) override;
+		bool resizeByFrameBufferSize(const Size& frameBufferSize) override;
 
 		void setMinimumFrameBufferSize(const Size& size) override;
 	};

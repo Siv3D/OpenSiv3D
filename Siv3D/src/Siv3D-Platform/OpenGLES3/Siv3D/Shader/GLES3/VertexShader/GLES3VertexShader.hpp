@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class GL4VertexShader
+	class GLES3VertexShader
 	{
 	private:
 
@@ -35,13 +35,13 @@ namespace s3d
 
 		struct Null {};
 
-		GL4VertexShader() = default;
+		GLES3VertexShader() = default;
 
-		explicit GL4VertexShader(Null);
+		explicit GLES3VertexShader(Null);
 
-		explicit GL4VertexShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
+		explicit GLES3VertexShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
 
-		~GL4VertexShader();
+		~GLES3VertexShader();
 
 		bool isInitialized() const noexcept;
 

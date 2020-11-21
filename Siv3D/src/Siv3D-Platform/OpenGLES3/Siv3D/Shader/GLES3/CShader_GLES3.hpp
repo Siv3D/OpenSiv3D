@@ -17,28 +17,28 @@
 # include <Siv3D/ShaderStatge.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
-# include "VertexShader/GL4VertexShader.hpp"
-# include "PixelShader/GL4PixelShader.hpp"
+# include "VertexShader/GLES3VertexShader.hpp"
+# include "PixelShader/GLES3PixelShader.hpp"
 
 namespace s3d
 {
-	class CShader_GL4 final : public ISiv3DShader
+	class CShader_GLES3 final : public ISiv3DShader
 	{
 	private:
 
 		// VS の管理
-		AssetHandleManager<VertexShader::IDType, GL4VertexShader> m_vertexShaders{ U"VertexShader" };
+		AssetHandleManager<VertexShader::IDType, GLES3VertexShader> m_vertexShaders{ U"VertexShader" };
 
 		// PS の管理
-		AssetHandleManager<PixelShader::IDType, GL4PixelShader> m_pixelShaders{ U"PixelShader" };
+		AssetHandleManager<PixelShader::IDType, GLES3PixelShader> m_pixelShaders{ U"PixelShader" };
 
 		GLuint m_pipeline = 0;
 
 	public:
 
-		CShader_GL4();
+		CShader_GLES3();
 
-		~CShader_GL4() override;
+		~CShader_GLES3() override;
 
 		void init() override;
 

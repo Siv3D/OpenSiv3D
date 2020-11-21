@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class GL4PixelShader
+	class GLES3PixelShader
 	{
 	private:
 
@@ -37,13 +37,13 @@ namespace s3d
 
 		struct Null {};
 
-		GL4PixelShader() = default;
+		GLES3PixelShader() = default;
 
-		explicit GL4PixelShader(Null);
+		explicit GLES3PixelShader(Null);
 
-		explicit GL4PixelShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
+		explicit GLES3PixelShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
 
-		~GL4PixelShader();
+		~GLES3PixelShader();
 
 		bool isInitialized() const noexcept;
 

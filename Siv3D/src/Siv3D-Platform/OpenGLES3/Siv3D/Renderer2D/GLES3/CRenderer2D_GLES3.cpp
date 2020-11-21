@@ -11,16 +11,21 @@
 
 # include "CRenderer2D_GLES3.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ScopeGuard.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/BinaryReader.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Mat3x2.hpp>
-# include <Siv3D/Resource.hpp>
+# include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Renderer/GLES3/CRenderer_GLES3.hpp>
+# include <Siv3D/Shader/GLES3/CShader_GLES3.hpp>
+# include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
+
+/*
+#	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
+/*/
+#	define LOG_COMMAND(...) ((void)0)
+//*/
 
 namespace s3d
 {
@@ -359,10 +364,10 @@ namespace s3d
 					const GLES3DrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfo.startIndexLocation;
-					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
+					// const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
 					constexpr Vertex2D::IndexType* pBase = 0;
 
-					::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation), baseVertexLocation);
+					::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation));
 					batchInfo.startIndexLocation += indexCount;
 
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));

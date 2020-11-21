@@ -11,6 +11,7 @@
 
 # pragma once
 # include <cstring>
+# include <compare>
 # include "Common.hpp"
 # include "DayOfWeek.hpp"
 # include "String.hpp"

@@ -9,23 +9,23 @@
 //
 //-----------------------------------------------
 
-# include "CShader_GL4.hpp"
+# include "CShader_GLES3.hpp"
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
+# include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
 namespace s3d
 {
-	CShader_GL4::CShader_GL4()
+	CShader_GLES3::CShader_GLES3()
 	{
 
 	}
 
-	CShader_GL4::~CShader_GL4()
+	CShader_GLES3::~CShader_GLES3()
 	{
-		LOG_SCOPED_TRACE(U"CShader_GL4::~CShader_GL4()");
+		LOG_SCOPED_TRACE(U"CShader_GLES3::~CShader_GLES3()");
 
 		if (m_pipeline)
 		{
@@ -37,14 +37,14 @@ namespace s3d
 		m_vertexShaders.destroy();
 	}
 
-	void CShader_GL4::init()
+	void CShader_GLES3::init()
 	{
-		LOG_SCOPED_TRACE(U"CShader_GL4::init()");
+		LOG_SCOPED_TRACE(U"CShader_GLES3::init()");
 
 		// null VS を管理に登録
 		{
 			// null VS を作成
-			auto nullVertexShader = std::make_unique<GL4VertexShader>(GL4VertexShader::Null{});
+			auto nullVertexShader = std::make_unique<GLES3VertexShader>(GLES3VertexShader::Null{});
 
 			if (!nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
@@ -58,7 +58,7 @@ namespace s3d
 		// null PS を管理に登録
 		{
 			// null PS を作成
-			auto nullPixelShader = std::make_unique<GL4PixelShader>(GL4PixelShader::Null{});
+			auto nullPixelShader = std::make_unique<GLES3PixelShader>(GLES3PixelShader::Null{});
 
 			if (!nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
@@ -77,7 +77,7 @@ namespace s3d
 		}
 	}
 
-	VertexShader::IDType CShader_GL4::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
+	VertexShader::IDType CShader_GLES3::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
 		TextReader reader(path);
 
@@ -89,10 +89,10 @@ namespace s3d
 		return createVSFromSource(reader.readAll(), entryPoint, bindings);
 	}
 
-	VertexShader::IDType CShader_GL4::createVSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
+	VertexShader::IDType CShader_GLES3::createVSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
 	{
 		// VS を作成
-		auto vertexShader = std::make_unique<GL4VertexShader>(source, bindings);
+		auto vertexShader = std::make_unique<GLES3VertexShader>(source, bindings);
 
 		if (!vertexShader->isInitialized()) // もし作成に失敗していたら
 		{
@@ -103,7 +103,7 @@ namespace s3d
 		return m_vertexShaders.add(std::move(vertexShader));
 	}
 
-	PixelShader::IDType CShader_GL4::createPSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
+	PixelShader::IDType CShader_GLES3::createPSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
 		TextReader reader(path);
 
@@ -115,10 +115,10 @@ namespace s3d
 		return createPSFromSource(reader.readAll(), entryPoint, bindings);
 	}
 
-	PixelShader::IDType CShader_GL4::createPSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
+	PixelShader::IDType CShader_GLES3::createPSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
 	{
 		// PS を作成
-		auto pixelShader = std::make_unique<GL4PixelShader>(source, bindings);
+		auto pixelShader = std::make_unique<GLES3PixelShader>(source, bindings);
 
 		if (!pixelShader->isInitialized()) // もし作成に失敗していたら
 		{
@@ -129,25 +129,25 @@ namespace s3d
 		return m_pixelShaders.add(std::move(pixelShader));
 	}
 
-	void CShader_GL4::releaseVS(const VertexShader::IDType handleID)
+	void CShader_GLES3::releaseVS(const VertexShader::IDType handleID)
 	{
 		// 指定した VS を管理から除外
 		m_vertexShaders.erase(handleID);
 	}
 
-	void CShader_GL4::releasePS(const PixelShader::IDType handleID)
+	void CShader_GLES3::releasePS(const PixelShader::IDType handleID)
 	{
 		// 指定した PS を管理から除外
 		m_pixelShaders.erase(handleID);
 	}
 
-	void CShader_GL4::setVS(const VertexShader::IDType handleID)
+	void CShader_GLES3::setVS(const VertexShader::IDType handleID)
 	{
 		const GLuint vsProgram = m_vertexShaders[handleID]->getProgram();
 		::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgram);
 	}
 
-	void CShader_GL4::setPS(const PixelShader::IDType handleID)
+	void CShader_GLES3::setPS(const PixelShader::IDType handleID)
 	{
 		const auto& pixelShader = m_pixelShaders[handleID];
 
@@ -157,29 +157,29 @@ namespace s3d
 		pixelShader->setPSSamplerUniform();
 	}
 
-	const Blob& CShader_GL4::getBinaryVS(const VertexShader::IDType handleID)
+	const Blob& CShader_GLES3::getBinaryVS(const VertexShader::IDType handleID)
 	{
 		return m_vertexShaders[handleID]->getBinary();
 	}
 
-	const Blob& CShader_GL4::getBinaryPS(const PixelShader::IDType handleID)
+	const Blob& CShader_GLES3::getBinaryPS(const PixelShader::IDType handleID)
 	{
 		return m_pixelShaders[handleID]->getBinary();
 	}
 
-	void CShader_GL4::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
+	void CShader_GLES3::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
-	void CShader_GL4::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
+	void CShader_GLES3::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
-	void CShader_GL4::usePipeline()
+	void CShader_GLES3::usePipeline()
 	{
 		::glUseProgram(0);
 		::glBindProgramPipeline(m_pipeline);
