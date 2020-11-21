@@ -33,7 +33,7 @@ namespace s3d
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;
 
-		static VertexShader HLSL(FilePathView path, StringView entryPoint = U"PS");
+		static VertexShader HLSL(FilePathView path, StringView entryPoint = U"VS");
 
 		static VertexShader GLSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 

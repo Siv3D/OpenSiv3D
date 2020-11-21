@@ -32,12 +32,26 @@ namespace s3d
 
 	inline HLSL::operator VertexShader() const
 	{
-		return VertexShader::HLSL(path, entryPoint);
+		if (entryPoint)
+		{
+			return VertexShader::HLSL(path, entryPoint);
+		}
+		else
+		{
+			return VertexShader::HLSL(path);
+		}
 	}
 
 	inline HLSL::operator PixelShader() const
 	{
-		return PixelShader::HLSL(path, entryPoint);
+		if (entryPoint)
+		{
+			return PixelShader::HLSL(path, entryPoint);
+		}
+		else
+		{
+			return PixelShader::HLSL(path);
+		}
 	}
 
 	inline GLSL::GLSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)

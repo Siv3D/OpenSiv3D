@@ -47,6 +47,8 @@ namespace s3d
 		{
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetBuffers, 0);
 		}
+
+		m_changes.clear();
 	}
 
 	const Array<MetalRenderer2DCommand>& MetalRenderer2DCommandManager::getCommands() const noexcept

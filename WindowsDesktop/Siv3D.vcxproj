@@ -96,6 +96,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RoundRect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SamplerState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Scene.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shuffle.ipp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GaborNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />
@@ -315,6 +317,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Scene.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
@@ -707,6 +710,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Formatter\SivFormatter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\ImageDecoderFactory.cpp" />

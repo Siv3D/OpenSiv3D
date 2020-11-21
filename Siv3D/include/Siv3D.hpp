@@ -981,6 +981,8 @@
 
 # include <Siv3D/ConstantBuffer.hpp>
 
+# include <Siv3D/ScopedCustomShader2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	アドオン

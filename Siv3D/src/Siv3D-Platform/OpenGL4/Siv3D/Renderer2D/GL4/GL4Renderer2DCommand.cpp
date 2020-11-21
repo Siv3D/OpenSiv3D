@@ -47,6 +47,8 @@ namespace s3d
 		{
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
 		}
+
+		m_changes.clear();
 	}
 
 	const Array<GL4Renderer2DCommand>& GL4Renderer2DCommandManager::getCommands() const noexcept

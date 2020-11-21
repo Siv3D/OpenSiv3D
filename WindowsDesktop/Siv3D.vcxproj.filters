@@ -601,6 +601,9 @@
     <Filter Include="include\ThirdParty\nanoflann">
       <UniqueIdentifier>{4f546a2d-4869-454f-9141-fc82662cff2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Graphics2D">
+      <UniqueIdentifier>{b2358312-f196-43c0-9558-f3d1fec82fab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2397,6 +2400,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3301,6 +3313,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp">
       <Filter>src\Siv3D\Shape2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp">
+      <Filter>src\Siv3D\Graphics2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

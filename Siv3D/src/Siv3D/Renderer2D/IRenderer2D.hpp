@@ -12,12 +12,15 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Optional.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/TriangleIndex.hpp>
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
+# include <Siv3D/VertexShader.hpp>
+# include <Siv3D/PixelShader.hpp>
 
 namespace s3d
 {
@@ -77,6 +80,16 @@ namespace s3d
 		virtual void addPolygon(const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) = 0;
 	
 		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
+
+		virtual void addNullVertices(uint32 count) {}
+
+		virtual Optional<VertexShader> getCustomVS() const { return none; }
+
+		virtual Optional<PixelShader> getCustomPS() const { return none; }
+
+		virtual void setCustomVS(const Optional<VertexShader>& vs) {}
+
+		virtual void setCustomPS(const Optional<PixelShader>& ps) {}
 
 		virtual float getMaxScaling() const noexcept = 0;
 	};
