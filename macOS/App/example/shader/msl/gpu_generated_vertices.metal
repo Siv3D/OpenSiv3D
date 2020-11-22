@@ -31,11 +31,6 @@ inline float4 StandardTransform(float2 pos,
 	return result;
 }
 
-inline float ToRadians(float degree)
-{
-	return degree / (360.0f * 3.141592653589793f);
-}
-
 vertex
 PSInput VS_GPU_Generate(uint id [[vertex_id]],
 				  constant VSConstants2D& cb [[buffer(1)]])
@@ -43,14 +38,14 @@ PSInput VS_GPU_Generate(uint id [[vertex_id]],
 	PSInput out;
 	
 	float2 pos;
-	
+
 	if (id % 3 == 0)
 	{
 		pos = float2(640, 360);
 	}
 	else
 	{
-		const float angle = ToRadians((id / 3) + ((id % 3) - 1));
+		const float angle = ((id / 3) + ((id % 3) - 1)) / 360.0f * 3.14159265f * 2.0f;
 		const float r = 200
 			+ sin(angle * 4) * 10
 			+ cos(angle * 6) * 20
@@ -60,25 +55,6 @@ PSInput VS_GPU_Generate(uint id [[vertex_id]],
 	
 	out.clipSpacePosition = StandardTransform(pos, cb.transform);
 	out.uv = float2(0, 0);
-	out.color = float4(1, 1, 1, 1);
+	out.color = float4(0.4, 0.6, 0.8, 1);
 	return out;
 }
-/*
-vertex
-PSInput VS_FullscreenTriangle(uint id [[vertex_id]])
-{
-	PSInput result;
-	
-	result.clipSpacePosition.x = (float)(id / 2) * 4.0 - 1.0;
-	result.clipSpacePosition.y = (float)(id % 2) * 4.0 - 1.0;
-	result.clipSpacePosition.z = 0.0;
-	result.clipSpacePosition.w = 1.0;
-
-	result.color = 1.0;
-
-	result.uv.x = (float)(id / 2) * 2.0;
-	result.uv.y = 1.0 - (float)(id % 2) * 2.0;
-
-	return result;
-}
-*/

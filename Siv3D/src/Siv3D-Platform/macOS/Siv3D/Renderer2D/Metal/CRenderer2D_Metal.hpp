@@ -21,48 +21,13 @@
 # import <Metal/Metal.h>
 # import <QuartzCore/CAMetalLayer.h>
 # include "MetalRenderer2DCommand.hpp"
+# include "MetalRenderPipeline2DManager.hpp"
 # include "MetalVertex2DBatch.hpp"
 
 namespace s3d
 {
 	class CRenderer_Metal;
 	class CShader_Metal;
-
-	struct MetalStandardVS2D
-	{
-		VertexShader sprite;
-		VertexShader fullscreen_triangle;
-
-		VertexShader::IDType spriteID;
-
-		bool setup()
-		{
-			const bool result = sprite
-				&& fullscreen_triangle;
-
-			spriteID = sprite.id();
-
-			return result;
-		}
-	};
-
-	struct MetalStandardPS2D
-	{
-		PixelShader shape;
-		PixelShader fullscreen_triangle;
-
-		PixelShader::IDType shapeID;
-
-		bool setup()
-		{
-			const bool result = shape
-				&& fullscreen_triangle;
-
-			shapeID = shape.id();
-
-			return result;
-		}
-	};
 
 	class CRenderer2D_Metal final : public ISiv3DRenderer2D
 	{
@@ -74,8 +39,10 @@ namespace s3d
 		id<MTLCommandQueue> m_commandQueue = nil;
 		CAMetalLayer* m_swapchain = nullptr;
 				
-		id<MTLRenderPipelineState> m_sceneRenderPipelineState = nil;
-		id<MTLRenderPipelineState> m_fullscreenTriangleRenderPipelineState = nil;
+		//id<MTLRenderPipelineState> m_sceneRenderPipelineState = nil;
+		//id<MTLRenderPipelineState> m_fullscreenTriangleRenderPipelineState = nil;
+		
+		MetalRenderPipeline2DManager m_renderPipelineManager;
 		MTLRenderPassDescriptor* m_renderPassDescriptor;
 		
 		std::unique_ptr<MetalStandardVS2D> m_standardVS;

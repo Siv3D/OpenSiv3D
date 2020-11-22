@@ -69,45 +69,12 @@ namespace s3d
 				throw EngineError(U"CRenderer2D_Metal::m_standardPS initialization failed");
 			}
 		}
-		
-		MTLVertexDescriptor* vertexDescriptor = [MTLVertexDescriptor new];
-		{
-			vertexDescriptor.attributes[0].format = MTLVertexFormatFloat2;
-			vertexDescriptor.attributes[0].offset = 0;
-			vertexDescriptor.attributes[0].bufferIndex = 0;
-			vertexDescriptor.attributes[1].format = MTLVertexFormatFloat2;
-			vertexDescriptor.attributes[1].offset = 8;
-			vertexDescriptor.attributes[1].bufferIndex = 0;
-			vertexDescriptor.attributes[2].format = MTLVertexFormatFloat4;
-			vertexDescriptor.attributes[2].offset = 16;
-			vertexDescriptor.attributes[2].bufferIndex = 0;
-			vertexDescriptor.layouts[0].stride = 32;
-		}
-		
+				
 		//
 		// RenderPipelineState の作成
 		//
 		{
-			MTLRenderPipelineDescriptor* rpd = [MTLRenderPipelineDescriptor new];
-			{
-				rpd.vertexFunction = pShader->getFunctionVS(m_standardVS->sprite.id());
-				rpd.fragmentFunction = pShader->getFunctionPS(m_standardPS->shape.id());
-				rpd.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
-				rpd.vertexDescriptor = vertexDescriptor;
-				rpd.sampleCount = pRenderer->getSampleCount();
-			}
-			m_sceneRenderPipelineState = [m_device newRenderPipelineStateWithDescriptor:rpd error:NULL];
-			assert(m_sceneRenderPipelineState);
-			
-			{
-				rpd.vertexFunction = pShader->getFunctionVS(m_standardVS->fullscreen_triangle.id());
-				rpd.fragmentFunction = pShader->getFunctionPS(m_standardPS->fullscreen_triangle.id());
-				rpd.colorAttachments[0].pixelFormat = m_swapchain.pixelFormat;
-				rpd.vertexDescriptor = nil;
-				rpd.sampleCount = 1;
-			}
-			m_fullscreenTriangleRenderPipelineState = [m_device newRenderPipelineStateWithDescriptor:rpd error:NULL];
-			assert(m_fullscreenTriangleRenderPipelineState);
+			m_renderPipelineManager.init(pShader, m_device, *m_standardVS, *m_standardPS, m_swapchain.pixelFormat, pRenderer->getSampleCount());
 		}
 		
 		m_renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
@@ -453,6 +420,8 @@ namespace s3d
 		ScopeGuard cleanUp = [this]()
 		{
 			m_commandManager.reset();
+			m_currentCustomVS.reset();
+			m_currentCustomPS.reset();
 		};
 		
 		m_commandManager.flush();
@@ -494,8 +463,9 @@ namespace s3d
 			{
 				id<MTLRenderCommandEncoder> sceneCommandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
 				{
-					//MetalBatchInfo batchInfo;
-					[sceneCommandEncoder setRenderPipelineState:m_sceneRenderPipelineState];
+					std::pair<VertexShader::IDType, PixelShader::IDType> currentSetShaders{ VertexShader::IDType::InvalidValue(), PixelShader::IDType::InvalidValue() };
+					std::pair<VertexShader::IDType, PixelShader::IDType> currentShaders = currentSetShaders;
+
 					[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 								   length:m_vsConstants2D.size()
 								  atIndex:1];
@@ -539,6 +509,18 @@ namespace s3d
 							}
 						case MetalRenderer2DCommandType::Draw:
 							{
+								if (currentSetShaders != currentShaders)
+								{
+									if ((currentShaders.first != VertexShader::IDType::InvalidValue())
+										&& (currentShaders.second != PixelShader::IDType::InvalidValue()))
+									{
+										[sceneCommandEncoder setRenderPipelineState:
+										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount())];
+									}
+									
+									currentSetShaders = currentShaders;
+								}
+								
 								const MetalDrawCommand& draw = m_commandManager.getDraw(command.index);
 								const uint32 indexCount = draw.indexCount;
 								const uint32 startIndexLocation = batchInfo.startIndexLocation;
@@ -555,21 +537,23 @@ namespace s3d
 							}
 						case MetalRenderer2DCommandType::DrawNull:
 							{
-								//m_vsConstants2D._update_if_dirty();
-								//m_psConstants2D._update_if_dirty();
+								if (currentSetShaders != currentShaders)
+								{
+									if ((currentShaders.first != VertexShader::IDType::InvalidValue())
+										&& (currentShaders.second != PixelShader::IDType::InvalidValue()))
+									{
+										[sceneCommandEncoder setRenderPipelineState:
+										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount())];
+									}
+									
+									currentSetShaders = currentShaders;
+								}
 
 								const uint32 draw = m_commandManager.getNullDraw(command.index);
 
 								// draw null vertex buffer
 								{
-									//::glBindVertexArray(m_vertexArray);
-									{
-										//::glBindBuffer(GL_ARRAY_BUFFER, 0);
-										//::glDrawArrays(GL_TRIANGLES, 0, draw);
-									}
-									//::glBindVertexArray(0);
-
-									//m_batches.setBuffers();
+									[sceneCommandEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:draw];
 								}
 
 								LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
@@ -586,7 +570,7 @@ namespace s3d
 								}
 								else
 								{
-									//pShader->setVS(vsID);
+									currentShaders.first = vsID;
 									LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 								}
 
@@ -603,7 +587,7 @@ namespace s3d
 								}
 								else
 								{
-									//pShader->setPS(psID);
+									currentShaders.second = psID;
 									LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 								}
 
@@ -638,7 +622,7 @@ namespace s3d
 			{
 				id<MTLRenderCommandEncoder> fullscreenTriangleCommandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
 				{
-					[fullscreenTriangleCommandEncoder setRenderPipelineState:m_fullscreenTriangleRenderPipelineState];
+					[fullscreenTriangleCommandEncoder setRenderPipelineState:m_renderPipelineManager.get(m_standardVS->fullscreen_triangle.id(), m_standardPS->fullscreen_triangle.id(), m_swapchain.pixelFormat, 1)];
 					[fullscreenTriangleCommandEncoder setFragmentTexture:sceneTexture atIndex:0];
 					[fullscreenTriangleCommandEncoder setViewport:viewport];
 					pRenderer->getSamplerState().setPS(fullscreenTriangleCommandEncoder, 0, samplerState);

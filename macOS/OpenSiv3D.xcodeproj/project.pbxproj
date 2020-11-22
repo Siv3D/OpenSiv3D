@@ -39,6 +39,8 @@
 		2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */; };
 		2C1208A024A304E7008CAD99 /* CRenderer_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
+		2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */; };
+		2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -631,6 +633,8 @@
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
+		2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRenderPipeline2DManager.hpp; sourceTree = "<group>"; };
+		2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderPipeline2DManager.mm; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -4007,6 +4011,8 @@
 		2CDE6E8724A35C7B0048594F /* Metal */ = {
 			isa = PBXGroup;
 			children = (
+				2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */,
+				2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */,
 				2C39ECB3256406FA0021DF34 /* MetalRenderer2DCommand.cpp */,
 				2C39ECB2256406FA0021DF34 /* MetalRenderer2DCommand.hpp */,
 				2CFF9F6B24A47730000B5A17 /* MetalVertex2DBatch.hpp */,
@@ -4248,6 +4254,7 @@
 				2C423222242B155E00A16BCA /* glfw3.h in Headers */,
 				2C47B34924DD9789008D83BE /* CWindow_Null.hpp in Headers */,
 				2C47B6D924EAC84B008D83BE /* AssetHandleManager.hpp in Headers */,
+				2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */,
 				2C47B30A24DD9789008D83BE /* TextWriterDetail.hpp in Headers */,
 				2C42321D242B155E00A16BCA /* internal.h in Headers */,
 				2C43961E2535DCCA00F6AECD /* svglength.h in Headers */,
@@ -4780,6 +4787,7 @@
 				2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */,
 				2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */,
 				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
+				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
