@@ -27,9 +27,14 @@ namespace s3d
 		NSString* nameNS = [NSString stringWithUTF8String:nameUTF8.c_str()];
 		m_psFunction = [library newFunctionWithName:nameNS];
 		
-		if (m_psFunction && m_psFunction.functionType != MTLFunctionTypeFragment)
+		if (not m_psFunction)
+		{
+			LOG_FAIL(U"MetalPixelShader::MetalPixelShader(): function `{}` not found"_fmt(name));
+		}
+		else if (m_psFunction.functionType != MTLFunctionTypeFragment)
 		{
 			m_psFunction = nil;
+			LOG_FAIL(U"MetalPixelShader::MetalPixelShader(): function `{}` is not a pixel shader function"_fmt(name));
 		}
 		
 		m_initialized = (m_psFunction != nil);

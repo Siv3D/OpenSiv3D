@@ -70,6 +70,8 @@ namespace s3d
 
 	VertexShader::IDType CShader_Metal::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>&)
 	{
+		LOG_TRACE(U"CShader_Metal::createVSFromFile(\"{}\", \"{}\")"_fmt(path, entryPoint));
+		
 		// VS を作成
 		auto vertexShader = std::make_unique<MetalVertexShader>(m_defaultLibrary, entryPoint);
 
@@ -90,6 +92,8 @@ namespace s3d
 
 	PixelShader::IDType CShader_Metal::createPSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>&)
 	{
+		LOG_TRACE(U"CShader_Metal::createPSFromFile(\"{}\", \"{}\")"_fmt(path, entryPoint));
+		
 		// PS を作成
 		auto pixelShader = std::make_unique<MetalPixelShader>(m_defaultLibrary, entryPoint);
 

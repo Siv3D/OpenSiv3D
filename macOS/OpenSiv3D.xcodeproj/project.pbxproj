@@ -27,6 +27,9 @@
 		2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D612566A855002A4B5E /* sw_ft_math.c */; };
 		2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D74256A177D002A4B5E /* SivShape2D.cpp */; };
 		2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */; };
+		2C0A4D86256A1C6C002A4B5E /* example in Resources */ = {isa = PBXBuildFile; fileRef = 2C0A4D85256A1C6C002A4B5E /* example */; };
+		2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D9C256A21E6002A4B5E /* sprite.metal */; };
+		2C0A4DAC256A21FD002A4B5E /* gpu_generated_vertices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -573,7 +576,6 @@
 		2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AD2555B263005826A1 /* SivInput.cpp */; };
 		2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF9F6124A46481000B5A17 /* osmesa_context.h */; };
 		2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6224A46481000B5A17 /* osmesa_context.c */; settings = {COMPILER_FLAGS = "-w"; }; };
-		2CFF9F6924A473E9000B5A17 /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6824A473E9000B5A17 /* sprite.metal */; };
 		2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6A24A47730000B5A17 /* MetalVertex2DBatch.mm */; };
 		2CFF9F6D24A47730000B5A17 /* MetalVertex2DBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF9F6B24A47730000B5A17 /* MetalVertex2DBatch.hpp */; };
 /* End PBXBuildFile section */
@@ -614,6 +616,9 @@
 		2C0A4D80256A1863002A4B5E /* ScopedCustomShader2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.hpp; sourceTree = "<group>"; };
 		2C0A4D81256A1874002A4B5E /* ScopedCustomShader2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.ipp; sourceTree = "<group>"; };
 		2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics2D.cpp; sourceTree = "<group>"; };
+		2C0A4D85256A1C6C002A4B5E /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = App/example; sourceTree = "<group>"; };
+		2C0A4D9C256A21E6002A4B5E /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
+		2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = gpu_generated_vertices.metal; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -1551,7 +1556,6 @@
 		2CFE19AD2555B263005826A1 /* SivInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInput.cpp; sourceTree = "<group>"; };
 		2CFF9F6124A46481000B5A17 /* osmesa_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osmesa_context.h; sourceTree = "<group>"; };
 		2CFF9F6224A46481000B5A17 /* osmesa_context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osmesa_context.c; sourceTree = "<group>"; };
-		2CFF9F6824A473E9000B5A17 /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
 		2CFF9F6A24A47730000B5A17 /* MetalVertex2DBatch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalVertex2DBatch.mm; sourceTree = "<group>"; };
 		2CFF9F6B24A47730000B5A17 /* MetalVertex2DBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalVertex2DBatch.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1645,6 +1649,65 @@
 				2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */,
 			);
 			path = Graphics2D;
+			sourceTree = "<group>";
+		};
+		2C0A4D93256A21AC002A4B5E /* MSL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4DA2256A21FD002A4B5E /* example */,
+				2C0A4D94256A21E6002A4B5E /* engine */,
+			);
+			name = MSL_BUILD;
+			sourceTree = "<group>";
+		};
+		2C0A4D94256A21E6002A4B5E /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D95256A21E6002A4B5E /* shader */,
+			);
+			name = engine;
+			path = App/engine;
+			sourceTree = "<group>";
+		};
+		2C0A4D95256A21E6002A4B5E /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D9B256A21E6002A4B5E /* msl */,
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
+		2C0A4D9B256A21E6002A4B5E /* msl */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D9C256A21E6002A4B5E /* sprite.metal */,
+			);
+			path = msl;
+			sourceTree = "<group>";
+		};
+		2C0A4DA2256A21FD002A4B5E /* example */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4DA3256A21FD002A4B5E /* shader */,
+			);
+			name = example;
+			path = App/example;
+			sourceTree = "<group>";
+		};
+		2C0A4DA3256A21FD002A4B5E /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4DA8256A21FD002A4B5E /* msl */,
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
+		2C0A4DA8256A21FD002A4B5E /* msl */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */,
+			);
+			path = msl;
 			sourceTree = "<group>";
 		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
@@ -3902,11 +3965,12 @@
 		2CA7F74D1CA7F43D00495647 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				2C48584924C1FBAE0034F68D /* Test */,
+				2C0A4D93256A21AC002A4B5E /* MSL_BUILD */,
 				2C0CEDAE249F4E5B003647A7 /* engine */,
+				2C0A4D85256A1C6C002A4B5E /* example */,
 				2CA7F74E1CA7F43D00495647 /* Main.cpp */,
 				2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */,
-				2CFF9F6724A473E9000B5A17 /* metal */,
+				2C48584924C1FBAE0034F68D /* Test */,
 			);
 			name = macOS;
 			sourceTree = "<group>";
@@ -3986,13 +4050,13 @@
 		2CF21CF6249FAA8F00C864C9 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CF2AF8D25543A7F00E81D12 /* Monitor */,
 				2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */,
 				2CF21D09249FAA8F00C864C9 /* Common */,
 				2C6390E725367F020030F18E /* ConstantBuffer */,
 				2CF21CFC249FAA8F00C864C9 /* Cursor */,
 				2CF21CFF249FAA8F00C864C9 /* FileSystem */,
 				2C43964E2535DCEA00F6AECD /* FreestandingMessageBox */,
+				2CF2AF8D25543A7F00E81D12 /* Monitor */,
 				2CF21CF7249FAA8F00C864C9 /* Renderer */,
 				2CF21D01249FAA8F00C864C9 /* Renderer2D */,
 				2C8E718824C749C500CECCAE /* Resource */,
@@ -4167,15 +4231,6 @@
 				2CFE19AD2555B263005826A1 /* SivInput.cpp */,
 			);
 			path = Input;
-			sourceTree = "<group>";
-		};
-		2CFF9F6724A473E9000B5A17 /* metal */ = {
-			isa = PBXGroup;
-			children = (
-				2CFF9F6824A473E9000B5A17 /* sprite.metal */,
-			);
-			name = metal;
-			path = App/engine/shader/metal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4470,6 +4525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0A4D86256A1C6C002A4B5E /* example in Resources */,
 				2C0CEDAF249F4E5B003647A7 /* engine in Resources */,
 				2C8588EC1F929277000DA815 /* icon.icns in Resources */,
 			);
@@ -4482,12 +4538,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */,
 				2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */,
 				2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */,
-				2CFF9F6924A473E9000B5A17 /* sprite.metal in Sources */,
 				2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */,
 				2C48584F24C1FBAE0034F68D /* Siv3DTest_Image.cpp in Sources */,
 				2C0FF4E624C429B50014C96E /* Siv3DTest_BinaryReader.cpp in Sources */,
+				2C0A4DAC256A21FD002A4B5E /* gpu_generated_vertices.metal in Sources */,
 				2C48585024C1FBAE0034F68D /* Siv3DTest.cpp in Sources */,
 				2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */,
 				2C0FF4E824C437020014C96E /* Siv3DTest_BinaryWriter.cpp in Sources */,

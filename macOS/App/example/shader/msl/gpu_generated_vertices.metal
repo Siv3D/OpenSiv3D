@@ -8,13 +8,6 @@ struct VSConstants2D
 	float4 colorMul;
 };
 
-struct PSConstants2D
-{
-	float4 colorAdd;
-	float4 sdfParam;
-	float4 internal;
-};
-
 struct Vertex2D
 {
 	float2 pos [[attribute(0)]];
@@ -29,7 +22,7 @@ struct PSInput
 	float4 color;
 };
 
-float4 StandardTransform(float2 pos,
+inline float4 StandardTransform(float2 pos,
 						 constant float4(&transform)[2])
 {
 	float4 result;
@@ -38,24 +31,39 @@ float4 StandardTransform(float2 pos,
 	return result;
 }
 
+inline float ToRadians(float degree)
+{
+	return degree / (360.0f * 3.141592653589793f);
+}
+
 vertex
-PSInput VS_Sprite(Vertex2D in [[stage_in]],
+PSInput VS_GPU_Generate(uint id [[vertex_id]],
 				  constant VSConstants2D& cb [[buffer(1)]])
 {
 	PSInput out;
-	out.clipSpacePosition = StandardTransform(in.pos, cb.transform);
-	out.uv = in.uv;
-	out.color = (in.color * cb.colorMul);
+	
+	float2 pos;
+	
+	if (id % 3 == 0)
+	{
+		pos = float2(640, 360);
+	}
+	else
+	{
+		const float angle = ToRadians((id / 3) + ((id % 3) - 1));
+		const float r = 200
+			+ sin(angle * 4) * 10
+			+ cos(angle * 6) * 20
+			+ cos(angle * 12) * 40;
+		pos = float2(640, 360) + float2(sin(angle), -cos(angle)) * r;
+	}
+	
+	out.clipSpacePosition = StandardTransform(pos, cb.transform);
+	out.uv = float2(0, 0);
+	out.color = float4(1, 1, 1, 1);
 	return out;
 }
-
-fragment
-float4 PS_Shape(PSInput in [[stage_in]],
-				constant PSConstants2D& cb [[buffer(1)]])
-{
-    return (in.color + cb.colorAdd);
-}
-
+/*
 vertex
 PSInput VS_FullscreenTriangle(uint id [[vertex_id]])
 {
@@ -73,13 +81,4 @@ PSInput VS_FullscreenTriangle(uint id [[vertex_id]])
 
 	return result;
 }
-
-fragment
-float4 PS_FullscreenTriangle(PSInput in [[stage_in]],
-				texture2d<float> colorTexture [[texture(0)]],
-				sampler smp [[sampler(0)]])
-{
-	//constexpr sampler textureSampler(mag_filter::linear, min_filter::linear);
-	return float4(colorTexture.sample(smp, in.uv).rgb, 1);
-}
-
+*/

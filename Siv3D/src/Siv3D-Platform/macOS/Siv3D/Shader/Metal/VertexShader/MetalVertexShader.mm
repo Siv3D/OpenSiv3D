@@ -26,9 +26,14 @@ namespace s3d
 		NSString* nameNS = [NSString stringWithUTF8String:nameUTF8.c_str()];
 		m_vsFunction = [library newFunctionWithName:nameNS];
 		
-		if (m_vsFunction && m_vsFunction.functionType != MTLFunctionTypeVertex)
+		if (not m_vsFunction)
+		{
+			LOG_FAIL(U"MetalVertexShader::MetalVertexShader(): function `{}` not found"_fmt(name));
+		}
+		else if (m_vsFunction.functionType != MTLFunctionTypeVertex)
 		{
 			m_vsFunction = nil;
+			LOG_FAIL(U"MetalVertexShader::MetalVertexShader(): function `{}` is not a vertex shader function"_fmt(name));
 		}
 		
 		m_initialized = (m_vsFunction != nil);
