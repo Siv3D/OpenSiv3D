@@ -20,7 +20,7 @@
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
 
-/*
+///*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -527,6 +527,20 @@ namespace s3d
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+					break;
+				}
+			case D3D11Renderer2DCommandType::BlendState:
+				{
+					const auto& blendState = m_commandManager.getBlendState(command.index);
+					pRenderer->getBlendState().set(blendState);
+					LOG_COMMAND(U"BlendState[{}]"_fmt(command.index));
+					break;
+				}
+			case D3D11Renderer2DCommandType::RasterizerState:
+				{
+					const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
+					pRenderer->getRasterizerState().set(rasterizerState);
+					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
 			case D3D11Renderer2DCommandType::SetVS:

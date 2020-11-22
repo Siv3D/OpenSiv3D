@@ -14,6 +14,9 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Vertex2D.hpp>
+# include <Siv3D/BlendState.hpp>
+# include <Siv3D/RasterizerState.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Common/D3D11.hpp>
@@ -32,6 +35,26 @@ namespace s3d
 		Draw,
 
 		DrawNull,
+
+		BlendState,
+
+		RasterizerState,
+
+		PSSamplerState0,
+
+		PSSamplerState1,
+
+		PSSamplerState2,
+
+		PSSamplerState3,
+
+		PSSamplerState4,
+
+		PSSamplerState5,
+
+		PSSamplerState6,
+
+		PSSamplerState7,
 
 		SetVS,
 
@@ -61,13 +84,17 @@ namespace s3d
 		// buffer
 		Array<D3D11DrawCommand> m_draws;
 		Array<uint32> m_nullDraws;
+		Array<BlendState> m_blendStates				= { BlendState::Default };
+		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default2D };
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 
 		// current
 		D3D11DrawCommand m_currentDraw;
-		VertexShader::IDType m_currentVS = VertexShader::IDType::InvalidValue();
-		PixelShader::IDType m_currentPS = PixelShader::IDType::InvalidValue();
+		BlendState m_currentBlendState				= m_blendStates.back();
+		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
+		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
+		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 
 		// reserved
 		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
@@ -90,6 +117,14 @@ namespace s3d
 
 		void pushNullVertices(uint32 count);
 		uint32 getNullDraw(uint32 index) const noexcept;
+
+		void pushBlendState(const BlendState& state);
+		const BlendState& getBlendState(uint32 index) const;
+		const BlendState& getCurrentBlendState() const;
+
+		void pushRasterizerState(const RasterizerState& state);
+		const RasterizerState& getRasterizerState(uint32 index) const;
+		const RasterizerState& getCurrentRasterizerState() const;
 
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);
