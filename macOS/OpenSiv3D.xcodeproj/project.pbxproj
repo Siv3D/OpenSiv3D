@@ -25,6 +25,8 @@
 		2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */; };
 		2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D602566A855002A4B5E /* sw_ft_raster.h */; };
 		2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D612566A855002A4B5E /* sw_ft_math.c */; };
+		2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D74256A177D002A4B5E /* SivShape2D.cpp */; };
+		2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -597,6 +599,21 @@
 		2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-rle.c"; sourceTree = "<group>"; };
 		2C0A4D602566A855002A4B5E /* sw_ft_raster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_raster.h; sourceTree = "<group>"; };
 		2C0A4D612566A855002A4B5E /* sw_ft_math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_math.c; sourceTree = "<group>"; };
+		2C0A4D70256A1735002A4B5E /* Shape2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shape2D.hpp; sourceTree = "<group>"; };
+		2C0A4D71256A1749002A4B5E /* Shape2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shape2D.ipp; sourceTree = "<group>"; };
+		2C0A4D72256A175F002A4B5E /* TriangleIndex.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TriangleIndex.ipp; sourceTree = "<group>"; };
+		2C0A4D74256A177D002A4B5E /* SivShape2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShape2D.cpp; sourceTree = "<group>"; };
+		2C0A4D76256A17B0002A4B5E /* KDTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KDTree.hpp; sourceTree = "<group>"; };
+		2C0A4D77256A17BB002A4B5E /* Periodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Periodic.hpp; sourceTree = "<group>"; };
+		2C0A4D78256A17CF002A4B5E /* Periodic.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Periodic.ipp; sourceTree = "<group>"; };
+		2C0A4D79256A17E6002A4B5E /* KDTree.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KDTree.ipp; sourceTree = "<group>"; };
+		2C0A4D7C256A1807002A4B5E /* nanoflann.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nanoflann.hpp; sourceTree = "<group>"; };
+		2C0A4D7D256A182B002A4B5E /* Transition.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transition.hpp; sourceTree = "<group>"; };
+		2C0A4D7E256A1838002A4B5E /* Transition.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transition.ipp; sourceTree = "<group>"; };
+		2C0A4D7F256A185B002A4B5E /* Graphics2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics2D.hpp; sourceTree = "<group>"; };
+		2C0A4D80256A1863002A4B5E /* ScopedCustomShader2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.hpp; sourceTree = "<group>"; };
+		2C0A4D81256A1874002A4B5E /* ScopedCustomShader2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.ipp; sourceTree = "<group>"; };
+		2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics2D.cpp; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -1606,6 +1623,30 @@
 			path = plutovg;
 			sourceTree = "<group>";
 		};
+		2C0A4D73256A177D002A4B5E /* Shape2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D74256A177D002A4B5E /* SivShape2D.cpp */,
+			);
+			path = Shape2D;
+			sourceTree = "<group>";
+		};
+		2C0A4D7A256A1807002A4B5E /* nanoflann */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D7C256A1807002A4B5E /* nanoflann.hpp */,
+			);
+			path = nanoflann;
+			sourceTree = "<group>";
+		};
+		2C0A4D82256A18A1002A4B5E /* Graphics2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */,
+			);
+			path = Graphics2D;
+			sourceTree = "<group>";
+		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
 			isa = PBXGroup;
 			children = (
@@ -2020,6 +2061,7 @@
 				2C47B29524DD9789008D83BE /* FormatInt */,
 				2C47B2A824DD9789008D83BE /* Formatter */,
 				2C47B27424DD9789008D83BE /* FormatUtility */,
+				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
 				2C47B26924DD9789008D83BE /* Hash */,
 				2C47B28824DD9789008D83BE /* Image */,
 				2C47B2E824DD9789008D83BE /* ImageDecoder */,
@@ -2058,6 +2100,7 @@
 				2C47B2DA24DD9789008D83BE /* Resource */,
 				2C47B2D424DD9789008D83BE /* Scene */,
 				2C47B6CC24EAC82A008D83BE /* Shader */,
+				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2C47B2C724DD9789008D83BE /* String */,
 				2C47B27E24DD9789008D83BE /* StringView */,
 				2C47B29724DD9789008D83BE /* System */,
@@ -3003,6 +3046,7 @@
 				2C53C1FE25613B0B0072831A /* GaborNoise.hpp */,
 				2C53C2FD25613B0C0072831A /* GradientNoise.hpp */,
 				2C53C20025613B0B0072831A /* Graphics.hpp */,
+				2C0A4D7F256A185B002A4B5E /* Graphics2D.hpp */,
 				2C53C21125613B0B0072831A /* Grid.hpp */,
 				2C53C21825613B0B0072831A /* HalfFloat.hpp */,
 				2C53C1F525613B0B0072831A /* HardwareRNG.hpp */,
@@ -3033,6 +3077,7 @@
 				2C53C22D25613B0C0072831A /* ISteadyClock.hpp */,
 				2C53C1FD25613B0B0072831A /* IWriter.hpp */,
 				2C53C32125613B0C0072831A /* KahanSummation.hpp */,
+				2C0A4D76256A17B0002A4B5E /* KDTree.hpp */,
 				2C53C1E325613B0B0072831A /* Keyboard.hpp */,
 				2C53C1EA25613B0B0072831A /* LetterCase.hpp */,
 				2C53C2E225613B0C0072831A /* LicenseInfo.hpp */,
@@ -3066,6 +3111,7 @@
 				2C53C31025613B0C0072831A /* ParseBool.hpp */,
 				2C53C32925613B0C0072831A /* ParseFloat.hpp */,
 				2C53C21E25613B0B0072831A /* ParseInt.hpp */,
+				2C0A4D77256A17BB002A4B5E /* Periodic.hpp */,
 				2C53C2DE25613B0C0072831A /* PerlinNoise.hpp */,
 				2C53C32025613B0C0072831A /* PixelFormat.hpp */,
 				2C53C2F325613B0C0072831A /* PixelShader.hpp */,
@@ -3099,10 +3145,12 @@
 				2C53C23725613B0C0072831A /* RoundRect.hpp */,
 				2C53C2D725613B0C0072831A /* SamplerState.hpp */,
 				2C53C32225613B0C0072831A /* Scene.hpp */,
+				2C0A4D80256A1863002A4B5E /* ScopedCustomShader2D.hpp */,
 				2C53C31925613B0C0072831A /* ScopeGuard.hpp */,
 				2C53C2F625613B0C0072831A /* Shader.hpp */,
 				2C53C31D25613B0C0072831A /* ShaderCommon.hpp */,
 				2C53C30625613B0C0072831A /* ShaderStatge.hpp */,
+				2C0A4D70256A1735002A4B5E /* Shape2D.hpp */,
 				2C53C23D25613B0C0072831A /* Shuffle.hpp */,
 				2C53C32B25613B0C0072831A /* SIMD.hpp */,
 				2C53C2D425613B0C0072831A /* SMFT.hpp */,
@@ -3123,6 +3171,7 @@
 				2C53C1DF25613B0B0072831A /* Threading.hpp */,
 				2C53C1F625613B0B0072831A /* Time.hpp */,
 				2C53C2D025613B0C0072831A /* Timer.hpp */,
+				2C0A4D7D256A182B002A4B5E /* Transition.hpp */,
 				2C53C21225613B0B0072831A /* Triangle.hpp */,
 				2C53C2D225613B0C0072831A /* TriangleIndex.hpp */,
 				2C53C31325613B0C0072831A /* Types.hpp */,
@@ -3222,6 +3271,7 @@
 				2C53C2A625613B0C0072831A /* ISteadyClock.ipp */,
 				2C53C2CA25613B0C0072831A /* IWriter.ipp */,
 				2C53C26425613B0C0072831A /* KahanSummation.ipp */,
+				2C0A4D79256A17E6002A4B5E /* KDTree.ipp */,
 				2C53C25025613B0C0072831A /* Line.ipp */,
 				2C53C28225613B0C0072831A /* LineString.ipp */,
 				2C53C29125613B0C0072831A /* Mat3x2.ipp */,
@@ -3236,6 +3286,7 @@
 				2C53C2A125613B0C0072831A /* OffsetCircular.ipp */,
 				2C53C27C25613B0C0072831A /* Optional.ipp */,
 				2C53C26925613B0C0072831A /* Parse.ipp */,
+				2C0A4D78256A17CF002A4B5E /* Periodic.ipp */,
 				2C53C27D25613B0C0072831A /* PerlinNoise.ipp */,
 				2C53C28D25613B0C0072831A /* PixelShader.ipp */,
 				2C53C29C25613B0C0072831A /* Point.ipp */,
@@ -3253,8 +3304,10 @@
 				2C53C2B125613B0C0072831A /* RoundRect.ipp */,
 				2C53C28125613B0C0072831A /* SamplerState.ipp */,
 				2C53C26525613B0C0072831A /* Scene.ipp */,
+				2C0A4D81256A1874002A4B5E /* ScopedCustomShader2D.ipp */,
 				2C53C26225613B0C0072831A /* ScopeGuard.ipp */,
 				2C53C26725613B0C0072831A /* ShaderCommon.ipp */,
+				2C0A4D71256A1749002A4B5E /* Shape2D.ipp */,
 				2C53C27025613B0C0072831A /* Shuffle.ipp */,
 				2C53C27B25613B0C0072831A /* SMFT.ipp */,
 				2C53C2AF25613B0C0072831A /* Spherical.ipp */,
@@ -3268,7 +3321,9 @@
 				2C53C25A25613B0C0072831A /* TextReader.ipp */,
 				2C53C26E25613B0C0072831A /* TextWriter.ipp */,
 				2C53C27625613B0C0072831A /* Timer.ipp */,
+				2C0A4D7E256A1838002A4B5E /* Transition.ipp */,
 				2C53C29D25613B0C0072831A /* Triangle.ipp */,
+				2C0A4D72256A175F002A4B5E /* TriangleIndex.ipp */,
 				2C53C2C525613B0C0072831A /* Unicode.ipp */,
 				2C53C26325613B0C0072831A /* UnicodeConverter.ipp */,
 				2C53C25D25613B0C0072831A /* Utility_detail.ipp */,
@@ -3716,6 +3771,7 @@
 				2C0F89EC249E3945008B9220 /* Catch2 */,
 				2C46837824590D8D000006C0 /* EnumBitmask */,
 				2C6898112436064900C36C25 /* fmt */,
+				2C0A4D7A256A1807002A4B5E /* nanoflann */,
 				2C4564C92479193600DB01F0 /* parallel_hashmap */,
 				2CE18685249CC7A900ADD14A /* scope-guard */,
 				2C9D1077249A3D680096DA03 /* SMFT */,
@@ -4779,10 +4835,12 @@
 				2C4396192535DCCA00F6AECD /* svgrect.cpp in Sources */,
 				2C47B2FF24DD9789008D83BE /* MathParserDetail.cpp in Sources */,
 				2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */,
+				2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */,
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
 				2C4CBE592437100100F8B7A6 /* glew.c in Sources */,
+				2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */,
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2C4396312535DCCA00F6AECD /* svgpreserveaspectratio.cpp in Sources */,
 				2C47B33724DD9789008D83BE /* SivSystem.cpp in Sources */,

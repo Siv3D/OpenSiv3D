@@ -67,6 +67,8 @@ namespace s3d
 		}
 
 		other.clear();
+		
+		return *this;
 	}
 
 	inline void ScopedCustomShader2D::clear() noexcept
