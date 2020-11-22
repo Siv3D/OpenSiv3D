@@ -43,6 +43,59 @@ namespace s3d
 		{
 			return DatasetAdapter::GetPointer(point);
 		}
+
+		template <class _DistanceType>
+		class RadiusResultsAdapter
+		{
+		public:
+			
+			using DistanceType	= _DistanceType;
+			
+			using IndexType		= size_t;
+
+			const DistanceType m_radius;
+
+			Array<IndexType>& m_results;
+
+			RadiusResultsAdapter(DistanceType radius, Array<IndexType>& results)
+				: m_radius{ radius }
+				, m_results{ results }
+			{
+				init();
+			}
+
+			void init()
+			{
+				clear();
+			}
+			
+			void clear()
+			{
+				m_results.clear();
+			}
+
+			size_t size() const 
+			{
+				return m_results.size();
+			}
+
+			constexpr bool full() const
+			{
+				return true;
+			}
+
+			bool addPoint(const DistanceType, const IndexType index)
+			{
+				m_results.push_back(index);
+
+				return true;
+			}
+
+			DistanceType worstDist() const
+			{
+				return m_radius;
+			}
+		};
 	}
 
 	template <class DatasetAdapter>
@@ -88,7 +141,7 @@ namespace s3d
 
 		Array<element_type> distanceSqs(k);
 
-		k = m_index.knnSearch(adapter_type::GetPointer(point), k, &results[0], &distanceSqs[0]);
+		k = m_index.knnSearch(adapter_type::GetPointer(point), k, results.data(), distanceSqs.data());
 
 		results.resize(k);
 	}
@@ -118,21 +171,37 @@ namespace s3d
 	template <class DatasetAdapter>
 	inline void KDTree<DatasetAdapter>::radiusSearch(Array<size_t>& results, const point_type& point, const element_type radius, const SortByDistance sortByDistance) const
 	{
-		std::vector<std::pair<size_t, element_type>> matches;
+		const nanoflann::SearchParams searchParams{ 32, 0.0f, sortByDistance.getBool() };
 
-		const nanoflann::SearchParams params{ 32, 0.0f, sortByDistance.getBool() };
-
-		const size_t num_matches = m_index.radiusSearch(adapter_type::GetPointer(point), (radius * radius), matches, params);
-
-		results.resize(num_matches);
-
-		size_t* pDst = results.data();
-		const size_t* const pDstEnd = (pDst + num_matches);
-		const std::pair<size_t, element_type>* pSrc = matches.data();
-
-		while (pDst != pDstEnd)
+		if (sortByDistance)
 		{
-			*pDst++ = (pSrc++)->first;
+			std::vector<std::pair<size_t, element_type>> matches;
+
+			nanoflann::RadiusResultSet<element_type, size_t> resultSet{ (radius * radius), matches };
+
+			const size_t num_matches = m_index.radiusSearchCustomCallback(adapter_type::GetPointer(point), resultSet, searchParams);
+
+			if (searchParams.sorted)
+			{
+				std::sort(matches.begin(), matches.end(), nanoflann::IndexDist_Sorter());
+			}
+
+			results.resize(num_matches);
+
+			size_t* pDst = results.data();
+			const size_t* const pDstEnd = (pDst + num_matches);
+			const std::pair<size_t, element_type>* pSrc = matches.data();
+
+			while (pDst != pDstEnd)
+			{
+				*pDst++ = (pSrc++)->first;
+			}
+		}
+		else
+		{
+			detail::RadiusResultsAdapter<element_type> resultSet{ (radius * radius), results };
+
+			m_index.radiusSearchCustomCallback(adapter_type::GetPointer(point), resultSet, searchParams);
 		}
 	}
 }
