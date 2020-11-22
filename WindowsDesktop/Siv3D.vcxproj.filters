@@ -604,6 +604,15 @@
     <Filter Include="src\Siv3D\Graphics2D">
       <UniqueIdentifier>{b2358312-f196-43c0-9558-f3d1fec82fab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\BlendState">
+      <UniqueIdentifier>{d9494f95-3584-4b1c-973e-2245fb2ae861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\RasterizerState">
+      <UniqueIdentifier>{78a69a4d-d537-4530-888f-3929b6afc217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState">
+      <UniqueIdentifier>{c3c463a3-18ff-4d5e-ad26-6dd49e47155c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2409,6 +2418,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\BlendState\GL4BlendState.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\BlendState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\RasterizerState\GL4RasterizerState.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState\GL4SamplerState.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3316,6 +3334,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp">
       <Filter>src\Siv3D\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\BlendState\GL4BlendState.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\RasterizerState\GL4RasterizerState.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState\GL4SamplerState.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,7 +25,10 @@
 
 namespace s3d
 {
-	CRenderer_GL4::CRenderer_GL4() = default;
+	CRenderer_GL4::CRenderer_GL4()
+	{
+
+	}
 
 	CRenderer_GL4::~CRenderer_GL4()
 	{
@@ -48,7 +51,10 @@ namespace s3d
 
 		m_wglContext.init(m_hWnd);
 
-		m_backBuffer = std::make_unique<GL4BackBuffer>();
+		m_backBuffer		= std::make_unique<GL4BackBuffer>();
+		m_blendState		= std::make_unique<GL4BlendState>();
+		m_rasterizerState	= std::make_unique<GL4RasterizerState>();
+		m_samplerState		= std::make_unique<GL4SamplerState>();
 
 		SIV3D_ENGINE(Texture)->init();
 		SIV3D_ENGINE(Shader)->init();
@@ -155,5 +161,20 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_GL4::getLetterboxComposition() const noexcept
 	{
 		return m_backBuffer->getLetterboxComposition();
+	}
+
+	GL4BlendState& CRenderer_GL4::getBlendState() noexcept
+	{
+		return *m_blendState;
+	}
+
+	GL4RasterizerState& CRenderer_GL4::getRasterizerState() noexcept
+	{
+		return *m_rasterizerState;
+	}
+
+	GL4SamplerState& CRenderer_GL4::getSamplerState() noexcept
+	{
+		return *m_samplerState;
 	}
 }

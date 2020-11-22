@@ -85,7 +85,9 @@ namespace s3d
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
 
-
+		//
+		// Windows
+		//
 
 		ID3D11Device* getDevice() const;
 

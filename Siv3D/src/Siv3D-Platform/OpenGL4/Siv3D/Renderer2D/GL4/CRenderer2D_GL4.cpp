@@ -21,7 +21,7 @@
 # include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
-/*
+///*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -532,6 +532,20 @@ namespace s3d
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+					break;
+				}
+			case GL4Renderer2DCommandType::BlendState:
+				{
+					const auto& blendState = m_commandManager.getBlendState(command.index);
+					pRenderer->getBlendState().set(blendState);
+					LOG_COMMAND(U"BlendState[{}]"_fmt(command.index));
+					break;
+				}
+			case GL4Renderer2DCommandType::RasterizerState:
+				{
+					const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
+					pRenderer->getRasterizerState().set(rasterizerState);
+					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
 			case GL4Renderer2DCommandType::SetVS:

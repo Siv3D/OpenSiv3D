@@ -30,10 +30,10 @@ namespace s3d
 		{
 			m_draws.clear();
 			m_nullDraws.clear();
-			m_blendStates = { m_blendStates.back() };
-			m_rasterizerStates = { m_rasterizerStates.back() };
-			m_VSs = { VertexShader::IDType::InvalidValue() };
-			m_PSs = { PixelShader::IDType::InvalidValue() };
+			m_blendStates		= { m_blendStates.back() };
+			m_rasterizerStates	= { m_rasterizerStates.back() };
+			m_VSs				= { VertexShader::IDType::InvalidValue() };
+			m_PSs				= { PixelShader::IDType::InvalidValue() };
 		}
 
 		// clear reserves

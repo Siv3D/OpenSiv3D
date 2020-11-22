@@ -30,6 +30,10 @@ namespace s3d
 		{
 			m_draws.clear();
 			m_nullDraws.clear();
+			m_blendStates		= { m_blendStates.back() };
+			m_rasterizerStates	= { m_rasterizerStates.back() };
+			m_VSs				= { VertexShader::IDType::InvalidValue() };
+			m_PSs				= { PixelShader::IDType::InvalidValue() };
 		}
 
 		// clear reserves
@@ -43,11 +47,15 @@ namespace s3d
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
 			m_commands.emplace_back(GL4Renderer2DCommandType::UpdateBuffers, 0);
 
-			m_VSs = { VertexShader::IDType::InvalidValue() };
+			m_commands.emplace_back(GL4Renderer2DCommandType::BlendState, 0);
+			m_currentBlendState = m_blendStates.front();
+
+			m_commands.emplace_back(GL4Renderer2DCommandType::RasterizerState, 0);
+			m_currentRasterizerState = m_rasterizerStates.front();
+
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
 
-			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetPS, 0);
 			m_currentPS = PixelShader::IDType::InvalidValue();
 		}
@@ -65,6 +73,18 @@ namespace s3d
 		if (m_changes.has(GL4Renderer2DCommandType::SetBuffers))
 		{
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
+		}
+
+		if (m_changes.has(GL4Renderer2DCommandType::BlendState))
+		{
+			m_commands.emplace_back(GL4Renderer2DCommandType::BlendState, static_cast<uint32>(m_blendStates.size()));
+			m_blendStates.push_back(m_currentBlendState);
+		}
+
+		if (m_changes.has(GL4Renderer2DCommandType::RasterizerState))
+		{
+			m_commands.emplace_back(GL4Renderer2DCommandType::RasterizerState, static_cast<uint32>(m_rasterizerStates.size()));
+			m_rasterizerStates.push_back(m_currentRasterizerState);
 		}
 
 		if (m_changes.has(GL4Renderer2DCommandType::SetVS))
@@ -124,6 +144,82 @@ namespace s3d
 	uint32 GL4Renderer2DCommandManager::getNullDraw(const uint32 index) const noexcept
 	{
 		return m_nullDraws[index];
+	}
+
+	void GL4Renderer2DCommandManager::pushBlendState(const BlendState& state)
+	{
+		constexpr auto command = GL4Renderer2DCommandType::BlendState;
+		auto& current = m_currentBlendState;
+		auto& buffer = m_blendStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const BlendState& GL4Renderer2DCommandManager::getBlendState(const uint32 index) const
+	{
+		return m_blendStates[index];
+	}
+
+	const BlendState& GL4Renderer2DCommandManager::getCurrentBlendState() const
+	{
+		return m_currentBlendState;
+	}
+
+	void GL4Renderer2DCommandManager::pushRasterizerState(const RasterizerState& state)
+	{
+		constexpr auto command = GL4Renderer2DCommandType::RasterizerState;
+		auto& current = m_currentRasterizerState;
+		auto& buffer = m_rasterizerStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const RasterizerState& GL4Renderer2DCommandManager::getRasterizerState(const uint32 index) const
+	{
+		return m_rasterizerStates[index];
+	}
+
+	const RasterizerState& GL4Renderer2DCommandManager::getCurrentRasterizerState() const
+	{
+		return m_currentRasterizerState;
 	}
 
 	void GL4Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)

@@ -15,6 +15,9 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Renderer/GL4/BackBuffer/GL4BackBuffer.hpp>
+# include <Siv3D/Renderer/GL4/BlendState/GL4BlendState.hpp>
+# include <Siv3D/Renderer/GL4/RasterizerState/GL4RasterizerState.hpp>
+# include <Siv3D/Renderer/GL4/SamplerState/GL4SamplerState.hpp>
 
 namespace s3d
 {
@@ -26,6 +29,12 @@ namespace s3d
 		GLFWwindow* m_window = nullptr;
 		
 		std::unique_ptr<GL4BackBuffer> m_backBuffer;
+
+		std::unique_ptr<GL4BlendState> m_blendState;
+
+		std::unique_ptr<GL4RasterizerState> m_rasterizerState;
+		
+		std::unique_ptr<GL4SamplerState> m_samplerState;
 
 	public:
 
@@ -66,5 +75,15 @@ namespace s3d
 		const ColorF& getLetterboxColor() const noexcept override;
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
+
+		//
+		// GL4
+		//
+
+		GL4BlendState& getBlendState() noexcept;
+
+		GL4RasterizerState& getRasterizerState() noexcept;
+
+		GL4SamplerState& getSamplerState() noexcept;
 	};
 }
