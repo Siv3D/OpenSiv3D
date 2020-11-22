@@ -81,15 +81,15 @@ namespace s3d
 	
 		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
 
-		virtual void addNullVertices(uint32 count) {}
+		virtual void addNullVertices(uint32 count) = 0;
 
-		virtual Optional<VertexShader> getCustomVS() const { return none; }
+		virtual Optional<VertexShader> getCustomVS() const = 0;
 
-		virtual Optional<PixelShader> getCustomPS() const { return none; }
+		virtual Optional<PixelShader> getCustomPS() const = 0;
 
-		virtual void setCustomVS(const Optional<VertexShader>& vs) {}
+		virtual void setCustomVS(const Optional<VertexShader>& vs) = 0;
 
-		virtual void setCustomPS(const Optional<PixelShader>& ps) {}
+		virtual void setCustomPS(const Optional<PixelShader>& ps) = 0;
 
 		virtual float getMaxScaling() const noexcept = 0;
 	};

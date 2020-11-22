@@ -33,10 +33,16 @@ namespace s3d
 		VertexShader sprite;
 		VertexShader fullscreen_triangle;
 
-		bool ok() const
+		VertexShader::IDType spriteID;
+
+		bool setup()
 		{
-			return sprite
+			const bool result = sprite
 				&& fullscreen_triangle;
+
+			spriteID = sprite.id();
+
+			return result;
 		}
 	};
 
@@ -45,10 +51,16 @@ namespace s3d
 		PixelShader shape;
 		PixelShader fullscreen_triangle;
 
-		bool ok() const
+		PixelShader::IDType shapeID;
+
+		bool setup()
 		{
-			return shape
+			const bool result = shape
 				&& fullscreen_triangle;
+
+			shapeID = shape.id();
+
+			return result;
 		}
 	};
 
@@ -75,6 +87,9 @@ namespace s3d
 		MetalVertex2DBatch m_batches;
 		MetalRenderer2DCommandManager m_commandManager;
 		BufferCreatorFunc m_bufferCreator;
+
+		Optional<VertexShader> m_currentCustomVS;
+		Optional<PixelShader> m_currentCustomPS;
 
 	public:
 
@@ -113,6 +128,16 @@ namespace s3d
 		void addPolygon(const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 	
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
+
+		void addNullVertices(uint32 count) override;
+
+		Optional<VertexShader> getCustomVS() const override;
+
+		Optional<PixelShader> getCustomPS() const override;
+
+		void setCustomVS(const Optional<VertexShader>& vs) override;
+
+		void setCustomPS(const Optional<PixelShader>& ps) override;
 
 		float getMaxScaling() const noexcept override;
 

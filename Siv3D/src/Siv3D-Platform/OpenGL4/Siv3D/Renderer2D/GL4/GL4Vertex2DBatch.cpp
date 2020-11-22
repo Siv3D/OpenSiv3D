@@ -154,6 +154,12 @@ namespace s3d
 		m_indexArrayWritePos = 0;
 	}
 
+	void GL4Vertex2DBatch::setBuffers()
+	{
+		::glBindVertexArray(m_vao);
+		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	}
+
 	BatchInfo2D GL4Vertex2DBatch::updateBuffers(const size_t batchIndex)
 	{
 		assert(batchIndex < m_batches.size());

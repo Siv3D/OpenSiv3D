@@ -29,7 +29,10 @@
 
 namespace s3d
 {
-	CRenderer2D_GL4::CRenderer2D_GL4() = default;
+	CRenderer2D_GL4::CRenderer2D_GL4()
+	{
+
+	}
 
 	CRenderer2D_GL4::~CRenderer2D_GL4()
 	{
@@ -69,7 +72,7 @@ namespace s3d
 			m_standardVS = std::make_unique<GL4StandardVS2D>();
 			m_standardVS->sprite = GLSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
 			m_standardVS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
-			if (not m_standardVS->ok())
+			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL4::m_standardVS initialization failed");
 			}
@@ -81,7 +84,7 @@ namespace s3d
 			m_standardPS = std::make_unique<GL4StandardPS2D>();
 			m_standardPS->shape = GLSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
 			m_standardPS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
-			if (not m_standardPS->ok())
+			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL4::m_standardPS initialization failed");
 			}
@@ -119,10 +122,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLine(m_bufferCreator, begin, end, thickness, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -132,10 +140,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -145,10 +158,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -158,10 +176,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -171,10 +194,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -184,10 +212,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, innerColor, outerColor))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -197,10 +230,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -210,10 +248,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildCircleFrame(m_bufferCreator, center, rInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -223,10 +266,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -236,10 +284,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -249,10 +302,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, size, offset, thickness, inner, color, isClosed, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -262,10 +320,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, colors, size, offset, thickness, inner, isClosed, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -275,10 +338,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, indices, offset, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -288,10 +356,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, vertexCount, indices, num_triangles))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -301,12 +374,63 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GL4::addNullVertices(const uint32 count)
+	{
+		if (not m_currentCustomPS)
+		{
+			m_commandManager.pushStandardPS(m_standardPS->shapeID);
+		}
+
+		m_commandManager.pushNullVertices(count);
+	}
+
+	Optional<VertexShader> CRenderer2D_GL4::getCustomVS() const
+	{
+		return m_currentCustomVS;
+	}
+
+	Optional<PixelShader> CRenderer2D_GL4::getCustomPS() const
+	{
+		return m_currentCustomPS;
+	}
+
+	void CRenderer2D_GL4::setCustomVS(const Optional<VertexShader>& vs)
+	{
+		if (vs && (not vs->isEmpty()))
+		{
+			m_currentCustomVS = vs.value();
+			m_commandManager.pushCustomVS(vs.value());
+		}
+		else
+		{
+			m_currentCustomVS.reset();
+		}
+	}
+
+	void CRenderer2D_GL4::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		if (ps && (not ps->isEmpty()))
+		{
+			m_currentCustomPS = ps.value();
+			m_commandManager.pushCustomPS(ps.value());
+		}
+		else
+		{
+			m_currentCustomPS.reset();
 		}
 	}
 
@@ -321,12 +445,12 @@ namespace s3d
 		{
 			m_batches.reset();
 			m_commandManager.reset();
+			m_currentCustomVS.reset();
+			m_currentCustomPS.reset();
 		};
 
 		m_commandManager.flush();
 
-		pShader->setVS(m_standardVS->sprite.id());
-		pShader->setPS(m_standardPS->shape.id());
 		pShader->usePipeline();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
@@ -344,6 +468,8 @@ namespace s3d
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
 		BatchInfo2D batchInfo;
+
+		LOG_COMMAND(U"----");
 
 		for (const auto& command : m_commandManager.getCommands())
 		{
@@ -386,6 +512,62 @@ namespace s3d
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
 				}
+			case GL4Renderer2DCommandType::DrawNull:
+				{
+					m_vsConstants2D._update_if_dirty();
+					m_psConstants2D._update_if_dirty();
+
+					const uint32 draw = m_commandManager.getNullDraw(command.index);
+
+					// draw null vertex buffer
+					{
+						::glBindVertexArray(m_vertexArray);
+						{
+							::glBindBuffer(GL_ARRAY_BUFFER, 0);
+							::glDrawArrays(GL_TRIANGLES, 0, draw);
+						}
+						::glBindVertexArray(0);
+
+						m_batches.setBuffers();
+					}
+
+					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+					break;
+				}
+			case GL4Renderer2DCommandType::SetVS:
+				{
+					const auto& vsID = m_commandManager.getVS(command.index);
+
+					if (vsID == VertexShader::IDType::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+						LOG_COMMAND(U"SetVS[{}]: null"_fmt(command.index));
+					}
+					else
+					{
+						pShader->setVS(vsID);
+						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
+					}
+
+					break;
+				}
+			case GL4Renderer2DCommandType::SetPS:
+				{
+					const auto& psID = m_commandManager.getPS(command.index);
+
+					if (psID == PixelShader::IDType::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+						LOG_COMMAND(U"SetPS[{}]: null"_fmt(command.index));
+					}
+					else
+					{
+						pShader->setPS(psID);
+						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
+					}
+
+					break;
+				}
 			}
 		}
 
@@ -393,41 +575,6 @@ namespace s3d
 
 		CheckOpenGLError();
 	}
-
-	/*
-	void CRenderer2D_GL4::test_renderRectangle(const RectF& rect, const ColorF& _color)
-	{
-		constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
-		auto [pVertex, pIndex, indexOffset] = m_batches.requestBuffer(vertexSize, indexSize, m_command);
-
-		if (!pVertex)
-		{
-			return;
-		}
-
-		const Float4 color = _color.toFloat4();
-
-		const float left = float(rect.x);
-		const float right = float(rect.x + rect.w);
-		const float top = float(rect.y);
-		const float bottom = float(rect.y + rect.h);
-
-		pVertex[0].set(left, top, color);
-		pVertex[1].set(right, top, color);
-		pVertex[2].set(left, bottom, color);
-		pVertex[3].set(right, bottom, color);
-
-		static constexpr Vertex2D::IndexType RectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
-
-		for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
-		{
-			*pIndex++ = (indexOffset + RectIndexTable[i]);
-		}
-
-		m_draw_indexCount += 6;
-
-	}
-	*/
 
 	void CRenderer2D_GL4::drawFullScreenTriangle(const TextureFilter textureFilter)
 	{

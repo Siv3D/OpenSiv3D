@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "D3D11Renderer2DCommand.hpp"
-# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {

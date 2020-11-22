@@ -102,6 +102,31 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addNullVertices(const uint32)
+	{
+		// do nothing
+	}
+
+	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
+	{
+		return none;
+	}
+
+	Optional<PixelShader> CRenderer2D_Null::getCustomPS() const
+	{
+		return none;
+	}
+
+	void CRenderer2D_Null::setCustomVS(const Optional<VertexShader>&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setCustomPS(const Optional<PixelShader>&)
+	{
+		// do nothing
+	}
+
 	float CRenderer2D_Null::getMaxScaling() const noexcept
 	{
 		return 1.0f;

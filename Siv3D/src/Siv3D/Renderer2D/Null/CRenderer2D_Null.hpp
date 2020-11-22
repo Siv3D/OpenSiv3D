@@ -57,6 +57,16 @@ namespace s3d
 	
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
 
+		void addNullVertices(uint32 count) override;
+
+		Optional<VertexShader> getCustomVS() const override;
+
+		Optional<PixelShader> getCustomPS() const override;
+
+		void setCustomVS(const Optional<VertexShader>& vs) override;
+
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+
 		float getMaxScaling() const noexcept override;
 	};
 }

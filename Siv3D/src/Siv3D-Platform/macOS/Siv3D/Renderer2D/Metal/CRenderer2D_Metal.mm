@@ -20,7 +20,7 @@
 # include <Siv3D/Renderer/Metal/CRenderer_Metal.hpp>
 # include <Siv3D/Shader/Metal/CShader_Metal.hpp>
 
-/*
+///*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -53,7 +53,7 @@ namespace s3d
 			m_standardVS = std::make_unique<MetalStandardVS2D>();
 			m_standardVS->sprite = MSL(U"VS_Sprite");
 			m_standardVS->fullscreen_triangle = MSL(U"VS_FullscreenTriangle");
-			if (!m_standardVS->ok())
+			if (!m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_Metal::m_standardVS initialization failed");
 			}
@@ -64,7 +64,7 @@ namespace s3d
 			m_standardPS = std::make_unique<MetalStandardPS2D>();
 			m_standardPS->shape = MSL(U"PS_Shape");
 			m_standardPS->fullscreen_triangle = MSL(U"PS_FullscreenTriangle");
-			if (!m_standardPS->ok())
+			if (!m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_Metal::m_standardPS initialization failed");
 			}
@@ -131,10 +131,15 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLine(m_bufferCreator, begin, end, thickness, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
 
 			m_commandManager.pushDraw(indexCount);
 		}
@@ -144,11 +149,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -157,11 +167,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildTriangle(m_bufferCreator, points, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -170,11 +185,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -183,11 +203,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRect(m_bufferCreator, rect, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -196,11 +221,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRectFrame(m_bufferCreator, rect, thickness, innerColor, outerColor))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -209,11 +239,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -222,11 +257,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildCircleFrame(m_bufferCreator, center, rInner, thickness, innerColor, outerColor, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -235,11 +275,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -248,11 +293,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -261,11 +311,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, size, offset, thickness, inner, color, isClosed, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -274,11 +329,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, colors, size, offset, thickness, inner, isClosed, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -287,11 +347,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, indices, offset, color))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -300,11 +365,16 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygon(m_bufferCreator, vertices, vertexCount, indices, num_triangles))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commands.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
@@ -313,12 +383,63 @@ namespace s3d
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
 		{
-			//if (!m_currentCustomPS)
-			//{
-			//	m_commandManager.pushStandardPS(m_standardPS->shapeID);
-			//}
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+			
 			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addNullVertices(const uint32 count)
+	{
+		if (not m_currentCustomPS)
+		{
+			m_commandManager.pushStandardPS(m_standardPS->shapeID);
+		}
+
+		m_commandManager.pushNullVertices(count);
+	}
+
+	Optional<VertexShader> CRenderer2D_Metal::getCustomVS() const
+	{
+		return m_currentCustomVS;
+	}
+
+	Optional<PixelShader> CRenderer2D_Metal::getCustomPS() const
+	{
+		return m_currentCustomPS;
+	}
+
+	void CRenderer2D_Metal::setCustomVS(const Optional<VertexShader>& vs)
+	{
+		if (vs && (not vs->isEmpty()))
+		{
+			m_currentCustomVS = vs.value();
+			m_commandManager.pushCustomVS(vs.value());
+		}
+		else
+		{
+			m_currentCustomVS.reset();
+		}
+	}
+
+	void CRenderer2D_Metal::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		if (ps && (not ps->isEmpty()))
+		{
+			m_currentCustomPS = ps.value();
+			m_commandManager.pushCustomPS(ps.value());
+		}
+		else
+		{
+			m_currentCustomPS.reset();
 		}
 	}
 
@@ -385,7 +506,7 @@ namespace s3d
 					BatchInfo2D batchInfo;
 					size_t viBatchIndex = 0;
 					
-					LOG_COMMAND(U"-2D-");
+					LOG_COMMAND(U"----");
 					
 					for (const auto& command : m_commandManager.getCommands())
 					{
@@ -430,6 +551,62 @@ namespace s3d
 								batchInfo.startIndexLocation += indexCount;
 
 								LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+								break;
+							}
+						case MetalRenderer2DCommandType::DrawNull:
+							{
+								//m_vsConstants2D._update_if_dirty();
+								//m_psConstants2D._update_if_dirty();
+
+								const uint32 draw = m_commandManager.getNullDraw(command.index);
+
+								// draw null vertex buffer
+								{
+									//::glBindVertexArray(m_vertexArray);
+									{
+										//::glBindBuffer(GL_ARRAY_BUFFER, 0);
+										//::glDrawArrays(GL_TRIANGLES, 0, draw);
+									}
+									//::glBindVertexArray(0);
+
+									//m_batches.setBuffers();
+								}
+
+								LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+								break;
+							}
+						case MetalRenderer2DCommandType::SetVS:
+							{
+								const auto& vsID = m_commandManager.getVS(command.index);
+
+								if (vsID == VertexShader::IDType::InvalidValue())
+								{
+									;// [Siv3D ToDo] set null
+									LOG_COMMAND(U"SetVS[{}]: null"_fmt(command.index));
+								}
+								else
+								{
+									//pShader->setVS(vsID);
+									LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
+								}
+
+								break;
+							}
+						case MetalRenderer2DCommandType::SetPS:
+							{
+								const auto& psID = m_commandManager.getPS(command.index);
+
+								if (psID == PixelShader::IDType::InvalidValue())
+								{
+									;// [Siv3D ToDo] set null
+									LOG_COMMAND(U"SetPS[{}]: null"_fmt(command.index));
+								}
+								else
+								{
+									//pShader->setPS(psID);
+									LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
+								}
+
 								break;
 							}
 						}
