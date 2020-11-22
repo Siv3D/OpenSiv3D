@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include "GL4SamplerState.hpp"
 
 namespace s3d
@@ -84,7 +85,7 @@ namespace s3d
 
 		::glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER,
 			detail::minmipTable[(static_cast<int32>(state.min) << 1) | (static_cast<int32>(state.mip))]);
-		::glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, static_cast<bool>(state.mag) ? GL_LINEAR : GL_NEAREST);
+		::glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, (state.mag == TextureFilter::Linear) ? GL_LINEAR : GL_NEAREST);
 		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_S, wraps[static_cast<int32>(state.addressU)]);
 		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, wraps[static_cast<int32>(state.addressV)]);
 		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_R, wraps[static_cast<int32>(state.addressW)]);
