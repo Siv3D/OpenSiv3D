@@ -39,7 +39,7 @@ namespace s3d
 
 		if (state.cullMode != m_currentState.cullMode)
 		{
-			if (state.cullMode == CullMode::None)
+			if (state.cullMode == CullMode::Off)
 			{
 				::glDisable(GL_CULL_FACE);
 			}

@@ -29,7 +29,7 @@ namespace s3d
 
 	enum class CullMode : uint8
 	{
-		None = 1,
+		Off = 1,
 		
 		Front = 2,
 		
@@ -125,7 +125,7 @@ namespace s3d
 		static const Predefined SolidCullFront = Predefined::SolidCullFront;
 
 		/// @brief ソリッド表示、カリングなし
-		/// @remark RasterizerState{ FillMode::Solid, CullMode::None }
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off }
 		static const Predefined SolidCullNone = Predefined::SolidCullNone;
 
 		/// @brief ワイヤフレーム表示、裏向きの面をカリング
@@ -137,11 +137,11 @@ namespace s3d
 		static const Predefined WireframeCullFront = Predefined::WireframeCullFront;
 
 		/// @brief ワイヤフレーム表示、カリングなし
-		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::None }
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Off }
 		static const Predefined WireframeCullNone = Predefined::WireframeCullNone;
 
 		/// @brief アンチエイリアスされた Line3D 描画
-		/// @remark RasterizerState{ FillMode::Solid, CullMode::None, false, true }
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, false, true }
 		static const Predefined AntialiasedLine3D = Predefined::AntialiasedLine3D;
 
 		/// @brief ソリッド表示、裏向きの面をカリング、シザーテスト
@@ -153,7 +153,7 @@ namespace s3d
 		static const Predefined SolidCullFrontScissor = Predefined::SolidCullFrontScissor;
 
 		/// @brief ソリッド表示、カリングなし、シザーテスト
-		/// @remark RasterizerState{ FillMode::Solid, CullMode::None, true }
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, true }
 		static const Predefined SolidCullNoneScissor = Predefined::SolidCullNoneScissor;
 
 		/// @brief ワイヤフレーム表示、裏向きの面をカリング、シザーテスト
@@ -165,11 +165,11 @@ namespace s3d
 		static const Predefined WireframeCullFrontScissor = Predefined::WireframeCullFrontScissor;
 
 		/// @brief ワイヤフレーム表示、カリングなし、シザーテスト
-		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::None, true }
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Off, true }
 		static const Predefined WireframeCullNoneScissor = Predefined::WireframeCullNoneScissor;
 
 		/// @brief アンチエイリアスされた Line3D 描画、シザーテスト
-		/// @remark RasterizerState{ FillMode::Solid, CullMode::None, true, true }
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, true, true }
 		static const Predefined AntialiasedLine3DScissor = Predefined::AntialiasedLine3DScissor;
 
 		/// @brief 2D 描画時のデフォルト

@@ -53,18 +53,18 @@ namespace s3d
 		{
 			RasterizerState{ FillMode::Solid,		CullMode::Back },	// SolidCullBack
 			RasterizerState{ FillMode::Solid,		CullMode::Front },	// SolidCullFront
-			RasterizerState{ FillMode::Solid,		CullMode::None },	// SolidCullNone
+			RasterizerState{ FillMode::Solid,		CullMode::Off },	// SolidCullNone
 			RasterizerState{ FillMode::Wireframe,	CullMode::Back },	// WireframeCullBack
 			RasterizerState{ FillMode::Wireframe,	CullMode::Front },	// WireframeCullFront
-			RasterizerState{ FillMode::Wireframe,	CullMode::None },	// WireframeCullNone
-			RasterizerState{ FillMode::Solid,		CullMode::None, false, true },	// AntialiasedLine3D
+			RasterizerState{ FillMode::Wireframe,	CullMode::Off },	// WireframeCullNone
+			RasterizerState{ FillMode::Solid,		CullMode::Off, false, true },	// AntialiasedLine3D
 			RasterizerState{ FillMode::Solid,		CullMode::Back, true },			// SolidCullBackScissor
 			RasterizerState{ FillMode::Solid,		CullMode::Front, true },		// SolidCullFrontScissor
-			RasterizerState{ FillMode::Solid,		CullMode::None, true },			// SolidCullNoneScissor
+			RasterizerState{ FillMode::Solid,		CullMode::Off, true },			// SolidCullNoneScissor
 			RasterizerState{ FillMode::Wireframe,	CullMode::Back, true },			// WireframeCullBackScissor
 			RasterizerState{ FillMode::Wireframe,	CullMode::Front, true },		// WireframeCullFrontScissor
-			RasterizerState{ FillMode::Wireframe,	CullMode::None, true },			// WireframeCullNoneScissor
-			RasterizerState{ FillMode::Solid,		CullMode::None, true, true },	// AntialiasedLine3DScissor
+			RasterizerState{ FillMode::Wireframe,	CullMode::Off, true },			// WireframeCullNoneScissor
+			RasterizerState{ FillMode::Solid,		CullMode::Off, true, true },	// AntialiasedLine3DScissor
 		};
 
 		*this = PredefinedStates[FromEnum(predefined)];
