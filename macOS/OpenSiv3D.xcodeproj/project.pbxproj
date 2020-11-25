@@ -649,6 +649,8 @@
 		2C27A9EA256E359400756617 /* GL4SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4SamplerState.cpp; sourceTree = "<group>"; };
 		2C27AA03256E6B5300756617 /* ScopedRenderStates2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.hpp; sourceTree = "<group>"; };
 		2C27AA04256E6B6700756617 /* ScopedRenderStates2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.ipp; sourceTree = "<group>"; };
+		2C27AA05256E7D7C00756617 /* Transformer2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.hpp; sourceTree = "<group>"; };
+		2C27AA06256E7D9000756617 /* Transformer2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.ipp; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -3283,6 +3285,7 @@
 				2C53C1DF25613B0B0072831A /* Threading.hpp */,
 				2C53C1F625613B0B0072831A /* Time.hpp */,
 				2C53C2D025613B0C0072831A /* Timer.hpp */,
+				2C27AA05256E7D7C00756617 /* Transformer2D.hpp */,
 				2C0A4D7D256A182B002A4B5E /* Transition.hpp */,
 				2C53C21225613B0B0072831A /* Triangle.hpp */,
 				2C53C2D225613B0C0072831A /* TriangleIndex.hpp */,
@@ -3434,6 +3437,7 @@
 				2C53C25A25613B0C0072831A /* TextReader.ipp */,
 				2C53C26E25613B0C0072831A /* TextWriter.ipp */,
 				2C53C27625613B0C0072831A /* Timer.ipp */,
+				2C27AA06256E7D9000756617 /* Transformer2D.ipp */,
 				2C0A4D7E256A1838002A4B5E /* Transition.ipp */,
 				2C53C29D25613B0C0072831A /* Triangle.ipp */,
 				2C0A4D72256A175F002A4B5E /* TriangleIndex.ipp */,
