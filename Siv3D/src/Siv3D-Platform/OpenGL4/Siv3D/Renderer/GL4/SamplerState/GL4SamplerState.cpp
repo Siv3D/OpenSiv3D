@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <cfloat>
+# include <Siv3D/ShaderStatge.hpp>
 # include "GL4SamplerState.hpp"
 
 namespace s3d
@@ -37,14 +38,15 @@ namespace s3d
 
 	GL4SamplerState::GL4SamplerState()
 	{
-		m_currentStates.fill(NullSamplerState);
+		m_currentVSStates.fill(NullSamplerState);
+		m_currentPSStates.fill(NullSamplerState);
 	}
 
-	void GL4SamplerState::setPS(const uint32 slot, const SamplerState& state)
+	void GL4SamplerState::setVS(const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
-		if (state == m_currentStates[slot])
+		if (state == m_currentVSStates[slot])
 		{
 			return;
 		}
@@ -61,18 +63,53 @@ namespace s3d
 			}
 		}
 
-		::glBindSampler(slot, it->second->m_sampler);
+		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot), it->second->m_sampler);
 
-		m_currentStates[slot] = state;
+		m_currentVSStates[slot] = state;
+	}
+
+	void GL4SamplerState::setVS(const uint32 slot, None_t)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot), 0);
+
+		m_currentVSStates[slot] = NullSamplerState;
+	}
+
+	void GL4SamplerState::setPS(const uint32 slot, const SamplerState& state)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		if (state == m_currentPSStates[slot])
+		{
+			return;
+		}
+
+		auto it = m_states.find(state);
+
+		if (it == m_states.end())
+		{
+			it = create(state);
+
+			if (it == m_states.end())
+			{
+				return;
+			}
+		}
+
+		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot), it->second->m_sampler);
+
+		m_currentPSStates[slot] = state;
 	}
 
 	void GL4SamplerState::setPS(const uint32 slot, None_t)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
-		::glBindSampler(slot, 0);
+		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot), 0);
 
-		m_currentStates[slot] = NullSamplerState;
+		m_currentPSStates[slot] = NullSamplerState;
 	}
 
 	GL4SamplerState::SamplerStateList::iterator GL4SamplerState::create(const SamplerState& state)

@@ -39,6 +39,22 @@ namespace s3d
 
 		RasterizerState,
 
+		VSSamplerState0,
+
+		VSSamplerState1,
+
+		VSSamplerState2,
+
+		VSSamplerState3,
+
+		VSSamplerState4,
+
+		VSSamplerState5,
+
+		VSSamplerState6,
+
+		VSSamplerState7,
+
 		PSSamplerState0,
 
 		PSSamplerState1,
@@ -91,6 +107,8 @@ namespace s3d
 		Array<uint32> m_nullDraws;
 		Array<BlendState> m_blendStates				= { BlendState::Default };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default2D };
+		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
+		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 
@@ -98,6 +116,8 @@ namespace s3d
 		GL4DrawCommand m_currentDraw;
 		BlendState m_currentBlendState				= m_blendStates.back();
 		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSSamplerStates;
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplerStates;
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 
@@ -130,6 +150,14 @@ namespace s3d
 		void pushRasterizerState(const RasterizerState& state);
 		const RasterizerState& getRasterizerState(uint32 index) const;
 		const RasterizerState& getCurrentRasterizerState() const;
+
+		void pushVSSamplerState(const SamplerState& state, uint32 slot);
+		const SamplerState& getVSSamplerState(uint32 slot, uint32 index) const;
+		const SamplerState& getVSCurrentSamplerState(uint32 slot) const;
+
+		void pushPSSamplerState(const SamplerState& state, uint32 slot);
+		const SamplerState& getPSSamplerState(uint32 slot, uint32 index) const;
+		const SamplerState& getPSCurrentSamplerState(uint32 slot) const;
 
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);

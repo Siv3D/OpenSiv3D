@@ -21,7 +21,7 @@
 # include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
-///*
+/*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -546,6 +546,36 @@ namespace s3d
 					const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
 					pRenderer->getRasterizerState().set(rasterizerState);
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
+					break;
+				}
+			case GL4Renderer2DCommandType::VSSamplerState0:
+			case GL4Renderer2DCommandType::VSSamplerState1:
+			case GL4Renderer2DCommandType::VSSamplerState2:
+			case GL4Renderer2DCommandType::VSSamplerState3:
+			case GL4Renderer2DCommandType::VSSamplerState4:
+			case GL4Renderer2DCommandType::VSSamplerState5:
+			case GL4Renderer2DCommandType::VSSamplerState6:
+			case GL4Renderer2DCommandType::VSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(GL4Renderer2DCommandType::VSSamplerState0);
+					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setVS(slot, samplerState);
+					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case GL4Renderer2DCommandType::PSSamplerState0:
+			case GL4Renderer2DCommandType::PSSamplerState1:
+			case GL4Renderer2DCommandType::PSSamplerState2:
+			case GL4Renderer2DCommandType::PSSamplerState3:
+			case GL4Renderer2DCommandType::PSSamplerState4:
+			case GL4Renderer2DCommandType::PSSamplerState5:
+			case GL4Renderer2DCommandType::PSSamplerState6:
+			case GL4Renderer2DCommandType::PSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(GL4Renderer2DCommandType::PSSamplerState0);
+					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setPS(slot, samplerState);
+					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			case GL4Renderer2DCommandType::SetVS:

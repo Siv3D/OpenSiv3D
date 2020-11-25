@@ -104,9 +104,9 @@ namespace s3d
 
 		::glUseProgram(m_psProgram);
 
-		for (auto [slot, location] : m_textureIndices)
+		for (auto&& [slot, location] : m_textureIndices)
 		{
-			::glUniform1i(location, slot);
+			::glUniform1i(location, Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot));
 		}
 
 		::glUseProgram(0);

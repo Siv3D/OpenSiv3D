@@ -44,13 +44,19 @@ namespace s3d
 
 		SamplerStateList m_states;
 
-		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentStates;
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSStates;
+
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
 
 		SamplerStateList::iterator create(const SamplerState& state);
 
 	public:
 
 		GL4SamplerState();
+
+		void setVS(uint32 slot, const SamplerState& state);
+
+		void setVS(uint32 slot, None_t);
 
 		void setPS(uint32 slot, const SamplerState& state);
 

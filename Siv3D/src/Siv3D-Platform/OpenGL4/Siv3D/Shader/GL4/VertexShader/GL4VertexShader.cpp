@@ -11,6 +11,7 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include "GL4VertexShader.hpp"
 
 namespace s3d
@@ -60,6 +61,19 @@ namespace s3d
 
 		if (m_vsProgram)
 		{
+			for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
+			{
+				const String name = Format(U"Texture", slot);
+				const std::string s = name.narrow();
+				const GLint location = ::glGetUniformLocation(m_vsProgram, s.c_str());
+
+				if (location != -1)
+				{
+					LOG_TRACE(U"{} location: {}"_fmt(name, location));
+					m_textureIndices.emplace_back(slot, location);
+				}
+			}
+
 			setUniformBlockBindings(bindings);
 		}
 
@@ -79,6 +93,23 @@ namespace s3d
 	GLint GL4VertexShader::getProgram() const
 	{
 		return m_vsProgram;
+	}
+
+	void GL4VertexShader::setVSSamplerUniform()
+	{
+		if (not m_textureIndices)
+		{
+			return;
+		}
+
+		::glUseProgram(m_vsProgram);
+
+		for (auto&& [slot, location] : m_textureIndices)
+		{
+			::glUniform1i(location, Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
+		}
+
+		::glUseProgram(0);
 	}
 
 	void GL4VertexShader::setUniformBlockBinding(const StringView name, const GLuint index)

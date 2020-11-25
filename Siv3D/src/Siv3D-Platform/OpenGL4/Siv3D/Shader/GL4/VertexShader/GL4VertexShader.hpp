@@ -25,6 +25,8 @@ namespace s3d
 
 		GLuint m_vsProgram = 0;
 
+		Array<std::pair<uint32, GLint>> m_textureIndices;
+
 		bool m_initialized = false;
 
 		void setUniformBlockBinding(const StringView name, GLuint index);
@@ -48,5 +50,7 @@ namespace s3d
 		const Blob& getBinary() const noexcept;
 
 		GLint getProgram() const;
+
+		void setVSSamplerUniform();
 	};
 }
