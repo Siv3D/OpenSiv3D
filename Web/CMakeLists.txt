@@ -339,6 +339,11 @@ add_library(
   ../Siv3D/src/ThirdParty/xxHash/xxhash.c
   )
 
+set_target_properties(OpenSiv3D_Web 
+  PROPERTIES 
+    OUTPUT_NAME "Siv3D"
+)
+
 target_include_directories(
   OpenSiv3D_Web
   PUBLIC
