@@ -20,15 +20,15 @@ void Main()
 	{
 		for (auto i : step(20))
 		{
-			Rect(Point{ 100, 100 } *i, 100).draw();
+			Rect{ Point{ 100, 100 } *i, 100 }.draw();
 		}
 
 		for (auto i : step(20))
 		{
-			Rect(Cursor::Pos().movedBy(0 + i * 20, 0), 20, 400)
-				.draw(HSV(i * 10, 0.5, 0.9));
+			Rect{ Cursor::Pos().movedBy(0 + i * 20, 0), 20, 400 }
+				.draw(HSV{ i * 10, 0.5, 0.9 });
 		}
 
-		Rect(Cursor::Pos(), 40).draw(Palette::Orange);
+		Rect{ Cursor::Pos(), 40 }.draw(Palette::Orange);
 	}
 }

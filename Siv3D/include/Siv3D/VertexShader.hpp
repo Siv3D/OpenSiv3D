@@ -24,8 +24,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		VertexShader();
 
+		SIV3D_NODISCARD_CXX20
 		VertexShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 
 		//virtual ~VertexShader();
@@ -33,10 +35,13 @@ namespace s3d
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;
 
+		[[nodiscard]]
 		static VertexShader HLSL(FilePathView path, StringView entryPoint = U"VS");
 
+		[[nodiscard]]
 		static VertexShader GLSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
+		[[nodiscard]]
 		static VertexShader MSL(StringView entryPoint, FilePathView path = {});
 	};
 }

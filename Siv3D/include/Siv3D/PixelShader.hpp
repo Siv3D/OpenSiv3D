@@ -24,8 +24,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		PixelShader();
 
+		SIV3D_NODISCARD_CXX20
 		PixelShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 
 		//virtual ~PixelShader();
@@ -33,10 +35,13 @@ namespace s3d
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;
 
+		[[nodiscard]]
 		static PixelShader HLSL(FilePathView path, StringView entryPoint = U"PS");
 
+		[[nodiscard]]
 		static PixelShader GLSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
+		[[nodiscard]]
 		static PixelShader MSL(StringView entryPoint, FilePathView path = {});
 	};
 }
