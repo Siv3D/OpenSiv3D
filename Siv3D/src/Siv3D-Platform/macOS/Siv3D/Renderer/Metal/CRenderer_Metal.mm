@@ -65,8 +65,9 @@ namespace s3d
 		nswin.contentView.layer			= m_swapchain;
 		nswin.contentView.wantsLayer	= YES;
 		
-		m_backBuffer = std::make_unique<MetalBackBuffer>();
-		m_samplerState = std::make_unique<MetalSamplerState>(m_device);
+		m_backBuffer		= std::make_unique<MetalBackBuffer>();
+		m_rasterizerState	= std::make_unique<MetalRasterizerState>();
+		m_samplerState		= std::make_unique<MetalSamplerState>(m_device);
 		
 		SIV3D_ENGINE(Texture)->init();
 		SIV3D_ENGINE(Shader)->init();
@@ -187,6 +188,11 @@ namespace s3d
 	CAMetalLayer* CRenderer_Metal::getSwapchain() const
 	{
 		return m_swapchain;
+	}
+
+	MetalRasterizerState& CRenderer_Metal::getRasterizerState()
+	{
+		return *m_rasterizerState;
 	}
 
 	MetalSamplerState& CRenderer_Metal::getSamplerState()

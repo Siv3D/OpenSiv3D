@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -30,6 +30,10 @@ namespace s3d
 		{
 			m_draws.clear();
 			m_nullDraws.clear();
+			m_blendStates		= { m_blendStates.back() };
+			m_rasterizerStates	= { m_rasterizerStates.back() };
+			m_VSs				= { VertexShader::IDType::InvalidValue() };
+			m_PSs				= { PixelShader::IDType::InvalidValue() };
 		}
 
 		// clear reserves
@@ -42,12 +46,16 @@ namespace s3d
 		{
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetBuffers, 0);
 			m_commands.emplace_back(MetalRenderer2DCommandType::UpdateBuffers, 0);
+			
+			m_commands.emplace_back(MetalRenderer2DCommandType::BlendState, 0);
+			m_currentBlendState = m_blendStates.front();
 
-			m_VSs = { VertexShader::IDType::InvalidValue() };
+			m_commands.emplace_back(MetalRenderer2DCommandType::RasterizerState, 0);
+			m_currentRasterizerState = m_rasterizerStates.front();
+
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
 
-			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetPS, 0);
 			m_currentPS = PixelShader::IDType::InvalidValue();
 		}
@@ -65,6 +73,18 @@ namespace s3d
 		if (m_changes.has(MetalRenderer2DCommandType::SetBuffers))
 		{
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetBuffers, 0);
+		}
+		
+		if (m_changes.has(MetalRenderer2DCommandType::BlendState))
+		{
+			m_commands.emplace_back(MetalRenderer2DCommandType::BlendState, static_cast<uint32>(m_blendStates.size()));
+			m_blendStates.push_back(m_currentBlendState);
+		}
+
+		if (m_changes.has(MetalRenderer2DCommandType::RasterizerState))
+		{
+			m_commands.emplace_back(MetalRenderer2DCommandType::RasterizerState, static_cast<uint32>(m_rasterizerStates.size()));
+			m_rasterizerStates.push_back(m_currentRasterizerState);
 		}
 
 		if (m_changes.has(MetalRenderer2DCommandType::SetVS))
@@ -124,6 +144,82 @@ namespace s3d
 	uint32 MetalRenderer2DCommandManager::getNullDraw(const uint32 index) const noexcept
 	{
 		return m_nullDraws[index];
+	}
+
+	void MetalRenderer2DCommandManager::pushBlendState(const BlendState& state)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::BlendState;
+		auto& current = m_currentBlendState;
+		auto& buffer = m_blendStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const BlendState& MetalRenderer2DCommandManager::getBlendState(const uint32 index) const
+	{
+		return m_blendStates[index];
+	}
+
+	const BlendState& MetalRenderer2DCommandManager::getCurrentBlendState() const
+	{
+		return m_currentBlendState;
+	}
+
+	void MetalRenderer2DCommandManager::pushRasterizerState(const RasterizerState& state)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::RasterizerState;
+		auto& current = m_currentRasterizerState;
+		auto& buffer = m_rasterizerStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const RasterizerState& MetalRenderer2DCommandManager::getRasterizerState(const uint32 index) const
+	{
+		return m_rasterizerStates[index];
+	}
+
+	const RasterizerState& MetalRenderer2DCommandManager::getCurrentRasterizerState() const
+	{
+		return m_currentRasterizerState;
 	}
 
 	void MetalRenderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)

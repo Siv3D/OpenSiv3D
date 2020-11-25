@@ -41,6 +41,14 @@
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */; };
 		2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */; };
+		2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E3256E359400756617 /* GL4BlendState.cpp */; };
+		2C27A9EC256E359400756617 /* GL4BlendState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E4256E359400756617 /* GL4BlendState.hpp */; };
+		2C27A9ED256E359400756617 /* GL4RasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E6256E359400756617 /* GL4RasterizerState.cpp */; };
+		2C27A9EE256E359400756617 /* GL4RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */; };
+		2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E9256E359400756617 /* GL4SamplerState.hpp */; };
+		2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9EA256E359400756617 /* GL4SamplerState.cpp */; };
+		2C27A9FE256E390D00756617 /* MetalRasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */; };
+		2C27AA00256E3A4C00756617 /* MetalRasterizerState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -635,6 +643,14 @@
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
 		2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRenderPipeline2DManager.hpp; sourceTree = "<group>"; };
 		2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderPipeline2DManager.mm; sourceTree = "<group>"; };
+		2C27A9E3256E359400756617 /* GL4BlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4BlendState.cpp; sourceTree = "<group>"; };
+		2C27A9E4256E359400756617 /* GL4BlendState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4BlendState.hpp; sourceTree = "<group>"; };
+		2C27A9E6256E359400756617 /* GL4RasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4RasterizerState.cpp; sourceTree = "<group>"; };
+		2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4RasterizerState.hpp; sourceTree = "<group>"; };
+		2C27A9E9256E359400756617 /* GL4SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4SamplerState.hpp; sourceTree = "<group>"; };
+		2C27A9EA256E359400756617 /* GL4SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4SamplerState.cpp; sourceTree = "<group>"; };
+		2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRasterizerState.hpp; sourceTree = "<group>"; };
+		2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRasterizerState.mm; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -1742,6 +1758,7 @@
 		2C12089A24A30260008CAD99 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
+				2C27A9FA256E390D00756617 /* RasterizerState */,
 				2C6391062539CF820030F18E /* SamplerState */,
 				2C6390EA2536C5460030F18E /* BackBuffer */,
 				2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */,
@@ -1758,6 +1775,42 @@
 				2C47E59824AF3C7B0060E8A7 /* libboost_filesystem.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C27A9E2256E359400756617 /* BlendState */ = {
+			isa = PBXGroup;
+			children = (
+				2C27A9E3256E359400756617 /* GL4BlendState.cpp */,
+				2C27A9E4256E359400756617 /* GL4BlendState.hpp */,
+			);
+			path = BlendState;
+			sourceTree = "<group>";
+		};
+		2C27A9E5256E359400756617 /* RasterizerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C27A9E6256E359400756617 /* GL4RasterizerState.cpp */,
+				2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */,
+			);
+			path = RasterizerState;
+			sourceTree = "<group>";
+		};
+		2C27A9E8256E359400756617 /* SamplerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C27A9E9256E359400756617 /* GL4SamplerState.hpp */,
+				2C27A9EA256E359400756617 /* GL4SamplerState.cpp */,
+			);
+			path = SamplerState;
+			sourceTree = "<group>";
+		};
+		2C27A9FA256E390D00756617 /* RasterizerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */,
+				2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */,
+			);
+			path = RasterizerState;
 			sourceTree = "<group>";
 		};
 		2C378CA2251E492B00D4B14B /* Addon */ = {
@@ -2919,6 +2972,9 @@
 			isa = PBXGroup;
 			children = (
 				2C47B6E624EAC8D9008D83BE /* BackBuffer */,
+				2C27A9E2256E359400756617 /* BlendState */,
+				2C27A9E5256E359400756617 /* RasterizerState */,
+				2C27A9E8256E359400756617 /* SamplerState */,
 			);
 			path = GL4;
 			sourceTree = "<group>";
@@ -4301,12 +4357,14 @@
 				2CFF9F6D24A47730000B5A17 /* MetalVertex2DBatch.hpp in Headers */,
 				2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */,
 				2C47B34D24DD9789008D83BE /* BMPHeader.hpp in Headers */,
+				2C27A9EE256E359400756617 /* GL4RasterizerState.hpp in Headers */,
 				2C47B35624DD9789008D83BE /* IProfiler.hpp in Headers */,
 				2C47B35C24DD9789008D83BE /* CImageEncoder.hpp in Headers */,
 				2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */,
 				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
 				2C47B2FB24DD9789008D83BE /* ILicenseManager.hpp in Headers */,
 				2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */,
+				2C27A9EC256E359400756617 /* GL4BlendState.hpp in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
 				2C43961C2535DCCA00F6AECD /* svgstopelement.h in Headers */,
 				2C53C34C25613BD40072831A /* earcut.hpp in Headers */,
@@ -4384,6 +4442,7 @@
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
 				2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */,
+				2C27A9FE256E390D00756617 /* MetalRasterizerState.hpp in Headers */,
 				2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
@@ -4407,6 +4466,7 @@
 				2C834D95248805D4006208B8 /* config.h in Headers */,
 				2C53C34625613BB00072831A /* PolygonDetail.hpp in Headers */,
 				2C4395FC2535DCCA00F6AECD /* pathiterator.h in Headers */,
+				2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */,
 				2C439F7F241DCEA9001154C2 /* strtod.h in Headers */,
 				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
@@ -4659,7 +4719,9 @@
 				2C47B36924DD9789008D83BE /* ResourceFactory.cpp in Sources */,
 				2C68508924B768A800B98A7F /* CLogger.cpp in Sources */,
 				2CF21D19249FAA8F00C864C9 /* SivFileSystem_macOS.mm in Sources */,
+				2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */,
 				2C834DB3248805D4006208B8 /* iso8859_3.c in Sources */,
+				2C27A9ED256E359400756617 /* GL4RasterizerState.cpp in Sources */,
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
 				2C834DB0248805D4006208B8 /* iso8859_13.c in Sources */,
 				2C834D8A248805D4006208B8 /* unicode.c in Sources */,
@@ -4856,6 +4918,7 @@
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
 				2CF21D21249FAA8F00C864C9 /* WindowFactory.cpp in Sources */,
 				2C47B32924DD9789008D83BE /* SivStringView.cpp in Sources */,
+				2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */,
 				2C423248242B155E00A16BCA /* xkb_unicode.c in Sources */,
 				2C98D0DE25158AC000904E67 /* FrameTimer.cpp in Sources */,
 				2C439F482419D686001154C2 /* format.cc in Sources */,
@@ -4885,6 +4948,7 @@
 				2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */,
 				2C47B32D24DD9789008D83BE /* SivParseFloat.cpp in Sources */,
 				2C60AE72248158A500277281 /* frequency_windows.cpp in Sources */,
+				2C27AA00256E3A4C00756617 /* MetalRasterizerState.mm in Sources */,
 				2C60AE88248158A500277281 /* displays_darwin.cpp in Sources */,
 				2C47B36724DD9789008D83BE /* SivScene.cpp in Sources */,
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,

@@ -17,6 +17,7 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer/Metal/BackBuffer/MetalBackBuffer.hpp>
+# include <Siv3D/Renderer/Metal/RasterizerState/MetalRasterizerState.hpp>
 # include <Siv3D/Renderer/Metal/SamplerState/MetalSamplerState.hpp>
 # import <Metal/Metal.h>
 # import <QuartzCore/CAMetalLayer.h>
@@ -39,6 +40,7 @@ namespace s3d
 		CAMetalLayer* m_swapchain = nullptr;
 		
 		std::unique_ptr<MetalBackBuffer> m_backBuffer;
+		std::unique_ptr<MetalRasterizerState> m_rasterizerState;
 		std::unique_ptr<MetalSamplerState> m_samplerState;
 
 	public:
@@ -88,6 +90,8 @@ namespace s3d
 		id<MTLCommandQueue> getCommandQueue() const;
 
 		CAMetalLayer* getSwapchain() const;
+
+		MetalRasterizerState& getRasterizerState();
 		
 		MetalSamplerState& getSamplerState();
 		

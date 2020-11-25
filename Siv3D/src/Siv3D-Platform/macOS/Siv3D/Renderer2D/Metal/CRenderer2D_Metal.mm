@@ -465,6 +465,8 @@ namespace s3d
 				{
 					std::pair<VertexShader::IDType, PixelShader::IDType> currentSetShaders{ VertexShader::IDType::InvalidValue(), PixelShader::IDType::InvalidValue() };
 					std::pair<VertexShader::IDType, PixelShader::IDType> currentShaders = currentSetShaders;
+					BlendState currentSetBlendState = BlendState{ false, Blend{ 0 }};
+					BlendState currentBlendState = currentSetBlendState;
 
 					[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 								   length:m_vsConstants2D.size()
@@ -515,9 +517,10 @@ namespace s3d
 										&& (currentShaders.second != PixelShader::IDType::InvalidValue()))
 									{
 										[sceneCommandEncoder setRenderPipelineState:
-										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount())];
+										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount(), currentBlendState)];
 									}
 									
+									currentSetBlendState = currentBlendState;
 									currentSetShaders = currentShaders;
 								}
 								
@@ -543,9 +546,10 @@ namespace s3d
 										&& (currentShaders.second != PixelShader::IDType::InvalidValue()))
 									{
 										[sceneCommandEncoder setRenderPipelineState:
-										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount())];
+										 m_renderPipelineManager.get(currentShaders.first, currentShaders.second, MTLPixelFormatRGBA8Unorm, pRenderer->getSampleCount(), currentBlendState)];
 									}
 									
+									currentSetBlendState = currentBlendState;
 									currentSetShaders = currentShaders;
 								}
 
@@ -557,6 +561,20 @@ namespace s3d
 								}
 
 								LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+								break;
+							}
+						case MetalRenderer2DCommandType::BlendState:
+							{
+								const auto& blendState = m_commandManager.getBlendState(command.index);
+								currentBlendState = blendState;
+								LOG_COMMAND(U"BlendState[{}]"_fmt(command.index));
+								break;
+							}
+						case MetalRenderer2DCommandType::RasterizerState:
+							{
+								const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
+								pRenderer->getRasterizerState().set(sceneCommandEncoder, rasterizerState);
+								LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 								break;
 							}
 						case MetalRenderer2DCommandType::SetVS:
@@ -622,7 +640,7 @@ namespace s3d
 			{
 				id<MTLRenderCommandEncoder> fullscreenTriangleCommandEncoder = [commandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
 				{
-					[fullscreenTriangleCommandEncoder setRenderPipelineState:m_renderPipelineManager.get(m_standardVS->fullscreen_triangle.id(), m_standardPS->fullscreen_triangle.id(), m_swapchain.pixelFormat, 1)];
+					[fullscreenTriangleCommandEncoder setRenderPipelineState:m_renderPipelineManager.get(m_standardVS->fullscreen_triangle.id(), m_standardPS->fullscreen_triangle.id(), m_swapchain.pixelFormat, 1, BlendState::Opaque)];
 					[fullscreenTriangleCommandEncoder setFragmentTexture:sceneTexture atIndex:0];
 					[fullscreenTriangleCommandEncoder setViewport:viewport];
 					pRenderer->getSamplerState().setPS(fullscreenTriangleCommandEncoder, 0, samplerState);

@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/HashTable.hpp>
+# include <Siv3D/BlendState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # import <Metal/Metal.h>
@@ -68,7 +69,7 @@ namespace s3d
 		
 		MTLVertexDescriptor* m_standardVertexDescriptor = nullptr;
 		
-		using KeyType = std::tuple<VertexShader::IDType, PixelShader::IDType, MTLPixelFormat, uint32>;
+		using KeyType = std::tuple<VertexShader::IDType, PixelShader::IDType, MTLPixelFormat, uint32, BlendState>;
 		
 		HashTable<KeyType, id<MTLRenderPipelineState>> m_pipelineStates;
 		
@@ -76,9 +77,9 @@ namespace s3d
 	
 		void init(CShader_Metal* _pShader, id<MTLDevice> device, const MetalStandardVS2D& standardVS, const MetalStandardPS2D& standardPS, MTLPixelFormat swapchainFormat, uint32 sampleCount);
 
-		void add(VertexShader::IDType vsID, PixelShader::IDType psID, MTLPixelFormat pixelFormat, uint32 sampleCount);
+		void add(VertexShader::IDType vsID, PixelShader::IDType psID, MTLPixelFormat pixelFormat, uint32 sampleCount, const BlendState& blendState);
 		
 		[[nodiscard]]
-		id<MTLRenderPipelineState> get(VertexShader::IDType vsID, PixelShader::IDType psID, MTLPixelFormat pixelFormat, uint32 sampleCount);
+		id<MTLRenderPipelineState> get(VertexShader::IDType vsID, PixelShader::IDType psID, MTLPixelFormat pixelFormat, uint32 sampleCount, const BlendState& blendState);
 	};
 }
