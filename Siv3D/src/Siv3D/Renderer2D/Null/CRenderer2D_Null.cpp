@@ -160,6 +160,28 @@ namespace s3d
 		// do nothing
 	}
 
+	const Mat3x2& CRenderer2D_Null::getLocalTransform() const
+	{
+		static constexpr Mat3x2 m = Mat3x2::Identity();
+		return m;
+	}
+
+	const Mat3x2& CRenderer2D_Null::getCameraTransform() const
+	{
+		static constexpr Mat3x2 m = Mat3x2::Identity();
+		return m;
+	}
+
+	void CRenderer2D_Null::setLocalTransform(const Mat3x2&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setCameraTransform(const Mat3x2&)
+	{
+		// do nothing
+	}
+
 	float CRenderer2D_Null::getMaxScaling() const noexcept
 	{
 		return 1.0f;

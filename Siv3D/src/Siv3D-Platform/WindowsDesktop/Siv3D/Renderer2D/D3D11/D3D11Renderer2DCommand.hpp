@@ -19,6 +19,7 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 
@@ -75,6 +76,8 @@ namespace s3d
 		SetVS,
 
 		SetPS,
+
+		Transform,
 	};
 
 	struct D3D11Renderer2DCommand
@@ -106,6 +109,7 @@ namespace s3d
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
+		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 
 		// current
 		D3D11DrawCommand m_currentDraw;
@@ -115,6 +119,10 @@ namespace s3d
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplerStates;
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
+		Mat3x2 m_currentLocalTransform				= Mat3x2::Identity();
+		Mat3x2 m_currentCameraTransform				= Mat3x2::Identity();
+		Mat3x2 m_currentCombinedTransform			= Mat3x2::Identity();
+		float m_currentMaxScaling					= 1.0f;
 
 		// reserved
 		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
@@ -161,5 +169,15 @@ namespace s3d
 		void pushStandardPS(const PixelShader::IDType& id);
 		void pushCustomPS(const PixelShader& ps);
 		const PixelShader::IDType& getPS(uint32 index) const;
+
+		void pushLocalTransform(const Mat3x2& local);
+		const Mat3x2& getCurrentLocalTransform() const;
+
+		void pushCameraTransform(const Mat3x2& camera);
+		const Mat3x2& getCurrentCameraTransform() const;
+
+		const Mat3x2& getCombinedTransform(uint32 index) const;
+		const Mat3x2& getCurrentCombinedTransform() const;
+		float getCurrentMaxScaling() const noexcept;
 	};
 }

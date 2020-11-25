@@ -25,6 +25,7 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Mat3x2.hpp>
 
 namespace s3d
 {
@@ -108,6 +109,15 @@ namespace s3d
 		virtual void setCustomVS(const Optional<VertexShader>& vs) = 0;
 
 		virtual void setCustomPS(const Optional<PixelShader>& ps) = 0;
+
+
+		virtual const Mat3x2& getLocalTransform() const = 0;
+
+		virtual const Mat3x2& getCameraTransform() const = 0;
+
+		virtual void setLocalTransform(const Mat3x2& matrix) = 0;
+
+		virtual void setCameraTransform(const Mat3x2& matrix) = 0;
 
 		virtual float getMaxScaling() const noexcept = 0;
 	};

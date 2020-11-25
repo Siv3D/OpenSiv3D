@@ -11,9 +11,19 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/MathConstants.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline float CalculateMaxScaling(const Mat3x2& mat)
+		{
+			return (Float2{ mat._11 + mat._21, mat._12 + mat._22 }.length() / Math::Constants::Sqrt2_v<float>);
+		}
+	}
+
 	template <class Enum>
 	class CurrentBatchStateChanges
 	{

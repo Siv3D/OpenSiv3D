@@ -478,9 +478,29 @@ namespace s3d
 		}
 	}
 
+	const Mat3x2& CRenderer2D_GL4::getLocalTransform() const
+	{
+		return m_commandManager.getCurrentLocalTransform();
+	}
+
+	const Mat3x2& CRenderer2D_GL4::getCameraTransform() const
+	{
+		return m_commandManager.getCurrentCameraTransform();
+	}
+
+	void CRenderer2D_GL4::setLocalTransform(const Mat3x2& matrix)
+	{
+		m_commandManager.pushLocalTransform(matrix);
+	}
+
+	void CRenderer2D_GL4::setCameraTransform(const Mat3x2& matrix)
+	{
+		m_commandManager.pushCameraTransform(matrix);
+	}
+
 	float CRenderer2D_GL4::getMaxScaling() const noexcept
 	{
-		return(1.0f);
+		return m_commandManager.getCurrentMaxScaling();
 	}
 
 	void CRenderer2D_GL4::flush()
@@ -502,10 +522,7 @@ namespace s3d
 
 		Mat3x2 transform = Mat3x2::Identity();
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
-		const Mat3x2 matrix = (transform * screenMat);
 
-		m_vsConstants2D->transform[0] = Float4(matrix._11, -matrix._12, matrix._31, -matrix._32);
-		m_vsConstants2D->transform[1] = Float4(matrix._21, -matrix._22, 0.0f, 1.0f);
 		m_vsConstants2D->colorMul = Float4(1, 1, 1, 1);
 
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
@@ -654,6 +671,16 @@ namespace s3d
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
+					break;
+				}
+			case GL4Renderer2DCommandType::Transform:
+				{
+					transform = m_commandManager.getCombinedTransform(command.index);
+					const Mat3x2 matrix = (transform * screenMat);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
+
+					LOG_COMMAND(U"Transform[{}] {}"_fmt(command.index, matrix));
 					break;
 				}
 			}

@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -46,8 +46,9 @@ namespace s3d
 				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
 			}
 			
-			m_VSs				= { VertexShader::IDType::InvalidValue() };
-			m_PSs				= { PixelShader::IDType::InvalidValue() };
+			m_VSs					= { VertexShader::IDType::InvalidValue() };
+			m_PSs					= { PixelShader::IDType::InvalidValue() };
+			m_combinedTransforms	= { m_combinedTransforms.back() };
 		}
 
 		// clear reserves
@@ -86,6 +87,9 @@ namespace s3d
 
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetPS, 0);
 			m_currentPS = PixelShader::IDType::InvalidValue();
+
+			m_commands.emplace_back(MetalRenderer2DCommandType::Transform, 0);
+			m_currentCombinedTransform = m_combinedTransforms.front();
 		}
 	}
 
@@ -147,6 +151,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetPS, static_cast<uint32>(m_PSs.size()));
 			m_PSs.push_back(m_currentPS);
+		}
+
+		if (m_changes.has(MetalRenderer2DCommandType::Transform))
+		{
+			m_commands.emplace_back(MetalRenderer2DCommandType::Transform, static_cast<uint32>(m_combinedTransforms.size()));
+			m_combinedTransforms.push_back(m_currentCombinedTransform);
 		}
 
 		m_changes.clear();
@@ -486,5 +496,102 @@ namespace s3d
 	const PixelShader::IDType& MetalRenderer2DCommandManager::getPS(const uint32 index) const
 	{
 		return m_PSs[index];
+	}
+
+	void MetalRenderer2DCommandManager::pushLocalTransform(const Mat3x2& local)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::Transform;
+		auto& currentLocal = m_currentLocalTransform;
+		auto& currentCombined = m_currentCombinedTransform;
+		auto& buffer = m_combinedTransforms;
+		const Mat3x2 combinedTransform = local * m_currentCameraTransform;
+
+		if (not m_changes.has(command))
+		{
+			if (local != currentLocal)
+			{
+				currentLocal = local;
+				currentCombined = combinedTransform;
+				m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (combinedTransform == buffer.back())
+			{
+				currentLocal = local;
+				currentCombined = combinedTransform;
+				m_changes.clear(command);
+			}
+			else
+			{
+				currentLocal = local;
+				currentCombined = combinedTransform;
+			}
+
+			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
+		}
+	}
+
+	const Mat3x2& MetalRenderer2DCommandManager::getCurrentLocalTransform() const
+	{
+		return m_currentLocalTransform;
+	}
+
+	void MetalRenderer2DCommandManager::pushCameraTransform(const Mat3x2& camera)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::Transform;
+		auto& currentCamera = m_currentCameraTransform;
+		auto& currentCombined = m_currentCombinedTransform;
+		auto& buffer = m_combinedTransforms;
+		const Mat3x2 combinedTransform = m_currentLocalTransform * camera;
+
+		if (not m_changes.has(command))
+		{
+			if (camera != currentCamera)
+			{
+				currentCamera = camera;
+				currentCombined = combinedTransform;
+				m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (combinedTransform == buffer.back())
+			{
+				currentCamera = camera;
+				currentCombined = combinedTransform;
+				m_changes.clear(command);
+			}
+			else
+			{
+				currentCamera = camera;
+				currentCombined = combinedTransform;
+			}
+
+			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
+		}
+	}
+
+	const Mat3x2& MetalRenderer2DCommandManager::getCurrentCameraTransform() const
+	{
+		return m_currentCameraTransform;
+	}
+
+	const Mat3x2& MetalRenderer2DCommandManager::getCombinedTransform(const uint32 index) const
+	{
+		return m_combinedTransforms[index];
+	}
+
+	const Mat3x2& MetalRenderer2DCommandManager::getCurrentCombinedTransform() const
+	{
+		return m_currentCombinedTransform;
+	}
+
+	float MetalRenderer2DCommandManager::getCurrentMaxScaling() const noexcept
+	{
+		return m_currentMaxScaling;
 	}
 }

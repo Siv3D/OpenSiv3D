@@ -143,6 +143,7 @@ namespace s3d
 
 		void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) override;
 
+
 		Optional<VertexShader> getCustomVS() const override;
 
 		Optional<PixelShader> getCustomPS() const override;
@@ -151,7 +152,20 @@ namespace s3d
 
 		void setCustomPS(const Optional<PixelShader>& ps) override;
 
+
+		const Mat3x2& getLocalTransform() const override;
+
+		const Mat3x2& getCameraTransform() const override;
+
+		void setLocalTransform(const Mat3x2& matrix) override;
+
+		void setCameraTransform(const Mat3x2& matrix) override;
+
 		float getMaxScaling() const noexcept override;
+
+		//
+		// OpenGL
+		//
 
 		void flush();
 

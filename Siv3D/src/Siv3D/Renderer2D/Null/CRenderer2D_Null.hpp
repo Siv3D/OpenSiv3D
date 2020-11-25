@@ -81,6 +81,15 @@ namespace s3d
 
 		void setCustomPS(const Optional<PixelShader>& ps) override;
 
+
+		const Mat3x2& getLocalTransform() const override;
+
+		const Mat3x2& getCameraTransform() const override;
+
+		void setLocalTransform(const Mat3x2& matrix) override;
+
+		void setCameraTransform(const Mat3x2& matrix) override;
+
 		float getMaxScaling() const noexcept override;
 	};
 }
