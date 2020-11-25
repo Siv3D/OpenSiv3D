@@ -40,7 +40,7 @@ namespace s3d
 
 		CRenderer2D_GLES3* pRenderer2D	= nullptr;
 
-		uint32 m_sampleCount			= Graphics::DefaultSampleCount;
+		uint32 m_sampleCount			= 1; // Graphics::DefaultSampleCount;
 
 		ResizeMode m_sceneResizeMode	= Scene::DefaultResizeMode;
 

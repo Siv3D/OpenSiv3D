@@ -11,7 +11,7 @@
 
 # include <Siv3D/ApplicationOptions.hpp>
 # include <Siv3D/Shader/Null/CShader_Null.hpp>
-# include <Siv3D/Shader/GL4/CShader_GL4.hpp>
+# include <Siv3D/Shader/GLES3/CShader_GLES3.hpp>
 
 namespace s3d
 {
@@ -24,7 +24,7 @@ namespace s3d
 		else if (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
 			|| g_applicationOptions.renderer == EngineOption::Renderer::OpenGL)
 		{
-			return new CShader_GL4;
+			return new CShader_GLES3;
 		}
 		else
 		{

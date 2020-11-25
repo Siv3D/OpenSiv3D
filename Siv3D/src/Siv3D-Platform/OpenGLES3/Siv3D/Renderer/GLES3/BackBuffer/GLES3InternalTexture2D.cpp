@@ -91,7 +91,7 @@ namespace s3d
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-			::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,  GL_TEXTURE_2D, texture, 0);
 			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			{
 				return nullptr;
@@ -100,19 +100,20 @@ namespace s3d
 		}
 		else
 		{
-			::glGenFramebuffers(1, &frameBuffer);
+			return nullptr;
+			// ::glGenFramebuffers(1, &frameBuffer);
 
-			::glGenTextures(1, &texture);
-			::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
-			::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, sampleCount, GL_RGBA8, size.x, size.y, GL_FALSE);
+			// ::glGenTextures(1, &texture);
+			// ::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
+			// ::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, sampleCount, GL_RGBA8, size.x, size.y, GL_FALSE);
 
-			::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			{
-				return nullptr;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+			// ::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, texture, 0);
+			// if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			// {
+			// 	return nullptr;
+			// }
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
 		p->m_frameBuffer	= frameBuffer;

@@ -27,12 +27,6 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_GLES3::~CShader_GLES3()");
 
-		if (m_pipeline)
-		{
-			::glDeleteProgramPipelines(1, &m_pipeline);
-			m_pipeline = 0;
-		}
-
 		m_pixelShaders.destroy();
 		m_vertexShaders.destroy();
 	}
@@ -67,13 +61,6 @@ namespace s3d
 
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
-		}
-
-		::glGenProgramPipelines(1, &m_pipeline);
-
-		if (!m_pipeline)
-		{
-			throw EngineError(U"glGenProgramPipelines() failed");
 		}
 	}
 
@@ -143,18 +130,12 @@ namespace s3d
 
 	void CShader_GLES3::setVS(const VertexShader::IDType handleID)
 	{
-		const GLuint vsProgram = m_vertexShaders[handleID]->getProgram();
-		::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgram);
+		m_currentVS = handleID;
 	}
 
 	void CShader_GLES3::setPS(const PixelShader::IDType handleID)
 	{
-		const auto& pixelShader = m_pixelShaders[handleID];
-
-		const GLuint psProgram = pixelShader->getProgram();
-		::glUseProgramStages(m_pipeline, GL_FRAGMENT_SHADER_BIT, psProgram);
-
-		pixelShader->setPSSamplerUniform();
+		m_currentPS = handleID;
 	}
 
 	const Blob& CShader_GLES3::getBinaryVS(const VertexShader::IDType handleID)
@@ -181,7 +162,20 @@ namespace s3d
 
 	void CShader_GLES3::usePipeline()
 	{
-		::glUseProgram(0);
-		::glBindProgramPipeline(m_pipeline);
+		auto vertexShader = m_vertexShaders[m_currentVS]->getShader();
+		auto pixelShader = m_pixelShaders[m_currentPS]->getShader();
+
+		auto state = m_pipeline.linkShaders(vertexShader, pixelShader);
+		auto program = state.shaderProgram;
+
+		if (!state.cacheHit)
+		{
+			m_vertexShaders[m_currentVS]->bindUniformBlocks(program);
+			m_pixelShaders[m_currentPS]->bindUniformBlocks(program);
+
+			LOG_INFO(U"Program cache not hit!");
+		}
+
+		::glUseProgram(program);
 	}
 }

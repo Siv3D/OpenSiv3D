@@ -23,8 +23,9 @@ namespace s3d
 
 		Blob m_binary;
 
-		GLuint m_psProgram = 0;
+		GLuint m_pixelShader = 0;
 
+		Array<ConstantBufferBinding> m_constantBufferBindings;
 		Array<std::pair<uint32, GLint>> m_textureIndices;
 
 		bool m_initialized = false;
@@ -49,8 +50,10 @@ namespace s3d
 
 		const Blob& getBinary() const noexcept;
 
-		GLint getProgram() const;
+		GLint getShader() const;
 
-		void setPSSamplerUniform();
+		void bindUniformBlocks(GLuint program);
+
+		void setPSSamplerUniforms();
 	};
 }

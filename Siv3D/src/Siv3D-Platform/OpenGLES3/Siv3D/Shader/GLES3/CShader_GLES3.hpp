@@ -19,6 +19,7 @@
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "VertexShader/GLES3VertexShader.hpp"
 # include "PixelShader/GLES3PixelShader.hpp"
+# include "ShaderPipeline/GLES3ShaderPipeline.hpp"
 
 namespace s3d
 {
@@ -32,7 +33,11 @@ namespace s3d
 		// PS の管理
 		AssetHandleManager<PixelShader::IDType, GLES3PixelShader> m_pixelShaders{ U"PixelShader" };
 
-		GLuint m_pipeline = 0;
+		VertexShader::IDType m_currentVS;
+		PixelShader::IDType m_currentPS;
+
+		// シェーダプログラム (VS と PS のペア) の管理
+		ShaderPipeline m_pipeline;
 
 	public:
 

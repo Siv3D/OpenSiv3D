@@ -23,7 +23,9 @@ namespace s3d
 
 		Blob m_binary;
 
-		GLuint m_vsProgram = 0;
+		GLuint m_vertexShader = 0;
+
+		Array<ConstantBufferBinding> m_constantBufferBindings;
 
 		bool m_initialized = false;
 
@@ -47,6 +49,8 @@ namespace s3d
 
 		const Blob& getBinary() const noexcept;
 
-		GLint getProgram() const;
+		GLuint getShader() const;
+
+		void bindUniformBlocks(GLuint program);
 	};
 }

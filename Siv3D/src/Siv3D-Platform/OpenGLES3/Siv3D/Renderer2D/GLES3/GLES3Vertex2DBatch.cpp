@@ -152,6 +152,8 @@ namespace s3d
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
+
+		m_vertexBufferWritePos	= 0;
 	}
 
 	BatchInfo2D GLES3Vertex2DBatch::updateBuffers(const size_t batchIndex)
@@ -185,7 +187,8 @@ namespace s3d
 			}
 
 			void* const pDst = ::glMapBufferRange(GL_ARRAY_BUFFER, sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
 				std::memcpy(pDst, pSrc, sizeof(Vertex2D) * vertexSize);
 			}
@@ -207,7 +210,8 @@ namespace s3d
 			}
 
 			void* const pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
 				std::memcpy(pDst, pSrc, (sizeof(Vertex2D::IndexType) * indexSize));
 			}
