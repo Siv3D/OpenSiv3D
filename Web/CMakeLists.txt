@@ -40,6 +40,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ConstantBuffer/ConstantBufferDetailFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Cursor/CCursor.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
