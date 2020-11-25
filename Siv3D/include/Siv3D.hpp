@@ -962,6 +962,8 @@
 
 # include <Siv3D/ScopedRenderStates2D.hpp>
 
+# include <Siv3D/Transformer2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	シェーダ

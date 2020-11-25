@@ -18,6 +18,7 @@
 # include "ShaderStatge.hpp"
 # include "VertexShader.hpp"
 # include "PixelShader.hpp"
+# include "Mat3x2.hpp"
 
 namespace s3d
 {
@@ -38,6 +39,15 @@ namespace s3d
 		[[nodiscard]]
 		Optional<PixelShader> GetCustomPixelShader();
 
+		[[nodiscard]]
+		const Mat3x2& GetLocalTransform();
+
+		[[nodiscard]]
+		const Mat3x2& GetCameraTransform();
+
+		[[nodiscard]]
+		float GetMaxScaling() noexcept;
+
 		void DrawTriangles(uint32 count);
 
 		namespace Internal
@@ -51,6 +61,10 @@ namespace s3d
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
+
+			void SetLocalTransform(const Mat3x2& transform);
+
+			void SetCameraTransform(const Mat3x2& transform);
 		}
 	}
 }

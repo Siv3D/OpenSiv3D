@@ -42,6 +42,21 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer2D)->getCustomPS();
 		}
 
+		const Mat3x2& GetLocalTransform()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getLocalTransform();
+		}
+
+		const Mat3x2& GetCameraTransform()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getCameraTransform();
+		}
+
+		float GetMaxScaling() noexcept
+		{
+			return SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+		}
+
 		void DrawTriangles(const uint32 count)
 		{
 			SIV3D_ENGINE(Renderer2D)->addNullVertices(count * 3);
@@ -72,6 +87,16 @@ namespace s3d
 			void SetCustomPixelShader(const Optional<PixelShader>& ps)
 			{
 				SIV3D_ENGINE(Renderer2D)->setCustomPS(ps);
+			}
+
+			void SetLocalTransform(const Mat3x2& transform)
+			{
+				SIV3D_ENGINE(Renderer2D)->setLocalTransform(transform);
+			}
+
+			void SetCameraTransform(const Mat3x2& transform)
+			{
+				SIV3D_ENGINE(Renderer2D)->setCameraTransform(transform);
 			}
 		}
 	}
