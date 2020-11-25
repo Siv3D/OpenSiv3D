@@ -15,6 +15,9 @@ namespace s3d
 {
 	D3D11Renderer2DCommandManager::D3D11Renderer2DCommandManager()
 	{
+		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+
 		reset();
 	}
 
@@ -32,6 +35,17 @@ namespace s3d
 			m_nullDraws.clear();
 			m_blendStates		= { m_blendStates.back() };
 			m_rasterizerStates	= { m_rasterizerStates.back() };
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+			{
+				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
+			}
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+			{
+				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
+			}
+
 			m_VSs				= { VertexShader::IDType::InvalidValue() };
 			m_PSs				= { PixelShader::IDType::InvalidValue() };
 		}
@@ -52,6 +66,20 @@ namespace s3d
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::RasterizerState, 0);
 			m_currentRasterizerState = m_rasterizerStates.front();
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+			{
+				const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::VSSamplerState0) + i);
+				m_commands.emplace_back(command, 0);
+				m_currentVSSamplerStates[i] = m_currentVSSamplerStates.front();
+			}
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+			{
+				const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::PSSamplerState0) + i);
+				m_commands.emplace_back(command, 0);
+				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.front();
+			}
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -85,6 +113,28 @@ namespace s3d
 		{
 			m_commands.emplace_back(D3D11Renderer2DCommandType::RasterizerState, static_cast<uint32>(m_rasterizerStates.size()));
 			m_rasterizerStates.push_back(m_currentRasterizerState);
+		}
+
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::VSSamplerState0) + i);
+
+			if (m_changes.has(command))
+			{
+				m_commands.emplace_back(command, static_cast<uint32>(m_vsSamplerStates[i].size()));
+				m_vsSamplerStates[i].push_back(m_currentVSSamplerStates[i]);
+			}
+		}
+
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::PSSamplerState0) + i);
+
+			if (m_changes.has(command))
+			{
+				m_commands.emplace_back(command, static_cast<uint32>(m_psSamplerStates[i].size()));
+				m_psSamplerStates[i].push_back(m_currentPSSamplerStates[i]);
+			}
 		}
 
 		if (m_changes.has(D3D11Renderer2DCommandType::SetVS))
@@ -220,6 +270,94 @@ namespace s3d
 	const RasterizerState& D3D11Renderer2DCommandManager::getCurrentRasterizerState() const
 	{
 		return m_currentRasterizerState;
+	}
+
+	void D3D11Renderer2DCommandManager::pushVSSamplerState(const SamplerState& state, const uint32 slot)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::VSSamplerState0) + slot);
+		auto& current = m_currentVSSamplerStates[slot];
+		auto& buffer = m_vsSamplerStates[slot];
+
+		if (!m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const SamplerState& D3D11Renderer2DCommandManager::getVSSamplerState(const uint32 slot, const uint32 index) const
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		return m_vsSamplerStates[slot][index];
+	}
+
+	const SamplerState& D3D11Renderer2DCommandManager::getVSCurrentSamplerState(const uint32 slot) const
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		return m_currentVSSamplerStates[slot];
+	}
+
+	void D3D11Renderer2DCommandManager::pushPSSamplerState(const SamplerState& state, const uint32 slot)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		const auto command = ToEnum<D3D11Renderer2DCommandType>(FromEnum(D3D11Renderer2DCommandType::PSSamplerState0) + slot);
+		auto& current = m_currentPSSamplerStates[slot];
+		auto& buffer = m_psSamplerStates[slot];
+
+		if (!m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const SamplerState& D3D11Renderer2DCommandManager::getPSSamplerState(const uint32 slot, const uint32 index) const
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		return m_psSamplerStates[slot][index];
+	}
+
+	const SamplerState& D3D11Renderer2DCommandManager::getPSCurrentSamplerState(const uint32 slot) const
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		return m_currentPSSamplerStates[slot];
 	}
 
 	void D3D11Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)

@@ -543,6 +543,36 @@ namespace s3d
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
+			case D3D11Renderer2DCommandType::VSSamplerState0:
+			case D3D11Renderer2DCommandType::VSSamplerState1:
+			case D3D11Renderer2DCommandType::VSSamplerState2:
+			case D3D11Renderer2DCommandType::VSSamplerState3:
+			case D3D11Renderer2DCommandType::VSSamplerState4:
+			case D3D11Renderer2DCommandType::VSSamplerState5:
+			case D3D11Renderer2DCommandType::VSSamplerState6:
+			case D3D11Renderer2DCommandType::VSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer2DCommandType::VSSamplerState0);
+					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setVS(slot, samplerState);
+					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case D3D11Renderer2DCommandType::PSSamplerState0:
+			case D3D11Renderer2DCommandType::PSSamplerState1:
+			case D3D11Renderer2DCommandType::PSSamplerState2:
+			case D3D11Renderer2DCommandType::PSSamplerState3:
+			case D3D11Renderer2DCommandType::PSSamplerState4:
+			case D3D11Renderer2DCommandType::PSSamplerState5:
+			case D3D11Renderer2DCommandType::PSSamplerState6:
+			case D3D11Renderer2DCommandType::PSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer2DCommandType::PSSamplerState0);
+					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setPS(slot, samplerState);
+					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
 			case D3D11Renderer2DCommandType::SetVS:
 				{
 					const auto& vsID = m_commandManager.getVS(command.index);
