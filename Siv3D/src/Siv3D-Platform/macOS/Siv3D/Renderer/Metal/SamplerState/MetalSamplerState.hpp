@@ -38,20 +38,12 @@ namespace s3d
 
 		StateList m_states;
 
-		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSStates;
-
-		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
-
 		StateList::iterator create(const SamplerState& state);
 
 	public:
 
 		explicit MetalSamplerState(id<MTLDevice> device);
 
-		void setVS(id<MTLRenderCommandEncoder> renderCommandEncoder, uint32 slot, const SamplerState& state);
-
-		void setPS(id<MTLRenderCommandEncoder> renderCommandEncoder, uint32 slot, const SamplerState& state);
-		
 		id<MTLSamplerState> get(const SamplerState& state);
 	};
 }

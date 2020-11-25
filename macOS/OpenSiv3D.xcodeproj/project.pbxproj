@@ -47,8 +47,6 @@
 		2C27A9EE256E359400756617 /* GL4RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */; };
 		2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E9256E359400756617 /* GL4SamplerState.hpp */; };
 		2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9EA256E359400756617 /* GL4SamplerState.cpp */; };
-		2C27A9FE256E390D00756617 /* MetalRasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */; };
-		2C27AA00256E3A4C00756617 /* MetalRasterizerState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -649,8 +647,6 @@
 		2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4RasterizerState.hpp; sourceTree = "<group>"; };
 		2C27A9E9256E359400756617 /* GL4SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4SamplerState.hpp; sourceTree = "<group>"; };
 		2C27A9EA256E359400756617 /* GL4SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4SamplerState.cpp; sourceTree = "<group>"; };
-		2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRasterizerState.hpp; sourceTree = "<group>"; };
-		2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRasterizerState.mm; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -1758,7 +1754,6 @@
 		2C12089A24A30260008CAD99 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
-				2C27A9FA256E390D00756617 /* RasterizerState */,
 				2C6391062539CF820030F18E /* SamplerState */,
 				2C6390EA2536C5460030F18E /* BackBuffer */,
 				2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */,
@@ -1802,15 +1797,6 @@
 				2C27A9EA256E359400756617 /* GL4SamplerState.cpp */,
 			);
 			path = SamplerState;
-			sourceTree = "<group>";
-		};
-		2C27A9FA256E390D00756617 /* RasterizerState */ = {
-			isa = PBXGroup;
-			children = (
-				2C27A9FF256E3A4C00756617 /* MetalRasterizerState.mm */,
-				2C27A9FC256E390D00756617 /* MetalRasterizerState.hpp */,
-			);
-			path = RasterizerState;
 			sourceTree = "<group>";
 		};
 		2C378CA2251E492B00D4B14B /* Addon */ = {
@@ -4442,7 +4428,6 @@
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
 				2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */,
-				2C27A9FE256E390D00756617 /* MetalRasterizerState.hpp in Headers */,
 				2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
@@ -4948,7 +4933,6 @@
 				2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */,
 				2C47B32D24DD9789008D83BE /* SivParseFloat.cpp in Sources */,
 				2C60AE72248158A500277281 /* frequency_windows.cpp in Sources */,
-				2C27AA00256E3A4C00756617 /* MetalRasterizerState.mm in Sources */,
 				2C60AE88248158A500277281 /* displays_darwin.cpp in Sources */,
 				2C47B36724DD9789008D83BE /* SivScene.cpp in Sources */,
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,

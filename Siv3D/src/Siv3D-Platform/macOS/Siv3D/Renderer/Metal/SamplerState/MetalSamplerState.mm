@@ -43,60 +43,7 @@ namespace s3d
 	MetalSamplerState::MetalSamplerState(id<MTLDevice> device)
 		: m_device(device)
 	{
-		m_currentVSStates.fill(NullState);
-		m_currentPSStates.fill(NullState);
-	}
 
-	void MetalSamplerState::setVS(id<MTLRenderCommandEncoder> renderCommandEncoder, const uint32 slot, const SamplerState& state)
-	{
-		assert(slot < SamplerState::MaxSamplerCount);
-
-		if (state == m_currentVSStates[slot])
-		{
-			return;
-		}
-
-		auto it = m_states.find(state);
-
-		if (it == m_states.end())
-		{
-			it = create(state);
-
-			if (it == m_states.end())
-			{
-				return;
-			}
-		}
-
-		[renderCommandEncoder setVertexSamplerState:it->second atIndex:slot];
-
-		m_currentVSStates[slot] = state;
-	}
-
-	void MetalSamplerState::setPS(id<MTLRenderCommandEncoder> renderCommandEncoder, const uint32 slot, const SamplerState& state)
-	{
-		assert(slot < SamplerState::MaxSamplerCount);
-
-		if (state == m_currentPSStates[slot])
-		{
-			return;
-		}
-
-		auto it = m_states.find(state);
-
-		if (it == m_states.end())
-		{
-			it = create(state);
-
-			if (it == m_states.end())
-			{
-				return;
-			}
-		}
-
-		[renderCommandEncoder setFragmentSamplerState:it->second atIndex:slot];
-
-		m_currentPSStates[slot] = state;
 	}
 
 	MetalSamplerState::StateList::iterator MetalSamplerState::create(const SamplerState& state)

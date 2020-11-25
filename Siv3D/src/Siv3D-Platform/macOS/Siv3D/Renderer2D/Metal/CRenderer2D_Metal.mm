@@ -28,6 +28,25 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		constexpr MTLTriangleFillMode FillModeTable[4] =
+		{
+			MTLTriangleFillMode(0),
+			MTLTriangleFillMode(0),
+			MTLTriangleFillModeLines,
+			MTLTriangleFillModeFill,
+		};
+
+		constexpr MTLCullMode CullModeTable[4] =
+		{
+			MTLCullMode(0),
+			MTLCullModeNone,
+			MTLCullModeFront,
+			MTLCullModeBack,
+		};
+	}
+
 	CRenderer2D_Metal::CRenderer2D_Metal()
 	{
 	
@@ -465,8 +484,9 @@ namespace s3d
 				{
 					std::pair<VertexShader::IDType, PixelShader::IDType> currentSetShaders{ VertexShader::IDType::InvalidValue(), PixelShader::IDType::InvalidValue() };
 					std::pair<VertexShader::IDType, PixelShader::IDType> currentShaders = currentSetShaders;
-					BlendState currentSetBlendState = BlendState{ false, Blend{ 0 }};
+					BlendState currentSetBlendState{ false, Blend{ 0 }};
 					BlendState currentBlendState = currentSetBlendState;
+					RasterizerState currentSetRasterizerState{ FillMode::Solid, CullMode::Off, false, false, 0 };
 
 					[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 								   length:m_vsConstants2D.size()
@@ -573,7 +593,22 @@ namespace s3d
 						case MetalRenderer2DCommandType::RasterizerState:
 							{
 								const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
-								pRenderer->getRasterizerState().set(sceneCommandEncoder, rasterizerState);
+
+								if (currentSetRasterizerState != rasterizerState)
+								{
+									if (rasterizerState.fillMode != currentSetRasterizerState.fillMode)
+									{
+										[sceneCommandEncoder setTriangleFillMode:detail::FillModeTable[static_cast<uint32>(rasterizerState.fillMode)]];
+									}
+									
+									if (rasterizerState.cullMode != currentSetRasterizerState.cullMode)
+									{
+										[sceneCommandEncoder setCullMode:detail::CullModeTable[static_cast<uint32>(rasterizerState.cullMode)]];
+									}
+									
+									currentSetRasterizerState = rasterizerState;
+								}
+								
 								LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 								break;
 							}
@@ -588,7 +623,7 @@ namespace s3d
 							{
 								const uint32 slot = FromEnum(command.type) - FromEnum(MetalRenderer2DCommandType::VSSamplerState0);
 								const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
-								pRenderer->getSamplerState().setVS(sceneCommandEncoder, slot, samplerState);
+								[sceneCommandEncoder setVertexSamplerState:pRenderer->getSamplerState().get(samplerState) atIndex:slot];
 								LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
 								break;
 							}
@@ -603,7 +638,7 @@ namespace s3d
 							{
 								const uint32 slot = FromEnum(command.type) - FromEnum(MetalRenderer2DCommandType::PSSamplerState0);
 								const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
-								pRenderer->getSamplerState().setPS(sceneCommandEncoder, slot, samplerState);
+								[sceneCommandEncoder setFragmentSamplerState:pRenderer->getSamplerState().get(samplerState) atIndex:slot];
 								LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
 								break;
 							}
