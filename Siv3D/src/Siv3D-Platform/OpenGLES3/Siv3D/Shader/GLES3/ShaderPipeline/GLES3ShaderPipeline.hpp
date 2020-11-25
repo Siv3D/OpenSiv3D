@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/HashTable.hpp>
-# include <GLES3/gl3.h>
 # include <tuple>
 
 namespace s3d
