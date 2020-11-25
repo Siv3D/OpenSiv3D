@@ -12,6 +12,10 @@
 # pragma once
 # include "Common.hpp"
 # include "Optional.hpp"
+# include "BlendState.hpp"
+# include "RasterizerState.hpp"
+# include "SamplerState.hpp"
+# include "ShaderStatge.hpp"
 # include "VertexShader.hpp"
 # include "PixelShader.hpp"
 
@@ -19,6 +23,15 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
+		[[nodiscard]]
+		BlendState GetBlendState();
+
+		[[nodiscard]]
+		RasterizerState GetRasterizerState();
+
+		[[nodiscard]]
+		SamplerState GetSamplerState(ShaderStage shaderStage = ShaderStage::Pixel, uint32 slot = 0);
+
 		[[nodiscard]]
 		Optional<VertexShader> GetCustomVertexShader();
 
@@ -29,6 +42,12 @@ namespace s3d
 
 		namespace Internal
 		{
+			void SetBlendState(const BlendState& blendState);
+
+			void SetRasterizerState(const RasterizerState& rasterizerState);
+
+			void SetSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& samplerState);
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);

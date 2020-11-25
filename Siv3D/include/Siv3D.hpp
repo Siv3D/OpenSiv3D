@@ -960,6 +960,8 @@
 
 # include <Siv3D/SamplerState.hpp>
 
+# include <Siv3D/ScopedRenderStates2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	シェーダ

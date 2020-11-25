@@ -384,6 +384,50 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	BlendState CRenderer2D_D3D11::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
+	}
+
+	RasterizerState CRenderer2D_D3D11::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	SamplerState CRenderer2D_D3D11::getSamplerState(const ShaderStage shaderStage, const uint32 slot) const
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			return m_commandManager.getVSCurrentSamplerState(slot);
+		}
+		else
+		{
+			return m_commandManager.getPSCurrentSamplerState(slot);
+		}
+	}
+
+	void CRenderer2D_D3D11::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	void CRenderer2D_D3D11::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	void CRenderer2D_D3D11::setSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& state)
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			m_commandManager.pushVSSamplerState(state, slot);
+		}
+		else
+		{
+			m_commandManager.pushPSSamplerState(state, slot);
+		}
+	}
+
 	Optional<VertexShader> CRenderer2D_D3D11::getCustomVS() const
 	{
 		return m_currentCustomVS;

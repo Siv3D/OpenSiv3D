@@ -54,22 +54,22 @@ namespace s3d
 		m_oldPS.then(Graphics2D::Internal::SetCustomPixelShader);
 	}
 
-	inline ScopedCustomShader2D& ScopedCustomShader2D::operator =(ScopedCustomShader2D&& other) noexcept
-	{
-		if (!m_oldVS && other.m_oldVS)
-		{
-			m_oldVS = other.m_oldVS;
-		}
+	//inline ScopedCustomShader2D& ScopedCustomShader2D::operator =(ScopedCustomShader2D&& other) noexcept
+	//{
+	//	if ((not m_oldVS) && other.m_oldVS)
+	//	{
+	//		m_oldVS = other.m_oldVS;
+	//	}
 
-		if (!m_oldPS && other.m_oldPS)
-		{
-			m_oldPS = other.m_oldPS;
-		}
+	//	if ((not m_oldPS) && other.m_oldPS)
+	//	{
+	//		m_oldPS = other.m_oldPS;
+	//	}
 
-		other.clear();
-		
-		return *this;
-	}
+	//	other.clear();
+	//	
+	//	return *this;
+	//}
 
 	inline void ScopedCustomShader2D::clear() noexcept
 	{

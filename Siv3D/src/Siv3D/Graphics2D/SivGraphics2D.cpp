@@ -17,6 +17,21 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
+		BlendState GetBlendState()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getBlendState();
+		}
+
+		RasterizerState GetRasterizerState()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getRasterizerState();
+		}
+
+		SamplerState GetSamplerState(const ShaderStage shaderStage, const uint32 slot)
+		{
+			return SIV3D_ENGINE(Renderer2D)->getSamplerState(shaderStage, slot);
+		}
+
 		Optional<VertexShader> GetCustomVertexShader()
 		{
 			return SIV3D_ENGINE(Renderer2D)->getCustomVS();
@@ -34,6 +49,21 @@ namespace s3d
 
 		namespace Internal
 		{
+			void SetBlendState(const BlendState& blendState)
+			{
+				SIV3D_ENGINE(Renderer2D)->setBlendState(blendState);
+			}
+
+			void SetRasterizerState(const RasterizerState& rasterizerState)
+			{
+				SIV3D_ENGINE(Renderer2D)->setRasterizerState(rasterizerState);
+			}
+
+			void SetSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& samplerState)
+			{
+				SIV3D_ENGINE(Renderer2D)->setSamplerState(shaderStage, slot, samplerState);
+			}
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs)
 			{
 				SIV3D_ENGINE(Renderer2D)->setCustomVS(vs);

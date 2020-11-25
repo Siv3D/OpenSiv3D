@@ -15,7 +15,10 @@
 
 namespace s3d
 {
-	CRenderer2D_Null::CRenderer2D_Null() = default;
+	CRenderer2D_Null::CRenderer2D_Null()
+	{
+		// do nothing
+	}
 
 	CRenderer2D_Null::~CRenderer2D_Null()
 	{
@@ -110,6 +113,36 @@ namespace s3d
 	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
 	{
 		return none;
+	}
+
+	BlendState CRenderer2D_Null::getBlendState() const
+	{
+		return BlendState::Default;
+	}
+
+	RasterizerState CRenderer2D_Null::getRasterizerState() const
+	{
+		return RasterizerState::Default2D;
+	}
+
+	SamplerState CRenderer2D_Null::getSamplerState(const ShaderStage, const uint32) const
+	{
+		return SamplerState::Default2D;
+	}
+
+	void CRenderer2D_Null::setBlendState(const BlendState&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setRasterizerState(const RasterizerState&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setSamplerState(const ShaderStage, const uint32, const SamplerState&)
+	{
+		// do nothing
 	}
 
 	Optional<PixelShader> CRenderer2D_Null::getCustomPS() const

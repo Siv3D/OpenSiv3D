@@ -393,6 +393,50 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	BlendState CRenderer2D_Metal::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
+	}
+
+	RasterizerState CRenderer2D_Metal::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	SamplerState CRenderer2D_Metal::getSamplerState(const ShaderStage shaderStage, const uint32 slot) const
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			return m_commandManager.getVSCurrentSamplerState(slot);
+		}
+		else
+		{
+			return m_commandManager.getPSCurrentSamplerState(slot);
+		}
+	}
+
+	void CRenderer2D_Metal::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	void CRenderer2D_Metal::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	void CRenderer2D_Metal::setSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& state)
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			m_commandManager.pushVSSamplerState(state, slot);
+		}
+		else
+		{
+			m_commandManager.pushPSSamplerState(state, slot);
+		}
+	}
+
 	Optional<VertexShader> CRenderer2D_Metal::getCustomVS() const
 	{
 		return m_currentCustomVS;

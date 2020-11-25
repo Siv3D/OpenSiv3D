@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Uncopyable.hpp"
 # include "Graphics2D.hpp"
 
 namespace s3d
@@ -33,7 +34,7 @@ namespace s3d
 
 		~ScopedCustomShader2D();
 
-		ScopedCustomShader2D& operator =(ScopedCustomShader2D&& other) noexcept;
+		//ScopedCustomShader2D& operator =(ScopedCustomShader2D&& other) noexcept;
 
 	private:
 

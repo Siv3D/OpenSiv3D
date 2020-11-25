@@ -126,6 +126,18 @@ namespace s3d
 
 		void addNullVertices(uint32 count) override;
 
+		BlendState getBlendState() const override;
+
+		RasterizerState getRasterizerState() const override;
+
+		SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const override;
+
+		void setBlendState(const BlendState& state) override;
+
+		void setRasterizerState(const RasterizerState& state) override;
+
+		void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) override;
+
 		Optional<VertexShader> getCustomVS() const override;
 
 		Optional<PixelShader> getCustomPS() const override;

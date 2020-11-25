@@ -398,6 +398,50 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	BlendState CRenderer2D_GL4::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
+	}
+
+	RasterizerState CRenderer2D_GL4::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	SamplerState CRenderer2D_GL4::getSamplerState(const ShaderStage shaderStage, const uint32 slot) const
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			return m_commandManager.getVSCurrentSamplerState(slot);
+		}
+		else
+		{
+			return m_commandManager.getPSCurrentSamplerState(slot);
+		}
+	}
+
+	void CRenderer2D_GL4::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	void CRenderer2D_GL4::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	void CRenderer2D_GL4::setSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& state)
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			m_commandManager.pushVSSamplerState(state, slot);
+		}
+		else
+		{
+			m_commandManager.pushPSSamplerState(state, slot);
+		}
+	}
+
 	Optional<VertexShader> CRenderer2D_GL4::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -639,18 +683,24 @@ namespace s3d
 			::glBindSampler(0, m_sampler);
 			::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
 			::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
+		
+			pRenderer->getBlendState().set(BlendState::Opaque);
+			pRenderer->getRasterizerState().set(RasterizerState::Default2D);
+			pShader->setVS(m_standardVS->fullscreen_triangle.id());
+			pShader->setPS(m_standardPS->fullscreen_triangle.id());
 		}
 
-		pShader->setVS(m_standardVS->fullscreen_triangle.id());
-		pShader->setPS(m_standardPS->fullscreen_triangle.id());
-		pShader->usePipeline();
+		// draw fullscreen-triangle
 		{
-			::glBindVertexArray(m_vertexArray);
+			pShader->usePipeline();
 			{
-				::glBindBuffer(GL_ARRAY_BUFFER, 0);
-				::glDrawArrays(GL_TRIANGLES, 0, 3);
+				::glBindVertexArray(m_vertexArray);
+				{
+					::glBindBuffer(GL_ARRAY_BUFFER, 0);
+					::glDrawArrays(GL_TRIANGLES, 0, 3);
+				}
+				::glBindVertexArray(0);
 			}
-			::glBindVertexArray(0);
 		}
 
 		CheckOpenGLError();

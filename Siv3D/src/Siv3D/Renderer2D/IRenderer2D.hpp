@@ -19,6 +19,10 @@
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
+# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/BlendState.hpp>
+# include <Siv3D/RasterizerState.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 
@@ -82,6 +86,20 @@ namespace s3d
 		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
 
 		virtual void addNullVertices(uint32 count) = 0;
+
+
+		virtual BlendState getBlendState() const = 0;
+
+		virtual RasterizerState getRasterizerState() const = 0;
+
+		virtual SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const = 0;
+
+		virtual void setBlendState(const BlendState& state) = 0;
+
+		virtual void setRasterizerState(const RasterizerState& state) = 0;
+
+		virtual void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) = 0;
+
 
 		virtual Optional<VertexShader> getCustomVS() const = 0;
 
