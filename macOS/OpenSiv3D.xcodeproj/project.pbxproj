@@ -647,6 +647,8 @@
 		2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4RasterizerState.hpp; sourceTree = "<group>"; };
 		2C27A9E9256E359400756617 /* GL4SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4SamplerState.hpp; sourceTree = "<group>"; };
 		2C27A9EA256E359400756617 /* GL4SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4SamplerState.cpp; sourceTree = "<group>"; };
+		2C27AA03256E6B5300756617 /* ScopedRenderStates2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.hpp; sourceTree = "<group>"; };
+		2C27AA04256E6B6700756617 /* ScopedRenderStates2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.ipp; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -3255,6 +3257,7 @@
 				2C53C2D725613B0C0072831A /* SamplerState.hpp */,
 				2C53C32225613B0C0072831A /* Scene.hpp */,
 				2C0A4D80256A1863002A4B5E /* ScopedCustomShader2D.hpp */,
+				2C27AA03256E6B5300756617 /* ScopedRenderStates2D.hpp */,
 				2C53C31925613B0C0072831A /* ScopeGuard.hpp */,
 				2C53C2F625613B0C0072831A /* Shader.hpp */,
 				2C53C31D25613B0C0072831A /* ShaderCommon.hpp */,
@@ -3414,6 +3417,7 @@
 				2C53C28125613B0C0072831A /* SamplerState.ipp */,
 				2C53C26525613B0C0072831A /* Scene.ipp */,
 				2C0A4D81256A1874002A4B5E /* ScopedCustomShader2D.ipp */,
+				2C27AA04256E6B6700756617 /* ScopedRenderStates2D.ipp */,
 				2C53C26225613B0C0072831A /* ScopeGuard.ipp */,
 				2C53C26725613B0C0072831A /* ShaderCommon.ipp */,
 				2C0A4D71256A1749002A4B5E /* Shape2D.ipp */,
