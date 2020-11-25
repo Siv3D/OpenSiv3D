@@ -15,19 +15,6 @@ namespace s3d
 {
 	namespace detail
 	{
-	/*
-		static constexpr D3D11_FILTER filterTable[8] =
-		{
-			D3D11_FILTER_MIN_MAG_MIP_POINT,
-			D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR,
-			D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT,
-			D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR,
-			D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT,
-			D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR,
-			D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT,
-			D3D11_FILTER_MIN_MAG_MIP_LINEAR,
-		};
-*/
 		static constexpr MTLSamplerAddressMode AddressModeTable[4] =
 		{
 			MTLSamplerAddressModeRepeat,
@@ -56,11 +43,11 @@ namespace s3d
 	MetalSamplerState::MetalSamplerState(id<MTLDevice> device)
 		: m_device(device)
 	{
-		//m_currentVSStates.fill(NullState);
-		//m_currentPSStates.fill(NullState);
+		m_currentVSStates.fill(NullState);
+		m_currentPSStates.fill(NullState);
 	}
-/*
-	void MetalSamplerState::setVS(const uint32 slot, const SamplerState& state)
+
+	void MetalSamplerState::setVS(id<MTLRenderCommandEncoder> renderCommandEncoder, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -81,12 +68,12 @@ namespace s3d
 			}
 		}
 
-		m_context->VSSetSamplers(slot, 1, it->second.GetAddressOf());
+		[renderCommandEncoder setVertexSamplerState:it->second atIndex:slot];
 
 		m_currentVSStates[slot] = state;
 	}
 
-	void MetalSamplerState::setPS(const uint32 slot, const SamplerState& state)
+	void MetalSamplerState::setPS(id<MTLRenderCommandEncoder> renderCommandEncoder, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -107,33 +94,9 @@ namespace s3d
 			}
 		}
 
-		m_context->PSSetSamplers(slot, 1, it->second.GetAddressOf());
+		[renderCommandEncoder setFragmentSamplerState:it->second atIndex:slot];
 
 		m_currentPSStates[slot] = state;
-	}
-*/
-	void MetalSamplerState::setPS(id<MTLRenderCommandEncoder> renderCommandEncoder, const uint32 slot, const SamplerState& state)
-	{
-		assert(slot < SamplerState::MaxSamplerCount);
-
-		//if (state == m_currentPSStates[slot])
-		//{
-		//	return;
-		//}
-
-		auto it = m_states.find(state);
-
-		if (it == m_states.end())
-		{
-			it = create(state);
-
-			if (it == m_states.end())
-			{
-				return;
-			}
-		}
-
-		[renderCommandEncoder setFragmentSamplerState:it->second atIndex:slot];
 	}
 
 	MetalSamplerState::StateList::iterator MetalSamplerState::create(const SamplerState& state)
@@ -167,5 +130,22 @@ namespace s3d
 		}
 
 		return m_states.emplace(state, samplerState).first;
+	}
+
+	id<MTLSamplerState> MetalSamplerState::get(const SamplerState& state)
+	{
+		auto it = m_states.find(state);
+
+		if (it == m_states.end())
+		{
+			it = create(state);
+
+			if (it == m_states.end())
+			{
+				return nil;
+			}
+		}
+		
+		return it->second;
 	}
 }

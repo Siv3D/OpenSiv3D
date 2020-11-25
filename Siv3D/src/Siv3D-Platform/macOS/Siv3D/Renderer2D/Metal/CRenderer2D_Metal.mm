@@ -577,6 +577,36 @@ namespace s3d
 								LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 								break;
 							}
+						case MetalRenderer2DCommandType::VSSamplerState0:
+						case MetalRenderer2DCommandType::VSSamplerState1:
+						case MetalRenderer2DCommandType::VSSamplerState2:
+						case MetalRenderer2DCommandType::VSSamplerState3:
+						case MetalRenderer2DCommandType::VSSamplerState4:
+						case MetalRenderer2DCommandType::VSSamplerState5:
+						case MetalRenderer2DCommandType::VSSamplerState6:
+						case MetalRenderer2DCommandType::VSSamplerState7:
+							{
+								const uint32 slot = FromEnum(command.type) - FromEnum(MetalRenderer2DCommandType::VSSamplerState0);
+								const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
+								pRenderer->getSamplerState().setVS(sceneCommandEncoder, slot, samplerState);
+								LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
+								break;
+							}
+						case MetalRenderer2DCommandType::PSSamplerState0:
+						case MetalRenderer2DCommandType::PSSamplerState1:
+						case MetalRenderer2DCommandType::PSSamplerState2:
+						case MetalRenderer2DCommandType::PSSamplerState3:
+						case MetalRenderer2DCommandType::PSSamplerState4:
+						case MetalRenderer2DCommandType::PSSamplerState5:
+						case MetalRenderer2DCommandType::PSSamplerState6:
+						case MetalRenderer2DCommandType::PSSamplerState7:
+							{
+								const uint32 slot = FromEnum(command.type) - FromEnum(MetalRenderer2DCommandType::PSSamplerState0);
+								const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
+								pRenderer->getSamplerState().setPS(sceneCommandEncoder, slot, samplerState);
+								LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+								break;
+							}
 						case MetalRenderer2DCommandType::SetVS:
 							{
 								const auto& vsID = m_commandManager.getVS(command.index);
@@ -643,7 +673,7 @@ namespace s3d
 					[fullscreenTriangleCommandEncoder setRenderPipelineState:m_renderPipelineManager.get(m_standardVS->fullscreen_triangle.id(), m_standardPS->fullscreen_triangle.id(), m_swapchain.pixelFormat, 1, BlendState::Opaque)];
 					[fullscreenTriangleCommandEncoder setFragmentTexture:sceneTexture atIndex:0];
 					[fullscreenTriangleCommandEncoder setViewport:viewport];
-					pRenderer->getSamplerState().setPS(fullscreenTriangleCommandEncoder, 0, samplerState);
+					[fullscreenTriangleCommandEncoder setFragmentSamplerState:pRenderer->getSamplerState().get(samplerState) atIndex:0];
 					[fullscreenTriangleCommandEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
 				}
 				[fullscreenTriangleCommandEncoder endEncoding];
