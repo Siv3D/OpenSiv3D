@@ -16,18 +16,21 @@ namespace s3d
 {
 	void CheckOpenGLError()
 	{
-		size_t limitter = 0;
-
-		GLenum err;
-
-		while ((err = glGetError()) != GL_NO_ERROR)
+		if constexpr(SIV3D_BUILD(DEBUG))
 		{
-			LOG_ERROR(U"OpenGL Error: 0x{:x}"_fmt(err));
+			size_t limitter = 0;
 
-			if (++limitter > 30)
+			GLenum err;
+
+			while ((err = glGetError()) != GL_NO_ERROR)
 			{
-				LOG_ERROR(U"OpenGL error report interrupted.");
-				break;
+				LOG_ERROR(U"OpenGL Error: 0x{:x}"_fmt(err));
+
+				if (++limitter > 30)
+				{
+					LOG_ERROR(U"OpenGL error report interrupted.");
+					break;
+				}
 			}
 		}
 	}
