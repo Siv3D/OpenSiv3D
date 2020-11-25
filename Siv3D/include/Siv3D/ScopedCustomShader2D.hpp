@@ -20,16 +20,22 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		ScopedCustomShader2D() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedCustomShader2D(const VertexShader& vs);
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedCustomShader2D(const PixelShader& ps);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedCustomShader2D(const VertexShader& vs, const PixelShader& ps);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedCustomShader2D(const PixelShader& ps, const VertexShader& vs);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedCustomShader2D(ScopedCustomShader2D&& other) noexcept;
 
 		~ScopedCustomShader2D();

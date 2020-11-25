@@ -14,6 +14,8 @@
 # include "Uncopyable.hpp"
 # include "Optional.hpp"
 # include "Mat3x2.hpp"
+# include "Graphics2D.hpp"
+# include "Cursor.hpp"
 
 namespace s3d
 {
@@ -32,15 +34,20 @@ namespace s3d
 			SetCamera,
 		};
 
+		SIV3D_NODISCARD_CXX20
 		Transformer2D() = default;
 
+		SIV3D_NODISCARD_CXX20
 		Transformer2D(const Mat3x2& transform, Target target);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Transformer2D(const Mat3x2& transform, bool transformCursor = false, Target target = Target::PushLocal);
 
+		SIV3D_NODISCARD_CXX20
 		Transformer2D(const Mat3x2& graphics2DTransform, const Mat3x2& cursorTransform, Target target = Target::PushLocal);
 
-		Transformer2D(Transformer2D&& other);
+		SIV3D_NODISCARD_CXX20
+		Transformer2D(Transformer2D&& other) noexcept;
 
 		~Transformer2D();
 
@@ -62,9 +69,9 @@ namespace s3d
 
 		bool isCamera() const noexcept;
 
-		const Mat3x2& getGraphics2DTransform() const;
+		const Mat3x2& getGraphics2DTransform() const noexcept;
 
-		const Mat3x2& getCursorTransform() const;
+		const Mat3x2& getCursorTransform() const noexcept;
 
 		void setGraphics2DTransform(const Mat3x2& transform) const;
 

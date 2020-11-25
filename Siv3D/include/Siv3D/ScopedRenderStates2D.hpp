@@ -29,14 +29,19 @@ namespace s3d
 			SamplerState state;
 		};
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderStates2D(const BlendState& blendState);
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderStates2D(const RasterizerState& rasterizerState);
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderStates2D(const SamplerState& samplerState);
 
+		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos);
 
 		/*
