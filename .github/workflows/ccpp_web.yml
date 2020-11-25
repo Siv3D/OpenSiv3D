@@ -46,6 +46,7 @@ jobs:
         working-directory: Dependencies
         run: |
           git clone --recursive https://github.com/boostorg/boost.git --branch boost-1.73.0
+          rm -r boost_1_73_0
           mv boost boost_1_73_0
 
       - name: Place boost
