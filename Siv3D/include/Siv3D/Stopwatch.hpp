@@ -10,7 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
-# include <compare>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "ISteadyClock.hpp"
 # include "Duration.hpp"
