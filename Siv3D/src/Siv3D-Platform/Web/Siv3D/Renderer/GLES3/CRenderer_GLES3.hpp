@@ -10,11 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.hpp>
 
 namespace s3d
 {
@@ -22,17 +22,18 @@ namespace s3d
 	{
 	private:
 		
+		CRenderer2D_GLES3* pRenderer2D = nullptr;
 		GLFWwindow* m_window = nullptr;
 
-		Size m_frameBufferSize = Size(0, 0);
-
-		Size m_sceneSize = Size(800, 600);
+		std::unique_ptr<GLES3BackBuffer> m_backBuffer;
 
 	public:
 
 		CRenderer_GLES3();
 
 		~CRenderer_GLES3() override;
+
+		EngineOption::Renderer getRendererType() const noexcept override;
 
 		void init() override;
 
@@ -44,8 +45,26 @@ namespace s3d
 
 		bool present() override;
 
-		Size getFrameBufferSize() const override;
+		void setSceneResizeMode(ResizeMode resizeMode) override;
 
-		Size getSceneSize() const override;	
+		ResizeMode getSceneResizeMode() const noexcept override;
+
+		void setSceneBufferSize(Size size) override;
+
+		Size getSceneBufferSize() const noexcept override;
+
+		void setSceneTextureFilter(TextureFilter textureFilter) override;
+
+		TextureFilter getSceneTextureFilter() const noexcept override;
+
+		void setBackgroundColor(const ColorF& color) override;
+
+		const ColorF& getBackgroundColor() const noexcept override;
+
+		void setLetterboxColor(const ColorF& color) override;
+
+		const ColorF& getLetterboxColor() const noexcept override;
+
+		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
 	};
 }

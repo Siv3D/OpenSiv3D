@@ -2,16 +2,22 @@ name: C/C++ CI for Web
 
 on:
   push:
-    branches: [ web* ]
+    branches: [ v6_* ]
     tags: [ v** ]
   pull_request:
-    branches: [ web* ]
+    branches: [ v6_* ]
 
 jobs:
   build:
     if: ${{ !contains(github.event.head_commit.message, '[ci skip]') }}
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.4'
+            output-file: 'libSiv3D.a'
     container: 
-      image: trzeci/emscripten:1.39.10-upstream
+      image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +31,35 @@ jobs:
       - name: Create project using cmake
         working-directory: Web/build
         run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+
+      - name: Cache boost
+        id: cache_boost
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-boost-headers
+        with:
+          path: Dependencies/boost_1_73_0/boost
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Download boost
+        if: ${{ !steps.cache_boost.outputs.cache-hit }}
+        working-directory: Dependencies
+        run: |
+          git clone --recursive https://github.com/boostorg/boost.git --branch boost-1.73.0
+          rm -r boost_1_73_0
+          mv boost boost_1_73_0
+
+      - name: Place boost
+        if: ${{ !steps.cache_boost.outputs.cache-hit }}
+        working-directory: Dependencies/boost_1_73_0
+        run: |
+          ./bootstrap.sh
+          ./b2 headers
+          mkdir boost_tmp
+          cp -L -r boost boost_tmp
+          rm -r boost
+          mv boost_tmp/boost boost
+
       - name: Build project
         working-directory: Web/build
         run: cmake --build . --parallel 4
@@ -44,13 +79,16 @@ jobs:
         run: |
           mkdir Package
           cp -r Siv3D/include Package
-          cp Web/build/libSiv3D.a Package
+          cp -r Web/App/resources Package
+          cp Web/build/${{ matrix.config.output-file }} Package/lib
+          cp Web/Siv3D.js Package/lib
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
+
       - name: Save Bundles
         uses: actions/upload-artifact@v2
         with:
-          name: OpenSiv3D-Bundles
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: OpenSiv3D.*
 
   deploy:

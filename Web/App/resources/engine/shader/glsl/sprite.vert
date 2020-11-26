@@ -1,7 +1,5 @@
 #version 300 es
-
-precision mediump float;
-
+				
 layout(std140) uniform VSConstants2D
 {
 	vec4 g_transform[2];
@@ -20,7 +18,6 @@ layout(location = 2) in vec4 VertexColor;
 //
 out vec4 Color;
 out vec2 UV;
-// out vec4 Position;
 
 vec4 StandardTransform(const vec2 pos)
 {
@@ -29,12 +26,12 @@ vec4 StandardTransform(const vec2 pos)
 	result.zw = g_transform[1].zw;
 	return result;
 }
-
+		
 void main()
 {
 	gl_Position = StandardTransform(VertexPosition);
 
-	Color = (VertexColor * g_colorMul);
+	Color = VertexColor * g_colorMul;
 	
 	UV = VertexUV;
 }
