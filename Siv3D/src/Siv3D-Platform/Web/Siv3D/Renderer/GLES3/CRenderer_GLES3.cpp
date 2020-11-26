@@ -96,7 +96,10 @@ namespace s3d
 		LOG_INFO(U"GL_MAJOR_VERSION: {}"_fmt(major));
 		LOG_INFO(U"GL_MINOR_VERSION: {}"_fmt(minor));
 
-		m_backBuffer = std::make_unique<GLES3BackBuffer>();
+		m_backBuffer		= std::make_unique<GLES3BackBuffer>();
+		m_blendState		= std::make_unique<GLES3BlendState>();
+		m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
+		m_samplerState		= std::make_unique<GLES3SamplerState>();
 
 		SIV3D_ENGINE(Texture)->init();
 		SIV3D_ENGINE(Shader)->init();
@@ -243,5 +246,20 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_GLES3::getLetterboxComposition() const noexcept
 	{
 		return m_backBuffer->getLetterboxComposition();
+	}
+
+	GLES3BlendState& CRenderer_GLES3::getBlendState() noexcept
+	{
+		return *m_blendState;
+	}
+
+	GLES3RasterizerState& CRenderer_GLES3::getRasterizerState() noexcept
+	{
+		return *m_rasterizerState;
+	}
+
+	GLES3SamplerState& CRenderer_GLES3::getSamplerState() noexcept
+	{
+		return *m_samplerState;
 	}
 }

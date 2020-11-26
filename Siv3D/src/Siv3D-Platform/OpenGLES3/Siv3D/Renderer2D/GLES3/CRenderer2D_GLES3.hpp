@@ -32,10 +32,16 @@ namespace s3d
 		VertexShader sprite;
 		VertexShader fullscreen_triangle;
 
-		bool ok() const
+		VertexShader::IDType spriteID;
+
+		bool setup()
 		{
-			return sprite
+			const bool result = sprite
 				&& fullscreen_triangle;
+
+			spriteID = sprite.id();
+
+			return result;
 		}
 	};
 
@@ -44,10 +50,16 @@ namespace s3d
 		PixelShader shape;
 		PixelShader fullscreen_triangle;
 
-		bool ok() const
+		PixelShader::IDType shapeID;
+
+		bool setup()
 		{
-			return shape
+			const bool result = shape
 				&& fullscreen_triangle;
+
+			shapeID = shape.id();
+
+			return result;
 		}
 	};
 
@@ -67,6 +79,9 @@ namespace s3d
 		GLES3Vertex2DBatch m_batches;
 		GLES3Renderer2DCommandManager m_commandManager;
 		BufferCreatorFunc m_bufferCreator;
+
+		Optional<VertexShader> m_currentCustomVS;
+		Optional<PixelShader> m_currentCustomPS;
 
 		//////////////////////////////////////////////////
 		//
@@ -106,13 +121,51 @@ namespace s3d
 
 		void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, IsClosed isClosed) override;
 
+		void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, IsClosed isClosed) override;
+
 		void addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color) override;
 
 		void addPolygon(const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
 
+		void addNullVertices(uint32 count) override;
+
+		BlendState getBlendState() const override;
+
+		RasterizerState getRasterizerState() const override;
+
+		SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const override;
+
+		void setBlendState(const BlendState& state) override;
+
+		void setRasterizerState(const RasterizerState& state) override;
+
+		void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) override;
+
+
+		Optional<VertexShader> getCustomVS() const override;
+
+		Optional<PixelShader> getCustomPS() const override;
+
+		void setCustomVS(const Optional<VertexShader>& vs) override;
+
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+
+
+		const Mat3x2& getLocalTransform() const override;
+
+		const Mat3x2& getCameraTransform() const override;
+
+		void setLocalTransform(const Mat3x2& matrix) override;
+
+		void setCameraTransform(const Mat3x2& matrix) override;
+
 		float getMaxScaling() const noexcept override;
+
+		//
+		// OpenGL
+		//
 
 		void flush();
 

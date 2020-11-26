@@ -15,6 +15,9 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.hpp>
+# include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
+# include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
+# include <Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.hpp>
 
 namespace s3d
 {
@@ -26,6 +29,12 @@ namespace s3d
 		GLFWwindow* m_window = nullptr;
 
 		std::unique_ptr<GLES3BackBuffer> m_backBuffer;
+
+		std::unique_ptr<GLES3BlendState> m_blendState;
+
+		std::unique_ptr<GLES3RasterizerState> m_rasterizerState;
+		
+		std::unique_ptr<GLES3SamplerState> m_samplerState;
 
 	public:
 
@@ -66,5 +75,15 @@ namespace s3d
 		const ColorF& getLetterboxColor() const noexcept override;
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
+
+		//
+		// GLES3
+		//
+
+		GLES3BlendState& getBlendState() noexcept;
+
+		GLES3RasterizerState& getRasterizerState() noexcept;
+
+		GLES3SamplerState& getSamplerState() noexcept;
 	};
 }

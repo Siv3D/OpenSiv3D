@@ -152,8 +152,13 @@ namespace s3d
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
+		m_vertexBufferWritePos = 0;
+	}
 
-		m_vertexBufferWritePos	= 0;
+	void GLES3Vertex2DBatch::setBuffers()
+	{
+		::glBindVertexArray(m_vao);
+		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 	}
 
 	BatchInfo2D GLES3Vertex2DBatch::updateBuffers(const size_t batchIndex)
