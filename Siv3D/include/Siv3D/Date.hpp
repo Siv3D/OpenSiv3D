@@ -11,7 +11,9 @@
 
 # pragma once
 # include <cstring>
-# include <compare>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "DayOfWeek.hpp"
 # include "String.hpp"
