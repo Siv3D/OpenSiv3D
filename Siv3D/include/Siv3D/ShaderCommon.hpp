@@ -95,6 +95,31 @@ namespace s3d
 		operator PixelShader() const;
 	};
 
+	struct ESSL
+	{
+		FilePath path;
+
+		Array<ConstantBufferBinding> bindings;
+
+		SIV3D_NODISCARD_CXX20
+		ESSL(FilePath _path, Array<ConstantBufferBinding> _bindings);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
+	};
+
 	class ShaderGroup
 	{
 	private:

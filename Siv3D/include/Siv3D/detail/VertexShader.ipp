@@ -27,4 +27,9 @@ namespace s3d
 	{
 		return VertexShader{ path, entryPoint, {} };
 	}
+
+	inline VertexShader VertexShader::ESSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return VertexShader{ path, {}, bindings };
+	}
 }

@@ -22,7 +22,7 @@ namespace s3d
 			return new CShader_Null;
 		}
 		else if (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
-			|| g_applicationOptions.renderer == EngineOption::Renderer::OpenGL)
+			|| g_applicationOptions.renderer == EngineOption::Renderer::WebGL2)
 		{
 			return new CShader_GLES3;
 		}

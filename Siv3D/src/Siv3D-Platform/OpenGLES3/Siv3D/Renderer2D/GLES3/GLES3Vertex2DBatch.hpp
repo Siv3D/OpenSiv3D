@@ -81,6 +81,8 @@ namespace s3d
 
 		void reset();
 
+		void setBuffers();
+
 		[[nodiscard]]
 		BatchInfo2D updateBuffers(size_t batchIndex);
 	};

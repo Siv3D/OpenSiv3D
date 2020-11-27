@@ -27,4 +27,9 @@ namespace s3d
 	{
 		return PixelShader{ path, entryPoint, {} };
 	}
+
+	inline PixelShader PixelShader::ESSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return PixelShader{ path, {}, bindings };
+	}
 }
