@@ -50,7 +50,7 @@ namespace s3d
 
 	EngineOption::Renderer CRenderer_GLES3::getRendererType() const noexcept
 	{
-		return EngineOption::Renderer::OpenGL;
+		return EngineOption::Renderer::WebGL2;
 	}	
 
 	void CRenderer_GLES3::init()
