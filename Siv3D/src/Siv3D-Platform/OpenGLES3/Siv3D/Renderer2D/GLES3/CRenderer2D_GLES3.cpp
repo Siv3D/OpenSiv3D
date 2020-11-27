@@ -70,8 +70,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS2D>();
-			m_standardVS->sprite = GLSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
-			m_standardVS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
+			m_standardVS->sprite = ESSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
+			m_standardVS->fullscreen_triangle = ESSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardVS initialization failed");
@@ -82,8 +82,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS2D>();
-			m_standardPS->shape = GLSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
-			m_standardPS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
+			m_standardPS->shape = ESSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
+			m_standardPS->fullscreen_triangle = ESSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardPS initialization failed");
