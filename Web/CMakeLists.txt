@@ -116,6 +116,7 @@ add_library(
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp
   ../Siv3D/src/Siv3D/FormatUtility/SivFormatUtility.cpp
+  ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
   ../Siv3D/src/Siv3D/Image/SivImage.cpp
   ../Siv3D/src/Siv3D/ImageDecoder/CImageDecoder.cpp

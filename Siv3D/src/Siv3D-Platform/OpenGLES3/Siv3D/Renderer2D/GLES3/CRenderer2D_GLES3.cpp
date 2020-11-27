@@ -515,8 +515,6 @@ namespace s3d
 
 		m_commandManager.flush();
 
-		pShader->usePipeline();
-
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
 
@@ -651,6 +649,7 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -668,6 +667,7 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 

@@ -15,13 +15,13 @@ namespace s3d
 {
 	GLES3RasterizerState::GLES3RasterizerState()
 	{
-		::glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		// ::glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		::glDisable(GL_CULL_FACE);
 
 		::glDisable(GL_SCISSOR_TEST);
 
-		::glDisable(GL_POLYGON_OFFSET_LINE);
+		// ::glDisable(GL_POLYGON_OFFSET_LINE);
 		::glDisable(GL_POLYGON_OFFSET_FILL);
 	}
 
@@ -32,10 +32,10 @@ namespace s3d
 			return;
 		}
 
-		if (state.fillMode != m_currentState.fillMode)
-		{
-			::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
-		}
+		// if (state.fillMode != m_currentState.fillMode)
+		// {
+		// 	::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
+		// }
 
 		if (state.cullMode != m_currentState.cullMode)
 		{
@@ -70,13 +70,13 @@ namespace s3d
 		{
 			if (state.depthBias)
 			{
-				::glEnable(GL_POLYGON_OFFSET_LINE);
+				// ::glEnable(GL_POLYGON_OFFSET_LINE);
 				::glEnable(GL_POLYGON_OFFSET_FILL);
 				::glPolygonOffset(0, state.depthBias);
 			}
 			else
 			{
-				::glDisable(GL_POLYGON_OFFSET_LINE);
+				// ::glDisable(GL_POLYGON_OFFSET_LINE);
 				::glDisable(GL_POLYGON_OFFSET_FILL);
 			}
 		}
