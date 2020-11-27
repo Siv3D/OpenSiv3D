@@ -43,6 +43,9 @@ namespace s3d
 
 		[[nodiscard]]
 		static VertexShader MSL(StringView entryPoint, FilePathView path = {});
+
+		[[nodiscard]]
+		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
 

@@ -43,6 +43,9 @@ namespace s3d
 
 		[[nodiscard]]
 		static PixelShader MSL(StringView entryPoint, FilePathView path = {});
+
+		[[nodiscard]]
+		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
 

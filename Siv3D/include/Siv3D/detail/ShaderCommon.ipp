@@ -119,6 +119,35 @@ namespace s3d
 		}
 	}
 
+	inline ESSL::ESSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
+		: path(_path)
+		, bindings(std::move(_bindings)) {}
+
+	inline ShaderGroup ESSL::operator |(const HLSL& hlsl) const
+	{
+		return ShaderGroup{ hlsl, none, none };
+	}
+
+	inline ShaderGroup ESSL::operator |(const GLSL& glsl) const
+	{
+		return ShaderGroup{ none, glsl, none };
+	}
+
+	inline ShaderGroup ESSL::operator |(const MSL& msl) const
+	{
+		return ShaderGroup{ none, none, msl };
+	}
+
+	inline ESSL::operator VertexShader() const
+	{
+		return VertexShader::ESSL(path, bindings);
+	}
+
+	inline ESSL::operator PixelShader() const
+	{
+		return PixelShader::ESSL(path, bindings);
+	}
+
 	inline ShaderGroup::ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl)
 		: m_hlsl(hlsl)
 		, m_glsl(glsl)
