@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorF.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Colormap.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CommonVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBufferBinding.hpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Blob.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circular.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Colormap.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ConstantBuffer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cursor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylindrical.ipp" />
@@ -395,6 +397,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\scope-guard\scope_success.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\scope-guard\unique_resource.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SMFT\SMFT.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\tinycolormap\tinycolormap.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Xoshiro-cpp\XoshiroCpp.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4\ConstantBufferDetail_GL4.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4\CRenderer2D_GL4.hpp" />

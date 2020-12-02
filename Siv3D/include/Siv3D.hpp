@@ -705,6 +705,10 @@
 // Colors
 # include <Siv3D/ColorHSV.hpp>
 
+// カラーマップ
+// Colormap
+# include <Siv3D/Colormap.hpp>
+
 //////////////////////////////////////////////////
 //
 //	2D 図形
