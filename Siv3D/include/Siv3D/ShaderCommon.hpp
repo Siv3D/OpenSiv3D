@@ -22,6 +22,7 @@ namespace s3d
 	struct HLSL;
 	struct GLSL;
 	struct MSL;
+	struct ESSL;
 
 	struct HLSL
 	{
@@ -40,6 +41,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -62,6 +66,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -87,6 +94,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const GLSL& glsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -127,6 +137,7 @@ namespace s3d
 		Optional<HLSL> m_hlsl;
 		Optional<GLSL> m_glsl;
 		Optional<MSL> m_msl;
+		Optional<ESSL> m_essl;
 
 	public:
 
@@ -134,7 +145,7 @@ namespace s3d
 		ShaderGroup() = default;
 
 		SIV3D_NODISCARD_CXX20
-		ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl);
+		ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl, const Optional<ESSL>& essl);
 
 		[[nodiscard]]
 		ShaderGroup operator |(const HLSL& hlsl) const;
@@ -144,6 +155,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;

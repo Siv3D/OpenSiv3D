@@ -14,20 +14,25 @@
 namespace s3d
 {
 	inline HLSL::HLSL(const FilePath _path)
-		: path(_path) {}
+		: path{ _path } {}
 
 	inline HLSL::HLSL(const FilePath _path, const String _entryPoint)
-		: path(_path)
-		, entryPoint(_entryPoint) {}
+		: path{ _path }
+		, entryPoint{ _entryPoint } {}
 
 	inline ShaderGroup HLSL::operator |(const GLSL& glsl) const
 	{
-		return ShaderGroup{ *this, glsl, none };
+		return ShaderGroup{ *this, glsl, none, none };
 	}
 
 	inline ShaderGroup HLSL::operator |(const MSL& msl) const
 	{
-		return ShaderGroup{ *this, none, msl };
+		return ShaderGroup{ *this, none, msl, none };
+	}
+
+	inline ShaderGroup HLSL::operator |(const ESSL& essl) const
+	{
+		return ShaderGroup{ *this, none, none, essl };
 	}
 
 	inline HLSL::operator VertexShader() const
@@ -55,17 +60,22 @@ namespace s3d
 	}
 
 	inline GLSL::GLSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
-		: path(_path)
-		, bindings(std::move(_bindings)) {}
+		: path{ _path }
+		, bindings{ std::move(_bindings) } {}
 
 	inline ShaderGroup GLSL::operator |(const HLSL& hlsl) const
 	{
-		return ShaderGroup{ hlsl, *this, none };
+		return ShaderGroup{ hlsl, *this, none, none };
 	}
 
 	inline ShaderGroup GLSL::operator |(const MSL& msl) const
 	{
-		return ShaderGroup{ none, *this, msl };
+		return ShaderGroup{ none, *this, msl, none };
+	}
+
+	inline ShaderGroup GLSL::operator |(const ESSL& essl) const
+	{
+		return ShaderGroup{ none, *this, none, essl };
 	}
 
 	inline GLSL::operator VertexShader() const
@@ -78,21 +88,26 @@ namespace s3d
 		return PixelShader::GLSL(path, bindings);
 	}
 
-	inline MSL::MSL(StringView _entryPoint)
-		: entryPoint(_entryPoint) {}
+	inline MSL::MSL(const StringView _entryPoint)
+		: entryPoint{ _entryPoint } {}
 
-	inline MSL::MSL(FilePath _path, StringView _entryPoint)
-		: path(_path)
-		, entryPoint(_entryPoint) {}
+	inline MSL::MSL(const FilePath _path, const StringView _entryPoint)
+		: path{ _path }
+		, entryPoint{ _entryPoint } {}
 
 	inline ShaderGroup MSL::operator |(const HLSL& hlsl) const
 	{
-		return ShaderGroup{ hlsl, none, *this };
+		return ShaderGroup{ hlsl, none, *this, none };
 	}
 
 	inline ShaderGroup MSL::operator |(const GLSL& glsl) const
 	{
-		return ShaderGroup{ none, glsl, *this };
+		return ShaderGroup{ none, glsl, *this, none };
+	}
+
+	inline ShaderGroup MSL::operator |(const ESSL& essl) const
+	{
+		return ShaderGroup{ none, none, *this, essl };
 	}
 
 	inline MSL::operator VertexShader() const
@@ -120,22 +135,22 @@ namespace s3d
 	}
 
 	inline ESSL::ESSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
-		: path(_path)
-		, bindings(std::move(_bindings)) {}
+		: path{ _path }
+		, bindings{ std::move(_bindings) } {}
 
 	inline ShaderGroup ESSL::operator |(const HLSL& hlsl) const
 	{
-		return ShaderGroup{ hlsl, none, none };
+		return ShaderGroup{ hlsl, none, none, *this };
 	}
 
 	inline ShaderGroup ESSL::operator |(const GLSL& glsl) const
 	{
-		return ShaderGroup{ none, glsl, none };
+		return ShaderGroup{ none, glsl, none, *this };
 	}
 
 	inline ShaderGroup ESSL::operator |(const MSL& msl) const
 	{
-		return ShaderGroup{ none, none, msl };
+		return ShaderGroup{ none, none, msl, *this };
 	}
 
 	inline ESSL::operator VertexShader() const
@@ -148,24 +163,30 @@ namespace s3d
 		return PixelShader::ESSL(path, bindings);
 	}
 
-	inline ShaderGroup::ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl)
-		: m_hlsl(hlsl)
-		, m_glsl(glsl)
-		, m_msl(msl) {}
+	inline ShaderGroup::ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl, const Optional<ESSL>& essl)
+		: m_hlsl{ hlsl }
+		, m_glsl{ glsl }
+		, m_msl{ msl }
+		, m_essl{ essl } {}
 
 	inline ShaderGroup ShaderGroup::operator |(const HLSL& hlsl) const
 	{
-		return ShaderGroup{ hlsl, m_glsl, m_msl };
+		return ShaderGroup{ hlsl, m_glsl, m_msl, m_essl };
 	}
 
 	inline ShaderGroup ShaderGroup::operator |(const GLSL& glsl) const
 	{
-		return ShaderGroup{ m_hlsl, glsl, m_msl };
+		return ShaderGroup{ m_hlsl, glsl, m_msl, m_essl };
 	}
 
 	inline ShaderGroup ShaderGroup::operator |(const MSL& msl) const
 	{
-		return ShaderGroup{ m_hlsl, m_glsl, msl };
+		return ShaderGroup{ m_hlsl, m_glsl, msl, m_essl };
+	}
+
+	inline ShaderGroup ShaderGroup::operator |(const ESSL& essl) const
+	{
+		return ShaderGroup{ m_hlsl, m_glsl, m_msl, essl };
 	}
 
 	inline ShaderGroup::operator VertexShader() const
@@ -186,8 +207,13 @@ namespace s3d
 			assert(m_msl);
 			return *m_msl;
 		}
+		else if (renderer == EngineOption::Renderer::WebGL2)
+		{
+			assert(m_essl);
+			return *m_essl;
+		}
 
-		return VertexShader{};
+		return{};
 	}
 
 	inline ShaderGroup::operator PixelShader() const
@@ -208,7 +234,12 @@ namespace s3d
 			assert(m_msl);
 			return *m_msl;
 		}
+		else if (renderer == EngineOption::Renderer::WebGL2)
+		{
+			assert(m_essl);
+			return *m_essl;
+		}
 
-		return PixelShader{};
+		return{};
 	}
 }
