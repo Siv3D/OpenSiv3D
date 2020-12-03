@@ -613,8 +613,11 @@
     <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState">
       <UniqueIdentifier>{c3c463a3-18ff-4d5e-ad26-6dd49e47155c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\ThirdParty\tinycolormap">
-      <UniqueIdentifier>{2a0605d2-624b-4223-95eb-1a07ec1187d0}</UniqueIdentifier>
+    <Filter Include="src\ThirdParty\tinycolormap">
+      <UniqueIdentifier>{f70873be-5c68-41b5-bc2c-11502ee57864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Colormap">
+      <UniqueIdentifier>{b5217676-02d3-4ad9-8dc8-a4abc2807a16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -2442,14 +2445,11 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\tinycolormap\tinycolormap.hpp">
-      <Filter>include\ThirdParty\tinycolormap</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Colormap.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Colormap.ipp">
-      <Filter>include\Siv3D\detail</Filter>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp">
+      <Filter>src\ThirdParty\tinycolormap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3367,6 +3367,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState\GL4SamplerState.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Colormap\SivColormap.cpp">
+      <Filter>src\Siv3D\Colormap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

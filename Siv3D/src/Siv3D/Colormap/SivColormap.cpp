@@ -10,16 +10,18 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Colormap.hpp>
+# include <ThirdParty/tinycolormap/tinycolormap.hpp>
 
 namespace s3d
 {
-	inline Color Colormap01(const double x, const ColormapType colormapType)
+	Color Colormap01(const double x, const ColormapType colormapType)
 	{
 		const auto c = tinycolormap::GetColor(x, ToEnum<tinycolormap::ColormapType>(FromEnum(colormapType)));
 		return{ c.ri(), c.gi(), c.bi() };
 	}
 
-	inline ColorF Colormap01F(const double x, const ColormapType colormapType)
+	ColorF Colormap01F(const double x, const ColormapType colormapType)
 	{
 		const auto c = tinycolormap::GetColor(x, ToEnum<tinycolormap::ColormapType>(FromEnum(colormapType)));
 		return{ c.r(), c.g(), c.b() };

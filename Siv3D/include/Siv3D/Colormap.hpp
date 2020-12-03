@@ -12,7 +12,6 @@
 # pragma once
 # include "Common.hpp"
 # include "ColorHSV.hpp"
-# include <ThirdParty/tinycolormap/tinycolormap.hpp>
 
 namespace s3d
 {
@@ -49,14 +48,12 @@ namespace s3d
 	/// @param colormapType 変換に使用するカラーマップの種類
 	/// @return 変換された色
 	[[nodiscard]]
-	inline Color Colormap01(double x, ColormapType colormapType = ColormapType::Turbo);
+	Color Colormap01(double x, ColormapType colormapType = ColormapType::Turbo);
 
 	/// @brief 値をカラーマップを使って色 (ColorF 型) に変換します。
 	/// @param x 色に変換する値。[0.0, 1.0] 以外の範囲はクランプされます
 	/// @param colormapType 変換に使用するカラーマップの種類
 	/// @return 変換された色
 	[[nodiscard]]
-	inline ColorF Colormap01F(double x, ColormapType colormapType = ColormapType::Turbo);
+	ColorF Colormap01F(double x, ColormapType colormapType = ColormapType::Turbo);
 }
-
-# include "detail/Colormap.ipp"
