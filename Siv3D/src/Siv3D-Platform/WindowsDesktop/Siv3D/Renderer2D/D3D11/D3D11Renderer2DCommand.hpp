@@ -37,6 +37,10 @@ namespace s3d
 
 		DrawNull,
 
+		ColorMul,
+
+		ColorAdd,
+
 		BlendState,
 
 		RasterizerState,
@@ -103,6 +107,8 @@ namespace s3d
 		// buffer
 		Array<D3D11DrawCommand> m_draws;
 		Array<uint32> m_nullDraws;
+		Array<Float4> m_colorMuls					= { Float4{ 1.0f, 1.0f, 1.0f, 1.0f } };
+		Array<Float4> m_colorAdds					= { Float4{ 0.0f, 0.0f, 0.0f, 0.0f } };
 		Array<BlendState> m_blendStates				= { BlendState::Default };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default2D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
@@ -113,6 +119,8 @@ namespace s3d
 
 		// current
 		D3D11DrawCommand m_currentDraw;
+		Float4 m_currentColorMul					= m_colorMuls.back();
+		Float4 m_currentColorAdd					= m_colorAdds.back();
 		BlendState m_currentBlendState				= m_blendStates.back();
 		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSSamplerStates;
@@ -145,6 +153,14 @@ namespace s3d
 
 		void pushNullVertices(uint32 count);
 		uint32 getNullDraw(uint32 index) const noexcept;
+
+		void pushColorMul(const Float4& color);
+		const Float4& getColorMul(uint32 index) const;
+		const Float4& getCurrentColorMul() const;
+
+		void pushColorAdd(const Float4& color);
+		const Float4& getColorAdd(uint32 index) const;
+		const Float4& getCurrentColorAdd() const;
 
 		void pushBlendState(const BlendState& state);
 		const BlendState& getBlendState(uint32 index) const;

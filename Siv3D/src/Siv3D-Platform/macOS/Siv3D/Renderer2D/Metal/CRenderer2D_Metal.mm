@@ -393,6 +393,26 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	Float4 CRenderer2D_Metal::getColorMul() const
+	{
+		return m_commandManager.getCurrentColorMul();
+	}
+
+	Float4 CRenderer2D_Metal::getColorAdd() const
+	{
+		return m_commandManager.getCurrentColorAdd();
+	}
+
+	void CRenderer2D_Metal::setColorMul(const Float4& color)
+	{
+		m_commandManager.pushColorMul(color);
+	}
+
+	void CRenderer2D_Metal::setColorAdd(const Float4& color)
+	{
+		m_commandManager.pushColorAdd(color);
+	}
+
 	BlendState CRenderer2D_Metal::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
@@ -641,6 +661,18 @@ namespace s3d
 								}
 
 								LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+								break;
+							}
+						case MetalRenderer2DCommandType::ColorMul:
+							{
+								m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
+								LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+								break;
+							}
+						case MetalRenderer2DCommandType::ColorAdd:
+							{
+								m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
+								LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
 								break;
 							}
 						case MetalRenderer2DCommandType::BlendState:

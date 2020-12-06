@@ -33,6 +33,8 @@ namespace s3d
 		{
 			m_draws.clear();
 			m_nullDraws.clear();
+			m_colorMuls			= { m_colorMuls.back() };
+			m_colorAdds			= { m_colorAdds.back() };
 			m_blendStates		= { m_blendStates.back() };
 			m_rasterizerStates	= { m_rasterizerStates.back() };
 			
@@ -62,6 +64,12 @@ namespace s3d
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetBuffers, 0);
 			m_commands.emplace_back(MetalRenderer2DCommandType::UpdateBuffers, 0);
 			
+			m_commands.emplace_back(MetalRenderer2DCommandType::ColorMul, 0);
+			m_currentColorMul = m_colorMuls.front();
+
+			m_commands.emplace_back(MetalRenderer2DCommandType::ColorAdd, 0);
+			m_currentColorAdd = m_colorAdds.front();
+
 			m_commands.emplace_back(MetalRenderer2DCommandType::BlendState, 0);
 			m_currentBlendState = m_blendStates.front();
 
@@ -105,6 +113,18 @@ namespace s3d
 		if (m_changes.has(MetalRenderer2DCommandType::SetBuffers))
 		{
 			m_commands.emplace_back(MetalRenderer2DCommandType::SetBuffers, 0);
+		}
+
+		if (m_changes.has(MetalRenderer2DCommandType::ColorMul))
+		{
+			m_commands.emplace_back(MetalRenderer2DCommandType::ColorMul, static_cast<uint32>(m_colorMuls.size()));
+			m_colorMuls.push_back(m_currentColorMul);
+		}
+
+		if (m_changes.has(MetalRenderer2DCommandType::ColorAdd))
+		{
+			m_commands.emplace_back(MetalRenderer2DCommandType::ColorAdd, static_cast<uint32>(m_colorAdds.size()));
+			m_colorAdds.push_back(m_currentColorAdd);
 		}
 		
 		if (m_changes.has(MetalRenderer2DCommandType::BlendState))
@@ -204,6 +224,82 @@ namespace s3d
 	uint32 MetalRenderer2DCommandManager::getNullDraw(const uint32 index) const noexcept
 	{
 		return m_nullDraws[index];
+	}
+
++	void MetalRenderer2DCommandManager::pushColorMul(const Float4& color)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::ColorMul;
+		auto& current = m_currentColorMul;
+		auto& buffer = m_colorMuls;
+
+		if (not m_changes.has(command))
+		{
+			if (color != current)
+			{
+				current = color;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (color == buffer.back())
+			{
+				current = color;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = color;
+			}
+		}
+	}
+
+	const Float4& MetalRenderer2DCommandManager::getColorMul(const uint32 index) const
+	{
+		return m_colorMuls[index];
+	}
+
+	const Float4& MetalRenderer2DCommandManager::getCurrentColorMul() const
+	{
+		return m_currentColorMul;
+	}
+
+	void MetalRenderer2DCommandManager::pushColorAdd(const Float4& color)
+	{
+		constexpr auto command = MetalRenderer2DCommandType::ColorAdd;
+		auto& current = m_currentColorAdd;
+		auto& buffer = m_colorAdds;
+
+		if (not m_changes.has(command))
+		{
+			if (color != current)
+			{
+				current = color;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (color == buffer.back())
+			{
+				current = color;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = color;
+			}
+		}
+	}
+
+	const Float4& MetalRenderer2DCommandManager::getColorAdd(const uint32 index) const
+	{
+		return m_colorAdds[index];
+	}
+
+	const Float4& MetalRenderer2DCommandManager::getCurrentColorAdd() const
+	{
+		return m_currentColorAdd;
 	}
 
 	void MetalRenderer2DCommandManager::pushBlendState(const BlendState& state)

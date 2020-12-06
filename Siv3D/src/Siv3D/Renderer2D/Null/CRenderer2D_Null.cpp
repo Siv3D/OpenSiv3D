@@ -110,9 +110,24 @@ namespace s3d
 		// do nothing
 	}
 
-	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
+	Float4 CRenderer2D_Null::getColorMul() const
 	{
-		return none;
+		return{ 1.0, 1.0, 1.0, 1.0 };
+	}
+
+	Float4 CRenderer2D_Null::getColorAdd() const
+	{
+		return{ 0.0, 0.0, 0.0, 0.0 };
+	}
+
+	void CRenderer2D_Null::setColorMul(const Float4& color)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setColorAdd(const Float4& color)
+	{
+		// do nothing
 	}
 
 	BlendState CRenderer2D_Null::getBlendState() const
@@ -143,6 +158,11 @@ namespace s3d
 	void CRenderer2D_Null::setSamplerState(const ShaderStage, const uint32, const SamplerState&)
 	{
 		// do nothing
+	}
+
+	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
+	{
+		return none;
 	}
 
 	Optional<PixelShader> CRenderer2D_Null::getCustomPS() const

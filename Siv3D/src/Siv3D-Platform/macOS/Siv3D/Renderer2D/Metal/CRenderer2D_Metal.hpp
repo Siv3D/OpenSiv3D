@@ -98,6 +98,16 @@ namespace s3d
 
 		void addNullVertices(uint32 count) override;
 
+
+		Float4 getColorMul() const override;
+
+		Float4 getColorAdd() const override;
+
+		void setColorMul(const Float4& color) override;
+
+		void setColorAdd(const Float4& color) override;
+
+
 		BlendState getBlendState() const override;
 
 		RasterizerState getRasterizerState() const override;

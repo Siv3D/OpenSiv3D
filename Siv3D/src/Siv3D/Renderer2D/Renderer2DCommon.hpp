@@ -24,11 +24,11 @@ namespace s3d
 
 	struct PSConstants2D
 	{
-		Float4 colorAdd{ 0, 0, 0, 0 };
+		Float4 colorAdd{ 0.0f, 0.0f, 0.0f, 0.0f };
 
-		Float4 sdfParam{ 0, 0, 0, 0 };
+		Float4 sdfParam{ 0.0f, 0.0f, 0.0f, 0.0f };
 
-		Float4 internalParam{ 0, 0, 0, 0 };
+		Float4 internalParam{ 0.0f, 0.0f, 0.0f, 0.0f };
 	};
 
 	struct BatchInfo2D

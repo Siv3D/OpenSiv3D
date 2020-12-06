@@ -89,6 +89,16 @@ namespace s3d
 		virtual void addNullVertices(uint32 count) = 0;
 
 
+
+		virtual Float4 getColorMul() const = 0;
+
+		virtual Float4 getColorAdd() const = 0;
+
+		virtual void setColorMul(const Float4& color) = 0;
+
+		virtual void setColorAdd(const Float4& color) = 0;
+
+
 		virtual BlendState getBlendState() const = 0;
 
 		virtual RasterizerState getRasterizerState() const = 0;

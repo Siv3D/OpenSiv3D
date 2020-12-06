@@ -17,6 +17,16 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
+		Float4 GetColorMul()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getColorMul();
+		}
+
+		Float4 GetColorAdd()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getColorAdd();
+		}
+
 		BlendState GetBlendState()
 		{
 			return SIV3D_ENGINE(Renderer2D)->getBlendState();
@@ -64,6 +74,16 @@ namespace s3d
 
 		namespace Internal
 		{
+			void SetColorMul(const Float4& color)
+			{
+				SIV3D_ENGINE(Renderer2D)->setColorMul(color);
+			}
+
+			void SetColorAdd(const Float4& color)
+			{
+				SIV3D_ENGINE(Renderer2D)->setColorAdd(color);
+			}
+
 			void SetBlendState(const BlendState& blendState)
 			{
 				SIV3D_ENGINE(Renderer2D)->setBlendState(blendState);

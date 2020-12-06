@@ -24,34 +24,68 @@ namespace s3d
 {
 	namespace Graphics2D
 	{
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Float4 GetColorMul();
+
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Float4 GetColorAdd();
+
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		BlendState GetBlendState();
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		RasterizerState GetRasterizerState();
 
+		/// @brief 
+		/// @param shaderStage 
+		/// @param slot 
+		/// @return 
 		[[nodiscard]]
 		SamplerState GetSamplerState(ShaderStage shaderStage = ShaderStage::Pixel, uint32 slot = 0);
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		Optional<VertexShader> GetCustomVertexShader();
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		Optional<PixelShader> GetCustomPixelShader();
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		const Mat3x2& GetLocalTransform();
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		const Mat3x2& GetCameraTransform();
 
+		/// @brief 
+		/// @return 
 		[[nodiscard]]
 		float GetMaxScaling() noexcept;
 
+		/// @brief 
+		/// @param count 
 		void DrawTriangles(uint32 count);
 
 		namespace Internal
 		{
+			void SetColorMul(const Float4& color);
+
+			void SetColorAdd(const Float4& color);
+
 			void SetBlendState(const BlendState& blendState);
 
 			void SetRasterizerState(const RasterizerState& rasterizerState);

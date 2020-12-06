@@ -384,6 +384,27 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+
+	Float4 CRenderer2D_D3D11::getColorMul() const
+	{
+		return m_commandManager.getCurrentColorMul();
+	}
+
+	Float4 CRenderer2D_D3D11::getColorAdd() const
+	{
+		return m_commandManager.getCurrentColorAdd();
+	}
+
+	void CRenderer2D_D3D11::setColorMul(const Float4& color)
+	{
+		m_commandManager.pushColorMul(color);
+	}
+
+	void CRenderer2D_D3D11::setColorAdd(const Float4& color)
+	{
+		m_commandManager.pushColorAdd(color);
+	}
+
 	BlendState CRenderer2D_D3D11::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
@@ -583,6 +604,18 @@ namespace s3d
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+					break;
+				}
+			case D3D11Renderer2DCommandType::ColorMul:
+				{
+					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					break;
+				}
+			case D3D11Renderer2DCommandType::ColorAdd:
+				{
+					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
 					break;
 				}
 			case D3D11Renderer2DCommandType::BlendState:

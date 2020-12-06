@@ -964,6 +964,10 @@
 
 # include <Siv3D/SamplerState.hpp>
 
+# include <Siv3D/ScopedColorMul2D.hpp>
+
+# include <Siv3D/ScopedColorAdd2D.hpp>
+
 # include <Siv3D/ScopedRenderStates2D.hpp>
 
 # include <Siv3D/Transformer2D.hpp>
