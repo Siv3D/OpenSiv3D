@@ -21,6 +21,7 @@ namespace s3d
 {
 	using CwOpenPolygon	= boost::geometry::model::polygon<Vec2, false, false, Array, Array>;
 	using CWOpenRing	= boost::geometry::model::ring<Vec2, false, false, Array>;
+	using GLineString	= boost::geometry::model::linestring<Vec2, Array>;
 
 	class Polygon::PolygonDetail
 	{
@@ -65,6 +66,21 @@ namespace s3d
 
 		void moveBy(Vec2 v) noexcept;
 
+
+
+		double area() const noexcept;
+
+		double perimeter() const noexcept;
+
+		Vec2 centroid() const;
+
+		Polygon calculateConvexHull() const;
+
+		Polygon calculateBuffer(double distance) const;
+
+		Polygon calculateRoundBuffer(double distance) const;
+
+		Polygon simplified(double maxDistance) const;
 
 
 		void draw(const ColorF& color) const;

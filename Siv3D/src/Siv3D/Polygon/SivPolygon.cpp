@@ -268,6 +268,60 @@ namespace s3d
 
 
 
+
+
+	double Polygon::area() const noexcept
+	{
+		return pImpl->area();
+	}
+
+	double Polygon::perimeter() const noexcept
+	{
+		return pImpl->perimeter();
+	}
+
+	Vec2 Polygon::centroid() const
+	{
+		return pImpl->centroid();
+	}
+
+	Polygon Polygon::calculateConvexHull() const
+	{
+		return pImpl->calculateConvexHull();
+	}
+
+	Polygon Polygon::calculateBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return *this;
+		}
+
+		return pImpl->calculateBuffer(distance);
+	}
+
+	Polygon Polygon::calculateRoundBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return *this;
+		}
+
+		return pImpl->calculateRoundBuffer(distance);
+	}
+
+	Polygon Polygon::simplified(const double maxDistance) const
+	{
+		if (maxDistance <= 0.0)
+		{
+			return *this;
+		}
+
+		return pImpl->simplified(maxDistance);
+	}
+
+
+
 	const Polygon& Polygon::draw(const ColorF& color) const
 	{
 		pImpl->draw(color);

@@ -27,4 +27,20 @@ namespace s3d
 	{
 		return Validate(vertices.data(), vertices.size(), holes);
 	}
+
+	inline const Polygon::PolygonDetail* Polygon::_detail() const noexcept
+	{
+		return pImpl.get();
+	}
+
+	inline void swap(Polygon& a, Polygon& b) noexcept
+	{
+		a.swap(b);
+	}
+}
+
+template <>
+void std::swap(s3d::Polygon& a, s3d::Polygon& b) noexcept
+{
+	a.swap(b);
 }

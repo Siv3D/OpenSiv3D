@@ -25,6 +25,10 @@ namespace s3d
 
 	class Polygon
 	{
+	private:
+
+		class PolygonDetail;
+
 	public:
 
 		Polygon();
@@ -100,14 +104,134 @@ namespace s3d
 
 		Polygon& moveBy(Vec2 v) noexcept;
 
+		/*
+		[[nodiscard]] Polygon rotated(double angle) const;
 
+		[[nodiscard]] Polygon rotatedAt(double x, double y, double angle) const;
 
+		[[nodiscard]] Polygon rotatedAt(const Vec2& pos, double angle) const;
+
+		Polygon& rotate(double angle);
+
+		Polygon& rotateAt(double x, double y, double angle);
+
+		Polygon& rotateAt(const Vec2& pos, double angle);
+
+		[[nodiscard]] Polygon transformed(double s, double c, const Vec2& pos) const;
+
+		Polygon& transform(double s, double c, const Vec2& pos);
+
+		[[nodiscard]] Polygon scaled(double s) const;
+
+		Polygon& scale(double s);
+
+		[[nodiscard]] Polygon scaled(const Vec2& s) const;
+
+		Polygon& scale(const Vec2& s);
+		*/
+
+		[[nodiscard]]
+		double area() const noexcept;
+
+		[[nodiscard]]
+		double perimeter() const noexcept;
+
+		[[nodiscard]]
+		Vec2 centroid() const;
+
+		[[nodiscard]]
+		Polygon calculateConvexHull() const;
+
+		[[nodiscard]]
+		Polygon calculateBuffer(double distance) const;
+
+		[[nodiscard]]
+		Polygon calculateRoundBuffer(double distance) const;
+
+		[[nodiscard]]
+		Polygon simplified(double maxDistance = 2.0) const;
+
+		/*
+		bool append(const Polygon& polygon);
+		*/
+
+		/*
+		template <class Shape2DType>
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
+		[[nodiscard]] bool intersects(const Polygon& polygon) const;
+
+		template <class Shape2DType>
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
+		template <class Shape2DType>
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
+		*/
+
+		/*
+		[[nodiscard]] bool leftClicked() const;
+
+		[[nodiscard]] bool leftPressed() const;
+
+		[[nodiscard]] bool leftReleased() const;
+
+		[[nodiscard]] bool rightClicked() const;
+
+		[[nodiscard]] bool rightPressed() const;
+
+		[[nodiscard]] bool rightReleased() const;
+
+		[[nodiscard]] bool mouseOver() const;
+		*/
+
+		/*
+		const Polygon& paint(Image& dst, const Color& color) const;
+
+		const Polygon& paint(Image& dst, double x, double y, const Color& color) const;
+
+		const Polygon& paint(Image& dst, const Vec2& pos, const Color& color) const;
+
+		const Polygon& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		const Polygon& overwrite(Image& dst, double x, double y, const Color& color, bool antialiased = true) const;
+
+		const Polygon& overwrite(Image& dst, const Vec2& pos, const Color& color, bool antialiased = true) const;
+		*/
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 
+		//void draw(double x, double y, const ColorF& color = Palette::White) const;
+
+		//void draw(cons Vec2& pos, const ColorF& color = Palette::White) const;
+
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		//void drawFrame(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		//void drawFrame(cons Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
 		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		//void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		//void drawWireframe(cons Vec2& Vec2 pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		//void drawTransformed(double s, double c, cons Vec2& pos, const ColorF& color = Palette::White) const;
+
+		//[[nodiscard]]
+		//static PolygonFailureType Validate(const Float2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
+
+		//[[nodiscard]]
+		//static PolygonFailureType Validate(const Array<Float2>& vertices, const Array<Array<Vec2>>& holes = {});
 
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
@@ -115,12 +239,26 @@ namespace s3d
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 
+		//[[nodiscard]]
+		//static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
+
+		//[[nodiscard]]
+		//static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
+
+		[[nodiscard]]
+		const PolygonDetail* _detail() const noexcept;
+
 	private:
 
 		class PolygonDetail;
 
 		std::unique_ptr<PolygonDetail> pImpl;
 	};
+
+	inline void swap(Polygon& a, Polygon& b) noexcept;
 }
+
+template <>
+inline void std::swap(s3d::Polygon& a, s3d::Polygon& b) noexcept;
 
 # include "detail/Polygon.ipp"
