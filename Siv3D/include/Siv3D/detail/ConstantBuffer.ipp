@@ -58,10 +58,12 @@ namespace s3d
 	template <class Type>
 	inline bool ConstantBuffer<Type>::_update_if_dirty()
 	{
-		if (!m_hasDirty)
+		if (not m_hasDirty)
 		{
-			return true;
+			return false;
 		}
+		
+		m_hasDirty = false;
 
 		return m_base._internal_update(data(), Size);
 	}

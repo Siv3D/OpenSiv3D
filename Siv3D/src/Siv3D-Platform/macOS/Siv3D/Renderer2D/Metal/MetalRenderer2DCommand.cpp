@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -226,7 +226,7 @@ namespace s3d
 		return m_nullDraws[index];
 	}
 
-+	void MetalRenderer2DCommandManager::pushColorMul(const Float4& color)
+	void MetalRenderer2DCommandManager::pushColorMul(const Float4& color)
 	{
 		constexpr auto command = MetalRenderer2DCommandType::ColorMul;
 		auto& current = m_currentColorMul;

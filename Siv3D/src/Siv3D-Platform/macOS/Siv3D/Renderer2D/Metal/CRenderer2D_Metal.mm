@@ -536,7 +536,6 @@ namespace s3d
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
 
 		const ColorF& backgroundColor = pRenderer->getBackgroundColor();
-		m_vsConstants2D->colorMul = Float4(1, 1, 1, 1);
 		
 		@autoreleasepool {
 
@@ -567,13 +566,6 @@ namespace s3d
 					BlendState currentSetBlendState{ false, Blend{ 0 }};
 					BlendState currentBlendState = currentSetBlendState;
 					RasterizerState currentSetRasterizerState{ FillMode::Solid, CullMode::Off, false, false, 0 };
-
-					[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
-								   length:m_vsConstants2D.size()
-								  atIndex:1];
-					[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
-								   length:m_psConstants2D.size()
-								  atIndex:1];
 					
 					BatchInfo2D batchInfo;
 					size_t viBatchIndex = 0;
@@ -624,6 +616,20 @@ namespace s3d
 									currentSetShaders = currentShaders;
 								}
 								
+								if (m_vsConstants2D._update_if_dirty())
+								{
+									[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
+																 length:m_vsConstants2D.size()
+																atIndex:1];
+								}
+								
+								if (m_psConstants2D._update_if_dirty())
+								{
+									[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
+																   length:m_psConstants2D.size()
+																  atIndex:1];
+								}
+								
 								const MetalDrawCommand& draw = m_commandManager.getDraw(command.index);
 								const uint32 indexCount = draw.indexCount;
 								const uint32 startIndexLocation = batchInfo.startIndexLocation;
@@ -651,6 +657,20 @@ namespace s3d
 									
 									currentSetBlendState = currentBlendState;
 									currentSetShaders = currentShaders;
+								}
+								
+								if (m_vsConstants2D._update_if_dirty())
+								{
+									[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
+																 length:m_vsConstants2D.size()
+																atIndex:1];
+								}
+								
+								if (m_psConstants2D._update_if_dirty())
+								{
+									[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
+																   length:m_psConstants2D.size()
+																  atIndex:1];
 								}
 
 								const uint32 draw = m_commandManager.getNullDraw(command.index);

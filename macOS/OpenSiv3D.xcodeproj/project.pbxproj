@@ -47,6 +47,8 @@
 		2C27A9EE256E359400756617 /* GL4RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E7256E359400756617 /* GL4RasterizerState.hpp */; };
 		2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9E9256E359400756617 /* GL4SamplerState.hpp */; };
 		2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9EA256E359400756617 /* GL4SamplerState.cpp */; };
+		2C27AA0C257D379800756617 /* SivColormap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AA0B257D379700756617 /* SivColormap.cpp */; };
+		2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27AA0F257D37BB00756617 /* tinycolormap.hpp */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -651,6 +653,13 @@
 		2C27AA04256E6B6700756617 /* ScopedRenderStates2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.ipp; sourceTree = "<group>"; };
 		2C27AA05256E7D7C00756617 /* Transformer2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.hpp; sourceTree = "<group>"; };
 		2C27AA06256E7D9000756617 /* Transformer2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.ipp; sourceTree = "<group>"; };
+		2C27AA07257D376C00756617 /* Colormap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colormap.hpp; sourceTree = "<group>"; };
+		2C27AA08257D377600756617 /* ScopedColorAdd2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorAdd2D.hpp; sourceTree = "<group>"; };
+		2C27AA09257D377600756617 /* ScopedColorMul2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorMul2D.hpp; sourceTree = "<group>"; };
+		2C27AA0B257D379700756617 /* SivColormap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivColormap.cpp; sourceTree = "<group>"; };
+		2C27AA0F257D37BB00756617 /* tinycolormap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tinycolormap.hpp; sourceTree = "<group>"; };
+		2C27AA11257D37DA00756617 /* ScopedColorMul2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorMul2D.ipp; sourceTree = "<group>"; };
+		2C27AA12257D37DA00756617 /* ScopedColorAdd2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorAdd2D.ipp; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -1803,6 +1812,22 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2C27AA0A257D379700756617 /* Colormap */ = {
+			isa = PBXGroup;
+			children = (
+				2C27AA0B257D379700756617 /* SivColormap.cpp */,
+			);
+			path = Colormap;
+			sourceTree = "<group>";
+		};
+		2C27AA0D257D37BB00756617 /* tinycolormap */ = {
+			isa = PBXGroup;
+			children = (
+				2C27AA0F257D37BB00756617 /* tinycolormap.hpp */,
+			);
+			path = tinycolormap;
+			sourceTree = "<group>";
+		};
 		2C378CA2251E492B00D4B14B /* Addon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1870,6 +1895,7 @@
 				2C0A4D522566A855002A4B5E /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
 				2C4397852535DDF300F6AECD /* stb */,
+				2C27AA0D257D37BB00756617 /* tinycolormap */,
 				2C6106E124DB04E300BDEF72 /* xxHash */,
 				2C531EA124BA00EB00378977 /* zlib */,
 			);
@@ -2155,6 +2181,7 @@
 				2C47B2BD24DD9789008D83BE /* Byte */,
 				2C53C33325613B6A0072831A /* Circle */,
 				2C47B27C24DD9789008D83BE /* Color */,
+				2C27AA0A257D379700756617 /* Colormap */,
 				2C47B29F24DD9789008D83BE /* Common */,
 				2C47B2F024DD9789008D83BE /* Console */,
 				2C47B6DA24EAC88E008D83BE /* ConstantBuffer */,
@@ -3114,6 +3141,7 @@
 				2C53C2F525613B0C0072831A /* Color.hpp */,
 				2C53C1DE25613B0B0072831A /* ColorF.hpp */,
 				2C53C31C25613B0C0072831A /* ColorHSV.hpp */,
+				2C27AA07257D376C00756617 /* Colormap.hpp */,
 				2C53C30725613B0C0072831A /* Common.hpp */,
 				2C53C23025613B0C0072831A /* CommonFloat.hpp */,
 				2C53C22125613B0B0072831A /* CommonVector.hpp */,
@@ -3258,6 +3286,8 @@
 				2C53C23725613B0C0072831A /* RoundRect.hpp */,
 				2C53C2D725613B0C0072831A /* SamplerState.hpp */,
 				2C53C32225613B0C0072831A /* Scene.hpp */,
+				2C27AA08257D377600756617 /* ScopedColorAdd2D.hpp */,
+				2C27AA09257D377600756617 /* ScopedColorMul2D.hpp */,
 				2C0A4D80256A1863002A4B5E /* ScopedCustomShader2D.hpp */,
 				2C27AA03256E6B5300756617 /* ScopedRenderStates2D.hpp */,
 				2C53C31925613B0C0072831A /* ScopeGuard.hpp */,
@@ -3419,6 +3449,8 @@
 				2C53C2B125613B0C0072831A /* RoundRect.ipp */,
 				2C53C28125613B0C0072831A /* SamplerState.ipp */,
 				2C53C26525613B0C0072831A /* Scene.ipp */,
+				2C27AA12257D37DA00756617 /* ScopedColorAdd2D.ipp */,
+				2C27AA11257D37DA00756617 /* ScopedColorMul2D.ipp */,
 				2C0A4D81256A1874002A4B5E /* ScopedCustomShader2D.ipp */,
 				2C27AA04256E6B6700756617 /* ScopedRenderStates2D.ipp */,
 				2C53C26225613B0C0072831A /* ScopeGuard.ipp */,
@@ -4415,6 +4447,7 @@
 				2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C4396122535DCCA00F6AECD /* svgmaskelement.h in Headers */,
+				2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */,
 				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
@@ -4634,6 +4667,7 @@
 				2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */,
 				2C47B4A524E16B90008D83BE /* SivPrimeNumber.cpp in Sources */,
 				2C834D93248805D4006208B8 /* euc_jp.c in Sources */,
+				2C27AA0C257D379800756617 /* SivColormap.cpp in Sources */,
 				2C4396362535DCCA00F6AECD /* cssproperty.cpp in Sources */,
 				2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */,
 				2C423245242B155E00A16BCA /* cocoa_time.c in Sources */,
