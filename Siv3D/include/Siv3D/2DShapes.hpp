@@ -17,6 +17,7 @@
 # include "Triangle.hpp"
 # include "Quad.hpp"
 # include "RoundRect.hpp"
+# include "Geometry2D.hpp"
 # include "detail/Line.ipp"
 # include "detail/Rectangle.ipp"
 # include "detail/Circle.ipp"

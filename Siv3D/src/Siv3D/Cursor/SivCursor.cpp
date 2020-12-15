@@ -18,62 +18,62 @@ namespace s3d
 {
 	namespace Cursor
 	{
-		Point Pos()
+		Point Pos() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().point.current;
 		}
 
-		Vec2 PosF()
+		Vec2 PosF() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().vec2.current;
 		}
 
-		Point PreviousPos()
+		Point PreviousPos() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().point.previous;
 		}
 
-		Vec2 PreviousPosF()
+		Vec2 PreviousPosF() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().vec2.previous;
 		}
 
-		Point Delta()
+		Point Delta() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().point.delta;
 		}
 
-		Vec2 DeltaF()
+		Vec2 DeltaF() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().vec2.delta;
 		}
 
-		Point PosRaw()
+		Point PosRaw() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().raw.current;
 		}
 
-		Point PreviousPosRaw()
+		Point PreviousPosRaw() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().raw.previous;
 		}
 
-		Point DeltaRaw()
+		Point DeltaRaw() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().raw.delta;
 		}
 
-		Point ScreenPos()
+		Point ScreenPos() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().screen.current;
 		}
 
-		Point ScreenPreviousPos()
+		Point ScreenPreviousPos() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().screen.previous;
 		}
 
-		Point ScreenDelta()
+		Point ScreenDelta() noexcept
 		{
 			return SIV3D_ENGINE(Cursor)->getState().screen.delta;
 		}

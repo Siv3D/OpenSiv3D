@@ -112,6 +112,9 @@ namespace s3d
 		constexpr value_type lengthSq() const noexcept;
 
 		[[nodiscard]]
+		constexpr position_type point(size_t index) noexcept;
+
+		[[nodiscard]]
 		constexpr position_type center() const noexcept;
 
 		[[nodiscard]]
@@ -122,6 +125,9 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Line lerp(const Line& other, double f) const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
 
 		template <class Shape2DType>
 		[[nodiscard]]
@@ -137,12 +143,20 @@ namespace s3d
 		[[nodiscard]]
 		Optional<position_type> intersectsAtPrecise(const Line& other) const;
 
-		[[nodiscard]]
-		size_t hash() const noexcept;
 
+		//const Line& paint(Image& dst, const Color& color) const;
 
+		//const Line& paint(Image& dst, int32 thickness, const Color& color) const;
 
+		//const Line& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		//const Line& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
+		//const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+
+		//const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+
+		
 		const Line& draw(const ColorF& color = Palette::White) const;
 
 		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
@@ -151,8 +165,11 @@ namespace s3d
 
 		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
+		//const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
+		//const Line& draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
+		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
 
 
 		template <class CharType>

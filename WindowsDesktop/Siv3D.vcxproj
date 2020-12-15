@@ -65,6 +65,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatQuad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatRect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatLiteral_impl.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Geometry2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\HalfFloat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\HardwareRNG.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IImageDecoder.ipp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GaborNoise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />

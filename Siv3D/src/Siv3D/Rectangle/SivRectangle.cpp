@@ -13,11 +13,272 @@
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FormatData.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		inline constexpr Vertex2D::IndexType CaluculateFanQuality(const double r) noexcept
+		{
+			return r <= 1.0 ? 3
+				: r <= 6.0 ? 5
+				: r <= 12.0 ? 8
+				: static_cast<uint16>(std::min(64.0, r * 0.2 + 6));
+		}
+	}
+
+	template <class SizeType>
+	Quad Rectangle<SizeType>::rotated(const double angle) const noexcept
+	{
+		const Vec2 cent(x + w * 0.5, y + h * 0.5);
+		const double cx = cent.x;
+		const double cy = cent.y;
+		const double x0 = -size.x * 0.5;
+		const double x1 = size.x * 0.5;
+		const double y0 = -size.y * 0.5;
+		const double y1 = size.y * 0.5;
+		const double s = std::sin(angle);
+		const double c = std::cos(angle);
+		const double x0c = x0 * c;
+		const double x0s = x0 * s;
+		const double x1c = x1 * c;
+		const double x1s = x1 * s;
+		const double y0c = y0 * c;
+		const double y0s = y0 * s;
+		const double y1c = y1 * c;
+		const double y1s = y1 * s;
+		return{ { x0c - y0s + cx, x0s + y0c + cy },{ x1c - y0s + cx, x1s + y0c + cy },{ x1c - y1s + cx, x1s + y1c + cy },{ x0c - y1s + cx, x0s + y1c + cy } };
+	}
+
+	template <class SizeType>
+	Quad Rectangle<SizeType>::rotatedAt(const double _x, const double _y, const double angle) const noexcept
+	{
+		return rotatedAt({ _x, _y }, angle);
+	}
+
+	template <class SizeType>
+	Quad Rectangle<SizeType>::rotatedAt(const Vec2 _pos, const double angle) const noexcept
+	{
+		Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
+
+		for (int32 i = 0; i < 4; ++i)
+		{
+			pts[i] -= _pos;
+		}
+
+		const double s = std::sin(angle);
+		const double c = std::cos(angle);
+
+		Quad quad;
+
+		for (int32 i = 0; i < 4; ++i)
+		{
+			quad.p(i).x = pts[i].x * c - pts[i].y * s + _pos.x;
+			quad.p(i).y = pts[i].x * s + pts[i].y * c + _pos.y;
+		}
+
+		return quad;
+	}
+
+	template <class SizeType>
+	Polygon Rectangle<SizeType>::rounded(double tl, double tr, double br, double bl) const noexcept
+	{
+		constexpr double epsilon = 0.001;
+
+		tl = Max(tl, 0.0);
+		tr = Max(tr, 0.0);
+		br = Max(br, 0.0);
+		bl = Max(bl, 0.0);
+
+		if (const double t = (tl + tr); t > w)
+		{
+			const double s = w / t;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double r = (tr + br); r > h)
+		{
+			const double s = h / r;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double b = (bl + br); b > w)
+		{
+			const double s = w / b;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		if (const double l = (tl + bl); l > h)
+		{
+			const double s = h / l;
+			tl *= s;
+			tr *= s;
+			br *= s;
+			bl *= s;
+		}
+
+		const Vec2 tlCenter = (this->tl() + Vec2{ tl, tl });
+		const Vec2 trCenter = (this->tr() + Vec2{ -tr, tr });
+		const Vec2 brCenter = (this->br() + Vec2{ -br, -br });
+		const Vec2 blCenter = (this->bl() + Vec2{ bl, -bl });
+
+		const float scale = SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+
+		Array<Vec2> vertices;
+
+		if (tl)
+		{
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(tl * scale);
+			const double radDelta = Math::HalfPi / (quality - 1);
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				vertices << (Circular9{ tl, radDelta * i } + tlCenter);
+			}
+		}
+		else
+		{
+			vertices << tlCenter;
+		}
+
+		if (tr)
+		{
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(tr * scale);
+			const double radDelta = Math::HalfPi / (quality - 1);
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				vertices << (Circular0{ tr, radDelta * i } + trCenter);
+			}
+		}
+		else
+		{
+			vertices << trCenter;
+		}
+
+		if (br)
+		{
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(br * scale);
+			const double radDelta = Math::HalfPi / (quality - 1);
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				vertices << (Circular3{ br, radDelta * i } + brCenter);
+			}
+		}
+		else
+		{
+			vertices << brCenter;
+		}
+
+		if (bl)
+		{
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(bl * scale);
+			const double radDelta = Math::HalfPi / (quality - 1);
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				vertices << (Circular6{ bl, radDelta * i } + blCenter);
+			}
+		}
+		else
+		{
+			vertices << blCenter;
+		}
+
+		for (auto it = (vertices.begin() + 1); it != vertices.end();)
+		{
+			if (it->distanceFromSq(*(it - 1)) < epsilon)
+			{
+				it = vertices.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+
+		if ((vertices.size() > 3)
+			&& (vertices.front().distanceFromSq(vertices.back()) < epsilon))
+		{
+			vertices.pop_back();
+		}
+
+		return Polygon{ vertices };
+	}
+
+	template <class SizeType>
+	Polygon Rectangle<SizeType>::asPolygon() const
+	{
+		if ((w <= 0) || (h <= 0))
+		{
+			return{};
+		}
+
+		return Polygon{ { tl(), tr(), br(), bl() },
+			{ {0, 1, 3}, {3, 1, 2}},
+			*this,
+			SkipValidation::Yes };
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{
@@ -94,7 +355,6 @@ namespace s3d
 
 		return *this;
 	}
-
 
 	template <>
 	void Rect::_Formatter(FormatData& formatData, const Rect& value)

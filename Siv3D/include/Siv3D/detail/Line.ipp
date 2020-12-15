@@ -135,6 +135,18 @@ namespace s3d
 		return begin.distanceFromSq(end);
 	}
 
+	inline constexpr Line::position_type Line::point(const size_t index) noexcept
+	{
+		if (index == 0)
+		{
+			return begin;
+		}
+		else
+		{
+			return end;
+		}
+	}
+
 	inline constexpr Line::position_type Line::center() const noexcept
 	{
 		return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);

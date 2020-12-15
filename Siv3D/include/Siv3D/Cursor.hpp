@@ -24,69 +24,69 @@ namespace s3d
 		/// @brief 現在のフレームにおける、マウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @return 現在のフレームにおける、マウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Point Pos();
+		Point Pos() noexcept;
 
 		/// @brief 現在のフレームにおける、マウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @remark 座標が小数値を含む場合があります。
 		/// @return 現在のフレームおける、マウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Vec2 PosF();
+		Vec2 PosF() noexcept;
 
 		/// @brief 直前のフレームにおける、マウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @return 直前のフレームおける、マウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Point PreviousPos();
+		Point PreviousPos() noexcept;
 
 		/// @brief 直前のフレームにおける、マウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @remark 座標が小数値を含む場合があります。
 		/// @return 直前のフレームおける、マウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Vec2 PreviousPosF();
+		Vec2 PreviousPosF() noexcept;
 
 		/// @brief 直前のフレームから現在のフレームまでのマウスカーソルの移動量（ピクセル）を返します。
 		/// @remark `Cursor::Pos() - Cursor::PreviousPos()` と同値です。
 		/// @return 直前のフレームから現在のフレームまでのマウスカーソルの移動量 (ピクセル)
 		[[nodiscard]]
-		Point Delta();
+		Point Delta() noexcept;
 
 		/// @brief 直前のフレームから現在のフレームまでのマウスカーソルの移動量（ピクセル）を返します。
 		/// @remark `Cursor::PosF() - Cursor::PreviousPosF()` と同値です。
 		/// @remark 移動量が小数値を含む場合があります。
 		/// @return 直前のフレームから現在のフレームまでのマウスカーソルの移動量 (ピクセル)
 		[[nodiscard]]
-		Vec2 DeltaF();
+		Vec2 DeltaF() noexcept;
 
 		/// @brief 現在のフレームにおける、未変換のマウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @return 現在のフレームおける、未変換のマウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Point PosRaw();
+		Point PosRaw() noexcept;
 
 		/// @brief 直前のフレームにおける、未変換のマウスカーソルのクライアント座標（ピクセル）を返します。
 		/// @return 直前のフレームおける、未変換のマウスカーソルの座標 (ピクセル)
 		[[nodiscard]]
-		Point PreviousPosRaw();
+		Point PreviousPosRaw() noexcept;
 
 		/// @brief 直前のフレームから現在のフレームまでの未変換のマウスカーソルの移動量（ピクセル）を返します。
 		/// @remark `Cursor::PosRaw() - Cursor::PreviousPosRaw()` と同値です。
 		/// @return 直前のフレームから現在のフレームまでの未変換のマウスカーソルの移動量 (ピクセル)
 		[[nodiscard]]
-		Point DeltaRaw();
+		Point DeltaRaw() noexcept;
 
 		/// @brief 現在のフレームにおける、マウスカーソルのスクリーン座標（ピクセル）を返します。
 		/// @return 現在のフレームおける、マウスカーソルのスクリーン座標 (ピクセル)
 		[[nodiscard]]
-		Point ScreenPos();
+		Point ScreenPos() noexcept;
 
 		/// @brief 直前のフレームにおける、マウスカーソルのスクリーン座標（ピクセル）を返します。
 		/// @return 直前のフレームおける、マウスカーソルのスクリーン座標 (ピクセル)
 		[[nodiscard]]
-		Point ScreenPreviousPos();
+		Point ScreenPreviousPos() noexcept;
 
 		/// @brief 直前のフレームから現在のフレームまでの、スクリーン上でのマウスカーソルの移動量（ピクセル）を返します。
 		/// @remark `Cursor::ScreenPos() - Cursor::ScreenPreviousPos()` と同値です。
 		/// @return 直前のフレームから現在のフレームまでのスクリーン上でのマウスカーソルの移動量 (ピクセル)
 		[[nodiscard]]
-		Point ScreenDelta();
+		Point ScreenDelta() noexcept;
 
 		/// @brief マウスカーソルを指定したクライアント座標に移動させます。
 		/// @param x 移動先の X 座標 (ピクセル)

@@ -12,6 +12,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Hash.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -178,6 +179,13 @@ namespace s3d
 	const Line& Line::draw(const double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, static_cast<float>(thickness), { colorBegin.toFloat4(), colorEnd.toFloat4() });
+
+		return *this;
+	}
+
+	const Line& Line::drawArrow(const double width, const Vec2& headSize, const ColorF& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).draw(color);
 
 		return *this;
 	}

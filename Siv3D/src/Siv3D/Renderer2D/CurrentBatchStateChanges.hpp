@@ -20,7 +20,7 @@ namespace s3d
 	{
 		inline float CalculateMaxScaling(const Mat3x2& mat)
 		{
-			return (Float2{ mat._11 + mat._21, mat._12 + mat._22 }.length() / Math::Constants::Sqrt2_v<float>);
+			return (Float2{ mat._11 + mat._21, mat._12 + mat._22 }.length() / Math::Sqrt2_v<float>);
 		}
 	}
 
