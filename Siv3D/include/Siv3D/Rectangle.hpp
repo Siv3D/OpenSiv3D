@@ -534,10 +534,10 @@ namespace s3d
 		constexpr Line left() const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index) noexcept;
+		constexpr position_type point(size_t index);
 
 		[[nodiscard]]
-		constexpr Line side(size_t index) noexcept;
+		constexpr Line side(size_t index);
 
 
 		/// <summary>
@@ -603,19 +603,26 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
-		[[nodiscard]] bool leftClicked() const noexcept;
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
 
-		[[nodiscard]] bool leftPressed() const noexcept;
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
 
-		[[nodiscard]] bool leftReleased() const noexcept;
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
 
-		[[nodiscard]] bool rightClicked() const noexcept;
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
 
-		[[nodiscard]] bool rightPressed() const noexcept;
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
 
-		[[nodiscard]] bool rightReleased() const noexcept;
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
 
-		[[nodiscard]] bool mouseOver() const noexcept;
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
 
 		//const Rectangle& paint(Image& dst, const Color& color) const;
 

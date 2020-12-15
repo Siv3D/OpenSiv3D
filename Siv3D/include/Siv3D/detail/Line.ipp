@@ -135,15 +135,29 @@ namespace s3d
 		return begin.distanceFromSq(end);
 	}
 
-	inline constexpr Line::position_type Line::point(const size_t index) noexcept
+	inline Line::position_type& Line::p(const size_t index) noexcept
+	{
+		return (&begin)[index];
+	}
+
+	inline const Line::position_type& Line::p(const size_t index) const noexcept
+	{
+		return (&begin)[index];
+	}
+
+	inline constexpr Line::position_type Line::point(const size_t index)
 	{
 		if (index == 0)
 		{
 			return begin;
 		}
-		else
+		else if (index == 1)
 		{
 			return end;
+		}
+		else
+		{
+			throw std::out_of_range("Line::point() index out of range");
 		}
 	}
 
@@ -155,6 +169,20 @@ namespace s3d
 	inline constexpr Line Line::lerp(const Line& other, const double f) const noexcept
 	{
 		return{ begin.lerp(other.begin, f), end.lerp(other.end, f) };
+	}
+
+	template <class Shape2DType>
+	[[nodiscard]]
+	inline bool Line::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
+	}
+
+	template <class Shape2DType>
+	[[nodiscard]]
+	inline Optional<Array<Vec2>> Line::intersectsAt(const Shape2DType& other) const
+	{
+		return Geometry2D::IntersectAt(*this, other);
 	}
 
 	inline size_t Line::hash() const noexcept

@@ -55,27 +55,149 @@ namespace s3d
 		constexpr Quad(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept;
 
 		[[nodiscard]]
+		friend constexpr bool operator ==(const Quad& lhs, const Quad& rhs) noexcept
+		{
+			return (lhs.p0 == rhs.p0)
+				&& (lhs.p1 == rhs.p1)
+				&& (lhs.p2 == rhs.p2)
+				&& (lhs.p3 == rhs.p3);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Quad& lhs, const Quad& rhs) noexcept
+		{
+			return (lhs.p0 != rhs.p0)
+				|| (lhs.p1 != rhs.p1)
+				|| (lhs.p2 != rhs.p2)
+				|| (lhs.p3 != rhs.p3);
+		}
+
+		constexpr Quad& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2, value_type x3, value_type y3) noexcept
+		{
+			p0.set(x0, y0);
+			p1.set(x1, y1);
+			p2.set(x2, y2);
+			p3.set(x3, y3);
+			return *this;
+		}
+
+		constexpr Quad& set(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept
+		{
+			p0.set(_p0);
+			p1.set(_p1);
+			p2.set(_p2);
+			p3.set(_p3);
+			return *this;
+		}
+
+		constexpr Quad& set(const Quad& quad) noexcept
+		{
+			return *this = quad;
+		}
+
+		[[nodiscard]] constexpr Quad movedBy(value_type x, value_type y) const noexcept
+		{
+			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y), p3.movedBy(x, y) };
+		}
+
+		[[nodiscard]] constexpr Quad movedBy(const position_type& v) const noexcept
+		{
+			return movedBy(v.x, v.y);
+		}
+
+		constexpr Quad& moveBy(value_type x, value_type y) noexcept
+		{
+			p0.moveBy(x, y);
+			p1.moveBy(x, y);
+			p2.moveBy(x, y);
+			p3.moveBy(x, y);
+			return *this;
+		}
+
+		constexpr Quad& moveBy(const position_type& v) noexcept
+		{
+			return moveBy(v.x, v.y);
+		}
+
+		[[nodiscard]] Quad stretched(value_type size) const noexcept;
+
+		[[nodiscard]] Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		{
+			return rotatedAt(position_type(x, y), angle);
+		}
+
+		[[nodiscard]] Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
+
+		[[nodiscard]]
 		position_type& p(size_t index) noexcept;
 
 		[[nodiscard]]
 		const position_type& p(size_t index) const noexcept;
 
+		[[nodiscard]]
+		constexpr position_type point(size_t index);
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index) noexcept;
+		constexpr Line side(size_t index);
+
+		[[nodiscard]] value_type area() const noexcept;
+
+		[[nodiscard]] value_type perimeter() const noexcept;
 
 		[[nodiscard]]
-		constexpr Line side(size_t index) noexcept;
-
+		Polygon asPolygon() const;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool intersects(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool contains(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
+
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
+
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
+
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
+
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
+
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
+
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
+
+		//const Quad& paint(Image& dst, const Color& color) const;
+
+		//const Quad& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		//const Quad& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+
+		//const Quad& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
 
 		const Quad& draw(const ColorF& color = Palette::White) const;
 
 		const Quad& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
+		//const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		//const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quad& value)

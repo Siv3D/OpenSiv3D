@@ -143,10 +143,120 @@ namespace s3d
 				|| (lhs.b != rhs.b);
 		}
 
+		constexpr Ellipse& set(value_type _x, value_type _y, size_type _a, size_type _b) noexcept;
 
+		constexpr Ellipse& set(double _x, double _y, double _r) noexcept;
+
+		constexpr Ellipse& set(const Vec2& _center, double _r) noexcept;
+
+		constexpr Ellipse& set(const Vec2& _center, double _a, double _b) noexcept;
+
+		constexpr Ellipse& set(double _x, double _y, const Vec2& _axis) noexcept;
+
+		constexpr Ellipse& set(const Vec2& _center, const Vec2& _axis) noexcept;
+
+		constexpr Ellipse& set(const Circle& circle) noexcept;
+
+		constexpr Ellipse& set(const RectF& rect) noexcept;
+
+		constexpr Ellipse& set(const Ellipse& ellipse) noexcept;
+
+		constexpr Ellipse& setCenter(value_type _x, value_type _y) noexcept;
+
+		constexpr Ellipse& setCenter(const position_type& _center) noexcept;
+
+		constexpr Ellipse& setPos(value_type _x, value_type _y) noexcept;
+
+		constexpr Ellipse& setPos(const position_type& _center) noexcept;
+
+		[[nodiscard]] constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept;
+
+		[[nodiscard]] constexpr Ellipse movedBy(const position_type& v) const noexcept;
+
+		constexpr Ellipse& moveBy(value_type _x, value_type _y) noexcept;
+
+		constexpr Ellipse& moveBy(const position_type& v) noexcept;
+
+		[[nodiscard]] constexpr Ellipse stretched(value_type size) const noexcept;
+
+		[[nodiscard]] constexpr Ellipse stretched(double _x, double _y) const noexcept;
+
+		[[nodiscard]] constexpr Ellipse scaled(double s) const noexcept;
+
+		[[nodiscard]] constexpr Ellipse scaled(double sx, double sy) const noexcept;
+
+		[[nodiscard]] constexpr Vec2 top() const noexcept;
+
+		[[nodiscard]] constexpr Vec2 right() const noexcept;
+
+		[[nodiscard]] constexpr Vec2 bottom() const noexcept;
+
+		[[nodiscard]] constexpr Vec2 left() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line horizontalDiameter() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line verticalDiameter() const noexcept;
+
+		[[nodiscard]] constexpr value_type area() const noexcept;
+
+		[[nodiscard]] constexpr Circle boundingCircle() const noexcept;
+
+		[[nodiscard]] constexpr RectF boundingRect() const noexcept;
+
+		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
+
+		[[nodiscard]]
+		constexpr Ellipse lerp(const Ellipse& other, double f) const noexcept;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool intersects(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool contains(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
+
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
+
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
+
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
+
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
+
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
+
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
+
+		//const Ellipse& paint(Image& dst, const Color& color) const;
+
+		//const Ellipse& overwrite(Image& dst, const Color& color) const;
+
+		//const Ellipse& draw(const ColorF& color = Palette::White) const;
+
+		//const Ellipse& draw(const ColorF& innerColor, const ColorF& outerColor) const;
+
+		//const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		//const Ellipse& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ellipse& value)

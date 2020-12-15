@@ -619,6 +619,9 @@
     <Filter Include="src\Siv3D\Colormap">
       <UniqueIdentifier>{b5217676-02d3-4ad9-8dc8-a4abc2807a16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\RoundRect">
+      <UniqueIdentifier>{cb5b52bb-9b94-4a07-9aa6-c466484c5cb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3388,6 +3391,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Colormap\SivColormap.cpp">
       <Filter>src\Siv3D\Colormap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp">
+      <Filter>src\Siv3D\RoundRect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

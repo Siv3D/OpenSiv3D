@@ -36,7 +36,7 @@ namespace s3d
 	}
 
 
-	inline constexpr Quad::position_type Quad::point(const size_t index) noexcept
+	inline constexpr Quad::position_type Quad::point(const size_t index)
 	{
 		if (index == 0)
 		{
@@ -50,13 +50,17 @@ namespace s3d
 		{
 			return p2;
 		}
-		else
+		else if (index == 3)
 		{
 			return p3;
 		}
+		else
+		{
+			throw std::out_of_range("Quad::point() index out of range");
+		}
 	}
 
-	inline constexpr Line Quad::side(const size_t index) noexcept
+	inline constexpr Line Quad::side(const size_t index)
 	{
 		if (index == 0)
 		{
@@ -70,9 +74,13 @@ namespace s3d
 		{
 			return{ p2, p3 };
 		}
-		else
+		else if (index == 3)
 		{
 			return{ p3, p0 };
+		}
+		else
+		{
+			throw std::out_of_range("Quad::side() index out of range");
 		}
 	}
 

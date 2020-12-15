@@ -105,7 +105,67 @@ namespace s3d
 				|| (lhs.p2 != rhs.p2);
 		}
 	
-	
+		[[nodiscard]] constexpr position_type& p(size_t index)
+		{
+			return (&p0)[index];
+		}
+
+		[[nodiscard]] constexpr const position_type& p(size_t index) const
+		{
+			return (&p0)[index];
+		}
+
+		[[nodiscard]] constexpr Line side(size_t index) const
+		{
+			if (index == 0)
+			{
+				return Line(p0, p1);
+			}
+			else if (index == 1)
+			{
+				return Line(p1, p2);
+			}
+			else if (index == 2)
+			{
+				return Line(p2, p0);
+			}
+			else
+			{
+				throw std::out_of_range("Triangle::side() index out of range");
+			}
+		}
+
+		constexpr Triangle& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept
+		{
+			p0.set(x0, y0);
+			p1.set(x1, y1);
+			p2.set(x2, y2);
+			return *this;
+		}
+
+		constexpr Triangle& set(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept
+		{
+			p0.set(_p0);
+			p1.set(_p1);
+			p2.set(_p2);
+			return *this;
+		}
+
+		constexpr Triangle& set(const Triangle& triangle) noexcept
+		{
+			return *this = triangle;
+		}
+
+		[[nodiscard]] constexpr Triangle movedBy(value_type x, value_type y) const noexcept
+		{
+			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y) };
+		}
+
+		[[nodiscard]] constexpr Triangle movedBy(const position_type& v) const noexcept
+		{
+			return movedBy(v.x, v.y);
+		}
+
 		constexpr Triangle& moveBy(value_type x, value_type y) noexcept
 		{
 			p0.moveBy(x, y);
@@ -118,17 +178,92 @@ namespace s3d
 		{
 			return moveBy(v.x, v.y);
 		}
+
+		constexpr Triangle& setCentroid(value_type x, value_type y) noexcept
+		{
+			return moveBy(position_type(x, y) - centroid());
+		}
+
+		constexpr Triangle& setCentroid(const position_type& pos) noexcept
+		{
+			return setCentroid(pos.x, pos.y);
+		}
+
+		[[nodiscard]] constexpr position_type centroid() const noexcept
+		{
+			return position_type((p0.x + p1.x + p2.x) / 3.0, (p0.y + p1.y + p2.y) / 3.0);
+		}
+
+		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
+
+		[[nodiscard]] Triangle rotated(value_type angle) const noexcept
+		{
+			return rotatedAt(centroid(), angle);
+		}
+
+		[[nodiscard]] Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		{
+			return rotatedAt(position_type(x, y), angle);
+		}
+
+		[[nodiscard]] Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+
+		[[nodiscard]] value_type area() const noexcept;
+
+		[[nodiscard]] value_type perimeter() const noexcept;
 	
+		[[nodiscard]]
+		constexpr RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
-		Triangle stretched(value_type size) const noexcept;
-	
+		Polygon asPolygon() const;
 
+		[[nodiscard]]
+		constexpr Triangle lerp(const Triangle& other, double f) const noexcept;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool intersects(const Shape2DType& other) const;
 
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool contains(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
+
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
+
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
+
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
+
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
+
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
+
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
+
+		//const Triangle& paint(Image& dst, const Color& color) const;
+
+		//const Triangle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		//const Triangle& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+
+		//const Triangle& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
 
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 
@@ -137,9 +272,6 @@ namespace s3d
 		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
-
-
-
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)

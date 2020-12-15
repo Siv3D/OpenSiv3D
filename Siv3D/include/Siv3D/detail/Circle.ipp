@@ -72,6 +72,139 @@ namespace s3d
 		: center(_center.value())
 		, r(p.distanceFrom(_center.value())) {}
 
+	inline constexpr Circle& Circle::set(const value_type _x, const value_type _y, size_type _r) noexcept
+	{
+		center.set(_x, _y);
+		r = _r;
+		return *this;
+	}
+
+	inline constexpr Circle& Circle::set(const position_type& _center, size_type _r) noexcept
+	{
+		return set(_center.x, _center.y, _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::center_<position_type> _center, size_type _r) noexcept
+	{
+		return set(_center->x, _center->y, _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::topLeft_<position_type> topLeft, size_type _r) noexcept
+	{
+		return set((topLeft->x + _r), (topLeft->y + _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::topCenter_<position_type> topCenter, size_type _r) noexcept
+	{
+		return set(topCenter->x, (topCenter->y + _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::topRight_<position_type> topRight, size_type _r) noexcept
+	{
+		return set((topRight->x - _r), (topRight->y + _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept
+	{
+		return set((rightCenter->x - _r), rightCenter->y, _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::bottomRight_<position_type> bottomRight, size_type _r) noexcept
+	{
+		return set((bottomRight->x - _r), (bottomRight->y - _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept
+	{
+		return set(bottomCenter->x, (bottomCenter->y - _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept
+	{
+		return set((bottomLeft->x + _r), (bottomLeft->y - _r), _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept
+	{
+		return set((leftCenter->x + _r), leftCenter->y, _r);
+	}
+
+	inline constexpr Circle& Circle::set(const Circle& circle) noexcept
+	{
+		return *this = circle;
+	}
+
+	inline constexpr Circle& Circle::setCenter(const value_type _x, const value_type _y) noexcept
+	{
+		center.set(_x, _y);
+		return *this;
+	}
+
+	inline constexpr Circle& Circle::setCenter(const position_type& _center) noexcept
+	{
+		return setCenter(_center.x, _center.y);
+	}
+
+	inline constexpr Circle& Circle::setPos(const value_type _x, const value_type _y) noexcept
+	{
+		return setCenter(_x, _y);
+	}
+
+	inline constexpr Circle& Circle::setPos(const position_type& _center) noexcept
+	{
+		return setCenter(_center.x, _center.y);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::center_<position_type> _center) noexcept
+	{
+		return setCenter(_center->x, _center->y);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::topLeft_<position_type> topLeft) noexcept
+	{
+		return setCenter(topLeft->x + r, topLeft->y + r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::topCenter_<position_type> topCenter) noexcept
+	{
+		return setCenter(topCenter->x, topCenter->y + r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::topRight_<position_type> topRight) noexcept
+	{
+		return setCenter(topRight->x - r, topRight->y + r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::rightCenter_<position_type> rightCenter) noexcept
+	{
+		return setCenter(rightCenter->x - r, rightCenter->y);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::bottomRight_<position_type> bottomRight) noexcept
+	{
+		return setCenter(bottomRight->x - r, bottomRight->y - r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::bottomCenter_<position_type> bottomCenter) noexcept
+	{
+		return setCenter(bottomCenter->x, bottomCenter->y - r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::bottomLeft_<position_type> bottomLeft) noexcept
+	{
+		return setCenter(bottomLeft->x + r, bottomLeft->y - r);
+	}
+
+	inline constexpr Circle& Circle::setPos(const Arg::leftCenter_<position_type> leftCenter) noexcept
+	{
+		return setCenter(leftCenter->x + r, leftCenter->y);
+	}
+
+	inline constexpr Circle& Circle::setR(const value_type _r) noexcept
+	{
+		r = _r;
+		return *this;
+	}
 
 	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
 	{

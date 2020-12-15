@@ -725,7 +725,7 @@ namespace s3d
 	}
 
 	template <class SizeType>
-	inline constexpr typename Rectangle<SizeType>::position_type Rectangle<SizeType>::point(const size_t index) noexcept
+	inline constexpr typename Rectangle<SizeType>::position_type Rectangle<SizeType>::point(const size_t index)
 	{
 		if (index == 0)
 		{
@@ -739,14 +739,18 @@ namespace s3d
 		{
 			return br();
 		}
-		else
+		else if (index == 3)
 		{
 			return bl();
+		}
+		else
+		{
+			throw std::out_of_range("Rectangle::point() index out of range");
 		}
 	}
 
 	template <class SizeType>
-	inline constexpr Line Rectangle<SizeType>::side(const size_t index) noexcept
+	inline constexpr Line Rectangle<SizeType>::side(const size_t index)
 	{
 		if (index == 0)
 		{
@@ -760,9 +764,13 @@ namespace s3d
 		{
 			return bottom();
 		}
-		else
+		else if (index == 3)
 		{
 			return left();
+		}
+		else
+		{
+			throw std::out_of_range("Rectangle::side() index out of range");
 		}
 	}
 

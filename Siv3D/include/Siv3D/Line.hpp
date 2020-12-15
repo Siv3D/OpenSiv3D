@@ -112,7 +112,13 @@ namespace s3d
 		constexpr value_type lengthSq() const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index) noexcept;
+		position_type& p(size_t index) noexcept;
+
+		[[nodiscard]]
+		const position_type& p(size_t index) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type point(size_t index);
 
 		[[nodiscard]]
 		constexpr position_type center() const noexcept;
