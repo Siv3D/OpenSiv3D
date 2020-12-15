@@ -25,6 +25,57 @@ namespace s3d
 		, p2(_p2)
 		, p3(_p3) {}
 
+	inline Quad::position_type& Quad::p(const size_t index) noexcept
+	{
+		return (&p0)[index];
+	}
+
+	inline const Quad::position_type& Quad::p(const size_t index) const noexcept
+	{
+		return (&p0)[index];
+	}
+
+
+	inline constexpr Quad::position_type Quad::point(const size_t index) noexcept
+	{
+		if (index == 0)
+		{
+			return p0;
+		}
+		else if (index == 1)
+		{
+			return p1;
+		}
+		else if (index == 2)
+		{
+			return p2;
+		}
+		else
+		{
+			return p3;
+		}
+	}
+
+	inline constexpr Line Quad::side(const size_t index) noexcept
+	{
+		if (index == 0)
+		{
+			return{ p0, p1 };
+		}
+		else if (index == 1)
+		{
+			return{ p1, p2 };
+		}
+		else if (index == 2)
+		{
+			return{ p2, p3 };
+		}
+		else
+		{
+			return{ p3, p0 };
+		}
+	}
+
 
 
 	inline size_t Quad::hash() const noexcept

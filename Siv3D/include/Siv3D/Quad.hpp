@@ -54,15 +54,18 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Quad(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept;
 
-		[[nodiscard]] position_type& p(size_t index) noexcept
-		{
-			return (&p0)[index];
-		}
+		[[nodiscard]]
+		position_type& p(size_t index) noexcept;
 
-		[[nodiscard]] const position_type& p(size_t index) const noexcept
-		{
-			return (&p0)[index];
-		}
+		[[nodiscard]]
+		const position_type& p(size_t index) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr position_type point(size_t index) noexcept;
+
+		[[nodiscard]]
+		constexpr Line side(size_t index) noexcept;
 
 
 		[[nodiscard]]
