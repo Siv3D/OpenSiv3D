@@ -577,4 +577,9 @@ namespace s3d
 			);
 		}
 	}
+
+	const CwOpenPolygon& Polygon::PolygonDetail::getPolygon() const noexcept
+	{
+		return m_polygon;
+	}
 }

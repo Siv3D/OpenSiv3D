@@ -622,6 +622,9 @@
     <Filter Include="src\Siv3D\RoundRect">
       <UniqueIdentifier>{cb5b52bb-9b94-4a07-9aa6-c466484c5cb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Geometry2D">
+      <UniqueIdentifier>{91296efa-2e7b-4d40-879d-35f7c4aa4ad2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3394,6 +3397,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp">
       <Filter>src\Siv3D\RoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp">
+      <Filter>src\Siv3D\Geometry2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

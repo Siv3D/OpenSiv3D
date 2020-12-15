@@ -13,6 +13,41 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		template <class PointType>
+		[[nodiscard]]
+		bool IsClockwise(const PointType* points, const size_t size)
+		{
+			// 頂点数が 2 以下の場合は判定できないため false を返す
+			if (size <= 2)
+			{
+				return false;
+			}
+
+			const auto* const pSrcBegin = points;
+			const auto* const pSrcEnd = points + size;
+			double sum = 0.0;
+
+			// 最初の頂点 -> ... -> 最後の頂点
+			for (const auto* pSrc = pSrcBegin; pSrc != (pSrcEnd - 1); ++pSrc)
+			{
+				const auto* p0 = pSrc;
+				const auto* p1 = (pSrc + 1);
+				sum += (p1->x - p0->x) * (p1->y + p0->y);
+			}
+
+			// 最後の頂点 -> 最初の頂点
+			{
+				const auto* p0 = (pSrcEnd - 1);
+				const auto* p1 = pSrcBegin;
+				sum += (p1->x - p0->x) * (p1->y + p0->y);
+			}
+
+			return (sum < 0.0);
+		}
+	}
+
 	namespace Geometry2D
 	{
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept
@@ -46,6 +81,38 @@ namespace s3d
 		inline constexpr bool Intersect(const RectF& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
+		}
+
+
+
+		inline bool IsClockwise(const Array<Point>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		inline bool IsClockwise(const Point* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
+		}
+
+		inline bool IsClockwise(const Array<Float2>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		inline bool IsClockwise(const Float2* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
+		}
+
+		inline bool IsClockwise(const Array<Vec2>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		inline bool IsClockwise(const Vec2* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
 		}
 	}
 }

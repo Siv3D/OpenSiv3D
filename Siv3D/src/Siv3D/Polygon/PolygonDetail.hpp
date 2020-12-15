@@ -15,6 +15,8 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/2DShapes.hpp>
 
+BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Point, s3d::int32, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Float2, float, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Vec2, double, boost::geometry::cs::cartesian, x, y)
 
 namespace s3d
@@ -86,5 +88,9 @@ namespace s3d
 		void draw(const ColorF& color) const;
 
 		void drawFrame(double thickness, const ColorF& color) const;
+
+
+
+		const CwOpenPolygon& getPolygon() const noexcept;
 	};
 }
