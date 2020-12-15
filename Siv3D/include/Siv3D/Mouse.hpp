@@ -21,7 +21,7 @@ namespace s3d
 		/// @brief 
 		/// @return 
 		[[nodiscard]]
-		const Array<Input>& GetAllInput() noexcept;
+		const Array<Input>& GetAllInputs() noexcept;
 
 		/// @brief マウスホイールのスクロール量を返します。
 		/// @return マウスホイールのスクロール量

@@ -18,7 +18,7 @@ namespace s3d
 {
 	namespace Mouse
 	{
-		const Array<Input>& GetAllInput() noexcept
+		const Array<Input>& GetAllInputs() noexcept
 		{
 			return SIV3D_ENGINE(Mouse)->getAllInput();
 		}

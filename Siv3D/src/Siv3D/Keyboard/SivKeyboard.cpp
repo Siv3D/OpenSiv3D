@@ -17,7 +17,7 @@ namespace s3d
 {
 	namespace Keyboard
 	{
-		const Array<Input>& GetAllInput() noexcept
+		const Array<Input>& GetAllInputs() noexcept
 		{
 			return SIV3D_ENGINE(Keyboard)->getAllInput();
 		}
