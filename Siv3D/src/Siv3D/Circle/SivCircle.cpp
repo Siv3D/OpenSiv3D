@@ -11,6 +11,9 @@
 
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -20,12 +23,12 @@ namespace s3d
 	{
 		if (p0 == p1)
 		{
-			*this = Circle(p0, p2);
+			*this = Circle{ p0, p2 };
 			return;
 		}
 		else if ((p0 == p2) || (p1 == p2))
 		{
-			*this = Circle(p0, p1);
+			*this = Circle{ p0, p1 };
 			return;
 		}
 
@@ -37,7 +40,42 @@ namespace s3d
 		const double c12 = (p1.y * p1.y - p2.y * p2.y) + (p1.x * p1.x - p2.x * p2.x);
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
-		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
+		*this = Circle{ cx, cy, p0.distanceFrom(cx, cy) };
+	}
+
+	bool Circle::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool Circle::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool Circle::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool Circle::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool Circle::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool Circle::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool Circle::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
 	const Circle& Circle::draw(const ColorF& color) const

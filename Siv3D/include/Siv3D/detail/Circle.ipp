@@ -206,6 +206,111 @@ namespace s3d
 		return *this;
 	}
 
+	inline constexpr Circle Circle::movedBy(const value_type _x, const value_type _y) const noexcept
+	{
+		return{ center.movedBy(_x, _y), r };
+	}
+
+	inline constexpr Circle Circle::movedBy(const position_type v) const noexcept
+	{
+		return{ center.movedBy(v), r };
+	}
+
+	inline constexpr Circle& Circle::moveBy(const value_type _x, const value_type _y) noexcept
+	{
+		center.moveBy(_x, _y);
+		return *this;
+	}
+
+	inline constexpr Circle& Circle::moveBy(const position_type v) noexcept
+	{
+		center.moveBy(v);
+		return *this;
+	}
+
+	inline constexpr Circle Circle::stretched(const value_type size) const noexcept
+	{
+		return{ center, (r + size) };
+	}
+
+	inline constexpr Ellipse Circle::stretched(const double _x, const double _y) const noexcept
+	{
+		return{ center, (r + _x), (r + _y) };
+	}
+
+	inline constexpr Circle Circle::scaled(const double s) const noexcept
+	{
+		return{ center, (r * s) };
+	}
+
+	inline constexpr Ellipse Circle::scaled(const double sx, const double sy) const noexcept
+	{
+		return{ center, (r * sx), (r * sy) };
+	}
+
+	inline constexpr Circle::position_type Circle::top() const noexcept
+	{
+		return{ center.x, (center.y - r) };
+	}
+
+	inline constexpr Circle::position_type Circle::right() const noexcept
+	{
+		return{ (center.x + r), center.y };
+	}
+
+	inline constexpr Circle::position_type Circle::bottom() const noexcept
+	{
+		return{ center.x, (center.y + r) };
+	}
+
+	inline constexpr Circle::position_type Circle::left() const noexcept
+	{
+		return{ (center.x - r), center.y };
+	}
+
+	inline constexpr Line Circle::horizontalDiameter() const noexcept
+	{
+		return{ left(), right() };
+	}
+
+	inline constexpr Line Circle::verticalDiameter() const noexcept
+	{
+		return{ top(), bottom() };
+	}
+
+	inline constexpr Circle::value_type Circle::area() const noexcept
+	{
+		return (r * r * Math::Pi);
+	}
+
+	inline constexpr Circle::value_type Circle::perimeter() const noexcept
+	{
+		return (2 * r * Math::Pi);
+	}
+
+	inline constexpr RectF Circle::boundingRect() const noexcept
+	{
+		return{ Arg::center(center), r };
+	}
+
+	template <class Shape2DType>
+	inline bool Circle::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline Optional<Array<Vec2>> Circle::intersectsAt(const Shape2DType& other) const
+	{
+		return Geometry2D::IntersectAt(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline bool Circle::contains(const Shape2DType& other) const
+	{
+		return Geometry2D::Contains(*this, other);
+	}
+
 	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
 	{
 		return{ center.lerp(other.center, f), (r + (other.r - r) * f) };

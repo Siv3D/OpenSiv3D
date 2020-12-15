@@ -28,6 +28,9 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const RectF& b) noexcept;
 
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Circle& b) noexcept;
+
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept;
@@ -42,6 +45,12 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const RectF& a, const Vec2& b) noexcept;
 
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Circle& a, const Point& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Circle& a, const Vec2& b) noexcept;
 
 
 
@@ -87,10 +96,19 @@ namespace s3d
 		Polygon ConvexHull(const Array<Point>& points);
 
 		[[nodiscard]]
+		Polygon ConvexHull(const Point* points, size_t size);
+
+		[[nodiscard]]
 		Polygon ConvexHull(const Array<Float2>& points);
 
 		[[nodiscard]]
+		Polygon ConvexHull(const Float2* points, size_t size);
+
+		[[nodiscard]]
 		Polygon ConvexHull(const Array<Vec2>& points);
+
+		[[nodiscard]]
+		Polygon ConvexHull(const Vec2* points, size_t size);
 
 		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Point>& points, double concavity = 2.0, double lengthThreshold = 0.0);

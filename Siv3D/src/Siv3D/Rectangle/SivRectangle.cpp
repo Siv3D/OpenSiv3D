@@ -15,8 +15,8 @@
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Mouse.hpp>
-# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 

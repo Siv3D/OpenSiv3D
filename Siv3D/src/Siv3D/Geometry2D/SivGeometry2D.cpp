@@ -32,6 +32,21 @@ namespace s3d
 {
 	namespace detail
 	{
+		template <class PointType>
+		Polygon ConvexHull(const PointType* points, const size_t size)
+		{
+			if (size < 3)
+			{
+				return{};
+			}
+
+			CWOpenRing result;
+
+			boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(points, (points + size)), result);
+
+			return Polygon{ result };
+		}
+
 		static Polygon ToPolygon(const CwOpenPolygon& polygon)
 		{
 			auto& outer = polygon.outer();
@@ -55,44 +70,32 @@ namespace s3d
 	{
 		Polygon ConvexHull(const Array<Point>& points)
 		{
-			if (points.size() < 3)
-			{
-				return{};
-			}
+			return detail::ConvexHull(points.data(), points.size());
+		}
 
-			CWOpenRing result;
-
-			boost::geometry::convex_hull(boost::geometry::model::multi_point<Point>(points.begin(), points.end()), result);
-
-			return Polygon{ result };
+		Polygon ConvexHull(const Point* points, const size_t size)
+		{
+			return detail::ConvexHull(points, size);
 		}
 
 		Polygon ConvexHull(const Array<Float2>& points)
 		{
-			if (points.size() < 3)
-			{
-				return{};
-			}
+			return detail::ConvexHull(points.data(), points.size());
+		}
 
-			CWOpenRing result;
-
-			boost::geometry::convex_hull(boost::geometry::model::multi_point<Float2>(points.begin(), points.end()), result);
-
-			return Polygon{ result };
+		Polygon ConvexHull(const Float2* points, const size_t size)
+		{
+			return detail::ConvexHull(points, size);
 		}
 
 		Polygon ConvexHull(const Array<Vec2>& points)
 		{
-			if (points.size() < 3)
-			{
-				return{};
-			}
+			return detail::ConvexHull(points.data(), points.size());
+		}
 
-			CWOpenRing result;
-
-			boost::geometry::convex_hull(boost::geometry::model::multi_point<Vec2>(points.begin(), points.end()), result);
-
-			return Polygon{ result };
+		Polygon ConvexHull(const Vec2* points, const size_t size)
+		{
+			return detail::ConvexHull(points, size);
 		}
 
 		Array<Polygon> Subtract(const Polygon& a, const Polygon& b)
