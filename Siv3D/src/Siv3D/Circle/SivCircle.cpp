@@ -13,6 +13,7 @@
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -41,6 +42,59 @@ namespace s3d
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
 		*this = Circle{ cx, cy, p0.distanceFrom(cx, cy) };
+	}
+
+	Polygon Circle::asPolygon(const uint32 quality) const
+	{
+		if (r == 0.0)
+		{
+			return{};
+		}
+
+		const uint32 n = Max(quality, 3u);
+
+		Array<Vec2> vertices(n, center);
+		Vec2* pPos = vertices.data();
+
+		double xMin = center.x;
+		double xMax = center.x;
+		const double yMin = center.y - r;
+		double yMax = center.y;
+		const double d = (Math::Constants::TwoPi / n);
+
+		for (uint32 i = 0; i < n; ++i)
+		{
+			*pPos += Circular{ r, i * d }.fastToVec2();
+
+			if (pPos->x < xMin)
+			{
+				xMin = pPos->x;
+			}
+			else if (xMax < pPos->x)
+			{
+				xMax = pPos->x;
+			}
+
+			if (yMax < pPos->y)
+			{
+				yMax = pPos->y;
+			}
+
+			++pPos;
+		}
+
+		Array<TriangleIndex> indices(n - 2);
+		TriangleIndex* pIndex = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < n - 2; ++i)
+		{
+			pIndex->i0 = 0;
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = (i + 2);
+			++pIndex;
+		}
+
+		return Polygon{ vertices, indices, RectF{ xMin, yMin, (xMax - xMin), (yMax - yMin) }, SkipValidation::Yes };
 	}
 
 	bool Circle::leftClicked() const noexcept

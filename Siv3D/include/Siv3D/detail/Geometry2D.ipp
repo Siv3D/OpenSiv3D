@@ -50,6 +50,11 @@ namespace s3d
 
 	namespace Geometry2D
 	{
+		inline constexpr bool Intersect(const Point& a, const Circle& b) noexcept
+		{
+			return (a.distanceFromSq(b.center) <= (b.r * b.r));
+		}
+
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept
 		{
 			return (b.x <= a.x) && (a.x < (b.x + b.w))
@@ -60,6 +65,11 @@ namespace s3d
 		{
 			return (b.x <= a.x) && (a.x < (b.x + b.w))
 				&& (b.y <= a.y) && (a.y < (b.y + b.h));
+		}
+
+		inline constexpr bool Intersect(const Vec2& a, const Circle& b) noexcept
+		{
+			return (a.distanceFromSq(b.center) <= (b.r * b.r));
 		}
 
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept
@@ -83,6 +93,15 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline constexpr bool Intersect(const Circle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
 
 
 		inline bool IsClockwise(const Array<Point>& points) noexcept

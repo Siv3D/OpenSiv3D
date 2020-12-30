@@ -23,6 +23,10 @@ namespace s3d
 	namespace Geometry2D
 	{
 		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Circle& b) noexcept;
+
+
+		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept;
 
 		[[nodiscard]]
