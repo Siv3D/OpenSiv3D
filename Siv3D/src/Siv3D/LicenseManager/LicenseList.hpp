@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2020 Ryo Suzuki
-//	Copyright (c) 2016-2020 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,8 +19,8 @@ const LicenseInfo licenses[] = {
 {
 UR"-(Siv3D Engine)-",
 
-UR"-(Copyright (c) 2008-2020 Ryo Suzuki
-Copyright (c) 2016-2020 OpenSiv3D Project)-",
+UR"-(Copyright (c) 2008-2021 Ryo Suzuki
+Copyright (c) 2016-2021 OpenSiv3D Project)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the “Software”), to deal
