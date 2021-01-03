@@ -17,7 +17,7 @@ namespace s3d
 {
 	CShader_Null::CShader_Null()
 	{
-
+		// do nothing
 	}
 
 	CShader_Null::~CShader_Null()
@@ -27,7 +27,7 @@ namespace s3d
 
 	void CShader_Null::init()
 	{
-
+		// do nothing
 	}
 
 	VertexShader::IDType CShader_Null::createVSFromFile(FilePathView, StringView, const Array<ConstantBufferBinding>&)
@@ -52,22 +52,22 @@ namespace s3d
 
 	void CShader_Null::releaseVS(const VertexShader::IDType)
 	{
-
+		// do nothing
 	}
 
 	void CShader_Null::releasePS(const PixelShader::IDType)
 	{
-
+		// do nothing
 	}
 
 	void CShader_Null::setVS(const VertexShader::IDType)
 	{
-
+		// do nothing
 	}
 
 	void CShader_Null::setPS(const PixelShader::IDType)
 	{
-
+		// do nothing
 	}
 
 	const Blob& CShader_Null::getBinaryVS(const VertexShader::IDType)
@@ -82,11 +82,11 @@ namespace s3d
 
 	void CShader_Null::setConstantBufferVS(const uint32, const ConstantBufferBase&)
 	{
-
+		// do nothing
 	}
 
 	void CShader_Null::setConstantBufferPS(const uint32, const ConstantBufferBase&)
 	{
-
+		// do nothing
 	}
 }

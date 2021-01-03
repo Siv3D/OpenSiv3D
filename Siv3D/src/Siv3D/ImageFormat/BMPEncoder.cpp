@@ -31,7 +31,7 @@ namespace s3d
 
 	bool BMPEncoder::save(const Image& image, const FilePathView path) const
 	{
-		BinaryWriter writer(path);
+		BinaryWriter writer{ path };
 
 		if (not writer)
 		{

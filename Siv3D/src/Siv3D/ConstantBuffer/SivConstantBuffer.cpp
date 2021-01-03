@@ -15,7 +15,7 @@
 namespace s3d
 {
 	ConstantBufferBase::ConstantBufferBase(const size_t size)
-		: pImpl(IConstantBufferDetail::Create(size))
+		: pImpl{ IConstantBufferDetail::Create(size) }
 	{
 
 	}

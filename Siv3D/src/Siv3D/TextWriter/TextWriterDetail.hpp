@@ -33,6 +33,7 @@ namespace s3d
 
 		void close();
 
+		[[nodiscard]]
 		bool isOpen() const noexcept;
 
 		void clear();
@@ -43,6 +44,7 @@ namespace s3d
 
 		void writeUTF8(std::string_view s);
 
+		[[nodiscard]]
 		const FilePath& path() const noexcept;
 	};
 }

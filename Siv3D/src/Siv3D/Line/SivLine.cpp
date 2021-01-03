@@ -52,7 +52,7 @@ namespace s3d
 
 	Line::position_type Line::closest(const position_type pos) const noexcept
 	{
-		Vec2 v = end - begin;
+		Vec2 v = (end - begin);
 		const double d = v.length();
 
 		if (d == 0.0)

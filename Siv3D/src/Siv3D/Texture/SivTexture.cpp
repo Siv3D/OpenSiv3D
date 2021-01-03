@@ -20,7 +20,7 @@ namespace s3d
 	template <>
 	AssetIDWrapper<AssetHandle<Texture>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			FreestandingMessageBox::ShowError(U"`Texture` must be initialized after engine-setup. Please fix the C++ code.");
 			std::abort();
@@ -39,13 +39,13 @@ namespace s3d
 	}
 
 	Texture::Texture(const FilePathView path)
-		: Texture(Image(path))
+		: Texture{ Image{ path } }
 	{
 
 	}
 
 	Texture::Texture(const Image&)
-		: AssetHandle(std::make_shared<AssetIDWrapperType>(AssetIDWrapperType::IDType{ 1 }))
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(AssetIDWrapperType::IDType{ 1 }) }
 	{
 
 	}

@@ -114,9 +114,9 @@ namespace s3d
 
 	bool INIData::save(const FilePathView path) const
 	{
-		TextWriter writer(path);
+		TextWriter writer{ path };
 
-		if (!writer)
+		if (not writer)
 		{
 			return false;
 		}
@@ -136,7 +136,7 @@ namespace s3d
 
 		for (const auto& sectionData : m_sections)
 		{
-			if (!sectionData.section)
+			if (not sectionData.section)
 			{
 				// skip global section
 				continue;
@@ -157,7 +157,7 @@ namespace s3d
 
 	bool INIData::loadFromTextReader(TextReader& reader)
 	{
-		if (!reader)
+		if (not reader)
 		{
 			return false;
 		}

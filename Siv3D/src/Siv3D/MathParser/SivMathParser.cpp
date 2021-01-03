@@ -15,13 +15,13 @@
 namespace s3d
 {
 	MathParser::MathParser()
-		: pImpl(std::make_shared<MathParserDetail>())
+		: pImpl{ std::make_shared<MathParserDetail>() }
 	{
 
 	}
 
 	MathParser::MathParser(const StringView expression)
-		: MathParser()
+		: MathParser{}
 	{
 		setExpression(expression);
 	}

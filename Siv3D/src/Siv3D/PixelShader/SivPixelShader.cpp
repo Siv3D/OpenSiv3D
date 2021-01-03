@@ -20,7 +20,7 @@ namespace s3d
 	template <>
 	AssetIDWrapper<AssetHandle<PixelShader>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			FreestandingMessageBox::ShowError(U"`PixelShader` must be initialized after engine-setup. Please fix the C++ code.");
 			std::abort();
@@ -30,7 +30,7 @@ namespace s3d
 	template <>
 	AssetIDWrapper<AssetHandle<PixelShader>>::~AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			return;
 		}
@@ -43,13 +43,13 @@ namespace s3d
 
 	PixelShader::PixelShader()
 	{
-
+		// do nothing
 	}
 
 	PixelShader::PixelShader(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
-		: AssetHandle(std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Shader)->createPSFromFile(path, entryPoint, bindings)))
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Shader)->createPSFromFile(path, entryPoint, bindings)) }
 	{
-
+		// do nothing
 	}
 
 	const Blob& PixelShader::getBinary() const noexcept

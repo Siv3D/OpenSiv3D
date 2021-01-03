@@ -42,7 +42,7 @@ namespace s3d
 		using const_iterator = typename MapType::const_iterator;
 
 		explicit AssetHandleManager(const String& name)
-			: m_assetTypeName(name) {}
+			: m_assetTypeName{ name } {}
 
 		void setNullData(std::unique_ptr<Data>&& data)
 		{
@@ -51,6 +51,7 @@ namespace s3d
 			LOG_TRACE(U"💠 Created {0}[0(null)]"_fmt(m_assetTypeName));
 		}
 
+		[[nodiscard]]
 		Data* operator [](const IDType id)
 		{
 			std::lock_guard lock(m_mutex);
@@ -58,6 +59,7 @@ namespace s3d
 			return m_data[id].get();
 		}
 
+		[[nodiscard]]
 		IDType add(std::unique_ptr<Data>&& data, [[maybe_unused]] const String& info = U"")
 		{
 			std::lock_guard lock(m_mutex);
@@ -140,21 +142,25 @@ namespace s3d
 			m_data.clear();
 		}
 
+		[[nodiscard]]
 		iterator begin()
 		{
 			return m_data.begin();
 		}
 
+		[[nodiscard]]
 		iterator end()
 		{
 			return m_data.end();
 		}
 
+		[[nodiscard]]
 		const_iterator begin() const
 		{
 			return m_data.cbegin();
 		}
 
+		[[nodiscard]]
 		const_iterator end() const
 		{
 			return m_data.cend();

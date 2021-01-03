@@ -61,7 +61,7 @@ namespace s3d
 
 		String FromUTF32(const std::u32string_view s)
 		{
-			return String(s);
+			return String{ s };
 		}
 
 		std::string NarrowAscii(const StringView asciiText)

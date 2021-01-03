@@ -120,12 +120,12 @@ namespace s3d
 		return{ 0.0, 0.0, 0.0, 0.0 };
 	}
 
-	void CRenderer2D_Null::setColorMul(const Float4& color)
+	void CRenderer2D_Null::setColorMul(const Float4&)
 	{
 		// do nothing
 	}
 
-	void CRenderer2D_Null::setColorAdd(const Float4& color)
+	void CRenderer2D_Null::setColorAdd(const Float4&)
 	{
 		// do nothing
 	}

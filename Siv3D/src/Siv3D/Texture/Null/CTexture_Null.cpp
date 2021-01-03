@@ -17,7 +17,7 @@ namespace s3d
 {
 	CTexture_Null::CTexture_Null()
 	{
-
+		// do nothing
 	}
 
 	CTexture_Null::~CTexture_Null()

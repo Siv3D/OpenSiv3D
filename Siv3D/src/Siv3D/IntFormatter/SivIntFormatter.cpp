@@ -63,13 +63,13 @@ namespace s3d
 		}
 
 		IntFormatter::IntFormatter(const uint32 value) noexcept
-			: str_(format_decimal(value))
+			: str_{ format_decimal(value) }
 		{
 
 		}
 
 		IntFormatter::IntFormatter(const uint64 value) noexcept
-			: str_(format_decimal(value))
+			: str_{ format_decimal(value) }
 		{
 
 		}

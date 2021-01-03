@@ -17,17 +17,17 @@ namespace s3d
 	namespace detail
 	{
 		TextWriterBuffer::TextWriterBuffer(TextWriter& writer)
-			: m_writer(writer)
-			, m_isLast(true)
-			, formatData(std::make_unique<FormatData>())
+			: m_writer{ writer }
+			, m_isLast{ true }
+			, formatData{ std::make_unique<FormatData>() }
 		{
-
+			// do nothing
 		}
 
 		TextWriterBuffer::TextWriterBuffer(TextWriterBuffer&& other) noexcept
-			: m_writer(other.m_writer)
-			, m_isLast(true)
-			, formatData(std::move(other.formatData))
+			: m_writer{ other.m_writer }
+			, m_isLast{ true }
+			, formatData{ std::move(other.formatData) }
 		{
 			other.m_isLast = false;
 		}
@@ -42,19 +42,19 @@ namespace s3d
 	}
 
 	TextWriter::TextWriter()
-		: pImpl(std::make_shared<TextWriterDetail>())
+		: pImpl{ std::make_shared<TextWriterDetail>() }
 	{
-
+		// do nothing
 	}
 
 	TextWriter::TextWriter(const FilePathView path, const TextEncoding encoding)
-		: TextWriter()
+		: TextWriter{}
 	{
 		open(path, OpenMode::Trunc, encoding);
 	}
 
 	TextWriter::TextWriter(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
-		: TextWriter()
+		: TextWriter{}
 	{
 		open(path, openMode, encoding);
 	}

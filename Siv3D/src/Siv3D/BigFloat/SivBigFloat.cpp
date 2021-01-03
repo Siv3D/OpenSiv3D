@@ -15,55 +15,55 @@
 namespace s3d
 {
 	BigFloat::BigFloat()
-		: BigFloat(0.0)
+		: BigFloat{ 0.0 }
 	{
 
 	}
 
 	BigFloat::BigFloat(const int64 i)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const uint64 i)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const long double f)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(f);
 	}
 
 	BigFloat::BigFloat(const BigInt& number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const std::string_view number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const StringView number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const BigFloat& other)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(other);
 	}
 
 	BigFloat::BigFloat(BigFloat&& other) noexcept
-		: pImpl(std::move(other.pImpl))
+		: pImpl{ std::move(other.pImpl) }
 	{
 
 	}
@@ -663,6 +663,11 @@ namespace s3d
 		return String(t.begin(), t.end());
 	}
 
+	void BigFloat::_Formatter(FormatData& formatData, const BigFloat& value)
+	{
+		formatData.string.append(value.str());
+	}
+
 	//////////////////////////////////////////////////
 	//
 	//	detail
@@ -694,19 +699,9 @@ namespace s3d
 	{
 		inline namespace BigNumLiterals
 		{
-			BigFloat operator ""_bigF(const unsigned long long int i)
+			BigFloat operator ""_bigF(const char* s)
 			{
-				return BigFloat{ i };
-			}
-
-			BigFloat operator ""_bigF(const char* s, const size_t length)
-			{
-				return BigFloat{ std::string_view{ s, length } };
-			}
-
-			BigFloat operator ""_bigF(const char32* s, const size_t length)
-			{
-				return BigFloat{ StringView{ s, length } };
+				return BigFloat{ std::string_view{ s } };
 			}
 		}
 	}

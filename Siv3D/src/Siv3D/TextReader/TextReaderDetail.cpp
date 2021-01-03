@@ -17,7 +17,10 @@
 
 namespace s3d
 {
-	TextReader::TextReaderDetail::TextReaderDetail() = default;
+	TextReader::TextReaderDetail::TextReaderDetail()
+	{
+		// do nothing
+	}
 
 	TextReader::TextReaderDetail::~TextReaderDetail()
 	{
@@ -108,7 +111,7 @@ namespace s3d
 
 	Optional<char32> TextReader::TextReaderDetail::readChar()
 	{
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return none;
 		}
@@ -117,7 +120,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				return none;
 			}
@@ -135,7 +138,7 @@ namespace s3d
 
 	Optional<String> TextReader::TextReaderDetail::readLine()
 	{
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return none;
 		}
@@ -146,7 +149,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				if (line)
 				{
@@ -169,7 +172,7 @@ namespace s3d
 
 	Array<String> TextReader::TextReaderDetail::readLines()
 	{
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return{};
 		}
@@ -181,7 +184,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				if (line)
 				{
@@ -205,7 +208,7 @@ namespace s3d
 
 	String TextReader::TextReaderDetail::readAll()
 	{
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return{};
 		}
@@ -216,7 +219,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				return s;
 			}
@@ -236,7 +239,7 @@ namespace s3d
 	{
 		ch = 0;
 
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return false;
 		}
@@ -245,7 +248,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				return false;
 			}
@@ -266,7 +269,7 @@ namespace s3d
 	{
 		line.clear();
 
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return false;
 		}
@@ -275,7 +278,7 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				if (line)
 				{
@@ -300,7 +303,7 @@ namespace s3d
 	{
 		lines.clear();
 
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return false;
 		}
@@ -311,14 +314,14 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
 				if (line)
 				{
 					lines.push_back(std::move(line));
 				}
 
-				if (!lines)
+				if (not lines)
 				{
 					return false;
 				}
@@ -342,7 +345,7 @@ namespace s3d
 	{
 		s.clear();
 
-		if (!m_info.isOpen) SIV3D_UNLIKELY
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
 			return false;
 		}
@@ -351,9 +354,9 @@ namespace s3d
 		{
 			char32 codePoint;
 
-			if (!readCodePoint(codePoint))
+			if (not readCodePoint(codePoint))
 			{
-				if (!s)
+				if (not s)
 				{
 					return false;
 				}
@@ -396,7 +399,7 @@ namespace s3d
 	{
 		uint8 cx;
 
-		if (!readByte(cx))
+		if (not readByte(cx))
 		{
 			return false;
 		}
@@ -409,7 +412,7 @@ namespace s3d
 			return true;
 		}
 
-		if (!readByte(cx))
+		if (not readByte(cx))
 		{
 			return false;
 		}
@@ -420,7 +423,7 @@ namespace s3d
 			return true;
 		}
 
-		if (!readByte(cx))
+		if (not readByte(cx))
 		{
 			return false;
 		}
@@ -431,7 +434,7 @@ namespace s3d
 			return true;
 		}
 
-		if (!readByte(cx))
+		if (not readByte(cx))
 		{
 			return false;
 		}
@@ -449,14 +452,14 @@ namespace s3d
 	{
 		uint16 c0 = 0, c1 = 0;
 		
-		if (!readTwoBytes(c0))
+		if (not readTwoBytes(c0))
 		{
 			return false;
 		}
 
 		if (Unicode::IsHighSurrogate(c0))
 		{
-			if (!readTwoBytes(c1))
+			if (not readTwoBytes(c1))
 			{
 				return false;
 			}
@@ -475,7 +478,7 @@ namespace s3d
 	{
 		uint16 c0 = 0, c1 = 0;
 
-		if (!readTwoBytes(c0))
+		if (not readTwoBytes(c0))
 		{
 			return false;
 		}
@@ -484,7 +487,7 @@ namespace s3d
 
 		if (Unicode::IsHighSurrogate(c0))
 		{
-			if (!readTwoBytes(c1))
+			if (not readTwoBytes(c1))
 			{
 				return false;
 			}

@@ -16,7 +16,10 @@
 
 namespace s3d
 {
-	CRenderer_Null::CRenderer_Null() = default;
+	CRenderer_Null::CRenderer_Null()
+	{
+		// do nothing
+	}
 
 	CRenderer_Null::~CRenderer_Null()
 	{
@@ -43,12 +46,12 @@ namespace s3d
 
 	void CRenderer_Null::clear()
 	{
-
+		// do nothing
 	}
 
 	void CRenderer_Null::flush()
 	{
-
+		// do nothing
 	}
 
 	bool CRenderer_Null::present()
@@ -58,7 +61,7 @@ namespace s3d
 
 	void CRenderer_Null::setSceneResizeMode(ResizeMode)
 	{
-
+		// do nothing
 	}
 
 	ResizeMode CRenderer_Null::getSceneResizeMode() const noexcept
@@ -68,7 +71,7 @@ namespace s3d
 
 	void CRenderer_Null::setSceneBufferSize(Size)
 	{
-		
+		// do nothing
 	}
 
 	Size CRenderer_Null::getSceneBufferSize() const noexcept
@@ -78,7 +81,7 @@ namespace s3d
 
 	void CRenderer_Null::setSceneTextureFilter(const TextureFilter)
 	{
-
+		// do nothing
 	}
 
 	TextureFilter CRenderer_Null::getSceneTextureFilter() const noexcept
@@ -88,7 +91,7 @@ namespace s3d
 
 	void CRenderer_Null::setBackgroundColor(const ColorF&)
 	{
-
+		// do nothing
 	}
 
 	const ColorF& CRenderer_Null::getBackgroundColor() const noexcept
@@ -99,7 +102,7 @@ namespace s3d
 
 	void CRenderer_Null::setLetterboxColor(const ColorF&)
 	{
-
+		// do nothing
 	}
 
 	const ColorF& CRenderer_Null::getLetterboxColor() const noexcept

@@ -53,7 +53,7 @@ namespace s3d
 		}
 	}
 
-	Siv3DEngine::Siv3DEngine()
+	Siv3DEngine::Siv3DEngine() noexcept
 	{
 		pEngine = this;
 	}

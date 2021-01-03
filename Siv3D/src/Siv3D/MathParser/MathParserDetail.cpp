@@ -13,9 +13,15 @@
 
 namespace s3d
 {
-	MathParser::MathParserDetail::MathParserDetail() = default;
+	MathParser::MathParserDetail::MathParserDetail()
+	{
 
-	MathParser::MathParserDetail::~MathParserDetail() = default;
+	}
+
+	MathParser::MathParserDetail::~MathParserDetail()
+	{
+
+	}
 
 	String MathParser::MathParserDetail::getErrorMessage() const
 	{

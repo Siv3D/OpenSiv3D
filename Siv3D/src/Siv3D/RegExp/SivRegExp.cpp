@@ -15,13 +15,13 @@
 namespace s3d
 {
 	RegExp::RegExp()
-		: pImpl(std::make_shared<RegExpDetail>())
+		: pImpl{ std::make_shared<RegExpDetail>() }
 	{
 
 	}
 
 	RegExp::RegExp(const StringView pattern)
-		: pImpl(std::make_shared<RegExpDetail>(pattern))
+		: pImpl{ std::make_shared<RegExpDetail>(pattern) }
 	{
 
 	}

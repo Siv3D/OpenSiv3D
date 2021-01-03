@@ -15,7 +15,7 @@
 namespace s3d
 {
 	BinaryReader::BinaryReader()
-		: pImpl(std::make_shared<BinaryReaderDetail>())
+		: pImpl{ std::make_shared<BinaryReaderDetail>() }
 	{
 
 	}

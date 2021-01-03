@@ -15,43 +15,43 @@
 namespace s3d
 {
 	BigInt::BigInt()
-		: BigInt(0)
+		: BigInt{ 0 }
 	{
 
 	}
 
 	BigInt::BigInt(const int64 i)
-		: pImpl(std::make_unique<BigIntDetail>())
+		: pImpl{ std::make_unique<BigIntDetail>() }
 	{
 		assign(i);
 	}
 
 	BigInt::BigInt(const uint64 i)
-		: pImpl(std::make_unique<BigIntDetail>())
+		: pImpl{ std::make_unique<BigIntDetail>() }
 	{
 		assign(i);
 	}
 
 	BigInt::BigInt(const std::string_view number)
-		: pImpl(std::make_unique<BigIntDetail>())
+		: pImpl{ std::make_unique<BigIntDetail>() }
 	{
 		assign(number);
 	}
 
 	BigInt::BigInt(const StringView number)
-		: pImpl(std::make_unique<BigIntDetail>())
+		: pImpl{ std::make_unique<BigIntDetail>() }
 	{
 		assign(number);
 	}
 
 	BigInt::BigInt(const BigInt& other)
-		: pImpl(std::make_unique<BigIntDetail>())
+		: pImpl{ std::make_unique<BigIntDetail>() }
 	{
 		assign(other);
 	}
 
 	BigInt::BigInt(BigInt&& other) noexcept
-		: pImpl(std::move(other.pImpl))
+		: pImpl{ std::move(other.pImpl) }
 	{
 
 	}
@@ -782,6 +782,11 @@ namespace s3d
 		return String(t.begin(), t.end());
 	}
 
+	void BigInt::_Formatter(FormatData& formatData, const BigInt& value)
+	{
+		formatData.string.append(value.str());
+	}
+
 	//////////////////////////////////////////////////
 	//
 	//	detail
@@ -842,19 +847,9 @@ namespace s3d
 	{
 		inline namespace BigNumLiterals
 		{
-			BigInt operator ""_big(const unsigned long long int i)
+			BigInt operator ""_big(const char* s)
 			{
-				return BigInt{ i };
-			}
-
-			BigInt operator ""_big(const char* s, const size_t length)
-			{
-				return BigInt{ std::string_view{ s, length } };
-			}
-
-			BigInt operator ""_big(const char32* s, const size_t length)
-			{
-				return BigInt{ StringView{ s, length } };
+				return BigInt{ std::string_view{ s } };
 			}
 		}
 	}

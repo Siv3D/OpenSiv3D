@@ -424,6 +424,30 @@ namespace s3d
 		[[nodiscard]]
 		String str() const;
 
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const BigFloat& value)
+		{
+			return (output << value.str());
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, BigFloat& value)
+		{
+			if (String s; input >> s)
+			{
+				value.assign(s);
+			}
+
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const BigFloat& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const BigFloat& value);
+
 		//////////////////////////////////////////////////
 		//
 		//	detail
@@ -651,13 +675,7 @@ namespace s3d
 		inline namespace BigNumLiterals
 		{
 			[[nodiscard]]
-			BigFloat operator ""_bigF(unsigned long long int i);
-
-			[[nodiscard]]
-			BigFloat operator ""_bigF(const char* s, size_t length);
-
-			[[nodiscard]]
-			BigFloat operator ""_bigF(const char32* s, size_t length);
+			BigFloat operator ""_bigF(const char* s);
 		}
 	}
 }

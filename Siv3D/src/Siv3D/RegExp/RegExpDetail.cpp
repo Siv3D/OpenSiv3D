@@ -15,7 +15,10 @@
 
 namespace s3d
 {
-	RegExp::RegExpDetail::RegExpDetail() = default;
+	RegExp::RegExpDetail::RegExpDetail()
+	{
+		// do nothing
+	}
 
 	RegExp::RegExpDetail::RegExpDetail(const StringView pattern)
 	{
@@ -39,7 +42,7 @@ namespace s3d
 
 	RegExp::RegExpDetail::~RegExpDetail()
 	{
-		if (!isValid())
+		if (not isValid())
 		{
 			return;
 		}
@@ -55,7 +58,7 @@ namespace s3d
 
 	bool RegExp::RegExpDetail::fullMatch(const StringView s) const
 	{
-		if (!isValid())
+		if (not isValid())
 		{
 			return false;
 		}
@@ -90,7 +93,7 @@ namespace s3d
 
 	MatchResults RegExp::RegExpDetail::match(const StringView s) const
 	{
-		if (!isValid())
+		if (not isValid())
 		{
 			return{};
 		}
@@ -133,7 +136,7 @@ namespace s3d
 
 	MatchResults RegExp::RegExpDetail::search(const StringView s) const
 	{
-		if (!isValid())
+		if (not isValid())
 		{
 			return{};
 		}
@@ -177,7 +180,7 @@ namespace s3d
 
 	Array<MatchResults> RegExp::RegExpDetail::findAll(const StringView s) const
 	{
-		if (!isValid())
+		if (not isValid())
 		{
 			return{};
 		}

@@ -59,7 +59,7 @@ namespace s3d
 
 		input >> in;
 
-		value = Byte(ParseInt<uint8>(Unicode::FromUTF8(in), Arg::radix = 16));
+		value = Byte{ ParseInt<uint8>(Unicode::FromUTF8(in), Arg::radix = 16) };
 
 		return input;
 	}
@@ -70,7 +70,7 @@ namespace s3d
 
 		input >> in;
 
-		value = Byte(ParseInt<uint8>(Unicode::FromWstring(in), Arg::radix = 16));
+		value = Byte{ ParseInt<uint8>(Unicode::FromWstring(in), Arg::radix = 16) };
 
 		return input;
 	}

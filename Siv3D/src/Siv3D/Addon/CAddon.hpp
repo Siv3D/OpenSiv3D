@@ -27,9 +27,9 @@ namespace s3d
 		AddonData() = default;
 
 		AddonData(std::unique_ptr<IAddon>&& _pAddon, StringView _name, int32 _priority)
-			: pAddon(std::move(_pAddon))
-			, name(_name)
-			, priority(_priority) {}
+			: pAddon{ std::move(_pAddon) }
+			, name{ _name }
+			, priority{ _priority } {}
 	};
 
 	class CAddon final : public ISiv3DAddon

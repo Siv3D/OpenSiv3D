@@ -20,20 +20,20 @@ namespace s3d
 
 	bool InputGroup::down() const
 	{
-		return m_inputs.any([](const Input& i) { return i.down(); })
-			|| m_inputCombinations.any([](const InputCombination& c) { return c.down(); });
+		return (m_inputs.any([](const Input& i) { return i.down(); })
+			|| m_inputCombinations.any([](const InputCombination& c) { return c.down(); }));
 	}
 
 	bool InputGroup::pressed() const
 	{
-		return m_inputs.any([](const Input& i) { return i.pressed(); })
-			|| m_inputCombinations.any([](const InputCombination& c) { return c.pressed(); });
+		return (m_inputs.any([](const Input& i) { return i.pressed(); })
+			|| m_inputCombinations.any([](const InputCombination& c) { return c.pressed(); }));
 	}
 
 	bool InputGroup::up() const
 	{
-		return m_inputs.any([](const Input& i) { return i.up(); })
-			|| m_inputCombinations.any([](const InputCombination& c) { return c.up(); });
+		return (m_inputs.any([](const Input& i) { return i.up(); })
+			|| m_inputCombinations.any([](const InputCombination& c) { return c.up(); }));
 	}
 
 	Duration InputGroup::pressedDuration() const

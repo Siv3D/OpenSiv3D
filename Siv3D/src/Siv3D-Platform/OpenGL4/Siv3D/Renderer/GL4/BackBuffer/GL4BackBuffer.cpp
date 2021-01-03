@@ -36,7 +36,7 @@ namespace s3d
 
 	GL4BackBuffer::~GL4BackBuffer()
 	{
-
+		// do nothing
 	}
 
 	void GL4BackBuffer::clear(const GL4ClearTarget clearTargets)

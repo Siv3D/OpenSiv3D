@@ -15,7 +15,7 @@
 namespace s3d
 {
 	BinaryWriter::BinaryWriter()
-		: pImpl(std::make_shared<BinaryWriterDetail>())
+		: pImpl{ std::make_shared<BinaryWriterDetail>() }
 	{
 
 	}

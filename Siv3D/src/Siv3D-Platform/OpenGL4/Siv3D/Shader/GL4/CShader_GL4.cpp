@@ -20,7 +20,7 @@ namespace s3d
 {
 	CShader_GL4::CShader_GL4()
 	{
-
+		// do nothing
 	}
 
 	CShader_GL4::~CShader_GL4()
@@ -79,7 +79,7 @@ namespace s3d
 
 	VertexShader::IDType CShader_GL4::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
-		TextReader reader(path);
+		TextReader reader{ path };
 
 		if (not reader)
 		{
@@ -105,7 +105,7 @@ namespace s3d
 
 	PixelShader::IDType CShader_GL4::createPSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
-		TextReader reader(path);
+		TextReader reader{ path };
 
 		if (not reader)
 		{

@@ -19,19 +19,19 @@ namespace s3d
 {
 	Shape2D::Shape2D()
 	{
-
+		// do nothing
 	}
 
 	Shape2D::Shape2D(Array<Float2> vertices, Array<TriangleIndex> indices)
-		: m_vertices(std::move(vertices))
-		, m_indices(std::move(indices))
+		: m_vertices{ std::move(vertices) }
+		, m_indices{ std::move(indices) }
 	{
 
 	}
 
 	Shape2D::~Shape2D()
 	{
-
+		// do nothing
 	}
 
 	Shape2D Shape2D::Cross(const double r, const double width, const Vec2& center, const double angle)
@@ -243,7 +243,7 @@ namespace s3d
 		const int32 dividedAngleIndex = static_cast<int32>(flagAngle / Math::HalfPiF);
 		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
 		const Float2 pointingRootCenter(sign[((a + 2) / 4) % 2] * w * 0.25f * (1.0f + ((a + 3) / 2) % 2), sign[((a) / 4) % 2] * h * 0.25f * (1.0f + ((a + 1) / 2) % 2));
-		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2(w * 0.25f * prf, 0.0f) : Float2(0.0f, h * 0.25f * prf));
+		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2{ w * 0.25f * prf, 0.0f } : Float2{ 0.0f, h * 0.25f * prf });
 		const Vertex2D::IndexType indexOffset = ((a + 1) / 2) % 4;
 
 		Array<Float2> vertices(7, center);
@@ -264,7 +264,7 @@ namespace s3d
 
 				rectIndices[rectIndex] = i;
 
-				vertices[i++] += Float2(sign[((rectIndex + 1) / 2) % 2] * w * 0.5f, sign[((rectIndex) / 2) % 2] * h * 0.5f);
+				vertices[i++] += Float2{ sign[((rectIndex + 1) / 2) % 2] * w * 0.5f, sign[((rectIndex) / 2) % 2] * h * 0.5f };
 			}
 		}
 
@@ -289,7 +289,7 @@ namespace s3d
 
 		const float offsetX = static_cast<float>(w / steps);
 		const float offsetY = static_cast<float>(h / steps);
-		const Float2 base2 = (base + Float2(upStairs ? -w : w, 0));
+		const Float2 base2 = (base + Float2{ upStairs ? -w : w, 0 });
 
 		Array<Float2> vertices(2 + 2 * steps);
 		{
@@ -300,8 +300,8 @@ namespace s3d
 			for (Vertex2D::IndexType i = 0; i < steps; ++i)
 			{
 				const int32 offsetIndex = i + 1;
-				*pPos++ = base2 + Float2(upStairs ? offsetX * i : -offsetX * i, -offsetY * offsetIndex);
-				*pPos++ = base2 + Float2(upStairs ? offsetX * offsetIndex : -offsetX * offsetIndex, -offsetY * offsetIndex);
+				*pPos++ = base2 + Float2{ upStairs ? offsetX * i : -offsetX * i, -offsetY * offsetIndex };
+				*pPos++ = base2 + Float2{ upStairs ? offsetX * offsetIndex : -offsetX * offsetIndex, -offsetY * offsetIndex };
 			}
 		}
 

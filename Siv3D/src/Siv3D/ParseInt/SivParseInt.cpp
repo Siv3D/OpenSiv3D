@@ -275,7 +275,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<int8>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<int8>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -288,7 +288,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<uint8>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<uint8>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -301,7 +301,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<int16>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<int16>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -314,7 +314,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<uint16>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<uint16>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -327,7 +327,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<int32>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<int32>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -340,7 +340,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<uint32>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<uint32>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -353,7 +353,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<long>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<long>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -366,7 +366,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<unsigned long>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<unsigned long>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -379,7 +379,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<long long>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<long long>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -392,7 +392,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseInt<unsigned long long>(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseInt<unsigned long long>(\"{}\") failed"_fmt(s) };
 		}
 	}
 
@@ -401,11 +401,11 @@ namespace s3d
 	{
 		int32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
-		else if (!InRange<int32>(result, INT8_MIN, INT8_MAX))
+		else if (not InRange<int32>(result, INT8_MIN, INT8_MAX))
 		{
 			return none;
 		}
@@ -418,7 +418,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -435,11 +435,11 @@ namespace s3d
 	{
 		int32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
-		else if (!InRange<int32>(result, INT16_MIN, INT16_MAX))
+		else if (not InRange<int32>(result, INT16_MIN, INT16_MAX))
 		{
 			return none;
 		}
@@ -452,7 +452,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -469,7 +469,7 @@ namespace s3d
 	{
 		int32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -482,7 +482,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -495,7 +495,7 @@ namespace s3d
 	{
 		long result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -508,7 +508,7 @@ namespace s3d
 	{
 		unsigned long result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -521,7 +521,7 @@ namespace s3d
 	{
 		long long result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -534,7 +534,7 @@ namespace s3d
 	{
 		unsigned long long result;
 
-		if (!detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_int_internal(s, &result, *radix))
 		{
 			return none;
 		}

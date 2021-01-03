@@ -15,7 +15,10 @@
 
 namespace s3d
 {
-	TextWriter::TextWriterDetail::TextWriterDetail() = default;
+	TextWriter::TextWriterDetail::TextWriterDetail()
+	{
+		// do nothing
+	}
 
 	TextWriter::TextWriterDetail::~TextWriterDetail()
 	{

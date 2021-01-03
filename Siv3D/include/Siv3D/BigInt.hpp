@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Concepts.hpp"
 # include "String.hpp"
+# include "FormatData.hpp"
 
 namespace s3d
 {
@@ -838,6 +839,30 @@ namespace s3d
 		[[nodiscard]]
 		String str() const;
 
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const BigInt& value)
+		{
+			return (output << value.str());
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, BigInt& value)
+		{
+			if (String s; input >> s)
+			{
+				value.assign(s);
+			}
+
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const BigInt& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const BigInt& value);
+
 		//////////////////////////////////////////////////
 		//
 		//	detail
@@ -856,13 +881,7 @@ namespace s3d
 		inline namespace BigNumLiterals
 		{
 			[[nodiscard]]
-			BigInt operator ""_big(unsigned long long int i);
-
-			[[nodiscard]]
-			BigInt operator ""_big(const char* s, size_t length);
-
-			[[nodiscard]]
-			BigInt operator ""_big(const char32* s, size_t length);
+			BigInt operator ""_big(const char* s);
 		}
 	}
 

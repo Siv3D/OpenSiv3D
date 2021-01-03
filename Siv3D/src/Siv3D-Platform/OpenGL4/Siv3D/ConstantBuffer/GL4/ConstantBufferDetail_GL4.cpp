@@ -15,9 +15,9 @@
 namespace s3d
 {
 	ConstantBufferDetail_GL4::ConstantBufferDetail_GL4(const size_t size)
-		: m_bufferSize(size)
+		: m_bufferSize{ size }
 	{
-
+		// do nothing
 	}
 
 	ConstantBufferDetail_GL4::~ConstantBufferDetail_GL4()

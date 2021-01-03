@@ -66,7 +66,7 @@ namespace s3d
 
 	public:
 
-		Siv3DEngine();
+		Siv3DEngine() noexcept;
 
 		~Siv3DEngine();
 

@@ -19,13 +19,13 @@ namespace s3d
 	namespace detail
 	{
 		LoggerBuffer::LoggerBuffer()
-			: formatData(std::make_unique<FormatData>())
+			: formatData{ std::make_unique<FormatData>() }
 		{
 
 		}
 
 		LoggerBuffer::LoggerBuffer(LoggerBuffer&& other) noexcept
-			: formatData(std::move(other.formatData))
+			: formatData{ std::move(other.formatData) }
 		{
 
 		}
@@ -41,7 +41,7 @@ namespace s3d
 
 		void Logger_impl::writeln(const char32_t* s) const
 		{
-			writeln(StringView(s));
+			writeln(StringView{ s });
 		}
 
 		void Logger_impl::writeln(const StringView s) const
@@ -54,7 +54,7 @@ namespace s3d
 
 		void Logger_impl::writeln(const String& s) const
 		{
-			writeln(StringView(s));
+			writeln(StringView{ s });
 		}
 
 		void Logger_impl::operator()(const char32_t* s) const
@@ -71,7 +71,6 @@ namespace s3d
 		{
 			writeln(s);
 		}
-
 
 		void Logger_impl::disable() const
 		{

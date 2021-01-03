@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		static constexpr StringView bytesUnits[9] =
+		static constexpr StringView BytesUnits[9] =
 		{
 			U"B"_sv,
 			U"KiB"_sv,
@@ -80,15 +80,15 @@ namespace s3d
 		{
 			if (s < 10.0)
 			{
-				return ToString(s, 2) + detail::bytesUnits[i];
+				return (ToString(s, 2) + detail::BytesUnits[i]);
 			}
 			else if (s < 100.0)
 			{
-				return ToString(s, 1) + detail::bytesUnits[i];
+				return (ToString(s, 1) + detail::BytesUnits[i]);
 			}
 			else if (s < 1024.0)
 			{
-				return ToString(s, 0) + detail::bytesUnits[i];
+				return (ToString(s, 0) + detail::BytesUnits[i]);
 			}
 
 			s /= 1024.0;

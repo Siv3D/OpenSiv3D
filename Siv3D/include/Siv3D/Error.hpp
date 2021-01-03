@@ -29,34 +29,24 @@ namespace s3d
 		Error() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Error(const char32* what)
-			: m_what(what) {}
+		explicit Error(const char32* what);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Error(StringView what)
-			: m_what(what) {}
+		explicit Error(StringView what);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Error(const String& what)
-			: m_what(what) {}
+		explicit Error(const String& what);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Error(String&& what) noexcept
-			: m_what(std::move(what)) {}
+		explicit Error(String&& what) noexcept;
 
 		virtual ~Error() = default;
 
 		[[nodiscard]]
-		const String& what() const noexcept
-		{
-			return m_what;
-		}
+		const String& what() const noexcept;
 
 		[[nodiscard]]
-		virtual StringView type() const noexcept
-		{
-			return StringView(U"Error");
-		}
+		virtual StringView type() const noexcept;
 
 		friend std::ostream& operator <<(std::ostream& output, const Error& value)
 		{
@@ -72,6 +62,13 @@ namespace s3d
 		{
 			return output << (U'[' + value.type() + U"] " + value.what());
 		}
+
+		friend void Formatter(FormatData& formatData, const Error& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Error& value);
 	};
 
 	/// @brief パースエラーを表現する型
@@ -82,10 +79,7 @@ namespace s3d
 		using Error::Error;
 
 		[[nodiscard]]
-		StringView type() const noexcept override
-		{
-			return StringView(U"ParseError");
-		}
+		StringView type() const noexcept override;
 	};
 
 	/// @brief 値を持たない Optional へのアクセスによるエラーを表現する型
@@ -96,10 +90,7 @@ namespace s3d
 		using Error::Error;
 
 		[[nodiscard]]
-		StringView type() const noexcept override
-		{
-			return StringView(U"Bad optional access");
-		}
+		StringView type() const noexcept override;
 	};
 
 	/// @brief エンジン内部のエラーを表現する型
@@ -110,23 +101,8 @@ namespace s3d
 		using Error::Error;
 
 		[[nodiscard]]
-		StringView type() const noexcept override
-		{
-			return StringView(U"EngineError");
-		}
+		StringView type() const noexcept override;
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
-{
-	/// @brief エラーをフォーマットします。
-	/// @param formatData フォーマットデータ
-	/// @param value エラーの値
-	void Formatter(FormatData& formatData, const Error& value);
-}
+# include "detail/Error.ipp"

@@ -27,8 +27,8 @@ namespace s3d
 		}
 
 		ScopedEngineLog::ScopedEngineLog(const LogType type, String s)
-			: m_type(type)
-			, m_s(std::move(s))
+			: m_type{ type }
+			, m_s{ std::move(s) }
 		{
 			if (Siv3DEngine::isActive())
 			{

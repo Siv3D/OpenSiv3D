@@ -15,7 +15,10 @@
 
 namespace s3d
 {
-	CWindow_Null::CWindow_Null() = default;
+	CWindow_Null::CWindow_Null()
+	{
+		// do nothing
+	}
 
 	CWindow_Null::~CWindow_Null()
 	{
@@ -29,7 +32,7 @@ namespace s3d
 
 	void CWindow_Null::update()
 	{
-
+		// do nothing
 	}
 
 	void CWindow_Null::setWindowTitle(const String& title)

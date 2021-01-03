@@ -18,6 +18,7 @@ namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		inline float CalculateMaxScaling(const Mat3x2& mat)
 		{
 			return (Float2{ mat._11 + mat._21, mat._12 + mat._22 }.length() / Math::Sqrt2_v<float>);

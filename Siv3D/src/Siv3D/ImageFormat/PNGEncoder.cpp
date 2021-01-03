@@ -50,7 +50,7 @@ namespace s3d
 
 	bool PNGEncoder::save(const Image& image, const FilePathView path, const PNGFilter filter) const
 	{
-		BinaryWriter writer(path);
+		BinaryWriter writer{ path };
 
 		if (not writer)
 		{
@@ -74,14 +74,14 @@ namespace s3d
 
 		png_structp png_ptr = ::png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
-		if (!png_ptr)
+		if (not png_ptr)
 		{
 			return false;
 		}
 
 		png_infop info_ptr = ::png_create_info_struct(png_ptr);
 
-		if (!info_ptr)
+		if (not info_ptr)
 		{
 			::png_destroy_write_struct(&png_ptr, nullptr);
 
@@ -125,14 +125,14 @@ namespace s3d
 	{
 		png_structp png_ptr = ::png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
-		if (!png_ptr)
+		if (not png_ptr)
 		{
 			return{};
 		}
 
 		png_infop info_ptr = ::png_create_info_struct(png_ptr);
 
-		if (!info_ptr)
+		if (not info_ptr)
 		{
 			::png_destroy_write_struct(&png_ptr, nullptr);
 

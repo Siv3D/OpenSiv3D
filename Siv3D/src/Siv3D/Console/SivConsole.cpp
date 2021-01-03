@@ -19,13 +19,13 @@ namespace s3d
 	namespace detail
 	{
 		ConsoleBuffer::ConsoleBuffer()
-			: formatData(std::make_unique<FormatData>())
+			: formatData{ std::make_unique<FormatData>() }
 		{
 
 		}
 
 		ConsoleBuffer::ConsoleBuffer(ConsoleBuffer&& other) noexcept
-			: formatData(std::move(other.formatData))
+			: formatData{ std::move(other.formatData) }
 		{
 
 		}

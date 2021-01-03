@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Keyboard.hpp>
 # include "CLicenseManager.hpp"
 # include "LicenseList.hpp"
 
@@ -20,24 +21,23 @@ namespace s3d
 
 	}
 
-	CLicenseManager::~CLicenseManager() = default;
+	CLicenseManager::~CLicenseManager()
+	{
+
+	}
 
 	void CLicenseManager::update()
 	{
-		if (!m_openLicenseWithF1Key)
+		if (m_openLicenseWithF1Key
+			&& KeyF1.down())
 		{
-			return;
+			LicenseManager::ShowInBrowser();
 		}
-
-		//if (KeyF1.down())
-		//{
-		//	LicenseManager::ShowInBrowser();
-		//}
 	}
 
 	void CLicenseManager::setApplicationLicense(const String& applicationName, const LicenseInfo& license)
 	{
-		if (!m_hasApplicationLicense)
+		if (not m_hasApplicationLicense)
 		{
 			const LicenseInfo info
 			{
@@ -68,8 +68,7 @@ namespace s3d
 					&& (c != U'\"')
 					&& (c != U'<')
 					&& (c != U'>')
-					&& (c != U'|')
-					;
+					&& (c != U'|');
 			}))
 		{
 			m_normalizedApplicationName = name;

@@ -15,19 +15,19 @@
 namespace s3d
 {
 	TextReader::TextReader()
-		: pImpl(std::make_shared<TextReaderDetail>())
+		: pImpl{ std::make_shared<TextReaderDetail>() }
 	{
 
 	}
 
 	TextReader::TextReader(const FilePathView path, const Optional<TextEncoding>& encoding)
-		: TextReader()
+		: TextReader{}
 	{
 		open(path, encoding);
 	}
 
 	TextReader::TextReader(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
-		: TextReader()
+		: TextReader{}
 	{
 		open(std::move(reader), encoding);
 	}

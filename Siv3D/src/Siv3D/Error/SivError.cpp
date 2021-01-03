@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const Error& value)
+	void Error::_Formatter(FormatData& formatData, const Error& value)
 	{
 		const String s = (U"["_s + value.type() + U"] " + value.what());
 
