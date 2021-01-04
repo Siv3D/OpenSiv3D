@@ -35,7 +35,7 @@ namespace s3d
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{
-					const float rad = radDelta * i;
+					const float rad = (radDelta * i);
 					(pDst++)->set(std::cos(rad), -std::sin(rad));
 				}
 			}
@@ -77,6 +77,42 @@ namespace s3d
 			{
 				return static_cast<Vertex2D::IndexType>(Min(16 + (size - 8.0f) / 2.2f, 255.0f));
 			}
+		}
+
+		[[nodiscard]]
+		inline constexpr Vertex2D::IndexType CalculateCirclePieQuality(const float size, const float angle)
+		{
+			const float rate = Min(Abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+
+			Vertex2D::IndexType quality;
+
+			if (size <= 1.0f)
+			{
+				quality = 4;
+			}
+			else if (size <= 6.0f)
+			{
+				quality = 7;
+			}
+			else if (size <= 8.0f)
+			{
+				quality = 11;
+			}
+			else
+			{
+				quality = static_cast<Vertex2D::IndexType>(Min(size * 0.225f + 18.0f, 255.0f));
+			}
+
+			return static_cast<Vertex2D::IndexType>(Max(quality * rate, 3.0f));
+		}
+
+		[[nodiscard]]
+		inline constexpr Vertex2D::IndexType CaluculateFanQuality(const float r) noexcept
+		{
+			return r <= 1.0f ? 3
+				: r <= 6.0f ? 5
+				: r <= 12.0f ? 8
+				: static_cast<Vertex2D::IndexType>(Min(64.0f, r * 0.2f + 6));
 		}
 	}
 
@@ -310,7 +346,7 @@ namespace s3d
 		{
 			const float rOuter = (rInner + thickness);
 			const Vertex2D::IndexType quality = detail::CalculateCircleFrameQuality(rOuter * scale);
-			const Vertex2D::IndexType vertexSize = quality * 2, indexSize = quality * 6;
+			const Vertex2D::IndexType vertexSize = (quality * 2), indexSize = (quality * 6);
 			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
 
 			if (not pVertex)
@@ -344,6 +380,242 @@ namespace s3d
 					const auto [s, c] = FastMath::SinCos(rad);
 					(pDst++)->pos.set(centerX + rOuter * c, centerY - rOuter * s);
 					(pDst++)->pos.set(centerX + rInner * c, centerY - rInner * s);
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				(pVertex++)->color = outerColor;
+				(pVertex++)->color = innerColor;
+			}
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				for (Vertex2D::IndexType k = 0; k < 6; ++k)
+				{
+					*pIndex++ = (indexOffset + (i * 2 + detail::RectIndexTable[k]) % (quality * 2));
+				}
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildCirclePie(const BufferCreatorFunc& bufferCreator, const Float2& center, float r, float startAngle, float _angle, const Float4& innerColor, const Float4& outerColor, float scale)
+		{
+			if (_angle == 0.0f)
+			{
+				return 0;
+			}
+
+			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
+			const Vertex2D::IndexType vertexSize = (quality + 1), indexSize = ((quality - 1) * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float centerX = center.x;
+			const float centerY = center.y;
+
+			// 中心
+			pVertex[0].pos.set(centerX, centerY);
+
+			// 周
+			{
+				const float radDelta = Math::TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + Math::HalfPiF;
+				const float angleScale = (angle / Math::TwoPiF);
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = start + (radDelta * i) * angleScale;
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + r * c, centerY - r * s);
+				}
+			}
+
+			{
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
+			{
+				*pIndex++ = (indexOffset + i + 1);
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 2);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildCircleArc(const BufferCreatorFunc& bufferCreator, const Float2& center, float rInner, float startAngle, float _angle, float thickness, const Float4& innerColor, const Float4& outerColor, float scale)
+		{
+			if (_angle == 0.0f)
+			{
+				return 0;
+			}
+
+			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const float rOuter = rInner + thickness;
+			const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(rOuter * scale, angle);
+			const Vertex2D::IndexType vertexSize = (quality * 2), indexSize = ((quality - 1) * 6);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			{
+				const float centerX = center.x;
+				const float centerY = center.y;
+				const float radDelta = Math::TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + Math::HalfPiF;
+				const float angleScale = (angle / Math::TwoPiF);
+				Vertex2D* pDst = pVertex;
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = start + (radDelta * i) * angleScale;
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + rOuter * c, centerY - rOuter * s);
+					(pDst++)->pos.set(centerX + rInner * c, centerY - rInner * s);
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize / 2; ++i)
+			{
+				(pVertex++)->color = outerColor;
+				(pVertex++)->color = innerColor;
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
+			{
+				for (Vertex2D::IndexType k = 0; k < 6; ++k)
+				{
+					*pIndex++ = indexOffset + (i * 2 + detail::RectIndexTable[k]);
+				}
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildEllipse(const BufferCreatorFunc& bufferCreator, const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor, float scale)
+		{
+			const float majorAxis = Max(Abs(a), Abs(b));
+			const Vertex2D::IndexType quality = static_cast<Vertex2D::IndexType>(Clamp(majorAxis * scale * 0.225f + 18.0f, 6.0f, 255.0f));
+			const Vertex2D::IndexType vertexSize = (quality + 1), indexSize = (quality * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			// 中心
+			const float centerX = center.x;
+			const float centerY = center.y;
+			pVertex[0].pos.set(centerX, centerY);
+
+			// 周
+			if (quality <= detail::MaxSinCosTableQuality)
+			{
+				const Float2* pCS = detail::GetSinCosTableStartPtr(quality);
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					(pDst++)->pos.set(a * pCS->x + centerX, b * pCS->y + centerY);
+					++pCS;
+				}
+			}
+			else
+			{
+				const float radDelta = (Math::TwoPiF / quality);
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + a * c, centerY - b * s);
+				}
+			}
+
+			{
+				(pVertex++)->color = innerColor;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = outerColor;
+				}
+			}
+
+			{
+				for (Vertex2D::IndexType i = 0; i < quality - 1; ++i)
+				{
+					*pIndex++ = indexOffset + (i + 1);
+					*pIndex++ = indexOffset;
+					*pIndex++ = indexOffset + (i + 2);
+				}
+
+				*pIndex++ = indexOffset + quality;
+				*pIndex++ = indexOffset;
+				*pIndex++ = indexOffset + 1;
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildEllipseFrame(const BufferCreatorFunc& bufferCreator, const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor, float scale)
+		{
+			const float aOuter = (aInner + thickness);
+			const float bOuter = (bInner + thickness);
+			const float majorT = Max(Abs(aOuter), Abs(bOuter));
+			const Vertex2D::IndexType quality = detail::CalculateCircleFrameQuality(majorT * scale);
+			const Vertex2D::IndexType vertexSize = (quality * 2), indexSize = (quality * 6);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float centerX = center.x;
+			const float centerY = center.y;
+
+			if (quality <= detail::MaxSinCosTableQuality)
+			{
+				const Float2* pCS = detail::GetSinCosTableStartPtr(quality);
+				Vertex2D* pDst = pVertex;
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					(pDst++)->pos.set(aOuter * pCS->x + centerX, bOuter * pCS->y + centerY);
+					(pDst++)->pos.set(aInner * pCS->x + centerX, bInner * pCS->y + centerY);
+					++pCS;
+				}
+			}
+			else
+			{
+				const float radDelta = (Math::TwoPiF / quality);
+				Vertex2D* pDst = pVertex;
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + aOuter * c, centerY - bOuter * s);
+					(pDst++)->pos.set(centerX + aInner * c, centerY - bInner * s);
 				}
 			}
 
@@ -405,6 +677,85 @@ namespace s3d
 			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
 			{
 				*pIndex++ = (indexOffset + detail::RectIndexTable[i]);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale)
+		{
+			const float rr = Min({ w * 0.5f, h * 0.5f, Max(0.0f, r) });
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(rr * scale);
+
+			Array<Float2> fanPositions(quality);
+			{
+				const float radDelta = (Math::HalfPiF / (quality - 1));
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto [s, c] = FastMath::SinCos(rad);
+					fanPositions[i].set(s * rr, -c * rr);
+				}
+			}
+
+			const bool uniteV = (h * 0.5f == rr);
+			const bool uniteH = (w * 0.5f == rr);
+			const std::array<Float2, 4> centers =
+			{ {
+				{ rect.right - rr, rect.top + rr },
+				{ rect.right - rr, rect.bottom - rr },
+				{ rect.left + rr, rect.bottom - rr },
+				{ rect.left + rr, rect.top + rr },
+			} };
+
+			const Vertex2D::IndexType vertexSize = (quality - uniteV + quality - uniteH) * 2;
+			const Vertex2D::IndexType indexSize = (vertexSize - 2) * 3;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			{
+				Vertex2D* pDst = pVertex;
+
+				for (int32 i = 0; i < quality - uniteV; ++i)
+				{
+					pDst->pos = centers[0] + fanPositions[i];
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteH; ++i)
+				{
+					pDst->pos = centers[1] + Float2{ fanPositions[quality - i - 1].x, -fanPositions[quality - i - 1].y };
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteV; ++i)
+				{
+					pDst->pos = centers[2] - fanPositions[i];
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteH; ++i)
+				{
+					pDst->pos = centers[3] + Float2{ -fanPositions[quality - i - 1].x, fanPositions[quality - i - 1].y };
+					++pDst;
+				}
+
+				for (size_t i = 0; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = color;
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (vertexSize - 2); ++i)
+			{
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 1);
+				*pIndex++ = (indexOffset + ((i + 2 < vertexSize) ? (i + 2) : 0));
 			}
 
 			return indexSize;

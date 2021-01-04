@@ -31,7 +31,7 @@ namespace s3d
 
 		using value_type	= position_type::value_type;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -48,35 +48,44 @@ namespace s3d
 			};
 		};
 
-		/// @brief 楕円の X 軸上の半径
-		value_type a;
+		union
+		{
+			/// @brief 楕円の X 軸 Y 軸に沿った半径
+			position_type axes;
 
-		/// @brief 楕円の Y 軸上の半径
-		value_type b;
+			struct
+			{
+				/// @brief 楕円の X 軸上の半径
+				value_type a;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
+				/// @brief 楕円の Y 軸上の半径
+				value_type b;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		/// @brief 
 		SIV3D_NODISCARD_CXX20
 		Ellipse() = default;
 
 		/// @brief 
-		/// @param _r 
+		/// @param r 
 		SIV3D_NODISCARD_CXX20
-		explicit constexpr Ellipse(double _r) noexcept;
+		explicit constexpr Ellipse(size_type r) noexcept;
 
 		/// @brief 
 		/// @param _a 
 		/// @param _b 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(double _a, double _b) noexcept;
+		constexpr Ellipse(size_type _a, size_type _b) noexcept;
 
 		/// @brief 
 		/// @param _x 
 		/// @param _y 
-		/// @param _r 
+		/// @param r 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(double _x, double _y, double _r) noexcept;
+		constexpr Ellipse(value_type _x, value_type _y, size_type r) noexcept;
 
 		/// @brief 
 		/// @param _x 
@@ -84,38 +93,38 @@ namespace s3d
 		/// @param _a 
 		/// @param _b 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(double _x, double _y, double _a, double _b) noexcept;
+		constexpr Ellipse(value_type _x, value_type _y, size_type _a, size_type _b) noexcept;
 
 		/// @brief 
 		/// @param _center 
 		SIV3D_NODISCARD_CXX20
-		explicit constexpr Ellipse(Vec2 _center) noexcept;
+		explicit constexpr Ellipse(position_type _center) noexcept;
 
 		/// @brief 
 		/// @param _center 
 		/// @param _r 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(const Vec2& _center, double _r) noexcept;
+		constexpr Ellipse(const position_type& _center, size_type r) noexcept;
 
 		/// @brief 
 		/// @param _center 
 		/// @param _a 
 		/// @param _b 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(const Vec2& _center, double _a, double _b) noexcept;
+		constexpr Ellipse(const position_type& _center, size_type _a, size_type _b) noexcept;
 
 		/// @brief 
 		/// @param _x 
 		/// @param _y 
-		/// @param _axis 
+		/// @param _axes 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(double _x, double _y, const Vec2& _axis) noexcept;
+		constexpr Ellipse(value_type _x, value_type _y, const Vec2& _axes) noexcept;
 
 		/// @brief 
 		/// @param _center 
-		/// @param _axis 
+		/// @param _axes 
 		SIV3D_NODISCARD_CXX20
-		constexpr Ellipse(const Vec2& _center, const Vec2& _axis) noexcept;
+		constexpr Ellipse(const position_type& _center, const Vec2& _axes) noexcept;
 
 		/// @brief 
 		/// @param circle 
@@ -145,15 +154,15 @@ namespace s3d
 
 		constexpr Ellipse& set(value_type _x, value_type _y, size_type _a, size_type _b) noexcept;
 
-		constexpr Ellipse& set(double _x, double _y, double _r) noexcept;
+		constexpr Ellipse& set(value_type _x, value_type _y, size_type _r) noexcept;
 
-		constexpr Ellipse& set(const Vec2& _center, double _r) noexcept;
+		constexpr Ellipse& set(const position_type& _center, size_type _r) noexcept;
 
-		constexpr Ellipse& set(const Vec2& _center, double _a, double _b) noexcept;
+		constexpr Ellipse& set(const position_type& _center, size_type _a, size_type _b) noexcept;
 
-		constexpr Ellipse& set(double _x, double _y, const Vec2& _axis) noexcept;
+		constexpr Ellipse& set(value_type _x, value_type _y, const Vec2& _axes) noexcept;
 
-		constexpr Ellipse& set(const Vec2& _center, const Vec2& _axis) noexcept;
+		constexpr Ellipse& set(const position_type& _center, const Vec2& _axes) noexcept;
 
 		constexpr Ellipse& set(const Circle& circle) noexcept;
 
@@ -169,29 +178,45 @@ namespace s3d
 
 		constexpr Ellipse& setPos(const position_type& _center) noexcept;
 
-		[[nodiscard]] constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept;
+		constexpr Ellipse& setAxes(value_type _r) noexcept;
 
-		[[nodiscard]] constexpr Ellipse movedBy(const position_type& v) const noexcept;
+		constexpr Ellipse& setAxes(size_type _a, size_type _b) noexcept;
+
+		constexpr Ellipse& setAxes(const Vec2& _axes) noexcept;
+
+		[[nodiscard]]
+		constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept;
+
+		[[nodiscard]]
+		constexpr Ellipse movedBy(const position_type& v) const noexcept;
 
 		constexpr Ellipse& moveBy(value_type _x, value_type _y) noexcept;
 
 		constexpr Ellipse& moveBy(const position_type& v) noexcept;
 
-		[[nodiscard]] constexpr Ellipse stretched(value_type size) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse stretched(value_type size) const noexcept;
 
-		[[nodiscard]] constexpr Ellipse stretched(double _x, double _y) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse stretched(double _x, double _y) const noexcept;
 
-		[[nodiscard]] constexpr Ellipse scaled(double s) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse scaled(double s) const noexcept;
 
-		[[nodiscard]] constexpr Ellipse scaled(double sx, double sy) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse scaled(double sx, double sy) const noexcept;
 
-		[[nodiscard]] constexpr Vec2 top() const noexcept;
+		[[nodiscard]]
+		constexpr position_type top() const noexcept;
 
-		[[nodiscard]] constexpr Vec2 right() const noexcept;
+		[[nodiscard]]
+		constexpr position_type right() const noexcept;
 
-		[[nodiscard]] constexpr Vec2 bottom() const noexcept;
+		[[nodiscard]]
+		constexpr position_type bottom() const noexcept;
 
-		[[nodiscard]] constexpr Vec2 left() const noexcept;
+		[[nodiscard]]
+		constexpr position_type left() const noexcept;
 
 		[[nodiscard]]
 		constexpr Line horizontalDiameter() const noexcept;
@@ -199,13 +224,17 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Line verticalDiameter() const noexcept;
 
-		[[nodiscard]] constexpr value_type area() const noexcept;
+		[[nodiscard]]
+		constexpr value_type area() const noexcept;
 
-		[[nodiscard]] constexpr Circle boundingCircle() const noexcept;
+		[[nodiscard]]
+		constexpr Circle boundingCircle() const noexcept;
 
-		[[nodiscard]] constexpr RectF boundingRect() const noexcept;
+		[[nodiscard]]
+		constexpr RectF boundingRect() const noexcept;
 
-		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
+		[[nodiscard]]
+		Polygon asPolygon(uint32 quality = 24) const;
 
 		[[nodiscard]]
 		constexpr Ellipse lerp(const Ellipse& other, double f) const noexcept;
@@ -250,13 +279,13 @@ namespace s3d
 
 		//const Ellipse& overwrite(Image& dst, const Color& color) const;
 
-		//const Ellipse& draw(const ColorF& color = Palette::White) const;
+		const Ellipse& draw(const ColorF& color = Palette::White) const;
 
-		//const Ellipse& draw(const ColorF& innerColor, const ColorF& outerColor) const;
+		const Ellipse& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
-		//const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const Ellipse& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//const Ellipse& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+		const Ellipse& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ellipse& value)

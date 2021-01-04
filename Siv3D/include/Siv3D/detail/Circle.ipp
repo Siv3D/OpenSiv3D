@@ -293,6 +293,16 @@ namespace s3d
 		return{ Arg::center(center), r };
 	}
 
+	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
+	{
+		return{ center.lerp(other.center, f), (r + (other.r - r) * f) };
+	}
+
+	inline size_t Circle::hash() const noexcept
+	{
+		return Hash::FNV1a(*this);
+	}
+
 	template <class Shape2DType>
 	inline bool Circle::intersects(const Shape2DType& other) const
 	{
@@ -309,15 +319,5 @@ namespace s3d
 	inline bool Circle::contains(const Shape2DType& other) const
 	{
 		return Geometry2D::Contains(*this, other);
-	}
-
-	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
-	{
-		return{ center.lerp(other.center, f), (r + (other.r - r) * f) };
-	}
-
-	inline size_t Circle::hash() const noexcept
-	{
-		return Hash::FNV1a(*this);
 	}
 }

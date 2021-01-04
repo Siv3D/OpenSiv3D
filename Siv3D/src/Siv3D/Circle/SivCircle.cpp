@@ -10,10 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
-# include <Siv3D/Polygon.hpp>
 # include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -58,9 +58,9 @@ namespace s3d
 
 		double xMin = center.x;
 		double xMax = center.x;
-		const double yMin = center.y - r;
+		const double yMin = (center.y - r);
 		double yMax = center.y;
-		const double d = (Math::Constants::TwoPi / n);
+		const double d = (Math::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{
@@ -134,13 +134,13 @@ namespace s3d
 
 	const Circle& Circle::draw(const ColorF& color) const
 	{
-		const Float4 colors = color.toFloat4();
+		const Float4 color0 = color.toFloat4();
 
 		SIV3D_ENGINE(Renderer2D)->addCircle(
 			center,
 			static_cast<float>(r),
-			colors,
-			colors
+			color0,
+			color0
 		);
 
 		return *this;
@@ -188,6 +188,68 @@ namespace s3d
 		SIV3D_ENGINE(Renderer2D)->addCircleFrame(
 			center,
 			static_cast<float>(r - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawPie(const double startAngle, const double angle, const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addCirclePie(
+			center,
+			static_cast<float>(r),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			color0,
+			color0
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawPie(const double startAngle, const double angle, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addCirclePie(
+			center,
+			static_cast<float>(r),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			static_cast<float>(innerThickness + outerThickness),
+			color0,
+			color0
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
 			static_cast<float>(innerThickness + outerThickness),
 			innerColor.toFloat4(),
 			outerColor.toFloat4()

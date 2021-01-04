@@ -257,6 +257,78 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_Metal::addCirclePie(const Float2& center, const float r, const float startAngle, const float angle, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addCircleArc(const Float2& center, const float rInner, const float startAngle, const float angle, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addEllipseFrame(const Float2& center, const float aInner, const float bInner, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildEllipseFrame(m_bufferCreator, center, aInner, bInner, thickness, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_Metal::addQuad(const FloatQuad& quad, const Float4& color)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
@@ -289,6 +361,24 @@ namespace s3d
 				m_commandManager.pushStandardPS(m_standardPS->shapeID);
 			}
 			
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_Metal::addRoundRect(const FloatRect& rect, const float w, const float h, const float r, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
 			m_commandManager.pushDraw(indexCount);
 		}
 	}

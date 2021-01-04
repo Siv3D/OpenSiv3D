@@ -72,6 +72,19 @@ namespace s3d
 			return (a.distanceFromSq(b.center) <= (b.r * b.r));
 		}
 
+		inline constexpr bool Intersect(const Vec2& a, const Ellipse& b) noexcept
+		{
+			if ((b.a == 0.0) || (b.b == 0.0))
+			{
+				return false;
+			}
+
+			const double xh = (b.x - a.x);
+			const double yk = (b.y - a.y);
+			return (((xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b)) <= 1.0);
+		}
+
+
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);

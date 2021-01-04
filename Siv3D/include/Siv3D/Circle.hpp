@@ -29,7 +29,7 @@ namespace s3d
 
 		using value_type	= position_type::value_type;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -49,7 +49,7 @@ namespace s3d
 		/// @brief 円の半径
 		size_type r;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		/// @brief 
 		SIV3D_NODISCARD_CXX20
@@ -338,13 +338,13 @@ namespace s3d
 
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 		
-		//const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
+		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
 
-		//const Circle& drawPie(double startAngle, double angle, const ColorF& innerColor, const ColorF& outerColor) const;
+		const Circle& drawPie(double startAngle, double angle, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		//const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
-		//const Circle& drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
+		const Circle& drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
 		//const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 

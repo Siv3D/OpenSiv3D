@@ -70,12 +70,37 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addCirclePie(const Float2&, const float, const float, const float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addCircleArc(const Float2&, const float, const float, const float, const float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addEllipse(const Float2&, const float, const float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addEllipseFrame(const Float2&, const float, const float, const float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addQuad(const FloatQuad&, const Float4&)
 	{
 		// do nothing
 	}
 
 	void CRenderer2D_Null::addQuad(const FloatQuad&, const Float4(&)[4])
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addRoundRect(const FloatRect&, const float, const float, const float, const Float4&)
 	{
 		// do nothing
 	}
