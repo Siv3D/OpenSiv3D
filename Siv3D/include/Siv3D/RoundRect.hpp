@@ -120,128 +120,63 @@ namespace s3d
 				|| (lhs.r != rhs.r);
 		}
 
-		constexpr RoundRect& set(value_type _x, value_type _y, value_type _w, value_type _h, value_type _r) noexcept
-		{
-			rect.set(_x, _y, _w, _h);
-			r = _r;
-			return *this;
-		}
+		constexpr RoundRect& set(value_type _x, value_type _y, value_type _w, value_type _h, value_type _r) noexcept;
 
-		constexpr RoundRect& set(const position_type& pos, value_type _w, value_type _h, value_type _r) noexcept
-		{
-			return set(pos.x, pos.y, _w, _h, _r);
-		}
+		constexpr RoundRect& set(const position_type& pos, value_type _w, value_type _h, value_type _r) noexcept;
 
-		constexpr RoundRect& set(value_type _x, value_type _y, const size_type& size, value_type _r) noexcept
-		{
-			return set(_x, _y, size.x, size.y, _r);
-		}
+		constexpr RoundRect& set(value_type _x, value_type _y, const size_type& size, value_type _r) noexcept;
 
-		constexpr RoundRect& set(const position_type& pos, const size_type& size, value_type _r) noexcept
-		{
-			return set(pos.x, pos.y, size.x, size.y, _r);
-		}
+		constexpr RoundRect& set(const position_type& pos, const size_type& size, value_type _r) noexcept;
 
-		constexpr RoundRect& set(const RectF& _rect, value_type _r) noexcept
-		{
-			return set(_rect.x, _rect.y, _rect.w, _rect.h, _r);
-		}
+		constexpr RoundRect& set(const RectF& _rect, value_type _r) noexcept;
 
-		constexpr RoundRect& set(const RoundRect& roundRect) noexcept
-		{
-			return *this = roundRect;
-		}
+		constexpr RoundRect& set(const RoundRect& roundRect) noexcept;
 
-		constexpr RoundRect& setPos(value_type _x, value_type _y) noexcept
-		{
-			rect.setPos(_x, _y);
-			return *this;
-		}
+		constexpr RoundRect& setPos(value_type _x, value_type _y) noexcept;
 
-		constexpr RoundRect& setPos(const position_type& _center) noexcept
-		{
-			return setPos(_center.x, _center.y);
-		}
+		constexpr RoundRect& setPos(position_type _pos) noexcept;
 
-		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept
-		{
-			rect.setCenter(_x, _y);
-			return *this;
-		}
+		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept;
 
-		constexpr RoundRect& setCenter(const position_type& _center) noexcept
-		{
-			return setCenter(_center.x, _center.y);
-		}
+		constexpr RoundRect& setCenter(position_type _center) noexcept;
 
-		constexpr RoundRect& setSize(value_type _w, value_type _h) noexcept
-		{
-			rect.setSize(_w, _h);
-			return *this;
-		}
+		constexpr RoundRect& setSize(value_type _w, value_type _h) noexcept;
 
-		constexpr RoundRect& setSize(const size_type& _size) noexcept
-		{
-			return setSize(_size.x, _size.y);
-		}
+		constexpr RoundRect& setSize(size_type _size) noexcept;
 
-		[[nodiscard]] constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept
-		{
-			return{ rect.movedBy(_x, _y), r };
-		}
+		[[nodiscard]]
+		constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept;
 
-		[[nodiscard]] constexpr RoundRect movedBy(const position_type& v) const noexcept
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]]
+		constexpr RoundRect movedBy(position_type v) const noexcept;
 
-		constexpr RoundRect& moveBy(value_type _x, value_type _y) noexcept
-		{
-			rect.moveBy(_x, _y);
-			return *this;
-		}
+		constexpr RoundRect& moveBy(value_type _x, value_type _y) noexcept;
 
-		constexpr RoundRect& moveBy(const position_type& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		constexpr RoundRect& moveBy(position_type v) noexcept;
 
-		[[nodiscard]] constexpr RoundRect stretched(value_type size) const noexcept
-		{
-			return RoundRect(rect.stretched(size), r);
-		}
+		[[nodiscard]]
+		constexpr RoundRect stretched(value_type size) const noexcept;
 
-		[[nodiscard]] constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept
-		{
-			return RoundRect(rect.stretched(_x, _y), r);
-		}
+		[[nodiscard]]
+		constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept;
 
-		[[nodiscard]] constexpr RoundRect stretched(const size_type& xy) const noexcept
-		{
-			return RoundRect(rect.stretched(xy.x, xy.y), r);
-		}
+		[[nodiscard]]
+		constexpr RoundRect stretched(size_type xy) const noexcept;
 
-		[[nodiscard]] constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
-		{
-			return RoundRect(rect.stretched(top, right, bottom, left), r);
-		}
+		[[nodiscard]]
+		constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept;
 
-		[[nodiscard]] constexpr position_type center() const noexcept
-		{
-			return rect.center();
-		}
+		[[nodiscard]]
+		constexpr position_type center() const noexcept;
 
-		[[nodiscard]] constexpr double area() const noexcept
-		{
-			return rect.area() - (4 - Math::Constants::Pi) * r * r;
-		}
+		[[nodiscard]]
+		constexpr double area() const noexcept;
 
-		[[nodiscard]] constexpr double perimeter() const noexcept
-		{
-			return rect.perimeter() + r * (2 * Math::Constants::Pi - 8);
-		}
+		[[nodiscard]]
+		constexpr double perimeter() const noexcept;
 
-		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
+		[[nodiscard]]
+		Polygon asPolygon(uint32 quality = 24) const;
 
 		[[nodiscard]]
 		constexpr RoundRect lerp(const RoundRect& other, double f) const noexcept;
