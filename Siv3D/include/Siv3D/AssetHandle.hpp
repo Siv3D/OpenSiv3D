@@ -24,12 +24,6 @@ namespace s3d
 
 		using IDType = typename AssetIDWrapperType::IDType;
 
-	protected:
-
-		std::shared_ptr<AssetIDWrapperType> m_handle;
-
-	public:
-
 		SIV3D_NODISCARD_CXX20
 		AssetHandle();
 
@@ -52,6 +46,10 @@ namespace s3d
 		bool operator !=(const AssetHandle& other) const noexcept;
 
 		void release();
+
+	protected:
+
+		std::shared_ptr<AssetIDWrapperType> m_handle;
 	};
 }
 

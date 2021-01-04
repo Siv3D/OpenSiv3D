@@ -22,10 +22,6 @@ namespace s3d
 	/// @brief 定数バッファ（シェーダ）ベース
 	class ConstantBufferBase
 	{
-	private:
-
-		std::shared_ptr<IConstantBufferDetail> pImpl;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -42,6 +38,10 @@ namespace s3d
 
 		[[nodiscard]]
 		const IConstantBufferDetail* _detail() const;
+	
+	private:
+
+		std::shared_ptr<IConstantBufferDetail> pImpl;
 	};
 
 	/// @brief 定数バッファ（シェーダ）
@@ -49,7 +49,7 @@ namespace s3d
 	template <class Type>
 	class ConstantBuffer
 	{
-	private:
+	public:
 
 		static_assert(sizeof(Type) <= (16 * 4096)); // <= 64KB
 
@@ -59,14 +59,6 @@ namespace s3d
 		{
 			Type data;
 		};
-
-		ConstantBufferBase m_base;
-
-		WrapperType* const m_wrapper	= AlignedNew<WrapperType>();
-
-		bool m_hasDirty					= true;
-
-	public:
 
 		static constexpr size_t Size		= sizeof(WrapperType);
 
@@ -108,6 +100,14 @@ namespace s3d
 
 		[[nodiscard]]
 		const Type* operator ->() const noexcept;
+
+	private:
+
+		ConstantBufferBase m_base;
+
+		WrapperType* const m_wrapper = AlignedNew<WrapperType>();
+
+		bool m_hasDirty = true;
 	};
 }
 

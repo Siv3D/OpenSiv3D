@@ -19,12 +19,6 @@ namespace s3d
 	/// @brief 正規表現
 	class RegExp
 	{
-	private:
-
-		class RegExpDetail;
-
-		std::shared_ptr<RegExpDetail> pImpl;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -50,6 +44,12 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<MatchResults> findAll(StringView s) const;
+
+	private:
+
+		class RegExpDetail;
+
+		std::shared_ptr<RegExpDetail> pImpl;
 	};
 
 	inline namespace Literals

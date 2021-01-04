@@ -22,14 +22,6 @@ namespace s3d
 
 		class Iterator
 		{
-		private:
-
-			T m_currentValue;
-
-			N m_count;
-
-			S m_step;
-
 		public:
 
 			constexpr Iterator();
@@ -53,20 +45,20 @@ namespace s3d
 			constexpr N count() const;
 
 			constexpr S step() const;
+
+		private:
+
+			T m_currentValue;
+
+			N m_count;
+
+			S m_step;
 		};
 
 	public:
 
 		using value_type = T;
 		using iterator = Iterator;
-
-	private:
-
-		iterator m_end_iterator;
-
-		iterator m_start_iterator;
-
-	public:
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Step(T startValue, N count, S step);
@@ -171,6 +163,12 @@ namespace s3d
 		{
 			formatData.string.append(value.join());
 		}
+
+	private:
+
+		iterator m_end_iterator;
+
+		iterator m_start_iterator;
 	};
 
 	template <class T, class N, class S = int32, std::enable_if_t<std::is_integral_v<N>>* = nullptr>

@@ -23,11 +23,7 @@ namespace s3d
 	template <class Type>
 	class AsyncTask : protected std::future<Type>
 	{
-	private:
-
 		using base_type = std::future<Type>;
-
-	public:
 
 		using base_type::operator=;
 		using base_type::get;

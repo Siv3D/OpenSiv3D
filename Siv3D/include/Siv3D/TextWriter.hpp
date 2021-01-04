@@ -26,12 +26,6 @@ namespace s3d
 	{
 		class TextWriterBuffer
 		{
-		private:
-
-			TextWriter& m_writer;
-
-			bool m_isLast = false;
-
 		public:
 
 			std::unique_ptr<FormatData> formatData;
@@ -44,18 +38,18 @@ namespace s3d
 
 			template <class Type>
 			TextWriterBuffer& operator <<(const Type& value);
+
+		private:
+
+			TextWriter& m_writer;
+
+			bool m_isLast = false;
 		};
 	}
 
 	/// @brief 書き込み用テキストファイル
 	class TextWriter
 	{
-	private:
-
-		class TextWriterDetail;
-
-		std::shared_ptr<TextWriterDetail> pImpl;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -114,6 +108,12 @@ namespace s3d
 
 		[[nodiscard]]
 		const FilePath& path() const noexcept;
+
+	private:
+
+		class TextWriterDetail;
+
+		std::shared_ptr<TextWriterDetail> pImpl;
 	};
 }
 

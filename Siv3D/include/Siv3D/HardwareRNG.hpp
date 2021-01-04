@@ -21,13 +21,9 @@ namespace s3d
 	/// </summary>
 	class HardwareRNG
 	{
-	private:
+	public:
 
 		using engine_type = std::random_device;
-
-		engine_type m_engine;
-
-	public:
 
 		using result_type = engine_type::result_type;
 
@@ -65,6 +61,10 @@ namespace s3d
 
 		template <size_t N>
 		std::array<result_type, N> generateSeeds() noexcept;
+
+	private:
+
+		engine_type m_engine;
 	};
 }
 

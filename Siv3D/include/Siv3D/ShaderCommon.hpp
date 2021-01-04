@@ -132,13 +132,6 @@ namespace s3d
 
 	class ShaderGroup
 	{
-	private:
-
-		Optional<HLSL> m_hlsl;
-		Optional<GLSL> m_glsl;
-		Optional<MSL> m_msl;
-		Optional<ESSL> m_essl;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -164,6 +157,13 @@ namespace s3d
 
 		[[nodiscard]]
 		operator PixelShader() const;
+
+	private:
+
+		Optional<HLSL> m_hlsl;
+		Optional<GLSL> m_glsl;
+		Optional<MSL>  m_msl;
+		Optional<ESSL> m_essl;
 	};
 }
 

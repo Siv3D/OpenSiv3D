@@ -18,14 +18,9 @@ namespace s3d
 {
 	class Blob
 	{
-	private:
-
-		using base_type = Array<Byte>;
-
-		base_type m_data;
-
 	public:
 
+		using base_type					= Array<Byte>;
 		using iterator					= base_type::iterator;
 		using const_iterator			= base_type::const_iterator;
 		using reverse_iterator			= base_type::reverse_iterator;
@@ -144,6 +139,10 @@ namespace s3d
 		void append(const void* src, size_t sizeBytes);
 
 		bool save(FilePathView path) const;
+
+	private:
+
+		base_type m_data;
 	};
 }
 

@@ -18,10 +18,6 @@ namespace s3d
 	template <class AssetTag>
 	class AssetIDWrapper
 	{
-	private:
-
-		AssetID<AssetTag> m_id;
-
 	public:
 
 		using IDType = AssetID<AssetTag>;
@@ -36,6 +32,10 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr IDType id() const noexcept;
+	
+	private:
+
+		AssetID<AssetTag> m_id;
 	};
 }
 

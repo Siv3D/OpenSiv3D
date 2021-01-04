@@ -18,14 +18,9 @@ namespace s3d
 {
 	class MatchResults
 	{
-	private:
-
-		using container = Array<StringView>;
-
-		container m_matches;
-
 	public:
 
+		using container			= Array<StringView>;
 		using value_type		= StringView;
 		using const_reference	= const value_type&;
 		using reference			= value_type&;
@@ -69,6 +64,10 @@ namespace s3d
 
 		[[nodiscard]]
 		const_iterator cend() const noexcept;
+
+	private:
+
+		container m_matches;
 	};
 }
 

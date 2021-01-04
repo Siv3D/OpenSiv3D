@@ -23,10 +23,6 @@ namespace s3d
 	/// @remark 経過時間をマイクロ秒で計測します。
 	class MicrosecClock
 	{
-	private:
-
-		const uint64 m_start = Time::GetMicrosec();
-
 	public:
 
 		/// @brief 経過時間（マイクロ秒）を返します。
@@ -42,6 +38,10 @@ namespace s3d
 
 		/// @brief 経過時間をデバッグ表示します。
 		//void print() const;
+
+	private:
+
+		const uint64 m_start = Time::GetMicrosec();
 	};
 }
 

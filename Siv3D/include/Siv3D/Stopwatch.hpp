@@ -24,18 +24,6 @@ namespace s3d
 	/// @brief ストップウォッチ
 	class Stopwatch
 	{
-	private:
-
-		int64 m_startTimeMicrosec = 0;
-
-		int64 m_accumulationMicrosec = 0;
-
-		ISteadyClock* m_pSteadyClock = nullptr;
-
-		bool m_isStarted = false;
-
-		bool m_pausing = true;
-
 	public:
 
 		/// @brief ストップウォッチを作成します。
@@ -321,6 +309,18 @@ namespace s3d
 		{
 			formatData.string.append(value.format());
 		}
+
+	private:
+
+		int64 m_startTimeMicrosec = 0;
+
+		int64 m_accumulationMicrosec = 0;
+
+		ISteadyClock* m_pSteadyClock = nullptr;
+
+		bool m_isStarted = false;
+
+		bool m_pausing = true;
 	};
 }
 

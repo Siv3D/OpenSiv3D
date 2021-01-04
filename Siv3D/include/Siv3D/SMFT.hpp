@@ -33,12 +33,6 @@ namespace s3d
 
 			using State_t = detail::SFMT_T;
 
-		private:
-
-			State_t m_state;
-
-		public:
-
 			static constexpr size_t SeedSequencCount = 16;
 
 			/// <summary>
@@ -115,6 +109,10 @@ namespace s3d
 			constexpr const State_t& serialize() const noexcept;
 
 			constexpr void deserialize(const State_t& data) noexcept;
+
+		private:
+
+			State_t m_state;
 		};
 	}
 }

@@ -14,27 +14,6 @@
 namespace s3d
 {
 	template <class Float>
-	inline constexpr Float BasicPerlinNoise<Float>::Fade(const Float t) noexcept
-	{
-		return t * t * t * (t * (t * 6 - 15) + 10);
-	}
-
-	template <class Float>
-	inline constexpr Float BasicPerlinNoise<Float>::Lerp(const Float a, const Float b, const Float t) noexcept
-	{
-		return a + (b - a) * t;
-	}
-
-	template <class Float>
-	inline constexpr Float BasicPerlinNoise<Float>::Grad(const uint8 hash, const Float x, const Float y, const Float z) noexcept
-	{
-		const uint8 h = hash & 15;
-		const Float u = h < 8 ? x : y;
-		const Float v = h < 4 ? y : h == 12 || h == 14 ? x : z;
-		return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
-	}
-
-	template <class Float>
 	inline constexpr BasicPerlinNoise<Float>::BasicPerlinNoise() noexcept
 		: m_perm{ 151,160,137,91,90,15,
 				131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
@@ -152,5 +131,26 @@ namespace s3d
 	inline constexpr void BasicPerlinNoise<Float>::deserialize(const state_type& state) noexcept
 	{
 		m_perm = state;
+	}
+
+	template <class Float>
+	inline constexpr Float BasicPerlinNoise<Float>::Fade(const Float t) noexcept
+	{
+		return t * t * t * (t * (t * 6 - 15) + 10);
+	}
+
+	template <class Float>
+	inline constexpr Float BasicPerlinNoise<Float>::Lerp(const Float a, const Float b, const Float t) noexcept
+	{
+		return a + (b - a) * t;
+	}
+
+	template <class Float>
+	inline constexpr Float BasicPerlinNoise<Float>::Grad(const uint8 hash, const Float x, const Float y, const Float z) noexcept
+	{
+		const uint8 h = hash & 15;
+		const Float u = h < 8 ? x : y;
+		const Float v = h < 4 ? y : h == 12 || h == 14 ? x : z;
+		return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 	}
 }

@@ -21,20 +21,6 @@ namespace s3d
 	/// @brief タイマー
 	class Timer
 	{
-	private:
-
-		int64 m_durationMicrosec = 0;
-
-		int64 m_startTimeMicrosec = 0;
-
-		int64 m_remainingMicrosec = 0;
-
-		ISteadyClock* m_pSteadyClock = nullptr;
-
-		bool m_isStarted = false;
-
-		bool m_pausing = true;
-
 	public:
 
 		/// @brief タイマーを作成します。
@@ -341,6 +327,20 @@ namespace s3d
 		{
 			formatData.string.append(value.format());
 		}
+
+	private:
+
+		int64 m_durationMicrosec = 0;
+
+		int64 m_startTimeMicrosec = 0;
+
+		int64 m_remainingMicrosec = 0;
+
+		ISteadyClock* m_pSteadyClock = nullptr;
+
+		bool m_isStarted = false;
+
+		bool m_pausing = true;
 	};
 }
 

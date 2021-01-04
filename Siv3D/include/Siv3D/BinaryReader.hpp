@@ -21,12 +21,6 @@ namespace s3d
 	/// @brief 読み込み用バイナリファイル
 	class BinaryReader : public IReader
 	{
-	private:
-
-		class BinaryReaderDetail;
-
-		std::shared_ptr<BinaryReaderDetail> pImpl;
-
 	public:
 
 		/// @brief デフォルトコンストラクタ
@@ -128,6 +122,12 @@ namespace s3d
 		const FilePath& path() const noexcept;
 
 		//[[nodiscard]] ByteArray readAll();
+	
+	private:
+
+		class BinaryReaderDetail;
+
+		std::shared_ptr<BinaryReaderDetail> pImpl;
 	};
 }
 

@@ -24,16 +24,6 @@ namespace s3d
 {
 	class Image
 	{
-	private:
-
-		using base_type = Array<Color>;
-
-		base_type m_data;
-
-		uint32 m_width = 0;
-
-		uint32 m_height = 0;
-
 	public:
 
 		/// @brief 作成可能な最大の画像の幅
@@ -42,6 +32,7 @@ namespace s3d
 		/// @brief 作成可能な最大の画像の高さ
 		static constexpr int32 MaxHeight	= 16384;
 
+		using base_type					= Array<Color>;
 		using iterator					= base_type::iterator;
 		using const_iterator			= base_type::const_iterator;
 		using reverse_iterator			= base_type::reverse_iterator;
@@ -379,6 +370,14 @@ namespace s3d
 
 		template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty, Vec2> || std::is_invocable_r_v<Color, Fty, double, double>)>* = nullptr>
 		static Image Generate0_1(Size size, Fty generator);
+	
+	private:
+
+		base_type m_data;
+
+		uint32 m_width = 0;
+
+		uint32 m_height = 0;
 	};
 
 	inline void swap(Image& a, Image& b) noexcept;

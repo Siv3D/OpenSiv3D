@@ -53,10 +53,6 @@ namespace s3d
 
 	class INIValueWrapper
 	{
-	private:
-
-		String& m_ref;
-
 	public:
 
 		explicit INIValueWrapper(String& ref)
@@ -72,6 +68,10 @@ namespace s3d
 		{
 			return m_ref;
 		}
+
+	private:
+
+		String& m_ref;
 	};
 
 	/// @brief INI 形式の設定ファイルの読み書き
@@ -89,30 +89,8 @@ namespace s3d
 		using Section_Dot_NameView = StringView;
 
 		using Value = String;
-
-	private:
-
 		using SectionIndex = size_t;
-
 		using KeyIndex = size_t;
-
-		Array<INISection> m_sections;
-
-		HashTable<Section, std::pair<SectionIndex, HashTable<Name, KeyIndex>>> m_keyIndices;
-		
-		const INISection m_emptySection;
-
-		const Value m_emptyValue;
-
-		static constexpr std::pair<SectionView, NameView> Split(Section_Dot_NameView section_dot_name);
-
-		bool loadFromTextReader(TextReader& reader);
-
-		String& getValue(SectionView section, NameView name);
-
-		Optional<String> getValueOpt(SectionView section, NameView name) const;
-
-	public:
 
 		INIData();
 
@@ -204,6 +182,24 @@ namespace s3d
 		void writeGlobal(NameView name, const Type& value);
 
 		bool save(FilePathView path) const;
+
+	private:
+
+		Array<INISection> m_sections;
+
+		HashTable<Section, std::pair<SectionIndex, HashTable<Name, KeyIndex>>> m_keyIndices;
+
+		const INISection m_emptySection;
+
+		const Value m_emptyValue;
+
+		static constexpr std::pair<SectionView, NameView> Split(Section_Dot_NameView section_dot_name);
+
+		bool loadFromTextReader(TextReader& reader);
+
+		String& getValue(SectionView section, NameView name);
+
+		Optional<String> getValueOpt(SectionView section, NameView name) const;
 	};
 }
 

@@ -22,11 +22,7 @@ namespace s3d
 {
 	class MathParser
 	{
-	private:
-
-		class MathParserDetail;
-
-		std::shared_ptr<MathParserDetail> pImpl;
+	public:
 
 		using Fty0	= double(*)();
 		using Fty1	= double(*)(double);
@@ -39,8 +35,6 @@ namespace s3d
 		using Fty8	= double(*)(double, double, double, double, double, double, double, double);
 		using Fty9	= double(*)(double, double, double, double, double, double, double, double, double);
 		using Fty10	= double(*)(double, double, double, double, double, double, double, double, double, double);
-
-	public:
 
 		SIV3D_NODISCARD_CXX20
 		MathParser();
@@ -140,6 +134,12 @@ namespace s3d
 
 		[[nodiscard]]
 		HSV evalHSV() const;
+
+	private:
+
+		class MathParserDetail;
+
+		std::shared_ptr<MathParserDetail> pImpl;
 	};
 
 	[[nodiscard]]

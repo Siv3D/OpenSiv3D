@@ -17,12 +17,6 @@ namespace s3d
 	template <class Float>
 	class KahanSummation
 	{
-	private:
-
-		Float m_sum = 0;
-		
-		Float m_err = 0;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -35,6 +29,12 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Float value() const noexcept;
+
+	private:
+
+		Float m_sum = 0;
+
+		Float m_err = 0;
 	};
 }
 

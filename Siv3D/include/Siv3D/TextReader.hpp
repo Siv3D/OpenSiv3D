@@ -21,12 +21,6 @@ namespace s3d
 	/// @brief 読み込み用テキストファイル
 	class TextReader
 	{
-	private:
-
-		class TextReaderDetail;
-
-		std::shared_ptr<TextReaderDetail> pImpl;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -82,6 +76,12 @@ namespace s3d
 
 		[[nodiscard]]
 		const FilePath& path() const noexcept;
+
+	private:
+
+		class TextReaderDetail;
+
+		std::shared_ptr<TextReaderDetail> pImpl;
 	};
 }
 

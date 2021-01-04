@@ -21,10 +21,6 @@ namespace s3d
 	/// @brief 半精度浮動小数点数
 	struct HalfFloat
 	{
-	private:
-
-		uint16 m_bits;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -63,6 +59,10 @@ namespace s3d
 
 		[[nodiscard]]
 		int32 getSign() const noexcept;
+
+	private:
+
+		uint16 m_bits;
 	};
 }
 

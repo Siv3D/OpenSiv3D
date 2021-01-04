@@ -21,12 +21,6 @@ namespace s3d
 	private:
 
 		struct BigFloatDetail;
-		
-		std::unique_ptr<BigFloatDetail> pImpl;
-
-		friend BigFloat operator /(int64 a, const BigFloat& b);
-		friend BigFloat operator /(uint64 a, const BigFloat& b);
-		friend BigFloat operator /(long double a, const BigFloat& b);
 
 	public:
 
@@ -459,6 +453,14 @@ namespace s3d
 
 		[[nodiscard]]
 		const BigFloatDetail& _detail() const;
+
+	private:
+
+		std::unique_ptr<BigFloatDetail> pImpl;
+
+		friend BigFloat operator /(int64 a, const BigFloat& b);
+		friend BigFloat operator /(uint64 a, const BigFloat& b);
+		friend BigFloat operator /(long double a, const BigFloat& b);
 	};
 
 	/*

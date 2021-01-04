@@ -93,6 +93,10 @@ namespace s3d
 			return SIV3D_ENGINE(Scene)->getFrameCounter().getUserFrameCount();
 		}
 
-		/*Vec2 ClientToScene(Vec2 pos) noexcept;*/
+		Vec2 ClientToScene(const Vec2 pos) noexcept
+		{
+			auto [s, viewRect] = SIV3D_ENGINE(Renderer)->getLetterboxComposition();
+			return (pos - viewRect.pos) / s;
+		}
 	}
 }

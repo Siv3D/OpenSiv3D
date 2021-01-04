@@ -30,10 +30,6 @@ namespace s3d
 
 		class GetFunctionNoThrow
 		{
-		private:
-
-			const void* p;
-
 		public:
 
 			SIV3D_NODISCARD_CXX20
@@ -44,14 +40,14 @@ namespace s3d
 			{
 				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 
 		class GetFunction
 		{
-		private:
-
-			const void* p;
-
 		public:
 
 			SIV3D_NODISCARD_CXX20
@@ -62,6 +58,10 @@ namespace s3d
 			{
 				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 	}
 }
@@ -81,10 +81,6 @@ namespace s3d
 
 		class GetFunctionNoThrow
 		{
-		private:
-
-			const void* p;
-
 		public:
 
 			SIV3D_NODISCARD_CXX20
@@ -95,14 +91,14 @@ namespace s3d
 			{
 				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 
 		class GetFunction
 		{
-		private:
-
-			const void* p;
-
 		public:
 
 			SIV3D_NODISCARD_CXX20
@@ -113,6 +109,10 @@ namespace s3d
 			{
 				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 	}
 }

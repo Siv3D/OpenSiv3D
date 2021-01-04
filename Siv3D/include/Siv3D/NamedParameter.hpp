@@ -21,10 +21,6 @@ namespace s3d
 	template <class Tag, class Type>
 	class NamedParameter
 	{
-	private:
-
-		Type m_value;
-
 	public:
 
 		NamedParameter() = default;
@@ -56,15 +52,15 @@ namespace s3d
 		{
 			return m_value;
 		}
+
+	private:
+
+		Type m_value;
 	};
 
 	template <class Tag, class Type>
 	class NamedParameter<Tag, Type&>
 	{
-	private:
-
-		Type* m_ref = nullptr;
-
 	public:
 
 		NamedParameter() = default;
@@ -88,6 +84,10 @@ namespace s3d
 		{
 			return *m_ref;
 		}
+
+	private:
+
+		Type* m_ref = nullptr;
 	};
 
 	template <class Tag>

@@ -22,16 +22,6 @@ namespace s3d
 
 		class Iterator
 		{
-			int32 m_countX;
-
-			int32 m_startX;
-
-			Size m_step_counter;
-
-			Size m_counter;
-
-			Size m_step;
-
 		public:
 
 			SIV3D_NODISCARD_CXX20
@@ -55,23 +45,21 @@ namespace s3d
 
 			[[nodiscard]]
 			constexpr bool operator !=(const Iterator& r) const noexcept;
+
+		private:
+
+			int32 m_countX;
+
+			int32 m_startX;
+
+			Size m_step_counter;
+
+			Size m_counter;
+
+			Size m_step;
 		};
 
 		using iterator = Iterator;
-
-	private:
-
-		Point m_start;
-
-		Size m_step_count;
-
-		Size m_step_length;
-
-		iterator m_end_iterator;
-
-		iterator m_start_iterator;
-
-	public:
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Step2D(Point start, Size step_count, Size step) noexcept;
@@ -99,6 +87,18 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<Point> asArray() const;
+
+	private:
+
+		Point m_start;
+
+		Size m_step_count;
+
+		Size m_step_length;
+
+		iterator m_end_iterator;
+
+		iterator m_start_iterator;
 	};
 
 	[[nodiscard]]

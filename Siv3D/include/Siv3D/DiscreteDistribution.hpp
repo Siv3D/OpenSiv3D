@@ -24,12 +24,6 @@ namespace s3d
 {
 	class DiscreteDistribution
 	{
-	private:
-
-		using distribution_type = absl::discrete_distribution<size_t>;
-
-		distribution_type m_distribution;
-
 	public:
 
 		using result_type = size_t;
@@ -71,6 +65,12 @@ namespace s3d
 
 		[[nodiscard]]
 		size_t size() const;
+
+	private:
+
+		using distribution_type = absl::discrete_distribution<size_t>;
+
+		distribution_type m_distribution;
 	};
 }
 

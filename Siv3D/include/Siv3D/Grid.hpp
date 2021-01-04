@@ -44,16 +44,6 @@ namespace s3d
 		using difference_type			= typename container_type::difference_type;
 		using allocator_type			= typename container_type::allocator_type;
 
-	private:
-
-		container_type m_data;
-
-		size_type m_width = 0;
-
-		size_type m_height = 0;
-
-	public:
-
 		SIV3D_NODISCARD_CXX20
 		Grid() = default;
 
@@ -578,6 +568,14 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
 		[[nodiscard]]
 		static Grid IndexedGenerate(Size size, Arg::indexedGenerator_<Fty> indexedGenerator);
+
+	private:
+
+		container_type m_data;
+
+		size_type m_width = 0;
+
+		size_type m_height = 0;
 	};
 
 	// deduction guide

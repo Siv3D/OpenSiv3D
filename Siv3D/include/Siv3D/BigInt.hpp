@@ -24,13 +24,6 @@ namespace s3d
 	private:
 
 		struct BigIntDetail;
-		
-		std::unique_ptr<BigIntDetail> pImpl;
-
-		BigInt _divI(int64 a) const;
-		BigInt _divI(uint64 a) const;
-		BigInt _modI(int64 a) const;
-		BigInt _modI(uint64 a) const;
 
 	public:
 
@@ -874,6 +867,15 @@ namespace s3d
 
 		[[nodiscard]]
 		const BigIntDetail& _detail() const;
+
+	private:
+
+		std::unique_ptr<BigIntDetail> pImpl;
+
+		BigInt _divI(int64 a) const;
+		BigInt _divI(uint64 a) const;
+		BigInt _modI(int64 a) const;
+		BigInt _modI(uint64 a) const;
 	};
 
 	inline namespace Literals

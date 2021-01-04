@@ -24,19 +24,6 @@ namespace s3d
 	public:
 
 		using state_type = std::array<uint8, 256>;
-
-	private:
-
-		state_type m_perm;
-
-		static constexpr Float Fade(Float t) noexcept;
-
-		static constexpr Float Lerp(Float a, Float b, Float t) noexcept;
-
-		static constexpr Float Grad(uint8 hash, Float x, Float y, Float z) noexcept;
-
-	public:
-
 		using value_type = Float;
 
 		SIV3D_NODISCARD_CXX20
@@ -67,6 +54,16 @@ namespace s3d
 		constexpr const state_type& serialize() const noexcept;
 
 		constexpr void deserialize(const state_type& state) noexcept;
+
+	private:
+
+		state_type m_perm;
+
+		static constexpr Float Fade(Float t) noexcept;
+
+		static constexpr Float Lerp(Float a, Float b, Float t) noexcept;
+
+		static constexpr Float Grad(uint8 hash, Float x, Float y, Float z) noexcept;
 	};
 
 	using PerlinNoiseF	= BasicPerlinNoise<float>;

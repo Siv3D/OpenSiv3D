@@ -19,23 +19,6 @@ namespace s3d
 {
 	class VariableSpeedStopwatch
 	{
-	private:
-
-		double m_speed = 1.0;
-
-		mutable int64 m_lastTimeNanosec = 0;
-
-		mutable int64 m_accumulationNanosec = 0;
-
-		ISteadyClock* m_pSteadyClock = nullptr;
-
-		bool m_isStarted = false;
-
-		bool m_pausing = true;
-
-		[[nodiscard]]
-		int64 ns() const;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -211,6 +194,23 @@ namespace s3d
 		{
 			formatData.string.append(value.format());
 		}
+
+	private:
+
+		double m_speed = 1.0;
+
+		mutable int64 m_lastTimeNanosec = 0;
+
+		mutable int64 m_accumulationNanosec = 0;
+
+		ISteadyClock* m_pSteadyClock = nullptr;
+
+		bool m_isStarted = false;
+
+		bool m_pausing = true;
+
+		[[nodiscard]]
+		int64 ns() const;
 	};
 }
 

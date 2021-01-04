@@ -26,12 +26,6 @@ namespace s3d
 
 		static constexpr value_type InvalidID = Largest<value_type>;
 
-	private:
-
-		value_type m_value = NullID;
-
-	public:
-
 		SIV3D_NODISCARD_CXX20
 		AssetID() = default;
 
@@ -79,6 +73,10 @@ namespace s3d
 
 		[[nodiscard]]
 		static constexpr AssetID InvalidValue() noexcept;
+
+	private:
+
+		value_type m_value = NullID;
 	};
 }
 

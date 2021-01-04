@@ -17,12 +17,6 @@ namespace s3d
 	template <class Callback>
 	class ScopeGuard final
 	{
-	private:
-
-		Callback m_callback;
-
-		bool m_active = true;
-
 	public:
 
 		ScopeGuard() = delete;
@@ -40,6 +34,12 @@ namespace s3d
 		ScopeGuard& operator =(const ScopeGuard&) = delete;
 
 		void dismiss() noexcept;
+
+	private:
+
+		Callback m_callback;
+
+		bool m_active = true;
 	};
 
 	template <class Callback>

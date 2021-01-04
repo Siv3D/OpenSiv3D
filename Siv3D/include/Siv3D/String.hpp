@@ -41,12 +41,6 @@ namespace s3d
 		using reverse_iterator			= typename string_type::reverse_iterator;
 		using const_reverse_iterator	= typename string_type::const_reverse_iterator;
 
-	private:
-
-		string_type m_string;
-
-	public:
-
 		template <class StringViewIsh>
 		using IsStringViewIsh = std::enable_if_t<
 			std::conjunction_v<std::is_convertible<const StringViewIsh&, StringView>,
@@ -2077,6 +2071,10 @@ namespace s3d
 
 			return input;
 		}
+
+	private:
+
+		string_type m_string;
 	};
 
 	[[nodiscard]]

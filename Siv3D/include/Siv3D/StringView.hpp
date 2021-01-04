@@ -37,12 +37,6 @@ namespace s3d
 		using size_type					= typename string_view_type::size_type;
 		using difference_type			= typename string_view_type::difference_type;
 
-	private:
-
-		string_view_type m_view;
-
-	public:
-
 		static constexpr size_type npos{ static_cast<size_type>(-1) };
 
 		SIV3D_NODISCARD_CXX20
@@ -311,6 +305,10 @@ namespace s3d
 		{
 			return output.write(value.data(), value.size());
 		}
+
+	private:
+
+		string_view_type m_view;
 	};
 
 	inline void swap(StringView& a, StringView& b) noexcept;

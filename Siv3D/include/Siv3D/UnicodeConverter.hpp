@@ -18,14 +18,6 @@ namespace s3d
 	/// @brief UTF-8 から UTF-32 への逐次変換クラス
 	struct UTF8toUTF32_Converter
 	{
-	private:
-
-		char8 m_buffer[4];
-
-		uint32 m_count = 0;
-
-		char32 m_result = 0;
-
 	public:
 
 		/// @brief データを追加します。
@@ -38,19 +30,19 @@ namespace s3d
 		/// @return 作成された文字
 		[[nodiscard]]
 		char32 get() const noexcept;
+
+	private:
+
+		char8 m_buffer[4];
+
+		uint32 m_count = 0;
+
+		char32 m_result = 0;
 	};
 
 	/// @brief UTF-16 から UTF-32 への逐次変換クラス
 	struct UTF16toUTF32_Converter
 	{
-	private:
-
-		char32 m_result = 0;
-
-		char16 m_buffer = 0;
-
-		bool m_hasHighSurrogate = false;
-
 	public:
 
 		/// @brief データを追加します。
@@ -63,15 +55,19 @@ namespace s3d
 		/// @return 作成された文字
 		[[nodiscard]]
 		char32 get() const noexcept;
+
+	private:
+
+		char32 m_result = 0;
+
+		char16 m_buffer = 0;
+
+		bool m_hasHighSurrogate = false;
 	};
 
 	/// @brief UTF-32 から UTF-8 への逐次変換クラス
 	struct UTF32toUTF8_Converter
 	{
-	private:
-
-		std::array<char8, 4> m_buffer;
-
 	public:
 
 		/// @brief データを追加します。
@@ -89,15 +85,15 @@ namespace s3d
 		/// @return 作成された UTF-8 文字の配列の先頭イテレータ
 		[[nodiscard]]
 		std::array<char8, 4>::const_iterator begin() const noexcept;
+
+	private:
+
+		std::array<char8, 4> m_buffer;
 	};
 
 	/// @brief UTF-32 から UTF-16 への逐次変換クラス
 	struct UTF32toUTF16_Converter
 	{
-	private:
-
-		std::array<char16, 2> m_buffer;
-
 	public:
 
 		/// @brief データを追加します。
@@ -115,6 +111,10 @@ namespace s3d
 		/// @return 作成された UTF-16 文字の配列の先頭イテレータ
 		[[nodiscard]]
 		std::array<char16, 2>::const_iterator begin() const noexcept;
+
+	private:
+
+		std::array<char16, 2> m_buffer;
 	};
 }
 

@@ -21,12 +21,6 @@ namespace s3d
 	/// @brief 書き込み用バイナリファイル
 	class BinaryWriter : public IWriter
 	{
-	private:
-
-		class BinaryWriterDetail;
-
-		std::shared_ptr<BinaryWriterDetail> pImpl;
-
 	public:
 
 		/// @brief デフォルトコンストラクタ
@@ -101,6 +95,12 @@ namespace s3d
 		/// @return 開いているファイルのパス。ファイルが開いていない場合は空の文字列
 		[[nodiscard]]
 		const FilePath& path() const noexcept;
+	
+	private:
+
+		class BinaryWriterDetail;
+
+		std::shared_ptr<BinaryWriterDetail> pImpl;
 	};
 }
 

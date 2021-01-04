@@ -28,11 +28,9 @@ namespace s3d
 	template <class Type>
 	class Optional : protected std::optional<Type>
 	{
-	private:
+	public:
 
 		using base_type = std::optional<Type>;
-
-	public:
 
 		/// @brief Optional が持つ値の型
 		using value_type = Type;

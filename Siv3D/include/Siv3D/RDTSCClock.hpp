@@ -31,10 +31,6 @@ namespace s3d
 	/// @remark 経過時間を CPU サイクル数で計測します。
 	class RDTSCClock
 	{
-	private:
-
-		const uint64 m_start = Time::GetMillisec();
-
 	public:
 
 		/// @brief 経過時間（CPU サイクル数）を返します。
@@ -50,6 +46,10 @@ namespace s3d
 
 		/// @brief 経過時間をデバッグ表示します。
 		//void print() const;
+
+	private:
+
+		const uint64 m_start = Platform::Rdtsc();
 	};
 }
 
