@@ -97,6 +97,12 @@ namespace s3d
 			return ((b1 == b2) && (b2 == b3));
 		}
 
+		inline constexpr bool Intersect(const Vec2& a, const Quad& b) noexcept
+		{
+			return (Intersect(a, Triangle{ b.p0, b.p1, b.p3 })
+				|| Intersect(a, Triangle{ b.p1, b.p2, b.p3 }));
+		}
+
 
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept
 		{
@@ -125,6 +131,16 @@ namespace s3d
 		}
 
 		inline constexpr bool Intersect(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Triangle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Quad& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
 		}

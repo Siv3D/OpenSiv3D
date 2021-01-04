@@ -114,29 +114,49 @@ namespace s3d
 		return rotatedAt({ x, y }, angle);
 	}
 
-	inline constexpr Triangle::position_type& Triangle::p(const size_t index)
+	inline constexpr Triangle::position_type& Triangle::p(const size_t index) noexcept
 	{
 		return (&p0)[index];
 	}
 
-	inline constexpr const Triangle::position_type& Triangle::p(const size_t index) const
+	inline constexpr const Triangle::position_type& Triangle::p(const size_t index) const noexcept
 	{
 		return (&p0)[index];
+	}
+
+	inline constexpr Triangle::position_type Triangle::point(const size_t index) const
+	{
+		if (index == 0)
+		{
+			return p0;
+		}
+		else if (index == 1)
+		{
+			return p1;
+		}
+		else if (index == 2)
+		{
+			return p2;
+		}
+		else
+		{
+			throw std::out_of_range("Triangle::point() index out of range");
+		}
 	}
 
 	inline constexpr Line Triangle::side(size_t index) const
 	{
 		if (index == 0)
 		{
-			return Line(p0, p1);
+			return{ p0, p1 };
 		}
 		else if (index == 1)
 		{
-			return Line(p1, p2);
+			return{ p1, p2 };
 		}
 		else if (index == 2)
 		{
-			return Line(p2, p0);
+			return{ p2, p0 };
 		}
 		else
 		{
@@ -172,7 +192,7 @@ namespace s3d
 	}
 
 	template <class Shape2DType>
-	inline bool Triangle::intersects(const Shape2DType& other) const
+	inline constexpr bool Triangle::intersects(const Shape2DType& other) const
 	{
 		return Geometry2D::Intersect(*this, other);
 	}

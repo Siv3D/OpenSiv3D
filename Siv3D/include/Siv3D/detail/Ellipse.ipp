@@ -238,7 +238,7 @@ namespace s3d
 	}
 
 	template <class Shape2DType>
-	inline bool Ellipse::intersects(const Shape2DType& other) const
+	inline constexpr bool Ellipse::intersects(const Shape2DType& other) const
 	{
 		return Geometry2D::Intersect(*this, other);
 	}

@@ -171,9 +171,14 @@ namespace s3d
 		return{ begin.lerp(other.begin, f), end.lerp(other.end, f) };
 	}
 
+	inline size_t Line::hash() const noexcept
+	{
+		return Hash::FNV1a(*this);
+	}
+
 	template <class Shape2DType>
 	[[nodiscard]]
-	inline bool Line::intersects(const Shape2DType& other) const
+	inline constexpr bool Line::intersects(const Shape2DType& other) const
 	{
 		return Geometry2D::Intersect(*this, other);
 	}
@@ -183,10 +188,5 @@ namespace s3d
 	inline Optional<Array<Vec2>> Line::intersectsAt(const Shape2DType& other) const
 	{
 		return Geometry2D::IntersectAt(*this, other);
-	}
-
-	inline size_t Line::hash() const noexcept
-	{
-		return Hash::FNV1a(*this);
 	}
 }

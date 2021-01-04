@@ -72,61 +72,30 @@ namespace s3d
 				|| (lhs.p3 != rhs.p3);
 		}
 
-		constexpr Quad& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2, value_type x3, value_type y3) noexcept
-		{
-			p0.set(x0, y0);
-			p1.set(x1, y1);
-			p2.set(x2, y2);
-			p3.set(x3, y3);
-			return *this;
-		}
+		constexpr Quad& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2, value_type x3, value_type y3) noexcept;
 
-		constexpr Quad& set(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept
-		{
-			p0.set(_p0);
-			p1.set(_p1);
-			p2.set(_p2);
-			p3.set(_p3);
-			return *this;
-		}
+		constexpr Quad& set(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept;
 
-		constexpr Quad& set(const Quad& quad) noexcept
-		{
-			return *this = quad;
-		}
+		constexpr Quad& set(const Quad& quad) noexcept;
 
-		[[nodiscard]] constexpr Quad movedBy(value_type x, value_type y) const noexcept
-		{
-			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y), p3.movedBy(x, y) };
-		}
+		[[nodiscard]]
+		constexpr Quad movedBy(value_type x, value_type y) const noexcept;
 
-		[[nodiscard]] constexpr Quad movedBy(const position_type& v) const noexcept
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]]
+		constexpr Quad movedBy(position_type v) const noexcept;
 
-		constexpr Quad& moveBy(value_type x, value_type y) noexcept
-		{
-			p0.moveBy(x, y);
-			p1.moveBy(x, y);
-			p2.moveBy(x, y);
-			p3.moveBy(x, y);
-			return *this;
-		}
+		constexpr Quad& moveBy(value_type x, value_type y) noexcept;
 
-		constexpr Quad& moveBy(const position_type& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		constexpr Quad& moveBy(position_type v) noexcept;
 
-		[[nodiscard]] Quad stretched(value_type size) const noexcept;
+		[[nodiscard]]
+		Quad stretched(value_type size) const noexcept;
 
-		[[nodiscard]] Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
-		{
-			return rotatedAt(position_type(x, y), angle);
-		}
+		[[nodiscard]]
+		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
 
-		[[nodiscard]] Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]]
+		Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
 		position_type& p(size_t index) noexcept;
@@ -140,19 +109,27 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Line side(size_t index);
 
-		[[nodiscard]] value_type area() const noexcept;
+		[[nodiscard]]
+		constexpr value_type area() const noexcept;
 
-		[[nodiscard]] value_type perimeter() const noexcept;
+		[[nodiscard]]
+		value_type perimeter() const noexcept;
+
+		[[nodiscard]]
+		constexpr RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
 		Polygon asPolygon() const;
+
+		[[nodiscard]]
+		constexpr Quad lerp(const Quad& other, double f) const noexcept;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool intersects(const Shape2DType& other) const;
+		constexpr bool intersects(const Shape2DType& other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
@@ -195,9 +172,9 @@ namespace s3d
 
 		const Quad& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
-		//const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quad& value)
@@ -228,8 +205,6 @@ namespace s3d
 		static void _Formatter(FormatData& formatData, const Quad& value);
 	};
 }
-
-# include "detail/Quad.ipp"
 
 template <>
 struct SIV3D_HIDDEN fmt::formatter<s3d::Quad, s3d::char32>

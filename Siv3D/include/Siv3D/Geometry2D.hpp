@@ -41,6 +41,9 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Triangle& b) noexcept;
 
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Quad& b) noexcept;
+
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept;
@@ -65,6 +68,13 @@ namespace s3d
 
 
 		[[nodiscard]]
+		inline constexpr bool Intersect(const Triangle& a, const Vec2& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Quad& a, const Vec2& b) noexcept;
+
+
+		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b);
 
 		[[nodiscard]]
@@ -83,6 +93,9 @@ namespace s3d
 
 		[[nodiscard]] bool Contains(const RectF& a, const Point& b) noexcept;
 		[[nodiscard]] bool Contains(const RectF& a, const Vec2& b) noexcept;
+
+		[[nodiscard]] bool Contains(const Quad& a, const Point& b) noexcept;
+		[[nodiscard]] bool Contains(const Quad& a, const Vec2& b) noexcept;
 
 		[[nodiscard]]
 		inline bool IsClockwise(const Array<Point>& points) noexcept;

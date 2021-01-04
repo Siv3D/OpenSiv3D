@@ -141,10 +141,13 @@ namespace s3d
 		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type& p(size_t index);
+		constexpr position_type& p(size_t index) noexcept;
 
 		[[nodiscard]]
-		constexpr const position_type& p(size_t index) const;
+		constexpr const position_type& p(size_t index) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type point(size_t index) const;
 
 		[[nodiscard]]
 		constexpr Line side(size_t index) const;
@@ -167,7 +170,7 @@ namespace s3d
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool intersects(const Shape2DType& other) const;
+		constexpr bool intersects(const Shape2DType& other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]

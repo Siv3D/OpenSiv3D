@@ -824,7 +824,7 @@ namespace s3d
 
 	template <class SizeType>
 	template <class Shape2DType>
-	inline bool Rectangle<SizeType>::intersects(const Shape2DType& other) const
+	inline constexpr bool Rectangle<SizeType>::intersects(const Shape2DType& other) const
 	{
 		return Geometry2D::Intersect(*this, other);
 	}
