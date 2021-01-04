@@ -104,109 +104,50 @@ namespace s3d
 				|| (lhs.p1 != rhs.p1)
 				|| (lhs.p2 != rhs.p2);
 		}
-	
-		[[nodiscard]] constexpr position_type& p(size_t index)
-		{
-			return (&p0)[index];
-		}
 
-		[[nodiscard]] constexpr const position_type& p(size_t index) const
-		{
-			return (&p0)[index];
-		}
+		constexpr Triangle& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept;
 
-		[[nodiscard]] constexpr Line side(size_t index) const
-		{
-			if (index == 0)
-			{
-				return Line(p0, p1);
-			}
-			else if (index == 1)
-			{
-				return Line(p1, p2);
-			}
-			else if (index == 2)
-			{
-				return Line(p2, p0);
-			}
-			else
-			{
-				throw std::out_of_range("Triangle::side() index out of range");
-			}
-		}
+		constexpr Triangle& set(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept;
 
-		constexpr Triangle& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept
-		{
-			p0.set(x0, y0);
-			p1.set(x1, y1);
-			p2.set(x2, y2);
-			return *this;
-		}
+		constexpr Triangle& set(const Triangle& triangle) noexcept;
 
-		constexpr Triangle& set(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept
-		{
-			p0.set(_p0);
-			p1.set(_p1);
-			p2.set(_p2);
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Triangle movedBy(value_type x, value_type y) const noexcept;
 
-		constexpr Triangle& set(const Triangle& triangle) noexcept
-		{
-			return *this = triangle;
-		}
+		[[nodiscard]]
+		constexpr Triangle movedBy(position_type v) const noexcept;
 
-		[[nodiscard]] constexpr Triangle movedBy(value_type x, value_type y) const noexcept
-		{
-			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y) };
-		}
+		constexpr Triangle& moveBy(value_type x, value_type y) noexcept;
 
-		[[nodiscard]] constexpr Triangle movedBy(const position_type& v) const noexcept
-		{
-			return movedBy(v.x, v.y);
-		}
+		constexpr Triangle& moveBy(position_type v) noexcept;
 
-		constexpr Triangle& moveBy(value_type x, value_type y) noexcept
-		{
-			p0.moveBy(x, y);
-			p1.moveBy(x, y);
-			p2.moveBy(x, y);
-			return *this;
-		}
+		constexpr Triangle& setCentroid(value_type x, value_type y) noexcept;
 
-		constexpr Triangle& moveBy(const position_type& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		constexpr Triangle& setCentroid(position_type pos) noexcept;
 
-		constexpr Triangle& setCentroid(value_type x, value_type y) noexcept
-		{
-			return moveBy(position_type(x, y) - centroid());
-		}
+		[[nodiscard]]
+		constexpr position_type centroid() const noexcept;
 
-		constexpr Triangle& setCentroid(const position_type& pos) noexcept
-		{
-			return setCentroid(pos.x, pos.y);
-		}
+		[[nodiscard]]
+		Triangle stretched(value_type size) const noexcept;
 
-		[[nodiscard]] constexpr position_type centroid() const noexcept
-		{
-			return position_type((p0.x + p1.x + p2.x) / 3.0, (p0.y + p1.y + p2.y) / 3.0);
-		}
+		[[nodiscard]]
+		Triangle rotated(value_type angle) const noexcept;
 
-		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
+		[[nodiscard]]
+		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
 
-		[[nodiscard]] Triangle rotated(value_type angle) const noexcept
-		{
-			return rotatedAt(centroid(), angle);
-		}
+		[[nodiscard]]
+		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
-		[[nodiscard]] Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
-		{
-			return rotatedAt(position_type(x, y), angle);
-		}
+		[[nodiscard]]
+		constexpr position_type& p(size_t index);
 
-		[[nodiscard]] Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]]
+		constexpr const position_type& p(size_t index) const;
+
+		[[nodiscard]]
+		constexpr Line side(size_t index) const;
 
 		[[nodiscard]] value_type area() const noexcept;
 

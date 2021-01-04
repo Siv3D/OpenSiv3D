@@ -84,7 +84,7 @@ namespace s3d
 		{
 			const float rate = Min(Abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
 
-			Vertex2D::IndexType quality;
+			Vertex2D::IndexType quality = 0;
 
 			if (size <= 1.0f)
 			{

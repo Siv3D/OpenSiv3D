@@ -46,6 +46,11 @@ namespace s3d
 
 			return (sum < 0.0);
 		}
+
+		inline constexpr double Sign(const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept
+		{
+			return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+		}
 	}
 
 	namespace Geometry2D
@@ -82,6 +87,14 @@ namespace s3d
 			const double xh = (b.x - a.x);
 			const double yk = (b.y - a.y);
 			return (((xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b)) <= 1.0);
+		}
+
+		inline constexpr bool Intersect(const Vec2& a, const Triangle& b) noexcept
+		{
+			const bool b1 = (detail::Sign(a, b.p0, b.p1) < 0.0);
+			const bool b2 = (detail::Sign(a, b.p1, b.p2) < 0.0);
+			const bool b3 = (detail::Sign(a, b.p2, b.p0) < 0.0);
+			return ((b1 == b2) && (b2 == b3));
 		}
 
 

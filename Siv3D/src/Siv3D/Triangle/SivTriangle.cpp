@@ -10,7 +10,11 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -49,6 +53,24 @@ namespace s3d
 		return{ t0, t1, t2 };
 	}
 
+	Triangle Triangle::rotatedAt(const position_type& pos, value_type angle) const noexcept
+	{
+		const position_type a0 = (p0 - pos);
+		const position_type a1 = (p1 - pos);
+		const position_type a2 = (p2 - pos);
+		const value_type s = std::sin(angle);
+		const value_type c = std::cos(angle);
+		const position_type x0{ (a0.x * c - a0.y * s), (a0.x * s + a0.y * c) };
+		const position_type x1{ (a1.x * c - a1.y * s), (a1.x * s + a1.y * c) };
+		const position_type x2{ (a2.x * c - a2.y * s), (a2.x * s + a2.y * c) };
+		return{ (x0 + pos), (x1 + pos), (x2 + pos) };
+	}
+
+	Polygon Triangle::asPolygon() const
+	{
+		return Polygon{ { p0, p1, p2 }, {{ 0, 1, 2 }}, boundingRect(), SkipValidation::Yes };
+	}
+
 	const Triangle& Triangle::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addTriangle({ p0, p1, p2 }, color.toFloat4());
@@ -83,6 +105,41 @@ namespace s3d
 			(outerThickness == 0.0), color.toFloat4(), IsClosed::Yes);
 
 		return *this;
+	}
+
+	bool Triangle::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool Triangle::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool Triangle::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool Triangle::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool Triangle::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool Triangle::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool Triangle::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
 	void Triangle::_Formatter(FormatData& formatData, const Triangle& value)
