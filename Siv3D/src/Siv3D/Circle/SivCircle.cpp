@@ -48,39 +48,6 @@ namespace s3d
 
 			return static_cast<Vertex2D::IndexType>(Max(quality * rate, 3.0f));
 		}
-
-		[[nodiscard]]
-		static RectF BoundingRect(const Array<Vec2>& points)
-		{
-			double xMin = Largest<double>;
-			double xMax = Smallest<double>;
-			double yMin = Largest<double>;
-			double yMax = Smallest<double>;
-			{
-				for (const auto& point : points)
-				{
-					if (point.x < xMin)
-					{
-						xMin = point.x;
-					}
-					else if (xMax < point.x)
-					{
-						xMax = point.x;
-					}
-
-					if (point.y < yMin)
-					{
-						yMin = point.y;
-					}
-					else if (yMax < point.y)
-					{
-						yMax = point.y;
-					}
-				}
-			}
-
-			return{ xMin, yMin, (xMax - xMin), (yMax - yMin) };
-		}
 	}
 
 	Circle::Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept
@@ -119,32 +86,15 @@ namespace s3d
 		Array<Vec2> vertices(n, center);
 		Vec2* pPos = vertices.data();
 
-		double xMin = center.x;
-		double xMax = center.x;
-		const double yMin = (center.y - r);
-		double yMax = center.y;
 		const double d = (Math::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{
 			*pPos += Circular{ r, i * d }.fastToVec2();
-
-			if (pPos->x < xMin)
-			{
-				xMin = pPos->x;
-			}
-			else if (xMax < pPos->x)
-			{
-				xMax = pPos->x;
-			}
-
-			if (yMax < pPos->y)
-			{
-				yMax = pPos->y;
-			}
-
 			++pPos;
 		}
+
+		const RectF boundingRect = Geometry2D::BoundingRect(vertices);
 
 		Array<TriangleIndex> indices(n - 2);
 		TriangleIndex* pIndex = indices.data();
@@ -157,7 +107,7 @@ namespace s3d
 			++pIndex;
 		}
 
-		return Polygon{ vertices, indices, RectF{ xMin, yMin, (xMax - xMin), (yMax - yMin) }, SkipValidation::Yes };
+		return Polygon{ vertices, indices, boundingRect, SkipValidation::Yes };
 	}
 
 	Polygon Circle::pieAsPolygon(const double startAngle, const double _angle, const uint32 _quality) const
@@ -191,7 +141,7 @@ namespace s3d
 			}
 		}
 
-		const RectF boundingRect = detail::BoundingRect(vertices);
+		const RectF boundingRect = Geometry2D::BoundingRect(vertices);
 
 		Array<TriangleIndex> indices(vertexSize - 2);
 		TriangleIndex* pIndex = indices.data();
@@ -244,7 +194,7 @@ namespace s3d
 			}
 		}
 
-		const RectF boundingRect = detail::BoundingRect(vertices);
+		const RectF boundingRect = Geometry2D::BoundingRect(vertices);
 
 		Array<TriangleIndex> indices((quality - 1) * 2);
 		TriangleIndex* pIndex = indices.data();

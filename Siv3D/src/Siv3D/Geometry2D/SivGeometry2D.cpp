@@ -75,7 +75,7 @@ namespace s3d
 		};
 
 		template <class PointType>
-		Polygon ConvexHull(const PointType* points, const size_t size)
+		inline Polygon ConvexHull(const PointType* points, const size_t size)
 		{
 			if (size < 3)
 			{
@@ -87,6 +87,93 @@ namespace s3d
 			boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(points, (points + size)), result);
 
 			return Polygon{ result };
+		}
+
+		inline Rect BoundingRect(const Point* points, const size_t size)
+		{
+			if (size == 0)
+			{
+				return Rect{ 0 };
+			}
+
+			const Point* it		= points;
+			const Point* itEnd	= (it + size);
+
+			using value_type	= Point::value_type;
+			value_type left		= it->x;
+			value_type top		= it->y;
+			value_type right	= left;
+			value_type bottom	= top;
+			++it;
+
+			while (it != itEnd)
+			{
+				if (it->x < left)
+				{
+					left = it->x;
+				}
+				else if (right < it->x)
+				{
+					right = it->x;
+				}
+
+				if (it->y < top)
+				{
+					top = it->y;
+				}
+				else if (bottom < it->y)
+				{
+					bottom = it->y;
+				}
+
+				++it;
+			}
+
+			return{ left, top, (right - left), (bottom - top) };
+		}
+
+		template <class PointType>
+		inline RectF BoundingRectF(const PointType* points, const size_t size)
+		{
+			if (size == 0)
+			{
+				return RectF{ 0 };
+			}
+
+			const PointType* it		= points;
+			const PointType* itEnd	= (it + size);
+
+			using value_type	= typename PointType::value_type;
+			value_type left		= it->x;
+			value_type top		= it->y;
+			value_type right	= left;
+			value_type bottom	= top;
+			++it;
+
+			while (it != itEnd)
+			{
+				if (it->x < left)
+				{
+					left = it->x;
+				}
+				else if (right < it->x)
+				{
+					right = it->x;
+				}
+
+				if (it->y < top)
+				{
+					top = it->y;
+				}
+				else if (bottom < it->y)
+				{
+					bottom = it->y;
+				}
+
+				++it;
+			}
+
+			return{ left, top, (right - left), (bottom - top) };
 		}
 
 		static Polygon ToPolygon(const CwOpenPolygon& polygon)
@@ -113,6 +200,36 @@ namespace s3d
 		bool Intersect(const Vec2& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		RectF BoundingRect(const Array<Point>& points) noexcept
+		{
+			return detail::BoundingRect(points.data(), points.size());
+		}
+
+		RectF BoundingRect(const Point* points, const size_t size) noexcept
+		{
+			return detail::BoundingRect(points, size);
+		}
+
+		RectF BoundingRect(const Array<Float2>& points) noexcept
+		{
+			return detail::BoundingRectF(points.data(), points.size());
+		}
+
+		RectF BoundingRect(const Float2* points, const size_t size) noexcept
+		{
+			return detail::BoundingRectF(points, size);
+		}
+
+		RectF BoundingRect(const Array<Vec2>& points) noexcept
+		{
+			return detail::BoundingRectF(points.data(), points.size());
+		}
+
+		RectF BoundingRect(const Vec2* points, const size_t size) noexcept
+		{
+			return detail::BoundingRectF(points, size);
 		}
 
 		Polygon ConvexHull(const Array<Point>& points)

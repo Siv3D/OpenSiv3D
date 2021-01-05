@@ -124,36 +124,119 @@ namespace s3d
 
 		void swap(LineString& other) noexcept;
 
+		LineString& append(const Array<Vec2>&other);
+
+		LineString& append(const LineString& other);
+
+		LineString& remove(const Vec2& value);
+
+		LineString& remove_at(size_t index);
+
+		template <class Fty>
+		LineString& remove_if(Fty f);
+
+		LineString& reverse();
+
+		[[nodiscard]]
+		LineString reversed() const;
+
+		LineString& shuffle();
+
+		SIV3D_CONCEPT_URBG
+		LineString& shuffle(URBG&& rbg);
+
+		[[nodiscard]]
+		LineString slice(size_t index) const;
+
+		[[nodiscard]]
+		LineString slice(size_t index, size_t length) const;
+
+		[[nodiscard]]
+		size_t num_lines() const noexcept;
+
+		[[nodiscard]]
+		Line line(size_t index) const;
+
+		[[nodiscard]]
+		LineString movedBy(double x, double y) const;
+
+		[[nodiscard]]
+		LineString movedBy(Vec2 v) const;
+
+		LineString& moveBy(double x, double y) noexcept;
+
+		LineString& moveBy(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		RectF calculateBoundingRect() const noexcept;
+		
+
+		[[nodiscard]]
+		LineString densified(double maxDistance) const;
+
+		[[nodiscard]]
+		LineString catmullRom(int32 interpolation = 24) const;
+
+		[[nodiscard]]
+		LineString catmullRomClosed(int32 interpolation = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateBuffer(double distance, int32 quality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateBufferClosed(double distance, int32 quality = 24) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
 
+		//const LineString& paint(Image& dst, const Color& color) const;
+
+		//const LineString& paint(Image& dst, int32 thickness, const Color& color) const;
+
+		//const LineString& paintClosed(Image& dst, const Color& color) const;
+
+		//const LineString& paintClosed(Image& dst, int32 thickness, const Color& color) const;
+
+		//const LineString& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+
+		//const LineString& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
+		//const LineString& overwriteClosed(Image& dst, const Color& color, bool antialiased = true) const;
+
+		//const LineString& overwriteClosed(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
 
 
-
-		const LineString& draw(const ColorF & color = Palette::White) const;
+		const LineString& draw(const ColorF& color = Palette::White) const;
 
 		const LineString& draw(double thickness, const ColorF& color = Palette::White) const;
 
 		const LineString& draw(double thickness, const Array<ColorF>& colors) const;
 
-		//const LineString& draw(const LineStyle & style, double thickness, const ColorF& color = Palette::White) const;
+		//const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		const LineString& drawClosed(const ColorF & color = Palette::White) const;
+		const LineString& drawClosed(const ColorF& color = Palette::White) const;
 
 		const LineString& drawClosed(double thickness, const ColorF & color = Palette::White) const;
 
-		//const LineString& drawClosed(const LineStyle & style, double thickness, const ColorF & color = Palette::White) const;
+		//const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		//void drawCatmullRom(const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRom(const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
-		//void drawCatmullRom(double thickness, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRom(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
-		//void drawCatmullRom(const LineStyle & style, double thickness = 1.0, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRom(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
-		//void drawCatmullRomClosed(const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRomClosed(const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
-		//void drawCatmullRomClosed(double thickness, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRomClosed(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
-		//void drawCatmullRomClosed(const LineStyle & style, double thickness = 1.0, const ColorF & color = Palette::White, int32 interpolation = 24) const;
+		//void drawCatmullRomClosed(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
 	private:
 

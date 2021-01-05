@@ -100,6 +100,7 @@ namespace s3d
 		[[nodiscard]] bool Contains(const Quad& a, const Point& b) noexcept;
 		[[nodiscard]] bool Contains(const Quad& a, const Vec2& b) noexcept;
 
+
 		[[nodiscard]]
 		inline bool IsClockwise(const Array<Point>& points) noexcept;
 
@@ -118,6 +119,26 @@ namespace s3d
 		[[nodiscard]]
 		inline bool IsClockwise(const Vec2* points, size_t size) noexcept;
 
+
+		[[nodiscard]]
+		RectF BoundingRect(const Array<Point>& points) noexcept;
+
+		[[nodiscard]]
+		RectF BoundingRect(const Point* points, size_t size) noexcept;
+
+		[[nodiscard]]
+		RectF BoundingRect(const Array<Float2>& points) noexcept;
+
+		[[nodiscard]]
+		RectF BoundingRect(const Float2* points, size_t size) noexcept;
+
+		[[nodiscard]]
+		RectF BoundingRect(const Array<Vec2>& points) noexcept;
+
+		[[nodiscard]]
+		RectF BoundingRect(const Vec2* points, size_t size) noexcept;
+
+
 		[[nodiscard]]
 		Polygon ConvexHull(const Array<Point>& points);
 
@@ -135,6 +156,7 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon ConvexHull(const Vec2* points, size_t size);
+
 
 		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Point>& points, double concavity = 2.0, double lengthThreshold = 0.0);
