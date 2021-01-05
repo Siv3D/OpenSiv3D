@@ -270,6 +270,12 @@ namespace s3d
 		Polygon asPolygon(uint32 quality = 24) const;
 
 		[[nodiscard]]
+		Polygon pieAsPolygon(double startAngle, double angle, uint32 quality = 24) const;
+
+		[[nodiscard]]
+		Polygon arcAsPolygon(double startAngle, double angle, double innerThickness, double outerThickness, uint32 quality = 24) const;
+
+		[[nodiscard]]
 		constexpr Circle lerp(const Circle& other, double f) const noexcept;
 
 		[[nodiscard]]

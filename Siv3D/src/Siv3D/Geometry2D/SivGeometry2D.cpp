@@ -32,6 +32,48 @@ namespace s3d
 {
 	namespace detail
 	{
+		struct RoundRectParts
+		{
+			RectF boundingRect;
+			RectF rectA;
+			RectF rectB;
+			Circle circleTL;
+			Circle circleTR;
+			Circle circleBR;
+			Circle circleBL;
+
+			RoundRectParts(const RoundRect& roundRect) noexcept
+			{
+				const RectF& rect = roundRect.rect;
+				const double rr = Min({ (rect.w * 0.5), (rect.h * 0.5), roundRect.r });
+				const double x0 = rect.x;
+				const double x1 = rect.x + rr;
+				const double x2 = rect.x + rect.w - rr;
+				const double y0 = rect.y;
+				const double y1 = rect.y + rr;
+				const double y2 = rect.y + rect.h - rr;
+				boundingRect = roundRect.rect;
+				rectA.set(x0, y1, rect.w, y2 - y1);
+				rectB.set(x1, y0, x2 - x1, rect.h);
+				circleTL.set(x1, y1, rr);
+				circleTR.set(x2, y1, rr);
+				circleBR.set(x2, y2, rr);
+				circleBL.set(x1, y2, rr);
+			}
+
+			template <class Shape>
+			bool intersects(const Shape& shape) const noexcept
+			{
+				return boundingRect.intersects(shape)
+					&& (rectA.intersects(shape)
+						|| rectB.intersects(shape)
+						|| circleTL.intersects(shape)
+						|| circleTR.intersects(shape)
+						|| circleBR.intersects(shape)
+						|| circleBL.intersects(shape));
+			}
+		};
+
 		template <class PointType>
 		Polygon ConvexHull(const PointType* points, const size_t size)
 		{
@@ -68,6 +110,11 @@ namespace s3d
 
 	namespace Geometry2D
 	{
+		bool Intersect(const Vec2& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
 		Polygon ConvexHull(const Array<Point>& points)
 		{
 			return detail::ConvexHull(points.data(), points.size());

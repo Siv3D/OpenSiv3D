@@ -10,8 +10,12 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -28,10 +32,10 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static Array<Vec2> GetOuterVertices(const RoundRect& rect, const double offset)
+		static Array<Vec2> GetOuterVertices(const RoundRect& rect, const double offset, const Optional<float>& scalingFactor)
 		{
-			const double rr = Min({ rect.w * 0.5, rect.h * 0.5, Max(0.0, rect.r) }) + offset;
-			const float scale = SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+			const double rr = Min({ (rect.w * 0.5), (rect.h * 0.5), Max(0.0, rect.r) }) + offset;
+			const float scale = scalingFactor ? *scalingFactor : SIV3D_ENGINE(Renderer2D)->getMaxScaling();
 			const int32 quality = detail::CaluculateFanQuality(rr * scale);
 			const double radDelta = (Math::HalfPi / (quality - 1));
 
@@ -83,6 +87,67 @@ namespace s3d
 		}
 	}
 
+	Polygon RoundRect::asPolygon(const uint32 quality) const
+	{
+		const double rr = Min({ (rect.w * 0.5), (rect.h * 0.5), r });
+
+		if (rr <= 0.0)
+		{
+			return{};
+		}
+
+		const uint32 n = Max(quality, 3u);
+		const Array<Vec2> vertices = detail::GetOuterVertices(*this, 0.0, (n / 24.0f));
+
+		Array<TriangleIndex> indices(vertices.size() - 2);
+		TriangleIndex* pDst = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
+		{
+			pDst->i0 = 0;
+			pDst->i1 = (i + 1);
+			pDst->i2 = (i + 2);
+			++pDst;
+		}
+
+		return Polygon{ vertices, indices, rect, SkipValidation::Yes };
+	}
+
+	bool RoundRect::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool RoundRect::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool RoundRect::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool RoundRect::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool RoundRect::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool RoundRect::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool RoundRect::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
 	const RoundRect& RoundRect::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRoundRect(
@@ -108,7 +173,7 @@ namespace s3d
 			return *this;
 		}
 
-		const Array<Vec2> vertices = detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5);
+		const Array<Vec2> vertices = detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5, none);
 
 		SIV3D_ENGINE(Renderer2D)->addLineString(
 			vertices.data(),

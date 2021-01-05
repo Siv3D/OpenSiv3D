@@ -44,6 +44,9 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Quad& b) noexcept;
 
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const RoundRect& b) noexcept;
+
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept;

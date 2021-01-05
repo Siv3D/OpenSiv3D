@@ -27,7 +27,7 @@ namespace s3d
 
 		using value_type	= position_type::value_type;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
@@ -41,7 +41,7 @@ namespace s3d
 
 		value_type r;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		SIV3D_NODISCARD_CXX20
 		RoundRect() = default;

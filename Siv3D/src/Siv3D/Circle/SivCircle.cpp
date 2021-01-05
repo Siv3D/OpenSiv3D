@@ -20,6 +20,69 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		inline constexpr Vertex2D::IndexType CalculateCirclePieQuality(const float size, const float angle)
+		{
+			const float rate = Min(Abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+
+			Vertex2D::IndexType quality = 0;
+
+			if (size <= 1.0f)
+			{
+				quality = 4;
+			}
+			else if (size <= 6.0f)
+			{
+				quality = 7;
+			}
+			else if (size <= 8.0f)
+			{
+				quality = 11;
+			}
+			else
+			{
+				quality = static_cast<Vertex2D::IndexType>(Min(size * 0.225f + 18.0f, 255.0f));
+			}
+
+			return static_cast<Vertex2D::IndexType>(Max(quality * rate, 3.0f));
+		}
+
+		[[nodiscard]]
+		static RectF BoundingRect(const Array<Vec2>& points)
+		{
+			double xMin = Largest<double>;
+			double xMax = Smallest<double>;
+			double yMin = Largest<double>;
+			double yMax = Smallest<double>;
+			{
+				for (const auto& point : points)
+				{
+					if (point.x < xMin)
+					{
+						xMin = point.x;
+					}
+					else if (xMax < point.x)
+					{
+						xMax = point.x;
+					}
+
+					if (point.y < yMin)
+					{
+						yMin = point.y;
+					}
+					else if (yMax < point.y)
+					{
+						yMax = point.y;
+					}
+				}
+			}
+
+			return{ xMin, yMin, (xMax - xMin), (yMax - yMin) };
+		}
+	}
+
 	Circle::Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept
 	{
 		if (p0 == p1)
@@ -95,6 +158,111 @@ namespace s3d
 		}
 
 		return Polygon{ vertices, indices, RectF{ xMin, yMin, (xMax - xMin), (yMax - yMin) }, SkipValidation::Yes };
+	}
+
+	Polygon Circle::pieAsPolygon(const double startAngle, const double _angle, const uint32 _quality) const
+	{
+		if ((r == 0.0) || (_angle == 0.0))
+		{
+			return{};
+		}
+
+		const uint32 n = Max(_quality, 3u);
+		const float scaleFactor = (n / 24.0f);
+		const float angle = Clamp(static_cast<float>(_angle), -Math::TwoPiF, Math::TwoPiF);
+		const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(static_cast<float>(r) * scaleFactor, angle);
+		const Vertex2D::IndexType vertexSize = (quality + 1);
+
+		Array<Vec2> vertices(vertexSize, center);
+		{
+			// 周
+			{
+				const float radDelta = Math::TwoPiF / (quality - 1);
+				const float start = -(static_cast<float>(startAngle) + angle) + Math::HalfPiF;
+				const float angleScale = (angle / Math::TwoPiF);
+				Vec2* pDst = &vertices[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = (start + (radDelta * i) * angleScale);
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->moveBy(r * c, -r * s);
+				}
+			}
+		}
+
+		const RectF boundingRect = detail::BoundingRect(vertices);
+
+		Array<TriangleIndex> indices(vertexSize - 2);
+		TriangleIndex* pIndex = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
+		{
+			pIndex->i0 = 0;
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = (i + 2);
+			++pIndex;
+		}
+
+		return Polygon{ vertices, indices, boundingRect, SkipValidation::Yes };
+	}
+
+	Polygon Circle::arcAsPolygon(const double startAngle, const double _angle, const double innerThickness, const double outerThickness, const uint32 _quality) const
+	{
+		if ((r == 0.0) || (_angle == 0.0))
+		{
+			return{};
+		}
+
+		const uint32 n = Max(_quality, 3u);
+		const float scaleFactor = (n / 24.0f);
+		const float angle = Clamp(static_cast<float>(_angle), -Math::TwoPiF, Math::TwoPiF);
+		const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(static_cast<float>(r) * scaleFactor, angle);
+		const Vertex2D::IndexType vertexSize = (quality * 2);
+
+		const double thickness = (innerThickness + outerThickness);
+		const double rInner = (r - innerThickness);
+		const double rOuter = (rInner + thickness);
+
+		Array<Vec2> vertices(vertexSize, center);
+		{
+			const float radDelta = Math::TwoPiF / (quality - 1);
+			const float start = -(static_cast<float>(startAngle) + angle) + Math::HalfPiF;
+			const float angleScale = (angle / Math::TwoPiF);
+
+			Vec2* pHead = vertices.data();
+			Vec2* pTail = &vertices.back();
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				const float rad = (start + (radDelta * i) * angleScale);
+				const auto [s, c] = FastMath::SinCos(rad);
+				pHead->moveBy(rOuter * c, -rOuter * s);
+				pTail->moveBy(rInner * c, -rInner * s);
+				++pHead;
+				--pTail;
+			}
+		}
+
+		const RectF boundingRect = detail::BoundingRect(vertices);
+
+		Array<TriangleIndex> indices((quality - 1) * 2);
+		TriangleIndex* pIndex = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
+		{
+			pIndex->i0 = i;
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = ((2 * quality - 1) - i);
+			++pIndex;
+
+			pIndex->i0 = ((2 * quality - 1) - i);
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = ((2 * quality - 2) - i);
+			++pIndex;
+		}
+
+		return Polygon{ vertices, indices, boundingRect, SkipValidation::Yes };
 	}
 
 	bool Circle::leftClicked() const noexcept
