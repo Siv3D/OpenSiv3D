@@ -591,6 +591,89 @@ namespace s3d
 {
 	using gLineString = boost::geometry::model::linestring<Vec2, Array>;
 
+	namespace detail
+	{
+		Polygon CalculateBuffer(const LineString& points, const double distance, CloseRing closeRing, int32 bufferQuality)
+		{
+			if (points.size() < 2)
+			{
+				return{};
+			}
+
+			bufferQuality = Max(0, bufferQuality);
+
+			const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy{ distance };
+			const boost::geometry::strategy::buffer::end_round end_strategy{ static_cast<size_t>(bufferQuality) };
+			const boost::geometry::strategy::buffer::point_circle circle_strategy{ static_cast<size_t>(bufferQuality) };
+			const boost::geometry::strategy::buffer::join_round join_strategy{ static_cast<size_t>(bufferQuality) };
+			constexpr boost::geometry::strategy::buffer::side_straight side_strategy{};
+
+			boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+
+			if (closeRing && (2 < points.size()))
+			{
+				gLineString lines(points.begin(), points.end());
+
+				lines.push_back(points.front());
+
+				boost::geometry::buffer(lines, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+			}
+			else
+			{
+				boost::geometry::buffer(gLineString(points.begin(), points.end()), multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+			}
+
+			if (multiPolygon.size() != 1)
+			{
+				return{};
+			}
+
+			auto& resultOuter = multiPolygon[0].outer();
+
+			if ((2 < resultOuter.size())
+				&& (resultOuter.front() == resultOuter.back()))
+			{
+				resultOuter.pop_back();
+			}
+
+			Array<Array<Vec2>> holes;
+
+			const auto& result = multiPolygon[0];
+
+			if (const size_t num_holes = result.inners().size())
+			{
+				holes.resize(num_holes);
+
+				for (size_t i = 0; i < num_holes; ++i)
+				{
+					const auto& resultHole = result.inners()[i];
+
+					holes[i].assign(resultHole.begin(), resultHole.end());
+				}
+			}
+
+			Array<Vec2> outer2;
+
+			outer2 << resultOuter[0];
+
+			Vec2 previous = resultOuter[0];
+
+			for (size_t i = 1; i < resultOuter.size(); ++i)
+			{
+				const Vec2 current = resultOuter[i];
+
+				if (previous != current)
+				{
+					outer2 << current;
+
+					previous = current;
+				}
+			}
+
+			return Polygon{ outer2, holes };
+		}
+	}
+
 	LineString LineString::densified(const double maxDistance) const
 	{
 		gLineString input(begin(), end()), result;
@@ -598,5 +681,15 @@ namespace s3d
 		boost::geometry::densify(input, result, maxDistance);
 
 		return LineString(result.begin(), result.end());
+	}
+
+	Polygon LineString::calculateBuffer(const double distance, const int32 bufferQuality) const
+	{
+		return detail::CalculateBuffer(*this, distance, CloseRing::No, bufferQuality);
+	}
+
+	Polygon LineString::calculateBufferClosed(const double distance, const int32 bufferQuality) const
+	{
+		return detail::CalculateBuffer(*this, distance, CloseRing::Yes, bufferQuality);
 	}
 }

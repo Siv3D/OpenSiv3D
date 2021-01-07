@@ -55,6 +55,9 @@ namespace s3d
 		explicit operator bool() const noexcept;
 
 		[[nodiscard]]
+		bool isRing() const noexcept;
+
+		[[nodiscard]]
 		RectF fastBoundingRect(size_t i) const;
 
 		[[nodiscard]]
@@ -90,6 +93,18 @@ namespace s3d
 		[[nodiscard]]
 		SplineIndex advance(SplineIndex si, double dl) const;
 
+		[[nodiscard]]
+		SplineIndex advanceWrap(SplineIndex si, double dl) const;
+
+		[[nodiscard]]
+		SplineIndex advanceMirror(SplineIndex si, double dl, int32& direction) const;
+
+		[[nodiscard]]
+		LineString asLineString(int32 quality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateBuffer(double distance, int32 quality = 24, int32 bufferQuality = 12) const;
+
 		const Spline2D& draw(const ColorF& color = Palette::White, int32 quality = 24) const;
 
 		const Spline2D& draw(double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
@@ -101,6 +116,8 @@ namespace s3d
 	private:
 
 		Array<CSpline2> m_splines;
+
+		bool m_isRing = false;
 	};
 }
 

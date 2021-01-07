@@ -44,6 +44,8 @@ namespace s3d
 
 			m_splines.pop_back();
 			m_splines.pop_front();
+
+			m_isRing = true;
 		}
 		else
 		{
@@ -136,21 +138,52 @@ namespace s3d
 		}
 		else
 		{
+			SplineLib::ClampAgent(&index, &t, static_cast<int32>(m_splines.size()));
+			return{ static_cast<size_t>(index), t };
+		}
+	}
+
+	SplineIndex Spline2D::advanceWrap(SplineIndex si, double dl) const
+	{
+		int index = static_cast<int>(si.i);
+		double t = si.t;
+
+		if (SplineLib::AdvanceAgent(&index, &t,
+			static_cast<int32>(m_splines.size()), m_splines.data(), dl))
+		{
+			return{ static_cast<size_t>(index), t };
+		}
+		else
+		{
 			SplineLib::WrapAgent(&index, &t, static_cast<int32>(m_splines.size()));
 			return{ static_cast<size_t>(index), t };
 		}
 	}
 
-	const Spline2D& Spline2D::draw(const ColorF& color, const int32 quality) const
+	SplineIndex Spline2D::advanceMirror(SplineIndex si, double dl, int32& direction) const
 	{
-		return draw(1.0, color, quality);
+		int index = static_cast<int>(si.i);
+		double t = si.t;
+
+		if (SplineLib::AdvanceAgent(&index, &t,
+			static_cast<int32>(m_splines.size()), m_splines.data(), dl))
+		{
+			direction = ((dl >= 0) ? 1 : -1);
+			return{ static_cast<size_t>(index), t };
+		}
+		else
+		{
+			direction = ((dl < 0) ? 1 : -1);
+			SplineLib::ReverseAgent(&index, &t);
+			return{ static_cast<size_t>(index), t };
+		}
 	}
 
-	const Spline2D& Spline2D::draw(const double thickness, const ColorF& color, int32 quality) const
+	LineString Spline2D::asLineString(int32 quality) const
 	{
 		if (isEmpty())
 		{
-			return *this;
+			return{};
 		}
 
 		quality = Max(2, quality);
@@ -177,7 +210,42 @@ namespace s3d
 			*pDst = SplineLib::Position1(m_splines.back());
 		}
 
-		points.draw(thickness, color);
+		return points;
+	}
+
+	Polygon Spline2D::calculateBuffer(const double distance, const int32 quality, const int32 bufferQuality) const
+	{
+		if (m_isRing)
+		{
+			if (LineString points = asLineString(quality))
+			{
+				points.pop_front();
+				return points.calculateBufferClosed(distance, bufferQuality);
+			}
+			else
+			{
+				return{};
+			}
+		}
+		else
+		{
+			return asLineString(quality).calculateBuffer(distance, bufferQuality);
+		}
+	}
+
+	const Spline2D& Spline2D::draw(const ColorF& color, const int32 quality) const
+	{
+		return draw(1.0, color, quality);
+	}
+
+	const Spline2D& Spline2D::draw(const double thickness, const ColorF& color, const int32 quality) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		asLineString(quality).draw(thickness, color);
 
 		return *this;
 	}

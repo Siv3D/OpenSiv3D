@@ -28,6 +28,11 @@ namespace s3d
 		return (not m_splines.isEmpty());
 	}
 
+	inline bool Spline2D::isRing() const noexcept
+	{
+		return (m_splines && m_isRing);
+	}
+
 	inline Vec2 Spline2D::position(const SplineIndex si) const
 	{
 		return position(si.i, si.t);

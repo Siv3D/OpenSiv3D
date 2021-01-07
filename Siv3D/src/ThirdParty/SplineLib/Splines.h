@@ -214,7 +214,7 @@ namespace SplineLib
 	void     Reverse(vector<cSpline3>* splines);                 ///< Reverses entire spline list
 	void     Offset(vector<cSpline3>* splines, double offset);   ///< Offset splines, e.g., for stroking, +ve = to the right.
 
-
+}
 
 	// --- Inlines -----------------------------------------------------------------
 
@@ -318,6 +318,5 @@ namespace SplineLib
 			3.0 * (spline.zb.w - spline.zb.z)
 		);
 	}
-}
 
 #endif
