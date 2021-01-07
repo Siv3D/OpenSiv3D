@@ -135,7 +135,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Siv3DTest-${{ matrix.config.name }}
-          path: Web/App/build/Siv3DTest.*
+          path: Web/App/Siv3DTest.*
 
   deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
