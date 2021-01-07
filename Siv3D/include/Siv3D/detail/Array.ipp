@@ -102,39 +102,27 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index) const&
+	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index) const
 	{
 		return base_type::operator[](index);
 	}
 
 	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index) &
+	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index)
 	{
 		return base_type::operator[](index);
 	}
 
 	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type Array<Type, Allocator>::operator[](const size_t index) &&
-	{
-		return std::move(base_type::operator[](index));
-	}
-
-	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index) const&
+	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index) const
 	{
 		return base_type::at(index);
 	}
 
 	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index) &
+	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index)
 	{
 		return base_type::at(index);
-	}
-
-	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type Array<Type, Allocator>::at(const size_t index) &&
-	{
-		return std::move(base_type::at(index));
 	}
 
 	template <class Type, class Allocator>

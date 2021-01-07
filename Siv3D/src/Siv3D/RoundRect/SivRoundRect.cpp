@@ -182,7 +182,7 @@ namespace s3d
 			static_cast<float>(innerThickness + outerThickness),
 			false,
 			color.toFloat4(),
-			IsClosed::Yes
+			CloseRing::Yes
 		);
 
 		return *this;

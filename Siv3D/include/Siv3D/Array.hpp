@@ -181,35 +181,24 @@ namespace s3d
 		/// @param index 要素へのインデックス
 		/// @return 要素への参照
 		[[nodiscard]]
-		const value_type& operator[](size_t index) const&;
+		const value_type& operator[](size_t index) const;
 
 		/// @brief 要素にアクセスします。
 		/// @param index 要素へのインデックス
 		/// @return 要素への参照
 		[[nodiscard]]
-		value_type& operator[](size_t index) &;
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @return 要素への参照
-		[[nodiscard]]
-		value_type operator[](size_t index) &&;
+		value_type& operator[](size_t index);
 
 		/// @brief 要素にアクセスします。
 		/// @param index 要素へのインデックス
 		/// @throw std::out_of_range 範囲外アクセスの場合 throw
 		/// @return 要素への参照
-		const value_type& at(size_t index) const&;
+		const value_type& at(size_t index) const;
 
 		/// @brief 要素にアクセスします。
 		/// @param index 要素へのインデックス
 		/// @return 要素への参照
-		value_type& at(size_t index) &;
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @return 要素への参照
-		value_type at(size_t index) &&;
+		value_type& at(size_t index);
 
 		/// @brief 配列の末尾に要素を追加します。
 		/// @param value 追加する値

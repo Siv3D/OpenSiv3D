@@ -625,6 +625,12 @@
     <Filter Include="src\Siv3D\Geometry2D">
       <UniqueIdentifier>{91296efa-2e7b-4d40-879d-35f7c4aa4ad2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\SplineLib">
+      <UniqueIdentifier>{ab8531d5-de1e-42eb-8b12-529a6076c316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Spline2D">
+      <UniqueIdentifier>{8b70c24d-03de-45a3-a96d-ab76802e3bfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2478,6 +2484,21 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Error.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spline.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Spline2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h">
+      <Filter>src\ThirdParty\SplineLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spline2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3403,6 +3424,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp">
       <Filter>src\Siv3D\Geometry2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.cpp">
+      <Filter>src\ThirdParty\SplineLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Spline2D\SivSpline2D.cpp">
+      <Filter>src\Siv3D\Spline2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

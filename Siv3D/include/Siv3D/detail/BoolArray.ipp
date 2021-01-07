@@ -173,36 +173,25 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		const value_type& operator[](const size_t index) const&
+		const value_type& operator[](const size_t index) const
 		{
 			return base_type::operator[](index);
 		}
 
 		[[nodiscard]]
-		value_type& operator[](const size_t index) &
+		value_type& operator[](const size_t index)
 		{
 			return base_type::operator[](index);
 		}
 
-		[[nodiscard]]
-		value_type operator[](const size_t index) &&
-		{
-			return std::move(base_type::operator[](index));
-		}
-
-		const value_type& at(const size_t index) const&
+		const value_type& at(const size_t index) const
 		{
 			return base_type::operator[](index);
 		}
 
-		value_type& at(const size_t index) &
+		value_type& at(const size_t index)
 		{
 			return base_type::at(index);
-		}
-
-		value_type at(const size_t index) &&
-		{
-			return std::move(base_type::at(index));
 		}
 
 		Array& operator <<(value_type value)

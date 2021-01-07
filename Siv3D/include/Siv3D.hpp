@@ -645,7 +645,7 @@
 
 // スプライン
 // Spline
-//# include <Siv3D/Spline.hpp>
+# include <Siv3D/Spline.hpp>
 
 // SIMD 演算
 // SIMD
@@ -789,6 +789,8 @@
 
 // 3 次ベジェ曲線
 # include <Siv3D/Bezier3.hpp> // [Siv3D ToDo]
+
+# include <Siv3D/Spline2D.hpp> // [Siv3D ToDo]
 
 // float 型の長方形
 # include <Siv3D/FloatRect.hpp>

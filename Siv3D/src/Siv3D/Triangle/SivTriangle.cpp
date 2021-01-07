@@ -90,7 +90,7 @@ namespace s3d
 	const Triangle& Triangle::drawFrame(const double thickness, const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addLineString(&p0, 3, none,
-			static_cast<float>(thickness), false, color.toFloat4(), IsClosed::Yes);
+			static_cast<float>(thickness), false, color.toFloat4(), CloseRing::Yes);
 
 		return *this;
 	}
@@ -102,7 +102,7 @@ namespace s3d
 
 		SIV3D_ENGINE(Renderer2D)->addLineString(&t.p0, 3, none,
 			static_cast<float>(innerThickness + outerThickness),
-			(outerThickness == 0.0), color.toFloat4(), IsClosed::Yes);
+			(outerThickness == 0.0), color.toFloat4(), CloseRing::Yes);
 
 		return *this;
 	}

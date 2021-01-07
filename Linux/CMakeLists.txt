@@ -183,6 +183,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
+  ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
@@ -401,6 +402,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 
   ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+
+  ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 
   ../Siv3D/src/ThirdParty/xxHash/xxhash.c
   )

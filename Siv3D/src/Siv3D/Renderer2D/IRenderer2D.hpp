@@ -72,9 +72,9 @@ namespace s3d
 
 		virtual void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& color) = 0;
 
-		virtual void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, IsClosed isClosed) = 0;
+		virtual void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing) = 0;
 
-		virtual void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, IsClosed isClosed) = 0;
+		virtual void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, CloseRing closeRing) = 0;
 
 		virtual void addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color) = 0;
 

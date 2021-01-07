@@ -22,6 +22,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+# include <boost/geometry/algorithms/densify.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -561,7 +562,7 @@ namespace s3d
 			static_cast<float>(thickness),
 			false,
 			color.toFloat4(),
-			IsClosed::Yes
+			CloseRing::Yes
 		);
 
 		for (const auto& hole : m_polygon.inners())
@@ -573,7 +574,7 @@ namespace s3d
 				static_cast<float>(thickness),
 				false,
 				color.toFloat4(),
-				IsClosed::Yes
+				CloseRing::Yes
 			);
 		}
 	}
@@ -581,5 +582,21 @@ namespace s3d
 	const CwOpenPolygon& Polygon::PolygonDetail::getPolygon() const noexcept
 	{
 		return m_polygon;
+	}
+}
+
+# include <Siv3D/LineString.hpp>
+
+namespace s3d
+{
+	using gLineString = boost::geometry::model::linestring<Vec2, Array>;
+
+	LineString LineString::densified(const double maxDistance) const
+	{
+		gLineString input(begin(), end()), result;
+
+		boost::geometry::densify(input, result, maxDistance);
+
+		return LineString(result.begin(), result.end());
 	}
 }

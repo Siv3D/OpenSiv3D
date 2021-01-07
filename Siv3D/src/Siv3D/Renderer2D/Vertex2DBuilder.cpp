@@ -761,7 +761,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const IsClosed isClosed, const float scale)
+		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing, const float scale)
 		{
 			if ((size < 2)
 				|| (32760 <= size)
@@ -799,7 +799,7 @@ namespace s3d
 					buf.push_back(current);
 				}
 
-				if (isClosed
+				if (closeRing
 					&& (buf.size() >= 2)
 					&& buf.back().distanceFromSq(buf.front()) <= th2)
 				{
@@ -818,7 +818,7 @@ namespace s3d
 			{
 				buf2.push_back(buf.front());
 
-				const size_t count = (buf.size() - 1 + static_cast<bool>(isClosed));
+				const size_t count = (buf.size() - 1 + static_cast<bool>(closeRing));
 
 				for (size_t i = 1; i < count; ++i)
 				{
@@ -854,7 +854,7 @@ namespace s3d
 					}
 				}
 
-				if (isClosed)
+				if (closeRing)
 				{
 					const Float2 back = buf[buf.size() - 1];
 					const Float2 current = buf[0];
@@ -892,7 +892,7 @@ namespace s3d
 			}
 
 			const Vertex2D::IndexType newSize = static_cast<Vertex2D::IndexType>(buf2.size());
-			const Vertex2D::IndexType vertexSize = (newSize * 2), indexSize = (6 * (newSize - 1) + (static_cast<bool>(isClosed) * 6));
+			const Vertex2D::IndexType vertexSize = (newSize * 2), indexSize = (6 * (newSize - 1) + (static_cast<bool>(closeRing) * 6));
 			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
 
 			if (not pVertex)
@@ -901,9 +901,9 @@ namespace s3d
 			}
 
 			const float thicknessHalf = (thickness * 0.5f);
-			const bool hasCap = (not isClosed);
+			const bool hasCap = (not closeRing);
 
-			if (isClosed)
+			if (closeRing)
 			{
 				const Float2 p0 = buf2.back();
 				const Float2 p1 = buf2[0];
@@ -948,7 +948,7 @@ namespace s3d
 				pVertex[i * 2 + 3].pos.set(result1);
 			}
 
-			if (isClosed)
+			if (closeRing)
 			{
 				const Float2 p0 = buf2[newSize - 2];
 				const Float2 p1 = buf2[newSize - 1];
@@ -993,7 +993,7 @@ namespace s3d
 			}
 
 			{
-				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + static_cast<bool>(isClosed));
+				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + static_cast<bool>(closeRing));
 
 				for (Vertex2D::IndexType k = 0; k < count; ++k)
 				{
@@ -1007,7 +1007,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const IsClosed isClosed, const float scale)
+		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const CloseRing closeRing, const float scale)
 		{
 			if ((size < 2)
 				|| (32760 <= size)
@@ -1045,7 +1045,7 @@ namespace s3d
 					buf.emplace_back(current, colors[size - 1].toFloat4());
 				}
 
-				if (isClosed
+				if (closeRing
 					&& (buf.size() >= 2)
 					&& buf.back().first.distanceFromSq(buf.front().first) <= th2)
 				{
@@ -1064,7 +1064,7 @@ namespace s3d
 			{
 				buf2.push_back(buf.front());
 
-				const size_t count = (buf.size() - 1 + static_cast<bool>(isClosed));
+				const size_t count = (buf.size() - 1 + static_cast<bool>(closeRing));
 
 				for (size_t i = 1; i < count; ++i)
 				{
@@ -1101,7 +1101,7 @@ namespace s3d
 					}
 				}
 
-				if (isClosed)
+				if (closeRing)
 				{
 					const Float2 back = buf[buf.size() - 1].first;
 					const Float2 current = buf[0].first;
@@ -1140,7 +1140,7 @@ namespace s3d
 			}
 
 			const Vertex2D::IndexType newSize = static_cast<Vertex2D::IndexType>(buf2.size());
-			const Vertex2D::IndexType vertexSize = (newSize * 2), indexSize = (6 * (newSize - 1) + (static_cast<bool>(isClosed) * 6));
+			const Vertex2D::IndexType vertexSize = (newSize * 2), indexSize = (6 * (newSize - 1) + (static_cast<bool>(closeRing) * 6));
 			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
 
 			if (not pVertex)
@@ -1149,9 +1149,9 @@ namespace s3d
 			}
 
 			const float thicknessHalf = (thickness * 0.5f);
-			const bool hasCap = (not isClosed);
+			const bool hasCap = (not closeRing);
 
-			if (isClosed)
+			if (closeRing)
 			{
 				const Float2 p0 = buf2.back().first;
 				const Float2 p1 = buf2[0].first;
@@ -1199,7 +1199,7 @@ namespace s3d
 				pVertex[i * 2 + 3].set(result1, c);
 			}
 
-			if (isClosed)
+			if (closeRing)
 			{
 				const Float2 p0 = buf2[newSize - 2].first;
 				const Float2 p1 = buf2[newSize - 1].first;
@@ -1241,7 +1241,7 @@ namespace s3d
 			}
 
 			{
-				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + static_cast<bool>(isClosed));
+				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + static_cast<bool>(closeRing));
 
 				for (Vertex2D::IndexType k = 0; k < count; ++k)
 				{
