@@ -78,6 +78,7 @@ jobs:
       - name: Bundle output
         run: |
           mkdir Package
+          mkdir Package/lib
           cp -r Siv3D/include Package
           cp -r Web/App/resources Package
           cp Web/build/${{ matrix.config.output-file }} Package/lib
