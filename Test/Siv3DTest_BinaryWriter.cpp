@@ -25,6 +25,9 @@ TEST_CASE("BinaryWriter")
 		REQUIRE(writer.path() == U"");
 	}
 
+// Siv3D TODO: Excluded Test Case
+# if !SIV3D_PLATFORM(WEB)
+
 	SECTION("invalid file name 1")
 	{
 		const FilePath path = FileSystem::FullPath(U"test/runtime/binarywriter/t/");
@@ -37,6 +40,8 @@ TEST_CASE("BinaryWriter")
 		REQUIRE(writer.getPos() == 0);
 		REQUIRE(writer.path() == U"");
 	}
+
+# endif
 
 # if SIV3D_PLATFORM(WINDOWS)
 	
