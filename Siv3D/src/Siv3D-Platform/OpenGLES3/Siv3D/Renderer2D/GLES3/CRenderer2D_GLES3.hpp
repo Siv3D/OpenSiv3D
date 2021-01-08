@@ -76,12 +76,14 @@ namespace s3d
 		ConstantBuffer<VSConstants2D> m_vsConstants2D;
 		ConstantBuffer<PSConstants2D> m_psConstants2D;
 
-		GLES3Vertex2DBatch m_batches;
+		Array<GLES3Vertex2DBatch> m_batches;
 		GLES3Renderer2DCommandManager m_commandManager;
 		BufferCreatorFunc m_bufferCreator;
 
 		Optional<VertexShader> m_currentCustomVS;
 		Optional<PixelShader> m_currentCustomPS;
+
+		uint32 m_drawCount 			= 0;
 
 		//////////////////////////////////////////////////
 		//
@@ -115,13 +117,23 @@ namespace s3d
 
 		void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 
+		void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& innerColor, const Float4& outerColor) override;
+
+		void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& innerColor, const Float4& outerColor) override;
+
+		void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) override;
+
+		void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;
+
 		void addQuad(const FloatQuad& quad, const Float4& color) override;
 
 		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
 
-		void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, ClosedRing closeRing) override;
+		void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& color) override;
 
-		void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, ClosedRing closeRing) override;
+		void addLineString(const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing) override;
+
+		void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, CloseRing closeRing) override;
 
 		void addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color) override;
 
@@ -130,6 +142,16 @@ namespace s3d
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
 
 		void addNullVertices(uint32 count) override;
+
+
+		Float4 getColorMul() const override;
+
+		Float4 getColorAdd() const override;
+
+		void setColorMul(const Float4& color) override;
+
+		void setColorAdd(const Float4& color) override;
+
 
 		BlendState getBlendState() const override;
 
