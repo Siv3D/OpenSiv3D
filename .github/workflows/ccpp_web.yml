@@ -78,6 +78,7 @@ jobs:
       - name: Bundle output
         run: |
           mkdir Package
+          mkdir Package/lib
           cp -r Siv3D/include Package
           cp -r Web/App/resources Package
           cp Web/build/${{ matrix.config.output-file }} Package/lib
@@ -90,6 +91,51 @@ jobs:
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: OpenSiv3D.*
+
+  build-app:
+    needs: build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.4'
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create build folder
+        working-directory: Web/App
+        run: mkdir build
+
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+
+      - name: Restore Siv3D library
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/build
+          cp -r Package/lib/* Web/build
+
+      - name: Create project using cmake
+        working-directory: Web/App/build
+        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake-config }} ..
+
+      - name: Build Siv3d App
+        working-directory: Web/App/build
+        run: cmake --build .
+
+      - name: Save Bundles
+        uses: actions/upload-artifact@v2
+        with:
+          name: Siv3DTest-${{ matrix.config.name }}
+          path: Web/App/Siv3DTest.*
 
   deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
@@ -129,3 +175,27 @@ jobs:
           asset_path: OpenSiv3D.tgz
           asset_name: OpenSiv3D.tgz
           asset_content_type: application/gzip
+
+  deploy-gh-pages:
+    needs: build-app
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Destination Folders
+        run: |
+          mkdir Dest
+          mkdir Dest/v6-wasm-app
+
+      - name: Place Siv3D Apps (wasm)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm
+          path: Dest/v6-wasm-app
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Dest
+          keep_files: true

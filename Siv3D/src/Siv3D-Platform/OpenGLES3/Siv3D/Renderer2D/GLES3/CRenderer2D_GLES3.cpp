@@ -31,7 +31,7 @@ namespace s3d
 {
 	CRenderer2D_GLES3::CRenderer2D_GLES3()
 	{
-
+		m_batches.resize(2);
 	}
 
 	CRenderer2D_GLES3::~CRenderer2D_GLES3()
@@ -92,16 +92,19 @@ namespace s3d
 
 		// Batch 管理を初期化
 		{
-			if (not m_batches.init())
+			for (auto &batch : m_batches)
 			{
-				throw EngineError(U"GLES3Vertex2DBatch::init() failed");
+				if (not batch.init())
+				{
+					throw EngineError(U"GLES3Vertex2DBatch::init() failed");
+				}
 			}
 		}
 
 		// バッファ作成関数を作成
 		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
 		{
-			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
+			return m_batches[0].requestBuffer(vertexSize, indexSize, m_commandManager);
 		};
 
 		// full screen triangle
@@ -262,6 +265,78 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GLES3::addCirclePie(const Float2& center, const float r, const float startAngle, const float angle, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCirclePie(m_bufferCreator, center, r, startAngle, angle, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addCircleArc(const Float2& center, const float rInner, const float startAngle, const float angle, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircleArc(m_bufferCreator, center, rInner, startAngle, angle, thickness, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addEllipseFrame(const Float2& center, const float aInner, const float bInner, const float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildEllipseFrame(m_bufferCreator, center, aInner, bInner, thickness, innerColor, outerColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_GLES3::addQuad(const FloatQuad& quad, const Float4& color)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, color))
@@ -283,6 +358,24 @@ namespace s3d
 	void CRenderer2D_GLES3::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildQuad(m_bufferCreator, quad, colors))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addRoundRect(const FloatRect& rect, const float w, const float h, const float r, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -398,6 +491,26 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	Float4 CRenderer2D_GLES3::getColorMul() const
+	{
+		return m_commandManager.getCurrentColorMul();
+	}
+
+	Float4 CRenderer2D_GLES3::getColorAdd() const
+	{
+		return m_commandManager.getCurrentColorAdd();
+	}
+
+	void CRenderer2D_GLES3::setColorMul(const Float4& color)
+	{
+		m_commandManager.pushColorMul(color);
+	}
+
+	void CRenderer2D_GLES3::setColorAdd(const Float4& color)
+	{
+		m_commandManager.pushColorAdd(color);
+	}
+
 	BlendState CRenderer2D_GLES3::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
@@ -505,9 +618,11 @@ namespace s3d
 
 	void CRenderer2D_GLES3::flush()
 	{
-		ScopeGuard cleanUp = [this]()
+		GLES3Vertex2DBatch& batch = m_batches[m_drawCount % 2];
+
+		ScopeGuard cleanUp = [this, &batch]()
 		{
-			m_batches.reset();
+			batch.reset();
 			m_commandManager.reset();
 			m_currentCustomVS.reset();
 			m_currentCustomPS.reset();
@@ -548,7 +663,7 @@ namespace s3d
 				}
 			case GLES3Renderer2DCommandType::UpdateBuffers:
 				{
-					batchInfo = m_batches.updateBuffers(command.index);
+					batchInfo = batch.updateBuffers(command.index);
 
 					LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
 						command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
@@ -587,7 +702,7 @@ namespace s3d
 						}
 						::glBindVertexArray(0);
 
-						m_batches.setBuffers();
+						batch.setBuffers();
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
@@ -689,6 +804,13 @@ namespace s3d
 		::glBindVertexArray(0);
 
 		CheckOpenGLError();
+
+		++m_drawCount;
+		
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
 	}
 
 	void CRenderer2D_GLES3::drawFullScreenTriangle(const TextureFilter textureFilter)
