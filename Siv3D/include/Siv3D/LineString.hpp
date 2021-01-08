@@ -182,10 +182,10 @@ namespace s3d
 		LineString catmullRomClosed(int32 interpolation = 24) const;
 
 		[[nodiscard]]
-		Polygon calculateBuffer(double distance, int32 bufferQuality = 12) const;
+		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;
 
 		[[nodiscard]]
-		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 12) const;
+		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 24) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
@@ -224,6 +224,8 @@ namespace s3d
 		const LineString& drawClosed(const ColorF& color = Palette::White) const;
 
 		const LineString& drawClosed(double thickness, const ColorF & color = Palette::White) const;
+
+		const LineString& drawClosed(double thickness, const Array<ColorF>& colors) const;
 
 		//const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 

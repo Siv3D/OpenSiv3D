@@ -37,55 +37,68 @@ namespace s3d
 			points2.push_back(points.front());
 			points2.push_back(points[1]);
 
-			m_splines.resize(points2.size() - 1);
+			m_splinesBuffer.resize(points2.size() - 1);
 
 			SplineLib::SplinesFromPoints(static_cast<int32>(points2.size()), points2.data(),
-				static_cast<int32>(m_splines.size()), m_splines.data(), tension);
+				static_cast<int32>(m_splinesBuffer.size()), m_splinesBuffer.data(), tension);
 
-			m_splines.pop_back();
-			m_splines.pop_front();
+			m_ptr = &m_splinesBuffer[1];
+			m_size = (m_splinesBuffer.size() - 2);
 
 			m_isRing = true;
 		}
 		else
 		{
-			m_splines.resize(points.size() - 1);
+			m_splinesBuffer.resize(points.size() - 1);
 
 			SplineLib::SplinesFromPoints(static_cast<int32>(points.size()), points.data(),
-				static_cast<int32>(m_splines.size()), m_splines.data(), tension);
+				static_cast<int32>(m_splinesBuffer.size()), m_splinesBuffer.data(), tension);
+
+			m_ptr = m_splinesBuffer.data();
+			m_size = m_splinesBuffer.size();
 		}
 	}
 
 	RectF Spline2D::fastBoundingRect(const size_t i) const
 	{
-		const SplineLib::Bounds2f bb = SplineLib::FastBounds(m_splines[i]);
+		const SplineLib::Bounds2f bb = SplineLib::FastBounds(m_ptr[i]);
 		return{ bb.min, (bb.max - bb.min) };
 	}
 
 	RectF Spline2D::boundingRect(const size_t i) const
 	{
-		const SplineLib::Bounds2f bb = SplineLib::ExactBounds(m_splines[i]);
+		const SplineLib::Bounds2f bb = SplineLib::ExactBounds(m_ptr[i]);
 		return{ bb.min, (bb.max - bb.min) };
 	}
 
 	double Spline2D::length(const size_t i, const double maxError) const
 	{
-		return SplineLib::Length(m_splines[i], 0.0, 1.0, maxError);
+		return SplineLib::Length(m_ptr[i], maxError);
+	}
+
+	double Spline2D::length(const size_t i, const double t0, const double t1, const double maxError) const
+	{
+		return SplineLib::Length(m_ptr[i], t0, t1, maxError);
 	}
 
 	Vec2 Spline2D::position(const size_t i, const double t) const
 	{
-		return SplineLib::Position(m_splines[i], t);
+		return SplineLib::Position(m_ptr[i], t);
 	}
 
 	Vec2 Spline2D::velocity(const size_t i, const double t) const
 	{
-		return SplineLib::Velocity(m_splines[i], t);
+		return SplineLib::Velocity(m_ptr[i], t);
 	}
 
 	Vec2 Spline2D::acceleration(const size_t i, const double t) const
 	{
-		return SplineLib::Acceleration(m_splines[i], t);
+		return SplineLib::Acceleration(m_ptr[i], t);
+	}
+
+	double Spline2D::curvature(const size_t i, const double t) const
+	{
+		return SplineLib::Curvature(m_ptr[i], t);
 	}
 
 	SplineIndex Spline2D::findNearest(const Vec2 pos) const
@@ -98,8 +111,8 @@ namespace s3d
 		int index = 0;
 		const double t = SplineLib::FindClosestPoint(
 			pos,
-			static_cast<int32>(m_splines.size()),
-			m_splines.data(),
+			static_cast<int32>(m_size),
+			m_ptr,
 			&index);
 		return{ static_cast<size_t>(index), t };
 	}
@@ -112,8 +125,8 @@ namespace s3d
 		Array<double[2]> ts(maxResults);
 
 		const size_t num_intersections = SplineLib::FindSplineIntersections(
-			static_cast<int32>(m_splines.size()),
-			m_splines.data(), maxResults, indices.data(), ts.data(), tolerance);
+			static_cast<int32>(m_size),
+			m_ptr, maxResults, indices.data(), ts.data(), tolerance);
 
 		Array<std::pair<SplineIndex, SplineIndex>> results(num_intersections);
 
@@ -132,13 +145,13 @@ namespace s3d
 		double t = si.t;
 
 		if (SplineLib::AdvanceAgent(&index, &t,
-			static_cast<int32>(m_splines.size()), m_splines.data(), dl))
+			static_cast<int32>(m_size), m_ptr, dl))
 		{
 			return{ static_cast<size_t>(index), t };
 		}
 		else
 		{
-			SplineLib::ClampAgent(&index, &t, static_cast<int32>(m_splines.size()));
+			SplineLib::ClampAgent(&index, &t, static_cast<int32>(m_size));
 			return{ static_cast<size_t>(index), t };
 		}
 	}
@@ -149,13 +162,13 @@ namespace s3d
 		double t = si.t;
 
 		if (SplineLib::AdvanceAgent(&index, &t,
-			static_cast<int32>(m_splines.size()), m_splines.data(), dl))
+			static_cast<int32>(m_size), m_ptr, dl))
 		{
 			return{ static_cast<size_t>(index), t };
 		}
 		else
 		{
-			SplineLib::WrapAgent(&index, &t, static_cast<int32>(m_splines.size()));
+			SplineLib::WrapAgent(&index, &t, static_cast<int32>(m_size));
 			return{ static_cast<size_t>(index), t };
 		}
 	}
@@ -166,7 +179,7 @@ namespace s3d
 		double t = si.t;
 
 		if (SplineLib::AdvanceAgent(&index, &t,
-			static_cast<int32>(m_splines.size()), m_splines.data(), dl))
+			static_cast<int32>(m_size), m_ptr, dl))
 		{
 			direction = ((dl >= 0) ? 1 : -1);
 			return{ static_cast<size_t>(index), t };
@@ -188,26 +201,27 @@ namespace s3d
 
 		quality = Max(2, quality);
 
-		LineString points(quality * size() + 1);
+		LineString points(quality * m_size + 1);
 		{
-			const size_t s = size();
+			const size_t s = m_size;
 			const double tDelta = (1 / static_cast<double>(quality));
-			const CSpline2* pSrc = m_splines.data();
+			const CSpline2* pSrc = m_ptr;
 			Vec2* pDst = points.data();
 
 			for (size_t i = 0; i < s; ++i)
 			{
 				*pDst++ = SplineLib::Position0(*pSrc);
 
-				for (int32 t = 1; t < quality; ++t)
+				for (int32 k = 1; k < quality; ++k)
 				{
-					*pDst++ = SplineLib::Position(*pSrc, (t * tDelta));
+					const double t = (k * tDelta);
+					*pDst++ = SplineLib::Position(*pSrc, t);
 				}
 
 				++pSrc;
 			}
 
-			*pDst = SplineLib::Position1(m_splines.back());
+			*pDst = SplineLib::Position1(m_ptr[(m_size - 1)]);
 		}
 
 		return points;
@@ -245,7 +259,71 @@ namespace s3d
 			return *this;
 		}
 
-		asLineString(quality).draw(thickness, color);
+		if (LineString points = asLineString(quality))
+		{
+			if (m_isRing)
+			{
+				points.pop_back();
+				points.drawClosed(thickness, color);
+			}
+			else
+			{
+				points.draw(thickness, color);
+			}
+		}
+
+		return *this;
+	}
+
+	const Spline2D& Spline2D::draw(const double thickness, std::function<ColorF(SplineIndex)> colorFunc, int32 quality) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		quality = Max(2, quality);
+
+		const size_t num_points = (quality * m_size + (not m_isRing));
+		LineString points(num_points);
+		Array<ColorF> colors(num_points);
+		{
+			const size_t s = m_size;
+			const double tDelta = (1 / static_cast<double>(quality));
+			const CSpline2* pSrc = m_ptr;
+			Vec2* pDst = points.data();
+			ColorF* pDstColor = colors.data();
+
+			for (size_t i = 0; i < s; ++i)
+			{
+				*pDst++ = SplineLib::Position0(*pSrc);
+				*pDstColor++ = colorFunc({ i, 0.0 });
+
+				for (int32 k = 1; k < quality; ++k)
+				{
+					const double t = (k * tDelta);
+					*pDst++ = SplineLib::Position(*pSrc, t);
+					*pDstColor++ = colorFunc({ i, t });
+				}
+
+				++pSrc;
+			}
+
+			if (not m_isRing)
+			{
+				*pDst = SplineLib::Position1(m_ptr[(m_size - 1)]);
+				*pDstColor++ = colorFunc({ (s - 1), 1.0 });
+			}
+		}
+
+		if (m_isRing)
+		{
+			points.drawClosed(thickness, colors);
+		}
+		else
+		{
+			points.draw(thickness, colors);
+		}
 
 		return *this;
 	}

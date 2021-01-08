@@ -57,6 +57,8 @@ namespace s3d
 		[[nodiscard]]
 		bool isRing() const noexcept;
 
+		void clear() noexcept;
+
 		[[nodiscard]]
 		RectF fastBoundingRect(size_t i) const;
 
@@ -64,7 +66,10 @@ namespace s3d
 		RectF boundingRect(size_t i) const;
 
 		[[nodiscard]]
-		double length(size_t i, double maxError = 0.1) const;
+		double length(size_t i, double maxError = 0.01) const;
+
+		[[nodiscard]]
+		double length(size_t i, double t0, double t1, double maxError = 0.01) const;
 
 		[[nodiscard]]
 		Vec2 position(size_t i, double t) const;
@@ -85,6 +90,12 @@ namespace s3d
 		Vec2 acceleration(SplineIndex si) const;
 
 		[[nodiscard]]
+		double curvature(size_t i, double t) const;
+
+		[[nodiscard]]
+		double curvature(SplineIndex si) const;
+
+		[[nodiscard]]
 		SplineIndex findNearest(Vec2 pos) const;
 
 		[[nodiscard]]
@@ -103,11 +114,13 @@ namespace s3d
 		LineString asLineString(int32 quality = 24) const;
 
 		[[nodiscard]]
-		Polygon calculateBuffer(double distance, int32 quality = 24, int32 bufferQuality = 12) const;
+		Polygon calculateBuffer(double distance, int32 quality = 24, int32 bufferQuality = 24) const;
 
 		const Spline2D& draw(const ColorF& color = Palette::White, int32 quality = 24) const;
 
 		const Spline2D& draw(double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
+
+		const Spline2D& draw(double thickness, std::function<ColorF(SplineIndex)> colorFunc, int32 quality = 24) const;
 
 		//const Spline2D& draw(double thickness, const Array<ColorF>& colors, int32 quality = 24) const;
 
@@ -115,7 +128,11 @@ namespace s3d
 
 	private:
 
-		Array<CSpline2> m_splines;
+		Array<CSpline2> m_splinesBuffer;
+
+		const CSpline2* m_ptr = nullptr;
+
+		size_t m_size = 0;
 
 		bool m_isRing = false;
 	};

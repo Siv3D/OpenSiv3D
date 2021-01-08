@@ -26,9 +26,10 @@ Library | Version
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
-[stb_truetype](https://github.com/nothings/stb) | v1.24
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | v0.6.0
+[SplineLib](https://github.com/andrewwillmott/splines-lib) | 
+[stb_truetype](https://github.com/nothings/stb) | v1.24
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1

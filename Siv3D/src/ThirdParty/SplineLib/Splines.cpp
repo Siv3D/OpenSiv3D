@@ -6,6 +6,7 @@
 //  Copyright:  Andrew Willmott 2018
 //
 
+#include <cfloat>
 #include "Splines.h"
 #include <Siv3D/Utility.hpp>
 #include <Siv3D/MathConstants.hpp>
