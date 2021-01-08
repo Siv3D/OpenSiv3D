@@ -121,19 +121,29 @@ namespace s3d
 	{
 		constexpr int32 maxResults = 1024;
 
-		Array<int32[2]> indices(maxResults);
-		Array<double[2]> ts(maxResults);
+		struct Int2 { int32 data[2]; };
+		struct Double2 { double data[2]; };
+		Array<Int2> indices(maxResults);
+		Array<Double2> ts(maxResults);
+		int(*pI)[2] = &indices.front().data;
+		double(*pT)[2] = &ts.front().data;
 
 		const size_t num_intersections = SplineLib::FindSplineIntersections(
 			static_cast<int32>(m_size),
-			m_ptr, maxResults, indices.data(), ts.data(), tolerance);
+			m_ptr, maxResults, pI, pT, tolerance);
 
 		Array<std::pair<SplineIndex, SplineIndex>> results(num_intersections);
 
 		for (size_t i = 0; i < num_intersections; ++i)
 		{
-			results[i].first = { static_cast<size_t>(indices[i][0]), ts[i][0] };
-			results[i].second = { static_cast<size_t>(indices[i][1]), ts[i][1] };
+			results[i].first = { static_cast<size_t>(indices[i].data[0]), ts[i].data[0] };
+			results[i].second = { static_cast<size_t>(indices[i].data[1]), ts[i].data[1] };
+		}
+
+		if (m_isRing)
+		{
+			// [Siv3D ToDo]
+			// 始点と終点の交差は含まないようにする
 		}
 
 		return results;
