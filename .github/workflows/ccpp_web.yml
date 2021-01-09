@@ -199,3 +199,25 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./Dest
           keep_files: true
+
+  e2e-test:
+    needs: deploy-gh-pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'Checkout the repository'
+        uses: actions/checkout@v2
+
+      - name: 'Building web application to be tested'
+        working-directory: Web/CI
+        run: npm install
+
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        working-directory: Web/CI
+        run: npm test  # See sample test script above
