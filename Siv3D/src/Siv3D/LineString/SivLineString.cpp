@@ -11,6 +11,7 @@
 
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Spline.hpp>
+# include <Siv3D/Spline2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -88,6 +89,11 @@ namespace s3d
 	LineString LineString::catmullRomClosed(const int32 interpolation) const
 	{
 		return detail::CatmullRom(*this, interpolation, CloseRing::Yes);
+	}
+
+	Spline2D LineString::asSpline(const CloseRing closeRing) const
+	{
+		return{ *this, closeRing };
 	}
 
 	const LineString& LineString::draw(const ColorF& color) const

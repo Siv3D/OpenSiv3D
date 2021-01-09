@@ -19,6 +19,8 @@
 
 namespace s3d
 {
+	class Spline2D;
+
 	/// @brief 点の集合（とそれをつないで表現される線分）
 	class LineString : protected Array<Vec2>
 	{
@@ -187,6 +189,9 @@ namespace s3d
 		[[nodiscard]]
 		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 24) const;
 
+		[[nodiscard]]
+		Spline2D asSpline(CloseRing closeRing = CloseRing::No) const;
+
 		template <class Shape2DType>
 		[[nodiscard]]
 		constexpr bool intersects(const Shape2DType& other) const;
@@ -228,18 +233,6 @@ namespace s3d
 		const LineString& drawClosed(double thickness, const Array<ColorF>& colors) const;
 
 		//const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
-
-		//void drawCatmullRom(const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		//void drawCatmullRom(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		//void drawCatmullRom(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		//void drawCatmullRomClosed(const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		//void drawCatmullRomClosed(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		//void drawCatmullRomClosed(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
 
 	private:
 

@@ -36,7 +36,7 @@ namespace s3d
 	inline void Spline2D::clear() noexcept
 	{
 		m_splinesBuffer.clear();
-		m_ptr = nullptr;
+		m_offset = 0;
 		m_size = 0;
 		m_isRing = false;
 	}

@@ -231,6 +231,18 @@ namespace s3d
 	{
 		return Geometry2D::BoundingRect(*this);
 	}
+
+	template <class Shape2DType>
+	inline constexpr bool LineString::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline Optional<Array<Vec2>> LineString::intersectsAt(const Shape2DType& other) const
+	{
+		return Geometry2D::IntersectAt(*this, other);
+	}
 }
 
 template <>

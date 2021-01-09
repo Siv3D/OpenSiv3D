@@ -43,7 +43,13 @@ namespace s3d
 		explicit Spline2D(const Array<Vec2>& points, double tension = 0.0);
 
 		SIV3D_NODISCARD_CXX20
+		explicit Spline2D(const LineString& points, double tension = 0.0);
+
+		SIV3D_NODISCARD_CXX20
 		Spline2D(const Array<Vec2>& points, CloseRing closeRing, double tension = 0.0);
+
+		SIV3D_NODISCARD_CXX20
+		Spline2D(const LineString& points, CloseRing closeRing, double tension = 0.0);
 
 		[[nodiscard]]
 		size_t size() const noexcept;
@@ -99,7 +105,10 @@ namespace s3d
 		SplineIndex findNearest(Vec2 pos) const;
 
 		[[nodiscard]]
-		Array<std::pair<SplineIndex, SplineIndex>> findIntersections(double tolerance = 0.1) const;
+		Array<std::pair<SplineIndex, SplineIndex>> findSelfIntersections(double tolerance = 0.1) const;
+
+		[[nodiscard]]
+		Array<std::pair<SplineIndex, SplineIndex>> findIntersections(const Spline2D& other, double tolerance = 0.1) const;
 
 		[[nodiscard]]
 		SplineIndex advance(SplineIndex si, double dl) const;
@@ -130,7 +139,7 @@ namespace s3d
 
 		Array<CSpline2> m_splinesBuffer;
 
-		const CSpline2* m_ptr = nullptr;
+		size_t m_offset = 0;
 
 		size_t m_size = 0;
 
