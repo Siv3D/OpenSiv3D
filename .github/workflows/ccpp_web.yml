@@ -60,7 +60,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create build folder
-        run: mkdir -p Web/App/build
+        run: mkdir Web/build
 
       - name: Cache OpenSiv3D Build result
         id: cache_siv3d_library
