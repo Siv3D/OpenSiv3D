@@ -133,12 +133,24 @@ jobs:
           mkdir Web/build
           cp -r Package/lib/* Web/build
 
+      - name: Cache OpenSiv3D Test Build result
+        id: cache_siv3d_test
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-test
+        with:
+          path: Web/App
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*', 'Test/**/*.*') }}
+
       - name: Create test project using cmake
+        if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
         run: emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
       - name: Build test project
+        if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
         run: cmake --build .
+
       - name: Test project
         working-directory: Web/App
         run: node Siv3DTest.js
@@ -157,7 +169,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Create build folder
         working-directory: Web/App
         run: mkdir build
@@ -167,18 +178,27 @@ jobs:
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: .
-
       - name: Restore Siv3D library
         run: |
           tar -xvf OpenSiv3D.tgz
           mkdir Web/build
           cp -r Package/lib/* Web/build
 
+      - name: Cache OpenSiv3D App Build result
+        id: cache_siv3d_app
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-app
+        with:
+          path: Web/App
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
+
       - name: Create project using cmake
+        if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
         run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake-config }} ..
-
       - name: Build Siv3d App
+        if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
         run: cmake --build .
 
@@ -229,15 +249,12 @@ jobs:
 
   deploy-gh-pages:
     needs: build-app
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && !needs.build-app.outputs.cache-hit }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Create Destination Folders
-        run: |
-          mkdir Dest
-          mkdir Dest/v6-wasm-app
-
+        run: mkdir -p Dest/v6-wasm-app
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
         with:
@@ -261,6 +278,16 @@ jobs:
         with:
           username:  ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      
+      - name: Create Destination Folders
+        run: mkdir -p Dest/v6-wasm-app
+      - name: Place Siv3D Apps (wasm)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm
+          path: Dest/v6-wasm-app
+      
+      
 
       - name: 'Checkout the repository'
         uses: actions/checkout@v2
@@ -268,7 +295,6 @@ jobs:
       - name: 'Building web application to be tested'
         working-directory: Web/CI
         run: npm install
-
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         working-directory: Web/CI
         run: npm test  # See sample test script above
