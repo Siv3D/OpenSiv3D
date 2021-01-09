@@ -29,8 +29,8 @@ const deviceCapabilities = [
     'browser_version' : '84'
   },
   {
-    'os' : 'Mac',
-    'os_version' : 'macOS Big Sur',
+    'os' : 'OS X',
+    'os_version' : 'Big Sur',
     'browserName' : 'Safari',
     'browser_version' : '14'
   },
