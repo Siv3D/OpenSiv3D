@@ -22,13 +22,13 @@ namespace s3d
 
 			if constexpr (sizeof(size_t) == 8)
 			{
-				constexpr size_t offset_basis	= 14695981039346656037ULL;
-				constexpr size_t fnv_prime		= 1099511628211ULL;
-				size_t result = offset_basis;
+				constexpr uint64 offset_basis	= 14695981039346656037ULL;
+				constexpr uint64 fnv_prime		= 1099511628211ULL;
+				uint64 result = offset_basis;
 
 				for (; data != end; ++data)
 				{
-					result ^= static_cast<size_t>(*data);
+					result ^= static_cast<uint64>(*data);
 					result *= fnv_prime;
 				}
 
@@ -36,13 +36,13 @@ namespace s3d
 			}
 			else
 			{
-				constexpr size_t offset_basis	= 2166136261u;
-				constexpr size_t fnv_prime		= 16777619u;
-				size_t result = offset_basis;
+				constexpr uint32 offset_basis	= 2166136261u;
+				constexpr uint32 fnv_prime		= 16777619u;
+				uint32 result = offset_basis;
 
 				for (; data != end; ++data)
 				{
-					result ^= static_cast<size_t>(*data);
+					result ^= static_cast<uint32>(*data);
 					result *= fnv_prime;
 				}
 

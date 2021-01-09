@@ -22,16 +22,18 @@ Library | Version
 [lunasvg](https://github.com/sammycage/lunasvg) | v1.4.0
 [miniutf](https://github.com/dropbox/miniutf) | 
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
+[nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
+[rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | v0.6.0
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
-[tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
+[tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
 [zlib](https://www.zlib.net/) | 1.2.11

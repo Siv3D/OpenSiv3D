@@ -35,7 +35,7 @@ namespace s3d
 
 		char8 m_buffer[4];
 
-		uint32 m_count = 0;
+		size_t m_count = 0;
 
 		char32 m_result = 0;
 	};

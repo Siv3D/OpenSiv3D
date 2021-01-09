@@ -321,6 +321,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RegExp.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ResourceOption.hpp" />
@@ -627,6 +628,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\best_bin_finder.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\empty_spaces.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\empty_space_allocators.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\finders_interface.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\insert_and_split.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rectPack2D\rect_structs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
@@ -787,6 +794,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Random\SivRandom.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RectanglePacking\SivRectanglePacking.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RegExp\RegExpDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RegExp\SivRegExp.cpp" />

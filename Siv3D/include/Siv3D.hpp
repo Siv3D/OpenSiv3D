@@ -811,11 +811,11 @@
 
 // 2D 幾何
 // 2D Geometry Processing
-//# include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Geometry2D.hpp>
 
 // 長方形詰込み
 // Rectangle Packing
-//# include <Siv3D/RectanglePacking.hpp>
+# include <Siv3D/RectanglePacking.hpp>
 
 // 平面分割
 // Planar Subdivisions

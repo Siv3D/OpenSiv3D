@@ -393,6 +393,7 @@ rules.ninja
 #
 gmon.out
 .vscode/
+*.PVS-Studio.stacktrace.txt
 
 # Siv3D
 ## Ignore dependencies folder
