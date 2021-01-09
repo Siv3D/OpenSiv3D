@@ -161,6 +161,9 @@ jobs:
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
+
+    outputs: 
+      cache-hit: ${{ steps.cache_siv3d_app.outputs.cache-hit }}
     
     steps:
       - name: Checkout code
