@@ -8,30 +8,11 @@ on:
     branches: [ v6_* ]
 
 jobs:
-  build:
+  pre-build:
     if: ${{ !contains(github.event.head_commit.message, '[ci skip]') }}
-    strategy:
-      matrix:
-        config:
-          - name: wasm
-            container: 'emscripten/emsdk:2.0.4'
-            output-file: 'libSiv3D.a'
-    container: 
-      image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create build folder
-        working-directory: Web
-        run: |
-          mkdir build
-          mkdir App/build
-      - name: Create project using cmake
-        working-directory: Web/build
-        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
-
       - name: Cache boost
         id: cache_boost
         uses: actions/cache@v1
@@ -39,13 +20,13 @@ jobs:
           cache-name: cache-boost-headers
         with:
           path: Dependencies/boost_1_73_0/boost
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ env.cache-name }}
 
       - name: Download boost
         if: ${{ !steps.cache_boost.outputs.cache-hit }}
         working-directory: Dependencies
         run: |
-          git clone --recursive https://github.com/boostorg/boost.git --branch boost-1.73.0
+          git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-1.73.0
           rm -r boost_1_73_0
           mv boost boost_1_73_0
 
@@ -60,25 +41,54 @@ jobs:
           rm -r boost
           mv boost_tmp/boost boost
 
+  build:
+    needs: pre-build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.4'
+            output-file: 'libSiv3D.a'
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder
+        run: mkdir -p Web/App/build
+
+      - name: Cache OpenSiv3D Build result
+        id: cache_siv3d_library
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-library
+        with:
+          path: Web/build
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
+
+      - name: Cache boost
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-boost-headers
+        with:
+          path: Dependencies/boost_1_73_0/boost
+          key: ${{ env.cache-name }}
+  
+      - name: Create project using cmake
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        working-directory: Web/build
+        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
       - name: Build project
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         working-directory: Web/build
         run: cmake --build . --parallel 4
 
-      - name: Create test project using cmake
-        working-directory: Web/App/build
-        run: emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
-      - name: Build test project
-        working-directory: Web/App/build
-        run: cmake --build .
-      - name: Test project
-        working-directory: Web/App
-        run: |
-          node Siv3DTest.js
-
       - name: Bundle output
         run: |
-          mkdir Package
-          mkdir Package/lib
+          mkdir -p Package/lib
           cp -r Siv3D/include Package
           cp -r Web/App/resources Package
           cp Web/build/${{ matrix.config.output-file }} Package/lib
@@ -91,6 +101,44 @@ jobs:
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: OpenSiv3D.*
+
+  test:
+    needs: build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.4'
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder  
+        run: mkdir Web/App/build
+  
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+      - name: Restore Siv3D library
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/build
+          cp -r Package/lib/* Web/build
+
+      - name: Create test project using cmake
+        working-directory: Web/App/build
+        run: emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
+      - name: Build test project
+        working-directory: Web/App/build
+        run: cmake --build .
+      - name: Test project
+        working-directory: Web/App
+        run: node Siv3DTest.js
 
   build-app:
     needs: build
