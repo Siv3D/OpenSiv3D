@@ -80,14 +80,12 @@ jobs:
           path: Dependencies/boost_1_73_0/boost
           key: ${{ env.cache-name }}
   
-      - name: Create project using cmake
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
-        working-directory: Web/build
-        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
       - name: Build project
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         working-directory: Web/build
-        run: cmake --build . --parallel 4
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake --build . --parallel 4
 
       - name: Bundle output
         run: |
@@ -142,14 +140,12 @@ jobs:
           path: Web/App
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*', 'Test/**/*.*') }}
 
-      - name: Create test project using cmake
+      - name: Create & Build test project
         if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
-        run: emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
-      - name: Build test project
-        if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
-        working-directory: Web/App/build
-        run: cmake --build .
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
+          cmake --build .
 
       - name: Test project
         working-directory: Web/App
@@ -193,14 +189,12 @@ jobs:
           path: Web/App
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
 
-      - name: Create project using cmake
+      - name: Create & Build Siv3d App
         if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
-        run: emcmake cmake -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake-config }} ..
-      - name: Build Siv3d App
-        if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
-        working-directory: Web/App/build
-        run: cmake --build .
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake-config }} ..
+          cmake --build .
 
       - name: Save Bundles
         uses: actions/upload-artifact@v2
@@ -287,8 +281,6 @@ jobs:
           name: Siv3DTest-wasm
           path: Dest/v6-wasm-app
       
-      
-
       - name: 'Checkout the repository'
         uses: actions/checkout@v2
 
