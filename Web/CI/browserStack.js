@@ -19,8 +19,26 @@ const deviceCapabilities = [
   {
     'os' : 'Windows',
     'os_version' : '10',
+    'browserName' : 'Edge',
+    'browser_version' : '87'
+  },
+  {
+    'os' : 'Windows',
+    'os_version' : '10',
     'browserName' : 'Firefox',
     'browser_version' : '84'
+  },
+  {
+    'os' : 'macOS',
+    'os_version' : 'Big Sur',
+    'browserName' : 'Safari',
+    'browser_version' : '14'
+  },
+  {
+    'os' : 'android',
+    'device' : 'Google Pixel 3a',
+    'os_version' : '9.0',
+    'browserName' : 'Chrome'
   },
   {
     'os' : 'iOS',
@@ -31,7 +49,7 @@ const deviceCapabilities = [
 ];
 
 const browserstackURL = 'https://hub-cloud.browserstack.com/wd/hub';
-const testedSiteURL = 'https://siv3d-assets.kamenokosoft.com/wasm-app/Siv3D_App';
+const testedSiteURL = 'https://siv3d-assets.kamenokosoft.com/v6-wasm-app/Siv3DTest';
 
 /**
  * 
