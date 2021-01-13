@@ -11,6 +11,7 @@
 
 # pragma once
 # include <cassert>
+# include <cstddef>
 # include <tuple>
 
 namespace s3d
