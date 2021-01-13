@@ -12,6 +12,7 @@
 # pragma once
 # include <type_traits>
 # include <functional>
+# include <iosfwd>
 # include "Fwd.hpp"
 
 namespace s3d
