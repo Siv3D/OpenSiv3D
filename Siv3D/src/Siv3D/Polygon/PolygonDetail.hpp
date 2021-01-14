@@ -97,6 +97,8 @@ namespace s3d
 
 		void draw(const ColorF& color) const;
 
+		void draw(const Vec2& offset, const ColorF& color) const;
+
 		void drawFrame(double thickness, const ColorF& color) const;
 
 

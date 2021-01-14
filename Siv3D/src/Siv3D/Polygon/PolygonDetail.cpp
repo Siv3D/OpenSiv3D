@@ -815,6 +815,11 @@ namespace s3d
 		SIV3D_ENGINE(Renderer2D)->addPolygon(m_vertices, m_indices, none, color.toFloat4());
 	}
 
+	void Polygon::PolygonDetail::draw(const Vec2& offset, const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addPolygon(m_vertices, m_indices, Float2{ offset }, color.toFloat4());
+	}
+
 	void Polygon::PolygonDetail::drawFrame(const double thickness, const ColorF& color) const
 	{
 		if (not m_polygon.outer())
