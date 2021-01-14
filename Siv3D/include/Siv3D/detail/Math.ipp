@@ -68,6 +68,32 @@ inline Vec4 FUNC(const Vec4 v) noexcept							\
 	return{ FUNC(v.x), FUNC(v.y), FUNC(v.z), FUNC(v.w) };		\
 }
 
+# define SIV3D_MATH_FUNCTION_CONSTEXPR_X(FUNC)					\
+inline constexpr Float2 FUNC(const Float2 v) noexcept			\
+{																\
+	return{ FUNC(v.x), FUNC(v.y) };								\
+}																\
+inline constexpr Float3 FUNC(const Float3 v) noexcept			\
+{																\
+	return{ FUNC(v.x), FUNC(v.y), FUNC(v.z) };					\
+}																\
+inline constexpr Float4 FUNC(const Float4 v) noexcept			\
+{																\
+	return{ FUNC(v.x), FUNC(v.y), FUNC(v.z), FUNC(v.w) };		\
+}																\
+inline constexpr Vec2 FUNC(const Vec2 v) noexcept				\
+{																\
+	return{ FUNC(v.x), FUNC(v.y) };								\
+}																\
+inline constexpr Vec3 FUNC(const Vec3 v) noexcept				\
+{																\
+	return{ FUNC(v.x), FUNC(v.y), FUNC(v.z) };					\
+}																\
+inline constexpr Vec4 FUNC(const Vec4 v) noexcept				\
+{																\
+	return{ FUNC(v.x), FUNC(v.y), FUNC(v.z), FUNC(v.w) };		\
+}
+
 # define SIV3D_MATH_FUNCTION_CX(FUNC)							\
 inline constexpr Float2 FUNC(const Float2 v) noexcept			\
 {																\
@@ -157,6 +183,28 @@ namespace s3d
 		}
 
 		SIV3D_MATH_FUNCTION_CX(Square)
+
+
+
+
+
+
+
+
+
+
+
+		inline constexpr float Saturate(const float x) noexcept
+		{
+			return Clamp(x, 0.0f, 1.0f);
+		}
+
+		inline constexpr double Saturate(const double x) noexcept
+		{
+			return Clamp(x, 0.0, 1.0);
+		}
+
+		SIV3D_MATH_FUNCTION_CONSTEXPR_X(Saturate)
 	}
 }
 

@@ -372,7 +372,29 @@ namespace s3d
 
 	namespace Math
 	{
+		[[nodiscard]]
+		inline constexpr float Saturate(float x) noexcept;
 
+		[[nodiscard]]
+		inline constexpr double Saturate(double x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Saturate(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Saturate(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Saturate(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Saturate(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Saturate(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Saturate(Vec4 v) noexcept;
 	}
 
 	//////////////////////////////////////////////////

@@ -114,6 +114,32 @@ namespace s3d
 		return rotatedAt({ x, y }, angle);
 	}
 
+	inline Triangle Triangle::scaled(const double s) const
+	{
+		return{ (p0 * s), (p1 * s), (p2 * s) };
+	}
+
+	inline Triangle& Triangle::scale(const double s)
+	{
+		p0 *= s;
+		p1 *= s;
+		p2 *= s;
+		return *this;
+	}
+
+	inline Triangle Triangle::scaled(const Vec2 s) const
+	{
+		return{ (p0 * s), (p1 * s), (p2 * s) };
+	}
+
+	inline Triangle& Triangle::scale(const Vec2 s)
+	{
+		p0 *= s;
+		p1 *= s;
+		p2 *= s;
+		return *this;
+	}
+
 	inline constexpr Triangle::position_type& Triangle::p(const size_t index) noexcept
 	{
 		return (&p0)[index];

@@ -104,31 +104,35 @@ namespace s3d
 
 		Polygon& moveBy(Vec2 v) noexcept;
 
-		/*
-		[[nodiscard]] Polygon rotated(double angle) const;
+		[[nodiscard]]
+		Polygon rotated(double angle) const;
 
-		[[nodiscard]] Polygon rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]]
+		Polygon rotatedAt(double x, double y, double angle) const;
 
-		[[nodiscard]] Polygon rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]]
+		Polygon rotatedAt(Vec2 pos, double angle) const;
 
 		Polygon& rotate(double angle);
 
 		Polygon& rotateAt(double x, double y, double angle);
 
-		Polygon& rotateAt(const Vec2& pos, double angle);
+		Polygon& rotateAt(Vec2 pos, double angle);
 
-		[[nodiscard]] Polygon transformed(double s, double c, const Vec2& pos) const;
+		[[nodiscard]]
+		Polygon transformed(double s, double c, const Vec2& pos) const;
 
 		Polygon& transform(double s, double c, const Vec2& pos);
 
-		[[nodiscard]] Polygon scaled(double s) const;
+		[[nodiscard]]
+		Polygon scaled(double s) const;
 
 		Polygon& scale(double s);
 
-		[[nodiscard]] Polygon scaled(const Vec2& s) const;
+		[[nodiscard]]
+		Polygon scaled(Vec2 s) const;
 
-		Polygon& scale(const Vec2& s);
-		*/
+		Polygon& scale(Vec2 s);
 
 		[[nodiscard]]
 		double area() const noexcept;
@@ -151,9 +155,19 @@ namespace s3d
 		[[nodiscard]]
 		Polygon simplified(double maxDistance = 2.0) const;
 
-		/*
 		bool append(const Polygon& polygon);
-		*/
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool contains(const Shape2DType& other) const;
 
 		/*
 		template <class Shape2DType>

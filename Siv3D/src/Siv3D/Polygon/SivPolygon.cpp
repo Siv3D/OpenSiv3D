@@ -247,7 +247,7 @@ namespace s3d
 
 	Polygon Polygon::movedBy(const Vec2 v) const
 	{
-		Polygon result(*this);
+		Polygon result{ *this };
 
 		result.moveBy(v);
 
@@ -266,9 +266,89 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::rotated(const double angle) const
+	{
+		return rotatedAt(Vec2{ 0, 0 }, angle);
+	}
 
+	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
+	{
+		return rotatedAt(Vec2{ x, y }, angle);
+	}
 
+	Polygon Polygon::rotatedAt(const Vec2 pos, const double angle) const
+	{
+		Polygon result{ *this };
 
+		result.rotateAt(pos, angle);
+
+		return result;
+	}
+
+	Polygon& Polygon::rotate(const double angle)
+	{
+		return rotateAt(Vec2{ 0, 0 }, angle);
+	}
+
+	Polygon& Polygon::rotateAt(const double x, const double y, const double angle)
+	{
+		return rotateAt(Vec2{ x, y }, angle);
+	}
+
+	Polygon& Polygon::rotateAt(const Vec2 pos, const double angle)
+	{
+		pImpl->rotateAt(pos, angle);
+
+		return *this;
+	}
+
+	Polygon Polygon::transformed(const double s, const double c, const Vec2& pos) const
+	{
+		Polygon result{ *this };
+
+		result.transform(s, c, pos);
+
+		return result;
+	}
+
+	Polygon& Polygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		pImpl->transform(s, c, pos);
+
+		return *this;
+	}
+
+	Polygon Polygon::scaled(const double s) const
+	{
+		Polygon result{ *this };
+
+		result.scale(s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scale(const double s)
+	{
+		pImpl->scale(s);
+
+		return *this;
+	}
+
+	Polygon Polygon::scaled(const Vec2 s) const
+	{
+		Polygon result{ *this };
+
+		result.scale(s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scale(const Vec2 s)
+	{
+		pImpl->scale(s);
+
+		return *this;
+	}
 
 	double Polygon::area() const noexcept
 	{

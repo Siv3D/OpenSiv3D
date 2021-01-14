@@ -77,6 +77,34 @@ namespace s3d
 		return rotatedAt({ x, y }, angle);
 	}
 
+	inline Quad Quad::scaled(const double s) const
+	{
+		return{ (p0 * s), (p1 * s), (p2 * s), (p3 * s) };
+	}
+
+	inline Quad& Quad::scale(const double s)
+	{
+		p0 *= s;
+		p1 *= s;
+		p2 *= s;
+		p3 *= s;
+		return *this;
+	}
+
+	inline Quad Quad::scaled(const Vec2 s) const
+	{
+		return{ (p0 * s), (p1 * s), (p2 * s), (p3 * s) };
+	}
+
+	inline Quad& Quad::scale(const Vec2 s)
+	{
+		p0 *= s;
+		p1 *= s;
+		p2 *= s;
+		p3 *= s;
+		return *this;
+	}
+
 	inline Quad::position_type& Quad::p(const size_t index) noexcept
 	{
 		return (&p0)[index];

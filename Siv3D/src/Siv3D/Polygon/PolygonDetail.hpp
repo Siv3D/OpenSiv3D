@@ -68,7 +68,13 @@ namespace s3d
 
 		void moveBy(Vec2 v) noexcept;
 
+		void rotateAt(Vec2 pos, double angle);
 
+		void transform(double s, double c, const Vec2& pos);
+
+		void scale(double s);
+
+		void scale(Vec2 s);
 
 		double area() const noexcept;
 
