@@ -851,6 +851,37 @@ namespace s3d
 		}
 	}
 
+	void Polygon::PolygonDetail::drawFrame(const Vec2& offset, double thickness, const ColorF& color) const
+	{
+		if (not m_polygon.outer())
+		{
+			return;
+		}
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			m_polygon.outer().data(),
+			m_polygon.outer().size(),
+			Float2{ offset },
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			CloseRing::Yes
+		);
+
+		for (const auto& hole : m_polygon.inners())
+		{
+			SIV3D_ENGINE(Renderer2D)->addLineString(
+				hole.data(),
+				hole.size(),
+				Float2{ offset },
+				static_cast<float>(thickness),
+				false,
+				color.toFloat4(),
+				CloseRing::Yes
+			);
+		}
+	}
+
 	const CwOpenPolygon& Polygon::PolygonDetail::getPolygon() const noexcept
 	{
 		return m_polygon;

@@ -101,7 +101,7 @@ namespace s3d
 
 		void drawFrame(double thickness, const ColorF& color) const;
 
-
+		void drawFrame(const Vec2& offset, double thickness, const ColorF& color) const;
 
 		const CwOpenPolygon& getPolygon() const noexcept;
 	};

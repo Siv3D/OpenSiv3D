@@ -23,6 +23,36 @@ namespace s3d
 		std::swap(pImpl, polygon.pImpl);
 	}
 
+	inline Polygon Polygon::movedBy(const double x, const double y) const
+	{
+		return movedBy(Vec2{ x, y });
+	}
+
+	inline Polygon& Polygon::moveBy(const double x, const double y) noexcept
+	{
+		return moveBy(Vec2{ x, y });
+	}
+
+	inline Polygon Polygon::rotated(const double angle) const
+	{
+		return rotatedAt(Vec2{ 0, 0 }, angle);
+	}
+
+	inline Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
+	{
+		return rotatedAt(Vec2{ x, y }, angle);
+	}
+
+	inline Polygon& Polygon::rotate(const double angle)
+	{
+		return rotateAt(Vec2{ 0, 0 }, angle);
+	}
+
+	inline Polygon& Polygon::rotateAt(const double x, const double y, const double angle)
+	{
+		return rotateAt(Vec2{ x, y }, angle);
+	}
+
 	template <class Shape2DType>
 	inline bool Polygon::intersects(const Shape2DType& other) const
 	{
@@ -41,9 +71,29 @@ namespace s3d
 		return Geometry2D::Contains(*this, other);
 	}
 
+	inline void Polygon::draw(const double x, const double y, const ColorF& color) const
+	{
+		draw(Vec2{ x, y }, color);
+	}
+
+	inline void Polygon::drawFrame(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawFrame(Vec2{ x, y }, thickness, color);
+	}
+
+	inline void Polygon::drawWireframe(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawWireframe(Vec2{ x, y }, thickness, color);
+	}
+
 	inline PolygonFailureType Polygon::Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
 	{
 		return Validate(vertices.data(), vertices.size(), holes);
+	}
+
+	inline Array<Polygon> Polygon::Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return Correct(vertices.data(), vertices.size(), holes);
 	}
 
 	inline const Polygon::PolygonDetail* Polygon::_detail() const noexcept

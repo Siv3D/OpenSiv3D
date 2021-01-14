@@ -17,8 +17,12 @@
 # include "PolygonDetail.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/is_valid.hpp>
+# include <boost/geometry/algorithms/correct.hpp>
+# include <ThirdParty/boost/geometry/extensions/algorithms/dissolve.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -242,11 +246,6 @@ namespace s3d
 		return (*this = Polygon(pImpl->outer(), std::move(inners), skipValidation));
 	}
 
-	Polygon Polygon::movedBy(const double x, const double y) const
-	{
-		return movedBy(Vec2{ x, y });
-	}
-
 	Polygon Polygon::movedBy(const Vec2 v) const
 	{
 		Polygon result{ *this };
@@ -256,26 +255,11 @@ namespace s3d
 		return result;
 	}
 
-	Polygon& Polygon::moveBy(const double x, const double y) noexcept
-	{
-		return moveBy(Vec2{ x, y });
-	}
-
 	Polygon& Polygon::moveBy(const Vec2 v) noexcept
 	{
 		pImpl->moveBy(v);
 
 		return *this;
-	}
-
-	Polygon Polygon::rotated(const double angle) const
-	{
-		return rotatedAt(Vec2{ 0, 0 }, angle);
-	}
-
-	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
-	{
-		return rotatedAt(Vec2{ x, y }, angle);
 	}
 
 	Polygon Polygon::rotatedAt(const Vec2 pos, const double angle) const
@@ -285,16 +269,6 @@ namespace s3d
 		result.rotateAt(pos, angle);
 
 		return result;
-	}
-
-	Polygon& Polygon::rotate(const double angle)
-	{
-		return rotateAt(Vec2{ 0, 0 }, angle);
-	}
-
-	Polygon& Polygon::rotateAt(const double x, const double y, const double angle)
-	{
-		return rotateAt(Vec2{ x, y }, angle);
 	}
 
 	Polygon& Polygon::rotateAt(const Vec2 pos, const double angle)
@@ -454,11 +428,6 @@ namespace s3d
 		return *this;
 	}
 
-	void Polygon::draw(const double x, const double y, const ColorF& color) const
-	{
-		draw(Vec2{ x, y }, color);
-	}
-
 	void Polygon::draw(const Vec2& pos, const ColorF& color) const
 	{
 		pImpl->draw(pos, color);
@@ -469,6 +438,11 @@ namespace s3d
 		pImpl->drawFrame(thickness, color);
 
 		return *this;
+	}
+
+	void Polygon::drawFrame(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(pos, thickness, color);
 	}
 
 	const Polygon& Polygon::drawWireframe(const double thickness, const ColorF& color) const
@@ -494,6 +468,34 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	void Polygon::drawWireframe(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		const auto& indices = pImpl->indices();
+		const Float2* pVertex = pImpl->vertices().data();
+		const TriangleIndex* pIndex = indices.data();
+		const TriangleIndex* const pIndexEnd = (pIndex + indices.size());
+		const Float4 colorF = color.toFloat4();
+		const Float2 offset = pos;
+
+		while (pIndex != pIndexEnd)
+		{
+			const Float2 points[3] = {
+				(pVertex[pIndex->i0] + offset),
+				(pVertex[pIndex->i1] + offset),
+				(pVertex[pIndex->i2] + offset)
+			};
+
+			SIV3D_ENGINE(Renderer2D)->addPolygonFrame(points, 3, static_cast<float>(thickness), colorF);
+
+			++pIndex;
+		}
 	}
 
 	PolygonFailureType Polygon::Validate(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
@@ -538,5 +540,75 @@ namespace s3d
 		}
 
 		return detail::Convert(failure);
+	}
+
+	Array<Polygon> Polygon::Correct(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
+	{
+		CwOpenPolygon polygon;
+		polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		for (const auto& hole : holes)
+		{
+			polygon.inners().emplace_back(hole.begin(), hole.end());
+		}
+
+		{
+			boost::geometry::validity_failure_type failure;
+			bool valid = boost::geometry::is_valid(polygon, failure);
+
+			if (valid)
+			{
+				// 頂点の重複は boost::geometry::is_valid() で取得できないので、
+				// HashSet を使って計算
+				if (detail::HasSamePoints(polygon.outer().data(), polygon.outer().size()))
+				{
+					valid = false;
+					failure = boost::geometry::failure_duplicate_points;
+				}
+			}
+
+			if (valid)
+			{
+				for (const auto& inner : polygon.inners())
+				{
+					if (detail::HasSamePoints(inner.data(), inner.size()))
+					{
+						valid = false;
+						failure = boost::geometry::failure_duplicate_points;
+					}
+				}
+			}
+
+			// OK
+			if (valid)
+			{
+				return{ Polygon(pVertex, vertexSize, holes) };
+			}
+		}
+
+		// dissolve
+		using MultiCwOpenPolygon = boost::geometry::model::multi_polygon<CwOpenPolygon>;
+		boost::geometry::correct(polygon);
+		MultiCwOpenPolygon solvedPolygons;
+		boost::geometry::dissolve(polygon, solvedPolygons);
+
+		Array<Polygon> results;
+
+		for (const auto& solvedPolygon : solvedPolygons)
+		{
+			Array<Array<Vec2>> retHoles;
+
+			for (const auto& hole : solvedPolygon.inners())
+			{
+				retHoles.emplace_back(hole.begin(), hole.end());
+			}
+
+			if (Validate(solvedPolygon.outer(), retHoles) == PolygonFailureType::OK)
+			{
+				results.emplace_back(solvedPolygon.outer(), retHoles);
+			}
+		}
+
+		return results;
 	}
 }

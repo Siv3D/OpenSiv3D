@@ -215,15 +215,15 @@ namespace s3d
 
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//void drawFrame(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawFrame(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//void drawFrame(cons Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawFrame(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//void drawWireframe(cons Vec2& Vec2 pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		//void drawTransformed(double s, double c, cons Vec2& pos, const ColorF& color = Palette::White) const;
 
@@ -239,11 +239,11 @@ namespace s3d
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 
-		//[[nodiscard]]
-		//static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
+		[[nodiscard]]
+		static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
 
-		//[[nodiscard]]
-		//static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
+		[[nodiscard]]
+		static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 
 		[[nodiscard]]
 		const PolygonDetail* _detail() const noexcept;
