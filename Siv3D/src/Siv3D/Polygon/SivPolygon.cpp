@@ -12,6 +12,8 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/HashSet.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "PolygonDetail.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
@@ -400,7 +402,50 @@ namespace s3d
 		return pImpl->simplified(maxDistance);
 	}
 
+	bool Polygon::append(const Polygon& other)
+	{
+		return pImpl->append(other);
+	}
 
+	bool Polygon::intersects(const Polygon& other) const
+	{
+		return pImpl->intersects(*other.pImpl);
+	}
+
+	bool Polygon::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool Polygon::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool Polygon::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool Polygon::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool Polygon::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool Polygon::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool Polygon::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
 
 	const Polygon& Polygon::draw(const ColorF& color) const
 	{

@@ -22,6 +22,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+# include <boost/geometry/algorithms/union.hpp>
 # include <boost/geometry/algorithms/densify.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -757,7 +758,57 @@ namespace s3d
 		return Polygon{ result, holeResults };
 	}
 
+	bool Polygon::PolygonDetail::append(const Polygon& other)
+	{
+		Array<CwOpenPolygon> results;
 
+		boost::geometry::union_(m_polygon, other._detail()->getPolygon(), results);
+
+		if (results.size() != 1)
+		{
+			return false;
+		}
+
+		auto& outer = results[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = results[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				holes[i].assign(resultHole.begin(), resultHole.end());
+			}
+		}
+
+		*this = PolygonDetail{ outer.data(), outer.size(), holes, SkipValidation::Yes };
+
+		return true;
+	}
+
+	bool Polygon::PolygonDetail::intersects(const PolygonDetail& other) const
+	{
+		if (outer().isEmpty()
+			|| other.outer().isEmpty()
+			|| (not m_boundingRect.intersects(other.m_boundingRect)))
+		{
+			return false;
+		}
+
+		return boost::geometry::intersects(m_polygon, other.m_polygon);
+	}
 
 	void Polygon::PolygonDetail::draw(const ColorF& color) const
 	{

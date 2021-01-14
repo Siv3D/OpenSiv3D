@@ -202,6 +202,27 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Vec2& a, const Polygon& b) noexcept
+		{
+			if ((not b)
+				|| (not Intersect(a, b.boundingRect())))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		RectF BoundingRect(const Array<Point>& points) noexcept
 		{
 			return detail::BoundingRect(points.data(), points.size());

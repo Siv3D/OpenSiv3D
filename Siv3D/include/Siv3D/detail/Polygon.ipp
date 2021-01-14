@@ -23,6 +23,24 @@ namespace s3d
 		std::swap(pImpl, polygon.pImpl);
 	}
 
+	template <class Shape2DType>
+	inline bool Polygon::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline Optional<Array<Vec2>> Polygon::intersectsAt(const Shape2DType& other) const
+	{
+		return Geometry2D::IntersectAt(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline bool Polygon::contains(const Shape2DType& other) const
+	{
+		return Geometry2D::Contains(*this, other);
+	}
+
 	inline PolygonFailureType Polygon::Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
 	{
 		return Validate(vertices.data(), vertices.size(), holes);

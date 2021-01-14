@@ -114,6 +114,22 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline constexpr bool Intersect(const Rect& a, const Rect& b) noexcept
+		{
+			return (a.x < (b.x + b.w))
+				&& (b.x < (a.x + a.w))
+				&& (a.y < (b.y + b.h))
+				&& (b.y < (a.y + a.h));
+		}
+
+		inline constexpr bool Intersect(const Rect& a, const RectF& b) noexcept
+		{
+			return (a.x < (b.x + b.w))
+				&& (b.x < (a.x + a.w))
+				&& (a.y < (b.y + b.h))
+				&& (b.y < (a.y + a.h));
+		}
+
 
 		inline constexpr bool Intersect(const RectF& a, const Point& b) noexcept
 		{
@@ -124,6 +140,20 @@ namespace s3d
 		{
 			return Intersect(b, a);
 		}
+
+		inline constexpr bool Intersect(const RectF& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const RectF& a, const RectF& b) noexcept
+		{
+			return (a.x < (b.x + b.w))
+				&& (b.x < (a.x + a.w))
+				&& (a.y < (b.y + b.h))
+				&& (b.y < (a.y + a.h));
+		}
+
 
 		inline constexpr bool Intersect(const Circle& a, const Point& b) noexcept
 		{
@@ -141,6 +171,11 @@ namespace s3d
 		}
 
 		inline constexpr bool Intersect(const Quad& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
 		}

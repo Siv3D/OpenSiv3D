@@ -47,6 +47,8 @@ namespace s3d
 		[[nodiscard]]
 		bool Intersect(const Vec2& a, const RoundRect& b) noexcept;
 
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const Polygon& b) noexcept;
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept;
@@ -54,12 +56,25 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Rect& a, const Vec2& b) noexcept;
 
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Rect& a, const Rect& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Rect& a, const RectF& b) noexcept;
+
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const RectF& a, const Point& b) noexcept;
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const RectF& a, const Vec2& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const RectF& a, const Rect& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const RectF& a, const RectF& b) noexcept;
+
 
 
 		[[nodiscard]]
@@ -76,6 +91,9 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Quad& a, const Vec2& b) noexcept;
 
+
+		[[nodiscard]]
+		inline bool Intersect(const Polygon& a, const Vec2& b) noexcept;
 
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b);

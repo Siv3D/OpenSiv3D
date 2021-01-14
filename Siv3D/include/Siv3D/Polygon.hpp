@@ -155,11 +155,14 @@ namespace s3d
 		[[nodiscard]]
 		Polygon simplified(double maxDistance = 2.0) const;
 
-		bool append(const Polygon& polygon);
+		bool append(const Polygon& other);
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		constexpr bool intersects(const Shape2DType& other) const;
+		bool intersects(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		bool intersects(const Polygon& other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
@@ -169,43 +172,26 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
-		/*
-		template <class Shape2DType>
-		[[nodiscard]] bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
 
-		[[nodiscard]] bool intersects(const Polygon& polygon) const;
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
 
-		template <class Shape2DType>
-		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
-		{
-			return Geometry2D::IntersectAt(*this, shape);
-		}
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
 
-		template <class Shape2DType>
-		[[nodiscard]] bool contains(const Shape2DType& shape) const
-		{
-			return Geometry2D::Contains(*this, shape);
-		}
-		*/
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
 
-		/*
-		[[nodiscard]] bool leftClicked() const;
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
 
-		[[nodiscard]] bool leftPressed() const;
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
 
-		[[nodiscard]] bool leftReleased() const;
-
-		[[nodiscard]] bool rightClicked() const;
-
-		[[nodiscard]] bool rightPressed() const;
-
-		[[nodiscard]] bool rightReleased() const;
-
-		[[nodiscard]] bool mouseOver() const;
-		*/
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
 
 		/*
 		const Polygon& paint(Image& dst, const Color& color) const;
