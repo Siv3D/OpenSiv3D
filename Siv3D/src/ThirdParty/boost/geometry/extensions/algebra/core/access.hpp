@@ -5,6 +5,10 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -15,12 +19,9 @@
 #ifndef BOOST_GEOMETRY_EXTENSIONS_ALGEBRA_CORE_ACCESS_HPP
 #define BOOST_GEOMETRY_EXTENSIONS_ALGEBRA_CORE_ACCESS_HPP
 
-
-
 #include <boost/geometry/core/access.hpp>
 
 #include <boost/geometry/extensions/algebra/core/tags.hpp>
-
 
 namespace boost { namespace geometry
 {
@@ -30,7 +31,7 @@ namespace core_dispatch
 {
 
 template <typename Vector, typename CoordinateType, std::size_t Dimension>
-struct access<vector_tag, Vector, CoordinateType, Dimension, boost::false_type>
+struct access<vector_tag, Vector, CoordinateType, Dimension, std::false_type>
 {
     static inline CoordinateType get(Vector const& v)
     {
@@ -43,20 +44,20 @@ struct access<vector_tag, Vector, CoordinateType, Dimension, boost::false_type>
 };
 
 template <typename Vector, typename CoordinateType, std::size_t Dimension>
-struct access<vector_tag, Vector, CoordinateType, Dimension, boost::true_type>
+struct access<vector_tag, Vector, CoordinateType, Dimension, std::true_type>
 {
     static inline CoordinateType get(Vector const* v)
     {
-        return traits::access<typename boost::remove_pointer<Vector>::type, Dimension>::get(*v);
+        return traits::access<typename std::remove_pointer<Vector>::type, Dimension>::get(*v);
     }
     static inline void set(Vector* v, CoordinateType const& value)
     {
-        traits::access<typename boost::remove_pointer<Vector>::type, Dimension>::set(*v, value);
+        traits::access<typename std::remove_pointer<Vector>::type, Dimension>::set(*v, value);
     }
 };
 
 template <typename Q, typename CoordinateType, std::size_t Dimension>
-struct access<quaternion_tag, Q, CoordinateType, Dimension, boost::false_type>
+struct access<quaternion_tag, Q, CoordinateType, Dimension, std::false_type>
 {
     static inline CoordinateType get(Q const& v)
     {
@@ -69,31 +70,31 @@ struct access<quaternion_tag, Q, CoordinateType, Dimension, boost::false_type>
 };
 
 template <typename Q, typename CoordinateType, std::size_t Dimension>
-struct access<quaternion_tag, Q, CoordinateType, Dimension, boost::true_type>
+struct access<quaternion_tag, Q, CoordinateType, Dimension, std::true_type>
 {
     static inline CoordinateType get(Q const* v)
     {
-        return traits::access<typename boost::remove_pointer<Q>::type, Dimension>::get(*v);
+        return traits::access<typename std::remove_pointer<Q>::type, Dimension>::get(*v);
     }
     static inline void set(Q* v, CoordinateType const& value)
     {
-        traits::access<typename boost::remove_pointer<Q>::type, Dimension>::set(*v, value);
+        traits::access<typename std::remove_pointer<Q>::type, Dimension>::set(*v, value);
     }
 };
 
 template<typename M, typename CoordinateType, std::size_t I, std::size_t J>
-struct indexed_access<matrix_tag, M, CoordinateType, I, J, boost::false_type>
+struct indexed_access<matrix_tag, M, CoordinateType, I, J, std::false_type>
     : detail::indexed_access_non_pointer<M, CoordinateType, I, J>
 {};
 
 template<typename M, typename CoordinateType, std::size_t I, std::size_t J>
-struct indexed_access<matrix_tag, M, CoordinateType, I, J, boost::true_type>
+struct indexed_access<matrix_tag, M, CoordinateType, I, J, std::true_type>
     : detail::indexed_access_pointer<M, CoordinateType, I, J>
 {};
 
 
 template <typename Q, typename CoordinateType, std::size_t Dimension>
-struct access<rotation_quaternion_tag, Q, CoordinateType, Dimension, boost::false_type>
+struct access<rotation_quaternion_tag, Q, CoordinateType, Dimension, std::false_type>
 {
     static inline CoordinateType get(Q const& v)
     {
@@ -106,25 +107,25 @@ struct access<rotation_quaternion_tag, Q, CoordinateType, Dimension, boost::fals
 };
 
 template <typename Q, typename CoordinateType, std::size_t Dimension>
-struct access<rotation_quaternion_tag, Q, CoordinateType, Dimension, boost::true_type>
+struct access<rotation_quaternion_tag, Q, CoordinateType, Dimension, std::true_type>
 {
     static inline CoordinateType get(Q const* v)
     {
-        return traits::access<typename boost::remove_pointer<Q>::type, Dimension>::get(*v);
+        return traits::access<typename std::remove_pointer<Q>::type, Dimension>::get(*v);
     }
     static inline void set(Q* v, CoordinateType const& value)
     {
-        traits::access<typename boost::remove_pointer<Q>::type, Dimension>::set(*v, value);
+        traits::access<typename std::remove_pointer<Q>::type, Dimension>::set(*v, value);
     }
 };
 
 template<typename RM, typename CoordinateType, std::size_t I, std::size_t J>
-struct indexed_access<rotation_matrix_tag, RM, CoordinateType, I, J, boost::false_type>
+struct indexed_access<rotation_matrix_tag, RM, CoordinateType, I, J, std::false_type>
     : detail::indexed_access_non_pointer<RM, CoordinateType, I, J>
 {};
 
 template<typename RM, typename CoordinateType, std::size_t I, std::size_t J>
-struct indexed_access<rotation_matrix_tag, RM, CoordinateType, I, J, boost::true_type>
+struct indexed_access<rotation_matrix_tag, RM, CoordinateType, I, J, std::true_type>
     : detail::indexed_access_pointer<RM, CoordinateType, I, J>
 {};
 

@@ -2,6 +2,10 @@
 
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -10,8 +14,8 @@
 #define BOOST_GEOMETRY_IO_WKB_READ_WKB_HPP
 
 #include <iterator>
+#include <type_traits>
 
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/static_assert.hpp>
 
 #include <boost/geometry/core/tags.hpp>
@@ -71,7 +75,7 @@ inline bool read_wkb(Iterator begin, Iterator end, Geometry& geometry)
 {
     // Stream of bytes can only be parsed using random access iterator.
     BOOST_STATIC_ASSERT((
-        boost::is_convertible
+        std::is_convertible
         <
             typename std::iterator_traits<Iterator>::iterator_category,
             const std::random_access_iterator_tag&
@@ -93,7 +97,7 @@ inline bool read_wkb(Iterator begin, Iterator end, Geometry& geometry)
 template <typename ByteType, typename Geometry>
 inline bool read_wkb(ByteType const* bytes, std::size_t length, Geometry& geometry)
 {
-    BOOST_STATIC_ASSERT((boost::is_integral<ByteType>::value));
+    BOOST_STATIC_ASSERT((std::is_integral<ByteType>::value));
     BOOST_STATIC_ASSERT((sizeof(boost::uint8_t) == sizeof(ByteType)));
 
     ByteType const* begin = bytes;

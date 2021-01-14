@@ -2,6 +2,10 @@
 
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -22,12 +26,12 @@
 #include <climits>
 #include <cstring>
 #include <cstddef>
+#include <type_traits>
 
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/detail/endian.hpp>
-#include <boost/type_traits/is_signed.hpp>
 
 #if CHAR_BIT != 8
 #error Platforms with CHAR_BIT != 8 are not supported
@@ -54,7 +58,7 @@ typedef little_endian_tag native_endian_tag;
 
 // Unrolled loops for loading and storing streams of bytes.
 
-template <typename T, std::size_t N, bool Sign = boost::is_signed<T>::value>
+template <typename T, std::size_t N, bool Sign = std::is_signed<T>::value>
 struct unrolled_byte_loops
 {
     typedef unrolled_byte_loops<T, N - 1, Sign> next;
@@ -137,7 +141,7 @@ struct unrolled_byte_loops<T, 1, true>
     template <typename Iterator>
     static void store_forward(Iterator& bytes, T value)
     {
-        BOOST_STATIC_ASSERT((boost::is_signed<typename Iterator::value_type>::value));
+        BOOST_STATIC_ASSERT((std::is_signed<typename Iterator::value_type>::value));
 
         *bytes = static_cast<typename Iterator::value_type>(value);
     }
@@ -145,7 +149,7 @@ struct unrolled_byte_loops<T, 1, true>
     template <typename Iterator>
     static void store_backward(Iterator& bytes, T value)
     {
-        BOOST_STATIC_ASSERT((boost::is_signed<typename Iterator::value_type>::value));
+        BOOST_STATIC_ASSERT((std::is_signed<typename Iterator::value_type>::value));
 
         *(bytes - 1) = static_cast<typename Iterator::value_type>(value);
     }

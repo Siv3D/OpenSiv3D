@@ -58,8 +58,8 @@ struct parsing<point_tag, Point>
 
         typedef typename coordinate_type<Point>::type coord_t;
         typedef boost::geometry::projections::detail::dms_result<coord_t> dms_result_t;
-        dms_result_t r1 = strategy(c1.c_str());
-        dms_result_t r2 = strategy(c2.c_str());
+        dms_result_t r1 = strategy.apply(c1.c_str());
+        dms_result_t r2 = strategy.apply(c2.c_str());
 
         if (0 == r1.axis())
             set<0>(point, r1.angle());

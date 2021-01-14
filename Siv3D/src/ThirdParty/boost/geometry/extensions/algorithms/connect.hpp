@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2018-2020.
+// Modifications copyright (c) 2018-2020 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -19,19 +19,22 @@
 #include <iostream>
 #endif
 
-#include <boost/range.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/size.hpp>
+#include <boost/range/value_type.hpp>
 
-#include <boost/geometry/core/point_type.hpp>
-#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/algorithms/distance.hpp>
 #include <boost/geometry/algorithms/comparable_distance.hpp>
-#include <boost/geometry/strategies/default_distance_result.hpp>
-#include <boost/geometry/policies/compare.hpp>
-
+#include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
+#include <boost/geometry/policies/compare.hpp>
+#include <boost/geometry/strategies/default_distance_result.hpp>
 
+#ifdef BOOST_GEOMETRY_DEBUG_CONNECT
 #include <boost/geometry/io/dsv/write.hpp>
-
+#endif // BOOST_GEOMETRY_DEBUG_CONNECT
 
 
 namespace boost { namespace geometry

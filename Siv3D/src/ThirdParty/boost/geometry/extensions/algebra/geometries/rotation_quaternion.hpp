@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2018-2020.
+// Modifications copyright (c) 2018-2020 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -20,6 +20,7 @@
 #define BOOST_GEOMETRY_EXTENSIONS_ALGEBRA_GEOMETRIES_ROTATION_QUATERNION_HPP
 
 #include <cstddef>
+#include <type_traits>
 
 #include <boost/geometry/core/cs.hpp>
 
@@ -109,7 +110,7 @@ struct coordinate_system<model::rotation_quaternion<CoordinateType> >
 
 template <typename CoordinateType>
 struct dimension<model::rotation_quaternion<CoordinateType> >
-    : boost::mpl::int_<3>
+    : std::integral_constant<std::size_t, 3>
 {};
 
 template

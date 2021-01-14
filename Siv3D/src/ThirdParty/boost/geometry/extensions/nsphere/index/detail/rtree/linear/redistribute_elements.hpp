@@ -5,12 +5,18 @@
 // Copyright (c) 2008 Federico J. Fernandez.
 // Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
 //
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+//
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_GEOMETRY_EXTENSIONS_NSPHERE_INDEX_DETAIL_RTREE_LINEAR_REDISTRIBUTE_ELEMENTS_HPP
 #define BOOST_GEOMETRY_EXTENSIONS_NSPHERE_INDEX_DETAIL_RTREE_LINEAR_REDISTRIBUTE_ELEMENTS_HPP
+
+#include <type_traits>
 
 #include <boost/core/ignore_unused.hpp>
 
@@ -27,11 +33,12 @@ struct find_greatest_normalized_separation<Elements, Parameters, Translator, nsp
     typedef typename rtree::element_indexable_type<element_type, Translator>::type indexable_type;
     typedef typename coordinate_type<indexable_type>::type coordinate_type;
 
-    typedef typename boost::mpl::if_c<
-        boost::is_integral<coordinate_type>::value,
-        double,
-        coordinate_type
-    >::type separation_type;
+    typedef std::conditional_t
+        <
+            std::is_integral<coordinate_type>::value,
+            double,
+            coordinate_type
+        > separation_type;
 
     static inline void apply(Elements const& elements,
                              Parameters const& parameters,

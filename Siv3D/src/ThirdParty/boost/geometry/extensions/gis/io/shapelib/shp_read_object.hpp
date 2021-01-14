@@ -2,6 +2,10 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -10,19 +14,17 @@
 #define BOOST_GEOMETRY_EXT_GIS_IO_SHAPELIB_SHP_READ_OBJECT_HPP
 
 
-#include <boost/mpl/assert.hpp>
-#include <boost/range.hpp>
 #include <boost/scoped_array.hpp>
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
+#include <boost/geometry/core/static_assert.hpp>
 #include <boost/geometry/algorithms/num_points.hpp>
 
 
 // Should be somewhere in your include path
 #include "shapefil.h"
-
 
 
 namespace boost { namespace geometry
@@ -160,11 +162,9 @@ namespace dispatch
 template <typename Tag, typename Geometry>
 struct shp_read_object
 {
-    BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
-            , (Geometry)
-        );
+    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
+        "Not implemented for this Geometry type.",
+        Tag, Geometry);
 };
 
 

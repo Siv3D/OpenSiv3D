@@ -4,6 +4,10 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -15,6 +19,8 @@
 #ifndef BOOST_GEOMETRY_EXTENSIONS_NSPHERE_CORE_TOPOLOGICAL_DIMENSION_HPP
 #define BOOST_GEOMETRY_EXTENSIONS_NSPHERE_CORE_TOPOLOGICAL_DIMENSION_HPP
 
+
+#include <type_traits>
 
 #include <boost/geometry/core/topological_dimension.hpp>
 
@@ -34,7 +40,7 @@ namespace core_dispatch
 // nsphere: 2, but there is discussion. Is it CLOSED? Then 2, but
 // then it should be called "disk"...
 template <>
-struct top_dim<nsphere_tag>    : boost::mpl::int_<2> {};
+struct top_dim<nsphere_tag>    : std::integral_constant<int, 2> {};
 
 
 

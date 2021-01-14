@@ -2,17 +2,16 @@
 //
 // Copyright (c) 2015 Mats Taraldsvik.
 //
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+//
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_GEOMETRY_MULTI_IO_WKB_WRITE_WKB_HPP
 #define BOOST_GEOMETRY_MULTI_IO_WKB_WRITE_WKB_HPP
-
-#include <iterator>
-
-#include <boost/type_traits/is_convertible.hpp>
-#include <boost/static_assert.hpp>
 
 #include <boost/geometry/core/tags.hpp>
 

@@ -4,6 +4,10 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -13,6 +17,9 @@
 
 #ifndef BOOST_GEOMETRY_EXTENSIONS_NSPHERE_ALGORITHMS_AREA_HPP
 #define BOOST_GEOMETRY_EXTENSIONS_NSPHERE_ALGORITHMS_AREA_HPP
+
+
+#include <type_traits>
 
 #include <boost/math/constants/constants.hpp>
 
@@ -35,12 +42,12 @@ struct circle_area
     typedef typename coordinate_type<C>::type coordinate_type;
 
     // Returning the coordinate precision, but if integer, returning a double
-    typedef typename boost::mpl::if_c
-            <
-                boost::is_integral<coordinate_type>::type::value,
-                double,
-                coordinate_type
-            >::type return_type;
+    typedef std::conditional_t
+        <
+            std::is_integral<coordinate_type>::value,
+            double,
+            coordinate_type
+        > return_type;
 
     template <typename S>
     static inline return_type apply(C const& c, S const&)

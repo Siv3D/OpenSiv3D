@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2018-2020.
+// Modifications copyright (c) 2018-2020 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -19,8 +19,10 @@
 // PROBABLY OBSOLETE
 // as mark_spikes is now replaced by remove_spikes
 
-#include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/size.hpp>
+#include <boost/range/value_type.hpp>
 
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/cs.hpp>
@@ -107,9 +109,9 @@ struct polygon_remove_marked
                     = interior_rings(polygon_out);
 
         rings_out.resize(boost::size(interior_rings(polygon_in)));
-        BOOST_AUTO_TPL(out, boost::begin(rings_out));
+        auto out = boost::begin(rings_out);
 
-        for (BOOST_AUTO_TPL(it, boost::begin(rings_in));
+        for (auto it = boost::begin(rings_in);
             it != boost::end(rings_in);
             ++it, ++out)
         {
