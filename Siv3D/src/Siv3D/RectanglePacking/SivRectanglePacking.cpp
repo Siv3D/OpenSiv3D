@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/RectanglePacking.hpp>
-# include <rectpack2D/finders_interface.h>
+# include <ThirdParty/rectpack2D/finders_interface.h>
 
 namespace s3d
 {
