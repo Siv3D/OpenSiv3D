@@ -68,8 +68,8 @@ namespace s3d
 		[[nodiscard]]
 		inline bool Intersect(const Point& a, const Polygon& b) noexcept;
 
-		//[[nodiscard]]
-		//bool Intersect(const Point& a, const MultiPolygon& b) noexcept;
+		[[nodiscard]]
+		inline bool Intersect(const Point& a, const MultiPolygon& b) noexcept;
 
 		//[[nodiscard]]
 		inline bool Intersect(const Point& a, const LineString& b) noexcept;
@@ -119,8 +119,8 @@ namespace s3d
 		[[nodiscard]]
 		bool Intersect(const Vec2& a, const Polygon& b) noexcept;
 
-		//[[nodiscard]]
-		//bool Intersect(const Vec2& a, const MultiPolygon& b) noexcept;
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const MultiPolygon& b) noexcept;
 
 		[[nodiscard]]
 		bool Intersect(const Vec2& a, const LineString& b) noexcept;

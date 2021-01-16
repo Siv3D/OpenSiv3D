@@ -175,15 +175,15 @@ namespace s3d
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool intersects(const Shape2DType & other) const;
+		bool intersects(const Shape2DType& other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType & other) const;
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool contains(const Shape2DType & other) const;
+		bool contains(const Shape2DType& other) const;
 
 		[[nodiscard]]
 		bool leftClicked() const noexcept;

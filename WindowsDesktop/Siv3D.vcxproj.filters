@@ -643,6 +643,9 @@
     <Filter Include="src\ThirdParty\concaveman-cpp">
       <UniqueIdentifier>{497d7c88-513d-4779-864d-a0cf496c5d20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MultiPolygon">
+      <UniqueIdentifier>{6ce952da-1994-4d6b-875c-78a76895c1c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3493,6 +3496,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Subdivision2D\SivSubdivision2D.cpp">
       <Filter>src\Siv3D\Subdivision2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MultiPolygon\SivMultiPolygon.cpp">
+      <Filter>src\Siv3D\MultiPolygon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

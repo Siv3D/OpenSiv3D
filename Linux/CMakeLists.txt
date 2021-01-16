@@ -156,6 +156,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
+  ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp

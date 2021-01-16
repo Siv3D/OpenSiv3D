@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/MultiPolygon.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Polygon/PolygonDetail.hpp>
@@ -278,6 +279,19 @@ namespace s3d
 			for (size_t i = 0; i < num_triangles; ++i)
 			{
 				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Vec2& a, const MultiPolygon& b) noexcept
+		{
+			for (const auto& polygon : b)
+			{
+				if (Intersect(a, polygon))
 				{
 					return true;
 				}

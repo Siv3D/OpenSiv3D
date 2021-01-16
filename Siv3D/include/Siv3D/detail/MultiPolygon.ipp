@@ -179,6 +179,89 @@ namespace s3d
 	{
 		return moveBy(v.x, v.y);
 	}
+
+	inline MultiPolygon MultiPolygon::rotated(const double angle) const
+	{
+		return MultiPolygon{ map([=](const Polygon& p) { return p.rotated(angle); }) };
+	}
+
+	inline MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		return MultiPolygon{ map([=](const Polygon& p) { return p.rotatedAt(pos, angle); }) };
+	}
+
+	inline MultiPolygon& MultiPolygon::rotate(const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotate(angle);
+		}
+
+		return *this;
+	}
+
+	inline MultiPolygon& MultiPolygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotateAt(pos, angle);
+		}
+
+		return *this;
+	}
+
+	inline MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const
+	{
+		return MultiPolygon{ map([=](const Polygon& p) { return p.transformed(s, c, pos); }) };
+	}
+
+	inline MultiPolygon& MultiPolygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.transform(s, c, pos);
+		}
+
+		return *this;
+	}
+
+	inline MultiPolygon MultiPolygon::scaled(const double s) const
+	{
+		return MultiPolygon{ map([=](const Polygon& p) { return p.scaled(s); }) };
+	}
+
+	inline MultiPolygon& MultiPolygon::scale(const double s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scale(s);
+		}
+
+		return *this;
+	}
+
+	inline MultiPolygon MultiPolygon::simplified(const double maxDistance) const
+	{
+		return MultiPolygon{ map([=](const Polygon& p) { return p.simplified(maxDistance); }) };
+	}
+
+	template <class Shape2DType>
+	inline bool MultiPolygon::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline Optional<Array<Vec2>> MultiPolygon::intersectsAt(const Shape2DType& other) const
+	{
+		return Geometry2D::IntersectAt(*this, other);
+	}
+
+	template <class Shape2DType>
+	inline bool MultiPolygon::contains(const Shape2DType& other) const
+	{
+		return Geometry2D::Contains(*this, other);
+	}
 }
 
 template <>

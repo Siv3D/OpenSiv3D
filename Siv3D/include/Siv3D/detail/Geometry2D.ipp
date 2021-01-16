@@ -149,6 +149,11 @@ namespace s3d
 			return Intersect(Vec2{ a }, b);
 		}
 
+		inline bool Intersect(const Point& a, const MultiPolygon& b) noexcept
+		{
+			return Intersect(Vec2{ a }, b);
+		}
+
 		inline bool Intersect(const Point& a, const LineString& b) noexcept
 		{
 			return Intersect(Vec2{ a }, b);
