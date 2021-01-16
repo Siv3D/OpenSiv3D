@@ -29,6 +29,19 @@ namespace s3d
 		/// @return sin, cos の近似結果
 		[[nodiscard]]
 		inline constexpr std::pair<float, float> SinCos(double angleRadians) noexcept;
+
+	# if __cpp_lib_bit_cast
+
+		[[nodiscard]]
+		inline constexpr float InvSqrt(float x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double InvSqrt(double x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double InvSqrtQuality(double x) noexcept;
+
+	# endif
 	}
 }
 

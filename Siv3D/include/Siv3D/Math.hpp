@@ -15,14 +15,14 @@
 
 namespace s3d
 {
-	//////////////////////////////////////////////////
-	//
-	//	Fmod
-	//
-	//////////////////////////////////////////////////
-
 	namespace Math
 	{
+		//////////////////////////////////////////////////
+		//
+		//	Fmod
+		//
+		//////////////////////////////////////////////////
+
 		[[nodiscard]]
 		inline float Fmod(float x, float y) noexcept;
 
@@ -47,19 +47,16 @@ namespace s3d
 		[[nodiscard]]
 		inline Vec4 Fmod(Vec4 v1, Vec4 v2) noexcept;
 
-		template <class T, class U, class R = CommonVector_t<T, U>>
+		template <class T1, class T2, class R = CommonVector_t<T1, T2>>
 		[[nodiscard]]
-		inline R Fmod(T x, U y) noexcept;
-	}
+		inline R Fmod(T1 x, T2 y) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Fraction
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Fraction
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
 		[[nodiscard]]
 		inline float Fraction(float x) noexcept;
 
@@ -83,153 +80,389 @@ namespace s3d
 
 		[[nodiscard]]
 		inline Vec4 Fraction(Vec4 v) noexcept;
-	}
 
-	//////////////////////////////////////////////////
-	//
-	//	Frexp
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Frexp
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		inline float Frexp(float x, float& exp) noexcept;
 
-	}
+		inline double Frexp(double x, double& exp) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Ldexp
-	//
-	//////////////////////////////////////////////////
+		inline Float2 Frexp(Float2 x, Float2& exp) noexcept;
 
-	namespace Math
-	{
+		inline Float3 Frexp(Float3 x, Float3& exp) noexcept;
 
-	}
+		inline Float4 Frexp(Float4 x, Float4& exp) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Log
-	//
-	//////////////////////////////////////////////////
+		inline Vec2 Frexp(Vec2 x, Vec2& exp) noexcept;
 
-	namespace Math
-	{
+		inline Vec3 Frexp(Vec3 x, Vec3& exp) noexcept;
 
-	}
+		inline Vec4 Frexp(Vec4 x, Vec4& exp) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Log2
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Ldexp
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline float Ldexp(float x, float y) noexcept;
 
-	}
+		[[nodiscard]]
+		inline double Ldexp(double x, double y) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Log10
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float2 Ldexp(Float2 v1, Float2 v2) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float3 Ldexp(Float3 v1, Float3 v2) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float4 Ldexp(Float4 v1, Float4 v2) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Modf
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec2 Ldexp(Vec2 v1, Vec2 v2) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec3 Ldexp(Vec3 v1, Vec3 v2) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec4 Ldexp(Vec4 v1, Vec4 v2) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Pow
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Log
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline float Log(float x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline double Log(double x) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Sign
-	//
-	//////////////////////////////////////////////////
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Log(Arithmetic x) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float2 Log(Float2 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float3 Log(Float3 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	ToRadians
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float4 Log(Float4 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec2 Log(Vec2 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec3 Log(Vec3 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	ToDegrees
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec4 Log(Vec4 v) noexcept;
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	Log2
+		//
+		//////////////////////////////////////////////////
 
-	}
+		[[nodiscard]]
+		inline float Log2(float x) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Abs
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline double Log2(double x) noexcept;
 
-	namespace Math
-	{
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Log2(Arithmetic x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float2 Log2(Float2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	AbsDiff
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float3 Log2(Float3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float4 Log2(Float4 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec2 Log2(Vec2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Square
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec3 Log2(Vec3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec4 Log2(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Log10
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Log10(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Log10(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Log10(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Log10(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Log10(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Log10(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Log10(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Log10(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Log10(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Modf
+		//
+		//////////////////////////////////////////////////
+
+		inline float Modf(float x, float& exp) noexcept;
+
+		inline double Modf(double x, double& exp) noexcept;
+
+		inline Float2 Modf(Float2 x, Float2& exp) noexcept;
+
+		inline Float3 Modf(Float3 x, Float3& exp) noexcept;
+
+		inline Float4 Modf(Float4 x, Float4& exp) noexcept;
+
+		inline Vec2 Modf(Vec2 x, Vec2& exp) noexcept;
+
+		inline Vec3 Modf(Vec3 x, Vec3& exp) noexcept;
+
+		inline Vec4 Modf(Vec4 x, Vec4& exp) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Pow
+		//
+		//////////////////////////////////////////////////
+
+		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>* = nullptr>
+		[[nodiscard]]
+		inline auto Pow(T1 x, T2 y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Float2 Pow(Float2 x, Arithmetic y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Float3 Pow(Float3 x, Arithmetic y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Float4 Pow(Float4 x, Arithmetic y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Vec2 Pow(Vec2 x, Arithmetic y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Vec3 Pow(Vec3 x, Arithmetic y) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+			[[nodiscard]]
+		inline Vec4 Pow(Vec4 x, Arithmetic y) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Sign
+		//
+		//////////////////////////////////////////////////
+
+		SIV3D_CONCEPT_ARITHMETIC
+		inline constexpr int Sign(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Sign(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Sign(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Sign(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Sign(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Sign(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Sign(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	ToRadians
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float ToRadians(float x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double ToRadians(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline constexpr double ToRadians(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 ToRadians(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 ToRadians(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 ToRadians(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 ToRadians(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 ToRadians(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 ToRadians(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	ToDegrees
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float ToDegrees(float x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double ToDegrees(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline constexpr double ToDegrees(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 ToDegrees(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 ToDegrees(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 ToDegrees(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 ToDegrees(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 ToDegrees(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 ToDegrees(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Abs
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float Abs(float x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double Abs(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline constexpr Arithmetic Abs(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Abs(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Abs(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Abs(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Abs(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Abs(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Abs(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	AbsDiff
+		//
+		//////////////////////////////////////////////////
+
+		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1>&& std::is_arithmetic_v<T2>>* = nullptr>
+		[[nodiscard]]
+		inline constexpr auto AbsDiff(T1 x, T2 y) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 AbsDiff(Float2 v1, Float2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 AbsDiff(Float3 v1, Float3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 AbsDiff(Float4 v1, Float4 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 AbsDiff(Vec2 v1, Vec2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 AbsDiff(Vec3 v1, Vec3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 AbsDiff(Vec4 v1, Vec4 v2) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Square
+		//
+		//////////////////////////////////////////////////
+
 		[[nodiscard]]
 		inline constexpr float Square(float x) noexcept;
 
 		[[nodiscard]]
 		inline constexpr double Square(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline constexpr Arithmetic Square(Arithmetic x) noexcept;
 
 		[[nodiscard]]
 		inline constexpr Float2 Square(Float2 v) noexcept;
@@ -249,24 +482,21 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr Vec4 Square(Vec4 v) noexcept;
 
-		SIV3D_CONCEPT_ARITHMETIC
-		[[nodiscard]]
-		inline constexpr Arithmetic Square(Arithmetic x) noexcept;
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Exp
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Exp
-	//
-	//////////////////////////////////////////////////
-
-	namespace Math
-	{
 		[[nodiscard]]
 		inline float Exp(float x) noexcept;
 
 		[[nodiscard]]
 		inline double Exp(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Exp(Arithmetic x) noexcept;
 
 		[[nodiscard]]
 		inline Float2 Exp(Float2 v) noexcept;
@@ -285,93 +515,238 @@ namespace s3d
 
 		[[nodiscard]]
 		inline Vec4 Exp(Vec4 v) noexcept;
-	}
 
-	//////////////////////////////////////////////////
-	//
-	//	Exp2
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Exp2
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline float Exp2(float x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline double Exp2(double x) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Rsqrt
-	//
-	//////////////////////////////////////////////////
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Exp2(Arithmetic x) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float2 Exp2(Float2 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float3 Exp2(Float3 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Sqrt
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float4 Exp2(Float4 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec2 Exp2(Vec2 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec3 Exp2(Vec3 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Ceil
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec4 Exp2(Vec4 v) noexcept;
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	Rsqrt
+		//
+		//////////////////////////////////////////////////
 
-	}
+		[[nodiscard]]
+		inline float Rsqrt(float x) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Floor
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline double Rsqrt(double x) noexcept;
 
-	namespace Math
-	{
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Rsqrt(Arithmetic x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float2 Rsqrt(Float2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Round
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float3 Rsqrt(Float3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float4 Rsqrt(Float4 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec2 Rsqrt(Vec2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Clamp
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec3 Rsqrt(Vec3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec4 Rsqrt(Vec4 v) noexcept;
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Sqrt
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Saturate
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline float Sqrt(float x) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline double Sqrt(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Sqrt(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Sqrt(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Sqrt(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Sqrt(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Sqrt(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Sqrt(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Sqrt(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Ceil
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Ceil(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Ceil(double x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Ceil(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Ceil(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Ceil(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Ceil(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Ceil(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Ceil(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Floor
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Floor(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Floor(double x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Floor(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Floor(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Floor(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Floor(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Floor(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Floor(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Round
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Round(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Round(double x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Round(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Round(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Round(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Round(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Round(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Round(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Clamp
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float Clamp(float x, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double Clamp(double x, double min, double max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Point Clamp(Point v, int32 min, int32 max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Clamp(Float2 v, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Clamp(Float3 v, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Clamp(Float4 v, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Clamp(Vec2 v, double min, double max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Clamp(Vec3 v, double min, double max) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Clamp(Vec4 v, double min, double max) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Saturate
+		//
+		//////////////////////////////////////////////////
+
 		[[nodiscard]]
 		inline constexpr float Saturate(float x) noexcept;
 
@@ -395,138 +770,156 @@ namespace s3d
 
 		[[nodiscard]]
 		inline constexpr Vec4 Saturate(Vec4 v) noexcept;
-	}
 
-	//////////////////////////////////////////////////
-	//
-	//	Acos
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Acos
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Asin
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Asin
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Atan
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	Atan2
+		//
+		//////////////////////////////////////////////////
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Cos
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Atan
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Cosh
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	Sin
+		//
+		//////////////////////////////////////////////////
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Sinh
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Atan2
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Tan
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	Tanh
+		//
+		//////////////////////////////////////////////////
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	Normalize
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Cos
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline constexpr float Normalize(float x) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline constexpr double Normalize(double x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec2 Normalize(Point v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Cosh
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Float2 Normalize(Float2 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Float3 Normalize(Float3 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Float4 Normalize(Float4 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Sin
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline Vec2 Normalize(Vec2 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline Vec3 Normalize(Vec3 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline Vec4 Normalize(Vec4 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Sinh
-	//
-	//////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		//
+		//	Smoothstep
+		//
+		//////////////////////////////////////////////////
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline constexpr float Smoothstep(float min, float max, float x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline constexpr double Smoothstep(double min, double max, double x) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Tan
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline constexpr float Smoothstep(float x) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline constexpr double Smoothstep(double x) noexcept;
 
-	}
+		[[nodiscard]]
+		inline constexpr Float2 Smoothstep(Float2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Tanh
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline constexpr Float3 Smoothstep(Float3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline constexpr Float4 Smoothstep(Float4 v) noexcept;
 
-	}
+		[[nodiscard]]
+		inline constexpr Vec2 Smoothstep(Vec2 v) noexcept;
 
-	//////////////////////////////////////////////////
-	//
-	//	Normalize
-	//
-	//////////////////////////////////////////////////
+		[[nodiscard]]
+		inline constexpr Vec3 Smoothstep(Vec3 v) noexcept;
 
-	namespace Math
-	{
+		[[nodiscard]]
+		inline constexpr Vec4 Smoothstep(Vec4 v) noexcept;
 
-	}
+		//////////////////////////////////////////////////
+		//
+		//	GCD
+		//
+		//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//	Smoothstep
-	//
-	//////////////////////////////////////////////////
+		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>* = nullptr>
+		[[nodiscard]]
+		inline constexpr auto GCD(T1 x, T2 y) noexcept;
 
-	namespace Math
-	{
+		//////////////////////////////////////////////////
+		//
+		//	LCM
+		//
+		//////////////////////////////////////////////////
 
+		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>* = nullptr>
+		[[nodiscard]]
+		inline constexpr auto LCM(T1 x, T2 y) noexcept;
 	}
 }
 

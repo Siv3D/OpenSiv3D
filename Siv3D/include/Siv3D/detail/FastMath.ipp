@@ -84,5 +84,40 @@ namespace s3d
 
 			return{ sin, cos };
 		}
+
+	# if __cpp_lib_bit_cast
+
+		inline constexpr float InvSqrt(float x) noexcept
+		{
+			const float xhalf = (x * 0.5f);
+			int32 i = std::bit_cast<int32>(x);
+			i = 0x5f375a86 - (i >> 1);
+			x = std::bit_cast<float>(i);
+			x = x * (1.5f - (xhalf * x * x));
+			return x;
+		}
+
+		inline constexpr double InvSqrt(double x) noexcept
+		{
+			const double xhalf = (x * 0.5);
+			int64 i = std::bit_cast<int64>(x);
+			i = 0x5fe6eb50c7b537a9 - (i >> 1);
+			x = std::bit_cast<double>(i);
+			x = x * (1.5 - (xhalf * x * x));
+			return x;
+		}
+
+		inline constexpr double InvSqrtQuality(double x) noexcept
+		{
+			const double xhalf = (x * 0.5);
+			int64 i = std::bit_cast<int64>(x);
+			i = 0x5fe6eb50c7b537a9 - (i >> 1);
+			x = std::bit_cast<double>(i);
+			x = x * (1.5 - (xhalf * x * x));
+			x = x * (1.5 - (xhalf * x * x));
+			return x;
+		}
+
+	# endif
 	}
 }
