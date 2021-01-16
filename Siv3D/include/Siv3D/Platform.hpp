@@ -13,8 +13,7 @@
 
 //////////////////////////////////////////////////
 //
-//	プラットフォーム
-//	Platform
+//	プラットフォーム | Target Platform
 //
 //////////////////////////////////////////////////
 
@@ -24,25 +23,25 @@
 # define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX()		0
 # define SIV3D_PLATFORM_PRIVATE_DEFINITION_WEB()		0
 
-# if defined(_WIN32)
+# if defined(_WIN32) // Windows
 
 	# define SIV3D_PLATFORM_NAME	U"Windows Desktop"
 	# undef	 SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS
 	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS()	1
 
-# elif defined(__APPLE__) && defined(__MACH__)
+# elif defined(__APPLE__) && defined(__MACH__) // macOS
 
 	# define SIV3D_PLATFORM_NAME	U"macOS"
 	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS
 	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS()		1
 
-# elif defined(__linux__)
+# elif defined(__linux__) // Linux
 
 	# define SIV3D_PLATFORM_NAME	U"Linux"
 	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX
 	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX()		1
 
-# elif defined(__EMSCRIPTEN__)
+# elif defined(__EMSCRIPTEN__) // Web
 
 	# define SIV3D_PLATFORM_NAME	U"Web"
 	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_WEB
@@ -61,8 +60,7 @@
 
 //////////////////////////////////////////////////
 //
-//	命令セット
-//	Intrinsics
+//	命令セット | Intrinsics
 //
 //////////////////////////////////////////////////
 
@@ -86,6 +84,7 @@
 
 # elif SIV3D_PLATFORM(WEB)
 
+	// do nothing
 
 # else
 
@@ -96,8 +95,7 @@
 
 //////////////////////////////////////////////////
 //
-//	ビルド設定
-//	Build mode
+//	ビルド設定 | Build Mode
 //
 //////////////////////////////////////////////////
 
@@ -105,12 +103,12 @@
 # define SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG()		0
 # define SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE()	0
 
-# if defined(_DEBUG) || defined(DEBUG)
+# if defined(_DEBUG) || defined(DEBUG) // Debug Build
 
 	# undef SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG
 	# define SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG()		1
 
-# else
+# else // Release Build
 
 	# undef SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE
 	# define SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE()	1
@@ -120,12 +118,11 @@
 
 //////////////////////////////////////////////////
 //
-//	Visual Studio バージョンのチェック
-//	Version check for Visual Studio
+//	Visual Studio バージョンのチェック | Version Check for Visual Studio
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1928)
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1928) // 古い Visual Studio | Old MSVC
 
 	// お使いの Visual Studio のバージョンが古い場合、このエラーが発生します
 	// This error occures when your Visual Studio version is not up to date.
@@ -136,27 +133,26 @@
 
 //////////////////////////////////////////////////
 //
-//	Windows ビルド設定のチェック
-//	Target Windows system check
+//	Windows ビルド設定のチェック | Target Windows System Check
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64)
+# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64) // x86 は非サポート | x86 is not supported
 
-	# error Windows 32-bit is not supported.
+	# error Windows x86 is not supported.
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	コンストラクタの [[nodiscard]]
-//	[[nodiscard]] for constructors
+//	C++ コンパイラ対応 | C++ Compiler Support
 //
 //////////////////////////////////////////////////
 
 # if defined(__cplusplus)
 
+	// コンストラクタの [[nodiscard]] | [[nodiscard]] for constructors
 	# if (__has_cpp_attribute(nodiscard) >= 201907L)
 
 		# define SIV3D_NODISCARD_CXX20 [[nodiscard]]
@@ -167,18 +163,8 @@
 
 	# endif
 
-# endif
 
-
-//////////////////////////////////////////////////
-//
-//	[[likely]], [[unlikely]] アトリビュート
-//	[[likely]] and [[unlikely]] attributes
-//
-//////////////////////////////////////////////////
-
-#if defined(__cplusplus)
-
+	// [[likely]], [[unlikely]] アトリビュート | [[likely]] and [[unlikely]] attributes
 	# if (__has_cpp_attribute(likely) && __has_cpp_attribute(unlikely) && !(defined(__GNUC__) && (9 <= __GNUC__) && (__GNUC__ < 10)))
 
 		# define SIV3D_LIKELY [[likely]]
@@ -191,17 +177,8 @@
 
 	# endif
 
-# endif
 
-//////////////////////////////////////////////////
-//
-//	メンバ変数への [[maybe_unused]]
-//	[[maybe_unused]] for non-static data member
-//
-//////////////////////////////////////////////////
-
-#if defined(__cplusplus)
-
+	// メンバ変数への [[maybe_unused]] | [[maybe_unused]] for non-static data member
 	# if (__has_cpp_attribute(maybe_unused) && !(defined(__GNUC__)))
 
 		# define SIV3D_MAYBE_UNUSED_NSDM [[maybe_unused]]
@@ -212,39 +189,17 @@
 
 	# endif
 
-# endif
 
-
-//////////////////////////////////////////////////
-//
-//	constexpr std::bit_cast
-//
-//////////////////////////////////////////////////
-
-# if (__cpp_lib_bit_cast >= 201806L)
+	// constexpr std::bit_cast
+	# if (__cpp_lib_bit_cast >= 201806L)
 	
-	# define SIV3D_CONSTEXPR_BITCAST constexpr
+		# define SIV3D_CONSTEXPR_BITCAST constexpr
 
-# else
+	# else
 
-	# define SIV3D_CONSTEXPR_BITCAST
+		# define SIV3D_CONSTEXPR_BITCAST
 
-# endif
-
-
-//////////////////////////////////////////////////
-//
-//	__vectorcall
-//
-//////////////////////////////////////////////////
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-	# define SIV3D_VECTOR_CALL __vectorcall
-
-# else
-
-	# define SIV3D_VECTOR_CALL
+	# endif
 
 # endif
 
@@ -268,8 +223,7 @@
 
 //////////////////////////////////////////////////
 //
-//	コンパイラ拡張 (MSVC)
-//	Compiler Extensions (MSVC)
+//	コンパイラ拡張 (MSVC) | Compiler Extensions (MSVC)
 //
 //////////////////////////////////////////////////
 
@@ -284,19 +238,21 @@
 
 	# define SIV3D_NOVTABLE __declspec(novtable)
 
+	# define SIV3D_VECTOR_CALL __vectorcall
+
 # else
 
 	# define SIV3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)
 	# define SIV3D_DISABLE_MSVC_WARNINGS_POP()
 	# define SIV3D_NOVTABLE
+	# define SIV3D_VECTOR_CALL
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	コンパイラ拡張 (Clang)
-//	Compiler Extensions (Clang)
+//	コンパイラ拡張 (Clang) | Compiler Extensions (Clang)
 //
 //////////////////////////////////////////////////
 
@@ -314,8 +270,7 @@
 
 //////////////////////////////////////////////////
 //
-//	コンパイラ拡張 (GCC)
-//	Compiler Extensions (GCC)
+//	コンパイラ拡張 (GCC) | Compiler Extensions (GCC)
 //
 //////////////////////////////////////////////////
 
@@ -333,8 +288,7 @@
 
 //////////////////////////////////////////////////
 //
-// 実行ファイル埋め込みリソース
-// Embedded Resource
+//	実行ファイル埋め込みリソース | Embedded Resource
 //
 //////////////////////////////////////////////////
 
@@ -342,10 +296,12 @@ namespace s3d::Platform
 {
 # if SIV3D_PLATFORM(WINDOWS)
 
+	/// @brief ファイルを実行ファイルに埋め込み可能であるか
 	inline constexpr bool HasEmbeddedResource = true;
 
 # else
 
+	/// @brief ファイルを実行ファイルに埋め込み可能であるか
 	inline constexpr bool HasEmbeddedResource = false;
 
 # endif
