@@ -244,8 +244,6 @@ namespace s3d
 
 	private:
 
-		class PolygonDetail;
-
 		std::unique_ptr<PolygonDetail> pImpl;
 	};
 

@@ -168,5 +168,5 @@ namespace s3d
 	}
 
 	/// @brief コンソール入出力
-	inline constexpr auto Console = detail::Console_impl();
+	inline constexpr auto Console = detail::Console_impl{};
 }

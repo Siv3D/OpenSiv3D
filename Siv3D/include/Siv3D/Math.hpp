@@ -268,27 +268,27 @@ namespace s3d
 		inline auto Pow(T1 x, T2 y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Float2 Pow(Float2 x, Arithmetic y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Float3 Pow(Float3 x, Arithmetic y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Float4 Pow(Float4 x, Arithmetic y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Vec2 Pow(Vec2 x, Arithmetic y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Vec3 Pow(Vec3 x, Arithmetic y) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
-			[[nodiscard]]
+		[[nodiscard]]
 		inline Vec4 Pow(Vec4 x, Arithmetic y) noexcept;
 
 		//////////////////////////////////////////////////
@@ -777,6 +777,33 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Acos(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Acos(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Acos(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Acos(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Acos(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Acos(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Acos(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Acos(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Acos(Vec4 v) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -784,11 +811,67 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Asin(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Asin(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Asin(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Asin(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Asin(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Asin(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Asin(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Asin(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Asin(Vec4 v) noexcept;
+
 		//////////////////////////////////////////////////
 		//
 		//	Atan
 		//
 		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Atan(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Atan(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Atan(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Atan(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Atan(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Atan(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Atan(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Atan(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Atan(Vec4 v) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -796,17 +879,101 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Atan2(float y, float x) noexcept;
+
+		[[nodiscard]]
+		inline double Atan2(double y, double x) noexcept;
+
+		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>* = nullptr>
+		[[nodiscard]]
+		inline auto Atan2(T1 y, T2 x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Atan2(Float2 y, Float2 x) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Atan2(Float3 y, Float3 x) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Atan2(Float4 y, Float4 x) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Atan2(Vec2 y, Vec2 x) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Atan2(Vec3 y, Vec3 x) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Atan2(Vec4 y, Vec4 x) noexcept;
+
 		//////////////////////////////////////////////////
 		//
 		//	Cos
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Cos(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Cos(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Cos(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Cos(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Cos(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Cos(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Cos(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Cos(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Cos(Vec4 v) noexcept;
+
 		//////////////////////////////////////////////////
 		//
 		//	Cosh
 		//
 		//////////////////////////////////////////////////
+		
+		[[nodiscard]]
+		inline float Cosh(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Cosh(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Cosh(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Cosh(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Cosh(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Cosh(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Cosh(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Cosh(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Cosh(Vec4 v) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -814,11 +981,67 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Sin(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Sin(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Sin(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Sin(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Sin(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Sin(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Sin(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Sin(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Sin(Vec4 v) noexcept;
+
 		//////////////////////////////////////////////////
 		//
 		//	Sinh
 		//
 		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Sinh(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Sinh(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Sinh(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Sinh(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Sinh(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Sinh(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Sinh(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Sinh(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Sinh(Vec4 v) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -826,11 +1049,67 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline float Tan(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Tan(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Tan(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Tan(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Tan(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Tan(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Tan(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Tan(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Tan(Vec4 v) noexcept;
+
 		//////////////////////////////////////////////////
 		//
 		//	Tanh
 		//
 		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline float Tanh(float x) noexcept;
+
+		[[nodiscard]]
+		inline double Tanh(double x) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double Tanh(Arithmetic x) noexcept;
+
+		[[nodiscard]]
+		inline Float2 Tanh(Float2 v) noexcept;
+
+		[[nodiscard]]
+		inline Float3 Tanh(Float3 v) noexcept;
+
+		[[nodiscard]]
+		inline Float4 Tanh(Float4 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec2 Tanh(Vec2 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec3 Tanh(Vec3 v) noexcept;
+
+		[[nodiscard]]
+		inline Vec4 Tanh(Vec4 v) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -924,3 +1203,4 @@ namespace s3d
 }
 
 # include "detail/Math.ipp"
+# include "detail/Math_Functors.ipp"

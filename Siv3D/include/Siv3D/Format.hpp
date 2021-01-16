@@ -195,7 +195,7 @@ namespace s3d
 			[[nodiscard]]
 			constexpr Format_impl operator ()(PlaceHolder_t) const
 			{
-				return detail::Format_impl();
+				return detail::Format_impl{};
 			}
 
 			template <class Head>
@@ -223,9 +223,9 @@ namespace s3d
 		template <class Type>
 		String FormatPlaceholder_impl::operator ()(const Type& value) const
 		{
-			return m_head + Format_impl()(value) + m_tail;
+			return m_head + Format_impl{}(value) + m_tail;
 		}
 	}
 
-	inline constexpr auto Format = detail::Format_impl();
+	inline constexpr auto Format = detail::Format_impl{};
 }

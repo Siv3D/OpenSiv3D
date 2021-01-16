@@ -777,11 +777,47 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		inline float Acos(const float x) noexcept
+		{
+			return std::acos(x);
+		}
+
+		inline double Acos(const double x) noexcept
+		{
+			return std::acos(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Acos(const Arithmetic x) noexcept
+		{
+			return std::acos(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Acos)
+
 		//////////////////////////////////////////////////
 		//
 		//	Asin
 		//
 		//////////////////////////////////////////////////
+
+		inline float Asin(const float x) noexcept
+		{
+			return std::asin(x);
+		}
+
+		inline double Asin(const double x) noexcept
+		{
+			return std::asin(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Asin(const Arithmetic x) noexcept
+		{
+			return std::asin(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Asin)
 
 		//////////////////////////////////////////////////
 		//
@@ -789,11 +825,47 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		inline float Atan(const float x) noexcept
+		{
+			return std::atan(x);
+		}
+
+		inline double Atan(const double x) noexcept
+		{
+			return std::atan(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Atan(const Arithmetic x) noexcept
+		{
+			return std::atan(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Atan)
+
 		//////////////////////////////////////////////////
 		//
 		//	Atan2
 		//
 		//////////////////////////////////////////////////
+
+		inline float Atan2(const float y, const float x) noexcept
+		{
+			return std::atan2(y, x);
+		}
+
+		inline double Atan2(const double y, const double x) noexcept
+		{
+			return std::atan2(y, x);
+		}
+
+		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>*>
+		inline auto Atan2(const T1 y, const T2 x) noexcept
+		{
+			return std::atan2(y, x);
+		}
+
+		SIV3D_MATH_FUNCTION_XY(Atan2)
 
 		//////////////////////////////////////////////////
 		//
@@ -801,11 +873,47 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		inline float Cos(const float x) noexcept
+		{
+			return std::cos(x);
+		}
+
+		inline double Cos(const double x) noexcept
+		{
+			return std::cos(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Cos(const Arithmetic x) noexcept
+		{
+			return std::cos(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Cos)
+
 		//////////////////////////////////////////////////
 		//
 		//	Cosh
 		//
 		//////////////////////////////////////////////////
+
+		inline float Cosh(const float x) noexcept
+		{
+			return std::cosh(x);
+		}
+
+		inline double Cosh(const double x) noexcept
+		{
+			return std::cosh(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Cosh(const Arithmetic x) noexcept
+		{
+			return std::cosh(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Cosh)
 
 		//////////////////////////////////////////////////
 		//
@@ -813,11 +921,47 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		inline float Sin(const float x) noexcept
+		{
+			return std::sin(x);
+		}
+
+		inline double Sin(const double x) noexcept
+		{
+			return std::sin(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Sin(const Arithmetic x) noexcept
+		{
+			return std::sin(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Sin)
+
 		//////////////////////////////////////////////////
 		//
 		//	Sinh
 		//
 		//////////////////////////////////////////////////
+
+		inline float Sinh(const float x) noexcept
+		{
+			return std::sinh(x);
+		}
+
+		inline double Sinh(const double x) noexcept
+		{
+			return std::sinh(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Sinh(const Arithmetic x) noexcept
+		{
+			return std::sinh(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Sinh)
 
 		//////////////////////////////////////////////////
 		//
@@ -825,11 +969,47 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		inline float Tan(const float x) noexcept
+		{
+			return std::tan(x);
+		}
+
+		inline double Tan(const double x) noexcept
+		{
+			return std::tan(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Tan(const Arithmetic x) noexcept
+		{
+			return std::tan(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Tan)
+
 		//////////////////////////////////////////////////
 		//
 		//	Tanh
 		//
 		//////////////////////////////////////////////////
+
+		inline float Tanh(const float x) noexcept
+		{
+			return std::tanh(x);
+		}
+
+		inline double Tanh(const double x) noexcept
+		{
+			return std::tanh(x);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double Tanh(const Arithmetic x) noexcept
+		{
+			return std::tanh(x);
+		}
+
+		SIV3D_MATH_FUNCTION_X(Tanh)
 
 		//////////////////////////////////////////////////
 		//
@@ -986,4 +1166,8 @@ namespace s3d
 	}
 }
 
-# undef SIV3D_MATH_FUNCTION_XYA
+# undef SIV3D_MATH_FUNCTION_X
+# undef SIV3D_MATH_FUNCTION_CONSTEXPR_X
+# undef SIV3D_MATH_FUNCTION_XY
+# undef SIV3D_MATH_FUNCTION_CONSTEXPR_XY
+# undef SIV3D_MATH_FUNCTION_XYREF

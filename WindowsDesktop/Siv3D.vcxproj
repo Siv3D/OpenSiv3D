@@ -83,6 +83,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Line.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\LineString.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math_Functors.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MultiPolygon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Noise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp" />

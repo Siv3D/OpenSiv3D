@@ -90,13 +90,13 @@ namespace s3d
 		MultiPolygon(const MultiPolygon& polygons);
 
 		SIV3D_NODISCARD_CXX20
-		MultiPolygon(MultiPolygon&& polygons);
+		MultiPolygon(MultiPolygon&& polygons) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		explicit MultiPolygon(const Array<Polygon>& polygons);
 
 		SIV3D_NODISCARD_CXX20
-		explicit MultiPolygon(Array<Polygon>&& polygons);
+		explicit MultiPolygon(Array<Polygon>&& polygons) noexcept;
 
 		MultiPolygon& operator =(const Array<Polygon>& other);
 

@@ -113,5 +113,5 @@ namespace s3d
 		};
 	}
 
-	inline constexpr auto Logger = detail::Logger_impl();
+	inline constexpr auto Logger = detail::Logger_impl{};
 }
