@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include <Siv3D/Subdivision2D.hpp>
 
 namespace s3d
@@ -650,7 +651,7 @@ namespace s3d
 
 		if (pt.x < m_rect.x || pt.y < m_rect.y || pt.x >= m_bottomRight.x || pt.y >= m_bottomRight.y)
 		{
-			throw Error(U"");
+			throw Error(U"Subdivision: point is out of bounds");
 		}
 
 		int32 edge = m_recentEdge;

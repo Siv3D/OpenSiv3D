@@ -290,6 +290,36 @@ namespace s3d
 		}
 
 
+
+
+		inline constexpr bool Contains(const Rect& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Rect& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+
+
+		inline constexpr bool Contains(const RectF& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	IsClockwise
+		//
+		//////////////////////////////////////////////////
+
 		inline bool IsClockwise(const Array<Point>& points) noexcept
 		{
 			return detail::IsClockwise(points.data(), points.size());

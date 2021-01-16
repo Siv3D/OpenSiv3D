@@ -241,6 +241,12 @@ namespace s3d
 			return false;
 		}
 
+		//////////////////////////////////////////////////
+		//
+		//	BoundingRect
+		//
+		//////////////////////////////////////////////////
+
 		RectF BoundingRect(const Array<Point>& points) noexcept
 		{
 			return detail::BoundingRect(points.data(), points.size());
@@ -270,6 +276,12 @@ namespace s3d
 		{
 			return detail::BoundingRectF(points, size);
 		}
+
+		//////////////////////////////////////////////////
+		//
+		//	ConvexHull
+		//
+		//////////////////////////////////////////////////
 
 		Polygon ConvexHull(const Array<Point>& points)
 		{
@@ -301,6 +313,34 @@ namespace s3d
 			return detail::ConvexHull(points, size);
 		}
 
+		//////////////////////////////////////////////////
+		//
+		//	Subtract
+		//
+		//////////////////////////////////////////////////
+
+		Array<Polygon> Subtract(const RectF& a, const Polygon& b)
+		{
+			Array<CwOpenPolygon> results;
+
+			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
+
+			boost::geometry::difference(box, b._detail()->getPolygon(), results);
+
+			return results.map(detail::ToPolygon);
+		}
+
+		Array<Polygon> Subtract(const Polygon& a, const RectF& b)
+		{
+			Array<CwOpenPolygon> results;
+
+			const boost::geometry::model::box<Vec2> box{ b.pos, b.br() };
+
+			boost::geometry::difference(a._detail()->getPolygon(), box, results);
+
+			return results.map(detail::ToPolygon);
+		}
+
 		Array<Polygon> Subtract(const Polygon& a, const Polygon& b)
 		{
 			Array<CwOpenPolygon> results;
@@ -308,6 +348,28 @@ namespace s3d
 			boost::geometry::difference(a._detail()->getPolygon(), b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	And
+		//
+		//////////////////////////////////////////////////
+
+		Array<Polygon> And(const RectF& a, const Polygon& b)
+		{
+			Array<CwOpenPolygon> results;
+
+			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
+
+			boost::geometry::intersection(box, b._detail()->getPolygon(), results);
+
+			return results.map(detail::ToPolygon);
+		}
+
+		Array<Polygon> And(const Polygon& a, const RectF& b)
+		{
+			return And(b, a);
 		}
 
 		Array<Polygon> And(const Polygon& a, const Polygon& b)
@@ -319,6 +381,28 @@ namespace s3d
 			return results.map(detail::ToPolygon);
 		}
 
+		//////////////////////////////////////////////////
+		//
+		//	Or
+		//
+		//////////////////////////////////////////////////
+
+		Array<Polygon> Or(const RectF& a, const Polygon& b)
+		{
+			Array<CwOpenPolygon> results;
+
+			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
+
+			boost::geometry::union_(box, b._detail()->getPolygon(), results);
+
+			return results.map(detail::ToPolygon);
+		}
+
+		Array<Polygon> Or(const Polygon& a, const RectF& b)
+		{
+			return Or(b, a);
+		}
+
 		Array<Polygon> Or(const Polygon& a, const Polygon& b)
 		{
 			Array<CwOpenPolygon> results;
@@ -326,6 +410,28 @@ namespace s3d
 			boost::geometry::union_(a._detail()->getPolygon(), b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	Xor
+		//
+		//////////////////////////////////////////////////
+
+		Array<Polygon> Xor(const RectF& a, const Polygon& b)
+		{
+			Array<CwOpenPolygon> results;
+
+			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
+
+			boost::geometry::sym_difference(box, b._detail()->getPolygon(), results);
+
+			return results.map(detail::ToPolygon);
+		}
+
+		Array<Polygon> Xor(const Polygon& a, const RectF& b)
+		{
+			return Xor(b, a);
 		}
 
 		Array<Polygon> Xor(const Polygon& a, const Polygon& b)
@@ -337,6 +443,12 @@ namespace s3d
 			return results.map(detail::ToPolygon);
 		}
 
+		//////////////////////////////////////////////////
+		//
+		//	FrechetDistance
+		//
+		//////////////////////////////////////////////////
+
 		double FrechetDistance(const LineString& a, const LineString& b)
 		{
 			if (a.isEmpty() || b.isEmpty())
@@ -346,6 +458,12 @@ namespace s3d
 
 			return boost::geometry::discrete_frechet_distance(GLineString(a.begin(), a.end()), GLineString(b.begin(), b.end()));
 		}
+
+		//////////////////////////////////////////////////
+		//
+		//	HausdorffDistance
+		//
+		//////////////////////////////////////////////////
 
 		double HausdorffDistance(const LineString& a, const LineString& b)
 		{

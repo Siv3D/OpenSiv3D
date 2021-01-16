@@ -25,7 +25,7 @@ namespace s3d
 	{
 		//////////////////////////////////////////////////
 		//
-		//	Point vs ...
+		//	Point intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -76,7 +76,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	Vec2 vs ...
+		//	Vec2 intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -127,25 +127,25 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	Line vs ...
+		//	Line intersects ...
 		//
 		//////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////
 		//
-		//	Bezier2 vs ...
+		//	Bezier2 intersects ...
 		//
 		//////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////
 		//
-		//	Bezier3 vs ...
+		//	Bezier3 intersects ...
 		//
 		//////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////
 		//
-		//	Rect vs ...
+		//	Rect intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -163,7 +163,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	RectF vs ...
+		//	RectF intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -181,7 +181,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	Circle vs ...
+		//	Circle intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -193,7 +193,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	Triangle vs ...
+		//	Triangle intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -202,7 +202,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	Quad vs ...
+		//	Quad intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -211,13 +211,13 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	RoundRect vs ...
+		//	RoundRect intersects ...
 		//
 		//////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////
 		//
-		//	Polygon vs ...
+		//	Polygon intersects ...
 		//
 		//////////////////////////////////////////////////
 
@@ -226,20 +226,24 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
-		//	MultiPolygon vs ...
+		//	MultiPolygon intersects ...
 		//
 		//////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////
 		//
-		//	LineString vs ...
+		//	LineString intersects ...
 		//
 		//////////////////////////////////////////////////
 
 
 
 
-
+		//////////////////////////////////////////////////
+		//
+		//	Rect intersectsAt ...
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b);
@@ -247,7 +251,11 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b);
 
-
+		//////////////////////////////////////////////////
+		//
+		//	RectF intersectsAt ...
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b);
@@ -255,15 +263,47 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const RectF& b);
 
-		[[nodiscard]] bool Contains(const Rect& a, const Point& b) noexcept;
-		[[nodiscard]] bool Contains(const Rect& a, const Vec2& b) noexcept;
+		//////////////////////////////////////////////////
+		//
+		//	Rect contains ...
+		//
+		//////////////////////////////////////////////////
 
-		[[nodiscard]] bool Contains(const RectF& a, const Point& b) noexcept;
-		[[nodiscard]] bool Contains(const RectF& a, const Vec2& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Point& b) noexcept;
+		
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Vec2& b) noexcept;
 
-		[[nodiscard]] bool Contains(const Quad& a, const Point& b) noexcept;
-		[[nodiscard]] bool Contains(const Quad& a, const Vec2& b) noexcept;
+		//////////////////////////////////////////////////
+		//
+		//	RectF contains ...
+		//
+		//////////////////////////////////////////////////
 
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Point& b) noexcept;
+		
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Vec2& b) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Quad contains ...
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		bool Contains(const Quad& a, const Point& b) noexcept;
+		
+		[[nodiscard]]
+		bool Contains(const Quad& a, const Vec2& b) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	IsClockwise
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		inline bool IsClockwise(const Array<Point>& points) noexcept;
@@ -283,6 +323,11 @@ namespace s3d
 		[[nodiscard]]
 		inline bool IsClockwise(const Vec2* points, size_t size) noexcept;
 
+		//////////////////////////////////////////////////
+		//
+		//	BoundingRect
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		RectF BoundingRect(const Array<Point>& points) noexcept;
@@ -302,6 +347,11 @@ namespace s3d
 		[[nodiscard]]
 		RectF BoundingRect(const Vec2* points, size_t size) noexcept;
 
+		//////////////////////////////////////////////////
+		//
+		//	ConvexHull
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		Polygon ConvexHull(const Array<Point>& points);
@@ -321,6 +371,11 @@ namespace s3d
 		[[nodiscard]]
 		Polygon ConvexHull(const Vec2* points, size_t size);
 
+		//////////////////////////////////////////////////
+		//
+		//	ConcaveHull
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Point>& points, double concavity = 2.0, double lengthThreshold = 0.0);
@@ -330,21 +385,81 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Vec2>& points, double concavity = 2.0, double lengthThreshold = 0.0);
+	
+		//////////////////////////////////////////////////
+		//
+		//	Subtract
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		Array<Polygon> Subtract(const RectF& a, const Polygon& b);
+
+		[[nodiscard]]
+		Array<Polygon> Subtract(const Polygon& a, const RectF& b);
 
 		[[nodiscard]]
 		Array<Polygon> Subtract(const Polygon& a, const Polygon& b);
 
+		//////////////////////////////////////////////////
+		//
+		//	And
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		Array<Polygon> And(const RectF& a, const Polygon& b);
+
+		[[nodiscard]]
+		Array<Polygon> And(const Polygon& a, const RectF& b);
+
 		[[nodiscard]]
 		Array<Polygon> And(const Polygon& a, const Polygon& b);
+
+		//////////////////////////////////////////////////
+		//
+		//	Or
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		Array<Polygon> Or(const RectF& a, const Polygon& b);
+
+		[[nodiscard]]
+		Array<Polygon> Or(const Polygon& a, const RectF& b);
 
 		[[nodiscard]]
 		Array<Polygon> Or(const Polygon& a, const Polygon& b);
 
+		//////////////////////////////////////////////////
+		//
+		//	Xor
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		Array<Polygon> Xor(const RectF& a, const Polygon& b);
+
+		[[nodiscard]]
+		Array<Polygon> Xor(const Polygon& a, const RectF& b);
+
 		[[nodiscard]]
 		Array<Polygon> Xor(const Polygon& a, const Polygon& b);
 
+		//////////////////////////////////////////////////
+		//
+		//	FrechetDistance
+		//
+		//////////////////////////////////////////////////
+
 		[[nodiscard]]
 		double FrechetDistance(const LineString& a, const LineString& b);
+
+		//////////////////////////////////////////////////
+		//
+		//	HausdorffDistance
+		//
+		//////////////////////////////////////////////////
 
 		[[nodiscard]]
 		double HausdorffDistance(const LineString& a, const LineString& b);
