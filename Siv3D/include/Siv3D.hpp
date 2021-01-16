@@ -680,7 +680,7 @@
 # include <Siv3D/RectanglePacking.hpp>
 
 // 平面分割 | Planar subdivisions
-//# include <Siv3D/Subdivision2D.hpp>
+# include <Siv3D/Subdivision2D.hpp>
 
 //////////////////////////////////////////////////
 //

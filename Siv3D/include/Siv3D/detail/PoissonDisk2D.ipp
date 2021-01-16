@@ -72,6 +72,10 @@ namespace s3d
 
 		for (size_t i = 0; i < iterations; ++i)
 		{
+			// Reference:
+			// - Fast Poisson Disk Sampling in Arbitrary Dimensions
+			//   https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf
+
 			if (not m_activeList)
 			{
 				break;

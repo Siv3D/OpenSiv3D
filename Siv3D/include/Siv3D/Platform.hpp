@@ -53,7 +53,7 @@
 
 # endif
 
-// Ref:
+// Reference:
 // - Better Macros, Better Flags
 //   https://www.fluentcpp.com/2019/05/28/better-macros-better-flags/
 

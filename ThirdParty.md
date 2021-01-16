@@ -24,6 +24,7 @@ Library | Version
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
+[OpenCV](https://github.com/opencv/opencv) | 
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 

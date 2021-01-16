@@ -188,6 +188,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/String/SivString.cpp
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
+  ../Siv3D/src/Siv3D/Subdivision2D/SivSubdivision2D.cpp
   ../Siv3D/src/Siv3D/System/SivSystem.cpp
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
