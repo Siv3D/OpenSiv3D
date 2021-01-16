@@ -223,6 +223,24 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const Vec2& a, const LineString& b) noexcept
+		{
+			if (not b)
+			{
+				return false;
+			}
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(a, Line{ b[i], b[i + 1] }))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		RectF BoundingRect(const Array<Point>& points) noexcept
 		{
 			return detail::BoundingRect(points.data(), points.size());

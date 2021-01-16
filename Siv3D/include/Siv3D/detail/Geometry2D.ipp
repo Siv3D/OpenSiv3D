@@ -15,6 +15,25 @@ namespace s3d
 {
 	namespace detail
 	{
+		//
+		//	http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+		//
+		inline constexpr double DistanceSq(const Vec2& begin, const Vec2& end, const Vec2& p) noexcept
+		{
+			const double l2 = begin.distanceFromSq(end);
+
+			if (l2 == 0.0)
+			{
+				return begin.distanceFromSq(p);
+			}
+
+			const double t = Max(0.0, Min(1.0, (p - begin).dot(end - begin) / l2));
+
+			const Vec2 projection = begin + t * (end - begin);
+
+			return p.distanceFromSq(projection);
+		}
+
 		template <class PointType>
 		[[nodiscard]]
 		bool IsClockwise(const PointType* points, const size_t size)
@@ -55,9 +74,99 @@ namespace s3d
 
 	namespace Geometry2D
 	{
+		inline constexpr bool Intersect(const Point& a, const Point& b) noexcept
+		{
+			return (a == b);
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Vec2& b) noexcept
+		{
+			return (b.distanceFromSq(a) < 1.0);
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Line& b) noexcept
+		{
+			return (detail::DistanceSq(b.begin, b.end, a) < 1.0);
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Rect& b) noexcept
+		{
+			return (b.x <= a.x)
+				&& (a.x < (b.x + b.w))
+				&& (b.y <= a.y)
+				&& (a.y < (b.y + b.h));
+		}
+
+		inline constexpr bool Intersect(const Point& a, const RectF& b) noexcept
+		{
+			return (b.x <= a.x)
+				&& (a.x < (b.x + b.w))
+				&& (b.y <= a.y)
+				&& (a.y < (b.y + b.h));
+		}
+
 		inline constexpr bool Intersect(const Point& a, const Circle& b) noexcept
 		{
 			return (a.distanceFromSq(b.center) <= (b.r * b.r));
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Ellipse& b) noexcept
+		{
+			if ((b.a == 0.0)
+				|| (b.b == 0.0))
+			{
+				return false;
+			}
+
+			const double xh = (b.x - a.x);
+			const double yk = (b.y - a.y);
+
+			return (((xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b)) <= 1.0);
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Triangle& b) noexcept
+		{
+			const bool b1 = (detail::Sign(a, b.p0, b.p1) < 0.0);
+			const bool b2 = (detail::Sign(a, b.p1, b.p2) < 0.0);
+			const bool b3 = (detail::Sign(a, b.p2, b.p0) < 0.0);
+
+			return ((b1 == b2) && (b2 == b3));
+		}
+
+		inline constexpr bool Intersect(const Point& a, const Quad& b) noexcept
+		{
+			return Intersect(a, Triangle{ b.p0, b.p1, b.p3 })
+				|| Intersect(a, Triangle{ b.p1, b.p2, b.p3 });
+		}
+
+		inline bool Intersect(const Point& a, const RoundRect& b) noexcept
+		{
+			return Intersect(Vec2{ a }, b);
+		}
+
+		inline bool Intersect(const Point& a, const Polygon& b) noexcept
+		{
+			return Intersect(Vec2{ a }, b);
+		}
+
+		inline bool Intersect(const Point& a, const LineString& b) noexcept
+		{
+			return Intersect(Vec2{ a }, b);
+		}
+
+		inline constexpr bool Intersect(const Vec2& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Vec2& a, const Vec2& b) noexcept
+		{
+			return (a.distanceFromSq(b) < 1.0);
+		}
+
+		inline constexpr bool Intersect(const Vec2& a, const Line& b) noexcept
+		{
+			return (detail::DistanceSq(b.begin, b.end, a) < 1.0);
 		}
 
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept

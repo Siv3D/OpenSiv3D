@@ -16,12 +16,14 @@
 # include <Siv3D/Cursor.hpp>
 # include "PolygonDetail.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/is_valid.hpp>
 # include <boost/geometry/algorithms/correct.hpp>
 # include <ThirdParty/boost/geometry/extensions/algorithms/dissolve.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()

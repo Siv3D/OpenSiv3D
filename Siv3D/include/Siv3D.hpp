@@ -782,7 +782,7 @@
 # include <Siv3D/Polygon.hpp> // [Siv3D ToDo]
 
 // 複数の多角形
-//# include <Siv3D/MultiPolygon.hpp>
+# include <Siv3D/MultiPolygon.hpp>
 
 // 2 次ベジェ曲線
 # include <Siv3D/Bezier2.hpp> // [Siv3D ToDo]
@@ -804,10 +804,6 @@
 
 //// 2D 図形の Variant
 //# include <Siv3D/ShapeVariant2D.hpp>
-
-// 2D 交差判定
-// 2D Shaoe Intersection
-//# include <Siv3D/Intersection.hpp>
 
 // 2D 幾何
 // 2D Geometry Processing
