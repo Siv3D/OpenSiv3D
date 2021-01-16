@@ -11,6 +11,7 @@
 
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/LineString.hpp>
+# include <Siv3D/HashTable.hpp>
 # include <Siv3D/Polygon/PolygonDetail.hpp>
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
@@ -26,6 +27,10 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/discrete_hausdorff_distance.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+# include <ThirdParty/concaveman-cpp/concaveman.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -87,6 +92,64 @@ namespace s3d
 			boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(points, (points + size)), result);
 
 			return Polygon{ result };
+		}
+
+		template <class PointType>
+		inline Polygon ConcaveHull(const Array<PointType>& points, const double concavity, const double lengthThreshold)
+		{
+			if (points.size() < 3)
+			{
+				return{};
+			}
+
+			std::vector<std::array<double, 2>> pts;
+			{
+				pts.reserve(points.size());
+
+				for (const auto& point : points)
+				{
+					pts.push_back(std::array<double, 2>{ static_cast<double>(point.x), static_cast<double>(point.y) });
+				}
+			}
+
+			HashTable<Vec2, int> table;
+			{
+				table.reserve(points.size());
+
+				for (int i = 0; const auto & point : points)
+				{
+					table.emplace(point, i++);
+				}
+			}
+
+			CWOpenRing convexHull;
+			{
+				const PointType* pPoints = points.data();
+				const size_t size = points.size();
+				boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(pPoints, (pPoints + size)), convexHull);
+			}
+
+			std::vector<int> hull;
+			{
+				hull.reserve(convexHull.size());
+
+				for (const auto& point : convexHull)
+				{
+					hull.push_back(table[point]);
+				}
+			}
+
+			const auto concave = concaveman<double, 16>(pts, hull, concavity, lengthThreshold);
+
+			Array<Vec2> results(Arg::reserve = concave.size());
+			{
+				for (const auto& point : concave)
+				{
+					results.emplace_back(point[0], point[1]);
+				}
+			}
+
+			return Polygon{ results };
 		}
 
 		inline Rect BoundingRect(const Point* points, const size_t size)
@@ -311,6 +374,27 @@ namespace s3d
 		Polygon ConvexHull(const Vec2* points, const size_t size)
 		{
 			return detail::ConvexHull(points, size);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	ConcaveHull
+		//
+		//////////////////////////////////////////////////
+
+		Polygon ConcaveHull(const Array<Point>& points, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, concavity, lengthThreshold);
+		}
+
+		Polygon ConcaveHull(const Array<Float2>& points, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, concavity, lengthThreshold);
+		}
+
+		Polygon ConcaveHull(const Array<Vec2>& points, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, concavity, lengthThreshold);
 		}
 
 		//////////////////////////////////////////////////

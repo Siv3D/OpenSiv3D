@@ -14,6 +14,12 @@
 
 namespace s3d
 {
+	namespace Geometry2D
+	{
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Point& b) noexcept;
+	}
+
 	inline constexpr Point::Point(const value_type _x, const value_type _y) noexcept
 		: x(_x)
 		, y(_y) {}
@@ -343,6 +349,12 @@ namespace s3d
 	inline constexpr Vector2D<Type> Point::lerp(const Vector2D<Type> other, const double f) const noexcept
 	{
 		return { x + (other.x - x) * f, y + (other.y - y) * f };
+	}
+
+	template <class Shape2DType>
+	inline constexpr bool Point::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
 	}
 
 	inline size_t Point::hash() const noexcept

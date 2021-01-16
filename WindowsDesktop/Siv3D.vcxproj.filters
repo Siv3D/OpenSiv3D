@@ -640,6 +640,9 @@
     <Filter Include="src\Siv3D\Subdivision2D">
       <UniqueIdentifier>{87388c18-9af2-4415-9d37-8b13e038e5a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\concaveman-cpp">
+      <UniqueIdentifier>{497d7c88-513d-4779-864d-a0cf496c5d20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2549,6 +2552,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Subdivision2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\concaveman-cpp\concaveman.h">
+      <Filter>src\ThirdParty\concaveman-cpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

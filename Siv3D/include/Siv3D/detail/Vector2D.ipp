@@ -13,6 +13,15 @@
 
 namespace s3d
 {
+	namespace Geometry2D
+	{
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Float2& a, const Float2& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Vec2& b) noexcept;
+	}
+
 	template <class Type>
 	template <class X, class Y>
 	inline constexpr Vector2D<Type>::Vector2D(const X _x, const Y _y) noexcept
@@ -467,6 +476,13 @@ namespace s3d
 	inline constexpr Point Vector2D<Type>::asPoint() const noexcept
 	{
 		return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
+	}
+
+	template <class Type>
+	template <class Shape2DType>
+	constexpr bool Vector2D<Type>::intersects(const Shape2DType& other) const
+	{
+		return Geometry2D::Intersect(*this, other);
 	}
 
 	template <class Type>

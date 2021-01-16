@@ -260,30 +260,30 @@ namespace s3d
 		[[nodiscard]]
 		Circle asCircle(double r) const noexcept;
 
-		//template <class Shape2DType>
-		//[[nodiscard]]
-		//bool intersects(const Shape2DType& shape) const;
+		template <class Shape2DType>
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
 
-		//[[nodiscard]]
-		//bool leftClicked() const;
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
 
-		//[[nodiscard]]
-		//bool leftPressed() const;
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
 
-		//[[nodiscard]]
-		//bool leftReleased() const;
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
 
-		//[[nodiscard]]
-		//bool rightClicked() const;
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
 
-		//[[nodiscard]]
-		//bool rightPressed() const;
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
 
-		//[[nodiscard]]
-		//bool rightReleased() const;
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
 
-		//[[nodiscard]]
-		//bool mouseOver() const;
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
 
 		//const Point& paint(Image& dst, const Color& color) const;
 

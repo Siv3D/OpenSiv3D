@@ -257,11 +257,9 @@ namespace s3d
 		[[nodiscard]]
 		Circle asCircle(double r) const noexcept;
 
-		//template <class Shape2DType>
-		//[[nodiscard]] bool intersects(const Shape2DType& shape) const
-		//{
-		//	return Geometry2D::Intersect(*this, shape);
-		//}
+		template <class Shape2DType>
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
