@@ -28,4 +28,7 @@ namespace s3d
 	
 	/// @brief 回転を許可する
 	using AllowFlip			= YesNo<struct AllowFlip_tag>;
+	
+	/// @brief 事前に計算を完了させる
+	using Precompute		= YesNo<struct Precompute_tag>;
 }

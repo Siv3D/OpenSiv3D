@@ -90,6 +90,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PoissonDisk2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Polygon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Quad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomColor.ipp" />
@@ -306,6 +307,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PNGFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PoissonDisk2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PolygonFailureType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedNamedParameter.hpp" />
