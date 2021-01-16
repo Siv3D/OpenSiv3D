@@ -17,17 +17,17 @@ namespace s3d
 	namespace detail
 	{
 		TextWriterBuffer::TextWriterBuffer(TextWriter& writer)
-			: m_writer{ writer }
+			: formatData{ std::make_unique<FormatData>() }
+			, m_writer{ writer }
 			, m_isLast{ true }
-			, formatData{ std::make_unique<FormatData>() }
 		{
 			// do nothing
 		}
 
 		TextWriterBuffer::TextWriterBuffer(TextWriterBuffer&& other) noexcept
-			: m_writer{ other.m_writer }
+			: formatData{ std::move(other.formatData) }
+			, m_writer{ other.m_writer }
 			, m_isLast{ true }
-			, formatData{ std::move(other.formatData) }
 		{
 			other.m_isLast = false;
 		}

@@ -121,38 +121,31 @@ namespace s3d
 		MultiPolygon& remove_at(size_t index);
 
 		template <class Fty>
-		MultiPolygon& remove_if(Fty f)
-		{
-			base_type::remove_if(f);
-
-			return *this;
-		}
+		MultiPolygon& remove_if(Fty f);
 
 		MultiPolygon& reverse();
 
+		[[nodiscard]]
+		MultiPolygon reversed() const;
+
 		MultiPolygon& shuffle();
 
-		template <class URBG>
-		MultiPolygon& shuffle(URBG&& rbg)
-		{
-			base_type::shuffle(std::forward<URBG>(rbg));
-
-			return *this;
-		}
+		SIV3D_CONCEPT_URBG
+		MultiPolygon& shuffle(URBG&& rbg);
 
 		MultiPolygon slice(size_t index) const;
 
 		MultiPolygon slice(size_t index, size_t length) const;
-
-		MultiPolygon& moveBy(double x, double y) noexcept;
-
-		MultiPolygon& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
 		MultiPolygon movedBy(double x, double y) const;
 
 		[[nodiscard]]
 		MultiPolygon movedBy(Vec2 v) const;
+
+		MultiPolygon& moveBy(double x, double y) noexcept;
+
+		MultiPolygon& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
 		MultiPolygon rotated(double angle) const;
@@ -182,17 +175,15 @@ namespace s3d
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		bool intersects(const Shape2DType & other) const;
 
 		template <class Shape2DType>
 		[[nodiscard]]
-		bool contains(const Shape2DType& shape) const
-		{
-			return Geometry2D::Contains(*this, shape);
-		}
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType & other) const;
+
+		template <class Shape2DType>
+		[[nodiscard]]
+		bool contains(const Shape2DType & other) const;
 
 		[[nodiscard]]
 		bool leftClicked() const noexcept;

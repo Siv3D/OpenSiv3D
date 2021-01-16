@@ -28,12 +28,6 @@ namespace s3d
 	}
 
 	template <>
-	void Vector2D<float>::_Formatter(FormatData& formatData, const Vector2D<float>& value)
-	{
-		Vector2D<double>::_Formatter(formatData, value);
-	}
-
-	template <>
 	void Vector2D<double>::_Formatter(FormatData& formatData, const Vector2D<double>& value)
 	{
 		formatData.string.push_back(U'(');
@@ -41,6 +35,12 @@ namespace s3d
 		formatData.string.append(U", "_sv);
 		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
 		formatData.string.push_back(U')');
+	}
+
+	template <>
+	void Vector2D<float>::_Formatter(FormatData& formatData, const Vector2D<float>& value)
+	{
+		Vector2D<double>::_Formatter(formatData, value);
 	}
 
 	template struct Vector2D<float>;
