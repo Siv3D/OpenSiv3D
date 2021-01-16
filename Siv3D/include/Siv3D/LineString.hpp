@@ -173,6 +173,8 @@ namespace s3d
 		[[nodiscard]]
 		RectF calculateBoundingRect() const noexcept;
 		
+		[[nodiscard]]
+		LineString simplified(double maxDistance = 2.0) const;
 
 		[[nodiscard]]
 		LineString densified(double maxDistance) const;

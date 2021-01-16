@@ -20,6 +20,7 @@ namespace s3d
 	template <class Type> struct Vector2D;
 	template <class Type> struct Vector3D;
 	template <class Type> struct Vector4D;
+	struct Circle;
 
 	/// @brief 2 次元のベクトル
 	/// @tparam Type ベクトルの要素の型
@@ -252,6 +253,9 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Point asPoint() const noexcept;
+
+		[[nodiscard]]
+		Circle asCircle(double r) const noexcept;
 
 		//template <class Shape2DType>
 		//[[nodiscard]] bool intersects(const Shape2DType& shape) const

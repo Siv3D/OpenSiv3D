@@ -977,6 +977,15 @@ namespace s3d
 		}
 	}
 
+	LineString LineString::simplified(const double maxDistance) const
+	{
+		gLineString input(begin(), end()), result;
+
+		boost::geometry::simplify(input, result, maxDistance);
+
+		return LineString(result.begin(), result.end());
+	}
+
 	LineString LineString::densified(const double maxDistance) const
 	{
 		gLineString input(begin(), end()), result;

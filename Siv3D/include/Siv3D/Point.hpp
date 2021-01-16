@@ -20,6 +20,7 @@ namespace s3d
 	template <class Type> struct Vector2D;
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
+	struct Circle;
 
 	/// @brief 2 次元のベクトル（整数）
 	struct Point
@@ -255,6 +256,9 @@ namespace s3d
 		template <class Type>
 		[[nodiscard]]
 		constexpr Vector2D<Type> lerp(Vector2D<Type> other, double f) const noexcept;
+
+		[[nodiscard]]
+		Circle asCircle(double r) const noexcept;
 
 		//template <class Shape2DType>
 		//[[nodiscard]]
