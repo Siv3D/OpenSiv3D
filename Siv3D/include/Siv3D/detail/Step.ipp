@@ -155,6 +155,21 @@ namespace s3d
 				return new_array;
 			}
 
+			template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, ValueType>>* = nullptr>
+			constexpr auto operator >>(Fty f) const
+			{
+				using Ret = std::decay_t<std::invoke_result_t<Fty, value_type>>;
+
+				if constexpr (std::is_same_v<Ret, void>)
+				{
+					each(f);
+				}
+				else
+				{
+					return map(f);
+				}
+			}
+
 			size_t count() const
 			{
 				size_t sum = 0;
@@ -625,6 +640,22 @@ namespace s3d
 		}
 
 		return new_array;
+	}
+
+	template <class T, class N, class S>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, T>>*>
+	inline constexpr auto Step<T, N, S>::operator >>(Fty f) const
+	{
+		using Ret = std::decay_t<std::invoke_result_t<Fty, value_type>>;
+
+		if constexpr (std::is_same_v<Ret, void>)
+		{
+			each(f);
+		}
+		else
+		{
+			return map(f);
+		}
 	}
 
 	template <class T, class N, class S>

@@ -79,7 +79,7 @@
 # include <Siv3D/Utility.hpp>
 
 // ファンクター | Functor
-//# include <Siv3D/Functor.hpp> // [Siv3D ToDo]
+# include <Siv3D/Functor.hpp>
 
 // エンディアン | Endian
 # include <Siv3D/Endian.hpp>

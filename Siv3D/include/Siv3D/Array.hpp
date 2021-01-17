@@ -210,6 +210,9 @@ namespace s3d
 		/// @return *this
 		Array& operator <<(value_type&& value);
 
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
+		auto operator >>(Fty f) const;
+
 		/// @brief 全ての要素が条件を満たすかを返します。
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数

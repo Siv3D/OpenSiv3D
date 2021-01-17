@@ -87,6 +87,9 @@ namespace s3d
 		[[nodiscard]]
 		Array<value_type> asArray() const;
 
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, T>>* = nullptr>
+		constexpr auto operator >>(Fty f) const;
+
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, T>>* = nullptr>
 		[[nodiscard]]
 		constexpr N count_if(Fty f) const;

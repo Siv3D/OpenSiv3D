@@ -142,6 +142,22 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
+	inline auto Array<Type, Allocator>::operator >>(Fty f) const
+	{
+		using Ret = std::invoke_result_t<Fty, Type>;
+
+		if constexpr (std::is_same_v<Ret, void>)
+		{
+			each(f);
+		}
+		else
+		{
+			return map(f);
+		}
+	}
+
+	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
 	inline bool Array<Type, Allocator>::all(Fty f) const
 	{
