@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Colormap.hpp>
 # include <ThirdParty/tinycolormap/tinycolormap.hpp>
 
