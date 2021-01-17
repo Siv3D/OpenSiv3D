@@ -21,6 +21,7 @@ namespace s3d
 	struct OffsetCircularBase
 	{
 		using value_type = Float;
+		
 		using position_type = Vector2D<value_type>;
 
 		position_type center;
@@ -47,16 +48,32 @@ namespace s3d
 		OffsetCircularBase(const position_type& _center, const position_type& target) noexcept;
 
 		[[nodiscard]]
-		constexpr OffsetCircularBase operator +() const noexcept;
+		constexpr OffsetCircularBase operator +(position_type v) const noexcept;
 
 		[[nodiscard]]
-		constexpr OffsetCircularBase operator -() const noexcept;
+		constexpr OffsetCircularBase operator -(position_type v) const noexcept;
+
+		constexpr OffsetCircularBase& operator +=(position_type v) noexcept;
+
+		constexpr OffsetCircularBase& operator -=(position_type v) noexcept;
 
 		[[nodiscard]]
-		position_type operator +(position_type v) const noexcept;
+		constexpr OffsetCircularBase movedBy(value_type x, value_type y) const noexcept;
 
 		[[nodiscard]]
-		position_type operator -(position_type v) const noexcept;
+		constexpr OffsetCircularBase movedBy(position_type v) const noexcept;
+
+		constexpr OffsetCircularBase& moveBy(value_type x, value_type y) noexcept;
+
+		constexpr OffsetCircularBase& moveBy(position_type v) noexcept;
+
+		constexpr OffsetCircularBase& setCenter(value_type x, value_type y) noexcept;
+
+		constexpr OffsetCircularBase& setCenter(position_type _center) noexcept;
+
+		OffsetCircularBase& setTarget(value_type x, value_type y) noexcept;
+
+		OffsetCircularBase& setTarget(position_type target) noexcept;
 
 		[[nodiscard]]
 		constexpr OffsetCircularBase rotated(value_type angle) const noexcept;

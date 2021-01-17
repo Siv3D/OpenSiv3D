@@ -15,23 +15,23 @@ namespace s3d
 {
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock>::CircularBase(const value_type _r, const value_type _theta) noexcept
-		: r(_r)
-		, theta(_theta) {}
+		: r{ _r }
+		, theta{ _theta } {}
 
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock>::CircularBase(const Arg::r_<value_type> _r, const Arg::theta_<value_type> _theta) noexcept
-		: r(*_r)
-		, theta(*_theta) {}
+		: r{ *_r }
+		, theta{ *_theta } {}
 
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock>::CircularBase(const Arg::theta_<value_type> _theta, const Arg::r_<value_type> _r) noexcept
-		: r(*_r)
-		, theta(*_theta) {}
+		: r{ *_r }
+		, theta{ *_theta } {}
 
 	template <class Float, int32 Oclock>
 	inline CircularBase<Float, Oclock>::CircularBase(const position_type v) noexcept
-		: r(v.length())
-		, theta(Offset(std::atan2(v.x, -v.y))) {}
+		: r{ v.length() }
+		, theta{ Offset(std::atan2(v.x, -v.y)) } {}
 
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock> CircularBase<Float, Oclock>::operator +() const noexcept

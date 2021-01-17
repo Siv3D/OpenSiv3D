@@ -22,6 +22,7 @@ namespace s3d
 	struct CircularBase
 	{
 		using value_type = Float;
+		
 		using position_type = Vector2D<value_type>;
 
 		/// @brief 半径
