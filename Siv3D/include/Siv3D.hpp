@@ -97,7 +97,7 @@
 # include <Siv3D/Step2D.hpp>
 
 // 無限リスト | Infinite list
-//# include <Siv3D/InfiniteList.hpp> // [Siv3D ToDo]
+# include <Siv3D/InfiniteList.hpp>
 
 // イテレータによる範囲の表現 | Range iterator
 //# include <Siv3D/RangeIterator.hpp> // [Siv3D ToDo]
