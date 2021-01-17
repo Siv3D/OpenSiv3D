@@ -725,7 +725,7 @@ namespace s3d
 	}
 
 	template <class SizeType>
-	inline constexpr typename Rectangle<SizeType>::position_type Rectangle<SizeType>::point(const size_t index)
+	inline constexpr typename Rectangle<SizeType>::position_type Rectangle<SizeType>::point(const size_t index) const
 	{
 		if (index == 0)
 		{
@@ -750,7 +750,7 @@ namespace s3d
 	}
 
 	template <class SizeType>
-	inline constexpr Line Rectangle<SizeType>::side(const size_t index)
+	inline constexpr Line Rectangle<SizeType>::side(const size_t index) const
 	{
 		if (index == 0)
 		{

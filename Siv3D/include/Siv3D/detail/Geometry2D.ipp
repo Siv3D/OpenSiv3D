@@ -135,8 +135,8 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Point& a, const Quad& b) noexcept
 		{
-			return Intersect(a, Triangle{ b.p0, b.p1, b.p3 })
-				|| Intersect(a, Triangle{ b.p1, b.p2, b.p3 });
+			return Intersect(a, b.triangle(0))
+				|| Intersect(a, b.triangle(1));
 		}
 
 		inline bool Intersect(const Point& a, const RoundRect& b) noexcept
@@ -213,8 +213,8 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Vec2& a, const Quad& b) noexcept
 		{
-			return (Intersect(a, Triangle{ b.p0, b.p1, b.p3 })
-				|| Intersect(a, Triangle{ b.p1, b.p2, b.p3 }));
+			return (Intersect(a, b.triangle(0))
+				|| Intersect(a, b.triangle(1)));
 		}
 
 

@@ -30,7 +30,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer2D_Null::init()");
 	}
 
-	void CRenderer2D_Null::addLine(const Float2&, const Float2&, float, const Float4(&)[2])
+	void CRenderer2D_Null::addLine(const LineStyle&, const Float2&, const Float2&, float, const Float4(&)[2])
 	{
 		// do nothing
 	}

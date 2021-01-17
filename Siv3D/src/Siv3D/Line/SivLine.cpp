@@ -155,14 +155,14 @@ namespace s3d
 	{
 		const Float4 colorF = color.toFloat4();
 		
-		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, 1.0f, { colorF, colorF });
+		SIV3D_ENGINE(Renderer2D)->addLine(LineStyle::Default, begin, end, 1.0f, { colorF, colorF });
 		
 		return *this;
 	}
 
 	const Line& Line::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
 	{
-		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, 1.0f, { colorBegin.toFloat4(), colorEnd.toFloat4() });
+		SIV3D_ENGINE(Renderer2D)->addLine(LineStyle::Default, begin, end, 1.0f, { colorBegin.toFloat4(), colorEnd.toFloat4() });
 		
 		return *this;
 	}
@@ -171,14 +171,30 @@ namespace s3d
 	{
 		const Float4 colorF = color.toFloat4();
 
-		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, static_cast<float>(thickness), { colorF, colorF });
+		SIV3D_ENGINE(Renderer2D)->addLine(LineStyle::Default, begin, end, static_cast<float>(thickness), { colorF, colorF });
+
+		return *this;
+	}
+
+	const Line& Line::draw(const LineStyle& style, const double thickness, const ColorF& color) const
+	{
+		const Float4 colorF = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addLine(style, begin, end, static_cast<float>(thickness), { colorF, colorF });
+
+		return *this;
+	}
+
+	const Line& Line::draw(const LineStyle& style, const double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLine(style, begin, end, 1.0f, { colorBegin.toFloat4(), colorEnd.toFloat4() });
 
 		return *this;
 	}
 
 	const Line& Line::draw(const double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
 	{
-		SIV3D_ENGINE(Renderer2D)->addLine(begin, end, static_cast<float>(thickness), { colorBegin.toFloat4(), colorEnd.toFloat4() });
+		SIV3D_ENGINE(Renderer2D)->addLine(LineStyle::Default, begin, end, static_cast<float>(thickness), { colorBegin.toFloat4(), colorEnd.toFloat4() });
 
 		return *this;
 	}

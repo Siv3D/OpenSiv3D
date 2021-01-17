@@ -17,6 +17,7 @@
 # include <Siv3D/TriangleIndex.hpp>
 # include <Siv3D/ColorHSV.hpp>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/LineStyle.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
 # include "Vertex2DBufferPointer.hpp"
@@ -28,7 +29,16 @@ namespace s3d
 	namespace Vertex2DBuilder
 	{
 		[[nodiscard]]
-		Vertex2D::IndexType BuildDefaultLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]);
+		Vertex2D::IndexType BuildLine(const LineStyle& style, const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildCappedLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildUncappedLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildUncappedLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], float& startAngle);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildTriangle(const BufferCreatorFunc& bufferCreator, const Float2(&points)[3], const Float4& color);

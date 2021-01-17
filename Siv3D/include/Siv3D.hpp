@@ -622,6 +622,9 @@
 
 # include <Siv3D/2DShapes.hpp>
 
+// 線のスタイル | Line style
+# include <Siv3D/LineStyle.hpp> // [Siv3D ToDo]
+
 // 線分 | Line segment
 # include <Siv3D/Line.hpp> // [Siv3D ToDo]
 

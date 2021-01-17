@@ -16,6 +16,7 @@
 # include "ColorHSV.hpp"
 # include "Optional.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "LineStyle.hpp"
 
 namespace s3d
 {
@@ -121,6 +122,9 @@ namespace s3d
 		constexpr position_type point(size_t index);
 
 		[[nodiscard]]
+		constexpr position_type position(double t) const noexcept;
+
+		[[nodiscard]]
 		constexpr position_type center() const noexcept;
 
 		[[nodiscard]]
@@ -171,9 +175,9 @@ namespace s3d
 
 		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
-		//const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		//const Line& draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
 

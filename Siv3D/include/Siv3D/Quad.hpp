@@ -114,10 +114,13 @@ namespace s3d
 		const position_type& p(size_t index) const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index);
+		constexpr position_type point(size_t index) const;
 
 		[[nodiscard]]
-		constexpr Line side(size_t index);
+		constexpr Line side(size_t index) const;
+
+		[[nodiscard]]
+		constexpr Triangle triangle(size_t index) const;
 
 		[[nodiscard]]
 		constexpr value_type area() const noexcept;

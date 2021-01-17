@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "2DShapes.hpp"
+# include "DiscreteDistribution.hpp"
 
 namespace s3d
 {
@@ -59,6 +60,13 @@ namespace s3d
 	inline Vec2 RandomVec2(double xMax, double yMax, URBG&& urbg);
 
 	[[nodiscard]]
+	inline Vec2 RandomVec2(const Line& line);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec2 RandomVec2(const Line& line, URBG&& urbg);
+
+	[[nodiscard]]
 	inline Vec2 RandomVec2(const Circle& circle);
 
 	SIV3D_CONCEPT_URBG
@@ -78,6 +86,13 @@ namespace s3d
 	SIV3D_CONCEPT_URBG
 	[[nodiscard]]
 	inline Vec2 RandomVec2(const Triangle& triangle, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec2 RandomVec2(const Quad& quad);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec2 RandomVec2(const Quad& quad, URBG&& urbg);
 }
 
 # include "detail/RandomVec2.ipp"

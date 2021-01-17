@@ -113,9 +113,9 @@ namespace s3d
 		};
 	}
 
-	void CRenderer2D_Metal::addLine(const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
+	void CRenderer2D_Metal::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLine(m_bufferCreator, begin, end, thickness, colors))
+		if (const auto indexCount = Vertex2DBuilder::BuildLine(style, m_bufferCreator, begin, end, thickness, colors, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{

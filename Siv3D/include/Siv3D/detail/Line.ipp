@@ -161,6 +161,11 @@ namespace s3d
 		}
 	}
 
+	inline constexpr Line::position_type Line::position(const double t) const noexcept
+	{
+		return begin.lerp(end, t);
+	}
+
 	inline constexpr Line::position_type Line::center() const noexcept
 	{
 		return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);

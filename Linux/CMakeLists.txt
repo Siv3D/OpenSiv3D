@@ -216,6 +216,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
+  ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
 
   ../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
   ../Siv3D/src/ThirdParty/cpu_features/filesystem.c

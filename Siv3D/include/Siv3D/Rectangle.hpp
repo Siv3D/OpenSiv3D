@@ -534,27 +534,18 @@ namespace s3d
 		constexpr Line left() const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index);
+		constexpr position_type point(size_t index) const;
 
 		[[nodiscard]]
-		constexpr Line side(size_t index);
+		constexpr Line side(size_t index) const;
 
-
-		/// <summary>
-		/// 長方形の面積を返します。
-		/// </summary>
-		/// <returns>
-		/// 長方形の面積
-		/// </returns>
+		/// @brief 長方形の面積を返します。
+		/// @return 長方形の面積
 		[[nodiscard]]
 		constexpr value_type area() const noexcept;
 
-		/// <summary>
-		/// 長方形の周の長さを返します。
-		/// </summary>
-		/// <returns>
-		/// 長方形の周の長さ
-		/// </returns>
+		/// @brief 長方形の周の長さを返します。
+		/// @return 長方形の周の長さ
 		[[nodiscard]]
 		constexpr value_type perimeter() const noexcept;
 

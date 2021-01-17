@@ -82,6 +82,17 @@ namespace s3d
 				Random(yMax, std::forward<URBG>(urbg)) };
 	}
 
+	inline Vec2 RandomVec2(const Line& line)
+	{
+		return RandomVec2(line, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Vec2 RandomVec2(const Line& line, URBG&& urbg)
+	{
+		return line.position(Random(std::forward<URBG>(urbg)));
+	}
+
 	inline Vec2 RandomVec2(const Circle& circle)
 	{
 		return RandomVec2(circle, GetDefaultRNG());
@@ -128,5 +139,20 @@ namespace s3d
 		}
 
 		return (triangle.p0 + u * v0 + v * v1);
+	}
+
+	inline Vec2 RandomVec2(const Quad& quad)
+	{
+		return RandomVec2(quad, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Vec2 RandomVec2(const Quad& quad, URBG&& urbg)
+	{
+		DiscreteDistribution dd{ { quad.triangle(0).area(), quad.triangle(1).area() } };
+		
+		const size_t triangleIndex = dd(std::forward<URBG>(urbg));
+		
+		return RandomVec2(quad.triangle(triangleIndex), std::forward<URBG>(urbg));
 	}
 }
