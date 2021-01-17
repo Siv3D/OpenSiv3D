@@ -192,6 +192,12 @@ namespace s3d
 		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 24) const;
 
 		[[nodiscard]]
+		Polygon calculateRoundBuffer(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateRoundBufferClosed(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
 		Spline2D asSpline(CloseRing closeRing = CloseRing::No) const;
 
 		template <class Shape2DType>

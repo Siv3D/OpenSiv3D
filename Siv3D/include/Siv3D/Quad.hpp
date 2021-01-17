@@ -132,6 +132,12 @@ namespace s3d
 		constexpr RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
+		Polygon calculateBuffer(double distance) const;
+
+		[[nodiscard]]
+		Polygon calculateRoundBuffer(double distance) const;
+
+		[[nodiscard]]
 		Polygon asPolygon() const;
 
 		[[nodiscard]]

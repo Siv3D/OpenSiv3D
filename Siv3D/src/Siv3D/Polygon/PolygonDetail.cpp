@@ -892,6 +892,183 @@ namespace s3d
 	}
 }
 
+
+namespace s3d
+{
+	Polygon Triangle::calculateBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return asPolygon();
+		}
+
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_miter join_strategy{ 65536 };
+
+		polygon_t in;
+		{
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+			in.outer().push_back(p(0));
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+		}
+
+		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return{};
+		}
+
+		auto& outer = multiPolygon[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		return Polygon{ outer };
+	}
+
+	Polygon Triangle::calculateRoundBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return asPolygon();
+		}
+
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_round_by_divide join_strategy(4);
+
+		polygon_t in;
+		{
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+			in.outer().push_back(p(0));
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+		}
+
+		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return{};
+		}
+
+		auto& outer = multiPolygon[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		return Polygon{ outer };
+	}
+}
+
+namespace s3d
+{
+	Polygon Quad::calculateBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return asPolygon();
+		}
+
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_miter join_strategy{ 65536 };
+
+		polygon_t in;
+		{
+			in.outer().push_back(p(3));
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+			in.outer().push_back(p(0));
+			in.outer().push_back(p(3));
+			in.outer().push_back(p(2));
+		}
+
+		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return{};
+		}
+
+		auto& outer = multiPolygon[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		return Polygon{ outer };
+	}
+
+	Polygon Quad::calculateRoundBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return asPolygon();
+		}
+
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_round_by_divide join_strategy(4);
+
+		polygon_t in;
+		{
+			in.outer().push_back(p(3));
+			in.outer().push_back(p(2));
+			in.outer().push_back(p(1));
+			in.outer().push_back(p(0));
+			in.outer().push_back(p(3));
+			in.outer().push_back(p(2));
+		}
+
+		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return{};
+		}
+
+		auto& outer = multiPolygon[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		return Polygon{ outer };
+	}
+}
+
 # include <Siv3D/LineString.hpp>
 
 namespace s3d
@@ -901,6 +1078,86 @@ namespace s3d
 	namespace detail
 	{
 		Polygon CalculateBuffer(const LineString& points, const double distance, CloseRing closeRing, int32 bufferQuality)
+		{
+			if (points.size() < 2)
+			{
+				return{};
+			}
+
+			bufferQuality = Max(0, bufferQuality);
+
+			const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy{ distance };
+			const boost::geometry::strategy::buffer::end_flat end_strategy{};
+			const boost::geometry::strategy::buffer::point_circle circle_strategy{ 0 };
+			const boost::geometry::strategy::buffer::join_miter join_strategy{ 5 };
+			const boost::geometry::strategy::buffer::side_straight side_strategy;
+
+			boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
+
+			if (closeRing && (2 < points.size()))
+			{
+				gLineString lines(points.begin(), points.end());
+
+				lines.push_back(points.front());
+
+				boost::geometry::buffer(lines, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+			}
+			else
+			{
+				boost::geometry::buffer(gLineString(points.begin(), points.end()), multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+			}
+
+			if (multiPolygon.size() != 1)
+			{
+				return{};
+			}
+
+			auto& resultOuter = multiPolygon[0].outer();
+
+			if ((2 < resultOuter.size())
+				&& (resultOuter.front() == resultOuter.back()))
+			{
+				resultOuter.pop_back();
+			}
+
+			Array<Array<Vec2>> holes;
+
+			const auto& result = multiPolygon[0];
+
+			if (const size_t num_holes = result.inners().size())
+			{
+				holes.resize(num_holes);
+
+				for (size_t i = 0; i < num_holes; ++i)
+				{
+					const auto& resultHole = result.inners()[i];
+
+					holes[i].assign(resultHole.begin(), resultHole.end());
+				}
+			}
+
+			Array<Vec2> outer2;
+
+			outer2 << resultOuter[0];
+
+			Vec2 previous = resultOuter[0];
+
+			for (size_t i = 1; i < resultOuter.size(); ++i)
+			{
+				const Vec2 current = resultOuter[i];
+
+				if (previous != current)
+				{
+					outer2 << current;
+
+					previous = current;
+				}
+			}
+
+			return Polygon{ outer2, holes };
+		}
+
+		Polygon CalculateRoundBuffer(const LineString& points, const double distance, CloseRing closeRing, int32 bufferQuality)
 		{
 			if (points.size() < 2)
 			{
@@ -1007,5 +1264,15 @@ namespace s3d
 	Polygon LineString::calculateBufferClosed(const double distance, const int32 bufferQuality) const
 	{
 		return detail::CalculateBuffer(*this, distance, CloseRing::Yes, bufferQuality);
+	}
+
+	Polygon LineString::calculateRoundBuffer(const double distance, const int32 bufferQuality) const
+	{
+		return detail::CalculateRoundBuffer(*this, distance, CloseRing::No, bufferQuality);
+	}
+
+	Polygon LineString::calculateRoundBufferClosed(const double distance, const int32 bufferQuality) const
+	{
+		return detail::CalculateRoundBuffer(*this, distance, CloseRing::Yes, bufferQuality);
 	}
 }

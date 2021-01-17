@@ -123,7 +123,7 @@ namespace s3d
 		LineString asLineString(int32 quality = 24) const;
 
 		[[nodiscard]]
-		Polygon calculateBuffer(double distance, int32 quality = 24, int32 bufferQuality = 24) const;
+		Polygon calculateRoundBuffer(double distance, int32 quality = 24, int32 bufferQuality = 24) const;
 
 		const Spline2D& draw(const ColorF& color = Palette::White, int32 quality = 24) const;
 

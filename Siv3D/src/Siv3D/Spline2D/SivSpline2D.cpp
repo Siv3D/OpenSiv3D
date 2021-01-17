@@ -310,14 +310,14 @@ namespace s3d
 		return points;
 	}
 
-	Polygon Spline2D::calculateBuffer(const double distance, const int32 quality, const int32 bufferQuality) const
+	Polygon Spline2D::calculateRoundBuffer(const double distance, const int32 quality, const int32 bufferQuality) const
 	{
 		if (m_isRing)
 		{
 			if (LineString points = asLineString(quality))
 			{
 				points.pop_front();
-				return points.calculateBufferClosed(distance, bufferQuality);
+				return points.calculateRoundBufferClosed(distance, bufferQuality);
 			}
 			else
 			{
@@ -326,7 +326,7 @@ namespace s3d
 		}
 		else
 		{
-			return asLineString(quality).calculateBuffer(distance, bufferQuality);
+			return asLineString(quality).calculateRoundBuffer(distance, bufferQuality);
 		}
 	}
 
