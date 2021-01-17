@@ -83,7 +83,16 @@ namespace s3d
 		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing, float scale);
+		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildClosedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildCappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildUncappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale, float* startAngle0, float* startAngle1);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, CloseRing closeRing, float scale);

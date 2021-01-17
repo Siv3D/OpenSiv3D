@@ -828,6 +828,7 @@ namespace s3d
 		}
 
 		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			m_polygon.outer().data(),
 			m_polygon.outer().size(),
 			none,
@@ -840,6 +841,7 @@ namespace s3d
 		for (const auto& hole : m_polygon.inners())
 		{
 			SIV3D_ENGINE(Renderer2D)->addLineString(
+				LineStyle::Default,
 				hole.data(),
 				hole.size(),
 				none,
@@ -859,6 +861,7 @@ namespace s3d
 		}
 
 		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			m_polygon.outer().data(),
 			m_polygon.outer().size(),
 			Float2{ offset },
@@ -871,6 +874,7 @@ namespace s3d
 		for (const auto& hole : m_polygon.inners())
 		{
 			SIV3D_ENGINE(Renderer2D)->addLineString(
+				LineStyle::Default,
 				hole.data(),
 				hole.size(),
 				Float2{ offset },

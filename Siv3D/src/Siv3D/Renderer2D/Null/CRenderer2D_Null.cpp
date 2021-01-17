@@ -105,7 +105,7 @@ namespace s3d
 		// do nothing
 	}
 
-	void CRenderer2D_Null::addLineString(const Vec2*, const size_t, const Optional<Float2>&, const float, const bool, const Float4&, const CloseRing)
+	void CRenderer2D_Null::addLineString(const LineStyle&, const Vec2*, const size_t, const Optional<Float2>&, const float, const bool, const Float4&, const CloseRing)
 	{
 		// do nothing
 	}

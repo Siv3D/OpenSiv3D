@@ -388,9 +388,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_GL4::addLineString(const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing)
+	void CRenderer2D_GL4::addLineString(const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildDefaultLineString(m_bufferCreator, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildLineString(m_bufferCreator, style, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{

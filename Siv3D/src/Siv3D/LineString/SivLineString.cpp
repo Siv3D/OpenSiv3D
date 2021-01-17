@@ -104,6 +104,7 @@ namespace s3d
 	const LineString& LineString::draw(const double thickness, const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			data(),
 			size(),
 			s3d::none,
@@ -136,6 +137,22 @@ namespace s3d
 		return *this;
 	}
 
+	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			style,
+			data(),
+			size(),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			CloseRing::No
+		);
+
+		return *this;
+	}
+
 	const LineString& LineString::drawClosed(const ColorF& color) const
 	{
 		return drawClosed(1.0, color);
@@ -144,6 +161,7 @@ namespace s3d
 	const LineString& LineString::drawClosed(const double thickness, const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			data(),
 			size(),
 			s3d::none,
@@ -170,6 +188,22 @@ namespace s3d
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
+			CloseRing::Yes
+		);
+
+		return *this;
+	}
+
+	const LineString& LineString::drawClosed(const LineStyle& style, const double thickness, const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			style,
+			data(),
+			size(),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
 			CloseRing::Yes
 		);
 

@@ -133,7 +133,7 @@ namespace s3d
 
 	const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
 	{
-		SIV3D_ENGINE(Renderer2D)->addLineString(&p0, 4, none,
+		SIV3D_ENGINE(Renderer2D)->addLineString(LineStyle::Default, &p0, 4, none,
 			static_cast<float>(thickness), false, color.toFloat4(), CloseRing::Yes);
 
 		return *this;
@@ -144,7 +144,7 @@ namespace s3d
 		const double offset = ((outerThickness - innerThickness) * 0.5);
 		const Quad t = stretched(offset);
 
-		SIV3D_ENGINE(Renderer2D)->addLineString(&t.p0, 4, none,
+		SIV3D_ENGINE(Renderer2D)->addLineString(LineStyle::Default, &t.p0, 4, none,
 			static_cast<float>(innerThickness + outerThickness),
 			(outerThickness == 0.0), color.toFloat4(), CloseRing::Yes);
 

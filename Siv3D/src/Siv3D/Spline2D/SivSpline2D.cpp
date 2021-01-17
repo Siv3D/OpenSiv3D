@@ -410,4 +410,27 @@ namespace s3d
 
 		return *this;
 	}
+
+	const Spline2D& Spline2D::draw(const LineStyle& style, const double thickness, const ColorF& color, const int32 quality) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		if (LineString points = asLineString(quality))
+		{
+			if (m_isRing)
+			{
+				points.pop_back();
+				points.drawClosed(style, thickness, color);
+			}
+			else
+			{
+				points.draw(style, thickness, color);
+			}
+		}
+
+		return *this;
+	}
 }

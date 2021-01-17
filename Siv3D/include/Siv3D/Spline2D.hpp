@@ -133,7 +133,7 @@ namespace s3d
 
 		//const Spline2D& draw(double thickness, const Array<ColorF>& colors, int32 quality = 24) const;
 
-		//const Spline2D& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
+		const Spline2D& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
 
 	private:
 

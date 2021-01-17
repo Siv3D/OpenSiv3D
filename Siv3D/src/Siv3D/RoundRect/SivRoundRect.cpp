@@ -176,6 +176,7 @@ namespace s3d
 		const Array<Vec2> vertices = detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5, none);
 
 		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			vertices.data(),
 			static_cast<uint16>(vertices.size()),
 			none,
