@@ -96,4 +96,90 @@ namespace s3d
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
+
+	const MultiPolygon& MultiPolygon::draw(const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.draw(color);
+		}
+
+		return *this;
+	}
+
+	void MultiPolygon::draw(const double x, const double y, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.draw(x, y, color);
+		}
+	}
+
+	void MultiPolygon::draw(const Vec2& pos, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.draw(pos, color);
+		}
+	}
+
+	const MultiPolygon& MultiPolygon::drawFrame(const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawFrame(thickness, color);
+		}
+
+		return *this;
+	}
+
+	void MultiPolygon::drawFrame(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawFrame(x, y, thickness, color);
+		}
+	}
+
+	void MultiPolygon::drawFrame(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawFrame(pos, thickness, color);
+		}
+	}
+
+	const MultiPolygon& MultiPolygon::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawWireframe(thickness, color);
+		}
+
+		return *this;
+	}
+
+	void MultiPolygon::drawWireframe(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawWireframe(x, y, thickness, color);
+		}
+	}
+
+	void MultiPolygon::drawWireframe(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawWireframe(pos, thickness, color);
+		}
+	}
+
+	//void MultiPolygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
+	//{
+	//	for (const auto& polygon : *this)
+	//	{
+	//		polygon.drawTransformed(s, c, pos, color);
+	//	}
+	//}
 }

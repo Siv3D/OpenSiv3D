@@ -122,7 +122,7 @@ namespace s3d
 		/// @brief 配列を作成し、`reserve()` します。
 		/// @param size `reserve()` するサイズ
 		SIV3D_NODISCARD_CXX20
-		Array(Arg::reserve_<size_type> size);
+		explicit Array(Arg::reserve_<size_type> size);
 
 		/// @brief コピー代入演算子
 		/// @param other コピーする配列

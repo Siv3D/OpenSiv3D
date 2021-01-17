@@ -224,7 +224,7 @@ namespace s3d
 
 		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
+		//void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
 }
 

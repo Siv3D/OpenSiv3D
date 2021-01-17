@@ -242,6 +242,70 @@ namespace s3d
 		[[nodiscard]]
 		const PolygonDetail* _detail() const noexcept;
 
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Polygon& value)
+		{
+			output << CharType('(');
+
+			output << CharType('(');
+
+			bool b = false;
+
+			for (const auto& point : value.outer())
+			{
+				if (std::exchange(b, true))
+				{
+					output << CharType(',');
+				}
+
+				output << point;
+			}
+
+			output << CharType(')');
+
+			if (value.inners())
+			{
+				output << CharType(',');
+
+				output << CharType('(');
+
+				b = false;
+
+				for (const auto& hole : value.inners())
+				{
+					if (std::exchange(b, true))
+					{
+						output << CharType(',');
+
+						output << CharType('(');
+					}
+
+					bool b2 = false;
+
+					for (const auto& point : hole)
+					{
+						if (std::exchange(b2, true))
+						{
+							output << CharType(',');
+						}
+
+						output << point;
+					}
+
+					output << CharType(')');
+				}
+			}
+
+			return output << CharType(')');
+		}
+
+		friend void Formatter(FormatData& formatData, const Polygon& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Polygon& value);
+
 	private:
 
 		std::unique_ptr<PolygonDetail> pImpl;

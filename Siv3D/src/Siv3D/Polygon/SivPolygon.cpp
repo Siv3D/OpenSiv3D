@@ -8,7 +8,7 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/HashSet.hpp>
@@ -221,7 +221,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array<Array<Vec2>> inners{ Arg::reserve = (pImpl->inners().size() + 1) };
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
 		{
 			inners.append(pImpl->inners());
 			inners.push_back(std::move(hole));
@@ -239,7 +239,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array<Array<Vec2>> inners{ Arg::reserve = (pImpl->inners().size() + holes.size()) };
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + holes.size()));
 		{
 			inners.append(pImpl->inners());
 			inners.append(holes);
@@ -612,5 +612,14 @@ namespace s3d
 		}
 
 		return results;
+	}
+
+	void Polygon::_Formatter(FormatData& formatData, const Polygon& value)
+	{
+		std::stringstream ss;
+		
+		ss << value;
+		
+		formatData.string.append(Unicode::WidenAscii(ss.str()));
 	}
 }
