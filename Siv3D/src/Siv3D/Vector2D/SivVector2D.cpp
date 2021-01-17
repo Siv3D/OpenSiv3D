@@ -16,6 +16,38 @@
 namespace s3d
 {
 	template <>
+	Vector2D<float> Vector2D<float>::clamped(const RectF& rect) const noexcept
+	{
+		return{
+			Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w)),
+			Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h)) };
+	}
+	
+	template <>
+	Vector2D<double> Vector2D<double>::clamped(const RectF& rect) const noexcept
+	{
+		return{
+			Clamp(x, rect.x, (rect.x + rect.w)),
+			Clamp(y, rect.y, (rect.y + rect.h)) };
+	}
+
+	template <>
+	Vector2D<float>& Vector2D<float>::clamp(const RectF& rect) noexcept
+	{
+		x = Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w));
+		y = Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h));
+		return *this;
+	}
+	
+	template <>
+	Vector2D<double>& Vector2D<double>::clamp(const RectF& rect) noexcept
+	{
+		x = Clamp(x, rect.x, (rect.x + rect.w));
+		y = Clamp(y, rect.y, (rect.y + rect.h));
+		return *this;
+	}
+
+	template <>
 	Circle Vector2D<float>::asCircle(const double r) const noexcept
 	{
 		return{ *this, r };

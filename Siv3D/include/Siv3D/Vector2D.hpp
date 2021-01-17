@@ -164,10 +164,10 @@ namespace s3d
 
 		constexpr Vector2D& moveBy(Vector2D v) noexcept;
 
-		//[[nodiscard]]
-		//Vector2D clamped(const RectF& rect) const noexcept;
+		[[nodiscard]]
+		Vector2D clamped(const RectF& rect) const noexcept;
 
-		//Vector2D& clamp(const RectF& rect) noexcept;
+		Vector2D& clamp(const RectF& rect) noexcept;
 
 		[[nodiscard]]
 		constexpr value_type dot(Vector2D v) const noexcept;

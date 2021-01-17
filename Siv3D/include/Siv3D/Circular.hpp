@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "PointVector.hpp"
 # include "FastMath.hpp"
 # include "PredefinedNamedParameter.hpp"
 
@@ -21,6 +22,7 @@ namespace s3d
 	struct CircularBase
 	{
 		using value_type = Float;
+		using position_type = Vector2D<value_type>;
 
 		/// @brief 半径
 		value_type r;
@@ -41,7 +43,7 @@ namespace s3d
 		constexpr CircularBase(Arg::theta_<value_type> _theta, Arg::r_<value_type> _r) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		CircularBase(Vector2D<value_type> v) noexcept;
+		CircularBase(position_type v) noexcept;
 
 		[[nodiscard]]
 		constexpr CircularBase operator +() const noexcept;
@@ -50,10 +52,10 @@ namespace s3d
 		constexpr CircularBase operator -() const noexcept;
 
 		[[nodiscard]]
-		Vector2D<value_type> operator +(Vector2D<value_type> v) const noexcept;
+		position_type operator +(position_type v) const noexcept;
 
 		[[nodiscard]]
-		Vector2D<value_type> operator -(Vector2D<value_type> v) const noexcept;
+		position_type operator -(position_type v) const noexcept;
 
 		[[nodiscard]]
 		constexpr CircularBase rotated(value_type angle) const noexcept;
@@ -73,7 +75,32 @@ namespace s3d
 		Vec2 fastToVec2() const noexcept;
 
 		[[nodiscard]]
-		operator Vector2D<value_type>() const noexcept;
+		operator position_type() const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const CircularBase& value)
+		{
+			return output << CharType('(')
+				<< value.r << CharType(',') << CharType(' ')
+				<< value.theta << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, CircularBase& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.r >> unused
+				>> value.theta >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const CircularBase& value)
+		{
+			Formatter(formatData, position_type{ value.r, value.theta });
+		}
 
 	private:
 
@@ -101,3 +128,39 @@ namespace s3d
 }
 
 # include "detail/Circular.ipp"
+
+template <class Float, s3d::int32 Oclock>
+struct SIV3D_HIDDEN fmt::formatter<s3d::CircularBase<Float, Oclock>, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::CircularBase<Float, Oclock>& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.r, value.theta);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.r, value.theta);
+		}
+	}
+};
+
+template <class Float, s3d::int32 Oclock>
+struct std::hash<s3d::CircularBase<Float, Oclock>>
+{
+	[[nodiscard]]
+	size_t operator()(const s3d::CircularBase<Float, Oclock>& value) const noexcept
+	{
+		return value.hash();
+	}
+};

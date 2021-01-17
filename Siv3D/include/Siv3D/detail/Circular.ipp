@@ -29,7 +29,7 @@ namespace s3d
 		, theta(*_theta) {}
 
 	template <class Float, int32 Oclock>
-	inline CircularBase<Float, Oclock>::CircularBase(const Vector2D<value_type> v) noexcept
+	inline CircularBase<Float, Oclock>::CircularBase(const position_type v) noexcept
 		: r(v.length())
 		, theta(Offset(std::atan2(v.x, -v.y))) {}
 
@@ -46,13 +46,13 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
-	inline Vector2D<Float> CircularBase<Float, Oclock>::operator +(const Vector2D<value_type> v) const noexcept
+	inline typename CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::operator +(const position_type v) const noexcept
 	{
 		return (toVec2() + v);
 	}
 
 	template <class Float, int32 Oclock>
-	inline Vector2D<Float> CircularBase<Float, Oclock>::operator -(const Vector2D<value_type> v) const noexcept
+	inline typename CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::operator -(const position_type v) const noexcept
 	{
 		return (toVec2() - v);
 	}
@@ -100,9 +100,15 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
-	inline CircularBase<Float, Oclock>::operator Vector2D<Float>() const noexcept
+	inline CircularBase<Float, Oclock>::operator position_type() const noexcept
 	{
 		return toVec2();
+	}
+
+	template <class Float, int32 Oclock>
+	inline size_t CircularBase<Float, Oclock>::hash() const noexcept
+	{
+		return Hash::FNV1a(*this);
 	}
 
 	template <class Float, int32 Oclock>

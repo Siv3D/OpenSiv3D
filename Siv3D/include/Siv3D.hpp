@@ -606,7 +606,7 @@
 # include <Siv3D/Vertex2D.hpp>
 
 // 円座標
-# include <Siv3D/Circular.hpp> // [Siv3D ToDo]
+# include <Siv3D/Circular.hpp>
 
 // オフセット付き円座標
 # include <Siv3D/OffsetCircular.hpp> // [Siv3D ToDo]
@@ -623,7 +623,7 @@
 # include <Siv3D/2DShapes.hpp>
 
 // 線のスタイル | Line style
-# include <Siv3D/LineStyle.hpp> // [Siv3D ToDo]
+# include <Siv3D/LineStyle.hpp>
 
 // 線分 | Line segment
 # include <Siv3D/Line.hpp> // [Siv3D ToDo]
