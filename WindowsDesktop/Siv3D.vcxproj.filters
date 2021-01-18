@@ -2631,6 +2631,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAssert.h">
       <Filter>src\ThirdParty\RecastDetour</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\BasicCamera2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

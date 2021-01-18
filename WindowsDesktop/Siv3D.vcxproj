@@ -20,6 +20,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BetterGradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetHandle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetID.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetIDWrapper.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\BasicCamera2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier2.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Bezier3.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BigFloat.ipp" />

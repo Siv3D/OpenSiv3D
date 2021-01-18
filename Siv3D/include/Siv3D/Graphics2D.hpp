@@ -77,6 +77,11 @@ namespace s3d
 		float GetMaxScaling() noexcept;
 
 		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Size GetRenderTargetSize();
+
+		/// @brief 
 		/// @param count 
 		void DrawTriangles(uint32 count);
 

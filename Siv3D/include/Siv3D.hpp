@@ -858,6 +858,8 @@
 // 2D 座標変換スコープ | 2D Transformation Scope
 # include <Siv3D/Transformer2D.hpp>
 
+# include <Siv3D/BasicCamera2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	シェーダー | Shader

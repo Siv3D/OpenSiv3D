@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Graphics2D.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -65,6 +66,12 @@ namespace s3d
 		float GetMaxScaling() noexcept
 		{
 			return SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+		}
+
+		Size GetRenderTargetSize()
+		{
+			// [Siv3D ToDo]
+			return Scene::Size();
 		}
 
 		void DrawTriangles(const uint32 count)
