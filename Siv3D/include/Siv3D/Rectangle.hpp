@@ -15,6 +15,7 @@
 # include "ColorHSV.hpp"
 # include "NamedParameter.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -22,6 +23,7 @@ namespace s3d
 	struct Quad;
 	struct RoundRect;
 	class Polygon;
+	class LineString;
 
 	/// @brief 長方形
 	/// @tparam SizeType 位置とサイズを表すベクトルの型
@@ -572,6 +574,12 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Quad asQuad() const noexcept;
+
+		[[nodiscard]]
+		LineString outline(CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString outline(double distanceFromOrigin, double length) const;
 
 		[[nodiscard]]
 		Polygon asPolygon() const;

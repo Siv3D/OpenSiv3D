@@ -13,9 +13,12 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	class LineString;
+
 	/// @brief 三角形
 	struct Triangle
 	{
@@ -174,6 +177,12 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon calculateRoundBuffer(double distance) const;
+
+		[[nodiscard]]
+		LineString outline(CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString outline(double distanceFromOrigin, double length) const;
 
 		[[nodiscard]]
 		Polygon asPolygon() const;

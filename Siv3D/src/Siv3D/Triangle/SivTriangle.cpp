@@ -12,6 +12,8 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/LineString.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
@@ -64,6 +66,86 @@ namespace s3d
 		const position_type x1{ (a1.x * c - a1.y * s), (a1.x * s + a1.y * c) };
 		const position_type x2{ (a2.x * c - a2.y * s), (a2.x * s + a2.y * c) };
 		return{ (x0 + pos), (x1 + pos), (x2 + pos) };
+	}
+
+	LineString Triangle::outline(const CloseRing closeRing) const
+	{
+		if (closeRing)
+		{
+			return{ p0, p1, p2, p0 };
+		}
+		else
+		{
+			return{ p0, p1, p2 };
+		}
+	}
+
+	LineString Triangle::outline(double distanceFromOrigin, double length) const
+	{
+		if (length <= 0.0)
+		{
+			distanceFromOrigin += length;
+			length = -length;
+		}
+
+		constexpr size_t N = 3;
+		const double lens[N] = {
+			p0.distanceFrom(p1),
+			p1.distanceFrom(p2),
+			p2.distanceFrom(p0)
+		};
+		const double perim = (lens[0] + lens[1] + lens[2]);
+
+		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
+		length = Min(length, perim);
+		const double distanceToTarget = (distanceFromOrigin + length);
+		
+		LineString points;
+		double currentLength = 0.0;
+
+		for (size_t n = 0; n < (N * 2); ++n)
+		{
+			const size_t i = (n % N);
+			const double len = lens[i];
+			const Vec2 pFrom = p(i);
+			const Vec2 pTo = p((N <= (i + 1)) ? (i - (N - 1)) : (i + 1));
+
+			if (not points)
+			{
+				if ((distanceFromOrigin <= (currentLength + len)))
+				{
+					const Vec2 origin = pFrom + (pTo - pFrom)
+						.setLength(distanceFromOrigin - currentLength);
+					points << origin;
+
+					if (distanceToTarget <= (currentLength + len))
+					{
+						const Vec2 target = pFrom + (pTo - pFrom)
+							.setLength(distanceToTarget - currentLength);
+						points << target;
+						break;
+					}
+					
+					points << pTo;
+				}
+			}
+			else
+			{
+				if (distanceToTarget <= (currentLength + len))
+				{
+					const Vec2 target = pFrom + (pTo - pFrom)
+						.setLength(distanceToTarget - currentLength);
+					points << target;
+					break;
+				}
+				
+				points << pTo;
+			}
+
+			currentLength += len;
+		}
+
+		return points;
 	}
 
 	Polygon Triangle::asPolygon() const
