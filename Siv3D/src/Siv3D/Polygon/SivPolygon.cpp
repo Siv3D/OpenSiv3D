@@ -11,6 +11,8 @@
 
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Shape2D.hpp>
+# include <Siv3D/LineString.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/HashSet.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
@@ -376,6 +378,102 @@ namespace s3d
 		}
 
 		return pImpl->simplified(maxDistance);
+	}
+
+	LineString Polygon::outline(const CloseRing closeRing) const
+	{
+		const auto& out = outer();
+
+		if (out.isEmpty())
+		{
+			return{};
+		}
+
+		if (closeRing)
+		{
+			LineString points;
+			points.reserve(out.size() + 1);
+			points.append(out);
+			points.push_back(out.front());
+			return points;
+		}
+		else
+		{
+			return LineString{ out };
+		}
+	}
+
+	LineString Polygon::outline(double distanceFromOrigin, double length) const
+	{
+		if (length <= 0.0)
+		{
+			distanceFromOrigin += length;
+			length = -length;
+		}
+
+		const auto& out = outer();
+		const size_t N = out.size();
+		Array<double> lens(N);
+		{
+			for (size_t i = 0; i < (N - 1); ++i)
+			{
+				lens[i] = out[i].distanceFrom(out[i + 1]);
+			}
+
+			lens[N - 1] = out[N - 1].distanceFrom(out[0]);
+		}
+		const double perim = lens.sum();
+
+		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
+		length = Min(length, perim);
+		const double distanceToTarget = (distanceFromOrigin + length);
+
+		LineString points;
+		double currentLength = 0.0;
+
+		for (size_t n = 0; n < (N * 2); ++n)
+		{
+			const size_t i = (n % N);
+			const double len = lens[i];
+			const Vec2 pFrom = out[i];
+			const Vec2 pTo = out[(N <= (i + 1)) ? (i - (N - 1)) : (i + 1)];
+
+			if (not points)
+			{
+				if ((distanceFromOrigin <= (currentLength + len)))
+				{
+					const Vec2 origin = pFrom + (pTo - pFrom)
+						.setLength(distanceFromOrigin - currentLength);
+					points << origin;
+
+					if (distanceToTarget <= (currentLength + len))
+					{
+						const Vec2 target = pFrom + (pTo - pFrom)
+							.setLength(distanceToTarget - currentLength);
+						points << target;
+						break;
+					}
+
+					points << pTo;
+				}
+			}
+			else
+			{
+				if (distanceToTarget <= (currentLength + len))
+				{
+					const Vec2 target = pFrom + (pTo - pFrom)
+						.setLength(distanceToTarget - currentLength);
+					points << target;
+					break;
+				}
+
+				points << pTo;
+			}
+
+			currentLength += len;
+		}
+
+		return points;
 	}
 
 	bool Polygon::append(const Polygon& other)

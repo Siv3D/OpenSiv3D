@@ -13,6 +13,7 @@
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/Error.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -88,6 +89,16 @@ namespace s3d
 				return false;
 			}
 
+			if (const auto resizeMode = Scene::GetResizeMode();
+				resizeMode == ResizeMode::Actual)
+			{
+				Scene::Resize(SIV3D_ENGINE(Window)->getState().frameBufferSize);
+			}
+			else if (resizeMode == ResizeMode::Virtual)
+			{
+				Scene::Resize(size);
+			}
+
 			if (centering)
 			{
 				Centering();
@@ -104,7 +115,22 @@ namespace s3d
 				throw Error(U"Window::ResizeActual(): width and height must be in the range [1, 8192]");
 			}
 
-			return SIV3D_ENGINE(Window)->resizeByFrameBufferSize(size);
+			if (not SIV3D_ENGINE(Window)->resizeByFrameBufferSize(size))
+			{
+				return false;
+			}
+
+			if (const auto resizeMode = Scene::GetResizeMode();
+				resizeMode == ResizeMode::Actual)
+			{
+				Scene::Resize(SIV3D_ENGINE(Window)->getState().frameBufferSize);
+			}
+			else if (resizeMode == ResizeMode::Virtual)
+			{
+				Scene::Resize(size);
+			}
+
+			return true;
 		}
 
 		void SetMinimumFrameBufferSize(const Size size)

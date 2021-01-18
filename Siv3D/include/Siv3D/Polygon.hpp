@@ -155,6 +155,12 @@ namespace s3d
 		[[nodiscard]]
 		Polygon simplified(double maxDistance = 2.0) const;
 
+		[[nodiscard]]
+		LineString outline(CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString outline(double distanceFromOrigin, double length) const;
+
 		bool append(const Polygon& other);
 
 		template <class Shape2DType>
