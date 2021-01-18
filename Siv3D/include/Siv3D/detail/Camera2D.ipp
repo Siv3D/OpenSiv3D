@@ -13,5 +13,42 @@
 
 namespace s3d
 {
+	inline Camera2DParameters Camera2DParameters::Default()
+	{
+		return{};
+	}
 
+	inline Camera2DParameters Camera2DParameters::MouseOnly()
+	{
+		return{
+			.moveToUp		= {},
+			.moveToLeft		= {},
+			.moveToDown		= {},
+			.moveToRight	= {},
+			.zoomIn			= {},
+			.zoomOut		= {},
+		};
+	}
+
+	inline Camera2DParameters Camera2DParameters::KeyboardOnly()
+	{
+		return{
+			.wheelScaleFactor	= 1.0,
+			.grabSpeedFactor	= 0.0,
+		};
+	}
+
+	inline Camera2DParameters Camera2DParameters::NoControl()
+	{
+		return{
+			.wheelScaleFactor	= 1.0,
+			.grabSpeedFactor	= 0.0,
+			.moveToUp		= {},
+			.moveToLeft		= {},
+			.moveToDown		= {},
+			.moveToRight	= {},
+			.zoomIn			= {},
+			.zoomOut		= {},
+		};
+	}
 }
