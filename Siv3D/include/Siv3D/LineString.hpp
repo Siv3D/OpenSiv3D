@@ -186,6 +186,12 @@ namespace s3d
 		LineString catmullRomClosed(int32 interpolation = 24) const;
 
 		[[nodiscard]]
+		double calculateLength() const noexcept;
+
+		[[nodiscard]]
+		Vec2 calculatePointFromOrigin(double distanceFromOrigin) const;
+
+		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;
 
 		[[nodiscard]]

@@ -91,6 +91,51 @@ namespace s3d
 		return detail::CatmullRom(*this, interpolation, CloseRing::Yes);
 	}
 
+	double LineString::calculateLength() const noexcept
+	{
+		const size_t n = num_lines();
+		const Vec2* pData = data();
+		double length = 0.0;
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			length += (pData[i].distanceFrom(pData[i + 1]));
+		}
+
+		return length;
+	}
+
+	Vec2 LineString::calculatePointFromOrigin(const double distanceFromOrigin) const
+	{
+		if (isEmpty())
+		{
+			throw std::out_of_range("LineString::calculatePointFromOrigin() line is empty");
+		}
+
+		if (distanceFromOrigin <= 0.0)
+		{
+			return front();
+		}
+
+		const size_t n = num_lines();
+		const Vec2* pData = data();
+		double currentLength = 0.0;
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			const double length = (pData[i].distanceFrom(pData[i + 1]));
+
+			if (distanceFromOrigin <= (currentLength + length))
+			{
+				return pData[i] + (pData[i + 1] - pData[i]).setLength(distanceFromOrigin - currentLength);
+			}
+
+			currentLength += length;
+		}
+
+		return back();
+	}
+
 	Spline2D LineString::asSpline(const CloseRing closeRing) const
 	{
 		return{ *this, closeRing };

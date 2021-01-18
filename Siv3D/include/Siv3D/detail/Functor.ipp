@@ -547,7 +547,7 @@ namespace s3d::detail
 			{
 				return std::forward<TypeX>(x) % y;
 			}
-			else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
+			else if constexpr (std::is_arithmetic_v<std::decay_t<TypeX>> && std::is_arithmetic_v<std::decay_t<TypeY>>)
 			{
 				return std::fmod(x, y);
 			}
@@ -570,7 +570,7 @@ namespace s3d::detail
 			{
 				return x % std::forward<TypeY>(y);
 			}
-			else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
+			else if constexpr (std::is_arithmetic_v<std::decay_t<TypeX>> && std::is_arithmetic_v<std::decay_t<TypeY>>)
 			{
 				return std::fmod(x, y);
 			}
@@ -587,7 +587,7 @@ namespace s3d::detail
 			{
 				return x % y;
 			}
-			else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
+			else if constexpr (std::is_arithmetic_v<std::decay_t<TypeX>> && std::is_arithmetic_v<std::decay_t<TypeY>>)
 			{
 				return std::fmod(x, y);
 			}
@@ -604,7 +604,7 @@ namespace s3d::detail
 			{
 				return (std::forward<Type>(x) % std::forward<Type>(x));
 			}
-			else if constexpr (std::is_arithmetic_v<Type>)
+			else if constexpr (std::is_arithmetic_v<std::decay_t<Type>>)
 			{
 				return std::fmod(x, x);
 			}
