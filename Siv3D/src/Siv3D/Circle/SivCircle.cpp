@@ -349,6 +349,7 @@ namespace s3d
 		const Float4 color0 = color.toFloat4();
 
 		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			LineStyle::Default,
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(startAngle),
@@ -364,6 +365,41 @@ namespace s3d
 	const Circle& Circle::drawArc(const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			LineStyle::Default,
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			static_cast<float>(innerThickness + outerThickness),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const LineStyle& style, const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			style,
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			static_cast<float>(innerThickness + outerThickness),
+			color0,
+			color0
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(const LineStyle& style, const double startAngle, const double angle, const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addCircleArc(
+			style,
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(startAngle),

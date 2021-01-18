@@ -11,6 +11,7 @@
 
 # include "Vertex2DBuilder.hpp"
 # include <Siv3D/FastMath.hpp>
+# include <Siv3D/OffsetCircular.hpp>
 
 namespace s3d
 {
@@ -540,7 +541,28 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildCircleArc(const BufferCreatorFunc& bufferCreator, const Float2& center, float rInner, float startAngle, float _angle, float thickness, const Float4& innerColor, const Float4& outerColor, float scale)
+		Vertex2D::IndexType BuildCircleArc(const BufferCreatorFunc& bufferCreator, const LineStyle& style, const Float2& center, const float rInner, const float startAngle, const float _angle, const float thickness, const Float4& innerColor, const Float4& outerColor, const float scale)
+		{
+			if (style.hasRoundCap())
+			{
+				Vertex2D::IndexType indexCount = BuildUncappedCircleArc(bufferCreator, center, rInner, startAngle, _angle, thickness, innerColor, outerColor, scale);
+
+				const float halfThickness = (thickness * 0.5f);
+				const Float2 startPos	= OffsetCircularF(center, (rInner + halfThickness), startAngle).fastToFloat2();
+				const Float2 endPos		= OffsetCircularF(center, (rInner + halfThickness), startAngle + _angle).fastToFloat2();
+
+				indexCount += BuildCirclePie(bufferCreator, startPos, halfThickness, (startAngle + Math::PiF), Math::PiF, outerColor, outerColor, scale);
+				indexCount += BuildCirclePie(bufferCreator, endPos, halfThickness, (startAngle + _angle), Math::PiF, outerColor, outerColor, scale);
+
+				return indexCount;
+			}
+			else
+			{
+				return BuildUncappedCircleArc(bufferCreator, center, rInner, startAngle, _angle, thickness, innerColor, outerColor, scale);
+			}
+		}
+
+		Vertex2D::IndexType BuildUncappedCircleArc(const BufferCreatorFunc& bufferCreator, const Float2& center, const float rInner, const float startAngle, const float _angle, const float thickness, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			if (_angle == 0.0f)
 			{
