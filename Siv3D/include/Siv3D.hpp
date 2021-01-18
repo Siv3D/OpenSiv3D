@@ -860,6 +860,8 @@
 
 # include <Siv3D/BasicCamera2D.hpp>
 
+# include <Siv3D/Camera2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	シェーダー | Shader
