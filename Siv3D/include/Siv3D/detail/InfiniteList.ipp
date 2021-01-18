@@ -255,7 +255,7 @@ namespace s3d
 				{
 					Apply(pushFunc, *it, functions);
 
-					if (!finished)
+					if (not finished)
 					{
 						++it;
 					}

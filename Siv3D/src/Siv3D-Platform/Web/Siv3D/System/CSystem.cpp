@@ -78,7 +78,7 @@ namespace s3d
 		// current frame
 		//
 		
-		if (!SIV3D_ENGINE(Profiler)->beginFrame())
+		if (not SIV3D_ENGINE(Profiler)->beginFrame())
 		{
 			return false;
 		}

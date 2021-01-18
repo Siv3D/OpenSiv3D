@@ -343,7 +343,7 @@ namespace s3d
 			return;
 		}
 
-		if (!detail::IsValidImageSize(Size(m_width, rows)))
+		if (not detail::IsValidImageSize(Size(m_width, rows)))
 		{
 			return clear();
 		}
@@ -369,7 +369,7 @@ namespace s3d
 	{
 		Image newImage(size);
 
-		if (!newImage)
+		if (not newImage)
 		{
 			return newImage;
 		}
@@ -405,7 +405,7 @@ namespace s3d
 	{
 		Image newImage(size);
 
-		if (!newImage)
+		if (not newImage)
 		{
 			return newImage;
 		}

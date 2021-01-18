@@ -8,7 +8,7 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-# include <Siv3D/EngineLog.hpp>
+
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/HashSet.hpp>

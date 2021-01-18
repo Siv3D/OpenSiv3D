@@ -581,7 +581,7 @@ namespace s3d
 
 		for (const auto& v : *this)
 		{
-			if (!f(v))
+			if (not f(v))
 			{
 				new_array.push_back(v);
 			}

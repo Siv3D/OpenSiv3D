@@ -32,7 +32,7 @@ namespace s3d
 
 			const HMODULE hModule = ::LoadLibraryExW(library, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
-			if (!hModule)
+			if (not hModule)
 			{
 				throw EngineError(U"Failed to load `{}`"_fmt(Unicode::FromWstring(library)));
 			}
@@ -61,7 +61,7 @@ namespace s3d
 		{
 			LOG_TRACE(U"DLL::GetFunction::GetFunction(name = \"{}\") p = {}"_fmt(Unicode::Widen(name), p));
 
-			if (!p)
+			if (not p)
 			{
 				throw EngineError(U"Failed to get function: `{}`"_fmt(Unicode::Widen(name)));
 			}

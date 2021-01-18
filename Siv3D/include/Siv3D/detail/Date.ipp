@@ -165,7 +165,7 @@ namespace s3d
 
 	inline constexpr int32 Date::DaysInMonth(const int32 year, const int32 month) noexcept
 	{
-		if (!InRange(month, 1, 12))
+		if (not InRange(month, 1, 12))
 		{
 			return 0;
 		}

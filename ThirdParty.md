@@ -28,6 +28,7 @@ Library | Version
 [OpenCV](https://github.com/opencv/opencv) | 
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
+[Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2

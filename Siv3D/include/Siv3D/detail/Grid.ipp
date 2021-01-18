@@ -159,7 +159,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::at(const size_type y, const size_type x)&
 	{
-		if (!inBounds(y, x))
+		if (not inBounds(y, x))
 		{
 			throw std::out_of_range("Grid::at(): index out of range");
 		}
@@ -170,7 +170,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::at(const size_type y, const size_type x) const&
 	{
-		if (!inBounds(y, x))
+		if (not inBounds(y, x))
 		{
 			throw std::out_of_range("Grid::at(): index out of range");
 		}
@@ -181,7 +181,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::at(const size_type y, const size_type x)&&
 	{
-		if (!inBounds(y, x))
+		if (not inBounds(y, x))
 		{
 			throw std::out_of_range("Grid::at(): index out of range");
 		}

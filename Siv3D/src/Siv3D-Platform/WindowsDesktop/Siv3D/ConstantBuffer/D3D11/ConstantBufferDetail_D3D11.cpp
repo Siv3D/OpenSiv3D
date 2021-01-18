@@ -23,7 +23,7 @@ namespace s3d
 
 	bool ConstantBufferDetail_D3D11::update(const void* const data, const size_t size)
 	{
-		if (!m_buffer)
+		if (not m_buffer)
 		{
 			init();
 		}
@@ -47,7 +47,7 @@ namespace s3d
 
 	ID3D11Buffer* const* ConstantBufferDetail_D3D11::getBufferPtr() const
 	{
-		if (!m_buffer)
+		if (not m_buffer)
 		{
 			init();
 		}

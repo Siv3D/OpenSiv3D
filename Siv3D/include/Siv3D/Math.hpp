@@ -12,6 +12,7 @@
 # pragma once
 # include <cmath>
 # include "Common.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {

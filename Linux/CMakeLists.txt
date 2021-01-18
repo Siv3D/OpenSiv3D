@@ -157,6 +157,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
   ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
+  ../Siv3D/src/Siv3D/NavMesh/NavMeshDetail.cpp
+  ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
@@ -406,6 +408,25 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 
   ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourAlloc.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourAssert.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourCommon.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMesh.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMeshBuilder.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMeshQuery.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNode.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/Recast.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastAlloc.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastArea.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastAssert.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastContour.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastFilter.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastLayers.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastMesh.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastMeshDetail.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastRasterization.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 

@@ -47,7 +47,7 @@ namespace s3d
 
 	void CConsole::close()
 	{
-		if (!m_isOpen)
+		if (not m_isOpen)
 		{
 			return;
 		}
