@@ -21,7 +21,15 @@ namespace s3d
 		updateControls(deltaTime);
 		updateMouse(deltaTime);
 
-		m_scale = Math::SmoothDamp(m_scale, m_targetScale, m_scaleChangeVelocity, m_parameters.scaleSmoothTime, unspecified, deltaTime);
+		{
+			const double oldScale = m_scale;
+			m_scale = Math::SmoothDamp(m_scale, m_targetScale, m_scaleChangeVelocity, m_parameters.scaleSmoothTime, unspecified, deltaTime);
+			
+			if (deltaTime && (m_scale != m_targetScale) && (m_scale == oldScale))
+			{
+				m_scale = m_targetScale;
+			}
+		}
 
 		if (m_pointedScale)
 		{
@@ -30,7 +38,13 @@ namespace s3d
 		}
 		else
 		{
+			const Vec2 oldCenter = m_center;
 			m_center = Math::SmoothDamp(m_center, m_targetCenter, m_positionChangeVelocity, m_parameters.positionSmoothTime, unspecified, deltaTime);
+
+			if (deltaTime && (m_center != m_targetCenter) && (m_center == oldCenter))
+			{
+				m_center = m_targetCenter;
+			}
 		}
 	}
 
