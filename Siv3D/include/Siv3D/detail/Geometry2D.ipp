@@ -286,6 +286,37 @@ namespace s3d
 				&& (b.y < (a.y + a.h));
 		}
 
+		inline constexpr bool Intersect(const Rect& a, const Circle& b) noexcept
+		{
+			return Intersect(RectF{ a }, b);
+		}
+
+		inline bool Intersect(const Rect& a, const LineString& b) noexcept
+		{
+			return Intersect(RectF{ a }, b);
+		}
+
+		inline constexpr bool Intersect(const RectF& a, const Circle& b) noexcept
+		{
+			const double aw = (a.w * 0.5);
+			const double ah = (a.h * 0.5);
+			const double cX = Abs(b.x - a.x - aw);
+			const double cY = Abs(b.y - a.y - ah);
+
+			if ((cX > (aw + b.r))
+				|| (cY > (ah + b.r)))
+			{
+				return false;
+			}
+
+			if ((cX <= aw)
+				|| (cY <= ah))
+			{
+				return true;
+			}
+
+			return ((cX - aw) * (cX - aw) + (cY - ah) * (cY - ah) <= (b.r * b.r));
+		}
 
 		inline constexpr bool Intersect(const Circle& a, const Point& b) noexcept
 		{
@@ -302,12 +333,117 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Circle& a, const Bezier2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Circle& a, const Bezier3& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Circle& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Circle& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Circle& a, const Circle& b) noexcept
+		{
+			return (((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) <= ((a.r + b.r) * (a.r + b.r)));
+		}
+
+		inline constexpr bool Intersect(const Ellipse& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Ellipse& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Ellipse& a, const Bezier2& b)
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Ellipse& a, const Bezier3& b)
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Triangle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		inline constexpr bool Intersect(const Triangle& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Triangle& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Triangle& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Triangle& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Triangle& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Quad& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		inline constexpr bool Intersect(const Quad& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const Triangle& b) noexcept
 		{
 			return Intersect(b, a);
 		}

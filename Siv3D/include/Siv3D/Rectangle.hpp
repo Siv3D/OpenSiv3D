@@ -19,12 +19,6 @@
 
 namespace s3d
 {
-	struct Line;
-	struct Quad;
-	struct RoundRect;
-	class Polygon;
-	class LineString;
-
 	/// @brief 長方形
 	/// @tparam SizeType 位置とサイズを表すベクトルの型
 	///
@@ -540,6 +534,9 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Line side(size_t index) const;
+
+		[[nodiscard]]
+		constexpr Triangle triangle(size_t index) const;
 
 		/// @brief 長方形の面積を返します。
 		/// @return 長方形の面積

@@ -18,6 +18,7 @@ Library | Version
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
+[kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
 [lunasvg](https://github.com/sammycage/lunasvg) | v1.4.0

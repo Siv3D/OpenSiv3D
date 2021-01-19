@@ -17,8 +17,6 @@
 
 namespace s3d
 {
-	class LineString;
-
 	/// @brief 三角形
 	struct Triangle
 	{

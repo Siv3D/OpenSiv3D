@@ -775,6 +775,23 @@ namespace s3d
 	}
 
 	template <class SizeType>
+	inline constexpr Triangle Rectangle<SizeType>::triangle(const size_t index) const
+	{
+		if (index == 0)
+		{
+			return{ pos, tr(), bl() };
+		}
+		else if (index == 1)
+		{
+			return{ bl(), tr(), br() };
+		}
+		else
+		{
+			throw std::out_of_range("Rectangle::triangle() index out of range");
+		}
+	}
+
+	template <class SizeType>
 	inline constexpr typename Rectangle<SizeType>::value_type Rectangle<SizeType>::area() const noexcept
 	{
 		return (w * h);

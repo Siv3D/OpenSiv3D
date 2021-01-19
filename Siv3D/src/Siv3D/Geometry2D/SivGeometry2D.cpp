@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier3.hpp>
 # include <Siv3D/MultiPolygon.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/HashTable.hpp>
@@ -34,6 +36,8 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 # include <ThirdParty/concaveman-cpp/concaveman.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
+# include "Polynomial.hpp"
+
 namespace s3d
 {
 	namespace detail
@@ -42,6 +46,159 @@ namespace s3d
 		static bool IsZero(const double x) noexcept
 		{
 			return (std::abs(x) < 1e-10);
+		}
+
+		//
+		//	http://www.phatcode.net/articles.php?id=459
+		//
+		[[nodiscard]]
+		static bool CircleTriangleIntersection(const Circle& circle, const Triangle& triangle) noexcept
+		{
+			const double centrex = circle.x;
+			const double centrey = circle.y;
+			const double radius = circle.r;
+			const double v1x = triangle.p0.x;
+			const double v1y = triangle.p0.y;
+			const double v2x = triangle.p1.x;
+			const double v2y = triangle.p1.y;
+			const double v3x = triangle.p2.x;
+			const double v3y = triangle.p2.y;
+
+			//
+			// TEST 1: Vertex within circle
+			//
+			const double c1x = centrex - v1x;
+			const double c1y = centrey - v1y;
+
+			const double radiusSqr = radius * radius;
+			const double c1sqr = c1x * c1x + c1y * c1y - radiusSqr;
+
+			if (c1sqr <= 0)
+			{
+				return true;
+			}
+
+			const double c2x = centrex - v2x;
+			const double c2y = centrey - v2y;
+			const double c2sqr = c2x * c2x + c2y * c2y - radiusSqr;
+
+			if (c2sqr <= 0)
+			{
+				return true;
+			}
+
+			const double c3x = centrex - v3x;
+			const double c3y = centrey - v3y;
+
+			//const double &c3sqr = radiusSqr;//; reference to radiusSqr
+			const double c3sqr = c3x * c3x + c3y * c3y - radiusSqr;
+
+			if (c3sqr <= 0)
+			{
+				return true;
+			}
+
+			//;
+			//; TEST 2: Circle centre within triangle
+			//;
+
+			//;
+			//; Calculate edges
+			//;
+			const double e1x = v2x - v1x;
+			const double e1y = v2y - v1y;
+
+			const double e2x = v3x - v2x;
+			const double e2y = v3y - v2y;
+
+			const double e3x = v1x - v3x;
+			const double e3y = v1y - v3y;
+
+			if (e1y * c1x >= e1x * c1y
+				&& e2y * c2x >= e2x * c2y
+				&& e3y * c3x >= e3x * c3y)
+			{
+				return true;
+			}
+
+			//;
+			//; TEST 3: Circle intersects edge
+			//;
+			double k = c1x * e1x + c1y * e1y;
+
+			if (k > 0)
+			{
+				const double len = e1x * e1x + e1y * e1y;//; squared len
+
+				if (k < len)
+				{
+					if (c1sqr * len <= k * k)
+					{
+						return true;
+					}
+				}
+			}
+
+			//; Second edge
+			k = c2x * e2x + c2y * e2y;
+
+			if (k > 0)
+			{
+				const double len = e2x * e2x + e2y * e2y;
+
+				if (k < len)
+				{
+					if (c2sqr * len <= k * k)
+					{
+						return true;
+					}
+				}
+			}
+
+			//; Third edge
+			k = c3x * e3x + c3y * e3y;
+
+			if (k > 0)
+			{
+				const double len = e3x * e3x + e3y * e3y;
+
+				if (k < len)
+				{
+					if (c3sqr * len <= k * k)
+					{
+						return true;
+					}
+				}
+			}
+
+			// Within
+			if (circle.center.intersects(triangle))
+			{
+				return true;
+			}
+
+			//; We're done, no intersection
+			return false;
+		}
+
+		[[nodiscard]]
+		static constexpr RectF RoughBoundingRect(const Bezier2& bezier) noexcept
+		{
+			const double minX = Min({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
+			const double maxX = Max({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
+			const double minY = Min({ bezier.p0.y, bezier.p1.y, bezier.p2.y });
+			const double maxY = Max({ bezier.p0.y, bezier.p1.y, bezier.p2.y });
+			return{ minX, minY, (maxX - minX), (maxY - minY) };
+		}
+
+		[[nodiscard]]
+		static constexpr RectF RoughBoundingRect(const Bezier3& bezier) noexcept
+		{
+			const double minX = Min({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
+			const double maxX = Max({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
+			const double minY = Min({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
+			const double maxY = Max({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
+			return{ minX, minY, (maxX - minX), (maxY - minY) };
 		}
 
 		struct RoundRectParts
@@ -549,6 +706,492 @@ namespace s3d
 			}
 
 			return false;
+		}
+
+		bool Intersect(const Bezier2& a, const Circle& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		bool Intersect(const Bezier2& a, const Ellipse& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		bool Intersect(const Bezier3& a, const Circle& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		bool Intersect(const Bezier3& a, const Ellipse& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		bool Intersect(const Rect& a, const Triangle& b) noexcept
+		{
+			return Intersect(a.triangle(0), b)
+				|| Intersect(a.triangle(1), b);
+		}
+
+		bool Intersect(const Rect& a, const Quad& b) noexcept
+		{
+			return Intersect(a, b.triangle(0))
+				|| Intersect(a, b.triangle(1));
+		}
+
+		bool Intersect(const Rect& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Rect& a, const Polygon& b) noexcept
+		{
+			return b.intersects(a);
+		}
+
+		bool Intersect(const RectF& a, const Triangle& b) noexcept
+		{
+			return Intersect(a.triangle(0), b)
+				|| Intersect(a.triangle(1), b);
+		}
+
+		bool Intersect(const RectF& a, const Quad& b) noexcept
+		{
+			return Intersect(a, b.triangle(0))
+				|| Intersect(a, b.triangle(1));
+		}
+
+		bool Intersect(const RectF& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const RectF& a, const Polygon& b) noexcept
+		{
+			return b.intersects(a);
+		}
+
+		bool Intersect(const RectF& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Circle& a, const Triangle& b) noexcept
+		{
+			return detail::CircleTriangleIntersection(a, b);
+		}
+
+		bool Intersect(const Circle& a, const Quad& b) noexcept
+		{
+			return detail::CircleTriangleIntersection(a, Triangle{ b.p0, b.p1, b.p3 })
+				|| detail::CircleTriangleIntersection(a, Triangle{ b.p1, b.p2, b.p3 });
+		}
+
+		bool Intersect(const Circle& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Circle& a, const Polygon& b) noexcept
+		{
+			if ((not b)
+				|| (not Intersect(a, b.boundingRect())))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Circle& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Ellipse& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+
+		//
+		//	http://marupeke296.com/COL_2D_TriTri.html
+		//
+		bool Intersect(const Triangle& a, const Triangle& b) noexcept
+		{
+			constexpr size_t other[3] = { 1, 2, 0 };
+			constexpr size_t pindex[4] = { 1, 2, 0, 1 };
+			const Triangle* tri[3] = { &a, &b, &a };
+
+			for (int32 t = 0; t < 2; ++t)
+			{
+				const Triangle& ta = *tri[t];
+				const Triangle& tb = *tri[t + 1];
+
+				for (int32 i = 0; i < 3; ++i)
+				{
+					const Vec2 vec = (ta.p(pindex[i + 1]) - ta.p(pindex[i])).normalized();
+					const Vec2 sepVec(vec.y, -vec.x);
+
+					double s1min = sepVec.dot(ta.p(i));
+					double s1max = sepVec.dot(ta.p(other[i]));
+
+					if (s1min > s1max)
+					{
+						std::swap(s1min, s1max);
+					}
+
+					double s2min = sepVec.dot(tb.p(0));
+					double s2max = sepVec.dot(tb.p(1));
+
+					if (s2min > s2max)
+					{
+						std::swap(s2min, s2max);
+					}
+
+					const double d3 = sepVec.dot(tb.p(2));
+
+					if (d3 < s2min)
+					{
+						s2min = d3;
+					}
+					else if (d3 > s2max)
+					{
+						s2max = d3;
+					}
+
+					if ((s2min <= s1min && s1min <= s2max)
+						|| (s2min <= s1max && s1max <= s2max)
+						|| (s1min <= s2min && s2min <= s1max)
+						|| (s1min <= s2max && s2max <= s1max))
+					{
+						continue;
+					}
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Intersect(const Triangle& a, const Quad& b) noexcept
+		{
+			return Intersect(a, b.triangle(0))
+				|| Intersect(a, b.triangle(1));
+		}
+
+		bool Intersect(const Triangle& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Triangle& a, const Polygon& b) noexcept
+		{
+			if ((not b)
+				|| (not Intersect(a, b.boundingRect())))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Triangle& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Quad& a, const Quad& b) noexcept
+		{
+			return Intersect(a.triangle(0), b)
+				|| Intersect(a.triangle(1), b);
+		}
+
+		bool Intersect(const Quad& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Quad& a, const Polygon& b) noexcept
+		{
+			if ((not b)
+				|| (not Intersect(a, b.boundingRect())))
+			{
+				return false;
+			}
+
+			const Triangle a0 = a.triangle(0);
+			const Triangle a1 = a.triangle(1);
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				const Triangle b0 = b.triangle(i);
+
+				if (Intersect(a0, b0) || Intersect(a1, b0))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Quad& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	IntersectAt
+		//
+		//////////////////////////////////////////////////
+
+		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse{ b });
+		}
+
+		//
+		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
+		//
+		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Ellipse& b)
+		{
+			if (not Intersect(detail::RoughBoundingRect(a), b.boundingRect()))
+			{
+				return none;
+			}
+
+			const Vec2 t1 = a.p1 * -2;
+			const Vec2 c2 = a.p0 + (t1 + a.p2);
+			const Vec2 t2 = a.p0 * -2;
+			const Vec2 t3 = a.p1 * 2;
+			const Vec2 c1 = t2 + t3;
+			const Vec2 c0 = a.p0;
+			const double rxrx = b.a * b.a;
+			const double ryry = b.b * b.b;
+
+			const Array<double> roots = Polynomial({
+				ryry * c2.x * c2.x + rxrx * c2.y * c2.y,
+				2 * (ryry * c2.x * c1.x + rxrx * c2.y * c1.y),
+				ryry * (2 * c2.x * c0.x + c1.x * c1.x) + rxrx * (2 * c2.y * c0.y + c1.y * c1.y) - 2 * (ryry * b.x * c2.x + rxrx * b.y * c2.y),
+				2 * (ryry * c1.x * (c0.x - b.x) + rxrx * c1.y * (c0.y - b.y)),
+				ryry * (c0.x * c0.x + b.x * b.x) + rxrx * (c0.y * c0.y + b.y * b.y) - 2 * (ryry * b.x * c0.x + rxrx * b.y * c0.y) - rxrx * ryry,
+				}).getRoots();
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < roots.size(); ++i)
+			{
+				const double t = roots[i];
+
+				if (0 <= t && t <= 1)
+				{
+					points.push_back(c2 * (t * t) + (c1 * t + c0));
+				}
+			}
+
+			if (points)
+			{
+				return points;
+			}
+			else if (Intersect(a.p0, b)
+				|| Intersect(a.p2, b))
+			{
+				return Array<Vec2>{};
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse{ b });
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Ellipse& b)
+		{
+			if (not Intersect(detail::RoughBoundingRect(a), b.boundingRect()))
+			{
+				return none;
+			}
+
+			const Vec2 t1 = -a.p0;
+			const Vec2 t2 = a.p1 * 3.0;
+			const Vec2 t3 = a.p2 * -3.0;
+			const Vec2 t4 = t1 + (t2 + (t3 + a.p3));
+			const Vec2 c3 = t4;
+
+			const Vec2 u1 = a.p0 * 3.0;
+			const Vec2 u2 = a.p1 * -6.0;
+			const Vec2 u3 = a.p2 * 3.0;
+			const Vec2 u4 = u1 + (u2 + u3);
+			const Vec2 c2 = u4;
+
+			const Vec2 v1 = a.p0 * -3.0;
+			const Vec2 v2 = a.p1 * 3.0;
+			const Vec2 v3 = v1 + v2;
+			const Vec2 c1 = v3;
+
+			const Vec2 c0 = a.p0;
+
+			const double rxrx = b.a * b.a;
+			const double ryry = b.b * b.b;
+
+			Polynomial poly({
+				c3.x * c3.x * ryry + c3.y * c3.y * rxrx,
+				2 * (c3.x * c2.x * ryry + c3.y * c2.y * rxrx),
+				2 * (c3.x * c1.x * ryry + c3.y * c1.y * rxrx) + c2.x * c2.x * ryry + c2.y * c2.y * rxrx,
+				2 * c3.x * ryry * (c0.x - b.x) + 2 * c3.y * rxrx * (c0.y - b.y) +
+				2 * (c2.x * c1.x * ryry + c2.y * c1.y * rxrx),
+				2 * c2.x * ryry * (c0.x - b.x) + 2 * c2.y * rxrx * (c0.y - b.y) +
+				c1.x * c1.x * ryry + c1.y * c1.y * rxrx,
+				2 * c1.x * ryry * (c0.x - b.x) + 2 * c1.y * rxrx * (c0.y - b.y),
+				c0.x * c0.x * ryry - 2 * c0.y * b.y * rxrx - 2 * c0.x * b.x * ryry +
+				c0.y * c0.y * rxrx + b.x * b.x * ryry + b.y * b.y * rxrx - rxrx * ryry
+				});
+
+			Array<double> roots = poly.getRootsInInterval(0, 1);
+			{
+				const double ZEROepsilon = 1e-15;
+				roots.sort_by([](double a, double b) { return a < b; });
+
+				for (size_t i = 1; i < roots.size();)
+				{
+					if (std::abs(roots[i] - roots[i - 1]) < ZEROepsilon)
+					{
+						roots.remove_at(i);
+					}
+					else
+					{
+						++i;
+					}
+				}
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < roots.size(); ++i)
+			{
+				const double t = roots[i];
+				const Vec2 v = c3 * (t * t * t) + (c2 * (t * t) + (c1 * t + c0));
+				points.push_back(v);
+			}
+
+			if (points)
+			{
+				return points;
+			}
+			else if (Intersect(a.p0, b)
+				|| Intersect(a.p3, b))
+			{
+				return Array<Vec2>{};
+			}
+			else
+			{
+				return none;
+			}
 		}
 
 		//////////////////////////////////////////////////

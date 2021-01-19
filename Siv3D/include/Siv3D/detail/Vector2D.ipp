@@ -16,10 +16,49 @@ namespace s3d
 	namespace Geometry2D
 	{
 		[[nodiscard]]
-		inline constexpr bool Intersect(const Float2& a, const Float2& b) noexcept;
+		inline constexpr bool Intersect(const Vec2& a, const Point& b) noexcept;
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Vec2& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Line& b) noexcept;
+
+		//[[nodiscard]]
+		//bool Intersect(const Vec2& a, const Bezier2& b) noexcept;
+
+		//[[nodiscard]]
+		//bool Intersect(const Vec2& a, const Bezier3& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const RectF& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Circle& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Ellipse& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Triangle& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Vec2& a, const Quad& b) noexcept;
+
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const RoundRect& b) noexcept;
+
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const Polygon& b) noexcept;
+
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const MultiPolygon& b) noexcept;
+
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const LineString& b) noexcept;
 	}
 
 	template <class Type>
@@ -482,7 +521,14 @@ namespace s3d
 	template <class Shape2DType>
 	constexpr bool Vector2D<Type>::intersects(const Shape2DType& other) const
 	{
-		return Geometry2D::Intersect(*this, other);
+		if constexpr (std::is_same_v<value_type, double>)
+		{
+			return Geometry2D::Intersect(*this, other);
+		}
+		else
+		{
+			return Geometry2D::Intersect(Vector2D<double>{ *this }, other);
+		}
 	}
 
 	template <class Type>

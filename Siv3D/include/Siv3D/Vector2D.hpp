@@ -13,15 +13,10 @@
 # include "Common.hpp"
 # include "FormatData.hpp"
 # include "FormatLiteral.hpp"
+# include "2DShapesFwd.hpp"
 
 namespace s3d
 {
-	struct Point;
-	template <class Type> struct Vector2D;
-	template <class Type> struct Vector3D;
-	template <class Type> struct Vector4D;
-	struct Circle;
-
 	/// @brief 2 次元のベクトル
 	/// @tparam Type ベクトルの要素の型
 	template <class Type>

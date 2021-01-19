@@ -92,6 +92,8 @@ namespace s3d
 
 		bool append(const Polygon& other);
 
+		bool intersects(const RectF& other) const;
+
 		bool intersects(const PolygonDetail& other) const;
 
 

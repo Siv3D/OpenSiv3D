@@ -21,8 +21,6 @@
 
 namespace s3d
 {
-	class Shape2D;
-
 	class Polygon
 	{
 	private:
@@ -166,6 +164,12 @@ namespace s3d
 		template <class Shape2DType>
 		[[nodiscard]]
 		bool intersects(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		bool intersects(const Rect& other) const;
+
+		[[nodiscard]]
+		bool intersects(const RectF& other) const;
 
 		[[nodiscard]]
 		bool intersects(const Polygon& other) const;

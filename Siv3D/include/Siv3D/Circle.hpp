@@ -17,10 +17,6 @@
 
 namespace s3d
 {
-	struct Line;
-	struct Ellipse;
-	class Polygon;
-
 	/// @brief 円
 	struct Circle
 	{

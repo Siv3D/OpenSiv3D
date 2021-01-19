@@ -798,6 +798,19 @@ namespace s3d
 		return true;
 	}
 
+	bool Polygon::PolygonDetail::intersects(const RectF& other) const
+	{
+		if (outer().isEmpty()
+			|| (not m_boundingRect.intersects(other)))
+		{
+			return false;
+		}
+
+		const boost::geometry::model::box<Vec2> box{ other.pos, other.br() };
+
+		return boost::geometry::intersects(m_polygon, box);
+	}
+
 	bool Polygon::PolygonDetail::intersects(const PolygonDetail& other) const
 	{
 		if (outer().isEmpty()

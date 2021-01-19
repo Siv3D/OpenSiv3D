@@ -20,10 +20,6 @@
 
 namespace s3d
 {
-	template <class SizeType> struct Rectangle;
-	using Rect = Rectangle<Point>;
-	using RectF = Rectangle<Vec2>;
-
 	/// @brief 線分
 	struct Line
 	{

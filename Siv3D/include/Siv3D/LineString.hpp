@@ -20,8 +20,6 @@
 
 namespace s3d
 {
-	class Spline2D;
-
 	/// @brief 点の集合（とそれをつないで表現される線分）
 	class LineString : protected Array<Vec2>
 	{

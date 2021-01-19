@@ -481,6 +481,16 @@ namespace s3d
 		return pImpl->append(other);
 	}
 
+	bool Polygon::intersects(const Rect& other) const
+	{
+		return pImpl->intersects(other);
+	}
+
+	bool Polygon::intersects(const RectF& other) const
+	{
+		return pImpl->intersects(other);
+	}
+
 	bool Polygon::intersects(const Polygon& other) const
 	{
 		return pImpl->intersects(*other.pImpl);
