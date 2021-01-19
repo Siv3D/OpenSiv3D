@@ -58,18 +58,18 @@ namespace s3d
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		Mat3x2 constexpr scaled(Arithmetic s, Float2 center = Float2(0, 0)) const noexcept;
+		Mat3x2 constexpr scaled(Arithmetic s, Float2 center = Float2{ 0, 0 }) const noexcept;
 
 		[[nodiscard]]
-		Mat3x2 constexpr scaled(Float2 scale, Float2 center = Float2(0, 0)) const noexcept;
+		Mat3x2 constexpr scaled(Float2 scale, Float2 center = Float2{ 0, 0 }) const noexcept;
 
 		template <class X, class Y>
 		[[nodiscard]]
-		Mat3x2 constexpr scaled(X sx, Y sy, Float2 center = Float2(0, 0)) const noexcept;
+		Mat3x2 constexpr scaled(X sx, Y sy, Float2 center = Float2{ 0, 0 }) const noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		Mat3x2 rotated(Arithmetic angle, Float2 center = Float2(0, 0)) const noexcept;
+		Mat3x2 rotated(Arithmetic angle, Float2 center = Float2{ 0, 0 }) const noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
@@ -113,19 +113,19 @@ namespace s3d
 		static constexpr Mat3x2 Translate(X x, Y y) noexcept;
 
 		[[nodiscard]]
-		static constexpr Mat3x2 Scale(Float2 scale, Float2 center = Float2(0, 0)) noexcept;
+		static constexpr Mat3x2 Scale(Float2 scale, Float2 center = Float2{ 0, 0 }) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		static constexpr Mat3x2 Scale(Arithmetic s, Float2 center = Float2(0, 0)) noexcept;
+		static constexpr Mat3x2 Scale(Arithmetic s, Float2 center = Float2{ 0, 0 }) noexcept;
 
 		template <class X, class Y>
 		[[nodiscard]]
-		static constexpr Mat3x2 Scale(X sx, Y sy, Float2 center = Float2(0, 0)) noexcept;
+		static constexpr Mat3x2 Scale(X sx, Y sy, Float2 center = Float2{ 0, 0 }) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		static Mat3x2 Rotate(Arithmetic angle, Float2 center = Float2(0, 0)) noexcept;
+		static Mat3x2 Rotate(Arithmetic angle, Float2 center = Float2{ 0, 0 }) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]

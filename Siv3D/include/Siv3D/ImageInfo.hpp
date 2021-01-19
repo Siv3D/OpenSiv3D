@@ -26,7 +26,7 @@ namespace s3d
 		PixelFormat pixelFormat = PixelFormat::Unknown;
 
 		/// @brief 画像のサイズ
-		Size size = Size(0, 0);
+		Size size = Size{ 0, 0 };
 
 		/// @brief アニメーションの有無
 		bool isAnimated = false;

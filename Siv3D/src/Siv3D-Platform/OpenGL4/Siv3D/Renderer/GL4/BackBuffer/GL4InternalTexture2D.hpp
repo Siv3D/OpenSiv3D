@@ -25,7 +25,7 @@ namespace s3d
 		
 		GLuint m_texture = 0;
 
-		Size m_size = Size(0, 0);
+		Size m_size = Size{ 0, 0 };
 
 	public:
 

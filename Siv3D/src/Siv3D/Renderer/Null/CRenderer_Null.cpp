@@ -76,7 +76,7 @@ namespace s3d
 
 	Size CRenderer_Null::getSceneBufferSize() const noexcept
 	{
-		return Size(0, 0);
+		return Size{ 0, 0 };
 	}
 
 	void CRenderer_Null::setSceneTextureFilter(const TextureFilter)

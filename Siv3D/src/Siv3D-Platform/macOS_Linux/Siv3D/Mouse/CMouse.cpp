@@ -66,7 +66,7 @@ namespace s3d
 		{
 			std::lock_guard<std::mutex> lock(m_scrollMutex);
 			
-			m_scroll = std::exchange(m_scrollInternal, Vec2(0, 0));
+			m_scroll = std::exchange(m_scrollInternal, Vec2{ 0, 0 });
 		}
 
 		{

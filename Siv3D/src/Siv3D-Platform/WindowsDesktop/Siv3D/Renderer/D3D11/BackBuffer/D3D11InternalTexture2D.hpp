@@ -27,7 +27,7 @@ namespace s3d
 
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 
-		Size m_size = Size(0, 0);
+		Size m_size = Size{ 0, 0 };
 
 	public:
 

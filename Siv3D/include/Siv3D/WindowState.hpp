@@ -33,19 +33,19 @@ namespace s3d
 		Size frameBufferSize = Window::DefaultClientSize;
 
 		/// @brief 最小のサイズ
-		Size minFrameBufferSize = Size(1, 1);
+		Size minFrameBufferSize = Size{ 1, 1 };
 
 		/// @brief ユーザが設定しているデスクトップのスケーリング
 		double scaling = 1.0;
 
 		/// @brief スクリーン座標におけるウィンドウの矩形
-		Rect bounds = Rect(0);
+		Rect bounds = Rect{ 0 };
 
 		/// @brief スタイル
 		WindowStyle style = WindowStyle::Fixed;
 
 		/// @brief フレームの幅
-		Size frameSize = Size(0, 0);
+		Size frameSize = Size{ 0, 0 };
 
 		/// @brief タイトルバーの高さ
 		int32 titleBarHeight = 0;

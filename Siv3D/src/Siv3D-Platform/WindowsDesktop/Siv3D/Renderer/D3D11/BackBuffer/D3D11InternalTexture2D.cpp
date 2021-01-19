@@ -66,7 +66,7 @@ namespace s3d
 
 		m_shaderResourceView.Reset();
 
-		m_size = Size(0, 0);
+		m_size = Size{ 0, 0 };
 	}
 
 	ID3D11ShaderResourceView* const* D3D11InternalTexture2D::getSRVPtr() const noexcept

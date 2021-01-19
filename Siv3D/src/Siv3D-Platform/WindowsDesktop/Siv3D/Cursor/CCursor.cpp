@@ -54,7 +54,7 @@ namespace s3d
 	}
 
 	CCursor::CCursor()
-		: m_clientPosBuffer{ { Time::GetMicrosec(), Point(0, 0) } }
+		: m_clientPosBuffer{ { Time::GetMicrosec(), Point{ 0, 0 } } }
 		, m_systemCursors{}
 	{
 

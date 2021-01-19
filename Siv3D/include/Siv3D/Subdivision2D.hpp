@@ -183,9 +183,9 @@ namespace s3d
 
 		int32 m_recentEdge = 0;
 
-		RectF m_rect = RectF(0, 0);
+		RectF m_rect = RectF{ 0, 0 };
 
-		Vec2 m_bottomRight = Vec2(0, 0);
+		Vec2 m_bottomRight = Vec2{ 0, 0 };
 
 		Subdivision2DPointLocation locate(const Vec2& pt, int32& _edge, int32& _vertex);
 

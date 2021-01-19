@@ -106,7 +106,7 @@ namespace s3d
 		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
 		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= detail::CreateCursor(Image(16, 16, Color(0, 0)), Point::Zero());
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= detail::CreateCursor(Image{ 16, 16, Color{ 0, 0 } }, Point::Zero());
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
 		m_defaultCursor		= m_currentCursor;

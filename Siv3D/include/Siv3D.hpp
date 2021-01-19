@@ -102,9 +102,6 @@
 // イテレータによる範囲の表現 | Range iterator
 //# include <Siv3D/RangeIterator.hpp> // [Siv3D ToDo]
 
-// map と each の省略表記 | Simplified each/map
-//# include <Siv3D/Evaluater.hpp> // [Siv3D ToDo]
-
 // スコープ・ガード | Scope guard
 # include <Siv3D/ScopeGuard.hpp>
 

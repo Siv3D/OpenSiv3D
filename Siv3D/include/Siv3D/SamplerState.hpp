@@ -96,7 +96,7 @@ namespace s3d
 
 		float lodBias			= 0.0f;
 
-		Float4 borderColor		= Float4(0, 0, 0, 0);
+		Float4 borderColor		= Float4{ 0, 0, 0, 0 };
 
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr SamplerState(
@@ -104,7 +104,7 @@ namespace s3d
 			TextureFilter filter,
 			uint8 _maxAnisotropy = 1,
 			float _lodBias = 0.0f,
-			Float4 _borderColor = Float4(0, 0, 0, 0)) noexcept;
+			Float4 _borderColor = Float4{ 0, 0, 0, 0 }) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr SamplerState(
@@ -116,7 +116,7 @@ namespace s3d
 			TextureFilter _mip = TextureFilter::Linear,
 			uint8 _maxAnisotropy = 1,
 			float _lodBias = 0.0f,
-			Float4 _borderColor = Float4(0, 0, 0, 0)) noexcept;
+			Float4 _borderColor = Float4{ 0, 0, 0, 0 }) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		constexpr SamplerState(Predefined predefined) noexcept;

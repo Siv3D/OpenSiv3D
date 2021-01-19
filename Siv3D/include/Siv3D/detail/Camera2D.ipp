@@ -51,4 +51,42 @@ namespace s3d
 			.zoomOut		= {},
 		};
 	}
+
+	inline Camera2D::Camera2D(const Vec2 center, const double scale, const Camera2DParameters& parameters) noexcept
+		: BasicCamera2D{ center, scale }
+		, m_parameters{ parameters } {}
+
+	inline void Camera2D::setParameters(const Camera2DParameters& parameters) noexcept
+	{
+		m_parameters = parameters;
+	}
+
+	inline const Camera2DParameters& Camera2D::getParameters() const noexcept
+	{
+		return m_parameters;
+	}
+
+	inline void Camera2D::setTargetCenter(const Vec2 targetCenter) noexcept
+	{
+		m_grabPos.reset();
+		m_pointedScale.reset();
+		m_targetCenter = targetCenter;
+	}
+
+	inline void Camera2D::setTargetScale(const double targetScale) noexcept
+	{
+		m_grabPos.reset();
+		m_pointedScale.reset();
+		m_targetScale = targetScale;
+	}
+
+	inline void Camera2D::jumpTo(const Vec2 center, const double scale) noexcept
+	{
+		m_grabPos.reset();
+		m_pointedScale.reset();
+		m_targetCenter = m_center = center;
+		m_targetScale = m_scale = scale;
+		m_positionChangeVelocity = Vec2::Zero();
+		m_scaleChangeVelocity = 0.0;
+	}
 }
