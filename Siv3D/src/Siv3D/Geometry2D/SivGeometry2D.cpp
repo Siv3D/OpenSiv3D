@@ -1040,6 +1040,122 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const RoundRect& a, const RoundRect& b) noexcept
+		{
+			if (not Intersect(a.rect, b.rect))
+			{
+				return false;
+			}
+
+			const detail::RoundRectParts partsA{ a };
+			const detail::RoundRectParts partsB{ b };
+
+			return partsA.intersects(partsB.rectA)
+				|| partsA.intersects(partsB.rectB)
+				|| partsA.intersects(partsB.circleTL)
+				|| partsA.intersects(partsB.circleTR)
+				|| partsA.intersects(partsB.circleBR)
+				|| partsA.intersects(partsB.circleBL);
+		}
+
+		bool Intersect(const RoundRect& a, const Polygon& b) noexcept
+		{
+			if ((not b)
+				|| (not Intersect(a, b.boundingRect())))
+			{
+				return false;
+			}
+
+			const detail::RoundRectParts partsA{ a };
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (partsA.intersects(b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const RoundRect& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Polygon& a, const Rect& b) noexcept
+		{
+			return a.intersects(b);
+		}
+
+		bool Intersect(const Polygon& a, const RectF& b) noexcept
+		{
+			return a.intersects(b);
+		}
+
+		bool Intersect(const Polygon& a, const Polygon& b) noexcept
+		{
+			return a.intersects(b);
+		}
+
+		bool Intersect(const Polygon& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const LineString& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (Intersect(Line{ pPoints[i], pPoints[i + 1] }, a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	IntersectAt

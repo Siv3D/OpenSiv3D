@@ -448,12 +448,145 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const RoundRect& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RoundRect& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		inline bool Intersect(const Polygon& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Polygon& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
 
+		inline bool Intersect(const Polygon& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Ellipse& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const LineString& a, const Polygon& b) noexcept
+		{
+			return Intersect(b, a);
+		}
 
 
 		inline constexpr bool Contains(const Rect& a, const Point& b) noexcept
