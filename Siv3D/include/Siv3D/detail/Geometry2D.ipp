@@ -217,6 +217,15 @@ namespace s3d
 				|| Intersect(a, b.triangle(1)));
 		}
 
+		inline constexpr bool Intersect(const Line& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Intersect(const Line& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
 
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept
 		{
@@ -224,6 +233,11 @@ namespace s3d
 		}
 
 		inline constexpr bool Intersect(const Rect& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Rect& a, const Line& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -244,13 +258,17 @@ namespace s3d
 				&& (b.y < (a.y + a.h));
 		}
 
-
 		inline constexpr bool Intersect(const RectF& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
 		}
 
 		inline constexpr bool Intersect(const RectF& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RectF& a, const Line& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -275,6 +293,11 @@ namespace s3d
 		}
 
 		inline constexpr bool Intersect(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Circle& a, const Line& b) noexcept
 		{
 			return Intersect(b, a);
 		}
