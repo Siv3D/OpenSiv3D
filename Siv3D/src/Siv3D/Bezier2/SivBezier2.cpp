@@ -1,0 +1,78 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/LineString.hpp>
+# include <Siv3D/FormatFloat.hpp>
+
+namespace s3d
+{
+	LineString Bezier2::getLineString(const uint32 quality) const
+	{
+		return getLineString(0.0, 1.0, quality);
+	}
+
+	LineString Bezier2::getLineString(const double start, const double end, const uint32 quality) const
+	{
+		const double length = (end - start);
+		const double d = (length / (quality + 1));
+
+		LineString pts(quality + 2);
+
+		Vec2* pDst = pts.data();
+
+		for (uint32 i = 0; i <= (quality + 1); ++i)
+		{
+			*pDst++ = getPos(start + d * i);
+		}
+
+		return pts;
+	}
+
+	const Bezier2& Bezier2::draw(const ColorF& color, const uint32 quality) const
+	{
+		return draw(1.0, color, quality);
+	}
+
+	const Bezier2& Bezier2::draw(double thickness, const ColorF& color, const uint32 quality) const
+	{
+		getLineString(quality).draw(thickness, color);
+
+		return *this;
+	}
+
+	const Bezier2& Bezier2::draw(const LineStyle& style, const double thickness, const ColorF& color, const uint32 quality) const
+	{
+		getLineString(quality).draw(style, thickness, color);
+
+		return *this;
+	}
+
+	void Bezier2::_Formatter(FormatData& formatData, const Bezier2& value)
+	{
+		formatData.string.append(U"(("_sv);
+
+		formatData.string.append(ToString(value.p0.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p0.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p1.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p1.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.p2.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.p2.y, formatData.decimalPlaces.value));
+		formatData.string.append(U"))"_sv);
+	}
+}

@@ -658,6 +658,12 @@
     <Filter Include="src\Siv3D\Camera2D">
       <UniqueIdentifier>{0d5997ad-5087-4931-8a55-8ef66c9decad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Bezier2">
+      <UniqueIdentifier>{bd58ba50-5e66-424f-b7f8-df2986e28a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Bezier3">
+      <UniqueIdentifier>{a74f9353-1bfc-48c2-9e6f-c904cb73c840}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3658,6 +3664,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2D\SivCamera2D.cpp">
       <Filter>src\Siv3D\Camera2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp">
+      <Filter>src\Siv3D\Bezier3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp">
+      <Filter>src\Siv3D\Bezier2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

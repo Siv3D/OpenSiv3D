@@ -747,6 +747,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\CAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\SivAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\SivBigInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\SivBinaryReader.cpp" />
