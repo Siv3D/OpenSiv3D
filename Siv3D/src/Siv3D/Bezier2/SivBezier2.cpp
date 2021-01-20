@@ -15,21 +15,23 @@
 
 namespace s3d
 {
-	LineString Bezier2::getLineString(const uint32 quality) const
+	LineString Bezier2::getLineString(const int32 quality) const
 	{
 		return getLineString(0.0, 1.0, quality);
 	}
 
-	LineString Bezier2::getLineString(const double start, const double end, const uint32 quality) const
+	LineString Bezier2::getLineString(const double start, const double end, int32 quality) const
 	{
-		const double length = (end - start);
-		const double d = (length / (quality + 1));
+		quality = Max(2, quality);
 
-		LineString pts(quality + 2);
+		const double length = (end - start);
+		const double d = (length / (quality));
+
+		LineString pts(quality + 1);
 
 		Vec2* pDst = pts.data();
 
-		for (uint32 i = 0; i <= (quality + 1); ++i)
+		for (int32 i = 0; i <= quality; ++i)
 		{
 			*pDst++ = getPos(start + d * i);
 		}
@@ -37,19 +39,19 @@ namespace s3d
 		return pts;
 	}
 
-	const Bezier2& Bezier2::draw(const ColorF& color, const uint32 quality) const
+	const Bezier2& Bezier2::draw(const ColorF& color, const int32 quality) const
 	{
 		return draw(1.0, color, quality);
 	}
 
-	const Bezier2& Bezier2::draw(double thickness, const ColorF& color, const uint32 quality) const
+	const Bezier2& Bezier2::draw(double thickness, const ColorF& color, const int32 quality) const
 	{
 		getLineString(quality).draw(thickness, color);
 
 		return *this;
 	}
 
-	const Bezier2& Bezier2::draw(const LineStyle& style, const double thickness, const ColorF& color, const uint32 quality) const
+	const Bezier2& Bezier2::draw(const LineStyle& style, const double thickness, const ColorF& color, const int32 quality) const
 	{
 		getLineString(quality).draw(style, thickness, color);
 

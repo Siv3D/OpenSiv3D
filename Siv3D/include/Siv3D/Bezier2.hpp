@@ -37,10 +37,10 @@ namespace s3d
 		Vec2 getTangent(double t) const noexcept;
 
 		[[nodiscard]]
-		LineString getLineString(const uint32 quality = 24) const;
+		LineString getLineString(const int32 quality = 24) const;
 
 		[[nodiscard]]
-		LineString getLineString(double start, double end, uint32 quality = 24) const;
+		LineString getLineString(double start, double end, int32 quality = 24) const;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
@@ -61,11 +61,11 @@ namespace s3d
 
 		//const Bezier2& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
 
-		const Bezier2& draw(const ColorF& color = Palette::White, uint32 quality = 24) const;
+		const Bezier2& draw(const ColorF& color = Palette::White, int32 quality = 24) const;
 
-		const Bezier2& draw(double thickness, const ColorF& color = Palette::White, uint32 quality = 24) const;
+		const Bezier2& draw(double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
 
-		const Bezier2& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, uint32 quality = 24) const;
+		const Bezier2& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, int32 quality = 24) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Bezier2& value)
