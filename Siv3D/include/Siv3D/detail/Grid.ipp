@@ -94,22 +94,22 @@ namespace s3d
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, Arg::generator_<Fty> generator)
-		: Grid(Generate(w, h, generator)) {}
+		: Grid(Generate(w, h, *generator)) {}
 
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
 	inline Grid<Type, Allocator>::Grid(const Size size, Arg::generator_<Fty> generator)
-		: Grid(Generate(size, generator)) {}
+		: Grid(Generate(size, *generator)) {}
 
 	template <class Type, class Allocator>
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>*>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>*>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, Arg::indexedGenerator_<Fty> indexedGenerator)
-		: Grid(IndexedGenerate(w, h, indexedGenerator)) {}
+		: Grid(IndexedGenerate(w, h, *indexedGenerator)) {}
 
 	template <class Type, class Allocator>
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>*>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>*>
 	inline Grid<Type, Allocator>::Grid(const Size size, Arg::indexedGenerator_<Fty> indexedGenerator)
-		: Grid(IndexedGenerate(size, indexedGenerator)) {}
+		: Grid(IndexedGenerate(size, *indexedGenerator)) {}
 
 	template <class Type, class Allocator>
 	inline void Grid<Type, Allocator>::swap(Grid& other) noexcept
@@ -646,13 +646,199 @@ namespace s3d
 		resize(size.x, size.y, value);
 	}
 
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline bool Grid<Type, Allocator>::all(Fty f) const
+	{
+		return std::all_of(begin(), end(), f);
+	}
 
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline bool Grid<Type, Allocator>::any(Fty f) const
+	{
+		return std::any_of(begin(), end(), f);
+	}
 
+	template <class Type, class Allocator>
+	inline typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::choice()
+	{
+		return choice(GetDefaultRNG());
+	}
 
+	template <class Type, class Allocator>
+	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::choice() const
+	{
+		return choice(GetDefaultRNG());
+	}
 
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_URBG_
+	inline typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::choice(URBG&& rbg)
+	{
+		if (empty())
+		{
+			throw std::out_of_range("Grid::choice(): Grid is empty");
+		}
 
+		const size_t index = UniformIntDistribution<size_t>(0, size() - 1)(rbg);
 
+		return operator[](index);
+	}
 
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_URBG_
+	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::choice(URBG&& rbg) const
+	{
+		if (empty())
+		{
+			throw std::out_of_range("Grid::choice(): Grid is empty");
+		}
+
+		const size_t index = UniformIntDistribution<size_t>(0, size() - 1)(rbg);
+
+		return operator[](index);
+	}
+
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_INTEGRAL_
+	inline Array<Type> Grid<Type, Allocator>::choice(const Int n) const
+	{
+		return choice(n, GetDefaultRNG());
+	}
+
+	template <class Type, class Allocator>
+# if __cpp_lib_concepts
+	template <Concept::Integral Size_t, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Size_t, class URBG, std::enable_if_t<std::is_integral_v<Size_t>>*,
+		std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
+# endif
+	inline Array<Type> Grid<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
+	{
+		Array result(Arg::reserve = Min(n, size()));
+
+		std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
+
+		return result;
+	}
+
+	template <class Type, class Allocator>
+	inline size_t Grid<Type, Allocator>::count(const value_type& value) const
+	{
+		return std::count(begin(), end(), value);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline size_t Grid<Type, Allocator>::count_if(Fty f) const
+	{
+		return std::count_if(begin(), end(), f);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::each(Fty f)
+	{
+		for (auto& v : m_data)
+		{
+			f(v);
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
+	inline const Grid<Type, Allocator>& Grid<Type, Allocator>::each(Fty f) const
+	{
+		for (const auto& v : m_data)
+		{
+			f(v);
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type&>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::each_index(Fty f)
+	{
+		pointer p = m_data.data();
+
+		for (size_t y = 0; y < m_height; ++y)
+		{
+			for (size_t x = 0; x < m_width; ++x)
+			{
+				f(Point{ x, y }, *p++);
+			}
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type>>*>
+	inline const Grid<Type, Allocator>& Grid<Type, Allocator>::each_index(Fty f) const
+	{
+		const_pointer p = m_data.data();
+
+		for (size_t y = 0; y < m_height; ++y)
+		{
+			for (size_t x = 0; x < m_width; ++x)
+			{
+				f(Point{ x, y }, *p++);
+			}
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::fetch(const size_type y, const size_type x, const value_type& defaultValue) const
+	{
+		if (not inBounds(y, x))
+		{
+			return defaultValue;
+		}
+
+		return m_data[y * m_width + x];
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::fetch(const Point pos, const value_type& defaultValue) const
+	{
+		return fetch(pos.y, pos.x, defaultValue);
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::fill(const value_type& value)
+	{
+		std::fill(begin(), end(), value);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline bool Grid<Type, Allocator>::includes(const value_type& value) const
+	{
+		for (const auto& v : m_data)
+		{
+			if (v == value)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline bool Grid<Type, Allocator>::includes_if(Fty f) const
+	{
+		return any(f);
+	}
 
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
@@ -670,7 +856,68 @@ namespace s3d
 		return Grid<ResultType>(m_width, m_height, std::move(new_grid));
 	}
 
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline bool Grid<Type, Allocator>::none(Fty f) const
+	{
+		return std::none_of(begin(), end(), f);
+	}
 
+
+
+
+
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::Generate(const size_type w, const size_type h, Fty generator)
+	{
+		Grid new_grid;
+		new_grid.m_data.reserve(w * h);
+		new_grid.m_width	= w;
+		new_grid.m_height	= h;
+
+		for (size_type i = 0; i < (w * h); ++i)
+		{
+			new_grid.m_data.push_back(generator());
+		}
+
+		return new_grid;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::Generate(const Size size, Fty generator)
+	{
+		return Generate(size.x, size.y, generator);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::IndexedGenerate(const size_type w, const size_type h, Fty generator)
+	{
+		Grid new_grid;
+		new_grid.m_data.reserve(w * h);
+		new_grid.m_width	= w;
+		new_grid.m_height	= h;
+
+		for (size_t y = 0; y < h; ++y)
+		{
+			for (size_t x = 0; x < w; ++x)
+			{
+				new_grid.m_data.push_back(generator(Point{ x, y }));
+			}
+		}
+
+		return new_grid;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::IndexedGenerate(const Size size, Fty generator)
+	{
+		return Generate(size.x, size.y, generator);
+	}
 
 	template <class Type, class Allocator>
 	inline void swap(Grid<Type, Allocator>& a, Grid<Type, Allocator>& b) noexcept

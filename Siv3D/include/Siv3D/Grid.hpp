@@ -88,11 +88,11 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Grid(Size size, Arg::generator_<Fty> generator);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
 		Grid(size_type w, size_type h, Arg::indexedGenerator_<Fty> indexedGenerator);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
 		Grid(Size size, Arg::indexedGenerator_<Fty> indexedGenerator);
 
@@ -555,19 +555,19 @@ namespace s3d
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		[[nodiscard]]
-		static Grid Generate(size_type w, size_type h, Arg::generator_<Fty> generator);
+		static Grid Generate(size_type w, size_type h, Fty generator);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		[[nodiscard]]
-		static Grid Generate(Size size, Arg::generator_<Fty> generator);
+		static Grid Generate(Size size, Fty generator);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
 		[[nodiscard]]
-		static Grid IndexedGenerate(size_type w, size_type h, Arg::indexedGenerator_<Fty> indexedGenerator);
+		static Grid IndexedGenerate(size_type w, size_type h, Fty indexedGenerator);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>* = nullptr>
 		[[nodiscard]]
-		static Grid IndexedGenerate(Size size, Arg::indexedGenerator_<Fty> indexedGenerator);
+		static Grid IndexedGenerate(Size size, Fty indexedGenerator);
 
 	private:
 
