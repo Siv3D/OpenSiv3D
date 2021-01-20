@@ -54,7 +54,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Point(IntegerX _x, IntegerY _y) noexcept;
 
-		template <class X, class Y, std::enable_if_t<!std::is_integral_v<X> || !std::is_integral_v<Y>>* = nullptr>
+		template <class X, class Y, std::enable_if_t<(not std::is_integral_v<X>) || (not std::is_integral_v<Y>)>* = nullptr>
 		constexpr Point(X _x, Y _y) noexcept = delete;
 
 		[[nodiscard]]

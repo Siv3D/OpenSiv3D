@@ -18,13 +18,13 @@ namespace s3d
 {
 	namespace FastMath
 	{
-		/// @brief sin, cos の近似を高速に計算します。
+		/// @brief sin, cos を高速に近似計算します。
 		/// @param angleRadians ラジアン角
 		/// @return sin, cos の近似結果
 		[[nodiscard]]
 		inline constexpr std::pair<float, float> SinCos(float angleRadians) noexcept;
 
-		/// @brief sin, cos の近似を高速に計算します。
+		/// @brief sin, cos を高速に近似計算します。
 		/// @param angleRadians ラジアン角
 		/// @return sin, cos の近似結果
 		[[nodiscard]]
@@ -32,12 +32,22 @@ namespace s3d
 
 	# if __cpp_lib_bit_cast
 
+		/// @brief 逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @return 逆平方根の近似結果
 		[[nodiscard]]
 		inline constexpr float InvSqrt(float x) noexcept;
 
+		/// @brief 逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @return 逆平方根の近似結果
 		[[nodiscard]]
 		inline constexpr double InvSqrt(double x) noexcept;
 
+		/// @brief 精度の高い逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @remark `FastMath::InvSqrt()` よりもコストがかかりますが、結果の精度が向上します
+		/// @return 逆平方根の近似結果
 		[[nodiscard]]
 		inline constexpr double InvSqrtQuality(double x) noexcept;
 

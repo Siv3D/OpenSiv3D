@@ -464,14 +464,14 @@ namespace s3d
 		[[nodiscard]]
 		auto sum() const;
 
-		template <class T = Type, std::enable_if_t<!Meta::HasPlus_v<T>>* = nullptr>
+		template <class T = Type, std::enable_if_t<not Meta::HasPlus_v<T>>* = nullptr>
 		void sum() const = delete;
 
 		template <class T = Type, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
 		[[nodiscard]]
 		auto sumF() const;
 
-		template <class T = Type, std::enable_if_t<!std::is_floating_point_v<T>>* = nullptr>
+		template <class T = Type, std::enable_if_t<not std::is_floating_point_v<T>>* = nullptr>
 		[[nodiscard]]
 		auto sumF() const = delete;
 

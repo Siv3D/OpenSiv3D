@@ -114,7 +114,7 @@ namespace s3d
 				return std::move(formatData.string);
 			}
 
-			template <class... Args, std::enable_if_t<!FormatArgValidation<Args...>::value>* = nullptr>
+			template <class... Args, std::enable_if_t<not FormatArgValidation<Args...>::value>* = nullptr>
 			[[nodiscard]]
 			String operator ()(const Args&...) const
 			{
