@@ -33,7 +33,7 @@ Library | Version
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
-[simde](https://github.com/nemequ/simde) | v0.6.0
+[simde](https://github.com/nemequ/simde) | v0.7.0
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
