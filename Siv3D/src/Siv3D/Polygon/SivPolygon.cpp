@@ -476,6 +476,11 @@ namespace s3d
 		return points;
 	}
 
+	bool Polygon::append(const RectF& other)
+	{
+		return pImpl->append(other);
+	}
+
 	bool Polygon::append(const Polygon& other)
 	{
 		return pImpl->append(other);

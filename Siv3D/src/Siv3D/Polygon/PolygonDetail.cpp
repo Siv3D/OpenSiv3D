@@ -758,6 +758,48 @@ namespace s3d
 		return Polygon{ result, holeResults };
 	}
 
+	bool Polygon::PolygonDetail::append(const RectF& other)
+	{
+		const boost::geometry::model::box<Vec2> box{ other.pos, other.br() };
+
+		Array<CwOpenPolygon> results;
+
+		boost::geometry::union_(m_polygon, box, results);
+
+		if (results.size() != 1)
+		{
+			return false;
+		}
+
+		auto& outer = results[0].outer();
+
+		if ((2 < outer.size())
+			&& (outer.front() == outer.back()))
+		{
+			outer.pop_back();
+		}
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = results[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				holes[i].assign(resultHole.begin(), resultHole.end());
+			}
+		}
+
+		*this = PolygonDetail{ outer.data(), outer.size(), holes, SkipValidation::Yes };
+
+		return true;
+	}
+
 	bool Polygon::PolygonDetail::append(const Polygon& other)
 	{
 		Array<CwOpenPolygon> results;

@@ -90,6 +90,8 @@ namespace s3d
 
 		Polygon simplified(double maxDistance) const;
 
+		bool append(const RectF& other);
+
 		bool append(const Polygon& other);
 
 		bool intersects(const RectF& other) const;

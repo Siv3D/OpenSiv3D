@@ -159,6 +159,8 @@ namespace s3d
 		[[nodiscard]]
 		LineString outline(double distanceFromOrigin, double length) const;
 
+		bool append(const RectF& other);
+
 		bool append(const Polygon& other);
 
 		template <class Shape2DType>

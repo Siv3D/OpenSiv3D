@@ -44,8 +44,8 @@ namespace s3d
 				return false;
 			}
 
-			const auto* const pSrcBegin = points;
-			const auto* const pSrcEnd = points + size;
+			const auto* const pSrcBegin	= points;
+			const auto* const pSrcEnd	= (points + size);
 			double sum = 0.0;
 
 			// 最初の頂点 -> ... -> 最後の頂点
@@ -616,6 +616,27 @@ namespace s3d
 		//	IsClockwise
 		//
 		//////////////////////////////////////////////////
+
+		template <class PointType>
+		inline constexpr bool IsClockwise(const PointType& p0, const PointType& p1, const PointType& p2) noexcept
+		{
+			typename PointType::value_type sum = 0;
+			sum += ((p1.x - p0.x) * (p1.y + p0.y));
+			sum += ((p2.x - p1.x) * (p2.y + p1.y));
+			sum += ((p0.x - p2.x) * (p0.y + p2.y));
+			return (sum < 0);
+		}
+
+		template <class PointType>
+		inline constexpr bool IsClockwise(const PointType& p0, const PointType& p1, const PointType& p2, const PointType& p3) noexcept
+		{
+			typename PointType::value_type sum = 0;
+			sum += ((p1.x - p0.x) * (p1.y + p0.y));
+			sum += ((p2.x - p1.x) * (p2.y + p1.y));
+			sum += ((p3.x - p2.x) * (p3.y + p2.y));
+			sum += ((p0.x - p3.x) * (p0.y + p3.y));
+			return (sum < 0);
+		}
 
 		inline bool IsClockwise(const Array<Point>& points) noexcept
 		{
