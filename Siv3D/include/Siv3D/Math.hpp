@@ -299,7 +299,7 @@ namespace s3d
 		//////////////////////////////////////////////////
 
 		SIV3D_CONCEPT_ARITHMETIC
-		inline constexpr int Sign(Arithmetic x) noexcept;
+		inline constexpr int32 Sign(Arithmetic x) noexcept;
 
 		[[nodiscard]]
 		inline constexpr Float2 Sign(Float2 v) noexcept;

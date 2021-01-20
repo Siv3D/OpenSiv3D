@@ -502,27 +502,6 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat operator /(const int64 a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
-	BigFloat operator /(const uint64 a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
-	BigFloat operator /(const long double a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
 	//////////////////////////////////////////////////
 	//
 	//	compare
@@ -684,16 +663,342 @@ namespace s3d
 		return *pImpl;
 	}
 
+	namespace Math
+	{
+		BigFloat Fmod(const BigFloat& x, const BigFloat& y)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::fmod(x._detail().data, y._detail().data);
+			return result;
+		}
 
+		BigFloat Fraction(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = (x._detail().data - boost::multiprecision::floor(x._detail().data));
+			return result;
+		}
 
+		BigFloat Frexp(const BigFloat& x, int32& exp)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::frexp(x._detail().data, &exp);
+			return result;
+		}
 
+		BigFloat Ldexp(const BigFloat& x, const BigFloat& y)
+		{
+			BigFloat result;
+			result._detail().data = (x._detail().data * boost::multiprecision::pow(2, y._detail().data));
+			return result;
+		}
 
+		BigFloat Log(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::log(x._detail().data);
+			return result;
+		}
 
+		BigFloat Log2(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::log2(x._detail().data);
+			return result;
+		}
 
+		BigFloat Log10(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::log10(x._detail().data);
+			return result;
+		}
 
+		BigFloat Modf(const BigFloat& x, BigFloat& exp)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::modf(x._detail().data, &exp._detail().data);
+			return result;
+		}
 
+		BigInt Pow(const BigInt& x, const uint32 y)
+		{
+			BigInt result;
+			result._detail().data = boost::multiprecision::pow(x._detail().data, y);
+			return result;
+		}
 
+		BigFloat Pow(const BigFloat& x, const BigFloat& y)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::pow(x._detail().data, y._detail().data);
+			return result;
+		}
 
+		int32 Sign(const BigInt& x)
+		{
+			const int32 c = x.compare(0);
+
+			if (x < 0)
+			{
+				return -1;
+			}
+			else if (0 < x)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		int32 Sign(const BigFloat& x)
+		{
+			const int32 c = x.compare(0);
+
+			if (x < 0)
+			{
+				return -1;
+			}
+			else if (0 < x)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		BigFloat ToRadians(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = (x._detail().data * (boost::math::constants::pi<boost::multiprecision::cpp_dec_float_100>() / 180));
+			return result;
+		}
+
+		BigFloat ToDegrees(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = (x._detail().data * (180 / boost::math::constants::pi<boost::multiprecision::cpp_dec_float_100>()));
+			return result;
+		}
+
+		BigFloat Abs(const BigInt& x)
+		{
+			return x.abs();
+		}
+
+		BigFloat Abs(const BigFloat& x)
+		{
+			return x.abs();
+		}
+
+		BigFloat AbsDiff(const BigFloat& x, const BigFloat& y)
+		{
+			return (x - y).abs();
+		}
+
+		BigFloat Square(const BigInt& x)
+		{
+			return (x * x);
+		}
+
+		BigFloat Square(const BigFloat& x)
+		{
+			return (x * x);
+		}
+
+		BigFloat Exp(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::exp(x._detail().data);
+			return result;
+		}
+
+		BigFloat Exp2(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::exp2(x._detail().data);
+			return result;
+		}
+
+		BigFloat Rsqrt(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = (1 / boost::multiprecision::sqrt(x._detail().data));
+			return result;
+		}
+
+		BigFloat Sqrt(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sqrt(x._detail().data);
+			return result;
+		}
+
+		BigFloat Ceil(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::ceil(x._detail().data);
+			return result;
+		}
+
+		BigFloat Floor(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::floor(x._detail().data);
+			return result;
+		}
+
+		BigFloat Round(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::round(x._detail().data);
+			return result;
+		}
+
+		BigFloat Clamp(const BigFloat& x, const BigFloat& min, const BigFloat& max)
+		{
+			if (max < x)
+			{
+				return max;
+			}
+
+			if (x < min)
+			{
+				return min;
+			}
+
+			return x;
+		}
+
+		BigFloat Saturate(const BigFloat& x)
+		{
+			if (1 < x)
+			{
+				return 1;
+			}
+
+			if (x < 0)
+			{
+				return 0;
+			}
+
+			return x;
+		}
+
+		BigFloat Acos(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::acos(x._detail().data);
+			return result;
+		}
+
+		BigFloat Asin(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::asin(x._detail().data);
+			return result;
+		}
+
+		BigFloat Atan(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::atan(x._detail().data);
+			return result;
+		}
+
+		BigFloat Atan2(const BigFloat& y, const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::atan2(y._detail().data, x._detail().data);
+			return result;
+		}
+
+		BigFloat Cos(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::cos(x._detail().data);
+			return result;
+		}
+
+		BigFloat Cosh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::cosh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Sin(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sin(x._detail().data);
+			return result;
+		}
+
+		BigFloat Sinh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sinh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Tan(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::tan(x._detail().data);
+			return result;
+		}
+
+		BigFloat Tanh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::tanh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Normalize(const BigFloat& x)
+		{
+			if (x.isZero())
+			{
+				return 0;
+			}
+
+			return 1;
+		}
+
+		BigFloat Smoothstep(const BigFloat& min, const BigFloat& max, const BigFloat& x)
+		{
+			if (x <= min)
+			{
+				return 0;
+			}
+			else if (max <= x)
+			{
+				return 1;
+			}
+
+			const BigFloat t = ((x - min) / (max - min));
+
+			return (t * t * (3 - 2 * t));
+		}
+
+		BigFloat Smoothstep(const BigFloat& x)
+		{
+			if (x <= 0)
+			{
+				return 0;
+			}
+			else if (1 <= x)
+			{
+				return 1;
+			}
+
+			return (x * x * (3 - 2 * x));
+		}
+	}
 
 	inline namespace Literals
 	{

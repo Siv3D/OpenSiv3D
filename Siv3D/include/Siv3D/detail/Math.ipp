@@ -374,7 +374,7 @@ namespace s3d
 		//////////////////////////////////////////////////
 
 		SIV3D_CONCEPT_ARITHMETIC_
-		inline constexpr int Sign(const Arithmetic x) noexcept
+		inline constexpr int32 Sign(const Arithmetic x) noexcept
 		{
 			if (x < 0)
 			{

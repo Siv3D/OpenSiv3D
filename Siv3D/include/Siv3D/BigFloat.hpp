@@ -174,6 +174,13 @@ namespace s3d
 		
 		BigFloat& operator +=(const BigFloat& number);
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator +(Arithmetic a, const BigFloat& b)
+		{
+			return (b + a);
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	-
@@ -236,6 +243,13 @@ namespace s3d
 		
 		BigFloat& operator -=(const BigFloat& number);
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator -(Arithmetic a, const BigFloat& b)
+		{
+			return (-b + a);
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	*
@@ -288,6 +302,13 @@ namespace s3d
 		
 		BigFloat& operator *=(const BigFloat& number);
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator *(Arithmetic a, const BigFloat& b)
+		{
+			return (b * a);
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	/
@@ -339,6 +360,13 @@ namespace s3d
 		
 		BigFloat& operator /=(const BigFloat& number);
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator /(Arithmetic a, const BigFloat& b)
+		{
+			return BigFloat{ a } / b;
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	compare
@@ -371,6 +399,162 @@ namespace s3d
 		
 		[[nodiscard]]
 		int32 compare(const BigFloat& number) const;
+
+		//////////////////////////////////////////////////
+		//
+		//	==
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat& a, const BigFloat b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat a, const BigFloat& b)
+		{
+			return (b.compare(a) == 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	!=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator !=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) != 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator !=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator !=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) != 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	<
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator <(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) < 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) < 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) > 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	<=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator <=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) <= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) <= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) >= 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	>
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator >(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) > 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) > 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) < 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	>=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator >=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) >= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) >= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) <= 0);
+		}
 
 		//////////////////////////////////////////////////
 		//
@@ -457,220 +641,133 @@ namespace s3d
 	private:
 
 		std::unique_ptr<BigFloatDetail> pImpl;
-
-		friend BigFloat operator /(int64 a, const BigFloat& b);
-		friend BigFloat operator /(uint64 a, const BigFloat& b);
-		friend BigFloat operator /(long double a, const BigFloat& b);
 	};
-
-	/*
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator +(const Type& a, const BigFloat& b)
-	{
-		return b + a;
-	}
-
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator -(const Type& a, const BigFloat& b)
-	{
-		return -b + a;
-	}
-
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator *(const Type& a, const BigFloat& b)
-	{
-		return b * a;
-	}
-
-	SIV3D_CONCEPT_SIGNED_INTEGRAL
-	[[nodiscard]] inline BigFloat operator /(Integer a, const BigFloat& b)
-	{
-		return static_cast<int64>(a) / b;
-	}
-
-	SIV3D_CONCEPT_UNSIGNED_INTEGRAL
-	[[nodiscard]] inline BigFloat operator /(Integer a, const BigFloat& b)
-	{
-		return static_cast<uint64>(a) / b;
-	}
-
-	template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator /(Float a, const BigFloat& b)
-	{
-		return static_cast<long double>(a) / b;
-	}
-
-	[[nodiscard]] BigFloat operator /(int64 a, const BigFloat& b);
-	[[nodiscard]] BigFloat operator /(uint64 a, const BigFloat& b);
-	[[nodiscard]] BigFloat operator /(long double a, const BigFloat& b);
-
-	[[nodiscard]] inline bool operator ==(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) == 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator ==(const BigFloat& a, Number b)
-	{
-		return a.compare(b) == 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator ==(Number a, const BigFloat& b)
-	{
-		return b.compare(a) == 0;
-	}
-
-	[[nodiscard]] inline bool operator !=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) != 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator !=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) != 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator !=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) != 0;
-	}
-
-	[[nodiscard]] inline bool operator <(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) < 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <(const BigFloat& a, Number b)
-	{
-		return a.compare(b) < 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <(Number a, const BigFloat& b)
-	{
-		return b.compare(a) < 0;
-	}
-
-	[[nodiscard]] inline bool operator <=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) <= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) <= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) <= 0;
-	}
-
-	[[nodiscard]] inline bool operator >(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) > 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >(const BigFloat& a, Number b)
-	{
-		return a.compare(b) > 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >(Number a, const BigFloat& b)
-	{
-		return b.compare(a) > 0;
-	}
-
-	[[nodiscard]] inline bool operator >=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) >= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) >= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) >= 0;
-	}
 
 	namespace Math
 	{
-		[[nodiscard]] BigFloat Abs(const BigFloat& x);
+		[[nodiscard]]
+		BigFloat Fmod(const BigFloat& x, const BigFloat& y);
 
-		[[nodiscard]] BigFloat Sqrt(const BigFloat& x);
+		[[nodiscard]]
+		BigFloat Fraction(const BigFloat& x);
 
-		[[nodiscard]] BigFloat Floor(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Ceil(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Round(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Exp(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Exp2(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log2(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log10(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Cos(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Sin(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Tan(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Acos(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Asin(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Atan(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Cosh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Sinh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Tanh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Ldexp(const BigFloat& x, int64 exp);
-
-		[[nodiscard]] std::pair<BigFloat, int32> Frexp(const BigFloat& x);
-
+		[[nodiscard]]
 		BigFloat Frexp(const BigFloat& x, int32& exp);
 
-		[[nodiscard]] BigFloat Pow(const BigFloat& x, const BigFloat& y);
+		[[nodiscard]]
+		BigFloat Ldexp(const BigFloat& x, const BigFloat& y);
 
-		[[nodiscard]] BigFloat Fmod(const BigFloat& x, const BigFloat& y);
+		[[nodiscard]]
+		BigFloat Log(const BigFloat& x);
 
-		[[nodiscard]] BigFloat Atan2(const BigFloat& x, const BigFloat& y);
+		[[nodiscard]]
+		BigFloat Log2(const BigFloat& x);
 
-		[[nodiscard]] BigFloat Sign(const BigFloat& x);
+		[[nodiscard]]
+		BigFloat Log10(const BigFloat& x);
 
-		[[nodiscard]] BigFloat Radians(const BigFloat& x);
+		[[nodiscard]]
+		BigFloat Modf(const BigFloat& x, BigFloat& exp);
 
-		[[nodiscard]] BigFloat Degrees(const BigFloat& x);
+		[[nodiscard]]
+		BigInt Pow(const BigInt& x, uint32 y);
 
-		[[nodiscard]] BigFloat Square(const BigFloat& x);
+		[[nodiscard]]
+		BigFloat Pow(const BigFloat& x, const BigFloat& y);
 
-		[[nodiscard]] BigFloat Rsqrt(const BigFloat& x);
+		[[nodiscard]]
+		int32 Sign(const BigInt& x);
 
-		[[nodiscard]] BigFloat Saturate(const BigFloat& x);
+		[[nodiscard]]
+		int32 Sign(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat ToRadians(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat ToDegrees(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Abs(const BigInt& x);
+
+		[[nodiscard]]
+		BigFloat Abs(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat AbsDiff(const BigFloat& x, const BigFloat& y);
+
+		[[nodiscard]]
+		BigFloat Square(const BigInt& x);
+
+		[[nodiscard]]
+		BigFloat Square(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Exp(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Exp2(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Rsqrt(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sqrt(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Ceil(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Floor(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Round(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Clamp(const BigFloat& x, const BigFloat& min, const BigFloat& max);
+
+		[[nodiscard]]
+		BigFloat Saturate(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Acos(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Asin(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Atan(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Atan2(const BigFloat& y, const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Cos(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Cosh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sin(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sinh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Tan(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Tanh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Normalize(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Smoothstep(const BigFloat& min, const BigFloat& max, const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Smoothstep(const BigFloat& x);
 	}
-	*/
 
 	inline namespace Literals
 	{
