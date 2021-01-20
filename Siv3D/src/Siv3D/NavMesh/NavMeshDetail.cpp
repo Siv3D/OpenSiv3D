@@ -73,8 +73,14 @@ namespace s3d
 
 			rcConfig cfg
 			{
+				.width					= 0,
+				.height					= 0,
+				.tileSize				= 0,
+				.borderSize				= 0,
 				.cs						= cellSize,
 				.ch						= cellHeight,
+				.bmin					= { aabb.bmin[0], aabb.bmin[1], aabb.bmin[2] },
+				.bmax					= { aabb.bmax[0], aabb.bmax[1], aabb.bmax[2] },
 				.walkableSlopeAngle		= agentMaxSlope,
 				.walkableHeight			= static_cast<int32>(std::ceil(agentHeight / cellHeight)),
 				.walkableClimb			= static_cast<int32>(std::floor(agentMaxClimb / cellHeight)),
@@ -88,12 +94,10 @@ namespace s3d
 				.detailSampleMaxError	= cellHeight * detailSampleMaxError,
 			};
 
-			rcVcopy(cfg.bmin, aabb.bmin);
-			rcVcopy(cfg.bmax, aabb.bmax);
-			cfg.bmin[0] -= cfg.borderSize * cellSize;
-			cfg.bmin[2] -= cfg.borderSize * cellSize;
-			cfg.bmax[0] += cfg.borderSize * cellSize;
-			cfg.bmax[2] += cfg.borderSize * cellSize;
+			cfg.bmin[0] -= (cfg.borderSize * cellSize);
+			cfg.bmin[2] -= (cfg.borderSize * cellSize);
+			cfg.bmax[0] += (cfg.borderSize * cellSize);
+			cfg.bmax[2] += (cfg.borderSize * cellSize);
 
 			rcCalcGridSize(cfg.bmin, cfg.bmax, cellSize, &cfg.width, &cfg.height);
 

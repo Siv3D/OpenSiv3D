@@ -739,11 +739,11 @@ namespace s3d
 		{
 			const int32 c = x.compare(0);
 
-			if (x < 0)
+			if (c < 0)
 			{
 				return -1;
 			}
-			else if (0 < x)
+			else if (0 < c)
 			{
 				return 1;
 			}
@@ -757,11 +757,11 @@ namespace s3d
 		{
 			const int32 c = x.compare(0);
 
-			if (x < 0)
+			if (c < 0)
 			{
 				return -1;
 			}
-			else if (0 < x)
+			else if (0 < c)
 			{
 				return 1;
 			}
