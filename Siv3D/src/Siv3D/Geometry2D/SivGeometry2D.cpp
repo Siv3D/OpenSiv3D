@@ -19,6 +19,7 @@
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/strategies/strategies.hpp>
 # include <boost/geometry/algorithms/convex_hull.hpp>
@@ -26,8 +27,10 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersection.hpp>
 # include <boost/geometry/algorithms/union.hpp>
 # include <boost/geometry/algorithms/sym_difference.hpp>
+# include <boost/geometry/algorithms/distance.hpp>
 # include <boost/geometry/algorithms/discrete_frechet_distance.hpp>
 # include <boost/geometry/algorithms/discrete_hausdorff_distance.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -40,6 +43,10 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
+	using GVec2		= boost::geometry::model::d2::point_xy<double>;
+	using GSegment	= boost::geometry::model::segment<Vec2>;
+	using GBox		= boost::geometry::model::box<Vec2>;
+
 	namespace detail
 	{
 		[[nodiscard]]
@@ -247,6 +254,36 @@ namespace s3d
 				&& InOpenRange(hp.y, vp.y, vp.y + vl);
 		}
 
+		[[nodiscard]]
+		static CwOpenPolygon MakeTriangle(const Triangle& t)
+		{
+			CwOpenPolygon poly;
+
+			const Vec2* pPoints = &t.p0;
+
+			poly.outer().assign(pPoints, (pPoints + 3));
+
+			return poly;
+		}
+
+		[[nodiscard]]
+		static CwOpenPolygon MakeQuad(const Quad& q)
+		{
+			CwOpenPolygon poly;
+
+			const Vec2* pPoints = &q.p0;
+
+			poly.outer().assign(pPoints, (pPoints + 4));
+
+			return poly;
+		}
+
+		[[nodiscard]]
+		static GLineString MakeLineString(const LineString& lines)
+		{
+			return GLineString(lines.begin(), lines.end());
+		}
+
 		struct RoundRectParts
 		{
 			RectF boundingRect;
@@ -288,6 +325,48 @@ namespace s3d
 						|| circleBL.intersects(shape));
 			}
 		};
+
+		enum class RoundRectRegion
+		{
+			TL, T, TR,
+			L, C, R,
+			BL, B, BR
+		};
+
+		RoundRectRegion FindRoundRectRegion(const Vec2& p, const detail::RoundRectParts& r)
+		{
+			//top
+			if (p.y < r.circleTL.center.y)
+			{
+				if (p.x < r.circleTL.center.x)
+					return RoundRectRegion::TL;
+				else if (p.x > r.circleTR.center.x)
+					return RoundRectRegion::TR;
+				else
+					return RoundRectRegion::T;
+
+			}
+			//bottom
+			else if (p.y > r.circleBL.center.y)
+			{
+				if (p.x < r.circleTL.center.x)
+					return RoundRectRegion::BL;
+				else if (p.x > r.circleTR.center.x)
+					return RoundRectRegion::BR;
+				else
+					return RoundRectRegion::B;
+			}
+			//center
+			else
+			{
+				if (p.x < r.circleTL.center.x)
+					return RoundRectRegion::L;
+				else if (p.x > r.circleTR.center.x)
+					return RoundRectRegion::R;
+				else
+					return RoundRectRegion::C;
+			}
+		}
 
 		template <class PointType>
 		inline Polygon ConvexHull(const PointType* points, const size_t size)
@@ -2012,6 +2091,304 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	Distance
+		//
+		//////////////////////////////////////////////////
+
+		double Distance(const Point& a, const Line& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const Rect& b)
+		{
+			return Distance(Vec2{ a }, RectF{ b });
+		}
+
+		double Distance(const Point& a, const RectF& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const Circle& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const Triangle& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const Quad& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const RoundRect& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const Polygon& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Point& a, const LineString& b)
+		{
+			return Distance(Vec2{ a }, b);
+		}
+
+		double Distance(const Vec2& a, const Line& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, GSegment{ b.begin, b.end });
+		}
+
+		double Distance(const Vec2& a, const Rect& b)
+		{
+			return Distance(a, RectF{ b });
+		}
+
+		double Distance(const Vec2& a, const RectF& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, GBox{ b.pos, b.br() });
+		}
+
+		double Distance(const Vec2& a, const Triangle& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, detail::MakeTriangle(b));
+		}
+
+		double Distance(const Vec2& a, const Quad& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, detail::MakeQuad(b));
+		}
+
+		double Distance(const Vec2& a, const RoundRect& b)
+		{
+			using detail::RoundRectRegion;
+
+			switch (const auto p = detail::RoundRectParts(b); 
+				detail::FindRoundRectRegion(a, p))
+			{
+			case RoundRectRegion::TL:
+				return Distance(a, p.circleTL);
+			case RoundRectRegion::T:
+			case RoundRectRegion::B:
+				return Distance(a, p.rectB);
+			case RoundRectRegion::TR:
+				return Distance(a, p.circleTR);
+			case RoundRectRegion::L:
+			case RoundRectRegion::R:
+				return Distance(a, p.rectA);
+			case RoundRectRegion::C:
+				return 0.0;
+			case RoundRectRegion::BL:
+				return Distance(a, p.circleBL);
+			case RoundRectRegion::BR:
+			default:
+				return Distance(a, p.circleBR);
+			}
+		}
+
+		double Distance(const Vec2& a, const Polygon& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, b._detail()->getPolygon());
+		}
+
+		double Distance(const Vec2& a, const LineString& b)
+		{
+			return boost::geometry::distance(GVec2{ a.x, a.y }, detail::MakeLineString(b));
+		}
+
+		double Distance(const Line& a, const Line& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, GSegment{ b.begin, b.end });
+		}
+
+		double Distance(const Line& a, const Rect& b)
+		{
+			return Distance(a, RectF{ b });
+		}
+
+		double Distance(const Line& a, const RectF& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, GBox{ b.pos, b.br() });
+		}
+
+		double Distance(const Line& a, const Circle& b)
+		{
+			return Max(0.0, Distance(b.center, a) - b.r);
+		}
+
+		double Distance(const Line& a, const Triangle& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, detail::MakeTriangle(b));
+		}
+
+		double Distance(const Line& a, const Quad& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, detail::MakeQuad(b));
+		}
+
+		double Distance(const Line& a, const Polygon& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, b._detail()->getPolygon());
+		}
+
+		double Distance(const Line& a, const LineString& b)
+		{
+			return boost::geometry::distance(GSegment{ a.begin, a.end }, detail::MakeLineString(b));
+		}
+
+		double Distance(const Rect& a, const Rect& b)
+		{
+			return Distance(RectF{ a }, RectF{ b });
+		}
+
+		double Distance(const Rect& a, const RectF& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const Rect& a, const Circle& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const Rect& a, const Triangle& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const Rect& a, const Quad& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const Rect& a, const Polygon& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const Rect& a, const LineString& b)
+		{
+			return Distance(RectF{ a }, b);
+		}
+
+		double Distance(const RectF& a, const Rect& b)
+		{
+			return Distance(a, RectF{ b });
+		}
+
+		double Distance(const RectF& a, const RectF& b)
+		{
+			return boost::geometry::distance(GBox{ a.pos, a.br() }, GBox{ b.pos, b.br() });
+		}
+
+		double Distance(const RectF& a, const Circle& b)
+		{
+			return Max(0.0, boost::geometry::distance(GBox{ a.pos, a.br() }, GVec2{ a.x, a.y }) - b.r);
+		}
+
+		double Distance(const RectF& a, const Triangle& b)
+		{
+			return boost::geometry::distance(GBox{ a.pos, a.br() }, detail::MakeTriangle(b));
+		}
+
+		double Distance(const RectF& a, const Quad& b)
+		{
+			return boost::geometry::distance(GBox{ a.pos, a.br() }, detail::MakeQuad(b));
+		}
+
+		double Distance(const RectF& a, const Polygon& b)
+		{
+			return boost::geometry::distance(GBox{ a.pos, a.br() }, b._detail()->getPolygon());
+		}
+
+		double Distance(const RectF& a, const LineString& b)
+		{
+			return boost::geometry::distance(GBox{ a.pos, a.br() }, detail::MakeLineString(b));
+		}
+
+		double Distance(const Circle& a, const Triangle& b)
+		{
+			return Max(0.0, Distance(a.center, b) - a.r);
+		}
+
+		double Distance(const Circle& a, const Quad& b)
+		{
+			return Max(0.0, Distance(a.center, b) - a.r);
+		}
+
+		double Distance(const Circle& a, const RoundRect& b)
+		{
+			return Max(0.0, Distance(a.center, b) - a.r);
+		}
+
+		double Distance(const Circle& a, const Polygon& b)
+		{
+			return Max(0.0, Distance(a.center, b) - a.r);
+		}
+
+		double Distance(const Circle& a, const LineString& b)
+		{
+			return Max(0.0, Distance(a.center, b) - a.r);
+		}
+
+		double Distance(const Triangle& a, const Triangle& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeTriangle(b));
+		}
+
+		double Distance(const Triangle& a, const Quad& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeQuad(b));
+		}
+
+		double Distance(const Triangle& a, const Polygon& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), b._detail()->getPolygon());
+		}
+
+		double Distance(const Triangle& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeLineString(b));
+		}
+
+		double Distance(const Quad& a, const Quad& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeQuad(b));
+		}
+
+		double Distance(const Quad& a, const Polygon& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), b._detail()->getPolygon());
+		}
+
+		double Distance(const Quad& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeLineString(b));
+		}
+
+		double Distance(const Polygon& a, const Polygon& b)
+		{
+			return boost::geometry::distance(a._detail()->getPolygon(), b._detail()->getPolygon());
+		}
+
+		double Distance(const Polygon& a, const LineString& b)
+		{
+			return boost::geometry::distance(a._detail()->getPolygon(), detail::MakeLineString(b));
+		}
+
+		double Distance(const LineString& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeLineString(a), detail::MakeLineString(b));
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	BoundingRect
 		//
 		//////////////////////////////////////////////////
@@ -2113,9 +2490,7 @@ namespace s3d
 		{
 			Array<CwOpenPolygon> results;
 
-			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
-
-			boost::geometry::difference(box, b._detail()->getPolygon(), results);
+			boost::geometry::difference(GBox{ a.pos, a.br() }, b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
 		}
@@ -2124,9 +2499,7 @@ namespace s3d
 		{
 			Array<CwOpenPolygon> results;
 
-			const boost::geometry::model::box<Vec2> box{ b.pos, b.br() };
-
-			boost::geometry::difference(a._detail()->getPolygon(), box, results);
+			boost::geometry::difference(a._detail()->getPolygon(), GBox{ b.pos, b.br() }, results);
 
 			return results.map(detail::ToPolygon);
 		}
@@ -2150,9 +2523,7 @@ namespace s3d
 		{
 			Array<CwOpenPolygon> results;
 
-			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
-
-			boost::geometry::intersection(box, b._detail()->getPolygon(), results);
+			boost::geometry::intersection(GBox{ a.pos, a.br() }, b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
 		}
@@ -2181,9 +2552,7 @@ namespace s3d
 		{
 			Array<CwOpenPolygon> results;
 
-			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
-
-			boost::geometry::union_(box, b._detail()->getPolygon(), results);
+			boost::geometry::union_(GBox{ a.pos, a.br() }, b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
 		}
@@ -2212,9 +2581,7 @@ namespace s3d
 		{
 			Array<CwOpenPolygon> results;
 
-			const boost::geometry::model::box<Vec2> box{ a.pos, a.br() };
-
-			boost::geometry::sym_difference(box, b._detail()->getPolygon(), results);
+			boost::geometry::sym_difference(GBox{ a.pos, a.br() }, b._detail()->getPolygon(), results);
 
 			return results.map(detail::ToPolygon);
 		}

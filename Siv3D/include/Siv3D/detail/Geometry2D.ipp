@@ -1076,6 +1076,313 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	Distance
+		//
+		//////////////////////////////////////////////////
+
+		inline double Distance(const Point& a, const Point& b) noexcept
+		{
+			return a.distanceFrom(b);
+		}
+
+		inline double Distance(const Point& a, const Vec2& b) noexcept
+		{
+			return a.distanceFrom(b);
+		}
+
+		inline double Distance(const Vec2& a, const Point& b) noexcept
+		{
+			return a.distanceFrom(b);
+		}
+
+		inline double Distance(const Vec2& a, const Vec2& b) noexcept
+		{
+			return a.distanceFrom(b);
+		}
+
+		inline double Distance(const Vec2& a, const Circle& b) noexcept
+		{
+			return Max(0.0, a.distanceFrom(b.center) - b.r);
+		}
+
+		inline double Distance(const Line& a, const Point& b)
+		{
+			return Distance(Vec2{ b }, a);
+		}
+
+		inline double Distance(const Line& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Rect& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Rect& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Rect& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RectF& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RectF& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RectF& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const Point& b) noexcept
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const Vec2& b) noexcept
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Circle& a, const Circle& b)
+		{
+			return Max(0.0, a.center.distanceFrom(b.center) - a.r - b.r);
+		}
+
+		inline double Distance(const Triangle& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Triangle& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Triangle& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Triangle& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Triangle& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Triangle& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Quad& a, const Triangle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RoundRect& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RoundRect& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RoundRect& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Triangle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Polygon& a, const Quad& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Triangle& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Quad& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const LineString& a, const Polygon& b)
+		{
+			return Distance(b, a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	Center
+		//
+		//////////////////////////////////////////////////
+
+		inline constexpr Vec2 Center(const Point& a) noexcept
+		{
+			return a;
+		}
+
+		inline constexpr Vec2 Center(const Vec2& a) noexcept
+		{
+			return a;
+		}
+
+		inline constexpr Vec2 Center(const Line& a) noexcept
+		{
+			return a.center();
+		}
+
+		inline constexpr Vec2 Center(const Rect& a) noexcept
+		{
+			return a.center();
+		}
+
+		inline constexpr Vec2 Center(const RectF& a) noexcept
+		{
+			return a.center();
+		}
+
+		inline constexpr Vec2 Center(const Circle& a) noexcept
+		{
+			return a.center;
+		}
+
+		inline constexpr Vec2 Center(const Ellipse& a) noexcept
+		{
+			return a.center;
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	IsClockwise
 		//
 		//////////////////////////////////////////////////
