@@ -235,7 +235,7 @@ namespace s3d
 # endif
 	inline Array<Type, Allocator> Array<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
 	{
-		Array result(Arg::reserve = Min(n, size()));
+		Array result(Arg::reserve = Min<size_t>(n, size()));
 
 		std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
@@ -1102,7 +1102,7 @@ namespace s3d
 
 		for (auto index : indices)
 		{
-			if (index >= size())
+			if (size() <= index)
 			{
 				throw std::out_of_range("Array::values_at(): index out of range");
 			}

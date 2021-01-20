@@ -409,6 +409,8 @@ namespace s3d
 		[[nodiscard]]
 		Grid rotated_rows(std::ptrdiff_t count = 1)&&;
 
+		Grid& shuffle();
+
 		SIV3D_CONCEPT_URBG
 		Grid& shuffle(URBG&& rbg);
 

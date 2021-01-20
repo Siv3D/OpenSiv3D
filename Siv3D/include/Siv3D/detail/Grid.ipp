@@ -716,7 +716,7 @@ namespace s3d
 # endif
 	inline Array<Type> Grid<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
 	{
-		Array result(Arg::reserve = Min(n, size()));
+		Array<Type> result(Arg::reserve = Min<size_t>(n, size_elements()));
 
 		std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
@@ -863,10 +863,249 @@ namespace s3d
 		return std::none_of(begin(), end(), f);
 	}
 
+	template <class Type, class Allocator>
+	template <class Fty, class R>
+	inline auto Grid<Type, Allocator>::reduce(Fty f, R init) const
+	{
+		auto value = init;
 
+		for (const auto& v : m_data)
+		{
+			value = f(value, v);
+		}
 
+		return value;
+	}
 
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type, Type>>*>
+	inline auto Grid<Type, Allocator>::reduce1(Fty f) const
+	{
+		if (empty())
+		{
+			throw std::out_of_range("Grid::reduce1(): Grid is empty");
+		}
 
+		auto it = begin();
+		const auto itEnd = end();
+
+		std::invoke_result_t<Fty, value_type, value_type> value = *it++;
+
+		while (it != itEnd)
+		{
+			value = f(value, *it++);
+		}
+
+		return value;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::replace(const value_type& oldValue, const value_type& newValue)
+	{
+		m_data.replace(oldValue, newValue);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::replaced(const value_type& oldValue, const value_type& newValue) const&
+	{
+		Grid new_grid;
+		new_grid.m_data		= m_data.replaced(oldValue, newValue);
+		new_grid.m_width	= m_width;
+		new_grid.m_height	= m_height;
+		return new_grid;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::replaced(const value_type& oldValue, const value_type& newValue)&&
+	{
+		replace(oldValue, newValue);
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::replace_if(Fty f, const value_type& newValue)
+	{
+		for (auto& v : m_data)
+		{
+			if (f(v))
+			{
+				v = newValue;
+			}
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::replaced_if(Fty f, const value_type& newValue) const&
+	{
+		Grid new_grid;
+		new_grid.m_data		= m_data.replaced_if(f, newValue);
+		new_grid.m_width	= m_width;
+		new_grid.m_height	= m_height;
+		return new_grid;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::replaced_if(Fty f, const value_type& newValue)&&
+	{
+		replace_if(f, newValue);
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::reverse()
+	{
+		std::reverse(begin(), end());
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::reversed() const&
+	{
+		Grid new_grid;
+		new_grid.m_data.assign(rbegin(), rend());
+		new_grid.m_width	= m_width;
+		new_grid.m_height	= m_height;
+		return new_grid;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::reversed()&&
+	{
+		reverse();
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::reverse_each(Fty f)
+	{
+		for (auto it = rbegin(); it != rend(); ++it)
+		{
+			f(*it);
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
+	inline const Grid<Type, Allocator>& Grid<Type, Allocator>::reverse_each(Fty f) const
+	{
+		for (auto it = rbegin(); it != rend(); ++it)
+		{
+			f(*it);
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::rotate(const std::ptrdiff_t count)
+	{
+		m_data.rotate(count);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::rotated(const std::ptrdiff_t count) const&
+	{
+		return Grid(*this).rotate(count);
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::rotated(const std::ptrdiff_t count)&&
+	{
+		rotate(count);
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::shuffle()
+	{
+		return shuffle(GetDefaultRNG());
+	}
+
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_URBG_
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::shuffle(URBG&& rbg)
+	{
+		std::shuffle(begin(), end(), std::forward<URBG>(rbg));
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::shuffled() const&
+	{
+		return shuffled(GetDefaultRNG());
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::shuffled()&&
+	{
+		return shuffled(GetDefaultRNG());
+	}
+
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_URBG_
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::shuffled(URBG&& rbg) const&
+	{
+		return Grid(*this).shuffle(std::forward<URBG>(rbg));
+	}
+
+	template <class Type, class Allocator>
+	SIV3D_CONCEPT_URBG_
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::shuffled(URBG&& rbg)&&
+	{
+		shuffle(std::forward<URBG>(rbg));
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasPlus_v<T>>*>
+	inline auto Grid<Type, Allocator>::sum() const
+	{
+		return m_data.sum();
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<std::is_floating_point_v<T>>*>
+	inline auto Grid<Type, Allocator>::sumF() const
+	{
+		return m_data.sumF();
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type> Grid<Type, Allocator>::values_at(std::initializer_list<Point> indices) const
+	{
+		Array<Type> new_array(Arg::reserve = indices.size());
+
+		for (auto index : indices)
+		{
+			if (not inBounds(index))
+			{
+				throw std::out_of_range("Grid::values_at(): index out of range");
+			}
+
+			new_array.push_back(operator[](index));
+		}
+
+		return new_array;
+	}
 
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>*>
