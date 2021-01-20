@@ -27,7 +27,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Integral IntegerX, Concept::Integral IntegerY>
 # else
-	template <class IntegerX, class IntegerY, std::enable_if_t<std::is_integral_v<IntegerX>&& std::is_integral_v<IntegerY>>*>
+	template <class IntegerX, class IntegerY, std::enable_if_t<std::conjunction_v<std::is_integral<IntegerX>, std::is_integral<IntegerY>>>*>
 # endif
 	inline constexpr Point::Point(const IntegerX _x, const IntegerY _y) noexcept
 		: x(static_cast<value_type>(_x))

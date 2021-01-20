@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	template <class T, class U, bool isScalar = (std::is_arithmetic_v<T>&& std::is_arithmetic_v<U>)>
+	template <class T, class U, bool isScalar = std::conjunction_v<std::is_arithmetic<T>, std::is_arithmetic<U>>>
 	struct CommonVector {};
 
 	template <class T, class U>
@@ -78,6 +78,6 @@ namespace s3d
 		using type = Vec2;
 	};
 
-	template <class T, class U, bool isScalar = (std::is_arithmetic_v<T>&& std::is_arithmetic_v<U>)>
+	template <class T, class U, bool isScalar = std::conjunction_v<std::is_arithmetic<T>, std::is_arithmetic<U>>>
 	using CommonVector_t = typename CommonVector<T, U, isScalar>::type;
 }

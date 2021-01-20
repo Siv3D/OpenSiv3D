@@ -325,7 +325,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>*>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>*>
 		inline auto Pow(const T1 x, const T2 y) noexcept
 		{
 			return std::pow(x, y);
@@ -491,10 +491,10 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>*>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>*>
 		inline constexpr auto AbsDiff(const T1 x, const T2 y) noexcept
 		{
-			if constexpr (std::is_integral_v<T1> && std::is_integral_v<T2>)
+			if constexpr (std::conjunction_v<std::is_integral<T1>, std::is_integral<T2>>)
 			{
 				using U = std::make_unsigned_t<std::common_type_t<T1, T2>>;
 				return (x > y) ? (static_cast<U>(x) - static_cast<U>(y))
@@ -859,7 +859,7 @@ namespace s3d
 			return std::atan2(y, x);
 		}
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>*>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>*>
 		inline auto Atan2(const T1 y, const T2 x) noexcept
 		{
 			return std::atan2(y, x);
@@ -1146,7 +1146,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>*>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_integral<T1>, std::is_integral<T2>>>*>
 		inline constexpr auto GCD(const T1 x, const T2 y) noexcept
 		{
 			return std::gcd(x, y);
@@ -1158,7 +1158,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>*>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_integral<T1>, std::is_integral<T2>>>*>
 		inline constexpr auto LCM(const T1 x, const T2 y) noexcept
 		{
 			return std::lcm(x, y);

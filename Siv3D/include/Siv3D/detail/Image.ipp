@@ -38,12 +38,11 @@ namespace s3d
 	inline Image::Image(const size_t size, const Color color)
 		: Image(size, size, color) {}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty>
-		|| std::is_invocable_r_v<Color, Fty, Point> || std::is_invocable_r_v<Color, Fty, int32, int32>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const size_t size, Arg::generator_<Fty> generator)
 		: Image(size, size, generator) {}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty, Vec2> || std::is_invocable_r_v<Color, Fty, double, double>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image::Image(const size_t size, Arg::generator0_1_<Fty> generator)
 		: Image(size, size, generator) {}
 
@@ -54,12 +53,11 @@ namespace s3d
 	inline Image::Image(const size_t width, const size_t height, const Color color)
 		: Image(Size(width, height), color) {}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty>
-		|| std::is_invocable_r_v<Color, Fty, Point> || std::is_invocable_r_v<Color, Fty, int32, int32>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const size_t width, const size_t height, Arg::generator_<Fty> generator)
 		: Image(Size(width, height), generator) {}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty, Vec2> || std::is_invocable_r_v<Color, Fty, double, double>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image::Image(const size_t width, const size_t height, Arg::generator0_1_<Fty> generator)
 		: Image(Size(width, height), generator) {}
 
@@ -74,14 +72,13 @@ namespace s3d
 		, m_width(detail::IsValidImageSize(size) ? size.x : 0)
 		, m_height(detail::IsValidImageSize(size) ? size.y : 0) {}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty>
-		|| std::is_invocable_r_v<Color, Fty, Point> || std::is_invocable_r_v<Color, Fty, int32, int32>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const Size size, Arg::generator_<Fty> generator)
 	{
 		*this = Generate(size, generator.value());
 	}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty, Vec2> || std::is_invocable_r_v<Color, Fty, double, double>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image::Image(const Size size, Arg::generator0_1_<Fty> generator)
 	{
 		*this = Generate0_1(size, generator.value());
@@ -363,8 +360,7 @@ namespace s3d
 
 
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty>
-		|| std::is_invocable_r_v<Color, Fty, Point> || std::is_invocable_r_v<Color, Fty, int32, int32>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image Image::Generate(const Size size, Fty generator)
 	{
 		Image newImage(size);
@@ -400,7 +396,7 @@ namespace s3d
 		return newImage;
 	}
 
-	template <class Fty, std::enable_if_t<(std::is_invocable_r_v<Color, Fty, Vec2> || std::is_invocable_r_v<Color, Fty, double, double>)>*>
+	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image Image::Generate0_1(const Size size, Fty generator)
 	{
 		Image newImage(size);

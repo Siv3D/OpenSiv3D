@@ -20,7 +20,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic T, Concept::Arithmetic U>
 # else
-	template <class T, class U, std::enable_if_t<std::is_arithmetic_v<T>&& std::is_arithmetic_v<U>>* = nullptr>
+	template <class T, class U, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T>, std::is_arithmetic<U>>>* = nullptr>
 # endif
 	struct CommonFloat
 	{
@@ -33,7 +33,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic T, Concept::Arithmetic U>
 # else
-	template <class T, class U, std::enable_if_t<std::is_arithmetic_v<T>&& std::is_arithmetic_v<U>>* = nullptr>
+	template <class T, class U, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T>, std::is_arithmetic<U>>>* = nullptr>
 # endif
 	using CommonFloat_t = typename CommonFloat<T, U>::type;
 }

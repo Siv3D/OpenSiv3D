@@ -264,7 +264,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>* = nullptr>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>* = nullptr>
 		[[nodiscard]]
 		inline auto Pow(T1 x, T2 y) noexcept;
 
@@ -427,7 +427,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1>&& std::is_arithmetic_v<T2>>* = nullptr>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>* = nullptr>
 		[[nodiscard]]
 		inline constexpr auto AbsDiff(T1 x, T2 y) noexcept;
 
@@ -886,7 +886,7 @@ namespace s3d
 		[[nodiscard]]
 		inline double Atan2(double y, double x) noexcept;
 
-		template <class T1, class T2, std::enable_if_t<std::is_arithmetic_v<T1> && std::is_arithmetic_v<T2>>* = nullptr>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_arithmetic<T1>, std::is_arithmetic<T2>>>* = nullptr>
 		[[nodiscard]]
 		inline auto Atan2(T1 y, T2 x) noexcept;
 
@@ -1187,7 +1187,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>* = nullptr>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_integral<T1>, std::is_integral<T2>>>* = nullptr>
 		[[nodiscard]]
 		inline constexpr auto GCD(T1 x, T2 y) noexcept;
 
@@ -1197,7 +1197,7 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		template <class T1, class T2, std::enable_if_t<std::is_integral_v<T1> && std::is_integral_v<T2>>* = nullptr>
+		template <class T1, class T2, std::enable_if_t<std::conjunction_v<std::is_integral<T1>, std::is_integral<T2>>>* = nullptr>
 		[[nodiscard]]
 		inline constexpr auto LCM(T1 x, T2 y) noexcept;
 	}

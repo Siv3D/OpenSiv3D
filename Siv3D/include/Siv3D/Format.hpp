@@ -29,7 +29,7 @@ namespace s3d
 		/// Format_impl の内部で使用するクラス
 		/// </summary>
 		template <class T, class... TT>
-		struct FormatArgValidation<T, TT...> : std::bool_constant<!(std::is_same_v<std::decay_t<T>, char*> || std::is_same_v<std::decay_t<T>, wchar_t*>) && FormatArgValidation<TT...>::value> {};
+		struct FormatArgValidation<T, TT...> : std::bool_constant<!(std::disjunction_v<std::is_same<std::decay_t<T>, char*>, std::is_same<std::decay_t<T>, wchar_t*>>) && FormatArgValidation<TT...>::value> {};
 
 		struct FormatPlaceholder_impl
 		{

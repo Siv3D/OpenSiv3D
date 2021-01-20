@@ -35,7 +35,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic Random(const Arithmetic min, const Arithmetic max, URBG&& urbg)
@@ -70,7 +70,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic Random(const Arithmetic max, URBG&& urbg)
@@ -98,7 +98,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic RandomOpen(const Arithmetic min, const Arithmetic max, URBG&& urbg)
@@ -115,7 +115,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic RandomClosed(const Arithmetic min, const Arithmetic max, URBG&& urbg)
@@ -132,7 +132,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic RandomOpenClosed(const Arithmetic min, const Arithmetic max, URBG&& urbg)
@@ -149,7 +149,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
-	template <class Arithmetic, class URBG, std::enable_if_t<std::is_arithmetic_v<Arithmetic>&& std::is_invocable_v<URBG&>&& std::is_unsigned_v<std::invoke_result_t<URBG&>>>*>
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>*>
 # endif
 	[[nodiscard]]
 	inline Arithmetic RandomClosedOpen(const Arithmetic min, const Arithmetic max, URBG&& urbg)
