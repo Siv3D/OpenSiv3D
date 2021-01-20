@@ -15,6 +15,27 @@ namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
+		inline constexpr std::tuple<double, double, double, double> GetLRTB(const Rect& rect) noexcept
+		{
+			return{ rect.x, (rect.x + rect.w), rect.y, (rect.y + rect.h) };
+		}
+
+		[[nodiscard]]
+		inline constexpr std::tuple<double, double, double, double> GetLRTB(const RectF& rect) noexcept
+		{
+			return{ rect.x, (rect.x + rect.w), rect.y, (rect.y + rect.h) };
+		}
+
+		[[nodiscard]]
+		inline constexpr bool Contains(const Vec2& point, const double left, const double right, const double top, const double bottom) noexcept
+		{
+			return (left <= point.x)
+				&& (point.x < right)
+				&& (top <= point.y)
+				&& (point.y < bottom);
+		}
+
 		//
 		//	http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
 		//
@@ -66,6 +87,7 @@ namespace s3d
 			return (sum < 0.0);
 		}
 
+		[[nodiscard]]
 		inline constexpr double Sign(const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept
 		{
 			return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
@@ -588,6 +610,127 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		//////////////////////////////////////////////////
+		//
+		//	IntersectAt
+		//
+		//////////////////////////////////////////////////
+
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b)
+		{
+			return IntersectAt(RectF{ a }, b);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b)
+		{
+			return IntersectAt(a, RectF{ b });
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier3& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier3& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	Contains
+		//
+		//////////////////////////////////////////////////
 
 		inline constexpr bool Contains(const Rect& a, const Point& b) noexcept
 		{
@@ -599,7 +742,59 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline constexpr bool Contains(const Rect& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin)
+				&& Contains(a, b.end);
+		}
 
+		inline constexpr bool Contains(const Rect& a, const Rect& b) noexcept
+		{
+			return (a.x <= b.x)
+				&& (a.y <= b.y)
+				&& ((b.x + b.w) <= (a.x + a.w))
+				&& ((b.y + b.h) <= (a.y + a.h));
+		}
+
+		inline constexpr bool Contains(const Rect& a, const RectF& b) noexcept
+		{
+			return (a.x <= b.x)
+				&& (a.y <= b.y)
+				&& ((b.x + b.w) <= (a.x + a.w))
+				&& ((b.y + b.h) <= (a.y + a.h));
+		}
+
+		inline constexpr bool Contains(const Rect& a, const Circle& b) noexcept
+		{
+			return RectF{ a }.stretched(-b.r).intersects(b.center);
+		}
+
+		inline constexpr bool Contains(const Rect& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.boundingRect());
+		}
+
+		inline constexpr bool Contains(const Rect& a, const Triangle& b) noexcept
+		{
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom);
+		}
+
+		inline constexpr bool Contains(const Rect& a, const Quad& b) noexcept
+		{
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom)
+				&& detail::Contains(b.p3, left, right, top, bottom);
+		}
+
+		inline constexpr bool Contains(const Rect& a, const RoundRect& b) noexcept
+		{
+			return Contains(a, b.rect);
+		}
 
 		inline constexpr bool Contains(const RectF& a, const Point& b) noexcept
 		{
@@ -607,6 +802,274 @@ namespace s3d
 		}
 
 		inline constexpr bool Contains(const RectF& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin)
+				&& Contains(a, b.end);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Rect& b) noexcept
+		{
+			return (a.x <= b.x)
+				&& (a.y <= b.y)
+				&& ((b.x + b.w) <= (a.x + a.w))
+				&& ((b.y + b.h) <= (a.y + a.h));
+		}
+
+		inline constexpr bool Contains(const RectF& a, const RectF& b) noexcept
+		{
+			return (a.x <= b.x)
+				&& (a.y <= b.y)
+				&& ((b.x + b.w) <= (a.x + a.w))
+				&& ((b.y + b.h) <= (a.y + a.h));
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Circle& b) noexcept
+		{
+			return a.stretched(-b.r).intersects(b.center);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.boundingRect());
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Triangle& b) noexcept
+		{
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const Quad& b) noexcept
+		{
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom)
+				&& detail::Contains(b.p3, left, right, top, bottom);
+		}
+
+		inline constexpr bool Contains(const RectF& a, const RoundRect& b) noexcept
+		{
+			return Contains(a, b.rect);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin)
+				&& Contains(a, b.end);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Rect& b) noexcept
+		{
+			const double squareR = (a.r * a.r);
+			return (b.tl().distanceFromSq(a.center) <= squareR)
+				&& (b.br().distanceFromSq(a.center) <= squareR)
+				&& (b.tr().distanceFromSq(a.center) <= squareR)
+				&& (b.bl().distanceFromSq(a.center) <= squareR);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const RectF& b) noexcept
+		{
+			const double squareR = (a.r * a.r);
+			return (b.tl().distanceFromSq(a.center) <= squareR)
+				&& (b.br().distanceFromSq(a.center) <= squareR)
+				&& (b.tr().distanceFromSq(a.center) <= squareR)
+				&& (b.bl().distanceFromSq(a.center) <= squareR);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Circle& b) noexcept
+		{
+			return (b.r <= a.r)
+				&& (b.center.distanceFromSq(a.center) <= ((a.r - b.r) * (a.r - b.r)));
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.top())
+				&& Contains(a, b.bottom())
+				&& Contains(a, b.left())
+				&& Contains(a, b.right());
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Triangle& b) noexcept
+		{
+			return Contains(a, b.p0)
+				&& Contains(a, b.p1)
+				&& Contains(a, b.p2);
+		}
+
+		inline constexpr bool Contains(const Circle& a, const Quad& b) noexcept
+		{
+			return Contains(a, b.p0)
+				&& Contains(a, b.p1)
+				&& Contains(a, b.p2)
+				&& Contains(a, b.p3);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a)
+				&& Intersect(b.end, a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		inline constexpr bool Contains(const Ellipse& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a)
+				&& Intersect(b.p3, a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a)
+				&& Intersect(b.end, a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		inline constexpr bool Contains(const Triangle& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a)
+				&& Intersect(b.p3, a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a)
+				&& Intersect(b.end, a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a)
+				&& Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a)
+				&& Intersect(b.br(), a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		inline constexpr bool Contains(const Quad& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a)
+				&& Intersect(b.p1, a)
+				&& Intersect(b.p2, a)
+				&& Intersect(b.p3, a);
+		}
+
+		inline bool Contains(const Polygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Contains(const Polygon& a, const Vec2& b) noexcept
 		{
 			return Intersect(b, a);
 		}

@@ -800,20 +800,20 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Bezier3& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Quad& b);
@@ -827,8 +827,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -926,8 +926,8 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const Line& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Bezier2& b);
@@ -939,13 +939,13 @@ namespace s3d
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b);
 
 		[[nodiscard]]
-		Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b);
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Ellipse& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Ellipse& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const Triangle& b);
@@ -962,8 +962,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -971,8 +971,8 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Bezier2& b);
@@ -981,16 +981,16 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Bezier3& b);
 
 		[[nodiscard]]
-		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b);
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b);
 
 		[[nodiscard]]
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Ellipse& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Ellipse& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const Triangle& b);
@@ -1007,8 +1007,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -1016,23 +1016,23 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier2& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier2& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier3& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier3& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const RectF& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Circle& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Ellipse& b);
@@ -1046,14 +1046,14 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const RoundRect& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -1061,20 +1061,20 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier2& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier2& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier3& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier3& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Rect& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Rect& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Circle& b);
@@ -1097,8 +1097,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -1106,8 +1106,8 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier2& b);
@@ -1142,8 +1142,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -1256,8 +1256,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Circle& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Circle& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Ellipse& b);
@@ -1331,8 +1331,8 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier2& b);
@@ -1340,20 +1340,20 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier3& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Rect& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const RectF& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Circle& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Ellipse& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b);
+		[[nodiscard]]
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b);
 
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Quad& b);
@@ -1367,8 +1367,8 @@ namespace s3d
 		//[[nodiscard]]
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const MultiPolygon& b);
 
-		//[[nodiscard]]
-		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b);
+		[[nodiscard]]
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b);
 
 		//////////////////////////////////////////////////
 		//
@@ -1382,8 +1382,8 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Contains(const Rect& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Rect& a, const Bezier2& b) noexcept;
@@ -1391,35 +1391,35 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Rect& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const RectF& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Circle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Circle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Ellipse& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const Quad& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const RoundRect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Rect& a, const RoundRect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const Polygon& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const Rect& a, const Polygon& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Rect& a, const MultiPolygon& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Rect& a, const LineString& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const Rect& a, const LineString& b) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -1433,8 +1433,8 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Contains(const RectF& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const RectF& a, const Bezier2& b) noexcept;
@@ -1442,35 +1442,35 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const RectF& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const RectF& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Circle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Circle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Ellipse& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const Quad& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const RoundRect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const RectF& a, const RoundRect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const Polygon& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const RectF& a, const Polygon& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const RectF& a, const MultiPolygon& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const RectF& a, const LineString& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const RectF& a, const LineString& b) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -1478,14 +1478,14 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Point& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Point& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Vec2& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Circle& a, const Bezier2& b) noexcept;
@@ -1493,35 +1493,35 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Circle& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const RectF& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Circle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Circle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Ellipse& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Circle& a, const Quad& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Circle& a, const RoundRect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const Polygon& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const Circle& a, const Polygon& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Circle& a, const MultiPolygon& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Circle& a, const LineString& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const Circle& a, const LineString& b) noexcept;
 
 		//////////////////////////////////////////////////
 		//
@@ -1529,14 +1529,14 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Point& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Point& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Vec2& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Ellipse& a, const Bezier2& b) noexcept;
@@ -1544,11 +1544,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Ellipse& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const RectF& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Ellipse& a, const Circle& b) noexcept;
@@ -1556,11 +1556,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Ellipse& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Ellipse& a, const Quad& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Ellipse& a, const RoundRect& b) noexcept;
@@ -1580,14 +1580,14 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Point& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Point& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Vec2& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Triangle& a, const Bezier2& b) noexcept;
@@ -1595,11 +1595,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Triangle& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const RectF& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Triangle& a, const Circle& b) noexcept;
@@ -1607,11 +1607,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Triangle& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Triangle& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Triangle& a, const Quad& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Triangle& a, const RoundRect& b) noexcept;
@@ -1632,13 +1632,13 @@ namespace s3d
 		//////////////////////////////////////////////////
 
 		[[nodiscard]]
-		bool Contains(const Quad& a, const Point& b) noexcept;
+		inline constexpr bool Contains(const Quad& a, const Point& b) noexcept;
 		
 		[[nodiscard]]
-		bool Contains(const Quad& a, const Vec2& b) noexcept;
+		inline constexpr bool Contains(const Quad& a, const Vec2& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Quad& a, const Line& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Quad& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Quad& a, const Bezier2& b) noexcept;
@@ -1646,11 +1646,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Quad& a, const Bezier3& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Quad& a, const Rect& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Quad& a, const Rect& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Quad& a, const RectF& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Quad& a, const RectF& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Quad& a, const Circle& b) noexcept;
@@ -1658,11 +1658,11 @@ namespace s3d
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Quad& a, const Ellipse& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Quad& a, const Triangle& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Quad& a, const Triangle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Quad& a, const Quad& b) noexcept;
+		[[nodiscard]]
+		inline constexpr bool Contains(const Quad& a, const Quad& b) noexcept;
 
 		//[[nodiscard]]
 		//inline constexpr bool Contains(const Quad& a, const RoundRect& b) noexcept;
@@ -1733,50 +1733,50 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Point& b) noexcept;
+		[[nodiscard]]
+		inline bool Contains(const Polygon& a, const Point& b) noexcept;
+
+		[[nodiscard]]
+		inline bool Contains(const Polygon& a, const Vec2& b) noexcept;
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Vec2& b) noexcept;
+		//inline bool Contains(const Polygon& a, const Line& b) noexcept;
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Line& b) noexcept;
+		//inline bool Contains(const Polygon& a, const Bezier2& b) noexcept;
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Bezier2& b) noexcept;
+		//inline bool Contains(const Polygon& a, const Bezier3& b) noexcept;
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const Rect& b);
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const RectF& b);
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const Circle& b) noexcept;
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Bezier3& b) noexcept;
+		//inline bool Contains(const Polygon& a, const Ellipse& b) noexcept;
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const Triangle& b);
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const Quad& b);
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Rect& b) noexcept;
+		//inline bool Contains(const Polygon& a, const RoundRect& b) noexcept;
+
+		[[nodiscard]]
+		bool Contains(const Polygon& a, const Polygon& b);
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const RectF& b) noexcept;
+		//inline bool Contains(const Polygon& a, const MultiPolygon& b) noexcept;
 
 		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Circle& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Ellipse& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Triangle& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Quad& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const RoundRect& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const Polygon& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const MultiPolygon& b) noexcept;
-
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Polygon& a, const LineString& b) noexcept;
+		//inline bool Contains(const Polygon& a, const LineString& b) noexcept;
 
 		//////////////////////////////////////////////////
 		//

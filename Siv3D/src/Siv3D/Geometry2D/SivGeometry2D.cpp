@@ -201,6 +201,52 @@ namespace s3d
 			return{ minX, minY, (maxX - minX), (maxY - minY) };
 		}
 
+		[[nodiscard]]
+		static Array<Vec2> RemoveDuplication(Array<Vec2> points)
+		{
+			if (points.size() >= 2)
+			{
+				for (auto it = points.begin();;)
+				{
+					if ((it + 1) == points.end())
+					{
+						break;
+					}
+
+					if (*it == *(it + 1))
+					{
+						it = points.erase(it);
+					}
+					else
+					{
+						++it;
+					}
+				}
+
+				if (points.size() >= 2
+					&& (points.front() == points.back()))
+				{
+					points.pop_back();
+				}
+			}
+
+			return points;
+		}
+
+		[[nodiscard]]
+		inline constexpr bool AxisAlignedLineIntersect(const Point& vp, int32 vl, const Point& hp, int32 hl)
+		{
+			return InOpenRange(vp.x, hp.x, hp.x + hl)
+				&& InOpenRange(hp.y, vp.y, vp.y + vl);
+		}
+
+		[[nodiscard]]
+		inline constexpr bool AxisAlignedLineIntersect(const Vec2& vp, double vl, const Vec2& hp, double hl)
+		{
+			return InOpenRange(vp.x, hp.x, hp.x + hl)
+				&& InOpenRange(hp.y, vp.y, vp.y + vl);
+		}
+
 		struct RoundRectParts
 		{
 			RectF boundingRect;
@@ -1162,6 +1208,166 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b)
+		{
+			return IntersectAt(a, RectF{ b });
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b)
+		{
+			if (not a.intersects(b))
+			{
+				return none;
+			}
+
+			const Line linesB[4] = { b.top(), b.right(), b.bottom(), b.left() };
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < 4; ++i)
+			{
+				if (const auto at = a.intersectsAt(linesB[i]))
+				{
+					points.push_back(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse{ b });
+		}
+
+		//
+		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
+		//
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b)
+		{
+			const double rx = b.a;
+			const double ry = b.b;
+			const Vec2 dir(a.vector());
+			const Vec2 diff(a.begin - b.center);
+			const Vec2 mDir(dir.x / (rx * rx), dir.y / (ry * ry));
+			const Vec2 mDiff(diff.x / (rx * rx), diff.y / (ry * ry));
+
+			const double va = dir.dot(mDir);
+			const double vb = dir.dot(mDiff);
+			const double vc = diff.dot(mDiff) - 1.0;
+			double vd = vb * vb - va * vc;
+
+			const double ERRF = 1e-15;
+			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
+			if (std::abs(vd) < ZEROepsilon)
+			{
+				vd = 0;
+			}
+
+			Array<Vec2> results;
+
+			if (vd < 0)
+			{
+				return none;
+			}
+			else if (vd > 0)
+			{
+				const double root = std::sqrt(vd);
+				double t_a = (-vb - root) / va;
+				double t_b = (-vb + root) / va;
+				t_b = (t_b > 1) ? t_b - ERRF : (t_b < 0) ? t_b + ERRF : t_b;
+				t_a = (t_a > 1) ? t_a - ERRF : (t_a < 0) ? t_a + ERRF : t_a;
+
+				if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
+				{
+					if ((t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1))
+					{
+						return none;
+					}
+					else
+					{
+						return Array<Vec2>();
+					}
+				}
+				else
+				{
+					if (0 <= t_a && t_a <= 1)
+					{
+						results.emplace_back(a.begin.lerp(a.end, t_a));
+					}
+
+					if (0 <= t_b && t_b <= 1)
+					{
+						results.emplace_back(a.begin.lerp(a.end, t_b));
+					}
+				}
+			}
+			else
+			{
+				const double t = -vb / va;
+
+				if (0 <= t && t <= 1)
+				{
+					results.emplace_back(a.begin.lerp(a.end, t));
+				}
+				else
+				{
+					return none;
+				}
+			}
+
+			return results;
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Triangle& b)
+		{
+			if (Intersect(a.begin, b)
+				&& Intersect(a.end, b))
+			{
+				return Optional<Array<Vec2>>{};
+			}
+
+			bool hasIntersection = false;
+			Array<Vec2> results;
+
+			for (size_t i = 0; i < 3; ++i)
+			{
+				if (const auto point = b.side(i).intersectsAt(a))
+				{
+					hasIntersection = true;
+
+					if (IsFinite(point->x))
+					{
+						results << point.value();
+					}
+				}
+			}
+
+			if (not hasIntersection)
+			{
+				return none;
+			}
+
+			return results;
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const LineString& b)
+		{
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = a.intersectsAt(Line{ pPoints[i], pPoints[i + 1] }))
+				{
+					points.push_back(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse{ b });
@@ -1308,6 +1514,500 @@ namespace s3d
 			{
 				return none;
 			}
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b)
+		{
+			if (not Intersect(a, b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const auto add = [&](const Point& vp, int32 vl, const Point& hp, int32 hl)
+			{
+				if (detail::AxisAlignedLineIntersect(vp, vl, hp, hl))
+				{
+					points.emplace_back(vp.x, hp.y);
+				}
+			};
+
+			add(a.tl(), a.h, b.tl(), b.w); // a.left  vs. b.top
+			add(a.tl(), a.h, b.bl(), b.w); // a.left  vs. b.bottom
+			add(a.tr(), a.h, b.bl(), b.w); // a.right vs. b.bottom
+			add(a.tr(), a.h, b.tl(), b.w); // a.right vs. b.top
+
+			add(b.tl(), b.h, a.tl(), a.w); // b.left  vs. a.top
+			add(b.tl(), b.h, a.bl(), a.w); // b.left  vs. a.bottom
+			add(b.tr(), b.h, a.bl(), a.w); // b.right vs. a.bottom
+			add(b.tr(), b.h, a.tl(), a.w); // b.right vs. a.top
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b)
+		{
+			return IntersectAt(RectF{ a }, Ellipse{ b });
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Ellipse& b)
+		{
+			return IntersectAt(RectF{ a }, b);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const LineString& b)
+		{
+			return IntersectAt(RectF{ a }, b);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const RectF& b)
+		{
+			if (not Intersect(a, b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const auto add = [&](const Vec2& vp, double vl, const Vec2& hp, double hl)
+			{
+				if (detail::AxisAlignedLineIntersect(vp, vl, hp, hl))
+				{
+					points.emplace_back(vp.x, hp.y);
+				}
+			};
+
+			add(a.tl(), a.h, b.tl(), b.w); // a.left  vs. b.top
+			add(a.tl(), a.h, b.bl(), b.w); // a.left  vs. b.bottom
+			add(a.tr(), a.h, b.bl(), b.w); // a.right vs. b.bottom
+			add(a.tr(), a.h, b.tl(), b.w); // a.right vs. b.top
+
+			add(b.tl(), b.h, a.tl(), a.w); // b.left  vs. a.top
+			add(b.tl(), b.h, a.bl(), a.w); // b.left  vs. a.bottom
+			add(b.tr(), b.h, a.bl(), a.w); // b.right vs. a.bottom
+			add(b.tr(), b.h, a.tl(), a.w); // b.right vs. a.top
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse{ b });
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Ellipse& b)
+		{
+			Array<Vec2> points;
+
+			const Optional<Array<Vec2>> r[4] =
+			{
+				IntersectAt(a.top(), b),
+				IntersectAt(a.right(), b),
+				IntersectAt(a.bottom(), b),
+				IntersectAt(a.left(), b),
+			};
+
+			bool hasIntersection = false;
+
+			for (const auto& intersections : r)
+			{
+				if (intersections)
+				{
+					hasIntersection = true;
+
+					points.append(intersections.value());
+				}
+			}
+
+			if (not hasIntersection)
+			{
+				return none;
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const LineString& b)
+		{
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
+					at.has_value())
+				{
+					points.append(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		//
+		//	https://stackoverflow.com/a/14146166
+		//
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Circle& b)
+		{
+			if (a == b)
+			{
+				return Array<Vec2>{};
+			}
+
+			const Vec2 ac = a.center, bc = b.center;
+			const double d = ac.distanceFrom(bc);
+
+			if (((a.r + b.r) < d)
+				|| (d < std::abs(a.r - b.r)))
+			{
+				return none;
+			}
+
+			const double tA = (a.r * a.r - b.r * b.r + d * d) / (2 * d);
+			const double tH = std::sqrt(a.r * a.r - tA * tA);
+
+			const Vec2 p = (bc - ac) / d * tA + ac;
+			const Vec2 o = (bc - ac) / d * tH;
+
+			return { {{ (p.x + o.y), (p.y - o.x) }, { (p.x - o.y), (p.y + o.x) }} };
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b)
+		{
+			bool hasIntersection = false;
+			Array<Vec2> points;
+
+			const Ellipse e{ a };
+
+			const auto& outer = b.outer();
+			const size_t num_outer = outer.size();
+
+			for (size_t i = 0; i < num_outer; ++i)
+			{
+				const Line line(outer[i], outer[(i + 1) % num_outer]);
+
+				if (const auto intersections = IntersectAt(line, e))
+				{
+					hasIntersection = true;
+
+					points.append(intersections.value());
+				}
+			}
+
+			for (const auto& inner : b.inners())
+			{
+				const size_t num_inner = inner.size();
+
+				for (size_t i = 0; i < num_inner; ++i)
+				{
+					const Line line(inner[i], inner[(i + 1) % num_inner]);
+
+					if (const auto intersections = IntersectAt(line, e))
+					{
+						hasIntersection = true;
+
+						points.append(intersections.value());
+					}
+				}
+			}
+
+			if (not hasIntersection)
+			{
+				return none;
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const LineString& b)
+		{
+			if (not a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
+					at.has_value())
+				{
+					points.append(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const LineString& b)
+		{
+			if (not a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
+					at.has_value())
+				{
+					points.append(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Triangle& a, const LineString& b)
+		{
+			if (not a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
+					at.has_value())
+				{
+					points.append(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			Array<Vec2> points;
+
+			const Vec2* pPoints = b.data();
+
+			for (size_t i = 0; i < (b.size() - 1); ++i)
+			{
+				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
+					at.has_value())
+				{
+					points.append(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	Contains
+		//
+		//////////////////////////////////////////////////
+
+		bool Contains(const Rect& a, const Polygon& b) noexcept
+		{
+			return Contains(RectF{ a }, b);
+		}
+
+		bool Contains(const Rect& a, const LineString& b) noexcept
+		{
+			return Contains(RectF{ a }, b);
+		}
+
+		bool Contains(const RectF& a, const Polygon& b) noexcept
+		{
+			if (not b
+				|| (not b.boundingRect().intersects(a)))
+			{
+				return false;
+			}
+
+			if (Contains(a, b.boundingRect()))
+			{
+				return true;
+			}
+
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+
+			for (const auto& point : b.outer())
+			{
+				if (not detail::Contains(point, left, right, top, bottom))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const RectF& a, const LineString& b) noexcept
+		{
+			const auto [left, right, top, bottom] = detail::GetLRTB(a);
+
+			for (const auto& point : b)
+			{
+				if (not detail::Contains(point, left, right, top, bottom))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Circle& a, const Polygon& b) noexcept
+		{
+			if (not b
+				|| (not b.boundingRect().intersects(b)))
+			{
+				return false;
+			}
+
+			if (Contains(a, b.boundingRect()))
+			{
+				return true;
+			}
+
+			for (const auto& point : b.outer())
+			{
+				if (not Contains(a, point))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Circle& a, const LineString& b) noexcept
+		{
+			if (not b)
+			{
+				return false;
+			}
+
+			for (const auto& point : b)
+			{
+				if (not Contains(a, point))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Polygon& a, const Rect& b)
+		{
+			return Contains(a, RectF{ b });
+		}
+
+		bool Contains(const Polygon& a, const RectF& b)
+		{
+			const Vec2 vertices[4] = { b.pos, b.pos + Vec2{ b.w, 0 }, b.pos + Vec2{ b.w, b.h }, b.pos + Vec2{ 0, b.h } };
+
+			CwOpenPolygon rect;
+
+			rect.outer().assign(std::begin(vertices), std::end(vertices));
+
+			return boost::geometry::within(rect, a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Circle& b) noexcept
+		{
+			if ((not a)
+				|| (not a.boundingRect().intersects(b)))
+			{
+				return false;
+			}
+
+			if (not Contains(a, b.center))
+			{
+				return false;
+			}
+
+			{
+				const auto& outer = a._detail()->getPolygon().outer();
+				const size_t num_outer = outer.size();
+
+				for (size_t i = 0; i < num_outer; ++i)
+				{
+					if (Line{ outer[i], outer[(i + 1) % num_outer] }.intersects(b))
+					{
+						return false;
+					}
+				}
+			}
+
+			{
+				for (const auto& inner : a._detail()->getPolygon().inners())
+				{
+					const size_t num_inner = inner.size();
+
+					for (size_t i = 0; i < num_inner; ++i)
+					{
+						if (Line{ inner[i], inner[(i + 1) % num_inner] }.intersects(b))
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Polygon& a, const Triangle& b)
+		{
+			if ((not a)
+				|| (not a.boundingRect().intersects(b)))
+			{
+				return false;
+			}
+
+			const Vec2* p = &b.p0;
+
+			return boost::geometry::within(CWOpenRing(p, p + 3), a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Quad& b)
+		{
+			if ((not a)
+				|| (not a.boundingRect().intersects(b)))
+			{
+				return false;
+			}
+
+			const Vec2* p = &b.p0;
+
+			return boost::geometry::within(CWOpenRing(p, p + 4), a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Polygon& b)
+		{
+			if ((not a)
+				|| (not b)
+				|| (not a.boundingRect().intersects(b.boundingRect())))
+			{
+				return false;
+			}
+
+			return boost::geometry::within(b._detail()->getPolygon(), a._detail()->getPolygon());
 		}
 
 		//////////////////////////////////////////////////
