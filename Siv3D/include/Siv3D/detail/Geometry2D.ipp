@@ -766,7 +766,7 @@ namespace s3d
 
 		inline constexpr bool Contains(const Rect& a, const Circle& b) noexcept
 		{
-			return RectF{ a }.stretched(-b.r).intersects(b.center);
+			return Intersect(b.center, RectF{ a }.stretched(-b.r));
 		}
 
 		inline constexpr bool Contains(const Rect& a, const Ellipse& b) noexcept
@@ -830,7 +830,7 @@ namespace s3d
 
 		inline constexpr bool Contains(const RectF& a, const Circle& b) noexcept
 		{
-			return a.stretched(-b.r).intersects(b.center);
+			return Intersect(b.center, a.stretched(-b.r));
 		}
 
 		inline constexpr bool Contains(const RectF& a, const Ellipse& b) noexcept

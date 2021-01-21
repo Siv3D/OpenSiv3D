@@ -480,11 +480,13 @@ namespace s3d
 		size_t i, total;
 		if (indices.isEmpty())
 		{
-			i = 4, total = m_vertices.size();
+			i = 4;
+			total = m_vertices.size();
 		}
 		else
 		{
-			i = 0, total = indices.size();
+			i = 0;
+			total = indices.size();
 		}
 
 		Array<Vec2> buf;

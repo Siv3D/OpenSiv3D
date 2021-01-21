@@ -684,7 +684,6 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
     bool &ok) {
 
     typedef std::array<T, 2> point_type;
-    typedef CircularElement<Node<T>> circ_elem_type;
     typedef rtree<T, 2, MAX_CHILDREN, std::array<T, 2>> tree_type;
     typedef const tree_type const_tree_type;
     typedef std::reference_wrapper<const_tree_type> tree_ref_type;
