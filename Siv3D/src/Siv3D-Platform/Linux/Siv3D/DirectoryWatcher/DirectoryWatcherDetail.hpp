@@ -10,7 +10,10 @@
 //-----------------------------------------------
 
 # pragma once
+# include <climits>
 # include <Siv3D/DirectoryWatcher.hpp>
+# include <sys/inotify.h>
+# include <boost/bimap.hpp>
 
 namespace s3d
 {
@@ -32,5 +35,30 @@ namespace s3d
 
 	private:
 
+		constexpr static size_t EventSize = sizeof(inotify_event);
+		constexpr static size_t EventBufferSize = ((EVENT_SIZE + NAME_MAX + 1) * 4096);
+		constexpr static size_t WatchMask = (IN_CREATE | IN_DELETE | IN_DELETE_SELF | IN_MODIFY | IN_MOVED_FROM | IN_MOVED_TO | IN_ONLYDIR);
+
+		Array<uint8_t> m_buffer;
+
+		std::thread m_thread;
+
+		std::atomic<bool> m_initCalled = false;
+
+		bool m_isActive = false;
+
+		std::atomic<bool> m_abort = false;
+
+		std::mutex m_changesMutex;
+		
+		Array<FileChange> m_fileChanges;	
+
+		static void watch(DirectoryWatcherDetail* watcher);
+
+		bool init();
+
+		void update();
+
+		void dispose();
 	};
 }

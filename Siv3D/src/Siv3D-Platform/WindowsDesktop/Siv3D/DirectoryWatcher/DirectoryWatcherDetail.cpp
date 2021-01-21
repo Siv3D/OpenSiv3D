@@ -126,7 +126,6 @@ namespace s3d
 		if (m_directoryHandle == INVALID_HANDLE_VALUE)
 		{
 			LOG_FAIL(U"❌ DirectoryWatcher: Failed to create a directory handle `{}`"_fmt(m_targetDirectory));
-			m_initCalled = true;
 			return false;
 		}
 
@@ -147,13 +146,11 @@ namespace s3d
 			LOG_FAIL(U"❌ DirectoryWatcher: ReadDirectoryChangesW() failed. `{}`"_fmt(m_targetDirectory));
 			::CloseHandle(m_directoryHandle);
 			m_directoryHandle = INVALID_HANDLE_VALUE;
-			m_initCalled = true;
 			return false;
 		}
 
 		LOG_INFO(U"ℹ️ DirectoryWatcher: Monitoring `{}` is activated"_fmt(m_targetDirectory));
 
-		m_initCalled = true;
 		return true;
 	}
 
@@ -219,8 +216,11 @@ namespace s3d
 	{
 		if (not watcher->init())
 		{
+			m_initCalled = true;
 			return;
 		}
+
+		m_initCalled = true;
 
 		while (not stop_token.stop_requested())
 		{
