@@ -378,8 +378,11 @@
 // リソースファイルの管理 | Resource files
 # include <Siv3D/Resource.hpp>
 
+// ファイル操作のイベント | File action
+# include <Siv3D/FileAction.hpp>
+
 // ファイルとディレクトリの変更の監視 | Directory watcher
-//# include <Siv3D/DirectoryWatcher.hpp>
+# include <Siv3D/DirectoryWatcher.hpp>
 
 // メモリ範囲への IReader インタフェース | Memory Range IReader Wrapper
 //# include <Siv3D/ReaderView.hpp>

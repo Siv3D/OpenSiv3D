@@ -667,6 +667,12 @@
     <Filter Include="src\Siv3D\RectF">
       <UniqueIdentifier>{3606ff99-3097-48bd-9c62-8c8ef4aa1970}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DirectoryWatcher">
+      <UniqueIdentifier>{e355aece-a705-4a80-b465-600a0ea5b0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher">
+      <UniqueIdentifier>{89d0a7e7-0b5f-41a5-bec3-4aef914e0e5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2667,6 +2673,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RectF.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher\DirectoryWatcherDetail.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3682,6 +3697,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RectF\SivRectF.cpp">
       <Filter>src\Siv3D\RectF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\SivDirectoryWatcher.cpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher\DirectoryWatcherDetail.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
