@@ -46,6 +46,10 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr double InvLerp(double a, double b, double value) noexcept;
 
+		template <class T, class U>
+		[[nodiscard]]
+		inline constexpr auto Map(double value, double a, double b, const T& v1, const U& v2) noexcept;
+
 		[[nodiscard]]
 		float Damp(float a, float b, float r, float dt);
 		

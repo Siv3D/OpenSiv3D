@@ -32,5 +32,11 @@ namespace s3d
 		{
 			return (value - a) / (b - a);
 		}
+
+		template <class T, class U>
+		inline constexpr auto Map(const double value, const double a, const double b, const T& v1, const U& v2) noexcept
+		{
+			return Lerp(v1, v2, InvLerp(a, b, value));
+		}
 	}
 }
