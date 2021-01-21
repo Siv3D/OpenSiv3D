@@ -41,14 +41,8 @@ namespace s3d
 
 		union
 		{
-			struct
-			{
-				/// @brief 長方形の左上の点の位置
-				position_type pos;
-
-				/// @brief 長方形のサイズ
-				size_type size;
-			};
+			/// @brief 長方形の左上の点の位置
+			position_type pos;
 
 			struct
 			{
@@ -57,7 +51,16 @@ namespace s3d
 
 				/// @brief 長方形の左上の点の Y 座標
 				value_type y;
+			};
+		};
 
+		union
+		{
+			/// @brief 長方形のサイズ
+			size_type size;
+
+			struct
+			{
 				/// @brief 長方形の幅
 				value_type w;
 
