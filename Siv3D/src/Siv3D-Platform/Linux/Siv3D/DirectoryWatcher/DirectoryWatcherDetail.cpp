@@ -145,7 +145,7 @@ namespace s3d
 			m_watched_directories.insert(bimap_value_t(wd, *itr));
 		}
 
-		LOG_INFO(U"ℹ️ DirectoryWatcher: Monitoring `{}` is deactivated"_fmt(m_targetDirectory));
+		LOG_INFO(U"ℹ️ DirectoryWatcher: Monitoring `{}` is activated"_fmt(m_targetDirectory));
 
 		return true;
 	}
@@ -180,7 +180,7 @@ namespace s3d
 			event = (struct inotify_event*)&m_buffer[i];
 
 			FilePath current_path, event_path;
-			FileAction action;
+			FileAction action = FileAction::Unknown;
 
 			if (event->wd == -1 || event->mask & IN_Q_OVERFLOW)
 			{
@@ -192,7 +192,7 @@ namespace s3d
 				event_path = m_watched_directories.left.at(event->wd) + Unicode::Widen(event->name);
 				action = FileAction::Modified;
 
-				LOG_INFO(U"ℹ️ DirectoryWatcher: file modified. `{}`"_fmt(event_path));
+				//LOG_INFO(U"ℹ️ DirectoryWatcher: file modified. `{}`"_fmt(event_path));
 			}
 			else if (event->mask & IN_CREATE || event->mask & IN_MOVED_TO)
 			{

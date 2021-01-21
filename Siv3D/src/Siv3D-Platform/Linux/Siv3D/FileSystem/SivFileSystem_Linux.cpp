@@ -28,7 +28,7 @@ namespace s3d
 		[[nodiscard]]
 		static fs::path ToPath(const FilePathView path)
 		{
-			return fs::path(path.toWstr());
+			return fs::path(path.toUTF8());
 		}
 
 		[[nodiscard]]
@@ -320,7 +320,7 @@ namespace s3d
 
 			if (S_ISDIR(s.st_mode))
 			{
-				return (fs::directory_iterator(fs::path(path.toWstr())) == fs::directory_iterator());
+				return (fs::directory_iterator(fs::path(path.toUTF8())) == fs::directory_iterator());
 			}
 			else
 			{
