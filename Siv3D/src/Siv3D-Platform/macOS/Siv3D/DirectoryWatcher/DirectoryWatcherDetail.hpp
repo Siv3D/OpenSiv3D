@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/DirectoryWatcher.hpp>
+# include <CoreServices/CoreServices.h>
 
 namespace s3d
 {
@@ -32,5 +33,22 @@ namespace s3d
 
 	private:
 
+		static constexpr double LatencySec = 0.25;
+		
+		bool m_isActive = false;
+		
+		FilePath m_targetDirectory;
+		
+		FSEventStreamRef m_eventStream;
+		
+		std::atomic<bool> m_abort = false;
+		
+		std::mutex m_changesMutex;
+		
+		Array<FileChange> m_fileChanges;
+		
+		static void OnChange(ConstFSEventStreamRef, void* pWatch, size_t eventCount, void* paths, const FSEventStreamEventFlags flags[], const FSEventStreamEventId[]);
+		
+		void processChanges(const size_t eventCount, void* paths, const FSEventStreamEventFlags flags[]);
 	};
 }
