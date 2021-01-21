@@ -94,10 +94,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp
   ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
   ../Siv3D/src/Siv3D/BigInt/SivBigInt.cpp
-  ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
-  ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/BinaryReader/SivBinaryReader.cpp
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
+  ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
+  ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
@@ -107,10 +107,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Console/SivConsole.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/SivConstantBuffer.cpp
+  ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
   ../Siv3D/src/Siv3D/Cursor/CCursor_Null.cpp
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
-  ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
@@ -164,6 +164,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
   ../Siv3D/src/Siv3D/NavMesh/NavMeshDetail.cpp
   ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
+  ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
+  ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
+  ../Siv3D/src/Siv3D/ParseInt/SivParseInt.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
@@ -193,6 +196,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
+  ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp
@@ -212,8 +216,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
-  ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp
+  ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/UserAction/CUserAction.cpp
   ../Siv3D/src/Siv3D/UserAction/UserActionFactory.cpp
   ../Siv3D/src/Siv3D/Vector2D/SivVector2D.cpp
