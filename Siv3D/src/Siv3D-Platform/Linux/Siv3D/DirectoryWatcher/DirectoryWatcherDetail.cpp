@@ -110,7 +110,8 @@ namespace s3d
 
 		// サブディレクトリも監視対象に追加する
 		namespace fs = std::filesystem;
-		system::error_code error_code, no_error;
+		std::error_code error_code;
+        const std::error_code no_error;
 		fs::recursive_directory_iterator end;
 		for (fs::recursive_directory_iterator itr(Unicode::Narrow(m_targetDirectory)); itr != end; itr.increment(error_code))
 		{
@@ -132,7 +133,7 @@ namespace s3d
 		// 各ディレクトリに対する watch discriptor を作成
 		for (auto itr = watched_directory_paths.cbegin(); itr != watched_directory_paths.cend(); ++itr)
 		{
-			int wd = inotify_add_watch(m_fd, Unicode::Narrow(*itr).c_str(), WATCH_MASK);
+			int wd = inotify_add_watch(m_fd, Unicode::Narrow(*itr).c_str(), WatchMask);
 
 			if (wd < 0)
 			{
@@ -166,7 +167,7 @@ namespace s3d
 		if (!FD_ISSET(m_fd, &watch_set))
 			return;
 
-		int length = read(m_fd, m_buffer.get(), EVENT_BUFFER_LENGTH);
+		int length = read(m_fd, m_buffer.data(), EventBufferSize);
 		if (length < 0)
 		{
 			LOG_FAIL(U"❌ DirectoryWatcher: read() failed. `{}`"_fmt(m_targetDirectory));
@@ -202,7 +203,7 @@ namespace s3d
 
 				if (event->mask & IN_ISDIR)
 				{
-					int wd = inotify_add_watch(m_fd, Unicode::Narrow(event_path).c_str(), WATCH_MASK);
+					int wd = inotify_add_watch(m_fd, Unicode::Narrow(event_path).c_str(), WatchMask);
 					if (wd < 0)
 					{
 						LOG_FAIL(U"❌ DirectoryWatcher: inotify_add_watch() failed. `{}`"_fmt(event_path));
@@ -277,6 +278,9 @@ namespace s3d
 			}
 		}
 
-		close(m_fd);
+        if (m_fd != -1)
+        {
+		    close(m_fd);
+        }
 	}
 }
