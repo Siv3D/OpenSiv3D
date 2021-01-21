@@ -35,15 +35,6 @@ namespace s3d
 	using Float2 = Vector2D<float>;
 	using Vec2 = Vector2D<double>;
 
-
-	//////////////////////////////////////////////////////
-	//
-	//	Rectangle.hpp
-	//
-	template <class SizeType> struct Rectangle;
-	using Rect = Rectangle<Point>;
-	using RectF = Rectangle<Vec2>;
-
 	class Image;
 
 

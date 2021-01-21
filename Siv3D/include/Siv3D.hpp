@@ -625,8 +625,11 @@
 // 線分 | Line segment
 # include <Siv3D/Line.hpp> // [Siv3D ToDo]
 
-// 長方形 | Rectangle
-# include <Siv3D/Rectangle.hpp> // [Siv3D ToDo]
+// 長方形 (int32) | Rectangle (int32)
+# include <Siv3D/Rect.hpp> // [Siv3D ToDo]
+
+// 長方形 (double) | Rectangle (double)
+# include <Siv3D/RectF.hpp> // [Siv3D ToDo]
 
 // 円 | Circle
 # include <Siv3D/Circle.hpp> // [Siv3D ToDo]

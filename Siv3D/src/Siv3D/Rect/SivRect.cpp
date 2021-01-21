@@ -36,8 +36,7 @@ namespace s3d
 		}
 	}
 
-	template <class SizeType>
-	Quad Rectangle<SizeType>::rotated(const double angle) const noexcept
+	Quad Rect::rotated(const double angle) const noexcept
 	{
 		const Vec2 cent(x + w * 0.5, y + h * 0.5);
 		const double cx = cent.x;
@@ -59,14 +58,12 @@ namespace s3d
 		return{ { x0c - y0s + cx, x0s + y0c + cy },{ x1c - y0s + cx, x1s + y0c + cy },{ x1c - y1s + cx, x1s + y1c + cy },{ x0c - y1s + cx, x0s + y1c + cy } };
 	}
 
-	template <class SizeType>
-	Quad Rectangle<SizeType>::rotatedAt(const double _x, const double _y, const double angle) const noexcept
+	Quad Rect::rotatedAt(const double _x, const double _y, const double angle) const noexcept
 	{
 		return rotatedAt({ _x, _y }, angle);
 	}
 
-	template <class SizeType>
-	Quad Rectangle<SizeType>::rotatedAt(const Vec2 _pos, const double angle) const noexcept
+	Quad Rect::rotatedAt(const Vec2 _pos, const double angle) const noexcept
 	{
 		Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
 
@@ -89,8 +86,7 @@ namespace s3d
 		return quad;
 	}
 
-	template <class SizeType>
-	Polygon Rectangle<SizeType>::rounded(double tl, double tr, double br, double bl) const noexcept
+	Polygon Rect::rounded(double tl, double tr, double br, double bl) const noexcept
 	{
 		constexpr double epsilon = 0.001;
 
@@ -225,8 +221,7 @@ namespace s3d
 		return Polygon{ vertices };
 	}
 
-	template <class SizeType>
-	LineString Rectangle<SizeType>::outline(const CloseRing closeRing) const
+	LineString Rect::outline(const CloseRing closeRing) const
 	{
 		if (closeRing)
 		{
@@ -238,8 +233,7 @@ namespace s3d
 		}
 	}
 
-	template <class SizeType>
-	LineString Rectangle<SizeType>::outline(double distanceFromOrigin, double length) const
+	LineString Rect::outline(double distanceFromOrigin, double length) const
 	{
 		if (length <= 0.0)
 		{
@@ -308,8 +302,7 @@ namespace s3d
 		return points;
 	}
 
-	template <class SizeType>
-	Polygon Rectangle<SizeType>::asPolygon() const
+	Polygon Rect::asPolygon() const
 	{
 		if ((w <= 0) || (h <= 0))
 		{
@@ -322,58 +315,49 @@ namespace s3d
 			SkipValidation::Yes };
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::leftClicked() const noexcept
+	bool Rect::leftClicked() const noexcept
 	{
 		return (MouseL.down() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::leftPressed() const noexcept
+	bool Rect::leftPressed() const noexcept
 	{
 		return (MouseL.pressed() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::leftReleased() const noexcept
+	bool Rect::leftReleased() const noexcept
 	{
 		return (MouseL.up() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::rightClicked() const noexcept
+	bool Rect::rightClicked() const noexcept
 	{
 		return (MouseR.down() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::rightPressed() const noexcept
+	bool Rect::rightPressed() const noexcept
 	{
 		return (MouseR.pressed() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::rightReleased() const noexcept
+	bool Rect::rightReleased() const noexcept
 	{
 		return (MouseR.up() && mouseOver());
 	}
 
-	template <class SizeType>
-	bool Rectangle<SizeType>::mouseOver() const noexcept
+	bool Rect::mouseOver() const noexcept
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
+	const Rect& Rect::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) }, color.toFloat4());
 
 		return *this;
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF(&colors)[4]) const
+	const Rect& Rect::draw(const ColorF(&colors)[4]) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) },
 			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
@@ -381,8 +365,7 @@ namespace s3d
 		return *this;
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	const Rect& Rect::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
 	{
 		const Float4 color0 = topColor->toFloat4();
 		const Float4 color1 = bottomColor->toFloat4();
@@ -393,8 +376,7 @@ namespace s3d
 		return *this;
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const Arg::left_<ColorF> leftColor, const Arg::right_<ColorF> rightColor) const
+	const Rect& Rect::draw(const Arg::left_<ColorF> leftColor, const Arg::right_<ColorF> rightColor) const
 	{
 		const Float4 color0 = leftColor->toFloat4();
 		const Float4 color1 = rightColor->toFloat4();
@@ -405,20 +387,17 @@ namespace s3d
 		return *this;
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double thickness, const ColorF& color) const
+	const Rect& Rect::drawFrame(const double thickness, const ColorF& color) const
 	{
 		return drawFrame((thickness * 0.5), (thickness * 0.5), color);
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double thickness, const ColorF& innerColor, const ColorF& outerColor) const
+	const Rect& Rect::drawFrame(const double thickness, const ColorF& innerColor, const ColorF& outerColor) const
 	{
 		return drawFrame((thickness * 0.5), (thickness * 0.5), innerColor, outerColor);
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
+	const Rect& Rect::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
 		const Float4 color0 = color.toFloat4();
 
@@ -430,8 +409,7 @@ namespace s3d
 		return *this;
 	}
 
-	template <class SizeType>
-	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	const Rect& Rect::drawFrame(const double innerThickness, const double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRectFrame(
 			FloatRect{ (x + innerThickness), (y + innerThickness), (x + w - innerThickness), (y + h - innerThickness) },
@@ -441,7 +419,6 @@ namespace s3d
 		return *this;
 	}
 
-	template <>
 	void Rect::_Formatter(FormatData& formatData, const Rect& value)
 	{
 		formatData.string.push_back(U'(');
@@ -454,21 +431,4 @@ namespace s3d
 		formatData.string.append(ToString(value.h));
 		formatData.string.push_back(U')');
 	}
-
-	template <>
-	void RectF::_Formatter(FormatData& formatData, const RectF& value)
-	{
-		formatData.string.push_back(U'(');
-		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
-		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
-		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.w, formatData.decimalPlaces.value));
-		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(value.h, formatData.decimalPlaces.value));
-		formatData.string.push_back(U')');
-	}
-
-	template struct Rectangle<Point>;
-	template struct Rectangle<Vec2>;
 }

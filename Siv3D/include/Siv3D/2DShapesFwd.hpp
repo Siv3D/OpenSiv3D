@@ -28,9 +28,8 @@ namespace s3d
 	struct Line;
 	struct Bezier2;
 	struct Bezier3;
-	template <class SizeType> struct Rectangle;
-	using Rect		= Rectangle<Point>;
-	using RectF		= Rectangle<Vec2>;
+	struct Rect;
+	struct RectF;
 	struct Circle;
 	struct Ellipse;
 	struct Triangle;

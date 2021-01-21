@@ -174,8 +174,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/QR/SivQR.cpp
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
-  ../Siv3D/src/Siv3D/Rectangle/SivRectangle.cpp
+  ../Siv3D/src/Siv3D/Rect/SivRect.cpp
   ../Siv3D/src/Siv3D/RectanglePacking/SivRectanglePacking.cpp
+  ../Siv3D/src/Siv3D/RectF/SivRectF.cpp
   ../Siv3D/src/Siv3D/RegExp/RegExpDetail.cpp
   ../Siv3D/src/Siv3D/RegExp/SivRegExp.cpp
   ../Siv3D/src/Siv3D/Renderer/Null/CRenderer_Null.cpp

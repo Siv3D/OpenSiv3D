@@ -241,9 +241,6 @@
     <Filter Include="src\Siv3D\Vector4D">
       <UniqueIdentifier>{9463aaa6-08f5-4352-8e6a-e08baf3b3b90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\Rectangle">
-      <UniqueIdentifier>{3ad771b7-c2b5-4292-9b3a-c4214967275b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\ApplicationOptions">
       <UniqueIdentifier>{81604d52-ad00-4e0b-89ab-7f9e1c25f0e2}</UniqueIdentifier>
     </Filter>
@@ -664,6 +661,12 @@
     <Filter Include="src\Siv3D\Bezier3">
       <UniqueIdentifier>{a74f9353-1bfc-48c2-9e6f-c904cb73c840}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Rect">
+      <UniqueIdentifier>{85543e00-4edb-4c5b-9c85-cf6bab0d05c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RectF">
+      <UniqueIdentifier>{3606ff99-3097-48bd-9c62-8c8ef4aa1970}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1015,9 +1018,6 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Scene.hpp">
@@ -2205,9 +2205,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Rectangle.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec2.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -2658,6 +2655,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapesFwd.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RectF.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Rect.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\RectF.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -2959,9 +2968,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp">
       <Filter>src\Siv3D\Vector4D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp">
-      <Filter>src\Siv3D\Rectangle</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp">
       <Filter>src\Siv3D\ApplicationOptions</Filter>
@@ -3670,6 +3676,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp">
       <Filter>src\Siv3D\Bezier2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Rect\SivRect.cpp">
+      <Filter>src\Siv3D\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RectF\SivRectF.cpp">
+      <Filter>src\Siv3D\RectF</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
