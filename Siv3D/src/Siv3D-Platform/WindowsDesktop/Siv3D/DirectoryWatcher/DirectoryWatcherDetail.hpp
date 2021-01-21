@@ -43,6 +43,10 @@ namespace s3d
 
 		std::jthread m_thread;
 
+		std::atomic<bool> m_initCalled = false;
+
+		bool m_isActive = false;
+
 		OVERLAPPED m_overlapped = {};
 
 		Array<uint8> m_buffer;

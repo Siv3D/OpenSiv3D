@@ -50,20 +50,27 @@ namespace s3d
 		m_targetDirectory = FileSystem::FullPath(directory);
 
 		m_thread = std::jthread{ DirectoryWatcherDetail::Update, this };
+
+		while (not m_initCalled)
+		{
+			::Sleep(1);
+		}
+
+		m_isActive = (m_directoryHandle != INVALID_HANDLE_VALUE);
 	}
 
 	DirectoryWatcher::DirectoryWatcherDetail::~DirectoryWatcherDetail()
 	{
-		if (m_directoryHandle == INVALID_HANDLE_VALUE)
-		{
-			return;
-		}
-
 		if (m_thread.joinable())
 		{
 			m_thread.request_stop();
 
 			m_thread.join();
+		}
+
+		if (m_directoryHandle == INVALID_HANDLE_VALUE)
+		{
+			return;
 		}
 
 		::CancelIoEx(m_directoryHandle, &m_overlapped);
@@ -76,7 +83,7 @@ namespace s3d
 
 	bool DirectoryWatcher::DirectoryWatcherDetail::isActive() const
 	{
-		return (m_directoryHandle != INVALID_HANDLE_VALUE);
+		return m_isActive;
 	}
 
 	void DirectoryWatcher::DirectoryWatcherDetail::retrieveChanges(Array<FileChange>& fileChanges)
@@ -119,7 +126,7 @@ namespace s3d
 		if (m_directoryHandle == INVALID_HANDLE_VALUE)
 		{
 			LOG_FAIL(U"❌ DirectoryWatcher: Failed to create a directory handle `{}`"_fmt(m_targetDirectory));
-
+			m_initCalled = true;
 			return false;
 		}
 
@@ -140,11 +147,13 @@ namespace s3d
 			LOG_FAIL(U"❌ DirectoryWatcher: ReadDirectoryChangesW() failed. `{}`"_fmt(m_targetDirectory));
 			::CloseHandle(m_directoryHandle);
 			m_directoryHandle = INVALID_HANDLE_VALUE;
+			m_initCalled = true;
 			return false;
 		}
 
 		LOG_INFO(U"ℹ️ DirectoryWatcher: Monitoring `{}` is activated"_fmt(m_targetDirectory));
 
+		m_initCalled = true;
 		return true;
 	}
 
