@@ -216,11 +216,11 @@ namespace s3d
 	{
 		if (not watcher->init())
 		{
-			m_initCalled = true;
+			watcher->m_initCalled = true;
 			return;
 		}
 
-		m_initCalled = true;
+		watcher->m_initCalled = true;
 
 		while (not stop_token.stop_requested())
 		{
