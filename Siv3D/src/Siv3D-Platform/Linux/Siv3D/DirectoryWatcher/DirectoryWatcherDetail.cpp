@@ -192,7 +192,7 @@ namespace s3d
 				event_path = m_watched_directories.left.at(event->wd) + Unicode::Widen(event->name);
 				action = FileAction::Modified;
 
-				LOG_DEBUG(U"ℹ️ DirectoryWatcher: file modified. `{}`"_fmt(event_path));
+				LOG_INFO(U"ℹ️ DirectoryWatcher: file modified. `{}`"_fmt(event_path));
 			}
 			else if (event->mask & IN_CREATE || event->mask & IN_MOVED_TO)
 			{
@@ -212,14 +212,14 @@ namespace s3d
 					{
 						m_watched_directories.insert(bimap_value_t(wd, event_path));
 
-						LOG_DEBUG(U"ℹ️ DirectoryWatcher: new directory. `{}`"_fmt(event_path));
+						//LOG_INFO(U"ℹ️ DirectoryWatcher: new directory. `{}`"_fmt(event_path));
 					}
 				}
 				else
 				{
 					action = FileAction::Added;
 
-					LOG_DEBUG(U"ℹ️ DirectoryWatcher: new file. `{}`"_fmt(event_path));
+					//LOG_INFO(U"ℹ️ DirectoryWatcher: new file. `{}`"_fmt(event_path));
 				}
 			}
 			else if (event->mask & IN_DELETE || event->mask & IN_MOVED_FROM)
@@ -231,13 +231,13 @@ namespace s3d
 					// この時点でevent_pathのディレクトリは存在しないのでFilesystem::FullPath()はうまく動かない
 					event_path = m_watched_directories.left.at(event->wd) + Unicode::Widen(event->name) + U'/';
 
-					LOG_DEBUG(U"ℹ️ DirectoryWatcher: directory deleted. `{}`"_fmt(event_path));
+					//LOG_INFO(U"ℹ️ DirectoryWatcher: directory deleted. `{}`"_fmt(event_path));
 				}
 				else
 				{
 					event_path = m_watched_directories.left.at(event->wd) + Unicode::Widen(event->name);
 
-					LOG_DEBUG(U"ℹ️ DirectoryWatcher: file deleted. `{}`"_fmt(event_path));
+					//LOG_INFO(U"ℹ️ DirectoryWatcher: file deleted. `{}`"_fmt(event_path));
 				}
 			}
 			else if (event->mask & IN_DELETE_SELF)
@@ -253,7 +253,7 @@ namespace s3d
 				{
 					action = FileAction::Removed;
 
-					LOG_DEBUG(U"ℹ️ DirectoryWatcher: Root directory deleted. `{}`"_fmt(m_targetDirectory));
+					//LOG_INFO(U"ℹ️ DirectoryWatcher: Root directory deleted. `{}`"_fmt(m_targetDirectory));
 				}
 				else
 					continue; // m_changesに追加しない
@@ -261,7 +261,7 @@ namespace s3d
 
 			{
 				std::lock_guard lock(m_changesMutex);
-				m_changes.emplace_back(std::move(event_path), action);
+				m_fileChanges.push_back(FileChange{ std::move(event_path), action });
 			}
 		}
 	}
