@@ -143,9 +143,15 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
+		/// @brief 別の線分 other との交点を返します。
+		/// @param other 別の線分
+		/// @return 交差しない場合は none, 交差する場合はその座標、2 つの線分が重なっている場合 (QNaN, QNaN)
 		[[nodiscard]]
 		Optional<position_type> intersectsAt(const Line& other) const;
 
+		/// @brief 別の線分 other との交点を返します。`intersectsAt()` と異なり、両者の順序が異なっても一致する結果を返します。
+		/// @param other 別の線分
+		/// @return 交差しない場合は none, 交差する場合はその座標、2 つの線分が重なっている場合 (QNaN, QNaN)
 		[[nodiscard]]
 		Optional<position_type> intersectsAtPrecise(const Line& other) const;
 
