@@ -615,7 +615,7 @@ namespace s3d
 
 	void CRenderer2D_GL4::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
-
+		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
 	}
 
 	void CRenderer2D_GL4::flush()
@@ -808,6 +808,23 @@ namespace s3d
 					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(command.index, matrix));
+					break;
+				}
+			case GL4Renderer2DCommandType::SetConstantBuffer:
+				{
+					auto& cb = m_commandManager.getConstantBuffer(command.index);
+					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
+					
+					if (cb.num_vectors)
+					{
+						const ConstantBufferDetail_GL4* cbd = dynamic_cast<const ConstantBufferDetail_GL4*>(cb.cbBase._detail());
+						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
+						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
+						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+					}
+					
+					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
 				}
 			}

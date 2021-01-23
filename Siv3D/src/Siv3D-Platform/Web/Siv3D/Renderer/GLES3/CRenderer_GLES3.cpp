@@ -89,12 +89,18 @@ namespace s3d
 		::glGetIntegerv(GL_MAJOR_VERSION, &major);
 		::glGetIntegerv(GL_MINOR_VERSION, &minor);
 
+		GLint maxUniformSize = 0, maxUniformBindings = 0;
+		::glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &maxUniformSize);
+		::glGetIntegerv(GL_MAX_UNIFORM_BUFFER_BINDINGS, &maxUniformBindings);
+
 		LOG_INFO(U"renderer: {}"_fmt(renderer));
 		LOG_INFO(U"vendor: {}"_fmt(vendor));
 		LOG_INFO(U"version: {}"_fmt(version));
 		LOG_INFO(U"glslVersion: {}"_fmt(glslVersion));
 		LOG_INFO(U"GL_MAJOR_VERSION: {}"_fmt(major));
 		LOG_INFO(U"GL_MINOR_VERSION: {}"_fmt(minor));
+		LOG_INFO(U"GL_MAX_UNIFORM_BLOCK_SIZE: {}"_fmt(maxUniformSize));
+		LOG_INFO(U"GL_MAX_UNIFORM_BUFFER_BINDINGS: {}"_fmt(maxUniformBindings));
 
 		m_backBuffer		= std::make_unique<GLES3BackBuffer>();
 		m_blendState		= std::make_unique<GLES3BlendState>();

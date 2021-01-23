@@ -73,9 +73,11 @@ namespace s3d
 		ConstantBuffer();
 
 		SIV3D_NODISCARD_CXX20
-		explicit ConstantBuffer(const Type& data);
+		ConstantBuffer(const Type& data);
 
 		~ConstantBuffer();
+
+		ConstantBuffer& operator =(const Type& data);
 
 		[[nodiscard]]
 		constexpr size_t size() const noexcept;

@@ -31,6 +31,14 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline ConstantBuffer<Type>& ConstantBuffer<Type>::operator =(const Type& data)
+	{
+		m_hasDirty = true;
+		m_wrapper->data = data;
+	 	return *this;
+	}
+
+	template <class Type>
 	inline constexpr size_t ConstantBuffer<Type>::size() const noexcept
 	{
 		return Size;
