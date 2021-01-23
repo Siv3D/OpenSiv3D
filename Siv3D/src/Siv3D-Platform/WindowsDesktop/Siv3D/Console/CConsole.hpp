@@ -25,6 +25,8 @@ namespace s3d
 
 		FILE* m_fpErr	= nullptr;
 
+		uint32 m_defaultCodePage = 0;
+
 		bool m_isOpen	= false;
 
 	public:
@@ -36,5 +38,9 @@ namespace s3d
 		void open() override;
 
 		void close() override;
+
+		void setSystemDefaultCodePage() override;
+
+		void setUTF8CodePage() override;
 	};
 }

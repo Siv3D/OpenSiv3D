@@ -100,5 +100,15 @@ namespace s3d
 		{
 			writeln(s);
 		}
+
+		void Console_impl::setSystemDefaultCodePage()
+		{
+			SIV3D_ENGINE(Console)->setSystemDefaultCodePage();
+		}
+
+		void Console_impl::setUTF8CodePage()
+		{
+			SIV3D_ENGINE(Console)->setUTF8CodePage();
+		}
 	}
 }

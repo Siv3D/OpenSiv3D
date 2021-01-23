@@ -17,7 +17,11 @@
 
 namespace s3d
 {
-	CConsole::CConsole() = default;
+	CConsole::CConsole()
+		: m_defaultCodePage(::GetConsoleOutputCP())
+	{
+		// do nothing
+	}
 
 	CConsole::~CConsole()
 	{
@@ -71,5 +75,15 @@ namespace s3d
 		}
 
 		::FreeConsole();
+	}
+
+	void CConsole::setSystemDefaultCodePage()
+	{
+		::SetConsoleOutputCP(m_defaultCodePage);
+	}
+
+	void CConsole::setUTF8CodePage()
+	{
+		::SetConsoleOutputCP(CP_UTF8);
 	}
 }

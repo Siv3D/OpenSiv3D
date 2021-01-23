@@ -33,4 +33,14 @@ namespace s3d
 	{
 		// do nothing
 	}
+
+	void CConsole::setSystemDefaultCodePage()
+	{
+		// do nothing
+	}
+
+	void CConsole::setUTF8CodePage()
+	{
+		// do nothing
+	}
 }

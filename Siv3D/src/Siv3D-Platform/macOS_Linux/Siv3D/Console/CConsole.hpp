@@ -25,5 +25,9 @@ namespace s3d
 		void open() override;
 
 		void close() override;
+
+		void setSystemDefaultCodePage() override;
+
+		void setUTF8CodePage() override;
 	};
 }
