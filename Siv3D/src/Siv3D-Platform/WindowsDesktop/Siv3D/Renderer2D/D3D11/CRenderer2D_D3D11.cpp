@@ -19,6 +19,7 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
+# include <Siv3D/ConstantBuffer/D3D11/ConstantBufferDetail_D3D11.hpp>
 
 /*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -600,6 +601,11 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_D3D11::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
+	}
+
 	void CRenderer2D_D3D11::flush()
 	{
 		ScopeGuard cleanUp = [this]()
@@ -794,6 +800,31 @@ namespace s3d
 					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(command.index, matrix));
+					break;
+				}
+			case D3D11Renderer2DCommandType::SetConstantBuffer:
+				{
+					auto& cb = m_commandManager.getConstantBuffer(command.index);
+					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
+
+					if (cb.num_vectors)
+					{
+						const ConstantBufferDetail_D3D11* cbd = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb.cbBase._detail());
+
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							m_context->VSSetConstantBuffers(cb.slot, 1, cbd->getBufferPtr());
+						}
+						else if (cb.stage == ShaderStage::Pixel)
+						{
+							m_context->PSSetConstantBuffers(cb.slot, 1, cbd->getBufferPtr());
+						}
+
+						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+					}
+
+					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
 				}
 			}

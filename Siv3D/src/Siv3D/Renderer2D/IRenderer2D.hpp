@@ -19,12 +19,13 @@
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mat3x2.hpp>
 
 namespace s3d
@@ -126,5 +127,8 @@ namespace s3d
 		virtual void setCameraTransform(const Mat3x2& matrix) = 0;
 
 		virtual float getMaxScaling() const noexcept = 0;
+
+
+		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
 	};
 }

@@ -178,6 +178,11 @@ namespace s3d
 
 		float getMaxScaling() const noexcept override;
 
+
+		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
+
+
+
 		//
 		// D3D11
 		//

@@ -875,7 +875,7 @@
 # include <Siv3D/Shader.hpp>
 
 // シェーダステージ | Shader Stage
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 
 // 定数バッファバインディング | Constant Buffer Binding
 # include <Siv3D/ConstantBufferBinding.hpp>

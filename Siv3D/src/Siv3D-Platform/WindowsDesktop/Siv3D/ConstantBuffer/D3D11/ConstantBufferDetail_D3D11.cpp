@@ -16,9 +16,9 @@
 namespace s3d
 {
 	ConstantBufferDetail_D3D11::ConstantBufferDetail_D3D11(const size_t size)
-		: m_bufferSize(size)
+		: m_bufferSize{ size }
 	{
-
+		// do nothing
 	}
 
 	bool ConstantBufferDetail_D3D11::update(const void* const data, const size_t size)

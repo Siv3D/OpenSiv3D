@@ -608,6 +608,11 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_Metal::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+
+	}
+
 	void CRenderer2D_Metal::flush(id<MTLCommandBuffer> commandBuffer)
 	{
 		ScopeGuard cleanUp = [this]()

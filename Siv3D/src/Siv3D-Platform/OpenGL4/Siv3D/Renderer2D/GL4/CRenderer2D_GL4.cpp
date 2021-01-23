@@ -613,6 +613,11 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_GL4::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+
+	}
+
 	void CRenderer2D_GL4::flush()
 	{
 		ScopeGuard cleanUp = [this]()

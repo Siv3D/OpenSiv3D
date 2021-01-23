@@ -1911,9 +1911,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\ShaderStatge.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp">
       <Filter>src\Siv3D\AssetHandleManager</Filter>
     </ClInclude>
@@ -3106,6 +3103,12 @@
       <Filter>include\ThirdParty\lua</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\LuaScript.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics2D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ShaderStage.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

@@ -56,6 +56,12 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline bool ConstantBuffer<Type>::isDirty() const noexcept
+	{
+		return m_hasDirty;
+	}
+
+	template <class Type>
 	inline bool ConstantBuffer<Type>::_update_if_dirty()
 	{
 		if (not m_hasDirty)

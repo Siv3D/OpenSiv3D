@@ -13,7 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/Shader.hpp>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>

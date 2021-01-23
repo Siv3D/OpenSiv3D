@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <cfloat>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include "GLES3SamplerState.hpp"
 
 namespace s3d

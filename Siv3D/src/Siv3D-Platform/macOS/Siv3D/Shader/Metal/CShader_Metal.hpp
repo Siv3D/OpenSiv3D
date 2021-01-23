@@ -13,7 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/Shader.hpp>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>

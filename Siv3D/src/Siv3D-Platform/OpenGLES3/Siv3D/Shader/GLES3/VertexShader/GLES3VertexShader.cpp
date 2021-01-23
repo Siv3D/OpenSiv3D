@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include "GLES3VertexShader.hpp"
 
 namespace s3d

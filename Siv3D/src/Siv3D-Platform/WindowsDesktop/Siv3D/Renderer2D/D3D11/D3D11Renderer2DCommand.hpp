@@ -19,6 +19,8 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/ShaderStage.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
@@ -82,6 +84,8 @@ namespace s3d
 		SetPS,
 
 		Transform,
+
+		SetConstantBuffer,
 	};
 
 	struct D3D11Renderer2DCommand
@@ -94,6 +98,16 @@ namespace s3d
 	struct D3D11DrawCommand
 	{
 		uint32 indexCount = 0;
+	};
+
+	struct D3D11ConstantBufferCommand
+	{
+		ShaderStage stage	= ShaderStage::Vertex;
+		uint32 slot			= 0;
+		uint32 offset		= 0;
+		uint32 num_vectors	= 0;
+		uint32 cbBaseIndex	= 0;
+		ConstantBufferBase cbBase;
 	};
 
 	class D3D11Renderer2DCommandManager
@@ -116,6 +130,8 @@ namespace s3d
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
+		Array<__m128> m_constants;
+		Array<D3D11ConstantBufferCommand> m_constantBufferCommands;
 
 		// current
 		D3D11DrawCommand m_currentDraw;
@@ -195,5 +211,9 @@ namespace s3d
 		const Mat3x2& getCombinedTransform(uint32 index) const;
 		const Mat3x2& getCurrentCombinedTransform() const;
 		float getCurrentMaxScaling() const noexcept;
+
+		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+		D3D11ConstantBufferCommand& getConstantBuffer(uint32 index);
+		const __m128* getConstantBufferPtr(uint32 offset) const;
 	};
 }

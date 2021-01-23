@@ -33,7 +33,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit ConstantBufferBase(size_t size);
 
-		[[nodiscard]]
 		bool _internal_update(const void* data, size_t size);
 
 		[[nodiscard]]
@@ -55,12 +54,18 @@ namespace s3d
 
 		static constexpr size_t _alignment = Max<size_t>(alignof(Type), 16);
 
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
+
 		struct alignas(_alignment) WrapperType
 		{
 			Type data;
 		};
 
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
 		static constexpr size_t Size		= sizeof(WrapperType);
+
+		static constexpr size_t NumVectors	= (Size / 16);
 
 		static constexpr size_t Alignment	= alignof(WrapperType);
 
@@ -83,6 +88,9 @@ namespace s3d
 
 		[[nodiscard]]
 		const Type& get() const noexcept;
+
+		[[nodiscard]]
+		bool isDirty() const noexcept;
 
 		bool _update_if_dirty();
 

@@ -14,7 +14,7 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/Shader.hpp>
-# include <Siv3D/ShaderStatge.hpp>
+# include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "VertexShader/GLES3VertexShader.hpp"

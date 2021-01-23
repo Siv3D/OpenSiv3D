@@ -1025,7 +1025,7 @@
 		2C13C85C25B8FA4A0054B968 /* CPUInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPUInfo.hpp; sourceTree = "<group>"; };
 		2C13C85D25B8FA4A0054B968 /* Memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
 		2C13C85E25B8FA4A0054B968 /* VertexShader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexShader.hpp; sourceTree = "<group>"; };
-		2C13C85F25B8FA4A0054B968 /* ShaderStatge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderStatge.hpp; sourceTree = "<group>"; };
+		2C13C85F25B8FA4A0054B968 /* ShaderStage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderStage.hpp; sourceTree = "<group>"; };
 		2C13C86025B8FA4A0054B968 /* Spline2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Spline2D.hpp; sourceTree = "<group>"; };
 		2C13C86125B8FA4A0054B968 /* Common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Common.hpp; sourceTree = "<group>"; };
 		2C13C86625B8FA4A0054B968 /* None.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = None.hpp; sourceTree = "<group>"; };
@@ -2134,7 +2134,7 @@
 				2C13C87525B8FA4A0054B968 /* ScopeGuard.hpp */,
 				2C13C84C25B8FA4A0054B968 /* Shader.hpp */,
 				2C13C87925B8FA4A0054B968 /* ShaderCommon.hpp */,
-				2C13C85F25B8FA4A0054B968 /* ShaderStatge.hpp */,
+				2C13C85F25B8FA4A0054B968 /* ShaderStage.hpp */,
 				2C13C75B25B8FA4A0054B968 /* Shape2D.hpp */,
 				2C13C77825B8FA4A0054B968 /* Shuffle.hpp */,
 				2C13C88925B8FA4A0054B968 /* SIMD.hpp */,

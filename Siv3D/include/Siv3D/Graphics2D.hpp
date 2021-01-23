@@ -15,9 +15,10 @@
 # include "BlendState.hpp"
 # include "RasterizerState.hpp"
 # include "SamplerState.hpp"
-# include "ShaderStatge.hpp"
+# include "ShaderStage.hpp"
 # include "VertexShader.hpp"
 # include "PixelShader.hpp"
+# include "ConstantBuffer.hpp"
 # include "Mat3x2.hpp"
 
 namespace s3d
@@ -85,25 +86,14 @@ namespace s3d
 		/// @param count 
 		void DrawTriangles(uint32 count);
 
-		namespace Internal
-		{
-			void SetColorMul(const Float4& color);
-
-			void SetColorAdd(const Float4& color);
-
-			void SetBlendState(const BlendState& blendState);
-
-			void SetRasterizerState(const RasterizerState& rasterizerState);
-
-			void SetSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& samplerState);
-
-			void SetCustomVertexShader(const Optional<VertexShader>& vs);
-
-			void SetCustomPixelShader(const Optional<PixelShader>& ps);
-
-			void SetLocalTransform(const Mat3x2& transform);
-
-			void SetCameraTransform(const Mat3x2& transform);
-		}
+		/// @brief 
+		/// @tparam Type 
+		/// @param stage 
+		/// @param slot 
+		/// @param buffer 
+		template <class Type>
+		inline void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBuffer<Type>& buffer);
 	}
 }
+
+# include "detail/Graphics2D.ipp"
