@@ -101,12 +101,12 @@ namespace s3d
 			writeln(s);
 		}
 
-		void Console_impl::setSystemDefaultCodePage()
+		void Console_impl::setSystemDefaultCodePage() const
 		{
 			SIV3D_ENGINE(Console)->setSystemDefaultCodePage();
 		}
 
-		void Console_impl::setUTF8CodePage()
+		void Console_impl::setUTF8CodePage() const
 		{
 			SIV3D_ENGINE(Console)->setUTF8CodePage();
 		}

@@ -165,9 +165,9 @@ namespace s3d
 				return *this;
 			}
 
-			void setSystemDefaultCodePage();
+			void setSystemDefaultCodePage() const;
 
-			void setUTF8CodePage();
+			void setUTF8CodePage() const;
 		};
 	}
 
