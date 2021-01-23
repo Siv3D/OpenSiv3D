@@ -21,6 +21,7 @@ Library | Version
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
+[Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v1.4.0
 [miniutf](https://github.com/dropbox/miniutf) | 
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
@@ -34,6 +35,7 @@ Library | Version
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | v0.7.0
+[Sol2](https://github.com/ThePhD/sol2) | v3.2.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
