@@ -102,16 +102,16 @@ namespace s3d
 
 		// エンジン用 HLSL シェーダをコンパイル
 		{
-			compileHLSL(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Vertex, U"VS")
+			compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Vertex, U"VS")
 				.save(U"engine/shader/d3d11/fullscreen_triangle.vs");
 
-			compileHLSL(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Pixel, U"PS")
+			compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Pixel, U"PS")
 				.save(U"engine/shader/d3d11/fullscreen_triangle.ps");
 
-			compileHLSL(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Vertex, U"VS")
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Vertex, U"VS")
 				.save(U"engine/shader/d3d11/sprite.vs");
 
-			compileHLSL(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
 				.save(U"engine/shader/d3d11/shape.ps");
 
 			throw EngineError(U"Engine shaders have compiled. Please rebuild the project.");

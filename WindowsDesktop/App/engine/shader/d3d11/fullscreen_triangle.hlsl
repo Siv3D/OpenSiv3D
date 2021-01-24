@@ -9,19 +9,35 @@
 //
 //-----------------------------------------------
 
+//
+//	Textures
+//
 Texture2D		g_texture0 : register(t0);
 SamplerState	g_sampler0 : register(s0);
 
-struct PSInput
+namespace s3d
 {
-	float4 position	: SV_POSITION;
-	float4 color	: COLOR0;
-	float2 uv		: TEXCOORD0;
-};
+	//
+	//	VS Input (nothing)
+	//
 
-PSInput VS(uint id: SV_VERTEXID)
+	//
+	//	VS Output / PS Input
+	//
+	struct PSInput
+	{
+		float4 position	: SV_POSITION;
+		float4 color	: COLOR0;
+		float2 uv		: TEXCOORD0;
+	};
+}
+
+//
+//	Functions
+//
+s3d::PSInput VS(uint id: SV_VERTEXID)
 {
-	PSInput result;
+	s3d::PSInput result;
 
 	result.position.x = (float)(id / 2) * 4.0 - 1.0;
 	result.position.y = (float)(id % 2) * 4.0 - 1.0;
@@ -36,7 +52,7 @@ PSInput VS(uint id: SV_VERTEXID)
 	return result;
 }
 
-float4 PS(PSInput input) : SV_TARGET
+float4 PS(s3d::PSInput input) : SV_TARGET
 {
 	float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
 

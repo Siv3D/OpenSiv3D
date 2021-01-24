@@ -12,11 +12,11 @@
 namespace s3d
 {
 	//
-	// VS Input (nothing)
+	//	VS Input (nothing)
 	//
 
 	//
-	// VS Output
+	//	VS Output
 	//
 	struct PSInput
 	{
@@ -26,7 +26,7 @@ namespace s3d
 	};
 
 	//
-	// Siv3D Functions
+	//	Siv3D Functions
 	//
 	float4 Transform2D(float2 pos, float2x4 t)
 	{
@@ -35,7 +35,7 @@ namespace s3d
 }
 
 //
-// Constant Buffer
+//	Constant Buffer
 //
 cbuffer VSConstants2D : register(b0)
 {
@@ -49,7 +49,7 @@ cbuffer SoftShape : register(b1)
 }
 
 //
-// Functions
+//	Functions
 //
 float2 Circular(float r, float theta)
 {
