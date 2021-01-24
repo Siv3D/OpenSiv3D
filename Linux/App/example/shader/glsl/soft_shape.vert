@@ -12,11 +12,11 @@
 # version 410
 
 //
-// VS Input (nothing)
+//	VS Input (nothing)
 //
 
 //
-// VS Output
+//	VS Output
 //
 layout(location = 0) out vec4 Color;
 layout(location = 1) out vec2 UV;
@@ -26,7 +26,7 @@ out gl_PerVertex
 };
 
 //
-// Siv3D Functions
+//	Siv3D Functions
 //
 vec4 s3d_Transform2D(const vec2 pos, const vec4 t[2])
 {
@@ -34,7 +34,7 @@ vec4 s3d_Transform2D(const vec2 pos, const vec4 t[2])
 }
 
 //
-// Constant Buffer
+//	Constant Buffer
 //
 layout(std140) uniform VSConstants2D
 {
@@ -48,7 +48,7 @@ layout(std140) uniform SoftShape
 };
 
 //
-// Functions
+//	Functions
 //
 vec2 Circular(float r, float theta)
 {
