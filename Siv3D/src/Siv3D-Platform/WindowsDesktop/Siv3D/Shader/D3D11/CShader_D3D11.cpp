@@ -344,7 +344,7 @@ namespace s3d
 		if (error) // もしエラーメッセージがあれば
 		{
 			const std::string errorMessgae = static_cast<const char*>(error->GetBufferPointer());
-			LOG_FAIL(U"CShader_D3D11::compileHLSL(): D3DCompile2(): {}"_fmt(Unicode::Widen(errorMessgae)));
+			LOG_FAIL(U"CShader_D3D11::compileHLSL(): D3DCompile2(): " + Unicode::Widen(errorMessgae));
 		}
 
 		if (FAILED(hr)) // 失敗したら

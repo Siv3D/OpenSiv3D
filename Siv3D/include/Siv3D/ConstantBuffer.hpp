@@ -52,6 +52,8 @@ namespace s3d
 
 		static_assert(sizeof(Type) <= (16 * 4096)); // <= 64KB
 
+		static_assert(std::is_trivially_copyable_v<Type>);
+
 		static constexpr size_t _alignment = Max<size_t>(alignof(Type), 16);
 
 	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)

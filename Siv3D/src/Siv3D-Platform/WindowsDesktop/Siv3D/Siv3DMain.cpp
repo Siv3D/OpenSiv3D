@@ -201,8 +201,8 @@ namespace s3d
 		}
 		catch (const Error& error)
 		{
-			::OutputDebugStringW(U"{}\n"_fmt(error).toWstr().c_str());
-			FreestandingMessageBox::ShowError(U"{}"_fmt(error));
+			::OutputDebugStringW(Format(error, U'\n').toWstr().c_str());
+			FreestandingMessageBox::ShowError(Format(error));
 			g_hasError = true;
 
 			ul.unlock(); // --(1)
@@ -231,8 +231,8 @@ namespace s3d
 		}
 		catch (const Error& error)
 		{
-			::OutputDebugStringW(U"{}\n"_fmt(error).toWstr().c_str());
-			FreestandingMessageBox::ShowError(U"{}"_fmt(error));
+			::OutputDebugStringW(Format(error, U'\n').toWstr().c_str());
+			FreestandingMessageBox::ShowError(Format(error));
 			g_hasError = true;
 			ul.unlock(); // --(3)
 			g_cv.notify_one();
@@ -284,7 +284,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	}
 	catch (const Error& error)
 	{
-		::OutputDebugStringW(U"{}\n"_fmt(error).toWstr().c_str());
+		::OutputDebugStringW(Format(error, U'\n').toWstr().c_str());
 		g_hasError = true;
 		return -1;
 	}
