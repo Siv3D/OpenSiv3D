@@ -172,6 +172,8 @@ namespace s3d
 	{
 		LOG_ERROR(U"🛑 Application terminated due to an exception `{}`"_fmt(ExceptionToString(code)));
 
+		Window::Minimize();
+
 		FreestandingMessageBox::ShowError(U"Application terminated due to an exception `{}`"_fmt(ExceptionToString(code)));
 
 		return EXCEPTION_EXECUTE_HANDLER;
