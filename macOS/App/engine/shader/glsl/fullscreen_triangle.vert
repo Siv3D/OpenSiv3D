@@ -1,7 +1,18 @@
-﻿#version 410
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# version 410
 
 //
-// VSOutput
+//	VSOutput
 //
 layout(location = 0) out vec2 UV;
 out gl_PerVertex
@@ -9,6 +20,9 @@ out gl_PerVertex
 	vec4 gl_Position;
 };
 
+//
+//	Functions
+//
 void main()
 {
 	float x = -1.0 + float((gl_VertexID & 1) << 2);
