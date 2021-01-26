@@ -89,7 +89,7 @@ namespace s3d
 			return{};
 		}
 
-		Array<Float2> vertices(12, center);
+		Array<Float2> vertices(n, center);
 		const Float2 offset(center);
 		Float2* pPos = vertices.data();
 
