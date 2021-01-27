@@ -87,14 +87,15 @@ add_library(
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
-  # ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
-  # ../Siv3D/src/Siv3D/BigInt/SivBigInt.cpp
+  ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
+  ../Siv3D/src/Siv3D/BigInt/SivBigInt.cpp
   ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/BinaryReader/SivBinaryReader.cpp
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
+  ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp
   ../Siv3D/src/Siv3D/Common/Siv3DEngine.cpp
   ../Siv3D/src/Siv3D/Console/ConsoleFactory.cpp
   ../Siv3D/src/Siv3D/Console/SivConsole.cpp
@@ -116,6 +117,7 @@ add_library(
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp
   ../Siv3D/src/Siv3D/FormatUtility/SivFormatUtility.cpp
+  ../Siv3D/src/Siv3D/Geometry2D/SivGeometry2D.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
   ../Siv3D/src/Siv3D/Image/SivImage.cpp
@@ -157,7 +159,7 @@ add_library(
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
   ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
-  # ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
+  ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
@@ -173,12 +175,14 @@ add_library(
   ../Siv3D/src/Siv3D/Renderer2D/Vertex2DBuilder.cpp
   ../Siv3D/src/Siv3D/Resource/ResourceFactory.cpp
   ../Siv3D/src/Siv3D/Resource/SivResource.cpp
+  ../Siv3D/src/Siv3D/RoundRect/SivRoundRect.cpp
   ../Siv3D/src/Siv3D/Scene/CScene.cpp
   ../Siv3D/src/Siv3D/Scene/FrameCounter.cpp
   ../Siv3D/src/Siv3D/Scene/FrameTimer.cpp
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
+  ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   # ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
@@ -341,6 +345,8 @@ add_library(
 
   ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
 
+  ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
+  
   ../Siv3D/src/ThirdParty/xxHash/xxhash.c
   )
 
