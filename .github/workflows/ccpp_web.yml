@@ -267,6 +267,7 @@ jobs:
 
   e2e-test:
     needs: deploy-gh-pages
+    if: ${{ secrets.BROWSERSTACK_USERNAME != '' && secrets.BROWSERSTACK_ACCESS_KEY != '' }}
     runs-on: ubuntu-latest
 
     steps:
