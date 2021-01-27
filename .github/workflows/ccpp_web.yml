@@ -265,9 +265,21 @@ jobs:
           publish_dir: ./Dest
           keep_files: true
 
+  e2e-test-prerequisites:
+    runs-on: ubuntu-latest
+    output:
+      browserstack-keys-found: ${{ steps.check-keys.outputs.keys-found }}
+    steps: 
+      - name: Check Keys
+        id: check-keys
+        env: 
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: echo "::set-output name=keys-found::${{ env.BROWSERSTACK_USERNAME != '' && env.BROWSERSTACK_ACCESS_KEY != '' }}"
+
   e2e-test:
-    needs: deploy-gh-pages
-    if: ${{ secrets.BROWSERSTACK_USERNAME != '' && secrets.BROWSERSTACK_ACCESS_KEY != '' }}
+    needs: [ deploy-gh-pages, e2e-test-prerequisites ]
+    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found }}
     runs-on: ubuntu-latest
 
     steps:
