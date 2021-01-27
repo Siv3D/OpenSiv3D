@@ -267,7 +267,7 @@ jobs:
 
   e2e-test-prerequisites:
     runs-on: ubuntu-latest
-    output:
+    outputs:
       browserstack-keys-found: ${{ steps.check-keys.outputs.keys-found }}
     steps: 
       - name: Check Keys
