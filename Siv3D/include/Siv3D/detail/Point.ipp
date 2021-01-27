@@ -11,6 +11,7 @@
 
 # pragma once
 # include "../MathConstants.hpp"
+# include "../2DShapesFwd.hpp"
 
 namespace s3d
 {
@@ -18,6 +19,48 @@ namespace s3d
 	{
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Point& a, const Point& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Vec2& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Line& b) noexcept;
+
+		[[nodiscard]]
+		bool Intersect(const Point& a, const Bezier2& b);
+
+		//[[nodiscard]]
+		//bool Intersect(const Point& a, const Bezier3& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Rect& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const RectF& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Circle& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Ellipse& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Triangle& b) noexcept;
+
+		[[nodiscard]]
+		inline constexpr bool Intersect(const Point& a, const Quad& b) noexcept;
+
+		[[nodiscard]]
+		inline bool Intersect(const Point& a, const RoundRect& b) noexcept;
+
+		[[nodiscard]]
+		inline bool Intersect(const Point& a, const Polygon& b) noexcept;
+
+		[[nodiscard]]
+		inline bool Intersect(const Point& a, const MultiPolygon& b) noexcept;
+
+		[[nodiscard]]
+		inline bool Intersect(const Point& a, const LineString& b) noexcept;
 	}
 
 	inline constexpr Point::Point(const value_type _x, const value_type _y) noexcept

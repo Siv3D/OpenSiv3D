@@ -103,6 +103,9 @@ namespace s3d
 		constexpr Line& reverse() noexcept;
 
 		[[nodiscard]]
+		constexpr bool hasLength() const noexcept;
+
+		[[nodiscard]]
 		value_type length() const noexcept;
 
 		[[nodiscard]]

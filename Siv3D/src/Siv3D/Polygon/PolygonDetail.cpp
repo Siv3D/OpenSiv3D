@@ -840,6 +840,29 @@ namespace s3d
 		return true;
 	}
 
+	bool Polygon::PolygonDetail::intersects(const Line& other) const
+	{
+		if (outer().isEmpty()
+			|| (not Geometry2D::Intersect(m_boundingRect, other)))
+		{
+			return false;
+		}
+
+		const Float2* pVertex = m_vertices.data();
+
+		for (const auto& triangleIndex : m_indices)
+		{
+			const Triangle triangle{ pVertex[triangleIndex.i0], pVertex[triangleIndex.i1], pVertex[triangleIndex.i2] };
+
+			if (Geometry2D::Intersect(other, triangle))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool Polygon::PolygonDetail::intersects(const RectF& other) const
 	{
 		if (outer().isEmpty()

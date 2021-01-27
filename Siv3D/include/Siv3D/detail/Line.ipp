@@ -125,6 +125,11 @@ namespace s3d
 		return *this;
 	}
 
+	inline constexpr bool Line::hasLength() const noexcept
+	{
+		return (begin != end);
+	}
+
 	inline Line::value_type Line::length() const noexcept
 	{
 		return begin.distanceFrom(end);

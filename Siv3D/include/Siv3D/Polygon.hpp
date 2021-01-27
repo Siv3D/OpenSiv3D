@@ -168,6 +168,9 @@ namespace s3d
 		bool intersects(const Shape2DType& other) const;
 
 		[[nodiscard]]
+		bool intersects(const Line& other) const;
+
+		[[nodiscard]]
 		bool intersects(const Rect& other) const;
 
 		[[nodiscard]]

@@ -24,11 +24,11 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Line& b) noexcept;
 
-		//[[nodiscard]]
-		//bool Intersect(const Vec2& a, const Bezier2& b) noexcept;
+		[[nodiscard]]
+		bool Intersect(const Vec2& a, const Bezier2& b);
 
 		//[[nodiscard]]
-		//bool Intersect(const Vec2& a, const Bezier3& b) noexcept;
+		//bool Intersect(const Vec2& a, const Bezier3& b);
 
 		[[nodiscard]]
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept;
