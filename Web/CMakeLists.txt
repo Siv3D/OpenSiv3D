@@ -39,6 +39,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Common/OpenGL.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ConstantBuffer/ConstantBufferDetailFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Cursor/CCursor.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/DirectoryWatcher/DirectoryWatcherDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
@@ -87,12 +88,15 @@ add_library(
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
+  ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
+  ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp
   ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
   ../Siv3D/src/Siv3D/BigInt/SivBigInt.cpp
-  ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
-  ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/BinaryReader/SivBinaryReader.cpp
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
+  ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
+  ../Siv3D/src/Siv3D/Byte/SivByte.cpp
+  ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
   ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp
@@ -101,11 +105,12 @@ add_library(
   ../Siv3D/src/Siv3D/Console/SivConsole.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/SivConstantBuffer.cpp
+  # ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
   ../Siv3D/src/Siv3D/Cursor/CCursor_Null.cpp
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
-  # ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
+  ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
   ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
@@ -154,6 +159,12 @@ add_library(
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
+  ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
+  ../Siv3D/src/Siv3D/NavMesh/NavMeshDetail.cpp
+  ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
+  ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
+  ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
+  ../Siv3D/src/Siv3D/ParseInt/SivParseInt.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
@@ -167,8 +178,9 @@ add_library(
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
   ../Siv3D/src/Siv3D/Rect/SivRect.cpp
-  ../Siv3D/src/Siv3D/RegExp/RegExpDetail.cpp
+  ../Siv3D/src/Siv3D/RectanglePacking/SivRectanglePacking.cpp
   ../Siv3D/src/Siv3D/RectF/SivRectF.cpp
+  ../Siv3D/src/Siv3D/RegExp/RegExpDetail.cpp
   ../Siv3D/src/Siv3D/RegExp/SivRegExp.cpp
   ../Siv3D/src/Siv3D/Renderer/Null/CRenderer_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Null/CRenderer2D_Null.cpp
@@ -182,10 +194,12 @@ add_library(
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
+  ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   # ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
+  ../Siv3D/src/Siv3D/Subdivision2D/SivSubdivision2D.cpp
   ../Siv3D/src/Siv3D/System/SivSystem.cpp
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
@@ -200,8 +214,8 @@ add_library(
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
-  ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp
+  ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/UserAction/CUserAction.cpp
   ../Siv3D/src/Siv3D/UserAction/UserActionFactory.cpp
   ../Siv3D/src/Siv3D/Vector2D/SivVector2D.cpp
@@ -212,6 +226,7 @@ add_library(
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
+  ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
 
   # ../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
   ../Siv3D/src/ThirdParty/cpu_features/filesystem.c
@@ -229,6 +244,40 @@ add_library(
 
   ../Siv3D/src/ThirdParty/fmt/format.cc
   
+  ../Siv3D/src/ThirdParty/lua/lapi.c
+  ../Siv3D/src/ThirdParty/lua/lauxlib.c
+  ../Siv3D/src/ThirdParty/lua/lbaselib.c
+  ../Siv3D/src/ThirdParty/lua/lcode.c
+  ../Siv3D/src/ThirdParty/lua/lcorolib.c
+  ../Siv3D/src/ThirdParty/lua/lctype.c
+  ../Siv3D/src/ThirdParty/lua/ldblib.c
+  ../Siv3D/src/ThirdParty/lua/ldebug.c
+  ../Siv3D/src/ThirdParty/lua/ldo.c
+  ../Siv3D/src/ThirdParty/lua/ldump.c
+  ../Siv3D/src/ThirdParty/lua/lfunc.c
+  ../Siv3D/src/ThirdParty/lua/lgc.c
+  ../Siv3D/src/ThirdParty/lua/linit.c
+  ../Siv3D/src/ThirdParty/lua/liolib.c
+  ../Siv3D/src/ThirdParty/lua/llex.c
+  ../Siv3D/src/ThirdParty/lua/lmathlib.c
+  ../Siv3D/src/ThirdParty/lua/lmem.c
+  ../Siv3D/src/ThirdParty/lua/loadlib.c
+  ../Siv3D/src/ThirdParty/lua/lobject.c
+  ../Siv3D/src/ThirdParty/lua/lopcodes.c
+  ../Siv3D/src/ThirdParty/lua/loslib.c
+  ../Siv3D/src/ThirdParty/lua/lparser.c
+  ../Siv3D/src/ThirdParty/lua/lstate.c
+  ../Siv3D/src/ThirdParty/lua/lstring.c
+  ../Siv3D/src/ThirdParty/lua/lstrlib.c
+  ../Siv3D/src/ThirdParty/lua/ltable.c
+  ../Siv3D/src/ThirdParty/lua/ltablib.c
+  ../Siv3D/src/ThirdParty/lua/ltm.c
+  ../Siv3D/src/ThirdParty/lua/lua.c
+  ../Siv3D/src/ThirdParty/lua/lundump.c
+  ../Siv3D/src/ThirdParty/lua/lutf8lib.c
+  ../Siv3D/src/ThirdParty/lua/lvm.c
+  ../Siv3D/src/ThirdParty/lua/lzio.c
+
   ../Siv3D/src/ThirdParty/lunasvg/affinetransform.cpp
   ../Siv3D/src/ThirdParty/lunasvg/canvas.cpp
   ../Siv3D/src/ThirdParty/lunasvg/canvasimpl.cpp
@@ -344,6 +393,25 @@ add_library(
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 
   ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourAlloc.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourAssert.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourCommon.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMesh.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMeshBuilder.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNavMeshQuery.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/DetourNode.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/Recast.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastAlloc.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastArea.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastAssert.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastContour.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastFilter.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastLayers.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastMesh.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastMeshDetail.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastRasterization.cpp
+  ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
   

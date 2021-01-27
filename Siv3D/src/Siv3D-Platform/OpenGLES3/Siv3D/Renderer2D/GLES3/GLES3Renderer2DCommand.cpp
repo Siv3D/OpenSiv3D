@@ -179,6 +179,12 @@ namespace s3d
 			m_combinedTransforms.push_back(m_currentCombinedTransform);
 		}
 
+		if (m_changes.has(GLES3Renderer2DCommandType::SetConstantBuffer))
+		{
+			assert(not m_constantBufferCommands.isEmpty());
+			m_commands.emplace_back(GLES3Renderer2DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
+		}
+
 		m_changes.clear();
 	}
 
@@ -689,5 +695,37 @@ namespace s3d
 	float GLES3Renderer2DCommandManager::getCurrentMaxScaling() const noexcept
 	{
 		return m_currentMaxScaling;
+	}
+
+	void GLES3Renderer2DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		constexpr auto command = GLES3Renderer2DCommandType::SetConstantBuffer;
+
+		flush();
+		const __m128* pData = reinterpret_cast<const __m128*>(data);
+		const uint32 offset = static_cast<uint32>(m_constants.size());
+		m_constants.insert(m_constants.end(), pData, (pData + num_vectors));
+
+		GLES3ConstantBufferCommand cb
+		{
+			.stage			= stage,
+			.slot			= slot,
+			.offset			= offset,
+			.num_vectors	= num_vectors,
+			.cbBase			= buffer
+		};
+
+		m_constantBufferCommands.push_back(cb);
+		m_changes.set(command);
+	}
+
+	GLES3ConstantBufferCommand& GLES3Renderer2DCommandManager::getConstantBuffer(const uint32 index)
+	{
+		return m_constantBufferCommands[index];
+	}
+
+	const __m128* GLES3Renderer2DCommandManager::getConstantBufferPtr(const uint32 offset) const
+	{
+		return (m_constants.data() + offset);
 	}
 }
