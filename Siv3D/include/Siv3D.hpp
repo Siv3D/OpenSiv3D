@@ -453,20 +453,17 @@
 // 書き込み専用テキストファイル | Text file writer
 # include <Siv3D/TextWriter.hpp>
 
-// CSV ファイルデータの読み書き | CSV file reader/writer
-//# include <Siv3D/CSVData.hpp>
+// CSV データの読み書き | CSV reader/writer
+# include <Siv3D/CSV.hpp>
 
 // INI データの読み書き | INI reader/writer
-# include <Siv3D/INIData.hpp>
+# include <Siv3D/INI.hpp>
+
+// JSON データの書き出し | JSON reader/writer
+//# include <Siv3D/JSON.hpp>
 
 // XML ファイルの読み込み | XML parser
 //# include <Siv3D/XMLReader.hpp>
-
-// JSON ファイルの読み込み | JSON parser
-//# include <Siv3D/JSONReader.hpp>
-
-// JSON データの書き出し | JSON writer
-//# include <Siv3D/JSONWriter.hpp>
 
 // TOML ファイルの読み込み | TOML parser
 //# include <Siv3D/TOMLReader.hpp>

@@ -45,6 +45,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBufferBinding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CopyOption.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CSV.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CursorStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DepthStencilState.hpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circular.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ConstantBuffer.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\CSV.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cursor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylindrical.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DiscreteDistribution.ipp" />
@@ -82,7 +84,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageDecoder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageEncoder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InfiniteList.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\INIData.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\INI.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Input.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputCombination.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputGroup.ipp" />
@@ -167,7 +169,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\SVGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\INI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Input.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputCombination.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputDevice.hpp" />
@@ -920,6 +922,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\Null\ConstantBufferDetail_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\SivConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CPUInfo\SivCPUInfo.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CSV\SivCSV.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CursorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\SivCursor.cpp" />
@@ -951,7 +954,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\INI\SivINI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Input\InputState.cpp" />

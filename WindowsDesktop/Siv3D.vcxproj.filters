@@ -370,9 +370,6 @@
     <Filter Include="src\Siv3D\TextWriter">
       <UniqueIdentifier>{00e80291-6d41-4e88-9bf3-0a8c7360350d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\INIData">
-      <UniqueIdentifier>{99308d0d-5d90-492a-9488-b14bd9384283}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\EnvironmentVariable">
       <UniqueIdentifier>{8a14e9b1-a572-49ae-afc1-92a8878f5e04}</UniqueIdentifier>
     </Filter>
@@ -702,6 +699,12 @@
     </Filter>
     <Filter Include="src\Siv3D\CommandLine">
       <UniqueIdentifier>{e500f2bb-1d70-4f8b-a301-97175e0db6bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\INI">
+      <UniqueIdentifier>{99308d0d-5d90-492a-9488-b14bd9384283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\CSV">
+      <UniqueIdentifier>{12ffc1e0-945c-4774-bc6a-027d415d5626}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1597,12 +1600,6 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\UnicodeConverter.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\INIData.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryWriter.hpp">
@@ -3153,6 +3150,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\CommandLine.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\CSV.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\CSV.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\INI.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\INI.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -3595,9 +3604,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp">
       <Filter>src\Siv3D\TextWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp">
-      <Filter>src\Siv3D\INIData</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\EnvironmentVariable\SivEnvironmentVariable.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\EnvironmentVariable</Filter>
@@ -4285,6 +4291,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\CommandLine\SivCommandLine.cpp">
       <Filter>src\Siv3D\CommandLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\INI\SivINI.cpp">
+      <Filter>src\Siv3D\INI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CSV\SivCSV.cpp">
+      <Filter>src\Siv3D\CSV</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

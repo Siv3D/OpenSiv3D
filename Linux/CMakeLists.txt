@@ -110,6 +110,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/SivConstantBuffer.cpp
   ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
+  ../Siv3D/src/Siv3D/CSV/SivCSV.cpp
   ../Siv3D/src/Siv3D/Cursor/CCursor_Null.cpp
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
@@ -141,7 +142,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ImageFormat/PNGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp
-  ../Siv3D/src/Siv3D/INIData/SivINIData.cpp
+  ../Siv3D/src/Siv3D/INI/SivINI.cpp
   ../Siv3D/src/Siv3D/Input/InputState.cpp
   ../Siv3D/src/Siv3D/Input/SivInput.cpp
   ../Siv3D/src/Siv3D/InputCombination/SivInputCombination.cpp

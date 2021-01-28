@@ -446,7 +446,7 @@
 		2C47B37624DD9789008D83BE /* ConsoleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F124DD9789008D83BE /* ConsoleFactory.cpp */; };
 		2C47B37724DD9789008D83BE /* IConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B2F224DD9789008D83BE /* IConsole.hpp */; };
 		2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F324DD9789008D83BE /* SivConsole.cpp */; };
-		2C47B37924DD9789008D83BE /* SivINIData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F524DD9789008D83BE /* SivINIData.cpp */; };
+		2C47B37924DD9789008D83BE /* SivINI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F524DD9789008D83BE /* SivINI.cpp */; };
 		2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F724DD9789008D83BE /* SivInt128.cpp */; };
 		2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B46E24DD97E3008D83BE /* QrCode.hpp */; };
 		2C47B47124DD97E4008D83BE /* QrCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B46F24DD97E3008D83BE /* QrCode.cpp */; };
@@ -783,7 +783,7 @@
 		2C13C72625B8FA490054B968 /* KDTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KDTree.hpp; sourceTree = "<group>"; };
 		2C13C72725B8FA490054B968 /* HardwareRNG.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HardwareRNG.hpp; sourceTree = "<group>"; };
 		2C13C72825B8FA490054B968 /* Time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Time.hpp; sourceTree = "<group>"; };
-		2C13C72925B8FA490054B968 /* INIData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = INIData.hpp; sourceTree = "<group>"; };
+		2C13C72925B8FA490054B968 /* INI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = INI.hpp; sourceTree = "<group>"; };
 		2C13C72A25B8FA490054B968 /* Camera2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera2D.hpp; sourceTree = "<group>"; };
 		2C13C72B25B8FA490054B968 /* LogLevel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LogLevel.hpp; sourceTree = "<group>"; };
 		2C13C72C25B8FA4A0054B968 /* BinaryReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinaryReader.hpp; sourceTree = "<group>"; };
@@ -1027,7 +1027,7 @@
 		2C13C81E25B8FA4A0054B968 /* MultiPolygon.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MultiPolygon.ipp; sourceTree = "<group>"; };
 		2C13C81F25B8FA4A0054B968 /* BinaryReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinaryReader.ipp; sourceTree = "<group>"; };
 		2C13C82025B8FA4A0054B968 /* Camera2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera2D.ipp; sourceTree = "<group>"; };
-		2C13C82125B8FA4A0054B968 /* INIData.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = INIData.ipp; sourceTree = "<group>"; };
+		2C13C82125B8FA4A0054B968 /* INI.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = INI.ipp; sourceTree = "<group>"; };
 		2C13C82225B8FA4A0054B968 /* BoolArray.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BoolArray.ipp; sourceTree = "<group>"; };
 		2C13C82325B8FA4A0054B968 /* Endian.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Endian.hpp; sourceTree = "<group>"; };
 		2C13C82425B8FA4A0054B968 /* Byte.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Byte.hpp; sourceTree = "<group>"; };
@@ -1665,7 +1665,7 @@
 		2C47B2F124DD9789008D83BE /* ConsoleFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleFactory.cpp; sourceTree = "<group>"; };
 		2C47B2F224DD9789008D83BE /* IConsole.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IConsole.hpp; sourceTree = "<group>"; };
 		2C47B2F324DD9789008D83BE /* SivConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivConsole.cpp; sourceTree = "<group>"; };
-		2C47B2F524DD9789008D83BE /* SivINIData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivINIData.cpp; sourceTree = "<group>"; };
+		2C47B2F524DD9789008D83BE /* SivINI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivINI.cpp; sourceTree = "<group>"; };
 		2C47B2F724DD9789008D83BE /* SivInt128.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInt128.cpp; sourceTree = "<group>"; };
 		2C47B46E24DD97E3008D83BE /* QrCode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QrCode.hpp; sourceTree = "<group>"; };
 		2C47B46F24DD97E3008D83BE /* QrCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QrCode.cpp; sourceTree = "<group>"; };
@@ -2272,7 +2272,7 @@
 				2C13C70925B8FA490054B968 /* ImageInfo.hpp */,
 				2C13C85325B8FA4A0054B968 /* Indexed.hpp */,
 				2C13C74125B8FA4A0054B968 /* InfiniteList.hpp */,
-				2C13C72925B8FA490054B968 /* INIData.hpp */,
+				2C13C72925B8FA490054B968 /* INI.hpp */,
 				2C13C87025B8FA4A0054B968 /* Input.hpp */,
 				2C13C85225B8FA4A0054B968 /* InputCombination.hpp */,
 				2C13C74425B8FA4A0054B968 /* InputDevice.hpp */,
@@ -2491,7 +2491,7 @@
 				2C13C7B025B8FA4A0054B968 /* ImageEncoder.ipp */,
 				2C13C78E25B8FA4A0054B968 /* Indexed.ipp */,
 				2C13C7DD25B8FA4A0054B968 /* InfiniteList.ipp */,
-				2C13C82125B8FA4A0054B968 /* INIData.ipp */,
+				2C13C82125B8FA4A0054B968 /* INI.ipp */,
 				2C13C79C25B8FA4A0054B968 /* Input.ipp */,
 				2C13C78F25B8FA4A0054B968 /* InputCombination.ipp */,
 				2C13C7E825B8FA4A0054B968 /* InputGroup.ipp */,
@@ -3324,7 +3324,7 @@
 				2C47B2E824DD9789008D83BE /* ImageDecoder */,
 				2C47B2CA24DD9789008D83BE /* ImageEncoder */,
 				2C47B2B424DD9789008D83BE /* ImageFormat */,
-				2C47B2F424DD9789008D83BE /* INIData */,
+				2C47B2F424DD9789008D83BE /* INI */,
 				2CFE19AA2555B263005826A1 /* Input */,
 				2C0848A32557C0F200C9838C /* InputCombination */,
 				2C0848A12557C0F200C9838C /* InputGroup */,
@@ -3945,12 +3945,12 @@
 			path = Console;
 			sourceTree = "<group>";
 		};
-		2C47B2F424DD9789008D83BE /* INIData */ = {
+		2C47B2F424DD9789008D83BE /* INI */ = {
 			isa = PBXGroup;
 			children = (
-				2C47B2F524DD9789008D83BE /* SivINIData.cpp */,
+				2C47B2F524DD9789008D83BE /* SivINI.cpp */,
 			);
-			path = INIData;
+			path = INI;
 			sourceTree = "<group>";
 		};
 		2C47B2F624DD9789008D83BE /* Int128 */ = {
@@ -5507,7 +5507,7 @@
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
 				2C47B30F24DD9789008D83BE /* CDummy.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
-				2C47B37924DD9789008D83BE /* SivINIData.cpp in Sources */,
+				2C47B37924DD9789008D83BE /* SivINI.cpp in Sources */,
 				2C13C9C125BD29FC0054B968 /* lgc.c in Sources */,
 				2C47B37224DD9789008D83BE /* SivImageDecoder.cpp in Sources */,
 				2C13C8C425B8FA9D0054B968 /* DetourCommon.cpp in Sources */,

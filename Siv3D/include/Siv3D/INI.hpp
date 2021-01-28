@@ -75,7 +75,7 @@ namespace s3d
 	};
 
 	/// @brief INI 形式の設定ファイルの読み書き
-	class INIData
+	class INI
 	{
 	public:
 
@@ -92,14 +92,14 @@ namespace s3d
 		using SectionIndex = size_t;
 		using KeyIndex = size_t;
 
-		INIData();
+		INI();
 
-		explicit INIData(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
+		explicit INI(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
-		explicit INIData(Reader&& reader, const Optional<TextEncoding>& encoding = unspecified);
+		explicit INI(Reader&& reader, const Optional<TextEncoding>& encoding = unspecified);
 
-		explicit INIData(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding = unspecified);
+		explicit INI(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding = unspecified);
 
 		bool load(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
@@ -203,4 +203,4 @@ namespace s3d
 	};
 }
 
-# include "detail/INIData.ipp"
+# include "detail/INI.ipp"

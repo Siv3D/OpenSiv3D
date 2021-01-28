@@ -13,61 +13,61 @@
 
 namespace s3d
 {
-	inline INIData::INIData()
+	inline INI::INI()
 	{
-	
+		// do nothing
 	}
 
-	inline INIData::INIData(const FilePathView path, const Optional<TextEncoding>& encoding)
+	inline INI::INI(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		load(path, encoding);
 	}
 
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
-	inline INIData::INIData(Reader&& reader, const Optional<TextEncoding>& encoding)
+	inline INI::INI(Reader&& reader, const Optional<TextEncoding>& encoding)
 	{
 		load(std::move(reader), encoding);
 	}
 
-	inline INIData::INIData(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
+	inline INI::INI(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
 	{
 		load(std::move(reader), encoding);
 	}
 
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
-	inline bool INIData::load(Reader&& reader, const Optional<TextEncoding>& encoding)
+	inline bool INI::load(Reader&& reader, const Optional<TextEncoding>& encoding)
 	{
 		return load(std::make_shared<Reader>(std::move(reader)), encoding);
 	}
 
-	inline void INIData::clear()
+	inline void INI::clear()
 	{
 		m_sections.clear();
 
 		m_keyIndices.clear();
 	}
 
-	inline bool INIData::isEmpty() const noexcept
+	inline bool INI::isEmpty() const noexcept
 	{
 		return m_sections.isEmpty();
 	}
 
-	inline INIData::operator bool() const noexcept
+	inline INI::operator bool() const noexcept
 	{
 		return m_sections.isEmpty();
 	}
 
-	inline const Array<INISection>& INIData::sections() const noexcept
+	inline const Array<INISection>& INI::sections() const noexcept
 	{
 		return m_sections;
 	}
 
-	inline bool INIData::hasSection(const SectionView section) const
+	inline bool INI::hasSection(const SectionView section) const
 	{
 		return m_keyIndices.contains(section);
 	}
 
-	inline const INISection& INIData::getSection(const SectionView section) const
+	inline const INISection& INI::getSection(const SectionView section) const
 	{
 		if (auto it = m_keyIndices.find(section);
 			it != m_keyIndices.end())
@@ -80,7 +80,7 @@ namespace s3d
 		}
 	}
 
-	inline bool INIData::hasValue(const SectionView section, const NameView name) const
+	inline bool INI::hasValue(const SectionView section, const NameView name) const
 	{
 		if (auto itSection = m_keyIndices.find(section);
 			itSection != m_keyIndices.end()) // Section が存在
@@ -91,7 +91,7 @@ namespace s3d
 		return false;
 	}
 
-	inline const String& INIData::getValue(const SectionView section, const NameView name) const
+	inline const String& INI::getValue(const SectionView section, const NameView name) const
 	{
 		if (auto itSection = m_keyIndices.find(section);
 			itSection != m_keyIndices.end()) // Section が存在
@@ -111,24 +111,24 @@ namespace s3d
 		return m_emptyValue;
 	}
 
-	inline bool INIData::hasGlobalValue(const NameView name) const
+	inline bool INI::hasGlobalValue(const NameView name) const
 	{
 		return hasValue(SectionView{}, name);
 	}
 
-	inline const String& INIData::getGlobalValue(const NameView name)
+	inline const String& INI::getGlobalValue(const NameView name)
 	{
 		return getValue(SectionView(), name);
 	}
 
-	inline const INIData::Value& INIData::operator [](const Section_Dot_NameView section_dot_name) const
+	inline const INI::Value& INI::operator [](const Section_Dot_NameView section_dot_name) const
 	{
 		const auto [section, name] = Split(section_dot_name);
 
 		return getValue(section, name);
 	}
 
-	inline INIValueWrapper INIData::operator [](const Section_Dot_NameView section_dot_name)
+	inline INIValueWrapper INI::operator [](const Section_Dot_NameView section_dot_name)
 	{
 		const auto [section, name] = Split(section_dot_name);
 
@@ -136,7 +136,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Type INIData::get(const SectionView section, const NameView name) const
+	inline Type INI::get(const SectionView section, const NameView name) const
 	{
 		if (const auto opt = getOpt<Type>(section, name))
 		{
@@ -147,7 +147,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Type INIData::get(const Section_Dot_NameView section_dot_name) const
+	inline Type INI::get(const Section_Dot_NameView section_dot_name) const
 	{
 		const auto [section, name] = Split(section_dot_name);
 
@@ -155,14 +155,14 @@ namespace s3d
 	}
 
 	template <class Type, class U>
-	inline Type INIData::getOr(const SectionView section, const NameView name, U&& defaultValue) const
+	inline Type INI::getOr(const SectionView section, const NameView name, U&& defaultValue) const
 	{
 		return getOpt<Type>(section, name)
 			.value_or(std::forward<U>(defaultValue));
 	}
 
 	template <class Type, class U>
-	inline Type INIData::getOr(const Section_Dot_NameView section_dot_name, U&& defaultValue) const
+	inline Type INI::getOr(const Section_Dot_NameView section_dot_name, U&& defaultValue) const
 	{
 		const auto[section, name] = Split(section_dot_name);
 
@@ -170,7 +170,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Optional<Type> INIData::getOpt(const SectionView section, const NameView name) const
+	inline Optional<Type> INI::getOpt(const SectionView section, const NameView name) const
 	{
 		if (const auto value = getValueOpt(section, name))
 		{
@@ -181,7 +181,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Optional<Type> INIData::getOpt(const Section_Dot_NameView section_dot_name) const
+	inline Optional<Type> INI::getOpt(const Section_Dot_NameView section_dot_name) const
 	{
 		const auto [section, name] = Split(section_dot_name);
 
@@ -189,18 +189,18 @@ namespace s3d
 	}
 
 	template <class Type>
-	void INIData::write(const SectionView section, const NameView name, const Type& value)
+	void INI::write(const SectionView section, const NameView name, const Type& value)
 	{
 		write(section, name, Format(value));
 	}
 
 	template <class Type>
-	void INIData::writeGlobal(const NameView name, const Type& value)
+	void INI::writeGlobal(const NameView name, const Type& value)
 	{
 		write(SectionView{}, name, value);
 	}
 
-	inline constexpr std::pair<INIData::SectionView, INIData::NameView> INIData::Split(const Section_Dot_NameView section_dot_name)
+	inline constexpr std::pair<INI::SectionView, INI::NameView> INI::Split(const Section_Dot_NameView section_dot_name)
 	{
 		const size_t dot = section_dot_name.indexOf(U'.');
 

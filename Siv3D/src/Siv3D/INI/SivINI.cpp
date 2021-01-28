@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/INIData.hpp>
+# include <Siv3D/INI.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/TextWriter.hpp>
 
@@ -22,7 +22,7 @@ namespace s3d
 			writer.writeUTF8("\r\n");
 		}
 
-		static void WriteSection(TextWriter& writer, const INIData::Section& section)
+		static void WriteSection(TextWriter& writer, const INI::Section& section)
 		{
 			writer.writeUTF8("[");
 			writer.write(section);
@@ -30,7 +30,7 @@ namespace s3d
 			WriteNewLine(writer);
 		}
 
-		static void WriteValue(TextWriter& writer, const INIData::Name& name, const INIData::Value& value)
+		static void WriteValue(TextWriter& writer, const INI::Name& name, const INI::Value& value)
 		{
 			writer.write(name);
 			writer.writeUTF8(" = ");
@@ -39,7 +39,7 @@ namespace s3d
 		}
 	}
 
-	bool INIData::load(const FilePathView path, const Optional<TextEncoding>& encoding)
+	bool INI::load(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		TextReader textReader(path, encoding);
 
@@ -53,7 +53,7 @@ namespace s3d
 		return true;
 	}
 
-	bool INIData::load(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
+	bool INI::load(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
 	{
 		TextReader textReader(std::move(reader), encoding);
 
@@ -67,7 +67,7 @@ namespace s3d
 		return true;
 	}
 
-	void INIData::addSection(const SectionView section)
+	void INI::addSection(const SectionView section)
 	{
 		if (hasSection(section))
 		{
@@ -81,7 +81,7 @@ namespace s3d
 		m_keyIndices.emplace(String{ section }, std::pair<size_t, HashTable<Name, size_t>>{ sectionIndex, {}});
 	}
 
-	void INIData::removeSection(const SectionView section)
+	void INI::removeSection(const SectionView section)
 	{
 		if (auto itSection = m_keyIndices.find(section);
 			itSection != m_keyIndices.end())
@@ -102,17 +102,17 @@ namespace s3d
 		}
 	}
 
-	void INIData::write(const SectionView section, const NameView name, const Value& value)
+	void INI::write(const SectionView section, const NameView name, const Value& value)
 	{
 		getValue(section, name) = value;
 	}
 
-	void INIData::writeGlobal(const NameView name, const Value& value)
+	void INI::writeGlobal(const NameView name, const Value& value)
 	{
 		write(SectionView{}, name, value);
 	}
 
-	bool INIData::save(const FilePathView path) const
+	bool INI::save(const FilePathView path) const
 	{
 		TextWriter writer{ path };
 
@@ -155,7 +155,7 @@ namespace s3d
 		return true;
 	}
 
-	bool INIData::loadFromTextReader(TextReader& reader)
+	bool INI::loadFromTextReader(TextReader& reader)
 	{
 		if (not reader)
 		{
@@ -256,7 +256,7 @@ namespace s3d
 		return true;
 	}
 
-	String& INIData::getValue(const SectionView section, const NameView name)
+	String& INI::getValue(const SectionView section, const NameView name)
 	{
 		auto itSection = m_keyIndices.find(section);
 
@@ -304,7 +304,7 @@ namespace s3d
 		}
 	}
 
-	Optional<String> INIData::getValueOpt(const SectionView section, const NameView name) const
+	Optional<String> INI::getValueOpt(const SectionView section, const NameView name) const
 	{
 		if (auto itSection = m_keyIndices.find(section);
 			itSection != m_keyIndices.end()) // Section が存在

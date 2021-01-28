@@ -15,7 +15,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EnvironmentVariable.hpp>
-# include <Siv3D/INIData.hpp>
+# include <Siv3D/INI.hpp>
 
 namespace s3d
 {
@@ -175,7 +175,7 @@ namespace s3d
 					return specialFolderPaths;
 				}
 
-				const INIData ini(iniFilePath);
+				const INI ini(iniFilePath);
 				specialFolderPaths[FromEnum(SpecialFolder::Desktop)]	= AddSlash(ini[U"XDG_DESKTOP_DIR"].removed(U'\"').replaced(U"$HOME", homeDirectory));
 				specialFolderPaths[FromEnum(SpecialFolder::Documents)]	= AddSlash(ini[U"XDG_DOCUMENTS_DIR"].removed(U'\"').replaced(U"$HOME", homeDirectory));
 				specialFolderPaths[FromEnum(SpecialFolder::Music)]		= AddSlash(ini[U"XDG_MUSIC_DIR"].removed(U'\"').replaced(U"$HOME", homeDirectory));
