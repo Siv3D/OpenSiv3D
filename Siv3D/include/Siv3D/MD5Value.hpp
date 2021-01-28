@@ -46,42 +46,42 @@ namespace s3d
 	# if __cpp_impl_three_way_comparison
 
 		[[nodiscard]]
-		friend constexpr auto operator <=>(const MD5Value&, const MD5Value&) = default;
+		friend /*constexpr*/ auto operator <=>(const MD5Value&, const MD5Value&) = default;
 
 	# else
 
 		[[nodiscard]]
-		friend constexpr bool operator ==(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator ==(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value == rhs.value);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator !=(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator !=(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value != rhs.value);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator <(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator <(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value < rhs.value);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator <=(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator <=(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value <= rhs.value);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator >(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator >(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value > rhs.value);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator >=(const MD5Value& lhs, const MD5Value& rhs) noexcept
+		friend /*constexpr*/ bool operator >=(const MD5Value& lhs, const MD5Value& rhs) noexcept
 		{
 			return (lhs.value >= rhs.value);
 		}

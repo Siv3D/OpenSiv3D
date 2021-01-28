@@ -31,6 +31,7 @@ namespace s3d
 		: value{ md5 } {}
 
 	inline constexpr MD5Value::MD5Value(const std::string_view md5)
+		: value{}
 	{
 		if (md5.length() != 32)
 		{
@@ -54,6 +55,7 @@ namespace s3d
 	}
 
 	inline constexpr MD5Value::MD5Value(const StringView md5)
+		: value{}
 	{
 		if (md5.length() != 32)
 		{
