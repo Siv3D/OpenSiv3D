@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,6 +12,7 @@
 # include <Siv3D/ApplicationOptions.hpp>
 # include <Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
+# include <Siv3D/ConstantBuffer/Metal/ConstantBufferDetail_Metal.hpp>
 
 namespace s3d
 {
@@ -28,7 +29,7 @@ namespace s3d
 		}
 		else
 		{
-			return new ConstantBufferDetail_Null(size);
+			return new ConstantBufferDetail_Metal(size);
 		}
 	}
 }

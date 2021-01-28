@@ -46,11 +46,9 @@ struct VSConstants2D
 	float4 colorMul;
 };
 
-struct PSConstants2D
+struct SoftShape
 {
-	float4 colorAdd;
-	float4 sdfParam;
-	float4 internal;
+	float t;
 };
 
 //
@@ -68,13 +66,14 @@ float2 Circular(float r, float theta)
 
 vertex
 s3d::PSInput VS_SoftShape(uint id [[vertex_id]],
-				  constant VSConstants2D& cb [[buffer(1)]])
+						  constant VSConstants2D& cb [[buffer(0)]],
+						  constant SoftShape& softShape [[buffer(1)]])
 {
 	s3d::PSInput result;
 	result.color = float4(0.2, 0.7, 0.4, 1);
 	
 	float2 pos;
-	float g_t = 0.0f;
+	float g_t = softShape.t;
 
 	if (id % 3 == 0)
 	{
