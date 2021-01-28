@@ -31,4 +31,7 @@ namespace s3d
 	
 	/// @brief 事前に計算を完了させる
 	using Precompute		= YesNo<struct Precompute_tag>;
+
+	/// @brief 例外を発生させる
+	using AllowExceptions	= YesNo<struct AllowExceptions_tag>;
 }
