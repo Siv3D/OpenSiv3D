@@ -409,7 +409,7 @@
 # include <Siv3D/BinaryWriter.hpp>
 
 // Base64 | Base64
-//# include <Siv3D/Base64.hpp>
+# include <Siv3D/Base64.hpp>
 
 // MD5 | MD5
 //# include <Siv3D/MD5.hpp>

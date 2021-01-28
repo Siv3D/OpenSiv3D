@@ -688,6 +688,9 @@
     <Filter Include="src\ThirdParty\nlohmann">
       <UniqueIdentifier>{f37d19cb-9c70-4d80-a02a-fa353a5a65ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Base64">
+      <UniqueIdentifier>{1539f5be-0a76-478d-9bd8-bf0460472289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3120,6 +3123,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\json.hpp">
       <Filter>src\ThirdParty\nlohmann</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4240,6 +4246,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\lua\lgc.c">
       <Filter>src\ThirdParty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp">
+      <Filter>src\Siv3D\Base64</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
