@@ -499,6 +499,10 @@ namespace s3d
 		[[nodiscard]]
 		auto sumF() const = delete;
 
+		Grid& swap_columns(size_t a, size_t b);
+
+		Grid& swap_rows(size_t a, size_t b);
+
 		[[nodiscard]]
 		Array<Type> values_at(std::initializer_list<Point> indices) const;
 

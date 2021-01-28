@@ -969,6 +969,28 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::reverse_columns()
+	{
+		for (size_t x = 0; x < (m_width / 2); ++x)
+		{
+			swap_columns(x, (m_width - x - 1));
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::reverse_rows()
+	{
+		for (size_t y = 0; y < (m_height / 2); ++y)
+		{
+			swap_rows(y, (m_height - y - 1));
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::reversed() const&
 	{
 		Grid new_grid;
@@ -1033,6 +1055,24 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::rotate_rows(const std::ptrdiff_t count)
+	{
+		return rotate(count * static_cast<std::ptrdiff_t>(m_width));
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::rotated_rows(const std::ptrdiff_t count) const&
+	{
+		return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::rotated_rows(const std::ptrdiff_t count)&&
+	{
+		return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+	}
+
+	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>& Grid<Type, Allocator>::shuffle()
 	{
 		return shuffle(GetDefaultRNG());
@@ -1076,6 +1116,142 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	inline Array<Type> Grid<Type, Allocator>::slice(const size_type y, const size_type x) const
+	{
+		if (not inBounds(y, x))
+		{
+			return{};
+		}
+
+		return Array<value_type>(m_data.begin() + (y * m_width + x), m_data.end());
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type> Grid<Type, Allocator>::slice(const Point pos) const
+	{
+		return slice(pos.y, pos.x);
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type> Grid<Type, Allocator>::slice(const size_type y, const size_type x, const size_t length) const
+	{
+		if (not inBounds(y, x))
+		{
+			return{};
+		}
+
+		const size_type index = (y * m_width + x);
+
+		return Array<value_type>((m_data.begin() + index), (m_data.begin() + Min(index + length, m_data.size())));
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type> Grid<Type, Allocator>::slice(const Point pos, const size_t length) const
+	{
+		return slice(pos.y, pos.x, length);
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::sort()
+	{
+		std::sort(m_data.begin(), m_data.end());
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::stable_sort()
+	{
+		std::stable_sort(m_data.begin(), m_data.end());
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::sort_by(Fty f)
+	{
+		std::sort(m_data.begin(), m_data.end(), f);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::stable_sort_by(Fty f)
+	{
+		std::stable_sort(m_data.begin(), m_data.end(), f);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted() const&
+	{
+		return Grid(*this).sort();
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted() const&
+	{
+		return Grid(*this).stable_sorted();
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted()&&
+	{
+		sort();
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted()&&
+	{
+		stable_sort();
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted_by(Fty f) const&
+	{
+		return Grid(*this).sort_by(f);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted_by(Fty f) const&
+	{
+		return Grid(*this).stable_sort_by(f);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted_by(Fty f)&&
+	{
+		sort_by(f);
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
+	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted_by(Fty f)&&
+	{
+		stable_sort_by(f);
+
+		return std::move(*this);
+	}
+
+	template <class Type, class Allocator>
 	template <class T, std::enable_if_t<Meta::HasPlus_v<T>>*>
 	inline auto Grid<Type, Allocator>::sum() const
 	{
@@ -1087,6 +1263,40 @@ namespace s3d
 	inline auto Grid<Type, Allocator>::sumF() const
 	{
 		return m_data.sumF();
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::swap_columns(const size_t a, const size_t b)
+	{
+		if ((m_width <= a) || (m_width <= b))
+		{
+			throw std::out_of_range("Grid::swap_columns(): index out of range");
+		}
+
+		for (size_t y = 0; y < m_height; ++y)
+		{
+			using std::swap;
+			swap(m_data[y * m_width + a], m_data[y * m_width + b]);
+		}
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Grid<Type, Allocator>& Grid<Type, Allocator>::swap_rows(const size_t a, const size_t b)
+	{
+		if ((m_height <= a) || (m_height <= b))
+		{
+			throw std::out_of_range("Grid::swap_rows(): index out of range");
+		}
+
+		for (size_t x = 0; x < m_width; ++x)
+		{
+			using std::swap;
+			swap(m_data[a * m_width + x], m_data[b * m_width + x]);
+		}
+
+		return *this;
 	}
 
 	template <class Type, class Allocator>
