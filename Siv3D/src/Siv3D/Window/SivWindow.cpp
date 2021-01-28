@@ -107,7 +107,7 @@ namespace s3d
 			return true;
 		}
 
-		bool ResizeActual(const Size size)
+		bool ResizeActual(const Size size, const bool centering)
 		{
 			if ((not InRange(size.x, 1, 8192))
 				|| (not InRange(size.y, 1, 8192)))
@@ -128,6 +128,11 @@ namespace s3d
 			else if (resizeMode == ResizeMode::Virtual)
 			{
 				Scene::Resize(size);
+			}
+
+			if (centering)
+			{
+				Centering();
 			}
 
 			return true;

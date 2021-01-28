@@ -80,21 +80,46 @@ namespace s3d
 		void Minimize();
 
 		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
-		/// @param size 新しいサイズ
+		/// @param size 新しいサイズ（ピクセル）
 		/// @param centering ウィンドウを画面の中心に移動させるか
 		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
 		inline bool Resize(Size size, bool centering = true);
 
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
 		inline bool Resize(int32 width, int32 height, bool centering = true);
 
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param size 新しいサイズ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
 		bool ResizeVirtual(Size size, bool centering = true);
 
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
 		inline bool ResizeVirtual(int32 width, int32 height, bool centering = true);
 
-		bool ResizeActual(Size size);
+		/// @brief ウィンドウのクライアントサイズを実サイズ基準で変更します。
+		/// @param size 新しいサイズ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		bool ResizeActual(Size size, bool centering = true);
 
-		inline bool ResizeActual(int32 width, int32 height);
+		/// @brief ウィンドウのクライアントサイズを実サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		inline bool ResizeActual(int32 width, int32 height, bool centering = true);
 
+		/// @brief ウィンドウを手動でリサイズするときの最小サイズを実サイズ基準で設定します。
+		/// @param size 設定するサイズ（ピクセル）
 		void SetMinimumFrameBufferSize(Size size);
 	}
 }

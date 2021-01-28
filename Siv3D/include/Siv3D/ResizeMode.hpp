@@ -13,13 +13,13 @@
 
 namespace s3d
 {
-	/// @brief シーンサイズの設定
+	/// @brief シーンの自動リサイズモード
 	enum class ResizeMode
 	{
-		/// @brief ウィンドウの実サイズに合わせる
+		/// @brief シーンのサイズをウィンドウの実サイズに合わせる
 		Actual,
 
-		/// @brief ウィンドウの仮想サイズに合わせる
+		/// @brief シーンのサイズをウィンドウの仮想サイズに合わせる（デフォルト）
 		Virtual,
 
 		/// @brief シーンのサイズは変更しない

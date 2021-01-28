@@ -32,7 +32,7 @@ namespace s3d
 		/// @brief フレームバッファのサイズ
 		Size frameBufferSize = Window::DefaultClientSize;
 
-		/// @brief 最小のサイズ
+		/// @brief 最小のフレームバッファのサイズ
 		Size minFrameBufferSize = Size{ 1, 1 };
 
 		/// @brief ユーザが設定しているデスクトップのスケーリング

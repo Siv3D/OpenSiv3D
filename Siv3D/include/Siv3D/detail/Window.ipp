@@ -28,7 +28,7 @@ namespace s3d
 
 		inline void SetPos(const int32 x, const int32 y)
 		{
-			SetPos(Point(x, y));
+			SetPos(Point{ x, y });
 		}
 
 		inline Point GetPos() noexcept
@@ -43,17 +43,17 @@ namespace s3d
 
 		inline bool Resize(const int32 width, const int32 height, const bool centering)
 		{
-			return ResizeVirtual(Size(width, height), centering);
+			return ResizeVirtual(Size{ width, height }, centering);
 		}
 
 		inline bool ResizeVirtual(const int32 width, const int32 height, const bool centering)
 		{
-			return ResizeVirtual(Size(width, height), centering);
+			return ResizeVirtual(Size{ width, height }, centering);
 		}
 
-		inline bool ResizeActual(const int32 width, const int32 height)
+		inline bool ResizeActual(const int32 width, const int32 height, const bool centering)
 		{
-			return ResizeActual(Size(width, height));
+			return ResizeActual(Size{ width, height }, centering);
 		}
 	}
 }

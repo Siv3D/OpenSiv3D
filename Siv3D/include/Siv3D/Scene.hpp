@@ -42,21 +42,28 @@ namespace s3d
 
 	namespace Scene
 	{
+		/// @brief シーンの幅と高さを変更します。
+		/// @remark シーンのリサイズモードが `ResizeMode::Keep` でなければ、ウィンドウのリサイズ時に自動的にシーンのサイズも変更されます。
+		/// @param size 新しいシーンの幅と高さ（ピクセル）
 		void Resize(s3d::Size size);
 
+		/// @brief シーンの幅と高さを変更します。
+		/// @remark シーンのリサイズモードが `ResizeMode::Keep` でなければ、ウィンドウのリサイズ時に自動的にシーンのサイズも変更されます。
+		/// @param width 新しいシーンの幅（ピクセル）
+		/// @param height 新しいシーンの高さ（ピクセル）
 		inline void Resize(int32 width, int32 height);
 
-		/// @brief シーンの幅と高さ（ピクセル）の現在の設定を返します。
+		/// @brief 現在のシーンの幅と高さ（ピクセル）を返します。
 		/// @return シーンの幅と高さ（ピクセル）
 		[[nodiscard]]
 		s3d::Size Size() noexcept;
 
-		/// @brief シーンの幅（ピクセル）の現在の設定を返します。
+		/// @brief 現在のシーンの幅（ピクセル）を返します。
 		/// @return シーンの幅（ピクセル）
 		[[nodiscard]]
 		inline int32 Width() noexcept;
 
-		/// @brief シーンの高さ（ピクセル）の現在の設定を返します。
+		/// @brief 現在のシーンの高さ（ピクセル）を返します。
 		/// @return シーンの高さ（ピクセル）
 		[[nodiscard]]
 		inline int32 Height() noexcept;
@@ -76,34 +83,65 @@ namespace s3d
 		[[nodiscard]]
 		inline s3d::Rect Rect() noexcept;
 
+		/// @brief ウィンドウのサイズを変更したときに、シーンをどのようにリサイズするかを設定します。
+		/// @reamrk デフォルトは `Scene::DefaultResizeMode` です。	
+		/// @param resizeMode シーンのリサイズモード
 		void SetResizeMode(ResizeMode resizeMode);
 
+		/// @brief ウィンドウのサイズを変更したときに、シーンをどのようにリサイズするかの現在の設定を返します。
+		/// @return シーンのリサイズモード
 		[[nodiscard]]
 		ResizeMode GetResizeMode() noexcept;
 
+		/// @brief ウィンドウのクライアント領域がシーンのサイズと異なる場合にシーンを拡大縮小描画するために使うテクスチャフィルタを設定します。
+		/// @reamrk デフォルトは `Scene::DefaultTextureFilter` です。	
+		/// @param textureFilter シーンを拡大縮小描画する際に使うテクスチャフィルタ
 		void SetTextureFilter(TextureFilter textureFilter);
 
+		/// @brief ウィンドウのクライアント領域がシーンのサイズと異なる場合にシーンを拡大縮小描画するために使うテクスチャフィルタの現在の設定を返します。
+		/// @return シーンを拡大縮小描画する際に使うテクスチャフィルタ
 		[[nodiscard]]
 		TextureFilter GetTextureFilter() noexcept;
 
+		/// @brief シーンの背景色を設定します。色のアルファ成分は無視されます。
+		/// @reamrk デフォルトは `Scene::DefaultBackgroundColor` です。
+		/// @param color 色
 		void SetBackground(const ColorF& color);
 
-		[[nodiscard]]
+		/// @brief 現在のシーンをクリアする色（背景色）を返します。
+		/// @return シーンをクリアする色
+		[[nodiscard]] 
 		const ColorF& GetBackground() noexcept;
 
+		/// @brief シーンとウィンドウのアスペクト比が異なる際に、余白となるスペース「レターボックス」の色を設定します。
+		/// @reamrk デフォルトは `Scene::DefaultLetterBoxColor` です。
+		/// @param color レターボックスの色
 		void SetLetterbox(const ColorF& color);
 
+		/// @brief 現在のレターボックスの色を返します。
+		/// @return レターボックスの色
 		[[nodiscard]]
 		const ColorF& GetLetterBox() noexcept;
 
+		/// @brief `Scene::DeltaTime()` が返す最大の時間（秒）を設定します。
+		/// @param timeSec 最大の時間（秒）
 		void SetMaxDeltaTime(double timeSec);
 
-		[[nodiscard]] 
+		/// @brief `Scene::DeltaTime()` が返す最大の時間（秒）の現在の設定を返します。
+		/// @return `Scene::DeltaTime()` が返す最大の時間（秒）
+		[[nodiscard]]
 		double GetMaxDeltaTime() noexcept;
 
 		[[nodiscard]]
+		/// @brief 前回の System::Update() からの経過時間（秒）を、`Scene::GetMaxDeltaTime()` を超えない値で返します。
+		/// @remark この値をもとにアニメーションやイベントの処理などを行うことで、フレームレートが上下しても対応できます。
+		/// @remark `System::Update()` を呼ぶことで値が更新されます。
+		/// @return 前回のフレームからの経過時間（秒）と `Scene::GetMaxDeltaTime()` のうち、小さいほうの値
 		double DeltaTime() noexcept;
 
+		/// @brief アプリケーションが起動してからの経過時間（秒）を返します。
+		/// @remark `System::Update()` を呼ぶことで値が更新されます。
+		/// @return アプリケーションが起動してからの経過時間（秒）
 		[[nodiscard]]
 		double Time() noexcept;
 
@@ -113,6 +151,10 @@ namespace s3d
 		[[nodiscard]]
 		int32 FrameCount() noexcept;
 
+		/// @brief クライアント座標をシーンの座標に変換します。
+		/// @remark `Cursor::PosRaw()` が返す座標をシーンの座標に変換できます。
+		/// @param pos クライアント座標（ピクセル）
+		/// @return シーン座標（ピクセル）
 		[[nodiscard]]
 		Vec2 ClientToScene(Vec2 pos) noexcept;
 	}

@@ -283,10 +283,10 @@
 # include <Siv3D/Int128.hpp>
 
 // 多倍長整数 | Arbitrary precision integer type
-# include <Siv3D/BigInt.hpp> // [Siv3D ToDo]
+# include <Siv3D/BigInt.hpp>
 
 // 多倍長浮動小数点数 | 100 decimal digits precision floating point type
-# include <Siv3D/BigFloat.hpp> // [Siv3D ToDo]
+# include <Siv3D/BigFloat.hpp>
 
 // 浮動小数点数型の共通型 | Common Float
 # include <Siv3D/CommonFloat.hpp>
