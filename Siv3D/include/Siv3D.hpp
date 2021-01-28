@@ -742,6 +742,9 @@
 // 環境変数 | Environment Variable
 # include <Siv3D/EnvironmentVariable.hpp>
 
+// コマンドライン引数 | Command-line arguments
+# include <Siv3D/CommandLine.hpp>
+
 // CPU 情報 | CPU information
 # include <Siv3D/CPUInfo.hpp>
 

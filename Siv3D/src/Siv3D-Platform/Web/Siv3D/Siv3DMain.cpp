@@ -18,14 +18,16 @@ void Main();
 
 namespace s3d::detail::init
 {
+	void InitCommandLines(int argc, char** argv);
 	void InitModulePath(const char* arg);
 }
 
-int main(int, char* argv[])
+int main(int argc, char* argv[])
 {
 	using namespace s3d;
 	std::cout << "OpenSiv3D for Web\n";
 
+	detail::init::InitCommandLines(argc, argv);
 	detail::init::InitModulePath("/a.out");
 
 	Siv3DEngine engine;

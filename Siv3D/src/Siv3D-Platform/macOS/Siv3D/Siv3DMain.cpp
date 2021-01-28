@@ -14,14 +14,20 @@
 # include <Siv3D/System/ISystem.hpp>
 # include <Siv3D/Error.hpp>
 
-void PerformTest();
 void Main();
 
-int main(int, char*[])
+namespace s3d::detail::init
 {
+	void InitCommandLines(int argc, char** argv);
+}
+
+int main(int argc, char* argv[])
+{
+	using namespace s3d;
 	std::cout << "OpenSiv3D for macOS\n";
 	
-	using namespace s3d;
+	detail::init::InitCommandLines(argc, argv);
+
 	Siv3DEngine engine;
 	
 	try

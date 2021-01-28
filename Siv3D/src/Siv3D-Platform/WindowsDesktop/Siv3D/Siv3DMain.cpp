@@ -254,6 +254,11 @@ namespace s3d
 
 		LOG_TRACE(U"--- Main()");
 	}
+
+	namespace detail::init
+	{
+		void InitCommandLines(int argc, char** argv);
+	}
 }
 
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
@@ -268,6 +273,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 		}
 	}
+
+	detail::init::InitCommandLines(__argc, __argv);
 
 	std::unique_lock ul(g_mutex); // (0)--
 
