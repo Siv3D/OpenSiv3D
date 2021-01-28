@@ -29,7 +29,6 @@
 		2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */; };
 		2C0A4D86256A1C6C002A4B5E /* example in Resources */ = {isa = PBXBuildFile; fileRef = 2C0A4D85256A1C6C002A4B5E /* example */; };
 		2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D9C256A21E6002A4B5E /* sprite.metal */; };
-		2C0A4DAC256A21FD002A4B5E /* gpu_generated_vertices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
@@ -589,6 +588,7 @@
 		2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508424B768A800B98A7F /* BinaryReaderDetail.cpp */; };
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
+		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -725,7 +725,6 @@
 		2C0A4D83256A18A1002A4B5E /* SivGraphics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics2D.cpp; sourceTree = "<group>"; };
 		2C0A4D85256A1C6C002A4B5E /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = App/example; sourceTree = "<group>"; };
 		2C0A4D9C256A21E6002A4B5E /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
-		2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = gpu_generated_vertices.metal; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
@@ -1829,6 +1828,7 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2095,7 +2095,7 @@
 		2C0A4DA8256A21FD002A4B5E /* msl */ = {
 			isa = PBXGroup;
 			children = (
-				2C0A4DA9256A21FD002A4B5E /* gpu_generated_vertices.metal */,
+				2C794AA125C24D5200034D81 /* soft_shape.metal */,
 			);
 			path = msl;
 			sourceTree = "<group>";
@@ -5445,11 +5445,11 @@
 				2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */,
 				2C48584F24C1FBAE0034F68D /* Siv3DTest_Image.cpp in Sources */,
 				2C0FF4E624C429B50014C96E /* Siv3DTest_BinaryReader.cpp in Sources */,
-				2C0A4DAC256A21FD002A4B5E /* gpu_generated_vertices.metal in Sources */,
 				2C48585024C1FBAE0034F68D /* Siv3DTest.cpp in Sources */,
 				2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */,
 				2C0FF4E824C437020014C96E /* Siv3DTest_BinaryWriter.cpp in Sources */,
 				2C48585324C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp in Sources */,
+				2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */,
 				2C48585224C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp in Sources */,
 				2C0FF4F424C486ED0014C96E /* Siv3DTest_TextWriter.cpp in Sources */,
 			);
