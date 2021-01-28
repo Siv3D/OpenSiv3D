@@ -397,7 +397,7 @@ gmon.out
 
 # Siv3D
 ## Ignore dependencies folder
-/Dependencies/boost_1_73_0/boost/*
+/Dependencies/boost_1_73_0/*
 
 ## Third party libraries
 !**/simde/*

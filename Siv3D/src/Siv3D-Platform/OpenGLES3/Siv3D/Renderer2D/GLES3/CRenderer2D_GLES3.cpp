@@ -616,6 +616,11 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_GLES3::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
+	}
+
 	void CRenderer2D_GLES3::flush()
 	{
 		GLES3Vertex2DBatch& batch = m_batches[m_drawCount % 2];
