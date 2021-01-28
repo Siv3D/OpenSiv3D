@@ -64,7 +64,7 @@ struct PSConstants2D
 //
 vertex
 s3d::PSInput VS_Sprite(s3d::Vertex2D in [[stage_in]],
-				  constant VSConstants2D& cb [[buffer(1)]])
+				  constant VSConstants2D& cb [[buffer(0)]])
 {
 	s3d::PSInput result;
 	result.clipSpacePosition	= s3d::Transform2D(in.pos, cb.transform);
@@ -75,7 +75,7 @@ s3d::PSInput VS_Sprite(s3d::Vertex2D in [[stage_in]],
 
 fragment
 float4 PS_Shape(s3d::PSInput in [[stage_in]],
-				constant PSConstants2D& cb [[buffer(1)]])
+				constant PSConstants2D& cb [[buffer(0)]])
 {
     return (in.color + cb.colorAdd);
 }

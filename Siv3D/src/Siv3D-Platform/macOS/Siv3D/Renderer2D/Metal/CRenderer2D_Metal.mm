@@ -690,7 +690,7 @@ namespace s3d
 								
 								[sceneCommandEncoder setVertexBuffer:m_batches.getCurrentVertexBuffer(viBatchIndex)
 												offset:0
-											   atIndex:0];
+											   atIndex:16];
 
 								LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
 									command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
@@ -715,14 +715,14 @@ namespace s3d
 								{
 									[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 																 length:m_vsConstants2D.size()
-																atIndex:1];
+																atIndex:0];
 								}
 								
 								if (m_psConstants2D._update_if_dirty())
 								{
 									[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
 																   length:m_psConstants2D.size()
-																  atIndex:1];
+																  atIndex:0];
 								}
 								
 								const MetalDrawCommand& draw = m_commandManager.getDraw(command.index);
@@ -758,14 +758,14 @@ namespace s3d
 								{
 									[sceneCommandEncoder setVertexBytes:m_vsConstants2D.data()
 																 length:m_vsConstants2D.size()
-																atIndex:1];
+																atIndex:0];
 								}
 								
 								if (m_psConstants2D._update_if_dirty())
 								{
 									[sceneCommandEncoder setFragmentBytes:m_psConstants2D.data()
 																   length:m_psConstants2D.size()
-																  atIndex:1];
+																  atIndex:0];
 								}
 
 								const uint32 draw = m_commandManager.getNullDraw(command.index);
