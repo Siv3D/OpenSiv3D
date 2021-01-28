@@ -51,6 +51,8 @@ namespace s3d
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
 			m_combinedTransforms	= { m_combinedTransforms.back() };
+			m_constants.clear();
+			m_constantBufferCommands.clear();
 		}
 
 		// clear reserves
