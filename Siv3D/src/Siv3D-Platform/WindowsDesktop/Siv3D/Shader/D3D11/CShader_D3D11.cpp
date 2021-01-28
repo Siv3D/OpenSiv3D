@@ -74,7 +74,7 @@ namespace s3d
 		// HLSL コンパイラをロード
 		{
 			// HLSL コンパイラ用の DLL をロード
-			m_d3dcompiler = DLL::LoadSystemLibrary(L"d3dcompiler_47.dll");
+			m_d3dcompiler = DLL::LoadSystemLibraryNoThrow(L"d3dcompiler_47.dll");
 
 			if (m_d3dcompiler) // ロードに成功 (Windows 8.1 以降か、最新の D3D ランタイムをインストールした Windows 7 ならここ）
 			{

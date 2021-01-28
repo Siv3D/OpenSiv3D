@@ -32,7 +32,7 @@ namespace s3d
 
 		// D3D11_CREATE_DEVICE_DEBUG が使えるかのチェック
 		const bool hasDebugLayer = SIV3D_BUILD(DEBUG)
-			? (DLL::LoadSystemLibrary(L"D3D11_1SDKLayers.dll") != nullptr)
+			? (DLL::LoadSystemLibraryNoThrow(L"D3D11_1SDKLayers.dll") != nullptr)
 			: false;
 
 		// DXGI 1.2
