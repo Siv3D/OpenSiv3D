@@ -26,6 +26,7 @@ Library | Version
 [miniutf](https://github.com/dropbox/miniutf) | 
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
+[nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [OpenCV](https://github.com/opencv/opencv) | 
 [plutovg](https://github.com/sammycage/plutovg) | 
