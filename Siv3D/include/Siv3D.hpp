@@ -411,8 +411,11 @@
 // Base64 | Base64
 # include <Siv3D/Base64.hpp>
 
-// MD5 | MD5
-//# include <Siv3D/MD5.hpp>
+// MD5 ハッシュ値 | MD5 hash value
+# include <Siv3D/MD5Value.hpp>
+
+// MD5 エンコード | MD5 Encode 
+# include <Siv3D/MD5.hpp>
 
 // 暗号化 | Encryption
 //# include <Siv3D/Crypto.hpp>
