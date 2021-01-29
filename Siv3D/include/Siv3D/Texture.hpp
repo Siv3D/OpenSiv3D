@@ -13,6 +13,7 @@
 # include <memory>
 # include "Common.hpp"
 # include "Image.hpp"
+# include "TextureDesc.hpp"
 # include "AssetHandle.hpp"
 
 namespace s3d

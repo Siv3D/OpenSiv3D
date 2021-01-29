@@ -133,6 +133,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Subdivision2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextEncoding.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextReader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureDesc.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureFormat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp" />
@@ -393,6 +394,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturePixelFormat.hpp" />
