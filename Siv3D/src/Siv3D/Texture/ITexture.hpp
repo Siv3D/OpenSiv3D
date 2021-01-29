@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Texture.hpp>
 
 namespace s3d
 {
@@ -22,8 +23,10 @@ namespace s3d
 
 		virtual ~ISiv3DTexture() = default;
 
-		virtual void init() = 0;
+		virtual void updateAsyncTextureLoad(size_t maxUpdate) = 0;
 
-		virtual bool update() = 0;
+		//virtual Texture::IDType createUnmipped(const Image& image, TextureDesc desc) = 0;
+
+		//virtual Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
 	};
 }

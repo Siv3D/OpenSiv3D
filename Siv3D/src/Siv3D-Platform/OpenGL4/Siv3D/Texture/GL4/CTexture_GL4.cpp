@@ -9,29 +9,28 @@
 //
 //-----------------------------------------------
 
-# include "CTexture_D3D11.hpp"
+# include "CTexture_GL4.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
-	CTexture_D3D11::CTexture_D3D11()
+	CTexture_GL4::CTexture_GL4()
 	{
 		// do nothing
 	}
 
-	CTexture_D3D11::~CTexture_D3D11()
+	CTexture_GL4::~CTexture_GL4()
 	{
-		LOG_SCOPED_TRACE(U"CTexture_D3D11::~CTexture_D3D11()");
+		LOG_SCOPED_TRACE(U"CTexture_GL4::~CTexture_GL4()");
 	}
 
-	void CTexture_D3D11::init()
+	void CTexture_GL4::init()
 	{
-		LOG_SCOPED_TRACE(U"CTexture_D3D11::init()");
 
 	}
 
-	void CTexture_D3D11::updateAsyncTextureLoad(const size_t)
+	void CTexture_GL4::updateAsyncTextureLoad(const size_t)
 	{
 		// do nothing
 	}

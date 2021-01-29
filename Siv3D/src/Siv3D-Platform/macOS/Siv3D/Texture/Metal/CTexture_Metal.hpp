@@ -15,17 +15,15 @@
 
 namespace s3d
 {
-	class CTexture_D3D11 final : public ISiv3DTexture
+	class CTexture_Metal final : public ISiv3DTexture
 	{
 	private:
 
 	public:
 
-		CTexture_D3D11();
+		CTexture_Metal();
 
-		~CTexture_D3D11() override;
-
-		void init();
+		~CTexture_Metal() override;
 
 		void updateAsyncTextureLoad(size_t maxUpdate) override;
 	};

@@ -730,6 +730,12 @@
     <Filter Include="src\Siv3D\ImageProcessing">
       <UniqueIdentifier>{29a8a87d-9d81-4aae-8a0d-5e5af37a4322}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Texture">
+      <UniqueIdentifier>{3fdd4bb1-7a50-49a3-ac1a-5688e120d93a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4">
+      <UniqueIdentifier>{0a6824e5-b485-4f75-b65b-67ebaa6985c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3303,6 +3309,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageProcessing.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\CTexture_GL4.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4531,6 +4540,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp">
       <Filter>src\Siv3D\ImageProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\CTexture_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

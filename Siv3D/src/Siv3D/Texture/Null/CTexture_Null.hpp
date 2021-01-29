@@ -25,8 +25,6 @@ namespace s3d
 
 		~CTexture_Null() override;
 
-		void init() override;
-
-		bool update() override;
+		void updateAsyncTextureLoad(size_t maxUpdate) override;
 	};
 }

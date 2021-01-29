@@ -81,7 +81,9 @@ namespace s3d
 		m_rasterizerState	= std::make_unique<GL4RasterizerState>();
 		m_samplerState		= std::make_unique<GL4SamplerState>();
 
-		SIV3D_ENGINE(Texture)->init();
+		pTexture = dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture));
+		pTexture->init();
+
 		SIV3D_ENGINE(Shader)->init();
 	}
 

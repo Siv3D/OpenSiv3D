@@ -68,7 +68,9 @@ namespace s3d
 		m_backBuffer		= std::make_unique<MetalBackBuffer>();
 		m_samplerState		= std::make_unique<MetalSamplerState>(m_device);
 		
-		SIV3D_ENGINE(Texture)->init();
+		pTexture = dynamic_cast<CTexture_Metal*>(SIV3D_ENGINE(Texture));
+		pTexture->init();
+
 		SIV3D_ENGINE(Shader)->init();
 		
 		clear();

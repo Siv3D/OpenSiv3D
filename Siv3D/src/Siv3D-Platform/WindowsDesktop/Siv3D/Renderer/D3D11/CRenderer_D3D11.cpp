@@ -50,7 +50,9 @@ namespace s3d
 		m_depthStencilState	= std::make_unique<D3D11DepthStencilState>(m_device->getDevice(), m_device->getContext());
 		m_samplerState		= std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
 
-		SIV3D_ENGINE(Texture)->init();
+		pTexture = dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture));
+		pTexture->init();
+
 		SIV3D_ENGINE(Shader)->init();
 
 		m_device->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	

@@ -20,6 +20,7 @@
 # include "RasterizerState/D3D11RasterizerState.hpp"
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
+# include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 
 namespace s3d
 {
@@ -30,6 +31,7 @@ namespace s3d
 	private:
 
 		CRenderer2D_D3D11* pRenderer2D = nullptr;
+		CTexture_D3D11* pTexture = nullptr;
 
 		std::unique_ptr<D3D11Device> m_device;
 

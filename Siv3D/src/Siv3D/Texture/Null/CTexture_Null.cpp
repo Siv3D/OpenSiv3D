@@ -25,14 +25,8 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CTexture_Null::~CTexture_Null()");
 	}
 
-	void CTexture_Null::init()
+	void CTexture_Null::updateAsyncTextureLoad(const size_t)
 	{
-		LOG_SCOPED_TRACE(U"CTexture_Null::init()");
-
-	}
-
-	bool CTexture_Null::update()
-	{
-		return true;
+		// do nothing
 	}
 }

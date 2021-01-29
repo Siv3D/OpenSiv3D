@@ -18,6 +18,7 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer/Metal/BackBuffer/MetalBackBuffer.hpp>
 # include <Siv3D/Renderer/Metal/SamplerState/MetalSamplerState.hpp>
+# include <Siv3D/Texture/Metal/CTexture_Metal.hpp>
 # import <Metal/Metal.h>
 # import <QuartzCore/CAMetalLayer.h>
 
@@ -31,6 +32,7 @@ namespace s3d
 		
 		GLFWwindow* m_window = nullptr;
 		CRenderer2D_Metal* pRenderer2D = nullptr;
+		CTexture_Metal* pTexture = nullptr;
 
 		id<MTLDevice> m_device = nil;
 		

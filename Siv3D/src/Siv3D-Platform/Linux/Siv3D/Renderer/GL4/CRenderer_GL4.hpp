@@ -18,6 +18,7 @@
 # include <Siv3D/Renderer/GL4/BlendState/GL4BlendState.hpp>
 # include <Siv3D/Renderer/GL4/RasterizerState/GL4RasterizerState.hpp>
 # include <Siv3D/Renderer/GL4/SamplerState/GL4SamplerState.hpp>
+# include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
 
 namespace s3d
 {
@@ -26,6 +27,7 @@ namespace s3d
 	private:
 		
 		CRenderer2D_GL4* pRenderer2D = nullptr;
+		CTexture_GL4* pTexture = nullptr;
 		GLFWwindow* m_window = nullptr;
 
 		std::unique_ptr<GL4BackBuffer> m_backBuffer;

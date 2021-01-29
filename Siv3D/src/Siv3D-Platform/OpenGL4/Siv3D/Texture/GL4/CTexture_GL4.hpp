@@ -15,15 +15,15 @@
 
 namespace s3d
 {
-	class CTexture_D3D11 final : public ISiv3DTexture
+	class CTexture_GL4 final : public ISiv3DTexture
 	{
 	private:
 
 	public:
 
-		CTexture_D3D11();
+		CTexture_GL4();
 
-		~CTexture_D3D11() override;
+		~CTexture_GL4() override;
 
 		void init();
 
