@@ -211,6 +211,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
   ../Siv3D/src/Siv3D/Subdivision2D/SivSubdivision2D.cpp
+  ../Siv3D/src/Siv3D/SVG/SivSVG.cpp
+  ../Siv3D/src/Siv3D/SVG/SVGDetail.cpp
   ../Siv3D/src/Siv3D/System/SivSystem.cpp
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
@@ -453,6 +455,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/Oniguruma/utf8.c
 
   ../Siv3D/src/ThirdParty/plutovg/plutovg-blend.c
+  ../Siv3D/src/ThirdParty/plutovg/plutovg-dash.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-geometry.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-paint.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-rle.c

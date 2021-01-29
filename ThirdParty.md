@@ -22,7 +22,7 @@ Library | Version
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
 [Lua](https://www.lua.org/) | 5.4.2
-[lunasvg](https://github.com/sammycage/lunasvg) | v1.4.0
+[lunasvg](https://github.com/sammycage/lunasvg) | v1.4.2
 [miniutf](https://github.com/dropbox/miniutf) | 
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
