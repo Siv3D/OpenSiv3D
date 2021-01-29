@@ -120,4 +120,14 @@ namespace s3d
 	{
 		return m_textures[handleID]->getFormat();
 	}
+
+	GLuint CTexture_GL4::getTexture(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getTexture();
+	}
+
+	GLuint CTexture_GL4::getFrameBuffer(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getFrameBuffer();
+	}
 }

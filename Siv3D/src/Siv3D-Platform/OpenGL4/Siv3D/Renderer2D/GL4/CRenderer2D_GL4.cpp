@@ -21,7 +21,7 @@
 # include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
-/*
+/*/
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -63,15 +63,16 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_GL4::init()");
 
-		pRenderer = dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer));
-		pShader = dynamic_cast<CShader_GL4*>(SIV3D_ENGINE(Shader));
+		pRenderer	= dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		pShader		= dynamic_cast<CShader_GL4*>(SIV3D_ENGINE(Shader)); assert(pShader);
+		pTexture	= dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture)); assert(pTexture);
 
 		// 標準 VS をロード
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_GL4:");
 			m_standardVS = std::make_unique<GL4StandardVS2D>();
-			m_standardVS->sprite = GLSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
-			m_standardVS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
+			m_standardVS->sprite				= GLSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->fullscreen_triangle	= GLSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {} };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL4::m_standardVS initialization failed");
@@ -82,8 +83,9 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GL4:");
 			m_standardPS = std::make_unique<GL4StandardPS2D>();
-			m_standardPS->shape = GLSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
-			m_standardPS->fullscreen_triangle = GLSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
+			m_standardPS->shape					= GLSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->texture				= GLSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->fullscreen_triangle	= GLSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {} };
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GL4::m_standardPS initialization failed");
@@ -490,12 +492,40 @@ namespace s3d
 
 	void CRenderer2D_GL4::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
 	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
 	}
 
 	void CRenderer2D_GL4::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4])
 	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, colors))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
 
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
 	}
 
 	Float4 CRenderer2D_GL4::getColorMul() const
@@ -835,6 +865,32 @@ namespace s3d
 					
 					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
 						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
+			case GL4Renderer2DCommandType::PSTexture0:
+			case GL4Renderer2DCommandType::PSTexture1:
+			case GL4Renderer2DCommandType::PSTexture2:
+			case GL4Renderer2DCommandType::PSTexture3:
+			case GL4Renderer2DCommandType::PSTexture4:
+			case GL4Renderer2DCommandType::PSTexture5:
+			case GL4Renderer2DCommandType::PSTexture6:
+			case GL4Renderer2DCommandType::PSTexture7:
+				{
+					const uint32 slot = (FromEnum(command.type) - FromEnum(GL4Renderer2DCommandType::PSTexture0));
+					const auto& textureID = m_commandManager.getPSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glBindTexture(GL_TEXTURE_2D, 0);
+					}
+					else
+					{
+						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+					}
+
+					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}

@@ -19,6 +19,7 @@ Resource(engine/shader/d3d11/fullscreen_triangle.vs)
 Resource(engine/shader/d3d11/fullscreen_triangle.ps)
 Resource(engine/shader/glsl/sprite.vert)
 Resource(engine/shader/glsl/shape.frag)
+Resource(engine/shader/glsl/texture.frag)
 Resource(engine/shader/glsl/fullscreen_triangle.vert)
 Resource(engine/shader/glsl/fullscreen_triangle.frag)
 

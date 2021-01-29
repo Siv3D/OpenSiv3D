@@ -45,5 +45,13 @@ namespace s3d
 		TextureDesc getDesc(Texture::IDType handleID) override;
 
 		TextureFormat getFormat(Texture::IDType handleID) override;
+
+		//
+		// OpenGL
+		//
+
+		GLuint getTexture(Texture::IDType handleID);
+
+		GLuint getFrameBuffer(Texture::IDType handleID);
 	};
 }

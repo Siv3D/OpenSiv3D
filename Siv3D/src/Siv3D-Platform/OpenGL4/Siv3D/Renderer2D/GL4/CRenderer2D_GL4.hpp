@@ -26,6 +26,7 @@ namespace s3d
 {
 	class CRenderer_GL4;
 	class CShader_GL4;
+	class CTexture_GL4;
 
 	struct GL4StandardVS2D
 	{
@@ -48,16 +49,20 @@ namespace s3d
 	struct GL4StandardPS2D
 	{
 		PixelShader shape;
+		PixelShader texture;
 		PixelShader fullscreen_triangle;
 
 		PixelShader::IDType shapeID;
+		PixelShader::IDType textureID;
 
 		bool setup()
 		{
 			const bool result = shape
+				&& texture
 				&& fullscreen_triangle;
 
-			shapeID = shape.id();
+			shapeID		= shape.id();
+			textureID	= texture.id();
 
 			return result;
 		}
@@ -69,6 +74,7 @@ namespace s3d
 
 		CRenderer_GL4* pRenderer = nullptr;
 		CShader_GL4* pShader = nullptr;
+		CTexture_GL4* pTexture = nullptr;
 
 		std::unique_ptr<GL4StandardVS2D> m_standardVS;
 		std::unique_ptr<GL4StandardPS2D> m_standardPS;

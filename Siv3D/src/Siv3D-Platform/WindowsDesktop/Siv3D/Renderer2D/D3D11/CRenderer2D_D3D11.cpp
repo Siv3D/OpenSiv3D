@@ -878,7 +878,7 @@ namespace s3d
 			case D3D11Renderer2DCommandType::PSTexture6:
 			case D3D11Renderer2DCommandType::PSTexture7:
 				{
-					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer2DCommandType::PSTexture0);
+					const uint32 slot = (FromEnum(command.type) - FromEnum(D3D11Renderer2DCommandType::PSTexture0));
 					const auto& textureID = m_commandManager.getPSTexture(slot, command.index);
 
 					if (textureID.isInvalid())

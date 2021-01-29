@@ -17,6 +17,7 @@ namespace s3d
 	{
 		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
 		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+		m_psTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 
 		reset();
 	}
@@ -100,6 +101,16 @@ namespace s3d
 
 			m_commands.emplace_back(GL4Renderer2DCommandType::Transform, 0);
 			m_currentCombinedTransform = m_combinedTransforms.front();
+
+			{
+				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+				{
+					const auto command = ToEnum<GL4Renderer2DCommandType>(FromEnum(GL4Renderer2DCommandType::PSTexture0) + i);
+					m_psTextures[i] = { Texture::IDType::InvalidValue() };
+					m_commands.emplace_back(command, 0);
+				}
+				m_currentPSTextures.fill(Texture::IDType::InvalidValue());
+			}
 		}
 	}
 
@@ -185,6 +196,17 @@ namespace s3d
 		{
 			assert(not m_constantBufferCommands.isEmpty());
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
+		}
+
+		for (int32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			const auto command = ToEnum<GL4Renderer2DCommandType>(FromEnum(GL4Renderer2DCommandType::PSTexture0) + i);
+
+			if (m_changes.has(command))
+			{
+				m_commands.emplace_back(command, static_cast<uint32>(m_psTextures[i].size()));
+				m_psTextures[i].push_back(m_currentPSTextures[i]);
+			}
 		}
 
 		m_changes.clear();
@@ -729,5 +751,87 @@ namespace s3d
 	const __m128* GL4Renderer2DCommandManager::getConstantBufferPtr(const uint32 offset) const
 	{
 		return (m_constants.data() + offset);
+	}
+
+	void GL4Renderer2DCommandManager::pushPSTextureUnbind(const uint32 slot)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		const auto id = Texture::IDType::InvalidValue();
+		const auto command = ToEnum<GL4Renderer2DCommandType>(FromEnum(GL4Renderer2DCommandType::PSTexture0) + slot);
+		auto& current = m_currentPSTextures[slot];
+		auto& buffer = m_psTextures[slot];
+
+		if (not m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+			}
+		}
+	}
+
+	void GL4Renderer2DCommandManager::pushPSTexture(const uint32 slot, const Texture& texture)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		const auto id = texture.id();
+		const auto command = ToEnum<GL4Renderer2DCommandType>(FromEnum(GL4Renderer2DCommandType::PSTexture0) + slot);
+		auto& current = m_currentPSTextures[slot];
+		auto& buffer = m_psTextures[slot];
+
+		if (not m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+
+				if (m_reservedTextures.find(id) == m_reservedTextures.end())
+				{
+					m_reservedTextures.emplace(id, texture);
+				}
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+
+				if (m_reservedTextures.find(id) == m_reservedTextures.end())
+				{
+					m_reservedTextures.emplace(id, texture);
+				}
+			}
+		}
+	}
+
+	const Texture::IDType& GL4Renderer2DCommandManager::getPSTexture(const uint32 slot, const uint32 index) const
+	{
+		return m_psTextures[slot][index];
+	}
+
+	const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& GL4Renderer2DCommandManager::getCurrentPSTextures() const
+	{
+		return m_currentPSTextures;
 	}
 }

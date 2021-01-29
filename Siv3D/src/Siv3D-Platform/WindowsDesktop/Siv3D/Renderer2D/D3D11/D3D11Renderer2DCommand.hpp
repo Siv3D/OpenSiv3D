@@ -236,7 +236,6 @@ namespace s3d
 		D3D11ConstantBufferCommand& getConstantBuffer(uint32 index);
 		const __m128* getConstantBufferPtr(uint32 offset) const;
 
-		// Texture を PS から解除
 		void pushPSTextureUnbind(uint32 slot);
 		void pushPSTexture(uint32 slot, const Texture& texture);
 		const Texture::IDType& getPSTexture(uint32 slot, uint32 index) const;
