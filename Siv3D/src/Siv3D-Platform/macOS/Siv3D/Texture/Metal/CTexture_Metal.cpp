@@ -32,6 +32,36 @@ namespace s3d
 
 	void CTexture_Metal::updateAsyncTextureLoad(const size_t)
 	{
-		// do nothing
+		// [Siv3D ToDo]
+	}
+
+	Texture::IDType CTexture_Metal::createUnmipped(const Image& image, TextureDesc desc)
+	{
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_Metal::createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc)
+	{
+		return(Texture::IDType::NullAsset());
+	}
+
+	void CTexture_Metal::release(Texture::IDType handleID)
+	{
+
+	}
+
+	Size CTexture_Metal::getSize(Texture::IDType handleID)
+	{
+		return(Size{ 0,0 });
+	}
+
+	TextureDesc CTexture_Metal::getDesc(Texture::IDType handleID)
+	{
+		return(TextureDesc::Unmipped);
+	}
+
+	TextureFormat CTexture_Metal::getFormat(Texture::IDType handleID)
+	{
+		return(TextureFormat::Unknown);
 	}
 }

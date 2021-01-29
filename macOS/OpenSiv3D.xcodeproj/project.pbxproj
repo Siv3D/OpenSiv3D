@@ -666,6 +666,8 @@
 		2C794B5925C4080A00034D81 /* CTexture_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */; };
 		2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B5B25C4083400034D81 /* CTexture_Metal.hpp */; };
 		2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */; };
+		2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6125C4241800034D81 /* GL4Texture.cpp */; };
+		2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6225C4241800034D81 /* GL4Texture.hpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -1996,6 +1998,10 @@
 		2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTexture_GL4.hpp; sourceTree = "<group>"; };
 		2C794B5B25C4083400034D81 /* CTexture_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTexture_Metal.hpp; sourceTree = "<group>"; };
 		2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTexture_Metal.cpp; sourceTree = "<group>"; };
+		2C794B5F25C423DA00034D81 /* TextureDesc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureDesc.hpp; sourceTree = "<group>"; };
+		2C794B6025C423EB00034D81 /* TextureDesc.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureDesc.ipp; sourceTree = "<group>"; };
+		2C794B6125C4241800034D81 /* GL4Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Texture.cpp; sourceTree = "<group>"; };
+		2C794B6225C4241800034D81 /* GL4Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Texture.hpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2558,6 +2564,7 @@
 				2C13C74625B8FA4A0054B968 /* TextEncoding.hpp */,
 				2C13C86725B8FA4A0054B968 /* TextReader.hpp */,
 				2C13C82F25B8FA4A0054B968 /* Texture.hpp */,
+				2C794B5F25C423DA00034D81 /* TextureDesc.hpp */,
 				2C13C76625B8FA4A0054B968 /* TextureFilter.hpp */,
 				2C794B4A25C4076F00034D81 /* TextureFormat.hpp */,
 				2C794B4925C4076F00034D81 /* TexturePixelFormat.hpp */,
@@ -2735,6 +2742,7 @@
 				2C13C7C025B8FA4A0054B968 /* Subdivision2D.ipp */,
 				2C13C7E525B8FA4A0054B968 /* TextEncoding.ipp */,
 				2C13C79825B8FA4A0054B968 /* TextReader.ipp */,
+				2C794B6025C423EB00034D81 /* TextureDesc.ipp */,
 				2C794B4B25C4078200034D81 /* TextureFormat.ipp */,
 				2C13C7B225B8FA4A0054B968 /* TextWriter.ipp */,
 				2C13C7BC25B8FA4A0054B968 /* Timer.ipp */,
@@ -5060,6 +5068,8 @@
 		2C794B5525C4080A00034D81 /* GL4 */ = {
 			isa = PBXGroup;
 			children = (
+				2C794B6125C4241800034D81 /* GL4Texture.cpp */,
+				2C794B6225C4241800034D81 /* GL4Texture.hpp */,
 				2C794B5625C4080A00034D81 /* CTexture_GL4.cpp */,
 				2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */,
 			);
@@ -5702,6 +5712,7 @@
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
 				2CF21D17249FAA8F00C864C9 /* CCursor.hpp in Headers */,
+				2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */,
 				2C13C9B125BD29FC0054B968 /* lcode.h in Headers */,
 				2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */,
 				2C794B2A25C3DFC200034D81 /* zstd_decompress_internal.h in Headers */,
@@ -6137,6 +6148,7 @@
 				2C13C9A425BD29FC0054B968 /* lstate.c in Sources */,
 				2C47B30C24DD9789008D83BE /* DummyFactory.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
+				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
