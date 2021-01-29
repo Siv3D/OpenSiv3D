@@ -727,6 +727,9 @@
     <Filter Include="src\Siv3D\TextureFormat">
       <UniqueIdentifier>{419b49c4-4c15-4034-982c-718bd3939d1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageProcessing">
+      <UniqueIdentifier>{29a8a87d-9d81-4aae-8a0d-5e5af37a4322}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3294,6 +3297,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureFormat.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageProcessing.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4519,6 +4528,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextureFormat\SivTextureFormat.cpp">
       <Filter>src\Siv3D\TextureFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp">
+      <Filter>src\Siv3D\ImageProcessing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
