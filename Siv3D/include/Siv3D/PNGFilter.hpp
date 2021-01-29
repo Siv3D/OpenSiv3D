@@ -17,7 +17,7 @@ namespace s3d
 {
 	enum class PNGFilter
 	{
-		None = 0x08,
+		None_ = 0x08,
 
 		Sub = 0x10,
 
@@ -27,7 +27,7 @@ namespace s3d
 
 		Paeth = 0x80,
 
-		Default = None | Sub | Up | Avg | Paeth,
+		Default = None_ | Sub | Up | Avg | Paeth,
 	};
 	DEFINE_BITMASK_OPERATORS(PNGFilter);
 }
