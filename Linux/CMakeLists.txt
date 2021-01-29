@@ -217,6 +217,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp
   ../Siv3D/src/Siv3D/Texture/SivTexture.cpp
+  ../Siv3D/src/Siv3D/TextureFormat/SivTextureFormat.cpp
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp

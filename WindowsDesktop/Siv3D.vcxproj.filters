@@ -724,6 +724,9 @@
     <Filter Include="src\Siv3D\Compression">
       <UniqueIdentifier>{c1e61821-547f-4cba-894e-8d71cfb22a57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextureFormat">
+      <UniqueIdentifier>{419b49c4-4c15-4034-982c-718bd3939d1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3282,6 +3285,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturePixelFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureFormat.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4504,6 +4516,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp">
       <Filter>src\Siv3D\Compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureFormat\SivTextureFormat.cpp">
+      <Filter>src\Siv3D\TextureFormat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

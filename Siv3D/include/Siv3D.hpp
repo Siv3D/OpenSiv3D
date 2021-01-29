@@ -828,7 +828,8 @@
 # include <Siv3D/NavMeshConfig.hpp>
 # include <Siv3D/NavMesh.hpp>
 
-
+# include <Siv3D/TexturePixelFormat.hpp>
+# include <Siv3D/TextureFormat.hpp>
 # include <Siv3D/Texture.hpp>
 
 # include <Siv3D/Graphics.hpp>
