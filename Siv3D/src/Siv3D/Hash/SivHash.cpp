@@ -10,6 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/Hash.hpp>
+
+# define XXH_STATIC_LINKING_ONLY
+# define XXH_IMPLEMENTATION
+# define XXH_NAMESPACE SIV3D_
 # include <ThirdParty/xxHash/xxhash.h>
 
 namespace s3d
@@ -18,7 +22,7 @@ namespace s3d
 	{
 		uint64 XXHash3(const void* input, const size_t size) noexcept
 		{
-			return XXH3_64bits(input, size);
+			return SIV3D_XXH3_64bits(input, size);
 		}
 	}
 }

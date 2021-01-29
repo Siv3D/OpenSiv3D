@@ -414,8 +414,6 @@ add_library(
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
-  
-  ../Siv3D/src/ThirdParty/xxHash/xxhash.c
   )
 
 set_target_properties(OpenSiv3D_Web 
