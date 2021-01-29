@@ -97,9 +97,8 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initCStream(cStream, compressionLevel);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initCStream(cStream, compressionLevel); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeCStream(cStream);
 				return false;
@@ -161,9 +160,8 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initCStream(cStream, compressionLevel);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initCStream(cStream, compressionLevel); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeCStream(cStream);
 				return false;
@@ -183,7 +181,7 @@ namespace s3d
 
 			for (;;)
 			{
-				const size_t read = Min<size_t>(toRead, size - readPos);
+				const size_t read = Min(toRead, (size - readPos));
 
 				if (read == 0)
 				{
@@ -236,6 +234,11 @@ namespace s3d
 			return true;
 		}
 
+		bool CompressToFile(const Blob& blob, const FilePathView outputPath, const int32 compressionLevel)
+		{
+			return CompressToFile(blob.data(), blob.size(), outputPath, compressionLevel);
+		}
+
 		bool CompressFileToFile(const FilePathView inputPath, const FilePathView outputPath, const int32 compressionLevel)
 		{
 			BinaryReader reader{ inputPath };
@@ -258,9 +261,8 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initCStream(cStream, compressionLevel);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initCStream(cStream, compressionLevel); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeCStream(cStream);
 				return false;
@@ -349,20 +351,18 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initDStream(dStream);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initDStream(dStream); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
-			size_t toRead = initResult;
 			size_t readPos = 0;
 
 			for (;;)
 			{
-				const size_t read = Min<size_t>(toRead, (size - readPos));
+				const size_t read = Min(inputBufferSize, (size - readPos));
 
 				if (read == 0)
 				{
@@ -377,9 +377,8 @@ namespace s3d
 				{
 					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
-					toRead = ZSTD_decompressStream(dStream, &output, &input);
-
-					if (ZSTD_isError(toRead))
+					if (const size_t ret = ZSTD_decompressStream(dStream, &output, &input); 
+						ZSTD_isError(ret))
 					{
 						dst.clear();
 
@@ -443,17 +442,14 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initDStream(dStream);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initDStream(dStream); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
-			size_t toRead = initResult;
-
-			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), toRead)))
+			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), inputBufferSize)))
 			{
 				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
 
@@ -461,9 +457,8 @@ namespace s3d
 				{
 					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
-					toRead = ZSTD_decompressStream(dStream, &output, &input);
-
-					if (ZSTD_isError(toRead))
+					if (const size_t ret = ZSTD_decompressStream(dStream, &output, &input); 
+						ZSTD_isError(ret))
 					{
 						ZSTD_freeDStream(dStream);
 						return false;
@@ -491,17 +486,14 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initDStream(dStream);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initDStream(dStream); 
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
-			size_t toRead = initResult;
-
-			BinaryWriter writer(outputPath);
+			BinaryWriter writer{ outputPath };
 
 			if (not writer)
 			{
@@ -513,7 +505,7 @@ namespace s3d
 
 			for (;;)
 			{
-				const size_t read = Min<size_t>(toRead, (size - readPos));
+				const size_t read = Min<size_t>(inputBufferSize, (size - readPos));
 
 				if (read == 0)
 				{
@@ -528,9 +520,8 @@ namespace s3d
 				{
 					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
-					toRead = ZSTD_decompressStream(dStream, &output, &input);
-
-					if (ZSTD_isError(toRead))
+					if (const size_t ret = ZSTD_decompressStream(dStream, &output, &input); 
+						ZSTD_isError(ret))
 					{
 						writer.clear();
 
@@ -546,6 +537,11 @@ namespace s3d
 			ZSTD_freeDStream(dStream);
 
 			return true;
+		}
+
+		bool DecompressToFile(const Blob& blob, const FilePathView outputPath)
+		{
+			return DecompressToFile(blob.data(), blob.size(), outputPath);
 		}
 
 		bool DecompressFileToFile(const FilePathView inputPath, const FilePathView outputPath)
@@ -570,15 +566,12 @@ namespace s3d
 				return false;
 			}
 
-			const size_t initResult = ZSTD_initDStream(dStream);
-
-			if (ZSTD_isError(initResult))
+			if (const size_t ret = ZSTD_initDStream(dStream);
+				ZSTD_isError(ret))
 			{
 				ZSTD_freeDStream(dStream);
 				return false;
 			}
-
-			size_t toRead = initResult;
 
 			BinaryWriter writer{ outputPath };
 
@@ -588,7 +581,7 @@ namespace s3d
 				return false;
 			}
 
-			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), toRead)))
+			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), inputBufferSize)))
 			{
 				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
 
@@ -596,9 +589,8 @@ namespace s3d
 				{
 					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
-					toRead = ZSTD_decompressStream(dStream, &output, &input);
-
-					if (ZSTD_isError(toRead))
+					if (const size_t ret = ZSTD_decompressStream(dStream, &output, &input); 
+						ZSTD_isError(ret))
 					{
 						writer.clear();
 

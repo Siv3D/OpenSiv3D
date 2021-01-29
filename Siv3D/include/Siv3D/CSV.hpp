@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "Optional.hpp"
+# include "Parse.hpp"
 # include "IReader.hpp"
 # include "TextReader.hpp"
 

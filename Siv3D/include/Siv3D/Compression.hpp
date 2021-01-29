@@ -41,6 +41,8 @@ namespace s3d
 
 		bool CompressToFile(const void* data, size_t size, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
 
+		bool CompressToFile(const Blob& blob, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
+
 		bool CompressFileToFile(FilePathView inputPath, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
 
 		[[nodiscard]]
@@ -59,6 +61,8 @@ namespace s3d
 		bool DecompressFile(FilePathView path, Blob& dst);
 
 		bool DecompressToFile(const void* data, size_t size, FilePathView outputPath);
+
+		bool DecompressToFile(const Blob& blob, FilePathView outputPath);
 
 		bool DecompressFileToFile(FilePathView inputPath, FilePathView outputPath);
 	}
