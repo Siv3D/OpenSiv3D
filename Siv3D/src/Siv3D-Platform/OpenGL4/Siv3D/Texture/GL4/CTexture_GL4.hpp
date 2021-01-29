@@ -12,12 +12,17 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
+# include "GL4Texture.hpp"
 
 namespace s3d
 {
 	class CTexture_GL4 final : public ISiv3DTexture
 	{
 	private:
+
+		// Texture の管理
+		AssetHandleManager<Texture::IDType, GL4Texture> m_textures{ U"Texture" };
 
 	public:
 

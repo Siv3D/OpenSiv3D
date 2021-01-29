@@ -23,45 +23,101 @@ namespace s3d
 	CTexture_GL4::~CTexture_GL4()
 	{
 		LOG_SCOPED_TRACE(U"CTexture_GL4::~CTexture_GL4()");
+
+		m_textures.destroy();
 	}
 
 	void CTexture_GL4::init()
 	{
+		// null Texture を管理に登録
+		{
+			const Image image{ 16, Palette::Yellow };
+			const Array<Image> mips = {
+				Image{ 8, Palette::Yellow }, Image{ 4, Palette::Yellow },
+				Image{ 2, Palette::Yellow }, Image{ 1, Palette::Yellow }
+			};
 
+			// null Texture を作成
+			auto nullTexture = std::make_unique<GL4Texture>(image, mips, TextureDesc::Mipped);
+
+			if (not nullTexture->isInitialized()) // もし作成に失敗していたら
+			{
+				throw EngineError(U"Null Texture initialization failed");
+			}
+
+			// 管理に登録
+			m_textures.setNullData(std::move(nullTexture));
+		}
 	}
 
 	void CTexture_GL4::updateAsyncTextureLoad(const size_t)
 	{
-		// do nothing
+		// [Siv3D ToDo]
 	}
 
-	Texture::IDType CTexture_GL4::createUnmipped(const Image& image, TextureDesc desc)
+	Texture::IDType CTexture_GL4::createUnmipped(const Image& image, const TextureDesc desc)
 	{
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		//if (not isMainThread())
+		//{
+		//	return pushRequest(image, Array<Image>(), desc);
+		//}
+
+		auto texture = std::make_unique<GL4Texture>(image, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Default, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GL4::createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc)
+	Texture::IDType CTexture_GL4::createMipped(const Image& image, const Array<Image>& mips, const TextureDesc desc)
 	{
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		//if (not isMainThread())
+		//{
+		//	return pushRequest(image, mips, desc);
+		//}
+
+		auto texture = std::make_unique<GL4Texture>(image, mips, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Default, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
-	void CTexture_GL4::release(Texture::IDType handleID)
+	void CTexture_GL4::release(const Texture::IDType handleID)
 	{
-
+		m_textures.erase(handleID);
 	}
 
-	Size CTexture_GL4::getSize(Texture::IDType handleID)
+	Size CTexture_GL4::getSize(const Texture::IDType handleID)
 	{
-		return(Size{ 0,0 });
+		return m_textures[handleID]->getSize();
 	}
 
-	TextureDesc CTexture_GL4::getDesc(Texture::IDType handleID)
+	TextureDesc CTexture_GL4::getDesc(const Texture::IDType handleID)
 	{
-		return(TextureDesc::Unmipped);
+		return m_textures[handleID]->getDesc();
 	}
 
-	TextureFormat CTexture_GL4::getFormat(Texture::IDType handleID)
+	TextureFormat CTexture_GL4::getFormat(const Texture::IDType handleID)
 	{
-		return(TextureFormat::Unknown);
+		return m_textures[handleID]->getFormat();
 	}
 }

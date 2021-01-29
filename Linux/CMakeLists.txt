@@ -86,6 +86,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/PixelShader/GL4PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/VertexShader/GL4VertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Texture/GL4/CTexture_GL4.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Texture/GL4/GL4Texture.cpp
 
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
