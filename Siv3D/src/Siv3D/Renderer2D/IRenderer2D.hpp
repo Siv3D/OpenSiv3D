@@ -25,6 +25,7 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mat3x2.hpp>
 
@@ -84,6 +85,11 @@ namespace s3d
 		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
 
 		virtual void addNullVertices(uint32 count) = 0;
+
+		virtual void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) = 0;
+
+		virtual void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4]) = 0;
+
 
 
 

@@ -19,6 +19,7 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
+# include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 # include <Siv3D/ConstantBuffer/D3D11/ConstantBufferDetail_D3D11.hpp>
 
 /*
@@ -47,6 +48,7 @@ namespace s3d
 		{
 			pRenderer	= dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
 			pShader		= dynamic_cast<CShader_D3D11*>(SIV3D_ENGINE(Shader)); assert(pShader);
+			pTexture	= dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture)); assert(pTexture);
 			m_device	= pRenderer->getDevice(); assert(m_device);
 			m_context	= pRenderer->getContext(); assert(m_context);
 		}
@@ -55,8 +57,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_D3D11:");
 			m_standardVS = std::make_unique<D3D11StandardVS2D>();
-			m_standardVS->sprite				= HLSL(FileOrResource(U"engine/shader/d3d11/sprite.vs"));
-			m_standardVS->fullscreen_triangle	= HLSL(FileOrResource(U"engine/shader/d3d11/fullscreen_triangle.vs"));
+			m_standardVS->sprite				= HLSL{ Resource(U"engine/shader/d3d11/sprite.vs") };
+			m_standardVS->fullscreen_triangle	= HLSL{ Resource(U"engine/shader/d3d11/fullscreen_triangle.vs") };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_D3D11::m_standardVS initialization failed");
@@ -67,8 +69,9 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_D3D11:");
 			m_standardPS = std::make_unique<D3D11StandardPS2D>();
-			m_standardPS->shape					= HLSL(FileOrResource(U"engine/shader/d3d11/shape.ps"));
-			m_standardPS->fullscreen_triangle	= HLSL(FileOrResource(U"engine/shader/d3d11/fullscreen_triangle.ps"));
+			m_standardPS->shape					= HLSL{ Resource(U"engine/shader/d3d11/shape.ps") };
+			m_standardPS->texture				= HLSL{ Resource(U"engine/shader/d3d11/texture.ps") };
+			m_standardPS->fullscreen_triangle	= HLSL{ Resource(U"engine/shader/d3d11/fullscreen_triangle.ps") };
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_D3D11::m_standardPS initialization failed");
@@ -475,6 +478,45 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	void CRenderer2D_D3D11::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_D3D11::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, colors))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+
 
 	Float4 CRenderer2D_D3D11::getColorMul() const
 	{
@@ -705,13 +747,13 @@ namespace s3d
 			case D3D11Renderer2DCommandType::ColorMul:
 				{
 					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
-					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_vsConstants2D->colorMul));
 					break;
 				}
 			case D3D11Renderer2DCommandType::ColorAdd:
 				{
 					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
-					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_psConstants2D->colorAdd));
 					break;
 				}
 			case D3D11Renderer2DCommandType::BlendState:
@@ -825,6 +867,31 @@ namespace s3d
 
 					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
 						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
+			case D3D11Renderer2DCommandType::PSTexture0:
+			case D3D11Renderer2DCommandType::PSTexture1:
+			case D3D11Renderer2DCommandType::PSTexture2:
+			case D3D11Renderer2DCommandType::PSTexture3:
+			case D3D11Renderer2DCommandType::PSTexture4:
+			case D3D11Renderer2DCommandType::PSTexture5:
+			case D3D11Renderer2DCommandType::PSTexture6:
+			case D3D11Renderer2DCommandType::PSTexture7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer2DCommandType::PSTexture0);
+					const auto& textureID = m_commandManager.getPSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						ID3D11ShaderResourceView* nullAttach[1] = { nullptr };
+						m_context->PSSetShaderResources(slot, 1, nullAttach);
+					}
+					else
+					{
+						m_context->PSSetShaderResources(slot, 1, pTexture->getSRVPtr(textureID));
+					}
+					
+					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}

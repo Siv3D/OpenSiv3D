@@ -17,6 +17,7 @@
 # include "TextureFormat.hpp"
 # include "AssetHandle.hpp"
 # include "2DShapesFwd.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
@@ -82,5 +83,64 @@ namespace s3d
 
 		[[nodiscard]]
 		RectF regionAt(Vec2 pos) const;
+
+		RectF draw(const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+
+		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
+		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF draw(double x, double y, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+
+		RectF draw(double x, double y, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
+		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF draw(const Vec2& pos, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+
+		RectF draw(const Vec2& pos, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
+
+		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::topRight_<Vec2> topRight, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::topCenter_<Vec2> topCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::rightCenter_<Vec2>rightCenter, const ColorF& diffuse = Palette::White) const;
+
+		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const;
+
+		//RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		//RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+	
+		RectF drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
+		//RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		//RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 	};
 }

@@ -108,5 +108,11 @@ namespace s3d
 	
 		[[nodiscard]]
 		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, const Float2* points, size_t size, float thickness, const Float4& color, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildTextureRegion(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, const FloatRect& uv, const Float4& color);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildTextureRegion(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4]);
 	}
 }

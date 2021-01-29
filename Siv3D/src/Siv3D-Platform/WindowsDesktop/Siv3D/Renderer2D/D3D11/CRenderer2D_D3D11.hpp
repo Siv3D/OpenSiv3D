@@ -25,6 +25,7 @@ namespace s3d
 {
 	class CRenderer_D3D11;
 	class CShader_D3D11;
+	class CTexture_D3D11;
 
 	struct D3D11StandardVS2D
 	{
@@ -47,16 +48,20 @@ namespace s3d
 	struct D3D11StandardPS2D
 	{
 		PixelShader shape;
+		PixelShader texture;
 		PixelShader fullscreen_triangle;
 
 		PixelShader::IDType shapeID;
+		PixelShader::IDType textureID;
 
 		bool setup()
 		{
 			const bool result = shape
+				&& texture
 				&& fullscreen_triangle;
 
-			shapeID = shape.id();
+			shapeID		= shape.id();
+			textureID	= texture.id();
 
 			return result;
 		}
@@ -68,6 +73,7 @@ namespace s3d
 
 		CRenderer_D3D11* pRenderer		= nullptr;
 		CShader_D3D11* pShader			= nullptr;
+		CTexture_D3D11* pTexture		= nullptr;
 		ID3D11Device* m_device			= nullptr;
 		ID3D11DeviceContext* m_context	= nullptr;
 
@@ -135,6 +141,10 @@ namespace s3d
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
 
 		void addNullVertices(uint32 count) override;
+
+		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) override;
+
+		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4]) override;
 
 
 		Float4 getColorMul() const override;

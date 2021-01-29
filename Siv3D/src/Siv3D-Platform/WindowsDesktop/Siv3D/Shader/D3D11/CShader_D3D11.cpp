@@ -114,6 +114,9 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
 				.save(U"engine/shader/d3d11/shape.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Texture")
+				.save(U"engine/shader/d3d11/texture.ps");
+
 			throw EngineError(U"Engine shaders have compiled. Please rebuild the project.");
 		}
 

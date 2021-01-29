@@ -58,5 +58,13 @@ namespace s3d
 		TextureDesc getDesc(Texture::IDType handleID) override;
 
 		TextureFormat getFormat(Texture::IDType handleID) override;
+
+		//
+		// D3D11
+		//
+
+		ID3D11ShaderResourceView** getSRVPtr(Texture::IDType handleID);
+
+		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
 	};
 }

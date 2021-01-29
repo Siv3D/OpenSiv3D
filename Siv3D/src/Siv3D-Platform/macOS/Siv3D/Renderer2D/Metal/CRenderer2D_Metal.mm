@@ -484,6 +484,16 @@ namespace s3d
 		m_commandManager.pushNullVertices(count);
 	}
 
+	void CRenderer2D_Metal::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
+	{
+
+	}
+
+	void CRenderer2D_Metal::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4])
+	{
+
+	}
+
 	Float4 CRenderer2D_Metal::getColorMul() const
 	{
 		return m_commandManager.getCurrentColorMul();

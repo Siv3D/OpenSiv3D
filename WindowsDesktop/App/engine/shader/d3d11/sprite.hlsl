@@ -83,7 +83,7 @@ float4 PS_Texture(s3d::PSInput input) : SV_TARGET
 {
 	float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
 
-	return (texColor * input.color) + g_colorAdd;
+	return ((texColor * input.color) + g_colorAdd);
 }
 
 float4 PS_SquareDot(s3d::PSInput input) : SV_TARGET

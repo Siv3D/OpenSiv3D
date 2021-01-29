@@ -153,4 +153,14 @@ namespace s3d
 	{
 		return m_textures[handleID]->getDesc().format;
 	}
+
+	ID3D11ShaderResourceView** CTexture_D3D11::getSRVPtr(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getSRVPtr();
+	}
+
+	ID3D11RenderTargetView* CTexture_D3D11::getRTV(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getRTV();
+	}
 }

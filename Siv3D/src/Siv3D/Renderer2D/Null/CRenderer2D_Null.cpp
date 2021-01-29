@@ -135,6 +135,17 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addTextureRegion(const Texture&, const FloatRect&, const FloatRect&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addTextureRegion(const Texture&, const FloatRect&, const FloatRect&, const Float4(&)[4])
+	{
+		// do nothing
+	}
+
+
 	Float4 CRenderer2D_Null::getColorMul() const
 	{
 		return{ 1.0, 1.0, 1.0, 1.0 };
