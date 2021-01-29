@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -23,6 +23,11 @@ namespace s3d
 	CTexture_Metal::~CTexture_Metal()
 	{
 		LOG_SCOPED_TRACE(U"CTexture_Metal::~CTexture_Metal()");
+	}
+
+	void CTexture_Metal::init()
+	{
+		
 	}
 
 	void CTexture_Metal::updateAsyncTextureLoad(const size_t)

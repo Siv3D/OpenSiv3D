@@ -660,6 +660,12 @@
 		2C794B4325C3DFC200034D81 /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B0525C3DFC200034D81 /* error_private.c */; };
 		2C794B4425C3DFC200034D81 /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B0625C3DFC200034D81 /* zstd.h */; };
 		2C794B4825C3DFEB00034D81 /* SivCompression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B4725C3DFEB00034D81 /* SivCompression.cpp */; };
+		2C794B4E25C407A800034D81 /* SivTextureFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B4D25C407A800034D81 /* SivTextureFormat.cpp */; };
+		2C794B5325C407E700034D81 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5225C407E700034D81 /* SivImageProcessing.cpp */; };
+		2C794B5825C4080A00034D81 /* CTexture_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5625C4080A00034D81 /* CTexture_GL4.cpp */; };
+		2C794B5925C4080A00034D81 /* CTexture_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */; };
+		2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B5B25C4083400034D81 /* CTexture_Metal.hpp */; };
+		2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -1979,6 +1985,17 @@
 		2C794B0625C3DFC200034D81 /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
 		2C794B4525C3DFD800034D81 /* Compression.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Compression.hpp; sourceTree = "<group>"; };
 		2C794B4725C3DFEB00034D81 /* SivCompression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCompression.cpp; sourceTree = "<group>"; };
+		2C794B4925C4076F00034D81 /* TexturePixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TexturePixelFormat.hpp; sourceTree = "<group>"; };
+		2C794B4A25C4076F00034D81 /* TextureFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureFormat.hpp; sourceTree = "<group>"; };
+		2C794B4B25C4078200034D81 /* TextureFormat.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureFormat.ipp; sourceTree = "<group>"; };
+		2C794B4D25C407A800034D81 /* SivTextureFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureFormat.cpp; sourceTree = "<group>"; };
+		2C794B4F25C407C000034D81 /* ImageProcessing.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
+		2C794B5025C407D000034D81 /* ImageProcessing.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.ipp; sourceTree = "<group>"; };
+		2C794B5225C407E700034D81 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
+		2C794B5625C4080A00034D81 /* CTexture_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTexture_GL4.cpp; sourceTree = "<group>"; };
+		2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTexture_GL4.hpp; sourceTree = "<group>"; };
+		2C794B5B25C4083400034D81 /* CTexture_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTexture_Metal.hpp; sourceTree = "<group>"; };
+		2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTexture_Metal.cpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2420,6 +2437,7 @@
 				2C13C77E25B8FA4A0054B968 /* ImageEncoder.hpp */,
 				2C13C71C25B8FA490054B968 /* ImageFormat.hpp */,
 				2C13C70925B8FA490054B968 /* ImageInfo.hpp */,
+				2C794B4F25C407C000034D81 /* ImageProcessing.hpp */,
 				2C13C85325B8FA4A0054B968 /* Indexed.hpp */,
 				2C13C74125B8FA4A0054B968 /* InfiniteList.hpp */,
 				2C13C72925B8FA490054B968 /* INI.hpp */,
@@ -2541,6 +2559,8 @@
 				2C13C86725B8FA4A0054B968 /* TextReader.hpp */,
 				2C13C82F25B8FA4A0054B968 /* Texture.hpp */,
 				2C13C76625B8FA4A0054B968 /* TextureFilter.hpp */,
+				2C794B4A25C4076F00034D81 /* TextureFormat.hpp */,
+				2C794B4925C4076F00034D81 /* TexturePixelFormat.hpp */,
 				2C13C77C25B8FA4A0054B968 /* TextWriter.hpp */,
 				2C13C70B25B8FA490054B968 /* Threading.hpp */,
 				2C13C72825B8FA490054B968 /* Time.hpp */,
@@ -2642,6 +2662,7 @@
 				2C13C7A825B8FA4A0054B968 /* Image.ipp */,
 				2C13C79725B8FA4A0054B968 /* ImageDecoder.ipp */,
 				2C13C7B025B8FA4A0054B968 /* ImageEncoder.ipp */,
+				2C794B5025C407D000034D81 /* ImageProcessing.ipp */,
 				2C13C78E25B8FA4A0054B968 /* Indexed.ipp */,
 				2C13C7DD25B8FA4A0054B968 /* InfiniteList.ipp */,
 				2C13C82125B8FA4A0054B968 /* INI.ipp */,
@@ -2714,6 +2735,7 @@
 				2C13C7C025B8FA4A0054B968 /* Subdivision2D.ipp */,
 				2C13C7E525B8FA4A0054B968 /* TextEncoding.ipp */,
 				2C13C79825B8FA4A0054B968 /* TextReader.ipp */,
+				2C794B4B25C4078200034D81 /* TextureFormat.ipp */,
 				2C13C7B225B8FA4A0054B968 /* TextWriter.ipp */,
 				2C13C7BC25B8FA4A0054B968 /* Timer.ipp */,
 				2C13C7AC25B8FA4A0054B968 /* Transformer2D.ipp */,
@@ -3485,6 +3507,7 @@
 				2C47B2E824DD9789008D83BE /* ImageDecoder */,
 				2C47B2CA24DD9789008D83BE /* ImageEncoder */,
 				2C47B2B424DD9789008D83BE /* ImageFormat */,
+				2C794B5125C407E700034D81 /* ImageProcessing */,
 				2C47B2F424DD9789008D83BE /* INI */,
 				2CFE19AA2555B263005826A1 /* Input */,
 				2C0848A32557C0F200C9838C /* InputCombination */,
@@ -3533,6 +3556,7 @@
 				2C47B2B224DD9789008D83BE /* TextEncoding */,
 				2C47B29124DD9789008D83BE /* TextReader */,
 				2C47B5AB24E7670A008D83BE /* Texture */,
+				2C794B4C25C407A800034D81 /* TextureFormat */,
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
 				2C53C33C25613B8A0072831A /* Triangle */,
@@ -4192,6 +4216,7 @@
 		2C47B5B524E76A20008D83BE /* Texture */ = {
 			isa = PBXGroup;
 			children = (
+				2C794B5A25C4083400034D81 /* Metal */,
 				2C47B5B624E76A20008D83BE /* TextureFactory.cpp */,
 			);
 			path = Texture;
@@ -5008,6 +5033,48 @@
 			path = Compression;
 			sourceTree = "<group>";
 		};
+		2C794B4C25C407A800034D81 /* TextureFormat */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B4D25C407A800034D81 /* SivTextureFormat.cpp */,
+			);
+			path = TextureFormat;
+			sourceTree = "<group>";
+		};
+		2C794B5125C407E700034D81 /* ImageProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B5225C407E700034D81 /* SivImageProcessing.cpp */,
+			);
+			path = ImageProcessing;
+			sourceTree = "<group>";
+		};
+		2C794B5425C4080A00034D81 /* Texture */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B5525C4080A00034D81 /* GL4 */,
+			);
+			path = Texture;
+			sourceTree = "<group>";
+		};
+		2C794B5525C4080A00034D81 /* GL4 */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B5625C4080A00034D81 /* CTexture_GL4.cpp */,
+				2C794B5725C4080A00034D81 /* CTexture_GL4.hpp */,
+			);
+			path = GL4;
+			sourceTree = "<group>";
+		};
+		2C794B5A25C4083400034D81 /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B5B25C4083400034D81 /* CTexture_Metal.hpp */,
+				2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -5325,6 +5392,7 @@
 				2C47B6E424EAC8D9008D83BE /* Renderer */,
 				2C47B6EB24EAC8D9008D83BE /* Renderer2D */,
 				2C4397872536163000F6AECD /* Shader */,
+				2C794B5425C4080A00034D81 /* Texture */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -5434,6 +5502,7 @@
 			files = (
 				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
+				2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */,
 				2C47B33B24DD9789008D83BE /* SystemMisc.hpp in Headers */,
 				2C4396162535DCCA00F6AECD /* svgpaintelement.h in Headers */,
 				2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */,
@@ -5628,6 +5697,7 @@
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
 				2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */,
 				2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */,
+				2C794B5925C4080A00034D81 /* CTexture_GL4.hpp in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
@@ -5868,6 +5938,7 @@
 				2C4396282535DCCA00F6AECD /* svgdefselement.cpp in Sources */,
 				2C13C8E125B9141D0054B968 /* SivRect.cpp in Sources */,
 				2C834DBC248805D4006208B8 /* gb18030.c in Sources */,
+				2C794B4E25C407A800034D81 /* SivTextureFormat.cpp in Sources */,
 				2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */,
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
 				2C47B30F24DD9789008D83BE /* CDummy.cpp in Sources */,
@@ -6004,6 +6075,7 @@
 				2C4396372535DCCA00F6AECD /* svgmarkerelement.cpp in Sources */,
 				2C439F7B241DCEA9001154C2 /* string-to-double.cc in Sources */,
 				2C60AE7A248158A500277281 /* architecture_non_windows.cpp in Sources */,
+				2C794B5825C4080A00034D81 /* CTexture_GL4.cpp in Sources */,
 				2C47B6CB24EAC819008D83BE /* SivPixelShader.cpp in Sources */,
 				2C43961F2535DCCA00F6AECD /* pathiterator.cpp in Sources */,
 				2C43962E2535DCCA00F6AECD /* svgpaintelement.cpp in Sources */,
@@ -6083,6 +6155,7 @@
 				2C13C9CD25BD29FC0054B968 /* lbaselib.c in Sources */,
 				2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */,
 				2C13C8D025B8FA9D0054B968 /* DetourNode.cpp in Sources */,
+				2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */,
 				2C43962C2535DCCA00F6AECD /* canvasimpl.cpp in Sources */,
 				2C13C8B425B8FA9D0054B968 /* RecastMeshDetail.cpp in Sources */,
 				2C47B6D224EAC82A008D83BE /* CShader_Null.cpp in Sources */,
@@ -6266,6 +6339,7 @@
 				2C68508B24B768A800B98A7F /* SivDateTime_macOS_Linux.cpp in Sources */,
 				2C4396192535DCCA00F6AECD /* svgrect.cpp in Sources */,
 				2C47B2FF24DD9789008D83BE /* MathParserDetail.cpp in Sources */,
+				2C794B5325C407E700034D81 /* SivImageProcessing.cpp in Sources */,
 				2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */,
 				2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */,
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,

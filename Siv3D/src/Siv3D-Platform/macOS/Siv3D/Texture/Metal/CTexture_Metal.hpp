@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -24,6 +24,8 @@ namespace s3d
 		CTexture_Metal();
 
 		~CTexture_Metal() override;
+		
+		void init();
 
 		void updateAsyncTextureLoad(size_t maxUpdate) override;
 	};
