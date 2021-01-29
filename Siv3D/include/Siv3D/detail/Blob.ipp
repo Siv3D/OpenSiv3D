@@ -110,6 +110,11 @@ namespace s3d
 		m_data.reserve(sizeBytes);
 	}
 
+	inline void Blob::resize(const size_t sizeBytes)
+	{
+		m_data.resize(sizeBytes, Byte{ 0 });
+	}
+
 	inline void Blob::shrink_to_fit()
 	{
 		m_data.shrink_to_fit();

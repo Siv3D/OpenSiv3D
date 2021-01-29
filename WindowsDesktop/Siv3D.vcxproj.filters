@@ -721,6 +721,9 @@
     <Filter Include="src\ThirdParty\zstd\dictBuilder">
       <UniqueIdentifier>{b16e5045-5582-4db6-99f9-c55a36f4da7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Compression">
+      <UniqueIdentifier>{c1e61821-547f-4cba-894e-8d71cfb22a57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3276,6 +3279,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\xxHash\xxhash.h">
       <Filter>src\ThirdParty\xxHash</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4495,6 +4501,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c">
       <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp">
+      <Filter>src\Siv3D\Compression</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

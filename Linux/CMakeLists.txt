@@ -105,6 +105,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp
   ../Siv3D/src/Siv3D/CommandLine/SivCommandLine.cpp
   ../Siv3D/src/Siv3D/Common/Siv3DEngine.cpp
+  ../Siv3D/src/Siv3D/Compression/SivCompression.cpp
   ../Siv3D/src/Siv3D/Console/ConsoleFactory.cpp
   ../Siv3D/src/Siv3D/Console/SivConsole.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.cpp

@@ -22,6 +22,7 @@ namespace s3d
 	{
 		std::array<uint8, 16> value;
 
+		/// @brief 空のデータに対する MD5 ハッシュ値 (d41d8cd98f00b204e9800998ecf8427e) で初期化
 		SIV3D_NODISCARD_CXX20
 		constexpr MD5Value() noexcept;
 

@@ -12,6 +12,7 @@
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/MD5.hpp>
 
 namespace s3d
 {
@@ -43,5 +44,10 @@ namespace s3d
 		const bool result = (static_cast<int64>(m_data.size_bytes()) == writer.write(m_data.data(), m_data.size_bytes()));
 
 		return result;
+	}
+
+	MD5Value Blob::md5() const
+	{
+		return MD5::FromBinary(m_data.data(), m_data.size_bytes());
 	}
 }

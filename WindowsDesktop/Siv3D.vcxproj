@@ -42,6 +42,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Colormap.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CommandLine.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CommonVector.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBufferBinding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CopyOption.hpp" />
@@ -950,6 +951,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Color\SivColor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CommandLine\SivCommandLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\Null\ConstantBufferDetail_Null.cpp" />

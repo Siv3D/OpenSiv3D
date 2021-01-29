@@ -424,7 +424,7 @@
 //# include <Siv3D/Zlib.hpp>
 
 // Zstandard 方式による可逆圧縮 | Lossless compression with Zstandard algorithm
-//# include <Siv3D/Compression.hpp>
+# include <Siv3D/Compression.hpp>
 
 // アーカイブファイルからの読み込み | Archived file reader
 //# include <Siv3D/ArchivedFileReader.hpp>

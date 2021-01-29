@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "MD5Value.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
@@ -19,6 +20,9 @@ namespace s3d
 	{
 		[[nodiscard]]
 		MD5Value FromBinary(const void* const data, size_t size);
+
+		[[nodiscard]]
+		MD5Value FromBinary(const Blob& blob);
 
 		[[nodiscard]]
 		MD5Value FromText(StringView view);

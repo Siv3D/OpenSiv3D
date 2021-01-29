@@ -29,6 +29,11 @@ namespace s3d
 			return result;
 		}
 
+		MD5Value FromBinary(const Blob& blob)
+		{
+			return FromBinary(blob.data(), blob.size());
+		}
+
 		MD5Value FromText(const StringView view)
 		{
 			return FromBinary(view.data(), view.size_bytes());

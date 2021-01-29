@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "Byte.hpp"
+# include "MD5Value.hpp"
 
 namespace s3d
 {
@@ -94,6 +95,8 @@ namespace s3d
 
 		void reserve(size_t sizeBytes);
 
+		void resize(size_t sizeBytes);
+
 		void shrink_to_fit();
 
 		void clear();
@@ -139,6 +142,9 @@ namespace s3d
 		void append(const void* src, size_t sizeBytes);
 
 		bool save(FilePathView path) const;
+
+		[[nodiscard]]
+		MD5Value md5() const;
 
 	private:
 
