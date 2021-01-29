@@ -29,4 +29,34 @@ namespace s3d
 	{
 		// do nothing
 	}
+
+	Texture::IDType CTexture_Null::createUnmipped(const Image&, TextureDesc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createMipped(const Image&, const Array<Image>&, TextureDesc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	void CTexture_Null::release(Texture::IDType)
+	{
+		// do nothing
+	}
+
+	Size CTexture_Null::getSize(Texture::IDType)
+	{
+		return{ 0,0 };
+	}
+
+	TextureDesc CTexture_Null::getDesc(Texture::IDType)
+	{
+		return TextureDesc::Unmipped;
+	}
+
+	TextureFormat CTexture_Null::getFormat(Texture::IDType)
+	{
+		return TextureFormat::Unknown;
+	}
 }

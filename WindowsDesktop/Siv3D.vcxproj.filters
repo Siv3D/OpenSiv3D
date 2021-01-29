@@ -3318,6 +3318,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureDesc.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture2DDesc.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4549,6 +4555,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\CTexture_GL4.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture2DDesc.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

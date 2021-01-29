@@ -11,13 +11,31 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
+# include "D3D11Texture.hpp"
 
 namespace s3d
 {
 	class CTexture_D3D11 final : public ISiv3DTexture
 	{
 	private:
+
+		CRenderer_D3D11* pRenderer = nullptr;
+
+		// device のコピー
+		ID3D11Device* m_device = nullptr;
+
+		// context のコピー
+		ID3D11DeviceContext* m_context = nullptr;
+
+		// Texture の管理
+		AssetHandleManager<Texture::IDType, D3D11Texture> m_textures{ U"Texture" };
+
+		// マルチサンプルの対応
+		std::array<bool, 10> m_multiSampleAvailable = {};
 
 	public:
 
@@ -28,5 +46,17 @@ namespace s3d
 		void init();
 
 		void updateAsyncTextureLoad(size_t maxUpdate) override;
+
+		Texture::IDType createUnmipped(const Image& image, TextureDesc desc) override;
+
+		Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
+
+		void release(Texture::IDType handleID) override;
+
+		Size getSize(Texture::IDType handleID) override;
+
+		TextureDesc getDesc(Texture::IDType handleID) override;
+
+		TextureFormat getFormat(Texture::IDType handleID) override;
 	};
 }

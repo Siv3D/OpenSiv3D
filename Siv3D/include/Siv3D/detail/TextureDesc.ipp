@@ -28,5 +28,11 @@ namespace s3d
 			return (desc == TextureDesc::UnmippedSRGB)
 				|| (desc == TextureDesc::MippedSRGB);
 		}
+
+		[[nodiscard]]
+		inline constexpr bool IsSDF(const TextureDesc desc) noexcept
+		{
+			return (desc == TextureDesc::SDF);
+		}
 	}
 }

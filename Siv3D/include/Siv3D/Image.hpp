@@ -350,7 +350,7 @@ namespace s3d
 
 
 
-
+		bool applyAlphaFromRChannel(FilePathView alpha);
 
 
 

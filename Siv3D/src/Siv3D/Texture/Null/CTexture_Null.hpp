@@ -26,5 +26,17 @@ namespace s3d
 		~CTexture_Null() override;
 
 		void updateAsyncTextureLoad(size_t maxUpdate) override;
+
+		Texture::IDType createUnmipped(const Image& image, TextureDesc desc) override;
+
+		Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
+
+		void release(Texture::IDType handleID) override;
+
+		Size getSize(Texture::IDType handleID) override;
+
+		TextureDesc getDesc(Texture::IDType handleID) override;
+
+		TextureFormat getFormat(Texture::IDType handleID) override;
 	};
 }

@@ -26,6 +26,64 @@ namespace s3d
 		*this = ImageDecoder::Decode(reader, format);
 	}
 
+	Image::Image(const FilePathView rgb, const FilePathView alpha)
+		: Image{ rgb }
+	{
+		applyAlphaFromRChannel(alpha);
+	}
+
+	Image::Image(const Color rgb, const FilePathView alpha)
+		: Image{ alpha }
+	{
+		for (auto& pixel : *this)
+		{
+			pixel.a = pixel.r;
+			pixel.r = rgb.r;
+			pixel.g = rgb.g;
+			pixel.b = rgb.b;
+		}
+	}
+
+	bool Image::applyAlphaFromRChannel(const FilePathView alpha)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		const Image alphaImage{ alpha };
+
+		if (not alphaImage)
+		{
+			return false;
+		}
+
+		Color* pDst = data();
+		const size_t dstStep = m_width;
+
+		const Color* pSrc = alphaImage.data();
+		const size_t srcStep = alphaImage.m_width;
+
+		const uint32 w = Min(m_width, alphaImage.m_width);
+		const uint32 h = Min(m_height, alphaImage.m_height);
+
+		for (uint32 y = 0; y < h; ++y)
+		{
+			Color* pDstLine = pDst;
+			const Color* pSrcLine = pSrc;
+
+			for (uint32 x = 0; x < w; ++x)
+			{
+				(*pDstLine++).a = (*pSrcLine++).r;
+			}
+
+			pSrc += srcStep;
+			pDst += dstStep;
+		}
+
+		return true;
+	}
+
 	bool Image::save(const FilePathView path, const ImageFormat format) const
 	{
 		return ImageEncoder::Save(*this, format, path);

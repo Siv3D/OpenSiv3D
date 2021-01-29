@@ -17,11 +17,15 @@
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/Renderer2D/D3D11/CRenderer2D_D3D11.hpp>
+# include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	CRenderer_D3D11::CRenderer_D3D11() = default;
+	CRenderer_D3D11::CRenderer_D3D11()
+	{
+		// do nothing
+	}
 
 	CRenderer_D3D11::~CRenderer_D3D11()
 	{

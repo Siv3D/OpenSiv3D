@@ -20,11 +20,11 @@
 # include "RasterizerState/D3D11RasterizerState.hpp"
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
-# include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 
 namespace s3d
 {
 	class CRenderer2D_D3D11;
+	class CTexture_D3D11;
 
 	class CRenderer_D3D11 final : public ISiv3DRenderer
 	{
