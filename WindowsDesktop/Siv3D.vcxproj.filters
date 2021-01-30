@@ -757,6 +757,9 @@
     <Filter Include="src\Siv3D\TexturedCircle">
       <UniqueIdentifier>{c5b7492b-e621-4cc7-b17d-e1ec5db90449}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Effect">
+      <UniqueIdentifier>{50416da5-f8b1-4492-a0df-84195d019b28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3378,6 +3381,21 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\CEffect.hpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\EffectData.hpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4648,6 +4666,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
       <Filter>src\Siv3D\TexturedQuad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectFactory.cpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\SivEffect.cpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\CEffect.cpp">
+      <Filter>src\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectData.cpp">
+      <Filter>src\Siv3D\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

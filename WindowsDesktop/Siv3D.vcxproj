@@ -150,6 +150,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EnvironmentVariable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageDecoder.hpp" />
@@ -638,6 +640,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\ICursor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Dummy\CDummy.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Dummy\IDummy.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\CEffect.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\EffectData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FreestandingMessageBox\FreestandingMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.hpp" />
@@ -993,6 +998,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\CDummy.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\DummyFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Duration\SivDuration.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\CEffect.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\SivEffect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineLog\SivEngineLog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />

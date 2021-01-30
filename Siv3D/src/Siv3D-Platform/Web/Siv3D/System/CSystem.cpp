@@ -23,6 +23,7 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
+# include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
@@ -57,6 +58,7 @@ namespace s3d
 		SIV3D_ENGINE(Cursor)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
+		SIV3D_ENGINE(Effect)->init();
 	}
 
 	bool CSystem::update()
@@ -87,6 +89,7 @@ namespace s3d
 		SIV3D_ENGINE(Scene)->update();
 		SIV3D_ENGINE(Window)->update();
 		SIV3D_ENGINE(Cursor)->update();
+		SIV3D_ENGINE(Effect)->update();
 
 		// triggerd by key inputs
 		SIV3D_ENGINE(LicenseManager)->update();
