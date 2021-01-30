@@ -94,7 +94,7 @@ namespace s3d
 		// VS を作成
 		auto vertexShader = std::make_unique<GL4VertexShader>(source, bindings);
 
-		if (!vertexShader->isInitialized()) // もし作成に失敗していたら
+		if (not vertexShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return VertexShader::IDType::NullAsset();
 		}
@@ -120,7 +120,7 @@ namespace s3d
 		// PS を作成
 		auto pixelShader = std::make_unique<GL4PixelShader>(source, bindings);
 
-		if (!pixelShader->isInitialized()) // もし作成に失敗していたら
+		if (not pixelShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return PixelShader::IDType::NullAsset();
 		}

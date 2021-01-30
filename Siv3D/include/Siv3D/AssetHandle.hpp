@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
 # include "Common.hpp"
 # include "AssetIDWrapper.hpp"
 

@@ -185,7 +185,7 @@ namespace s3d
 		// VS を作成
 		auto vertexShader = std::make_unique<D3D11VertexShader>(std::move(binary), m_device);
 
-		if (!vertexShader->isInitialized()) // もし作成に失敗していたら
+		if (not vertexShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return VertexShader::IDType::NullAsset();
 		}
@@ -228,7 +228,7 @@ namespace s3d
 		// PS を作成
 		auto pixelShader = std::make_unique<D3D11PixelShader>(std::move(binary), m_device);
 
-		if (!pixelShader->isInitialized()) // もし作成に失敗していたら
+		if (not pixelShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return PixelShader::IDType::NullAsset();
 		}

@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
 # include "Common.hpp"
 # include "AssetHandle.hpp"
 # include "Array.hpp"

@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
 # include "Common.hpp"
 # include "Image.hpp"
 # include "TextureDesc.hpp"
