@@ -668,6 +668,15 @@
 		2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */; };
 		2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6125C4241800034D81 /* GL4Texture.cpp */; };
 		2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6225C4241800034D81 /* GL4Texture.hpp */; };
+		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
+		2C794B6B25C4FD4300034D81 /* SVGDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6825C4FD4300034D81 /* SVGDetail.hpp */; };
+		2C794B6C25C4FD4300034D81 /* SivSVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6925C4FD4300034D81 /* SivSVG.cpp */; };
+		2C794B6D25C4FD4300034D81 /* SVGDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6A25C4FD4300034D81 /* SVGDetail.cpp */; };
+		2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B7125C4FD8D00034D81 /* CAssetMonitor.cpp */; };
+		2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B7225C4FD8D00034D81 /* AssetMonitorFactory.cpp */; };
+		2C794B7725C4FD8D00034D81 /* IAssetMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B7325C4FD8D00034D81 /* IAssetMonitor.hpp */; };
+		2C794B7825C4FD8D00034D81 /* CAssetMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B7425C4FD8D00034D81 /* CAssetMonitor.hpp */; };
+		2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B7A25C4FDA000034D81 /* SivTwitter.cpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -1189,7 +1198,6 @@
 		2C13C87925B8FA4A0054B968 /* ShaderCommon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShaderCommon.hpp; sourceTree = "<group>"; };
 		2C13C87A25B8FA4A0054B968 /* Image.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
 		2C13C87B25B8FA4A0054B968 /* Format.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Format.hpp; sourceTree = "<group>"; };
-		2C13C87C25B8FA4A0054B968 /* PixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelFormat.hpp; sourceTree = "<group>"; };
 		2C13C87D25B8FA4A0054B968 /* KahanSummation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KahanSummation.hpp; sourceTree = "<group>"; };
 		2C13C87E25B8FA4A0054B968 /* Periodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Periodic.hpp; sourceTree = "<group>"; };
 		2C13C87F25B8FA4A0054B968 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
@@ -2002,6 +2010,19 @@
 		2C794B6025C423EB00034D81 /* TextureDesc.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureDesc.ipp; sourceTree = "<group>"; };
 		2C794B6125C4241800034D81 /* GL4Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Texture.cpp; sourceTree = "<group>"; };
 		2C794B6225C4241800034D81 /* GL4Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Texture.hpp; sourceTree = "<group>"; };
+		2C794B6525C4FD0400034D81 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
+		2C794B6825C4FD4300034D81 /* SVGDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SVGDetail.hpp; sourceTree = "<group>"; };
+		2C794B6925C4FD4300034D81 /* SivSVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSVG.cpp; sourceTree = "<group>"; };
+		2C794B6A25C4FD4300034D81 /* SVGDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVGDetail.cpp; sourceTree = "<group>"; };
+		2C794B6E25C4FD5D00034D81 /* SVG.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SVG.hpp; sourceTree = "<group>"; };
+		2C794B6F25C4FD6C00034D81 /* SVG.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SVG.ipp; sourceTree = "<group>"; };
+		2C794B7125C4FD8D00034D81 /* CAssetMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAssetMonitor.cpp; sourceTree = "<group>"; };
+		2C794B7225C4FD8D00034D81 /* AssetMonitorFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetMonitorFactory.cpp; sourceTree = "<group>"; };
+		2C794B7325C4FD8D00034D81 /* IAssetMonitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAssetMonitor.hpp; sourceTree = "<group>"; };
+		2C794B7425C4FD8D00034D81 /* CAssetMonitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAssetMonitor.hpp; sourceTree = "<group>"; };
+		2C794B7A25C4FDA000034D81 /* SivTwitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTwitter.cpp; sourceTree = "<group>"; };
+		2C794B7C25C4FDBA00034D81 /* Twitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Twitter.hpp; sourceTree = "<group>"; };
+		2C794B7D25C4FDD800034D81 /* ImagePixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImagePixelFormat.hpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2172,20 +2193,21 @@
 		2C0A4D522566A855002A4B5E /* plutovg */ = {
 			isa = PBXGroup;
 			children = (
-				2C0A4D532566A855002A4B5E /* plutovg.h */,
-				2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */,
-				2C0A4D552566A855002A4B5E /* sw_ft_math.h */,
-				2C0A4D562566A855002A4B5E /* plutovg-paint.c */,
-				2C0A4D572566A855002A4B5E /* sw_ft_types.h */,
-				2C0A4D582566A855002A4B5E /* sw_ft_raster.c */,
-				2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */,
-				2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */,
 				2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */,
-				2C0A4D5D2566A855002A4B5E /* plutovg.c */,
-				2C0A4D5E2566A855002A4B5E /* plutovg-private.h */,
+				2C794B6525C4FD0400034D81 /* plutovg-dash.c */,
+				2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */,
+				2C0A4D562566A855002A4B5E /* plutovg-paint.c */,
 				2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */,
-				2C0A4D602566A855002A4B5E /* sw_ft_raster.h */,
+				2C0A4D5D2566A855002A4B5E /* plutovg.c */,
 				2C0A4D612566A855002A4B5E /* sw_ft_math.c */,
+				2C0A4D582566A855002A4B5E /* sw_ft_raster.c */,
+				2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */,
+				2C0A4D5E2566A855002A4B5E /* plutovg-private.h */,
+				2C0A4D532566A855002A4B5E /* plutovg.h */,
+				2C0A4D552566A855002A4B5E /* sw_ft_math.h */,
+				2C0A4D602566A855002A4B5E /* sw_ft_raster.h */,
+				2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */,
+				2C0A4D572566A855002A4B5E /* sw_ft_types.h */,
 			);
 			path = plutovg;
 			sourceTree = "<group>";
@@ -2443,6 +2465,7 @@
 				2C13C77E25B8FA4A0054B968 /* ImageEncoder.hpp */,
 				2C13C71C25B8FA490054B968 /* ImageFormat.hpp */,
 				2C13C70925B8FA490054B968 /* ImageInfo.hpp */,
+				2C794B7D25C4FDD800034D81 /* ImagePixelFormat.hpp */,
 				2C794B4F25C407C000034D81 /* ImageProcessing.hpp */,
 				2C13C85325B8FA4A0054B968 /* Indexed.hpp */,
 				2C13C74125B8FA4A0054B968 /* InfiniteList.hpp */,
@@ -2502,7 +2525,6 @@
 				2C13C75825B8FA4A0054B968 /* ParseInt.hpp */,
 				2C13C87E25B8FA4A0054B968 /* Periodic.hpp */,
 				2C13C83325B8FA4A0054B968 /* PerlinNoise.hpp */,
-				2C13C87C25B8FA4A0054B968 /* PixelFormat.hpp */,
 				2C13C84925B8FA4A0054B968 /* PixelShader.hpp */,
 				2C13C82B25B8FA4A0054B968 /* PlaceHolder.hpp */,
 				2C13C76025B8FA4A0054B968 /* Platform.hpp */,
@@ -2560,6 +2582,7 @@
 				2C13C83625B8FA4A0054B968 /* String.hpp */,
 				2C13C76C25B8FA4A0054B968 /* StringView.hpp */,
 				2C13C78725B8FA4A0054B968 /* Subdivision2D.hpp */,
+				2C794B6E25C4FD5D00034D81 /* SVG.hpp */,
 				2C13C74F25B8FA4A0054B968 /* System.hpp */,
 				2C13C74625B8FA4A0054B968 /* TextEncoding.hpp */,
 				2C13C86725B8FA4A0054B968 /* TextReader.hpp */,
@@ -2576,6 +2599,7 @@
 				2C13C87125B8FA4A0054B968 /* Transition.hpp */,
 				2C13C74C25B8FA4A0054B968 /* Triangle.hpp */,
 				2C13C82725B8FA4A0054B968 /* TriangleIndex.hpp */,
+				2C794B7C25C4FDBA00034D81 /* Twitter.hpp */,
 				2C13C86D25B8FA4A0054B968 /* Types.hpp */,
 				2C13C88525B8FA4A0054B968 /* Uncopyable.hpp */,
 				2C13C71E25B8FA490054B968 /* Unicode.hpp */,
@@ -2605,8 +2629,8 @@
 			isa = PBXGroup;
 			children = (
 				2C13C80625B8FA4A0054B968 /* Addon.ipp */,
-				2C13C7E325B8FA4A0054B968 /* Allocator.ipp */,
 				2C13C7D925B8FA4A0054B968 /* Array.ipp */,
+				2C13C7E325B8FA4A0054B968 /* Allocator.ipp */,
 				2C13C7FA25B8FA4A0054B968 /* AssetHandle.ipp */,
 				2C13C81925B8FA4A0054B968 /* AssetID.ipp */,
 				2C13C7D325B8FA4A0054B968 /* AssetIDWrapper.ipp */,
@@ -2740,6 +2764,7 @@
 				2C13C7CD25B8FA4A0054B968 /* String.ipp */,
 				2C13C80525B8FA4A0054B968 /* StringView.ipp */,
 				2C13C7C025B8FA4A0054B968 /* Subdivision2D.ipp */,
+				2C794B6F25C4FD6C00034D81 /* SVG.ipp */,
 				2C13C7E525B8FA4A0054B968 /* TextEncoding.ipp */,
 				2C13C79825B8FA4A0054B968 /* TextReader.ipp */,
 				2C794B6025C423EB00034D81 /* TextureDesc.ipp */,
@@ -3475,6 +3500,7 @@
 				2C378CA2251E492B00D4B14B /* Addon */,
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
+				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
 				2C794AAC25C3DE7800034D81 /* Base64 */,
 				2C13C8D725B8FB170054B968 /* Bezier2 */,
 				2C13C8D925B8FB170054B968 /* Bezier3 */,
@@ -3560,6 +3586,7 @@
 				2C47B2C724DD9789008D83BE /* String */,
 				2C47B27E24DD9789008D83BE /* StringView */,
 				2C13C6F125B458350054B968 /* Subdivision2D */,
+				2C794B6725C4FD4300034D81 /* SVG */,
 				2C47B29724DD9789008D83BE /* System */,
 				2C47B2B224DD9789008D83BE /* TextEncoding */,
 				2C47B29124DD9789008D83BE /* TextReader */,
@@ -3568,6 +3595,7 @@
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
 				2C53C33C25613B8A0072831A /* Triangle */,
+				2C794B7925C4FDA000034D81 /* Twitter */,
 				2C47B26524DD9789008D83BE /* Unicode */,
 				2C47B28024DD9789008D83BE /* UnicodeConverter */,
 				2C47B2A324DD9789008D83BE /* UserAction */,
@@ -5085,6 +5113,35 @@
 			path = Metal;
 			sourceTree = "<group>";
 		};
+		2C794B6725C4FD4300034D81 /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B6825C4FD4300034D81 /* SVGDetail.hpp */,
+				2C794B6925C4FD4300034D81 /* SivSVG.cpp */,
+				2C794B6A25C4FD4300034D81 /* SVGDetail.cpp */,
+			);
+			path = SVG;
+			sourceTree = "<group>";
+		};
+		2C794B7025C4FD8D00034D81 /* AssetMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B7125C4FD8D00034D81 /* CAssetMonitor.cpp */,
+				2C794B7225C4FD8D00034D81 /* AssetMonitorFactory.cpp */,
+				2C794B7325C4FD8D00034D81 /* IAssetMonitor.hpp */,
+				2C794B7425C4FD8D00034D81 /* CAssetMonitor.hpp */,
+			);
+			path = AssetMonitor;
+			sourceTree = "<group>";
+		};
+		2C794B7925C4FDA000034D81 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B7A25C4FDA000034D81 /* SivTwitter.cpp */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -5513,6 +5570,7 @@
 				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
 				2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */,
+				2C794B7825C4FD8D00034D81 /* CAssetMonitor.hpp in Headers */,
 				2C47B33B24DD9789008D83BE /* SystemMisc.hpp in Headers */,
 				2C4396162535DCCA00F6AECD /* svgpaintelement.h in Headers */,
 				2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */,
@@ -5694,6 +5752,7 @@
 				2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */,
 				2C47B49824DD97F2008D83BE /* muParserError.h in Headers */,
 				2C47B31B24DD9789008D83BE /* UnicodeUtility.hpp in Headers */,
+				2C794B7725C4FD8D00034D81 /* IAssetMonitor.hpp in Headers */,
 				2C13C8B825B8FA9D0054B968 /* DetourNode.h in Headers */,
 				2C39ECB4256406FA0021DF34 /* MetalRenderer2DCommand.hpp in Headers */,
 				2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */,
@@ -5740,6 +5799,7 @@
 				2C13C9C925BD29FC0054B968 /* lstring.h in Headers */,
 				2C794B3925C3DFC200034D81 /* cpu.h in Headers */,
 				2C47B31624DD9789008D83BE /* ILogger.hpp in Headers */,
+				2C794B6B25C4FD4300034D81 /* SVGDetail.hpp in Headers */,
 				2C47B31024DD9789008D83BE /* BigIntDetail.hpp in Headers */,
 				2C794B3425C3DFC200034D81 /* error_private.h in Headers */,
 				2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */,
@@ -5940,6 +6000,7 @@
 				2C834D93248805D4006208B8 /* euc_jp.c in Sources */,
 				2C13C9D725BD29FC0054B968 /* ldo.c in Sources */,
 				2C27AA0C257D379800756617 /* SivColormap.cpp in Sources */,
+				2C794B6C25C4FD4300034D81 /* SivSVG.cpp in Sources */,
 				2C4396362535DCCA00F6AECD /* cssproperty.cpp in Sources */,
 				2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */,
 				2C13C8D425B8FAC30054B968 /* SivCamera2D.cpp in Sources */,
@@ -6135,12 +6196,14 @@
 				2C13C8CC25B8FA9D0054B968 /* DetourAssert.cpp in Sources */,
 				2C4396202535DCCA00F6AECD /* rendercontext.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
+				2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */,
 				2C47B47124DD97E4008D83BE /* QrCode.cpp in Sources */,
 				2C13C9BA25BD29FC0054B968 /* ltable.c in Sources */,
 				2C794B1A25C3DFC200034D81 /* zstd_compress_literals.c in Sources */,
 				2C47B5B424E7670A008D83BE /* SivTexture.cpp in Sources */,
 				2C47B2F824DD9789008D83BE /* SivVector2D.cpp in Sources */,
 				2C834DB6248805D4006208B8 /* onig_init.c in Sources */,
+				2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */,
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
 				2C834DA6248805D4006208B8 /* iso8859_6.c in Sources */,
@@ -6160,6 +6223,7 @@
 				2C4396142535DCCA00F6AECD /* svgtransform.cpp in Sources */,
 				2C13C8CF25B8FA9D0054B968 /* RecastFilter.cpp in Sources */,
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
+				2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
 				2C47B37024DD9789008D83BE /* ImageDecoderFactory.cpp in Sources */,
@@ -6274,6 +6338,7 @@
 				2C834DB9248805D4006208B8 /* sjis.c in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
+				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
 				2C423241242B155E00A16BCA /* cocoa_window.m in Sources */,
@@ -6292,6 +6357,7 @@
 				2C13C9AD25BD29FC0054B968 /* lstrlib.c in Sources */,
 				2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */,
 				2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */,
+				2C794B6D25C4FD4300034D81 /* SVGDetail.cpp in Sources */,
 				2C13C6FC25B458920054B968 /* discrete_distribution.cc in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
 				2C13C9C825BD29FC0054B968 /* lcorolib.c in Sources */,
