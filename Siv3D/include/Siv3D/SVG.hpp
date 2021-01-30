@@ -55,25 +55,43 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		[[nodiscard]]
 		int32 width() const;
 
+		[[nodiscard]]
 		int32 height() const;
 
+		[[nodiscard]]
 		Size size() const;
 
+		[[nodiscard]]
 		double widthF() const;
 
+		[[nodiscard]]
 		double heightF() const;
 
+		[[nodiscard]]
 		SizeF sizeF() const;
 
 		void clear();
 
+		[[nodiscard]]
 		Image render(const Color& background) const;
 
+		[[nodiscard]]
 		Image render(const Optional<int32>& maxWidth, const Optional<int32>& maxHeight, const Color& background = Color{ 0, 0 }) const;
 
+		[[nodiscard]]
 		Image render(const Optional<Size>& maxSize = unspecified, const Color& background = Color{ 0, 0 }) const;
+
+		[[nodiscard]]
+		static SVG Load(FilePathView path);
+
+		[[nodiscard]]
+		static SVG Parse(const std::string& source);
+
+		[[nodiscard]]
+		static SVG Parse(StringView source);
 
 	private:
 

@@ -115,4 +115,22 @@ namespace s3d
 		}
 	}
 
+	SVG SVG::Load(const FilePathView path)
+	{
+		return SVG{ path };
+	}
+
+	SVG SVG::Parse(const std::string& source)
+	{
+		SVG svg;
+		svg.parse(source);
+		return svg;
+	}
+
+	SVG SVG::Parse(const StringView source)
+	{
+		SVG svg;
+		svg.parse(source);
+		return svg;
+	}
 }
