@@ -408,6 +408,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TriangleIndex.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp" />
@@ -1093,6 +1094,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UnicodeConverter\SivUnicodeConverter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\UnicodeUtility.cpp" />

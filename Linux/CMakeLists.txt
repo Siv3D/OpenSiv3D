@@ -229,6 +229,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
+  ../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp
   ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
