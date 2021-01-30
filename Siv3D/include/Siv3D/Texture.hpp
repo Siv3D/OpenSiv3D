@@ -23,27 +23,38 @@
 namespace s3d
 {
 	struct TextureRegion;
+	struct TexturedQuad;
+	struct TexturedRoundRect;
 
 	class Texture : public AssetHandle<Texture>
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		Texture();
 
+		SIV3D_NODISCARD_CXX20
 		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
 
+		SIV3D_NODISCARD_CXX20
 		Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Texture(FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 
+		SIV3D_NODISCARD_CXX20
 		Texture(FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
+		SIV3D_NODISCARD_CXX20
 		Texture(const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
+		//SIV3D_NODISCARD_CXX20
 		//explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
+		//SIV3D_NODISCARD_CXX20
 		//explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
 
 		virtual ~Texture();
@@ -217,10 +228,16 @@ namespace s3d
 		[[nodiscard]]
 		TextureRegion fitted(const Vec2& size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
 
-		//[[nodiscard]] TexturedQuad rotated(double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotated(double angle) const;
 
-		//[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		//[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+
+		[[nodiscard]]
+		TexturedRoundRect rounded(double r) const;
 	};
 }

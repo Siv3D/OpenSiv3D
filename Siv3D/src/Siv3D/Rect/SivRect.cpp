@@ -19,6 +19,8 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -417,6 +419,22 @@ namespace s3d
 			innerColor.toFloat4(), outerColor.toFloat4());
 
 		return *this;
+	}
+
+	TexturedQuad Rect::operator ()(const Texture& texture) const
+	{
+		return{ texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			Quad{ pos,{ (x + w), y },{ (x + w), (y + h) },{ x, (y + h) } },
+			center() };
+	}
+
+	TexturedQuad Rect::operator ()(const TextureRegion& textureRegion) const
+	{
+		return{ textureRegion.texture,
+			textureRegion.uvRect,
+			Quad{ pos,{ (x + w), y },{ (x + w), (y + h) },{ x, (y + h) } },
+			center() };
 	}
 
 	void Rect::_Formatter(FormatData& formatData, const Rect& value)

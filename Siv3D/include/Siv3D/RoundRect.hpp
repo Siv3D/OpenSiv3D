@@ -18,6 +18,10 @@
 
 namespace s3d
 {
+	class Texture;
+	struct TextureRegion;
+	struct TexturedRoundRect;
+
 	/// @brief 角丸長方形
 	struct RoundRect
 	{
@@ -233,9 +237,11 @@ namespace s3d
 
 		//const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		//[[nodiscard]] TexturedRoundRect operator ()(const Texture& texture) const;
+		[[nodiscard]]
+		TexturedRoundRect operator ()(const Texture& texture) const;
 
-		//[[nodiscard]] TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]]
+		TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const RoundRect& value)

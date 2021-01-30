@@ -15,5 +15,13 @@
 
 namespace s3d
 {
+	TexturedCircle::TexturedCircle(const Texture& _texture, const float l, const float t, const float r, const float b, const Circle& _circle)
+		: circle{ _circle }
+		, texture{ _texture }
+		, uvRect{ l, t, r, b } {}
 
+	TexturedCircle::TexturedCircle(const Texture& _texture, const FloatRect& _uvRect, const Circle& _circle)
+		: circle{ _circle }
+		, texture{ _texture }
+		, uvRect{ _uvRect } {}
 }

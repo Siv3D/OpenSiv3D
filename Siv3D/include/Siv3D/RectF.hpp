@@ -19,6 +19,10 @@
 
 namespace s3d
 {
+	class Texture;
+	struct TextureRegion;
+	struct TexturedQuad;
+
 	/// @brief 長方形 (double)
 	///
 	///  pos, tl()    top()     tr()
@@ -631,9 +635,11 @@ namespace s3d
 
 		//const RectF& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
-		//[[nodiscard]] TexturedQuad operator ()(const Texture& texture) const;
+		[[nodiscard]]
+		TexturedQuad operator ()(const Texture& texture) const;
 
-		//[[nodiscard]] TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]]
+		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const RectF& value)

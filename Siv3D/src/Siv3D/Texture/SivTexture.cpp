@@ -11,6 +11,8 @@
 
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/TexturedRoundRect.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -562,7 +564,7 @@ namespace s3d
 			targetHeight = height;
 		}
 
-		TextureRegion result = *this;
+		TextureRegion result{ *this };
 		result.size = Float2{ targetWidth, targetHeight };
 		return result;
 	}
@@ -570,5 +572,41 @@ namespace s3d
 	TextureRegion Texture::fitted(const Vec2& size, const AllowScaleUp allowScaleUp) const
 	{
 		return fitted(size.x, size.y, allowScaleUp);
+	}
+
+	TexturedQuad Texture::rotated(const double angle) const
+	{
+		const Size size = SIV3D_ENGINE(Texture)->getSize(m_handle->id());
+
+		return{ *this,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			Rect{ size }.rotated(angle),
+			Float2{ (size.x * 0.5f), (size.y * 0.5f) } };
+	}
+
+	TexturedQuad Texture::rotatedAt(const double x, const double y, const double angle) const
+	{
+		const Size size = SIV3D_ENGINE(Texture)->getSize(m_handle->id());
+
+		return{ *this,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			Rect{ size }.rotatedAt(x, y, angle),
+			Float2{ x, y } };
+	}
+
+	TexturedQuad Texture::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		return rotatedAt(pos.x, pos.y, angle);
+	}
+
+	TexturedRoundRect Texture::rounded(const double r) const
+	{
+		const Size size = SIV3D_ENGINE(Texture)->getSize(m_handle->id());
+
+		return{
+			*this,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			RoundRect{ 0, 0, size, r }
+		};
 	}
 }

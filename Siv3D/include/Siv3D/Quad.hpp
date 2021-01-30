@@ -17,6 +17,10 @@
 
 namespace s3d
 {
+	class Texture;
+	struct TextureRegion;
+	struct TexturedQuad;
+
 	/// @brief 凸四角形
 	struct Quad
 	{
@@ -201,6 +205,12 @@ namespace s3d
 		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		[[nodiscard]]
+		TexturedQuad operator ()(const Texture& texture) const;
+
+		[[nodiscard]]
+		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quad& value)

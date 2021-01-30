@@ -15,5 +15,13 @@
 
 namespace s3d
 {
+	TexturedRoundRect::TexturedRoundRect(const Texture& _texture, const float l, const float t, const float r, const float b, const RoundRect& _rect)
+		: rect{ _rect }
+		, texture{ _texture }
+		, uvRect{ l, t, r, b } {}
 
+	TexturedRoundRect::TexturedRoundRect(const Texture& _texture, const FloatRect& _uvRect, const RoundRect& _rect)
+		: rect{ _rect }
+		, texture{ _texture }
+		, uvRect{ _uvRect } {}
 }

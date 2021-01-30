@@ -17,6 +17,8 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -232,6 +234,26 @@ namespace s3d
 			(outerThickness == 0.0), color.toFloat4(), CloseRing::Yes);
 
 		return *this;
+	}
+
+	TexturedQuad Quad::operator ()(const Texture& texture) const
+	{
+		const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
+
+		return{ texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			*this,
+			center };
+	}
+
+	TexturedQuad Quad::operator ()(const TextureRegion& textureRegion) const
+	{
+		const Vec2 center = ((p0 + p1 + p2 + p3) * 0.25);
+
+		return{ textureRegion.texture,
+			textureRegion.uvRect,
+			*this,
+			center };
 	}
 
 	void Quad::_Formatter(FormatData& formatData, const Quad& value)

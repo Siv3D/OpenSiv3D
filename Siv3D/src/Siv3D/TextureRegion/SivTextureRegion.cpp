@@ -243,4 +243,165 @@ namespace s3d
 	{
 		return drawAt(pos.x, pos.y, color0, color1, color2, color3);
 	}
+
+	RectF TextureRegion::drawClipped(const double x, const double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const double clipRight	= (clipRect.x + clipRect.w);
+		const double clipBottom	= (clipRect.y + clipRect.h);
+
+		const double left	= Max(x, clipRect.x);
+		const double right	= Min(x + size.x, clipRight);
+		const double top	= Max(y, clipRect.y);
+		const double bottom	= Min(y + size.y, clipBottom);
+
+		if ((clipRight <= left)
+			|| (right <= clipRect.x)
+			|| (clipBottom <= top)
+			|| (bottom <= clipRect.y))
+		{
+			return{ left, top, 0, 0 };
+		}
+
+		const float xLeftTrimmed	= static_cast<float>(left - x);
+		const float xRightTrimmed	= static_cast<float>((x + size.x) - right);
+		const float yTopTrimmed		= static_cast<float>(top - y);
+		const float yBottomTrimmed	= static_cast<float>((y + size.y) - bottom);
+
+		const float uLeftTrimmed	= (xLeftTrimmed / size.x * (uvRect.right - uvRect.left));
+		const float uRightTrimmed	= (xRightTrimmed / size.x * (uvRect.right - uvRect.left));
+		const float vTopTrimmed		= (yTopTrimmed / size.y * (uvRect.bottom - uvRect.top));
+		const float vBottomTrimmed	= (yBottomTrimmed / size.y * (uvRect.bottom - uvRect.top));
+
+		SIV3D_ENGINE(Renderer2D)->addTextureRegion(
+			texture,
+			FloatRect{ left, top, right, bottom },
+			FloatRect{ (uvRect.left + uLeftTrimmed), (uvRect.top + vTopTrimmed), (uvRect.right - uRightTrimmed), (uvRect.bottom - vBottomTrimmed) },
+			diffuse.toFloat4()
+		);
+
+		return{ left, top, (right - left), (bottom - top) };
+	}
+
+	RectF TextureRegion::drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		return drawClipped(pos.x, pos.y, clipRect, diffuse);
+	}
+
+	RectF TextureRegion::drawAtClipped(const double x, const double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		return drawClipped(x - size.x * 0.5, y - size.y * 0.5, clipRect, diffuse);
+	}
+
+	RectF TextureRegion::drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
+	}
+
+	TextureRegion TextureRegion::mirrored() const
+	{
+		return{ texture,
+			uvRect.right, uvRect.top, uvRect.left, uvRect.bottom,
+			size };
+	}
+
+	TextureRegion TextureRegion::mirrored(const bool doMirror) const
+	{
+		if (doMirror)
+		{
+			return mirrored();
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	TextureRegion TextureRegion::flipped() const
+	{
+		return{ texture,
+			uvRect.left, uvRect.bottom, uvRect.right, uvRect.top,
+			size };
+	}
+
+	TextureRegion TextureRegion::flipped(const bool doFlip) const
+	{
+		if (doFlip)
+		{
+			return flipped();
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	TextureRegion TextureRegion::scaled(double s) const
+	{
+		return scaled(s, s);
+	}
+
+	TextureRegion TextureRegion::scaled(const double sx, const double sy) const
+	{
+		return{ texture,
+			uvRect,
+			(size.x * sx), (size.y * sy) };
+	}
+
+	TextureRegion TextureRegion::scaled(const Vec2 s) const
+	{
+		return scaled(s.x, s.y);
+	}
+
+	TextureRegion TextureRegion::resized(const double _size) const
+	{
+		return resized(_size, _size);
+	}
+
+	TextureRegion TextureRegion::resized(const double width, const double height) const
+	{
+		return{ texture,
+			uvRect,
+			width, height };
+	}
+
+	TextureRegion TextureRegion::resized(const Vec2 _size) const
+	{
+		return resized(_size.x, _size.y);
+	}
+
+	TextureRegion TextureRegion::fitted(double width, double height, const AllowScaleUp allowScaleUp) const
+	{
+		if (not allowScaleUp)
+		{
+			width	= Min<double>(width, size.x);
+			height	= Min<double>(height, size.y);
+		}
+
+		const double w = size.x;
+		const double h = size.y;
+		double ws = (width / w);	// 何% scalingするか
+		double hs = (height / h);
+
+		double targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth = width;
+			targetHeight = h * ws;
+		}
+		else
+		{
+			targetWidth = w * hs;
+			targetHeight = height;
+		}
+
+		TextureRegion result{ *this };
+		result.size = Float2{ targetWidth, targetHeight };
+		return result;
+	}
+
+	TextureRegion TextureRegion::fitted(const Vec2& _size, const AllowScaleUp allowScaleUp) const
+	{
+		return fitted(_size.x, _size.y, allowScaleUp);
+	}
 }

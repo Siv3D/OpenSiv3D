@@ -16,6 +16,8 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedRoundRect.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -187,6 +189,20 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	TexturedRoundRect RoundRect::operator ()(const Texture& texture) const
+	{
+		return{ texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			*this };
+	}
+
+	TexturedRoundRect RoundRect::operator ()(const TextureRegion& textureRegion) const
+	{
+		return{ textureRegion.texture,
+			textureRegion.uvRect,
+			*this };
 	}
 
 	void RoundRect::_Formatter(FormatData& formatData, const RoundRect& value)

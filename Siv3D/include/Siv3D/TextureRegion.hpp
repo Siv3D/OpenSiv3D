@@ -24,16 +24,22 @@ namespace s3d
 
 		Float2 size = Float2{ 0.0f, 0.0f };
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion() = default;
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture);
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture, float l, float t, float r, float b, double sx, double sy);
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture, float l, float t, float r, float b, const Vec2& _size);
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, double sx, double sy);
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, const Vec2& _size);
 	
 		[[nodiscard]]
