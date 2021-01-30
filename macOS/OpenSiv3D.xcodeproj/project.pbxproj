@@ -677,6 +677,17 @@
 		2C794B7725C4FD8D00034D81 /* IAssetMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B7325C4FD8D00034D81 /* IAssetMonitor.hpp */; };
 		2C794B7825C4FD8D00034D81 /* CAssetMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B7425C4FD8D00034D81 /* CAssetMonitor.hpp */; };
 		2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B7A25C4FDA000034D81 /* SivTwitter.cpp */; };
+		2C794B8A25C5A5BF00034D81 /* SivTexturedRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B8325C5A5BE00034D81 /* SivTexturedRoundRect.cpp */; };
+		2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B8525C5A5BE00034D81 /* SivTexturedCircle.cpp */; };
+		2C794B8C25C5A5BF00034D81 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B8725C5A5BF00034D81 /* SivTextureRegion.cpp */; };
+		2C794B8D25C5A5BF00034D81 /* SivTexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B8925C5A5BF00034D81 /* SivTexturedQuad.cpp */; };
+		2C794B9925C5A61900034D81 /* CEffect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9225C5A61900034D81 /* CEffect.hpp */; };
+		2C794B9A25C5A61900034D81 /* IEffect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9325C5A61900034D81 /* IEffect.hpp */; };
+		2C794B9B25C5A61900034D81 /* EffectData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9425C5A61900034D81 /* EffectData.cpp */; };
+		2C794B9C25C5A61900034D81 /* SivEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9525C5A61900034D81 /* SivEffect.cpp */; };
+		2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9625C5A61900034D81 /* EffectFactory.cpp */; };
+		2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9725C5A61900034D81 /* EffectData.hpp */; };
+		2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9825C5A61900034D81 /* CEffect.cpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -2023,6 +2034,24 @@
 		2C794B7A25C4FDA000034D81 /* SivTwitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTwitter.cpp; sourceTree = "<group>"; };
 		2C794B7C25C4FDBA00034D81 /* Twitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Twitter.hpp; sourceTree = "<group>"; };
 		2C794B7D25C4FDD800034D81 /* ImagePixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImagePixelFormat.hpp; sourceTree = "<group>"; };
+		2C794B7E25C5A59600034D81 /* TextureRegion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
+		2C794B7F25C5A59600034D81 /* TexturedCircle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
+		2C794B8025C5A59600034D81 /* TexturedQuad.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TexturedQuad.hpp; sourceTree = "<group>"; };
+		2C794B8125C5A59600034D81 /* TexturedRoundRect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TexturedRoundRect.hpp; sourceTree = "<group>"; };
+		2C794B8325C5A5BE00034D81 /* SivTexturedRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedRoundRect.cpp; sourceTree = "<group>"; };
+		2C794B8525C5A5BE00034D81 /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
+		2C794B8725C5A5BF00034D81 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
+		2C794B8925C5A5BF00034D81 /* SivTexturedQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedQuad.cpp; sourceTree = "<group>"; };
+		2C794B8E25C5A5EC00034D81 /* Effect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Effect.hpp; sourceTree = "<group>"; };
+		2C794B8F25C5A5EC00034D81 /* IEffect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IEffect.hpp; sourceTree = "<group>"; };
+		2C794B9025C5A60000034D81 /* Effect.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Effect.ipp; sourceTree = "<group>"; };
+		2C794B9225C5A61900034D81 /* CEffect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CEffect.hpp; sourceTree = "<group>"; };
+		2C794B9325C5A61900034D81 /* IEffect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IEffect.hpp; sourceTree = "<group>"; };
+		2C794B9425C5A61900034D81 /* EffectData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectData.cpp; sourceTree = "<group>"; };
+		2C794B9525C5A61900034D81 /* SivEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEffect.cpp; sourceTree = "<group>"; };
+		2C794B9625C5A61900034D81 /* EffectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectFactory.cpp; sourceTree = "<group>"; };
+		2C794B9725C5A61900034D81 /* EffectData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EffectData.hpp; sourceTree = "<group>"; };
+		2C794B9825C5A61900034D81 /* CEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEffect.cpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2423,6 +2452,7 @@
 				2C13C72225B8FA490054B968 /* DLL.hpp */,
 				2C13C87625B8FA4A0054B968 /* Duration.hpp */,
 				2C13C83825B8FA4A0054B968 /* Easing.hpp */,
+				2C794B8E25C5A5EC00034D81 /* Effect.hpp */,
 				2C13C72425B8FA490054B968 /* Ellipse.hpp */,
 				2C13C82325B8FA4A0054B968 /* Endian.hpp */,
 				2C13C71525B8FA490054B968 /* EngineLog.hpp */,
@@ -2458,6 +2488,7 @@
 				2C13C88125B8FA4A0054B968 /* HeterogeneousLookupHelper.hpp */,
 				2C13C76F25B8FA4A0054B968 /* HSV.hpp */,
 				2C13C71B25B8FA490054B968 /* IAddon.hpp */,
+				2C794B8F25C5A5EC00034D81 /* IEffect.hpp */,
 				2C13C88025B8FA4A0054B968 /* IImageDecoder.hpp */,
 				2C13C83225B8FA4A0054B968 /* IImageEncoder.hpp */,
 				2C13C87A25B8FA4A0054B968 /* Image.hpp */,
@@ -2587,10 +2618,14 @@
 				2C13C74625B8FA4A0054B968 /* TextEncoding.hpp */,
 				2C13C86725B8FA4A0054B968 /* TextReader.hpp */,
 				2C13C82F25B8FA4A0054B968 /* Texture.hpp */,
+				2C794B7F25C5A59600034D81 /* TexturedCircle.hpp */,
 				2C794B5F25C423DA00034D81 /* TextureDesc.hpp */,
+				2C794B8025C5A59600034D81 /* TexturedQuad.hpp */,
+				2C794B8125C5A59600034D81 /* TexturedRoundRect.hpp */,
 				2C13C76625B8FA4A0054B968 /* TextureFilter.hpp */,
 				2C794B4A25C4076F00034D81 /* TextureFormat.hpp */,
 				2C794B4925C4076F00034D81 /* TexturePixelFormat.hpp */,
+				2C794B7E25C5A59600034D81 /* TextureRegion.hpp */,
 				2C13C77C25B8FA4A0054B968 /* TextWriter.hpp */,
 				2C13C70B25B8FA490054B968 /* Threading.hpp */,
 				2C13C72825B8FA490054B968 /* Time.hpp */,
@@ -2629,8 +2664,8 @@
 			isa = PBXGroup;
 			children = (
 				2C13C80625B8FA4A0054B968 /* Addon.ipp */,
-				2C13C7D925B8FA4A0054B968 /* Array.ipp */,
 				2C13C7E325B8FA4A0054B968 /* Allocator.ipp */,
+				2C13C7D925B8FA4A0054B968 /* Array.ipp */,
 				2C13C7FA25B8FA4A0054B968 /* AssetHandle.ipp */,
 				2C13C81925B8FA4A0054B968 /* AssetID.ipp */,
 				2C13C7D325B8FA4A0054B968 /* AssetIDWrapper.ipp */,
@@ -2663,6 +2698,7 @@
 				2C13C79225B8FA4A0054B968 /* Distribution.ipp */,
 				2C13C7A125B8FA4A0054B968 /* Duration.ipp */,
 				2C13C7CC25B8FA4A0054B968 /* Easing.ipp */,
+				2C794B9025C5A60000034D81 /* Effect.ipp */,
 				2C13C81625B8FA4A0054B968 /* Ellipse.ipp */,
 				2C13C7BD25B8FA4A0054B968 /* Endian.ipp */,
 				2C13C81125B8FA4A0054B968 /* EngineLog.ipp */,
@@ -3526,6 +3562,7 @@
 				2C13C8EE25B95AE70054B968 /* DirectoryWatcher */,
 				2C47B25324DD9789008D83BE /* Dummy */,
 				2C47B2E224DD9789008D83BE /* Duration */,
+				2C794B9125C5A61900034D81 /* Effect */,
 				2C53C33625613B740072831A /* Ellipse */,
 				2C47B27824DD9789008D83BE /* EngineLog */,
 				2C47B2E624DD9789008D83BE /* Error */,
@@ -3591,7 +3628,11 @@
 				2C47B2B224DD9789008D83BE /* TextEncoding */,
 				2C47B29124DD9789008D83BE /* TextReader */,
 				2C47B5AB24E7670A008D83BE /* Texture */,
+				2C794B8425C5A5BE00034D81 /* TexturedCircle */,
+				2C794B8825C5A5BF00034D81 /* TexturedQuad */,
+				2C794B8225C5A5BE00034D81 /* TexturedRoundRect */,
 				2C794B4C25C407A800034D81 /* TextureFormat */,
+				2C794B8625C5A5BF00034D81 /* TextureRegion */,
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
 				2C53C33C25613B8A0072831A /* Triangle */,
@@ -5142,6 +5183,52 @@
 			path = Twitter;
 			sourceTree = "<group>";
 		};
+		2C794B8225C5A5BE00034D81 /* TexturedRoundRect */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B8325C5A5BE00034D81 /* SivTexturedRoundRect.cpp */,
+			);
+			path = TexturedRoundRect;
+			sourceTree = "<group>";
+		};
+		2C794B8425C5A5BE00034D81 /* TexturedCircle */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B8525C5A5BE00034D81 /* SivTexturedCircle.cpp */,
+			);
+			path = TexturedCircle;
+			sourceTree = "<group>";
+		};
+		2C794B8625C5A5BF00034D81 /* TextureRegion */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B8725C5A5BF00034D81 /* SivTextureRegion.cpp */,
+			);
+			path = TextureRegion;
+			sourceTree = "<group>";
+		};
+		2C794B8825C5A5BF00034D81 /* TexturedQuad */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B8925C5A5BF00034D81 /* SivTexturedQuad.cpp */,
+			);
+			path = TexturedQuad;
+			sourceTree = "<group>";
+		};
+		2C794B9125C5A61900034D81 /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				2C794B9225C5A61900034D81 /* CEffect.hpp */,
+				2C794B9325C5A61900034D81 /* IEffect.hpp */,
+				2C794B9425C5A61900034D81 /* EffectData.cpp */,
+				2C794B9525C5A61900034D81 /* SivEffect.cpp */,
+				2C794B9625C5A61900034D81 /* EffectFactory.cpp */,
+				2C794B9725C5A61900034D81 /* EffectData.hpp */,
+				2C794B9825C5A61900034D81 /* CEffect.cpp */,
+			);
+			path = Effect;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -5594,6 +5681,7 @@
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2C4396392535DCCA00F6AECD /* font.h in Headers */,
+				2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */,
 				2C47B30624DD9789008D83BE /* IRenderer.hpp in Headers */,
 				2C4395FF2535DCCA00F6AECD /* svgrect.h in Headers */,
 				2C13C9A025BD29FC0054B968 /* lzio.h in Headers */,
@@ -5719,6 +5807,7 @@
 				2C43963B2535DCCA00F6AECD /* svgpreserveaspectratio.h in Headers */,
 				2C47B36524DD9789008D83BE /* IScene.hpp in Headers */,
 				2C39ECAF2564033C0021DF34 /* Vertex2DBufferPointer.hpp in Headers */,
+				2C794B9A25C5A61900034D81 /* IEffect.hpp in Headers */,
 				2C43963F2535DCCA00F6AECD /* strokedata.h in Headers */,
 				2C794B0B25C3DFC200034D81 /* zstd_lazy.h in Headers */,
 				2C794B0925C3DFC200034D81 /* zstd_ldm.h in Headers */,
@@ -5830,6 +5919,7 @@
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */,
+				2C794B9925C5A61900034D81 /* CEffect.hpp in Headers */,
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
 				2C4396262535DCCA00F6AECD /* svgsymbolelement.h in Headers */,
 				2C439F88241DCEA9001154C2 /* bignum.h in Headers */,
@@ -6048,6 +6138,7 @@
 				2C794AAE25C3DE7800034D81 /* SivBase64.cpp in Sources */,
 				2C47B36F24DD9789008D83BE /* SivError.cpp in Sources */,
 				2C794B3725C3DFC200034D81 /* xxhash.c in Sources */,
+				2C794B8D25C5A5BF00034D81 /* SivTexturedQuad.cpp in Sources */,
 				2C47B32424DD9789008D83BE /* SivFormatUtility.cpp in Sources */,
 				2C47B35824DD9789008D83BE /* CProfiler.cpp in Sources */,
 				2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */,
@@ -6081,6 +6172,7 @@
 				2C43960D2535DCCA00F6AECD /* svggelement.cpp in Sources */,
 				2C47B36A24DD9789008D83BE /* SivResource.cpp in Sources */,
 				2C834D8D248805D4006208B8 /* ascii.c in Sources */,
+				2C794B8C25C5A5BF00034D81 /* SivTextureRegion.cpp in Sources */,
 				2C794B0E25C3DFC200034D81 /* zstd_fast.c in Sources */,
 				2C834D8B248805D4006208B8 /* big5.c in Sources */,
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
@@ -6099,6 +6191,7 @@
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
+				2C794B9C25C5A61900034D81 /* SivEffect.cpp in Sources */,
 				2C42324F242B155E00A16BCA /* cocoa_monitor.m in Sources */,
 				2C794B0A25C3DFC200034D81 /* zstd_compress_superblock.c in Sources */,
 				2C13C8BA25B8FA9D0054B968 /* Recast.cpp in Sources */,
@@ -6161,6 +6254,7 @@
 				2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */,
 				2C60AE79248158A500277281 /* architecture_windows.cpp in Sources */,
 				2C47B32324DD9789008D83BE /* SivDateTime.cpp in Sources */,
+				2C794B9B25C5A61900034D81 /* EffectData.cpp in Sources */,
 				2C47B34124DD9789008D83BE /* CUserAction.cpp in Sources */,
 				2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */,
 				2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */,
@@ -6175,12 +6269,14 @@
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
+				2C794B8A25C5A5BF00034D81 /* SivTexturedRoundRect.cpp in Sources */,
 				2C423246242B155E00A16BCA /* nsgl_context.m in Sources */,
 				2C60AE87248158A500277281 /* displays_x11.cpp in Sources */,
 				2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
 				2C834DC0248805D4006208B8 /* reggnu.c in Sources */,
 				2C47B32624DD9789008D83BE /* SivEngineLog.cpp in Sources */,
+				2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */,
 				2C60AE89248158A500277281 /* displays_default_blank.cpp in Sources */,
 				2C794B4025C3DFC200034D81 /* zstd_common.c in Sources */,
 				2C4396352535DCCA00F6AECD /* svgangle.cpp in Sources */,
@@ -6210,6 +6306,7 @@
 				2C4396022535DCCA00F6AECD /* svgsymbolelement.cpp in Sources */,
 				2C13C9A425BD29FC0054B968 /* lstate.c in Sources */,
 				2C47B30C24DD9789008D83BE /* DummyFactory.cpp in Sources */,
+				2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
@@ -6324,6 +6421,7 @@
 				2C60AE7E248158A500277281 /* vendor_model_name_darwin.cpp in Sources */,
 				2C794B2125C3DFC200034D81 /* cover.c in Sources */,
 				2C834D8E248805D4006208B8 /* unicode_fold2_key.c in Sources */,
+				2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */,
 				2C13C8CD25B8FA9D0054B968 /* RecastAlloc.cpp in Sources */,
 				2C794B2D25C3DFC200034D81 /* zstd_decompress_block.c in Sources */,
 				2C834DBA248805D4006208B8 /* regenc.c in Sources */,
