@@ -145,6 +145,21 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addTexturedCircle(const Texture&, const Circle&, const FloatRect&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addTexturedQuad(const Texture&, const FloatQuad&, const FloatRect&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addTexturedVertices(const Texture&, const Vertex2D*, const size_t, const TriangleIndex*, const size_t)
+	{
+		// do nothing
+	}
+
 
 	Float4 CRenderer2D_Null::getColorMul() const
 	{

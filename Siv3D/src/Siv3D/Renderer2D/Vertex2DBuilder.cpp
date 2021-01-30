@@ -1776,7 +1776,7 @@ namespace s3d
 				return 0;
 			}
 
-			std::memcpy(pVertex, vertices, vertexSize * sizeof(Vertex2D));
+			std::memcpy(pVertex, vertices, (vertexSize * sizeof(Vertex2D)));
 
 			const TriangleIndex* pSrc = indices;
 			const TriangleIndex* const pSrcEnd = (indices + num_triangles);
@@ -2035,6 +2035,134 @@ namespace s3d
 			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
 			{
 				*pIndex++ = (indexOffset + detail::RectIndexTable[i]);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildTexturedCircle(const BufferCreatorFunc& bufferCreator, const Circle& circle, const FloatRect& uv, const Float4& color, const float scale)
+		{
+			const float rf = static_cast<float>(circle.r);
+			const float absR = Abs(rf);
+			const Vertex2D::IndexType quality = detail::CalculateCircleQuality(absR * scale);
+			const Vertex2D::IndexType vertexSize = (quality + 1), indexSize = (quality * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			// 中心
+			const float centerX = static_cast<float>(circle.x);
+			const float centerY = static_cast<float>(circle.y);
+			
+			const float centerU = (uv.left + uv.right) * 0.5f;
+			const float centerV = (uv.top + uv.bottom) * 0.5f;
+			const float rU = (uv.right - uv.left) * 0.5f;
+			const float rV = (uv.bottom - uv.top) * 0.5f;
+			
+			pVertex[0].set(centerX, centerY, centerU, centerV);
+
+			// 周
+			if (quality <= detail::MaxSinCosTableQuality)
+			{
+				const Float2* pCS = detail::GetSinCosTableStartPtr(quality);
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					(pDst++)->set((rf * pCS->x + centerX), (rf * pCS->y + centerY), (centerU + rU * pCS->x), (centerV - rV * pCS->y));
+					++pCS;
+				}
+			}
+			else
+			{
+				const float radDelta = Math::TwoPiF / quality;
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->set((centerX + rf * c), (centerY - rf * s), (centerU + rU * c), (centerV - rV * s));
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize; ++i)
+			{
+				(pVertex++)->color = color;
+			}
+
+			{
+				for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
+				{
+					*pIndex++ = indexOffset + (i + 1);
+					*pIndex++ = indexOffset;
+					*pIndex++ = indexOffset + (i + 2);
+				}
+
+				*pIndex++ = (indexOffset + quality);
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + 1);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildTexturedQuad(const BufferCreatorFunc& bufferCreator, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
+		{
+			constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			pVertex[0].set(quad.p[0], uv.left, uv.top, color);
+			pVertex[1].set(quad.p[1], uv.right, uv.top, color);
+			pVertex[2].set(quad.p[3], uv.left, uv.bottom, color);
+			pVertex[3].set(quad.p[2], uv.right, uv.bottom, color);
+
+			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
+			{
+				*pIndex++ = (indexOffset + detail::RectIndexTable[i]);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildTexturedVertices(const BufferCreatorFunc& bufferCreator, const Vertex2D* vertices, const size_t vertexCount, const TriangleIndex* indices, const size_t num_triangles)
+		{
+			if ((not vertices)
+				|| (vertexCount == 0)
+				|| (not indices)
+				|| (num_triangles == 0))
+			{
+				return 0;
+			}
+
+			const Vertex2D::IndexType vertexSize = static_cast<Vertex2D::IndexType>(vertexCount);
+			const Vertex2D::IndexType indexSize = static_cast<Vertex2D::IndexType>(num_triangles * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			std::memcpy(pVertex, vertices, (vertexSize * sizeof(Vertex2D)));
+
+			const TriangleIndex* pSrc = indices;
+			const TriangleIndex* const pSrcEnd = (indices + num_triangles);
+
+			while (pSrc != pSrcEnd)
+			{
+				*pIndex++ = (indexOffset + pSrc->i0);
+				*pIndex++ = (indexOffset + pSrc->i1);
+				*pIndex++ = (indexOffset + pSrc->i2);
+				++pSrc;
 			}
 
 			return indexSize;

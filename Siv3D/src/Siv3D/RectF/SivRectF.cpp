@@ -34,7 +34,7 @@ namespace s3d
 			return r <= 1.0 ? 3
 				: r <= 6.0 ? 5
 				: r <= 12.0 ? 8
-				: static_cast<uint16>(std::min(64.0, r * 0.2 + 6));
+				: static_cast<Vertex2D::IndexType>(Min(64.0, r * 0.2 + 6));
 		}
 	}
 

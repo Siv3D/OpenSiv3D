@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -27,6 +28,9 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		constexpr FloatQuad(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept;
+	
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr FloatQuad(const Quad& q) noexcept;
 	};
 }
 

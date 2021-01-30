@@ -25,12 +25,13 @@ namespace s3d
 {
 	namespace detail
 	{
-		inline constexpr uint16 CaluculateFanQuality(const double r) noexcept
+		[[nodiscard]]
+		inline constexpr Vertex2D::IndexType CaluculateFanQuality(const double r) noexcept
 		{
 			return r <= 1.0 ? 3
 				: r <= 6.0 ? 5
 				: r <= 12.0 ? 8
-				: static_cast<uint16>(Min(64.0, r * 0.2 + 6));
+				: static_cast<Vertex2D::IndexType>(Min(64.0, r * 0.2 + 6));
 		}
 
 		[[nodiscard]]

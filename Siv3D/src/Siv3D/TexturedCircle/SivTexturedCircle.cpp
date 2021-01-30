@@ -24,4 +24,25 @@ namespace s3d
 		: circle{ _circle }
 		, texture{ _texture }
 		, uvRect{ _uvRect } {}
+
+	const Circle& TexturedCircle::draw(const ColorF& diffuse) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addTexturedCircle(texture, circle, uvRect, diffuse.toFloat4());
+
+		return circle;
+	}
+
+	Circle TexturedCircle::draw(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Circle c{ x, y, circle.r };
+
+		SIV3D_ENGINE(Renderer2D)->addTexturedCircle(texture, c, uvRect, diffuse.toFloat4());
+
+		return c;
+	}
+
+	Circle TexturedCircle::draw(const Vec2& pos, const ColorF& diffuse) const
+	{
+		return draw(pos.x, pos.y, diffuse);
+	}
 }

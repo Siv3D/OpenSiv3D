@@ -609,4 +609,16 @@ namespace s3d
 			RoundRect{ 0, 0, size, r }
 		};
 	}
+
+	TexturedRoundRect Texture::rounded(const double x, const double y, const double w, const double h, const double r) const
+	{
+		const Size size = SIV3D_ENGINE(Texture)->getSize(m_handle->id());
+
+		return{
+			*this,
+			static_cast<float>(x / size.x), static_cast<float>(y / size.y),
+			static_cast<float>((x + w) / size.x), static_cast<float>((y + h) / size.y),
+			RoundRect{ 0, 0, w, h, r }
+		};
+	}
 }

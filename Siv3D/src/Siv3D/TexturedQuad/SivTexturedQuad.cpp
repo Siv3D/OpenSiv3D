@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -27,38 +28,38 @@ namespace s3d
 		, uvRect{ _uvRect }
 		, center{ _center } {}
 
-	//const Quad& TexturedQuad::draw(const ColorF& diffuse) const
-	//{
-	//	SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, quad, uvRect, diffuse.toFloat4());
+	const Quad& TexturedQuad::draw(const ColorF& diffuse) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ quad }, uvRect, diffuse.toFloat4());
 
-	//	return quad;
-	//}
+		return quad;
+	}
 
-	//Quad TexturedQuad::draw(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Quad q = quad.movedBy(x, y);
+	Quad TexturedQuad::draw(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Quad q = quad.movedBy(x, y);
 
-	//	SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ q }, uvRect, diffuse.toFloat4());
 
-	//	return q;
-	//}
+		return q;
+	}
 
-	//Quad TexturedQuad::draw(const Vec2& pos, const ColorF& diffuse) const
-	//{
-	//	return draw(pos.x, pos.y, diffuse);
-	//}
+	Quad TexturedQuad::draw(const Vec2& pos, const ColorF& diffuse) const
+	{
+		return draw(pos.x, pos.y, diffuse);
+	}
 
-	//Quad TexturedQuad::drawAt(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Quad q = quad.movedBy(x - center.x, y - center.y);
+	Quad TexturedQuad::drawAt(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Quad q = quad.movedBy(x - center.x, y - center.y);
 
-	//	SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ q }, uvRect, diffuse.toFloat4());
 
-	//	return q;
-	//}
+		return q;
+	}
 
-	//Quad TexturedQuad::drawAt(const Vec2& pos, const ColorF& diffuse) const
-	//{
-	//	return drawAt(pos.x, pos.y, diffuse);
-	//}
+	Quad TexturedQuad::drawAt(const Vec2& pos, const ColorF& diffuse) const
+	{
+		return drawAt(pos.x, pos.y, diffuse);
+	}
 }

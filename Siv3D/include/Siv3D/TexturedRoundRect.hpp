@@ -36,6 +36,10 @@ namespace s3d
 
 		const RoundRect& draw(const ColorF& diffuse = Palette::White) const;
 
+		RoundRect draw(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		RoundRect draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+
 		RoundRect drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
 		RoundRect drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;

@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/TexturedRoundRect.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -111,7 +113,7 @@ namespace s3d
 	{
 		SIV3D_ENGINE(Renderer2D)->addTextureRegion(
 			texture,
-			FloatRect{ x, y, x + size.x, y + size.y },
+			FloatRect{ x, y, (x + size.x), (y + size.y) },
 			uvRect,
 			diffuse.toFloat4()
 		);
@@ -212,7 +214,7 @@ namespace s3d
 
 		SIV3D_ENGINE(Renderer2D)->addTextureRegion(
 			texture,
-			FloatRect{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
+			FloatRect{ (x - sizeHalf.x), (y - sizeHalf.y), (x + sizeHalf.x), (y + sizeHalf.y) },
 			uvRect,
 			diffuse.toFloat4()
 		);
@@ -226,7 +228,7 @@ namespace s3d
 
 		SIV3D_ENGINE(Renderer2D)->addTextureRegion(
 			texture,
-			FloatRect{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
+			FloatRect{ (x - sizeHalf.x), (y - sizeHalf.y), (x + sizeHalf.x), (y + sizeHalf.y) },
 			uvRect,
 			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() }
 		);
@@ -403,5 +405,35 @@ namespace s3d
 	TextureRegion TextureRegion::fitted(const Vec2& _size, const AllowScaleUp allowScaleUp) const
 	{
 		return fitted(_size.x, _size.y, allowScaleUp);
+	}
+
+	TexturedQuad TextureRegion::rotated(const double angle) const
+	{
+		return{ texture,
+			uvRect,
+			RectF{ size }.rotated(angle),
+			(size * 0.5f) };
+	}
+
+	TexturedQuad TextureRegion::rotatedAt(const double x, const double y, const double angle) const
+	{
+		return{ texture,
+			uvRect,
+			RectF{ size }.rotatedAt(x, y, angle),
+			Float2{ x, y } };
+	}
+
+	TexturedQuad TextureRegion::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		return rotatedAt(pos.x, pos.y, angle);
+	}
+
+	TexturedRoundRect TextureRegion::rounded(const double r) const
+	{
+		return{
+			texture,
+			uvRect,
+			RoundRect{ 0, 0, size, r }
+		};
 	}
 }

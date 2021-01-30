@@ -239,5 +239,8 @@ namespace s3d
 
 		[[nodiscard]]
 		TexturedRoundRect rounded(double r) const;
+
+		[[nodiscard]]
+		TexturedRoundRect rounded(double x, double y, double w, double h, double r) const;
 	};
 }

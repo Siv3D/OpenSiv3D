@@ -494,6 +494,22 @@ namespace s3d
 
 	}
 
+	void CRenderer2D_Metal::addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color)
+	{
+
+	}
+
+	void CRenderer2D_Metal::addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
+	{
+
+	}
+
+	void CRenderer2D_Metal::addTexturedVertices(const Texture& texture, const Vertex2D* vertices, const size_t vertexCount, const TriangleIndex* indices, const size_t num_triangles)
+	{
+
+	}
+
+
 	Float4 CRenderer2D_Metal::getColorMul() const
 	{
 		return m_commandManager.getCurrentColorMul();

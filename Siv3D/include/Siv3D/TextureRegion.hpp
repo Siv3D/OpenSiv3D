@@ -157,10 +157,16 @@ namespace s3d
 		[[nodiscard]]
 		TextureRegion fitted(const Vec2& _size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
 
-		//[[nodiscard]] TexturedQuad rotated(double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotated(double angle) const;
 
-		//[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		//[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]]
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+
+		[[nodiscard]]
+		TexturedRoundRect rounded(double r) const;
 	};
 }
