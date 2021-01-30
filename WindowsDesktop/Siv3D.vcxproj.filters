@@ -739,6 +739,9 @@
     <Filter Include="src\Siv3D\SVG">
       <UniqueIdentifier>{c2d8236b-6b42-478f-a2d3-a118ee131815}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AssetMonitor">
+      <UniqueIdentifier>{0426cd2a-7eac-49df-a5a4-de3dad03c9f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3339,6 +3342,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.hpp">
       <Filter>src\Siv3D\SVG</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.hpp">
+      <Filter>src\Siv3D\AssetMonitor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp">
+      <Filter>src\Siv3D\AssetMonitor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4588,6 +4597,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.cpp">
       <Filter>src\Siv3D\SVG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp">
+      <Filter>src\Siv3D\AssetMonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp">
+      <Filter>src\Siv3D\AssetMonitor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

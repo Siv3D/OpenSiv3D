@@ -9,9 +9,11 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Resource/IResource.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/LicenseManager/ILicenseManager.hpp>
 # include <Siv3D/ImageDecoder/IImageDecoder.hpp>
 # include <Siv3D/ImageEncoder/IImageEncoder.hpp>
@@ -22,10 +24,8 @@
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
-# include <Siv3D/UserAction/IUSerAction.hpp>
+# include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
-# include <Siv3D/Common.hpp>
-# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
@@ -89,7 +89,8 @@ namespace s3d
 		// current frame
 		//
 
-		if (not SIV3D_ENGINE(Profiler)->beginFrame())
+		SIV3D_ENGINE(Profiler)->beginFrame();
+		if (not SIV3D_ENGINE(AssetMonitor)->update())
 		{
 			return false;
 		}

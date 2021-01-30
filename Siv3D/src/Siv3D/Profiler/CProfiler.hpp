@@ -31,7 +31,7 @@ namespace s3d
 
 		void init() override;
 
-		bool beginFrame() override;
+		void beginFrame() override;
 
 		void endFrame() override;
 

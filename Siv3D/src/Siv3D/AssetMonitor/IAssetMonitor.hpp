@@ -14,24 +14,20 @@
 
 namespace s3d
 {
-	class String;
-
-	class SIV3D_NOVTABLE ISiv3DProfiler
+	class SIV3D_NOVTABLE ISiv3DAssetMonitor
 	{
 	public:
 
-		static ISiv3DProfiler* Create();
+		static ISiv3DAssetMonitor* Create();
 
-		virtual ~ISiv3DProfiler() = default;
+		virtual ~ISiv3DAssetMonitor() = default;
 
-		virtual void init() = 0;
+		virtual bool update() = 0;
 
-		virtual void beginFrame() = 0;
+		virtual void setWarningEnabled(bool enabled) = 0;
 
-		virtual void endFrame() = 0;
+		virtual void created() = 0;
 
-		virtual int32 getFPS() const noexcept = 0;
-
-		virtual String getSimpleStatistics() const = 0;
+		virtual void released() = 0;
 	};
 }

@@ -29,7 +29,7 @@ namespace s3d
 		m_fpsTimestampMillisec = Time::GetMillisec();
 	}
 
-	bool CProfiler::beginFrame()
+	void CProfiler::beginFrame()
 	{
 		// FPS
 		{
@@ -45,8 +45,6 @@ namespace s3d
 				m_fpsTimestampMillisec = timestampMillisec;
 			}
 		}
-
-		return true;
 	}
 
 	void CProfiler::endFrame()

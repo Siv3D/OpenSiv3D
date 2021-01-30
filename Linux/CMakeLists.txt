@@ -92,6 +92,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
+  ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
+  ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
   ../Siv3D/src/Siv3D/Base64/SivBase64.cpp
   ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp

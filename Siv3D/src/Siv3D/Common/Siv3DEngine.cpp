@@ -16,6 +16,7 @@
 # include <Siv3D/System/ISystem.hpp>
 # include <Siv3D/Resource/IResource.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/ImageDecoder/IImageDecoder.hpp>
 # include <Siv3D/ImageEncoder/IImageEncoder.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>

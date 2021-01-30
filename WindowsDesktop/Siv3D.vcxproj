@@ -619,6 +619,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\CAddon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\BigIntDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Common\Siv3DComponent.hpp" />
@@ -954,6 +956,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\CAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\SivAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
