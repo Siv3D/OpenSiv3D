@@ -77,6 +77,41 @@ namespace s3d
 				pLine += imageWidth;
 			}
 		}
+
+		[[nodiscard]]
+		std::string MakeSVGSource(const Grid<bool>& qr, const size_t borderCells)
+		{
+			std::ostringstream ss;
+			ss << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+			ss << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
+			ss << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewBox=\"0 0 ";
+			ss << (qr.width() + borderCells * 2) << " " << (qr.height() + borderCells * 2) << "\" stroke=\"none\">\n";
+			ss << "\t<rect width=\"100%\" height=\"100%\" fill=\"#FFFFFF\"/>\n";
+			ss << "\t<path d=\"";
+
+			for (size_t y = 0; y < qr.height(); ++y)
+			{
+				for (size_t x = 0; x < qr.width(); ++x)
+				{
+					if (!qr[y][x])
+					{
+						continue;
+					}
+
+					if (x != 0 || y != 0)
+					{
+						ss << " ";
+					}
+
+					ss << "M" << (x + borderCells) << "," << (y + borderCells) << "h1v1h-1z";
+				}
+			}
+
+			ss << "\" fill=\"#000000\"/>\n";
+			ss << "</svg>\n";
+
+			return ss.str();
+		}
 	}
 
 	namespace QR
@@ -191,45 +226,31 @@ namespace s3d
 			return image;
 		}
 
-		bool SaveSVG(const FilePathView path, const Grid<bool>& qr, const size_t borderCells)
+		SVG MakeSVG(const Grid<bool>& qr, size_t borderCells)
 		{
-			std::ostringstream ss;
-			ss << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			ss << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
-			ss << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewBox=\"0 0 ";
-			ss << (qr.width() + borderCells * 2) << " " << (qr.height() + borderCells * 2) << "\" stroke=\"none\">\n";
-			ss << "\t<rect width=\"100%\" height=\"100%\" fill=\"#FFFFFF\"/>\n";
-			ss << "\t<path d=\"";
-
-			for (size_t y = 0; y < qr.height(); ++y)
+			if (not qr)
 			{
-				for (size_t x = 0; x < qr.width(); ++x)
-				{
-					if (!qr[y][x])
-					{
-						continue;
-					}
-
-					if (x != 0 || y != 0)
-					{
-						ss << " ";
-					}
-
-					ss << "M" << (x + borderCells) << "," << (y + borderCells) << "h1v1h-1z";
-				}
+				return{};
 			}
 
-			ss << "\" fill=\"#000000\"/>\n";
-			ss << "</svg>\n";
+			return SVG::Parse(detail::MakeSVGSource(qr, borderCells));
+		}
 
-			TextWriter writer(path);
+		bool SaveSVG(const FilePathView path, const Grid<bool>& qr, const size_t borderCells)
+		{
+			if (not qr)
+			{
+				return false;
+			}
+
+			TextWriter writer{ path };
 
 			if (not writer)
 			{
 				return false;
 			}
 
-			writer.writeUTF8(ss.str());
+			writer.writeUTF8(detail::MakeSVGSource(qr, borderCells));
 
 			return true;
 		}
