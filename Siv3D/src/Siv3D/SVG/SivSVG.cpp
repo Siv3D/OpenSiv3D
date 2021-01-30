@@ -88,6 +88,11 @@ namespace s3d
 		return{ widthF(), heightF() };
 	}
 
+	String SVG::toString() const
+	{
+		return pImpl->toString();
+	}
+
 	void SVG::clear()
 	{
 		pImpl->clear();

@@ -34,12 +34,18 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
+		[[nodiscard]]
 		double width() const noexcept;
 
+		[[nodiscard]]
 		double height() const noexcept;
+
+		[[nodiscard]]
+		String toString() const;
 
 		void clear();
 
+		[[nodiscard]]
 		Image render(const Optional<int32>& maxWidth, const Optional<int32>& maxHeight, const Color& background) const;
 
 	private:

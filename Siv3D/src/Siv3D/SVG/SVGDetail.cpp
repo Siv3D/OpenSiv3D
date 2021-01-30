@@ -81,6 +81,11 @@ namespace s3d
 		return m_document.documentHeight();
 	}
 
+	String SVG::SVGDetail::toString() const
+	{
+		return Unicode::FromUTF8(m_document.toString());
+	}
+
 	void SVG::SVGDetail::clear()
 	{
 		m_document.clearContent();

@@ -73,6 +73,9 @@ namespace s3d
 		[[nodiscard]]
 		SizeF sizeF() const;
 
+		[[nodiscard]]
+		String toString() const;
+
 		void clear();
 
 		[[nodiscard]]
