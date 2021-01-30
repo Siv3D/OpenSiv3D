@@ -87,33 +87,33 @@ namespace s3d
 
 		::png_get_IHDR(png_ptr, info_ptr, &width, &height, &iBitDepth, &iColorType, nullptr, nullptr, nullptr);
 
-		PixelFormat pixelFormat = PixelFormat::R8G8B8A8;
+		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 
 		if (iColorType == PNG_COLOR_TYPE_GRAY)
 		{
 			if (iBitDepth == 16)
 			{
-				pixelFormat = PixelFormat::Gray16;
+				pixelFormat = ImagePixelFormat::Gray16;
 			}
 			else
 			{
-				pixelFormat = PixelFormat::Gray8;
+				pixelFormat = ImagePixelFormat::Gray8;
 			}
 		}
 		else if (iColorType == PNG_COLOR_TYPE_GRAY_ALPHA)
 		{
 			if (iBitDepth == 16)
 			{
-				pixelFormat = PixelFormat::Gray16A16;
+				pixelFormat = ImagePixelFormat::Gray16A16;
 			}
 			else
 			{
-				pixelFormat = PixelFormat::Gray8A8;
+				pixelFormat = ImagePixelFormat::Gray8A8;
 			}
 		}
 		else if (iColorType == PNG_COLOR_TYPE_RGB)
 		{
-			pixelFormat = PixelFormat::R8G8B8;
+			pixelFormat = ImagePixelFormat::R8G8B8;
 		}
 
 		return ImageInfo{ ImageFormat::PNG, pixelFormat, Size(width, height), false };

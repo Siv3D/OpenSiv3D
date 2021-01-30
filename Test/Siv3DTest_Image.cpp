@@ -20,7 +20,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::BMP);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8);
 			REQUIRE(info->size == Size(1, 1));
 			REQUIRE(info->isAnimated == false);
 
@@ -34,7 +34,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::BMP);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8);
 			REQUIRE(info->size == Size(3, 3));
 			REQUIRE(info->isAnimated == false);
 
@@ -56,7 +56,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::BMP);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8);
 			REQUIRE(info->size == Size(1, 1));
 			REQUIRE(info->isAnimated == false);
 
@@ -70,7 +70,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::BMP);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8);
 			REQUIRE(info->size == Size(3, 3));
 			REQUIRE(info->isAnimated == false);
 
@@ -95,7 +95,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::PNG);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8A8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8A8);
 			REQUIRE(info->size == Size(1, 1));
 			REQUIRE(info->isAnimated == false);
 
@@ -109,7 +109,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::PNG);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8A8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8A8);
 			REQUIRE(info->size == Size(3, 3));
 			REQUIRE(info->isAnimated == false);
 
@@ -131,7 +131,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::PNG);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8A8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8A8);
 			REQUIRE(info->size == Size(1, 1));
 			REQUIRE(info->isAnimated == false);
 
@@ -145,7 +145,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::PNG);
-			REQUIRE(info->pixelFormat == PixelFormat::R8G8B8A8);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::R8G8B8A8);
 			REQUIRE(info->size == Size(3, 3));
 			REQUIRE(info->isAnimated == false);
 
@@ -167,7 +167,7 @@ TEST_CASE("Image")
 			const auto info = ImageDecoder::GetImageInfo(path);
 			REQUIRE(info.has_value());
 			REQUIRE(info->imageFormat == ImageFormat::PNG);
-			REQUIRE(info->pixelFormat == PixelFormat::Gray16);
+			REQUIRE(info->pixelFormat == ImagePixelFormat::Gray16);
 			REQUIRE(info->size == Size(3, 3));
 			REQUIRE(info->isAnimated == false);
 

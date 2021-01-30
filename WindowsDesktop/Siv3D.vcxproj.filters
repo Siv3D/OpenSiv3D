@@ -1566,9 +1566,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FastMath.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\PixelFormat.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -3352,6 +3349,9 @@
       <Filter>src\Siv3D\AssetMonitor</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImagePixelFormat.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

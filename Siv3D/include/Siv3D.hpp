@@ -757,6 +757,9 @@
 // システム | System
 # include <Siv3D/System.hpp>
 
+// コンソール入出力 | Console input/output
+# include <Siv3D/Console.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ネットワーク | Network
@@ -765,7 +768,6 @@
 
 // Twitter | Twitter
 # include <Siv3D/Twitter.hpp>
-
 
 //////////////////////////////////////////////////
 //
@@ -782,38 +784,53 @@
 // ウィンドウ | Window
 # include <Siv3D/Window.hpp>
 
+//////////////////////////////////////////////////
+//
+//	画像処理 | Image processing
+//
+//////////////////////////////////////////////////
 
-# include <Siv3D/ApplicationOptions.hpp>
-
-
+// 画像のフォーマット | Image format
 # include <Siv3D/ImageFormat.hpp>
-# include <Siv3D/PixelFormat.hpp>
-# include <Siv3D/ImageInfo.hpp>
 
+// ピクセルフォーマット | Pixel format
+# include <Siv3D/ImagePixelFormat.hpp>
+
+// 画像の情報 | Image information
+# include <Siv3D/ImageInfo.hpp>
 
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 
 # include <Siv3D/IImageDecoder.hpp>
+
 # include <Siv3D/ImageDecoder.hpp>
+
 # include <Siv3D/ImageFormat/BMPDecoder.hpp>
+
 # include <Siv3D/ImageFormat/PNGDecoder.hpp>
 
 # include <Siv3D/IImageEncoder.hpp>
+
 # include <Siv3D/ImageEncoder.hpp>
 
+// SVG 画像 | SVG image
 # include <Siv3D/SVG.hpp>
 
+// QR コードの誤り訂正レベル | QR error correction
 # include <Siv3D/QRErrorCorrection.hpp>
+
+// QR コードのモード | QR mode
 # include <Siv3D/QRMode.hpp>
+
+// QR コード | QR code
 # include <Siv3D/QR.hpp>
 
-
-# include <Siv3D/ResizeMode.hpp>
-# include <Siv3D/Scene.hpp>
-
-// コンソール入出力 | Console Input/Output
-# include <Siv3D/Console.hpp>
+//////////////////////////////////////////////////
+//
+//	入力デバイス | Input device
+//
+//////////////////////////////////////////////////
 
 // マウスカーソルのスタイル | Mouse Cursor Style
 # include <Siv3D/CursorStyle.hpp>
@@ -830,28 +847,47 @@
 // マウス | Mouse
 # include <Siv3D/Mouse.hpp>
 
+//////////////////////////////////////////////////
+//
+//	アセット管理 | Asset management
+//
+//////////////////////////////////////////////////
 
 # include <Siv3D/AssetID.hpp>
+
 # include <Siv3D/AssetIDWrapper.hpp>
+
 # include <Siv3D/AssetHandle.hpp>
 
+//////////////////////////////////////////////////
+//
+//	ナビメッシュ | Navigation mesh
+//
+//////////////////////////////////////////////////
 
 # include <Siv3D/NavMeshConfig.hpp>
+
 # include <Siv3D/NavMesh.hpp>
 
-# include <Siv3D/TexturePixelFormat.hpp>
-# include <Siv3D/TextureFormat.hpp>
-# include <Siv3D/TextureDesc.hpp>
-# include <Siv3D/Texture.hpp>
+//////////////////////////////////////////////////
+//
+//	シーン | Scene
+//
+//////////////////////////////////////////////////
 
-# include <Siv3D/Graphics.hpp>
+# include <Siv3D/ResizeMode.hpp>
 
+# include <Siv3D/Scene.hpp>
 
 //////////////////////////////////////////////////
 //
 //	レンダーステート | Render states
 //
 //////////////////////////////////////////////////
+
+# include <Siv3D/Graphics.hpp>
+
+# include <Siv3D/Graphics2D.hpp>
 
 // ブレンドステート | Blend State
 # include <Siv3D/BlendState.hpp>
@@ -913,6 +949,20 @@
 
 //////////////////////////////////////////////////
 //
+//	テクスチャ| Texture
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/TexturePixelFormat.hpp>
+
+# include <Siv3D/TextureFormat.hpp>
+
+# include <Siv3D/TextureDesc.hpp>
+
+# include <Siv3D/Texture.hpp>
+
+//////////////////////////////////////////////////
+//
 //	Lua スクリプト | Lua Script
 //
 //////////////////////////////////////////////////
@@ -930,6 +980,15 @@
 
 // アドオン | Add-on
 # include <Siv3D/Addon.hpp>
+
+//////////////////////////////////////////////////
+//
+//	アプリケーション設定 | Application configuration
+//
+//////////////////////////////////////////////////
+
+// アプリケーションの設定 | Application configuration
+# include <Siv3D/ApplicationOptions.hpp>
 
 //////////////////////////////////////////////////
 //

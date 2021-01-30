@@ -52,11 +52,11 @@ namespace s3d
 
 		const Size size(header.biWidth, std::abs(header.biHeight));
 		
-		PixelFormat pixelFormat = PixelFormat::R8G8B8;
+		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8;
 
 		if (header.biBitCount == 32)
 		{
-			pixelFormat = PixelFormat::R8G8B8X8;
+			pixelFormat = ImagePixelFormat::R8G8B8X8;
 		}
 
 		return ImageInfo{ ImageFormat::BMP, pixelFormat, size, false };

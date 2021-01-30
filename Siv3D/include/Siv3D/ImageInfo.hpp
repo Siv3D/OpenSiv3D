@@ -11,7 +11,7 @@
 
 # pragma once
 # include "ImageFormat.hpp"
-# include "PixelFormat.hpp"
+# include "ImagePixelFormat.hpp"
 # include "PointVector.hpp"
 
 namespace s3d
@@ -23,7 +23,7 @@ namespace s3d
 		ImageFormat imageFormat = ImageFormat::Unknown;
 
 		/// @brief ピクセルの保存形式
-		PixelFormat pixelFormat = PixelFormat::Unknown;
+		ImagePixelFormat pixelFormat = ImagePixelFormat::Unknown;
 
 		/// @brief 画像のサイズ
 		Size size = Size{ 0, 0 };

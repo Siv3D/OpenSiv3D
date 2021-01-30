@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	/// @brief 誤り訂正レベル
+	/// @brief QR コードの誤り訂正レベル
 	enum class QRErrorCorrection
 	{
 		/// @brief 約 7%
