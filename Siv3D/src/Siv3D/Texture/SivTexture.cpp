@@ -17,6 +17,7 @@
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -34,7 +35,15 @@ namespace s3d
 	template <>
 	AssetIDWrapper<AssetHandle<Texture>>::~AssetIDWrapper()
 	{
-		LOG_INFO(U"pTexture->release({})"_fmt(m_id.value()));
+		if (not Siv3DEngine::isActive())
+		{
+			return;
+		}
+
+		if (auto p = SIV3D_ENGINE(Texture))
+		{
+			p->release(m_id);
+		}
 	}
 
 	Texture::Texture()
@@ -48,13 +57,13 @@ namespace s3d
 				SIV3D_ENGINE(Texture)->createMipped(image, ImageProcessing::GenerateMips(image), desc) :
 				SIV3D_ENGINE(Texture)->createUnmipped(image, desc)) }
 	{
-		//ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createMipped(image, mipmaps, desc)) }
 	{
-		//ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(const FilePathView path, const TextureDesc desc)

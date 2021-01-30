@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -49,7 +50,7 @@ namespace s3d
 	PixelShader::PixelShader(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Shader)->createPSFromFile(path, entryPoint, bindings)) }
 	{
-		// do nothing
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	const Blob& PixelShader::getBinary() const noexcept

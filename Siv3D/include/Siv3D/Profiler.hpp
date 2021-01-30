@@ -18,5 +18,7 @@ namespace s3d
 	{
 		[[nodiscard]]
 		int32 FPS() noexcept;
+
+		void EnableAssetCreationWarning(bool enbaled);
 	}
 }

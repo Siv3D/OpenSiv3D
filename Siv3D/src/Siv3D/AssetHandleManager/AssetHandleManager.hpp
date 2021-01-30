@@ -16,6 +16,8 @@
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -120,7 +122,7 @@ namespace s3d
 
 			m_data.erase(it);
 
-			//ReportAssetRelease();
+			SIV3D_ENGINE(AssetMonitor)->released();
 		}
 
 		void destroy()

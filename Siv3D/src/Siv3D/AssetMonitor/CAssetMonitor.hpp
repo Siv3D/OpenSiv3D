@@ -10,14 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
+# include <array>
 # include "IAssetMonitor.hpp"
 
 namespace s3d
 {
 	class CAssetMonitor final : public ISiv3DAssetMonitor
 	{
-	private:
-
 	public:
 
 		bool update() override;
@@ -27,5 +26,15 @@ namespace s3d
 		void created() override;
 
 		void released() override;
+
+	private:
+
+		static constexpr size_t MonitoringFrameCount = 30;
+
+		bool m_assetCreationWarningEnabled = true;
+
+		std::array<uint32, MonitoringFrameCount> m_assetCreationCount{};
+
+		std::array<uint32, MonitoringFrameCount> m_assetReleaseCount{};
 	};
 }
