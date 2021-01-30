@@ -59,7 +59,7 @@ namespace s3d
 			++it;
 		}
 
-		return RectF{ left, top, (right - left), (bottom - top) };
+		return{ left, top, (right - left), (bottom - top) };
 	}
 
 	bool MultiPolygon::leftClicked() const noexcept

@@ -34,4 +34,7 @@ namespace s3d
 
 	/// @brief 例外を発生させる
 	using AllowExceptions	= YesNo<struct AllowExceptions_tag>;
+	
+	/// @brief 拡大を許可する
+	using AllowScaleUp		= YesNo<struct AllowScaleUp_tag>;
 }

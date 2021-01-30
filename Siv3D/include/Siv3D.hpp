@@ -961,6 +961,17 @@
 
 # include <Siv3D/Texture.hpp>
 
+# include <Siv3D/TextureRegion.hpp>
+
+// 円に貼り付けたテクスチャ
+# include <Siv3D/TexturedCircle.hpp>
+
+// 四角形に貼り付けたテクスチャ
+# include <Siv3D/TexturedQuad.hpp>
+
+// 角丸長方形に貼り付けたテクスチャ
+# include <Siv3D/TexturedRoundRect.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Lua スクリプト | Lua Script

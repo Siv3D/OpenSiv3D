@@ -396,10 +396,14 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedRoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturePixelFormat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureRegion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
@@ -1087,7 +1091,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\TextReaderDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedCircle\SivTexturedCircle.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextureFormat\SivTextureFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureRegion\SivTextureRegion.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Texture\Null\CTexture_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Texture\SivTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\SivTextWriter.cpp" />

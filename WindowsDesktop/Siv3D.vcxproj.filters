@@ -745,6 +745,18 @@
     <Filter Include="src\Siv3D\Twitter">
       <UniqueIdentifier>{13fde8da-a445-4d9e-ae06-2006a71c5d33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextureRegion">
+      <UniqueIdentifier>{2e20d802-5827-4f73-894b-be87c9f9098a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedQuad">
+      <UniqueIdentifier>{85a0f21b-82c5-4ee3-80b9-30f6111e3b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedRoundRect">
+      <UniqueIdentifier>{e7731caf-eb46-4a4f-9ab7-1d2c8e4c9e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedCircle">
+      <UniqueIdentifier>{c5b7492b-e621-4cc7-b17d-e1ec5db90449}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3354,6 +3366,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImagePixelFormat.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureRegion.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedRoundRect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4612,6 +4636,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp">
       <Filter>src\Siv3D\Twitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureRegion\SivTextureRegion.cpp">
+      <Filter>src\Siv3D\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedCircle\SivTexturedCircle.cpp">
+      <Filter>src\Siv3D\TexturedCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp">
+      <Filter>src\Siv3D\TexturedRoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
+      <Filter>src\Siv3D\TexturedQuad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

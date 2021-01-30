@@ -10,82 +10,49 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
 # include "Common.hpp"
-# include "Image.hpp"
-# include "TextureDesc.hpp"
-# include "TextureFormat.hpp"
-# include "AssetHandle.hpp"
-# include "2DShapesFwd.hpp"
-# include "PredefinedNamedParameter.hpp"
-# include "PredefinedYesNo.hpp"
+# include "Texture.hpp"
+# include "FloatRect.hpp"
 
 namespace s3d
 {
-	struct TextureRegion;
-
-	class Texture : public AssetHandle<Texture>
+	struct TextureRegion
 	{
-	public:
+		Texture texture;
 
-		Texture();
+		FloatRect uvRect = FloatRect{ 0.0f, 0.0f, 0.0f, 0.0f };
 
-		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
+		Float2 size = Float2{ 0.0f, 0.0f };
 
-		Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
+		TextureRegion() = default;
 
-		explicit Texture(FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
+		TextureRegion(const Texture& _texture);
 
-		explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
+		TextureRegion(const Texture& _texture, float l, float t, float r, float b, double sx, double sy);
 
-		Texture(FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
+		TextureRegion(const Texture& _texture, float l, float t, float r, float b, const Vec2& _size);
 
-		Texture(const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
+		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, double sx, double sy);
 
-		//explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
-
-		//explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
-
-		virtual ~Texture();
+		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, const Vec2& _size);
+	
+		[[nodiscard]]
+		RectF region(double x, double y) const noexcept;
 
 		[[nodiscard]]
-		int32 width() const;
+		RectF region(Vec2 pos = Vec2{ 0, 0 }) const noexcept;
 
 		[[nodiscard]]
-		int32 height() const;
+		RectF regionAt(double x, double y) const noexcept;
 
 		[[nodiscard]]
-		Size size() const;
+		RectF regionAt(Vec2 pos) const noexcept;
 
 		[[nodiscard]]
-		TextureDesc getDesc() const;
+		TextureRegion stretched(double x, double y) const;
 
 		[[nodiscard]]
-		TextureFormat getFormat() const;
-
-		[[nodiscard]]
-		bool isMipped() const;
-
-		[[nodiscard]]
-		bool isSDF() const;
-
-		[[nodiscard]]
-		Rect region(int32 x, int32 y) const;
-
-		[[nodiscard]]
-		Rect region(Point pos = Point{ 0, 0 }) const;
-
-		[[nodiscard]]
-		RectF region(double x, double y) const;
-
-		[[nodiscard]]
-		RectF region(Vec2 pos) const;
-
-		[[nodiscard]]
-		RectF regionAt(double x, double y) const;
-
-		[[nodiscard]]
-		RectF regionAt(Vec2 pos) const;
+		TextureRegion stretched(Vec2 _size) const;
 
 		RectF draw(const ColorF& diffuse = Palette::White) const;
 
@@ -110,6 +77,7 @@ namespace s3d
 		RectF draw(const Vec2& pos, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
 		RectF draw(const Vec2& pos, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+
 
 		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const;
 
@@ -137,37 +105,15 @@ namespace s3d
 
 		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
+
 		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
 		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+		RectF drawAtClipped(double x, double y, const RectF & clipRect, const ColorF & diffuse = Palette::White) const;
 
-		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+		RectF drawAtClipped(const Vec2 & pos, const RectF & clipRect, const ColorF & diffuse = Palette::White) const;
 
-		[[nodiscard]]
-		TextureRegion operator ()(double x, double y, double w, double h) const;
-
-		[[nodiscard]]
-		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
-
-		[[nodiscard]]
-		TextureRegion operator ()(double x, double y, double size) const;
-
-		[[nodiscard]]
-		TextureRegion operator ()(double x, double y, const Vec2& size) const;
-
-		[[nodiscard]]
-		TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
-
-		[[nodiscard]]
-		TextureRegion operator ()(const RectF& rect) const;
-
-		[[nodiscard]]
-		TextureRegion uv(double u, double v, double w, double h) const;
-
-		[[nodiscard]]
-		TextureRegion uv(const RectF& rect) const;
 
 		[[nodiscard]]
 		TextureRegion mirrored() const;
@@ -185,37 +131,25 @@ namespace s3d
 		TextureRegion scaled(double s) const;
 
 		[[nodiscard]]
-		TextureRegion scaled(double xs, double ys) const;
+		TextureRegion scaled(double sx, double sy) const;
 
 		[[nodiscard]]
 		TextureRegion scaled(Vec2 s) const;
 
 		[[nodiscard]]
-		TextureRegion resized(double size) const;
+		TextureRegion resized(double _size) const;
 
 		[[nodiscard]]
 		TextureRegion resized(double width, double height) const;
 
 		[[nodiscard]]
-		TextureRegion resized(Vec2 size) const;
-
-		[[nodiscard]]
-		TextureRegion repeated(double xRepeat, double yRepeat) const;
-
-		[[nodiscard]]
-		TextureRegion repeated(Vec2 _repeat) const;
-
-		[[nodiscard]]
-		TextureRegion mapped(double width, double height) const;
-
-		[[nodiscard]]
-		TextureRegion mapped(Vec2 size) const;
+		TextureRegion resized(Vec2 _size) const;
 
 		[[nodiscard]]
 		TextureRegion fitted(double width, double height, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
 
 		[[nodiscard]]
-		TextureRegion fitted(const Vec2& size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
+		TextureRegion fitted(const Vec2& _size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
 
 		//[[nodiscard]] TexturedQuad rotated(double angle) const;
 
