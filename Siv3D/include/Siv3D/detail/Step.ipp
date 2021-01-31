@@ -1041,9 +1041,9 @@ namespace s3d
 		auto value = startValue();
 		const auto step_ = step();
 
-		numThreads = std::max<size_t>(1, numThreads);
+		numThreads = Max<size_t>(1, numThreads);
 
-		const auto n = std::max<N>(1, count_ / numThreads);
+		const auto n = Max<N>(1, count_ / numThreads);
 
 		N num_processed = 0;
 		const N num_all = count_;
@@ -1097,9 +1097,9 @@ namespace s3d
 		auto value = startValue();
 		const auto step_ = step();
 
-		numThreads = std::max<size_t>(1, numThreads);
+		numThreads = Max<size_t>(1, numThreads);
 
-		const auto n = std::max<N>(1, count_ / numThreads);
+		const auto n = Max<N>(1, count_ / numThreads);
 
 		N num_processed = 0;
 		const N num_all = count_;

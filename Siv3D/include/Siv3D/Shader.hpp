@@ -19,9 +19,8 @@ namespace s3d
 
 	namespace Platform::Windows
 	{
-		// HLSL コンパイルオプション
-		// HLSL compile options
-		// see D3DCOMPILE Constants
+		/// @brief HLSL コンパイルオプション | HLSL compile options
+		/// @remark see D3DCOMPILE Constants
 		enum class HLSLCompileOption
 		{
 			Debug				= (1 << 0),

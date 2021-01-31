@@ -21,6 +21,7 @@
 
 namespace s3d
 {
+	/// @brief SVG データ
 	class SVG
 	{
 	public:
@@ -73,11 +74,17 @@ namespace s3d
 		[[nodiscard]]
 		SizeF sizeF() const;
 
+		/// @brief SVG のソースコードを返します。
+		/// @return SVG のソースコード
 		[[nodiscard]]
 		String toString() const;
 
+		/// @brief SVG データを消去します。
 		void clear();
 
+		/// @brief SVG を Image にレンダリングします。
+		/// @param background 無色部分の背景色
+		/// @return レンダリング結果
 		[[nodiscard]]
 		Image render(const Color& background) const;
 

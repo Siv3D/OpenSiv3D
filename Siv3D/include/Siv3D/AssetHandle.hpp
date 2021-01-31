@@ -46,6 +46,7 @@ namespace s3d
 		[[nodiscard]]
 		bool operator !=(const AssetHandle& other) const noexcept;
 
+		/// @brief このハンドルが管理するアセットを解放します。
 		void release();
 
 	protected:

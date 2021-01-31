@@ -29,30 +29,12 @@ namespace s3d
 		namespace Internal
 		{
 			[[nodiscard]]
-			constexpr uint32 MakeSamplerSlot(ShaderStage stage, uint32 index) noexcept
-			{
-				if (stage == ShaderStage::Vertex)
-				{
-					return (index + 8);
-				}
-				else
-				{
-					return index;
-				}
-			}
+			constexpr uint32 MakeSamplerSlot(ShaderStage stage, uint32 index) noexcept;
 
 			[[nodiscard]]
-			constexpr uint32 MakeUniformBlockBinding(ShaderStage stage, uint32 index) noexcept
-			{
-				if (stage == ShaderStage::Vertex)
-				{
-					return index;
-				}
-				else
-				{
-					return (index + 12);
-				}
-			}
+			constexpr uint32 MakeUniformBlockBinding(ShaderStage stage, uint32 index) noexcept;
 		}
 	}
 }
+
+# include "detail/ShaderStage.ipp"
