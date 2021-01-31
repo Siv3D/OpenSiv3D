@@ -4265,6 +4265,23 @@ namespace s3d
 			return true;
 		}
 
+		bool Contains(const Circle& a, const Ellipse& b) noexcept
+		{
+			const bool pointsAreInside = Contains(a, b.top())
+				&& Contains(a, b.bottom())
+				&& Contains(a, b.left())
+				&& Contains(a, b.right());
+
+			if (not pointsAreInside)
+			{
+				return false;
+			}
+
+			const auto intersection = IntersectAt(a, b);
+
+			return (intersection.has_value() && intersection->isEmpty());
+		}
+
 		bool Contains(const Circle& a, const Polygon& b) noexcept
 		{
 			if (not b
@@ -4305,6 +4322,40 @@ namespace s3d
 			}
 
 			return true;
+		}
+
+		bool Contains(const Ellipse& a, const Circle& b) noexcept
+		{
+			const bool pointsAreInside = Contains(a, b.top())
+				&& Contains(a, b.bottom())
+				&& Contains(a, b.left())
+				&& Contains(a, b.right());
+
+			if (not pointsAreInside)
+			{
+				return false;
+			}
+
+			const auto intersection = IntersectAt(a, b);
+
+			return (intersection.has_value() && intersection->isEmpty());
+		}
+
+		bool Contains(const Ellipse& a, const Ellipse& b) noexcept
+		{
+			const bool pointsAreInside = Contains(a, b.top())
+				&& Contains(a, b.bottom())
+				&& Contains(a, b.left())
+				&& Contains(a, b.right());
+
+			if (not pointsAreInside)
+			{
+				return false;
+			}
+
+			const auto intersection = IntersectAt(a, b);
+
+			return (intersection.has_value() && intersection->isEmpty());
 		}
 
 		bool Contains(const Polygon& a, const Rect& b)

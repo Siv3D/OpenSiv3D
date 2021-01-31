@@ -1230,14 +1230,6 @@ namespace s3d
 				&& (b.center.distanceFromSq(a.center) <= ((a.r - b.r) * (a.r - b.r)));
 		}
 
-		inline constexpr bool Contains(const Circle& a, const Ellipse& b) noexcept
-		{
-			return Contains(a, b.top())
-				&& Contains(a, b.bottom())
-				&& Contains(a, b.left())
-				&& Contains(a, b.right());
-		}
-
 		inline constexpr bool Contains(const Circle& a, const Triangle& b) noexcept
 		{
 			return Contains(a, b.p0)
@@ -1283,14 +1275,6 @@ namespace s3d
 				&& Intersect(b.tr(), a)
 				&& Intersect(b.bl(), a)
 				&& Intersect(b.br(), a);
-		}
-
-		inline constexpr bool Contains(const Ellipse& a, const Circle& b) noexcept
-		{
-			return Intersect(b.top(), a)
-				&& Intersect(b.right(), a)
-				&& Intersect(b.bottom(), a)
-				&& Intersect(b.left(), a);
 		}
 
 		inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept

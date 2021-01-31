@@ -1521,7 +1521,7 @@ namespace s3d
 		inline constexpr bool Contains(const Circle& a, const Circle& b) noexcept;
 
 		[[nodiscard]]
-		inline constexpr bool Contains(const Circle& a, const Ellipse& b) noexcept;
+		bool Contains(const Circle& a, const Ellipse& b) noexcept;
 
 		[[nodiscard]]
 		inline constexpr bool Contains(const Circle& a, const Triangle& b) noexcept;
@@ -1569,10 +1569,10 @@ namespace s3d
 		inline constexpr bool Contains(const Ellipse& a, const RectF& b) noexcept;
 
 		[[nodiscard]]
-		inline constexpr bool Contains(const Ellipse& a, const Circle& b) noexcept;
+		bool Contains(const Ellipse& a, const Circle& b) noexcept;
 
-		//[[nodiscard]]
-		//inline constexpr bool Contains(const Ellipse& a, const Ellipse& b) noexcept;
+		[[nodiscard]]
+		bool Contains(const Ellipse& a, const Ellipse& b) noexcept;
 
 		[[nodiscard]]
 		inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept;
