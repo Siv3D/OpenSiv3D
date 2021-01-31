@@ -19,7 +19,7 @@ namespace s3d
 		add(std::make_unique<IEffectType>(std::forward<Args>(args)...));
 	}
 
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, double>>*>
 	inline void Effect::add(Fty f) const
 	{
 		struct AnonymousEffect : IEffect
