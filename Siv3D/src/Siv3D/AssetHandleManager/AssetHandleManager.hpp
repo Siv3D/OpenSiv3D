@@ -72,7 +72,7 @@ namespace s3d
 				m_idCount = 0;
 			}
 
-			if (!m_idFilled)
+			if (not m_idFilled)
 			{
 				m_data.emplace(m_idCount, std::move(data));
 

@@ -155,7 +155,7 @@ namespace s3d
 
 			ZSTD_CStream* const cStream = ZSTD_createCStream();
 
-			if (!cStream)
+			if (not cStream)
 			{
 				return false;
 			}

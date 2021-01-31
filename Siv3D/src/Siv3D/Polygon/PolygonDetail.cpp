@@ -718,7 +718,7 @@ namespace s3d
 
 	Polygon Polygon::PolygonDetail::simplified(const double maxDistance) const
 	{
-		if (!m_polygon.outer())
+		if (not m_polygon.outer())
 		{
 			return{};
 		}

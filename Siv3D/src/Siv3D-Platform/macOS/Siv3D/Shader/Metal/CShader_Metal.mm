@@ -44,7 +44,7 @@ namespace s3d
 			// null VS を作成
 			auto nullVertexShader = std::make_unique<MetalVertexShader>(MetalVertexShader::Null{});
 
-			if (!nullVertexShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null VertexShader initialization failed");
 			}
@@ -58,7 +58,7 @@ namespace s3d
 			// null PS を作成
 			auto nullPixelShader = std::make_unique<MetalPixelShader>(MetalPixelShader::Null{});
 
-			if (!nullPixelShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null PixelShader initialization failed");
 			}
@@ -75,7 +75,7 @@ namespace s3d
 		// VS を作成
 		auto vertexShader = std::make_unique<MetalVertexShader>(m_defaultLibrary, entryPoint);
 
-		if (!vertexShader->isInitialized()) // もし作成に失敗していたら
+		if (not vertexShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return VertexShader::IDType::NullAsset();
 		}
@@ -97,7 +97,7 @@ namespace s3d
 		// PS を作成
 		auto pixelShader = std::make_unique<MetalPixelShader>(m_defaultLibrary, entryPoint);
 
-		if (!pixelShader->isInitialized()) // もし作成に失敗していたら
+		if (not pixelShader->isInitialized()) // もし作成に失敗していたら
 		{
 			return PixelShader::IDType::NullAsset();
 		}

@@ -193,7 +193,7 @@ namespace s3d
 				}
 				else
 				{
-					if (!keyPattern.isEmpty())
+					if (keyPattern)
 					{
 						detail::AppendElement(formattedDateTime, dateTime, keyPattern, skipTime);
 						keyPattern.clear();
@@ -221,7 +221,7 @@ namespace s3d
 				previousChar = ch;
 			}
 
-			if (!keyPattern.isEmpty())
+			if (keyPattern)
 			{
 				detail::AppendElement(formattedDateTime, dateTime, keyPattern, skipTime);
 			}

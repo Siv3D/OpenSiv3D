@@ -64,7 +64,7 @@ namespace s3d
 				const String extension = FileSystem::Extension(_url);
 				const bool isHTML = (extension == U"html") || (extension == U"htm");
 
-				if (!isHTML)
+				if (not isHTML)
 				{
 					return false;
 				}

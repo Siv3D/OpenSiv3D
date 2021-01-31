@@ -93,7 +93,7 @@ namespace s3d
 			{
 				for (size_t x = 0; x < qr.width(); ++x)
 				{
-					if (!qr[y][x])
+					if (qr[y][x] == false)
 					{
 						continue;
 					}

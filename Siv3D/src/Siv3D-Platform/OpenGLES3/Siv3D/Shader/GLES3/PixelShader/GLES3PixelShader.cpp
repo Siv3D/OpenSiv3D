@@ -34,7 +34,7 @@ namespace s3d
 	{
 		m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
 
-		if (!m_pixelShader) {
+		if (not m_pixelShader) {
 			LOG_FAIL(U"❌ Pixel shader compilation failed: failed to create shader.");
 		}
 

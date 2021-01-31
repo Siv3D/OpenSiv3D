@@ -18,7 +18,7 @@ namespace s3d
 	{
 		TextEncoding GetTextEncoding(const IReader& reader)
 		{
-			if (!reader.isOpen())
+			if (not reader.isOpen())
 			{
 				return TextEncoding::UTF8_NO_BOM;
 			}
@@ -31,7 +31,7 @@ namespace s3d
 			{
 				uint8 bom[3] = {};
 				
-				if (!reader.lookahead(bom))
+				if (not reader.lookahead(bom))
 				{
 					return TextEncoding::UTF8_NO_BOM;
 				}

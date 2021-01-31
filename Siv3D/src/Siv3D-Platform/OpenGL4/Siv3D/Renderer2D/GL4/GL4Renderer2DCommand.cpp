@@ -416,7 +416,7 @@ namespace s3d
 		auto& current = m_currentVSSamplerStates[slot];
 		auto& buffer = m_vsSamplerStates[slot];
 
-		if (!m_changes.has(command))
+		if (not m_changes.has(command))
 		{
 			if (state != current)
 			{
@@ -460,7 +460,7 @@ namespace s3d
 		auto& current = m_currentPSSamplerStates[slot];
 		auto& buffer = m_psSamplerStates[slot];
 
-		if (!m_changes.has(command))
+		if (not m_changes.has(command))
 		{
 			if (state != current)
 			{

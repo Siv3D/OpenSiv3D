@@ -1055,7 +1055,7 @@ namespace s3d
 			const double t = qpxs / rxs;
 			const double u = qpxr / rxs;
 
-			if (!rxsIsZero && (0.0 <= t && t <= 1.0) && (0.0 <= u && u <= 1.0))
+			if ((not rxsIsZero) && (0.0 <= t && t <= 1.0) && (0.0 <= u && u <= 1.0))
 			{
 				// An intersection was found
 				return true;
@@ -2078,7 +2078,7 @@ namespace s3d
 			const double t = qpxs / rxs;
 			const double u = qpxr / rxs;
 
-			if (!rxsIsZero && (0.0 <= t && t <= 1.0) && (0.0 <= u && u <= 1.0))
+			if ((not rxsIsZero) && (0.0 <= t && t <= 1.0) && (0.0 <= u && u <= 1.0))
 			{
 				// An intersection was found
 				return Array<Vec2>{ (a.begin + t * r) };

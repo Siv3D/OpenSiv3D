@@ -139,7 +139,7 @@ namespace s3d
 				delta.x += 1.0;
 			}
 
-			if (!delta.isZero())
+			if (not delta.isZero())
 			{
 				m_pointedScale.reset();
 				delta.normalize();

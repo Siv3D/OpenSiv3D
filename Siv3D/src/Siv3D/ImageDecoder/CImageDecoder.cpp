@@ -112,19 +112,19 @@ namespace s3d
 
 	Array<std::unique_ptr<IImageDecoder>>::const_iterator CImageDecoder::findDecoder(const IReader& reader, const FilePathView pathHint) const
 	{
-		if (!reader.isOpen())
+		if (not reader.isOpen())
 		{
 			return m_decoders.end();
 		}
 
-		if (!reader.supportsLookahead())
+		if (not reader.supportsLookahead())
 		{
 			return m_decoders.end();
 		}
 
 		uint8 header[16] = {};
 
-		if (!reader.lookahead(header))
+		if (not reader.lookahead(header))
 		{
 			return m_decoders.end();
 		}

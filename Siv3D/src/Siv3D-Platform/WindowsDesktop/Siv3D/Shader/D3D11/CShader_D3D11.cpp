@@ -127,7 +127,7 @@ namespace s3d
 			// null VS を作成
 			auto nullVertexShader = std::make_unique<D3D11VertexShader>(D3D11VertexShader::Null{});
 
-			if (!nullVertexShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null VertexShader initialization failed");
 			}
@@ -141,7 +141,7 @@ namespace s3d
 			// null PS を作成
 			auto nullPixelShader = std::make_unique<D3D11PixelShader>(D3D11PixelShader::Null{});
 
-			if (!nullPixelShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null PixelShader initialization failed");
 			}
@@ -303,7 +303,7 @@ namespace s3d
 
 		TextReader reader{ path };
 
-		if (!reader)
+		if (not reader)
 		{
 			LOG_FAIL(U"CShader_D3D11::compileHLSLFromFile(): failed to load source from `{}`"_fmt(path));
 			return{};
@@ -318,7 +318,7 @@ namespace s3d
 		LOG_TRACE(U"CShader_D3D11::compileHLSLFromSource(stage = {}, entryPoint = {}, flags = {:#X})"_fmt(
 			Unicode::Widen(detail::StageToTarget(stage)), entryPoint, flags));
 
-		if (!source)
+		if (not source)
 		{
 			LOG_FAIL(U"CShader_D3D11::compileHLSLFromSource(): source is empty");
 			return{};
@@ -329,7 +329,7 @@ namespace s3d
 
 	Blob CShader_D3D11::compileHLSL(const std::string_view sourceUTF8, const FilePathView pathHint, const ShaderStage stage, const StringView entryPoint, const Platform::Windows::HLSLCompileOption flags) const
 	{
-		if (!hasHLSLCompiler()) // もし HLSL コンパイラが利用不可なら
+		if (not hasHLSLCompiler()) // もし HLSL コンパイラが利用不可なら
 		{
 			LOG_FAIL(U"CShader_D3D11::compileHLSL() failed: !hasShaderCompiler()");
 			return{};

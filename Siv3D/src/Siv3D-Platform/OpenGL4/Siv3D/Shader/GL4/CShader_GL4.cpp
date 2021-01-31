@@ -46,7 +46,7 @@ namespace s3d
 			// null VS を作成
 			auto nullVertexShader = std::make_unique<GL4VertexShader>(GL4VertexShader::Null{});
 
-			if (!nullVertexShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null VertexShader initialization failed");
 			}
@@ -60,7 +60,7 @@ namespace s3d
 			// null PS を作成
 			auto nullPixelShader = std::make_unique<GL4PixelShader>(GL4PixelShader::Null{});
 
-			if (!nullPixelShader->isInitialized()) // もし作成に失敗していたら
+			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
 				throw EngineError(U"Null PixelShader initialization failed");
 			}
@@ -71,7 +71,7 @@ namespace s3d
 
 		::glGenProgramPipelines(1, &m_pipeline);
 
-		if (!m_pipeline)
+		if (not m_pipeline)
 		{
 			throw EngineError(U"glGenProgramPipelines() failed");
 		}

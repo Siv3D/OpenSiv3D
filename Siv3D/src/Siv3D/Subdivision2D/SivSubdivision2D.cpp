@@ -273,7 +273,7 @@ namespace s3d
 			return none;
 		}
 
-		if (!m_validGeometry)
+		if (not m_validGeometry)
 		{
 			calcVoronoi();
 		}
@@ -435,19 +435,19 @@ namespace s3d
 			Vec2 a, b, c;
 			int32 edge_a = i;
 			edgeBegin(edge_a, &a);
-			if (!m_rect.contains(a))
+			if (not m_rect.contains(a))
 			{
 				continue;
 			}
 			int32 edge_b = getEdge(edge_a, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_b, &b);
-			if (!m_rect.contains(b))
+			if (not m_rect.contains(b))
 			{
 				continue;
 			}
 			int32 edge_c = getEdge(edge_b, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_c, &c);
-			if (!m_rect.contains(c))
+			if (not m_rect.contains(c))
 			{
 				continue;
 			}

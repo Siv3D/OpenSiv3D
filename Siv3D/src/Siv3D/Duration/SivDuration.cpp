@@ -156,7 +156,7 @@ namespace s3d
 			}
 			else
 			{
-				if (!keyPattern.isEmpty())
+				if (keyPattern)
 				{
 					result.append(detail::GetFormattedElement(us, keyPattern));
 					keyPattern.clear();
@@ -184,7 +184,7 @@ namespace s3d
 			previousChar = ch;
 		}
 
-		if (!keyPattern.isEmpty())
+		if (keyPattern)
 		{
 			result.append(detail::GetFormattedElement(us, keyPattern));
 		}

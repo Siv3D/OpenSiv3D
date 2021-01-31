@@ -73,7 +73,7 @@ namespace s3d
 
 		BMPHeader header;
 			
-		if (!reader.read(header))
+		if (not reader.read(header))
 		{
 			LOG_FAIL(U"❌ BMPDecoder::decode(): Failed to read header");
 			return{};
