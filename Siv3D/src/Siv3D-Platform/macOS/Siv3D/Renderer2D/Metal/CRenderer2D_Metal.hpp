@@ -57,6 +57,9 @@ namespace s3d
 
 		Optional<VertexShader> m_currentCustomVS;
 		Optional<PixelShader> m_currentCustomPS;
+		
+		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
+		Array<Float2> m_buffer;
 
 	public:
 
