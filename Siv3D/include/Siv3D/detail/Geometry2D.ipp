@@ -8,6 +8,11 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
+//	Authors (OpenSiv3D challenge paricipants)
+//	- Ebishu
+//	- fal_rnd
+//	- きつねび
+//-----------------------------------------------
 
 # pragma once
 
@@ -65,8 +70,8 @@ namespace s3d
 				return false;
 			}
 
-			const auto* const pSrcBegin	= points;
-			const auto* const pSrcEnd	= (points + size);
+			const auto* const pSrcBegin = points;
+			const auto* const pSrcEnd = (points + size);
 			double sum = 0.0;
 
 			// 最初の頂点 -> ... -> 最後の頂点
@@ -249,6 +254,26 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Bezier2& a, const Point& b)
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Bezier2& a, const Vec2& b)
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Bezier2& a, const Line& b)
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Bezier3& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		inline constexpr bool Intersect(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -260,6 +285,11 @@ namespace s3d
 		}
 
 		inline bool Intersect(const Rect& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Rect& a, const Bezier2& b)
 		{
 			return Intersect(b, a);
 		}
@@ -291,6 +321,11 @@ namespace s3d
 		}
 
 		inline bool Intersect(const RectF& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const RectF& a, const Bezier2& b)
 		{
 			return Intersect(b, a);
 		}
@@ -395,6 +430,16 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Ellipse& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Ellipse& a, const Circle& b)
+		{
+			return Intersect(b, a);
+		}
+
 		inline bool Intersect(const Ellipse& a, const Bezier2& b)
 		{
 			return Intersect(b, a);
@@ -420,6 +465,11 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Triangle& a, const Bezier2& b)
+		{
+			return Intersect(b, a);
+		}
+
 		inline bool Intersect(const Triangle& a, const Rect& b) noexcept
 		{
 			return Intersect(b, a);
@@ -431,6 +481,11 @@ namespace s3d
 		}
 
 		inline bool Intersect(const Triangle& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Triangle& a, const Ellipse& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -450,6 +505,11 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const Quad& a, const Bezier2& b)
+		{
+			return Intersect(b, a);
+		}
+
 		inline bool Intersect(const Quad& a, const Rect& b) noexcept
 		{
 			return Intersect(b, a);
@@ -461,6 +521,11 @@ namespace s3d
 		}
 
 		inline bool Intersect(const Quad& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Quad& a, const Ellipse& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -510,6 +575,11 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const RoundRect& a, const Ellipse& b)
+		{
+			return Intersect(b, a);
+		}
+
 		inline bool Intersect(const Polygon& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -526,6 +596,11 @@ namespace s3d
 		}
 
 		inline bool Intersect(const Polygon& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const Polygon& a, const Ellipse& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -551,6 +626,51 @@ namespace s3d
 		}
 
 		inline bool Intersect(const MultiPolygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Ellipse& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		inline bool Intersect(const MultiPolygon& a, const Polygon& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -610,13 +730,38 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		inline bool Intersect(const LineString& a, const MultiPolygon& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	IntersectAt
 		//
 		//////////////////////////////////////////////////
 
+		inline Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
 		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Rect& a, const Bezier3& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -627,6 +772,16 @@ namespace s3d
 		}
 
 		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RectF& a, const Bezier3& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -686,7 +841,142 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
+		inline Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
 		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Bezier3& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Triangle& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Bezier3& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Quad& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Circle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const RoundRect& a, const Quad& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const RectF& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -696,7 +986,32 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Ellipse& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Quad& b)
+		{
+			return IntersectAt(b, a);
+		}
+
 		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Bezier3& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -722,6 +1037,21 @@ namespace s3d
 		}
 
 		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Triangle& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Quad& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const RoundRect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		inline Optional<Array<Vec2>> IntersectAt(const LineString& a, const Polygon& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -955,6 +1285,14 @@ namespace s3d
 				&& Intersect(b.br(), a);
 		}
 
+		inline constexpr bool Contains(const Ellipse& a, const Circle& b) noexcept
+		{
+			return Intersect(b.top(), a)
+				&& Intersect(b.right(), a)
+				&& Intersect(b.bottom(), a)
+				&& Intersect(b.left(), a);
+		}
+
 		inline constexpr bool Contains(const Ellipse& a, const Triangle& b) noexcept
 		{
 			return Intersect(b.p0, a)
@@ -1115,6 +1453,21 @@ namespace s3d
 			return Distance(b, a);
 		}
 
+		inline double Distance(const Bezier2& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Bezier2& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const Bezier2& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
 		inline double Distance(const Rect& a, const Point& b)
 		{
 			return Distance(b, a);
@@ -1141,6 +1494,11 @@ namespace s3d
 		}
 
 		inline double Distance(const RectF& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		inline double Distance(const RectF& a, const Bezier2& b)
 		{
 			return Distance(b, a);
 		}
