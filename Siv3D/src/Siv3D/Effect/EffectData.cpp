@@ -62,6 +62,16 @@ namespace s3d
 		return m_speed;
 	}
 
+	void EffectData::setMaxLifeTime(const double maxLifeTimeSec) noexcept
+	{
+		m_maxLifeTimeSec = maxLifeTimeSec;
+	}
+
+	double EffectData::getMaxLifeTime() const noexcept
+	{
+		return m_maxLifeTimeSec;
+	}
+
 	void EffectData::setCurrectDeltaTimeUs(const uint64 currentDeltaUs) noexcept
 	{
 		const int64 deltaUs = (m_paused ? 0 : static_cast<int64>(currentDeltaUs * m_speed));

@@ -44,6 +44,10 @@ namespace s3d
 
 		double getSpeed() const noexcept;
 
+		void setMaxLifeTime(double maxLifeTimeSec) noexcept;
+
+		double getMaxLifeTime() const noexcept;
+
 		void setCurrectDeltaTimeUs(uint64 currentDeltaUs) noexcept;
 
 		void update();

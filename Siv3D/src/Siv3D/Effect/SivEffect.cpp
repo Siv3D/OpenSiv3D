@@ -105,6 +105,21 @@ namespace s3d
 		return SIV3D_ENGINE(Effect)->getSpeed(m_handle->id());
 	}
 
+	void Effect::setMaxLifeTime(const double maxLifeTimeSec)
+	{
+		SIV3D_ENGINE(Effect)->setMaxLifeTime(m_handle->id(), maxLifeTimeSec);
+	}
+
+	void Effect::setMaxLifeTime(const Duration& maxLifeTimeSec)
+	{
+		SIV3D_ENGINE(Effect)->setMaxLifeTime(m_handle->id(), maxLifeTimeSec.count());
+	}
+
+	double Effect::getMaxLifeTime() const
+	{
+		return SIV3D_ENGINE(Effect)->getMaxLifeTime(m_handle->id());
+	}
+
 	void Effect::update() const
 	{
 		SIV3D_ENGINE(Effect)->updateEffect(m_handle->id());

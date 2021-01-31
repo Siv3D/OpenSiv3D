@@ -45,6 +45,10 @@ namespace s3d
 
 		virtual double getSpeed(Effect::IDType handleID) = 0;
 
+		virtual void setMaxLifeTime(Effect::IDType handleID, double maxLifeTimeSec) = 0;
+
+		virtual double getMaxLifeTime(Effect::IDType handleID) = 0;
+
 		virtual void updateEffect(Effect::IDType handleID) = 0;
 
 		virtual void clear(Effect::IDType handleID) = 0;

@@ -58,6 +58,13 @@ namespace s3d
 		[[nodiscard]]
 		double getSpeed() const;
 
+		void setMaxLifeTime(double maxLifeTimeSec);
+
+		void setMaxLifeTime(const Duration& maxLifeTimeSec);
+
+		[[nodiscard]]
+		double getMaxLifeTime() const;
+
 		void update() const;
 
 		void clear() const;

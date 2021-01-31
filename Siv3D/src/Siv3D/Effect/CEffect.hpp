@@ -54,6 +54,10 @@ namespace s3d
 
 		double getSpeed(Effect::IDType handleID) override;
 
+		void setMaxLifeTime(Effect::IDType handleID, double maxLifeTimeSec) override;
+
+		double getMaxLifeTime(Effect::IDType handleID) override;
+
 		void updateEffect(Effect::IDType handleID) override;
 
 		void clear(Effect::IDType handleID) override;

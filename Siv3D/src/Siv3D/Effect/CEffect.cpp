@@ -126,6 +126,16 @@ namespace s3d
 		return m_effects[handleID]->getSpeed();
 	}
 
+	void CEffect::setMaxLifeTime(const Effect::IDType handleID, const double maxLifeTimeSec)
+	{
+		m_effects[handleID]->setMaxLifeTime(maxLifeTimeSec);
+	}
+
+	double CEffect::getMaxLifeTime(const Effect::IDType handleID)
+	{
+		return m_effects[handleID]->getMaxLifeTime();
+	}
+
 	void CEffect::updateEffect(const Effect::IDType handleID)
 	{
 		m_effects[handleID]->update();
