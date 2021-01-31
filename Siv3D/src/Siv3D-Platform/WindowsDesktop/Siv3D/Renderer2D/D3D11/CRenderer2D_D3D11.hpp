@@ -92,6 +92,9 @@ namespace s3d
 		Optional<VertexShader> m_currentCustomVS;
 		Optional<PixelShader> m_currentCustomPS;
 
+		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
+		Array<Float2> m_buffer;
+
 	public:
 
 		CRenderer2D_D3D11();
@@ -149,6 +152,8 @@ namespace s3d
 		void addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color) override;
 
 		void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) override;
+
+		void addTexturedRoundRect(const Texture& texture, const FloatRect& rect, float w, float h, float r, const FloatRect& uvRect, const Float4& color);
 
 		void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 

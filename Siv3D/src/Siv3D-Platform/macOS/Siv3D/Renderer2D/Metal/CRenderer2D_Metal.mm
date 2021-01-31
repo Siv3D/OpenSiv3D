@@ -368,7 +368,7 @@ namespace s3d
 
 	void CRenderer2D_Metal::addRoundRect(const FloatRect& rect, const float w, const float h, const float r, const Float4& color)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, m_buffer, rect, w, h, r, color, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -386,7 +386,7 @@ namespace s3d
 
 	void CRenderer2D_Metal::addLineString(const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildLineString(m_bufferCreator, style, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildLineString(m_bufferCreator, m_buffer, style, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -458,7 +458,7 @@ namespace s3d
 
 	void CRenderer2D_Metal::addPolygonFrame(const Float2* points, const size_t size, const float thickness, const Float4& color)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, m_buffer, points, size, thickness, color, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -500,6 +500,11 @@ namespace s3d
 	}
 
 	void CRenderer2D_Metal::addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
+	{
+
+	}
+
+	void CRenderer2D_Metal::addTexturedRoundRect(const Texture& texture, const FloatRect& rect, const float w, const float h, const float r, const FloatRect& uvRect, const Float4& color)
 	{
 
 	}

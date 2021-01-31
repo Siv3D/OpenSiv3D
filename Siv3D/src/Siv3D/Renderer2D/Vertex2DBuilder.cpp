@@ -787,12 +787,12 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale)
+		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale)
 		{
 			const float rr = Min({ w * 0.5f, h * 0.5f, Max(0.0f, r) });
 			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(rr * scale);
 
-			Array<Float2> fanPositions(quality);
+			buffer.resize(quality);
 			{
 				const float radDelta = (Math::HalfPiF / (quality - 1));
 
@@ -800,7 +800,7 @@ namespace s3d
 				{
 					const float rad = (radDelta * i);
 					const auto [s, c] = FastMath::SinCos(rad);
-					fanPositions[i].set(s * rr, -c * rr);
+					buffer[i].set(s * rr, -c * rr);
 				}
 			}
 
@@ -828,25 +828,25 @@ namespace s3d
 
 				for (int32 i = 0; i < quality - uniteV; ++i)
 				{
-					pDst->pos = centers[0] + fanPositions[i];
+					pDst->pos = centers[0] + buffer[i];
 					++pDst;
 				}
 
 				for (int32 i = 0; i < quality - uniteH; ++i)
 				{
-					pDst->pos = centers[1] + Float2{ fanPositions[quality - i - 1].x, -fanPositions[quality - i - 1].y };
+					pDst->pos = centers[1] + Float2{ buffer[quality - i - 1].x, -buffer[quality - i - 1].y };
 					++pDst;
 				}
 
 				for (int32 i = 0; i < quality - uniteV; ++i)
 				{
-					pDst->pos = centers[2] - fanPositions[i];
+					pDst->pos = centers[2] - buffer[i];
 					++pDst;
 				}
 
 				for (int32 i = 0; i < quality - uniteH; ++i)
 				{
-					pDst->pos = centers[3] + Float2{ -fanPositions[quality - i - 1].x, fanPositions[quality - i - 1].y };
+					pDst->pos = centers[3] + Float2{ -buffer[quality - i - 1].x, buffer[quality - i - 1].y };
 					++pDst;
 				}
 
@@ -866,7 +866,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing, const float scale)
+		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing, const float scale)
 		{
 			if ((size < 2)
 				|| (32760 <= size)
@@ -878,21 +878,21 @@ namespace s3d
 
 			if (closeRing)
 			{
-				return BuildClosedLineString(bufferCreator, points, size, offset, thickness, inner, color, scale);
+				return BuildClosedLineString(bufferCreator, buffer, points, size, offset, thickness, inner, color, scale);
 			}
 
 			if (style.hasSquareCap())
 			{
-				return BuildCappedLineString(bufferCreator, points, size, offset, thickness, inner, color, scale);
+				return BuildCappedLineString(bufferCreator, buffer, points, size, offset, thickness, inner, color, scale);
 			}
 			else if (style.hasNoCap())
 			{
-				return BuildUncappedLineString(bufferCreator, points, size, offset, thickness, inner, color, scale, nullptr, nullptr);
+				return BuildUncappedLineString(bufferCreator, buffer, points, size, offset, thickness, inner, color, scale, nullptr, nullptr);
 			}
 			else if (style.hasRoundCap())
 			{
 				float startAngle0 = 0.0f, startAngle1 = 0.0f;
-				Vertex2D::IndexType indexCount = BuildUncappedLineString(bufferCreator, points, size, offset, thickness, inner, color, scale, &startAngle0, &startAngle1);
+				Vertex2D::IndexType indexCount = BuildUncappedLineString(bufferCreator, buffer, points, size, offset, thickness, inner, color, scale, &startAngle0, &startAngle1);
 
 				if (indexCount)
 				{
@@ -909,14 +909,14 @@ namespace s3d
 			}
 		}
 
-		Vertex2D::IndexType BuildClosedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale)
+		Vertex2D::IndexType BuildClosedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale)
 		{
 			const float th2 = (0.01f / scale);
 			const double th2D = th2;
 
-			Array<Float2> buf(Arg::reserve = size);
+			buffer.clear();
 			{
-				buf.push_back(points[0]);
+				buffer.push_back(points[0]);
 
 				for (size_t i = 1; i < (size - 1); ++i)
 				{
@@ -928,7 +928,7 @@ namespace s3d
 						continue;
 					}
 
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
 				const Vec2 back = points[size - 2];
@@ -936,16 +936,16 @@ namespace s3d
 
 				if (back.distanceFromSq(current) >= th2D)
 				{
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
-				if ((buf.size() >= 2)
-					&& buf.back().distanceFromSq(buf.front()) <= th2)
+				if ((buffer.size() >= 2)
+					&& buffer.back().distanceFromSq(buffer.front()) <= th2)
 				{
-					buf.pop_back();
+					buffer.pop_back();
 				}
 
-				if (buf.size() < 2)
+				if (buffer.size() < 2)
 				{
 					return 0;
 				}
@@ -953,17 +953,17 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2(Arg::reserve = buf.size());
+			Array<Float2> buf2(Arg::reserve = buffer.size());
 			{
-				buf2.push_back(buf.front());
+				buf2.push_back(buffer.front());
 
-				const size_t count = (buf.size() - 1 + 1);
+				const size_t count = (buffer.size() - 1 + 1);
 
 				for (size_t i = 1; i < count; ++i)
 				{
-					const Float2 back = buf[i - 1];
-					const Float2 current = buf[i];
-					const Float2 next = buf[(i + 1) % buf.size()];
+					const Float2 back = buffer[i - 1];
+					const Float2 current = buffer[i];
+					const Float2 next = buffer[(i + 1) % buffer.size()];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -995,9 +995,9 @@ namespace s3d
 
 				
 				{
-					const Float2 back = buf[buf.size() - 1];
-					const Float2 current = buf[0];
-					const Float2 next = buf[1];
+					const Float2 back = buffer[buffer.size() - 1];
+					const Float2 current = buffer[0];
+					const Float2 next = buffer[1];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -1118,14 +1118,14 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildCappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale)
+		Vertex2D::IndexType BuildCappedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale)
 		{
 			const float th2 = (0.01f / scale);
 			const double th2D = th2;
 
-			Array<Float2> buf(Arg::reserve = size);
+			buffer.clear();
 			{
-				buf.push_back(points[0]);
+				buffer.push_back(points[0]);
 
 				for (size_t i = 1; i < (size - 1); ++i)
 				{
@@ -1137,7 +1137,7 @@ namespace s3d
 						continue;
 					}
 
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
 				const Vec2 back = points[size - 2];
@@ -1145,10 +1145,10 @@ namespace s3d
 
 				if (back != current)
 				{
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
-				if (buf.size() < 2)
+				if (buffer.size() < 2)
 				{
 					return 0;
 				}
@@ -1156,17 +1156,17 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2(Arg::reserve = buf.size());
+			Array<Float2> buf2(Arg::reserve = buffer.size());
 			{
-				buf2.push_back(buf.front());
+				buf2.push_back(buffer.front());
 
-				const size_t count = (buf.size() - 1);
+				const size_t count = (buffer.size() - 1);
 
 				for (size_t i = 1; i < count; ++i)
 				{
-					const Float2 back = buf[i - 1];
-					const Float2 current = buf[i];
-					const Float2 next = buf[(i + 1) % buf.size()];
+					const Float2 back = buffer[i - 1];
+					const Float2 current = buffer[i];
+					const Float2 next = buffer[(i + 1) % buffer.size()];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -1197,7 +1197,7 @@ namespace s3d
 				}
 
 				{
-					buf2.push_back(buf.back());
+					buf2.push_back(buffer.back());
 				}
 			}
 
@@ -1282,14 +1282,14 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildUncappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale, float* startAngle0, float* startAngle1)
+		Vertex2D::IndexType BuildUncappedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const float scale, float* startAngle0, float* startAngle1)
 		{
 			const float th2 = (0.01f / scale);
 			const double th2D = th2;
 
-			Array<Float2> buf(Arg::reserve = size);
+			buffer.clear();
 			{
-				buf.push_back(points[0]);
+				buffer.push_back(points[0]);
 
 				for (size_t i = 1; i < (size - 1); ++i)
 				{
@@ -1301,7 +1301,7 @@ namespace s3d
 						continue;
 					}
 
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
 				const Vec2 back = points[size - 2];
@@ -1309,10 +1309,10 @@ namespace s3d
 
 				if (back != current)
 				{
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
-				if (buf.size() < 2)
+				if (buffer.size() < 2)
 				{
 					return 0;
 				}
@@ -1320,17 +1320,17 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2(Arg::reserve = buf.size());
+			Array<Float2> buf2(Arg::reserve = buffer.size());
 			{
-				buf2.push_back(buf.front());
+				buf2.push_back(buffer.front());
 
-				const size_t count = (buf.size() - 1);
+				const size_t count = (buffer.size() - 1);
 
 				for (size_t i = 1; i < count; ++i)
 				{
-					const Float2 back = buf[i - 1];
-					const Float2 current = buf[i];
-					const Float2 next = buf[(i + 1) % buf.size()];
+					const Float2 back = buffer[i - 1];
+					const Float2 current = buffer[i];
+					const Float2 next = buffer[(i + 1) % buffer.size()];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -1361,7 +1361,7 @@ namespace s3d
 				}
 
 				{
-					buf2.push_back(buf.back());
+					buf2.push_back(buffer.back());
 				}
 			}
 
@@ -1792,7 +1792,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, const Float2* points, const size_t size, const float thickness, const Float4& color, const float scale)
+		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Float2* points, const size_t size, const float thickness, const Float4& color, const float scale)
 		{
 			if ((size < 3)
 				|| (32760 <= size)
@@ -1805,9 +1805,9 @@ namespace s3d
 			const float th2 = (0.01f / scale);
 			const double th2D = th2;
 
-			Array<Float2> buf(Arg::reserve = size);
+			buffer.clear();
 			{
-				buf.push_back(points[0]);
+				buffer.push_back(points[0]);
 
 				for (size_t i = 1; i < (size - 1); ++i)
 				{
@@ -1819,7 +1819,7 @@ namespace s3d
 						continue;
 					}
 
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
 				const Vec2 back = points[size - 2];
@@ -1827,16 +1827,16 @@ namespace s3d
 
 				if (back.distanceFromSq(current) >= th2D)
 				{
-					buf.push_back(current);
+					buffer.push_back(current);
 				}
 
-				if ((buf.size() >= 2)
-					&& buf.back().distanceFromSq(buf.front()) <= th2)
+				if ((buffer.size() >= 2)
+					&& buffer.back().distanceFromSq(buffer.front()) <= th2)
 				{
-					buf.pop_back();
+					buffer.pop_back();
 				}
 
-				if (buf.size() < 2)
+				if (buffer.size() < 2)
 				{
 					return 0;
 				}
@@ -1844,17 +1844,17 @@ namespace s3d
 
 			const float threshold = 0.55f;
 
-			Array<Float2> buf2(Arg::reserve = buf.size());
+			Array<Float2> buf2(Arg::reserve = buffer.size());
 			{
-				buf2.push_back(buf.front());
+				buf2.push_back(buffer.front());
 
-				const size_t count = buf.size();
+				const size_t count = buffer.size();
 
 				for (size_t i = 1; i < count; ++i)
 				{
-					const Float2 back = buf[i - 1];
-					const Float2 current = buf[i];
-					const Float2 next = buf[(i + 1) % count];
+					const Float2 back = buffer[i - 1];
+					const Float2 current = buffer[i];
+					const Float2 next = buffer[(i + 1) % count];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -1884,9 +1884,9 @@ namespace s3d
 				}
 
 				{
-					const Float2 back = buf[buf.size() - 1];
-					const Float2 current = buf[0];
-					const Float2 next = buf[1];
+					const Float2 back = buffer[buffer.size() - 1];
+					const Float2 current = buffer[0];
+					const Float2 next = buffer[1];
 
 					const Float2 v1 = (back - current).normalized();
 					const Float2 v2 = (next - current).normalized();
@@ -2128,6 +2128,107 @@ namespace s3d
 			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
 			{
 				*pIndex++ = (indexOffset + detail::RectIndexTable[i]);
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildTexturedRoundRect(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const FloatRect& rect, const float w, const float h, const float r, const FloatRect& uvRect, const Float4& color, const float scale)
+		{
+			const float rr = Min({ w * 0.5f, h * 0.5f, Max(0.0f, r) });
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(rr * scale);
+
+			buffer.resize(quality);
+			{
+				const float radDelta = (Math::HalfPiF / (quality - 1));
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto [s, c] = FastMath::SinCos(rad);
+					buffer[i].set(s * rr, -c * rr);
+				}
+			}
+
+			const bool uniteV = (h * 0.5f == rr);
+			const bool uniteH = (w * 0.5f == rr);
+			const std::array<Float2, 4> centers =
+			{ {
+				{ rect.right - rr, rect.top + rr },
+				{ rect.right - rr, rect.bottom - rr },
+				{ rect.left + rr, rect.bottom - rr },
+				{ rect.left + rr, rect.top + rr },
+			} };
+
+			const Vertex2D::IndexType vertexSize = (quality - uniteV + quality - uniteH) * 2;
+			const Vertex2D::IndexType indexSize = (vertexSize - 2) * 3;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			{
+				Vertex2D* pDst = pVertex;
+
+				for (int32 i = 0; i < quality - uniteV; ++i)
+				{
+					pDst->pos = centers[0] + buffer[i];
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteH; ++i)
+				{
+					pDst->pos = centers[1] + Float2{ buffer[quality - i - 1].x, -buffer[quality - i - 1].y };
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteV; ++i)
+				{
+					pDst->pos = centers[2] - buffer[i];
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality - uniteH; ++i)
+				{
+					pDst->pos = centers[3] + Float2{ -buffer[quality - i - 1].x, buffer[quality - i - 1].y };
+					++pDst;
+				}
+			}
+
+			{
+				Vertex2D* pDst = pVertex;
+
+				for (size_t i = 0; i < vertexSize; ++i)
+				{
+					(pDst++)->color = color;
+				}
+			}
+
+			{
+				const float uOffst = uvRect.left;
+				const float vOffst = uvRect.top;
+				const float left = rect.left;
+				const float ws = (uvRect.right - uvRect.left) / w;
+				const float top = rect.top;
+				const float hs = (uvRect.bottom - uvRect.top) / h;
+
+				Vertex2D* pDst = pVertex;
+
+				for (size_t i = 0; i < vertexSize; ++i)
+				{
+					const float u = uOffst + (pDst->pos.x - left) * ws;
+					const float v = vOffst + (pDst->pos.y - top) * hs;
+					(pDst++)->tex.set(u, v);
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (vertexSize - 2); ++i)
+			{
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 1);
+				*pIndex++ = (indexOffset + ((i + 2 < vertexSize) ? (i + 2) : 0));
 			}
 
 			return indexSize;

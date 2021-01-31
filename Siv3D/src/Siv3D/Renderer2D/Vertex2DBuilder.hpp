@@ -83,19 +83,19 @@ namespace s3d
 		Vertex2D::IndexType BuildQuad(const BufferCreatorFunc& bufferCreator, const FloatQuad& quad, const Float4(&colors)[4]);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale);
+		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing, float scale);
+		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing, float scale);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildClosedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
+		Vertex2D::IndexType BuildClosedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildCappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
+		Vertex2D::IndexType BuildCappedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale);
 
 		[[nodiscard]]
-		Vertex2D::IndexType BuildUncappedLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale, float* startAngle0, float* startAngle1);
+		Vertex2D::IndexType BuildUncappedLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, float scale, float* startAngle0, float* startAngle1);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildDefaultLineString(const BufferCreatorFunc& bufferCreator, const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, CloseRing closeRing, float scale);
@@ -107,7 +107,7 @@ namespace s3d
 		Vertex2D::IndexType BuildPolygon(const BufferCreatorFunc& bufferCreator, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles);
 	
 		[[nodiscard]]
-		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, const Float2* points, size_t size, float thickness, const Float4& color, float scale);
+		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Float2* points, size_t size, float thickness, const Float4& color, float scale);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildTextureRegion(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, const FloatRect& uv, const Float4& color);
@@ -120,6 +120,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildTexturedQuad(const BufferCreatorFunc& bufferCreator, const FloatQuad& quad, const FloatRect& uv, const Float4& color);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildTexturedRoundRect(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const FloatRect& rect, float w, float h, float r, const FloatRect& uvRect, const Float4& color, float scale);
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildTexturedVertices(const BufferCreatorFunc& bufferCreator, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles);

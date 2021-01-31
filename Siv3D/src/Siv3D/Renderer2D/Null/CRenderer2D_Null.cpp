@@ -155,6 +155,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addTexturedRoundRect(const Texture&, const FloatRect&, const float, const float, const float, const FloatRect&, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addTexturedVertices(const Texture&, const Vertex2D*, const size_t, const TriangleIndex*, const size_t)
 	{
 		// do nothing

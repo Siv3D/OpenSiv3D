@@ -97,6 +97,9 @@ namespace s3d
 		GLuint m_vertexArray		= 0;
 		GLuint m_sampler			= 0;
 
+		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
+		Array<Float2> m_buffer;
+
 	public:
 
 		CRenderer2D_GL4();
@@ -154,6 +157,8 @@ namespace s3d
 		void addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color) override;
 
 		void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) override;
+
+		void addTexturedRoundRect(const Texture& texture, const FloatRect& rect, float w, float h, float r, const FloatRect& uvRect, const Float4& color);
 
 		void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 
