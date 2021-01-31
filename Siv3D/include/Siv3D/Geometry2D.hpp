@@ -2022,10 +2022,10 @@ namespace s3d
 		//inline double Distance(const Bezier2& a, const Bezier3& b) noexcept;
 
 		[[nodiscard]]
-		inline double Distance(const Bezier2& a, const Rect& b);
+		double Distance(const Bezier2& a, const Rect& b);
 
 		[[nodiscard]]
-		inline double Distance(const Bezier2& a, const RectF& b);
+		double Distance(const Bezier2& a, const RectF& b);
 
 		//[[nodiscard]]
 		//inline double Distance(const Bezier2& a, const Circle& b) noexcept;
