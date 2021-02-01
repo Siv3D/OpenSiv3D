@@ -38,5 +38,12 @@ namespace s3d
 		{
 			return Lerp(v1, v2, InvLerp(a, b, value));
 		}
+
+		template <class T, class U, class V>
+		inline auto LerpAngle(const T from, const U to, const V t) noexcept
+		{
+			const auto diff = std::fmod(to - from, Math::TwoPi_v<CommonFloat_t<T, U>>);
+			return (from + (std::fmod(2 * diff, Math::TwoPi_v<CommonFloat_t<T, U>>) - diff) * t);
+		}
 	}
 }

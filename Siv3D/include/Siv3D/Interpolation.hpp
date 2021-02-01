@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cmath>
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "Optional.hpp"
@@ -49,6 +50,10 @@ namespace s3d
 		template <class T, class U>
 		[[nodiscard]]
 		inline constexpr auto Map(double value, double a, double b, const T& v1, const U& v2) noexcept;
+
+		template <class T, class U, class V>
+		[[nodiscard]]
+		inline auto LerpAngle(T from, U to, V t) noexcept;
 
 		[[nodiscard]]
 		float Damp(float a, float b, float r, float dt);
