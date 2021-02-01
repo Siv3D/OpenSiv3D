@@ -191,6 +191,9 @@ namespace s3d
 		Vec2 calculatePointFromOrigin(double distanceFromOrigin, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
+		LineString getLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;
 
 		[[nodiscard]]
@@ -246,6 +249,13 @@ namespace s3d
 		const LineString& drawClosed(double thickness, const Array<ColorF>& colors) const;
 
 		const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
+
+		friend void Formatter(FormatData& formatData, const LineString& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const LineString& value);
 	};
 }
 

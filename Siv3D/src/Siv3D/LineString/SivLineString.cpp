@@ -12,6 +12,8 @@
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Spline.hpp>
 # include <Siv3D/Spline2D.hpp>
+# include <Siv3D/Math.hpp>
+# include <Siv3D/Formatter.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -155,6 +157,88 @@ namespace s3d
 		}
 	}
 
+	LineString LineString::getLineString(double distanceFromOrigin, double length, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{};
+		}
+
+		if (length <= 0.0)
+		{
+			distanceFromOrigin += length;
+			length = -length;
+		}
+
+		const size_t N = (num_lines() + (closeRing ? 1 : 0));
+		Array<double> lens(N);
+		{
+			for (size_t i = 0; i < num_lines(); ++i)
+			{
+				lens[i] = line(i).length();
+			}
+
+			if (closeRing)
+			{
+				lens.back() = front().distanceFrom(back());
+			}
+		}
+
+		const double perim = lens.sum();
+
+		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
+		length = Min(length, perim);
+		const double distanceToTarget = (distanceFromOrigin + length);
+
+		LineString points;
+		double currentLength = 0.0;
+		const Vec2* pSrc = data();
+
+		for (size_t n = 0; n < (N * 2); ++n)
+		{
+			const size_t i = (n % N);
+			const double len = lens[i];
+			const Vec2 pFrom = pSrc[i];
+			const Vec2 pTo = pSrc[((N <= (i + 1)) ? (i - (N - 1)) : (i + 1)) % size()];
+
+			if (not points)
+			{
+				if ((distanceFromOrigin <= (currentLength + len)))
+				{
+					const Vec2 origin = pFrom + (pTo - pFrom)
+						.setLength(distanceFromOrigin - currentLength);
+					points << origin;
+
+					if (distanceToTarget <= (currentLength + len))
+					{
+						const Vec2 target = pFrom + (pTo - pFrom)
+							.setLength(distanceToTarget - currentLength);
+						points << target;
+						break;
+					}
+
+					points << pTo;
+				}
+			}
+			else
+			{
+				if (distanceToTarget <= (currentLength + len))
+				{
+					const Vec2 target = pFrom + (pTo - pFrom)
+						.setLength(distanceToTarget - currentLength);
+					points << target;
+					break;
+				}
+
+				points << pTo;
+			}
+
+			currentLength += len;
+		}
+
+		return points;
+	}
+
 	Spline2D LineString::asSpline(const CloseRing closeRing) const
 	{
 		return{ *this, closeRing };
@@ -272,5 +356,10 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	void LineString::_Formatter(FormatData& formatData, const LineString& value)
+	{
+		Formatter(formatData, value.begin(), value.end());
 	}
 }
