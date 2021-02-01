@@ -132,6 +132,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
+  ../Siv3D/src/Siv3D/Font/CFont.cpp
+  ../Siv3D/src/Siv3D/Font/FontFactory.cpp
+  ../Siv3D/src/Siv3D/Font/SivFont.cpp
   ../Siv3D/src/Siv3D/FormatFloat/SivFormatFloat.cpp
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp

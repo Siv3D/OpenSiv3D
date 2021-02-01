@@ -25,6 +25,7 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
+# include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
 # include <Siv3D/System/SystemLog.hpp>
@@ -63,6 +64,7 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
+		SIV3D_ENGINE(Font)->init();
 		SIV3D_ENGINE(Effect)->init();
 	}
 
