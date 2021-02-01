@@ -329,7 +329,7 @@ namespace s3d
 	Shape2D Shape2D::Heart(const double r, const Vec2& center, const double angle)
 	{
 		//-----------------------------------------------
-		//	Authors (OpenSiv3D challenge paricipants)
+		//	Authors (OpenSiv3D challenge participants)
 		//	- 野菜ジュース
 		//	- てゃいの
 		//-----------------------------------------------
