@@ -417,6 +417,7 @@
 		2C43C8D125C8387600D6D613 /* SivFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CC25C8387600D6D613 /* SivFont.cpp */; };
 		2C43C8D225C8387600D6D613 /* FontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CD25C8387600D6D613 /* FontFactory.cpp */; };
 		2C43C8D325C8387600D6D613 /* CFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CE25C8387600D6D613 /* CFont.cpp */; };
+		2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C43C8D425C8464400D6D613 /* libfreetype.a */; };
 		2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4442A02427AA7C00557D51 /* miniutf.hpp */; };
 		2C4564E1247946AF00DB01F0 /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C4564E0247946AF00DB01F0 /* int128.cc */; };
 		2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C473B172545415300CF864D /* SivInterpolation.cpp */; };
@@ -1823,6 +1824,7 @@
 		2C43C8CC25C8387600D6D613 /* SivFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFont.cpp; sourceTree = "<group>"; };
 		2C43C8CD25C8387600D6D613 /* FontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontFactory.cpp; sourceTree = "<group>"; };
 		2C43C8CE25C8387600D6D613 /* CFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont.cpp; sourceTree = "<group>"; };
+		2C43C8D425C8464400D6D613 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../Siv3D/lib/macOS/freetype/libfreetype.a; sourceTree = "<group>"; };
 		2C4442A02427AA7C00557D51 /* miniutf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = miniutf.hpp; sourceTree = "<group>"; };
 		2C4564CA2479193600DB01F0 /* phmap_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap_config.h; sourceTree = "<group>"; };
 		2C4564CB2479193600DB01F0 /* phmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap.h; sourceTree = "<group>"; };
@@ -2384,6 +2386,7 @@
 			files = (
 				2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */,
 				2C47E59924AF3C7B0060E8A7 /* libboost_filesystem.a in Frameworks */,
+				2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
 				2C531EA724BA0CEA00378977 /* libz.a in Frameworks */,
 			);
@@ -3339,6 +3342,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C43C8D425C8464400D6D613 /* libfreetype.a */,
 				2C531EA624BA0CEA00378977 /* libz.a */,
 				2C531EA424BA0CA000378977 /* libpng16.a */,
 				2C47E59824AF3C7B0060E8A7 /* libboost_filesystem.a */,
@@ -7057,6 +7061,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
 					../Siv3D/lib/macOS/boost,
+					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/zlib,
 				);
@@ -7117,6 +7122,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					../Siv3D/lib/macOS,
 					../Siv3D/lib/macOS/boost,
+					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/zlib,
 				);
