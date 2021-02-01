@@ -540,5 +540,6 @@ target_include_directories(Siv3D PUBLIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/OpenGL4
   ../Siv3D/src/ThirdParty
+  ../Siv3D/src/ThirdParty/freetype
   ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
   )

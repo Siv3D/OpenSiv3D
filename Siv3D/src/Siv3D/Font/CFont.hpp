@@ -28,6 +28,8 @@ namespace s3d
 	{
 	private:
 
+		FT_Library m_freeType = nullptr;
+
 	public:
 
 		CFont();

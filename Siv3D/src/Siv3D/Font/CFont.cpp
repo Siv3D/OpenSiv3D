@@ -25,11 +25,19 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CFont::~CFont()");
 
+		if (m_freeType)
+		{
+			FT_Done_FreeType(m_freeType);
+		}
 	}
 
 	void CFont::init()
 	{
 		LOG_SCOPED_TRACE(U"CFont::init()");
 
+		if (const FT_Error error = FT_Init_FreeType(&m_freeType))
+		{
+			throw EngineError{ U"FT_Init_FreeType() failed" };
+		}
 	}
 }

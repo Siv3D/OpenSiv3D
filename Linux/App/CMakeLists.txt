@@ -59,6 +59,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -ldl
   -lGL
   -lX11
+  -lfreetype
   -lglib-2.0
   -lgobject-2.0
   -lgio-2.0
