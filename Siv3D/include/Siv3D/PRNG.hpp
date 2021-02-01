@@ -14,16 +14,21 @@
 # include "Common.hpp"
 # include "SMFT.hpp"
 
-namespace s3d::PRNG
+namespace s3d
 {
-	using SplitMix64			= XoshiroCpp::SplitMix64;
-	using Xoshiro256Plus		= XoshiroCpp::Xoshiro256Plus;
-	using Xoshiro256PlusPlus	= XoshiroCpp::Xoshiro256PlusPlus;
-	using Xoshiro256StarStar	= XoshiroCpp::Xoshiro256StarStar;
-	using Xoroshiro128Plus		= XoshiroCpp::Xoroshiro128Plus;
-	using Xoroshiro128PlusPlus	= XoshiroCpp::Xoroshiro128PlusPlus;
-	using Xoroshiro128StarStar	= XoshiroCpp::Xoroshiro128StarStar;
-	using Xoshiro128Plus		= XoshiroCpp::Xoshiro128Plus;
-	using Xoshiro128PlusPlus	= XoshiroCpp::Xoshiro128PlusPlus;
-	using Xoshiro128StarStar	= XoshiroCpp::Xoshiro128StarStar;
+	namespace PRNG
+	{
+		using SplitMix64			= XoshiroCpp::SplitMix64;
+		using Xoshiro256Plus		= XoshiroCpp::Xoshiro256Plus;
+		using Xoshiro256PlusPlus	= XoshiroCpp::Xoshiro256PlusPlus;
+		using Xoshiro256StarStar	= XoshiroCpp::Xoshiro256StarStar;
+		using Xoroshiro128Plus		= XoshiroCpp::Xoroshiro128Plus;
+		using Xoroshiro128PlusPlus	= XoshiroCpp::Xoroshiro128PlusPlus;
+		using Xoroshiro128StarStar	= XoshiroCpp::Xoroshiro128StarStar;
+		using Xoshiro128Plus		= XoshiroCpp::Xoshiro128Plus;
+		using Xoshiro128PlusPlus	= XoshiroCpp::Xoshiro128PlusPlus;
+		using Xoshiro128StarStar	= XoshiroCpp::Xoshiro128StarStar;
+	}
+
+	using SmallRNG = PRNG::Xoshiro256PlusPlus;
 }

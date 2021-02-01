@@ -46,7 +46,7 @@ namespace s3d
 	template <class Float>
 	inline void BasicPerlinNoise<Float>::reseed(const uint64 seed)
 	{
-		reseed(DefaultRNG_t{ seed });
+		reseed(DefaultRNG{ seed });
 	}
 
 	template <class Float>

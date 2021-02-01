@@ -16,7 +16,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline double Random(URBG&& urbg) noexcept
 	{
-		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG_t>)
+		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG>)
 		{
 			return urbg.generateReal();
 		}
@@ -165,7 +165,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline bool RandomBool(double p, URBG&& urbg) noexcept
 	{
-		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG_t>)
+		if constexpr (std::is_same_v<std::decay_t<URBG>, DefaultRNG>)
 		{
 			return (urbg.generateReal() < p);
 		}

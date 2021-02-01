@@ -19,12 +19,12 @@
 namespace s3d
 {
 	/// @brief デフォルトの乱数エンジンの種類 (PRNG::SFMT19937_64)
-	using DefaultRNG_t = PRNG::SFMT19937_64;
+	using DefaultRNG = PRNG::SFMT19937_64;
 
 	/// @brief 現在のスレッドの乱数エンジンの参照を返します。
 	/// @return 現在のスレッドの乱数エンジン
 	[[nodiscard]]
-	DefaultRNG_t& GetDefaultRNG() noexcept;
+	DefaultRNG& GetDefaultRNG() noexcept;
 
 	/// @brief 現在のスレッドの乱数エンジンのシード値を設定します。 
 	/// @param seed シード値

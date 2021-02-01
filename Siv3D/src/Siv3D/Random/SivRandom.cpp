@@ -13,9 +13,9 @@
 
 namespace s3d
 {
-	DefaultRNG_t& GetDefaultRNG() noexcept
+	DefaultRNG& GetDefaultRNG() noexcept
 	{
-		static thread_local DefaultRNG_t rng;
+		static thread_local DefaultRNG rng;
 		return rng;
 	}
 
