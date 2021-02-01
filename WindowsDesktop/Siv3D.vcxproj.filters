@@ -760,6 +760,21 @@
     <Filter Include="src\Siv3D\Effect">
       <UniqueIdentifier>{50416da5-f8b1-4492-a0df-84195d019b28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\freetype">
+      <UniqueIdentifier>{ba0184fc-03e8-4502-a03f-d8b0c98014bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\freetype\freetype">
+      <UniqueIdentifier>{b83b9324-fb6e-4c4b-a234-b9a0967a44f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\freetype\freetype\congif">
+      <UniqueIdentifier>{d049e6d1-1ccf-4509-80d3-4870876f3fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\freetype\freetype\internal">
+      <UniqueIdentifier>{7cc9aacc-af10-475d-bfbd-8db4925e65b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\freetype\freetype\internal\services">
+      <UniqueIdentifier>{5c01c32f-f5e7-4e7c-ae64-f21f8f54825b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3401,6 +3416,294 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\ft2build.h">
+      <Filter>src\ThirdParty\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\freetype.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftadvanc.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftbbox.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftbdf.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftbitmap.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftbzip2.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftcache.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftchapters.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftcid.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftcolor.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftdriver.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\fterrdef.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\fterrors.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftfntfmt.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftgasp.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftglyph.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftgxval.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftgzip.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftimage.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftincrem.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftlcdfil.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftlist.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftlzw.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftmac.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftmm.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftmodapi.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftmoderr.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftotval.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftoutln.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftparams.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftpfr.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftrender.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftsizes.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftsnames.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftstroke.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftsynth.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftsystem.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\fttrigon.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\fttypes.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ftwinfnt.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\t1tables.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\ttnameid.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\tttables.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\tttags.h">
+      <Filter>src\ThirdParty\freetype\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftoption.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftstdlib.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\integer-types.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\mac-support.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\public-macros.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftconfig.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftheader.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftmodule.h">
+      <Filter>src\ThirdParty\freetype\freetype\congif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\autohint.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\cffotypes.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\cfftypes.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\compiler-macros.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftcalc.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftdebug.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftdrv.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftgloadr.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\fthash.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftmemory.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftobjs.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftpsprop.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftrfork.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftserv.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftstream.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\fttrace.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\ftvalid.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\psaux.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\pshints.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\sfnt.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\t1types.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\tttypes.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\wofftypes.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svfntfmt.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svgldict.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svgxval.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svkern.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svmetric.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svmm.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svotval.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svpfr.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svpostnm.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svprop.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svpscmap.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svpsinfo.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svsfnt.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svttcmap.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svtteng.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svttglyf.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svwinfnt.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svbdf.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svcfftl.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\internal\services\svcid.h">
+      <Filter>src\ThirdParty\freetype\freetype\internal\services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

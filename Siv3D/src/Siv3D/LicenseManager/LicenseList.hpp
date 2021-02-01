@@ -247,7 +247,7 @@ UR"-(FreeType)-",
 
 UR"-()-",
 
-UR"-(This software is based in part of the work of the FreeType Team.)-"
+UR"-(This software is based in part of the work of the FreeType Team, http://www.freetype.org)-"
 },
 
 {

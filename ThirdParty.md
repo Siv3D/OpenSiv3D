@@ -14,7 +14,7 @@ Library | Version
 [Easing Equations](http://robertpenner.com/easing/) | 
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
-[FreeType](https://www.freetype.org/) | 
+[FreeType](https://www.freetype.org/) | 2.10.4
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
