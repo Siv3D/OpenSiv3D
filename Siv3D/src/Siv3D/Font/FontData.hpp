@@ -13,14 +13,8 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/FontStyle.hpp>
-
-extern "C"
-{
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_OUTLINE_H
-}
+# include "FontResourceHolder.hpp"
+# include "FontFace.hpp"
 
 namespace s3d
 {
@@ -32,9 +26,9 @@ namespace s3d
 
 		FontData() = default;
 
-		explicit FontData(Null, FT_Library library);
+		explicit FontData(Null);
 
-		FontData(FT_Library library, FilePathView filePath, int32 fontSize, FontStyle style);
+		FontData(FT_Library library, FilePathView path, int32 fontSize, FontStyle style);
 
 		~FontData();
 
@@ -42,6 +36,14 @@ namespace s3d
 		bool isInitialized() const noexcept;
 
 	private:
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		FontResourceHolder m_resource;
+
+	# endif
+
+		FontFace m_fontFace;
 
 		bool m_initialized = false;
 	};

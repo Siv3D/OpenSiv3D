@@ -9,18 +9,45 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/FileSystem.hpp>
 # include "FontData.hpp"
 
 namespace s3d
 {
-	FontData::FontData(Null, const FT_Library library)
+	FontData::FontData(Null)
 	{
 		m_initialized = true;
 	}
 
-	FontData::FontData(const FT_Library library, const FilePathView filePath, const int32 fontSize, const FontStyle style)
+	FontData::FontData(const FT_Library library, const FilePathView path, const int32 fontSize, const FontStyle style)
 	{
+	# if SIV3D_PLATFORM(WINDOWS)
 
+		if (FileSystem::IsResource(path))
+		{
+			m_resource = FontResourceHolder{ path };
+
+			if (not m_fontFace.load(library, m_resource.data(), m_resource.size()))
+			{
+				return;
+			}
+		}
+		else
+		{
+			if (not m_fontFace.load(library, path))
+			{
+				return;
+			}
+		}
+
+	# else
+
+		if (not m_fontFace.load(library, path))
+		{
+			return;
+		}
+
+	# endif
 
 
 

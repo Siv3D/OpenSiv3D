@@ -45,7 +45,7 @@ namespace s3d
 		// null Font を管理に登録
 		{
 			// null Font を作成
-			auto nullFont = std::make_unique<FontData>(FontData::Null{}, m_freeType);
+			auto nullFont = std::make_unique<FontData>(FontData::Null{});
 
 			if (not nullFont->isInitialized()) // もし作成に失敗していたら
 			{

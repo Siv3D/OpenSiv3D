@@ -3723,6 +3723,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FontStyle.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontResourceHolder.hpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontFace.hpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5016,6 +5022,9 @@
       <Filter>src\Siv3D\Font</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontData.cpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFace.cpp">
       <Filter>src\Siv3D\Font</Filter>
     </ClCompile>
   </ItemGroup>
