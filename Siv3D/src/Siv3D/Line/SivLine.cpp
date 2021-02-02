@@ -13,6 +13,7 @@
 # include <Siv3D/Hash.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Shape2D.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -48,6 +49,17 @@ namespace s3d
 		const auto [x1, x2] = std::minmax(begin.x, end.x);
 		const auto [y1, y2] = std::minmax(begin.y, end.y);
 		return{ x1, y1, (x2 - x1), (y2 - y1) };
+	}
+
+	Line Line::extractLine(double distanceFromOrigin, double length) const noexcept
+	{
+		if (length <= 0.0)
+		{
+			distanceFromOrigin += length;
+			length = -length;
+		}
+
+		return{ position(Math::Saturate(distanceFromOrigin)), position(Math::Saturate(distanceFromOrigin + length)) };
 	}
 
 	Line::position_type Line::closest(const position_type pos) const noexcept

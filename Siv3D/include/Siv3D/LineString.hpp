@@ -191,7 +191,7 @@ namespace s3d
 		Vec2 calculatePointFromOrigin(double distanceFromOrigin, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		LineString getLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
+		LineString extractLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;

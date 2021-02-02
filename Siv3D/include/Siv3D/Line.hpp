@@ -133,6 +133,9 @@ namespace s3d
 		RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
+		Line extractLine(double distanceFromOrigin, double length) const noexcept;
+
+		[[nodiscard]]
 		constexpr Line lerp(const Line& other, double f) const noexcept;
 
 		[[nodiscard]]

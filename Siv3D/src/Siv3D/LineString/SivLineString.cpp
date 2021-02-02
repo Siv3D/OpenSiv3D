@@ -157,7 +157,7 @@ namespace s3d
 		}
 	}
 
-	LineString LineString::getLineString(double distanceFromOrigin, double length, const CloseRing closeRing) const
+	LineString LineString::extractLineString(double distanceFromOrigin, double length, const CloseRing closeRing) const
 	{
 		if (size() < 2)
 		{
