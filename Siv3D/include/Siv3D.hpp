@@ -987,7 +987,8 @@
 
 # include <Siv3D/Effect.hpp>
 
-
+# include <Siv3D/FontStyle.hpp>
+# include <Siv3D/Font.hpp>
 
 
 //////////////////////////////////////////////////

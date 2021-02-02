@@ -11,8 +11,22 @@
 
 # pragma once
 # include "Common.hpp"
+# include "StringView.hpp"
+# include "AssetHandle.hpp"
+# include "FontStyle.hpp"
 
 namespace s3d
 {
+	class Font : public AssetHandle<Font>
+	{
+	public:
 
+		Font();
+
+		//explicit Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
+
+		Font(int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+
+		virtual ~Font();
+	};
 }

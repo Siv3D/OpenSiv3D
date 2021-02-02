@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "IEffect.hpp"
 # include "Duration.hpp"
+# include "AssetHandle.hpp"
 
 namespace s3d
 {

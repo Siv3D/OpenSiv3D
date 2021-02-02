@@ -24,5 +24,9 @@ namespace s3d
 		virtual ~ISiv3DFont() = default;
 
 		virtual void init() = 0;
+
+		virtual Font::IDType create(FilePathView path, int32 fontSize, FontStyle style) = 0;
+
+		virtual void release(Font::IDType handleID) = 0;
 	};
 }

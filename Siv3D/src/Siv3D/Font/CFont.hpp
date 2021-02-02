@@ -12,15 +12,9 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "IFont.hpp"
-
-extern "C"
-{
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_OUTLINE_H
-}
+# include "FontData.hpp"
 
 namespace s3d
 {
@@ -30,6 +24,8 @@ namespace s3d
 
 		FT_Library m_freeType = nullptr;
 
+		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
 	public:
 
 		CFont();
@@ -38,5 +34,8 @@ namespace s3d
 
 		void init() override;
 
+		Font::IDType create(FilePathView path, int32 fontSize, FontStyle style) override;
+
+		void release(Font::IDType handleID) override;
 	};
 }
