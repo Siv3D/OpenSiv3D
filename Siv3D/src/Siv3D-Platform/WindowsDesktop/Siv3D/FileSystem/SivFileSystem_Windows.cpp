@@ -59,12 +59,12 @@ namespace s3d
 		[[nodiscard]]
 		static int64 ResourceSize(const FilePathView path)
 		{
-			HMODULE module = ::GetModuleHandleW(nullptr);
+			HMODULE hModule = ::GetModuleHandleW(nullptr);
 			const std::wstring pathW = path.toWstr();
 
-			if (HRSRC hrs = ::FindResourceW(module, &pathW[1], L"FILE"))
+			if (HRSRC hrs = ::FindResourceW(hModule, &pathW[1], L"FILE"))
 			{
-				return ::SizeofResource(module, hrs);
+				return ::SizeofResource(hModule, hrs);
 			}
 			else
 			{
@@ -349,9 +349,15 @@ namespace s3d
 				std::wstring result2(length - 1, L'\0');
 				const DWORD length2 = ::GetFullPathNameW(wpath.c_str(), length, result2.data(), &pFilePart);
 
-				if ((length2 == 0) || (length2 > length))
+				if ((length2 == 0)
+					|| (length < (length2 + 1)))
 				{
 					return{};
+				}
+
+				if (length2 < result2.size())
+				{
+					result2.resize(length2);
 				}
 
 				const bool isDirectory = (pFilePart == nullptr);
@@ -388,9 +394,15 @@ namespace s3d
 				std::wstring result2(length - 1, L'\0');
 				const DWORD length2 = ::GetFullPathNameW(wpath.c_str(), length, result2.data(), &pFilePart);
 
-				if ((length2 == 0) || (length2 > length))
+				if ((length2 == 0)
+					|| (length < (length2 + 1)))
 				{
 					return{};
+				}
+
+				if (length2  < result2.size())
+				{
+					result2.resize(length2);
 				}
 
 				return result2;
@@ -622,9 +634,15 @@ namespace s3d
 				std::wstring result2(length - 1, L'\0');
 				const DWORD length2 = ::GetCurrentDirectoryW(length, result2.data());
 
-				if ((length2 == 0) || (length2 > length))
+				if ((length2 == 0)
+					|| (length < (length2 + 1)))
 				{
 					return{};
+				}
+
+				if (length2 < result2.size())
+				{
+					result2.resize(length2);
 				}
 
 				return detail::NormalizePath(Unicode::FromWstring(result2), true);
