@@ -30,6 +30,7 @@ jobs:
         sudo apt install ninja-build
         sudo apt install libboost-dev
         sudo apt install libglu1-mesa-dev
+        sudo apt install libharfbuzz-dev
         sudo apt install xorg-dev
 
     - name: Configure Siv3D
