@@ -811,6 +811,7 @@
 		2C796EAE25CA409B0003B7EC /* hb-map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9F25CA409B0003B7EC /* hb-map.h */; };
 		2C796EAF25CA409B0003B7EC /* hb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EA025CA409B0003B7EC /* hb.h */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
+		2C796EB325CA60380003B7EC /* hb-ft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB225CA60380003B7EC /* hb-ft.h */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -2301,6 +2302,7 @@
 		2C796E9F25CA409B0003B7EC /* hb-map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-map.h"; sourceTree = "<group>"; };
 		2C796EA025CA409B0003B7EC /* hb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hb.h; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
+		2C796EB225CA60380003B7EC /* hb-ft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-ft.h"; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -5643,6 +5645,7 @@
 		2C796E9125CA409B0003B7EC /* harfbuzz */ = {
 			isa = PBXGroup;
 			children = (
+				2C796EB225CA60380003B7EC /* hb-ft.h */,
 				2C796E9225CA409B0003B7EC /* hb-buffer.h */,
 				2C796E9325CA409B0003B7EC /* hb-set.h */,
 				2C796E9425CA409B0003B7EC /* hb-face.h */,
@@ -6489,6 +6492,7 @@
 				2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
 				2C794B1825C3DFC200034D81 /* zstdmt_compress.h in Headers */,
+				2C796EB325CA60380003B7EC /* hb-ft.h in Headers */,
 				2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */,
 				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C43C89525C837F100D6D613 /* svwinfnt.h in Headers */,
