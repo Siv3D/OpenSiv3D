@@ -781,6 +781,9 @@
     <Filter Include="src\ThirdParty\harfbuzz">
       <UniqueIdentifier>{0f7cc7a2-7bfd-4c17-a1f4-fcb64320bc5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Font\agg">
+      <UniqueIdentifier>{34f9e79f-8c22-414b-a626-553d96952cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3782,6 +3785,27 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\GlyphOutline.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_basics.h">
+      <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_config.h">
+      <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_curves.h">
+      <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_curves_impl.hpp">
+      <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_math.h">
+      <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_array.h">
+      <Filter>src\Siv3D\Font\agg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -83,6 +83,31 @@ namespace s3d
 		}
 	}
 
+	LineString& LineString::unique_consecutive()
+	{
+		erase(std::unique(begin(), end()), end());
+
+		return *this;
+	}
+
+	LineString LineString::uniqued_consecutive() const&
+	{
+		LineString result;
+
+		std::unique_copy(begin(), end(), std::back_inserter(result));
+
+		return result;
+	}
+
+	LineString LineString::uniqued_consecutive()&&
+	{
+		erase(std::unique(begin(), end()), end());
+
+		shrink_to_fit();
+
+		return std::move(*this);
+	}
+
 	LineString LineString::catmullRom(const int32 interpolation) const
 	{
 		return detail::CatmullRom(*this, interpolation, CloseRing::No);
@@ -308,10 +333,17 @@ namespace s3d
 
 	const LineString& LineString::drawClosed(const double thickness, const ColorF& color) const
 	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
 		SIV3D_ENGINE(Renderer2D)->addLineString(
 			LineStyle::Default,
 			data(),
-			size(),
+			(size() - isRing),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
@@ -329,10 +361,17 @@ namespace s3d
 			return *this;
 		}
 
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
 		SIV3D_ENGINE(Renderer2D)->addLineString(
 			data(),
 			colors.data(),
-			size(),
+			(size() - isRing),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
@@ -344,10 +383,17 @@ namespace s3d
 
 	const LineString& LineString::drawClosed(const LineStyle& style, const double thickness, const ColorF& color) const
 	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
 		SIV3D_ENGINE(Renderer2D)->addLineString(
 			style,
 			data(),
-			size(),
+			(size() - isRing),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,

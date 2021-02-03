@@ -14,6 +14,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/GlyphInfo.hpp>
+# include <Siv3D/GlyphOutline.hpp>
 
 extern "C"
 {
@@ -69,6 +70,8 @@ namespace s3d
 		HBGlyphInfo getHBGlyphInfo(StringView s);
 
 		GlyphInfo getGlyphInfo(uint32 glyphIndex);
+
+		GlyphOutline getGlyphOutline(uint32 glyphIndex);
 
 	private:
 

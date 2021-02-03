@@ -55,32 +55,32 @@ namespace s3d
 
 	}
 
-	const String& Font::getFamilyName() const
+	const String& Font::familyName() const
 	{
 		return SIV3D_ENGINE(Font)->getFamilyName(m_handle->id());
 	}
 
-	const String& Font::getStyleName() const
+	const String& Font::styleName() const
 	{
 		return SIV3D_ENGINE(Font)->getStyleName(m_handle->id());
 	}
 
-	FontStyle Font::getStyle() const
+	FontStyle Font::style() const
 	{
 		return SIV3D_ENGINE(Font)->getStyle(m_handle->id());
 	}
 
-	int32 Font::getFontSize() const
+	int32 Font::fontSize() const
 	{
 		return SIV3D_ENGINE(Font)->getFontSize(m_handle->id());
 	}
 
-	int32 Font::getAscent() const
+	int32 Font::ascent() const
 	{
 		return SIV3D_ENGINE(Font)->getAscent(m_handle->id());
 	}
 
-	int32 Font::getDescent() const
+	int32 Font::descent() const
 	{
 		return SIV3D_ENGINE(Font)->getDescent(m_handle->id());
 	}
@@ -108,5 +108,20 @@ namespace s3d
 	GlyphInfo Font::getGlyphInfo(const StringView ch) const
 	{
 		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), ch);
+	}
+
+	GlyphOutline Font::getGlyphOutline(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphOutline(m_handle->id(), StringView(&ch, 1));
+	}
+
+	GlyphOutline Font::getGlyphOutline(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphOutline(m_handle->id(), ch);
+	}
+
+	Array<GlyphOutline> Font::getGlyphOutlines(const StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphOutlines(m_handle->id(), s);
 	}
 }

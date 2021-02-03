@@ -4,6 +4,7 @@
 Library | Version
 --- | ---
 [Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2
+[Anti-Grain Geometry](http://agg.sourceforge.net/antigrain.com/index.html) | 2.4
 [Boost](https://www.boost.org/) | 1.73.0
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.3
 [concaveman-cpp](https://github.com/sadaszewski/concaveman-cpp) | 

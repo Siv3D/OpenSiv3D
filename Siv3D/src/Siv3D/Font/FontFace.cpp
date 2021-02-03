@@ -10,9 +10,107 @@
 //-----------------------------------------------
 
 # include "FontFace.hpp"
+# include "agg/agg_curves.h"
+# include "agg/agg_curves_impl.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		struct OutlineData
+		{
+			Array<LineString> rings;
+			
+			LineString ring;
+		};
+
+		void CloseRing(LineString& ring)
+		{
+			const Vec2& first	= ring.front();
+			const Vec2& last	= ring.back();
+
+			if (first != last)
+			{
+				ring.push_back(first);
+			}
+		}
+
+		int MoveTo(const FT_Vector* to, void* ptr)
+		{
+			OutlineData* user = static_cast<OutlineData*>(ptr);
+			
+			if (user->ring)
+			{
+				CloseRing(user->ring);
+				user->rings.push_back(user->ring);
+				user->ring.clear();
+			}
+			
+			user->ring.emplace_back((to->x / 64.0), (to->y / 64.0));
+			return 0;
+		}
+
+		int LineTo(const FT_Vector* to, void* ptr)
+		{
+			OutlineData* user = static_cast<OutlineData*>(ptr);
+			user->ring.emplace_back((to->x / 64.0), (to->y / 64.0));
+			return 0;
+		}
+
+		int ConicTo(const FT_Vector* control, const FT_Vector* to, void* ptr)
+		{
+			OutlineData* user = static_cast<OutlineData*>(ptr);
+
+			if (user->ring)
+			{
+				const Vec2 prev = user->ring.back();
+				user->ring.pop_back();
+
+				agg_fontnik::curve3_div curve{ prev.x, prev.y,
+					(control->x / 64.0), (control->y / 64.0),
+					(to->x / 64.0), (to->y / 64.0) };
+				curve.rewind(0);
+
+				double x, y;
+				unsigned cmd;
+
+				while (agg_fontnik::path_cmd_stop != (cmd = curve.vertex(&x, &y)))
+				{
+					user->ring.emplace_back(x, y);
+				}
+			}
+
+			return 0;
+		}
+
+		int CubicTo(const FT_Vector* c1, const FT_Vector* c2, const FT_Vector* to, void* ptr)
+		{
+			OutlineData* user = static_cast<OutlineData*>(ptr);
+
+			if (user->ring)
+			{
+				const Vec2 prev = user->ring.back();
+				user->ring.pop_back();
+
+				agg_fontnik::curve4_div curve{ prev.x, prev.y,
+					(c1->x / 64.0), (c1->y / 64.0),
+					(c2->x / 64.0), (c2->y / 64.0),
+					(to->x / 64.0), (to->y / 64.0) };
+				curve.rewind(0);
+
+				double x, y;
+				unsigned cmd;
+
+				while (agg_fontnik::path_cmd_stop != (cmd = curve.vertex(&x, &y)))
+				{
+					user->ring.emplace_back(x, y);
+				}
+			}
+
+			return 0;
+		}
+	}
+
 	FontFace::~FontFace()
 	{
 		release();
@@ -100,7 +198,8 @@ namespace s3d
 
 	GlyphInfo FontFace::getGlyphInfo(const uint32 glyphIndex)
 	{
-		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex, (FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
+		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
+			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
 		{
 			return{};
 		}
@@ -119,6 +218,75 @@ namespace s3d
 		const int32 xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
 		const int32 yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
 		return{ glyphIndex, xAdvance, yAdvance };
+	}
+
+	GlyphOutline FontFace::getGlyphOutline(const uint32 glyphIndex)
+	{
+		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
+			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
+		{
+			return{};
+		}
+
+		if (m_property.style & FontStyle::Bold)
+		{
+			::FT_GlyphSlot_Embolden(m_face->glyph);
+		}
+
+		if (m_property.style & FontStyle::Italic)
+		{
+			::FT_GlyphSlot_Oblique(m_face->glyph);
+		}
+
+		const FT_GlyphSlot slot = m_face->glyph;
+		const int32 xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
+		const int32 yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
+
+		FT_Outline outline = m_face->glyph->outline;
+		const FT_Matrix matrix = { 1 << 16 , 0 , 0 , -(1 << 16) };
+		::FT_Outline_Transform(&outline, &matrix);
+
+		const FT_Outline_Funcs outlineFuncs = {
+			.move_to	= &detail::MoveTo,
+			.line_to	= &detail::LineTo,
+			.conic_to	= &detail::ConicTo,
+			.cubic_to	= &detail::CubicTo,
+			.shift = 0,
+			.delta = 0
+		};
+
+		detail::OutlineData userData;
+
+		if (const FT_Error error = FT_Outline_Decompose(&outline, &outlineFuncs, &userData))
+		{
+			return{};
+		}
+
+		if (userData.ring)
+		{
+			detail::CloseRing(userData.ring);
+			userData.rings.push_back(userData.ring);
+		}
+
+		if (not userData.rings)
+		{
+			return{};
+		}
+
+		for (auto& ring : userData.rings)
+		{
+			ring.unique_consecutive();
+		}
+
+		for (auto& ring : userData.rings)
+		{
+			ring.moveBy(0, m_property.ascent);
+		}
+
+		return{
+			{ glyphIndex, xAdvance, yAdvance },
+			std::move(userData.rings)
+		};
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

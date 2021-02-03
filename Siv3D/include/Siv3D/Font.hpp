@@ -15,6 +15,7 @@
 # include "AssetHandle.hpp"
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
+# include "GlyphOutline.hpp"
 
 namespace s3d
 {
@@ -34,22 +35,22 @@ namespace s3d
 		virtual ~Font();
 
 		[[nodiscard]]
-		const String& getFamilyName() const;
+		const String& familyName() const;
 
 		[[nodiscard]]
-		const String& getStyleName() const;
+		const String& styleName() const;
 
 		[[nodiscard]]
-		FontStyle getStyle() const;
+		FontStyle style() const;
 
 		[[nodiscard]]
-		int32 getFontSize() const;
+		int32 fontSize() const;
 
 		[[nodiscard]]
-		int32 getAscent() const;
+		int32 ascent() const;
 
 		[[nodiscard]]
-		int32 getDescent() const;
+		int32 descent() const;
 
 		[[nodiscard]]
 		int32 height() const;
@@ -65,5 +66,14 @@ namespace s3d
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(StringView ch) const;
+
+		[[nodiscard]]
+		GlyphOutline getGlyphOutline(char32 ch) const;
+
+		[[nodiscard]]
+		GlyphOutline getGlyphOutline(StringView ch) const;
+
+		[[nodiscard]]
+		Array<GlyphOutline> getGlyphOutlines(StringView s) const;
 	};
 }

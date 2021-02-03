@@ -55,5 +55,9 @@ namespace s3d
 		bool hasGlyph(Font::IDType handleID, StringView ch) override;
 
 		GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) override;
+
+		GlyphOutline getGlyphOutline(Font::IDType handleID, StringView ch) override;
+
+		Array<GlyphOutline> getGlyphOutlines(Font::IDType handleID, StringView s) override;
 	};
 }

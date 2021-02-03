@@ -46,5 +46,9 @@ namespace s3d
 		virtual bool hasGlyph(Font::IDType handleID, StringView ch) = 0;
 
 		virtual GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) = 0;
+
+		virtual GlyphOutline getGlyphOutline(Font::IDType handleID, StringView ch) = 0;
+
+		virtual Array<GlyphOutline> getGlyphOutlines(Font::IDType handleID, StringView s) = 0;
 	};
 }

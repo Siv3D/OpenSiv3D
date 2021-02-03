@@ -153,4 +153,14 @@ namespace s3d
 	{
 		return m_fonts[handleID]->getGlyphInfo(ch);
 	}
+
+	GlyphOutline CFont::getGlyphOutline(const Font::IDType handleID, const StringView ch)
+	{
+		return m_fonts[handleID]->getGlyphOutline(ch);
+	}
+
+	Array<GlyphOutline> CFont::getGlyphOutlines(const Font::IDType handleID, const StringView s)
+	{
+		return m_fonts[handleID]->getGlyphOutlines(s);
+	}
 }

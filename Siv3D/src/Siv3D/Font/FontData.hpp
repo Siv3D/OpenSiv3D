@@ -12,8 +12,6 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
-# include <Siv3D/FontStyle.hpp>
-# include <Siv3D/GlyphInfo.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
 
@@ -44,6 +42,12 @@ namespace s3d
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(StringView ch);
+
+		[[nodiscard]]
+		GlyphOutline getGlyphOutline(StringView ch);
+
+		[[nodiscard]]
+		Array<GlyphOutline> getGlyphOutlines(StringView s);
 
 	private:
 

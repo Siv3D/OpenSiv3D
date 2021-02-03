@@ -153,6 +153,14 @@ namespace s3d
 		[[nodiscard]]
 		LineString slice(size_t index, size_t length) const;
 
+		LineString& unique_consecutive();
+
+		[[nodiscard]]
+		LineString uniqued_consecutive() const&;
+
+		[[nodiscard]]
+		LineString uniqued_consecutive()&&;
+
 		[[nodiscard]]
 		size_t num_lines() const noexcept;
 

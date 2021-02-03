@@ -1078,7 +1078,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::uniqued_consecutive() const&
 	{
-		String result;
+		Array<Type, Allocator> result;
 
 		std::unique_copy(begin(), end(), std::back_inserter(result));
 

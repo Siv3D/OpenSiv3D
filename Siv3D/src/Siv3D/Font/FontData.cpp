@@ -94,4 +94,34 @@ namespace s3d
 
 		return m_fontFace.getGlyphInfo(glyphIndex);
 	}
+
+	GlyphOutline FontData::getGlyphOutline(const StringView ch)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+
+		if (glyphInfo.count != 1)
+		{
+			return{};
+		}
+
+		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+
+		return m_fontFace.getGlyphOutline(glyphIndex);
+	}
+
+	Array<GlyphOutline> FontData::getGlyphOutlines(const StringView s)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+
+		Array<GlyphOutline> results(Arg::reserve = glyphInfo.count);
+
+		for (size_t i = 0; i < glyphInfo.count; ++i)
+		{
+			const uint32 glyphIndex = glyphInfo.info[i].codepoint;
+
+			results << m_fontFace.getGlyphOutline(glyphIndex);
+		}
+
+		return results;
+	}
 }
