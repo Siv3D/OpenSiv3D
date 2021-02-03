@@ -412,11 +412,6 @@
 		2C43C8C525C837F100D6D613 /* ftbdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C86525C837F000D6D613 /* ftbdf.h */; };
 		2C43C8C625C837F100D6D613 /* ftrender.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C86625C837F000D6D613 /* ftrender.h */; };
 		2C43C8C725C837F100D6D613 /* ft2build.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C86725C837F000D6D613 /* ft2build.h */; };
-		2C43C8CF25C8387600D6D613 /* CFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C8CA25C8387600D6D613 /* CFont.hpp */; };
-		2C43C8D025C8387600D6D613 /* IFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C8CB25C8387600D6D613 /* IFont.hpp */; };
-		2C43C8D125C8387600D6D613 /* SivFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CC25C8387600D6D613 /* SivFont.cpp */; };
-		2C43C8D225C8387600D6D613 /* FontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CD25C8387600D6D613 /* FontFactory.cpp */; };
-		2C43C8D325C8387600D6D613 /* CFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C8CE25C8387600D6D613 /* CFont.cpp */; };
 		2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C43C8D425C8464400D6D613 /* libfreetype.a */; };
 		2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4442A02427AA7C00557D51 /* miniutf.hpp */; };
 		2C4564E1247946AF00DB01F0 /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C4564E0247946AF00DB01F0 /* int128.cc */; };
@@ -790,6 +785,32 @@
 		2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9625C5A61900034D81 /* EffectFactory.cpp */; };
 		2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9725C5A61900034D81 /* EffectData.hpp */; };
 		2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9825C5A61900034D81 /* CEffect.cpp */; };
+		2C796E8725CA407B0003B7EC /* CFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E7D25CA407B0003B7EC /* CFont.hpp */; };
+		2C796E8825CA407B0003B7EC /* FontData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E7E25CA407B0003B7EC /* FontData.hpp */; };
+		2C796E8925CA407B0003B7EC /* FontFace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C796E7F25CA407B0003B7EC /* FontFace.cpp */; };
+		2C796E8A25CA407B0003B7EC /* IFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E8025CA407B0003B7EC /* IFont.hpp */; };
+		2C796E8B25CA407B0003B7EC /* FontResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E8125CA407B0003B7EC /* FontResourceHolder.hpp */; };
+		2C796E8C25CA407B0003B7EC /* SivFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C796E8225CA407B0003B7EC /* SivFont.cpp */; };
+		2C796E8D25CA407B0003B7EC /* FontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C796E8325CA407B0003B7EC /* FontFactory.cpp */; };
+		2C796E8E25CA407B0003B7EC /* CFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C796E8425CA407B0003B7EC /* CFont.cpp */; };
+		2C796E8F25CA407B0003B7EC /* FontData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C796E8525CA407B0003B7EC /* FontData.cpp */; };
+		2C796E9025CA407B0003B7EC /* FontFace.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E8625CA407B0003B7EC /* FontFace.hpp */; };
+		2C796EA125CA409B0003B7EC /* hb-buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9225CA409B0003B7EC /* hb-buffer.h */; };
+		2C796EA225CA409B0003B7EC /* hb-set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9325CA409B0003B7EC /* hb-set.h */; };
+		2C796EA325CA409B0003B7EC /* hb-face.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9425CA409B0003B7EC /* hb-face.h */; };
+		2C796EA425CA409B0003B7EC /* hb-draw.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9525CA409B0003B7EC /* hb-draw.h */; };
+		2C796EA525CA409B0003B7EC /* hb-common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9625CA409B0003B7EC /* hb-common.h */; };
+		2C796EA625CA409B0003B7EC /* hb-version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9725CA409B0003B7EC /* hb-version.h */; };
+		2C796EA725CA409B0003B7EC /* hb-font.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9825CA409B0003B7EC /* hb-font.h */; };
+		2C796EA825CA409B0003B7EC /* hb-style.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9925CA409B0003B7EC /* hb-style.h */; };
+		2C796EA925CA409B0003B7EC /* hb-deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9A25CA409B0003B7EC /* hb-deprecated.h */; };
+		2C796EAA25CA409B0003B7EC /* hb-shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9B25CA409B0003B7EC /* hb-shape.h */; };
+		2C796EAB25CA409B0003B7EC /* hb-shape-plan.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */; };
+		2C796EAC25CA409B0003B7EC /* hb-unicode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9D25CA409B0003B7EC /* hb-unicode.h */; };
+		2C796EAD25CA409B0003B7EC /* hb-blob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9E25CA409B0003B7EC /* hb-blob.h */; };
+		2C796EAE25CA409B0003B7EC /* hb-map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9F25CA409B0003B7EC /* hb-map.h */; };
+		2C796EAF25CA409B0003B7EC /* hb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EA025CA409B0003B7EC /* hb.h */; };
+		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -1819,11 +1840,6 @@
 		2C43C86625C837F000D6D613 /* ftrender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftrender.h; sourceTree = "<group>"; };
 		2C43C86725C837F000D6D613 /* ft2build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft2build.h; sourceTree = "<group>"; };
 		2C43C8C825C8385800D6D613 /* Font.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Font.hpp; sourceTree = "<group>"; };
-		2C43C8CA25C8387600D6D613 /* CFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont.hpp; sourceTree = "<group>"; };
-		2C43C8CB25C8387600D6D613 /* IFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IFont.hpp; sourceTree = "<group>"; };
-		2C43C8CC25C8387600D6D613 /* SivFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFont.cpp; sourceTree = "<group>"; };
-		2C43C8CD25C8387600D6D613 /* FontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontFactory.cpp; sourceTree = "<group>"; };
-		2C43C8CE25C8387600D6D613 /* CFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont.cpp; sourceTree = "<group>"; };
 		2C43C8D425C8464400D6D613 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../Siv3D/lib/macOS/freetype/libfreetype.a; sourceTree = "<group>"; };
 		2C4442A02427AA7C00557D51 /* miniutf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = miniutf.hpp; sourceTree = "<group>"; };
 		2C4564CA2479193600DB01F0 /* phmap_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap_config.h; sourceTree = "<group>"; };
@@ -2258,6 +2274,33 @@
 		2C794B9625C5A61900034D81 /* EffectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectFactory.cpp; sourceTree = "<group>"; };
 		2C794B9725C5A61900034D81 /* EffectData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EffectData.hpp; sourceTree = "<group>"; };
 		2C794B9825C5A61900034D81 /* CEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEffect.cpp; sourceTree = "<group>"; };
+		2C796E7B25CA40410003B7EC /* FontStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FontStyle.hpp; sourceTree = "<group>"; };
+		2C796E7D25CA407B0003B7EC /* CFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont.hpp; sourceTree = "<group>"; };
+		2C796E7E25CA407B0003B7EC /* FontData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontData.hpp; sourceTree = "<group>"; };
+		2C796E7F25CA407B0003B7EC /* FontFace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontFace.cpp; sourceTree = "<group>"; };
+		2C796E8025CA407B0003B7EC /* IFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IFont.hpp; sourceTree = "<group>"; };
+		2C796E8125CA407B0003B7EC /* FontResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontResourceHolder.hpp; sourceTree = "<group>"; };
+		2C796E8225CA407B0003B7EC /* SivFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFont.cpp; sourceTree = "<group>"; };
+		2C796E8325CA407B0003B7EC /* FontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontFactory.cpp; sourceTree = "<group>"; };
+		2C796E8425CA407B0003B7EC /* CFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont.cpp; sourceTree = "<group>"; };
+		2C796E8525CA407B0003B7EC /* FontData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontData.cpp; sourceTree = "<group>"; };
+		2C796E8625CA407B0003B7EC /* FontFace.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontFace.hpp; sourceTree = "<group>"; };
+		2C796E9225CA409B0003B7EC /* hb-buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-buffer.h"; sourceTree = "<group>"; };
+		2C796E9325CA409B0003B7EC /* hb-set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-set.h"; sourceTree = "<group>"; };
+		2C796E9425CA409B0003B7EC /* hb-face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-face.h"; sourceTree = "<group>"; };
+		2C796E9525CA409B0003B7EC /* hb-draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-draw.h"; sourceTree = "<group>"; };
+		2C796E9625CA409B0003B7EC /* hb-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-common.h"; sourceTree = "<group>"; };
+		2C796E9725CA409B0003B7EC /* hb-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-version.h"; sourceTree = "<group>"; };
+		2C796E9825CA409B0003B7EC /* hb-font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-font.h"; sourceTree = "<group>"; };
+		2C796E9925CA409B0003B7EC /* hb-style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-style.h"; sourceTree = "<group>"; };
+		2C796E9A25CA409B0003B7EC /* hb-deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-deprecated.h"; sourceTree = "<group>"; };
+		2C796E9B25CA409B0003B7EC /* hb-shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape.h"; sourceTree = "<group>"; };
+		2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape-plan.h"; sourceTree = "<group>"; };
+		2C796E9D25CA409B0003B7EC /* hb-unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-unicode.h"; sourceTree = "<group>"; };
+		2C796E9E25CA409B0003B7EC /* hb-blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-blob.h"; sourceTree = "<group>"; };
+		2C796E9F25CA409B0003B7EC /* hb-map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-map.h"; sourceTree = "<group>"; };
+		2C796EA025CA409B0003B7EC /* hb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hb.h; sourceTree = "<group>"; };
+		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2387,6 +2430,7 @@
 				2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */,
 				2C47E59924AF3C7B0060E8A7 /* libboost_filesystem.a in Frameworks */,
 				2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */,
+				2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
 				2C531EA724BA0CEA00378977 /* libz.a in Frameworks */,
 			);
@@ -2672,6 +2716,7 @@
 				2C13C71625B8FA490054B968 /* FloatQuad.hpp */,
 				2C13C87725B8FA4A0054B968 /* FloatRect.hpp */,
 				2C43C8C825C8385800D6D613 /* Font.hpp */,
+				2C796E7B25CA40410003B7EC /* FontStyle.hpp */,
 				2C13C87B25B8FA4A0054B968 /* Format.hpp */,
 				2C13C84F25B8FA4A0054B968 /* FormatBool.hpp */,
 				2C13C74225B8FA4A0054B968 /* FormatData.hpp */,
@@ -3342,6 +3387,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C796EB025CA41DA0003B7EC /* libharfbuzz.a */,
 				2C43C8D425C8464400D6D613 /* libfreetype.a */,
 				2C531EA624BA0CEA00378977 /* libz.a */,
 				2C531EA424BA0CA000378977 /* libpng16.a */,
@@ -3452,6 +3498,7 @@
 				2C4CBE4E24370FFA00F8B7A6 /* GL */,
 				2C4CBE572437100100F8B7A6 /* GLEW */,
 				2C4231D9242B155E00A16BCA /* GLFW */,
+				2C796E9125CA409B0003B7EC /* harfbuzz */,
 				2C60AE22248158A400277281 /* infoware */,
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
 				2C531E9D24BA00EB00378977 /* libpng */,
@@ -3809,18 +3856,6 @@
 			path = services;
 			sourceTree = "<group>";
 		};
-		2C43C8C925C8387600D6D613 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				2C43C8CA25C8387600D6D613 /* CFont.hpp */,
-				2C43C8CB25C8387600D6D613 /* IFont.hpp */,
-				2C43C8CC25C8387600D6D613 /* SivFont.cpp */,
-				2C43C8CD25C8387600D6D613 /* FontFactory.cpp */,
-				2C43C8CE25C8387600D6D613 /* CFont.cpp */,
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
 		2C44429F2427AA7C00557D51 /* miniutf */ = {
 			isa = PBXGroup;
 			children = (
@@ -3925,7 +3960,7 @@
 				2C47B27824DD9789008D83BE /* EngineLog */,
 				2C47B2E624DD9789008D83BE /* Error */,
 				2C47B28224DD9789008D83BE /* FileSystem */,
-				2C43C8C925C8387600D6D613 /* Font */,
+				2C796E7C25CA407B0003B7EC /* Font */,
 				2C47B2BB24DD9789008D83BE /* FormatFloat */,
 				2C47B29524DD9789008D83BE /* FormatInt */,
 				2C47B2A824DD9789008D83BE /* Formatter */,
@@ -5588,6 +5623,45 @@
 			path = Effect;
 			sourceTree = "<group>";
 		};
+		2C796E7C25CA407B0003B7EC /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				2C796E7D25CA407B0003B7EC /* CFont.hpp */,
+				2C796E7E25CA407B0003B7EC /* FontData.hpp */,
+				2C796E7F25CA407B0003B7EC /* FontFace.cpp */,
+				2C796E8025CA407B0003B7EC /* IFont.hpp */,
+				2C796E8125CA407B0003B7EC /* FontResourceHolder.hpp */,
+				2C796E8225CA407B0003B7EC /* SivFont.cpp */,
+				2C796E8325CA407B0003B7EC /* FontFactory.cpp */,
+				2C796E8425CA407B0003B7EC /* CFont.cpp */,
+				2C796E8525CA407B0003B7EC /* FontData.cpp */,
+				2C796E8625CA407B0003B7EC /* FontFace.hpp */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		2C796E9125CA409B0003B7EC /* harfbuzz */ = {
+			isa = PBXGroup;
+			children = (
+				2C796E9225CA409B0003B7EC /* hb-buffer.h */,
+				2C796E9325CA409B0003B7EC /* hb-set.h */,
+				2C796E9425CA409B0003B7EC /* hb-face.h */,
+				2C796E9525CA409B0003B7EC /* hb-draw.h */,
+				2C796E9625CA409B0003B7EC /* hb-common.h */,
+				2C796E9725CA409B0003B7EC /* hb-version.h */,
+				2C796E9825CA409B0003B7EC /* hb-font.h */,
+				2C796E9925CA409B0003B7EC /* hb-style.h */,
+				2C796E9A25CA409B0003B7EC /* hb-deprecated.h */,
+				2C796E9B25CA409B0003B7EC /* hb-shape.h */,
+				2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */,
+				2C796E9D25CA409B0003B7EC /* hb-unicode.h */,
+				2C796E9E25CA409B0003B7EC /* hb-blob.h */,
+				2C796E9F25CA409B0003B7EC /* hb-map.h */,
+				2C796EA025CA409B0003B7EC /* hb.h */,
+			);
+			path = harfbuzz;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -6056,12 +6130,13 @@
 				2C43C87625C837F000D6D613 /* ftcolor.h in Headers */,
 				2C43C87825C837F000D6D613 /* ftbzip2.h in Headers */,
 				2C794B3D25C3DFC200034D81 /* zstd_deps.h in Headers */,
-				2C43C8CF25C8387600D6D613 /* CFont.hpp in Headers */,
+				2C796E8725CA407B0003B7EC /* CFont.hpp in Headers */,
 				2C43C8B025C837F100D6D613 /* freetype.h in Headers */,
 				2C47B48E24DD97F2008D83BE /* muParserDLL.h in Headers */,
 				2C43C88125C837F000D6D613 /* ftdebug.h in Headers */,
 				2C43C87325C837F000D6D613 /* ftoption.h in Headers */,
 				2C43964D2535DCCB00F6AECD /* svgelementiter.h in Headers */,
+				2C796E8825CA407B0003B7EC /* FontData.hpp in Headers */,
 				2C43C87125C837F000D6D613 /* ftconfig.h in Headers */,
 				2C43C8AA25C837F100D6D613 /* ftsynth.h in Headers */,
 				2C47B48D24DD97F2008D83BE /* muParserTemplateMagic.h in Headers */,
@@ -6080,11 +6155,13 @@
 				2C43C87925C837F000D6D613 /* fttrigon.h in Headers */,
 				2C43C8AC25C837F100D6D613 /* ftgasp.h in Headers */,
 				2C4396002535DCCA00F6AECD /* rendercontext.h in Headers */,
+				2C796EAF25CA409B0003B7EC /* hb.h in Headers */,
 				2C43C87D25C837F000D6D613 /* sfnt.h in Headers */,
 				2C794B0725C3DFC200034D81 /* zstd_compress_internal.h in Headers */,
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2C13C9C725BD29FC0054B968 /* lvm.h in Headers */,
 				2C43C88E25C837F000D6D613 /* fthash.h in Headers */,
+				2C796EAC25CA409B0003B7EC /* hb-unicode.h in Headers */,
 				2C4395FA2535DCCA00F6AECD /* svgurireference.h in Headers */,
 				2C4396242535DCCA00F6AECD /* svgparser.h in Headers */,
 				2C13C9A725BD29FC0054B968 /* lualib.h in Headers */,
@@ -6112,6 +6189,7 @@
 				2C43C89225C837F100D6D613 /* svprop.h in Headers */,
 				2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */,
 				2C794B0825C3DFC200034D81 /* hist.h in Headers */,
+				2C796EA125CA409B0003B7EC /* hb-buffer.h in Headers */,
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C43C8A125C837F100D6D613 /* svsfnt.h in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
@@ -6152,6 +6230,7 @@
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
 				2C53C34C25613BD40072831A /* earcut.hpp in Headers */,
+				2C796EA725CA409B0003B7EC /* hb-font.h in Headers */,
 				2C423220242B155E00A16BCA /* cocoa_platform.h in Headers */,
 				2C13C99D25BD29FC0054B968 /* lmem.h in Headers */,
 				2C43C8A825C837F100D6D613 /* ftoutln.h in Headers */,
@@ -6163,7 +6242,9 @@
 				2C47B6D124EAC82A008D83BE /* CShader_Null.hpp in Headers */,
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
+				2C796EAA25CA409B0003B7EC /* hb-shape.h in Headers */,
 				2C4396292535DCCA00F6AECD /* rect.h in Headers */,
+				2C796EAE25CA409B0003B7EC /* hb-map.h in Headers */,
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
 				2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */,
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
@@ -6201,6 +6282,7 @@
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2C794AAA25C3DE2700034D81 /* json.hpp in Headers */,
 				2C4396152535DCCA00F6AECD /* svgangle.h in Headers */,
+				2C796E8A25CA407B0003B7EC /* IFont.hpp in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
 				2C13C99E25BD29FC0054B968 /* llimits.h in Headers */,
@@ -6228,10 +6310,13 @@
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
 				2C794B0925C3DFC200034D81 /* zstd_ldm.h in Headers */,
 				2C481E1324460B5700A5D88D /* cpuinfo_x86.h in Headers */,
+				2C796EA625CA409B0003B7EC /* hb-version.h in Headers */,
 				2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */,
 				2C4396452535DCCA00F6AECD /* svggraphicselement.h in Headers */,
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
 				2C13C9D125BD29FC0054B968 /* lprefix.h in Headers */,
+				2C796EAB25CA409B0003B7EC /* hb-shape-plan.h in Headers */,
+				2C796EAD25CA409B0003B7EC /* hb-blob.h in Headers */,
 				2C13C9B825BD29FC0054B968 /* llex.h in Headers */,
 				2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */,
 				2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */,
@@ -6248,7 +6333,6 @@
 				2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */,
 				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
-				2C43C8D025C8387600D6D613 /* IFont.hpp in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
 				2C4396322535DCCA00F6AECD /* svgpath.h in Headers */,
 				2C794B3C25C3DFC200034D81 /* huf.h in Headers */,
@@ -6285,6 +6369,7 @@
 				2C794B5925C4080A00034D81 /* CTexture_GL4.hpp in Headers */,
 				2C43C86925C837F000D6D613 /* ftwinfnt.h in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
+				2C796EA225CA409B0003B7EC /* hb-set.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
@@ -6305,6 +6390,7 @@
 				2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */,
 				2C13C8B625B8FA9D0054B968 /* DetourNavMeshQuery.h in Headers */,
 				2C794B4125C3DFC200034D81 /* fse.h in Headers */,
+				2C796EA525CA409B0003B7EC /* hb-common.h in Headers */,
 				2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */,
 				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
@@ -6315,6 +6401,8 @@
 				2C47B33E24DD9789008D83BE /* Siv3DEngine.hpp in Headers */,
 				2C43C88625C837F000D6D613 /* autohint.h in Headers */,
 				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
+				2C796EA325CA409B0003B7EC /* hb-face.h in Headers */,
+				2C796EA425CA409B0003B7EC /* hb-draw.h in Headers */,
 				2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
@@ -6360,11 +6448,14 @@
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
+				2C796E9025CA407B0003B7EC /* FontFace.hpp in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
+				2C796EA925CA409B0003B7EC /* hb-deprecated.h in Headers */,
 				2C43C88D25C837F000D6D613 /* ftmemory.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */,
 				2C794B9925C5A61900034D81 /* CEffect.hpp in Headers */,
+				2C796E8B25CA407B0003B7EC /* FontResourceHolder.hpp in Headers */,
 				2C43C88C25C837F000D6D613 /* fttrace.h in Headers */,
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
 				2C43C8AD25C837F100D6D613 /* ftstroke.h in Headers */,
@@ -6377,6 +6468,7 @@
 				2C43C89925C837F100D6D613 /* svpscmap.h in Headers */,
 				2C794B1025C3DFC200034D81 /* zstd_cwksp.h in Headers */,
 				2C43C89825C837F100D6D613 /* svgldict.h in Headers */,
+				2C796EA825CA409B0003B7EC /* hb-style.h in Headers */,
 				2C4395F52535DCCA00F6AECD /* svgstyledelement.h in Headers */,
 				2C13C9BF25BD29FC0054B968 /* lopcodes.h in Headers */,
 				2C47B31D24DD9789008D83BE /* ICursor.hpp in Headers */,
@@ -6534,6 +6626,7 @@
 				2C794B4825C3DFEB00034D81 /* SivCompression.cpp in Sources */,
 				2C6391032539BE5F0030F18E /* MetalVertexShader.mm in Sources */,
 				2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */,
+				2C796E8F25CA407B0003B7EC /* FontData.cpp in Sources */,
 				2C423236242B155E00A16BCA /* vulkan.c in Sources */,
 				2C43962B2535DCCA00F6AECD /* svggeometryelement.cpp in Sources */,
 				2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */,
@@ -6562,7 +6655,6 @@
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
 				2C47B30F24DD9789008D83BE /* CDummy.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
-				2C43C8D325C8387600D6D613 /* CFont.cpp in Sources */,
 				2C47B37924DD9789008D83BE /* SivINI.cpp in Sources */,
 				2C13C9C125BD29FC0054B968 /* lgc.c in Sources */,
 				2C47B37224DD9789008D83BE /* SivImageDecoder.cpp in Sources */,
@@ -6591,6 +6683,7 @@
 				2C4396412535DCCA00F6AECD /* svgpoint.cpp in Sources */,
 				2C47B34824DD9789008D83BE /* CWindow_Null.cpp in Sources */,
 				2C47B32724DD9789008D83BE /* SivPoint.cpp in Sources */,
+				2C796E8C25CA407B0003B7EC /* SivFont.cpp in Sources */,
 				2C834D96248805D4006208B8 /* iso8859_5.c in Sources */,
 				2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */,
 				2C794AAE25C3DE7800034D81 /* SivBase64.cpp in Sources */,
@@ -6690,7 +6783,6 @@
 				2C60AE71248158A500277281 /* frequency_darwin.cpp in Sources */,
 				2C47B6D624EAC834008D83BE /* SivVertexShader.cpp in Sources */,
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
-				2C43C8D125C8387600D6D613 /* SivFont.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C794B3B25C3DFC200034D81 /* pool.c in Sources */,
@@ -6849,6 +6941,7 @@
 				2C43962D2535DCCA00F6AECD /* svgtextelement.cpp in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
+				2C796E8925CA407B0003B7EC /* FontFace.cpp in Sources */,
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
@@ -6931,11 +7024,13 @@
 				2C834DA2248805D4006208B8 /* koi8_r.c in Sources */,
 				2C13C8BD25B8FA9D0054B968 /* RecastArea.cpp in Sources */,
 				2C794B3225C3DFC200034D81 /* entropy_common.c in Sources */,
+				2C796E8D25CA407B0003B7EC /* FontFactory.cpp in Sources */,
 				2C43962F2535DCCA00F6AECD /* svgmaskelement.cpp in Sources */,
 				2CF21D20249FAA8F00C864C9 /* OpenGL.cpp in Sources */,
 				2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */,
 				2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
+				2C796E8E25CA407B0003B7EC /* CFont.cpp in Sources */,
 				2C60AE8D248158A500277281 /* os_info_darwin.cpp in Sources */,
 				2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */,
 				2C4396092535DCCA00F6AECD /* svgcolor.cpp in Sources */,
@@ -6991,7 +7086,6 @@
 				2CF962F325A7F95F006F55C9 /* SivGeometry2D.cpp in Sources */,
 				2C13C9AE25BD29FC0054B968 /* lua.c in Sources */,
 				2C47B33724DD9789008D83BE /* SivSystem.cpp in Sources */,
-				2C43C8D225C8387600D6D613 /* FontFactory.cpp in Sources */,
 				2C47B2FC24DD9789008D83BE /* SivLicenseManager.cpp in Sources */,
 				2C60AE83248158A500277281 /* memory_non_windows_non_darwin.cpp in Sources */,
 				2C834DA5248805D4006208B8 /* regsyntax.c in Sources */,
@@ -7062,6 +7156,7 @@
 					../Siv3D/lib/macOS,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
+					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/zlib,
 				);
@@ -7123,6 +7218,7 @@
 					../Siv3D/lib/macOS,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
+					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/zlib,
 				);
