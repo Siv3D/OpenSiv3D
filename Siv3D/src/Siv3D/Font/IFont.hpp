@@ -28,5 +28,17 @@ namespace s3d
 		virtual Font::IDType create(FilePathView path, int32 fontSize, FontStyle style) = 0;
 
 		virtual void release(Font::IDType handleID) = 0;
+
+		virtual const String& getFamilyName(Font::IDType handleID) = 0;
+
+		virtual const String& getStyleName(Font::IDType handleID) = 0;
+
+		virtual FontStyle getStyle(Font::IDType handleID) = 0;
+
+		virtual int32 getFontSize(Font::IDType handleID) = 0;
+
+		virtual int32 getAscent(Font::IDType handleID) = 0;
+
+		virtual int32 getDescent(Font::IDType handleID) = 0;
 	};
 }

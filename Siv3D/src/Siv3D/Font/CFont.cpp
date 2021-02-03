@@ -16,6 +16,33 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		constexpr StringView ToString(const FontStyle style) noexcept
+		{
+			switch (style)
+			{
+			case FontStyle::Default:
+				return U"Default";
+			case FontStyle::Bold:
+				return U"Bold";
+			case FontStyle::Italic:
+				return U"Italic";
+			case FontStyle::BoldItalic:
+				return U"BoldItalic";
+			case FontStyle::Bitmap:
+				return U"Bitmap";
+			case FontStyle::BoldBitmap:
+				return U"BoldBitmap";
+			case FontStyle::ItalicBitmap:
+				return U"ItalicBitmap";
+			default:
+				return U"BoldItalicBitmap";
+			}
+		}
+	}
+
 	CFont::CFont()
 	{
 		// do nothing
@@ -67,12 +94,46 @@ namespace s3d
 			return Font::IDType::NullAsset();
 		}
 
+		const auto& prop = font->getProperty();
+		const String fontName = (prop.styleName) ? (prop.familiyName + U' ' + prop.styleName) : (prop.familiyName);
+		const String info = U"(`{0}`, size: {1}, style: {2}, ascent: {3}, descent: {4})"_fmt(fontName, prop.fontPixelSize, detail::ToString(prop.style), prop.ascent, prop.descent);
+
 		// Font を管理に登録
-		return m_fonts.add(std::move(font));
+		return m_fonts.add(std::move(font), info);
 	}
 
 	void CFont::release(const Font::IDType handleID)
 	{
 		m_fonts.erase(handleID);
+	}
+
+	const String& CFont::getFamilyName(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().familiyName;
+	}
+
+	const String& CFont::getStyleName(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().styleName;
+	}
+
+	FontStyle CFont::getStyle(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().style;
+	}
+
+	int32 CFont::getFontSize(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().fontPixelSize;
+	}
+
+	int32 CFont::getAscent(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().ascent;
+	}
+
+	int32 CFont::getDescent(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getProperty().descent;
 	}
 }

@@ -11,7 +11,8 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/StringView.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/FontStyle.hpp>
 
 extern "C"
 {
@@ -33,6 +34,21 @@ namespace s3d
 		size_t count = 0;
 	};
 
+	struct FontFaceProperty
+	{
+		String familiyName;
+
+		String styleName;
+
+		int32 fontPixelSize = 0;
+
+		FontStyle style = FontStyle::Default;
+
+		int32 ascent = 0;
+
+		int32 descent = 0;
+	};
+
 	class FontFace
 	{
 	public:
@@ -41,15 +57,18 @@ namespace s3d
 
 		~FontFace();
 
-		bool load(const FT_Library library, const void* data, size_t size);
+		bool load(const FT_Library library, const void* data, size_t size, int32 pixelSize, FontStyle style);
 
-		bool load(const FT_Library library, FilePathView path);
+		bool load(const FT_Library library, FilePathView path, int32 pixelSize, FontStyle style);
+
+		[[nodiscard]]
+		const FontFaceProperty& getProperty() const noexcept;
 
 		HBGlyphInfo getGlyphInfo(StringView s);
 
 	private:
 
-		bool init();
+		bool init(int32 pixelSize, FontStyle style);
 
 		void release();
 
@@ -58,5 +77,7 @@ namespace s3d
 		hb_font_t* m_hbFont = nullptr;
 
 		hb_buffer_t* m_hbBuffer = nullptr;
+
+		FontFaceProperty m_property;
 	};
 }

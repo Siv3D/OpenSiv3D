@@ -18,7 +18,7 @@ namespace s3d
 		release();
 	}
 
-	bool FontFace::load(const FT_Library library, const void* data, const size_t size)
+	bool FontFace::load(const FT_Library library, const void* data, const size_t size, const int32 pixelSize, const FontStyle style)
 	{
 		release();
 
@@ -35,8 +35,8 @@ namespace s3d
 
 			return false;
 		}
-		
-		if (not init())
+
+		if (not init(pixelSize, style))
 		{
 			return false;
 		}
@@ -44,7 +44,7 @@ namespace s3d
 		return true;
 	}
 
-	bool FontFace::load(const FT_Library library, const FilePathView path)
+	bool FontFace::load(const FT_Library library, const FilePathView path, const int32 pixelSize, const FontStyle style)
 	{
 		release();
 
@@ -62,12 +62,17 @@ namespace s3d
 			return false;
 		}
 
-		if (not init())
+		if (not init(pixelSize, style))
 		{
 			return false;
 		}
 
 		return true;
+	}
+
+	const FontFaceProperty& FontFace::getProperty() const noexcept
+	{
+		return m_property;
 	}
 
 	HBGlyphInfo FontFace::getGlyphInfo(const StringView s)
@@ -88,27 +93,46 @@ namespace s3d
 		return{ glyphInfo, glyphCount };
 	}
 
-	bool FontFace::init()
+	bool FontFace::init(const int32 pixelSize, const FontStyle style)
 	{
 		assert(m_face != nullptr);
 		assert(m_hbBuffer == nullptr);
 
-		m_hbFont = ::hb_ft_font_create_referenced(m_face);
-
-		m_hbBuffer = ::hb_buffer_create();
-
-		if (not ::hb_buffer_allocation_successful(m_hbBuffer))
+		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_face, 0, pixelSize))
 		{
 			return false;
 		}
 
-		//::hb_buffer_set_replacement_codepoint(m_hbBuffer, (hb_codepoint_t)-1);
+		// HarfBuzz objects
+		{
+			m_hbFont	= ::hb_ft_font_create_referenced(m_face);
+			m_hbBuffer	= ::hb_buffer_create();
+
+			if (not ::hb_buffer_allocation_successful(m_hbBuffer))
+			{
+				return false;
+			}
+
+			//::hb_buffer_set_replacement_codepoint(m_hbBuffer, (hb_codepoint_t)-1);
+		}
+
+		// Font property
+		{
+			m_property.familiyName		= Unicode::Widen(m_face->family_name);
+			m_property.styleName		= Unicode::Widen(m_face->style_name);
+			m_property.fontPixelSize	= pixelSize;
+			m_property.style			= style;
+			m_property.ascent			= static_cast<int32>(m_face->size->metrics.ascender / 64);
+			m_property.descent			= -static_cast<int32>(m_face->size->metrics.descender / 64);
+		}
 
 		return true;
 	}
 
 	void FontFace::release()
 	{
+		m_property = {};
+
 		if (m_hbBuffer)
 		{
 			::hb_buffer_destroy(m_hbBuffer);

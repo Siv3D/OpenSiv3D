@@ -35,6 +35,9 @@ namespace s3d
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
 
+		[[nodiscard]]
+		const FontFaceProperty& getProperty() const noexcept;
+
 	private:
 
 	# if SIV3D_PLATFORM(WINDOWS)

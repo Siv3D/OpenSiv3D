@@ -54,4 +54,34 @@ namespace s3d
 	{
 
 	}
+
+	const String& Font::getFamilyName() const
+	{
+		return SIV3D_ENGINE(Font)->getFamilyName(m_handle->id());
+	}
+
+	const String& Font::getStyleName() const
+	{
+		return SIV3D_ENGINE(Font)->getStyleName(m_handle->id());
+	}
+
+	FontStyle Font::getStyle() const
+	{
+		return SIV3D_ENGINE(Font)->getStyle(m_handle->id());
+	}
+
+	int32 Font::getFontSize() const
+	{
+		return SIV3D_ENGINE(Font)->getFontSize(m_handle->id());
+	}
+
+	int32 Font::getAscent() const
+	{
+		return SIV3D_ENGINE(Font)->getAscent(m_handle->id());
+	}
+
+	int32 Font::getDescent() const
+	{
+		return SIV3D_ENGINE(Font)->getDescent(m_handle->id());
+	}
 }

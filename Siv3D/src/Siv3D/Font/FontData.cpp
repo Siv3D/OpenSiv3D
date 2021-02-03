@@ -27,14 +27,14 @@ namespace s3d
 		{
 			m_resource = FontResourceHolder{ path };
 
-			if (not m_fontFace.load(library, m_resource.data(), m_resource.size()))
+			if (not m_fontFace.load(library, m_resource.data(), m_resource.size(), fontSize, style))
 			{
 				return;
 			}
 		}
 		else
 		{
-			if (not m_fontFace.load(library, path))
+			if (not m_fontFace.load(library, path, fontSize, style))
 			{
 				return;
 			}
@@ -42,14 +42,12 @@ namespace s3d
 
 	# else
 
-		if (not m_fontFace.load(library, path))
+		if (not m_fontFace.load(library, path, fontSize, style))
 		{
 			return;
 		}
 
 	# endif
-
-
 
 		m_initialized = true;
 	}
@@ -62,5 +60,10 @@ namespace s3d
 	bool FontData::isInitialized() const noexcept
 	{
 		return m_initialized;
+	}
+
+	const FontFaceProperty& FontData::getProperty() const noexcept
+	{
+		return m_fontFace.getProperty();
 	}
 }
