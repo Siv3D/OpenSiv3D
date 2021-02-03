@@ -22,9 +22,17 @@ extern "C"
 }
 
 # include <ThirdParty/harfbuzz/hb.h>
+# include <ThirdParty/harfbuzz/hb-ft.h>
 
 namespace s3d
 {
+	struct HBGlyphInfo
+	{
+		const hb_glyph_info_t* info = nullptr;
+		
+		size_t count = 0;
+	};
+
 	class FontFace
 	{
 	public:
@@ -37,12 +45,18 @@ namespace s3d
 
 		bool load(const FT_Library library, FilePathView path);
 
+		HBGlyphInfo getGlyphInfo(StringView s);
+
 	private:
+
+		bool init();
+
+		void release();
 
 		FT_Face m_face = nullptr;
 
-		hb_buffer_t* m_hbBuffer = nullptr;
-
 		hb_font_t* m_hbFont = nullptr;
+
+		hb_buffer_t* m_hbBuffer = nullptr;
 	};
 }
