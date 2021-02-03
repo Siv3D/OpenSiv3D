@@ -14,9 +14,11 @@
 
 namespace s3d
 {
+	using GlyphIndex = uint32;
+
 	struct GlyphInfo
 	{
-		uint32 glyphIndex = 0;
+		GlyphIndex glyphIndex = 0;
 
 		int32 xAdvance = 0;
 

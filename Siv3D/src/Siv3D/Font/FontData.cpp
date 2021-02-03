@@ -76,12 +76,26 @@ namespace s3d
 			return false;
 		}
 		
-		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
 		return (glyphIndex != 0);
 	}
 
-	GlyphInfo FontData::getGlyphInfo(StringView ch)
+	GlyphIndex FontData::getGlyphIndex(const StringView ch)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+
+		if (glyphInfo.count != 1)
+		{
+			return 0;
+		}
+
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
+
+		return glyphIndex;
+	}
+
+	GlyphInfo FontData::getGlyphInfo(const StringView ch)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
 
@@ -90,12 +104,12 @@ namespace s3d
 			return{};
 		}
 
-		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
 		return m_fontFace.getGlyphInfo(glyphIndex);
 	}
 
-	GlyphOutline FontData::getGlyphOutline(const StringView ch)
+	GlyphOutline FontData::getGlyphOutline(const StringView ch, const CloseRing closeRing)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
 
@@ -104,12 +118,12 @@ namespace s3d
 			return{};
 		}
 
-		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
-		return m_fontFace.getGlyphOutline(glyphIndex);
+		return m_fontFace.getGlyphOutline(glyphIndex, closeRing);
 	}
 
-	Array<GlyphOutline> FontData::getGlyphOutlines(const StringView s)
+	Array<GlyphOutline> FontData::getGlyphOutlines(const StringView s, const CloseRing closeRing)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
 
@@ -117,9 +131,9 @@ namespace s3d
 
 		for (size_t i = 0; i < glyphInfo.count; ++i)
 		{
-			const uint32 glyphIndex = glyphInfo.info[i].codepoint;
+			const GlyphIndex glyphIndex = glyphInfo.info[i].codepoint;
 
-			results << m_fontFace.getGlyphOutline(glyphIndex);
+			results << m_fontFace.getGlyphOutline(glyphIndex, closeRing);
 		}
 
 		return results;

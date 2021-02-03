@@ -10,8 +10,11 @@
 //-----------------------------------------------
 
 # include "FontFace.hpp"
+
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include "agg/agg_curves.h"
 # include "agg/agg_curves_impl.hpp"
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -196,7 +199,7 @@ namespace s3d
 		return{ glyphInfo, glyphCount };
 	}
 
-	GlyphInfo FontFace::getGlyphInfo(const uint32 glyphIndex)
+	GlyphInfo FontFace::getGlyphInfo(const GlyphIndex glyphIndex)
 	{
 		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
 			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
@@ -220,7 +223,7 @@ namespace s3d
 		return{ glyphIndex, xAdvance, yAdvance };
 	}
 
-	GlyphOutline FontFace::getGlyphOutline(const uint32 glyphIndex)
+	GlyphOutline FontFace::getGlyphOutline(const GlyphIndex glyphIndex, const CloseRing closeRing)
 	{
 		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
 			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
@@ -276,6 +279,17 @@ namespace s3d
 		for (auto& ring : userData.rings)
 		{
 			ring.unique_consecutive();
+		}
+
+		if (not closeRing)
+		{
+			for (auto& ring : userData.rings)
+			{
+				if (ring.front() == ring.back())
+				{
+					ring.pop_back();
+				}
+			}
 		}
 
 		for (auto& ring : userData.rings)

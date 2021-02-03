@@ -1325,11 +1325,27 @@ namespace s3d
 		return LineString(result.begin(), result.end());
 	}
 
-	LineString LineString::densified(const double maxDistance) const
+	LineString LineString::densified(const double maxDistance, const CloseRing closeRing) const
 	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
 		gLineString input(begin(), end()), result;
 
-		boost::geometry::densify(input, result, maxDistance);
+		if (closeRing && (input.front() != input.back()))
+		{
+			input.push_back(input.front());
+
+			boost::geometry::densify(input, result, maxDistance);
+
+			result.pop_back();
+		}
+		else
+		{
+			boost::geometry::densify(input, result, maxDistance);
+		}
 
 		return LineString(result.begin(), result.end());
 	}

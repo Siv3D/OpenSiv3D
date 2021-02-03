@@ -16,6 +16,7 @@
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
 # include "GlyphOutline.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -62,18 +63,24 @@ namespace s3d
 		bool hasGlyph(StringView ch) const;
 
 		[[nodiscard]]
+		GlyphIndex getGlyphIndex(char32 ch) const;
+
+		[[nodiscard]]
+		GlyphIndex getGlyphIndex(StringView ch) const;
+
+		[[nodiscard]]
 		GlyphInfo getGlyphInfo(char32 ch) const;
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(StringView ch) const;
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(char32 ch) const;
+		GlyphOutline getGlyphOutline(char32 ch, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(StringView ch) const;
+		GlyphOutline getGlyphOutline(StringView ch, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		Array<GlyphOutline> getGlyphOutlines(StringView s) const;
+		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
 	};
 }

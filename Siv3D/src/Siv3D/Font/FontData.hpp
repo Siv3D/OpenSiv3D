@@ -41,13 +41,16 @@ namespace s3d
 		bool hasGlyph(StringView ch);
 
 		[[nodiscard]]
+		GlyphIndex getGlyphIndex(StringView ch);
+
+		[[nodiscard]]
 		GlyphInfo getGlyphInfo(StringView ch);
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(StringView ch);
+		GlyphOutline getGlyphOutline(StringView ch, CloseRing closeRing);
 
 		[[nodiscard]]
-		Array<GlyphOutline> getGlyphOutlines(StringView s);
+		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing);
 
 	private:
 

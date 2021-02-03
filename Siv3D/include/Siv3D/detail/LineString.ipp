@@ -173,6 +173,11 @@ namespace s3d
 		return LineString(begin() + index, begin() + Min(index + length, size()));
 	}
 
+	inline size_t LineString::num_points() const noexcept
+	{
+		return size();
+	}
+
 	inline size_t LineString::num_lines() const noexcept
 	{
 		if (const size_t s = size();

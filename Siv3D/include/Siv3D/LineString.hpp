@@ -162,10 +162,16 @@ namespace s3d
 		LineString uniqued_consecutive()&&;
 
 		[[nodiscard]]
+		size_t num_points() const noexcept;
+
+		[[nodiscard]]
 		size_t num_lines() const noexcept;
 
 		[[nodiscard]]
 		Line line(size_t index) const;
+
+		[[nodiscard]]
+		Vec2 normalAtPoint(size_t index, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		LineString movedBy(double x, double y) const;
@@ -184,13 +190,13 @@ namespace s3d
 		LineString simplified(double maxDistance = 2.0) const;
 
 		[[nodiscard]]
-		LineString densified(double maxDistance) const;
+		LineString densified(double maxDistance, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		LineString catmullRom(int32 interpolation = 24) const;
 
 		[[nodiscard]]
-		LineString catmullRomClosed(int32 interpolation = 24) const;
+		LineString catmullRom(CloseRing closeRing, int32 interpolation = 24) const;
 
 		[[nodiscard]]
 		double calculateLength(CloseRing closeRing = CloseRing::No) const noexcept;
@@ -200,6 +206,9 @@ namespace s3d
 
 		[[nodiscard]]
 		LineString extractLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Array<Vec2> calculateNormals(CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;

@@ -13,6 +13,7 @@
 # include <Siv3D/Spline.hpp>
 # include <Siv3D/Spline2D.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/Interpolation.hpp>
 # include <Siv3D/Formatter.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -108,14 +109,63 @@ namespace s3d
 		return std::move(*this);
 	}
 
+	Vec2 LineString::normalAtPoint(const size_t index, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{ Math::NaN, Math::NaN };
+		}
+
+		const size_t n = size();
+		const Vec2* pSrc = data();
+		const Vec2 curr = pSrc[index];
+		Vec2 prev, next;
+
+		if (index == 0)
+		{
+			if (closeRing)
+			{
+				prev = pSrc[n - 2];
+				next = pSrc[index + 1];
+			}
+			else
+			{
+				prev = pSrc[0];
+				next = pSrc[index + 1];
+			}
+		}
+		else if (index == (n - 1))
+		{
+			if (closeRing)
+			{
+				prev = pSrc[index - 1];
+				next = pSrc[0];
+			}
+			else
+			{
+				prev = pSrc[index - 1];
+				next = pSrc[(n - 1)];
+			}
+		}
+		else
+		{
+			prev = pSrc[index - 1];
+			next = pSrc[index + 1];
+		}
+
+		const double a0 = (curr - prev).getAngle();
+		const double a1 = (next - curr).getAngle();
+		return Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+	}
+
 	LineString LineString::catmullRom(const int32 interpolation) const
 	{
 		return detail::CatmullRom(*this, interpolation, CloseRing::No);
 	}
 
-	LineString LineString::catmullRomClosed(const int32 interpolation) const
+	LineString LineString::catmullRom(const CloseRing closeRing, const int32 interpolation) const
 	{
-		return detail::CatmullRom(*this, interpolation, CloseRing::Yes);
+		return detail::CatmullRom(*this, interpolation, closeRing);
 	}
 
 	double LineString::calculateLength(const CloseRing closeRing) const noexcept
@@ -262,6 +312,42 @@ namespace s3d
 		}
 
 		return points;
+	}
+
+	Array<Vec2> LineString::calculateNormals(const CloseRing closeRing) const
+	{
+		Array<Vec2> normals(size());
+
+		const size_t n = size();
+		const Vec2* pSrc = data();
+		Vec2* pDst = normals.data();
+
+		if (closeRing)
+		{
+			for (size_t i = 0; i < n; ++i)
+			{
+				const Vec2 prev = (i == 0) ? pSrc[n - 2] : pSrc[i - 1];
+				const Vec2 curr = pSrc[i];
+				const Vec2 next = (i == (n - 1)) ? pSrc[0] : pSrc[i + 1];
+				const double a0 = (curr - prev).getAngle();
+				const double a1 = (next - curr).getAngle();
+				pDst[i] = Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < n; ++i)
+			{
+				const Vec2 prev = (i == 0) ? pSrc[0] : pSrc[i - 1];
+				const Vec2 curr = pSrc[i];
+				const Vec2 next = (i == (n - 1)) ? pSrc[i] : pSrc[i + 1];
+				const double a0 = (curr - prev).getAngle();
+				const double a1 = (next - curr).getAngle();
+				pDst[i] = Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+			}
+		}
+
+		return normals;
 	}
 
 	Spline2D LineString::asSpline(const CloseRing closeRing) const

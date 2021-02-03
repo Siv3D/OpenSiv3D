@@ -149,18 +149,23 @@ namespace s3d
 		return m_fonts[handleID]->hasGlyph(ch);
 	}
 
+	GlyphIndex CFont::getGlyphIndex(const Font::IDType handleID, const StringView ch)
+	{
+		return m_fonts[handleID]->getGlyphIndex(ch);
+	}
+
 	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
 	{
 		return m_fonts[handleID]->getGlyphInfo(ch);
 	}
 
-	GlyphOutline CFont::getGlyphOutline(const Font::IDType handleID, const StringView ch)
+	GlyphOutline CFont::getGlyphOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->getGlyphOutline(ch);
+		return m_fonts[handleID]->getGlyphOutline(ch, closeRing);
 	}
 
-	Array<GlyphOutline> CFont::getGlyphOutlines(const Font::IDType handleID, const StringView s)
+	Array<GlyphOutline> CFont::getGlyphOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->getGlyphOutlines(s);
+		return m_fonts[handleID]->getGlyphOutlines(s, closeRing);
 	}
 }

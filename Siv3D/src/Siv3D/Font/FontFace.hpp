@@ -69,9 +69,9 @@ namespace s3d
 
 		HBGlyphInfo getHBGlyphInfo(StringView s);
 
-		GlyphInfo getGlyphInfo(uint32 glyphIndex);
+		GlyphInfo getGlyphInfo(GlyphIndex glyphIndex);
 
-		GlyphOutline getGlyphOutline(uint32 glyphIndex);
+		GlyphOutline getGlyphOutline(GlyphIndex glyphIndex, CloseRing closeRing);
 
 	private:
 
