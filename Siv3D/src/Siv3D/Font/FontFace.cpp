@@ -15,6 +15,18 @@ namespace s3d
 {
 	FontFace::~FontFace()
 	{
+		if (m_hbFont)
+		{
+			::hb_font_destroy(m_hbFont);
+			m_hbFont = nullptr;
+		}
+
+		if (m_hbBuffer)
+		{
+			::hb_buffer_destroy(m_hbBuffer);
+			m_hbBuffer = nullptr;
+		}
+
 		if (m_face)
 		{
 			::FT_Done_Face(m_face);

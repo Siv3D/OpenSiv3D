@@ -21,6 +21,8 @@ extern "C"
 #include FT_OUTLINE_H
 }
 
+# include <ThirdParty/harfbuzz/hb.h>
+
 namespace s3d
 {
 	class FontFace
@@ -38,5 +40,9 @@ namespace s3d
 	private:
 
 		FT_Face m_face = nullptr;
+
+		hb_buffer_t* m_hbBuffer = nullptr;
+
+		hb_font_t* m_hbFont = nullptr;
 	};
 }

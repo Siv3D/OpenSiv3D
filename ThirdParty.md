@@ -17,6 +17,7 @@ Library | Version
 [FreeType](https://www.freetype.org/) | 2.10.4
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
+[HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 2.7.4
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
