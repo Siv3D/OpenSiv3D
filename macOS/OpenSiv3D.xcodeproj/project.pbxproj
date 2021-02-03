@@ -812,6 +812,12 @@
 		2C796EAF25CA409B0003B7EC /* hb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EA025CA409B0003B7EC /* hb.h */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
 		2C796EB325CA60380003B7EC /* hb-ft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB225CA60380003B7EC /* hb-ft.h */; };
+		2C796EBE25CAF91D0003B7EC /* agg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB725CAF91D0003B7EC /* agg_config.h */; };
+		2C796EBF25CAF91D0003B7EC /* agg_array.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB825CAF91D0003B7EC /* agg_array.h */; };
+		2C796EC025CAF91D0003B7EC /* agg_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB925CAF91D0003B7EC /* agg_math.h */; };
+		2C796EC125CAF91D0003B7EC /* agg_curves_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EBB25CAF91D0003B7EC /* agg_curves_impl.hpp */; };
+		2C796EC225CAF91D0003B7EC /* agg_basics.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EBC25CAF91D0003B7EC /* agg_basics.h */; };
+		2C796EC325CAF91D0003B7EC /* agg_curves.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EBD25CAF91D0003B7EC /* agg_curves.h */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -2303,6 +2309,14 @@
 		2C796EA025CA409B0003B7EC /* hb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hb.h; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C796EB225CA60380003B7EC /* hb-ft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-ft.h"; sourceTree = "<group>"; };
+		2C796EB425CAF8EF0003B7EC /* GlyphInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlyphInfo.hpp; sourceTree = "<group>"; };
+		2C796EB525CAF8FE0003B7EC /* GlyphOutline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlyphOutline.hpp; sourceTree = "<group>"; };
+		2C796EB725CAF91D0003B7EC /* agg_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_config.h; sourceTree = "<group>"; };
+		2C796EB825CAF91D0003B7EC /* agg_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_array.h; sourceTree = "<group>"; };
+		2C796EB925CAF91D0003B7EC /* agg_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_math.h; sourceTree = "<group>"; };
+		2C796EBB25CAF91D0003B7EC /* agg_curves_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = agg_curves_impl.hpp; sourceTree = "<group>"; };
+		2C796EBC25CAF91D0003B7EC /* agg_basics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_basics.h; sourceTree = "<group>"; };
+		2C796EBD25CAF91D0003B7EC /* agg_curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_curves.h; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2731,6 +2745,8 @@
 				2C13C72325B8FA490054B968 /* Fwd.hpp */,
 				2C13C73325B8FA4A0054B968 /* GaborNoise.hpp */,
 				2C13C87425B8FA4A0054B968 /* Geometry2D.hpp */,
+				2C796EB425CAF8EF0003B7EC /* GlyphInfo.hpp */,
+				2C796EB525CAF8FE0003B7EC /* GlyphOutline.hpp */,
 				2C13C85425B8FA4A0054B968 /* GradientNoise.hpp */,
 				2C13C73625B8FA4A0054B968 /* Graphics.hpp */,
 				2C13C72525B8FA490054B968 /* Graphics2D.hpp */,
@@ -5628,6 +5644,7 @@
 		2C796E7C25CA407B0003B7EC /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				2C796EB625CAF91D0003B7EC /* agg */,
 				2C796E7D25CA407B0003B7EC /* CFont.hpp */,
 				2C796E7E25CA407B0003B7EC /* FontData.hpp */,
 				2C796E7F25CA407B0003B7EC /* FontFace.cpp */,
@@ -5663,6 +5680,19 @@
 				2C796EA025CA409B0003B7EC /* hb.h */,
 			);
 			path = harfbuzz;
+			sourceTree = "<group>";
+		};
+		2C796EB625CAF91D0003B7EC /* agg */ = {
+			isa = PBXGroup;
+			children = (
+				2C796EB725CAF91D0003B7EC /* agg_config.h */,
+				2C796EB825CAF91D0003B7EC /* agg_array.h */,
+				2C796EB925CAF91D0003B7EC /* agg_math.h */,
+				2C796EBB25CAF91D0003B7EC /* agg_curves_impl.hpp */,
+				2C796EBC25CAF91D0003B7EC /* agg_basics.h */,
+				2C796EBD25CAF91D0003B7EC /* agg_curves.h */,
+			);
+			path = agg;
 			sourceTree = "<group>";
 		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
@@ -6090,6 +6120,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C796EC125CAF91D0003B7EC /* agg_curves_impl.hpp in Headers */,
 				2C43C89125C837F100D6D613 /* ftserv.h in Headers */,
 				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
@@ -6114,6 +6145,7 @@
 				2C13C9BE25BD29FC0054B968 /* lstate.h in Headers */,
 				2C6390FA2539ABAB0030F18E /* CShader_Metal.hpp in Headers */,
 				2C47B6E124EAC88E008D83BE /* ConstantBufferDetail_Null.hpp in Headers */,
+				2C796EBF25CAF91D0003B7EC /* agg_array.h in Headers */,
 				2C13C9A125BD29FC0054B968 /* lgc.h in Headers */,
 				2C13C9B925BD29FC0054B968 /* ltm.h in Headers */,
 				2C13C9BB25BD29FC0054B968 /* lparser.h in Headers */,
@@ -6195,6 +6227,7 @@
 				2C796EA125CA409B0003B7EC /* hb-buffer.h in Headers */,
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C43C8A125C837F100D6D613 /* svsfnt.h in Headers */,
+				2C796EC225CAF91D0003B7EC /* agg_basics.h in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
 				2C47B2FD24DD9789008D83BE /* LicenseList.hpp in Headers */,
 				2C13C8D625B8FAF80054B968 /* Polynomial.hpp in Headers */,
@@ -6337,6 +6370,7 @@
 				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
+				2C796EC025CAF91D0003B7EC /* agg_math.h in Headers */,
 				2C4396322535DCCA00F6AECD /* svgpath.h in Headers */,
 				2C794B3C25C3DFC200034D81 /* huf.h in Headers */,
 				2C53C34825613BB00072831A /* Triangulation.hpp in Headers */,
@@ -6406,6 +6440,7 @@
 				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
 				2C796EA325CA409B0003B7EC /* hb-face.h in Headers */,
 				2C796EA425CA409B0003B7EC /* hb-draw.h in Headers */,
+				2C796EBE25CAF91D0003B7EC /* agg_config.h in Headers */,
 				2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
@@ -6448,6 +6483,7 @@
 				2C794B3A25C3DFC200034D81 /* zstd_errors.h in Headers */,
 				2C47B30124DD9789008D83BE /* MathParserDetail.hpp in Headers */,
 				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
+				2C796EC325CAF91D0003B7EC /* agg_curves.h in Headers */,
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
