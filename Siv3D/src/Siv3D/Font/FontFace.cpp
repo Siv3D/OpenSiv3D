@@ -75,8 +75,13 @@ namespace s3d
 		return m_property;
 	}
 
-	HBGlyphInfo FontFace::getGlyphInfo(const StringView s)
+	HBGlyphInfo FontFace::getHBGlyphInfo(const StringView s)
 	{
+		if (not m_hbBuffer)
+		{
+			return{};
+		}
+
 		::hb_buffer_clear_contents(m_hbBuffer);
 
 		::hb_buffer_add_utf32(m_hbBuffer,
@@ -91,6 +96,29 @@ namespace s3d
 		const hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(m_hbBuffer, &glyphCount);
 
 		return{ glyphInfo, glyphCount };
+	}
+
+	GlyphInfo FontFace::getGlyphInfo(const uint32 glyphIndex)
+	{
+		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex, (FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
+		{
+			return{};
+		}
+
+		if (m_property.style & FontStyle::Bold)
+		{
+			::FT_GlyphSlot_Embolden(m_face->glyph);
+		}
+
+		if (m_property.style & FontStyle::Italic)
+		{
+			::FT_GlyphSlot_Oblique(m_face->glyph);
+		}
+
+		const FT_GlyphSlot slot = m_face->glyph;
+		const int32 xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
+		const int32 yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
+		return{ glyphIndex, xAdvance, yAdvance };
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

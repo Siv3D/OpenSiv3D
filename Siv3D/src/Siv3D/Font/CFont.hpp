@@ -49,5 +49,11 @@ namespace s3d
 		int32 getAscent(Font::IDType handleID) override;
 
 		int32 getDescent(Font::IDType handleID) override;
+
+		int32 getHeight(Font::IDType handleID) override;
+
+		bool hasGlyph(Font::IDType handleID, StringView ch) override;
+
+		GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) override;
 	};
 }

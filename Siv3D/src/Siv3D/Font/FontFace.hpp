@@ -13,13 +13,15 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/FontStyle.hpp>
+# include <Siv3D/GlyphInfo.hpp>
 
 extern "C"
 {
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_OUTLINE_H
+# include <ft2build.h>
+# include FT_FREETYPE_H
+# include FT_GLYPH_H
+# include FT_OUTLINE_H
+# include FT_SYNTHESIS_H
 }
 
 # include <ThirdParty/harfbuzz/hb.h>
@@ -64,7 +66,9 @@ namespace s3d
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
 
-		HBGlyphInfo getGlyphInfo(StringView s);
+		HBGlyphInfo getHBGlyphInfo(StringView s);
+
+		GlyphInfo getGlyphInfo(uint32 glyphIndex);
 
 	private:
 

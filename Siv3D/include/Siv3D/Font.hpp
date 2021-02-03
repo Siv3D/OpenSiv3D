@@ -14,6 +14,7 @@
 # include "String.hpp"
 # include "AssetHandle.hpp"
 # include "FontStyle.hpp"
+# include "GlyphInfo.hpp"
 
 namespace s3d
 {
@@ -49,5 +50,20 @@ namespace s3d
 
 		[[nodiscard]]
 		int32 getDescent() const;
+
+		[[nodiscard]]
+		int32 height() const;
+
+		[[nodiscard]]
+		bool hasGlyph(char32 ch) const;
+
+		[[nodiscard]]
+		bool hasGlyph(StringView ch) const;
+
+		[[nodiscard]]
+		GlyphInfo getGlyphInfo(char32 ch) const;
+
+		[[nodiscard]]
+		GlyphInfo getGlyphInfo(StringView ch) const;
 	};
 }

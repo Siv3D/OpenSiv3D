@@ -40,5 +40,11 @@ namespace s3d
 		virtual int32 getAscent(Font::IDType handleID) = 0;
 
 		virtual int32 getDescent(Font::IDType handleID) = 0;
+
+		virtual int32 getHeight(Font::IDType handleID) = 0;
+
+		virtual bool hasGlyph(Font::IDType handleID, StringView ch) = 0;
+
+		virtual GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) = 0;
 	};
 }

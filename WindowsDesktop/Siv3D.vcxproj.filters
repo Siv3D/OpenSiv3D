@@ -3780,6 +3780,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-ft.h">
       <Filter>src\ThirdParty\harfbuzz</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

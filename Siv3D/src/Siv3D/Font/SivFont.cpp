@@ -84,4 +84,29 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Font)->getDescent(m_handle->id());
 	}
+
+	int32 Font::height() const
+	{
+		return SIV3D_ENGINE(Font)->getHeight(m_handle->id());
+	}
+
+	bool Font::hasGlyph(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->hasGlyph(m_handle->id(), StringView(&ch, 1));
+	}
+
+	bool Font::hasGlyph(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->hasGlyph(m_handle->id(), ch);
+	}
+
+	GlyphInfo Font::getGlyphInfo(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), StringView(&ch, 1));
+	}
+
+	GlyphInfo Font::getGlyphInfo(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), ch);
+	}
 }

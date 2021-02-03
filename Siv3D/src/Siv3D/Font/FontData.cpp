@@ -66,4 +66,32 @@ namespace s3d
 	{
 		return m_fontFace.getProperty();
 	}
+
+	bool FontData::hasGlyph(const StringView ch)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+
+		if (glyphInfo.count != 1)
+		{
+			return false;
+		}
+		
+		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+
+		return (glyphIndex != 0);
+	}
+
+	GlyphInfo FontData::getGlyphInfo(StringView ch)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+
+		if (glyphInfo.count != 1)
+		{
+			return{};
+		}
+
+		const uint32 glyphIndex = glyphInfo.info[0].codepoint;
+
+		return m_fontFace.getGlyphInfo(glyphIndex);
+	}
 }

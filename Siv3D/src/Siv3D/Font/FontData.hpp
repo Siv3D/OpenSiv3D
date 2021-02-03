@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/FontStyle.hpp>
+# include <Siv3D/GlyphInfo.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
 
@@ -37,6 +38,12 @@ namespace s3d
 
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
+
+		[[nodiscard]]
+		bool hasGlyph(StringView ch);
+
+		[[nodiscard]]
+		GlyphInfo getGlyphInfo(StringView ch);
 
 	private:
 

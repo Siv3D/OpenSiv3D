@@ -136,4 +136,21 @@ namespace s3d
 	{
 		return m_fonts[handleID]->getProperty().descent;
 	}
+
+	int32 CFont::getHeight(const Font::IDType handleID)
+	{
+		const auto& prop = m_fonts[handleID]->getProperty();
+
+		return (prop.ascent + prop.descent);
+	}
+
+	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)
+	{
+		return m_fonts[handleID]->hasGlyph(ch);
+	}
+
+	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
+	{
+		return m_fonts[handleID]->getGlyphInfo(ch);
+	}
 }
