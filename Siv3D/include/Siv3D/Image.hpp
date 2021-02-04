@@ -354,7 +354,9 @@ namespace s3d
 
 
 
+		void overwrite(Image& dst, int32 x, int32 y) const;
 
+		void overwrite(Image& dst, Point pos) const;
 
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
 
