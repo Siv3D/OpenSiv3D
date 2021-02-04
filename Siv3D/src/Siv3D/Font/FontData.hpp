@@ -51,6 +51,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing);
+		
+		[[nodiscard]]
+		Image renderSDF(StringView s, uint32 buffer);
 
 	private:
 

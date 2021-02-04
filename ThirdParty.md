@@ -36,6 +36,7 @@ Library | Version
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7
+[sdf-glyph-foundry](https://github.com/mapbox/sdf-glyph-foundry) | 
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | v0.7.0
 [Sol2](https://github.com/ThePhD/sol2) | v3.2.2

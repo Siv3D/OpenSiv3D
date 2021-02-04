@@ -82,5 +82,11 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Image renderSDF(char32 ch, uint32 buffer = 3) const;
+
+		[[nodiscard]]
+		Image renderSDF(StringView ch, uint32 buffer = 3) const;
 	};
 }

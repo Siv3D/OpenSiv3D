@@ -784,6 +784,9 @@
     <Filter Include="src\Siv3D\Font\agg">
       <UniqueIdentifier>{34f9e79f-8c22-414b-a626-553d96952cdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Font\mapbox">
+      <UniqueIdentifier>{4cae22e3-e87a-4b69-be8b-5620a850dee3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3806,6 +3809,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\agg\agg_array.h">
       <Filter>src\Siv3D\Font\agg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\mapbox\glyph_foundry_impl.hpp">
+      <Filter>src\Siv3D\Font\mapbox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

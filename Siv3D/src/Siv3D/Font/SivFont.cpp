@@ -134,4 +134,14 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Font)->getGlyphOutlines(m_handle->id(), s, closeRing);
 	}
+
+	Image Font::renderSDF(const char32 ch, const uint32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), StringView(&ch, 1), buffer);
+	}
+
+	Image Font::renderSDF(const StringView ch, const uint32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), ch, buffer);
+	}
 }

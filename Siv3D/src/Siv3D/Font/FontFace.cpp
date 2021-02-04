@@ -12,8 +12,7 @@
 # include "FontFace.hpp"
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
-# include "agg/agg_curves.h"
-# include "agg/agg_curves_impl.hpp"
+# include "mapbox/glyph_foundry_impl.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -301,6 +300,27 @@ namespace s3d
 			{ glyphIndex, xAdvance, yAdvance },
 			std::move(userData.rings)
 		};
+	}
+
+	Image FontFace::renderSDF(const GlyphIndex glyphIndex, const uint32 buffer)
+	{
+		sdf_glyph_foundry::glyph_info glyph_info;
+		glyph_info.glyph_index = glyphIndex;
+
+		sdf_glyph_foundry::RenderSDF(glyph_info, buffer, 0.5f, m_face);
+
+		Image image{ (glyph_info.width + 2 * buffer), (glyph_info.height + 2 * buffer) };
+		const uint8* pSrc = glyph_info.bitmap.data();
+		const uint8* const pSrcEnd = pSrc + glyph_info.bitmap.size();
+		Color* pDst = image.data();
+
+		while (pSrc != pSrcEnd)
+		{
+			*pDst++ = Color{ *pSrc };
+			++pSrc;
+		}
+
+		return image;
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

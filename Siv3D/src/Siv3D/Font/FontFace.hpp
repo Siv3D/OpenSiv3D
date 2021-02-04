@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Image.hpp>
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/GlyphOutline.hpp>
@@ -72,6 +73,8 @@ namespace s3d
 		GlyphInfo getGlyphInfo(GlyphIndex glyphIndex);
 
 		GlyphOutline getGlyphOutline(GlyphIndex glyphIndex, CloseRing closeRing);
+
+		Image renderSDF(GlyphIndex glyphIndex, uint32 buffer);
 
 	private:
 

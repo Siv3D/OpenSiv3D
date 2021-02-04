@@ -168,4 +168,9 @@ namespace s3d
 	{
 		return m_fonts[handleID]->getGlyphOutlines(s, closeRing);
 	}
+
+	Image CFont::renderSDF(const Font::IDType handleID, const StringView s, const uint32 buffer)
+	{
+		return m_fonts[handleID]->renderSDF(s, buffer);
+	}
 }

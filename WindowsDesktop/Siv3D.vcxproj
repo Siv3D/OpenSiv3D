@@ -660,6 +660,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontFace.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontResourceHolder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\mapbox\glyph_foundry_impl.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FreestandingMessageBox\FreestandingMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.hpp" />
