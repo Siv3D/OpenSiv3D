@@ -1316,11 +1316,27 @@ namespace s3d
 		}
 	}
 
-	LineString LineString::simplified(const double maxDistance) const
+	LineString LineString::simplified(const double maxDistance, const CloseRing closeRing) const
 	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
 		gLineString input(begin(), end()), result;
 
-		boost::geometry::simplify(input, result, maxDistance);
+		if (closeRing && (input.front() != input.back()))
+		{
+			input.push_back(input.front());
+
+			boost::geometry::simplify(input, result, maxDistance);
+
+			result.pop_back();
+		}
+		else
+		{
+			boost::geometry::simplify(input, result, maxDistance);
+		}
 
 		return LineString(result.begin(), result.end());
 	}

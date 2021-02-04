@@ -1233,7 +1233,8 @@ namespace s3d
 				const Float2 p2 = buf2[i + 2];
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1401,7 +1402,8 @@ namespace s3d
 				const Float2 p2 = buf2[i + 2];
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1609,7 +1611,8 @@ namespace s3d
 				const Float4 c = buf2[0].second;
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1639,7 +1642,8 @@ namespace s3d
 				const Float4 c = buf2[i + 1].second;
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1657,7 +1661,8 @@ namespace s3d
 				const Float4 c = buf2[newSize - 1].second;
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1934,7 +1939,8 @@ namespace s3d
 				const Float2 p2 = buf2[1];
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1951,7 +1957,8 @@ namespace s3d
 				const Float2 p2 = buf2[i + 2];
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;
@@ -1967,7 +1974,8 @@ namespace s3d
 				const Float2 p2 = buf2[0];
 				const Float2 line = p1 - p0;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
-				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 v = (p2 - p1).normalized() + (p1 - p0).normalized();
+				const Float2 tangent = (v.lengthSq() > 0.001f) ? v.normalized() : (p2 - p0).normalized();
 				const Float2 miter = Float2{ -tangent.y, tangent.x };
 				const float length = thicknessHalf / miter.dot(normal);
 				const Float2 result0 = p1 + miter * length;

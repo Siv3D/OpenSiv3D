@@ -165,13 +165,16 @@ namespace s3d
 		size_t num_points() const noexcept;
 
 		[[nodiscard]]
-		size_t num_lines() const noexcept;
+		size_t num_lines(CloseRing closeRing = CloseRing::No) const noexcept;
 
 		[[nodiscard]]
-		Line line(size_t index) const;
+		Line line(size_t index, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		Vec2 normalAtPoint(size_t index, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Vec2 normalAtLine(size_t index, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		LineString movedBy(double x, double y) const;
@@ -187,7 +190,7 @@ namespace s3d
 		RectF calculateBoundingRect() const noexcept;
 		
 		[[nodiscard]]
-		LineString simplified(double maxDistance = 2.0) const;
+		LineString simplified(double maxDistance = 2.0, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		LineString densified(double maxDistance, CloseRing closeRing = CloseRing::No) const;

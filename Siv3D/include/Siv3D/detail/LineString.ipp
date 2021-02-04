@@ -178,7 +178,7 @@ namespace s3d
 		return size();
 	}
 
-	inline size_t LineString::num_lines() const noexcept
+	inline size_t LineString::num_lines(const CloseRing closeRing) const noexcept
 	{
 		if (const size_t s = size();
 			s < 2)
@@ -187,20 +187,34 @@ namespace s3d
 		}
 		else
 		{
-			return (s - 1);
+			return (s - 1 + static_cast<bool>(closeRing));
 		}
 	}
 
-	inline Line LineString::line(const size_t index) const
+	inline Line LineString::line(const size_t index, const CloseRing closeRing) const
 	{
-		if (num_lines() <= index)
+		if (num_lines(closeRing) <= index)
 		{
 			throw std::out_of_range("LineString::line() index out of range");
 		}
 
 		const Vec2* pData = data();
 
-		return{ pData[index], pData[index + 1] };
+		if (closeRing)
+		{
+			if ((index + 1) == size())
+			{
+				return{ pData[index], pData[0] };
+			}
+			else
+			{
+				return{ pData[index], pData[index + 1] };
+			}
+		}
+		else
+		{
+			return{ pData[index], pData[index + 1] };
+		}
 	}
 
 	inline LineString LineString::movedBy(const double x, const double y) const

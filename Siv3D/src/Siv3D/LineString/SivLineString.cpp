@@ -116,6 +116,11 @@ namespace s3d
 			return{ Math::NaN, Math::NaN };
 		}
 
+		if (size() <= index)
+		{
+			throw std::out_of_range("LineString::normalAtPoint() index out of range");
+		}
+
 		const size_t n = size();
 		const Vec2* pSrc = data();
 		const Vec2 curr = pSrc[index];
@@ -156,6 +161,46 @@ namespace s3d
 		const double a0 = (curr - prev).getAngle();
 		const double a1 = (next - curr).getAngle();
 		return Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+	}
+
+	Vec2 LineString::normalAtLine(const size_t index, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{ Math::NaN, Math::NaN };
+		}
+
+		const bool hasCloseLine = static_cast<bool>(closeRing);
+
+		if ((size() - 1 + hasCloseLine) <= index)
+		{
+			throw std::out_of_range("LineString::normalAtLine() index out of range");
+		}
+
+		const size_t num_lines = (size() - 1);
+		const Vec2* pSrc = data();
+		const Vec2 curr = pSrc[index];
+		Vec2 next;
+
+		if (closeRing)
+		{
+			if (index == num_lines)
+			{
+				next = pSrc[0];
+			}
+			else
+			{
+				next = pSrc[index + 1];
+			}
+		}
+		else
+		{
+			next = pSrc[index + 1];
+		}
+
+		const Vec2 v = (next - curr).normalized();
+		
+		return{ v.y, -v.x };
 	}
 
 	LineString LineString::catmullRom(const int32 interpolation) const
