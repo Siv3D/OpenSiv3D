@@ -518,38 +518,37 @@ namespace s3d
 		}
 
 		template <class PointType>
-		inline Polygon ConcaveHull(const Array<PointType>& points, const double concavity, const double lengthThreshold)
+		inline Polygon ConcaveHull(const PointType* points, const size_t size, const double concavity, const double lengthThreshold)
 		{
-			if (points.size() < 3)
+			if (size < 3)
 			{
 				return{};
 			}
 
 			std::vector<std::array<double, 2>> pts;
 			{
-				pts.reserve(points.size());
+				pts.reserve(size);
 
-				for (const auto& point : points)
+				for (size_t i = 0; i < size; ++i)
 				{
+					const auto& point = points[i];
 					pts.push_back(std::array<double, 2>{ static_cast<double>(point.x), static_cast<double>(point.y) });
 				}
 			}
 
 			HashTable<Vec2, int> table;
 			{
-				table.reserve(points.size());
+				table.reserve(size);
 
-				for (int i = 0; const auto & point : points)
+				for (size_t i = 0; i < size; ++i)
 				{
-					table.emplace(point, i++);
+					table.emplace(points[i], static_cast<int32>(i));
 				}
 			}
 
 			CWOpenRing convexHull;
 			{
-				const PointType* pPoints = points.data();
-				const size_t size = points.size();
-				boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(pPoints, (pPoints + size)), convexHull);
+				boost::geometry::convex_hull(boost::geometry::model::multi_point<PointType>(points, (points + size)), convexHull);
 			}
 
 			std::vector<int> hull;
@@ -5151,17 +5150,32 @@ namespace s3d
 
 		Polygon ConcaveHull(const Array<Point>& points, const double concavity, const double lengthThreshold)
 		{
-			return detail::ConcaveHull(points, concavity, lengthThreshold);
+			return detail::ConcaveHull(points.data(), points.size(), concavity, lengthThreshold);
+		}
+
+		Polygon ConcaveHull(const Point* points, const size_t size, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, size, concavity, lengthThreshold);
 		}
 
 		Polygon ConcaveHull(const Array<Float2>& points, const double concavity, const double lengthThreshold)
 		{
-			return detail::ConcaveHull(points, concavity, lengthThreshold);
+			return detail::ConcaveHull(points.data(), points.size(), concavity, lengthThreshold);
+		}
+
+		Polygon ConcaveHull(const Float2* points, const size_t size, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, size, concavity, lengthThreshold);
 		}
 
 		Polygon ConcaveHull(const Array<Vec2>& points, const double concavity, const double lengthThreshold)
 		{
-			return detail::ConcaveHull(points, concavity, lengthThreshold);
+			return detail::ConcaveHull(points.data(), points.size(), concavity, lengthThreshold);
+		}
+
+		Polygon ConcaveHull(const Vec2* points, const size_t size, const double concavity, const double lengthThreshold)
+		{
+			return detail::ConcaveHull(points, size, concavity, lengthThreshold);
 		}
 
 		//////////////////////////////////////////////////

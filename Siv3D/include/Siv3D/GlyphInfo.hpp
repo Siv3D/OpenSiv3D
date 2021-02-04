@@ -14,14 +14,19 @@
 
 namespace s3d
 {
+	/// @brief フォントファイル内のグリフインデックス
 	using GlyphIndex = uint32;
 
+	/// @brief グリフ情報
 	struct GlyphInfo
 	{
+		/// @brief グリフインデックス
 		GlyphIndex glyphIndex = 0;
 
+		/// @brief X 方向の移動
 		int32 xAdvance = 0;
 
+		/// @brief Y 方向の移動
 		int32 yAdvance = 0;
 	};
 }

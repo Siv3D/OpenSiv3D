@@ -2732,10 +2732,19 @@ namespace s3d
 		Polygon ConcaveHull(const Array<Point>& points, double concavity = 2.0, double lengthThreshold = 0.0);
 
 		[[nodiscard]]
+		Polygon ConcaveHull(const Point* points, size_t size, double concavity = 2.0, double lengthThreshold = 0.0);
+
+		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Float2>& points, double concavity = 2.0, double lengthThreshold = 0.0);
 
 		[[nodiscard]]
+		Polygon ConcaveHull(const Float2* points, size_t size, double concavity = 2.0, double lengthThreshold = 0.0);
+
+		[[nodiscard]]
 		Polygon ConcaveHull(const Array<Vec2>& points, double concavity = 2.0, double lengthThreshold = 0.0);
+
+		[[nodiscard]]
+		Polygon ConcaveHull(const Vec2* points, size_t size, double concavity = 2.0, double lengthThreshold = 0.0);
 
 		//////////////////////////////////////////////////
 		//
