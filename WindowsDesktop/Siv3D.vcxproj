@@ -380,6 +380,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderStage.hpp" />

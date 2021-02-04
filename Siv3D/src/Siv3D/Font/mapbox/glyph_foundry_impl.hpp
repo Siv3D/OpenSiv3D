@@ -27,25 +27,16 @@ namespace sdf_glyph_foundry
 {
 	struct glyph_info
 	{
-		glyph_info()
-			: glyph_index(0),
-			bitmap(),
-			left(0),
-			top(0),
-			width(0),
-			height(0),
-			advance(0.0),
-			ascender(0.0),
-			descender(0.0) {}
-		unsigned glyph_index;
+		unsigned glyph_index = 0;
 		std::vector<uint8_t> bitmap;
-		int32_t left;
-		int32_t top;
-		uint32_t width;
-		uint32_t height;
-		double advance;
-		double ascender;
-		double descender;
+		int32_t left = 0;
+		int32_t top = 0;
+		int32_t width = 0;
+		int32_t height = 0;
+		double xAdvance = 0.0;
+		double yAdvance = 0.0;
+		double ascender = 0.0;
+		double descender = 0.0;
 	};
 
 	struct User {
@@ -238,13 +229,10 @@ namespace sdf_glyph_foundry
 			return;
 		}
 
-		int advance = ft_face->glyph->metrics.horiAdvance / 64;
-		int ascender = ft_face->size->metrics.ascender / 64;
-		int descender = ft_face->size->metrics.descender / 64;
-
-		glyph.advance = advance;
-		glyph.ascender = ascender;
-		glyph.descender = descender;
+		glyph.xAdvance	= (ft_face->glyph->metrics.horiAdvance / 64.0);
+		glyph.yAdvance	= (ft_face->glyph->metrics.vertAdvance / 64.0);
+		glyph.ascender	= (ft_face->size->metrics.ascender / 64.0);
+		glyph.descender	= -(ft_face->size->metrics.descender / 64.0);
 
 		FT_Outline_Funcs func_interface = {
 			.move_to = &MoveTo,
@@ -312,7 +300,11 @@ namespace sdf_glyph_foundry
 			}
 		}
 
-		if (bbox_xmax - bbox_xmin == 0 || bbox_ymax - bbox_ymin == 0) return;
+		if ((bbox_xmax - bbox_xmin == 0)
+			|| (bbox_ymax - bbox_ymin == 0))
+		{
+			return;
+		}
 
 		glyph.left		= static_cast<s3d::int32>(bbox_xmin);
 		glyph.top		= static_cast<s3d::int32>(bbox_ymax);

@@ -16,6 +16,7 @@
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
 # include "GlyphOutline.hpp"
+# include "SDFGlyph.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -84,9 +85,9 @@ namespace s3d
 		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		Image renderSDF(char32 ch, uint32 buffer = 3) const;
+		SDFGlyph renderSDF(char32 ch, int32 buffer = 3) const;
 
 		[[nodiscard]]
-		Image renderSDF(StringView ch, uint32 buffer = 3) const;
+		SDFGlyph renderSDF(StringView ch, int32 buffer = 3) const;
 	};
 }

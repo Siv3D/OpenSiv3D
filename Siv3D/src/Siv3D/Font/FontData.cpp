@@ -139,7 +139,7 @@ namespace s3d
 		return results;
 	}
 
-	Image FontData::renderSDF(const StringView s, const uint32 buffer)
+	SDFGlyph FontData::renderSDF(const StringView s, const int32 buffer)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
 

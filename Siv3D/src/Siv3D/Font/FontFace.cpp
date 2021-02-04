@@ -302,25 +302,39 @@ namespace s3d
 		};
 	}
 
-	Image FontFace::renderSDF(const GlyphIndex glyphIndex, const uint32 buffer)
+	SDFGlyph FontFace::renderSDF(const GlyphIndex glyphIndex, int32 buffer)
 	{
-		sdf_glyph_foundry::glyph_info glyph_info;
-		glyph_info.glyph_index = glyphIndex;
+		sdf_glyph_foundry::glyph_info gi;
+		gi.glyph_index = glyphIndex;
 
-		sdf_glyph_foundry::RenderSDF(glyph_info, buffer, 0.5f, m_face);
+		buffer = Max(buffer, 0);
+		sdf_glyph_foundry::RenderSDF(gi, buffer, 0.5f, m_face);
 
-		Image image{ (glyph_info.width + 2 * buffer), (glyph_info.height + 2 * buffer) };
-		const uint8* pSrc = glyph_info.bitmap.data();
-		const uint8* const pSrcEnd = pSrc + glyph_info.bitmap.size();
-		Color* pDst = image.data();
-
-		while (pSrc != pSrcEnd)
+		Image image((gi.width + 2 * buffer), (gi.height + 2 * buffer));
 		{
-			*pDst++ = Color{ *pSrc };
-			++pSrc;
+			const uint8* pSrc = gi.bitmap.data();
+			const uint8* const pSrcEnd = pSrc + gi.bitmap.size();
+			Color* pDst = image.data();
+
+			while (pSrc != pSrcEnd)
+			{
+				*pDst++ = Color{ *pSrc };
+				++pSrc;
+			}
 		}
 
-		return image;
+		return SDFGlyph{
+			.image		= std::move(image),
+			.buffer		= buffer,
+			.left		= gi.left,
+			.top		= gi.top,
+			.width		= gi.width,
+			.height		= gi.height,
+			.xAdvance	= gi.xAdvance,
+			.yAdvance	= gi.yAdvance,
+			.ascent		= gi.ascender,
+			.descent	= gi.descender
+		};
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

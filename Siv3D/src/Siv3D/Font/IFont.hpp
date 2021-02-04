@@ -12,7 +12,6 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
-# include <Siv3D/Image.hpp>
 
 namespace s3d
 {
@@ -54,6 +53,6 @@ namespace s3d
 
 		virtual Array<GlyphOutline> getGlyphOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) = 0;
 	
-		virtual Image renderSDF(Font::IDType handleID, StringView s, uint32 buffer) = 0;
+		virtual SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;
 	};
 }

@@ -16,6 +16,7 @@
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/GlyphOutline.hpp>
+# include <Siv3D/SDFGlyph.hpp>
 
 extern "C"
 {
@@ -74,7 +75,7 @@ namespace s3d
 
 		GlyphOutline getGlyphOutline(GlyphIndex glyphIndex, CloseRing closeRing);
 
-		Image renderSDF(GlyphIndex glyphIndex, uint32 buffer);
+		SDFGlyph renderSDF(GlyphIndex glyphIndex, int32 buffer);
 
 	private:
 
