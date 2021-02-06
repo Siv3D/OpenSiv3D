@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "Number.hpp"
 
