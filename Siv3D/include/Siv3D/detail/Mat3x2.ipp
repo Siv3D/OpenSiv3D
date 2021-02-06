@@ -73,7 +73,7 @@ namespace s3d
 				(_31 * b_11 + b_31), (_32 * b_22 + b_32) };
 	}
 
-	template <class X, class Y>
+	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>*>
 	inline constexpr Mat3x2 Mat3x2::scaled(const X sx, const Y sy, const Float2 center) const noexcept
 	{
 		const float b_11 = static_cast<value_type>(sx);
@@ -223,7 +223,7 @@ namespace s3d
 				(1.0f - static_cast<value_type>(s)) * center.y };
 	}
 
-	template <class X, class Y>
+	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>*>
 	inline constexpr Mat3x2 Mat3x2::Scale(const X sx, const Y sy, const Float2 center) noexcept
 	{
 		return{ static_cast<value_type>(sx), 0.0f,

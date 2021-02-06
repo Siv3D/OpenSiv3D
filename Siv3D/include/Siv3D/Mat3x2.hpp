@@ -63,7 +63,7 @@ namespace s3d
 		[[nodiscard]]
 		Mat3x2 constexpr scaled(Float2 scale, Float2 center = Float2{ 0, 0 }) const noexcept;
 
-		template <class X, class Y>
+		template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>* = nullptr>
 		[[nodiscard]]
 		Mat3x2 constexpr scaled(X sx, Y sy, Float2 center = Float2{ 0, 0 }) const noexcept;
 
@@ -119,7 +119,7 @@ namespace s3d
 		[[nodiscard]]
 		static constexpr Mat3x2 Scale(Arithmetic s, Float2 center = Float2{ 0, 0 }) noexcept;
 
-		template <class X, class Y>
+		template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>* = nullptr>
 		[[nodiscard]]
 		static constexpr Mat3x2 Scale(X sx, Y sy, Float2 center = Float2{ 0, 0 }) noexcept;
 
