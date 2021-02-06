@@ -21,6 +21,7 @@
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 
@@ -85,6 +86,22 @@ namespace s3d
 		Transform,
 
 		SetConstantBuffer,
+
+		PSTexture0,
+
+		PSTexture1,
+
+		PSTexture2,
+
+		PSTexture3,
+
+		PSTexture4,
+
+		PSTexture5,
+
+		PSTexture6,
+
+		PSTexture7,
 	};
 
 	struct GLES3Renderer2DCommand
@@ -137,6 +154,7 @@ namespace s3d
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 		Array<__m128> m_constants;
 		Array<GLES3ConstantBufferCommand> m_constantBufferCommands;
+		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 
 		// current
 		GLES3DrawCommand m_currentDraw;
@@ -152,10 +170,12 @@ namespace s3d
 		Mat3x2 m_currentCameraTransform				= Mat3x2::Identity();
 		Mat3x2 m_currentCombinedTransform			= Mat3x2::Identity();
 		float m_currentMaxScaling					= 1.0f;
+		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 
 		// reserved
 		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
 		HashTable<PixelShader::IDType, PixelShader> m_reservedPSs;
+		HashTable<Texture::IDType, Texture> m_reservedTextures;
 
 	public:
 
@@ -220,5 +240,10 @@ namespace s3d
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		GLES3ConstantBufferCommand& getConstantBuffer(uint32 index);
 		const __m128* getConstantBufferPtr(uint32 offset) const;
+
+		void pushPSTextureUnbind(uint32 slot);
+		void pushPSTexture(uint32 slot, const Texture& texture);
+		const Texture::IDType& getPSTexture(uint32 slot, uint32 index) const;
+		const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& getCurrentPSTextures() const;
 	};
 }

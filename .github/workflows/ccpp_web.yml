@@ -279,7 +279,7 @@ jobs:
 
   e2e-test:
     needs: [ deploy-gh-pages, e2e-test-prerequisites ]
-    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found }}
+    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
     runs-on: ubuntu-latest
 
     steps:

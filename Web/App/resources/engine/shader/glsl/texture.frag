@@ -1,4 +1,4 @@
-#version 300 es
+# version 300 es
 
 //-----------------------------------------------
 //
@@ -12,19 +12,39 @@
 //-----------------------------------------------
 
 precision mediump float;
+
+//
+//	Textures
+//
 uniform sampler2D Texture0;
 
 //
-// PSInput
+//	PSInput
 //
+in vec4 Color;
 in vec2 UV;
-		
+
 //
-// PSOutput
+//	PSOutput
 //
 layout(location = 0) out vec4 FragColor;
 
+//
+//	Constant Buffer
+//
+layout(std140) uniform PSConstants2D
+{
+	vec4 g_colorAdd;
+	vec4 g_sdfParam;
+	vec4 g_internal;	
+};
+
+//
+//	Functions
+//
 void main()
 {
-	FragColor = texture(Texture0, UV);
+	vec4 texColor = texture(Texture0, UV);
+
+	FragColor = ((texColor * Color) + g_colorAdd);
 }

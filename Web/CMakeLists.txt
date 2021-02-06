@@ -83,11 +83,16 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/PixelShader/GLES3PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/VertexShader/GLES3VertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/ShaderPipeline/GLES3ShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
 
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
+  ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
+  ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
+  ../Siv3D/src/Siv3D/Base64/SivBase64.cpp
   ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp
   ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
@@ -100,12 +105,15 @@ add_library(
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
   ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp
+  ../Siv3D/src/Siv3D/CommandLine/SivCommandLine.cpp
   ../Siv3D/src/Siv3D/Common/Siv3DEngine.cpp
+  ../Siv3D/src/Siv3D/Compression/SivCompression.cpp
   ../Siv3D/src/Siv3D/Console/ConsoleFactory.cpp
   ../Siv3D/src/Siv3D/Console/SivConsole.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.cpp
   ../Siv3D/src/Siv3D/ConstantBuffer/SivConstantBuffer.cpp
   # ../Siv3D/src/Siv3D/CPUInfo/SivCPUInfo.cpp
+  ../Siv3D/src/Siv3D/CSV/SivCSV.cpp
   ../Siv3D/src/Siv3D/Cursor/CCursor_Null.cpp
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
@@ -114,10 +122,19 @@ add_library(
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
   ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
+  ../Siv3D/src/Siv3D/Effect/CEffect.cpp
+  ../Siv3D/src/Siv3D/Effect/EffectData.cpp
+  ../Siv3D/src/Siv3D/Effect/EffectFactory.cpp
+  ../Siv3D/src/Siv3D/Effect/SivEffect.cpp
   ../Siv3D/src/Siv3D/Ellipse/SivEllipse.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
+  ../Siv3D/src/Siv3D/Font/CFont.cpp
+  ../Siv3D/src/Siv3D/Font/FontData.cpp
+  ../Siv3D/src/Siv3D/Font/FontFace.cpp
+  ../Siv3D/src/Siv3D/Font/FontFactory.cpp
+  ../Siv3D/src/Siv3D/Font/SivFont.cpp
   ../Siv3D/src/Siv3D/FormatFloat/SivFormatFloat.cpp
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp
@@ -137,6 +154,7 @@ add_library(
   ../Siv3D/src/Siv3D/ImageFormat/PNGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp
   ../Siv3D/src/Siv3D/INI/SivINI.cpp
   ../Siv3D/src/Siv3D/Input/InputState.cpp
   ../Siv3D/src/Siv3D/Input/SivInput.cpp
@@ -156,6 +174,8 @@ add_library(
   ../Siv3D/src/Siv3D/Logger/SivLogger.cpp
   ../Siv3D/src/Siv3D/MathParser/MathParserDetail.cpp
   ../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp
+  ../Siv3D/src/Siv3D/MD5/SivMD5.cpp
+  ../Siv3D/src/Siv3D/MD5Value/SivMD5Value.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
@@ -200,6 +220,8 @@ add_library(
   # ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
   ../Siv3D/src/Siv3D/Subdivision2D/SivSubdivision2D.cpp
+  ../Siv3D/src/Siv3D/SVG/SivSVG.cpp
+  ../Siv3D/src/Siv3D/SVG/SVGDetail.cpp
   ../Siv3D/src/Siv3D/System/SivSystem.cpp
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
@@ -209,10 +231,16 @@ add_library(
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp
   ../Siv3D/src/Siv3D/Texture/SivTexture.cpp
+  ../Siv3D/src/Siv3D/TexturedCircle/SivTexturedCircle.cpp
+  ../Siv3D/src/Siv3D/TexturedQuad/SivTexturedQuad.cpp
+  ../Siv3D/src/Siv3D/TexturedRoundRect/SivTexturedRoundRect.cpp
+  ../Siv3D/src/Siv3D/TextureFormat/SivTextureFormat.cpp
+  ../Siv3D/src/Siv3D/TextureRegion/SivTextureRegion.cpp
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
+  ../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp
   ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
@@ -384,6 +412,7 @@ add_library(
   ../Siv3D/src/ThirdParty/Oniguruma/utf8.c
 
   ../Siv3D/src/ThirdParty/plutovg/plutovg-blend.c
+  ../Siv3D/src/ThirdParty/plutovg/plutovg-dash.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-geometry.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-paint.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-rle.c
@@ -431,6 +460,7 @@ target_include_directories(
   ../Siv3D/src/Siv3D-Platform/Web
   ../Siv3D/src/Siv3D-Platform/OpenGLES3
   ../Siv3D/src/ThirdParty
+  ../Siv3D/src/ThirdParty/freetype
   ../Dependencies/boost_1_73_0
   ${LIBSIV3D_INCLUDE_DIRS}
   )
