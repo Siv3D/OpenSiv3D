@@ -10,7 +10,6 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 # include "../agg/agg_curves.h"
-# include "../agg/agg_curves_impl.hpp"
 
 namespace bg = boost::geometry;
 namespace bgm = bg::model;
@@ -222,9 +221,99 @@ namespace sdf_glyph_foundry
 		return std::sqrt(sqaured_distance);
 	}
 
-	void RenderSDF(glyph_info &glyph, int buffer, float cutoff, FT_Face ft_face)
+	void GetInfo(glyph_info& glyph, int buffer, FT_Face ft_face)
 	{
 		if (FT_Load_Glyph(ft_face, glyph.glyph_index, FT_LOAD_NO_HINTING))
+		{
+			return;
+		}
+
+		glyph.xAdvance	= (ft_face->glyph->metrics.horiAdvance / 64.0);
+		glyph.yAdvance	= (ft_face->glyph->metrics.vertAdvance / 64.0);
+		glyph.ascender	= (ft_face->size->metrics.ascender / 64.0);
+		glyph.descender	= -(ft_face->size->metrics.descender / 64.0);
+
+		FT_Outline_Funcs func_interface = {
+			.move_to = &MoveTo,
+			.line_to = &LineTo,
+			.conic_to = &ConicTo,
+			.cubic_to = &CubicTo,
+			.shift = 0,
+			.delta = 0
+		};
+
+		User user;
+
+		if (ft_face->glyph->format == FT_GLYPH_FORMAT_OUTLINE)
+		{
+			// Decompose outline into bezier curves and line segments
+			FT_Outline outline = ft_face->glyph->outline;
+			if (FT_Outline_Decompose(&outline, &func_interface, &user)) return;
+
+			if (!user.ring.empty())
+			{
+				CloseRing(user.ring);
+				user.rings.push_back(user.ring);
+			}
+
+			if (user.rings.empty())
+			{
+				return;
+			}
+		}
+		else
+		{
+			return;
+		}
+
+		// Calculate the real glyph bbox.
+		double bbox_xmin = std::numeric_limits<double>::infinity(),
+			bbox_ymin = std::numeric_limits<double>::infinity();
+
+		double bbox_xmax = -std::numeric_limits<double>::infinity(),
+			bbox_ymax = -std::numeric_limits<double>::infinity();
+
+		for (const Points& ring : user.rings)
+		{
+			for (const Point& point : ring)
+			{
+				if (point.get<0>() > bbox_xmax) bbox_xmax = point.get<0>();
+				if (point.get<0>() < bbox_xmin) bbox_xmin = point.get<0>();
+				if (point.get<1>() > bbox_ymax) bbox_ymax = point.get<1>();
+				if (point.get<1>() < bbox_ymin) bbox_ymin = point.get<1>();
+			}
+		}
+
+		bbox_xmin = std::round(bbox_xmin);
+		bbox_ymin = std::round(bbox_ymin);
+		bbox_xmax = std::round(bbox_xmax);
+		bbox_ymax = std::round(bbox_ymax);
+
+		// Offset so that glyph outlines are in the bounding box.
+		for (Points& ring : user.rings)
+		{
+			for (Point& point : ring)
+			{
+				point.set<0>(point.get<0>() + -bbox_xmin + buffer);
+				point.set<1>(point.get<1>() + -bbox_ymin + buffer);
+			}
+		}
+
+		if ((bbox_xmax - bbox_xmin == 0)
+			|| (bbox_ymax - bbox_ymin == 0))
+		{
+			return;
+		}
+
+		glyph.left = static_cast<s3d::int32>(bbox_xmin);
+		glyph.top = static_cast<s3d::int32>(bbox_ymax);
+		glyph.width = static_cast<s3d::int32>(bbox_xmax - bbox_xmin);
+		glyph.height = static_cast<s3d::int32>(bbox_ymax - bbox_ymin);
+	}
+
+	void RenderSDF(glyph_info &glyph, int buffer, float cutoff, FT_Face ft_face)
+	{
+		if (FT_Load_Glyph(ft_face, glyph.glyph_index, (FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
 		{
 			return;
 		}
@@ -320,10 +409,10 @@ namespace sdf_glyph_foundry
 
 			for (; p2 != ring.end(); p1++, p2++)
 			{
-				const int segment_x1 = std::min(p1->get<0>(), p2->get<0>());
-				const int segment_x2 = std::max(p1->get<0>(), p2->get<0>());
-				const int segment_y1 = std::min(p1->get<1>(), p2->get<1>());
-				const int segment_y2 = std::max(p1->get<1>(), p2->get<1>());
+				const int segment_x1 = static_cast<int>(std::min(p1->get<0>(), p2->get<0>()));
+				const int segment_x2 = static_cast<int>(std::max(p1->get<0>(), p2->get<0>()));
+				const int segment_y1 = static_cast<int>(std::min(p1->get<1>(), p2->get<1>()));
+				const int segment_y2 = static_cast<int>(std::max(p1->get<1>(), p2->get<1>()));
 
 				tree.insert(SegmentValue{
 					Box{ Point(segment_x1, segment_y1), Point(segment_x2, segment_y2) },
@@ -364,7 +453,7 @@ namespace sdf_glyph_foundry
 				d += (cutoff * 256);
 
 				// Clamp to 0-255 to prevent overflows or underflows.
-				int n = d > 255 ? 255 : d;
+				int n = d > 255 ? 255 : static_cast<int>(d);
 				n = n < 0 ? 0 : n;
 				*pDstLine++ = static_cast<uint8_t>(255 - n);
 			}

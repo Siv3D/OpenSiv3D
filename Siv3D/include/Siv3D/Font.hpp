@@ -17,6 +17,7 @@
 # include "GlyphInfo.hpp"
 # include "GlyphOutline.hpp"
 # include "SDFGlyph.hpp"
+# include "MSDFGlyph.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -89,5 +90,11 @@ namespace s3d
 
 		[[nodiscard]]
 		SDFGlyph renderSDF(StringView ch, int32 buffer = 3) const;
+
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(char32 ch, int32 buffer = 3) const;
+
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(StringView ch, int32 buffer = 3) const;
 	};
 }

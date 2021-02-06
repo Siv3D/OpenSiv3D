@@ -10,16 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Common.hpp"
-# include "Array.hpp"
-# include "PointVector.hpp"
-# include "LineString.hpp"
-# include "GlyphInfo.hpp"
 
 namespace s3d
 {
-	struct GlyphOutline : GlyphInfo
+	constexpr Vec2 GlyphInfo::getOffset(const double scale) const noexcept
 	{
-		Array<LineString> rings;
-	};
+		return{ (left - (buffer * scale)), (ascent - (top * scale) - (buffer * scale)) };
+	}
 }

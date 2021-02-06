@@ -662,6 +662,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontFace.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontResourceHolder.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\mapbox\glyph_foundry_impl.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FreestandingMessageBox\FreestandingMessageBox.hpp" />
@@ -1168,10 +1169,12 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineLog\SivEngineLog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\agg\agg.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFace.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\SivFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatInt\SivFormatInt.cpp" />
@@ -1566,7 +1569,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat />
@@ -1592,7 +1595,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

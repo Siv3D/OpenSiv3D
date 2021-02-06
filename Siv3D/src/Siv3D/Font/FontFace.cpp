@@ -17,102 +17,6 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
-	namespace detail
-	{
-		struct OutlineData
-		{
-			Array<LineString> rings;
-			
-			LineString ring;
-		};
-
-		void CloseRing(LineString& ring)
-		{
-			const Vec2& first	= ring.front();
-			const Vec2& last	= ring.back();
-
-			if (first != last)
-			{
-				ring.push_back(first);
-			}
-		}
-
-		int MoveTo(const FT_Vector* to, void* ptr)
-		{
-			OutlineData* user = static_cast<OutlineData*>(ptr);
-			
-			if (user->ring)
-			{
-				CloseRing(user->ring);
-				user->rings.push_back(user->ring);
-				user->ring.clear();
-			}
-			
-			user->ring.emplace_back((to->x / 64.0), (to->y / 64.0));
-			return 0;
-		}
-
-		int LineTo(const FT_Vector* to, void* ptr)
-		{
-			OutlineData* user = static_cast<OutlineData*>(ptr);
-			user->ring.emplace_back((to->x / 64.0), (to->y / 64.0));
-			return 0;
-		}
-
-		int ConicTo(const FT_Vector* control, const FT_Vector* to, void* ptr)
-		{
-			OutlineData* user = static_cast<OutlineData*>(ptr);
-
-			if (user->ring)
-			{
-				const Vec2 prev = user->ring.back();
-				user->ring.pop_back();
-
-				agg_fontnik::curve3_div curve{ prev.x, prev.y,
-					(control->x / 64.0), (control->y / 64.0),
-					(to->x / 64.0), (to->y / 64.0) };
-				curve.rewind(0);
-
-				double x, y;
-				unsigned cmd;
-
-				while (agg_fontnik::path_cmd_stop != (cmd = curve.vertex(&x, &y)))
-				{
-					user->ring.emplace_back(x, y);
-				}
-			}
-
-			return 0;
-		}
-
-		int CubicTo(const FT_Vector* c1, const FT_Vector* c2, const FT_Vector* to, void* ptr)
-		{
-			OutlineData* user = static_cast<OutlineData*>(ptr);
-
-			if (user->ring)
-			{
-				const Vec2 prev = user->ring.back();
-				user->ring.pop_back();
-
-				agg_fontnik::curve4_div curve{ prev.x, prev.y,
-					(c1->x / 64.0), (c1->y / 64.0),
-					(c2->x / 64.0), (c2->y / 64.0),
-					(to->x / 64.0), (to->y / 64.0) };
-				curve.rewind(0);
-
-				double x, y;
-				unsigned cmd;
-
-				while (agg_fontnik::path_cmd_stop != (cmd = curve.vertex(&x, &y)))
-				{
-					user->ring.emplace_back(x, y);
-				}
-			}
-
-			return 0;
-		}
-	}
-
 	FontFace::~FontFace()
 	{
 		release();
@@ -200,141 +104,108 @@ namespace s3d
 
 	GlyphInfo FontFace::getGlyphInfo(const GlyphIndex glyphIndex)
 	{
-		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
-			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
+		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
 		{
 			return{};
 		}
 
-		if (m_property.style & FontStyle::Bold)
-		{
-			::FT_GlyphSlot_Embolden(m_face->glyph);
-		}
+		const GlyphBBox bbox = GetGlyphBound(m_face);
 
-		if (m_property.style & FontStyle::Italic)
-		{
-			::FT_GlyphSlot_Oblique(m_face->glyph);
-		}
-
-		const FT_GlyphSlot slot = m_face->glyph;
-		const int32 xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
-		const int32 yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
-		return{ glyphIndex, xAdvance, yAdvance };
+		return GlyphInfo{
+			.glyphIndex	= glyphIndex,
+			.buffer		= 0,
+			.left		= static_cast<int32>(bbox.xMin),
+			.top		= static_cast<int32>(bbox.yMax),
+			.width		= static_cast<int32>(bbox.xMax - bbox.xMin),
+			.height		= static_cast<int32>(bbox.yMax - bbox.yMin),
+			.xAdvance	= (m_face->glyph->metrics.horiAdvance / 64.0),
+			.yAdvance	= (m_face->glyph->metrics.vertAdvance / 64.0),
+			.ascent		= (m_face->size->metrics.ascender / 64.0),
+			.descent	= -(m_face->size->metrics.descender / 64.0),
+		};
 	}
 
 	GlyphOutline FontFace::getGlyphOutline(const GlyphIndex glyphIndex, const CloseRing closeRing)
 	{
-		if (const FT_Error error = FT_Load_Glyph(m_face, glyphIndex,
-			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
+		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
 		{
 			return{};
 		}
 
-		if (m_property.style & FontStyle::Bold)
-		{
-			::FT_GlyphSlot_Embolden(m_face->glyph);
-		}
+		GlyphBBox bbox;
+		Array<LineString> rings = GetGlyphOutline(m_face, bbox, closeRing);
 
-		if (m_property.style & FontStyle::Italic)
-		{
-			::FT_GlyphSlot_Oblique(m_face->glyph);
-		}
-
-		const FT_GlyphSlot slot = m_face->glyph;
-		const int32 xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
-		const int32 yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
-
-		FT_Outline outline = m_face->glyph->outline;
-		const FT_Matrix matrix = { 1 << 16 , 0 , 0 , -(1 << 16) };
-		::FT_Outline_Transform(&outline, &matrix);
-
-		const FT_Outline_Funcs outlineFuncs = {
-			.move_to	= &detail::MoveTo,
-			.line_to	= &detail::LineTo,
-			.conic_to	= &detail::ConicTo,
-			.cubic_to	= &detail::CubicTo,
-			.shift = 0,
-			.delta = 0
-		};
-
-		detail::OutlineData userData;
-
-		if (const FT_Error error = FT_Outline_Decompose(&outline, &outlineFuncs, &userData))
-		{
-			return{};
-		}
-
-		if (userData.ring)
-		{
-			detail::CloseRing(userData.ring);
-			userData.rings.push_back(userData.ring);
-		}
-
-		if (not userData.rings)
-		{
-			return{};
-		}
-
-		for (auto& ring : userData.rings)
-		{
-			ring.unique_consecutive();
-		}
-
-		if (not closeRing)
-		{
-			for (auto& ring : userData.rings)
-			{
-				if (ring.front() == ring.back())
-				{
-					ring.pop_back();
-				}
-			}
-		}
-
-		for (auto& ring : userData.rings)
-		{
-			ring.moveBy(0, m_property.ascent);
-		}
-
-		return{
-			{ glyphIndex, xAdvance, yAdvance },
-			std::move(userData.rings)
-		};
+		GlyphOutline result;
+		result.glyphIndex	= glyphIndex;
+		result.left			= static_cast<int32>(bbox.xMin);
+		result.top			= static_cast<int32>(bbox.yMax);
+		result.width		= static_cast<int32>(bbox.xMax - bbox.xMin);
+		result.height		= static_cast<int32>(bbox.yMax - bbox.yMin);
+		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
+		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
+		result.ascent		= (m_face->size->metrics.ascender / 64.0);
+		result.descent		= -(m_face->size->metrics.descender / 64.0);
+		result.rings		= std::move(rings);
+		return result;
 	}
 
 	SDFGlyph FontFace::renderSDF(const GlyphIndex glyphIndex, int32 buffer)
 	{
-		sdf_glyph_foundry::glyph_info gi;
-		gi.glyph_index = glyphIndex;
-
 		buffer = Max(buffer, 0);
+		sdf_glyph_foundry::glyph_info gi{ .glyph_index = glyphIndex };
 		sdf_glyph_foundry::RenderSDF(gi, buffer, 0.5f, m_face);
 
-		Image image((gi.width + 2 * buffer), (gi.height + 2 * buffer));
-		{
-			const uint8* pSrc = gi.bitmap.data();
-			const uint8* const pSrcEnd = pSrc + gi.bitmap.size();
-			Color* pDst = image.data();
+		SDFGlyph result;
+		result.glyphIndex	= glyphIndex;
+		result.buffer		= buffer;
+		result.left			= gi.left;
+		result.top			= gi.top;
+		result.width		= gi.width;
+		result.height		= gi.height;
+		result.xAdvance		= gi.xAdvance;
+		result.yAdvance		= gi.yAdvance;
+		result.ascent		= gi.ascender;
+		result.descent		= gi.descender;
+		result.image		= RenderSDF(gi.bitmap, (gi.width + 2 * buffer), (gi.height + 2 * buffer));
+		return result;
+	}
 
-			while (pSrc != pSrcEnd)
-			{
-				*pDst++ = Color{ *pSrc };
-				++pSrc;
-			}
+	MSDFGlyph FontFace::renderMSDF(const GlyphIndex glyphIndex, int32 buffer)
+	{
+		buffer = Max(buffer, 0);
+
+		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
+		{
+			return{};
 		}
 
-		return SDFGlyph{
-			.image		= std::move(image),
-			.buffer		= buffer,
-			.left		= gi.left,
-			.top		= gi.top,
-			.width		= gi.width,
-			.height		= gi.height,
-			.xAdvance	= gi.xAdvance,
-			.yAdvance	= gi.yAdvance,
-			.ascent		= gi.ascender,
-			.descent	= gi.descender
-		};
+		msdfgen::Shape shape;	
+		if (not GetShape(m_face, shape))
+		{
+			return{};
+		}
+
+		const GlyphBBox bbox = GetGlyphBound(shape);
+		const int32 width	= static_cast<int32>(bbox.xMax - bbox.xMin);
+		const int32 height	= static_cast<int32>(bbox.yMax - bbox.yMin);
+		const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
+
+		msdfgen::Bitmap<float, 3> bitmap{ (width + (2 * buffer)), (height + (2 * buffer)) };
+		msdfgen::generateMSDF(bitmap, shape, 4.0, 1.0, msdfgen::Vector2(offset.x, offset.y));
+
+		MSDFGlyph result;
+		result.glyphIndex	= glyphIndex;
+		result.buffer		= buffer;
+		result.left			= static_cast<int32>(bbox.xMin);
+		result.top			= static_cast<int32>(bbox.yMax);
+		result.width		= width;
+		result.height		= height;
+		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
+		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
+		result.ascent		= (m_face->size->metrics.ascender / 64.0);
+		result.descent		= -(m_face->size->metrics.descender / 64.0);
+		result.image		= RenderMSDF(bitmap);
+		return result;
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

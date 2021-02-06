@@ -173,4 +173,9 @@ namespace s3d
 	{
 		return m_fonts[handleID]->renderSDF(s, buffer);
 	}
+
+	MSDFGlyph CFont::renderMSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
+	{
+		return m_fonts[handleID]->renderMSDF(s, buffer);
+	}
 }

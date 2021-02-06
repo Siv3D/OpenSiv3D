@@ -991,6 +991,7 @@
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/GlyphOutline.hpp>
 # include <Siv3D/SDFGlyph.hpp>
+# include <Siv3D/MSDFGlyph.hpp>
 # include <Siv3D/Font.hpp>
 
 

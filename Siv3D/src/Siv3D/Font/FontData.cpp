@@ -152,4 +152,18 @@ namespace s3d
 
 		return m_fontFace.renderSDF(glyphIndex, buffer);
 	}
+
+	MSDFGlyph FontData::renderMSDF(const StringView s, const int32 buffer)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+
+		if (glyphInfo.count != 1)
+		{
+			return{};
+		}
+
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
+
+		return m_fontFace.renderMSDF(glyphIndex, buffer);
+	}
 }

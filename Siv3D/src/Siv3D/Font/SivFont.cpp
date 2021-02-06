@@ -144,4 +144,14 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), ch, buffer);
 	}
+
+	MSDFGlyph Font::renderMSDF(const char32 ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), StringView(&ch, 1), buffer);
+	}
+
+	MSDFGlyph Font::renderMSDF(const StringView ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), ch, buffer);
+	}
 }

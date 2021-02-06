@@ -55,6 +55,9 @@ namespace s3d
 		[[nodiscard]]
 		SDFGlyph renderSDF(StringView s, int32 buffer);
 
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(StringView s, int32 buffer);
+
 	private:
 
 	# if SIV3D_PLATFORM(WINDOWS)

@@ -54,5 +54,7 @@ namespace s3d
 		virtual Array<GlyphOutline> getGlyphOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) = 0;
 	
 		virtual SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;
+
+		virtual MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;
 	};
 }

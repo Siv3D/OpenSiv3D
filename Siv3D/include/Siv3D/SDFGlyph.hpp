@@ -12,29 +12,12 @@
 # pragma once
 # include "Common.hpp"
 # include "Image.hpp"
+# include "GlyphInfo.hpp"
 
 namespace s3d
 {
-	struct SDFGlyph
+	struct SDFGlyph : GlyphInfo
 	{
 		Image image;
-
-		int32 buffer = 0;
-
-		int32 left = 0;
-
-		int32 top = 0;
-
-		int32 width = 0;
-
-		int32 height = 0;
-
-		double xAdvance = 0.0;
-
-		double yAdvance = 0.0;
-
-		double ascent = 0.0;
-	
-		double descent = 0.0;
 	};
 }

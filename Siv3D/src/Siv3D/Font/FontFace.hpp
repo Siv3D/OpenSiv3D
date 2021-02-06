@@ -17,16 +17,8 @@
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/GlyphOutline.hpp>
 # include <Siv3D/SDFGlyph.hpp>
-
-extern "C"
-{
-# include <ft2build.h>
-# include FT_FREETYPE_H
-# include FT_GLYPH_H
-# include FT_OUTLINE_H
-# include FT_SYNTHESIS_H
-}
-
+# include <Siv3D/MSDFGlyph.hpp>
+# include "GlyphRenderer.hpp"
 # include <ThirdParty/harfbuzz/hb.h>
 # include <ThirdParty/harfbuzz/hb-ft.h>
 
@@ -69,13 +61,20 @@ namespace s3d
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
 
+		[[nodiscard]]
 		HBGlyphInfo getHBGlyphInfo(StringView s);
 
+		[[nodiscard]]
 		GlyphInfo getGlyphInfo(GlyphIndex glyphIndex);
 
+		[[nodiscard]]
 		GlyphOutline getGlyphOutline(GlyphIndex glyphIndex, CloseRing closeRing);
 
+		[[nodiscard]]
 		SDFGlyph renderSDF(GlyphIndex glyphIndex, int32 buffer);
+
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(GlyphIndex glyphIndex, int32 buffer);
 
 	private:
 

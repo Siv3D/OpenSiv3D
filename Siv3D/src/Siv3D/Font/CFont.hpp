@@ -63,5 +63,7 @@ namespace s3d
 		Array<GlyphOutline> getGlyphOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) override;
 
 		SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) override;
+
+		MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) override;
 	};
 }

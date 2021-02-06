@@ -11,15 +11,13 @@
 
 # pragma once
 # include "Common.hpp"
-# include "Array.hpp"
-# include "PointVector.hpp"
-# include "LineString.hpp"
+# include "Image.hpp"
 # include "GlyphInfo.hpp"
 
 namespace s3d
 {
-	struct GlyphOutline : GlyphInfo
+	struct MSDFGlyph : GlyphInfo
 	{
-		Array<LineString> rings;
+		Image image;
 	};
 }
