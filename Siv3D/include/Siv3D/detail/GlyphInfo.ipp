@@ -15,6 +15,6 @@ namespace s3d
 {
 	constexpr Vec2 GlyphInfo::getOffset(const double scale) const noexcept
 	{
-		return{ (left - (buffer * scale)), (ascent - (top * scale) - (buffer * scale)) };
+		return{ ((left - buffer) * scale), ((ascent - top - buffer) * scale) };
 	}
 }
