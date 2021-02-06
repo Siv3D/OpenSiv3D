@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -106,7 +106,7 @@ namespace s3d
 		// バッファ作成関数を作成
 		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
 		{
-			return m_batches[0].requestBuffer(vertexSize, indexSize, m_commandManager);
+			return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
 		};
 
 		// full screen triangle
@@ -985,11 +985,6 @@ namespace s3d
 		CheckOpenGLError();
 
 		++m_drawCount;
-		
-		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
-		{
-			return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
-		};
 	}
 
 	void CRenderer2D_GLES3::drawFullScreenTriangle(const TextureFilter textureFilter)
