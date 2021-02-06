@@ -11,7 +11,7 @@
 
 # include <Siv3D/ApplicationOptions.hpp>
 # include <Siv3D/Texture/Null/CTexture_Null.hpp>
-//# include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
+# include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
 
 namespace s3d
 {
@@ -23,7 +23,7 @@ namespace s3d
 		}
 		else
 		{
-			return new CTexture_Null;
+			return new CTexture_GLES3;
 		}
 	}
 }

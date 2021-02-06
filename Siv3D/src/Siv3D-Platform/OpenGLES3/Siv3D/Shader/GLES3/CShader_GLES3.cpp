@@ -20,7 +20,7 @@ namespace s3d
 {
 	CShader_GLES3::CShader_GLES3()
 	{
-
+		// do nothing
 	}
 
 	CShader_GLES3::~CShader_GLES3()
@@ -66,7 +66,7 @@ namespace s3d
 
 	VertexShader::IDType CShader_GLES3::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
-		TextReader reader(path);
+		TextReader reader{ path };
 
 		if (not reader)
 		{
@@ -92,7 +92,7 @@ namespace s3d
 
 	PixelShader::IDType CShader_GLES3::createPSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
-		TextReader reader(path);
+		TextReader reader{ path };
 
 		if (not reader)
 		{

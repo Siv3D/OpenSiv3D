@@ -18,6 +18,7 @@
 # include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
 # include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
 # include <Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.hpp>
+# include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
 
 namespace s3d
 {
@@ -26,6 +27,7 @@ namespace s3d
 	private:
 		
 		CRenderer2D_GLES3* pRenderer2D = nullptr;
+		CTexture_GLES3* pTexture = nullptr;
 		GLFWwindow* m_window = nullptr;
 
 		std::unique_ptr<GLES3BackBuffer> m_backBuffer;

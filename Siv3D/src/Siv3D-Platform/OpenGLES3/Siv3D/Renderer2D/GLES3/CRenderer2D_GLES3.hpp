@@ -26,6 +26,7 @@ namespace s3d
 {
 	class CRenderer_GLES3;
 	class CShader_GLES3;
+	class CTexture_GLES3;
 
 	struct GLES3StandardVS2D
 	{
@@ -48,16 +49,20 @@ namespace s3d
 	struct GLES3StandardPS2D
 	{
 		PixelShader shape;
+		PixelShader texture;
 		PixelShader fullscreen_triangle;
 
 		PixelShader::IDType shapeID;
+		PixelShader::IDType textureID;
 
 		bool setup()
 		{
 			const bool result = shape
+				&& texture
 				&& fullscreen_triangle;
 
-			shapeID = shape.id();
+			shapeID		= shape.id();
+			textureID	= texture.id();
 
 			return result;
 		}
@@ -69,6 +74,7 @@ namespace s3d
 
 		CRenderer_GLES3* pRenderer = nullptr;
 		CShader_GLES3* pShader = nullptr;
+		CTexture_GLES3* pTexture = nullptr;
 
 		std::unique_ptr<GLES3StandardVS2D> m_standardVS;
 		std::unique_ptr<GLES3StandardPS2D> m_standardPS;
@@ -92,6 +98,9 @@ namespace s3d
 		//////////////////////////////////////////////////
 		GLuint m_vertexArray		= 0;
 		GLuint m_sampler			= 0;
+
+		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
+		Array<Float2> m_buffer;
 
 	public:
 
@@ -142,6 +151,18 @@ namespace s3d
 		void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) override;
 
 		void addNullVertices(uint32 count) override;
+
+		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) override;
+
+		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4]) override;
+
+		void addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color) override;
+
+		void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) override;
+
+		void addTexturedRoundRect(const Texture& texture, const FloatRect& rect, float w, float h, float r, const FloatRect& uvRect, const Float4& color) override;
+
+		void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 
 
 		Float4 getColorMul() const override;

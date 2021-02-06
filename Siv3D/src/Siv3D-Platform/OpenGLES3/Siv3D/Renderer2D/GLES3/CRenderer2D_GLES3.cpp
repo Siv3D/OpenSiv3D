@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -63,15 +63,16 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_GLES3::init()");
 
-		pRenderer = dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer));
-		pShader = dynamic_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader));
+		pRenderer	= dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		pShader		= dynamic_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader)); assert(pShader);
+		pTexture	= dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture)); assert(pTexture);
 
 		// 標準 VS をロード
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS2D>();
-			m_standardVS->sprite = ESSL(Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } });
-			m_standardVS->fullscreen_triangle = ESSL(Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {});
+			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {} };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardVS initialization failed");
@@ -82,8 +83,9 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS2D>();
-			m_standardPS->shape = ESSL(Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } });
-			m_standardPS->fullscreen_triangle = ESSL(Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {});
+			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {} };
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardPS initialization failed");
@@ -375,7 +377,7 @@ namespace s3d
 
 	void CRenderer2D_GLES3::addRoundRect(const FloatRect& rect, const float w, const float h, const float r, const Float4& color)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, rect, w, h, r, color, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, m_buffer, rect, w, h, r, color, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -393,7 +395,7 @@ namespace s3d
 
 	void CRenderer2D_GLES3::addLineString(const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildLineString(m_bufferCreator, style, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildLineString(m_bufferCreator, m_buffer, style, points, size, offset, thickness, inner, color, closeRing, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -465,7 +467,7 @@ namespace s3d
 
 	void CRenderer2D_GLES3::addPolygonFrame(const Float2* points, const size_t size, const float thickness, const Float4& color)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, points, size, thickness, color, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, m_buffer, points, size, thickness, color, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -490,6 +492,121 @@ namespace s3d
 
 		m_commandManager.pushNullVertices(count);
 	}
+
+	void CRenderer2D_GLES3::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4])
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTextureRegion(m_bufferCreator, rect, uv, colors))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTexturedCircle(m_bufferCreator, circle, uv, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTexturedQuad(m_bufferCreator, quad, uv, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTexturedRoundRect(const Texture& texture, const FloatRect& rect, const float w, const float h, const float r, const FloatRect& uvRect, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTexturedRoundRect(m_bufferCreator, m_buffer, rect, w, h, r, uvRect, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_GLES3::addTexturedVertices(const Texture& texture, const Vertex2D* vertices, const size_t vertexCount, const TriangleIndex* indices, const size_t num_triangles)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildTexturedVertices(m_bufferCreator, vertices, vertexCount, indices, num_triangles))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, texture);
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+	
 
 	Float4 CRenderer2D_GLES3::getColorMul() const
 	{
@@ -635,6 +752,8 @@ namespace s3d
 
 		m_commandManager.flush();
 
+		pShader->usePipeline();
+
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
 
@@ -711,6 +830,18 @@ namespace s3d
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
+					break;
+				}
+			case GLES3Renderer2DCommandType::ColorMul:
+				{
+					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
+					// LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					break;
+				}
+			case GLES3Renderer2DCommandType::ColorAdd:
+				{
+					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
+					// LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
 					break;
 				}
 			case GLES3Renderer2DCommandType::BlendState:
@@ -801,6 +932,49 @@ namespace s3d
 					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(command.index, matrix));
+					break;
+				}
+			case GLES3Renderer2DCommandType::SetConstantBuffer:
+				{
+					auto& cb = m_commandManager.getConstantBuffer(command.index);
+					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
+					
+					if (cb.num_vectors)
+					{
+						const ConstantBufferDetail_GLES3* cbd = dynamic_cast<const ConstantBufferDetail_GLES3*>(cb.cbBase._detail());
+						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
+						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
+						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+					}
+					
+					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
+			case GLES3Renderer2DCommandType::PSTexture0:
+			case GLES3Renderer2DCommandType::PSTexture1:
+			case GLES3Renderer2DCommandType::PSTexture2:
+			case GLES3Renderer2DCommandType::PSTexture3:
+			case GLES3Renderer2DCommandType::PSTexture4:
+			case GLES3Renderer2DCommandType::PSTexture5:
+			case GLES3Renderer2DCommandType::PSTexture6:
+			case GLES3Renderer2DCommandType::PSTexture7:
+				{
+					const uint32 slot = (FromEnum(command.type) - FromEnum(GLES3Renderer2DCommandType::PSTexture0));
+					const auto& textureID = m_commandManager.getPSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glBindTexture(GL_TEXTURE_2D, 0);
+					}
+					else
+					{
+						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+					}
+
+					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}

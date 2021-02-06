@@ -107,7 +107,9 @@ namespace s3d
 		m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
 		m_samplerState		= std::make_unique<GLES3SamplerState>();
 
-		SIV3D_ENGINE(Texture)->init();
+		pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
+		pTexture->init();
+		
 		SIV3D_ENGINE(Shader)->init();
 	}
 
