@@ -787,6 +787,12 @@
     <Filter Include="src\Siv3D\Font\mapbox">
       <UniqueIdentifier>{4cae22e3-e87a-4b69-be8b-5620a850dee3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\msdfgen">
+      <UniqueIdentifier>{49ce4a9b-91e6-4a60-aec7-c7fbb97180be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\msdfgen\core">
+      <UniqueIdentifier>{6784fefe-e307-47bd-84a5-25952bf9fba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3816,6 +3822,99 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\bitmap-interpolation.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\BitmapRef.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Contour.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\contour-combiners.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\EdgeColor.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-coloring.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\EdgeHolder.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-segments.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-selectors.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\equation-solver.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-edge-artifact-patcher.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-error-correction.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\pixel-conversion.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\rasterization.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\render-sdf.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\save-bmp.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\save-tiff.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Scanline.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\sdf-error-estimation.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Shape.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\shape-description.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\ShapeDistanceFinder.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\ShapeDistanceFinder.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\SignedDistance.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Vector2.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\arithmetics.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Bitmap.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Bitmap.hpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\msdfgen.h">
+      <Filter>src\ThirdParty\msdfgen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MSDFGlyph.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\GlyphInfo.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5113,6 +5212,66 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFace.cpp">
       <Filter>src\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\Contour.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\contour-combiners.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-coloring.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\EdgeHolder.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-segments.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\edge-selectors.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\equation-solver.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-edge-artifact-patcher.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-error-correction.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdfgen.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\rasterization.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\render-sdf.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\save-bmp.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\save-tiff.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\Scanline.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\sdf-error-estimation.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\Shape.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\shape-description.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\SignedDistance.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\Vector2.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -411,6 +411,27 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/lunasvg/svgurireference.cpp
   ../Siv3D/src/ThirdParty/lunasvg/svguseelement.cpp
 
+  ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-coloring.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-segments.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-selectors.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/EdgeHolder.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/equation-solver.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdf-edge-artifact-patcher.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdf-error-correction.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdfgen.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/rasterization.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/render-sdf.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/save-bmp.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/save-tiff.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Scanline.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/sdf-error-estimation.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/shape-description.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp
+
   ../Siv3D/src/ThirdParty/muparser/muParser.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBase.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBytecode.cpp
