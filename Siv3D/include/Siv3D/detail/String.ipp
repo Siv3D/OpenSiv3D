@@ -793,14 +793,12 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
-	[[nodiscard]]
 	inline bool String::all(Fty f) const
 	{
 		return std::all_of(m_string.begin(), m_string.end(), f);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
-	[[nodiscard]]
 	inline bool String::any(Fty f) const
 	{
 		return std::any_of(m_string.begin(), m_string.end(), f);
@@ -839,7 +837,6 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
-	[[nodiscard]]
 	inline size_t String::count_if(Fty f) const
 	{
 		return std::count_if(m_string.begin(), m_string.end(), f);
@@ -1005,7 +1002,6 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
-	[[nodiscard]]
 	inline bool String::none(Fty f) const
 	{
 		return std::none_of(m_string.begin(), m_string.end(), f);
