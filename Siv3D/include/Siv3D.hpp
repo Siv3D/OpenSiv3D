@@ -460,7 +460,7 @@
 # include <Siv3D/INI.hpp>
 
 // JSON データの書き出し | JSON reader/writer
-//# include <Siv3D/JSON.hpp>
+# include <Siv3D/JSON.hpp>
 
 // XML ファイルの読み込み | XML parser
 //# include <Siv3D/XMLReader.hpp>

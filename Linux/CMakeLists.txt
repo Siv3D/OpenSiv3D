@@ -167,6 +167,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Int128/SivInt128.cpp
   ../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp
   ../Siv3D/src/Siv3D/IntFormatter/SivIntFormatter.cpp
+  ../Siv3D/src/Siv3D/JSON/SivJSON.cpp
   ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
   ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
   ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
