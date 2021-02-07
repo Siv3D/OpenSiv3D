@@ -26,17 +26,17 @@ namespace s3d
 
 		int32 buffer = 0;
 
-		int32 left = 0;
+		int16 left = 0;
 
-		int32 top = 0;
+		int16 top = 0;
 
-		int32 width = 0;
+		int16 width = 0;
 
-		int32 height = 0;
+		int16 height = 0;
 
-		int32 ascender = 0;
+		int16 ascender = 0;
 
-		int32 descender = 0;
+		int16 descender = 0;
 
 		/// @brief X 方向の移動
 		double xAdvance = 0;

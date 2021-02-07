@@ -41,9 +41,9 @@ namespace s3d
 
 		FontStyle style = FontStyle::Default;
 
-		int32 ascender = 0;
+		int16 ascender = 0;
 
-		int32 descender = 0;
+		int16 descender = 0;
 	};
 
 	class FontFace
