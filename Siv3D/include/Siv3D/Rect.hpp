@@ -470,6 +470,8 @@ namespace s3d
 		[[nodiscard]]
 		constexpr RectF scaledAt(Vec2 _pos, Vec2 s) const noexcept;
 
+		[[nodiscard]]
+		constexpr bool hasArea() const noexcept;
 
 		[[nodiscard]]
 		constexpr size_type tl() const noexcept;

@@ -576,22 +576,27 @@ namespace s3d
 		return scaledAt(_pos.x, _pos.y, s);
 	}
 
-	inline constexpr typename Rect::size_type Rect::tl() const noexcept
+	inline constexpr bool Rect::hasArea() const noexcept
+	{
+		return ((w == 0) || (h == 0));
+	}
+
+	inline constexpr Rect::size_type Rect::tl() const noexcept
 	{
 		return pos;
 	}
 
-	inline constexpr typename Rect::size_type Rect::tr() const noexcept
+	inline constexpr Rect::size_type Rect::tr() const noexcept
 	{
 		return{ (x + w), y };
 	}
 
-	inline constexpr typename Rect::size_type Rect::bl() const noexcept
+	inline constexpr Rect::size_type Rect::bl() const noexcept
 	{
 		return{ x, (y + h) };
 	}
 
-	inline constexpr typename Rect::size_type Rect::br() const noexcept
+	inline constexpr Rect::size_type Rect::br() const noexcept
 	{
 		return{ (x + w), (y + h) };
 	}
@@ -641,7 +646,7 @@ namespace s3d
 		return{ bl(), tl() };
 	}
 
-	inline constexpr typename Rect::position_type Rect::point(const size_t index) const
+	inline constexpr Rect::position_type Rect::point(const size_t index) const
 	{
 		if (index == 0)
 		{
@@ -705,12 +710,12 @@ namespace s3d
 		}
 	}
 
-	inline constexpr typename Rect::value_type Rect::area() const noexcept
+	inline constexpr Rect::value_type Rect::area() const noexcept
 	{
 		return (w * h);
 	}
 
-	inline constexpr typename Rect::value_type Rect::perimeter() const noexcept
+	inline constexpr Rect::value_type Rect::perimeter() const noexcept
 	{
 		return ((w + h) * 2);
 	}
