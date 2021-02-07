@@ -2310,7 +2310,7 @@
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C796EB225CA60380003B7EC /* hb-ft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-ft.h"; sourceTree = "<group>"; };
 		2C796EB425CAF8EF0003B7EC /* GlyphInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlyphInfo.hpp; sourceTree = "<group>"; };
-		2C796EB525CAF8FE0003B7EC /* GlyphOutline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlyphOutline.hpp; sourceTree = "<group>"; };
+		2C796EB525CAF8FE0003B7EC /* OutlineGlyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OutlineGlyph.hpp; sourceTree = "<group>"; };
 		2C796EB725CAF91D0003B7EC /* agg_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_config.h; sourceTree = "<group>"; };
 		2C796EB825CAF91D0003B7EC /* agg_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_array.h; sourceTree = "<group>"; };
 		2C796EB925CAF91D0003B7EC /* agg_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agg_math.h; sourceTree = "<group>"; };
@@ -2746,7 +2746,7 @@
 				2C13C73325B8FA4A0054B968 /* GaborNoise.hpp */,
 				2C13C87425B8FA4A0054B968 /* Geometry2D.hpp */,
 				2C796EB425CAF8EF0003B7EC /* GlyphInfo.hpp */,
-				2C796EB525CAF8FE0003B7EC /* GlyphOutline.hpp */,
+				2C796EB525CAF8FE0003B7EC /* OutlineGlyph.hpp */,
 				2C13C85425B8FA4A0054B968 /* GradientNoise.hpp */,
 				2C13C73625B8FA4A0054B968 /* Graphics.hpp */,
 				2C13C72525B8FA490054B968 /* Graphics2D.hpp */,

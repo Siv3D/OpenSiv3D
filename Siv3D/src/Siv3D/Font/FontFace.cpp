@@ -125,7 +125,7 @@ namespace s3d
 		};
 	}
 
-	GlyphOutline FontFace::getGlyphOutline(const GlyphIndex glyphIndex, const CloseRing closeRing)
+	OutlineGlyph FontFace::renderOutline(const GlyphIndex glyphIndex, const CloseRing closeRing)
 	{
 		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
 		{
@@ -135,7 +135,7 @@ namespace s3d
 		GlyphBBox bbox;
 		Array<LineString> rings = GetGlyphOutline(m_face, bbox, closeRing);
 
-		GlyphOutline result;
+		OutlineGlyph result;
 		result.glyphIndex	= glyphIndex;
 		result.left			= static_cast<int32>(bbox.xMin);
 		result.top			= static_cast<int32>(bbox.yMax);

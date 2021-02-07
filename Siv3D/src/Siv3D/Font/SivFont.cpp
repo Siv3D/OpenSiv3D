@@ -120,19 +120,19 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), ch);
 	}
 
-	GlyphOutline Font::getGlyphOutline(const char32 ch, const CloseRing closeRing) const
+	OutlineGlyph Font::renderOutline(const char32 ch, const CloseRing closeRing) const
 	{
-		return SIV3D_ENGINE(Font)->getGlyphOutline(m_handle->id(), StringView(&ch, 1), closeRing);
+		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), StringView(&ch, 1), closeRing);
 	}
 
-	GlyphOutline Font::getGlyphOutline(const StringView ch, const CloseRing closeRing) const
+	OutlineGlyph Font::renderOutline(const StringView ch, const CloseRing closeRing) const
 	{
-		return SIV3D_ENGINE(Font)->getGlyphOutline(m_handle->id(), ch, closeRing);
+		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), ch, closeRing);
 	}
 
-	Array<GlyphOutline> Font::getGlyphOutlines(const StringView s, const CloseRing closeRing) const
+	Array<OutlineGlyph> Font::renderOutlines(const StringView s, const CloseRing closeRing) const
 	{
-		return SIV3D_ENGINE(Font)->getGlyphOutlines(m_handle->id(), s, closeRing);
+		return SIV3D_ENGINE(Font)->renderOutlines(m_handle->id(), s, closeRing);
 	}
 
 	SDFGlyph Font::renderSDF(const char32 ch, const int32 buffer) const

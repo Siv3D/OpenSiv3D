@@ -18,7 +18,7 @@
 
 namespace s3d
 {
-	struct GlyphOutline : GlyphInfo
+	struct OutlineGlyph : GlyphInfo
 	{
 		Array<LineString> rings;
 	};

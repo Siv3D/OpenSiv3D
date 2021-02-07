@@ -15,7 +15,7 @@
 # include "AssetHandle.hpp"
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
-# include "GlyphOutline.hpp"
+# include "OutlineGlyph.hpp"
 # include "SDFGlyph.hpp"
 # include "MSDFGlyph.hpp"
 # include "PredefinedYesNo.hpp"
@@ -77,13 +77,13 @@ namespace s3d
 		GlyphInfo getGlyphInfo(StringView ch) const;
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(char32 ch, CloseRing closeRing = CloseRing::No) const;
+		OutlineGlyph renderOutline(char32 ch, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(StringView ch, CloseRing closeRing = CloseRing::No) const;
+		OutlineGlyph renderOutline(StringView ch, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
+		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		SDFGlyph renderSDF(char32 ch, int32 buffer = 3) const;

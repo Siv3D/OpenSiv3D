@@ -47,10 +47,10 @@ namespace s3d
 		GlyphInfo getGlyphInfo(StringView ch);
 
 		[[nodiscard]]
-		GlyphOutline getGlyphOutline(StringView ch, CloseRing closeRing);
+		OutlineGlyph renderOutline(StringView ch, CloseRing closeRing);
 
 		[[nodiscard]]
-		Array<GlyphOutline> getGlyphOutlines(StringView s, CloseRing closeRing);
+		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing);
 		
 		[[nodiscard]]
 		SDFGlyph renderSDF(StringView s, int32 buffer);

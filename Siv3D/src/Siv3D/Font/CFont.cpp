@@ -159,14 +159,14 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphInfo(ch);
 	}
 
-	GlyphOutline CFont::getGlyphOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
+	OutlineGlyph CFont::renderOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->getGlyphOutline(ch, closeRing);
+		return m_fonts[handleID]->renderOutline(ch, closeRing);
 	}
 
-	Array<GlyphOutline> CFont::getGlyphOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
+	Array<OutlineGlyph> CFont::renderOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->getGlyphOutlines(s, closeRing);
+		return m_fonts[handleID]->renderOutlines(s, closeRing);
 	}
 
 	SDFGlyph CFont::renderSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
