@@ -793,6 +793,9 @@
     <Filter Include="src\ThirdParty\msdfgen\core">
       <UniqueIdentifier>{6784fefe-e307-47bd-84a5-25952bf9fba6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\JSON">
+      <UniqueIdentifier>{07a2edbc-dfdd-4c88-882f-159f88312197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5281,6 +5284,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\agg\agg.cpp">
       <Filter>src\Siv3D\Font\agg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\JSON\SivJSON.cpp">
+      <Filter>src\Siv3D\JSON</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
