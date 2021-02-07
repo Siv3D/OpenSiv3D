@@ -50,10 +50,10 @@ namespace s3d
 		int32 fontSize() const;
 
 		[[nodiscard]]
-		int32 ascent() const;
+		int32 ascender() const;
 
 		[[nodiscard]]
-		int32 descent() const;
+		int32 descender() const;
 
 		[[nodiscard]]
 		int32 height() const;

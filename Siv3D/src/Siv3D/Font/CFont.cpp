@@ -96,7 +96,7 @@ namespace s3d
 
 		const auto& prop = font->getProperty();
 		const String fontName = (prop.styleName) ? (prop.familiyName + U' ' + prop.styleName) : (prop.familiyName);
-		const String info = U"(`{0}`, size: {1}, style: {2}, ascent: {3}, descent: {4})"_fmt(fontName, prop.fontPixelSize, detail::ToString(prop.style), prop.ascent, prop.descent);
+		const String info = U"(`{0}`, size: {1}, style: {2}, ascender: {3}, descender: {4})"_fmt(fontName, prop.fontPixelSize, detail::ToString(prop.style), prop.ascender, prop.descender);
 
 		// Font を管理に登録
 		return m_fonts.add(std::move(font), info);
@@ -127,21 +127,21 @@ namespace s3d
 		return m_fonts[handleID]->getProperty().fontPixelSize;
 	}
 
-	int32 CFont::getAscent(const Font::IDType handleID)
+	int32 CFont::getAscender(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getProperty().ascent;
+		return m_fonts[handleID]->getProperty().ascender;
 	}
 
-	int32 CFont::getDescent(const Font::IDType handleID)
+	int32 CFont::getDescender(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getProperty().descent;
+		return m_fonts[handleID]->getProperty().descender;
 	}
 
 	int32 CFont::getHeight(const Font::IDType handleID)
 	{
 		const auto& prop = m_fonts[handleID]->getProperty();
 
-		return (prop.ascent + prop.descent);
+		return (prop.ascender + prop.descender);
 	}
 
 	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)

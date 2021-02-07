@@ -37,9 +37,9 @@ namespace s3d
 
 		virtual int32 getFontSize(Font::IDType handleID) = 0;
 
-		virtual int32 getAscent(Font::IDType handleID) = 0;
+		virtual int32 getAscender(Font::IDType handleID) = 0;
 
-		virtual int32 getDescent(Font::IDType handleID) = 0;
+		virtual int32 getDescender(Font::IDType handleID) = 0;
 
 		virtual int32 getHeight(Font::IDType handleID) = 0;
 

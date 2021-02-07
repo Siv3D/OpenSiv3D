@@ -46,9 +46,9 @@ namespace s3d
 
 		int32 getFontSize(Font::IDType handleID) override;
 
-		int32 getAscent(Font::IDType handleID) override;
+		int32 getAscender(Font::IDType handleID) override;
 
-		int32 getDescent(Font::IDType handleID) override;
+		int32 getDescender(Font::IDType handleID) override;
 
 		int32 getHeight(Font::IDType handleID) override;
 

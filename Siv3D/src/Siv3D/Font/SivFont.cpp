@@ -75,14 +75,14 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getFontSize(m_handle->id());
 	}
 
-	int32 Font::ascent() const
+	int32 Font::ascender() const
 	{
-		return SIV3D_ENGINE(Font)->getAscent(m_handle->id());
+		return SIV3D_ENGINE(Font)->getAscender(m_handle->id());
 	}
 
-	int32 Font::descent() const
+	int32 Font::descender() const
 	{
-		return SIV3D_ENGINE(Font)->getDescent(m_handle->id());
+		return SIV3D_ENGINE(Font)->getDescender(m_handle->id());
 	}
 
 	int32 Font::height() const

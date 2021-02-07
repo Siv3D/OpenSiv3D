@@ -118,10 +118,10 @@ namespace s3d
 			.top		= static_cast<int32>(bbox.yMax),
 			.width		= static_cast<int32>(bbox.xMax - bbox.xMin),
 			.height		= static_cast<int32>(bbox.yMax - bbox.yMin),
+			.ascender	= m_property.ascender,
+			.descender	= m_property.descender,
 			.xAdvance	= (m_face->glyph->metrics.horiAdvance / 64.0),
 			.yAdvance	= (m_face->glyph->metrics.vertAdvance / 64.0),
-			.ascent		= (m_face->size->metrics.ascender / 64.0),
-			.descent	= -(m_face->size->metrics.descender / 64.0),
 		};
 	}
 
@@ -141,10 +141,10 @@ namespace s3d
 		result.top			= static_cast<int32>(bbox.yMax);
 		result.width		= static_cast<int32>(bbox.xMax - bbox.xMin);
 		result.height		= static_cast<int32>(bbox.yMax - bbox.yMin);
+		result.ascender		= m_property.ascender;
+		result.descender	= m_property.descender;
 		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
 		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
-		result.ascent		= (m_face->size->metrics.ascender / 64.0);
-		result.descent		= -(m_face->size->metrics.descender / 64.0);
 		result.rings		= std::move(rings);
 		return result;
 	}
@@ -162,10 +162,10 @@ namespace s3d
 		result.top			= gi.top;
 		result.width		= gi.width;
 		result.height		= gi.height;
+		result.ascender		= m_property.ascender;
+		result.descender	= m_property.descender;
 		result.xAdvance		= gi.xAdvance;
 		result.yAdvance		= gi.yAdvance;
-		result.ascent		= gi.ascender;
-		result.descent		= gi.descender;
 		result.image		= RenderSDF(gi.bitmap, (gi.width + 2 * buffer), (gi.height + 2 * buffer));
 		return result;
 	}
@@ -202,8 +202,8 @@ namespace s3d
 		result.height		= height;
 		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
 		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
-		result.ascent		= (m_face->size->metrics.ascender / 64.0);
-		result.descent		= -(m_face->size->metrics.descender / 64.0);
+		result.ascender		= m_property.ascender;
+		result.descender	= m_property.descender;
 		result.image		= RenderMSDF(bitmap);
 		return result;
 	}
@@ -237,8 +237,8 @@ namespace s3d
 			m_property.styleName		= Unicode::Widen(m_face->style_name);
 			m_property.fontPixelSize	= pixelSize;
 			m_property.style			= style;
-			m_property.ascent			= static_cast<int32>(m_face->size->metrics.ascender / 64);
-			m_property.descent			= -static_cast<int32>(m_face->size->metrics.descender / 64);
+			m_property.ascender			= static_cast<int32>(m_face->size->metrics.ascender / 64);
+			m_property.descender		= -static_cast<int32>(m_face->size->metrics.descender / 64);
 		}
 
 		return true;

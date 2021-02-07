@@ -34,15 +34,15 @@ namespace s3d
 
 		int32 height = 0;
 
+		int32 ascender = 0;
+
+		int32 descender = 0;
+
 		/// @brief X 方向の移動
 		double xAdvance = 0;
 
 		/// @brief Y 方向の移動
 		double yAdvance = 0;
-
-		double ascent = 0.0;
-
-		double descent = 0.0;
 
 		[[nodiscard]]
 		constexpr Vec2 getOffset(double scale = 1.0) const noexcept;
