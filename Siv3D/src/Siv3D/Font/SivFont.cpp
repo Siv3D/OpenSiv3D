@@ -135,6 +135,16 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderOutlines(m_handle->id(), s, closeRing);
 	}
 
+	BitmapGlyph Font::renderBitmap(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), StringView(&ch, 1));
+	}
+
+	BitmapGlyph Font::renderBitmap(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), ch);
+	}
+
 	SDFGlyph Font::renderSDF(const char32 ch, const int32 buffer) const
 	{
 		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), StringView(&ch, 1), buffer);

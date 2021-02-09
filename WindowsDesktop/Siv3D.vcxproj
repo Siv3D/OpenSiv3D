@@ -30,6 +30,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\BitmapGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BlendState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
@@ -666,6 +667,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg_curves.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg_curves_impl.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg_math.h" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\GlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\mapbox\glyph_foundry_impl.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\MSDFGlyphRenderer.hpp" />
@@ -1181,6 +1183,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFace.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\GlyphRenderer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\MSDFGlyphRenderer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\OutlineGlyphRenderer.cpp" />

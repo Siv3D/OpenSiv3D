@@ -12,6 +12,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include "FontData.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
+# include "GlyphRenderer/BitmapGlyphRenderer.hpp"
 # include "GlyphRenderer/OutlineGlyphRenderer.hpp"
 # include "GlyphRenderer/SDFGlyphRenderer.hpp"
 # include "GlyphRenderer/MSDFGlyphRenderer.hpp"
@@ -141,6 +142,20 @@ namespace s3d
 		}
 
 		return results;
+	}
+
+	BitmapGlyph FontData::renderBitmap(const StringView s)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+
+		if (glyphInfo.count != 1)
+		{
+			return{};
+		}
+
+		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
+
+		return RenderBitmapGlyph(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
 	SDFGlyph FontData::renderSDF(const StringView s, const int32 buffer)

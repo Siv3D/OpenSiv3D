@@ -14,6 +14,7 @@
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/OutlineGlyph.hpp>
+# include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
 # include <Siv3D/MSDFGlyph.hpp>
 # include "FontResourceHolder.hpp"
@@ -55,7 +56,10 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing);
-		
+
+		[[nodiscard]]
+		BitmapGlyph renderBitmap(StringView s);
+
 		[[nodiscard]]
 		SDFGlyph renderSDF(StringView s, int32 buffer);
 

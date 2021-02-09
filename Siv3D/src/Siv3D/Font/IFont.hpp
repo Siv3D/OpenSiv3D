@@ -52,7 +52,9 @@ namespace s3d
 		virtual OutlineGlyph renderOutline(Font::IDType handleID, StringView ch, CloseRing closeRing) = 0;
 
 		virtual Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) = 0;
-	
+
+		virtual BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) = 0;
+
 		virtual SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;
 
 		virtual MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;

@@ -16,6 +16,7 @@
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
 # include "OutlineGlyph.hpp"
+# include "BitmapGlyph.hpp"
 # include "SDFGlyph.hpp"
 # include "MSDFGlyph.hpp"
 # include "PredefinedYesNo.hpp"
@@ -84,6 +85,12 @@ namespace s3d
 
 		[[nodiscard]]
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		BitmapGlyph renderBitmap(char32 ch) const;
+
+		[[nodiscard]]
+		BitmapGlyph renderBitmap(StringView ch) const;
 
 		[[nodiscard]]
 		SDFGlyph renderSDF(char32 ch, int32 buffer = 3) const;

@@ -62,6 +62,8 @@ namespace s3d
 
 		Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) override;
 
+		BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) override;
+
 		SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) override;
 
 		MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) override;

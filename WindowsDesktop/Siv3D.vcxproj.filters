@@ -3945,6 +3945,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg_math.h">
       <Filter>src\Siv3D\Font\GlyphRenderer\agg</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BitmapGlyph.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.hpp">
+      <Filter>src\Siv3D\Font\GlyphRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5320,6 +5326,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg.cpp">
       <Filter>src\Siv3D\Font\GlyphRenderer\agg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.cpp">
+      <Filter>src\Siv3D\Font\GlyphRenderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

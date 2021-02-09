@@ -169,6 +169,11 @@ namespace s3d
 		return m_fonts[handleID]->renderOutlines(s, closeRing);
 	}
 
+	BitmapGlyph CFont::renderBitmap(const Font::IDType handleID, const StringView s)
+	{
+		return m_fonts[handleID]->renderBitmap(s);
+	}
+
 	SDFGlyph CFont::renderSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
 	{
 		return m_fonts[handleID]->renderSDF(s, buffer);
