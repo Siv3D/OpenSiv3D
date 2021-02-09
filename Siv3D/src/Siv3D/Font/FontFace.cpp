@@ -10,10 +10,8 @@
 //-----------------------------------------------
 
 # include "FontFace.hpp"
-
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
-# include "mapbox/glyph_foundry_impl.hpp"
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# include "FreeType.hpp"
+# include "GlyphRenderer/GlyphRenderer.hpp"
 
 namespace s3d
 {
@@ -74,6 +72,11 @@ namespace s3d
 		return true;
 	}
 
+	FT_Face FontFace::getFT_Face() const noexcept
+	{
+		return m_face;
+	}
+
 	const FontFaceProperty& FontFace::getProperty() const noexcept
 	{
 		return m_property;
@@ -100,112 +103,6 @@ namespace s3d
 		const hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(m_hbBuffer, &glyphCount);
 
 		return{ glyphInfo, glyphCount };
-	}
-
-	GlyphInfo FontFace::getGlyphInfo(const GlyphIndex glyphIndex)
-	{
-		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
-		{
-			return{};
-		}
-
-		const GlyphBBox bbox = GetGlyphBound(m_face);
-
-		return GlyphInfo{
-			.glyphIndex	= glyphIndex,
-			.buffer		= 0,
-			.left		= static_cast<int16>(bbox.xMin),
-			.top		= static_cast<int16>(bbox.yMax),
-			.width		= static_cast<int16>(bbox.xMax - bbox.xMin),
-			.height		= static_cast<int16>(bbox.yMax - bbox.yMin),
-			.ascender	= m_property.ascender,
-			.descender	= m_property.descender,
-			.xAdvance	= (m_face->glyph->metrics.horiAdvance / 64.0),
-			.yAdvance	= (m_face->glyph->metrics.vertAdvance / 64.0),
-		};
-	}
-
-	OutlineGlyph FontFace::renderOutline(const GlyphIndex glyphIndex, const CloseRing closeRing)
-	{
-		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
-		{
-			return{};
-		}
-
-		GlyphBBox bbox;
-		Array<LineString> rings = GetGlyphOutline(m_face, bbox, closeRing);
-
-		OutlineGlyph result;
-		result.glyphIndex	= glyphIndex;
-		result.left			= static_cast<int16>(bbox.xMin);
-		result.top			= static_cast<int16>(bbox.yMax);
-		result.width		= static_cast<int16>(bbox.xMax - bbox.xMin);
-		result.height		= static_cast<int16>(bbox.yMax - bbox.yMin);
-		result.ascender		= m_property.ascender;
-		result.descender	= m_property.descender;
-		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
-		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
-		result.rings		= std::move(rings);
-		return result;
-	}
-
-	SDFGlyph FontFace::renderSDF(const GlyphIndex glyphIndex, int32 buffer)
-	{
-		buffer = Max(buffer, 0);
-		sdf_glyph_foundry::glyph_info gi{ .glyph_index = glyphIndex };
-		sdf_glyph_foundry::RenderSDF(gi, buffer, 0.5f, m_face);
-
-		SDFGlyph result;
-		result.glyphIndex	= glyphIndex;
-		result.buffer		= buffer;
-		result.left			= static_cast<int16>(gi.left);
-		result.top			= static_cast<int16>(gi.top);
-		result.width		= static_cast<int16>(gi.width);
-		result.height		= static_cast<int16>(gi.height);
-		result.ascender		= m_property.ascender;
-		result.descender	= m_property.descender;
-		result.xAdvance		= gi.xAdvance;
-		result.yAdvance		= gi.yAdvance;
-		result.image		= RenderSDF(gi.bitmap, (gi.width + 2 * buffer), (gi.height + 2 * buffer));
-		return result;
-	}
-
-	MSDFGlyph FontFace::renderMSDF(const GlyphIndex glyphIndex, int32 buffer)
-	{
-		buffer = Max(buffer, 0);
-
-		if (not LoadGlyph(m_face, glyphIndex, m_property.style))
-		{
-			return{};
-		}
-
-		msdfgen::Shape shape;	
-		if (not GetShape(m_face, shape))
-		{
-			return{};
-		}
-
-		const GlyphBBox bbox = GetGlyphBound(shape);
-		const int32 width	= static_cast<int32>(bbox.xMax - bbox.xMin);
-		const int32 height	= static_cast<int32>(bbox.yMax - bbox.yMin);
-		const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
-
-		msdfgen::Bitmap<float, 3> bitmap{ (width + (2 * buffer)), (height + (2 * buffer)) };
-		msdfgen::generateMSDF(bitmap, shape, 4.0, 1.0, msdfgen::Vector2(offset.x, offset.y));
-
-		MSDFGlyph result;
-		result.glyphIndex	= glyphIndex;
-		result.buffer		= buffer;
-		result.left			= static_cast<int16>(bbox.xMin);
-		result.top			= static_cast<int16>(bbox.yMax);
-		result.width		= static_cast<int16>(width);
-		result.height		= static_cast<int16>(height);
-		result.xAdvance		= (m_face->glyph->metrics.horiAdvance / 64.0);
-		result.yAdvance		= (m_face->glyph->metrics.vertAdvance / 64.0);
-		result.ascender		= m_property.ascender;
-		result.descender	= m_property.descender;
-		result.image		= RenderMSDF(bitmap);
-		return result;
 	}
 
 	bool FontFace::init(const int32 pixelSize, const FontStyle style)

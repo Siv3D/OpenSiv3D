@@ -12,13 +12,8 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
-# include <Siv3D/Image.hpp>
 # include <Siv3D/FontStyle.hpp>
-# include <Siv3D/GlyphInfo.hpp>
-# include <Siv3D/OutlineGlyph.hpp>
-# include <Siv3D/SDFGlyph.hpp>
-# include <Siv3D/MSDFGlyph.hpp>
-# include "GlyphRenderer.hpp"
+# include "FontFaceProperty.hpp"
 # include <ThirdParty/harfbuzz/hb.h>
 # include <ThirdParty/harfbuzz/hb-ft.h>
 
@@ -31,21 +26,6 @@ namespace s3d
 		size_t count = 0;
 	};
 
-	struct FontFaceProperty
-	{
-		String familiyName;
-
-		String styleName;
-
-		int32 fontPixelSize = 0;
-
-		FontStyle style = FontStyle::Default;
-
-		int16 ascender = 0;
-
-		int16 descender = 0;
-	};
-
 	class FontFace
 	{
 	public:
@@ -54,27 +34,18 @@ namespace s3d
 
 		~FontFace();
 
-		bool load(const FT_Library library, const void* data, size_t size, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, const void* data, size_t size, int32 pixelSize, FontStyle style);
 
-		bool load(const FT_Library library, FilePathView path, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, FilePathView path, int32 pixelSize, FontStyle style);
+
+		[[nodiscard]]
+		FT_Face getFT_Face() const noexcept;
 
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
 
 		[[nodiscard]]
 		HBGlyphInfo getHBGlyphInfo(StringView s);
-
-		[[nodiscard]]
-		GlyphInfo getGlyphInfo(GlyphIndex glyphIndex);
-
-		[[nodiscard]]
-		OutlineGlyph renderOutline(GlyphIndex glyphIndex, CloseRing closeRing);
-
-		[[nodiscard]]
-		SDFGlyph renderSDF(GlyphIndex glyphIndex, int32 buffer);
-
-		[[nodiscard]]
-		MSDFGlyph renderMSDF(GlyphIndex glyphIndex, int32 buffer);
 
 	private:
 

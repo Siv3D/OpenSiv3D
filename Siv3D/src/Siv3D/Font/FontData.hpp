@@ -12,6 +12,10 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
+# include <Siv3D/GlyphInfo.hpp>
+# include <Siv3D/OutlineGlyph.hpp>
+# include <Siv3D/SDFGlyph.hpp>
+# include <Siv3D/MSDFGlyph.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
 

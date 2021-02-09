@@ -11,6 +11,10 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include "FontData.hpp"
+# include "GlyphRenderer/GlyphRenderer.hpp"
+# include "GlyphRenderer/OutlineGlyphRenderer.hpp"
+# include "GlyphRenderer/SDFGlyphRenderer.hpp"
+# include "GlyphRenderer/MSDFGlyphRenderer.hpp"
 
 namespace s3d
 {
@@ -106,7 +110,7 @@ namespace s3d
 
 		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
-		return m_fontFace.getGlyphInfo(glyphIndex);
+		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
 	OutlineGlyph FontData::renderOutline(const StringView ch, const CloseRing closeRing)
@@ -120,7 +124,7 @@ namespace s3d
 
 		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
-		return m_fontFace.renderOutline(glyphIndex, closeRing);
+		return RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, closeRing, m_fontFace.getProperty());
 	}
 
 	Array<OutlineGlyph> FontData::renderOutlines(const StringView s, const CloseRing closeRing)
@@ -133,7 +137,7 @@ namespace s3d
 		{
 			const GlyphIndex glyphIndex = glyphInfo.info[i].codepoint;
 
-			results << m_fontFace.renderOutline(glyphIndex, closeRing);
+			results << RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, closeRing, m_fontFace.getProperty());
 		}
 
 		return results;
@@ -150,7 +154,7 @@ namespace s3d
 
 		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
-		return m_fontFace.renderSDF(glyphIndex, buffer);
+		return RenderSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 
 	MSDFGlyph FontData::renderMSDF(const StringView s, const int32 buffer)
@@ -164,6 +168,6 @@ namespace s3d
 
 		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
 
-		return m_fontFace.renderMSDF(glyphIndex, buffer);
+		return RenderMSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 }
