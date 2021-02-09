@@ -88,6 +88,9 @@ namespace s3d
 		OutlineGlyph renderOutline(StringView ch, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
+		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
@@ -97,15 +100,24 @@ namespace s3d
 		BitmapGlyph renderBitmap(StringView ch) const;
 
 		[[nodiscard]]
+		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		[[nodiscard]]
 		SDFGlyph renderSDF(char32 ch, int32 buffer = 3) const;
 
 		[[nodiscard]]
 		SDFGlyph renderSDF(StringView ch, int32 buffer = 3) const;
 
 		[[nodiscard]]
+		SDFGlyph renderSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer = 3) const;
+
+		[[nodiscard]]
 		MSDFGlyph renderMSDF(char32 ch, int32 buffer = 3) const;
 
 		[[nodiscard]]
 		MSDFGlyph renderMSDF(StringView ch, int32 buffer = 3) const;
+
+		[[nodiscard]]
+		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer = 3) const;
 	};
 }

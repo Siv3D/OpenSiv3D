@@ -116,31 +116,13 @@ namespace s3d
 		return clusters;
 	}
 
-	GlyphInfo FontData::getGlyphInfo(const StringView ch)
+	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
-
-		if (glyphInfo.count != 1)
-		{
-			return{};
-		}
-
-		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
-
 		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
-	OutlineGlyph FontData::renderOutline(const StringView ch, const CloseRing closeRing)
+	OutlineGlyph FontData::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
-
-		if (glyphInfo.count != 1)
-		{
-			return{};
-		}
-
-		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
-
 		return RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, closeRing, m_fontFace.getProperty());
 	}
 
@@ -160,45 +142,18 @@ namespace s3d
 		return results;
 	}
 
-	BitmapGlyph FontData::renderBitmap(const StringView s)
+	BitmapGlyph FontData::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
-
-		if (glyphInfo.count != 1)
-		{
-			return{};
-		}
-
-		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
-
 		return RenderBitmapGlyph(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
-	SDFGlyph FontData::renderSDF(const StringView s, const int32 buffer)
+	SDFGlyph FontData::renderSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
-
-		if (glyphInfo.count != 1)
-		{
-			return{};
-		}
-
-		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
-
 		return RenderSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 
-	MSDFGlyph FontData::renderMSDF(const StringView s, const int32 buffer)
+	MSDFGlyph FontData::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
-
-		if (glyphInfo.count != 1)
-		{
-			return{};
-		}
-
-		const GlyphIndex glyphIndex = glyphInfo.info[0].codepoint;
-
 		return RenderMSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 }

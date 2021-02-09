@@ -161,12 +161,21 @@ namespace s3d
 
 	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
 	{
-		return m_fonts[handleID]->getGlyphInfo(ch);
+		const auto& font = m_fonts[handleID];
+
+		return font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch));
 	}
 
 	OutlineGlyph CFont::renderOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->renderOutline(ch, closeRing);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderOutlineByGlyphIndex(font->getGlyphIndex(ch), closeRing);
+	}
+
+	OutlineGlyph CFont::renderOutlineByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const CloseRing closeRing)
+	{
+		return m_fonts[handleID]->renderOutlineByGlyphIndex(glyphIndex, closeRing);
 	}
 
 	Array<OutlineGlyph> CFont::renderOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
@@ -176,16 +185,37 @@ namespace s3d
 
 	BitmapGlyph CFont::renderBitmap(const Font::IDType handleID, const StringView s)
 	{
-		return m_fonts[handleID]->renderBitmap(s);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderBitmapByGlyphIndex(font->getGlyphIndex(s));
+	}
+
+	BitmapGlyph CFont::renderBitmapByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		return m_fonts[handleID]->renderBitmapByGlyphIndex(glyphIndex);
 	}
 
 	SDFGlyph CFont::renderSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
 	{
-		return m_fonts[handleID]->renderSDF(s, buffer);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderSDFByGlyphIndex(font->getGlyphIndex(s), buffer);
+	}
+
+	SDFGlyph CFont::renderSDFByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const int32 buffer)
+	{
+		return m_fonts[handleID]->renderSDFByGlyphIndex(glyphIndex, buffer);
 	}
 
 	MSDFGlyph CFont::renderMSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
 	{
-		return m_fonts[handleID]->renderMSDF(s, buffer);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderMSDFByGlyphIndex(font->getGlyphIndex(s), buffer);
+	}
+
+	MSDFGlyph CFont::renderMSDFByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const int32 buffer)
+	{
+		return m_fonts[handleID]->renderMSDFByGlyphIndex(glyphIndex, buffer);
 	}
 }

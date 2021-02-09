@@ -53,22 +53,22 @@ namespace s3d
 		Array<GlyphCluster> getGlyphClusters(StringView s);
 
 		[[nodiscard]]
-		GlyphInfo getGlyphInfo(StringView ch);
+		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex);
 
 		[[nodiscard]]
-		OutlineGlyph renderOutline(StringView ch, CloseRing closeRing);
+		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing);
 
 		[[nodiscard]]
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing);
 
 		[[nodiscard]]
-		BitmapGlyph renderBitmap(StringView s);
+		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex);
 
 		[[nodiscard]]
-		SDFGlyph renderSDF(StringView s, int32 buffer);
+		SDFGlyph renderSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer);
 
 		[[nodiscard]]
-		MSDFGlyph renderMSDF(StringView s, int32 buffer);
+		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer);
 
 	private:
 

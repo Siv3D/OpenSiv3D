@@ -62,12 +62,20 @@ namespace s3d
 
 		OutlineGlyph renderOutline(Font::IDType handleID, StringView ch, CloseRing closeRing) override;
 
+		OutlineGlyph renderOutlineByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, CloseRing closeRing) override;
+
 		Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) override;
 
 		BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) override;
 
+		BitmapGlyph renderBitmapByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
+
 		SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) override;
 
+		SDFGlyph renderSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) override;
+
 		MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) override;
+
+		MSDFGlyph renderMSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) override;
 	};
 }

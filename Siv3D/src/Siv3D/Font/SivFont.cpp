@@ -135,6 +135,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), ch, closeRing);
 	}
 
+	OutlineGlyph Font::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing) const
+	{
+		return SIV3D_ENGINE(Font)->renderOutlineByGlyphIndex(m_handle->id(), glyphIndex, closeRing);
+	}
+
 	Array<OutlineGlyph> Font::renderOutlines(const StringView s, const CloseRing closeRing) const
 	{
 		return SIV3D_ENGINE(Font)->renderOutlines(m_handle->id(), s, closeRing);
@@ -150,6 +155,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), ch);
 	}
 
+	BitmapGlyph Font::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmapByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
 	SDFGlyph Font::renderSDF(const char32 ch, const int32 buffer) const
 	{
 		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), StringView(&ch, 1), buffer);
@@ -160,6 +170,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), ch, buffer);
 	}
 
+	SDFGlyph Font::renderSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDFByGlyphIndex(m_handle->id(), glyphIndex, buffer);
+	}
+
 	MSDFGlyph Font::renderMSDF(const char32 ch, const int32 buffer) const
 	{
 		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), StringView(&ch, 1), buffer);
@@ -168,5 +183,10 @@ namespace s3d
 	MSDFGlyph Font::renderMSDF(const StringView ch, const int32 buffer) const
 	{
 		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), ch, buffer);
+	}
+
+	MSDFGlyph Font::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDFByGlyphIndex(m_handle->id(), glyphIndex, buffer);
 	}
 }
