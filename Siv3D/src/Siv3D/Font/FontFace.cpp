@@ -110,9 +110,9 @@ namespace s3d
 		assert(m_face != nullptr);
 		assert(m_hbBuffer == nullptr);
 
-		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_face, 0, pixelSize))
+		if (::FT_Set_Pixel_Sizes(m_face, 0, pixelSize))
 		{
-			return false;
+			// FontFace has fixed pixel size
 		}
 
 		// HarfBuzz objects

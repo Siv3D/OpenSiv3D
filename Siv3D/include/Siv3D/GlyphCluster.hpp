@@ -10,16 +10,15 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "GlyphInfo.hpp"
 
 namespace s3d
 {
-	constexpr Vec2 GlyphInfo::getOffset(const double scale) const noexcept
+	struct GlyphCluster
 	{
-		return{ ((left - buffer) * scale), ((ascender - top - buffer) * scale) };
-	}
+		GlyphIndex glyphIndex = 0;
 
-	constexpr Vec2 GlyphInfo::getBase(const double scale) const noexcept
-	{
-		return{ ((left - buffer) * scale), ((-top - buffer) * scale) };
-	}
+		size_t pos = 0;
+	};
 }

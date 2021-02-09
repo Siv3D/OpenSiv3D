@@ -15,6 +15,7 @@
 # include "AssetHandle.hpp"
 # include "FontStyle.hpp"
 # include "GlyphInfo.hpp"
+# include "GlyphCluster.hpp"
 # include "OutlineGlyph.hpp"
 # include "BitmapGlyph.hpp"
 # include "SDFGlyph.hpp"
@@ -70,6 +71,9 @@ namespace s3d
 
 		[[nodiscard]]
 		GlyphIndex getGlyphIndex(StringView ch) const;
+
+		[[nodiscard]]
+		Array<GlyphCluster> getGlyphClusters(StringView s) const;
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(char32 ch) const;

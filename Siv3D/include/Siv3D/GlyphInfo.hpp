@@ -46,6 +46,9 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Vec2 getOffset(double scale = 1.0) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 getBase(double scale = 1.0) const noexcept;
 	};
 }
 

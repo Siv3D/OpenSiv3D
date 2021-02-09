@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/GlyphInfo.hpp>
+# include <Siv3D/GlyphCluster.hpp>
 # include <Siv3D/OutlineGlyph.hpp>
 # include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
@@ -47,6 +48,9 @@ namespace s3d
 
 		[[nodiscard]]
 		GlyphIndex getGlyphIndex(StringView ch);
+
+		[[nodiscard]]
+		Array<GlyphCluster> getGlyphClusters(StringView s);
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(StringView ch);

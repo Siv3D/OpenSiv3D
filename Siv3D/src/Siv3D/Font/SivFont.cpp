@@ -110,6 +110,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphIndex(m_handle->id(), ch);
 	}
 
+	Array<GlyphCluster> Font::getGlyphClusters(const StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s);
+	}
+
 	GlyphInfo Font::getGlyphInfo(const char32 ch) const
 	{
 		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), StringView(&ch, 1));

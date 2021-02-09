@@ -100,6 +100,22 @@ namespace s3d
 		return glyphIndex;
 	}
 
+	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s)
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+
+		const size_t count = glyphInfo.count;
+
+		Array<GlyphCluster> clusters(count);
+
+		for (size_t i = 0; i < count; ++i)
+		{
+			clusters[i] = { glyphInfo.info[i].codepoint, glyphInfo.info[i].cluster };
+		}
+
+		return clusters;
+	}
+
 	GlyphInfo FontData::getGlyphInfo(const StringView ch)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);

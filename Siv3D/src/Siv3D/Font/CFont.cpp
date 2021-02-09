@@ -154,6 +154,11 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphIndex(ch);
 	}
 
+	Array<GlyphCluster> CFont::getGlyphClusters(const Font::IDType handleID, const StringView s)
+	{
+		return m_fonts[handleID]->getGlyphClusters(s);
+	}
+
 	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
 	{
 		return m_fonts[handleID]->getGlyphInfo(ch);

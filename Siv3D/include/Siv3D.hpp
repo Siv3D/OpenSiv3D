@@ -989,6 +989,7 @@
 
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/GlyphInfo.hpp>
+# include <Siv3D/GlyphCluster.hpp>
 # include <Siv3D/OutlineGlyph.hpp>
 # include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
