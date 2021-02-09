@@ -134,6 +134,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/agg/agg.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/GlyphRenderer.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/BitmapGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/MSDFGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/OutlineGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/SDFGlyphRenderer.cpp

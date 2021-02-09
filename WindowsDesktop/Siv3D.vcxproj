@@ -669,7 +669,6 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\agg\agg_math.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\GlyphRenderer.hpp" />
-    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\mapbox\glyph_foundry_impl.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\MSDFGlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\OutlineGlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\SDFGlyphRenderer.hpp" />

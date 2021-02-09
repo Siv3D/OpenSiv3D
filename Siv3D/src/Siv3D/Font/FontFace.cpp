@@ -124,8 +124,6 @@ namespace s3d
 			{
 				return false;
 			}
-
-			//::hb_buffer_set_replacement_codepoint(m_hbBuffer, (hb_codepoint_t)-1);
 		}
 
 		// Font property
