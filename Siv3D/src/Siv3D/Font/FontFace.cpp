@@ -13,6 +13,8 @@
 # include "FreeType.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
 
+#include <Siv3D/EngineLog.hpp>
+
 namespace s3d
 {
 	FontFace::~FontFace()
@@ -113,6 +115,43 @@ namespace s3d
 		if (::FT_Set_Pixel_Sizes(m_face, 0, pixelSize))
 		{
 			// FontFace has fixed pixel size
+
+			FT_ULong length = 0;
+			if (::FT_Load_Sfnt_Table(m_face, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
+			{
+				return false;
+			}
+
+			if (length == 0)
+			{
+				return false;
+			}
+
+			if (m_face->num_fixed_sizes == 0)
+			{
+				return false;
+			}
+
+			int32 bestMatch = 0;
+			int32 diff = std::abs(pixelSize - m_face->available_sizes[0].width);
+
+			for (int32 i = 1; i < m_face->num_fixed_sizes; ++i)
+			{
+				const int32 ndiff = std::abs(pixelSize - m_face->available_sizes[i].width);
+
+				if (ndiff < diff)
+				{
+					bestMatch = i;
+					diff = ndiff;
+				}
+			}
+
+			if (::FT_Select_Size(m_face, bestMatch))
+			{
+				return false;
+			}
+
+			LOG_TRACE(U"Available size: {}"_fmt(m_face->available_sizes[bestMatch].width));
 		}
 
 		// HarfBuzz objects

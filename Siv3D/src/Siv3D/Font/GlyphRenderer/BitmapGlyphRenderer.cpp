@@ -17,29 +17,53 @@ namespace s3d
 {
 	BitmapGlyph RenderBitmapGlyph(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop)
 	{
-		FT_Int32 flag = (FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING);
+		const bool hasColor = FT_HAS_COLOR(face);
 
-		if (!(prop.style & FontStyle::Bitmap))
+		if (hasColor)
 		{
-			flag |= FT_LOAD_NO_BITMAP;
+			if (::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
+			{
+				return{};
+			}
+		}
+		else
+		{
+			FT_Int32 flag = (FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING);
+
+			if (!(prop.style & FontStyle::Bitmap))
+			{
+				flag |= FT_LOAD_NO_BITMAP;
+			}
+
+			if (::FT_Load_Glyph(face, glyphIndex, flag))
+			{
+				return{};
+			}
+
+			if (prop.style & FontStyle::Bold)
+			{
+				::FT_GlyphSlot_Embolden(face->glyph);
+			}
+
+			if (prop.style & FontStyle::Italic)
+			{
+				::FT_GlyphSlot_Oblique(face->glyph);
+			}
 		}
 
-		if (::FT_Load_Glyph(face, glyphIndex, flag))
+		GlyphBBox bbox;
+		
+		if (hasColor)
 		{
-			return{};
+			bbox.xMin = 0.0;
+			bbox.yMax = 0.0;
+			bbox.xMax = face->glyph->bitmap.width;
+			bbox.yMin = (-1.0 * face->glyph->bitmap.rows);
 		}
-
-		if (prop.style & FontStyle::Bold)
+		else
 		{
-			::FT_GlyphSlot_Embolden(face->glyph);
+			bbox = GetGlyphBound(face);
 		}
-
-		if (prop.style & FontStyle::Italic)
-		{
-			::FT_GlyphSlot_Oblique(face->glyph);
-		}
-
-		const GlyphBBox bbox = GetGlyphBound(face);
 
 		bool bitmapFormat = false;
 		{
@@ -95,6 +119,30 @@ namespace s3d
 				++pDst;
 			}
 		}
+		else if (face->glyph->bitmap.pixel_mode == FT_Pixel_Mode::FT_PIXEL_MODE_BGRA)
+		{
+			const uint8* pSrc = bitmapBuffer;
+			const uint8* const pSrcEnd = (pSrc + ((bitmapHeight * bitmapWidth) * 4));
+
+			while (pSrc != pSrcEnd)
+			{
+				uint8 b = pSrc[0];
+				uint8 g = pSrc[1];
+				uint8 r = pSrc[2];
+				uint8 a = pSrc[3];
+				if (InRange<uint8>(a, 1, 254))
+				{
+					const float t = (255.0f / a);
+					r = static_cast<uint8>(r * t);
+					g = static_cast<uint8>(g * t);
+					b = static_cast<uint8>(b * t);
+				}
+				pDst->set(r, g, b, a);
+
+				pSrc += 4;
+				++pDst;
+			}
+		}
 
 		BitmapGlyph result;
 		result.glyphIndex	= glyphIndex;
@@ -107,6 +155,12 @@ namespace s3d
 		result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
 		result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
 		result.image		= std::move(image);
+
+		if (result.yAdvance == 0)
+		{
+			result.yAdvance = result.xAdvance;
+		}
+
 		return result;
 	}
 }
