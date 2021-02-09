@@ -22,7 +22,11 @@ namespace s3d
 
 		String styleName;
 
+		bool hasColor = false;
+
 		int32 fontPixelSize = 0;
+
+		double spaceWidth = 0;
 
 		FontStyle style = FontStyle::Default;
 

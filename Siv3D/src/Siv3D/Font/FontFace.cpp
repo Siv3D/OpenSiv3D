@@ -169,10 +169,23 @@ namespace s3d
 		{
 			m_property.familiyName		= Unicode::Widen(m_face->family_name);
 			m_property.styleName		= Unicode::Widen(m_face->style_name);
+			m_property.hasColor			= FT_HAS_COLOR(m_face);
 			m_property.fontPixelSize	= pixelSize;
 			m_property.style			= style;
 			m_property.ascender			= static_cast<int16>(m_face->size->metrics.ascender / 64);
 			m_property.descender		= -static_cast<int16>(m_face->size->metrics.descender / 64);
+		}
+
+		{
+			const HBGlyphInfo glyphInfo = getHBGlyphInfo(U" ");
+
+			if (glyphInfo.count < 1)
+			{
+				return false;
+			}
+
+			const GlyphIndex spaceGlyphIndex = glyphInfo.info[0].codepoint;
+			m_property.spaceWidth = GetGlyphInfo(m_face, spaceGlyphIndex, m_property).xAdvance;
 		}
 
 		return true;

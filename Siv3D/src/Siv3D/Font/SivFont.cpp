@@ -14,6 +14,7 @@
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include "FontFaceProperty.hpp"
 
 namespace s3d
 {
@@ -57,37 +58,44 @@ namespace s3d
 
 	const String& Font::familyName() const
 	{
-		return SIV3D_ENGINE(Font)->getFamilyName(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).familiyName;
 	}
 
 	const String& Font::styleName() const
 	{
-		return SIV3D_ENGINE(Font)->getStyleName(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).styleName;
 	}
 
 	FontStyle Font::style() const
 	{
-		return SIV3D_ENGINE(Font)->getStyle(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).style;
 	}
 
 	int32 Font::fontSize() const
 	{
-		return SIV3D_ENGINE(Font)->getFontSize(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).fontPixelSize;
 	}
 
 	int32 Font::ascender() const
 	{
-		return SIV3D_ENGINE(Font)->getAscender(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).ascender;
 	}
 
 	int32 Font::descender() const
 	{
-		return SIV3D_ENGINE(Font)->getDescender(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).descender;
 	}
 
 	int32 Font::height() const
 	{
-		return SIV3D_ENGINE(Font)->getHeight(m_handle->id());
+		const auto& prop = SIV3D_ENGINE(Font)->getProperty(m_handle->id());
+
+		return (prop.ascender + prop.descender);
+	}
+
+	double Font::spaceWidth() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).spaceWidth;
 	}
 
 	bool Font::hasGlyph(const char32 ch) const

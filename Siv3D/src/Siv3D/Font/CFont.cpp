@@ -107,41 +107,9 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
-	const String& CFont::getFamilyName(const Font::IDType handleID)
+	const FontFaceProperty& CFont::getProperty(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getProperty().familiyName;
-	}
-
-	const String& CFont::getStyleName(const Font::IDType handleID)
-	{
-		return m_fonts[handleID]->getProperty().styleName;
-	}
-
-	FontStyle CFont::getStyle(const Font::IDType handleID)
-	{
-		return m_fonts[handleID]->getProperty().style;
-	}
-
-	int32 CFont::getFontSize(const Font::IDType handleID)
-	{
-		return m_fonts[handleID]->getProperty().fontPixelSize;
-	}
-
-	int32 CFont::getAscender(const Font::IDType handleID)
-	{
-		return m_fonts[handleID]->getProperty().ascender;
-	}
-
-	int32 CFont::getDescender(const Font::IDType handleID)
-	{
-		return m_fonts[handleID]->getProperty().descender;
-	}
-
-	int32 CFont::getHeight(const Font::IDType handleID)
-	{
-		const auto& prop = m_fonts[handleID]->getProperty();
-
-		return (prop.ascender + prop.descender);
+		return m_fonts[handleID]->getProperty();
 	}
 
 	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)

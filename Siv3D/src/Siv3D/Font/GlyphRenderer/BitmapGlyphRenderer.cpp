@@ -17,7 +17,7 @@ namespace s3d
 {
 	BitmapGlyph RenderBitmapGlyph(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop)
 	{
-		const bool hasColor = FT_HAS_COLOR(face);
+		const bool hasColor = prop.hasColor;
 
 		if (hasColor)
 		{

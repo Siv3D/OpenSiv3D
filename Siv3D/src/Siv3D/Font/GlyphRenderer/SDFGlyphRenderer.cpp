@@ -111,7 +111,7 @@ namespace s3d
 			const int32 imageWidth	= bitmap.width();
 			const int32 imageHeight	= bitmap.height();
 
-			Image image(imageWidth, imageHeight, Color{ 0, 0, 0, 255 });
+			Image image(imageWidth, imageHeight, Color{ 255, 255 });
 			Color* pDst = image.data();
 
 			for (int32 y = (imageHeight - 1); y >= 0; --y)
@@ -119,10 +119,7 @@ namespace s3d
 				for (int32 x = 0; x < imageWidth; ++x)
 				{
 					const auto& pixel = bitmap(x, y);
-					const int32 gray = Clamp(int32(pixel[0] * 0x100), 0, 255);
-					pDst->r = gray;
-					pDst->g = gray;
-					pDst->b = gray;
+					pDst->a = Clamp(int32(pixel[0] * 0x100), 0, 255);
 					++pDst;
 				}
 			}

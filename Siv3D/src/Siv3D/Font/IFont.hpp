@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
+# include "FontFaceProperty.hpp"
 
 namespace s3d
 {
@@ -29,19 +30,7 @@ namespace s3d
 
 		virtual void release(Font::IDType handleID) = 0;
 
-		virtual const String& getFamilyName(Font::IDType handleID) = 0;
-
-		virtual const String& getStyleName(Font::IDType handleID) = 0;
-
-		virtual FontStyle getStyle(Font::IDType handleID) = 0;
-
-		virtual int32 getFontSize(Font::IDType handleID) = 0;
-
-		virtual int32 getAscender(Font::IDType handleID) = 0;
-
-		virtual int32 getDescender(Font::IDType handleID) = 0;
-
-		virtual int32 getHeight(Font::IDType handleID) = 0;
+		virtual const FontFaceProperty& getProperty(Font::IDType handleID) = 0;
 
 		virtual bool hasGlyph(Font::IDType handleID, StringView ch) = 0;
 

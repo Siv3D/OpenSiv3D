@@ -38,19 +38,7 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
-		const String& getFamilyName(Font::IDType handleID) override;
-
-		const String& getStyleName(Font::IDType handleID) override;
-
-		FontStyle getStyle(Font::IDType handleID) override;
-
-		int32 getFontSize(Font::IDType handleID) override;
-
-		int32 getAscender(Font::IDType handleID) override;
-
-		int32 getDescender(Font::IDType handleID) override;
-
-		int32 getHeight(Font::IDType handleID) override;
+		const FontFaceProperty& getProperty(Font::IDType handleID) override;
 
 		bool hasGlyph(Font::IDType handleID, StringView ch) override;
 

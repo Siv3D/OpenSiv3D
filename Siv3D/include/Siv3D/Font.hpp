@@ -61,6 +61,9 @@ namespace s3d
 		int32 height() const;
 
 		[[nodiscard]]
+		double spaceWidth() const;
+
+		[[nodiscard]]
 		bool hasGlyph(char32 ch) const;
 
 		[[nodiscard]]
