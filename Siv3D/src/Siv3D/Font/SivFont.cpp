@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Font.hpp>
+# include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
@@ -224,5 +225,15 @@ namespace s3d
 	const Texture& Font::getTexture() const
 	{
 		return SIV3D_ENGINE(Font)->getTexture(m_handle->id());
+	}
+
+	DrawableText Font::operator()(const String& text) const
+	{
+		return{ *this, text };
+	}
+
+	DrawableText Font::operator()(String&& text) const
+	{
+		return{ *this, std::move(text) };
 	}
 }

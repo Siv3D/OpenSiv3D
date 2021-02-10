@@ -25,6 +25,8 @@
 
 namespace s3d
 {
+	struct DrawableText;
+
 	class Font : public AssetHandle<Font>
 	{
 	public:
@@ -139,5 +141,15 @@ namespace s3d
 
 		[[nodiscard]]
 		const Texture& getTexture() const;
+
+		[[nodiscard]]
+		DrawableText operator()(const String& text) const;
+
+		[[nodiscard]]
+		DrawableText operator()(String&& text) const;
+
+		template <class ... Args>
+		[[nodiscard]]
+		DrawableText operator()(const Args& ... args) const;
 	};
 }
