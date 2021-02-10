@@ -74,6 +74,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).style;
 	}
 
+	FontMethod Font::method() const
+	{
+		return SIV3D_ENGINE(Font)->getMethod(m_handle->id());
+	}
+
 	int32 Font::fontSize() const
 	{
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).fontPixelSize;
@@ -99,6 +104,16 @@ namespace s3d
 	double Font::spaceWidth() const
 	{
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).spaceWidth;
+	}
+
+	void Font::setBufferThickness(const int32 thickness) const
+	{
+		SIV3D_ENGINE(Font)->setBufferThickness(m_handle->id(), thickness);
+	}
+
+	int32 Font::getBufferThickness() const
+	{
+		return SIV3D_ENGINE(Font)->getBufferThickness(m_handle->id());
 	}
 
 	bool Font::hasGlyph(const char32 ch) const
@@ -199,5 +214,15 @@ namespace s3d
 	MSDFGlyph Font::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
 	{
 		return SIV3D_ENGINE(Font)->renderMSDFByGlyphIndex(m_handle->id(), glyphIndex, buffer);
+	}
+
+	bool Font::preload(const StringView chars) const
+	{
+		return SIV3D_ENGINE(Font)->preload(m_handle->id(), chars);
+	}
+
+	const Texture& Font::getTexture() const
+	{
+		return SIV3D_ENGINE(Font)->getTexture(m_handle->id());
 	}
 }

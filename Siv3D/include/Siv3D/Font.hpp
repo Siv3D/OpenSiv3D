@@ -53,6 +53,9 @@ namespace s3d
 		FontStyle style() const;
 
 		[[nodiscard]]
+		FontMethod method() const;
+
+		[[nodiscard]]
 		int32 fontSize() const;
 
 		[[nodiscard]]
@@ -66,6 +69,11 @@ namespace s3d
 
 		[[nodiscard]]
 		double spaceWidth() const;
+
+		void setBufferThickness(int32 thickness) const;
+
+		[[nodiscard]]
+		int32 getBufferThickness() const;
 
 		[[nodiscard]]
 		bool hasGlyph(char32 ch) const;
@@ -126,5 +134,10 @@ namespace s3d
 
 		[[nodiscard]]
 		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer = 3) const;
+
+		bool preload(StringView chars) const;
+
+		[[nodiscard]]
+		const Texture& getTexture() const;
 	};
 }

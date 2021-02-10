@@ -23,31 +23,38 @@ namespace s3d
 
 		MSDFGlyphCache() = default;
 
-		RectF draw(const Font& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
+		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
 
-		RectF drawBase(const Font& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
-
-		[[nodiscard]]
-		RectF region(const Font& font, StringView s, const Vec2& pos, double size) override;
+		RectF drawBase(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
 
 		[[nodiscard]]
-		RectF regionBase(const Font& font, StringView s, const Vec2& pos, double size) override;
+		RectF region(const FontData& font, StringView s, const Vec2& pos, double size) override;
 
-		bool preload(const Font& font, const StringView s) override;
+		[[nodiscard]]
+		RectF regionBase(const FontData& font, StringView s, const Vec2& pos, double size) override;
+
+		void setBufferWidth(int32 width) override;
+
+		[[nodiscard]]
+		int32 getBufferWidth() const noexcept override;
+
+		bool preload(const FontData& font, const StringView s) override;
 
 		[[nodiscard]]
 		const Texture& getTexture() const noexcept override;
 
 	private:
 
-		[[nodiscard]]
-		bool prerender(const Font& font, StringView s, const Array<GlyphCluster>& clusters);
+		static constexpr int32 DefaultBuffer = 2;
 
 		[[nodiscard]]
-		RectF draw(const Font& font, StringView s, const Vec2& pos, double size, const ColorF& color, bool usebasePos);
+		bool prerender(const FontData& font, StringView s, const Array<GlyphCluster>& clusters);
 
 		[[nodiscard]]
-		RectF region(const Font& font, StringView s, const Vec2& pos, double size, bool usebasePos);
+		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color, bool usebasePos);
+
+		[[nodiscard]]
+		RectF region(const FontData& font, StringView s, const Vec2& pos, double size, bool usebasePos);
 
 		HashTable<GlyphIndex, GlyphCache> m_glyphTable;
 

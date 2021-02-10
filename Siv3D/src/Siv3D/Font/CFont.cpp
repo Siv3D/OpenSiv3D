@@ -112,6 +112,21 @@ namespace s3d
 		return m_fonts[handleID]->getProperty();
 	}
 
+	FontMethod CFont::getMethod(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getMethod();
+	}
+
+	void CFont::setBufferThickness(const Font::IDType handleID, const int32 thickness)
+	{
+		return m_fonts[handleID]->setBufferThickness(thickness);
+	}
+
+	int32 CFont::getBufferThickness(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getBufferThickness();
+	}
+
 	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)
 	{
 		return m_fonts[handleID]->hasGlyph(ch);
@@ -185,5 +200,15 @@ namespace s3d
 	MSDFGlyph CFont::renderMSDFByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const int32 buffer)
 	{
 		return m_fonts[handleID]->renderMSDFByGlyphIndex(glyphIndex, buffer);
+	}
+
+	bool CFont::preload(const Font::IDType handleID, const StringView chars)
+	{
+		return m_fonts[handleID]->preload(chars);
+	}
+
+	const Texture& CFont::getTexture(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getTexture();
 	}
 }

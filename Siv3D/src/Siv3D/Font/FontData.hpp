@@ -21,10 +21,11 @@
 # include <Siv3D/FontMethod.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
-# include "GlyphCache/IGlyphCache.hpp"
 
 namespace s3d
 {
+	class IGlyphCache;
+
 	class FontData
 	{
 	public:
@@ -44,6 +45,14 @@ namespace s3d
 
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
+		
+		[[nodiscard]]
+		FontMethod getMethod() const;
+
+		void setBufferThickness(int32 thickness);
+
+		[[nodiscard]]
+		int32 getBufferThickness() const;
 
 		[[nodiscard]]
 		bool hasGlyph(StringView ch);
@@ -52,25 +61,31 @@ namespace s3d
 		GlyphIndex getGlyphIndex(StringView ch);
 
 		[[nodiscard]]
-		Array<GlyphCluster> getGlyphClusters(StringView s);
+		Array<GlyphCluster> getGlyphClusters(StringView s) const;
 
 		[[nodiscard]]
-		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex);
+		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex) const;
 
 		[[nodiscard]]
-		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing);
+		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing) const;
 
 		[[nodiscard]]
-		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing);
+		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing) const;
 
 		[[nodiscard]]
-		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex);
+		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex) const;
 
 		[[nodiscard]]
-		SDFGlyph renderSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer);
+		SDFGlyph renderSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer) const;
 
 		[[nodiscard]]
-		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer);
+		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer) const;
+
+		[[nodiscard]]
+		bool preload(StringView chars) const;
+
+		[[nodiscard]]
+		const Texture& getTexture() const;
 
 	private:
 
@@ -81,6 +96,8 @@ namespace s3d
 	# endif
 
 		FontFace m_fontFace;
+
+		FontMethod m_method = FontMethod::Bitmap;
 
 		std::unique_ptr<IGlyphCache> m_glyphCache;
 

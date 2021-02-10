@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	bool ProcessControlCharacter(const char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, const double scale, const Font& font)
+	bool ProcessControlCharacter(const char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, const double scale, const FontData& font)
 	{
 		if (not IsControl(ch))
 		{
@@ -23,11 +23,11 @@ namespace s3d
 		switch (ch)
 		{
 		case U'\t':
-			penPos.x += (font.spaceWidth() * scale * 4);
+			penPos.x += (font.getProperty().spaceWidth * scale * 4);
 			break;
 		case U'\n':
 			penPos.x = basePos.x;
-			penPos.y += (font.height() * scale);
+			penPos.y += (font.getProperty().height() * scale);
 			++line;
 			break;
 		default:
@@ -37,12 +37,12 @@ namespace s3d
 		return true;
 	}
 
-	bool CacheGlyph(const Font& font, const Image& image, const GlyphInfo& glyphInfo,
+	bool CacheGlyph(const FontData& font, const Image& image, const GlyphInfo& glyphInfo,
 		BufferImage& buffer, HashTable<GlyphIndex, GlyphCache>& glyphTable)
 	{
 		if (not buffer.image)
 		{
-			const int32 fontSize = font.fontSize();
+			const int32 fontSize = font.getProperty().fontPixelSize;
 			const int32 baseWidth =
 				fontSize <= 16 ? 512 :
 				fontSize <= 32 ? 768 :

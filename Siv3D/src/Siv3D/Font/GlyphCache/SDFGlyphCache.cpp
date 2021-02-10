@@ -14,27 +14,37 @@
 
 namespace s3d
 {
-	RectF SDFGlyphCache::draw(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
 	{
 		return draw(font, s, pos, size, color, false);
 	}
 
-	RectF SDFGlyphCache::drawBase(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
 	{
 		return draw(font, s, pos, size, color, true);
 	}
 
-	RectF SDFGlyphCache::region(const Font& font, const StringView s, const Vec2& pos, const double size)
+	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size)
 	{
 		return region(font, s, pos, size, false);
 	}
 
-	RectF SDFGlyphCache::regionBase(const Font& font, const StringView s, const Vec2& pos, const double size)
+	RectF SDFGlyphCache::regionBase(const FontData& font, const StringView s, const Vec2& pos, const double size)
 	{
 		return region(font, s, pos, size, true);
 	}
 
-	bool SDFGlyphCache::preload(const Font& font, const StringView s)
+	void SDFGlyphCache::setBufferWidth(const int32 width)
+	{
+		m_buffer.bufferWidth = Max(width, 0);
+	}
+
+	int32 SDFGlyphCache::getBufferWidth() const noexcept
+	{
+		return m_buffer.bufferWidth;
+	}
+
+	bool SDFGlyphCache::preload(const FontData& font, const StringView s)
 	{
 		return prerender(font, s, font.getGlyphClusters(s));
 	}
@@ -44,7 +54,7 @@ namespace s3d
 		return m_texture;
 	}
 
-	bool SDFGlyphCache::prerender(const Font& font, const StringView s, const Array<GlyphCluster>& clusters)
+	bool SDFGlyphCache::prerender(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;
 
@@ -61,7 +71,7 @@ namespace s3d
 				continue;
 			}
 
-			const SDFGlyph glyph = font.renderSDFByGlyphIndex(cluster.glyphIndex);
+			const SDFGlyph glyph = font.renderSDFByGlyphIndex(cluster.glyphIndex, m_buffer.bufferWidth);
 
 			if (m_glyphTable.contains(glyph.glyphIndex))
 			{
@@ -84,7 +94,7 @@ namespace s3d
 		return true;
 	}
 
-	RectF SDFGlyphCache::draw(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -93,8 +103,9 @@ namespace s3d
 			return RectF{ 0 };
 		}
 
-		const double scale = (size / font.fontSize());
-		const bool noScaling = (size == font.fontSize());
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const bool noScaling = (size == prop.fontPixelSize);
 		const Vec2 basePos{ pos };
 		Vec2 penPos{ basePos };
 		int32 lineCount = 1;
@@ -132,11 +143,11 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -font.ascender()) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * font.height()) };
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * prop.height()) };
 	}
 
-	RectF SDFGlyphCache::region(const Font& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos)
+	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -145,7 +156,8 @@ namespace s3d
 			return RectF{ 0 };
 		}
 
-		const double scale = (size / font.fontSize());
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
 		const Vec2 basePos{ pos };
 		Vec2 penPos{ basePos };
 		int32 lineCount = 1;
@@ -164,7 +176,7 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -font.ascender()) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * font.height()) };
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * prop.height()) };
 	}
 }

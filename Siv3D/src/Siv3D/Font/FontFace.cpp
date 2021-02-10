@@ -84,7 +84,7 @@ namespace s3d
 		return m_property;
 	}
 
-	HBGlyphInfo FontFace::getHBGlyphInfo(const StringView s)
+	HBGlyphInfo FontFace::getHBGlyphInfo(const StringView s) const
 	{
 		if (not m_hbBuffer)
 		{

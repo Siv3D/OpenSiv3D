@@ -40,6 +40,12 @@ namespace s3d
 
 		const FontFaceProperty& getProperty(Font::IDType handleID) override;
 
+		FontMethod getMethod(Font::IDType handleID) override;
+
+		void setBufferThickness(Font::IDType handleID, int32 thickness) override;
+
+		int32 getBufferThickness(Font::IDType handleID) override;
+
 		bool hasGlyph(Font::IDType handleID, StringView ch) override;
 
 		GlyphIndex getGlyphIndex(Font::IDType handleID, StringView ch) override;
@@ -65,5 +71,9 @@ namespace s3d
 		MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) override;
 
 		MSDFGlyph renderMSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) override;
+	
+		bool preload(Font::IDType handleID, StringView chars) override;
+
+		const Texture& getTexture(Font::IDType handleID) override;
 	};
 }

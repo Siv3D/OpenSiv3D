@@ -45,7 +45,7 @@ namespace s3d
 		const FontFaceProperty& getProperty() const noexcept;
 
 		[[nodiscard]]
-		HBGlyphInfo getHBGlyphInfo(StringView s);
+		HBGlyphInfo getHBGlyphInfo(StringView s) const;
 
 	private:
 

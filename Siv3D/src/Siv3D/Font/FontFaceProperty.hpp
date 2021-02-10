@@ -33,5 +33,11 @@ namespace s3d
 		int16 ascender = 0;
 
 		int16 descender = 0;
+
+		[[nodiscard]]
+		int32 height() const noexcept
+		{
+			return (static_cast<int32>(ascender) + descender);
+		}
 	};
 }

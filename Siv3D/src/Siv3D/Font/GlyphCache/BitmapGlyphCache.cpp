@@ -15,27 +15,37 @@
 
 namespace s3d
 {
-	RectF BitmapGlyphCache::draw(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
 	{
 		return draw(font, s, pos, size, color, false);
 	}
 
-	RectF BitmapGlyphCache::drawBase(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF BitmapGlyphCache::drawBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
 	{
 		return draw(font, s, pos, size, color, true);
 	}
 
-	RectF BitmapGlyphCache::region(const Font& font, const StringView s, const Vec2& pos, const double size)
+	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size)
 	{
 		return region(font, s, pos, size, false);
 	}
 
-	RectF BitmapGlyphCache::regionBase(const Font& font, const StringView s, const Vec2& pos, const double size)
+	RectF BitmapGlyphCache::regionBase(const FontData& font, const StringView s, const Vec2& pos, const double size)
 	{
 		return region(font, s, pos, size, true);
 	}
 
-	bool BitmapGlyphCache::preload(const Font& font, const StringView s)
+	void BitmapGlyphCache::setBufferWidth(int32)
+	{
+		// do nothing
+	}
+
+	int32 BitmapGlyphCache::getBufferWidth() const noexcept
+	{
+		return 0;
+	}
+
+	bool BitmapGlyphCache::preload(const FontData& font, const StringView s)
 	{
 		return prerender(font, s, font.getGlyphClusters(s));
 	}
@@ -45,7 +55,7 @@ namespace s3d
 		return m_texture;
 	}
 
-	bool BitmapGlyphCache::prerender(const Font& font, const StringView s, const Array<GlyphCluster>& clusters)
+	bool BitmapGlyphCache::prerender(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;
 
@@ -85,7 +95,7 @@ namespace s3d
 		return true;
 	}
 
-	RectF BitmapGlyphCache::draw(const Font& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos)
+	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -94,8 +104,9 @@ namespace s3d
 			return RectF{ 0 };
 		}
 
-		const double scale = (size / font.fontSize());
-		const bool noScaling = (size == font.fontSize());
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const bool noScaling = (size == prop.fontPixelSize);
 		const Vec2 basePos{ pos };
 		Vec2 penPos{ basePos };
 		int32 lineCount = 1;
@@ -132,11 +143,11 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -font.ascender()) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * font.height()) };
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * (prop.height())) };
 	}
 
-	RectF BitmapGlyphCache::region(const Font& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos)
+	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -145,7 +156,8 @@ namespace s3d
 			return RectF{ 0 };
 		}
 
-		const double scale = (size / font.fontSize());
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
 		const Vec2 basePos{ pos };
 		Vec2 penPos{ basePos };
 		int32 lineCount = 1;
@@ -164,7 +176,7 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -font.ascender()) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * font.height()) };
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * (prop.height())) };
 	}
 }

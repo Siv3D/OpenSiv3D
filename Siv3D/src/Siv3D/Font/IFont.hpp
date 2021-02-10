@@ -32,6 +32,12 @@ namespace s3d
 
 		virtual const FontFaceProperty& getProperty(Font::IDType handleID) = 0;
 
+		virtual FontMethod getMethod(Font::IDType handleID) = 0;
+
+		virtual void setBufferThickness(Font::IDType handleID, int32 thickness) = 0;
+
+		virtual int32 getBufferThickness(Font::IDType handleID) = 0;
+
 		virtual bool hasGlyph(Font::IDType handleID, StringView ch) = 0;
 
 		virtual GlyphIndex getGlyphIndex(Font::IDType handleID, StringView ch) = 0;
@@ -57,5 +63,9 @@ namespace s3d
 		virtual MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) = 0;
 
 		virtual MSDFGlyph renderMSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) = 0;
+
+		virtual bool preload(Font::IDType handleID, StringView chars) = 0;
+
+		virtual const Texture& getTexture(Font::IDType handleID) = 0;
 	};
 }

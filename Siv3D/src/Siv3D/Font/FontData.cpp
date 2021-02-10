@@ -24,6 +24,8 @@ namespace s3d
 {
 	FontData::FontData(Null)
 	{
+		m_glyphCache = std::make_unique<BitmapGlyphCache>();
+
 		m_initialized = true;
 	}
 
@@ -70,6 +72,8 @@ namespace s3d
 			break;
 		}
 
+		m_method = fontMethod;
+
 		m_initialized = true;
 	}
 
@@ -86,6 +90,21 @@ namespace s3d
 	const FontFaceProperty& FontData::getProperty() const noexcept
 	{
 		return m_fontFace.getProperty();
+	}
+
+	FontMethod FontData::getMethod() const
+	{
+		return m_method;
+	}
+
+	void FontData::setBufferThickness(const int32 thickness)
+	{
+		m_glyphCache->setBufferWidth(thickness);
+	}
+
+	int32 FontData::getBufferThickness() const
+	{
+		return m_glyphCache->getBufferWidth();
 	}
 
 	bool FontData::hasGlyph(const StringView ch)
@@ -116,7 +135,7 @@ namespace s3d
 		return glyphIndex;
 	}
 
-	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s)
+	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s) const
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
 
@@ -132,17 +151,17 @@ namespace s3d
 		return clusters;
 	}
 
-	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex)
+	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
 	{
 		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
-	OutlineGlyph FontData::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing)
+	OutlineGlyph FontData::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing) const
 	{
 		return RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, closeRing, m_fontFace.getProperty());
 	}
 
-	Array<OutlineGlyph> FontData::renderOutlines(const StringView s, const CloseRing closeRing)
+	Array<OutlineGlyph> FontData::renderOutlines(const StringView s, const CloseRing closeRing) const
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
 
@@ -158,18 +177,28 @@ namespace s3d
 		return results;
 	}
 
-	BitmapGlyph FontData::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex)
+	BitmapGlyph FontData::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex) const
 	{
 		return RenderBitmapGlyph(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
 	}
 
-	SDFGlyph FontData::renderSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer)
+	SDFGlyph FontData::renderSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
 	{
 		return RenderSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 
-	MSDFGlyph FontData::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer)
+	MSDFGlyph FontData::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
 	{
 		return RenderMSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
+	}
+
+	bool FontData::preload(const StringView chars) const
+	{
+		return m_glyphCache->preload(*this, chars);
+	}
+
+	const Texture& FontData::getTexture() const
+	{
+		return m_glyphCache->getTexture();
 	}
 }

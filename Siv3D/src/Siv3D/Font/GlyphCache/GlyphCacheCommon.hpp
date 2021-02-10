@@ -13,8 +13,8 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/Image.hpp>
-# include <Siv3D/Font.hpp>
 # include <Siv3D/HashTable.hpp>
+# include "../FontData.hpp"
 
 namespace s3d
 {
@@ -39,6 +39,8 @@ namespace s3d
 
 		Color backgroundColor{ 255, 0 };
 
+		int32 bufferWidth = 2;
+
 		int32 padding = 1;
 
 		Point penPos = { 0, padding };
@@ -47,9 +49,9 @@ namespace s3d
 	};
 
 	[[nodiscard]]
-	bool ProcessControlCharacter(char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, double scale, const Font& font);
+	bool ProcessControlCharacter(char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, double scale, const FontData& font);
 
 	[[nodiscard]]
-	bool CacheGlyph(const Font& font, const Image& image, const GlyphInfo& glyphInfo,
+	bool CacheGlyph(const FontData& font, const Image& image, const GlyphInfo& glyphInfo,
 		BufferImage& buffer, HashTable<GlyphIndex, GlyphCache>& glyphTable);
 }
