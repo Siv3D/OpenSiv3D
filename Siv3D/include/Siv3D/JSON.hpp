@@ -306,22 +306,6 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Type> getOpt() const;
 
-		template <>
-		[[nodiscard]]
-		Optional<String> getOpt<String>() const;
-
-		template <>
-		[[nodiscard]]
-		Optional<int64> getOpt<int64>() const;
-
-		template <>
-		[[nodiscard]]
-		Optional<double> getOpt<double>() const;
-
-		template <>
-		[[nodiscard]]
-		Optional<bool> getOpt<bool>() const;
-
 		JSON operator [](StringView name);
 
 		const JSON operator [](StringView name) const;

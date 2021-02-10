@@ -108,31 +108,26 @@ namespace s3d
 	template <class Type>
 	inline Optional<Type> JSON::getOpt() const
 	{
-		return getOpt_<Type>();
-	}
-
-	template <>
-	inline Optional<String> JSON::getOpt<String>() const
-	{
-		return getOptString();
-	}
-
-	template <>
-	inline Optional<int64> JSON::getOpt<int64>() const
-	{
-		return getOptInt64();
-	}
-
-	template <>
-	inline Optional<double> JSON::getOpt<double>() const
-	{
-		return getOptDouble();
-	}
-
-	template <>
-	inline Optional<bool> JSON::getOpt<bool>() const
-	{
-		return getOptBool();
+		if constexpr (std::is_same_v<Type, String>)
+		{
+			return getOptString();
+		}
+		else if constexpr (std::is_same_v<Type, int64>)
+		{
+			return getOptInt64();
+		}
+		else if constexpr (std::is_same_v<Type, double>)
+		{
+			return getOptDouble();
+		}
+		else if constexpr (std::is_same_v<Type, bool>)
+		{
+			return getOptBool();
+		}
+		else
+		{
+			return getOpt_<Type>();
+		}
 	}
 
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>*>
