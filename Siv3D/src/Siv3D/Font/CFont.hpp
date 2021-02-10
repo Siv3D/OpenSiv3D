@@ -12,12 +12,35 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/PixelShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "IFont.hpp"
 # include "FontData.hpp"
 
 namespace s3d
 {
+	struct FontShader
+	{
+		PixelShader bitmapFont;
+		PixelShader sdfFont;
+		PixelShader msdfFont;
+
+		[[nodiscard]]
+		PixelShader getFontShader(FontMethod method)
+		{
+			switch (method)
+			{
+			case FontMethod::Bitmap:
+			default:
+				return bitmapFont;
+			case FontMethod::SDF:
+				return sdfFont;
+			case FontMethod::MSDF:
+				return msdfFont;
+			}
+		}
+	};
+
 	class CFont final : public ISiv3DFont
 	{
 	private:
@@ -25,6 +48,8 @@ namespace s3d
 		FT_Library m_freeType = nullptr;
 
 		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
+		std::unique_ptr<FontShader> m_shaders;
 
 	public:
 

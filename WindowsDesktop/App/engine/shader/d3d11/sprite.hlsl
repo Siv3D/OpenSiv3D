@@ -44,6 +44,11 @@ namespace s3d
 	{
 		return float4((t._13_14 + (pos.x * t._11_12) + (pos.y * t._21_22)), t._23_24);
 	}
+
+	float median(float r, float g, float b)
+	{
+		return max(min(r, g), min(max(r, g), b));
+	}
 }
 
 //
@@ -81,11 +86,58 @@ float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 
 float4 PS_Texture(s3d::PSInput input) : SV_TARGET
 {
-	float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
 
 	return ((texColor * input.color) + g_colorAdd);
 }
 
+float4 PS_BitmapFont(s3d::PSInput input) : SV_TARGET
+{
+	const float textAlpha = g_texture0.Sample(g_sampler0, input.uv).a;
+
+	input.color.a *= textAlpha;
+
+	return (input.color + g_colorAdd);
+}
+
+float4 PS_SDFFont(s3d::PSInput input) : SV_TARGET
+{
+	const float d = g_texture0.Sample(g_sampler0, input.uv).a;
+
+	const float td = (d - 0.5);
+	const float textAlpha = saturate(td / fwidth(td) + 0.5);
+
+	input.color.a *= textAlpha;
+
+	return (input.color + g_colorAdd);
+}
+
+float4 PS_MSDFFont(s3d::PSInput input) : SV_TARGET
+{
+	float2 size; g_texture0.GetDimensions(size.x, size.y);
+	const float pxRange = 4.0;
+	const float2 msdfUnit = (pxRange / size);
+
+	const float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
+	const float d = s3d::median(s.r, s.g, s.b);
+
+	const float td = (d - 0.5);
+	const float textAlpha = saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
+
+	input.color.a *= textAlpha;
+
+	return (input.color + g_colorAdd);
+}
+
+
+
+
+
+
+
+
+
+/*
 float4 PS_SquareDot(s3d::PSInput input) : SV_TARGET
 {
 	float tr = input.uv.y;
@@ -136,3 +188,4 @@ float4 PS_SDF(s3d::PSInput input) : SV_TARGET
 
 	return input.color + g_colorAdd;
 }
+*/

@@ -117,6 +117,15 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Texture")
 				.save(U"engine/shader/d3d11/texture.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_BitmapFont")
+				.save(U"engine/shader/d3d11/bitmapfont.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont")
+				.save(U"engine/shader/d3d11/sdffont.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont")
+				.save(U"engine/shader/d3d11/msdffont.ps");
+
 			throw EngineError(U"Engine shaders have compiled. Please rebuild the project.");
 		}
 

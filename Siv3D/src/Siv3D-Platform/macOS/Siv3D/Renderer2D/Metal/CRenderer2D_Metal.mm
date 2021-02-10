@@ -71,8 +71,8 @@ namespace s3d
 		// 標準 VS をロード
 		{
 			m_standardVS = std::make_unique<MetalStandardVS2D>();
-			m_standardVS->sprite = MSL(U"VS_Sprite");
-			m_standardVS->fullscreen_triangle = MSL(U"VS_FullscreenTriangle");
+			m_standardVS->sprite = MSL{ U"VS_Sprite" };
+			m_standardVS->fullscreen_triangle = MSL{ U"VS_FullscreenTriangle" };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_Metal::m_standardVS initialization failed");
@@ -82,8 +82,8 @@ namespace s3d
 		// 標準 PS をロード
 		{
 			m_standardPS = std::make_unique<MetalStandardPS2D>();
-			m_standardPS->shape = MSL(U"PS_Shape");
-			m_standardPS->fullscreen_triangle = MSL(U"PS_FullscreenTriangle");
+			m_standardPS->shape = MSL{ U"PS_Shape" };
+			m_standardPS->fullscreen_triangle = MSL{ U"PS_FullscreenTriangle" };
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_Metal::m_standardPS initialization failed");
