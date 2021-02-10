@@ -15,24 +15,24 @@
 
 namespace s3d
 {
-	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, pos, size, color, false);
+		return draw(font, s, pos, size, color, false, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::drawBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color)
+	RectF BitmapGlyphCache::drawBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, pos, size, color, true);
+		return draw(font, s, pos, size, color, true, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size)
+	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return region(font, s, pos, size, false);
+		return region(font, s, pos, size, false, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::regionBase(const FontData& font, const StringView s, const Vec2& pos, const double size)
+	RectF BitmapGlyphCache::regionBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return region(font, s, pos, size, true);
+		return region(font, s, pos, size, true, lineHeightScale);
 	}
 
 	void BitmapGlyphCache::setBufferWidth(int32)
@@ -95,7 +95,7 @@ namespace s3d
 		return true;
 	}
 
-	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos)
+	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -114,7 +114,7 @@ namespace s3d
 
 		for (const auto& cluster : clusters)
 		{
-			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, font))
+			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
 			{
 				xMax = Max(xMax, penPos.x);
 				continue;
@@ -144,10 +144,10 @@ namespace s3d
 		}
 
 		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * (prop.height())) };
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos)
+	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
 	{
 		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
 
@@ -165,7 +165,7 @@ namespace s3d
 
 		for (const auto& cluster : clusters)
 		{
-			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, font))
+			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
 			{
 				xMax = Max(xMax, penPos.x);
 				continue;
@@ -177,6 +177,6 @@ namespace s3d
 		}
 
 		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
-		return{ topLeft, (xMax - basePos.x), static_cast<double>(lineCount * (prop.height())) };
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 }

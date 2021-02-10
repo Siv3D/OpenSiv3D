@@ -13,6 +13,7 @@
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CFont.hpp"
+# include "GlyphCache/IGlyphCache.hpp"
 
 namespace s3d
 {
@@ -119,12 +120,12 @@ namespace s3d
 
 	void CFont::setBufferThickness(const Font::IDType handleID, const int32 thickness)
 	{
-		return m_fonts[handleID]->setBufferThickness(thickness);
+		return m_fonts[handleID]->getGlyphCache().setBufferWidth(thickness);
 	}
 
 	int32 CFont::getBufferThickness(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getBufferThickness();
+		return m_fonts[handleID]->getGlyphCache().getBufferWidth();
 	}
 
 	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)
@@ -204,11 +205,20 @@ namespace s3d
 
 	bool CFont::preload(const Font::IDType handleID, const StringView chars)
 	{
-		return m_fonts[handleID]->preload(chars);
+		const auto& font = m_fonts[handleID];
+
+		return font->getGlyphCache().preload(*font, chars);
 	}
 
 	const Texture& CFont::getTexture(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getTexture();
+		return m_fonts[handleID]->getGlyphCache().getTexture();
+	}
+
+	RectF CFont::draw(const Font::IDType handleID, const StringView s, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return m_fonts[handleID]->getGlyphCache().draw(*font, s, pos, fontSize, color, lineHeightScale);
 	}
 }

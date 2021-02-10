@@ -23,15 +23,15 @@ namespace s3d
 
 		SDFGlyphCache() = default;
 
-		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
+		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color, double lineHeightScale) override;
 
-		RectF drawBase(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color) override;
-
-		[[nodiscard]]
-		RectF region(const FontData& font, StringView s, const Vec2& pos, double size) override;
+		RectF drawBase(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color, double lineHeightScale) override;
 
 		[[nodiscard]]
-		RectF regionBase(const FontData& font, StringView s, const Vec2& pos, double size) override;
+		RectF region(const FontData& font, StringView s, const Vec2& pos, double size, double lineHeightScale) override;
+
+		[[nodiscard]]
+		RectF regionBase(const FontData& font, StringView s, const Vec2& pos, double size, double lineHeightScale) override;
 
 		void setBufferWidth(int32 width) override;
 
@@ -49,10 +49,10 @@ namespace s3d
 		bool prerender(const FontData& font, StringView s, const Array<GlyphCluster>& clusters);
 
 		[[nodiscard]]
-		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color, bool usebasePos);
+		RectF draw(const FontData& font, StringView s, const Vec2& pos, double size, const ColorF& color, bool usebasePos, double lineHeightScale);
 
 		[[nodiscard]]
-		RectF region(const FontData& font, StringView s, const Vec2& pos, double size, bool usebasePos);
+		RectF region(const FontData& font, StringView s, const Vec2& pos, double size, bool usebasePos, double lineHeightScale);
 
 		HashTable<GlyphIndex, GlyphCache> m_glyphTable;
 

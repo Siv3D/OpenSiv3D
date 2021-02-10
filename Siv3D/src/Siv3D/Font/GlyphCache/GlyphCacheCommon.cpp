@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	bool ProcessControlCharacter(const char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, const double scale, const FontData& font)
+	bool ProcessControlCharacter(const char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, const double scale, const double lineHeightScale, const FontFaceProperty& prop)
 	{
 		if (not IsControl(ch))
 		{
@@ -23,11 +23,11 @@ namespace s3d
 		switch (ch)
 		{
 		case U'\t':
-			penPos.x += (font.getProperty().spaceWidth * scale * 4);
+			penPos.x += (prop.spaceWidth * scale * 4);
 			break;
 		case U'\n':
 			penPos.x = basePos.x;
-			penPos.y += (font.getProperty().height() * scale);
+			penPos.y += (prop.height() * scale * lineHeightScale);
 			++line;
 			break;
 		default:

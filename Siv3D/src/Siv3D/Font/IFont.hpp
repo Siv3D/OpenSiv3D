@@ -67,5 +67,7 @@ namespace s3d
 		virtual bool preload(Font::IDType handleID, StringView chars) = 0;
 
 		virtual const Texture& getTexture(Font::IDType handleID) = 0;
+
+		virtual RectF draw(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
 	};
 }

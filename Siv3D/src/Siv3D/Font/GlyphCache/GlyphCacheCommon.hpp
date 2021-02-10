@@ -49,7 +49,7 @@ namespace s3d
 	};
 
 	[[nodiscard]]
-	bool ProcessControlCharacter(char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, double scale, const FontData& font);
+	bool ProcessControlCharacter(char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, double scale, double lineHeightScale, const FontFaceProperty& prop);
 
 	[[nodiscard]]
 	bool CacheGlyph(const FontData& font, const Image& image, const GlyphInfo& glyphInfo,

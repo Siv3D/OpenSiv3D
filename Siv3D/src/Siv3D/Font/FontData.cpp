@@ -97,16 +97,6 @@ namespace s3d
 		return m_method;
 	}
 
-	void FontData::setBufferThickness(const int32 thickness)
-	{
-		m_glyphCache->setBufferWidth(thickness);
-	}
-
-	int32 FontData::getBufferThickness() const
-	{
-		return m_glyphCache->getBufferWidth();
-	}
-
 	bool FontData::hasGlyph(const StringView ch)
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
@@ -192,13 +182,8 @@ namespace s3d
 		return RenderMSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 
-	bool FontData::preload(const StringView chars) const
+	IGlyphCache& FontData::getGlyphCache()
 	{
-		return m_glyphCache->preload(*this, chars);
-	}
-
-	const Texture& FontData::getTexture() const
-	{
-		return m_glyphCache->getTexture();
+		return *m_glyphCache;
 	}
 }

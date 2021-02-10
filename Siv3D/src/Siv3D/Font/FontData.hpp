@@ -49,11 +49,6 @@ namespace s3d
 		[[nodiscard]]
 		FontMethod getMethod() const;
 
-		void setBufferThickness(int32 thickness);
-
-		[[nodiscard]]
-		int32 getBufferThickness() const;
-
 		[[nodiscard]]
 		bool hasGlyph(StringView ch);
 
@@ -82,10 +77,7 @@ namespace s3d
 		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer) const;
 
 		[[nodiscard]]
-		bool preload(StringView chars) const;
-
-		[[nodiscard]]
-		const Texture& getTexture() const;
+		IGlyphCache& getGlyphCache();
 
 	private:
 
