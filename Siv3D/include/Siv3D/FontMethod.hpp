@@ -9,8 +9,17 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Common.hpp>
+# pragma once
+# include "Common.hpp"
 
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
-# include "agg_curves_impl.hpp"
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
+namespace s3d
+{
+	enum class FontMethod : uint32
+	{
+		Bitmap,
+
+		SDF,
+
+		MSDF,
+	};
+}

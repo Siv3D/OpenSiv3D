@@ -578,7 +578,7 @@ namespace s3d
 
 	inline constexpr bool Rect::hasArea() const noexcept
 	{
-		return ((w == 0) || (h == 0));
+		return ((w != 0) && (h != 0));
 	}
 
 	inline constexpr Rect::size_type Rect::tl() const noexcept

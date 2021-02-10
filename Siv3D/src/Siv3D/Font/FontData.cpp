@@ -16,6 +16,9 @@
 # include "GlyphRenderer/OutlineGlyphRenderer.hpp"
 # include "GlyphRenderer/SDFGlyphRenderer.hpp"
 # include "GlyphRenderer/MSDFGlyphRenderer.hpp"
+# include "GlyphCache/BitmapGlyphCache.hpp"
+# include "GlyphCache/SDFGlyphCache.hpp"
+# include "GlyphCache/MSDFGlyphCache.hpp"
 
 namespace s3d
 {
@@ -24,7 +27,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	FontData::FontData(const FT_Library library, const FilePathView path, const int32 fontSize, const FontStyle style)
+	FontData::FontData(const FT_Library library, const FilePathView path, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 	# if SIV3D_PLATFORM(WINDOWS)
 
@@ -53,6 +56,19 @@ namespace s3d
 		}
 
 	# endif
+
+		switch (fontMethod)
+		{
+		case FontMethod::Bitmap:
+			m_glyphCache = std::make_unique<BitmapGlyphCache>();
+			break;
+		case FontMethod::SDF:
+			m_glyphCache = std::make_unique<SDFGlyphCache>();
+			break;
+		case FontMethod::MSDF:
+			m_glyphCache = std::make_unique<MSDFGlyphCache>();
+			break;
+		}
 
 		m_initialized = true;
 	}

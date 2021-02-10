@@ -994,6 +994,7 @@
 # include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
 # include <Siv3D/MSDFGlyph.hpp>
+# include <Siv3D/FontMethod.hpp>
 # include <Siv3D/Font.hpp>
 
 

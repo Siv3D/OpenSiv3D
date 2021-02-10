@@ -18,8 +18,10 @@
 # include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
 # include <Siv3D/MSDFGlyph.hpp>
+# include <Siv3D/FontMethod.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
+# include "GlyphCache/IGlyphCache.hpp"
 
 namespace s3d
 {
@@ -33,7 +35,7 @@ namespace s3d
 
 		explicit FontData(Null);
 
-		FontData(FT_Library library, FilePathView path, int32 fontSize, FontStyle style);
+		FontData(FT_Library library, FilePathView path, FontMethod fontMethod, int32 fontSize, FontStyle style);
 
 		~FontData();
 
@@ -79,6 +81,8 @@ namespace s3d
 	# endif
 
 		FontFace m_fontFace;
+
+		std::unique_ptr<IGlyphCache> m_glyphCache;
 
 		bool m_initialized = false;
 	};

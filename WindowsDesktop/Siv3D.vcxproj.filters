@@ -796,6 +796,9 @@
     <Filter Include="src\Siv3D\Font\GlyphRenderer\agg">
       <UniqueIdentifier>{1b168002-6b08-4a64-884f-fa9de6cd6195}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Font\GlyphCache">
+      <UniqueIdentifier>{ca6f68c2-0cd2-48fb-97d8-ba0908242594}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3948,6 +3951,24 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphCache\IGlyphCache.hpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphCache\BitmapGlyphCache.hpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphCache\SDFGlyphCache.hpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphCache\MSDFGlyphCache.hpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphCache\GlyphCacheCommon.hpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FontMethod.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5326,6 +5347,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\BitmapGlyphRenderer.cpp">
       <Filter>src\Siv3D\Font\GlyphRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphCache\BitmapGlyphCache.cpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphCache\SDFGlyphCache.cpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphCache\MSDFGlyphCache.cpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\GlyphCache\GlyphCacheCommon.cpp">
+      <Filter>src\Siv3D\Font\GlyphCache</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

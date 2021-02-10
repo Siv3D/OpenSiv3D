@@ -132,13 +132,17 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
+  ../Siv3D/src/Siv3D/Font/CFont.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/BitmapGlyphCache.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/GlyphCacheCommon.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/MSDFGlyphCache.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/SDFGlyphCache.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/agg/agg.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/GlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/BitmapGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/MSDFGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/OutlineGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/GlyphRenderer/SDFGlyphRenderer.cpp
-  ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/FontData.cpp
   ../Siv3D/src/Siv3D/Font/FontFace.cpp
   ../Siv3D/src/Siv3D/Font/FontFactory.cpp

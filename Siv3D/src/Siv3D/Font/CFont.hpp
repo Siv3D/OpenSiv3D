@@ -34,7 +34,7 @@ namespace s3d
 
 		void init() override;
 
-		Font::IDType create(FilePathView path, int32 fontSize, FontStyle style) override;
+		Font::IDType create(FilePathView path, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
 
 		void release(Font::IDType handleID) override;
 
