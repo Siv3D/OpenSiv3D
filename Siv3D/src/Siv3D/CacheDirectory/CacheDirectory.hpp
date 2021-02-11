@@ -10,13 +10,17 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Types.hpp"
-
-/// @biref ライブラリのバージョンの文字列 | Library version string
-# define SIV3D_VERSION	U"0.6.0_dev"
+# include <Siv3D/Common.hpp>
+# include <Siv3D/String.hpp>
 
 namespace s3d
 {
-	/// @brief ライブラリのバージョン番号 | Library version number
-	inline constexpr uint32 Siv3DVersion = 200'060'000u;
+	namespace CacheDirectory
+	{
+		[[nodiscard]]
+		FilePath Engine();
+
+		[[nodiscard]]
+		FilePath Apps(StringView applicationName);
+	}
 }

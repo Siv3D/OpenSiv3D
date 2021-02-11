@@ -25,7 +25,7 @@ namespace s3d
 
 		size_t m_num_customLicenses = 0;
 
-		String m_normalizedApplicationName = SIV3D_VERSION;
+		String m_applicationName;
 
 		bool m_openLicenseWithF1Key = true;
 
@@ -43,7 +43,7 @@ namespace s3d
 
 		const Array<LicenseInfo>& enumLicenses() const noexcept override;
 
-		const String& getNormalizedApplicationName() const noexcept override;
+		const String& getApplicationName() const noexcept override;
 
 		void setDefaultTriggerRnabled(bool enabled) noexcept override;
 	};

@@ -15,36 +15,10 @@
 # include <Siv3D/EngineLog.hpp>
 # include "CFont_Headless.hpp"
 # include "GlyphCache/IGlyphCache.hpp"
+# include "FontCommon.hpp"
 
 namespace s3d
 {
-	namespace detail
-	{
-		[[nodiscard]]
-		constexpr StringView ToString(const FontStyle style) noexcept
-		{
-			switch (style)
-			{
-			case FontStyle::Default:
-				return U"Default";
-			case FontStyle::Bold:
-				return U"Bold";
-			case FontStyle::Italic:
-				return U"Italic";
-			case FontStyle::BoldItalic:
-				return U"BoldItalic";
-			case FontStyle::Bitmap:
-				return U"Bitmap";
-			case FontStyle::BoldBitmap:
-				return U"BoldBitmap";
-			case FontStyle::ItalicBitmap:
-				return U"ItalicBitmap";
-			default:
-				return U"BoldItalicBitmap";
-			}
-		}
-	}
-
 	CFont_Headless::CFont_Headless()
 	{
 		// do nothing

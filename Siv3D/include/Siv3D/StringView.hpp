@@ -255,6 +255,11 @@ namespace s3d
 		[[nodiscard]]
 		std::string toUTF8() const;
 
+		/// @brief 文字列のハッシュを返します。
+		/// @return 文字列のハッシュ
+		[[nodiscard]]
+		uint64 hash() const noexcept;
+
 		[[nodiscard]]
 		friend constexpr bool operator ==(StringView lhs, StringView rhs) noexcept
 		{
@@ -334,7 +339,7 @@ struct std::hash<s3d::StringView>
 	[[nodiscard]]
 	size_t operator()(const s3d::StringView& value) const noexcept
 	{
-		return s3d::Hash::FNV1a(value.data(), value.size_bytes());
+		return value.hash();
 	}
 };
 

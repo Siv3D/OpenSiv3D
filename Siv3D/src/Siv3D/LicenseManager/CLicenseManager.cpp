@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Keyboard.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include "CLicenseManager.hpp"
 # include "LicenseList.hpp"
 
@@ -18,7 +19,7 @@ namespace s3d
 	CLicenseManager::CLicenseManager()
 		: m_licenses(std::begin(detail::licenses), std::end(detail::licenses))
 	{
-
+		m_applicationName = FileSystem::BaseName(FileSystem::ModulePath());
 	}
 
 	CLicenseManager::~CLicenseManager()
@@ -55,24 +56,7 @@ namespace s3d
 			m_licenses.front() = license;
 		}
 
-		if (const auto name = applicationName.removed_if([](char32 c)
-			{
-				return (c != U'\\')
-					&& (c != U'/')
-					&& (c != U',')
-					&& (c != U'.')
-					&& (c != U';')
-					&& (c != U':')
-					&& (c != U'*')
-					&& (c != U'?')
-					&& (c != U'\"')
-					&& (c != U'<')
-					&& (c != U'>')
-					&& (c != U'|');
-			}))
-		{
-			m_normalizedApplicationName = name;
-		}
+		m_applicationName = applicationName;
 	}
 
 	void CLicenseManager::addLicense(const LicenseInfo& license)
@@ -87,9 +71,9 @@ namespace s3d
 		return m_licenses;
 	}
 
-	const String& CLicenseManager::getNormalizedApplicationName() const noexcept
+	const String& CLicenseManager::getApplicationName() const noexcept
 	{
-		return m_normalizedApplicationName;
+		return m_applicationName;
 	}
 
 	void CLicenseManager::setDefaultTriggerRnabled(const bool enabled) noexcept

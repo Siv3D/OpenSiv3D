@@ -28,4 +28,9 @@ namespace s3d
 	{
 		return Unicode::ToUTF8(*this);
 	}
+
+	uint64 StringView::hash() const noexcept
+	{
+		return Hash::FNV1a(data(), size_bytes());
+	}
 }

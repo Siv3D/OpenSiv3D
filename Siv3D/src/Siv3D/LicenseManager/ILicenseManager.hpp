@@ -31,7 +31,7 @@ namespace s3d
 
 		virtual const Array<LicenseInfo>& enumLicenses() const noexcept = 0;
 
-		virtual const String& getNormalizedApplicationName() const noexcept  = 0;
+		virtual const String& getApplicationName() const noexcept  = 0;
 
 		virtual void setDefaultTriggerRnabled(bool enabled) noexcept = 0;
 	};

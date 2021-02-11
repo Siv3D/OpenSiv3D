@@ -15,6 +15,7 @@
 # include <Siv3D/System.hpp>
 # include <Siv3D/LicenseManager/ILicenseManager.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/CacheDirectory/CacheDirectory.hpp>
 
 namespace s3d
 {
@@ -50,13 +51,6 @@ div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9
 		constexpr static std::string_view licenseC1 = R"-(<div class="c1">)-";
 
 		constexpr static std::string_view licenseC2 = R"-(<div class="c2">)-";
-		
-		[[nodiscard]]
-		static FilePath MakeLicensePath(const String& applicationName)
-		{
-			return FileSystem::GetFolderPath(SpecialFolder::LocalAppData)
-				+ U"Siv3DApps/" + applicationName + U"/Licenses.html";
-		}
 	}
 
 	namespace LicenseManager
@@ -88,8 +82,8 @@ div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9
 
 		void ShowInBrowser()
 		{
-			const String& name = SIV3D_ENGINE(LicenseManager)->getNormalizedApplicationName();
-			const FilePath path = detail::MakeLicensePath(name);
+			const String& applicationName = SIV3D_ENGINE(LicenseManager)->getApplicationName();
+			const FilePath path = (CacheDirectory::Apps(applicationName) + U"Licenses.html");
 			{
 				TextWriter writer(path);
 				writer.writeUTF8(detail::header);
