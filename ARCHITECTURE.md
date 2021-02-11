@@ -6,10 +6,10 @@
 Contains public headers that are shipped with `OpenSiv3D SDK`.
 
 ### `Siv3D/src/`
-Contains sources files to build `OpenSiv3D library`.
+Contains private source files used to build `OpenSiv3D library`.
 
 ### `Siv3D/lib/`
-Contains dependent libraries to build an OpenSiv3D application.
+Contains dependent libraries used to build an OpenSiv3D application.
 
 - `Siv3D/lib/Windows`
     -  Contains pre-built libraries that are shipped with `OpenSiv3D SDK for Windows`.
@@ -17,23 +17,23 @@ Contains dependent libraries to build an OpenSiv3D application.
     -  Contains pre-built libraries that are shipped with `OpenSiv3D SDK for macOS`.
 
 ### `Dependencies/`
-A directory to place extra dependent library source files.
+A directory to place extra dependent library used to build `OpenSiv3D library`.
 
 - `Dependencies/boost_1_73_0/`
-    - Place `boost` folder that is a part of the Boost 1.73.0
-    - This directory is referenced when building `OpenSiv3D library` in Visual Studio or Xcode.
+    - Place `boost` folder which is a part of [Boost 1.73.0](https://dl.bintray.com/boostorg/release/1.73.0/source/)
+    - This directory is referenced when building `OpenSiv3D library` on Visual Studio or Xcode.
 
 ### `Test/`
-Contains source files for the OpenSiv3D test application.
+Contains source files used to build the OpenSiv3D test application.
 
 ### `WindowsDesktop/`
-Contains a Visual Studio solution to build `OpenSiv3D library` and OpenSiv3D test application on Windows.
+Contains a Visual Studio solution used to build `OpenSiv3D library` and OpenSiv3D test application on Windows.
 
 ### `macOS/`
-Contains a Xcode project to build `OpenSiv3D library` and OpenSiv3D test application on macOS.
+Contains a Xcode project used to build `OpenSiv3D library` and OpenSiv3D test application on macOS.
 
 ### `Linux/`
-Contains files to build `OpenSiv3D library` and OpenSiv3D test application on Linux.
+Contains files used to build `OpenSiv3D library` and OpenSiv3D test application on Linux.
 
 ### `Web/`
-Contains files to build `OpenSiv3D library` and OpenSiv3D test application that runs on a web browser.
+Contains files used to build `OpenSiv3D library` and OpenSiv3D test application that runs on a web browser.

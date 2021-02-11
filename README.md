@@ -18,4 +18,7 @@
 
 <small>* Some functionality may be missing or limited</small>
 
+## Quick Links
+
 - [Third-Party Libraries](ThirdParty.md)
+- [Architecture](ARCHITECTURE.md)
