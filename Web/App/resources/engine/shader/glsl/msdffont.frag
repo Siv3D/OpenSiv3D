@@ -1,3 +1,5 @@
+#version 300 es
+
 //-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
@@ -9,7 +11,7 @@
 //
 //-----------------------------------------------
 
-# version 410
+precision mediump float;
 
 //
 //	Textures
@@ -19,8 +21,8 @@ uniform sampler2D Texture0;
 //
 //	PSInput
 //
-layout(location = 0) in vec4 Color;
-layout(location = 1) in vec2 UV;
+in vec4 Color;
+in vec2 UV;
 
 //
 //	PSOutput
@@ -47,7 +49,7 @@ float median(float r, float g, float b)
 
 void main()
 {
-	vec2 size = textureSize(Texture0, 0);
+	vec2 size = vec2(textureSize(Texture0, 0));
 	const float pxRange = 4.0;
 	vec2 msdfUnit = (pxRange / size);
 
