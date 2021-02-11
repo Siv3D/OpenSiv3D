@@ -92,6 +92,7 @@ jobs:
           mkdir -p Package/lib
           cp -r Siv3D/include Package
           cp -r Web/App/resources Package
+          cp -r Web/App/example Package
           cp Web/build/${{ matrix.config.output-file }} Package/lib
           cp Web/Siv3D.js Package/lib
           zip -r OpenSiv3D.zip Package
