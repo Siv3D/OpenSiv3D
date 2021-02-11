@@ -36,6 +36,14 @@ namespace s3d
 		RectF draw(double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF draw(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(double size, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
 
 	template <class ... Args>

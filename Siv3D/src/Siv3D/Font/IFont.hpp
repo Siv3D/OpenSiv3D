@@ -69,5 +69,7 @@ namespace s3d
 		virtual const Texture& getTexture(Font::IDType handleID) = 0;
 
 		virtual RectF draw(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
+
+		virtual RectF drawBase(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
 	};
 }

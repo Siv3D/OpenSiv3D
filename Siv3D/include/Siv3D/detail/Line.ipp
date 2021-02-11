@@ -29,6 +29,10 @@ namespace s3d
 		: begin{ p0 }
 		, end{ p1 } {}
 
+	inline constexpr Line::Line(const value_type x0, const value_type y0, const Arg::direction_<position_type> direction) noexcept
+		: begin{ x0, y0 }
+		, end{ begin + direction.value() } {}
+
 	inline constexpr Line::Line(const position_type origin, const Arg::direction_<position_type> direction) noexcept
 		: begin{ origin }
 		, end{ origin + direction.value() } {}

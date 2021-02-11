@@ -249,4 +249,14 @@ namespace s3d
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, pos, fontSize, color, lineHeightScale);
 		}
 	}
+
+	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod()) };
+
+			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, pos, fontSize, color, lineHeightScale);
+		}
+	}
 }

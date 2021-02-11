@@ -223,4 +223,12 @@ namespace s3d
 			return m_fonts[handleID]->getGlyphCache().region(*font, s, pos, fontSize, lineHeightScale);
 		}
 	}
+
+	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, pos, fontSize, lineHeightScale);
+		}
+	}
 }

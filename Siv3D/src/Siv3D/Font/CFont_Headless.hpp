@@ -77,5 +77,7 @@ namespace s3d
 		const Texture& getTexture(Font::IDType handleID) override;
 
 		RectF draw(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
+
+		RectF drawBase(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
 	};
 }

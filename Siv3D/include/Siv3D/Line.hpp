@@ -49,6 +49,9 @@ namespace s3d
 		constexpr Line(position_type p0, position_type p1) noexcept;
 
 		SIV3D_NODISCARD_CXX20
+		constexpr Line(value_type x0, value_type y0, Arg::direction_<position_type> direction) noexcept;
+
+		SIV3D_NODISCARD_CXX20
 		constexpr Line(position_type origin, Arg::direction_<position_type> direction) noexcept;
 
 		SIV3D_NODISCARD_CXX20
