@@ -659,6 +659,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\EffectData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont_Headless.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontFace.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontFaceProperty.hpp" />
@@ -1187,6 +1188,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont_Headless.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFace.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFactory.cpp" />
