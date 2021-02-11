@@ -159,11 +159,15 @@ namespace s3d
 		[[nodiscard]]
 		static String GetKeyName(const uint32 index, const uint32 glfwKey)
 		{
+// [Siv3D Web TODO]
+# if !SIV3D_PLATFORM(WEB)
 			if (const char* name = ::glfwGetKeyName(glfwKey, 0))
 			{
 				return Unicode::Widen(name);
 			}
-			else if (detail::FallbackKeyNames[index])
+			else 
+# endif
+			if (detail::FallbackKeyNames[index])
 			{
 				return String{ detail::FallbackKeyNames[index] };
 			}
