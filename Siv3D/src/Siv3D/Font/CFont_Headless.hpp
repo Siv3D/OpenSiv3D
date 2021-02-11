@@ -76,8 +76,12 @@ namespace s3d
 
 		const Texture& getTexture(Font::IDType handleID) override;
 
-		RectF draw(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
+		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
 
-		RectF drawBase(Font::IDType handleID, StringView s, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
+		RectF regionBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
+
+		RectF draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
+
+		RectF drawBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) override;
 	};
 }

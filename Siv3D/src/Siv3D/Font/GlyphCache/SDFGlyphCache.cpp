@@ -14,24 +14,24 @@
 
 namespace s3d
 {
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, pos, size, color, false, lineHeightScale);
+		return draw(font, s, clusters, pos, size, color, false, lineHeightScale);
 	}
 
-	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, pos, size, color, true, lineHeightScale);
+		return draw(font, s, clusters, pos, size, color, true, lineHeightScale);
 	}
 
-	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const double lineHeightScale)
+	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return region(font, s, pos, size, false, lineHeightScale);
+		return region(font, s, clusters, pos, size, false, lineHeightScale);
 	}
 
-	RectF SDFGlyphCache::regionBase(const FontData& font, const StringView s, const Vec2& pos, const double size, const double lineHeightScale)
+	RectF SDFGlyphCache::regionBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return region(font, s, pos, size, true, lineHeightScale);
+		return region(font, s, clusters, pos, size, true, lineHeightScale);
 	}
 
 	void SDFGlyphCache::setBufferWidth(const int32 width)
@@ -94,10 +94,8 @@ namespace s3d
 		return true;
 	}
 
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
 	{
-		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
-
 		if (not prerender(font, s, clusters))
 		{
 			return RectF{ 0 };
@@ -143,14 +141,12 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
+	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
 	{
-		const Array<GlyphCluster> clusters = font.getGlyphClusters(s);
-
 		if (not prerender(font, s, clusters))
 		{
 			return RectF{ 0 };
@@ -176,7 +172,7 @@ namespace s3d
 			xMax = Max(xMax, penPos.x);
 		}
 
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender) : pos);
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 }

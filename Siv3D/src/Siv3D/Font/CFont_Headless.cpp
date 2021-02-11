@@ -216,19 +216,35 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphCache().getTexture();
 	}
 
-	RectF CFont_Headless::draw(const Font::IDType handleID, const StringView s, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::region(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().region(*font, s, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::regionBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, clusters, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont_Headless::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, clusters, pos, fontSize, lineHeightScale);
 		}
 	}
 }
