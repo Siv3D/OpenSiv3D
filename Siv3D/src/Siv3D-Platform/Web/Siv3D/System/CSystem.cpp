@@ -20,10 +20,14 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Scene/IScene.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
+# include <Siv3D/Keyboard/IKeyboard.hpp>
+# include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
+# include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
+# include <Siv3D/Addon/IAddon.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
@@ -56,8 +60,11 @@ namespace s3d
 		SIV3D_ENGINE(ImageDecoder)->init();
 		SIV3D_ENGINE(ImageEncoder)->init();
 		SIV3D_ENGINE(Cursor)->init();
+		SIV3D_ENGINE(Keyboard)->init();
+		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
+		SIV3D_ENGINE(Font)->init();
 		SIV3D_ENGINE(Effect)->init();
 	}
 
@@ -69,6 +76,7 @@ namespace s3d
 		}
 		
 		SIV3D_ENGINE(Renderer)->clear();
+		SIV3D_ENGINE(Addon)->draw();
 		SIV3D_ENGINE(Renderer)->flush();
 		SIV3D_ENGINE(Profiler)->endFrame();
 		SIV3D_ENGINE(Renderer)->present();
@@ -89,7 +97,13 @@ namespace s3d
 		SIV3D_ENGINE(Scene)->update();
 		SIV3D_ENGINE(Window)->update();
 		SIV3D_ENGINE(Cursor)->update();
+		SIV3D_ENGINE(Keyboard)->update();
+		SIV3D_ENGINE(Mouse)->update();
 		SIV3D_ENGINE(Effect)->update();
+		if (not SIV3D_ENGINE(Addon)->update())
+		{
+			return false;
+		}
 
 		// triggerd by key inputs
 		SIV3D_ENGINE(LicenseManager)->update();

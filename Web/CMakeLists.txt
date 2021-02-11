@@ -119,6 +119,7 @@ add_library(
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
+  ../Siv3D/src/Siv3D/DrawableText/SivDrawableText.cpp
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
   ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
@@ -131,6 +132,16 @@ add_library(
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/BitmapGlyphCache.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/GlyphCacheCommon.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/MSDFGlyphCache.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphCache/SDFGlyphCache.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/agg/agg.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/GlyphRenderer.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/BitmapGlyphRenderer.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/MSDFGlyphRenderer.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/OutlineGlyphRenderer.cpp
+  ../Siv3D/src/Siv3D/Font/GlyphRenderer/SDFGlyphRenderer.cpp
   ../Siv3D/src/Siv3D/Font/FontData.cpp
   ../Siv3D/src/Siv3D/Font/FontFace.cpp
   ../Siv3D/src/Siv3D/Font/FontFactory.cpp
@@ -163,6 +174,7 @@ add_library(
   ../Siv3D/src/Siv3D/Int128/SivInt128.cpp
   ../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp
   ../Siv3D/src/Siv3D/IntFormatter/SivIntFormatter.cpp
+  ../Siv3D/src/Siv3D/JSON/SivJSON.cpp
   ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
   ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
   ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
@@ -352,6 +364,27 @@ add_library(
   ../Siv3D/src/ThirdParty/lunasvg/svgurireference.cpp
   ../Siv3D/src/ThirdParty/lunasvg/svguseelement.cpp
 
+  ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-coloring.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-segments.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/edge-selectors.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/EdgeHolder.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/equation-solver.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdf-edge-artifact-patcher.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdf-error-correction.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/msdfgen.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/rasterization.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/render-sdf.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/save-bmp.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/save-tiff.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Scanline.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/sdf-error-estimation.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/shape-description.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp
+
   ../Siv3D/src/ThirdParty/muparser/muParser.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBase.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBytecode.cpp
@@ -443,6 +476,36 @@ add_library(
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
+
+    ../Siv3D/src/ThirdParty/zstd/common/debug.c
+  ../Siv3D/src/ThirdParty/zstd/common/entropy_common.c
+  ../Siv3D/src/ThirdParty/zstd/common/error_private.c
+  ../Siv3D/src/ThirdParty/zstd/common/fse_decompress.c
+  ../Siv3D/src/ThirdParty/zstd/common/pool.c
+  ../Siv3D/src/ThirdParty/zstd/common/threading.c
+  ../Siv3D/src/ThirdParty/zstd/common/xxhash.c
+  ../Siv3D/src/ThirdParty/zstd/common/zstd_common.c
+  ../Siv3D/src/ThirdParty/zstd/compress/fse_compress.c
+  ../Siv3D/src/ThirdParty/zstd/compress/hist.c
+  ../Siv3D/src/ThirdParty/zstd/compress/huf_compress.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstdmt_compress.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_literals.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_sequences.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_superblock.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_double_fast.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_fast.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_lazy.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_ldm.c
+  ../Siv3D/src/ThirdParty/zstd/compress/zstd_opt.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/zstd_ddict.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress_block.c
+  ../Siv3D/src/ThirdParty/zstd/dictBuilder/cover.c
+  ../Siv3D/src/ThirdParty/zstd/dictBuilder/divsufsort.c
+  ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
+  ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
   )
 
 set_target_properties(OpenSiv3D_Web 

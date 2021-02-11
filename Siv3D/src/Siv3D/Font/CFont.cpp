@@ -91,12 +91,15 @@ namespace s3d
 
 		m_shaders->bitmapFont	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
 								| GLSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
+								| ESSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
 								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 		m_shaders->sdfFont		= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
 								| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+								| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
 								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 		m_shaders->msdfFont		= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
 								| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+								| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
 								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 		if ((not m_shaders->bitmapFont)
