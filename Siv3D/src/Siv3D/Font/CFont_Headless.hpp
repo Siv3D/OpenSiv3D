@@ -36,6 +36,8 @@ namespace s3d
 
 		Font::IDType create(FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
 
+		Font::IDType create(Typeface typeface, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
+
 		void release(Font::IDType handleID) override;
 
 		const FontFaceProperty& getProperty(Font::IDType handleID) override;

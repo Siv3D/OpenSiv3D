@@ -67,6 +67,12 @@ namespace s3d
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
+	Font::Font(const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Font)->create(typeface, fontMethod, fontSize, style)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
 	Font::~Font()
 	{
 

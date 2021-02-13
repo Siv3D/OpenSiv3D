@@ -102,6 +102,11 @@ namespace s3d
 		return m_fonts.add(std::move(font), info);
 	}
 
+	Font::IDType CFont::create(const Typeface typeface, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
+	{
+		return(Font::IDType::NullAsset());
+	}
+
 	void CFont::release(const Font::IDType handleID)
 	{
 		m_fonts.erase(handleID);
