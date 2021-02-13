@@ -32,6 +32,8 @@ namespace s3d
 
 		virtual void release(Font::IDType handleID) = 0;
 
+		virtual bool addFallbackFont(Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font) = 0;
+
 		virtual const FontFaceProperty& getProperty(Font::IDType handleID) = 0;
 
 		virtual FontMethod getMethod(Font::IDType handleID) = 0;
@@ -44,7 +46,7 @@ namespace s3d
 
 		virtual GlyphIndex getGlyphIndex(Font::IDType handleID, StringView ch) = 0;
 
-		virtual Array<GlyphCluster> getGlyphClusters(Font::IDType handleID, StringView s) = 0;
+		virtual Array<GlyphCluster> getGlyphClusters(Font::IDType handleID, StringView s, bool recursive) = 0;
 
 		virtual GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) = 0;
 
@@ -77,5 +79,9 @@ namespace s3d
 		virtual RectF draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
 
 		virtual RectF drawBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
+	
+		virtual RectF drawFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
+
+		virtual RectF drawBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
 	};
 }

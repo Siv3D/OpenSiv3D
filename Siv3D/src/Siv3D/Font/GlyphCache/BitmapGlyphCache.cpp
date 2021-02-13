@@ -11,6 +11,8 @@
 
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 # include "BitmapGlyphCache.hpp"
 
 namespace s3d
@@ -23,6 +25,16 @@ namespace s3d
 	RectF BitmapGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
 		return draw(font, s, clusters, pos, size, color, true, lineHeightScale);
+	}
+
+	RectF BitmapGlyphCache::drawFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	{
+		return drawFallback(font, s, cluster, pos, size, color, false, lineHeightScale);
+	}
+
+	RectF BitmapGlyphCache::drawBaseFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	{
+		return drawFallback(font, s, cluster, pos, size, color, true, lineHeightScale);
 	}
 
 	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
@@ -47,7 +59,7 @@ namespace s3d
 
 	bool BitmapGlyphCache::preload(const FontData& font, const StringView s)
 	{
-		return prerender(font, s, font.getGlyphClusters(s));
+		return prerender(font, s, font.getGlyphClusters(s, false));
 	}
 
 	const Texture& BitmapGlyphCache::getTexture() const noexcept
@@ -58,6 +70,18 @@ namespace s3d
 	bool BitmapGlyphCache::prerender(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;
+
+		if (m_glyphTable.empty())
+		{
+			const BitmapGlyph glyph = font.renderBitmapByGlyphIndex(0);
+
+			if (not CacheGlyph(font, glyph.image, glyph, m_buffer, m_glyphTable))
+			{
+				return false;
+			}
+
+			hasDirty = true;
+		}
 
 		for (const auto& cluster : clusters)
 		{
@@ -117,6 +141,78 @@ namespace s3d
 				xMax = Max(xMax, penPos.x);
 				continue;
 			}
+
+			if (cluster.fontIndex != 0)
+			{
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+				RectF rect;
+
+				if (usebasePos)
+				{
+					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						s.substr(cluster.pos), cluster, penPos, size, color, lineHeightScale);
+				}
+				else
+				{
+					rect = SIV3D_ENGINE(Font)->drawFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						s.substr(cluster.pos), cluster, penPos, size, color, lineHeightScale);
+				}
+
+				penPos.x += rect.w;
+				xMax = Max(xMax, penPos.x);
+				continue;
+			}
+
+			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+			{
+				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+				const Vec2 posOffset = usebasePos ? cache.info.getBase(scale) : cache.info.getOffset(scale);
+				const Vec2 drawPos = (penPos + posOffset);
+
+				if (noScaling)
+				{
+					textureRegion
+						.draw(Math::Round(drawPos), color);
+				}
+				else
+				{
+					textureRegion
+						.scaled(scale)
+						.draw(drawPos, color);
+				}
+			}
+
+			penPos.x += (cache.info.xAdvance * scale);
+			xMax = Max(xMax, penPos.x);
+		}
+
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
+	}
+
+	RectF BitmapGlyphCache::drawFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
+	{
+		if (not prerender(font, s, { cluster }))
+		{
+			return RectF{ 0 };
+		}
+
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const bool noScaling = (size == prop.fontPixelSize);
+		const Vec2 basePos{ pos };
+		Vec2 penPos{ basePos };
+		int32 lineCount = 1;
+		double xMax = basePos.x;
+
+		{
+			/*
+			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
+			{
+				xMax = Max(xMax, penPos.x);
+				continue;
+			}
+			*/
 
 			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
 			{

@@ -98,6 +98,11 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
+	bool CFont_Headless::addFallbackFont(const Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font)
+	{
+		return m_fonts[handleID]->addFallbackFont(font);
+	}
+
 	const FontFaceProperty& CFont_Headless::getProperty(const Font::IDType handleID)
 	{
 		return m_fonts[handleID]->getProperty();
@@ -128,9 +133,9 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphIndex(ch);
 	}
 
-	Array<GlyphCluster> CFont_Headless::getGlyphClusters(const Font::IDType handleID, const StringView s)
+	Array<GlyphCluster> CFont_Headless::getGlyphClusters(const Font::IDType handleID, const StringView s, const bool recursive)
 	{
-		return m_fonts[handleID]->getGlyphClusters(s);
+		return m_fonts[handleID]->getGlyphClusters(s, recursive);
 	}
 
 	GlyphInfo CFont_Headless::getGlyphInfo(const Font::IDType handleID, const StringView ch)
@@ -234,6 +239,22 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		{
 			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, clusters, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont_Headless::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont_Headless::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 }

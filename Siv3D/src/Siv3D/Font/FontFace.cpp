@@ -107,7 +107,7 @@ namespace s3d
 		return{ glyphInfo, glyphCount };
 	}
 
-	bool FontFace::init(const int32 pixelSize, const FontStyle style)
+	bool FontFace::init(int32 pixelSize, const FontStyle style)
 	{
 		assert(m_face != nullptr);
 		assert(m_hbBuffer == nullptr);
@@ -151,7 +151,9 @@ namespace s3d
 				return false;
 			}
 
-			LOG_TRACE(U"Available size: {}"_fmt(m_face->available_sizes[bestMatch].width));
+			pixelSize = m_face->available_sizes[bestMatch].width;
+
+			LOG_TRACE(U"Available size: {}"_fmt(pixelSize));
 		}
 
 		// HarfBuzz objects

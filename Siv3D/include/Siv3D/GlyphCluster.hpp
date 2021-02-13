@@ -19,6 +19,8 @@ namespace s3d
 	{
 		GlyphIndex glyphIndex = 0;
 
+		uint32 fontIndex = 0;
+
 		size_t pos = 0;
 	};
 }

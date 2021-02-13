@@ -78,6 +78,11 @@ namespace s3d
 
 	}
 
+	bool Font::addFallback(const Font& font) const
+	{
+		return SIV3D_ENGINE(Font)->addFallbackFont(m_handle->id(), font.m_handle);
+	}
+
 	const String& Font::familyName() const
 	{
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).familiyName;
@@ -86,6 +91,11 @@ namespace s3d
 	const String& Font::styleName() const
 	{
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).styleName;
+	}
+
+	bool Font::hasColor() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).hasColor;
 	}
 
 	FontStyle Font::style() const
@@ -155,9 +165,9 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphIndex(m_handle->id(), ch);
 	}
 
-	Array<GlyphCluster> Font::getGlyphClusters(const StringView s) const
+	Array<GlyphCluster> Font::getGlyphClusters(const StringView s, const bool useFallback) const
 	{
-		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s);
+		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s, useFallback);
 	}
 
 	GlyphInfo Font::getGlyphInfo(const char32 ch) const

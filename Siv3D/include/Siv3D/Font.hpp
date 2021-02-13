@@ -35,9 +35,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Font();
 
-		//SIV3D_NODISCARD_CXX20
-		//explicit Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
-
 		SIV3D_NODISCARD_CXX20
 		Font(int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 
@@ -45,7 +42,7 @@ namespace s3d
 		Font(int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 
 		SIV3D_NODISCARD_CXX20
-		Font(int32 fontSize, Typeface typeface, FontStyle style = FontStyle::Default);
+		Font(int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
 
 		SIV3D_NODISCARD_CXX20
 		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
@@ -58,11 +55,16 @@ namespace s3d
 
 		virtual ~Font();
 
+		bool addFallback(const Font& font) const;
+
 		[[nodiscard]]
 		const String& familyName() const;
 
 		[[nodiscard]]
 		const String& styleName() const;
+
+		[[nodiscard]]
+		bool hasColor() const;
 
 		[[nodiscard]]
 		FontStyle style() const;
@@ -103,7 +105,7 @@ namespace s3d
 		GlyphIndex getGlyphIndex(StringView ch) const;
 
 		[[nodiscard]]
-		Array<GlyphCluster> getGlyphClusters(StringView s) const;
+		Array<GlyphCluster> getGlyphClusters(StringView s, bool useFallback = true) const;
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfo(char32 ch) const;

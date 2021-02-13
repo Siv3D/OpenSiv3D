@@ -28,11 +28,21 @@ namespace s3d
 
 		virtual RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
 
+		virtual RectF drawFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
+
+		virtual RectF drawBaseFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
+	
 		[[nodiscard]]
 		virtual RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, double lineHeightScale) = 0;
 
 		[[nodiscard]]
 		virtual RectF regionBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, double lineHeightScale) = 0;
+
+		[[nodiscard]]
+		virtual RectF regionFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, double lineHeightScale) { return RectF{ 0 }; }
+
+		[[nodiscard]]
+		virtual RectF regionBaseFallback(const FontData& font, StringView s, const GlyphCluster& clusters, const Vec2& pos, const double size, double lineHeightScale) { return RectF{ 0 }; }
 
 		virtual void setBufferWidth(int32 width) = 0;
 

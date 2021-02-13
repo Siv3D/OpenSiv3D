@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 # include "FontData.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
 # include "GlyphRenderer/BitmapGlyphRenderer.hpp"
@@ -125,20 +127,93 @@ namespace s3d
 		return glyphIndex;
 	}
 
-	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s) const
+	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s, bool recursive) const
 	{
 		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
 
 		const size_t count = glyphInfo.count;
 
-		Array<GlyphCluster> clusters(count);
-
-		for (size_t i = 0; i < count; ++i)
+		if (recursive && m_fallbackFonts)
 		{
-			clusters[i] = { glyphInfo.info[i].codepoint, glyphInfo.info[i].cluster };
-		}
+			Array<GlyphCluster> result;
 
-		return clusters;
+			for (size_t i = 0; i < count;)
+			{
+				const GlyphCluster clusterA{ glyphInfo.info[i].codepoint, 0, glyphInfo.info[i].cluster };
+
+				if (clusterA.glyphIndex != 0)
+				{
+					result << clusterA;
+					++i;
+					continue;
+				}
+
+				const size_t pos = clusterA.pos;
+				size_t k = 0;
+
+				for (;;)
+				{
+					++k;
+
+					if ((count <= (i + k))
+						|| (glyphInfo.info[(i + k)].cluster != pos))
+					{
+						break;
+					}
+				}
+
+				bool fallbackDone = false;
+				uint32 fallbackIndex = 1;
+
+				for (const auto& fallbackFont : m_fallbackFonts)
+				{
+					if (fallbackFont.expired())
+					{
+						continue;
+					}
+
+					const Array<GlyphCluster> clustersB = 
+						SIV3D_ENGINE(Font)->getGlyphClusters(fallbackFont.lock()->id(), s.substr(i, k), false);
+
+					if (clustersB.none([](const GlyphCluster& g) { return (g.glyphIndex == 0); }))
+					{
+						for (size_t m = 0; m < clustersB.size(); ++m)
+						{
+							const auto& clusterB = clustersB[m];
+							result << GlyphCluster{ clusterB.glyphIndex, fallbackIndex, pos };
+						}
+
+						fallbackDone = true;
+						break;
+					}
+
+					++fallbackIndex;
+				}
+
+				if (not fallbackDone)
+				{
+					for (size_t m = 0; m < k; ++m)
+					{
+						result << GlyphCluster{ glyphInfo.info[(i + m)].codepoint, 0, glyphInfo.info[(i + m)].cluster };
+					}
+				}
+
+				i += k;
+			}
+
+			return result;
+		}
+		else
+		{
+			Array<GlyphCluster> clusters(count);
+
+			for (size_t i = 0; i < count; ++i)
+			{
+				clusters[i] = { glyphInfo.info[i].codepoint, 0, glyphInfo.info[i].cluster };
+			}
+
+			return clusters;
+		}
 	}
 
 	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
@@ -182,8 +257,20 @@ namespace s3d
 		return RenderMSDFGlyph(m_fontFace.getFT_Face(), glyphIndex, buffer, m_fontFace.getProperty());
 	}
 
-	IGlyphCache& FontData::getGlyphCache()
+	IGlyphCache& FontData::getGlyphCache() const
 	{
 		return *m_glyphCache;
+	}
+
+	bool FontData::addFallbackFont(const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font)
+	{
+		m_fallbackFonts.push_back(font);
+
+		return true;
+	}
+
+	const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& FontData::getFallbackFont(const size_t index) const
+	{
+		return m_fallbackFonts[index];
 	}
 }

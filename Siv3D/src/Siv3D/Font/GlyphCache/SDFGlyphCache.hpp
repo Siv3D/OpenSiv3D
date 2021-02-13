@@ -27,6 +27,10 @@ namespace s3d
 
 		RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const ColorF& color, double lineHeightScale) override;
 
+		RectF drawFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) override;
+
+		RectF drawBaseFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) override;
+
 		[[nodiscard]]
 		RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, double lineHeightScale) override;
 
@@ -50,6 +54,9 @@ namespace s3d
 
 		[[nodiscard]]
 		RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const ColorF& color, bool usebasePos, double lineHeightScale);
+
+		[[nodiscard]]
+		RectF drawFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, double size, const ColorF& color, bool usebasePos, double lineHeightScale);
 
 		[[nodiscard]]
 		RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, bool usebasePos, double lineHeightScale);

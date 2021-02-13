@@ -12,13 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
-# include <Siv3D/GlyphInfo.hpp>
-# include <Siv3D/GlyphCluster.hpp>
-# include <Siv3D/OutlineGlyph.hpp>
-# include <Siv3D/BitmapGlyph.hpp>
-# include <Siv3D/SDFGlyph.hpp>
-# include <Siv3D/MSDFGlyph.hpp>
-# include <Siv3D/FontMethod.hpp>
+# include <Siv3D/Font.hpp>
 # include "FontResourceHolder.hpp"
 # include "FontFace.hpp"
 
@@ -56,7 +50,7 @@ namespace s3d
 		GlyphIndex getGlyphIndex(StringView ch);
 
 		[[nodiscard]]
-		Array<GlyphCluster> getGlyphClusters(StringView s) const;
+		Array<GlyphCluster> getGlyphClusters(StringView s, bool recursive) const;
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex) const;
@@ -77,7 +71,13 @@ namespace s3d
 		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer) const;
 
 		[[nodiscard]]
-		IGlyphCache& getGlyphCache();
+		IGlyphCache& getGlyphCache() const;
+
+		[[nodiscard]]
+		bool addFallbackFont(const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font);
+		
+		[[nodiscard]]
+		const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& getFallbackFont(size_t index) const;
 
 	private:
 
@@ -88,6 +88,8 @@ namespace s3d
 	# endif
 
 		FontFace m_fontFace;
+
+		Array<std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>> m_fallbackFonts;
 
 		FontMethod m_method = FontMethod::Bitmap;
 
