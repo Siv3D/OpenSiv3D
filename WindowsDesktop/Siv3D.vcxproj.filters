@@ -5390,5 +5390,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.cpp">
       <Filter>src\Siv3D\CacheDirectory</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontCommon.cpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
