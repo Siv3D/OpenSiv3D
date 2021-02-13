@@ -21,6 +21,7 @@
 # include "SDFGlyph.hpp"
 # include "MSDFGlyph.hpp"
 # include "FontMethod.hpp"
+# include "Typeface.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -41,7 +42,19 @@ namespace s3d
 		Font(int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 
 		SIV3D_NODISCARD_CXX20
+		Font(int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+
+		SIV3D_NODISCARD_CXX20
+		Font(int32 fontSize, Typeface typeface, FontStyle style = FontStyle::Default);
+
+		SIV3D_NODISCARD_CXX20
 		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+
+		SIV3D_NODISCARD_CXX20
+		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+
+		SIV3D_NODISCARD_CXX20
+		Font(FontMethod fontMethod, int32 fontSize, Typeface typeface, FontStyle style = FontStyle::Default);
 
 		virtual ~Font();
 

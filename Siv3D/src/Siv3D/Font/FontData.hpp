@@ -36,7 +36,7 @@ namespace s3d
 
 		explicit FontData(Null);
 
-		FontData(FT_Library library, FilePathView path, FontMethod fontMethod, int32 fontSize, FontStyle style);
+		FontData(FT_Library library, FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style);
 
 		~FontData();
 

@@ -22,11 +22,11 @@ namespace s3d
 		release();
 	}
 
-	bool FontFace::load(const FT_Library library, const void* data, const size_t size, const int32 pixelSize, const FontStyle style)
+	bool FontFace::load(const FT_Library library, const void* data, const size_t size, const size_t faceIndex, const int32 pixelSize, const FontStyle style)
 	{
 		release();
 
-		if (const FT_Error error = ::FT_New_Memory_Face(library, static_cast<const FT_Byte*>(data), static_cast<FT_Long>(size), 0, &m_face))
+		if (const FT_Error error = ::FT_New_Memory_Face(library, static_cast<const FT_Byte*>(data), static_cast<FT_Long>(size), static_cast<FT_Long>(faceIndex), &m_face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{
@@ -48,11 +48,11 @@ namespace s3d
 		return true;
 	}
 
-	bool FontFace::load(const FT_Library library, const FilePathView path, const int32 pixelSize, const FontStyle style)
+	bool FontFace::load(const FT_Library library, const FilePathView path, const size_t faceIndex, const int32 pixelSize, const FontStyle style)
 	{
 		release();
 
-		if (const FT_Error error = ::FT_New_Face(library, path.narrow().c_str(), 0, &m_face))
+		if (const FT_Error error = ::FT_New_Face(library, path.narrow().c_str(), static_cast<FT_Long>(faceIndex), &m_face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{

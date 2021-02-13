@@ -13,7 +13,6 @@
 # include <Siv3D/Version.hpp>
 # include "CacheDirectory.hpp"
 
-# include <Siv3D/EngineLog.hpp>
 namespace s3d
 {
 	namespace detail

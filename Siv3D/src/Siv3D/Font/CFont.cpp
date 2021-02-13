@@ -84,10 +84,10 @@ namespace s3d
 		}
 	}
 
-	Font::IDType CFont::create(const FilePathView path, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
+	Font::IDType CFont::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 		// Font を作成
-		auto font = std::make_unique<FontData>(m_freeType, path, fontMethod, fontSize, style);
+		auto font = std::make_unique<FontData>(m_freeType, path, faceIndex, fontMethod, fontSize, style);
 
 		if (not font->isInitialized()) // もし作成に失敗していたら
 		{

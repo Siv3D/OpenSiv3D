@@ -34,9 +34,9 @@ namespace s3d
 
 		~FontFace();
 
-		bool load(FT_Library library, const void* data, size_t size, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, const void* data, size_t size, size_t faceIndex, int32 pixelSize, FontStyle style);
 
-		bool load(FT_Library library, FilePathView path, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, FilePathView path, size_t faceIndex, int32 pixelSize, FontStyle style);
 
 		[[nodiscard]]
 		FT_Face getFT_Face() const noexcept;

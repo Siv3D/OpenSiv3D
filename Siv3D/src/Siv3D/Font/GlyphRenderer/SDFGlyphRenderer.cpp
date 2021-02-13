@@ -99,6 +99,8 @@ namespace s3d
 			}
 
 			shape.normalize();
+
+			shape.orientContours();
 		
 			edgeColoringSimple(shape, 3.0);
 

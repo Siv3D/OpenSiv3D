@@ -29,7 +29,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	FontData::FontData(const FT_Library library, const FilePathView path, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
+	FontData::FontData(const FT_Library library, const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 	# if SIV3D_PLATFORM(WINDOWS)
 
@@ -37,14 +37,14 @@ namespace s3d
 		{
 			m_resource = FontResourceHolder{ path };
 
-			if (not m_fontFace.load(library, m_resource.data(), m_resource.size(), fontSize, style))
+			if (not m_fontFace.load(library, m_resource.data(), m_resource.size(), faceIndex, fontSize, style))
 			{
 				return;
 			}
 		}
 		else
 		{
-			if (not m_fontFace.load(library, path, fontSize, style))
+			if (not m_fontFace.load(library, path, faceIndex, fontSize, style))
 			{
 				return;
 			}
@@ -52,7 +52,7 @@ namespace s3d
 
 	# else
 
-		if (not m_fontFace.load(library, path, fontSize, style))
+		if (not m_fontFace.load(library, path, faceIndex, fontSize, style))
 		{
 			return;
 		}

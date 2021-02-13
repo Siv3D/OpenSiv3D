@@ -26,7 +26,7 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual Font::IDType create(FilePathView path, FontMethod fontMethod, int32 fontSize, FontStyle style) = 0;
+		virtual Font::IDType create(FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style) = 0;
 
 		virtual void release(Font::IDType handleID) = 0;
 

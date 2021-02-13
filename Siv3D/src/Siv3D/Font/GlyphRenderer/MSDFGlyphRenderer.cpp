@@ -99,6 +99,8 @@ namespace s3d
 			}
 
 			shape.normalize();
+
+			shape.orientContours();
 		
 			edgeColoringSimple(shape, 3.0);
 
@@ -139,7 +141,7 @@ namespace s3d
 
 		buffer = Max(buffer, 0);
 
-		msdfgen::Shape shape;	
+		msdfgen::Shape shape;
 		if (not detail::GetShape(face, shape))
 		{
 			return{};

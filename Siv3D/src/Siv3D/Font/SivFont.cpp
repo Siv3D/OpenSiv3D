@@ -50,10 +50,22 @@ namespace s3d
 	}
 
 	Font::Font(const int32 fontSize, const FilePathView path, const FontStyle style)
-		: Font{ FontMethod::Bitmap, fontSize, path, style } {}
+		: Font{ FontMethod::Bitmap, fontSize, path, 0, style } {}
+
+	Font::Font(const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+		: Font{ FontMethod::Bitmap, fontSize, path, faceIndex, style } {}
+
+	Font::Font(const int32 fontSize, const Typeface typeface, const FontStyle style)
+		: Font{ FontMethod::Bitmap, fontSize, typeface, style } {}
 
 	Font::Font(const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Font)->create(path, fontMethod, fontSize, style)) } {}
+		: Font{ fontMethod, fontSize, path, 0, style } {}
+
+	Font::Font(const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Font)->create(path, faceIndex, fontMethod, fontSize, style)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
 
 	Font::~Font()
 	{

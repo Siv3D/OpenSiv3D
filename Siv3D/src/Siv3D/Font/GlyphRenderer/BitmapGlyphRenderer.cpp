@@ -51,20 +51,6 @@ namespace s3d
 			}
 		}
 
-		GlyphBBox bbox;
-		
-		if (hasColor)
-		{
-			bbox.xMin = 0.0;
-			bbox.yMax = 0.0;
-			bbox.xMax = face->glyph->bitmap.width;
-			bbox.yMin = (-1.0 * face->glyph->bitmap.rows);
-		}
-		else
-		{
-			bbox = GetGlyphBound(face);
-		}
-
 		bool bitmapFormat = false;
 		{
 			if (face->glyph->format == FT_GLYPH_FORMAT_BITMAP)
@@ -146,10 +132,10 @@ namespace s3d
 
 		BitmapGlyph result;
 		result.glyphIndex	= glyphIndex;
-		result.left			= static_cast<int16>(bbox.xMin);
-		result.top			= static_cast<int16>(bbox.yMax);
-		result.width		= static_cast<int16>(bbox.xMax - bbox.xMin);
-		result.height		= static_cast<int16>(bbox.yMax - bbox.yMin);
+		result.left			= static_cast<int16>(face->glyph->bitmap_left);
+		result.top			= static_cast<int16>(face->glyph->bitmap_top);
+		result.width		= static_cast<int16>(bitmapWidth);
+		result.height		= static_cast<int16>(bitmapHeight);
 		result.ascender		= prop.ascender;
 		result.descender	= prop.descender;
 		result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
