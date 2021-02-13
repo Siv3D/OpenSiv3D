@@ -178,10 +178,13 @@ namespace s3d
 					return specialFolderPaths;
 				}
 
-				if (const FilePath localCacheDirectory = homeDirectory + U"/.cache/";
-					FileSystem::Exists(localCacheDirectory))
+				if (const FilePath localCacheDirectory = EnvironmentVariable::Get(U"XDG_CACHE_HOME"))
 				{
-					specialFolderPaths[FromEnum(SpecialFolder::LocalAppData)] = localCacheDirectory;
+					specialFolderPaths[FromEnum(SpecialFolder::LocalAppData)] = (localCacheDirectory + U'/');
+				}
+				else
+				{
+					specialFolderPaths[FromEnum(SpecialFolder::LocalAppData)] = (homeDirectory + U"/.cache/");
 				}
 
 				if (const FilePath localFontDirectory = homeDirectory + U"/usr/local/share/fonts/";
