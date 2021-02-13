@@ -58,6 +58,14 @@ namespace s3d
 			// 管理に登録
 			m_fonts.setNullData(std::move(nullFont));
 		}
+
+		// エンジンフォントの展開
+		{
+			if (not detail::ExtractEngineFonts())
+			{
+				throw EngineError(U"CFont::init(): Failed to extract font files");
+			}
+		}
 	}
 
 	Font::IDType CFont_Headless::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
@@ -80,7 +88,9 @@ namespace s3d
 
 	Font::IDType CFont_Headless::create(const Typeface typeface, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
-		return(Font::IDType::NullAsset());
+		const detail::TypefaceInfo info = detail::GetTypefaceInfo(typeface);
+
+		return create(info.path, info.faceIndex, fontMethod, fontSize, style);
 	}
 
 	void CFont_Headless::release(const Font::IDType handleID)

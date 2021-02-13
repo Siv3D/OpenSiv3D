@@ -61,26 +61,37 @@ namespace s3d
 			m_fonts.setNullData(std::move(nullFont));
 		}
 
-		m_shaders = std::make_unique<FontShader>();
-
-		m_shaders->bitmapFont	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
-								| GLSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
-								| ESSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
-								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-		m_shaders->sdfFont		= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
-								| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-								| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-		m_shaders->msdfFont		= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
-								| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-								| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-								| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-
-		if ((not m_shaders->bitmapFont)
-			|| (not m_shaders->sdfFont)
-			|| (not m_shaders->msdfFont))
+		// フォント用シェーダ
 		{
-			throw EngineError(U"CFont::init(): Failed to load font shaders");
+			m_shaders = std::make_unique<FontShader>();
+
+			m_shaders->bitmapFont	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+			m_shaders->sdfFont		= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+			m_shaders->msdfFont		= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			if ((not m_shaders->bitmapFont)
+				|| (not m_shaders->sdfFont)
+				|| (not m_shaders->msdfFont))
+			{
+				throw EngineError(U"CFont::init(): Failed to load font shaders");
+			}
+		}
+
+		// エンジンフォントの展開
+		{
+			if (not detail::ExtractEngineFonts())
+			{
+				throw EngineError(U"CFont::init(): Failed to extract font files");
+			}
 		}
 	}
 
@@ -104,7 +115,9 @@ namespace s3d
 
 	Font::IDType CFont::create(const Typeface typeface, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
-		return(Font::IDType::NullAsset());
+		const detail::TypefaceInfo info = detail::GetTypefaceInfo(typeface);
+
+		return create(info.path, info.faceIndex, fontMethod, fontSize, style);
 	}
 
 	void CFont::release(const Font::IDType handleID)

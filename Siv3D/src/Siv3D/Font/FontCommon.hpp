@@ -11,8 +11,9 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/StringView.hpp>
+# include <Siv3D/String.hpp>
 # include <Siv3D/FontStyle.hpp>
+# include <Siv3D/Typeface.hpp>
 
 namespace s3d
 {
@@ -41,5 +42,18 @@ namespace s3d
 				return U"BoldItalicBitmap";
 			}
 		}
+
+		[[nodiscard]]
+		bool ExtractEngineFonts();
+
+		struct TypefaceInfo
+		{
+			String path;
+
+			size_t faceIndex = 0;
+		};
+
+		[[nodiscard]]
+		TypefaceInfo GetTypefaceInfo(Typeface typeface);
 	}
 }

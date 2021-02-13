@@ -21,5 +21,27 @@ namespace s3d
 		CJK_Regular_SC,
 		CJK_Regular_TC,
 		CJK_Regular_HK,
+
+		Mplus_Thin,
+		Mplus_Light,
+		Mplus_Regular,
+		Mplus_Medium,
+		Mplus_Bold,
+		Mplus_Heavy,
+		Mplus_Black,
+
+		Thin = Mplus_Thin,
+
+		Light = Mplus_Light,
+
+		Regular = Mplus_Regular,
+
+		Medium = Mplus_Medium,
+
+		Bold = Mplus_Bold,
+
+		Heavy = Mplus_Heavy,
+
+		Black = Mplus_Black,
 	};
 }
