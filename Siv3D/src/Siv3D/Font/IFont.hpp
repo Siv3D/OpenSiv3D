@@ -73,6 +73,8 @@ namespace s3d
 
 		virtual const Texture& getTexture(Font::IDType handleID) = 0;
 
+		virtual Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters) = 0;
+
 		virtual RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
 
 		virtual RectF regionBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
@@ -88,5 +90,7 @@ namespace s3d
 		virtual RectF regionFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
 
 		virtual RectF regionBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
+	
+		virtual double xAdvanceFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster) = 0;
 	};
 }

@@ -32,6 +32,12 @@ namespace s3d
 		RectF drawBaseFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) override;
 
 		[[nodiscard]]
+		Array<double> getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters) override;
+
+		[[nodiscard]]
+		double xAdvanceFallback(const FontData& font, StringView s, const GlyphCluster& cluster) override;
+
+		[[nodiscard]]
 		RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, double lineHeightScale) override;
 
 		[[nodiscard]]

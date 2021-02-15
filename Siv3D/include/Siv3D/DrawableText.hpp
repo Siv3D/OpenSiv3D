@@ -33,6 +33,9 @@ namespace s3d
 		DrawableText(const Font& _font, String&& _text);
 
 		[[nodiscard]]
+		Array<double> getXAdvances() const;
+
+		[[nodiscard]]
 		RectF region(double x, double y) const;
 
 		[[nodiscard]]

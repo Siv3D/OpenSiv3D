@@ -25,6 +25,11 @@ namespace s3d
 		, text{ std::move(_text) }
 		, cluster{ font.getGlyphClusters(text) } {}
 
+	Array<double> DrawableText::getXAdvances() const
+	{
+		return SIV3D_ENGINE(Font)->getXAdvances(font.id(), text, cluster);
+	}
+
 	RectF DrawableText::region(const double x, const double y) const
 	{
 		return region(font.fontSize(), Vec2{ x, y });

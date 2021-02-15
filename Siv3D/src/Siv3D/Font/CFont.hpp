@@ -111,6 +111,8 @@ namespace s3d
 
 		const Texture& getTexture(Font::IDType handleID) override;
 
+		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters) override;
+
 		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
 
 		RectF regionBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
@@ -126,5 +128,7 @@ namespace s3d
 		RectF regionFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
 
 		RectF regionBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
+	
+		double xAdvanceFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster) override;
 	};
 }

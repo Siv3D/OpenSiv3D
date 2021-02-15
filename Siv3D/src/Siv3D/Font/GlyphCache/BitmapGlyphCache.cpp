@@ -37,6 +37,62 @@ namespace s3d
 		return drawFallback(font, s, cluster, pos, size, color, true, lineHeightScale);
 	}
 
+	Array<double> BitmapGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters)
+	{
+		if (not prerender(font, s, clusters))
+		{
+			return{};
+		}
+
+		const auto& prop = font.getProperty();
+		Array<double> xAdvances(Arg::reserve = clusters.size());
+
+		for (const auto& cluster : clusters)
+		{
+			const char32 ch = s[cluster.pos];
+
+			if (IsControl(ch))
+			{
+				if (ch == U'\t')
+				{
+					xAdvances << (prop.spaceWidth * 4);
+				}
+				else
+				{
+					xAdvances << 0.0;
+				}
+
+				continue;
+			}
+
+			if (cluster.fontIndex != 0)
+			{
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+
+				xAdvances << SIV3D_ENGINE(Font)->xAdvanceFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+					s.substr(cluster.pos), cluster);
+				
+				continue;
+			}
+
+			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+			xAdvances << cache.info.xAdvance;
+		}
+
+		return xAdvances;
+	}
+
+	double BitmapGlyphCache::xAdvanceFallback(const FontData& font, const StringView s, const GlyphCluster& cluster)
+	{
+		if (not prerender(font, s, { cluster }))
+		{
+			return 0.0;
+		}
+
+		const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+		return cache.info.xAdvance;
+	}
+
 	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
 	{
 		return region(font, s, clusters, pos, size, false, lineHeightScale);

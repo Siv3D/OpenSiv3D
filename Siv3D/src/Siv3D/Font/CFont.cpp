@@ -242,6 +242,14 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphCache().getTexture();
 	}
 
+	Array<double> CFont::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().getXAdvances(*font, s, clusters);
+		}
+	}
+
 	RectF CFont::region(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
@@ -335,6 +343,14 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		{
 			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	double CFont::xAdvanceFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, s, cluster);
 		}
 	}
 }
