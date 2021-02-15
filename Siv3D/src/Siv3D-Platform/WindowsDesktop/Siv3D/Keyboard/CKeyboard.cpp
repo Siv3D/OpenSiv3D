@@ -12,6 +12,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/UserAction.hpp>
+# include <Siv3D/WindowState.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -123,6 +124,7 @@ namespace s3d
 			}
 		}
 
+		if (SIV3D_ENGINE(Window)->getState().focused)
 		{
 			if (m_states[VK_ESCAPE].down)
 			{
