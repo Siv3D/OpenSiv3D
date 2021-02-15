@@ -363,6 +363,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedNamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PredefinedYesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PrimeNumber.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
@@ -706,6 +707,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Print\IPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\RegExp\RegExpDetail.hpp" />
@@ -1267,6 +1270,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PrimeNumber\SivPrimeNumber.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />

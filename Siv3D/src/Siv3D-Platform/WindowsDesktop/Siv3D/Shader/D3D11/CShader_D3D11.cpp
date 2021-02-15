@@ -126,6 +126,9 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont")
 				.save(U"engine/shader/d3d11/msdffont.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFPrint")
+				.save(U"engine/shader/d3d11/msdfprint.ps");
+
 			throw EngineError(U"Engine shaders have compiled. Please rebuild the project.");
 		}
 

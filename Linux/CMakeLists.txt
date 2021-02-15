@@ -208,6 +208,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
   ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
   ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
+  ../Siv3D/src/Siv3D/Print/CPrint.cpp
+  ../Siv3D/src/Siv3D/Print/PrintFactory.cpp
+  ../Siv3D/src/Siv3D/Print/SivPrint.cpp
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp

@@ -26,6 +26,7 @@
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/Print/IPrint.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
 # include <Siv3D/System/SystemLog.hpp>
@@ -70,6 +71,7 @@ namespace s3d
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
 		SIV3D_ENGINE(Font)->init();
+		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(Effect)->init();
 	}
 
@@ -81,6 +83,7 @@ namespace s3d
 		}
 
 		SIV3D_ENGINE(Addon)->draw();
+		SIV3D_ENGINE(Print)->draw();
 		SIV3D_ENGINE(Renderer)->flush();
 		SIV3D_ENGINE(Profiler)->endFrame();
 		SIV3D_ENGINE(Renderer)->present();

@@ -129,7 +129,26 @@ float4 PS_MSDFFont(s3d::PSInput input) : SV_TARGET
 	return (input.color + g_colorAdd);
 }
 
+float4 PS_MSDFPrint(s3d::PSInput input) : SV_TARGET
+{
+	float2 size; g_texture0.GetDimensions(size.x, size.y);
+	const float pxRange = 4.0;
+	const float2 msdfUnit = (pxRange / size);
 
+	const float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
+	const float d = s3d::median(s.r, s.g, s.b);
+
+	const float td = (d - 0.5);
+	const float textAlpha = sqrt(saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5));
+
+	const float2 shadowOffset = float2(0.875, 0.875) / size;
+	const float3 s2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).rgb;
+	const float d2 = s3d::median(s2.r, s2.g, s2.b);
+	const float sd = (d2 - 0.5);
+	const float shadowAlpha = sqrt(saturate(sd * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5));
+
+	return float4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
+}
 
 
 
