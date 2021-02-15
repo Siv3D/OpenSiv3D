@@ -15,6 +15,7 @@
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "FontFaceProperty.hpp"
 
 namespace s3d
@@ -80,8 +81,9 @@ namespace s3d
 
 	bool Font::addFallback(const Font& font) const
 	{
-		if (font.isEmpty())
+		if (not font)
 		{
+			LOG_FAIL(U"Font::addFallback() failed (font is empty)");
 			return false;
 		}
 
@@ -158,6 +160,11 @@ namespace s3d
 	bool Font::hasGlyph(const StringView ch) const
 	{
 		return SIV3D_ENGINE(Font)->hasGlyph(m_handle->id(), ch);
+	}
+
+	uint32 Font::num_glyphs() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).numGlyphs;
 	}
 
 	GlyphIndex Font::getGlyphIndex(const char32 ch) const

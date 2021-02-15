@@ -22,6 +22,8 @@ namespace s3d
 
 		String styleName;
 
+		uint32 numGlyphs = 0;
+
 		bool hasColor = false;
 
 		int32 fontPixelSize = 0;

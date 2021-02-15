@@ -171,6 +171,7 @@ namespace s3d
 		{
 			m_property.familiyName		= Unicode::Widen(m_face->family_name);
 			m_property.styleName		= Unicode::Widen(m_face->style_name);
+			m_property.numGlyphs		= m_face->num_glyphs;
 			m_property.hasColor			= FT_HAS_COLOR(m_face);
 			m_property.fontPixelSize	= pixelSize;
 			m_property.style			= style;

@@ -101,6 +101,9 @@ namespace s3d
 		bool hasGlyph(StringView ch) const;
 
 		[[nodiscard]]
+		uint32 num_glyphs() const;
+
+		[[nodiscard]]
 		GlyphIndex getGlyphIndex(char32 ch) const;
 
 		[[nodiscard]]
