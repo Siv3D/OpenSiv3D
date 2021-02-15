@@ -51,11 +51,13 @@ namespace s3d
 		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 
 		SIV3D_NODISCARD_CXX20
-		Font(FontMethod fontMethod, int32 fontSize, Typeface typeface, FontStyle style = FontStyle::Default);
+		Font(FontMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
 
 		virtual ~Font();
 
 		bool addFallback(const Font& font) const;
+
+		bool addFallback(Font&& font) const = delete;
 
 		[[nodiscard]]
 		const String& familyName() const;

@@ -12,6 +12,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "FontData.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
 # include "GlyphRenderer/BitmapGlyphRenderer.hpp"
@@ -31,7 +32,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	FontData::FontData(const FT_Library library, const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
+	FontData::FontData(const FT_Library library, const FilePathView path, const size_t faceIndex, FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 	# if SIV3D_PLATFORM(WINDOWS)
 
@@ -60,6 +61,13 @@ namespace s3d
 		}
 
 	# endif
+
+		if (((fontMethod == FontMethod::SDF) || (fontMethod == FontMethod::MSDF))
+			&& (not FT_IS_SCALABLE(m_fontFace.getFT_Face())))
+		{
+			LOG_WARNING(U"Font `{}` doesn't have FT_FACE_FLAG_SCALABLE property, fallback to FontMethod::Bitmap"_fmt(m_fontFace.getProperty().familiyName));
+			fontMethod = FontMethod::Bitmap;
+		}
 
 		switch (fontMethod)
 		{

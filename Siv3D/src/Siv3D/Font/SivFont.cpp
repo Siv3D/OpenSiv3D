@@ -80,6 +80,11 @@ namespace s3d
 
 	bool Font::addFallback(const Font& font) const
 	{
+		if (font.isEmpty())
+		{
+			return false;
+		}
+
 		return SIV3D_ENGINE(Font)->addFallbackFont(m_handle->id(), font.m_handle);
 	}
 

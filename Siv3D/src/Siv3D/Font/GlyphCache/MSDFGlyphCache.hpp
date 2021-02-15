@@ -37,6 +37,12 @@ namespace s3d
 		[[nodiscard]]
 		RectF regionBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, double lineHeightScale) override;
 
+		[[nodiscard]]
+		RectF regionFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, double size, double lineHeightScale) override;
+
+		[[nodiscard]]
+		RectF regionBaseFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, double size, double lineHeightScale) override;
+
 		void setBufferWidth(int32 width) override;
 
 		[[nodiscard]]
@@ -62,6 +68,9 @@ namespace s3d
 
 		[[nodiscard]]
 		RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, bool usebasePos, double lineHeightScale);
+
+		[[nodiscard]]
+		RectF regionFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, double size, bool usebasePos, double lineHeightScale);
 
 		HashTable<GlyphIndex, GlyphCache> m_glyphTable;
 

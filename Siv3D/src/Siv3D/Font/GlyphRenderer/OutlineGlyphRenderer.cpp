@@ -210,7 +210,7 @@ namespace s3d
 
 	OutlineGlyph RenderOutlineGlyph(FT_Face face, const GlyphIndex glyphIndex, const CloseRing closeRing, const FontFaceProperty& prop)
 	{
-		if (not LoadGlyph(face, glyphIndex, prop.style))
+		if (not LoadOutlineGlyph(face, glyphIndex, prop.style))
 		{
 			return{};
 		}

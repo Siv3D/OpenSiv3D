@@ -47,6 +47,16 @@ namespace s3d
 		return region(font, s, clusters, pos, size, true, lineHeightScale);
 	}
 
+	RectF BitmapGlyphCache::regionFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
+	{
+		return regionFallback(font, s, cluster, pos, size, false, lineHeightScale);
+	}
+
+	RectF BitmapGlyphCache::regionBaseFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
+	{
+		return regionFallback(font, s, cluster, pos, size, true, lineHeightScale);
+	}
+
 	void BitmapGlyphCache::setBufferWidth(int32)
 	{
 		// do nothing
@@ -154,8 +164,8 @@ namespace s3d
 				}
 				else
 				{
-					rect = SIV3D_ENGINE(Font)->drawFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos, size, color, lineHeightScale);
+					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, color, lineHeightScale);
 				}
 
 				penPos.x += rect.w;
@@ -206,14 +216,6 @@ namespace s3d
 		double xMax = basePos.x;
 
 		{
-			/*
-			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
-			{
-				xMax = Max(xMax, penPos.x);
-				continue;
-			}
-			*/
-
 			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
 			{
 				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
@@ -263,6 +265,51 @@ namespace s3d
 				continue;
 			}
 
+			if (cluster.fontIndex != 0)
+			{
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+				RectF rect;
+
+				if (usebasePos)
+				{
+					rect = SIV3D_ENGINE(Font)->regionBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						s.substr(cluster.pos), cluster, penPos, size, lineHeightScale);
+				}
+				else
+				{
+					rect = SIV3D_ENGINE(Font)->regionBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, lineHeightScale);
+				}
+
+				penPos.x += rect.w;
+				xMax = Max(xMax, penPos.x);
+				continue;
+			}
+
+			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+			penPos.x += (cache.info.xAdvance * scale);
+			xMax = Max(xMax, penPos.x);
+		}
+
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
+	}
+
+	RectF BitmapGlyphCache::regionFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
+	{
+		if (not prerender(font, s, { cluster }))
+		{
+			return RectF{ 0 };
+		}
+
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const Vec2 basePos{ pos };
+		Vec2 penPos{ basePos };
+		int32 lineCount = 1;
+		double xMax = basePos.x;
+
+		{
 			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
 			penPos.x += (cache.info.xAdvance * scale);
 			xMax = Max(xMax, penPos.x);

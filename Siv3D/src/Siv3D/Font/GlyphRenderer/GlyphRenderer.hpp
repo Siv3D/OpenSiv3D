@@ -30,10 +30,10 @@ namespace s3d
 	};
 
 	[[nodiscard]]
-	bool LoadGlyph(FT_Face face, GlyphIndex glyphIndex, const FontStyle style);
+	bool LoadOutlineGlyph(FT_Face face, GlyphIndex glyphIndex, const FontStyle style);
 
 	[[nodiscard]]
-	GlyphBBox GetGlyphBound(FT_Face face);
+	GlyphBBox GetOutlineGlyphBound(FT_Face face);
 
 	[[nodiscard]]
 	GlyphInfo GetGlyphInfo(FT_Face face, GlyphIndex glyphIndex, const FontFaceProperty& prop);

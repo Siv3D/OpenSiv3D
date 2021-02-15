@@ -134,7 +134,7 @@ namespace s3d
 
 	MSDFGlyph RenderMSDFGlyph(FT_Face face, const GlyphIndex glyphIndex, int32 buffer, const FontFaceProperty& prop)
 	{
-		if (not LoadGlyph(face, glyphIndex, prop.style))
+		if (not LoadOutlineGlyph(face, glyphIndex, prop.style))
 		{
 			return{};
 		}

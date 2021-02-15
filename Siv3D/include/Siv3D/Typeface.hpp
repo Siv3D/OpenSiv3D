@@ -23,7 +23,7 @@ namespace s3d
 		CJK_Regular_HK,
 
 		MonochromeEmoji,
-		Emoji,
+		ColorEmoji,
 
 		Mplus_Thin,
 		Mplus_Light,

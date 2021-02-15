@@ -83,5 +83,9 @@ namespace s3d
 		virtual RectF drawFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
 
 		virtual RectF drawBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const ColorF& color, double lineHeightScale) = 0;
+
+		virtual RectF regionFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
+
+		virtual RectF regionBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
 	};
 }

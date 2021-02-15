@@ -114,7 +114,7 @@ namespace s3d
 		}
 	}
 
-	bool LoadGlyph(FT_Face face, const GlyphIndex glyphIndex, const FontStyle style)
+	bool LoadOutlineGlyph(FT_Face face, const GlyphIndex glyphIndex, const FontStyle style)
 	{
 		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex,
 			(FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP)))
@@ -135,7 +135,7 @@ namespace s3d
 		return true;
 	}
 
-	GlyphBBox GetGlyphBound(FT_Face face)
+	GlyphBBox GetOutlineGlyphBound(FT_Face face)
 	{
 		detail::UserData userData;
 		{
@@ -192,12 +192,38 @@ namespace s3d
 
 	GlyphInfo GetGlyphInfo(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop)
 	{
-		if (not LoadGlyph(face, glyphIndex, prop.style))
+		const bool hasColor = prop.hasColor;
+
+		if (hasColor)
+		{
+			if (not ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
+			{
+				GlyphInfo result;
+				result.glyphIndex	= glyphIndex;
+				result.left			= static_cast<int16>(face->glyph->bitmap_left);
+				result.top			= static_cast<int16>(face->glyph->bitmap_top);
+				result.width		= static_cast<int16>(face->glyph->bitmap.width);
+				result.height		= static_cast<int16>(face->glyph->bitmap.rows);
+				result.ascender		= prop.ascender;
+				result.descender	= prop.descender;
+				result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
+				result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+
+				if (result.yAdvance == 0)
+				{
+					result.yAdvance = result.xAdvance;
+				}
+
+				return result;
+			}
+		}
+	
+		if (not LoadOutlineGlyph(face, glyphIndex, prop.style))
 		{
 			return{};
 		}
 
-		const GlyphBBox bbox = GetGlyphBound(face);
+		const GlyphBBox bbox = GetOutlineGlyphBound(face);
 
 		return GlyphInfo{
 			.glyphIndex	= glyphIndex,

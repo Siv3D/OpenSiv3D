@@ -301,4 +301,20 @@ namespace s3d
 			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
+
+	RectF CFont::regionFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont::regionBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+		}
+	}
 }
