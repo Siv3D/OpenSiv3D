@@ -111,6 +111,8 @@ namespace s3d
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
+
+		clear();
 	}
 
 	StringView CRenderer_GL4::getName() const
