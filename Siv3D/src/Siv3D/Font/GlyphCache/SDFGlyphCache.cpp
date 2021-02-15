@@ -16,14 +16,14 @@
 
 namespace s3d
 {
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, clusters, pos, size, color, false, lineHeightScale);
+		return draw(font, s, clusters, pos, size, textStyle, color, false, lineHeightScale);
 	}
 
-	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, clusters, pos, size, color, true, lineHeightScale);
+		return draw(font, s, clusters, pos, size, textStyle, color, true, lineHeightScale);
 	}
 
 	RectF SDFGlyphCache::drawFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
@@ -128,7 +128,7 @@ namespace s3d
 		return true;
 	}
 
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const bool usebasePos, const double lineHeightScale)
 	{
 		if (not prerender(font, s, clusters))
 		{
@@ -159,12 +159,12 @@ namespace s3d
 				if (usebasePos)
 				{
 					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos, size, color, lineHeightScale);
+						s.substr(cluster.pos), cluster, penPos, size, textStyle, color, lineHeightScale);
 				}
 				else
 				{
 					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, color, lineHeightScale);
+						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
 				}
 
 				penPos.x += rect.w;

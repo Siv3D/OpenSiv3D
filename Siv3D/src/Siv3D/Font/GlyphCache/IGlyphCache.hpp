@@ -24,9 +24,9 @@ namespace s3d
 
 		virtual ~IGlyphCache() = default;
 
-		virtual RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
-		virtual RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
 		virtual RectF drawFallback(const FontData& font, StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
 

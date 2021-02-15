@@ -14,6 +14,7 @@
 # include "String.hpp"
 # include "Font.hpp"
 # include "Format.hpp"
+# include "TextStyle.hpp"
 
 namespace s3d
 {
@@ -87,6 +88,14 @@ namespace s3d
 
 		RectF draw(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		RectF draw(const TextStyle& textStyle, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF draw(const TextStyle& textStyle, const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
+
+		RectF draw(const TextStyle& textStyle, double size, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF draw(const TextStyle& textStyle, double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
 		RectF drawBase(double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF drawBase(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
@@ -94,6 +103,14 @@ namespace s3d
 		RectF drawBase(double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF drawBase(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(const TextStyle& textStyle, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(const TextStyle& textStyle, const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(const TextStyle& textStyle, double size, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBase(const TextStyle& textStyle, double size, const Vec2& pos, const ColorF& color = Palette::White) const;
 
 		RectF drawAt(double x, double y, const ColorF& color = Palette::White) const;
 
@@ -103,6 +120,14 @@ namespace s3d
 
 		RectF drawAt(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		RectF drawAt(const TextStyle & textStyle, double x, double y, const ColorF & color = Palette::White) const;
+
+		RectF drawAt(const TextStyle & textStyle, const Vec2 & pos = Vec2{ 0, 0 }, const ColorF & color = Palette::White) const;
+
+		RectF drawAt(const TextStyle & textStyle, double size, double x, double y, const ColorF & color = Palette::White) const;
+
+		RectF drawAt(const TextStyle & textStyle, double size, const Vec2 & pos, const ColorF & color = Palette::White) const;
+
 		RectF drawBaseAt(double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF drawBaseAt(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
@@ -110,6 +135,14 @@ namespace s3d
 		RectF drawBaseAt(double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF drawBaseAt(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+		
+		RectF drawBaseAt(const TextStyle& textStyle, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBaseAt(const TextStyle& textStyle, const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
+
+		RectF drawBaseAt(const TextStyle& textStyle, double size, double x, double y, const ColorF& color = Palette::White) const;
+
+		RectF drawBaseAt(const TextStyle& textStyle, double size, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
 
 	template <class ... Args>

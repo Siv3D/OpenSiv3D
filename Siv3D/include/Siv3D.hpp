@@ -997,6 +997,7 @@
 # include <Siv3D/FontMethod.hpp>
 # include <Siv3D/Typeface.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/TextStyle.hpp>
 # include <Siv3D/DrawableText.hpp>
 
 

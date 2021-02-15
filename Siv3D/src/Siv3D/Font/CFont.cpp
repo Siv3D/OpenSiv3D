@@ -258,46 +258,66 @@ namespace s3d
 		}
 	}
 
-	RectF CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	RectF CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
+
+		if (textStyle.customShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-
-			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
-	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
+
+		if (textStyle.customShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-
-			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, clusters, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
-	RectF CFont::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	RectF CFont::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
+		
+		if (textStyle.customShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-
 			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
-	RectF CFont::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF& color, const double lineHeightScale)
+	RectF CFont::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
+		
+		if (textStyle.customShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-
 			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}

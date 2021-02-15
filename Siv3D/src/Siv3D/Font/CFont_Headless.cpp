@@ -226,7 +226,7 @@ namespace s3d
 		}
 	}
 
-	RectF CFont_Headless::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
@@ -234,7 +234,7 @@ namespace s3d
 		}
 	}
 
-	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
@@ -242,7 +242,7 @@ namespace s3d
 		}
 	}
 
-	RectF CFont_Headless::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
@@ -250,7 +250,7 @@ namespace s3d
 		}
 	}
 
-	RectF CFont_Headless::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
