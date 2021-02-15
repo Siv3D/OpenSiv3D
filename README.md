@@ -20,5 +20,5 @@
 
 ## Quick Links
 
-- [Third-Party Libraries](ThirdParty.md)
+- [Third-Party Libraries Used in OpenSiv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)

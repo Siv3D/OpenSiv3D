@@ -1,5 +1,5 @@
 
-# Third-Party Libraries
+# Third-Party Libraries Used in OpenSiv3D
 
 Library | Version
 --- | ---

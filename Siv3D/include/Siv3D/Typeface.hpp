@@ -14,13 +14,16 @@
 
 namespace s3d
 {
-	enum class Typeface
+	enum class Typeface : uint32
 	{
 		CJK_Regular_JP,
 		CJK_Regular_KR,
 		CJK_Regular_SC,
 		CJK_Regular_TC,
 		CJK_Regular_HK,
+
+		MonochromeEmoji,
+		Emoji,
 
 		Mplus_Thin,
 		Mplus_Light,

@@ -28,9 +28,11 @@ namespace s3d
 			bool required = false;
 		};
 
-		static constexpr std::array<EngineFontResource, 8> EngineFontResources =
+		static constexpr std::array<EngineFontResource, 10> EngineFontResources =
 		{ {
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, true },
+			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, true },
+			{ U"noto-emoji/NotoColorEmoji.ttf"_sv, false },
 			{ U"mplus/mplus-1p-thin.ttf"_sv, false },
 			{ U"mplus/mplus-1p-light.ttf"_sv, false },
 			{ U"mplus/mplus-1p-regular.ttf"_sv, false },
@@ -38,8 +40,7 @@ namespace s3d
 			{ U"mplus/mplus-1p-bold.ttf"_sv, false },
 			{ U"mplus/mplus-1p-heavy.ttf"_sv, false },
 			{ U"mplus/mplus-1p-black.ttf"_sv, false },
-			//U"noto/NotoEmoji-Regular.ttf"_sv,
-			//U"noto/NotoColorEmoji.ttf"_sv,
+
 			//U"fontawesome/fontawesome-solid.otf"_sv,
 			//U"fontawesome/fontawesome-brands.otf"_sv,
 		} };
@@ -92,13 +93,15 @@ namespace s3d
 			return true;
 		}
 
-		static const std::array<TypefaceInfo, 12> EngineTypefaceList =
+		static const std::array<TypefaceInfo, 14> EngineTypefaceList =
 		{ {
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 2 },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 3 },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 4 },
+			{ U"noto-emoji/NotoEmoji-Regular.ttf", 0 },
+			{ U"noto-emoji/NotoColorEmoji.ttf", 0 },
 			{ U"mplus/mplus-1p-thin.ttf", 0 },
 			{ U"mplus/mplus-1p-light.ttf", 0},
 			{ U"mplus/mplus-1p-regular.ttf", 0 },

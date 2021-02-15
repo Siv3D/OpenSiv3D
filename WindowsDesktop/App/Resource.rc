@@ -29,6 +29,10 @@ Resource(engine/shader/glsl/fullscreen_triangle.frag)
 //	Fonts
 //
 Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
+//
+//	Monochrome Emoji
+//
+Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
 
 //////////////////////////////////////////////////////
 //
@@ -45,6 +49,10 @@ Resource(engine/font/mplus/mplus-1p-medium.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-bold.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-heavy.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-black.ttf.zstdcmp)
+//
+//	Color Emoji
+//
+Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
 
 //////////////////////////////////////////////////////
 //
