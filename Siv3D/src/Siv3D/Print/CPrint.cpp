@@ -13,6 +13,7 @@
 # include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/DrawableText.hpp>
+# include <Siv3D/ScopedRenderStates2D.hpp>
 # include <Siv3D/ScopedCustomShader2D.hpp>
 # include <Siv3D/EngineLog.hpp>
 
@@ -60,6 +61,7 @@ namespace s3d
 
 	void CPrint::draw()
 	{
+		ScopedRenderStates2D rb{ BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D };
 		ScopedCustomShader2D shader{ m_font->ps };
 		{
 			std::lock_guard lock{ m_mutex };

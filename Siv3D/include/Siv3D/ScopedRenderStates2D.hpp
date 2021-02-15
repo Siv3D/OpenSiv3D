@@ -44,32 +44,43 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos);
 
-		/*
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerState& samplerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const SamplerState& samplerState, const BlendState& blendState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerState& samplerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState, const RasterizerState& rasterizerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerState& samplerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerState& samplerState, const BlendState& blendState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const SamplerState& samplerState, const BlendState& blendState, const RasterizerState& rasterizerState);
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState);
-		*/
 
+		SIV3D_NODISCARD_CXX20
 		ScopedRenderStates2D(ScopedRenderStates2D&& other) noexcept;
 
 		~ScopedRenderStates2D();
