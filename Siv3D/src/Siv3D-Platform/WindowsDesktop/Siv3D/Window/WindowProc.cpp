@@ -42,6 +42,20 @@ namespace s3d
 				
 				break;
 			}
+		case WM_SYSKEYDOWN:
+			{
+				if ((wParam == VK_RETURN) && (lParam & (1 << 29))) // Alt + Enter
+				{
+					//Siv3DEngine::Get<ISiv3DWindow>()->requestToggleFullscreen();
+					return 0;
+				}
+
+				break;
+			}
+		case WM_SYSKEYUP:
+			{
+				break;
+			}
 		case WM_KILLFOCUS:
 			{
 				LOG_TRACE(U"WM_KILLFOCUS");
@@ -161,7 +175,6 @@ namespace s3d
 
 				break;
 			}
-		case WM_INPUT:
 		case WM_MOUSEMOVE:
 			{
 				if (auto p = dynamic_cast<CCursor*>(SIV3D_ENGINE(Cursor)))

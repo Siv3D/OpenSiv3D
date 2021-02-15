@@ -73,7 +73,7 @@ namespace s3d
 
 		m_hWnd = static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle());
 
-		detail::RegisterRawInput(m_hWnd);
+		//detail::RegisterRawInput(m_hWnd);
 
 		{
 			const Point lastClientPos = detail::GetCursorClientPos(m_hWnd);
@@ -396,24 +396,24 @@ namespace s3d
 		{
 			newPosRaw.set(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		}
-		else if (message == WM_INPUT)
-		{
-			RAWINPUT raw;
-			UINT rawSize = sizeof(raw);
+		//else if (message == WM_INPUT)
+		//{
+		//	RAWINPUT raw;
+		//	UINT rawSize = sizeof(raw);
 
-			if (UINT resultData = ::GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, &raw, &rawSize, sizeof(RAWINPUTHEADER)); 
-				resultData == UINT(-1))
-			{
-				return;
-			}
+		//	if (UINT resultData = ::GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, &raw, &rawSize, sizeof(RAWINPUTHEADER)); 
+		//		resultData == UINT(-1))
+		//	{
+		//		return;
+		//	}
 
-			if (raw.header.dwType != RIM_TYPEMOUSE)
-			{
-				return;
-			}
+		//	if (raw.header.dwType != RIM_TYPEMOUSE)
+		//	{
+		//		return;
+		//	}
 
-			newPosRaw = detail::GetCursorClientPos(m_hWnd);
-		}
+		//	newPosRaw = detail::GetCursorClientPos(m_hWnd);
+		//}
 		else
 		{
 			return;
