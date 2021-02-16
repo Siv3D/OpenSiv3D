@@ -250,43 +250,43 @@ namespace s3d
 		}
 	}
 
-	RectF CFont_Headless::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::drawFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	RectF CFont_Headless::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
+	RectF CFont_Headless::drawBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	RectF CFont_Headless::regionFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	RectF CFont_Headless::regionFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	RectF CFont_Headless::regionBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	RectF CFont_Headless::regionBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	double CFont_Headless::xAdvanceFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster)
+	double CFont_Headless::xAdvanceFallback(const Font::IDType handleID, const GlyphCluster& cluster)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, s, cluster);
+			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster);
 		}
 	}
 }

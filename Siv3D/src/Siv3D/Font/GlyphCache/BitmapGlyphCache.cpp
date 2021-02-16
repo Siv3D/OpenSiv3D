@@ -27,19 +27,19 @@ namespace s3d
 		return draw(font, s, clusters, pos, size, textStyle, color, true, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::drawFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF BitmapGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return drawFallback(font, s, cluster, pos, size, color, false, lineHeightScale);
+		return drawFallback(font, cluster, pos, size, color, false, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::drawBaseFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
+	RectF BitmapGlyphCache::drawBaseFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return drawFallback(font, s, cluster, pos, size, color, true, lineHeightScale);
+		return drawFallback(font, cluster, pos, size, color, true, lineHeightScale);
 	}
 
 	Array<double> BitmapGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters)
 	{
-		if (not prerender(font, s, clusters))
+		if (not prerender(font, clusters))
 		{
 			return{};
 		}
@@ -70,7 +70,7 @@ namespace s3d
 				const size_t fallbackIndex = (cluster.fontIndex - 1);
 
 				xAdvances << SIV3D_ENGINE(Font)->xAdvanceFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-					s.substr(cluster.pos), cluster);
+					cluster);
 				
 				continue;
 			}
@@ -82,9 +82,9 @@ namespace s3d
 		return xAdvances;
 	}
 
-	double BitmapGlyphCache::xAdvanceFallback(const FontData& font, const StringView s, const GlyphCluster& cluster)
+	double BitmapGlyphCache::xAdvanceFallback(const FontData& font, const GlyphCluster& cluster)
 	{
-		if (not prerender(font, s, { cluster }))
+		if (not prerender(font, { cluster }))
 		{
 			return 0.0;
 		}
@@ -103,14 +103,14 @@ namespace s3d
 		return region(font, s, clusters, pos, size, true, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::regionFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
+	RectF BitmapGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return regionFallback(font, s, cluster, pos, size, false, lineHeightScale);
+		return regionFallback(font, cluster, pos, size, false, lineHeightScale);
 	}
 
-	RectF BitmapGlyphCache::regionBaseFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
+	RectF BitmapGlyphCache::regionBaseFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		return regionFallback(font, s, cluster, pos, size, true, lineHeightScale);
+		return regionFallback(font, cluster, pos, size, true, lineHeightScale);
 	}
 
 	void BitmapGlyphCache::setBufferWidth(int32)
@@ -125,7 +125,7 @@ namespace s3d
 
 	bool BitmapGlyphCache::preload(const FontData& font, const StringView s)
 	{
-		return prerender(font, s, font.getGlyphClusters(s, false));
+		return prerender(font, font.getGlyphClusters(s, false));
 	}
 
 	const Texture& BitmapGlyphCache::getTexture() const noexcept
@@ -133,7 +133,7 @@ namespace s3d
 		return m_texture;
 	}
 
-	bool BitmapGlyphCache::prerender(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters)
+	bool BitmapGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;
 
@@ -151,12 +151,6 @@ namespace s3d
 
 		for (const auto& cluster : clusters)
 		{
-			if ((cluster.glyphIndex == 0)
-				&& IsControl(s[cluster.pos]))
-			{
-				continue;
-			}
-
 			if (m_glyphTable.contains(cluster.glyphIndex))
 			{
 				continue;
@@ -187,7 +181,7 @@ namespace s3d
 
 	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const bool usebasePos, const double lineHeightScale)
 	{
-		if (not prerender(font, s, clusters))
+		if (not prerender(font, clusters))
 		{
 			return RectF{ 0 };
 		}
@@ -216,12 +210,12 @@ namespace s3d
 				if (usebasePos)
 				{
 					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos, size, textStyle, color, lineHeightScale);
+						cluster, penPos, size, textStyle, color, lineHeightScale);
 				}
 				else
 				{
 					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
+						cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
 				}
 
 				penPos.x += rect.w;
@@ -256,9 +250,9 @@ namespace s3d
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	RectF BitmapGlyphCache::drawFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
+	RectF BitmapGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
 	{
-		if (not prerender(font, s, { cluster }))
+		if (not prerender(font, { cluster }))
 		{
 			return RectF{ 0 };
 		}
@@ -301,7 +295,7 @@ namespace s3d
 
 	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
 	{
-		if (not prerender(font, s, clusters))
+		if (not prerender(font, clusters))
 		{
 			return RectF{ 0 };
 		}
@@ -329,12 +323,12 @@ namespace s3d
 				if (usebasePos)
 				{
 					rect = SIV3D_ENGINE(Font)->regionBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos, size, lineHeightScale);
+						cluster, penPos, size, lineHeightScale);
 				}
 				else
 				{
 					rect = SIV3D_ENGINE(Font)->regionBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						s.substr(cluster.pos), cluster, penPos.movedBy(0, prop.ascender * scale), size, lineHeightScale);
+						cluster, penPos.movedBy(0, prop.ascender * scale), size, lineHeightScale);
 				}
 
 				penPos.x += rect.w;
@@ -351,9 +345,9 @@ namespace s3d
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	RectF BitmapGlyphCache::regionFallback(const FontData& font, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
+	RectF BitmapGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
 	{
-		if (not prerender(font, s, { cluster }))
+		if (not prerender(font, { cluster }))
 		{
 			return RectF{ 0 };
 		}

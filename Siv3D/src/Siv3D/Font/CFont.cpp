@@ -298,59 +298,59 @@ namespace s3d
 		}
 	}
 
-	RectF CFont::drawFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	RectF CFont::drawFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
 		
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
-	RectF CFont::drawBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	RectF CFont::drawBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		const bool hasColor = font->getProperty().hasColor;
 		
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, s, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
-	RectF CFont::regionFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	RectF CFont::regionFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	RectF CFont::regionBaseFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	RectF CFont::regionBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, s, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, cluster, pos, fontSize, lineHeightScale);
 		}
 	}
 
-	double CFont::xAdvanceFallback(const Font::IDType handleID, const StringView s, const GlyphCluster& cluster)
+	double CFont::xAdvanceFallback(const Font::IDType handleID, const GlyphCluster& cluster)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, s, cluster);
+			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster);
 		}
 	}
 }

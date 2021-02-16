@@ -83,14 +83,14 @@ namespace s3d
 
 		virtual RectF drawBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 	
-		virtual RectF drawFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF drawFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
-		virtual RectF drawBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF drawBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
-		virtual RectF regionFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
+		virtual RectF regionFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
 
-		virtual RectF regionBaseFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
+		virtual RectF regionBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) = 0;
 	
-		virtual double xAdvanceFallback(Font::IDType handleID, StringView s, const GlyphCluster& cluster) = 0;
+		virtual double xAdvanceFallback(Font::IDType handleID, const GlyphCluster& cluster) = 0;
 	};
 }
