@@ -126,6 +126,11 @@ namespace s3d
 		return draw(TextStyle::Default, font.fontSize(), pos, color);
 	}
 
+	bool DrawableText::draw(const RectF& area, const ColorF& color) const
+	{
+		return draw(TextStyle::Default, font.fontSize(), area, color);
+	}
+
 	RectF DrawableText::draw(const double size, const double x, const double y, const ColorF& color) const
 	{
 		return draw(TextStyle::Default, size, Vec2{ x, y }, color);
@@ -134,6 +139,11 @@ namespace s3d
 	RectF DrawableText::draw(const double size, const Vec2& pos, const ColorF& color) const
 	{
 		return draw(TextStyle::Default, size, pos, color);
+	}
+
+	bool DrawableText::draw(const double size, const RectF& area, const ColorF& color) const
+	{
+		return draw(TextStyle::Default, size, area, color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double x, const double y, const ColorF& color) const
@@ -146,6 +156,11 @@ namespace s3d
 		return draw(textStyle, font.fontSize(), pos, color);
 	}
 
+	bool DrawableText::draw(const TextStyle& textStyle, const RectF& area, const ColorF& color) const
+	{
+		return draw(textStyle, font.fontSize(), area, color);
+	}
+
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const double x, const double y, const ColorF& color) const
 	{
 		return draw(textStyle, size, Vec2{ x, y }, color);
@@ -154,6 +169,11 @@ namespace s3d
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Vec2& pos, const ColorF& color) const
 	{
 		return SIV3D_ENGINE(Font)->draw(font.id(), text, cluster, pos, size, textStyle, color, 1.0);
+	}
+
+	bool DrawableText::draw(const TextStyle& textStyle, const double size, const RectF& area, const ColorF& color) const
+	{
+		return SIV3D_ENGINE(Font)->draw(font.id(), text, cluster, area, size, textStyle, color, 1.0);
 	}
 
 	RectF DrawableText::drawBase(const double x, const double y, const ColorF& color) const

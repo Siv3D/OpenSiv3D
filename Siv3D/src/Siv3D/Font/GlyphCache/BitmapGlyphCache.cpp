@@ -22,6 +22,191 @@ namespace s3d
 		return draw(font, s, clusters, pos, size, textStyle, color, false, lineHeightScale);
 	}
 
+	bool BitmapGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		if (not prerender(font, clusters))
+		{
+			return false;
+		}
+
+		// 「.」のグリフ
+		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false);
+		if (not prerender(font, dotGlyphCluster))
+		{
+			// do tnohing
+		}
+		const double dotXAdvance = m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance;
+		const Vec2 areaBottomRight = area.br();
+
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const double lineHeight = (prop.height() * scale * lineHeightScale);
+
+		if ((area.w < (dotXAdvance * 3)) || (area.h < lineHeight))
+		{
+			return false;
+		}
+
+		const int32 maxLines = Max(static_cast<int32>(area.h / (lineHeight ? lineHeight : 1)), 1);
+		const Vec2 basePos{ area.pos };
+
+		Array<Vec2> penPositions;
+		size_t clusterIndex = 0;
+		{
+			Array<double> xAdvances(Arg::reserve = clusters.size());
+			Vec2 penPos{ basePos };
+			int32 lineIndex = 0;
+			double currentLineWidth = 0.0;
+			double previousLineWidth = 0.0;
+
+			for (; clusterIndex < clusters.size(); ++clusterIndex)
+			{
+				const auto& cluster = clusters[clusterIndex];
+				double xAdvance = 0.0;
+				bool nextLine = false;
+
+				if (const char32 ch = s[cluster.pos];
+					IsControl(ch))
+				{
+					if (ch == U'\t')
+					{
+						xAdvance = Min((prop.spaceWidth * scale * 4), (areaBottomRight.x - penPos.x));
+					}
+					else
+					{
+						xAdvance = 0.0;
+						nextLine = (ch == U'\n');
+					}
+				}
+				else if (cluster.fontIndex != 0)
+				{
+					const size_t fallbackIndex = (cluster.fontIndex - 1);
+					xAdvance = SIV3D_ENGINE(Font)->regionBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						cluster, penPos.movedBy(0, prop.ascender * scale), size, lineHeightScale).w;
+				}
+				else
+				{
+					const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+					xAdvance = (cache.info.xAdvance * scale);
+				}
+
+				if (areaBottomRight.x < (penPos.x + xAdvance))
+				{
+					nextLine = true;
+				}
+
+				if (nextLine)
+				{
+					++lineIndex;
+					previousLineWidth = currentLineWidth;
+
+					penPos.x = basePos.x;
+					penPos.y = basePos.y + (lineIndex * lineHeight);
+				}
+
+				penPositions << penPos;
+				xAdvances << xAdvance;
+				penPos.x += xAdvance;
+				currentLineWidth = (penPos.x - penPos.x);
+
+				// エリア外
+				if (maxLines <= lineIndex)
+				{
+					const double dotsWidth = (dotXAdvance * 3);
+					double xEliminatedWidth = (area.w - previousLineWidth);
+
+					while (clusterIndex > 0)
+					{
+						xEliminatedWidth += xAdvances[clusterIndex];
+						--clusterIndex;
+
+						if (dotsWidth <= xEliminatedWidth)
+						{
+							break;
+						}
+					}
+
+					break;
+				}
+			}
+		}
+
+		String newText;
+		Array<GlyphCluster> newClusters;
+		Array<Vec2> newPenPositions;
+
+		if (clusterIndex == clusters.size())
+		{
+			newText = s;
+			newClusters = clusters;
+			newPenPositions = std::move(penPositions);
+		}
+		else
+		{
+			const StringView v = s.substr(0, clusters[clusterIndex].pos + 1);
+			newText.reserve(v.size() + 3);
+			newText.append(v);
+			newText.append(U"...");
+
+			newClusters = clusters.take(clusterIndex);
+
+			newClusters.push_back(dotGlyphCluster.front());
+			newClusters.back().pos = (newText.size() - 3);
+
+			newClusters.push_back(dotGlyphCluster.front());
+			newClusters.back().pos = (newText.size() - 2);
+
+			newClusters.push_back(dotGlyphCluster.front());
+			newClusters.back().pos = (newText.size() - 1);
+
+			newPenPositions = std::move(penPositions);
+			newPenPositions.resize(clusterIndex + 1);
+			newPenPositions << newPenPositions.back().movedBy(dotXAdvance, 0);
+			newPenPositions << newPenPositions.back().movedBy(dotXAdvance, 0);
+		}
+
+		const bool noScaling = (size == prop.fontPixelSize);
+
+		for (size_t i = 0; i < newClusters.size(); ++i)
+		{
+			const auto& cluster = newClusters[i];
+
+			if (IsControl(newText[cluster.pos]))
+			{
+				continue;
+			}
+			else if (cluster.fontIndex != 0)
+			{
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+				SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+					cluster, newPenPositions[i].movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
+			}
+			else
+			{
+				const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+				{
+					const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+					const Vec2 posOffset = cache.info.getOffset(scale);
+					const Vec2 drawPos = (newPenPositions[i] + posOffset);
+
+					if (noScaling)
+					{
+						textureRegion
+							.draw(Math::Round(drawPos), color);
+					}
+					else
+					{
+						textureRegion
+							.scaled(scale)
+							.draw(drawPos, color);
+					}
+				}
+			}
+		}
+
+		return (clusterIndex == clusters.size());
+	}
+
 	RectF BitmapGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		return draw(font, s, clusters, pos, size, textStyle, color, true, lineHeightScale);

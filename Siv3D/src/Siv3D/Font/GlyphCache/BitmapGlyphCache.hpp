@@ -25,6 +25,8 @@ namespace s3d
 
 		RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
 
+		bool draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+		
 		RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
 
 		RectF drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) override;
@@ -64,7 +66,6 @@ namespace s3d
 		[[nodiscard]]
 		bool prerender(const FontData& font, const Array<GlyphCluster>& clusters);
 
-		[[nodiscard]]
 		RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, bool usebasePos, double lineHeightScale);
 
 		[[nodiscard]]

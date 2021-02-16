@@ -242,6 +242,12 @@ namespace s3d
 		}
 	}
 
+	bool CFont_Headless::draw(const Font::IDType, const StringView, const Array<GlyphCluster>&, const RectF&, const double, const TextStyle&, const ColorF&, const double)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
 	RectF CFont_Headless::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle&, const ColorF&, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];

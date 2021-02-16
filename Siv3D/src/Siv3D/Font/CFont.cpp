@@ -282,6 +282,22 @@ namespace s3d
 		}
 	}
 
+	bool CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		const bool hasColor = font->getProperty().hasColor;
+
+		if (textStyle.customShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
+		{
+			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+	}
+
 	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];

@@ -87,17 +87,25 @@ namespace s3d
 
 		RectF draw(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
 
+		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
+
 		RectF draw(double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF draw(double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+		bool draw(double size, const RectF& area, const ColorF& color = Palette::White) const;
 
 		RectF draw(const TextStyle& textStyle, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF draw(const TextStyle& textStyle, const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
 
+		bool draw(const TextStyle& textStyle, const RectF& area, const ColorF& color = Palette::White) const;
+
 		RectF draw(const TextStyle& textStyle, double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF draw(const TextStyle& textStyle, double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+		bool draw(const TextStyle& textStyle, double size, const RectF& area, const ColorF& color = Palette::White) const;
 
 		RectF drawBase(double x, double y, const ColorF& color = Palette::White) const;
 
