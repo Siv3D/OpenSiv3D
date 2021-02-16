@@ -39,7 +39,7 @@ namespace s3d
 
 		void Print_impl::write(const StringView s) const
 		{
-			SIV3D_ENGINE(Print)->write(s);
+			SIV3D_ENGINE(Print)->write(String{ s });
 		}
 
 		void Print_impl::write(const String& s) const
@@ -54,7 +54,7 @@ namespace s3d
 
 		void Print_impl::writeln(const StringView s) const
 		{
-			SIV3D_ENGINE(Print)->writeln(s);
+			SIV3D_ENGINE(Print)->writeln(String{ s });
 		}
 
 		void Print_impl::writeln(const String& s) const
@@ -75,6 +75,18 @@ namespace s3d
 		void Print_impl::operator()(const String& s) const
 		{
 			writeln(s);
+		}
+
+		bool Print_impl::setFont(const Font& font) const
+		{
+			if (not font)
+			{
+				return false;
+			}
+
+			SIV3D_ENGINE(Print)->setFont(font);
+
+			return true;
 		}
 	}
 

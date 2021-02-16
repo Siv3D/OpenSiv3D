@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/StringView.hpp>
+# include <Siv3D/String.hpp>
 
 namespace s3d
 {
@@ -25,13 +25,15 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual void write(StringView text) = 0;
+		virtual void write(const String& s) = 0;
 
-		virtual void writeln(StringView text) = 0;
+		virtual void writeln(const String& s) = 0;
 
 		virtual void draw() = 0;
 
 		virtual void clear() = 0;
+
+		virtual void setFont(const Font& font) = 0;
 
 		virtual void showUnhandledEditingText(StringView text) = 0;
 	};

@@ -25,16 +25,6 @@ namespace s3d
 
 	class CPrint : public ISiv3DPrint
 	{
-	private:
-
-		std::unique_ptr<PrintFont> m_font;
-
-		std::mutex m_mutex;
-
-		String m_text;
-
-		Point m_pos = Point{ 10, 10 };
-
 	public:
 
 		CPrint();
@@ -43,14 +33,43 @@ namespace s3d
 
 		void init() override;
 
-		void write(StringView text) override;
+		void write(const String& s) override;
 
-		void writeln(StringView text) override;
+		void writeln(const String& s) override;
 
 		void draw() override;
 
 		void clear() override;
 
+		void setFont(const Font& font) override;
+
 		void showUnhandledEditingText(StringView text) override;
+
+	private:
+
+		static constexpr int32 Padding = 10;
+
+		static constexpr Point PosOffset = Point::All(Padding);
+
+		std::unique_ptr<PrintFont> m_font;
+
+		std::mutex m_mutex;
+
+		Array<String> m_lines = { U"" };
+
+		Array<DrawableText> m_drawableTexts;
+
+		Array<size_t> m_layouts;
+
+		bool m_reachedMaxLines = false;
+
+		void trimMessages();
+
+		[[nodiscard]]
+		size_t getMaxLines() const;
+
+		[[nodiscard]]
+		static int32 GetMaxWidth();
+
 	};
 }

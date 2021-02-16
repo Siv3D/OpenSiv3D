@@ -130,6 +130,8 @@ namespace s3d
 
 				return buf;
 			}
+
+			bool setFont(const Font& font) const;
 		};
 	}
 
