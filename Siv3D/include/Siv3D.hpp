@@ -1003,6 +1003,9 @@
 # include <Siv3D/PutText.hpp>
 
 
+# include <Siv3D/SceneManager.hpp>
+
+
 
 //////////////////////////////////////////////////
 //

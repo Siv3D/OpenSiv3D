@@ -124,6 +124,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RoundRect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SamplerState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Scene.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SceneManager.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorAdd2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp" />
@@ -386,6 +387,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Scene.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SceneManager.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedColorAdd2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedColorMul2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
