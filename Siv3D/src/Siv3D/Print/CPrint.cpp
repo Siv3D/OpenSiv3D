@@ -112,6 +112,13 @@ namespace s3d
 		}
 	}
 
+	void CPrint::put(String&& s, const Vec2& pos, const int32 alignment)
+	{
+		std::lock_guard lock{ m_mutex };
+
+		m_puts.emplace_back(std::move(s), pos, alignment);
+	}
+
 	void CPrint::draw()
 	{
 		std::lock_guard lock{ m_mutex };
@@ -120,32 +127,82 @@ namespace s3d
 		trimMessages();
 
 		if ((m_lines.size() == 1)
-			&& m_lines.isEmpty())
+			&& m_lines.isEmpty()
+			&& m_puts.isEmpty())
 		{
 			return;
 		}
 
 		// •`‰æ
 		{
+			constexpr Vec2 BitmapFontShadowOffset{ 0.85, 0.85 };
 			const double maxWidth = GetMaxWidth();
-			const int32 fontHeight = m_font->textFont.height();
+			const Font& font = m_font->textFont;
+			const int32 fontHeight = font.height();
 			const Point basePos{ PosOffset.x, PosOffset.y - (m_reachedMaxLines ? (fontHeight / 2 + Padding) : 0) };
 			size_t lineOffset = 0;
 
 			ScopedRenderStates2D rb{ BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D };
 			
-			if (m_font->textFont.method() == FontMethod::Bitmap)
+			if (font.method() == FontMethod::Bitmap)
 			{
+				for (const auto& putText : m_puts)
+				{
+					const DrawableText dtext = font(putText.text);
+					const Vec2& pos = putText.pos;
+
+					switch (putText.alignement)
+					{
+					case 0:
+						dtext.draw(pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(pos);
+						break;
+					case 1:
+						dtext.draw(Arg::topLeft = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::topLeft = pos);
+						break;
+					case 2:
+						dtext.draw(Arg::topCenter = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::topCenter = pos);
+						break;
+					case 3:
+						dtext.draw(Arg::topRight = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::topRight = pos);
+						break;
+					case 4:
+						dtext.draw(Arg::rightCenter = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::rightCenter = pos);
+						break;
+					case 5:
+						dtext.draw(Arg::bottomRight = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::bottomRight = pos);
+						break;
+					case 6:
+						dtext.draw(Arg::bottomCenter = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::bottomCenter = pos);
+						break;
+					case 7:
+						dtext.draw(Arg::bottomLeft = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::bottomLeft = pos);
+						break;
+					case 8:
+						dtext.draw(Arg::leftCenter = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(Arg::leftCenter = pos);
+						break;
+					}
+				}
+
 				for (size_t i = 0; i < m_lines.size(); ++i)
 				{
 					const size_t layout = m_layouts[i];
 					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 					const RectF area{ pos, maxWidth, 65536 };
+					const DrawableText& dtext = m_drawableTexts[i];
 
-					if (m_drawableTexts[i].text)
+					if (dtext.text)
 					{
-						//m_drawableTexts[i].draw(area.movedBy(0.85, 0.85), Palette::Black);
-						m_drawableTexts[i].draw(area, Palette::Yellow);
+						dtext.draw(area.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.draw(area, Palette::White);
 					}
 
 					lineOffset += layout;
@@ -155,21 +212,61 @@ namespace s3d
 			{
 				ScopedCustomShader2D shader{ m_font->ps };
 
+				for (const auto& putText : m_puts)
+				{
+					const DrawableText dtext = font(putText.text);
+					const Vec2& pos = putText.pos;
+
+					switch (putText.alignement)
+					{
+					case 0:
+						dtext.draw(TextStyle::CustomShader, pos);
+						break;
+					case 1:
+						dtext.draw(TextStyle::CustomShader, Arg::topLeft = pos);
+						break;
+					case 2:
+						dtext.draw(TextStyle::CustomShader, Arg::topCenter = pos);
+						break;
+					case 3:
+						dtext.draw(TextStyle::CustomShader, Arg::topRight = pos);
+						break;
+					case 4:
+						dtext.draw(TextStyle::CustomShader, Arg::rightCenter = pos);
+						break;
+					case 5:
+						dtext.draw(TextStyle::CustomShader, Arg::bottomRight = pos);
+						break;
+					case 6:
+						dtext.draw(TextStyle::CustomShader, Arg::bottomCenter = pos);
+						break;
+					case 7:
+						dtext.draw(TextStyle::CustomShader, Arg::bottomLeft = pos);
+						break;
+					case 8:
+						dtext.draw(TextStyle::CustomShader, Arg::leftCenter = pos);
+						break;
+					}
+				}
+
 				for (size_t i = 0; i < m_lines.size(); ++i)
 				{
 					const size_t layout = m_layouts[i];
 					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 					const RectF area{ pos, maxWidth, 65536 };
+					const DrawableText& dtext = m_drawableTexts[i];
 
-					if (m_drawableTexts[i].text)
+					if (dtext.text)
 					{
-						m_drawableTexts[i].draw(TextStyle::CustomShader, area, Palette::White);
+						dtext.draw(TextStyle::CustomShader, area);
 					}
 
 					lineOffset += layout;
 				}
 			}
 		}
+
+		m_puts.clear();
 	}
 
 	void CPrint::clear()

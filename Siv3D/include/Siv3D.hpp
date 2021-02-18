@@ -1000,6 +1000,8 @@
 # include <Siv3D/TextStyle.hpp>
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Print.hpp>
+# include <Siv3D/PutText.hpp>
+
 
 
 //////////////////////////////////////////////////

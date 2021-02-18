@@ -214,6 +214,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
+  ../Siv3D/src/Siv3D/PutText/SivPutText.cpp
   ../Siv3D/src/Siv3D/QR/SivQR.cpp
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp

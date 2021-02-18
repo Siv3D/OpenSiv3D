@@ -366,6 +366,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PutText.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QRErrorCorrection.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QRMode.hpp" />
@@ -1276,6 +1277,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PutText\SivPutText.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Random\SivRandom.cpp" />

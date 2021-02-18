@@ -23,6 +23,20 @@ namespace s3d
 		PixelShader ps;
 	};
 
+	struct PutTextInfo
+	{
+		String text;
+		Vec2 pos;
+		int32 alignement;
+
+		PutTextInfo() = default;
+
+		PutTextInfo(String&& _text, const Vec2& _pos, int32 _alignment) noexcept
+			: text(std::move(_text))
+			, pos(_pos)
+			, alignement(_alignment) {}
+	};
+
 	class CPrint : public ISiv3DPrint
 	{
 	public:
@@ -36,6 +50,8 @@ namespace s3d
 		void write(const String& s) override;
 
 		void writeln(const String& s) override;
+
+		void put(String&& s, const Vec2& pos, int32 alignment) override;
 
 		void draw() override;
 
@@ -55,6 +71,9 @@ namespace s3d
 
 		std::mutex m_mutex;
 
+		//
+		// Print
+		//
 		Array<String> m_lines = { U"" };
 
 		Array<DrawableText> m_drawableTexts;
@@ -62,6 +81,11 @@ namespace s3d
 		Array<size_t> m_layouts;
 
 		bool m_reachedMaxLines = false;
+
+		//
+		// PutText
+		//
+		Array<PutTextInfo> m_puts;
 
 		void trimMessages();
 

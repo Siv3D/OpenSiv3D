@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Font.hpp>
 
 namespace s3d
 {
@@ -28,6 +29,8 @@ namespace s3d
 		virtual void write(const String& s) = 0;
 
 		virtual void writeln(const String& s) = 0;
+
+		virtual void put(String&& s, const Vec2& pos, int32 alignment) = 0;
 
 		virtual void draw() = 0;
 

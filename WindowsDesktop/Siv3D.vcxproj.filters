@@ -808,6 +808,9 @@
     <Filter Include="src\Siv3D\Print">
       <UniqueIdentifier>{b2e2bb1d-7941-4502-a3d3-4dca155a2a54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\PutText">
+      <UniqueIdentifier>{847468e4-5da9-4260-a599-5fb9f476f52d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4008,6 +4011,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp">
       <Filter>src\Siv3D\Print</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PutText.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5419,6 +5425,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp">
       <Filter>src\Siv3D\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PutText\SivPutText.cpp">
+      <Filter>src\Siv3D\PutText</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
