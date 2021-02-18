@@ -619,7 +619,7 @@ namespace s3d
 
 	inline constexpr Vec2 RectF::bottomCenter() const noexcept
 	{
-		return{ (x + w), (y + h) };
+		return{ (x + w * 0.5), (y + h) };
 	}
 
 	inline constexpr Vec2 RectF::leftCenter() const noexcept
