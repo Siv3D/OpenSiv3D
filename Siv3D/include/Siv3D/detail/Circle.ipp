@@ -293,6 +293,13 @@ namespace s3d
 		return{ Arg::center(center), r };
 	}
 
+	inline Circle::position_type Circle::getPointByAngle(const double angle) const noexcept
+	{
+		const double s = std::sin(angle);
+		const double c = std::cos(angle);
+		return{ (s * r) + x, (-c * r) + y };
+	}
+
 	inline constexpr Circle Circle::lerp(const Circle& other, const double f) const noexcept
 	{
 		return{ center.lerp(other.center, f), (r + (other.r - r) * f) };

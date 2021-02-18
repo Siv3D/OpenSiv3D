@@ -382,6 +382,17 @@ namespace s3d
 		return{ x * 0.5 + other.x * 0.5, y * 0.5 + other.y * 0.5 };
 	}
 
+	template <class T, class U>
+	auto Point::getPointByAngleAndDistance(const T angle, const U distance) const noexcept
+	{
+		using ValueType = CommonFloat_t<T, U>;
+		const auto s = std::sin(angle);
+		const auto c = std::cos(angle);
+		return Vector2D<ValueType>{
+			static_cast<ValueType>((s * distance) + x),
+			static_cast<ValueType>((-c * distance) + y) };
+	}
+
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::lerp(const Point other, const double f) const noexcept
 	{

@@ -506,6 +506,14 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline Vector2D<Type> Vector2D<Type>::getPointByAngleAndDistance(const value_type angle, const value_type distance) const noexcept
+	{
+		const auto s = std::sin(angle);
+		const auto c = std::cos(angle);
+		return{ ((s * distance) + x), ((-c * distance) + y) };
+	}
+
+	template <class Type>
 	inline constexpr Vector2D<Type> Vector2D<Type>::lerp(const Vector2D other, const value_type f) const noexcept
 	{
 		return{ (x + (other.x - x) * f), (y + (other.y - y) * f) };

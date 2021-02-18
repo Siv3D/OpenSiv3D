@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "FormatData.hpp"
 # include "FormatLiteral.hpp"
+# include "CommonFloat.hpp"
 # include "Hash.hpp"
 
 namespace s3d
@@ -248,6 +249,10 @@ namespace s3d
 		template <class Type>
 		[[nodiscard]]
 		constexpr Vector2D<Type> getMidpoint(Vector2D<Type> other) const noexcept;
+
+		template <class T, class U>
+		[[nodiscard]]
+		auto getPointByAngleAndDistance(T angle, U distance) const noexcept;
 
 		template <class Type = double>
 		[[nodiscard]]

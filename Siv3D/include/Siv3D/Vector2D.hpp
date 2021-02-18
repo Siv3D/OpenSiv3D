@@ -244,6 +244,9 @@ namespace s3d
 		constexpr Vector2D projection(Vector2D onto) const noexcept;
 
 		[[nodiscard]]
+		Vector2D getPointByAngleAndDistance(value_type angle, value_type distance) const noexcept;
+
+		[[nodiscard]]
 		constexpr Vector2D lerp(Vector2D other, value_type f) const noexcept;
 
 		[[nodiscard]]

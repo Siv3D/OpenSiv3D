@@ -37,9 +37,13 @@ namespace s3d
 		: begin{ origin }
 		, end{ origin + direction.value() } {}
 
+	inline Line::Line(const value_type x0, const value_type y0, Arg::angle_<value_type> angle, const value_type length) noexcept
+		: begin{ x0, y0 }
+		, end{ begin + Circular{ length, angle.value() } } {}
+
 	inline Line::Line(const position_type origin, Arg::angle_<value_type> angle, const value_type length) noexcept
 		: begin{ origin }
-		, end{ origin + Circular(length, angle.value()) } {}
+		, end{ origin + Circular{ length, angle.value() } } {}
 
 	inline constexpr Line& Line::set(const value_type x0, const value_type y0, const value_type x1, const value_type y1) noexcept
 	{

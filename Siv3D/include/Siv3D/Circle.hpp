@@ -268,6 +268,9 @@ namespace s3d
 		constexpr RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
+		position_type getPointByAngle(double angle) const noexcept;
+
+		[[nodiscard]]
 		Polygon asPolygon(uint32 quality = 24) const;
 
 		[[nodiscard]]
