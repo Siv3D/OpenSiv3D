@@ -37,4 +37,7 @@ namespace s3d
 	
 	/// @brief 拡大を許可する
 	using AllowScaleUp		= YesNo<struct AllowScaleUp_tag>;
+
+	/// @brief クロスフェードする
+	using CrossFade			= YesNo<struct CrossFade_tag>;
 }
