@@ -24,16 +24,12 @@ namespace s3d
 
 		virtual ~IGlyphCache() = default;
 
-		virtual RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, bool useBasePos, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
 		virtual bool draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
-		virtual RectF drawBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
+		virtual RectF drawFallback(const FontData& font, const GlyphCluster& cluster, bool useBasePos, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
 
-		virtual RectF drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
-
-		virtual RectF drawBaseFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
-		
 		[[nodiscard]]
 		virtual Array<double> getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters) = 0;
 
@@ -41,16 +37,10 @@ namespace s3d
 		virtual double xAdvanceFallback(const FontData& font, const GlyphCluster& cluster) = 0;
 
 		[[nodiscard]]
-		virtual RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, double lineHeightScale) = 0;
+		virtual RectF region(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, bool useBasePos, const Vec2& pos, const double size, double lineHeightScale) = 0;
 
 		[[nodiscard]]
-		virtual RectF regionBase(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, double lineHeightScale) = 0;
-
-		[[nodiscard]]
-		virtual RectF regionFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, double lineHeightScale) = 0;
-
-		[[nodiscard]]
-		virtual RectF regionBaseFallback(const FontData& font, const GlyphCluster& clusters, const Vec2& pos, const double size, double lineHeightScale) = 0;
+		virtual RectF regionFallback(const FontData& font, const GlyphCluster& cluster, bool useBasePos, const Vec2& pos, const double size, double lineHeightScale) = 0;
 
 		virtual void setBufferWidth(int32 width) = 0;
 

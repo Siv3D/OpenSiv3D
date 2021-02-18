@@ -16,9 +16,75 @@
 
 namespace s3d
 {
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, clusters, pos, size, textStyle, color, false, lineHeightScale);
+		if (not prerender(font, clusters))
+		{
+			return RectF{ 0 };
+		}
+
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const bool noScaling = (size == prop.fontPixelSize);
+		const Vec2 basePos{ pos };
+		Vec2 penPos{ basePos };
+		int32 lineCount = 1;
+		double xMax = basePos.x;
+
+		for (const auto& cluster : clusters)
+		{
+			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
+			{
+				xMax = Max(xMax, penPos.x);
+				continue;
+			}
+
+			if (cluster.fontIndex != 0)
+			{
+				const size_t fallbackIndex = (cluster.fontIndex - 1);
+				RectF rect;
+
+				if (usebasePos)
+				{
+					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						cluster, penPos, size, textStyle, color, lineHeightScale);
+				}
+				else
+				{
+					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+						cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
+				}
+
+				penPos.x += rect.w;
+				xMax = Max(xMax, penPos.x);
+				continue;
+			}
+
+			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+			{
+				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+				const Vec2 posOffset = usebasePos ? cache.info.getBase(scale) : cache.info.getOffset(scale);
+				const Vec2 drawPos = (penPos + posOffset);
+
+				if (noScaling)
+				{
+					textureRegion
+						.draw(drawPos, color);
+				}
+				else
+				{
+					textureRegion
+						.scaled(scale)
+						.draw(drawPos, color);
+				}
+			}
+
+			penPos.x += (cache.info.xAdvance * scale);
+			xMax = Max(xMax, penPos.x);
+		}
+
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
 	bool SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
@@ -206,39 +272,48 @@ namespace s3d
 		return (clusterIndex == clusters.size());
 	}
 
-	RectF SDFGlyphCache::drawBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	RectF SDFGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const bool usebasePos, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		return draw(font, s, clusters, pos, size, textStyle, color, true, lineHeightScale);
-	}
+		if (not prerender(font, { cluster }))
+		{
+			return RectF{ 0 };
+		}
 
-	RectF SDFGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
-	{
-		return drawFallback(font, cluster, pos, size, color, false, lineHeightScale);
-	}
+		const auto& prop = font.getProperty();
+		const double scale = (size / prop.fontPixelSize);
+		const bool noScaling = (size == prop.fontPixelSize);
+		const Vec2 basePos{ pos };
+		Vec2 penPos{ basePos };
+		int32 lineCount = 1;
+		double xMax = basePos.x;
 
-	RectF SDFGlyphCache::drawBaseFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
-	{
-		return drawFallback(font, cluster, pos, size, color, true, lineHeightScale);
-	}
+		{
+			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
+			{
+				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+				const Vec2 posOffset = usebasePos ? cache.info.getBase(scale) : cache.info.getOffset(scale);
+				const Vec2 drawPos = (penPos + posOffset);
+				RectF rect;
 
-	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
-	{
-		return region(font, s, clusters, pos, size, false, lineHeightScale);
-	}
+				if (noScaling)
+				{
+					rect = textureRegion
+						.draw(drawPos, color);
+				}
+				else
+				{
+					rect = textureRegion
+						.scaled(scale)
+						.draw(drawPos, color);
+				}
+			}
 
-	RectF SDFGlyphCache::regionBase(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const double lineHeightScale)
-	{
-		return region(font, s, clusters, pos, size, true, lineHeightScale);
-	}
+			penPos.x += (cache.info.xAdvance * scale);
+			xMax = Max(xMax, penPos.x);
+		}
 
-	RectF SDFGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
-	{
-		return regionFallback(font, cluster, pos, size, false, lineHeightScale);
-	}
-
-	RectF SDFGlyphCache::regionBaseFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const double lineHeightScale)
-	{
-		return regionFallback(font, cluster, pos, size, true, lineHeightScale);
+		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
+		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
 	Array<double> SDFGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters)
@@ -297,25 +372,6 @@ namespace s3d
 		return cache.info.xAdvance;
 	}
 
-	void SDFGlyphCache::setBufferWidth(const int32 width)
-	{
-		m_buffer.bufferWidth = Max(width, 0);
-	}
-
-	int32 SDFGlyphCache::getBufferWidth() const noexcept
-	{
-		return m_buffer.bufferWidth;
-	}
-
-	bool SDFGlyphCache::preload(const FontData& font, const StringView s)
-	{
-		return prerender(font, font.getGlyphClusters(s, false));
-	}
-
-	const Texture& SDFGlyphCache::getTexture() const noexcept
-	{
-		return m_texture;
-	}
 
 	bool SDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
 	{
@@ -363,122 +419,7 @@ namespace s3d
 		return true;
 	}
 
-	RectF SDFGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const bool usebasePos, const double lineHeightScale)
-	{
-		if (not prerender(font, clusters))
-		{
-			return RectF{ 0 };
-		}
-
-		const auto& prop = font.getProperty();
-		const double scale = (size / prop.fontPixelSize);
-		const bool noScaling = (size == prop.fontPixelSize);
-		const Vec2 basePos{ pos };
-		Vec2 penPos{ basePos };
-		int32 lineCount = 1;
-		double xMax = basePos.x;
-
-		for (const auto& cluster : clusters)
-		{
-			if (ProcessControlCharacter(s[cluster.pos], penPos, lineCount, basePos, scale, lineHeightScale, prop))
-			{
-				xMax = Max(xMax, penPos.x);
-				continue;
-			}
-
-			if (cluster.fontIndex != 0)
-			{
-				const size_t fallbackIndex = (cluster.fontIndex - 1);
-				RectF rect;
-
-				if (usebasePos)
-				{
-					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						cluster, penPos, size, textStyle, color, lineHeightScale);
-				}
-				else
-				{
-					rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-						cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
-				}
-
-				penPos.x += rect.w;
-				xMax = Max(xMax, penPos.x);
-				continue;
-			}
-
-			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
-			{
-				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
-				const Vec2 posOffset = usebasePos ? cache.info.getBase(scale) : cache.info.getOffset(scale);
-				const Vec2 drawPos = (penPos + posOffset);
-
-				if (noScaling)
-				{
-					textureRegion
-						.draw(drawPos, color);
-				}
-				else
-				{
-					textureRegion
-						.scaled(scale)
-						.draw(drawPos, color);
-				}
-			}
-
-			penPos.x += (cache.info.xAdvance * scale);
-			xMax = Max(xMax, penPos.x);
-		}
-
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
-		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
-	}
-
-	RectF SDFGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const ColorF& color, const bool usebasePos, const double lineHeightScale)
-	{
-		if (not prerender(font, { cluster }))
-		{
-			return RectF{ 0 };
-		}
-
-		const auto& prop = font.getProperty();
-		const double scale = (size / prop.fontPixelSize);
-		const bool noScaling = (size == prop.fontPixelSize);
-		const Vec2 basePos{ pos };
-		Vec2 penPos{ basePos };
-		int32 lineCount = 1;
-		double xMax = basePos.x;
-
-		{
-			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
-			{
-				const TextureRegion textureRegion = m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
-				const Vec2 posOffset = usebasePos ? cache.info.getBase(scale) : cache.info.getOffset(scale);
-				const Vec2 drawPos = (penPos + posOffset);
-				RectF rect;
-
-				if (noScaling)
-				{
-					rect = textureRegion
-						.draw(drawPos, color);
-				}
-				else
-				{
-					rect = textureRegion
-						.scaled(scale)
-						.draw(drawPos, color);
-				}
-			}
-
-			penPos.x += (cache.info.xAdvance * scale);
-			xMax = Max(xMax, penPos.x);
-		}
-
-		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
-		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
-	}
-
-	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
+	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)
 	{
 		if (not prerender(font, clusters))
 		{
@@ -530,7 +471,7 @@ namespace s3d
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	RectF SDFGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const Vec2& pos, const double size, const bool usebasePos, const double lineHeightScale)
+	RectF SDFGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)
 	{
 		if (not prerender(font, { cluster }))
 		{
@@ -552,5 +493,25 @@ namespace s3d
 
 		const Vec2 topLeft = (usebasePos ? pos.movedBy(0, -prop.ascender * scale) : pos);
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
+	}
+
+	void SDFGlyphCache::setBufferWidth(const int32 width)
+	{
+		m_buffer.bufferWidth = Max(width, 0);
+	}
+
+	int32 SDFGlyphCache::getBufferWidth() const noexcept
+	{
+		return m_buffer.bufferWidth;
+	}
+
+	bool SDFGlyphCache::preload(const FontData& font, const StringView s)
+	{
+		return prerender(font, font.getGlyphClusters(s, false));
+	}
+
+	const Texture& SDFGlyphCache::getTexture() const noexcept
+	{
+		return m_texture;
 	}
 }

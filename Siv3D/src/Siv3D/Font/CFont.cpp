@@ -254,7 +254,7 @@ namespace s3d
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, false, pos, fontSize, lineHeightScale);
 		}
 	}
 
@@ -262,7 +262,7 @@ namespace s3d
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBase(*font, s, clusters, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, true, pos, fontSize, lineHeightScale);
 		}
 	}
 
@@ -273,12 +273,12 @@ namespace s3d
 
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
@@ -305,12 +305,12 @@ namespace s3d
 
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().drawBase(*font, s, clusters, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
@@ -321,12 +321,12 @@ namespace s3d
 		
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
@@ -337,12 +337,12 @@ namespace s3d
 		
 		if (textStyle.customShader)
 		{
-			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
 			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
-			return m_fonts[handleID]->getGlyphCache().drawBaseFallback(*font, cluster, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
 
@@ -350,7 +350,7 @@ namespace s3d
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, false, pos, fontSize, lineHeightScale);
 		}
 	}
 
@@ -358,7 +358,7 @@ namespace s3d
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().regionBaseFallback(*font, cluster, pos, fontSize, lineHeightScale);
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, true, pos, fontSize, lineHeightScale);
 		}
 	}
 
