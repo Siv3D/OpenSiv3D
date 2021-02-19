@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/DynamicTexture.hpp>
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -30,4 +32,82 @@ namespace s3d
 
 	DynamicTexture::DynamicTexture(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
 		: Texture{ Texture::Dynamic{}, size, color, format, desc } {}
+
+	bool DynamicTexture::fill(const ColorF& color)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), color, true);
+	}
+
+	bool DynamicTexture::fillRegion(const ColorF& color, const Rect& rect)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), color, rect);
+	}
+
+	bool DynamicTexture::fill(const Image& image)
+	{
+		if (isEmpty())
+		{
+			*this = DynamicTexture(image);
+			return true;
+		}
+		else if (image.size() != size())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), image.data(), image.stride(), true);
+	}
+
+	bool DynamicTexture::fillRegion(const Image& image, const Rect& rect)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+		else if (image.size() != size())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), image.data(), image.stride(), rect, true);
+	}
+
+	bool DynamicTexture::fillIfNotBusy(const Image& image)
+	{
+		if (isEmpty())
+		{
+			*this = DynamicTexture(image);
+			return true;
+		}
+		else if (image.size() != size())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), image.data(), image.stride(), false);
+	}
+
+	bool DynamicTexture::fillRegionIfNotBusy(const Image& image, const Rect& rect)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+		else if (image.size() != size())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), image.data(), image.stride(), rect, false);
+	}
 }

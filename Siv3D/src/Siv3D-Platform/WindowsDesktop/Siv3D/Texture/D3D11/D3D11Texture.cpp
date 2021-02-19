@@ -12,6 +12,8 @@
 # include "D3D11Texture.hpp"
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Texture/TextureCommon.hpp>
 
 namespace s3d
 {
@@ -166,5 +168,146 @@ namespace s3d
 	ID3D11RenderTargetView* D3D11Texture::getRTV()
 	{
 		return m_renderTargetView.Get();
+	}
+
+	bool D3D11Texture::fill(ID3D11DeviceContext* context, const ColorF& color, const bool wait)
+	{
+		if (m_type != TextureType::Dynamic)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			const UINT flag = (wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT);
+
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, flag, &mapped)))
+			{
+				return false;
+			}
+
+			if ((mapped.pData == nullptr)
+				|| (mapped.RowPitch < m_desc.stride()))
+			{
+				context->Unmap(m_stagingTexture.Get(), 0);
+				return false;
+			}
+
+			FillByColor(mapped.pData, m_desc.size, mapped.RowPitch, color, m_desc.format);
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+
+		return true;
+	}
+
+	bool D3D11Texture::fillRegion(ID3D11DeviceContext* context, const ColorF& color, const Rect& rect)
+	{
+		if (m_type != TextureType::Dynamic)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, 0, &mapped)))
+			{
+				return false;
+			}
+
+			if ((mapped.pData == nullptr)
+				|| (mapped.RowPitch < m_desc.stride()))
+			{
+				context->Unmap(m_stagingTexture.Get(), 0);
+				return false;
+			}
+
+			FillRegionByColor(mapped.pData, m_desc.size, mapped.RowPitch, rect, color, m_desc.format);
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+
+		return true;
+	}
+
+	bool D3D11Texture::fill(ID3D11DeviceContext* context, const void* src, const uint32 stride, const bool wait)
+	{
+		if (m_type != TextureType::Dynamic)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			const UINT flag = (wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT);
+
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, flag, &mapped)))
+			{
+				return false;
+			}
+
+			if ((mapped.pData == nullptr)
+				|| (mapped.RowPitch < m_desc.stride()))
+			{
+				context->Unmap(m_stagingTexture.Get(), 0);
+				return false;
+			}
+
+			FillByImage(mapped.pData, m_desc.size, mapped.RowPitch, src, stride, m_desc.format);
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+
+		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+
+		return true;
+	}
+
+	bool D3D11Texture::fillRegion(ID3D11DeviceContext* context, const void* src, uint32 stride, const Rect& rect, const bool wait)
+	{
+		if (m_type != TextureType::Dynamic)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		{
+			if (FAILED(context->Map(m_stagingTexture.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
+			{
+				return false;
+			}
+
+			if ((mapped.pData == nullptr)
+				|| (mapped.RowPitch < m_desc.stride()))
+			{
+				context->Unmap(m_stagingTexture.Get(), 0);
+				return false;
+			}
+
+			FillRegionByImage(mapped.pData, m_desc.size, mapped.RowPitch, src, stride, rect, m_desc.format);
+
+			context->Unmap(m_stagingTexture.Get(), 0);
+		}
+
+		const int32 leftX	= Clamp(rect.x, 0, m_desc.size.x);
+		const int32 rightX	= Clamp(rect.x + rect.w, 0, m_desc.size.x);
+		const int32 topY	= Clamp(rect.y, 0, m_desc.size.y);
+		const int32 bottomY	= Clamp(rect.y + rect.h, 0, m_desc.size.y);
+		const int32 width	= (rightX - leftX);
+		const int32 height	= (bottomY - topY);
+
+		if ((width == 0) || (height == 0))
+		{
+			return true;
+		}
+
+		D3D11_BOX box = CD3D11_BOX(leftX, topY, 0, rightX, bottomY, 1);
+		context->CopySubresourceRegion(m_texture.Get(), 0, leftX, topY, 0, m_stagingTexture.Get(), 0, &box);
+
+		return true;
 	}
 }

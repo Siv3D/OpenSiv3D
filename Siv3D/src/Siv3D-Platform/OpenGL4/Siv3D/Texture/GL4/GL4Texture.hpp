@@ -22,11 +22,18 @@ namespace s3d
 	{
 	public:
 
+		struct Dynamic {};
+		struct Render {};
+		struct MSRender {};
+
 		SIV3D_NODISCARD_CXX20
 		GL4Texture(const Image& image, TextureDesc desc);
 
 		SIV3D_NODISCARD_CXX20
 		GL4Texture(const Image& image, const Array<Image>& mips, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		GL4Texture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
 		~GL4Texture();
 
@@ -47,6 +54,15 @@ namespace s3d
 
 		[[nodiscard]]
 		TextureFormat getFormat() const noexcept;
+
+		// 動的テクスチャを指定した色で塗りつぶす
+		bool fill(const ColorF& color, bool wait);
+
+		bool fillRegion(const ColorF& color, const Rect& rect);
+
+		bool fill(const void* src, uint32 stride, bool wait);
+
+		bool fillRegion(const void* src, uint32 stride, const Rect& rect, bool wait);
 
 	private:
 

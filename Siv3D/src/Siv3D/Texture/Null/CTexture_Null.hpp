@@ -42,5 +42,13 @@ namespace s3d
 		TextureDesc getDesc(Texture::IDType handleID) override;
 
 		TextureFormat getFormat(Texture::IDType handleID) override;
+
+		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
+
+		bool fillRegion(Texture::IDType handleID, const ColorF& color, const Rect& rect) override;
+
+		bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) override;
+
+		bool fillRegion(Texture::IDType handleID, const void* src, uint32 stride, const Rect& rect, bool wait) override;
 	};
 }

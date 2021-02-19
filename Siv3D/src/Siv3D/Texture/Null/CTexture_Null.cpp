@@ -69,4 +69,24 @@ namespace s3d
 	{
 		return TextureFormat::Unknown;
 	}
+
+	bool CTexture_Null::fill(Texture::IDType, const ColorF&, bool)
+	{
+		return false;
+	}
+
+	bool CTexture_Null::fillRegion(Texture::IDType, const ColorF&, const Rect&)
+	{
+		return false;
+	}
+
+	bool CTexture_Null::fill(Texture::IDType, const void*, uint32, bool)
+	{
+		return false;
+	}
+
+	bool CTexture_Null::fillRegion(Texture::IDType, const void*, uint32, const Rect&, bool)
+	{
+		return false;
+	}
 }

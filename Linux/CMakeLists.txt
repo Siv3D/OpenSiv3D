@@ -253,6 +253,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp
   ../Siv3D/src/Siv3D/Texture/SivTexture.cpp
+  ../Siv3D/src/Siv3D/Texture/TextureCommon.cpp
   ../Siv3D/src/Siv3D/TexturedCircle/SivTexturedCircle.cpp
   ../Siv3D/src/Siv3D/TexturedQuad/SivTexturedQuad.cpp
   ../Siv3D/src/Siv3D/TexturedRoundRect/SivTexturedRoundRect.cpp

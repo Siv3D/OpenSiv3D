@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/ColorHSV.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "D3D11Texture2DDesc.hpp"
 
@@ -44,6 +46,15 @@ namespace s3d
 
 		[[nodiscard]]
 		ID3D11RenderTargetView* getRTV();
+
+		// 動的テクスチャを指定した色で塗りつぶす
+		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
+
+		bool fillRegion(ID3D11DeviceContext* context, const ColorF& color, const Rect& rect);
+
+		bool fill(ID3D11DeviceContext* context, const void* src, uint32 stride, bool wait);
+
+		bool fillRegion(ID3D11DeviceContext* context, const void* src, uint32 stride, const Rect& rect, bool wait);
 
 	private:
 
