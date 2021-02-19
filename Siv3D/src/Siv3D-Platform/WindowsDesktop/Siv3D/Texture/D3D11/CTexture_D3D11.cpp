@@ -11,11 +11,112 @@
 
 # include "CTexture_D3D11.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Byte.hpp>
+# include <Siv3D/HalfFloat.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat& format)
+		{
+			if ((size.x <= 0) || (size.y <= 0))
+			{
+				return{};
+			}
+
+			const size_t num_pixels = (size.x * size.y);
+			Array<Byte> bytes(num_pixels * format.pixelSize());
+
+			if ((format == TextureFormat::R8G8B8A8_Unorm)
+				|| (format == TextureFormat::R8G8B8A8_Unorm_SRGB))
+			{
+				const uint32 value = Color{ color }.asUint32();
+				uint32* pDst = static_cast<uint32*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+			else if (format == TextureFormat::R16G16_Float)
+			{
+				const struct R16G16
+				{
+					HalfFloat r;
+					HalfFloat g;
+				} value = { color.r, color.g };
+
+				R16G16* pDst = static_cast<R16G16*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+			else if (format == TextureFormat::R32_Float)
+			{
+				const float value = static_cast<float>(color.r);
+				float* pDst = static_cast<float*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+			else if (format == TextureFormat::R10G10B10A2_Unorm)
+			{
+				throw Error{ U"DynamicTexture for TextureFormat::R10G10B10A2_Unorm is unimplemented" };
+			}
+			else if (format == TextureFormat::R11G11B10_UFloat)
+			{
+				throw Error{ U"DynamicTexture for TextureFormat::R11G11B10_UFloat is unimplemented" };
+			}
+			else if (format == TextureFormat::R16G16B16A16_Float)
+			{
+				const struct R16G16B16A16
+				{
+					HalfFloat r;
+					HalfFloat g;
+					HalfFloat b;
+					HalfFloat a;
+				} value = { color.r, color.g, color.b, color.a };
+
+				R16G16B16A16* pDst = static_cast<R16G16B16A16*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+			else if (format == TextureFormat::R32G32_Float)
+			{
+				const Float2 value = color.rg();
+				Float2* pDst = static_cast<Float2*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+			else if (format == TextureFormat::R32G32B32A32_Float)
+			{
+				const Float4 value = color.rgba();
+				Float4* pDst = static_cast<Float4*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+			}
+
+			return bytes;
+		}
+	}
+
 	CTexture_D3D11::CTexture_D3D11()
 	{
 		// do nothing
@@ -132,6 +233,36 @@ namespace s3d
 
 		const String info = U"(type: Default, size: {0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
+	}
+
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, const TextureDesc desc)
+	{
+		if ((size.x <= 0) || (size.y <= 0))
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Dynamic{}, m_device, size, pData, stride, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getDesc().format.name());
+		return m_textures.add(std::move(texture), info);
+	}
+
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
+	{
+		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
+
+		if (not initialData)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
 	void CTexture_D3D11::release(const Texture::IDType handleID)

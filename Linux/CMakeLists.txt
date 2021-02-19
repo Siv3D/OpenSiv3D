@@ -126,6 +126,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
   ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
+  ../Siv3D/src/Siv3D/DynamicTexture/SivDynamicTexture.cpp
   ../Siv3D/src/Siv3D/Effect/CEffect.cpp
   ../Siv3D/src/Siv3D/Effect/EffectData.cpp
   ../Siv3D/src/Siv3D/Effect/EffectFactory.cpp

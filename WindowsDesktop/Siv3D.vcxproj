@@ -158,6 +158,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DrawableText.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
@@ -1191,6 +1192,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\CDummy.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\DummyFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Duration\SivDuration.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\CEffect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectFactory.cpp" />

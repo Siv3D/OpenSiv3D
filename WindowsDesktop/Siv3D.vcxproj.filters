@@ -811,6 +811,9 @@
     <Filter Include="src\Siv3D\PutText">
       <UniqueIdentifier>{847468e4-5da9-4260-a599-5fb9f476f52d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DynamicTexture">
+      <UniqueIdentifier>{9696f7da-140d-4832-b2b3-0f64817b1d9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4020,6 +4023,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SceneManager.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5434,6 +5440,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PutText\SivPutText.cpp">
       <Filter>src\Siv3D\PutText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DynamicTexture\SivDynamicTexture.cpp">
+      <Filter>src\Siv3D\DynamicTexture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -241,5 +241,17 @@ namespace s3d
 
 		[[nodiscard]]
 		TexturedRoundRect rounded(double x, double y, double w, double h, double r) const;
+
+	protected:
+
+		struct Dynamic {};
+
+		struct Render {};
+
+		struct MSRender {};
+
+		Texture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
+
+		Texture(Dynamic, const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc);
 	};
 }

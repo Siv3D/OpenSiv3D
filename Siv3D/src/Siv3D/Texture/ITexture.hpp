@@ -29,6 +29,10 @@ namespace s3d
 
 		virtual Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
 
+		virtual Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) = 0;
+
+		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
+
 		virtual void release(Texture::IDType handleID) = 0;
 
 		virtual Size getSize(Texture::IDType handleID) = 0;

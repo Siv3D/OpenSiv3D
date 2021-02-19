@@ -621,4 +621,16 @@ namespace s3d
 			RoundRect{ 0, 0, w, h, r }
 		};
 	}
+
+	Texture::Texture(Dynamic, const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createDynamic(size, pData, stride, format, desc)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(Dynamic, const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createDynamic(size, color, format, desc)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
 }

@@ -972,7 +972,7 @@
 // 角丸長方形に貼り付けたテクスチャ
 # include <Siv3D/TexturedRoundRect.hpp>
 
-
+# include <Siv3D/DynamicTexture.hpp>
 
 
 

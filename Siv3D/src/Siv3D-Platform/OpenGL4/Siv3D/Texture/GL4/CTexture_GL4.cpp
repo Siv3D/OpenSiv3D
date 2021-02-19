@@ -101,6 +101,16 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
+	Texture::IDType CTexture_GL4::createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, const TextureDesc desc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_GL4::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
 	void CTexture_GL4::release(const Texture::IDType handleID)
 	{
 		m_textures.erase(handleID);

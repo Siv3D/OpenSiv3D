@@ -20,11 +20,18 @@ namespace s3d
 	{
 	public:
 
+		struct Dynamic {};
+		struct Render {};
+		struct MSRender {};
+
 		SIV3D_NODISCARD_CXX20
 		D3D11Texture(ID3D11Device* device, const Image& image, TextureDesc desc);
 
 		SIV3D_NODISCARD_CXX20
 		D3D11Texture(ID3D11Device* device, const Image& image, const Array<Image>& mips, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
