@@ -20,16 +20,16 @@ namespace s3d
 
 	inline void MicrosecClock::log() const
 	{
-		Logger(Microseconds(us()));
+		Logger(Microseconds{ us() });
 	}
 
 	inline void MicrosecClock::console() const
 	{
-		Console(Microseconds(us()));
+		Console(Microseconds{ us() });
 	}
 
-	//inline void MicrosecClock::print() const
-	//{
-	//	Print(Microseconds(us()));
-	//}
+	inline void MicrosecClock::print() const
+	{
+		Print(Microseconds{ us() });
+	}
 }

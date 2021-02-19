@@ -65,8 +65,8 @@ namespace s3d
 		Console(cycles(), U"cycles"_sv);
 	}
 
-	//inline void RDTSCClock::print() const
-	//{
-	//	Print(cycles(), U"cycles"_sv);
-	//}
+	inline void RDTSCClock::print() const
+	{
+		Print(cycles(), U"cycles"_sv);
+	}
 }

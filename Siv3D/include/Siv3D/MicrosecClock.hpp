@@ -15,7 +15,7 @@
 # include "Duration.hpp"
 # include "Logger.hpp"
 # include "Console.hpp"
-//# include "Print.hpp"
+# include "Print.hpp"
 
 namespace s3d
 {
@@ -37,7 +37,7 @@ namespace s3d
 		void console() const;
 
 		/// @brief 経過時間をデバッグ表示します。
-		//void print() const;
+		void print() const;
 
 	private:
 

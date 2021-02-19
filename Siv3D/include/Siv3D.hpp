@@ -343,13 +343,13 @@
 //# include <Siv3D/TimeProfiler.hpp> // [Siv3D ToDo]
 
 // 処理にかかった時間の測定 | Clock counter in milliseconds
-# include <Siv3D/MillisecClock.hpp> // [Siv3D ToDo]
+# include <Siv3D/MillisecClock.hpp>
 
 // 処理にかかった時間の測定 | Clock counter in microseconds
-# include <Siv3D/MicrosecClock.hpp> // [Siv3D ToDo]
+# include <Siv3D/MicrosecClock.hpp>
 
 // Clock counter in CPU clocks | 処理にかかった CPU サイクル数の測定
-# include <Siv3D/RDTSCClock.hpp> // [Siv3D ToDo]
+# include <Siv3D/RDTSCClock.hpp>
 
 //////////////////////////////////////////////////
 //
