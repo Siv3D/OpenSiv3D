@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Font.hpp>
+# include <Siv3D/DynamicTexture.hpp>
 # include <Siv3D/HashTable.hpp>
 # include "IGlyphCache.hpp"
 # include "GlyphCacheCommon.hpp"
@@ -61,7 +62,7 @@ namespace s3d
 
 		HashTable<GlyphIndex, GlyphCache> m_glyphTable;
 
-		Texture m_texture;
+		DynamicTexture m_texture;
 
 		BufferImage m_buffer = { .backgroundColor = Color{ 0, 0 } };
 	};

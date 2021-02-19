@@ -509,7 +509,7 @@ namespace s3d
 
 		if (hasDirty)
 		{
-			m_texture = Texture{ m_buffer.image };
+			m_texture.fill(m_buffer.image);
 		}
 
 		return true;
