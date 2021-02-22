@@ -179,6 +179,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageEncoder.hpp" />

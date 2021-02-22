@@ -55,6 +55,12 @@ Resource(engine/font/mplus/mplus-1p-black.ttf.zstdcmp)
 //	Color Emoji
 //
 Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
+//
+//	Icons
+//
+Resource(engine/font/fontawesome/fontawesome-brands.otf.zstdcmp)
+Resource(engine/font/fontawesome/fontawesome-solid.otf.zstdcmp)
+Resource(engine/font/materialdesignicons/materialdesignicons-webfont.ttf.zstdcmp)
 
 //////////////////////////////////////////////////////
 //

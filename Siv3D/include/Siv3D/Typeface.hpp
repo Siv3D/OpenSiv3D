@@ -33,6 +33,10 @@ namespace s3d
 		Mplus_Heavy,
 		Mplus_Black,
 
+		Icon_Awesome_Solid,
+		Icon_Awesome_Brand,
+		Icon_MaterialDesign,
+
 		Thin = Mplus_Thin,
 
 		Light = Mplus_Light,

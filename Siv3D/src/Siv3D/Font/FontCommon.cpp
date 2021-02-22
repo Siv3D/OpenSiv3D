@@ -28,7 +28,7 @@ namespace s3d
 			bool required = false;
 		};
 
-		static constexpr std::array<EngineFontResource, 10> EngineFontResources =
+		static constexpr std::array<EngineFontResource, 13> EngineFontResources =
 		{ {
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, true },
 			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, true },
@@ -40,9 +40,9 @@ namespace s3d
 			{ U"mplus/mplus-1p-bold.ttf"_sv, false },
 			{ U"mplus/mplus-1p-heavy.ttf"_sv, false },
 			{ U"mplus/mplus-1p-black.ttf"_sv, false },
-
-			//U"fontawesome/fontawesome-solid.otf"_sv,
-			//U"fontawesome/fontawesome-brands.otf"_sv,
+			{ U"fontawesome/fontawesome-solid.otf"_sv, false },
+			{ U"fontawesome/fontawesome-brands.otf"_sv, false },
+			{ U"materialdesignicons/materialdesignicons-webfont.ttf"_sv, false },
 		} };
 
 		// 実行ファイルに同梱されている、圧縮済みフォントファイルをキャッシュフォルダに展開する。
@@ -93,7 +93,7 @@ namespace s3d
 			return true;
 		}
 
-		static const std::array<TypefaceInfo, 14> EngineTypefaceList =
+		static const std::array<TypefaceInfo, 17> EngineTypefaceList =
 		{ {
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 },
@@ -109,6 +109,9 @@ namespace s3d
 			{ U"mplus/mplus-1p-bold.ttf", 0 },
 			{ U"mplus/mplus-1p-heavy.ttf", 0 },
 			{ U"mplus/mplus-1p-black.ttf", 0 },
+			{ U"fontawesome/fontawesome-solid.otf", 0 },
+			{ U"fontawesome/fontawesome-brands.otf", 0 },
+			{ U"materialdesignicons/materialdesignicons-webfont.ttf", 0 },
 		} };
 
 		TypefaceInfo GetTypefaceInfo(const Typeface typeface)
