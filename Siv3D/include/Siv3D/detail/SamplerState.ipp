@@ -19,14 +19,14 @@ namespace s3d
 		const uint8 _maxAnisotropy,
 		const float _lodBias,
 		const Float4 _borderColor) noexcept
-		: addressU(address)
-		, addressV(address)
-		, addressW(address)
-		, min(filter)
-		, mag(filter)
-		, mip(filter)
-		, maxAnisotropy(_maxAnisotropy)
-		, lodBias(_lodBias)
+		: addressU{ address }
+		, addressV{ address }
+		, addressW{ address }
+		, min{ filter }
+		, mag{ filter }
+		, mip{ filter }
+		, maxAnisotropy{ _maxAnisotropy }
+		, lodBias{ _lodBias }
 		, borderColor{ _borderColor.x, _borderColor.y, _borderColor.z, _borderColor.w } {}
 
 	inline constexpr SamplerState::SamplerState(
@@ -39,14 +39,14 @@ namespace s3d
 		const uint8 _maxAnisotropy,
 		const float _lodBias,
 		const Float4 _borderColor) noexcept
-		: addressU(_addressU)
-		, addressV(_addressV)
-		, addressW(_addressW)
-		, min(_min)
-		, mag(_mag)
-		, mip(_mip)
-		, maxAnisotropy(_maxAnisotropy)
-		, lodBias(_lodBias)
+		: addressU{ _addressU }
+		, addressV{ _addressV }
+		, addressW{ _addressW }
+		, min{ _min }
+		, mag{ _mag }
+		, mip{ _mip }
+		, maxAnisotropy{ _maxAnisotropy }
+		, lodBias{ _lodBias }
 		, borderColor{ _borderColor.x, _borderColor.y, _borderColor.z, _borderColor.w } {}
 
 	inline SamplerState::storage_type SamplerState::asValue() const noexcept

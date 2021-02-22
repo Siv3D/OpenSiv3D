@@ -14,7 +14,7 @@
 namespace s3d
 {
 	inline BinaryReader::BinaryReader(const FilePathView path, const OpenMode openMode)
-		: BinaryReader()
+		: BinaryReader{}
 	{
 		open(path, openMode);
 	}

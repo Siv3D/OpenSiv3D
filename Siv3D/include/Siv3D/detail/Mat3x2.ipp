@@ -15,14 +15,14 @@ namespace s3d
 {
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline constexpr Mat3x2::Mat3x2(const Arithmetic s) noexcept
-		: _11(static_cast<value_type>(s)), _12(0.0f)
-		, _21(0.0f), _22(static_cast<value_type>(s))
-		, _31(0.0f), _32(0.0f) {}
+		: _11{ static_cast<value_type>(s) }, _12{ 0.0f }
+		, _21{ 0.0f }, _22{ static_cast<value_type>(s) }
+		, _31{ 0.0f }, _32{ 0.0f } {}
 
 	inline constexpr Mat3x2::Mat3x2(const float m11, const float m12, const float m21, const float m22, const float m31, const float m32) noexcept
-		: _11(m11), _12(m12)
-		, _21(m21), _22(m22)
-		, _31(m31), _32(m32) {}
+		: _11{ m11 }, _12{ m12 }
+		, _21{ m21 }, _22{ m22 }
+		, _31{ m31 }, _32{ m32 } {}
 
 	inline constexpr Mat3x2 Mat3x2::Screen(const Float2 size) noexcept
 	{

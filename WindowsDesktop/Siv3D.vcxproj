@@ -74,6 +74,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Easing.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Effect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Ellipse.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Error.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatQuad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatRect.ipp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\HalfFloat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\HardwareRNG.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Icon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IImageDecoder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageDecoder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageEncoder.ipp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EnvironmentVariable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />

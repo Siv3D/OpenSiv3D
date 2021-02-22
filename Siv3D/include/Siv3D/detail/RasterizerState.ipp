@@ -20,11 +20,11 @@ namespace s3d
 		const bool _antialiasedLine3D,
 		const int32 _depthBias
 	)
-		: fillMode(_fillMode)
-		, cullMode(_cullMode)
-		, scissorEnable(_scissorEnable)
-		, antialiasedLine3D(_antialiasedLine3D)
-		, depthBias(_depthBias) {}
+		: fillMode{ _fillMode }
+		, cullMode{ _cullMode }
+		, scissorEnable{ _scissorEnable }
+		, antialiasedLine3D{ _antialiasedLine3D }
+		, depthBias{ _depthBias } {}
 
 	inline RasterizerState::storage_type RasterizerState::asValue() const noexcept
 	{

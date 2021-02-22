@@ -27,18 +27,18 @@ namespace s3d
 		const bool _writeB,
 		const bool _writeA
 	) noexcept
-		: enable(_enable)
-		, writeR(_writeR)
-		, writeG(_writeG)
-		, src(_src)
-		, dst(_dst)
-		, op(_op)
-		, alphaToCoverageEnable(_alphaToCoverageEnable)
-		, writeB(_writeB)
-		, writeA(_writeA)
-		, srcAlpha(_srcAlpha)
-		, dstAlpha(_dstAlpha)
-		, opAlpha(_opAlpha) {}
+		: enable{ _enable }
+		, writeR{ _writeR }
+		, writeG{ _writeG }
+		, src{ _src }
+		, dst{ _dst }
+		, op{ _op }
+		, alphaToCoverageEnable{ _alphaToCoverageEnable }
+		, writeB{ _writeB }
+		, writeA{ _writeA }
+		, srcAlpha{ _srcAlpha }
+		, dstAlpha{ _dstAlpha }
+		, opAlpha{ _opAlpha } {}
 
 	inline constexpr BlendState::BlendState(const Predefined predefined) noexcept
 	{

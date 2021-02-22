@@ -14,8 +14,8 @@
 namespace s3d
 {
 	inline constexpr InputCombination::InputCombination(const Input input1, const Input input2) noexcept
-		: m_input1(input1)
-		, m_input2(input2) {}
+		: m_input1{ input1 }
+		, m_input2{ input2 } {}
 
 	inline String InputCombination::name() const
 	{

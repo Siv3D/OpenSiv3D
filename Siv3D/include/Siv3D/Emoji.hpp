@@ -10,16 +10,21 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
-	template <class AssetTag>
-	inline AssetIDWrapper<AssetTag>::AssetIDWrapper(const IDType id) noexcept
-		: m_id{ id } {}
-
-	template <class AssetTag>
-	inline constexpr typename AssetIDWrapper<AssetTag>::IDType AssetIDWrapper<AssetTag>::id() const noexcept
+	struct Emoji
 	{
-		return m_id;
-	}
+		String codePoints;
+
+		SIV3D_NODISCARD_CXX20
+		Emoji() = default;
+
+		SIV3D_NODISCARD_CXX20
+		explicit Emoji(String&& _codePoints) noexcept;
+	};
 }
+
+# include "detail/Emoji.ipp"

@@ -15,11 +15,11 @@ namespace s3d
 {
 	SIV3D_CONCEPT_SIGNED_INTEGRAL_
 	inline BigInt::BigInt(const SignedInt i)
-		: BigInt(static_cast<int64>(i)) {}
+		: BigInt{ static_cast<int64>(i) } {}
 
 	SIV3D_CONCEPT_UNSIGNED_INTEGRAL_
 	inline BigInt::BigInt(const UnsignedInt i)
-		: BigInt(static_cast<uint64>(i)) {}
+		: BigInt{ static_cast<uint64>(i) } {}
 
 	SIV3D_CONCEPT_SIGNED_INTEGRAL_
 	inline BigInt& BigInt::assign(const SignedInt i)

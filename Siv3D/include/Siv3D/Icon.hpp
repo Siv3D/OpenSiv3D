@@ -23,16 +23,16 @@ namespace s3d
 			MaterialDesign,
 		};
 
-		Type type;
+		Type type = Type::Awesome;
 
-		uint32 code;
+		uint32 code = 0;
 
-		explicit constexpr Icon(uint32 _code) noexcept
-			: type{ Type::Awesome }
-			, code{ _code } {}
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Icon(uint32 _code) noexcept;
 
-		constexpr Icon(Type _type, uint32 _code) noexcept
-			: type{ _type }
-			, code{ _code } {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Icon(Type _type, uint32 _code) noexcept;
 	};
 }
+
+# include "detail/Icon.ipp"

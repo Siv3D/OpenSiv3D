@@ -15,7 +15,7 @@ namespace s3d
 {
 	inline Optional<ImageInfo> IImageDecoder::getImageInfo(const FilePathView path) const
 	{
-		BinaryReader reader(path);
+		BinaryReader reader{ path };
 
 		if (not reader)
 		{
@@ -27,7 +27,7 @@ namespace s3d
 
 	inline Image IImageDecoder::decode(const FilePathView path) const
 	{
-		BinaryReader reader(path);
+		BinaryReader reader{ path };
 
 		if (not reader)
 		{
@@ -39,7 +39,7 @@ namespace s3d
 
 	inline Grid<uint16> IImageDecoder::decodeGray16(const FilePathView path) const
 	{
-		BinaryReader reader(path);
+		BinaryReader reader{ path };
 
 		if (not reader)
 		{

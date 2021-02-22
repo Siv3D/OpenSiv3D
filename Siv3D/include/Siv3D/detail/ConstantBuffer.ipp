@@ -15,11 +15,11 @@ namespace s3d
 {
 	template <class Type>
 	inline ConstantBuffer<Type>::ConstantBuffer()
-		: m_base(Size) {}
+		: m_base{ Size } {}
 
 	template <class Type>
 	inline ConstantBuffer<Type>::ConstantBuffer(const Type& data)
-		: ConstantBuffer()
+		: ConstantBuffer{}
 	{
 		m_wrapper->data	= data;
 	}

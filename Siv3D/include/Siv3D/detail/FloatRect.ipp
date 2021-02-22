@@ -14,20 +14,20 @@
 namespace s3d
 {
 	inline constexpr FloatRect::FloatRect(const float l, const float t, const float r, const float b) noexcept
-		: left(l)
-		, top(t)
-		, right(r)
-		, bottom(b) {}
+		: left{ l }
+		, top{ t }
+		, right{ r }
+		, bottom{ b } {}
 
 	inline constexpr FloatRect::FloatRect(const int32 l, const int32 t, const int32 r, const int32 b) noexcept
-		: left(static_cast<float>(l))
-		, top(static_cast<float>(t))
-		, right(static_cast<float>(r))
-		, bottom(static_cast<float>(b)) {}
+		: left{ static_cast<float>(l) }
+		, top{ static_cast<float>(t) }
+		, right{ static_cast<float>(r) }
+		, bottom{ static_cast<float>(b) } {}
 
 	inline constexpr FloatRect::FloatRect(const double l, const double t, const double r, const double b) noexcept
-		: left(static_cast<float>(l))
-		, top(static_cast<float>(t))
-		, right(static_cast<float>(r))
-		, bottom(static_cast<float>(b)) {}
+		: left{ static_cast<float>(l) }
+		, top{ static_cast<float>(t) }
+		, right{ static_cast<float>(r) }
+		, bottom{ static_cast<float>(b) } {}
 }

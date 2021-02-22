@@ -15,15 +15,15 @@ namespace s3d
 {
 	SIV3D_CONCEPT_SIGNED_INTEGRAL_
 	inline BigFloat::BigFloat(const SignedInt i)
-		: BigFloat(static_cast<int64>(i)) {}
+		: BigFloat{ static_cast<int64>(i) } {}
 
 	SIV3D_CONCEPT_UNSIGNED_INTEGRAL_
 	inline BigFloat::BigFloat(const UnsignedInt i)
-		: BigFloat(static_cast<uint64>(i)) {}
+		: BigFloat{ static_cast<uint64>(i) } {}
 
 	SIV3D_CONCEPT_FLOATING_POINT_
 	inline BigFloat::BigFloat(const Float f)
-		: BigFloat(static_cast<long double>(f)) {}
+		: BigFloat{ static_cast<long double>(f) } {}
 
 	SIV3D_CONCEPT_SIGNED_INTEGRAL_
 	inline BigFloat& BigFloat::assign(const SignedInt i)

@@ -13,13 +13,6 @@
 
 namespace s3d
 {
-	template <class AssetTag>
-	inline AssetIDWrapper<AssetTag>::AssetIDWrapper(const IDType id) noexcept
-		: m_id{ id } {}
-
-	template <class AssetTag>
-	inline constexpr typename AssetIDWrapper<AssetTag>::IDType AssetIDWrapper<AssetTag>::id() const noexcept
-	{
-		return m_id;
-	}
+	inline Emoji::Emoji(String&& _codePoints) noexcept
+		: codePoints{ std::move(_codePoints) } {}
 }

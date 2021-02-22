@@ -14,9 +14,9 @@
 namespace s3d
 {
 	inline constexpr Input::Input(const InputDeviceType deviceType, const uint8 code, const uint8 userIndex) noexcept
-		: m_deviceType(deviceType)
-		, m_code(code)
-		, m_userIndex(userIndex) {}
+		: m_deviceType{ deviceType }
+		, m_code{ code }
+		, m_userIndex{ userIndex } {}
 
 	inline constexpr InputDeviceType Input::deviceType() const noexcept
 	{

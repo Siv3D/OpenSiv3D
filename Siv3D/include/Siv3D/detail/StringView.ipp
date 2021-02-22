@@ -18,28 +18,16 @@
 namespace s3d
 {
 	inline StringView::StringView(const std::u32string& s) noexcept
-		: m_view(s)
-	{
-	
-	}
+		: m_view{ s } {}
 
 	inline constexpr StringView::StringView(const std::u32string_view s) noexcept
-		: m_view(s)
-	{
-	
-	}
+		: m_view{ s } {}
 
 	inline constexpr StringView::StringView(const value_type* s, const size_type length) noexcept
-		: m_view(s, length)
-	{
-	
-	}
+		: m_view{ s, length } {}
 
 	inline constexpr StringView::StringView(const value_type* s) noexcept
-		: m_view(s)
-	{
-	
-	}
+		: m_view{ s } {}
 
 	inline constexpr StringView::const_iterator StringView::begin() const noexcept
 	{

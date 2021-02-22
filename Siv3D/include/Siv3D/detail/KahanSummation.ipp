@@ -14,11 +14,8 @@
 namespace s3d
 {
 	template <class Float>
-	inline constexpr KahanSummation<Float>::KahanSummation(Float init) noexcept
-		: m_sum(init)
-	{
-	
-	}
+	inline constexpr KahanSummation<Float>::KahanSummation(const Float init) noexcept
+		: m_sum{ init } {}
 
 	template <class Float>
 	inline constexpr void KahanSummation<Float>::operator +=(const Float value) noexcept

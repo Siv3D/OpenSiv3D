@@ -14,7 +14,7 @@
 namespace s3d
 {
 	inline BinaryWriter::BinaryWriter(const FilePathView path, const OpenMode openMode)
-		: BinaryWriter()
+		: BinaryWriter{}
 	{
 		open(path, openMode);
 	}

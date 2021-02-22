@@ -14,7 +14,7 @@
 namespace s3d
 {
 	inline Stopwatch::Stopwatch(const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
-		: m_pSteadyClock(pSteadyClock)
+		: m_pSteadyClock{ pSteadyClock }
 	{
 		if (startImmediately)
 		{
@@ -23,7 +23,7 @@ namespace s3d
 	}
 
 	inline Stopwatch::Stopwatch(const Duration& startTime, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
-		: m_pSteadyClock(pSteadyClock)
+		: m_pSteadyClock{ pSteadyClock }
 	{
 		set(startTime);
 

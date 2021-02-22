@@ -15,7 +15,7 @@ namespace s3d
 {
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
 	inline SVG::SVG(Reader&& reader)
-		: SVG()
+		: SVG{}
 	{
 		load(std::forward<Reader>(reader));
 	}

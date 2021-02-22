@@ -1002,6 +1002,7 @@
 # include <Siv3D/Print.hpp>
 # include <Siv3D/PutText.hpp>
 # include <Siv3D/Icon.hpp>
+# include <Siv3D/Emoji.hpp>
 
 
 # include <Siv3D/SceneManager.hpp>

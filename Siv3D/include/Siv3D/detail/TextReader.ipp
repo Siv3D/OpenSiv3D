@@ -15,7 +15,7 @@ namespace s3d
 {
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
 	inline TextReader::TextReader(Reader&& reader, const Optional<TextEncoding>& encoding)
-		: TextReader()
+		: TextReader{}
 	{
 		open(std::forward<Reader>(reader), encoding);
 	}

@@ -16,32 +16,32 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h)
 		: m_data(w * h)
-		, m_width(w)
-		, m_height(h) {}
+		, m_width{ w }
+		, m_height{ h } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, const value_type& value)
-		: m_data(w* h, value)
-		, m_width(w)
-		, m_height(h) {}
+		: m_data(w * h, value)
+		, m_width{ w }
+		, m_height{ h } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const Size size)
 		: m_data(size.x * size.y)
-		, m_width(size.x)
-		, m_height(size.y) {}
+		, m_width{ size.x }
+		, m_height{ size.y } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const Size size, const value_type& value)
 		: m_data(size.x* size.y, value)
-		, m_width(size.x)
-		, m_height(size.y) {}
+		, m_width{ size.x }
+		, m_height{ size.y } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, const Array<value_type>& data)
 		: m_data(data)
-		, m_width(w)
-		, m_height(h)
+		, m_width{ w }
+		, m_height{ h }
 	{
 		m_data.resize(w * h);
 	}
@@ -49,8 +49,8 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, Array<value_type>&& data)
 		: m_data(std::move(data))
-		, m_width(w)
-		, m_height(h)
+		, m_width{ w }
+		, m_height{ h }
 	{
 		m_data.resize(w * h);
 	}
@@ -58,8 +58,8 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(Size size, const Array<value_type>& data)
 		: m_data(data)
-		, m_width(size.x)
-		, m_height(size.y)
+		, m_width{ size.x }
+		, m_height{ size.y }
 	{
 		assert(0 <= size.x);
 		assert(0 <= size.y);
@@ -69,8 +69,8 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(Size size, Array<value_type>&& data)
 		: m_data(std::move(data))
-		, m_width(size.x)
-		, m_height(size.y)
+		, m_width{ size.x }
+		, m_height{ size.y }
 	{
 		assert(0 <= size.x);
 		assert(0 <= size.y);

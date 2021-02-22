@@ -13,13 +13,11 @@
 
 namespace s3d
 {
-	template <class AssetTag>
-	inline AssetIDWrapper<AssetTag>::AssetIDWrapper(const IDType id) noexcept
-		: m_id{ id } {}
+	inline constexpr Icon::Icon(const uint32 _code) noexcept
+		: type{ Type::Awesome }
+		, code{ _code } {}
 
-	template <class AssetTag>
-	inline constexpr typename AssetIDWrapper<AssetTag>::IDType AssetIDWrapper<AssetTag>::id() const noexcept
-	{
-		return m_id;
-	}
+	inline constexpr Icon::Icon(const Type _type, const uint32 _code) noexcept
+		: type{ _type }
+		, code{ _code } {}
 }

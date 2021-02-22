@@ -15,7 +15,7 @@ namespace s3d
 {
 	template <class AssetTag>
 	inline constexpr AssetID<AssetTag>::AssetID(const value_type id) noexcept
-		: m_value(id) {}
+		: m_value{ id } {}
 
 # ifndef __cpp_impl_three_way_comparison
 
