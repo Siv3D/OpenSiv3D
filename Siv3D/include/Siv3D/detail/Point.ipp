@@ -64,8 +64,8 @@ namespace s3d
 	}
 
 	inline constexpr Point::Point(const value_type _x, const value_type _y) noexcept
-		: x(_x)
-		, y(_y) {}
+		: x{ _x }
+		, y{ _y } {}
 
 # if __cpp_lib_concepts
 	template <Concept::Integral IntegerX, Concept::Integral IntegerY>
@@ -73,8 +73,8 @@ namespace s3d
 	template <class IntegerX, class IntegerY, std::enable_if_t<std::conjunction_v<std::is_integral<IntegerX>, std::is_integral<IntegerY>>>*>
 # endif
 	inline constexpr Point::Point(const IntegerX _x, const IntegerY _y) noexcept
-		: x(static_cast<value_type>(_x))
-		, y(static_cast<value_type>(_y)) {}
+		: x{ static_cast<value_type>(_x) }
+		, y{ static_cast<value_type>(_y) } {}
 
 	inline constexpr Point::value_type Point::elem(const size_t index) const noexcept
 	{

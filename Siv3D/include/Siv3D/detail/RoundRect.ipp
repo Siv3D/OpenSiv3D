@@ -17,17 +17,53 @@ namespace s3d
 		: rect{ _x, _y, _w, _h }
 		, r{ _r } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
+# else
+	template <class X, class Y, class W, class H, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>*>
+# endif
+	inline constexpr RoundRect::RoundRect(const X _x, const Y _y, const W _w, const H _h, const R _r) noexcept
+		: rect{ static_cast<value_type>(_x), static_cast<value_type>(_y), static_cast<value_type>(_w), static_cast<value_type>(_h) }
+		, r{ static_cast<value_type>(_r) } {}
+
 	inline constexpr RoundRect::RoundRect(const position_type pos, const value_type _w, const value_type _h, const value_type _r) noexcept
 		: rect{ pos, _w, _h }
 		, r{ _r } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
+# else
+	template <class W, class H, class R, std::enable_if_t<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>*>
+# endif
+	inline constexpr RoundRect::RoundRect(const position_type pos, const W _w, const H _h, const R _r) noexcept
+		: rect{ pos, static_cast<value_type>(_w), static_cast<value_type>(_h) }
+		, r{ static_cast<value_type>(_r) } {}
 
 	inline constexpr RoundRect::RoundRect(const value_type _x, const value_type _y, const size_type size, const value_type _r) noexcept
 		: rect{ _x, _y, size }
 		, r{ _r } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic R>
+# else
+	template <class X, class Y, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<R>>>*>
+# endif
+	inline constexpr RoundRect::RoundRect(const X _x, const Y _y, const size_type size, const R _r) noexcept
+		: rect{ static_cast<value_type>(_x), static_cast<value_type>(_y), size }
+		, r{ static_cast<value_type>(_r) } {}
+
 	inline constexpr RoundRect::RoundRect(const position_type pos, const value_type size, const value_type _r) noexcept
 		: rect{ pos, size }
 		, r{ _r } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic S, Concept::Arithmetic R>
+# else
+	template <class S, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<S>, std::is_arithmetic<R>>>*>
+# endif
+	inline constexpr RoundRect::RoundRect(const position_type pos, const S size, const R _r) noexcept
+		: rect{ pos, static_cast<value_type>(size), static_cast<value_type>(size) }
+		, r{ static_cast<value_type>(_r) } {}
 
 	inline constexpr RoundRect::RoundRect(const position_type pos, const size_type size, const value_type _r) noexcept
 		: rect{ pos, size }

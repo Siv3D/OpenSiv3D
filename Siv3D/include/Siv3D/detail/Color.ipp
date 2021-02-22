@@ -22,34 +22,34 @@ namespace s3d
 	}
 
 	inline constexpr Color::Color(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a) noexcept
-		: r(_r)
-		, g(_g)
-		, b(_b)
-		, a(_a) {}
+		: r{ _r }
+		, g{ _g }
+		, b{ _b }
+		, a{ _a } {}
 
 	inline constexpr Color::Color(const uint32 rgb, const uint32 _a) noexcept
-		: r(rgb)
-		, g(rgb)
-		, b(rgb)
-		, a(_a) {}
+		: r{ rgb }
+		, g{ rgb }
+		, b{ rgb }
+		, a{ _a } {}
 
 	inline constexpr Color::Color(const Color rgb, const uint32 _a) noexcept
-		: r(rgb.r)
-		, g(rgb.g)
-		, b(rgb.b)
-		, a(_a) {}
+		: r{ rgb.r }
+		, g{ rgb.g }
+		, b{ rgb.b }
+		, a{ _a } {}
 
 	inline constexpr Color::Color(const ColorF& color) noexcept
-		: r(Color::ToUint8(color.r))
-		, g(Color::ToUint8(color.g))
-		, b(Color::ToUint8(color.b))
-		, a(Color::ToUint8(color.a)) {}
+		: r{ Color::ToUint8(color.r) }
+		, g{ Color::ToUint8(color.g) }
+		, b{ Color::ToUint8(color.b) }
+		, a{ Color::ToUint8(color.a) } {}
 
 	inline constexpr Color::Color(const ColorF& color, const uint32 _a) noexcept
-		: r(Color::ToUint8(color.r))
-		, g(Color::ToUint8(color.g))
-		, b(Color::ToUint8(color.b))
-		, a(_a) {}
+		: r{ Color::ToUint8(color.r) }
+		, g{ Color::ToUint8(color.g) }
+		, b{ Color::ToUint8(color.b) }
+		, a{ _a } {}
 
 	inline Color::Color(const HSV& hsv) noexcept
 	{
@@ -62,10 +62,10 @@ namespace s3d
 	}
 
 	inline constexpr Color::Color(const StringView code) noexcept
-		: r(0)
-		, g(0)
-		, b(0)
-		, a(255)
+		: r{ 0 }
+		, g{ 0 }
+		, b{ 0 }
+		, a{ 255 }
 	{
 		if (code.length() == 4 || code.length() == 5)
 		{

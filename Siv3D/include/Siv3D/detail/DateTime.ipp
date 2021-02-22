@@ -34,11 +34,11 @@ namespace s3d
 		const int32 _minute,
 		const int32 _second,
 		const int32 _milliseconds) noexcept
-		: Date(_year, _month, _day)
-		, hour(_hour)
-		, minute(_minute)
-		, second(_second)
-		, milliseconds(_milliseconds) {}
+		: Date{ _year, _month, _day }
+		, hour{ _hour }
+		, minute{ _minute }
+		, second{ _second }
+		, milliseconds{ _milliseconds } {}
 
 	inline constexpr DateTime::DateTime(
 		const Date& date,
@@ -46,11 +46,11 @@ namespace s3d
 		const int32 _minute,
 		const int32 _second,
 		const int32 _milliseconds) noexcept
-		: Date(date)
-		, hour(_hour)
-		, minute(_minute)
-		, second(_second)
-		, milliseconds(_milliseconds) {}
+		: Date{ date }
+		, hour{ _hour }
+		, minute{ _minute }
+		, second{ _second }
+		, milliseconds{ _milliseconds } {}
 
 	inline constexpr bool DateTime::isValid() const noexcept
 	{
@@ -68,22 +68,22 @@ namespace s3d
 
 	inline DateTime DateTime::operator +(const Days& days) const noexcept
 	{
-		return DateTime(*this) += days;
+		return DateTime{ *this } += days;
 	}
 
 	inline DateTime DateTime::operator +(const Milliseconds& _milliseconds) const noexcept
 	{
-		return DateTime(*this) += _milliseconds;
+		return DateTime{ *this } += _milliseconds;
 	}
 
 	inline DateTime DateTime::operator -(const Days& days) const noexcept
 	{
-		return DateTime(*this) -= days;
+		return DateTime{ *this } -= days;
 	}
 
 	inline DateTime DateTime::operator -(const Milliseconds& _milliseconds) const noexcept
 	{
-		return DateTime(*this) -= _milliseconds;
+		return DateTime{ *this } -= _milliseconds;
 	}
 
 	inline DateTime& DateTime::operator +=(const Days& days) noexcept
@@ -101,7 +101,7 @@ namespace s3d
 
 		if (const int64 days = (count / millisecIn1Day))
 		{
-			Date::operator +=(Days(days));
+			Date::operator +=(Days{ days });
 
 			count -= days * millisecIn1Day;
 		}
@@ -110,13 +110,13 @@ namespace s3d
 
 		if (newCount >= millisecIn1Day)
 		{
-			Date::operator +=(Days(1));
+			Date::operator +=(Days{ 1 });
 
 			newCount -= millisecIn1Day;
 		}
 		else if (newCount < 0)
 		{
-			Date::operator -=(Days(1));
+			Date::operator -=(Days{ 1 });
 
 			newCount += millisecIn1Day;
 		}
@@ -163,7 +163,7 @@ namespace s3d
 
 	inline constexpr Duration DateTime::Subtract(const DateTime& a, const DateTime& b) noexcept
 	{
-		const Days diffDays = Date(a) - Date(b);
+		const Days diffDays = Date{ a } - Date{ b };
 		const int32 aMillisec = detail::TimeToMillisecCount(a.hour, a.minute, a.second, a.milliseconds);
 		const int32 bMillisec = detail::TimeToMillisecCount(b.hour, b.minute, b.second, b.milliseconds);
 

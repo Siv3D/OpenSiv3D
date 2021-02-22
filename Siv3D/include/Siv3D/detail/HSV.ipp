@@ -56,22 +56,36 @@ namespace s3d
 	}
 
 	inline constexpr HSV::HSV(const double _h, const double _a) noexcept
-		: h(_h)
-		, s(1.0)
-		, v(1.0)
-		, a(_a) {}
+		: h{ _h }
+		, s{ 1.0 }
+		, v{ 1.0 }
+		, a{ _a } {}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr HSV::HSV(const Arithmetic _h, const double _a) noexcept
+		: h{ static_cast<double>(_h) }
+		, s{ 1.0 }
+		, v{ 1.0 }
+		, a{ _a } {}
 
 	inline constexpr HSV::HSV(const double _h, const double _s, const double _v, const double _a) noexcept
-		: h(_h)
-		, s(_s)
-		, v(_v)
-		, a(_a) {}
+		: h{ _h }
+		, s{ _s }
+		, v{ _v }
+		, a{ _a } {}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr HSV::HSV(const Arithmetic _h, const double _s, const double _v, const double _a) noexcept
+		: h{ static_cast<double>(_h) }
+		, s{ _s }
+		, v{ _v }
+		, a{ _a } {}
 
 	inline constexpr HSV::HSV(const HSV& hsv, const double _a) noexcept
-		: h(hsv.h)
-		, s(hsv.s)
-		, v(hsv.v)
-		, a(_a) {}
+		: h{ hsv.h }
+		, s{ hsv.s }
+		, v{ hsv.v }
+		, a{ _a } {}
 
 	inline HSV::HSV(const Color color) noexcept
 	{

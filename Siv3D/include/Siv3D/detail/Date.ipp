@@ -32,7 +32,7 @@ namespace s3d
 
 		inline constexpr int32 YearsToDays(const int32 years)
 		{
-			return 365 * years + years / 4 - years / 100 + years / 400;
+			return (365 * years + years / 4 - years / 100 + years / 400);
 		}
 
 		inline constexpr int32 DaysAtEndOfMonth[2][12]
@@ -78,9 +78,9 @@ namespace s3d
 	}
 
 	inline constexpr Date::Date(const int32 _year, const int32 _month, const int32 _day) noexcept
-		: year(_year)
-		, month(_month)
-		, day(_day) {}
+		: year{ _year }
+		, month{ _month }
+		, day{ _day } {}
 
 	inline constexpr DayOfWeek Date::dayOfWeek() const noexcept
 	{
@@ -145,12 +145,12 @@ namespace s3d
 
 	inline Date Date::Yesterday() noexcept
 	{
-		return Today() - Days(1);
+		return Today() - Days{ 1 };
 	}
 
 	inline Date Date::Tomorrow() noexcept
 	{
-		return Today() + Days(1);
+		return Today() + Days{ 1 };
 	}
 
 	inline constexpr bool Date::IsLeapYear(const int32 year) noexcept

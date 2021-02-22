@@ -17,9 +17,23 @@ namespace s3d
 		: pos{ 0, 0 }
 		, size{ _size, _size } {}
 
+	SIV3D_CONCEPT_INTEGRAL_
+	inline constexpr Rect::Rect(const Int _size) noexcept
+		: pos{ 0, 0 }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr Rect::Rect(const value_type _w, const value_type _h) noexcept
 		: pos{ 0, 0 }
 		, size{ _w, _h } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Integral W, Concept::Integral H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<W>, std::is_integral<H>>>*>
+# endif
+	inline constexpr Rect::Rect(const W _w, const H _h) noexcept
+		: pos{ 0, 0 }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
 
 	inline constexpr Rect::Rect(const size_type _size) noexcept
 		: pos{ 0, 0 }
@@ -29,21 +43,62 @@ namespace s3d
 		: pos{ _x, _y }
 		, size{ _size, _size } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Integral X, Concept::Integral Y, Concept::Integral S>
+# else
+	template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<S>>>* = nullptr>
+# endif	
+	inline constexpr Rect::Rect(const X _x, const Y _y, const S _size) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr Rect::Rect(const value_type _x, const value_type _y, const value_type _w, const value_type _h) noexcept
 		: pos{ _x, _y }
 		, size{ _w, _h } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Integral X, Concept::Integral Y, Concept::Integral W, Concept::Integral H>
+# else
+	template <class X, class Y, class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<W>, std::is_integral<H>>>*>
+# endif
+	inline constexpr Rect::Rect(const X _x, const Y _y, const W _w, const H _h) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
+
 	inline constexpr Rect::Rect(const value_type _x, const value_type _y, const size_type _size) noexcept
 		: pos{ _x, _y }
+		, size{ _size } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Integral X, Concept::Integral Y>
+# else
+	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>>>* = nullptr>
+# endif
+	inline constexpr Rect::Rect(const X _x, const Y _y, const size_type _size) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
 		, size{ _size } {}
 
 	inline constexpr Rect::Rect(const position_type _pos, const value_type _size) noexcept
 		: pos{ _pos }
 		, size{ _size, _size } {}
 
+	SIV3D_CONCEPT_INTEGRAL_
+	inline constexpr Rect::Rect(const position_type _pos, const Int _size) noexcept
+		: pos{ _pos }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr Rect::Rect(const position_type _pos, const value_type _w, const value_type _h) noexcept
 		: pos{ _pos }
 		, size{ _w, _h } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Integral W, Concept::Integral H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<W>, std::is_integral<H>>>*>
+# endif
+	inline constexpr Rect::Rect(const position_type _pos, const W _w, const H _h) noexcept
+		: pos{ _pos }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
 
 	inline constexpr Rect::Rect(const position_type _pos, const size_type _size) noexcept
 		: pos{ _pos }

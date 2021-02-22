@@ -83,11 +83,23 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr Rect(value_type _size) noexcept;
 
+		SIV3D_CONCEPT_INTEGRAL
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Rect(Int _r) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _w 長方形の幅
 		/// @param _h 長方形の高さ
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(value_type _w, value_type _h) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Integral W, Concept::Integral H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<W>, std::is_integral<H>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Rect(W _w, H _h) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _size 長方形の大きさ
@@ -101,6 +113,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(value_type _x, value_type _y, value_type _size) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Integral X, Concept::Integral Y, Concept::Integral S>
+	# else
+		template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<S>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr Rect(X _x, Y _y, S _size) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _x 長方形の左上の点の X 座標
 		/// @param _y 長方形の左上の点の Y 座標
@@ -109,6 +129,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(value_type _x, value_type _y, value_type _w, value_type _h) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Integral X, Concept::Integral Y, Concept::Integral W, Concept::Integral H>
+	# else
+		template <class X, class Y, class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<W>, std::is_integral<H>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr Rect(X _x, Y _y, W _w, H _h) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _x 長方形の左上の点の X 座標
 		/// @param _y 長方形の左上の点の Y 座標
@@ -116,11 +144,23 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(value_type _x, value_type _y, size_type _size) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Integral X, Concept::Integral Y>
+	# else
+		template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr Rect(X _x, Y _y, size_type _size) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
 		/// @param _size 長方形の大きさ
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(position_type _pos, value_type _size) noexcept;
+
+		SIV3D_CONCEPT_INTEGRAL
+		SIV3D_NODISCARD_CXX20
+		constexpr Rect(position_type _pos, Int _size) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
@@ -128,6 +168,14 @@ namespace s3d
 		/// @param _h 長方形の高さ
 		SIV3D_NODISCARD_CXX20
 		constexpr Rect(position_type _pos, value_type _w, value_type _h) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Integral W, Concept::Integral H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_integral<W>, std::is_integral<H>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr Rect(position_type _pos, W _w, H _h) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標

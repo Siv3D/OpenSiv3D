@@ -17,9 +17,23 @@ namespace s3d
 		: pos{ 0, 0 }
 		, size{ _size, _size } {}
 
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr RectF::RectF(const Arithmetic _size) noexcept
+		: pos{ 0, 0 }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr RectF::RectF(const value_type _w, const value_type _h) noexcept
 		: pos{ 0, 0 }
 		, size{ _w, _h } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif
+	inline constexpr RectF::RectF(const W _w, const H _h) noexcept
+		: pos{ 0, 0 }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
 
 	inline constexpr RectF::RectF(const size_type _size) noexcept
 		: pos{ 0, 0 }
@@ -29,21 +43,62 @@ namespace s3d
 		: pos{ _x, _y }
 		, size{ _size, _size } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic S>
+# else
+	template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<S>>>*>
+# endif
+	inline constexpr RectF::RectF(const X _x, const Y _y, const S _size) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr RectF::RectF(const value_type _x, const value_type _y, const value_type _w, const value_type _h) noexcept
 		: pos{ _x, _y }
 		, size{ _w, _h } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class X, class Y, class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif
+	inline constexpr RectF::RectF(const X _x, const Y _y, const W _w, const H _h) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
+
 	inline constexpr RectF::RectF(const value_type _x, const value_type _y, const size_type _size) noexcept
 		: pos{ _x, _y }
+		, size{ _size } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X, Concept::Arithmetic Y>
+# else
+	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>*>
+# endif
+	inline constexpr RectF::RectF(const X _x, const Y _y, const size_type _size) noexcept
+		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
 		, size{ _size } {}
 
 	inline constexpr RectF::RectF(const position_type _pos, const value_type _size) noexcept
 		: pos{ _pos }
 		, size{ _size, _size } {}
 
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr RectF::RectF(const position_type _pos, const Arithmetic _size) noexcept
+		: pos{ _pos }
+		, size{ static_cast<value_type>(_size), static_cast<value_type>(_size) } {}
+
 	inline constexpr RectF::RectF(const position_type _pos, const value_type _w, const value_type _h) noexcept
 		: pos{ _pos }
 		, size{ _w, _h } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif
+	inline constexpr RectF::RectF(const position_type _pos, const W _w, const H _h) noexcept
+		: pos{ _pos }
+		, size{ static_cast<value_type>(_w), static_cast<value_type>(_h) } {}
 
 	inline constexpr RectF::RectF(const position_type _pos, const size_type _size) noexcept
 		: pos{ _pos }

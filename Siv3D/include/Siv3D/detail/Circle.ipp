@@ -14,63 +14,87 @@
 namespace s3d
 {
 	inline constexpr Circle::Circle(const size_type _r) noexcept
-		: center(0.0, 0.0)
-		, r(_r) {}
+		: center{ 0.0, 0.0 }
+		, r{ _r } {}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arithmetic _r) noexcept
+		: center{ 0.0, 0.0 }
+		, r{ static_cast<value_type>(_r) } {}
 
 	inline constexpr Circle::Circle(const value_type _x, const value_type _y, const size_type _r) noexcept
-		: center(_x, _y)
-		, r(_r) {}
+		: center{ _x, _y }
+		, r{ _r } {}
+
+	template <class X, class Y, class R>
+	inline constexpr Circle::Circle(const X _x, const Y _y, const R _r) noexcept
+		: center{ _x, _y }
+		, r{ static_cast<value_type>(_r) } {}
 
 	inline constexpr Circle::Circle(const position_type _center, const size_type _r) noexcept
-		: center(_center)
-		, r(_r) {}
+		: center{ _center }
+		, r{ _r } {}
 
-	inline constexpr Circle::Circle(const Arg::center_<position_type> _center, const size_type _r) noexcept
-		: center(_center.value())
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const position_type _center, const Arithmetic _r) noexcept
+		: center { _center }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::topLeft_<position_type> topLeft, const size_type _r) noexcept
-		: center(topLeft->x + _r, topLeft->y + _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::center_<position_type> _center, const Arithmetic _r) noexcept
+		: center{ _center.value() }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::topCenter_<position_type> topCenter, const size_type _r) noexcept
-		: center(topCenter->x, topCenter->y + _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::topLeft_<position_type> topLeft, const Arithmetic _r) noexcept
+		: center{ (topLeft->x + _r), (topLeft->y + _r) }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::topRight_<position_type> topRight, const size_type _r) noexcept
-		: center(topRight->x - _r, topRight->y + _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::topCenter_<position_type> topCenter, const Arithmetic _r) noexcept
+		: center{ topCenter->x, topCenter->y + _r }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::rightCenter_<position_type> rightCenter, const size_type _r) noexcept
-		: center(rightCenter->x - _r, rightCenter->y)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::topRight_<position_type> topRight, const Arithmetic _r) noexcept
+		: center{ (topRight->x - _r), (topRight->y + _r) }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::bottomRight_<position_type> bottomRight, const size_type _r) noexcept
-		: center(bottomRight->x - _r, bottomRight->y - _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::rightCenter_<position_type> rightCenter, const Arithmetic _r) noexcept
+		: center{ (rightCenter->x - _r), rightCenter->y }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::bottomCenter_<position_type> bottomCenter, const size_type _r) noexcept
-		: center(bottomCenter->x, bottomCenter->y - _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::bottomRight_<position_type> bottomRight, const Arithmetic _r) noexcept
+		: center{ (bottomRight->x - _r), (bottomRight->y - _r) }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::bottomLeft_<position_type> bottomLeft, const size_type _r) noexcept
-		: center(bottomLeft->x + _r, bottomLeft->y - _r)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::bottomCenter_<position_type> bottomCenter, const Arithmetic _r) noexcept
+		: center{ bottomCenter->x, (bottomCenter->y - _r) }
+		, r{ static_cast<value_type>(_r) } {}
 
-	inline constexpr Circle::Circle(const Arg::leftCenter_<position_type> leftCenter, const size_type _r) noexcept
-		: center(leftCenter->x + _r, leftCenter->y)
-		, r(_r) {}
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::bottomLeft_<position_type> bottomLeft, const Arithmetic _r) noexcept
+		: center{ (bottomLeft->x + _r), (bottomLeft->y - _r) }
+		, r{ static_cast<value_type>(_r) } {}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline constexpr Circle::Circle(const Arg::leftCenter_<position_type> leftCenter, const Arithmetic _r) noexcept
+		: center{ (leftCenter->x + _r), leftCenter->y }
+		, r{ static_cast<value_type>(_r) } {}
 
 	inline Circle::Circle(const position_type p0, const position_type p1) noexcept
-		: center((p0 + p1) / 2.0)
-		, r(p0.distanceFrom(p1) / 2.0) {}
+		: center{ (p0 + p1) / 2.0 }
+		, r{ p0.distanceFrom(p1) / 2.0 } {}
 
 	inline Circle::Circle(const Line& diameter) noexcept
-		: Circle(diameter.begin, diameter.end) {}
+		: Circle{ diameter.begin, diameter.end } {}
 
 	inline Circle::Circle(const Arg::center_<position_type> _center, const position_type& p) noexcept
-		: center(_center.value())
-		, r(p.distanceFrom(_center.value())) {}
+		: center{ _center.value() }
+		, r{ p.distanceFrom(_center.value()) } {}
 
 	inline constexpr Circle& Circle::set(const value_type _x, const value_type _y, size_type _r) noexcept
 	{

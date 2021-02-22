@@ -61,6 +61,10 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr Circle(size_type _r) noexcept;
 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Circle(Arithmetic _r) noexcept;
+
 		/// @brief 
 		/// @param _x 
 		/// @param _y 
@@ -69,64 +73,89 @@ namespace s3d
 		constexpr Circle(value_type _x, value_type _y, size_type _r) noexcept;
 
 		/// @brief 
+		/// @tparam X 
+		/// @tparam Y 
+		/// @tparam R 
+		/// @param _x 
+		/// @param _y 
+		/// @param _r 
+		/// @return 
+		template <class X, class Y, class R>
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(X _x, Y _y, R _r) noexcept;
+
+		/// @brief 
 		/// @param _center 
 		/// @param _r 
 		SIV3D_NODISCARD_CXX20
 		constexpr Circle(position_type _center, size_type _r) noexcept;
-		
+
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(position_type _center, Arithmetic _r) noexcept;
+
 		/// @brief 
 		/// @param _center 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::center_<position_type> _center, size_type _r) noexcept;
+		constexpr Circle(Arg::center_<position_type> _center, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param topLeft 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::topLeft_<position_type> topLeft, size_type _r) noexcept;
+		constexpr Circle(Arg::topLeft_<position_type> topLeft, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param topCenter 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept;
+		constexpr Circle(Arg::topCenter_<position_type> topCenter, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param topRight 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::topRight_<position_type> topRight, size_type _r) noexcept;
+		constexpr Circle(Arg::topRight_<position_type> topRight, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param rightCenter 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept;
+		constexpr Circle(Arg::rightCenter_<position_type> rightCenter, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param bottomRight 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::bottomRight_<position_type> bottomRight, size_type _r) noexcept;
+		constexpr Circle(Arg::bottomRight_<position_type> bottomRight, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param bottomCenter 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept;
+		constexpr Circle(Arg::bottomCenter_<position_type> bottomCenter, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param bottomLeft 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept;
+		constexpr Circle(Arg::bottomLeft_<position_type> bottomLeft, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param leftCenter 
 		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
-		constexpr Circle(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept;
+		constexpr Circle(Arg::leftCenter_<position_type> leftCenter, Arithmetic _r) noexcept;
 
 		/// @brief 
 		/// @param p0 

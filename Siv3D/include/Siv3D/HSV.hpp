@@ -38,6 +38,10 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr HSV(double _h, double _a = 1.0) noexcept;
 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr HSV(Arithmetic _h, double _a = 1.0) noexcept;
+
 		/// @brief HSV 表色系の色を作成します。
 		/// @param _h 色相
 		/// @param _s 彩度
@@ -45,6 +49,10 @@ namespace s3d
 		/// @param _a アルファ
 		SIV3D_NODISCARD_CXX20
 		constexpr HSV(double _h, double _s, double _v, double _a = 1.0) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr HSV(Arithmetic _h, double _s, double _v, double _a = 1.0) noexcept;
 
 		/// @brief HSV 表色系の色を作成します。
 		/// @param hsv 色

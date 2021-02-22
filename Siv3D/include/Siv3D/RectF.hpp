@@ -83,11 +83,23 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr RectF(value_type _size) noexcept;
 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr RectF(Arithmetic _size) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _w 長方形の幅
 		/// @param _h 長方形の高さ
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(value_type _w, value_type _h) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr RectF(W _w, H _h) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _size 長方形の大きさ
@@ -101,6 +113,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(value_type _x, value_type _y, value_type _size) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic S>
+	# else
+		template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<S>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RectF(X _x, Y _y, S _size) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _x 長方形の左上の点の X 座標
 		/// @param _y 長方形の左上の点の Y 座標
@@ -109,6 +129,13 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(value_type _x, value_type _y, value_type _w, value_type _h) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class X, class Y, class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
+		constexpr RectF(X _x, Y _y, W _w, H _h) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _x 長方形の左上の点の X 座標
 		/// @param _y 長方形の左上の点の Y 座標
@@ -116,11 +143,23 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(value_type _x, value_type _y, size_type _size) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X, Concept::Arithmetic Y>
+	# else
+		template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RectF(X _x, Y _y, size_type _size) noexcept;
+
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
 		/// @param _size 長方形の大きさ
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(position_type _pos, value_type _size) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr RectF(position_type _pos, Arithmetic _size) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標
@@ -128,6 +167,14 @@ namespace s3d
 		/// @param _h 長方形の高さ
 		SIV3D_NODISCARD_CXX20
 		constexpr RectF(position_type _pos, value_type _w, value_type _h) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RectF(position_type _pos, W _w, H _h) noexcept;
 
 		/// @brief 長方形を作成します。
 		/// @param _pos 長方形の左上の点の座標

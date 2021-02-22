@@ -64,19 +64,19 @@ namespace s3d
 	template <class Type>
 	template <class X, class Y>
 	inline constexpr Vector2D<Type>::Vector2D(const X _x, const Y _y) noexcept
-		: x(static_cast<value_type>(_x))
-		, y(static_cast<value_type>(_y)) {}
+		: x{ static_cast<value_type>(_x) }
+		, y{ static_cast<value_type>(_y) } {}
 
 	template <class Type>
 	inline constexpr Vector2D<Type>::Vector2D(const Point p) noexcept
-		: x(static_cast<value_type>(p.x))
-		, y(static_cast<value_type>(p.y)) {}
+		: x{ static_cast<value_type>(p.x) }
+		, y{ static_cast<value_type>(p.y) } {}
 
 	template <class Type>
 	template <class U>
 	inline constexpr Vector2D<Type>::Vector2D(const Vector2D<U>& v) noexcept
-		: x(static_cast<value_type>(v.x))
-		, y(static_cast<value_type>(v.y)) {}
+		: x{ static_cast<value_type>(v.x) }
+		, y{ static_cast<value_type>(v.y) } {}
 
 	template <class Type>
 	inline constexpr typename Vector2D<Type>::value_type Vector2D<Type>::elem(const size_t index) const noexcept

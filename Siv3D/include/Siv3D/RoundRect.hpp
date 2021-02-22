@@ -59,6 +59,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr RoundRect(value_type _x, value_type _y, value_type _w, value_type _h, value_type _r) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
+	# else
+		template <class X, class Y, class W, class H, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(X _x, Y _y, W _w, H _h, R _r) noexcept;
+
 		/// @brief 
 		/// @param pos 
 		/// @param _w 
@@ -66,6 +74,14 @@ namespace s3d
 		/// @param _r 
 		SIV3D_NODISCARD_CXX20
 		constexpr RoundRect(position_type pos, value_type _w, value_type _h, value_type _r) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
+	# else
+		template <class W, class H, class R, std::enable_if_t<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(position_type pos, W _w, H _h, R _r) noexcept;
 
 		/// @brief 
 		/// @param _x 
@@ -75,12 +91,28 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr RoundRect(value_type _x, value_type _y, size_type size, value_type _r) noexcept;
 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic R>
+	# else
+		template <class X, class Y, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<R>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(X _x, Y _y, size_type size, R _r) noexcept;
+
 		/// @brief 
 		/// @param pos 
 		/// @param size 
 		/// @param _r 
 		SIV3D_NODISCARD_CXX20
 		constexpr RoundRect(position_type pos, value_type size, value_type _r) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic S, Concept::Arithmetic R>
+	# else
+		template <class S, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<S>, std::is_arithmetic<R>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr RoundRect(position_type pos, S size, R _r) noexcept;
 
 		/// @brief 
 		/// @param pos 

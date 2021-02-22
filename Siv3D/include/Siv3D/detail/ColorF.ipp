@@ -14,46 +14,46 @@
 namespace s3d
 {
 	inline constexpr ColorF::ColorF(const double _r, const double _g, const double _b, const double _a) noexcept
-		: r(_r)
-		, g(_g)
-		, b(_b)
-		, a(_a) {}
+		: r{ _r }
+		, g{ _g }
+		, b{ _b }
+		, a{ _a } {}
 
 	inline constexpr ColorF::ColorF(const double rgb, const double _a) noexcept
-		: r(rgb)
-		, g(rgb)
-		, b(rgb)
-		, a(_a) {}
+		: r{ rgb }
+		, g{ rgb }
+		, b{ rgb }
+		, a{ _a } {}
 
 	inline constexpr ColorF::ColorF(const ColorF& rgb, const double _a) noexcept
-		: r(rgb.r)
-		, g(rgb.g)
-		, b(rgb.b)
-		, a(_a) {}
+		: r{ rgb.r }
+		, g{ rgb.g }
+		, b{ rgb.b }
+		, a{ _a } {}
 
 	inline constexpr ColorF::ColorF(const Vec3& rgb, const double _a) noexcept
-		: r(rgb.x)
-		, g(rgb.y)
-		, b(rgb.z)
-		, a(_a) {}
+		: r{ rgb.x }
+		, g{ rgb.y }
+		, b{ rgb.z }
+		, a{ _a } {}
 
 	inline constexpr ColorF::ColorF(const Vec4& rgba) noexcept
-		: r(rgba.x)
-		, g(rgba.y)
-		, b(rgba.z)
-		, a(rgba.w) {}
+		: r{ rgba.x }
+		, g{ rgba.y }
+		, b{ rgba.z }
+		, a{ rgba.w } {}
 
 	inline constexpr ColorF::ColorF(const Color color) noexcept
-		: r(color.r / 255.0)
-		, g(color.g / 255.0)
-		, b(color.b / 255.0)
-		, a(color.a / 255.0) {}
+		: r{ color.r / 255.0 }
+		, g{ color.g / 255.0 }
+		, b{ color.b / 255.0 }
+		, a{ color.a / 255.0 } {}
 
 	inline constexpr ColorF::ColorF(const Color rgb, const double _a) noexcept
-		: r(rgb.r / 255.0)
-		, g(rgb.g / 255.0)
-		, b(rgb.b / 255.0)
-		, a(_a) {}
+		: r{ rgb.r / 255.0 }
+		, g{ rgb.g / 255.0 }
+		, b{ rgb.b / 255.0 }
+		, a{ _a } {}
 
 	inline ColorF::ColorF(const HSV& hsva) noexcept
 	{
@@ -66,7 +66,7 @@ namespace s3d
 	}
 
 	inline constexpr ColorF::ColorF(const StringView code) noexcept
-		: ColorF(Color(code)) {}
+		: ColorF{ Color{code} } {}
 
 	inline constexpr double ColorF::elem(const size_t index) const noexcept
 	{
