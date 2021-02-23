@@ -12,7 +12,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -DMUPARSER_STATIC -D_UNICODE")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -DMUPARSER_STATIC -D_UNICODE")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -101,6 +101,7 @@ add_library(
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
   ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
+  ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
@@ -134,6 +135,7 @@ add_library(
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/CFont_Headless.cpp
+  ../Siv3D/src/Siv3D/Font/FontCommon.cpp
   ../Siv3D/src/Siv3D/Font/GlyphCache/BitmapGlyphCache.cpp
   ../Siv3D/src/Siv3D/Font/GlyphCache/GlyphCacheCommon.cpp
   ../Siv3D/src/Siv3D/Font/GlyphCache/MSDFGlyphCache.cpp
@@ -204,10 +206,10 @@ add_library(
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
   ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
+  ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Print/CPrint.cpp
   ../Siv3D/src/Siv3D/Print/PrintFactory.cpp
   ../Siv3D/src/Siv3D/Print/SivPrint.cpp
-  ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
