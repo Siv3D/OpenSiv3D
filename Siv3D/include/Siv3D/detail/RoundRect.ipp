@@ -33,7 +33,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
 # else
-	template <class W, class H, class R, std::enable_if_t<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>*>
+	template <class W, class H, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>*>
 # endif
 	inline constexpr RoundRect::RoundRect(const position_type pos, const W _w, const H _h, const R _r) noexcept
 		: rect{ pos, static_cast<value_type>(_w), static_cast<value_type>(_h) }
