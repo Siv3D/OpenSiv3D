@@ -46,7 +46,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Integral X, Concept::Integral Y, Concept::Integral S>
 # else
-	template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<S>>>* = nullptr>
+	template <class X, class Y, class S, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>, std::is_integral<S>>>*>
 # endif	
 	inline constexpr Rect::Rect(const X _x, const Y _y, const S _size) noexcept
 		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }
@@ -72,7 +72,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Integral X, Concept::Integral Y>
 # else
-	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>>>* = nullptr>
+	template <class X, class Y, std::enable_if_t<std::conjunction_v<std::is_integral<X>, std::is_integral<Y>>>*>
 # endif
 	inline constexpr Rect::Rect(const X _x, const Y _y, const size_type _size) noexcept
 		: pos{ static_cast<value_type>(_x), static_cast<value_type>(_y) }

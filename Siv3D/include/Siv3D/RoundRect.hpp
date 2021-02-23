@@ -78,7 +78,7 @@ namespace s3d
 	# if __cpp_lib_concepts
 		template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic R>
 	# else
-		template <class W, class H, class R, std::enable_if_t<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>* = nullptr>
+		template <class W, class H, class R, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<R>>>* = nullptr>
 	# endif
 		SIV3D_NODISCARD_CXX20
 		constexpr RoundRect(position_type pos, W _w, H _h, R _r) noexcept;
