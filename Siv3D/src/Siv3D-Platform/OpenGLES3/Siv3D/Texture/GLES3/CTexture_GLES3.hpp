@@ -38,6 +38,10 @@ namespace s3d
 
 		Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
 
+		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
+
+		Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
+
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;
@@ -45,6 +49,14 @@ namespace s3d
 		TextureDesc getDesc(Texture::IDType handleID) override;
 
 		TextureFormat getFormat(Texture::IDType handleID) override;
+
+		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
+
+		bool fillRegion(Texture::IDType handleID, const ColorF& color, const Rect& rect) override;
+
+		bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) override;
+
+		bool fillRegion(Texture::IDType handleID, const void* src, uint32 stride, const Rect& rect, bool wait) override;
 
 		//
 		// OpenGL

@@ -12,6 +12,7 @@
 # include "CTexture_GLES3.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Texture/TextureCommon.hpp>
 
 namespace s3d
 {
@@ -101,6 +102,37 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
+	Texture::IDType CTexture_GLES3::createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, const TextureDesc desc)
+	{
+		if ((size.x <= 0) || (size.y <= 0))
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Dynamic{}, size, pData, stride, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Dynamic, size: {0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
+	}
+
+	Texture::IDType CTexture_GLES3::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
+	{
+		const Array<Byte> initialData = GenerateInitialColorBuffer(size, color, format);
+
+		if (not initialData)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
+
+	}
+
 	void CTexture_GLES3::release(const Texture::IDType handleID)
 	{
 		m_textures.erase(handleID);
@@ -119,6 +151,26 @@ namespace s3d
 	TextureFormat CTexture_GLES3::getFormat(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getFormat();
+	}
+
+	bool CTexture_GLES3::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
+	{
+		return m_textures[handleID]->fill(color, wait);
+	}
+
+	bool CTexture_GLES3::fillRegion(const Texture::IDType handleID, const ColorF& color, const Rect& rect)
+	{
+		return m_textures[handleID]->fillRegion(color, rect);
+	}
+
+	bool CTexture_GLES3::fill(const Texture::IDType handleID, const void* src, uint32 stride, const bool wait)
+	{
+		return m_textures[handleID]->fill(src, stride, wait);
+	}
+
+	bool CTexture_GLES3::fillRegion(const Texture::IDType handleID, const void* src, const uint32 stride, const Rect& rect, const bool wait)
+	{
+		return m_textures[handleID]->fillRegion(src, stride, rect, wait);
 	}
 
 	GLuint CTexture_GLES3::getTexture(const Texture::IDType handleID)
