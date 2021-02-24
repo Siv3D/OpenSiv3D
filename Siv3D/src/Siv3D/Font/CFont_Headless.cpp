@@ -30,6 +30,8 @@ namespace s3d
 
 		m_fonts.destroy();
 
+		m_defaultEmoji.reset();
+
 		if (m_freeType)
 		{
 			FT_Done_FreeType(m_freeType);
