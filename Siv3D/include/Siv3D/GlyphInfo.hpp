@@ -12,12 +12,10 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "GlyphIndex.hpp"
 
 namespace s3d
 {
-	/// @brief フォントファイル内のグリフインデックス
-	using GlyphIndex = uint32;
-
 	/// @brief グリフ情報
 	struct GlyphInfo
 	{

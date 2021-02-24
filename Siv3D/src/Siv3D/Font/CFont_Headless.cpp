@@ -66,6 +66,11 @@ namespace s3d
 				throw EngineError(U"CFont::init(): Failed to extract font files");
 			}
 		}
+
+		// デフォルト絵文字
+		{
+			m_defaultEmoji = detail::CreateDefaultEmoji(m_freeType);
+		}
 	}
 
 	Font::IDType CFont_Headless::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
@@ -294,5 +299,21 @@ namespace s3d
 		{
 			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster);
 		}
+	}
+
+
+	bool CFont_Headless::hasEmoji(const StringView emoji)
+	{
+		return m_defaultEmoji->hasGlyph(emoji);
+	}
+
+	GlyphIndex CFont_Headless::getEmojiGlyphIndex(const StringView emoji)
+	{
+		return m_defaultEmoji->getGlyphIndex(emoji);
+	}
+
+	Image CFont_Headless::renderEmojiBitmap(const GlyphIndex glyphIndex)
+	{
+		return m_defaultEmoji->renderBitmap(glyphIndex).image;
 	}
 }

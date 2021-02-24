@@ -22,6 +22,8 @@
 
 namespace s3d
 {
+	struct Emoji;
+
 	class Image
 	{
 	public:
@@ -101,8 +103,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Image(Color rgb, FilePathView alpha);
 
-		//SIV3D_NODISCARD_CXX20
-		//explicit Image(const Emoji& emoji);
+		SIV3D_NODISCARD_CXX20
+		explicit Image(const Emoji& emoji);
 
 		//SIV3D_NODISCARD_CXX20
 		//explicit Image(const Icon& icon);

@@ -124,5 +124,12 @@ namespace s3d
 
 			return info;
 		}
+
+		std::unique_ptr<EmojiData> CreateDefaultEmoji(const FT_Library library)
+		{
+			const TypefaceInfo info = GetTypefaceInfo(Typeface::ColorEmoji);
+
+			return std::make_unique<EmojiData>(library, info.path, info.faceIndex);
+		}
 	}
 }

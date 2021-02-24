@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Emoji.hpp>
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
@@ -43,6 +44,9 @@ namespace s3d
 			pixel.b = rgb.b;
 		}
 	}
+
+	Image::Image(const Emoji& emoji)
+		: Image{ Emoji::CreateImage(emoji.codePoints) } {}
 
 	bool Image::applyAlphaFromRChannel(const FilePathView alpha)
 	{

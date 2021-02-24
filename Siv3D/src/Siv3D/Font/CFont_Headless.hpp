@@ -15,6 +15,7 @@
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "IFont.hpp"
 # include "FontData.hpp"
+# include "EmojiData.hpp"
 
 namespace s3d
 {
@@ -25,6 +26,8 @@ namespace s3d
 		FT_Library m_freeType = nullptr;
 
 		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
+		std::unique_ptr<EmojiData> m_defaultEmoji;
 
 	public:
 
@@ -101,5 +104,12 @@ namespace s3d
 		RectF regionBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
 	
 		double xAdvanceFallback(Font::IDType handleID, const GlyphCluster& cluster) override;
+
+
+		bool hasEmoji(StringView emoji) override;
+
+		GlyphIndex getEmojiGlyphIndex(StringView emoji) override;
+
+		Image renderEmojiBitmap(GlyphIndex glyphIndex) override;
 	};
 }

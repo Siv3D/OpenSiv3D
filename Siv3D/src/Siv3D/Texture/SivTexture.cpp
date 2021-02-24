@@ -16,6 +16,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Emoji.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/ImageProcessing.hpp>
@@ -49,10 +50,7 @@ namespace s3d
 		}
 	}
 
-	Texture::Texture()
-	{
-
-	}
+	Texture::Texture() {}
 
 	Texture::Texture(const Image& image, const TextureDesc desc)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(
@@ -70,33 +68,21 @@ namespace s3d
 	}
 
 	Texture::Texture(const FilePathView path, const TextureDesc desc)
-		: Texture{ Image{ path }, desc }
-	{
-
-	}
+		: Texture{ Image{ path }, desc } {}
 
 	Texture::Texture(IReader&& reader, const TextureDesc desc)
-		: Texture{ Image{ std::move(reader) }, desc }
-	{
-
-	}
+		: Texture{ Image{ std::move(reader) }, desc } {}
 
 	Texture::Texture(const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
-		: Texture{ Image{ rgb, alpha }, desc }
-	{
-
-	}
+		: Texture{ Image{ rgb, alpha }, desc } {}
 
 	Texture::Texture(const Color& rgb, const FilePathView alpha, const TextureDesc desc)
-		: Texture{ Image{ rgb, alpha }, desc }
-	{
+		: Texture{ Image{ rgb, alpha }, desc } {}
 
-	}
+	Texture::Texture(const Emoji& emoji, const TextureDesc desc)
+		: Texture{ Emoji::CreateImage(emoji.codePoints), desc } {}
 
-	Texture::~Texture()
-	{
-
-	}
+	Texture::~Texture() {}
 
 	int32 Texture::width() const
 	{

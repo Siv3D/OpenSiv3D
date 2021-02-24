@@ -32,6 +32,8 @@ namespace s3d
 
 		m_fonts.destroy();
 
+		m_defaultEmoji.reset();
+
 		if (m_freeType)
 		{
 			FT_Done_FreeType(m_freeType);
@@ -97,6 +99,11 @@ namespace s3d
 			{
 				throw EngineError(U"CFont::init(): Failed to extract font files");
 			}
+		}
+
+		// デフォルト絵文字
+		{
+			m_defaultEmoji = detail::CreateDefaultEmoji(m_freeType);
 		}
 	}
 
@@ -368,5 +375,21 @@ namespace s3d
 		{
 			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster);
 		}
+	}
+
+
+	bool CFont::hasEmoji(const StringView emoji)
+	{
+		return m_defaultEmoji->hasGlyph(emoji);
+	}
+
+	GlyphIndex CFont::getEmojiGlyphIndex(const StringView emoji)
+	{
+		return m_defaultEmoji->getGlyphIndex(emoji);
+	}
+
+	Image CFont::renderEmojiBitmap(const GlyphIndex glyphIndex)
+	{
+		return m_defaultEmoji->renderBitmap(glyphIndex).image;
 	}
 }

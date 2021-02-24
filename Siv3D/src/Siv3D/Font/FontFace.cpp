@@ -12,8 +12,7 @@
 # include "FontFace.hpp"
 # include "FreeType.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
-
-#include <Siv3D/EngineLog.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {

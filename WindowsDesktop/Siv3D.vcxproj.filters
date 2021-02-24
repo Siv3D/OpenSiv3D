@@ -814,6 +814,9 @@
     <Filter Include="src\Siv3D\DynamicTexture">
       <UniqueIdentifier>{9696f7da-140d-4832-b2b3-0f64817b1d9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Emoji">
+      <UniqueIdentifier>{d3b9aa3d-3320-49b2-93a6-8f0f1438ec27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4041,6 +4044,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\EmojiData.hpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5461,6 +5470,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Texture\TextureCommon.cpp">
       <Filter>src\Siv3D\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\EmojiData.cpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp">
+      <Filter>src\Siv3D\Emoji</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

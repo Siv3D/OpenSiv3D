@@ -132,11 +132,13 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Effect/EffectFactory.cpp
   ../Siv3D/src/Siv3D/Effect/SivEffect.cpp
   ../Siv3D/src/Siv3D/Ellipse/SivEllipse.cpp
+  ../Siv3D/src/Siv3D/Emoji/SivEmoji.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/CFont_Headless.cpp
+  ../Siv3D/src/Siv3D/Font/EmojiData.cpp
   ../Siv3D/src/Siv3D/Font/FontCommon.cpp
   ../Siv3D/src/Siv3D/Font/GlyphCache/BitmapGlyphCache.cpp
   ../Siv3D/src/Siv3D/Font/GlyphCache/GlyphCacheCommon.cpp
