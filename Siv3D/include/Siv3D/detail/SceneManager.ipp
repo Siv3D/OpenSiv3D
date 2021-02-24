@@ -46,7 +46,7 @@ namespace s3d
 	}
 
 	template <class State, class Data>
-	inline const IScene<State, Data>::State_t& IScene<State, Data>::getState() const
+	inline const typename IScene<State, Data>::State_t& IScene<State, Data>::getState() const
 	{
 		return m_state;
 	}
