@@ -168,7 +168,7 @@ namespace s3d
 		auto state = m_pipeline.linkShaders(vertexShader, pixelShader);
 		auto program = state.shaderProgram;
 
-		if (!state.cacheHit)
+		if (not state.cacheHit && program)
 		{
 			m_vertexShaders[m_currentVS]->bindUniformBlocks(program);
 			m_pixelShaders[m_currentPS]->bindUniformBlocks(program);
