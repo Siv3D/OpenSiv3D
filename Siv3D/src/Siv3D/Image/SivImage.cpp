@@ -52,6 +52,35 @@ namespace s3d
 	Image::Image(const Icon& icon, const int32 size)
 		: Image{ Icon::CreateImage(icon.type, icon.code, size) } {}
 
+	Image::Image(const Grid<Color>& grid)
+		: Image{ grid.size() }
+	{
+		if (m_data.empty())
+		{
+			return;
+		}
+
+		std::memcpy(m_data.data(), grid.data(), grid.size_bytes());
+	}
+
+	Image::Image(const Grid<ColorF>& grid)
+		: Image{ grid.size() }
+	{
+		if (m_data.empty())
+		{
+			return;
+		}
+
+		const ColorF* pSrc = grid.data();
+		const ColorF* const pSrcEnd = (pSrc + grid.size_elements());
+		Color* pDst = m_data.data();
+
+		while (pSrc != pSrcEnd)
+		{
+			*pDst++ = *pSrc++;
+		}
+	}
+	
 	bool Image::applyAlphaFromRChannel(const FilePathView alpha)
 	{
 		if (isEmpty())
@@ -92,6 +121,16 @@ namespace s3d
 		return true;
 	}
 
+	bool Image::save(const FilePathView path, const ImageFormat format) const
+	{
+		return ImageEncoder::Save(*this, format, path);
+	}
+
+	bool Image::savePNG(const FilePathView path, const PNGFilter filter) const
+	{
+		return PNGEncoder{}.save(*this, path, filter);
+	}
+
 	void Image::overwrite(Image& dst, const int32 x, const int32 y) const
 	{
 		overwrite(dst, Point{ x, y });
@@ -106,11 +145,11 @@ namespace s3d
 
 		const Image& src = *this;
 
-		const int32 dstXBegin	= Max(pos.x, 0);
-		const int32 dstYBegin	= Max(pos.y, 0);
-		const int32 dstXEnd		= Min(pos.x + src.width(), dst.width());
-		const int32 dstYEnd		= Min(pos.y + src.height(), dst.height());
-		const int32 writeWidth	= ((dstXEnd - dstXBegin) > 0 ? (dstXEnd - dstXBegin) : 0);
+		const int32 dstXBegin = Max(pos.x, 0);
+		const int32 dstYBegin = Max(pos.y, 0);
+		const int32 dstXEnd = Min(pos.x + src.width(), dst.width());
+		const int32 dstYEnd = Min(pos.y + src.height(), dst.height());
+		const int32 writeWidth = ((dstXEnd - dstXBegin) > 0 ? (dstXEnd - dstXBegin) : 0);
 		const int32 writeHeight = ((dstYEnd - dstYBegin) > 0 ? (dstYEnd - dstYBegin) : 0);
 
 		if ((writeWidth * writeHeight) == 0)
@@ -135,15 +174,5 @@ namespace s3d
 				pDst += dstWidth;
 			}
 		}
-	}
-
-	bool Image::save(const FilePathView path, const ImageFormat format) const
-	{
-		return ImageEncoder::Save(*this, format, path);
-	}
-
-	bool Image::savePNG(const FilePathView path, const PNGFilter filter) const
-	{
-		return PNGEncoder{}.save(*this, path, filter);
 	}
 }

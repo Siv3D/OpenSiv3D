@@ -16,61 +16,73 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		inline constexpr bool IsValidImageSize(const Size size)
+		inline constexpr bool IsValidImageSize(const Size size) noexcept
 		{
 			return InRange(size.x, 0, Image::MaxWidth)
 				&& InRange(size.y, 0, Image::MaxHeight);
 		}
+
+		[[nodiscard]]
+		inline constexpr int32 ImageMod(int32 x, int32 y) noexcept
+		{
+			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
+		}
+
+		[[nodiscard]]
+		inline constexpr int32 ImageMir(int32 x, int32 y) noexcept
+		{
+			const int32 t = ImageMod(x, y * 2);
+
+			return (t < y) ? t : (y * 2 - 1) - t;
+		}
 	}
 
 	inline Image::Image(Image&& image) noexcept
-		: m_data(std::move(image.m_data))
-		, m_width(image.m_width)
-		, m_height(image.m_height)
+		: m_data{ std::move(image.m_data) }
+		, m_width{ image.m_width }
+		, m_height{ image.m_height }
 	{
 		image.m_width = image.m_height = 0;
 	}
 
-
 	inline Image::Image(const size_t size)
-		: Image(size, size) {}
+		: Image{ size, size } {}
 
 	inline Image::Image(const size_t size, const Color color)
-		: Image(size, size, color) {}
+		: Image{ size, size, color } {}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const size_t size, Arg::generator_<Fty> generator)
-		: Image(size, size, generator) {}
+		: Image{ size, size, generator } {}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image::Image(const size_t size, Arg::generator0_1_<Fty> generator)
-		: Image(size, size, generator) {}
+		: Image{ size, size, generator } {}
 
 
 	inline Image::Image(const size_t width, const size_t height)
-		: Image(Size(width, height)) {}
+		: Image{ Size{ width, height } } {}
 
 	inline Image::Image(const size_t width, const size_t height, const Color color)
-		: Image(Size(width, height), color) {}
+		: Image{ Size{ width, height }, color } {}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const size_t width, const size_t height, Arg::generator_<Fty> generator)
-		: Image(Size(width, height), generator) {}
+		: Image{ Size{ width, height }, generator } {}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty, Vec2>, std::is_invocable_r<Color, Fty, double, double>>>*>
 	inline Image::Image(const size_t width, const size_t height, Arg::generator0_1_<Fty> generator)
-		: Image(Size(width, height), generator) {}
-
+		: Image{ Size{ width, height }, generator } {}
 
 	inline Image::Image(const Size size)
-		: m_data(detail::IsValidImageSize(size) ? size.area() : 0)
-		, m_width(detail::IsValidImageSize(size) ? size.x : 0)
-		, m_height(detail::IsValidImageSize(size) ? size.y : 0) {}
+		: m_data{ detail::IsValidImageSize(size) ? size.area() : 0 }
+		, m_width{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.x : 0) }
+		, m_height{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.y : 0) } {}
 
 	inline Image::Image(const Size size, const Color color)
-		: m_data(detail::IsValidImageSize(size) ? size.area() : 0, color)
-		, m_width(detail::IsValidImageSize(size) ? size.x : 0)
-		, m_height(detail::IsValidImageSize(size) ? size.y : 0) {}
+		: m_data{ detail::IsValidImageSize(size) ? size.area() : 0, color }
+		, m_width{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.x : 0) }
+		, m_height{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.y : 0) } {}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image::Image(const Size size, Arg::generator_<Fty> generator)
@@ -94,6 +106,25 @@ namespace s3d
 		image.m_height = 0;
 
 		return *this;
+	}
+
+	template <class Type, class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Type>>*>
+	Image::Image(const Grid<Type>& grid, Fty converter)
+		: Image{ grid.size() }
+	{
+		if (m_data.empty())
+		{
+			return;
+		}
+
+		const Type* pSrc = grid.data();
+		const Type* const pSrcEnd = (pSrc + grid.size_elements());
+		Color* pDst = m_data.data();
+
+		while (pSrc != pSrcEnd)
+		{
+			*pDst++ = converter(*pSrc++);
+		}
 	}
 
 	inline int32 Image::width() const noexcept
@@ -357,7 +388,40 @@ namespace s3d
 		m_height = static_cast<uint32>(rows);
 	}
 
+	inline Color Image::getPixel(const int32 x, const int32 y, const ImageAddressMode addressMode) const
+	{
+		return getPixel(Size{ x, y }, addressMode);
+	}
 
+	inline Color Image::getPixel(const Point pos, const ImageAddressMode addressMode) const
+	{
+		switch (addressMode)
+		{
+		case ImageAddressMode::Repeat:
+			return m_data[static_cast<size_t>(m_width) * detail::ImageMod(pos.y, m_height) + detail::ImageMod(pos.x, m_width)];
+		case ImageAddressMode::Mirror:
+			return m_data[static_cast<size_t>(m_width) * detail::ImageMir(pos.y, m_height) + detail::ImageMir(pos.x, m_width)];
+		case ImageAddressMode::Clamp:
+			return m_data[static_cast<size_t>(m_width) * Clamp(pos.y, 0, (static_cast<int32>(m_height) - 1)) + Clamp(pos.x, 0, (static_cast<int32>(m_width) - 1))];
+		default:
+			{
+				if (InRange(pos.x, 0, static_cast<int32>(m_width) - 1)
+					&& InRange(pos.y, 0, static_cast<int32>(m_height) - 1))
+				{
+					return m_data[static_cast<size_t>(m_width) * pos.y + pos.x];
+				}
+
+				if (addressMode == ImageAddressMode::BorderBlack)
+				{
+					return Color{ 0 };
+				}
+				else
+				{
+					return Color{ 255 };
+				}
+			}
+		}
+	}
 
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>

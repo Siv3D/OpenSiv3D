@@ -12,9 +12,11 @@
 # pragma once
 # include "Common.hpp"
 # include "Array.hpp"
+# include "Grid.hpp"
 # include "NamedParameter.hpp"
 # include "PredefinedNamedParameter.hpp"
 # include "ImageFormat.hpp"
+# include "ImageAddressMode.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 # include "IReader.hpp"
@@ -110,15 +112,15 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Image(const Icon& icon, int32 size);
 
-		//SIV3D_NODISCARD_CXX20
-		//explicit Image(const Grid<Color>& grid);
+		SIV3D_NODISCARD_CXX20
+		explicit Image(const Grid<Color>& grid);
 
-		//SIV3D_NODISCARD_CXX20
-		//explicit Image(const Grid<ColorF>& grid);
+		SIV3D_NODISCARD_CXX20
+		explicit Image(const Grid<ColorF>& grid);
 
-		//template <class Type, class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Type>>* = nullptr>
-		//SIV3D_NODISCARD_CXX20
-		//explicit Image(const Grid<Type>& grid, Fty converter);
+		template <class Type, class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Type>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
+		explicit Image(const Grid<Type>& grid, Fty converter);
 
 		Image& operator =(const Image&) = default;
 
@@ -342,29 +344,53 @@ namespace s3d
 
 		void resizeRows(size_t rows, Color fillColor);
 
+		[[nodiscard]]
+		Color getPixel(int32 x, int32 y, ImageAddressMode addressMode) const;
 
+		[[nodiscard]]
+		Color getPixel(Point pos, ImageAddressMode addressMode) const;
 
+		[[nodiscard]]
+		ColorF samplePixel(double x, double y, ImageAddressMode addressMode) const;
 
+		[[nodiscard]]
+		ColorF samplePixel(Vec2 pos, ImageAddressMode addressMode) const;
 
+		[[nodiscard]]
+		Image clipped(const Rect& rect) const;
 
+		[[nodiscard]]
+		Image clipped(int32 x, int32 y, int32 w, int32 h) const;
 
+		[[nodiscard]]
+		Image clipped(const Point& pos, int32 w, int32 h) const;
 
+		[[nodiscard]]
+		Image clipped(int32 x, int32 y, const Size& size) const;
 
+		[[nodiscard]]
+		Image clipped(const Point& pos, const Size& size) const;
 
+		[[nodiscard]]
+		Image squareClipped() const;
 
+		template <class Fty>
+		Image& forEach(Fty f);
+
+		Image& RGBAtoBGRA();
 
 		bool applyAlphaFromRChannel(FilePathView alpha);
+
+
+		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
+
+		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
 
 
 
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;
-
-		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
-
-		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
-
 
 		template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>* = nullptr>
 		static Image Generate(Size size, Fty generator);

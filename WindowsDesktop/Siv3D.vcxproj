@@ -187,6 +187,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageAddressMode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\BMPDecoder.hpp" />

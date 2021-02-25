@@ -799,6 +799,8 @@
 // 画像の情報 | Image information
 # include <Siv3D/ImageInfo.hpp>
 
+# include <Siv3D/ImageAddressMode.hpp>
+
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 
