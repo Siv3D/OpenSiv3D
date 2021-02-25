@@ -21,24 +21,10 @@ namespace s3d
 			return InRange(size.x, 0, Image::MaxWidth)
 				&& InRange(size.y, 0, Image::MaxHeight);
 		}
-
-		[[nodiscard]]
-		inline constexpr int32 ImageMod(int32 x, int32 y) noexcept
-		{
-			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
-		}
-
-		[[nodiscard]]
-		inline constexpr int32 ImageMir(int32 x, int32 y) noexcept
-		{
-			const int32 t = ImageMod(x, y * 2);
-
-			return (t < y) ? t : (y * 2 - 1) - t;
-		}
 	}
 
 	inline Image::Image(Image&& image) noexcept
-		: m_data{ std::move(image.m_data) }
+		: m_data(std::move(image.m_data))
 		, m_width{ image.m_width }
 		, m_height{ image.m_height }
 	{
@@ -75,12 +61,12 @@ namespace s3d
 		: Image{ Size{ width, height }, generator } {}
 
 	inline Image::Image(const Size size)
-		: m_data{ detail::IsValidImageSize(size) ? size.area() : 0 }
+		: m_data(detail::IsValidImageSize(size) ? size.area() : 0)
 		, m_width{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.x : 0) }
 		, m_height{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.y : 0) } {}
 
 	inline Image::Image(const Size size, const Color color)
-		: m_data{ detail::IsValidImageSize(size) ? size.area() : 0, color }
+		: m_data(detail::IsValidImageSize(size) ? size.area() : 0, color)
 		, m_width{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.x : 0) }
 		, m_height{ static_cast<uint32>(detail::IsValidImageSize(size) ? size.y : 0) } {}
 
@@ -393,36 +379,32 @@ namespace s3d
 		return getPixel(Size{ x, y }, addressMode);
 	}
 
-	inline Color Image::getPixel(const Point pos, const ImageAddressMode addressMode) const
+	inline ColorF Image::samplePixel(const double x, const double y, const ImageAddressMode addressMode) const
 	{
-		switch (addressMode)
-		{
-		case ImageAddressMode::Repeat:
-			return m_data[static_cast<size_t>(m_width) * detail::ImageMod(pos.y, m_height) + detail::ImageMod(pos.x, m_width)];
-		case ImageAddressMode::Mirror:
-			return m_data[static_cast<size_t>(m_width) * detail::ImageMir(pos.y, m_height) + detail::ImageMir(pos.x, m_width)];
-		case ImageAddressMode::Clamp:
-			return m_data[static_cast<size_t>(m_width) * Clamp(pos.y, 0, (static_cast<int32>(m_height) - 1)) + Clamp(pos.x, 0, (static_cast<int32>(m_width) - 1))];
-		default:
-			{
-				if (InRange(pos.x, 0, static_cast<int32>(m_width) - 1)
-					&& InRange(pos.y, 0, static_cast<int32>(m_height) - 1))
-				{
-					return m_data[static_cast<size_t>(m_width) * pos.y + pos.x];
-				}
-
-				if (addressMode == ImageAddressMode::BorderBlack)
-				{
-					return Color{ 0 };
-				}
-				else
-				{
-					return Color{ 255 };
-				}
-			}
-		}
+		return samplePixel(Vec2{ x, y }, addressMode);
 	}
 
+	template <class Fty>
+	inline Image& Image::forEach(Fty f)
+	{
+		for (auto& pixel : m_data)
+		{
+			f(pixel);
+		}
+
+		return *this;
+	}
+
+	template <class Fty>
+	inline Image& Image::forEach(Fty f) const
+	{
+		for (const auto& pixel : m_data)
+		{
+			f(pixel);
+		}
+
+		return *this;
+	}
 
 	template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>*>
 	inline Image Image::Generate(const Size size, Fty generator)

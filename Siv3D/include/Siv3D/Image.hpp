@@ -377,9 +377,13 @@ namespace s3d
 		template <class Fty>
 		Image& forEach(Fty f);
 
+		template <class Fty>
+		Image& forEach(Fty f) const;
+
 		Image& RGBAtoBGRA();
 
 		bool applyAlphaFromRChannel(FilePathView alpha);
+
 
 
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;

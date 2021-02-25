@@ -12,12 +12,36 @@
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		inline constexpr int32 ImageMod(int32 x, int32 y) noexcept
+		{
+			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
+		}
+
+		[[nodiscard]]
+		inline constexpr int32 ImageMir(int32 x, int32 y) noexcept
+		{
+			const int32 t = ImageMod(x, y * 2);
+
+			return (t < y) ? t : (y * 2 - 1) - t;
+		}
+
+		[[nodiscard]]
+		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py) noexcept
+		{
+			return (px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1);
+		}
+	}
+
 	Image::Image(const FilePathView path, const ImageFormat format)
 	{
 		*this = ImageDecoder::Decode(path, format);
@@ -80,7 +104,135 @@ namespace s3d
 			*pDst++ = *pSrc++;
 		}
 	}
-	
+
+	Color Image::getPixel(const Point pos, const ImageAddressMode addressMode) const
+	{
+		switch (addressMode)
+		{
+		case ImageAddressMode::Repeat:
+			return m_data[static_cast<size_t>(m_width) * detail::ImageMod(pos.y, m_height) + detail::ImageMod(pos.x, m_width)];
+		case ImageAddressMode::Mirror:
+			return m_data[static_cast<size_t>(m_width) * detail::ImageMir(pos.y, m_height) + detail::ImageMir(pos.x, m_width)];
+		case ImageAddressMode::Clamp:
+			return m_data[static_cast<size_t>(m_width) * Clamp(pos.y, 0, (static_cast<int32>(m_height) - 1)) + Clamp(pos.x, 0, (static_cast<int32>(m_width) - 1))];
+		default:
+			{
+				if (InRange(pos.x, 0, static_cast<int32>(m_width) - 1)
+					&& InRange(pos.y, 0, static_cast<int32>(m_height) - 1))
+				{
+					return m_data[static_cast<size_t>(m_width) * pos.y + pos.x];
+				}
+
+				if (addressMode == ImageAddressMode::BorderBlack)
+				{
+					return Color{ 0 };
+				}
+				else
+				{
+					return Color{ 255 };
+				}
+			}
+		}
+	}
+
+	ColorF Image::samplePixel(const Vec2 pos, const ImageAddressMode addressMode) const
+	{
+		const int32 ix = static_cast<int32>(pos.x);
+		const int32 iy = static_cast<int32>(pos.y);
+
+		const Color c1 = getPixel(ix, iy, addressMode);
+		const Color c2 = getPixel((ix + 1), iy, addressMode);
+		const Color c3 = getPixel(ix, (iy + 1), addressMode);
+		const Color c4 = getPixel((ix + 1), (iy + 1), addressMode);
+
+		const double xr1 = (pos.x - ix);
+		const double yr1 = (pos.y - iy);
+
+		const double r = detail::Biliner(c1.r, c2.r, c3.r, c4.r, xr1, yr1);
+		const double g = detail::Biliner(c1.g, c2.g, c3.g, c4.g, xr1, yr1);
+		const double b = detail::Biliner(c1.b, c2.b, c3.b, c4.b, xr1, yr1);
+		const double a = detail::Biliner(c1.a, c2.a, c3.a, c4.a, xr1, yr1);
+
+		return{ (r / 255.0), (g / 255.0), (b / 255.0), (a / 255.0) };
+	}
+
+	Image Image::clipped(const Rect& rect) const
+	{
+		if (not detail::IsValidImageSize(rect.size))
+		{
+			return{};
+		}
+
+		Image tmp(rect.size, Color{ 0, 0 });
+
+		const int32 h = static_cast<int32>(m_height);
+		const int32 w = static_cast<int32>(m_width);
+
+		// [Siv3D ToDo] 最適化
+		for (int32 y = 0; y < rect.h; ++y)
+		{
+			const int32 sy = y + rect.y;
+
+			if (0 <= sy && sy < h)
+			{
+				for (int32 x = 0; x < rect.w; ++x)
+				{
+					const int32 sx = x + rect.x;
+
+					if (0 <= sx && sx < w)
+					{
+						tmp[y][x] = operator[](sy)[sx];
+					}
+				}
+			}
+		}
+
+		return tmp;
+	}
+
+	Image Image::clipped(const int32 x, const int32 y, const int32 w, const int32 h) const
+	{
+		return clipped(Rect{ x, y, w, h });
+	}
+
+	Image Image::clipped(const Point& pos, const int32 w, const int32 h) const
+	{
+		return clipped(Rect{ pos, w, h });
+	}
+
+	Image Image::clipped(const int32 x, const int32 y, const Size& size) const
+	{
+		return clipped(Rect{ x, y, size });
+	}
+
+	Image Image::clipped(const Point& pos, const Size& size) const
+	{
+		return clipped(Rect{ pos, size });
+	}
+
+	Image Image::squareClipped() const
+	{
+		const int32 size = Min(m_width, m_height);
+
+		return clipped(((m_width - size) / 2), ((m_height - size) / 2), size, size);
+	}
+
+	Image& Image::RGBAtoBGRA()
+	{
+		Color* p = m_data.data();
+		const Color* pEnd = (p + num_pixels());
+
+		while (p != pEnd)
+		{
+			const uint32 t = p->r;
+			p->r = p->b;
+			p->b = t;
+			++p;
+		}
+
+		return *this;
+	}
+
 	bool Image::applyAlphaFromRChannel(const FilePathView alpha)
 	{
 		if (isEmpty())
