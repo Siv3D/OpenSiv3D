@@ -45,6 +45,16 @@ namespace s3d
 		return(Texture::IDType::NullAsset());
 	}
 
+	Texture::IDType CTexture_Metal::createDynamic(const Size&, const void*, uint32, const TextureFormat&, const TextureDesc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createDynamic(const Size&, const ColorF&, const TextureFormat&, const TextureDesc)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
 	void CTexture_Metal::release(Texture::IDType handleID)
 	{
 
@@ -63,5 +73,25 @@ namespace s3d
 	TextureFormat CTexture_Metal::getFormat(Texture::IDType handleID)
 	{
 		return(TextureFormat::Unknown);
+	}
+
+	bool CTexture_Metal::fill(Texture::IDType, const ColorF&, bool)
+	{
+		return false;
+	}
+
+	bool CTexture_Metal::fillRegion(Texture::IDType, const ColorF&, const Rect&)
+	{
+		return false;
+	}
+
+	bool CTexture_Metal::fill(Texture::IDType, const void*, uint32, bool)
+	{
+		return false;
+	}
+
+	bool CTexture_Metal::fillRegion(Texture::IDType, const void*, uint32, const Rect&, bool)
+	{
+		return false;
 	}
 }

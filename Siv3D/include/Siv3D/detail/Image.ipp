@@ -396,7 +396,7 @@ namespace s3d
 	}
 
 	template <class Fty>
-	inline Image& Image::forEach(Fty f) const
+	inline const Image& Image::forEach(Fty f) const
 	{
 		for (const auto& pixel : m_data)
 		{

@@ -378,7 +378,7 @@ namespace s3d
 		Image& forEach(Fty f);
 
 		template <class Fty>
-		Image& forEach(Fty f) const;
+		const Image& forEach(Fty f) const;
 
 		Image& RGBAtoBGRA();
 
