@@ -16,6 +16,7 @@
 # include "IFont.hpp"
 # include "FontData.hpp"
 # include "EmojiData.hpp"
+# include "IconData.hpp"
 
 namespace s3d
 {
@@ -28,6 +29,8 @@ namespace s3d
 		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
 
 		std::unique_ptr<EmojiData> m_defaultEmoji;
+
+		Array<std::unique_ptr<IconData>> m_defaultIcons;
 
 	public:
 
@@ -111,5 +114,16 @@ namespace s3d
 		GlyphIndex getEmojiGlyphIndex(StringView emoji) override;
 
 		Image renderEmojiBitmap(GlyphIndex glyphIndex) override;
+
+
+		bool hasIcon(Icon::Type iconType, char32 codePoint) override;
+
+		GlyphIndex getIconGlyphIndex(Icon::Type iconType, char32 codePoint) override;
+
+		Image renderIconBitmap(Icon::Type iconType, char32 codePoint, int32 fontPixelSize) override;
+
+		Image renderIconSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
+
+		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
 	};
 }

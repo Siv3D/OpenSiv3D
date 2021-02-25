@@ -13,39 +13,43 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/BitmapGlyph.hpp>
+# include <Siv3D/SDFGlyph.hpp>
+# include <Siv3D/MSDFGlyph.hpp>
 # include "FontFace.hpp"
 
 namespace s3d
 {
-	class EmojiData
+	class IconData
 	{
 	public:
 
-		EmojiData() = default;
+		IconData() = default;
 
-		EmojiData(FT_Library library, FilePathView path, size_t faceIndex);
+		IconData(FT_Library library, FilePathView path, size_t faceIndex);
 
-		~EmojiData();
+		~IconData();
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
 
 		[[nodiscard]]
-		bool hasGlyph(StringView ch);
+		bool hasGlyph(char32 codePoint);
 
 		[[nodiscard]]
-		GlyphIndex getGlyphIndex(StringView ch);
+		GlyphIndex getGlyphIndex(char32 codePoint);
 
 		[[nodiscard]]
-		BitmapGlyph renderBitmap(GlyphIndex glyphIndex);
+		BitmapGlyph renderBitmap(GlyphIndex glyphIndex, int32 fontPixelSize);
+
+		[[nodiscard]]
+		SDFGlyph renderSDF(GlyphIndex glyphIndex, int32 fontPixelSize, int32 buffer);
+
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(GlyphIndex glyphIndex, int32 fontPixelSize, int32 buffer);
 
 	private:
 
 		FT_Face m_face = nullptr;
-
-		hb_font_t* m_hbFont = nullptr;
-
-		hb_buffer_t* m_hbBuffer = nullptr;
 
 		FontFaceProperty m_property;
 

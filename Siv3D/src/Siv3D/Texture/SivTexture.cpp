@@ -17,6 +17,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/Emoji.hpp>
+# include <Siv3D/Icon.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/ImageProcessing.hpp>
@@ -81,6 +82,9 @@ namespace s3d
 
 	Texture::Texture(const Emoji& emoji, const TextureDesc desc)
 		: Texture{ Emoji::CreateImage(emoji.codePoints), desc } {}
+
+	Texture::Texture(const Icon& icon, const int32 size, const TextureDesc desc)
+		: Texture{ Icon::CreateImage(icon.type, icon.code, size), desc } {}
 
 	Texture::~Texture() {}
 

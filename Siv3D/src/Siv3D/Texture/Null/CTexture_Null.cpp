@@ -40,12 +40,12 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, const TextureDesc desc)
+	Texture::IDType CTexture_Null::createDynamic(const Size&, const void*, uint32, const TextureFormat&, const TextureDesc)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
+	Texture::IDType CTexture_Null::createDynamic(const Size&, const ColorF&, const TextureFormat&, const TextureDesc)
 	{
 		return Texture::IDType::NullAsset();
 	}

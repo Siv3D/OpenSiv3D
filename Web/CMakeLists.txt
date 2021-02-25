@@ -151,6 +151,7 @@ add_library(
   ../Siv3D/src/Siv3D/Font/FontData.cpp
   ../Siv3D/src/Siv3D/Font/FontFace.cpp
   ../Siv3D/src/Siv3D/Font/FontFactory.cpp
+  ../Siv3D/src/Siv3D/Font/IconData.cpp
   ../Siv3D/src/Siv3D/Font/SivFont.cpp
   ../Siv3D/src/Siv3D/FormatFloat/SivFormatFloat.cpp
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
@@ -159,6 +160,7 @@ add_library(
   ../Siv3D/src/Siv3D/Geometry2D/SivGeometry2D.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
+  ../Siv3D/src/Siv3D/Icon/SivIcon.cpp
   ../Siv3D/src/Siv3D/Image/SivImage.cpp
   ../Siv3D/src/Siv3D/ImageDecoder/CImageDecoder.cpp
   ../Siv3D/src/Siv3D/ImageDecoder/ImageDecoderFactory.cpp

@@ -23,6 +23,7 @@
 namespace s3d
 {
 	struct Emoji;
+	struct Icon;
 
 	class Image
 	{
@@ -106,8 +107,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Image(const Emoji& emoji);
 
-		//SIV3D_NODISCARD_CXX20
-		//explicit Image(const Icon& icon);
+		SIV3D_NODISCARD_CXX20
+		explicit Image(const Icon& icon, int32 size);
 
 		//SIV3D_NODISCARD_CXX20
 		//explicit Image(const Grid<Color>& grid);

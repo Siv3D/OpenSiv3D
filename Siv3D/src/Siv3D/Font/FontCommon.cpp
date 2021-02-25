@@ -131,5 +131,12 @@ namespace s3d
 
 			return std::make_unique<EmojiData>(library, info.path, info.faceIndex);
 		}
+
+		std::unique_ptr<IconData> CreateDefaultIcon(const FT_Library library, const Typeface typeface)
+		{
+			const TypefaceInfo info = GetTypefaceInfo(typeface);
+
+			return std::make_unique<IconData>(library, info.path, info.faceIndex);
+		}
 	}
 }

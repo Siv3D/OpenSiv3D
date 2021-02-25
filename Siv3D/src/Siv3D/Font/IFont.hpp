@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/TextStyle.hpp>
+# include <Siv3D/Icon.hpp>
 # include "FontFaceProperty.hpp"
 
 namespace s3d
@@ -101,5 +102,16 @@ namespace s3d
 		virtual GlyphIndex getEmojiGlyphIndex(StringView emoji) = 0;
 
 		virtual Image renderEmojiBitmap(GlyphIndex glyphIndex) = 0;
+
+
+		virtual bool hasIcon(Icon::Type iconType, char32 codePoint) = 0;
+
+		virtual GlyphIndex getIconGlyphIndex(Icon::Type iconType, char32 codePoint) = 0;
+
+		virtual Image renderIconBitmap(Icon::Type iconType, char32 codePoint, int32 fontPixelSize) = 0;
+
+		virtual Image renderIconSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) = 0;
+
+		virtual Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) = 0;
 	};
 }

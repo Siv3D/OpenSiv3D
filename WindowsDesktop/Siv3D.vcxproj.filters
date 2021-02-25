@@ -817,6 +817,9 @@
     <Filter Include="src\Siv3D\Emoji">
       <UniqueIdentifier>{d3b9aa3d-3320-49b2-93a6-8f0f1438ec27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Icon">
+      <UniqueIdentifier>{e5c96727-0b2d-43c7-af65-dc3dad5b7842}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4050,6 +4053,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\IconData.hpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5476,6 +5482,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp">
       <Filter>src\Siv3D\Emoji</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\IconData.cpp">
+      <Filter>src\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp">
+      <Filter>src\Siv3D\Icon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

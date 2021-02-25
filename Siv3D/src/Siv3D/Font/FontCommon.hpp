@@ -15,6 +15,7 @@
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/Typeface.hpp>
 # include "EmojiData.hpp"
+# include "IconData.hpp"
 
 namespace s3d
 {
@@ -59,5 +60,8 @@ namespace s3d
 
 		[[nodiscard]]
 		std::unique_ptr<EmojiData> CreateDefaultEmoji(FT_Library library);
+
+		[[nodiscard]]
+		std::unique_ptr<IconData> CreateDefaultIcon(FT_Library library, Typeface typeface);
 	}
 }

@@ -28,9 +28,11 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CFont_Headless::~CFont_Headless()");
 
-		m_fonts.destroy();
+		m_defaultIcons.clear();
 
 		m_defaultEmoji.reset();
+
+		m_fonts.destroy();
 
 		if (m_freeType)
 		{
@@ -65,13 +67,30 @@ namespace s3d
 		{
 			if (not detail::ExtractEngineFonts())
 			{
-				throw EngineError(U"CFont::init(): Failed to extract font files");
+				throw EngineError(U"CFont_Headless::init(): Failed to extract font files");
 			}
 		}
 
 		// デフォルト絵文字
 		{
 			m_defaultEmoji = detail::CreateDefaultEmoji(m_freeType);
+
+			if (not m_defaultEmoji->isInitialized())
+			{
+				LOG_INFO(U"CFont_Headless::init(): Failed to create default emojis");
+			}
+		}
+
+		// デフォルトアイコン
+		{
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_Awesome_Solid);
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_Awesome_Brand);
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_MaterialDesign);
+
+			if (not m_defaultIcons.all([](const std::unique_ptr<IconData>& d) { return d->isInitialized(); }))
+			{
+				LOG_INFO(U"CFont_Headless::init(): Failed to create default icons");
+			}
 		}
 	}
 
@@ -317,5 +336,119 @@ namespace s3d
 	Image CFont_Headless::renderEmojiBitmap(const GlyphIndex glyphIndex)
 	{
 		return m_defaultEmoji->renderBitmap(glyphIndex).image;
+	}
+
+
+	bool CFont_Headless::hasIcon(const Icon::Type iconType, const char32 codePoint)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			return m_defaultIcons[0]->hasGlyph(codePoint)
+				|| m_defaultIcons[1]->hasGlyph(codePoint);
+		}
+		else
+		{
+			return m_defaultIcons[2]->hasGlyph(codePoint);
+		}
+	}
+
+	GlyphIndex CFont_Headless::getIconGlyphIndex(const Icon::Type iconType, const char32 codePoint)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			GlyphIndex glyphIndex = m_defaultIcons[0]->getGlyphIndex(codePoint);
+
+			if (glyphIndex == 0)
+			{
+				glyphIndex = m_defaultIcons[1]->getGlyphIndex(codePoint);
+			}
+
+			return glyphIndex;
+		}
+		else
+		{
+			return m_defaultIcons[2]->getGlyphIndex(codePoint);
+		}
+	}
+
+	Image CFont_Headless::renderIconBitmap(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
+			{
+				auto& iconData = m_defaultIcons[i];
+
+				if (iconData->hasGlyph(codePoint))
+				{
+					return iconData->renderBitmap(codePoint, fontPixelSize).image;
+				}
+			}
+		}
+		else
+		{
+			auto& iconData = m_defaultIcons[2];
+
+			if (iconData->hasGlyph(codePoint))
+			{
+				return iconData->renderBitmap(codePoint, fontPixelSize).image;
+			}
+		}
+
+		return{};
+	}
+
+	Image CFont_Headless::renderIconSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
+			{
+				auto& iconData = m_defaultIcons[i];
+
+				if (iconData->hasGlyph(codePoint))
+				{
+					return iconData->renderSDF(codePoint, fontPixelSize, buffer).image;
+				}
+			}
+		}
+		else
+		{
+			auto& iconData = m_defaultIcons[2];
+
+			if (iconData->hasGlyph(codePoint))
+			{
+				return iconData->renderSDF(codePoint, fontPixelSize, buffer).image;
+			}
+		}
+
+		return{};
+	}
+
+	Image CFont_Headless::renderIconMSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
+			{
+				auto& iconData = m_defaultIcons[i];
+
+				if (iconData->hasGlyph(codePoint))
+				{
+					return iconData->renderMSDF(codePoint, fontPixelSize, buffer).image;
+				}
+			}
+		}
+		else
+		{
+			auto& iconData = m_defaultIcons[2];
+
+			if (iconData->hasGlyph(codePoint))
+			{
+				return iconData->renderMSDF(codePoint, fontPixelSize, buffer).image;
+			}
+		}
+
+		return{};
 	}
 }
