@@ -11,7 +11,8 @@
 
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Polygon.hpp>
-# include <Siv3D/Utility.hpp>
+# include <Siv3D/Buffer2D.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -449,10 +450,28 @@ namespace s3d
 		return *this;
 	}
 
-
-
 	Polygon Shape2D::asPolygon() const
 	{
 		return Polygon{ *this };
+	}
+
+	Buffer2D Shape2D::toBuffer2D(const Vec2& uvOrigin, const Vec2& uvScale) const
+	{
+		return Buffer2D{ *this, uvOrigin, uvScale };
+	}
+
+	Buffer2D Shape2D::toBuffer2D(const Arg::center_<Vec2> uvCenter, const Vec2& uvScale) const
+	{
+		return Buffer2D{ *this, uvCenter, uvScale };
+	}
+
+	Buffer2D Shape2D::toBuffer2D(const Arg::center_<Vec2> uvCenter, const Vec2& uvScale, const double uvRotation) const
+	{
+		return Buffer2D{ *this, uvCenter, uvScale, uvRotation };
+	}
+
+	Buffer2D Shape2D::toBuffer2D(const Mat3x2& uvMat) const
+	{
+		return Buffer2D{ *this, uvMat };
 	}
 }

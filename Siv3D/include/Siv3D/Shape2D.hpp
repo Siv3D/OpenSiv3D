@@ -15,10 +15,13 @@
 # include "PointVector.hpp"
 # include "TriangleIndex.hpp"
 # include "2DShapes.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
 	class Polygon;
+	struct Buffer2D;
+	struct Mat3x2;
 
 	class Shape2D
 	{
@@ -83,6 +86,18 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon asPolygon() const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(const Vec2& uvOrigin, const Vec2& uvScale) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(Arg::center_<Vec2> uvCenter, const Vec2& uvScale) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(Arg::center_<Vec2> uvCenter, const Vec2& uvScale, double uvRotation) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(const Mat3x2& uvMat) const;
 
 	private:
 

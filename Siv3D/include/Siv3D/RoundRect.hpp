@@ -203,6 +203,18 @@ namespace s3d
 		constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept;
 
 		[[nodiscard]]
+		constexpr position_type topCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type bottomCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type leftCenter() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type rightCenter() const noexcept;
+
+		[[nodiscard]]
 		constexpr position_type center() const noexcept;
 
 		[[nodiscard]]

@@ -11,6 +11,7 @@
 
 # include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -75,6 +76,58 @@ namespace s3d
 
 	Buffer2D::Buffer2D(const Polygon& polygon, const Arg::center_<Vec2> uvCenter, const Vec2& uvScale, const double uvRotation)
 		: Buffer2D{ polygon, Mat3x2::Translate((uvScale * 0.5) - *uvCenter).scaled(1.0 / uvScale.x, 1.0 / uvScale.y).rotated(-uvRotation, Vec2{ 0.5, 0.5 }) } {}
+
+	Buffer2D::Buffer2D(const Shape2D& shape2D, const Vec2& _uvOrigin, const Vec2& _uvScale)
+		: vertices(shape2D.vertices().size())
+		, indices(shape2D.indices())
+	{
+		Vertex2D* pDst = vertices.data();
+		const Vertex2D* const pDstEnd = (pDst + vertices.size());
+		const Float2* pSrc = shape2D.vertices().data();
+
+		const Float2 uvOrigin{ _uvOrigin };
+		const Float2 uvScale{ 1.0 / _uvScale.x, 1.0 / _uvScale.y };
+		constexpr Float4 color{ 1.0f,1.0f,1.0f,1.0f };
+
+		while (pDst != pDstEnd)
+		{
+			const Float2 pos = *pSrc;
+			const Float2 uv = ((pos - uvOrigin) * uvScale);
+			pDst->pos	= pos;
+			pDst->color	= color;
+			pDst->tex	= uv;
+			++pSrc;
+			++pDst;
+		}
+	}
+
+	Buffer2D::Buffer2D(const Shape2D& shape2D, const Mat3x2& uvMat)
+		: vertices(shape2D.vertices().size())
+		, indices(shape2D.indices())
+	{
+		Vertex2D* pDst = vertices.data();
+		const Vertex2D* const pDstEnd = (pDst + vertices.size());
+		const Float2* pSrc = shape2D.vertices().data();
+
+		constexpr Float4 color{ 1.0f,1.0f,1.0f,1.0f };
+
+		while (pDst != pDstEnd)
+		{
+			const Float2 pos = *pSrc;
+			const Float2 uv = uvMat.transformPoint(pos);
+			pDst->pos	= pos;
+			pDst->color	= color;
+			pDst->tex	= uv;
+			++pSrc;
+			++pDst;
+		}
+	}
+
+	Buffer2D::Buffer2D(const Shape2D& shape2D, const Arg::center_<Vec2> uvCenter, const Vec2& uvScale)
+		: Buffer2D{ shape2D, uvCenter->movedBy(uvScale * -0.5), uvScale } {}
+
+	Buffer2D::Buffer2D(const Shape2D& shape2D, const Arg::center_<Vec2> uvCenter, const Vec2& uvScale, const double uvRotation)
+		: Buffer2D{ shape2D, Mat3x2::Translate((uvScale * 0.5) - *uvCenter).scaled(1.0 / uvScale.x, 1.0 / uvScale.y).rotated(-uvRotation, Vec2{ 0.5, 0.5 }) } {}
 
 	void Buffer2D::draw() const
 	{

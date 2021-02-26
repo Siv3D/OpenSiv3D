@@ -19,6 +19,7 @@
 namespace s3d
 {
 	class Polygon;
+	class Shape2D;
 	class Texture;
 	struct Mat3x2;
 
@@ -50,6 +51,18 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		Buffer2D(const Polygon& polygon, const Mat3x2& uvMat);
+
+		SIV3D_NODISCARD_CXX20
+		Buffer2D(const Shape2D& shape2D, const Vec2& uvOrigin, const Vec2& uvScale);
+
+		SIV3D_NODISCARD_CXX20
+		Buffer2D(const Shape2D& shape2D, Arg::center_<Vec2> uvCenter, const Vec2& uvScale);
+
+		SIV3D_NODISCARD_CXX20
+		Buffer2D(const Shape2D& shape2D, Arg::center_<Vec2> uvCenter, const Vec2& uvScale, double uvRotation);
+
+		SIV3D_NODISCARD_CXX20
+		Buffer2D(const Shape2D& shape2D, const Mat3x2& uvMat);
 
 		void draw() const;
 

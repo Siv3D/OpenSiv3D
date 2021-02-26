@@ -187,6 +187,26 @@ namespace s3d
 		return RoundRect(rect.stretched(top, right, bottom, left), r);
 	}
 
+	inline constexpr RoundRect::position_type RoundRect::topCenter() const noexcept
+	{
+		return rect.topCenter();
+	}
+
+	inline constexpr RoundRect::position_type RoundRect::bottomCenter() const noexcept
+	{
+		return rect.bottomCenter();
+	}
+
+	inline constexpr RoundRect::position_type RoundRect::leftCenter() const noexcept
+	{
+		return rect.leftCenter();
+	}
+
+	inline constexpr RoundRect::position_type RoundRect::rightCenter() const noexcept
+	{
+		return rect.rightCenter();
+	}
+
 	inline constexpr RoundRect::position_type RoundRect::center() const noexcept
 	{
 		return rect.center();
