@@ -109,6 +109,8 @@ namespace s3d
 
 		void drawFrame(const Vec2& offset, double thickness, const ColorF& color) const;
 
+		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color) const;
+
 		const CwOpenPolygon& getPolygon() const noexcept;
 	};
 }

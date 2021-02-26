@@ -553,6 +553,11 @@ namespace s3d
 		pImpl->draw(pos, color);
 	}
 
+	void Polygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
+	{
+		pImpl->drawTransformed(s, c, pos, color);
+	}
+
 	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
 	{
 		pImpl->drawFrame(thickness, color);

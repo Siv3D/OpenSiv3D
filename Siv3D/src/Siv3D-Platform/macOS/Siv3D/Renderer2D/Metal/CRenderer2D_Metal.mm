@@ -456,6 +456,24 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_Metal::addPolygonTransformed(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, float s, float c, const Float2& offset, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildPolygonTransformed(m_bufferCreator, vertices, indices, s, c, offset, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_Metal::addPolygonFrame(const Float2* points, const size_t size, const float thickness, const Float4& color)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildPolygonFrame(m_bufferCreator, m_buffer, points, size, thickness, color, getMaxScaling()))

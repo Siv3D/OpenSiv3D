@@ -81,7 +81,9 @@ namespace s3d
 		virtual void addPolygon(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Optional<Float2>& offset, const Float4& color) = 0;
 
 		virtual void addPolygon(const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) = 0;
-	
+
+		virtual void addPolygonTransformed(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, float s, float c, const Float2& offset, const Float4& color) = 0;
+
 		virtual void addPolygonFrame(const Float2* points, size_t size, float thickness, const Float4& color) = 0;
 
 		virtual void addNullVertices(uint32 count) = 0;

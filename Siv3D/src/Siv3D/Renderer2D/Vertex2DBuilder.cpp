@@ -1800,6 +1800,51 @@ namespace s3d
 			return indexSize;
 		}
 
+		Vertex2D::IndexType BuildPolygonTransformed(const BufferCreatorFunc& bufferCreator, const Array<Float2>& vertices, const Array<TriangleIndex>& tirnagleIndices, const float s, const float c, const Float2& offset, const Float4& color)
+		{
+			if (vertices.isEmpty()
+				|| tirnagleIndices.isEmpty())
+			{
+				return 0;
+			}
+
+			const Vertex2D::IndexType vertexSize = static_cast<Vertex2D::IndexType>(vertices.size());
+			const Vertex2D::IndexType indexSize = static_cast<Vertex2D::IndexType>(tirnagleIndices.size() * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			{
+				const Float2* pSrc		= vertices.data();
+				const Float2* pSrcEnd	= (pSrc + vertices.size());
+				const Float2 _offset	= offset;
+
+				while (pSrc != pSrcEnd)
+				{
+					const Float2 v = *pSrc++;
+					const float x = (v.x * c - v.y * s + _offset.x);
+					const float y = (v.x * s + v.y * c + _offset.y);
+					pVertex->pos.set(x, y);
+					pVertex->color = color;
+					++pVertex;
+				}
+			}
+
+			{
+				std::memcpy(pIndex, tirnagleIndices.data(), tirnagleIndices.size_bytes());
+
+				for (size_t i = 0; i < indexSize; ++i)
+				{
+					*(pIndex++) += indexOffset;
+				}
+			}
+
+			return indexSize;
+		}
+
 		Vertex2D::IndexType BuildPolygonFrame(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const Float2* points, const size_t size, const float thickness, const Float4& color, const float scale)
 		{
 			if ((size < 3)

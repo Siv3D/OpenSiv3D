@@ -125,6 +125,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addPolygonTransformed(const Array<Float2>&, const Array<TriangleIndex>&, const float, const float, const Float2&, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addPolygonFrame(const Float2*, const size_t, const float, const Float4&)
 	{
 		// do nothing
