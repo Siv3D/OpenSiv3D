@@ -35,6 +35,15 @@ Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
 //	Monochrome Emoji
 //
 Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
+//
+//	Box-shadow Textures
+//
+Resource(engine/texture/box-shadow/256.png)
+Resource(engine/texture/box-shadow/128.png)
+Resource(engine/texture/box-shadow/64.png)
+Resource(engine/texture/box-shadow/32.png)
+Resource(engine/texture/box-shadow/16.png)
+Resource(engine/texture/box-shadow/8.png)
 
 //////////////////////////////////////////////////////
 //
