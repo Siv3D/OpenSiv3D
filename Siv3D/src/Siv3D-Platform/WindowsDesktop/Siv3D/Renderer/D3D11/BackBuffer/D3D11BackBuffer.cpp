@@ -109,6 +109,33 @@ namespace s3d
 		m_context->OMSetRenderTargets(static_cast<UINT>(std::size(pRTV)), std::data(pRTV), nullptr);
 	}
 
+	std::pair<ID3D11Texture2D*, Size> D3D11BackBuffer::getCaptureTexture()
+	{
+		unbindAllRenderTargets();
+
+		if (m_sampleCount == 1)
+		{
+			return{ m_sceneBuffers.scene.getTexture(), m_sceneBuffers.scene.size() };
+		}
+		else
+		{
+			if (m_backBuffer.size() == m_sceneBuffers.scene.size())
+			{
+				if (m_sceneBuffers.resolved.size() != m_sceneBuffers.scene.size())
+				{
+					m_sceneBuffers.resolved = D3D11InternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize);
+				}
+				m_sceneBuffers.scene.resolveTo(m_context, m_sceneBuffers.resolved);
+
+				return{ m_sceneBuffers.scene.getTexture(), m_sceneBuffers.scene.size() };
+			}
+			else
+			{
+				return{ m_sceneBuffers.resolved.getTexture(), m_sceneBuffers.resolved.size() };
+			}
+		}
+	}
+
 	//////////////////////////////////////////////////
 	//
 	//	LetterboxColor

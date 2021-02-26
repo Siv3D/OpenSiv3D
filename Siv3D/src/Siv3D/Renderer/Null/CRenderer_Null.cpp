@@ -60,6 +60,17 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_Null::captureScreenshot()
+	{
+		// do nothing
+	}
+
+	const Image& CRenderer_Null::getScreenCapture() const
+	{
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 	void CRenderer_Null::setSceneResizeMode(ResizeMode)
 	{
 		// do nothing
@@ -115,16 +126,5 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_Null::getLetterboxComposition() const noexcept
 	{
 		return{ 1, { 0, 0, 0, 0 } };
-	}
-
-	void CRenderer_Null::requestScreenCapture()
-	{
-
-	}
-
-	const Image& CRenderer_Null::getScreenCapture() const
-	{
-		static const Image emptyImage{};
-		return emptyImage;
 	}
 }

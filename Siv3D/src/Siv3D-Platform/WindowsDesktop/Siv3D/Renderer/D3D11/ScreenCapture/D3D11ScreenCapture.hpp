@@ -11,23 +11,31 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Image.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "../Device/D3D11Device.hpp"
 
 namespace s3d
 {
-	class D3D11DepthStencilState
+	class D3D11ScreenCapture
 	{
 	private:
 
-		ID3D11Device* m_device			= nullptr;
+		ID3D11Device* m_device = nullptr;
 
-		ID3D11DeviceContext* m_context	= nullptr;
+		ID3D11DeviceContext* m_context = nullptr;
 
-		ComPtr<ID3D11DepthStencilState> m_state;
+		Image m_image;
+
+		ComPtr<ID3D11Texture2D> m_stagingTexture;
 
 	public:
 
-		D3D11DepthStencilState(const D3D11Device& device);
+		D3D11ScreenCapture(const D3D11Device& device);
+
+		bool capture(ID3D11Texture2D* texture, const Size& size);
+
+		[[nodiscard]]
+		const Image& getImage() const noexcept;
 	};
 }

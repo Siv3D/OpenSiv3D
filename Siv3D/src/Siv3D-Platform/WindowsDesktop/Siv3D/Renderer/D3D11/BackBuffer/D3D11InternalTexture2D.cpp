@@ -79,6 +79,11 @@ namespace s3d
 		return m_renderTargetView.Get();
 	}
 
+	ID3D11Texture2D* D3D11InternalTexture2D::getTexture() const noexcept
+	{
+		return m_texture.Get();
+	}
+
 	[[nodiscard]]
 	D3D11InternalTexture2D D3D11InternalTexture2D::GetTextureFromSwapChain(ID3D11Device* device, IDXGISwapChain1* swapChain1)
 	{

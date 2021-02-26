@@ -40,6 +40,10 @@ namespace s3d
 
 		virtual bool present() = 0;
 
+		virtual void captureScreenshot() = 0;
+
+		virtual const Image& getScreenCapture() const = 0;
+
 		virtual void setSceneResizeMode(ResizeMode resizeMode) = 0;
 
 		virtual ResizeMode getSceneResizeMode() const noexcept = 0;
@@ -61,10 +65,5 @@ namespace s3d
 		virtual const ColorF& getLetterboxColor() const noexcept = 0;
 
 		virtual std::pair<float, RectF> getLetterboxComposition() const noexcept = 0;
-
-
-		virtual void requestScreenCapture() = 0;
-
-		virtual const Image& getScreenCapture() const = 0;
 	};
 }

@@ -13,9 +13,9 @@
 
 namespace s3d
 {
-	D3D11DepthStencilState::D3D11DepthStencilState(ID3D11Device* device, ID3D11DeviceContext* context)
-		: m_device(device)
-		, m_context(context)
+	D3D11DepthStencilState::D3D11DepthStencilState(const D3D11Device& device)
+		: m_device{ device.getDevice() }
+		, m_context{ device.getContext() }
 	{
 		const D3D11_DEPTH_STENCIL_DESC desc =
 		{

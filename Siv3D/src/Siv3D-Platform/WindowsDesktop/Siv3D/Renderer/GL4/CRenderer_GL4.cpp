@@ -112,6 +112,18 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_GL4::captureScreenshot()
+	{
+		// [Siv3D ToDo]
+	}
+
+	const Image& CRenderer_GL4::getScreenCapture() const
+	{
+		// [Siv3D ToDo]
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 	void CRenderer_GL4::setSceneResizeMode(const ResizeMode resizeMode)
 	{
 		m_backBuffer->setSceneResizeMode(resizeMode);
@@ -165,17 +177,6 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_GL4::getLetterboxComposition() const noexcept
 	{
 		return m_backBuffer->getLetterboxComposition();
-	}
-
-	void CRenderer_GL4::requestScreenCapture()
-	{
-
-	}
-
-	const Image& CRenderer_GL4::getScreenCapture() const
-	{
-		static const Image emptyImage{};
-		return emptyImage;
 	}
 
 	GL4BlendState& CRenderer_GL4::getBlendState() noexcept

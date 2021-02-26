@@ -85,6 +85,8 @@ namespace s3d
 
 		void bindRenderTarget(ID3D11RenderTargetView* const rtv);
 
+		std::pair<ID3D11Texture2D*, Size> getCaptureTexture();
+
 		//////////////////////////////////////////////////
 		//
 		//	LetterboxColor

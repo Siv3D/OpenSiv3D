@@ -20,6 +20,7 @@
 # include "RasterizerState/D3D11RasterizerState.hpp"
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
+# include "ScreenCapture/D3D11ScreenCapture.hpp"
 
 namespace s3d
 {
@@ -47,6 +48,8 @@ namespace s3d
 
 		std::unique_ptr<D3D11SamplerState> m_samplerState;
 
+		std::unique_ptr<D3D11ScreenCapture> m_screenCapture;
+
 	public:
 
 		CRenderer_D3D11();
@@ -64,6 +67,10 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
+
+		void captureScreenshot() override;
+
+		const Image& getScreenCapture() const override;
 
 		void setSceneResizeMode(ResizeMode resizeMode) override;
 
@@ -86,10 +93,6 @@ namespace s3d
 		const ColorF& getLetterboxColor() const noexcept override;
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
-
-		void requestScreenCapture() override;
-
-		const Image& getScreenCapture() const override;
 
 		//
 		// Windows

@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	class Image;
 	class DynamicTexture;
 
 	/// @brief スクリーンショットに関連する機能

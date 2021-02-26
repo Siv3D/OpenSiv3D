@@ -201,6 +201,18 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_GLES3::captureScreenshot()
+	{
+		// [Siv3D ToDo]
+	}
+
+	const Image& CRenderer_GLES3::getScreenCapture() const
+	{
+		// [Siv3D ToDo]
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 	void CRenderer_GLES3::setSceneResizeMode(const ResizeMode resizeMode)
 	{
 		m_backBuffer->setSceneResizeMode(resizeMode);

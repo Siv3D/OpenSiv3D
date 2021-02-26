@@ -13,9 +13,9 @@
 
 namespace s3d
 {
-	D3D11BlendState::D3D11BlendState(ID3D11Device* device, ID3D11DeviceContext* context)
-		: m_device(device)
-		, m_context(context) {}
+	D3D11BlendState::D3D11BlendState(const D3D11Device& device)
+		: m_device{ device.getDevice() }
+		, m_context{ device.getContext() } {}
 
 	void D3D11BlendState::set(const BlendState& state)
 	{

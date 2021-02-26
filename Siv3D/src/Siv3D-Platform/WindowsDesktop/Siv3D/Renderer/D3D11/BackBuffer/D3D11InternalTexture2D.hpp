@@ -55,6 +55,9 @@ namespace s3d
 		ID3D11RenderTargetView* getRTV() const noexcept;
 
 		[[nodiscard]]
+		ID3D11Texture2D* getTexture() const noexcept;
+
+		[[nodiscard]]
 		static D3D11InternalTexture2D GetTextureFromSwapChain(ID3D11Device* device, IDXGISwapChain1* swapChain1);
 	
 		[[nodiscard]]

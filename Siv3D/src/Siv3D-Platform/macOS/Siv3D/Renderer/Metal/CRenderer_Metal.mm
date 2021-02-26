@@ -121,6 +121,18 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_Metal::captureScreenshot()
+	{
+		// [Siv3D ToDo]
+	}
+
+	const Image& CRenderer_Metal::getScreenCapture() const
+	{
+		// [Siv3D ToDo]
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 	void CRenderer_Metal::setSceneResizeMode(const ResizeMode resizeMode)
 	{
 		m_backBuffer->setSceneResizeMode(resizeMode);

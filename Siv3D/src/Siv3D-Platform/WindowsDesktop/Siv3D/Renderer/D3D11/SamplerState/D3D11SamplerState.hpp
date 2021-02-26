@@ -15,6 +15,7 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Common/D3D11.hpp>
+# include "../Device/D3D11Device.hpp"
 
 namespace s3d
 {
@@ -48,7 +49,7 @@ namespace s3d
 
 	public:
 
-		D3D11SamplerState(ID3D11Device* device, ID3D11DeviceContext* context);
+		D3D11SamplerState(const D3D11Device& device);
 
 		void setVS(uint32 slot, const SamplerState& state);
 

@@ -49,10 +49,11 @@ namespace s3d
 		m_device			= std::make_unique<D3D11Device>();
 		m_swapChain			= std::make_unique<D3D11SwapChain>(*m_device, hWnd, frameBufferSize);
 		m_backBuffer		= std::make_unique<D3D11BackBuffer>(*m_device, *m_swapChain);
-		m_blendState		= std::make_unique<D3D11BlendState>(m_device->getDevice(), m_device->getContext());
-		m_rasterizerState	= std::make_unique<D3D11RasterizerState>(m_device->getDevice(), m_device->getContext());
-		m_depthStencilState	= std::make_unique<D3D11DepthStencilState>(m_device->getDevice(), m_device->getContext());
-		m_samplerState		= std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
+		m_blendState		= std::make_unique<D3D11BlendState>(*m_device);
+		m_rasterizerState	= std::make_unique<D3D11RasterizerState>(*m_device);
+		m_depthStencilState	= std::make_unique<D3D11DepthStencilState>(*m_device);
+		m_samplerState		= std::make_unique<D3D11SamplerState>(*m_device);
+		m_screenCapture		= std::make_unique<D3D11ScreenCapture>(*m_device);
 
 		pTexture = dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
@@ -84,6 +85,17 @@ namespace s3d
 		pRenderer2D->flush();
 
 		m_backBuffer->updateFromSceneBuffer();
+	}
+
+	void CRenderer_D3D11::captureScreenshot()
+	{
+		auto [texture, size] = m_backBuffer->getCaptureTexture();
+		m_screenCapture->capture(texture, size);
+	}
+
+	const Image& CRenderer_D3D11::getScreenCapture() const
+	{
+		return m_screenCapture->getImage();
 	}
 
 	bool CRenderer_D3D11::present()
@@ -149,17 +161,6 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_D3D11::getLetterboxComposition() const noexcept
 	{
 		return m_backBuffer->getLetterboxComposition();
-	}
-
-	void CRenderer_D3D11::requestScreenCapture()
-	{
-
-	}
-
-	const Image& CRenderer_D3D11::getScreenCapture() const
-	{
-		static const Image emptyImage{};
-		return emptyImage;
 	}
 
 

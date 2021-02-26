@@ -62,6 +62,8 @@ namespace s3d
 
 		if (m_requestedPaths)
 		{
+			SIV3D_ENGINE(Renderer)->captureScreenshot();
+
 			const Image& image = SIV3D_ENGINE(Renderer)->getScreenCapture();
 
 			if (not image)
@@ -74,8 +76,9 @@ namespace s3d
 				{
 					if (requestedPath)
 					{
-						image.save(requestedPath);
-						LOG_INFO(U"📷 Screen capture saved (path: \"{0}\")"_fmt(requestedPath));
+						const FilePath path = (m_screenshotDirectory + requestedPath);
+						image.save(path);
+						LOG_INFO(U"📷 Screen capture saved (path: \"{0}\")"_fmt(path));
 					}
 				}
 			}
@@ -97,12 +100,6 @@ namespace s3d
 
 	void CScreenCapture::requestScreenCapture(FilePath&& path)
 	{
-		// 初回ならリクエスト
-		if (not m_requestedPaths)
-		{
-			SIV3D_ENGINE(Renderer)->requestScreenCapture();
-		}
-
 		m_requestedPaths.push_back(std::move(path));
 	}
 

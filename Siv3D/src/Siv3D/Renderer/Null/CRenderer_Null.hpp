@@ -37,6 +37,10 @@ namespace s3d
 
 		bool present() override;
 
+		void captureScreenshot() override;
+
+		const Image& getScreenCapture() const override;
+
 		void setSceneResizeMode(ResizeMode resizeMode) override;
 
 		ResizeMode getSceneResizeMode() const noexcept override;
@@ -60,8 +64,5 @@ namespace s3d
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
 
 
-		void requestScreenCapture() override;
-
-		const Image& getScreenCapture() const override;
 	};
 }

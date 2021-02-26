@@ -60,7 +60,11 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
-		
+
+		void captureScreenshot() override;
+	
+		const Image& getScreenCapture() const override;
+	
 		void setSceneResizeMode(ResizeMode resizeMode) override;
 
 		ResizeMode getSceneResizeMode() const noexcept override;
