@@ -179,14 +179,12 @@ namespace s3d
 
 	void CRenderer_GL4::captureScreenshot()
 	{
-		// [Siv3D ToDo]
+		m_backBuffer->capture();
 	}
 
 	const Image& CRenderer_GL4::getScreenCapture() const
 	{
-		// [Siv3D ToDo]
-		static const Image emptyImage{};
-		return emptyImage;
+		return m_backBuffer->getScreenCapture();
 	}
 
 	void CRenderer_GL4::setSceneResizeMode(const ResizeMode resizeMode)

@@ -17,6 +17,7 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Image.hpp>
 # include <ThirdParty/EnumBitmask/EnumBitmask.hpp>
 # include "GL4InternalTexture2D.hpp"
 
@@ -60,6 +61,8 @@ namespace s3d
 
 		TextureFilter m_sceneTextureFilter	= Scene::DefaultTextureFilter;
 
+		Image m_screenCaptureImage;
+
 		void updateSceneSize();
 
 	public:
@@ -75,6 +78,10 @@ namespace s3d
 		void unbind();
 
 		void updateFromSceneBuffer();
+
+		void capture();
+
+		const Image& getScreenCapture() const;
 
 		//////////////////////////////////////////////////
 		//
