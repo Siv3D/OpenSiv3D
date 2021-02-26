@@ -1006,6 +1006,7 @@
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/Emoji.hpp>
 
+# include <Siv3D/Buffer2D.hpp>
 
 # include <Siv3D/SceneManager.hpp>
 # include <Siv3D/ScreenCapture.hpp>

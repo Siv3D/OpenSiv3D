@@ -826,6 +826,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\ScreenCapture">
       <UniqueIdentifier>{7c2db87e-5450-4f2a-b3c0-de7238c51588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Buffer2D">
+      <UniqueIdentifier>{d65c2601-110d-415a-9718-274816543d55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4077,6 +4080,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\ScreenCapture\D3D11ScreenCapture.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\ScreenCapture</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Buffer2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5521,6 +5527,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\ScreenCapture\D3D11ScreenCapture.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Buffer2D\SivBuffer2D.cpp">
+      <Filter>src\Siv3D\Buffer2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,10 +17,14 @@
 # include "Vertex2D.hpp"
 # include "2DShapes.hpp"
 # include "TriangleIndex.hpp"
+# include "PredefinedNamedParameter.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	struct Buffer2D;
+	struct Mat3x2;
+
 	class Polygon
 	{
 	private:
@@ -228,6 +232,8 @@ namespace s3d
 
 		void draw(const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		void drawTransformed(double angle, const Vec2& pos, const ColorF& color = Palette::White) const;
+
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
@@ -241,6 +247,18 @@ namespace s3d
 		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(const Vec2& uvOrigin, const Vec2& uvScale) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(Arg::center_<Vec2> uvCenter, const Vec2& uvScale) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(Arg::center_<Vec2> uvCenter, const Vec2& uvScale, double uvRotation) const;
+
+		[[nodiscard]]
+		Buffer2D toBuffer2D(const Mat3x2& uvMat) const;
 
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});

@@ -32,6 +32,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BitmapGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BlendState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Buffer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera2D.hpp" />
@@ -1182,6 +1183,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\SivBinaryReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Blob\SivBlob.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Buffer2D\SivBuffer2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2D\SivCamera2D.cpp" />

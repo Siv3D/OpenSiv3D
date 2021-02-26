@@ -102,6 +102,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/BinaryReader/SivBinaryReader.cpp
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
   ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
+  ../Siv3D/src/Siv3D/Buffer2D/SivBuffer2D.cpp
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
