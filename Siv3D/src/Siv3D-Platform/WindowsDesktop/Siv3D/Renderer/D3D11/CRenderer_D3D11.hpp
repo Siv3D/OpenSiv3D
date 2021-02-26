@@ -87,6 +87,10 @@ namespace s3d
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
 
+		void requestScreenCapture() override;
+
+		const Image& getScreenCapture() const override;
+
 		//
 		// Windows
 		//

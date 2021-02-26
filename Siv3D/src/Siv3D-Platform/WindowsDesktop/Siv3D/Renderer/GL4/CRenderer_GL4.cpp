@@ -167,6 +167,17 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
+	void CRenderer_GL4::requestScreenCapture()
+	{
+
+	}
+
+	const Image& CRenderer_GL4::getScreenCapture() const
+	{
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 	GL4BlendState& CRenderer_GL4::getBlendState() noexcept
 	{
 		return *m_blendState;

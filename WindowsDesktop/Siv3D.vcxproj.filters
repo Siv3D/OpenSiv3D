@@ -820,6 +820,9 @@
     <Filter Include="src\Siv3D\Icon">
       <UniqueIdentifier>{e5c96727-0b2d-43c7-af65-dc3dad5b7842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScreenCapture">
+      <UniqueIdentifier>{56ab4e7f-18f0-496b-80b8-b241c9eb13c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4059,6 +4062,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageAddressMode.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp">
+      <Filter>src\Siv3D\ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp">
+      <Filter>src\Siv3D\ScreenCapture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5491,6 +5503,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp">
       <Filter>src\Siv3D\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp">
+      <Filter>src\Siv3D\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\SivScreenCapture.cpp">
+      <Filter>src\Siv3D\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.cpp">
+      <Filter>src\Siv3D\ScreenCapture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

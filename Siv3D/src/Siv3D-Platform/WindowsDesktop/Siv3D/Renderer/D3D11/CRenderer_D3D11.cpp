@@ -151,6 +151,17 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
+	void CRenderer_D3D11::requestScreenCapture()
+	{
+
+	}
+
+	const Image& CRenderer_D3D11::getScreenCapture() const
+	{
+		static const Image emptyImage{};
+		return emptyImage;
+	}
+
 
 
 	ID3D11Device* CRenderer_D3D11::getDevice() const

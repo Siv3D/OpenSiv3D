@@ -12,6 +12,7 @@
 # include "CRenderer_Null.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/Scene.hpp>
+# include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -114,5 +115,16 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_Null::getLetterboxComposition() const noexcept
 	{
 		return{ 1, { 0, 0, 0, 0 } };
+	}
+
+	void CRenderer_Null::requestScreenCapture()
+	{
+
+	}
+
+	const Image& CRenderer_Null::getScreenCapture() const
+	{
+		static const Image emptyImage{};
+		return emptyImage;
 	}
 }

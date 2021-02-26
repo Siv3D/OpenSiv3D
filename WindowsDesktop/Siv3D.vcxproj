@@ -400,6 +400,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
@@ -737,6 +738,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Scene\FrameCounter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Scene\FrameTimer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Scene\IScene.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.hpp" />
@@ -1314,6 +1317,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Scene\FrameTimer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Scene\SceneFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Scene\SivScene.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\SivScreenCapture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Spline2D\SivSpline2D.cpp" />

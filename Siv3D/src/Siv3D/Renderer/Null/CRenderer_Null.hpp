@@ -58,5 +58,10 @@ namespace s3d
 		const ColorF& getLetterboxColor() const noexcept override;
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
+
+
+		void requestScreenCapture() override;
+
+		const Image& getScreenCapture() const override;
 	};
 }

@@ -239,6 +239,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Scene/FrameTimer.cpp
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
+  ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
+  ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
+  ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
