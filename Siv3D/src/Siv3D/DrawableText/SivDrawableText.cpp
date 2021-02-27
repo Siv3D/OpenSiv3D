@@ -201,8 +201,6 @@ namespace s3d
 	{
 		const RectF rect = regionBase(size, Vec2{ 0, 0 });
 
-		const double drawPosX = (pos.x - (rect.w * 0.5));
-
 		return rect.movedBy(pos.x - (rect.w * 0.5), pos.y);
 	}
 

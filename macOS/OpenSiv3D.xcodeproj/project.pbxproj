@@ -706,6 +706,12 @@
 		2C48BF8825D41C0D00A93CE3 /* FontData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48BF6225D41C0D00A93CE3 /* FontData.cpp */; };
 		2C48BF8925D41C0D00A93CE3 /* FontFace.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C48BF6325D41C0D00A93CE3 /* FontFace.hpp */; };
 		2C48C14B25D41C9D00A93CE3 /* SivDrawableText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48C14A25D41C9D00A93CE3 /* SivDrawableText.cpp */; };
+		2C4A286A25EA60EB00FEACE4 /* SivScreenCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A286525EA60EB00FEACE4 /* SivScreenCapture.cpp */; };
+		2C4A286B25EA60EB00FEACE4 /* ScreenCaptureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A286625EA60EB00FEACE4 /* ScreenCaptureFactory.cpp */; };
+		2C4A286C25EA60EB00FEACE4 /* CScreenCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A286725EA60EB00FEACE4 /* CScreenCapture.cpp */; };
+		2C4A286D25EA60EB00FEACE4 /* CScreenCapture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A286825EA60EB00FEACE4 /* CScreenCapture.hpp */; };
+		2C4A286E25EA60EB00FEACE4 /* IScreenCapture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A286925EA60EB00FEACE4 /* IScreenCapture.hpp */; };
+		2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -1849,6 +1855,14 @@
 		2C48BF6225D41C0D00A93CE3 /* FontData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontData.cpp; sourceTree = "<group>"; };
 		2C48BF6325D41C0D00A93CE3 /* FontFace.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontFace.hpp; sourceTree = "<group>"; };
 		2C48C14A25D41C9D00A93CE3 /* SivDrawableText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDrawableText.cpp; sourceTree = "<group>"; };
+		2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenCapture.hpp; sourceTree = "<group>"; };
+		2C4A286525EA60EB00FEACE4 /* SivScreenCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScreenCapture.cpp; sourceTree = "<group>"; };
+		2C4A286625EA60EB00FEACE4 /* ScreenCaptureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenCaptureFactory.cpp; sourceTree = "<group>"; };
+		2C4A286725EA60EB00FEACE4 /* CScreenCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CScreenCapture.cpp; sourceTree = "<group>"; };
+		2C4A286825EA60EB00FEACE4 /* CScreenCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CScreenCapture.hpp; sourceTree = "<group>"; };
+		2C4A286925EA60EB00FEACE4 /* IScreenCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IScreenCapture.hpp; sourceTree = "<group>"; };
+		2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buffer2D.hpp; sourceTree = "<group>"; };
+		2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBuffer2D.cpp; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
@@ -3739,6 +3753,7 @@
 				2C47B2D224DD9789008D83BE /* BinaryReader */,
 				2C47B27624DD9789008D83BE /* BinaryWriter */,
 				2C47B2E424DD9789008D83BE /* Blob */,
+				2C4A287025EA612400FEACE4 /* Buffer2D */,
 				2C47B2BD24DD9789008D83BE /* Byte */,
 				2C3477F925DA94C100071EEF /* CacheDirectory */,
 				2C13C8D225B8FAC30054B968 /* Camera2D */,
@@ -3820,6 +3835,7 @@
 				2C47B2DA24DD9789008D83BE /* Resource */,
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
 				2C47B2D424DD9789008D83BE /* Scene */,
+				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C47B6CC24EAC82A008D83BE /* Shader */,
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
@@ -4816,6 +4832,26 @@
 			path = DrawableText;
 			sourceTree = "<group>";
 		};
+		2C4A286425EA60EB00FEACE4 /* ScreenCapture */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A286525EA60EB00FEACE4 /* SivScreenCapture.cpp */,
+				2C4A286625EA60EB00FEACE4 /* ScreenCaptureFactory.cpp */,
+				2C4A286725EA60EB00FEACE4 /* CScreenCapture.cpp */,
+				2C4A286825EA60EB00FEACE4 /* CScreenCapture.hpp */,
+				2C4A286925EA60EB00FEACE4 /* IScreenCapture.hpp */,
+			);
+			path = ScreenCapture;
+			sourceTree = "<group>";
+		};
+		2C4A287025EA612400FEACE4 /* Buffer2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */,
+			);
+			path = Buffer2D;
+			sourceTree = "<group>";
+		};
 		2C4A83E22457E7A4007AAE76 /* Xoshiro-cpp */ = {
 			isa = PBXGroup;
 			children = (
@@ -5772,6 +5808,7 @@
 				2CAAA87D25E7FD0300C014D7 /* BitmapGlyph.hpp */,
 				2CAAA85F25E7FD0300C014D7 /* BlendState.hpp */,
 				2CAAA78125E7FD0200C014D7 /* Blob.hpp */,
+				2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */,
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
 				2CAAA71F25E7FD0200C014D7 /* Camera2D.hpp */,
 				2CAAA88B25E7FD0300C014D7 /* Char.hpp */,
@@ -5968,6 +6005,7 @@
 				2CAAA77A25E7FD0200C014D7 /* ScopedCustomShader2D.hpp */,
 				2CAAA73925E7FD0200C014D7 /* ScopedRenderStates2D.hpp */,
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
+				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
 				2CAAA86625E7FD0300C014D7 /* Shader.hpp */,
 				2CAAA89A25E7FD0300C014D7 /* ShaderCommon.hpp */,
@@ -6610,6 +6648,7 @@
 				2C4396442535DCCA00F6AECD /* paint.h in Headers */,
 				2C43C8C225C837F100D6D613 /* ftlist.h in Headers */,
 				2C4396232535DCCA00F6AECD /* svgdefselement.h in Headers */,
+				2C4A286D25EA60EB00FEACE4 /* CScreenCapture.hpp in Headers */,
 				2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */,
 				2C794B2F25C3DFC200034D81 /* debug.h in Headers */,
 				2C13C99F25BD29FC0054B968 /* luaconf.h in Headers */,
@@ -6694,6 +6733,7 @@
 				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
 				2C47B2FB24DD9789008D83BE /* ILicenseManager.hpp in Headers */,
 				2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */,
+				2C4A286E25EA60EB00FEACE4 /* IScreenCapture.hpp in Headers */,
 				2C27A9EC256E359400756617 /* GL4BlendState.hpp in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
 				2C43961C2535DCCA00F6AECD /* svgstopelement.h in Headers */,
@@ -7361,6 +7401,7 @@
 				2C48C14B25D41C9D00A93CE3 /* SivDrawableText.cpp in Sources */,
 				2C60AE87248158A500277281 /* displays_x11.cpp in Sources */,
 				2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */,
+				2C4A286B25EA60EB00FEACE4 /* ScreenCaptureFactory.cpp in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
 				2C834DC0248805D4006208B8 /* reggnu.c in Sources */,
 				2C47B32624DD9789008D83BE /* SivEngineLog.cpp in Sources */,
@@ -7496,6 +7537,7 @@
 				2C47B30724DD9789008D83BE /* SivParseBool.cpp in Sources */,
 				2C47B6E324EAC88E008D83BE /* SivConstantBuffer.cpp in Sources */,
 				2C60AE84248158A500277281 /* memory_darwin.cpp in Sources */,
+				2C4A286C25EA60EB00FEACE4 /* CScreenCapture.cpp in Sources */,
 				2C47B35924DD9789008D83BE /* SivProfiler.cpp in Sources */,
 				2C47B35D24DD9789008D83BE /* CImageEncoder.cpp in Sources */,
 				2C794AC325C3DF9100034D81 /* SivCSV.cpp in Sources */,
@@ -7548,6 +7590,7 @@
 				2C13C9C325BD29FC0054B968 /* ldblib.c in Sources */,
 				2C60AE7C248158A500277281 /* quantities_cache_non_windows_non_darwin.cpp in Sources */,
 				2C13C6F925B458760054B968 /* SivMultiPolygon.cpp in Sources */,
+				2C4A286A25EA60EB00FEACE4 /* SivScreenCapture.cpp in Sources */,
 				2C423228242B155E00A16BCA /* init.c in Sources */,
 				2C439F8A241DCEA9001154C2 /* bignum-dtoa.cc in Sources */,
 				2C4396272535DCCA00F6AECD /* paint.cpp in Sources */,
@@ -7615,6 +7658,7 @@
 				2C47B6F224EAC8D9008D83BE /* GL4InternalTexture2D.cpp in Sources */,
 				2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */,
 				2C4396492535DCCA00F6AECD /* svglength.cpp in Sources */,
+				2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */,
 				2C794B1B25C3DFC200034D81 /* huf_compress.c in Sources */,
 				2C47B30924DD9789008D83BE /* TextWriterDetail.cpp in Sources */,
 				2C48BEF425CFB8C500A93CE3 /* sdf-error-estimation.cpp in Sources */,

@@ -349,7 +349,6 @@ namespace s3d
 				++pDst;
 			}
 
-			const uint32 i1 = 6 + 4 * (quality + 1) * 3;
 			const uint16 v1 = static_cast<uint16>(verticesInner.size());
 
 			for (uint16 i = 0; i < 4; ++i)

@@ -80,6 +80,20 @@ float4 PS_Shape(s3d::PSInput in [[stage_in]],
     return (in.color + cb.colorAdd);
 }
 
+fragment
+float4 PS_SquareDot(s3d::PSInput in [[stage_in]],
+				constant PSConstants2D& cb [[buffer(0)]])
+{
+    return (in.color + cb.colorAdd);
+}
+
+fragment
+float4 PS_RoundDot(s3d::PSInput in [[stage_in]],
+				constant PSConstants2D& cb [[buffer(0)]])
+{
+    return (in.color + cb.colorAdd);
+}
+
 vertex
 s3d::PSInput VS_FullscreenTriangle(uint id [[vertex_id]])
 {
