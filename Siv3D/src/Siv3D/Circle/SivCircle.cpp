@@ -15,7 +15,6 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
-# include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedCircle.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
@@ -513,8 +512,8 @@ namespace s3d
 			}
 		}
 
-		Buffer2D{ std::move(vertices), std::move(indices) }
-			.draw(SIV3D_ENGINE(Renderer2D)->getBoxShadowTexture());
+		const Texture& texture = SIV3D_ENGINE(Renderer2D)->getBoxShadowTexture();
+		SIV3D_ENGINE(Renderer2D)->addTexturedVertices(texture, vertices.data(), vertices.size(), indices.data(), indices.size());
 
 		return *this;
 	}

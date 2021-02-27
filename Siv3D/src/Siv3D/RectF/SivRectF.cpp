@@ -420,6 +420,74 @@ namespace s3d
 
 		return *this;
 	}
+	
+	const RectF& RectF::drawShadow(const Vec2& offset, const double blurRadius, const double spread, const ColorF& color) const
+	{
+		if (blurRadius < 0.0)
+		{
+			return *this;
+		}
+
+		const Float4 colorF = color.toFloat4();
+		const RectF rect	= RectF{ pos + offset, size }.stretched(spread + blurRadius * 0.5);
+		const double rr		= Min({ (rect.w * 0.5), (rect.h * 0.5), blurRadius });
+		const float xs[4] =
+		{
+			static_cast<float>(rect.x),
+			static_cast<float>(rect.x + rr),
+			static_cast<float>(rect.x + rect.w - rr),
+			static_cast<float>(rect.x + rect.w)
+		};
+		const float ys[4] =
+		{
+			static_cast<float>(rect.y),
+			static_cast<float>(rect.y + rr),
+			static_cast<float>(rect.y + rect.h - rr),
+			static_cast<float>(rect.y + rect.h)
+		};
+		const float uvs[4] = { 0.0f, 0.5f, 0.5f, 1.0f };
+
+		Array<Vertex2D> vertices(16);
+		{
+			Vertex2D* pDst = vertices.data();
+
+			for (int32 i = 0; i < 16; ++i)
+			{
+				pDst->pos.set(xs[i % 4], ys[i / 4]);
+				pDst->tex.set(uvs[i % 4], uvs[i / 4]);
+				pDst->color = colorF;
+				++pDst;
+			}
+		}
+
+		Array<TriangleIndex> indices(18);
+		{
+			TriangleIndex* pDst = indices.data();
+
+			for (Vertex2D::IndexType ty = 0; ty < 3; ++ty)
+			{
+				for (Vertex2D::IndexType tx = 0; tx < 3; ++tx)
+				{
+					const Vertex2D::IndexType base = ((ty * 4) + tx);
+
+					pDst->i0 = base;
+					pDst->i1 = (base + 1);
+					pDst->i2 = (base + 4);
+					++pDst;
+
+					pDst->i0 = (base + 4);
+					pDst->i1 = (base + 1);
+					pDst->i2 = (base + 5);
+					++pDst;
+				}
+			}
+		}
+
+		const Texture& texture = SIV3D_ENGINE(Renderer2D)->getBoxShadowTexture();
+		SIV3D_ENGINE(Renderer2D)->addTexturedVertices(texture, vertices.data(), vertices.size(), indices.data(), indices.size());
+
+		return *this;
+	}
 
 	TexturedQuad RectF::operator ()(const Texture& texture) const
 	{

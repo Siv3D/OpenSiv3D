@@ -421,6 +421,13 @@ namespace s3d
 		return *this;
 	}
 
+	const Rect& Rect::drawShadow(const Vec2& offset, const double blurRadius, const double spread, const ColorF& color) const
+	{
+		RectF{ *this }.drawShadow(offset, blurRadius, spread, color);
+
+		return *this;
+	}
+
 	TexturedQuad Rect::operator ()(const Texture& texture) const
 	{
 		return{ texture,
