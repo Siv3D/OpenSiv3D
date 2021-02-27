@@ -15,6 +15,7 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedCircle.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
@@ -410,6 +411,110 @@ namespace s3d
 			innerColor.toFloat4(),
 			outerColor.toFloat4()
 		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawShadow(const Vec2& offset, double blurRadius, const double spread, const ColorF& color) const
+	{
+		if (blurRadius < 0.0)
+		{
+			return *this;
+		}
+
+		if ((r + spread) < (blurRadius * 0.5))
+		{
+			blurRadius = ((r + spread) * 2.0);
+		}
+
+		const Float4 colorF			= color.toFloat4();
+		const float absR			= Abs(static_cast<float>(r + spread));
+		const float inShadowR		= static_cast<float>(r + spread - blurRadius * 0.5);
+		const float shadowR			= absR + static_cast<float>(blurRadius * 0.5);
+		const float scaledShadowR	= shadowR;
+		const float centerX			= static_cast<float>(center.x + offset.x);
+		const float centerY			= static_cast<float>(center.y + offset.y);
+		const Vertex2D::IndexType quality = static_cast<Vertex2D::IndexType>(Min(scaledShadowR * 0.225f + 18.0f, 255.0f));
+		const float radDelta		= (Math::TwoPiF / quality);
+
+		const Vertex2D::IndexType outerVertexCount	= quality;
+		const Vertex2D::IndexType innnerVertexCount	= quality;
+
+		const size_t outerTriangleCount		= (quality * 2);
+		const size_t innnerTriangleCount	= quality;
+
+		const Vertex2D::IndexType vertexCount = (outerVertexCount + innnerVertexCount + 1);
+		const size_t triangleCount	= (outerTriangleCount + innnerTriangleCount);
+
+		Array<Vertex2D> vertices(vertexCount);
+		{
+			for (size_t i = 0; i < quality; ++i)
+			{
+				const float rad = (radDelta * i);
+				const auto [s, c] = FastMath::SinCos(rad);
+
+				Vertex2D* inner = &vertices[i];
+				Vertex2D* outer = (inner + outerVertexCount);
+
+				inner->pos.set((centerX + shadowR * c), (centerY - shadowR * s));
+				inner->tex.set(0.5f, 0.0f);
+				inner->color = colorF;
+
+				outer->pos.set((centerX + inShadowR * c), (centerY - inShadowR * s));
+				outer->tex.set(0.5f, 0.5f);
+				outer->color = colorF;
+			}
+
+			// 中心
+			{
+				Vertex2D* v = &vertices[vertexCount - 1];
+				v->pos.set(centerX, centerY);
+				v->tex.set(0.5f, 0.5f);
+				v->color = colorF;
+			}
+		}
+
+		Array<TriangleIndex> indices(triangleCount);
+		{
+			// outer
+			{
+				TriangleIndex* pDst = indices.data();
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const Vertex2D::IndexType t0 = (i % outerVertexCount);
+					const Vertex2D::IndexType t1 = ((i + 1) % outerVertexCount);
+					const Vertex2D::IndexType t2 = ((i + outerVertexCount) % (outerVertexCount * 2));
+					const Vertex2D::IndexType t3 = ((i + 1) % outerVertexCount + outerVertexCount);
+
+					pDst->i0 = t0;
+					pDst->i1 = t1;
+					pDst->i2 = t2;
+					++pDst;
+
+					pDst->i0 = t2;
+					pDst->i1 = t1;
+					pDst->i2 = t3;
+					++pDst;
+				}
+			}
+
+			// inner
+			{
+				TriangleIndex* pDst = (indices.data() + outerTriangleCount);
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					pDst->i0 = (outerVertexCount + i);
+					pDst->i1 = (vertexCount - 1);
+					pDst->i2 = (outerVertexCount + ((i + 1) % quality));
+					++pDst;
+				}
+			}
+		}
+
+		Buffer2D{ std::move(vertices), std::move(indices) }
+			.draw(SIV3D_ENGINE(Renderer2D)->getBoxShadowTexture());
 
 		return *this;
 	}

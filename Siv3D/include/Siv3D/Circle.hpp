@@ -389,7 +389,7 @@ namespace s3d
 
 		const Circle& drawArc(const LineStyle& style, double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		//const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]
 		TexturedCircle operator ()(const Texture& texture) const;
