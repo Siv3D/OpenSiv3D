@@ -106,6 +106,27 @@ namespace s3d
 		{
 			return m_batches.requestBuffer(vertexSize, indexSize, m_commandManager);
 		};
+
+		// シャドウ画像を作成
+		{
+			const Image boxShadowImage{ Resource(U"engine/texture/box-shadow/256.png") };
+
+			const Array<Image> boxShadowImageMips =
+			{
+				Image{ Resource(U"engine/texture/box-shadow/128.png") },
+				Image{ Resource(U"engine/texture/box-shadow/64.png") },
+				Image{ Resource(U"engine/texture/box-shadow/32.png") },
+				Image{ Resource(U"engine/texture/box-shadow/16.png") },
+				Image{ Resource(U"engine/texture/box-shadow/8.png") },
+			};
+
+			m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
+
+			if (m_boxShadowTexture->isEmpty())
+			{
+				throw EngineError(U"Failed to create a box-shadow texture");
+			}
+		}
 	}
 
 	void CRenderer2D_D3D11::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
@@ -739,6 +760,11 @@ namespace s3d
 	void CRenderer2D_D3D11::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
+	}
+
+	const Texture& CRenderer2D_D3D11::getBoxShadowTexture() const noexcept
+	{
+		return *m_boxShadowTexture;
 	}
 
 	void CRenderer2D_D3D11::flush()

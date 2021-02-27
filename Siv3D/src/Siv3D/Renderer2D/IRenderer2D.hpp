@@ -144,5 +144,8 @@ namespace s3d
 
 
 		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
+
+
+		virtual const Texture& getBoxShadowTexture() const noexcept = 0;
 	};
 }

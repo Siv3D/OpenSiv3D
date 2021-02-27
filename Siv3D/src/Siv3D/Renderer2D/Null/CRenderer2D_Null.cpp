@@ -28,6 +28,8 @@ namespace s3d
 	void CRenderer2D_Null::init()
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_Null::init()");
+
+		m_emptyTexture = std::make_unique<Texture>();
 	}
 
 	void CRenderer2D_Null::addLine(const LineStyle&, const Float2&, const Float2&, float, const Float4(&)[2])
@@ -271,5 +273,10 @@ namespace s3d
 	void CRenderer2D_Null::setConstantBuffer(ShaderStage, uint32, const ConstantBufferBase&, const float*, uint32)
 	{
 		// do nothing
+	}
+
+	const Texture& CRenderer2D_Null::getBoxShadowTexture() const noexcept
+	{
+		return *m_emptyTexture;
 	}
 }

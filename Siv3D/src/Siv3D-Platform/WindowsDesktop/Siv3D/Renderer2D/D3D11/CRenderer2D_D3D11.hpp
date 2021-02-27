@@ -92,6 +92,8 @@ namespace s3d
 		Optional<VertexShader> m_currentCustomVS;
 		Optional<PixelShader> m_currentCustomPS;
 
+		std::unique_ptr<Texture> m_boxShadowTexture;
+
 		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
 		Array<Float2> m_buffer;
 
@@ -204,6 +206,7 @@ namespace s3d
 
 		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 
+		const Texture& getBoxShadowTexture() const noexcept override;
 
 
 		//

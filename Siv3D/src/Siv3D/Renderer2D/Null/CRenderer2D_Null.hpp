@@ -19,6 +19,8 @@ namespace s3d
 	{
 	private:
 
+		std::unique_ptr<Texture> m_emptyTexture;
+
 	public:
 
 		CRenderer2D_Null();
@@ -127,5 +129,7 @@ namespace s3d
 
 
 		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
+	
+		const Texture& getBoxShadowTexture() const noexcept override;
 	};
 }
