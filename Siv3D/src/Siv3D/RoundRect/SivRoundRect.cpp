@@ -192,6 +192,197 @@ namespace s3d
 		return *this;
 	}
 
+	const RoundRect& RoundRect::drawShadow(const Vec2& offset, double blurRadius, const double spread, const ColorF& color) const
+	{
+		if (blurRadius < 0.0)
+		{
+			return *this;
+		}
+
+		if (const double mr = (Min(w * 0.5, h * 0.5) + spread);
+			mr < (blurRadius * 0.5))
+		{
+			blurRadius = (mr * 2.0);
+		}
+
+		const Float4 colF			= color.toFloat4();
+		const double innnerOffset	= (r < blurRadius * 0.5) ? (blurRadius * 0.5) : r;
+		const double over			= Max(blurRadius * 0.5 - r, 0.0);
+		const RectF baseRect		= rect.stretched(spread - innnerOffset).movedBy(offset);
+		const double pR				= Min({ w * 0.5, h * 0.5, r });
+		const double nearR			= Max(pR - blurRadius * 0.5, 0.0);
+		const double farR			= (pR + blurRadius * 0.5 + over);
+		const float scale			= SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+		const Vertex2D::IndexType quality = static_cast<uint16>(detail::CaluculateFanQuality(farR * scale));
+
+		Array<Vec2> fanDirections(quality);
+		{
+			const double radDelta = (Math::HalfPi / (quality - 1));
+
+			for (int32 i = 0; i < quality; ++i)
+			{
+				fanDirections[i] = Circular{ 1.0, (radDelta * i) }.fastToVec2();
+			}
+		}
+
+		const std::array<Vec2, 4> centers =
+		{ {
+			{ baseRect.x + baseRect.w, baseRect.y },
+			{ baseRect.x + baseRect.w, baseRect.y + baseRect.h },
+			{ baseRect.x, baseRect.y + baseRect.h },
+			{ baseRect.x, baseRect.y },
+		} };
+
+		Array<Vec2> verticesInner(quality * 4);
+		{
+			Vec2* pDst = verticesInner.data();
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[0] + nearR * fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[1] + nearR * Vec2{ fanDirections[quality - i - 1].x, -fanDirections[quality - i - 1].y });
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[2] + nearR * -fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[3] + nearR * Vec2{ -fanDirections[quality - i - 1].x, fanDirections[quality - i - 1].y });
+			}
+		}
+
+		Array<Vec2> verticesOuter(quality * 4);
+		{
+			Vec2* pDst = verticesOuter.data();
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[0] + farR * fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[1] + farR * Vec2{ fanDirections[quality - i - 1].x, -fanDirections[quality - i - 1].y });
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[2] + farR * -fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				*pDst++ = (centers[3] + farR * Vec2{ -fanDirections[quality - i - 1].x, fanDirections[quality - i - 1].y });
+			}
+		}
+
+		Array<Vertex2D> vertices(4 + verticesInner.size() + verticesOuter.size());
+		{
+			Vertex2D* pDst = vertices.data();
+
+			pDst->set(centers[0], Float2{ 0.5f, 0.5f }, colF);
+			++pDst;
+			pDst->set(centers[1], Float2{ 0.5f, 0.5f }, colF);
+			++pDst;
+			pDst->set(centers[2], Float2{ 0.5f, 0.5f }, colF);
+			++pDst;
+			pDst->set(centers[3], Float2{ 0.5f, 0.5f }, colF);
+			++pDst;
+
+			for (size_t i = 0; i < verticesInner.size(); ++i)
+			{
+				pDst->set(verticesInner[i], Float2{ 0.5f, 0.5f }, colF);
+				++pDst;
+			}
+
+			for (size_t i = 0; i < verticesOuter.size(); ++i)
+			{
+				pDst->set(verticesOuter[i], Float2{ 0.5f, 0.0f }, colF);
+				++pDst;
+			}
+		}
+
+		Array<TriangleIndex> indices(6 + ((quality + 1) * 3 * 4) + ((quality) * 4 * 6));
+		{
+			TriangleIndex* pDst = indices.data();
+
+			pDst->i0 = 3;
+			pDst->i1 = 0;
+			pDst->i2 = 2;
+			++pDst;
+
+			pDst->i0 = 2;
+			pDst->i1 = 0;
+			pDst->i2 = 1;
+			++pDst;
+
+			for (uint16 i = 0; i < 4; ++i)
+			{
+				for (uint16 k = 0; k < quality - 1; ++k)
+				{
+					pDst->i0 = i;
+					pDst->i1 = (4 + i * quality + k);
+					pDst->i2 = (4 + i * quality + k + 1);
+					++pDst;
+				}
+
+				const Vertex2D::IndexType t0 = i;
+				const Vertex2D::IndexType t1 = (i + 1) * quality - 1 + 4;
+				const Vertex2D::IndexType t2 = ((i + 1) * quality) % (4 * quality) + 4;
+				const Vertex2D::IndexType t3 = (i + 1) % 4;
+
+				pDst->i0 = t0;
+				pDst->i1 = t1;
+				pDst->i2 = t2;
+				++pDst;
+
+				pDst->i0 = t0;
+				pDst->i1 = t2;
+				pDst->i2 = t3;
+				++pDst;
+			}
+
+			const uint32 i1 = 6 + 4 * (quality + 1) * 3;
+			const uint16 v1 = static_cast<uint16>(verticesInner.size());
+
+			for (uint16 i = 0; i < 4; ++i)
+			{
+				for (uint16 k = 0; k < quality; ++k)
+				{
+					const uint16 localV1 = i * quality + k;
+					const uint16 localV2 = (localV1 + 1) % (quality * 4);
+
+					const Vertex2D::IndexType t0 = v1 + localV1 + 4;
+					const Vertex2D::IndexType t1 = v1 + localV2 + 4;
+					const Vertex2D::IndexType t2 = localV1 + 4;
+					const Vertex2D::IndexType t3 = localV2 + 4;
+
+					pDst->i0 = t0;
+					pDst->i1 = t1;
+					pDst->i2 = t2;
+					++pDst;
+
+					pDst->i0 = t2;
+					pDst->i1 = t1;
+					pDst->i2 = t3;
+					++pDst;
+				}
+			}
+		}
+
+		const Texture& texture = SIV3D_ENGINE(Renderer2D)->getBoxShadowTexture();
+		SIV3D_ENGINE(Renderer2D)->addTexturedVertices(texture, vertices.data(), vertices.size(), indices.data(), indices.size());
+
+		return *this;
+	}
+
 	TexturedRoundRect RoundRect::operator ()(const Texture& texture) const
 	{
 		return{ texture,

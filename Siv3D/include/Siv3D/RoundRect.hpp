@@ -279,7 +279,7 @@ namespace s3d
 
 		const RoundRect& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		//const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]
 		TexturedRoundRect operator ()(const Texture& texture) const;
