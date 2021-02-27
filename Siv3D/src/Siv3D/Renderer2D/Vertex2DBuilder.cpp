@@ -11,6 +11,7 @@
 
 # include "Vertex2DBuilder.hpp"
 # include <Siv3D/FastMath.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/OffsetCircular.hpp>
 
 namespace s3d
@@ -145,6 +146,14 @@ namespace s3d
 
 				return indexCount;
 			}
+			else if (style.hasSquareDot())
+			{
+				return BuildSquareDotLine(bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), scale);
+			}
+			else if (style.hasRoundDot())
+			{
+				return BuildRoundDotLine(bufferCreator, begin, end, thickness, colors, static_cast<float>(style.dotOffset), style.hasAlignedDot);
+			}
 			else
 			{
 				return 0;
@@ -234,6 +243,87 @@ namespace s3d
 			}
 
 			startAngle = std::atan2(vNormal.x, -vNormal.y);
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildSquareDotLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], const float dotOffset, const float scale)
+		{
+			constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float halfThickness = (thickness * 0.5f);
+			const Float2 v = (end - begin);
+			const float lineLength = v.length();
+			const Float2 line = (v / lineLength);
+			const Float2 vNormal{ (-line.y * halfThickness), (line.x * halfThickness) };
+			const Float2 lineHalf{ line * halfThickness };
+
+			const Float2 begin2 = (begin - lineHalf);
+			const Float2 end2 = (end + lineHalf);
+
+			// UV
+			const float lineLengthN = lineLength / thickness;
+			const float uOffset = static_cast<float>((1.0f - Math::Fraction(dotOffset / 3.0f / thickness)) * 3.0f);
+			const float vInfo = Min(1.0f / (thickness * scale), 1.0f);
+
+			pVertex[0].set(begin2 + vNormal, uOffset, vInfo, colors[0]);
+			pVertex[1].set(begin2 - vNormal, uOffset, vInfo, colors[0]);
+			pVertex[2].set(end2 + vNormal, uOffset + lineLengthN, vInfo, colors[1]);
+			pVertex[3].set(end2 - vNormal, uOffset + lineLengthN, vInfo, colors[1]);
+
+			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
+			{
+				*pIndex++ = indexOffset + detail::RectIndexTable[i];
+			}
+
+			return indexSize;
+		}
+
+		Vertex2D::IndexType BuildRoundDotLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], const float dotOffset, const bool hasAlignedDot)
+		{
+			constexpr Vertex2D::IndexType vertexSize = 4, indexSize = 6;
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float halfThickness = (thickness * 0.5f);
+			const Float2 v = (end - begin);
+			const float lineLength = v.length();
+			const Float2 line = (v / lineLength);
+			const Float2 vNormal{ (-line.y * halfThickness), (line.x * halfThickness) };
+			const Float2 lineHalf{ line * halfThickness };
+
+			const Float2 begin2 = (begin - lineHalf);
+			const Float2 end2 = (end + lineHalf);
+
+			// UV
+			float lineLengthN = (lineLength / thickness);
+			float uOffset = static_cast<float>((1.0f - Math::Fraction(dotOffset / 2.0f / thickness)) * 2.0f);
+			if (hasAlignedDot)
+			{
+				const float m = Math::Fmod(lineLengthN - 1.0f, 2.0f);
+				lineLengthN += (2.0f - m);
+				uOffset = 0.5f;
+			}
+
+			pVertex[0].set(begin2 + vNormal, uOffset, 1.0f, colors[0]);
+			pVertex[1].set(begin2 - vNormal, uOffset, -1.0f, colors[0]);
+			pVertex[2].set(end2 + vNormal, uOffset + lineLengthN, 1.0f, colors[1]);
+			pVertex[3].set(end2 - vNormal, uOffset + lineLengthN, -1.0f, colors[1]);
+
+			for (Vertex2D::IndexType i = 0; i < indexSize; ++i)
+			{
+				*pIndex++ = indexOffset + detail::RectIndexTable[i];
+			}
 
 			return indexSize;
 		}

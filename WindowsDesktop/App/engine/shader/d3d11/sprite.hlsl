@@ -84,6 +84,33 @@ float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 	return (input.color + g_colorAdd);
 }
 
+float4 PS_SquareDot(s3d::PSInput input) : SV_TARGET
+{
+	float tr = input.uv.y;
+
+	float d = abs(fmod(input.uv.x, 3.0) - 1.0);
+
+	float range = 1.0 - tr;
+
+	input.color.a *= (d < range) ? 1.0 : (d < 1.0) ? ((1.0 - d) / tr) : 0.0;
+
+	return (input.color + g_colorAdd);
+}
+
+float4 PS_RoundDot(s3d::PSInput input) : SV_TARGET
+{
+	float t = fmod(input.uv.x, 2.0);
+
+	input.uv.x = abs(1 - t) * 2.0;
+
+	float dist = dot(input.uv, input.uv) * 0.5;
+	float delta = fwidth(dist);
+	float alpha = smoothstep(0.5 - delta, 0.5, dist);
+	input.color.a *= 1.0 - alpha;
+
+	return (input.color + g_colorAdd);
+}
+
 float4 PS_Texture(s3d::PSInput input) : SV_TARGET
 {
 	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
@@ -149,62 +176,3 @@ float4 PS_MSDFPrint(s3d::PSInput input) : SV_TARGET
 
 	return float4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
 }
-
-
-
-
-
-
-
-/*
-float4 PS_SquareDot(s3d::PSInput input) : SV_TARGET
-{
-	float tr = input.uv.y;
-	
-	float d = abs(fmod(input.uv.x, 3.0) - 1.0);
-
-	float range = 1.0 - tr;
-	
-	input.color.a *= (d < range) ? 1.0 : (d < 1.0) ? ((1.0 - d) / tr) : 0.0;
-	
-	return input.color + g_colorAdd;
-}
-
-float4 PS_RoundDot(s3d::PSInput input) : SV_TARGET
-{
-	float t = fmod(input.uv.x, 2.0);
-	
-	input.uv.x = abs(1 - t) * 2.0;
-	
-	input.color.a *= 1.0 - saturate(pow(dot(input.uv, input.uv), 8));
-	
-	return input.color + g_colorAdd;
-}
-
-float median(float r, float g, float b)
-{
-	return max(min(r, g), min(max(r, g), b));
-}
-
-float4 PS_SDF(s3d::PSInput input) : SV_TARGET
-{
-	float pxRange = g_sdfParam.x;
-	
-	float2 size;
-	g_texture0.GetDimensions(size.x, size.y);
-	
-	float2 msdfUnit = pxRange / size;
-	
-	float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
-	
-	float sigDist = median(s.r, s.g, s.b) - 0.5 + g_sdfParam.y;
-	
-	sigDist *= dot(msdfUnit, 0.5 / fwidth(input.uv));
-	
-	float a = saturate(sigDist + 0.5);
-
-	input.color.a *= a;
-
-	return input.color + g_colorAdd;
-}
-*/

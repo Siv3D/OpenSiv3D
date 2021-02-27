@@ -83,6 +83,8 @@ namespace s3d
 		{
 			m_standardPS = std::make_unique<MetalStandardPS2D>();
 			m_standardPS->shape = MSL{ U"PS_Shape" };
+			m_standardPS->square_dot = MSL{ U"PS_SquareDot" };
+			m_standardPS->round_dot = MSL{ U"PS_RoundDot" };
 			m_standardPS->fullscreen_triangle = MSL{ U"PS_FullscreenTriangle" };
 			if (not m_standardPS->setup())
 			{
@@ -146,7 +148,18 @@ namespace s3d
 
 			if (not m_currentCustomPS)
 			{
-				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				if (style.hasSquareDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->square_dotID);
+				}
+				else if (style.hasRoundDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->round_dotID);
+				}
+				else
+				{
+					m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				}
 			}
 
 			m_commandManager.pushDraw(indexCount);

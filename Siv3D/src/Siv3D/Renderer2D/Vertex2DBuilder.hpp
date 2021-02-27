@@ -41,6 +41,12 @@ namespace s3d
 		Vertex2D::IndexType BuildUncappedLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], float& startAngle);
 
 		[[nodiscard]]
+		Vertex2D::IndexType BuildSquareDotLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], float dotOffset, float scale);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildRoundDotLine(const BufferCreatorFunc& bufferCreator, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2], float dotOffset, bool hasAlignedDot);
+
+		[[nodiscard]]
 		Vertex2D::IndexType BuildTriangle(const BufferCreatorFunc& bufferCreator, const Float2(&points)[3], const Float4& color);
 
 		[[nodiscard]]

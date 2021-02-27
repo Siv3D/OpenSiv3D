@@ -114,6 +114,12 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
 				.save(U"engine/shader/d3d11/shape.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SquareDot")
+				.save(U"engine/shader/d3d11/square_dot.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_RoundDot")
+				.save(U"engine/shader/d3d11/round_dot.ps");
+
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Texture")
 				.save(U"engine/shader/d3d11/texture.ps");
 

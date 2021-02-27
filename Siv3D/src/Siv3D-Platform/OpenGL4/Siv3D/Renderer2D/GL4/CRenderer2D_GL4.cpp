@@ -84,6 +84,8 @@ namespace s3d
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GL4:");
 			m_standardPS = std::make_unique<GL4StandardPS2D>();
 			m_standardPS->shape					= GLSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->square_dot			= GLSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->round_dot				= GLSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
 			m_standardPS->texture				= GLSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
 			m_standardPS->fullscreen_triangle	= GLSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {} };
 			if (not m_standardPS->setup())
@@ -152,7 +154,18 @@ namespace s3d
 
 			if (not m_currentCustomPS)
 			{
-				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				if (style.hasSquareDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->square_dotID);
+				}
+				else if (style.hasRoundDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->round_dotID);
+				}
+				else
+				{
+					m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				}
 			}
 
 			m_commandManager.pushDraw(indexCount);

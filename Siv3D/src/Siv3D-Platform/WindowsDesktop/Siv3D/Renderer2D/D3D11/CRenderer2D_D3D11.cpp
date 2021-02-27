@@ -70,6 +70,8 @@ namespace s3d
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_D3D11:");
 			m_standardPS = std::make_unique<D3D11StandardPS2D>();
 			m_standardPS->shape					= HLSL{ Resource(U"engine/shader/d3d11/shape.ps") };
+			m_standardPS->square_dot			= HLSL{ Resource(U"engine/shader/d3d11/square_dot.ps") };
+			m_standardPS->round_dot				= HLSL{ Resource(U"engine/shader/d3d11/round_dot.ps") };
 			m_standardPS->texture				= HLSL{ Resource(U"engine/shader/d3d11/texture.ps") };
 			m_standardPS->fullscreen_triangle	= HLSL{ Resource(U"engine/shader/d3d11/fullscreen_triangle.ps") };
 			if (not m_standardPS->setup())
@@ -140,7 +142,18 @@ namespace s3d
 
 			if (not m_currentCustomPS)
 			{
-				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				if (style.hasSquareDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->square_dotID);
+				}
+				else if (style.hasRoundDot())
+				{
+					m_commandManager.pushStandardPS(m_standardPS->round_dotID);
+				}
+				else
+				{
+					m_commandManager.pushStandardPS(m_standardPS->shapeID);
+				}
 			}
 
 			m_commandManager.pushDraw(indexCount);

@@ -42,16 +42,24 @@ namespace s3d
 	struct MetalStandardPS2D
 	{
 		PixelShader shape;
+		PixelShader square_dot;
+		PixelShader round_dot;
 		PixelShader fullscreen_triangle;
 
 		PixelShader::IDType shapeID;
+		PixelShader::IDType square_dotID;
+		PixelShader::IDType round_dotID;
 
 		bool setup()
 		{
 			const bool result = shape
+				&& square_dot
+				&& round_dot
 				&& fullscreen_triangle;
 
 			shapeID = shape.id();
+			square_dotID = square_dot.id();
+			round_dotID = round_dot.id();
 
 			return result;
 		}

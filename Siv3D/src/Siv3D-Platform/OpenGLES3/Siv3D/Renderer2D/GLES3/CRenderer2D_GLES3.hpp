@@ -49,19 +49,27 @@ namespace s3d
 	struct GLES3StandardPS2D
 	{
 		PixelShader shape;
+		PixelShader square_dot;
+		PixelShader round_dot;
 		PixelShader texture;
 		PixelShader fullscreen_triangle;
 
 		PixelShader::IDType shapeID;
+		PixelShader::IDType square_dotID;
+		PixelShader::IDType round_dotID;
 		PixelShader::IDType textureID;
 
 		bool setup()
 		{
 			const bool result = shape
+				&& square_dot
+				&& round_dot
 				&& texture
 				&& fullscreen_triangle;
 
 			shapeID		= shape.id();
+			square_dotID = square_dot.id();
+			round_dotID = round_dot.id();
 			textureID	= texture.id();
 
 			return result;
