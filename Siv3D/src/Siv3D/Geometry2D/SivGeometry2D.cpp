@@ -5331,3 +5331,52 @@ namespace s3d
 		}
 	}
 }
+
+namespace s3d
+{
+	RectF Bezier3::boundingRect() const noexcept
+	{
+		const auto [a1, a2] = -p0 + 3 * p1 - 3 * p2 + p3;
+		const auto [b1, b2] = 3 * p0 - 6 * p1 + 3 * p2;
+		const auto [c1, c2] = -3 * p0 + 3 * p1;
+		const auto [d1, d2] = p0;
+
+		double minX = Min(p0.x, p3.x);
+		double maxX = Max(p0.x, p3.x);
+
+		if (const auto opt = detail::SolveQuadraticEquation(3 * a1, 2 * b1, c1))
+		{
+			for (const double t : opt.value())
+			{
+				if (InRange(t, 0.0, 1.0))
+				{
+					// k = a1 t^3 + b1 t^2 + c1 t + d1
+					const double k = std::fma(std::fma(std::fma(a1, t, b1), t, c1), t, d1);
+
+					minX = Min(minX, k);
+					maxX = Max(maxX, k);
+				}
+			}
+		}
+
+		double minY = Min(p0.y, p3.y);
+		double maxY = Max(p0.y, p3.y);
+
+		if (const auto opt = detail::SolveQuadraticEquation(3 * a2, 2 * b2, c2))
+		{
+			for (const double t : opt.value())
+			{
+				if (InRange(t, 0.0, 1.0))
+				{
+					// k = a2 t^3 + b2 t^2 + c2 t + d2
+					const double k = std::fma(std::fma(std::fma(a2, t, b2), t, c2), t, d2);
+
+					minY = Min(minY, k);
+					maxY = Max(maxY, k);
+				}
+			}
+		}
+
+		return { minX, minY, (maxX - minX), (maxY - minY) };
+	}
+}
