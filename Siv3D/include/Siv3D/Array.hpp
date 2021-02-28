@@ -24,6 +24,7 @@
 # include "FormatData.hpp"
 # include "Format.hpp"
 # include "FormatLiteral.hpp"
+# include "Shuffle.hpp"
 # include "PredefinedNamedParameter.hpp"
 
 namespace s3d

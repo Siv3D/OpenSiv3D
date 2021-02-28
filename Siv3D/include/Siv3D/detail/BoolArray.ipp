@@ -849,7 +849,7 @@ namespace s3d
 		SIV3D_CONCEPT_URBG
 		Array& shuffle(URBG&& rbg)
 		{
-			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
+			Shuffle(begin(), end(), std::forward<URBG>(rbg));
 
 			return *this;
 		}

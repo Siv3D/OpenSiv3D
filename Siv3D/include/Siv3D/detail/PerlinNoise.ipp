@@ -54,7 +54,7 @@ namespace s3d
 	inline void BasicPerlinNoise<Float>::reseed(URBG&& urbg)
 	{
 		std::iota(m_perm.begin(), m_perm.end(), static_cast<std::uint8_t>(0));
-		std::shuffle(m_perm.begin(), m_perm.end(), std::forward<URBG>(urbg));
+		Shuffle(m_perm.begin(), m_perm.end(), std::forward<URBG>(urbg));
 	}
 
 	template <class Float>

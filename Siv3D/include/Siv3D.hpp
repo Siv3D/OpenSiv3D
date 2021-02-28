@@ -160,7 +160,7 @@
 # include <Siv3D/Array.hpp>
 
 // 動的配列（二次元）| 2D array
-# include <Siv3D/Grid.hpp> // [Siv3D ToDo]
+# include <Siv3D/Grid.hpp>
 
 // 文字列ルックアップヘルパー | Heterogeneous lookup helper
 # include <Siv3D/HeterogeneousLookupHelper.hpp>
@@ -609,7 +609,7 @@
 # include <Siv3D/Circular.hpp>
 
 // オフセット付き円座標
-# include <Siv3D/OffsetCircular.hpp> // [Siv3D ToDo]
+# include <Siv3D/OffsetCircular.hpp>
 
 // 円柱座標
 # include <Siv3D/Cylindrical.hpp> // [Siv3D ToDo]
@@ -656,7 +656,7 @@
 # include <Siv3D/Polygon.hpp> // [Siv3D ToDo]
 
 // 複数の多角形 | Multi-polygon
-# include <Siv3D/MultiPolygon.hpp>
+# include <Siv3D/MultiPolygon.hpp> // [Siv3D ToDo]
 
 // 2 次ベジェ曲線 | Quadratic Bézier curve
 # include <Siv3D/Bezier2.hpp> // [Siv3D ToDo]
@@ -675,9 +675,6 @@
 
 // 2D 形状コレクション | 2D shapes collection
 # include <Siv3D/Shape2D.hpp>
-
-// 2D 図形の Variant | 2D shape variants
-//# include <Siv3D/ShapeVariant2D.hpp>
 
 // 2D 幾何 | 2D geometry processing
 # include <Siv3D/Geometry2D.hpp>
@@ -701,7 +698,7 @@
 # include <Siv3D/PRNG.hpp>
 
 // 乱数の分布 | Random Number Distribution
-# include <Siv3D/Distribution.hpp> // [Siv3D ToDo]
+# include <Siv3D/Distribution.hpp>
 
 // 離散確率分布 | Discrete Probability Distribution
 # include <Siv3D/DiscreteDistribution.hpp>

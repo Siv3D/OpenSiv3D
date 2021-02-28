@@ -1082,7 +1082,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Grid<Type, Allocator>& Grid<Type, Allocator>::shuffle(URBG&& rbg)
 	{
-		std::shuffle(begin(), end(), std::forward<URBG>(rbg));
+		Shuffle(begin(), end(), std::forward<URBG>(rbg));
 
 		return *this;
 	}

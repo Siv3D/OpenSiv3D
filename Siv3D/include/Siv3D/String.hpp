@@ -16,6 +16,7 @@
 # include "StringView.hpp"
 # include "Unicode.hpp"
 # include "Utility.hpp"
+# include "Shuffle.hpp"
 
 namespace s3d
 {

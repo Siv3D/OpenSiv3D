@@ -1310,7 +1310,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline String& String::shuffle(URBG&& rbg)
 	{
-		std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
+		Shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
 		return *this;
 	}
@@ -1334,7 +1334,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline String String::shuffled(URBG&& rbg)&&
 	{
-		std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
+		Shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
 		return std::move(*this);
 	}

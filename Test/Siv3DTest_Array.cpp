@@ -11,6 +11,15 @@
 
 # include "Siv3DTest.hpp"
 
+TEST_CASE("Array::shuffle()")
+{
+	const Array<int32> v = { 1, 2, 3, 4, 5, 6, 7, 8 , 9, 10 };
+	const Array<int32> shuffled = v.shuffled(DefaultRNG{ 123456 });
+
+	const Array<int32> expected = { 4, 10, 1, 8, 5, 7, 2, 9, 3, 6 };
+	REQUIRE(shuffled == expected);
+}
+
 TEST_CASE("Array::parallel_count_if()")
 {
 	{
