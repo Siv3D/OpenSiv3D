@@ -45,6 +45,9 @@ namespace s3d
 		LineString getLineString(double start, double end, int32 quality = 24) const;
 
 		[[nodiscard]]
+		RectF boundingRect() const noexcept;
+
+		[[nodiscard]]
 		size_t hash() const noexcept;
 
 		template <class Shape2DType>

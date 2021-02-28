@@ -39,6 +39,49 @@ namespace s3d
 		return pts;
 	}
 
+	RectF Bezier2::boundingRect() const noexcept
+	{
+		const auto [a1, a2] = p0 - 2 * p1 + p2;
+		const auto [b1, b2] = -2 * (p0 - p1);
+		const auto [c1, c2] = p0;
+
+		double minX = Min(p0.x, p2.x);
+		double maxX = Max(p0.x, p2.x);
+
+		if (a1 != 0.0)
+		{
+			const double t = -0.5 * b1 / a1;
+
+			if (InRange(t, 0.0, 1.0))
+			{
+				// k = a1 t^2 + b1 t + c1
+				const double k = std::fma(std::fma(a1, t, b1), t, c1);
+
+				minX = Min(minX, k);
+				maxX = Max(maxX, k);
+			}
+		}
+
+		double minY = Min(p0.y, p2.y);
+		double maxY = Max(p0.y, p2.y);
+
+		if (a2 != 0.0)
+		{
+			const double t = -0.5 * b2 / a2;
+
+			if (InRange(t, 0.0, 1.0))
+			{
+				// k = a2 t^2 + b2 t + c2
+				const double k = std::fma(std::fma(a2, t, b2), t, c2);
+
+				minY = Min(minY, k);
+				maxY = Max(maxY, k);
+			}
+		}
+
+		return { minX, minY, (maxX - minX), (maxY - minY) };
+	}
+
 	const Bezier2& Bezier2::draw(const ColorF& color, const int32 quality) const
 	{
 		return draw(1.0, color, quality);
