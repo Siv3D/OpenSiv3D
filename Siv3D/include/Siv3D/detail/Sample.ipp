@@ -18,7 +18,7 @@ namespace s3d
 	{
 		assert(begin != end);
 		
-		std::advance(begin, Random(std::distance(begin, end) - 1, std::forward<URBG>(urbg)));
+		std::advance(begin, Random<uint64>(std::distance(begin, end) - 1, std::forward<URBG>(urbg)));
 		return *begin;
 	}
 
@@ -50,7 +50,7 @@ namespace s3d
 		assert(std::size(c) != 0);
 
 		auto it = std::begin(c);
-		std::advance(it, Random(std::size(c) - 1, std::forward<URBG>(urbg)));
+		std::advance(it, Random<uint64>(std::size(c) - 1, std::forward<URBG>(urbg)));
 		return *it;
 	}
 
@@ -81,7 +81,7 @@ namespace s3d
 	{
 		assert(ilist.size() != 0);
 
-		return *(ilist.begin() + Random(ilist.size() - 1, std::forward<URBG>(urbg)));
+		return *(ilist.begin() + Random<uint64>(ilist.size() - 1, std::forward<URBG>(urbg)));
 	}
 
 	template <class Type>

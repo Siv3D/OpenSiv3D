@@ -43,8 +43,8 @@ namespace s3d
 
 		for (RandomIt it = first + 1; it < last; ++it)
 		{
-			const size_t n = static_cast<size_t>(it - first);
-			std::iter_swap(it, first + static_cast<difference_type>(Random<size_t>(0, n, std::forward<URBG>(urbg))));
+			const uint64 n = static_cast<uint64>(it - first);
+			std::iter_swap(it, first + static_cast<difference_type>(Random<uint64>(0, n, std::forward<URBG>(urbg))));
 		}
 	}
 }
