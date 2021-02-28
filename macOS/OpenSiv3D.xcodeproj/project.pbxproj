@@ -712,6 +712,11 @@
 		2C4A286D25EA60EB00FEACE4 /* CScreenCapture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A286825EA60EB00FEACE4 /* CScreenCapture.hpp */; };
 		2C4A286E25EA60EB00FEACE4 /* IScreenCapture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A286925EA60EB00FEACE4 /* IScreenCapture.hpp */; };
 		2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */; };
+		2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287525EB468600FEACE4 /* CGUI.cpp */; };
+		2C4A287A25EB468600FEACE4 /* CGUI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A287625EB468600FEACE4 /* CGUI.hpp */; };
+		2C4A287B25EB468600FEACE4 /* GUIFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287725EB468600FEACE4 /* GUIFactory.cpp */; };
+		2C4A287C25EB468600FEACE4 /* IGUI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A287825EB468600FEACE4 /* IGUI.hpp */; };
+		2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287E25EB469900FEACE4 /* SivSimpleGUI.cpp */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -1863,6 +1868,12 @@
 		2C4A286925EA60EB00FEACE4 /* IScreenCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IScreenCapture.hpp; sourceTree = "<group>"; };
 		2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buffer2D.hpp; sourceTree = "<group>"; };
 		2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBuffer2D.cpp; sourceTree = "<group>"; };
+		2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleGUI.hpp; sourceTree = "<group>"; };
+		2C4A287525EB468600FEACE4 /* CGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGUI.cpp; sourceTree = "<group>"; };
+		2C4A287625EB468600FEACE4 /* CGUI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGUI.hpp; sourceTree = "<group>"; };
+		2C4A287725EB468600FEACE4 /* GUIFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUIFactory.cpp; sourceTree = "<group>"; };
+		2C4A287825EB468600FEACE4 /* IGUI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IGUI.hpp; sourceTree = "<group>"; };
+		2C4A287E25EB469900FEACE4 /* SivSimpleGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleGUI.cpp; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
@@ -3787,6 +3798,7 @@
 				2C47B27424DD9789008D83BE /* FormatUtility */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
+				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
 				2CAAA8C825E7FDE800C014D7 /* Icon */,
 				2C47B28824DD9789008D83BE /* Image */,
@@ -3838,6 +3850,7 @@
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C47B6CC24EAC82A008D83BE /* Shader */,
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
+				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
 				2C47B2C724DD9789008D83BE /* String */,
 				2C47B27E24DD9789008D83BE /* StringView */,
@@ -4850,6 +4863,25 @@
 				2C4A287125EA612400FEACE4 /* SivBuffer2D.cpp */,
 			);
 			path = Buffer2D;
+			sourceTree = "<group>";
+		};
+		2C4A287425EB468600FEACE4 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A287525EB468600FEACE4 /* CGUI.cpp */,
+				2C4A287625EB468600FEACE4 /* CGUI.hpp */,
+				2C4A287725EB468600FEACE4 /* GUIFactory.cpp */,
+				2C4A287825EB468600FEACE4 /* IGUI.hpp */,
+			);
+			path = GUI;
+			sourceTree = "<group>";
+		};
+		2C4A287D25EB469900FEACE4 /* SimpleGUI */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A287E25EB469900FEACE4 /* SivSimpleGUI.cpp */,
+			);
+			path = SimpleGUI;
 			sourceTree = "<group>";
 		};
 		2C4A83E22457E7A4007AAE76 /* Xoshiro-cpp */ = {
@@ -6013,6 +6045,7 @@
 				2CAAA75C25E7FD0200C014D7 /* Shape2D.hpp */,
 				2CAAA77825E7FD0200C014D7 /* Shuffle.hpp */,
 				2CAAA8AB25E7FD0300C014D7 /* SIMD.hpp */,
+				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
 				2CAAA72E25E7FD0200C014D7 /* SpecialFolder.hpp */,
 				2CAAA77525E7FD0200C014D7 /* Spherical.hpp */,
@@ -6779,6 +6812,7 @@
 				2C43C8C725C837F100D6D613 /* ft2build.h in Headers */,
 				2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */,
 				2C834DAC248805D4006208B8 /* oniggnu.h in Headers */,
+				2C4A287C25EB468600FEACE4 /* IGUI.hpp in Headers */,
 				2C43C8BC25C837F100D6D613 /* ftimage.h in Headers */,
 				2CF21D1C249FAA8F00C864C9 /* CSystem.hpp in Headers */,
 				2C48BEEE25CFB8C500A93CE3 /* Shape.h in Headers */,
@@ -6989,6 +7023,7 @@
 				2C4395F82535DCCA00F6AECD /* svgnumber.h in Headers */,
 				2C4397932536163000F6AECD /* GL4VertexShader.hpp in Headers */,
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
+				2C4A287A25EB468600FEACE4 /* CGUI.hpp in Headers */,
 				2C13C6F625B458520054B968 /* concaveman.h in Headers */,
 				2C794B3A25C3DFC200034D81 /* zstd_errors.h in Headers */,
 				2C47B30124DD9789008D83BE /* MathParserDetail.hpp in Headers */,
@@ -7173,6 +7208,7 @@
 			files = (
 				2C4395F92535DCCA00F6AECD /* svgelement.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
+				2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */,
 				2C13C9BC25BD29FC0054B968 /* ldump.c in Sources */,
 				2C794B0C25C3DFC200034D81 /* zstdmt_compress.c in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
@@ -7300,6 +7336,7 @@
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
+				2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C13C9C025BD29FC0054B968 /* loslib.c in Sources */,
 				2C13C6F325B458350054B968 /* SivSubdivision2D.cpp in Sources */,
@@ -7698,6 +7735,7 @@
 				2C794B2825C3DFC200034D81 /* huf_decompress.c in Sources */,
 				2C4395F32535DCCA00F6AECD /* svguseelement.cpp in Sources */,
 				2C794B2425C3DFC200034D81 /* zdict.c in Sources */,
+				2C4A287B25EB468600FEACE4 /* GUIFactory.cpp in Sources */,
 				2C13C9CF25BD29FC0054B968 /* ldebug.c in Sources */,
 				2C834DA3248805D4006208B8 /* regtrav.c in Sources */,
 				2C47B31524DD9789008D83BE /* SivRegExp.cpp in Sources */,
