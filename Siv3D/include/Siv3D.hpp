@@ -725,7 +725,7 @@
 # include <Siv3D/RandomColor.hpp>
 
 // ランダムなサンプリング | Random sampling
-//# include <Siv3D/Sample.hpp>
+# include <Siv3D/Sample.hpp>
 
 //////////////////////////////////////////////////
 //

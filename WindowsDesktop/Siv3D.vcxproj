@@ -125,6 +125,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RectF.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Resource.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RoundRect.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Sample.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SamplerState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Scene.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SceneManager.ipp" />
@@ -393,6 +394,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ResourceOption.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Scene.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SceneManager.hpp" />
