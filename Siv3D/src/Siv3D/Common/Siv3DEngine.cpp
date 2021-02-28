@@ -32,6 +32,7 @@
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
 # include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/GUI/IGUI.hpp>
 # include <Siv3D/Print/IPrint.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Addon/IAddon.hpp>

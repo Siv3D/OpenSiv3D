@@ -1011,6 +1011,8 @@
 # include <Siv3D/SceneManager.hpp>
 # include <Siv3D/ScreenCapture.hpp>
 
+# include <Siv3D/SimpleGUI.hpp>
+
 
 //////////////////////////////////////////////////
 //

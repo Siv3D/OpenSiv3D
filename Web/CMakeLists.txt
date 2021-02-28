@@ -160,6 +160,8 @@ add_library(
   ../Siv3D/src/Siv3D/FormatUtility/SivFormatUtility.cpp
   ../Siv3D/src/Siv3D/Geometry2D/SivGeometry2D.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
+  ../Siv3D/src/Siv3D/GUI/CGUI.cpp
+  ../Siv3D/src/Siv3D/GUI/GUIFactory.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
   ../Siv3D/src/Siv3D/Icon/SivIcon.cpp
   ../Siv3D/src/Siv3D/Image/SivImage.cpp
@@ -243,6 +245,7 @@ add_library(
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
+  ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   # ../Siv3D/src/Siv3D/String/Levenshtein.cpp

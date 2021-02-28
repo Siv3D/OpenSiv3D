@@ -829,6 +829,12 @@
     <Filter Include="src\Siv3D\Buffer2D">
       <UniqueIdentifier>{d65c2601-110d-415a-9718-274816543d55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\GUI">
+      <UniqueIdentifier>{c1e4ebdc-562a-41bc-a5df-6d47b38b5bef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SimpleGUI">
+      <UniqueIdentifier>{258d2222-b287-4a6c-8573-6df7d5d950c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4083,6 +4089,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Buffer2D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\GUI\CGUI.hpp">
+      <Filter>src\Siv3D\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\GUI\IGUI.hpp">
+      <Filter>src\Siv3D\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5530,6 +5545,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Buffer2D\SivBuffer2D.cpp">
       <Filter>src\Siv3D\Buffer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\GUI\GUIFactory.cpp">
+      <Filter>src\Siv3D\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\GUI\CGUI.cpp">
+      <Filter>src\Siv3D\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp">
+      <Filter>src\Siv3D\SimpleGUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

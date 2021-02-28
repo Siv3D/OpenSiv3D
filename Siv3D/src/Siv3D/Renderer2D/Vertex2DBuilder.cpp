@@ -2211,20 +2211,8 @@ namespace s3d
 			pVertex[0].set(centerX, centerY, centerU, centerV);
 
 			// 周
-			if (quality <= detail::MaxSinCosTableQuality)
 			{
-				const Float2* pCS = detail::GetSinCosTableStartPtr(quality);
-				Vertex2D* pDst = &pVertex[1];
-
-				for (Vertex2D::IndexType i = 0; i < quality; ++i)
-				{
-					(pDst++)->set((rf * pCS->x + centerX), (rf * pCS->y + centerY), (centerU + rU * pCS->x), (centerV - rV * pCS->y));
-					++pCS;
-				}
-			}
-			else
-			{
-				const float radDelta = Math::TwoPiF / quality;
+				const float radDelta = (Math::TwoPiF / quality);
 				Vertex2D* pDst = &pVertex[1];
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
