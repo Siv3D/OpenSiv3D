@@ -5368,7 +5368,7 @@ namespace s3d
 			{
 				if (InRange(t, 0.0, 1.0))
 				{
-					// k = a1 t^3 + b1 t^2 + c1 t + d1
+					// k = a2 t^3 + b2 t^2 + c2 t + d2
 					const double k = std::fma(std::fma(std::fma(a2, t, b2), t, c2), t, d2);
 
 					minY = Min(minY, k);
