@@ -8,6 +8,8 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
+// s3d::SevenSegment is originally created by Hotaka Okumoto (OpenSiv3D Project)
+//-----------------------------------------------
 
 # pragma once
 
