@@ -13,45 +13,78 @@
 
 namespace s3d
 {
-	template <class State>
-	MiniScene<State>::~MiniScene()
+	namespace InputIcon
 	{
-		if (not m_currentState
-			|| m_scenes.empty())
+		inline Vec2 GetSize(const String& text, const Font& font, const double size)
 		{
-			return;
+			const double innerSize = (size * 0.8);
+			const double width = (font(text).region().w + size * 0.6);
+			return{ (innerSize < width ? width : size), size };
 		}
 
-		while (System::Update())
+		inline Vec2 GetSize(const Input& input, const Font& font, const double size)
 		{
-			auto it = m_scenes.find(*m_currentState);
+			return GetSize(input.name(), font, size);
+		}
 
-			if (it != m_scenes.end())
+		inline void DrawAt(const String& label, const bool isPressed, const Vec2& center, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
+		{
+			const Vec2 outerKeyCenter = center + Vec2::Down(size * 0.1 * 0.5 * isPressed);
+			const double outerKeyHeight = size * (isPressed ? 0.9 : 1.0);
+			const double innerKeyHeight = size * 0.8;
+			const double innerKeyWidth = size * 0.85;
+			const Vec2 innerKeyCenter = center + Vec2::Up(size * 0.08) + Vec2::Down(size * 0.1 * isPressed);
+			const double roundRadius = size * 0.1;
+			const HSV _keyColor = keyColor;
+			const ColorF outerKeyColor = HSV{ _keyColor.h, _keyColor.s, _keyColor.v * 0.8 };
+			const DrawableText dtext = font(label);
+			const double width = dtext.region().w + size * 0.6;
+
+			if (width > innerKeyWidth)
 			{
-				it->second();
+				const double innerWidth = width - (size - innerKeyWidth);
+				RectF{ Arg::center(outerKeyCenter), width, outerKeyHeight }.rounded(roundRadius).draw(outerKeyColor);
+				RectF{ Arg::center(innerKeyCenter), innerWidth, innerKeyHeight }.rounded(roundRadius).draw(keyColor);
 			}
-		}
-	}
+			else
+			{
+				RectF{ Arg::center(outerKeyCenter), size, outerKeyHeight }.rounded(roundRadius).draw(outerKeyColor);
+				RectF{ Arg::center(innerKeyCenter), innerKeyWidth, innerKeyHeight }.rounded(roundRadius).draw(keyColor);
+			}
 
-	template <class State>
-	typename MiniScene<State>::SceneFunction& MiniScene<State>::operator [](const State& state)
-	{
-		if (not m_currentState)
+			dtext.drawAt(innerKeyCenter, labelColor);
+		}
+
+		inline void DrawInteractiveAt(const Input& input, const Vec2& center, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor, const ColorF& highlightColor)
 		{
-			m_currentState = state;
+			DrawAt(input.name(), input.pressed(), center, font, size, (input.pressed() ? highlightColor : keyColor), labelColor);
 		}
 
-		return m_scenes[state];
-	}
-
-	template <class State>
-	void MiniScene<State>::changeState(const State& state)
-	{
-		if (not m_scenes.contains(state))
+		inline void DrawAt(const Input& input, const bool isPressed, const Vec2& center, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor, const ColorF& highlightColor)
 		{
-			return;
+			DrawAt(input.name(), isPressed, center, font, size, (isPressed ? highlightColor : keyColor), labelColor);
 		}
 
-		*m_currentState = state;
+		inline void Draw(const String& label, const bool isPressed, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
+		{
+			DrawAt(label, isPressed, (pos + GetSize(label, font, size) * 0.5), font, size, keyColor, labelColor);
+		}
+
+		inline void DrawInteractive(const Input& input, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor, const ColorF& highlightColor)
+		{
+			DrawAt(input.name(), input.pressed(), (pos + GetSize(input, font, size) * 0.5), font, size, (input.pressed() ? highlightColor : keyColor), labelColor);
+		}
+
+		inline void Draw(const Input& input, const bool isPressed, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor, const ColorF& highlightColor)
+		{
+			DrawAt(input.name(), isPressed, (pos + GetSize(input, font, size) * 0.5), font, size, (isPressed ? highlightColor : keyColor), labelColor);
+		}
+
+		inline double DrawAsGlyph(const Input& input, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor, const ColorF& highlightColor)
+		{
+			const double w = GetSize(input.name(), font, size).x;
+			DrawAt(input.name(), input.pressed(), pos.movedBy(w / 2.0, font.height() / 2.0), font, size, (input.pressed() ? highlightColor : keyColor), labelColor);
+			return w;
+		}
 	}
 }

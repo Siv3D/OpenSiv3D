@@ -4,15 +4,16 @@
 //
 //	Copyright (c) 2008-2021 Ryo Suzuki
 //	Copyright (c) 2016-2021 OpenSiv3D Project
-//	Copyright (C) 2014-2019 HAMSTRO
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
+// s3d::PlayingCard is originally created by Yuta Ishii (OpenSiv3D Project)
+//-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Experimental/MiniScene.hpp>
-# include <Siv3D/Experimental/SevenSegment.hpp>
-# include <Siv3D/Experimental/SaturatedLinework.hpp>
-# include <Siv3D/Experimental/InputIcon.hpp>
-# include <Siv3D/Experimental/PlayingCard.hpp>
+
+namespace s3d
+{
+
+}
