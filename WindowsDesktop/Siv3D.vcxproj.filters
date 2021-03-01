@@ -4125,6 +4125,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SevenSegment.ipp">
       <Filter>include\Siv3D\Experimental\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SaturatedLinework.hpp">
+      <Filter>include\Siv3D\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SaturatedLinework.ipp">
+      <Filter>include\Siv3D\Experimental\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\InputIcon.hpp">
+      <Filter>include\Siv3D\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\InputIcon.ipp">
+      <Filter>include\Siv3D\Experimental\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

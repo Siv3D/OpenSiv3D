@@ -45,4 +45,34 @@ namespace s3d
 
 	/// @brief 
 	using BernoulliDistribution = absl::bernoulli_distribution;
+
+	namespace detail
+	{
+		template <class Type>
+		struct UniformDistributionHelper
+		{
+			using DistributionType = UniformIntDistribution<Type>;
+		};
+
+		template <>
+		struct UniformDistributionHelper<float>
+		{
+			using DistributionType = UniformRealDistribution<float>;
+		};
+
+		template <>
+		struct UniformDistributionHelper<double>
+		{
+			using DistributionType = UniformRealDistribution<double>;
+		};
+
+		template <>
+		struct UniformDistributionHelper<long double>
+		{
+			using DistributionType = UniformRealDistribution<long double>;
+		};
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC
+	using UniformDistribution = typename detail::UniformDistributionHelper<Arithmetic>::DistributionType;
 }
