@@ -74,6 +74,10 @@ namespace s3d
 
 		virtual const Texture& getTexture(Font::IDType handleID) = 0;
 
+		virtual Glyph getGlyph(Font::IDType handleID, StringView ch) = 0;
+
+		virtual Array<Glyph> getGlyphs(Font::IDType handleID, StringView s) = 0;
+
 		virtual Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters) = 0;
 
 		virtual RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) = 0;

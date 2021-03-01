@@ -188,6 +188,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GaborNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Glyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp" />

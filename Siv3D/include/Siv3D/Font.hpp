@@ -22,6 +22,7 @@
 # include "MSDFGlyph.hpp"
 # include "FontMethod.hpp"
 # include "Typeface.hpp"
+# include "Glyph.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -161,6 +162,15 @@ namespace s3d
 
 		[[nodiscard]]
 		const Texture& getTexture() const;
+
+		[[nodiscard]]
+		Glyph getGlyph(char32 ch) const;
+
+		[[nodiscard]]
+		Glyph getGlyph(StringView ch) const;
+
+		[[nodiscard]]
+		Array<Glyph> getGlyphs(StringView s) const;
 
 		[[nodiscard]]
 		DrawableText operator()(const String& text) const;

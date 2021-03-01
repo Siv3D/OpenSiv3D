@@ -268,6 +268,37 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphCache().getTexture();
 	}
 
+	Glyph CFont::getGlyph(const Font::IDType handleID, const StringView ch)
+	{
+		if (not ch)
+		{
+			return{};
+		}
+
+		const auto& font = m_fonts[handleID];
+		Glyph glyph{ font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch)) };
+		glyph.codePoint = ch.front();
+		glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+		return glyph;
+	}
+
+	Array<Glyph> CFont::getGlyphs(const Font::IDType handleID, const StringView s)
+	{
+		const auto& font = m_fonts[handleID];
+		const Array<GlyphCluster> clusters = font->getGlyphClusters(s, false);
+
+		Array<Glyph> glyphs(Arg::reserve = clusters.size());
+		for (const auto& cluster : clusters)
+		{
+			Glyph glyph{ font->getGlyphInfoByGlyphIndex(cluster.glyphIndex) };
+			glyph.codePoint = s[cluster.pos];
+			glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+			glyphs << glyph;
+		}
+
+		return glyphs;
+	}
+
 	Array<double> CFont::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters)
 	{
 		const auto& font = m_fonts[handleID];

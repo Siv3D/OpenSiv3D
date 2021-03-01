@@ -53,6 +53,9 @@ namespace s3d
 		[[nodiscard]]
 		const Texture& getTexture() const noexcept override;
 
+		[[nodiscard]]
+		TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) override;
+
 	private:
 
 		[[nodiscard]]

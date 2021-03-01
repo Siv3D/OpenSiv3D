@@ -50,5 +50,8 @@ namespace s3d
 
 		[[nodiscard]]
 		virtual const Texture& getTexture() const noexcept = 0;
+
+		[[nodiscard]]
+		virtual TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) = 0;
 	};
 }

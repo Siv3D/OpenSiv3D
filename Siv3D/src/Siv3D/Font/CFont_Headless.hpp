@@ -86,6 +86,10 @@ namespace s3d
 
 		const Texture& getTexture(Font::IDType handleID) override;
 
+		Glyph getGlyph(Font::IDType handleID, StringView ch) override;
+
+		Array<Glyph> getGlyphs(Font::IDType handleID, StringView s) override;
+
 		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters) override;
 
 		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;

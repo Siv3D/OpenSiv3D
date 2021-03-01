@@ -468,6 +468,17 @@ namespace s3d
 		return m_texture;
 	}
 
+	TextureRegion MSDFGlyphCache::getTextureRegion(const FontData& font, const GlyphIndex glyphIndex)
+	{
+		if (not prerender(font, { GlyphCluster{.glyphIndex = glyphIndex } }))
+		{
+			return{};
+		}
+
+		const auto& cache = m_glyphTable.find(glyphIndex)->second;
+		return m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+	}
+
 	bool MSDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;

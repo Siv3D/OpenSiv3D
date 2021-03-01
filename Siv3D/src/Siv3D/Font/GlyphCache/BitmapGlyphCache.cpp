@@ -17,7 +17,6 @@
 
 namespace s3d
 {
-
 	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		if (not prerender(font, clusters))
@@ -467,6 +466,17 @@ namespace s3d
 	const Texture& BitmapGlyphCache::getTexture() const noexcept
 	{
 		return m_texture;
+	}
+
+	TextureRegion BitmapGlyphCache::getTextureRegion(const FontData& font, const GlyphIndex glyphIndex)
+	{
+		if (not prerender(font, { GlyphCluster{ .glyphIndex = glyphIndex } }))
+		{
+			return{};
+		}
+
+		const auto& cache = m_glyphTable.find(glyphIndex)->second;
+		return m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
 	}
 
 	bool BitmapGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)

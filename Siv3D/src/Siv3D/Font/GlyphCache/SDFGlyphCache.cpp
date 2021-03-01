@@ -372,53 +372,6 @@ namespace s3d
 		return cache.info.xAdvance;
 	}
 
-
-	bool SDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
-	{
-		bool hasDirty = false;
-
-		if (m_glyphTable.empty())
-		{
-			const SDFGlyph glyph = font.renderSDFByGlyphIndex(0, m_buffer.bufferWidth);
-
-			if (not CacheGlyph(font, glyph.image, glyph, m_buffer, m_glyphTable))
-			{
-				return false;
-			}
-
-			hasDirty = true;
-		}
-
-		for (const auto& cluster : clusters)
-		{
-			if (m_glyphTable.contains(cluster.glyphIndex))
-			{
-				continue;
-			}
-
-			const SDFGlyph glyph = font.renderSDFByGlyphIndex(cluster.glyphIndex, m_buffer.bufferWidth);
-
-			if (m_glyphTable.contains(glyph.glyphIndex))
-			{
-				continue;
-			}
-
-			if (not CacheGlyph(font, glyph.image, glyph, m_buffer, m_glyphTable))
-			{
-				return false;
-			}
-
-			hasDirty = true;
-		}
-
-		if (hasDirty)
-		{
-			m_texture.fill(m_buffer.image);
-		}
-
-		return true;
-	}
-
 	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)
 	{
 		if (not prerender(font, clusters))
@@ -513,5 +466,62 @@ namespace s3d
 	const Texture& SDFGlyphCache::getTexture() const noexcept
 	{
 		return m_texture;
+	}
+
+	TextureRegion SDFGlyphCache::getTextureRegion(const FontData& font, const GlyphIndex glyphIndex)
+	{
+		if (not prerender(font, { GlyphCluster{.glyphIndex = glyphIndex } }))
+		{
+			return{};
+		}
+
+		const auto& cache = m_glyphTable.find(glyphIndex)->second;
+		return m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
+	}
+
+	bool SDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
+	{
+		bool hasDirty = false;
+
+		if (m_glyphTable.empty())
+		{
+			const SDFGlyph glyph = font.renderSDFByGlyphIndex(0, m_buffer.bufferWidth);
+
+			if (not CacheGlyph(font, glyph.image, glyph, m_buffer, m_glyphTable))
+			{
+				return false;
+			}
+
+			hasDirty = true;
+		}
+
+		for (const auto& cluster : clusters)
+		{
+			if (m_glyphTable.contains(cluster.glyphIndex))
+			{
+				continue;
+			}
+
+			const SDFGlyph glyph = font.renderSDFByGlyphIndex(cluster.glyphIndex, m_buffer.bufferWidth);
+
+			if (m_glyphTable.contains(glyph.glyphIndex))
+			{
+				continue;
+			}
+
+			if (not CacheGlyph(font, glyph.image, glyph, m_buffer, m_glyphTable))
+			{
+				return false;
+			}
+
+			hasDirty = true;
+		}
+
+		if (hasDirty)
+		{
+			m_texture.fill(m_buffer.image);
+		}
+
+		return true;
 	}
 }

@@ -267,6 +267,21 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getTexture(m_handle->id());
 	}
 
+	Glyph Font::getGlyph(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyph(m_handle->id(), StringView(&ch, 1));
+	}
+
+	Glyph Font::getGlyph(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyph(m_handle->id(), ch);
+	}
+
+	Array<Glyph> Font::getGlyphs(const StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphs(m_handle->id(), s);
+	}
+
 	DrawableText Font::operator()(const String& text) const
 	{
 		return{ *this, text };

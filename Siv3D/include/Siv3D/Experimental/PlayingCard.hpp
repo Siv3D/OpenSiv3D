@@ -170,6 +170,8 @@ namespace s3d
 
 			Font m_fontLarge;
 
+			Font m_fontEmoji;
+
 			Vec2 m_cardSize;
 
 			ColorF m_backSideColor;
@@ -195,10 +197,11 @@ namespace s3d
 			/// @param size カードの大きさ
 			/// @param frameThickness 枠の太さ
 			/// @param backSideColor 裏面の色
-			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Vec2& size, double frameThickness, const ColorF& backSideColor)
+			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Font& fontEmoji, const Vec2& size, double frameThickness, const ColorF& backSideColor)
 				: m_card{ card }
 				, m_font{ font }
 				, m_fontLarge{ fontLarge }
+				, m_fontEmoji{ fontEmoji }
 				, m_cardSize{ size }
 				, m_backSideColor{ backSideColor }
 				, m_frameThickness{ frameThickness }
@@ -367,27 +370,25 @@ namespace s3d
 
 				if (m_card.isJoker())
 				{
-					/*
 					const Array<Glyph> glyphs = m_font.getGlyphs(U"JOKER");
 					const double height = glyphs[0].texture.size.y * drawSize * 1.08;
-					const Vec2 drawpos(centering / 10 + Vec2(glyphs[0].texture.resized(Vec2(glyphs[0].texture.size) * drawSize).size.x, height * 0.5));
+					const Vec2 drawPos{ centering / 10 + Vec2{ glyphs[0].texture.resized(Vec2{ glyphs[0].texture.size } * drawSize).size.x, height * 0.5 } };
 
-					for (const auto a : step(glyphs.size()))
+					for (size_t a = 0; a < glyphs.size(); ++a)
 					{
-						const TextureRegion t = glyphs[a].texture.resized(Vec2(glyphs[0].texture.size) * drawSize);
-						t.drawAt(pos + drawpos + Vec2(0, a * height * 1.2), color);
-						t.flipped().mirrored().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
+						const TextureRegion t = glyphs[a].texture.resized(Vec2{ glyphs[0].texture.size } * drawSize);
+						t.drawAt(pos + drawPos + Vec2{ 0, a * height * 1.2 }, color);
+						t.flipped().mirrored().drawAt(pos - drawPos - Vec2{ 0, a * height * 1.2 } + m_cardSize, color);
 					}
 
-					m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
-					*/
+					m_fontEmoji.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
+
 					return;
 				}
 
-				/*
 				const Glyph suitGlyph = m_font.getGlyph(Card::GetSuit(m_card.suit));
 				const Glyph rankGlyph = m_font.getGlyph(Card::GetRank(m_card.rank)[0]);
-				const Vec2 suitpos(0.0, m_cardSize.y * 0.13888);
+				const Vec2 suitpos{ 0.0, m_cardSize.y * 0.13888 };
 
 				suitGlyph.texture.scaled(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
 				suitGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering - suitpos, color);
@@ -395,19 +396,19 @@ namespace s3d
 				if (m_card.rank == 10)
 				{
 					const auto zerotexture = m_font.getGlyph(U'0');
-					const Vec2 rankSize = Vec2(rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y) * drawSize;
+					const Vec2 rankSize = Vec2{ rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y } *drawSize;
 
 					rankGlyph.texture.resized(rankSize)
-						.drawAt(pos + centering - Vec2(rankSize.x * 1.1, 0), color);
+						.drawAt(pos + centering - Vec2{ rankSize.x * 1.1, 0 }, color);
 					rankGlyph.texture.resized(rankSize)
 						.flipped().mirrored()
-						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.1, 0), color);
+						.drawAt(pos + m_cardSize - centering + Vec2{ rankSize.x * 1.1, 0 }, color);
 
 					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
-						.drawAt(pos + centering + Vec2(rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0), color);
+						.drawAt(pos + centering + Vec2{ rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0 }, color);
 					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
 						.flipped().mirrored()
-						.drawAt(pos - centering + Vec2(-rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0) + m_cardSize, color);
+						.drawAt(pos - centering + Vec2{ -rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0 } + m_cardSize, color);
 				}
 				else
 				{
@@ -417,23 +418,22 @@ namespace s3d
 
 				if (InRange(m_card.rank, 2, 10))
 				{
-					for (const auto a : drawInfos[m_card.rank - 2])
+					for (const auto& drawInfo : drawInfos[m_card.rank - 2])
 					{
-						suitGlyph.texture.flipped(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
+						suitGlyph.texture.flipped(drawInfo.flip).drawAt(center.movedBy(m_cardSize * drawInfo.offset), color);
 					}
 				}
 				else
 				{
 					const char32 c[4] = { static_cast<char32>(Card::GetSuit(m_card.suit)), U'\x1f482', U'\x1f478', U'\x1f474' };
 
-					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9 % 4]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
+					m_fontEmoji.getGlyph(c[(m_card.rank - 1) % 9 % 4]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2{ 0, m_cardSize.y / 12 - m_cardSize.y / 21 } : Vec2::Zero()), color);
 
 					if (m_card.isKing())
 					{
-						m_fontLarge.getGlyph(U'\x1f451').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
+						m_fontEmoji.getGlyph(U'\x1f451').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
 					}
 				}
-				*/
 			}
 
 			void draw(double x, double y) const
@@ -505,7 +505,7 @@ namespace s3d
 					}
 					else
 					{
-						//m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(rect.center(), Palette::Black);
+						m_fontEmoji.getGlyph(U'♋').texture.scaled(0.9).drawAt(rect.center(), Palette::Black);
 					}
 				}
 				else
@@ -580,6 +580,8 @@ namespace s3d
 
 			Font m_fontLarge;
 
+			Font m_fontEmoji;
+
 			Vec2 m_cardSize = { 0, 0 };
 
 			ColorF m_backSideColor = Palette::Blue;
@@ -594,13 +596,15 @@ namespace s3d
 			/// @brief カードを扱うための構造体を作成します。
 			/// @param font 小さいフォント
 			/// @param fontLarge 大きいフォント
+			/// @param fontEmoji 絵文字フォント
 			/// @param cardWidth カードの幅（ピクセル）
 			/// @param backSideColor カード背面の色
 			/// @param frameThickness カードの枠の太さ
 			/// @remark フォントの大きさは `PlayingCard::CalculateFontSize()` を使って計算します。
-			explicit Pack(const Font& font, const Font& fontLarge, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
+			explicit Pack(const Font& font, const Font& fontLarge, const Font& fontEmoji, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
 				: m_font{ font }
 				, m_fontLarge{ fontLarge }
+				, m_fontEmoji{ fontEmoji }
 				, m_cardSize{ cardWidth, cardWidth * Math::Phi }
 				, m_backSideColor{ backSideColor }
 				, m_framethickness{ frameThickness } {}
@@ -612,6 +616,7 @@ namespace s3d
 			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
 				: m_font{ CalculateFontSize(cardWidth * 0.475) }
 				, m_fontLarge{ CalculateFontSize(cardWidth) }
+				, m_fontEmoji{ CalculateFontSize(cardWidth), Typeface::MonochromeEmoji }
 				, m_cardSize{ cardWidth, cardWidth * Math::Phi }
 				, m_backSideColor{ backSideColor }
 				, m_framethickness{ frameThickness } {}
@@ -633,7 +638,7 @@ namespace s3d
 			[[nodiscard]]
 			CardInfo operator ()(const Card& card) const
 			{
-				return CardInfo{ card, m_font, m_fontLarge, m_cardSize, m_framethickness, m_backSideColor };
+				return CardInfo{ card, m_font, m_fontLarge, m_fontEmoji, m_cardSize, m_framethickness, m_backSideColor };
 			}
 
 			/// @brief カードの大きさ（ピクセル）を返します。
@@ -732,6 +737,36 @@ namespace s3d
 
 // example
 
+# include <Siv3D.hpp>
+# include <Siv3D/Experimental/PlayingCard.hpp>
 
+void Main()
+{
+	Window::Resize(1280, 720);
+	Scene::SetBackground(Palette::Darkgreen);
+
+	const PlayingCard::Pack pack{ 75, Palette::Red };
+	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
+
+	while (System::Update())
+	{
+		for (auto i : step(13 * 4 + 2))
+		{
+			const Vec2 center{ 100 + i % 13 * 90, 100 + (i / 13) * 130 };
+
+			if (pack.regionAt(center).mouseOver())
+			{
+				Cursor::RequestStyle(CursorStyle::Hand);
+
+				if (MouseL.down())
+				{
+					cards[i].flip();
+				}
+			}
+
+			pack(cards[i]).drawAt(center);
+		}
+	}
+}
 
 */
