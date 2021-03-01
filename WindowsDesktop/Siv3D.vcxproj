@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Siv3D\include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapesFwd.hpp" />
@@ -168,6 +169,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EnvironmentVariable.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\MiniScene.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SevenSegment.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\MiniScene.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SevenSegment.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />

@@ -835,6 +835,12 @@
     <Filter Include="src\Siv3D\SimpleGUI">
       <UniqueIdentifier>{258d2222-b287-4a6c-8573-6df7d5d950c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Siv3D\Experimental">
+      <UniqueIdentifier>{5e43f423-57ea-4715-bdcc-1158cb2e5593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Siv3D\Experimental\detail">
+      <UniqueIdentifier>{13899026-19f6-4295-8fad-d2e1ff3c7759}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4103,6 +4109,21 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Sample.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\MiniScene.hpp">
+      <Filter>include\Siv3D\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\MiniScene.ipp">
+      <Filter>include\Siv3D\Experimental\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SevenSegment.hpp">
+      <Filter>include\Siv3D\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SevenSegment.ipp">
+      <Filter>include\Siv3D\Experimental\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
