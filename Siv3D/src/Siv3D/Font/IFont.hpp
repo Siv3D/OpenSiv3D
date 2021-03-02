@@ -52,6 +52,8 @@ namespace s3d
 
 		virtual GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) = 0;
 
+		virtual GlyphInfo getGlyphInfoByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) = 0;
+
 		virtual OutlineGlyph renderOutline(Font::IDType handleID, StringView ch, CloseRing closeRing) = 0;
 
 		virtual OutlineGlyph renderOutlineByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, CloseRing closeRing) = 0;

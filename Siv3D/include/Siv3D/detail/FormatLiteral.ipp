@@ -19,6 +19,11 @@ namespace s3d
 		{
 			using fmt::basic_string_view<char32>::basic_string_view;
 
+			/// @brief フォーマット指定子 `{}` を含む文字列リテラルへ、変換する値を渡します。
+			/// @tparam ...Args 変換する値の型
+			/// @param ...args 変換する値
+			/// @remark 文字列リテラルのあとに _fmt() サフィックスを付けると、文字列リテラル内に記述した `{}` という箇所に、( ) 内に記述した引数が文字列化されて挿入されます。
+			/// @return `{}` という箇所に値を変換して挿入した文字列
 			template <class... Args>
 			[[nodiscard]]
 			String operator()(Args&& ...args) const

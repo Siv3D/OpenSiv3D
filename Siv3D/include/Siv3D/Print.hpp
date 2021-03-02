@@ -121,6 +121,10 @@ namespace s3d
 
 		# endif
 
+			/// @brief Format 可能な値を Print で出力するバッファに追加します。
+			/// @tparam Formattable 値の型（Format 可能な型でないといけません）
+			/// @param value 出力する値
+			/// @return Print 出力のバッファ
 			SIV3D_CONCEPT_FORMATTABLE
 			PrintBuffer operator <<(const Formattable& value) const
 			{

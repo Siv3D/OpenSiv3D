@@ -29,7 +29,9 @@ namespace s3d
 		/// @brief 頂点 2
 		value_type i2;
 
-		[[nodiscard]]
+		/// @brief すべてのインデックス値が 0 の TriangleIndex を返します。
+		/// @return すべてのインデックス値が 0 の TriangleIndex
+		[[nodiscard]] 
 		static constexpr TriangleIndex Zero() noexcept;
 	};
 }

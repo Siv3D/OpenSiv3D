@@ -45,12 +45,18 @@ namespace s3d
 		[[nodiscard]]
 		String name() const;
 
+		/// @brief 入力装置が現在のフレームで押され始めたかを返します。
+		/// @return 入力装置が現在のフレームで押され始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool down() const;
 
+		/// @brief 入力装置が押されているかを返します。
+		/// @return 入力装置が押されている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool pressed() const;
 
+		/// @brief 入力装置が現在のフレームで離されたかを返します。
+		/// @return 入力装置が現在のフレームで離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool up() const;
 

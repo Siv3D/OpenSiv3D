@@ -192,6 +192,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), ch);
 	}
 
+	GlyphInfo Font::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfoByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
 	OutlineGlyph Font::renderOutline(const char32 ch, const CloseRing closeRing) const
 	{
 		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), StringView(&ch, 1), closeRing);

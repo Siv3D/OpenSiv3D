@@ -31,8 +31,15 @@ namespace s3d
 
 	struct Point;
 	using Size = Point;
+
+	/// @brief 2 次元のベクトル
+	/// @tparam Type ベクトルの要素の型
 	template <class Type> struct Vector2D;
+
+	/// @brief 2 次元のベクトルを、float 型の要素 x, y で表現するクラスです。
 	using Float2 = Vector2D<float>;
+
+	/// @brief 2 次元のベクトルを、double 型の要素 x, y で表現するクラスです。
 	using Vec2 = Vector2D<double>;
 
 	class Image;

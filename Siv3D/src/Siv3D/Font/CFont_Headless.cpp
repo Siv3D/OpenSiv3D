@@ -171,6 +171,11 @@ namespace s3d
 		return font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch));
 	}
 
+	GlyphInfo CFont_Headless::getGlyphInfoByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		return m_fonts[handleID]->getGlyphInfoByGlyphIndex(glyphIndex);
+	}
+
 	OutlineGlyph CFont_Headless::renderOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
 	{
 		const auto& font = m_fonts[handleID];

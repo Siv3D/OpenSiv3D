@@ -95,6 +95,8 @@ namespace s3d
 
 		GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) override;
 
+		GlyphInfo getGlyphInfoByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
+
 		OutlineGlyph renderOutline(Font::IDType handleID, StringView ch, CloseRing closeRing) override;
 
 		OutlineGlyph renderOutlineByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, CloseRing closeRing) override;

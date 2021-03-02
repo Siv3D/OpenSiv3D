@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief RGBA カラーを、それぞれの要素について 0.0～1.0 の範囲で表現するクラスです。
 	struct ColorF
 	{
 		/// @brief 赤 | Red

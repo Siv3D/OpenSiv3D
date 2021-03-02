@@ -61,7 +61,7 @@ namespace s3d
 	}
 
 	template <class Container, class URBG>
-	inline auto Sample(size_t n, const Container& c, URBG&& urbg)
+	inline Array<typename Container::value_type> Sample(size_t n, const Container& c, URBG&& urbg)
 	{
 		Array<typename Container::value_type> result;
 		result.reserve(std::min(n, std::size(c)));
@@ -71,7 +71,7 @@ namespace s3d
 	}
 
 	template <class Container>
-	inline auto Sample(const size_t n, const Container& c)
+	inline Array<typename Container::value_type> Sample(const size_t n, const Container& c)
 	{
 		return Sample(n, c, GetDefaultRNG());
 	}
@@ -91,7 +91,7 @@ namespace s3d
 	}
 
 	template <class Type, class URBG>
-	inline auto Sample(size_t n, std::initializer_list<Type> ilist, URBG&& urbg)
+	inline Array<Type> Sample(size_t n, std::initializer_list<Type> ilist, URBG&& urbg)
 	{
 		Array<Type> result;
 		result.reserve(std::min(n, ilist.size()));
@@ -101,7 +101,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline auto Sample(const size_t n, std::initializer_list<Type> ilist)
+	inline Array<Type> Sample(const size_t n, std::initializer_list<Type> ilist)
 	{
 		return Sample(n, ilist, GetDefaultRNG());
 	}

@@ -18,32 +18,71 @@
 
 namespace s3d
 {
+	/// @brief QR コードに関連する機能
 	namespace QR
 	{
-		/// @brief 
+		/// @brief QR コードの最小サイズを示す番号
 		inline constexpr int32 MinVersion = 1;
 
-		/// @brief 
+		/// @brief QR コードの最大サイズを示す番号
 		inline constexpr int32 MaxVersion = 40;
 
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
 		[[nodiscard]]
 		Grid<bool> EncodeNumber(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
 		[[nodiscard]]
 		Grid<bool> EncodeAlnum(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
 		[[nodiscard]]
 		Grid<bool> EncodeText(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
+		/// @brief 
+		/// @param data 
+		/// @param size 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
 		[[nodiscard]]
 		Grid<bool> EncodeBinary(const void* data, size_t size, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
+		/// @brief QR コードを Image に変換します。
+		/// @param qr QR コードを表現する二次元配列
+		/// @param cellSize 1 セルの一辺のサイズ（ピクセル）
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 変換後の Image データ
 		[[nodiscard]]
 		Image MakeImage(const Grid<bool>& qr, int32 cellSize = 16, size_t borderCells = 4);
 
+		/// @brief QR コードを SVG データに変換します。
+		/// @param qr QR コードを表現する二次元配列
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 変換後の SVG データ
 		[[nodiscard]]
 		SVG MakeSVG(const Grid<bool>& qr, size_t borderCells = 4);
 
-		bool SaveSVG(FilePathView path, const Grid<bool>& code, size_t borderCells = 4);
+		/// @brief QR コードを SVG 画像ファイルとして保存します。
+		/// @param path 保存するファイルパス
+		/// @param qr QR コードを表現する二次元配列
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 保存に成功した場合 true, それ以外の場合は false
+		bool SaveSVG(FilePathView path, const Grid<bool>& qr, size_t borderCells = 4);
 	}
 }

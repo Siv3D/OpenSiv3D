@@ -18,8 +18,8 @@ namespace s3d
 {
 	namespace Keyboard
 	{
-		/// @brief 
-		/// @return 
+		/// @brief 現在のフレームで何らかの入力操作があるキーの一覧を取得します。
+		/// @return 現在のフレームで何らかの入力操作があるキーの一覧
 		[[nodiscard]]
 		const Array<Input>& GetAllInputs() noexcept;
 	}	
