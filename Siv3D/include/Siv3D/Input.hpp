@@ -23,6 +23,8 @@ namespace s3d
 	class InputCombination;
 	class InputGroup;
 
+	/// @brief 入力オブジェクト
+	/// @remark キーボード、マウスのボタン、ゲームパッドのボタンなど、押下できる入力装置の要素を表現します。
 	class Input
 	{
 	public:
@@ -42,25 +44,30 @@ namespace s3d
 		[[nodiscard]]
 		constexpr uint8 userIndex() const noexcept;
 
-		[[nodiscard]]
+		/// @brief 入力オブジェクトの名前を返します。
+		/// @return 入力オブジェクトの名前
+		[[nodiscard]] 
 		String name() const;
 
-		/// @brief 入力装置が現在のフレームで押され始めたかを返します。
-		/// @return 入力装置が現在のフレームで押され始めた場合 true, それ以外の場合は false
+		/// @brief 入力オブジェクトが現在のフレームで押され始めたかを返します。
+		/// @return 入力オブジェクトが現在のフレームで押され始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool down() const;
 
-		/// @brief 入力装置が押されているかを返します。
-		/// @return 入力装置が押されている場合 true, それ以外の場合は false
+		/// @brief 入力オブジェクトが押されているかを返します。
+		/// @return 入力オブジェクトが押されている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool pressed() const;
 
-		/// @brief 入力装置が現在のフレームで離されたかを返します。
-		/// @return 入力装置が現在のフレームで離された場合 true, それ以外の場合は false
+		/// @brief 入力オブジェクトが現在のフレームで離されたかを返します。
+		/// @return 入力オブジェクトが現在のフレームで離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool up() const;
 
-		[[nodiscard]]
+		/// @brief 入力オブジェクトが押され続けている時間を返します。
+		/// @remark `up()` が true を返すフレームまで計測結果は有効なため、`if (KeyA.up()) Print << KeyA.pressedDuration()` と書けます。
+		/// @return 入力オブジェクトが押され続けている時間
+		[[nodiscard]] 
 		Duration pressedDuration() const;
 
 		[[nodiscard]]

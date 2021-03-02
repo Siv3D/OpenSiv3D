@@ -17,13 +17,17 @@
 
 namespace s3d
 {
+	/// @brief 絵文字
 	struct Emoji
 	{
+		/// @brief OpenSiv3D 標準絵文字のサイズ（ピクセル）
 		static constexpr Size ImageSize{ 136, 128 };
 
+		/// @brief 絵文字のコードポイント
 		String codePoints;
 
-		SIV3D_NODISCARD_CXX20
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20 
 		Emoji() = default;
 
 		SIV3D_NODISCARD_CXX20
@@ -52,7 +56,11 @@ namespace s3d
 	{
 		inline namespace EmojiLiterals
 		{
-			[[nodiscard]]
+			/// @brief 絵文字（コードポイント）を記述した文字列から Emoji オブジェクトを作成します。
+			/// @param s 絵文字（コードポイント）を記述した文字列
+			/// @param length 文字列の長さ
+			/// @return Emoji オブジェクト
+			[[nodiscard]] 
 			Emoji operator ""_emoji(const char32* s, size_t length);
 		}
 	}
