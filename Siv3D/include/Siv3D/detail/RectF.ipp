@@ -657,19 +657,24 @@ namespace s3d
 		return{ (x + w), y };
 	}
 
-	inline constexpr RectF::size_type RectF::bl() const noexcept
-	{
-		return{ x, (y + h) };
-	}
-
 	inline constexpr RectF::size_type RectF::br() const noexcept
 	{
 		return{ (x + w), (y + h) };
 	}
 
+	inline constexpr RectF::size_type RectF::bl() const noexcept
+	{
+		return{ x, (y + h) };
+	}
+
 	inline constexpr Vec2 RectF::topCenter() const noexcept
 	{
 		return{ (x + w * 0.5), y };
+	}
+
+	inline constexpr Vec2 RectF::rightCenter() const noexcept
+	{
+		return{ (x + w), (y + h * 0.5) };
 	}
 
 	inline constexpr Vec2 RectF::bottomCenter() const noexcept
@@ -680,11 +685,6 @@ namespace s3d
 	inline constexpr Vec2 RectF::leftCenter() const noexcept
 	{
 		return{ x, (y + h * 0.5) };
-	}
-
-	inline constexpr Vec2 RectF::rightCenter() const noexcept
-	{
-		return{ (x + w), (y + h * 0.5) };
 	}
 
 	inline constexpr Vec2 RectF::center() const noexcept

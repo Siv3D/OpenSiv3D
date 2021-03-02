@@ -39,6 +39,10 @@ namespace s3d
 	/// @return [0, 1) の範囲の乱数
 	double Random() noexcept;
 
+	/// @brief [0, 1) の範囲の乱数を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 乱数エンジン
+	/// @return [0, 1) の範囲の乱数
 	SIV3D_CONCEPT_URBG
 	[[nodiscard]]
 	inline double Random(URBG&& urbg) noexcept;
@@ -52,6 +56,13 @@ namespace s3d
 	[[nodiscard]]
 	inline Arithmetic Random(Arithmetic min, Arithmetic max);
 
+	/// @brief min 以上 max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param min 生成する乱数の最小値
+	/// @param max 生成する乱数の最大値
+	/// @param urbg 乱数エンジン
+	/// @return 生成された乱数
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
 # else
@@ -182,6 +193,7 @@ namespace s3d
 	inline uint8 RandomUint8();
 
 	/// @brief 指定した乱数エンジンを用いて、uint8 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return uint8 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -194,6 +206,7 @@ namespace s3d
 	inline uint16 RandomUint16();
 
 	/// @brief 指定した乱数エンジンを用いて、uint16 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return uint16 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -206,6 +219,7 @@ namespace s3d
 	inline uint32 RandomUint32();
 
 	/// @brief 指定した乱数エンジンを用いて、uint32 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return uint32 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -218,6 +232,7 @@ namespace s3d
 	inline uint64 RandomUint64();
 
 	/// @brief 指定した乱数エンジンを用いて、uint64 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return uint64 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -230,6 +245,7 @@ namespace s3d
 	inline int8 RandomInt8();
 
 	/// @brief 指定した乱数エンジンを用いて、int8 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return int8 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -242,6 +258,7 @@ namespace s3d
 	inline int16 RandomInt16();
 
 	/// @brief 指定した乱数エンジンを用いて、int16 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return int16 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -254,6 +271,7 @@ namespace s3d
 	inline int32 RandomInt32();
 
 	/// @brief 指定した乱数エンジンを用いて、int32 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return int32 型のランダムな値
 	SIV3D_CONCEPT_URBG
@@ -266,6 +284,7 @@ namespace s3d
 	inline int64 RandomInt64();
 
 	/// @brief 指定した乱数エンジンを用いて、int64 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
 	/// @param urbg 使用する乱数エンジン
 	/// @return int64 型のランダムな値
 	SIV3D_CONCEPT_URBG

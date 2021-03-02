@@ -518,45 +518,73 @@ namespace s3d
 		[[nodiscard]]
 		constexpr RectF scaledAt(Vec2 _pos, Vec2 s) const noexcept;
 
+		/// @brief 長方形が大きさを持っているかを返します。
+		/// @return 長方形が大きさを持っている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool hasArea() const noexcept;
 
+		/// @brief 長方形の左上の座標を返します。
+		/// @return 長方形の左上の座標
 		[[nodiscard]]
 		constexpr size_type tl() const noexcept;
 
+		/// @brief 長方形の右上の座標を返します。
+		/// @return 長方形の右上の座標
 		[[nodiscard]]
 		constexpr size_type tr() const noexcept;
 
-		[[nodiscard]]
-		constexpr size_type bl() const noexcept;
-
+		/// @brief 長方形の左下の座標を返します。
+		/// @return 長方形の左下の座標
 		[[nodiscard]]
 		constexpr size_type br() const noexcept;
 
+		/// @brief 長方形の右下の座標を返します。
+		/// @return 長方形の右下の座標
+		[[nodiscard]]
+		constexpr size_type bl() const noexcept;
+
+		/// @brief 長方形の上辺の中心座標を返します。
+		/// @return 長方形の上辺の中心座標
 		[[nodiscard]]
 		constexpr Vec2 topCenter() const noexcept;
 
-		[[nodiscard]]
-		constexpr Vec2 bottomCenter() const noexcept;
-
-		[[nodiscard]]
-		constexpr Vec2 leftCenter() const noexcept;
-
+		/// @brief 長方形の右辺の中心座標を返します。
+		/// @return 長方形の右辺の中心座標
 		[[nodiscard]]
 		constexpr Vec2 rightCenter() const noexcept;
 
+		/// @brief 長方形の下辺の中心座標を返します。
+		/// @return 長方形の下辺の中心座標
+		[[nodiscard]]
+		constexpr Vec2 bottomCenter() const noexcept;
+
+		/// @brief 長方形の左辺の中心座標を返します。
+		/// @return 長方形の左辺の中心座標
+		[[nodiscard]]
+		constexpr Vec2 leftCenter() const noexcept;
+
+		/// @brief 長方形の中心座標を返します。
+		/// @return 長方形の中心座標
 		[[nodiscard]]
 		constexpr Vec2 center() const noexcept;
 
+		/// @brief 長方形の上辺を Line として返します。
+		/// @return 長方形の上辺
 		[[nodiscard]]
 		constexpr Line top() const noexcept;
 
+		/// @brief 長方形の右辺を Line として返します。
+		/// @return 長方形の右辺
 		[[nodiscard]]
 		constexpr Line right() const noexcept;
 
+		/// @brief 長方形の下辺を Line として返します。
+		/// @return 長方形の下辺
 		[[nodiscard]]
 		constexpr Line bottom() const noexcept;
 
+		/// @brief 長方形の左辺を Line として返します。
+		/// @return 長方形の左辺
 		[[nodiscard]]
 		constexpr Line left() const noexcept;
 
@@ -600,15 +628,26 @@ namespace s3d
 		[[nodiscard]]
 		Polygon rounded(double tl, double tr, double br, double bl) const noexcept;
 
+		/// @brief 長方形を Quad として返します。
+		/// @return 長方形の Quad
 		[[nodiscard]]
 		constexpr Quad asQuad() const noexcept;
 
+		/// @brief 長方形の輪郭を LineString として返します。
+		/// @param closeRing 頂点配列の終点を始点と重ねるかどうか
+		/// @return 長方形の輪郭の LineString
 		[[nodiscard]]
 		LineString outline(CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 長方形の輪郭の一部を LineString として返します。
+		/// @param distanceFromOrigin 開始地点の距離（長方形の左上の頂点から時計回りでの距離）
+		/// @param length 長さ
+		/// @return 長方形の輪郭の一部の LineString
 		[[nodiscard]]
 		LineString outline(double distanceFromOrigin, double length) const;
 
+		/// @brief 長方形を Polygon として返します。
+		/// @return 長方形の Polygon
 		[[nodiscard]]
 		Polygon asPolygon() const;
 
@@ -633,24 +672,38 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
+		/// @brief 長方形が現在のフレームで左クリックされ始めたかを返します。
+		/// @return 長方形が現在のフレームで左クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftClicked() const noexcept;
 
+		/// @brief 長方形が左クリックされているかを返します。
+		/// @return 長方形が左クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftPressed() const noexcept;
 
+		/// @brief 現在のフレームで長方形への左クリックが離されたかを返します。
+		/// @return 現在のフレームで長方形への左クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftReleased() const noexcept;
 
+		/// @brief 長方形が現在のフレームで右クリックされ始めたかを返します。
+		/// @return 長方形が現在のフレームで右クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightClicked() const noexcept;
 
+		/// @brief 長方形が右クリックされているかを返します。
+		/// @return 長方形が右クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightPressed() const noexcept;
 
+		/// @brief 現在のフレームで長方形への右クリックが離されたかを返します。
+		/// @return 現在のフレームで長方形への右クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightReleased() const noexcept;
 
+		/// @brief 長方形上にマウスカーソルがあるかを返します。
+		/// @return 長方形上にマウスカーソルがある場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
@@ -662,22 +715,65 @@ namespace s3d
 
 		//const Rect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
+		/// @brief 長方形を描画します。
+		/// @param color 色
+		/// @return *this
 		const Rect& draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 長方形を描画します。
+		/// @param colors 左上、右上、右下、左下の各頂点の色
+		/// @remark 描画時には 2 つの三角形に分割されるため、斜め方向のグラデーションは方向によってグラデーションのかかり方が変わります。上下、左右方向のグラデーションには影響しません。
+		/// @return *this
 		const Rect& draw(const ColorF(&colors)[4]) const;
 
+		/// @brief 長方形を描画します。
+		/// @param topColor 長方形の上側の色
+		/// @param bottomColor 長方形の下側の色
+		/// @remark `rect.draw(Arg::top = ColorF{ 0.0 }, Arg::bottom = ColorF{ 1.0 })` のように呼びます。
+		/// @return *this
 		const Rect& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
+		/// @brief 長方形を描画します。
+		/// @param leftColor 長方形の左側の色
+		/// @param rightColor 長方形の右側の色
+		/// @remark `rect.draw(Arg::left = ColorF{ 0.0 }, Arg::right = ColorF{ 1.0 })` のように呼びます。
+		/// @return *this
 		const Rect& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
+		/// @brief 長方形の枠を描画します。
+		/// @param thickness 枠の太さ
+		/// @param color 色
+		/// @return *this
 		const Rect& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		/// @brief 長方形の枠を描画します。
+		/// @param thickness 枠の太さ
+		/// @param innerColor 内側寄りの枠の色
+		/// @param outerColor 外側寄りの枠の色
+		/// @return *this
 		const Rect& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 長方形の枠を描画します。
+		/// @param innerThickness 内側寄りの枠の太さ
+		/// @param outerThickness 外側寄りの枠の太さ
+		/// @param color 色
+		/// @return *this
 		const Rect& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
+		/// @brief 長方形の枠を描画します。
+		/// @param innerThickness 内側寄りの枠の太さ
+		/// @param outerThickness 外側寄りの枠の太さ
+		/// @param innerColor 内側寄りの枠の色
+		/// @param outerColor 外側寄りの枠の色
+		/// @return *this
 		const Rect& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 長方形の影を描画します。
+		/// @param offset 影の位置のオフセット（ピクセル）
+		/// @param blurRadius 影のぼかし半径（ピクセル）
+		/// @param spread 影の膨張（ピクセル）
+		/// @param color 影の色
+		/// @return *this
 		const Rect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]

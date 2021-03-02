@@ -17,8 +17,15 @@
 
 namespace s3d
 {
+	/// @brief 指定した位置にテキストを描画します。
+	/// @param s テキスト
+	/// @param x 描画する中心の X 座標
+	/// @param y 描画する中心の Y 座標
 	void PutText(String&& s, double x, double y);
 
+	/// @brief 指定した位置にテキストを描画します。
+	/// @param s テキスト
+	/// @param center 描画する中心座標
 	void PutText(String&& s, Vec2 center);
 
 	void PutText(String&& s, Arg::topLeft_<Vec2> topLeft);

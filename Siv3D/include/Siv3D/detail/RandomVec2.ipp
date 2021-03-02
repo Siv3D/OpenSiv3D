@@ -44,7 +44,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(const double x, const std::pair<double, double>& yMinMax, URBG&& urbg)
 	{
-		return{ x, Random(yMinMax.first, yMinMax.second, std::forward<URBG>(urbg)) };
+		return{ x, RandomClosed(yMinMax.first, yMinMax.second, std::forward<URBG>(urbg)) };
 	}
 
 	inline Vec2 RandomVec2(const std::pair<double, double>& xMinMax, const double y)
@@ -55,7 +55,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(const std::pair<double, double>& xMinMax, const double y, URBG&& urbg)
 	{
-		return{ Random(xMinMax.first, xMinMax.second, std::forward<URBG>(urbg)), y };
+		return{ RandomClosed(xMinMax.first, xMinMax.second, std::forward<URBG>(urbg)), y };
 	}
 
 	inline Vec2 RandomVec2(const std::pair<double, double>& xMinMax, const std::pair<double, double>& yMinMax)
@@ -66,8 +66,8 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(const std::pair<double, double>& xMinMax, const std::pair<double, double>& yMinMax, URBG&& urbg)
 	{
-		return{ Random(xMinMax.first, xMinMax.second, std::forward<URBG>(urbg)),
-				Random(yMinMax.first, yMinMax.second, std::forward<URBG>(urbg)) };
+		return{ RandomClosed(xMinMax.first, xMinMax.second, std::forward<URBG>(urbg)),
+				RandomClosed(yMinMax.first, yMinMax.second, std::forward<URBG>(urbg)) };
 	}
 
 	inline Vec2 RandomVec2(const double xMax, const double yMax)
@@ -78,8 +78,8 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(const double xMax, const double yMax, URBG&& urbg)
 	{
-		return{ Random(xMax, std::forward<URBG>(urbg)),
-				Random(yMax, std::forward<URBG>(urbg)) };
+		return{ RandomClosed(0.0, xMax, std::forward<URBG>(urbg)),
+				RandomClosed(0.0, yMax, std::forward<URBG>(urbg)) };
 	}
 
 	inline Vec2 RandomVec2(const Line& line)
@@ -90,7 +90,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Vec2 RandomVec2(const Line& line, URBG&& urbg)
 	{
-		return line.position(Random(std::forward<URBG>(urbg)));
+		return line.position(RandomClosed(0.0, 1.0, std::forward<URBG>(urbg)));
 	}
 
 	inline Vec2 RandomVec2(const Circle& circle)
