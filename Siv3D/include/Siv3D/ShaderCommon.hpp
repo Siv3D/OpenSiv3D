@@ -24,6 +24,7 @@ namespace s3d
 	struct MSL;
 	struct ESSL;
 
+	/// @brief HLSL ファイル
 	struct HLSL
 	{
 		FilePath path;
@@ -52,6 +53,7 @@ namespace s3d
 		operator PixelShader() const;
 	};
 
+	/// @brief GLSL ファイル
 	struct GLSL
 	{
 		FilePath path;
@@ -77,6 +79,7 @@ namespace s3d
 		operator PixelShader() const;
 	};
 
+	/// @brief Metal Shading Language ファイル
 	struct MSL
 	{
 		FilePath path;
@@ -105,6 +108,7 @@ namespace s3d
 		operator PixelShader() const;
 	};
 
+	/// @brief OpenGL ES Shading Language ファイル
 	struct ESSL
 	{
 		FilePath path;
