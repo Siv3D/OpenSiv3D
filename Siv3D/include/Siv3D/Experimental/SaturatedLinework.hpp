@@ -21,6 +21,9 @@
 
 namespace s3d
 {
+	/// @brief 集中線描画クラス
+	/// @tparam TargetShape 集中線で囲む図形の形状を表す型
+	/// @tparam URNG 使用する乱数エンジンの型
 	template <class TargetShape = Ellipse, class URNG = DefaultRNG>
 	class SaturatedLinework
 	{

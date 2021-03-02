@@ -59,34 +59,34 @@ namespace s3d
 			Quad{ x1, y1, x4, y4, x5, y5, x2, y2 }.draw(color);
 		}
 
-		inline void DrawSegment(const Vec2& center, const double w, const double t, const ColorF& color, const bool isHorizontal)
+		inline void DrawSegment(const Vec2& center, const double size, const double halfThickness, const ColorF& color, const bool isHorizontal)
 		{
 			if (isHorizontal)
 			{
-				DrawHorizontalSegment(center, w, t, color);
+				DrawHorizontalSegment(center, size, halfThickness, color);
 			}
 			else
 			{
-				DrawVerticalSegment(center, w, t, color);
+				DrawVerticalSegment(center, size, halfThickness, color);
 			}
 		}
 	}
 
 	namespace SevenSegment
 	{
-		inline void Draw(const std::array<bool, 7>& states, const Vec2& pos, const double width, const double t, const double s, const ColorF& colorON, const ColorF& colorOFF)
+		inline void Draw(const std::array<bool, 7>& states, const Vec2& pos, const double size, const double halfThickness, const double s, const ColorF& colorON, const ColorF& colorOFF)
 		{
-			const double w = width - t * 4;
+			const double w = size - halfThickness * 4;
 
-			const double x0 = pos.x + t;
-			const double x1 = pos.x + t * 2 + w / 2;
-			const double x2 = pos.x + width - t;
+			const double x0 = pos.x + halfThickness;
+			const double x1 = pos.x + halfThickness * 2 + w / 2;
+			const double x2 = pos.x + size - halfThickness;
 
-			const double y0 = pos.y + 1 * t;
-			const double y1 = pos.y + 2 * t + 0.5 * w;
-			const double y2 = pos.y + 3 * t + 1.0 * w;
-			const double y3 = pos.y + 4 * t + 1.5 * w;
-			const double y4 = pos.y + 5 * t + 2.0 * w;
+			const double y0 = pos.y + 1 * halfThickness;
+			const double y1 = pos.y + 2 * halfThickness + 0.5 * w;
+			const double y2 = pos.y + 3 * halfThickness + 1.0 * w;
+			const double y3 = pos.y + 4 * halfThickness + 1.5 * w;
+			const double y4 = pos.y + 5 * halfThickness + 2.0 * w;
 
 			// Horizontalならtrue
 			const std::pair<Vec2, bool> positions[7] = {
@@ -101,11 +101,11 @@ namespace s3d
 
 			for (size_t i = 0; i < 7; ++i)
 			{
-				detail::DrawSegment(positions[i].first, (w - s), t, (states[i] ? colorON : colorOFF), positions[i].second);
+				detail::DrawSegment(positions[i].first, (w - s), halfThickness, (states[i] ? colorON : colorOFF), positions[i].second);
 			}
 		}
 
-		inline void DrawChar(const char32 ch, const Vec2& pos, const double width, const double t, const double s, const ColorF& colorON, const ColorF& colorOFF)
+		inline void DrawChar(const char32 ch, const Vec2& pos, const double size, const double halfThickness, const double s, const ColorF& colorON, const ColorF& colorOFF)
 		{
 			if (not InRange(ch, U'0', U'9')
 				&& (ch != U' ')
@@ -133,14 +133,14 @@ namespace s3d
 			const bool isMinus = (ch == U'-');
 			const int32 tableIndex = (isSpace ? 10 : isMinus ? 11 : (ch - U'0'));
 
-			Draw(statesTable[tableIndex], pos, width, t, s, colorON, colorOFF);
+			Draw(statesTable[tableIndex], pos, size, halfThickness, s, colorON, colorOFF);
 		}
 
-		inline void DrawText(const StringView text, const Vec2& pos, const double width, const double t, const double s, const double margin, const ColorF& colorON, const ColorF& colorOFF)
+		inline void DrawText(const StringView text, const Vec2& pos, const double size, const double halfThickness, const double s, const double margin, const ColorF& colorON, const ColorF& colorOFF)
 		{
 			for (size_t i = 0; i < text.length(); ++i)
 			{
-				DrawChar(text[i], { pos.x + i * (width + margin), pos.y }, width, t, s, colorON, colorOFF);
+				DrawChar(text[i], { pos.x + i * (size + margin), pos.y }, size, halfThickness, s, colorON, colorOFF);
 			}
 		}
 	}

@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief トランプカードの描画
 	namespace PlayingCard
 	{
 		/// @brief カードのスート（絵柄のマーク）
@@ -160,6 +161,140 @@ namespace s3d
 		/// @brief カードの描画用の情報
 		struct CardInfo
 		{
+		public:
+
+			/// @brief デフォルトコンストラクタ
+			CardInfo() = default;
+
+			/// @brief カードの情報を作成します。
+			/// @param card カード
+			/// @param font 描画に使用するフォント
+			/// @param fontLarge 描画に使用するフォント
+			/// @param size カードの大きさ
+			/// @param frameThickness 枠の太さ
+			/// @param backSideColor 裏面の色
+			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Font& fontEmoji, const Vec2& size, double frameThickness, const ColorF& backSideColor);
+
+			/// @brief カードの裏面を描画します。
+			/// @param pos カードの左上の座標
+			void drawBack(const Vec2& pos) const;
+
+			/// @brief カードの裏面を描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			void drawBack(double x, double y) const;
+
+			/// @brief カードの裏面を描画します。
+			/// @param pos カードの左上の座標
+			/// @param angle カードの時計回りの回転
+			void drawBack(const Vec2& pos, double angle) const;
+
+			/// @brief カードの裏面を描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			/// @param angle カードの時計回りの回転
+			void drawBack(double x, double y, double angle) const;
+
+			/// @brief 中心座標を指定してカードの裏面を描画します。
+			/// @param center カードの中心の座標
+			void drawBackAt(const Vec2& center) const;
+
+			/// @brief 中心座標を指定してカードの裏面を描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			void drawBackAt(double x, double y) const;
+
+			/// @brief 中心座標を指定してカードの裏面を描画します。
+			/// @param center カードの中心の座標
+			/// @param angle カードの時計回りの回転
+			void drawBackAt(const Vec2& center, double angle) const;
+
+			/// @brief 中心座標を指定してカードの裏面を描画します。
+			/// @param x カードの中心の X 座標
+			/// @param y カードの中心の Y 座標
+			/// @param angle カードの時計回りの回転
+			void drawBackAt(double x, double y, double angle) const;
+
+			/// @brief カードを描画します。
+			/// @param pos カードの左上の座標
+			void draw(const Vec2& pos) const;
+
+			/// @brief カードを描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			void draw(double x, double y) const;
+
+			/// @brief カードを描画します。
+			/// @param pos カードの左上の座標
+			/// @param angle カードの時計回りの回転
+			void draw(const Vec2& pos, double angle) const;
+
+			/// @brief カードを描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			/// @param angle カードの時計回りの回転
+			void draw(double x, double y, double angle) const;
+
+			/// @brief 中心座標を指定してカードを描画します。
+			/// @param center カードの中心の座標
+			void drawAt(const Vec2& center) const;
+
+			/// @brief 中心座標を指定してカードを描画します。
+			/// @param x カードの中心の X 座標
+			/// @param y カードの中心の Y 座標
+			void drawAt(double x, double y) const;
+
+			/// @brief 中心座標を指定してカードを描画します。
+			/// @param center カードの中心の座標
+			/// @param angle カードの時計回りの回転
+			void drawAt(const Vec2& center, double angle) const;
+
+			/// @brief 中心座標を指定してカードを描画します。
+			/// @param x カードの中心の X 座標
+			/// @param y カードの中心の Y 座標
+			/// @param angle カードの時計回りの回転
+			void drawAt(double x, double y, double angle) const;
+
+			/// @brief シンプルなデザインでカードを描画します。
+			/// @param pos カードの左上の座標
+			void drawSimple(const Vec2& pos) const;
+
+			/// @brief シンプルなデザインでカードを描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			void drawSimple(double x, double y) const;
+
+			/// @brief シンプルなデザインでカードを描画します。
+			/// @param pos カードの左上の座標
+			/// @param angle カードの時計回りの回転
+			void drawSimple(const Vec2& pos, double angle) const;
+
+			/// @brief シンプルなデザインでカードを描画します。
+			/// @param x カードの左上の X 座標
+			/// @param y カードの左上の Y 座標
+			/// @param angle カードの時計回りの回転
+			void drawSimple(double x, double y, double angle) const;
+
+			/// @brief 中心座標を指定してシンプルなデザインでカードを描画します。
+			/// @param center カードの中心の座標
+			void drawSimpleAt(const Vec2& center) const;
+
+			/// @brief 中心座標を指定してシンプルなデザインでカードを描画します。
+			/// @param x カードの中心の X 座標
+			/// @param y カードの中心の Y 座標
+			void drawSimpleAt(double x, double y) const;
+
+			/// @brief 中心座標を指定してシンプルなデザインでカードを描画します。
+			/// @param center カードの中心の座標
+			/// @param angle カードの時計回りの回転
+			void drawSimpleAt(const Vec2& center, double angle) const;
+
+			/// @brief 中心座標を指定してシンプルなデザインでカードを描画します。
+			/// @param x カードの中心の X 座標
+			/// @param y カードの中心の Y 座標
+			/// @param angle カードの時計回りの回転
+			void drawSimpleAt(double x, double y, double angle) const;
+
 		private:
 
 			static constexpr double corner = 0.045;
@@ -184,410 +319,17 @@ namespace s3d
 
 				Vec2 offset;
 			};
-
-		public:
-
-			/// @brief デフォルトコンストラクタ
-			CardInfo() = default;
-
-			/// @brief カードの情報を作成します。
-			/// @param card カード
-			/// @param font 描画に使用するフォント
-			/// @param fontLarge 描画に使用するフォント
-			/// @param size カードの大きさ
-			/// @param frameThickness 枠の太さ
-			/// @param backSideColor 裏面の色
-			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Font& fontEmoji, const Vec2& size, double frameThickness, const ColorF& backSideColor)
-				: m_card{ card }
-				, m_font{ font }
-				, m_fontLarge{ fontLarge }
-				, m_fontEmoji{ fontEmoji }
-				, m_cardSize{ size }
-				, m_backSideColor{ backSideColor }
-				, m_frameThickness{ frameThickness }
-			{
-				assert(card.isValid());
-			}
-
-			/// @brief カードの裏面を描画します。
-			/// @param pos カードの左上の座標
-			void drawBack(const Vec2& pos) const
-			{
-				RoundRect{ pos, m_cardSize, (m_cardSize.x * corner) }
-					.draw()
-					.drawFrame(0.0, m_frameThickness, Palette::Black)
-					.rect.stretched(m_cardSize.x * -0.1).draw(m_backSideColor);
-			}
-
-			void drawBack(double x, double y) const
-			{
-				drawBack(Vec2{ x, y });
-			}
-
-			/// @brief カードの裏面を描画します。
-			/// @param pos カードの左上の座標
-			/// @param angle カードの時計回りの回転
-			void drawBack(const Vec2& pos, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, (pos + m_cardSize / 2)) };
-
-				drawBack(pos);
-			}
-
-			void drawBack(double x, double y, double angle) const
-			{
-				drawBack(Vec2{ x, y }, angle);
-			}
-
-			/// @brief 中心座標を指定してカードの裏面を描画します。
-			/// @param center カードの中心の座標
-			void drawBackAt(const Vec2& center) const
-			{
-				drawBack(center - m_cardSize * 0.5);
-			}
-
-			void drawBackAt(double x, double y) const
-			{
-				drawBackAt(Vec2{ x, y });
-			}
-
-			/// @brief 中心座標を指定してカードの裏面を描画します。
-			/// @param center カードの中心の座標
-			/// @param angle カードの時計回りの回転
-			void drawBackAt(const Vec2& center, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
-
-				drawBackAt(center);
-			}
-
-			void drawBackAt(double x, double y, double angle) const
-			{
-				drawBackAt(Vec2{ x, y }, angle);
-			}
-
-			/// @brief カードを描画します。
-			/// @param pos カードの左上の座標
-			void draw(const Vec2& pos) const
-			{
-				if (not m_card.isFaceSide)
-				{
-					return drawBack(pos);
-				}
-
-				static const std::array<Array<DrawInfo>, 9> drawInfos =
-				{ {
-					{	// 2
-						DrawInfo{ false, Vec2{ 0.0,-1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.0,1.0 / 3.0 } }
-					},
-
-					{	// 3
-						DrawInfo{ false, Vec2{ 0.0,0.0 } },
-						DrawInfo{ false, Vec2{ 0.0,-1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.0,1.0 / 3.0 } }
-					},
-
-					{	// 4
-						DrawInfo{ false, Vec2{ 0.2,-1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ -0.2,1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2,1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2,-1.0 / 3.0 } }
-					},
-
-					{	// 5
-						DrawInfo{ false, Vec2{ 0.2,-1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ -0.2,1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2,1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2,-1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.0,0.0 } }
-					},
-
-					{	// 5
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2, 0.0 } },
-						DrawInfo{ false, Vec2{ 0.2, 0.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 3.0 } },
-					},
-
-					{	// 6
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2, 0.0 } },
-						DrawInfo{ false, Vec2{ 0.2, 0.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.0, -1.0 / 6.0 } },
-					},
-
-					{	// 7
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2, 0.0 } },
-						DrawInfo{ false, Vec2{ 0.2, 0.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.0, -1.0 / 6.0 } },
-						DrawInfo{ true, Vec2{ 0.0, 1.0 / 6.0 } },
-					},
-
-					{	// 8
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 9.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 9.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 9.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 9.0 } },
-						DrawInfo{ false, Vec2{ 0.0, 0.0 } },
-					},
-
-					{	// 9
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 3.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 3.0 } },
-						DrawInfo{ false, Vec2{ -0.2, -1.0 / 9.0 } },
-						DrawInfo{ false, Vec2{ 0.2, -1.0 / 9.0 } },
-						DrawInfo{ true, Vec2{ -0.2, 1.0 / 9.0 } },
-						DrawInfo{ true, Vec2{ 0.2, 1.0 / 9.0 } },
-						DrawInfo{ false, Vec2{ 0.0, -1.0 / 4.5 } },
-						DrawInfo{ true, Vec2{ 0.0, 1.0 / 4.5 } }
-					},
-				} };
-
-				const Vec2 center = (pos + m_cardSize * 0.5);
-				const Vec2 centering = (m_cardSize * 0.1);
-				const double drawSize = (0.34 / 0.467);
-				const ColorF color = (m_card.isRed() ? Palette::Red : Palette::Black);
-
-				RoundRect{ pos, m_cardSize, (m_cardSize.x * corner) }
-					.draw()
-					.drawFrame(0, m_frameThickness, Palette::Black);
-
-				if (m_card.isJoker())
-				{
-					const Array<Glyph> glyphs = m_font.getGlyphs(U"JOKER");
-					const double height = glyphs[0].texture.size.y * drawSize * 1.08;
-					const Vec2 drawPos{ centering / 10 + Vec2{ glyphs[0].texture.resized(Vec2{ glyphs[0].texture.size } * drawSize).size.x, height * 0.5 } };
-
-					for (size_t a = 0; a < glyphs.size(); ++a)
-					{
-						const TextureRegion t = glyphs[a].texture.resized(Vec2{ glyphs[0].texture.size } * drawSize);
-						t.drawAt(pos + drawPos + Vec2{ 0, a * height * 1.2 }, color);
-						t.flipped().mirrored().drawAt(pos - drawPos - Vec2{ 0, a * height * 1.2 } + m_cardSize, color);
-					}
-
-					m_fontEmoji.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
-
-					return;
-				}
-
-				const Glyph suitGlyph = m_font.getGlyph(Card::GetSuit(m_card.suit));
-				const Glyph rankGlyph = m_font.getGlyph(Card::GetRank(m_card.rank)[0]);
-				const Vec2 suitpos{ 0.0, m_cardSize.y * 0.13888 };
-
-				suitGlyph.texture.scaled(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
-				suitGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering - suitpos, color);
-
-				if (m_card.rank == 10)
-				{
-					const auto zerotexture = m_font.getGlyph(U'0');
-					const Vec2 rankSize = Vec2{ rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y } *drawSize;
-
-					rankGlyph.texture.resized(rankSize)
-						.drawAt(pos + centering - Vec2{ rankSize.x * 1.1, 0 }, color);
-					rankGlyph.texture.resized(rankSize)
-						.flipped().mirrored()
-						.drawAt(pos + m_cardSize - centering + Vec2{ rankSize.x * 1.1, 0 }, color);
-
-					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
-						.drawAt(pos + centering + Vec2{ rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0 }, color);
-					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
-						.flipped().mirrored()
-						.drawAt(pos - centering + Vec2{ -rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0 } + m_cardSize, color);
-				}
-				else
-				{
-					rankGlyph.texture.scaled(drawSize).drawAt(pos + centering, color);
-					rankGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering, color);
-				}
-
-				if (InRange(m_card.rank, 2, 10))
-				{
-					for (const auto& drawInfo : drawInfos[m_card.rank - 2])
-					{
-						suitGlyph.texture.flipped(drawInfo.flip).drawAt(center.movedBy(m_cardSize * drawInfo.offset), color);
-					}
-				}
-				else
-				{
-					const char32 c[4] = { static_cast<char32>(Card::GetSuit(m_card.suit)), U'\x1f482', U'\x1f478', U'\x1f474' };
-
-					m_fontEmoji.getGlyph(c[(m_card.rank - 1) % 9 % 4]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2{ 0, m_cardSize.y / 12 - m_cardSize.y / 21 } : Vec2::Zero()), color);
-
-					if (m_card.isKing())
-					{
-						m_fontEmoji.getGlyph(U'\x1f451').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
-					}
-				}
-			}
-
-			void draw(double x, double y) const
-			{
-				draw(Vec2{ x, y });
-			}
-
-			/// @brief カードを描画します。
-			/// @param pos カードの左上の座標
-			/// @param angle カードの時計回りの回転
-			void draw(const Vec2& pos, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, pos + m_cardSize / 2) };
-
-				draw(pos);
-			}
-
-			void draw(double x, double y, double angle) const
-			{
-				draw(Vec2{ x, y }, angle);
-			}
-
-			/// @brief 中心座標を指定してカードを描画します。
-			/// @param center カードの中心の座標
-			void drawAt(const Vec2& center) const
-			{
-				draw(center - m_cardSize * 0.5);
-			}
-
-			void drawAt(double x, double y) const
-			{
-				drawAt(Vec2{ x, y });
-			}
-
-			/// @brief 中心座標を指定してカードを描画します。
-			/// @param center カードの中心の座標
-			/// @param angle カードの時計回りの回転
-			void drawAt(const Vec2& center, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
-
-				draw(center - m_cardSize * 0.5);
-			}
-
-			void drawAt(double x, double y, double angle) const
-			{
-				drawAt(Vec2{ x, y }, angle);
-			}
-
-			/// @brief シンプルなデザインの描画を行います。
-			/// @param pos カードの左上の座標
-			void drawSimple(const Vec2& pos) const
-			{
-				if (m_card.isFaceSide)
-				{
-					const RectF rect{ pos, m_cardSize };
-					RoundRect{ rect, rect.w * corner }
-						.draw()
-						.drawFrame(m_frameThickness, Palette::Black);
-
-					if (not m_card.isJoker())
-					{
-						const ColorF color = (m_card.isRed() ? Palette::Red : Palette::Black);
-						const char32 suit = Card::GetSuit(m_card.suit);
-						const StringView rank = Card::GetRank(m_card.rank);
-
-						m_fontLarge(suit).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.3), color);
-						m_fontLarge(rank).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.67), color);
-					}
-					else
-					{
-						m_fontEmoji.getGlyph(U'♋').texture.scaled(0.9).drawAt(rect.center(), Palette::Black);
-					}
-				}
-				else
-				{
-					drawBack(pos);
-				}
-			}
-
-			void drawSimple(double x, double y) const
-			{
-				drawSimple(Vec2{ x, y });
-			}
-
-			/// @brief シンプルなデザインの描画を行います。
-			/// @param pos カードの左上の座標
-			/// @param angle カードの時計回りの回転
-			void drawSimple(const Vec2& pos, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, pos + m_cardSize / 2) };
-
-				drawSimple(pos);
-			}
-
-			void drawSimple(double x, double y, double angle) const
-			{
-				drawSimple(Vec2{ x, y }, angle);
-			}
-
-			/// @brief 中心座標を指定してシンプルなデザインの描画を行います。
-			/// @param center カードの中心の座標
-			void drawSimpleAt(const Vec2& center) const
-			{
-				drawSimple(center - m_cardSize * 0.5);
-			}
-
-			void drawSimpleAt(double x, double y) const
-			{
-				drawSimpleAt(Vec2{ x, y });
-			}
-
-			/// @brief 中心座標を指定してシンプルなデザインの描画を行います。
-			/// @param center カードの中心の座標
-			/// @param angle カードの時計回りの回転
-			void drawSimpleAt(const Vec2& center, double angle) const
-			{
-				const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
-
-				drawSimple(center - m_cardSize * 0.5);
-			}
-
-			void drawSimpleAt(double x, double y, double angle) const
-			{
-				drawSimpleAt(Vec2{ x, y }, angle);
-			}
 		};
 
 		/// @brief カードに用いるフォントの大きさを計算します。
 		/// @param cardWidth カードの幅（ピクセル）
 		/// @return カードに用いるフォントの大きさ
 		[[nodiscard]]
-		constexpr inline int32 CalculateFontSize(double cardWidth) noexcept
-		{
-			return Max(static_cast<int32>(cardWidth * (2.0 / 3.0)), 1);
-		}
+		inline constexpr int32 CalculateFontSize(double cardWidth) noexcept;
 
 		/// @brief カードを作成するクラス
 		class Pack
 		{
-		private:
-
-			Font m_font;
-
-			Font m_fontLarge;
-
-			Font m_fontEmoji;
-
-			Vec2 m_cardSize = { 0, 0 };
-
-			ColorF m_backSideColor = Palette::Blue;
-
-			double m_framethickness = 0.0;
-
 		public:
 
 			/// @brief デフォルトコンストラクタ
@@ -601,25 +343,13 @@ namespace s3d
 			/// @param backSideColor カード背面の色
 			/// @param frameThickness カードの枠の太さ
 			/// @remark フォントの大きさは `PlayingCard::CalculateFontSize()` を使って計算します。
-			explicit Pack(const Font& font, const Font& fontLarge, const Font& fontEmoji, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
-				: m_font{ font }
-				, m_fontLarge{ fontLarge }
-				, m_fontEmoji{ fontEmoji }
-				, m_cardSize{ cardWidth, cardWidth * Math::Phi }
-				, m_backSideColor{ backSideColor }
-				, m_framethickness{ frameThickness } {}
+			explicit Pack(const Font& font, const Font& fontLarge, const Font& fontEmoji, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0);
 
 			/// @brief カードを扱うための構造体を作成します。
 			/// @param cardWidth カードの幅（ピクセル）
 			/// @param backSideColor カード背面の色
 			/// @param frameThickness カードの枠の太さ
-			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
-				: m_font{ CalculateFontSize(cardWidth * 0.475) }
-				, m_fontLarge{ CalculateFontSize(cardWidth) }
-				, m_fontEmoji{ CalculateFontSize(cardWidth), Typeface::MonochromeEmoji }
-				, m_cardSize{ cardWidth, cardWidth * Math::Phi }
-				, m_backSideColor{ backSideColor }
-				, m_framethickness{ frameThickness } {}
+			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0);
 
 			/// @brief カードの描画用の情報を作成します。
 			/// @param suit カードのスート
@@ -627,81 +357,68 @@ namespace s3d
 			/// @param isFaceSide カードが表面かどうか
 			/// @return カードの描画用の情報
 			[[nodiscard]]
-			CardInfo operator ()(Suit suit, int32 rank = 1, bool isFaceSide = Card::Front) const
-			{
-				return operator()(Card{ suit, rank, isFaceSide });
-			}
+			CardInfo operator ()(Suit suit, int32 rank = 1, bool isFaceSide = Card::Front) const;
 
 			/// @brief カードの描画用の情報を作成します。
 			/// @param card カード
 			/// @return カードの描画用の情報
 			[[nodiscard]]
-			CardInfo operator ()(const Card& card) const
-			{
-				return CardInfo{ card, m_font, m_fontLarge, m_fontEmoji, m_cardSize, m_framethickness, m_backSideColor };
-			}
+			CardInfo operator ()(const Card& card) const;
 
 			/// @brief カードの大きさ（ピクセル）を返します。
 			/// @return カードの大きさ（ピクセル）
 			[[nodiscard]]
-			Vec2 size() const noexcept
-			{
-				return m_cardSize;
-			}
+			Vec2 size() const noexcept;
 
 			/// @brief カードの幅（ピクセル）を返します。
 			/// @return カードの幅（ピクセル）
 			[[nodiscard]]
-			double width() const noexcept
-			{
-				return m_cardSize.x;
-			}
+			double width() const noexcept;
 
 			/// @brief カードの高さ（ピクセル）を返します。
 			/// @return カードの高さ（ピクセル）
 			[[nodiscard]]
-			double height() const noexcept
-			{
-				return m_cardSize.y;
-			}
+			double height() const noexcept;
 
 			/// @brief カードの領域を返します。
 			/// @param pos カードの左上の座標
 			/// @return カードの領域
 			[[nodiscard]]
-			RectF region(const Vec2& pos) const
-			{
-				return{ pos, m_cardSize };
-			}
+			RectF region(const Vec2& pos) const;
 
 			/// @brief カードの領域を返します。
 			/// @param pos カードの左上の座標
 			/// @param angle カードの時計回りの回転
 			/// @return カードの領域
 			[[nodiscard]]
-			Quad region(const Vec2& pos, double angle) const
-			{
-				return RectF{ pos, m_cardSize }.rotated(angle);
-			}
+			Quad region(const Vec2& pos, double angle) const;
 
 			/// @brief カードの領域を返します。
 			/// @param center カードの中心の座標
 			/// @return カードの領域
 			[[nodiscard]]
-			RectF regionAt(const Vec2& center) const
-			{
-				return{ Arg::center = center, m_cardSize };
-			}
+			RectF regionAt(const Vec2& center) const;
 
 			/// @brief カードの領域を返します。
 			/// @param center カードの中心の座標
 			/// @param angle カードの時計回りの回転
 			/// @return カードの領域
 			[[nodiscard]]
-			Quad regionAt(const Vec2& center, double angle) const
-			{
-				return RectF{ Arg::center = center, m_cardSize }.rotated(angle);
-			}
+			Quad regionAt(const Vec2& center, double angle) const;
+
+		private:
+
+			Font m_font;
+
+			Font m_fontLarge;
+
+			Font m_fontEmoji;
+
+			Vec2 m_cardSize = { 0, 0 };
+
+			ColorF m_backSideColor = Palette::Blue;
+
+			double m_framethickness = 0.0;
 		};
 
 		/// @brief カードの山札を作ります。
@@ -711,23 +428,7 @@ namespace s3d
 		/// @remark シャッフルしたい場合は、取得後に shuffle() します。
 		/// @return カードの山札		
 		[[nodiscard]]
-		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
-		{
-			Array<Card> cards(Arg::reserve = (13 * 4 + num_jokers));
-			{
-				for (uint16 suit = 0; suit < 4; ++suit)
-				{
-					for (int32 i = 1; i <= 13; ++i)
-					{
-						cards.emplace_back(static_cast<Suit>(suit), i, isFaceSide);
-					}
-				}
-
-				cards.insert(cards.end(), num_jokers, Card{ Suit::Joker, 0, isFaceSide });
-			}
-
-			return cards;
-		}
+		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front);
 	}
 }
 

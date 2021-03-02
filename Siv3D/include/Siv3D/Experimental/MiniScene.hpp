@@ -17,18 +17,28 @@
 
 namespace s3d
 {
+	/// @brief 簡易的なシーン管理
+	/// @tparam State シーンを区別するキーの型
 	template <class State>
 	class MiniScene
 	{
 	public:
 
+		/// @brief シーンの関数オブジェクトの型
 		using SceneFunction = std::function<void()>;
 
+		/// @brief デストラクタ
 		~MiniScene();
 
+		/// @brief シーンを登録します。
+		/// @tparam State 登録するシーンの型
+		/// @remark この関数の戻り値にシーンの関数オブジェクトを登録します。
+		/// @return シーンの関数オブジェクトへの参照
 		[[nodiscard]]
 		SceneFunction& operator [](const State& state);
 
+		/// @brief シーンを変更します。
+		/// @tparam State 次のシーンのキー
 		void changeState(const State& state);
 
 	private:

@@ -15,10 +15,10 @@ namespace s3d
 {
 	namespace InputIcon
 	{
-		inline Vec2 GetSize(const String& text, const Font& font, const double size)
+		inline Vec2 GetSize(const StringView label, const Font& font, const double size)
 		{
 			const double innerSize = (size * 0.8);
-			const double width = (font(text).region().w + size * 0.6);
+			const double width = (font(label).region().w + size * 0.6);
 			return{ (innerSize < width ? width : size), size };
 		}
 
@@ -27,7 +27,7 @@ namespace s3d
 			return GetSize(input.name(), font, size);
 		}
 
-		inline void DrawAt(const String& label, const bool isPressed, const Vec2& center, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
+		inline void DrawAt(const StringView label, const bool isPressed, const Vec2& center, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
 		{
 			const Vec2 outerKeyCenter = center + Vec2::Down(size * 0.1 * 0.5 * isPressed);
 			const double outerKeyHeight = size * (isPressed ? 0.9 : 1.0);
@@ -65,7 +65,7 @@ namespace s3d
 			DrawAt(input.name(), isPressed, center, font, size, (isPressed ? highlightColor : keyColor), labelColor);
 		}
 
-		inline void Draw(const String& label, const bool isPressed, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
+		inline void Draw(StringView label, const bool isPressed, const Vec2& pos, const Font& font, const double size, const ColorF& keyColor, const ColorF& labelColor)
 		{
 			DrawAt(label, isPressed, (pos + GetSize(label, font, size) * 0.5), font, size, keyColor, labelColor);
 		}

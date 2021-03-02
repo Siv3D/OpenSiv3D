@@ -17,28 +17,100 @@
 
 namespace s3d
 {
+	/// @brief 入力操作を可視化するアイコン
 	namespace InputIcon
 	{
+		/// @brief デフォルトのハイライトカラー
 		inline constexpr ColorF DefaultHighlightColor{ 1.0, 0.6, 0.6 };
 
+		/// @brief アイコンのサイズ（ピクセル）を返します。
+		/// @param label アイコンのラベル
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @return アイコンのサイズ（ピクセル）
 		[[nodiscard]]
-		inline Vec2 GetSize(const String& text, const Font& font, double size);
+		inline Vec2 GetSize(StringView label, const Font& font, double size);
 
+		/// @brief アイコンのサイズ（ピクセル）を返します。
+		/// @param input 入力オブジェクト
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @return アイコンのサイズ（ピクセル）
 		[[nodiscard]]
 		inline Vec2 GetSize(const Input& input, const Font& font, double size);
 
-		inline void DrawAt(const String& label, bool isPressed, const Vec2& center, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black);
+		/// @brief 入力操作を可視化するアイコンを描画します。
+		/// @param label アイコンのラベル
+		/// @param isPressed 押されている状態か
+		/// @param center アイコンを描画する中心座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		inline void DrawAt(StringView label, bool isPressed, const Vec2& center, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black);
 
+		/// @brief 入力操作を可視化するインタラクティブなアイコンを描画します。
+		/// @param input 入力オブジェクト
+		/// @param center アイコンを描画する中心座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		/// @param highlightColor 押されている操作のときのアイコンのハイライト色
 		inline void DrawInteractiveAt(const Input& input, const Vec2& center, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black, const ColorF& highlightColor = DefaultHighlightColor);
 
+		/// @brief 入力操作を可視化するアイコンを描画します。
+		/// @param input 入力オブジェクト
+		/// @param isPressed 押されている状態か
+		/// @param center アイコンを描画する中心座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		/// @param highlightColor 押されている操作のときのアイコンのハイライト色
 		inline void DrawAt(const Input& input, bool isPressed, const Vec2& center, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black, const ColorF& highlightColor = DefaultHighlightColor);
 
-		inline void Draw(const String& label, bool isPressed, const Vec2& pos, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black);
+		/// @brief 入力操作を可視化するアイコンを描画します。
+		/// @param label アイコンのラベル
+		/// @param isPressed 押されている状態か
+		/// @param pos アイコンを描画する左上の座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		inline void Draw(StringView label, bool isPressed, const Vec2& pos, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black);
 
+		/// @brief 入力操作を可視化するインタラクティブなアイコンを描画します。
+		/// @param input 入力オブジェクト
+		/// @param pos アイコンを描画する左上の座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		/// @param highlightColor 押されている操作のときのアイコンのハイライト色
 		inline void DrawInteractive(const Input& input, const Vec2& pos, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black, const ColorF& highlightColor = DefaultHighlightColor);
 
+		/// @brief 入力操作を可視化するアイコンを描画します。
+		/// @param input 入力オブジェクト
+		/// @param isPressed 押されている状態か
+		/// @param pos アイコンを描画する左上の座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		/// @param highlightColor 押されている操作のときのアイコンのハイライト色
 		inline void Draw(const Input& input, bool isPressed, const Vec2& pos, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black, const ColorF& highlightColor = DefaultHighlightColor);
 
+		/// @brief 入力操作を可視化するアイコンを描画します。
+		/// @remark Glyph と混在して描画しやすいよう描画座標が調整されます。
+		/// @param input 入力オブジェクト
+		/// @param pos アイコンを描画する左上の座標
+		/// @param font ラベルに使用するフォント
+		/// @param size アイコンの縦のサイズ（ピクセル）
+		/// @param keyColor アイコンの色
+		/// @param labelColor ラベルの色
+		/// @param highlightColor 押されている操作のときのアイコンのハイライト色
+		/// @return アイコンの幅（ピクセル）
 		inline double DrawAsGlyph(const Input& input, const Vec2& pos, const Font& font, double size, const ColorF& keyColor = Palette::White, const ColorF& labelColor = Palette::Black, const ColorF& highlightColor = DefaultHighlightColor);
 	}
 }
