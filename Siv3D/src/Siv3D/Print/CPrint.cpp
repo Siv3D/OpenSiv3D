@@ -143,7 +143,7 @@ namespace s3d
 			size_t lineOffset = 0;
 
 			ScopedRenderStates2D rb{ BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D };
-			
+
 			if (font.method() == FontMethod::Bitmap)
 			{
 				for (const auto& putText : m_puts)
@@ -154,8 +154,8 @@ namespace s3d
 					switch (putText.alignement)
 					{
 					case 0:
-						dtext.draw(pos.movedBy(BitmapFontShadowOffset), Palette::Black);
-						dtext.draw(pos);
+						dtext.drawAt(pos.movedBy(BitmapFontShadowOffset), Palette::Black);
+						dtext.drawAt(pos);
 						break;
 					case 1:
 						dtext.draw(Arg::topLeft = pos.movedBy(BitmapFontShadowOffset), Palette::Black);
@@ -220,7 +220,7 @@ namespace s3d
 					switch (putText.alignement)
 					{
 					case 0:
-						dtext.draw(TextStyle::CustomShader, pos);
+						dtext.drawAt(TextStyle::CustomShader, pos);
 						break;
 					case 1:
 						dtext.draw(TextStyle::CustomShader, Arg::topLeft = pos);
