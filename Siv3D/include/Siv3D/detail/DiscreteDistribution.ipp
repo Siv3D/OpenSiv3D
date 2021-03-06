@@ -115,6 +115,6 @@ namespace s3d
 	template <class Type>
 	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight)
 	{
-		return DiscreteSample(ilist, GetDefaultRNG());
+		return DiscreteSample(ilist, weight, GetDefaultRNG());
 	}
 }
