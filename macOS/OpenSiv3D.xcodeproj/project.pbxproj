@@ -1874,6 +1874,19 @@
 		2C4A287725EB468600FEACE4 /* GUIFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUIFactory.cpp; sourceTree = "<group>"; };
 		2C4A287825EB468600FEACE4 /* IGUI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IGUI.hpp; sourceTree = "<group>"; };
 		2C4A287E25EB469900FEACE4 /* SivSimpleGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleGUI.cpp; sourceTree = "<group>"; };
+		2C4A288025F3C06200FEACE4 /* Sample.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sample.hpp; sourceTree = "<group>"; };
+		2C4A288125F3C07900FEACE4 /* Sample.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sample.ipp; sourceTree = "<group>"; };
+		2C4A288325F3C09C00FEACE4 /* PlayingCard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayingCard.hpp; sourceTree = "<group>"; };
+		2C4A288425F3C09C00FEACE4 /* SevenSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SevenSegment.hpp; sourceTree = "<group>"; };
+		2C4A288525F3C09C00FEACE4 /* SaturatedLinework.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SaturatedLinework.hpp; sourceTree = "<group>"; };
+		2C4A288625F3C09C00FEACE4 /* MiniScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MiniScene.hpp; sourceTree = "<group>"; };
+		2C4A288825F3C09C00FEACE4 /* InputIcon.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIcon.ipp; sourceTree = "<group>"; };
+		2C4A288925F3C09C00FEACE4 /* MiniScene.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MiniScene.ipp; sourceTree = "<group>"; };
+		2C4A288A25F3C09C00FEACE4 /* SevenSegment.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SevenSegment.ipp; sourceTree = "<group>"; };
+		2C4A288B25F3C09C00FEACE4 /* SaturatedLinework.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SaturatedLinework.ipp; sourceTree = "<group>"; };
+		2C4A288C25F3C09C00FEACE4 /* PlayingCard.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayingCard.ipp; sourceTree = "<group>"; };
+		2C4A288D25F3C09C00FEACE4 /* InputIcon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIcon.hpp; sourceTree = "<group>"; };
+		2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Glyph.hpp; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
@@ -4884,6 +4897,31 @@
 			path = SimpleGUI;
 			sourceTree = "<group>";
 		};
+		2C4A288225F3C09C00FEACE4 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A288D25F3C09C00FEACE4 /* InputIcon.hpp */,
+				2C4A288625F3C09C00FEACE4 /* MiniScene.hpp */,
+				2C4A288325F3C09C00FEACE4 /* PlayingCard.hpp */,
+				2C4A288525F3C09C00FEACE4 /* SaturatedLinework.hpp */,
+				2C4A288425F3C09C00FEACE4 /* SevenSegment.hpp */,
+				2C4A288725F3C09C00FEACE4 /* detail */,
+			);
+			path = Experimental;
+			sourceTree = "<group>";
+		};
+		2C4A288725F3C09C00FEACE4 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A288825F3C09C00FEACE4 /* InputIcon.ipp */,
+				2C4A288925F3C09C00FEACE4 /* MiniScene.ipp */,
+				2C4A288C25F3C09C00FEACE4 /* PlayingCard.ipp */,
+				2C4A288B25F3C09C00FEACE4 /* SaturatedLinework.ipp */,
+				2C4A288A25F3C09C00FEACE4 /* SevenSegment.ipp */,
+			);
+			path = detail;
+			sourceTree = "<group>";
+		};
 		2C4A83E22457E7A4007AAE76 /* Xoshiro-cpp */ = {
 			isa = PBXGroup;
 			children = (
@@ -5907,6 +5945,7 @@
 				2CAAA71825E7FD0200C014D7 /* Fwd.hpp */,
 				2CAAA72825E7FD0200C014D7 /* GaborNoise.hpp */,
 				2CAAA89525E7FD0300C014D7 /* Geometry2D.hpp */,
+				2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */,
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
 				2CAAA8AC25E7FD0300C014D7 /* GlyphIndex.hpp */,
 				2CAAA6EC25E7FD0200C014D7 /* GlyphInfo.hpp */,
@@ -6029,6 +6068,7 @@
 				2CAAA8AD25E7FD0300C014D7 /* Resource.hpp */,
 				2CAAA78A25E7FD0200C014D7 /* ResourceOption.hpp */,
 				2CAAA77325E7FD0200C014D7 /* RoundRect.hpp */,
+				2C4A288025F3C06200FEACE4 /* Sample.hpp */,
 				2CAAA83F25E7FD0200C014D7 /* SamplerState.hpp */,
 				2CAAA89F25E7FD0300C014D7 /* Scene.hpp */,
 				2CAAA75425E7FD0200C014D7 /* SceneManager.hpp */,
@@ -6102,6 +6142,7 @@
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
 				2CAAA78525E7FD0200C014D7 /* YesNo.hpp */,
 				2CAAA78B25E7FD0200C014D7 /* detail */,
+				2C4A288225F3C09C00FEACE4 /* Experimental */,
 				2CAAA85225E7FD0300C014D7 /* ImageFormat */,
 			);
 			path = Siv3D;
@@ -6231,6 +6272,7 @@
 				2CAAA7AA25E7FD0200C014D7 /* RegExp.ipp */,
 				2CAAA7B025E7FD0200C014D7 /* Resource.ipp */,
 				2CAAA80825E7FD0200C014D7 /* RoundRect.ipp */,
+				2C4A288125F3C07900FEACE4 /* Sample.ipp */,
 				2CAAA7CC25E7FD0200C014D7 /* SamplerState.ipp */,
 				2CAAA7A625E7FD0200C014D7 /* Scene.ipp */,
 				2CAAA7FA25E7FD0200C014D7 /* SceneManager.ipp */,
