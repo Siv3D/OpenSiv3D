@@ -120,6 +120,66 @@ namespace s3d
 		std::shared_ptr<detail::JSONConstIteratorDetail> m_detail;
 	};
 
+	class JSONIterationProxy
+	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		JSONIterationProxy() = default;
+
+		SIV3D_NODISCARD_CXX20
+		JSONIterationProxy(const JSONIterationProxy&);
+
+		SIV3D_NODISCARD_CXX20
+		explicit JSONIterationProxy(const detail::JSONIterationProxyDetail&);
+
+		JSONIterationProxy& operator =(const JSONIterationProxy& rhs);
+
+		JSONIterationProxy& operator++();
+
+		JSONIterationProxy operator++(int);
+
+		[[nodiscard]]
+		JSONIterationProxy operator +(size_t index) const;
+
+		[[nodiscard]]
+		JSON operator *() const;
+
+		[[nodiscard]]
+		bool operator ==(const JSONIterationProxy& other) const noexcept;
+
+		[[nodiscard]]
+		bool operator !=(const JSONIterationProxy& other) const noexcept;
+
+	private:
+
+		std::shared_ptr<detail::JSONIterationProxyDetail> m_detail;
+	};
+
+	class JSONArrayView
+	{
+	public:
+
+		JSONArrayView() = default;
+
+		JSONArrayView(JSONIterationProxy begin, JSONIterationProxy end);
+
+		[[nodiscard]]
+		JSONIterationProxy begin() const;
+
+		[[nodiscard]]
+		JSONIterationProxy end() const;
+
+		[[nodiscard]]
+		JSON operator [](size_t index) const;
+
+	private:
+
+		JSONIterationProxy m_begin;
+
+		JSONIterationProxy m_end;
+	};
+
 	class JSON
 	{
 	public:
@@ -342,6 +402,9 @@ namespace s3d
 
 		[[nodiscard]]
 		const_iterator end() const;
+
+		[[nodiscard]]
+		JSONArrayView arrayView() const;
 
 		[[nodiscard]]
 		size_t size() const;

@@ -17,11 +17,14 @@ namespace s3d
 	{
 		struct JSONIteratorDetail;
 		struct JSONConstIteratorDetail;
+		struct JSONIterationProxyDetail;
 		class JSONDetail;
 	}
 
 	class JSONIterator;
 	class JSONConstIterator;
+	class JSONIterationProxy;
+	class JSONArrayView;
 	class JSON;
 	struct JSONItem;
 }

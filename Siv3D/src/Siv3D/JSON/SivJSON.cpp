@@ -39,6 +39,16 @@ namespace s3d
 				: it{ _it } {}
 		};
 
+		struct JSONIterationProxyDetail
+		{
+			nlohmann::detail::iteration_proxy_value<nlohmann::json::iterator> it;
+
+			JSONIterationProxyDetail() = default;
+
+			explicit JSONIterationProxyDetail(nlohmann::detail::iteration_proxy_value<nlohmann::json::iterator> _it)
+				: it{ _it } {}
+		};
+
 		class JSONDetail
 		{
 		private:
@@ -213,6 +223,92 @@ namespace s3d
 	bool JSONConstIterator::operator !=(const JSONConstIterator& other) const noexcept
 	{
 		return !(*this == other);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	JSONIterationProxy
+	//
+	//////////////////////////////////////////////////
+
+	JSONIterationProxy::JSONIterationProxy(const JSONIterationProxy& rhs)
+		: m_detail{ std::make_shared<detail::JSONIterationProxyDetail>(*rhs.m_detail) } {}
+
+	JSONIterationProxy::JSONIterationProxy(const detail::JSONIterationProxyDetail& d)
+		: m_detail{ std::make_shared<detail::JSONIterationProxyDetail>(d.it) } {}
+
+	JSONIterationProxy& JSONIterationProxy::operator =(const JSONIterationProxy& rhs)
+	{
+		JSONIterationProxy tmp = rhs;
+
+		m_detail = std::move(tmp.m_detail);
+
+		return *this;
+	}
+
+	JSONIterationProxy& JSONIterationProxy::operator++()
+	{
+		++m_detail->it;
+
+		return *this;
+	}
+
+	JSONIterationProxy JSONIterationProxy::operator++(int)
+	{
+		const detail::JSONIterationProxyDetail tmp{ m_detail->it };
+
+		++m_detail->it;
+
+		return JSONIterationProxy{ tmp };
+	}
+
+	JSONIterationProxy JSONIterationProxy::operator+(size_t index) const
+	{
+		auto it = m_detail->it;
+
+		std::advance(it, index);
+
+		return JSONIterationProxy{ detail::JSONIterationProxyDetail{ it } };
+	}
+
+	JSON JSONIterationProxy::operator *() const
+	{
+		return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->it.value()));
+	}
+
+	bool JSONIterationProxy::operator ==(const JSONIterationProxy& other) const noexcept
+	{
+		return (m_detail->it == other.m_detail->it);
+	}
+
+	bool JSONIterationProxy::operator !=(const JSONIterationProxy& other) const noexcept
+	{
+		return !(*this == other);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	JSONArrayView
+	//
+	//////////////////////////////////////////////////
+
+	JSONArrayView::JSONArrayView(JSONIterationProxy begin, JSONIterationProxy end)
+		: m_begin{ begin }
+		, m_end{ end } {}
+
+	JSONIterationProxy JSONArrayView::begin() const
+	{
+		return m_begin;
+	}
+
+	JSONIterationProxy JSONArrayView::end() const
+	{
+		return m_end;
+	}
+
+	JSON JSONArrayView::operator [](const size_t index) const
+	{
+		return *(m_begin + index);
 	}
 
 	//////////////////////////////////////////////////
@@ -702,6 +798,19 @@ namespace s3d
 	JSON::const_iterator JSON::end() const
 	{
 		return const_iterator{ detail::JSONConstIteratorDetail(m_detail->get().end()) };
+	}
+
+	JSONArrayView JSON::arrayView() const
+	{
+		if (not isArray())
+		{
+			throw Error{ U"JSON::arrayView(): Value is not an Array type" };
+		}
+
+		return JSONArrayView{
+			JSONIterationProxy{ detail::JSONIterationProxyDetail(m_detail->get().items().begin()) },
+			JSONIterationProxy{ detail::JSONIterationProxyDetail(m_detail->get().items().end()) }
+		};
 	}
 
 	size_t JSON::size() const
