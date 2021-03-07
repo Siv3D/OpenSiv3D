@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Linux CXX C)
 find_package(PkgConfig)
 find_package(Boost 1.71.0 REQUIRED)
-pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED glib-2.0 gl x11)
+pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED glib-2.0 gl x11 opencv4)
 
 message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 
