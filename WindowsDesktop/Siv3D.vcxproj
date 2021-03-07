@@ -33,6 +33,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\BinaryWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BitmapGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BlendState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\BorderType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Buffer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMeshConfig.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />

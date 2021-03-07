@@ -798,6 +798,8 @@
 
 # include <Siv3D/ImageAddressMode.hpp>
 
+# include <Siv3D/BorderType.hpp>
+
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 

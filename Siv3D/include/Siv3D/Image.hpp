@@ -21,6 +21,7 @@
 # include "ColorHSV.hpp"
 # include "IReader.hpp"
 # include "PNGFilter.hpp"
+# include "BorderType.hpp"
 
 namespace s3d
 {
@@ -389,6 +390,19 @@ namespace s3d
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
 
 		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
+
+
+
+
+		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Default);
+
+		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
+
+		[[nodiscard]]
+		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Default) const;
+
+		[[nodiscard]]
+		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
 
 
 

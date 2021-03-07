@@ -29,7 +29,12 @@
 # pragma comment (lib, "harfbuzz/harfbuzz" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "libpng/libpng16" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "Oniguruma/Oniguruma" SIV3D_DEBUG_LIB_POSTFIX(_d))
-# pragma comment (lib, "zlib/zlib" SIV3D_DEBUG_LIB_POSTFIX(_d))
+# pragma comment (lib, "opencv/opencv_core451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "opencv/opencv_imgproc451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "opencv/opencv_objdetect451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "opencv/opencv_photo451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "opencv/opencv_videoio451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "zlib/zlib" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "Siv3D" SIV3D_DEBUG_LIB_POSTFIX(_d))
 
 # undef SIV3D_DEBUG_LIB_POSTFIX

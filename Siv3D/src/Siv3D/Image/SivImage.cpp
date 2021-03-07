@@ -16,6 +16,9 @@
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
+
+# include <opencv2/imgproc.hpp>
 
 namespace s3d
 {
@@ -39,6 +42,24 @@ namespace s3d
 		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py) noexcept
 		{
 			return (px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1);
+		}
+
+		[[nodiscard]]
+		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept
+		{
+			switch (borderType)
+			{
+			case BorderType::Replicate:
+				return cv::BORDER_REPLICATE;
+			//case BorderType::Wrap:
+			//	return cv::BORDER_WRAP;
+			case BorderType::Reflect:
+				return cv::BORDER_REFLECT;
+			case BorderType::Reflect_101:
+				return cv::BORDER_REFLECT101;
+			default:
+				return cv::BORDER_DEFAULT;
+			}
 		}
 	}
 
@@ -282,6 +303,87 @@ namespace s3d
 	{
 		return PNGEncoder{}.save(*this, path, filter);
 	}
+
+
+
+
+	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
+	{
+		return gaussianBlur(size, size, borderType);
+	}
+
+	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0)
+				|| (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp{ m_width, m_height };
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const
+	{
+		return gaussianBlurred(size, size, borderType);
+	}
+
+	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0)
+				|| (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		Image image{ m_width, m_height };
+
+		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+
+		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+		return image;
+	}
+
+
+
+
+
+
+
+
+
 
 	void Image::overwrite(Image& dst, const int32 x, const int32 y) const
 	{
