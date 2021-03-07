@@ -803,6 +803,8 @@
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 
+# include <Siv3D/ImageROI.hpp>
+
 # include <Siv3D/IImageDecoder.hpp>
 
 # include <Siv3D/ImageDecoder.hpp>

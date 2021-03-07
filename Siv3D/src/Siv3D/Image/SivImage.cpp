@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageROI.hpp>
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/2DShapes.hpp>
@@ -42,24 +43,6 @@ namespace s3d
 		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py) noexcept
 		{
 			return (px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1);
-		}
-
-		[[nodiscard]]
-		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept
-		{
-			switch (borderType)
-			{
-			case BorderType::Replicate:
-				return cv::BORDER_REPLICATE;
-			//case BorderType::Wrap:
-			//	return cv::BORDER_WRAP;
-			case BorderType::Reflect:
-				return cv::BORDER_REFLECT;
-			case BorderType::Reflect_101:
-				return cv::BORDER_REFLECT101;
-			default:
-				return cv::BORDER_DEFAULT;
-			}
 		}
 	}
 
@@ -330,15 +313,9 @@ namespace s3d
 
 		// 2. 処理
 		{
-			Image tmp{ m_width, m_height };
+			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
 
-			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
-
-			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
-
-			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
-
-			swap(tmp);
+			cv::GaussianBlur(matSrc, matSrc, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
 		}
 
 		return *this;
@@ -369,9 +346,9 @@ namespace s3d
 
 		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
 
-		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+		cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
 
-		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
 
 		return image;
 	}
@@ -428,5 +405,55 @@ namespace s3d
 				pDst += dstWidth;
 			}
 		}
+	}
+
+	ImageROI Image::operator ()(const int32 x, const int32 y, const int32 w, const int32 h)
+	{
+		return operator()(Rect{ x, y, w, h });
+	}
+
+	ImageROI Image::operator ()(const Point& pos, const int32 w, const int32 h)
+	{
+		return operator()(Rect{ pos, w, h });
+	}
+
+	ImageROI Image::operator ()(const int32 x, const int32 y, const Size& size)
+	{
+		return operator()(Rect{ x, y, size });
+	}
+
+	ImageROI Image::operator ()(const Point& pos, const Size& size)
+	{
+		return operator()(Rect{ pos, size });
+	}
+
+	ImageROI Image::operator ()(const Rect& rect)
+	{
+		return{ *this, rect };
+	}
+
+	ImageConstROI Image::operator ()(const int32 x, const int32 y, const int32 w, const int32 h) const
+	{
+		return operator()(Rect{ x, y, w, h });
+	}
+
+	ImageConstROI Image::operator ()(const Point& pos, const int32 w, const int32 h) const
+	{
+		return operator()(Rect{ pos, w, h });
+	}
+
+	ImageConstROI Image::operator ()(const int32 x, const int32 y, const Size& size) const
+	{
+		return operator()(Rect{ x, y, size });
+	}
+
+	ImageConstROI Image::operator ()(const Point& pos, const Size& size) const
+	{
+		return operator()(Rect{ pos, size });
+	}
+
+	ImageConstROI Image::operator ()(const Rect& rect) const
+	{
+		return{ *this, rect };
 	}
 }

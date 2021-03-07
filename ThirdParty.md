@@ -31,7 +31,7 @@ Library | Version
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
 [nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
-[OpenCV](https://github.com/opencv/opencv) | 
+[OpenCV](https://github.com/opencv/opencv) | 4.5.1
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 

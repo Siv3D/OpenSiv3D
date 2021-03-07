@@ -24,6 +24,15 @@ namespace s3d
 {
 	namespace OpenCV_Bridge
 	{
+		[[nodiscard]]
+		inline cv::Rect ToCVRect(const Rect& rect);
+
+		[[nodiscard]]
+		inline cv::Mat_<cv::Vec4b> GetMatView(Image& image);
+
+		[[nodiscard]]
+		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept;
+
 		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
@@ -42,14 +51,20 @@ namespace s3d
 
 		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, bool preserveAlpha = false);
 
+		[[nodiscard]]
 		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path);
 
+		[[nodiscard]]
 		cv::Mat_<uint8> ImRead_GrayScale(const Image& image);
 
+		[[nodiscard]]
 		cv::Mat_<cv::Vec3b> ImRead_BGR(const FilePath& path);
 
+		[[nodiscard]]
 		cv::Mat_<cv::Vec3b> ImRead_BGR(const Image& image);
 	}
 }
+
+# include "detail/OpenCV_Bridge.ipp"
 
 # endif

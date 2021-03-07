@@ -27,6 +27,8 @@ namespace s3d
 {
 	struct Emoji;
 	struct Icon;
+	struct ImageROI;
+	struct ImageConstROI;
 
 	class Image
 	{
@@ -385,14 +387,117 @@ namespace s3d
 
 		bool applyAlphaFromRChannel(FilePathView alpha);
 
-
-
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
+
+		//bool saveWithDialog() const;
 
 		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
 
+		//bool saveJPEG(FilePathView path, int32 quality = 90) const;
 
+		//bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 
+		//bool saveWebP(FilePathView path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+
+		Image& negate();
+
+		[[nodiscard]]
+		Image negated() const;
+
+		Image& grayscale();
+
+		[[nodiscard]]
+		Image grayscaled() const;
+
+		Image& sepia(int32 level = 25);
+
+		[[nodiscard]]
+		Image sepiaed(int32 level = 25) const;
+
+		Image& posterize(int32 level);
+
+		[[nodiscard]]
+		Image posterized(int32 level) const;
+
+		Image& brighten(int32 level);
+
+		[[nodiscard]]
+		Image brightened(int32 level) const;
+
+		Image& mirror();
+
+		[[nodiscard]]
+		Image mirrored() const;
+
+		Image& flip();
+
+		[[nodiscard]]
+		Image flipped() const;
+
+		Image& rotate90();
+
+		[[nodiscard]]
+		Image rotated90() const;
+
+		Image& rotate180();
+
+		[[nodiscard]]
+		Image rotated180() const;
+
+		Image& rotate270();
+
+		[[nodiscard]]
+		Image rotated270() const;
+
+		Image& gammaCorrect(double gamma);
+
+		[[nodiscard]]
+		Image gammaCorrected(double gamma) const;
+
+		Image& threshold(uint8 threshold, bool inverse = false);
+
+		[[nodiscard]]
+		Image thresholded(uint8 threshold, bool inverse = false) const;
+
+		//Image& adaptiveThreshold(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false);
+
+		//[[nodiscard]]
+		//Image adaptiveThresholded(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false) const;
+
+		Image& mosaic(int32 size);
+
+		Image& mosaic(int32 horizontal, int32 vertical);
+
+		[[nodiscard]]
+		Image mosaiced(int32 size) const;
+
+		[[nodiscard]]
+		Image mosaiced(int32 horizontal, int32 vertical) const;
+
+		Image& spread(int32 size);
+
+		Image& spread(int32 horizontal, int32 vertical);
+
+		[[nodiscard]]
+		Image spreaded(int32 size) const;
+
+		[[nodiscard]]
+		Image spreaded(int32 horizontal, int32 vertical) const;
+
+		Image& blur(int32 size);
+
+		Image& blur(int32 horizontal, int32 vertical);
+
+		[[nodiscard]]
+		Image blurred(int32 size) const;
+
+		[[nodiscard]]
+		Image blurred(int32 horizontal, int32 vertical) const;
+
+		Image& medianBlur(int32 apertureSize);
+
+		[[nodiscard]]
+		Image medianBlurred(int32 apertureSize) const;
 
 		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Default);
 
@@ -404,11 +509,123 @@ namespace s3d
 		[[nodiscard]]
 		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
 
+		Image& dilate(int32 iterations = 1);
 
+		[[nodiscard]]
+		Image dilated(int32 iterations = 1) const;
+
+		Image& erode(int32 iterations = 1);
+
+		[[nodiscard]]
+		Image eroded(int32 iterations = 1) const;
+
+		//Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
+
+		//[[nodiscard]]
+		//Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
+
+		//Image& scale(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified);
+
+		//[[nodiscard]]
+		//Image scaled(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
+
+		//[[nodiscard]]
+		//Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
+
+		//[[nodiscard]]
+		//Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& fit(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+
+		//[[nodiscard]]
+		//Image fitted(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+
+		//[[nodiscard]]
+		//Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		Image& border(int32 thickness, const Color& color = Palette::White);
+
+		[[nodiscard]]
+		Image bordered(int32 thickness, const Color& color = Palette::White) const;
+
+		Image& border(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White);
+
+		[[nodiscard]]
+		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
+
+		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
 
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;
+
+		[[nodiscard]]
+		ImageROI operator ()(int32 x, int32 y, int32 w, int32 h);
+
+		[[nodiscard]]
+		ImageROI operator ()(const Point& pos, int32 w, int32 h);
+
+		[[nodiscard]]
+		ImageROI operator ()(int32 x, int32 y, const Size& size);
+
+		[[nodiscard]]
+		ImageROI operator ()(const Point& pos, const Size& size);
+
+		[[nodiscard]]
+		ImageROI operator ()(const Rect& rect);
+
+		[[nodiscard]]
+		ImageConstROI operator ()(int32 x, int32 y, int32 w, int32 h) const;
+
+		[[nodiscard]]
+		ImageConstROI operator ()(const Point& pos, int32 w, int32 h) const;
+
+		[[nodiscard]]
+		ImageConstROI operator ()(int32 x, int32 y, const Size& size) const;
+
+		[[nodiscard]]
+		ImageConstROI operator ()(const Point& pos, const Size& size) const;
+
+		[[nodiscard]]
+		ImageConstROI operator ()(const Rect& rect) const;
+
+		[[nodiscard]]
+		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		Polygon alphaToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		MultiPolygon alphaToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		Polygon grayscaleToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]]
+		MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
+		//[[nodiscard]]
+		//Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
+
+		//[[nodiscard]]
+		//Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 
 		template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>* = nullptr>
 		static Image Generate(Size size, Fty generator);

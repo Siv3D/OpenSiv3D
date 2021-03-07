@@ -113,6 +113,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MultiPolygon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Noise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OpenCV_Bridge.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\SVGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageROI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\INI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Input.hpp" />
@@ -1278,6 +1280,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageROI\SivImageROI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INI\SivINI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp" />
