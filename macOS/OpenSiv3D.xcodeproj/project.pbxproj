@@ -717,10 +717,15 @@
 		2C4A287B25EB468600FEACE4 /* GUIFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287725EB468600FEACE4 /* GUIFactory.cpp */; };
 		2C4A287C25EB468600FEACE4 /* IGUI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A287825EB468600FEACE4 /* IGUI.hpp */; };
 		2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A287E25EB469900FEACE4 /* SivSimpleGUI.cpp */; };
+		2C4A289025F4F7D600FEACE4 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A288F25F4F7D600FEACE4 /* libzlib.a */; };
+		2C4A289525F4F87100FEACE4 /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289125F4F87100FEACE4 /* libopencv_imgproc.a */; };
+		2C4A289625F4F87100FEACE4 /* libopencv_objdetect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289225F4F87100FEACE4 /* libopencv_objdetect.a */; };
+		2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289325F4F87100FEACE4 /* libopencv_core.a */; };
+		2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289425F4F87100FEACE4 /* libopencv_photo.a */; };
+		2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
-		2C531EA724BA0CEA00378977 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA624BA0CEA00378977 /* libz.a */; };
 		2C53C33225613B540072831A /* SivLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33125613B540072831A /* SivLine.cpp */; };
 		2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33425613B6A0072831A /* SivCircle.cpp */; };
 		2C53C33825613B740072831A /* SivEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33725613B740072831A /* SivEllipse.cpp */; };
@@ -1887,6 +1892,14 @@
 		2C4A288C25F3C09C00FEACE4 /* PlayingCard.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayingCard.ipp; sourceTree = "<group>"; };
 		2C4A288D25F3C09C00FEACE4 /* InputIcon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIcon.hpp; sourceTree = "<group>"; };
 		2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Glyph.hpp; sourceTree = "<group>"; };
+		2C4A288F25F4F7D600FEACE4 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = ../Siv3D/lib/macOS/zlib/libzlib.a; sourceTree = "<group>"; };
+		2C4A289125F4F87100FEACE4 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/libopencv_imgproc.a; sourceTree = "<group>"; };
+		2C4A289225F4F87100FEACE4 /* libopencv_objdetect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_objdetect.a; path = ../Siv3D/lib/macOS/opencv/libopencv_objdetect.a; sourceTree = "<group>"; };
+		2C4A289325F4F87100FEACE4 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../Siv3D/lib/macOS/opencv/libopencv_core.a; sourceTree = "<group>"; };
+		2C4A289425F4F87100FEACE4 /* libopencv_photo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_photo.a; path = ../Siv3D/lib/macOS/opencv/libopencv_photo.a; sourceTree = "<group>"; };
+		2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_videoio.a; path = ../Siv3D/lib/macOS/opencv/libopencv_videoio.a; sourceTree = "<group>"; };
+		2C4A289B25F4FAC300FEACE4 /* BorderType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BorderType.hpp; sourceTree = "<group>"; };
+		2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenCV_Bridge.hpp; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
@@ -2697,8 +2710,13 @@
 				2C47E59924AF3C7B0060E8A7 /* libboost_filesystem.a in Frameworks */,
 				2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */,
 				2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */,
+				2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */,
+				2C4A289525F4F87100FEACE4 /* libopencv_imgproc.a in Frameworks */,
+				2C4A289625F4F87100FEACE4 /* libopencv_objdetect.a in Frameworks */,
+				2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */,
+				2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
-				2C531EA724BA0CEA00378977 /* libz.a in Frameworks */,
+				2C4A289025F4F7D600FEACE4 /* libzlib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3204,6 +3222,12 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */,
+				2C4A289325F4F87100FEACE4 /* libopencv_core.a */,
+				2C4A289125F4F87100FEACE4 /* libopencv_imgproc.a */,
+				2C4A289225F4F87100FEACE4 /* libopencv_objdetect.a */,
+				2C4A289425F4F87100FEACE4 /* libopencv_photo.a */,
+				2C4A288F25F4F7D600FEACE4 /* libzlib.a */,
 				2C796EB025CA41DA0003B7EC /* libharfbuzz.a */,
 				2C43C8D425C8464400D6D613 /* libfreetype.a */,
 				2C531EA624BA0CEA00378977 /* libz.a */,
@@ -5878,6 +5902,7 @@
 				2CAAA87D25E7FD0300C014D7 /* BitmapGlyph.hpp */,
 				2CAAA85F25E7FD0300C014D7 /* BlendState.hpp */,
 				2CAAA78125E7FD0200C014D7 /* Blob.hpp */,
+				2C4A289B25F4FAC300FEACE4 /* BorderType.hpp */,
 				2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */,
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
 				2CAAA71F25E7FD0200C014D7 /* Camera2D.hpp */,
@@ -6024,6 +6049,7 @@
 				2CAAA8AF25E7FD0300C014D7 /* NonNull.hpp */,
 				2CAAA71425E7FD0200C014D7 /* Number.hpp */,
 				2CAAA75825E7FD0200C014D7 /* OffsetCircular.hpp */,
+				2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */,
 				2CAAA8AE25E7FD0300C014D7 /* OpenMode.hpp */,
 				2CAAA83A25E7FD0200C014D7 /* Optional.hpp */,
 				2CAAA74625E7FD0200C014D7 /* OutlineGlyph.hpp */,
@@ -7842,6 +7868,7 @@
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -7904,6 +7931,7 @@
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
