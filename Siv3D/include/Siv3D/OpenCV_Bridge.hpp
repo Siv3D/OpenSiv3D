@@ -47,15 +47,11 @@ namespace s3d
 
 		void FromMatVec4bRGBA(const cv::Mat_<cv::Vec4b>& from, Image& to);
 
-
-
-		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
-
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
-		void AlphaToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
-
 		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
+
+
 
 		void ToGrayScale(const Image& from, cv::Mat_<uint8>& to);
 

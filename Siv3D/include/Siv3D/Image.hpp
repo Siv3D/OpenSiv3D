@@ -619,28 +619,28 @@ namespace s3d
 		ImageConstROI operator ()(const Rect& rect) const;
 
 		[[nodiscard]]
-		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+		Polygon alphaToPolygon(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		Polygon alphaToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		Polygon alphaToPolygonCentered(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		MultiPolygon alphaToPolygons(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		MultiPolygon alphaToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		MultiPolygon alphaToPolygonsCentered(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+		Polygon grayscaleToPolygon(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		Polygon grayscaleToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		Polygon grayscaleToPolygonCentered(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		[[nodiscard]]
-		MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
 
 		//[[nodiscard]]
 		//Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;

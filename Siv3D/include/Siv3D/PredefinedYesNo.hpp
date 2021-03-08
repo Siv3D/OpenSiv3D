@@ -46,4 +46,7 @@ namespace s3d
 
 	/// @brief アルファ値を更新する
 	using OverwriteAlpha	= YesNo<struct OverwriteAlpha_tag>;
+
+	/// @brief 穴の発生を許可する
+	using AllowHoles		= YesNo<struct AllowHoles_tag>;
 }

@@ -14,6 +14,8 @@
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/MultiPolygon.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ImageDecoder.hpp>
@@ -134,6 +136,185 @@ namespace s3d
 
 				pLine += imgWidth;
 			}
+		}
+
+		[[nodiscard]]
+		static Polygon SelectLargestPolygon(const MultiPolygon& polygons)
+		{
+			if (not polygons)
+			{
+				return{};
+			}
+			else if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+					index = i;
+				}
+			}
+
+			return polygons[index];
+		}
+
+		[[nodiscard]]
+		static MultiPolygon ToPolygonsWithoutHoles(const cv::Mat_<uint8>& gray)
+		{
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
+
+			try
+			{
+				cv::findContours(gray, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (const auto& contour : contours)
+			{
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
+				{
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					Vec2* pDst = external.data();
+					const Vec2* const pDstEnd = pDst + externalSize;
+					const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+					while (pDst != pDstEnd)
+					{
+						pDst->set(pSrc->x, pSrc->y);
+						++pDst; --pSrc;
+					}
+				}
+
+				for (auto& polygon : Polygon::Correct(external))
+				{
+					if (polygon)
+					{
+						polygons.push_back(std::move(polygon));
+					}
+				}
+			}
+
+			return polygons;
+		}
+
+		[[nodiscard]]
+		static MultiPolygon ToPolygons(const cv::Mat_<uint8>& gray)
+		{
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
+			std::vector<cv::Vec4i> hierarchy;
+
+			try
+			{
+				cv::findContours(gray, contours, hierarchy, cv::RETR_CCOMP, cv::CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
+			{
+				const auto& contour = contours[i];
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
+				{
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					{
+						Vec2* pDst = external.data();
+						const Vec2* const pDstEnd = pDst + externalSize;
+						const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+						while (pDst != pDstEnd)
+						{
+							pDst->set(pSrc->x, pSrc->y);
+							++pDst; --pSrc;
+						}
+					}
+
+					for (size_t k = 0; k < externalSize; ++k)
+					{
+						const Vec2& a = external[k];
+
+						for (size_t m = k + 1; m < externalSize; ++m)
+						{
+							if (Vec2& b = external[m]; a == b)
+							{
+								b += ((external[m - 1] - b).normalized() * 0.5).rotated(90_deg);
+							}
+						}
+					}
+
+					//{
+					//	Vec2* pDst = external.data();
+					//	const Vec2* pDstEnd = external.data() + externalSize - 1;
+
+					//	while (pDst != pDstEnd)
+					//	{
+					//		*pDst += ((*(pDst + 1) - *pDst).normalized() * 0.01);
+					//		++pDst;
+					//	}
+					//}
+				}
+
+				Array<Array<Vec2>> holes;
+				{
+					for (int32 k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
+					{
+						const auto& holeContour = contours[k];
+						const size_t holeSize = holeContour.size();
+
+						Array<Vec2> hole(holeSize);
+						{
+							Vec2* pDst = hole.data();
+							const Vec2* const pDstEnd = pDst + holeSize;
+							const cv::Point* pSrc = holeContour.data() + (holeSize - 1);
+
+							while (pDst != pDstEnd)
+							{
+								pDst->set(pSrc->x, pSrc->y);
+								++pDst; --pSrc;
+							}
+						}
+
+						holes.push_back(std::move(hole));
+					}
+				}
+
+				for (auto& polygon : Polygon::Correct(external, holes))
+				{
+					if (polygon)
+					{
+						polygons.push_back(std::move(polygon));
+					}
+				}
+			}
+
+			return polygons;
 		}
 	}
 
@@ -2290,5 +2471,75 @@ namespace s3d
 	ImageConstROI Image::operator ()(const Rect& rect) const
 	{
 		return{ *this, rect };
+	}
+
+	Polygon Image::alphaToPolygon(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return detail::SelectLargestPolygon(alphaToPolygons(threshold, allowHoles));
+	}
+
+	Polygon Image::alphaToPolygonCentered(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return alphaToPolygon(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	MultiPolygon Image::alphaToPolygons(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		if (isEmpty())
+		{
+			return{};
+		}
+
+		cv::Mat_<uint8> gray(height() * 2, width() * 2);
+		OpenCV_Bridge::AlphaToBinary2x(*this, gray, threshold);
+
+		if (allowHoles)
+		{
+			return detail::ToPolygons(gray).scale(0.5);
+		}
+		else
+		{
+			return detail::ToPolygonsWithoutHoles(gray).scale(0.5);
+		}
+	}
+
+	MultiPolygon Image::alphaToPolygonsCentered(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return alphaToPolygons(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	Polygon Image::grayscaleToPolygon(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return detail::SelectLargestPolygon(grayscaleToPolygons(threshold, allowHoles));
+	}
+
+	Polygon Image::grayscaleToPolygonCentered(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return grayscaleToPolygon(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	MultiPolygon Image::grayscaleToPolygons(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		if (isEmpty())
+		{
+			return{};
+		}
+
+		cv::Mat_<uint8> gray(height() * 2, width() * 2);
+		OpenCV_Bridge::RedToBinary2x(*this, gray, threshold);
+
+		if (allowHoles)
+		{
+			return detail::ToPolygons(gray).scale(0.5);
+		}
+		else
+		{
+			return detail::ToPolygonsWithoutHoles(gray).scale(0.5);
+		}
+	}
+
+	MultiPolygon Image::grayscaleToPolygonsCentered(const uint32 threshold, const AllowHoles allowHoles) const
+	{
+		return grayscaleToPolygons(threshold, allowHoles).movedBy(-size() * 0.5);
 	}
 }
