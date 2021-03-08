@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class AdaptiveThresholdMethod : uint32
+	enum class AdaptiveThresholdMethod : uint8
 	{
 		Mean,
 

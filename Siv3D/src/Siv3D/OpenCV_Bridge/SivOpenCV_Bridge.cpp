@@ -319,12 +319,58 @@ namespace s3d
 			}
 		}
 
+		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			if (not from)
+			{
+				return;
+			}
+
+			const int32 height = from.height();
+			const int32 width = from.width();
+
+			if (to.isContinuous())
+			{
+				const Color* pSrc = from.data();
+				const Color* pSrcEnd = pSrc + from.num_pixels();
+				uint8* pDst = to.data;
+
+				while (pSrc != pSrcEnd)
+				{
+					*pDst = (pSrc->r <= threshold ? 0 : 255);
+					++pDst; ++pSrc;
+				}
+			}
+			else
+			{
+				const Color* pSrc = from.data();
+				uint8* pDstLine = to.data;
+				const size_t dstStepBytes = to.step.p[0];
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					uint8* pDst = pDstLine;
+
+					for (int32 x = 0; x < width; ++x)
+					{
+						*pDst = (pSrc->r <= threshold ? 0 : 255);
+						++pDst; ++pSrc;
+					}
+
+					pDstLine += dstStepBytes;
+				}
+			}
+		}
+
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold)
 		{
 			assert(from.width() * 2 == to.cols);
 			assert(from.height() * 2 == to.rows);
 
-			if (!from)
+			if (not from)
 			{
 				return;
 			}
@@ -355,7 +401,7 @@ namespace s3d
 			assert(from.width() * 2 == to.cols);
 			assert(from.height() * 2 == to.rows);
 
-			if (!from)
+			if (not from)
 			{
 				return;
 			}
@@ -378,6 +424,40 @@ namespace s3d
 					*(pDst + dstStride + 1) = a;
 					++pSrc; pDst += 2;
 				}
+			}
+		}
+
+		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			if (not from)
+			{
+				return;
+			}
+
+			const int32 height = from.height();
+			const int32 width = from.width();
+			const Color* pSrc = from.data();
+
+			uint8* pDstLine = to.data;
+			const size_t dstStepBytes = to.step.p[0];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				cv::Vec3f* pDst = static_cast<cv::Vec3f*>(static_cast<void*>(pDstLine));
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					(*pDst)[0] = static_cast<float>(pSrc->b);
+					(*pDst)[1] = static_cast<float>(pSrc->g);
+					(*pDst)[2] = static_cast<float>(pSrc->r);
+
+					++pDst; ++pSrc;
+				}
+
+				pDstLine += dstStepBytes;
 			}
 		}
 	}

@@ -806,8 +806,12 @@
 
 # include <Siv3D/InterpolationAlgorithm.hpp>
 
+# include <Siv3D/EdgePreservingFilterType.hpp>
+
 // 画像 | Image
 # include <Siv3D/Image.hpp>
+
+# include <Siv3D/ImageProcessing.hpp>
 
 # include <Siv3D/ImageROI.hpp>
 

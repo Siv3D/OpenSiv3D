@@ -20,6 +20,7 @@
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/core.hpp>
 # include <opencv2/imgproc.hpp>
+# include <opencv2/photo.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -41,27 +42,19 @@ namespace s3d
 		[[nodiscard]]
 		cv::Mat_<cv::Vec3b> ToMatVec3bBGR(const Image& image);
 
-		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, OverwriteAlpha overwriteAlpha = OverwriteAlpha::Yes);
+		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, OverwriteAlpha overwriteAlpha);
 
-		void FromMatVec3b(const cv::Mat_<cv::Vec3b>& from, Image& to, OverwriteAlpha overwriteAlpha = OverwriteAlpha::Yes);
+		void FromMatVec3b(const cv::Mat_<cv::Vec3b>& from, Image& to, OverwriteAlpha overwriteAlpha);
 
 		void FromMatVec4bRGBA(const cv::Mat_<cv::Vec4b>& from, Image& to);
+
+		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
 		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
-
-
-		void ToGrayScale(const Image& from, cv::Mat_<uint8>& to);
-
-		void ToMatVec3b(const Image& from, cv::Mat_<cv::Vec3b>& to);
-
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to);
-
-		void FromMat(const cv::Mat_<cv::Vec3b>& from, Image& to, bool preserveAlpha = false);
-
-
 
 		[[nodiscard]]
 		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path);

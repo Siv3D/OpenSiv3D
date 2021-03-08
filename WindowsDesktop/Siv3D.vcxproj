@@ -168,6 +168,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DrawableText.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\EdgePreservingFilterType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />

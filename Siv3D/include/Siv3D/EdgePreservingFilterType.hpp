@@ -14,13 +14,10 @@
 
 namespace s3d
 {
-	/// @brief 塗りつぶしの連結性
-	enum class FloodFillConnectivity : uint8
+	enum class EdgePreservingFilterType : uint8
 	{
-		/// @brief上下左右 4 ピクセル
-		Value4 = 4,
+		Recursive,
 
-		/// @brief 周囲 8 ピクセル
-		Value8 = 8,
+		NormalizedConvolution,
 	};
 }

@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief 画像拡大縮小の手法
-	enum class InterpolationAlgorithm
+	enum class InterpolationAlgorithm : uint8
 	{
 		/// @brief 最近傍補間
 		Nearest,
