@@ -982,6 +982,8 @@
 		2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DC25158AC000904E67 /* FrameCounter.hpp */; };
 		2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DD25158AC000904E67 /* FrameCounter.cpp */; };
 		2C9FFD4725F60622000723D8 /* SivOpenCV_Bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FFD4625F60622000723D8 /* SivOpenCV_Bridge.cpp */; };
+		2C9FFE9425F66DCA000723D8 /* ImagePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */; };
+		2C9FFE9525F66DCA000723D8 /* ImagePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */; };
 		2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CAAA8B525E7FD3100C014D7 /* SivPutText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8B425E7FD3100C014D7 /* SivPutText.cpp */; };
 		2CAAA8B825E7FD4A00C014D7 /* SivDynamicTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8B725E7FD4A00C014D7 /* SivDynamicTexture.cpp */; };
@@ -2191,6 +2193,8 @@
 		2C9FFD4325F605F7000723D8 /* FloodFillConnectivity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FloodFillConnectivity.hpp; sourceTree = "<group>"; };
 		2C9FFD4425F6060C000723D8 /* InterpolationAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InterpolationAlgorithm.hpp; sourceTree = "<group>"; };
 		2C9FFD4625F60622000723D8 /* SivOpenCV_Bridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenCV_Bridge.cpp; sourceTree = "<group>"; };
+		2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImagePainting.hpp; sourceTree = "<group>"; };
+		2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImagePainting.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CAAA6E725E7FD0200C014D7 /* Addon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Addon.hpp; sourceTree = "<group>"; };
@@ -4191,6 +4195,8 @@
 		2C47B28824DD9789008D83BE /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */,
+				2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */,
 				2C47B28924DD9789008D83BE /* SivImage.cpp */,
 			);
 			path = Image;
@@ -7046,6 +7052,7 @@
 				2C796EA225CA409B0003B7EC /* hb-set.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
+				2C9FFE9425F66DCA000723D8 /* ImagePainting.hpp in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
 				2CF21D17249FAA8F00C864C9 /* CCursor.hpp in Headers */,
 				2C43C89325C837F100D6D613 /* svmm.h in Headers */,
@@ -7566,6 +7573,7 @@
 				2C47B5B424E7670A008D83BE /* SivTexture.cpp in Sources */,
 				2C47B2F824DD9789008D83BE /* SivVector2D.cpp in Sources */,
 				2C834DB6248805D4006208B8 /* onig_init.c in Sources */,
+				2C9FFE9525F66DCA000723D8 /* ImagePainting.cpp in Sources */,
 				2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */,
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
@@ -8107,6 +8115,7 @@
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
+					../Siv3D/src/ThirdParty/opencv,
 					../Dependencies/boost_1_73_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -8172,6 +8181,7 @@
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
+					../Siv3D/src/ThirdParty/opencv,
 					../Dependencies/boost_1_73_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
