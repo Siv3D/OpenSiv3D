@@ -14,6 +14,7 @@
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
@@ -75,6 +76,63 @@ namespace s3d
 			for (size_t i = 0; i < 256; ++i)
 			{
 				table[i] = static_cast<uint8>(std::pow(i / 255.0, gammaInv) * 255.0);
+			}
+		}
+
+		static Color GetAverage(const Image& src, const Rect& rect)
+		{
+			const int32 count = rect.area();
+
+			if (!count)
+			{
+				return Color{ 0 };
+			}
+
+			int32 sumR = 0, sumG = 0, sumB = 0, sumA = 0;
+
+			const size_t imgWidth = src.width();
+			const int32 height = rect.h;
+			const int32 width = rect.w;
+
+			const Color* pLine = &src[rect.y][rect.x];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				const Color* pDst = pLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					sumR += pDst->r;
+					sumG += pDst->g;
+					sumB += pDst->b;
+					sumA += pDst->a;
+					++pDst;
+				}
+
+				pLine += imgWidth;
+			}
+
+			return Color(sumR / count, sumG / count, sumB / count, sumA / count);
+		}
+
+		static void FillRect(Image& dst, const Rect& rect, const Color& color)
+		{
+			const size_t imgWidth = dst.width();
+			const int32 height = rect.h;
+			const int32 width = rect.w;
+
+			Color* pLine = &dst[rect.y][rect.x];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				Color* pDst = pLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = color;
+				}
+
+				pLine += imgWidth;
 			}
 		}
 	}
@@ -1154,13 +1212,329 @@ namespace s3d
 		}
 	}
 
+	Image& Image::mosaic(const int32 size)
+	{
+		return mosaic(size, size);
+	}
 
+	Image& Image::mosaic(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
 
+			if ((horizontal <= 1) || (vertical <= 1))
+			{
+				return *this;
+			}
+		}
 
+		// 2. 処理
+		{
+			const uint32 xPiece = (m_width / horizontal);
+			const uint32 yPiece = (m_height / vertical);
+			uint32 yP = 0, xP = 0;
 
+			for (yP = 0; yP < yPiece; ++yP)
+			{
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, vertical);
+					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+				}
 
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, vertical);
+				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+			}
 
+			if (yP * vertical < m_height)
+			{
+				const int32 tY = m_height - yP * vertical;
 
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, tY);
+					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+				}
+
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, tY);
+				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::mosaiced(const int32 size) const
+	{
+		return mosaiced(size, size);
+	}
+
+	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 1) || (vertical <= 1))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			const uint32 xPiece = (m_width / horizontal);
+			const uint32 yPiece = (m_height / vertical);
+			uint32 yP = 0, xP = 0;
+
+			for (yP = 0; yP < yPiece; ++yP)
+			{
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, vertical);
+					detail::FillRect(image, rc, detail::GetAverage(image, rc));
+				}
+
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, vertical);
+				detail::FillRect(image, rc, detail::GetAverage(image, rc));
+			}
+
+			if (yP * vertical < m_height)
+			{
+				const int32 tY = m_height - yP * vertical;
+
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP * horizontal, yP * vertical, horizontal, tY);
+					detail::FillRect(image, rc, detail::GetAverage(image, rc));
+				}
+
+				const Rect rc(xP * horizontal, yP * vertical, m_width - xP * horizontal, tY);
+				detail::FillRect(image, rc, detail::GetAverage(image, rc));
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::spread(const int32 size)
+	{
+		return spread(size, size);
+	}
+
+	Image& Image::spread(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0) || (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp{ m_width, m_height };
+			DefaultRNG rng{ 12345 };
+
+			UniformIntDistribution<int32> hu{ -horizontal, horizontal };
+			UniformIntDistribution<int32> vu{ -vertical, vertical };
+
+			Color* pDst = tmp.data();
+
+			for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
+			{
+				for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
+				{
+					const int32 xOffset = hu(rng);
+					const int32 yOffset = vu(rng);
+					*pDst++ = getPixel(x + xOffset, y + yOffset, ImageAddressMode::Mirror);
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::spreaded(const int32 size) const
+	{
+		return spreaded(size, size);
+	}
+
+	Image Image::spreaded(const int32 horizontal, const int32 vertical) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0) || (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			DefaultRNG rng{ 12345 };
+
+			UniformIntDistribution<int32> hu{ -horizontal, horizontal };
+			UniformIntDistribution<int32> vu{ -vertical, vertical };
+
+			Color* pDst = image.data();
+
+			for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
+			{
+				for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
+				{
+					const int32 xOffset = hu(rng);
+					const int32 yOffset = vu(rng);
+					*pDst++ = getPixel(x + xOffset, y + yOffset, ImageAddressMode::Mirror);
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::blur(const int32 size, const BorderType borderType)
+	{
+		return blur(size, size, borderType);
+	}
+
+	Image& Image::blur(const int32 horizontal, const int32 vertical, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0) || (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::blur(matSrc, matSrc, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
+		}
+
+		return *this;
+	}
+
+	Image Image::blurred(const int32 size, const BorderType borderType) const
+	{
+		return blurred(size, size, borderType);
+	}
+
+	Image Image::blurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0) || (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+
+			cv::blur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
+			return image;
+		}
+	}
+
+	Image& Image::medianBlur(int32 apertureSize)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (apertureSize < 1)
+			{
+				return *this;
+			}
+
+			if (IsEven(apertureSize))
+			{
+				++apertureSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::medianBlur(matSrc, matSrc, apertureSize);
+		}
+
+		return *this;
+	}
+
+	Image Image::medianBlurred(int32 apertureSize) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (apertureSize < 1)
+			{
+				return *this;
+			}
+
+			if (IsEven(apertureSize))
+			{
+				++apertureSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+
+			cv::medianBlur(matSrc, matDst, apertureSize);
+			return image;
+		}
+	}
 
 	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
 	{
@@ -1176,8 +1550,7 @@ namespace s3d
 				return *this;
 			}
 
-			if ((horizontal <= 0)
-				|| (vertical <= 0))
+			if ((horizontal <= 0) || (vertical <= 0))
 			{
 				return *this;
 			}
@@ -1186,7 +1559,6 @@ namespace s3d
 		// 2. 処理
 		{
 			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
-
 			cv::GaussianBlur(matSrc, matSrc, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
 		}
 
@@ -1207,31 +1579,556 @@ namespace s3d
 				return *this;
 			}
 
-			if ((horizontal <= 0)
-				|| (vertical <= 0))
+			if ((horizontal <= 0) || (vertical <= 0))
 			{
 				return *this;
 			}
 		}
 
-		Image image{ m_width, m_height };
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
 
-		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-
-		cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
-
-		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
-
-		return image;
+			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
+			return image;
+		}
 	}
 
+	Image& Image::bilateralFilter(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
 
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(*this);
+			cv::Mat_<cv::Vec3b> matDst(m_height, m_width);
+			cv::bilateralFilter(matSrc, matDst, d, sigmaColor, sigmaSpace, OpenCV_Bridge::ConvertBorderType(borderType));
+			OpenCV_Bridge::FromMatVec3b(matDst, *this, OverwriteAlpha::No);
+		}
 
+		return *this;
+	}
 
+	Image Image::bilateralFiltered(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
 
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(*this);
+			cv::Mat_<cv::Vec3b> matDst(m_height, m_width);
+			cv::bilateralFilter(matSrc, matDst, d, sigmaColor, sigmaSpace, OpenCV_Bridge::ConvertBorderType(borderType));
+		
+			Image image{ *this };
+			OpenCV_Bridge::FromMatVec3b(matDst, image, OverwriteAlpha::No);
+			return image;
+		}
+	}
 
+	Image& Image::dilate(const int32 iterations)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
 
+			if (iterations <= 0)
+			{
+				return *this;
+			}
+		}
 
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::dilate(matSrc, matSrc, cv::Mat(), cv::Point(-1, -1), iterations);
+		}
+
+		return *this;
+	}
+
+	Image Image::dilated(const int32 iterations) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (iterations <= 0)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+
+			cv::dilate(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
+			return image;
+		}
+	}
+
+	Image& Image::erode(const int32 iterations)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (iterations <= 0)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::erode(matSrc, matSrc, cv::Mat(), cv::Point(-1, -1), iterations);
+		}
+
+		return *this;
+	}
+
+	Image Image::eroded(const int32 iterations) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (iterations <= 0)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+
+			cv::erode(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
+			return image;
+		}
+	}
+
+	Image& Image::floodFill(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((not InRange(pos.x, 0, static_cast<int32>(m_width) - 1))
+				|| (not InRange(pos.y, 0, static_cast<int32>(m_height) - 1)))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec3b> mat = OpenCV_Bridge::ToMatVec3bBGR(*this);
+
+			cv::floodFill(
+				mat,
+				{ pos.x, pos.y },
+				cv::Scalar(color.b, color.g, color.r),
+				nullptr,
+				cv::Scalar::all(lowerDifference),
+				cv::Scalar::all(upperDifference),
+				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE | (255 << 8)
+			);
+
+			OpenCV_Bridge::FromMatVec3b(mat, *this, OverwriteAlpha::No);
+		}
+
+		return *this;
+	}
+
+	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((not InRange(pos.x, 0, static_cast<int32>(m_width) - 1))
+				|| (not InRange(pos.y, 0, static_cast<int32>(m_height) - 1)))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec3b> mat = OpenCV_Bridge::ToMatVec3bBGR(*this);
+
+			cv::floodFill(
+				mat,
+				{ pos.x, pos.y },
+				cv::Scalar(color.b, color.g, color.r),
+				nullptr,
+				cv::Scalar::all(lowerDifference),
+				cv::Scalar::all(upperDifference),
+				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE
+			);
+
+			Image image{ *this };
+			OpenCV_Bridge::FromMatVec3b(mat, image, OverwriteAlpha::No);
+			return image;
+		}
+	}
+
+	Image& Image::scale(int32 width, int32 height, InterpolationAlgorithm interpolation)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			width	= Clamp<int32>(width, 1, Image::MaxWidth);
+			height	= Clamp<int32>(height, 1, Image::MaxHeight);
+
+			if ((static_cast<int32>(m_width) == width)
+				&& (static_cast<int32>(m_height) == height))
+			{
+				return *this;
+			}
+		}
+
+		const uint32 targetWidth = width;
+		const uint32 targetHeight = height;
+
+		// 2. 処理
+		{
+			if (interpolation == InterpolationAlgorithm::Auto)
+			{
+				if ((m_width <= targetWidth) && (m_height <= targetHeight))
+				{
+					interpolation = InterpolationAlgorithm::Lanczos;
+				}
+				else if ((targetWidth <= m_width / 2) || (targetHeight <= m_height / 2))
+				{
+					interpolation = InterpolationAlgorithm::Area;
+				}
+				else
+				{
+					interpolation = InterpolationAlgorithm::Lanczos;
+				}
+			}
+
+			Image tmp(targetWidth, targetHeight);
+			const cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(tmp);
+			
+			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::scaled(int32 width, int32 height, InterpolationAlgorithm interpolation) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			width	= Clamp<int32>(width, 1, Image::MaxWidth);
+			height	= Clamp<int32>(height, 1, Image::MaxHeight);
+
+			if ((static_cast<int32>(m_width) == width)
+				&& (static_cast<int32>(m_height) == height))
+			{
+				return *this;
+			}
+		}
+
+		const uint32 targetWidth = width;
+		const uint32 targetHeight = height;
+
+		// 2. 処理
+		{
+			if (interpolation == InterpolationAlgorithm::Auto)
+			{
+				if ((m_width <= targetWidth) && (m_height <= targetHeight))
+				{
+					interpolation = InterpolationAlgorithm::Lanczos;
+				}
+				else if ((targetWidth <= m_width / 2) || (targetHeight <= m_height / 2))
+				{
+					interpolation = InterpolationAlgorithm::Area;
+				}
+				else
+				{
+					interpolation = InterpolationAlgorithm::Lanczos;
+				}
+			}
+
+			Image image(targetWidth, targetHeight);
+			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+
+			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
+			return image;
+		}
+	}
+
+	Image& Image::scale(const Size& size, const InterpolationAlgorithm interpolation)
+	{
+		return scale(size.x, size.y, interpolation);
+	}
+
+	Image Image::scaled(const Size& size, const InterpolationAlgorithm interpolation) const
+	{
+		return scaled(size.x, size.y, interpolation);
+	}
+
+	Image& Image::scale(const double scaling, const InterpolationAlgorithm interpolation)
+	{
+		return scale(static_cast<int32>(m_width * scaling), static_cast<int32>(m_height * scaling), interpolation);
+	}
+
+	Image Image::scaled(const double scaling, const InterpolationAlgorithm interpolation) const
+	{
+		return scaled(static_cast<int32>(m_width * scaling), static_cast<int32>(m_height * scaling), interpolation);
+	}
+
+	Image& Image::fit(int32 width, int32 height, const AllowScaleUp allowScaleUp, const InterpolationAlgorithm interpolation)
+	{
+		if (not allowScaleUp)
+		{
+			width	= Min(width, static_cast<int32>(m_width));
+			height	= Min(height, static_cast<int32>(m_height));
+		}
+
+		const int32 w = m_width;
+		const int32 h = m_height;
+		double ws = (static_cast<double>(width) / w); // 何 % scalingするか
+		double hs = (static_cast<double>(height) / h);
+
+		int32 targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth		= width;
+			targetHeight	= Max(static_cast<int32>(h * ws), 1);
+		}
+		else
+		{
+			targetWidth		= Max(static_cast<int32>(w * hs), 1);
+			targetHeight	= height;
+		}
+
+		return scale(targetWidth, targetHeight, interpolation);
+	}
+
+	Image Image::fitted(int32 width, int32 height, const AllowScaleUp allowScaleUp, const InterpolationAlgorithm interpolation) const
+	{
+		if (not allowScaleUp)
+		{
+			width	= Min(width, static_cast<int32>(m_width));
+			height	= Min(height, static_cast<int32>(m_height));
+		}
+
+		const int32 w = m_width;
+		const int32 h = m_height;
+		double ws = (static_cast<double>(width) / w); // 何% scalingするか
+		double hs = (static_cast<double>(height) / h);
+
+		int32 targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth		= width;
+			targetHeight	= Max(static_cast<int32>(h * ws), 1);
+		}
+		else
+		{
+			targetWidth		= Max(static_cast<int32>(w * hs), 1);
+			targetHeight	= height;
+		}
+
+		return scaled(targetWidth, targetHeight, interpolation);
+	}
+
+	Image& Image::fit(const Size& size, const AllowScaleUp allowScaleUp, const InterpolationAlgorithm interpolation)
+	{
+		return fit(size.x, size.y, allowScaleUp, interpolation);
+	}
+
+	Image Image::fitted(const Size& size, const AllowScaleUp allowScaleUp, const InterpolationAlgorithm interpolation) const
+	{
+		return fitted(size.x, size.y, allowScaleUp, interpolation);
+	}
+
+	Image& Image::border(const int32 thickness, const Color& color)
+	{
+		return border(thickness, thickness, thickness, thickness, color);
+	}
+
+	Image Image::bordered(const int32 thickness, const Color& color) const
+	{
+		return bordered(thickness, thickness, thickness, thickness, color);
+	}
+
+	Image& Image::border(int32 top, int32 right, int32 bottom, int32 left, const Color& color)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			top		= Max(0, top);
+			right	= Max(0, right);
+			bottom	= Max(0, bottom);
+			left	= Max(0, left);
+
+			if (top == 0 && right == 0 && bottom == 0 && left == 0)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(left + m_width + right, top + m_height + bottom, color);
+
+			const Color* pSrc = data();
+			const size_t srcStride = stride();
+			Color* pDst = tmp.data() + tmp.width() * top + left;
+			const size_t srcStep = m_width;
+			const size_t dstStep = tmp.width();
+
+			for (uint32 y = 0; y < m_height; ++y)
+			{
+				std::memcpy(pDst, pSrc, srcStride);
+				pSrc += srcStep;
+				pDst += dstStep;
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			top		= Max(0, top);
+			right	= Max(0, right);
+			bottom	= Max(0, bottom);
+			left	= Max(0, left);
+
+			if (top == 0 && right == 0 && bottom == 0 && left == 0)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image(left + m_width + right, top + m_height + bottom, color);
+
+			const Color* pSrc = data();
+			const size_t srcStride = stride();
+			Color* pDst = image.data() + image.width() * top + left;
+			const size_t srcStep = m_width;
+			const size_t dstStep = image.width();
+
+			for (uint32 y = 0; y < m_height; ++y)
+			{
+				std::memcpy(pDst, pSrc, srcStride);
+				pSrc += srcStep;
+				pDst += dstStep;
+			}
+
+			return image;
+		}
+	}
+
+	Image Image::warpPerspective(const std::array<Vec2, 4>& target, const Color& background)
+	{
+		if (isEmpty())
+		{
+			return{};
+		}
+
+		const RectF boundingRect = Geometry2D::BoundingRect(target.data(), target.size());
+		const Size dstSize = Math::Ceil(boundingRect.size).asPoint();
+
+		const std::array<cv::Point2f, 4> from = {
+			cv::Point2f(0, 0),
+			cv::Point2f(static_cast<float>(m_width), 0),
+			cv::Point2f(static_cast<float>(m_width), static_cast<float>(m_height)),
+			cv::Point2f(0, static_cast<float>(m_height))
+		};
+
+		const std::array<cv::Point2f, 4> to = {
+			cv::Point2f(static_cast<float>(target[0].x), static_cast<float>(target[0].y)),
+			cv::Point2f(static_cast<float>(target[1].x), static_cast<float>(target[1].y)),
+			cv::Point2f(static_cast<float>(target[2].x), static_cast<float>(target[2].y)),
+			cv::Point2f(static_cast<float>(target[3].x), static_cast<float>(target[3].y)),
+		};
+
+		const cv::Mat transform = cv::getPerspectiveTransform(from, to);
+		const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+		cv::Mat_<cv::Vec4b> matDst;
+
+		const ColorF bg{ background };
+		cv::warpPerspective(matSrc, matDst, transform, cv::Size(dstSize.x, dstSize.y), cv::INTER_LINEAR, cv::BORDER_CONSTANT,
+			cv::Scalar(background.r, background.g, background.b, background.a));
+
+		Image image;
+		OpenCV_Bridge::FromMatVec4bRGBA(matDst, image);
+		return image;
+	}
 
 
 	void Image::overwrite(Image& dst, const int32 x, const int32 y) const

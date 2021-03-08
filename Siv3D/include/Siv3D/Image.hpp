@@ -493,30 +493,35 @@ namespace s3d
 		[[nodiscard]]
 		Image spreaded(int32 horizontal, int32 vertical) const;
 
-		Image& blur(int32 size);
+		Image& blur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
-		Image& blur(int32 horizontal, int32 vertical);
-
-		[[nodiscard]]
-		Image blurred(int32 size) const;
+		Image& blur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 
 		[[nodiscard]]
-		Image blurred(int32 horizontal, int32 vertical) const;
+		Image blurred(int32 size, BorderType borderType = BorderType::Reflect_101) const;
+
+		[[nodiscard]]
+		Image blurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const;
 
 		Image& medianBlur(int32 apertureSize);
 
 		[[nodiscard]]
 		Image medianBlurred(int32 apertureSize) const;
 
-		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Default);
+		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
-		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
-
-		[[nodiscard]]
-		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Default) const;
+		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 
 		[[nodiscard]]
-		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
+		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Reflect_101) const;
+
+		[[nodiscard]]
+		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const;
+
+		Image& bilateralFilter(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101);
+
+		[[nodiscard]]
+		Image bilateralFiltered(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101) const;
 
 		Image& dilate(int32 iterations = 1);
 
@@ -528,35 +533,35 @@ namespace s3d
 		[[nodiscard]]
 		Image eroded(int32 iterations = 1) const;
 
-		//Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
+		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
 
-		//[[nodiscard]]
-		//Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
+		[[nodiscard]]
+		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
 
-		//Image& scale(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
-		//[[nodiscard]]
-		//Image scaled(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]]
+		Image scaled(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
-		//Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(const Size& size, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
-		//[[nodiscard]]
-		//Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]]
+		Image scaled(const Size& size, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
-		//Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(double scaling, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
-		//[[nodiscard]]
-		//Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]]
+		Image scaled(double scaling, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
-		//Image& fit(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+		Image& fit(int32 width, int32 height, AllowScaleUp allowScaleUp = AllowScaleUp::Yes, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
-		//[[nodiscard]]
-		//Image fitted(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]]
+		Image fitted(int32 width, int32 height, AllowScaleUp allowScaleUp = AllowScaleUp::Yes, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
-		//Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+		Image& fit(const Size& size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
-		//[[nodiscard]]
-		//Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]]
+		Image fitted(const Size& size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
 		Image& border(int32 thickness, const Color& color = Palette::White);
 
@@ -567,6 +572,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
+
+		[[nodiscard]]
+		Image warpPerspective(const std::array<Vec2, 4>& target, const Color& background = Color{ 0, 0 });
 
 		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 

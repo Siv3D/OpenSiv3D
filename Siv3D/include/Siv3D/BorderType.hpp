@@ -21,7 +21,5 @@ namespace s3d
 		Reflect,
 
 		Reflect_101,
-
-		Default = Reflect_101,
 	};
 }

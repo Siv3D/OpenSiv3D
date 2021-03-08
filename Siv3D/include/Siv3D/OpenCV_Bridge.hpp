@@ -37,8 +37,14 @@ namespace s3d
 		[[nodiscard]]
 		cv::Mat_<uint8> ToGrayScale(const Image& image);
 
+		[[nodiscard]]
+		cv::Mat_<cv::Vec3b> ToMatVec3bBGR(const Image& image);
+
 		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, OverwriteAlpha overwriteAlpha = OverwriteAlpha::Yes);
 
+		void FromMatVec3b(const cv::Mat_<cv::Vec3b>& from, Image& to, OverwriteAlpha overwriteAlpha = OverwriteAlpha::Yes);
+
+		void FromMatVec4bRGBA(const cv::Mat_<cv::Vec4b>& from, Image& to);
 
 
 

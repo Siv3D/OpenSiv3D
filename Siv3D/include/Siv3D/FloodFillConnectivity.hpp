@@ -10,3 +10,17 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+
+namespace s3d
+{
+	/// @brief 塗りつぶしの連結性
+	enum class FloodFillConnectivity
+	{
+		/// @brief上下左右 4 ピクセル
+		Value4 = 4,
+
+		/// @brief 周囲 8 ピクセル
+		Value8 = 8,
+	};
+}

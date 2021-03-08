@@ -28,9 +28,9 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
-		ImageROI& gaussianBlur(int32 size, BorderType borderType = BorderType::Default);
+		ImageROI& gaussianBlur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
-		ImageROI& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
+		ImageROI& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 	};
 
 	struct ImageConstROI
