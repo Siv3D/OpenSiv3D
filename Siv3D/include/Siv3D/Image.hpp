@@ -33,6 +33,7 @@ namespace s3d
 	struct Icon;
 	struct ImageROI;
 	struct ImageConstROI;
+	struct Mat3x2;
 
 	class Image
 	{
@@ -574,7 +575,10 @@ namespace s3d
 		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
 
 		[[nodiscard]]
-		Image warpPerspective(const std::array<Vec2, 4>& target, const Color& background = Color{ 0, 0 });
+		Image warpAffine(const Mat3x2& mat, const Color& background = Color{ 0, 0 }) const;
+
+		[[nodiscard]]
+		Image warpPerspective(const Quad& quad, const Color& background = Color{ 0, 0 }) const;
 
 		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 

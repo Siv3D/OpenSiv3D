@@ -11,7 +11,6 @@
 
 # include <Siv3D/ImageROI.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
-# include <opencv2/imgproc.hpp>
 
 namespace s3d
 {

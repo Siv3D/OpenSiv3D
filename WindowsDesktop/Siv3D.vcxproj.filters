@@ -4173,6 +4173,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\InterpolationAlgorithm.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Image\ImagePainting.hpp">
+      <Filter>src\Siv3D\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5635,6 +5638,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp">
       <Filter>src\Siv3D\OpenCV_Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Image\ImagePainting.cpp">
+      <Filter>src\Siv3D\Image</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

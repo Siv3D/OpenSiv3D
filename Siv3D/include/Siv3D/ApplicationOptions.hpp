@@ -68,7 +68,7 @@ namespace s3d
 
 	struct ApplicationOptions
 	{
-		EngineOption::DebugHeap debugHeap		= EngineOption::DebugHeap::Yes;
+		EngineOption::DebugHeap debugHeap		= EngineOption::DebugHeap::No;
 
 		EngineOption::Renderer renderer			= EngineOption::Renderer::PlatformDefault;
 

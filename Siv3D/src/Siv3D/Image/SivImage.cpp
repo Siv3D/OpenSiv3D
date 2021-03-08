@@ -15,12 +15,12 @@
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
-
-# include <opencv2/imgproc.hpp>
+# include "ImagePainting.hpp"
 
 namespace s3d
 {
@@ -2093,14 +2093,45 @@ namespace s3d
 		}
 	}
 
-	Image Image::warpPerspective(const std::array<Vec2, 4>& target, const Color& background)
+	Image Image::warpAffine(const Mat3x2& mat, const Color& background) const
 	{
 		if (isEmpty())
 		{
 			return{};
 		}
 
-		const RectF boundingRect = Geometry2D::BoundingRect(target.data(), target.size());
+		const Quad quad{
+			mat.transformPoint(Point{ 0, 0 }),
+			mat.transformPoint(Point{ m_width, 0 }),
+			mat.transformPoint(Point{ m_width, m_height }),
+			mat.transformPoint(Point{ 0, m_height })
+		};
+		const RectF boundingRect = Geometry2D::BoundingRect(&quad.p0, 4);
+		const Mat3x2 m = mat.translated(-boundingRect.pos);
+		const Size dstSize = Math::Ceil(boundingRect.size).asPoint();
+
+		const cv::Matx23f transform{ m._11, m._21, m._31, m._12, m._22, m._32 };
+		const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+		cv::Mat_<cv::Vec4b> matDst;
+
+		const ColorF bg{ background };
+		cv::warpAffine(matSrc, matDst, transform, cv::Size(dstSize.x, dstSize.y), cv::INTER_LINEAR, cv::BORDER_CONSTANT,
+			cv::Scalar(background.r, background.g, background.b, background.a));
+
+		Image image;
+		OpenCV_Bridge::FromMatVec4bRGBA(matDst, image);
+		return image;
+	}
+
+	Image Image::warpPerspective(const Quad& quad, const Color& background) const
+	{
+		if (isEmpty())
+		{
+			return{};
+		}
+
+		const RectF boundingRect = Geometry2D::BoundingRect(&quad.p0, 4);
+		const Quad q = quad.movedBy(-boundingRect.pos);
 		const Size dstSize = Math::Ceil(boundingRect.size).asPoint();
 
 		const std::array<cv::Point2f, 4> from = {
@@ -2111,10 +2142,10 @@ namespace s3d
 		};
 
 		const std::array<cv::Point2f, 4> to = {
-			cv::Point2f(static_cast<float>(target[0].x), static_cast<float>(target[0].y)),
-			cv::Point2f(static_cast<float>(target[1].x), static_cast<float>(target[1].y)),
-			cv::Point2f(static_cast<float>(target[2].x), static_cast<float>(target[2].y)),
-			cv::Point2f(static_cast<float>(target[3].x), static_cast<float>(target[3].y)),
+			cv::Point2f(static_cast<float>(q.p0.x), static_cast<float>(q.p0.y)),
+			cv::Point2f(static_cast<float>(q.p1.x), static_cast<float>(q.p1.y)),
+			cv::Point2f(static_cast<float>(q.p2.x), static_cast<float>(q.p2.y)),
+			cv::Point2f(static_cast<float>(q.p3.x), static_cast<float>(q.p3.y)),
 		};
 
 		const cv::Mat transform = cv::getPerspectiveTransform(from, to);
@@ -2130,6 +2161,41 @@ namespace s3d
 		return image;
 	}
 
+	void Image::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paint(dst, Point{ x, y }, color);
+	}
+
+	void Image::paint(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (this == &dst)
+		{
+			return;
+		}
+
+		const Image& src = *this;
+		const int32 dstXBegin	= Max(pos.x, 0);
+		const int32 dstYBegin	= Max(pos.y, 0);
+		const int32 dstXEnd		= Min(pos.x + src.width(), dst.width());
+		const int32 dstYEnd		= Min(pos.y + src.height(), dst.height());
+		const int32 writeWidth	= (dstXEnd - dstXBegin);
+		const int32 writeHeight	= (dstYEnd - dstYBegin);
+
+		if ((writeWidth <= 0) || (writeHeight <= 0))
+		{
+			return;
+		}
+
+		const int32 srcXBegin = Max(0, -pos.x);
+		const int32 srcYBegin = Max(0, -pos.y);
+
+		const Color* pSrc = &src[srcYBegin][srcXBegin];
+		Color* pDst = &dst[dstYBegin][dstXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+		ImagePainting::Paint(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+	}
 
 	void Image::overwrite(Image& dst, const int32 x, const int32 y) const
 	{

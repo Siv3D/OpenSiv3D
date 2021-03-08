@@ -19,6 +19,7 @@
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/core.hpp>
+# include <opencv2/imgproc.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
