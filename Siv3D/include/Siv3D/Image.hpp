@@ -22,6 +22,10 @@
 # include "IReader.hpp"
 # include "PNGFilter.hpp"
 # include "BorderType.hpp"
+# include "AdaptiveThresholdMethod.hpp"
+# include "FloodFillConnectivity.hpp"
+# include "InterpolationAlgorithm.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -454,15 +458,20 @@ namespace s3d
 		[[nodiscard]]
 		Image gammaCorrected(double gamma) const;
 
-		Image& threshold(uint8 threshold, bool inverse = false);
+		Image& threshold(uint8 threshold, InvertColor invertColor = InvertColor::No);
 
 		[[nodiscard]]
-		Image thresholded(uint8 threshold, bool inverse = false) const;
+		Image thresholded(uint8 threshold, InvertColor invertColor = InvertColor::No) const;
 
-		//Image& adaptiveThreshold(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false);
+		Image& threshold_Otsu(InvertColor invertColor = InvertColor::No);
 
-		//[[nodiscard]]
-		//Image adaptiveThresholded(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false) const;
+		[[nodiscard]]
+		Image thresholded_Otsu(InvertColor invertColor = InvertColor::No) const;
+
+		Image& adaptiveThreshold(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No);
+
+		[[nodiscard]]
+		Image adaptiveThresholded(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No) const;
 
 		Image& mosaic(int32 size);
 

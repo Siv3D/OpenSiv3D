@@ -15,6 +15,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapesFwd.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AdaptiveThresholdMethod.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Addon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ApplicationOptions.hpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloodFillConnectivity.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Font.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FontMethod.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FontStyle.hpp" />
@@ -221,6 +223,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\InputDevice.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputGroup.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputGroups.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\InterpolationAlgorithm.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ISteadyClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
@@ -1310,6 +1313,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MultiPolygon\SivMultiPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />

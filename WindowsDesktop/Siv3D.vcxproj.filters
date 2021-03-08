@@ -844,6 +844,9 @@
     <Filter Include="src\Siv3D\ImageROI">
       <UniqueIdentifier>{bb97ac84-138a-447d-979a-d7cea8693e7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\OpenCV_Bridge">
+      <UniqueIdentifier>{147552c6-64ce-4052-8880-db57a7be49dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4161,6 +4164,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OpenCV_Bridge.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AdaptiveThresholdMethod.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloodFillConnectivity.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\InterpolationAlgorithm.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5620,6 +5632,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageROI\SivImageROI.cpp">
       <Filter>src\Siv3D\ImageROI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp">
+      <Filter>src\Siv3D\OpenCV_Bridge</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

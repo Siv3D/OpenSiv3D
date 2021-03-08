@@ -25,6 +25,9 @@ namespace s3d
 {
 	namespace detail
 	{
+		static_assert((int32)AdaptiveThresholdMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
+		static_assert((int32)AdaptiveThresholdMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
+
 		[[nodiscard]]
 		inline constexpr int32 ImageMod(int32 x, int32 y) noexcept
 		{
@@ -43,6 +46,36 @@ namespace s3d
 		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py) noexcept
 		{
 			return (px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1);
+		}
+
+		[[nodiscard]]
+		static Color MakeSepia(Color color, const double levr, const double levg, const double levb) noexcept
+		{
+			const double y = ((0.299 * color.r) + (0.587 * color.g) + (0.114 * color.b));
+			color.r = Color::ToUint8(levr + y);
+			color.g = Color::ToUint8(levg + y);
+			color.b = Color::ToUint8(levb + y);
+			return color;
+		}
+
+		static void InitPosterizeTable(const int32 level, uint8 table[256]) noexcept
+		{
+			const int32 levN = Clamp(level, 2, 256) - 1;
+
+			for (size_t i = 0; i < 256; ++i)
+			{
+				table[i] = static_cast<uint8>(std::floor(i / 255.0 * levN + 0.5) / levN * 255);
+			}
+		}
+
+		static void InitGammmaTable(const double gamma, uint8 table[256])
+		{
+			const double gammaInv = (1.0 / gamma);
+
+			for (size_t i = 0; i < 256; ++i)
+			{
+				table[i] = static_cast<uint8>(std::pow(i / 255.0, gammaInv) * 255.0);
+			}
 		}
 	}
 
@@ -286,6 +319,845 @@ namespace s3d
 	{
 		return PNGEncoder{}.save(*this, path, filter);
 	}
+
+	Image& Image::negate()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel = ~pixel;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::negated() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			for (auto& pixel : image)
+			{
+				pixel = ~pixel;
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::grayscale()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				const uint8 gray = pixel.grayscale0_255();
+				pixel.r = gray;
+				pixel.g = gray;
+				pixel.b = gray;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::grayscaled() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			for (auto& pixel : image)
+			{
+				const uint8 gray = pixel.grayscale0_255();
+				pixel.r = gray;
+				pixel.g = gray;
+				pixel.b = gray;
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::sepia(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const double levn = Clamp(level, 0, 255);
+			const double levr = 0.956 * levn;
+			const double levg = 0.274 * levn;
+			const double levb = -1.108 * levn;
+
+			for (auto& pixel : m_data)
+			{
+				pixel = detail::MakeSepia(pixel, levr, levg, levb);
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::sepiaed(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			const double levn = Clamp(level, 0, 255);
+			const double levr = 0.956 * levn;
+			const double levg = 0.274 * levn;
+			const double levb = -1.108 * levn;
+
+			for (auto& pixel : image)
+			{
+				pixel = detail::MakeSepia(pixel, levr, levg, levb);
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::posterize(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			uint8 colorTable[256];
+			detail::InitPosterizeTable(level, colorTable);
+
+			for (auto& pixel : m_data)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::posterized(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			uint8 colorTable[256];
+			detail::InitPosterizeTable(level, colorTable);
+
+			for (auto& pixel : image)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::brighten(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			if (level < 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = Max(static_cast<int32>(pixel.r) + level, 0);
+					pixel.g = Max(static_cast<int32>(pixel.g) + level, 0);
+					pixel.b = Max(static_cast<int32>(pixel.b) + level, 0);
+				}
+			}
+			else if (level > 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = Min(static_cast<int32>(pixel.r) + level, 255);
+					pixel.g = Min(static_cast<int32>(pixel.g) + level, 255);
+					pixel.b = Min(static_cast<int32>(pixel.b) + level, 255);
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::brightened(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			if (level < 0)
+			{
+				for (auto& pixel : image)
+				{
+					pixel.r = Max(static_cast<int32>(pixel.r) + level, 0);
+					pixel.g = Max(static_cast<int32>(pixel.g) + level, 0);
+					pixel.b = Max(static_cast<int32>(pixel.b) + level, 0);
+				}
+			}
+			else if (level > 0)
+			{
+				for (auto& pixel : image)
+				{
+					pixel.r = Min(static_cast<int32>(pixel.r) + level, 255);
+					pixel.g = Min(static_cast<int32>(pixel.g) + level, 255);
+					pixel.b = Min(static_cast<int32>(pixel.b) + level, 255);
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::mirror()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height;
+			const int32 w = m_width;
+			const int32 wHalf = (m_width / 2);
+			Color* line = m_data.data();
+
+			for (int32 y = 0; y < h; ++y)
+			{
+				Color* lineA = line;
+				Color* lineB = line + w - 1;;
+
+				for (int32 x = 0; x < wHalf; ++x)
+				{
+					std::swap(*lineA, *lineB);
+					++lineA;
+					--lineB;
+				}
+
+				line += w;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::mirrored() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+
+			const Color* pSrc = data();
+			Color* pDst = image.data();
+			const size_t width = m_width;
+
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				const Color* pSrcLine = (pSrc + width * y + width - 1);
+				Color* pDstLine = (pDst + width * y);
+
+				for (size_t x = 0; x < m_width; ++x)
+				{
+					*(pDstLine + x) = *(pSrcLine - x);
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::flip()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height;
+			const size_t stride_bytes = stride();
+
+			Array<Color> line(m_width);
+			Color* lineU = m_data.data();
+			Color* lineB = lineU + m_width * (h - 1);
+
+			for (int32 y = 0; y < h / 2; ++y)
+			{
+				std::memcpy(line.data(), lineU, stride_bytes);
+				std::memcpy(lineU, lineB, stride_bytes);
+				std::memcpy(lineB, line.data(), stride_bytes);
+
+				lineU += m_width;
+				lineB -= m_width;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::flipped() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+
+			const size_t stride_bytes = stride();
+			const Color* pSrc = data() + (m_height - 1) * m_width;
+			Color* pDst = image.data();
+
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				std::memcpy(pDst, pSrc, stride_bytes);
+				pDst += m_width;
+				pSrc -= m_width;
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::rotate90()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			// [Siv3D ToDo] 最適化
+			Image tmp{ m_height, m_width };
+
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				const Color* pSrc = data() + y * m_width;
+				const size_t dstX = m_height - y - 1;
+
+				for (size_t x = 0; x < m_width; ++x)
+				{
+					tmp[x][dstX] = pSrc[x];
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::rotated90() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_height, m_width };
+
+			// [Siv3D ToDo] 最適化
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				const Color* pSrc = data() + y * m_width;
+				const size_t dstX = m_height - y - 1;
+
+				for (size_t x = 0; x < m_width; ++x)
+				{
+					image[x][dstX] = pSrc[x];
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::rotate180()
+	{
+		std::reverse(begin(), end());
+
+		return *this;
+	}
+
+	Image Image::rotated180() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_width, m_height };
+
+			const Color* pSrc = data() + num_pixels() - 1;
+			Color* pDst = image.data();
+			const Color* const pDstEnd = pDst + image.num_pixels();
+
+			while (pDst != pDstEnd)
+			{
+				*pDst++ = *pSrc--;
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::rotate270()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			// [Siv3D ToDo] 最適化
+			Image tmp{ m_height, m_width };
+
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				const Color* pSrc = (data() + y * m_width);
+
+				for (size_t x = 0; x < m_width; ++x)
+				{
+					tmp[m_width - x - 1][y] = pSrc[x];
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::rotated270() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ m_height, m_width };
+
+			for (size_t y = 0; y < m_height; ++y)
+			{
+				const Color* pSrc = (data() + y * m_width);
+
+				for (size_t x = 0; x < m_width; ++x)
+				{
+					image[m_width - x - 1][y] = pSrc[x];
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::gammaCorrect(const double gamma)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			uint8 colorTable[256];
+			detail::InitGammmaTable(gamma, colorTable);
+
+			for (auto& pixel : m_data)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::gammaCorrected(const double gamma) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			uint8 colorTable[256];
+			detail::InitGammmaTable(gamma, colorTable);
+
+			for (auto& pixel : image)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::threshold(const uint8 threshold, const InvertColor invertColor)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Color* pDst = data();
+			const Color* pDstEnd = pDst + num_pixels();
+			const double thresholdF = (threshold / 255.0);
+
+			if (invertColor)
+			{
+				while (pDst != pDstEnd)
+				{
+					if (thresholdF < pDst->grayscale())
+					{
+						pDst->setRGB(255);
+					}
+					else
+					{
+						pDst->setRGB(0);
+					}
+
+					++pDst;
+				}
+			}
+			else
+			{
+				while (pDst != pDstEnd)
+				{
+					if (thresholdF < pDst->grayscale())
+					{
+						pDst->setRGB(0);
+					}
+					else
+					{
+						pDst->setRGB(255);
+					}
+
+					++pDst;
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::thresholded(const uint8 threshold, const InvertColor invertColor) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image image{ *this };
+
+			Color* pDst = image.data();
+			const Color* pDstEnd = pDst + num_pixels();
+			const double thresholdF = (threshold / 255.0);
+
+			if (invertColor)
+			{
+				while (pDst != pDstEnd)
+				{
+					if (thresholdF < pDst->grayscale())
+					{
+						pDst->setRGB(255);
+					}
+					else
+					{
+						pDst->setRGB(0);
+					}
+
+					++pDst;
+				}
+			}
+			else
+			{
+				while (pDst != pDstEnd)
+				{
+					if (thresholdF < pDst->grayscale())
+					{
+						pDst->setRGB(0);
+					}
+					else
+					{
+						pDst->setRGB(255);
+					}
+
+					++pDst;
+				}
+			}
+
+			return image;
+		}
+	}
+
+	Image& Image::threshold_Otsu(const InvertColor invertColor)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 thresholdType = 
+				((invertColor ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY) | cv::THRESH_OTSU);
+
+			cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(*this);
+
+			cv::threshold(gray, gray, 0, 255, thresholdType);
+
+			OpenCV_Bridge::FromGrayScale(gray, *this, OverwriteAlpha::No);
+		}
+
+		return *this;
+	}
+
+	Image Image::thresholded_Otsu(const InvertColor invertColor) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 thresholdType =
+				((invertColor ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY) | cv::THRESH_OTSU);
+
+			cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(*this);
+
+			cv::threshold(gray, gray, 0, 255, thresholdType);
+
+			Image image{ *this };
+
+			OpenCV_Bridge::FromGrayScale(gray, image, OverwriteAlpha::No);
+
+			return image;
+		}
+	}
+
+	Image& Image::adaptiveThreshold(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (IsEven(blockSize))
+			{
+				++blockSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			const cv::ThresholdTypes thresholdType = (invertColor ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY);
+
+			cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(*this);
+
+			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), thresholdType, blockSize, c);
+
+			OpenCV_Bridge::FromGrayScale(gray, *this, OverwriteAlpha::No);
+		}
+
+		return *this;
+	}
+
+	Image Image::adaptiveThresholded(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (blockSize % 2 == 0)
+			{
+				++blockSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			const cv::ThresholdTypes thresholdType = (invertColor ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY);
+
+			cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(*this);
+
+			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), thresholdType, blockSize, c);
+
+			Image image{ *this };
+
+			OpenCV_Bridge::FromGrayScale(gray, image, OverwriteAlpha::No);
+
+			return image;
+		}
+	}
+
+
+
+
+
 
 
 

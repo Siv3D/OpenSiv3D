@@ -15,6 +15,7 @@
 # if __has_include(<opencv2/core.hpp>)
 
 # include "Image.hpp"
+# include "2DShapes.hpp"
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/core.hpp>
@@ -33,6 +34,14 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept;
 
+		[[nodiscard]]
+		cv::Mat_<uint8> ToGrayScale(const Image& image);
+
+		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, OverwriteAlpha overwriteAlpha = OverwriteAlpha::Yes);
+
+
+
+
 		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
@@ -49,7 +58,7 @@ namespace s3d
 
 		void FromMat(const cv::Mat_<cv::Vec3b>& from, Image& to, bool preserveAlpha = false);
 
-		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, bool preserveAlpha = false);
+
 
 		[[nodiscard]]
 		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path);

@@ -800,6 +800,12 @@
 
 # include <Siv3D/BorderType.hpp>
 
+# include <Siv3D/AdaptiveThresholdMethod.hpp>
+
+# include <Siv3D/FloodFillConnectivity.hpp>
+
+# include <Siv3D/InterpolationAlgorithm.hpp>
+
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 

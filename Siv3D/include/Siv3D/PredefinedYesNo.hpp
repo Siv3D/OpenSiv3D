@@ -40,4 +40,10 @@ namespace s3d
 
 	/// @brief クロスフェードする
 	using CrossFade			= YesNo<struct CrossFade_tag>;
+
+	/// @brief 色を反転する
+	using InvertColor		= YesNo<struct InvertColor_tag>;
+
+	/// @brief アルファ値を更新する
+	using OverwriteAlpha	= YesNo<struct OverwriteAlpha_tag>;
 }
