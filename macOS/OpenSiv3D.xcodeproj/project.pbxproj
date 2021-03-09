@@ -1029,6 +1029,8 @@
 		2CF962FA25A7F9AB006F55C9 /* Splines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F825A7F9AB006F55C9 /* Splines.cpp */; };
 		2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF962F925A7F9AB006F55C9 /* Splines.h */; };
 		2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */; };
+		2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212425F7065200C51D0D /* ShapePainting.cpp */; };
+		2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212525F7065200C51D0D /* ShapePainting.hpp */; };
 		2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE199F2555B221005826A1 /* CKeyboard.cpp */; };
 		2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19A02555B221005826A1 /* CKeyboard.hpp */; };
 		2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */; };
@@ -2700,6 +2702,9 @@
 		2CF962F825A7F9AB006F55C9 /* Splines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Splines.cpp; sourceTree = "<group>"; };
 		2CF962F925A7F9AB006F55C9 /* Splines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splines.h; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
+		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
+		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
+		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
 		2CFE199F2555B221005826A1 /* CKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKeyboard.cpp; sourceTree = "<group>"; };
 		2CFE19A02555B221005826A1 /* CKeyboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CKeyboard.hpp; sourceTree = "<group>"; };
 		2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardFactory.cpp; sourceTree = "<group>"; };
@@ -4196,8 +4201,10 @@
 			isa = PBXGroup;
 			children = (
 				2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */,
-				2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */,
+				2CFC212425F7065200C51D0D /* ShapePainting.cpp */,
 				2C47B28924DD9789008D83BE /* SivImage.cpp */,
+				2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */,
+				2CFC212525F7065200C51D0D /* ShapePainting.hpp */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -5976,6 +5983,7 @@
 				2CAAA89725E7FD0300C014D7 /* Duration.hpp */,
 				2CAAA88725E7FD0300C014D7 /* DynamicTexture.hpp */,
 				2CAAA84F25E7FD0300C014D7 /* Easing.hpp */,
+				2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */,
 				2CAAA72D25E7FD0200C014D7 /* Effect.hpp */,
 				2CAAA71925E7FD0200C014D7 /* Ellipse.hpp */,
 				2CAAA71D25E7FD0200C014D7 /* Emoji.hpp */,
@@ -6909,6 +6917,7 @@
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
 				2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */,
 				2C43C89025C837F000D6D613 /* ftpsprop.h in Headers */,
+				2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */,
 				2C43C8BB25C837F100D6D613 /* t1tables.h in Headers */,
 				2CF21D1F249FAA8F00C864C9 /* OpenGL.hpp in Headers */,
 				2C48BF7725D41C0D00A93CE3 /* IGlyphCache.hpp in Headers */,
@@ -7518,6 +7527,7 @@
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C47B34C24DD9789008D83BE /* PNGEncoder.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
+				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
 				2C834DA8248805D4006208B8 /* regversion.c in Sources */,
 				2C794B1525C3DFC200034D81 /* zstd_compress.c in Sources */,
 				2C47B30824DD9789008D83BE /* SivIntFormatter.cpp in Sources */,
