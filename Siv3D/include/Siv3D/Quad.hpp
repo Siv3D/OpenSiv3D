@@ -190,13 +190,13 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const Quad& paint(Image& dst, const Color& color) const;
+		const Quad& paint(Image& dst, const Color& color) const;
 
-		//const Quad& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Quad& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const Quad& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+		const Quad& paintFrame(Image& dst, int32 thickness, const Color& color) const;
 
-		//const Quad& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const Quad& overwriteFrame(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		const Quad& draw(const ColorF& color = Palette::White) const;
 

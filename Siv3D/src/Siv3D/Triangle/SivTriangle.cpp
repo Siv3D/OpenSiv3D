@@ -153,6 +153,20 @@ namespace s3d
 		return Polygon{ { p0, p1, p2 }, {{ 0, 1, 2 }}, boundingRect(), SkipValidation::Yes };
 	}
 
+	const Triangle& Triangle::paintFrame(Image& dst, const int32 thickness, const Color& color) const
+	{
+		LineString{ p0, p1, p2 }.paintClosed(dst, thickness, color);
+
+		return *this;
+	}
+
+	const Triangle& Triangle::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const Antialiased antialiased) const
+	{
+		LineString{ p0, p1, p2 }.overwriteClosed(dst, thickness, color, antialiased);
+
+		return *this;
+	}
+
 	const Triangle& Triangle::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addTriangle({ p0, p1, p2 }, color.toFloat4());

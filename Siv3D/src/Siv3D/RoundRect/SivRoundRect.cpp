@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -149,6 +150,34 @@ namespace s3d
 	bool RoundRect::mouseOver() const noexcept
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+	const RoundRect& RoundRect::paint(Image& dst, const Color& color) const
+	{
+		asPolygon().paint(dst, color);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::overwrite(Image& dst, const Color& color, const Antialiased antialiased) const
+	{
+		asPolygon().overwrite(dst, color, antialiased);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5, none)).paintClosed(dst, (outerThickness + innerThickness), color);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const Antialiased antialiased) const
+	{
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5, none)).overwriteClosed(dst, (outerThickness + innerThickness), color, antialiased);
+
+		return *this;
 	}
 
 	const RoundRect& RoundRect::draw(const ColorF& color) const

@@ -265,13 +265,13 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const RoundRect& paint(Image& dst, const Color& color) const;
+		const RoundRect& paint(Image& dst, const Color& color) const;
 
-		//const RoundRect& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const RoundRect& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const RoundRect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const RoundRect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
-		//const RoundRect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+		const RoundRect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		const RoundRect& draw(const ColorF& color = Palette::White) const;
 

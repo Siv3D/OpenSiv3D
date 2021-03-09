@@ -634,6 +634,11 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon rounded(double tl, double tr, double br, double bl) const noexcept;
+		
+		/// @brief 長方形を Rect として返します。
+		/// @return 長方形の Rect
+		[[nodiscard]]
+		constexpr Rect asRect() const noexcept;
 
 		/// @brief 長方形を Quad として返します。
 		/// @return 長方形の Quad
@@ -711,13 +716,13 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const RectF& paint(Image& dst, const Color& color) const;
+		const RectF& paint(Image& dst, const Color& color) const;
 
-		//const RectF& overwrite(Image& dst, const Color& color) const;
+		const RectF& overwrite(Image& dst, const Color& color) const;
 
-		//const RectF& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const RectF& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
-		//const RectF& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const RectF& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
 		/// @brief 長方形を描画します。
 		/// @param color 色

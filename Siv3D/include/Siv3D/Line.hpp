@@ -16,6 +16,7 @@
 # include "ColorHSV.hpp"
 # include "Optional.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "PredefinedYesNo.hpp"
 # include "LineStyle.hpp"
 
 namespace s3d
@@ -172,9 +173,9 @@ namespace s3d
 
 		const Line& paint(Image& dst, int32 thickness, const Color& color) const;
 
-		const Line& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Line& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Line& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const Line& overwrite(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		//const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 

@@ -626,46 +626,46 @@
 # include <Siv3D/LineStyle.hpp>
 
 // 線分 | Line segment
-# include <Siv3D/Line.hpp> // [Siv3D ToDo]
+# include <Siv3D/Line.hpp>
 
 // 長方形 (int32) | Rectangle (int32)
-# include <Siv3D/Rect.hpp> // [Siv3D ToDo]
+# include <Siv3D/Rect.hpp>
 
 // 長方形 (double) | Rectangle (double)
-# include <Siv3D/RectF.hpp> // [Siv3D ToDo]
+# include <Siv3D/RectF.hpp>
 
 // 円 | Circle
-# include <Siv3D/Circle.hpp> // [Siv3D ToDo]
+# include <Siv3D/Circle.hpp>
 
 // 楕円 | Ellipse
-# include <Siv3D/Ellipse.hpp> // [Siv3D ToDo]
+# include <Siv3D/Ellipse.hpp>
 
 // 三角形 | Triangle
-# include <Siv3D/Triangle.hpp> // [Siv3D ToDo]
+# include <Siv3D/Triangle.hpp>
 
 // 凸四角形 | Convex quadrilateral
-# include <Siv3D/Quad.hpp> // [Siv3D ToDo]
+# include <Siv3D/Quad.hpp>
 
 // 角丸長方形 | Rounded rectangle
-# include <Siv3D/RoundRect.hpp> // [Siv3D ToDo]
+# include <Siv3D/RoundRect.hpp>
 
 // 点の集合（とそれをつないで表現される線分） | A sequence of points (and the line segments connecting them)
-# include <Siv3D/LineString.hpp> // [Siv3D ToDo]
+# include <Siv3D/LineString.hpp>
 
 // 多角形 | Polygon
-# include <Siv3D/Polygon.hpp> // [Siv3D ToDo]
+# include <Siv3D/Polygon.hpp>
 
 // 複数の多角形 | Multi-polygon
-# include <Siv3D/MultiPolygon.hpp> // [Siv3D ToDo]
+# include <Siv3D/MultiPolygon.hpp>
 
 // 2 次ベジェ曲線 | Quadratic Bézier curve
-# include <Siv3D/Bezier2.hpp> // [Siv3D ToDo]
+# include <Siv3D/Bezier2.hpp>
 
 // 3 次ベジェ曲線 | Cubic Bézier curve
-# include <Siv3D/Bezier3.hpp> // [Siv3D ToDo]
+# include <Siv3D/Bezier3.hpp>
 
 // Catmull-Rom スプライン曲線 | Catmull-Rom spline curves
-# include <Siv3D/Spline2D.hpp> // [Siv3D ToDo]
+# include <Siv3D/Spline2D.hpp>
 
 // float 型の長方形 | Rectangle (float)
 # include <Siv3D/FloatRect.hpp>

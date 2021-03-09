@@ -49,4 +49,7 @@ namespace s3d
 
 	/// @brief 穴の発生を許可する
 	using AllowHoles		= YesNo<struct AllowHoles_tag>;
+
+	/// @brief アンチエイリアスを有向にする
+	using Antialiased		= YesNo<struct Antialiased_tag>;
 }

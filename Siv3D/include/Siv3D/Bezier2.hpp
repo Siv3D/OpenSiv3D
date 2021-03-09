@@ -15,6 +15,7 @@
 # include "Array.hpp"
 # include "Optional.hpp"
 # include "2DShapes.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -56,13 +57,13 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
-		//const Bezier2& paint(Image& dst, const Color& color) const;
+		const Bezier2& paint(Image& dst, const Color& color) const;
 
-		//const Bezier2& paint(Image& dst, int32 thickness, const Color& color) const;
+		const Bezier2& paint(Image& dst, int32 thickness, const Color& color) const;
 
-		//const Bezier2& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Bezier2& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const Bezier2& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const Bezier2& overwrite(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		const Bezier2& draw(const ColorF& color = Palette::White, int32 quality = 24) const;
 

@@ -97,6 +97,70 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
+	const MultiPolygon& MultiPolygon::paint(Image& dst, const Color& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.paint(dst, color);
+		}
+
+		return *this;
+	}
+
+	const MultiPolygon& MultiPolygon::paint(Image& dst, const double x, const double y, const Color& color) const
+	{
+		const Vec2 pos{ x, y };
+
+		for (const auto& polygon : *this)
+		{
+			polygon.paint(dst, pos, color);
+		}
+
+		return *this;
+	}
+
+	const MultiPolygon& MultiPolygon::paint(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.paint(dst, pos, color);
+		}
+
+		return *this;
+	}
+
+	const MultiPolygon& MultiPolygon::overwrite(Image& dst, const Color& color, const Antialiased antialiased) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.overwrite(dst, color, antialiased);
+		}
+
+		return *this;
+	}
+
+	const MultiPolygon& MultiPolygon::overwrite(Image& dst, const double x, const double y, const Color& color, const Antialiased antialiased) const
+	{
+		const Vec2 pos{ x, y };
+
+		for (const auto& polygon : *this)
+		{
+			polygon.overwrite(dst, pos, color, antialiased);
+		}
+
+		return *this;
+	}
+
+	const MultiPolygon& MultiPolygon::overwrite(Image& dst, const Vec2& pos, const Color& color, const Antialiased antialiased) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.overwrite(dst, pos, color, antialiased);
+		}
+
+		return *this;
+	}
+
 	const MultiPolygon& MultiPolygon::draw(const ColorF& color) const
 	{
 		for (const auto& polygon : *this)
@@ -175,11 +239,21 @@ namespace s3d
 		}
 	}
 
-	//void MultiPolygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
-	//{
-	//	for (const auto& polygon : *this)
-	//	{
-	//		polygon.drawTransformed(s, c, pos, color);
-	//	}
-	//}
+	void MultiPolygon::drawTransformed(const double angle, const Vec2& pos, const ColorF& color) const
+	{
+		const auto [s, c] = FastMath::SinCos(angle);
+
+		for (const auto& polygon : *this)
+		{
+			polygon.drawTransformed(s, c, pos, color);
+		}
+	}
+
+	void MultiPolygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
+	{
+		for (const auto& polygon : *this)
+		{
+			polygon.drawTransformed(s, c, pos, color);
+		}
+	}
 }

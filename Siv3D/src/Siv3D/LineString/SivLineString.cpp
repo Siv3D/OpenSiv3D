@@ -400,6 +400,26 @@ namespace s3d
 		return{ *this, closeRing };
 	}
 
+	const LineString& LineString::paint(Image& dst, const Color& color) const
+	{
+		return paint(dst, 1, color);
+	}
+
+	const LineString& LineString::paintClosed(Image& dst, const Color& color) const
+	{
+		return paintClosed(dst, 1, color);
+	}
+
+	const LineString& LineString::overwrite(Image& dst, const Color& color, const Antialiased antialiased) const
+	{
+		return overwrite(dst, 1, color, antialiased);
+	}
+
+	const LineString& LineString::overwriteClosed(Image& dst, const Color& color, const Antialiased antialiased) const
+	{
+		return overwriteClosed(dst, 1, color, antialiased);
+	}
+
 	const LineString& LineString::draw(const ColorF& color) const
 	{
 		return draw(1.0, color);

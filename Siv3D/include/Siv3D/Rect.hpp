@@ -707,13 +707,13 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const Rect& paint(Image& dst, const Color& color) const;
+		const Rect& paint(Image& dst, const Color& color) const;
 
-		//const Rect& overwrite(Image& dst, const Color& color) const;
+		const Rect& overwrite(Image& dst, const Color& color) const;
 
-		//const Rect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const Rect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
-		//const Rect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const Rect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
 		/// @brief 長方形を描画します。
 		/// @param color 色

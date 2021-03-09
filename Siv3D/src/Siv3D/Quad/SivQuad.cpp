@@ -201,6 +201,20 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
+	const Quad& Quad::paintFrame(Image& dst, const int32 thickness, const Color& color) const
+	{
+		LineString{ p0, p1, p2, p3 }.paintClosed(dst, thickness, color);
+
+		return *this;
+	}
+
+	const Quad& Quad::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const Antialiased antialiased) const
+	{
+		LineString{ p0, p1, p2, p3 }.overwriteClosed(dst, thickness, color, antialiased);
+
+		return *this;
+	}
+
 	const Quad& Quad::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addQuad(FloatQuad{ p0, p1, p2, p3 }, color.toFloat4());

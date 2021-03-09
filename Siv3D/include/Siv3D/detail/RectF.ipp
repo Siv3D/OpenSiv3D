@@ -801,6 +801,11 @@ namespace s3d
 		return{ *this, r };
 	}
 
+	inline constexpr Rect RectF::asRect() const noexcept
+	{
+		return{ pos.asPoint(), size.asPoint() };
+	}
+
 	inline constexpr Quad RectF::asQuad() const noexcept
 	{
 		return{ tl(), tr(), br(), bl() };

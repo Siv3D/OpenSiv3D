@@ -352,6 +352,34 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
+	const RectF& RectF::paint(Image& dst, const Color& color) const
+	{
+		asRect().paint(dst, color);
+
+		return *this;
+	}
+
+	const RectF& RectF::overwrite(Image& dst, const Color& color) const
+	{
+		asRect().overwrite(dst, color);
+
+		return *this;
+	}
+
+	const RectF& RectF::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		asRect().paintFrame(dst, innerThickness, outerThickness, color);
+
+		return *this;
+	}
+
+	const RectF& RectF::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		asRect().overwriteFrame(dst, innerThickness, outerThickness, color);
+
+		return *this;
+	}
+
 	const RectF& RectF::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) }, color.toFloat4());

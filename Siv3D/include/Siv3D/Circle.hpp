@@ -14,6 +14,7 @@
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 # include "LineStyle.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -347,14 +348,13 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		/*
-		const Circle& paint(Image& dst, const Color& color, bool antialiased = true) const;
+		const Circle& paint(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Circle& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		//const Circle& paintPie(Image& dst, double startAngle, double angle, const Color& color) const;
 
@@ -363,7 +363,6 @@ namespace s3d
 		//const Circle& paintArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
 
 		//const Circle& overwriteArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
-		*/
 
 		const Circle& draw(const ColorF& color = Palette::White) const;
 

@@ -269,9 +269,9 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const Ellipse& paint(Image& dst, const Color& color) const;
+		const Ellipse& paint(Image& dst, const Color& color) const;
 
-		//const Ellipse& overwrite(Image& dst, const Color& color) const;
+		const Ellipse& overwrite(Image& dst, const Color& color) const;
 
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
 

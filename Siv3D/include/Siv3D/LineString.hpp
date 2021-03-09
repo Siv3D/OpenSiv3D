@@ -415,23 +415,21 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
+		const LineString& paint(Image& dst, const Color& color) const;
 
-		//const LineString& paint(Image& dst, const Color& color) const;
+		const LineString& paint(Image& dst, int32 thickness, const Color& color) const;
 
-		//const LineString& paint(Image& dst, int32 thickness, const Color& color) const;
+		const LineString& paintClosed(Image& dst, const Color& color) const;
 
-		//const LineString& paintClosed(Image& dst, const Color& color) const;
+		const LineString& paintClosed(Image& dst, int32 thickness, const Color& color) const;
 
-		//const LineString& paintClosed(Image& dst, int32 thickness, const Color& color) const;
+		const LineString& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const LineString& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const LineString& overwrite(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const LineString& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const LineString& overwriteClosed(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const LineString& overwriteClosed(Image& dst, const Color& color, bool antialiased = true) const;
-
-		//const LineString& overwriteClosed(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
-
+		const LineString& overwriteClosed(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		const LineString& draw(const ColorF& color = Palette::White) const;
 

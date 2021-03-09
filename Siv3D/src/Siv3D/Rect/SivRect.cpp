@@ -352,6 +352,149 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
+	const Rect& Rect::paint(Image& dst, const Color& color) const
+	{
+		const int32 xBegin		= Max(x, 0);
+		const int32 xEnd		= Min(x + w, dst.width());
+		const int32 yBegin		= Max(y, 0);
+		const int32 yEnd		= Min(y + h, dst.height());
+		const int32 fillWidth	= (xEnd - xBegin);
+		const int32 fillHeight	= (yEnd - yBegin);
+
+		if ((fillWidth <= 0) || (fillHeight <= 0))
+		{
+			return *this;
+		}
+
+		Color* pDst = (dst.data() + yBegin * dst.width() + xBegin);
+		const int32 stride = dst.width();
+		const int32 stepOffset = stride - fillWidth;
+
+		const uint32 srcBlend = color.a;
+
+		if (srcBlend == 255)
+		{
+			for (int32 _y = 0; _y < fillHeight; ++_y)
+			{
+				for (int32 _x = 0; _x < fillWidth; ++_x)
+				{
+					const uint8 a = pDst->a;
+					*pDst = color;
+					pDst->a = a;
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+		else
+		{
+			const uint32 premulSrcR = srcBlend * color.r;
+			const uint32 premulSrcG = srcBlend * color.g;
+			const uint32 premulSrcB = srcBlend * color.b;
+			const uint32 dstBlend = 255 - srcBlend;
+
+			for (int32 _y = 0; _y < fillHeight; ++_y)
+			{
+				for (int32 _x = 0; _x < fillWidth; ++_x)
+				{
+					pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+					pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+					pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+
+		return *this;
+	}
+
+	const Rect& Rect::overwrite(Image& dst, const Color& color) const
+	{
+		const int32 xBegin		= Max(x, 0);
+		const int32 xEnd		= Min(x + w, dst.width());
+		const int32 yBegin		= Max(y, 0);
+		const int32 yEnd		= Min(y + h, dst.height());
+		const int32 fillWidth	= (xEnd - xBegin);
+		const int32 fillHeight	= (yEnd - yBegin);
+
+		if ((fillWidth <= 0) || (fillHeight <= 0))
+		{
+			return *this;
+		}
+
+		Color* pDst = (dst.data() + yBegin * dst.width() + xBegin);
+		const int32 stride = dst.width();
+		const int32 stepOffset = stride - fillWidth;
+
+		for (int32 _y = 0; _y < fillHeight; ++_y)
+		{
+			for (int32 _x = 0; _x < fillWidth; ++_x)
+			{
+				*pDst = color;
+				++pDst;
+			}
+
+			pDst += stepOffset;
+		}
+
+		return *this;
+	}
+
+	const Rect& Rect::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		if ((w <= 0) || (h <= 0))
+		{
+			return *this;
+		}
+
+		const int32 x0 = x - outerThickness;
+		const int32 x1 = x + innerThickness;
+		const int32 x2 = x + w - innerThickness;
+		const int32 x3 = x + w + outerThickness;
+
+		const int32 y0 = y - outerThickness;
+		const int32 y1 = y + innerThickness;
+		const int32 y2 = y + h - innerThickness;
+		const int32 y3 = y + h + outerThickness;
+
+		Rect{ x0, y0, x3 - x0, y1 - y0 }.paint(dst, color);
+		Rect{ x0, y1, x1 - x0, y2 - y1 }.paint(dst, color);
+		Rect{ x2, y1, x3 - x2, y2 - y1 }.paint(dst, color);
+		Rect{ x0, y2, x3 - x0, y3 - y2 }.paint(dst, color);
+
+		return *this;
+	}
+
+	const Rect& Rect::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		if ((w <= 0) || (h <= 0))
+		{
+			return *this;
+		}
+
+		const int32 x0 = x - outerThickness;
+		const int32 x1 = x + innerThickness;
+		const int32 x2 = x + w - innerThickness;
+		const int32 x3 = x + w + outerThickness;
+
+		const int32 y0 = y - outerThickness;
+		const int32 y1 = y + innerThickness;
+		const int32 y2 = y + h - innerThickness;
+		const int32 y3 = y + h + outerThickness;
+
+		Rect{ x0, y0, x3 - x0, y1 - y0 }.overwrite(dst, color);
+		Rect{ x0, y1, x1 - x0, y2 - y1 }.overwrite(dst, color);
+		Rect{ x2, y1, x3 - x2, y2 - y1 }.overwrite(dst, color);
+		Rect{ x0, y2, x3 - x0, y3 - y2 }.overwrite(dst, color);
+
+		return *this;
+	}
+
 	const Rect& Rect::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) }, color.toFloat4());

@@ -206,6 +206,18 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
+		const MultiPolygon& paint(Image& dst, const Color& color) const;
+
+		const MultiPolygon& paint(Image& dst, double x, double y, const Color& color) const;
+
+		const MultiPolygon& paint(Image& dst, const Vec2& pos, const Color& color) const;
+
+		const MultiPolygon& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
+
+		const MultiPolygon& overwrite(Image& dst, double x, double y, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
+
+		const MultiPolygon& overwrite(Image& dst, const Vec2& pos, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
+
 		const MultiPolygon& draw(const ColorF& color = Palette::White) const;
 
 		void draw(double x, double y, const ColorF& color = Palette::White) const;
@@ -224,7 +236,9 @@ namespace s3d
 
 		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
+		void drawTransformed(double angle, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
 }
 
