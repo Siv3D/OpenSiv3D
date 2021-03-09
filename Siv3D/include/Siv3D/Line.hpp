@@ -168,13 +168,13 @@ namespace s3d
 		Optional<position_type> intersectsAtPrecise(const Line& other) const;
 
 
-		//const Line& paint(Image& dst, const Color& color) const;
+		const Line& paint(Image& dst, const Color& color) const;
 
-		//const Line& paint(Image& dst, int32 thickness, const Color& color) const;
+		const Line& paint(Image& dst, int32 thickness, const Color& color) const;
 
-		//const Line& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Line& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
-		//const Line& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const Line& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
 
 		//const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 

@@ -10,7 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/CPUInfo.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
 # include "ImagePainting.hpp"
+# include "ShapePainting.hpp"
 
 namespace s3d
 {
@@ -489,5 +492,71 @@ namespace s3d
 		
 			Paint_Reference(pSrc, pDst, width, height, srcWidth, dstWidth, color);
 		}
+
+		static void WritePaintBufferReference(
+			Color* dst,
+			const uint32* offsets,
+			size_t offsetCount,
+			const Color& color)
+		{
+			const uint32 srcBlend = color.a;
+			const uint32 dstBlend = 255 - srcBlend;
+			const uint32 premulSrcR = srcBlend * color.r;
+			const uint32 premulSrcG = srcBlend * color.g;
+			const uint32 premulSrcB = srcBlend * color.b;
+
+			for (size_t i = 0; i < offsetCount; ++i)
+			{
+				Color* pDst = dst + offsets[i];
+				pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+				pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+				pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+			}
+		}
+	}
+
+	const Line& Line::paint(Image& dst, const Color& color) const
+	{
+		return paint(dst, 1, color);
+	}
+
+	const Line& Line::paint(Image& dst, int32 thickness, const Color& color) const
+	{
+		if ((not dst) || (thickness < 1))
+		{
+			return *this;
+		}
+
+		Array<uint32> paintBuffer;
+
+		ShapePainting::PaintLine(paintBuffer, *this, dst.width(), dst.height(), thickness);
+
+		if (paintBuffer)
+		{
+			ImagePainting::WritePaintBufferReference(dst[0], paintBuffer.data(), paintBuffer.size(), color);
+		}
+
+		return *this;
+	}
+
+	const Line& Line::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		return overwrite(dst, 1, color, antialiased);
+	}
+
+	const Line& Line::overwrite(Image& dst, int32 thickness, const Color& color, const bool antialiased) const
+	{
+		if ((not dst) || (thickness < 1))
+		{
+			return *this;
+		}
+
+		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::line(mat,
+			{ static_cast<int32>(begin.x), static_cast<int32>(begin.y) },
+			{ static_cast<int32>(end.x), static_cast<int32>(end.y) },
+			cv::Scalar(color.r, color.g, color.b, color.a), thickness, (antialiased ? cv::LINE_AA : cv::LINE_8));
+
+		return *this;
 	}
 }

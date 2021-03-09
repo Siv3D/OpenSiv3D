@@ -165,6 +165,7 @@ add_library(
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
   ../Siv3D/src/Siv3D/Icon/SivIcon.cpp
   ../Siv3D/src/Siv3D/Image/ImagePainting.cpp
+  ../Siv3D/src/Siv3D/Image/ShapePainting.cpp
   ../Siv3D/src/Siv3D/Image/SivImage.cpp
   ../Siv3D/src/Siv3D/ImageDecoder/CImageDecoder.cpp
   ../Siv3D/src/Siv3D/ImageDecoder/ImageDecoderFactory.cpp

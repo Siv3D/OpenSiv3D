@@ -736,6 +736,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageEncoder\IImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMPHeader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Image\ImagePainting.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Image\ShapePainting.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Input\InputState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\FallbackKeyName.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\IKeyboard.hpp" />
@@ -1287,6 +1288,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageROI\SivImageROI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ImagePainting.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Image\ShapePainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INI\SivINI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp" />
