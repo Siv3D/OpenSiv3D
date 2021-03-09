@@ -13,7 +13,12 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/Endian.hpp>
-# include <ThirdParty/libpng/png.h>
+
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+#	include <ThirdParty-prebuilt/libpng/png.h>
+# else
+#	include <png.h>
+# endif
 
 namespace s3d
 {

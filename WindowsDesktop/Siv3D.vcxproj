@@ -787,6 +787,26 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\IUSerAction.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-blob.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-buffer.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-common.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-deprecated.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-draw.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-face.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-font.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-ft.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-map.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-set.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-shape-plan.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-shape.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-style.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-unicode.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-version.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libjpeg-turbo\turbojpeg.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\png.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\pngconf.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\pnglibconf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\concaveman-cpp\concaveman.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\bit_utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\cpuid_x86.h" />
@@ -906,22 +926,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\ft2build.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\glew.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\wglew.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-blob.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-buffer.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-common.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-deprecated.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-draw.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-face.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-font.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-ft.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-map.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-set.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-shape-plan.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-shape.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-style.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-unicode.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb-version.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\harfbuzz\hb.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\cpu.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\detail\cpuid.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\detail\linkage.hpp" />
@@ -935,9 +939,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\system.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\version.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\levenshtein-sse\levenshtein-sse.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\png.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\pngconf.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\pnglibconf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lapi.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lauxlib.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lcode.h" />
@@ -1665,7 +1666,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
     <OutDir>..\Siv3D\lib\Windows\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>

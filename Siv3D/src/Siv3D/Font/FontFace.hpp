@@ -14,8 +14,14 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FontStyle.hpp>
 # include "FontFaceProperty.hpp"
-# include <ThirdParty/harfbuzz/hb.h>
-# include <ThirdParty/harfbuzz/hb-ft.h>
+
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+#	include <ThirdParty-prebuilt/harfbuzz/hb.h>
+#	include <ThirdParty-prebuilt/harfbuzz/hb-ft.h>
+# else
+#	include <hb.h>
+#	include <hb-ft.h>
+# endif
 
 namespace s3d
 {
