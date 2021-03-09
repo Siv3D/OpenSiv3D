@@ -269,11 +269,11 @@ namespace s3d
 	inline void Mat3x2::_Formatter(FormatData& formatData, const Mat3x2& value)
 	{
 		formatData.string.push_back(U'(');
-		Formatter(formatData, Float2(value._11, value._12));
+		Formatter(formatData, Float2{ value._11, value._12 });
 		formatData.string.push_back(U',');
-		Formatter(formatData, Float2(value._21, value._22));
+		Formatter(formatData, Float2{ value._21, value._22 });
 		formatData.string.push_back(U',');
-		Formatter(formatData, Float2(value._31, value._32));
+		Formatter(formatData, Float2{ value._31, value._32 });
 		formatData.string.push_back(U')');
 	}
 }

@@ -108,6 +108,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Line.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\LineString.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\LineStyle.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mat3x3.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math_Functors.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MD5Value.ipp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LuaScript.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x3.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5Value.hpp" />
@@ -1313,6 +1315,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x3\SivMat3x3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\MathParserDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\SivMathParser.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5Value\SivMD5Value.cpp" />

@@ -200,6 +200,7 @@ add_library(
   ../Siv3D/src/Siv3D/LineString/SivLineString.cpp
   ../Siv3D/src/Siv3D/Logger/LoggerFactory.cpp
   ../Siv3D/src/Siv3D/Logger/SivLogger.cpp
+  ../Siv3D/src/Siv3D/Mat3x3/SivMat3x3.cpp
   ../Siv3D/src/Siv3D/MathParser/MathParserDetail.cpp
   ../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp
   ../Siv3D/src/Siv3D/MD5/SivMD5.cpp

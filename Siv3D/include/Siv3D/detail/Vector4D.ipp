@@ -268,6 +268,48 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept
+	{
+		x = xy.x; y = xy.y; z = zw.x; w = zw.y;
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const Vector2D<value_type>& xy, const value_type _z, const value_type _w) noexcept
+	{
+		x = xy.x; y = xy.y; z = _z; w = _w;
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const value_type _x, const Vector2D<value_type>& yz, const value_type _w) noexcept
+	{
+		x = _x; y = yz.x; z = yz.y; w = _w;
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const value_type _x, const value_type _y, const Vector2D<value_type>& zw) noexcept
+	{
+		x = _x; y = _y; z = zw.x; w = zw.y;
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const Vector3D<value_type>& xyz, const value_type _w) noexcept
+	{
+		x = xyz.x; y = xyz.y; z = xyz.z; w = _w;
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const value_type _x, const Vector3D<value_type>& yzw) noexcept
+	{
+		x = _x; y = yzw.x; z = yzw.y; w = yzw.z;
+		return *this;
+	}
+
+	template <class Type>
 	inline constexpr Vector4D<Type>& Vector4D<Type>::set(const value_type _x, const value_type _y, const value_type _z, const value_type _w) noexcept
 	{
 		x = _x; y = _y; z = _z; w = _w;
