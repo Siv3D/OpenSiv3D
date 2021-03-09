@@ -32,10 +32,6 @@ namespace s3d
 			return false;
 		}
 
-		const String backend = Unicode::Widen(m_capture.getBackendName());
-
-		LOG_INFO(U"ℹ️ VideoPlayer backend: {0}"_fmt(backend));
-
 		m_info =
 		{
 			.resolution = Size(static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_WIDTH)),
