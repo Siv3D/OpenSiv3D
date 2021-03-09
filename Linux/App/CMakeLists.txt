@@ -65,6 +65,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lgio-2.0
   -lharfbuzz
   -lopencv_core
+  -lopencv_imgcodecs
   -lopencv_imgproc
   -lopencv_objdetect
   -lopencv_photo
