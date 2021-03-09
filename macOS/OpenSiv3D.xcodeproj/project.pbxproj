@@ -901,23 +901,7 @@
 		2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9625C5A61900034D81 /* EffectFactory.cpp */; };
 		2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9725C5A61900034D81 /* EffectData.hpp */; };
 		2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9825C5A61900034D81 /* CEffect.cpp */; };
-		2C796EA125CA409B0003B7EC /* hb-buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9225CA409B0003B7EC /* hb-buffer.h */; };
-		2C796EA225CA409B0003B7EC /* hb-set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9325CA409B0003B7EC /* hb-set.h */; };
-		2C796EA325CA409B0003B7EC /* hb-face.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9425CA409B0003B7EC /* hb-face.h */; };
-		2C796EA425CA409B0003B7EC /* hb-draw.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9525CA409B0003B7EC /* hb-draw.h */; };
-		2C796EA525CA409B0003B7EC /* hb-common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9625CA409B0003B7EC /* hb-common.h */; };
-		2C796EA625CA409B0003B7EC /* hb-version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9725CA409B0003B7EC /* hb-version.h */; };
-		2C796EA725CA409B0003B7EC /* hb-font.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9825CA409B0003B7EC /* hb-font.h */; };
-		2C796EA825CA409B0003B7EC /* hb-style.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9925CA409B0003B7EC /* hb-style.h */; };
-		2C796EA925CA409B0003B7EC /* hb-deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9A25CA409B0003B7EC /* hb-deprecated.h */; };
-		2C796EAA25CA409B0003B7EC /* hb-shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9B25CA409B0003B7EC /* hb-shape.h */; };
-		2C796EAB25CA409B0003B7EC /* hb-shape-plan.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */; };
-		2C796EAC25CA409B0003B7EC /* hb-unicode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9D25CA409B0003B7EC /* hb-unicode.h */; };
-		2C796EAD25CA409B0003B7EC /* hb-blob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9E25CA409B0003B7EC /* hb-blob.h */; };
-		2C796EAE25CA409B0003B7EC /* hb-map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796E9F25CA409B0003B7EC /* hb-map.h */; };
-		2C796EAF25CA409B0003B7EC /* hb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EA025CA409B0003B7EC /* hb.h */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
-		2C796EB325CA60380003B7EC /* hb-ft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C796EB225CA60380003B7EC /* hb-ft.h */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -1035,6 +1019,25 @@
 		2CFC213025F7328300C51D0D /* JPEGDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212E25F7328300C51D0D /* JPEGDecoder.cpp */; };
 		2CFC213125F7328300C51D0D /* JPEGEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212F25F7328300C51D0D /* JPEGEncoder.cpp */; };
 		2CFC213325F732F100C51D0D /* libturbojpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFC213225F732F100C51D0D /* libturbojpeg.a */; };
+		2CFC214925F739B400C51D0D /* hb-buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213525F739B400C51D0D /* hb-buffer.h */; };
+		2CFC214A25F739B400C51D0D /* hb-set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213625F739B400C51D0D /* hb-set.h */; };
+		2CFC214B25F739B400C51D0D /* hb-face.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213725F739B400C51D0D /* hb-face.h */; };
+		2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213825F739B400C51D0D /* hb-draw.h */; };
+		2CFC214D25F739B400C51D0D /* hb-common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213925F739B400C51D0D /* hb-common.h */; };
+		2CFC214E25F739B400C51D0D /* hb-version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213A25F739B400C51D0D /* hb-version.h */; };
+		2CFC214F25F739B400C51D0D /* hb-font.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213B25F739B400C51D0D /* hb-font.h */; };
+		2CFC215025F739B400C51D0D /* hb-style.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213C25F739B400C51D0D /* hb-style.h */; };
+		2CFC215125F739B400C51D0D /* hb-deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213D25F739B400C51D0D /* hb-deprecated.h */; };
+		2CFC215225F739B400C51D0D /* hb-shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213E25F739B400C51D0D /* hb-shape.h */; };
+		2CFC215325F739B400C51D0D /* hb-shape-plan.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC213F25F739B400C51D0D /* hb-shape-plan.h */; };
+		2CFC215425F739B400C51D0D /* hb-unicode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214025F739B400C51D0D /* hb-unicode.h */; };
+		2CFC215525F739B400C51D0D /* hb-blob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214125F739B400C51D0D /* hb-blob.h */; };
+		2CFC215625F739B400C51D0D /* hb-map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214225F739B400C51D0D /* hb-map.h */; };
+		2CFC215725F739B400C51D0D /* hb.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214325F739B400C51D0D /* hb.h */; };
+		2CFC215825F739B400C51D0D /* hb-ft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214425F739B400C51D0D /* hb-ft.h */; };
+		2CFC215925F739B400C51D0D /* png.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214625F739B400C51D0D /* png.h */; };
+		2CFC215A25F739B400C51D0D /* pnglibconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214725F739B400C51D0D /* pnglibconf.h */; };
+		2CFC215B25F739B400C51D0D /* pngconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC214825F739B400C51D0D /* pngconf.h */; };
 		2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE199F2555B221005826A1 /* CKeyboard.cpp */; };
 		2CFE19A22555B221005826A1 /* CKeyboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19A02555B221005826A1 /* CKeyboard.hpp */; };
 		2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */; };
@@ -1916,9 +1919,6 @@
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
-		2C531E9E24BA00EB00378977 /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
-		2C531E9F24BA00EB00378977 /* pnglibconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
-		2C531EA024BA00EB00378977 /* pngconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -2114,23 +2114,7 @@
 		2C794B9625C5A61900034D81 /* EffectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectFactory.cpp; sourceTree = "<group>"; };
 		2C794B9725C5A61900034D81 /* EffectData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EffectData.hpp; sourceTree = "<group>"; };
 		2C794B9825C5A61900034D81 /* CEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEffect.cpp; sourceTree = "<group>"; };
-		2C796E9225CA409B0003B7EC /* hb-buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-buffer.h"; sourceTree = "<group>"; };
-		2C796E9325CA409B0003B7EC /* hb-set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-set.h"; sourceTree = "<group>"; };
-		2C796E9425CA409B0003B7EC /* hb-face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-face.h"; sourceTree = "<group>"; };
-		2C796E9525CA409B0003B7EC /* hb-draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-draw.h"; sourceTree = "<group>"; };
-		2C796E9625CA409B0003B7EC /* hb-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-common.h"; sourceTree = "<group>"; };
-		2C796E9725CA409B0003B7EC /* hb-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-version.h"; sourceTree = "<group>"; };
-		2C796E9825CA409B0003B7EC /* hb-font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-font.h"; sourceTree = "<group>"; };
-		2C796E9925CA409B0003B7EC /* hb-style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-style.h"; sourceTree = "<group>"; };
-		2C796E9A25CA409B0003B7EC /* hb-deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-deprecated.h"; sourceTree = "<group>"; };
-		2C796E9B25CA409B0003B7EC /* hb-shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape.h"; sourceTree = "<group>"; };
-		2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape-plan.h"; sourceTree = "<group>"; };
-		2C796E9D25CA409B0003B7EC /* hb-unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-unicode.h"; sourceTree = "<group>"; };
-		2C796E9E25CA409B0003B7EC /* hb-blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-blob.h"; sourceTree = "<group>"; };
-		2C796E9F25CA409B0003B7EC /* hb-map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-map.h"; sourceTree = "<group>"; };
-		2C796EA025CA409B0003B7EC /* hb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hb.h; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
-		2C796EB225CA60380003B7EC /* hb-ft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-ft.h"; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -2715,6 +2699,25 @@
 		2CFC212E25F7328300C51D0D /* JPEGDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JPEGDecoder.cpp; sourceTree = "<group>"; };
 		2CFC212F25F7328300C51D0D /* JPEGEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JPEGEncoder.cpp; sourceTree = "<group>"; };
 		2CFC213225F732F100C51D0D /* libturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libturbojpeg.a; path = "../Siv3D/lib/macOS/libjpeg-turbo/libturbojpeg.a"; sourceTree = "<group>"; };
+		2CFC213525F739B400C51D0D /* hb-buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-buffer.h"; sourceTree = "<group>"; };
+		2CFC213625F739B400C51D0D /* hb-set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-set.h"; sourceTree = "<group>"; };
+		2CFC213725F739B400C51D0D /* hb-face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-face.h"; sourceTree = "<group>"; };
+		2CFC213825F739B400C51D0D /* hb-draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-draw.h"; sourceTree = "<group>"; };
+		2CFC213925F739B400C51D0D /* hb-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-common.h"; sourceTree = "<group>"; };
+		2CFC213A25F739B400C51D0D /* hb-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-version.h"; sourceTree = "<group>"; };
+		2CFC213B25F739B400C51D0D /* hb-font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-font.h"; sourceTree = "<group>"; };
+		2CFC213C25F739B400C51D0D /* hb-style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-style.h"; sourceTree = "<group>"; };
+		2CFC213D25F739B400C51D0D /* hb-deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-deprecated.h"; sourceTree = "<group>"; };
+		2CFC213E25F739B400C51D0D /* hb-shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape.h"; sourceTree = "<group>"; };
+		2CFC213F25F739B400C51D0D /* hb-shape-plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-shape-plan.h"; sourceTree = "<group>"; };
+		2CFC214025F739B400C51D0D /* hb-unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-unicode.h"; sourceTree = "<group>"; };
+		2CFC214125F739B400C51D0D /* hb-blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-blob.h"; sourceTree = "<group>"; };
+		2CFC214225F739B400C51D0D /* hb-map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-map.h"; sourceTree = "<group>"; };
+		2CFC214325F739B400C51D0D /* hb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hb.h; sourceTree = "<group>"; };
+		2CFC214425F739B400C51D0D /* hb-ft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hb-ft.h"; sourceTree = "<group>"; };
+		2CFC214625F739B400C51D0D /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
+		2CFC214725F739B400C51D0D /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
+		2CFC214825F739B400C51D0D /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
 		2CFE199F2555B221005826A1 /* CKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKeyboard.cpp; sourceTree = "<group>"; };
 		2CFE19A02555B221005826A1 /* CKeyboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CKeyboard.hpp; sourceTree = "<group>"; };
 		2CFE19A42555B23C005826A1 /* KeyboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardFactory.cpp; sourceTree = "<group>"; };
@@ -3398,10 +3401,8 @@
 				2C4CBE4E24370FFA00F8B7A6 /* GL */,
 				2C4CBE572437100100F8B7A6 /* GLEW */,
 				2C4231D9242B155E00A16BCA /* GLFW */,
-				2C796E9125CA409B0003B7EC /* harfbuzz */,
 				2C60AE22248158A400277281 /* infoware */,
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
-				2C531E9D24BA00EB00378977 /* libpng */,
 				2C13C95E25BD29FC0054B968 /* lua */,
 				2C4395932535DCCA00F6AECD /* lunasvg */,
 				2C44429F2427AA7C00557D51 /* miniutf */,
@@ -5017,16 +5018,6 @@
 			path = GLEW;
 			sourceTree = "<group>";
 		};
-		2C531E9D24BA00EB00378977 /* libpng */ = {
-			isa = PBXGroup;
-			children = (
-				2C531E9E24BA00EB00378977 /* png.h */,
-				2C531E9F24BA00EB00378977 /* pnglibconf.h */,
-				2C531EA024BA00EB00378977 /* pngconf.h */,
-			);
-			path = libpng;
-			sourceTree = "<group>";
-		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
 			isa = PBXGroup;
 			children = (
@@ -5767,29 +5758,6 @@
 				2C794B9825C5A61900034D81 /* CEffect.cpp */,
 			);
 			path = Effect;
-			sourceTree = "<group>";
-		};
-		2C796E9125CA409B0003B7EC /* harfbuzz */ = {
-			isa = PBXGroup;
-			children = (
-				2C796EB225CA60380003B7EC /* hb-ft.h */,
-				2C796E9225CA409B0003B7EC /* hb-buffer.h */,
-				2C796E9325CA409B0003B7EC /* hb-set.h */,
-				2C796E9425CA409B0003B7EC /* hb-face.h */,
-				2C796E9525CA409B0003B7EC /* hb-draw.h */,
-				2C796E9625CA409B0003B7EC /* hb-common.h */,
-				2C796E9725CA409B0003B7EC /* hb-version.h */,
-				2C796E9825CA409B0003B7EC /* hb-font.h */,
-				2C796E9925CA409B0003B7EC /* hb-style.h */,
-				2C796E9A25CA409B0003B7EC /* hb-deprecated.h */,
-				2C796E9B25CA409B0003B7EC /* hb-shape.h */,
-				2C796E9C25CA409B0003B7EC /* hb-shape-plan.h */,
-				2C796E9D25CA409B0003B7EC /* hb-unicode.h */,
-				2C796E9E25CA409B0003B7EC /* hb-blob.h */,
-				2C796E9F25CA409B0003B7EC /* hb-map.h */,
-				2C796EA025CA409B0003B7EC /* hb.h */,
-			);
-			path = harfbuzz;
 			sourceTree = "<group>";
 		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
@@ -6715,7 +6683,9 @@
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
 			isa = PBXGroup;
 			children = (
+				2CFC213425F739B400C51D0D /* harfbuzz */,
 				2CFC212925F7324F00C51D0D /* libjpeg-turbo */,
+				2CFC214525F739B400C51D0D /* libpng */,
 			);
 			path = "ThirdParty-prebuilt";
 			sourceTree = "<group>";
@@ -6726,6 +6696,39 @@
 				2CFC212A25F7324F00C51D0D /* turbojpeg.h */,
 			);
 			path = "libjpeg-turbo";
+			sourceTree = "<group>";
+		};
+		2CFC213425F739B400C51D0D /* harfbuzz */ = {
+			isa = PBXGroup;
+			children = (
+				2CFC213525F739B400C51D0D /* hb-buffer.h */,
+				2CFC213625F739B400C51D0D /* hb-set.h */,
+				2CFC213725F739B400C51D0D /* hb-face.h */,
+				2CFC213825F739B400C51D0D /* hb-draw.h */,
+				2CFC213925F739B400C51D0D /* hb-common.h */,
+				2CFC213A25F739B400C51D0D /* hb-version.h */,
+				2CFC213B25F739B400C51D0D /* hb-font.h */,
+				2CFC213C25F739B400C51D0D /* hb-style.h */,
+				2CFC213D25F739B400C51D0D /* hb-deprecated.h */,
+				2CFC213E25F739B400C51D0D /* hb-shape.h */,
+				2CFC213F25F739B400C51D0D /* hb-shape-plan.h */,
+				2CFC214025F739B400C51D0D /* hb-unicode.h */,
+				2CFC214125F739B400C51D0D /* hb-blob.h */,
+				2CFC214225F739B400C51D0D /* hb-map.h */,
+				2CFC214325F739B400C51D0D /* hb.h */,
+				2CFC214425F739B400C51D0D /* hb-ft.h */,
+			);
+			path = harfbuzz;
+			sourceTree = "<group>";
+		};
+		2CFC214525F739B400C51D0D /* libpng */ = {
+			isa = PBXGroup;
+			children = (
+				2CFC214625F739B400C51D0D /* png.h */,
+				2CFC214725F739B400C51D0D /* pnglibconf.h */,
+				2CFC214825F739B400C51D0D /* pngconf.h */,
+			);
+			path = libpng;
 			sourceTree = "<group>";
 		};
 		2CFE199E2555B221005826A1 /* Keyboard */ = {
@@ -6783,6 +6786,7 @@
 				2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */,
 				2C47B30A24DD9789008D83BE /* TextWriterDetail.hpp in Headers */,
 				2C42321D242B155E00A16BCA /* internal.h in Headers */,
+				2CFC215425F739B400C51D0D /* hb-unicode.h in Headers */,
 				2C43C86F25C837F000D6D613 /* ftstdlib.h in Headers */,
 				2C43C8BD25C837F100D6D613 /* tttables.h in Headers */,
 				2C43961E2535DCCA00F6AECD /* svglength.h in Headers */,
@@ -6793,9 +6797,12 @@
 				2C13C9B925BD29FC0054B968 /* ltm.h in Headers */,
 				2C13C9BB25BD29FC0054B968 /* lparser.h in Headers */,
 				2C43C87525C837F000D6D613 /* public-macros.h in Headers */,
+				2CFC214F25F739B400C51D0D /* hb-font.h in Headers */,
 				2C48BF0525CFB8C500A93CE3 /* Bitmap.hpp in Headers */,
 				2C481E1424460B5700A5D88D /* cpu_features_cache_info.h in Headers */,
 				2C48BF0425CFB8C500A93CE3 /* ShapeDistanceFinder.h in Headers */,
+				2CFC215125F739B400C51D0D /* hb-deprecated.h in Headers */,
+				2CFC215025F739B400C51D0D /* hb-style.h in Headers */,
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
 				2C43C8A925C837F100D6D613 /* ftadvanc.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
@@ -6810,7 +6817,9 @@
 				2C43C8B825C837F100D6D613 /* tttags.h in Headers */,
 				2C439F89241DCEA9001154C2 /* fast-dtoa.h in Headers */,
 				2C43C87625C837F000D6D613 /* ftcolor.h in Headers */,
+				2CFC214D25F739B400C51D0D /* hb-common.h in Headers */,
 				2C43C87825C837F000D6D613 /* ftbzip2.h in Headers */,
+				2CFC215625F739B400C51D0D /* hb-map.h in Headers */,
 				2C48BF0125CFB8C500A93CE3 /* Bitmap.h in Headers */,
 				2C48BF0925CFB8C500A93CE3 /* msdfgen.h in Headers */,
 				2C794B3D25C3DFC200034D81 /* zstd_deps.h in Headers */,
@@ -6840,14 +6849,15 @@
 				2C43C87925C837F000D6D613 /* fttrigon.h in Headers */,
 				2C43C8AC25C837F100D6D613 /* ftgasp.h in Headers */,
 				2C4396002535DCCA00F6AECD /* rendercontext.h in Headers */,
-				2C796EAF25CA409B0003B7EC /* hb.h in Headers */,
 				2C43C87D25C837F000D6D613 /* sfnt.h in Headers */,
 				2C794B0725C3DFC200034D81 /* zstd_compress_internal.h in Headers */,
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2C13C9C725BD29FC0054B968 /* lvm.h in Headers */,
+				2CFC215725F739B400C51D0D /* hb.h in Headers */,
 				2C43C88E25C837F000D6D613 /* fthash.h in Headers */,
-				2C796EAC25CA409B0003B7EC /* hb-unicode.h in Headers */,
+				2CFC214B25F739B400C51D0D /* hb-face.h in Headers */,
 				2C48BEF125CFB8C500A93CE3 /* SignedDistance.h in Headers */,
+				2CFC214E25F739B400C51D0D /* hb-version.h in Headers */,
 				2C4395FA2535DCCA00F6AECD /* svgurireference.h in Headers */,
 				2C4396242535DCCA00F6AECD /* svgparser.h in Headers */,
 				2C13C9A725BD29FC0054B968 /* lualib.h in Headers */,
@@ -6876,10 +6886,10 @@
 				2C48BF6425D41C0D00A93CE3 /* agg_config.h in Headers */,
 				2C794B3025C3DFC200034D81 /* pool.h in Headers */,
 				2C47B33124DD9789008D83BE /* IRenderer2D.hpp in Headers */,
+				2CFC215B25F739B400C51D0D /* pngconf.h in Headers */,
 				2C43C89225C837F100D6D613 /* svprop.h in Headers */,
 				2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */,
 				2C794B0825C3DFC200034D81 /* hist.h in Headers */,
-				2C796EA125CA409B0003B7EC /* hb-buffer.h in Headers */,
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C48BEFE25CFB8C500A93CE3 /* sdf-error-estimation.h in Headers */,
 				2C48BEFF25CFB8C500A93CE3 /* rasterization.h in Headers */,
@@ -6891,6 +6901,7 @@
 				2C13C9BD25BD29FC0054B968 /* lobject.h in Headers */,
 				2C794B0F25C3DFC200034D81 /* zstd_opt.h in Headers */,
 				2C43C86D25C837F000D6D613 /* ftmm.h in Headers */,
+				2CFC215A25F739B400C51D0D /* pnglibconf.h in Headers */,
 				2C48BF7D25D41C0D00A93CE3 /* SDFGlyphCache.hpp in Headers */,
 				2C43C8BE25C837F100D6D613 /* ftcid.h in Headers */,
 				2C43C89D25C837F100D6D613 /* svpfr.h in Headers */,
@@ -6911,6 +6922,7 @@
 				2C43C88825C837F000D6D613 /* cfftypes.h in Headers */,
 				2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */,
 				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
+				2CFC215325F739B400C51D0D /* hb-shape-plan.h in Headers */,
 				2C47B2FB24DD9789008D83BE /* ILicenseManager.hpp in Headers */,
 				2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */,
 				2C4A286E25EA60EB00FEACE4 /* IScreenCapture.hpp in Headers */,
@@ -6927,7 +6939,6 @@
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
 				2C48BF6925D41C0D00A93CE3 /* agg_basics.h in Headers */,
 				2C53C34C25613BD40072831A /* earcut.hpp in Headers */,
-				2C796EA725CA409B0003B7EC /* hb-font.h in Headers */,
 				2CAAA8C525E7FDCC00C014D7 /* EmojiData.hpp in Headers */,
 				2C423220242B155E00A16BCA /* cocoa_platform.h in Headers */,
 				2C48BF0825CFB8C500A93CE3 /* EdgeHolder.h in Headers */,
@@ -6941,10 +6952,8 @@
 				2C47B6D124EAC82A008D83BE /* CShader_Null.hpp in Headers */,
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
-				2C796EAA25CA409B0003B7EC /* hb-shape.h in Headers */,
 				2C48BEF525CFB8C500A93CE3 /* EdgeColor.h in Headers */,
 				2C4396292535DCCA00F6AECD /* rect.h in Headers */,
-				2C796EAE25CA409B0003B7EC /* hb-map.h in Headers */,
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
 				2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */,
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
@@ -6975,6 +6984,7 @@
 				2C43963D2535DCCA00F6AECD /* svgelement.h in Headers */,
 				2C48BF8225D41C0D00A93CE3 /* FontResourceHolder.hpp in Headers */,
 				2C13C8BB25B8FA9D0054B968 /* Recast.h in Headers */,
+				2CFC215525F739B400C51D0D /* hb-blob.h in Headers */,
 				2C48BF8925D41C0D00A93CE3 /* FontFace.hpp in Headers */,
 				2C48BEE325CFB8C500A93CE3 /* msdf-edge-artifact-patcher.h in Headers */,
 				2C13C9D425BD29FC0054B968 /* ltable.h in Headers */,
@@ -7021,13 +7031,10 @@
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
 				2C794B0925C3DFC200034D81 /* zstd_ldm.h in Headers */,
 				2C481E1324460B5700A5D88D /* cpuinfo_x86.h in Headers */,
-				2C796EA625CA409B0003B7EC /* hb-version.h in Headers */,
 				2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */,
 				2C4396452535DCCA00F6AECD /* svggraphicselement.h in Headers */,
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
 				2C13C9D125BD29FC0054B968 /* lprefix.h in Headers */,
-				2C796EAB25CA409B0003B7EC /* hb-shape-plan.h in Headers */,
-				2C796EAD25CA409B0003B7EC /* hb-blob.h in Headers */,
 				2C48BF8625D41C0D00A93CE3 /* FreeType.hpp in Headers */,
 				2C13C9B825BD29FC0054B968 /* llex.h in Headers */,
 				2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */,
@@ -7081,6 +7088,7 @@
 				2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */,
 				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
 				2C4396012535DCCA00F6AECD /* canvasimpl.h in Headers */,
+				2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */,
 				2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */,
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
@@ -7092,7 +7100,6 @@
 				2C3477FD25DA94C100071EEF /* CacheDirectory.hpp in Headers */,
 				2C43C86925C837F000D6D613 /* ftwinfnt.h in Headers */,
 				2C47B34424DD9789008D83BE /* CUserAction.hpp in Headers */,
-				2C796EA225CA409B0003B7EC /* hb-set.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2C9FFE9425F66DCA000723D8 /* ImagePainting.hpp in Headers */,
@@ -7112,17 +7119,18 @@
 				2C13C9B225BD29FC0054B968 /* lapi.h in Headers */,
 				2C794B2E25C3DFC200034D81 /* xxhash.h in Headers */,
 				2C13C8B725B8FA9D0054B968 /* DetourNavMeshBuilder.h in Headers */,
+				2CFC215225F739B400C51D0D /* hb-shape.h in Headers */,
 				2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */,
 				2C48BF7525D41C0D00A93CE3 /* GlyphCacheCommon.hpp in Headers */,
 				2C48BF6E25D41C0D00A93CE3 /* MSDFGlyphRenderer.hpp in Headers */,
 				2C13C8B625B8FA9D0054B968 /* DetourNavMeshQuery.h in Headers */,
 				2C794B4125C3DFC200034D81 /* fse.h in Headers */,
-				2C796EA525CA409B0003B7EC /* hb-common.h in Headers */,
 				2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */,
 				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
 				2C13C9D025BD29FC0054B968 /* lfunc.h in Headers */,
 				2C47B33524DD9789008D83BE /* TextReaderDetail.hpp in Headers */,
+				2CFC215925F739B400C51D0D /* png.h in Headers */,
 				2C43C88325C837F000D6D613 /* t1types.h in Headers */,
 				2C47B34724DD9789008D83BE /* IWindow.hpp in Headers */,
 				2C48BF0725CFB8C500A93CE3 /* edge-coloring.h in Headers */,
@@ -7130,8 +7138,6 @@
 				2C43C88625C837F000D6D613 /* autohint.h in Headers */,
 				2C34781025DA95A100071EEF /* CPrint.hpp in Headers */,
 				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
-				2C796EA325CA409B0003B7EC /* hb-face.h in Headers */,
-				2C796EA425CA409B0003B7EC /* hb-draw.h in Headers */,
 				2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
@@ -7183,7 +7189,6 @@
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
-				2C796EA925CA409B0003B7EC /* hb-deprecated.h in Headers */,
 				2C43C88D25C837F000D6D613 /* ftmemory.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C48BEFB25CFB8C500A93CE3 /* save-bmp.h in Headers */,
@@ -7191,6 +7196,7 @@
 				2C794B9925C5A61900034D81 /* CEffect.hpp in Headers */,
 				2C48BEF325CFB8C500A93CE3 /* equation-solver.h in Headers */,
 				2C43C88C25C837F000D6D613 /* fttrace.h in Headers */,
+				2CFC214925F739B400C51D0D /* hb-buffer.h in Headers */,
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
 				2C43C8AD25C837F100D6D613 /* ftstroke.h in Headers */,
 				2C43C8BF25C837F100D6D613 /* ftglyph.h in Headers */,
@@ -7204,7 +7210,6 @@
 				2C794B1025C3DFC200034D81 /* zstd_cwksp.h in Headers */,
 				2C43C89825C837F100D6D613 /* svgldict.h in Headers */,
 				2C48BF7425D41C0D00A93CE3 /* SDFGlyphRenderer.hpp in Headers */,
-				2C796EA825CA409B0003B7EC /* hb-style.h in Headers */,
 				2C4395F52535DCCA00F6AECD /* svgstyledelement.h in Headers */,
 				2C13C9BF25BD29FC0054B968 /* lopcodes.h in Headers */,
 				2C47B31D24DD9789008D83BE /* ICursor.hpp in Headers */,
@@ -7218,8 +7223,10 @@
 				2C43C89F25C837F100D6D613 /* svfntfmt.h in Headers */,
 				2C48BF7325D41C0D00A93CE3 /* BitmapGlyphRenderer.hpp in Headers */,
 				2C43960A2535DCCA00F6AECD /* svgstring.h in Headers */,
+				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
 				2C13C9CE25BD29FC0054B968 /* lua.h in Headers */,
 				2C43C88225C837F000D6D613 /* psaux.h in Headers */,
+				2CFC214A25F739B400C51D0D /* hb-set.h in Headers */,
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
 				2C47B36824DD9789008D83BE /* IResource.hpp in Headers */,
 				2C4396182535DCCA00F6AECD /* svguseelement.h in Headers */,
@@ -7228,7 +7235,6 @@
 				2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
 				2C794B1825C3DFC200034D81 /* zstdmt_compress.h in Headers */,
-				2C796EB325CA60380003B7EC /* hb-ft.h in Headers */,
 				2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */,
 				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C43C89525C837F100D6D613 /* svwinfnt.h in Headers */,
@@ -8163,7 +8169,6 @@
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
-					../Siv3D/src/ThirdParty/opencv,
 					"../Siv3D/src/ThirdParty-prebuilt",
 					../Dependencies/boost_1_73_0,
 				);
@@ -8230,7 +8235,6 @@
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
-					../Siv3D/src/ThirdParty/opencv,
 					"../Siv3D/src/ThirdParty-prebuilt",
 					../Dependencies/boost_1_73_0,
 				);

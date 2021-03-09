@@ -19,8 +19,8 @@
 #	include <ThirdParty-prebuilt/harfbuzz/hb.h>
 #	include <ThirdParty-prebuilt/harfbuzz/hb-ft.h>
 # else
-#	include <hb.h>
-#	include <hb-ft.h>
+#	include <harfbuzz/hb.h>
+#	include <harfbuzz/hb-ft.h>
 # endif
 
 namespace s3d
