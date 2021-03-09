@@ -211,6 +211,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\BMPDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\BMPEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\SVGDecoder.hpp" />
@@ -1282,6 +1284,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageEncoder\SivImageEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMPDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMPEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGDecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVGDecoder.cpp" />
@@ -1655,13 +1659,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
     <OutDir>..\Siv3D\lib\Windows\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
     <OutDir>..\Siv3D\lib\Windows\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>

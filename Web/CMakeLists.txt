@@ -175,6 +175,8 @@ add_library(
   ../Siv3D/src/Siv3D/ImageEncoder/SivImageEncoder.cpp 
   ../Siv3D/src/Siv3D/ImageFormat/BMPDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/BMPEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp

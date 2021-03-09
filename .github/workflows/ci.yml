@@ -33,6 +33,7 @@ jobs:
         sudo apt install libharfbuzz-dev
         sudo apt install xorg-dev
         sudo apt install libopencv-dev
+        sudo apt install libjpeg-turbo8-dev
 
     - name: Configure Siv3D
       working-directory: Linux

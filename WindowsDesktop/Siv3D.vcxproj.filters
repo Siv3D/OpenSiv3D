@@ -4182,6 +4182,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Image\ShapePainting.hpp">
       <Filter>src\Siv3D\Image</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGEncoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGDecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5650,6 +5656,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ShapePainting.cpp">
       <Filter>src\Siv3D\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

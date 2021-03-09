@@ -22,6 +22,7 @@ Library | Version
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
+[libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.0.6
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v1.4.2

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Linux CXX C)
 find_package(PkgConfig)
 find_package(Boost 1.71.0 REQUIRED)
-pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED glib-2.0 gl x11 opencv4)
+pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED freetype2 gl glib-2.0 libpng libturbojpeg opencv4 x11 zlib)
 
 message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 
@@ -177,6 +177,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ImageEncoder/SivImageEncoder.cpp 
   ../Siv3D/src/Siv3D/ImageFormat/BMPDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/BMPEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp
