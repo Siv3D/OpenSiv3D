@@ -1046,6 +1046,7 @@
 		2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AB2555B263005826A1 /* InputState.cpp */; };
 		2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19AC2555B263005826A1 /* InputState.hpp */; };
 		2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AD2555B263005826A1 /* SivInput.cpp */; };
+		2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581325F79CC200B660AD /* SivMat3x3.cpp */; };
 		2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF9F6124A46481000B5A17 /* osmesa_context.h */; };
 		2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6224A46481000B5A17 /* osmesa_context.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9F6A24A47730000B5A17 /* MetalVertex2DBatch.mm */; };
@@ -2726,6 +2727,9 @@
 		2CFE19AB2555B263005826A1 /* InputState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputState.cpp; sourceTree = "<group>"; };
 		2CFE19AC2555B263005826A1 /* InputState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputState.hpp; sourceTree = "<group>"; };
 		2CFE19AD2555B263005826A1 /* SivInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInput.cpp; sourceTree = "<group>"; };
+		2CFF581025F79C9800B660AD /* Mat3x3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.hpp; sourceTree = "<group>"; };
+		2CFF581125F79CAE00B660AD /* Mat3x3.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.ipp; sourceTree = "<group>"; };
+		2CFF581325F79CC200B660AD /* SivMat3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat3x3.cpp; sourceTree = "<group>"; };
 		2CFF9F6124A46481000B5A17 /* osmesa_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osmesa_context.h; sourceTree = "<group>"; };
 		2CFF9F6224A46481000B5A17 /* osmesa_context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osmesa_context.c; sourceTree = "<group>"; };
 		2CFF9F6A24A47730000B5A17 /* MetalVertex2DBatch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalVertex2DBatch.mm; sourceTree = "<group>"; };
@@ -3897,6 +3901,7 @@
 				2C53C33025613B540072831A /* Line */,
 				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
+				2CFF581225F79CC200B660AD /* Mat3x3 */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
 				2C794AB425C3DEE400034D81 /* MD5 */,
 				2C794AB225C3DEE400034D81 /* MD5Value */,
@@ -6055,6 +6060,7 @@
 				2CAAA88C25E7FD0300C014D7 /* LogType.hpp */,
 				2CAAA84A25E7FD0300C014D7 /* LuaScript.hpp */,
 				2CAAA72F25E7FD0200C014D7 /* Mat3x2.hpp */,
+				2CFF581025F79C9800B660AD /* Mat3x3.hpp */,
 				2CAAA78225E7FD0200C014D7 /* MatchResults.hpp */,
 				2CAAA78425E7FD0200C014D7 /* Math.hpp */,
 				2CAAA77625E7FD0200C014D7 /* MathConstants.hpp */,
@@ -6294,6 +6300,7 @@
 				2CAAA7CD25E7FD0200C014D7 /* LineString.ipp */,
 				2CAAA7E725E7FD0200C014D7 /* LineStyle.ipp */,
 				2CAAA7E025E7FD0200C014D7 /* Mat3x2.ipp */,
+				2CFF581125F79CAE00B660AD /* Mat3x3.ipp */,
 				2CAAA7BC25E7FD0200C014D7 /* MatchResults.ipp */,
 				2CAAA7B325E7FD0200C014D7 /* Math_Functors.ipp */,
 				2CAAA7BB25E7FD0200C014D7 /* Math.ipp */,
@@ -6759,6 +6766,14 @@
 				2CFE19AD2555B263005826A1 /* SivInput.cpp */,
 			);
 			path = Input;
+			sourceTree = "<group>";
+		};
+		2CFF581225F79CC200B660AD /* Mat3x3 */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF581325F79CC200B660AD /* SivMat3x3.cpp */,
+			);
+			path = Mat3x3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7716,6 +7731,7 @@
 				2C4396042535DCCA00F6AECD /* strokedata.cpp in Sources */,
 				2C48BF6B25D41C0D00A93CE3 /* BitmapGlyphRenderer.cpp in Sources */,
 				2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */,
+				2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */,
 				2C60AE91248158A500277281 /* scope.cpp in Sources */,
 				2C47B48B24DD97F2008D83BE /* muParserTokenReader.cpp in Sources */,
 				2C47B2FE24DD9789008D83BE /* CLicenseManager.cpp in Sources */,
