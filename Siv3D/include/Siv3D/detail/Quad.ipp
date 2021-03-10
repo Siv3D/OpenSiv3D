@@ -25,6 +25,18 @@ namespace s3d
 		, p2{ _p2 }
 		, p3{ _p3 } {}
 
+	inline constexpr Quad::Quad(const Rect& rect) noexcept
+		: p0{ rect.x, rect.y }
+		, p1{ (rect.x + rect.w), rect.y }
+		, p2{ (rect.x + rect.w), (rect.y + rect.h) }
+		, p3{ rect.x, (rect.y + rect.h) } {}
+
+	inline constexpr Quad::Quad(const RectF& rect) noexcept
+		: p0{ rect.x, rect.y }
+		, p1{ (rect.x + rect.w), rect.y }
+		, p2{ (rect.x + rect.w), (rect.y + rect.h) }
+		, p3{ rect.x, (rect.y + rect.h) } {}
+
 	inline constexpr Quad& Quad::set(const value_type x0, const value_type y0, const value_type x1, const value_type y1, const value_type x2, const value_type y2, const value_type x3, const value_type y3) noexcept
 	{
 		p0.set(x0, y0);

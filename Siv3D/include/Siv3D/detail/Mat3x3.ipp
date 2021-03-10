@@ -73,6 +73,17 @@ namespace s3d
 		return{ x, y };
 	}
 
+	inline constexpr Quad Mat3x3::transformRect(const RectF& rect) const noexcept
+	{
+		const float x0 = static_cast<float>(rect.x);
+		const float x1 = static_cast<float>(rect.x + rect.w);
+		const float y0 = static_cast<float>(rect.y);
+		const float y1 = static_cast<float>(rect.y + rect.h);
+
+		return{ transformPoint(Float2{x0, y0}), transformPoint(Float2{x1, y0}),
+				transformPoint(Float2{x1, y1}), transformPoint(Float2{x0, y1}) };
+	}
+
 	inline size_t Mat3x3::hash() const noexcept
 	{
 		return Hash::FNV1a(*this);

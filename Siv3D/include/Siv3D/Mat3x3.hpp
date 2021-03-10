@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -91,6 +92,9 @@ namespace s3d
 		constexpr Vec2 transformPoint(Vec2 pos) const noexcept;
 
 		[[nodiscard]]
+		constexpr Quad transformRect(const RectF& rect) const noexcept;
+
+		[[nodiscard]]
 		size_t hash() const noexcept;
 
 		[[nodiscard]]
@@ -98,9 +102,6 @@ namespace s3d
 
 		[[nodiscard]]
 		static Mat3x3 Homography(const Quad& to);
-
-		[[nodiscard]]
-		static Mat3x3 Homography(const RectF& from, const Quad& to);
 
 		[[nodiscard]]
 		static Mat3x3 Homography(const Quad& from, const Quad& to);

@@ -59,6 +59,12 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Quad(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept;
 
+		SIV3D_NODISCARD_CXX20
+		constexpr Quad(const Rect& rect) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr Quad(const RectF& rect) noexcept;
+
 		[[nodiscard]]
 		friend constexpr bool operator ==(const Quad& lhs, const Quad& rhs) noexcept
 		{
