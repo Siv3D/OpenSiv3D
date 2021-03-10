@@ -319,7 +319,7 @@ namespace s3d
 			}
 		}
 
-		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		void MaskByColor(const Image& from, cv::Mat_<uint8>& to, const Color& maskColor)
 		{
 			assert(from.width() == to.cols);
 			assert(from.height() == to.rows);
@@ -340,7 +340,7 @@ namespace s3d
 
 				while (pSrc != pSrcEnd)
 				{
-					*pDst = (pSrc->r <= threshold ? 0 : 255);
+					*pDst = ((*pSrc == maskColor) ? 255 : 0);
 					++pDst; ++pSrc;
 				}
 			}
@@ -356,7 +356,7 @@ namespace s3d
 
 					for (int32 x = 0; x < width; ++x)
 					{
-						*pDst = (pSrc->r <= threshold ? 0 : 255);
+						*pDst = ((*pSrc == maskColor) ? 255 : 0);
 						++pDst; ++pSrc;
 					}
 

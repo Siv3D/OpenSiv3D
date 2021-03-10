@@ -50,7 +50,7 @@ namespace s3d
 		[[nodiscard]]
 		ColorF SSIM(const Image& image1, const Image& image2);
 
-		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius = 2);
+		void Inpaint(const Image& image, const Image& maskImage, const Color& maskColor, Image& result, int32 radius = 2);
 
 		void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius = 2);
 	}

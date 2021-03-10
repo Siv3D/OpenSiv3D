@@ -198,6 +198,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GrabCut.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
@@ -733,6 +734,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FreestandingMessageBox\FreestandingMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\GUI\CGUI.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\GUI\IGUI.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.hpp" />
@@ -1276,6 +1278,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Formatter\SivFormatter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\SivGrabCut.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\CGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\GUIFactory.cpp" />

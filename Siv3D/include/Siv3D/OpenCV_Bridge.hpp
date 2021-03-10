@@ -49,7 +49,7 @@ namespace s3d
 
 		void FromMatVec4bRGBA(const cv::Mat_<cv::Vec4b>& from, Image& to);
 
-		void RedToBinary(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
+		void MaskByColor(const Image& from, cv::Mat_<uint8>& to, const Color& maskColor);
 
 		void RedToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 

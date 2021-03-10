@@ -335,7 +335,7 @@ namespace s3d
 			return{ mssim[2], mssim[1], mssim[0], 1.0 };
 		}
 
-		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)
+		void Inpaint(const Image& image, const Image& maskImage, const Color& maskColor, Image& result, int32 radius)
 		{
 			// 1. パラメータチェック
 			{
@@ -357,11 +357,11 @@ namespace s3d
 				cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(image);
 
 				cv::Mat_<uint8> matMask(image.height(), image.width());
-				OpenCV_Bridge::RedToBinary(maskImage, matMask, 254);
+				OpenCV_Bridge::MaskByColor(maskImage, matMask, maskColor);
 
 				cv::Mat_<cv::Vec3b> matDst;
 				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
-				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::No);
+				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::Yes);
 			}
 		}
 
@@ -388,7 +388,7 @@ namespace s3d
 				cv::Mat_<uint8> matMask(static_cast<int32>(maskImage.height()), static_cast<int32>(maskImage.width()), const_cast<uint8*>(maskImage.data()), static_cast<int32>(maskImage.width()));
 				cv::Mat_<cv::Vec3b> matDst;
 				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
-				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::No);
+				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::Yes);
 			}
 		}
 	}

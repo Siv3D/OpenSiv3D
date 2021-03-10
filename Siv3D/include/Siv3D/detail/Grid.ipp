@@ -28,14 +28,14 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const Size size)
 		: m_data(size.x * size.y)
-		, m_width{ size.x }
-		, m_height{ size.y } {}
+		, m_width{ static_cast<size_type>(size.x) }
+		, m_height{ static_cast<size_type>(size.y) } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const Size size, const value_type& value)
-		: m_data(size.x* size.y, value)
-		, m_width{ size.x }
-		, m_height{ size.y } {}
+		: m_data(size.x * size.y, value)
+		, m_width{ static_cast<size_type>(size.x) }
+		, m_height{ static_cast<size_type>(size.y) } {}
 
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(const size_type w, const size_type h, const Array<value_type>& data)
@@ -58,8 +58,8 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(Size size, const Array<value_type>& data)
 		: m_data(data)
-		, m_width{ size.x }
-		, m_height{ size.y }
+		, m_width{ static_cast<size_type>(size.x) }
+		, m_height{ static_cast<size_type>(size.y) }
 	{
 		assert(0 <= size.x);
 		assert(0 <= size.y);
@@ -69,8 +69,8 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator>::Grid(Size size, Array<value_type>&& data)
 		: m_data(std::move(data))
-		, m_width{ size.x }
-		, m_height{ size.y }
+		, m_width{ static_cast<size_type>(size.x) }
+		, m_height{ static_cast<size_type>(size.y) }
 	{
 		assert(0 <= size.x);
 		assert(0 <= size.y);
@@ -222,13 +222,13 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::operator[](const Point pos)&
 	{
-		return &m_data[(pos.y * m_width) + pos.x];
+		return m_data[(pos.y * m_width) + pos.x];
 	}
 
 	template <class Type, class Allocator>
 	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::operator[](const Point pos) const&
 	{
-		return &m_data[(pos.y * m_width) + pos.x];
+		return m_data[(pos.y * m_width) + pos.x];
 	}
 
 	template <class Type, class Allocator>
