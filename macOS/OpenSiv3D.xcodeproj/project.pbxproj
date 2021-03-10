@@ -985,6 +985,9 @@
 		2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E72556E230007EB42E /* IMouse.hpp */; };
 		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
 		2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4ED2556E247007EB42E /* CMouse.hpp */; };
+		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
+		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
+		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
@@ -2662,6 +2665,10 @@
 		2CB7D4E72556E230007EB42E /* IMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMouse.hpp; sourceTree = "<group>"; };
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
 		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
+		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
+		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
+		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
+		2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GrabCutDetail.cpp; sourceTree = "<group>"; };
 		2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_Metal.hpp; sourceTree = "<group>"; };
 		2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer2D_Metal.mm; sourceTree = "<group>"; };
 		2CE18686249CC7A900ADD14A /* scope_fail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_fail.h; sourceTree = "<group>"; };
@@ -3897,6 +3904,7 @@
 				2C47B2A824DD9789008D83BE /* Formatter */,
 				2C47B27424DD9789008D83BE /* FormatUtility */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
+				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
 				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
@@ -6025,6 +6033,7 @@
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
 				2CAAA8AC25E7FD0300C014D7 /* GlyphIndex.hpp */,
 				2CAAA6EC25E7FD0200C014D7 /* GlyphInfo.hpp */,
+				2CC7D4A425F8D85500289963 /* GrabCut.hpp */,
 				2CAAA86F25E7FD0300C014D7 /* GradientNoise.hpp */,
 				2CAAA72C25E7FD0200C014D7 /* Graphics.hpp */,
 				2CAAA71A25E7FD0200C014D7 /* Graphics2D.hpp */,
@@ -6469,6 +6478,16 @@
 				2CB7D4ED2556E247007EB42E /* CMouse.hpp */,
 			);
 			path = Mouse;
+			sourceTree = "<group>";
+		};
+		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */,
+				2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */,
+				2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */,
+			);
+			path = GrabCut;
 			sourceTree = "<group>";
 		};
 		2CDE6E8724A35C7B0048594F /* Metal */ = {
@@ -7046,6 +7065,7 @@
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2C4396152535DCCA00F6AECD /* svgangle.h in Headers */,
+				2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
 				2C13C99E25BD29FC0054B968 /* llimits.h in Headers */,
@@ -7508,6 +7528,7 @@
 				2C47B37624DD9789008D83BE /* ConsoleFactory.cpp in Sources */,
 				2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */,
 				2C4396102535DCCA00F6AECD /* svgcontentutils.cpp in Sources */,
+				2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */,
 				2C47B32524DD9789008D83BE /* SivBinaryWriter.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
 				2C794B1C25C3DFC200034D81 /* zstd_opt.c in Sources */,
@@ -7912,6 +7933,7 @@
 				2C47B30924DD9789008D83BE /* TextWriterDetail.cpp in Sources */,
 				2C48BEF425CFB8C500A93CE3 /* sdf-error-estimation.cpp in Sources */,
 				2C43964C2535DCCB00F6AECD /* svgelementimpl.cpp in Sources */,
+				2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */,
 				2C47B36424DD9789008D83BE /* CScene.cpp in Sources */,
 				2C13C8C725B8FA9D0054B968 /* DetourNavMeshQuery.cpp in Sources */,
 				2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */,

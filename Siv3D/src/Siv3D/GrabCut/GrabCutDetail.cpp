@@ -48,8 +48,8 @@ namespace s3d
 
 	void GrabCut::GrabCutDetail::init(const Image& image, const GrabCutClass defaultMask)
 	{
-		assert((defaultMask == GrabCutValue::PossibleForeground)
-			|| (defaultMask == GrabCutValue::PossibleBackground));
+		assert((defaultMask == GrabCutClass::PossibleForeground)
+			|| (defaultMask == GrabCutClass::PossibleBackground));
 
 		m_originalImage = OpenCV_Bridge::ToMatVec3bBGR(image);
 
