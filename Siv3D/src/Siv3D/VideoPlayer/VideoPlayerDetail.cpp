@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "VideoPlayerDetail.hpp"
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -32,14 +33,19 @@ namespace s3d
 			return false;
 		}
 
+		const int32 videoWidth	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_WIDTH));
+		const int32 videoHeight	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+		const int32 frameCount	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_COUNT));
+		const double videoFPS	= m_capture.get(cv::CAP_PROP_FPS);
+
 		m_info =
 		{
-			.resolution = Size(static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_WIDTH)),
-				static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_HEIGHT))),
-			.fps = m_capture.get(cv::CAP_PROP_FPS),
-			.currentFrameIndex = 0,
-			.frameCount = static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_COUNT)),
-			.reachedEnd = false
+			.fullPath			= FileSystem::FullPath(path),
+			.resolution			= Size{ videoWidth, videoHeight },
+			.fps				= videoFPS,
+			.currentFrameIndex	= 0,
+			.frameCount			= frameCount,
+			.reachedEnd			= false
 		};
 
 		LOG_INFO(U"ℹ️ Video file {0} opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
@@ -90,6 +96,15 @@ namespace s3d
 		return (getFrameDeltaSec() * m_info.frameCount);
 	}
 
+	void VideoPlayer::VideoPlayerDetail::setCurrentFrameIndex(int32 index)
+	{
+		index = Clamp(index, 0, m_info.frameCount);
+
+		m_capture.set(cv::CAP_PROP_POS_FRAMES, index);
+		m_info.currentFrameIndex = index;
+		m_info.reachedEnd = (m_info.currentFrameIndex == m_info.frameCount);
+	}
+
 	int32 VideoPlayer::VideoPlayerDetail::getCurrentFrameIndex() const noexcept
 	{
 		return m_info.currentFrameIndex;
@@ -120,12 +135,8 @@ namespace s3d
 		return m_info.reachedEnd;
 	}
 
-	void VideoPlayer::VideoPlayerDetail::setCurrentFrameIndex(int32 index)
+	const FilePath& VideoPlayer::VideoPlayerDetail::path() const noexcept
 	{
-		index = Clamp(index, 0, m_info.frameCount);
-
-		m_capture.set(cv::CAP_PROP_POS_FRAMES, index);
-		m_info.currentFrameIndex = index;
-		m_info.reachedEnd = (m_info.currentFrameIndex == m_info.frameCount);
+		return m_info.fullPath;
 	}
 }

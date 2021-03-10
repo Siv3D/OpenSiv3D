@@ -48,6 +48,8 @@ namespace s3d
 		[[nodiscard]]
 		double getLengthSec() const;
 
+		void setCurrentFrameIndex(int32 index);
+
 		[[nodiscard]]
 		int32 getCurrentFrameIndex() const noexcept;
 
@@ -66,7 +68,8 @@ namespace s3d
 		[[nodiscard]]
 		bool reachedEnd() const noexcept;
 
-		void setCurrentFrameIndex(int32 index);
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
 
 	private:
 

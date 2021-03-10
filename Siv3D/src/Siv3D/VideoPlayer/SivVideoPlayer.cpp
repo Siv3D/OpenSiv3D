@@ -63,6 +63,11 @@ namespace s3d
 		return pImpl->getLengthSec();
 	}
 
+	void VideoPlayer::setCurrentFrameIndex(const int32 index)
+	{
+		pImpl->setCurrentFrameIndex(index);
+	}
+
 	int32 VideoPlayer::getCurrentFrameIndex() const noexcept
 	{
 		return pImpl->getCurrentFrameIndex();
@@ -93,8 +98,8 @@ namespace s3d
 		return pImpl->reachedEnd();
 	}
 
-	void VideoPlayer::setCurrentFrameIndex(const int32 index)
+	const FilePath& VideoPlayer::path() const noexcept
 	{
-		pImpl->setCurrentFrameIndex(index);
+		return pImpl->path();
 	}
 }

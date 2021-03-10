@@ -25,6 +25,8 @@ namespace s3d
 
 		struct Info
 		{
+			FilePath fullPath;
+
 			Size resolution = Size(0, 0);
 
 			double fps = 30.0;
@@ -61,6 +63,8 @@ namespace s3d
 		[[nodiscard]]
 		double getLengthSec() const;
 
+		void setCurrentFrameIndex(int32 index);
+
 		[[nodiscard]]
 		int32 getCurrentFrameIndex() const noexcept;
 
@@ -79,6 +83,7 @@ namespace s3d
 		[[nodiscard]]
 		bool reachedEnd() const noexcept;
 
-		void setCurrentFrameIndex(int32 index);
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
 	};
 }
