@@ -122,7 +122,7 @@ namespace s3d
 			confineCursor();
 		}
 
-		Point lastClientRawPos;
+		// [Siv3D ToDo] バッファを活用する
 		{
 			const uint64 time = Time::GetMicrosec();
 	
@@ -141,8 +141,6 @@ namespace s3d
 			}
 
 			m_clientPosBuffer.erase(m_clientPosBuffer.begin(), it);
-
-			lastClientRawPos = m_clientPosBuffer.back().second;
 		}
 
 		{
@@ -155,6 +153,13 @@ namespace s3d
 		{
 			POINT screenPos;
 			::GetCursorPos(&screenPos);
+			
+			Point lastClientRawPos;
+			{
+				POINT clientPos = screenPos;
+				::ScreenToClient(m_hWnd, &clientPos);
+				lastClientRawPos.set(clientPos.x, clientPos.y);
+			}
 
 			const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
 			const Vec2 clientPos = m_transformAllInv.transformPoint(lastClientRawPos);
