@@ -104,7 +104,7 @@ namespace s3d
 		}
 
 		const Type* pSrc = grid.data();
-		const Type* const pSrcEnd = (pSrc + grid.size_elements());
+		const Type* const pSrcEnd = (pSrc + grid.num_elements());
 		Color* pDst = m_data.data();
 
 		while (pSrc != pSrcEnd)

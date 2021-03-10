@@ -300,7 +300,7 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline typename Grid<Type, Allocator>::size_type Grid<Type, Allocator>::size_elements() const noexcept
+	inline typename Grid<Type, Allocator>::size_type Grid<Type, Allocator>::num_elements() const noexcept
 	{
 		return m_data.size();
 	}
@@ -716,7 +716,7 @@ namespace s3d
 # endif
 	inline Array<Type> Grid<Type, Allocator>::choice(const Size_t n, URBG&& rbg) const
 	{
-		Array<Type> result(Arg::reserve = Min<size_t>(n, size_elements()));
+		Array<Type> result(Arg::reserve = Min<size_t>(n, num_elements()));
 
 		std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 

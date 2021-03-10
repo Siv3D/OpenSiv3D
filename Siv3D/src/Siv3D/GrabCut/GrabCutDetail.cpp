@@ -116,7 +116,7 @@ namespace s3d
 		result.resize(width, height);
 
 		GrabCutClass* pDst = result.data();
-		const GrabCutClass* const pDstEnd = pDst + result.size_elements();
+		const GrabCutClass* const pDstEnd = pDst + result.num_elements();
 		const uint8* pSrc = m_maskImage.data;
 
 		while (pDst != pDstEnd)

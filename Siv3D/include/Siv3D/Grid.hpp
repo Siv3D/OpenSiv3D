@@ -178,7 +178,7 @@ namespace s3d
 		Size size() const noexcept;
 
 		[[nodiscard]]
-		size_type size_elements() const noexcept;
+		size_type num_elements() const noexcept;
 
 		/// @brief 配列の要素の合計サイズ（バイト）を返します。
 		/// @return 配列の要素の合計サイズ（バイト）
