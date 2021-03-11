@@ -41,7 +41,7 @@ void main()
 {
 	float t = mod(UV.x, 2.0);
 	vec2 tex = UV;
-	tex.x = abs(1 - t) * 2.0;
+	tex.x = abs(1.0 - t) * 2.0;
 	vec4 color = Color;
 
 	float dist = dot(tex, tex) * 0.5;
