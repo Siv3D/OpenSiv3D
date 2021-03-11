@@ -259,7 +259,7 @@ namespace s3d
 					it != ht.end())
 				{
 					const Count keyCount = ++(it.value().first);
-					maxCount = Max(maxCount, keyCount);
+					maxCount = s3d::Max(maxCount, keyCount);
 				}
 				else
 				{
