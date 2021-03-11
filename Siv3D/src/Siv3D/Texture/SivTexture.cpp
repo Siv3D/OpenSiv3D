@@ -164,12 +164,12 @@ namespace s3d
 		return draw(0.0, 0.0, color0, color1, color2, color3);
 	}
 
-	RectF Texture::draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+	RectF Texture::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
 	{
 		return draw(*topColor, *topColor, *bottomColor, *bottomColor);
 	}
 
-	RectF Texture::draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+	RectF Texture::draw(const Arg::left_<ColorF> leftColor, const Arg::right_<ColorF> rightColor) const
 	{
 		return draw(*leftColor, *rightColor, *rightColor, *leftColor);
 	}

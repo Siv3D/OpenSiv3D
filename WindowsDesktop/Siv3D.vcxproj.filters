@@ -862,6 +862,9 @@
     <Filter Include="src\Siv3D\VideoReader">
       <UniqueIdentifier>{2fce9a7e-aff0-4a6e-8678-51c0c30ea7a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\VideoTexture">
+      <UniqueIdentifier>{4878f515-3a64-4140-b8ac-915ac5e83cf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4224,6 +4227,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoReader.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoTexture\VideoTextureDetail.hpp">
+      <Filter>src\Siv3D\VideoTexture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5713,6 +5722,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.cpp">
       <Filter>src\Siv3D\VideoReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoTexture\SivVideoTexture.cpp">
+      <Filter>src\Siv3D\VideoTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoTexture\VideoTextureDetail.cpp">
+      <Filter>src\Siv3D\VideoTexture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

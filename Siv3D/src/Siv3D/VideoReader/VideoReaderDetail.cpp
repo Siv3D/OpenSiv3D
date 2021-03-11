@@ -91,8 +91,8 @@ namespace s3d
 			{
 				if (m_shared.capture.grab())
 				{
-					m_shared.capture.retrieve(m_shared.frame.mat2);
-					OpenCV_Bridge::FromMatVec3b(m_shared.frame.mat2, m_shared.frame.image, OverwriteAlpha::Yes);
+					m_shared.capture.retrieve(m_shared.frame.mat);
+					OpenCV_Bridge::FromMatVec3b(m_shared.frame.mat, m_shared.frame.image, OverwriteAlpha::Yes);
 					m_shared.frame.index = m_shared.readPos++;
 					//LOG_TEST(U"## info ## retrieved frame {} to buffer"_fmt(m_shared.frame.index));
 				}

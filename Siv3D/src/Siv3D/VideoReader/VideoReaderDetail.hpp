@@ -19,7 +19,7 @@ namespace s3d
 	{
 		int32 index = -1;
 
-		cv::Mat mat2;
+		cv::Mat mat;
 
 		Image image;
 	};
