@@ -856,11 +856,11 @@
     <Filter Include="src\Siv3D\Mat3x3">
       <UniqueIdentifier>{d346d155-37f9-4a3c-a942-02072cc1309b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\VideoPlayer">
-      <UniqueIdentifier>{41b9bddc-954e-4946-8f36-f4590cfb0135}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\GrabCut">
       <UniqueIdentifier>{850d7e63-1820-4e4d-a6cc-33d944814f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\VideoReader">
+      <UniqueIdentifier>{2fce9a7e-aff0-4a6e-8678-51c0c30ea7a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -4212,17 +4212,17 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mat3x3.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\VideoPlayer.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\VideoPlayer\VideoPlayerDetail.hpp">
-      <Filter>src\Siv3D\VideoPlayer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\GrabCut.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.hpp">
       <Filter>src\Siv3D\GrabCut</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.hpp">
+      <Filter>src\Siv3D\VideoReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoReader.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -5702,17 +5702,17 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x3\SivMat3x3.cpp">
       <Filter>src\Siv3D\Mat3x3</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\VideoPlayer\VideoPlayerDetail.cpp">
-      <Filter>src\Siv3D\VideoPlayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\VideoPlayer\SivVideoPlayer.cpp">
-      <Filter>src\Siv3D\VideoPlayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.cpp">
       <Filter>src\Siv3D\GrabCut</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\SivGrabCut.cpp">
       <Filter>src\Siv3D\GrabCut</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\SivVideoReader.cpp">
+      <Filter>src\Siv3D\VideoReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.cpp">
+      <Filter>src\Siv3D\VideoReader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

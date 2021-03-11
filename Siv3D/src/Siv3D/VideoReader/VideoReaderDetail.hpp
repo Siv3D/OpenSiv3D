@@ -10,12 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/VideoPlayer.hpp>
+# include <Siv3D/VideoReader.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
 
 namespace s3d
 {
-	class VideoPlayer::VideoPlayerDetail
+	class VideoReader::VideoReaderDetail
 	{
 	private:
 
@@ -40,9 +40,9 @@ namespace s3d
 
 	public:
 
-		VideoPlayerDetail();
+		VideoReaderDetail();
 
-		~VideoPlayerDetail();
+		~VideoReaderDetail();
 
 		bool open(FilePathView path);
 

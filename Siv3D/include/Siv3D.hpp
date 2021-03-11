@@ -1027,7 +1027,7 @@
 
 # include <Siv3D/SimpleGUI.hpp>
 
-# include <Siv3D/VideoPlayer.hpp>
+# include <Siv3D/VideoReader.hpp>
 # include <Siv3D/GrabCut.hpp>
 
 

@@ -1050,9 +1050,9 @@
 		2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19AC2555B263005826A1 /* InputState.hpp */; };
 		2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AD2555B263005826A1 /* SivInput.cpp */; };
 		2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581325F79CC200B660AD /* SivMat3x3.cpp */; };
-		2CFF581A25F7C02500B660AD /* VideoPlayerDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581725F7C02400B660AD /* VideoPlayerDetail.cpp */; };
-		2CFF581B25F7C02500B660AD /* VideoPlayerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF581825F7C02400B660AD /* VideoPlayerDetail.hpp */; };
-		2CFF581C25F7C02500B660AD /* SivVideoPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581925F7C02400B660AD /* SivVideoPlayer.cpp */; };
+		2CFF581A25F7C02500B660AD /* VideoReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581725F7C02400B660AD /* VideoReaderDetail.cpp */; };
+		2CFF581B25F7C02500B660AD /* VideoReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF581825F7C02400B660AD /* VideoReaderDetail.hpp */; };
+		2CFF581C25F7C02500B660AD /* SivVideoReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581925F7C02400B660AD /* SivVideoReader.cpp */; };
 		2CFF581E25F7C09400B660AD /* libopencv_imgcodecs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFF581D25F7C09400B660AD /* libopencv_imgcodecs.a */; };
 		2CFF582025F7C0B500B660AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFF581F25F7C0B500B660AD /* AVFoundation.framework */; };
 		2CFF582225F7C0E100B660AD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFF582125F7C0E100B660AD /* CoreMedia.framework */; };
@@ -2743,10 +2743,10 @@
 		2CFF581025F79C9800B660AD /* Mat3x3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.hpp; sourceTree = "<group>"; };
 		2CFF581125F79CAE00B660AD /* Mat3x3.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.ipp; sourceTree = "<group>"; };
 		2CFF581325F79CC200B660AD /* SivMat3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat3x3.cpp; sourceTree = "<group>"; };
-		2CFF581525F7C00E00B660AD /* VideoPlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoPlayer.hpp; sourceTree = "<group>"; };
-		2CFF581725F7C02400B660AD /* VideoPlayerDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoPlayerDetail.cpp; sourceTree = "<group>"; };
-		2CFF581825F7C02400B660AD /* VideoPlayerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VideoPlayerDetail.hpp; sourceTree = "<group>"; };
-		2CFF581925F7C02400B660AD /* SivVideoPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoPlayer.cpp; sourceTree = "<group>"; };
+		2CFF581525F7C00E00B660AD /* VideoReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoReader.hpp; sourceTree = "<group>"; };
+		2CFF581725F7C02400B660AD /* VideoReaderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoReaderDetail.cpp; sourceTree = "<group>"; };
+		2CFF581825F7C02400B660AD /* VideoReaderDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VideoReaderDetail.hpp; sourceTree = "<group>"; };
+		2CFF581925F7C02400B660AD /* SivVideoReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoReader.cpp; sourceTree = "<group>"; };
 		2CFF581D25F7C09400B660AD /* libopencv_imgcodecs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgcodecs.a; path = ../Siv3D/lib/macOS/opencv/libopencv_imgcodecs.a; sourceTree = "<group>"; };
 		2CFF581F25F7C0B500B660AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CFF582125F7C0E100B660AD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -3987,7 +3987,7 @@
 				2C47B2EE24DD9789008D83BE /* Vector3D */,
 				2C47B2AA24DD9789008D83BE /* Vector4D */,
 				2C47B6D424EAC834008D83BE /* VertexShader */,
-				2CFF581625F7C02400B660AD /* VideoPlayer */,
+				2CFF581625F7C02400B660AD /* VideoReader */,
 				2C47B2AC24DD9789008D83BE /* Window */,
 			);
 			path = Siv3D;
@@ -6226,7 +6226,7 @@
 				2CAAA78025E7FD0200C014D7 /* Version.hpp */,
 				2CAAA6F525E7FD0200C014D7 /* Vertex2D.hpp */,
 				2CAAA87B25E7FD0300C014D7 /* VertexShader.hpp */,
-				2CFF581525F7C00E00B660AD /* VideoPlayer.hpp */,
+				2CFF581525F7C00E00B660AD /* VideoReader.hpp */,
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
@@ -6816,14 +6816,14 @@
 			path = Mat3x3;
 			sourceTree = "<group>";
 		};
-		2CFF581625F7C02400B660AD /* VideoPlayer */ = {
+		2CFF581625F7C02400B660AD /* VideoReader */ = {
 			isa = PBXGroup;
 			children = (
-				2CFF581725F7C02400B660AD /* VideoPlayerDetail.cpp */,
-				2CFF581825F7C02400B660AD /* VideoPlayerDetail.hpp */,
-				2CFF581925F7C02400B660AD /* SivVideoPlayer.cpp */,
+				2CFF581725F7C02400B660AD /* VideoReaderDetail.cpp */,
+				2CFF581825F7C02400B660AD /* VideoReaderDetail.hpp */,
+				2CFF581925F7C02400B660AD /* SivVideoReader.cpp */,
 			);
-			path = VideoPlayer;
+			path = VideoReader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -7086,7 +7086,7 @@
 				2C47B49424DD97F2008D83BE /* muParser.h in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
 				2C48BF0325CFB8C500A93CE3 /* arithmetics.hpp in Headers */,
-				2CFF581B25F7C02500B660AD /* VideoPlayerDetail.hpp in Headers */,
+				2CFF581B25F7C02500B660AD /* VideoReaderDetail.hpp in Headers */,
 				2C43C8C425C837F100D6D613 /* ftlcdfil.h in Headers */,
 				2C43C8A225C837F100D6D613 /* svtteng.h in Headers */,
 				2C43963B2535DCCA00F6AECD /* svgpreserveaspectratio.h in Headers */,
@@ -7545,7 +7545,7 @@
 				2C834DAA248805D4006208B8 /* iso8859_16.c in Sources */,
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
 				2C423258242B19ED00A16BCA /* posix_thread.c in Sources */,
-				2CFF581C25F7C02500B660AD /* SivVideoPlayer.cpp in Sources */,
+				2CFF581C25F7C02500B660AD /* SivVideoReader.cpp in Sources */,
 				2C47B32E24DD9789008D83BE /* SivImage.cpp in Sources */,
 				2C48BEFA25CFB8C500A93CE3 /* Shape.cpp in Sources */,
 				2CF21D24249FAA8F00C864C9 /* CWindow_macOS.mm in Sources */,
@@ -7844,7 +7844,7 @@
 				2C834DB7248805D4006208B8 /* euc_tw.c in Sources */,
 				2C47B30B24DD9789008D83BE /* SivTextWriter.cpp in Sources */,
 				2C53C34525613BB00072831A /* SivPolygon.cpp in Sources */,
-				2CFF581A25F7C02500B660AD /* VideoPlayerDetail.cpp in Sources */,
+				2CFF581A25F7C02500B660AD /* VideoReaderDetail.cpp in Sources */,
 				2C53C33E25613B8A0072831A /* SivTriangle.cpp in Sources */,
 				2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */,
 				2C834DB9248805D4006208B8 /* sjis.c in Sources */,

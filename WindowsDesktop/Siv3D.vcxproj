@@ -489,7 +489,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\VideoPlayer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ResizeMode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WindowState.hpp" />
@@ -790,7 +790,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Unicode\UnicodeUtility.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\CUserAction.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\IUSerAction.hpp" />
-    <ClInclude Include="..\Siv3D\src\Siv3D\VideoPlayer\VideoPlayerDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-blob.h" />
@@ -1410,8 +1410,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VertexShader\SivVertexShader.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\VideoPlayer\SivVideoPlayer.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\VideoPlayer\VideoPlayerDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\SivVideoReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\numeric\int128.cc" />

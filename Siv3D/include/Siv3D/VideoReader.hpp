@@ -17,15 +17,15 @@
 
 namespace s3d
 {
-	class VideoPlayer
+	class VideoReader
 	{
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		VideoPlayer();
+		VideoReader();
 
 		SIV3D_NODISCARD_CXX20
-		explicit VideoPlayer(FilePathView path);
+		explicit VideoReader(FilePathView path);
 
 		bool open(FilePathView path);
 
@@ -73,8 +73,8 @@ namespace s3d
 
 	private:
 
-		class VideoPlayerDetail;
+		class VideoReaderDetail;
 
-		std::shared_ptr<VideoPlayerDetail> pImpl;
+		std::shared_ptr<VideoReaderDetail> pImpl;
 	};
 }

@@ -9,20 +9,20 @@
 //
 //-----------------------------------------------
 
-# include "VideoPlayerDetail.hpp"
+# include "VideoReaderDetail.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
-	VideoPlayer::VideoPlayerDetail::VideoPlayerDetail() {}
+	VideoReader::VideoReaderDetail::VideoReaderDetail() {}
 
-	VideoPlayer::VideoPlayerDetail::~VideoPlayerDetail()
+	VideoReader::VideoReaderDetail::~VideoReaderDetail()
 	{
 		close();
 	}
 
-	bool VideoPlayer::VideoPlayerDetail::open(const FilePathView path)
+	bool VideoReader::VideoReaderDetail::open(const FilePathView path)
 	{
 		close();
 
@@ -54,18 +54,18 @@ namespace s3d
 		return true;
 	}
 
-	void VideoPlayer::VideoPlayerDetail::close()
+	void VideoReader::VideoReaderDetail::close()
 	{
 		m_capture.release();
 		m_info = {};
 	}
 
-	bool VideoPlayer::VideoPlayerDetail::isOpen() const noexcept
+	bool VideoReader::VideoReaderDetail::isOpen() const noexcept
 	{
 		return m_capture.isOpened();
 	}
 
-	bool VideoPlayer::VideoPlayerDetail::getFrame(Image& image)
+	bool VideoReader::VideoReaderDetail::getFrame(Image& image)
 	{
 		if (not m_capture.grab())
 		{
@@ -81,22 +81,22 @@ namespace s3d
 		return true;
 	}
 
-	const Size& VideoPlayer::VideoPlayerDetail::getSize() const noexcept
+	const Size& VideoReader::VideoReaderDetail::getSize() const noexcept
 	{
 		return m_info.resolution;
 	}
 
-	double VideoPlayer::VideoPlayerDetail::getFPS() const noexcept
+	double VideoReader::VideoReaderDetail::getFPS() const noexcept
 	{
 		return m_info.fps;
 	}
 
-	double VideoPlayer::VideoPlayerDetail::getLengthSec() const
+	double VideoReader::VideoReaderDetail::getLengthSec() const
 	{
 		return (getFrameDeltaSec() * m_info.frameCount);
 	}
 
-	void VideoPlayer::VideoPlayerDetail::setCurrentFrameIndex(int32 index)
+	void VideoReader::VideoReaderDetail::setCurrentFrameIndex(int32 index)
 	{
 		index = Clamp(index, 0, m_info.frameCount);
 
@@ -105,37 +105,37 @@ namespace s3d
 		m_info.reachedEnd = (m_info.currentFrameIndex == m_info.frameCount);
 	}
 
-	int32 VideoPlayer::VideoPlayerDetail::getCurrentFrameIndex() const noexcept
+	int32 VideoReader::VideoReaderDetail::getCurrentFrameIndex() const noexcept
 	{
 		return m_info.currentFrameIndex;
 	}
 
-	double VideoPlayer::VideoPlayerDetail::getPosSec() const
+	double VideoReader::VideoReaderDetail::getPosSec() const
 	{
 		return (getProgress() * getLengthSec());
 	}
 
-	int32 VideoPlayer::VideoPlayerDetail::getFrameCount() const noexcept
+	int32 VideoReader::VideoReaderDetail::getFrameCount() const noexcept
 	{
 		return m_info.frameCount;
 	}
 
-	double VideoPlayer::VideoPlayerDetail::getFrameDeltaSec() const noexcept
+	double VideoReader::VideoReaderDetail::getFrameDeltaSec() const noexcept
 	{
 		return (m_info.fps ? (1.0 / m_info.fps) : (1.0 / 30.0));
 	}
 
-	double VideoPlayer::VideoPlayerDetail::getProgress() const noexcept
+	double VideoReader::VideoReaderDetail::getProgress() const noexcept
 	{
 		return (static_cast<double>(m_info.currentFrameIndex) / m_info.frameCount);
 	}
 
-	bool VideoPlayer::VideoPlayerDetail::reachedEnd() const noexcept
+	bool VideoReader::VideoReaderDetail::reachedEnd() const noexcept
 	{
 		return m_info.reachedEnd;
 	}
 
-	const FilePath& VideoPlayer::VideoPlayerDetail::path() const noexcept
+	const FilePath& VideoReader::VideoReaderDetail::path() const noexcept
 	{
 		return m_info.fullPath;
 	}
