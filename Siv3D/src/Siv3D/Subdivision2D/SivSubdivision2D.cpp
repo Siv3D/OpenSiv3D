@@ -122,7 +122,7 @@ namespace s3d
 
 	void Subdivision2D::initDelaunay(const RectF& rect)
 	{
-		const double big_coord = 3.0 * std::max(rect.w, rect.h);
+		const double big_coord = 3.0 * Max(rect.w, rect.h);
 		const double rx = rect.x;
 		const double ry = rect.y;
 

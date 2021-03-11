@@ -502,7 +502,7 @@ namespace s3d
 			}
 			else
 			{
-				const uint32 minStride = std::min(dstStride, srcStride);
+				const uint32 minStride = Min(dstStride, srcStride);
 
 				for (int32 y = 0; y < size.y; ++y)
 				{

@@ -181,8 +181,8 @@ namespace s3d
 			}
 			else if (x11 < width && x12 >= 0 && y21 < height && y22 >= 0)
 			{
-				x11 = std::max(x11, 0);
-				x12 = std::min(x12, width - 1);
+				x11 = Max(x11, 0);
+				x12 = Min(x12, width - 1);
 
 				if ((unsigned)y11 < (unsigned)height)
 				{
@@ -198,8 +198,8 @@ namespace s3d
 
 				if (x21 < width && x22 >= 0)
 				{
-					x21 = std::max(x21, 0);
-					x22 = std::min(x22, width - 1);
+					x21 = Max(x21, 0);
+					x22 = Min(x22, width - 1);
 
 					if ((unsigned)y21 < (unsigned)height)
 					{
@@ -352,9 +352,9 @@ namespace s3d
 				imin = i;
 			}
 
-			ymax = std::max(ymax, p.y);
-			xmax = std::max(xmax, p.x);
-			xmin = std::min(xmin, p.x);
+			ymax = Max(ymax, p.y);
+			xmax = Max(xmax, p.x);
+			xmin = Min(xmin, p.x);
 
 			p.x <<= XY_SHIFT - shift;
 			p.y <<= XY_SHIFT - shift;
@@ -372,7 +372,7 @@ namespace s3d
 		if (npts < 3 || xmax < 0 || ymax < 0 || xmin >= size.x || ymin >= size.y)
 			return;
 
-		ymax = std::min(ymax, size.y - 1);
+		ymax = Min(ymax, size.y - 1);
 		edge[0].idx = edge[1].idx = imin;
 
 		edge[0].ye = edge[1].ye = y = ymin;
@@ -707,10 +707,10 @@ namespace s3d
 		{
 			PolyEdge& e1 = edges[i];
 			assert(e1.y0 < e1.y1);
-			y_min = std::min(y_min, e1.y0);
-			y_max = std::max(y_max, e1.y1);
-			x_min = std::min(x_min, e1.x);
-			x_max = std::max(x_max, e1.x);
+			y_min = Min(y_min, e1.y0);
+			y_max = Max(y_max, e1.y1);
+			x_min = Min(x_min, e1.x);
+			x_max = Max(x_max, e1.x);
 		}
 
 		if (y_max < 0 || y_min >= size.y || x_max < 0 || x_min >= (size.x << XY_SHIFT))
@@ -725,7 +725,7 @@ namespace s3d
 		i = 0;
 		tmp.next = 0;
 		e = &edges[i];
-		y_max = std::min(y_max, size.y);
+		y_max = Min(y_max, size.y);
 
 		for (y = e->y0; y < y_max; y++)
 		{

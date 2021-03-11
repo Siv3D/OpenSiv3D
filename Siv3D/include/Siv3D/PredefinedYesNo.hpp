@@ -52,4 +52,7 @@ namespace s3d
 
 	/// @brief アンチエイリアスを有向にする
 	using Antialiased		= YesNo<struct Antialiased_tag>;
+	
+	/// @brief ループ再生を有効にする
+	using Loop				= YesNo<struct Loop_tag>;
 }

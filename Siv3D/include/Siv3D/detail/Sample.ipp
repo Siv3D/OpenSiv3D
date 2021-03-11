@@ -64,7 +64,7 @@ namespace s3d
 	inline Array<typename Container::value_type> Sample(size_t n, const Container& c, URBG&& urbg)
 	{
 		Array<typename Container::value_type> result;
-		result.reserve(std::min(n, std::size(c)));
+		result.reserve(Min(n, std::size(c)));
 
 		std::sample(std::begin(c), std::end(c), std::back_inserter(result), n, std::forward<URBG>(urbg));
 		return result;
@@ -94,7 +94,7 @@ namespace s3d
 	inline Array<Type> Sample(size_t n, std::initializer_list<Type> ilist, URBG&& urbg)
 	{
 		Array<Type> result;
-		result.reserve(std::min(n, ilist.size()));
+		result.reserve(Min(n, ilist.size()));
 
 		std::sample(ilist.begin(), ilist.end(), std::back_inserter(result), n, std::forward<URBG>(urbg));
 		return result;

@@ -1076,10 +1076,10 @@ namespace s3d
 
 	const Ellipse& Ellipse::paint(Image& dst, const Color& color) const
 	{
-		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
-		const int32 yEnd = std::min(static_cast<int32>(y + b + 1), dst.height());
-		const int32 xBegin = std::max(static_cast<int32>(x - a), 0);
-		const int32 xEnd = std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 yBegin = Max(static_cast<int32>(y - b), 0);
+		const int32 yEnd = Min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin = Max(static_cast<int32>(x - a), 0);
+		const int32 xEnd = Min(static_cast<int32>(x + a + 1), dst.width());
 		const int32 fillWidth = xEnd - xBegin;
 		const int32 fillHeight = yEnd - yBegin;
 
@@ -1152,10 +1152,10 @@ namespace s3d
 
 	const Ellipse& Ellipse::overwrite(Image& dst, const Color& color) const
 	{
-		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
-		const int32 yEnd = std::min(static_cast<int32>(y + b + 1), dst.height());
-		const int32 xBegin = std::max(static_cast<int32>(x - a), 0);
-		const int32 xEnd = std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 yBegin = Max(static_cast<int32>(y - b), 0);
+		const int32 yEnd = Min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin = Max(static_cast<int32>(x - a), 0);
+		const int32 xEnd = Min(static_cast<int32>(x + a + 1), dst.width());
 		const int32 fillWidth = xEnd - xBegin;
 		const int32 fillHeight = yEnd - yBegin;
 

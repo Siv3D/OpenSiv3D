@@ -57,7 +57,7 @@ namespace s3d
 	{
 		if (isEmpty())
 		{
-			*this = DynamicTexture(image);
+			*this = DynamicTexture{ image };
 			return true;
 		}
 		else if (image.size() != size())

@@ -1145,7 +1145,7 @@ namespace s3d
 			double vd = vb * vb - va * vc;
 
 			const double ERRF = 1e-15;
-			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
+			const double ZEROepsilon = 10 * Max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
 			if (std::abs(vd) < ZEROepsilon)
 			{
 				vd = 0;
@@ -2254,7 +2254,7 @@ namespace s3d
 			double vd = vb * vb - va * vc;
 
 			const double ERRF = 1e-15;
-			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
+			const double ZEROepsilon = 10 * Max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
 			if (std::abs(vd) < ZEROepsilon)
 			{
 				vd = 0;
