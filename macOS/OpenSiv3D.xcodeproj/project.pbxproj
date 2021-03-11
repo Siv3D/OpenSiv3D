@@ -998,6 +998,9 @@
 		2CEC7DD925FA527700704B99 /* BMPHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DD125FA527700704B99 /* BMPHeader.hpp */; };
 		2CEC7DDA25FA527700704B99 /* BMPEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DD225FA527700704B99 /* BMPEncoder.cpp */; };
 		2CEC7DDB25FA527700704B99 /* BMPDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DD325FA527700704B99 /* BMPDecoder.cpp */; };
+		2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DDF25FA5DE300704B99 /* TGAEncoder.cpp */; };
+		2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */; };
+		2CEC7DE425FA5DE300704B99 /* TGAHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
 		2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */; };
 		2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */; };
@@ -2694,6 +2697,11 @@
 		2CEC7DD125FA527700704B99 /* BMPHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BMPHeader.hpp; sourceTree = "<group>"; };
 		2CEC7DD225FA527700704B99 /* BMPEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BMPEncoder.cpp; sourceTree = "<group>"; };
 		2CEC7DD325FA527700704B99 /* BMPDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BMPDecoder.cpp; sourceTree = "<group>"; };
+		2CEC7DDC25FA5DB100704B99 /* TGADecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TGADecoder.hpp; sourceTree = "<group>"; };
+		2CEC7DDD25FA5DB100704B99 /* TGAEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TGAEncoder.hpp; sourceTree = "<group>"; };
+		2CEC7DDF25FA5DE300704B99 /* TGAEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TGAEncoder.cpp; sourceTree = "<group>"; };
+		2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TGADecoder.cpp; sourceTree = "<group>"; };
+		2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TGAHeader.hpp; sourceTree = "<group>"; };
 		2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RendererFactory.mm; sourceTree = "<group>"; };
 		2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_GL4.hpp; sourceTree = "<group>"; };
 		2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer_GL4.cpp; sourceTree = "<group>"; };
@@ -6422,13 +6430,15 @@
 		2CAAA85225E7FD0300C014D7 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
-				2CFC212C25F7326A00C51D0D /* JPEGDecoder.hpp */,
-				2CFC212D25F7326A00C51D0D /* JPEGEncoder.hpp */,
 				2CAAA85325E7FD0300C014D7 /* BMPDecoder.hpp */,
 				2CAAA85425E7FD0300C014D7 /* BMPEncoder.hpp */,
+				2CFC212C25F7326A00C51D0D /* JPEGDecoder.hpp */,
+				2CFC212D25F7326A00C51D0D /* JPEGEncoder.hpp */,
 				2CAAA85525E7FD0300C014D7 /* PNGDecoder.hpp */,
-				2CAAA85625E7FD0300C014D7 /* SVGDecoder.hpp */,
 				2CAAA85725E7FD0300C014D7 /* PNGEncoder.hpp */,
+				2CAAA85625E7FD0300C014D7 /* SVGDecoder.hpp */,
+				2CEC7DDC25FA5DB100704B99 /* TGADecoder.hpp */,
+				2CEC7DDD25FA5DB100704B99 /* TGAEncoder.hpp */,
 			);
 			path = ImageFormat;
 			sourceTree = "<group>";
@@ -6561,10 +6571,11 @@
 		2CEC7DC725FA527700704B99 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
-				2CEC7DC825FA527700704B99 /* SVG */,
-				2CEC7DCA25FA527700704B99 /* PNG */,
-				2CEC7DCD25FA527700704B99 /* JPEG */,
 				2CEC7DD025FA527700704B99 /* BMP */,
+				2CEC7DCD25FA527700704B99 /* JPEG */,
+				2CEC7DCA25FA527700704B99 /* PNG */,
+				2CEC7DC825FA527700704B99 /* SVG */,
+				2CEC7DDE25FA5DE300704B99 /* TGA */,
 			);
 			path = ImageFormat;
 			sourceTree = "<group>";
@@ -6603,6 +6614,16 @@
 				2CEC7DD325FA527700704B99 /* BMPDecoder.cpp */,
 			);
 			path = BMP;
+			sourceTree = "<group>";
+		};
+		2CEC7DDE25FA5DE300704B99 /* TGA */ = {
+			isa = PBXGroup;
+			children = (
+				2CEC7DDF25FA5DE300704B99 /* TGAEncoder.cpp */,
+				2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */,
+				2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */,
+			);
+			path = TGA;
 			sourceTree = "<group>";
 		};
 		2CF21CF5249FAA8F00C864C9 /* macOS */ = {
@@ -7177,6 +7198,7 @@
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
 				2C794B0925C3DFC200034D81 /* zstd_ldm.h in Headers */,
 				2C481E1324460B5700A5D88D /* cpuinfo_x86.h in Headers */,
+				2CEC7DE425FA5DE300704B99 /* TGAHeader.hpp in Headers */,
 				2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */,
 				2C4396452535DCCA00F6AECD /* svggraphicselement.h in Headers */,
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
@@ -7882,6 +7904,7 @@
 				2C43962D2535DCCA00F6AECD /* svgtextelement.cpp in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
+				2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */,
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
@@ -8048,6 +8071,7 @@
 				2C834DA5248805D4006208B8 /* regsyntax.c in Sources */,
 				2C60AE8A248158A500277281 /* displays_windows.cpp in Sources */,
 				2CF21D18249FAA8F00C864C9 /* CCursor.mm in Sources */,
+				2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */,
 				2CEC7DDA25FA527700704B99 /* BMPEncoder.cpp in Sources */,
 				2C4396132535DCCA00F6AECD /* svgenumeration.cpp in Sources */,
 				2C794B2825C3DFC200034D81 /* huf_decompress.c in Sources */,
