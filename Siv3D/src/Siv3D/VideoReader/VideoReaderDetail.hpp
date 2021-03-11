@@ -15,28 +15,62 @@
 
 namespace s3d
 {
+	struct MatFrame
+	{
+		int32 index = -1;
+
+		cv::Mat mat2;
+
+		Image image;
+	};
+
 	class VideoReader::VideoReaderDetail
 	{
 	private:
 
-		cv::VideoCapture m_capture;
+		std::mutex m_mutex;
 
-		cv::Mat m_mat;
+		std::condition_variable m_cv;
+
+		std::future<void> m_task;
+
+		/////
+		// m_mutex で管理するデータ
+		struct Shared
+		{
+			cv::VideoCapture capture;
+
+			int32 readPos = 0;
+
+			bool reachedEnd = false;
+
+			bool stop = false;
+
+			MatFrame frame;
+
+			bool ready = false;
+
+		} m_shared;
+		//
+		/////
 
 		struct Info
 		{
 			FilePath fullPath;
 
-			Size resolution = Size(0, 0);
+			Size resolution = Size{ 0, 0 };
 
 			double fps = 30.0;
 
-			int32 currentFrameIndex = 0;
+			int32 readPos = 0;
 
 			int32 frameCount = 0;
 
-			bool reachedEnd = false;
+			bool isOpen = false;
+
 		} m_info;
+
+		void run();
 
 	public:
 

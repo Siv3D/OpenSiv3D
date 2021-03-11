@@ -24,61 +24,163 @@ namespace s3d
 
 	bool VideoReader::VideoReaderDetail::open(const FilePathView path)
 	{
+		LOG_SCOPED_TRACE(U"VideoReaderDetail::open()");
+
 		close();
 
-		const bool result = m_capture.open(path.narrow(), cv::CAP_ANY);
+		const bool result = m_shared.capture.open(path.narrow(), cv::CAP_ANY);
 
 		if (not result)
 		{
 			return false;
 		}
 
-		const int32 videoWidth	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_WIDTH));
-		const int32 videoHeight	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_HEIGHT));
-		const int32 frameCount	= static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_COUNT));
-		const double videoFPS	= m_capture.get(cv::CAP_PROP_FPS);
+		const int32 videoWidth	= static_cast<int32>(m_shared.capture.get(cv::CAP_PROP_FRAME_WIDTH));
+		const int32 videoHeight	= static_cast<int32>(m_shared.capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+		const int32 frameCount	= static_cast<int32>(m_shared.capture.get(cv::CAP_PROP_FRAME_COUNT));
+		const double videoFPS	= m_shared.capture.get(cv::CAP_PROP_FPS);
 
 		m_info =
 		{
-			.fullPath			= FileSystem::FullPath(path),
-			.resolution			= Size{ videoWidth, videoHeight },
-			.fps				= videoFPS,
-			.currentFrameIndex	= 0,
-			.frameCount			= frameCount,
-			.reachedEnd			= false
+			.fullPath	= FileSystem::FullPath(path),
+			.resolution	= Size{ videoWidth, videoHeight },
+			.fps		= videoFPS,
+			.readPos	= 0,
+			.frameCount	= frameCount,
+			.isOpen		= true,
 		};
 
 		LOG_INFO(U"ℹ️ Video file {0} opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
 			path, m_info.resolution, m_info.fps, m_info.frameCount));
+
+		m_task = std::async(std::launch::async, &VideoReaderDetail::run, this);
 
 		return true;
 	}
 
 	void VideoReader::VideoReaderDetail::close()
 	{
-		m_capture.release();
+		LOG_SCOPED_TRACE(U"VideoReaderDetail::close()");
+
+		// スレッドを終了
+		if (m_task.valid())
+		{
+			{
+				std::lock_guard guard(m_mutex);
+				m_shared.stop = true;
+			}
+
+			// ブロック解除を通知
+			m_cv.notify_one();
+
+			m_task.get();
+		}
+
+		m_shared.capture.release();
+		m_shared = {};
 		m_info = {};
 	}
 
+	void VideoReader::VideoReaderDetail::run()
+	{
+		for (;;)
+		{
+			std::unique_lock ul(m_mutex);
+
+			if (not m_shared.reachedEnd)
+			{
+				if (m_shared.capture.grab())
+				{
+					m_shared.capture.retrieve(m_shared.frame.mat2);
+					OpenCV_Bridge::FromMatVec3b(m_shared.frame.mat2, m_shared.frame.image, OverwriteAlpha::Yes);
+					m_shared.frame.index = m_shared.readPos++;
+					//LOG_TEST(U"## info ## retrieved frame {} to buffer"_fmt(m_shared.frame.index));
+				}
+				else
+				{
+					m_shared.reachedEnd = true;
+					//LOG_TEST(U"## info ## m_shared.reachedEnd = true;");
+				}
+			}
+
+			m_shared.ready = true;
+			//LOG_TEST(U"## info ## m_shared.ready = true;");
+
+			ul.unlock();
+			m_cv.notify_one();
+			ul.lock();
+
+			m_cv.wait(ul, [this]() { return (m_shared.stop) || (m_shared.ready == false); });
+
+			// デコード処理のループを終了
+			if (m_shared.stop)
+			{
+				//LOG_TEST(U"## info ## LOOP END");
+				break;
+			}
+
+			//LOG_TEST(U"## info ## -----");
+		}
+	}
+	
 	bool VideoReader::VideoReaderDetail::isOpen() const noexcept
 	{
-		return m_capture.isOpened();
+		return m_info.isOpen;
 	}
 
 	bool VideoReader::VideoReaderDetail::getFrame(Image& image)
 	{
-		if (not m_capture.grab())
+		//LOG_SCOPED_TRACE(U"VideoReaderDetail::getFrame()");
+
+		if (m_info.frameCount <= m_info.readPos)
 		{
-			m_info.reachedEnd = true;
 			return false;
 		}
 
-		m_capture.retrieve(m_mat);
-		OpenCV_Bridge::FromMatVec3b(m_mat, image, OverwriteAlpha::Yes);
-		
-		++m_info.currentFrameIndex;
+		{
+			std::unique_lock ul(m_mutex);
 
-		return true;
+			m_cv.wait(ul, [this]() { return m_shared.ready; });
+
+			if (m_shared.frame.index == m_info.readPos)
+			{
+				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
+
+				image.swap(m_shared.frame.image);
+				++m_info.readPos;
+				m_shared.ready = false;
+				//LOG_TEST(U"## info ## m_shared.ready = false;");
+
+				ul.unlock();
+				m_cv.notify_one();
+				return true;
+			}
+			else
+			{
+				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} not found in buffer"_fmt(m_info.readPos));
+
+				m_shared.readPos = m_info.readPos;
+				m_shared.capture.set(cv::CAP_PROP_POS_FRAMES, m_shared.readPos);
+				m_shared.reachedEnd = false;
+				m_shared.ready = false;
+				//LOG_TEST(U"## info ## m_shared.ready = false;");
+				//LOG_TEST(U"## info ## REQUESTING frame {}"_fmt(m_shared.readPos));
+
+				ul.unlock();
+				m_cv.notify_one();
+				ul.lock();
+				m_cv.wait(ul, [this]() { return m_shared.ready; });
+
+				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
+				image.swap(m_shared.frame.image);
+				++m_info.readPos;
+				m_shared.ready = false;
+
+				ul.unlock();
+				m_cv.notify_one();
+				return true;
+			}
+		}
 	}
 
 	const Size& VideoReader::VideoReaderDetail::getSize() const noexcept
@@ -96,18 +198,14 @@ namespace s3d
 		return (getFrameDeltaSec() * m_info.frameCount);
 	}
 
-	void VideoReader::VideoReaderDetail::setCurrentFrameIndex(int32 index)
+	void VideoReader::VideoReaderDetail::setCurrentFrameIndex(const int32 index)
 	{
-		index = Clamp(index, 0, m_info.frameCount);
-
-		m_capture.set(cv::CAP_PROP_POS_FRAMES, index);
-		m_info.currentFrameIndex = index;
-		m_info.reachedEnd = (m_info.currentFrameIndex == m_info.frameCount);
+		m_info.readPos = Clamp(index, 0, m_info.frameCount);
 	}
 
 	int32 VideoReader::VideoReaderDetail::getCurrentFrameIndex() const noexcept
 	{
-		return m_info.currentFrameIndex;
+		return m_info.readPos;
 	}
 
 	double VideoReader::VideoReaderDetail::getPosSec() const
@@ -127,12 +225,12 @@ namespace s3d
 
 	double VideoReader::VideoReaderDetail::getProgress() const noexcept
 	{
-		return (static_cast<double>(m_info.currentFrameIndex) / m_info.frameCount);
+		return (static_cast<double>(m_info.readPos) / m_info.frameCount);
 	}
 
 	bool VideoReader::VideoReaderDetail::reachedEnd() const noexcept
 	{
-		return m_info.reachedEnd;
+		return (m_info.readPos == m_info.frameCount);
 	}
 
 	const FilePath& VideoReader::VideoReaderDetail::path() const noexcept
