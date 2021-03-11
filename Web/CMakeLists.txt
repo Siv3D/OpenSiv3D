@@ -134,6 +134,7 @@ add_library(
   ../Siv3D/src/Siv3D/Emoji/SivEmoji.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
+  ../Siv3D/src/Siv3D/Exif/SivExif.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/CFont_Headless.cpp
@@ -314,6 +315,8 @@ add_library(
   ../Siv3D/src/ThirdParty/double-conversion/fixed-dtoa.cc
   ../Siv3D/src/ThirdParty/double-conversion/string-to-double.cc
   ../Siv3D/src/ThirdParty/double-conversion/strtod.cc
+
+  ../Siv3D/src/ThirdParty/easyexif/exif.cpp
 
   ../Siv3D/src/ThirdParty/fmt/format.cc
   

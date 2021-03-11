@@ -1030,6 +1030,7 @@
 # include <Siv3D/VideoReader.hpp>
 # include <Siv3D/VideoTexture.hpp>
 # include <Siv3D/GrabCut.hpp>
+# include <Siv3D/Exif.hpp>
 
 
 //////////////////////////////////////////////////

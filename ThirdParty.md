@@ -14,6 +14,7 @@ Library | Version
 [Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2
 [Easing Equations](http://robertpenner.com/easing/) | 
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
+[easyexif](https://github.com/mayanklahiri/easyexif) | 
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
 [FreeType](https://www.freetype.org/) | 2.10.4
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0

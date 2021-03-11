@@ -865,6 +865,12 @@
     <Filter Include="src\Siv3D\VideoTexture">
       <UniqueIdentifier>{4878f515-3a64-4140-b8ac-915ac5e83cf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\easyexif">
+      <UniqueIdentifier>{427d6d8d-56a8-4529-874d-ae84c7cd6ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Exif">
+      <UniqueIdentifier>{1e304af2-3f06-47c0-b8a0-7117d499a3c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4233,6 +4239,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\VideoTexture\VideoTextureDetail.hpp">
       <Filter>src\Siv3D\VideoTexture</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5728,6 +5740,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoTexture\VideoTextureDetail.cpp">
       <Filter>src\Siv3D\VideoTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp">
+      <Filter>src\Siv3D\Exif</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
