@@ -15,6 +15,7 @@
 # include <Siv3D/ImageFormat/BMPDecoder.hpp>
 # include <Siv3D/ImageFormat/PNGDecoder.hpp>
 # include <Siv3D/ImageFormat/JPEGDecoder.hpp>
+# include <Siv3D/ImageFormat/TGADecoder.hpp>
 # include <Siv3D/ImageFormat/SVGDecoder.hpp>
 
 namespace s3d
@@ -31,6 +32,7 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<BMPDecoder>());
 		m_decoders.push_back(std::make_unique<PNGDecoder>());
 		m_decoders.push_back(std::make_unique<JPEGDecoder>());
+		m_decoders.push_back(std::make_unique<TGADecoder>());
 		m_decoders.push_back(std::make_unique<SVGDecoder>());
 	}
 

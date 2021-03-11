@@ -883,6 +883,9 @@
     <Filter Include="src\Siv3D\ImageFormat\SVG">
       <UniqueIdentifier>{e7630c51-6bea-4467-8e04-ee63d8ce4435}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\TGA">
+      <UniqueIdentifier>{1d9843df-2384-4253-a2a3-652066b6cdac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4257,6 +4260,15 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPHeader.hpp">
       <Filter>src\Siv3D\ImageFormat\BMP</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAHeader.hpp">
+      <Filter>src\Siv3D\ImageFormat\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGADecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGAEncoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5758,6 +5770,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVG\SVGDecoder.cpp">
       <Filter>src\Siv3D\ImageFormat\SVG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGADecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\TGA</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

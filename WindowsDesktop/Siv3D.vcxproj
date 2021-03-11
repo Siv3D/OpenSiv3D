@@ -219,6 +219,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\SVGDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGADecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGAEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageROI.hpp" />
@@ -744,6 +746,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageEncoder\CImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageEncoder\IImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPHeader.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAHeader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Image\ImagePainting.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Image\ShapePainting.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Input\InputState.hpp" />
@@ -1303,6 +1306,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\PNGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\PNGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVG\SVGDecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGADecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageROI\SivImageROI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ImagePainting.cpp" />
