@@ -216,9 +216,6 @@
 // 正規表現 | Regular expression
 # include <Siv3D/RegExp.hpp>
 
-// 絵文字リスト | Emoji list
-//# include <Siv3D/EmojiList.hpp> // [Siv3D ToDo]
-
 //////////////////////////////////////////////////
 //
 //	文字列フォーマット | Formatting

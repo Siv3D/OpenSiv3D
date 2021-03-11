@@ -871,6 +871,18 @@
     <Filter Include="src\Siv3D\Exif">
       <UniqueIdentifier>{1e304af2-3f06-47c0-b8a0-7117d499a3c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\BMP">
+      <UniqueIdentifier>{4c0d4612-6013-49eb-bbe6-02765caf0397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\PNG">
+      <UniqueIdentifier>{f4ddd5bf-ce3b-44cd-a6af-f3c99592523f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\JPEG">
+      <UniqueIdentifier>{071f2698-acaa-4b0e-b380-2d64fabe5de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\SVG">
+      <UniqueIdentifier>{e7630c51-6bea-4467-8e04-ee63d8ce4435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1847,9 +1859,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ImageEncoder.ipp">
       <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMPHeader.hpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGEncoder.hpp">
       <Filter>include\Siv3D\ImageFormat</Filter>
@@ -4245,6 +4254,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPHeader.hpp">
+      <Filter>src\Siv3D\ImageFormat\BMP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -4658,12 +4670,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp">
       <Filter>src\Siv3D\Image</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMPDecoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGDecoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>src\Siv3D\TextEncoding</Filter>
     </ClCompile>
@@ -4721,12 +4727,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageEncoder\CImageEncoder.cpp">
       <Filter>src\Siv3D\ImageEncoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMPEncoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNGEncoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp">
       <Filter>src\Siv3D\Hash</Filter>
     </ClCompile>
@@ -4738,9 +4738,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp">
       <Filter>src\Siv3D\LicenseManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVGDecoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.cpp">
       <Filter>src\ThirdParty\qr-code-generator-library</Filter>
@@ -5714,12 +5711,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ShapePainting.cpp">
       <Filter>src\Siv3D\Image</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGDecoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEGEncoder.cpp">
-      <Filter>src\Siv3D\ImageFormat</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x3\SivMat3x3.cpp">
       <Filter>src\Siv3D\Mat3x3</Filter>
     </ClCompile>
@@ -5746,6 +5737,27 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp">
       <Filter>src\Siv3D\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\JPEGDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\JPEGEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\PNGDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\PNGEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVG\SVGDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\SVG</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

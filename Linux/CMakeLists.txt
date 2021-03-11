@@ -178,13 +178,13 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ImageEncoder/CImageEncoder.cpp
   ../Siv3D/src/Siv3D/ImageEncoder/ImageEncoderFactory.cpp
   ../Siv3D/src/Siv3D/ImageEncoder/SivImageEncoder.cpp 
-  ../Siv3D/src/Siv3D/ImageFormat/BMPDecoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/BMPEncoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/JPEGDecoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/JPEGEncoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/PNGDecoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/PNGEncoder.cpp
-  ../Siv3D/src/Siv3D/ImageFormat/SVGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/BMP/BMPDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/BMP/BMPEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEG/JPEGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/JPEG/JPEGEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/PNG/PNGDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/PNG/PNGEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/SVG/SVGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp
   ../Siv3D/src/Siv3D/ImageROI/SivImageROI.cpp
   ../Siv3D/src/Siv3D/INI/SivINI.cpp
