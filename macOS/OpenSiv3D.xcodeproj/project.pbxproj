@@ -993,6 +993,9 @@
 		2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
+		2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DC025FA4DC200704B99 /* SivExif.cpp */; };
+		2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DC325FA4DD900704B99 /* exif.cpp */; };
+		2CEC7DC625FA4DD900704B99 /* exif.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DC425FA4DD900704B99 /* exif.h */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
 		2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */; };
 		2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */; };
@@ -2685,6 +2688,10 @@
 		2CE1868B249CC7A900ADD14A /* scope_guard_base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_guard_base.h; sourceTree = "<group>"; };
 		2CE1868C249CC7A900ADD14A /* scope_success.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_success.h; sourceTree = "<group>"; };
 		2CE1868D249CC7A900ADD14A /* scope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope.h; sourceTree = "<group>"; };
+		2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Exif.hpp; sourceTree = "<group>"; };
+		2CEC7DC025FA4DC200704B99 /* SivExif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivExif.cpp; sourceTree = "<group>"; };
+		2CEC7DC325FA4DD900704B99 /* exif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exif.cpp; sourceTree = "<group>"; };
+		2CEC7DC425FA4DD900704B99 /* exif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exif.h; sourceTree = "<group>"; };
 		2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RendererFactory.mm; sourceTree = "<group>"; };
 		2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_GL4.hpp; sourceTree = "<group>"; };
 		2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer_GL4.cpp; sourceTree = "<group>"; };
@@ -3433,6 +3440,7 @@
 				2C481E0B24460B5700A5D88D /* cpu_features */,
 				2C439F62241DCEA9001154C2 /* double-conversion */,
 				2C53C34A25613BCC0072831A /* Earcut */,
+				2CEC7DC225FA4DD900704B99 /* easyexif */,
 				2C439F442419D686001154C2 /* fmt */,
 				2C43C80325C837F000D6D613 /* freetype */,
 				2C4CBE4E24370FFA00F8B7A6 /* GL */,
@@ -3904,6 +3912,7 @@
 				2CAAA8BD25E7FDB200C014D7 /* Emoji */,
 				2C47B27824DD9789008D83BE /* EngineLog */,
 				2C47B2E624DD9789008D83BE /* Error */,
+				2CEC7DBF25FA4DC200704B99 /* Exif */,
 				2C47B28224DD9789008D83BE /* FileSystem */,
 				2C48BF3925D41C0D00A93CE3 /* Font */,
 				2C47B2BB24DD9789008D83BE /* FormatFloat */,
@@ -6015,6 +6024,7 @@
 				2CAAA70625E7FD0200C014D7 /* EngineLog.hpp */,
 				2CAAA85E25E7FD0300C014D7 /* EnvironmentVariable.hpp */,
 				2CAAA77925E7FD0200C014D7 /* Error.hpp */,
+				2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */,
 				2CAAA72925E7FD0200C014D7 /* FastMath.hpp */,
 				2CAAA6F825E7FD0200C014D7 /* FileAction.hpp */,
 				2CAAA73A25E7FD0200C014D7 /* FileSystem.hpp */,
@@ -6544,6 +6554,23 @@
 				2CE1868B249CC7A900ADD14A /* scope_guard_base.h */,
 			);
 			path = detail;
+			sourceTree = "<group>";
+		};
+		2CEC7DBF25FA4DC200704B99 /* Exif */ = {
+			isa = PBXGroup;
+			children = (
+				2CEC7DC025FA4DC200704B99 /* SivExif.cpp */,
+			);
+			path = Exif;
+			sourceTree = "<group>";
+		};
+		2CEC7DC225FA4DD900704B99 /* easyexif */ = {
+			isa = PBXGroup;
+			children = (
+				2CEC7DC325FA4DD900704B99 /* exif.cpp */,
+				2CEC7DC425FA4DD900704B99 /* exif.h */,
+			);
+			path = easyexif;
 			sourceTree = "<group>";
 		};
 		2CF21CF5249FAA8F00C864C9 /* macOS */ = {
@@ -7123,6 +7150,7 @@
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
 				2C13C9D125BD29FC0054B968 /* lprefix.h in Headers */,
 				2C48BF8625D41C0D00A93CE3 /* FreeType.hpp in Headers */,
+				2CEC7DC625FA4DD900704B99 /* exif.h in Headers */,
 				2C13C9B825BD29FC0054B968 /* llex.h in Headers */,
 				2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */,
 				2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */,
@@ -7717,6 +7745,7 @@
 				2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */,
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
+				2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
 				2C834DA6248805D4006208B8 /* iso8859_6.c in Sources */,
 				2C4396022535DCCA00F6AECD /* svgsymbolelement.cpp in Sources */,
@@ -7727,6 +7756,7 @@
 				2C48BF0625CFB8C500A93CE3 /* save-tiff.cpp in Sources */,
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
+				2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
 				2C47B5B124E7670A008D83BE /* CTexture_Null.cpp in Sources */,
