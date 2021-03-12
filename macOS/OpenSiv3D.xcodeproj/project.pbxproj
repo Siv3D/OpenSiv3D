@@ -979,6 +979,9 @@
 		2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E72556E230007EB42E /* IMouse.hpp */; };
 		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
 		2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4ED2556E247007EB42E /* CMouse.hpp */; };
+		2CBB4C2E25FB47D2007BEAB4 /* VideoWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB4C2B25FB47D2007BEAB4 /* VideoWriterDetail.hpp */; };
+		2CBB4C2F25FB47D2007BEAB4 /* SivVideoWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB4C2C25FB47D2007BEAB4 /* SivVideoWriter.cpp */; };
+		2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -2668,6 +2671,10 @@
 		2CB7D4E72556E230007EB42E /* IMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMouse.hpp; sourceTree = "<group>"; };
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
 		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
+		2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoWriter.hpp; sourceTree = "<group>"; };
+		2CBB4C2B25FB47D2007BEAB4 /* VideoWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VideoWriterDetail.hpp; sourceTree = "<group>"; };
+		2CBB4C2C25FB47D2007BEAB4 /* SivVideoWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoWriter.cpp; sourceTree = "<group>"; };
+		2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoWriterDetail.cpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4013,6 +4020,7 @@
 				2C47B6D424EAC834008D83BE /* VertexShader */,
 				2CFF581625F7C02400B660AD /* VideoReader */,
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
+				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
 				2C47B2AC24DD9789008D83BE /* Window */,
 			);
 			path = Siv3D;
@@ -6239,6 +6247,7 @@
 				2CAAA87B25E7FD0300C014D7 /* VertexShader.hpp */,
 				2CFF581525F7C00E00B660AD /* VideoReader.hpp */,
 				2CC7D4AC25FA3A7E00289963 /* VideoTexture.hpp */,
+				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
@@ -6492,6 +6501,16 @@
 				2CB7D4ED2556E247007EB42E /* CMouse.hpp */,
 			);
 			path = Mouse;
+			sourceTree = "<group>";
+		};
+		2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2CBB4C2B25FB47D2007BEAB4 /* VideoWriterDetail.hpp */,
+				2CBB4C2C25FB47D2007BEAB4 /* SivVideoWriter.cpp */,
+				2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */,
+			);
+			path = VideoWriter;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -7299,6 +7318,7 @@
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
 				2C13C9D025BD29FC0054B968 /* lfunc.h in Headers */,
 				2C47B33524DD9789008D83BE /* TextReaderDetail.hpp in Headers */,
+				2CBB4C2E25FB47D2007BEAB4 /* VideoWriterDetail.hpp in Headers */,
 				2CFC215925F739B400C51D0D /* png.h in Headers */,
 				2C43C88325C837F000D6D613 /* t1types.h in Headers */,
 				2C47B34724DD9789008D83BE /* IWindow.hpp in Headers */,
@@ -7532,6 +7552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C4395F92535DCCA00F6AECD /* svgelement.cpp in Sources */,
+				2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
 				2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */,
 				2CEC7DD825FA527700704B99 /* JPEGDecoder.cpp in Sources */,
@@ -8062,6 +8083,7 @@
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2CAAA8BF25E7FDB200C014D7 /* SivEmoji.cpp in Sources */,
 				2C4396312535DCCA00F6AECD /* svgpreserveaspectratio.cpp in Sources */,
+				2CBB4C2F25FB47D2007BEAB4 /* SivVideoWriter.cpp in Sources */,
 				2C794B1325C3DFC200034D81 /* zstd_ldm.c in Sources */,
 				2CF962F325A7F95F006F55C9 /* SivGeometry2D.cpp in Sources */,
 				2C13C9AE25BD29FC0054B968 /* lua.c in Sources */,
