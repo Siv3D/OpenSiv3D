@@ -15,6 +15,26 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static int32 GetFourCC(StringView extension)
+		{
+			if (extension == U"wmv")
+			{
+				return cv::VideoWriter::fourcc('W', 'M', 'V', '3');
+			}
+			else if (extension == U"webm")
+			{
+				return cv::VideoWriter::fourcc('V', 'P', '9', '0');
+			}
+			else
+			{
+				return cv::VideoWriter::fourcc('H', '2', '6', '4');
+			}
+		}
+	}
+
 	VideoWriter::VideoWriterDetail::VideoWriterDetail() {}
 
 	VideoWriter::VideoWriterDetail::~VideoWriterDetail()
@@ -33,10 +53,13 @@ namespace s3d
 			FileSystem::Remove(path);
 		}
 
-		const bool result = m_writer.open(path.narrow(), cv::VideoWriter::fourcc('H', '2', '6', '4'), fps, cv::Size(size.x, size.y), true);
+		const int32 fourCC = detail::GetFourCC(FileSystem::Extension(path));
+
+		const bool result = m_writer.open(path.narrow(), fourCC, fps, cv::Size(size.x, size.y), true);
 	
 		if (not result)
 		{
+			FileSystem::Remove(path);
 			return false;
 		}
 
@@ -49,7 +72,7 @@ namespace s3d
 			.mat		= cv::Mat_<cv::Vec3b>(size.y, size.x),
 		};
 
-		LOG_INFO(U"ℹ️ VideoWriter: file {0} opened (resolution: {1}, fps: {2})"_fmt(
+		LOG_INFO(U"ℹ️ VideoWriter: file `{0}` opened (resolution: {1}, fps: {2})"_fmt(
 			path, m_info.resolution, m_info.fps));
 
 		return true;

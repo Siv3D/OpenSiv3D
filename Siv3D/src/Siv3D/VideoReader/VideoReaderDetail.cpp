@@ -50,7 +50,7 @@ namespace s3d
 			.isOpen		= true,
 		};
 
-		LOG_INFO(U"ℹ️ Video file {0} opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
+		LOG_INFO(U"ℹ️ VideoReader: file `{0}` opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
 			path, m_info.resolution, m_info.fps, m_info.frameCount));
 
 		m_task = std::async(std::launch::async, &VideoReaderDetail::run, this);
