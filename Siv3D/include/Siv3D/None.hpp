@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief 無効値の型
 	using None_t = std::nullopt_t;
 
 	template <class CharType>

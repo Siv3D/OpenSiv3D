@@ -137,32 +137,6 @@ namespace s3d
 
 	template <class Type>
 	constexpr bool IsOverAligned_v = IsOverAligned<Type>::value;
-
-	/// <summary>
-	/// アライメントを考慮して、unique_ptr を構築します。
-	/// </summary>
-	/// <param name="args">
-	/// コンストラクタ引数
-	/// </param>
-	/// <returns>
-	/// 構築した unique_ptr
-	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
-	[[nodiscard]]
-	inline auto MakeUnique(Args&&... args);
-
-	/// <summary>
-	/// アライメントを考慮して、shared_ptr を構築します。
-	/// </summary>
-	/// <param name="args">
-	/// コンストラクタ引数
-	/// </param>
-	/// <returns>
-	/// 構築した shared_ptr
-	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
-	[[nodiscard]]
-	inline auto MakeShared(Args&&... args);
 }
 
 # include "detail/Memory.ipp"

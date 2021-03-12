@@ -15,165 +15,84 @@
 
 namespace s3d
 {
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @remark 小数点以下の末尾の 0 は省略されます。
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToString(float value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @remark 小数点以下の末尾の 0 は省略されます。
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToString(double value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @remark 小数点以下の末尾の 0 は省略されます。
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToString(long double value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します（表示桁数固定）。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToFixed(float value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します（表示桁数固定）。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToFixed(double value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 数値を文字列で表します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <param name="decimalPlace">
-	/// 小数点以下の最大桁数
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数を文字列に変換します（表示桁数固定）。
+	/// @param value 変換する数値
+	/// @param decimalPlace 小数点以下の最大桁数
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline String ToFixed(long double value, int32 decimalPlace = 3);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 2 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 2 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToBinary(float value);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 2 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 2 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToBinary(double value);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 8 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 8 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToOctal(float value);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 8 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 8 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToOctal(double value);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 16 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 16 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToHex(float value);
 
-	/// <summary>
-	/// 浮動小数点数のビット表現を 16 進数の文字列で表します。
-	/// </summary
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 変換した文字列
-	/// </returns>
+	/// @brief 浮動小数点数のビット表現を 16 進数の文字列で表します。
+	/// @param value 変換する数値
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	String ToHex(double value);
 }

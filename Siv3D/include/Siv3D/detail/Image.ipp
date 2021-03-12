@@ -225,7 +225,7 @@ namespace s3d
 		return static_cast<const uint8*>(static_cast<const void*>(&m_data[0]));
 	}
 
-	inline Array<Color> Image::asArray() const&
+	inline const Array<Color>& Image::asArray() const&
 	{
 		return m_data;
 	}

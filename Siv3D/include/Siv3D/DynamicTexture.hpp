@@ -15,6 +15,8 @@
 
 namespace s3d
 {
+	/// @brief 中身を更新できる、動的テクスチャクラス
+	/// @remark テクスチャの中身を更新する場合、新しい Texture を毎回作成する代わりにこのクラスの `fill()` を使うのが効率的です。
 	class DynamicTexture : public Texture
 	{
 	public:

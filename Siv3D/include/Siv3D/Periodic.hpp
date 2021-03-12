@@ -21,9 +21,17 @@ namespace s3d
 {
 	namespace Periodic
 	{
+		/// @brief サインカーブに従って、周期的に [0.0, 1.0] の値を返します。
+		/// @param periodSec 周期（秒）
+		/// @param t 経過時刻（秒）
+		/// @return [0.0, 1.0] の範囲の値
 		[[nodiscard]]
 		inline double Sine0_1(double periodSec, double t = Scene::Time()) noexcept;
 
+		/// @brief サインカーブに従って、周期的に [0.0, 1.0] の値を返します。
+		/// @param period 周期
+		/// @param t 経過時刻（秒）
+		/// @return [0.0, 1.0] の範囲の値
 		[[nodiscard]]
 		inline double Sine0_1(const Duration& period, double t = Scene::Time()) noexcept;
 

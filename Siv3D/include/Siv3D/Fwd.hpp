@@ -26,8 +26,8 @@ namespace s3d
 
 	struct FormatData;
 
-	enum class LogLevel;
-	enum class LogType;
+	enum class LogLevel : uint32;
+	enum class LogType : uint32;
 
 	struct Point;
 	using Size = Point;

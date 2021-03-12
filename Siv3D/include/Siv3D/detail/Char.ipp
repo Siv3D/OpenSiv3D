@@ -15,16 +15,8 @@ namespace s3d
 {
 	namespace detail
 	{
-		/// <summary>
-		/// 半角スペース
-		/// Half-width space
-		/// </summary>
 		inline constexpr char32 halfWidthSpace = U' ';
 
-		/// <summary>
-		/// 全角スペース
-		/// Full-width space
-		/// </summary>
 		inline constexpr char32 fullWidthSpace = U'　';
 
 		[[nodiscard]]

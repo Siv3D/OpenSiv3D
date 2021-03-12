@@ -10,27 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// ログの詳細度
-	/// </summary>
-	enum class LogLevel
+	/// @brief 出力されるログの詳細度
+	enum class LogLevel : uint32
 	{
-		/// <summary>
-		/// リリース
-		/// </summary>
+		/// @brief リリースモード
 		Release,
 
-		/// <summary>
-		/// デバッグ
-		/// </summary>
+		/// @brief デバッグモード
 		Debug,
 
-		/// <summary>
-		/// 詳細
-		/// </summary>
+		/// @brief 最も詳細なモード
 		Verbose,
 	};
 }

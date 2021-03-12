@@ -39,14 +39,14 @@ namespace s3d
 		Font();
 
 		/// @brief フォントを作成します。
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param path ロードするフォントファイルのパス
 		/// @param style フォントのスタイル
 		SIV3D_NODISCARD_CXX20
 		Font(int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 
 		/// @brief フォントを作成します。
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param path ロードするフォントファイルのパス
 		/// @param faceIndex フォントファイルが複数のフォントコレクションを含む場合のインデックス
 		/// @param style フォントのスタイル
@@ -54,7 +54,7 @@ namespace s3d
 		Font(int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 
 		/// @brief フォントを作成します。
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param typeface フォントの種類
 		/// @param style フォントのスタイル
 		SIV3D_NODISCARD_CXX20
@@ -62,7 +62,7 @@ namespace s3d
 
 		/// @brief フォントを作成します。
 		/// @param fontMethod フォントのレンダリング方式
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param path ロードするフォントファイルのパス
 		/// @param style フォントのスタイル
 		SIV3D_NODISCARD_CXX20
@@ -70,7 +70,7 @@ namespace s3d
 
 		/// @brief フォントを作成します。
 		/// @param fontMethod フォントのレンダリング方式
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param path ロードするフォントファイルのパス
 		/// @param faceIndex フォントファイルが複数のフォントコレクションを含む場合のインデックス
 		/// @param style フォントのスタイル
@@ -79,7 +79,7 @@ namespace s3d
 
 		/// @brief フォントを作成します。
 		/// @param fontMethod フォントのレンダリング方式
-		/// @param fontSize フォントのサイズ
+		/// @param fontSize フォントの基本サイズ
 		/// @param typeface フォントの種類
 		/// @param style フォントのスタイル
 		SIV3D_NODISCARD_CXX20
@@ -120,8 +120,8 @@ namespace s3d
 		[[nodiscard]]
 		FontMethod method() const;
 
-		/// @brief フォトのサイズを返します。
-		/// @return フォントのサイズ
+		/// @brief フォトの基本サイズを返します。
+		/// @return フォントの基本サイズ
 		[[nodiscard]]
 		int32 fontSize() const;
 

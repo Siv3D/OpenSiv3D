@@ -19,6 +19,7 @@
 
 namespace s3d
 {
+	/// @brief 基本 2D カメラクラス
 	class BasicCamera2D
 	{
 	protected:
@@ -32,6 +33,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		BasicCamera2D() = default;
 
+		/// @brief 指定した設定で 2D カメラを作成します。
+		/// @param center カメラが見ている中心座標
+		/// @param scale カメラのズームアップ倍率
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr BasicCamera2D(Vec2 center, double scale = 1.0) noexcept;
 
@@ -51,6 +55,8 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Mat3x2 getMat3x2(Size renderTargetSize = Graphics2D::GetRenderTargetSize()) const;
 
+		/// @brief 現在のカメラの設定から Transformer2D を作成します。
+		/// @return 現在のカメラの設定から作成された Transformer2D
 		[[nodiscard]]
 		Transformer2D createTransformer() const;
 	};

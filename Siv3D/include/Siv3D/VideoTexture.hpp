@@ -23,6 +23,7 @@ namespace s3d
 {
 	class VideoReader;
 
+	/// @brief 動画を Texture のように扱えるクラス
 	class VideoTexture
 	{
 	public:
@@ -30,6 +31,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		VideoTexture();
 
+		/// @brief 動画テクスチャを作成します。
+		/// @param path 動画ファイルのパス
+		/// @param loop ループするか
 		SIV3D_NODISCARD_CXX20
 		explicit VideoTexture(FilePathView path, Loop loop = Loop::Yes);
 
@@ -41,10 +45,16 @@ namespace s3d
 
 		void release();
 
+		/// @brief 動画の時間を進めます。
+		/// @param deltaTimeSec 進める時間（秒）
+		/// @remark 1 フレーム先までバッファリングするため、この関数を毎フレーム呼び出すのが最も効率的です。
 		void advance(double deltaTimeSec = Scene::DeltaTime()) const;
 
+		/// @brief 動画の再生時間を先頭に戻します。
 		void reset() const;
 
+		/// @brief 動画がループするかを返します。
+		/// @return 動画がループする場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isLoop() const noexcept;
 

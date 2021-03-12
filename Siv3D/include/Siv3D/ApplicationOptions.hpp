@@ -41,7 +41,7 @@ namespace s3d
 			/// @brief Direc3D 11
 			Direct3D11 = 3,
 
-			/// @brief Metal
+			/// @brief Metal (未完成のため現在使用できません)
 			Metal = 4,
 
 			/// @brief WebGL

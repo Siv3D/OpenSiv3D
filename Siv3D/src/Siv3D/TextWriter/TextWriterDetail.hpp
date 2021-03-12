@@ -45,6 +45,9 @@ namespace s3d
 		void writeUTF8(std::string_view s);
 
 		[[nodiscard]]
+		TextEncoding encoding() const noexcept;
+
+		[[nodiscard]]
 		const FilePath& path() const noexcept;
 	};
 }

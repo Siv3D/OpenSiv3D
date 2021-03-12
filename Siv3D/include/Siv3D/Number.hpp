@@ -17,71 +17,49 @@
 
 namespace s3d
 {
-	/// <summary>
-	/// 表現できる最大の数値
-	/// </summary>
+	/// @brief 表現できる最大の数値
+	/// @tparam Type 数値型
 	template <class Type>
 	constexpr Type Largest = std::numeric_limits<Type>::max();
 
-	/// <summary>
-	/// 表現できる最小の数値
-	/// </summary>
+	/// @brief 表現できる最小の数値
+	/// @tparam Type 数値型
 	template <class Type>
 	constexpr Type Smallest = std::numeric_limits<Type>::lowest();
 
-	/// <summary>
-	/// 正の無限大
-	/// </summary>
+	/// @brief 正の無限大
 	SIV3D_CONCEPT_FLOATING_POINT
 	constexpr Float Inf = std::numeric_limits<Float>::infinity();
 
-	/// <summary>
-	/// qNaN
-	/// </summary>
+	/// @brief qNaN
 	SIV3D_CONCEPT_FLOATING_POINT
 	constexpr Float QNaN = std::numeric_limits<Float>::quiet_NaN();
 
-	/// <summary>
-	/// sNaN
-	/// </summary>
+	/// @brief sNaN
 	SIV3D_CONCEPT_FLOATING_POINT
 	constexpr Float SNaN = std::numeric_limits<Float>::signaling_NaN();
 
-	/// <summary>
-	/// 数値が非数 (NaN) であるかを示します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 数値が非数 (NaN) である場合 true, それ以外の場合は false
-	/// </returns>
+	/// @brief 数値が非数 (NaN) であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @remark 無限は非数ではありません。
+	/// @return 数値が非数 (NaN) である場合 true, それ以外の場合は false
 	template <class Type>
 	[[nodiscard]]
 	inline bool IsNaN(Type value) noexcept;
 
-	/// <summary>
-	/// 数値が有限値であるかを示します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 数値が有限値である場合 true, それ以外の場合は false
-	/// </returns>
+	/// @brief 数値が有限値であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @return 数値が有限値である場合 true, それ以外の場合は false
 	template <class Type>
 	[[nodiscard]]
 	inline bool IsFinite(Type value) noexcept;
 
-	/// <summary>
-	/// 数値が無限であるかを示します。
-	/// </summary>
-	/// <param name="value">
-	/// 数値
-	/// </param>
-	/// <returns>
-	/// 数値が無限である場合 true, それ以外の場合は false
-	/// </returns>
+	/// @brief 数値が無限であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @return 数値が無限である場合 true, それ以外の場合は false
 	template <class Type>
 	[[nodiscard]]
 	inline bool IsInfinity(Type value) noexcept;

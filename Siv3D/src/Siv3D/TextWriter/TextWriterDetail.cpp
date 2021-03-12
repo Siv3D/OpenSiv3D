@@ -83,6 +83,8 @@ namespace s3d
 	void TextWriter::TextWriterDetail::close()
 	{
 		m_binaryWriter.close();
+
+		m_encoding = TextEncoding::Default;
 	}
 
 	bool TextWriter::TextWriterDetail::isOpen() const noexcept
@@ -305,6 +307,11 @@ namespace s3d
 				break;
 			}
 		}
+	}
+
+	TextEncoding TextWriter::TextWriterDetail::encoding() const noexcept
+	{
+		return m_encoding;
 	}
 
 	const FilePath& TextWriter::TextWriterDetail::path() const noexcept

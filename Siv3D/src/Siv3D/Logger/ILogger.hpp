@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class LogType;
+	enum class LogType : uint32;
 	class StringView;
 
 	class SIV3D_NOVTABLE ISiv3DLogger

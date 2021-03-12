@@ -185,7 +185,7 @@ namespace s3d
 		return true;
 	}
 
-	Array<Vec2> NavMesh::NavMeshDetail::query(const Float2& _start, const Float2& _end, const Array<std::pair<int, double>>& areaCosts) const
+	Array<Vec2> NavMesh::NavMeshDetail::query(const Float2& _start, const Float2& _end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
 		if (not m_built)
 		{
@@ -269,7 +269,7 @@ namespace s3d
 		return buffer.map([](const Float3& v) { return Vec2{ v.x, v.z }; });
 	}
 
-	Array<Vec3> NavMesh::NavMeshDetail::query(const Float3& start, const Float3& end, const Array<std::pair<int, double>>& areaCosts) const
+	Array<Vec3> NavMesh::NavMeshDetail::query(const Float3& start, const Float3& end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
 		if (not m_built)
 		{

@@ -39,9 +39,9 @@ namespace s3d
 
 		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
 
-		Array<Vec2> query(const Float2& start, const Float2& end, const Array<std::pair<int, double>>& areaCosts) const;
+		Array<Vec2> query(const Float2& start, const Float2& end, const Array<std::pair<int32, double>>& areaCosts) const;
 
-		Array<Vec3> query(const Float3& start, const Float3& end, const Array<std::pair<int, double>>& areaCosts) const;
+		Array<Vec3> query(const Float3& start, const Float3& end, const Array<std::pair<int32, double>>& areaCosts) const;
 
 	private:
 

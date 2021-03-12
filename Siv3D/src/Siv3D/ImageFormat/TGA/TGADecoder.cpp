@@ -78,7 +78,7 @@ namespace s3d
 
 		TGAHeader header;
 			
-		if (!reader.read(header))
+		if (not reader.read(header))
 		{
 			return{};
 		}

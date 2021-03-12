@@ -134,39 +134,36 @@ namespace s3d
 
 		Image& operator =(Image && image) noexcept;
 
-		/// <summary>
-		/// 画像の幅（ピクセル）
-		/// </summary>
+		/// @brief 画像の幅（ピクセル）を返します。
+		/// @return 画像の幅（ピクセル）
 		[[nodiscard]]
 		int32 width() const noexcept;
 
-		/// <summary>
-		/// 画像の高さ（ピクセル）
-		/// </summary>
+		/// @brief 画像の高さ（ピクセル）を返します。
+		/// @return 画像の高さ（ピクセル）
 		[[nodiscard]]
 		int32 height() const noexcept;
 
-		/// <summary>
-		/// 画像の幅と高さ（ピクセル）
-		/// </summary>
+		/// @brief 画像の幅と高さ（ピクセル）を返します。
+		/// @return 画像の幅と高さ（ピクセル）		
 		[[nodiscard]]
 		Size size() const noexcept;
 
-		/// <summary>
-		/// 画像の各行のデータサイズ
-		/// </summary>
+		/// @brief 画像の各行のサイズ（バイト）を返します。
+		/// @remark `(width() * sizeof(Color))` です。
+		/// @return 画像の各行のサイズ（バイト）
 		[[nodiscard]]
 		uint32 stride() const noexcept;
 
-		/// <summary>
-		/// 画像のピクセル数
-		/// </summary>
+		/// @brief 画像の総ピクセル数を返します。
+		/// @remark `(width() * height())` です。
+		/// @return 画像の総ピクセル数
 		[[nodiscard]]
 		uint32 num_pixels() const noexcept;
 
-		/// <summary>
-		/// 画像のデータサイズ
-		/// </summary>
+		/// @brief 画像のデータサイズ（バイト）を返します。
+		/// @remark `(stride() * height())` です。
+		/// @return 画像のデータサイズ（バイト）
 		[[nodiscard]]
 		uint32 size_bytes() const noexcept;
 
@@ -176,121 +173,68 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
-		/// <summary>
-		/// 画像の不要なメモリ消費を削除します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
+		/// @brief 使用するメモリ量を現在のサイズまで切り詰めます。
 		void shrink_to_fit();
 
-		/// <summary>
-		/// 画像を消去し、空の画像にします。
-		/// </summary>
-		/// <remarks>
-		/// メモリを解放したい場合は shrink_to_fit() を呼びます。
-		/// </remarks>
-		/// <returns>
-		/// なし
-		/// </returns>
+		/// @brief 画像を消去し、空の画像にします。
+		/// @remark メモリを解放したい場合は、さらに shrink_to_fit() を呼びます。
 		void clear() noexcept;
 
+		/// @brief 画像を消去して空の画像にし、使用するメモリ量を切り詰めます。
+		/// @remark `clear()` + `shrink_to_fit()` と同じです。
 		void release();
 
-		/// <summary>
-		/// 画像を別の画像と交換します。
-		/// </summary>
-		/// <param name="image">
-		/// 交換する画像
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
+		/// @brief 画像を別の画像と交換します。
+		/// @param image 交換する画像
 		void swap(Image& image) noexcept;
 
-		/// <summary>
-		/// 画像をコピーした新しい画像を返します。
-		/// </summary>
-		/// <returns>
-		/// コピーした新しい画像
-		/// </returns>
+		/// @brief 内容をコピーした新しい画像を作成して返します。
+		/// @return 内容をコピーした新しい画像
 		[[nodiscard]]
 		Image cloned() const;
 
-		/// <summary>
-		/// 指定した行の先頭ポインタを返します。
-		/// </summary>
-		/// <param name="y">
-		/// 位置(行)
-		/// </param>
-		/// <returns>
-		/// image[y][x] で指定したピクセルにアクセスします。
-		/// </returns>
-		/// <returns>
-		/// 指定した行の先頭ポインタ
-		/// </returns>
+		/// @brief 指定した行の先頭ポインタを返します。
+		/// @param y 位置（行）
+		/// @remark image[y][x] で指定したピクセルにアクセスします。
+		/// @return 指定した行の先頭ポインタ
 		[[nodiscard]]
 		Color* operator[](size_t y);
 
 		[[nodiscard]]
 		Color& operator[](Point pos);
 
-		/// <summary>
-		/// 指定した行の先頭ポインタを返します。
-		/// </summary>
-		/// <param name="y">
-		/// 位置(行)
-		/// </param>
-		/// <returns>
-		/// image[y][x] で指定したピクセルにアクセスします。
-		/// </returns>
-		/// <returns>
-		/// 指定した行の先頭ポインタ
-		/// </returns>
+		/// @brief 指定した行の先頭ポインタを返します。
+		/// @param y 位置（行）
+		/// @remark image[y][x] で指定したピクセルにアクセスします。
+		/// @return 指定した行の先頭ポインタ
 		[[nodiscard]]
 		const Color* operator[](size_t y) const;
 
 		[[nodiscard]]
 		const Color& operator[](Point pos) const;
 
-		/// <summary>
-		/// 画像データの先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 画像データの先頭へのポインタ
-		/// </returns>
+		/// @brief 画像データの先頭のポインタを返します。
+		/// @return 画像データの先頭のポインタ
 		[[nodiscard]]
 		Color* data();
 
-		/// <summary>
-		/// 画像データの先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 画像データの先頭へのポインタ
-		/// </returns>
+		/// @brief 画像データの先頭のポインタを返します。
+		/// @return 画像データの先頭のポインタ
 		[[nodiscard]]
 		const Color* data() const;
 
-		/// <summary>
-		/// 画像データの先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 画像データの先頭へのポインタ
-		/// </returns>
+		/// @brief 画像データの先頭のポインタを uint8* 型で返します。
+		/// @return 画像データの先頭のポインタ
 		[[nodiscard]]
 		uint8* dataAsUint8();
 
-		/// <summary>
-		/// 画像データの先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 画像データの先頭へのポインタ
-		/// </returns>
+		/// @brief 画像データの先頭のポインタを uint8* 型で返します。
+		/// @return 画像データの先頭のポインタ
 		[[nodiscard]]
 		const uint8* dataAsUint8() const;
 
 		[[nodiscard]]
-		Array<Color> asArray() const&;
+		const Array<Color>& asArray() const&;
 
 		[[nodiscard]]
 		Array<Color> asArray()&&;
@@ -331,15 +275,8 @@ namespace s3d
 		[[nodiscard]]
 		const_reverse_iterator crend() const noexcept;
 
-		/// <summary>
-		/// 画像を指定した色で塗りつぶします。
-		/// </summary>
-		/// <param name="color">
-		/// 塗りつぶしの色
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
+		/// @brief 画像を指定した色で塗りつぶします。
+		/// @param color 塗りつぶしの色
 		void fill(Color color) noexcept;
 
 		void resize(size_t width, size_t height);

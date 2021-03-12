@@ -16,49 +16,36 @@
 
 namespace s3d
 {
-	/// <summary>
-	/// 乱数生成エンジン
-	/// </summary>
+	/// @brief ハードウェア情報に基づく非決定的な乱数エンジン
 	class HardwareRNG
 	{
 	public:
 
 		using engine_type = std::random_device;
 
+		/// @brief 生成される乱数の型
 		using result_type = engine_type::result_type;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		HardwareRNG() = default;
 
-		/// <summary>
-		/// 生成される乱数の最小値を返します。
-		/// </summary>
-		/// <returns>
-		/// 生成される乱数の最小値
-		/// </returns>
+		/// @brief この乱数生成器で生成される乱数の最小値を返します。
+		/// @return 乱数の最小値
 		[[nodiscard]]
 		static constexpr result_type min() noexcept;
 
-		/// <summary>
-		/// 生成される乱数の最大値を返します。
-		/// </summary>
-		/// <returns>
-		/// 生成される乱数の最大値
-		/// </returns>
+		/// @brief この乱数生成器で生成される乱数の最大値を返します。
+		/// @return 乱数の最大値
 		[[nodiscard]]
 		static constexpr result_type max() noexcept;
 
-		/// <summary>
-		/// 乱数を生成します。
-		/// </summary>
-		/// <returns>
-		/// 乱数
-		/// </returns>
+		/// @brief 乱数を生成します。
+		/// @return 生成された乱数
 		result_type operator()();
 
+		/// @brief 疑似乱数生成エンジンで使うための乱数シード列を作成します。
+		/// @return 乱数シード列
 		template <size_t N>
 		std::array<result_type, N> generateSeeds() noexcept;
 

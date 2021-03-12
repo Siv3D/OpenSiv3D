@@ -10,9 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
 # include "Common.hpp"
-# include "AssetHandle.hpp"
 # include "Uncopyable.hpp"
 
 namespace s3d

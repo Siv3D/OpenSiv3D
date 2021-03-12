@@ -22,9 +22,9 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline void Formatter(FormatData& formatData, const Grid<Type, Allocator>& value);
 
-	/// <summary>
-	/// 可変長二次元配列
-	/// </summary>
+	/// @brief 二次元配列クラス
+	/// @tparam Type 要素の型
+	/// @tparam Allocator アロケータの型
 	template <class Type, class Allocator = std::allocator<Type>>
 	class Grid
 	{

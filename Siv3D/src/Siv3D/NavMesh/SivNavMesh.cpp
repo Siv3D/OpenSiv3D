@@ -55,12 +55,12 @@ namespace s3d
 		return pImpl->build(vertices, indices, areaIDs, config);
 	}
 
-	Array<Vec2> NavMesh::query(const Vec2& start, const Vec2& end, const Array<std::pair<int, double>>& areaCosts) const
+	Array<Vec2> NavMesh::query(const Vec2& start, const Vec2& end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
 		return pImpl->query(start, end, areaCosts);
 	}
 
-	Array<Vec3> NavMesh::query(const Vec3& start, const Vec3& end, const Array<std::pair<int, double>>& areaCosts) const
+	Array<Vec3> NavMesh::query(const Vec3& start, const Vec3& end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
 		return pImpl->query(start, end, areaCosts);
 	}

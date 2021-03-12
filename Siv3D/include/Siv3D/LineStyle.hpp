@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	/// @brief 線のスタイル
 	struct LineStyle
 	{
 		struct Parameters
@@ -65,16 +66,22 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool hasRoundDot() const noexcept;
 
+		/// @brief 始点と終点に四角いキャップを持つ線
 		static constexpr Parameters SquareCap{ 0.0, true, false, false, false };
 
+		/// @brief 始点と終点に丸いキャップを持つ線
 		static constexpr Parameters RoundCap{ 0.0, true, true, false, false };
 
+		/// @brief 始点と終点にキャップを持たない線
 		static constexpr Parameters Uncapped{ 0.0, false, false, false, false };
 
+		/// @brief 四角いドットの線
 		static constexpr Parameters SquareDot{ 0.0, true, false, true, false };
 
+		/// @brief 丸いドットの線
 		static constexpr Parameters RoundDot{ 0.0, true, true, true, true };
 
+		/// @brief デフォルトの線 (SquareCap)
 		static constexpr Parameters Default = SquareCap;
 	};
 }

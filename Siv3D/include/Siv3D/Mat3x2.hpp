@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief アフィン変換用の 3x2 行列クラス
 	struct Mat3x2
 	{
 		using value_type = float;

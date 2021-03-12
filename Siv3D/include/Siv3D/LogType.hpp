@@ -10,10 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 
 namespace s3d
 {
-	enum class LogType
+	enum class LogType : uint32
 	{
 		Error,		// Release
 

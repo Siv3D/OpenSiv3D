@@ -300,6 +300,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ x, x }
 		/// </summary>
+		
 		[[nodiscard]]
 		constexpr Point xx() const noexcept;
 

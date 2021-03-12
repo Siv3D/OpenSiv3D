@@ -30,9 +30,21 @@ namespace s3d
 		[[nodiscard]]
 		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
 
+		/// @brief ボタンを表示します。
+		/// @param label ボタンに書かれるテキスト
+		/// @param pos ボタンの左上の座標
+		/// @param width ボタンの幅。`unspecified` の場合はテキストに合わせて自動で決定
+		/// @param enabled ボタンを有効にするか
+		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool Button(const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
+		/// @brief ボタンを表示します。
+		/// @param label ボタンに書かれるテキスト
+		/// @param center ボタンの中心の座標
+		/// @param width ボタンの幅。`unspecified` の場合はテキストに合わせて自動で決定
+		/// @param enabled ボタンを有効にするか
+		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
@@ -102,11 +114,11 @@ namespace s3d
 
 		bool HorizontalRadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& itemWidth = unspecified, bool enabled = true);
 
-		[[nodiscard]]
-		RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
+		//[[nodiscard]]
+		//RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
 
-		[[nodiscard]]
-		RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);
+		//[[nodiscard]]
+		//RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);
 
 		//bool TextBox(TextEditState& text, const Vec2& pos, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
 

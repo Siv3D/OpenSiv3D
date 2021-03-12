@@ -18,8 +18,8 @@ namespace s3d
 {
 	namespace Mouse
 	{
-		/// @brief 
-		/// @return 
+		/// @brief 現在のフレームで何らかの入力操作があるマウスのボタンの一覧を取得します。
+		/// @return 現在のフレームで何らかの入力操作があるマウスのボタンの一覧
 		[[nodiscard]]
 		const Array<Input>& GetAllInputs() noexcept;
 

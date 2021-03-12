@@ -19,15 +19,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		/// <summary>
-		/// Format_impl の内部で使用するクラス
-		/// </summary>
 		template <class...>
 		struct FormatArgValidation : std::true_type {};
 
-		/// <summary>
-		/// Format_impl の内部で使用するクラス
-		/// </summary>
 		template <class T, class... TT>
 		struct FormatArgValidation<T, TT...> : std::bool_constant<!(std::disjunction_v<std::is_same<std::decay_t<T>, char*>, std::is_same<std::decay_t<T>, wchar_t*>>) && FormatArgValidation<TT...>::value> {};
 
@@ -72,15 +66,9 @@ namespace s3d
 
 		# if __cpp_lib_concepts
 
-			/// <summary>
-			/// 一連の引数を文字列に変換します。
-			/// </summary>
-			/// <param name="args">
-			/// 変換する値
-			/// </param>
-			/// <returns>
-			/// 引数を文字列に変換して連結した文字列
-			/// </returns>
+			/// @brief 一連の引数を文字列に変換します。
+			/// @param ...args 変換する値
+			/// @return 引数を文字列に変換して連結した文字列
 			template <Concept::Formattable... Args>
 			[[nodiscard]]
 			String operator ()(const Args&... args) const
@@ -103,6 +91,9 @@ namespace s3d
 
 		# else
 
+			/// @brief 一連の引数を文字列に変換します。
+			/// @param ...args 変換する値
+			/// @return 引数を文字列に変換して連結した文字列
 			template <class... Args, std::enable_if_t<FormatArgValidation<Args...>::value>* = nullptr>
 			[[nodiscard]]
 			String operator ()(const Args&... args) const
@@ -126,66 +117,45 @@ namespace s3d
 
 		# endif
 
-			/// <summary>
-			/// 引数を文字列に変換します。
-			/// </summary>
-			/// <param name="ch">
-			/// 変換する値
-			/// </param>
-			/// <returns>
-			/// 引数を文字列に変換した文字列
-			/// </returns>
+			/// @brief 引数を文字列に変換します。
+			/// @param ch 変換する値
+			/// @return 引数から変換された文字列	
 			[[nodiscard]]
 			String operator ()(const char32 ch) const
 			{
 				return String(1, ch);
 			}
 
-			/// <summary>
-			/// 引数を文字列に変換します。
-			/// </summary>
-			/// <param name="s">
-			/// 変換する文字列
-			/// </param>
-			/// <returns>
-			/// 引数を文字列に変換した文字列
-			/// </returns>
+			/// @brief 引数を文字列に変換します。
+			/// @param s 変換する値
+			/// @return 引数から変換された文字列	
 			[[nodiscard]]
 			String operator ()(const char32* s) const
 			{
 				return String(s);
 			}
 
+			/// @brief 引数を文字列に変換します。
+			/// @param s 変換する値
+			/// @return 引数から変換された文字列	
 			[[nodiscard]]
 			String operator ()(StringView s) const
 			{
 				return String(s);
 			}
 
-			/// <summary>
-			/// 引数を文字列に変換します。
-			/// </summary>
-			/// <param name="str">
-			/// 変換する文字列
-			/// </param>
-			/// <returns>
-			/// 引数を文字列に変換した文字列
-			/// </returns>
+			/// @brief 引数を文字列に変換します。
+			/// @param s 変換する値
+			/// @return 引数から変換された文字列	
 			[[nodiscard]]
 			const String& operator ()(const String& s) const
 			{
 				return s;
 			}
 
-			/// <summary>
-			/// 引数を文字列に変換します。
-			/// </summary>
-			/// <param name="s">
-			/// 変換する文字列
-			/// </param>
-			/// <returns>
-			/// 引数を文字列に変換した文字列
-			/// </returns>
+			/// @brief 引数を文字列に変換します。
+			/// @param s 変換する値
+			/// @return 引数から変換された文字列	
 			[[nodiscard]]
 			String operator ()(String&& s) const noexcept
 			{

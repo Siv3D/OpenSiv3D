@@ -22,9 +22,11 @@ namespace s3d
 	{
 	public:
 
+		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		NavMesh();
-
+		
+		/// @brief デストラクタ
 		~NavMesh();
 
 		/// @brief Polygon から 2D のナビメッシュを構築します。
@@ -70,21 +72,21 @@ namespace s3d
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
 		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
 
-		/// @brief 
-		/// @param start 
-		/// @param end 
-		/// @param areaCosts 
-		/// @return 
+		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
+		/// @param start 出発地点の座標
+		/// @param end 目的地の座標
+		/// @param areaCosts エリアのコスト
+		/// @return ナビメッシュ上の経路
 		[[nodiscard]]
-		Array<Vec2> query(const Vec2& start, const Vec2& end, const Array<std::pair<int, double>>& areaCosts = {}) const;
+		Array<Vec2> query(const Vec2& start, const Vec2& end, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 
-		/// @brief 
-		/// @param start 
-		/// @param end 
-		/// @param areaCosts 
-		/// @return 
+		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
+		/// @param start 出発地点の座標
+		/// @param end 目的地の座標
+		/// @param areaCosts エリアのコスト
+		/// @return ナビメッシュ上の経路
 		[[nodiscard]]
-		Array<Vec3> query(const Vec3& start, const Vec3& end, const Array<std::pair<int, double>>& areaCosts = {}) const;
+		Array<Vec3> query(const Vec3& start, const Vec3& end, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 	
 	private:
 

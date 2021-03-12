@@ -108,6 +108,11 @@ namespace s3d
 		pImpl->writeNewLine();
 	}
 
+	TextEncoding TextWriter::encoding() const noexcept
+	{
+		return pImpl->encoding();
+	}
+
 	const FilePath& TextWriter::path() const noexcept
 	{
 		return pImpl->path();
