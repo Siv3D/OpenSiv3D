@@ -60,7 +60,7 @@ namespace s3d
 		/// @remark image は動画の解像度に合わせてリサイズされます。image があらかじめ動画と同じ解像度になっているとリサイズが不要です。
 		/// @remark したがって、動画の一連のフレームを読み込むときには、同じ Image オブジェクトを使い回すのが効率的です。
 		/// @return 新しいフレームの読み込みに成功した場合 true, それ以外の場合は false
-		bool getFrame(Image& image);
+		bool readFrame(Image& image);
 
 		/// @brief 動画の解像度を返します。
 		/// @return 動画の解像度
@@ -79,12 +79,12 @@ namespace s3d
 
 		/// @brief 次に読み込むフレームのインデックスを変更します。
 		/// @param index 変更後のインデックス
-		void setCurrentFrameIndex(int32 index);
+		void setCurrentFrameIndex(size_t index);
 
 		/// @brief 次に読み込むフレームのインデックスを返します。
 		/// @return 次に読み込むフレームのインデックス
 		[[nodiscard]] 
-		int32 getCurrentFrameIndex() const noexcept;
+		size_t getCurrentFrameIndex() const noexcept;
 
 		/// @brief 次に読み込むフレームの再生位置（秒）を返します。
 		/// @return 次に読み込むフレームの再生位置（秒）
@@ -94,7 +94,7 @@ namespace s3d
 		/// @brief 動画のフレーム数を返します。
 		/// @return 動画のフレーム数
 		[[nodiscard]]
-		int32 getFrameCount() const noexcept;
+		size_t getFrameCount() const noexcept;
 
 		/// @brief 動画の 1 フレームあたりの時間（秒）を返します。
 		/// @remark `(1.0 / getFPS())` です。

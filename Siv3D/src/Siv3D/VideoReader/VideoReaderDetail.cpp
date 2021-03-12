@@ -46,7 +46,7 @@ namespace s3d
 			.resolution	= Size{ videoWidth, videoHeight },
 			.fps		= videoFPS,
 			.readPos	= 0,
-			.frameCount	= frameCount,
+			.frameCount	= static_cast<size_t>(frameCount),
 			.isOpen		= true,
 		};
 
@@ -128,7 +128,7 @@ namespace s3d
 		return m_info.isOpen;
 	}
 
-	bool VideoReader::VideoReaderDetail::getFrame(Image& image)
+	bool VideoReader::VideoReaderDetail::readFrame(Image& image)
 	{
 		//LOG_SCOPED_TRACE(U"VideoReaderDetail::getFrame()");
 
@@ -198,12 +198,12 @@ namespace s3d
 		return (getFrameDeltaSec() * m_info.frameCount);
 	}
 
-	void VideoReader::VideoReaderDetail::setCurrentFrameIndex(const int32 index)
+	void VideoReader::VideoReaderDetail::setCurrentFrameIndex(const size_t index)
 	{
-		m_info.readPos = Clamp(index, 0, m_info.frameCount);
+		m_info.readPos = static_cast<int32>(Clamp<size_t>(index, 0, m_info.frameCount));
 	}
 
-	int32 VideoReader::VideoReaderDetail::getCurrentFrameIndex() const noexcept
+	size_t VideoReader::VideoReaderDetail::getCurrentFrameIndex() const noexcept
 	{
 		return m_info.readPos;
 	}
@@ -213,7 +213,7 @@ namespace s3d
 		return (getProgress() * getLengthSec());
 	}
 
-	int32 VideoReader::VideoReaderDetail::getFrameCount() const noexcept
+	size_t VideoReader::VideoReaderDetail::getFrameCount() const noexcept
 	{
 		return m_info.frameCount;
 	}

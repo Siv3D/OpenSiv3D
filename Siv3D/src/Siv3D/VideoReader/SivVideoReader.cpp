@@ -43,9 +43,9 @@ namespace s3d
 		return isOpen();
 	}
 
-	bool VideoReader::getFrame(Image& image)
+	bool VideoReader::readFrame(Image& image)
 	{
-		return pImpl->getFrame(image);
+		return pImpl->readFrame(image);
 	}
 
 	Size VideoReader::getSize() const noexcept
@@ -63,12 +63,12 @@ namespace s3d
 		return pImpl->getLengthSec();
 	}
 
-	void VideoReader::setCurrentFrameIndex(const int32 index)
+	void VideoReader::setCurrentFrameIndex(const size_t index)
 	{
 		pImpl->setCurrentFrameIndex(index);
 	}
 
-	int32 VideoReader::getCurrentFrameIndex() const noexcept
+	size_t VideoReader::getCurrentFrameIndex() const noexcept
 	{
 		return pImpl->getCurrentFrameIndex();
 	}
@@ -78,7 +78,7 @@ namespace s3d
 		return pImpl->getPosSec();
 	}
 
-	int32 VideoReader::getFrameCount() const noexcept
+	size_t VideoReader::getFrameCount() const noexcept
 	{
 		return pImpl->getFrameCount();
 	}

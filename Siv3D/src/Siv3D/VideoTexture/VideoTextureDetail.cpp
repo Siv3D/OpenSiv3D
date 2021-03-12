@@ -27,7 +27,7 @@ namespace s3d
 		}
 
 		m_loop = loop.getBool();
-		m_videoReader.getFrame(m_frameImage);
+		m_videoReader.readFrame(m_frameImage);
 		m_frameTextures[m_latestTextureIndex].fill(m_frameImage);
 
 		return true;
@@ -98,9 +98,9 @@ namespace s3d
 	void VideoTexture::VideoTextureDetail::update(const bool skipIfBusy)
 	{
 		int32 targetFrameIndex = static_cast<int32>(m_playTimeSec / m_videoReader.getFrameDeltaSec());
-		targetFrameIndex = Min(targetFrameIndex, m_videoReader.getFrameCount());
+		targetFrameIndex = Min(targetFrameIndex, static_cast<int32>(m_videoReader.getFrameCount()));
 
-		const int32 currentFrameIndex = m_videoReader.getCurrentFrameIndex();
+		const int32 currentFrameIndex = static_cast<int32>(m_videoReader.getCurrentFrameIndex());
 
 		if (targetFrameIndex == currentFrameIndex)
 		{
@@ -120,7 +120,7 @@ namespace s3d
 			m_videoReader.setCurrentFrameIndex(targetFrameIndex);
 		}
 
-		m_videoReader.getFrame(m_frameImage);
+		m_videoReader.readFrame(m_frameImage);
 
 		if (skipIfBusy)
 		{

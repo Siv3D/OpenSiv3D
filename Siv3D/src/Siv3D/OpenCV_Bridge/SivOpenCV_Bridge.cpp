@@ -427,6 +427,36 @@ namespace s3d
 			}
 		}
 
+		void ToMatVec3bBGR(const Image& image, cv::Mat_<cv::Vec3b>& to)
+		{
+			if (not image)
+			{
+				return;
+			}
+
+			const int32 height = image.height();
+			const int32 width = image.width();
+			const Color* pSrc = image.data();
+
+			uint8* pDstLine = to.data;
+			const size_t dstStepBytes = to.step.p[0];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* pDst = pDstLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					*pDst++ = pSrc->b;
+					*pDst++ = pSrc->g;
+					*pDst++ = pSrc->r;
+					++pSrc;
+				}
+
+				pDstLine += dstStepBytes;
+			}
+		}
+
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to)
 		{
 			assert(from.width() == to.cols);

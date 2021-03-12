@@ -841,6 +841,18 @@
 
 //////////////////////////////////////////////////
 //
+//	動画処理 | Video processing
+//
+//////////////////////////////////////////////////
+
+// 動画ファイルの読み込み | Video file reader
+# include <Siv3D/VideoReader.hpp>
+
+// 動画ファイルの書き出し | Video file writer
+# include <Siv3D/VideoWriter.hpp>
+
+//////////////////////////////////////////////////
+//
 //	入力デバイス | Input device
 //
 //////////////////////////////////////////////////
@@ -962,7 +974,7 @@
 
 //////////////////////////////////////////////////
 //
-//	テクスチャ| Texture
+//	テクスチャ | Texture
 //
 //////////////////////////////////////////////////
 
@@ -988,17 +1000,11 @@
 # include <Siv3D/DynamicTexture.hpp>
 
 
-
-
 //////////////////////////////////////////////////
 //
-//	未分類
+//	フォント | Font
 //
 //////////////////////////////////////////////////
-
-# include <Siv3D/IEffect.hpp>
-
-# include <Siv3D/Effect.hpp>
 
 # include <Siv3D/FontStyle.hpp>
 # include <Siv3D/GlyphInfo.hpp>
@@ -1017,6 +1023,16 @@
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/Emoji.hpp>
 
+//////////////////////////////////////////////////
+//
+//	未分類
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/IEffect.hpp>
+
+# include <Siv3D/Effect.hpp>
+
 # include <Siv3D/Buffer2D.hpp>
 
 # include <Siv3D/SceneManager.hpp>
@@ -1024,7 +1040,6 @@
 
 # include <Siv3D/SimpleGUI.hpp>
 
-# include <Siv3D/VideoReader.hpp>
 # include <Siv3D/VideoTexture.hpp>
 # include <Siv3D/GrabCut.hpp>
 # include <Siv3D/Exif.hpp>

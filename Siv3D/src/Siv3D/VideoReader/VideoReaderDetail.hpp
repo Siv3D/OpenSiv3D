@@ -64,7 +64,7 @@ namespace s3d
 
 			int32 readPos = 0;
 
-			int32 frameCount = 0;
+			size_t frameCount = 0;
 
 			bool isOpen = false;
 
@@ -86,7 +86,7 @@ namespace s3d
 		bool isOpen() const noexcept;
 
 		[[nodiscard]]
-		bool getFrame(Image& image);
+		bool readFrame(Image& image);
 
 		[[nodiscard]]
 		const Size& getSize() const noexcept;
@@ -97,16 +97,16 @@ namespace s3d
 		[[nodiscard]]
 		double getLengthSec() const;
 
-		void setCurrentFrameIndex(int32 index);
+		void setCurrentFrameIndex(size_t index);
 
 		[[nodiscard]]
-		int32 getCurrentFrameIndex() const noexcept;
+		size_t getCurrentFrameIndex() const noexcept;
 
 		[[nodiscard]]
 		double getPosSec() const;
 
 		[[nodiscard]]
-		int32 getFrameCount() const noexcept;
+		size_t getFrameCount() const noexcept;
 
 		[[nodiscard]]
 		double getFrameDeltaSec() const noexcept;

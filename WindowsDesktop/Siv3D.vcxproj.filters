@@ -886,6 +886,9 @@
     <Filter Include="src\Siv3D\ImageFormat\TGA">
       <UniqueIdentifier>{1d9843df-2384-4253-a2a3-652066b6cdac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\VideoWriter">
+      <UniqueIdentifier>{b2faa0fc-e32d-46b4-90c4-376a5885f1e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4269,6 +4272,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGAEncoder.hpp">
       <Filter>include\Siv3D\ImageFormat</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.hpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5776,6 +5785,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAEncoder.cpp">
       <Filter>src\Siv3D\ImageFormat\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\SivVideoWriter.cpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.cpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
