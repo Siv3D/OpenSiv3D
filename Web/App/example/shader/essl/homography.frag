@@ -1,4 +1,4 @@
-#version 300 es
+# version 300 es
 
 //-----------------------------------------------
 //
@@ -12,6 +12,11 @@
 //-----------------------------------------------
 
 precision mediump float;
+
+//
+//	Textures
+//
+uniform sampler2D Texture0;
 
 //
 //	PSInput
@@ -34,20 +39,26 @@ layout(std140) uniform PSConstants2D
 	vec4 g_internal;	
 };
 
+layout(std140) uniform PSHomography
+{
+	mat3x3 g_invHomography;
+};
+
 //
 //	Functions
 //
+vec2 Transform(vec2 pos, mat3x3 mat)
+{
+	float s = (mat[0][2] * pos.x + mat[1][2] * pos.y + mat[2][2]);
+	float x = (mat[0][0] * pos.x + mat[1][0] * pos.y + mat[2][0]) / s;
+	float y = (mat[0][1] * pos.x + mat[1][1] * pos.y + mat[2][1]) / s;
+	return vec2(x, y);
+}
+
 void main()
 {
-	float t = mod(UV.x, 2.0);
-	vec2 tex = UV;
-	tex.x = abs(1.0 - t) * 2.0;
-	vec4 color = Color;
+	vec2 uv = Transform(UV, g_invHomography);
+	vec4 texColor = texture(Texture0, uv);
 
-	float dist = dot(tex, tex) * 0.5;
-	float delta = fwidth(dist);
-	float alpha = smoothstep(0.5 - delta, 0.5, dist);
-	color.a *= 1.0 - alpha;
-
-	FragColor = (color + g_colorAdd);
+	FragColor = ((texColor * Color) + g_colorAdd);
 }
