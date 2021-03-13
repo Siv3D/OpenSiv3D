@@ -17,12 +17,39 @@ namespace s3d
 		: begin{ x0, y0 }
 		, end{ x1, y1 } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X0, Concept::Arithmetic Y0, Concept::Arithmetic X1, Concept::Arithmetic Y1>
+# else
+	template <class X0, class Y0, class X1, class Y1, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>, std::is_arithmetic<X1>, std::is_arithmetic<Y1>>>*>
+# endif
+	inline constexpr Line::Line(const X0 x0, const Y0 y0, const X1 x1, const Y1 y1) noexcept
+		: begin{ static_cast<value_type>(x0), static_cast<value_type>(y0) }
+		, end{ static_cast<value_type>(x1), static_cast<value_type>(y1) } {}
+
 	inline constexpr Line::Line(const position_type p0, const value_type x1, const value_type y1) noexcept
 		: begin{ p0 }
 		, end{ x1, y1 } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X1, Concept::Arithmetic Y1>
+# else
+	template <class X1, class Y1, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X1>, std::is_arithmetic<Y1>>>*>
+# endif
+	inline constexpr Line::Line(const position_type p0, const X1 x1, const Y1 y1) noexcept
+		: begin{ p0 }
+		, end{ static_cast<value_type>(x1), static_cast<value_type>(y1) } {}
+
 	inline constexpr Line::Line(const value_type x0, const value_type y0, const position_type p1) noexcept
 		: begin{ x0, y0 }
+		, end{ p1 } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X0, Concept::Arithmetic Y0>
+# else
+	template <class X0, class Y0, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>>>*>
+# endif
+	inline constexpr Line::Line(const X0 x0, const Y0 y0, const position_type p1) noexcept
+		: begin{ static_cast<value_type>(x0), static_cast<value_type>(y0) }
 		, end{ p1 } {}
 
 	inline constexpr Line::Line(const position_type p0, const position_type p1) noexcept

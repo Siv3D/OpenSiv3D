@@ -76,6 +76,10 @@ namespace s3d
 
 		void scale(Vec2 s);
 
+		void scaleAt(Vec2 pos, double s);
+
+		void scaleAt(Vec2 pos, Vec2 s);
+
 		double area() const noexcept;
 
 		double perimeter() const noexcept;

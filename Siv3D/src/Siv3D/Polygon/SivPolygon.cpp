@@ -332,6 +332,38 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::scaledAt(const Vec2 pos, const double s)
+	{
+		Polygon result{ *this };
+
+		result.scaleAt(pos, s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scaleAt(const Vec2 pos, const double s)
+	{
+		pImpl->scaleAt(pos, s);
+
+		return *this;
+	}
+
+	Polygon Polygon::scaledAt(const Vec2 pos, const Vec2 s) const
+	{
+		Polygon result{ *this };
+
+		result.scaleAt(pos, s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scaleAt(const Vec2 pos, const Vec2 s)
+	{
+		pImpl->scaleAt(pos, s);
+
+		return *this;
+	}
+
 	double Polygon::area() const noexcept
 	{
 		return pImpl->area();

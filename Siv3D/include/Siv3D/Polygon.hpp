@@ -137,6 +137,16 @@ namespace s3d
 		Polygon& scale(Vec2 s);
 
 		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, double s);
+
+		Polygon& scaleAt(Vec2 pos, double s);
+
+		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, Vec2 s) const;
+
+		Polygon& scaleAt(Vec2 pos, Vec2 s);
+
+		[[nodiscard]]
 		double area() const noexcept;
 
 		[[nodiscard]]

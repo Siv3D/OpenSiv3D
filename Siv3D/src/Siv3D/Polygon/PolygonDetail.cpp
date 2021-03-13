@@ -501,11 +501,91 @@ namespace s3d
 			}
 		}
 
-		const Float2 sf(s);
+		const Float2 sf{ s };
 
 		for (auto& point : m_vertices)
 		{
 			point *= sf;
+		}
+
+		// [Siv3D ToDo] 不要に
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
+	void Polygon::PolygonDetail::scaleAt(const Vec2 pos, const double s)
+	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
+		for (auto& point : m_polygon.outer())
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				point = (pos + (point - pos) * s);
+			}
+		}
+
+		for (auto& hole : m_holes)
+		{
+			for (auto& point : hole)
+			{
+				point = (pos + (point - pos) * s);
+			}
+		}
+
+		const float sf = static_cast<float>(s);
+		const Float2 posF{ pos };
+
+		for (auto& point : m_vertices)
+		{
+			point = (posF + (point - posF) * sf);
+		}
+
+		// [Siv3D ToDo] 不要に
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
+	void Polygon::PolygonDetail::scaleAt(const Vec2 pos, const Vec2 s)
+	{
+		if (outer().isEmpty())
+		{
+			return;
+		}
+
+		for (auto& point : m_polygon.outer())
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				point = (pos + (point - pos) * s);
+			}
+		}
+
+		for (auto& hole : m_holes)
+		{
+			for (auto& point : hole)
+			{
+				point = (pos + (point - pos) * s);
+			}
+		}
+
+		const Float2 sf{ s };
+		const Float2 posF{ pos };
+
+		for (auto& point : m_vertices)
+		{
+			point = (posF + (point - posF) * sf);
 		}
 
 		// [Siv3D ToDo] 不要に
