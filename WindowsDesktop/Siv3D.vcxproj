@@ -163,6 +163,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\UnicodeConverter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Wave.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\WaveSample.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Window.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DisplayResolution.hpp" />
@@ -495,6 +497,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ResizeMode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WindowState.hpp" />

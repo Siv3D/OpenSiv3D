@@ -1045,6 +1045,9 @@
 # include <Siv3D/Exif.hpp>
 
 
+# include <Siv3D/WaveSample.hpp>
+# include <Siv3D/Wave.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Lua スクリプト | Lua Script
