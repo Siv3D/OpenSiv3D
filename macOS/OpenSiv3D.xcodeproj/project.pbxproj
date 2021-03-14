@@ -1335,6 +1335,10 @@
 		2C27A9EA256E359400756617 /* GL4SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4SamplerState.cpp; sourceTree = "<group>"; };
 		2C27AA0B257D379700756617 /* SivColormap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivColormap.cpp; sourceTree = "<group>"; };
 		2C27AA0F257D37BB00756617 /* tinycolormap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tinycolormap.hpp; sourceTree = "<group>"; };
+		2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Wave.hpp; sourceTree = "<group>"; };
+		2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveSample.hpp; sourceTree = "<group>"; };
+		2C2AA2AF25FDC8D9003F3EBC /* WaveSample.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveSample.ipp; sourceTree = "<group>"; };
+		2C2AA2B025FDC8D9003F3EBC /* Wave.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Wave.ipp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -6248,6 +6252,8 @@
 				2CFF581525F7C00E00B660AD /* VideoReader.hpp */,
 				2CC7D4AC25FA3A7E00289963 /* VideoTexture.hpp */,
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
+				2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */,
+				2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */,
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
@@ -6431,6 +6437,8 @@
 				2CAAA82B25E7FD0200C014D7 /* Vector4D.ipp */,
 				2CAAA81325E7FD0200C014D7 /* Vertex2D.ipp */,
 				2CAAA79125E7FD0200C014D7 /* VertexShader.ipp */,
+				2C2AA2B025FDC8D9003F3EBC /* Wave.ipp */,
+				2C2AA2AF25FDC8D9003F3EBC /* WaveSample.ipp */,
 				2CAAA7B825E7FD0200C014D7 /* Window.ipp */,
 			);
 			path = detail;
