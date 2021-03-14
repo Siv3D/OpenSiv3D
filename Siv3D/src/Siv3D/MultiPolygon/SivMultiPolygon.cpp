@@ -26,7 +26,7 @@ namespace s3d
 		auto it				= begin();
 		const auto itEnd	= end();
 
-		const RectF rect = it->boundingRect();
+		RectF rect = it->boundingRect();
 		double left		= rect.x;
 		double top		= rect.y;
 		double right	= (rect.x + rect.w);
@@ -36,6 +36,8 @@ namespace s3d
 
 		while (it != itEnd)
 		{
+			rect = it->boundingRect();
+
 			if (rect.x < left)
 			{
 				left = rect.x;
