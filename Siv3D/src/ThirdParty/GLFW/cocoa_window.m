@@ -1494,16 +1494,13 @@ void _glfwPlatformPostEmptyEvent(void)
 void _glfwPlatformGetCursorPos(_GLFWwindow* window, double* xpos, double* ypos)
 {
     @autoreleasepool {
-
     const NSRect contentRect = [window->ns.view frame];
     // NOTE: The returned location uses base 0,1 not 0,0
     const NSPoint pos = [window->ns.object mouseLocationOutsideOfEventStream];
-
     if (xpos)
         *xpos = pos.x;
     if (ypos)
         *ypos = contentRect.size.height - pos.y;
-
     } // autoreleasepool
 }
 */
@@ -1672,14 +1669,21 @@ int _glfwPlatformCreateStandardCursor(_GLFWcursor* cursor, int shape)
     SEL cursorSelector = NULL;
 
     // HACK: Try to use a private message
-    if (shape == GLFW_RESIZE_EW_CURSOR)
-        cursorSelector = NSSelectorFromString(@"_windowResizeEastWestCursor");
-    else if (shape == GLFW_RESIZE_NS_CURSOR)
-        cursorSelector = NSSelectorFromString(@"_windowResizeNorthSouthCursor");
-    else if (shape == GLFW_RESIZE_NWSE_CURSOR)
-        cursorSelector = NSSelectorFromString(@"_windowResizeNorthWestSouthEastCursor");
-    else if (shape == GLFW_RESIZE_NESW_CURSOR)
-        cursorSelector = NSSelectorFromString(@"_windowResizeNorthEastSouthWestCursor");
+    switch (shape)
+    {
+        case GLFW_RESIZE_EW_CURSOR:
+            cursorSelector = NSSelectorFromString(@"_windowResizeEastWestCursor");
+            break;
+        case GLFW_RESIZE_NS_CURSOR:
+            cursorSelector = NSSelectorFromString(@"_windowResizeNorthSouthCursor");
+            break;
+        case GLFW_RESIZE_NWSE_CURSOR:
+            cursorSelector = NSSelectorFromString(@"_windowResizeNorthWestSouthEastCursor");
+            break;
+        case GLFW_RESIZE_NESW_CURSOR:
+            cursorSelector = NSSelectorFromString(@"_windowResizeNorthEastSouthWestCursor");
+            break;
+    }
 
     if (cursorSelector && [NSCursor respondsToSelector:cursorSelector])
     {
@@ -1690,22 +1694,33 @@ int _glfwPlatformCreateStandardCursor(_GLFWcursor* cursor, int shape)
 
     if (!cursor->ns.object)
     {
-        if (shape == GLFW_ARROW_CURSOR)
-            cursor->ns.object = [NSCursor arrowCursor];
-        else if (shape == GLFW_IBEAM_CURSOR)
-            cursor->ns.object = [NSCursor IBeamCursor];
-        else if (shape == GLFW_CROSSHAIR_CURSOR)
-            cursor->ns.object = [NSCursor crosshairCursor];
-        else if (shape == GLFW_POINTING_HAND_CURSOR)
-            cursor->ns.object = [NSCursor pointingHandCursor];
-        else if (shape == GLFW_RESIZE_EW_CURSOR)
-            cursor->ns.object = [NSCursor resizeLeftRightCursor];
-        else if (shape == GLFW_RESIZE_NS_CURSOR)
-            cursor->ns.object = [NSCursor resizeUpDownCursor];
-        else if (shape == GLFW_RESIZE_ALL_CURSOR)
-            cursor->ns.object = [NSCursor closedHandCursor];
-        else if (shape == GLFW_NOT_ALLOWED_CURSOR)
-            cursor->ns.object = [NSCursor operationNotAllowedCursor];
+        switch (shape)
+        {
+            case GLFW_ARROW_CURSOR:
+                cursor->ns.object = [NSCursor arrowCursor];
+                break;
+            case GLFW_IBEAM_CURSOR:
+                cursor->ns.object = [NSCursor IBeamCursor];
+                break;
+            case GLFW_CROSSHAIR_CURSOR:
+                cursor->ns.object = [NSCursor crosshairCursor];
+                break;
+            case GLFW_POINTING_HAND_CURSOR:
+                cursor->ns.object = [NSCursor pointingHandCursor];
+                break;
+            case GLFW_RESIZE_EW_CURSOR:
+                cursor->ns.object = [NSCursor resizeLeftRightCursor];
+                break;
+            case GLFW_RESIZE_NS_CURSOR:
+                cursor->ns.object = [NSCursor resizeUpDownCursor];
+                break;
+            case GLFW_RESIZE_ALL_CURSOR:
+                cursor->ns.object = [NSCursor closedHandCursor];
+                break;
+            case GLFW_NOT_ALLOWED_CURSOR:
+                cursor->ns.object = [NSCursor operationNotAllowedCursor];
+                break;
+        }
     }
 
     if (!cursor->ns.object)
