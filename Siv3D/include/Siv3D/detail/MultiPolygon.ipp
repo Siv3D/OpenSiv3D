@@ -47,14 +47,14 @@ namespace s3d
 	inline MultiPolygon::MultiPolygon(const Arg::reserve_<size_type> size)
 		: m_data(size) {}
 
-	inline MultiPolygon& MultiPolygon::operator =(const Array<Polygon>& other)
+	inline MultiPolygon& MultiPolygon::operator =(const Array<value_type>& other)
 	{
 		m_data.assign(other.begin(), other.end());
 
 		return *this;
 	}
 
-	inline MultiPolygon& MultiPolygon::operator =(Array<Polygon>&& other) noexcept
+	inline MultiPolygon& MultiPolygon::operator =(Array<value_type>&& other) noexcept
 	{
 		m_data = other;
 
@@ -196,14 +196,14 @@ namespace s3d
 		m_data.pop_back_N(n);
 	}
 
-	inline MultiPolygon& MultiPolygon::operator <<(const Polygon& value)
+	inline MultiPolygon& MultiPolygon::operator <<(const value_type& value)
 	{
 		m_data.push_back(value);
 
 		return *this;
 	}
 
-	inline MultiPolygon& MultiPolygon::operator <<(Polygon&& value)
+	inline MultiPolygon& MultiPolygon::operator <<(value_type&& value)
 	{
 		m_data.push_back(std::move(value));
 
@@ -506,7 +506,7 @@ namespace s3d
 		return std::none_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline MultiPolygon& MultiPolygon::append(const Array<Polygon>& other)
+	inline MultiPolygon& MultiPolygon::append(const Array<value_type>& other)
 	{
 		m_data.insert(end(), other.begin(), other.end());
 

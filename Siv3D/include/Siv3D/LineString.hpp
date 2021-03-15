@@ -144,7 +144,7 @@ namespace s3d
 
 		void pop_back_N(size_t n);
 
-		LineString& operator <<(const Vec2 & value);
+		LineString& operator <<(const value_type& value);
 
 		template <class... Args>
 		iterator emplace(const_iterator position, Args&&... args);
@@ -305,11 +305,11 @@ namespace s3d
 		[[nodiscard]]
 		bool none(Fty f = Identity) const;
 
-		LineString& append(const Array<Vec2>&other);
+		LineString& append(const Array<value_type>&other);
 
 		LineString& append(const LineString& other);
 
-		LineString& remove(const Vec2& value);
+		LineString& remove(const value_type& value);
 
 		LineString& remove_at(size_t index);
 

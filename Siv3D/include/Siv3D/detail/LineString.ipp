@@ -201,7 +201,7 @@ namespace s3d
 		m_data.pop_back_N(n);
 	}
 
-	inline LineString& LineString::operator <<(const Vec2& value)
+	inline LineString& LineString::operator <<(const value_type& value)
 	{
 		m_data.push_back(value);
 
@@ -511,7 +511,7 @@ namespace s3d
 		return std::none_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline LineString& LineString::append(const Array<Vec2>& other)
+	inline LineString& LineString::append(const Array<value_type>& other)
 	{
 		m_data.insert(end(), other.begin(), other.end());
 
@@ -525,7 +525,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline LineString& LineString::remove(const Vec2& value)
+	inline LineString& LineString::remove(const value_type& value)
 	{
 		m_data.remove(value);
 

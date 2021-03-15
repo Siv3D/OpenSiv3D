@@ -68,21 +68,21 @@ namespace s3d
 
 		constexpr WaveSample(float _left, float _right) noexcept;
 
-		explicit constexpr WaveSample(const WaveSampleS16& sample) noexcept;
+		explicit constexpr WaveSample(WaveSampleS16 sample) noexcept;
 
 		constexpr WaveSample& operator =(const WaveSample& sample) = default;
 
 		constexpr WaveSample& operator =(float mono) noexcept;
 
-		constexpr WaveSample& operator =(const WaveSampleS16& sample) noexcept;
+		constexpr WaveSample& operator =(WaveSampleS16 sample) noexcept;
 
 		constexpr WaveSample& set(float mono) noexcept;
 
 		constexpr WaveSample& set(float _left, float _right) noexcept;
 
-		constexpr WaveSample& set(const WaveSample& sample) noexcept;
+		constexpr WaveSample& set(WaveSample sample) noexcept;
 
-		constexpr WaveSample& set(const WaveSampleS16& sample) noexcept;
+		constexpr WaveSample& set(WaveSampleS16 sample) noexcept;
 
 		constexpr void swapChannel() noexcept;
 

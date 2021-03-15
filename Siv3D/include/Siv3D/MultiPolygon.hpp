@@ -20,7 +20,7 @@ namespace s3d
 	{
 	public:
 
-		using base_type = Array<Polygon>;
+		using base_type					= Array<Polygon>;
 		using allocator_type			= base_type::allocator_type;
 		using value_type				= base_type::value_type;
 		using size_type					= base_type::size_type;
@@ -70,9 +70,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit MultiPolygon(Arg::reserve_<size_type> size);
 
-		MultiPolygon& operator =(const Array<Polygon>& other);
+		MultiPolygon& operator =(const Array<value_type>& other);
 
-		MultiPolygon& operator =(Array<Polygon>&& other) noexcept;
+		MultiPolygon& operator =(Array<value_type>&& other) noexcept;
 
 		MultiPolygon& operator =(const MultiPolygon& other);
 
@@ -136,9 +136,9 @@ namespace s3d
 
 		void pop_back_N(size_t n);
 
-		MultiPolygon& operator <<(const Polygon& polygon);
+		MultiPolygon& operator <<(const value_type& polygon);
 
-		MultiPolygon& operator <<(Polygon&& polygon);
+		MultiPolygon& operator <<(value_type&& polygon);
 
 		template <class... Args>
 		iterator emplace(const_iterator position, Args&&... args);
@@ -296,7 +296,7 @@ namespace s3d
 		[[nodiscard]]
 		bool none(Fty f = Identity) const;
 
-		MultiPolygon& append(const Array<Polygon>& other);
+		MultiPolygon& append(const Array<value_type>& other);
 
 		MultiPolygon& append(const MultiPolygon& other);
 
