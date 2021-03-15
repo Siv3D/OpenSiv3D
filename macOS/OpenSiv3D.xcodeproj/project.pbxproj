@@ -1359,6 +1359,7 @@
 		2C2AA2C425FF894D003F3EBC /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
 		2C2AA2C525FF894D003F3EBC /* serial.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cc; sourceTree = "<group>"; };
 		2C2AA2C625FF894D003F3EBC /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
+		2C2AA2D125FFA51D003F3EBC /* Serial.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serial.ipp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -6463,6 +6464,7 @@
 				2CAAA7B925E7FD0200C014D7 /* ScopedCustomShader2D.ipp */,
 				2CAAA7E525E7FD0200C014D7 /* ScopedRenderStates2D.ipp */,
 				2CAAA7A225E7FD0200C014D7 /* ScopeGuard.ipp */,
+				2C2AA2D125FFA51D003F3EBC /* Serial.ipp */,
 				2CAAA7A925E7FD0200C014D7 /* ShaderCommon.ipp */,
 				2CAAA7DD25E7FD0200C014D7 /* ShaderStage.ipp */,
 				2CAAA7F625E7FD0200C014D7 /* Shape2D.ipp */,

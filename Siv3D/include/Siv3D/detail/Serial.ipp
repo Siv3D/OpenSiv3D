@@ -19,7 +19,7 @@ namespace s3d
 		return read(std::addressof(to), sizeof(TriviallyCopyable)) == sizeof(TriviallyCopyable);
 	}
 
-	SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
 	inline bool Serial::write(const TriviallyCopyable& from)
 	{
 		return (write(std::addressof(from), sizeof(TriviallyCopyable))) == sizeof(TriviallyCopyable);
