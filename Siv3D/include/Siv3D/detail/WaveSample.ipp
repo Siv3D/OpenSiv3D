@@ -44,7 +44,9 @@ namespace s3d
 
 	inline constexpr void WaveSampleS16::swapChannel() noexcept
 	{
-		std::swap(left, right);
+		auto t	= left;
+		left	= right;
+		right	= t;
 	}
 
 	inline constexpr WaveSample WaveSampleS16::asWaveSample() const noexcept
@@ -128,7 +130,9 @@ namespace s3d
 
 	inline constexpr void WaveSample::swapChannel() noexcept
 	{
-		std::swap(left, right);
+		auto t	= left;
+		left	= right;
+		right	= t;
 	}
 
 	inline constexpr WaveSampleS16 WaveSample::asWaveSampleS16() const noexcept

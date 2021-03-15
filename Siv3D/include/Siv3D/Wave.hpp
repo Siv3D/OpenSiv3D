@@ -90,6 +90,28 @@ namespace s3d
 		[[nodiscard]]
 		operator const Array<value_type>& () const noexcept;
 
+		[[nodiscard]]
+		uint32 samplingRate() const noexcept;
+
+		void setSamplingRate(uint32 samplingRate) noexcept;
+
+		[[nodiscard]]
+		size_t samples() const noexcept;
+
+		[[nodiscard]]
+		size_t lengthSample() const noexcept;
+
+		[[nodiscard]]
+		double lengthSec() const noexcept;
+
+		void fillZero();
+
+		//bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
+
+		//bool saveWAVE(FilePathView path, WAVEFormat format = WAVEFormat::Default);
+
+		//bool saveOggVorbis(FilePathView path, int32 quality = 60);
+
 		template <class Iterator>
 		void assign(Iterator first, Iterator last);
 
