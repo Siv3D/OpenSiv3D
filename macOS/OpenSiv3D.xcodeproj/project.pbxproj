@@ -156,6 +156,15 @@
 		2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9EA256E359400756617 /* GL4SamplerState.cpp */; };
 		2C27AA0C257D379800756617 /* SivColormap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AA0B257D379700756617 /* SivColormap.cpp */; };
 		2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27AA0F257D37BB00756617 /* tinycolormap.hpp */; };
+		2C2AA2B725FF8933003F3EBC /* SerialDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA2B425FF8933003F3EBC /* SerialDetail.cpp */; };
+		2C2AA2B825FF8933003F3EBC /* SivSerial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA2B525FF8933003F3EBC /* SivSerial.cpp */; };
+		2C2AA2B925FF8933003F3EBC /* SerialDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA2B625FF8933003F3EBC /* SerialDetail.hpp */; };
+		2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA2BB25FF894D003F3EBC /* v8stdint.h */; };
+		2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA2BF25FF894D003F3EBC /* list_ports_osx.cc */; };
+		2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA2C325FF894D003F3EBC /* unix.cc */; };
+		2C2AA2CE25FF894D003F3EBC /* unix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA2C425FF894D003F3EBC /* unix.h */; };
+		2C2AA2CF25FF894D003F3EBC /* serial.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA2C525FF894D003F3EBC /* serial.cc */; };
+		2C2AA2D025FF894D003F3EBC /* serial.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA2C625FF894D003F3EBC /* serial.h */; };
 		2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477F525D510EB00071EEF /* CFont_Headless.cpp */; };
 		2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3477F625D510EB00071EEF /* CFont_Headless.hpp */; };
 		2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */; };
@@ -1339,6 +1348,17 @@
 		2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveSample.hpp; sourceTree = "<group>"; };
 		2C2AA2AF25FDC8D9003F3EBC /* WaveSample.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveSample.ipp; sourceTree = "<group>"; };
 		2C2AA2B025FDC8D9003F3EBC /* Wave.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Wave.ipp; sourceTree = "<group>"; };
+		2C2AA2B125FF8918003F3EBC /* Serial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serial.hpp; sourceTree = "<group>"; };
+		2C2AA2B225FF8918003F3EBC /* SerialPortInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SerialPortInfo.hpp; sourceTree = "<group>"; };
+		2C2AA2B425FF8933003F3EBC /* SerialDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialDetail.cpp; sourceTree = "<group>"; };
+		2C2AA2B525FF8933003F3EBC /* SivSerial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSerial.cpp; sourceTree = "<group>"; };
+		2C2AA2B625FF8933003F3EBC /* SerialDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SerialDetail.hpp; sourceTree = "<group>"; };
+		2C2AA2BB25FF894D003F3EBC /* v8stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v8stdint.h; sourceTree = "<group>"; };
+		2C2AA2BF25FF894D003F3EBC /* list_ports_osx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_ports_osx.cc; sourceTree = "<group>"; };
+		2C2AA2C325FF894D003F3EBC /* unix.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix.cc; sourceTree = "<group>"; };
+		2C2AA2C425FF894D003F3EBC /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
+		2C2AA2C525FF894D003F3EBC /* serial.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cc; sourceTree = "<group>"; };
+		2C2AA2C625FF894D003F3EBC /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -3384,6 +3404,45 @@
 			path = tinycolormap;
 			sourceTree = "<group>";
 		};
+		2C2AA2B325FF8933003F3EBC /* Serial */ = {
+			isa = PBXGroup;
+			children = (
+				2C2AA2B425FF8933003F3EBC /* SerialDetail.cpp */,
+				2C2AA2B525FF8933003F3EBC /* SivSerial.cpp */,
+				2C2AA2B625FF8933003F3EBC /* SerialDetail.hpp */,
+			);
+			path = Serial;
+			sourceTree = "<group>";
+		};
+		2C2AA2BA25FF894D003F3EBC /* serial */ = {
+			isa = PBXGroup;
+			children = (
+				2C2AA2BB25FF894D003F3EBC /* v8stdint.h */,
+				2C2AA2BC25FF894D003F3EBC /* impl */,
+				2C2AA2C525FF894D003F3EBC /* serial.cc */,
+				2C2AA2C625FF894D003F3EBC /* serial.h */,
+			);
+			path = serial;
+			sourceTree = "<group>";
+		};
+		2C2AA2BC25FF894D003F3EBC /* impl */ = {
+			isa = PBXGroup;
+			children = (
+				2C2AA2BD25FF894D003F3EBC /* list_ports */,
+				2C2AA2C325FF894D003F3EBC /* unix.cc */,
+				2C2AA2C425FF894D003F3EBC /* unix.h */,
+			);
+			path = impl;
+			sourceTree = "<group>";
+		};
+		2C2AA2BD25FF894D003F3EBC /* list_ports */ = {
+			isa = PBXGroup;
+			children = (
+				2C2AA2BF25FF894D003F3EBC /* list_ports_osx.cc */,
+			);
+			path = list_ports;
+			sourceTree = "<group>";
+		};
 		2C3477F925DA94C100071EEF /* CacheDirectory */ = {
 			isa = PBXGroup;
 			children = (
@@ -3478,6 +3537,7 @@
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
 				2C13C89525B8FA9D0054B968 /* RecastDetour */,
 				2C794AB825C3DEFC00034D81 /* RFC1321 */,
+				2C2AA2BA25FF894D003F3EBC /* serial */,
 				2CF962F725A7F9AB006F55C9 /* SplineLib */,
 				2C4397852535DDF300F6AECD /* stb */,
 				2C27AA0D257D37BB00756617 /* tinycolormap */,
@@ -3994,6 +4054,7 @@
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
 				2C47B2D424DD9789008D83BE /* Scene */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
+				2C2AA2B325FF8933003F3EBC /* Serial */,
 				2C47B6CC24EAC82A008D83BE /* Shader */,
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
@@ -6191,6 +6252,8 @@
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
+				2C2AA2B125FF8918003F3EBC /* Serial.hpp */,
+				2C2AA2B225FF8918003F3EBC /* SerialPortInfo.hpp */,
 				2CAAA86625E7FD0300C014D7 /* Shader.hpp */,
 				2CAAA89A25E7FD0300C014D7 /* ShaderCommon.hpp */,
 				2CAAA73125E7FD0200C014D7 /* ShaderStage.hpp */,
@@ -6959,6 +7022,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2AA2CE25FF894D003F3EBC /* unix.h in Headers */,
 				2C43C89125C837F100D6D613 /* ftserv.h in Headers */,
 				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
@@ -7112,6 +7176,7 @@
 				2C48BEE925CFB8C500A93CE3 /* bitmap-interpolation.hpp in Headers */,
 				2C47B35C24DD9789008D83BE /* CImageEncoder.hpp in Headers */,
 				2C43C88825C837F000D6D613 /* cfftypes.h in Headers */,
+				2C2AA2B925FF8933003F3EBC /* SerialDetail.hpp in Headers */,
 				2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */,
 				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
 				2CFC215325F739B400C51D0D /* hb-shape-plan.h in Headers */,
@@ -7125,6 +7190,7 @@
 				2C43C87425C837F000D6D613 /* ftmodule.h in Headers */,
 				2C43C8B925C837F100D6D613 /* ftlzw.h in Headers */,
 				2C13C89425B8FA840054B968 /* NavMeshDetail.hpp in Headers */,
+				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
@@ -7313,6 +7379,7 @@
 				2C439F7A241DCEA9001154C2 /* fixed-dtoa.h in Headers */,
 				2C43C87C25C837F000D6D613 /* ftdriver.h in Headers */,
 				2C13C9B225BD29FC0054B968 /* lapi.h in Headers */,
+				2C2AA2D025FF894D003F3EBC /* serial.h in Headers */,
 				2C794B2E25C3DFC200034D81 /* xxhash.h in Headers */,
 				2C13C8B725B8FA9D0054B968 /* DetourNavMeshBuilder.h in Headers */,
 				2CFC215225F739B400C51D0D /* hb-shape.h in Headers */,
@@ -7676,6 +7743,7 @@
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2C834DB8248805D4006208B8 /* cp1251.c in Sources */,
+				2C2AA2B825FF8933003F3EBC /* SivSerial.cpp in Sources */,
 				2C47B37324DD9789008D83BE /* CImageDecoder.cpp in Sources */,
 				2C834DAA248805D4006208B8 /* iso8859_16.c in Sources */,
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
@@ -7771,6 +7839,7 @@
 				2C43962E2535DCCA00F6AECD /* svgpaintelement.cpp in Sources */,
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
+				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
 				2C834DA8248805D4006208B8 /* regversion.c in Sources */,
 				2C794B1525C3DFC200034D81 /* zstd_compress.c in Sources */,
@@ -7792,6 +7861,7 @@
 				2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */,
 				2C47B36124DD9789008D83BE /* SivRandom.cpp in Sources */,
 				2C4396172535DCCA00F6AECD /* font.cpp in Sources */,
+				2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */,
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
@@ -7807,6 +7877,7 @@
 				2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */,
 				2C60AE89248158A500277281 /* displays_default_blank.cpp in Sources */,
 				2C794B4025C3DFC200034D81 /* zstd_common.c in Sources */,
+				2C2AA2B725FF8933003F3EBC /* SerialDetail.cpp in Sources */,
 				2C4396352535DCCA00F6AECD /* svgangle.cpp in Sources */,
 				2C47B37524DD9789008D83BE /* SivVector3D.cpp in Sources */,
 				2C13C8BE25B8FA9D0054B968 /* RecastLayers.cpp in Sources */,
@@ -7913,6 +7984,7 @@
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
 				2CAAA8C425E7FDCC00C014D7 /* IconData.cpp in Sources */,
+				2C2AA2CF25FF894D003F3EBC /* serial.cc in Sources */,
 				2C4396082535DCCA00F6AECD /* canvas.cpp in Sources */,
 				2C13C8CE25B8FA9D0054B968 /* RecastRasterization.cpp in Sources */,
 				2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */,
