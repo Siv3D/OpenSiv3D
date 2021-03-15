@@ -612,34 +612,19 @@ namespace s3d
 		return{ Arg::center((x + w * 0.5), (y + h * 0.5)), (w * s.x), (h * s.y) };
 	}
 
-	inline constexpr RectF RectF::scaledAt(const double _x, const double _y, const double s) const noexcept
-	{
-		return{ (_x + (x - _x) * s), (_y + (y - _y) * s), (w * s), (h * s) };
-	}
-
-	inline constexpr RectF RectF::scaledAt(const double _x, const double _y, const double sx, const double sy) const noexcept
-	{
-		return{ (_x + (x - _x) * sx), (_y + (y - _y) * sy), (w * sx), (h * sy) };
-	}
-
-	inline constexpr RectF RectF::scaledAt(const double _x, const double _y, const Vec2 s) const noexcept
-	{
-		return{ (_x + (x - _x) * s.x), (_y + (y - _y) * s.y), (w * s.x), (h * s.y) };
-	}
-
 	inline constexpr RectF RectF::scaledAt(const Vec2 _pos, const double s) const noexcept
 	{
-		return scaledAt(_pos.x, _pos.y, s);
+		return{ (_pos.x + (x - _pos.x) * s), (_pos.y + (y - _pos.y) * s), (w * s), (h * s) };
 	}
 
 	inline constexpr RectF RectF::scaledAt(const Vec2 _pos, const double sx, const double sy) const noexcept
 	{
-		return scaledAt(_pos.x, _pos.y, sx, sy);
+		return{ (_pos.x + (x - _pos.x) * sx), (_pos.y + (y - _pos.y) * sy), (w * sx), (h * sy) };
 	}
 
 	inline constexpr RectF RectF::scaledAt(const Vec2 _pos, const Vec2 s) const noexcept
 	{
-		return scaledAt(_pos.x, _pos.y, s);
+		return{ (_pos.x + (x - _pos.x) * s.x), (_pos.y + (y - _pos.y) * s.y), (w * s.x), (h * s.y) };
 	}
 
 	inline constexpr bool RectF::hasArea() const noexcept

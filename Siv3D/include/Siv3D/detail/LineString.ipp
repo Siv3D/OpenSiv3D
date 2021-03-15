@@ -667,6 +667,114 @@ namespace s3d
 		return moveBy(v.x, v.y);
 	}
 
+	inline LineString LineString::scaled(const double s) const
+	{
+		LineString result{ *this };
+
+		for (auto& point : result)
+		{
+			point *= s;
+		}
+
+		return result;
+	}
+
+	inline LineString LineString::scaled(const double sx, const double sy) const
+	{
+		return scaled(Vec2{ sx, sy });
+	}
+
+	inline LineString LineString::scaled(const Vec2 s) const
+	{
+		LineString result{ *this };
+
+		for (auto& point : result)
+		{
+			point *= s;
+		}
+
+		return result;
+	}
+
+	inline LineString& LineString::scale(const double s)
+	{
+		for (auto& point : m_data)
+		{
+			point *= s;
+		}
+
+		return *this;
+	}
+
+	inline LineString& LineString::scale(const double sx, const double sy)
+	{
+		return scale(Vec2{ sx, sy });
+	}
+
+	inline LineString& LineString::scale(const Vec2 s)
+	{
+		for (auto& point : m_data)
+		{
+			point *= s;
+		}
+
+		return *this;
+	}
+
+	inline LineString LineString::scaledAt(const Vec2 pos, const double s) const
+	{
+		LineString result{ *this };
+
+		for (auto& point : result)
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		return result;
+	}
+
+	inline LineString LineString::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	{
+		return scaledAt(pos, Vec2{ sx, sy });
+	}
+
+	inline LineString LineString::scaledAt(const Vec2 pos, const Vec2 s) const
+	{
+		LineString result{ *this };
+
+		for (auto& point : result)
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		return result;
+	}
+
+	inline LineString& LineString::scaleAt(const Vec2 pos, const double s)
+	{
+		for (auto& point : m_data)
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		return *this;
+	}
+
+	inline LineString& LineString::scaleAt(const Vec2 pos, const double sx, const double sy)
+	{
+		return scaleAt(pos, Vec2{ sx, sy });
+	}
+
+	inline LineString& LineString::scaleAt(const Vec2 pos, const Vec2 s)
+	{
+		for (auto& point : m_data)
+		{
+			point = (pos + (point - pos) * s);
+		}
+
+		return *this;
+	}
+
 	inline RectF LineString::calculateBoundingRect() const noexcept
 	{
 		return Geometry2D::BoundingRect(*this);

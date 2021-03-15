@@ -501,15 +501,6 @@ namespace s3d
 		constexpr RectF scaled(Vec2 s) const noexcept;
 
 		[[nodiscard]]
-		constexpr RectF scaledAt(double _x, double _y, double s) const noexcept;
-
-		[[nodiscard]]
-		constexpr RectF scaledAt(double _x, double _y, double sx, double sy) const noexcept;
-
-		[[nodiscard]]
-		constexpr RectF scaledAt(double _x, double _y, Vec2 s) const noexcept;
-
-		[[nodiscard]]
 		constexpr RectF scaledAt(Vec2 _pos, double s) const noexcept;
 
 		[[nodiscard]]

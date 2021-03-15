@@ -114,12 +114,22 @@ namespace s3d
 		return rotatedAt({ x, y }, angle);
 	}
 
-	inline Triangle Triangle::scaled(const double s) const
+	inline constexpr Triangle Triangle::scaled(const double s) const noexcept
 	{
 		return{ (p0 * s), (p1 * s), (p2 * s) };
 	}
 
-	inline Triangle& Triangle::scale(const double s)
+	inline constexpr Triangle Triangle::scaled(const double sx, const double sy) const noexcept
+	{
+		return scaled(Vec2{ sx, sy });
+	}
+
+	inline constexpr Triangle Triangle::scaled(const Vec2 s) const noexcept
+	{
+		return{ (p0 * s), (p1 * s), (p2 * s) };
+	}
+
+	inline constexpr Triangle& Triangle::scale(const double s) noexcept
 	{
 		p0 *= s;
 		p1 *= s;
@@ -127,16 +137,52 @@ namespace s3d
 		return *this;
 	}
 
-	inline Triangle Triangle::scaled(const Vec2 s) const
+	inline constexpr Triangle& Triangle::scale(const double sx, const double sy) noexcept
 	{
-		return{ (p0 * s), (p1 * s), (p2 * s) };
+		return scale(Vec2{ sx, sy });
 	}
 
-	inline Triangle& Triangle::scale(const Vec2 s)
+	inline constexpr Triangle& Triangle::scale(const Vec2 s) noexcept
 	{
 		p0 *= s;
 		p1 *= s;
 		p2 *= s;
+		return *this;
+	}
+
+	inline constexpr Triangle Triangle::scaledAt(const Vec2 pos, const double s) const noexcept
+	{
+		return{ (pos + (p0 - pos) * s), (pos + (p1 - pos) * s), (pos + (p2 - pos) * s) };
+	}
+
+	inline constexpr Triangle Triangle::scaledAt(const Vec2 pos, const double sx, const double sy) const noexcept
+	{
+		return scaledAt(pos, Vec2{ sx, sy });
+	}
+
+	inline constexpr Triangle Triangle::scaledAt(const Vec2 pos, const Vec2 s) const noexcept
+	{
+		return{ (pos + (p0 - pos) * s), (pos + (p1 - pos) * s), (pos + (p2 - pos) * s) };
+	}
+
+	inline constexpr Triangle& Triangle::scaleAt(const Vec2 pos, const double s) noexcept
+	{
+		p0 = (pos + (p0 - pos) * s);
+		p1 = (pos + (p1 - pos) * s);
+		p2 = (pos + (p2 - pos) * s);
+		return *this;
+	}
+
+	inline constexpr Triangle& Triangle::scaleAt(const Vec2 pos, const double sx, const double sy) noexcept
+	{
+		return scaleAt(pos, Vec2{ sx, sy });
+	}
+
+	inline constexpr Triangle& Triangle::scaleAt(const Vec2 pos, const Vec2 s) noexcept
+	{
+		p0 = (pos + (p0 - pos) * s);
+		p1 = (pos + (p1 - pos) * s);
+		p2 = (pos + (p2 - pos) * s);
 		return *this;
 	}
 

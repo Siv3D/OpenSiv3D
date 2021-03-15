@@ -60,10 +60,10 @@ namespace s3d
 		constexpr Quad(const position_type& _p0, const position_type& _p1, const position_type& _p2, const position_type& _p3) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Quad(const Rect& rect) noexcept;
+		explicit constexpr Quad(const Rect& rect) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Quad(const RectF& rect) noexcept;
+		explicit constexpr Quad(const RectF& rect) noexcept;
 
 		[[nodiscard]]
 		friend constexpr bool operator ==(const Quad& lhs, const Quad& rhs) noexcept
@@ -109,14 +109,34 @@ namespace s3d
 		Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
-		Quad scaled(double s) const;
-
-		Quad& scale(double s);
+		constexpr Quad scaled(double s) const noexcept;
 
 		[[nodiscard]]
-		Quad scaled(Vec2 s) const;
+		constexpr Quad scaled(double sx, double sy) const noexcept;
 
-		Quad& scale(Vec2 s);
+		[[nodiscard]]
+		constexpr Quad scaled(Vec2 s) const noexcept;
+
+		constexpr Quad& scale(double s) noexcept;
+
+		constexpr Quad& scale(double sx, double sy) noexcept;
+
+		constexpr Quad& scale(Vec2 s) noexcept;
+
+		[[nodiscard]]
+		constexpr Quad scaledAt(Vec2 pos, double s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Quad scaledAt(Vec2 pos, double sx, double sy) const noexcept;
+
+		[[nodiscard]]
+		constexpr Quad scaledAt(Vec2 pos, Vec2 s) const noexcept;
+
+		constexpr Quad& scaleAt(Vec2 pos, double s) noexcept;
+
+		constexpr Quad& scaleAt(Vec2 pos, double sx, double sy) noexcept;
+
+		constexpr Quad& scaleAt(Vec2 pos, Vec2 s) noexcept;
 
 		[[nodiscard]]
 		position_type& p(size_t index) noexcept;

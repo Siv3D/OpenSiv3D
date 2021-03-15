@@ -661,7 +661,32 @@ namespace s3d
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
 	}
 
+	inline MultiPolygon MultiPolygon::scaled(const double sx, const double sy) const
+	{
+		return scaled(Vec2{ sx, sy });
+	}
+
+	inline MultiPolygon MultiPolygon::scaled(const Vec2 s) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
+	}
+
 	inline MultiPolygon& MultiPolygon::scale(const double s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scale(s);
+		}
+
+		return *this;
+	}
+
+	inline MultiPolygon& MultiPolygon::scale(const double sx, const double sy)
+	{
+		return scale(Vec2{ sx, sy });
+	}
+
+	inline MultiPolygon& MultiPolygon::scale(const Vec2 s)
 	{
 		for (auto& polygon : *this)
 		{
@@ -686,9 +711,19 @@ namespace s3d
 		return *this;
 	}
 
+	inline MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	{
+		return scaledAt(pos, Vec2{ sx, sy });
+	}
+
 	inline MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) const
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
+	}
+
+	inline MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double sx, const double sy)
+	{
+		return scaleAt(pos, Vec2{ sx, sy });
 	}
 
 	inline MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const Vec2 s)

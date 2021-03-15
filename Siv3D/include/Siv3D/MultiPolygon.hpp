@@ -347,15 +347,30 @@ namespace s3d
 		[[nodiscard]]
 		MultiPolygon scaled(double s) const;
 
+		[[nodiscard]]
+		MultiPolygon scaled(double sx, double sy) const;
+
+		[[nodiscard]]
+		MultiPolygon scaled(Vec2 s) const;
+
 		MultiPolygon& scale(double s);
+
+		MultiPolygon& scale(double sx, double sy);
+
+		MultiPolygon& scale(Vec2 s);
 
 		[[nodiscard]]
 		MultiPolygon scaledAt(Vec2 pos, double s) const;
 
-		MultiPolygon& scaleAt(Vec2 pos, double s);
+		[[nodiscard]]
+		MultiPolygon scaledAt(Vec2 pos, double sx, double sy) const;
 
 		[[nodiscard]]
 		MultiPolygon scaledAt(Vec2 pos, Vec2 s) const;
+
+		MultiPolygon& scaleAt(Vec2 pos, double s);
+
+		MultiPolygon& scaleAt(Vec2 pos, double sx, double sy);
 
 		MultiPolygon& scaleAt(Vec2 pos, Vec2 s);
 

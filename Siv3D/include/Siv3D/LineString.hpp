@@ -366,6 +366,36 @@ namespace s3d
 		LineString& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
+		LineString scaled(double s) const;
+
+		[[nodiscard]]
+		LineString scaled(double sx, double sy) const;
+
+		[[nodiscard]]
+		LineString scaled(Vec2 s) const;
+
+		LineString& scale(double s);
+
+		LineString& scale(double sx, double sy);
+
+		LineString& scale(Vec2 s);
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, double s) const;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, double sx, double sy) const;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, Vec2 s) const;
+
+		LineString& scaleAt(Vec2 pos, double s);
+
+		LineString& scaleAt(Vec2 pos, double sx, double sy);
+
+		LineString& scaleAt(Vec2 pos, Vec2 s);
+
+		[[nodiscard]]
 		RectF calculateBoundingRect() const noexcept;
 		
 		[[nodiscard]]

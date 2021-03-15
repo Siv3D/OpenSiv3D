@@ -128,21 +128,31 @@ namespace s3d
 
 		[[nodiscard]]
 		Polygon scaled(double s) const;
-
-		Polygon& scale(double s);
+		
+		[[nodiscard]]
+		Polygon scaled(double sx, double sy) const;
 
 		[[nodiscard]]
 		Polygon scaled(Vec2 s) const;
+
+		Polygon& scale(double s);
+
+		Polygon& scale(double sx, double sy);
 
 		Polygon& scale(Vec2 s);
 
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, double s) const;
 
-		Polygon& scaleAt(Vec2 pos, double s);
+		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, double sx, double sy) const;
 
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, Vec2 s) const;
+
+		Polygon& scaleAt(Vec2 pos, double s);
+
+		Polygon& scaleAt(Vec2 pos, double sx, double sy);
 
 		Polygon& scaleAt(Vec2 pos, Vec2 s);
 

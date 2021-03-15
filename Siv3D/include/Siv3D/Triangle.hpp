@@ -142,14 +142,34 @@ namespace s3d
 		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
-		Triangle scaled(double s) const;
+		constexpr Triangle scaled(double s) const noexcept;
+		
+		[[nodiscard]]
+		constexpr Triangle scaled(double sx, double sy) const noexcept;
+		
+		[[nodiscard]]
+		constexpr Triangle scaled(Vec2 s) const noexcept;
 
-		Triangle& scale(double s);
+		constexpr Triangle& scale(double s) noexcept;
+
+		constexpr Triangle& scale(double sx, double sy) noexcept;
+
+		constexpr Triangle& scale(Vec2 s) noexcept;
 
 		[[nodiscard]]
-		Triangle scaled(Vec2 s) const;
+		constexpr Triangle scaledAt(Vec2 pos, double s) const noexcept;
 
-		Triangle& scale(Vec2 s);
+		[[nodiscard]]
+		constexpr Triangle scaledAt(Vec2 pos, double sx, double sy) const noexcept;
+
+		[[nodiscard]]
+		constexpr Triangle scaledAt(Vec2 pos, Vec2 s) const noexcept;
+
+		constexpr Triangle& scaleAt(Vec2 pos, double s) noexcept;
+
+		constexpr Triangle& scaleAt(Vec2 pos, double sx, double sy) noexcept;
+
+		constexpr Triangle& scaleAt(Vec2 pos, Vec2 s) noexcept;
 
 		[[nodiscard]]
 		constexpr position_type& p(size_t index) noexcept;

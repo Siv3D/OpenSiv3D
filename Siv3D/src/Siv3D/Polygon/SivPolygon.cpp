@@ -309,11 +309,9 @@ namespace s3d
 		return result;
 	}
 
-	Polygon& Polygon::scale(const double s)
+	Polygon Polygon::scaled(const double sx, double sy) const
 	{
-		pImpl->scale(s);
-
-		return *this;
+		return scaled(Vec2{ sx, sy });
 	}
 
 	Polygon Polygon::scaled(const Vec2 s) const
@@ -323,6 +321,18 @@ namespace s3d
 		result.scale(s);
 
 		return result;
+	}
+
+	Polygon& Polygon::scale(const double s)
+	{
+		pImpl->scale(s);
+
+		return *this;
+	}
+
+	Polygon& Polygon::scale(const double sx, const double sy)
+	{
+		return scale(Vec2{ sx, sy });
 	}
 
 	Polygon& Polygon::scale(const Vec2 s)
@@ -348,6 +358,11 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	{
+		return scaledAt(pos, Vec2{ sx, sy });
+	}
+
 	Polygon Polygon::scaledAt(const Vec2 pos, const Vec2 s) const
 	{
 		Polygon result{ *this };
@@ -355,6 +370,11 @@ namespace s3d
 		result.scaleAt(pos, s);
 
 		return result;
+	}
+
+	Polygon& Polygon::scaleAt(const Vec2 pos, const double sx, const double sy)
+	{
+		return scaleAt(pos, Vec2{ sx, sy });
 	}
 
 	Polygon& Polygon::scaleAt(const Vec2 pos, const Vec2 s)
