@@ -1048,6 +1048,9 @@
 # include <Siv3D/WaveSample.hpp>
 # include <Siv3D/Wave.hpp>
 
+# include <Siv3D/SerialPortInfo.hpp>
+# include <Siv3D/Serial.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Lua スクリプト | Lua Script

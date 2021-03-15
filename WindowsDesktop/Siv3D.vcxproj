@@ -435,6 +435,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Serial.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SerialPortInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderCommon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ShaderStage.hpp" />
@@ -786,6 +788,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Scene\IScene.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.hpp" />
@@ -1105,6 +1108,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\insert_and_split.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\rectpack2D\rect_structs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\impl\win.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\serial.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\v8stdint.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
@@ -1387,6 +1393,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\SivScreenCapture.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SerialPortInfo\SivSerialPortInfo.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
@@ -1626,6 +1635,9 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastRasterization.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\RecastRegion.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\list_ports\list_ports_win.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\win.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\serial.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\debug.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c" />

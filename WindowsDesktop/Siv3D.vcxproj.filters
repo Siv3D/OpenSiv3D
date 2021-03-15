@@ -889,6 +889,21 @@
     <Filter Include="src\Siv3D\VideoWriter">
       <UniqueIdentifier>{b2faa0fc-e32d-46b4-90c4-376a5885f1e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SerialPortInfo">
+      <UniqueIdentifier>{e0af6dea-5595-4d9c-afcb-18e0b7e74893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Serial">
+      <UniqueIdentifier>{960916da-c9ba-4f87-b590-b005110cc9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\serial">
+      <UniqueIdentifier>{024b3497-38ee-4e72-97ca-ec4514af88ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\serial\impl">
+      <UniqueIdentifier>{d004fa5e-2885-4df0-b2d8-b06443ce5e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\serial\impl\list_ports">
+      <UniqueIdentifier>{ec11b4dd-93e2-471b-b140-d0d4e6a4839d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4290,6 +4305,24 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Wave.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SerialPortInfo.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Serial.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\serial.h">
+      <Filter>src\ThirdParty\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\v8stdint.h">
+      <Filter>src\ThirdParty\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\serial\impl\win.h">
+      <Filter>src\ThirdParty\serial\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp">
+      <Filter>src\Siv3D\Serial</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -5803,6 +5836,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.cpp">
       <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SerialPortInfo\SivSerialPortInfo.cpp">
+      <Filter>src\Siv3D\SerialPortInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp">
+      <Filter>src\Siv3D\Serial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\serial.cc">
+      <Filter>src\ThirdParty\serial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\win.cc">
+      <Filter>src\ThirdParty\serial\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\list_ports\list_ports_win.cc">
+      <Filter>src\ThirdParty\serial\impl\list_ports</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.cpp">
+      <Filter>src\Siv3D\Serial</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -257,6 +257,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
+  ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
+  ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
+  ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
@@ -573,6 +576,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/RecastDetour/RecastMeshDetail.cpp
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRasterization.cpp
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
+
+  ../Siv3D/src/ThirdParty/serial/impl/list_ports/list_ports_linux.cc
+  ../Siv3D/src/ThirdParty/serial/impl/unix.cc
+  ../Siv3D/src/ThirdParty/serial/serial.cc
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 
