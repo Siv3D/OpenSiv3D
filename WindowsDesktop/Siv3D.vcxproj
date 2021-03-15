@@ -138,6 +138,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates2D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp" />

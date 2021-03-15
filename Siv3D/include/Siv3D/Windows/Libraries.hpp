@@ -23,6 +23,7 @@
 # pragma comment (lib, "winmm")
 # pragma comment (lib, "shcore")
 # pragma comment (lib, "opengl32")
+# pragma comment (lib, "setupapi")
 # pragma comment (lib, "version")
 # pragma comment (lib, "freetype/freetype" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "glew/glew32s" SIV3D_DEBUG_LIB_POSTFIX(d))

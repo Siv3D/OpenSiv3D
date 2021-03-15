@@ -14,5 +14,24 @@
 
 namespace s3d
 {
+	namespace System
+	{
+		Array<SerialPortInfo> EnumerateSerialPorts()
+		{
+			const std::vector<serial::PortInfo> portInfo = serial::list_ports();
 
+			Array<SerialPortInfo> results(portInfo.size());
+
+			for (size_t i = 0; i < portInfo.size(); ++i)
+			{
+				const auto& info = portInfo[i];
+				auto& result = results[i];
+				result.port			= Unicode::Widen(info.port);
+				result.description	= Unicode::FromUTF8(info.description);
+				result.hardwareID	= Unicode::Widen(info.hardware_id);
+			}
+
+			return results;
+		}
+	}
 }

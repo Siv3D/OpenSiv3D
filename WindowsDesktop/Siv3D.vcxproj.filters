@@ -4323,6 +4323,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp">
       <Filter>src\Siv3D\Serial</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
