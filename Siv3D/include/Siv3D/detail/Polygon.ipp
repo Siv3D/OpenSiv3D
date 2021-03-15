@@ -96,6 +96,11 @@ namespace s3d
 		return Correct(vertices.data(), vertices.size(), holes);
 	}
 
+	inline Polygon Polygon::CorrectOne(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return CorrectOne(vertices.data(), vertices.size(), holes);
+	}
+
 	inline const Polygon::PolygonDetail* Polygon::_detail() const noexcept
 	{
 		return pImpl.get();

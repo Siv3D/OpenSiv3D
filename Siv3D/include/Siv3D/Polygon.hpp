@@ -281,6 +281,13 @@ namespace s3d
 		static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 
 		[[nodiscard]]
+		static Polygon CorrectOne(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
+
+		[[nodiscard]]
+		static Polygon CorrectOne(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
+
+
+		[[nodiscard]]
 		const PolygonDetail* _detail() const noexcept;
 
 		template <class CharType>

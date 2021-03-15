@@ -797,6 +797,32 @@ namespace s3d
 		return results;
 	}
 
+	Polygon Polygon::CorrectOne(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
+	{
+		Array<Polygon> polygons = Correct(pVertex, vertexSize, holes);
+
+		if (not polygons)
+		{
+			return{};
+		}
+
+		size_t index = 0;
+		double maxArea = polygons.front().area();
+
+		for (size_t i = 1; i < polygons.size(); ++i)
+		{
+			const double area = polygons[i].area();
+
+			if (maxArea < area)
+			{
+				index = i;
+				maxArea = area;
+			}
+		}
+
+		return polygons[index];
+	}
+
 	void Polygon::_Formatter(FormatData& formatData, const Polygon& value)
 	{
 		std::stringstream ss;
