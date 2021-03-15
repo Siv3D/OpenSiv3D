@@ -137,7 +137,7 @@ namespace s3d
 		Polygon& scale(Vec2 s);
 
 		[[nodiscard]]
-		Polygon scaledAt(Vec2 pos, double s);
+		Polygon scaledAt(Vec2 pos, double s) const;
 
 		Polygon& scaleAt(Vec2 pos, double s);
 

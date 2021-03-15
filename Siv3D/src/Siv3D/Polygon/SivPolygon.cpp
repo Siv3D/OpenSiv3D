@@ -332,7 +332,7 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::scaledAt(const Vec2 pos, const double s)
+	Polygon Polygon::scaledAt(const Vec2 pos, const double s) const
 	{
 		Polygon result{ *this };
 
