@@ -904,6 +904,9 @@
     <Filter Include="src\ThirdParty\serial\impl\list_ports">
       <UniqueIdentifier>{ec11b4dd-93e2-471b-b140-d0d4e6a4839d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Siv3D\Physics2D">
+      <UniqueIdentifier>{f6f5faab-7118-4a9d-8c58-fdc47da993c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4325,6 +4328,78 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Body.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2BodyType.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Circle.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Collision.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Contact.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2ContactPair.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2DistanceJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Filter.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fixture.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fwd.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Line.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2LineString.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Material.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2PivotJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Polygon.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Quad.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Rect.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2RopeJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Shape.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2ShapeType.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2SliderJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Triangle.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2WheelJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2World.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
