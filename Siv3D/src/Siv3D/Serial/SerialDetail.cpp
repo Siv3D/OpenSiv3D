@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "SerialDetail.hpp"
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -31,8 +32,9 @@ namespace s3d
 		{
 			m_serial.open();
 		}
-		catch (const serial::IOException&)
+		catch (const serial::IOException& e)
 		{
+			LOG_FAIL(U"❌ Failed to open Serial `{0}`. {1}"_fmt(port, Unicode::Widen(e.what())));
 			return false;
 		}
 
