@@ -309,6 +309,52 @@ add_library(
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
 
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_broad_phase.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_chain_shape.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_circle_shape.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_collide_circle.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_collide_edge.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_collide_polygon.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_collision.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_distance.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_dynamic_tree.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_edge_shape.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_polygon_shape.cpp
+  ../Siv3D/src/ThirdParty/box2d/collision/b2_time_of_impact.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_block_allocator.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_draw.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_math.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_settings.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_stack_allocator.cpp
+  ../Siv3D/src/ThirdParty/box2d/common/b2_timer.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_body.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_chain_circle_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_chain_polygon_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_circle_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_contact_manager.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_contact_solver.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_distance_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_edge_circle_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_edge_polygon_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_fixture.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_friction_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_gear_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_island.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_motor_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_mouse_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_polygon_circle_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_polygon_contact.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_prismatic_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_pulley_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_revolute_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_weld_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_wheel_joint.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_world.cpp
+  ../Siv3D/src/ThirdParty/box2d/dynamics/b2_world_callbacks.cpp
+  ../Siv3D/src/ThirdParty/box2d/rope/b2_rope.cpp
+
   # ../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
   ../Siv3D/src/ThirdParty/cpu_features/filesystem.c
   ../Siv3D/src/ThirdParty/cpu_features/stack_line_reader.c
