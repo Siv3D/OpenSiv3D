@@ -144,6 +144,11 @@ namespace s3d
 		return (end - begin);
 	}
 
+	inline Line::position_type Line::normal() const noexcept
+	{
+		return Vec2{ (end.y - begin.y), (begin.x - end.x) }.normalized();
+	}
+
 	inline constexpr Line Line::reversed() const noexcept
 	{
 		return{ end, begin };

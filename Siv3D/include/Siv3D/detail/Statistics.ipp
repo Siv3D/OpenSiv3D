@@ -175,8 +175,8 @@ namespace s3d
 		inline auto Mode(ForwardIt first, ForwardIt last)
 			-> Optional<typename std::iterator_traits<ForwardIt>::value_type>
 		{
-			size_t dummy;
-			return Mode(first, last, dummy);
+			size_t unused;
+			return Mode(first, last, unused);
 		}
 
 		// 最頻値
@@ -229,8 +229,8 @@ namespace s3d
 		inline auto MultiMode(ForwardIt first, ForwardIt last)
 			-> Array<typename std::iterator_traits<ForwardIt>::value_type>
 		{
-			size_t dummy;
-			return MultiMode(first, last, dummy);
+			size_t unused;
+			return MultiMode(first, last, unused);
 		}
 
 		// 最頻値（複数）

@@ -58,4 +58,7 @@ namespace s3d
 
 	/// @brief Y 座標を上下反転させる
 	using FlipY				= YesNo<struct FlipY_tag>;
+
+	/// @brief 片側だけ処理
+	using OnseSided			= YesNo<struct OnseSided_tag>;
 }

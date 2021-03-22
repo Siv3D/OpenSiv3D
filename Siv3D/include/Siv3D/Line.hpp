@@ -126,6 +126,9 @@ namespace s3d
 		constexpr position_type vector() const noexcept;
 
 		[[nodiscard]]
+		position_type normal() const noexcept;
+
+		[[nodiscard]]
 		constexpr Line reversed() const noexcept;
 
 		constexpr Line& reverse() noexcept;

@@ -427,16 +427,16 @@ namespace s3d
 			}
 		}
 
-		void ToMatVec3bBGR(const Image& image, cv::Mat_<cv::Vec3b>& to)
+		void ToMatVec3bBGR(const Image& from, cv::Mat_<cv::Vec3b>& to)
 		{
-			if (not image)
+			if (not from)
 			{
 				return;
 			}
 
-			const int32 height = image.height();
-			const int32 width = image.width();
-			const Color* pSrc = image.data();
+			const int32 height = from.height();
+			const int32 width = from.width();
+			const Color* pSrc = from.data();
 
 			uint8* pDstLine = to.data;
 			const size_t dstStepBytes = to.step.p[0];

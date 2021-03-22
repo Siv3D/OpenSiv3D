@@ -40,7 +40,7 @@ namespace s3d
 
 	Quad Rect::rotated(const double angle) const noexcept
 	{
-		const Vec2 cent(x + w * 0.5, y + h * 0.5);
+		const Vec2 cent{ (x + w * 0.5), (y + h * 0.5) };
 		const double cx = cent.x;
 		const double cy = cent.y;
 		const double x0 = -size.x * 0.5;

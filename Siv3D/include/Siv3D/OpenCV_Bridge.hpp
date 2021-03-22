@@ -55,7 +55,7 @@ namespace s3d
 
 		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
-		void ToMatVec3bBGR(const Image& image, cv::Mat_<cv::Vec3b>& to);
+		void ToMatVec3bBGR(const Image& from, cv::Mat_<cv::Vec3b>& to);
 
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to);
 
