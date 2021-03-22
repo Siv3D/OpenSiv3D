@@ -16,6 +16,8 @@
 # include <sys/select.h>
 # include <boost/bimap.hpp>
 
+# include <Siv3D/PseudoThread/PseudoThread.hpp>
+
 namespace s3d
 {
 	class DirectoryWatcher::DirectoryWatcherDetail
@@ -44,7 +46,7 @@ namespace s3d
 
 		Array<uint8_t> m_buffer;
 
-		std::thread m_thread;
+		PseudoThread m_thread;
 
 		std::atomic<bool> m_initCalled = false;
 
@@ -64,7 +66,7 @@ namespace s3d
 		
 		Array<FileChange> m_fileChanges;	
 
-		static void watch(DirectoryWatcherDetail* watcher);
+		static bool watch(DirectoryWatcherDetail* watcher);
 
 		bool init();
 
