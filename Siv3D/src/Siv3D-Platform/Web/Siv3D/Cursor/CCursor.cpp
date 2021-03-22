@@ -18,6 +18,10 @@
 # include <Siv3D/EngineLog.hpp>
 # include "CCursor.hpp"
 
+# include <emscripten/html5.h>
+
+extern "C" void s3dSetCursorStyle(const char* style);
+
 namespace s3d
 {
 	namespace detail
@@ -62,15 +66,6 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::~CCursor()");
 
 		m_customCursors.clear();
-
-		for (auto& systemCursor : m_systemCursors)
-		{
-			if (systemCursor)
-			{
-				::glfwDestroyCursor(systemCursor);
-				systemCursor = nullptr;
-			}
-		}
 	}
 
 	void CCursor::init()
@@ -90,17 +85,17 @@ namespace s3d
 			m_state.update(clientPos.asPoint(), clientPos / uiScaling, screenPos);
 		}
 
-		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= ::glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= ::glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::Cross)]			= ::glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::Hand)]			= ::glfwCreateStandardCursor(GLFW_POINTING_HAND_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= ::glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= ::glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= ::glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= ::glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
-		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= detail::CreateCursor(Image{ 16, 16, Color{ 0, 0 } }, Point::Zero());
+		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= U"default";
+		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= U"text";
+		m_systemCursors[FromEnum(CursorStyle::Cross)]			= U"crosshair";
+		m_systemCursors[FromEnum(CursorStyle::Hand)]			= U"grab";
+		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= U"not-allowed";
+		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= U"ns-resize";
+		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= U"ew-resize";
+		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= U"nwse-resize";
+		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= U"nesw-resize";
+		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= U"move";
+		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= U"none";
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
 		m_defaultCursor		= m_currentCursor;
@@ -109,7 +104,7 @@ namespace s3d
 
 	bool CCursor::update()
 	{
-if (m_clipToWindow)
+		if (m_clipToWindow)
 		{
 			// [Siv3D ToDo]
 		}
@@ -134,7 +129,7 @@ if (m_clipToWindow)
 			{
 				m_currentCursor = m_requestedCursor;
 				
-				::glfwSetCursor(m_window, m_currentCursor);
+				::s3dSetCursorStyle(m_currentCursor.narrow().c_str());
 			}
 
 			m_requestedCursor = m_defaultCursor;
@@ -278,7 +273,8 @@ if (m_clipToWindow)
 		if (auto it = m_customCursors.find(name);
 			it != m_customCursors.end())
 		{
-			m_requestedCursor = it->second.get();
+			// [ToDo]
+			// m_requestedCursor = it->second.get();
 		}
 	}
 }

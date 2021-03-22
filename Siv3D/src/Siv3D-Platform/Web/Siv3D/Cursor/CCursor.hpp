@@ -41,10 +41,10 @@ namespace s3d
 			::glfwDestroyCursor(h);
 		}
 
-		std::array<GLFWcursor*, 11> m_systemCursors;
-		GLFWcursor* m_currentCursor = nullptr;
-		GLFWcursor* m_defaultCursor = nullptr;
-		GLFWcursor* m_requestedCursor = nullptr;
+		std::array<String, 11> m_systemCursors;
+		String m_currentCursor;
+		String m_defaultCursor;
+		String m_requestedCursor;
 		HashTable<String, unique_resource<GLFWcursor*, decltype(&CursorDeleter)>> m_customCursors;
 
 	public:
