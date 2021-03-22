@@ -98,6 +98,8 @@ namespace s3d
 
             m_NativeHandle = p.m_NativeHandle;
             p.m_NativeHandle = nullptr;
+
+            return *this;
         }  
 
         ~PseudoThread()
