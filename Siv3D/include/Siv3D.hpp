@@ -1058,7 +1058,29 @@
 //////////////////////////////////////////////////
 
 # include <Siv3D/Physics2D/P2Fwd.hpp>
-
+# include <Siv3D/Physics2D/P2Material.hpp>
+# include <Siv3D/Physics2D/P2Filter.hpp>
+# include <Siv3D/Physics2D/P2BodyType.hpp>
+# include <Siv3D/Physics2D/P2ShapeType.hpp>
+# include <Siv3D/Physics2D/P2ContactPair.hpp>
+# include <Siv3D/Physics2D/P2Contact.hpp>
+# include <Siv3D/Physics2D/P2Collision.hpp>
+# include <Siv3D/Physics2D/P2World.hpp>
+# include <Siv3D/Physics2D/P2Body.hpp>
+# include <Siv3D/Physics2D/P2Fixture.hpp>
+# include <Siv3D/Physics2D/P2Shape.hpp>
+# include <Siv3D/Physics2D/P2Line.hpp>
+# include <Siv3D/Physics2D/P2LineString.hpp>
+# include <Siv3D/Physics2D/P2Circle.hpp>
+# include <Siv3D/Physics2D/P2Rect.hpp>
+# include <Siv3D/Physics2D/P2Triangle.hpp>
+# include <Siv3D/Physics2D/P2Quad.hpp>
+# include <Siv3D/Physics2D/P2Polygon.hpp>
+# include <Siv3D/Physics2D/P2PivotJoint.hpp>
+# include <Siv3D/Physics2D/P2DistanceJoint.hpp>
+# include <Siv3D/Physics2D/P2RopeJoint.hpp>
+# include <Siv3D/Physics2D/P2SliderJoint.hpp>
+# include <Siv3D/Physics2D/P2WheelJoint.hpp>
 
 //////////////////////////////////////////////////
 //

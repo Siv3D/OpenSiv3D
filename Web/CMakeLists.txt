@@ -220,6 +220,29 @@ add_library(
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
   ../Siv3D/src/Siv3D/ParseInt/SivParseInt.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Body.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2BodyDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Circle.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2ContactListener.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2DistanceJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2DistanceJointDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Line.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2LineString.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2PivotJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2PivotJointDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Polygon.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Quad.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Rect.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2RopeJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2RopeJointDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Shape.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2SliderJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2SliderJointDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2Triangle.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2WheelJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2WheelJointDetail.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2World.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2WorldDetail.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp

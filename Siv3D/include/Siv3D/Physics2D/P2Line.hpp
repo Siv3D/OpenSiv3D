@@ -10,3 +10,40 @@
 //-----------------------------------------------
 
 # pragma once
+# include "../Common.hpp"
+# include "../2DShapes.hpp"
+# include "../PredefinedYesNo.hpp"
+# include "P2Fwd.hpp"
+# include "P2Shape.hpp"
+
+namespace s3d
+{
+	class P2Line : public P2Shape
+	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		P2Line(b2Body& body, const Line& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2ShapeType getShapeType() const noexcept override;
+
+		[[nodiscard]]
+		bool isOneSided() const noexcept;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
+		[[nodiscard]]
+		Line getLine() const;
+
+	private:
+
+		std::unique_ptr<b2EdgeShape> m_pShape;
+
+		bool m_oneSided = false;
+	};
+}

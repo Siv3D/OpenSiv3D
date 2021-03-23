@@ -30,6 +30,8 @@
 /// Settings that can be overriden for your application
 ///
 
+# define B2_USER_SETTINGS
+
 /// Define this macro in your build if you want to override settings
 #ifdef B2_USER_SETTINGS
 

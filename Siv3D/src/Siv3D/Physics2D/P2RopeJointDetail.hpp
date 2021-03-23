@@ -10,14 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../Common.hpp"
-# include "../Array.hpp"
-# include "P2Fwd.hpp"
+# include <Siv3D/Physics2D/P2Body.hpp>
+# include <Siv3D/Physics2D/P2RopeJoint.hpp>
+# include "P2Common.hpp"
 
 namespace s3d
 {
-	struct P2Fixture
-	{
-		Array<b2Fixture*> fixtures;
-	};
+
 }

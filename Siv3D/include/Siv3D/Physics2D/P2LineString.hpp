@@ -10,3 +10,46 @@
 //-----------------------------------------------
 
 # pragma once
+# include "../Common.hpp"
+# include "../LineString.hpp"
+# include "P2Fwd.hpp"
+# include "P2Shape.hpp"
+
+namespace s3d
+{
+	class P2LineString : public P2Shape
+	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		P2LineString(b2Body& body, const LineString& lines, CloseRing closeRing, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2ShapeType getShapeType() const noexcept override;
+
+		[[nodiscard]]
+		bool isClosed() const noexcept;
+
+		[[nodiscard]]
+		bool isOneSided() const noexcept;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
+		[[nodiscard]]
+		const LineString& getLineString() const;
+
+	private:
+
+		std::unique_ptr<b2ChainShape> m_pShape;
+
+		mutable LineString m_lineString;
+
+		bool m_closeRing = false;
+
+		bool m_oneSided = true;
+	};
+}

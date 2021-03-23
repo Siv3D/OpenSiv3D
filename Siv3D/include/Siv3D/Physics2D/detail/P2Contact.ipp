@@ -10,14 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../Common.hpp"
-# include "../Array.hpp"
-# include "P2Fwd.hpp"
 
 namespace s3d
 {
-	struct P2Fixture
+	inline void P2Contact::clearImpulse() noexcept
 	{
-		Array<b2Fixture*> fixtures;
-	};
+		normalImpulse = 0.0;
+
+		tangentImpulse = 0.0;
+	}
 }
