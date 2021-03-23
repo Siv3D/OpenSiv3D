@@ -60,5 +60,5 @@ namespace s3d
 	using FlipY				= YesNo<struct FlipY_tag>;
 
 	/// @brief 片側だけ処理
-	using OnseSided			= YesNo<struct OnseSided_tag>;
+	using OneSided			= YesNo<struct OneSided_tag>;
 }

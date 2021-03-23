@@ -240,7 +240,7 @@ namespace s3d
 			return;
 		}
 
-		m_transformLocal	= matrix;
+		m_transformCamera	= matrix;
 		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
 		m_transformAllInv	= m_transformAll.inversed();
 
