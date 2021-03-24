@@ -1078,7 +1078,6 @@
 # include <Siv3D/Physics2D/P2Polygon.hpp>
 # include <Siv3D/Physics2D/P2PivotJoint.hpp>
 # include <Siv3D/Physics2D/P2DistanceJoint.hpp>
-# include <Siv3D/Physics2D/P2RopeJoint.hpp>
 # include <Siv3D/Physics2D/P2SliderJoint.hpp>
 # include <Siv3D/Physics2D/P2WheelJoint.hpp>
 

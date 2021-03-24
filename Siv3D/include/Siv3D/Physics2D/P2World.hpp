@@ -22,8 +22,8 @@
 # include "P2Body.hpp"
 # include "P2PivotJoint.hpp"
 # include "P2DistanceJoint.hpp"
-# include "P2RopeJoint.hpp"
 # include "P2SliderJoint.hpp"
+# include "P2WheelJoint.hpp"
 
 namespace s3d
 {
@@ -95,20 +95,17 @@ namespace s3d
 		[[nodiscard]]
 		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 		
-		//[[nodiscard]]
-		//P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
-		//
-		//[[nodiscard]]
-		//P2RopeJoint createRopeJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double maxLength);
-		//
-		//[[nodiscard]]
-		//P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+		[[nodiscard]]
+		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
+
+		[[nodiscard]]
+		P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+
+		[[nodiscard]]
+		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis);
 
 		[[nodiscard]]
 		const HashTable<P2ContactPair, P2Collision>& getCollisions() const noexcept;
-
-		//[[nodiscard]]
-		//b2World* getWorldPtr() const;
 
 	private:
 

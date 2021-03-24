@@ -179,6 +179,9 @@ namespace s3d
 		friend class detail::P2WorldDetail;
 		friend class detail::P2ContactListener;
 		friend class detail::P2PivotJointDetail;
+		friend class detail::P2DistanceJointDetail;
+		friend class detail::P2SliderJointDetail;
+		friend class detail::P2WheelJointDetail;
 
 		SIV3D_NODISCARD_CXX20
 		P2Body(const std::shared_ptr<detail::P2WorldDetail>& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);

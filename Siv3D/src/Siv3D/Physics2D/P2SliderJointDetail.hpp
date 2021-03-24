@@ -16,5 +16,29 @@
 
 namespace s3d
 {
+	class detail::P2SliderJointDetail
+	{
+	public:
 
+		SIV3D_NODISCARD_CXX20
+		P2SliderJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+
+		~P2SliderJointDetail();
+
+		[[nodiscard]]
+		b2PrismaticJoint& getJoint();
+
+		[[nodiscard]]
+		const b2PrismaticJoint& getJoint() const;
+
+	private:
+
+		b2PrismaticJoint* m_joint = nullptr;
+
+		std::shared_ptr<detail::P2WorldDetail> m_world;
+
+		std::weak_ptr<P2Body::P2BodyDetail> m_bodyA;
+
+		std::weak_ptr<P2Body::P2BodyDetail> m_bodyB;
+	};
 }

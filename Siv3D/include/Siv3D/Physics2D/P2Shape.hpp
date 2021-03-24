@@ -37,15 +37,20 @@ namespace s3d
 		[[nodiscard]]
 		double getDensity() const noexcept;
 
+		void setRestitution(double restitution) noexcept;
+
+		[[nodiscard]]
+		double getRestitution() const noexcept;
+
 		void setFriction(double friction) noexcept;
 
 		[[nodiscard]]
 		double getFriction() const noexcept;
 
-		void setRestitution(double restitution) noexcept;
+		void setRestitutionThreshold(double restitutionThreshold) noexcept;
 
 		[[nodiscard]]
-		double getRestitution() const noexcept;
+		double getRestitutionThreshold() const noexcept;
 
 		void setFilter(const P2Filter& filter) noexcept;
 

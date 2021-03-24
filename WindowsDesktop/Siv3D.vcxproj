@@ -412,7 +412,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Rect.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2RopeJoint.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Shape.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2ShapeType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2SliderJoint.hpp" />
@@ -798,7 +797,6 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2ContactListener.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2DistanceJointDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2PivotJointDetail.hpp" />
-    <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJointDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2SliderJointDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2Common.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2WheelJointDetail.hpp" />
@@ -1458,8 +1456,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Polygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Quad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Rect.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJoint.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJointDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Shape.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2SliderJoint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2SliderJointDetail.cpp" />

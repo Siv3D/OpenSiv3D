@@ -161,6 +161,21 @@ namespace s3d
 		return pImpl->createPivotJoint(pImpl, bodyA, bodyB, anchorPos);
 	}
 
+	P2DistanceJoint P2World::createDistanceJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
+	{
+		return pImpl->createDistanceJoint(pImpl, bodyA, anchorPosA, bodyB, anchorPosB, length);
+	}
+
+	P2SliderJoint P2World::createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis)
+	{
+		return pImpl->createSliderJoint(pImpl, bodyA, bodyB, anchorPos, normalizedAxis);
+	}
+
+	P2WheelJoint P2World::createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis)
+	{
+		return pImpl->createWheelJoint(pImpl, bodyA, bodyB, anchorPos, axis);
+	}
+
 	const HashTable<P2ContactPair, P2Collision>& P2World::getCollisions() const noexcept
 	{
 		return pImpl->getCollisions();

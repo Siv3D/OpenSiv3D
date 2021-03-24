@@ -21,6 +21,7 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		P2PivotJoint() = default;
 
 		[[nodiscard]]

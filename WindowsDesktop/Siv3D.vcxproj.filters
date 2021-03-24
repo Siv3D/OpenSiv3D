@@ -4401,9 +4401,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Rect.hpp">
       <Filter>include\Siv3D\Physics2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2RopeJoint.hpp">
-      <Filter>include\Siv3D\Physics2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Shape.hpp">
       <Filter>include\Siv3D\Physics2D</Filter>
     </ClInclude>
@@ -4597,9 +4594,6 @@
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2DistanceJointDetail.hpp">
-      <Filter>src\Siv3D\Physics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJointDetail.hpp">
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2SliderJointDetail.hpp">
@@ -6324,12 +6318,6 @@
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2DistanceJoint.cpp">
-      <Filter>src\Siv3D\Physics2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJointDetail.cpp">
-      <Filter>src\Siv3D\Physics2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2RopeJoint.cpp">
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2SliderJointDetail.cpp">

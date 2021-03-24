@@ -24,6 +24,8 @@ namespace s3d
 		inline constexpr double P2AnchorR		= 4.0;
 		inline constexpr double P2DensityScale		= (1.0 / 10000.0);
 		inline constexpr double P2DensityScaleInv	= 10000.0;
+		inline constexpr double P2RestitutionThresholdScale		= 100.0;
+		inline constexpr double P2RestitutionThresholdScaleInv	= (1.0 / 100.0);
 
 		[[nodiscard]]
 		inline constexpr Vec2 ToVec2(const b2Vec2& b2Vec2) noexcept
@@ -45,6 +47,7 @@ namespace s3d
 			fixtureDef.density		= static_cast<float>(material.density * P2DensityScale);
 			fixtureDef.friction		= static_cast<float>(material.friction);
 			fixtureDef.restitution	= static_cast<float>(material.restitution);
+			fixtureDef.restitutionThreshold	= static_cast<float>(material.restitutionThreshold * P2RestitutionThresholdScale);
 			fixtureDef.filter.categoryBits	= filter.categoryBits;
 			fixtureDef.filter.maskBits		= filter.maskBits;
 			fixtureDef.filter.groupIndex	= filter.groupIndex;

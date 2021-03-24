@@ -54,14 +54,14 @@ namespace s3d
 		[[nodiscard]]
 		P2PivotJoint createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
-		//[[nodiscard]]
-		//P2DistanceJoint createDistanceJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
+		[[nodiscard]]
+		P2DistanceJoint createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
 
-		//[[nodiscard]]
-		//P2RopeJoint createRopeJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double maxLength);
+		[[nodiscard]]
+		P2SliderJoint createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
 
-		//[[nodiscard]]
-		//P2SliderJoint createSliderJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+		[[nodiscard]]
+		P2WheelJoint createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis);
 
 		[[nodiscard]]
 		const HashTable<P2ContactPair, P2Collision>& getCollisions() const noexcept;

@@ -235,8 +235,6 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Physics2D/P2Polygon.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Quad.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Rect.cpp
-  ../Siv3D/src/Siv3D/Physics2D/P2RopeJoint.cpp
-  ../Siv3D/src/Siv3D/Physics2D/P2RopeJointDetail.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Shape.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2SliderJoint.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2SliderJointDetail.cpp

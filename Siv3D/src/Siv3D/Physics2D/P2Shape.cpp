@@ -30,6 +30,19 @@ namespace s3d
 		return (m_fixtures.fixtures[0]->GetDensity() * detail::P2DensityScaleInv);
 	}
 
+	void P2Shape::setRestitution(const double restitution) noexcept
+	{
+		for (auto& fixture : m_fixtures.fixtures)
+		{
+			fixture->SetRestitution(static_cast<float>(restitution));
+		}
+	}
+
+	double P2Shape::getRestitution() const noexcept
+	{
+		return m_fixtures.fixtures[0]->GetRestitution();
+	}
+
 	void P2Shape::setFriction(const double friction) noexcept
 	{
 		for (auto& fixture : m_fixtures.fixtures)
@@ -43,17 +56,17 @@ namespace s3d
 		return m_fixtures.fixtures[0]->GetFriction();
 	}
 
-	void P2Shape::setRestitution(const double restitution) noexcept
+	void P2Shape::setRestitutionThreshold(const double restitutionThreshold) noexcept
 	{
 		for (auto& fixture : m_fixtures.fixtures)
 		{
-			fixture->SetRestitution(static_cast<float>(restitution));
+			fixture->SetRestitutionThreshold(static_cast<float>(restitutionThreshold * detail::P2RestitutionThresholdScale));
 		}
 	}
 
-	double P2Shape::getRestitution() const noexcept
+	double P2Shape::getRestitutionThreshold() const noexcept
 	{
-		return m_fixtures.fixtures[0]->GetRestitution();
+		return (m_fixtures.fixtures[0]->GetRestitutionThreshold() * detail::P2RestitutionThresholdScaleInv);
 	}
 
 	void P2Shape::setFilter(const P2Filter& filter) noexcept

@@ -45,7 +45,6 @@ namespace s3d
 	class P2Polygon;
 	class P2PivotJoint;
 	class P2DistanceJoint;
-	class P2RopeJoint;
 	class P2SliderJoint;
 	class P2WheelJoint;
 
@@ -54,5 +53,8 @@ namespace s3d
 		class P2WorldDetail;
 		class P2ContactListener;
 		class P2PivotJointDetail;
+		class P2DistanceJointDetail;
+		class P2SliderJointDetail;
+		class P2WheelJointDetail;
 	}
 }
