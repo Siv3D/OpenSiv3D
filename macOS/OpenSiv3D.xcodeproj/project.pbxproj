@@ -1100,7 +1100,6 @@
 		2CDD4F35260A3F7100A51D68 /* P2WheelJointDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F15260A3F7100A51D68 /* P2WheelJointDetail.cpp */; };
 		2CDD4F36260A3F7100A51D68 /* P2SliderJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F16260A3F7100A51D68 /* P2SliderJointDetail.hpp */; };
 		2CDD4F37260A3F7100A51D68 /* P2PivotJointDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F17260A3F7100A51D68 /* P2PivotJointDetail.cpp */; };
-		2CDD4F38260A3F7100A51D68 /* P2RopeJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F18260A3F7100A51D68 /* P2RopeJointDetail.hpp */; };
 		2CDD4F39260A3F7100A51D68 /* P2Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F19260A3F7100A51D68 /* P2Body.cpp */; };
 		2CDD4F3A260A3F7100A51D68 /* P2WheelJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F1A260A3F7100A51D68 /* P2WheelJoint.cpp */; };
 		2CDD4F3B260A3F7100A51D68 /* P2Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F1B260A3F7100A51D68 /* P2Triangle.cpp */; };
@@ -1115,7 +1114,6 @@
 		2CDD4F44260A3F7100A51D68 /* P2WorldDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F24260A3F7100A51D68 /* P2WorldDetail.hpp */; };
 		2CDD4F45260A3F7100A51D68 /* P2PivotJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F25260A3F7100A51D68 /* P2PivotJoint.cpp */; };
 		2CDD4F46260A3F7100A51D68 /* P2ContactListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F26260A3F7100A51D68 /* P2ContactListener.hpp */; };
-		2CDD4F47260A3F7100A51D68 /* P2RopeJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F27260A3F7100A51D68 /* P2RopeJoint.cpp */; };
 		2CDD4F48260A3F7100A51D68 /* P2BodyDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F28260A3F7100A51D68 /* P2BodyDetail.hpp */; };
 		2CDD4F49260A3F7100A51D68 /* P2SliderJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F29260A3F7100A51D68 /* P2SliderJoint.cpp */; };
 		2CDD4F4A260A3F7100A51D68 /* P2DistanceJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F2A260A3F7100A51D68 /* P2DistanceJointDetail.hpp */; };
@@ -1123,7 +1121,6 @@
 		2CDD4F4C260A3F7100A51D68 /* P2Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F2C260A3F7100A51D68 /* P2Circle.cpp */; };
 		2CDD4F4D260A3F7100A51D68 /* P2SliderJointDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F2D260A3F7100A51D68 /* P2SliderJointDetail.cpp */; };
 		2CDD4F4E260A3F7100A51D68 /* P2PivotJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F2E260A3F7100A51D68 /* P2PivotJointDetail.hpp */; };
-		2CDD4F4F260A3F7100A51D68 /* P2RopeJointDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F2F260A3F7100A51D68 /* P2RopeJointDetail.cpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
 		2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DC025FA4DC200704B99 /* SivExif.cpp */; };
@@ -1489,7 +1486,6 @@
 		2C2AA2D125FFA51D003F3EBC /* Serial.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serial.ipp; sourceTree = "<group>"; };
 		2C2AA2D326009585003F3EBC /* SivSerialPortInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSerialPortInfo.cpp; sourceTree = "<group>"; };
 		2C2AA2D6260095D3003F3EBC /* P2Line.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Line.hpp; sourceTree = "<group>"; };
-		2C2AA2D7260095D3003F3EBC /* P2RopeJoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2RopeJoint.hpp; sourceTree = "<group>"; };
 		2C2AA2D8260095D3003F3EBC /* P2PivotJoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2PivotJoint.hpp; sourceTree = "<group>"; };
 		2C2AA2D9260095D3003F3EBC /* P2Collision.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Collision.hpp; sourceTree = "<group>"; };
 		2C2AA2DA260095D3003F3EBC /* P2SliderJoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2SliderJoint.hpp; sourceTree = "<group>"; };
@@ -2965,7 +2961,6 @@
 		2CDD4F15260A3F7100A51D68 /* P2WheelJointDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2WheelJointDetail.cpp; sourceTree = "<group>"; };
 		2CDD4F16260A3F7100A51D68 /* P2SliderJointDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2SliderJointDetail.hpp; sourceTree = "<group>"; };
 		2CDD4F17260A3F7100A51D68 /* P2PivotJointDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PivotJointDetail.cpp; sourceTree = "<group>"; };
-		2CDD4F18260A3F7100A51D68 /* P2RopeJointDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2RopeJointDetail.hpp; sourceTree = "<group>"; };
 		2CDD4F19260A3F7100A51D68 /* P2Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2Body.cpp; sourceTree = "<group>"; };
 		2CDD4F1A260A3F7100A51D68 /* P2WheelJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2WheelJoint.cpp; sourceTree = "<group>"; };
 		2CDD4F1B260A3F7100A51D68 /* P2Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2Triangle.cpp; sourceTree = "<group>"; };
@@ -2980,7 +2975,6 @@
 		2CDD4F24260A3F7100A51D68 /* P2WorldDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2WorldDetail.hpp; sourceTree = "<group>"; };
 		2CDD4F25260A3F7100A51D68 /* P2PivotJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PivotJoint.cpp; sourceTree = "<group>"; };
 		2CDD4F26260A3F7100A51D68 /* P2ContactListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2ContactListener.hpp; sourceTree = "<group>"; };
-		2CDD4F27260A3F7100A51D68 /* P2RopeJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2RopeJoint.cpp; sourceTree = "<group>"; };
 		2CDD4F28260A3F7100A51D68 /* P2BodyDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2BodyDetail.hpp; sourceTree = "<group>"; };
 		2CDD4F29260A3F7100A51D68 /* P2SliderJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2SliderJoint.cpp; sourceTree = "<group>"; };
 		2CDD4F2A260A3F7100A51D68 /* P2DistanceJointDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2DistanceJointDetail.hpp; sourceTree = "<group>"; };
@@ -2988,7 +2982,6 @@
 		2CDD4F2C260A3F7100A51D68 /* P2Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2Circle.cpp; sourceTree = "<group>"; };
 		2CDD4F2D260A3F7100A51D68 /* P2SliderJointDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2SliderJointDetail.cpp; sourceTree = "<group>"; };
 		2CDD4F2E260A3F7100A51D68 /* P2PivotJointDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2PivotJointDetail.hpp; sourceTree = "<group>"; };
-		2CDD4F2F260A3F7100A51D68 /* P2RopeJointDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2RopeJointDetail.cpp; sourceTree = "<group>"; };
 		2CDD4F50260A3F9500A51D68 /* b2_user_settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2_user_settings.h; sourceTree = "<group>"; };
 		2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_Metal.hpp; sourceTree = "<group>"; };
 		2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer2D_Metal.mm; sourceTree = "<group>"; };
@@ -3755,7 +3748,6 @@
 				2C2AA2E6260095D3003F3EBC /* P2Polygon.hpp */,
 				2C2AA2DF260095D3003F3EBC /* P2Quad.hpp */,
 				2C2AA2E7260095D3003F3EBC /* P2Rect.hpp */,
-				2C2AA2D7260095D3003F3EBC /* P2RopeJoint.hpp */,
 				2C2AA2EB260095D3003F3EBC /* P2Shape.hpp */,
 				2C2AA2E4260095D3003F3EBC /* P2ShapeType.hpp */,
 				2C2AA2DA260095D3003F3EBC /* P2SliderJoint.hpp */,
@@ -7092,8 +7084,6 @@
 				2CDD4F1C260A3F7100A51D68 /* P2Polygon.cpp */,
 				2CDD4F21260A3F7100A51D68 /* P2Quad.cpp */,
 				2CDD4F1D260A3F7100A51D68 /* P2Rect.cpp */,
-				2CDD4F27260A3F7100A51D68 /* P2RopeJoint.cpp */,
-				2CDD4F2F260A3F7100A51D68 /* P2RopeJointDetail.cpp */,
 				2CDD4F11260A3F7100A51D68 /* P2Shape.cpp */,
 				2CDD4F29260A3F7100A51D68 /* P2SliderJoint.cpp */,
 				2CDD4F2D260A3F7100A51D68 /* P2SliderJointDetail.cpp */,
@@ -7107,7 +7097,6 @@
 				2CDD4F26260A3F7100A51D68 /* P2ContactListener.hpp */,
 				2CDD4F2A260A3F7100A51D68 /* P2DistanceJointDetail.hpp */,
 				2CDD4F2E260A3F7100A51D68 /* P2PivotJointDetail.hpp */,
-				2CDD4F18260A3F7100A51D68 /* P2RopeJointDetail.hpp */,
 				2CDD4F16260A3F7100A51D68 /* P2SliderJointDetail.hpp */,
 				2CDD4F2B260A3F7100A51D68 /* P2WheelJointDetail.hpp */,
 				2CDD4F24260A3F7100A51D68 /* P2WorldDetail.hpp */,
@@ -7911,7 +7900,6 @@
 				2C43C8A725C837F100D6D613 /* ftcalc.h in Headers */,
 				2C2AA35326009C74003F3EBC /* b2_block_allocator.h in Headers */,
 				2C2AA39326009C74003F3EBC /* b2_friction_joint.h in Headers */,
-				2CDD4F38260A3F7100A51D68 /* P2RopeJointDetail.hpp in Headers */,
 				2C2AA38626009C74003F3EBC /* b2_distance.h in Headers */,
 				2C794B5925C4080A00034D81 /* CTexture_GL4.hpp in Headers */,
 				2C3477FD25DA94C100071EEF /* CacheDirectory.hpp in Headers */,
@@ -8261,7 +8249,6 @@
 				2CDD4F35260A3F7100A51D68 /* P2WheelJointDetail.cpp in Sources */,
 				2C47B6FB24EAC98A008D83BE /* ShaderFactory.mm in Sources */,
 				2C6390ED2536C5460030F18E /* MetalBackBuffer.mm in Sources */,
-				2CDD4F47260A3F7100A51D68 /* P2RopeJoint.cpp in Sources */,
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
 				2C13C9A225BD29FC0054B968 /* liolib.c in Sources */,
 				2C794B0D25C3DFC200034D81 /* zstd_double_fast.c in Sources */,
@@ -8628,7 +8615,6 @@
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
-				2CDD4F4F260A3F7100A51D68 /* P2RopeJointDetail.cpp in Sources */,
 				2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */,
 				2CDD4F30260A3F7100A51D68 /* P2WorldDetail.cpp in Sources */,
 				2C47B30724DD9789008D83BE /* SivParseBool.cpp in Sources */,
