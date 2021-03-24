@@ -36,20 +36,33 @@ namespace s3d
 		[[nodiscard]]
 		double getReactionTorque(double inv_dt) const;
 
-		P2DistanceJoint& setLength(double length);
+		P2DistanceJoint& setRestLength(double length);
 
 		[[nodiscard]]
-		double getLength() const;
+		double getRestLength() const;
 
-		P2DistanceJoint& setFrequencyHz(double hz);
-
-		[[nodiscard]]
-		double getFrequencyHz() const;
-
-		P2DistanceJoint& setDampingRatio(double ratio);
+		P2DistanceJoint& setMinLength(double length);
 
 		[[nodiscard]]
-		double getDampingRatio() const;
+		double getMinLength() const;
+
+		P2DistanceJoint& setMaxLength(double length);
+
+		[[nodiscard]]
+		double getMaxLength() const;
+
+		[[nodiscard]]
+		double getCurrentLength() const;
+
+		P2DistanceJoint& setStiffness(double stiffness);
+
+		[[nodiscard]]
+		double getStiffness() const;
+
+		P2DistanceJoint& setDamping(double damping);
+
+		[[nodiscard]]
+		double getDamping() const;
 
 		void draw(const ColorF& color = Palette::White) const;
 
@@ -60,6 +73,6 @@ namespace s3d
 		friend class detail::P2WorldDetail;
 
 		SIV3D_NODISCARD_CXX20
-		P2DistanceJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
+		P2DistanceJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
 	};
 }

@@ -93,10 +93,10 @@ namespace s3d
 		P2Body createPolygons(P2BodyType bodyType, const Vec2& worldPos, const MultiPolygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		[[nodiscard]]
-		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos);
 		
 		[[nodiscard]]
-		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
+		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
 
 		[[nodiscard]]
 		P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);

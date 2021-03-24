@@ -105,14 +105,14 @@ namespace s3d
 		return body;
 	}
 
-	P2PivotJoint detail::P2WorldDetail::createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	P2PivotJoint detail::P2WorldDetail::createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
 	{
-		return P2PivotJoint{ world, bodyA, bodyB, anchorPos };
+		return P2PivotJoint{ world, bodyA, bodyB, worldAnchorPos };
 	}
 
-	P2DistanceJoint detail::P2WorldDetail::createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
+	P2DistanceJoint detail::P2WorldDetail::createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length)
 	{
-		return P2DistanceJoint{ world, bodyA, anchorPosA, bodyB, anchorPosB, length };
+		return P2DistanceJoint{ world, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length };
 	}
 
 	P2SliderJoint detail::P2WorldDetail::createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis)

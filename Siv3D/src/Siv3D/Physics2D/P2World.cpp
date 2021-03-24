@@ -156,14 +156,14 @@ namespace s3d
 		}
 	}
 
-	P2PivotJoint P2World::createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	P2PivotJoint P2World::createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
 	{
-		return pImpl->createPivotJoint(pImpl, bodyA, bodyB, anchorPos);
+		return pImpl->createPivotJoint(pImpl, bodyA, bodyB, worldAnchorPos);
 	}
 
-	P2DistanceJoint P2World::createDistanceJoint(const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
+	P2DistanceJoint P2World::createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length)
 	{
-		return pImpl->createDistanceJoint(pImpl, bodyA, anchorPosA, bodyB, anchorPosB, length);
+		return pImpl->createDistanceJoint(pImpl, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length);
 	}
 
 	P2SliderJoint P2World::createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis)

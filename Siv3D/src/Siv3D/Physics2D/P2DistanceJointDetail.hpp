@@ -21,7 +21,7 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		P2DistanceJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
+		P2DistanceJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
 
 		~P2DistanceJointDetail();
 

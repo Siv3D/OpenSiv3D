@@ -16,13 +16,13 @@
 
 namespace s3d
 {
-	detail::P2PivotJointDetail::P2PivotJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	detail::P2PivotJointDetail::P2PivotJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
 		: m_world{ world }
 		, m_bodyA{ bodyA.getWeakPtr() }
 		, m_bodyB{ bodyB.getWeakPtr() }
 	{
 		b2RevoluteJointDef def;
-		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(anchorPos));
+		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(worldAnchorPos));
 		m_joint = static_cast<b2RevoluteJoint*>(m_world->getWorldPtr()->CreateJoint(&def));
 	}
 
