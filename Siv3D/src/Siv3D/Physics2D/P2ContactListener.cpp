@@ -88,8 +88,10 @@ namespace s3d
 		{
 			auto& collision = it->second;
 			collision.m_num_contacts = 0;
-			collision.m_contacts[0].clearImpulse();
-			collision.m_contacts[1].clearImpulse();
+			collision.m_contacts[0].normalImpulse = 0.0;
+			collision.m_contacts[0].tangentImpulse = 0.0;
+			collision.m_contacts[1].normalImpulse = 0.0;
+			collision.m_contacts[1].tangentImpulse = 0.0;
 		}
 	}
 }

@@ -21,15 +21,15 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		P2SliderJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+		P2SliderJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis);
 
 		~P2SliderJointDetail();
 
 		[[nodiscard]]
-		b2PrismaticJoint& getJoint();
+		b2PrismaticJoint& getJoint() noexcept;
 
 		[[nodiscard]]
-		const b2PrismaticJoint& getJoint() const;
+		const b2PrismaticJoint& getJoint() const noexcept;
 
 	private:
 

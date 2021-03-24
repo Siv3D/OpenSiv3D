@@ -18,7 +18,7 @@ namespace s3d
 	/// @brief 部品 (P2Shape) の材質
 	struct P2Material
 	{
-		/// @brief 部品の密度です。大きいほど面積当たりの重さが大きくなります。
+		/// @brief 部品の密度 (kg / m^2) です。大きいほど面積当たりの重さが大きくなります。
 		double density = 1.0;
 
 		/// @brief 部品の反発係数です。大きいほど反発しやすくなります。通常は [0.0, 1.0] の範囲です。

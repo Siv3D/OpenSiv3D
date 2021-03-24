@@ -13,7 +13,6 @@
 # include "../Common.hpp"
 # include "../ColorHSV.hpp"
 # include "P2Fwd.hpp"
-# include "P2Fixture.hpp"
 # include "P2ShapeType.hpp"
 
 namespace s3d
@@ -59,6 +58,7 @@ namespace s3d
 	
 	protected:
 
-		P2Fixture m_fixtures;
+		// Body の破棄時に自動的に解放される
+		Array<b2Fixture*> m_fixtures;
 	};
 }

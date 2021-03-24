@@ -24,12 +24,20 @@ namespace s3d
 		/// @brief 接触しているもう一方の物体の ID
 		P2BodyID b;
 
+		/// @brief 2 つのペアが等しいかを返します。
+		/// @param lhs 比較する値
+		/// @param rhs 比較する値
+		/// @return 2 つのペアが等しい場合 true, それ以外の場合は false
 		[[nodiscard]]
 		friend constexpr bool operator ==(const P2ContactPair& lhs, const P2ContactPair& rhs) noexcept
 		{
 			return (lhs.a == rhs.a) && (lhs.b == rhs.b);
 		}
 
+		/// @brief 2 つのペアが異なるかを返します。
+		/// @param lhs 比較する値
+		/// @param rhs 比較する値
+		/// @return 2 つのペアが異なる場合 true, それ以外の場合は false
 		[[nodiscard]]
 		friend constexpr bool operator !=(const P2ContactPair& lhs, const P2ContactPair& rhs) noexcept
 		{

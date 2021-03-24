@@ -32,7 +32,7 @@ namespace s3d
 
 		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
-		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
 	P2ShapeType P2Line::getShapeType() const noexcept
@@ -62,7 +62,7 @@ namespace s3d
 
 	Line P2Line::getLine() const
 	{
-		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 		return{ detail::CalcVec2(m_pShape->m_vertex1, transform), detail::CalcVec2(m_pShape->m_vertex2, transform) };
 	}
 }

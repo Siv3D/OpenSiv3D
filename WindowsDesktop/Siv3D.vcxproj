@@ -394,7 +394,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Body.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Collision.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Contact.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Body.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2BodyType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Circle.hpp" />
@@ -403,7 +402,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2ContactPair.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2DistanceJoint.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Filter.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fixture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fwd.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Line.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2LineString.hpp" />

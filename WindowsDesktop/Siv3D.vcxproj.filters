@@ -4374,9 +4374,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Filter.hpp">
       <Filter>include\Siv3D\Physics2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fixture.hpp">
-      <Filter>include\Siv3D\Physics2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Fwd.hpp">
       <Filter>include\Siv3D\Physics2D</Filter>
     </ClInclude>
@@ -4565,9 +4562,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\box2d\dynamics\b2_island.h">
       <Filter>src\ThirdParty\box2d\dynamics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Contact.ipp">
-      <Filter>include\Siv3D\Physics2D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Collision.ipp">
       <Filter>include\Siv3D\Physics2D\detail</Filter>

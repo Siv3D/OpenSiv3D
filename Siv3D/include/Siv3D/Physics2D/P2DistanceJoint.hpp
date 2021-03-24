@@ -24,6 +24,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		P2DistanceJoint() = default;
 
+		void release();
+
 		[[nodiscard]]
 		Vec2 getAnchorPosA() const;
 
@@ -31,10 +33,10 @@ namespace s3d
 		Vec2 getAnchorPosB() const;
 
 		[[nodiscard]]
-		Vec2 getReactionForce(double inv_dt) const;
+		Vec2 getReactionForce(double timeStep) const;
 
 		[[nodiscard]]
-		double getReactionTorque(double inv_dt) const;
+		double getReactionTorque(double timeStep) const;
 
 		P2DistanceJoint& setRestLength(double length);
 
@@ -63,6 +65,8 @@ namespace s3d
 
 		[[nodiscard]]
 		double getDamping() const;
+
+		P2DistanceJoint& setLinearStiffness(double frequencyHz, double dampingRatio);
 
 		void draw(const ColorF& color = Palette::White) const;
 

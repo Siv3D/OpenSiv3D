@@ -154,34 +154,34 @@ namespace s3d
 		return pImpl->getJoint().GetMaxMotorTorque();
 	}
 
-	Vec2 P2PivotJoint::getReactionForce(const double inv_dt) const
+	Vec2 P2PivotJoint::getReactionForce(const double timeStep) const
 	{
 		if (not pImpl)
 		{
 			return{ 0.0, 0.0 };
 		}
 
-		return detail::ToVec2(pImpl->getJoint().GetReactionForce(static_cast<float>(inv_dt)));
+		return detail::ToVec2(pImpl->getJoint().GetReactionForce(static_cast<float>(1.0 / timeStep)));
 	}
 
-	double P2PivotJoint::getReactionTorque(const double inv_dt) const
+	double P2PivotJoint::getReactionTorque(const double timeStep) const
 	{
 		if (not pImpl)
 		{
 			return 0.0;
 		}
 
-		return pImpl->getJoint().GetReactionTorque(static_cast<float>(inv_dt));
+		return pImpl->getJoint().GetReactionTorque(static_cast<float>(1.0 / timeStep));
 	}
 
-	double P2PivotJoint::getMotorTorque(const double inv_dt) const
+	double P2PivotJoint::getMotorTorque(const double timeStep) const
 	{
 		if (not pImpl)
 		{
 			return 0.0;
 		}
 
-		return pImpl->getJoint().GetMotorTorque(static_cast<float>(inv_dt));
+		return pImpl->getJoint().GetMotorTorque(static_cast<float>(1.0 / timeStep));
 	}
 
 	void P2PivotJoint::draw(const ColorF& color) const

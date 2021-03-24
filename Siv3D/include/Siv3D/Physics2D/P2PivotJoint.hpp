@@ -24,6 +24,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		P2PivotJoint() = default;
 
+		void release();
+
 		[[nodiscard]]
 		Vec2 getAnchorPos() const;
 
@@ -59,13 +61,13 @@ namespace s3d
 		double getMaxMotorTorque() const;
 
 		[[nodiscard]]
-		Vec2 getReactionForce(double inv_dt) const;
+		Vec2 getReactionForce(double timeStep) const;
 
 		[[nodiscard]]
-		double getReactionTorque(double inv_dt) const;
+		double getReactionTorque(double timeStep) const;
 
 		[[nodiscard]]
-		double getMotorTorque(double inv_dt) const;
+		double getMotorTorque(double timeStep) const;
 
 		void draw(const ColorF& color = Palette::White) const;
 

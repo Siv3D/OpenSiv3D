@@ -26,10 +26,12 @@ namespace s3d
 		~P2DistanceJointDetail();
 
 		[[nodiscard]]
-		b2DistanceJoint& getJoint();
+		b2DistanceJoint& getJoint() noexcept;
 
 		[[nodiscard]]
-		const b2DistanceJoint& getJoint() const;
+		const b2DistanceJoint& getJoint() const noexcept;
+
+		void setLinearStiffness(double frequencyHz, double dampingRatio) noexcept;
 
 	private:
 

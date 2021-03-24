@@ -58,7 +58,7 @@ namespace s3d
 		P2DistanceJoint createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
 
 		[[nodiscard]]
-		P2SliderJoint createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
+		P2SliderJoint createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis);
 
 		[[nodiscard]]
 		P2WheelJoint createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis);

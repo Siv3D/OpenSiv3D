@@ -30,7 +30,7 @@ namespace s3d
 
 			const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
 
-			m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+			m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 		}
 	}
 
@@ -41,7 +41,7 @@ namespace s3d
 
 	void P2Polygon::draw(const ColorF& color) const
 	{
-		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 
 		m_basePolygon.drawTransformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y), color);
 	}
@@ -58,7 +58,7 @@ namespace s3d
 
 	Polygon P2Polygon::getPolygon() const
 	{
-		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 
 		return m_basePolygon.transformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y));
 	}

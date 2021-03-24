@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include <Siv3D/Physics2D/P2Shape.hpp>
-# include <Siv3D/Physics2D/P2Fixture.hpp>
 # include "P2Common.hpp"
 
 namespace s3d
@@ -19,7 +18,7 @@ namespace s3d
 	{
 		const double scaledDensity = (density * detail::P2DensityScale);
 
-		for (auto& fixture : m_fixtures.fixtures)
+		for (auto& fixture : m_fixtures)
 		{
 			fixture->SetDensity(static_cast<float>(scaledDensity));
 		}
@@ -27,12 +26,12 @@ namespace s3d
 
 	double P2Shape::getDensity() const noexcept
 	{
-		return (m_fixtures.fixtures[0]->GetDensity() * detail::P2DensityScaleInv);
+		return (m_fixtures.front()->GetDensity() * detail::P2DensityScaleInv);
 	}
 
 	void P2Shape::setRestitution(const double restitution) noexcept
 	{
-		for (auto& fixture : m_fixtures.fixtures)
+		for (auto& fixture : m_fixtures)
 		{
 			fixture->SetRestitution(static_cast<float>(restitution));
 		}
@@ -40,12 +39,12 @@ namespace s3d
 
 	double P2Shape::getRestitution() const noexcept
 	{
-		return m_fixtures.fixtures[0]->GetRestitution();
+		return m_fixtures.front()->GetRestitution();
 	}
 
 	void P2Shape::setFriction(const double friction) noexcept
 	{
-		for (auto& fixture : m_fixtures.fixtures)
+		for (auto& fixture : m_fixtures)
 		{
 			fixture->SetFriction(static_cast<float>(friction));
 		}
@@ -53,12 +52,12 @@ namespace s3d
 
 	double P2Shape::getFriction() const noexcept
 	{
-		return m_fixtures.fixtures[0]->GetFriction();
+		return m_fixtures.front()->GetFriction();
 	}
 
 	void P2Shape::setRestitutionThreshold(const double restitutionThreshold) noexcept
 	{
-		for (auto& fixture : m_fixtures.fixtures)
+		for (auto& fixture : m_fixtures)
 		{
 			fixture->SetRestitutionThreshold(static_cast<float>(restitutionThreshold * detail::P2RestitutionThresholdScale));
 		}
@@ -66,7 +65,7 @@ namespace s3d
 
 	double P2Shape::getRestitutionThreshold() const noexcept
 	{
-		return (m_fixtures.fixtures[0]->GetRestitutionThreshold() * detail::P2RestitutionThresholdScaleInv);
+		return (m_fixtures.front()->GetRestitutionThreshold() * detail::P2RestitutionThresholdScaleInv);
 	}
 
 	void P2Shape::setFilter(const P2Filter& filter) noexcept
@@ -76,7 +75,7 @@ namespace s3d
 		filterData.maskBits		= filter.maskBits;
 		filterData.groupIndex	= filter.groupIndex;
 
-		for (auto& fixture : m_fixtures.fixtures)
+		for (auto& fixture : m_fixtures)
 		{
 			fixture->SetFilterData(filterData);
 		}
@@ -84,7 +83,7 @@ namespace s3d
 
 	P2Filter P2Shape::getFilter() const noexcept
 	{
-		const auto& filterData = m_fixtures.fixtures[0]->GetFilterData();
+		const auto& filterData = m_fixtures.front()->GetFilterData();
 		P2Filter filter;
 		filter.categoryBits	= filterData.categoryBits;
 		filter.maskBits		= filterData.maskBits;

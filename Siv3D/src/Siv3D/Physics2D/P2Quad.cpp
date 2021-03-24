@@ -23,7 +23,7 @@ namespace s3d
 
 		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
-		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
 	P2ShapeType P2Quad::getShapeType() const noexcept
@@ -48,7 +48,7 @@ namespace s3d
 
 	Quad P2Quad::getQuad() const
 	{
-		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 		return{
 			detail::CalcVec2(m_pShape->m_vertices[0], transform),
 			detail::CalcVec2(m_pShape->m_vertices[1], transform),

@@ -40,13 +40,8 @@ namespace s3d
 		return m_contacts[index];
 	}
 
-	inline constexpr bool P2Collision::isEmpty() const noexcept
+	inline constexpr bool P2Collision::hasContacts() const noexcept
 	{
-		return (m_num_contacts == 0);
-	}
-
-	inline constexpr P2Collision::operator bool() const noexcept
-	{
-		return (m_num_contacts != 0);
+		return (0 < m_num_contacts);
 	}
 }

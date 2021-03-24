@@ -24,6 +24,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		P2WheelJoint() = default;
 
+		void release();
+
 		[[nodiscard]]
 		Vec2 getAnchorPosA() const;
 

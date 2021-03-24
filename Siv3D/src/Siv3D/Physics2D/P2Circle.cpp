@@ -23,7 +23,7 @@ namespace s3d
 
 		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
-		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
 	P2ShapeType P2Circle::getShapeType() const noexcept
@@ -48,6 +48,6 @@ namespace s3d
 
 	Circle P2Circle::getCircle() const
 	{
-		return{ detail::CalcVec2(m_pShape->m_p, m_fixtures.fixtures[0]->GetBody()->GetTransform()), m_pShape->m_radius };
+		return{ detail::CalcVec2(m_pShape->m_p, m_fixtures.front()->GetBody()->GetTransform()), m_pShape->m_radius };
 	}
 }

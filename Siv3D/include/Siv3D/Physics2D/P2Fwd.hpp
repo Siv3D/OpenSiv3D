@@ -34,7 +34,6 @@ namespace s3d
 	class P2Collision;
 	class P2World;
 	class P2Body;
-	struct P2Fixture;
 	class P2Shape;
 	class P2Line;
 	class P2LineString;

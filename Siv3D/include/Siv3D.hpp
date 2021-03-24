@@ -1067,7 +1067,6 @@
 # include <Siv3D/Physics2D/P2Collision.hpp>
 # include <Siv3D/Physics2D/P2World.hpp>
 # include <Siv3D/Physics2D/P2Body.hpp>
-# include <Siv3D/Physics2D/P2Fixture.hpp>
 # include <Siv3D/Physics2D/P2Shape.hpp>
 # include <Siv3D/Physics2D/P2Line.hpp>
 # include <Siv3D/Physics2D/P2LineString.hpp>

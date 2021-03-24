@@ -39,24 +39,24 @@ namespace s3d
 		return detail::ToVec2(pImpl->getJoint().GetAnchorB());
 	}
 
-	Vec2 P2DistanceJoint::getReactionForce(const double inv_dt) const
+	Vec2 P2DistanceJoint::getReactionForce(const double timeStep) const
 	{
 		if (not pImpl)
 		{
 			return{ 0.0, 0.0 };
 		}
 
-		return detail::ToVec2(pImpl->getJoint().GetReactionForce(static_cast<float>(inv_dt)));
+		return detail::ToVec2(pImpl->getJoint().GetReactionForce(static_cast<float>(1.0 / timeStep)));
 	}
 
-	double P2DistanceJoint::getReactionTorque(const double inv_dt) const
+	double P2DistanceJoint::getReactionTorque(const double timeStep) const
 	{
 		if (not pImpl)
 		{
 			return 0.0;
 		}
 
-		return pImpl->getJoint().GetReactionTorque(static_cast<float>(inv_dt));
+		return pImpl->getJoint().GetReactionTorque(static_cast<float>(1.0 / timeStep));
 	}
 
 	P2DistanceJoint& P2DistanceJoint::setRestLength(const double length)
@@ -172,6 +172,17 @@ namespace s3d
 		}
 
 		return pImpl->getJoint().GetDamping();
+	}
+
+	P2DistanceJoint& P2DistanceJoint::setLinearStiffness(const double frequencyHz, const double dampingRatio)
+	{
+		if (not pImpl)
+		{
+			return *this;
+		}
+
+		pImpl->setLinearStiffness(frequencyHz, dampingRatio);
+		return *this;
 	}
 
 	void P2DistanceJoint::draw(const ColorF& color) const
