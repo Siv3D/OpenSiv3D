@@ -88,13 +88,13 @@ namespace s3d
 		m_systemCursors[FromEnum(CursorStyle::Arrow)]			= U"default";
 		m_systemCursors[FromEnum(CursorStyle::IBeam)]			= U"text";
 		m_systemCursors[FromEnum(CursorStyle::Cross)]			= U"crosshair";
-		m_systemCursors[FromEnum(CursorStyle::Hand)]			= U"grab";
+		m_systemCursors[FromEnum(CursorStyle::Hand)]			= U"pointer";
 		m_systemCursors[FromEnum(CursorStyle::NotAllowed)]		= U"not-allowed";
 		m_systemCursors[FromEnum(CursorStyle::ResizeUpDown)]	= U"ns-resize";
 		m_systemCursors[FromEnum(CursorStyle::ResizeLeftRight)]	= U"ew-resize";
 		m_systemCursors[FromEnum(CursorStyle::ResizeNWSE)]		= U"nwse-resize";
 		m_systemCursors[FromEnum(CursorStyle::ResizeNESW)]		= U"nesw-resize";
-		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= U"move";
+		m_systemCursors[FromEnum(CursorStyle::ResizeAll)]		= U"all-scroll";
 		m_systemCursors[FromEnum(CursorStyle::Hidden)]			= U"none";
 
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
