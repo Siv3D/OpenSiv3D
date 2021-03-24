@@ -1492,7 +1492,6 @@
 		2C2AA2DB260095D3003F3EBC /* P2Circle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Circle.hpp; sourceTree = "<group>"; };
 		2C2AA2DC260095D3003F3EBC /* P2BodyType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2BodyType.hpp; sourceTree = "<group>"; };
 		2C2AA2DD260095D3003F3EBC /* P2Fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Fwd.hpp; sourceTree = "<group>"; };
-		2C2AA2DE260095D3003F3EBC /* P2Fixture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Fixture.hpp; sourceTree = "<group>"; };
 		2C2AA2DF260095D3003F3EBC /* P2Quad.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Quad.hpp; sourceTree = "<group>"; };
 		2C2AA2E0260095D3003F3EBC /* P2DistanceJoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2DistanceJoint.hpp; sourceTree = "<group>"; };
 		2C2AA2E1260095D3003F3EBC /* P2ContactPair.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2ContactPair.hpp; sourceTree = "<group>"; };
@@ -2951,7 +2950,6 @@
 		2CC7D4AF25FA3A9100289963 /* SivVideoTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoTexture.cpp; sourceTree = "<group>"; };
 		2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoTextureDetail.cpp; sourceTree = "<group>"; };
 		2CDD4F0C260A3F5700A51D68 /* P2Body.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Body.ipp; sourceTree = "<group>"; };
-		2CDD4F0D260A3F5700A51D68 /* P2Contact.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Contact.ipp; sourceTree = "<group>"; };
 		2CDD4F0E260A3F5700A51D68 /* P2Collision.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Collision.ipp; sourceTree = "<group>"; };
 		2CDD4F10260A3F7100A51D68 /* P2WorldDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2WorldDetail.cpp; sourceTree = "<group>"; };
 		2CDD4F11260A3F7100A51D68 /* P2Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2Shape.cpp; sourceTree = "<group>"; };
@@ -3739,7 +3737,6 @@
 				2C2AA2E1260095D3003F3EBC /* P2ContactPair.hpp */,
 				2C2AA2E0260095D3003F3EBC /* P2DistanceJoint.hpp */,
 				2C2AA2ED260095D3003F3EBC /* P2Filter.hpp */,
-				2C2AA2DE260095D3003F3EBC /* P2Fixture.hpp */,
 				2C2AA2DD260095D3003F3EBC /* P2Fwd.hpp */,
 				2C2AA2D6260095D3003F3EBC /* P2Line.hpp */,
 				2C2AA2E9260095D3003F3EBC /* P2LineString.hpp */,
@@ -7063,7 +7060,6 @@
 			children = (
 				2CDD4F0C260A3F5700A51D68 /* P2Body.ipp */,
 				2CDD4F0E260A3F5700A51D68 /* P2Collision.ipp */,
-				2CDD4F0D260A3F5700A51D68 /* P2Contact.ipp */,
 			);
 			path = detail;
 			sourceTree = "<group>";
