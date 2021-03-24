@@ -16,5 +16,6 @@
 
 namespace s3d
 {
-
+	P2DistanceJoint::P2DistanceJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
+		: pImpl{ std::make_shared<detail::P2DistanceJointDetail>(world, bodyA, anchorPosA, bodyB, anchorPosB, length) } {}
 }
