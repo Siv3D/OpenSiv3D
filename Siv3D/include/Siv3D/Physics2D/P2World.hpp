@@ -27,30 +27,52 @@
 
 namespace s3d
 {
+	/// @brief 2D 物理演算を行うワールド
 	class P2World
 	{
 	public:
 
+		/// @brief 2D 物理演算を行うワールドを作成します。
+		/// @param gravity 重力加速度 (cm/s^2)
 		SIV3D_NODISCARD_CXX20
 		explicit P2World(double gravity = 980);
 
+		/// @brief 2D 物理演算を行うワールドを作成します。
+		/// @param gravity 重力加速度のベクトル (cm/s^2)
 		SIV3D_NODISCARD_CXX20
 		explicit P2World(Vec2 gravity);
 
+		/// @brief 2D 物理演算のワールドの状態を更新します。
+		/// @param timeStep タイムステップ（秒）
+		/// @param velocityIterations 物体の衝突時の速度の補正の回数
+		/// @param positionIterations 物体の衝突時の位置の補正の回数
 		void update(double timeStep = Scene::DeltaTime(), int32 velocityIterations = 6, int32 positionIterations = 2) const;
 
+		/// @brief ワールド内の物体がスリープ状態になることを許可・不許可を設定します（デフォルトでは許可）。
+		/// @param enabled 許可する場合 true, 許可しない場合 false
 		void setSleepEnabled(bool enabled);
 
+		/// @brief ワールド内の物体がスリープ状態になることを許可しているかの現在の設定を返します。
+		/// @return スリープを許可している場合 true, 許可していない場合 false
 		[[nodiscard]]
 		bool getSleepEnabled() const;
 
+		/// @brief 重力加速度 (cm/s^2) を設定します。
+		/// @remark `setGravity(Vec2{ 0, gravity })` と同じです。
+		/// @param gravity 重力加速度 (cm/s^2)
 		void setGravity(double gravity);
 
+		/// @brief 重力加速度 (cm/s^2) を設定します。
+		/// @param gravity 重力加速度のベクトル (cm/s^2)
 		void setGravity(const Vec2& gravity);
 
+		/// @brief 現在の重力加速度の設定を返します。
+		/// @return 現在の重力加速度の設定 (cm/s^2)
 		[[nodiscard]]
 		Vec2 getGravity() const;
 
+		/// @brief ワールドの物体全ての座標をシフトします。
+		/// @param newOrigin シフト量
 		void shiftOrigin(const Vec2& newOrigin);
 
 		[[nodiscard]]
