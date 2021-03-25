@@ -35,10 +35,10 @@ namespace s3d
 		[[nodiscard]]
 		double getJointAngleSpeed() const;
 
-		P2PivotJoint& setLimitEnabled(bool enabled);
+		P2PivotJoint& setLimitsEnabled(bool enabled);
 
 		[[nodiscard]]
-		bool getLimitEnabled() const;
+		bool getLimitsEnabled() const;
 
 		P2PivotJoint& setLimits(double lower, double upper);
 

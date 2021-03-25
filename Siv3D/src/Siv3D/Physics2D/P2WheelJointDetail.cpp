@@ -40,4 +40,38 @@ namespace s3d
 
 		m_world->getWorldPtr()->DestroyJoint(m_joint);
 	}
+
+	b2WheelJoint& detail::P2WheelJointDetail::getJoint()
+	{
+		assert(m_joint);
+
+		return *m_joint;
+	}
+
+	const b2WheelJoint& detail::P2WheelJointDetail::getJoint() const
+	{
+		assert(m_joint);
+
+		return *m_joint;
+	}
+
+	void detail::P2WheelJointDetail::setLinearStiffness(const double frequencyHz, const double dampingRatio) noexcept
+	{
+		assert(m_joint);
+
+		auto pA = m_bodyA.lock();
+		auto pB = m_bodyB.lock();
+
+		if (not pA || not pB)
+		{
+			return;
+		}
+
+		float stiffness, damping;
+		b2LinearStiffness(stiffness, damping, static_cast<float>(frequencyHz), static_cast<float>(dampingRatio),
+			pA->getBodyPtr(), pB->getBodyPtr());
+
+		m_joint->SetStiffness(stiffness);
+		m_joint->SetDamping(damping);
+	}
 }

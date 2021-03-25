@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	/// @brief 部品 (P2Shape) のフィルタ
+	/// @brief 部品 (P2Shape) の干渉フィルタ
 	/// @reamark 部品 (P2Shape) にカテゴリビットフラグを指定し、特定のビットフラグを持つ部品と干渉しないようにできます。
 	/// @remark 部品 A, B について ((A.maskBits & B.categoryBits) != 0) && ((B.maskBits & A.categoryBits) != 0) のときのみ干渉が発生します。
 	struct P2Filter

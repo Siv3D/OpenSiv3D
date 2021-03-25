@@ -31,6 +31,8 @@ namespace s3d
 		[[nodiscard]]
 		const b2WheelJoint& getJoint() const;
 
+		void setLinearStiffness(double frequencyHz, double dampingRatio) noexcept;
+
 	private:
 
 		b2WheelJoint* m_joint = nullptr;

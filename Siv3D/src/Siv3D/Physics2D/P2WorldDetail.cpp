@@ -120,9 +120,9 @@ namespace s3d
 		return P2SliderJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis };
 	}
 
-	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis)
+	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis)
 	{
-		return P2WheelJoint{ world, bodyA, bodyB, anchorPos, axis };
+		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, axis };
 	}
 
 	const HashTable<P2ContactPair, P2Collision>& detail::P2WorldDetail::getCollisions() const noexcept

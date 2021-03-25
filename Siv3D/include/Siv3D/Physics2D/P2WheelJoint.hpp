@@ -33,10 +33,10 @@ namespace s3d
 		Vec2 getAnchorPosB() const;
 
 		[[nodiscard]]
-		Vec2 getReactionForce(double inv_dt) const;
+		Vec2 getReactionForce(double timeStep) const;
 
 		[[nodiscard]]
-		double getReactionTorque(double inv_dt) const;
+		double getReactionTorque(double timeStep) const;
 
 		[[nodiscard]]
 		double getJointTranslation() const;
@@ -49,6 +49,15 @@ namespace s3d
 
 		[[nodiscard]]
 		double getJointAngularSpeed() const;
+
+		P2WheelJoint& setLimitsEnabled(bool enabled);
+
+		bool getLimitsEnabled() const;
+
+		P2WheelJoint& setLimits(double lower, double upper);
+
+		[[nodiscard]]
+		std::pair<double, double> getLimits() const;
 
 		P2WheelJoint& setMotorEnabled(bool enabled);
 
@@ -66,17 +75,19 @@ namespace s3d
 		double getMaxMotorTorque() const;
 
 		[[nodiscard]]
-		double getMotorTorque(double inv_dt) const;
+		double getMotorTorque(double timeStep) const;
 
-		P2WheelJoint& setSpringFrequencyHz(double hz);
-
-		[[nodiscard]]
-		double getSpringFrequencyHz() const;
-
-		P2WheelJoint& setSpringDampingRatio(double ratio);
+		P2WheelJoint& setStiffness(double stiffness);
 
 		[[nodiscard]]
-		double getSpringDampingRatio() const;
+		double getStiffness() const;
+
+		P2WheelJoint& setDamping(double damping);
+
+		[[nodiscard]]
+		double getDamping() const;
+
+		P2WheelJoint& setLinearStiffness(double frequencyHz, double dampingRatio);
 
 		void draw(const ColorF& color = Palette::White) const;
 
@@ -87,6 +98,6 @@ namespace s3d
 		friend class detail::P2WorldDetail;
 
 		SIV3D_NODISCARD_CXX20
-		P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchor, const Vec2& axis);
+		P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis);
 	};
 }

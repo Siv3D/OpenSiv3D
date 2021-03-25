@@ -71,61 +71,182 @@ namespace s3d
 		[[nodiscard]]
 		Vec2 getGravity() const;
 
-		/// @brief ワールドの物体全ての座標をシフトします。
-		/// @param newOrigin シフト量
+		/// @brief ワールドの物体全ての座標 (cm) をシフトします。
+		/// @param newOrigin シフト量 (cm) 
 		void shiftOrigin(const Vec2& newOrigin);
 
+		/// @brief プレースホルダーとなる物体を作成します。
+		/// @remark プレースホルダーは、部品を持っていない状態の物体です。何もないところにジョイントを作ったり、あとから部品を追加する目的で使います。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createPlaceholder(P2BodyType bodyType, const Vec2& worldPos);
 
+		/// @brief 線分を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createLine(P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 連続する複数の線分を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createLineString(P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 連続する複数の線分（終点と始点を結ぶ）を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createClosedLineString(P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 円を部品として持つ物体を作成します。
+		/// @remark 円の中心座標は `worldPos` です。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param r 円形の部品の半径 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createCircle(P2BodyType bodyType, const Vec2& worldPos, double r, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 円を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createCircle(P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 正方形を部品として持つ物体を作成します。
+		/// @remark 正方形の中心座標は `worldPos` です。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param size 正方形の一辺の長さ (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, double size, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 長方形を部品として持つ物体を作成します。
+		/// @remark 長方形の中心座標は `worldPos` です。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param size 長方形の幅と高さ (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, const SizeF& size, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 長方形を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 三角形を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createTriangle(P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 凸な四角形を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createQuad(P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 多角形を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createPolygon(P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 複数の多角形を部品として持つ物体を作成します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return 作成した物体
 		[[nodiscard]]
 		P2Body createPolygons(P2BodyType bodyType, const Vec2& worldPos, const MultiPolygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 回転ジョイントを作成します。
+		/// @param bodyA 接続する物体
+		/// @param bodyB 接続する物体
+		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
+		/// @return 作成したジョイント
 		[[nodiscard]]
 		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos);
-		
+
+		/// @brief 距離ジョイントを作成します。
+		/// @param bodyA 接続する物体 A
+		/// @param worldAnchorPosA 物体 A のジョイントのワールド座標 (cm) 
+		/// @param bodyB 接続する物体 B
+		/// @param worldAnchorPosB 物体 B のジョイントのワールド座標 (cm) 
+		/// @param length ジョイントの静止長 (cm)
+		/// @return 作成したジョイント
 		[[nodiscard]]
 		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
 
+		/// @brief スライダージョイントを作成します。
+		/// @param bodyA 接続する物体 A
+		/// @param bodyB 接続する物体 B
+		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
+		/// @param normalizedAxis スライダーの方向の単位ベクトル
+		/// @return 作成したジョイント
 		[[nodiscard]]
 		P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis);
 
+		/// @brief ホイールジョイントを作成します。
+		/// @param bodyA 接続する物体 A
+		/// @param bodyB 接続する物体 B
+		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
+		/// @param axis box2d
+		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& axis);
+		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis);
 
+		/// @brief 物体の接触情報の一覧を返します。
+		/// @return 物体の接触情報の一覧
 		[[nodiscard]]
 		const HashTable<P2ContactPair, P2Collision>& getCollisions() const noexcept;
 

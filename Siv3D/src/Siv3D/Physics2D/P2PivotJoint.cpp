@@ -19,6 +19,11 @@ namespace s3d
 	P2PivotJoint::P2PivotJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
 		: pImpl(std::make_shared<detail::P2PivotJointDetail>(world, bodyA, bodyB, worldAnchorPos)) {}
 
+	void P2PivotJoint::release()
+	{
+		pImpl.reset();
+	}
+
 	Vec2 P2PivotJoint::getAnchorPos() const
 	{
 		if (not pImpl)
@@ -49,7 +54,7 @@ namespace s3d
 		return pImpl->getJoint().GetJointSpeed();
 	}
 
-	P2PivotJoint& P2PivotJoint::setLimitEnabled(const bool enabled)
+	P2PivotJoint& P2PivotJoint::setLimitsEnabled(const bool enabled)
 	{
 		if (not pImpl)
 		{
@@ -60,7 +65,7 @@ namespace s3d
 		return *this;
 	}
 
-	bool P2PivotJoint::getLimitEnabled() const
+	bool P2PivotJoint::getLimitsEnabled() const
 	{
 		if (not pImpl)
 		{
