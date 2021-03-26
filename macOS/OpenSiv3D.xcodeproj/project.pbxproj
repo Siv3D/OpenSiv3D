@@ -1066,6 +1066,9 @@
 		2C9FFD4725F60622000723D8 /* SivOpenCV_Bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FFD4625F60622000723D8 /* SivOpenCV_Bridge.cpp */; };
 		2C9FFE9425F66DCA000723D8 /* ImagePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */; };
 		2C9FFE9525F66DCA000723D8 /* ImagePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */; };
+		2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0EE1A260E3B4D004269AF /* P2MouseJoint.cpp */; };
+		2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0EE1B260E3B4D004269AF /* P2MouseJointDetail.cpp */; };
+		2CA0EE1F260E3B4D004269AF /* P2MouseJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA0EE1C260E3B4D004269AF /* P2MouseJointDetail.hpp */; };
 		2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CAAA8B525E7FD3100C014D7 /* SivPutText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8B425E7FD3100C014D7 /* SivPutText.cpp */; };
 		2CAAA8B825E7FD4A00C014D7 /* SivDynamicTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8B725E7FD4A00C014D7 /* SivDynamicTexture.cpp */; };
@@ -2467,6 +2470,10 @@
 		2C9FFD4625F60622000723D8 /* SivOpenCV_Bridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenCV_Bridge.cpp; sourceTree = "<group>"; };
 		2C9FFE9225F66DCA000723D8 /* ImagePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImagePainting.hpp; sourceTree = "<group>"; };
 		2C9FFE9325F66DCA000723D8 /* ImagePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImagePainting.cpp; sourceTree = "<group>"; };
+		2CA0EE19260E3B38004269AF /* P2MouseJoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2MouseJoint.hpp; sourceTree = "<group>"; };
+		2CA0EE1A260E3B4D004269AF /* P2MouseJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2MouseJoint.cpp; sourceTree = "<group>"; };
+		2CA0EE1B260E3B4D004269AF /* P2MouseJointDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2MouseJointDetail.cpp; sourceTree = "<group>"; };
+		2CA0EE1C260E3B4D004269AF /* P2MouseJointDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = P2MouseJointDetail.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CAAA6E725E7FD0200C014D7 /* Addon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Addon.hpp; sourceTree = "<group>"; };
@@ -3728,7 +3735,6 @@
 		2C2AA2D5260095D3003F3EBC /* Physics2D */ = {
 			isa = PBXGroup;
 			children = (
-				2CDD4F0B260A3F5700A51D68 /* detail */,
 				2C2AA2E2260095D3003F3EBC /* P2Body.hpp */,
 				2C2AA2DC260095D3003F3EBC /* P2BodyType.hpp */,
 				2C2AA2DB260095D3003F3EBC /* P2Circle.hpp */,
@@ -3741,6 +3747,7 @@
 				2C2AA2D6260095D3003F3EBC /* P2Line.hpp */,
 				2C2AA2E9260095D3003F3EBC /* P2LineString.hpp */,
 				2C2AA2EC260095D3003F3EBC /* P2Material.hpp */,
+				2CA0EE19260E3B38004269AF /* P2MouseJoint.hpp */,
 				2C2AA2D8260095D3003F3EBC /* P2PivotJoint.hpp */,
 				2C2AA2E6260095D3003F3EBC /* P2Polygon.hpp */,
 				2C2AA2DF260095D3003F3EBC /* P2Quad.hpp */,
@@ -3751,6 +3758,7 @@
 				2C2AA2E5260095D3003F3EBC /* P2Triangle.hpp */,
 				2C2AA2E3260095D3003F3EBC /* P2WheelJoint.hpp */,
 				2C2AA2E8260095D3003F3EBC /* P2World.hpp */,
+				2CDD4F0B260A3F5700A51D68 /* detail */,
 			);
 			path = Physics2D;
 			sourceTree = "<group>";
@@ -7075,6 +7083,8 @@
 				2CDD4F14260A3F7100A51D68 /* P2DistanceJointDetail.cpp */,
 				2CDD4F23260A3F7100A51D68 /* P2Line.cpp */,
 				2CDD4F1F260A3F7100A51D68 /* P2LineString.cpp */,
+				2CA0EE1A260E3B4D004269AF /* P2MouseJoint.cpp */,
+				2CA0EE1B260E3B4D004269AF /* P2MouseJointDetail.cpp */,
 				2CDD4F25260A3F7100A51D68 /* P2PivotJoint.cpp */,
 				2CDD4F17260A3F7100A51D68 /* P2PivotJointDetail.cpp */,
 				2CDD4F1C260A3F7100A51D68 /* P2Polygon.cpp */,
@@ -7092,6 +7102,7 @@
 				2CDD4F20260A3F7100A51D68 /* P2Common.hpp */,
 				2CDD4F26260A3F7100A51D68 /* P2ContactListener.hpp */,
 				2CDD4F2A260A3F7100A51D68 /* P2DistanceJointDetail.hpp */,
+				2CA0EE1C260E3B4D004269AF /* P2MouseJointDetail.hpp */,
 				2CDD4F2E260A3F7100A51D68 /* P2PivotJointDetail.hpp */,
 				2CDD4F16260A3F7100A51D68 /* P2SliderJointDetail.hpp */,
 				2CDD4F2B260A3F7100A51D68 /* P2WheelJointDetail.hpp */,
@@ -7566,6 +7577,7 @@
 				2C47B30624DD9789008D83BE /* IRenderer.hpp in Headers */,
 				2C34781125DA95A100071EEF /* IPrint.hpp in Headers */,
 				2C43C8B125C837F100D6D613 /* ftincrem.h in Headers */,
+				2CA0EE1F260E3B4D004269AF /* P2MouseJointDetail.hpp in Headers */,
 				2C4395FF2535DCCA00F6AECD /* svgrect.h in Headers */,
 				2C13C9A025BD29FC0054B968 /* lzio.h in Headers */,
 				2C43C8B825C837F100D6D613 /* tttags.h in Headers */,
@@ -8389,6 +8401,7 @@
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
 				2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */,
 				2C48BEE225CFB8C500A93CE3 /* EdgeHolder.cpp in Sources */,
+				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
@@ -8715,6 +8728,7 @@
 				2C794B3225C3DFC200034D81 /* entropy_common.c in Sources */,
 				2C43962F2535DCCA00F6AECD /* svgmaskelement.cpp in Sources */,
 				2CF21D20249FAA8F00C864C9 /* OpenGL.cpp in Sources */,
+				2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */,
 				2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */,
 				2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
