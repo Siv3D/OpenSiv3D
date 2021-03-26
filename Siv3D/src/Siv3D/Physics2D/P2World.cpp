@@ -156,24 +156,29 @@ namespace s3d
 		}
 	}
 
-	P2PivotJoint P2World::createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
+	P2PivotJoint P2World::createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const EnableCollision enableCollision)
 	{
-		return pImpl->createPivotJoint(pImpl, bodyA, bodyB, worldAnchorPos);
+		return pImpl->createPivotJoint(pImpl, bodyA, bodyB, worldAnchorPos, enableCollision);
 	}
 
-	P2DistanceJoint P2World::createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length)
+	P2DistanceJoint P2World::createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length, const EnableCollision enableCollision)
 	{
-		return pImpl->createDistanceJoint(pImpl, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length);
+		return pImpl->createDistanceJoint(pImpl, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length, enableCollision);
 	}
 
-	P2SliderJoint P2World::createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis)
+	P2SliderJoint P2World::createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 	{
-		return pImpl->createSliderJoint(pImpl, bodyA, bodyB, worldAnchorPos, normalizedAxis);
+		return pImpl->createSliderJoint(pImpl, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision);
 	}
 
-	P2WheelJoint P2World::createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis)
+	P2WheelJoint P2World::createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, const EnableCollision enableCollision)
 	{
-		return pImpl->createWheelJoint(pImpl, bodyA, bodyB, worldAnchorPos, axis);
+		return pImpl->createWheelJoint(pImpl, bodyA, bodyB, worldAnchorPos, axis, enableCollision);
+	}
+
+	P2MouseJoint P2World::createMouseJoint(const P2Body& body, const Vec2& worldTargetPos)
+	{
+		return pImpl->createMouseJoint(pImpl, body, worldTargetPos);
 	}
 
 	const HashTable<P2ContactPair, P2Collision>& P2World::getCollisions() const noexcept

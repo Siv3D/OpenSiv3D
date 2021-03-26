@@ -16,8 +16,8 @@
 
 namespace s3d
 {
-	P2SliderJoint::P2SliderJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis)
-		: pImpl{ std::make_shared<detail::P2SliderJointDetail>(world, bodyA, bodyB, worldAnchorPos, normalizedAxis) } {}
+	P2SliderJoint::P2SliderJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
+		: pImpl{ std::make_shared<detail::P2SliderJointDetail>(world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision) } {}
 
 	void P2SliderJoint::release()
 	{

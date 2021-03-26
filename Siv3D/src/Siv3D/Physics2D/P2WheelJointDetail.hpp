@@ -21,7 +21,7 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		P2WheelJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchor, const Vec2& axis);
+		P2WheelJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchor, const Vec2& axis, EnableCollision enableCollision);
 
 		~P2WheelJointDetail();
 

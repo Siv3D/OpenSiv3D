@@ -4596,6 +4596,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2WheelJointDetail.hpp">
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2MouseJoint.hpp">
+      <Filter>include\Siv3D\Physics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2MouseJointDetail.hpp">
+      <Filter>src\Siv3D\Physics2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6324,6 +6330,12 @@
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2WheelJointDetail.cpp">
+      <Filter>src\Siv3D\Physics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2MouseJointDetail.cpp">
+      <Filter>src\Siv3D\Physics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2MouseJoint.cpp">
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
   </ItemGroup>

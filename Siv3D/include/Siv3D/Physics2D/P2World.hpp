@@ -24,6 +24,7 @@
 # include "P2DistanceJoint.hpp"
 # include "P2SliderJoint.hpp"
 # include "P2WheelJoint.hpp"
+# include "P2MouseJoint.hpp"
 
 namespace s3d
 {
@@ -213,9 +214,10 @@ namespace s3d
 		/// @param bodyA 接続する物体
 		/// @param bodyB 接続する物体
 		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
+		/// @param enableCollision 接続した物体どうしの衝突を有効にするか
 		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos);
+		P2PivotJoint createPivotJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision = EnableCollision::No);
 
 		/// @brief 距離ジョイントを作成します。
 		/// @param bodyA 接続する物体 A
@@ -223,27 +225,37 @@ namespace s3d
 		/// @param bodyB 接続する物体 B
 		/// @param worldAnchorPosB 物体 B のジョイントのワールド座標 (cm) 
 		/// @param length ジョイントの静止長 (cm)
+		/// @param enableCollision 接続した物体どうしの衝突を有効にするか
 		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length);
+		P2DistanceJoint createDistanceJoint(const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length, EnableCollision enableCollision = EnableCollision::No);
 
 		/// @brief スライダージョイントを作成します。
 		/// @param bodyA 接続する物体 A
 		/// @param bodyB 接続する物体 B
 		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
 		/// @param normalizedAxis スライダーの方向の単位ベクトル
+		/// @param enableCollision 接続した物体どうしの衝突を有効にするか
 		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis);
+		P2SliderJoint createSliderJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, EnableCollision enableCollision = EnableCollision::No);
 
 		/// @brief ホイールジョイントを作成します。
 		/// @param bodyA 接続する物体 A
 		/// @param bodyB 接続する物体 B
 		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
-		/// @param axis box2d
+		/// @param axis 
+		/// @param enableCollision 接続した物体どうしの衝突を有効にするか
 		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis);
+		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, EnableCollision enableCollision = EnableCollision::No);
+
+		/// @brief マウスジョイントを作成します。
+		/// @param body 接続する物体
+		/// @param worldTargetPos ターゲットのワールド座標 (cm) 
+		/// @return 作成したジョイント
+		[[nodiscard]]
+		P2MouseJoint createMouseJoint(const P2Body& body, const Vec2& worldTargetPos);
 
 		/// @brief 物体の接触情報の一覧を返します。
 		/// @return 物体の接触情報の一覧

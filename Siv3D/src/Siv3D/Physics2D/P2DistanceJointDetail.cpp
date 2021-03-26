@@ -16,13 +16,14 @@
 
 namespace s3d
 {
-	detail::P2DistanceJointDetail::P2DistanceJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length)
+	detail::P2DistanceJointDetail::P2DistanceJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length, const EnableCollision enableCollision)
 		: m_world{ world }
 		, m_bodyA{ bodyA.getWeakPtr() }
 		, m_bodyB{ bodyB.getWeakPtr() }
 	{
 		b2DistanceJointDef def;
 		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(worldAnchorPosA), detail::ToB2Vec2(worldAnchorPosB));
+		def.collideConnected = enableCollision.getBool();
 		m_joint = static_cast<b2DistanceJoint*>(m_world->getWorldPtr()->CreateJoint(&def));
 		m_joint->SetLength(static_cast<float>(length));
 	}

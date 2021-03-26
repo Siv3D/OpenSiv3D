@@ -16,8 +16,8 @@
 
 namespace s3d
 {
-	P2WheelJoint::P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis)
-		: pImpl{ std::make_shared<detail::P2WheelJointDetail>(world, bodyA, bodyB, worldAnchorPos, axis) } {}
+	P2WheelJoint::P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, const EnableCollision enableCollision)
+		: pImpl{ std::make_shared<detail::P2WheelJointDetail>(world, bodyA, bodyB, worldAnchorPos, axis, enableCollision) } {}
 
 	void P2WheelJoint::release()
 	{

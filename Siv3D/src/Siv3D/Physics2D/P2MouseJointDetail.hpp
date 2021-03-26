@@ -11,34 +11,36 @@
 
 # pragma once
 # include <Siv3D/Physics2D/P2Body.hpp>
-# include <Siv3D/Physics2D/P2PivotJoint.hpp>
+# include <Siv3D/Physics2D/P2MouseJoint.hpp>
 # include "P2Common.hpp"
 
 namespace s3d
 {
-	class detail::P2PivotJointDetail
+	class detail::P2MouseJointDetail
 	{
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		P2PivotJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision);
+		P2MouseJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& body, const Vec2& worldTargetPos);
 
-		~P2PivotJointDetail();
-
-		[[nodiscard]]
-		b2RevoluteJoint& getJoint();
+		~P2MouseJointDetail();
 
 		[[nodiscard]]
-		const b2RevoluteJoint& getJoint() const;
+		b2MouseJoint& getJoint();
+
+		[[nodiscard]]
+		const b2MouseJoint& getJoint() const;
+
+		void setLinearStiffness(double frequencyHz, double dampingRatio) noexcept;
 
 	private:
 
-		b2RevoluteJoint* m_joint = nullptr;
+		b2MouseJoint* m_joint = nullptr;
 
 		std::shared_ptr<detail::P2WorldDetail> m_world;
 
-		std::weak_ptr<P2Body::P2BodyDetail> m_bodyA;
+		std::weak_ptr<P2Body::P2BodyDetail> m_body;
 
-		std::weak_ptr<P2Body::P2BodyDetail> m_bodyB;
+		b2Body* m_placeholderBody = nullptr;
 	};
 }

@@ -61,4 +61,7 @@ namespace s3d
 
 	/// @brief 片側だけ処理
 	using OneSided			= YesNo<struct OneSided_tag>;
+
+	/// @brief 2 つの物体間での衝突を有向にする
+	using EnableCollision	= YesNo<struct EnableCollision_tag>;
 }

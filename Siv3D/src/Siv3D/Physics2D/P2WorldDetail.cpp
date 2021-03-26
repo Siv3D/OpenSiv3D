@@ -105,24 +105,29 @@ namespace s3d
 		return body;
 	}
 
-	P2PivotJoint detail::P2WorldDetail::createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
+	P2PivotJoint detail::P2WorldDetail::createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const EnableCollision enableCollision)
 	{
-		return P2PivotJoint{ world, bodyA, bodyB, worldAnchorPos };
+		return P2PivotJoint{ world, bodyA, bodyB, worldAnchorPos, enableCollision };
 	}
 
-	P2DistanceJoint detail::P2WorldDetail::createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length)
+	P2DistanceJoint detail::P2WorldDetail::createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length, const EnableCollision enableCollision)
 	{
-		return P2DistanceJoint{ world, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length };
+		return P2DistanceJoint{ world, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length, enableCollision };
 	}
 
-	P2SliderJoint detail::P2WorldDetail::createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis)
+	P2SliderJoint detail::P2WorldDetail::createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 	{
-		return P2SliderJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis };
+		return P2SliderJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision };
 	}
 
-	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis)
+	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, const EnableCollision enableCollision)
 	{
-		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, axis };
+		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, axis, enableCollision };
+	}
+
+	P2MouseJoint detail::P2WorldDetail::createMouseJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& body, const Vec2& worldTargetPos)
+	{
+		return P2MouseJoint{ world, body, worldTargetPos };
 	}
 
 	const HashTable<P2ContactPair, P2Collision>& detail::P2WorldDetail::getCollisions() const noexcept

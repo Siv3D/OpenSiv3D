@@ -46,6 +46,7 @@ namespace s3d
 	class P2DistanceJoint;
 	class P2SliderJoint;
 	class P2WheelJoint;
+	class P2MouseJoint;
 
 	namespace detail
 	{
@@ -55,5 +56,6 @@ namespace s3d
 		class P2DistanceJointDetail;
 		class P2SliderJointDetail;
 		class P2WheelJointDetail;
+		class P2MouseJointDetail;
 	}
 }

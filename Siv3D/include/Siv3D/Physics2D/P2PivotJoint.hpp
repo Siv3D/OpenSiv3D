@@ -78,6 +78,6 @@ namespace s3d
 		friend class detail::P2WorldDetail;
 
 		SIV3D_NODISCARD_CXX20
-		P2PivotJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos);
+		P2PivotJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision);
 	};
 }

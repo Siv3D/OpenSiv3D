@@ -98,6 +98,6 @@ namespace s3d
 		friend class detail::P2WorldDetail;
 
 		SIV3D_NODISCARD_CXX20
-		P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis);
+		P2WheelJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, EnableCollision enableCollision);
 	};
 }

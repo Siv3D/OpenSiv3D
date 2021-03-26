@@ -230,6 +230,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Physics2D/P2DistanceJointDetail.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Line.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2LineString.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2MouseJoint.cpp
+  ../Siv3D/src/Siv3D/Physics2D/P2MouseJointDetail.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2PivotJoint.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2PivotJointDetail.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Polygon.cpp

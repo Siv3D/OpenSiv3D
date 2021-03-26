@@ -16,8 +16,8 @@
 
 namespace s3d
 {
-	P2PivotJoint::P2PivotJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos)
-		: pImpl(std::make_shared<detail::P2PivotJointDetail>(world, bodyA, bodyB, worldAnchorPos)) {}
+	P2PivotJoint::P2PivotJoint(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const EnableCollision enableCollision)
+		: pImpl(std::make_shared<detail::P2PivotJointDetail>(world, bodyA, bodyB, worldAnchorPos, enableCollision)) {}
 
 	void P2PivotJoint::release()
 	{
