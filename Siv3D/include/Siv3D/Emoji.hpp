@@ -31,7 +31,7 @@ namespace s3d
 		Emoji() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Emoji(String&& emoji) noexcept;
+		explicit Emoji(String emoji) noexcept;
 
 		[[nodiscard]]
 		static bool HasGlyph(StringView emoji);
