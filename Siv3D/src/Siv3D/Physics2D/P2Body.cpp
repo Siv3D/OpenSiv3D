@@ -107,6 +107,18 @@ namespace s3d
 		return *this;
 	}
 
+	P2Body& P2Body::addCircleSensor(const Circle& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addCircleSensor(localPos, filter);
+
+		return *this;
+	}
+
 	P2Body& P2Body::addRect(const RectF& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		if (isEmpty())
@@ -555,43 +567,49 @@ namespace s3d
 		return pImpl->getBody().IsFixedRotation();
 	}
 
-	void P2Body::draw(const ColorF& color) const
+	const P2Body& P2Body::draw(const ColorF& color) const
 	{
 		if (isEmpty())
 		{
-			return;
+			return *this;
 		}
 
 		for (const auto& shape : pImpl->getShapes())
 		{
 			shape->draw(color);
 		}
+
+		return *this;
 	}
 
-	void P2Body::drawFrame(const double thickness, const ColorF& color) const
+	const P2Body& P2Body::drawFrame(const double thickness, const ColorF& color) const
 	{
 		if (isEmpty())
 		{
-			return;
+			return *this;
 		}
 
 		for (const auto& shape : pImpl->getShapes())
 		{
 			shape->drawFrame(thickness, color);
 		}
+
+		return *this;
 	}
 
-	void P2Body::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Body& P2Body::drawWireframe(const double thickness, const ColorF& color) const
 	{
 		if (isEmpty())
 		{
-			return;
+			return *this;
 		}
 
 		for (const auto& shape : pImpl->getShapes())
 		{
 			shape->drawWireframe(thickness, color);
 		}
+
+		return *this;
 	}
 
 	size_t P2Body::num_shapes() const noexcept

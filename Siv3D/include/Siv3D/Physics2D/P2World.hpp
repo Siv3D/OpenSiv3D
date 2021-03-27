@@ -138,6 +138,16 @@ namespace s3d
 		[[nodiscard]]
 		P2Body createCircle(P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 円形のセンサー部品を持つ物体を作成します。
+		/// @remark センサーは他の物体と干渉しませんが接触情報は発生します。
+		/// @param bodyType 物体の種類
+		/// @param worldPos 物体のワールド座標 (cm) 
+		/// @param r センサーの半径 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return 作成した物体
+		[[nodiscard]]
+		P2Body createCircleSensor(P2BodyType bodyType, const Vec2& worldPos, double r, const P2Filter& filter = {});
+
 		/// @brief 正方形を部品として持つ物体を作成します。
 		/// @remark 正方形の中心座標は `worldPos` です。
 		/// @param bodyType 物体の種類
@@ -244,11 +254,11 @@ namespace s3d
 		/// @param bodyA 接続する物体 A
 		/// @param bodyB 接続する物体 B
 		/// @param worldAnchorPos ジョイントのワールド座標 (cm) 
-		/// @param axis 
+		/// @param normalizedAxis 軸の方向の単位ベクトル
 		/// @param enableCollision 接続した物体どうしの衝突を有効にするか
 		/// @return 作成したジョイント
 		[[nodiscard]]
-		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, EnableCollision enableCollision = EnableCollision::No);
+		P2WheelJoint createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, EnableCollision enableCollision = EnableCollision::No);
 
 		/// @brief マウスジョイントを作成します。
 		/// @param body 接続する物体

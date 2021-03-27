@@ -101,6 +101,11 @@ namespace s3d
 		return pImpl->createCircle(pImpl, bodyType, worldPos, localPos, material, filter);
 	}
 
+	P2Body P2World::createCircleSensor(const P2BodyType bodyType, const Vec2& worldPos, const double r, const P2Filter& filter)
+	{
+		return pImpl->createCircleSensor(pImpl, bodyType, worldPos, Circle{ 0, 0, r }, filter);
+	}
+
 	P2Body P2World::createRect(const P2BodyType bodyType, const Vec2& worldPos, const double size, const P2Material& material, const P2Filter& filter)
 	{
 		return createRect(bodyType, worldPos, RectF{ Arg::center(0, 0), size }, material, filter);
@@ -171,9 +176,9 @@ namespace s3d
 		return pImpl->createSliderJoint(pImpl, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision);
 	}
 
-	P2WheelJoint P2World::createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, const EnableCollision enableCollision)
+	P2WheelJoint P2World::createWheelJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 	{
-		return pImpl->createWheelJoint(pImpl, bodyA, bodyB, worldAnchorPos, axis, enableCollision);
+		return pImpl->createWheelJoint(pImpl, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision);
 	}
 
 	P2MouseJoint P2World::createMouseJoint(const P2Body& body, const Vec2& worldTargetPos)

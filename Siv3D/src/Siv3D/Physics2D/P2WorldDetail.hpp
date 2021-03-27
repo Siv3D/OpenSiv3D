@@ -40,6 +40,9 @@ namespace s3d
 		P2Body createCircle(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]
+		P2Body createCircleSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
 		P2Body createRect(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]

@@ -35,6 +35,8 @@ namespace s3d
 
 		void addCircle(const Circle& localPos, const P2Material& material, const P2Filter& filter);
 
+		void addCircleSensor(const Circle& localPos, const P2Filter& filter);
+
 		void addRect(const RectF& localPos, const P2Material& material, const P2Filter& filter);
 
 		void addTriangle(const Triangle& localPos, const P2Material& material, const P2Filter& filter);

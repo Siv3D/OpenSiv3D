@@ -47,6 +47,8 @@ namespace s3d
 
 		P2Body& addCircle(const Circle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		P2Body& addCircleSensor(const Circle& localPos, const P2Filter& filter = {});
+
 		P2Body& addRect(const RectF& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		P2Body& addTriangle(const Triangle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
@@ -149,11 +151,11 @@ namespace s3d
 		[[nodiscard]]
 		bool isFixedRotation() const noexcept;
 
-		void draw(const ColorF& color = Palette::White) const;
+		const P2Body& draw(const ColorF& color = Palette::White) const;
 
-		void drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const P2Body& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		void drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const P2Body& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		[[nodiscard]]
 		size_t num_shapes() const noexcept;

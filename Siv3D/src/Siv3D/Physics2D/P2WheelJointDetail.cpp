@@ -16,13 +16,13 @@
 
 namespace s3d
 {
-	detail::P2WheelJointDetail::P2WheelJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchor, const Vec2& axis, const EnableCollision enableCollision)
+	detail::P2WheelJointDetail::P2WheelJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 		: m_world{ world }
 		, m_bodyA{ bodyA.getWeakPtr() }
 		, m_bodyB{ bodyB.getWeakPtr() }
 	{
 		b2WheelJointDef def;
-		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(anchor), detail::ToB2Vec2(axis));
+		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(worldAnchorPos), detail::ToB2Vec2(normalizedAxis));
 		def.collideConnected = enableCollision.getBool();
 		m_joint = static_cast<b2WheelJoint*>(m_world->getWorldPtr()->CreateJoint(&def));
 	}

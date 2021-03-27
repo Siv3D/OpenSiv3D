@@ -40,13 +40,14 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		inline b2FixtureDef MakeFixtureDef(b2Shape* shape, const P2Material& material, const P2Filter& filter) noexcept
+		inline b2FixtureDef MakeFixtureDef(b2Shape* shape, const P2Material& material, const P2Filter& filter, const bool isSensor = false) noexcept
 		{
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape		= shape;
 			fixtureDef.density		= static_cast<float>(material.density * P2DensityScale);
 			fixtureDef.friction		= static_cast<float>(material.friction);
 			fixtureDef.restitution	= static_cast<float>(material.restitution);
+			fixtureDef.isSensor		= isSensor;
 			fixtureDef.restitutionThreshold	= static_cast<float>(material.restitutionThreshold * P2RestitutionThresholdScale);
 			fixtureDef.filter.categoryBits	= filter.categoryBits;
 			fixtureDef.filter.maskBits		= filter.maskBits;

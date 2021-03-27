@@ -72,7 +72,14 @@ namespace s3d
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Circle>(*m_body, localPos, material, filter));
+		m_shapes.push_back(std::make_shared<P2Circle>(*m_body, localPos, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addCircleSensor(const Circle& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Circle>(*m_body, localPos, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addRect(const RectF& localPos, const P2Material& material, const P2Filter& filter)

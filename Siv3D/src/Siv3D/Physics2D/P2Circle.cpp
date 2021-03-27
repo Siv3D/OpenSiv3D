@@ -14,14 +14,14 @@
 
 namespace s3d
 {
-	P2Circle::P2Circle(b2Body& body, const Circle& circle, const P2Material& material, const P2Filter& filter)
+	P2Circle::P2Circle(b2Body& body, const Circle& circle, const P2Material& material, const P2Filter& filter, const bool isSensor)
 		: m_pShape{ std::make_unique<b2CircleShape>() }
 	{
 		m_pShape->m_radius = static_cast<float>(circle.r);
 
 		m_pShape->m_p.Set(static_cast<float>(circle.x), static_cast<float>(circle.y));
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter, isSensor);
 
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -41,9 +41,13 @@ namespace s3d
 		getCircle().drawFrame(detail::AdjustThickness(thickness), color);
 	}
 
-	void P2Circle::drawWireframe(const double thickness, const ColorF& color) const
+	void P2Circle::drawWireframe(double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		const Circle circle = getCircle();
+		const double angle = m_fixtures.front()->GetBody()->GetAngle();
+		thickness = detail::AdjustThickness(thickness);
+		circle.drawFrame(thickness, color);
+		Line{ circle.center, circle.getPointByAngle(angle) }.draw(thickness, color);
 	}
 
 	Circle P2Circle::getCircle() const

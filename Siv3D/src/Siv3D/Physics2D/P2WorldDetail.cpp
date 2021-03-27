@@ -69,6 +69,15 @@ namespace s3d
 		return body;
 	}
 
+	P2Body detail::P2WorldDetail::createCircleSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addCircleSensor(localPos, filter);
+
+		return body;
+	}
+
 	P2Body detail::P2WorldDetail::createRect(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		P2Body body{ world, generateNextID(), worldPos, bodyType };
@@ -120,9 +129,9 @@ namespace s3d
 		return P2SliderJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision };
 	}
 
-	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, const EnableCollision enableCollision)
+	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 	{
-		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, axis, enableCollision };
+		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision };
 	}
 
 	P2MouseJoint detail::P2WorldDetail::createMouseJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& body, const Vec2& worldTargetPos)
