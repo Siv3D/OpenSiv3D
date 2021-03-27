@@ -26,4 +26,13 @@ namespace s3d
 		/// @brief 物体は力の影響を受けて動き回ります。
 		Dynamic
 	};
+
+	/// @brief `P2BodyType::Static` の省略表記です。
+	inline constexpr P2BodyType P2Static	= P2BodyType::Static;
+
+	/// @brief `P2BodyType::Kinematic` の省略表記です。
+	inline constexpr P2BodyType P2Kinematic	= P2BodyType::Kinematic;
+	
+	/// @brief `P2BodyType::Dynamic` の省略表記です。
+	inline constexpr P2BodyType P2Dynamic	= P2BodyType::Dynamic;
 }
