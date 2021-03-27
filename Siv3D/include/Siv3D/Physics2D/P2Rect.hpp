@@ -27,17 +27,17 @@ namespace s3d
 		[[nodiscard]]
 		P2ShapeType getShapeType() const noexcept override;
 
-		void draw(const ColorF& color = Palette::White) const override;
+		const P2Shape& draw(const ColorF& color = Palette::White) const override;
 
-		void draw(const ColorF(&colors)[4]) const;
+		const P2Shape& draw(const ColorF(&colors)[4]) const;
 
-		void draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
+		const P2Shape& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
-		void draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
+		const P2Shape& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
-		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+		const P2Shape& drawFrame(double thickness, const ColorF& color = Palette::White) const override;
 
-		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+		const P2Shape& drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
 
 		[[nodiscard]]
 		Quad getQuad() const;

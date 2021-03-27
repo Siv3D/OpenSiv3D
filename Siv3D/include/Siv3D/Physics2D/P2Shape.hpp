@@ -25,11 +25,11 @@ namespace s3d
 
 		virtual P2ShapeType getShapeType() const noexcept = 0;
 
-		virtual void draw(const ColorF& color) const = 0;
+		virtual const P2Shape& draw(const ColorF& color) const = 0;
 
-		virtual void drawFrame(double thickness, const ColorF& color) const = 0;
+		virtual const P2Shape& drawFrame(double thickness, const ColorF& color) const = 0;
 
-		virtual void drawWireframe(double thickness, const ColorF& color) const = 0;
+		virtual const P2Shape& drawWireframe(double thickness, const ColorF& color) const = 0;
 
 		void setDensity(double density) noexcept;
 

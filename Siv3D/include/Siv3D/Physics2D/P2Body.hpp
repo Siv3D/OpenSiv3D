@@ -51,75 +51,85 @@ namespace s3d
 		void release();
 
 		/// @brief 線分の部品を物体に追加します。
-		/// @param localPos 
-		/// @param oneSided 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @remark `P2Line` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addLine(const Line& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 連続する複数の線分の部品を物体に追加します。
-		/// @param localPos 
-		/// @param oneSided 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @remark `P2LineString` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addLineString(const LineString& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param oneSided 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 連続する複数の線分（終点と始点を結ぶ）の部品を物体に追加します。
+		/// @remark `P2LineString` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param oneSided 線分の片側（右に向かうときの上側）のみ干渉するか
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addClosedLineString(const LineString& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 円の部品を物体に追加します。
+		/// @remark `P2Circle` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addCircle(const Circle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param filter 
-		/// @return 
+		/// @brief 円形のセンサー部品を物体に追加します。
+		/// @remark `P2Circle` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
 		P2Body& addCircleSensor(const Circle& localPos, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 長方形の部品を物体に追加します。
+		/// @remark `P2Rect` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addRect(const RectF& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 三角形の部品を物体に追加します。
+		/// @remark `P2Triangle` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addTriangle(const Triangle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 凸な四角形の部品を物体に追加します。
+		/// @remark `P2Quad` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addQuad(const Quad& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 多角形の部品を物体に追加します。
+		/// @remark `P2Polygon` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addPolygon(const Polygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
-		/// @brief 
-		/// @param localPos 
-		/// @param material 
-		/// @param filter 
-		/// @return 
+		/// @brief 複数の多角形の部品を物体に追加します。
+		/// @remark 複数の `P2Polygon` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param material 部品の材質
+		/// @param filter 部品の干渉フィルタ
+		/// @return *this
 		P2Body& addPolygons(const MultiPolygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 
@@ -251,8 +261,8 @@ namespace s3d
 		/// @return 
 		P2Body& setVelocity(Vec2 v) noexcept;
 
-		/// @brief 
-		/// @return 
+		/// @brief 物体の現在の速度 (cm/s) を返します。
+		/// @return 物体の現在の速度 (cm/s)
 		[[nodiscard]]
 		Vec2 getVelocity() const noexcept;
 
@@ -261,8 +271,9 @@ namespace s3d
 		/// @return 
 		P2Body& setAngularVelocity(double omega) noexcept;
 
-		/// @brief 
-		/// @return 
+		/// @brief 物体の現在の角速度 (rad/s) を返します。
+		/// @remark 毎秒何ラジアン回転するかを示します。2π は時計回りに 1 周です。
+		/// @return 物体の現在の角速度 (rad/s)
 		[[nodiscard]]
 		double getAngularVelocity() const noexcept;
 
@@ -316,35 +327,35 @@ namespace s3d
 		[[nodiscard]]
 		P2BodyType getBodyType() const noexcept;
 
-		/// @brief 
-		/// @param fixedRotation 
-		/// @return 
+		/// @brief 物体の回転の無効・有効を設定します（デフォルトは有効）
+		/// @param fixedRotation 回転を有効にするか
+		/// @return *this
 		P2Body& setFixedRotation(bool fixedRotation) noexcept;
 
-		/// @brief 
-		/// @return 
+		/// @brief 物体の回転が有効であるか、現在の設定を返します。
+		/// @return 物体の回転が有効の場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isFixedRotation() const noexcept;
 
-		/// @brief 
-		/// @param color 
-		/// @return 
+		/// @brief 物体のすべての部品を描画します。
+		/// @param color 色
+		/// @return *this
 		const P2Body& draw(const ColorF& color = Palette::White) const;
 
-		/// @brief 
-		/// @param thickness 
-		/// @param color 
-		/// @return 
+		/// @brief 物体のすべての部品の枠を描画します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const P2Body& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		/// @brief 
-		/// @param thickness 
-		/// @param color 
-		/// @return 
+		/// @brief 物体のすべての部品をワイヤフレーム表示します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const P2Body& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		/// @brief 
-		/// @return 
+		/// @brief 物体が持つ部品の個数を返します。
+		/// @return 物体が持つ部品の個数
 		[[nodiscard]]
 		size_t num_shapes() const noexcept;
 
@@ -366,10 +377,10 @@ namespace s3d
 		[[nodiscard]]
 		const std::shared_ptr<P2Shape>& getPtr(size_t index) const noexcept;
 
-		/// @brief 
-		/// @tparam PShape 
-		/// @param index 
-		/// @return 
+		/// @brief 物体の部品を `P2Shape` を継承するクラスのポインタとして返します。
+		/// @tparam PShape 2D 物理演算図形型 (`P2Line`, `P2Circle` など)
+		/// @param index 部品のインデックス
+		/// @return 部品が存在し、図形型が一致した場合はそのポインタ、それ以外の場合は null にセットされたポインタ
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
 		std::shared_ptr<PShape> as(size_t index) const;
 

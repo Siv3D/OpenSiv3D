@@ -39,21 +39,27 @@ namespace s3d
 		return P2ShapeType::Polygon;
 	}
 
-	void P2Polygon::draw(const ColorF& color) const
+	const P2Shape& P2Polygon::draw(const ColorF& color) const
 	{
 		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 
 		m_basePolygon.drawTransformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y), color);
+	
+		return *this;
 	}
 
-	void P2Polygon::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Polygon::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getPolygon().drawFrame(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Polygon::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2Polygon::drawWireframe(const double thickness, const ColorF& color) const
 	{
 		getPolygon().drawWireframe(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
 	Polygon P2Polygon::getPolygon() const

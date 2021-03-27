@@ -85,6 +85,7 @@ namespace s3d
 		P2Body createPlaceholder(P2BodyType bodyType, const Vec2& worldPos);
 
 		/// @brief 線分を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Line` の部品を持ちます。
 		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -96,6 +97,7 @@ namespace s3d
 		P2Body createLine(P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 連続する複数の線分を部品として持つ物体を作成します。
+		/// @remark 物体は `P2LineString` の部品を持ちます。
 		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -107,6 +109,7 @@ namespace s3d
 		P2Body createLineString(P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 連続する複数の線分（終点と始点を結ぶ）を部品として持つ物体を作成します。
+		/// @remark 物体は `P2LineString` の部品を持ちます。
 		/// @param bodyType 物体の種類（P2BodyType::Dynamic は指定不可）
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -118,6 +121,7 @@ namespace s3d
 		P2Body createClosedLineString(P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided = OneSided::No, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 円を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Circle` の部品を持ちます。
 		/// @remark 円の中心座標は `worldPos` です。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
@@ -129,6 +133,7 @@ namespace s3d
 		P2Body createCircle(P2BodyType bodyType, const Vec2& worldPos, double r, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 円を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Circle` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -139,6 +144,7 @@ namespace s3d
 		P2Body createCircle(P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 円形のセンサー部品を持つ物体を作成します。
+		/// @remark 物体は `P2Circle` の部品を持ちます。
 		/// @remark センサーは他の物体と干渉しませんが接触情報は発生します。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
@@ -149,6 +155,7 @@ namespace s3d
 		P2Body createCircleSensor(P2BodyType bodyType, const Vec2& worldPos, double r, const P2Filter& filter = {});
 
 		/// @brief 正方形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Rect` の部品を持ちます。
 		/// @remark 正方形の中心座標は `worldPos` です。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
@@ -160,6 +167,7 @@ namespace s3d
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, double size, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 長方形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Rect` の部品を持ちます。
 		/// @remark 長方形の中心座標は `worldPos` です。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
@@ -171,6 +179,7 @@ namespace s3d
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, const SizeF& size, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 長方形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Rect` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -181,6 +190,7 @@ namespace s3d
 		P2Body createRect(P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 三角形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Triangle` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -191,6 +201,7 @@ namespace s3d
 		P2Body createTriangle(P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 凸な四角形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Quad` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -201,6 +212,7 @@ namespace s3d
 		P2Body createQuad(P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 多角形を部品として持つ物体を作成します。
+		/// @remark 物体は `P2Polygon` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 
@@ -211,6 +223,7 @@ namespace s3d
 		P2Body createPolygon(P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
 		/// @brief 複数の多角形を部品として持つ物体を作成します。
+		/// @remark 物体は複数の `P2Polygon` の部品を持ちます。
 		/// @param bodyType 物体の種類
 		/// @param worldPos 物体のワールド座標 (cm) 
 		/// @param localPos `worldPos` から見たローカルでの形状の座標 (cm) 

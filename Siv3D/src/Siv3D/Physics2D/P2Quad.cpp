@@ -31,19 +31,23 @@ namespace s3d
 		return P2ShapeType::Quad;
 	}
 
-	void P2Quad::draw(const ColorF& color) const
+	const P2Shape& P2Quad::draw(const ColorF& color) const
 	{
 		getQuad().draw(color);
+
+		return *this;
 	}
 
-	void P2Quad::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Quad::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getQuad().drawFrame(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Quad::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2Quad::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		return drawFrame(thickness, color);
 	}
 
 	Quad P2Quad::getQuad() const

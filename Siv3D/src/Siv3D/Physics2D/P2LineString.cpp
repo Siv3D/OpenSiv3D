@@ -98,7 +98,7 @@ namespace s3d
 		return m_oneSided;
 	}
 
-	void P2LineString::draw(const ColorF& color) const
+	const P2Shape& P2LineString::draw(const ColorF& color) const
 	{
 		if (m_closeRing)
 		{
@@ -108,9 +108,11 @@ namespace s3d
 		{
 			getLineString().draw(detail::AdjustThickness(detail::P2LineThickness), color);
 		}
+
+		return *this;
 	}
 
-	void P2LineString::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2LineString::drawFrame(const double thickness, const ColorF& color) const
 	{
 		if (m_closeRing)
 		{
@@ -120,11 +122,13 @@ namespace s3d
 		{
 			getLineString().draw(detail::AdjustThickness(thickness), color);
 		}
+
+		return *this;
 	}
 
-	void P2LineString::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2LineString::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		return drawFrame(thickness, color);
 	}
 
 	const LineString& P2LineString::getLineString() const

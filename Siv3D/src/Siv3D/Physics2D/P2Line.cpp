@@ -45,19 +45,23 @@ namespace s3d
 		return m_oneSided;
 	}
 
-	void P2Line::draw(const ColorF& color) const
+	const P2Shape& P2Line::draw(const ColorF& color) const
 	{
 		getLine().draw(detail::AdjustThickness(detail::P2LineThickness), color);
+
+		return *this;
 	}
 
-	void P2Line::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Line::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getLine().draw(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Line::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2Line::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		return drawFrame(thickness, color);
 	}
 
 	Line P2Line::getLine() const

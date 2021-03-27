@@ -31,11 +31,11 @@ namespace s3d
 		[[nodiscard]]
 		bool isOneSided() const noexcept;
 
-		void draw(const ColorF& color = Palette::White) const override;
+		const P2Shape& draw(const ColorF& color = Palette::White) const override;
 
-		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+		const P2Shape& drawFrame(double thickness, const ColorF& color = Palette::White) const override;
 
-		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+		const P2Shape& drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
 
 		[[nodiscard]]
 		Line getLine() const;

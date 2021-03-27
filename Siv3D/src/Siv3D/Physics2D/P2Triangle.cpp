@@ -31,19 +31,23 @@ namespace s3d
 		return P2ShapeType::Triangle;
 	}
 
-	void P2Triangle::draw(const ColorF& color) const
+	const P2Shape& P2Triangle::draw(const ColorF& color) const
 	{
 		getTriangle().draw(color);
+
+		return *this;
 	}
 
-	void P2Triangle::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Triangle::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getTriangle().drawFrame(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Triangle::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2Triangle::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		return drawFrame(thickness, color);
 	}
 
 	Triangle P2Triangle::getTriangle() const

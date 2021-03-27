@@ -29,34 +29,44 @@ namespace s3d
 		return P2ShapeType::Rect;
 	}
 
-	void P2Rect::draw(const ColorF& color) const
+	const P2Shape& P2Rect::draw(const ColorF& color) const
 	{
 		getQuad().draw(color);
+
+		return *this;
 	}
 
-	void P2Rect::draw(const ColorF(&colors)[4]) const
+	const P2Shape& P2Rect::draw(const ColorF(&colors)[4]) const
 	{
 		getQuad().draw(colors[0], colors[1], colors[2], colors[3]);
+
+		return *this;
 	}
 
-	void P2Rect::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	const P2Shape& P2Rect::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
 	{
 		draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+
+		return *this;
 	}
 
-	void P2Rect::draw(const Arg::left_<ColorF> leftColor, const Arg::right_<ColorF> rightColor) const
+	const P2Shape& P2Rect::draw(const Arg::left_<ColorF> leftColor, const Arg::right_<ColorF> rightColor) const
 	{
 		draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+
+		return *this;
 	}
 
-	void P2Rect::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Rect::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getQuad().drawFrame(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Rect::drawWireframe(const double thickness, const ColorF& color) const
+	const P2Shape& P2Rect::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		drawFrame(thickness, color);
+		return drawFrame(thickness, color);
 	}
 
 	Quad P2Rect::getQuad() const

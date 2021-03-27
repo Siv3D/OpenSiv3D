@@ -31,23 +31,29 @@ namespace s3d
 		return P2ShapeType::Circle;
 	}
 
-	void P2Circle::draw(const ColorF& color) const
+	const P2Shape& P2Circle::draw(const ColorF& color) const
 	{
 		getCircle().draw(color);
+
+		return *this;
 	}
 
-	void P2Circle::drawFrame(const double thickness, const ColorF& color) const
+	const P2Shape& P2Circle::drawFrame(const double thickness, const ColorF& color) const
 	{
 		getCircle().drawFrame(detail::AdjustThickness(thickness), color);
+
+		return *this;
 	}
 
-	void P2Circle::drawWireframe(double thickness, const ColorF& color) const
+	const P2Shape& P2Circle::drawWireframe(double thickness, const ColorF& color) const
 	{
 		const Circle circle = getCircle();
 		const double angle = m_fixtures.front()->GetBody()->GetAngle();
 		thickness = detail::AdjustThickness(thickness);
 		circle.drawFrame(thickness, color);
 		Line{ circle.center, circle.getPointByAngle(angle) }.draw(thickness, color);
+
+		return *this;
 	}
 
 	Circle P2Circle::getCircle() const
