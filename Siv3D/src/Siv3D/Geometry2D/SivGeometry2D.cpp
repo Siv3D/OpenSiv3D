@@ -5338,6 +5338,12 @@ namespace s3d
 
 		MultiPolygon ComposePolygons(const Array<LineString>& rings)
 		{
+			//-----------------------------------------------
+			//	Authors (OpenSiv3D challenge #10 participants)
+			//	- Ebishu
+			//	- fal_rnd
+			//-----------------------------------------------
+
 			MultiPolygon results, outers;
 			Array<LineString> holes;
 

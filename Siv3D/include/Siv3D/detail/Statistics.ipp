@@ -8,7 +8,7 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-//	Authors (OpenSiv3D challenge paricipants)
+//	Authors (OpenSiv3D challenge #01 paricipants)
 //	- 白坂
 //	- マキア
 //	- fal_rnd
