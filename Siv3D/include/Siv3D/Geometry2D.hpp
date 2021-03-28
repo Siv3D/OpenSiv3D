@@ -2823,6 +2823,18 @@ namespace s3d
 
 		[[nodiscard]]
 		double HausdorffDistance(const LineString& a, const LineString& b);
+
+		//////////////////////////////////////////////////
+		//
+		//	ComposePolygons
+		//
+		//////////////////////////////////////////////////
+
+		/// @brief 入力されたリングをもとに、多角形 `Polygon` を組み立てます。
+		/// @param rings リングの配列。穴になるリングは反時計回り、外側になるリングは時計回りにします。
+		/// @return 組み立て得られた多角形 `Polygon` の配列
+		[[nodiscard]]
+		MultiPolygon ComposePolygons(const Array<LineString>& rings);
 	}
 }
 
