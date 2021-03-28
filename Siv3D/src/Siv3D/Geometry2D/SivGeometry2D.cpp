@@ -5329,6 +5329,70 @@ namespace s3d
 
 			return boost::geometry::discrete_hausdorff_distance(GLineString(a.begin(), a.end()), GLineString(b.begin(), b.end()));
 		}
+
+		//////////////////////////////////////////////////
+		//
+		//	ComposePolygons
+		//
+		//////////////////////////////////////////////////
+
+		MultiPolygon ComposePolygons(const Array<LineString>& rings)
+		{
+			MultiPolygon results, outers;
+			Array<LineString> holes;
+
+			for (const auto& ring : rings)
+			{
+				if (Geometry2D::IsClockwise(ring))
+				{
+					const Array<Polygon> polygons = Polygon::Correct(ring);
+					outers.append(polygons);
+					results.append(polygons);
+				}
+				else
+				{
+					holes << ring;
+				}
+			}
+
+			const size_t outers_size = outers.size();
+
+			for (const LineString& hole : holes)
+			{
+				size_t w = (size_t)-1;
+				double dist = Inf<double>;
+
+				const Vec2& point = hole.front();
+
+				for (size_t i = 0; i < outers_size; ++i)
+				{
+					if (Geometry2D::Contains(outers[i], point))
+					{
+						const Array<Vec2>& outer = outers[i].outer();
+
+						double d = Inf<double>;
+
+						for (size_t j = 0, outer_size = outer.size(); j < outer_size; ++j)
+						{
+							d = Min(d, Geometry2D::Distance(point, Line{ outer[j], outer[(j + 1) % outer_size] }));
+						}
+
+						if (d < dist)
+						{
+							dist = d;
+							w = i;
+						}
+					}
+				}
+
+				if (w != (size_t)-1)
+				{
+					results[w].addHole(hole);
+				}
+			}
+
+			return results;
+		}
 	}
 }
 
