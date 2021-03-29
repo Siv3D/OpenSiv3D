@@ -118,6 +118,16 @@ namespace s3d
 			return x;
 		}
 
+		inline constexpr float Sqrt(const float x) noexcept
+		{
+			return (x * InvSqrt(x));
+		}
+
+		inline constexpr double Sqrt(const double x) noexcept
+		{
+			return (x * InvSqrt(x));
+		}
+
 	# else
 
 		inline float InvSqrt(float x) noexcept
@@ -149,6 +159,16 @@ namespace s3d
 			x = x * (1.5 - (xhalf * x * x));
 			x = x * (1.5 - (xhalf * x * x));
 			return x;
+		}
+
+		inline float Sqrt(const float x) noexcept
+		{
+			return (x * InvSqrt(x));
+		}
+
+		inline double Sqrt(const double x) noexcept
+		{
+			return (x * InvSqrt(x));
 		}
 
 	# endif

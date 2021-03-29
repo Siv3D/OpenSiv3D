@@ -51,6 +51,20 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr double InvSqrtQuality(double x) noexcept;
 
+		/// @brief 平方根を高速に近似計算します。
+		/// @remark `x * FastMath::InvSqrt(x)` を返します。
+		/// @param x 平方根を計算する値
+		/// @return 平方根の近似結果
+		[[nodiscard]]
+		inline constexpr float Sqrt(float x) noexcept;
+
+		/// @brief 平方根を高速に近似計算します。
+		/// @remark `x * FastMath::InvSqrt(x)` を返します。
+		/// @param x 平方根を計算する値
+		/// @return 平方根の近似結果
+		[[nodiscard]]
+		inline constexpr double Sqrt(double x) noexcept;
+
 	# else
 
 		/// @brief 逆平方根を高速に近似計算します。
@@ -71,6 +85,20 @@ namespace s3d
 		/// @return 逆平方根の近似結果
 		[[nodiscard]]
 		inline double InvSqrtQuality(double x) noexcept;
+
+		/// @brief 平方根を高速に近似計算します。
+		/// @remark `x * FastMath::InvSqrt(x)` を返します。
+		/// @param x 平方根を計算する値
+		/// @return 平方根の近似結果
+		[[nodiscard]]
+		inline float Sqrt(float x) noexcept;
+
+		/// @brief 平方根を高速に近似計算します。
+		/// @remark `x * FastMath::InvSqrt(x)` を返します。
+		/// @param x 平方根を計算する値
+		/// @return 平方根の近似結果
+		[[nodiscard]]
+		inline double Sqrt(double x) noexcept;
 
 	# endif
 	}
