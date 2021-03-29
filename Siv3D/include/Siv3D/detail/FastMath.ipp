@@ -118,6 +118,39 @@ namespace s3d
 			return x;
 		}
 
+	# else
+
+		inline float InvSqrt(float x) noexcept
+		{
+			const float xhalf = (x * 0.5f);
+			int32 i = *(int32*)(&x);
+			i = 0x5f375a86 - (i >> 1);
+			x = *(float*)(&i);
+			x = x * (1.5f - (xhalf * x * x));
+			return x;
+		}
+
+		inline double InvSqrt(double x) noexcept
+		{
+			const double xhalf = (x * 0.5);
+			int64 i = *(int64*)(&x);
+			i = 0x5fe6eb50c7b537a9 - (i >> 1);
+			x = *(double*)(&i);
+			x = x * (1.5 - (xhalf * x * x));
+			return x;
+		}
+
+		inline double InvSqrtQuality(double x) noexcept
+		{
+			const double xhalf = (x * 0.5);
+			int64 i = *(int64*)(&x);
+			i = 0x5fe6eb50c7b537a9 - (i >> 1);
+			x = *(double*)(&i);
+			x = x * (1.5 - (xhalf * x * x));
+			x = x * (1.5 - (xhalf * x * x));
+			return x;
+		}
+
 	# endif
 	}
 }

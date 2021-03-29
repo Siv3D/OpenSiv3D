@@ -51,6 +51,27 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr double InvSqrtQuality(double x) noexcept;
 
+	# else
+
+		/// @brief 逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @return 逆平方根の近似結果
+		[[nodiscard]]
+		inline float InvSqrt(float x) noexcept;
+
+		/// @brief 逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @return 逆平方根の近似結果
+		[[nodiscard]]
+		inline double InvSqrt(double x) noexcept;
+
+		/// @brief 精度の高い逆平方根を高速に近似計算します。
+		/// @param x 逆平方根を計算する値
+		/// @remark `FastMath::InvSqrt()` よりもコストがかかりますが、結果の精度が向上します
+		/// @return 逆平方根の近似結果
+		[[nodiscard]]
+		inline double InvSqrtQuality(double x) noexcept;
+
 	# endif
 	}
 }
