@@ -60,6 +60,12 @@ namespace s3d
 
 		virtual Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) = 0;
 
+		virtual PolygonGlyph renderPolygon(Font::IDType handleID, StringView ch) = 0;
+
+		virtual PolygonGlyph renderPolygonByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) = 0;
+
+		virtual Array<PolygonGlyph> renderPolygons(Font::IDType handleID, StringView s) = 0;
+
 		virtual BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) = 0;
 
 		virtual BitmapGlyph renderBitmapByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) = 0;

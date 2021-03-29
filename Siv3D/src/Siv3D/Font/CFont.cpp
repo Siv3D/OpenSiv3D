@@ -225,6 +225,23 @@ namespace s3d
 		return m_fonts[handleID]->renderOutlines(s, closeRing);
 	}
 
+	PolygonGlyph CFont::renderPolygon(const Font::IDType handleID, const StringView ch)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return font->renderPolygonByGlyphIndex(font->getGlyphIndex(ch));
+	}
+
+	PolygonGlyph CFont::renderPolygonByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		return m_fonts[handleID]->renderPolygonByGlyphIndex(glyphIndex);
+	}
+
+	Array<PolygonGlyph> CFont::renderPolygons(const Font::IDType handleID, const StringView s)
+	{
+		return m_fonts[handleID]->renderPolygons(s);
+	}
+
 	BitmapGlyph CFont::renderBitmap(const Font::IDType handleID, const StringView s)
 	{
 		const auto& font = m_fonts[handleID];

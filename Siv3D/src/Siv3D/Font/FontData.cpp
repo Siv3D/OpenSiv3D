@@ -250,6 +250,56 @@ namespace s3d
 		return results;
 	}
 
+	PolygonGlyph FontData::renderPolygonByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		const OutlineGlyph outlineGlyph = RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, CloseRing::No, m_fontFace.getProperty());
+
+		PolygonGlyph polygonGlyph;
+		polygonGlyph.glyphIndex	= outlineGlyph.glyphIndex;
+		polygonGlyph.buffer		= outlineGlyph.buffer;
+		polygonGlyph.left		= outlineGlyph.left;
+		polygonGlyph.top		= outlineGlyph.top;
+		polygonGlyph.width		= outlineGlyph.width;
+		polygonGlyph.height		= outlineGlyph.height;
+		polygonGlyph.ascender	= outlineGlyph.ascender;
+		polygonGlyph.descender	= outlineGlyph.descender;
+		polygonGlyph.xAdvance	= outlineGlyph.xAdvance;
+		polygonGlyph.yAdvance	= outlineGlyph.yAdvance;
+		polygonGlyph.polygons	= Geometry2D::ComposePolygons(outlineGlyph.rings);
+		return polygonGlyph;
+	}
+
+	Array<PolygonGlyph> FontData::renderPolygons(const StringView s) const
+	{
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+
+		Array<PolygonGlyph> results(Arg::reserve = glyphInfo.count);
+
+		for (size_t i = 0; i < glyphInfo.count; ++i)
+		{
+			const GlyphIndex glyphIndex = glyphInfo.info[i].codepoint;
+
+			const OutlineGlyph outlineGlyph = RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, CloseRing::No, m_fontFace.getProperty());
+		
+			PolygonGlyph polygonGlyph;
+			polygonGlyph.glyphIndex	= outlineGlyph.glyphIndex;
+			polygonGlyph.buffer		= outlineGlyph.buffer;
+			polygonGlyph.left		= outlineGlyph.left;
+			polygonGlyph.top		= outlineGlyph.top;
+			polygonGlyph.width		= outlineGlyph.width;
+			polygonGlyph.height		= outlineGlyph.height;
+			polygonGlyph.ascender	= outlineGlyph.ascender;
+			polygonGlyph.descender	= outlineGlyph.descender;
+			polygonGlyph.xAdvance	= outlineGlyph.xAdvance;
+			polygonGlyph.yAdvance	= outlineGlyph.yAdvance;
+			polygonGlyph.polygons	= Geometry2D::ComposePolygons(outlineGlyph.rings);
+
+			results << std::move(polygonGlyph);
+		}
+
+		return results;
+	}
+
 	BitmapGlyph FontData::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex) const
 	{
 		return RenderBitmapGlyph(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());

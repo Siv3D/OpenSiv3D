@@ -102,7 +102,13 @@ namespace s3d
 		OutlineGlyph renderOutlineByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, CloseRing closeRing) override;
 
 		Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) override;
+		
+		PolygonGlyph renderPolygon(Font::IDType handleID, StringView ch) override;
 
+		PolygonGlyph renderPolygonByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
+
+		Array<PolygonGlyph> renderPolygons(Font::IDType handleID, StringView s) override;
+		
 		BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) override;
 
 		BitmapGlyph renderBitmapByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;

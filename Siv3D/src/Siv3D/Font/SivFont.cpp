@@ -217,6 +217,26 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderOutlines(m_handle->id(), s, closeRing);
 	}
 
+	PolygonGlyph Font::renderPolygon(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), StringView(&ch, 1));
+	}
+
+	PolygonGlyph Font::renderPolygon(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), ch);
+	}
+
+	PolygonGlyph Font::renderPolygonByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygonByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
+	Array<PolygonGlyph> Font::renderPolygons(StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygons(m_handle->id(), s);
+	}
+
 	BitmapGlyph Font::renderBitmap(const char32 ch) const
 	{
 		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), StringView(&ch, 1));

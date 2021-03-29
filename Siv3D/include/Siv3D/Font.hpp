@@ -17,6 +17,7 @@
 # include "GlyphInfo.hpp"
 # include "GlyphCluster.hpp"
 # include "OutlineGlyph.hpp"
+# include "PolygonGlyph.hpp"
 # include "BitmapGlyph.hpp"
 # include "SDFGlyph.hpp"
 # include "MSDFGlyph.hpp"
@@ -242,6 +243,31 @@ namespace s3d
 		/// @return 文字の輪郭グリフの配列
 		[[nodiscard]]
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param ch 文字
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygon(char32 ch) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygon(StringView ch) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygonByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		/// @brief 指定した文字列のすべての文字のポリゴングリフの配列を作成して返します。
+		/// @param s 文字列
+		/// @return 文字のポリゴングリフの配列
+		[[nodiscard]]
+		Array<PolygonGlyph> renderPolygons(StringView s) const;
 
 		/// @brief 指定した文字の Bitmap グリフを作成して返します。
 		/// @param ch 文字

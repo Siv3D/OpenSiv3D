@@ -62,6 +62,12 @@ namespace s3d
 		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing) const;
 
 		[[nodiscard]]
+		PolygonGlyph renderPolygonByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		[[nodiscard]]
+		Array<PolygonGlyph> renderPolygons(StringView s) const;
+
+		[[nodiscard]]
 		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex) const;
 
 		[[nodiscard]]
