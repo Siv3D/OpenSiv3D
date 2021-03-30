@@ -34,6 +34,7 @@ jobs:
         sudo apt install xorg-dev
         sudo apt install libopencv-dev
         sudo apt install libturbojpeg0-dev
+        sudo apt install libgif-dev
 
     - name: Configure Siv3D
       working-directory: Linux

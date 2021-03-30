@@ -99,9 +99,6 @@
 // 無限リスト | Infinite list
 # include <Siv3D/InfiniteList.hpp>
 
-// イテレータによる範囲の表現 | Range iterator
-//# include <Siv3D/RangeIterator.hpp> // [Siv3D ToDo]
-
 // スコープ・ガード | Scope guard
 # include <Siv3D/ScopeGuard.hpp>
 

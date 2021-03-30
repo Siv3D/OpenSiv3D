@@ -62,6 +62,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lfreetype
   -lglib-2.0
   -lgobject-2.0
+  -lgif
   -lgio-2.0
   -lharfbuzz
   -lopencv_core

@@ -28,6 +28,7 @@
 # pragma comment (lib, "freetype/freetype" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "glew/glew32s" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "harfbuzz/harfbuzz" SIV3D_DEBUG_LIB_POSTFIX(_d))
+# pragma comment (lib, "libgif/libgif" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "libpng/libpng16" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "libjpeg-turbo/turbojpeg-static" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "Oniguruma/Oniguruma" SIV3D_DEBUG_LIB_POSTFIX(_d))

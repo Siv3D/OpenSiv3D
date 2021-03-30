@@ -17,6 +17,7 @@
 # include <Siv3D/ImageFormat/JPEGDecoder.hpp>
 # include <Siv3D/ImageFormat/TGADecoder.hpp>
 # include <Siv3D/ImageFormat/SVGDecoder.hpp>
+# include <Siv3D/ImageFormat/GIFDecoder.hpp>
 
 namespace s3d
 {
@@ -34,6 +35,7 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<JPEGDecoder>());
 		m_decoders.push_back(std::make_unique<TGADecoder>());
 		m_decoders.push_back(std::make_unique<SVGDecoder>());
+		m_decoders.push_back(std::make_unique<GIFDecoder>());
 	}
 
 	Optional<ImageInfo> CImageDecoder::getImageInfo(IReader& reader, const FilePathView pathHint, const ImageFormat imageFormat)

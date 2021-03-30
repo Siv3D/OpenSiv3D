@@ -16,6 +16,7 @@
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 # include <Siv3D/ImageFormat/JPEGEncoder.hpp>
 # include <Siv3D/ImageFormat/TGAEncoder.hpp>
+# include <Siv3D/ImageFormat/GIFEncoder.hpp>
 
 
 namespace s3d
@@ -33,6 +34,7 @@ namespace s3d
 		m_encoders.push_back(std::make_unique<PNGEncoder>());
 		m_encoders.push_back(std::make_unique<JPEGEncoder>());
 		m_encoders.push_back(std::make_unique<TGAEncoder>());
+		m_encoders.push_back(std::make_unique<GIFEncoder>());
 	}
 
 	String CImageEncoder::getEncoderNameFromExtension(const StringView extension) const

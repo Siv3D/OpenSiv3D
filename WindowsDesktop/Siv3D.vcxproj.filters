@@ -928,6 +928,12 @@
     <Filter Include="src\Siv3D\Physics2D">
       <UniqueIdentifier>{23ad4a47-b050-4410-a227-2873b7b12a1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\GIF">
+      <UniqueIdentifier>{54e8a1b2-10f5-4f24-81e9-6ea1ea7ec9e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\libgif">
+      <UniqueIdentifier>{7a18eae2-aae0-4ae2-8c32-c14c2b0674f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4605,6 +4611,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PolygonGlyph.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\GIFDecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\GIFEncoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libgif\gif_lib.h">
+      <Filter>src\ThirdParty-prebuilt\libgif</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6340,6 +6355,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2MouseJoint.cpp">
       <Filter>src\Siv3D\Physics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\GIFDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\GIFEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\GIF</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

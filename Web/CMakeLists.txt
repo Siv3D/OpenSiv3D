@@ -178,6 +178,8 @@ add_library(
   ../Siv3D/src/Siv3D/ImageEncoder/SivImageEncoder.cpp 
   ../Siv3D/src/Siv3D/ImageFormat/BMP/BMPDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/BMP/BMPEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/GIF/GIFDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/GIF/GIFEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/JPEG/JPEGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/JPEG/JPEGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNG/PNGDecoder.cpp

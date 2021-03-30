@@ -217,6 +217,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\BMPDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\BMPEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\GIFDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\GIFEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\JPEGEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PNGDecoder.hpp" />
@@ -860,6 +862,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-unicode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-version.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libgif\gif_lib.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libjpeg-turbo\turbojpeg.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\png.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\pngconf.h" />
@@ -1399,6 +1402,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageEncoder\SivImageEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\BMPEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\GIFDecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\GIFEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\JPEGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\JPEGEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\PNGDecoder.cpp" />
