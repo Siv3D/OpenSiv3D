@@ -1000,6 +1000,10 @@
 		2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B9725C5A61900034D81 /* EffectData.hpp */; };
 		2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B9825C5A61900034D81 /* CEffect.cpp */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
+		2C7DE5D6261379E900D7F031 /* GIFDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7DE5D4261379E900D7F031 /* GIFDecoder.cpp */; };
+		2C7DE5D7261379E900D7F031 /* GIFEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */; };
+		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
+		2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7DE5DB26137A3B00D7F031 /* liblibgif.a */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -2400,6 +2404,13 @@
 		2C794B9725C5A61900034D81 /* EffectData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EffectData.hpp; sourceTree = "<group>"; };
 		2C794B9825C5A61900034D81 /* CEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEffect.cpp; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
+		2C7DE5D0261379B600D7F031 /* PolygonGlyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PolygonGlyph.hpp; sourceTree = "<group>"; };
+		2C7DE5D1261379CE00D7F031 /* GIFDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GIFDecoder.hpp; sourceTree = "<group>"; };
+		2C7DE5D2261379CE00D7F031 /* GIFEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GIFEncoder.hpp; sourceTree = "<group>"; };
+		2C7DE5D4261379E900D7F031 /* GIFDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GIFDecoder.cpp; sourceTree = "<group>"; };
+		2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GIFEncoder.cpp; sourceTree = "<group>"; };
+		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
+		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -3100,6 +3111,7 @@
 				2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */,
 				2C47E59924AF3C7B0060E8A7 /* libboost_filesystem.a in Frameworks */,
 				2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */,
+				2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */,
 				2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */,
 				2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */,
 				2CFF581E25F7C09400B660AD /* libopencv_imgcodecs.a in Frameworks */,
@@ -3623,6 +3635,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C7DE5DB26137A3B00D7F031 /* liblibgif.a */,
 				2CFF582125F7C0E100B660AD /* CoreMedia.framework */,
 				2CFF581F25F7C0B500B660AD /* AVFoundation.framework */,
 				2CFF581D25F7C09400B660AD /* libopencv_imgcodecs.a */,
@@ -6333,6 +6346,23 @@
 			path = Effect;
 			sourceTree = "<group>";
 		};
+		2C7DE5D3261379E900D7F031 /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				2C7DE5D4261379E900D7F031 /* GIFDecoder.cpp */,
+				2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
+		2C7DE5D8261379FD00D7F031 /* libgif */ = {
+			isa = PBXGroup;
+			children = (
+				2C7DE5D9261379FD00D7F031 /* gif_lib.h */,
+			);
+			path = libgif;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -6673,6 +6703,7 @@
 				2CAAA72B25E7FD0200C014D7 /* PoissonDisk2D.hpp */,
 				2CAAA76225E7FD0200C014D7 /* Polygon.hpp */,
 				2CAAA70225E7FD0200C014D7 /* PolygonFailureType.hpp */,
+				2C7DE5D0261379B600D7F031 /* PolygonGlyph.hpp */,
 				2CAAA74725E7FD0200C014D7 /* PredefinedNamedParameter.hpp */,
 				2CAAA76B25E7FD0200C014D7 /* PredefinedYesNo.hpp */,
 				2CAAA78925E7FD0200C014D7 /* PrimeNumber.hpp */,
@@ -6969,6 +7000,8 @@
 		2CAAA85225E7FD0300C014D7 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C7DE5D1261379CE00D7F031 /* GIFDecoder.hpp */,
+				2C7DE5D2261379CE00D7F031 /* GIFEncoder.hpp */,
 				2CAAA85325E7FD0300C014D7 /* BMPDecoder.hpp */,
 				2CAAA85425E7FD0300C014D7 /* BMPEncoder.hpp */,
 				2CFC212C25F7326A00C51D0D /* JPEGDecoder.hpp */,
@@ -7169,6 +7202,7 @@
 			isa = PBXGroup;
 			children = (
 				2CEC7DD025FA527700704B99 /* BMP */,
+				2C7DE5D3261379E900D7F031 /* GIF */,
 				2CEC7DCD25FA527700704B99 /* JPEG */,
 				2CEC7DCA25FA527700704B99 /* PNG */,
 				2CEC7DC825FA527700704B99 /* SVG */,
@@ -7426,6 +7460,7 @@
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
 			isa = PBXGroup;
 			children = (
+				2C7DE5D8261379FD00D7F031 /* libgif */,
 				2CFC213425F739B400C51D0D /* harfbuzz */,
 				2CFC212925F7324F00C51D0D /* libjpeg-turbo */,
 				2CFC214525F739B400C51D0D /* libpng */,
@@ -8012,6 +8047,7 @@
 				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
+				2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */,
 				2C2AA39826009C74003F3EBC /* b2_wheel_joint.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
@@ -8268,6 +8304,7 @@
 				2CF21D27249FAA8F00C864C9 /* Siv3DMain.cpp in Sources */,
 				2C2AA3A626009C74003F3EBC /* b2_broad_phase.cpp in Sources */,
 				2CEC7DD525FA527700704B99 /* PNGEncoder.cpp in Sources */,
+				2C7DE5D7261379E900D7F031 /* GIFEncoder.cpp in Sources */,
 				2C13C8C525B8FA9D0054B968 /* DetourNavMeshBuilder.cpp in Sources */,
 				2C48BEE425CFB8C500A93CE3 /* Vector2.cpp in Sources */,
 				2C834D98248805D4006208B8 /* unicode_fold1_key.c in Sources */,
@@ -8584,6 +8621,7 @@
 				2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */,
 				2C47B35224DD9789008D83BE /* SivFormatFloat.cpp in Sources */,
 				2C13C9B525BD29FC0054B968 /* lundump.c in Sources */,
+				2C7DE5D6261379E900D7F031 /* GIFDecoder.cpp in Sources */,
 				2C13C9A325BD29FC0054B968 /* lopcodes.c in Sources */,
 				2C13C8ED25B95ABA0054B968 /* DirectoryWatcherDetail.cpp in Sources */,
 				2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */,
@@ -8877,6 +8915,7 @@
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
+					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/opencv,
@@ -8941,6 +8980,7 @@
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
+					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libpng,
 					../Siv3D/lib/macOS/opencv,
