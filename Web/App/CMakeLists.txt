@@ -69,6 +69,7 @@ target_link_libraries(Siv3DTest PRIVATE
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/harfbuzz/libharfbuzz.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/freetype/libfreetype.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/turbojpeg/libturbojpeg.a
+	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/giflib/libgif.a
   )
 
 

@@ -29,12 +29,7 @@ namespace s3d
 
 		m_buffer.resize(EventBufferSize);
 
-		m_thread = std::thread(DirectoryWatcherDetail::watch, this);
-
-		while (not m_initCalled)
-		{
-			::usleep(1000);
-		}
+		m_thread = PseudoThread(DirectoryWatcherDetail::watch, this);
 
 		m_isActive = (true);
 	}
@@ -79,20 +74,21 @@ namespace s3d
 		return m_targetDirectory;
 	}
 
-	void DirectoryWatcher::DirectoryWatcherDetail::watch(DirectoryWatcherDetail* watcher)
+	bool DirectoryWatcher::DirectoryWatcherDetail::watch(DirectoryWatcherDetail* watcher)
 	{
 		if (not watcher->init())
 		{
 			watcher->m_initCalled = true;
-			return;
+			return true;
 		}
 
-		watcher->m_initCalled = true;
-
-		while (not watcher->m_abort)
+		if (not watcher->m_abort)
 		{
 			watcher->update();
+			return true;
 		}
+
+		return false;
 	}
 
 	bool DirectoryWatcher::DirectoryWatcherDetail::init()

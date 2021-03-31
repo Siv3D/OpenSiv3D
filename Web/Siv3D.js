@@ -31,5 +31,12 @@ mergeInto(LibraryManager.library, {
         setValue(xscale, 1, 'float');
         setValue(yscale, 1, 'float'); 
     },
-    glfwGetMonitorContentScale__sig: "viii"
+    glfwGetMonitorContentScale__sig: "viii",
+
+    s3dSetCursorStyle: function(style) {
+        const styleText = UTF8ToString(style);
+        Module["canvas"].style.cursor = styleText;
+    },
+
+    s3dSetCursorStyle__sig: "vi"
 })

@@ -646,6 +646,7 @@ target_include_directories(
   ../Siv3D/src/ThirdParty-prebuilt/harfbuzz
   ../Siv3D/src/ThirdParty-prebuilt/libjpeg-turbo
   ../Siv3D/src/ThirdParty-prebuilt/libpng
+  ../Siv3D/src/ThirdParty-prebuilt/libgif
   ../Dependencies/boost_1_73_0
   ${LIBSIV3D_INCLUDE_DIRS}
   )
