@@ -334,17 +334,30 @@ namespace s3d
 
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
 
+		[[nodiscard]]
 		Blob encode(ImageFormat format) const;
 
 		//bool saveWithDialog() const;
 
 		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
 
+		[[nodiscard]]
+		Blob encodePNG(PNGFilter filter = PNGFilter::Default) const;
+
 		bool saveJPEG(FilePathView path, int32 quality = 90) const;
+
+		[[nodiscard]]
+		Blob encodeJPEG(int32 quality = 90) const;
 
 		bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 
+		[[nodiscard]]
+		Blob encodePPM(PPMType format = PPMType::AsciiRGB) const;
+
 		bool saveWebP(FilePathView path, Lossless lossless = Lossless::No, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+
+		[[nodiscard]]
+		Blob encodeWebP(Lossless lossless = Lossless::No, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
 
 		Image& negate();
 

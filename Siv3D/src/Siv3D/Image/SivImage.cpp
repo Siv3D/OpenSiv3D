@@ -571,9 +571,19 @@ namespace s3d
 		return PNGEncoder{}.save(*this, path, filter);
 	}
 
+	Blob Image::encodePNG(const PNGFilter filter) const
+	{
+		return PNGEncoder{}.encode(*this, filter);
+	}
+
 	bool Image::saveJPEG(const FilePathView path, const int32 quality) const
 	{
 		return JPEGEncoder{}.save(*this, path, quality);
+	}
+
+	Blob Image::encodeJPEG(const int32 quality) const
+	{
+		return JPEGEncoder{}.encode(*this, quality);
 	}
 
 	bool Image::savePPM(const FilePathView path, const PPMType format) const
@@ -581,9 +591,19 @@ namespace s3d
 		return PPMEncoder{}.save(*this, path, format);
 	}
 
+	Blob Image::encodePPM(const PPMType format) const
+	{
+		return PPMEncoder{}.encode(*this, format);
+	}
+
 	bool Image::saveWebP(const FilePathView path, const Lossless lossless, const double quality, const WebPMethod method) const
 	{
 		return WebPEncoder{}.save(*this, path, lossless, quality, method);
+	}
+
+	Blob Image::encodeWebP(const Lossless lossless, const double quality, const WebPMethod method) const
+	{
+		return WebPEncoder{}.encode(*this, lossless, quality, method);
 	}
 
 	Image& Image::negate()
