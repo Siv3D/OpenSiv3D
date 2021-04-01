@@ -287,11 +287,6 @@ namespace s3d
 			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(size);
 		}
 
-		if (size == Siv3DEngine::Get<ISiv3DGraphics>()->getBackBufferSize())
-		{
-			return true;
-		}
-
 		LOG_TRACE(U"CWindow::resizeClient(size = {})"_fmt(size));
 
 		const Size newSize(std::max(size.x, m_state.minimumSize.x), std::max(size.y, m_state.minimumSize.y));
