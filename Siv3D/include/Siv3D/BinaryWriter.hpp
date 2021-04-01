@@ -78,10 +78,10 @@ namespace s3d
 
 		/// @brief 現在の書き込み位置にデータを書き込みます。
 		/// @param src 書き込むデータ
-		/// @param size 書き込むサイズ（バイト）
+		/// @param sizeBytes 書き込むサイズ（バイト）
 		/// @remark 書き込み位置がファイルの終端の場合、書き込んだ分だけファイルのサイズが拡張されます。
 		/// @return 実際に書き込んだサイズ（バイト）
-		int64 write(const void* src, int64 size) override;
+		int64 write(const void* src, int64 sizeBytes) override;
 
 		/// @brief 現在の書き込み位置にデータを書き込みます。
 		/// @tparam TriviallyCopyable 書き込む値の型

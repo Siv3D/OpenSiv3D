@@ -9,65 +9,45 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ImageFormat/GIFDecoder.hpp>
+# include <Siv3D/ImageFormat/WebPDecoder.hpp>
 # include <Siv3D/EngineLog.hpp>
-
-# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
-#	include <ThirdParty-prebuilt/libgif/gif_lib.h>
-# else
-#	include <gif_lib.h>
-# endif
 
 namespace s3d
 {
-	namespace detail
+	/*
+	StringView WebPDecoder::name() const
 	{
-		static int GifReadCallback(GifFileType* gif, GifByteType* bytes, const int size)
-		{
-			const auto reader = static_cast<IReader*>(gif->UserData);
-
-			return static_cast<int>(reader->read(bytes, size));
-		}
+		return U"WebP"_sv;
 	}
 
-	StringView GIFDecoder::name() const
+	bool WebPDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
-		return U"GIF"_sv;
+		static constexpr uint8 WebP_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
+		static constexpr uint8 WebP_SIGN89a[] = { 'G', 'I', 'F', '8', '9', 'a' };
+
+		return std::memcmp(bytes, WebP_SIGN87a, sizeof(WebP_SIGN87a)) == 0
+			|| std::memcmp(bytes, WebP_SIGN89a, sizeof(WebP_SIGN89a)) == 0;
 	}
 
-	bool GIFDecoder::isHeader(const uint8(&bytes)[16]) const
-	{
-		static constexpr uint8 GIF_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
-		static constexpr uint8 GIF_SIGN89a[] = { 'G', 'I', 'F', '8', '9', 'a' };
-
-		return std::memcmp(bytes, GIF_SIGN87a, sizeof(GIF_SIGN87a)) == 0
-			|| std::memcmp(bytes, GIF_SIGN89a, sizeof(GIF_SIGN89a)) == 0;
-	}
-
-	const Array<String>& GIFDecoder::possibleExtensions() const
+	const Array<String>& WebPDecoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"gif" };
 
 		return extensions;
 	}
 
-	ImageFormat GIFDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::GIF;
-	}
-
-	Optional<ImageInfo> GIFDecoder::getImageInfo(const FilePathView path) const
+	Optional<ImageInfo> WebPDecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);
 	}
 
-	Optional<ImageInfo> GIFDecoder::getImageInfo(IReader& reader, const FilePathView) const
+	Optional<ImageInfo> WebPDecoder::getImageInfo(IReader& reader, const FilePathView) const
 	{
 		uint8 buf[4];
 
 		if (not reader.lookahead(buf))
 		{
-			LOG_FAIL(U"❌ GIFDecoder::getImageInfo(): File size is invalid");
+			LOG_FAIL(U"❌ WebPDecoder::getImageInfo(): File size is invalid");
 			return{};
 		}
 
@@ -77,17 +57,17 @@ namespace s3d
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 
-		return ImageInfo{ ImageFormat::GIF, pixelFormat, size, false };
+		return ImageInfo{ ImageFormat::WebP, pixelFormat, size, false };
 	}
 
-	Image GIFDecoder::decode(const FilePathView path) const
+	Image WebPDecoder::decode(const FilePathView path) const
 	{
 		return IImageDecoder::decode(path);
 	}
 
-	Image GIFDecoder::decode(IReader& reader, const FilePathView) const
+	Image WebPDecoder::decode(IReader& reader, const FilePathView) const
 	{
-		LOG_SCOPED_TRACE(U"GIFDecoder::decode()");
+		LOG_SCOPED_TRACE(U"WebPDecoder::decode()");
 
 		int error;
 		GifFileType* gif = DGifOpen(&reader, detail::GifReadCallback, &error);
@@ -97,7 +77,7 @@ namespace s3d
 			return{};
 		}
 
-		if (DGifSlurp(gif) != GIF_OK)
+		if (DGifSlurp(gif) != WebP_OK)
 		{
 			DGifCloseFile(gif, &error);
 
@@ -188,4 +168,5 @@ namespace s3d
 
 		return image;
 	}
+	*/
 }

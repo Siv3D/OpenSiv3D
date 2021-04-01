@@ -387,11 +387,14 @@
 // 書き込み可能なメモリマップトファイル | Writable memory mapped file
 //# include <Siv3D/WritableMemoryMapping.hpp>
 
+// メモリ上のバッファ | Binary Large Object
+# include <Siv3D/Blob.hpp>
+
 // 読み込み用バッファ | Binary Large Object (reader)
 //# include <Siv3D/ByteArray.hpp>
 
 // 書き込み用バッファ | Binary Large Object (writer)
-//# include <Siv3D/MemoryWriter.hpp>
+# include <Siv3D/BlobWriter.hpp>
 
 // ファイルオープンモード / File open mode
 # include <Siv3D/OpenMode.hpp>
@@ -813,16 +816,44 @@
 # include <Siv3D/ImageROI.hpp>
 
 # include <Siv3D/IImageDecoder.hpp>
-
-# include <Siv3D/ImageDecoder.hpp>
-
-# include <Siv3D/ImageFormat/BMPDecoder.hpp>
-
-# include <Siv3D/ImageFormat/PNGDecoder.hpp>
-
 # include <Siv3D/IImageEncoder.hpp>
 
 # include <Siv3D/ImageEncoder.hpp>
+# include <Siv3D/ImageDecoder.hpp>
+
+//# include <Siv3D/ImageFormat/DDSDecoder.hpp>
+//# include <Siv3D/ImageFormat/DDSEncoder.hpp>
+
+# include <Siv3D/PNGFilter.hpp>
+# include <Siv3D/ImageFormat/PNGDecoder.hpp>
+# include <Siv3D/ImageFormat/PNGEncoder.hpp>
+
+# include <Siv3D/ImageFormat/JPEGDecoder.hpp>
+# include <Siv3D/ImageFormat/JPEGEncoder.hpp>
+
+//# include <Siv3D/ImageFormat/JPEG2000Decoder.hpp>
+//# include <Siv3D/ImageFormat/JPEG2000Encoder.hpp>
+
+# include <Siv3D/ImageFormat/BMPDecoder.hpp>
+# include <Siv3D/ImageFormat/BMPEncoder.hpp>
+
+//# include <Siv3D/ImageFormat/WebPDecoder.hpp>
+//# include <Siv3D/ImageFormat/WebPEncoder.hpp>
+
+# include <Siv3D/ImageFormat/GIFDecoder.hpp>
+# include <Siv3D/ImageFormat/GIFEncoder.hpp>
+
+//# include <Siv3D/ImageFormat/TIFFDecoder.hpp>
+//# include <Siv3D/ImageFormat/TIFFEncoder.hpp>
+
+# include <Siv3D/ImageFormat/TGADecoder.hpp>
+# include <Siv3D/ImageFormat/TGAEncoder.hpp>
+
+# include <Siv3D/PPMType.hpp>
+# include <Siv3D/ImageFormat/PPMDecoder.hpp>
+# include <Siv3D/ImageFormat/PPMEncoder.hpp>
+
+# include <Siv3D/ImageFormat/SVGDecoder.hpp>
 
 // SVG 画像 | SVG image
 # include <Siv3D/SVG.hpp>

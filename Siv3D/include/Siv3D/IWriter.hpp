@@ -45,9 +45,9 @@ namespace s3d
 
 		/// @brief Writer にデータを書き込みます。
 		/// @param src 書き込むデータ
-		/// @param size 書き込むサイズ（バイト）
+		/// @param sizeBytes 書き込むサイズ（バイト）
 		/// @return 実際に書き込んだサイズ（バイト）
-		virtual int64 write(const void* src, int64 size) = 0;
+		virtual int64 write(const void* src, int64 sizeBytes) = 0;
 
 		/// @brief Writer にデータを書き込みます。
 		/// @tparam TriviallyCopyable 書き込む値の型

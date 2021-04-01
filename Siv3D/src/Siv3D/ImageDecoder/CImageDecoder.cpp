@@ -18,6 +18,7 @@
 # include <Siv3D/ImageFormat/TGADecoder.hpp>
 # include <Siv3D/ImageFormat/SVGDecoder.hpp>
 # include <Siv3D/ImageFormat/GIFDecoder.hpp>
+# include <Siv3D/ImageFormat/PPMDecoder.hpp>
 
 namespace s3d
 {
@@ -36,6 +37,7 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<TGADecoder>());
 		m_decoders.push_back(std::make_unique<SVGDecoder>());
 		m_decoders.push_back(std::make_unique<GIFDecoder>());
+		m_decoders.push_back(std::make_unique<PPMDecoder>());
 	}
 
 	Optional<ImageInfo> CImageDecoder::getImageInfo(IReader& reader, const FilePathView pathHint, const ImageFormat imageFormat)
@@ -114,6 +116,24 @@ namespace s3d
 	const Array<std::unique_ptr<IImageDecoder>>& CImageDecoder::enumDecoder() const noexcept
 	{
 		return m_decoders;
+	}
+
+	Array<std::unique_ptr<IImageDecoder>>::const_iterator CImageDecoder::findDecoder(const ImageFormat imageFormat) const
+	{
+		if (imageFormat == ImageFormat::Unknown)
+		{
+			return m_decoders.end();
+		}
+
+		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+		{
+			if ((*it)->imageFormat() == imageFormat)
+			{
+				return it;
+			}
+		}
+
+		return m_decoders.end();
 	}
 
 	Array<std::unique_ptr<IImageDecoder>>::const_iterator CImageDecoder::findDecoder(const IReader& reader, const FilePathView pathHint) const

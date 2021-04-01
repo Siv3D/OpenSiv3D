@@ -46,6 +46,18 @@ namespace s3d
 		return encode(image, writer);
 	}
 
+	bool JPEGEncoder::save(const Image& image, const FilePathView path, const int32 quality) const
+	{
+		BinaryWriter writer{ path };
+
+		if (not writer)
+		{
+			return false;
+		}
+
+		return encode(image, writer, quality);
+	}
+
 	bool JPEGEncoder::encode(const Image& image, IWriter& writer) const
 	{
 		return encode(image, writer, 90);

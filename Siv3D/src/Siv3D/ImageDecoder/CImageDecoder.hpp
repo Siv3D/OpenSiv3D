@@ -23,6 +23,8 @@ namespace s3d
 
 		Array<std::unique_ptr<IImageDecoder>> m_decoders;
 
+		Array<std::unique_ptr<IImageDecoder>>::const_iterator findDecoder(ImageFormat imageFormat) const;
+
 		Array<std::unique_ptr<IImageDecoder>>::const_iterator findDecoder(const IReader& reader, FilePathView pathHint) const;
 
 	public:

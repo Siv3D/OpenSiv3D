@@ -33,6 +33,11 @@ namespace s3d
 		return extensions;
 	}
 
+	ImageFormat TGADecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::TGA;
+	}
+
 	Optional<ImageInfo> TGADecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);

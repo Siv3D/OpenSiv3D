@@ -227,7 +227,7 @@ namespace s3d
 		return{ vals[detail::HSVConversionTable[hueI][0]],
 				vals[detail::HSVConversionTable[hueI][1]],
 				vals[detail::HSVConversionTable[hueI][2]],
-				alpha };
+				static_cast<uint8>(alpha) };
 	}
 
 	inline ColorF HSV::toColorF() const noexcept

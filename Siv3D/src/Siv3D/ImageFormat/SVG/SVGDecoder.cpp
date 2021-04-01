@@ -39,6 +39,11 @@ namespace s3d
 		return extensions;
 	}
 
+	ImageFormat SVGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::SVG;
+	}
+
 	Optional<ImageInfo> SVGDecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);

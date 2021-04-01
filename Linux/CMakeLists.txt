@@ -186,9 +186,13 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ImageFormat/JPEG/JPEGEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNG/PNGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/PNG/PNGEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/PPM/PPMDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/PPM/PPMEncoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/SVG/SVGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/TGA/TGADecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/TGA/TGAEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/WebP/WebPDecoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/WebP/WebPEncoder.cpp
   ../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp
   ../Siv3D/src/Siv3D/ImageROI/SivImageROI.cpp
   ../Siv3D/src/Siv3D/INI/SivINI.cpp

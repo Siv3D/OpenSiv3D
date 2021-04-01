@@ -399,9 +399,9 @@ namespace s3d
 			{
 				for (int32 _x = 0; _x < fillWidth; ++_x)
 				{
-					pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-					pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-					pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+					pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+					pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+					pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 
 					++pDst;
 				}

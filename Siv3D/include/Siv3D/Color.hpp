@@ -25,16 +25,16 @@ namespace s3d
 	struct Color
 	{
 		/// @brief 赤 | Red
-		uint32 r : 8;
+		uint8 r;
 
 		/// @brief 緑 | Green
-		uint32 g : 8;
+		uint8 g;
 
 		/// @brief 青 | Blue
-		uint32 b : 8;
+		uint8 b;
 
 		/// @brief アルファ | Alpha
-		uint32 a : 8;
+		uint8 a;
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
@@ -45,25 +45,25 @@ namespace s3d
 		Color(const Color&) = default;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(uint32 _r, uint32 _g, uint32 _b, uint32 _a = 255) noexcept;
+		constexpr Color(uint8 _r, uint8 _g, uint8 _b, uint8 _a = 255) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		explicit constexpr Color(uint32 rgb, uint32 _a = 255) noexcept;
+		explicit constexpr Color(uint8 rgb, uint8 _a = 255) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(Color rgb, uint32 _a) noexcept;
+		constexpr Color(Color rgb, uint8 _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Color(const ColorF& color) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(const ColorF& color, uint32 _a) noexcept;
+		constexpr Color(const ColorF& color, uint8 _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		Color(const HSV& hsva) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Color(const HSV& hsv, uint32 _a) noexcept;
+		Color(const HSV& hsv, uint8 _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr Color(StringView code) noexcept;

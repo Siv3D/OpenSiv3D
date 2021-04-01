@@ -29,6 +29,9 @@ namespace s3d
 		const Array<String>& possibleExtensions() const override;
 
 		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
+		[[nodiscard]]
 		Optional<ImageInfo> getImageInfo(FilePathView path) const override;
 
 		[[nodiscard]]

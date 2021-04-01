@@ -48,6 +48,11 @@ namespace s3d
 		return extensions;
 	}
 
+	ImageFormat PNGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::PNG;
+	}
+
 	Optional<ImageInfo> PNGDecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);

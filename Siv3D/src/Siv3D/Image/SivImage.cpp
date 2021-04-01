@@ -21,6 +21,7 @@
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
+# include <Siv3D/ImageFormat/JPEGEncoder.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
 # include "ImagePainting.hpp"
 
@@ -554,9 +555,19 @@ namespace s3d
 		return ImageEncoder::Save(*this, format, path);
 	}
 
+	Blob Image::encode(const ImageFormat format) const
+	{
+		return ImageEncoder::Encode(*this, format);
+	}
+
 	bool Image::savePNG(const FilePathView path, const PNGFilter filter) const
 	{
 		return PNGEncoder{}.save(*this, path, filter);
+	}
+
+	bool Image::saveJPEG(const FilePathView path, const int32 quality) const
+	{
+		return JPEGEncoder{}.save(*this, path, quality);
 	}
 
 	Image& Image::negate()

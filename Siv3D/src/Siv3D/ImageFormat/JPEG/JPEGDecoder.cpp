@@ -43,6 +43,11 @@ namespace s3d
 		return extensions;
 	}
 
+	ImageFormat JPEGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::JPEG;
+	}
+
 	Optional<ImageInfo> JPEGDecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);

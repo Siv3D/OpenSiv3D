@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "Grid.hpp"
+# include "Blob.hpp"
 # include "NamedParameter.hpp"
 # include "PredefinedNamedParameter.hpp"
 # include "ImageFormat.hpp"
@@ -331,11 +332,13 @@ namespace s3d
 
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
 
+		Blob encode(ImageFormat format) const;
+
 		//bool saveWithDialog() const;
 
 		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
 
-		//bool saveJPEG(FilePathView path, int32 quality = 90) const;
+		bool saveJPEG(FilePathView path, int32 quality = 90) const;
 
 		//bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 

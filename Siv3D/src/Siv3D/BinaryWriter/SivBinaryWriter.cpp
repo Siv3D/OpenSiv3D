@@ -70,14 +70,14 @@ namespace s3d
 		return pImpl->setPos(pImpl->size());
 	}
 
-	int64 BinaryWriter::write(const void* src, const int64 size)
+	int64 BinaryWriter::write(const void* src, const int64 sizeBytes)
 	{
-		if ((src == nullptr) || (size <= 0))
+		if ((src == nullptr) || (sizeBytes <= 0))
 		{
 			return 0;
 		}
 
-		return pImpl->write(NonNull{ src }, size);
+		return pImpl->write(NonNull{ src }, sizeBytes);
 	}
 
 	const FilePath& BinaryWriter::path() const noexcept

@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	class BMPDecoder : public IImageDecoder
+	class PPMDecoder : public IImageDecoder
 	{
 	public:
 

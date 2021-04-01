@@ -39,9 +39,9 @@ namespace s3d
 		const std::pair<uint32, uint32>& bMinMax,
 		URBG&& urbg)
 	{
-		return{ Random(rMinMax.first, rMinMax.second, std::forward<URBG>(urbg)),
-				Random(gMinMax.first, gMinMax.second, std::forward<URBG>(urbg)),
-				Random(bMinMax.first, bMinMax.second, std::forward<URBG>(urbg)) };
+		return{ static_cast<uint8>(Random(rMinMax.first, rMinMax.second, std::forward<URBG>(urbg))),
+				static_cast<uint8>(Random(gMinMax.first, gMinMax.second, std::forward<URBG>(urbg))),
+				static_cast<uint8>(Random(bMinMax.first, bMinMax.second, std::forward<URBG>(urbg))) };
 	}
 
 	inline ColorF RandomColorF()

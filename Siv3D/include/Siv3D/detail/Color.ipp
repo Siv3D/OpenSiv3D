@@ -21,19 +21,19 @@ namespace s3d
 		}
 	}
 
-	inline constexpr Color::Color(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a) noexcept
+	inline constexpr Color::Color(const uint8 _r, const uint8 _g, const uint8 _b, const uint8 _a) noexcept
 		: r{ _r }
 		, g{ _g }
 		, b{ _b }
 		, a{ _a } {}
 
-	inline constexpr Color::Color(const uint32 rgb, const uint32 _a) noexcept
+	inline constexpr Color::Color(const uint8 rgb, const uint8 _a) noexcept
 		: r{ rgb }
 		, g{ rgb }
 		, b{ rgb }
 		, a{ _a } {}
 
-	inline constexpr Color::Color(const Color rgb, const uint32 _a) noexcept
+	inline constexpr Color::Color(const Color rgb, const uint8 _a) noexcept
 		: r{ rgb.r }
 		, g{ rgb.g }
 		, b{ rgb.b }
@@ -45,7 +45,7 @@ namespace s3d
 		, b{ Color::ToUint8(color.b) }
 		, a{ Color::ToUint8(color.a) } {}
 
-	inline constexpr Color::Color(const ColorF& color, const uint32 _a) noexcept
+	inline constexpr Color::Color(const ColorF& color, const uint8 _a) noexcept
 		: r{ Color::ToUint8(color.r) }
 		, g{ Color::ToUint8(color.g) }
 		, b{ Color::ToUint8(color.b) }
@@ -56,7 +56,7 @@ namespace s3d
 		*this = hsv.toColor();
 	}
 
-	inline Color::Color(const HSV& hsv, const uint32 _a) noexcept
+	inline Color::Color(const HSV& hsv, const uint8 _a) noexcept
 	{
 		*this = hsv.toColor(_a);
 	}
@@ -69,17 +69,17 @@ namespace s3d
 	{
 		if (code.length() == 4 || code.length() == 5)
 		{
-			r = detail::HexToDecimal(code[1]) * 17;
-			g = detail::HexToDecimal(code[2]) * 17;
-			b = detail::HexToDecimal(code[3]) * 17;
-			a = code.length() == 5 ? detail::HexToDecimal(code[4]) * 17 : 255;
+			r = static_cast<uint8>(detail::HexToDecimal(code[1]) * 17);
+			g = static_cast<uint8>(detail::HexToDecimal(code[2]) * 17);
+			b = static_cast<uint8>(detail::HexToDecimal(code[3]) * 17);
+			a = static_cast<uint8>((code.length() == 5) ? detail::HexToDecimal(code[4]) * 17 : 255);
 		}
 		else if (code.length() == 7 || code.length() == 9)
 		{
-			r = detail::HexToDecimal(code[1]) * 16 + detail::HexToDecimal(code[2]);
-			g = detail::HexToDecimal(code[3]) * 16 + detail::HexToDecimal(code[4]);
-			b = detail::HexToDecimal(code[5]) * 16 + detail::HexToDecimal(code[6]);
-			a = code.length() == 9 ? (detail::HexToDecimal(code[7]) * 16 + detail::HexToDecimal(code[8])) : 255;
+			r = static_cast<uint8>(detail::HexToDecimal(code[1]) * 16 + detail::HexToDecimal(code[2]));
+			g = static_cast<uint8>(detail::HexToDecimal(code[3]) * 16 + detail::HexToDecimal(code[4]));
+			b = static_cast<uint8>(detail::HexToDecimal(code[5]) * 16 + detail::HexToDecimal(code[6]));
+			a = static_cast<uint8>((code.length() == 9) ? (detail::HexToDecimal(code[7]) * 16 + detail::HexToDecimal(code[8])) : 255);
 		}
 	}
 
@@ -103,59 +103,59 @@ namespace s3d
 
 	inline constexpr Color& Color::setR(const uint32 _r) noexcept
 	{
-		r = _r;
+		r = static_cast<uint8>(_r);
 		return *this;
 	}
 
 	inline constexpr Color& Color::setG(const uint32 _g) noexcept
 	{
-		g = _g;
+		g = static_cast<uint8>(_g);
 		return *this;
 	}
 
 	inline constexpr Color& Color::setB(const uint32 _b) noexcept
 	{
-		b = _b;
+		b = static_cast<uint8>(_b);
 		return *this;
 	}
 
 	inline constexpr Color& Color::setA(const uint32 _a) noexcept
 	{
-		a = _a;
+		a = static_cast<uint8>(_a);
 		return *this;
 	}
 
 	inline constexpr Color& Color::setRGB(const uint32 rgb) noexcept
 	{
-		r = rgb;
-		g = rgb;
-		b = rgb;
+		r = static_cast<uint8>(rgb);
+		g = static_cast<uint8>(rgb);
+		b = static_cast<uint8>(rgb);
 		return *this;
 	}
 
 	inline constexpr Color& Color::setRGB(const uint32 _r, const uint32 _g, const uint32 _b) noexcept
 	{
-		r = _r;
-		g = _g;
-		b = _b;
+		r = static_cast<uint8>(_r);
+		g = static_cast<uint8>(_g);
+		b = static_cast<uint8>(_b);
 		return *this;
 	}
 
 	inline constexpr Color& Color::set(const uint32 rgb, const uint32 _a) noexcept
 	{
-		r = rgb;
-		g = rgb;
-		b = rgb;
-		a = _a;
+		r = static_cast<uint8>(rgb);
+		g = static_cast<uint8>(rgb);
+		b = static_cast<uint8>(rgb);
+		a = static_cast<uint8>(_a);
 		return *this;
 	}
 
 	inline constexpr Color& Color::set(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a) noexcept
 	{
-		r = _r;
-		g = _g;
-		b = _b;
-		a = _a;
+		r = static_cast<uint8>(_r);
+		g = static_cast<uint8>(_g);
+		b = static_cast<uint8>(_b);
+		a = static_cast<uint8>(_a);
 		return *this;
 	}
 
@@ -166,7 +166,7 @@ namespace s3d
 
 	inline constexpr Color Color::withAlpha(const uint32 _a) const noexcept
 	{
-		return{ r, g, b, _a };
+		return{ r, g, b, static_cast<uint8>(_a) };
 	}
 
 	inline constexpr uint8 Color::grayscale0_255() const noexcept
@@ -225,10 +225,10 @@ namespace s3d
 
 	inline constexpr Color Color::lerp(const Color other, const double f) const noexcept
 	{
-		return{ static_cast<uint32>(int32(r) + (int32(other.r) - int32(r)) * f),
-				static_cast<uint32>(int32(g) + (int32(other.g) - int32(g)) * f),
-				static_cast<uint32>(int32(b) + (int32(other.b) - int32(b)) * f),
-				static_cast<uint32>(int32(a) + (int32(other.a) - int32(a)) * f) };
+		return{ static_cast<uint8>(int32(r) + (int32(other.r) - int32(r)) * f),
+				static_cast<uint8>(int32(g) + (int32(other.g) - int32(g)) * f),
+				static_cast<uint8>(int32(b) + (int32(other.b) - int32(b)) * f),
+				static_cast<uint8>(int32(a) + (int32(other.a) - int32(a)) * f) };
 	}
 
 	inline Color Color::gamma(const double gamma) const noexcept
@@ -240,9 +240,9 @@ namespace s3d
 
 		const double ig = 1.0 / gamma;
 
-		return{ static_cast<uint32>(std::pow(r / 255.0, ig)),
-				static_cast<uint32>(std::pow(g / 255.0, ig)),
-				static_cast<uint32>(std::pow(b / 255.0, ig)),
+		return{ static_cast<uint8>(std::pow(r / 255.0, ig)),
+				static_cast<uint8>(std::pow(g / 255.0, ig)),
+				static_cast<uint8>(std::pow(b / 255.0, ig)),
 				a };
 	}
 
@@ -312,7 +312,7 @@ namespace s3d
 
 	inline constexpr Color Alpha(const uint32 alpha) noexcept
 	{
-		return Color{ 255, alpha };
+		return Color{ 255, static_cast<uint8>(alpha) };
 	}
 
 	inline constexpr Color ToColor(const float rgb) noexcept

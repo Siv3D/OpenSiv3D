@@ -37,6 +37,9 @@ namespace s3d
 		virtual const Array<String>& possibleExtensions() const = 0;
 
 		[[nodiscard]]
+		virtual ImageFormat imageFormat() const noexcept = 0;
+
+		[[nodiscard]]
 		virtual Optional<ImageInfo> getImageInfo(FilePathView path) const;
 
 		[[nodiscard]]

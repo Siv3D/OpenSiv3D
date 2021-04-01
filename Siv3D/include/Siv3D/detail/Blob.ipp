@@ -16,6 +16,9 @@ namespace s3d
 	inline Blob::Blob(const size_t sizeBytes)
 		: m_data(sizeBytes) {}
 
+	inline Blob::Blob(const Arg::reserve_<size_t> resrveSizeBytes)
+		: m_data(resrveSizeBytes) {}
+
 	inline Blob::Blob(const FilePathView path)
 	{
 		createFromFile(path);

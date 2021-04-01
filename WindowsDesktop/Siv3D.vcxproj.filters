@@ -934,6 +934,12 @@
     <Filter Include="src\ThirdParty-prebuilt\libgif">
       <UniqueIdentifier>{7a18eae2-aae0-4ae2-8c32-c14c2b0674f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\WebP">
+      <UniqueIdentifier>{7085f42e-2c7a-4d95-91fe-fe65a2460713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\PPM">
+      <UniqueIdentifier>{d8cea329-1409-4d42-9d43-e5a24abc2daa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4620,6 +4626,27 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libgif\gif_lib.h">
       <Filter>src\ThirdParty-prebuilt\libgif</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PPMEncoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\PPMDecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\WebPDecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\WebPEncoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PPMType.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BlobWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\BlobWriter.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6361,6 +6388,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\GIFEncoder.cpp">
       <Filter>src\Siv3D\ImageFormat\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\PPMDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\PPM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\PPMEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\PPM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\WebP\WebPDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\WebP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\WebP\WebPEncoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\WebP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

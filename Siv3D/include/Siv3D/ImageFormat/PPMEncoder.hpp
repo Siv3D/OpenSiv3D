@@ -11,10 +11,11 @@
 
 # pragma once
 # include <Siv3D/IImageEncoder.hpp>
+# include <Siv3D/PPMType.hpp>
 
 namespace s3d
 {
-	class JPEGEncoder : public IImageEncoder
+	class PPMEncoder : public IImageEncoder
 	{
 	public:
 
@@ -24,14 +25,14 @@ namespace s3d
 
 		bool save(const Image& image, FilePathView path) const override;
 
-		bool save(const Image& image, FilePathView path, int32 quality) const;
+		bool save(const Image& image, FilePathView path, PPMType format) const;
 
 		bool encode(const Image& image, IWriter& writer) const override;
 
-		bool encode(const Image& image, IWriter& writer, int32 quality) const;
+		bool encode(const Image& image, IWriter& writer, PPMType format) const;
 
 		Blob encode(const Image& image) const override;
 
-		Blob encode(const Image& image, int32 quality) const;
+		Blob encode(const Image& image, PPMType format) const;
 	};
 }

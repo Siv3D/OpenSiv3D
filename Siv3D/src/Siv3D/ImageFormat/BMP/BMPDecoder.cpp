@@ -34,6 +34,11 @@ namespace s3d
 		return extensions;
 	}
 
+	ImageFormat BMPDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::BMP;
+	}
+
 	Optional<ImageInfo> BMPDecoder::getImageInfo(const FilePathView path) const
 	{
 		return IImageDecoder::getImageInfo(path);
