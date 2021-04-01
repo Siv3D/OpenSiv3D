@@ -35,6 +35,7 @@ jobs:
         sudo apt install libopencv-dev
         sudo apt install libturbojpeg0-dev
         sudo apt install libgif-dev
+        sudo apt install libwebp-dev
 
     - name: Configure Siv3D
       working-directory: Linux

@@ -12,9 +12,16 @@
 # include <Siv3D/ImageFormat/WebPDecoder.hpp>
 # include <Siv3D/EngineLog.hpp>
 
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+#	include <ThirdParty-prebuilt/libwebp/decode.h>
+#	include <ThirdParty-prebuilt/libwebp/encode.h>
+# else
+#	include <libwebp/decode.h>
+#	include <libwebp/encode.h>
+# endif
+
 namespace s3d
 {
-	/*
 	StringView WebPDecoder::name() const
 	{
 		return U"WebP"_sv;
@@ -22,18 +29,23 @@ namespace s3d
 
 	bool WebPDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
-		static constexpr uint8 WebP_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
-		static constexpr uint8 WebP_SIGN89a[] = { 'G', 'I', 'F', '8', '9', 'a' };
+		static constexpr uint8 riff[] = { 'R', 'I', 'F', 'F' };
+		static constexpr uint8 webp[] = { 'W', 'E', 'B', 'P' };
 
-		return std::memcmp(bytes, WebP_SIGN87a, sizeof(WebP_SIGN87a)) == 0
-			|| std::memcmp(bytes, WebP_SIGN89a, sizeof(WebP_SIGN89a)) == 0;
+		return (std::memcmp(bytes, riff, sizeof(riff)) == 0)
+			&& (std::memcmp(bytes + 8, webp, sizeof(webp)) == 0);
 	}
 
 	const Array<String>& WebPDecoder::possibleExtensions() const
 	{
-		static const Array<String> extensions = { U"gif" };
+		static const Array<String> extensions = { U"webp" };
 
 		return extensions;
+	}
+
+	ImageFormat WebPDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::WebP;
 	}
 
 	Optional<ImageInfo> WebPDecoder::getImageInfo(const FilePathView path) const
@@ -43,21 +55,31 @@ namespace s3d
 
 	Optional<ImageInfo> WebPDecoder::getImageInfo(IReader& reader, const FilePathView) const
 	{
-		uint8 buf[4];
+		uint8 data[32];
 
-		if (not reader.lookahead(buf))
+		if (not reader.lookahead(data))
 		{
 			LOG_FAIL(U"❌ WebPDecoder::getImageInfo(): File size is invalid");
 			return{};
 		}
 
-		const int32 width = ((buf[1] << 8) + (buf[0] << 0));
-		const int32 height = ((buf[3] << 8) + (buf[2] << 0));
-		const Size size{ width, height };
+		int32 width, height;
+
+		if (not ::WebPGetInfo(data, sizeof(data), &width, &height))
+		{
+			uint8 data2[1024];
+
+			const size_t readBytes = static_cast<size_t>(reader.lookahead(data2, sizeof(data2)));
+
+			if (not ::WebPGetInfo(data2, readBytes, &width, &height))
+			{
+				return{};
+			}
+		}
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 
-		return ImageInfo{ ImageFormat::WebP, pixelFormat, size, false };
+		return ImageInfo{ ImageFormat::WebP, pixelFormat, Size{ width, height }, false };
 	}
 
 	Image WebPDecoder::decode(const FilePathView path) const
@@ -69,104 +91,60 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"WebPDecoder::decode()");
 
-		int error;
-		GifFileType* gif = DGifOpen(&reader, detail::GifReadCallback, &error);
+		WebPDecoderConfig config;
+		WebPDecBuffer* const output_buffer = &config.output;
+		WebPBitstreamFeatures* const bitstream = &config.input;
 
-		if (not gif)
+		if (not ::WebPInitDecoderConfig(&config))
 		{
 			return{};
 		}
 
-		if (DGifSlurp(gif) != WebP_OK)
-		{
-			DGifCloseFile(gif, &error);
+		config.options.use_threads = true;
+		config.output.colorspace = MODE_RGBA;
 
-			return{};
-		}
+		const int64 dataSize = reader.size();
+		Array<uint8> buffer(dataSize);
 
-		if (gif->SColorMap && gif->SColorMap->ColorCount < gif->SBackGroundColor)
-		{
-			gif->SBackGroundColor = 0;
-		}
-
-		int32 transparentIndex = -1;
-		const uint32 frameIndex = 0;
-		const SavedImage* frame = &gif->SavedImages[frameIndex];
-
-		if (frame->ExtensionBlockCount > 0)
-		{
-			for (int32 i = 0; i < frame->ExtensionBlockCount; ++i)
-			{
-				ExtensionBlock* ext = &frame->ExtensionBlocks[i];
-
-				if (ext->Function == GRAPHICS_EXT_FUNC_CODE && ext->ByteCount == 4)
-				{
-					// has transparency
-					transparentIndex = (ext->Bytes[0] & 0x1) ? ext->Bytes[3] : -1;
-				}
-			}
-		}
-
-		const ColorMapObject* colorMap = frame->ImageDesc.ColorMap ? frame->ImageDesc.ColorMap : gif->SColorMap;
-
-		// no local or global color map
-		if (not colorMap)
-		{
-			DGifCloseFile(gif, &error);
-
-			return{};
-		}
-
-		Color palette[256];
-		memset(palette, 0, sizeof(palette));
-		for (int32 i = 0; i < colorMap->ColorCount; ++i)
-		{
-			palette[i].r = colorMap->Colors[i].Red;
-			palette[i].g = colorMap->Colors[i].Green;
-			palette[i].b = colorMap->Colors[i].Blue;
-			palette[i].a = 255;
-		}
-
-		if (0 <= transparentIndex)
-		{
-			palette[transparentIndex].set(0, 0, 0, 0);
-		}
-
-		const int32 offset_x = frame->ImageDesc.Left;
-		const int32 offset_y = frame->ImageDesc.Top;
-		const size_t width = frame->ImageDesc.Width;
-		const size_t height = frame->ImageDesc.Height;
-
-		if ((width == 0) || (height == 0))
+		if (dataSize != reader.read(buffer.data(), dataSize))
 		{
 			return{};
 		}
 
-		Image image{ width, height };
-		Color* pDst = image.data();
-
-		for (int32 y = 0; y < height; ++y)
+		if (::WebPGetFeatures(static_cast<const uint8*>(buffer.data()), dataSize, bitstream) != VP8_STATUS_OK)
 		{
-			size_t srcOffset = y * width;
-			size_t dstOffset = (y + offset_y) * gif->SWidth + offset_x;
-
-			for (int32 x = 0; x < width; ++x)
-			{
-				const uint8 index = frame->RasterBits[srcOffset];
-
-				*(pDst + dstOffset) = palette[index];
-
-				++srcOffset;
-				++dstOffset;
-			}
+			return{};
 		}
 
-		DGifCloseFile(gif, &error);
+		if (::WebPDecode(static_cast<const uint8*>(buffer.data()), dataSize, &config) != VP8_STATUS_OK)
+		{
+			return{};
+		}
+
+		const int32 width = output_buffer->width;
+		const int32 height = output_buffer->height;
+
+		if ((Image::MaxWidth < width) || (Image::MaxHeight < height))
+		{
+			return{};
+		}
+
+		const size_t size = output_buffer->u.RGBA.size;
+
+		Image image(width, height);
+
+		if (image.size_bytes() != size)
+		{
+			return image;
+		}
+
+		std::memcpy(image.data(), output_buffer->u.RGBA.rgba, size);
+
+		::WebPFreeDecBuffer(output_buffer);
 
 		LOG_VERBOSE(U"Image ({}x{}) decoded"_fmt(
 			width, height));
 
 		return image;
 	}
-	*/
 }

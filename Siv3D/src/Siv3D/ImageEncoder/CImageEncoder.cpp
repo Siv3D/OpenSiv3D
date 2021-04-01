@@ -15,6 +15,7 @@
 # include <Siv3D/ImageFormat/BMPEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 # include <Siv3D/ImageFormat/JPEGEncoder.hpp>
+# include <Siv3D/ImageFormat/WebPEncoder.hpp>
 # include <Siv3D/ImageFormat/TGAEncoder.hpp>
 # include <Siv3D/ImageFormat/GIFEncoder.hpp>
 # include <Siv3D/ImageFormat/PPMEncoder.hpp>
@@ -34,6 +35,7 @@ namespace s3d
 		m_encoders.push_back(std::make_unique<BMPEncoder>());
 		m_encoders.push_back(std::make_unique<PNGEncoder>());
 		m_encoders.push_back(std::make_unique<JPEGEncoder>());
+		m_encoders.push_back(std::make_unique<WebPEncoder>());
 		m_encoders.push_back(std::make_unique<TGAEncoder>());
 		m_encoders.push_back(std::make_unique<GIFEncoder>());
 		m_encoders.push_back(std::make_unique<PPMEncoder>());

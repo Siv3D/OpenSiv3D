@@ -121,7 +121,7 @@ namespace s3d
 				for (int32 x = 0; x < imageWidth; ++x)
 				{
 					const auto& pixel = bitmap(x, y);
-					pDst->a = Clamp(int32(pixel[0] * 0x100), 0, 255);
+					pDst->a = static_cast<uint8>(Clamp(int32(pixel[0] * 0x100), 0, 255));
 					++pDst;
 				}
 			}

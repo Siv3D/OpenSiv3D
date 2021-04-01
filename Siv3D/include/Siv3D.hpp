@@ -837,8 +837,9 @@
 # include <Siv3D/ImageFormat/BMPDecoder.hpp>
 # include <Siv3D/ImageFormat/BMPEncoder.hpp>
 
-//# include <Siv3D/ImageFormat/WebPDecoder.hpp>
-//# include <Siv3D/ImageFormat/WebPEncoder.hpp>
+# include <Siv3D/WebPMethod.hpp>
+# include <Siv3D/ImageFormat/WebPDecoder.hpp>
+# include <Siv3D/ImageFormat/WebPEncoder.hpp>
 
 # include <Siv3D/ImageFormat/GIFDecoder.hpp>
 # include <Siv3D/ImageFormat/GIFEncoder.hpp>

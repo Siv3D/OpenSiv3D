@@ -64,4 +64,7 @@ namespace s3d
 
 	/// @brief 2 つの物体間での衝突を有向にする
 	using EnableCollision	= YesNo<struct EnableCollision_tag>;
+	
+	/// @brief ロスレスで圧縮する
+	using Lossless			= YesNo<struct Lossless_tag>;
 }

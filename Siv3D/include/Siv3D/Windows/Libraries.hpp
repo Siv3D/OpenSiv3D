@@ -31,6 +31,7 @@
 # pragma comment (lib, "libgif/libgif" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "libpng/libpng16" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "libjpeg-turbo/turbojpeg-static" SIV3D_DEBUG_LIB_POSTFIX(_d))
+# pragma comment (lib, "libwebp/libwebp" SIV3D_DEBUG_LIB_POSTFIX(_debug))
 # pragma comment (lib, "Oniguruma/Oniguruma" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "opencv/opencv_core451" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "opencv/opencv_imgcodecs451" SIV3D_DEBUG_LIB_POSTFIX(d))

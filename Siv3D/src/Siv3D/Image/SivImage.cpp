@@ -22,6 +22,8 @@
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 # include <Siv3D/ImageFormat/JPEGEncoder.hpp>
+# include <Siv3D/ImageFormat/PPMEncoder.hpp>
+# include <Siv3D/ImageFormat/WebPEncoder.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
 # include "ImagePainting.hpp"
 
@@ -568,6 +570,16 @@ namespace s3d
 	bool Image::saveJPEG(const FilePathView path, const int32 quality) const
 	{
 		return JPEGEncoder{}.save(*this, path, quality);
+	}
+
+	bool Image::savePPM(const FilePathView path, const PPMType format) const
+	{
+		return PPMEncoder{}.save(*this, path, format);
+	}
+
+	bool Image::saveWebP(const FilePathView path, const Lossless lossless, const double quality, const WebPMethod method) const
+	{
+		return WebPEncoder{}.save(*this, path, lossless, quality, method);
 	}
 
 	Image& Image::negate()

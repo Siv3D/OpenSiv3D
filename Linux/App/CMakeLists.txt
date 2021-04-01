@@ -73,6 +73,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopencv_videoio
   -lpng
   -lturbojpeg
+  -lwebp
   )
 
 

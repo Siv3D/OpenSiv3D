@@ -22,6 +22,8 @@
 # include "ColorHSV.hpp"
 # include "IReader.hpp"
 # include "PNGFilter.hpp"
+# include "PPMType.hpp"
+# include "WebPMethod.hpp"
 # include "BorderType.hpp"
 # include "AdaptiveThresholdMethod.hpp"
 # include "FloodFillConnectivity.hpp"
@@ -340,9 +342,9 @@ namespace s3d
 
 		bool saveJPEG(FilePathView path, int32 quality = 90) const;
 
-		//bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
+		bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
 
-		//bool saveWebP(FilePathView path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+		bool saveWebP(FilePathView path, Lossless lossless = Lossless::No, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
 
 		Image& negate();
 

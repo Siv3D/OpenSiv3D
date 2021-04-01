@@ -11,12 +11,57 @@
 
 # include <Siv3D/ImageFormat/WebPEncoder.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/BlobWriter.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
 
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+#	include <ThirdParty-prebuilt/libwebp/decode.h>
+#	include <ThirdParty-prebuilt/libwebp/encode.h>
+# else
+#	include <libwebp/decode.h>
+#	include <libwebp/encode.h>
+# endif
+
 namespace s3d
 {
-	/*
+	namespace detail
+	{
+		static int WebPWriteCallback(const uint8_t* data, size_t data_size, const WebPPicture* picture)
+		{
+			IWriter* pWriter = static_cast<IWriter*>(picture->custom_ptr);
+
+			return (static_cast<int64>(data_size) == pWriter->write(data, data_size));
+		}
+
+		static void SetMethod(const WebPMethod method, WebPConfig& config) noexcept
+		{
+			switch (method)
+			{
+			case WebPMethod::Fast:
+				config.method = 0;
+				config.pass = 1;
+				config.alpha_filtering = 1;
+				break;
+			case WebPMethod::Default:
+				config.method = 4;
+				config.pass = 1;
+				config.alpha_filtering = 1;
+				break;
+			case WebPMethod::Quality:
+				config.method = 5;
+				config.pass = 2;
+				config.alpha_filtering = 2;
+				break;
+			case WebPMethod::MaxQuality:
+				config.method = 6;
+				config.pass = 10;
+				config.alpha_filtering = 2;
+				break;
+			}
+		}
+	}
+
 	StringView WebPEncoder::name() const
 	{
 		return U"WebP"_sv;
@@ -24,12 +69,17 @@ namespace s3d
 
 	const Array<String>& WebPEncoder::possibleExtensions() const
 	{
-		static const Array<String> extensions = { U"gif" };
+		static const Array<String> extensions = { U"webp" };
 
 		return extensions;
 	}
 
 	bool WebPEncoder::save(const Image& image, const FilePathView path) const
+	{
+		return save(image, path, Lossless::No, 90.0, WebPMethod::Default);
+	}
+
+	bool WebPEncoder::save(const Image& image, const FilePathView path, const Lossless lossless, const double quality, const WebPMethod method) const
 	{
 		BinaryWriter writer{ path };
 
@@ -43,262 +93,106 @@ namespace s3d
 
 	bool WebPEncoder::encode(const Image& image, IWriter& writer) const
 	{
+		return encode(image, writer, Lossless::No, 90.0, WebPMethod::Default);
+	}
+
+	bool WebPEncoder::encode(const Image& image, IWriter& writer, const Lossless lossless, const double quality, const WebPMethod method) const
+	{
 		if (not writer.isOpen())
 		{
 			return false;
 		}
 
-		const int32 width = image.width();
-		const int32 height = image.height();
-		const int32 num_pixels = image.num_pixels();
-		Array<uint8> rBuffer(num_pixels);
-		Array<uint8> gBuffer(num_pixels);
-		Array<uint8> bBuffer(num_pixels);
+		WebPPicture picture;
+		WebPConfig config;
+		WebPAuxStats stats;
 
-		uint8* rDst = rBuffer.data();
-		uint8* gDst = gBuffer.data();
-		uint8* bDst = bBuffer.data();
+		if (!::WebPPictureInit(&picture) || !::WebPConfigInit(&config))
 		{
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-
-			while (pSrc != pSrcEnd)
-			{
-				*rDst++ = pSrc->r;
-				*gDst++ = pSrc->g;
-				*bDst++ = pSrc->b;
-				++pSrc;
-			}
-		}
-
-		bool hasTransparency = false;
-		{
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-
-			while (pSrc != pSrcEnd)
-			{
-				if (pSrc->a == 0)
-				{
-					hasTransparency = true;
-					break;
-				}
-
-				++pSrc;
-			}
-		}
-
-		int32 colorMapSize = hasTransparency ? 255 : 256;
-		GifColorType colors[256] = {};
-
-		ColorMapObject colorMap;
-		colorMap.ColorCount = colorMapSize;
-		colorMap.BitsPerPixel = 8;
-		colorMap.Colors = colors;
-		Array<GifByteType> outputBuffer(num_pixels);
-
-		GifQuantizeBuffer(width, height, &colorMapSize,
-			rBuffer.data(), gBuffer.data(), bBuffer.data(), outputBuffer.data(), colorMap.Colors);
-
-		int32 transparencyIndex = -1;
-
-		if (hasTransparency)
-		{
-			transparencyIndex = colorMap.ColorCount;
-
-			++colorMap.ColorCount;
-			colorMap.Colors[transparencyIndex] = { 0,0,0 };
-
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-			GifByteType* pDst = outputBuffer.data();
-
-			while (pSrc != pSrcEnd)
-			{
-				if (pSrc->a == 0)
-				{
-					*pDst = 255;
-				}
-
-				++pSrc;
-				++pDst;
-			}
-		}
-
-		int error = 0;
-		GifFileType* gif = EGifOpen(&writer, detail::GifWriteCallback, &error);
-
-		EGifSetGifVersion(gif, true);
-
-		if (EGifPutScreenDesc(gif, width, height, 8, 0, nullptr) == WebP_ERROR)
-		{
-			EGifCloseFile(gif, &error);
 			return false;
 		}
 
-		GraphicsControlBlock controlBlock;
-		controlBlock.DisposalMode = DISPOSAL_UNSPECIFIED;
-		controlBlock.UserInputFlag = false;
-		controlBlock.DelayTime = 100;
-		controlBlock.TransparentColor = hasTransparency ? transparencyIndex : NO_TRANSPARENT_COLOR;
+		picture.width = image.width();
+		picture.height = image.height();
 
-		GifByteType ext[4];
-		EGifGCBToExtension(&controlBlock, ext);
-
-		if (EGifPutExtension(gif, GRAPHICS_EXT_FUNC_CODE, sizeof(ext), ext) == WebP_ERROR)
+		if (lossless)
 		{
-			EGifCloseFile(gif, &error);
-			return false;
-		}
+			Image tmp(image);
 
-		int r = EGifPutImageDesc(gif, 0, 0, width, height, false, &colorMap);
+			picture.argb = static_cast<uint32*>(static_cast<void*>(tmp.data()));
+			picture.argb_stride = tmp.width();
+			picture.use_argb = 1;
+			config.lossless = 1;
+			config.quality = Clamp(static_cast<float>(quality), 0.0f, 100.0f);
+			config.thread_level = true;
+			detail::SetMethod(method, config);
 
-		if (r != WebP_OK)
-		{
-			EGifCloseFile(gif, &error);
-			return false;
-		}
+			::WebPPictureImportRGBA(&picture, tmp.dataAsUint8(), tmp.stride());
 
-		for (int32 y = 0; y < height; ++y)
-		{
-			if (EGifPutLine(gif, &outputBuffer[y * width], width) == WebP_ERROR)
+			if (!::WebPValidateConfig(&config))
 			{
-				EGifCloseFile(gif, &error);
 				return false;
 			}
-		}
 
-		EGifCloseFile(gif, &error);
+			picture.writer = detail::WebPWriteCallback;
+			picture.custom_ptr = &writer;
+			picture.stats = &stats;
+
+			if (!::WebPEncode(&config, &picture))
+			{
+				::WebPPictureFree(&picture);
+				return false;
+			}
+
+			::WebPPictureFree(&picture);
+		}
+		else
+		{
+			::WebPPictureImportRGBA(&picture, image.dataAsUint8(), image.stride());
+
+			if (!::WebPConfigPreset(&config, WEBP_PRESET_DEFAULT, Clamp(static_cast<float>(quality), 0.0f, 100.0f)))
+			{
+				return false;
+			}
+
+			config.thread_level = true;
+			detail::SetMethod(method, config);
+
+			if (!::WebPValidateConfig(&config))
+			{
+				return false;
+			}
+
+			picture.writer = detail::WebPWriteCallback;
+			picture.custom_ptr = &writer;
+			picture.stats = &stats;
+
+			if (!::WebPEncode(&config, &picture))
+			{
+				::WebPPictureFree(&picture);
+				return false;
+			}
+
+			::WebPPictureFree(&picture);
+		}
 
 		return true;
 	}
 
 	Blob WebPEncoder::encode(const Image& image) const
 	{
-		const int32 width = image.width();
-		const int32 height = image.height();
-		const int32 num_pixels = image.num_pixels();
-		Array<uint8> rBuffer(num_pixels);
-		Array<uint8> gBuffer(num_pixels);
-		Array<uint8> bBuffer(num_pixels);
-
-		uint8* rDst = rBuffer.data();
-		uint8* gDst = gBuffer.data();
-		uint8* bDst = bBuffer.data();
-		{
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-
-			while (pSrc != pSrcEnd)
-			{
-				*rDst++ = pSrc->r;
-				*gDst++ = pSrc->g;
-				*bDst++ = pSrc->b;
-				++pSrc;
-			}
-		}
-
-		bool hasTransparency = false;
-		{
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-
-			while (pSrc != pSrcEnd)
-			{
-				if (pSrc->a == 0)
-				{
-					hasTransparency = true;
-					break;
-				}
-
-				++pSrc;
-			}
-		}
-
-		int32 colorMapSize = hasTransparency ? 255 : 256;
-		GifColorType colors[256] = {};
-
-		ColorMapObject colorMap;
-		colorMap.ColorCount = colorMapSize;
-		colorMap.BitsPerPixel = 8;
-		colorMap.Colors = colors;
-		Array<GifByteType> outputBuffer(num_pixels);
-
-		GifQuantizeBuffer(width, height, &colorMapSize,
-			rBuffer.data(), gBuffer.data(), bBuffer.data(), outputBuffer.data(), colorMap.Colors);
-
-		int32 transparencyIndex = -1;
-
-		if (hasTransparency)
-		{
-			transparencyIndex = colorMap.ColorCount;
-
-			++colorMap.ColorCount;
-			colorMap.Colors[transparencyIndex] = { 0,0,0 };
-
-			const Color* pSrc = image.data();
-			const Color* const pSrcEnd = pSrc + num_pixels;
-			GifByteType* pDst = outputBuffer.data();
-
-			while (pSrc != pSrcEnd)
-			{
-				if (pSrc->a == 0)
-				{
-					*pDst = 255;
-				}
-
-				++pSrc;
-				++pDst;
-			}
-		}
-
-		Blob blob;
-		int error = 0;
-		GifFileType* gif = EGifOpen(&blob, detail::GifBlobWriteCallback, &error);
-
-		EGifSetGifVersion(gif, true);
-
-		if (EGifPutScreenDesc(gif, width, height, 8, 0, nullptr) == WebP_ERROR)
-		{
-			EGifCloseFile(gif, &error);
-			return{};
-		}
-
-		GraphicsControlBlock controlBlock;
-		controlBlock.DisposalMode = DISPOSAL_UNSPECIFIED;
-		controlBlock.UserInputFlag = false;
-		controlBlock.DelayTime = 100;
-		controlBlock.TransparentColor = hasTransparency ? transparencyIndex : NO_TRANSPARENT_COLOR;
-
-		GifByteType ext[4];
-		EGifGCBToExtension(&controlBlock, ext);
-
-		if (EGifPutExtension(gif, GRAPHICS_EXT_FUNC_CODE, sizeof(ext), ext) == WebP_ERROR)
-		{
-			EGifCloseFile(gif, &error);
-			return{};
-		}
-
-		int r = EGifPutImageDesc(gif, 0, 0, width, height, false, &colorMap);
-
-		if (r != WebP_OK)
-		{
-			EGifCloseFile(gif, &error);
-			return{};
-		}
-
-		for (int32 y = 0; y < height; ++y)
-		{
-			if (EGifPutLine(gif, &outputBuffer[y * width], width) == WebP_ERROR)
-			{
-				EGifCloseFile(gif, &error);
-				return{};
-			}
-		}
-
-		EGifCloseFile(gif, &error);
-
-		return blob;
+		return encode(image, Lossless::No, 90.0, WebPMethod::Default);
 	}
-	*/
+
+	Blob WebPEncoder::encode(const Image& image, const Lossless lossless, const double quality, const WebPMethod method) const
+	{
+		BlobWriter writer;
+
+		if (not encode(image, writer, lossless, quality, method))
+		{
+			return{};
+		}
+
+		return writer.retrieve();
+	}
 }

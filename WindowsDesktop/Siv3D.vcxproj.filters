@@ -940,6 +940,9 @@
     <Filter Include="src\Siv3D\ImageFormat\PPM">
       <UniqueIdentifier>{d8cea329-1409-4d42-9d43-e5a24abc2daa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\libwebp">
+      <UniqueIdentifier>{3d9ae165-6ccc-4fff-b640-801ade079565}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4646,6 +4649,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BlobWriter.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\encode.h">
+      <Filter>src\ThirdParty-prebuilt\libwebp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\types.h">
+      <Filter>src\ThirdParty-prebuilt\libwebp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\decode.h">
+      <Filter>src\ThirdParty-prebuilt\libwebp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\WebPMethod.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
