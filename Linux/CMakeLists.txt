@@ -40,6 +40,7 @@ endif()
 add_library(Siv3D STATIC
 
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Siv3DMain.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ChildProcess/ChildProcessDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Common/OpenGL.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ConstantBuffer/ConstantBufferDetailFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Cursor/CCursor.cpp
@@ -106,6 +107,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
+  ../Siv3D/src/Siv3D/ChildProcess/SivChildProcess.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
   ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp

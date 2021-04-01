@@ -40,6 +40,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ChildProcess.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Circle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
@@ -425,6 +426,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2WheelJoint.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2World.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Pipe.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
@@ -693,6 +695,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\GL4Texture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryReader\BinaryReaderDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryWriter\BinaryWriterDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Common\D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Common\OpenGL.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Console\CConsole.hpp" />
@@ -1268,6 +1271,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\GL4Texture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryReader\BinaryReaderDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryWriter\BinaryWriterDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Common\D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Common\OpenGL.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Console\CConsole.cpp" />
@@ -1342,6 +1346,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2D\SivCamera2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ChildProcess\SivChildProcess.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Colormap\SivColormap.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Color\SivColor.cpp" />

@@ -1080,6 +1080,10 @@
 # include <Siv3D/SerialPortInfo.hpp>
 # include <Siv3D/Serial.hpp>
 
+# include <Siv3D/Pipe.hpp>
+# include <Siv3D/ChildProcess.hpp>
+
+
 //////////////////////////////////////////////////
 //
 //	2D 物理演算 | 2D Physics

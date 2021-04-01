@@ -42,6 +42,12 @@
 # pragma comment (lib, "zlib/zlib" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "Siv3D" SIV3D_DEBUG_LIB_POSTFIX(_d))
 
+# if SIV3D_BUILD(DEBUG)
+# pragma comment (lib, "boost/libboost_filesystem-vc142-mt-sgd-x64-1_73")
+# else
+# pragma comment (lib, "boost/libboost_filesystem-vc142-mt-s-x64-1_73")
+# endif
+
 # undef SIV3D_DEBUG_LIB_POSTFIX
 
 

@@ -943,6 +943,12 @@
     <Filter Include="src\ThirdParty-prebuilt\libwebp">
       <UniqueIdentifier>{3d9ae165-6ccc-4fff-b640-801ade079565}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ChildProcess">
+      <UniqueIdentifier>{4823bf95-4dec-46b1-80f6-db832fe851e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess">
+      <UniqueIdentifier>{f91dc8be-235a-486f-8310-52efbddc187d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4662,6 +4668,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WebPMethod.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Pipe.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ChildProcess.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6415,6 +6430,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\WebP\WebPEncoder.cpp">
       <Filter>src\Siv3D\ImageFormat\WebP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ChildProcess\SivChildProcess.cpp">
+      <Filter>src\Siv3D\ChildProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
