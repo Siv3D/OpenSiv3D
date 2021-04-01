@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,12 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
 # include <Siv3D/ChildProcess.hpp>
-# include <boost/process/child.hpp>
-# include <boost/process/pipe.hpp>
 
 namespace s3d
 {
+	class NSTaskWrapper;
+
 	class ChildProcess::ChildProcessDetail
 	{
 	public:
@@ -42,10 +43,6 @@ namespace s3d
 
 	private:
 
-		boost::process::opstream m_ops;
-
-		boost::process::ipstream m_ips;
-
-		boost::process::child m_child;
+		std::unique_ptr<NSTaskWrapper> m_detail;
 	};
 }

@@ -1138,6 +1138,11 @@
 		2CDD4F4E260A3F7100A51D68 /* P2PivotJointDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDD4F2E260A3F7100A51D68 /* P2PivotJointDetail.hpp */; };
 		2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDE6E8924A35C7B0048594F /* CRenderer2D_Metal.hpp */; };
 		2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE6E8C24A35EAC0048594F /* CRenderer2D_Metal.mm */; };
+		2CE8D13C2616100E00C75FBB /* SivChildProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D13B2616100D00C75FBB /* SivChildProcess.cpp */; };
+		2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */; };
+		2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */; };
+		2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */; };
+		2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D1412616107200C75FBB /* ChildProcessDetail.mm */; };
 		2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DC025FA4DC200704B99 /* SivExif.cpp */; };
 		2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DC325FA4DD900704B99 /* exif.cpp */; };
 		2CEC7DC625FA4DD900704B99 /* exif.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DC425FA4DD900704B99 /* exif.h */; };
@@ -3031,6 +3036,13 @@
 		2CE1868B249CC7A900ADD14A /* scope_guard_base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_guard_base.h; sourceTree = "<group>"; };
 		2CE1868C249CC7A900ADD14A /* scope_success.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope_success.h; sourceTree = "<group>"; };
 		2CE1868D249CC7A900ADD14A /* scope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scope.h; sourceTree = "<group>"; };
+		2CE8D13826160FD200C75FBB /* Pipe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pipe.hpp; sourceTree = "<group>"; };
+		2CE8D13926160FD300C75FBB /* ChildProcess.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChildProcess.hpp; sourceTree = "<group>"; };
+		2CE8D13B2616100D00C75FBB /* SivChildProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivChildProcess.cpp; sourceTree = "<group>"; };
+		2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSTaskWrapper.mm; sourceTree = "<group>"; };
+		2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
+		2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChildProcessDetail.hpp; sourceTree = "<group>"; };
+		2CE8D1412616107200C75FBB /* ChildProcessDetail.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChildProcessDetail.mm; sourceTree = "<group>"; };
 		2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Exif.hpp; sourceTree = "<group>"; };
 		2CEC7DC025FA4DC200704B99 /* SivExif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivExif.cpp; sourceTree = "<group>"; };
 		2CEC7DC325FA4DD900704B99 /* exif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exif.cpp; sourceTree = "<group>"; };
@@ -4462,6 +4474,7 @@
 				2C47B2BD24DD9789008D83BE /* Byte */,
 				2C3477F925DA94C100071EEF /* CacheDirectory */,
 				2C13C8D225B8FAC30054B968 /* Camera2D */,
+				2CE8D13A2616100D00C75FBB /* ChildProcess */,
 				2C53C33325613B6A0072831A /* Circle */,
 				2C47B27C24DD9789008D83BE /* Color */,
 				2C27AA0A257D379700756617 /* Colormap */,
@@ -6588,6 +6601,7 @@
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
 				2CAAA71F25E7FD0200C014D7 /* Camera2D.hpp */,
 				2CAAA88B25E7FD0300C014D7 /* Char.hpp */,
+				2CE8D13926160FD300C75FBB /* ChildProcess.hpp */,
 				2CAAA77425E7FD0200C014D7 /* Circle.hpp */,
 				2CAAA85925E7FD0300C014D7 /* Circular.hpp */,
 				2CAAA86525E7FD0300C014D7 /* Color.hpp */,
@@ -6748,6 +6762,7 @@
 				2CAAA75925E7FD0200C014D7 /* ParseInt.hpp */,
 				2CAAA89E25E7FD0300C014D7 /* Periodic.hpp */,
 				2CAAA84725E7FD0200C014D7 /* PerlinNoise.hpp */,
+				2CE8D13826160FD200C75FBB /* Pipe.hpp */,
 				2CAAA86325E7FD0300C014D7 /* PixelShader.hpp */,
 				2CAAA83E25E7FD0200C014D7 /* PlaceHolder.hpp */,
 				2CAAA76125E7FD0200C014D7 /* Platform.hpp */,
@@ -7241,6 +7256,25 @@
 			path = detail;
 			sourceTree = "<group>";
 		};
+		2CE8D13A2616100D00C75FBB /* ChildProcess */ = {
+			isa = PBXGroup;
+			children = (
+				2CE8D13B2616100D00C75FBB /* SivChildProcess.cpp */,
+			);
+			path = ChildProcess;
+			sourceTree = "<group>";
+		};
+		2CE8D13D2616107200C75FBB /* ChildProcess */ = {
+			isa = PBXGroup;
+			children = (
+				2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */,
+				2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */,
+				2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */,
+				2CE8D1412616107200C75FBB /* ChildProcessDetail.mm */,
+			);
+			path = ChildProcess;
+			sourceTree = "<group>";
+		};
 		2CEC7DBF25FA4DC200704B99 /* Exif */ = {
 			isa = PBXGroup;
 			children = (
@@ -7331,6 +7365,7 @@
 			isa = PBXGroup;
 			children = (
 				2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */,
+				2CE8D13D2616107200C75FBB /* ChildProcess */,
 				2CF21D09249FAA8F00C864C9 /* Common */,
 				2C6390E725367F020030F18E /* ConstantBuffer */,
 				2CF21CFC249FAA8F00C864C9 /* Cursor */,
@@ -7886,6 +7921,7 @@
 				2C43C8AB25C837F100D6D613 /* fterrors.h in Headers */,
 				2C43C88F25C837F000D6D613 /* ftgloadr.h in Headers */,
 				2C2AA35C26009C74003F3EBC /* b2_edge_circle_contact.h in Headers */,
+				2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */,
 				2C2AA35226009C74003F3EBC /* b2_shape.h in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
@@ -8169,6 +8205,7 @@
 				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C43C89525C837F100D6D613 /* svwinfnt.h in Headers */,
 				2CDD4F44260A3F7100A51D68 /* P2WorldDetail.hpp in Headers */,
+				2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */,
 				2C834D9C248805D4006208B8 /* regenc.h in Headers */,
 				2C47B49224DD97F2008D83BE /* muParserFixes.h in Headers */,
 				2C43C8A625C837F100D6D613 /* ftrfork.h in Headers */,
@@ -8304,6 +8341,7 @@
 				2C0E224625F52690002DD8C7 /* SivImageROI.cpp in Sources */,
 				2C794B0C25C3DFC200034D81 /* zstdmt_compress.c in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
+				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
 				2C423239242B155E00A16BCA /* input.c in Sources */,
 				2C794B4825C3DFEB00034D81 /* SivCompression.cpp in Sources */,
@@ -8521,6 +8559,7 @@
 				2C60AE71248158A500277281 /* frequency_darwin.cpp in Sources */,
 				2C2AA36926009C74003F3EBC /* b2_edge_polygon_contact.cpp in Sources */,
 				2C47B6D624EAC834008D83BE /* SivVertexShader.cpp in Sources */,
+				2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */,
 				2CEC7DD725FA527700704B99 /* JPEGEncoder.cpp in Sources */,
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
@@ -8562,6 +8601,7 @@
 				2C43963E2535DCCA00F6AECD /* svgclippathelement.cpp in Sources */,
 				2C47B6F424EAC8D9008D83BE /* GL4BackBuffer.cpp in Sources */,
 				2C48BEEF25CFB8C500A93CE3 /* Scanline.cpp in Sources */,
+				2CE8D13C2616100E00C75FBB /* SivChildProcess.cpp in Sources */,
 				2CF2AF8925542C5900E81D12 /* SivMonitor_macOS_Linux.cpp in Sources */,
 				2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */,
 				2C47B36124DD9789008D83BE /* SivRandom.cpp in Sources */,
