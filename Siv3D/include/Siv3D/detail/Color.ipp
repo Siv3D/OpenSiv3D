@@ -296,18 +296,18 @@ namespace s3d
 
 	inline constexpr Color Color::FromRGBA(const uint32 rgba) noexcept
 	{
-		return{ (rgba >> 24) & 0xFF,
-				(rgba >> 16) & 0xFF,
-				(rgba >>  8) & 0xFF,
-				        rgba & 0xFF };
+		return{ static_cast<uint8>((rgba >> 24) & 0xFF),
+				static_cast<uint8>((rgba >> 16) & 0xFF),
+				static_cast<uint8>((rgba >>  8) & 0xFF),
+				        static_cast<uint8>(rgba & 0xFF) };
 	}
 
 	inline constexpr Color Color::FromABGR(const uint32 abgr) noexcept
 	{
-		return{         abgr & 0xFF,
-				(abgr >>  8) & 0xFF,
-				(abgr >> 16) & 0xFF,
-				(abgr >> 24) & 0xFF };
+		return{         static_cast<uint8>(abgr & 0xFF),
+				static_cast<uint8>((abgr >>  8) & 0xFF),
+				static_cast<uint8>((abgr >> 16) & 0xFF),
+				static_cast<uint8>((abgr >> 24) & 0xFF) };
 	}
 
 	inline constexpr Color Alpha(const uint32 alpha) noexcept
