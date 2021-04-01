@@ -1064,6 +1064,10 @@
 		2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA3A02615863C00BABD2D /* WebPDecoder.cpp */; };
 		2C8CA3A62615863C00BABD2D /* PPMDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA3A22615863C00BABD2D /* PPMDecoder.cpp */; };
 		2C8CA3A72615863C00BABD2D /* PPMEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA3A32615863C00BABD2D /* PPMEncoder.cpp */; };
+		2C8CA3AE261594A000BABD2D /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8CA3AB261594A000BABD2D /* types.h */; };
+		2C8CA3AF261594A000BABD2D /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8CA3AC261594A000BABD2D /* encode.h */; };
+		2C8CA3B0261594A000BABD2D /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8CA3AD261594A000BABD2D /* decode.h */; };
+		2C8CA3B2261594D200BABD2D /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8CA3B1261594D100BABD2D /* libwebp.a */; };
 		2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */; };
 		2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E718924C749C500CECCAE /* CResource.hpp */; };
 		2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E718A24C749C500CECCAE /* CResource.cpp */; };
@@ -2481,6 +2485,11 @@
 		2C8CA3A22615863C00BABD2D /* PPMDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMDecoder.cpp; sourceTree = "<group>"; };
 		2C8CA3A32615863C00BABD2D /* PPMEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMEncoder.cpp; sourceTree = "<group>"; };
 		2C8CA3A82615865700BABD2D /* BlobWriter.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlobWriter.ipp; sourceTree = "<group>"; };
+		2C8CA3A92615948F00BABD2D /* WebPMethod.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebPMethod.hpp; sourceTree = "<group>"; };
+		2C8CA3AB261594A000BABD2D /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		2C8CA3AC261594A000BABD2D /* encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encode.h; sourceTree = "<group>"; };
+		2C8CA3AD261594A000BABD2D /* decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decode.h; sourceTree = "<group>"; };
+		2C8CA3B1261594D100BABD2D /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = ../Siv3D/lib/macOS/libwebp/libwebp.a; sourceTree = "<group>"; };
 		2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEnvironmentVariable.cpp; sourceTree = "<group>"; };
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
@@ -3134,6 +3143,7 @@
 				2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */,
 				2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
+				2C8CA3B2261594D200BABD2D /* libwebp.a in Frameworks */,
 				2CFC213325F732F100C51D0D /* libturbojpeg.a in Frameworks */,
 				2C4A289025F4F7D600FEACE4 /* libzlib.a in Frameworks */,
 			);
@@ -3649,6 +3659,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C8CA3B1261594D100BABD2D /* libwebp.a */,
 				2C7DE5DB26137A3B00D7F031 /* liblibgif.a */,
 				2CFF582125F7C0E100B660AD /* CoreMedia.framework */,
 				2CFF581F25F7C0B500B660AD /* AVFoundation.framework */,
@@ -6457,6 +6468,16 @@
 			path = PPM;
 			sourceTree = "<group>";
 		};
+		2C8CA3AA261594A000BABD2D /* libwebp */ = {
+			isa = PBXGroup;
+			children = (
+				2C8CA3AB261594A000BABD2D /* types.h */,
+				2C8CA3AC261594A000BABD2D /* encode.h */,
+				2C8CA3AD261594A000BABD2D /* decode.h */,
+			);
+			path = libwebp;
+			sourceTree = "<group>";
+		};
 		2C8E717B24C7458800CECCAE /* EnvironmentVariable */ = {
 			isa = PBXGroup;
 			children = (
@@ -6838,6 +6859,7 @@
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
 				2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */,
 				2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */,
+				2C8CA3A92615948F00BABD2D /* WebPMethod.hpp */,
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
@@ -7500,10 +7522,11 @@
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
 			isa = PBXGroup;
 			children = (
-				2C7DE5D8261379FD00D7F031 /* libgif */,
 				2CFC213425F739B400C51D0D /* harfbuzz */,
+				2C7DE5D8261379FD00D7F031 /* libgif */,
 				2CFC212925F7324F00C51D0D /* libjpeg-turbo */,
 				2CFC214525F739B400C51D0D /* libpng */,
+				2C8CA3AA261594A000BABD2D /* libwebp */,
 			);
 			path = "ThirdParty-prebuilt";
 			sourceTree = "<group>";
@@ -7808,6 +7831,7 @@
 				2CDD4F36260A3F7100A51D68 /* P2SliderJointDetail.hpp in Headers */,
 				2C47B30224DD9789008D83BE /* BigFloatDetail.hpp in Headers */,
 				2C47B33024DD9789008D83BE /* CRenderer2D_Null.hpp in Headers */,
+				2C8CA3AF261594A000BABD2D /* encode.h in Headers */,
 				2C47B6D124EAC82A008D83BE /* CShader_Null.hpp in Headers */,
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
@@ -7821,6 +7845,7 @@
 				2C43C89025C837F000D6D613 /* ftpsprop.h in Headers */,
 				2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */,
 				2C43C8BB25C837F100D6D613 /* t1tables.h in Headers */,
+				2C8CA3B0261594A000BABD2D /* decode.h in Headers */,
 				2CF21D1F249FAA8F00C864C9 /* OpenGL.hpp in Headers */,
 				2C48BF7725D41C0D00A93CE3 /* IGlyphCache.hpp in Headers */,
 				2C13C9C625BD29FC0054B968 /* lauxlib.h in Headers */,
@@ -8102,6 +8127,7 @@
 				2C43C88C25C837F000D6D613 /* fttrace.h in Headers */,
 				2CFC214925F739B400C51D0D /* hb-buffer.h in Headers */,
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
+				2C8CA3AE261594A000BABD2D /* types.h in Headers */,
 				2C43C8AD25C837F100D6D613 /* ftstroke.h in Headers */,
 				2C43C8BF25C837F100D6D613 /* ftglyph.h in Headers */,
 				2C48BEFD25CFB8C500A93CE3 /* Contour.h in Headers */,
@@ -8962,6 +8988,7 @@
 					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
@@ -9027,6 +9054,7 @@
 					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
