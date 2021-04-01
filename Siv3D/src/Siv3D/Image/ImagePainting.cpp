@@ -220,9 +220,9 @@ namespace s3d
 						if (srcAlpha != 255)
 						{
 							const uint32 dstAlpha = 255 - srcAlpha;
-							pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255;
-							pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255;
-							pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255);
 						}
 						else
 						{
@@ -380,9 +380,9 @@ namespace s3d
 						if (srcAlpha != 255)
 						{
 							const uint32 dstAlpha = 255 - srcAlpha;
-							pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255;
-							pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255;
-							pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255);
 						}
 						else
 						{
@@ -410,9 +410,9 @@ namespace s3d
 						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
 						const uint32 dstAlpha = (255 * 255) - srcAlpha;
 
-						pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / (255 * 255);
-						pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / (255 * 255);
-						pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / (255 * 255);
+						pDst->r = static_cast<uint8>((pDst->r * dstAlpha + pSrc->r * srcAlpha) / (255 * 255));
+						pDst->g = static_cast<uint8>((pDst->g * dstAlpha + pSrc->g * srcAlpha) / (255 * 255));
+						pDst->b = static_cast<uint8>((pDst->b * dstAlpha + pSrc->b * srcAlpha) / (255 * 255));
 
 						++pSrc;
 						++pDst;
@@ -433,15 +433,15 @@ namespace s3d
 						if (srcAlpha != 255)
 						{
 							const uint32 dstAlpha = 255 - srcAlpha;
-							pDst->r = (255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255);
-							pDst->g = (255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255);
-							pDst->b = (255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255);
+							pDst->r = static_cast<uint8>((255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255));
+							pDst->g = static_cast<uint8>((255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255));
+							pDst->b = static_cast<uint8>((255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255));
 						}
 						else
 						{
-							pDst->r = (globalSrcRed * pSrc->r) / 255;
-							pDst->g = (globalSrcGreen * pSrc->g) / 255;
-							pDst->b = (globalSrcBlue * pSrc->b) / 255;
+							pDst->r = static_cast<uint8>((globalSrcRed * pSrc->r) / 255);
+							pDst->g = static_cast<uint8>((globalSrcGreen * pSrc->g) / 255);
+							pDst->b = static_cast<uint8>((globalSrcBlue * pSrc->b) / 255);
 						}
 
 						++pSrc;
@@ -461,9 +461,9 @@ namespace s3d
 						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
 						const uint32 dstAlpha = (255 * 255) - srcAlpha;
 
-						pDst->r = (255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255 * 255);
-						pDst->g = (255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255 * 255);
-						pDst->b = (255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255 * 255);
+						pDst->r = static_cast<uint8>((255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255 * 255));
+						pDst->g = static_cast<uint8>((255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255 * 255));
+						pDst->b = static_cast<uint8>((255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255 * 255));
 
 						++pSrc;
 						++pDst;
@@ -510,9 +510,9 @@ namespace s3d
 			for (size_t i = 0; i < offsetCount; ++i)
 			{
 				Color* pDst = dst + offsets[i];
-				pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-				pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-				pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+				pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+				pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+				pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 			}
 		}
 	}
@@ -609,9 +609,9 @@ namespace s3d
 							const uint32 premulSrcB = srcBlend2 * color.b;
 							const uint32 dstBlend = 255 - srcBlend2;
 
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 						}
 
 						++pDst;
@@ -635,9 +635,9 @@ namespace s3d
 
 						if (d > 1.0)
 						{
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 						}
 						else if (d > 0.0)
 						{
@@ -647,9 +647,9 @@ namespace s3d
 							const uint32 premulSrcB2 = srcBlend2 * color.b;
 							const uint32 dstBlend2 = 255 - srcBlend2;
 
-							pDst->r = (pDst->r * dstBlend2 + premulSrcR2) / 255;
-							pDst->g = (pDst->g * dstBlend2 + premulSrcG2) / 255;
-							pDst->b = (pDst->b * dstBlend2 + premulSrcB2) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend2 + premulSrcR2) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend2 + premulSrcG2) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend2 + premulSrcB2) / 255);
 						}
 
 						++pDst;
@@ -693,9 +693,9 @@ namespace s3d
 					{
 						if (center.distanceFromSq(Vec2(_x, _y)) <= lengthSq)
 						{
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 						}
 
 						++pDst;
@@ -752,10 +752,10 @@ namespace s3d
 						const uint32 premulSrcA = srcBlend2 * color.a;
 						const uint32 dstBlend = 255 - srcBlend2;
 
-						pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-						pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-						pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
-						pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+						pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+						pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+						pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
+						pDst->a = static_cast<uint8>((pDst->a * dstBlend + premulSrcA) / 255);
 					}
 
 					++pDst;
@@ -833,9 +833,9 @@ namespace s3d
 								const uint32 premulSrcB = srcBlend2 * color.b;
 								const uint32 dstBlend = 255 - srcBlend2;
 
-								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+								pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+								pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+								pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 							}
 							else if (lengthOuter0 < length)
 							{
@@ -846,9 +846,9 @@ namespace s3d
 								const uint32 premulSrcB = srcBlend2 * color.b;
 								const uint32 dstBlend = 255 - srcBlend2;
 
-								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+								pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+								pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+								pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 							}
 							else
 							{
@@ -888,9 +888,9 @@ namespace s3d
 								const uint32 premulSrcB2 = srcBlend2 * color.b;
 								const uint32 dstBlend2 = 255 - srcBlend2;
 
-								pDst->r = (pDst->r * dstBlend2 + premulSrcR2) / 255;
-								pDst->g = (pDst->g * dstBlend2 + premulSrcG2) / 255;
-								pDst->b = (pDst->b * dstBlend2 + premulSrcB2) / 255;
+								pDst->r = static_cast<uint8>((pDst->r * dstBlend2 + premulSrcR2) / 255);
+								pDst->g = static_cast<uint8>((pDst->g * dstBlend2 + premulSrcG2) / 255);
+								pDst->b = static_cast<uint8>((pDst->b * dstBlend2 + premulSrcB2) / 255);
 							}
 							else if (lengthOuter0 < length)
 							{
@@ -901,15 +901,15 @@ namespace s3d
 								const uint32 premulSrcB2 = srcBlend2 * color.b;
 								const uint32 dstBlend2 = 255 - srcBlend2;
 
-								pDst->r = (pDst->r * dstBlend2 + premulSrcR2) / 255;
-								pDst->g = (pDst->g * dstBlend2 + premulSrcG2) / 255;
-								pDst->b = (pDst->b * dstBlend2 + premulSrcB2) / 255;
+								pDst->r = static_cast<uint8>((pDst->r * dstBlend2 + premulSrcR2) / 255);
+								pDst->g = static_cast<uint8>((pDst->g * dstBlend2 + premulSrcG2) / 255);
+								pDst->b = static_cast<uint8>((pDst->b * dstBlend2 + premulSrcB2) / 255);
 							}
 							else
 							{
-								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+								pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+								pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+								pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 							}
 						}
 
@@ -958,9 +958,9 @@ namespace s3d
 
 						if (lengthInnerSq <= lengthSq && lengthSq <= lengthOuterSq)
 						{
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 						}
 
 						++pDst;
@@ -1019,10 +1019,10 @@ namespace s3d
 							const uint32 premulSrcA = srcBlend2 * color.a;
 							const uint32 dstBlend = 255 - srcBlend2;
 
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
-							pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
+							pDst->a = static_cast<uint8>((pDst->a * dstBlend + premulSrcA) / 255);
 						}
 						else if (lengthOuter0 < length)
 						{
@@ -1034,10 +1034,10 @@ namespace s3d
 							const uint32 premulSrcA = srcBlend2 * color.a;
 							const uint32 dstBlend = 255 - srcBlend2;
 
-							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
-							pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
+							pDst->a = static_cast<uint8>((pDst->a * dstBlend + premulSrcA) / 255);
 						}
 						else
 						{
@@ -1135,9 +1135,9 @@ namespace s3d
 
 					if ((bb * xxh * xxh + aa * yyk * yyk) <= aabb)
 					{
-						pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
-						pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
-						pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+						pDst->r = static_cast<uint8>((pDst->r * dstBlend + premulSrcR) / 255);
+						pDst->g = static_cast<uint8>((pDst->g * dstBlend + premulSrcG) / 255);
+						pDst->b = static_cast<uint8>((pDst->b * dstBlend + premulSrcB) / 255);
 					}
 
 					++pDst;

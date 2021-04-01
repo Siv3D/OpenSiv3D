@@ -16,10 +16,8 @@
 # include <Siv3D/EngineLog.hpp>
 
 # if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
-#	include <ThirdParty-prebuilt/libwebp/decode.h>
 #	include <ThirdParty-prebuilt/libwebp/encode.h>
 # else
-#	include <webp/decode.h>
 #	include <webp/encode.h>
 # endif
 
@@ -88,7 +86,7 @@ namespace s3d
 			return false;
 		}
 
-		return encode(image, writer);
+		return encode(image, writer, lossless, quality, method);
 	}
 
 	bool WebPEncoder::encode(const Image& image, IWriter& writer) const

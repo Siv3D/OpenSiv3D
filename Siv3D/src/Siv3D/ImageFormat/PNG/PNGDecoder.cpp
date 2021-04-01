@@ -266,7 +266,7 @@ namespace s3d
 		return IImageDecoder::decodeGray16(path);
 	}
 
-	Grid<uint16> PNGDecoder::decodeGray16(IReader& reader, FilePathView pathHint) const
+	Grid<uint16> PNGDecoder::decodeGray16(IReader& reader, FilePathView) const
 	{
 		LOG_SCOPED_TRACE(U"PNGDecoder::decode()");
 

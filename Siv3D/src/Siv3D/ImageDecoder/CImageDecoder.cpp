@@ -46,12 +46,19 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CImageDecoder::getImageInfo()");
 
-		const auto it = findDecoder(reader, pathHint);
+		auto it = findDecoder(imageFormat);
 
 		if (it == m_decoders.end())
 		{
-			return{};
+			it = findDecoder(reader, pathHint);
+
+			if (it == m_decoders.end())
+			{
+				return{};
+			}
 		}
+
+		LOG_TRACE(U"Image decoder name: {}"_fmt((*it)->name()));
 
 		return (*it)->getImageInfo(reader, pathHint);
 	}
@@ -60,11 +67,16 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CImageDecoder::decode()");
 
-		const auto it = findDecoder(reader, pathHint);
+		auto it = findDecoder(imageFormat);
 
 		if (it == m_decoders.end())
 		{
-			return{};
+			it = findDecoder(reader, pathHint);
+
+			if (it == m_decoders.end())
+			{
+				return{};
+			}
 		}
 
 		LOG_TRACE(U"Image decoder name: {}"_fmt((*it)->name()));
@@ -76,11 +88,16 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CImageDecoder::decodeGray16()");
 
-		const auto it = findDecoder(reader, pathHint);
+		auto it = findDecoder(imageFormat);
 
 		if (it == m_decoders.end())
 		{
-			return{};
+			it = findDecoder(reader, pathHint);
+
+			if (it == m_decoders.end())
+			{
+				return{};
+			}
 		}
 
 		LOG_TRACE(U"Image decoder name: {}"_fmt((*it)->name()));

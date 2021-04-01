@@ -117,7 +117,11 @@ namespace s3d
 				pLine += imgWidth;
 			}
 
-			return Color(sumR / count, sumG / count, sumB / count, sumA / count);
+			return{
+				static_cast<uint8>(sumR / count),
+				static_cast<uint8>(sumG / count),
+				static_cast<uint8>(sumB / count),
+				static_cast<uint8>(sumA / count) };
 		}
 
 		static void FillRect(Image& dst, const Rect& rect, const Color& color)
@@ -503,7 +507,7 @@ namespace s3d
 
 		while (p != pEnd)
 		{
-			const uint32 t = p->r;
+			const uint8 t = p->r;
 			p->r = p->b;
 			p->b = t;
 			++p;
@@ -800,18 +804,18 @@ namespace s3d
 			{
 				for (auto& pixel : m_data)
 				{
-					pixel.r = Max(static_cast<int32>(pixel.r) + level, 0);
-					pixel.g = Max(static_cast<int32>(pixel.g) + level, 0);
-					pixel.b = Max(static_cast<int32>(pixel.b) + level, 0);
+					pixel.r = static_cast<uint8>(Max(static_cast<int32>(pixel.r) + level, 0));
+					pixel.g = static_cast<uint8>(Max(static_cast<int32>(pixel.g) + level, 0));
+					pixel.b = static_cast<uint8>(Max(static_cast<int32>(pixel.b) + level, 0));
 				}
 			}
 			else if (level > 0)
 			{
 				for (auto& pixel : m_data)
 				{
-					pixel.r = Min(static_cast<int32>(pixel.r) + level, 255);
-					pixel.g = Min(static_cast<int32>(pixel.g) + level, 255);
-					pixel.b = Min(static_cast<int32>(pixel.b) + level, 255);
+					pixel.r = static_cast<uint8>(Min(static_cast<int32>(pixel.r) + level, 255));
+					pixel.g = static_cast<uint8>(Min(static_cast<int32>(pixel.g) + level, 255));
+					pixel.b = static_cast<uint8>(Min(static_cast<int32>(pixel.b) + level, 255));
 				}
 			}
 		}
@@ -837,18 +841,18 @@ namespace s3d
 			{
 				for (auto& pixel : image)
 				{
-					pixel.r = Max(static_cast<int32>(pixel.r) + level, 0);
-					pixel.g = Max(static_cast<int32>(pixel.g) + level, 0);
-					pixel.b = Max(static_cast<int32>(pixel.b) + level, 0);
+					pixel.r = static_cast<uint8>(Max(static_cast<int32>(pixel.r) + level, 0));
+					pixel.g = static_cast<uint8>(Max(static_cast<int32>(pixel.g) + level, 0));
+					pixel.b = static_cast<uint8>(Max(static_cast<int32>(pixel.b) + level, 0));
 				}
 			}
 			else if (level > 0)
 			{
 				for (auto& pixel : image)
 				{
-					pixel.r = Min(static_cast<int32>(pixel.r) + level, 255);
-					pixel.g = Min(static_cast<int32>(pixel.g) + level, 255);
-					pixel.b = Min(static_cast<int32>(pixel.b) + level, 255);
+					pixel.r = static_cast<uint8>(Min(static_cast<int32>(pixel.r) + level, 255));
+					pixel.g = static_cast<uint8>(Min(static_cast<int32>(pixel.g) + level, 255));
+					pixel.b = static_cast<uint8>(Min(static_cast<int32>(pixel.b) + level, 255));
 				}
 			}
 

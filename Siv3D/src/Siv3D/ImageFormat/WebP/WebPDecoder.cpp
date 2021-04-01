@@ -14,10 +14,8 @@
 
 # if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
 #	include <ThirdParty-prebuilt/libwebp/decode.h>
-#	include <ThirdParty-prebuilt/libwebp/encode.h>
 # else
 #	include <webp/decode.h>
-#	include <webp/encode.h>
 # endif
 
 namespace s3d
