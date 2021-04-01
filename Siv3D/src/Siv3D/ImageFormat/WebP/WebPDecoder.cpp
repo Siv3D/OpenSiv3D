@@ -16,8 +16,8 @@
 #	include <ThirdParty-prebuilt/libwebp/decode.h>
 #	include <ThirdParty-prebuilt/libwebp/encode.h>
 # else
-#	include <libwebp/decode.h>
-#	include <libwebp/encode.h>
+#	include <webp/decode.h>
+#	include <webp/encode.h>
 # endif
 
 namespace s3d
