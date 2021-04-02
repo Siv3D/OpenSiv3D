@@ -15,7 +15,7 @@
 # include <Siv3D/FontStyle.hpp>
 # include "FontFaceProperty.hpp"
 
-# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
 #	include <ThirdParty-prebuilt/harfbuzz/hb.h>
 #	include <ThirdParty-prebuilt/harfbuzz/hb-ft.h>
 # else
