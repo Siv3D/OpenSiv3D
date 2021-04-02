@@ -14,7 +14,7 @@
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/Endian.hpp>
 
-# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS)
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
 #	include <ThirdParty-prebuilt/libpng/png.h>
 # else
 #	include <png.h>
