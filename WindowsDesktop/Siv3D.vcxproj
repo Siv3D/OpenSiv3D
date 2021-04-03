@@ -55,6 +55,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\CSV.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CursorStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DepthStencilState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Addon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\AssetHandle.ipp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\CSV.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cursor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylindrical.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\DeadZone.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DiscreteDistribution.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Easing.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Effect.ipp" />
@@ -547,6 +549,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Libraries.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Windows.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\YesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Catch2\catch.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\EnumBitmask\EnumBitmask.hpp" />
