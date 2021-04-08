@@ -73,6 +73,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Mouse/CMouse.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/System/SivSystem_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Unicode/SivUnicode_macOS_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/XInput/XInputFactory.cpp
 
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/BackBuffer/GL4BackBuffer.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/BackBuffer/GL4InternalTexture2D.cpp
@@ -338,6 +339,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/VideoTexture/VideoTextureDetail.cpp
   ../Siv3D/src/Siv3D/Window/SivWindow.cpp
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
+  ../Siv3D/src/Siv3D/XInput/Null/CXInput_Null.cpp
+  ../Siv3D/src/Siv3D/XInput/SivXInput.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc

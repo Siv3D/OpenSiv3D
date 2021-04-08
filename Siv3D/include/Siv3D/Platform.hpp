@@ -122,7 +122,7 @@
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1928) // 古い Visual Studio | Old MSVC
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192829913) // 古い Visual Studio | Old MSVC
 
 	// お使いの Visual Studio のバージョンが古い場合、このエラーが発生します
 	// This error occures when your Visual Studio version is not up to date.

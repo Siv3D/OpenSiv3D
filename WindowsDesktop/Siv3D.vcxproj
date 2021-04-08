@@ -550,6 +550,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInputVibration.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\YesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Catch2\catch.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\EnumBitmask\EnumBitmask.hpp" />
@@ -738,6 +739,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\DPIAwareness.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\TouchFeedback.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\WindowProc.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput\CXInput.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\CAddon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
@@ -860,6 +862,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\IXInput.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\Null\CXInput_Null.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\XInputState.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-blob.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-buffer.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-common.h" />
@@ -941,6 +946,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\cpu_features_cache_info.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\cpu_features_macros.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\define_tables.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\GamePad.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\pch.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\PlatformHelpers.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\cached-powers.h" />
@@ -1331,6 +1339,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\TouchFeedback.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\WindowFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\WindowProc.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInputFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput\CXInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\AddonFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\CAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\SivAddon.cpp" />
@@ -1580,6 +1590,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\Null\CXInput_Null.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\numeric\int128.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\random\discrete_distribution.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\box2d\collision\b2_broad_phase.cpp" />
@@ -1631,6 +1643,7 @@
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4100;4132;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4100;4132;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\DirectXTK\GamePad.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\cached-powers.cc" />

@@ -10,6 +10,7 @@ Library | Version
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.3
 [concaveman-cpp](https://github.com/sadaszewski/concaveman-cpp) | 
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
+[DirectXTK](https://github.com/microsoft/DirectXTK) | April 6, 2021
 [DirectXMath](https://github.com/microsoft/DirectXMath) | April 2020
 [double-conversion](https://github.com/google/double-conversion) | v3.1.5
 [Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2

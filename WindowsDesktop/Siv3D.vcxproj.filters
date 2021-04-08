@@ -949,6 +949,21 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess">
       <UniqueIdentifier>{f91dc8be-235a-486f-8310-52efbddc187d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\XInput">
+      <UniqueIdentifier>{ff93463e-2796-4b4a-b9fe-092c62c4359f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\XInput\Null">
+      <UniqueIdentifier>{43ca32f7-5eff-43fe-840f-88e26fd35c2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput">
+      <UniqueIdentifier>{150f2a7e-1ef6-4bd1-93d2-1f929e46a471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput">
+      <UniqueIdentifier>{ed9ce691-29d5-4fce-80d2-443e90781eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\DirectXTK">
+      <UniqueIdentifier>{a0f03b44-edac-469b-a3da-6ba4faef5fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4677,14 +4692,38 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DeadZone.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\IXInput.hpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\Null\CXInput_Null.hpp">
+      <Filter>src\Siv3D\XInput\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput\CXInput.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\GamePad.h">
+      <Filter>src\ThirdParty\DirectXTK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\pch.h">
+      <Filter>src\ThirdParty\DirectXTK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\DirectXTK\PlatformHelpers.h">
+      <Filter>src\ThirdParty\DirectXTK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInputVibration.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\XInputState.hpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -6445,6 +6484,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\Null\CXInput_Null.cpp">
+      <Filter>src\Siv3D\XInput\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInputFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput\CXInput.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\DirectXTK\GamePad.cpp">
+      <Filter>src\ThirdParty\DirectXTK</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

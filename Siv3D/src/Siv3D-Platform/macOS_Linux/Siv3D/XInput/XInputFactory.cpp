@@ -9,27 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include <Siv3D/System/ISystem.hpp>
+# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/XInput/Null/CXInput_Null.hpp>
 
 namespace s3d
 {
-	class CSystem final : public ISiv3DSystem
+	ISiv3DXInput* ISiv3DXInput::Create()
 	{
-	private:
-
-		bool m_windowsRuntimeInitialized = false;
-
-	public:
-
-		CSystem();
-
-		~CSystem() override;
-
-		void init() override;
-
-		void init2();
-
-		bool update() override;
-	};
+		return new CXInput_Null;
+	}
 }

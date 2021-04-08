@@ -902,6 +902,7 @@
 # include <Siv3D/Mouse.hpp>
 
 # include <Siv3D/DeadZone.hpp>
+# include <Siv3D/XInputVibration.hpp>
 # include <Siv3D/XInput.hpp>
 
 

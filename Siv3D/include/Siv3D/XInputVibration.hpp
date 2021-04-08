@@ -10,26 +10,18 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/System/ISystem.hpp>
+# include "Common.hpp"
 
 namespace s3d
 {
-	class CSystem final : public ISiv3DSystem
+	struct XInputVibration
 	{
-	private:
+		double leftMotor = 0.0;
 
-		bool m_windowsRuntimeInitialized = false;
+		double rightMotor = 0.0;
 
-	public:
+		double leftTrigger = 0.0;
 
-		CSystem();
-
-		~CSystem() override;
-
-		void init() override;
-
-		void init2();
-
-		bool update() override;
+		double rightTrigger = 0.0;
 	};
 }

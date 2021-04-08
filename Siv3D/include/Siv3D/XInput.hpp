@@ -11,8 +11,10 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Optional.hpp"
 # include "DeadZone.hpp"
-# include "Input.hpp"
+# include "InputGroups.hpp"
+# include "XInputVibration.hpp"
 
 namespace s3d
 {
@@ -21,7 +23,7 @@ namespace s3d
 		struct XInput_impl
 		{
 			SIV3D_NODISCARD_CXX20
-			explicit XInput_impl(size_t userIndex);
+			explicit XInput_impl(size_t playerIndex) noexcept;
 
 			[[nodiscard]]
 			bool isConnected() const;
@@ -39,10 +41,10 @@ namespace s3d
 
 			void setLeftThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
-			void setRightThumbDeadZone(const DeadZone& deadZone = { .size = 0.26, .maxValue = 1.0, .type = DeadZoneType::Circular });
+			void setRightThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
-			/// @brief ユーザインデックス
-			uint32 userIndex;
+			/// @brief プレイヤーインデックス
+			uint32 playerIndex;
 
 			/// @brief 十字ボタンの上ボタン
 			Input buttonUp;
@@ -59,8 +61,16 @@ namespace s3d
 			/// @brief START ボタン
 			Input buttonStart;
 
+			/// @brief Menu ボタン
+			/// @remark START ボタンと同じです。
+			Input buttonMenu;
+
 			/// @brief BACK ボタン
 			Input buttonBack;
+
+			/// @brief View ボタン
+			/// @remark BACK ボタンと同じです。
+			Input buttonView;
 
 			/// @brief 左スティックの押し込み
 			Input buttonLThumb;
@@ -116,15 +126,10 @@ namespace s3d
 			[[nodiscard]]
 			Optional<int32> rightThumbD8(double threshold = 0.2) const;
 
-			/// @brief バイブレーションを設定します。
-			/// @param leftMotorSpeed 低周波の左モータのスピード、0 は停止、1.0 は最大の振動
-			/// @param rightMotorSpeed 高周波の右モータのスピード、0 は停止、1.0 は最大の振動
-			void setVibration(double leftMotorSpeed, double rightMotorSpeed) const;
+			void setVibration(const XInputVibration& vibration) const;
 
-			/// @brief バイブレーションの現在の設定を返します。
-			/// @return バイブレーションの現在の設定（左モータ、右モータ）
 			[[nodiscard]]
-			std::pair<double, double> getVibration() const;
+			const XInputVibration& getVibration() const;
 
 			/// @brief バイブレーションを停止します。
 			void stopVibration() const;
@@ -138,10 +143,10 @@ namespace s3d
 
 		struct XInput_helper
 		{
-			[[nodiscard]]
-			const XInput_impl& operator()(size_t userIndex) const;
+			static constexpr size_t MaxPlayerCount = 8;
 
-			static constexpr size_t MaxUserCount = 4;
+			[[nodiscard]]
+			const XInput_impl& operator()(size_t playerIndex) const;
 		};
 	}
 

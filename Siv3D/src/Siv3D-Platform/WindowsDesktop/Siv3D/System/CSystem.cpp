@@ -22,6 +22,7 @@
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
 # include <Siv3D/Mouse/IMouse.hpp>
+# include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
@@ -33,6 +34,7 @@
 # include <Siv3D/Addon/IAddon.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
+# include <Siv3D/Windows/Windows.hpp>
 # include "CSystem.hpp"
 
 namespace s3d
@@ -48,6 +50,12 @@ namespace s3d
 
 		SystemMisc::Destroy();
 		SystemLog::Final();
+
+		if (m_windowsRuntimeInitialized)
+		{
+			::Windows::Foundation::Uninitialize();
+			m_windowsRuntimeInitialized = false;
+		}
 	}
 
 	void CSystem::init()
@@ -56,6 +64,15 @@ namespace s3d
 
 		SystemLog::Initial();
 		SystemMisc::Init();
+
+		{
+			if (FAILED(::Windows::Foundation::Initialize(RO_INIT_MULTITHREADED)))
+			{
+				throw EngineError{ U"Windows Runtime is not supported" };
+			}
+
+			m_windowsRuntimeInitialized = true;
+		}
 
 		SIV3D_ENGINE(Resource)->init();
 		SIV3D_ENGINE(Profiler)->init();
@@ -70,6 +87,7 @@ namespace s3d
 		SIV3D_ENGINE(Cursor)->init();
 		SIV3D_ENGINE(Keyboard)->init();
 		SIV3D_ENGINE(Mouse)->init();
+		SIV3D_ENGINE(XInput)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
 		SIV3D_ENGINE(ScreenCapture)->init();
@@ -112,6 +130,7 @@ namespace s3d
 		SIV3D_ENGINE(Cursor)->update();
 		SIV3D_ENGINE(Keyboard)->update();
 		SIV3D_ENGINE(Mouse)->update();
+		SIV3D_ENGINE(XInput)->update();
 		SIV3D_ENGINE(Effect)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{

@@ -12,6 +12,7 @@
 # include <Siv3D/InputGroups.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
 # include <Siv3D/Mouse/IMouse.hpp>
+# include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -56,7 +57,9 @@ namespace s3d
 		case InputDeviceType::Mouse:
 			return SIV3D_ENGINE(Mouse)->down(m_code);
 		case InputDeviceType::Gamepad:
+			return false;
 		case InputDeviceType::XInput:
+			return SIV3D_ENGINE(XInput)->down(m_userIndex, m_code);
 		default:
 			return false;
 		}
@@ -71,7 +74,9 @@ namespace s3d
 		case InputDeviceType::Mouse:
 			return SIV3D_ENGINE(Mouse)->pressed(m_code);
 		case InputDeviceType::Gamepad:
+			return false;
 		case InputDeviceType::XInput:
+			return SIV3D_ENGINE(XInput)->pressed(m_userIndex, m_code);
 		default:
 			return false;
 		}
@@ -86,7 +91,9 @@ namespace s3d
 		case InputDeviceType::Mouse:
 			return SIV3D_ENGINE(Mouse)->up(m_code);
 		case InputDeviceType::Gamepad:
+			return false;
 		case InputDeviceType::XInput:
+			return SIV3D_ENGINE(XInput)->up(m_userIndex, m_code);
 		default:
 			return false;
 		}
@@ -101,7 +108,9 @@ namespace s3d
 		case InputDeviceType::Mouse:
 			return SIV3D_ENGINE(Mouse)->pressedDuration(m_code);
 		case InputDeviceType::Gamepad:
+			return Duration{ 0 };
 		case InputDeviceType::XInput:
+			return SIV3D_ENGINE(XInput)->pressedDuration(m_userIndex, m_code);
 		default:
 			return Duration{ 0 };
 		}

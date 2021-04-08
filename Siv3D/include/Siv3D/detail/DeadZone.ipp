@@ -36,7 +36,7 @@ namespace s3d
 		return Clamp(value / (maxValue - size), -1.0, 1.0);
 	}
 
-	inline constexpr Vec2 DeadZone::operator ()(double x, double y) const noexcept
+	inline Vec2 DeadZone::operator ()(double x, double y) const noexcept
 	{
 		if (type == DeadZoneType::_None)
 		{
@@ -44,22 +44,17 @@ namespace s3d
 		}
 		else if (type == DeadZoneType::Independent)
 		{
-			x = operator()(x);
-			y = operator()(y);
-			return{ x, y };
+			return{ operator()(x), operator()(y) };
 		}
 
-		const double lenSq = Vec2{ x, y }.lengthSq();
-		const double t = operator()(lenSq);
-		const double scale = (t > 0.0) ? (t / lenSq) * 1.001 : 0.0;
+		const double dist = Vec2{ x, y }.length();
+		const double t = operator()(dist);
+		const double scale = (t > 0.0) ? (t / dist) : 0.0;
 
-		x = Clamp(x * scale, -1.0, 1.0);
-		y = Clamp(y * scale, -1.0, 1.0);
-
-		return{ x, y };
+		return{ Clamp(x * scale, -1.0, 1.0), Clamp(y * scale, -1.0, 1.0) };
 	}
 
-	inline constexpr Vec2 DeadZone::operator ()(const Vec2 value) const noexcept
+	inline Vec2 DeadZone::operator ()(const Vec2 value) const noexcept
 	{
 		return operator()(value.x, value.y);
 	}

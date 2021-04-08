@@ -44,10 +44,10 @@ namespace s3d
 		constexpr double operator ()(double value) const noexcept;
 
 		[[nodiscard]]
-		constexpr Vec2 operator ()(double x, double y) const noexcept;
+		Vec2 operator ()(double x, double y) const noexcept;
 
 		[[nodiscard]]
-		constexpr Vec2 operator ()(Vec2 value) const noexcept;
+		Vec2 operator ()(Vec2 value) const noexcept;
 	};
 }
 
