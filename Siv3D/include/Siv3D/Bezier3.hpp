@@ -29,9 +29,20 @@ namespace s3d
 
 		Vec2 p3;
 
+		SIV3D_NODISCARD_CXX20
 		Bezier3() = default;
 
+		SIV3D_NODISCARD_CXX20
 		constexpr Bezier3(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2, const Vec2& _p3) noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2& p(size_t index) noexcept;
+
+		[[nodiscard]]
+		constexpr const Vec2& p(size_t index) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec2 point(size_t index) const;
 
 		[[nodiscard]]
 		constexpr Vec2 getPos(double t) const noexcept;

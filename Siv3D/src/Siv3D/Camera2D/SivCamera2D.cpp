@@ -56,8 +56,8 @@ namespace s3d
 			return;
 		}
 
-		const auto t1 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetLocal };
-		const auto t2 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetCamera };
+		const auto t1 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetLocal };
+		const auto t2 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetCamera };
 
 		const double radius = 12.0;
 		const Point delta = (Cursor::Pos() - m_grabPos.value());
@@ -102,8 +102,8 @@ namespace s3d
 
 		m_targetScale = Clamp(m_targetScale, m_parameters.minScale, m_parameters.maxScale);
 
-		const auto t1 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetLocal };
-		const auto t2 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetCamera };
+		const auto t1 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetLocal };
+		const auto t2 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetCamera };
 
 		const Point cursorPos = Cursor::Pos();
 		const Vec2 point = (m_center + (cursorPos - (sceneSize * 0.5)) / m_scale);
@@ -166,8 +166,8 @@ namespace s3d
 
 	void Camera2D::updateMouse(const double deltaTime)
 	{
-		const auto t1 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetLocal };
-		const auto t2 = Transformer2D{ Mat3x2::Identity(), true, Transformer2D::Target::SetCamera };
+		const auto t1 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetLocal };
+		const auto t2 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetCamera };
 
 		if (MouseR.down())
 		{

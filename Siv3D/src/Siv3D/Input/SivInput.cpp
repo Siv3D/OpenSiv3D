@@ -30,6 +30,26 @@ namespace s3d
 			U"MouseX4",
 			U"MouseX5",
 		};
+
+		static constexpr std::array<StringView, 16> XInputButtonNames =
+		{
+				U"Dpad_Up",
+				U"Dpad_Down",
+				U"Dpad_Left",
+				U"Dpad_Right",
+				U"Start",
+				U"Back",
+				U"LT",
+				U"RT",
+				U"LB",
+				U"RB",
+				U"Unknown",
+				U"Unknown",
+				U"A",
+				U"B",
+				U"X",
+				U"Y",
+		};
 	}
 
 	String Input::name() const
@@ -42,9 +62,12 @@ namespace s3d
 			assert(m_code < detail::MouseButtonNames.size());
 			return String{ detail::MouseButtonNames[m_code] };
 		case InputDeviceType::Gamepad:
+			return{};
 		case InputDeviceType::XInput:
+			assert(m_code < detail::XInputButtonNames.size());
+			return (U"XInput-" + detail::XInputButtonNames[m_code]);
 		default:
-			return {};
+			return{};
 		}
 	}
 

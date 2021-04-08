@@ -16,6 +16,7 @@
 # include "Mat3x2.hpp"
 # include "Graphics2D.hpp"
 # include "Cursor.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -41,7 +42,7 @@ namespace s3d
 		Transformer2D(const Mat3x2& transform, Target target);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Transformer2D(const Mat3x2& transform, bool transformCursor = false, Target target = Target::PushLocal);
+		explicit Transformer2D(const Mat3x2& transform, TransformCursor transformCursor = TransformCursor::No, Target target = Target::PushLocal);
 
 		SIV3D_NODISCARD_CXX20
 		Transformer2D(const Mat3x2& graphics2DTransform, const Mat3x2& cursorTransform, Target target = Target::PushLocal);

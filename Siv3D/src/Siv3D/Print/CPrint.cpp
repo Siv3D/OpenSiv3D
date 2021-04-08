@@ -116,7 +116,9 @@ namespace s3d
 	{
 		std::lock_guard lock{ m_mutex };
 
-		m_puts.emplace_back(std::move(s), pos, alignment);
+		const Vec2 point = (Graphics2D::GetLocalTransform() * Graphics2D::GetCameraTransform()).transformPoint(pos);
+
+		m_puts.emplace_back(std::move(s), point, alignment);
 	}
 
 	void CPrint::draw()

@@ -50,6 +50,6 @@ namespace s3d
 
 	inline Transformer2D BasicCamera2D::createTransformer() const
 	{
-		return Transformer2D{ getMat3x2(), true, Transformer2D::Target::PushCamera };
+		return Transformer2D{ getMat3x2(), TransformCursor::Yes, Transformer2D::Target::PushCamera };
 	}
 }

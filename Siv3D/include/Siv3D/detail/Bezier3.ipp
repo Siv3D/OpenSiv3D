@@ -19,6 +19,41 @@ namespace s3d
 		, p2{ _p2 }
 		, p3{ _p3 } {}
 
+
+	inline constexpr Vec2& Bezier3::p(const size_t index) noexcept
+	{
+		return (&p0)[index];
+	}
+
+	inline constexpr const Vec2& Bezier3::p(const size_t index) const noexcept
+	{
+		return (&p0)[index];
+	}
+
+	inline constexpr Vec2 Bezier3::point(const size_t index) const
+	{
+		if (index == 0)
+		{
+			return p0;
+		}
+		else if (index == 1)
+		{
+			return p1;
+		}
+		else if (index == 2)
+		{
+			return p2;
+		}
+		else if (index == 3)
+		{
+			return p3;
+		}
+		else
+		{
+			throw std::out_of_range("Bezier3::point() index out of range");
+		}
+	}
+
 	inline constexpr Vec2 Bezier3::getPos(const double t) const noexcept
 	{
 		return (1 - t) * (1 - t) * (1 - t) * p0 + 3 * (1 - t) * (1 - t) * t * p1 + 3 * (1 - t) * t * t * p2 + t * t * t * p3;

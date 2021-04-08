@@ -14,12 +14,9 @@
 namespace s3d
 {
 	inline Transformer2D::Transformer2D(const Mat3x2& transform, const Target target)
-		: Transformer2D{ transform, false, target }
-	{
+		: Transformer2D{ transform, TransformCursor::No, target } {}
 
-	}
-
-	inline Transformer2D::Transformer2D(const Mat3x2& transform, const bool transformCursor, const Target target)
+	inline Transformer2D::Transformer2D(const Mat3x2& transform, const TransformCursor transformCursor, const Target target)
 		: m_target{ target }
 		, m_oldTransform{ getGraphics2DTransform() }
 	{

@@ -150,5 +150,5 @@ namespace s3d
 		};
 	}
 
-	inline constexpr auto XInput = detail::XInput_helper();
+	inline constexpr auto XInput = detail::XInput_helper{};
 }

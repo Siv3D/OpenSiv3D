@@ -201,6 +201,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FontStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GaborNoise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Gamepad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GamepadInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Glyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />

@@ -67,4 +67,7 @@ namespace s3d
 	
 	/// @brief ロスレスで圧縮する
 	using Lossless			= YesNo<struct Lossless_tag>;
+
+	/// @brief カーソルの座標を変換する
+	using TransformCursor	= YesNo<struct TransformCursor_tag>;
 }
