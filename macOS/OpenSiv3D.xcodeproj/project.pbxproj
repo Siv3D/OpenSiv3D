@@ -1092,6 +1092,12 @@
 		2CAAA8C625E7FDCC00C014D7 /* EmojiData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8C225E7FDCC00C014D7 /* EmojiData.cpp */; };
 		2CAAA8C725E7FDCC00C014D7 /* IconData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAA8C325E7FDCC00C014D7 /* IconData.hpp */; };
 		2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8C925E7FDE900C014D7 /* SivIcon.cpp */; };
+		2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749EC261F52C200D31274 /* XInputFactory.cpp */; };
+		2CB749F5261F52E200D31274 /* IXInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB749EF261F52E200D31274 /* IXInput.hpp */; };
+		2CB749F6261F52E200D31274 /* XInputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB749F0261F52E200D31274 /* XInputState.hpp */; };
+		2CB749F7261F52E200D31274 /* SivXInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749F1261F52E200D31274 /* SivXInput.cpp */; };
+		2CB749F8261F52E200D31274 /* CXInput_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB749F3261F52E200D31274 /* CXInput_Null.hpp */; };
+		2CB749F9261F52E200D31274 /* CXInput_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749F4261F52E200D31274 /* CXInput_Null.cpp */; };
 		2CB7D4E22556C532007EB42E /* FallbackKeyName.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */; };
 		2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4E52556E230007EB42E /* MouseFactory.cpp */; };
 		2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4E62556E230007EB42E /* SivMouse.cpp */; };
@@ -2977,6 +2983,16 @@
 		2CAAA8C225E7FDCC00C014D7 /* EmojiData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiData.cpp; sourceTree = "<group>"; };
 		2CAAA8C325E7FDCC00C014D7 /* IconData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IconData.hpp; sourceTree = "<group>"; };
 		2CAAA8C925E7FDE900C014D7 /* SivIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivIcon.cpp; sourceTree = "<group>"; };
+		2CB749E7261F524000D31274 /* XInput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XInput.hpp; sourceTree = "<group>"; };
+		2CB749E8261F524D00D31274 /* DeadZone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DeadZone.hpp; sourceTree = "<group>"; };
+		2CB749E9261F526800D31274 /* DeadZone.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DeadZone.ipp; sourceTree = "<group>"; };
+		2CB749EA261F52A400D31274 /* XInputVibration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XInputVibration.hpp; sourceTree = "<group>"; };
+		2CB749EC261F52C200D31274 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
+		2CB749EF261F52E200D31274 /* IXInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IXInput.hpp; sourceTree = "<group>"; };
+		2CB749F0261F52E200D31274 /* XInputState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = XInputState.hpp; sourceTree = "<group>"; };
+		2CB749F1261F52E200D31274 /* SivXInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXInput.cpp; sourceTree = "<group>"; };
+		2CB749F3261F52E200D31274 /* CXInput_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CXInput_Null.hpp; sourceTree = "<group>"; };
+		2CB749F4261F52E200D31274 /* CXInput_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CXInput_Null.cpp; sourceTree = "<group>"; };
 		2CB7D4E12556C532007EB42E /* FallbackKeyName.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FallbackKeyName.hpp; sourceTree = "<group>"; };
 		2CB7D4E52556E230007EB42E /* MouseFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseFactory.cpp; sourceTree = "<group>"; };
 		2CB7D4E62556E230007EB42E /* SivMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMouse.cpp; sourceTree = "<group>"; };
@@ -4595,6 +4611,7 @@
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
 				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
 				2C47B2AC24DD9789008D83BE /* Window */,
+				2CB749EE261F52E200D31274 /* XInput */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -5992,6 +6009,7 @@
 				2CB7D4EB2556E247007EB42E /* Mouse */,
 				2C68508024B768A800B98A7F /* System */,
 				2C68507A24B768A800B98A7F /* Unicode */,
+				2CB749EB261F52C200D31274 /* XInput */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -6626,6 +6644,7 @@
 				2CAAA77F25E7FD0200C014D7 /* Date.hpp */,
 				2CAAA6F125E7FD0200C014D7 /* DateTime.hpp */,
 				2CAAA87025E7FD0300C014D7 /* DayOfWeek.hpp */,
+				2CB749E8261F524D00D31274 /* DeadZone.hpp */,
 				2CAAA87325E7FD0300C014D7 /* Demangle.hpp */,
 				2CAAA76A25E7FD0200C014D7 /* DepthStencilState.hpp */,
 				2CAAA6FF25E7FD0200C014D7 /* DirectoryWatcher.hpp */,
@@ -6878,6 +6897,8 @@
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
+				2CB749E7261F524000D31274 /* XInput.hpp */,
+				2CB749EA261F52A400D31274 /* XInputVibration.hpp */,
 				2CAAA78525E7FD0200C014D7 /* YesNo.hpp */,
 				2CAAA78B25E7FD0200C014D7 /* detail */,
 				2C4A288225F3C09C00FEACE4 /* Experimental */,
@@ -6921,6 +6942,7 @@
 				2CAAA80925E7FD0200C014D7 /* Cylindrical.ipp */,
 				2CAAA7B125E7FD0200C014D7 /* Date.ipp */,
 				2CAAA81525E7FD0200C014D7 /* DateTime.ipp */,
+				2CB749E9261F526800D31274 /* DeadZone.ipp */,
 				2CAAA78C25E7FD0200C014D7 /* Demangle.ipp */,
 				2CAAA79525E7FD0200C014D7 /* DiscreteDistribution.ipp */,
 				2CAAA79225E7FD0200C014D7 /* Distribution.ipp */,
@@ -7120,6 +7142,34 @@
 				2CAAA8C925E7FDE900C014D7 /* SivIcon.cpp */,
 			);
 			path = Icon;
+			sourceTree = "<group>";
+		};
+		2CB749EB261F52C200D31274 /* XInput */ = {
+			isa = PBXGroup;
+			children = (
+				2CB749EC261F52C200D31274 /* XInputFactory.cpp */,
+			);
+			path = XInput;
+			sourceTree = "<group>";
+		};
+		2CB749EE261F52E200D31274 /* XInput */ = {
+			isa = PBXGroup;
+			children = (
+				2CB749EF261F52E200D31274 /* IXInput.hpp */,
+				2CB749F0261F52E200D31274 /* XInputState.hpp */,
+				2CB749F1261F52E200D31274 /* SivXInput.cpp */,
+				2CB749F2261F52E200D31274 /* Null */,
+			);
+			path = XInput;
+			sourceTree = "<group>";
+		};
+		2CB749F2261F52E200D31274 /* Null */ = {
+			isa = PBXGroup;
+			children = (
+				2CB749F3261F52E200D31274 /* CXInput_Null.hpp */,
+				2CB749F4261F52E200D31274 /* CXInput_Null.cpp */,
+			);
+			path = Null;
 			sourceTree = "<group>";
 		};
 		2CB7D4E42556E230007EB42E /* Mouse */ = {
@@ -7696,6 +7746,7 @@
 				2C48BF0525CFB8C500A93CE3 /* Bitmap.hpp in Headers */,
 				2C481E1424460B5700A5D88D /* cpu_features_cache_info.h in Headers */,
 				2C48BF0425CFB8C500A93CE3 /* ShapeDistanceFinder.h in Headers */,
+				2CB749F6261F52E200D31274 /* XInputState.hpp in Headers */,
 				2CFC215125F739B400C51D0D /* hb-deprecated.h in Headers */,
 				2CFC215025F739B400C51D0D /* hb-style.h in Headers */,
 				2CC7D4B125FA3A9200289963 /* VideoTextureDetail.hpp in Headers */,
@@ -8152,6 +8203,7 @@
 				2C2AA39826009C74003F3EBC /* b2_wheel_joint.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
+				2CB749F5261F52E200D31274 /* IXInput.hpp in Headers */,
 				2C43C88D25C837F000D6D613 /* ftmemory.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C2AA37726009C74003F3EBC /* b2_motor_joint.h in Headers */,
@@ -8207,6 +8259,7 @@
 				2CDD4F44260A3F7100A51D68 /* P2WorldDetail.hpp in Headers */,
 				2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */,
 				2C834D9C248805D4006208B8 /* regenc.h in Headers */,
+				2CB749F8261F52E200D31274 /* CXInput_Null.hpp in Headers */,
 				2C47B49224DD97F2008D83BE /* muParserFixes.h in Headers */,
 				2C43C8A625C837F100D6D613 /* ftrfork.h in Headers */,
 			);
@@ -8610,6 +8663,7 @@
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
+				2CB749F7261F52E200D31274 /* SivXInput.cpp in Sources */,
 				2C794B8A25C5A5BF00034D81 /* SivTexturedRoundRect.cpp in Sources */,
 				2C423246242B155E00A16BCA /* nsgl_context.m in Sources */,
 				2C48C14B25D41C9D00A93CE3 /* SivDrawableText.cpp in Sources */,
@@ -8676,6 +8730,7 @@
 				2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */,
 				2C4396142535DCCA00F6AECD /* svgtransform.cpp in Sources */,
 				2C13C8CF25B8FA9D0054B968 /* RecastFilter.cpp in Sources */,
+				2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */,
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
 				2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
@@ -8957,6 +9012,7 @@
 				2CF21D18249FAA8F00C864C9 /* CCursor.mm in Sources */,
 				2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */,
 				2CEC7DDA25FA527700704B99 /* BMPEncoder.cpp in Sources */,
+				2CB749F9261F52E200D31274 /* CXInput_Null.cpp in Sources */,
 				2C4396132535DCCA00F6AECD /* svgenumeration.cpp in Sources */,
 				2C794B2825C3DFC200034D81 /* huf_decompress.c in Sources */,
 				2C4395F32535DCCA00F6AECD /* svguseelement.cpp in Sources */,
