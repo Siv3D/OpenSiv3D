@@ -159,7 +159,7 @@ namespace s3d
 
 			for (uint32 i = 0; i < src.buttons.size(); ++i)
 			{
-				dst.buttons << Input{ InputDeviceType::Gamepad, static_cast<uint8>(i), static_cast<uint8>(playerIndex) };
+				dst.buttons.emplace_back(InputDeviceType::Gamepad, static_cast<uint8>(i), static_cast<uint8>(playerIndex));
 			}
 		}
 	}
