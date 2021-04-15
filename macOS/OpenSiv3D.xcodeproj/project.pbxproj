@@ -314,6 +314,8 @@
 		2C427FDF2628438A00106F19 /* GamepadFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FDB2628438A00106F19 /* GamepadFactory.cpp */; };
 		2C427FE02628438A00106F19 /* IGamepad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C427FDC2628438A00106F19 /* IGamepad.hpp */; };
 		2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FE22628439B00106F19 /* SivGamepadInfo.cpp */; };
+		2C427FE826286C8200106F19 /* SivJoyCon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FE726286C8100106F19 /* SivJoyCon.cpp */; };
+		2C427FEB26286C8C00106F19 /* SivProController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FEA26286C8C00106F19 /* SivProController.cpp */; };
 		2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */; };
 		2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */; };
 		2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */; };
@@ -1692,6 +1694,10 @@
 		2C427FDB2628438A00106F19 /* GamepadFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadFactory.cpp; sourceTree = "<group>"; };
 		2C427FDC2628438A00106F19 /* IGamepad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IGamepad.hpp; sourceTree = "<group>"; };
 		2C427FE22628439B00106F19 /* SivGamepadInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGamepadInfo.cpp; sourceTree = "<group>"; };
+		2C427FE426286C5E00106F19 /* JoyCon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JoyCon.hpp; sourceTree = "<group>"; };
+		2C427FE526286C6800106F19 /* ProController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProController.hpp; sourceTree = "<group>"; };
+		2C427FE726286C8100106F19 /* SivJoyCon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivJoyCon.cpp; sourceTree = "<group>"; };
+		2C427FEA26286C8C00106F19 /* SivProController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProController.cpp; sourceTree = "<group>"; };
 		2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Array.cpp; sourceTree = "<group>"; };
 		2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Resource.cpp; sourceTree = "<group>"; };
 		2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource_macOS.cpp; sourceTree = "<group>"; };
@@ -4074,6 +4080,22 @@
 			path = GamepadInfo;
 			sourceTree = "<group>";
 		};
+		2C427FE626286C8100106F19 /* JoyCon */ = {
+			isa = PBXGroup;
+			children = (
+				2C427FE726286C8100106F19 /* SivJoyCon.cpp */,
+			);
+			path = JoyCon;
+			sourceTree = "<group>";
+		};
+		2C427FE926286C8C00106F19 /* ProController */ = {
+			isa = PBXGroup;
+			children = (
+				2C427FEA26286C8C00106F19 /* SivProController.cpp */,
+			);
+			path = ProController;
+			sourceTree = "<group>";
+		};
 		2C43609A240E4EEC001657D2 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -4585,6 +4607,7 @@
 				2C47B2F624DD9789008D83BE /* Int128 */,
 				2C473B162545415300CF864D /* Interpolation */,
 				2C47B24D24DD9789008D83BE /* IntFormatter */,
+				2C427FE626286C8100106F19 /* JoyCon */,
 				2C48BF3625CFB92900A93CE3 /* JSON */,
 				2CFE19A32555B23C005826A1 /* Keyboard */,
 				2C47B23824DD9789008D83BE /* LicenseManager */,
@@ -4609,6 +4632,7 @@
 				2C53C33F25613BAF0072831A /* Polygon */,
 				2C47B4A324E16B8F008D83BE /* PrimeNumber */,
 				2C34780725DA95A000071EEF /* Print */,
+				2C427FE926286C8C00106F19 /* ProController */,
 				2C47B2C124DD9789008D83BE /* Profiler */,
 				2CAAA8B325E7FD3100C014D7 /* PutText */,
 				2C47B28424DD9789008D83BE /* QR */,
@@ -6781,6 +6805,7 @@
 				2CAAA75325E7FD0200C014D7 /* IReader.hpp */,
 				2CAAA76925E7FD0200C014D7 /* ISteadyClock.hpp */,
 				2CAAA72625E7FD0200C014D7 /* IWriter.hpp */,
+				2C427FE426286C5E00106F19 /* JoyCon.hpp */,
 				2CAAA70C25E7FD0200C014D7 /* JSON.hpp */,
 				2CAAA89D25E7FD0300C014D7 /* KahanSummation.hpp */,
 				2CAAA71B25E7FD0200C014D7 /* KDTree.hpp */,
@@ -6846,6 +6871,7 @@
 				2CAAA78925E7FD0200C014D7 /* PrimeNumber.hpp */,
 				2CAAA83825E7FD0200C014D7 /* Print.hpp */,
 				2CAAA86225E7FD0300C014D7 /* PRNG.hpp */,
+				2C427FE526286C6800106F19 /* ProController.hpp */,
 				2CAAA8A325E7FD0300C014D7 /* Profiler.hpp */,
 				2CAAA8B225E7FD0300C014D7 /* PutText.hpp */,
 				2CAAA84225E7FD0200C014D7 /* QR.hpp */,
@@ -8788,6 +8814,7 @@
 				2C13C8CF25B8FA9D0054B968 /* RecastFilter.cpp in Sources */,
 				2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */,
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
+				2C427FEB26286C8C00106F19 /* SivProController.cpp in Sources */,
 				2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
@@ -8985,6 +9012,7 @@
 				2C13C8BD25B8FA9D0054B968 /* RecastArea.cpp in Sources */,
 				2C794B3225C3DFC200034D81 /* entropy_common.c in Sources */,
 				2C43962F2535DCCA00F6AECD /* svgmaskelement.cpp in Sources */,
+				2C427FE826286C8200106F19 /* SivJoyCon.cpp in Sources */,
 				2CF21D20249FAA8F00C864C9 /* OpenGL.cpp in Sources */,
 				2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */,
 				2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */,
