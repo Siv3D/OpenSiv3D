@@ -27,6 +27,17 @@
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <unistd.h>
@@ -279,6 +290,16 @@ static void matchCallback(void* context,
     js->ns.axes    = axes;
     js->ns.buttons = buttons;
     js->ns.hats    = hats;
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	js->vendor	= vendor;
+	js->product	= product;
+	js->version	= version;
+	//
+	//-----------------------------------------------
 
     _glfwInputJoystick(js, GLFW_CONNECTED);
 }
@@ -481,3 +502,26 @@ void _glfwPlatformUpdateGamepadGUID(char* guid)
     }
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version)
+{
+	_GLFWjoystick* js = _glfw.joysticks + joy;
+	if (!js->present)
+		return NULL;
+	
+	if (vendorID)
+		*vendorID = js->vendor;
+	
+	if (productID)
+		*productID = js->product;
+	
+	if (version)
+		*version = js->version;
+	
+	return js->name;
+}
+//
+//-----------------------------------------------

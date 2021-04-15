@@ -504,6 +504,14 @@ struct _GLFWjoystick
     char            guid[33];
     _GLFWmapping*   mapping;
 
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	uint32_t vendor, product, version;
+	//
+	//-----------------------------------------------
+	
     // This is defined in the joystick API's joystick.h
     _GLFW_PLATFORM_JOYSTICK_STATE;
 };

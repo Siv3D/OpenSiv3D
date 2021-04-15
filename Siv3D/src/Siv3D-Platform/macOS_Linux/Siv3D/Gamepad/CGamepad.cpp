@@ -9,10 +9,15 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/DLL.hpp>
-# include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Common/OpenGL.hpp>
 # include "CGamepad.hpp"
+
+extern "C"
+{
+	GLFWAPI const char* siv3dGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version);
+}
 
 namespace s3d
 {
@@ -36,16 +41,148 @@ namespace s3d
 	void CGamepad::init()
 	{
 		LOG_SCOPED_TRACE(U"CGamepad::init()");
+		
+		update();
 	}
 
 	void CGamepad::update()
 	{
+		for (uint32 playerIndex = 0; playerIndex < Gamepad.MaxPlayerCount; ++playerIndex)
+		{
+			auto& state = m_states[playerIndex];
+			
+			if (::glfwJoystickPresent(playerIndex))
+			{
+				if (not state.connected)
+				{
+					unsigned vendorID = 0, productID = 0, version = 0;
+					const char* name = siv3dGetJoystickInfo(playerIndex, &vendorID, &productID, &version);
+					
+					if (!name)
+					{
+						continue;
+					}
+					
+					state.info.playerIndex	= playerIndex;
+					state.info.vendorID		= vendorID;
+					state.info.productID	= productID;
+					state.info.name = Unicode::Widen(name);
+					
+					// has connected
+					state.connected = true;
+					
+					LOG_INFO(U"🎮 Gamepad({}) `{}` connected"_fmt(playerIndex, state.info.name));
+				}
+				
+				state.axes.clear();
+				
+				int32 axesCount = 0;
 
+				if (const float* axes = ::glfwGetJoystickAxes(playerIndex, &axesCount); axes && axesCount)
+				{
+					for (int32 i = 0; i < axesCount; ++i)
+					{
+						state.axes << axes[i];
+					}
+				}
+				else
+				{
+					state.axes << 0.0 << 0.0;
+				}
+
+				int32 buttonCount = 0;
+				
+				if (const uint8* buttons = ::glfwGetJoystickButtons(playerIndex, &buttonCount); buttons && buttonCount)
+				{
+					state.buttons.resize(buttonCount);
+
+					for (int32 i = 0; i < buttonCount; ++i)
+					{
+						const bool currentPressed = !!(buttons[i] & GLFW_PRESS);
+						state.buttons[i].update(currentPressed);
+					}
+				}
+				else
+				{
+					state.buttons.clear();
+				}
+				
+				int32 hatCount = 0;
+				
+				if (const uint8* hats = ::glfwGetJoystickHats(playerIndex, &hatCount))
+				{
+					const bool up = !!(hats[0] & GLFW_HAT_UP);
+					const bool right = !!(hats[0] & GLFW_HAT_RIGHT);
+					const bool down = !!(hats[0] & GLFW_HAT_DOWN);
+					const bool left = !!(hats[0] & GLFW_HAT_LEFT);
+					
+					state.povs[0].update(up);
+					state.povs[1].update(right);
+					state.povs[2].update(down);
+					state.povs[3].update(left);
+					
+					if (!up && !right && !down && !left)
+					{
+						state.povDegree = none;
+					}
+					else
+					{
+						state.povDegree = detail::GetPOVDirection(up, right, down, left) * 45;
+					}
+				}
+				else
+				{
+					state.povDegree = none;
+				}
+			}
+			else
+			{
+				if (state.connected)
+				{
+					LOG_INFO(U"🎮 Gamepad({}) `{}` disconnected"_fmt(playerIndex, state.info.name));
+					
+					// has disconnected
+					state.clear();
+				}
+			}
+		}
+		
+		for (uint8 playerIndex = 0; playerIndex < Gamepad.MaxPlayerCount; ++playerIndex)
+		{
+			const auto& src = m_states[playerIndex];
+			auto& dst = m_inputs[playerIndex];
+			
+			dst.axes = src.axes;
+			dst.buttons.clear();
+			
+			for (uint32 i = 0; i < src.buttons.size(); ++i)
+			{
+				dst.buttons.emplace_back(InputDeviceType::Gamepad, static_cast<uint8>(i), playerIndex);
+			}
+		}
 	}
 
 	Array<GamepadInfo> CGamepad::enumerate()
 	{
-		return{};
+		Array<GamepadInfo> results;
+		
+		for (uint32 playerIndex = 0; playerIndex < Gamepad.MaxPlayerCount; ++playerIndex)
+		{
+			unsigned vendorID = 0, productID = 0, version = 0;
+			const char* name = siv3dGetJoystickInfo(playerIndex, &vendorID, &productID, &version);
+			
+			if (name)
+			{
+				GamepadInfo info;
+				info.playerIndex	= playerIndex;
+				info.vendorID		= vendorID;
+				info.productID		= productID;
+				info.name = Unicode::Widen(name);
+				results << info;
+			}
+		}
+		
+		return results;
 	}
 
 	bool CGamepad::isConnected(const size_t playerIndex)
