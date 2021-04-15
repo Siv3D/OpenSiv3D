@@ -26,7 +26,7 @@ namespace s3d
 
 		void init() override;
 
-		void update() override;
+		void update(bool deviceChanged) override;
 
 		bool isConnected(uint32 playerIndex) const override;
 

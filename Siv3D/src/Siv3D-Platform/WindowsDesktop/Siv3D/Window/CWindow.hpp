@@ -25,6 +25,7 @@ namespace s3d
 		HWND m_hWnd = nullptr;
 		HINSTANCE m_hInstance = nullptr;
 		std::wstring m_windowClassName;
+		HDEVNOTIFY m_deviceNotificationHandle = nullptr;
 
 		HMODULE m_user32 = nullptr;
 		decltype(GetSystemMetricsForDpi)* m_pGetSystemMetricsForDpi = nullptr;

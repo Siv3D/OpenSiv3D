@@ -18,11 +18,7 @@ namespace s3d
 		: m_inputs{ { detail::XInput_impl{ 0 },
 					  detail::XInput_impl{ 1 },
 					  detail::XInput_impl{ 2 },
-					  detail::XInput_impl{ 3 },
-					  detail::XInput_impl{ 4 },
-					  detail::XInput_impl{ 5 },
-					  detail::XInput_impl{ 6 },
-					  detail::XInput_impl{ 7 } } } {}
+					  detail::XInput_impl{ 3 }} } {}
 
 	CXInput_Null::~CXInput_Null()
 	{
@@ -34,7 +30,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CXInput_Null::init()");
 	}
 
-	void CXInput_Null::update()
+	void CXInput_Null::update(bool)
 	{
 
 	}

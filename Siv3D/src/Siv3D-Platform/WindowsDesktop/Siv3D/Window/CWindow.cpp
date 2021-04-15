@@ -19,6 +19,7 @@
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/UserAction/IUSerAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "CWindow.hpp"
@@ -26,6 +27,8 @@
 # include "TouchFeedback.hpp"
 # include "WindowProc.hpp"
 # include <dwmapi.h>
+# include <Dbt.h>
+# include <hidclass.h>
 
 namespace s3d
 {
@@ -81,7 +84,7 @@ namespace s3d
 		}
 	}
 
-	CWindow::CWindow() = default;
+	CWindow::CWindow() {}
 
 	CWindow::~CWindow()
 	{
@@ -186,6 +189,21 @@ namespace s3d
 
 		LOG_VERBOSE(U"ShowWindow()");
 		::ShowWindow(m_hWnd, SW_SHOW);
+
+		// DBT_DEVICEARRIVAL, DBT_DEVICEREMOVECOMPLETE が送られるようにする
+		{
+			const GUID _GUID_DEVINTERFACE_HID = { 0x4D1E55B2L, 0xF16F, 0x11CF, 0x88, 0xCB, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30 };
+
+			DEV_BROADCAST_DEVICEINTERFACE_W dbi{};
+			dbi.dbcc_size		= sizeof(dbi);
+			dbi.dbcc_devicetype	= DBT_DEVTYP_DEVICEINTERFACE;
+			dbi.dbcc_classguid	= _GUID_DEVINTERFACE_HID;
+
+			LOG_VERBOSE(U"RegisterDeviceNotificationW()");
+			m_deviceNotificationHandle = ::RegisterDeviceNotificationW(m_hWnd, (DEV_BROADCAST_HDR*)&dbi, DEVICE_NOTIFY_WINDOW_HANDLE);
+		}
+
+		SIV3D_ENGINE(XInput)->init();
 	}
 
 	void CWindow::destroy()
@@ -194,6 +212,13 @@ namespace s3d
 
 		if (m_hWnd)
 		{
+			if (m_deviceNotificationHandle)
+			{
+				LOG_VERBOSE(U"UnregisterDeviceNotification()");
+				::UnregisterDeviceNotification(m_deviceNotificationHandle);
+				m_deviceNotificationHandle = nullptr;
+			}
+
 			LOG_VERBOSE(U"DestroyWindow()");
 			const BOOL b = ::DestroyWindow(m_hWnd);
 			LOG_VERBOSE(U"DestroyWindow() -> {}"_fmt(!!b));

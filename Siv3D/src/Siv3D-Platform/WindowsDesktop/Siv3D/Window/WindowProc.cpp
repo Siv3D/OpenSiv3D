@@ -17,8 +17,11 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Cursor/CCursor.hpp>
 # include <Siv3D/Mouse/CMouse.hpp>
+# include <Siv3D/Gamepad/CGamepad.hpp>
+# include <Siv3D/System/CSystem.hpp>
 # include "WindowProc.hpp"
 # include "CWindow.hpp"
+# include <Dbt.h>
 
 namespace s3d
 {
@@ -137,14 +140,40 @@ namespace s3d
 			}
 		case WM_DEVICECHANGE:
 			{
-				LOG_TRACE(U"WM_DEVICECHANGE");
+				LOG_TRACE(U"WM_DEVICECHANGE {:#X}"_fmt(wParam));
 
-				/*
-				if (CSystem* system = dynamic_cast<CSystem*>(Siv3DEngine::Get<ISiv3DSystem>()))
+				if (wParam == DBT_DEVICEARRIVAL)
 				{
-					system->onDeviceChange();
+					LOG_TRACE(U"WM_DEVICECHANGE (DBT_DEVICEARRIVAL)");
+
+					if (CSystem* system = dynamic_cast<CSystem*>(SIV3D_ENGINE(System)))
+					{
+						system->onDeviceChange();
+					}
+
+					const DEV_BROADCAST_HDR* dbh = reinterpret_cast<DEV_BROADCAST_HDR*>(lParam);
+
+					if (dbh && (dbh->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
+					{
+						dynamic_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickConnection();
+					}
 				}
-				*/
+				else if (wParam == DBT_DEVICEREMOVECOMPLETE)
+				{
+					LOG_TRACE(U"WM_DEVICECHANGE (DBT_DEVICEREMOVECOMPLETE)");
+
+					if (CSystem* system = dynamic_cast<CSystem*>(SIV3D_ENGINE(System)))
+					{
+						system->onDeviceChange();
+					}
+
+					const DEV_BROADCAST_HDR* dbh = reinterpret_cast<DEV_BROADCAST_HDR*>(lParam);
+
+					if (dbh && (dbh->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
+					{
+						dynamic_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickDisconnection();
+					}
+				}
 
 				break;
 			}

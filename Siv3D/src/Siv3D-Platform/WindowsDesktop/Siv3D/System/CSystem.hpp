@@ -10,16 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
+# include <atomic>
 # include <Siv3D/System/ISystem.hpp>
 
 namespace s3d
 {
 	class CSystem final : public ISiv3DSystem
 	{
-	private:
-
-		bool m_windowsRuntimeInitialized = false;
-
 	public:
 
 		CSystem();
@@ -31,5 +28,11 @@ namespace s3d
 		void init2();
 
 		bool update() override;
+
+		void onDeviceChange();
+
+	private:
+
+		std::atomic<bool> m_onDeviceChange = { false };
 	};
 }

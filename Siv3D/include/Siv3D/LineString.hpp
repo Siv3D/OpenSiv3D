@@ -401,6 +401,10 @@ namespace s3d
 		[[nodiscard]]
 		LineString simplified(double maxDistance = 2.0, CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 点と点の間の距離が `maxDistance` より大きくならないよう、区間ごとに最小回数で均等に分割した結果を返します。
+		/// @param maxDistance 点と点の間の最大距離
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 分割した結果
 		[[nodiscard]]
 		LineString densified(double maxDistance, CloseRing closeRing = CloseRing::No) const;
 

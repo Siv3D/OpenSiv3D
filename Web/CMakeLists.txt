@@ -63,6 +63,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Date/SivDate_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DateTime/SivDateTime_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/EnvironmentVariable/SivEnvironmentVariable.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Gamepad/CGamepad.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Keyboard/CKeyboard.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Logger/CLogger.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Monitor/SivMonitor_macOS_Linux.cpp
@@ -160,6 +161,9 @@ add_library(
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp
   ../Siv3D/src/Siv3D/FormatUtility/SivFormatUtility.cpp
+  ../Siv3D/src/Siv3D/Gamepad/GamepadFactory.cpp
+  ../Siv3D/src/Siv3D/Gamepad/SivGamepad.cpp
+  ../Siv3D/src/Siv3D/GamepadInfo/SivGamepadInfo.cpp
   ../Siv3D/src/Siv3D/Geometry2D/SivGeometry2D.cpp
   ../Siv3D/src/Siv3D/GrabCut/GrabCutDetail.cpp
   ../Siv3D/src/Siv3D/GrabCut/SivGrabCut.cpp

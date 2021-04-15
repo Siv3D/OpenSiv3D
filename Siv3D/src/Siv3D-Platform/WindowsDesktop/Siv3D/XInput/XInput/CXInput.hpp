@@ -14,7 +14,7 @@
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/XInput/XInputState.hpp>
-# include <ThirdParty/DirectXTK/GamePad.h>
+# include <XInput.h>
 
 namespace s3d
 {
@@ -28,7 +28,7 @@ namespace s3d
 
 		void init() override;
 
-		void update() override;
+		void update(bool deviceChanged) override;
 
 		bool isConnected(uint32 playerIndex) const override;
 
@@ -54,7 +54,13 @@ namespace s3d
 
 	private:
 
-		std::unique_ptr<DirectX::GamePad> m_gamePad;
+		HINSTANCE m_xInput = nullptr;
+
+		decltype(XInputGetState)* p_XInputGetState = nullptr;
+
+		decltype(XInputSetState)* p_XInputSetState = nullptr;
+
+		bool m_initialized = false;
 
 		std::array<XInputState, XInput.MaxPlayerCount> m_states;
 

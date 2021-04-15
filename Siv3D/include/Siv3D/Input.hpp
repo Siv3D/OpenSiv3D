@@ -33,7 +33,7 @@ namespace s3d
 		Input() = default;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 userIndex = 0) noexcept;
+		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 playerIndex = 0) noexcept;
 
 		[[nodiscard]]
 		constexpr InputDeviceType deviceType() const noexcept;
@@ -42,7 +42,7 @@ namespace s3d
 		constexpr uint8 code() const noexcept;
 
 		[[nodiscard]]
-		constexpr uint8 userIndex() const noexcept;
+		constexpr uint8 playerIndex() const noexcept;
 
 		/// @brief 入力オブジェクトの名前を返します。
 		/// @return 入力オブジェクトの名前
@@ -156,7 +156,7 @@ namespace s3d
 
 		uint8 m_code = 0;
 
-		uint8 m_userIndex = 0;
+		uint8 m_playerIndex = 0;
 
 		SIV3D_MAYBE_UNUSED_NSDM uint8 m_reserved = 0;
 	};

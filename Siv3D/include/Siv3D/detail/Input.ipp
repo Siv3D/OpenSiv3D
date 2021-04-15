@@ -13,10 +13,10 @@
 
 namespace s3d
 {
-	inline constexpr Input::Input(const InputDeviceType deviceType, const uint8 code, const uint8 userIndex) noexcept
+	inline constexpr Input::Input(const InputDeviceType deviceType, const uint8 code, const uint8 playerIndex) noexcept
 		: m_deviceType{ deviceType }
 		, m_code{ code }
-		, m_userIndex{ userIndex } {}
+		, m_playerIndex{ playerIndex } {}
 
 	inline constexpr InputDeviceType Input::deviceType() const noexcept
 	{
@@ -28,9 +28,9 @@ namespace s3d
 		return m_code;
 	}
 
-	inline constexpr uint8 Input::userIndex() const noexcept
+	inline constexpr uint8 Input::playerIndex() const noexcept
 	{
-		return m_userIndex;
+		return m_playerIndex;
 	}
 
 	inline constexpr uint32 Input::asUint32() const noexcept

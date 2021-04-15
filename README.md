@@ -11,7 +11,7 @@
 
 | Platform           | Version    | Date       | Requirements                  |
 |:------------------:|:----------:|:----------:|:------------------------------|
-| Windows            | **0.6.0**  | ?? ?? 2021 | - Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.9<br>- Windows 10 SDK |
+| Windows            | **0.6.0**  | ?? ?? 2021 | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.9<br>- Windows 10 SDK |
 | macOS              | **0.6.0**  | ?? ?? 2021 | - macOS Mojave v10.14 or Catalina v10.15<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
 | Linux              | **0.6.0*** | ?? ?? 2021 | - GCC 9.3.0<br>- OpenGL 4.1 compatible graphics card |
 | Web (experimental) | **0.6.0*** | ?? ?? 2021 | - Emscripten 1.40.1 or newer<br>- Brower with WebAssembly and WebGL2 support |

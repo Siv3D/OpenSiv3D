@@ -276,6 +276,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 	detail::init::InitCommandLines(__argc, __argv);
 
+	if (::OleInitialize(nullptr) >= 0)
+	{
+		::CoUninitialize();
+		::CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	}
+
 	std::unique_lock ul(g_mutex); // (0)--
 
 	const std::future<void> f = std::async(std::launch::async, MainThread);
@@ -346,6 +352,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 		}
 		::timeEndPeriod(1);
 	}
+
+	::CoUninitialize();
+	::OleUninitialize();
 
 	return 0;
 }

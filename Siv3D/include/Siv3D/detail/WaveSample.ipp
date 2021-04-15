@@ -88,7 +88,8 @@ namespace s3d
 		, right{ _right } {}
 
 	inline constexpr WaveSample::WaveSample(const WaveSampleS16 sample) noexcept
-		: WaveSample{ sample.asWaveSample() } {}
+		: left{ (sample.left / 32768.0f) }
+		, right{ (sample.right / 32768.0f) } {}
 
 	inline constexpr WaveSample& WaveSample::operator =(const float mono) noexcept
 	{

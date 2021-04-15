@@ -9,15 +9,17 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
+# include <Siv3D/GamepadInfo.hpp>
+# include <Siv3D/Gamepad/IGamepad.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	struct XInputVibration
+	namespace System
 	{
-		double leftMotor = 0.0;
-
-		double rightMotor = 0.0;
-	};
+		Array<GamepadInfo> EnumerateGamepads()
+		{
+			return SIV3D_ENGINE(Gamepad)->enumerate();
+		}
+	}
 }

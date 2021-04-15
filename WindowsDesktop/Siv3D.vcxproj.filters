@@ -964,6 +964,15 @@
     <Filter Include="src\ThirdParty\DirectXTK">
       <UniqueIdentifier>{a0f03b44-edac-469b-a3da-6ba4faef5fb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Gamepad">
+      <UniqueIdentifier>{4dbb647f-2709-44fc-a643-18804d6855ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad">
+      <UniqueIdentifier>{0d93dac3-7484-4178-8aca-750cbfb64d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\GamepadInfo">
+      <UniqueIdentifier>{2b57f51c-46da-4770-961b-3be69726966b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4731,6 +4740,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GamepadInfo.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\IGamepad.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad\CGamepad.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad\Joystick.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\GamepadState.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6505,6 +6526,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\DirectXTK\GamePad.cpp">
       <Filter>src\ThirdParty\DirectXTK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad\CGamepad.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\GamepadInfo\SivGamepadInfo.cpp">
+      <Filter>src\Siv3D\GamepadInfo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

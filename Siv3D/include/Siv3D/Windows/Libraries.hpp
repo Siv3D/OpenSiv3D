@@ -25,6 +25,8 @@
 # pragma comment (lib, "opengl32")
 # pragma comment (lib, "setupapi")
 # pragma comment (lib, "version")
+# pragma comment (lib, "dinput8")
+# pragma comment (lib, "dxguid")
 # pragma comment (lib, "RuntimeObject")
 # pragma comment (lib, "freetype/freetype" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "glew/glew32s" SIV3D_DEBUG_LIB_POSTFIX(d))

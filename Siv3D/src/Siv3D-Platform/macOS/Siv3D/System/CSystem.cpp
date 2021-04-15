@@ -109,7 +109,7 @@ namespace s3d
 		SIV3D_ENGINE(Cursor)->update();
 		SIV3D_ENGINE(Keyboard)->update();
 		SIV3D_ENGINE(Mouse)->update();
-		SIV3D_ENGINE(XInput)->update();
+		SIV3D_ENGINE(XInput)->update(false);
 		SIV3D_ENGINE(Effect)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{

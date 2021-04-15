@@ -11,6 +11,10 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Array.hpp"
+# include "Optional.hpp"
+# include "InputGroups.hpp"
+# include "GamepadInfo.hpp"
 
 namespace s3d
 {

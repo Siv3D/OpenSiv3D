@@ -36,7 +36,7 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual void update() = 0;
+		virtual void update(bool deviceChanged) = 0;
 
 		virtual bool isConnected(uint32 playerIndex) const = 0;
 

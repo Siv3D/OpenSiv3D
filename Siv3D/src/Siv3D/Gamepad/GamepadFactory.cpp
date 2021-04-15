@@ -9,15 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
+# include <Siv3D/Gamepad/CGamepad.hpp>
 
 namespace s3d
 {
-	struct XInputVibration
+	ISiv3DGamepad* ISiv3DGamepad::Create()
 	{
-		double leftMotor = 0.0;
-
-		double rightMotor = 0.0;
-	};
+		return new CGamepad;
+	}
 }
