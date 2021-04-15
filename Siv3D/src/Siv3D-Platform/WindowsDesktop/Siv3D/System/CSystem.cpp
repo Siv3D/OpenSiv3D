@@ -73,6 +73,7 @@ namespace s3d
 		SIV3D_ENGINE(Cursor)->init();
 		SIV3D_ENGINE(Keyboard)->init();
 		SIV3D_ENGINE(Mouse)->init();
+		SIV3D_ENGINE(XInput)->init();
 		SIV3D_ENGINE(Gamepad)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();

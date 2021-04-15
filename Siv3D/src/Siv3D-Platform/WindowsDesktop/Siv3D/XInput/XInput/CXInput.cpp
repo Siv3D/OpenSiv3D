@@ -75,7 +75,7 @@ namespace s3d
 
 	void CXInput::update(const bool deviceChanged)
 	{
-		if (!m_initialized)
+		if (not m_initialized)
 		{
 			return;
 		}
