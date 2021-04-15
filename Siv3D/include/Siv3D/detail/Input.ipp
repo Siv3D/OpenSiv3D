@@ -38,7 +38,7 @@ namespace s3d
 	# if __cpp_lib_bit_cast
 		return std::bit_cast<uint32>(*this);
 	# else
-		return (uint32(m_userIndex) << 16) | (uint32(m_code) << 8) | (uint32(m_deviceType));
+		return (uint32(m_playerIndex) << 16) | (uint32(m_code) << 8) | (uint32(m_deviceType));
 	# endif
 	}
 
