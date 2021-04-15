@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -46,6 +46,8 @@ namespace s3d
 		const detail::Gamepad_impl& getInput(size_t playerIndex) override;
 
 	private:
+		
+		std::array<GamepadState, Gamepad.MaxPlayerCount> m_states;
 
 		std::array<detail::Gamepad_impl, Gamepad.MaxPlayerCount> m_inputs;
 	};

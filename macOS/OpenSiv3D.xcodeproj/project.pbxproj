@@ -307,6 +307,13 @@
 		2C423254242B19D100A16BCA /* egl_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C423252242B19D100A16BCA /* egl_context.h */; };
 		2C423257242B19ED00A16BCA /* posix_thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C423255242B19ED00A16BCA /* posix_thread.h */; };
 		2C423258242B19ED00A16BCA /* posix_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C423256242B19ED00A16BCA /* posix_thread.c */; };
+		2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FD42628436F00106F19 /* CGamepad.cpp */; };
+		2C427FD72628436F00106F19 /* CGamepad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C427FD52628436F00106F19 /* CGamepad.hpp */; };
+		2C427FDD2628438A00106F19 /* GamepadState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C427FD92628438A00106F19 /* GamepadState.hpp */; };
+		2C427FDE2628438A00106F19 /* SivGamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FDA2628438A00106F19 /* SivGamepad.cpp */; };
+		2C427FDF2628438A00106F19 /* GamepadFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FDB2628438A00106F19 /* GamepadFactory.cpp */; };
+		2C427FE02628438A00106F19 /* IGamepad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C427FDC2628438A00106F19 /* IGamepad.hpp */; };
+		2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FE22628439B00106F19 /* SivGamepadInfo.cpp */; };
 		2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */; };
 		2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */; };
 		2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */; };
@@ -1676,6 +1683,15 @@
 		2C423252242B19D100A16BCA /* egl_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_context.h; sourceTree = "<group>"; };
 		2C423255242B19ED00A16BCA /* posix_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posix_thread.h; sourceTree = "<group>"; };
 		2C423256242B19ED00A16BCA /* posix_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_thread.c; sourceTree = "<group>"; };
+		2C427FD12628435000106F19 /* Gamepad.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gamepad.hpp; sourceTree = "<group>"; };
+		2C427FD22628435000106F19 /* GamepadInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GamepadInfo.hpp; sourceTree = "<group>"; };
+		2C427FD42628436F00106F19 /* CGamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad.cpp; sourceTree = "<group>"; };
+		2C427FD52628436F00106F19 /* CGamepad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad.hpp; sourceTree = "<group>"; };
+		2C427FD92628438A00106F19 /* GamepadState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GamepadState.hpp; sourceTree = "<group>"; };
+		2C427FDA2628438A00106F19 /* SivGamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGamepad.cpp; sourceTree = "<group>"; };
+		2C427FDB2628438A00106F19 /* GamepadFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadFactory.cpp; sourceTree = "<group>"; };
+		2C427FDC2628438A00106F19 /* IGamepad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IGamepad.hpp; sourceTree = "<group>"; };
+		2C427FE22628439B00106F19 /* SivGamepadInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGamepadInfo.cpp; sourceTree = "<group>"; };
 		2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Array.cpp; sourceTree = "<group>"; };
 		2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Resource.cpp; sourceTree = "<group>"; };
 		2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource_macOS.cpp; sourceTree = "<group>"; };
@@ -4030,6 +4046,34 @@
 			path = GLFW;
 			sourceTree = "<group>";
 		};
+		2C427FD32628436F00106F19 /* Gamepad */ = {
+			isa = PBXGroup;
+			children = (
+				2C427FD42628436F00106F19 /* CGamepad.cpp */,
+				2C427FD52628436F00106F19 /* CGamepad.hpp */,
+			);
+			path = Gamepad;
+			sourceTree = "<group>";
+		};
+		2C427FD82628438A00106F19 /* Gamepad */ = {
+			isa = PBXGroup;
+			children = (
+				2C427FD92628438A00106F19 /* GamepadState.hpp */,
+				2C427FDA2628438A00106F19 /* SivGamepad.cpp */,
+				2C427FDB2628438A00106F19 /* GamepadFactory.cpp */,
+				2C427FDC2628438A00106F19 /* IGamepad.hpp */,
+			);
+			path = Gamepad;
+			sourceTree = "<group>";
+		};
+		2C427FE12628439B00106F19 /* GamepadInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2C427FE22628439B00106F19 /* SivGamepadInfo.cpp */,
+			);
+			path = GamepadInfo;
+			sourceTree = "<group>";
+		};
 		2C43609A240E4EEC001657D2 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -4520,6 +4564,8 @@
 				2C47B29524DD9789008D83BE /* FormatInt */,
 				2C47B2A824DD9789008D83BE /* Formatter */,
 				2C47B27424DD9789008D83BE /* FormatUtility */,
+				2C427FD82628438A00106F19 /* Gamepad */,
+				2C427FE12628439B00106F19 /* GamepadInfo */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
@@ -6003,6 +6049,7 @@
 				2C68507E24B768A800B98A7F /* Date */,
 				2C68507C24B768A800B98A7F /* DateTime */,
 				2C8E717B24C7458800CECCAE /* EnvironmentVariable */,
+				2C427FD32628436F00106F19 /* Gamepad */,
 				2CFE199E2555B221005826A1 /* Keyboard */,
 				2C68507724B768A800B98A7F /* Logger */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
@@ -6686,6 +6733,8 @@
 				2CAAA6FB25E7FD0200C014D7 /* Functor.hpp */,
 				2CAAA71825E7FD0200C014D7 /* Fwd.hpp */,
 				2CAAA72825E7FD0200C014D7 /* GaborNoise.hpp */,
+				2C427FD12628435000106F19 /* Gamepad.hpp */,
+				2C427FD22628435000106F19 /* GamepadInfo.hpp */,
 				2CAAA89525E7FD0300C014D7 /* Geometry2D.hpp */,
 				2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */,
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
@@ -7927,6 +7976,7 @@
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
 				2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */,
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
+				2C427FD72628436F00106F19 /* CGamepad.hpp in Headers */,
 				2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */,
 				2C43C89025C837F000D6D613 /* ftpsprop.h in Headers */,
 				2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */,
@@ -7965,6 +8015,7 @@
 				2C43C87A25C837F000D6D613 /* ftbbox.h in Headers */,
 				2C794B3325C3DFC200034D81 /* threading.h in Headers */,
 				2C68508E24B768A800B98A7F /* BinaryReaderDetail.hpp in Headers */,
+				2C427FDD2628438A00106F19 /* GamepadState.hpp in Headers */,
 				2C47B49324DD97F2008D83BE /* muParserBase.h in Headers */,
 				2C794B2C25C3DFC200034D81 /* zstd_ddict.h in Headers */,
 				2C4397952536163000F6AECD /* CShader_GL4.hpp in Headers */,
@@ -8262,6 +8313,7 @@
 				2CB749F8261F52E200D31274 /* CXInput_Null.hpp in Headers */,
 				2C47B49224DD97F2008D83BE /* muParserFixes.h in Headers */,
 				2C43C8A625C837F100D6D613 /* ftrfork.h in Headers */,
+				2C427FE02628438A00106F19 /* IGamepad.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8445,6 +8497,7 @@
 				2C13C8C425B8FA9D0054B968 /* DetourCommon.cpp in Sources */,
 				2C48BF8025D41C0D00A93CE3 /* FontFace.cpp in Sources */,
 				2C47B5B724E76A20008D83BE /* TextureFactory.cpp in Sources */,
+				2C427FDE2628438A00106F19 /* SivGamepad.cpp in Sources */,
 				2C47B35F24DD9789008D83BE /* ImageEncoderFactory.cpp in Sources */,
 				2C2AA3A826009C74003F3EBC /* b2_polygon_shape.cpp in Sources */,
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
@@ -8603,6 +8656,7 @@
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
 				2C2AA3A326009C74003F3EBC /* b2_collision.cpp in Sources */,
+				2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */,
 				2CFE19A82555B23C005826A1 /* SivKeyboard.cpp in Sources */,
 				2C13C9CA25BD29FC0054B968 /* lcode.c in Sources */,
 				2C423244242B155E00A16BCA /* context.c in Sources */,
@@ -8642,11 +8696,13 @@
 				2C2AA36A26009C74003F3EBC /* b2_edge_circle_contact.cpp in Sources */,
 				2C47B31924DD9789008D83BE /* UnicodeUtility.cpp in Sources */,
 				2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */,
+				2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */,
 				2C60AE79248158A500277281 /* architecture_windows.cpp in Sources */,
 				2C47B32324DD9789008D83BE /* SivDateTime.cpp in Sources */,
 				2C794B9B25C5A61900034D81 /* EffectData.cpp in Sources */,
 				2C47B34124DD9789008D83BE /* CUserAction.cpp in Sources */,
 				2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */,
+				2C427FDF2628438A00106F19 /* GamepadFactory.cpp in Sources */,
 				2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */,
 				2C2AA39126009C74003F3EBC /* b2_settings.cpp in Sources */,
 				2C423250242B155E00A16BCA /* window.c in Sources */,
