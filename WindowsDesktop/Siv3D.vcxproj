@@ -250,6 +250,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ISteadyClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSON.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
@@ -447,6 +448,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PrimeNumber.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PRNG.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PutText.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
@@ -1467,6 +1469,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Int128\SivInt128.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Interpolation\SivInterpolation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormatter\SivIntFormatter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSON\SivJSON.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\SivKeyboard.cpp" />
@@ -1524,6 +1527,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ProController\SivProController.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />

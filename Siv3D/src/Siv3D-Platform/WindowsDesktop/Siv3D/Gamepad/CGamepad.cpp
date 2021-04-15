@@ -471,8 +471,8 @@ namespace s3d
 				case detail::_GLFW_TYPE_AXIS:
 				case detail::_GLFW_TYPE_SLIDER:
 					{
-						const float value = (*((LONG*)data) + 0.5f) / 32767.5f;
-						js->axes[ai] = value;
+						const LONG value = *((LONG*)data);
+						js->axes[ai] = (value < 0.0) ? (value / 32768.0f) : (value / 32767.0f);
 						ai++;
 						break;
 					}

@@ -210,6 +210,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Int128/SivInt128.cpp
   ../Siv3D/src/Siv3D/Interpolation/SivInterpolation.cpp
   ../Siv3D/src/Siv3D/IntFormatter/SivIntFormatter.cpp
+  ../Siv3D/src/Siv3D/JoyCon/SivJoyCon.cpp
   ../Siv3D/src/Siv3D/JSON/SivJSON.cpp
   ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
   ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
@@ -267,6 +268,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Print/CPrint.cpp
   ../Siv3D/src/Siv3D/Print/PrintFactory.cpp
   ../Siv3D/src/Siv3D/Print/SivPrint.cpp
+  ../Siv3D/src/Siv3D/ProController/SivProController.cpp
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp

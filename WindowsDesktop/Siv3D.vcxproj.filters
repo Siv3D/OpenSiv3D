@@ -973,6 +973,12 @@
     <Filter Include="src\Siv3D\GamepadInfo">
       <UniqueIdentifier>{2b57f51c-46da-4770-961b-3be69726966b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\JoyCon">
+      <UniqueIdentifier>{ef7537de-6e26-4537-882c-9b8f2f25451c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ProController">
+      <UniqueIdentifier>{dddb1abd-949c-4afd-ba5c-84aa6ff737cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4752,6 +4758,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\GamepadState.hpp">
       <Filter>src\Siv3D\Gamepad</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6538,6 +6550,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\GamepadInfo\SivGamepadInfo.cpp">
       <Filter>src\Siv3D\GamepadInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp">
+      <Filter>src\Siv3D\JoyCon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ProController\SivProController.cpp">
+      <Filter>src\Siv3D\ProController</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

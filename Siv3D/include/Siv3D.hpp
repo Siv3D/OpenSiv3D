@@ -904,6 +904,9 @@
 
 # include <Siv3D/GamepadInfo.hpp>
 # include <Siv3D/Gamepad.hpp>
+# include <Siv3D/JoyCon.hpp>
+# include <Siv3D/ProController.hpp>
+
 
 # include <Siv3D/DeadZone.hpp>
 # include <Siv3D/XInputVibration.hpp>
