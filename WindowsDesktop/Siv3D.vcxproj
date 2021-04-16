@@ -125,6 +125,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PoissonDisk2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Polygon.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\QRContent.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Quad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomColor.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomPoint.ipp" />
@@ -452,8 +453,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PutText.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\QRContent.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QRErrorCorrection.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QRMode.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\QRScanner.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
@@ -836,6 +839,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\IPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\QRScanner\QRScannerDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\RegExp\RegExpDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\CurrentBatchStateChanges.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\IRenderer2D.hpp" />
@@ -1214,6 +1218,8 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAlloc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAssert.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourCommon.h" />
@@ -1277,6 +1283,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\include\Siv3D\QRContent.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4\ConstantBufferDetail_GL4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4\CRenderer2D_GL4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer2D\GL4\GL4Renderer2DCommand.cpp" />
@@ -1536,6 +1543,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PutText\SivPutText.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\QRScanner\QRScannerDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\QRScanner\SivQRScanner.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Random\SivRandom.cpp" />
@@ -1832,6 +1841,10 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\decode.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\identify.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\quirc.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\version_db.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAlloc.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAssert.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourCommon.cpp" />

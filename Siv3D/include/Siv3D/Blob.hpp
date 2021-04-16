@@ -54,6 +54,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Blob(Array<Byte>&& data);
 
+		Blob& operator =(const Array<Byte>& other);
+
+		Blob& operator =(Array<Byte>&& other) noexcept;
+
+		Blob& operator =(const Blob& other);
+
+		Blob& operator =(Blob&& other) noexcept;
+
 		void create(const Blob& other);
 
 		void create(Blob&& other);

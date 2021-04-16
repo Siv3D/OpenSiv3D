@@ -213,6 +213,7 @@ namespace s3d
 			return false;
 		}
 
+		image.resize(m_captureResolution);
 		{
 			std::lock_guard lock{ m_imageMutex };
 

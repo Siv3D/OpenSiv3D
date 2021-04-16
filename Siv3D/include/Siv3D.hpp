@@ -868,6 +868,10 @@
 // QR コード | QR code
 # include <Siv3D/QR.hpp>
 
+# include <Siv3D/QRContent.hpp>
+
+# include <Siv3D/QRScanner.hpp>
+
 //////////////////////////////////////////////////
 //
 //	動画処理 | Video processing

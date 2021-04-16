@@ -10,25 +10,29 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
+# include "Common.hpp"
+# include "QRContent.hpp"
 
 namespace s3d
 {
-	/// @brief 
-	enum class QRMode
+	class QRScanner
 	{
-		/// @brief 無効なデータ
-		Invalid,
+	public:
 
-		/// @brief 数字
-		Numeric,
+		SIV3D_NODISCARD_CXX20
+		QRScanner();
 
-		/// @brief 0-9, A-Z, $ % * + - . / : と半角スペース。小文字と大文字は区別されない
-		Alnum,
+		~QRScanner();
 
-		/// @brief バイナリ
-		Binary,
+		QRContent scanOne(const Image& image);
 
-		/// @brief 漢字・かな (Shift_JIS)
-		Kanji,
+		Array<QRContent> scan(const Image& image);
+
+	private:
+
+		class QRScannerDetail;
+
+		std::shared_ptr<QRScannerDetail> pImpl;
 	};
 }

@@ -55,7 +55,7 @@ namespace s3d
 
 		TextEncoding GetTextEncoding(const FilePathView path)
 		{
-			return GetTextEncoding(BinaryReader(path));
+			return GetTextEncoding(BinaryReader{ path });
 		}
 	}
 }

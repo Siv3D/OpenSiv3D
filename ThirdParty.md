@@ -40,6 +40,7 @@ Library | Version
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
+[Quirc](https://github.com/dlbeer/quirc) | 
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.7

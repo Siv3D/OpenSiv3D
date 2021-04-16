@@ -33,6 +33,34 @@ namespace s3d
 	inline Blob::Blob(Array<Byte>&& data)
 		: m_data(std::move(data)) {}
 
+	inline Blob& Blob::operator =(const Array<Byte>& other)
+	{
+		m_data = other;
+
+		return *this;
+	}
+
+	inline Blob& Blob::operator =(Array<Byte>&& other) noexcept
+	{
+		m_data = std::move(other);
+
+		return *this;
+	}
+
+	inline Blob& Blob::operator =(const Blob& other)
+	{
+		m_data = other.m_data;
+
+		return *this;
+	}
+
+	inline Blob& Blob::operator =(Blob&& other) noexcept
+	{
+		m_data = std::move(other.m_data);
+
+		return *this;
+	}
+
 	inline void Blob::create(const Blob& other)
 	{
 		m_data = other.m_data;

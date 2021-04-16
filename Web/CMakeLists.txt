@@ -270,6 +270,8 @@ add_library(
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
   ../Siv3D/src/Siv3D/PutText/SivPutText.cpp
   ../Siv3D/src/Siv3D/QR/SivQR.cpp
+  ../Siv3D/src/Siv3D/QRScanner/QRScannerDetail.cpp
+  ../Siv3D/src/Siv3D/QRScanner/SivQRScanner.cpp
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
   ../Siv3D/src/Siv3D/Rect/SivRect.cpp
@@ -582,6 +584,11 @@ add_library(
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 
   ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+
+  ../Siv3D/src/ThirdParty/quirc/decode.c
+  ../Siv3D/src/ThirdParty/quirc/identify.c
+  ../Siv3D/src/ThirdParty/quirc/quirc.c
+  ../Siv3D/src/ThirdParty/quirc/version_db.c
 
   ../Siv3D/src/ThirdParty/RecastDetour/DetourAlloc.cpp
   ../Siv3D/src/ThirdParty/RecastDetour/DetourAssert.cpp
