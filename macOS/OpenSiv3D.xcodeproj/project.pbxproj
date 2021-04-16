@@ -1120,6 +1120,15 @@
 		2CBB4C2E25FB47D2007BEAB4 /* VideoWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB4C2B25FB47D2007BEAB4 /* VideoWriterDetail.hpp */; };
 		2CBB4C2F25FB47D2007BEAB4 /* SivVideoWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB4C2C25FB47D2007BEAB4 /* SivVideoWriter.cpp */; };
 		2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */; };
+		2CBEBCAA2629D1460077DDBF /* QRScannerDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCA72629D1460077DDBF /* QRScannerDetail.cpp */; };
+		2CBEBCAB2629D1460077DDBF /* SivQRScanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCA82629D1460077DDBF /* SivQRScanner.cpp */; };
+		2CBEBCAC2629D1460077DDBF /* QRScannerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEBCA92629D1460077DDBF /* QRScannerDetail.hpp */; };
+		2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCAE2629D15F0077DDBF /* version_db.c */; };
+		2CBEBCB52629D15F0077DDBF /* identify.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCAF2629D15F0077DDBF /* identify.c */; };
+		2CBEBCB62629D15F0077DDBF /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCB02629D15F0077DDBF /* decode.c */; };
+		2CBEBCB72629D15F0077DDBF /* quirc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEBCB12629D15F0077DDBF /* quirc.h */; };
+		2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEBCB22629D15F0077DDBF /* quirc_internal.h */; };
+		2CBEBCB92629D15F0077DDBF /* quirc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCB32629D15F0077DDBF /* quirc.c */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3035,6 +3044,18 @@
 		2CBB4C2B25FB47D2007BEAB4 /* VideoWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VideoWriterDetail.hpp; sourceTree = "<group>"; };
 		2CBB4C2C25FB47D2007BEAB4 /* SivVideoWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoWriter.cpp; sourceTree = "<group>"; };
 		2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoWriterDetail.cpp; sourceTree = "<group>"; };
+		2CBEBCA32629D1110077DDBF /* QRScanner.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QRScanner.hpp; sourceTree = "<group>"; };
+		2CBEBCA42629D1120077DDBF /* QRContent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QRContent.hpp; sourceTree = "<group>"; };
+		2CBEBCA52629D12E0077DDBF /* QRContent.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QRContent.ipp; sourceTree = "<group>"; };
+		2CBEBCA72629D1460077DDBF /* QRScannerDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRScannerDetail.cpp; sourceTree = "<group>"; };
+		2CBEBCA82629D1460077DDBF /* SivQRScanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQRScanner.cpp; sourceTree = "<group>"; };
+		2CBEBCA92629D1460077DDBF /* QRScannerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QRScannerDetail.hpp; sourceTree = "<group>"; };
+		2CBEBCAE2629D15F0077DDBF /* version_db.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version_db.c; sourceTree = "<group>"; };
+		2CBEBCAF2629D15F0077DDBF /* identify.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = identify.c; sourceTree = "<group>"; };
+		2CBEBCB02629D15F0077DDBF /* decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
+		2CBEBCB12629D15F0077DDBF /* quirc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc.h; sourceTree = "<group>"; };
+		2CBEBCB22629D15F0077DDBF /* quirc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc_internal.h; sourceTree = "<group>"; };
+		2CBEBCB32629D15F0077DDBF /* quirc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quirc.c; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4150,6 +4171,7 @@
 				2C834D4E248805D4006208B8 /* Oniguruma */,
 				2C0A4D522566A855002A4B5E /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
+				2CBEBCAD2629D15F0077DDBF /* quirc */,
 				2C13C89525B8FA9D0054B968 /* RecastDetour */,
 				2C794AB825C3DEFC00034D81 /* RFC1321 */,
 				2C2AA2BA25FF894D003F3EBC /* serial */,
@@ -4664,6 +4686,7 @@
 				2C47B2C124DD9789008D83BE /* Profiler */,
 				2CAAA8B325E7FD3100C014D7 /* PutText */,
 				2C47B28424DD9789008D83BE /* QR */,
+				2CBEBCA62629D1460077DDBF /* QRScanner */,
 				2C53C33925613B7F0072831A /* Quad */,
 				2C47B2D024DD9789008D83BE /* Random */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
@@ -6904,8 +6927,10 @@
 				2CAAA8A325E7FD0300C014D7 /* Profiler.hpp */,
 				2CAAA8B225E7FD0300C014D7 /* PutText.hpp */,
 				2CAAA84225E7FD0200C014D7 /* QR.hpp */,
+				2CBEBCA42629D1120077DDBF /* QRContent.hpp */,
 				2CAAA8AA25E7FD0300C014D7 /* QRErrorCorrection.hpp */,
 				2CAAA6E825E7FD0200C014D7 /* QRMode.hpp */,
+				2CBEBCA32629D1110077DDBF /* QRScanner.hpp */,
 				2CAAA84125E7FD0200C014D7 /* Quad.hpp */,
 				2CAAA78325E7FD0200C014D7 /* Random.hpp */,
 				2CAAA76525E7FD0200C014D7 /* RandomColor.hpp */,
@@ -7130,6 +7155,7 @@
 				2CAAA7F125E7FD0200C014D7 /* Point.ipp */,
 				2CAAA7D925E7FD0200C014D7 /* PoissonDisk2D.ipp */,
 				2CAAA80325E7FD0200C014D7 /* Polygon.ipp */,
+				2CBEBCA52629D12E0077DDBF /* QRContent.ipp */,
 				2CAAA7CA25E7FD0200C014D7 /* Quad.ipp */,
 				2CAAA7BA25E7FD0200C014D7 /* Random.ipp */,
 				2CAAA80125E7FD0200C014D7 /* RandomColor.ipp */,
@@ -7305,6 +7331,29 @@
 				2CBB4C2D25FB47D2007BEAB4 /* VideoWriterDetail.cpp */,
 			);
 			path = VideoWriter;
+			sourceTree = "<group>";
+		};
+		2CBEBCA62629D1460077DDBF /* QRScanner */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEBCA72629D1460077DDBF /* QRScannerDetail.cpp */,
+				2CBEBCA82629D1460077DDBF /* SivQRScanner.cpp */,
+				2CBEBCA92629D1460077DDBF /* QRScannerDetail.hpp */,
+			);
+			path = QRScanner;
+			sourceTree = "<group>";
+		};
+		2CBEBCAD2629D15F0077DDBF /* quirc */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEBCAE2629D15F0077DDBF /* version_db.c */,
+				2CBEBCAF2629D15F0077DDBF /* identify.c */,
+				2CBEBCB02629D15F0077DDBF /* decode.c */,
+				2CBEBCB12629D15F0077DDBF /* quirc.h */,
+				2CBEBCB22629D15F0077DDBF /* quirc_internal.h */,
+				2CBEBCB32629D15F0077DDBF /* quirc.c */,
+			);
+			path = quirc;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -7878,6 +7927,7 @@
 				2CFC214D25F739B400C51D0D /* hb-common.h in Headers */,
 				2C43C87825C837F000D6D613 /* ftbzip2.h in Headers */,
 				2CFC215625F739B400C51D0D /* hb-map.h in Headers */,
+				2CBEBCAC2629D1460077DDBF /* QRScannerDetail.hpp in Headers */,
 				2C48BF0125CFB8C500A93CE3 /* Bitmap.h in Headers */,
 				2CDD4F48260A3F7100A51D68 /* P2BodyDetail.hpp in Headers */,
 				2C48BF0925CFB8C500A93CE3 /* msdfgen.h in Headers */,
@@ -8004,6 +8054,7 @@
 				2C43C87425C837F000D6D613 /* ftmodule.h in Headers */,
 				2C43C8B925C837F100D6D613 /* ftlzw.h in Headers */,
 				2C13C89425B8FA840054B968 /* NavMeshDetail.hpp in Headers */,
+				2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */,
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
@@ -8311,6 +8362,7 @@
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
 				2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */,
 				2C2AA39826009C74003F3EBC /* b2_wheel_joint.h in Headers */,
+				2CBEBCB72629D15F0077DDBF /* quirc.h in Headers */,
 				2C794B2625C3DFC200034D81 /* divsufsort.h in Headers */,
 				2C42322A242B155E00A16BCA /* glfw3native.h in Headers */,
 				2CB749F5261F52E200D31274 /* IXInput.hpp in Headers */,
@@ -8709,6 +8761,7 @@
 				2C47B32B24DD9789008D83BE /* SivFileSystem.cpp in Sources */,
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
 				2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */,
+				2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */,
 				2C48BEE225CFB8C500A93CE3 /* EdgeHolder.cpp in Sources */,
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */,
@@ -8832,6 +8885,7 @@
 				2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
 				2C48BF0625CFB8C500A93CE3 /* save-tiff.cpp in Sources */,
+				2CBEBCB52629D15F0077DDBF /* identify.c in Sources */,
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
 				2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */,
@@ -8945,6 +8999,7 @@
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
+				2CBEBCB62629D15F0077DDBF /* decode.c in Sources */,
 				2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */,
 				2CDD4F30260A3F7100A51D68 /* P2WorldDetail.cpp in Sources */,
 				2C47B30724DD9789008D83BE /* SivParseBool.cpp in Sources */,
@@ -8962,6 +9017,7 @@
 				2C47B34624DD9789008D83BE /* SivVector4D.cpp in Sources */,
 				2C794B1725C3DFC200034D81 /* zstd_lazy.c in Sources */,
 				2C794B1425C3DFC200034D81 /* hist.c in Sources */,
+				2CBEBCAB2629D1460077DDBF /* SivQRScanner.cpp in Sources */,
 				2C48BEF825CFB8C500A93CE3 /* Contour.cpp in Sources */,
 				2C2AA35A26009C74003F3EBC /* b2_weld_joint.cpp in Sources */,
 				2C42321B242B155E00A16BCA /* monitor.c in Sources */,
@@ -8994,6 +9050,7 @@
 				2CFF581A25F7C02500B660AD /* VideoReaderDetail.cpp in Sources */,
 				2C53C33E25613B8A0072831A /* SivTriangle.cpp in Sources */,
 				2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */,
+				2CBEBCAA2629D1460077DDBF /* QRScannerDetail.cpp in Sources */,
 				2C834DB9248805D4006208B8 /* sjis.c in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
@@ -9013,6 +9070,7 @@
 				2C439F8A241DCEA9001154C2 /* bignum-dtoa.cc in Sources */,
 				2C4396272535DCCA00F6AECD /* paint.cpp in Sources */,
 				2C2AA35426009C74003F3EBC /* b2_joint.cpp in Sources */,
+				2CBEBCB92629D15F0077DDBF /* quirc.c in Sources */,
 				2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */,
 				2C13C8DC25B8FB170054B968 /* SivBezier3.cpp in Sources */,
 				2CAAA8BB25E7FD6F00C014D7 /* TextureCommon.cpp in Sources */,
