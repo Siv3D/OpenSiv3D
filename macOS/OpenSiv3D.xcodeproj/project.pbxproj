@@ -31,6 +31,10 @@
 		2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D9C256A21E6002A4B5E /* sprite.metal */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0E224625F52690002DD8C7 /* SivImageROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E224525F52690002DD8C7 /* SivImageROI.cpp */; };
+		2C0FBD6D262978100050E354 /* SivWebcam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD6A262978100050E354 /* SivWebcam.cpp */; };
+		2C0FBD6E262978100050E354 /* WebcamDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD6B262978100050E354 /* WebcamDetail.hpp */; };
+		2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD6C262978100050E354 /* WebcamDetail.cpp */; };
+		2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD7126297CB90050E354 /* WebcamInfo.mm */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
 		2C0FF4E624C429B50014C96E /* Siv3DTest_BinaryReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */; };
@@ -1271,6 +1275,12 @@
 		2C0E224325F52676002DD8C7 /* OpenCV_Bridge.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenCV_Bridge.ipp; sourceTree = "<group>"; };
 		2C0E224525F52690002DD8C7 /* SivImageROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageROI.cpp; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
+		2C0FBD67262977F60050E354 /* Webcam.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Webcam.hpp; sourceTree = "<group>"; };
+		2C0FBD68262977F60050E354 /* WebcamInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebcamInfo.hpp; sourceTree = "<group>"; };
+		2C0FBD6A262978100050E354 /* SivWebcam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWebcam.cpp; sourceTree = "<group>"; };
+		2C0FBD6B262978100050E354 /* WebcamDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WebcamDetail.hpp; sourceTree = "<group>"; };
+		2C0FBD6C262978100050E354 /* WebcamDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebcamDetail.cpp; sourceTree = "<group>"; };
+		2C0FBD7126297CB90050E354 /* WebcamInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebcamInfo.mm; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
 		2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryWriterDetail.cpp; sourceTree = "<group>"; };
 		2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_BinaryReader.cpp; sourceTree = "<group>"; };
@@ -3362,6 +3372,24 @@
 			path = Catch2;
 			sourceTree = "<group>";
 		};
+		2C0FBD69262978100050E354 /* Webcam */ = {
+			isa = PBXGroup;
+			children = (
+				2C0FBD6A262978100050E354 /* SivWebcam.cpp */,
+				2C0FBD6B262978100050E354 /* WebcamDetail.hpp */,
+				2C0FBD6C262978100050E354 /* WebcamDetail.cpp */,
+			);
+			path = Webcam;
+			sourceTree = "<group>";
+		};
+		2C0FBD7026297CB90050E354 /* WebcamInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2C0FBD7126297CB90050E354 /* WebcamInfo.mm */,
+			);
+			path = WebcamInfo;
+			sourceTree = "<group>";
+		};
 		2C0FF4DF24C2E1900014C96E /* BinaryWriter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4680,6 +4708,7 @@
 				2CFF581625F7C02400B660AD /* VideoReader */,
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
 				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
+				2C0FBD69262978100050E354 /* Webcam */,
 				2C47B2AC24DD9789008D83BE /* Window */,
 				2CB749EE261F52E200D31274 /* XInput */,
 			);
@@ -6968,6 +6997,8 @@
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
 				2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */,
 				2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */,
+				2C0FBD67262977F60050E354 /* Webcam.hpp */,
+				2C0FBD68262977F60050E354 /* WebcamInfo.hpp */,
 				2C8CA3A92615948F00BABD2D /* WebPMethod.hpp */,
 				2CAAA77B25E7FD0200C014D7 /* Window.hpp */,
 				2CAAA86C25E7FD0300C014D7 /* WindowState.hpp */,
@@ -7505,6 +7536,7 @@
 				2CF21D05249FAA8F00C864C9 /* System */,
 				2C47B5B524E76A20008D83BE /* Texture */,
 				2CF21D03249FAA8F00C864C9 /* Time */,
+				2C0FBD7026297CB90050E354 /* WebcamInfo */,
 				2CF21D0C249FAA8F00C864C9 /* Window */,
 			);
 			path = Siv3D;
@@ -7803,6 +7835,7 @@
 				2C47B6D924EAC84B008D83BE /* AssetHandleManager.hpp in Headers */,
 				2C13C8BC25B8FA9D0054B968 /* DetourAssert.h in Headers */,
 				2C43C8A025C837F100D6D613 /* svbdf.h in Headers */,
+				2C0FBD6E262978100050E354 /* WebcamDetail.hpp in Headers */,
 				2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */,
 				2C47B30A24DD9789008D83BE /* TextWriterDetail.hpp in Headers */,
 				2C42321D242B155E00A16BCA /* internal.h in Headers */,
@@ -8788,6 +8821,7 @@
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
 				2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */,
+				2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
 				2C834DA6248805D4006208B8 /* iso8859_6.c in Sources */,
 				2C4396022535DCCA00F6AECD /* svgsymbolelement.cpp in Sources */,
@@ -8860,6 +8894,7 @@
 				2C47B34A24DD9789008D83BE /* SivWindow.cpp in Sources */,
 				2C47B31224DD9789008D83BE /* SivParseInt.cpp in Sources */,
 				2C47B35B24DD9789008D83BE /* SivString.cpp in Sources */,
+				2C0FBD6D262978100050E354 /* SivWebcam.cpp in Sources */,
 				2C68508D24B768A800B98A7F /* SivSystem_macOS_Linux.cpp in Sources */,
 				2C4396472535DCCA00F6AECD /* svgdocument.cpp in Sources */,
 				2C47B36C24DD9789008D83BE /* SivCPUInfo.cpp in Sources */,
@@ -8867,6 +8902,7 @@
 				2C834DAD248805D4006208B8 /* koi8.c in Sources */,
 				2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */,
 				2C47B35224DD9789008D83BE /* SivFormatFloat.cpp in Sources */,
+				2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */,
 				2C13C9B525BD29FC0054B968 /* lundump.c in Sources */,
 				2C7DE5D6261379E900D7F031 /* GIFDecoder.cpp in Sources */,
 				2C13C9A325BD29FC0054B968 /* lopcodes.c in Sources */,
