@@ -22,7 +22,7 @@ namespace s3d
 			const Point pos = state.bounds.pos;
 			const Size size = state.bounds.size;
 			
-			const auto monitors = EnumerateActiveMonitors();
+			const auto monitors = EnumerateMonitors();
 			int32 bestoverlap = 0;
 			size_t bestIndex = 0;
 			

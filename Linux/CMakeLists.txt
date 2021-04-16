@@ -343,6 +343,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/VideoWriter/VideoWriterDetail.cpp
   ../Siv3D/src/Siv3D/VideoTexture/SivVideoTexture.cpp
   ../Siv3D/src/Siv3D/VideoTexture/VideoTextureDetail.cpp
+  ../Siv3D/src/Siv3D/Webcam/SivWebcam.cpp
+  ../Siv3D/src/Siv3D/Webcam/WebcamDetail.cpp
   ../Siv3D/src/Siv3D/Window/SivWindow.cpp
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
   ../Siv3D/src/Siv3D/XInput/Null/CXInput_Null.cpp

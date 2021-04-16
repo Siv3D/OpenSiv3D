@@ -132,7 +132,7 @@ namespace s3d
 		detail::RegisterWindowClass(m_hInstance, m_windowClassName.c_str());
 
 		// モニタを取得
-		const Array<Monitor> monitors = System::EnumerateActiveMonitors();
+		const Array<Monitor> monitors = System::EnumerateMonitors();
 
 		if (not monitors)
 		{

@@ -60,7 +60,7 @@ namespace s3d
 		/// @brief 使用可能なモニターの一覧を取得します。
 		/// @return 使用可能なモニターの一覧
 		[[nodiscard]]
-		Array<Monitor> EnumerateActiveMonitors();
+		Array<Monitor> EnumerateMonitors();
 
 		/// @brief ウィンドウが配置されているモニターのインデックスを取得します。
 		/// @return ウィンドウが配置されているモニターのインデックス

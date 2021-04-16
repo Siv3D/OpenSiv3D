@@ -1095,6 +1095,8 @@
 # include <Siv3D/Pipe.hpp>
 # include <Siv3D/ChildProcess.hpp>
 
+# include <Siv3D/WebcamInfo.hpp>
+# include <Siv3D/Webcam.hpp>
 
 //////////////////////////////////////////////////
 //

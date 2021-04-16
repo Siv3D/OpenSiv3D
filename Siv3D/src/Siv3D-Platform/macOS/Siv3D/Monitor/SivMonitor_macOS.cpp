@@ -23,7 +23,7 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumerateActiveMonitors()
+		Array<Monitor> EnumerateMonitors()
 		{
 			Array<Monitor> results;
 			

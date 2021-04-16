@@ -46,7 +46,7 @@ namespace s3d
 	{
 		Monitor GetCurrentMonitor()
 		{
-			auto monitors = EnumerateActiveMonitors();
+			auto monitors = EnumerateMonitors();
 
 			if (not monitors)
 			{
