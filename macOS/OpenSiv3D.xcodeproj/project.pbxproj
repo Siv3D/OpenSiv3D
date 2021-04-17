@@ -3167,6 +3167,8 @@
 		2CFB7DAB262A66D100169B97 /* TextInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputFactory.cpp; sourceTree = "<group>"; };
 		2CFB7DAC262A66D100169B97 /* ITextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITextInput.hpp; sourceTree = "<group>"; };
 		2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextInput.cpp; sourceTree = "<group>"; };
+		2CFB7DB1262AA6A900169B97 /* TextEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditState.hpp; sourceTree = "<group>"; };
+		2CFB7DB2262AA6C600169B97 /* TextEditState.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditState.ipp; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -6993,6 +6995,7 @@
 				2CAAA78725E7FD0200C014D7 /* Subdivision2D.hpp */,
 				2CAAA8B125E7FD0300C014D7 /* SVG.hpp */,
 				2CAAA74C25E7FD0200C014D7 /* System.hpp */,
+				2CFB7DB1262AA6A900169B97 /* TextEditState.hpp */,
 				2CAAA74025E7FD0200C014D7 /* TextEncoding.hpp */,
 				2CFB7DA3262A669C00169B97 /* TextInput.hpp */,
 				2CFB7DA4262A669C00169B97 /* TextInputMode.hpp */,
@@ -7209,6 +7212,7 @@
 				2CAAA80E25E7FD0200C014D7 /* StringView.ipp */,
 				2CAAA7C225E7FD0200C014D7 /* Subdivision2D.ipp */,
 				2CAAA7AF25E7FD0200C014D7 /* SVG.ipp */,
+				2CFB7DB2262AA6C600169B97 /* TextEditState.ipp */,
 				2CAAA7EC25E7FD0200C014D7 /* TextEncoding.ipp */,
 				2CAAA79825E7FD0200C014D7 /* TextReader.ipp */,
 				2CAAA81F25E7FD0200C014D7 /* TextStyle.ipp */,
