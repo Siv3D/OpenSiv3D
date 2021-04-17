@@ -27,7 +27,7 @@ namespace s3d
 		[[nodiscard]]
 		inline const Font& GetSimpleGUIFont() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DGUI>()->getDefaultFont();
+			return SIV3D_ENGINE(GUI)->getDefaultFont();
 		}
 	}
 

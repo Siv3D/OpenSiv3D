@@ -311,6 +311,8 @@ add_library(
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
   ../Siv3D/src/Siv3D/System/SystemMisc.cpp
   ../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp
+  ../Siv3D/src/Siv3D/TextInput/SivTextInput.cpp
+  ../Siv3D/src/Siv3D/TextInput/TextInputFactory.cpp
   ../Siv3D/src/Siv3D/TextReader/SivTextReader.cpp
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp

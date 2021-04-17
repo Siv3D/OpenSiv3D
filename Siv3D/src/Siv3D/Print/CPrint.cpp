@@ -266,6 +266,13 @@ namespace s3d
 					lineOffset += layout;
 				}
 			}
+
+			if (m_unhandledEditingtext)
+			{
+				const DrawableText drawText = font(m_unhandledEditingtext);
+				drawText.region(1, 1).draw();
+				drawText.draw(1, 1, Palette::Black);
+			}
 		}
 
 		m_puts.clear();
@@ -295,7 +302,7 @@ namespace s3d
 
 	void CPrint::showUnhandledEditingText(const StringView text)
 	{
-		// [Siv3D ToDo]
+		m_unhandledEditingtext = text;
 	}
 
 	void CPrint::trimMessages()

@@ -95,5 +95,9 @@ namespace s3d
 		[[nodiscard]]
 		static int32 GetMaxWidth();
 
+		//
+		// TextInput
+		//
+		String m_unhandledEditingtext;
 	};
 }

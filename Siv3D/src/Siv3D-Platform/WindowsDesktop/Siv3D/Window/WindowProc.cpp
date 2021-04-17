@@ -19,14 +19,23 @@
 # include <Siv3D/Mouse/CMouse.hpp>
 # include <Siv3D/Gamepad/CGamepad.hpp>
 # include <Siv3D/System/CSystem.hpp>
+# include <Siv3D/TextInput/CTextInput.hpp>
 # include "WindowProc.hpp"
 # include "CWindow.hpp"
 # include <Dbt.h>
 
 namespace s3d
 {
-	LRESULT CALLBACK WindowProc(const HWND hWnd, const UINT message, const WPARAM wParam, const LPARAM lParam)
+	LRESULT CALLBACK WindowProc(const HWND hWnd, const UINT message, const WPARAM wParam, LPARAM lParam)
 	{
+		if (auto textinput = dynamic_cast<CTextInput*>(SIV3D_ENGINE(TextInput)))
+		{
+			if (textinput->process(message, wParam, &lParam))
+			{
+				return 0;
+			}
+		}
+
 		switch (message)
 		{
 		case WM_CLOSE:
@@ -136,6 +145,25 @@ namespace s3d
 
 				::PostQuitMessage(0);
 
+				return 0;
+			}
+		case WM_CHAR:
+			{
+				LOG_TRACE(U"WM_CHAR");
+
+				SIV3D_ENGINE(TextInput)->pushChar(static_cast<uint32>(wParam));
+				return 0;
+			}
+		case WM_UNICHAR:
+			{
+				LOG_TRACE(U"WM_UNICHAR");
+
+				if (wParam == UNICODE_NOCHAR)
+				{
+					return true;
+				}
+
+				SIV3D_ENGINE(TextInput)->pushChar(static_cast<uint32>(wParam));
 				return 0;
 			}
 		case WM_DEVICECHANGE:

@@ -991,6 +991,12 @@
     <Filter Include="src\Siv3D\QRScanner">
       <UniqueIdentifier>{93460f6c-d85b-4052-84b6-e347e9fb01f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextInput">
+      <UniqueIdentifier>{2f0cf8b9-7854-4918-95a9-869db2f33597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput">
+      <UniqueIdentifier>{c787adf7-509f-47d1-ad32-fc1427cf4b6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4803,6 +4809,21 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\QRScanner\QRScannerDetail.hpp">
       <Filter>src\Siv3D\QRScanner</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextInputMode.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\ITextInput.hpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput\CTextInput.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput\WindowsIME.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6622,6 +6643,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\QRScanner\QRScannerDetail.cpp">
       <Filter>src\Siv3D\QRScanner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\SivTextInput.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\TextInputFactory.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput\WindowsIME.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput\CTextInput.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

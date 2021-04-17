@@ -20,6 +20,7 @@
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
+# include <Siv3D/TextInput/ITextInput.hpp>
 # include <Siv3D/UserAction/IUSerAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "CWindow.hpp"
@@ -203,7 +204,7 @@ namespace s3d
 			m_deviceNotificationHandle = ::RegisterDeviceNotificationW(m_hWnd, (DEV_BROADCAST_HDR*)&dbi, DEVICE_NOTIFY_WINDOW_HANDLE);
 		}
 
-		SIV3D_ENGINE(XInput)->init();
+		SIV3D_ENGINE(TextInput)->init();
 	}
 
 	void CWindow::destroy()

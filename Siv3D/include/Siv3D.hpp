@@ -1102,6 +1102,10 @@
 # include <Siv3D/WebcamInfo.hpp>
 # include <Siv3D/Webcam.hpp>
 
+
+# include <Siv3D/TextInputMode.hpp>
+# include <Siv3D/TextInput.hpp>
+
 //////////////////////////////////////////////////
 //
 //	2D 物理演算 | 2D Physics

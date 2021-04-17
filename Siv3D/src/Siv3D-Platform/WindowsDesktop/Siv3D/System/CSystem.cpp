@@ -24,6 +24,7 @@
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Gamepad/IGamepad.hpp>
+# include <Siv3D/TextInput/ITextInput.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
@@ -120,6 +121,7 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->update();
 		SIV3D_ENGINE(XInput)->update(onDeviceChange);
 		SIV3D_ENGINE(Gamepad)->update();
+		SIV3D_ENGINE(TextInput)->update();
 		SIV3D_ENGINE(Effect)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{
