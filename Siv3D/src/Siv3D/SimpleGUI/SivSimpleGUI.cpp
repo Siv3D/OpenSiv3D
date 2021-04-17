@@ -20,6 +20,7 @@
 # include <Siv3D/TextInput.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Indexed.hpp>
+# include <Siv3D/Clipboard.hpp>
 # include <Siv3D/ScopedCustomShader2D.hpp>
 # include <Siv3D/GUI/IGUI.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -911,11 +912,11 @@ namespace s3d
 				# endif
 					)
 				{
-					//if (String paste; Clipboard::GetText(paste))
-					//{
-					//	text.text.insert(text.cursorPos, paste);
-					//	text.cursorPos += paste.size();
-					//}
+					if (String paste; Clipboard::GetText(paste))
+					{
+						text.text.insert(text.cursorPos, paste);
+						text.cursorPos += paste.size();
+					}
 				}
 
 				if (maxChars && text.text.size() > maxChars.value())
