@@ -1111,6 +1111,10 @@
 # include <Siv3D/Dialog.hpp>
 # include <Siv3D/FileFilter.hpp>
 
+# include <Siv3D/ACLineStatus.hpp>
+# include <Siv3D/BatteryStatus.hpp>
+# include <Siv3D/PowerStatus.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ドラッグ & ドロップ | Drag & drop
