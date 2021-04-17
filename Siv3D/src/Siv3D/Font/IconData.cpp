@@ -40,7 +40,7 @@ namespace s3d
 		{
 			m_property.familiyName		= Unicode::Widen(m_face->family_name);
 			m_property.styleName		= Unicode::Widen(m_face->style_name);
-			m_property.numGlyphs		= m_face->num_glyphs;
+			m_property.numGlyphs		= static_cast<uint32>(m_face->num_glyphs);
 			m_property.hasColor			= false;
 			m_property.fontPixelSize	= 0;
 			m_property.spaceWidth		= 0;
