@@ -77,9 +77,8 @@ namespace s3d
 				
 				for (NSURL* url in content)
 				{
-					NSString* s = url.absoluteString;
-					NSString* s2 = [s stringByRemovingPercentEncoding];
-					String path = Unicode::Widen([s2 UTF8String]);
+					NSString* s = [url.absoluteString stringByRemovingPercentEncoding];
+					String path = Unicode::Widen([s UTF8String]);
 					if (path.starts_with(U"file://"))
 					{
 						path.pop_front_N(7);
