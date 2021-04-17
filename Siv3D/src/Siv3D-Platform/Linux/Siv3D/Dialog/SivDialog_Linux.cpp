@@ -13,27 +13,30 @@
 
 namespace s3d
 {
-	Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+	namespace Dialog
 	{
-		// [Siv3D ToDo]
-		return (none);
-	}
+		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+		{
+			// [Siv3D ToDo]
+			return (none);
+		}
 
-	Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
-	{
-		// [Siv3D ToDo]
-		return{};
-	}
+		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+		{
+			// [Siv3D ToDo]
+			return{};
+		}
 
-	Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
-	{
-		// [Siv3D ToDo]
-		return (none);
-	}
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+		{
+			// [Siv3D ToDo]
+			return (none);
+		}
 
-	Optional<FilePath> SelectFolder(const FilePathView defaultPath, const StringView title)
-	{
-		// [Siv3D ToDo]
-		return (none);
+		Optional<FilePath> SelectFolder(const FilePathView defaultPath, const StringView title)
+		{
+			// [Siv3D ToDo]
+			return (none);
+		}
 	}
 }
