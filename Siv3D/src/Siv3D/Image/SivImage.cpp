@@ -20,6 +20,8 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/ImageEncoder.hpp>
+# include <Siv3D/Dialog.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/ImageFormat/PNGEncoder.hpp>
 # include <Siv3D/ImageFormat/JPEGEncoder.hpp>
 # include <Siv3D/ImageFormat/PPMEncoder.hpp>
@@ -564,6 +566,24 @@ namespace s3d
 	Blob Image::encode(const ImageFormat format) const
 	{
 		return ImageEncoder::Encode(*this, format);
+	}
+
+	bool Image::saveWithDialog() const
+	{
+		if (isEmpty())
+		{
+			LOG_FAIL(U"Image::saveWithDialog(): Image is empty");
+			return false;
+		}
+
+		if (const auto path = Dialog::SaveImage())
+		{
+			return save(path.value());
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool Image::savePNG(const FilePathView path, const PNGFilter filter) const

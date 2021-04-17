@@ -45,6 +45,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Common/OpenGL.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ConstantBuffer/ConstantBufferDetailFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Cursor/CCursor.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Dialog/SivDialog_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/DirectoryWatcher/DirectoryWatcherDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/DragDrop/CDragDrop.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/FileSystem/SivFileSystem_Linux.cpp
@@ -132,6 +133,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
+  ../Siv3D/src/Siv3D/Dialog/SivDialog.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
   ../Siv3D/src/Siv3D/DragDrop/DragDropFactory.cpp
   ../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp

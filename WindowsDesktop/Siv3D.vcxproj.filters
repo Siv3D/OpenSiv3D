@@ -1009,6 +1009,12 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\DragDrop">
       <UniqueIdentifier>{8edc51fe-bb77-4c96-9b13-ccd39543312b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Dialog">
+      <UniqueIdentifier>{990dfe8f-76d4-42f5-bc76-8904cc96d584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Dialog">
+      <UniqueIdentifier>{a1b3d180-164d-4d5f-bc6e-d10273cadc89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6736,6 +6742,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DragDrop\CDragDrop.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog.cpp">
+      <Filter>src\Siv3D\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Dialog\SivDialog_Windows.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

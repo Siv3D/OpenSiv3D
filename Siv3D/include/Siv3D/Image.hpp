@@ -337,7 +337,7 @@ namespace s3d
 		[[nodiscard]]
 		Blob encode(ImageFormat format) const;
 
-		//bool saveWithDialog() const;
+		bool saveWithDialog() const;
 
 		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
 
