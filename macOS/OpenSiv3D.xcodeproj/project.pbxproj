@@ -1216,6 +1216,11 @@
 		2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DAB262A66D100169B97 /* TextInputFactory.cpp */; };
 		2CFB7DAF262A66D100169B97 /* ITextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DAC262A66D100169B97 /* ITextInput.hpp */; };
 		2CFB7DB0262A66D100169B97 /* SivTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */; };
+		2CFB7DBC262AB4D800169B97 /* CClipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */; };
+		2CFB7DBD262AB4D800169B97 /* CClipboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DBB262AB4D800169B97 /* CClipboard.mm */; };
+		2CFB7DC2262AB4EA00169B97 /* IClipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DBF262AB4EA00169B97 /* IClipboard.hpp */; };
+		2CFB7DC3262AB4EA00169B97 /* ClipboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DC0262AB4EA00169B97 /* ClipboardFactory.cpp */; };
+		2CFB7DC4262AB4EA00169B97 /* SivClipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DC1262AB4EA00169B97 /* SivClipboard.cpp */; };
 		2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212425F7065200C51D0D /* ShapePainting.cpp */; };
 		2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212525F7065200C51D0D /* ShapePainting.hpp */; };
 		2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212A25F7324F00C51D0D /* turbojpeg.h */; };
@@ -3169,6 +3174,17 @@
 		2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextInput.cpp; sourceTree = "<group>"; };
 		2CFB7DB1262AA6A900169B97 /* TextEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditState.hpp; sourceTree = "<group>"; };
 		2CFB7DB2262AA6C600169B97 /* TextEditState.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextEditState.ipp; sourceTree = "<group>"; };
+		2CFB7DB3262AB49C00169B97 /* Dialog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dialog.hpp; sourceTree = "<group>"; };
+		2CFB7DB4262AB49D00169B97 /* FileFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileFilter.hpp; sourceTree = "<group>"; };
+		2CFB7DB5262AB49D00169B97 /* Clipboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Clipboard.hpp; sourceTree = "<group>"; };
+		2CFB7DB6262AB49D00169B97 /* DragDrop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DragDrop.hpp; sourceTree = "<group>"; };
+		2CFB7DB7262AB49D00169B97 /* MemoryReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryReader.hpp; sourceTree = "<group>"; };
+		2CFB7DB8262AB4C000169B97 /* MemoryReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryReader.ipp; sourceTree = "<group>"; };
+		2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard.hpp; sourceTree = "<group>"; };
+		2CFB7DBB262AB4D800169B97 /* CClipboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CClipboard.mm; sourceTree = "<group>"; };
+		2CFB7DBF262AB4EA00169B97 /* IClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IClipboard.hpp; sourceTree = "<group>"; };
+		2CFB7DC0262AB4EA00169B97 /* ClipboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipboardFactory.cpp; sourceTree = "<group>"; };
+		2CFB7DC1262AB4EA00169B97 /* SivClipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivClipboard.cpp; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -4622,6 +4638,7 @@
 				2C13C8D225B8FAC30054B968 /* Camera2D */,
 				2CE8D13A2616100D00C75FBB /* ChildProcess */,
 				2C53C33325613B6A0072831A /* Circle */,
+				2CFB7DBE262AB4EA00169B97 /* Clipboard */,
 				2C47B27C24DD9789008D83BE /* Color */,
 				2C27AA0A257D379700756617 /* Colormap */,
 				2C794ABC25C3DF3000034D81 /* CommandLine */,
@@ -6760,6 +6777,7 @@
 				2CE8D13926160FD300C75FBB /* ChildProcess.hpp */,
 				2CAAA77425E7FD0200C014D7 /* Circle.hpp */,
 				2CAAA85925E7FD0300C014D7 /* Circular.hpp */,
+				2CFB7DB5262AB49D00169B97 /* Clipboard.hpp */,
 				2CAAA86525E7FD0300C014D7 /* Color.hpp */,
 				2CAAA6F925E7FD0200C014D7 /* ColorF.hpp */,
 				2CAAA89925E7FD0300C014D7 /* ColorHSV.hpp */,
@@ -6785,11 +6803,13 @@
 				2CB749E8261F524D00D31274 /* DeadZone.hpp */,
 				2CAAA87325E7FD0300C014D7 /* Demangle.hpp */,
 				2CAAA76A25E7FD0200C014D7 /* DepthStencilState.hpp */,
+				2CFB7DB3262AB49C00169B97 /* Dialog.hpp */,
 				2CAAA6FF25E7FD0200C014D7 /* DirectoryWatcher.hpp */,
 				2CAAA87625E7FD0300C014D7 /* DiscreteDistribution.hpp */,
 				2CAAA70A25E7FD0200C014D7 /* DisplayResolution.hpp */,
 				2CAAA87825E7FD0300C014D7 /* Distribution.hpp */,
 				2CAAA71725E7FD0200C014D7 /* DLL.hpp */,
+				2CFB7DB6262AB49D00169B97 /* DragDrop.hpp */,
 				2CAAA75525E7FD0200C014D7 /* DrawableText.hpp */,
 				2CAAA89725E7FD0300C014D7 /* Duration.hpp */,
 				2CAAA88725E7FD0300C014D7 /* DynamicTexture.hpp */,
@@ -6805,6 +6825,7 @@
 				2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */,
 				2CAAA72925E7FD0200C014D7 /* FastMath.hpp */,
 				2CAAA6F825E7FD0200C014D7 /* FileAction.hpp */,
+				2CFB7DB4262AB49D00169B97 /* FileFilter.hpp */,
 				2CAAA73A25E7FD0200C014D7 /* FileSystem.hpp */,
 				2CAAA74125E7FD0200C014D7 /* FloatingPoint.hpp */,
 				2CAAA70725E7FD0200C014D7 /* FloatQuad.hpp */,
@@ -6896,6 +6917,7 @@
 				2CAAA87C25E7FD0300C014D7 /* MD5.hpp */,
 				2CAAA70425E7FD0200C014D7 /* MD5Value.hpp */,
 				2CAAA87A25E7FD0300C014D7 /* Memory.hpp */,
+				2CFB7DB7262AB49D00169B97 /* MemoryReader.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
@@ -7158,6 +7180,7 @@
 				2CAAA80525E7FD0200C014D7 /* MathConstants.ipp */,
 				2CAAA81E25E7FD0200C014D7 /* MD5Value.ipp */,
 				2CAAA79325E7FD0200C014D7 /* Memory.ipp */,
+				2CFB7DB8262AB4C000169B97 /* MemoryReader.ipp */,
 				2CAAA7FB25E7FD0200C014D7 /* MicrosecClock.ipp */,
 				2CAAA7B525E7FD0200C014D7 /* MillisecClock.ipp */,
 				2CAAA82E25E7FD0200C014D7 /* MultiPolygon.ipp */,
@@ -7588,6 +7611,7 @@
 		2CF21CF6249FAA8F00C864C9 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CFB7DB9262AB4D800169B97 /* Clipboard */,
 				2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */,
 				2CE8D13D2616107200C75FBB /* ChildProcess */,
 				2CF21D09249FAA8F00C864C9 /* Common */,
@@ -7797,6 +7821,25 @@
 				2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */,
 			);
 			path = TextInput;
+			sourceTree = "<group>";
+		};
+		2CFB7DB9262AB4D800169B97 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */,
+				2CFB7DBB262AB4D800169B97 /* CClipboard.mm */,
+			);
+			path = Clipboard;
+			sourceTree = "<group>";
+		};
+		2CFB7DBE262AB4EA00169B97 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DBF262AB4EA00169B97 /* IClipboard.hpp */,
+				2CFB7DC0262AB4EA00169B97 /* ClipboardFactory.cpp */,
+				2CFB7DC1262AB4EA00169B97 /* SivClipboard.cpp */,
+			);
+			path = Clipboard;
 			sourceTree = "<group>";
 		};
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
@@ -8392,6 +8435,7 @@
 				2C4395F82535DCCA00F6AECD /* svgnumber.h in Headers */,
 				2C4397932536163000F6AECD /* GL4VertexShader.hpp in Headers */,
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
+				2CFB7DC2262AB4EA00169B97 /* IClipboard.hpp in Headers */,
 				2C2AA39D26009C74003F3EBC /* b2_chain_shape.h in Headers */,
 				2C4A287A25EB468600FEACE4 /* CGUI.hpp in Headers */,
 				2C13C6F625B458520054B968 /* concaveman.h in Headers */,
@@ -8410,6 +8454,7 @@
 				2C43C88D25C837F000D6D613 /* ftmemory.h in Headers */,
 				2C47B30E24DD9789008D83BE /* IDummy.hpp in Headers */,
 				2C2AA37726009C74003F3EBC /* b2_motor_joint.h in Headers */,
+				2CFB7DBC262AB4D800169B97 /* CClipboard.hpp in Headers */,
 				2C2AA38B26009C74003F3EBC /* b2_time_of_impact.h in Headers */,
 				2C48BEFB25CFB8C500A93CE3 /* save-bmp.h in Headers */,
 				2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */,
@@ -8612,6 +8657,7 @@
 				2C4396302535DCCA00F6AECD /* affinetransform.cpp in Sources */,
 				2CDD4F39260A3F7100A51D68 /* P2Body.cpp in Sources */,
 				2C2AA37526009C74003F3EBC /* b2_fixture.cpp in Sources */,
+				2CFB7DC3262AB4EA00169B97 /* ClipboardFactory.cpp in Sources */,
 				2C13C8C925B8FA9D0054B968 /* RecastContour.cpp in Sources */,
 				2C13C9B325BD29FC0054B968 /* lstring.c in Sources */,
 				2C47B30324DD9789008D83BE /* SivBigFloat.cpp in Sources */,
@@ -8685,6 +8731,7 @@
 				2C2AA37326009C74003F3EBC /* b2_circle_contact.cpp in Sources */,
 				2C47B32724DD9789008D83BE /* SivPoint.cpp in Sources */,
 				2C48BEE825CFB8C500A93CE3 /* edge-coloring.cpp in Sources */,
+				2CFB7DC4262AB4EA00169B97 /* SivClipboard.cpp in Sources */,
 				2C48BF8725D41C0D00A93CE3 /* CFont.cpp in Sources */,
 				2C834D96248805D4006208B8 /* iso8859_5.c in Sources */,
 				2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */,
@@ -8803,6 +8850,7 @@
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
 				2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */,
 				2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */,
+				2CFB7DBD262AB4D800169B97 /* CClipboard.mm in Sources */,
 				2C48BEE225CFB8C500A93CE3 /* EdgeHolder.cpp in Sources */,
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */,
