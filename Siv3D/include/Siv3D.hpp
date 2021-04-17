@@ -1110,6 +1110,17 @@
 # include <Siv3D/Clipboard.hpp>
 # include <Siv3D/Dialog.hpp>
 # include <Siv3D/FileFilter.hpp>
+
+//////////////////////////////////////////////////
+//
+//	ドラッグ & ドロップ | Drag & drop
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/DragItemType.hpp>
+# include <Siv3D/DragStatus.hpp>
+# include <Siv3D/DroppedFilePath.hpp>
+# include <Siv3D/DroppedText.hpp>
 # include <Siv3D/DragDrop.hpp>
 
 //////////////////////////////////////////////////
