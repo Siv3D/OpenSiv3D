@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Clipboard/IClipboard.hpp>
+# include <Siv3D/Common/OpenGL.hpp>
 
 namespace s3d
 {
@@ -40,5 +41,6 @@ namespace s3d
 
 	private:
 
+		GLFWwindow* m_window = nullptr;
 	};
 }
