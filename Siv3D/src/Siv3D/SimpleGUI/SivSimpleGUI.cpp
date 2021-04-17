@@ -801,14 +801,16 @@ namespace s3d
 							begY = 0;
 							endX = pos.x;
 
-							for (auto&& [index, glyph] : Indexed(font.getGlyphs(editingText)))
+							for (auto&& [i, glyph] : Indexed(font.getGlyphs(editingText)))
 							{
-								if (index == editingCursorIndex)
+								const int32 currentCharIndex = static_cast<int32>(i);
+
+								if (currentCharIndex == editingCursorIndex)
 								{
 									begX = pos.x;
 									begY = pos.y + fontHeight;
 								}
-								else if (hasEditingTarget && (index == editingCursorIndex + editingTargetlength - 1))
+								else if (hasEditingTarget && (currentCharIndex == (editingCursorIndex + editingTargetlength - 1)))
 								{
 									endX = pos.x + glyph.xAdvance;
 								}

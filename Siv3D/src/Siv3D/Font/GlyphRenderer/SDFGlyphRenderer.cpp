@@ -20,9 +20,9 @@ namespace s3d
 	{
 		struct FtContext
 		{
-			msdfgen::Point2 position;
-			msdfgen::Shape* shape;
-			msdfgen::Contour* contour;
+			msdfgen::Point2 position = msdfgen::Point2{};
+			msdfgen::Shape* shape = nullptr;
+			msdfgen::Contour* contour = nullptr;
 		};
 
 		inline msdfgen::Point2 ftPoint2(const FT_Vector& vector) noexcept
@@ -91,7 +91,8 @@ namespace s3d
 				.delta = 0
 			};
 
-			detail::FtContext context = { .shape = &shape };
+			detail::FtContext context;
+			context.shape = &shape;
 
 			if (::FT_Outline_Decompose(&face->glyph->outline, &func_interface, &context))
 			{

@@ -165,12 +165,12 @@ namespace s3d
 		Image image{ width, height };
 		Color* pDst = image.data();
 
-		for (int32 y = 0; y < height; ++y)
+		for (size_t y = 0; y < height; ++y)
 		{
 			size_t srcOffset = y * width;
 			size_t dstOffset = (y + offset_y) * gif->SWidth + offset_x;
 
-			for (int32 x = 0; x < width; ++x)
+			for (size_t x = 0; x < width; ++x)
 			{
 				const uint8 index = frame->RasterBits[srcOffset];
 

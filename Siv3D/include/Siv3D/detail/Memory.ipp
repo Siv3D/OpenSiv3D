@@ -38,7 +38,12 @@ namespace s3d
 			if (Alignment > Platform::MinAlignment)
 			{
 				void* p = nullptr;
-				(void)::posix_memalign(&p, Alignment, size);
+				
+				if (::posix_memalign(&p, Alignment, size) != 0)
+				{
+					return nullptr;
+				}
+
 				return p;
 			}
 			else

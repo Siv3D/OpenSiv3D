@@ -137,7 +137,7 @@ namespace s3d
 		Vec2* pDst = m_lineString.data();
 		const b2Vec2* pSrc = m_pShape->m_vertices;
 
-		for (int32 i = 0; i < m_lineString.size(); ++i)
+		for (size_t i = 0; i < m_lineString.size(); ++i)
 		{
 			*pDst++ = detail::CalcVec2(*pSrc++, transform);
 		}

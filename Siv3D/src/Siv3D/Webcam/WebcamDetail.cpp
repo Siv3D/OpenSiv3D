@@ -239,7 +239,7 @@ namespace s3d
 
 			m_newFrameCount = 0;
 
-			return true;
+			return result;
 		}
 	}
 	

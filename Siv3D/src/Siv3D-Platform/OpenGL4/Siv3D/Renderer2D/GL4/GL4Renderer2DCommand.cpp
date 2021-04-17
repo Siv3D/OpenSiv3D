@@ -198,7 +198,7 @@ namespace s3d
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
 		}
 
-		for (int32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
 			const auto command = ToEnum<GL4Renderer2DCommandType>(FromEnum(GL4Renderer2DCommandType::PSTexture0) + i);
 

@@ -51,11 +51,10 @@ namespace s3d
 			}
 		}
 
-		bool bitmapFormat = false;
 		{
 			if (face->glyph->format == FT_GLYPH_FORMAT_BITMAP)
 			{
-				bitmapFormat = true;
+				// do nothing
 			}
 			else
 			{

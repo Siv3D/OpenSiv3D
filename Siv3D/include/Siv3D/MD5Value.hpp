@@ -44,7 +44,7 @@ namespace s3d
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
-	# if __cpp_impl_three_way_comparison
+	# if __cpp_lib_three_way_comparison
 
 		[[nodiscard]]
 		friend /*constexpr*/ auto operator <=>(const MD5Value&, const MD5Value&) = default;

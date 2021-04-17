@@ -132,7 +132,7 @@ namespace s3d
 	{
 		//LOG_SCOPED_TRACE(U"VideoReaderDetail::getFrame()");
 
-		if (m_info.frameCount <= m_info.readPos)
+		if (static_cast<int32>(m_info.frameCount) <= m_info.readPos)
 		{
 			return false;
 		}
@@ -230,7 +230,7 @@ namespace s3d
 
 	bool VideoReader::VideoReaderDetail::reachedEnd() const noexcept
 	{
-		return (m_info.readPos == m_info.frameCount);
+		return (m_info.readPos == static_cast<int32>(m_info.frameCount));
 	}
 
 	const FilePath& VideoReader::VideoReaderDetail::path() const noexcept

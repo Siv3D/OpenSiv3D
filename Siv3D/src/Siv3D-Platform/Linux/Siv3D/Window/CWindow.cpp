@@ -23,9 +23,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void ErrorCallback(int error, const char* description)
+		static void ErrorCallback(const int error, const char* description)
 		{
-			std::cout << "Error: " << description << '\n';
+			std::cout << "Error: {}. "_fmt(error) << description << '\n';
 		}
 	}
 
