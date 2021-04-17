@@ -315,6 +315,7 @@ namespace s3d
 			Glyph glyph{ font->getGlyphInfoByGlyphIndex(cluster.glyphIndex) };
 			glyph.codePoint = s[cluster.pos];
 			glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+			glyph.buffer = font->getGlyphCache().getBufferThickness(glyph.glyphIndex);
 			glyphs << glyph;
 		}
 
@@ -577,5 +578,10 @@ namespace s3d
 		}
 
 		return{};
+	}
+
+	const PixelShader& CFont::getFontShader(const FontMethod method, const bool hasColor) const
+	{
+		return m_shaders->getFontShader(method, hasColor);
 	}
 }

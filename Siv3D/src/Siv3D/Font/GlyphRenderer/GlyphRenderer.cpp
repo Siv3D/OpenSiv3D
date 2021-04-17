@@ -190,7 +190,7 @@ namespace s3d
 		};
 	}
 
-	GlyphInfo GetGlyphInfo(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop)
+	GlyphInfo GetGlyphInfo(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop, const FontMethod method)
 	{
 		const bool hasColor = prop.hasColor;
 
@@ -216,6 +216,44 @@ namespace s3d
 
 				return result;
 			}
+		}
+
+		if (method == FontMethod::Bitmap)
+		{
+			FT_Int32 flag = (FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_HINTING);
+
+			if (!(prop.style & FontStyle::Bitmap))
+			{
+				flag |= FT_LOAD_NO_BITMAP;
+			}
+
+			if (::FT_Load_Glyph(face, glyphIndex, flag))
+			{
+				return{};
+			}
+
+			if (prop.style & FontStyle::Bold)
+			{
+				::FT_GlyphSlot_Embolden(face->glyph);
+			}
+
+			if (prop.style & FontStyle::Italic)
+			{
+				::FT_GlyphSlot_Oblique(face->glyph);
+			}
+
+			GlyphInfo result;
+			result.glyphIndex	= glyphIndex;
+			result.left			= static_cast<int16>(face->glyph->bitmap_left);
+			result.top			= static_cast<int16>(face->glyph->bitmap_top);
+			result.width		= static_cast<int16>(face->glyph->bitmap.width);
+			result.height		= static_cast<int16>(face->glyph->bitmap.rows);
+			result.ascender		= prop.ascender;
+			result.descender	= prop.descender;
+			result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
+			result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+
+			return result;
 		}
 	
 		if (not LoadOutlineGlyph(face, glyphIndex, prop.style))

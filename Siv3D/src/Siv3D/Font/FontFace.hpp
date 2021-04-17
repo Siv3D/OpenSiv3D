@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/FontStyle.hpp>
+# include <Siv3D/FontMethod.hpp>
 # include "FontFaceProperty.hpp"
 
 # if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
@@ -40,9 +41,9 @@ namespace s3d
 
 		~FontFace();
 
-		bool load(FT_Library library, const void* data, size_t size, size_t faceIndex, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, const void* data, size_t size, size_t faceIndex, int32 pixelSize, FontStyle style, FontMethod method);
 
-		bool load(FT_Library library, FilePathView path, size_t faceIndex, int32 pixelSize, FontStyle style);
+		bool load(FT_Library library, FilePathView path, size_t faceIndex, int32 pixelSize, FontStyle style, FontMethod method);
 
 		[[nodiscard]]
 		FT_Face getFT_Face() const noexcept;
@@ -55,7 +56,7 @@ namespace s3d
 
 	private:
 
-		bool init(int32 pixelSize, FontStyle style);
+		bool init(int32 pixelSize, FontStyle style, FontMethod method);
 
 		void release();
 

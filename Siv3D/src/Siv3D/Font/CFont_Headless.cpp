@@ -92,6 +92,8 @@ namespace s3d
 				LOG_INFO(U"CFont_Headless::init(): Failed to create default icons");
 			}
 		}
+
+		m_emptyPixelShader = std::make_unique<PixelShader>();
 	}
 
 	Font::IDType CFont_Headless::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
@@ -501,5 +503,10 @@ namespace s3d
 		}
 
 		return{};
+	}
+
+	const PixelShader& CFont_Headless::getFontShader(FontMethod, bool) const
+	{
+		return *m_emptyPixelShader;
 	}
 }

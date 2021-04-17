@@ -32,6 +32,8 @@ namespace s3d
 
 		Array<std::unique_ptr<IconData>> m_defaultIcons;
 
+		std::unique_ptr<PixelShader> m_emptyPixelShader;
+
 	public:
 
 		CFont_Headless();
@@ -137,5 +139,7 @@ namespace s3d
 		Image renderIconSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
 
 		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
+	
+		const PixelShader& getFontShader(FontMethod method, bool hasColor) const override;
 	};
 }

@@ -479,6 +479,11 @@ namespace s3d
 		return m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
 	}
 
+	int32 BitmapGlyphCache::getBufferThickness(const GlyphIndex)
+	{
+		return 0;
+	}
+
 	bool BitmapGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
 	{
 		bool hasDirty = false;

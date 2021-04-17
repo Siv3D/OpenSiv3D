@@ -40,14 +40,14 @@ namespace s3d
 		{
 			m_resource = FontResourceHolder{ path };
 
-			if (not m_fontFace.load(library, m_resource.data(), m_resource.size(), faceIndex, fontSize, style))
+			if (not m_fontFace.load(library, m_resource.data(), m_resource.size(), faceIndex, fontSize, style, fontMethod))
 			{
 				return;
 			}
 		}
 		else
 		{
-			if (not m_fontFace.load(library, path, faceIndex, fontSize, style))
+			if (not m_fontFace.load(library, path, faceIndex, fontSize, style, fontMethod))
 			{
 				return;
 			}
@@ -55,7 +55,7 @@ namespace s3d
 
 	# else
 
-		if (not m_fontFace.load(library, path, faceIndex, fontSize, style))
+		if (not m_fontFace.load(library, path, faceIndex, fontSize, style, fontMethod))
 		{
 			return;
 		}
@@ -226,7 +226,7 @@ namespace s3d
 
 	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
 	{
-		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty());
+		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty(), m_method);
 	}
 
 	OutlineGlyph FontData::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing) const

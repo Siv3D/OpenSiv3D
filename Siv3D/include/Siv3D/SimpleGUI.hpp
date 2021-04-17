@@ -14,6 +14,7 @@
 # include "Optional.hpp"
 # include "2DShapes.hpp"
 # include "Unspecified.hpp"
+# include "TextEditState.hpp"
 
 namespace s3d
 {
@@ -114,15 +115,15 @@ namespace s3d
 
 		bool HorizontalRadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& itemWidth = unspecified, bool enabled = true);
 
-		//[[nodiscard]]
-		//RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
+		[[nodiscard]]
+		RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
 
-		//[[nodiscard]]
-		//RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);
+		[[nodiscard]]
+		RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);
 
-		//bool TextBox(TextEditState& text, const Vec2& pos, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
+		bool TextBox(TextEditState& text, const Vec2& pos, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
 
-		//bool TextBoxAt(TextEditState& text, const Vec2& center, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
+		bool TextBoxAt(TextEditState& text, const Vec2& center, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
 
 		[[nodiscard]]
 		RectF ColorPickerRegion(const Vec2& pos);

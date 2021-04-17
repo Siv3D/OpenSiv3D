@@ -53,5 +53,8 @@ namespace s3d
 
 		[[nodiscard]]
 		virtual TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) = 0;
+
+		[[nodiscard]]
+		virtual int32 getBufferThickness(GlyphIndex glyphIndex) = 0;
 	};
 }

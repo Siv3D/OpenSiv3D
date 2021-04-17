@@ -21,7 +21,7 @@ namespace s3d
 		release();
 	}
 
-	bool FontFace::load(const FT_Library library, const void* data, const size_t size, const size_t faceIndex, const int32 pixelSize, const FontStyle style)
+	bool FontFace::load(const FT_Library library, const void* data, const size_t size, const size_t faceIndex, const int32 pixelSize, const FontStyle style, const FontMethod method)
 	{
 		release();
 
@@ -39,7 +39,7 @@ namespace s3d
 			return false;
 		}
 
-		if (not init(pixelSize, style))
+		if (not init(pixelSize, style, method))
 		{
 			return false;
 		}
@@ -47,7 +47,7 @@ namespace s3d
 		return true;
 	}
 
-	bool FontFace::load(const FT_Library library, const FilePathView path, const size_t faceIndex, const int32 pixelSize, const FontStyle style)
+	bool FontFace::load(const FT_Library library, const FilePathView path, const size_t faceIndex, const int32 pixelSize, const FontStyle style, const FontMethod method)
 	{
 		release();
 
@@ -65,7 +65,7 @@ namespace s3d
 			return false;
 		}
 
-		if (not init(pixelSize, style))
+		if (not init(pixelSize, style, method))
 		{
 			return false;
 		}
@@ -106,7 +106,7 @@ namespace s3d
 		return{ glyphInfo, glyphCount };
 	}
 
-	bool FontFace::init(int32 pixelSize, const FontStyle style)
+	bool FontFace::init(int32 pixelSize, const FontStyle style, FontMethod method)
 	{
 		assert(m_face != nullptr);
 		assert(m_hbBuffer == nullptr);
@@ -186,8 +186,17 @@ namespace s3d
 				return false;
 			}
 
-			const GlyphIndex spaceGlyphIndex = glyphInfo.info[0].codepoint;
-			m_property.spaceWidth = GetGlyphInfo(m_face, spaceGlyphIndex, m_property).xAdvance;
+			{
+				const GlyphIndex spaceGlyphIndex = glyphInfo.info[0].codepoint;
+
+				if (((method == FontMethod::SDF) || (method == FontMethod::MSDF))
+					&& (not FT_IS_SCALABLE(m_face)))
+				{
+					method = FontMethod::Bitmap;
+				}
+
+				m_property.spaceWidth = GetGlyphInfo(m_face, spaceGlyphIndex, m_property, method).xAdvance;
+			}
 		}
 
 		return true;

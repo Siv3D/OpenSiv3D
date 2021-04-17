@@ -56,6 +56,9 @@ namespace s3d
 		[[nodiscard]]
 		TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) override;
 
+		[[nodiscard]]
+		int32 getBufferThickness(GlyphIndex glyphIndex) override;
+
 	private:
 
 		[[nodiscard]]

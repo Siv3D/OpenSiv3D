@@ -316,4 +316,9 @@ namespace s3d
 	{
 		return{ *this, std::move(text) };
 	}
+
+	const PixelShader& Font::GetPixelShader(const FontMethod method, const bool hasColor)
+	{
+		return SIV3D_ENGINE(Font)->getFontShader(method, hasColor);
+	}
 }

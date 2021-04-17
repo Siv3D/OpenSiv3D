@@ -17,6 +17,10 @@
 # include <Siv3D/CursorStyle.hpp>
 # include <Siv3D/TexturedCircle.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/TextInput.hpp>
+# include <Siv3D/Keyboard.hpp>
+# include <Siv3D/Indexed.hpp>
+# include <Siv3D/ScopedCustomShader2D.hpp>
 # include <Siv3D/GUI/IGUI.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -712,228 +716,239 @@ namespace s3d
 			return hasChanged;
 		}
 
-		//RectF TextBoxRegion(const Vec2& pos, double width)
-		//{
-		//	width = std::max(width, 40.0);
+		RectF TextBoxRegion(const Vec2& pos, double width)
+		{
+			width = Max(width, 40.0);
 
-		//	return RectF(pos, width, detail::TextBoxHeight);
-		//}
+			return{ pos, width, TextBoxHeight };
+		}
 
-		//RectF TextBoxRegionAt(const Vec2& center, double width)
-		//{
-		//	width = std::max(width, 40.0);
+		RectF TextBoxRegionAt(const Vec2& center, double width)
+		{
+			width = Max(width, 40.0);
 
-		//	return RectF(Arg::center = center, width, detail::TextBoxHeight);
-		//}
+			return{ Arg::center = center, width, TextBoxHeight };
+		}
 
-		//bool TextBox(TextEditState& text, const Vec2& pos, double width, const Optional<size_t>& maxChars, const bool enabled)
-		//{
-		//	width = std::max(width, 40.0);
+		bool TextBox(TextEditState& text, const Vec2& pos, double width, const Optional<size_t>& maxChars, const bool enabled)
+		{
+			width = Max(width, 40.0);
 
-		//	return TextBoxAt(text, pos + Vec2(width * 0.5, 18.0), width, maxChars, enabled);
-		//}
+			return TextBoxAt(text, pos + Vec2{ width * 0.5, 18.0 }, width, maxChars, enabled);
+		}
 
-		//bool TextBoxAt(TextEditState& text, const Vec2& center, const double _width, const Optional<size_t>& maxChars, const bool enabled)
-		//{
-		//	const Font font = detail::GetSimpleGUIFont();
-		//	const double width = std::max(_width, 40.0);
-		//	const RectF region(Arg::center = center, width, detail::TextBoxHeight);
-		//	const Vec2 textPos(region.x + 8, center.y - font.height() / 2);
+		bool TextBoxAt(TextEditState& text, const Vec2& center, const double _width, const Optional<size_t>& maxChars, const bool enabled)
+		{
+			const Font& font = detail::GetSimpleGUIFont();
+			const double width = Max(_width, 40.0);
+			const RectF region{ Arg::center = center, width, TextBoxHeight };
+			const Vec2 textPos{ (region.x + 8), (center.y - font.height() / 2 + FontYOffset - 0.5) };
+			const ColorF textColor = GetTextColor(enabled);
 
-		//	text.cursorPos = std::min(text.cursorPos, text.text.size());
+			text.cursorPos = Min(text.cursorPos, text.text.size());
 
-		//	if (enabled)
-		//	{
-		//		if (text.active)
-		//		{
-		//			region
-		//				.draw()
-		//				.drawFrame(0.0, 1.5, ColorF(0.35, 0.7, 1.0, 0.75))
-		//				.drawFrame(2.5, 0.0, ColorF(0.35, 0.7, 1.0));
-		//		}
-		//		else
-		//		{
-		//			region
-		//				.draw()
-		//				.drawFrame(2.0, 0.0, ColorF(0.5));
-		//		}
+			if (enabled)
+			{
+				if (text.active)
+				{
+					region
+						.draw()
+						.drawFrame(0.0, 1.5, ColorF(0.35, 0.7, 1.0, 0.75))
+						.drawFrame(2.5, 0.0, ColorF(0.35, 0.7, 1.0));
+				}
+				else
+				{
+					region
+						.draw()
+						.drawFrame(2.0, 0.0, ColorF(0.5));
+				}
 
-		//		if (text.active)
-		//		{
-		//			const String textHeader = text.text.substr(0, text.cursorPos);
-		//			const String textTail = text.text.substr(text.cursorPos, String::npos);
-		//			const String editingText = TextInput::GetEditingText();
+				if (text.active)
+				{
+					const String textHeader = text.text.substr(0, text.cursorPos);
+					const String textTail = text.text.substr(text.cursorPos, String::npos);
+					const String editingText = TextInput::GetEditingText();
 
-		//		# if SIV3D_PLATFORM(WINDOWS)
+				# if SIV3D_PLATFORM(WINDOWS)
 
-		//			const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
-		//			const bool hasEditingTarget = (editingTargetlength > 0);
+					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
+					const bool hasEditingTarget = (editingTargetlength > 0);
 
-		//		# else
+				# else
 
-		//			const int32 editingCursorIndex = -1, editingTargetlength = 0;
-		//			const bool hasEditingTarget = false;
+					const int32 editingCursorIndex = -1, editingTargetlength = 0;
+					const bool hasEditingTarget = false;
 
-		//		# endif
+				# endif
 
-		//			const double fontHeight = font.height();
-		//			Vec2 pos = textPos;
+					const double fontHeight = font.height();
+					Vec2 pos = textPos;
+					double cursorPosX = 0.0;
 
-		//			for (auto glyph : font(textHeader))
-		//			{
-		//				glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
-		//				pos.x += glyph.xAdvance;
-		//			}
+					{
+						double begX = 0.0, begY = 0.0, endX = 0.0;
+						{
+							ScopedCustomShader2D shader{ Font::GetPixelShader(font.method()) };
 
-		//			double begX = pos.x, begY = 0, endX = pos.x;
+							for (auto glyph : font.getGlyphs(textHeader))
+							{
+								glyph.texture.draw(pos + glyph.getOffset(), textColor);
+								pos.x += glyph.xAdvance;
+							}
 
-		//			for (auto glyph : font(editingText))
-		//			{
-		//				if (glyph.index == editingCursorIndex)
-		//				{
-		//					begX = pos.x;
-		//					begY = pos.y + fontHeight;
-		//				}
-		//				else if (hasEditingTarget && glyph.index == editingCursorIndex + editingTargetlength - 1)
-		//				{
-		//					endX = pos.x + glyph.xAdvance;
-		//				}
+							begX = pos.x;
+							begY = 0;
+							endX = pos.x;
 
-		//				glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
-		//				pos.x += glyph.xAdvance;
-		//			}
+							for (auto&& [index, glyph] : Indexed(font.getGlyphs(editingText)))
+							{
+								if (index == editingCursorIndex)
+								{
+									begX = pos.x;
+									begY = pos.y + fontHeight;
+								}
+								else if (hasEditingTarget && (index == editingCursorIndex + editingTargetlength - 1))
+								{
+									endX = pos.x + glyph.xAdvance;
+								}
 
-		//			if (hasEditingTarget)
-		//			{
-		//				Line(begX, begY, endX, begY).movedBy(0, -2).draw(2, ColorF(0.2));
-		//			}
+								glyph.texture.draw(pos + glyph.getOffset(), textColor);
+								pos.x += glyph.xAdvance;
+							}
 
-		//			const double cursorPosX = pos.x;
+							cursorPosX = pos.x;
 
-		//			for (auto glyph : font(textTail))
-		//			{
-		//				glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
-		//				pos.x += glyph.xAdvance;
-		//			}
+							for (auto glyph : font.getGlyphs(textTail))
+							{
+								glyph.texture.draw(pos + glyph.getOffset(), textColor);
+								pos.x += glyph.xAdvance;
+							}
+						}
 
-		//			const bool showCursor = (text.cursorStopwatch.ms() % 1200 < 600)
-		//				|| (text.leftPressStopwatch.isRunning() && text.leftPressStopwatch < SecondsF(0.5))
-		//				|| (text.rightPressStopwatch.isRunning() && text.rightPressStopwatch < SecondsF(0.5));
+						if (hasEditingTarget)
+						{
+							Line(begX, begY, endX, begY).movedBy(0, -2).draw(2, textColor);
+						}
+					}
 
-		//			if (showCursor)
-		//			{
-		//				const RectF cursor(Arg::leftCenter(Vec2(cursorPosX, center.y).asPoint()), 1, 26);
-		//				cursor.draw(ColorF(0.2));
-		//			}
-		//		}
-		//		else
-		//		{
-		//			font(text.text).draw(textPos, ColorF(0.2));
-		//		}
-		//	}
-		//	else
-		//	{
-		//		region
-		//			.draw(ColorF(0.9))
-		//			.drawFrame(2.0, 0.0, ColorF(0.67));
+					const bool showCursor = (text.cursorStopwatch.ms() % 1200 < 600)
+						|| (text.leftPressStopwatch.isRunning() && text.leftPressStopwatch < SecondsF(0.5))
+						|| (text.rightPressStopwatch.isRunning() && text.rightPressStopwatch < SecondsF(0.5));
 
-		//		font(text.text).draw(textPos, ColorF(0.67));
-		//	}
+					if (showCursor)
+					{
+						const RectF cursor(Arg::leftCenter(Vec2(cursorPosX, center.y).asPoint()), 1, 26);
+						cursor.draw(textColor);
+					}
+				}
+				else
+				{
+					font(text.text).draw(textPos, textColor);
+				}
+			}
+			else
+			{
+				region
+					.draw(ColorF(0.9))
+					.drawFrame(2.0, 0.0, ColorF(0.67));
 
-		//	if (enabled && Cursor::OnClientRect() && region.mouseOver())
-		//	{
-		//		Cursor::RequestStyle(CursorStyle::IBeam);
-		//	}
+				font(text.text).draw(textPos, textColor);
+			}
 
-		//	if (MouseL.down())
-		//	{
-		//		if (enabled && Cursor::OnClientRect() && region.mouseOver())
-		//		{
-		//			text.active = true;
-		//			const double posX = Cursor::PosF().x - (region.x + 8);
+			if (enabled && Cursor::OnClientRect() && region.mouseOver())
+			{
+				Cursor::RequestStyle(CursorStyle::IBeam);
+			}
 
-		//			size_t index = 0;
-		//			double pos = 0.0;
+			if (MouseL.down())
+			{
+				if (enabled && Cursor::OnClientRect() && region.mouseOver())
+				{
+					text.active = true;
+					const double posX = Cursor::PosF().x - (region.x + 8);
 
-		//			for (const auto& advance : font(text.text).getXAdvances())
-		//			{
-		//				if (posX <= (pos + (advance / 2)))
-		//				{
-		//					break;
-		//				}
+					size_t index = 0;
+					double pos = 0.0;
 
-		//				pos += advance;
-		//				++index;
-		//			}
+					for (const auto& advance : font(text.text).getXAdvances())
+					{
+						if (posX <= (pos + (advance / 2)))
+						{
+							break;
+						}
 
-		//			text.cursorPos = index;
-		//			text.cursorStopwatch.restart();
-		//			text.leftPressStopwatch.reset();
-		//			text.rightPressStopwatch.reset();
-		//		}
-		//		else
-		//		{
-		//			text.active = false;
-		//		}
-		//	}
+						pos += advance;
+						++index;
+					}
 
-		//	const String previousText = text.text;
+					text.cursorPos = index;
+					text.cursorStopwatch.restart();
+					text.leftPressStopwatch.reset();
+					text.rightPressStopwatch.reset();
+				}
+				else
+				{
+					text.active = false;
+				}
+			}
 
-		//	if (text.active)
-		//	{
-		//		text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
+			const String previousText = text.text;
 
-		//		if (TextInput::GetEditingText().isEmpty()
-		//			&&
-		//		# if SIV3D_PLATFORM(MACOS)
+			if (text.active)
+			{
+				text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
 
-		//			((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
+				if (TextInput::GetEditingText().isEmpty()
+					&&
+				# if SIV3D_PLATFORM(MACOS)
 
-		//		# else
+					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
 
-		//			(KeyControl + KeyV).down()
+				# else
 
-		//		# endif
-		//			)
-		//		{
-		//			if (String paste; Clipboard::GetText(paste))
-		//			{
-		//				text.text.insert(text.cursorPos, paste);
-		//				text.cursorPos += paste.size();
-		//			}
-		//		}
+					(KeyControl + KeyV).down()
 
-		//		if (maxChars && text.text.size() > maxChars.value())
-		//		{
-		//			text.text.resize(maxChars.value());
-		//			text.cursorPos = std::min(text.cursorPos, maxChars.value());
-		//		}
+				# endif
+					)
+				{
+					//if (String paste; Clipboard::GetText(paste))
+					//{
+					//	text.text.insert(text.cursorPos, paste);
+					//	text.cursorPos += paste.size();
+					//}
+				}
 
-		//		if (text.text != previousText)
-		//		{
-		//			text.cursorStopwatch.restart();
-		//		}
+				if (maxChars && text.text.size() > maxChars.value())
+				{
+					text.text.resize(maxChars.value());
+					text.cursorPos = std::min(text.cursorPos, maxChars.value());
+				}
 
-		//		if (const String raw = TextInput::GetRawInput(); raw.includes(U'\r') || raw.includes(U'\t'))
-		//		{
-		//			text.active = false;
-		//		}
+				if (text.text != previousText)
+				{
+					text.cursorStopwatch.restart();
+				}
 
-		//		if ((0 < text.cursorPos) && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && text.leftPressStopwatch > SecondsF(0.06))))
-		//		{
-		//			--text.cursorPos;
-		//			text.leftPressStopwatch.restart();
-		//		}
+				if (const String raw = TextInput::GetRawInput(); raw.includes(U'\r') || raw.includes(U'\t'))
+				{
+					text.active = false;
+				}
 
-		//		if ((text.cursorPos < text.text.size()) && (KeyRight.down() || (KeyRight.pressedDuration() > SecondsF(0.33) && text.rightPressStopwatch > SecondsF(0.06))))
-		//		{
-		//			++text.cursorPos;
-		//			text.rightPressStopwatch.restart();
-		//		}
-		//	}
+				if ((0 < text.cursorPos) && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && text.leftPressStopwatch > SecondsF(0.06))))
+				{
+					--text.cursorPos;
+					text.leftPressStopwatch.restart();
+				}
 
-		//	return (text.text != previousText);
-		//}
+				if ((text.cursorPos < text.text.size()) && (KeyRight.down() || (KeyRight.pressedDuration() > SecondsF(0.33) && text.rightPressStopwatch > SecondsF(0.06))))
+				{
+					++text.cursorPos;
+					text.rightPressStopwatch.restart();
+				}
+			}
+
+			return (text.text != previousText);
+		}
 
 		RectF ColorPickerRegion(const Vec2& pos)
 		{

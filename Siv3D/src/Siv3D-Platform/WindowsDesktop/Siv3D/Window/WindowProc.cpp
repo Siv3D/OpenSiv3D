@@ -151,7 +151,11 @@ namespace s3d
 			{
 				LOG_TRACE(U"WM_CHAR");
 
-				SIV3D_ENGINE(TextInput)->pushChar(static_cast<uint32>(wParam));
+				if (auto p = SIV3D_ENGINE(TextInput))
+				{
+					p->pushChar(static_cast<uint32>(wParam));
+				}
+
 				return 0;
 			}
 		case WM_UNICHAR:
@@ -163,7 +167,11 @@ namespace s3d
 					return true;
 				}
 
-				SIV3D_ENGINE(TextInput)->pushChar(static_cast<uint32>(wParam));
+				if (auto p = SIV3D_ENGINE(TextInput))
+				{
+					p->pushChar(static_cast<uint32>(wParam));
+				}
+			
 				return 0;
 			}
 		case WM_DEVICECHANGE:

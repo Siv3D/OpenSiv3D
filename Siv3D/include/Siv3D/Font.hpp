@@ -24,6 +24,7 @@
 # include "FontMethod.hpp"
 # include "Typeface.hpp"
 # include "Glyph.hpp"
+# include "PixelShader.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -396,5 +397,8 @@ namespace s3d
 		template <class ... Args>
 		[[nodiscard]]
 		DrawableText operator()(const Args& ... args) const;
+
+		[[nodiscard]]
+		static const PixelShader& GetPixelShader(FontMethod method, bool hasColor = false);
 	};
 }

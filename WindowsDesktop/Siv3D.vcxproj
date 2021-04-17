@@ -154,6 +154,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Stopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Subdivision2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SVG.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextEditState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextEncoding.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextReader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextStyle.ipp" />
@@ -506,6 +507,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextEditState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInputMode.hpp" />

@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/FontStyle.hpp>
+# include <Siv3D/FontMethod.hpp>
 # include <Siv3D/GlyphInfo.hpp>
 # include "../FontFaceProperty.hpp"
 
@@ -36,5 +37,5 @@ namespace s3d
 	GlyphBBox GetOutlineGlyphBound(FT_Face face);
 
 	[[nodiscard]]
-	GlyphInfo GetGlyphInfo(FT_Face face, GlyphIndex glyphIndex, const FontFaceProperty& prop);
+	GlyphInfo GetGlyphInfo(FT_Face face, GlyphIndex glyphIndex, const FontFaceProperty& prop, FontMethod method);
 }
