@@ -27,7 +27,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CClipboard::init()");
 
-		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle())
+		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 	}
 
 	bool CClipboard::hasChanged()
