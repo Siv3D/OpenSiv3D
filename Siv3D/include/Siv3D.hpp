@@ -1106,6 +1106,12 @@
 # include <Siv3D/TextInputMode.hpp>
 # include <Siv3D/TextInput.hpp>
 
+
+# include <Siv3D/Clipboard.hpp>
+# include <Siv3D/Dialog.hpp>
+# include <Siv3D/FileFilter.hpp>
+# include <Siv3D/DragDrop.hpp>
+
 //////////////////////////////////////////////////
 //
 //	2D 物理演算 | 2D Physics

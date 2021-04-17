@@ -107,6 +107,8 @@ add_library(
   ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
+  ../Siv3D/src/Siv3D/Clipboard/ClipboardFactory.cpp
+  ../Siv3D/src/Siv3D/Clipboard/SivClipboard.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
   ../Siv3D/src/Siv3D/Colormap/SivColormap.cpp
   ../Siv3D/src/Siv3D/CommandLine/SivCommandLine.cpp

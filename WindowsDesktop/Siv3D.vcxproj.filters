@@ -997,6 +997,12 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput">
       <UniqueIdentifier>{c787adf7-509f-47d1-ad32-fc1427cf4b6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Clipboard">
+      <UniqueIdentifier>{df261891-c47c-4ae0-b604-c4fd8e786a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Clipboard">
+      <UniqueIdentifier>{3cae9ab8-d23d-44a3-a84b-c9eb599fde88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4830,6 +4836,30 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextEditState.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Dialog.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FileFilter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Clipboard.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\IClipboard.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Clipboard\CClipboard.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\MemoryReader.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6661,6 +6691,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput\CTextInput.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Clipboard\CClipboard.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Clipboard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
