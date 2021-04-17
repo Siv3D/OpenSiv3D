@@ -27,6 +27,17 @@
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <X11/cursorfont.h>
@@ -40,6 +51,19 @@
 #include <limits.h>
 #include <errno.h>
 #include <assert.h>
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+#include <stdbool.h>
+
+void s3d_DraggingEntered(bool isFilePath);
+void s3d_DraggingUpdated(void);
+void s3d_DraggingExited(void);
+void s3d_ItemDropped(const char* text);
+//
+//-----------------------------------------------
 
 // Action for EWMH client messages
 #define _NET_WM_STATE_REMOVE        0
@@ -1585,12 +1609,17 @@ static void processEvent(XEvent *event)
                                &reply);
                 }
             }
+            //-----------------------------------------------
+			//
+			//  [Siv3D]
+			//
             else if (event->xclient.message_type == _glfw.x11.XdndEnter)
             {
                 // A drag operation has entered the window
                 unsigned long i, count;
                 Atom* formats = NULL;
                 const GLFWbool list = event->xclient.data.l[1] & 1;
+                bool isFilePath = false;
 
                 _glfw.x11.xdnd.source  = event->xclient.data.l[0];
                 _glfw.x11.xdnd.version = event->xclient.data.l[1] >> 24;
@@ -1617,12 +1646,21 @@ static void processEvent(XEvent *event)
                     if (formats[i] == _glfw.x11.text_uri_list)
                     {
                         _glfw.x11.xdnd.format = _glfw.x11.text_uri_list;
+						isFilePath = true;
+                        break;
+                    }
+                    else if (formats[i] == _glfw.x11.text_plain)
+                    {
+                        _glfw.x11.xdnd.format = _glfw.x11.text_plain;
+						isFilePath = false;
                         break;
                     }
                 }
 
                 if (list && formats)
                     XFree(formats);
+
+                s3d_DraggingEntered(isFilePath);
             }
             else if (event->xclient.message_type == _glfw.x11.XdndDrop)
             {
@@ -1699,7 +1737,15 @@ static void processEvent(XEvent *event)
                 XSendEvent(_glfw.x11.display, _glfw.x11.xdnd.source,
                            False, NoEventMask, &reply);
                 XFlush(_glfw.x11.display);
+
+                s3d_DraggingUpdated();
             }
+			else if(event->xclient.message_type == _glfw.x11.XdndLeave)
+			{
+				s3d_DraggingExited();
+			}
+			//
+			//-----------------------------------------------
 
             return;
         }
@@ -1715,6 +1761,14 @@ static void processEvent(XEvent *event)
                                               event->xselection.property,
                                               event->xselection.target,
                                               (unsigned char**) &data);
+
+                //-----------------------------------------------
+                //
+                //  [Siv3D]
+                //
+                s3d_ItemDropped(data);
+                //
+	        	//-----------------------------------------------
 
                 if (result)
                 {

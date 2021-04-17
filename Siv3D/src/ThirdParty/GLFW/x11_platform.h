@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include <unistd.h>
 #include <signal.h>
 #include <stdint.h>
@@ -501,7 +512,16 @@ typedef struct _GLFWlibraryX11
     Atom            XdndSelection;
     Atom            XdndTypeList;
     Atom            text_uri_list;
-
+	//-----------------------------------------------
+	//
+	//  [Siv3D]
+	//
+    Atom            XdndLeave;
+    Atom			text_plain;
+	//
+	//
+	//-----------------------------------------------
+    
     // Selection (clipboard) atoms
     Atom            TARGETS;
     Atom            MULTIPLE;

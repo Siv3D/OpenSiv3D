@@ -44,8 +44,48 @@ namespace s3d
 
 		Optional<int32> makeDragDrop(const FilePath& path) override;
 
+		//
+		//	Linux
+		//
+
+		void internal_entered(bool isFilePath, const Point& pos);
+
+		void internal_updated(const Point& pos);
+
+		void internal_exited();
+
+		void internal_itemDropped(const String& text, const Point& pos);
+
 	private:
 
+		std::mutex m_mutex;
 
+		struct Internal
+		{
+			Array<DroppedFilePath> droppedFilePaths;
+
+			Array<DroppedText> droppedTexts;
+
+			DragItemType itemType = DragItemType::FilePaths;
+
+			Point dragOverPos = Point::Zero();
+
+			bool dragOver = false;
+
+		} m_internal;
+
+		Array<DroppedFilePath> m_droppedFilePaths;
+
+		Array<DroppedText> m_droppedTexts;
+
+		DragItemType m_itemType = DragItemType::FilePaths;
+
+		Point m_dragOverPos = Point::Zero();
+
+		bool m_dragOver = false;
+
+		bool m_acceptFilePath = true;
+
+		bool m_acceptText = false;
 	};
 }

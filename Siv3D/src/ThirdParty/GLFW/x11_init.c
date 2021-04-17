@@ -27,6 +27,17 @@
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <stdlib.h>
@@ -918,6 +929,15 @@ static GLFWbool initExtensions(void)
     _glfw.x11.XdndSelection = XInternAtom(_glfw.x11.display, "XdndSelection", False);
     _glfw.x11.XdndTypeList = XInternAtom(_glfw.x11.display, "XdndTypeList", False);
     _glfw.x11.text_uri_list = XInternAtom(_glfw.x11.display, "text/uri-list", False);
+	//-----------------------------------------------
+	//
+	//  [Siv3D]
+	//
+	_glfw.x11.XdndLeave = XInternAtom(_glfw.x11.display, "XdndLeave", False);
+	_glfw.x11.text_plain = XInternAtom(_glfw.x11.display, "text/plain", False);
+	//
+	//
+	//-----------------------------------------------
 
     // ICCCM, EWMH and Motif window property atoms
     // These can be set safely even without WM support
