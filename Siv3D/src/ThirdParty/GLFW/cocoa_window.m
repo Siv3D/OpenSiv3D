@@ -46,15 +46,15 @@
 //
 //	[Siv3D]
 //
-//void s3d_DraggingEntered(bool isFilePath, int xPos, int yPos);
+void s3d_DraggingEntered(bool isFilePath, int xPos, int yPos);
 
-//void s3d_DraggingUpdated(int x, int y);
+void s3d_DraggingUpdated(int x, int y);
 
-//void s3d_DraggingExited(void);
+void s3d_DraggingExited(void);
 
-//void s3d_TextDropped(const char* text, int x, int y);
+void s3d_TextDropped(const char* text, int x, int y);
 
-//void s3d_FilePathsDropped(int count, const char** paths, int x, int y);
+void s3d_FilePathsDropped(int count, const char** paths, int x, int y);
 
 void s3d_OnHaveMarkedText(const char* text);
 //
@@ -677,6 +677,11 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         _glfwInputScroll(window, deltaX, deltaY);
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+/*
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
     // HACK: We don't know what to say here because we don't know what the
@@ -712,6 +717,126 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
     return YES;
 }
+ */
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
+{
+	//NSLog(@"draggingEntered");
+	
+	NSPasteboard* pasteboard = [sender draggingPasteboard];
+	
+	bool isFilePath = false;
+	
+	if ([[pasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		isFilePath = true;
+	}
+	
+	const NSRect contentRect = [window->ns.view frame];
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	s3d_DraggingEntered(isFilePath, xPos, yPos);
+	
+	if ((NSDragOperationGeneric & [sender draggingSourceOperationMask])
+		== NSDragOperationGeneric)
+	{
+		[self setNeedsDisplay:YES];
+		return NSDragOperationGeneric;
+	}
+	
+	return NSDragOperationNone;
+}
+
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
+{
+	//NSLog(@"draggingUpdated");
+	
+	const NSRect contentRect = [window->ns.view frame];
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	s3d_DraggingUpdated(xPos, yPos);
+	
+	return NSDragOperationGeneric;
+}
+
+- (void)draggingExited:(nullable id <NSDraggingInfo>)sender
+{
+	//NSLog(@"draggingExited");
+	
+	s3d_DraggingExited();
+}
+
+- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
+{
+	//NSLog(@"prepareForDragOperation");
+	
+	[self setNeedsDisplay:YES];
+	return YES;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
+{
+	//NSLog(@"performDragOperation");
+	
+	NSPasteboard* pasteboard = [sender draggingPasteboard];
+	
+	const NSRect contentRect = [window->ns.view frame];
+	
+	//_glfwInputCursorPos(window,
+	//					[sender draggingLocation].x,
+	//					contentRect.size.height - [sender draggingLocation].y);
+	
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	if ([[pasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		//NSLog(@"Files");
+		
+		NSArray* files = [pasteboard propertyListForType:NSFilenamesPboardType];
+		
+		const int count = [files count];
+		if (count)
+		{
+			NSEnumerator* e = [files objectEnumerator];
+			char** paths = calloc(count, sizeof(char*));
+			int i;
+			
+			for (i = 0;  i < count;  i++)
+				paths[i] = strdup([[e nextObject] UTF8String]);
+			
+			//_glfwInputDrop(window, count, (const char**) paths);
+			
+			s3d_FilePathsDropped(count, (const char**) paths, xPos, yPos);
+			
+			for (i = 0;  i < count;  i++)
+				free(paths[i]);
+			free(paths);
+		}
+	}
+	else if ([[pasteboard types] containsObject:NSPasteboardTypeString])
+	{
+		//NSLog(@"String");
+		
+		NSString* content = [pasteboard stringForType:NSPasteboardTypeString];
+		
+		if(content)
+		{
+			s3d_TextDropped([content cStringUsingEncoding:NSUTF8StringEncoding], xPos, yPos);
+		}
+	}
+	
+	return YES;
+}
+
+- (void)concludeDragOperation:(id <NSDraggingInfo>)sender
+{
+	[self setNeedsDisplay:YES];
+}
+//
+//-----------------------------------------------
 
 - (BOOL)hasMarkedText
 {
