@@ -1226,6 +1226,8 @@
 		2CFB7DD3262AF33C00169B97 /* IDragDrop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DD0262AF33C00169B97 /* IDragDrop.hpp */; };
 		2CFB7DD4262AF33C00169B97 /* DragDropFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DD1262AF33C00169B97 /* DragDropFactory.cpp */; };
 		2CFB7DD5262AF33C00169B97 /* SivDragDrop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DD2262AF33C00169B97 /* SivDragDrop.cpp */; };
+		2CFB7DD8262B06CA00169B97 /* SivDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DD7262B06CA00169B97 /* SivDialog.cpp */; };
+		2CFB7DDB262B06E400169B97 /* SivDialog_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DDA262B06E400169B97 /* SivDialog_macOS.mm */; };
 		2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212425F7065200C51D0D /* ShapePainting.cpp */; };
 		2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212525F7065200C51D0D /* ShapePainting.hpp */; };
 		2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212A25F7324F00C51D0D /* turbojpeg.h */; };
@@ -3200,6 +3202,8 @@
 		2CFB7DD0262AF33C00169B97 /* IDragDrop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IDragDrop.hpp; sourceTree = "<group>"; };
 		2CFB7DD1262AF33C00169B97 /* DragDropFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragDropFactory.cpp; sourceTree = "<group>"; };
 		2CFB7DD2262AF33C00169B97 /* SivDragDrop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDragDrop.cpp; sourceTree = "<group>"; };
+		2CFB7DD7262B06CA00169B97 /* SivDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDialog.cpp; sourceTree = "<group>"; };
+		2CFB7DDA262B06E400169B97 /* SivDialog_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivDialog_macOS.mm; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -4665,6 +4669,7 @@
 				2C794AC125C3DF9100034D81 /* CSV */,
 				2C47B26B24DD9789008D83BE /* Cursor */,
 				2C47B27224DD9789008D83BE /* DateTime */,
+				2CFB7DD6262B06CA00169B97 /* Dialog */,
 				2C13C8EE25B95AE70054B968 /* DirectoryWatcher */,
 				2CFB7DCF262AF33C00169B97 /* DragDrop */,
 				2C48C14925D41C9D00A93CE3 /* DrawableText */,
@@ -7638,6 +7643,7 @@
 				2CF21D09249FAA8F00C864C9 /* Common */,
 				2C6390E725367F020030F18E /* ConstantBuffer */,
 				2CF21CFC249FAA8F00C864C9 /* Cursor */,
+				2CFB7DD9262B06E400169B97 /* Dialog */,
 				2C13C8E925B95ABA0054B968 /* DirectoryWatcher */,
 				2CFB7DCA262AF32400169B97 /* DragDrop */,
 				2CF21CFF249FAA8F00C864C9 /* FileSystem */,
@@ -7881,6 +7887,22 @@
 				2CFB7DD2262AF33C00169B97 /* SivDragDrop.cpp */,
 			);
 			path = DragDrop;
+			sourceTree = "<group>";
+		};
+		2CFB7DD6262B06CA00169B97 /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DD7262B06CA00169B97 /* SivDialog.cpp */,
+			);
+			path = Dialog;
+			sourceTree = "<group>";
+		};
+		2CFB7DD9262B06E400169B97 /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DDA262B06E400169B97 /* SivDialog_macOS.mm */,
+			);
+			path = Dialog;
 			sourceTree = "<group>";
 		};
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
@@ -8941,6 +8963,7 @@
 				2C794B1525C3DFC200034D81 /* zstd_compress.c in Sources */,
 				2C47B30824DD9789008D83BE /* SivIntFormatter.cpp in Sources */,
 				2C2AA36A26009C74003F3EBC /* b2_edge_circle_contact.cpp in Sources */,
+				2CFB7DD8262B06CA00169B97 /* SivDialog.cpp in Sources */,
 				2C47B31924DD9789008D83BE /* UnicodeUtility.cpp in Sources */,
 				2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */,
 				2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */,
@@ -9076,6 +9099,7 @@
 				2C13C9D225BD29FC0054B968 /* lparser.c in Sources */,
 				2C13C9B625BD29FC0054B968 /* lctype.c in Sources */,
 				2C47B33C24DD9789008D83BE /* SystemLog.cpp in Sources */,
+				2CFB7DDB262B06E400169B97 /* SivDialog_macOS.mm in Sources */,
 				2C47B49624DD97F2008D83BE /* muParserDLL.cpp in Sources */,
 				2C47B32024DD9789008D83BE /* CCursor_Null.cpp in Sources */,
 				2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */,

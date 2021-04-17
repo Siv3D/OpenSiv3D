@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -39,7 +39,7 @@ namespace s3d
 			return filtersUTF8;
 		}
 		
-		static bool SetDefaultPath(NSSavePanel* dialog, const FilePath& defaultPath)
+		static bool SetDefaultPath(NSSavePanel* dialog, const FilePathView defaultPath)
 		{
 			if (!defaultPath)
 			{
@@ -56,7 +56,7 @@ namespace s3d
 	
 	namespace Dialog
 	{
-		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePath& defaultPath, const String&)
+		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
@@ -99,7 +99,7 @@ namespace s3d
 			return result;
 		}
 		
-		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePath& defaultPath, const String&)
+		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
@@ -153,7 +153,7 @@ namespace s3d
 			return result;
 		}
 		
-		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePath& defaultPath, const String&)
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			
@@ -193,7 +193,7 @@ namespace s3d
 			return result;
 		}
 		
-		Optional<FilePath> SelectFolder(const FilePath& defaultPath, const String&)
+		Optional<FilePath> SelectFolder(const FilePathView defaultPath, const StringView)
 		{
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
