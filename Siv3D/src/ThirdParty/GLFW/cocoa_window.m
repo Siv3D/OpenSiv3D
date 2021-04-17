@@ -42,6 +42,24 @@
 #include <float.h>
 #include <string.h>
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//void s3d_DraggingEntered(bool isFilePath, int xPos, int yPos);
+
+//void s3d_DraggingUpdated(int x, int y);
+
+//void s3d_DraggingExited(void);
+
+//void s3d_TextDropped(const char* text, int x, int y);
+
+//void s3d_FilePathsDropped(int count, const char** paths, int x, int y);
+
+void s3d_OnHaveMarkedText(const char* text);
+//
+//-----------------------------------------------
+
 // Returns the style mask corresponding to the window settings
 //
 static NSUInteger getStyleMask(_GLFWwindow* window)
@@ -363,6 +381,11 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
 - (instancetype)initWithGlfwWindow:(_GLFWwindow *)initWindow
 {
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	/*
     self = [super init];
     if (self != nil)
     {
@@ -377,6 +400,23 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     }
 
     return self;
+	*/
+	self = [super init];
+	if (self != nil)
+	{
+		window = initWindow;
+		trackingArea = nil;
+		markedText = [[NSMutableAttributedString alloc] init];
+		
+		[self updateTrackingAreas];
+		[self registerForDraggedTypes:[NSArray arrayWithObjects:
+									   NSFilenamesPboardType,
+									   NSPasteboardTypeString, nil]];
+	}
+	
+	return self;
+	//
+	//-----------------------------------------------
 }
 
 - (void)dealloc
@@ -700,6 +740,23 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         markedText = [[NSMutableAttributedString alloc] initWithAttributedString:string];
     else
         markedText = [[NSMutableAttributedString alloc] initWithString:string];
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	if ([markedText length] > 0)
+	{
+		NSString *selectedText = markedText.string;
+		
+		s3d_OnHaveMarkedText([selectedText cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+	else
+	{
+		s3d_OnHaveMarkedText(NULL);
+	}
+	//
+	//-----------------------------------------------
 }
 
 - (void)unmarkText
@@ -761,6 +818,15 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
             _glfwInputChar(window, codepoint, mods, plain);
         }
     }
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	[self unmarkText];
+	s3d_OnHaveMarkedText(NULL);
+	//
+	//-----------------------------------------------
 }
 
 - (void)doCommandBySelector:(SEL)selector

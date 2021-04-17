@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Gamepad.hpp>
+# include <Siv3D/TextInput.hpp>
 
 namespace s3d
 {

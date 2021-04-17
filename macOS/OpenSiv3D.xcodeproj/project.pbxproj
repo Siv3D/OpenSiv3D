@@ -1211,6 +1211,11 @@
 		2CF962FA25A7F9AB006F55C9 /* Splines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F825A7F9AB006F55C9 /* Splines.cpp */; };
 		2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF962F925A7F9AB006F55C9 /* Splines.h */; };
 		2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */; };
+		2CFB7DA8262A66BA00169B97 /* CTextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DA6262A66B900169B97 /* CTextInput.hpp */; };
+		2CFB7DA9262A66BA00169B97 /* CTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DA7262A66B900169B97 /* CTextInput.cpp */; };
+		2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DAB262A66D100169B97 /* TextInputFactory.cpp */; };
+		2CFB7DAF262A66D100169B97 /* ITextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DAC262A66D100169B97 /* ITextInput.hpp */; };
+		2CFB7DB0262A66D100169B97 /* SivTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */; };
 		2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212425F7065200C51D0D /* ShapePainting.cpp */; };
 		2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212525F7065200C51D0D /* ShapePainting.hpp */; };
 		2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212A25F7324F00C51D0D /* turbojpeg.h */; };
@@ -3155,6 +3160,13 @@
 		2CF962F825A7F9AB006F55C9 /* Splines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Splines.cpp; sourceTree = "<group>"; };
 		2CF962F925A7F9AB006F55C9 /* Splines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splines.h; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
+		2CFB7DA3262A669C00169B97 /* TextInput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextInput.hpp; sourceTree = "<group>"; };
+		2CFB7DA4262A669C00169B97 /* TextInputMode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextInputMode.hpp; sourceTree = "<group>"; };
+		2CFB7DA6262A66B900169B97 /* CTextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextInput.hpp; sourceTree = "<group>"; };
+		2CFB7DA7262A66B900169B97 /* CTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextInput.cpp; sourceTree = "<group>"; };
+		2CFB7DAB262A66D100169B97 /* TextInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputFactory.cpp; sourceTree = "<group>"; };
+		2CFB7DAC262A66D100169B97 /* ITextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITextInput.hpp; sourceTree = "<group>"; };
+		2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextInput.cpp; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -4710,6 +4722,7 @@
 				2C794B6725C4FD4300034D81 /* SVG */,
 				2C47B29724DD9789008D83BE /* System */,
 				2C47B2B224DD9789008D83BE /* TextEncoding */,
+				2CFB7DAA262A66D100169B97 /* TextInput */,
 				2C47B29124DD9789008D83BE /* TextReader */,
 				2C47B5AB24E7670A008D83BE /* Texture */,
 				2C794B8425C5A5BE00034D81 /* TexturedCircle */,
@@ -6981,6 +6994,8 @@
 				2CAAA8B125E7FD0300C014D7 /* SVG.hpp */,
 				2CAAA74C25E7FD0200C014D7 /* System.hpp */,
 				2CAAA74025E7FD0200C014D7 /* TextEncoding.hpp */,
+				2CFB7DA3262A669C00169B97 /* TextInput.hpp */,
+				2CFB7DA4262A669C00169B97 /* TextInputMode.hpp */,
 				2CAAA88625E7FD0300C014D7 /* TextReader.hpp */,
 				2CAAA71025E7FD0200C014D7 /* TextStyle.hpp */,
 				2CAAA84325E7FD0200C014D7 /* Texture.hpp */,
@@ -7583,6 +7598,7 @@
 				2C8E718824C749C500CECCAE /* Resource */,
 				2C47B6F924EAC98A008D83BE /* Shader */,
 				2CF21D05249FAA8F00C864C9 /* System */,
+				2CFB7DA5262A66B900169B97 /* TextInput */,
 				2C47B5B524E76A20008D83BE /* Texture */,
 				2CF21D03249FAA8F00C864C9 /* Time */,
 				2C0FBD7026297CB90050E354 /* WebcamInfo */,
@@ -7760,6 +7776,25 @@
 			path = "levenshtein-sse";
 			sourceTree = "<group>";
 		};
+		2CFB7DA5262A66B900169B97 /* TextInput */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DA6262A66B900169B97 /* CTextInput.hpp */,
+				2CFB7DA7262A66B900169B97 /* CTextInput.cpp */,
+			);
+			path = TextInput;
+			sourceTree = "<group>";
+		};
+		2CFB7DAA262A66D100169B97 /* TextInput */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DAB262A66D100169B97 /* TextInputFactory.cpp */,
+				2CFB7DAC262A66D100169B97 /* ITextInput.hpp */,
+				2CFB7DAD262A66D100169B97 /* SivTextInput.cpp */,
+			);
+			path = TextInput;
+			sourceTree = "<group>";
+		};
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
 			isa = PBXGroup;
 			children = (
@@ -7898,6 +7933,7 @@
 				2C13C9A125BD29FC0054B968 /* lgc.h in Headers */,
 				2C13C9B925BD29FC0054B968 /* ltm.h in Headers */,
 				2C13C9BB25BD29FC0054B968 /* lparser.h in Headers */,
+				2CFB7DAF262A66D100169B97 /* ITextInput.hpp in Headers */,
 				2C43C87525C837F000D6D613 /* public-macros.h in Headers */,
 				2CFC214F25F739B400C51D0D /* hb-font.h in Headers */,
 				2C48BF0525CFB8C500A93CE3 /* Bitmap.hpp in Headers */,
@@ -8060,6 +8096,7 @@
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
+				2CFB7DA8262A66BA00169B97 /* CTextInput.hpp in Headers */,
 				2C2AA37B26009C74003F3EBC /* b2_fixture.h in Headers */,
 				2C48BF6925D41C0D00A93CE3 /* agg_basics.h in Headers */,
 				2C53C34C25613BD40072831A /* earcut.hpp in Headers */,
@@ -8884,6 +8921,7 @@
 				2C2AA35E26009C74003F3EBC /* b2_contact.cpp in Sources */,
 				2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
+				2CFB7DB0262A66D100169B97 /* SivTextInput.cpp in Sources */,
 				2C48BF0625CFB8C500A93CE3 /* save-tiff.cpp in Sources */,
 				2CBEBCB52629D15F0077DDBF /* identify.c in Sources */,
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
@@ -9013,6 +9051,7 @@
 				2C60AE8F248158A500277281 /* amounts_windows.cpp in Sources */,
 				2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */,
 				2C423253242B19D100A16BCA /* egl_context.c in Sources */,
+				2CFB7DA9262A66BA00169B97 /* CTextInput.cpp in Sources */,
 				2C47B6E224EAC88E008D83BE /* ConstantBufferDetail_Null.cpp in Sources */,
 				2C47B34624DD9789008D83BE /* SivVector4D.cpp in Sources */,
 				2C794B1725C3DFC200034D81 /* zstd_lazy.c in Sources */,
@@ -9057,6 +9096,7 @@
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
+				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
 				2C48BF8425D41C0D00A93CE3 /* FontFactory.cpp in Sources */,
 				2C423241242B155E00A16BCA /* cocoa_window.m in Sources */,
 				2C13C9AA25BD29FC0054B968 /* loadlib.c in Sources */,
