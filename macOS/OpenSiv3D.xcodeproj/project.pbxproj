@@ -3185,6 +3185,7 @@
 		2CFB7DBF262AB4EA00169B97 /* IClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IClipboard.hpp; sourceTree = "<group>"; };
 		2CFB7DC0262AB4EA00169B97 /* ClipboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipboardFactory.cpp; sourceTree = "<group>"; };
 		2CFB7DC1262AB4EA00169B97 /* SivClipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivClipboard.cpp; sourceTree = "<group>"; };
+		2CFB7DC5262AD04000169B97 /* FileFilter.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileFilter.ipp; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -7126,6 +7127,7 @@
 				2CAAA81C25E7FD0200C014D7 /* EngineLog.ipp */,
 				2CAAA7B725E7FD0200C014D7 /* Error.ipp */,
 				2CAAA7DA25E7FD0200C014D7 /* FastMath.ipp */,
+				2CFB7DC5262AD04000169B97 /* FileFilter.ipp */,
 				2CAAA7E925E7FD0200C014D7 /* FloatingPoint.ipp */,
 				2CAAA81B25E7FD0200C014D7 /* FloatQuad.ipp */,
 				2CAAA7A025E7FD0200C014D7 /* FloatRect.ipp */,
