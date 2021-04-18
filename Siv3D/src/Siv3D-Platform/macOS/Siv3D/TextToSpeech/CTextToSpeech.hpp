@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
 # include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 
 namespace s3d
@@ -48,5 +49,8 @@ namespace s3d
 
 	private:
 
+		class CTextToSpeechDetail;
+		
+		std::unique_ptr<CTextToSpeechDetail> m_detail;
 	};
 }

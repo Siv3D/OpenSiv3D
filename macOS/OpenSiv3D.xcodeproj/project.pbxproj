@@ -838,6 +838,15 @@
 		2C4AEF62262C480800D36CFC /* IEmpty.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF5E262C480800D36CFC /* IEmpty.hpp */; };
 		2C4AEF63262C480800D36CFC /* CEmpty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF5F262C480800D36CFC /* CEmpty.cpp */; };
 		2C4AEF64262C480800D36CFC /* EmptyFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF60262C480800D36CFC /* EmptyFactory.cpp */; };
+		2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF69262C4E2900D36CFC /* SivTextToSpeech.cpp */; };
+		2C4AEF6D262C4E2900D36CFC /* TextToSpeechFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF6A262C4E2900D36CFC /* TextToSpeechFactory.cpp */; };
+		2C4AEF6E262C4E2900D36CFC /* ITextToSpeech.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF6B262C4E2900D36CFC /* ITextToSpeech.hpp */; };
+		2C4AEF76262C4E8300D36CFC /* CTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF70262C4E8200D36CFC /* CTextToSpeech.mm */; };
+		2C4AEF77262C4E8300D36CFC /* TTS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF71262C4E8200D36CFC /* TTS.hpp */; };
+		2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF72262C4E8200D36CFC /* TextToSpeechDetail.mm */; };
+		2C4AEF79262C4E8300D36CFC /* TextToSpeechDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF73262C4E8200D36CFC /* TextToSpeechDetail.hpp */; };
+		2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */; };
+		2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF75262C4E8200D36CFC /* TTS.mm */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -2293,6 +2302,18 @@
 		2C4AEF5E262C480800D36CFC /* IEmpty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IEmpty.hpp; sourceTree = "<group>"; };
 		2C4AEF5F262C480800D36CFC /* CEmpty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEmpty.cpp; sourceTree = "<group>"; };
 		2C4AEF60262C480800D36CFC /* EmptyFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmptyFactory.cpp; sourceTree = "<group>"; };
+		2C4AEF65262C4E1000D36CFC /* LanguageCode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LanguageCode.hpp; sourceTree = "<group>"; };
+		2C4AEF66262C4E1000D36CFC /* TextToSpeech.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextToSpeech.hpp; sourceTree = "<group>"; };
+		2C4AEF67262C4E1000D36CFC /* Say.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Say.hpp; sourceTree = "<group>"; };
+		2C4AEF69262C4E2900D36CFC /* SivTextToSpeech.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextToSpeech.cpp; sourceTree = "<group>"; };
+		2C4AEF6A262C4E2900D36CFC /* TextToSpeechFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextToSpeechFactory.cpp; sourceTree = "<group>"; };
+		2C4AEF6B262C4E2900D36CFC /* ITextToSpeech.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITextToSpeech.hpp; sourceTree = "<group>"; };
+		2C4AEF70262C4E8200D36CFC /* CTextToSpeech.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CTextToSpeech.mm; sourceTree = "<group>"; };
+		2C4AEF71262C4E8200D36CFC /* TTS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TTS.hpp; sourceTree = "<group>"; };
+		2C4AEF72262C4E8200D36CFC /* TextToSpeechDetail.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextToSpeechDetail.mm; sourceTree = "<group>"; };
+		2C4AEF73262C4E8200D36CFC /* TextToSpeechDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextToSpeechDetail.hpp; sourceTree = "<group>"; };
+		2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextToSpeech.hpp; sourceTree = "<group>"; };
+		2C4AEF75262C4E8200D36CFC /* TTS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TTS.mm; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -4777,6 +4798,7 @@
 				2C47B2B224DD9789008D83BE /* TextEncoding */,
 				2CFB7DAA262A66D100169B97 /* TextInput */,
 				2C47B29124DD9789008D83BE /* TextReader */,
+				2C4AEF68262C4E2900D36CFC /* TextToSpeech */,
 				2C47B5AB24E7670A008D83BE /* Texture */,
 				2C794B8425C5A5BE00034D81 /* TexturedCircle */,
 				2C794B8825C5A5BF00034D81 /* TexturedQuad */,
@@ -5839,6 +5861,29 @@
 				2C4AEF60262C480800D36CFC /* EmptyFactory.cpp */,
 			);
 			path = Empty;
+			sourceTree = "<group>";
+		};
+		2C4AEF68262C4E2900D36CFC /* TextToSpeech */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF69262C4E2900D36CFC /* SivTextToSpeech.cpp */,
+				2C4AEF6A262C4E2900D36CFC /* TextToSpeechFactory.cpp */,
+				2C4AEF6B262C4E2900D36CFC /* ITextToSpeech.hpp */,
+			);
+			path = TextToSpeech;
+			sourceTree = "<group>";
+		};
+		2C4AEF6F262C4E8200D36CFC /* TextToSpeech */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */,
+				2C4AEF73262C4E8200D36CFC /* TextToSpeechDetail.hpp */,
+				2C4AEF71262C4E8200D36CFC /* TTS.hpp */,
+				2C4AEF70262C4E8200D36CFC /* CTextToSpeech.mm */,
+				2C4AEF72262C4E8200D36CFC /* TextToSpeechDetail.mm */,
+				2C4AEF75262C4E8200D36CFC /* TTS.mm */,
+			);
+			path = TextToSpeech;
 			sourceTree = "<group>";
 		};
 		2C4CBE4E24370FFA00F8B7A6 /* GL */ = {
@@ -6949,6 +6994,7 @@
 				2CAAA89D25E7FD0300C014D7 /* KahanSummation.hpp */,
 				2CAAA71B25E7FD0200C014D7 /* KDTree.hpp */,
 				2CAAA70125E7FD0200C014D7 /* Keyboard.hpp */,
+				2C4AEF65262C4E1000D36CFC /* LanguageCode.hpp */,
 				2CAAA70D25E7FD0200C014D7 /* LetterCase.hpp */,
 				2CAAA84D25E7FD0300C014D7 /* LicenseInfo.hpp */,
 				2CAAA86825E7FD0300C014D7 /* LicenseManager.hpp */,
@@ -7037,6 +7083,7 @@
 				2CAAA77325E7FD0200C014D7 /* RoundRect.hpp */,
 				2C4A288025F3C06200FEACE4 /* Sample.hpp */,
 				2CAAA83F25E7FD0200C014D7 /* SamplerState.hpp */,
+				2C4AEF67262C4E1000D36CFC /* Say.hpp */,
 				2CAAA89F25E7FD0300C014D7 /* Scene.hpp */,
 				2CAAA75425E7FD0200C014D7 /* SceneManager.hpp */,
 				2CAAA87725E7FD0300C014D7 /* ScopedColorAdd2D.hpp */,
@@ -7075,6 +7122,7 @@
 				2CFB7DA4262A669C00169B97 /* TextInputMode.hpp */,
 				2CAAA88625E7FD0300C014D7 /* TextReader.hpp */,
 				2CAAA71025E7FD0200C014D7 /* TextStyle.hpp */,
+				2C4AEF66262C4E1000D36CFC /* TextToSpeech.hpp */,
 				2CAAA84325E7FD0200C014D7 /* Texture.hpp */,
 				2CAAA85825E7FD0300C014D7 /* TexturedCircle.hpp */,
 				2CAAA73425E7FD0200C014D7 /* TextureDesc.hpp */,
@@ -7683,6 +7731,7 @@
 				2C47B6F924EAC98A008D83BE /* Shader */,
 				2CF21D05249FAA8F00C864C9 /* System */,
 				2CFB7DA5262A66B900169B97 /* TextInput */,
+				2C4AEF6F262C4E8200D36CFC /* TextToSpeech */,
 				2C47B5B524E76A20008D83BE /* Texture */,
 				2CF21D03249FAA8F00C864C9 /* Time */,
 				2C0FBD7026297CB90050E354 /* WebcamInfo */,
@@ -8091,6 +8140,7 @@
 				2CC7D4B125FA3A9200289963 /* VideoTextureDetail.hpp in Headers */,
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
 				2C43C8A925C837F100D6D613 /* ftadvanc.h in Headers */,
+				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2C2AA39A26009C74003F3EBC /* b2_draw.h in Headers */,
 				2C4396392535DCCA00F6AECD /* font.h in Headers */,
@@ -8179,9 +8229,11 @@
 				2C4395FE2535DCCA00F6AECD /* svgelementimpl.h in Headers */,
 				2C48BF6A25D41C0D00A93CE3 /* agg_curves.h in Headers */,
 				2C6390EE2536C5460030F18E /* MetalBackBuffer.hpp in Headers */,
+				2C4AEF77262C4E8300D36CFC /* TTS.hpp in Headers */,
 				2C13C8C825B8FA9D0054B968 /* DetourMath.h in Headers */,
 				2C794B1225C3DFC200034D81 /* zstd_compress_literals.h in Headers */,
 				2C794B2525C3DFC200034D81 /* cover.h in Headers */,
+				2C4AEF79262C4E8300D36CFC /* TextToSpeechDetail.hpp in Headers */,
 				2C48BF6425D41C0D00A93CE3 /* agg_config.h in Headers */,
 				2C2AA37E26009C74003F3EBC /* b2_types.h in Headers */,
 				2C794B3025C3DFC200034D81 /* pool.h in Headers */,
@@ -8603,6 +8655,7 @@
 				2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
 				2C794B1825C3DFC200034D81 /* zstdmt_compress.h in Headers */,
+				2C4AEF6E262C4E2900D36CFC /* ITextToSpeech.hpp in Headers */,
 				2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */,
 				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C43C89525C837F100D6D613 /* svwinfnt.h in Headers */,
@@ -9051,6 +9104,7 @@
 				2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */,
 				2C4395FB2535DCCA00F6AECD /* svgnumber.cpp in Sources */,
 				2C13C8D125B8FA9D0054B968 /* DetourAlloc.cpp in Sources */,
+				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
 				2C60AE8B248158A500277281 /* os_info_non_windows_non_darwin.cpp in Sources */,
 				2C60AE90248158A500277281 /* cpuid_non_windows.cpp in Sources */,
 				2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */,
@@ -9132,6 +9186,7 @@
 				2C47B36B24DD9789008D83BE /* SivThreading.cpp in Sources */,
 				2C794AB625C3DEE400034D81 /* SivMD5Value.cpp in Sources */,
 				2C794B4325C3DFC200034D81 /* error_private.c in Sources */,
+				2C4AEF76262C4E8300D36CFC /* CTextToSpeech.mm in Sources */,
 				2C43963A2535DCCA00F6AECD /* svgurireference.cpp in Sources */,
 				2C47B31724DD9789008D83BE /* SivLogger.cpp in Sources */,
 				2C60AE86248158A500277281 /* kernel_info_non_windows.cpp in Sources */,
@@ -9258,6 +9313,7 @@
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
+				2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */,
 				2C48BF8425D41C0D00A93CE3 /* FontFactory.cpp in Sources */,
 				2C423241242B155E00A16BCA /* cocoa_window.m in Sources */,
 				2C13C9AA25BD29FC0054B968 /* loadlib.c in Sources */,
@@ -9311,6 +9367,7 @@
 				2CF21D20249FAA8F00C864C9 /* OpenGL.cpp in Sources */,
 				2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */,
 				2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */,
+				2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */,
 				2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
 				2C2AA35B26009C74003F3EBC /* b2_chain_polygon_contact.cpp in Sources */,
@@ -9341,6 +9398,7 @@
 				2C48BF6725D41C0D00A93CE3 /* agg.cpp in Sources */,
 				2C60AE88248158A500277281 /* displays_darwin.cpp in Sources */,
 				2C13C9C425BD29FC0054B968 /* lutf8lib.c in Sources */,
+				2C4AEF6D262C4E2900D36CFC /* TextToSpeechFactory.cpp in Sources */,
 				2C47B36724DD9789008D83BE /* SivScene.cpp in Sources */,
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,
 				2C47B6F224EAC8D9008D83BE /* GL4InternalTexture2D.cpp in Sources */,
