@@ -1,5 +1,4 @@
-﻿#include "..\MemoryReader.hpp"
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -14,31 +13,31 @@
 
 namespace s3d
 {
-	inline constexpr MemoryReader::MemoryReader(const void* data, const size_t size_bytes) noexcept
+	inline constexpr MemoryViewReader::MemoryViewReader(const void* data, const size_t size_bytes) noexcept
 		: m_size{ static_cast<int64>(size_bytes) }
 		, m_ptr{ static_cast<const Byte*>(data) } {}
 
-	inline bool MemoryReader::supportsLookahead() const noexcept
+	inline bool MemoryViewReader::supportsLookahead() const noexcept
 	{
 		return true;
 	}
 
-	inline bool MemoryReader::isOpen() const noexcept
+	inline bool MemoryViewReader::isOpen() const noexcept
 	{
 		return (m_ptr != nullptr);
 	}
 
-	inline int64 MemoryReader::size() const
+	inline int64 MemoryViewReader::size() const
 	{
 		return m_size;
 	}
 
-	inline int64 MemoryReader::getPos() const
+	inline int64 MemoryViewReader::getPos() const
 	{
 		return m_pos;
 	}
 
-	inline bool MemoryReader::setPos(const int64 pos)
+	inline bool MemoryViewReader::setPos(const int64 pos)
 	{
 		if (not InRange<int64>(pos, 0, m_size))
 		{
@@ -50,14 +49,14 @@ namespace s3d
 		return true;
 	}
 
-	inline int64 MemoryReader::skip(const int64 offset)
+	inline int64 MemoryViewReader::skip(const int64 offset)
 	{
 		m_pos = Clamp<int64>((m_pos + offset), 0, m_size);
 
 		return m_pos;
 	}
 
-	inline int64 MemoryReader::read(void* dst, const int64 size)
+	inline int64 MemoryViewReader::read(void* dst, const int64 size)
 	{
 		if (not dst)
 		{
@@ -73,7 +72,7 @@ namespace s3d
 		return readSize;
 	}
 
-	inline int64 MemoryReader::read(void* dst, const int64 pos, const int64 size)
+	inline int64 MemoryViewReader::read(void* dst, const int64 pos, const int64 size)
 	{
 		if (not dst)
 		{
@@ -90,12 +89,12 @@ namespace s3d
 	}
 
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
-	inline bool MemoryReader::read(TriviallyCopyable& dst)
+	inline bool MemoryViewReader::read(TriviallyCopyable& dst)
 	{
 		return read(std::addressof(dst), sizeof(TriviallyCopyable)) == sizeof(TriviallyCopyable);
 	}
 
-	inline int64 MemoryReader::lookahead(void* dst, const int64 size) const
+	inline int64 MemoryViewReader::lookahead(void* dst, const int64 size) const
 	{
 		if (not dst)
 		{
@@ -109,7 +108,7 @@ namespace s3d
 		return readSize;
 	}
 
-	inline int64 MemoryReader::lookahead(void* dst, const int64 pos, const int64 size) const
+	inline int64 MemoryViewReader::lookahead(void* dst, const int64 pos, const int64 size) const
 	{
 		if (not dst)
 		{
@@ -124,7 +123,7 @@ namespace s3d
 	}
 
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
-	inline bool MemoryReader::lookahead(TriviallyCopyable& dst) const
+	inline bool MemoryViewReader::lookahead(TriviallyCopyable& dst) const
 	{
 		return lookahead(std::addressof(dst), sizeof(TriviallyCopyable)) == sizeof(TriviallyCopyable);
 	}

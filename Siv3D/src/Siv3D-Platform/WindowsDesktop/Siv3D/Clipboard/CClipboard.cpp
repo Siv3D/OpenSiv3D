@@ -11,7 +11,7 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/MemoryReader.hpp>
+# include <Siv3D/MemoryViewReader.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include "CClipboard.hpp"
@@ -76,7 +76,7 @@ namespace s3d
 					&& !HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width * height);
 				image.resize(width, height);
 
-				MemoryReader reader(bitmapData, memorySize - offsetSize);
+				MemoryViewReader reader(bitmapData, memorySize - offsetSize);
 
 				switch (depth)
 				{

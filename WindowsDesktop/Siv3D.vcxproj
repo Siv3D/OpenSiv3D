@@ -121,7 +121,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Math_Functors.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MD5Value.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\MemoryReader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\MemoryViewReader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MultiPolygon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Noise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp" />
@@ -280,7 +280,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5Value.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BlobWriter.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryViewReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MSDFGlyph.hpp" />

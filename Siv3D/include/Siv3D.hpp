@@ -379,7 +379,7 @@
 # include <Siv3D/DirectoryWatcher.hpp>
 
 // メモリ範囲への IReader インタフェース | Memory Range IReader Wrapper
-//# include <Siv3D/ReaderView.hpp>
+# include <Siv3D/MemoryViewReader.hpp>
 
 // メモリマップトファイル | Memory mapped file
 //# include <Siv3D/MemoryMapping.hpp>
