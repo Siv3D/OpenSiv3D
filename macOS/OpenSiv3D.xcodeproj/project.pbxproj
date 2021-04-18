@@ -2291,6 +2291,8 @@
 		2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CascadeClassifierDetail.cpp; sourceTree = "<group>"; };
 		2C4AEF55262C44F800D36CFC /* SivCascadeClassifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCascadeClassifier.cpp; sourceTree = "<group>"; };
 		2C4AEF56262C44F800D36CFC /* CascadeClassifierDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CascadeClassifierDetail.hpp; sourceTree = "<group>"; };
+		2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryViewReader.hpp; sourceTree = "<group>"; };
+		2C4AEF5B262C469600D36CFC /* MemoryViewReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryViewReader.ipp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -3193,8 +3195,6 @@
 		2CFB7DB4262AB49D00169B97 /* FileFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileFilter.hpp; sourceTree = "<group>"; };
 		2CFB7DB5262AB49D00169B97 /* Clipboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Clipboard.hpp; sourceTree = "<group>"; };
 		2CFB7DB6262AB49D00169B97 /* DragDrop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DragDrop.hpp; sourceTree = "<group>"; };
-		2CFB7DB7262AB49D00169B97 /* MemoryReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryReader.hpp; sourceTree = "<group>"; };
-		2CFB7DB8262AB4C000169B97 /* MemoryReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryReader.ipp; sourceTree = "<group>"; };
 		2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard.hpp; sourceTree = "<group>"; };
 		2CFB7DBB262AB4D800169B97 /* CClipboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CClipboard.mm; sourceTree = "<group>"; };
 		2CFB7DBF262AB4EA00169B97 /* IClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IClipboard.hpp; sourceTree = "<group>"; };
@@ -6968,7 +6968,7 @@
 				2CAAA87C25E7FD0300C014D7 /* MD5.hpp */,
 				2CAAA70425E7FD0200C014D7 /* MD5Value.hpp */,
 				2CAAA87A25E7FD0300C014D7 /* Memory.hpp */,
-				2CFB7DB7262AB49D00169B97 /* MemoryReader.hpp */,
+				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
@@ -7233,7 +7233,7 @@
 				2CAAA80525E7FD0200C014D7 /* MathConstants.ipp */,
 				2CAAA81E25E7FD0200C014D7 /* MD5Value.ipp */,
 				2CAAA79325E7FD0200C014D7 /* Memory.ipp */,
-				2CFB7DB8262AB4C000169B97 /* MemoryReader.ipp */,
+				2C4AEF5B262C469600D36CFC /* MemoryViewReader.ipp */,
 				2CAAA7FB25E7FD0200C014D7 /* MicrosecClock.ipp */,
 				2CAAA7B525E7FD0200C014D7 /* MillisecClock.ipp */,
 				2CAAA82E25E7FD0200C014D7 /* MultiPolygon.ipp */,
