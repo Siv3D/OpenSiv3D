@@ -835,6 +835,9 @@
 		2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289325F4F87100FEACE4 /* libopencv_core.a */; };
 		2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289425F4F87100FEACE4 /* libopencv_photo.a */; };
 		2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */; };
+		2C4AEF57262C44F800D36CFC /* CascadeClassifierDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */; };
+		2C4AEF58262C44F800D36CFC /* SivCascadeClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF55262C44F800D36CFC /* SivCascadeClassifier.cpp */; };
+		2C4AEF59262C44F800D36CFC /* CascadeClassifierDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF56262C44F800D36CFC /* CascadeClassifierDetail.hpp */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -1228,6 +1231,7 @@
 		2CFB7DD5262AF33C00169B97 /* SivDragDrop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DD2262AF33C00169B97 /* SivDragDrop.cpp */; };
 		2CFB7DD8262B06CA00169B97 /* SivDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DD7262B06CA00169B97 /* SivDialog.cpp */; };
 		2CFB7DDB262B06E400169B97 /* SivDialog_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DDA262B06E400169B97 /* SivDialog_macOS.mm */; };
+		2CFB7DE1262B0F0A00169B97 /* SivPowerStatus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DE0262B0F0A00169B97 /* SivPowerStatus.mm */; };
 		2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC212425F7065200C51D0D /* ShapePainting.cpp */; };
 		2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212525F7065200C51D0D /* ShapePainting.hpp */; };
 		2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFC212A25F7324F00C51D0D /* turbojpeg.h */; };
@@ -2283,6 +2287,10 @@
 		2C4A289B25F4FAC300FEACE4 /* BorderType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BorderType.hpp; sourceTree = "<group>"; };
 		2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenCV_Bridge.hpp; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
+		2C4AEF52262C44D600D36CFC /* CascadeClassifier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CascadeClassifier.hpp; sourceTree = "<group>"; };
+		2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CascadeClassifierDetail.cpp; sourceTree = "<group>"; };
+		2C4AEF55262C44F800D36CFC /* SivCascadeClassifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCascadeClassifier.cpp; sourceTree = "<group>"; };
+		2C4AEF56262C44F800D36CFC /* CascadeClassifierDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CascadeClassifierDetail.hpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -3204,6 +3212,10 @@
 		2CFB7DD2262AF33C00169B97 /* SivDragDrop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDragDrop.cpp; sourceTree = "<group>"; };
 		2CFB7DD7262B06CA00169B97 /* SivDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDialog.cpp; sourceTree = "<group>"; };
 		2CFB7DDA262B06E400169B97 /* SivDialog_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivDialog_macOS.mm; sourceTree = "<group>"; };
+		2CFB7DDC262B0EF900169B97 /* PowerStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PowerStatus.hpp; sourceTree = "<group>"; };
+		2CFB7DDD262B0EF900169B97 /* ACLineStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ACLineStatus.hpp; sourceTree = "<group>"; };
+		2CFB7DDE262B0EF900169B97 /* BatteryStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BatteryStatus.hpp; sourceTree = "<group>"; };
+		2CFB7DE0262B0F0A00169B97 /* SivPowerStatus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivPowerStatus.mm; sourceTree = "<group>"; };
 		2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgePreservingFilterType.hpp; sourceTree = "<group>"; };
 		2CFC212425F7065200C51D0D /* ShapePainting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePainting.cpp; sourceTree = "<group>"; };
 		2CFC212525F7065200C51D0D /* ShapePainting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ShapePainting.hpp; sourceTree = "<group>"; };
@@ -4655,6 +4667,7 @@
 				2C47B2BD24DD9789008D83BE /* Byte */,
 				2C3477F925DA94C100071EEF /* CacheDirectory */,
 				2C13C8D225B8FAC30054B968 /* Camera2D */,
+				2C4AEF53262C44F800D36CFC /* CascadeClassifier */,
 				2CE8D13A2616100D00C75FBB /* ChildProcess */,
 				2C53C33325613B6A0072831A /* Circle */,
 				2CFB7DBE262AB4EA00169B97 /* Clipboard */,
@@ -5818,6 +5831,16 @@
 			path = "Xoshiro-cpp";
 			sourceTree = "<group>";
 		};
+		2C4AEF53262C44F800D36CFC /* CascadeClassifier */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */,
+				2C4AEF55262C44F800D36CFC /* SivCascadeClassifier.cpp */,
+				2C4AEF56262C44F800D36CFC /* CascadeClassifierDetail.hpp */,
+			);
+			path = CascadeClassifier;
+			sourceTree = "<group>";
+		};
 		2C4CBE4E24370FFA00F8B7A6 /* GL */ = {
 			isa = PBXGroup;
 			children = (
@@ -6768,6 +6791,7 @@
 			children = (
 				2CAAA74B25E7FD0200C014D7 /* 2DShapes.hpp */,
 				2CAAA86925E7FD0300C014D7 /* 2DShapesFwd.hpp */,
+				2CFB7DDD262B0EF900169B97 /* ACLineStatus.hpp */,
 				2C9FFD4225F605E8000723D8 /* AdaptiveThresholdMethod.hpp */,
 				2CAAA6E725E7FD0200C014D7 /* Addon.hpp */,
 				2CAAA74225E7FD0200C014D7 /* Allocator.hpp */,
@@ -6779,6 +6803,7 @@
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
 				2CAAA8A725E7FD0300C014D7 /* Base64.hpp */,
 				2CAAA73D25E7FD0200C014D7 /* BasicCamera2D.hpp */,
+				2CFB7DDE262B0EF900169B97 /* BatteryStatus.hpp */,
 				2CAAA70025E7FD0200C014D7 /* BetterGradientNoise.hpp */,
 				2CAAA76E25E7FD0200C014D7 /* Bezier2.hpp */,
 				2CAAA76325E7FD0200C014D7 /* Bezier3.hpp */,
@@ -6794,6 +6819,7 @@
 				2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */,
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
 				2CAAA71F25E7FD0200C014D7 /* Camera2D.hpp */,
+				2C4AEF52262C44D600D36CFC /* CascadeClassifier.hpp */,
 				2CAAA88B25E7FD0300C014D7 /* Char.hpp */,
 				2CE8D13926160FD300C75FBB /* ChildProcess.hpp */,
 				2CAAA77425E7FD0200C014D7 /* Circle.hpp */,
@@ -6980,6 +7006,7 @@
 				2CAAA76225E7FD0200C014D7 /* Polygon.hpp */,
 				2CAAA70225E7FD0200C014D7 /* PolygonFailureType.hpp */,
 				2C7DE5D0261379B600D7F031 /* PolygonGlyph.hpp */,
+				2CFB7DDC262B0EF900169B97 /* PowerStatus.hpp */,
 				2CAAA74725E7FD0200C014D7 /* PredefinedNamedParameter.hpp */,
 				2CAAA76B25E7FD0200C014D7 /* PredefinedYesNo.hpp */,
 				2CAAA78925E7FD0200C014D7 /* PrimeNumber.hpp */,
@@ -7649,6 +7676,7 @@
 				2CF21CFF249FAA8F00C864C9 /* FileSystem */,
 				2C43964E2535DCEA00F6AECD /* FreestandingMessageBox */,
 				2CF2AF8D25543A7F00E81D12 /* Monitor */,
+				2CFB7DDF262B0F0A00169B97 /* PowerStatus */,
 				2CF21CF7249FAA8F00C864C9 /* Renderer */,
 				2CF21D01249FAA8F00C864C9 /* Renderer2D */,
 				2C8E718824C749C500CECCAE /* Resource */,
@@ -7905,6 +7933,14 @@
 			path = Dialog;
 			sourceTree = "<group>";
 		};
+		2CFB7DDF262B0F0A00169B97 /* PowerStatus */ = {
+			isa = PBXGroup;
+			children = (
+				2CFB7DE0262B0F0A00169B97 /* SivPowerStatus.mm */,
+			);
+			path = PowerStatus;
+			sourceTree = "<group>";
+		};
 		2CFC212825F7324F00C51D0D /* ThirdParty-prebuilt */ = {
 			isa = PBXGroup;
 			children = (
@@ -8062,6 +8098,7 @@
 				2C48BF7B25D41C0D00A93CE3 /* BitmapGlyphCache.hpp in Headers */,
 				2C2AA38226009C74003F3EBC /* b2_revolute_joint.h in Headers */,
 				2C47B30624DD9789008D83BE /* IRenderer.hpp in Headers */,
+				2C4AEF59262C44F800D36CFC /* CascadeClassifierDetail.hpp in Headers */,
 				2C34781125DA95A100071EEF /* IPrint.hpp in Headers */,
 				2C43C8B125C837F100D6D613 /* ftincrem.h in Headers */,
 				2CA0EE1F260E3B4D004269AF /* P2MouseJointDetail.hpp in Headers */,
@@ -8773,6 +8810,7 @@
 				2C47B35524DD9789008D83BE /* ProfilerFactory.cpp in Sources */,
 				2C794B1E25C3DFC200034D81 /* fse_compress.c in Sources */,
 				2C2AA3A526009C74003F3EBC /* b2_chain_shape.cpp in Sources */,
+				2C4AEF57262C44F800D36CFC /* CascadeClassifierDetail.cpp in Sources */,
 				2C60AE78248158A500277281 /* instruction_set_non_windows_non_darwin.cpp in Sources */,
 				2C60AE8C248158A500277281 /* os_info_windows.cpp in Sources */,
 				2CF21D27249FAA8F00C864C9 /* Siv3DMain.cpp in Sources */,
@@ -8828,6 +8866,7 @@
 				2CDD4F45260A3F7100A51D68 /* P2PivotJoint.cpp in Sources */,
 				2C794B1C25C3DFC200034D81 /* zstd_opt.c in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
+				2C4AEF58262C44F800D36CFC /* SivCascadeClassifier.cpp in Sources */,
 				2C794B1125C3DFC200034D81 /* zstd_compress_sequences.c in Sources */,
 				2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */,
 				2C794B2225C3DFC200034D81 /* divsufsort.c in Sources */,
@@ -9313,6 +9352,7 @@
 				2C48BEF425CFB8C500A93CE3 /* sdf-error-estimation.cpp in Sources */,
 				2C43964C2535DCCB00F6AECD /* svgelementimpl.cpp in Sources */,
 				2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */,
+				2CFB7DE1262B0F0A00169B97 /* SivPowerStatus.mm in Sources */,
 				2C47B36424DD9789008D83BE /* CScene.cpp in Sources */,
 				2CDD4F3A260A3F7100A51D68 /* P2WheelJoint.cpp in Sources */,
 				2C13C8C725B8FA9D0054B968 /* DetourNavMeshQuery.cpp in Sources */,
