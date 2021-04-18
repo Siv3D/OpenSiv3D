@@ -34,6 +34,7 @@ namespace s3d
 	class ISiv3DXInput;
 	class ISiv3DGamepad;
 	class ISiv3DTextInput;
+	class ISiv3DTextToSpeech;
 	class ISiv3DClipboard;
 	class ISiv3DDragDrop;
 	class ISiv3DRenderer;
@@ -73,6 +74,7 @@ namespace s3d
 			Siv3DComponent<ISiv3DXInput>,
 			Siv3DComponent<ISiv3DGamepad>,
 			Siv3DComponent<ISiv3DTextInput>,
+			Siv3DComponent<ISiv3DTextToSpeech>,
 			Siv3DComponent<ISiv3DClipboard>,
 			Siv3DComponent<ISiv3DDragDrop>,
 			Siv3DComponent<ISiv3DRenderer>,

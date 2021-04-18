@@ -1117,6 +1117,11 @@
 # include <Siv3D/BatteryStatus.hpp>
 # include <Siv3D/PowerStatus.hpp>
 
+# include <Siv3D/LanguageCode.hpp>
+# include <Siv3D/TextToSpeech.hpp>
+# include <Siv3D/Say.hpp>
+
+
 //////////////////////////////////////////////////
 //
 //	ドラッグ & ドロップ | Drag & drop

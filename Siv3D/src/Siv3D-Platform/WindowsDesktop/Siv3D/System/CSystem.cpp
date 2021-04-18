@@ -25,6 +25,7 @@
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Gamepad/IGamepad.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
+# include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
@@ -78,6 +79,7 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(XInput)->init();
 		SIV3D_ENGINE(Gamepad)->init();
+		SIV3D_ENGINE(TextToSpeech)->init();
 		SIV3D_ENGINE(Clipboard)->init();
 		SIV3D_ENGINE(DragDrop)->init();
 		SIV3D_ENGINE(Renderer)->init();

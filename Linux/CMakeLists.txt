@@ -60,6 +60,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Shader/ShaderFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/System/CSystem.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/System/SivSystem_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/TextToSpeech/CTextToSpeech.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Texture/TextureFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/TextInput/CTextInput.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Time/SivTime.cpp
@@ -332,6 +333,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextInput/TextInputFactory.cpp
   ../Siv3D/src/Siv3D/TextReader/SivTextReader.cpp
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
+  ../Siv3D/src/Siv3D/TextToSpeech/SivTextToSpeech.cpp
+  ../Siv3D/src/Siv3D/TextToSpeech/TextToSpeechFactory.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp
   ../Siv3D/src/Siv3D/Texture/SivTexture.cpp
   ../Siv3D/src/Siv3D/Texture/TextureCommon.cpp
