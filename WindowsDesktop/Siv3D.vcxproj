@@ -41,6 +41,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CascadeClassifier.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ChildProcess.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Circle.hpp" />
@@ -781,6 +782,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\BigIntDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\CascadeClassifier\CascadeClassifierDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\IClipboard.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Common\Siv3DComponent.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.hpp" />
@@ -1409,6 +1411,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2D\SivCamera2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CascadeClassifier\CascadeClassifierDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CascadeClassifier\SivCascadeClassifier.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ChildProcess\SivChildProcess.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp" />

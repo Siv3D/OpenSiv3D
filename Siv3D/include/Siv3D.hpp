@@ -813,6 +813,8 @@
 
 # include <Siv3D/ImageProcessing.hpp>
 
+# include <Siv3D/CascadeClassifier.hpp>
+
 # include <Siv3D/ImageROI.hpp>
 
 # include <Siv3D/IImageDecoder.hpp>

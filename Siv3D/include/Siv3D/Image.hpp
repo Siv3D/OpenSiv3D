@@ -14,6 +14,8 @@
 # include "Array.hpp"
 # include "Grid.hpp"
 # include "Blob.hpp"
+# include "Optional.hpp"
+# include "Unspecified.hpp"
 # include "NamedParameter.hpp"
 # include "PredefinedNamedParameter.hpp"
 # include "ImageFormat.hpp"
@@ -596,12 +598,6 @@ namespace s3d
 
 		[[nodiscard]]
 		MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, AllowHoles allowHoles = AllowHoles::Yes) const;
-
-		//[[nodiscard]]
-		//Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
-
-		//[[nodiscard]]
-		//Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 
 		template <class Fty, std::enable_if_t<std::disjunction_v<std::is_invocable_r<Color, Fty>, std::is_invocable_r<Color, Fty, Point>, std::is_invocable_r<Color, Fty, int32, int32>>>* = nullptr>
 		static Image Generate(Size size, Fty generator);

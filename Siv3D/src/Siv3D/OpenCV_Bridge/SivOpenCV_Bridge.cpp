@@ -61,6 +61,55 @@ namespace s3d
 			return result;
 		}
 
+		void ToGrayScale(const Image& image, cv::Mat_<uint8>& to)
+		{
+			if (not image)
+			{
+				return;
+			}
+
+			const int32 height = image.height();
+			const int32 width = image.width();
+
+			if ((image.width() != to.cols)
+				|| (image.height() != to.rows))
+			{
+				to.create(height, width);
+			}
+
+			if (to.isContinuous())
+			{
+				const Color* pSrc = image.data();
+				const Color* pSrcEnd = pSrc + image.num_pixels();
+				uint8* pDst = to.data;
+
+				while (pSrc != pSrcEnd)
+				{
+					*pDst = pSrc->grayscale0_255();
+					++pDst; ++pSrc;
+				}
+			}
+			else
+			{
+				const Color* pSrc = image.data();
+				uint8* pDstLine = to.data;
+				const size_t dstStepBytes = to.step.p[0];
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					uint8* pDst = pDstLine;
+
+					for (int32 x = 0; x < width; ++x)
+					{
+						*pDst = pSrc->grayscale0_255();
+						++pDst; ++pSrc;
+					}
+
+					pDstLine += dstStepBytes;
+				}
+			}
+		}
+
 		cv::Mat_<cv::Vec3b> ToMatVec3bBGR(const Image& image)
 		{
 			if (not image)

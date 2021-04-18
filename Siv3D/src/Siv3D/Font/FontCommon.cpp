@@ -86,6 +86,7 @@ namespace s3d
 				if (not Compression::DecompressFileToFile(fontResourcePath, cachedFontPath))
 				{
 					LOG_ERROR(U"✖ Engine font `{0}` decompression failed"_fmt(name));
+					FileSystem::Remove(cachedFontPath);
 					return false;
 				}
 			}

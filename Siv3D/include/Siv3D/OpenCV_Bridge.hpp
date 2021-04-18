@@ -22,6 +22,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/imgproc.hpp>
 # include <opencv2/photo.hpp>
 # include <opencv2/videoio.hpp>
+# include <opencv2/objdetect.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -41,6 +42,9 @@ namespace s3d
 		cv::Mat_<uint8> ToGrayScale(const Image& image);
 
 		[[nodiscard]]
+		void ToGrayScale(const Image& image, cv::Mat_<uint8>& to);
+
+		[[nodiscard]]
 		cv::Mat_<cv::Vec3b> ToMatVec3bBGR(const Image& image);
 
 		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, OverwriteAlpha overwriteAlpha);
@@ -58,18 +62,6 @@ namespace s3d
 		void ToMatVec3bBGR(const Image& from, cv::Mat_<cv::Vec3b>& to);
 
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to);
-
-		[[nodiscard]]
-		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path);
-
-		[[nodiscard]]
-		cv::Mat_<uint8> ImRead_GrayScale(const Image& image);
-
-		[[nodiscard]]
-		cv::Mat_<cv::Vec3b> ImRead_BGR(const FilePath& path);
-
-		[[nodiscard]]
-		cv::Mat_<cv::Vec3b> ImRead_BGR(const Image& image);
 	}
 }
 
