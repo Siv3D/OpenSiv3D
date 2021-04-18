@@ -25,9 +25,6 @@
     <Filter Include="src\Siv3D\Common">
       <UniqueIdentifier>{c7cb0422-51f3-411e-9438-6756a006f35d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\Dummy">
-      <UniqueIdentifier>{08e17fcc-fa9a-46a1-a94b-f8e53008156b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\Console">
       <UniqueIdentifier>{8383c205-cd97-444a-a17c-062e652fc324}</UniqueIdentifier>
     </Filter>
@@ -1021,6 +1018,9 @@
     <Filter Include="src\Siv3D\CascadeClassifier">
       <UniqueIdentifier>{8f5629ec-f571-47f2-b8f2-87712d6bd32c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Empty">
+      <UniqueIdentifier>{0630d990-3376-47c6-812e-8ee37c41f8b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1040,12 +1040,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Common\Siv3DComponent.hpp">
       <Filter>src\Siv3D\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Dummy\CDummy.hpp">
-      <Filter>src\Siv3D\Dummy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Dummy\IDummy.hpp">
-      <Filter>src\Siv3D\Dummy</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp">
       <Filter>src\Siv3D\Console</Filter>
@@ -4914,16 +4908,16 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\CascadeClassifier\CascadeClassifierDetail.hpp">
       <Filter>src\Siv3D\CascadeClassifier</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Empty\IEmpty.hpp">
+      <Filter>src\Siv3D\Empty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Empty\CEmpty.hpp">
+      <Filter>src\Siv3D\Empty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
       <Filter>src\Siv3D\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\DummyFactory.cpp">
-      <Filter>src\Siv3D\Dummy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Dummy\CDummy.cpp">
-      <Filter>src\Siv3D\Dummy</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp">
       <Filter>src\Siv3D\Console</Filter>
@@ -6778,6 +6772,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\CascadeClassifier\CascadeClassifierDetail.cpp">
       <Filter>src\Siv3D\CascadeClassifier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Empty\EmptyFactory.cpp">
+      <Filter>src\Siv3D\Empty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Empty\CEmpty.cpp">
+      <Filter>src\Siv3D\Empty</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,12 +14,12 @@
 
 namespace s3d
 {
-	class SIV3D_NOVTABLE ISiv3DDummy
+	class SIV3D_NOVTABLE ISiv3DEmpty
 	{
 	public:
 
-		static ISiv3DDummy* Create();
+		static ISiv3DEmpty* Create();
 
-		virtual ~ISiv3DDummy() = default;
+		virtual ~ISiv3DEmpty() = default;
 	};
 }

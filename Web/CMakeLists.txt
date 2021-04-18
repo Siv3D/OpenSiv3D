@@ -128,8 +128,6 @@ add_library(
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
   ../Siv3D/src/Siv3D/DrawableText/SivDrawableText.cpp
-  ../Siv3D/src/Siv3D/Dummy/CDummy.cpp
-  ../Siv3D/src/Siv3D/Dummy/DummyFactory.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
   ../Siv3D/src/Siv3D/DynamicTexture/SivDynamicTexture.cpp
   ../Siv3D/src/Siv3D/Effect/CEffect.cpp
@@ -138,6 +136,8 @@ add_library(
   ../Siv3D/src/Siv3D/Effect/SivEffect.cpp
   ../Siv3D/src/Siv3D/Ellipse/SivEllipse.cpp
   ../Siv3D/src/Siv3D/Emoji/SivEmoji.cpp
+  ../Siv3D/src/Siv3D/Empty/CEmpty.cpp
+  ../Siv3D/src/Siv3D/Empty/EmptyFactory.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/Exif/SivExif.cpp

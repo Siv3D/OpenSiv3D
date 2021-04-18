@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	class ISiv3DDummy;
+	class ISiv3DEmpty;
 	class ISiv3DLicenseManager;
 	class ISiv3DLogger;
 	class ISiv3DSystem;
@@ -54,7 +54,7 @@ namespace s3d
 		inline static Siv3DEngine* pEngine = nullptr;
 
 		std::tuple<
-			Siv3DComponent<ISiv3DDummy>,
+			Siv3DComponent<ISiv3DEmpty>,
 			Siv3DComponent<ISiv3DLicenseManager>,
 			Siv3DComponent<ISiv3DLogger>,
 			Siv3DComponent<ISiv3DSystem>,

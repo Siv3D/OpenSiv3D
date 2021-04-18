@@ -9,9 +9,12 @@
 //
 //-----------------------------------------------
 
-# include "CDummy.hpp"
+# include "CEmpty.hpp"
 
 namespace s3d
 {
-
+	ISiv3DEmpty* ISiv3DEmpty::Create()
+	{
+		return new CEmpty;
+	}
 }

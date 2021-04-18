@@ -10,11 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-# include "IDummy.hpp"
+# include "IEmpty.hpp"
 
 namespace s3d
 {
-	class CDummy final : public ISiv3DDummy
+	class CEmpty final : public ISiv3DEmpty
 	{
 	private:
 
