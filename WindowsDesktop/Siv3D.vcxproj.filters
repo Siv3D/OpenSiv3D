@@ -1027,6 +1027,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\TextToSpeech">
       <UniqueIdentifier>{b773f268-6476-46ec-bd60-fd9869bbae34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Say">
+      <UniqueIdentifier>{39207ad5-f01b-4356-80a4-bd87fbbf56e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6808,6 +6811,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\TextToSpeech\CTextToSpeech.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Say\SivSay.cpp">
+      <Filter>src\Siv3D\Say</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
