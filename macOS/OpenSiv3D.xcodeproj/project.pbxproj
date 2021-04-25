@@ -848,6 +848,9 @@
 		2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */; };
 		2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF75262C4E8200D36CFC /* TTS.mm */; };
 		2C4AEF7E263582E700D36CFC /* SivSay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF7D263582E700D36CFC /* SivSay.cpp */; };
+		2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF822635CAB500D36CFC /* SivXMLReader.cpp */; };
+		2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF852635CACB00D36CFC /* tinyxml2.cpp */; };
+		2C4AEF882635CACB00D36CFC /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF862635CACB00D36CFC /* tinyxml2.h */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -2316,6 +2319,11 @@
 		2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextToSpeech.hpp; sourceTree = "<group>"; };
 		2C4AEF75262C4E8200D36CFC /* TTS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TTS.mm; sourceTree = "<group>"; };
 		2C4AEF7D263582E700D36CFC /* SivSay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSay.cpp; sourceTree = "<group>"; };
+		2C4AEF7F2635CA8900D36CFC /* XMLReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XMLReader.hpp; sourceTree = "<group>"; };
+		2C4AEF802635CAA000D36CFC /* XMLReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XMLReader.ipp; sourceTree = "<group>"; };
+		2C4AEF822635CAB500D36CFC /* SivXMLReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXMLReader.cpp; sourceTree = "<group>"; };
+		2C4AEF852635CACB00D36CFC /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
+		2C4AEF862635CACB00D36CFC /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -4262,6 +4270,7 @@
 				2CF962F725A7F9AB006F55C9 /* SplineLib */,
 				2C4397852535DDF300F6AECD /* stb */,
 				2C27AA0D257D37BB00756617 /* tinycolormap */,
+				2C4AEF842635CACB00D36CFC /* tinyxml */,
 				2C6106E124DB04E300BDEF72 /* xxHash */,
 				2C531EA124BA00EB00378977 /* zlib */,
 				2C794AC425C3DFC200034D81 /* zstd */,
@@ -4825,6 +4834,7 @@
 				2C0FBD69262978100050E354 /* Webcam */,
 				2C47B2AC24DD9789008D83BE /* Window */,
 				2CB749EE261F52E200D31274 /* XInput */,
+				2C4AEF812635CAB500D36CFC /* XMLReader */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -5895,6 +5905,23 @@
 				2C4AEF7D263582E700D36CFC /* SivSay.cpp */,
 			);
 			path = Say;
+			sourceTree = "<group>";
+		};
+		2C4AEF812635CAB500D36CFC /* XMLReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF822635CAB500D36CFC /* SivXMLReader.cpp */,
+			);
+			path = XMLReader;
+			sourceTree = "<group>";
+		};
+		2C4AEF842635CACB00D36CFC /* tinyxml */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF852635CACB00D36CFC /* tinyxml2.cpp */,
+				2C4AEF862635CACB00D36CFC /* tinyxml2.h */,
+			);
+			path = tinyxml;
 			sourceTree = "<group>";
 		};
 		2C4CBE4E24370FFA00F8B7A6 /* GL */ = {
@@ -7181,6 +7208,7 @@
 				2CAAA84925E7FD0300C014D7 /* WindowStyle.hpp */,
 				2CB749E7261F524000D31274 /* XInput.hpp */,
 				2CB749EA261F52A400D31274 /* XInputVibration.hpp */,
+				2C4AEF7F2635CA8900D36CFC /* XMLReader.hpp */,
 				2CAAA78525E7FD0200C014D7 /* YesNo.hpp */,
 				2CAAA78B25E7FD0200C014D7 /* detail */,
 				2C4A288225F3C09C00FEACE4 /* Experimental */,
@@ -7372,6 +7400,7 @@
 				2C2AA2B025FDC8D9003F3EBC /* Wave.ipp */,
 				2C2AA2AF25FDC8D9003F3EBC /* WaveSample.ipp */,
 				2CAAA7B825E7FD0200C014D7 /* Window.ipp */,
+				2C4AEF802635CAA000D36CFC /* XMLReader.ipp */,
 			);
 			path = detail;
 			sourceTree = "<group>";
@@ -8394,6 +8423,7 @@
 				2C13C99E25BD29FC0054B968 /* llimits.h in Headers */,
 				2C48BEF225CFB8C500A93CE3 /* render-sdf.h in Headers */,
 				2C423254242B19D100A16BCA /* egl_context.h in Headers */,
+				2C4AEF882635CACB00D36CFC /* tinyxml2.h in Headers */,
 				2C47B5B324E7670A008D83BE /* ITexture.hpp in Headers */,
 				2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */,
 				2C43C89425C837F100D6D613 /* svcfftl.h in Headers */,
@@ -9116,6 +9146,7 @@
 				2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */,
 				2C4395FB2535DCCA00F6AECD /* svgnumber.cpp in Sources */,
 				2C13C8D125B8FA9D0054B968 /* DetourAlloc.cpp in Sources */,
+				2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */,
 				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
 				2C60AE8B248158A500277281 /* os_info_non_windows_non_darwin.cpp in Sources */,
 				2C60AE90248158A500277281 /* cpuid_non_windows.cpp in Sources */,
@@ -9235,6 +9266,7 @@
 				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */,
+				2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
 				2CAAA8C425E7FDCC00C014D7 /* IconData.cpp in Sources */,
