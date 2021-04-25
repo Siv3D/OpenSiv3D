@@ -847,6 +847,7 @@
 		2C4AEF79262C4E8300D36CFC /* TextToSpeechDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF73262C4E8200D36CFC /* TextToSpeechDetail.hpp */; };
 		2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */; };
 		2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF75262C4E8200D36CFC /* TTS.mm */; };
+		2C4AEF7E263582E700D36CFC /* SivSay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF7D263582E700D36CFC /* SivSay.cpp */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
@@ -2314,6 +2315,7 @@
 		2C4AEF73262C4E8200D36CFC /* TextToSpeechDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextToSpeechDetail.hpp; sourceTree = "<group>"; };
 		2C4AEF74262C4E8200D36CFC /* CTextToSpeech.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextToSpeech.hpp; sourceTree = "<group>"; };
 		2C4AEF75262C4E8200D36CFC /* TTS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TTS.mm; sourceTree = "<group>"; };
+		2C4AEF7D263582E700D36CFC /* SivSay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSay.cpp; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
@@ -4782,6 +4784,7 @@
 				2C47B28A24DD9789008D83BE /* Renderer2D */,
 				2C47B2DA24DD9789008D83BE /* Resource */,
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
+				2C4AEF7C263582E700D36CFC /* Say */,
 				2C47B2D424DD9789008D83BE /* Scene */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C2AA2B325FF8933003F3EBC /* Serial */,
@@ -5884,6 +5887,14 @@
 				2C4AEF75262C4E8200D36CFC /* TTS.mm */,
 			);
 			path = TextToSpeech;
+			sourceTree = "<group>";
+		};
+		2C4AEF7C263582E700D36CFC /* Say */ = {
+			isa = PBXGroup;
+			children = (
+				2C4AEF7D263582E700D36CFC /* SivSay.cpp */,
+			);
+			path = Say;
 			sourceTree = "<group>";
 		};
 		2C4CBE4E24370FFA00F8B7A6 /* GL */ = {
@@ -8933,6 +8944,7 @@
 				2C47B37324DD9789008D83BE /* CImageDecoder.cpp in Sources */,
 				2C834DAA248805D4006208B8 /* iso8859_16.c in Sources */,
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
+				2C4AEF7E263582E700D36CFC /* SivSay.cpp in Sources */,
 				2C423258242B19ED00A16BCA /* posix_thread.c in Sources */,
 				2CFF581C25F7C02500B660AD /* SivVideoReader.cpp in Sources */,
 				2C47B32E24DD9789008D83BE /* SivImage.cpp in Sources */,
