@@ -460,7 +460,7 @@
 # include <Siv3D/JSON.hpp>
 
 // XML ファイルの読み込み | XML parser
-//# include <Siv3D/XMLReader.hpp>
+# include <Siv3D/XMLReader.hpp>
 
 // TOML ファイルの読み込み | TOML parser
 //# include <Siv3D/TOMLReader.hpp>

@@ -40,4 +40,6 @@ namespace s3d::Arg
 	SIV3D_NAMED_PARAMETER(bottom);				// Rect, RectF
 	SIV3D_NAMED_PARAMETER(left);				// Rect, RectF
 	SIV3D_NAMED_PARAMETER(right);				// Rect, RectF
+
+	SIV3D_NAMED_PARAMETER(code);				// XMLReader
 }

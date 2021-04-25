@@ -70,4 +70,7 @@ namespace s3d
 
 	/// @brief カーソルの座標を変換する
 	using TransformCursor	= YesNo<struct TransformCursor_tag>;
+
+	/// @brief ホワイトスペースを維持する
+	using PreserveWhitespace = YesNo<struct PreserveWhitespace_tag>;
 }

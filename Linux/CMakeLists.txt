@@ -370,6 +370,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
   ../Siv3D/src/Siv3D/XInput/Null/CXInput_Null.cpp
   ../Siv3D/src/Siv3D/XInput/SivXInput.cpp
+  ../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
@@ -696,6 +697,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/serial/serial.cc
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
+
+  ../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp
 
   ../Siv3D/src/ThirdParty/zstd/common/debug.c
   ../Siv3D/src/ThirdParty/zstd/common/entropy_common.c

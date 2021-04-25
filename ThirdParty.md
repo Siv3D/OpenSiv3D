@@ -53,6 +53,7 @@ Library | Version
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
+[TinyXML-2](https://github.com/leethomason/tinyxml2) | 8.0.0
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
 [zlib](https://www.zlib.net/) | 1.2.11
