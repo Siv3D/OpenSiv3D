@@ -463,7 +463,7 @@
 # include <Siv3D/XMLReader.hpp>
 
 // TOML ファイルの読み込み | TOML parser
-//# include <Siv3D/TOMLReader.hpp>
+# include <Siv3D/TOMLReader.hpp>
 
 // HTML ファイルの書き出し | HTML document writer
 //# include <Siv3D/HTMLWriter.hpp>

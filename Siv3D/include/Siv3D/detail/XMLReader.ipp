@@ -17,12 +17,12 @@ namespace s3d
 	inline XMLReader::XMLReader(Reader&& reader, const PreserveWhitespace preserveWhitespace)
 		: XMLReader{}
 	{
-		open(std::make_shared<Reader>(std::forward<Reader>(reader)), preserveWhitespace);
+		open(std::make_unique<Reader>(std::forward<Reader>(reader)), preserveWhitespace);
 	}
 
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
 	inline bool XMLReader::open(Reader&& reader, const PreserveWhitespace preserveWhitespace)
 	{
-		return open(std::make_shared<Reader>(std::forward<Reader>(reader)), preserveWhitespace);
+		return open(std::make_unique<Reader>(std::forward<Reader>(reader)), preserveWhitespace);
 	}
 }

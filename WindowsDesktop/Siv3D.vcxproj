@@ -168,6 +168,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureFormat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TOMLReader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Triangle.ipp" />
@@ -545,6 +546,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
@@ -989,6 +991,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\box2d\dynamics\b2_polygon_circle_contact.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\box2d\dynamics\b2_polygon_contact.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\concaveman-cpp\concaveman.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\bit_utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\cpuid_x86.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpu_features\cpuinfo_x86.h" />
@@ -1651,6 +1654,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\SivTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UnicodeConverter\SivUnicodeConverter.cpp" />

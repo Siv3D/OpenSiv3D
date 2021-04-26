@@ -1036,6 +1036,12 @@
     <Filter Include="src\ThirdParty\tinyxml">
       <UniqueIdentifier>{11bac2f8-86aa-4d6e-811c-4869397b9847}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\cpptoml">
+      <UniqueIdentifier>{ad231c7e-963a-4a4f-b030-89c7775675aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TOMLReader">
+      <UniqueIdentifier>{b40049f0-4668-41ff-b0d7-0aec67ad7b2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4953,6 +4959,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\XMLReader.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h">
+      <Filter>src\ThirdParty\cpptoml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TOMLReader.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6835,6 +6850,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp">
       <Filter>src\ThirdParty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp">
+      <Filter>src\Siv3D\TOMLReader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

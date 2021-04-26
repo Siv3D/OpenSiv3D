@@ -9,6 +9,7 @@ Library | Version
 [Box2D](https://github.com/erincatto/box2d) | 2.4.1
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.3
 [concaveman-cpp](https://github.com/sadaszewski/concaveman-cpp) | 
+[cpptoml](https://github.com/skystrife/cpptoml) | v0.1.1
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
 [DirectXTK](https://github.com/microsoft/DirectXTK) | April 6, 2021
 [DirectXMath](https://github.com/microsoft/DirectXMath) | April 2020
