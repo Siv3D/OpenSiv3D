@@ -31,7 +31,7 @@ namespace s3d
 	SIV3D_CONCEPT_INTEGRAL_
 	inline String ThousandsSeparate(const Int value, const StringView separator)
 	{
-		return detail::ThousandsSeparateInt(FormatInt(value), separator);
+		return detail::ThousandsSeparateInt(Format(value), separator);
 	}
 
 	SIV3D_CONCEPT_FLOATING_POINT_
