@@ -831,6 +831,8 @@
 		2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289325F4F87100FEACE4 /* libopencv_core.a */; };
 		2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289425F4F87100FEACE4 /* libopencv_photo.a */; };
 		2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */; };
+		2C4A485E2636543200BDCBA2 /* SivTOMLReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A485D2636543200BDCBA2 /* SivTOMLReader.cpp */; };
+		2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4A48602636544C00BDCBA2 /* cpptoml.h */; };
 		2C4AEF57262C44F800D36CFC /* CascadeClassifierDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */; };
 		2C4AEF58262C44F800D36CFC /* SivCascadeClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEF55262C44F800D36CFC /* SivCascadeClassifier.cpp */; };
 		2C4AEF59262C44F800D36CFC /* CascadeClassifierDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF56262C44F800D36CFC /* CascadeClassifierDetail.hpp */; };
@@ -2295,6 +2297,10 @@
 		2C4A289925F4FA8100FEACE4 /* libopencv_videoio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_videoio.a; path = ../Siv3D/lib/macOS/opencv/libopencv_videoio.a; sourceTree = "<group>"; };
 		2C4A289B25F4FAC300FEACE4 /* BorderType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BorderType.hpp; sourceTree = "<group>"; };
 		2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenCV_Bridge.hpp; sourceTree = "<group>"; };
+		2C4A485A2636540100BDCBA2 /* TOMLReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TOMLReader.hpp; sourceTree = "<group>"; };
+		2C4A485B2636541600BDCBA2 /* TOMLReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TOMLReader.ipp; sourceTree = "<group>"; };
+		2C4A485D2636543200BDCBA2 /* SivTOMLReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTOMLReader.cpp; sourceTree = "<group>"; };
+		2C4A48602636544C00BDCBA2 /* cpptoml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpptoml.h; sourceTree = "<group>"; };
 		2C4A83E32457E7A4007AAE76 /* XoshiroCpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XoshiroCpp.hpp; sourceTree = "<group>"; };
 		2C4AEF52262C44D600D36CFC /* CascadeClassifier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CascadeClassifier.hpp; sourceTree = "<group>"; };
 		2C4AEF54262C44F800D36CFC /* CascadeClassifierDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CascadeClassifierDetail.cpp; sourceTree = "<group>"; };
@@ -4243,6 +4249,7 @@
 				2C4564DE247946AF00DB01F0 /* absl */,
 				2C2AA2EE26009C74003F3EBC /* box2d */,
 				2C13C6F425B458520054B968 /* concaveman-cpp */,
+				2C4A485F2636544C00BDCBA2 /* cpptoml */,
 				2C481E0B24460B5700A5D88D /* cpu_features */,
 				2C439F62241DCEA9001154C2 /* double-conversion */,
 				2C53C34A25613BCC0072831A /* Earcut */,
@@ -4819,6 +4826,7 @@
 				2C794B8625C5A5BF00034D81 /* TextureRegion */,
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
+				2C4A485C2636543200BDCBA2 /* TOMLReader */,
 				2C53C33C25613B8A0072831A /* Triangle */,
 				2C794B7925C4FDA000034D81 /* Twitter */,
 				2C47B26524DD9789008D83BE /* Unicode */,
@@ -5845,6 +5853,22 @@
 				2C4A288A25F3C09C00FEACE4 /* SevenSegment.ipp */,
 			);
 			path = detail;
+			sourceTree = "<group>";
+		};
+		2C4A485C2636543200BDCBA2 /* TOMLReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A485D2636543200BDCBA2 /* SivTOMLReader.cpp */,
+			);
+			path = TOMLReader;
+			sourceTree = "<group>";
+		};
+		2C4A485F2636544C00BDCBA2 /* cpptoml */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A48602636544C00BDCBA2 /* cpptoml.h */,
+			);
+			path = cpptoml;
 			sourceTree = "<group>";
 		};
 		2C4A83E22457E7A4007AAE76 /* Xoshiro-cpp */ = {
@@ -7174,6 +7198,7 @@
 				2CAAA6FA25E7FD0200C014D7 /* Threading.hpp */,
 				2CAAA71E25E7FD0200C014D7 /* Time.hpp */,
 				2CAAA83625E7FD0200C014D7 /* Timer.hpp */,
+				2C4A485A2636540100BDCBA2 /* TOMLReader.hpp */,
 				2CAAA8A525E7FD0300C014D7 /* Transformer2D.hpp */,
 				2CAAA89125E7FD0300C014D7 /* Transition.hpp */,
 				2CAAA74925E7FD0200C014D7 /* Triangle.hpp */,
@@ -7383,6 +7408,7 @@
 				2CAAA82025E7FD0200C014D7 /* TextureFormat.ipp */,
 				2CAAA7B425E7FD0200C014D7 /* TextWriter.ipp */,
 				2CAAA7BE25E7FD0200C014D7 /* Timer.ipp */,
+				2C4A485B2636541600BDCBA2 /* TOMLReader.ipp */,
 				2CAAA7AC25E7FD0200C014D7 /* Transformer2D.ipp */,
 				2CAAA79A25E7FD0200C014D7 /* Transition.ipp */,
 				2CAAA7F225E7FD0200C014D7 /* Triangle.ipp */,
@@ -8414,6 +8440,7 @@
 				2C2AA35226009C74003F3EBC /* b2_shape.h in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
+				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2C2AA39B26009C74003F3EBC /* b2_collision.h in Headers */,
 				2C4396152535DCCA00F6AECD /* svgangle.h in Headers */,
@@ -9161,6 +9188,7 @@
 				2C13C9BA25BD29FC0054B968 /* ltable.c in Sources */,
 				2C794B1A25C3DFC200034D81 /* zstd_compress_literals.c in Sources */,
 				2C47B5B424E7670A008D83BE /* SivTexture.cpp in Sources */,
+				2C4A485E2636543200BDCBA2 /* SivTOMLReader.cpp in Sources */,
 				2C47B2F824DD9789008D83BE /* SivVector2D.cpp in Sources */,
 				2CDD4F37260A3F7100A51D68 /* P2PivotJointDetail.cpp in Sources */,
 				2C834DB6248805D4006208B8 /* onig_init.c in Sources */,
