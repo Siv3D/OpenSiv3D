@@ -36,10 +36,14 @@ endif()
 add_library(
   OpenSiv3D_Web STATIC
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Siv3DMain.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ChildProcess/ChildProcessDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Clipboard/CClipboard.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Common/OpenGL.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ConstantBuffer/ConstantBufferDetailFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Cursor/CCursor.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Dialog/SivDialog_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/DirectoryWatcher/DirectoryWatcherDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/DragDrop/CDragDrop.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
@@ -52,8 +56,11 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Shader/ShaderFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/CSystem.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/SivSystem_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextToSpeech/CTextToSpeech.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Texture/TextureFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextInput/CTextInput.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Time/SivTime.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/WebcamInfo/SivWebcamInfo.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Window/CWindow.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Window/WindowFactory.cpp
 
@@ -108,6 +115,7 @@ add_library(
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/CascadeClassifier/CascadeClassifierDetail.cpp
   ../Siv3D/src/Siv3D/CascadeClassifier/SivCascadeClassifier.cpp
+  ../Siv3D/src/Siv3D/ChildProcess/SivChildProcess.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
   ../Siv3D/src/Siv3D/Clipboard/ClipboardFactory.cpp
   ../Siv3D/src/Siv3D/Clipboard/SivClipboard.cpp
@@ -126,7 +134,10 @@ add_library(
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
+  ../Siv3D/src/Siv3D/Dialog/SivDialog.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
+  ../Siv3D/src/Siv3D/DragDrop/DragDropFactory.cpp
+  ../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp
   ../Siv3D/src/Siv3D/DrawableText/SivDrawableText.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
   ../Siv3D/src/Siv3D/DynamicTexture/SivDynamicTexture.cpp
@@ -289,6 +300,7 @@ add_library(
   ../Siv3D/src/Siv3D/Resource/ResourceFactory.cpp
   ../Siv3D/src/Siv3D/Resource/SivResource.cpp
   ../Siv3D/src/Siv3D/RoundRect/SivRoundRect.cpp
+  ../Siv3D/src/Siv3D/Say/SivSay.cpp
   ../Siv3D/src/Siv3D/Scene/CScene.cpp
   ../Siv3D/src/Siv3D/Scene/FrameCounter.cpp
   ../Siv3D/src/Siv3D/Scene/FrameTimer.cpp
@@ -319,6 +331,8 @@ add_library(
   ../Siv3D/src/Siv3D/TextInput/TextInputFactory.cpp
   ../Siv3D/src/Siv3D/TextReader/SivTextReader.cpp
   ../Siv3D/src/Siv3D/TextReader/TextReaderDetail.cpp
+  ../Siv3D/src/Siv3D/TextToSpeech/SivTextToSpeech.cpp
+  ../Siv3D/src/Siv3D/TextToSpeech/TextToSpeechFactory.cpp
   ../Siv3D/src/Siv3D/Texture/Null/CTexture_Null.cpp
   ../Siv3D/src/Siv3D/Texture/SivTexture.cpp
   ../Siv3D/src/Siv3D/Texture/TextureCommon.cpp
@@ -330,6 +344,7 @@ add_library(
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
+  ../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
   ../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
@@ -347,10 +362,13 @@ add_library(
   ../Siv3D/src/Siv3D/VideoWriter/VideoWriterDetail.cpp
   ../Siv3D/src/Siv3D/VideoTexture/SivVideoTexture.cpp
   ../Siv3D/src/Siv3D/VideoTexture/VideoTextureDetail.cpp
+  ../Siv3D/src/Siv3D/Webcam/SivWebcam.cpp
+  ../Siv3D/src/Siv3D/Webcam/WebcamDetail.cpp
   ../Siv3D/src/Siv3D/Window/SivWindow.cpp
   ../Siv3D/src/Siv3D/Window/Null/CWindow_Null.cpp
   ../Siv3D/src/Siv3D/XInput/Null/CXInput_Null.cpp
   ../Siv3D/src/Siv3D/XInput/SivXInput.cpp
+  ../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
