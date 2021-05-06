@@ -24,7 +24,7 @@ namespace s3d
 {
 	/// @brief GeoJSONで定義されているオブジェクトの型
 	/// @detail https://tools.ietf.org/html/rfc7946#section-1.4
-	enum class GeoJSONType
+	enum class GeoJSONType : uint8
 	{
 		Point,
 
@@ -55,12 +55,12 @@ namespace s3d
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONBase() = default;
+		GeoJSONBase() = default;
 
 		/// @brief GeoJSON オブジェクトを作成します。
 		/// @param object JSON データ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONBase(const JSON& object);
+		GeoJSONBase(const JSON& object);
 
 		/// @brief バウンディングボックスデータを返します。
 		/// @return バウンディングボックスデータ
@@ -90,12 +90,12 @@ namespace s3d
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONGeometry() = default;
+		GeoJSONGeometry() = default;
 
 		/// @brief Geometry オブジェクトを作成します。
 		/// @param object JSON データ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONGeometry(const JSON& object, FlipY flipY = FlipY::Yes);
+		GeoJSONGeometry(const JSON& object, FlipY flipY = FlipY::Yes);
 
 		/// @brief 形状データを取得します。
 		/// @tparam Type 形状データの型
@@ -157,7 +157,7 @@ namespace s3d
 		/// @brief GeoJSON Feature オブジェクトを作成します。
 		/// @param object JSON データ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONFeature(const JSON& object, FlipY flipY = FlipY::Yes);
+		GeoJSONFeature(const JSON& object, FlipY flipY = FlipY::Yes);
 
 		/// @brief GeoJSONGeometry データを返します。
 		/// @return GeoJSONGeometry データ
@@ -202,7 +202,7 @@ namespace s3d
 		/// @brief FeatureCollection オブジェクトを作成します。
 		/// @param object JSON データ
 		SIV3D_NODISCARD_CXX20
-			GeoJSONFeatureCollection(const JSON& object, FlipY flipY = FlipY::Yes);
+		GeoJSONFeatureCollection(const JSON& object, FlipY flipY = FlipY::Yes);
 
 		/// @brief GeoJSON Feature の一覧を返します。
 		/// @return GeoJSON Feature の一覧
