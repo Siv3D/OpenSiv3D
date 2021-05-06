@@ -465,6 +465,9 @@
 // TOML ファイルの読み込み | TOML parser
 # include <Siv3D/TOMLReader.hpp>
 
+// GeoJSON ファイルの読み込み | GeoJSON parser
+# include <Siv3D/GeoJSON.hpp>
+
 // HTML ファイルの書き出し | HTML document writer
 //# include <Siv3D/HTMLWriter.hpp>
 

@@ -220,6 +220,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GaborNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Gamepad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GamepadInfo.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GeoJSON.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Glyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />
@@ -1489,6 +1490,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\GamepadInfo\SivGamepadInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\GeoJSON\SivGeoJSON.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\SivGrabCut.cpp" />
