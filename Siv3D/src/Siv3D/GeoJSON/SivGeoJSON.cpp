@@ -201,8 +201,9 @@ namespace s3d
 
 	GeoJSONBase::GeoJSONBase(const JSON& object)
 	{
-		if (!object) {
-			throw Error(U"GeoJSONBase::GeoJSONBase(): Failed to load file");
+		if (not object)
+		{
+			throw Error{ U"GeoJSONBase::GeoJSONBase(): Failed to load file" };
 		}
 		
 		if (object.hasElement(U"type"))
