@@ -1035,6 +1035,7 @@
 		2C7DE5D7261379E900D7F031 /* GIFEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
 		2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7DE5DB26137A3B00D7F031 /* liblibgif.a */; };
+		2C8333A826441F7100AEECC7 /* SivGeoJSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8333A726441F7100AEECC7 /* SivGeoJSON.cpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
 		2C834D8C248805D4006208B8 /* st.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C834D51248805D4006208B8 /* st.h */; };
@@ -2535,6 +2536,8 @@
 		2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GIFEncoder.cpp; sourceTree = "<group>"; };
 		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
 		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
+		2C8333A526441F5900AEECC7 /* GeoJSON.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GeoJSON.hpp; sourceTree = "<group>"; };
+		2C8333A726441F7100AEECC7 /* SivGeoJSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeoJSON.cpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		2C834D50248805D4006208B8 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = big5.c; sourceTree = "<group>"; };
 		2C834D51248805D4006208B8 /* st.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = st.h; sourceTree = "<group>"; };
@@ -4742,6 +4745,7 @@
 				2C47B27424DD9789008D83BE /* FormatUtility */,
 				2C427FD82628438A00106F19 /* Gamepad */,
 				2C427FE12628439B00106F19 /* GamepadInfo */,
+				2C8333A626441F7100AEECC7 /* GeoJSON */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
@@ -6725,6 +6729,14 @@
 			path = libgif;
 			sourceTree = "<group>";
 		};
+		2C8333A626441F7100AEECC7 /* GeoJSON */ = {
+			isa = PBXGroup;
+			children = (
+				2C8333A726441F7100AEECC7 /* SivGeoJSON.cpp */,
+			);
+			path = GeoJSON;
+			sourceTree = "<group>";
+		};
 		2C834D4E248805D4006208B8 /* Oniguruma */ = {
 			isa = PBXGroup;
 			children = (
@@ -7005,6 +7017,7 @@
 				2CAAA72825E7FD0200C014D7 /* GaborNoise.hpp */,
 				2C427FD12628435000106F19 /* Gamepad.hpp */,
 				2C427FD22628435000106F19 /* GamepadInfo.hpp */,
+				2C8333A526441F5900AEECC7 /* GeoJSON.hpp */,
 				2CAAA89525E7FD0300C014D7 /* Geometry2D.hpp */,
 				2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */,
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
@@ -9413,6 +9426,7 @@
 				2C794B6D25C4FD4300034D81 /* SVGDetail.cpp in Sources */,
 				2C13C6FC25B458920054B968 /* discrete_distribution.cc in Sources */,
 				2CDD4F41260A3F7100A51D68 /* P2Quad.cpp in Sources */,
+				2C8333A826441F7100AEECC7 /* SivGeoJSON.cpp in Sources */,
 				2C2AA35626009C74003F3EBC /* b2_chain_circle_contact.cpp in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
 				2C13C9C825BD29FC0054B968 /* lcorolib.c in Sources */,
