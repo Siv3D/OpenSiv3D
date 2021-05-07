@@ -1127,6 +1127,9 @@
 # include <Siv3D/TextToSpeech.hpp>
 # include <Siv3D/Say.hpp>
 
+# include <Siv3D/AnimatedGIFReader.hpp>
+# include <Siv3D/AnimatedGIFWriter.hpp>
+
 
 //////////////////////////////////////////////////
 //

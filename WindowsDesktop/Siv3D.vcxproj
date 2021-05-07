@@ -19,6 +19,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AdaptiveThresholdMethod.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Addon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ApplicationOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
