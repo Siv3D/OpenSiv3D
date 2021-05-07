@@ -378,8 +378,11 @@
 // ファイルとディレクトリの変更の監視 | Directory watcher
 # include <Siv3D/DirectoryWatcher.hpp>
 
-// メモリ範囲への IReader インタフェース | Memory Range IReader Wrapper
+// 所有権を持たない、メモリ範囲への IReader インタフェース | IReader Wrapper for Non-Owning Memory Range 
 # include <Siv3D/MemoryViewReader.hpp>
+
+// メモリ範囲への IReader インタフェース | IReader Wrapper for Memory Range 
+# include <Siv3D/MemoryReader.hpp>
 
 // メモリマップトファイル | Memory mapped file
 //# include <Siv3D/MemoryMapping.hpp>
@@ -430,10 +433,10 @@
 //# include <Siv3D/FileArchive.hpp>
 
 // ZIP 圧縮ファイルの読み込み | ZIP reader
-//# include <Siv3D/ZIPReader.hpp>
+# include <Siv3D/ZIPReader.hpp> // [Siv3D ToDo]
 
 // ZIP 圧縮ファイルの書き出し | ZIP writer
-//# include <Siv3D/ZIPWriter.hpp>
+# include <Siv3D/ZIPWriter.hpp> // [Siv3D ToDo]
 
 //////////////////////////////////////////////////
 //

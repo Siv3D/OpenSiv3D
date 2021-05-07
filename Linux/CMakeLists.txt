@@ -373,6 +373,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/XInput/Null/CXInput_Null.cpp
   ../Siv3D/src/Siv3D/XInput/SivXInput.cpp
   ../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp
+  ../Siv3D/src/Siv3D/ZIPReader/SivZIPReader.cpp
+  ../Siv3D/src/Siv3D/ZIPReader/ZIPReaderDetail.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
@@ -552,6 +554,22 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/lunasvg/svgelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/symbolelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/useelement.cpp
+
+  ../Siv3D/src/ThirdParty/minizip/mz_compat.c
+  ../Siv3D/src/ThirdParty/minizip/mz_crypt.c
+  ../Siv3D/src/ThirdParty/minizip/mz_crypt_brg.c
+  ../Siv3D/src/ThirdParty/minizip/mz_os.c
+  ../Siv3D/src/ThirdParty/minizip/mz_os_posix.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_buf.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_mem.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_os_posix.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_pkcrypt.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_split.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_wzaes.c
+  ../Siv3D/src/ThirdParty/minizip/mz_strm_zlib.c
+  ../Siv3D/src/ThirdParty/minizip/mz_zip.c
+  ../Siv3D/src/ThirdParty/minizip/mz_zip_rw.c
 
   ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp
