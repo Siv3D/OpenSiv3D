@@ -1103,6 +1103,7 @@
 		2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */; };
 		2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E718924C749C500CECCAE /* CResource.hpp */; };
 		2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E718A24C749C500CECCAE /* CResource.cpp */; };
+		2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C956629264501B900539B85 /* gaussian_distribution.cc */; };
 		2C98D0DE25158AC000904E67 /* FrameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DA25158AC000904E67 /* FrameTimer.cpp */; };
 		2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DB25158AC000904E67 /* FrameTimer.hpp */; };
 		2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DC25158AC000904E67 /* FrameCounter.hpp */; };
@@ -2612,6 +2613,7 @@
 		2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEnvironmentVariable.cpp; sourceTree = "<group>"; };
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
+		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
 		2C98D0DA25158AC000904E67 /* FrameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameTimer.cpp; sourceTree = "<group>"; };
 		2C98D0DB25158AC000904E67 /* FrameTimer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameTimer.hpp; sourceTree = "<group>"; };
 		2C98D0DC25158AC000904E67 /* FrameCounter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameCounter.hpp; sourceTree = "<group>"; };
@@ -3560,6 +3562,7 @@
 			isa = PBXGroup;
 			children = (
 				2C13C6FB25B458920054B968 /* discrete_distribution.cc */,
+				2C956629264501B900539B85 /* gaussian_distribution.cc */,
 			);
 			path = random;
 			sourceTree = "<group>";
@@ -9169,6 +9172,7 @@
 				2C423246242B155E00A16BCA /* nsgl_context.m in Sources */,
 				2C48C14B25D41C9D00A93CE3 /* SivDrawableText.cpp in Sources */,
 				2C60AE87248158A500277281 /* displays_x11.cpp in Sources */,
+				2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */,
 				2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */,
 				2C4A286B25EA60EB00FEACE4 /* ScreenCaptureFactory.cpp in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
