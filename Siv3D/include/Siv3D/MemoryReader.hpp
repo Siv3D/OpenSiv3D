@@ -20,12 +20,16 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		MemoryReader() = default;
 
-		constexpr MemoryReader(const void* data, size_t size_bytes) noexcept;
+		SIV3D_NODISCARD_CXX20
+		MemoryReader(const void* data, size_t size_bytes) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		explicit MemoryReader(const Blob& blob) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		explicit MemoryReader(Blob&& blob) noexcept;
 
 		/// @brief 読み込み位置を変更しないデータ読み込みをサポートしているかを返します。
@@ -99,8 +103,6 @@ namespace s3d
 		bool lookahead(TriviallyCopyable& dst) const;
 
 	private:
-
-		int64 m_size = 0;
 
 		int64 m_pos = 0;
 

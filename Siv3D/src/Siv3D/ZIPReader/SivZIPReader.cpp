@@ -66,6 +66,11 @@ namespace s3d
 		return pImpl->extract(pattern, targetDirectory);
 	}
 
+	MemoryReader ZIPReader::extract(const FilePathView filePath) const
+	{
+		return MemoryReader{ pImpl->extractToBlob(filePath) };
+	}
+
 	Blob ZIPReader::extractToBlob(const FilePathView filePath) const
 	{
 		return pImpl->extractToBlob(filePath);
