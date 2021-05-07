@@ -232,6 +232,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
@@ -845,6 +846,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\GUI\CGUI.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\GUI\IGUI.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\HTMLWriterDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageDecoder\IImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageEncoder\CImageEncoder.hpp" />
@@ -1492,6 +1494,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\CGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\GUIFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\HTMLWriterDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\ImageDecoderFactory.cpp" />

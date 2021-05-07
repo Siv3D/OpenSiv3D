@@ -433,10 +433,10 @@
 //# include <Siv3D/FileArchive.hpp>
 
 // ZIP 圧縮ファイルの読み込み | ZIP reader
-# include <Siv3D/ZIPReader.hpp> // [Siv3D ToDo]
+# include <Siv3D/ZIPReader.hpp>
 
 // ZIP 圧縮ファイルの書き出し | ZIP writer
-# include <Siv3D/ZIPWriter.hpp> // [Siv3D ToDo]
+//# include <Siv3D/ZIPWriter.hpp> // [Siv3D ToDo]
 
 //////////////////////////////////////////////////
 //
@@ -472,7 +472,7 @@
 # include <Siv3D/GeoJSON.hpp>
 
 // HTML ファイルの書き出し | HTML document writer
-//# include <Siv3D/HTMLWriter.hpp>
+# include <Siv3D/HTMLWriter.hpp>
 
 //////////////////////////////////////////////////
 //

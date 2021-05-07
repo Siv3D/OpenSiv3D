@@ -187,6 +187,8 @@ add_library(
   ../Siv3D/src/Siv3D/GUI/CGUI.cpp
   ../Siv3D/src/Siv3D/GUI/GUIFactory.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
+  ../Siv3D/src/Siv3D/HTMLWriter/HTMLWriterDetail.cpp
+  ../Siv3D/src/Siv3D/HTMLWriter/SivHTMLWriter.cpp
   ../Siv3D/src/Siv3D/Icon/SivIcon.cpp
   ../Siv3D/src/Siv3D/Image/ImagePainting.cpp
   ../Siv3D/src/Siv3D/Image/ShapePainting.cpp

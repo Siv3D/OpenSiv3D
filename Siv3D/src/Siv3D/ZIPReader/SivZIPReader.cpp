@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/ZIPReader.hpp>
-# include <Siv3D/ZIPReader/ZIPReaderDetail.hpp>
+# include "ZIPReaderDetail.hpp"
 
 namespace s3d
 {
