@@ -323,99 +323,6 @@
 		2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */; };
 		2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */; };
 		2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */; };
-		2C4395F12535DCCA00F6AECD /* cssproperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395942535DCCA00F6AECD /* cssproperty.h */; };
-		2C4395F22535DCCA00F6AECD /* svgfittoviewbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395952535DCCA00F6AECD /* svgfittoviewbox.cpp */; };
-		2C4395F32535DCCA00F6AECD /* svguseelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395962535DCCA00F6AECD /* svguseelement.cpp */; };
-		2C4395F42535DCCA00F6AECD /* affinetransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395972535DCCA00F6AECD /* affinetransform.h */; };
-		2C4395F52535DCCA00F6AECD /* svgstyledelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395982535DCCA00F6AECD /* svgstyledelement.h */; };
-		2C4395F62535DCCA00F6AECD /* svgparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395992535DCCA00F6AECD /* svgparser.cpp */; };
-		2C4395F72535DCCA00F6AECD /* svgstopelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43959A2535DCCA00F6AECD /* svgstopelement.cpp */; };
-		2C4395F82535DCCA00F6AECD /* svgnumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43959B2535DCCA00F6AECD /* svgnumber.h */; };
-		2C4395F92535DCCA00F6AECD /* svgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43959C2535DCCA00F6AECD /* svgelement.cpp */; };
-		2C4395FA2535DCCA00F6AECD /* svgurireference.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43959D2535DCCA00F6AECD /* svgurireference.h */; };
-		2C4395FB2535DCCA00F6AECD /* svgnumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43959E2535DCCA00F6AECD /* svgnumber.cpp */; };
-		2C4395FC2535DCCA00F6AECD /* pathiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43959F2535DCCA00F6AECD /* pathiterator.h */; };
-		2C4395FD2535DCCA00F6AECD /* svggeometryelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A02535DCCA00F6AECD /* svggeometryelement.h */; };
-		2C4395FE2535DCCA00F6AECD /* svgelementimpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A12535DCCA00F6AECD /* svgelementimpl.h */; };
-		2C4395FF2535DCCA00F6AECD /* svgrect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A22535DCCA00F6AECD /* svgrect.h */; };
-		2C4396002535DCCA00F6AECD /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A32535DCCA00F6AECD /* rendercontext.h */; };
-		2C4396012535DCCA00F6AECD /* canvasimpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A42535DCCA00F6AECD /* canvasimpl.h */; };
-		2C4396022535DCCA00F6AECD /* svgsymbolelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395A52535DCCA00F6AECD /* svgsymbolelement.cpp */; };
-		2C4396032535DCCA00F6AECD /* svgelementiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395A62535DCCA00F6AECD /* svgelementiter.cpp */; };
-		2C4396042535DCCA00F6AECD /* strokedata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395A72535DCCA00F6AECD /* strokedata.cpp */; };
-		2C4396052535DCCA00F6AECD /* svgproperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A82535DCCA00F6AECD /* svgproperty.h */; };
-		2C4396062535DCCA00F6AECD /* svgparserutils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395A92535DCCA00F6AECD /* svgparserutils.h */; };
-		2C4396072535DCCA00F6AECD /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395AA2535DCCA00F6AECD /* point.h */; };
-		2C4396082535DCCA00F6AECD /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395AB2535DCCA00F6AECD /* canvas.cpp */; };
-		2C4396092535DCCA00F6AECD /* svgcolor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395AC2535DCCA00F6AECD /* svgcolor.cpp */; };
-		2C43960A2535DCCA00F6AECD /* svgstring.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395AD2535DCCA00F6AECD /* svgstring.h */; };
-		2C43960B2535DCCA00F6AECD /* path.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395AE2535DCCA00F6AECD /* path.h */; };
-		2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395AF2535DCCA00F6AECD /* svgdocumentimpl.h */; };
-		2C43960D2535DCCA00F6AECD /* svggelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B02535DCCA00F6AECD /* svggelement.cpp */; };
-		2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B12535DCCA00F6AECD /* svgstyledelement.cpp */; };
-		2C43960F2535DCCA00F6AECD /* svgdocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395B22535DCCA00F6AECD /* svgdocument.h */; };
-		2C4396102535DCCA00F6AECD /* svgcontentutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B32535DCCA00F6AECD /* svgcontentutils.cpp */; };
-		2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B42535DCCA00F6AECD /* svgsvgelement.cpp */; };
-		2C4396122535DCCA00F6AECD /* svgmaskelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395B52535DCCA00F6AECD /* svgmaskelement.h */; };
-		2C4396132535DCCA00F6AECD /* svgenumeration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B62535DCCA00F6AECD /* svgenumeration.cpp */; };
-		2C4396142535DCCA00F6AECD /* svgtransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395B72535DCCA00F6AECD /* svgtransform.cpp */; };
-		2C4396152535DCCA00F6AECD /* svgangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395B82535DCCA00F6AECD /* svgangle.h */; };
-		2C4396162535DCCA00F6AECD /* svgpaintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395B92535DCCA00F6AECD /* svgpaintelement.h */; };
-		2C4396172535DCCA00F6AECD /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395BA2535DCCA00F6AECD /* font.cpp */; };
-		2C4396182535DCCA00F6AECD /* svguseelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395BB2535DCCA00F6AECD /* svguseelement.h */; };
-		2C4396192535DCCA00F6AECD /* svgrect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395BC2535DCCA00F6AECD /* svgrect.cpp */; };
-		2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395BD2535DCCA00F6AECD /* svgtransform.h */; };
-		2C43961B2535DCCA00F6AECD /* svgpath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395BE2535DCCA00F6AECD /* svgpath.cpp */; };
-		2C43961C2535DCCA00F6AECD /* svgstopelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395BF2535DCCA00F6AECD /* svgstopelement.h */; };
-		2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C02535DCCA00F6AECD /* svgcontentutils.h */; };
-		2C43961E2535DCCA00F6AECD /* svglength.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C12535DCCA00F6AECD /* svglength.h */; };
-		2C43961F2535DCCA00F6AECD /* pathiterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395C22535DCCA00F6AECD /* pathiterator.cpp */; };
-		2C4396202535DCCA00F6AECD /* rendercontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395C32535DCCA00F6AECD /* rendercontext.cpp */; };
-		2C4396212535DCCA00F6AECD /* svgproperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395C42535DCCA00F6AECD /* svgproperty.cpp */; };
-		2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C52535DCCA00F6AECD /* svgtextelement.h */; };
-		2C4396232535DCCA00F6AECD /* svgdefselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C62535DCCA00F6AECD /* svgdefselement.h */; };
-		2C4396242535DCCA00F6AECD /* svgparser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C72535DCCA00F6AECD /* svgparser.h */; };
-		2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395C82535DCCA00F6AECD /* svgstring.cpp */; };
-		2C4396262535DCCA00F6AECD /* svgsymbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395C92535DCCA00F6AECD /* svgsymbolelement.h */; };
-		2C4396272535DCCA00F6AECD /* paint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395CA2535DCCA00F6AECD /* paint.cpp */; };
-		2C4396282535DCCA00F6AECD /* svgdefselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395CB2535DCCA00F6AECD /* svgdefselement.cpp */; };
-		2C4396292535DCCA00F6AECD /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395CC2535DCCA00F6AECD /* rect.h */; };
-		2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395CD2535DCCA00F6AECD /* svggelement.h */; };
-		2C43962B2535DCCA00F6AECD /* svggeometryelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395CE2535DCCA00F6AECD /* svggeometryelement.cpp */; };
-		2C43962C2535DCCA00F6AECD /* canvasimpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395CF2535DCCA00F6AECD /* canvasimpl.cpp */; };
-		2C43962D2535DCCA00F6AECD /* svgtextelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D02535DCCA00F6AECD /* svgtextelement.cpp */; };
-		2C43962E2535DCCA00F6AECD /* svgpaintelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D12535DCCA00F6AECD /* svgpaintelement.cpp */; };
-		2C43962F2535DCCA00F6AECD /* svgmaskelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D22535DCCA00F6AECD /* svgmaskelement.cpp */; };
-		2C4396302535DCCA00F6AECD /* affinetransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D32535DCCA00F6AECD /* affinetransform.cpp */; };
-		2C4396312535DCCA00F6AECD /* svgpreserveaspectratio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D42535DCCA00F6AECD /* svgpreserveaspectratio.cpp */; };
-		2C4396322535DCCA00F6AECD /* svgpath.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395D52535DCCA00F6AECD /* svgpath.h */; };
-		2C4396332535DCCA00F6AECD /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D62535DCCA00F6AECD /* path.cpp */; };
-		2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395D72535DCCA00F6AECD /* svgcolor.h */; };
-		2C4396352535DCCA00F6AECD /* svgangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D82535DCCA00F6AECD /* svgangle.cpp */; };
-		2C4396362535DCCA00F6AECD /* cssproperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395D92535DCCA00F6AECD /* cssproperty.cpp */; };
-		2C4396372535DCCA00F6AECD /* svgmarkerelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395DA2535DCCA00F6AECD /* svgmarkerelement.cpp */; };
-		2C4396382535DCCA00F6AECD /* svggraphicselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395DB2535DCCA00F6AECD /* svggraphicselement.cpp */; };
-		2C4396392535DCCA00F6AECD /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395DC2535DCCA00F6AECD /* font.h */; };
-		2C43963A2535DCCA00F6AECD /* svgurireference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395DD2535DCCA00F6AECD /* svgurireference.cpp */; };
-		2C43963B2535DCCA00F6AECD /* svgpreserveaspectratio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395DE2535DCCA00F6AECD /* svgpreserveaspectratio.h */; };
-		2C43963C2535DCCA00F6AECD /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395DF2535DCCA00F6AECD /* canvas.h */; };
-		2C43963D2535DCCA00F6AECD /* svgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E02535DCCA00F6AECD /* svgelement.h */; };
-		2C43963E2535DCCA00F6AECD /* svgclippathelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395E12535DCCA00F6AECD /* svgclippathelement.cpp */; };
-		2C43963F2535DCCA00F6AECD /* strokedata.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E22535DCCA00F6AECD /* strokedata.h */; };
-		2C4396402535DCCA00F6AECD /* svgmarkerelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E32535DCCA00F6AECD /* svgmarkerelement.h */; };
-		2C4396412535DCCA00F6AECD /* svgpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395E42535DCCA00F6AECD /* svgpoint.cpp */; };
-		2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E52535DCCA00F6AECD /* svgpoint.h */; };
-		2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E62535DCCA00F6AECD /* svgclippathelement.h */; };
-		2C4396442535DCCA00F6AECD /* paint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E72535DCCA00F6AECD /* paint.h */; };
-		2C4396452535DCCA00F6AECD /* svggraphicselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395E82535DCCA00F6AECD /* svggraphicselement.h */; };
-		2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395E92535DCCA00F6AECD /* svgdocumentimpl.cpp */; };
-		2C4396472535DCCA00F6AECD /* svgdocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395EA2535DCCA00F6AECD /* svgdocument.cpp */; };
-		2C4396482535DCCA00F6AECD /* svgsvgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395EB2535DCCA00F6AECD /* svgsvgelement.h */; };
-		2C4396492535DCCA00F6AECD /* svglength.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395EC2535DCCA00F6AECD /* svglength.cpp */; };
-		2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395ED2535DCCA00F6AECD /* svgfittoviewbox.h */; };
-		2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395EE2535DCCA00F6AECD /* svgenumeration.h */; };
-		2C43964C2535DCCB00F6AECD /* svgelementimpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4395EF2535DCCA00F6AECD /* svgelementimpl.cpp */; };
-		2C43964D2535DCCB00F6AECD /* svgelementiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4395F02535DCCA00F6AECD /* svgelementiter.h */; };
 		2C4396502535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43964F2535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp */; };
 		2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43978A2536163000F6AECD /* GL4PixelShader.cpp */; };
 		2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C43978B2536163000F6AECD /* GL4PixelShader.hpp */; };
@@ -1104,6 +1011,45 @@
 		2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E718924C749C500CECCAE /* CResource.hpp */; };
 		2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E718A24C749C500CECCAE /* CResource.cpp */; };
 		2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C956629264501B900539B85 /* gaussian_distribution.cc */; };
+		2C956653264546F700539B85 /* paintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662C264546F700539B85 /* paintelement.h */; };
+		2C956654264546F700539B85 /* symbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662D264546F700539B85 /* symbolelement.h */; };
+		2C956655264546F700539B85 /* svgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95662E264546F700539B85 /* svgelement.cpp */; };
+		2C956656264546F700539B85 /* symbolelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95662F264546F700539B85 /* symbolelement.cpp */; };
+		2C956657264546F700539B85 /* defselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956630264546F700539B85 /* defselement.cpp */; };
+		2C956658264546F700539B85 /* geometryelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956631264546F700539B85 /* geometryelement.h */; };
+		2C956659264546F700539B85 /* maskelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956632264546F700539B85 /* maskelement.cpp */; };
+		2C95665A264546F700539B85 /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956633264546F700539B85 /* canvas.cpp */; };
+		2C95665B264546F700539B85 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956634264546F700539B85 /* parser.h */; };
+		2C95665C264546F700539B85 /* property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956635264546F700539B85 /* property.cpp */; };
+		2C95665D264546F700539B85 /* defselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956636264546F700539B85 /* defselement.h */; };
+		2C95665E264546F700539B85 /* markerelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956637264546F700539B85 /* markerelement.h */; };
+		2C95665F264546F700539B85 /* useelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956638264546F700539B85 /* useelement.cpp */; };
+		2C956660264546F700539B85 /* useelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956639264546F700539B85 /* useelement.h */; };
+		2C956661264546F700539B85 /* styledelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95663A264546F700539B85 /* styledelement.cpp */; };
+		2C956662264546F700539B85 /* gelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95663B264546F700539B85 /* gelement.cpp */; };
+		2C956663264546F700539B85 /* gelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95663C264546F700539B85 /* gelement.h */; };
+		2C956664264546F700539B85 /* stopelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95663D264546F700539B85 /* stopelement.cpp */; };
+		2C956665264546F700539B85 /* styledelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95663E264546F700539B85 /* styledelement.h */; };
+		2C956666264546F700539B85 /* markerelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95663F264546F700539B85 /* markerelement.cpp */; };
+		2C956667264546F700539B85 /* paintelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956640264546F700539B85 /* paintelement.cpp */; };
+		2C956668264546F700539B85 /* element.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956641264546F700539B85 /* element.h */; };
+		2C956669264546F700539B85 /* maskelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956642264546F700539B85 /* maskelement.h */; };
+		2C95666A264546F700539B85 /* geometryelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956643264546F700539B85 /* geometryelement.cpp */; };
+		2C95666B264546F700539B85 /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956644264546F700539B85 /* document.h */; };
+		2C95666C264546F700539B85 /* layoutcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956645264546F700539B85 /* layoutcontext.h */; };
+		2C95666D264546F700539B85 /* stopelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956646264546F700539B85 /* stopelement.h */; };
+		2C95666E264546F700539B85 /* layoutcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956647264546F700539B85 /* layoutcontext.cpp */; };
+		2C95666F264546F700539B85 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956648264546F700539B85 /* element.cpp */; };
+		2C956670264546F700539B85 /* property.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956649264546F700539B85 /* property.h */; };
+		2C956671264546F700539B85 /* clippathelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95664A264546F700539B85 /* clippathelement.h */; };
+		2C956672264546F700539B85 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95664B264546F700539B85 /* document.cpp */; };
+		2C956673264546F700539B85 /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95664C264546F700539B85 /* canvas.h */; };
+		2C956674264546F700539B85 /* svgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95664D264546F700539B85 /* svgelement.h */; };
+		2C956675264546F700539B85 /* graphicselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95664E264546F700539B85 /* graphicselement.h */; };
+		2C956676264546F700539B85 /* clippathelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C95664F264546F700539B85 /* clippathelement.cpp */; };
+		2C956677264546F700539B85 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956650264546F700539B85 /* parser.cpp */; };
+		2C956678264546F700539B85 /* graphicselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C956651264546F700539B85 /* graphicselement.cpp */; };
+		2C956679264546F700539B85 /* parserutils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C956652264546F700539B85 /* parserutils.h */; };
 		2C98D0DE25158AC000904E67 /* FrameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DA25158AC000904E67 /* FrameTimer.cpp */; };
 		2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DB25158AC000904E67 /* FrameTimer.hpp */; };
 		2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DC25158AC000904E67 /* FrameCounter.hpp */; };
@@ -1758,99 +1704,6 @@
 		2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Array.cpp; sourceTree = "<group>"; };
 		2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Resource.cpp; sourceTree = "<group>"; };
 		2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource_macOS.cpp; sourceTree = "<group>"; };
-		2C4395942535DCCA00F6AECD /* cssproperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cssproperty.h; sourceTree = "<group>"; };
-		2C4395952535DCCA00F6AECD /* svgfittoviewbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgfittoviewbox.cpp; sourceTree = "<group>"; };
-		2C4395962535DCCA00F6AECD /* svguseelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svguseelement.cpp; sourceTree = "<group>"; };
-		2C4395972535DCCA00F6AECD /* affinetransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = affinetransform.h; sourceTree = "<group>"; };
-		2C4395982535DCCA00F6AECD /* svgstyledelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgstyledelement.h; sourceTree = "<group>"; };
-		2C4395992535DCCA00F6AECD /* svgparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgparser.cpp; sourceTree = "<group>"; };
-		2C43959A2535DCCA00F6AECD /* svgstopelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgstopelement.cpp; sourceTree = "<group>"; };
-		2C43959B2535DCCA00F6AECD /* svgnumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgnumber.h; sourceTree = "<group>"; };
-		2C43959C2535DCCA00F6AECD /* svgelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelement.cpp; sourceTree = "<group>"; };
-		2C43959D2535DCCA00F6AECD /* svgurireference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgurireference.h; sourceTree = "<group>"; };
-		2C43959E2535DCCA00F6AECD /* svgnumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgnumber.cpp; sourceTree = "<group>"; };
-		2C43959F2535DCCA00F6AECD /* pathiterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pathiterator.h; sourceTree = "<group>"; };
-		2C4395A02535DCCA00F6AECD /* svggeometryelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svggeometryelement.h; sourceTree = "<group>"; };
-		2C4395A12535DCCA00F6AECD /* svgelementimpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelementimpl.h; sourceTree = "<group>"; };
-		2C4395A22535DCCA00F6AECD /* svgrect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgrect.h; sourceTree = "<group>"; };
-		2C4395A32535DCCA00F6AECD /* rendercontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rendercontext.h; sourceTree = "<group>"; };
-		2C4395A42535DCCA00F6AECD /* canvasimpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = canvasimpl.h; sourceTree = "<group>"; };
-		2C4395A52535DCCA00F6AECD /* svgsymbolelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgsymbolelement.cpp; sourceTree = "<group>"; };
-		2C4395A62535DCCA00F6AECD /* svgelementiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelementiter.cpp; sourceTree = "<group>"; };
-		2C4395A72535DCCA00F6AECD /* strokedata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strokedata.cpp; sourceTree = "<group>"; };
-		2C4395A82535DCCA00F6AECD /* svgproperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgproperty.h; sourceTree = "<group>"; };
-		2C4395A92535DCCA00F6AECD /* svgparserutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgparserutils.h; sourceTree = "<group>"; };
-		2C4395AA2535DCCA00F6AECD /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
-		2C4395AB2535DCCA00F6AECD /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
-		2C4395AC2535DCCA00F6AECD /* svgcolor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgcolor.cpp; sourceTree = "<group>"; };
-		2C4395AD2535DCCA00F6AECD /* svgstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgstring.h; sourceTree = "<group>"; };
-		2C4395AE2535DCCA00F6AECD /* path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = path.h; sourceTree = "<group>"; };
-		2C4395AF2535DCCA00F6AECD /* svgdocumentimpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgdocumentimpl.h; sourceTree = "<group>"; };
-		2C4395B02535DCCA00F6AECD /* svggelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svggelement.cpp; sourceTree = "<group>"; };
-		2C4395B12535DCCA00F6AECD /* svgstyledelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgstyledelement.cpp; sourceTree = "<group>"; };
-		2C4395B22535DCCA00F6AECD /* svgdocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgdocument.h; sourceTree = "<group>"; };
-		2C4395B32535DCCA00F6AECD /* svgcontentutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgcontentutils.cpp; sourceTree = "<group>"; };
-		2C4395B42535DCCA00F6AECD /* svgsvgelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgsvgelement.cpp; sourceTree = "<group>"; };
-		2C4395B52535DCCA00F6AECD /* svgmaskelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgmaskelement.h; sourceTree = "<group>"; };
-		2C4395B62535DCCA00F6AECD /* svgenumeration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgenumeration.cpp; sourceTree = "<group>"; };
-		2C4395B72535DCCA00F6AECD /* svgtransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtransform.cpp; sourceTree = "<group>"; };
-		2C4395B82535DCCA00F6AECD /* svgangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgangle.h; sourceTree = "<group>"; };
-		2C4395B92535DCCA00F6AECD /* svgpaintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgpaintelement.h; sourceTree = "<group>"; };
-		2C4395BA2535DCCA00F6AECD /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = font.cpp; sourceTree = "<group>"; };
-		2C4395BB2535DCCA00F6AECD /* svguseelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svguseelement.h; sourceTree = "<group>"; };
-		2C4395BC2535DCCA00F6AECD /* svgrect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgrect.cpp; sourceTree = "<group>"; };
-		2C4395BD2535DCCA00F6AECD /* svgtransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgtransform.h; sourceTree = "<group>"; };
-		2C4395BE2535DCCA00F6AECD /* svgpath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgpath.cpp; sourceTree = "<group>"; };
-		2C4395BF2535DCCA00F6AECD /* svgstopelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgstopelement.h; sourceTree = "<group>"; };
-		2C4395C02535DCCA00F6AECD /* svgcontentutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgcontentutils.h; sourceTree = "<group>"; };
-		2C4395C12535DCCA00F6AECD /* svglength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svglength.h; sourceTree = "<group>"; };
-		2C4395C22535DCCA00F6AECD /* pathiterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pathiterator.cpp; sourceTree = "<group>"; };
-		2C4395C32535DCCA00F6AECD /* rendercontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rendercontext.cpp; sourceTree = "<group>"; };
-		2C4395C42535DCCA00F6AECD /* svgproperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgproperty.cpp; sourceTree = "<group>"; };
-		2C4395C52535DCCA00F6AECD /* svgtextelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgtextelement.h; sourceTree = "<group>"; };
-		2C4395C62535DCCA00F6AECD /* svgdefselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgdefselement.h; sourceTree = "<group>"; };
-		2C4395C72535DCCA00F6AECD /* svgparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgparser.h; sourceTree = "<group>"; };
-		2C4395C82535DCCA00F6AECD /* svgstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgstring.cpp; sourceTree = "<group>"; };
-		2C4395C92535DCCA00F6AECD /* svgsymbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgsymbolelement.h; sourceTree = "<group>"; };
-		2C4395CA2535DCCA00F6AECD /* paint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paint.cpp; sourceTree = "<group>"; };
-		2C4395CB2535DCCA00F6AECD /* svgdefselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgdefselement.cpp; sourceTree = "<group>"; };
-		2C4395CC2535DCCA00F6AECD /* rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect.h; sourceTree = "<group>"; };
-		2C4395CD2535DCCA00F6AECD /* svggelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svggelement.h; sourceTree = "<group>"; };
-		2C4395CE2535DCCA00F6AECD /* svggeometryelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svggeometryelement.cpp; sourceTree = "<group>"; };
-		2C4395CF2535DCCA00F6AECD /* canvasimpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvasimpl.cpp; sourceTree = "<group>"; };
-		2C4395D02535DCCA00F6AECD /* svgtextelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtextelement.cpp; sourceTree = "<group>"; };
-		2C4395D12535DCCA00F6AECD /* svgpaintelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgpaintelement.cpp; sourceTree = "<group>"; };
-		2C4395D22535DCCA00F6AECD /* svgmaskelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgmaskelement.cpp; sourceTree = "<group>"; };
-		2C4395D32535DCCA00F6AECD /* affinetransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = affinetransform.cpp; sourceTree = "<group>"; };
-		2C4395D42535DCCA00F6AECD /* svgpreserveaspectratio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgpreserveaspectratio.cpp; sourceTree = "<group>"; };
-		2C4395D52535DCCA00F6AECD /* svgpath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgpath.h; sourceTree = "<group>"; };
-		2C4395D62535DCCA00F6AECD /* path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path.cpp; sourceTree = "<group>"; };
-		2C4395D72535DCCA00F6AECD /* svgcolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgcolor.h; sourceTree = "<group>"; };
-		2C4395D82535DCCA00F6AECD /* svgangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgangle.cpp; sourceTree = "<group>"; };
-		2C4395D92535DCCA00F6AECD /* cssproperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cssproperty.cpp; sourceTree = "<group>"; };
-		2C4395DA2535DCCA00F6AECD /* svgmarkerelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgmarkerelement.cpp; sourceTree = "<group>"; };
-		2C4395DB2535DCCA00F6AECD /* svggraphicselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svggraphicselement.cpp; sourceTree = "<group>"; };
-		2C4395DC2535DCCA00F6AECD /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font.h; sourceTree = "<group>"; };
-		2C4395DD2535DCCA00F6AECD /* svgurireference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgurireference.cpp; sourceTree = "<group>"; };
-		2C4395DE2535DCCA00F6AECD /* svgpreserveaspectratio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgpreserveaspectratio.h; sourceTree = "<group>"; };
-		2C4395DF2535DCCA00F6AECD /* canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = canvas.h; sourceTree = "<group>"; };
-		2C4395E02535DCCA00F6AECD /* svgelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelement.h; sourceTree = "<group>"; };
-		2C4395E12535DCCA00F6AECD /* svgclippathelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgclippathelement.cpp; sourceTree = "<group>"; };
-		2C4395E22535DCCA00F6AECD /* strokedata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strokedata.h; sourceTree = "<group>"; };
-		2C4395E32535DCCA00F6AECD /* svgmarkerelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgmarkerelement.h; sourceTree = "<group>"; };
-		2C4395E42535DCCA00F6AECD /* svgpoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgpoint.cpp; sourceTree = "<group>"; };
-		2C4395E52535DCCA00F6AECD /* svgpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgpoint.h; sourceTree = "<group>"; };
-		2C4395E62535DCCA00F6AECD /* svgclippathelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgclippathelement.h; sourceTree = "<group>"; };
-		2C4395E72535DCCA00F6AECD /* paint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paint.h; sourceTree = "<group>"; };
-		2C4395E82535DCCA00F6AECD /* svggraphicselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svggraphicselement.h; sourceTree = "<group>"; };
-		2C4395E92535DCCA00F6AECD /* svgdocumentimpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgdocumentimpl.cpp; sourceTree = "<group>"; };
-		2C4395EA2535DCCA00F6AECD /* svgdocument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgdocument.cpp; sourceTree = "<group>"; };
-		2C4395EB2535DCCA00F6AECD /* svgsvgelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgsvgelement.h; sourceTree = "<group>"; };
-		2C4395EC2535DCCA00F6AECD /* svglength.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svglength.cpp; sourceTree = "<group>"; };
-		2C4395ED2535DCCA00F6AECD /* svgfittoviewbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgfittoviewbox.h; sourceTree = "<group>"; };
-		2C4395EE2535DCCA00F6AECD /* svgenumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgenumeration.h; sourceTree = "<group>"; };
-		2C4395EF2535DCCA00F6AECD /* svgelementimpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelementimpl.cpp; sourceTree = "<group>"; };
-		2C4395F02535DCCA00F6AECD /* svgelementiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelementiter.h; sourceTree = "<group>"; };
 		2C43964F2535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreestandingMessageBox_macOS.cpp; sourceTree = "<group>"; };
 		2C4397862535DDF300F6AECD /* stb_truetype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
 		2C43978A2536163000F6AECD /* GL4PixelShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4PixelShader.cpp; sourceTree = "<group>"; };
@@ -2614,6 +2467,45 @@
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
 		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
+		2C95662C264546F700539B85 /* paintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paintelement.h; sourceTree = "<group>"; };
+		2C95662D264546F700539B85 /* symbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbolelement.h; sourceTree = "<group>"; };
+		2C95662E264546F700539B85 /* svgelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelement.cpp; sourceTree = "<group>"; };
+		2C95662F264546F700539B85 /* symbolelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = symbolelement.cpp; sourceTree = "<group>"; };
+		2C956630264546F700539B85 /* defselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = defselement.cpp; sourceTree = "<group>"; };
+		2C956631264546F700539B85 /* geometryelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometryelement.h; sourceTree = "<group>"; };
+		2C956632264546F700539B85 /* maskelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maskelement.cpp; sourceTree = "<group>"; };
+		2C956633264546F700539B85 /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
+		2C956634264546F700539B85 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		2C956635264546F700539B85 /* property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = property.cpp; sourceTree = "<group>"; };
+		2C956636264546F700539B85 /* defselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defselement.h; sourceTree = "<group>"; };
+		2C956637264546F700539B85 /* markerelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = markerelement.h; sourceTree = "<group>"; };
+		2C956638264546F700539B85 /* useelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = useelement.cpp; sourceTree = "<group>"; };
+		2C956639264546F700539B85 /* useelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = useelement.h; sourceTree = "<group>"; };
+		2C95663A264546F700539B85 /* styledelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styledelement.cpp; sourceTree = "<group>"; };
+		2C95663B264546F700539B85 /* gelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gelement.cpp; sourceTree = "<group>"; };
+		2C95663C264546F700539B85 /* gelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gelement.h; sourceTree = "<group>"; };
+		2C95663D264546F700539B85 /* stopelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stopelement.cpp; sourceTree = "<group>"; };
+		2C95663E264546F700539B85 /* styledelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = styledelement.h; sourceTree = "<group>"; };
+		2C95663F264546F700539B85 /* markerelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = markerelement.cpp; sourceTree = "<group>"; };
+		2C956640264546F700539B85 /* paintelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paintelement.cpp; sourceTree = "<group>"; };
+		2C956641264546F700539B85 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
+		2C956642264546F700539B85 /* maskelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maskelement.h; sourceTree = "<group>"; };
+		2C956643264546F700539B85 /* geometryelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometryelement.cpp; sourceTree = "<group>"; };
+		2C956644264546F700539B85 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		2C956645264546F700539B85 /* layoutcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layoutcontext.h; sourceTree = "<group>"; };
+		2C956646264546F700539B85 /* stopelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stopelement.h; sourceTree = "<group>"; };
+		2C956647264546F700539B85 /* layoutcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layoutcontext.cpp; sourceTree = "<group>"; };
+		2C956648264546F700539B85 /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = element.cpp; sourceTree = "<group>"; };
+		2C956649264546F700539B85 /* property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = property.h; sourceTree = "<group>"; };
+		2C95664A264546F700539B85 /* clippathelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clippathelement.h; sourceTree = "<group>"; };
+		2C95664B264546F700539B85 /* document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = document.cpp; sourceTree = "<group>"; };
+		2C95664C264546F700539B85 /* canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = canvas.h; sourceTree = "<group>"; };
+		2C95664D264546F700539B85 /* svgelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelement.h; sourceTree = "<group>"; };
+		2C95664E264546F700539B85 /* graphicselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphicselement.h; sourceTree = "<group>"; };
+		2C95664F264546F700539B85 /* clippathelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clippathelement.cpp; sourceTree = "<group>"; };
+		2C956650264546F700539B85 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		2C956651264546F700539B85 /* graphicselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphicselement.cpp; sourceTree = "<group>"; };
+		2C956652264546F700539B85 /* parserutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parserutils.h; sourceTree = "<group>"; };
 		2C98D0DA25158AC000904E67 /* FrameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameTimer.cpp; sourceTree = "<group>"; };
 		2C98D0DB25158AC000904E67 /* FrameTimer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameTimer.hpp; sourceTree = "<group>"; };
 		2C98D0DC25158AC000904E67 /* FrameCounter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameCounter.hpp; sourceTree = "<group>"; };
@@ -4268,7 +4160,7 @@
 				2C60AE22248158A400277281 /* infoware */,
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
 				2C13C95E25BD29FC0054B968 /* lua */,
-				2C4395932535DCCA00F6AECD /* lunasvg */,
+				2C95662B264546F700539B85 /* lunasvg */,
 				2C44429F2427AA7C00557D51 /* miniutf */,
 				2C48BEA625CFB8C500A93CE3 /* msdfgen */,
 				2C47B47224DD97F1008D83BE /* muparser */,
@@ -4299,106 +4191,6 @@
 				2CF21D28249FAA9700C864C9 /* OpenGL4 */,
 			);
 			path = "Siv3D-Platform";
-			sourceTree = "<group>";
-		};
-		2C4395932535DCCA00F6AECD /* lunasvg */ = {
-			isa = PBXGroup;
-			children = (
-				2C4395942535DCCA00F6AECD /* cssproperty.h */,
-				2C4395952535DCCA00F6AECD /* svgfittoviewbox.cpp */,
-				2C4395962535DCCA00F6AECD /* svguseelement.cpp */,
-				2C4395972535DCCA00F6AECD /* affinetransform.h */,
-				2C4395982535DCCA00F6AECD /* svgstyledelement.h */,
-				2C4395992535DCCA00F6AECD /* svgparser.cpp */,
-				2C43959A2535DCCA00F6AECD /* svgstopelement.cpp */,
-				2C43959B2535DCCA00F6AECD /* svgnumber.h */,
-				2C43959C2535DCCA00F6AECD /* svgelement.cpp */,
-				2C43959D2535DCCA00F6AECD /* svgurireference.h */,
-				2C43959E2535DCCA00F6AECD /* svgnumber.cpp */,
-				2C43959F2535DCCA00F6AECD /* pathiterator.h */,
-				2C4395A02535DCCA00F6AECD /* svggeometryelement.h */,
-				2C4395A12535DCCA00F6AECD /* svgelementimpl.h */,
-				2C4395A22535DCCA00F6AECD /* svgrect.h */,
-				2C4395A32535DCCA00F6AECD /* rendercontext.h */,
-				2C4395A42535DCCA00F6AECD /* canvasimpl.h */,
-				2C4395A52535DCCA00F6AECD /* svgsymbolelement.cpp */,
-				2C4395A62535DCCA00F6AECD /* svgelementiter.cpp */,
-				2C4395A72535DCCA00F6AECD /* strokedata.cpp */,
-				2C4395A82535DCCA00F6AECD /* svgproperty.h */,
-				2C4395A92535DCCA00F6AECD /* svgparserutils.h */,
-				2C4395AA2535DCCA00F6AECD /* point.h */,
-				2C4395AB2535DCCA00F6AECD /* canvas.cpp */,
-				2C4395AC2535DCCA00F6AECD /* svgcolor.cpp */,
-				2C4395AD2535DCCA00F6AECD /* svgstring.h */,
-				2C4395AE2535DCCA00F6AECD /* path.h */,
-				2C4395AF2535DCCA00F6AECD /* svgdocumentimpl.h */,
-				2C4395B02535DCCA00F6AECD /* svggelement.cpp */,
-				2C4395B12535DCCA00F6AECD /* svgstyledelement.cpp */,
-				2C4395B22535DCCA00F6AECD /* svgdocument.h */,
-				2C4395B32535DCCA00F6AECD /* svgcontentutils.cpp */,
-				2C4395B42535DCCA00F6AECD /* svgsvgelement.cpp */,
-				2C4395B52535DCCA00F6AECD /* svgmaskelement.h */,
-				2C4395B62535DCCA00F6AECD /* svgenumeration.cpp */,
-				2C4395B72535DCCA00F6AECD /* svgtransform.cpp */,
-				2C4395B82535DCCA00F6AECD /* svgangle.h */,
-				2C4395B92535DCCA00F6AECD /* svgpaintelement.h */,
-				2C4395BA2535DCCA00F6AECD /* font.cpp */,
-				2C4395BB2535DCCA00F6AECD /* svguseelement.h */,
-				2C4395BC2535DCCA00F6AECD /* svgrect.cpp */,
-				2C4395BD2535DCCA00F6AECD /* svgtransform.h */,
-				2C4395BE2535DCCA00F6AECD /* svgpath.cpp */,
-				2C4395BF2535DCCA00F6AECD /* svgstopelement.h */,
-				2C4395C02535DCCA00F6AECD /* svgcontentutils.h */,
-				2C4395C12535DCCA00F6AECD /* svglength.h */,
-				2C4395C22535DCCA00F6AECD /* pathiterator.cpp */,
-				2C4395C32535DCCA00F6AECD /* rendercontext.cpp */,
-				2C4395C42535DCCA00F6AECD /* svgproperty.cpp */,
-				2C4395C52535DCCA00F6AECD /* svgtextelement.h */,
-				2C4395C62535DCCA00F6AECD /* svgdefselement.h */,
-				2C4395C72535DCCA00F6AECD /* svgparser.h */,
-				2C4395C82535DCCA00F6AECD /* svgstring.cpp */,
-				2C4395C92535DCCA00F6AECD /* svgsymbolelement.h */,
-				2C4395CA2535DCCA00F6AECD /* paint.cpp */,
-				2C4395CB2535DCCA00F6AECD /* svgdefselement.cpp */,
-				2C4395CC2535DCCA00F6AECD /* rect.h */,
-				2C4395CD2535DCCA00F6AECD /* svggelement.h */,
-				2C4395CE2535DCCA00F6AECD /* svggeometryelement.cpp */,
-				2C4395CF2535DCCA00F6AECD /* canvasimpl.cpp */,
-				2C4395D02535DCCA00F6AECD /* svgtextelement.cpp */,
-				2C4395D12535DCCA00F6AECD /* svgpaintelement.cpp */,
-				2C4395D22535DCCA00F6AECD /* svgmaskelement.cpp */,
-				2C4395D32535DCCA00F6AECD /* affinetransform.cpp */,
-				2C4395D42535DCCA00F6AECD /* svgpreserveaspectratio.cpp */,
-				2C4395D52535DCCA00F6AECD /* svgpath.h */,
-				2C4395D62535DCCA00F6AECD /* path.cpp */,
-				2C4395D72535DCCA00F6AECD /* svgcolor.h */,
-				2C4395D82535DCCA00F6AECD /* svgangle.cpp */,
-				2C4395D92535DCCA00F6AECD /* cssproperty.cpp */,
-				2C4395DA2535DCCA00F6AECD /* svgmarkerelement.cpp */,
-				2C4395DB2535DCCA00F6AECD /* svggraphicselement.cpp */,
-				2C4395DC2535DCCA00F6AECD /* font.h */,
-				2C4395DD2535DCCA00F6AECD /* svgurireference.cpp */,
-				2C4395DE2535DCCA00F6AECD /* svgpreserveaspectratio.h */,
-				2C4395DF2535DCCA00F6AECD /* canvas.h */,
-				2C4395E02535DCCA00F6AECD /* svgelement.h */,
-				2C4395E12535DCCA00F6AECD /* svgclippathelement.cpp */,
-				2C4395E22535DCCA00F6AECD /* strokedata.h */,
-				2C4395E32535DCCA00F6AECD /* svgmarkerelement.h */,
-				2C4395E42535DCCA00F6AECD /* svgpoint.cpp */,
-				2C4395E52535DCCA00F6AECD /* svgpoint.h */,
-				2C4395E62535DCCA00F6AECD /* svgclippathelement.h */,
-				2C4395E72535DCCA00F6AECD /* paint.h */,
-				2C4395E82535DCCA00F6AECD /* svggraphicselement.h */,
-				2C4395E92535DCCA00F6AECD /* svgdocumentimpl.cpp */,
-				2C4395EA2535DCCA00F6AECD /* svgdocument.cpp */,
-				2C4395EB2535DCCA00F6AECD /* svgsvgelement.h */,
-				2C4395EC2535DCCA00F6AECD /* svglength.cpp */,
-				2C4395ED2535DCCA00F6AECD /* svgfittoviewbox.h */,
-				2C4395EE2535DCCA00F6AECD /* svgenumeration.h */,
-				2C4395EF2535DCCA00F6AECD /* svgelementimpl.cpp */,
-				2C4395F02535DCCA00F6AECD /* svgelementiter.h */,
-			);
-			path = lunasvg;
 			sourceTree = "<group>";
 		};
 		2C43964E2535DCEA00F6AECD /* FreestandingMessageBox */ = {
@@ -6848,6 +6640,52 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		2C95662B264546F700539B85 /* lunasvg */ = {
+			isa = PBXGroup;
+			children = (
+				2C95662C264546F700539B85 /* paintelement.h */,
+				2C95662D264546F700539B85 /* symbolelement.h */,
+				2C95662E264546F700539B85 /* svgelement.cpp */,
+				2C95662F264546F700539B85 /* symbolelement.cpp */,
+				2C956630264546F700539B85 /* defselement.cpp */,
+				2C956631264546F700539B85 /* geometryelement.h */,
+				2C956632264546F700539B85 /* maskelement.cpp */,
+				2C956633264546F700539B85 /* canvas.cpp */,
+				2C956634264546F700539B85 /* parser.h */,
+				2C956635264546F700539B85 /* property.cpp */,
+				2C956636264546F700539B85 /* defselement.h */,
+				2C956637264546F700539B85 /* markerelement.h */,
+				2C956638264546F700539B85 /* useelement.cpp */,
+				2C956639264546F700539B85 /* useelement.h */,
+				2C95663A264546F700539B85 /* styledelement.cpp */,
+				2C95663B264546F700539B85 /* gelement.cpp */,
+				2C95663C264546F700539B85 /* gelement.h */,
+				2C95663D264546F700539B85 /* stopelement.cpp */,
+				2C95663E264546F700539B85 /* styledelement.h */,
+				2C95663F264546F700539B85 /* markerelement.cpp */,
+				2C956640264546F700539B85 /* paintelement.cpp */,
+				2C956641264546F700539B85 /* element.h */,
+				2C956642264546F700539B85 /* maskelement.h */,
+				2C956643264546F700539B85 /* geometryelement.cpp */,
+				2C956644264546F700539B85 /* document.h */,
+				2C956645264546F700539B85 /* layoutcontext.h */,
+				2C956646264546F700539B85 /* stopelement.h */,
+				2C956647264546F700539B85 /* layoutcontext.cpp */,
+				2C956648264546F700539B85 /* element.cpp */,
+				2C956649264546F700539B85 /* property.h */,
+				2C95664A264546F700539B85 /* clippathelement.h */,
+				2C95664B264546F700539B85 /* document.cpp */,
+				2C95664C264546F700539B85 /* canvas.h */,
+				2C95664D264546F700539B85 /* svgelement.h */,
+				2C95664E264546F700539B85 /* graphicselement.h */,
+				2C95664F264546F700539B85 /* clippathelement.cpp */,
+				2C956650264546F700539B85 /* parser.cpp */,
+				2C956651264546F700539B85 /* graphicselement.cpp */,
+				2C956652264546F700539B85 /* parserutils.h */,
+			);
+			path = lunasvg;
+			sourceTree = "<group>";
+		};
 		2C9D1077249A3D680096DA03 /* SMFT */ = {
 			isa = PBXGroup;
 			children = (
@@ -8187,9 +8025,7 @@
 				2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */,
 				2C794B7825C4FD8D00034D81 /* CAssetMonitor.hpp in Headers */,
 				2C47B33B24DD9789008D83BE /* SystemMisc.hpp in Headers */,
-				2C4396162535DCCA00F6AECD /* svgpaintelement.h in Headers */,
 				2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */,
-				2C4396402535DCCA00F6AECD /* svgmarkerelement.h in Headers */,
 				2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */,
 				2C423222242B155E00A16BCA /* glfw3.h in Headers */,
 				2C47B34924DD9789008D83BE /* CWindow_Null.hpp in Headers */,
@@ -8203,7 +8039,6 @@
 				2CFC215425F739B400C51D0D /* hb-unicode.h in Headers */,
 				2C43C86F25C837F000D6D613 /* ftstdlib.h in Headers */,
 				2C43C8BD25C837F100D6D613 /* tttables.h in Headers */,
-				2C43961E2535DCCA00F6AECD /* svglength.h in Headers */,
 				2C13C9BE25BD29FC0054B968 /* lstate.h in Headers */,
 				2C6390FA2539ABAB0030F18E /* CShader_Metal.hpp in Headers */,
 				2C47B6E124EAC88E008D83BE /* ConstantBufferDetail_Null.hpp in Headers */,
@@ -8213,7 +8048,9 @@
 				2CFB7DAF262A66D100169B97 /* ITextInput.hpp in Headers */,
 				2C43C87525C837F000D6D613 /* public-macros.h in Headers */,
 				2CFC214F25F739B400C51D0D /* hb-font.h in Headers */,
+				2C956665264546F700539B85 /* styledelement.h in Headers */,
 				2C48BF0525CFB8C500A93CE3 /* Bitmap.hpp in Headers */,
+				2C956674264546F700539B85 /* svgelement.h in Headers */,
 				2C481E1424460B5700A5D88D /* cpu_features_cache_info.h in Headers */,
 				2C48BF0425CFB8C500A93CE3 /* ShapeDistanceFinder.h in Headers */,
 				2CB749F6261F52E200D31274 /* XInputState.hpp in Headers */,
@@ -8225,16 +8062,15 @@
 				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2C2AA39A26009C74003F3EBC /* b2_draw.h in Headers */,
-				2C4396392535DCCA00F6AECD /* font.h in Headers */,
 				2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */,
 				2C48BF7B25D41C0D00A93CE3 /* BitmapGlyphCache.hpp in Headers */,
 				2C2AA38226009C74003F3EBC /* b2_revolute_joint.h in Headers */,
 				2C47B30624DD9789008D83BE /* IRenderer.hpp in Headers */,
 				2C4AEF59262C44F800D36CFC /* CascadeClassifierDetail.hpp in Headers */,
+				2C956663264546F700539B85 /* gelement.h in Headers */,
 				2C34781125DA95A100071EEF /* IPrint.hpp in Headers */,
 				2C43C8B125C837F100D6D613 /* ftincrem.h in Headers */,
 				2CA0EE1F260E3B4D004269AF /* P2MouseJointDetail.hpp in Headers */,
-				2C4395FF2535DCCA00F6AECD /* svgrect.h in Headers */,
 				2C13C9A025BD29FC0054B968 /* lzio.h in Headers */,
 				2C43C8B825C837F100D6D613 /* tttags.h in Headers */,
 				2C439F89241DCEA9001154C2 /* fast-dtoa.h in Headers */,
@@ -8253,30 +8089,25 @@
 				2C43C88125C837F000D6D613 /* ftdebug.h in Headers */,
 				2C43C87325C837F000D6D613 /* ftoption.h in Headers */,
 				2C48BEE725CFB8C500A93CE3 /* shape-description.h in Headers */,
-				2C43964D2535DCCB00F6AECD /* svgelementiter.h in Headers */,
 				2C43C87125C837F000D6D613 /* ftconfig.h in Headers */,
 				2C43C8AA25C837F100D6D613 /* ftsynth.h in Headers */,
 				2C47B48D24DD97F2008D83BE /* muParserTemplateMagic.h in Headers */,
 				2C439F87241DCEA9001154C2 /* ieee.h in Headers */,
-				2C4396442535DCCA00F6AECD /* paint.h in Headers */,
 				2C43C8C225C837F100D6D613 /* ftlist.h in Headers */,
-				2C4396232535DCCA00F6AECD /* svgdefselement.h in Headers */,
 				2C4A286D25EA60EB00FEACE4 /* CScreenCapture.hpp in Headers */,
 				2CDD4F4A260A3F7100A51D68 /* P2DistanceJointDetail.hpp in Headers */,
 				2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */,
 				2C794B2F25C3DFC200034D81 /* debug.h in Headers */,
 				2C13C99F25BD29FC0054B968 /* luaconf.h in Headers */,
-				2C4396482535DCCA00F6AECD /* svgsvgelement.h in Headers */,
 				2C47B33924DD9789008D83BE /* SystemLog.hpp in Headers */,
-				2C43960F2535DCCA00F6AECD /* svgdocument.h in Headers */,
 				2CDD4F40260A3F7100A51D68 /* P2Common.hpp in Headers */,
 				2C43C8A325C837F100D6D613 /* svcid.h in Headers */,
+				2C95665E264546F700539B85 /* markerelement.h in Headers */,
 				2C43C88525C837F000D6D613 /* compiler-macros.h in Headers */,
 				2C43C87925C837F000D6D613 /* fttrigon.h in Headers */,
 				2CEC7DD925FA527700704B99 /* BMPHeader.hpp in Headers */,
 				2C43C8AC25C837F100D6D613 /* ftgasp.h in Headers */,
 				2C2AA38A26009C74003F3EBC /* b2_math.h in Headers */,
-				2C4396002535DCCA00F6AECD /* rendercontext.h in Headers */,
 				2C43C87D25C837F000D6D613 /* sfnt.h in Headers */,
 				2C794B0725C3DFC200034D81 /* zstd_compress_internal.h in Headers */,
 				2C2AA35526009C74003F3EBC /* b2_chain_polygon_contact.h in Headers */,
@@ -8287,13 +8118,10 @@
 				2CFC214B25F739B400C51D0D /* hb-face.h in Headers */,
 				2C48BEF125CFB8C500A93CE3 /* SignedDistance.h in Headers */,
 				2CFC214E25F739B400C51D0D /* hb-version.h in Headers */,
-				2C4395FA2535DCCA00F6AECD /* svgurireference.h in Headers */,
-				2C4396242535DCCA00F6AECD /* svgparser.h in Headers */,
 				2C13C9A725BD29FC0054B968 /* lualib.h in Headers */,
 				2C2AA39626009C74003F3EBC /* b2_world.h in Headers */,
 				2C48BEEB25CFB8C500A93CE3 /* edge-selectors.h in Headers */,
 				2C43C8A525C837F100D6D613 /* svpostnm.h in Headers */,
-				2C4395F42535DCCA00F6AECD /* affinetransform.h in Headers */,
 				2C47B33A24DD9789008D83BE /* ISystem.hpp in Headers */,
 				2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */,
 				2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */,
@@ -8308,7 +8136,6 @@
 				2C43C8B725C837F100D6D613 /* ftchapters.h in Headers */,
 				2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */,
 				2C834D9B248805D4006208B8 /* regint.h in Headers */,
-				2C4395FE2535DCCA00F6AECD /* svgelementimpl.h in Headers */,
 				2C48BF6A25D41C0D00A93CE3 /* agg_curves.h in Headers */,
 				2C6390EE2536C5460030F18E /* MetalBackBuffer.hpp in Headers */,
 				2C4AEF77262C4E8300D36CFC /* TTS.hpp in Headers */,
@@ -8320,6 +8147,7 @@
 				2C2AA37E26009C74003F3EBC /* b2_types.h in Headers */,
 				2C794B3025C3DFC200034D81 /* pool.h in Headers */,
 				2C47B33124DD9789008D83BE /* IRenderer2D.hpp in Headers */,
+				2C956660264546F700539B85 /* useelement.h in Headers */,
 				2CFC215B25F739B400C51D0D /* pngconf.h in Headers */,
 				2C43C89225C837F100D6D613 /* svprop.h in Headers */,
 				2C2AA38326009C74003F3EBC /* b2_rope.h in Headers */,
@@ -8342,7 +8170,6 @@
 				2C43C8BE25C837F100D6D613 /* ftcid.h in Headers */,
 				2C43C89D25C837F100D6D613 /* svpfr.h in Headers */,
 				2C13C8B525B8FA9D0054B968 /* DetourAlloc.h in Headers */,
-				2C4395FD2535DCCA00F6AECD /* svggeometryelement.h in Headers */,
 				2C13C9B725BD29FC0054B968 /* ljumptab.h in Headers */,
 				2CFF9F6D24A47730000B5A17 /* MetalVertex2DBatch.hpp in Headers */,
 				2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */,
@@ -8356,21 +8183,18 @@
 				2C47B35C24DD9789008D83BE /* CImageEncoder.hpp in Headers */,
 				2C43C88825C837F000D6D613 /* cfftypes.h in Headers */,
 				2C2AA2B925FF8933003F3EBC /* SerialDetail.hpp in Headers */,
-				2C43961D2535DCCA00F6AECD /* svgcontentutils.h in Headers */,
-				2C4396432535DCCA00F6AECD /* svgclippathelement.h in Headers */,
 				2CFC215325F739B400C51D0D /* hb-shape-plan.h in Headers */,
 				2C47B2FB24DD9789008D83BE /* ILicenseManager.hpp in Headers */,
-				2C43962A2535DCCA00F6AECD /* svggelement.h in Headers */,
 				2C4A286E25EA60EB00FEACE4 /* IScreenCapture.hpp in Headers */,
 				2C27A9EC256E359400756617 /* GL4BlendState.hpp in Headers */,
 				2C2AA3A026009C74003F3EBC /* b2_world_callbacks.h in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
-				2C43961C2535DCCA00F6AECD /* svgstopelement.h in Headers */,
 				2C794B3125C3DFC200034D81 /* compiler.h in Headers */,
 				2C43C87425C837F000D6D613 /* ftmodule.h in Headers */,
 				2C43C8B925C837F100D6D613 /* ftlzw.h in Headers */,
 				2C13C89425B8FA840054B968 /* NavMeshDetail.hpp in Headers */,
 				2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */,
+				2C95665B264546F700539B85 /* parser.h in Headers */,
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
@@ -8398,10 +8222,9 @@
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
 				2C2AA37926009C74003F3EBC /* b2_weld_joint.h in Headers */,
+				2C95666D264546F700539B85 /* stopelement.h in Headers */,
 				2C48BEF525CFB8C500A93CE3 /* EdgeColor.h in Headers */,
-				2C4396292535DCCA00F6AECD /* rect.h in Headers */,
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
-				2C4396342535DCCA00F6AECD /* svgcolor.h in Headers */,
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
 				2C427FD72628436F00106F19 /* CGamepad.hpp in Headers */,
 				2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */,
@@ -8423,15 +8246,13 @@
 				2CF21D1C249FAA8F00C864C9 /* CSystem.hpp in Headers */,
 				2C48BEEE25CFB8C500A93CE3 /* Shape.h in Headers */,
 				2C439F472419D686001154C2 /* format-inl.h in Headers */,
-				2C43963C2535DCCA00F6AECD /* canvas.h in Headers */,
 				2C13C8C325B8FA9D0054B968 /* DetourStatus.h in Headers */,
 				2C47B49124DD97F2008D83BE /* muParserToken.h in Headers */,
 				2C43C8C325C837F100D6D613 /* ftmac.h in Headers */,
-				2C4396052535DCCA00F6AECD /* svgproperty.h in Headers */,
 				2C439F7E241DCEA9001154C2 /* double-to-string.h in Headers */,
+				2C956673264546F700539B85 /* canvas.h in Headers */,
 				2C48BF7F25D41C0D00A93CE3 /* FontData.hpp in Headers */,
 				2C2AA39C26009C74003F3EBC /* b2_api.h in Headers */,
-				2C43963D2535DCCA00F6AECD /* svgelement.h in Headers */,
 				2C48BF8225D41C0D00A93CE3 /* FontResourceHolder.hpp in Headers */,
 				2C2AA36E26009C74003F3EBC /* b2_polygon_contact.h in Headers */,
 				2C13C8BB25B8FA9D0054B968 /* Recast.h in Headers */,
@@ -8449,6 +8270,7 @@
 				2C4397952536163000F6AECD /* CShader_GL4.hpp in Headers */,
 				2C4AEF61262C480800D36CFC /* CEmpty.hpp in Headers */,
 				2C47B6F524EAC8D9008D83BE /* CRenderer2D_GL4.hpp in Headers */,
+				2C956653264546F700539B85 /* paintelement.h in Headers */,
 				2C43C8AB25C837F100D6D613 /* fterrors.h in Headers */,
 				2C43C88F25C837F000D6D613 /* ftgloadr.h in Headers */,
 				2C2AA35C26009C74003F3EBC /* b2_edge_circle_contact.h in Headers */,
@@ -8456,10 +8278,10 @@
 				2C2AA35226009C74003F3EBC /* b2_shape.h in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
+				2C95666B264546F700539B85 /* document.h in Headers */,
 				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2C2AA39B26009C74003F3EBC /* b2_collision.h in Headers */,
-				2C4396152535DCCA00F6AECD /* svgangle.h in Headers */,
 				2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
@@ -8471,13 +8293,11 @@
 				2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */,
 				2C43C89425C837F100D6D613 /* svcfftl.h in Headers */,
 				2C794B1F25C3DFC200034D81 /* zstd_fast.h in Headers */,
-				2C4396062535DCCA00F6AECD /* svgparserutils.h in Headers */,
 				2C48BF7025D41C0D00A93CE3 /* OutlineGlyphRenderer.hpp in Headers */,
 				2C6390FC2539ABAB0030F18E /* MetalVertexShader.hpp in Headers */,
 				2C439F78241DCEA9001154C2 /* utils.h in Headers */,
 				2C43C8BA25C837F100D6D613 /* ftsystem.h in Headers */,
 				2C47B33F24DD9789008D83BE /* Siv3DComponent.hpp in Headers */,
-				2C43960B2535DCCA00F6AECD /* path.h in Headers */,
 				2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */,
 				2C47B49424DD97F2008D83BE /* muParser.h in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
@@ -8486,12 +8306,10 @@
 				2CFF581B25F7C02500B660AD /* VideoReaderDetail.hpp in Headers */,
 				2C43C8C425C837F100D6D613 /* ftlcdfil.h in Headers */,
 				2C43C8A225C837F100D6D613 /* svtteng.h in Headers */,
-				2C43963B2535DCCA00F6AECD /* svgpreserveaspectratio.h in Headers */,
 				2C47B36524DD9789008D83BE /* IScene.hpp in Headers */,
 				2C39ECAF2564033C0021DF34 /* Vertex2DBufferPointer.hpp in Headers */,
 				2C2AA35926009C74003F3EBC /* b2_circle_contact.h in Headers */,
 				2C794B9A25C5A61900034D81 /* IEffect.hpp in Headers */,
-				2C43963F2535DCCA00F6AECD /* strokedata.h in Headers */,
 				2C794B0B25C3DFC200034D81 /* zstd_lazy.h in Headers */,
 				2C4AEF62262C480800D36CFC /* IEmpty.hpp in Headers */,
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
@@ -8500,7 +8318,6 @@
 				2C2AA39426009C74003F3EBC /* b2_contact.h in Headers */,
 				2CEC7DE425FA5DE300704B99 /* TGAHeader.hpp in Headers */,
 				2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */,
-				2C4396452535DCCA00F6AECD /* svggraphicselement.h in Headers */,
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
 				2C13C9D125BD29FC0054B968 /* lprefix.h in Headers */,
 				2C2AA38126009C74003F3EBC /* b2_settings.h in Headers */,
@@ -8508,7 +8325,6 @@
 				2C48BF8625D41C0D00A93CE3 /* FreeType.hpp in Headers */,
 				2CEC7DC625FA4DD900704B99 /* exif.h in Headers */,
 				2C13C9B825BD29FC0054B968 /* llex.h in Headers */,
-				2C43960C2535DCCA00F6AECD /* svgdocumentimpl.h in Headers */,
 				2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */,
 				2C48BF6F25D41C0D00A93CE3 /* GlyphRenderer.hpp in Headers */,
 				2C13C9B425BD29FC0054B968 /* ldo.h in Headers */,
@@ -8522,14 +8338,13 @@
 				2C43C89725C837F100D6D613 /* svotval.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C2AA38C26009C74003F3EBC /* b2_mouse_joint.h in Headers */,
-				2C4396122535DCCA00F6AECD /* svgmaskelement.h in Headers */,
 				2C48BEE525CFB8C500A93CE3 /* Scanline.h in Headers */,
 				2C794B4225C3DFC200034D81 /* zstd_internal.h in Headers */,
 				2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */,
 				2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */,
+				2C956670264546F700539B85 /* property.h in Headers */,
 				2C47B32224DD9789008D83BE /* CursorState.hpp in Headers */,
 				2C47B37124DD9789008D83BE /* CImageDecoder.hpp in Headers */,
-				2C4396322535DCCA00F6AECD /* svgpath.h in Headers */,
 				2C2AA37626009C74003F3EBC /* b2_island.h in Headers */,
 				2C794B3C25C3DFC200034D81 /* huf.h in Headers */,
 				2C2AA39F26009C74003F3EBC /* b2_timer.h in Headers */,
@@ -8564,16 +8379,16 @@
 				2C39ECB12564033C0021DF34 /* Vertex2DBuilder.hpp in Headers */,
 				2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */,
 				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
-				2C4396012535DCCA00F6AECD /* canvasimpl.h in Headers */,
 				2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */,
 				2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */,
+				2C956654264546F700539B85 /* symbolelement.h in Headers */,
 				2C2AA39726009C74003F3EBC /* b2_polygon_shape.h in Headers */,
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
 				2C2AA35826009C74003F3EBC /* b2_polygon_circle_contact.h in Headers */,
 				2C47B34324DD9789008D83BE /* IUserAction.hpp in Headers */,
-				2C43964A2535DCCB00F6AECD /* svgfittoviewbox.h in Headers */,
 				2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */,
 				2C43C87F25C837F000D6D613 /* cffotypes.h in Headers */,
+				2C956669264546F700539B85 /* maskelement.h in Headers */,
 				2C2AA36526009C74003F3EBC /* b2_edge_polygon_contact.h in Headers */,
 				2C43C8A725C837F100D6D613 /* ftcalc.h in Headers */,
 				2C2AA35326009C74003F3EBC /* b2_block_allocator.h in Headers */,
@@ -8606,7 +8421,6 @@
 				2C794B2E25C3DFC200034D81 /* xxhash.h in Headers */,
 				2C13C8B725B8FA9D0054B968 /* DetourNavMeshBuilder.h in Headers */,
 				2CFC215225F739B400C51D0D /* hb-shape.h in Headers */,
-				2C43964B2535DCCB00F6AECD /* svgenumeration.h in Headers */,
 				2C48BF7525D41C0D00A93CE3 /* GlyphCacheCommon.hpp in Headers */,
 				2C48BF6E25D41C0D00A93CE3 /* MSDFGlyphRenderer.hpp in Headers */,
 				2C13C8B625B8FA9D0054B968 /* DetourNavMeshQuery.h in Headers */,
@@ -8626,10 +8440,10 @@
 				2C43C88625C837F000D6D613 /* autohint.h in Headers */,
 				2C34781025DA95A100071EEF /* CPrint.hpp in Headers */,
 				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
-				2C4396222535DCCA00F6AECD /* svgtextelement.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
 				2C13C9D825BD29FC0054B968 /* lundump.h in Headers */,
+				2C956658264546F700539B85 /* geometryelement.h in Headers */,
 				2C43C8A425C837F100D6D613 /* svttglyf.h in Headers */,
 				2C794B2025C3DFC200034D81 /* zdict.h in Headers */,
 				2C48BEDD25CFB8C500A93CE3 /* ShapeDistanceFinder.hpp in Headers */,
@@ -8649,7 +8463,6 @@
 				2C53C34625613BB00072831A /* PolygonDetail.hpp in Headers */,
 				2C43C88725C837F000D6D613 /* ftstream.h in Headers */,
 				2C43C89625C837F100D6D613 /* svttcmap.h in Headers */,
-				2C4395FC2535DCCA00F6AECD /* pathiterator.h in Headers */,
 				2C43C8B525C837F100D6D613 /* ftpfr.h in Headers */,
 				2C43C8B425C837F100D6D613 /* ttnameid.h in Headers */,
 				2C2AA39E26009C74003F3EBC /* b2_gear_joint.h in Headers */,
@@ -8666,11 +8479,10 @@
 				2C13C9A925BD29FC0054B968 /* lopnames.h in Headers */,
 				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
 				2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */,
-				2C4396072535DCCA00F6AECD /* point.h in Headers */,
 				2C42322C242B155E00A16BCA /* nsgl_context.h in Headers */,
+				2C95666C264546F700539B85 /* layoutcontext.h in Headers */,
 				2C794B1D25C3DFC200034D81 /* zstd_compress_sequences.h in Headers */,
 				2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */,
-				2C4395F82535DCCA00F6AECD /* svgnumber.h in Headers */,
 				2C4397932536163000F6AECD /* GL4VertexShader.hpp in Headers */,
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
 				2CFB7DC2262AB4EA00169B97 /* IClipboard.hpp in Headers */,
@@ -8691,6 +8503,7 @@
 				2CB749F5261F52E200D31274 /* IXInput.hpp in Headers */,
 				2C43C88D25C837F000D6D613 /* ftmemory.h in Headers */,
 				2C2AA37726009C74003F3EBC /* b2_motor_joint.h in Headers */,
+				2C956679264546F700539B85 /* parserutils.h in Headers */,
 				2CFB7DBC262AB4D800169B97 /* CClipboard.hpp in Headers */,
 				2C2AA38B26009C74003F3EBC /* b2_time_of_impact.h in Headers */,
 				2C48BEFB25CFB8C500A93CE3 /* save-bmp.h in Headers */,
@@ -8702,9 +8515,9 @@
 				2C47B5B224E7670A008D83BE /* CTexture_Null.hpp in Headers */,
 				2C8CA3AE261594A000BABD2D /* types.h in Headers */,
 				2C43C8AD25C837F100D6D613 /* ftstroke.h in Headers */,
+				2C956671264546F700539B85 /* clippathelement.h in Headers */,
 				2C43C8BF25C837F100D6D613 /* ftglyph.h in Headers */,
 				2C48BEFD25CFB8C500A93CE3 /* Contour.h in Headers */,
-				2C4396262535DCCA00F6AECD /* svgsymbolelement.h in Headers */,
 				2C439F88241DCEA9001154C2 /* bignum.h in Headers */,
 				2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */,
 				2C794B1625C3DFC200034D81 /* zstd_double_fast.h in Headers */,
@@ -8713,35 +8526,32 @@
 				2C794B1025C3DFC200034D81 /* zstd_cwksp.h in Headers */,
 				2C43C89825C837F100D6D613 /* svgldict.h in Headers */,
 				2C48BF7425D41C0D00A93CE3 /* SDFGlyphRenderer.hpp in Headers */,
-				2C4395F52535DCCA00F6AECD /* svgstyledelement.h in Headers */,
 				2C13C9BF25BD29FC0054B968 /* lopcodes.h in Headers */,
 				2C47B31D24DD9789008D83BE /* ICursor.hpp in Headers */,
 				2C43C89A25C837F100D6D613 /* svkern.h in Headers */,
 				2C48BF7E25D41C0D00A93CE3 /* CFont.hpp in Headers */,
 				2C43C88B25C837F000D6D613 /* ftobjs.h in Headers */,
-				2C4395F12535DCCA00F6AECD /* cssproperty.h in Headers */,
 				2C48BF6525D41C0D00A93CE3 /* agg_array.h in Headers */,
 				2C68508824B768A800B98A7F /* CLogger.hpp in Headers */,
 				2C794B3825C3DFC200034D81 /* bitstream.h in Headers */,
 				2C43C89F25C837F100D6D613 /* svfntfmt.h in Headers */,
 				2C48BF7325D41C0D00A93CE3 /* BitmapGlyphRenderer.hpp in Headers */,
-				2C43960A2535DCCA00F6AECD /* svgstring.h in Headers */,
 				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
 				2CFB7DD3262AF33C00169B97 /* IDragDrop.hpp in Headers */,
 				2C13C9CE25BD29FC0054B968 /* lua.h in Headers */,
 				2C43C88225C837F000D6D613 /* psaux.h in Headers */,
+				2C95665D264546F700539B85 /* defselement.h in Headers */,
 				2CFC214A25F739B400C51D0D /* hb-set.h in Headers */,
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
 				2C47B36824DD9789008D83BE /* IResource.hpp in Headers */,
-				2C4396182535DCCA00F6AECD /* svguseelement.h in Headers */,
+				2C956668264546F700539B85 /* element.h in Headers */,
 				2C68509124B768A800B98A7F /* CConsole.hpp in Headers */,
 				2C42323D242B155E00A16BCA /* cocoa_joystick.h in Headers */,
-				2C43961A2535DCCA00F6AECD /* svgtransform.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
+				2C956675264546F700539B85 /* graphicselement.h in Headers */,
 				2C794B1825C3DFC200034D81 /* zstdmt_compress.h in Headers */,
 				2C4AEF6E262C4E2900D36CFC /* ITextToSpeech.hpp in Headers */,
 				2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */,
-				2C4396422535DCCA00F6AECD /* svgpoint.h in Headers */,
 				2C43C89525C837F100D6D613 /* svwinfnt.h in Headers */,
 				2CDD4F44260A3F7100A51D68 /* P2WorldDetail.hpp in Headers */,
 				2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */,
@@ -8871,7 +8681,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C4395F92535DCCA00F6AECD /* svgelement.cpp in Sources */,
 				2C2AA38026009C74003F3EBC /* b2_rope.cpp in Sources */,
 				2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
@@ -8885,20 +8694,20 @@
 				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
 				2C423239242B155E00A16BCA /* input.c in Sources */,
+				2C956657264546F700539B85 /* defselement.cpp in Sources */,
 				2C794B4825C3DFEB00034D81 /* SivCompression.cpp in Sources */,
 				2C6391032539BE5F0030F18E /* MetalVertexShader.mm in Sources */,
 				2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */,
 				2C423236242B155E00A16BCA /* vulkan.c in Sources */,
 				2C2AA3A126009C74003F3EBC /* b2_collide_circle.cpp in Sources */,
-				2C43962B2535DCCA00F6AECD /* svggeometryelement.cpp in Sources */,
 				2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */,
 				2C47B35424DD9789008D83BE /* SivApplicationOptions.cpp in Sources */,
-				2C4396302535DCCA00F6AECD /* affinetransform.cpp in Sources */,
 				2CDD4F39260A3F7100A51D68 /* P2Body.cpp in Sources */,
 				2C2AA37526009C74003F3EBC /* b2_fixture.cpp in Sources */,
 				2CFB7DC3262AB4EA00169B97 /* ClipboardFactory.cpp in Sources */,
 				2C13C8C925B8FA9D0054B968 /* RecastContour.cpp in Sources */,
 				2C13C9B325BD29FC0054B968 /* lstring.c in Sources */,
+				2C956678264546F700539B85 /* graphicselement.cpp in Sources */,
 				2C47B30324DD9789008D83BE /* SivBigFloat.cpp in Sources */,
 				2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */,
 				2C47B4A524E16B90008D83BE /* SivPrimeNumber.cpp in Sources */,
@@ -8907,7 +8716,6 @@
 				2C27AA0C257D379800756617 /* SivColormap.cpp in Sources */,
 				2C794B6C25C4FD4300034D81 /* SivSVG.cpp in Sources */,
 				2CC7D4B225FA3A9200289963 /* SivVideoTexture.cpp in Sources */,
-				2C4396362535DCCA00F6AECD /* cssproperty.cpp in Sources */,
 				2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */,
 				2C2AA3AA26009C74003F3EBC /* b2_edge_shape.cpp in Sources */,
 				2C13C8D425B8FAC30054B968 /* SivCamera2D.cpp in Sources */,
@@ -8916,7 +8724,6 @@
 				2C2AA36626009C74003F3EBC /* b2_distance_joint.cpp in Sources */,
 				2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */,
 				2C794B3525C3DFC200034D81 /* fse_decompress.c in Sources */,
-				2C4396282535DCCA00F6AECD /* svgdefselement.cpp in Sources */,
 				2C34780225DA951400071EEF /* FontCommon.cpp in Sources */,
 				2C13C8E125B9141D0054B968 /* SivRect.cpp in Sources */,
 				2C48BF7125D41C0D00A93CE3 /* MSDFGlyphRenderer.cpp in Sources */,
@@ -8963,7 +8770,6 @@
 				2C13C9C225BD29FC0054B968 /* lzio.c in Sources */,
 				2C47B6F824EAC8D9008D83BE /* CRenderer2D_GL4.cpp in Sources */,
 				2C794B3625C3DFC200034D81 /* debug.c in Sources */,
-				2C4396412535DCCA00F6AECD /* svgpoint.cpp in Sources */,
 				2C2AA39026009C74003F3EBC /* b2_stack_allocator.cpp in Sources */,
 				2C47B34824DD9789008D83BE /* CWindow_Null.cpp in Sources */,
 				2C48BF8325D41C0D00A93CE3 /* SivFont.cpp in Sources */,
@@ -8995,7 +8801,6 @@
 				2C47B37624DD9789008D83BE /* ConsoleFactory.cpp in Sources */,
 				2C4AEF64262C480800D36CFC /* EmptyFactory.cpp in Sources */,
 				2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */,
-				2C4396102535DCCA00F6AECD /* svgcontentutils.cpp in Sources */,
 				2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */,
 				2C2AA37226009C74003F3EBC /* b2_mouse_joint.cpp in Sources */,
 				2C47B32524DD9789008D83BE /* SivBinaryWriter.cpp in Sources */,
@@ -9028,7 +8833,6 @@
 				2C2AA36726009C74003F3EBC /* b2_contact_manager.cpp in Sources */,
 				2CF962F025A7F953006F55C9 /* SivRoundRect.cpp in Sources */,
 				2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */,
-				2C43960D2535DCCA00F6AECD /* svggelement.cpp in Sources */,
 				2C47B36A24DD9789008D83BE /* SivResource.cpp in Sources */,
 				2C834D8D248805D4006208B8 /* ascii.c in Sources */,
 				2CEC7DD425FA527700704B99 /* SVGDecoder.cpp in Sources */,
@@ -9045,7 +8849,6 @@
 				2C13C9C025BD29FC0054B968 /* loslib.c in Sources */,
 				2C13C6F325B458350054B968 /* SivSubdivision2D.cpp in Sources */,
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
-				2C4396332535DCCA00F6AECD /* path.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
@@ -9088,7 +8891,6 @@
 				2C60AE7D248158A500277281 /* quantities_cache_darwin.cpp in Sources */,
 				2C47B31824DD9789008D83BE /* LoggerFactory.cpp in Sources */,
 				2C2AA3A226009C74003F3EBC /* b2_circle_shape.cpp in Sources */,
-				2C4395F22535DCCA00F6AECD /* svgfittoviewbox.cpp in Sources */,
 				2C60AE85248158A500277281 /* kernel_info_windows.cpp in Sources */,
 				2CF962FA25A7F9AB006F55C9 /* Splines.cpp in Sources */,
 				2C47B32B24DD9789008D83BE /* SivFileSystem.cpp in Sources */,
@@ -9099,7 +8901,6 @@
 				2CFB7DBD262AB4D800169B97 /* CClipboard.mm in Sources */,
 				2C48BEE225CFB8C500A93CE3 /* EdgeHolder.cpp in Sources */,
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
-				2C43960E2535DCCA00F6AECD /* svgstyledelement.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
 				2C2AA3A326009C74003F3EBC /* b2_collision.cpp in Sources */,
@@ -9108,31 +8909,28 @@
 				2C13C9CA25BD29FC0054B968 /* lcode.c in Sources */,
 				2C423244242B155E00A16BCA /* context.c in Sources */,
 				2C47B49E24DD97F2008D83BE /* muParserInt.cpp in Sources */,
-				2C4395F62535DCCA00F6AECD /* svgparser.cpp in Sources */,
 				2C48BF3825CFB92900A93CE3 /* SivJSON.cpp in Sources */,
 				2C60AE71248158A500277281 /* frequency_darwin.cpp in Sources */,
 				2C2AA36926009C74003F3EBC /* b2_edge_polygon_contact.cpp in Sources */,
 				2C47B6D624EAC834008D83BE /* SivVertexShader.cpp in Sources */,
 				2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */,
+				2C95666F264546F700539B85 /* element.cpp in Sources */,
 				2CEC7DD725FA527700704B99 /* JPEGEncoder.cpp in Sources */,
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C794B3B25C3DFC200034D81 /* pool.c in Sources */,
+				2C956655264546F700539B85 /* svgelement.cpp in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
 				2C48BF8825D41C0D00A93CE3 /* FontData.cpp in Sources */,
-				2C43961B2535DCCA00F6AECD /* svgpath.cpp in Sources */,
-				2C4396372535DCCA00F6AECD /* svgmarkerelement.cpp in Sources */,
 				2CEC7DD625FA527700704B99 /* PNGDecoder.cpp in Sources */,
 				2C439F7B241DCEA9001154C2 /* string-to-double.cc in Sources */,
 				2C60AE7A248158A500277281 /* architecture_non_windows.cpp in Sources */,
 				2C794B5825C4080A00034D81 /* CTexture_GL4.cpp in Sources */,
 				2C2AA36826009C74003F3EBC /* b2_polygon_contact.cpp in Sources */,
 				2C47B6CB24EAC819008D83BE /* SivPixelShader.cpp in Sources */,
-				2C43961F2535DCCA00F6AECD /* pathiterator.cpp in Sources */,
 				2CDD4F4D260A3F7100A51D68 /* P2SliderJointDetail.cpp in Sources */,
 				2C34780E25DA95A100071EEF /* CPrint.cpp in Sources */,
-				2C43962E2535DCCA00F6AECD /* svgpaintelement.cpp in Sources */,
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
@@ -9145,6 +8943,7 @@
 				2C47B31924DD9789008D83BE /* UnicodeUtility.cpp in Sources */,
 				2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */,
 				2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */,
+				2C956666264546F700539B85 /* markerelement.cpp in Sources */,
 				2C60AE79248158A500277281 /* architecture_windows.cpp in Sources */,
 				2C47B32324DD9789008D83BE /* SivDateTime.cpp in Sources */,
 				2C794B9B25C5A61900034D81 /* EffectData.cpp in Sources */,
@@ -9152,17 +8951,16 @@
 				2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */,
 				2C427FDF2628438A00106F19 /* GamepadFactory.cpp in Sources */,
 				2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */,
+				2C95665A264546F700539B85 /* canvas.cpp in Sources */,
+				2C95666E264546F700539B85 /* layoutcontext.cpp in Sources */,
 				2C2AA39126009C74003F3EBC /* b2_settings.cpp in Sources */,
 				2C423250242B155E00A16BCA /* window.c in Sources */,
-				2C4396032535DCCA00F6AECD /* svgelementiter.cpp in Sources */,
-				2C43963E2535DCCA00F6AECD /* svgclippathelement.cpp in Sources */,
 				2C47B6F424EAC8D9008D83BE /* GL4BackBuffer.cpp in Sources */,
 				2C48BEEF25CFB8C500A93CE3 /* Scanline.cpp in Sources */,
 				2CE8D13C2616100E00C75FBB /* SivChildProcess.cpp in Sources */,
 				2CF2AF8925542C5900E81D12 /* SivMonitor_macOS_Linux.cpp in Sources */,
 				2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */,
 				2C47B36124DD9789008D83BE /* SivRandom.cpp in Sources */,
-				2C4396172535DCCA00F6AECD /* font.cpp in Sources */,
 				2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */,
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
@@ -9176,6 +8974,7 @@
 				2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */,
 				2C4A286B25EA60EB00FEACE4 /* ScreenCaptureFactory.cpp in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
+				2C956672264546F700539B85 /* document.cpp in Sources */,
 				2C834DC0248805D4006208B8 /* reggnu.c in Sources */,
 				2C47B32624DD9789008D83BE /* SivEngineLog.cpp in Sources */,
 				2C794B9F25C5A61900034D81 /* CEffect.cpp in Sources */,
@@ -9184,11 +8983,9 @@
 				2C794B4025C3DFC200034D81 /* zstd_common.c in Sources */,
 				2C2AA2B725FF8933003F3EBC /* SerialDetail.cpp in Sources */,
 				2C2AA36326009C74003F3EBC /* b2_pulley_joint.cpp in Sources */,
-				2C4396352535DCCA00F6AECD /* svgangle.cpp in Sources */,
 				2C47B37524DD9789008D83BE /* SivVector3D.cpp in Sources */,
 				2C13C8BE25B8FA9D0054B968 /* RecastLayers.cpp in Sources */,
 				2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */,
-				2C4395FB2535DCCA00F6AECD /* svgnumber.cpp in Sources */,
 				2C13C8D125B8FA9D0054B968 /* DetourAlloc.cpp in Sources */,
 				2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */,
 				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
@@ -9197,7 +8994,6 @@
 				2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */,
 				2C60AE77248158A500277281 /* instruction_set.cpp in Sources */,
 				2C13C8CC25B8FA9D0054B968 /* DetourAssert.cpp in Sources */,
-				2C4396202535DCCA00F6AECD /* rendercontext.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
 				2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */,
 				2CDD4F43260A3F7100A51D68 /* P2Line.cpp in Sources */,
@@ -9217,7 +9013,6 @@
 				2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
 				2C834DA6248805D4006208B8 /* iso8859_6.c in Sources */,
-				2C4396022535DCCA00F6AECD /* svgsymbolelement.cpp in Sources */,
 				2C13C9A425BD29FC0054B968 /* lstate.c in Sources */,
 				2C2AA36B26009C74003F3EBC /* b2_gear_joint.cpp in Sources */,
 				2C2AA35E26009C74003F3EBC /* b2_contact.cpp in Sources */,
@@ -9238,7 +9033,6 @@
 				2C794B3F25C3DFC200034D81 /* threading.c in Sources */,
 				2C2AA3AB26009C74003F3EBC /* b2_time_of_impact.cpp in Sources */,
 				2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */,
-				2C4396142535DCCA00F6AECD /* svgtransform.cpp in Sources */,
 				2C13C8CF25B8FA9D0054B968 /* RecastFilter.cpp in Sources */,
 				2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */,
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
@@ -9257,7 +9051,6 @@
 				2C13C8D025B8FA9D0054B968 /* DetourNode.cpp in Sources */,
 				2C2AA39226009C74003F3EBC /* b2_math.cpp in Sources */,
 				2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */,
-				2C43962C2535DCCA00F6AECD /* canvasimpl.cpp in Sources */,
 				2C13C8B425B8FA9D0054B968 /* RecastMeshDetail.cpp in Sources */,
 				2C47B6D224EAC82A008D83BE /* CShader_Null.cpp in Sources */,
 				2C47B35A24DD9789008D83BE /* Levenshtein.cpp in Sources */,
@@ -9275,7 +9068,6 @@
 				2C794AB625C3DEE400034D81 /* SivMD5Value.cpp in Sources */,
 				2C794B4325C3DFC200034D81 /* error_private.c in Sources */,
 				2C4AEF76262C4E8300D36CFC /* CTextToSpeech.mm in Sources */,
-				2C43963A2535DCCA00F6AECD /* svgurireference.cpp in Sources */,
 				2C47B31724DD9789008D83BE /* SivLogger.cpp in Sources */,
 				2C60AE86248158A500277281 /* kernel_info_non_windows.cpp in Sources */,
 				2C13C9D225BD29FC0054B968 /* lparser.c in Sources */,
@@ -9283,6 +9075,7 @@
 				2C47B33C24DD9789008D83BE /* SystemLog.cpp in Sources */,
 				2CFB7DDB262B06E400169B97 /* SivDialog_macOS.mm in Sources */,
 				2C47B49624DD97F2008D83BE /* muParserDLL.cpp in Sources */,
+				2C956676264546F700539B85 /* clippathelement.cpp in Sources */,
 				2C47B32024DD9789008D83BE /* CCursor_Null.cpp in Sources */,
 				2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */,
 				2CDD4F31260A3F7100A51D68 /* P2Shape.cpp in Sources */,
@@ -9290,14 +9083,16 @@
 				2C47B34A24DD9789008D83BE /* SivWindow.cpp in Sources */,
 				2C47B31224DD9789008D83BE /* SivParseInt.cpp in Sources */,
 				2C47B35B24DD9789008D83BE /* SivString.cpp in Sources */,
+				2C95665C264546F700539B85 /* property.cpp in Sources */,
 				2C0FBD6D262978100050E354 /* SivWebcam.cpp in Sources */,
 				2C68508D24B768A800B98A7F /* SivSystem_macOS_Linux.cpp in Sources */,
-				2C4396472535DCCA00F6AECD /* svgdocument.cpp in Sources */,
 				2C47B36C24DD9789008D83BE /* SivCPUInfo.cpp in Sources */,
 				2C4396502535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp in Sources */,
 				2C834DAD248805D4006208B8 /* koi8.c in Sources */,
 				2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */,
+				2C956656264546F700539B85 /* symbolelement.cpp in Sources */,
 				2C47B35224DD9789008D83BE /* SivFormatFloat.cpp in Sources */,
+				2C956662264546F700539B85 /* gelement.cpp in Sources */,
 				2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */,
 				2C13C9B525BD29FC0054B968 /* lundump.c in Sources */,
 				2C7DE5D6261379E900D7F031 /* GIFDecoder.cpp in Sources */,
@@ -9310,17 +9105,15 @@
 				2CAAA8C625E7FDCC00C014D7 /* EmojiData.cpp in Sources */,
 				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
-				2C4396252535DCCA00F6AECD /* svgstring.cpp in Sources */,
 				2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */,
+				2C95665F264546F700539B85 /* useelement.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
 				2CAAA8C425E7FDCC00C014D7 /* IconData.cpp in Sources */,
 				2C2AA2CF25FF894D003F3EBC /* serial.cc in Sources */,
-				2C4396082535DCCA00F6AECD /* canvas.cpp in Sources */,
 				2C13C8CE25B8FA9D0054B968 /* RecastRasterization.cpp in Sources */,
 				2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */,
 				2C48BEE125CFB8C500A93CE3 /* rasterization.cpp in Sources */,
-				2C4396042535DCCA00F6AECD /* strokedata.cpp in Sources */,
 				2C48BF6B25D41C0D00A93CE3 /* BitmapGlyphRenderer.cpp in Sources */,
 				2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */,
 				2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */,
@@ -9335,7 +9128,6 @@
 				2CDD4F3C260A3F7100A51D68 /* P2Polygon.cpp in Sources */,
 				2C13C8F025B95AE70054B968 /* SivDirectoryWatcher.cpp in Sources */,
 				2CF21D1A249FAA8F00C864C9 /* Renderer2DFactory.mm in Sources */,
-				2C43962D2535DCCA00F6AECD /* svgtextelement.cpp in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
 				2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */,
@@ -9367,12 +9159,10 @@
 				2C42321B242B155E00A16BCA /* monitor.c in Sources */,
 				2C834DAE248805D4006208B8 /* euc_kr.c in Sources */,
 				2C2AA38D26009C74003F3EBC /* b2_draw.cpp in Sources */,
-				2C4395F72535DCCA00F6AECD /* svgstopelement.cpp in Sources */,
 				2C47B34524DD9789008D83BE /* SivFormatter.cpp in Sources */,
 				2C47B30524DD9789008D83BE /* CRenderer_Null.cpp in Sources */,
 				2C2AA36F26009C74003F3EBC /* b2_motor_joint.cpp in Sources */,
 				2C834D97248805D4006208B8 /* unicode_fold3_key.c in Sources */,
-				2C4396212535DCCA00F6AECD /* svgproperty.cpp in Sources */,
 				2C439F79241DCEA9001154C2 /* bignum.cc in Sources */,
 				2C47B31C24DD9789008D83BE /* SivHash.cpp in Sources */,
 				2C834DBE248805D4006208B8 /* unicode_unfold_key.c in Sources */,
@@ -9400,6 +9190,7 @@
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
+				2C956677264546F700539B85 /* parser.cpp in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
 				2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */,
@@ -9414,7 +9205,6 @@
 				2C423228242B155E00A16BCA /* init.c in Sources */,
 				2CDD4F34260A3F7100A51D68 /* P2DistanceJointDetail.cpp in Sources */,
 				2C439F8A241DCEA9001154C2 /* bignum-dtoa.cc in Sources */,
-				2C4396272535DCCA00F6AECD /* paint.cpp in Sources */,
 				2C2AA35426009C74003F3EBC /* b2_joint.cpp in Sources */,
 				2CBEBCB92629D15F0077DDBF /* quirc.c in Sources */,
 				2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */,
@@ -9423,7 +9213,6 @@
 				2C13C9B025BD29FC0054B968 /* linit.c in Sources */,
 				2C47B33324DD9789008D83BE /* TextReaderDetail.cpp in Sources */,
 				2C2AA36C26009C74003F3EBC /* b2_friction_joint.cpp in Sources */,
-				2C4396382535DCCA00F6AECD /* svggraphicselement.cpp in Sources */,
 				2C13C9AD25BD29FC0054B968 /* lstrlib.c in Sources */,
 				2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */,
 				2CFE19A72555B23C005826A1 /* KeyboardFactory.cpp in Sources */,
@@ -9433,10 +9222,12 @@
 				2C8333A826441F7100AEECC7 /* SivGeoJSON.cpp in Sources */,
 				2C2AA35626009C74003F3EBC /* b2_chain_circle_contact.cpp in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
+				2C956661264546F700539B85 /* styledelement.cpp in Sources */,
 				2C13C9C825BD29FC0054B968 /* lcorolib.c in Sources */,
 				2C2AA3A726009C74003F3EBC /* b2_dynamic_tree.cpp in Sources */,
 				2C48BF6D25D41C0D00A93CE3 /* OutlineGlyphRenderer.cpp in Sources */,
 				2C2AA38E26009C74003F3EBC /* b2_timer.cpp in Sources */,
+				2C956659264546F700539B85 /* maskelement.cpp in Sources */,
 				2CF21D21249FAA8F00C864C9 /* WindowFactory.cpp in Sources */,
 				2C47B32924DD9789008D83BE /* SivStringView.cpp in Sources */,
 				2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */,
@@ -9452,19 +9243,15 @@
 				2C834DA2248805D4006208B8 /* koi8_r.c in Sources */,
 				2C13C8BD25B8FA9D0054B968 /* RecastArea.cpp in Sources */,
 				2C794B3225C3DFC200034D81 /* entropy_common.c in Sources */,
-				2C43962F2535DCCA00F6AECD /* svgmaskelement.cpp in Sources */,
 				2C427FE826286C8200106F19 /* SivJoyCon.cpp in Sources */,
 				2CF21D20249FAA8F00C864C9 /* OpenGL.cpp in Sources */,
 				2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */,
-				2C4396462535DCCA00F6AECD /* svgdocumentimpl.cpp in Sources */,
 				2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */,
-				2C4396112535DCCA00F6AECD /* svgsvgelement.cpp in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
 				2C2AA35B26009C74003F3EBC /* b2_chain_polygon_contact.cpp in Sources */,
 				2C34780D25DA95A100071EEF /* PrintFactory.cpp in Sources */,
 				2C60AE8D248158A500277281 /* os_info_darwin.cpp in Sources */,
 				2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */,
-				2C4396092535DCCA00F6AECD /* svgcolor.cpp in Sources */,
 				2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */,
 				2C834DB4248805D4006208B8 /* iso8859_7.c in Sources */,
 				2C9FFD4725F60622000723D8 /* SivOpenCV_Bridge.cpp in Sources */,
@@ -9493,12 +9280,10 @@
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,
 				2C47B6F224EAC8D9008D83BE /* GL4InternalTexture2D.cpp in Sources */,
 				2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */,
-				2C4396492535DCCA00F6AECD /* svglength.cpp in Sources */,
 				2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */,
 				2C794B1B25C3DFC200034D81 /* huf_compress.c in Sources */,
 				2C47B30924DD9789008D83BE /* TextWriterDetail.cpp in Sources */,
 				2C48BEF425CFB8C500A93CE3 /* sdf-error-estimation.cpp in Sources */,
-				2C43964C2535DCCB00F6AECD /* svgelementimpl.cpp in Sources */,
 				2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */,
 				2CFB7DE1262B0F0A00169B97 /* SivPowerStatus.mm in Sources */,
 				2C47B36424DD9789008D83BE /* CScene.cpp in Sources */,
@@ -9508,8 +9293,8 @@
 				2C834D9A248805D4006208B8 /* regexec.c in Sources */,
 				2C794AB725C3DEE400034D81 /* SivMD5.cpp in Sources */,
 				2C68508B24B768A800B98A7F /* SivDateTime_macOS_Linux.cpp in Sources */,
-				2C4396192535DCCA00F6AECD /* svgrect.cpp in Sources */,
 				2C47B2FF24DD9789008D83BE /* MathParserDetail.cpp in Sources */,
+				2C956664264546F700539B85 /* stopelement.cpp in Sources */,
 				2C2AA36D26009C74003F3EBC /* b2_wheel_joint.cpp in Sources */,
 				2CDD4F3D260A3F7100A51D68 /* P2Rect.cpp in Sources */,
 				2C794B5325C407E700034D81 /* SivImageProcessing.cpp in Sources */,
@@ -9517,6 +9302,7 @@
 				2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */,
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,
 				2C13C8DB25B8FB170054B968 /* SivBezier2.cpp in Sources */,
+				2C956667264546F700539B85 /* paintelement.cpp in Sources */,
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
 				2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */,
@@ -9526,7 +9312,7 @@
 				2C13C99C25BD29FC0054B968 /* lauxlib.c in Sources */,
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2CAAA8BF25E7FDB200C014D7 /* SivEmoji.cpp in Sources */,
-				2C4396312535DCCA00F6AECD /* svgpreserveaspectratio.cpp in Sources */,
+				2C95666A264546F700539B85 /* geometryelement.cpp in Sources */,
 				2C2AA37126009C74003F3EBC /* b2_island.cpp in Sources */,
 				2CBB4C2F25FB47D2007BEAB4 /* SivVideoWriter.cpp in Sources */,
 				2C794B1325C3DFC200034D81 /* zstd_ldm.c in Sources */,
@@ -9541,9 +9327,7 @@
 				2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */,
 				2CEC7DDA25FA527700704B99 /* BMPEncoder.cpp in Sources */,
 				2CB749F9261F52E200D31274 /* CXInput_Null.cpp in Sources */,
-				2C4396132535DCCA00F6AECD /* svgenumeration.cpp in Sources */,
 				2C794B2825C3DFC200034D81 /* huf_decompress.c in Sources */,
-				2C4395F32535DCCA00F6AECD /* svguseelement.cpp in Sources */,
 				2C794B2425C3DFC200034D81 /* zdict.c in Sources */,
 				2C4A287B25EB468600FEACE4 /* GUIFactory.cpp in Sources */,
 				2C13C9CF25BD29FC0054B968 /* ldebug.c in Sources */,
@@ -9616,7 +9400,7 @@
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -9682,7 +9466,7 @@
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "siv3d.Siv3D-Test";
