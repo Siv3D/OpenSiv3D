@@ -1,53 +1,97 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#include "svgenumeration.h"
+#include "property.h"
 
 #include <memory>
 
 namespace lunasvg {
 
-enum BlendMode
+using GradientStop = std::pair<double, Color>;
+using GradientStops = std::vector<GradientStop>;
+
+class LinearGradientValues
 {
-    BlendModeSrc,
-    BlendModeSrc_Over,
-    BlendModeDst_In,
-    BlendModeDst_Out
+public:
+    LinearGradientValues(double x1, double y1, double x2, double y2);
+
+public:
+    double x1;
+    double y1;
+    double x2;
+    double y2;
 };
 
-class Path;
-class Rgb;
-class Paint;
-class StrokeData;
-class AffineTransform;
+class RadialGradientValues
+{
+public:
+    RadialGradientValues(double cx, double cy, double r, double fx, double fy);
+
+public:
+    double cx;
+    double cy;
+    double r;
+    double fx;
+    double fy;
+};
+
+using DashArray = std::vector<double>;
+
+enum class TileMode
+{
+    Plain,
+    Tiled
+};
+
+enum class BlendMode
+{
+    Src,
+    Src_Over,
+    Dst_In,
+    Dst_Out
+};
+
 class CanvasImpl;
 
 class Canvas
 {
 public:
-    Canvas();
-    Canvas(unsigned char* data, unsigned int width, unsigned int height, unsigned int stride);
-    Canvas(unsigned int width, unsigned int height);
+    static std::shared_ptr<Canvas> create(unsigned int width, unsigned int height);
+    static std::shared_ptr<Canvas> create(unsigned char* data, unsigned int width, unsigned int height, unsigned int stride);
 
-    void reset(unsigned char* data, unsigned int width, unsigned int height, unsigned int stride);
-    void reset(unsigned int width, unsigned int height);
+    void setMatrix(const Transform& matrix);
+    void setOpacity(double opacity);
+    void setColor(const Color& color);
+    void setGradient(const LinearGradientValues& values, const Transform& matrix, SpreadMethod spread, const GradientStops& stops);
+    void setGradient(const RadialGradientValues& values, const Transform& matrix, SpreadMethod spread, const GradientStops& stops);
+    void setPattern(const Canvas& tile, const Transform& matrix, TileMode mode);
+    void setWinding(WindRule winding);
+    void setLineWidth(double width);
+    void setLineCap(LineCap cap);
+    void setLineJoin(LineJoin join);
+    void setMiterlimit(double miterlimit);
+    void setDash(const DashArray& dash, double offset);
 
-    void clear(const Rgb& color);
-    void blend(const Canvas& source, BlendMode mode, double opacity, double dx, double dy);
-    void draw(const Path& path, const AffineTransform& matrix, WindRule fillRule, const Paint& fillPaint, const Paint& strokePaint, const StrokeData& strokeData);
-    void updateLuminance();
-    void convertToRGBA();
+    void fill(const Path& path);
+    void stroke(const Path& path);
+    void blend(const Canvas& source, BlendMode mode, double opacity);
 
-    unsigned char* data() const;
+    void clear(unsigned int value);
+    void rgba();
+    void luminance();
+
     unsigned int width() const;
     unsigned int height() const;
     unsigned int stride() const;
+    unsigned char* data() const;
 
-    CanvasImpl* impl() const { return m_impl.get(); }
-    bool valid() const { return !!m_impl; }
+    ~Canvas();
 
 private:
-    std::shared_ptr<CanvasImpl> m_impl;
+    Canvas(unsigned int width, unsigned int height);
+    Canvas(unsigned char* data, unsigned int width, unsigned int height, unsigned int stride);
+
+    std::unique_ptr<CanvasImpl> d;
 };
 
 } // namespace lunasvg

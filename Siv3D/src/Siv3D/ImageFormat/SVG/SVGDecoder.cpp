@@ -12,7 +12,7 @@
 # include <Siv3D/ImageFormat/SVGDecoder.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include <ThirdParty/lunasvg/svgdocument.h>
+# include <ThirdParty/lunasvg/document.h>
 
 namespace s3d
 {
@@ -60,18 +60,18 @@ namespace s3d
 			return none;
 		}
 
-		lunasvg::SVGDocument document;
+		std::unique_ptr<lunasvg::Document> document = lunasvg::Document::loadFromData(source);
 		
-		if (not document.loadFromData(source))
+		if (not document)
 		{
 			LOG_FAIL(U"❌ SVGDecoder::getImageInfo(): SVGDocument::loadFromData() failed");
 			return none;
 		}
 
-		const int32 width = static_cast<int32>(std::ceil(document.documentWidth()));
-		const int32 height = static_cast<int32>(std::ceil(document.documentHeight()));
+		const int32 width = static_cast<int32>(std::ceil(document->width()));
+		const int32 height = static_cast<int32>(std::ceil(document->height()));
 
-		return ImageInfo{ ImageFormat::SVG, ImagePixelFormat::R8G8B8A8, Size(width, height), false };
+		return ImageInfo{ ImageFormat::SVG, ImagePixelFormat::R8G8B8A8, Size{ width, height }, false };
 	}
 
 	Image SVGDecoder::decode(const FilePathView path) const
@@ -92,17 +92,17 @@ namespace s3d
 			return{};
 		}
 
-		lunasvg::SVGDocument document;
+		std::unique_ptr<lunasvg::Document> document = lunasvg::Document::loadFromData(source);
 
-		if (not document.loadFromData(source))
+		if (not document)
 		{
 			LOG_FAIL(U"❌ SVGDecoder::decode(): SVGDocument::loadFromData() failed");
 			return{};
 		}
 
-		const int32 width = static_cast<int32>(std::ceil(document.documentWidth()));
-		const int32 height = static_cast<int32>(std::ceil(document.documentHeight()));
-		const lunasvg::Bitmap bitmap = document.renderToBitmap(width, height, 96.0, 0x00000000);
+		const int32 width = static_cast<int32>(std::ceil(document->width()));
+		const int32 height = static_cast<int32>(std::ceil(document->height()));
+		const lunasvg::Bitmap bitmap = document->renderToBitmap(width, height, 0x00000000);
 
 		Image image(bitmap.width(), bitmap.height());
 		assert(image.size_bytes() == (bitmap.stride() * bitmap.height()));

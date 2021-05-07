@@ -74,11 +74,6 @@ namespace s3d
 		[[nodiscard]]
 		SizeF sizeF() const;
 
-		/// @brief SVG のソースコードを返します。
-		/// @return SVG のソースコード
-		[[nodiscard]]
-		String toString() const;
-
 		/// @brief SVG データを消去します。
 		void clear();
 

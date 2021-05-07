@@ -533,51 +533,25 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/lua/lvm.c
   ../Siv3D/src/ThirdParty/lua/lzio.c
 
-  ../Siv3D/src/ThirdParty/lunasvg/affinetransform.cpp
   ../Siv3D/src/ThirdParty/lunasvg/canvas.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/canvasimpl.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/cssproperty.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/font.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/paint.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/path.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/pathiterator.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/rendercontext.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/strokedata.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgangle.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgclippathelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgcolor.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgcontentutils.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgdefselement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgdocument.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgdocumentimpl.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/clippathelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/defselement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/document.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/element.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/gelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/geometryelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/graphicselement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/layoutcontext.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/markerelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/maskelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/paintelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/parser.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/property.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/stopelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/styledelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/svgelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgelementimpl.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgelementiter.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgenumeration.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgfittoviewbox.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svggelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svggeometryelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svggraphicselement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svglength.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgmarkerelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgmaskelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgnumber.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgpaintelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgparser.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgpath.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgpoint.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgpreserveaspectratio.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgproperty.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgrect.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgstopelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgstring.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgstyledelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgsvgelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgsymbolelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgtextelement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgtransform.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svgurireference.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/svguseelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/symbolelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/useelement.cpp
 
   ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp

@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/SVG.hpp>
-# include <ThirdParty/lunasvg/svgdocument.h>
+# include <ThirdParty/lunasvg/document.h>
 
 namespace s3d
 {
@@ -40,9 +40,6 @@ namespace s3d
 		[[nodiscard]]
 		double height() const noexcept;
 
-		[[nodiscard]]
-		String toString() const;
-
 		void clear();
 
 		[[nodiscard]]
@@ -50,7 +47,7 @@ namespace s3d
 
 	private:
 
-		lunasvg::SVGDocument m_document;
+		std::unique_ptr<lunasvg::Document> m_document;
 
 		bool m_isEmpty = true;
 	};

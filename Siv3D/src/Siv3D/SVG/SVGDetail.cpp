@@ -56,7 +56,9 @@ namespace s3d
 	{
 		clear();
 
-		m_isEmpty = (not m_document.loadFromData(source));
+		m_document = lunasvg::Document::loadFromData(source);
+
+		m_isEmpty = (not m_document);
 
 		return (not m_isEmpty);
 	}
@@ -73,33 +75,28 @@ namespace s3d
 
 	double SVG::SVGDetail::width() const noexcept
 	{
-		return m_document.documentWidth();
+		return m_document->width();
 	}
 
 	double SVG::SVGDetail::height() const noexcept
 	{
-		return m_document.documentHeight();
-	}
-
-	String SVG::SVGDetail::toString() const
-	{
-		return Unicode::FromUTF8(m_document.toString());
+		return m_document->height();
 	}
 
 	void SVG::SVGDetail::clear()
 	{
-		m_document.clearContent();
+		m_document.reset();
 
 		m_isEmpty = true;
 	}
 
 	Image SVG::SVGDetail::render(const Optional<int32>& maxWidth, const Optional<int32>& maxHeight, const Color& background) const
 	{
-		const int32 imageWidth	= maxWidth.value_or_eval([&] { return static_cast<int32>(std::ceil(m_document.documentWidth())); });
-		const int32 imageHeight	= maxHeight.value_or_eval([&] { return static_cast<int32>(std::ceil(m_document.documentHeight())); });
+		const int32 imageWidth	= maxWidth.value_or_eval([&] { return static_cast<int32>(std::ceil(m_document->width())); });
+		const int32 imageHeight	= maxHeight.value_or_eval([&] { return static_cast<int32>(std::ceil(m_document->height())); });
 		const uint32 color = Color{ background.a, background.b, background.g, background.r }.asUint32();
 
-		const lunasvg::Bitmap bitmap = m_document.renderToBitmap(imageWidth, imageHeight, 96.0, color);
+		const lunasvg::Bitmap bitmap = m_document->renderToBitmap(imageWidth, imageHeight, color);
 
 		Image image{ bitmap.width(), bitmap.height() };
 		assert(image.size_bytes() == (bitmap.stride() * bitmap.height()));
