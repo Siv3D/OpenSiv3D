@@ -33,6 +33,7 @@ Library | Version
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.0.1
 [miniutf](https://github.com/dropbox/miniutf) | 
+[minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
