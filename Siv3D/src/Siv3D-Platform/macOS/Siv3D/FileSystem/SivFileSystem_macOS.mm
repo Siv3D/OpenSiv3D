@@ -318,8 +318,12 @@ namespace s3d
 				{
 					modulePath.pop_back();
 				}
+				
+				FilePath initialPath = ParentPath(path, 3);
+				
+				::chdir(initialPath.narrow().c_str());
 
-				return ParentPath(path, 3);
+				return initialPath;
 			}();
 		
 			const static FilePath g_modulePath = []()
