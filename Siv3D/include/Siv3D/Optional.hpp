@@ -48,20 +48,15 @@ namespace s3d
 
 		Optional() = default;
 		
-		constexpr Optional(None_t)
-			: base_type(std::nullopt) {}
+		constexpr Optional(None_t);
 
 		Optional(const Optional& other) = default;
 
-		Optional& operator =(None_t) noexcept
-		{
-			base_type::operator =(std::nullopt);
-			return *this;
-		}
+		Optional& operator =(None_t) noexcept;
 		
-		constexpr Optional& operator=(const Optional& other);
+		constexpr Optional& operator =(const Optional& other);
 		
-		constexpr Optional& operator=(Optional&& other) noexcept(std::is_nothrow_move_assignable_v<Type> && std::is_nothrow_move_constructible_v<Type>);
+		constexpr Optional& operator =(Optional&& other) noexcept(std::is_nothrow_move_assignable_v<Type> && std::is_nothrow_move_constructible_v<Type>);
 
 		template <class U = Type>
 		Optional& operator =(U&& value);

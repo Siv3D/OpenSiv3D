@@ -14,7 +14,18 @@
 namespace s3d
 {
 	template <class Type>
-	inline constexpr Optional<Type>& Optional<Type>::operator=(const Optional& other)
+	inline constexpr Optional<Type>::Optional(None_t)
+		: base_type{ std::nullopt } {}
+
+	template <class Type>
+	inline Optional<Type>& Optional<Type>::operator =(None_t) noexcept
+	{
+		base_type::operator =(std::nullopt);
+		return *this;
+	}
+
+	template <class Type>
+	inline constexpr Optional<Type>& Optional<Type>::operator =(const Optional& other)
 	{
 		if (other)
 		{
@@ -29,7 +40,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Optional<Type>& Optional<Type>::operator=(Optional&& other) noexcept(std::is_nothrow_move_assignable_v<Type>&& std::is_nothrow_move_constructible_v<Type>)
+	inline constexpr Optional<Type>& Optional<Type>::operator =(Optional&& other) noexcept(std::is_nothrow_move_assignable_v<Type>&& std::is_nothrow_move_constructible_v<Type>)
 	{
 		if (other)
 		{
