@@ -1054,6 +1054,9 @@
     <Filter Include="src\Siv3D\HTMLWriter">
       <UniqueIdentifier>{2dfcd121-b71a-47ac-9686-6597ef41e0cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Zlib">
+      <UniqueIdentifier>{8e800600-47ab-428f-a8a9-f7f8dc1f42d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4971,6 +4974,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\HTMLWriterDetail.hpp">
       <Filter>src\Siv3D\HTMLWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Zlib.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6841,6 +6847,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp">
       <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Zlib\SivZlib.cpp">
+      <Filter>src\Siv3D\Zlib</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

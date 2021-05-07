@@ -593,6 +593,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\YesNo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ZIPReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ZIPWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Zlib.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Catch2\catch.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\EnumBitmask\EnumBitmask.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
@@ -1681,6 +1682,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ZIPReader\SivZIPReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ZIPReader\ZIPReaderDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Zlib\SivZlib.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\numeric\int128.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\random\discrete_distribution.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\random\gaussian_distribution.cc" />

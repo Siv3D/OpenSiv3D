@@ -377,6 +377,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp
   ../Siv3D/src/Siv3D/ZIPReader/SivZIPReader.cpp
   ../Siv3D/src/Siv3D/ZIPReader/ZIPReaderDetail.cpp
+  ../Siv3D/src/Siv3D/Zlib/SivZlib.cpp
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
