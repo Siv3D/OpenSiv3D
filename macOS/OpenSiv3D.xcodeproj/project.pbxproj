@@ -1085,6 +1085,10 @@
 		2C9566F32645626000539B85 /* mz_strm_mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9566BB2645626000539B85 /* mz_strm_mem.h */; };
 		2C9566F42645626000539B85 /* mz_strm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9566BC2645626000539B85 /* mz_strm.c */; };
 		2C9566F52645626000539B85 /* mz_strm_os.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9566BD2645626000539B85 /* mz_strm_os.h */; };
+		2C9566FB2645846C00539B85 /* HTMLWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9566F82645846C00539B85 /* HTMLWriterDetail.cpp */; };
+		2C9566FC2645846C00539B85 /* SivHTMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9566F92645846C00539B85 /* SivHTMLWriter.cpp */; };
+		2C9566FD2645846C00539B85 /* HTMLWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C9566FA2645846C00539B85 /* HTMLWriterDetail.hpp */; };
+		2C9567012645849400539B85 /* SivZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9567002645849400539B85 /* SivZlib.cpp */; };
 		2C98D0DE25158AC000904E67 /* FrameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D0DA25158AC000904E67 /* FrameTimer.cpp */; };
 		2C98D0DF25158AC000904E67 /* FrameTimer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DB25158AC000904E67 /* FrameTimer.hpp */; };
 		2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C98D0DC25158AC000904E67 /* FrameCounter.hpp */; };
@@ -2580,6 +2584,12 @@
 		2C9566BB2645626000539B85 /* mz_strm_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_mem.h; sourceTree = "<group>"; };
 		2C9566BC2645626000539B85 /* mz_strm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm.c; sourceTree = "<group>"; };
 		2C9566BD2645626000539B85 /* mz_strm_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mz_strm_os.h; sourceTree = "<group>"; };
+		2C9566F62645844100539B85 /* HTMLWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTMLWriter.hpp; sourceTree = "<group>"; };
+		2C9566F82645846C00539B85 /* HTMLWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HTMLWriterDetail.cpp; sourceTree = "<group>"; };
+		2C9566F92645846C00539B85 /* SivHTMLWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHTMLWriter.cpp; sourceTree = "<group>"; };
+		2C9566FA2645846C00539B85 /* HTMLWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HTMLWriterDetail.hpp; sourceTree = "<group>"; };
+		2C9566FE2645848000539B85 /* Zlib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Zlib.hpp; sourceTree = "<group>"; };
+		2C9567002645849400539B85 /* SivZlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivZlib.cpp; sourceTree = "<group>"; };
 		2C98D0DA25158AC000904E67 /* FrameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameTimer.cpp; sourceTree = "<group>"; };
 		2C98D0DB25158AC000904E67 /* FrameTimer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameTimer.hpp; sourceTree = "<group>"; };
 		2C98D0DC25158AC000904E67 /* FrameCounter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameCounter.hpp; sourceTree = "<group>"; };
@@ -4621,6 +4631,7 @@
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
 				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
+				2C9566F72645846C00539B85 /* HTMLWriter */,
 				2CAAA8C825E7FDE800C014D7 /* Icon */,
 				2C47B28824DD9789008D83BE /* Image */,
 				2C47B2E824DD9789008D83BE /* ImageDecoder */,
@@ -4718,6 +4729,7 @@
 				2CB749EE261F52E200D31274 /* XInput */,
 				2C4AEF812635CAB500D36CFC /* XMLReader */,
 				2C95667E2645623300539B85 /* ZIPReader */,
+				2C9566FF2645849400539B85 /* Zlib */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
@@ -6811,6 +6823,24 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		2C9566F72645846C00539B85 /* HTMLWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2C9566F82645846C00539B85 /* HTMLWriterDetail.cpp */,
+				2C9566F92645846C00539B85 /* SivHTMLWriter.cpp */,
+				2C9566FA2645846C00539B85 /* HTMLWriterDetail.hpp */,
+			);
+			path = HTMLWriter;
+			sourceTree = "<group>";
+		};
+		2C9566FF2645849400539B85 /* Zlib */ = {
+			isa = PBXGroup;
+			children = (
+				2C9567002645849400539B85 /* SivZlib.cpp */,
+			);
+			path = Zlib;
+			sourceTree = "<group>";
+		};
 		2C9D1077249A3D680096DA03 /* SMFT */ = {
 			isa = PBXGroup;
 			children = (
@@ -7001,6 +7031,7 @@
 				2CAAA76825E7FD0200C014D7 /* HashTable.hpp */,
 				2CAAA8A125E7FD0300C014D7 /* HeterogeneousLookupHelper.hpp */,
 				2CAAA77025E7FD0200C014D7 /* HSV.hpp */,
+				2C9566F62645844100539B85 /* HTMLWriter.hpp */,
 				2CAAA70E25E7FD0200C014D7 /* IAddon.hpp */,
 				2CAAA6EB25E7FD0200C014D7 /* Icon.hpp */,
 				2CAAA72A25E7FD0200C014D7 /* IEffect.hpp */,
@@ -7217,6 +7248,7 @@
 				2CAAA78525E7FD0200C014D7 /* YesNo.hpp */,
 				2C95667B264561E400539B85 /* ZIPReader.hpp */,
 				2C95667C264561E400539B85 /* ZIPWriter.hpp */,
+				2C9566FE2645848000539B85 /* Zlib.hpp */,
 				2CAAA78B25E7FD0200C014D7 /* detail */,
 				2C4A288225F3C09C00FEACE4 /* Experimental */,
 				2CAAA85225E7FD0300C014D7 /* ImageFormat */,
@@ -8629,6 +8661,7 @@
 				2C794B1D25C3DFC200034D81 /* zstd_compress_sequences.h in Headers */,
 				2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */,
 				2C4397932536163000F6AECD /* GL4VertexShader.hpp in Headers */,
+				2C9566FD2645846C00539B85 /* HTMLWriterDetail.hpp in Headers */,
 				2C47B36624DD9789008D83BE /* CScene.hpp in Headers */,
 				2CFB7DC2262AB4EA00169B97 /* IClipboard.hpp in Headers */,
 				2C2AA39D26009C74003F3EBC /* b2_chain_shape.h in Headers */,
@@ -9350,12 +9383,14 @@
 				2CBEBCAA2629D1460077DDBF /* QRScannerDetail.cpp in Sources */,
 				2C834DB9248805D4006208B8 /* sjis.c in Sources */,
 				2C9566D32645626000539B85 /* mz_crypt_apple.c in Sources */,
+				2C9567012645849400539B85 /* SivZlib.cpp in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C956677264546F700539B85 /* parser.cpp in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
+				2C9566FC2645846C00539B85 /* SivHTMLWriter.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
 				2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */,
 				2C48BF8425D41C0D00A93CE3 /* FontFactory.cpp in Sources */,
@@ -9470,6 +9505,7 @@
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
 				2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */,
+				2C9566FB2645846C00539B85 /* HTMLWriterDetail.cpp in Sources */,
 				2C4CBE592437100100F8B7A6 /* glew.c in Sources */,
 				2C13C8E225B9141D0054B968 /* SivRectF.cpp in Sources */,
 				2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */,
