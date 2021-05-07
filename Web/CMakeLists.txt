@@ -373,6 +373,7 @@ add_library(
 
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
+  ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
 
   ../Siv3D/src/ThirdParty/box2d/collision/b2_broad_phase.cpp
   ../Siv3D/src/ThirdParty/box2d/collision/b2_chain_shape.cpp
