@@ -11,6 +11,9 @@
 
 # pragma once
 # include <memory>
+# if  __has_include(<bit>)
+#	include <bit>
+# endif
 # include "Common.hpp"
 # include "Concepts.hpp"
 
@@ -27,6 +30,9 @@ namespace s3d
 
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
 		inline uint64 XXHash3(const TriviallyCopyable& input) noexcept;
+
+		template <class Type>
+		inline void Combine(size_t& h, const Type& input) noexcept;
 	}
 }
 
