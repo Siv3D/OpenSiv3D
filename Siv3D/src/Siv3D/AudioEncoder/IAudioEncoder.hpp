@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Blob.hpp>
 # include <Siv3D/IAudioEncoder.hpp>
 
 namespace s3d
