@@ -20,6 +20,7 @@ Library | Version
 [easyexif](https://github.com/mayanklahiri/easyexif) | 
 [fmt](https://github.com/fmtlib/fmt) | 7.1.0
 [FreeType](https://www.freetype.org/) | 2.10.4
+[gif_load](https://github.com/hidefromkgb/gif_load) | 
 [GIFLIB](http://giflib.sourceforge.net/) | 5.2.1
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2

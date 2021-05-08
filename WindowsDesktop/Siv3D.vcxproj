@@ -793,6 +793,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\XInput\XInput\CXInput.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\CAddon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Addon\IAddon.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFReader\AnimatedGIFReaderDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\GIFWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp" />
@@ -1123,6 +1126,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\tttables.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\tttags.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\ft2build.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\gif_load\gif_load.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\glew.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\GL\wglew.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\cpu.hpp" />
@@ -1408,6 +1412,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\AddonFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\CAddon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Addon\SivAddon.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFReader\AnimatedGIFReaderDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFReader\SivAnimatedGIFReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />

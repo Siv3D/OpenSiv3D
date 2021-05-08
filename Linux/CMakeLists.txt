@@ -101,6 +101,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
+  ../Siv3D/src/Siv3D/AnimatedGIFReader/AnimatedGIFReaderDetail.cpp
+  ../Siv3D/src/Siv3D/AnimatedGIFReader/SivAnimatedGIFReader.cpp
+  ../Siv3D/src/Siv3D/AnimatedGIFWriter/AnimatedGIFWriterDetail.cpp
+  ../Siv3D/src/Siv3D/AnimatedGIFWriter/SivAnimatedGIFWriter.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
