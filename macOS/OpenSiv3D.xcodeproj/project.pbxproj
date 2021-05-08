@@ -1142,6 +1142,12 @@
 		2CC5843426461D9900C33E9F /* SivAnimatedGIFWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842D26461D9900C33E9F /* SivAnimatedGIFWriter.cpp */; };
 		2CC5843526461D9900C33E9F /* GIFWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842E26461D9900C33E9F /* GIFWriter.hpp */; };
 		2CC5843626461D9900C33E9F /* AnimatedGIFWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */; };
+		2CC5843D2646317400C33E9F /* SivMemoryMappedFileView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5843A2646317400C33E9F /* SivMemoryMappedFileView.cpp */; };
+		2CC5843E2646317400C33E9F /* SivMemoryMappedFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5843C2646317400C33E9F /* SivMemoryMappedFile.cpp */; };
+		2CC584452646319400C33E9F /* MemoryMappedFileDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584402646319400C33E9F /* MemoryMappedFileDetail.cpp */; };
+		2CC584462646319400C33E9F /* MemoryMappedFileDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584412646319400C33E9F /* MemoryMappedFileDetail.hpp */; };
+		2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584432646319400C33E9F /* MemoryMappedFileViewDetail.cpp */; };
+		2CC584482646319400C33E9F /* MemoryMappedFileViewDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584442646319400C33E9F /* MemoryMappedFileViewDetail.hpp */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3119,6 +3125,14 @@
 		2CC5842D26461D9900C33E9F /* SivAnimatedGIFWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAnimatedGIFWriter.cpp; sourceTree = "<group>"; };
 		2CC5842E26461D9900C33E9F /* GIFWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GIFWriter.hpp; sourceTree = "<group>"; };
 		2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFWriterDetail.hpp; sourceTree = "<group>"; };
+		2CC584372646313C00C33E9F /* MemoryMappedFileView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFileView.hpp; sourceTree = "<group>"; };
+		2CC584382646313C00C33E9F /* MemoryMappedFile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFile.hpp; sourceTree = "<group>"; };
+		2CC5843A2646317400C33E9F /* SivMemoryMappedFileView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryMappedFileView.cpp; sourceTree = "<group>"; };
+		2CC5843C2646317400C33E9F /* SivMemoryMappedFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryMappedFile.cpp; sourceTree = "<group>"; };
+		2CC584402646319400C33E9F /* MemoryMappedFileDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryMappedFileDetail.cpp; sourceTree = "<group>"; };
+		2CC584412646319400C33E9F /* MemoryMappedFileDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFileDetail.hpp; sourceTree = "<group>"; };
+		2CC584432646319400C33E9F /* MemoryMappedFileViewDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryMappedFileViewDetail.cpp; sourceTree = "<group>"; };
+		2CC584442646319400C33E9F /* MemoryMappedFileViewDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFileViewDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4678,6 +4692,8 @@
 				2C47B23F24DD9789008D83BE /* MathParser */,
 				2C794AB425C3DEE400034D81 /* MD5 */,
 				2C794AB225C3DEE400034D81 /* MD5Value */,
+				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
+				2CC584392646317400C33E9F /* MemoryMappedFileView */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C13C6F725B458760054B968 /* MultiPolygon */,
@@ -6219,6 +6235,8 @@
 				2C427FD32628436F00106F19 /* Gamepad */,
 				2CFE199E2555B221005826A1 /* Keyboard */,
 				2C68507724B768A800B98A7F /* Logger */,
+				2CC5843F2646319400C33E9F /* MemoryMappedFile */,
+				2CC584422646319400C33E9F /* MemoryMappedFileView */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
 				2CB7D4EB2556E247007EB42E /* Mouse */,
 				2C68508024B768A800B98A7F /* System */,
@@ -7109,6 +7127,8 @@
 				2CAAA87C25E7FD0300C014D7 /* MD5.hpp */,
 				2CAAA70425E7FD0200C014D7 /* MD5Value.hpp */,
 				2CAAA87A25E7FD0300C014D7 /* Memory.hpp */,
+				2CC584382646313C00C33E9F /* MemoryMappedFile.hpp */,
+				2CC584372646313C00C33E9F /* MemoryMappedFileView.hpp */,
 				2C95667A264561D900539B85 /* MemoryReader.hpp */,
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
@@ -7630,6 +7650,40 @@
 				2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */,
 			);
 			path = AnimatedGIFWriter;
+			sourceTree = "<group>";
+		};
+		2CC584392646317400C33E9F /* MemoryMappedFileView */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5843A2646317400C33E9F /* SivMemoryMappedFileView.cpp */,
+			);
+			path = MemoryMappedFileView;
+			sourceTree = "<group>";
+		};
+		2CC5843B2646317400C33E9F /* MemoryMappedFile */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5843C2646317400C33E9F /* SivMemoryMappedFile.cpp */,
+			);
+			path = MemoryMappedFile;
+			sourceTree = "<group>";
+		};
+		2CC5843F2646319400C33E9F /* MemoryMappedFile */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584402646319400C33E9F /* MemoryMappedFileDetail.cpp */,
+				2CC584412646319400C33E9F /* MemoryMappedFileDetail.hpp */,
+			);
+			path = MemoryMappedFile;
+			sourceTree = "<group>";
+		};
+		2CC584422646319400C33E9F /* MemoryMappedFileView */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584432646319400C33E9F /* MemoryMappedFileViewDetail.cpp */,
+				2CC584442646319400C33E9F /* MemoryMappedFileViewDetail.hpp */,
+			);
+			path = MemoryMappedFileView;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -8500,6 +8554,7 @@
 				2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */,
 				2C2AA35226009C74003F3EBC /* b2_shape.h in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
+				2CC584462646319400C33E9F /* MemoryMappedFileDetail.hpp in Headers */,
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
 				2C95666B264546F700539B85 /* document.h in Headers */,
 				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
@@ -8641,6 +8696,7 @@
 				2C43C8AE25C837F100D6D613 /* ftcache.h in Headers */,
 				2C794B2A25C3DFC200034D81 /* zstd_decompress_internal.h in Headers */,
 				2CAAA8BC25E7FD6F00C014D7 /* TextureCommon.hpp in Headers */,
+				2CC584482646319400C33E9F /* MemoryMappedFileViewDetail.hpp in Headers */,
 				2C423257242B19ED00A16BCA /* posix_thread.h in Headers */,
 				2C794B3E25C3DFC200034D81 /* mem.h in Headers */,
 				2C2AA36026009C74003F3EBC /* b2_contact_solver.h in Headers */,
@@ -8928,6 +8984,7 @@
 				2C0E224625F52690002DD8C7 /* SivImageROI.cpp in Sources */,
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
 				2C794B0C25C3DFC200034D81 /* zstdmt_compress.c in Sources */,
+				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
@@ -8958,6 +9015,7 @@
 				2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */,
 				2C2AA3AA26009C74003F3EBC /* b2_edge_shape.cpp in Sources */,
 				2C13C8D425B8FAC30054B968 /* SivCamera2D.cpp in Sources */,
+				2CC5843E2646317400C33E9F /* SivMemoryMappedFile.cpp in Sources */,
 				2CDD4F3E260A3F7100A51D68 /* P2World.cpp in Sources */,
 				2C423245242B155E00A16BCA /* cocoa_time.c in Sources */,
 				2C2AA36626009C74003F3EBC /* b2_distance_joint.cpp in Sources */,
@@ -9138,6 +9196,7 @@
 				2C2AA3A226009C74003F3EBC /* b2_circle_shape.cpp in Sources */,
 				2C60AE85248158A500277281 /* kernel_info_windows.cpp in Sources */,
 				2CF962FA25A7F9AB006F55C9 /* Splines.cpp in Sources */,
+				2CC584452646319400C33E9F /* MemoryMappedFileDetail.cpp in Sources */,
 				2C47B32B24DD9789008D83BE /* SivFileSystem.cpp in Sources */,
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
 				2C9566832645623300539B85 /* SivZIPReader.cpp in Sources */,
@@ -9494,6 +9553,7 @@
 				2C423248242B155E00A16BCA /* xkb_unicode.c in Sources */,
 				2C98D0DE25158AC000904E67 /* FrameTimer.cpp in Sources */,
 				2C439F482419D686001154C2 /* format.cc in Sources */,
+				2CC5843D2646317400C33E9F /* SivMemoryMappedFileView.cpp in Sources */,
 				2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */,
 				2C834DA0248805D4006208B8 /* regcomp.c in Sources */,
 				2C13C9C525BD29FC0054B968 /* lmem.c in Sources */,
