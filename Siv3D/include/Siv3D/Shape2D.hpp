@@ -152,6 +152,14 @@ namespace s3d
 		[[nodiscard]]
 		static Shape2D Heart(double r, const Vec2& center = Vec2{ 0, 0 }, double angle = 0.0);
 
+		/// @brief 正方形と円の中間の形状 (Squircle) を作成します。
+		/// @param r 円の半径
+		/// @param center 中心座標
+		/// @param quality 品質
+		/// @return 作成した形状
+		[[nodiscard]]
+		static Shape2D Squircle(double r, const Vec2& center, uint32 quality);
+
 		/// @brief 頂点座標の配列を返します。
 		/// @return 頂点座標の配列
 		[[nodiscard]]
