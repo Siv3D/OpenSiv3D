@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief 画像フォーマット
-	enum class ImageFormat
+	enum class ImageFormat : uint8
 	{
 		/// @brief 不明
 		Unknown,

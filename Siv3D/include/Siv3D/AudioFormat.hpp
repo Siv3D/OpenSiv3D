@@ -10,3 +10,32 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+
+namespace s3d
+{
+	/// @brief 音声フォーマット
+	enum class AudioFormat : uint8
+	{
+		/// @brief 不明
+		Unknown,
+
+		/// @brief WAVE
+		WAVE,
+
+		/// @brief MP3
+		MP3,
+
+		/// @brief AAC
+		AAC,
+
+		/// @brief Ogg Vorbis
+		OggVorbis,
+
+		/// @brief Opus
+		Opus,
+
+		/// @brief 指定しない（データと拡張子から判断）
+		Unspecified = Unknown,
+	};
+}

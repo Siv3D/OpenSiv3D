@@ -41,7 +41,6 @@ namespace s3d
 		[[nodiscard]]
 		cv::Mat_<uint8> ToGrayScale(const Image& image);
 
-		[[nodiscard]]
 		void ToGrayScale(const Image& image, cv::Mat_<uint8>& to);
 
 		[[nodiscard]]
