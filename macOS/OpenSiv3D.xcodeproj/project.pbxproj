@@ -3133,6 +3133,11 @@
 		2CC584412646319400C33E9F /* MemoryMappedFileDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFileDetail.hpp; sourceTree = "<group>"; };
 		2CC584432646319400C33E9F /* MemoryMappedFileViewDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryMappedFileViewDetail.cpp; sourceTree = "<group>"; };
 		2CC584442646319400C33E9F /* MemoryMappedFileViewDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryMappedFileViewDetail.hpp; sourceTree = "<group>"; };
+		2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioEncoder.hpp; sourceTree = "<group>"; };
+		2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioDecoder.hpp; sourceTree = "<group>"; };
+		2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat.hpp; sourceTree = "<group>"; };
+		2CC5844C26464AFB00C33E9F /* IAudioDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioDecoder.hpp; sourceTree = "<group>"; };
+		2CC5844D26464AFB00C33E9F /* IAudioEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioEncoder.hpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -6957,6 +6962,9 @@
 				2CAAA71225E7FD0200C014D7 /* AssetID.hpp */,
 				2CAAA86425E7FD0300C014D7 /* AssetIDWrapper.hpp */,
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
+				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
+				2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */,
+				2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */,
 				2CAAA8A725E7FD0300C014D7 /* Base64.hpp */,
 				2CAAA73D25E7FD0200C014D7 /* BasicCamera2D.hpp */,
 				2CFB7DDE262B0EF900169B97 /* BatteryStatus.hpp */,
@@ -7074,6 +7082,8 @@
 				2CAAA77025E7FD0200C014D7 /* HSV.hpp */,
 				2C9566F62645844100539B85 /* HTMLWriter.hpp */,
 				2CAAA70E25E7FD0200C014D7 /* IAddon.hpp */,
+				2CC5844C26464AFB00C33E9F /* IAudioDecoder.hpp */,
+				2CC5844D26464AFB00C33E9F /* IAudioEncoder.hpp */,
 				2CAAA6EB25E7FD0200C014D7 /* Icon.hpp */,
 				2CAAA72A25E7FD0200C014D7 /* IEffect.hpp */,
 				2CAAA8A025E7FD0300C014D7 /* IImageDecoder.hpp */,
