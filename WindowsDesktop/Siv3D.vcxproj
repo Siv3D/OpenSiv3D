@@ -26,6 +26,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BatteryStatus.hpp" />
@@ -236,6 +239,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IAudioDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IAudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />

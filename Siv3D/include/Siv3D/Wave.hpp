@@ -278,9 +278,6 @@ namespace s3d
 		[[nodiscard]]
 		bool any(Fty f = Identity) const;
 
-		[[nodiscard]]
-		size_t count(const value_type& value) const;
-
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, value_type>>* = nullptr>
 		[[nodiscard]]
 		size_t count_if(Fty f) const;
@@ -294,8 +291,6 @@ namespace s3d
 		Wave& append(const Array<value_type>&other);
 
 		Wave& append(const Wave& other);
-
-		Wave& remove(const value_type& value);
 
 		Wave& remove_at(size_t index);
 

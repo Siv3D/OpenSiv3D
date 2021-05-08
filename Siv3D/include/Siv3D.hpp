@@ -1098,6 +1098,12 @@
 # include <Siv3D/WaveSample.hpp>
 # include <Siv3D/Wave.hpp>
 
+# include <Siv3D/AudioFormat.hpp>
+# include <Siv3D/IAudioDecoder.hpp>
+# include <Siv3D/IAudioEncoder.hpp>
+# include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/AudioEncoder.hpp>
+
 # include <Siv3D/SerialPortInfo.hpp>
 # include <Siv3D/Serial.hpp>
 

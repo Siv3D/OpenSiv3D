@@ -440,11 +440,6 @@ namespace s3d
 		return std::any_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline size_t Wave::count(const value_type& value) const
-	{
-		return m_data.count(value);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Wave::value_type>>*>
 	inline size_t Wave::count_if(Fty f) const
 	{
@@ -474,13 +469,6 @@ namespace s3d
 	inline Wave& Wave::append(const Wave& other)
 	{
 		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline Wave& Wave::remove(const value_type& value)
-	{
-		m_data.remove(value);
 
 		return *this;
 	}
