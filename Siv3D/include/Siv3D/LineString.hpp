@@ -105,7 +105,7 @@ namespace s3d
 
 		void assign(const Array<Vec2>& other);
 
-		void assign(Array<Vec2>&& other);
+		void assign(Array<Vec2>&& other) noexcept;
 
 		void assign(const LineString& other);
 

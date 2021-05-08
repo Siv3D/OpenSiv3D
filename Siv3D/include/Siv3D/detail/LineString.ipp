@@ -121,7 +121,7 @@ namespace s3d
 		m_data = other;
 	}
 
-	inline void LineString::assign(Array<Vec2>&& other)
+	inline void LineString::assign(Array<Vec2>&& other) noexcept
 	{
 		m_data = std::move(other);
 	}

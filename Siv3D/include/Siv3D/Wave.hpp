@@ -121,7 +121,7 @@ namespace s3d
 
 		void assign(const Array<value_type>& other);
 
-		void assign(Array<value_type>&& other);
+		void assign(Array<value_type>&& other) noexcept;
 
 		void assign(const Wave& other);
 

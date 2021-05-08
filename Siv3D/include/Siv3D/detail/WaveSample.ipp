@@ -54,27 +54,27 @@ namespace s3d
 		return{ (left / 32768.0f), (right / 32768.0f) };
 	}
 
-	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float mono)
+	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float mono) noexcept
 	{
 		return WaveSampleS16{ static_cast<int16>(mono * 32767) };
 	}
 
-	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float _left, const float _right)
+	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float _left, const float _right) noexcept
 	{
 		return{ static_cast<int16>(_left * 32767), static_cast<int16>(_right * 32767) };
 	}
 	
-	inline constexpr WaveSampleS16 WaveSampleS16::Zero()
+	inline constexpr WaveSampleS16 WaveSampleS16::Zero() noexcept
 	{
 		return{ 0, 0 };
 	}
 
-	inline constexpr WaveSampleS16 WaveSampleS16::Min()
+	inline constexpr WaveSampleS16 WaveSampleS16::Min() noexcept
 	{
 		return{ Smallest<int16>, Smallest<int16> };
 	}
 
-	inline constexpr WaveSampleS16 WaveSampleS16::Max()
+	inline constexpr WaveSampleS16 WaveSampleS16::Max() noexcept
 	{
 		return{ Largest<int16>, Largest<int16> };
 	}
@@ -141,27 +141,27 @@ namespace s3d
 		return WaveSampleS16::FromFloat32(left, right);
 	}
 
-	inline constexpr WaveSample WaveSample::FromInt16(const int16 mono)
+	inline constexpr WaveSample WaveSample::FromInt16(const int16 mono) noexcept
 	{
 		return WaveSample(mono / 32768.0f);
 	}
 
-	inline constexpr WaveSample WaveSample::FromInt16(const int16 _left, const int16 _right)
+	inline constexpr WaveSample WaveSample::FromInt16(const int16 _left, const int16 _right) noexcept
 	{
 		return{ (_left / 32768.0f), (_right / 32768.0f) };
 	}
 
-	inline constexpr WaveSample WaveSample::Zero()
+	inline constexpr WaveSample WaveSample::Zero() noexcept
 	{
 		return{ 0.0f, 0.0f };
 	}
 
-	inline constexpr WaveSample WaveSample::Min()
+	inline constexpr WaveSample WaveSample::Min() noexcept
 	{
 		return{ -1.0f, -1.0f };
 	}
 
-	inline constexpr WaveSample WaveSample::Max()
+	inline constexpr WaveSample WaveSample::Max() noexcept
 	{
 		return{ 1.0f, 1.0f };
 	}

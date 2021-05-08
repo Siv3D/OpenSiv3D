@@ -41,19 +41,19 @@ namespace s3d
 		constexpr WaveSample asWaveSample() const noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSampleS16 FromFloat32(float mono);
+		static constexpr WaveSampleS16 FromFloat32(float mono) noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSampleS16 FromFloat32(float _left, float _right);
+		static constexpr WaveSampleS16 FromFloat32(float _left, float _right) noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSampleS16 Zero();
+		static constexpr WaveSampleS16 Zero() noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSampleS16 Min();
+		static constexpr WaveSampleS16 Min() noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSampleS16 Max();
+		static constexpr WaveSampleS16 Max() noexcept;
 	};
 
 	struct WaveSample
@@ -90,19 +90,19 @@ namespace s3d
 		constexpr WaveSampleS16 asWaveSampleS16() const noexcept;
 		
 		[[nodiscard]]
-		static constexpr WaveSample FromInt16(int16 mono);
+		static constexpr WaveSample FromInt16(int16 mono) noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSample FromInt16(int16 _left, int16 _right);
+		static constexpr WaveSample FromInt16(int16 _left, int16 _right) noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSample Zero();
+		static constexpr WaveSample Zero() noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSample Min();
+		static constexpr WaveSample Min() noexcept;
 
 		[[nodiscard]]
-		static constexpr WaveSample Max();
+		static constexpr WaveSample Max() noexcept;
 	};
 }
 
