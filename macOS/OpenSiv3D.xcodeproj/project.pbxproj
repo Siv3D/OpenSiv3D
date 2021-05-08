@@ -1134,6 +1134,14 @@
 		2CBEBCB72629D15F0077DDBF /* quirc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEBCB12629D15F0077DDBF /* quirc.h */; };
 		2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEBCB22629D15F0077DDBF /* quirc_internal.h */; };
 		2CBEBCB92629D15F0077DDBF /* quirc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCB32629D15F0077DDBF /* quirc.c */; };
+		2CC5842626461D7900C33E9F /* gif_load.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842526461D7900C33E9F /* gif_load.h */; };
+		2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842826461D9900C33E9F /* AnimatedGIFReaderDetail.cpp */; };
+		2CC5843126461D9900C33E9F /* SivAnimatedGIFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842926461D9900C33E9F /* SivAnimatedGIFReader.cpp */; };
+		2CC5843226461D9900C33E9F /* AnimatedGIFReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842A26461D9900C33E9F /* AnimatedGIFReaderDetail.hpp */; };
+		2CC5843326461D9900C33E9F /* AnimatedGIFWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842C26461D9900C33E9F /* AnimatedGIFWriterDetail.cpp */; };
+		2CC5843426461D9900C33E9F /* SivAnimatedGIFWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842D26461D9900C33E9F /* SivAnimatedGIFWriter.cpp */; };
+		2CC5843526461D9900C33E9F /* GIFWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842E26461D9900C33E9F /* GIFWriter.hpp */; };
+		2CC5843626461D9900C33E9F /* AnimatedGIFWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3101,6 +3109,16 @@
 		2CBEBCB12629D15F0077DDBF /* quirc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc.h; sourceTree = "<group>"; };
 		2CBEBCB22629D15F0077DDBF /* quirc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc_internal.h; sourceTree = "<group>"; };
 		2CBEBCB32629D15F0077DDBF /* quirc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quirc.c; sourceTree = "<group>"; };
+		2CC5842226461D5900C33E9F /* AnimatedGIFReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReader.hpp; sourceTree = "<group>"; };
+		2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFWriter.hpp; sourceTree = "<group>"; };
+		2CC5842526461D7900C33E9F /* gif_load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_load.h; sourceTree = "<group>"; };
+		2CC5842826461D9900C33E9F /* AnimatedGIFReaderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedGIFReaderDetail.cpp; sourceTree = "<group>"; };
+		2CC5842926461D9900C33E9F /* SivAnimatedGIFReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAnimatedGIFReader.cpp; sourceTree = "<group>"; };
+		2CC5842A26461D9900C33E9F /* AnimatedGIFReaderDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReaderDetail.hpp; sourceTree = "<group>"; };
+		2CC5842C26461D9900C33E9F /* AnimatedGIFWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedGIFWriterDetail.cpp; sourceTree = "<group>"; };
+		2CC5842D26461D9900C33E9F /* SivAnimatedGIFWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAnimatedGIFWriter.cpp; sourceTree = "<group>"; };
+		2CC5842E26461D9900C33E9F /* GIFWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GIFWriter.hpp; sourceTree = "<group>"; };
+		2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFWriterDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4238,6 +4256,7 @@
 				2CEC7DC225FA4DD900704B99 /* easyexif */,
 				2C439F442419D686001154C2 /* fmt */,
 				2C43C80325C837F000D6D613 /* freetype */,
+				2CC5842426461D7900C33E9F /* gif_load */,
 				2C4CBE4E24370FFA00F8B7A6 /* GL */,
 				2C4CBE572437100100F8B7A6 /* GLEW */,
 				2C4231D9242B155E00A16BCA /* GLFW */,
@@ -4574,6 +4593,8 @@
 			isa = PBXGroup;
 			children = (
 				2C378CA2251E492B00D4B14B /* Addon */,
+				2CC5842726461D9900C33E9F /* AnimatedGIFReader */,
+				2CC5842B26461D9900C33E9F /* AnimatedGIFWriter */,
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
@@ -6910,6 +6931,8 @@
 				2C9FFD4225F605E8000723D8 /* AdaptiveThresholdMethod.hpp */,
 				2CAAA6E725E7FD0200C014D7 /* Addon.hpp */,
 				2CAAA74225E7FD0200C014D7 /* Allocator.hpp */,
+				2CC5842226461D5900C33E9F /* AnimatedGIFReader.hpp */,
+				2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */,
 				2CAAA6F625E7FD0200C014D7 /* ApplicationOptions.hpp */,
 				2CAAA73025E7FD0200C014D7 /* Array.hpp */,
 				2CAAA76025E7FD0200C014D7 /* AssetHandle.hpp */,
@@ -7578,6 +7601,35 @@
 				2CBEBCB32629D15F0077DDBF /* quirc.c */,
 			);
 			path = quirc;
+			sourceTree = "<group>";
+		};
+		2CC5842426461D7900C33E9F /* gif_load */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5842526461D7900C33E9F /* gif_load.h */,
+			);
+			path = gif_load;
+			sourceTree = "<group>";
+		};
+		2CC5842726461D9900C33E9F /* AnimatedGIFReader */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5842826461D9900C33E9F /* AnimatedGIFReaderDetail.cpp */,
+				2CC5842926461D9900C33E9F /* SivAnimatedGIFReader.cpp */,
+				2CC5842A26461D9900C33E9F /* AnimatedGIFReaderDetail.hpp */,
+			);
+			path = AnimatedGIFReader;
+			sourceTree = "<group>";
+		};
+		2CC5842B26461D9900C33E9F /* AnimatedGIFWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5842C26461D9900C33E9F /* AnimatedGIFWriterDetail.cpp */,
+				2CC5842D26461D9900C33E9F /* SivAnimatedGIFWriter.cpp */,
+				2CC5842E26461D9900C33E9F /* GIFWriter.hpp */,
+				2CC5842F26461D9900C33E9F /* AnimatedGIFWriterDetail.hpp */,
+			);
+			path = AnimatedGIFWriter;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -8278,6 +8330,7 @@
 				2C13C9C725BD29FC0054B968 /* lvm.h in Headers */,
 				2CFC215725F739B400C51D0D /* hb.h in Headers */,
 				2C43C88E25C837F000D6D613 /* fthash.h in Headers */,
+				2CC5843626461D9900C33E9F /* AnimatedGIFWriterDetail.hpp in Headers */,
 				2CFC214B25F739B400C51D0D /* hb-face.h in Headers */,
 				2C48BEF125CFB8C500A93CE3 /* SignedDistance.h in Headers */,
 				2CFC214E25F739B400C51D0D /* hb-version.h in Headers */,
@@ -8293,6 +8346,7 @@
 				2C42323B242B155E00A16BCA /* mappings.h in Headers */,
 				2C48BEF025CFB8C500A93CE3 /* save-tiff.h in Headers */,
 				2C43C89C25C837F100D6D613 /* svpsinfo.h in Headers */,
+				2CC5843526461D9900C33E9F /* GIFWriter.hpp in Headers */,
 				2C439F82241DCEA9001154C2 /* cached-powers.h in Headers */,
 				2C43C87725C837F000D6D613 /* ftmodapi.h in Headers */,
 				2C794B1925C3DFC200034D81 /* zstd_compress_superblock.h in Headers */,
@@ -8714,6 +8768,7 @@
 				2C794B3825C3DFC200034D81 /* bitstream.h in Headers */,
 				2C43C89F25C837F100D6D613 /* svfntfmt.h in Headers */,
 				2C48BF7325D41C0D00A93CE3 /* BitmapGlyphRenderer.hpp in Headers */,
+				2CC5843226461D9900C33E9F /* AnimatedGIFReaderDetail.hpp in Headers */,
 				2C9566E32645626000539B85 /* zlib.h in Headers */,
 				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
 				2CFB7DD3262AF33C00169B97 /* IDragDrop.hpp in Headers */,
@@ -8738,6 +8793,7 @@
 				2C834D9C248805D4006208B8 /* regenc.h in Headers */,
 				2CB749F8261F52E200D31274 /* CXInput_Null.hpp in Headers */,
 				2C47B49224DD97F2008D83BE /* muParserFixes.h in Headers */,
+				2CC5842626461D7900C33E9F /* gif_load.h in Headers */,
 				2C43C8A625C837F100D6D613 /* ftrfork.h in Headers */,
 				2C427FE02628438A00106F19 /* IGamepad.hpp in Headers */,
 			);
@@ -8928,6 +8984,7 @@
 				2C9566822645623300539B85 /* ZIPReaderDetail.cpp in Sources */,
 				2C2AA3A826009C74003F3EBC /* b2_polygon_shape.cpp in Sources */,
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
+				2CC5843326461D9900C33E9F /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2CDD4F35260A3F7100A51D68 /* P2WheelJointDetail.cpp in Sources */,
 				2C47B6FB24EAC98A008D83BE /* ShaderFactory.mm in Sources */,
 				2C6390ED2536C5460030F18E /* MetalBackBuffer.mm in Sources */,
@@ -8953,6 +9010,7 @@
 				2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */,
 				2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */,
 				2C13C9C225BD29FC0054B968 /* lzio.c in Sources */,
+				2CC5843126461D9900C33E9F /* SivAnimatedGIFReader.cpp in Sources */,
 				2C47B6F824EAC8D9008D83BE /* CRenderer2D_GL4.cpp in Sources */,
 				2C794B3625C3DFC200034D81 /* debug.c in Sources */,
 				2C2AA39026009C74003F3EBC /* b2_stack_allocator.cpp in Sources */,
@@ -9048,6 +9106,7 @@
 				2C2AA3A926009C74003F3EBC /* b2_collide_polygon.cpp in Sources */,
 				2C13C8BA25B8FA9D0054B968 /* Recast.cpp in Sources */,
 				2C60AE76248158A500277281 /* instruction_set_windows.cpp in Sources */,
+				2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */,
 				2C47B36924DD9789008D83BE /* ResourceFactory.cpp in Sources */,
 				2C68508924B768A800B98A7F /* CLogger.cpp in Sources */,
 				2C2AA35D26009C74003F3EBC /* b2_body.cpp in Sources */,
@@ -9366,6 +9425,7 @@
 				2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */,
 				2C13C8CD25B8FA9D0054B968 /* RecastAlloc.cpp in Sources */,
 				2C794B2D25C3DFC200034D81 /* zstd_decompress_block.c in Sources */,
+				2CC5843426461D9900C33E9F /* SivAnimatedGIFWriter.cpp in Sources */,
 				2C834DBA248805D4006208B8 /* regenc.c in Sources */,
 				2C48BF6C25D41C0D00A93CE3 /* SDFGlyphRenderer.cpp in Sources */,
 				2C1208A024A304E7008CAD99 /* CRenderer_Metal.mm in Sources */,
