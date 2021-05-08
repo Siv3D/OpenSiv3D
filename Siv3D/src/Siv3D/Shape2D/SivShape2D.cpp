@@ -416,6 +416,82 @@ namespace s3d
 		return{ std::move(vertices), std::move(indices) };
 	}
 
+	Shape2D Shape2D::Squircle(const double r, const Vec2& center, const uint32 quality)
+	{
+		//-----------------------------------------------
+		//	Authors (OpenSiv3D challenge #05 participants)
+		//	- Ebishu
+		//	- Ryoga.exe
+		//-----------------------------------------------
+
+		if (r <= 0.0)
+		{
+			return{};
+		}
+
+		// 8 の倍数
+		const uint32 n = (quality + 7) / 8 * 8;
+
+		Array<Float2> vertices(n);
+		Float2* pPos = vertices.data();
+
+		for (uint32 i = 0; i <= n / 8; ++i)
+		{
+			// 45°回転してから, x 座標を n/8 分割
+			// 計算: https://www.desmos.com/calculator/0wrmga2lfk?lang=ja
+
+			const float x = (n / 8 - i) * 4.0f / n;
+			const float y = std::sqrtf(-3 * x * x + std::sqrtf(8 * x * x * x * x + 0.5f));
+
+			pPos->x = -x + y;
+			pPos->y = -x - y;
+			++pPos;
+		}
+
+		for (uint32 i = n / 8 - 1; i >= 1; --i)
+		{
+			pPos->x = -vertices[i].y;
+			pPos->y = -vertices[i].x;
+			++pPos;
+		}
+
+		for (uint32 i = 0; i < n / 4; ++i)
+		{
+			pPos->x = -vertices[i].y;
+			pPos->y = vertices[i].x;
+			++pPos;
+		}
+
+		for (uint32 i = 0; i < n / 2; ++i)
+		{
+			pPos->x = -vertices[i].x;
+			pPos->y = -vertices[i].y;
+			++pPos;
+		}
+
+		const Float2 centerF{ center };
+		const float rf = static_cast<float>(r);
+
+		for (Float2& point : vertices)
+		{
+			point *= rf;
+			point.moveBy(centerF);
+		}
+
+		Array<TriangleIndex> indices(n - 2);
+		TriangleIndex* pIndex = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < n - 2; ++i)
+		{
+			pIndex->i0 = 0;
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = (i + 2);
+			++pIndex;
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
 	const Shape2D& Shape2D::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Renderer2D)->addPolygon(m_vertices, m_indices, none, color.toFloat4());
