@@ -441,7 +441,7 @@ namespace s3d
 			// 計算: https://www.desmos.com/calculator/0wrmga2lfk?lang=ja
 
 			const float x = (n / 8 - i) * 4.0f / n;
-			const float y = std::sqrtf(-3 * x * x + std::sqrtf(8 * x * x * x * x + 0.5f));
+			const float y = std::sqrt(-3 * x * x + std::sqrt(8 * x * x * x * x + 0.5f));
 
 			pPos->x = -x + y;
 			pPos->y = -x - y;
