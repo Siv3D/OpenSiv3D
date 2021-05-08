@@ -73,4 +73,7 @@ namespace s3d
 
 	/// @brief ホワイトスペースを維持する
 	using PreserveWhitespace = YesNo<struct PreserveWhitespace_tag>;
+
+	/// @brief ファイル全体をマップする
+	using MapAll			= YesNo<struct MapAll_tag>;
 }

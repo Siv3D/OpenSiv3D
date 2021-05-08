@@ -1066,6 +1066,18 @@
     <Filter Include="src\ThirdParty\gif_load">
       <UniqueIdentifier>{86a827e7-683f-461c-abe9-bb659d16ff82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MemoryMappedFile">
+      <UniqueIdentifier>{eb368039-7db1-46a3-b690-5b180043b2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryMappedFileView">
+      <UniqueIdentifier>{1a321aea-6198-454b-92de-00dd62d73faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFileView">
+      <UniqueIdentifier>{dd17a82e-c706-46a6-986a-45e04ded4ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile">
+      <UniqueIdentifier>{f0f9ffca-efbb-46f6-9d86-2043a9b7941e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5004,6 +5016,18 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\GIFWriter.hpp">
       <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMappedFile.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMappedFileView.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFileView\MemoryMappedFileViewDetail.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFileView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile\MemoryMappedFileDetail.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6889,6 +6913,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp">
       <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFileView\SivMemoryMappedFileView.cpp">
+      <Filter>src\Siv3D\MemoryMappedFileView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFileView\MemoryMappedFileViewDetail.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFileView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile\MemoryMappedFileDetail.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp">
+      <Filter>src\Siv3D\MemoryMappedFile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

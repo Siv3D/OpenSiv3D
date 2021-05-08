@@ -385,16 +385,13 @@
 # include <Siv3D/MemoryReader.hpp>
 
 // メモリマップトファイル | Memory mapped file
-//# include <Siv3D/MemoryMapping.hpp>
+# include <Siv3D/MemoryMappedFileView.hpp>
 
 // 書き込み可能なメモリマップトファイル | Writable memory mapped file
-//# include <Siv3D/WritableMemoryMapping.hpp>
+# include <Siv3D/MemoryMappedFile.hpp>
 
 // メモリ上のバッファ | Binary Large Object
 # include <Siv3D/Blob.hpp>
-
-// 読み込み用バッファ | Binary Large Object (reader)
-//# include <Siv3D/ByteArray.hpp>
 
 // 書き込み用バッファ | Binary Large Object (writer)
 # include <Siv3D/BlobWriter.hpp>
