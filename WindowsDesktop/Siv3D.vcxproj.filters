@@ -1078,6 +1078,12 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MemoryMappedFile">
       <UniqueIdentifier>{f0f9ffca-efbb-46f6-9d86-2043a9b7941e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioEncoder">
+      <UniqueIdentifier>{db8cc0aa-7190-4a16-86fc-89b6cee9e5c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioDecoder">
+      <UniqueIdentifier>{32158164-6504-49dd-909d-c75fb0f1a146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5043,6 +5049,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\IAudioEncoder.hpp">
+      <Filter>src\Siv3D\AudioEncoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\CAudioEncoder.hpp">
+      <Filter>src\Siv3D\AudioEncoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.hpp">
+      <Filter>src\Siv3D\AudioDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\IAudioDecoder.hpp">
+      <Filter>src\Siv3D\AudioDecoder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6940,6 +6958,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp">
       <Filter>src\Siv3D\MemoryMappedFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\SivAudioEncoder.cpp">
+      <Filter>src\Siv3D\AudioEncoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\AudioEncoderFactory.cpp">
+      <Filter>src\Siv3D\AudioEncoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\CAudioEncoder.cpp">
+      <Filter>src\Siv3D\AudioEncoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.cpp">
+      <Filter>src\Siv3D\AudioDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\SivAudioDecoder.cpp">
+      <Filter>src\Siv3D\AudioDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp">
+      <Filter>src\Siv3D\AudioDecoder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

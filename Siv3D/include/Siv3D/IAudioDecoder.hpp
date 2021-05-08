@@ -10,3 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+
+namespace s3d
+{
+	struct IAudioDecoder
+	{
+
+	};
+}

@@ -110,6 +110,12 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
+  ../Siv3D/src/Siv3D/AudioDecoder/AudioDecoderFactory.cpp
+  ../Siv3D/src/Siv3D/AudioDecoder/CAudioDecoder.cpp
+  ../Siv3D/src/Siv3D/AudioDecoder/SivAudioDecoder.cpp
+  ../Siv3D/src/Siv3D/AudioEncoder/AudioEncoderFactory.cpp
+  ../Siv3D/src/Siv3D/AudioEncoder/CAudioEncoder.cpp
+  ../Siv3D/src/Siv3D/AudioEncoder/SivAudioEncoder.cpp
   ../Siv3D/src/Siv3D/Base64/SivBase64.cpp
   ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp

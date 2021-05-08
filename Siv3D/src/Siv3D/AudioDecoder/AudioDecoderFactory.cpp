@@ -9,15 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
-# include "Blob.hpp"
-# include "Wave.hpp"
+# include "CAudioDecoder.hpp"
 
 namespace s3d
 {
-	struct IAudioEncoder
+	ISiv3DAudioDecoder* ISiv3DAudioDecoder::Create()
 	{
-
-	};
+		return new CAudioDecoder;
+	}
 }
