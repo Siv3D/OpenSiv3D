@@ -19,14 +19,6 @@ namespace s3d
 {
 	class CAudioDecoder final : public ISiv3DAudioDecoder
 	{
-	private:
-
-		Array<std::unique_ptr<IAudioDecoder>> m_decoders;
-
-		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(AudioFormat imageFormat) const;
-
-		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(const IReader& reader, FilePathView pathHint) const;
-
 	public:
 
 		CAudioDecoder() = default;
@@ -35,14 +27,20 @@ namespace s3d
 
 		void init() override;
 
-		//Optional<AudioInfo> getAudioInfo(IReader& reader, FilePathView pathHint, AudioFormat imageFormat) override;
-
-		Wave decode(IReader& reader, FilePathView pathHint, AudioFormat imageFormat) override;
+		Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) override;
 
 		bool add(std::unique_ptr<IAudioDecoder>&& decoder) override;
 
 		void remove(StringView name) override;
 
 		const Array<std::unique_ptr<IAudioDecoder>>& enumDecoder() const noexcept override;
+
+	private:
+
+		Array<std::unique_ptr<IAudioDecoder>> m_decoders;
+
+		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(AudioFormat imageFormat) const;
+
+		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(const IReader& reader, FilePathView pathHint) const;
 	};
 }

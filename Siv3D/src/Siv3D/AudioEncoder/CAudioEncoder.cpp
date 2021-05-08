@@ -31,108 +31,108 @@ namespace s3d
 
 	String CAudioEncoder::getEncoderNameFromExtension(const StringView extension) const
 	{
-		//if (not extension)
-		//{
-		//	return{};
-		//}
+		if (not extension)
+		{
+			return{};
+		}
 
-		//const String ext = String(extension);
+		const String ext = String(extension);
 
-		//for (const auto& encoder : m_encoders)
-		//{
-		//	if (encoder->possibleExtensions().includes(ext))
-		//	{
-		//		return String(encoder->name());
-		//	}
-		//}
+		for (const auto& encoder : m_encoders)
+		{
+			if (encoder->possibleExtensions().includes(ext))
+			{
+				return String(encoder->name());
+			}
+		}
 
 		return{};
 	}
 
-	//bool CAudioEncoder::save(const Wave& wave, const StringView encoderName, const FilePathView path) const
-	//{
-	//	LOG_SCOPED_TRACE(U"CAudioEncoder::save({}, {})"_fmt(encoderName, path));
+	bool CAudioEncoder::save(const Wave& wave, const StringView encoderName, const FilePathView path) const
+	{
+		LOG_SCOPED_TRACE(U"CAudioEncoder::save({}, {})"_fmt(encoderName, path));
 
-	//	const auto it = findEncoder(encoderName);
+		const auto it = findEncoder(encoderName);
 
-	//	if (it == m_encoders.end())
-	//	{
-	//		return{};
-	//	}
+		if (it == m_encoders.end())
+		{
+			return{};
+		}
 
-	//	return (*it)->save(image, path);
-	//}
+		return (*it)->save(wave, path);
+	}
 
-	//bool CAudioEncoder::encode(const Wave& wave, const StringView encoderName, IWriter& writer) const
-	//{
-	//	LOG_SCOPED_TRACE(U"CAudioEncoder::encode({})"_fmt(encoderName));
+	bool CAudioEncoder::encode(const Wave& wave, const StringView encoderName, IWriter& writer) const
+	{
+		LOG_SCOPED_TRACE(U"CAudioEncoder::encode({})"_fmt(encoderName));
 
-	//	const auto it = findEncoder(encoderName);
+		const auto it = findEncoder(encoderName);
 
-	//	if (it == m_encoders.end())
-	//	{
-	//		return false;
-	//	}
+		if (it == m_encoders.end())
+		{
+			return false;
+		}
 
-	//	return (*it)->encode(image, writer);
-	//}
+		return (*it)->encode(wave, writer);
+	}
 
-	//Blob CAudioEncoder::encode(const Wave& wave, const StringView encoderName) const
-	//{
-	//	LOG_SCOPED_TRACE(U"CAudioEncoder::encode({})"_fmt(encoderName));
+	Blob CAudioEncoder::encode(const Wave& wave, const StringView encoderName) const
+	{
+		LOG_SCOPED_TRACE(U"CAudioEncoder::encode({})"_fmt(encoderName));
 
-	//	const auto it = findEncoder(encoderName);
+		const auto it = findEncoder(encoderName);
 
-	//	if (it == m_encoders.end())
-	//	{
-	//		return{};
-	//	}
+		if (it == m_encoders.end())
+		{
+			return{};
+		}
 
-	//	return (*it)->encode(image);
-	//}
+		return (*it)->encode(wave);
+	}
 
-	//bool CAudioEncoder::add(std::unique_ptr<IAudioEncoder>&& encoder)
-	//{
-	//	const StringView name = encoder->name();
+	bool CAudioEncoder::add(std::unique_ptr<IAudioEncoder>&& encoder)
+	{
+		const StringView name = encoder->name();
 
-	//	const bool exisits = m_encoders.includes_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
-	//		{
-	//			return encoder->name() == name;
-	//		});
+		const bool exisits = m_encoders.includes_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
+			{
+				return encoder->name() == name;
+			});
 
-	//	if (exisits)
-	//	{
-	//		return false;
-	//	}
+		if (exisits)
+		{
+			return false;
+		}
 
-	//	m_encoders.push_back(std::move(encoder));
+		m_encoders.push_back(std::move(encoder));
 
-	//	return true;
-	//}
+		return true;
+	}
 
-	//void CAudioEncoder::remove(const StringView name)
-	//{
-	//	m_encoders.remove_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
-	//		{
-	//			return encoder->name() == name;
-	//		});
-	//}
+	void CAudioEncoder::remove(const StringView name)
+	{
+		m_encoders.remove_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
+			{
+				return encoder->name() == name;
+			});
+	}
 
-	//const Array<std::unique_ptr<IAudioEncoder>>& CAudioEncoder::enumEncoder() const noexcept
-	//{
-	//	return m_encoders;
-	//}
+	const Array<std::unique_ptr<IAudioEncoder>>& CAudioEncoder::enumEncoder() const noexcept
+	{
+		return m_encoders;
+	}
 
-	//Array<std::unique_ptr<IAudioEncoder>>::const_iterator CAudioEncoder::findEncoder(const StringView encoderName) const
-	//{
-	//	for (auto it = m_encoders.begin(); it != m_encoders.end(); ++it)
-	//	{
-	//		if ((*it)->name() == encoderName)
-	//		{
-	//			return it;
-	//		}
-	//	}
+	Array<std::unique_ptr<IAudioEncoder>>::const_iterator CAudioEncoder::findEncoder(const StringView encoderName) const
+	{
+		for (auto it = m_encoders.begin(); it != m_encoders.end(); ++it)
+		{
+			if ((*it)->name() == encoderName)
+			{
+				return it;
+			}
+		}
 
-	//	return m_encoders.end();
-	//}
+		return m_encoders.end();
+	}
 }

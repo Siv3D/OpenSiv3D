@@ -32,7 +32,7 @@ namespace s3d
 
 		//virtual Optional<AudioInfo> getAudioInfo(IReader& reader, FilePathView pathHint, AudioFormat imageFormat) = 0;
 
-		virtual Wave decode(IReader& reader, FilePathView pathHint, AudioFormat imageFormat) = 0;
+		virtual Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) = 0;
 
 		virtual bool add(std::unique_ptr<IAudioDecoder>&& decoder) = 0;
 

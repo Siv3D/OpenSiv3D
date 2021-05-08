@@ -16,72 +16,38 @@
 
 namespace s3d
 {
-	//namespace AudioDecoder
-	//{
-	//	Optional<AudioInfo> GetAudioInfo(const FilePathView path, const AudioFormat imageFormat)
-	//	{
-	//		BinaryReader reader(path);
+	namespace AudioDecoder
+	{
+		Wave Decode(const FilePathView path, const AudioFormat audioFormat)
+		{
+			BinaryReader reader{ path };
 
-	//		if (not reader)
-	//		{
-	//			return{};
-	//		}
+			if (not reader)
+			{
+				return{};
+			}
 
-	//		return SIV3D_ENGINE(AudioDecoder)->getAudioInfo(reader, path, imageFormat);
-	//	}
+			return SIV3D_ENGINE(AudioDecoder)->decode(reader, path, audioFormat);
+		}
 
-	//	Optional<AudioInfo> GetAudioInfo(IReader& reader, const AudioFormat imageFormat)
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->getAudioInfo(reader, {}, imageFormat);
-	//	}
+		Wave Decode(IReader& reader, const AudioFormat audioFormat)
+		{
+			return SIV3D_ENGINE(AudioDecoder)->decode(reader, {}, audioFormat);
+		}
 
-	//	Audio Decode(const FilePathView path, const AudioFormat imageFormat)
-	//	{
-	//		BinaryReader reader(path);
+		bool Add(std::unique_ptr<IAudioDecoder>&& decoder)
+		{
+			return SIV3D_ENGINE(AudioDecoder)->add(std::move(decoder));
+		}
 
-	//		if (not reader)
-	//		{
-	//			return{};
-	//		}
+		void Remove(const StringView name)
+		{
+			return SIV3D_ENGINE(AudioDecoder)->remove(name);
+		}
 
-	//		return SIV3D_ENGINE(AudioDecoder)->decode(reader, path, imageFormat);
-	//	}
-
-	//	Audio Decode(IReader& reader, const AudioFormat imageFormat)
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->decode(reader, {}, imageFormat);
-	//	}
-
-	//	Grid<uint16> DecodeGray16(FilePathView path, const AudioFormat imageFormat)
-	//	{
-	//		BinaryReader reader(path);
-
-	//		if (not reader)
-	//		{
-	//			return{};
-	//		}
-
-	//		return SIV3D_ENGINE(AudioDecoder)->decodeGray16(reader, path, imageFormat);
-	//	}
-
-	//	Grid<uint16> DecodeGray16(IReader& reader, const AudioFormat imageFormat)
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->decodeGray16(reader, {}, imageFormat);
-	//	}
-
-	//	bool Add(std::unique_ptr<IAudioDecoder>&& decoder)
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->add(std::move(decoder));
-	//	}
-
-	//	void Remove(const StringView name)
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->remove(name);
-	//	}
-
-	//	const Array<std::unique_ptr<IAudioDecoder>>& Enum()
-	//	{
-	//		return SIV3D_ENGINE(AudioDecoder)->enumDecoder();
-	//	}
-	//}
+		const Array<std::unique_ptr<IAudioDecoder>>& Enum()
+		{
+			return SIV3D_ENGINE(AudioDecoder)->enumDecoder();
+		}
+	}
 }

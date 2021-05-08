@@ -21,10 +21,8 @@
 
 namespace s3d
 {
-	class IImageDecoder
+	struct IImageDecoder
 	{
-	public:
-
 		virtual ~IImageDecoder() = default;
 
 		[[nodiscard]]

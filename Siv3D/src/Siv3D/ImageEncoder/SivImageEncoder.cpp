@@ -44,6 +44,8 @@ namespace s3d
 				return U"TGA"_sv;
 			case ImageFormat::PPM:
 				return U"PPM"_sv;
+			case ImageFormat::SVG:
+				return U"SVG"_sv;
 			default:
 				return U""_sv;
 			}

@@ -10,8 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
-# include "CAudioDecoder.hpp"
+# include <Siv3D/IReader.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include "CAudioDecoder.hpp"
 //# include <Siv3D/AudioFormat/WAVEDecoder.hpp>
 
 namespace s3d
@@ -28,138 +29,117 @@ namespace s3d
 		//m_decoders.push_back(std::make_unique<WAVEDecoder>());
 	}
 
-	//Optional<AudioInfo> CAudioDecoder::getAudioInfo(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
-	//{
-	//	LOG_SCOPED_TRACE(U"CAudioDecoder::getAudioInfo()");
+	Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
+	{
+		LOG_SCOPED_TRACE(U"CAudioDecoder::decode()");
 
-	//	auto it = findDecoder(imageFormat);
+		auto it = findDecoder(imageFormat);
 
-	//	if (it == m_decoders.end())
-	//	{
-	//		it = findDecoder(reader, pathHint);
+		if (it == m_decoders.end())
+		{
+			it = findDecoder(reader, pathHint);
 
-	//		if (it == m_decoders.end())
-	//		{
-	//			return{};
-	//		}
-	//	}
+			if (it == m_decoders.end())
+			{
+				return{};
+			}
+		}
 
-	//	LOG_TRACE(U"Audio decoder name: {}"_fmt((*it)->name()));
+		LOG_TRACE(U"Audio decoder name: {}"_fmt((*it)->name()));
 
-	//	return (*it)->getAudioInfo(reader, pathHint);
-	//}
+		return (*it)->decode(reader, pathHint);
+	}
 
-	//Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
-	//{
-	//	LOG_SCOPED_TRACE(U"CAudioDecoder::decode()");
+	bool CAudioDecoder::add(std::unique_ptr<IAudioDecoder>&& decoder)
+	{
+		const StringView name = decoder->name();
 
-	//	auto it = findDecoder(imageFormat);
+		const bool exisits = m_decoders.includes_if([name](const std::unique_ptr<IAudioDecoder>& decoder)
+			{
+				return decoder->name() == name;
+			});
 
-	//	if (it == m_decoders.end())
-	//	{
-	//		it = findDecoder(reader, pathHint);
+		if (exisits)
+		{
+			return false;
+		}
 
-	//		if (it == m_decoders.end())
-	//		{
-	//			return{};
-	//		}
-	//	}
+		m_decoders.push_back(std::move(decoder));
 
-	//	LOG_TRACE(U"Audio decoder name: {}"_fmt((*it)->name()));
+		return true;
+	}
 
-	//	return (*it)->decode(reader, pathHint);
-	//}
+	void CAudioDecoder::remove(const StringView name)
+	{
+		m_decoders.remove_if([name](const std::unique_ptr<IAudioDecoder>& decoder)
+			{
+				return decoder->name() == name;
+			});
+	}
 
-	//bool CAudioDecoder::add(std::unique_ptr<IAudioDecoder>&& decoder)
-	//{
-	//	const StringView name = decoder->name();
+	const Array<std::unique_ptr<IAudioDecoder>>& CAudioDecoder::enumDecoder() const noexcept
+	{
+		return m_decoders;
+	}
 
-	//	const bool exisits = m_decoders.includes_if([name](const std::unique_ptr<IAudioDecoder>& decoder)
-	//		{
-	//			return decoder->name() == name;
-	//		});
+	Array<std::unique_ptr<IAudioDecoder>>::const_iterator CAudioDecoder::findDecoder(const AudioFormat audioFormat) const
+	{
+		if (audioFormat == AudioFormat::Unknown)
+		{
+			return m_decoders.end();
+		}
 
-	//	if (exisits)
-	//	{
-	//		return false;
-	//	}
+		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+		{
+			if ((*it)->audioFormat() == audioFormat)
+			{
+				return it;
+			}
+		}
 
-	//	m_decoders.push_back(std::move(decoder));
+		return m_decoders.end();
+	}
 
-	//	return true;
-	//}
+	Array<std::unique_ptr<IAudioDecoder>>::const_iterator CAudioDecoder::findDecoder(const IReader& reader, const FilePathView pathHint) const
+	{
+		if (not reader.isOpen())
+		{
+			return m_decoders.end();
+		}
 
-	//void CAudioDecoder::remove(const StringView name)
-	//{
-	//	m_decoders.remove_if([name](const std::unique_ptr<IAudioDecoder>& decoder)
-	//		{
-	//			return decoder->name() == name;
-	//		});
-	//}
+		if (not reader.supportsLookahead())
+		{
+			return m_decoders.end();
+		}
 
-	//const Array<std::unique_ptr<IAudioDecoder>>& CAudioDecoder::enumDecoder() const noexcept
-	//{
-	//	return m_decoders;
-	//}
+		uint8 header[16] = {};
 
-	//Array<std::unique_ptr<IAudioDecoder>>::const_iterator CAudioDecoder::findDecoder(const AudioFormat imageFormat) const
-	//{
-	//	if (imageFormat == AudioFormat::Unknown)
-	//	{
-	//		return m_decoders.end();
-	//	}
+		if (not reader.lookahead(header))
+		{
+			return m_decoders.end();
+		}
 
-	//	for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
-	//	{
-	//		if ((*it)->imageFormat() == imageFormat)
-	//		{
-	//			return it;
-	//		}
-	//	}
+		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+		{
+			if ((*it)->isHeader(header))
+			{
+				return it;
+			}
+		}
 
-	//	return m_decoders.end();
-	//}
+		if (pathHint)
+		{
+			const String extension = FileSystem::Extension(pathHint);
 
-	//Array<std::unique_ptr<IAudioDecoder>>::const_iterator CAudioDecoder::findDecoder(const IReader& reader, const FilePathView pathHint) const
-	//{
-	//	if (not reader.isOpen())
-	//	{
-	//		return m_decoders.end();
-	//	}
+			for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+			{
+				if ((*it)->possibleExtensions().includes(extension))
+				{
+					return it;
+				}
+			}
+		}
 
-	//	if (not reader.supportsLookahead())
-	//	{
-	//		return m_decoders.end();
-	//	}
-
-	//	uint8 header[16] = {};
-
-	//	if (not reader.lookahead(header))
-	//	{
-	//		return m_decoders.end();
-	//	}
-
-	//	for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
-	//	{
-	//		if ((*it)->isHeader(header))
-	//		{
-	//			return it;
-	//		}
-	//	}
-
-	//	if (pathHint)
-	//	{
-	//		const String extension = FileSystem::Extension(pathHint);
-
-	//		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
-	//		{
-	//			if ((*it)->possibleExtensions().includes(extension))
-	//			{
-	//				return it;
-	//			}
-	//		}
-	//	}
-
-	//	return m_decoders.end();
-	//}
+		return m_decoders.end();
+	}
 }

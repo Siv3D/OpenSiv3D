@@ -19,12 +19,6 @@ namespace s3d
 {
 	class CAudioEncoder final : public ISiv3DAudioEncoder
 	{
-	private:
-
-		Array<std::unique_ptr<IAudioEncoder>> m_encoders;
-
-		Array<std::unique_ptr<IAudioEncoder>>::const_iterator findEncoder(StringView encoderName) const;
-
 	public:
 
 		CAudioEncoder() = default;
@@ -46,5 +40,11 @@ namespace s3d
 		void remove(StringView name) override;
 
 		const Array<std::unique_ptr<IAudioEncoder>>& enumEncoder() const noexcept override;
+
+	private:
+
+		Array<std::unique_ptr<IAudioEncoder>> m_encoders;
+
+		Array<std::unique_ptr<IAudioEncoder>>::const_iterator findEncoder(StringView encoderName) const;
 	};
 }

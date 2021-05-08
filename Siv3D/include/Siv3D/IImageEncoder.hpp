@@ -17,10 +17,8 @@
 
 namespace s3d
 {
-	class IImageEncoder
+	struct IImageEncoder
 	{
-	public:
-
 		virtual ~IImageEncoder() = default;
 
 		[[nodiscard]]
