@@ -1084,6 +1084,15 @@
     <Filter Include="src\Siv3D\AudioDecoder">
       <UniqueIdentifier>{32158164-6504-49dd-909d-c75fb0f1a146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioFormat">
+      <UniqueIdentifier>{de8a76d6-1bad-4d8a-bfff-5df9b8ad57d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\WAVE">
+      <UniqueIdentifier>{9e42d00e-8c69-4bcd-a6c9-fda4d7176ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Siv3D\AudioFoarmat">
+      <UniqueIdentifier>{716a42dc-39dc-488c-9549-6e8ab15d7480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5064,6 +5073,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IAudioDecoder.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEEncoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -6979,6 +6994,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp">
       <Filter>src\Siv3D\AudioDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEDecoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\WAVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEEncoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\WAVE</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
