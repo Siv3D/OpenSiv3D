@@ -51,16 +51,16 @@ namespace s3d
 		: m_data(first, last, alloc)
 		, m_samplingRate{ *samplingRate } {}
 
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
-	inline Wave::Wave(const size_t count, Arg::generator_<Fty> generator)
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
+	inline Wave::Wave(const size_t count, Arg::generator_<Fty> generator, const Arg::samplingRate_<uint32> samplingRate)
 	{
-		*this = Generate(count, generator.value());
+		*this = Generate(count, generator.value(), samplingRate);
 	}
 
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
-	inline Wave::Wave(const Duration& duration, Arg::generator0_1_<Fty> generator)
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
+	inline Wave::Wave(const Duration& duration, Arg::generator_<Fty> generator, const Arg::samplingRate_<uint32> samplingRate)
 	{
-		*this = Generate(duration, generator.value());
+		*this = Generate(duration, generator.value(), samplingRate);
 	}
 
 	inline Wave::Wave(const Wave& samples)
@@ -563,28 +563,36 @@ namespace s3d
 		return Wave(begin() + index, begin() + Min(index + length, size()));
 	}
 
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
-	Wave Wave::Generate(const size_t count, Fty generator)
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
+	Wave Wave::Generate(const size_t count, Fty generator, const Arg::samplingRate_<uint32> samplingRate)
 	{
-		Wave newWave(size);
+		Wave newWave(count, samplingRate);
 
 		if (not newWave)
 		{
 			return newWave;
 		}
 
-		const double ir = (1.0 / m_samplingRate);
-		WaveSample* pDst = data();
+		const double ir = (1.0 / newWave.samplingRate());
+		WaveSample* pDst = newWave.data();
 
 		for (size_t i = 0; i < count; ++i)
 		{
 			*pDst++ = static_cast<float>(generator(i * ir));
 		}
+
+		return newWave;
 	}
 
-	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
-	Wave Wave::Generate(const Duration& duration, Fty generator)
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
+	Wave Wave::Generate(const Duration& duration, Fty generator, const Arg::samplingRate_<uint32> samplingRate)
 	{
-		return Generate(detail::CalculateSamples(duration, samplingRate), generator);
+		return Generate(detail::CalculateSamples(duration, samplingRate), generator, samplingRate);
 	}
+}
+
+template <>
+void std::swap(s3d::Wave& a, s3d::Wave& b) noexcept
+{
+	a.swap(b);
 }

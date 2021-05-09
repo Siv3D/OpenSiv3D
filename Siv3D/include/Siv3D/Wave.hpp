@@ -65,13 +65,13 @@ namespace s3d
 		template <class Iterator>
 		Wave(Iterator first, Iterator last, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
-		Wave(size_t count, Arg::generator_<Fty> generator);
+		Wave(size_t count, Arg::generator_<Fty> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
-		Wave(const Duration& duration, Arg::generator0_1_<Fty> generator);
+		Wave(const Duration& duration, Arg::generator_<Fty> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
 		SIV3D_NODISCARD_CXX20
 		Wave(const Wave& samples);
@@ -340,11 +340,11 @@ namespace s3d
 		[[nodiscard]]
 		Wave slice(size_t index, size_t length) const;
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
-		static Wave Generate(size_t count, Fty generator);
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
+		static Wave Generate(size_t count, Fty generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
-		static Wave Generate(const Duration& duration, Fty generator);
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
+		static Wave Generate(const Duration& duration, Fty generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
 	private:
 
@@ -353,5 +353,8 @@ namespace s3d
 		uint32 m_samplingRate = DefaultSamplingRate;
 	};
 }
+
+template <>
+inline void std::swap(s3d::Wave& a, s3d::Wave& b) noexcept;
 
 # include "detail/Wave.ipp"
