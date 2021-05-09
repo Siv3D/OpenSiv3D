@@ -142,7 +142,10 @@ namespace s3d
 		[[nodiscard]]
 		Blob encodeWAVE(WAVEFormat format = WAVEFormat::Default) const;
 
-		//bool saveOggVorbis(FilePathView path, int32 quality = 60);
+		bool saveOggVorbis(FilePathView path, int32 quality = 60) const;
+
+		[[nodiscard]]
+		Blob encodeOggVorbis(int32 quality = 60) const;
 
 		template <class Iterator>
 		void assign(Iterator first, Iterator last);

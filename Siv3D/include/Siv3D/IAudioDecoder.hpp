@@ -26,7 +26,7 @@ namespace s3d
 		virtual StringView name() const = 0;
 
 		[[nodiscard]]
-		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
+		virtual bool isHeader(const uint8(&bytes)[48]) const = 0;
 
 		[[nodiscard]]
 		virtual const Array<String>& possibleExtensions() const = 0;

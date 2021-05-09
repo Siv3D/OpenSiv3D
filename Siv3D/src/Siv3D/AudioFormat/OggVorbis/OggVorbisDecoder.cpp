@@ -22,267 +22,220 @@
 
 namespace s3d
 {
-	//StringView WAVEDecoder::name() const
-	//{
-	//	return U"WAVE"_sv;
-	//}
+	namespace detail
+	{
+		static size_t ReadOgg_Callback(void* dst, size_t size1, size_t size2, void* data)
+		{
+			IReader* reader = static_cast<IReader*>(data);
 
-	//bool WAVEDecoder::isHeader(const uint8(&bytes)[16]) const
-	//{
-	//	static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
+			size_t len = size1 * size2;
 
-	//	return (std::memcmp(bytes, signature, sizeof(signature)) == 0);
-	//}
+			if (reader->getPos() + static_cast<int64>(len) > reader->size())
+			{
+				len = static_cast<size_t>(reader->size() - reader->getPos());
+			}
 
-	//const Array<String>& WAVEDecoder::possibleExtensions() const
-	//{
-	//	static const Array<String> extensions = { U"wav" };
+			reader->read(dst, len);
 
-	//	return extensions;
-	//}
+			return len;
+		}
 
-	//AudioFormat WAVEDecoder::audioFormat() const noexcept
-	//{
-	//	return AudioFormat::WAVE;
-	//}
+		static int SeekOgg_Callback(void* data, ogg_int64_t to, int type)
+		{
+			IReader* reader = static_cast<IReader*>(data);
 
-	//Wave WAVEDecoder::decode(const FilePathView path) const
-	//{
-	//	return IAudioDecoder::decode(path);
-	//}
+			switch (type)
+			{
+			case SEEK_CUR:
+				reader->setPos(reader->getPos() + to);
+				break;
+			case SEEK_END:
+				reader->setPos(reader->size() - to);
+				break;
+			case SEEK_SET:
+				reader->setPos(to);
+				break;
+			default:
+				return -1;
+			}
 
-	//Wave WAVEDecoder::decode(IReader& reader, const FilePathView pathHint) const
-	//{
-	//	RiffHeader riffHeader;
+			if (reader->getPos() < 0)
+			{
+				reader->setPos(0);
 
-	//	if (!reader.read(riffHeader))
-	//	{
-	//		return Wave();
-	//	}
+				return -1;
+			}
 
-	//	if (!detail::MemEqual(riffHeader.riff, detail::RIFF_SIGN)
-	//		|| !detail::MemEqual(riffHeader.type, detail::WAVE_SIGN))
-	//	{
-	//		return{};
-	//	}
+			if (reader->getPos() > reader->size())
+			{
+				reader->setPos(reader->size());
 
-	//	ChunkHeader chunkHeader;
+				return -1;
+			}
 
-	//	for (;;)
-	//	{
-	//		if (!reader.read(chunkHeader))
-	//		{
-	//			return{};
-	//		}
+			return 0;
+		}
 
-	//		if (detail::MemEqual(chunkHeader.chunkID, detail::FMT_CHUNK))
-	//		{
-	//			break;
-	//		}
-	//		else
-	//		{
-	//			reader.setPos(reader.getPos() + chunkHeader.chunkSize);
-	//		}
-	//	}
+		static int CloseOgg_Callback(void*)
+		{
+			return 0;
+		}
 
-	//	FormatHeader formatHeader;
+		static long TellOgg_Callback(void* data)
+		{
+			IReader* reader = static_cast<IReader*>(data);
 
-	//	if (!reader.read(formatHeader))
-	//	{
-	//		return Wave();
-	//	}
+			return static_cast<long>(reader->getPos());
+		}
+	}
 
-	//	if (chunkHeader.chunkSize > sizeof(formatHeader))
-	//	{
-	//		reader.skip(chunkHeader.chunkSize - sizeof(formatHeader));
-	//	}
+	StringView OggVorbisDecoder::name() const
+	{
+		return U"OggVorbis"_sv;
+	}
 
-	//	for (;;)
-	//	{
-	//		if (!reader.read(chunkHeader))
-	//		{
-	//			return Wave();
-	//		}
+	bool OggVorbisDecoder::isHeader(const uint8(&bytes)[48]) const
+	{
+		static constexpr uint8 OGG_SIGN[] = { 0x4f, 0x67, 0x67 };
+		//static constexpr uint8 VORBIS_SIGN[] = { 'v', 'o', 'r', 'v', 'i', 's' };
+		static constexpr uint8 OPUS_SIGN[] = { 'O', 'p', 'u', 's' };
+		const bool isOgg = (std::memcmp(bytes, OGG_SIGN, sizeof(OGG_SIGN)) == 0);
 
-	//		if (detail::MemEqual(chunkHeader.chunkID, detail::DATA_CHUNK))
-	//		{
-	//			break;
-	//		}
-	//		else
-	//		{
-	//			reader.setPos(reader.getPos() + chunkHeader.chunkSize);
-	//		}
-	//	}
+		if (!isOgg)
+		{
+			return false;
+		}
 
-	//	const uint32 size_bytes = chunkHeader.chunkSize;
-	//	const size_t num_samples = size_bytes / (formatHeader.channels * (formatHeader.bitsWidth / 8));
+		if (std::search(std::begin(bytes), std::end(bytes), std::begin(OPUS_SIGN), std::end(OPUS_SIGN))
+			!= std::end(bytes))
+		{
+			return false;
+		}
 
-	//	Wave wave(num_samples, Arg::samplingRate = formatHeader.samplerate);
+		return true;
+	}
 
-	//	if (formatHeader.bitsWidth == 8 && formatHeader.channels == 1)
-	//	{
-	//		// PCM 8bit 1ch
-	//		Array<uint8> samples(num_samples);
+	const Array<String>& OggVorbisDecoder::possibleExtensions() const
+	{
+		static const Array<String> extensions = { U"ogg" };
 
-	//		reader.read(samples.data(), size_bytes);
+		return extensions;
+	}
 
-	//		for (size_t i = 0; i < num_samples; ++i)
-	//		{
-	//			wave[i].set(samples[i] / 127.5f - 1.0f);
-	//		}
-	//	}
-	//	else if (formatHeader.bitsWidth == 8 && formatHeader.channels == 2)
-	//	{
-	//		// PCM 8bit 2ch
-	//		Array<WS8bit> samples(num_samples);
+	AudioFormat OggVorbisDecoder::audioFormat() const noexcept
+	{
+		return AudioFormat::OggVorbis;
+	}
 
-	//		reader.read(samples.data(), size_bytes);
+	Wave OggVorbisDecoder::decode(const FilePathView path) const
+	{
+		return IAudioDecoder::decode(path);
+	}
 
-	//		for (uint32 i = 0; i < num_samples; ++i)
-	//		{
-	//			wave[i].set(samples[i].left / 127.5f - 1.0f, samples[i].right / 127.5f - 1.0f);
-	//		}
-	//	}
-	//	else if (formatHeader.bitsWidth == 16 && formatHeader.channels == 1)
-	//	{
-	//		// PCM 16bit 1ch
-	//		Array<int16> samples(num_samples);
+	Wave OggVorbisDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	{
+		if (not reader.isOpen())
+		{
+			return{};
+		}
 
-	//		reader.read(samples.data(), size_bytes);
+		ov_callbacks callbacks;
+		callbacks.read_func = detail::ReadOgg_Callback;
+		callbacks.seek_func = detail::SeekOgg_Callback;
+		callbacks.close_func = detail::CloseOgg_Callback;
+		callbacks.tell_func = detail::TellOgg_Callback;
 
-	//		for (uint32 i = 0; i < num_samples; ++i)
-	//		{
-	//			wave[i].set(samples[i] / 32768.0f);
-	//		}
-	//	}
-	//	else if (formatHeader.bitsWidth == 16 && formatHeader.channels == 2)
-	//	{
-	//		// PCM 16bit 2ch
-	//		Array<WaveSampleS16> samples(num_samples);
+		OggVorbis_File vf;
 
-	//		reader.read(samples.data(), size_bytes);
+		if (::ov_open_callbacks(&reader, &vf, nullptr, -1, callbacks) != 0)
+		{
+			return{};
+		}
 
-	//		for (uint32 i = 0; i < num_samples; ++i)
-	//		{
-	//			wave[i].set(samples[i].left / 32768.0f, samples[i].right / 32768.0f);
-	//		}
-	//	}
-	//	else if (formatHeader.bitsWidth == 24 && formatHeader.channels == 1)
-	//	{
-	//		// PCM 24bit 1ch
-	//		size_t samplesToRead = size_bytes / sizeof(WaveSmaple24S_Mono);
+		vorbis_info* vi = ::ov_info(&vf, -1);
 
-	//		const uint32 bufferSize = 16384;
+		if (!vi)
+		{
+			::ov_clear(&vf);
+			return{};
+		}
 
-	//		Array<WaveSmaple24S_Mono> buffer(bufferSize);
+		const uint32 samples = (::ov_pcm_total(&vf, -1)) & 0xffFFffFF;
 
-	//		WaveSample* pDst = &wave[0];
+		if (samples == 0)
+		{
+			return{};
+		}
 
-	//		for (;;)
-	//		{
-	//			WaveSmaple24S_Mono* pSrc = buffer.data();
+		const int32 channels = vi->channels;
 
-	//			if (samplesToRead > bufferSize)
-	//			{
-	//				reader.read(pSrc, bufferSize * sizeof(WaveSmaple24S_Mono));
+		if (channels != 1 && channels != 2)
+		{
+			::ov_clear(&vf);
+			return{};
+		}
 
-	//				for (uint32 i = 0; i < bufferSize; ++i)
-	//				{
-	//					const int32 s = ((pSrc->mono[2] << 24) | (pSrc->mono[1] << 16) | (pSrc->mono[0] << 8)) / 65536;
-	//					pDst->set(s / 32768.0f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+		Wave wave(samples, Arg::samplingRate = (vi->rate ? static_cast<uint32>(vi->rate) : Wave::DefaultSamplingRate));
+		constexpr int32 BufferSize = 4096;
+		std::array<char, BufferSize> buffer;
+		WaveSample* pDst = wave.data();
+		int current_sec = 0;
 
-	//				samplesToRead -= bufferSize;
-	//			}
-	//			else
-	//			{
-	//				reader.read(pSrc, samplesToRead * sizeof(WaveSmaple24S_Mono));
+		if (channels == 1)
+		{
+			for (;;)
+			{
+				const long bytes_read = ::ov_read(&vf, buffer.data(), BufferSize, 0, 2, 1, &current_sec);
+				const long samples_read = (bytes_read / 2);
 
-	//				for (uint32 i = 0; i < samplesToRead; ++i)
-	//				{
-	//					const int32 s = ((pSrc->mono[2] << 24) | (pSrc->mono[1] << 16) | (pSrc->mono[0] << 8)) / 65536;
-	//					pDst->set(s / 32768.0f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+				if (bytes_read == 0)
+				{
+					break;
+				}
+				else if (bytes_read < 0)
+				{
+					::ov_clear(&vf);
+					return{};
+				}
 
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else if (formatHeader.bitsWidth == 24 && formatHeader.channels == 2)
-	//	{
-	//		// PCM 24bit 2ch
-	//		size_t samplesToRead = size_bytes / sizeof(WaveSmaple24S_Stereo);
+				const int16* pSrc = static_cast<const int16*>(static_cast<const void*>(buffer.data()));
 
-	//		const uint32 bufferSize = 16384;
+				for (int32 i = 0; i < samples_read; ++i)
+				{
+					*pDst++ = WaveSampleS16(*pSrc++).asWaveSample();
+				}
+			}
+		}
+		else // channels == 2
+		{
+			for (;;)
+			{
+				const long bytes_read = ::ov_read(&vf, buffer.data(), BufferSize, 0, 2, 1, &current_sec);
+				const long samples_read = (bytes_read / 4);
 
-	//		Array<WaveSmaple24S_Stereo> buffer(bufferSize);
+				if (bytes_read == 0)
+				{
+					break;
+				}
+				else if (bytes_read < 0)
+				{
+					::ov_clear(&vf);
+					return{};
+				}
 
-	//		WaveSample* pDst = &wave[0];
+				const int16* pSrc = static_cast<const int16*>(static_cast<const void*>(buffer.data()));
 
-	//		for (;;)
-	//		{
-	//			WaveSmaple24S_Stereo* pSrc = buffer.data();
+				for (int32 i = 0; i < samples_read; ++i)
+				{
+					const int16 left = *pSrc++;
+					const int16 right = *pSrc++;
+					*pDst++ = WaveSample::FromInt16(left, right);
+				}
+			}
+		}
 
-	//			if (samplesToRead > bufferSize)
-	//			{
-	//				reader.read(pSrc, bufferSize * sizeof(WaveSmaple24S_Stereo));
+		::ov_clear(&vf);
 
-	//				for (uint32 i = 0; i < bufferSize; ++i)
-	//				{
-	//					const int32 sL = ((pSrc->left[2] << 24) | (pSrc->left[1] << 16) | (pSrc->left[0] << 8)) / 65536;
-	//					const int32 sR = ((pSrc->right[2] << 24) | (pSrc->right[1] << 16) | (pSrc->right[0] << 8)) / 65536;
-	//					pDst->left = sL / 32768.0f;
-	//					pDst->right = sR / 32768.0f;
-	//					++pDst;
-	//					++pSrc;
-	//				}
-
-	//				samplesToRead -= bufferSize;
-	//			}
-	//			else
-	//			{
-	//				reader.read(pSrc, samplesToRead * sizeof(WaveSmaple24S_Stereo));
-
-	//				for (uint32 i = 0; i < samplesToRead; ++i)
-	//				{
-	//					const int32 sL = ((pSrc->left[2] << 24) | (pSrc->left[1] << 16) | (pSrc->left[0] << 8)) / 65536;
-	//					const int32 sR = ((pSrc->right[2] << 24) | (pSrc->right[1] << 16) | (pSrc->right[0] << 8)) / 65536;
-	//					pDst->left = sL / 32768.0f;
-	//					pDst->right = sR / 32768.0f;
-	//					++pDst;
-	//					++pSrc;
-	//				}
-
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else if (formatHeader.formatID == 0x0003 && formatHeader.bitsWidth == 32 && formatHeader.channels == 1)
-	//	{
-	//		// PCM 32bit float 1ch
-	//		Array<float> samples(num_samples);
-
-	//		reader.read(samples.data(), size_bytes);
-
-	//		for (uint32 i = 0; i < num_samples; ++i)
-	//		{
-	//			wave[i].set(samples[i]);
-	//		}
-	//	}
-	//	else if (formatHeader.formatID == 0x0003 && formatHeader.bitsWidth == 32 && formatHeader.channels == 2)
-	//	{
-	//		// PCM 32bit float 2ch
-	//		reader.read(wave.data(), size_bytes);
-	//	}
-	//	else
-	//	{
-	//		return{};
-	//	}
-
-	//	return wave;
-	//}
+		return wave;
+	}
 }

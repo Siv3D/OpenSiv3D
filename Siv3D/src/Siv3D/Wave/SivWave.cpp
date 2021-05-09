@@ -15,6 +15,7 @@
 # include <Siv3D/Dialog.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
 
 namespace s3d
 {
@@ -64,5 +65,15 @@ namespace s3d
 	Blob Wave::encodeWAVE(const WAVEFormat format) const
 	{
 		return WAVEEncoder{}.encode(*this, format);
+	}
+
+	bool Wave::saveOggVorbis(const FilePathView path, const int32 quality) const
+	{
+		return OggVorbisEncoder{}.save(*this, path, quality);
+	}
+
+	Blob Wave::encodeOggVorbis(const int32 quality) const
+	{
+		return OggVorbisEncoder{}.encode(*this, quality);
 	}
 }

@@ -14,6 +14,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include "CAudioDecoder.hpp"
 # include <Siv3D/AudioFormat/WAVEDecoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
 
 namespace s3d
 {
@@ -27,6 +28,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CAudioDecoder::init()");
 
 		m_decoders.push_back(std::make_unique<WAVEDecoder>());
+		m_decoders.push_back(std::make_unique<OggVorbisDecoder>());
 	}
 
 	Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
@@ -112,9 +114,10 @@ namespace s3d
 			return m_decoders.end();
 		}
 
-		uint8 header[16] = {};
+		uint8 header[48] = {};
+		constexpr int64 MinimumAudioHeaderSize = 16;
 
-		if (not reader.lookahead(header))
+		if (reader.lookahead(header, sizeof(header)) < MinimumAudioHeaderSize)
 		{
 			return m_decoders.end();
 		}

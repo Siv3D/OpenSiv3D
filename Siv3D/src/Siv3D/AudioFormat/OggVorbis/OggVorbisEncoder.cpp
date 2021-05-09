@@ -25,197 +25,185 @@
 
 namespace s3d
 {
-	//StringView WAVEEncoder::name() const
-	//{
-	//	return U"WAVE"_sv;
-	//}
+	StringView OggVorbisEncoder::name() const
+	{
+		return U"OggVorbis"_sv;
+	}
 
-	//const Array<String>& WAVEEncoder::possibleExtensions() const
-	//{
-	//	static const Array<String> extensions = { U"wav" };
+	const Array<String>& OggVorbisEncoder::possibleExtensions() const
+	{
+		static const Array<String> extensions = { U"ogg" };
 
-	//	return extensions;
-	//}
+		return extensions;
+	}
 
-	//bool WAVEEncoder::save(const Wave& wave, const FilePathView path) const
-	//{
-	//	return save(wave, path, WAVEFormat::Default);
-	//}
+	bool OggVorbisEncoder::save(const Wave& wave, const FilePathView path) const
+	{
+		return save(wave, path, DefaultQuality);
+	}
 
-	//bool WAVEEncoder::save(const Wave& wave, const FilePathView path, const WAVEFormat format) const
-	//{
-	//	BinaryWriter writer{ path };
+	bool OggVorbisEncoder::save(const Wave& wave, const FilePathView path, const int32 quality) const
+	{
+		BinaryWriter writer{ path };
 
-	//	if (not writer)
-	//	{
-	//		return false;
-	//	}
+		if (not writer)
+		{
+			return false;
+		}
 
-	//	return encode(wave, writer, format);
-	//}
+		return encode(wave, writer, quality);
+	}
 
-	//bool WAVEEncoder::encode(const Wave& wave, IWriter& writer) const
-	//{
-	//	return encode(wave, writer, WAVEFormat::Default);
-	//}
+	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer) const
+	{
+		return encode(wave, writer, DefaultQuality);
+	}
 
-	//bool WAVEEncoder::encode(const Wave& wave, IWriter& writer, const WAVEFormat format) const
-	//{
-	//	if (!wave || !writer.isOpen())
-	//	{
-	//		return false;
-	//	}
+	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer, const int32 quality) const
+	{
+		if (!wave || !writer.isOpen())
+		{
+			return false;
+		}
 
-	//	const uint16 bitsWidth = format == WAVEFormat::StereoUint8 ? 1
-	//		: format == WAVEFormat::StereoSint16 ? 2 : 4;
-	//	const uint16 channels = 2;
-	//	const uint32 sampleRate = wave.samplingRate();
-	//	const size_t waveSize = wave.size() * channels * bitsWidth;
+		vorbis_info vi;
 
-	//	const uint32 headerSize = sizeof(RiffHeader) + sizeof(ChunkHeader) + sizeof(FormatHeader) + sizeof(ChunkHeader);
+		::vorbis_info_init(&vi);
 
-	//	const RiffHeader riffHeader
-	//	{
-	//		{ 'R', 'I', 'F', 'F' },
-	//		static_cast<uint32>(waveSize + headerSize - 8),
-	//		{ 'W', 'A', 'V', 'E' },
-	//	};
+		if (::vorbis_encode_init_vbr(&vi, 2, wave.samplingRate(), quality == 0 ? -0.1f : 0.01f * quality) != 0)
+		{
+			return false;
+		}
 
-	//	const ChunkHeader chunkHeader1
-	//	{
-	//		{ 'f', 'm', 't', ' ' },
-	//		sizeof(FormatHeader),
-	//	};
+		vorbis_comment  vc;
+		::vorbis_comment_init(&vc);
+		::vorbis_comment_add_tag(&vc, "ENCODER", "Siv3D");
 
-	//	const FormatHeader formatHeader
-	//	{
-	//		uint16((format == WAVEFormat::StereoFloat32) ? WAVE_FORMAT_IEEE_FLOAT : 1),
-	//		channels,
-	//		sampleRate,
-	//		sampleRate * bitsWidth * channels,
-	//		uint16(bitsWidth * channels),
-	//		uint16(bitsWidth * 8),
-	//	};
+		//if (loop)
+		//{
+		//	::vorbis_comment_add_tag(&vc, "LOOPSTART", std::to_string(loop->loopBegin).c_str());
+		//	::vorbis_comment_add_tag(&vc, "LOOPLENGTH", std::to_string(loop->loopLength).c_str());
+		//}
 
-	//	const ChunkHeader chunkHeader2
-	//	{
-	//		{ 'd', 'a', 't', 'a' },
-	//		static_cast<uint32>(waveSize),
-	//	};
+		vorbis_dsp_state vd;
+		::vorbis_analysis_init(&vd, &vi);
 
-	//	writer.write(&riffHeader, sizeof(riffHeader));
-	//	writer.write(&chunkHeader1, sizeof(chunkHeader1));
-	//	writer.write(&formatHeader, sizeof(formatHeader));
-	//	writer.write(&chunkHeader2, sizeof(chunkHeader2));
+		vorbis_block  vb;
+		::vorbis_block_init(&vd, &vb);
 
-	//	if (format == WAVEFormat::StereoUint8)
-	//	{
-	//		size_t samplesToWrite = wave.size();
+		ogg_stream_state os;
+		::ogg_stream_init(&os, rand());
 
-	//		const uint32 bufferSize = 16384;
-	//		Array<WS8bit> buffer(bufferSize);
+		ogg_packet header;
+		ogg_packet header_comm;
+		ogg_packet header_code;
+		::vorbis_analysis_headerout(&vd, &vc, &header, &header_comm, &header_code);
+		::ogg_stream_packetin(&os, &header);
+		::ogg_stream_packetin(&os, &header_comm);
+		::ogg_stream_packetin(&os, &header_code);
 
-	//		const WaveSample* pSrc = &wave[0];
+		ogg_page og;
+		ogg_packet op;
 
-	//		for (;;)
-	//		{
-	//			WS8bit* pDst = buffer.data();
+		for (;;)
+		{
+			const int result = ::ogg_stream_flush(&os, &og);
 
-	//			if (samplesToWrite > bufferSize)
-	//			{
-	//				for (uint32 i = 0; i < bufferSize; ++i)
-	//				{
-	//					pDst->left = static_cast<uint8>((pSrc->left + 1.0f) * 127.999f);
-	//					pDst->right = static_cast<uint8>((pSrc->right + 1.0f) * 127.999f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+			if (result == 0)
+			{
+				break;
+			}
 
-	//				writer.write(buffer.data(), bufferSize * sizeof(WS8bit));
+			writer.write(og.header, og.header_len);
+			writer.write(og.body, og.body_len);
+		}
 
-	//				samplesToWrite -= bufferSize;
-	//			}
-	//			else
-	//			{
-	//				for (uint32 i = 0; i < samplesToWrite; ++i)
-	//				{
-	//					pDst->left = static_cast<uint8>((pSrc->left + 1.0f) * 127.999f);
-	//					pDst->right = static_cast<uint8>((pSrc->right + 1.0f) * 127.999f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+		const size_t READ = 4096;
+		const WaveSample* pSrc = wave.data();
+		size_t pos_read = 0;
+		int eos = 0;
 
-	//				writer.write(buffer.data(), samplesToWrite * sizeof(WS8bit));
+		while (!eos)
+		{
+			size_t samples_read = 0;
 
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else if (format == WAVEFormat::StereoSint16)
-	//	{
-	//		size_t samplesToWrite = wave.size();
+			if (pos_read + READ <= wave.lengthSample())
+			{
+				samples_read = READ / sizeof(WaveSample);
+				pos_read += samples_read;
+			}
 
-	//		const uint32 bufferCount = 16384;
-	//		Array<WaveSampleS16> buffer(bufferCount);
+			if (samples_read == 0)
+			{
+				::vorbis_analysis_wrote(&vd, 0);
+			}
+			else
+			{
+				float** buffer = ::vorbis_analysis_buffer(&vd, READ);
 
-	//		const WaveSample* pSrc = &wave[0];
+				for (size_t i = 0; i < samples_read; ++i)
+				{
+					buffer[0][i] = pSrc->left;
+					buffer[1][i] = pSrc->right;
+					++pSrc;
+				}
 
-	//		for (;;)
-	//		{
-	//			WaveSampleS16* pDst = buffer.data();
+				::vorbis_analysis_wrote(&vd, static_cast<int32>(samples_read));
+			}
 
-	//			if (samplesToWrite > bufferCount)
-	//			{
-	//				for (uint32 i = 0; i < bufferCount; ++i)
-	//				{
-	//					pDst->left = static_cast<int16>(pSrc->left * 32767.0f);
-	//					pDst->right = static_cast<int16>(pSrc->right * 32767.0f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+			while (::vorbis_analysis_blockout(&vd, &vb) == 1)
+			{
+				::vorbis_analysis(&vb, nullptr);
+				::vorbis_bitrate_addblock(&vb);
 
-	//				writer.write(buffer.data(), bufferCount * sizeof(WaveSampleS16));
+				while (::vorbis_bitrate_flushpacket(&vd, &op))
+				{
+					::ogg_stream_packetin(&os, &op);
 
-	//				samplesToWrite -= bufferCount;
-	//			}
-	//			else
-	//			{
-	//				for (uint32 i = 0; i < samplesToWrite; ++i)
-	//				{
-	//					pDst->left = static_cast<int16>(pSrc->left * 32767.0f);
-	//					pDst->right = static_cast<int16>(pSrc->right * 32767.0f);
-	//					++pDst;
-	//					++pSrc;
-	//				}
+					while (!eos)
+					{
+						const int result = ::ogg_stream_pageout(&os, &og);
 
-	//				writer.write(buffer.data(), samplesToWrite * sizeof(WaveSampleS16));
+						if (result == 0)
+						{
+							break;
+						}
 
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else
-	//	{
-	//		writer.write(wave.data(), waveSize);
-	//	}
+						writer.write(og.header, og.header_len);
+						writer.write(og.body, og.body_len);
 
-	//	return true;
-	//}
+						if (::ogg_page_eos(&og))
+						{
+							eos = 1;
+						}
+					}
+				}
+			}
+		}
 
-	//Blob WAVEEncoder::encode(const Wave& wave) const
-	//{
-	//	return encode(wave, WAVEFormat::Default);
-	//}
+		::ogg_stream_clear(&os);
+		::vorbis_block_clear(&vb);
+		::vorbis_dsp_clear(&vd);
+		::vorbis_comment_clear(&vc);
+		::vorbis_info_clear(&vi);
 
-	//Blob WAVEEncoder::encode(const Wave& wave, const WAVEFormat format) const
-	//{
-	//	BlobWriter writer;
+		return true;
+	}
 
-	//	if (not encode(wave, writer, format))
-	//	{
-	//		return{};
-	//	}
+	Blob OggVorbisEncoder::encode(const Wave& wave) const
+	{
+		return encode(wave, DefaultQuality);
+	}
 
-	//	return writer.retrieve();
-	//}
+	Blob OggVorbisEncoder::encode(const Wave& wave, const int32 quality) const
+	{
+		BlobWriter writer;
+
+		if (not encode(wave, writer, quality))
+		{
+			return{};
+		}
+
+		return writer.retrieve();
+	}
 }

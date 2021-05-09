@@ -20,7 +20,7 @@ namespace s3d
 		return U"WAVE"_sv;
 	}
 
-	bool WAVEDecoder::isHeader(const uint8(&bytes)[16]) const
+	bool WAVEDecoder::isHeader(const uint8(&bytes)[48]) const
 	{
 		static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
 

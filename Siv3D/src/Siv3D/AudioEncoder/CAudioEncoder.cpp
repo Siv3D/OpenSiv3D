@@ -13,6 +13,7 @@
 # include "CAudioEncoder.hpp"
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
 
 namespace s3d
 {
@@ -26,6 +27,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CAudioEncoder::init()");
 
 		m_encoders.push_back(std::make_unique<WAVEEncoder>());
+		m_encoders.push_back(std::make_unique<OggVorbisEncoder>());
 	}
 
 	String CAudioEncoder::getEncoderNameFromExtension(const StringView extension) const

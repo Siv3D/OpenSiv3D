@@ -22,7 +22,7 @@ namespace s3d
 		StringView name() const override;
 
 		[[nodiscard]]
-		bool isHeader(const uint8(&bytes)[16]) const override;
+		bool isHeader(const uint8(&bytes)[48]) const override;
 
 		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;

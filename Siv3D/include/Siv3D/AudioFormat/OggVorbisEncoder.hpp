@@ -18,6 +18,8 @@ namespace s3d
 	{
 	public:
 
+		static constexpr int32 DefaultQuality = 60;
+
 		[[nodiscard]]
 		StringView name() const override;
 
@@ -26,7 +28,7 @@ namespace s3d
 
 		bool save(const Wave& wave, FilePathView path) const override;
 
-		bool save(const Wave& wave, FilePathView path, WAVEFormat format) const;
+		bool save(const Wave& wave, FilePathView path, int32 quality) const;
 
 		bool encode(const Wave& wave, IWriter& writer) const override;
 
