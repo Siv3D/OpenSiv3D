@@ -1158,6 +1158,8 @@
 		2CC584632646DC5800C33E9F /* CAudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584592646DC5800C33E9F /* CAudioDecoder.cpp */; };
 		2CC5846C264771F100C33E9F /* WAVEDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */; };
 		2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */; };
+		2CC5847026477E4600C33E9F /* WAVEHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5846F26477E4600C33E9F /* WAVEHeader.hpp */; };
+		2CC5847326477E6200C33E9F /* SivWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5847226477E6200C33E9F /* SivWave.cpp */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3163,6 +3165,9 @@
 		2CC58467264771C700C33E9F /* WAVEDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WAVEDecoder.hpp; sourceTree = "<group>"; };
 		2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WAVEDecoder.cpp; sourceTree = "<group>"; };
 		2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WAVEEncoder.cpp; sourceTree = "<group>"; };
+		2CC5846E26477E2500C33E9F /* WAVEFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WAVEFormat.hpp; sourceTree = "<group>"; };
+		2CC5846F26477E4600C33E9F /* WAVEHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WAVEHeader.hpp; sourceTree = "<group>"; };
+		2CC5847226477E6200C33E9F /* SivWave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWave.cpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4794,6 +4799,7 @@
 				2CFF581625F7C02400B660AD /* VideoReader */,
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
 				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
+				2CC5847126477E6200C33E9F /* Wave */,
 				2C0FBD69262978100050E354 /* Webcam */,
 				2C47B2AC24DD9789008D83BE /* Window */,
 				2CB749EE261F52E200D31274 /* XInput */,
@@ -7316,6 +7322,7 @@
 				2CC7D4AC25FA3A7E00289963 /* VideoTexture.hpp */,
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
 				2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */,
+				2CC5846E26477E2500C33E9F /* WAVEFormat.hpp */,
 				2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */,
 				2C0FBD67262977F60050E354 /* Webcam.hpp */,
 				2C0FBD68262977F60050E354 /* WebcamInfo.hpp */,
@@ -7772,8 +7779,17 @@
 			children = (
 				2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */,
 				2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */,
+				2CC5846F26477E4600C33E9F /* WAVEHeader.hpp */,
 			);
 			path = WAVE;
+			sourceTree = "<group>";
+		};
+		2CC5847126477E6200C33E9F /* Wave */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5847226477E6200C33E9F /* SivWave.cpp */,
+			);
+			path = Wave;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -8683,6 +8699,7 @@
 				2C794B9A25C5A61900034D81 /* IEffect.hpp in Headers */,
 				2C794B0B25C3DFC200034D81 /* zstd_lazy.h in Headers */,
 				2C4AEF62262C480800D36CFC /* IEmpty.hpp in Headers */,
+				2CC5847026477E4600C33E9F /* WAVEHeader.hpp in Headers */,
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
 				2C794B0925C3DFC200034D81 /* zstd_ldm.h in Headers */,
 				2C481E1324460B5700A5D88D /* cpuinfo_x86.h in Headers */,
@@ -9726,6 +9743,7 @@
 				2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */,
 				2C9566FB2645846C00539B85 /* HTMLWriterDetail.cpp in Sources */,
 				2C4CBE592437100100F8B7A6 /* glew.c in Sources */,
+				2CC5847326477E6200C33E9F /* SivWave.cpp in Sources */,
 				2C13C8E225B9141D0054B968 /* SivRectF.cpp in Sources */,
 				2C0A4D84256A18A1002A4B5E /* SivGraphics2D.cpp in Sources */,
 				2C13C99C25BD29FC0054B968 /* lauxlib.c in Sources */,
