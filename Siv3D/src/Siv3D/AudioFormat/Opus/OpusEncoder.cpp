@@ -24,7 +24,7 @@
 #	include <ogg/ogg.h>
 #	include <opus/opus.h>
 #	include <opus/opus_multistream.h>
-#	include <opus/opusfile.h>
+#	include <ThirdParty-prebuilt/opus/opusfile.h>
 # endif
 
 namespace s3d
