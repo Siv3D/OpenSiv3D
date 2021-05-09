@@ -1096,6 +1096,15 @@
     <Filter Include="src\Siv3D\Wave">
       <UniqueIdentifier>{5d29e9c5-ccf9-4d4f-b5a3-bc6f0f3214ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\ogg">
+      <UniqueIdentifier>{17f578c3-c009-420e-83a4-140de15705a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\vorbis">
+      <UniqueIdentifier>{d6558a74-a270-4a5d-85e7-2aabe76d9e6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\OggVorbis">
+      <UniqueIdentifier>{257337be-f0d6-430c-b89a-32f32fcd6f77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5088,6 +5097,27 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WAVEFormat.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\codec.h">
+      <Filter>src\ThirdParty-prebuilt\vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\vorbisenc.h">
+      <Filter>src\ThirdParty-prebuilt\vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\vorbisfile.h">
+      <Filter>src\ThirdParty-prebuilt\vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\ogg\ogg.h">
+      <Filter>src\ThirdParty-prebuilt\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\ogg\os_types.h">
+      <Filter>src\ThirdParty-prebuilt\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisEncoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7012,6 +7042,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp">
       <Filter>src\Siv3D\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisDecoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\OggVorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisEncoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\OggVorbis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

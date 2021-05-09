@@ -29,13 +29,14 @@ jobs:
         sudo apt update
         sudo apt install ninja-build
         sudo apt install libboost-dev
+        sudo apt install libgif-dev
         sudo apt install libglu1-mesa-dev
         sudo apt install libharfbuzz-dev
-        sudo apt install xorg-dev
         sudo apt install libopencv-dev
         sudo apt install libturbojpeg0-dev
-        sudo apt install libgif-dev
+        sudo apt install libvorbis-dev
         sudo apt install libwebp-dev
+        sudo apt install xorg-dev
 
     - name: Configure Siv3D
       working-directory: Linux

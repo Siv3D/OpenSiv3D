@@ -65,6 +65,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lgif
   -lgio-2.0
   -lharfbuzz
+	-logg
   -lopencv_core
   -lopencv_imgcodecs
   -lopencv_imgproc
@@ -73,6 +74,9 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopencv_videoio
   -lpng
   -lturbojpeg
+	-lvorbis
+	-lvorbisenc
+	-lvorbisfile
   -lwebp
   )
 
