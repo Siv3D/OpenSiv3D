@@ -31,6 +31,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
@@ -976,6 +978,13 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\ogg\ogg.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\ogg\os_types.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opusfile.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_custom.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_defines.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_multistream.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_projection.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_types.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\codec.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\vorbisenc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\vorbis\vorbisfile.h" />
@@ -1454,6 +1463,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\SivAudioEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusDecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />

@@ -1105,6 +1105,12 @@
     <Filter Include="src\Siv3D\AudioFormat\OggVorbis">
       <UniqueIdentifier>{257337be-f0d6-430c-b89a-32f32fcd6f77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\opus">
+      <UniqueIdentifier>{80dc441e-36c2-431b-8799-f6e9fe601679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\Opus">
+      <UniqueIdentifier>{7c4372a8-d395-44b0-b497-138cbdc9fd36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5118,6 +5124,33 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisDecoder.hpp">
       <Filter>include\Siv3D\AudioFoarmat</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_custom.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_defines.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_multistream.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_projection.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opus_types.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\opus\opusfile.h">
+      <Filter>src\ThirdParty-prebuilt\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusEncoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7048,6 +7081,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisEncoder.cpp">
       <Filter>src\Siv3D\AudioFormat\OggVorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusDecoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\Opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusEncoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\Opus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

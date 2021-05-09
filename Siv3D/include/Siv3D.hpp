@@ -1106,6 +1106,10 @@
 # include <Siv3D/WAVEFormat.hpp>
 # include <Siv3D/AudioFormat/WAVEDecoder.hpp>
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
+# include <Siv3D/AudioFormat/OpusDecoder.hpp>
+# include <Siv3D/AudioFormat/OpusEncoder.hpp>
 
 # include <Siv3D/SerialPortInfo.hpp>
 # include <Siv3D/Serial.hpp>

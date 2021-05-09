@@ -115,6 +115,8 @@ add_library(
   ../Siv3D/src/Siv3D/AudioEncoder/SivAudioEncoder.cpp
   ../Siv3D/src/Siv3D/AudioFormat/OggVorbis/OggVorbisDecoder.cpp
   ../Siv3D/src/Siv3D/AudioFormat/OggVorbis/OggVorbisEncoder.cpp
+  ../Siv3D/src/Siv3D/AudioFormat/Opus/OpusDecoder.cpp
+  ../Siv3D/src/Siv3D/AudioFormat/Opus/OpusEncoder.cpp
   ../Siv3D/src/Siv3D/AudioFormat/WAVE/WAVEDecoder.cpp
   ../Siv3D/src/Siv3D/AudioFormat/WAVE/WAVEEncoder.cpp
   ../Siv3D/src/Siv3D/Base64/SivBase64.cpp

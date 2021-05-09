@@ -33,6 +33,8 @@ jobs:
         sudo apt install libglu1-mesa-dev
         sudo apt install libharfbuzz-dev
         sudo apt install libopencv-dev
+        sudo apt install libopus-dev
+        sudo apt install libopusfile-dev
         sudo apt install libturbojpeg0-dev
         sudo apt install libvorbis-dev
         sudo apt install libwebp-dev
