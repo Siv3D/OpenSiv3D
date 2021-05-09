@@ -1160,6 +1160,17 @@
 		2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */; };
 		2CC5847026477E4600C33E9F /* WAVEHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5846F26477E4600C33E9F /* WAVEHeader.hpp */; };
 		2CC5847326477E6200C33E9F /* SivWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5847226477E6200C33E9F /* SivWave.cpp */; };
+		2CC5847A2648244400C33E9F /* OggVorbisEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584782648244400C33E9F /* OggVorbisEncoder.cpp */; };
+		2CC5847B2648244400C33E9F /* OggVorbisDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584792648244400C33E9F /* OggVorbisDecoder.cpp */; };
+		2CC584832648246900C33E9F /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5847D2648246900C33E9F /* ogg.h */; };
+		2CC584842648246900C33E9F /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5847E2648246900C33E9F /* os_types.h */; };
+		2CC584852648246900C33E9F /* vorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584802648246900C33E9F /* vorbisfile.h */; };
+		2CC584862648246900C33E9F /* codec.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584812648246900C33E9F /* codec.h */; };
+		2CC584872648246900C33E9F /* vorbisenc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584822648246900C33E9F /* vorbisenc.h */; };
+		2CC584892648250D00C33E9F /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC584882648250D00C33E9F /* libogg.a */; };
+		2CC5848D2648251500C33E9F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848A2648251400C33E9F /* libvorbisfile.a */; };
+		2CC5848E2648251500C33E9F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848B2648251500C33E9F /* libvorbis.a */; };
+		2CC5848F2648251500C33E9F /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848C2648251500C33E9F /* libvorbisenc.a */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3168,6 +3179,19 @@
 		2CC5846E26477E2500C33E9F /* WAVEFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WAVEFormat.hpp; sourceTree = "<group>"; };
 		2CC5846F26477E4600C33E9F /* WAVEHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WAVEHeader.hpp; sourceTree = "<group>"; };
 		2CC5847226477E6200C33E9F /* SivWave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWave.cpp; sourceTree = "<group>"; };
+		2CC584752648242500C33E9F /* OggVorbisDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OggVorbisDecoder.hpp; sourceTree = "<group>"; };
+		2CC584762648242500C33E9F /* OggVorbisEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OggVorbisEncoder.hpp; sourceTree = "<group>"; };
+		2CC584782648244400C33E9F /* OggVorbisEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OggVorbisEncoder.cpp; sourceTree = "<group>"; };
+		2CC584792648244400C33E9F /* OggVorbisDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OggVorbisDecoder.cpp; sourceTree = "<group>"; };
+		2CC5847D2648246900C33E9F /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ogg.h; sourceTree = "<group>"; };
+		2CC5847E2648246900C33E9F /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_types.h; sourceTree = "<group>"; };
+		2CC584802648246900C33E9F /* vorbisfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbisfile.h; sourceTree = "<group>"; };
+		2CC584812648246900C33E9F /* codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codec.h; sourceTree = "<group>"; };
+		2CC584822648246900C33E9F /* vorbisenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbisenc.h; sourceTree = "<group>"; };
+		2CC584882648250D00C33E9F /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../Siv3D/lib/macOS/libogg/libogg.a; sourceTree = "<group>"; };
+		2CC5848A2648251400C33E9F /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisfile.a; sourceTree = "<group>"; };
+		2CC5848B2648251500C33E9F /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbis.a; sourceTree = "<group>"; };
+		2CC5848C2648251500C33E9F /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisenc.a; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -3363,6 +3387,7 @@
 				2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */,
 				2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */,
 				2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */,
+				2CC584892648250D00C33E9F /* libogg.a in Frameworks */,
 				2C4A289725F4F87100FEACE4 /* libopencv_core.a in Frameworks */,
 				2CFF581E25F7C09400B660AD /* libopencv_imgcodecs.a in Frameworks */,
 				2C4A289525F4F87100FEACE4 /* libopencv_imgproc.a in Frameworks */,
@@ -3370,6 +3395,9 @@
 				2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */,
 				2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
+				2CC5848D2648251500C33E9F /* libvorbisfile.a in Frameworks */,
+				2CC5848E2648251500C33E9F /* libvorbis.a in Frameworks */,
+				2CC5848F2648251500C33E9F /* libvorbisenc.a in Frameworks */,
 				2C8CA3B2261594D200BABD2D /* libwebp.a in Frameworks */,
 				2CFC213325F732F100C51D0D /* libturbojpeg.a in Frameworks */,
 				2C4A289025F4F7D600FEACE4 /* libzlib.a in Frameworks */,
@@ -3905,6 +3933,10 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CC5848B2648251500C33E9F /* libvorbis.a */,
+				2CC5848C2648251500C33E9F /* libvorbisenc.a */,
+				2CC5848A2648251400C33E9F /* libvorbisfile.a */,
+				2CC584882648250D00C33E9F /* libogg.a */,
 				2C8CA3B1261594D100BABD2D /* libwebp.a */,
 				2C7DE5DB26137A3B00D7F031 /* liblibgif.a */,
 				2CFF582125F7C0E100B660AD /* CoreMedia.framework */,
@@ -7760,6 +7792,8 @@
 		2CC58465264771C700C33E9F /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2CC584752648242500C33E9F /* OggVorbisDecoder.hpp */,
+				2CC584762648242500C33E9F /* OggVorbisEncoder.hpp */,
 				2CC58466264771C700C33E9F /* WAVEEncoder.hpp */,
 				2CC58467264771C700C33E9F /* WAVEDecoder.hpp */,
 			);
@@ -7769,6 +7803,7 @@
 		2CC58468264771F100C33E9F /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2CC584772648244400C33E9F /* OggVorbis */,
 				2CC58469264771F100C33E9F /* WAVE */,
 			);
 			path = AudioFormat;
@@ -7790,6 +7825,34 @@
 				2CC5847226477E6200C33E9F /* SivWave.cpp */,
 			);
 			path = Wave;
+			sourceTree = "<group>";
+		};
+		2CC584772648244400C33E9F /* OggVorbis */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584782648244400C33E9F /* OggVorbisEncoder.cpp */,
+				2CC584792648244400C33E9F /* OggVorbisDecoder.cpp */,
+			);
+			path = OggVorbis;
+			sourceTree = "<group>";
+		};
+		2CC5847C2648246900C33E9F /* ogg */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5847D2648246900C33E9F /* ogg.h */,
+				2CC5847E2648246900C33E9F /* os_types.h */,
+			);
+			path = ogg;
+			sourceTree = "<group>";
+		};
+		2CC5847F2648246900C33E9F /* vorbis */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584802648246900C33E9F /* vorbisfile.h */,
+				2CC584812648246900C33E9F /* codec.h */,
+				2CC584822648246900C33E9F /* vorbisenc.h */,
+			);
+			path = vorbis;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -8291,6 +8354,8 @@
 				2CFC212925F7324F00C51D0D /* libjpeg-turbo */,
 				2CFC214525F739B400C51D0D /* libpng */,
 				2C8CA3AA261594A000BABD2D /* libwebp */,
+				2CC5847C2648246900C33E9F /* ogg */,
+				2CC5847F2648246900C33E9F /* vorbis */,
 			);
 			path = "ThirdParty-prebuilt";
 			sourceTree = "<group>";
@@ -8434,6 +8499,7 @@
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
 				2C43C8A925C837F100D6D613 /* ftadvanc.h in Headers */,
 				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
+				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2C2AA39A26009C74003F3EBC /* b2_draw.h in Headers */,
 				2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */,
@@ -8604,6 +8670,7 @@
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
 				2C2AA37926009C74003F3EBC /* b2_weld_joint.h in Headers */,
+				2CC584862648246900C33E9F /* codec.h in Headers */,
 				2C95666D264546F700539B85 /* stopelement.h in Headers */,
 				2C48BEF525CFB8C500A93CE3 /* EdgeColor.h in Headers */,
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
@@ -8771,7 +8838,9 @@
 				2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */,
 				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
 				2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */,
+				2CC584832648246900C33E9F /* ogg.h in Headers */,
 				2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */,
+				2CC584842648246900C33E9F /* os_types.h in Headers */,
 				2C956654264546F700539B85 /* symbolelement.h in Headers */,
 				2C2AA39726009C74003F3EBC /* b2_polygon_shape.h in Headers */,
 				2C47B6F124EAC8D9008D83BE /* GL4BackBuffer.hpp in Headers */,
@@ -8931,6 +9000,7 @@
 				2C48BF6525D41C0D00A93CE3 /* agg_array.h in Headers */,
 				2C68508824B768A800B98A7F /* CLogger.hpp in Headers */,
 				2C794B3825C3DFC200034D81 /* bitstream.h in Headers */,
+				2CC584852648246900C33E9F /* vorbisfile.h in Headers */,
 				2C43C89F25C837F100D6D613 /* svfntfmt.h in Headers */,
 				2C48BF7325D41C0D00A93CE3 /* BitmapGlyphRenderer.hpp in Headers */,
 				2CC5843226461D9900C33E9F /* AnimatedGIFReaderDetail.hpp in Headers */,
@@ -9149,6 +9219,7 @@
 				2C427FDE2628438A00106F19 /* SivGamepad.cpp in Sources */,
 				2C47B35F24DD9789008D83BE /* ImageEncoderFactory.cpp in Sources */,
 				2C9566822645623300539B85 /* ZIPReaderDetail.cpp in Sources */,
+				2CC5847A2648244400C33E9F /* OggVorbisEncoder.cpp in Sources */,
 				2C2AA3A826009C74003F3EBC /* b2_polygon_shape.cpp in Sources */,
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
 				2CC5843326461D9900C33E9F /* AnimatedGIFWriterDetail.cpp in Sources */,
@@ -9486,6 +9557,7 @@
 				2C39ECA92564030E0021DF34 /* GL4Renderer2DCommand.cpp in Sources */,
 				2C47B34024DD9789008D83BE /* Siv3DEngine.cpp in Sources */,
 				2C47B36B24DD9789008D83BE /* SivThreading.cpp in Sources */,
+				2CC5847B2648244400C33E9F /* OggVorbisDecoder.cpp in Sources */,
 				2C794AB625C3DEE400034D81 /* SivMD5Value.cpp in Sources */,
 				2C794B4325C3DFC200034D81 /* error_private.c in Sources */,
 				2C4AEF76262C4E8300D36CFC /* CTextToSpeech.mm in Sources */,
@@ -9833,7 +9905,9 @@
 					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
@@ -9899,7 +9973,9 @@
 					../Siv3D/lib/macOS/harfbuzz,
 					../Siv3D/lib/macOS/libgif,
 					"../Siv3D/lib/macOS/libjpeg-turbo",
+					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
 					../Siv3D/lib/macOS/zlib,
