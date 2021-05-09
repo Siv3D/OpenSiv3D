@@ -46,6 +46,8 @@
 # pragma comment (lib, "opencv/opencv_objdetect451" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "opencv/opencv_photo451" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "opencv/opencv_videoio451" SIV3D_DEBUG_LIB_POSTFIX(d))
+# pragma comment (lib, "opus/opus" SIV3D_DEBUG_LIB_POSTFIX(_d))
+# pragma comment (lib, "opus/opusfile" SIV3D_DEBUG_LIB_POSTFIX(_d))
 # pragma comment (lib, "zlib/zlib" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "Siv3D" SIV3D_DEBUG_LIB_POSTFIX(_d))
 
