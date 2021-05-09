@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "Blob.hpp"
+# include "Duration.hpp"
 # include "AudioFormat.hpp"
 # include "WAVEFormat.hpp"
 # include "WaveSample.hpp"
@@ -53,10 +54,24 @@ namespace s3d
 		Wave(size_t count, const value_type& value, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
+		Wave(const Duration& duration, const value_type& value, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+
+		SIV3D_NODISCARD_CXX20
 		explicit Wave(size_t count, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		
+		SIV3D_NODISCARD_CXX20
+		explicit Wave(const Duration& duration, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		template <class Iterator>
 		Wave(Iterator first, Iterator last, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
+		Wave(size_t count, Arg::generator_<Fty> generator);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
+		Wave(const Duration& duration, Arg::generator0_1_<Fty> generator);
 
 		SIV3D_NODISCARD_CXX20
 		Wave(const Wave& samples);
@@ -324,6 +339,12 @@ namespace s3d
 
 		[[nodiscard]]
 		Wave slice(size_t index, size_t length) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		static Wave Generate(size_t count, Fty generator);
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>* = nullptr>
+		static Wave Generate(const Duration& duration, Fty generator);
 
 	private:
 

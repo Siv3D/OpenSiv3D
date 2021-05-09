@@ -13,6 +13,19 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline constexpr size_t CalculateSamples(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate)
+		{
+			if (duration.count() <= 0.0)
+			{
+				return 0;
+			}
+
+			return static_cast<size_t>(duration.count() * samplingRate.value());
+		}
+	}
+
 	inline Wave::Wave(const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc) noexcept
 		: m_data(alloc)
 		, m_samplingRate{ *samplingRate } {}
@@ -21,14 +34,34 @@ namespace s3d
 		: m_data(count, value, alloc)
 		, m_samplingRate{ *samplingRate } {}
 
+	inline Wave::Wave(const Duration& duration, const value_type& value, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+		: m_data(detail::CalculateSamples(duration, samplingRate), value, alloc)
+		, m_samplingRate{ *samplingRate } {}
+
 	inline Wave::Wave(const size_t count, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
 		: m_data(count, alloc)
+		, m_samplingRate{ *samplingRate } {}
+
+	inline Wave::Wave(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+		: m_data(detail::CalculateSamples(duration, samplingRate), alloc)
 		, m_samplingRate{ *samplingRate } {}
 
 	template <class Iterator>
 	inline Wave::Wave(Iterator first, Iterator last, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
 		: m_data(first, last, alloc)
 		, m_samplingRate{ *samplingRate } {}
+
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
+	inline Wave::Wave(const size_t count, Arg::generator_<Fty> generator)
+	{
+		*this = Generate(count, generator.value());
+	}
+
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
+	inline Wave::Wave(const Duration& duration, Arg::generator0_1_<Fty> generator)
+	{
+		*this = Generate(duration, generator.value());
+	}
 
 	inline Wave::Wave(const Wave& samples)
 		: m_data(samples.begin(), samples.end()) {}
@@ -528,5 +561,30 @@ namespace s3d
 		}
 
 		return Wave(begin() + index, begin() + Min(index + length, size()));
+	}
+
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
+	Wave Wave::Generate(const size_t count, Fty generator)
+	{
+		Wave newWave(size);
+
+		if (not newWave)
+		{
+			return newWave;
+		}
+
+		const double ir = (1.0 / m_samplingRate);
+		WaveSample* pDst = data();
+
+		for (size_t i = 0; i < count; ++i)
+		{
+			*pDst++ = static_cast<float>(generator(i * ir));
+		}
+	}
+
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty>>*>
+	Wave Wave::Generate(const Duration& duration, Fty generator)
+	{
+		return Generate(detail::CalculateSamples(duration, samplingRate), generator);
 	}
 }
