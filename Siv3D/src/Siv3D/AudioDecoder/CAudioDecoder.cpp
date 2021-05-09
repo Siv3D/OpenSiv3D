@@ -13,7 +13,7 @@
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CAudioDecoder.hpp"
-//# include <Siv3D/AudioFormat/WAVEDecoder.hpp>
+# include <Siv3D/AudioFormat/WAVEDecoder.hpp>
 
 namespace s3d
 {
@@ -26,7 +26,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CAudioDecoder::init()");
 
-		//m_decoders.push_back(std::make_unique<WAVEDecoder>());
+		m_decoders.push_back(std::make_unique<WAVEDecoder>());
 	}
 
 	Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)

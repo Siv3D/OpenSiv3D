@@ -15,6 +15,7 @@
 # include "String.hpp"
 # include "Optional.hpp"
 # include "Texture.hpp"
+# include "Wave.hpp"
 # include "FileFilter.hpp"
 
 namespace s3d
@@ -42,8 +43,8 @@ namespace s3d
 		[[nodiscard]]
 		Texture OpenTexture(TextureDesc desc, FilePathView defaultPath = U"", StringView title = U"");
 
-		//[[nodiscard]]
-		//Wave OpenWave(FilePathView defaultPath = U"", StringView title = U"");
+		[[nodiscard]]
+		Wave OpenWave(FilePathView defaultPath = U"", StringView title = U"");
 
 		//[[nodiscard]]
 		//Audio OpenAudio(FilePathView defaultPath = U"", StringView title = U"");
@@ -54,7 +55,7 @@ namespace s3d
 		[[nodiscard]]
 		Optional<FilePath> SaveImage(FilePathView defaultPath = U"", StringView title = U"");
 
-		//[[nodiscard]]
-		//Optional<FilePath> SaveWave(FilePathView defaultPath = U"", StringView title = U"");
+		[[nodiscard]]
+		Optional<FilePath> SaveWave(FilePathView defaultPath = U"", StringView title = U"");
 	}
 }

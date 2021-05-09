@@ -96,17 +96,17 @@ namespace s3d
 			}
 		}
 
-		//Wave OpenWave(const FilePathView defaultPath, const StringView title)
-		//{
-		//	if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
-		//	{
-		//		return Wave{ path.value() };
-		//	}
-		//	else
-		//	{
-		//		return{};
-		//	}
-		//}
+		Wave OpenWave(const FilePathView defaultPath, const StringView title)
+		{
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			{
+				return Wave{ path.value() };
+			}
+			else
+			{
+				return{};
+			}
+		}
 
 		//Audio OpenAudio(const FilePathView defaultPath, const StringView title)
 		//{
@@ -137,9 +137,9 @@ namespace s3d
 			return SaveFile(detail::SaveImageFilters, defaultPath, title);
 		}
 
-		//Optional<FilePath> SaveWave(const FilePathView defaultPath, const StringView title)
-		//{
-		//	return SaveFile(detail::SaveWaveFilters, defaultPath, title);
-		//}
+		Optional<FilePath> SaveWave(const FilePathView defaultPath, const StringView title)
+		{
+			return SaveFile(detail::SaveWaveFilters, defaultPath, title);
+		}
 	}
 }

@@ -1103,6 +1103,7 @@
 # include <Siv3D/IAudioEncoder.hpp>
 # include <Siv3D/AudioDecoder.hpp>
 # include <Siv3D/AudioEncoder.hpp>
+# include <Siv3D/WAVEFormat.hpp>
 # include <Siv3D/AudioFormat/WAVEDecoder.hpp>
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
 

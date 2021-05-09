@@ -12,6 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "Array.hpp"
+# include "Blob.hpp"
+# include "AudioFormat.hpp"
+# include "WAVEFormat.hpp"
 # include "WaveSample.hpp"
 
 namespace s3d
@@ -34,26 +37,26 @@ namespace s3d
 		using reverse_iterator			= base_type::reverse_iterator;
 		using const_reverse_iterator	= base_type::const_reverse_iterator;
 
-		static constexpr uint32 MinSamplingRate		= 4000;
+		static constexpr uint32 MinSamplingRate		= 4'000;
 
-		static constexpr uint32 DefaultSamplingRate	= 44100;
+		static constexpr uint32 DefaultSamplingRate	= 44'100;
 
-		static constexpr uint32 MaxSamplingRate		= 192000;
+		static constexpr uint32 MaxSamplingRate		= 192'000;
 
 		SIV3D_NODISCARD_CXX20
 		Wave() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(const allocator_type& alloc) noexcept;
+		explicit Wave(Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc = allocator_type{}) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Wave(size_t count, const value_type& value, const allocator_type& alloc = allocator_type{});
+		Wave(size_t count, const value_type& value, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(size_t count, const allocator_type& alloc = allocator_type{});
+		explicit Wave(size_t count, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		template <class Iterator>
-		Wave(Iterator first, Iterator last, const allocator_type& alloc = allocator_type{});
+		Wave(Iterator first, Iterator last, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
 		Wave(const Wave& samples);
@@ -65,16 +68,22 @@ namespace s3d
 		Wave(Wave&& samples) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Wave(std::initializer_list<value_type> init, const allocator_type& alloc = allocator_type{});
+		Wave(std::initializer_list<value_type> init, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(const Array<value_type>& samples);
+		explicit Wave(const Array<value_type>& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(Array<value_type>&& samples) noexcept;
+		explicit Wave(Array<value_type>&& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(Arg::reserve_<size_type> size);
+		explicit Wave(Arg::reserve_<size_type> size, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Wave(FilePathView path, AudioFormat format = AudioFormat::Unspecified);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		Wave& operator =(const Array<value_type>& other);
 
@@ -106,9 +115,17 @@ namespace s3d
 
 		void fillZero();
 
-		//bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
+		bool save(FilePathView path, AudioFormat format = AudioFormat::WAVE) const;
 
-		//bool saveWAVE(FilePathView path, WAVEFormat format = WAVEFormat::Default);
+		[[nodiscard]]
+		Blob encode(AudioFormat format) const;
+
+		bool saveWithDialog() const;
+
+		bool saveWAVE(FilePathView path, WAVEFormat format = WAVEFormat::Default) const;
+		
+		[[nodiscard]]
+		Blob encodeWAVE(WAVEFormat format = WAVEFormat::Default) const;
 
 		//bool saveOggVorbis(FilePathView path, int32 quality = 60);
 

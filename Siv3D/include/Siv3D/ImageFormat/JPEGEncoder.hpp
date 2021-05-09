@@ -18,8 +18,10 @@ namespace s3d
 	{
 	public:
 
+		[[nodiscard]]
 		StringView name() const override;
 
+		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
 
 		bool save(const Image& image, FilePathView path) const override;
@@ -30,8 +32,10 @@ namespace s3d
 
 		bool encode(const Image& image, IWriter& writer, int32 quality) const;
 
+		[[nodiscard]]
 		Blob encode(const Image& image) const override;
 
+		[[nodiscard]]
 		Blob encode(const Image& image, int32 quality) const;
 	};
 }

@@ -588,6 +588,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\WAVEFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Webcam.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WebcamInfo.hpp" />
@@ -815,6 +816,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\IAudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\CAudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\IAudioEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEHeader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\BigIntDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.hpp" />
@@ -1711,6 +1713,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoTexture\VideoTextureDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\SivVideoWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\VideoWriterDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\SivWebcam.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\WebcamDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\Null\CWindow_Null.cpp" />

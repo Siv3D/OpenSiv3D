@@ -18,14 +18,17 @@ namespace s3d
 	{
 	public:
 
+		[[nodiscard]]
 		StringView name() const override;
 
+		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
 
 		bool save(const Image& image, FilePathView path) const override;
 
 		bool encode(const Image& image, IWriter& writer) const override;
 
+		[[nodiscard]]
 		Blob encode(const Image& image) const override;
 	};
 }
