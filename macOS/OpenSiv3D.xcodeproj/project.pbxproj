@@ -1156,6 +1156,8 @@
 		2CC584602646DC5800C33E9F /* AudioDecoderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584562646DC5800C33E9F /* AudioDecoderFactory.cpp */; };
 		2CC584612646DC5800C33E9F /* SivAudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584572646DC5800C33E9F /* SivAudioDecoder.cpp */; };
 		2CC584632646DC5800C33E9F /* CAudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584592646DC5800C33E9F /* CAudioDecoder.cpp */; };
+		2CC5846C264771F100C33E9F /* WAVEDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */; };
+		2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -3156,6 +3158,11 @@
 		2CC584572646DC5800C33E9F /* SivAudioDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioDecoder.cpp; sourceTree = "<group>"; };
 		2CC584582646DC5800C33E9F /* IAudioDecoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAudioDecoder.hpp; sourceTree = "<group>"; };
 		2CC584592646DC5800C33E9F /* CAudioDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAudioDecoder.cpp; sourceTree = "<group>"; };
+		2CC58464264771A200C33E9F /* IAudioDecoder.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioDecoder.ipp; sourceTree = "<group>"; };
+		2CC58466264771C700C33E9F /* WAVEEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WAVEEncoder.hpp; sourceTree = "<group>"; };
+		2CC58467264771C700C33E9F /* WAVEDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WAVEDecoder.hpp; sourceTree = "<group>"; };
+		2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WAVEDecoder.cpp; sourceTree = "<group>"; };
+		2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WAVEEncoder.cpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4637,6 +4644,7 @@
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
 				2CC584542646DC5800C33E9F /* AudioDecoder */,
 				2CC5844E2646DC5800C33E9F /* AudioEncoder */,
+				2CC58468264771F100C33E9F /* AudioFormat */,
 				2C794AAC25C3DE7800034D81 /* Base64 */,
 				2C13C8D725B8FB170054B968 /* Bezier2 */,
 				2C13C8D925B8FB170054B968 /* Bezier3 */,
@@ -7322,6 +7330,7 @@
 				2C95667B264561E400539B85 /* ZIPReader.hpp */,
 				2C95667C264561E400539B85 /* ZIPWriter.hpp */,
 				2C9566FE2645848000539B85 /* Zlib.hpp */,
+				2CC58465264771C700C33E9F /* AudioFormat */,
 				2CAAA78B25E7FD0200C014D7 /* detail */,
 				2C4A288225F3C09C00FEACE4 /* Experimental */,
 				2CAAA85225E7FD0300C014D7 /* ImageFormat */,
@@ -7400,6 +7409,7 @@
 				2CAAA81825E7FD0200C014D7 /* HashSet.ipp */,
 				2CAAA7FD25E7FD0200C014D7 /* HashTable.ipp */,
 				2CAAA80B25E7FD0200C014D7 /* HSV.ipp */,
+				2CC58464264771A200C33E9F /* IAudioDecoder.ipp */,
 				2CAAA81225E7FD0200C014D7 /* Icon.ipp */,
 				2CAAA7AE25E7FD0200C014D7 /* IImageDecoder.ipp */,
 				2CAAA7A825E7FD0200C014D7 /* Image.ipp */,
@@ -7738,6 +7748,32 @@
 				2CC584592646DC5800C33E9F /* CAudioDecoder.cpp */,
 			);
 			path = AudioDecoder;
+			sourceTree = "<group>";
+		};
+		2CC58465264771C700C33E9F /* AudioFormat */ = {
+			isa = PBXGroup;
+			children = (
+				2CC58466264771C700C33E9F /* WAVEEncoder.hpp */,
+				2CC58467264771C700C33E9F /* WAVEDecoder.hpp */,
+			);
+			path = AudioFormat;
+			sourceTree = "<group>";
+		};
+		2CC58468264771F100C33E9F /* AudioFormat */ = {
+			isa = PBXGroup;
+			children = (
+				2CC58469264771F100C33E9F /* WAVE */,
+			);
+			path = AudioFormat;
+			sourceTree = "<group>";
+		};
+		2CC58469264771F100C33E9F /* WAVE */ = {
+			isa = PBXGroup;
+			children = (
+				2CC5846A264771F100C33E9F /* WAVEDecoder.cpp */,
+				2CC5846B264771F100C33E9F /* WAVEEncoder.cpp */,
+			);
+			path = WAVE;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -9198,6 +9234,7 @@
 				2C794B8C25C5A5BF00034D81 /* SivTextureRegion.cpp in Sources */,
 				2C794B0E25C3DFC200034D81 /* zstd_fast.c in Sources */,
 				2CFB7DD4262AF33C00169B97 /* DragDropFactory.cpp in Sources */,
+				2CC5846C264771F100C33E9F /* WAVEDecoder.cpp in Sources */,
 				2C834D8B248805D4006208B8 /* big5.c in Sources */,
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
@@ -9492,6 +9529,7 @@
 				2C9566ED2645626000539B85 /* mz_strm_buf.c in Sources */,
 				2C47B49724DD97F2008D83BE /* muParser.cpp in Sources */,
 				2C47B32824DD9789008D83BE /* SivColor.cpp in Sources */,
+				2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */,
 				2C48BEE025CFB8C500A93CE3 /* equation-solver.cpp in Sources */,
 				2CDD4F49260A3F7100A51D68 /* P2SliderJoint.cpp in Sources */,
 				2C834D90248805D4006208B8 /* iso8859_1.c in Sources */,
@@ -9973,6 +10011,7 @@
 					GLEW_STATIC,
 					GLEW_NO_GLU,
 					_UNICODE,
+					MSDFGEN_USE_CPP11,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -10039,6 +10078,7 @@
 					GLEW_STATIC,
 					GLEW_NO_GLU,
 					_UNICODE,
+					MSDFGEN_USE_CPP11,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
