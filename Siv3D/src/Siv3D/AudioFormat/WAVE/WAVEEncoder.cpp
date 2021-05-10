@@ -18,6 +18,23 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline constexpr uint8 FloatToUint8(float f) noexcept
+		{
+			const uint32 u = static_cast<uint32>((f + 1.0f) * 127.5f);
+
+			return static_cast<uint8>(u, 0, 255);
+		}
+
+		inline constexpr int16 FloatToSint16(float f) noexcept
+		{
+			const int32 i = static_cast<int32>(f * 32767.0f);
+
+			return static_cast<int16>(Clamp(i, -32768, 32767));
+		}
+	}
+
 	StringView WAVEEncoder::name() const
 	{
 		return U"WAVE"_sv;
@@ -118,8 +135,8 @@ namespace s3d
 				{
 					for (uint32 i = 0; i < bufferSize; ++i)
 					{
-						pDst->left = static_cast<uint8>((pSrc->left + 1.0f) * 127.999f);
-						pDst->right = static_cast<uint8>((pSrc->right + 1.0f) * 127.999f);
+						pDst->left = detail::FloatToUint8(pSrc->left);
+						pDst->right = detail::FloatToUint8(pSrc->right);
 						++pDst;
 						++pSrc;
 					}
@@ -132,8 +149,8 @@ namespace s3d
 				{
 					for (uint32 i = 0; i < samplesToWrite; ++i)
 					{
-						pDst->left = static_cast<uint8>((pSrc->left + 1.0f) * 127.999f);
-						pDst->right = static_cast<uint8>((pSrc->right + 1.0f) * 127.999f);
+						pDst->left = detail::FloatToUint8(pSrc->left);
+						pDst->right = detail::FloatToUint8(pSrc->right);
 						++pDst;
 						++pSrc;
 					}
@@ -161,8 +178,8 @@ namespace s3d
 				{
 					for (uint32 i = 0; i < bufferCount; ++i)
 					{
-						pDst->left = static_cast<int16>(pSrc->left * 32767.0f);
-						pDst->right = static_cast<int16>(pSrc->right * 32767.0f);
+						pDst->left = detail::FloatToSint16(pSrc->left);
+						pDst->right = detail::FloatToSint16(pSrc->right);
 						++pDst;
 						++pSrc;
 					}
@@ -175,8 +192,8 @@ namespace s3d
 				{
 					for (uint32 i = 0; i < samplesToWrite; ++i)
 					{
-						pDst->left = static_cast<int16>(pSrc->left * 32767.0f);
-						pDst->right = static_cast<int16>(pSrc->right * 32767.0f);
+						pDst->left = detail::FloatToSint16(pSrc->left);
+						pDst->right = detail::FloatToSint16(pSrc->right);
 						++pDst;
 						++pSrc;
 					}

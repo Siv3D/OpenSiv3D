@@ -56,12 +56,12 @@ namespace s3d
 
 	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float mono) noexcept
 	{
-		return WaveSampleS16{ static_cast<int16>(mono * 32767) };
+		return WaveSampleS16{ static_cast<int16>(Clamp(static_cast<int32>(mono * 32767), -32768, 32767)) };
 	}
 
 	inline constexpr WaveSampleS16 WaveSampleS16::FromFloat32(const float _left, const float _right) noexcept
 	{
-		return{ static_cast<int16>(_left * 32767), static_cast<int16>(_right * 32767) };
+		return{ static_cast<int16>(Clamp(static_cast<int32>(_left * 32767), -32768, 32767)), static_cast<int16>(Clamp(static_cast<int32>(_right * 32767), -32768, 32767)) };
 	}
 	
 	inline constexpr WaveSampleS16 WaveSampleS16::Zero() noexcept

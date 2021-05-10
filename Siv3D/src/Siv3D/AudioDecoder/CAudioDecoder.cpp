@@ -15,6 +15,7 @@
 # include "CAudioDecoder.hpp"
 # include <Siv3D/AudioFormat/WAVEDecoder.hpp>
 # include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
+# include <Siv3D/AudioFormat/OpusDecoder.hpp>
 
 namespace s3d
 {
@@ -29,6 +30,7 @@ namespace s3d
 
 		m_decoders.push_back(std::make_unique<WAVEDecoder>());
 		m_decoders.push_back(std::make_unique<OggVorbisDecoder>());
+		m_decoders.push_back(std::make_unique<OpusDecoder>());
 	}
 
 	Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
