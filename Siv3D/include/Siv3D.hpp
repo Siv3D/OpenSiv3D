@@ -849,7 +849,7 @@
 # include <Siv3D/ImageFormat/GIFDecoder.hpp>
 # include <Siv3D/ImageFormat/GIFEncoder.hpp>
 
-//# include <Siv3D/ImageFormat/TIFFDecoder.hpp>
+# include <Siv3D/ImageFormat/TIFFDecoder.hpp>
 //# include <Siv3D/ImageFormat/TIFFEncoder.hpp>
 
 # include <Siv3D/ImageFormat/TGADecoder.hpp>

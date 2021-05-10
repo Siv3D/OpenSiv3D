@@ -230,6 +230,7 @@ add_library(
   ../Siv3D/src/Siv3D/ImageFormat/SVG/SVGDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/TGA/TGADecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/TGA/TGAEncoder.cpp
+  ../Siv3D/src/Siv3D/ImageFormat/TIFF/TIFFDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/WebP/WebPDecoder.cpp
   ../Siv3D/src/Siv3D/ImageFormat/WebP/WebPEncoder.cpp
   ../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp

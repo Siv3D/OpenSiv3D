@@ -31,6 +31,7 @@ Library | Version
 [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.0.6
 [libogg](https://xiph.org/downloads/) | 1.3.4
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
+[libtiff](http://www.simplesystems.org/libtiff/) | v4.3.0
 [libvorbis](https://xiph.org/downloads/) | 1.3.7
 [libwebp](https://developers.google.com/speed/webp) | 1.2.0
 [Lua](https://www.lua.org/) | 5.4.2

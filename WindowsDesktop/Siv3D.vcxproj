@@ -269,6 +269,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\SVGDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGADecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TGAEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TIFFDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\WebPDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\WebPEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageInfo.hpp" />
@@ -974,6 +975,18 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\png.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\pngconf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libpng\pnglibconf.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\t4.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiff.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffconf.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffio.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffio.hxx" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffiop.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffvers.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_config.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_dir.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_fax3.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_predict.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\uvcode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\decode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\encode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libwebp\types.h" />
@@ -1576,6 +1589,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SVG\SVGDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGADecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\TGAEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TIFF\TIFFDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\WebP\WebPDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\WebP\WebPEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />

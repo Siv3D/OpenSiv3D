@@ -1111,6 +1111,12 @@
     <Filter Include="src\Siv3D\AudioFormat\Opus">
       <UniqueIdentifier>{7c4372a8-d395-44b0-b497-138cbdc9fd36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\libtiff">
+      <UniqueIdentifier>{7a0bd3a7-b6bd-4e80-970a-76cf13a4a4fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\TIFF">
+      <UniqueIdentifier>{84c26e90-fb50-401d-af0d-f78c8dfe4556}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5154,6 +5160,45 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioLoopTiming.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_predict.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiff.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffconf.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffio.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffio.hxx">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffiop.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tiffvers.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\uvcode.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\t4.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_config.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_dir.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\libtiff\tif_fax3.h">
+      <Filter>src\ThirdParty-prebuilt\libtiff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat\TIFFDecoder.hpp">
+      <Filter>include\Siv3D\ImageFormat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7090,6 +7135,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusEncoder.cpp">
       <Filter>src\Siv3D\AudioFormat\Opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TIFF\TIFFDecoder.cpp">
+      <Filter>src\Siv3D\ImageFormat\TIFF</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
