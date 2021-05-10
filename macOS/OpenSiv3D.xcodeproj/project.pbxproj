@@ -450,6 +450,20 @@
 		2C43C8C725C837F100D6D613 /* ft2build.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C43C86725C837F000D6D613 /* ft2build.h */; };
 		2C43C8D525C8464400D6D613 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C43C8D425C8464400D6D613 /* libfreetype.a */; };
 		2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4442A02427AA7C00557D51 /* miniutf.hpp */; };
+		2C44C057264960B800A5E72A /* TIFFDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C44C056264960B800A5E72A /* TIFFDecoder.cpp */; };
+		2C44C065264960D400A5E72A /* tif_dir.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C059264960D400A5E72A /* tif_dir.h */; };
+		2C44C066264960D400A5E72A /* tiffio.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05A264960D400A5E72A /* tiffio.hxx */; };
+		2C44C067264960D400A5E72A /* tif_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05B264960D400A5E72A /* tif_config.h */; };
+		2C44C068264960D400A5E72A /* tif_fax3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05C264960D400A5E72A /* tif_fax3.h */; };
+		2C44C069264960D400A5E72A /* tif_predict.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05D264960D400A5E72A /* tif_predict.h */; };
+		2C44C06A264960D400A5E72A /* tiff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05E264960D400A5E72A /* tiff.h */; };
+		2C44C06B264960D400A5E72A /* tiffiop.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C05F264960D400A5E72A /* tiffiop.h */; };
+		2C44C06C264960D400A5E72A /* tiffvers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C060264960D400A5E72A /* tiffvers.h */; };
+		2C44C06D264960D400A5E72A /* t4.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C061264960D400A5E72A /* t4.h */; };
+		2C44C06E264960D400A5E72A /* tiffio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C062264960D400A5E72A /* tiffio.h */; };
+		2C44C06F264960D400A5E72A /* uvcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C063264960D400A5E72A /* uvcode.h */; };
+		2C44C070264960D400A5E72A /* tiffconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C44C064264960D400A5E72A /* tiffconf.h */; };
+		2C44C0722649615100A5E72A /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C44C0712649615100A5E72A /* libtiff.a */; };
 		2C4564E1247946AF00DB01F0 /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C4564E0247946AF00DB01F0 /* int128.cc */; };
 		2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C473B172545415300CF864D /* SivInterpolation.cpp */; };
 		2C473B8F2545DDA600CF864D /* define_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C473B8E2545DDA600CF864D /* define_tables.h */; };
@@ -1919,6 +1933,21 @@
 		2C43C86725C837F000D6D613 /* ft2build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft2build.h; sourceTree = "<group>"; };
 		2C43C8D425C8464400D6D613 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../Siv3D/lib/macOS/freetype/libfreetype.a; sourceTree = "<group>"; };
 		2C4442A02427AA7C00557D51 /* miniutf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = miniutf.hpp; sourceTree = "<group>"; };
+		2C44C0542649609400A5E72A /* TIFFDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TIFFDecoder.hpp; sourceTree = "<group>"; };
+		2C44C056264960B800A5E72A /* TIFFDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TIFFDecoder.cpp; sourceTree = "<group>"; };
+		2C44C059264960D400A5E72A /* tif_dir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tif_dir.h; sourceTree = "<group>"; };
+		2C44C05A264960D400A5E72A /* tiffio.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tiffio.hxx; sourceTree = "<group>"; };
+		2C44C05B264960D400A5E72A /* tif_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tif_config.h; sourceTree = "<group>"; };
+		2C44C05C264960D400A5E72A /* tif_fax3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tif_fax3.h; sourceTree = "<group>"; };
+		2C44C05D264960D400A5E72A /* tif_predict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tif_predict.h; sourceTree = "<group>"; };
+		2C44C05E264960D400A5E72A /* tiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiff.h; sourceTree = "<group>"; };
+		2C44C05F264960D400A5E72A /* tiffiop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffiop.h; sourceTree = "<group>"; };
+		2C44C060264960D400A5E72A /* tiffvers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffvers.h; sourceTree = "<group>"; };
+		2C44C061264960D400A5E72A /* t4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = t4.h; sourceTree = "<group>"; };
+		2C44C062264960D400A5E72A /* tiffio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffio.h; sourceTree = "<group>"; };
+		2C44C063264960D400A5E72A /* uvcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvcode.h; sourceTree = "<group>"; };
+		2C44C064264960D400A5E72A /* tiffconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffconf.h; sourceTree = "<group>"; };
+		2C44C0712649615100A5E72A /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = ../Siv3D/lib/macOS/libtiff/libtiff.a; sourceTree = "<group>"; };
 		2C4564CA2479193600DB01F0 /* phmap_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap_config.h; sourceTree = "<group>"; };
 		2C4564CB2479193600DB01F0 /* phmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap.h; sourceTree = "<group>"; };
 		2C4564CC2479193600DB01F0 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -3422,6 +3451,7 @@
 				2C8A251A2649084000A87808 /* libopus.a in Frameworks */,
 				2C8A2519264905F000A87808 /* libopusfile.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
+				2C44C0722649615100A5E72A /* libtiff.a in Frameworks */,
 				2CC5848D2648251500C33E9F /* libvorbisfile.a in Frameworks */,
 				2CC5848E2648251500C33E9F /* libvorbis.a in Frameworks */,
 				2CC5848F2648251500C33E9F /* libvorbisenc.a in Frameworks */,
@@ -3960,6 +3990,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C44C0712649615100A5E72A /* libtiff.a */,
 				2C8A2518264905F000A87808 /* libopusfile.a */,
 				2CC584A62649027F00C33E9F /* libopus.a */,
 				2CC5848B2648251500C33E9F /* libvorbis.a */,
@@ -4637,6 +4668,33 @@
 				2C4442A02427AA7C00557D51 /* miniutf.hpp */,
 			);
 			path = miniutf;
+			sourceTree = "<group>";
+		};
+		2C44C055264960B800A5E72A /* TIFF */ = {
+			isa = PBXGroup;
+			children = (
+				2C44C056264960B800A5E72A /* TIFFDecoder.cpp */,
+			);
+			path = TIFF;
+			sourceTree = "<group>";
+		};
+		2C44C058264960D400A5E72A /* libtiff */ = {
+			isa = PBXGroup;
+			children = (
+				2C44C059264960D400A5E72A /* tif_dir.h */,
+				2C44C05A264960D400A5E72A /* tiffio.hxx */,
+				2C44C05B264960D400A5E72A /* tif_config.h */,
+				2C44C05C264960D400A5E72A /* tif_fax3.h */,
+				2C44C05D264960D400A5E72A /* tif_predict.h */,
+				2C44C05E264960D400A5E72A /* tiff.h */,
+				2C44C05F264960D400A5E72A /* tiffiop.h */,
+				2C44C060264960D400A5E72A /* tiffvers.h */,
+				2C44C061264960D400A5E72A /* t4.h */,
+				2C44C062264960D400A5E72A /* tiffio.h */,
+				2C44C063264960D400A5E72A /* uvcode.h */,
+				2C44C064264960D400A5E72A /* tiffconf.h */,
+			);
+			path = libtiff;
 			sourceTree = "<group>";
 		};
 		2C4564C92479193600DB01F0 /* parallel_hashmap */ = {
@@ -7614,6 +7672,7 @@
 				2CAAA85625E7FD0300C014D7 /* SVGDecoder.hpp */,
 				2CEC7DDC25FA5DB100704B99 /* TGADecoder.hpp */,
 				2CEC7DDD25FA5DB100704B99 /* TGAEncoder.hpp */,
+				2C44C0542649609400A5E72A /* TIFFDecoder.hpp */,
 				2C8CA39C261585DA00BABD2D /* WebPDecoder.hpp */,
 				2C8CA39D261585DA00BABD2D /* WebPEncoder.hpp */,
 			);
@@ -8062,6 +8121,7 @@
 				2C8CA3A12615863C00BABD2D /* PPM */,
 				2CEC7DC825FA527700704B99 /* SVG */,
 				2CEC7DDE25FA5DE300704B99 /* TGA */,
+				2C44C055264960B800A5E72A /* TIFF */,
 				2C8CA39E2615863C00BABD2D /* WebP */,
 			);
 			path = ImageFormat;
@@ -8409,6 +8469,7 @@
 				2C7DE5D8261379FD00D7F031 /* libgif */,
 				2CFC212925F7324F00C51D0D /* libjpeg-turbo */,
 				2CFC214525F739B400C51D0D /* libpng */,
+				2C44C058264960D400A5E72A /* libtiff */,
 				2C8CA3AA261594A000BABD2D /* libwebp */,
 				2CC5847C2648246900C33E9F /* ogg */,
 				2CC584972648FE2A00C33E9F /* opus */,
@@ -8535,6 +8596,7 @@
 				2C43C86F25C837F000D6D613 /* ftstdlib.h in Headers */,
 				2CC5845A2646DC5800C33E9F /* CAudioEncoder.hpp in Headers */,
 				2C43C8BD25C837F100D6D613 /* tttables.h in Headers */,
+				2C44C06B264960D400A5E72A /* tiffiop.h in Headers */,
 				2C13C9BE25BD29FC0054B968 /* lstate.h in Headers */,
 				2C6390FA2539ABAB0030F18E /* CShader_Metal.hpp in Headers */,
 				2C47B6E124EAC88E008D83BE /* ConstantBufferDetail_Null.hpp in Headers */,
@@ -8543,6 +8605,7 @@
 				2C13C9BB25BD29FC0054B968 /* lparser.h in Headers */,
 				2CFB7DAF262A66D100169B97 /* ITextInput.hpp in Headers */,
 				2C43C87525C837F000D6D613 /* public-macros.h in Headers */,
+				2C44C06E264960D400A5E72A /* tiffio.h in Headers */,
 				2CFC214F25F739B400C51D0D /* hb-font.h in Headers */,
 				2C956665264546F700539B85 /* styledelement.h in Headers */,
 				2C48BF0525CFB8C500A93CE3 /* Bitmap.hpp in Headers */,
@@ -8555,6 +8618,7 @@
 				2CC7D4B125FA3A9200289963 /* VideoTextureDetail.hpp in Headers */,
 				2C47B35724DD9789008D83BE /* CProfiler.hpp in Headers */,
 				2C43C8A925C837F100D6D613 /* ftadvanc.h in Headers */,
+				2C44C067264960D400A5E72A /* tif_config.h in Headers */,
 				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
 				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
@@ -8595,6 +8659,7 @@
 				2C4A286D25EA60EB00FEACE4 /* CScreenCapture.hpp in Headers */,
 				2CDD4F4A260A3F7100A51D68 /* P2DistanceJointDetail.hpp in Headers */,
 				2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */,
+				2C44C070264960D400A5E72A /* tiffconf.h in Headers */,
 				2C794B2F25C3DFC200034D81 /* debug.h in Headers */,
 				2C13C99F25BD29FC0054B968 /* luaconf.h in Headers */,
 				2C47B33924DD9789008D83BE /* SystemLog.hpp in Headers */,
@@ -8613,6 +8678,7 @@
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2C13C9C725BD29FC0054B968 /* lvm.h in Headers */,
 				2CC5849F2648FE2A00C33E9F /* opus.h in Headers */,
+				2C44C06D264960D400A5E72A /* t4.h in Headers */,
 				2CFC215725F739B400C51D0D /* hb.h in Headers */,
 				2C43C88E25C837F000D6D613 /* fthash.h in Headers */,
 				2CC5843626461D9900C33E9F /* AnimatedGIFWriterDetail.hpp in Headers */,
@@ -8696,6 +8762,7 @@
 				2C2AA3A026009C74003F3EBC /* b2_world_callbacks.h in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
 				2C9566E52645626000539B85 /* mz_zip.h in Headers */,
+				2C44C065264960D400A5E72A /* tif_dir.h in Headers */,
 				2C794B3125C3DFC200034D81 /* compiler.h in Headers */,
 				2C43C87425C837F000D6D613 /* ftmodule.h in Headers */,
 				2C43C8B925C837F100D6D613 /* ftlzw.h in Headers */,
@@ -8704,6 +8771,7 @@
 				2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */,
 				2C95665B264546F700539B85 /* parser.h in Headers */,
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
+				2C44C06A264960D400A5E72A /* tiff.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
@@ -8792,6 +8860,7 @@
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
 				2CC584462646319400C33E9F /* MemoryMappedFileDetail.hpp in Headers */,
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
+				2C44C06F264960D400A5E72A /* uvcode.h in Headers */,
 				2C95666B264546F700539B85 /* document.h in Headers */,
 				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
 				2CC584A32648FE2A00C33E9F /* opusfile.h in Headers */,
@@ -8801,6 +8870,7 @@
 				2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
+				2C44C068264960D400A5E72A /* tif_fax3.h in Headers */,
 				2C13C99E25BD29FC0054B968 /* llimits.h in Headers */,
 				2C48BEF225CFB8C500A93CE3 /* render-sdf.h in Headers */,
 				2C423254242B19D100A16BCA /* egl_context.h in Headers */,
@@ -8817,6 +8887,7 @@
 				2C47B33F24DD9789008D83BE /* Siv3DComponent.hpp in Headers */,
 				2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */,
 				2C47B49424DD97F2008D83BE /* muParser.h in Headers */,
+				2C44C066264960D400A5E72A /* tiffio.hxx in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
 				2C2AA37A26009C74003F3EBC /* b2_dynamic_tree.h in Headers */,
 				2C48BF0325CFB8C500A93CE3 /* arithmetics.hpp in Headers */,
@@ -8838,6 +8909,7 @@
 				2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */,
 				2C13C8C625B8FA9D0054B968 /* RecastAlloc.h in Headers */,
 				2C13C9D125BD29FC0054B968 /* lprefix.h in Headers */,
+				2C44C069264960D400A5E72A /* tif_predict.h in Headers */,
 				2C9566CF2645626000539B85 /* mz_strm_split.h in Headers */,
 				2C2AA38126009C74003F3EBC /* b2_settings.h in Headers */,
 				2C2AA39526009C74003F3EBC /* b2_prismatic_joint.h in Headers */,
@@ -8855,6 +8927,7 @@
 				2C48BF0225CFB8C500A93CE3 /* msdf-error-correction.h in Headers */,
 				2C13C9A525BD29FC0054B968 /* lua.hpp in Headers */,
 				2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */,
+				2C44C06C264960D400A5E72A /* tiffvers.h in Headers */,
 				2C43C89725C837F100D6D613 /* svotval.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C2AA38C26009C74003F3EBC /* b2_mouse_joint.h in Headers */,
@@ -9389,6 +9462,7 @@
 				2CFB7DD4262AF33C00169B97 /* DragDropFactory.cpp in Sources */,
 				2CC5846C264771F100C33E9F /* WAVEDecoder.cpp in Sources */,
 				2C834D8B248805D4006208B8 /* big5.c in Sources */,
+				2C44C057264960B800A5E72A /* TIFFDecoder.cpp in Sources */,
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
@@ -9973,6 +10047,7 @@
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libtiff,
 					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
@@ -10042,6 +10117,7 @@
 					"../Siv3D/lib/macOS/libjpeg-turbo",
 					../Siv3D/lib/macOS/libogg,
 					../Siv3D/lib/macOS/libpng,
+					../Siv3D/lib/macOS/libtiff,
 					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
