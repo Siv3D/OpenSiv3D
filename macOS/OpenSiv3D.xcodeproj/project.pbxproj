@@ -1948,6 +1948,8 @@
 		2C44C063264960D400A5E72A /* uvcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvcode.h; sourceTree = "<group>"; };
 		2C44C064264960D400A5E72A /* tiffconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffconf.h; sourceTree = "<group>"; };
 		2C44C0712649615100A5E72A /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = ../Siv3D/lib/macOS/libtiff/libtiff.a; sourceTree = "<group>"; };
+		2C44C07326496C7C00A5E72A /* GMInstrument.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GMInstrument.hpp; sourceTree = "<group>"; };
+		2C44C07426496C7C00A5E72A /* PianoKey.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PianoKey.hpp; sourceTree = "<group>"; };
 		2C4564CA2479193600DB01F0 /* phmap_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap_config.h; sourceTree = "<group>"; };
 		2C4564CB2479193600DB01F0 /* phmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phmap.h; sourceTree = "<group>"; };
 		2C4564CC2479193600DB01F0 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -7222,6 +7224,7 @@
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
 				2CAAA8AC25E7FD0300C014D7 /* GlyphIndex.hpp */,
 				2CAAA6EC25E7FD0200C014D7 /* GlyphInfo.hpp */,
+				2C44C07326496C7C00A5E72A /* GMInstrument.hpp */,
 				2CC7D4A425F8D85500289963 /* GrabCut.hpp */,
 				2CAAA86F25E7FD0300C014D7 /* GradientNoise.hpp */,
 				2CAAA72C25E7FD0200C014D7 /* Graphics.hpp */,
@@ -7321,6 +7324,7 @@
 				2CAAA75925E7FD0200C014D7 /* ParseInt.hpp */,
 				2CAAA89E25E7FD0300C014D7 /* Periodic.hpp */,
 				2CAAA84725E7FD0200C014D7 /* PerlinNoise.hpp */,
+				2C44C07426496C7C00A5E72A /* PianoKey.hpp */,
 				2CE8D13826160FD200C75FBB /* Pipe.hpp */,
 				2CAAA86325E7FD0300C014D7 /* PixelShader.hpp */,
 				2CAAA83E25E7FD0200C014D7 /* PlaceHolder.hpp */,
