@@ -1094,8 +1094,9 @@
 # include <Siv3D/GrabCut.hpp>
 # include <Siv3D/Exif.hpp>
 
-
 # include <Siv3D/WaveSample.hpp>
+# include <Siv3D/GMInstrument.hpp>
+# include <Siv3D/PianoKey.hpp>
 # include <Siv3D/Wave.hpp>
 
 # include <Siv3D/AudioFormat.hpp>

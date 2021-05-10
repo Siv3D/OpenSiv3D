@@ -240,6 +240,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GMInstrument.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GrabCut.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
@@ -472,6 +473,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2WheelJoint.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2World.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PianoKey.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Pipe.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
