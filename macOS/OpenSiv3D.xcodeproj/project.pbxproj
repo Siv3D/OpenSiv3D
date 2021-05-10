@@ -999,6 +999,8 @@
 		2C834DC2248805D4006208B8 /* utf16_be.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D87248805D4006208B8 /* utf16_be.c */; };
 		2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D88248805D4006208B8 /* iso8859_4.c */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C8A2519264905F000A87808 /* libopusfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8A2518264905F000A87808 /* libopusfile.a */; };
+		2C8A251A2649084000A87808 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC584A62649027F00C33E9F /* libopus.a */; };
 		2C8CA3A42615863C00BABD2D /* WebPEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA39F2615863C00BABD2D /* WebPEncoder.cpp */; };
 		2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA3A02615863C00BABD2D /* WebPDecoder.cpp */; };
 		2C8CA3A62615863C00BABD2D /* PPMDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA3A22615863C00BABD2D /* PPMDecoder.cpp */; };
@@ -1171,6 +1173,15 @@
 		2CC5848D2648251500C33E9F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848A2648251400C33E9F /* libvorbisfile.a */; };
 		2CC5848E2648251500C33E9F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848B2648251500C33E9F /* libvorbis.a */; };
 		2CC5848F2648251500C33E9F /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC5848C2648251500C33E9F /* libvorbisenc.a */; };
+		2CC584952648FE1100C33E9F /* OpusDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584932648FE1100C33E9F /* OpusDecoder.cpp */; };
+		2CC584962648FE1100C33E9F /* OpusEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC584942648FE1100C33E9F /* OpusEncoder.cpp */; };
+		2CC5849F2648FE2A00C33E9F /* opus.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584982648FE2A00C33E9F /* opus.h */; };
+		2CC584A02648FE2A00C33E9F /* opus_multistream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC584992648FE2A00C33E9F /* opus_multistream.h */; };
+		2CC584A12648FE2A00C33E9F /* opus_custom.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5849A2648FE2A00C33E9F /* opus_custom.h */; };
+		2CC584A22648FE2A00C33E9F /* opus_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5849B2648FE2A00C33E9F /* opus_types.h */; };
+		2CC584A32648FE2A00C33E9F /* opusfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5849C2648FE2A00C33E9F /* opusfile.h */; };
+		2CC584A42648FE2A00C33E9F /* opus_defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5849D2648FE2A00C33E9F /* opus_defines.h */; };
+		2CC584A52648FE2A00C33E9F /* opus_projection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5849E2648FE2A00C33E9F /* opus_projection.h */; };
 		2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */; };
 		2CC7D4AA25F8D86A00289963 /* SivGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */; };
 		2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4A825F8D86A00289963 /* GrabCutDetail.cpp */; };
@@ -2524,6 +2535,7 @@
 		2C834D87248805D4006208B8 /* utf16_be.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf16_be.c; sourceTree = "<group>"; };
 		2C834D88248805D4006208B8 /* iso8859_4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iso8859_4.c; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C8A2518264905F000A87808 /* libopusfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopusfile.a; path = ../Siv3D/lib/macOS/opus/libopusfile.a; sourceTree = "<group>"; };
 		2C8CA399261585BD00BABD2D /* BlobWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlobWriter.hpp; sourceTree = "<group>"; };
 		2C8CA39A261585D200BABD2D /* PPMEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMEncoder.hpp; sourceTree = "<group>"; };
 		2C8CA39B261585D200BABD2D /* PPMDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMDecoder.hpp; sourceTree = "<group>"; };
@@ -3192,6 +3204,18 @@
 		2CC5848A2648251400C33E9F /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisfile.a; sourceTree = "<group>"; };
 		2CC5848B2648251500C33E9F /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbis.a; sourceTree = "<group>"; };
 		2CC5848C2648251500C33E9F /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = ../Siv3D/lib/macOS/libvorbis/libvorbisenc.a; sourceTree = "<group>"; };
+		2CC584902648FDF700C33E9F /* OpusDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpusDecoder.hpp; sourceTree = "<group>"; };
+		2CC584912648FDF700C33E9F /* OpusEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpusEncoder.hpp; sourceTree = "<group>"; };
+		2CC584932648FE1100C33E9F /* OpusDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpusDecoder.cpp; sourceTree = "<group>"; };
+		2CC584942648FE1100C33E9F /* OpusEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpusEncoder.cpp; sourceTree = "<group>"; };
+		2CC584982648FE2A00C33E9F /* opus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus.h; sourceTree = "<group>"; };
+		2CC584992648FE2A00C33E9F /* opus_multistream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_multistream.h; sourceTree = "<group>"; };
+		2CC5849A2648FE2A00C33E9F /* opus_custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_custom.h; sourceTree = "<group>"; };
+		2CC5849B2648FE2A00C33E9F /* opus_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_types.h; sourceTree = "<group>"; };
+		2CC5849C2648FE2A00C33E9F /* opusfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opusfile.h; sourceTree = "<group>"; };
+		2CC5849D2648FE2A00C33E9F /* opus_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_defines.h; sourceTree = "<group>"; };
+		2CC5849E2648FE2A00C33E9F /* opus_projection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_projection.h; sourceTree = "<group>"; };
+		2CC584A62649027F00C33E9F /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopus.a; path = ../Siv3D/lib/macOS/opus/libopus.a; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -3394,6 +3418,8 @@
 				2C4A289625F4F87100FEACE4 /* libopencv_objdetect.a in Frameworks */,
 				2C4A289825F4F87100FEACE4 /* libopencv_photo.a in Frameworks */,
 				2C4A289A25F4FA8100FEACE4 /* libopencv_videoio.a in Frameworks */,
+				2C8A251A2649084000A87808 /* libopus.a in Frameworks */,
+				2C8A2519264905F000A87808 /* libopusfile.a in Frameworks */,
 				2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */,
 				2CC5848D2648251500C33E9F /* libvorbisfile.a in Frameworks */,
 				2CC5848E2648251500C33E9F /* libvorbis.a in Frameworks */,
@@ -3933,6 +3959,8 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C8A2518264905F000A87808 /* libopusfile.a */,
+				2CC584A62649027F00C33E9F /* libopus.a */,
 				2CC5848B2648251500C33E9F /* libvorbis.a */,
 				2CC5848C2648251500C33E9F /* libvorbisenc.a */,
 				2CC5848A2648251400C33E9F /* libvorbisfile.a */,
@@ -7794,8 +7822,10 @@
 			children = (
 				2CC584752648242500C33E9F /* OggVorbisDecoder.hpp */,
 				2CC584762648242500C33E9F /* OggVorbisEncoder.hpp */,
-				2CC58466264771C700C33E9F /* WAVEEncoder.hpp */,
+				2CC584902648FDF700C33E9F /* OpusDecoder.hpp */,
+				2CC584912648FDF700C33E9F /* OpusEncoder.hpp */,
 				2CC58467264771C700C33E9F /* WAVEDecoder.hpp */,
+				2CC58466264771C700C33E9F /* WAVEEncoder.hpp */,
 			);
 			path = AudioFormat;
 			sourceTree = "<group>";
@@ -7804,6 +7834,7 @@
 			isa = PBXGroup;
 			children = (
 				2CC584772648244400C33E9F /* OggVorbis */,
+				2CC584922648FE1100C33E9F /* Opus */,
 				2CC58469264771F100C33E9F /* WAVE */,
 			);
 			path = AudioFormat;
@@ -7853,6 +7884,29 @@
 				2CC584822648246900C33E9F /* vorbisenc.h */,
 			);
 			path = vorbis;
+			sourceTree = "<group>";
+		};
+		2CC584922648FE1100C33E9F /* Opus */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584932648FE1100C33E9F /* OpusDecoder.cpp */,
+				2CC584942648FE1100C33E9F /* OpusEncoder.cpp */,
+			);
+			path = Opus;
+			sourceTree = "<group>";
+		};
+		2CC584972648FE2A00C33E9F /* opus */ = {
+			isa = PBXGroup;
+			children = (
+				2CC584982648FE2A00C33E9F /* opus.h */,
+				2CC584992648FE2A00C33E9F /* opus_multistream.h */,
+				2CC5849A2648FE2A00C33E9F /* opus_custom.h */,
+				2CC5849B2648FE2A00C33E9F /* opus_types.h */,
+				2CC5849C2648FE2A00C33E9F /* opusfile.h */,
+				2CC5849D2648FE2A00C33E9F /* opus_defines.h */,
+				2CC5849E2648FE2A00C33E9F /* opus_projection.h */,
+			);
+			path = opus;
 			sourceTree = "<group>";
 		};
 		2CC7D4A525F8D86A00289963 /* GrabCut */ = {
@@ -8355,6 +8409,7 @@
 				2CFC214525F739B400C51D0D /* libpng */,
 				2C8CA3AA261594A000BABD2D /* libwebp */,
 				2CC5847C2648246900C33E9F /* ogg */,
+				2CC584972648FE2A00C33E9F /* opus */,
 				2CC5847F2648246900C33E9F /* vorbis */,
 			);
 			path = "ThirdParty-prebuilt";
@@ -8555,6 +8610,7 @@
 				2C2AA35526009C74003F3EBC /* b2_chain_polygon_contact.h in Headers */,
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2C13C9C725BD29FC0054B968 /* lvm.h in Headers */,
+				2CC5849F2648FE2A00C33E9F /* opus.h in Headers */,
 				2CFC215725F739B400C51D0D /* hb.h in Headers */,
 				2C43C88E25C837F000D6D613 /* fthash.h in Headers */,
 				2CC5843626461D9900C33E9F /* AnimatedGIFWriterDetail.hpp in Headers */,
@@ -8601,6 +8657,7 @@
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C48BEFE25CFB8C500A93CE3 /* sdf-error-estimation.h in Headers */,
 				2C2AA35726009C74003F3EBC /* b2_chain_circle_contact.h in Headers */,
+				2CC584A12648FE2A00C33E9F /* opus_custom.h in Headers */,
 				2C48BEFF25CFB8C500A93CE3 /* rasterization.h in Headers */,
 				2C43C8A125C837F100D6D613 /* svsfnt.h in Headers */,
 				2C9566CC2645626000539B85 /* mz_os.h in Headers */,
@@ -8641,6 +8698,7 @@
 				2C43C87425C837F000D6D613 /* ftmodule.h in Headers */,
 				2C43C8B925C837F100D6D613 /* ftlzw.h in Headers */,
 				2C13C89425B8FA840054B968 /* NavMeshDetail.hpp in Headers */,
+				2CC584A42648FE2A00C33E9F /* opus_defines.h in Headers */,
 				2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */,
 				2C95665B264546F700539B85 /* parser.h in Headers */,
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
@@ -8655,6 +8713,7 @@
 				2CAAA8C525E7FDCC00C014D7 /* EmojiData.hpp in Headers */,
 				2C2AA38826009C74003F3EBC /* b2_pulley_joint.h in Headers */,
 				2C423220242B155E00A16BCA /* cocoa_platform.h in Headers */,
+				2CC584A52648FE2A00C33E9F /* opus_projection.h in Headers */,
 				2C48BF0825CFB8C500A93CE3 /* EdgeHolder.h in Headers */,
 				2C2AA37C26009C74003F3EBC /* b2_stack_allocator.h in Headers */,
 				2C13C99D25BD29FC0054B968 /* lmem.h in Headers */,
@@ -8669,6 +8728,7 @@
 				2C47B6D124EAC82A008D83BE /* CShader_Null.hpp in Headers */,
 				2C43C87E25C837F000D6D613 /* ftdrv.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
+				2CC584A22648FE2A00C33E9F /* opus_types.h in Headers */,
 				2C2AA37926009C74003F3EBC /* b2_weld_joint.h in Headers */,
 				2CC584862648246900C33E9F /* codec.h in Headers */,
 				2C95666D264546F700539B85 /* stopelement.h in Headers */,
@@ -8732,6 +8792,7 @@
 				2C48BF7A25D41C0D00A93CE3 /* MSDFGlyphCache.hpp in Headers */,
 				2C95666B264546F700539B85 /* document.h in Headers */,
 				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
+				2CC584A32648FE2A00C33E9F /* opusfile.h in Headers */,
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2C2AA39B26009C74003F3EBC /* b2_collision.h in Headers */,
 				2C9566842645623300539B85 /* ZIPReaderDetail.hpp in Headers */,
@@ -8894,6 +8955,7 @@
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
 				2C13C9D025BD29FC0054B968 /* lfunc.h in Headers */,
 				2C2AA3AE26009C74003F3EBC /* b2_edge_shape.h in Headers */,
+				2CC584A02648FE2A00C33E9F /* opus_multistream.h in Headers */,
 				2C47B33524DD9789008D83BE /* TextReaderDetail.hpp in Headers */,
 				2CBB4C2E25FB47D2007BEAB4 /* VideoWriterDetail.hpp in Headers */,
 				2CFC215925F739B400C51D0D /* png.h in Headers */,
@@ -9227,6 +9289,7 @@
 				2C47B6FB24EAC98A008D83BE /* ShaderFactory.mm in Sources */,
 				2C6390ED2536C5460030F18E /* MetalBackBuffer.mm in Sources */,
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
+				2CC584952648FE1100C33E9F /* OpusDecoder.cpp in Sources */,
 				2C13C9A225BD29FC0054B968 /* liolib.c in Sources */,
 				2C794B0D25C3DFC200034D81 /* zstd_double_fast.c in Sources */,
 				2C47B35524DD9789008D83BE /* ProfilerFactory.cpp in Sources */,
@@ -9478,6 +9541,7 @@
 				2CDE6E8D24A35EAC0048594F /* CRenderer2D_Metal.mm in Sources */,
 				2C9566EA2645626000539B85 /* mz_os_posix.c in Sources */,
 				2C13C8D125B8FA9D0054B968 /* DetourAlloc.cpp in Sources */,
+				2CC584962648FE1100C33E9F /* OpusEncoder.cpp in Sources */,
 				2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */,
 				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
 				2C60AE8B248158A500277281 /* os_info_non_windows_non_darwin.cpp in Sources */,
@@ -9910,6 +9974,7 @@
 					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
+					../Siv3D/lib/macOS/opus,
 					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -9978,6 +10043,7 @@
 					../Siv3D/lib/macOS/libvorbis,
 					../Siv3D/lib/macOS/libwebp,
 					../Siv3D/lib/macOS/opencv,
+					../Siv3D/lib/macOS/opus,
 					../Siv3D/lib/macOS/zlib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
