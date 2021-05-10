@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/IAudioEncoder.hpp>
+# include <Siv3D/AudioLoopTiming.hpp>
 
 namespace s3d
 {
@@ -28,16 +29,16 @@ namespace s3d
 
 		bool save(const Wave& wave, FilePathView path) const override;
 
-		bool save(const Wave& wave, FilePathView path, int32 quality) const;
+		bool save(const Wave& wave, FilePathView path, int32 quality, const AudioLoopTiming& loopTiming = {}) const;
 
 		bool encode(const Wave& wave, IWriter& writer) const override;
 
-		bool encode(const Wave& wave, IWriter& writer, int32 quality) const;
+		bool encode(const Wave& wave, IWriter& writer, int32 quality, const AudioLoopTiming& loopTiming = {}) const;
 
 		[[nodiscard]]
 		Blob encode(const Wave& wave) const override;
 
 		[[nodiscard]]
-		Blob encode(const Wave& wave, int32 quality) const;
+		Blob encode(const Wave& wave, int32 quality, const AudioLoopTiming& loopTiming = {}) const;
 	};
 }

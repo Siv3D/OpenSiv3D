@@ -17,6 +17,7 @@
 # include "AudioFormat.hpp"
 # include "WAVEFormat.hpp"
 # include "WaveSample.hpp"
+# include "AudioLoopTiming.hpp"
 
 namespace s3d
 {
@@ -142,10 +143,10 @@ namespace s3d
 		[[nodiscard]]
 		Blob encodeWAVE(WAVEFormat format = WAVEFormat::Default) const;
 
-		bool saveOggVorbis(FilePathView path, int32 quality = 60) const;
+		bool saveOggVorbis(FilePathView path, int32 quality = 60, const AudioLoopTiming& loopTiming = {}) const;
 
 		[[nodiscard]]
-		Blob encodeOggVorbis(int32 quality = 60) const;
+		Blob encodeOggVorbis(int32 quality = 60, const AudioLoopTiming& loopTiming = {}) const;
 
 		template <class Iterator>
 		void assign(Iterator first, Iterator last);

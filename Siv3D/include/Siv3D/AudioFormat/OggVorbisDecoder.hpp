@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/IAudioDecoder.hpp>
+# include <Siv3D/AudioLoopTiming.hpp>
 
 namespace s3d
 {
@@ -35,5 +36,11 @@ namespace s3d
 
 		[[nodiscard]]
 		Wave decode(IReader& reader, FilePathView pathHint = {}) const override;
+
+		[[nodiscard]]
+		AudioLoopTiming getLoopInfo(FilePathView path) const;
+
+		[[nodiscard]]
+		AudioLoopTiming getLoopInfo(IReader& reader) const;
 	};
 }

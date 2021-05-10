@@ -67,13 +67,13 @@ namespace s3d
 		return WAVEEncoder{}.encode(*this, format);
 	}
 
-	bool Wave::saveOggVorbis(const FilePathView path, const int32 quality) const
+	bool Wave::saveOggVorbis(const FilePathView path, const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
-		return OggVorbisEncoder{}.save(*this, path, quality);
+		return OggVorbisEncoder{}.save(*this, path, quality, loopTiming);
 	}
 
-	Blob Wave::encodeOggVorbis(const int32 quality) const
+	Blob Wave::encodeOggVorbis(const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
-		return OggVorbisEncoder{}.encode(*this, quality);
+		return OggVorbisEncoder{}.encode(*this, quality, loopTiming);
 	}
 }

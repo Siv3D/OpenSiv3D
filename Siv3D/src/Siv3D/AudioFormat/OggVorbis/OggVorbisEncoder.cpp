@@ -42,7 +42,7 @@ namespace s3d
 		return save(wave, path, DefaultQuality);
 	}
 
-	bool OggVorbisEncoder::save(const Wave& wave, const FilePathView path, const int32 quality) const
+	bool OggVorbisEncoder::save(const Wave& wave, const FilePathView path, const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
 		BinaryWriter writer{ path };
 
@@ -51,7 +51,7 @@ namespace s3d
 			return false;
 		}
 
-		return encode(wave, writer, quality);
+		return encode(wave, writer, quality, loopTiming);
 	}
 
 	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer) const
@@ -59,7 +59,7 @@ namespace s3d
 		return encode(wave, writer, DefaultQuality);
 	}
 
-	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer, const int32 quality) const
+	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer, const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
 		if (!wave || !writer.isOpen())
 		{
@@ -79,11 +79,12 @@ namespace s3d
 		::vorbis_comment_init(&vc);
 		::vorbis_comment_add_tag(&vc, "ENCODER", "Siv3D");
 
-		//if (loop)
-		//{
-		//	::vorbis_comment_add_tag(&vc, "LOOPSTART", std::to_string(loop->loopBegin).c_str());
-		//	::vorbis_comment_add_tag(&vc, "LOOPLENGTH", std::to_string(loop->loopLength).c_str());
-		//}
+		if (const int64 loopLength = (loopTiming.endPos - loopTiming.beginPos);
+			0 < loopLength)
+		{
+			::vorbis_comment_add_tag(&vc, "LOOPSTART", std::to_string(loopTiming.beginPos).c_str());
+			::vorbis_comment_add_tag(&vc, "LOOPLENGTH", std::to_string(loopLength).c_str());
+		}
 
 		vorbis_dsp_state vd;
 		::vorbis_analysis_init(&vd, &vi);
@@ -195,11 +196,11 @@ namespace s3d
 		return encode(wave, DefaultQuality);
 	}
 
-	Blob OggVorbisEncoder::encode(const Wave& wave, const int32 quality) const
+	Blob OggVorbisEncoder::encode(const Wave& wave, const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
 		BlobWriter writer;
 
-		if (not encode(wave, writer, quality))
+		if (not encode(wave, writer, quality, loopTiming))
 		{
 			return{};
 		}

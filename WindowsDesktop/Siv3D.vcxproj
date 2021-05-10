@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WAVEEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioLoopTiming.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BatteryStatus.hpp" />

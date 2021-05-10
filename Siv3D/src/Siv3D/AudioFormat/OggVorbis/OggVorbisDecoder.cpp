@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
+# include <Siv3D/Optional.hpp>
+# include <Siv3D/Parse.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 # if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
@@ -237,5 +239,78 @@ namespace s3d
 		::ov_clear(&vf);
 
 		return wave;
+	}
+
+	AudioLoopTiming OggVorbisDecoder::getLoopInfo(const FilePathView path) const
+	{
+		BinaryReader reader{ path };
+
+		if (not reader)
+		{
+			return{};
+		}
+
+		return getLoopInfo(reader);
+	}
+
+	AudioLoopTiming OggVorbisDecoder::getLoopInfo(IReader& reader) const
+	{
+		if (not reader.isOpen())
+		{
+			return{};
+		}
+
+		ov_callbacks callbacks;
+		callbacks.read_func = detail::ReadOgg_Callback;
+		callbacks.seek_func = detail::SeekOgg_Callback;
+		callbacks.close_func = detail::CloseOgg_Callback;
+		callbacks.tell_func = detail::TellOgg_Callback;
+
+		OggVorbis_File vf;
+
+		if (::ov_open_callbacks(&reader, &vf, nullptr, -1, callbacks) != 0)
+		{
+			return{};
+		}
+
+		vorbis_info* vi = ::ov_info(&vf, -1);
+
+		if (!vi)
+		{
+			::ov_clear(&vf);
+
+			return{};
+		}
+
+		int64 loopstart = 0, looplength = 0;
+		char** ptr = vf.vc->user_comments;
+
+		while (*ptr)
+		{
+			const Array<String> tag = Unicode::WidenAscii(*ptr).split(L'=');
+
+			if (tag.size() == 2)
+			{
+				if (tag[0] == U"LOOPSTART")
+				{
+					loopstart = ParseOr<int64>(tag[1], 0);
+				}
+				else if (tag[0] == U"LOOPLENGTH")
+				{
+					looplength = ParseOr<int64>(tag[1], 0);
+				}
+			}
+
+			++ptr;
+		}
+
+		::ov_clear(&vf);
+
+		if (looplength == 0)
+		{
+			return{};
+		}
+
+		return{ loopstart, (loopstart + looplength) };
 	}
 }
