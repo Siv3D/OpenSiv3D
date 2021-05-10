@@ -22,9 +22,9 @@ namespace s3d
 	{
 		inline constexpr uint8 FloatToUint8(float f) noexcept
 		{
-			const uint32 u = static_cast<uint32>((f + 1.0f) * 127.5f);
+			const int32 i = static_cast<int32>((f + 1.0f) * 127.5f);
 
-			return static_cast<uint8>(u, 0, 255);
+			return static_cast<uint8>(Clamp(i, 0, 255));
 		}
 
 		inline constexpr int16 FloatToSint16(float f) noexcept

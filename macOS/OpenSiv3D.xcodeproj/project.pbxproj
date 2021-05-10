@@ -2368,6 +2368,7 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -7059,6 +7060,7 @@
 				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
 				2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */,
 				2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */,
+				2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */,
 				2CAAA8A725E7FD0300C014D7 /* Base64.hpp */,
 				2CAAA73D25E7FD0200C014D7 /* BasicCamera2D.hpp */,
 				2CFB7DDE262B0EF900169B97 /* BatteryStatus.hpp */,

@@ -784,10 +784,8 @@ struct GifWriter
 // Creates a gif file.
 // The input GIFWriter is assumed to be uninitialized.
 // The delay value is the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.
-inline bool GifBegin(GifWriter * writer, uint32_t width, uint32_t height, uint32_t delay, int32_t bitDepth = 8, bool dither = false)
+inline bool GifBegin(GifWriter * writer, uint32_t width, uint32_t height, uint32_t delay, [[maybe_unused]] int32_t bitDepth = 8, [[maybe_unused]] bool dither = false)
 {
-	dither, bitDepth;
-
 	//fopen_s(&writer->f, filename, "wb");
 
 	//writer->f = fopen(filename, "wb");
