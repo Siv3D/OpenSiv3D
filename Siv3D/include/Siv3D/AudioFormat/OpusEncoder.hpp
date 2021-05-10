@@ -14,30 +14,30 @@
 
 namespace s3d
 {
-	class OpusEncoder : public IAudioEncoder
-	{
-	public:
+	//class OpusEncoder : public IAudioEncoder
+	//{
+	//public:
 
-		static constexpr int32 DefaultBitrate = 128;
+	//	static constexpr int32 DefaultBitrate = 64'000;
 
-		[[nodiscard]]
-		StringView name() const override;
+	//	[[nodiscard]]
+	//	StringView name() const override;
 
-		[[nodiscard]]
-		const Array<String>& possibleExtensions() const override;
+	//	[[nodiscard]]
+	//	const Array<String>& possibleExtensions() const override;
 
-		bool save(const Wave& wave, FilePathView path) const override;
+	//	bool save(const Wave& wave, FilePathView path) const override;
 
-		bool save(const Wave& wave, FilePathView path, int32 bitrate) const;
+	//	bool save(const Wave& wave, FilePathView path, int32 bitrate) const;
 
-		bool encode(const Wave& wave, IWriter& writer) const override;
+	//	bool encode(const Wave& wave, IWriter& writer) const override;
 
-		bool encode(const Wave& wave, IWriter& writer, int32 bitrate) const;
+	//	bool encode(const Wave& wave, IWriter& writer, int32 bitrate) const;
 
-		[[nodiscard]]
-		Blob encode(const Wave& wave) const override;
+	//	[[nodiscard]]
+	//	Blob encode(const Wave& wave) const override;
 
-		[[nodiscard]]
-		Blob encode(const Wave& wave, int32 bitrate) const;
-	};
+	//	[[nodiscard]]
+	//	Blob encode(const Wave& wave, int32 bitrate) const;
+	//};
 }

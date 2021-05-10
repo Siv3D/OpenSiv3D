@@ -72,6 +72,8 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopencv_objdetect
   -lopencv_photo
   -lopencv_videoio
+  -lopus
+  -lopusfile
   -lpng
   -lturbojpeg
 	-lvorbis

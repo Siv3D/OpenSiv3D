@@ -36,17 +36,17 @@ namespace s3d
 
 	//const Array<String>& OpusEncoder::possibleExtensions() const
 	//{
-	//	static const Array<String> extensions = { U"ogg" };
+	//	static const Array<String> extensions = { U"opus" };
 
 	//	return extensions;
 	//}
 
 	//bool OpusEncoder::save(const Wave& wave, const FilePathView path) const
 	//{
-	//	return save(wave, path, DefaultQuality);
+	//	return save(wave, path, DefaultBitrate);
 	//}
 
-	//bool OpusEncoder::save(const Wave& wave, const FilePathView path, const int32 quality) const
+	//bool OpusEncoder::save(const Wave& wave, const FilePathView path, const int32 bitrate) const
 	//{
 	//	BinaryWriter writer{ path };
 
@@ -55,155 +55,42 @@ namespace s3d
 	//		return false;
 	//	}
 
-	//	return encode(wave, writer, quality);
+	//	return encode(wave, writer, bitrate);
 	//}
 
 	//bool OpusEncoder::encode(const Wave& wave, IWriter& writer) const
 	//{
-	//	return encode(wave, writer, DefaultQuality);
+	//	return encode(wave, writer, DefaultBitrate);
 	//}
 
-	//bool OpusEncoder::encode(const Wave& wave, IWriter& writer, const int32 quality) const
+	//bool OpusEncoder::encode(const Wave& wave, IWriter& writer, const int32 bitrate) const
 	//{
 	//	if (!wave || !writer.isOpen())
 	//	{
 	//		return false;
 	//	}
 
-	//	vorbis_info vi;
-
-	//	::vorbis_info_init(&vi);
-
-	//	if (::vorbis_encode_init_vbr(&vi, 2, wave.samplingRate(), quality == 0 ? -0.1f : 0.01f * quality) != 0)
-	//	{
-	//		return false;
-	//	}
-
-	//	vorbis_comment  vc;
-	//	::vorbis_comment_init(&vc);
-	//	::vorbis_comment_add_tag(&vc, "ENCODER", "Siv3D");
-
-	//	//if (loop)
-	//	//{
-	//	//	::vorbis_comment_add_tag(&vc, "LOOPSTART", std::to_string(loop->loopBegin).c_str());
-	//	//	::vorbis_comment_add_tag(&vc, "LOOPLENGTH", std::to_string(loop->loopLength).c_str());
-	//	//}
-
-	//	vorbis_dsp_state vd;
-	//	::vorbis_analysis_init(&vd, &vi);
-
-	//	vorbis_block  vb;
-	//	::vorbis_block_init(&vd, &vb);
-
-	//	ogg_stream_state os;
-	//	::ogg_stream_init(&os, rand());
-
-	//	ogg_packet header;
-	//	ogg_packet header_comm;
-	//	ogg_packet header_code;
-	//	::vorbis_analysis_headerout(&vd, &vc, &header, &header_comm, &header_code);
-	//	::ogg_stream_packetin(&os, &header);
-	//	::ogg_stream_packetin(&os, &header_comm);
-	//	::ogg_stream_packetin(&os, &header_code);
-
-	//	ogg_page og;
-	//	ogg_packet op;
-
-	//	for (;;)
-	//	{
-	//		const int result = ::ogg_stream_flush(&os, &og);
-
-	//		if (result == 0)
-	//		{
-	//			break;
-	//		}
-
-	//		writer.write(og.header, og.header_len);
-	//		writer.write(og.body, og.body_len);
-	//	}
-
-	//	const size_t READ = 4096;
-	//	const WaveSample* pSrc = wave.data();
-	//	size_t pos_read = 0;
-	//	int eos = 0;
-
-	//	while (!eos)
-	//	{
-	//		size_t samples_read = 0;
-
-	//		if (pos_read + READ <= wave.lengthSample())
-	//		{
-	//			samples_read = READ / sizeof(WaveSample);
-	//			pos_read += samples_read;
-	//		}
-
-	//		if (samples_read == 0)
-	//		{
-	//			::vorbis_analysis_wrote(&vd, 0);
-	//		}
-	//		else
-	//		{
-	//			float** buffer = ::vorbis_analysis_buffer(&vd, READ);
-
-	//			for (size_t i = 0; i < samples_read; ++i)
-	//			{
-	//				buffer[0][i] = pSrc->left;
-	//				buffer[1][i] = pSrc->right;
-	//				++pSrc;
-	//			}
-
-	//			::vorbis_analysis_wrote(&vd, static_cast<int32>(samples_read));
-	//		}
-
-	//		while (::vorbis_analysis_blockout(&vd, &vb) == 1)
-	//		{
-	//			::vorbis_analysis(&vb, nullptr);
-	//			::vorbis_bitrate_addblock(&vb);
-
-	//			while (::vorbis_bitrate_flushpacket(&vd, &op))
-	//			{
-	//				::ogg_stream_packetin(&os, &op);
-
-	//				while (!eos)
-	//				{
-	//					const int result = ::ogg_stream_pageout(&os, &og);
-
-	//					if (result == 0)
-	//					{
-	//						break;
-	//					}
-
-	//					writer.write(og.header, og.header_len);
-	//					writer.write(og.body, og.body_len);
-
-	//					if (::ogg_page_eos(&og))
-	//					{
-	//						eos = 1;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-
-	//	::ogg_stream_clear(&os);
-	//	::vorbis_block_clear(&vb);
-	//	::vorbis_dsp_clear(&vd);
-	//	::vorbis_comment_clear(&vc);
-	//	::vorbis_info_clear(&vi);
+	//	//const int32 inputRate = wave.samplingRate();
+	//	//int32 coding_rate;
+	//	//if (inputRate > 24000)coding_rate = 48000;
+	//	//else if (inputRate > 16000)coding_rate = 24000;
+	//	//else if (inputRate > 12000)coding_rate = 16000;
+	//	//else if (inputRate > 8000)coding_rate = 12000;
+	//	//else coding_rate = 8000;
 
 	//	return true;
 	//}
 
 	//Blob OpusEncoder::encode(const Wave& wave) const
 	//{
-	//	return encode(wave, DefaultQuality);
+	//	return encode(wave, DefaultBitrate);
 	//}
 
-	//Blob OpusEncoder::encode(const Wave& wave, const int32 quality) const
+	//Blob OpusEncoder::encode(const Wave& wave, const int32 bitrate) const
 	//{
 	//	BlobWriter writer;
 
-	//	if (not encode(wave, writer, quality))
+	//	if (not encode(wave, writer, bitrate))
 	//	{
 	//		return{};
 	//	}
