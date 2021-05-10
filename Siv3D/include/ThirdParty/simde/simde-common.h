@@ -31,8 +31,9 @@
 
 #define SIMDE_VERSION_MAJOR 0
 #define SIMDE_VERSION_MINOR 7
-#define SIMDE_VERSION_MICRO 0
+#define SIMDE_VERSION_MICRO 2
 #define SIMDE_VERSION HEDLEY_VERSION_ENCODE(SIMDE_VERSION_MAJOR, SIMDE_VERSION_MINOR, SIMDE_VERSION_MICRO)
+// Also update meson.build in the root directory of the repository
 
 #include <stddef.h>
 #include <stdint.h>
@@ -110,6 +111,16 @@
  * mode. */
 #if !defined(SIMDE_FAST_ROUND_TIES) && !defined(SIMDE_NO_FAST_ROUND_TIES) && defined(SIMDE_FAST_MATH)
   #define SIMDE_FAST_ROUND_TIES
+#endif
+
+/* For functions which convert from one type to another (mostly from
+ * floating point to integer types), sometimes we need to do a range
+ * check and potentially return a different result if the value
+ * falls outside that range.  Skipping this check can provide a
+ * performance boost, at the expense of faithfulness to the API we're
+ * emulating. */
+#if !defined(SIMDE_FAST_CONVERSION_RANGE) && !defined(SIMDE_NO_FAST_CONVERSION_RANGE) && defined(SIMDE_FAST_MATH)
+  #define SIMDE_FAST_CONVERSION_RANGE
 #endif
 
 #if \
@@ -486,7 +497,7 @@ typedef SIMDE_FLOAT32_TYPE simde_float32;
 #  define SIMDE_FLOAT64_TYPE double
 #  define SIMDE_FLOAT64_C(value) value
 #else
-#  define SIMDE_FLOAT32_C(value) ((SIMDE_FLOAT64_TYPE) value)
+#  define SIMDE_FLOAT64_C(value) ((SIMDE_FLOAT64_TYPE) value)
 #endif
 typedef SIMDE_FLOAT64_TYPE simde_float64;
 
@@ -777,7 +788,14 @@ HEDLEY_DIAGNOSTIC_POP
 #      define SIMDE_BUG_GCC_REV_247851
 #    endif
 #    if !HEDLEY_GCC_VERSION_CHECK(10,0,0)
+#      define SIMDE_BUG_GCC_REV_274313
 #      define SIMDE_BUG_GCC_91341
+#    endif
+#    if !HEDLEY_GCC_VERSION_CHECK(9,0,0) && defined(SIMDE_ARCH_AARCH64)
+#      define SIMDE_BUG_GCC_ARM_SHIFT_SCALAR
+#    endif
+#    if !HEDLEY_GCC_VERSION_CHECK(9,0,0) && defined(SIMDE_ARCH_AARCH64)
+#      define SIMDE_BUG_GCC_BAD_VEXT_REV32
 #    endif
 #    if defined(SIMDE_ARCH_X86) && !defined(SIMDE_ARCH_AMD64)
 #      define SIMDE_BUG_GCC_94482
@@ -785,8 +803,20 @@ HEDLEY_DIAGNOSTIC_POP
 #    if (defined(SIMDE_ARCH_X86) && !defined(SIMDE_ARCH_AMD64)) || defined(SIMDE_ARCH_SYSTEMZ)
 #      define SIMDE_BUG_GCC_53784
 #    endif
+#    if defined(SIMDE_ARCH_X86) || defined(SIMDE_ARCH_AMD64)
+#      if HEDLEY_GCC_VERSION_CHECK(4,3,0) /* -Wsign-conversion */
+#        define SIMDE_BUG_GCC_95144
+#      endif
+#      if !HEDLEY_GCC_VERSION_CHECK(11,0,0)
+#        define SIMDE_BUG_GCC_95483
+#      endif
+#      define SIMDE_BUG_GCC_98521
+#    endif
 #    if !HEDLEY_GCC_VERSION_CHECK(9,4,0) && defined(SIMDE_ARCH_AARCH64)
 #      define SIMDE_BUG_GCC_94488
+#    endif
+#    if !HEDLEY_GCC_VERSION_CHECK(9,1,0) && defined(SIMDE_ARCH_AARCH64)
+#      define SIMDE_BUG_GCC_REV_264019
 #    endif
 #    if defined(SIMDE_ARCH_ARM)
 #      define SIMDE_BUG_GCC_95399
@@ -808,6 +838,9 @@ HEDLEY_DIAGNOSTIC_POP
 #      if SIMDE_DETECT_CLANG_VERSION_CHECK(10,0,0) && SIMDE_DETECT_CLANG_VERSION_NOT(11,0,0)
 #        define SIMDE_BUG_CLANG_BAD_VI64_OPS
 #      endif
+#      if SIMDE_DETECT_CLANG_VERSION_NOT(9,0,0)
+#        define SIMDE_BUG_CLANG_GIT_4EC445B8
+#      endif
 #    endif
 #    if defined(SIMDE_ARCH_POWER)
 #      define SIMDE_BUG_CLANG_46770
@@ -816,9 +849,18 @@ HEDLEY_DIAGNOSTIC_POP
 #      define SIMDE_BUG_CLANG_POWER9_16x4_BAD_SHIFT
 #    endif
 #    if defined(SIMDE_ARCH_X86) || defined(SIMDE_ARCH_AMD64)
+#      if HEDLEY_HAS_WARNING("-Wsign-conversion") && SIMDE_DETECT_CLANG_VERSION_NOT(11,0,0)
+#        define SIMDE_BUG_CLANG_45931
+#      endif
 #      if HEDLEY_HAS_WARNING("-Wvector-conversion") && SIMDE_DETECT_CLANG_VERSION_NOT(11,0,0)
 #        define SIMDE_BUG_CLANG_44589
 #      endif
+#      define SIMDE_BUG_CLANG_48673
+#    endif
+#    define SIMDE_BUG_CLANG_45959
+#  elif defined(HEDLEY_MSVC_VERSION)
+#    if defined(SIMDE_ARCH_X86)
+#      define SIMDE_BUG_MSVC_ROUND_EXTRACT
 #    endif
 #  elif defined(HEDLEY_INTEL_VERSION)
 #    define SIMDE_BUG_INTEL_857088

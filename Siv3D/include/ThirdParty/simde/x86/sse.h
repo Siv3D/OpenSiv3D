@@ -264,6 +264,123 @@ enum {
 #  define _MM_FROUND_NEARBYINT SIMDE_MM_FROUND_NEARBYINT
 #endif
 
+#if defined(_MM_EXCEPT_INVALID)
+#  define SIMDE_MM_EXCEPT_INVALID _MM_EXCEPT_INVALID
+#else
+#  define SIMDE_MM_EXCEPT_INVALID (0x0001)
+#endif
+#if defined(_MM_EXCEPT_DENORM)
+#  define SIMDE_MM_EXCEPT_DENORM _MM_EXCEPT_DENORM
+#else
+#  define SIMDE_MM_EXCEPT_DENORM (0x0002)
+#endif
+#if defined(_MM_EXCEPT_DIV_ZERO)
+#  define SIMDE_MM_EXCEPT_DIV_ZERO _MM_EXCEPT_DIV_ZERO
+#else
+#  define SIMDE_MM_EXCEPT_DIV_ZERO (0x0004)
+#endif
+#if defined(_MM_EXCEPT_OVERFLOW)
+#  define SIMDE_MM_EXCEPT_OVERFLOW _MM_EXCEPT_OVERFLOW
+#else
+#  define SIMDE_MM_EXCEPT_OVERFLOW (0x0008)
+#endif
+#if defined(_MM_EXCEPT_UNDERFLOW)
+#  define SIMDE_MM_EXCEPT_UNDERFLOW _MM_EXCEPT_UNDERFLOW
+#else
+#  define SIMDE_MM_EXCEPT_UNDERFLOW (0x0010)
+#endif
+#if defined(_MM_EXCEPT_INEXACT)
+#  define SIMDE_MM_EXCEPT_INEXACT _MM_EXCEPT_INEXACT
+#else
+#  define SIMDE_MM_EXCEPT_INEXACT (0x0020)
+#endif
+#if defined(_MM_EXCEPT_MASK)
+#  define SIMDE_MM_EXCEPT_MASK _MM_EXCEPT_MASK
+#else
+#  define SIMDE_MM_EXCEPT_MASK \
+     (SIMDE_MM_EXCEPT_INVALID | SIMDE_MM_EXCEPT_DENORM | \
+      SIMDE_MM_EXCEPT_DIV_ZERO | SIMDE_MM_EXCEPT_OVERFLOW | \
+      SIMDE_MM_EXCEPT_UNDERFLOW | SIMDE_MM_EXCEPT_INEXACT)
+#endif
+#if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
+  #define _MM_EXCEPT_INVALID SIMDE_MM_EXCEPT_INVALID
+  #define _MM_EXCEPT_DENORM SIMDE_MM_EXCEPT_DENORM
+  #define _MM_EXCEPT_DIV_ZERO SIMDE_MM_EXCEPT_DIV_ZERO
+  #define _MM_EXCEPT_OVERFLOW SIMDE_MM_EXCEPT_OVERFLOW
+  #define _MM_EXCEPT_UNDERFLOW SIMDE_MM_EXCEPT_UNDERFLOW
+  #define _MM_EXCEPT_INEXACT SIMDE_MM_EXCEPT_INEXACT
+  #define _MM_EXCEPT_MASK SIMDE_MM_EXCEPT_MASK
+#endif
+
+#if defined(_MM_MASK_INVALID)
+#  define SIMDE_MM_MASK_INVALID _MM_MASK_INVALID
+#else
+#  define SIMDE_MM_MASK_INVALID (0x0080)
+#endif
+#if defined(_MM_MASK_DENORM)
+#  define SIMDE_MM_MASK_DENORM _MM_MASK_DENORM
+#else
+#  define SIMDE_MM_MASK_DENORM (0x0100)
+#endif
+#if defined(_MM_MASK_DIV_ZERO)
+#  define SIMDE_MM_MASK_DIV_ZERO _MM_MASK_DIV_ZERO
+#else
+#  define SIMDE_MM_MASK_DIV_ZERO (0x0200)
+#endif
+#if defined(_MM_MASK_OVERFLOW)
+#  define SIMDE_MM_MASK_OVERFLOW _MM_MASK_OVERFLOW
+#else
+#  define SIMDE_MM_MASK_OVERFLOW (0x0400)
+#endif
+#if defined(_MM_MASK_UNDERFLOW)
+#  define SIMDE_MM_MASK_UNDERFLOW _MM_MASK_UNDERFLOW
+#else
+#  define SIMDE_MM_MASK_UNDERFLOW (0x0800)
+#endif
+#if defined(_MM_MASK_INEXACT)
+#  define SIMDE_MM_MASK_INEXACT _MM_MASK_INEXACT
+#else
+#  define SIMDE_MM_MASK_INEXACT (0x1000)
+#endif
+#if defined(_MM_MASK_MASK)
+#  define SIMDE_MM_MASK_MASK _MM_MASK_MASK
+#else
+#  define SIMDE_MM_MASK_MASK \
+     (SIMDE_MM_MASK_INVALID | SIMDE_MM_MASK_DENORM | \
+      SIMDE_MM_MASK_DIV_ZERO | SIMDE_MM_MASK_OVERFLOW | \
+      SIMDE_MM_MASK_UNDERFLOW | SIMDE_MM_MASK_INEXACT)
+#endif
+#if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
+  #define _MM_MASK_INVALID SIMDE_MM_MASK_INVALID
+  #define _MM_MASK_DENORM SIMDE_MM_MASK_DENORM
+  #define _MM_MASK_DIV_ZERO SIMDE_MM_MASK_DIV_ZERO
+  #define _MM_MASK_OVERFLOW SIMDE_MM_MASK_OVERFLOW
+  #define _MM_MASK_UNDERFLOW SIMDE_MM_MASK_UNDERFLOW
+  #define _MM_MASK_INEXACT SIMDE_MM_MASK_INEXACT
+  #define _MM_MASK_MASK SIMDE_MM_MASK_MASK
+#endif
+
+#if defined(_MM_FLUSH_ZERO_MASK)
+#  define SIMDE_MM_FLUSH_ZERO_MASK _MM_FLUSH_ZERO_MASK
+#else
+#  define SIMDE_MM_FLUSH_ZERO_MASK (0x8000)
+#endif
+#if defined(_MM_FLUSH_ZERO_ON)
+#  define SIMDE_MM_FLUSH_ZERO_ON _MM_FLUSH_ZERO_ON
+#else
+#  define SIMDE_MM_FLUSH_ZERO_ON (0x8000)
+#endif
+#if defined(_MM_FLUSH_ZERO_OFF)
+#  define SIMDE_MM_FLUSH_ZERO_OFF _MM_FLUSH_ZERO_OFF
+#else
+#  define SIMDE_MM_FLUSH_ZERO_OFF (0x0000)
+#endif
+#if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
+  #define _MM_FLUSH_ZERO_MASK SIMDE_MM_FLUSH_ZERO_MASK
+  #define _MM_FLUSH_ZERO_ON SIMDE_MM_FLUSH_ZERO_ON
+  #define _MM_FLUSH_ZERO_OFF SIMDE_MM_FLUSH_ZERO_OFF
+#endif
+
 SIMDE_FUNCTION_ATTRIBUTES
 unsigned int
 SIMDE_MM_GET_ROUNDING_MODE(void) {
@@ -355,6 +472,32 @@ SIMDE_MM_SET_ROUNDING_MODE(unsigned int a) {
 }
 #if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
   #define _MM_SET_ROUNDING_MODE(a) SIMDE_MM_SET_ROUNDING_MODE(a)
+#endif
+
+SIMDE_FUNCTION_ATTRIBUTES
+uint32_t
+SIMDE_MM_GET_FLUSH_ZERO_MODE (void) {
+  #if defined(SIMDE_X86_SSE_NATIVE)
+    return _mm_getcsr() & _MM_FLUSH_ZERO_MASK;
+  #else
+    return SIMDE_MM_FLUSH_ZERO_OFF;
+  #endif
+}
+#if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
+  #define _MM_SET_FLUSH_ZERO_MODE(a) SIMDE_MM_SET_FLUSH_ZERO_MODE(a)
+#endif
+
+SIMDE_FUNCTION_ATTRIBUTES
+void
+SIMDE_MM_SET_FLUSH_ZERO_MODE (uint32_t a) {
+  #if defined(SIMDE_X86_SSE_NATIVE)
+    _MM_SET_FLUSH_ZERO_MODE(a);
+  #else
+    (void) a;
+  #endif
+}
+#if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
+  #define _MM_SET_FLUSH_ZERO_MODE(a) SIMDE_MM_SET_FLUSH_ZERO_MODE(a)
 #endif
 
 SIMDE_FUNCTION_ATTRIBUTES
@@ -1790,11 +1933,17 @@ int32_t
 simde_mm_cvt_ss2si (simde__m128 a) {
   #if defined(SIMDE_X86_SSE_NATIVE)
     return _mm_cvt_ss2si(a);
-  #elif defined(SIMDE_ARM_NEON_A32V8_NATIVE) && !defined(SIMDE_BUG_GCC_95399)
+  #elif defined(SIMDE_ARM_NEON_A32V8_NATIVE) && defined(SIMDE_FAST_CONVERSION_RANGE) && !defined(SIMDE_BUG_GCC_95399)
     return vgetq_lane_s32(vcvtnq_s32_f32(simde__m128_to_neon_f32(a)), 0);
   #else
     simde__m128_private a_ = simde__m128_to_private(simde_mm_round_ps(a, SIMDE_MM_FROUND_CUR_DIRECTION));
-    return SIMDE_CONVERT_FTOI(int32_t, a_.f32[0]);
+    #if !defined(SIMDE_FAST_CONVERSION_RANGE)
+      return ((a_.f32[0] > HEDLEY_STATIC_CAST(simde_float32, INT32_MIN)) &&
+          (a_.f32[0] < HEDLEY_STATIC_CAST(simde_float32, INT32_MAX))) ?
+        SIMDE_CONVERT_FTOI(int32_t, a_.f32[0]) : INT32_MIN;
+    #else
+      return SIMDE_CONVERT_FTOI(int32_t, a_.f32[0]);
+    #endif
   #endif
 }
 #if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
@@ -1948,12 +2097,18 @@ simde_mm_cvtps_pi32 (simde__m128 a) {
     simde__m64_private r_;
     simde__m128_private a_ = simde__m128_to_private(a);
 
-    #if defined(SIMDE_ARM_NEON_A32V8_NATIVE) && !defined(SIMDE_BUG_GCC_95399)
+    #if defined(SIMDE_ARM_NEON_A32V8_NATIVE) && defined(SIMDE_FAST_CONVERSION_RANGE) && !defined(SIMDE_BUG_GCC_95399)
       r_.neon_i32 = vcvt_s32_f32(vget_low_f32(vrndiq_f32(a_.neon_f32)));
     #else
       SIMDE_VECTORIZE
       for (size_t i = 0 ; i < (sizeof(r_.i32) / sizeof(r_.i32[0])) ; i++) {
-        r_.i32[i] = SIMDE_CONVERT_FTOI(int32_t, simde_math_roundf(a_.f32[i]));
+        simde_float32 v = simde_math_roundf(a_.f32[i]);
+        #if !defined(SIMDE_FAST_CONVERSION_RANGE)
+          r_.i32[i] = ((v > HEDLEY_STATIC_CAST(simde_float32, INT32_MIN)) && (v < HEDLEY_STATIC_CAST(simde_float32, INT32_MAX))) ?
+            SIMDE_CONVERT_FTOI(int32_t, v) : INT32_MIN;
+        #else
+          r_.i32[i] = SIMDE_CONVERT_FTOI(int32_t, v);
+        #endif
       }
     #endif
 
@@ -2161,14 +2316,18 @@ simde_mm_cvtt_ps2pi (simde__m128 a) {
     simde__m64_private r_;
     simde__m128_private a_ = simde__m128_to_private(a);
 
-    #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
+    #if defined(SIMDE_ARM_NEON_A32V7_NATIVE) && defined(SIMDE_FAST_CONVERSION_RANGE)
       r_.neon_i32 = vcvt_s32_f32(vget_low_f32(a_.neon_f32));
-    #elif defined(SIMDE_CONVERT_VECTOR_)
-      SIMDE_CONVERT_VECTOR_(r_.i32, a_.m64_private[0].f32);
     #else
       SIMDE_VECTORIZE
       for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
-        r_.i32[i] = SIMDE_CONVERT_FTOI(int32_t, a_.f32[i]);
+        simde_float32 v = a_.f32[i];
+        #if !defined(SIMDE_FAST_CONVERSION_RANGE)
+          r_.i32[i] = ((v > HEDLEY_STATIC_CAST(simde_float32, INT32_MIN)) && (v < HEDLEY_STATIC_CAST(simde_float32, INT32_MAX))) ?
+            SIMDE_CONVERT_FTOI(int32_t, v) : INT32_MIN;
+        #else
+          r_.i32[i] = SIMDE_CONVERT_FTOI(int32_t, v);
+        #endif
       }
     #endif
 
@@ -2189,10 +2348,16 @@ simde_mm_cvtt_ss2si (simde__m128 a) {
   #else
     simde__m128_private a_ = simde__m128_to_private(a);
 
-    #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
+    #if defined(SIMDE_ARM_NEON_A32V7_NATIVE) && defined(SIMDE_FAST_CONVERSION_RANGE)
       return SIMDE_CONVERT_FTOI(int32_t, vgetq_lane_f32(a_.neon_f32, 0));
     #else
-      return SIMDE_CONVERT_FTOI(int32_t, a_.f32[0]);
+      simde_float32 v = a_.f32[0];
+      #if !defined(SIMDE_FAST_CONVERSION_RANGE)
+        return ((v > HEDLEY_STATIC_CAST(simde_float32, INT32_MIN)) && (v < HEDLEY_STATIC_CAST(simde_float32, INT32_MAX))) ?
+          SIMDE_CONVERT_FTOI(int32_t, v) : INT32_MIN;
+      #else
+        return SIMDE_CONVERT_FTOI(int32_t, v);
+      #endif
     #endif
   #endif
 }
@@ -2479,7 +2644,11 @@ simde_mm_loadh_pi (simde__m128 a, simde__m64 const* mem_addr) {
   #endif
 }
 #if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_loadh_pi(a, mem_addr) simde_mm_loadh_pi((a), (simde__m64 const*) (mem_addr))
+  #if HEDLEY_HAS_WARNING("-Wold-style-cast")
+    #define _mm_loadh_pi(a, mem_addr) simde_mm_loadh_pi((a), HEDLEY_REINTERPRET_CAST(simde__m64 const*, (mem_addr)))
+  #else
+    #define _mm_loadh_pi(a, mem_addr) simde_mm_loadh_pi((a), (simde__m64 const*) (mem_addr))
+  #endif
 #endif
 
 /* The SSE documentation says that there are no alignment requirements
@@ -2517,7 +2686,11 @@ simde_mm_loadl_pi (simde__m128 a, simde__m64 const* mem_addr) {
   #endif
 }
 #if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_loadl_pi(a, mem_addr) simde_mm_loadl_pi((a), (simde__m64 const*) (mem_addr))
+  #if HEDLEY_HAS_WARNING("-Wold-style-cast")
+    #define _mm_loadl_pi(a, mem_addr) simde_mm_loadl_pi((a), HEDLEY_REINTERPRET_CAST(simde__m64 const*, (mem_addr)))
+  #else
+    #define _mm_loadl_pi(a, mem_addr) simde_mm_loadl_pi((a), (simde__m64 const*) (mem_addr))
+  #endif
 #endif
 
 SIMDE_FUNCTION_ATTRIBUTES
@@ -4289,100 +4462,6 @@ simde_mm_stream_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 #if defined(SIMDE_X86_SSE_ENABLE_NATIVE_ALIASES)
 #  define _MM_TRANSPOSE4_PS(row0, row1, row2, row3) SIMDE_MM_TRANSPOSE4_PS(row0, row1, row2, row3)
-#endif
-
-#if defined(_MM_EXCEPT_INVALID)
-#  define SIMDE_MM_EXCEPT_INVALID _MM_EXCEPT_INVALID
-#else
-#  define SIMDE_MM_EXCEPT_INVALID (0x0001)
-#endif
-#if defined(_MM_EXCEPT_DENORM)
-#  define SIMDE_MM_EXCEPT_DENORM _MM_EXCEPT_DENORM
-#else
-#  define SIMDE_MM_EXCEPT_DENORM (0x0002)
-#endif
-#if defined(_MM_EXCEPT_DIV_ZERO)
-#  define SIMDE_MM_EXCEPT_DIV_ZERO _MM_EXCEPT_DIV_ZERO
-#else
-#  define SIMDE_MM_EXCEPT_DIV_ZERO (0x0004)
-#endif
-#if defined(_MM_EXCEPT_OVERFLOW)
-#  define SIMDE_MM_EXCEPT_OVERFLOW _MM_EXCEPT_OVERFLOW
-#else
-#  define SIMDE_MM_EXCEPT_OVERFLOW (0x0008)
-#endif
-#if defined(_MM_EXCEPT_UNDERFLOW)
-#  define SIMDE_MM_EXCEPT_UNDERFLOW _MM_EXCEPT_UNDERFLOW
-#else
-#  define SIMDE_MM_EXCEPT_UNDERFLOW (0x0010)
-#endif
-#if defined(_MM_EXCEPT_INEXACT)
-#  define SIMDE_MM_EXCEPT_INEXACT _MM_EXCEPT_INEXACT
-#else
-#  define SIMDE_MM_EXCEPT_INEXACT (0x0020)
-#endif
-#if defined(_MM_EXCEPT_MASK)
-#  define SIMDE_MM_EXCEPT_MASK _MM_EXCEPT_MASK
-#else
-#  define SIMDE_MM_EXCEPT_MASK \
-     (SIMDE_MM_EXCEPT_INVALID | SIMDE_MM_EXCEPT_DENORM | \
-      SIMDE_MM_EXCEPT_DIV_ZERO | SIMDE_MM_EXCEPT_OVERFLOW | \
-      SIMDE_MM_EXCEPT_UNDERFLOW | SIMDE_MM_EXCEPT_INEXACT)
-#endif
-
-#if defined(_MM_MASK_INVALID)
-#  define SIMDE_MM_MASK_INVALID _MM_MASK_INVALID
-#else
-#  define SIMDE_MM_MASK_INVALID (0x0080)
-#endif
-#if defined(_MM_MASK_DENORM)
-#  define SIMDE_MM_MASK_DENORM _MM_MASK_DENORM
-#else
-#  define SIMDE_MM_MASK_DENORM (0x0100)
-#endif
-#if defined(_MM_MASK_DIV_ZERO)
-#  define SIMDE_MM_MASK_DIV_ZERO _MM_MASK_DIV_ZERO
-#else
-#  define SIMDE_MM_MASK_DIV_ZERO (0x0200)
-#endif
-#if defined(_MM_MASK_OVERFLOW)
-#  define SIMDE_MM_MASK_OVERFLOW _MM_MASK_OVERFLOW
-#else
-#  define SIMDE_MM_MASK_OVERFLOW (0x0400)
-#endif
-#if defined(_MM_MASK_UNDERFLOW)
-#  define SIMDE_MM_MASK_UNDERFLOW _MM_MASK_UNDERFLOW
-#else
-#  define SIMDE_MM_MASK_UNDERFLOW (0x0800)
-#endif
-#if defined(_MM_MASK_INEXACT)
-#  define SIMDE_MM_MASK_INEXACT _MM_MASK_INEXACT
-#else
-#  define SIMDE_MM_MASK_INEXACT (0x1000)
-#endif
-#if defined(_MM_MASK_MASK)
-#  define SIMDE_MM_MASK_MASK _MM_MASK_MASK
-#else
-#  define SIMDE_MM_MASK_MASK \
-     (SIMDE_MM_MASK_INVALID | SIMDE_MM_MASK_DENORM | \
-      SIMDE_MM_MASK_DIV_ZERO | SIMDE_MM_MASK_OVERFLOW | \
-      SIMDE_MM_MASK_UNDERFLOW | SIMDE_MM_MASK_INEXACT)
-#endif
-
-#if defined(_MM_FLUSH_ZERO_MASK)
-#  define SIMDE_MM_FLUSH_ZERO_MASK _MM_FLUSH_ZERO_MASK
-#else
-#  define SIMDE_MM_FLUSH_ZERO_MASK (0x8000)
-#endif
-#if defined(_MM_FLUSH_ZERO_ON)
-#  define SIMDE_MM_FLUSH_ZERO_ON _MM_FLUSH_ZERO_ON
-#else
-#  define SIMDE_MM_FLUSH_ZERO_ON (0x8000)
-#endif
-#if defined(_MM_FLUSH_ZERO_OFF)
-#  define SIMDE_MM_FLUSH_ZERO_OFF _MM_FLUSH_ZERO_OFF
-#else
-#  define SIMDE_MM_FLUSH_ZERO_OFF (0x0000)
 #endif
 
 SIMDE_END_DECLS_

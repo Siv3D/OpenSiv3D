@@ -55,7 +55,7 @@ Library | Version
 [sdf-glyph-foundry](https://github.com/mapbox/sdf-glyph-foundry) | 
 [Serial Communication Library](https://github.com/wjwwood/serial) | 
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
-[simde](https://github.com/nemequ/simde) | v0.7.0
+[simde](https://github.com/nemequ/simde) | 0.7.2
 [Sol2](https://github.com/ThePhD/sol2) | v3.2.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
