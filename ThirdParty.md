@@ -29,7 +29,9 @@ Library | Version
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.0.6
+[libogg](https://xiph.org/downloads/) | 1.3.4
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
+[libvorbis](https://xiph.org/downloads/) | 1.3.7
 [libwebp](https://developers.google.com/speed/webp) | 1.2.0
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.0.1
@@ -41,6 +43,8 @@ Library | Version
 [nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
+[Opus](https://opus-codec.org/downloads/) | 1.3.1
+[opusfile](https://opus-codec.org/downloads/) | 0.12
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [Quirc](https://github.com/dlbeer/quirc) | 
