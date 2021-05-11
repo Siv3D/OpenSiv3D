@@ -14,31 +14,55 @@
 
 namespace s3d
 {
+	/// @brief WebP 形式画像データのデコーダ
 	class WebPDecoder : public IImageDecoder
 	{
 	public:
 
+		/// @brief デコーダの対応形式 `U"WebP"` を返します。
+		/// @return 文字列 `U"WebP"`
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief WebP 形式の先頭データであるかを返します。
+		/// @param bytes データの先頭 16 バイト
+		/// @return WebP 形式と推測される場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isHeader(const uint8(&bytes)[16]) const override;
 
+		/// @brief WebP 形式のファイルに想定される拡張子一覧 `{ U"webp" }` を返します。
+		/// @return 配列 `{ U"webp" }`
 		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
 
+		/// @brief WebP 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::WebP`
 		[[nodiscard]]
 		ImageFormat imageFormat() const noexcept override;
 
+		/// @brief WebP 形式の画像ファイルから画像情報を取得します。
+		/// @param path 画像ファイルのパス
+		/// @return 画像情報。取得に失敗した場合は none
 		[[nodiscard]]
 		Optional<ImageInfo> getImageInfo(FilePathView path) const override;
 
+		/// @brief WebP 形式の画像データから画像情報を取得します。
+		/// @param reader 画像データの IReader インタフェース
+		/// @param pathHint ファイルパス（オプション）
+		/// @return 画像情報。取得に失敗した場合は none
 		[[nodiscard]]
 		Optional<ImageInfo> getImageInfo(IReader& reader, FilePathView pathHint = {}) const override;
 
+		/// @brief WebP 形式の画像ファイルをデコードして Image を作成します。
+		/// @param path 画像ファイルのパス
+		/// @return 作成した Image
 		[[nodiscard]]
 		Image decode(FilePathView path) const override;
 
+		/// @brief WebP 形式の画像データをデコードして Image を作成します。
+		/// @param reader 画像データの IReader インタフェース
+		/// @param pathHint ファイルパス（オプション）
+		/// @return 作成した Image
 		[[nodiscard]]
 		Image decode(IReader& reader, FilePathView pathHint = {}) const override;
 	};

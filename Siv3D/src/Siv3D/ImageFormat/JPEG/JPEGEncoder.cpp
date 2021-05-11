@@ -43,7 +43,7 @@ namespace s3d
 			return false;
 		}
 
-		return encode(image, writer);
+		return encode(image, writer, DefaultQuality);
 	}
 
 	bool JPEGEncoder::save(const Image& image, const FilePathView path, const int32 quality) const
@@ -60,7 +60,7 @@ namespace s3d
 
 	bool JPEGEncoder::encode(const Image& image, IWriter& writer) const
 	{
-		return encode(image, writer, 90);
+		return encode(image, writer, DefaultQuality);
 	}
 
 	bool JPEGEncoder::encode(const Image& image, IWriter& writer, int32 quality) const
@@ -105,7 +105,7 @@ namespace s3d
 
 	Blob JPEGEncoder::encode(const Image& image) const
 	{
-		return encode(image, 90);
+		return encode(image, DefaultQuality);
 	}
 
 	Blob JPEGEncoder::encode(const Image& image, int32 quality) const

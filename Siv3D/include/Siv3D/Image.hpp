@@ -31,6 +31,10 @@
 # include "FloodFillConnectivity.hpp"
 # include "InterpolationAlgorithm.hpp"
 # include "PredefinedYesNo.hpp"
+# include "ImageFormat/PNGEncoder.hpp"
+# include "ImageFormat/JPEGEncoder.hpp"
+# include "ImageFormat/PPMEncoder.hpp"
+# include "ImageFormat/WebPEncoder.hpp"
 
 namespace s3d
 {
@@ -341,25 +345,25 @@ namespace s3d
 
 		bool saveWithDialog() const;
 
-		bool savePNG(FilePathView path, PNGFilter filter = PNGFilter::Default) const;
+		bool savePNG(FilePathView path, PNGFilter filter = PNGEncoder::DefaultFilter) const;
 
 		[[nodiscard]]
-		Blob encodePNG(PNGFilter filter = PNGFilter::Default) const;
+		Blob encodePNG(PNGFilter filter = PNGEncoder::DefaultFilter) const;
 
-		bool saveJPEG(FilePathView path, int32 quality = 90) const;
-
-		[[nodiscard]]
-		Blob encodeJPEG(int32 quality = 90) const;
-
-		bool savePPM(FilePathView path, PPMType format = PPMType::AsciiRGB) const;
+		bool saveJPEG(FilePathView path, int32 quality = JPEGEncoder::DefaultQuality) const;
 
 		[[nodiscard]]
-		Blob encodePPM(PPMType format = PPMType::AsciiRGB) const;
+		Blob encodeJPEG(int32 quality = JPEGEncoder::DefaultQuality) const;
 
-		bool saveWebP(FilePathView path, Lossless lossless = Lossless::No, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+		bool savePPM(FilePathView path, PPMType format = PPMEncoder::DefaultFromat) const;
 
 		[[nodiscard]]
-		Blob encodeWebP(Lossless lossless = Lossless::No, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+		Blob encodePPM(PPMType format = PPMEncoder::DefaultFromat) const;
+
+		bool saveWebP(FilePathView path, Lossless lossless = Lossless::No, double quality = WebPEncoder::DefaultQuality, WebPMethod method = WebPMethod::Default) const;
+
+		[[nodiscard]]
+		Blob encodeWebP(Lossless lossless = Lossless::No, double quality = WebPEncoder::DefaultQuality, WebPMethod method = WebPMethod::Default) const;
 
 		Image& negate();
 

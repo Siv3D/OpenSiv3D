@@ -14,20 +14,36 @@
 
 namespace s3d
 {
+	/// @brief BMP 形式画像のエンコーダ
 	class BMPEncoder : public IImageEncoder
 	{
 	public:
 
+		/// @brief エンコーダの対応形式 `U"BMP"` を返します。
+		/// @return 文字列 `U"BMP"`
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief BMP 形式のファイルに想定される拡張子一覧 `{ U"bmp" }` を返します。
+		/// @return 配列 `{ U"bmp" }` 
 		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
 
+		/// @brief Image を BMP 形式でエンコードしてファイルに保存します。
+		/// @param image エンコードする Image
+		/// @param path 保存するファイルのパス
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(const Image& image, FilePathView path) const override;
 
+		/// @brief Image を BMP 形式でエンコードして書き出します。
+		/// @param image エンコードする Image
+		/// @param writer 書き出し先の IWriter インタフェース
+		/// @return 書き出しに成功した場合 true, それ以外の場合は false
 		bool encode(const Image& image, IWriter& writer) const override;
 
+		/// @brief Image を BMP 形式でエンコードした結果を Blob で返します。
+		/// @param image エンコードする Image
+		/// @return エンコード結果
 		[[nodiscard]]
 		Blob encode(const Image& image) const override;
 	};

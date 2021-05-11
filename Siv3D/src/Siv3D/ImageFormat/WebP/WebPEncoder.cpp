@@ -74,7 +74,7 @@ namespace s3d
 
 	bool WebPEncoder::save(const Image& image, const FilePathView path) const
 	{
-		return save(image, path, Lossless::No, 90.0, WebPMethod::Default);
+		return save(image, path, Lossless::No, DefaultQuality, WebPMethod::Default);
 	}
 
 	bool WebPEncoder::save(const Image& image, const FilePathView path, const Lossless lossless, const double quality, const WebPMethod method) const
@@ -91,7 +91,7 @@ namespace s3d
 
 	bool WebPEncoder::encode(const Image& image, IWriter& writer) const
 	{
-		return encode(image, writer, Lossless::No, 90.0, WebPMethod::Default);
+		return encode(image, writer, Lossless::No, DefaultQuality, WebPMethod::Default);
 	}
 
 	bool WebPEncoder::encode(const Image& image, IWriter& writer, const Lossless lossless, const double quality, const WebPMethod method) const
@@ -179,7 +179,7 @@ namespace s3d
 
 	Blob WebPEncoder::encode(const Image& image) const
 	{
-		return encode(image, Lossless::No, 90.0, WebPMethod::Default);
+		return encode(image, Lossless::No, DefaultQuality, WebPMethod::Default);
 	}
 
 	Blob WebPEncoder::encode(const Image& image, const Lossless lossless, const double quality, const WebPMethod method) const
