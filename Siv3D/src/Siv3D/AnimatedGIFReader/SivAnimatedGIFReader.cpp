@@ -59,30 +59,49 @@ namespace s3d
 		return isOpen();
 	}
 
-	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delays, int32& duration) const
+	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delaysMillisec) const
 	{
-		return pImpl->read(images, delays, duration);
+		return pImpl->read(images, delaysMillisec);
 	}
 
-	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delays, const int32 duration) noexcept
+	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delaysMillisec, int32& durationMillisec) const
 	{
-		if ((not delays) || duration <= 0)
+		if (pImpl->read(images, delaysMillisec))
+		{
+			durationMillisec = delaysMillisec.sum();
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delaysMillisec) noexcept
+	{
+		return MillisecToIndex(timeMillisec, delaysMillisec, delaysMillisec.sum());
+	}
+
+	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delaysMillisec, const int32 durationMillisec) noexcept
+	{
+		if ((not delaysMillisec) || durationMillisec <= 0)
 		{
 			return 0;
 		}
 
-		const int64 currentTime = timeMillisec % duration;
+		const int64 currentTime = (timeMillisec % durationMillisec);
 		size_t frameIndex = 0;
 		int64 sum = 0;
 
-		for (const auto& delay : delays)
+		for (const auto& delayMillisec : delaysMillisec)
 		{
 			if (sum > currentTime)
 			{
 				return frameIndex - 1;
 			}
 
-			sum += delay;
+			sum += delayMillisec;
 			++frameIndex;
 		}
 

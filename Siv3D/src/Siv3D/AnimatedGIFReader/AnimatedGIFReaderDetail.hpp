@@ -31,7 +31,7 @@ namespace s3d
 
 		bool isOpen() const noexcept;
 
-		bool read(Array<Image>& images, Array<int32>& delays, int32& duration) const;
+		bool read(Array<Image>& images, Array<int32>& delaysMillisec) const;
 
 	private:
 

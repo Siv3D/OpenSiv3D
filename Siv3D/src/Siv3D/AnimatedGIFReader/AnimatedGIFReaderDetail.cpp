@@ -178,8 +178,11 @@ namespace s3d
 		return (not m_blob.isEmpty());
 	}
 
-	bool AnimatedGIFReader::AnimatedGIFReaderDetail::read(Array<Image>& images, Array<int32>& delays, int32& duration) const
+	bool AnimatedGIFReader::AnimatedGIFReaderDetail::read(Array<Image>& images, Array<int32>& delaysMillisec) const
 	{
+		images.clear();
+		delaysMillisec.clear();
+
 		if (not isOpen())
 		{
 			return false;
@@ -191,15 +194,11 @@ namespace s3d
 
 		if (ret < 0 || !gif.images)
 		{
-			images.clear();
-			delays.clear();
-			duration = 0;
 			return false;
 		}
 
 		images = std::move(gif.images);
-		delays = std::move(gif.delays);
-		duration = delays.sum();
+		delaysMillisec = std::move(gif.delays);
 
 		return true;
 	}
