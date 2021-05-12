@@ -76,4 +76,10 @@ namespace s3d
 
 	/// @brief ファイル全体をマップする
 	using MapAll			= YesNo<struct MapAll_tag>;
+
+	/// @brief ディザリングする
+	using Dither			= YesNo<struct Dither_tag>;
+
+	/// @brief アルファチャンネルを持つ
+	using HasAlpha			= YesNo<struct HasAlpha_tag>;
 }

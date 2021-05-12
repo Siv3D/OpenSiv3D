@@ -21,7 +21,7 @@ namespace s3d
 		close();
 	}
 
-	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePathView path, const Size size, const bool dither, const bool hasAlpha)
+	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePathView path, const Size size, const Dither dither, const HasAlpha hasAlpha)
 	{
 		if (m_opened)
 		{
@@ -37,9 +37,9 @@ namespace s3d
 
 		m_imageSize = size;
 
-		m_dither = dither;
+		m_dither = dither.getBool();
 
-		m_hasAlpha = hasAlpha;
+		m_hasAlpha = hasAlpha.getBool();
 
 		if (not GifBegin(&m_gif, m_imageSize.x, m_imageSize.y, 6, 8, m_dither))
 		{
