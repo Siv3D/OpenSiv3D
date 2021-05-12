@@ -60,6 +60,11 @@ namespace s3d
 		return U"GIF"_sv;
 	}
 
+	ImageFormat GIFEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::GIF;
+	}
+
 	const Array<String>& GIFEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"gif" };

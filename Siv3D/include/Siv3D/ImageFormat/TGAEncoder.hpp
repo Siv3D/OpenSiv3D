@@ -24,6 +24,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief TGA 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::TGA`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief TGA 形式のファイルに想定される拡張子一覧 `{ U"tga" }` を返します。
 		/// @return 配列 `{ U"tga" }` 
 		[[nodiscard]]

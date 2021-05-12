@@ -24,6 +24,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief BMP 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::BMP`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief BMP 形式の先頭データであるかを返します。
 		/// @param bytes データの先頭 16 バイト
 		/// @return BMP 形式と推測される場合 true, それ以外の場合は false
@@ -34,11 +39,6 @@ namespace s3d
 		/// @return 配列 `{ U"bmp" }`
 		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
-
-		/// @brief BMP 形式を示す ImageFormat を返します。
-		/// @return `ImageFormat::BMP`
-		[[nodiscard]]
-		ImageFormat imageFormat() const noexcept override;
 
 		/// @brief BMP 形式の画像ファイルから画像情報を取得します。
 		/// @param path 画像ファイルのパス

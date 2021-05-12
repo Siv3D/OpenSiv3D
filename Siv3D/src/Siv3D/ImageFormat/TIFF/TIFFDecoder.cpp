@@ -162,6 +162,11 @@ namespace s3d
 		return U"TIFF"_sv;
 	}
 
+	ImageFormat TIFFDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::TIFF;
+	}
+
 	bool TIFFDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 TIFF_SIGN0[] = { 0x49, 0x49, 0x2A, 0x00 };
@@ -176,11 +181,6 @@ namespace s3d
 		static const Array<String> extensions = { U"tif", U"tiff" };
 
 		return extensions;
-	}
-
-	ImageFormat TIFFDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::TIFF;
 	}
 
 	Optional<ImageInfo> TIFFDecoder::getImageInfo(const FilePathView path) const

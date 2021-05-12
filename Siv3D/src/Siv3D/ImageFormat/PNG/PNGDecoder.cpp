@@ -34,6 +34,11 @@ namespace s3d
 		return U"PNG"_sv;
 	}
 
+	ImageFormat PNGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::PNG;
+	}
+
 	bool PNGDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 signature[] = { 0x89, 'P', 'N', 'G', 0x0D, 0x0A, 0x1A, 0x0A };
@@ -46,11 +51,6 @@ namespace s3d
 		static const Array<String> extensions = { U"png" };
 
 		return extensions;
-	}
-
-	ImageFormat PNGDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::PNG;
 	}
 
 	Optional<ImageInfo> PNGDecoder::getImageInfo(const FilePathView path) const

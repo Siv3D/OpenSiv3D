@@ -29,13 +29,13 @@ namespace s3d
 		virtual StringView name() const = 0;
 
 		[[nodiscard]]
+		virtual ImageFormat imageFormat() const noexcept = 0;
+
+		[[nodiscard]]
 		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
 
 		[[nodiscard]]
 		virtual const Array<String>& possibleExtensions() const = 0;
-
-		[[nodiscard]]
-		virtual ImageFormat imageFormat() const noexcept = 0;
 
 		[[nodiscard]]
 		virtual Optional<ImageInfo> getImageInfo(FilePathView path) const;

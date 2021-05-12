@@ -29,6 +29,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief WebP 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::WebP`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief WebP 形式のファイルに想定される拡張子一覧 `{ U"webp" }` を返します。
 		/// @return 配列 `{ U"webp" }`
 		[[nodiscard]]

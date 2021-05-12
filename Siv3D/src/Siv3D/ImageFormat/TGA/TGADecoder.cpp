@@ -20,6 +20,11 @@ namespace s3d
 		return U"TGA"_sv;
 	}
 
+	ImageFormat TGADecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::TGA;
+	}
+
 	bool TGADecoder::isHeader(const uint8(&)[16]) const
 	{
 		// [Siv3D TODO]
@@ -31,11 +36,6 @@ namespace s3d
 		static const Array<String> extensions = { U"tga" };
 
 		return extensions;
-	}
-
-	ImageFormat TGADecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::TGA;
 	}
 
 	Optional<ImageInfo> TGADecoder::getImageInfo(const FilePathView path) const

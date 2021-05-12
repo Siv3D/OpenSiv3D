@@ -22,6 +22,11 @@ namespace s3d
 		return U"BMP"_sv;
 	}
 
+	ImageFormat BMPEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::BMP;
+	}
+
 	const Array<String>& BMPEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"bmp" };

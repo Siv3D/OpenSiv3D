@@ -21,6 +21,11 @@ namespace s3d
 		return U"SVG"_sv;
 	}
 
+	ImageFormat SVGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::SVG;
+	}
+
 	bool SVGDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 signature1[] = { '<', 's', 'v', 'g', ' ', 'x', 'm', 'l', 'n', 's' };
@@ -37,11 +42,6 @@ namespace s3d
 		static const Array<String> extensions = { U"svg" };
 
 		return extensions;
-	}
-
-	ImageFormat SVGDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::SVG;
 	}
 
 	Optional<ImageInfo> SVGDecoder::getImageInfo(const FilePathView path) const

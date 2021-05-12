@@ -65,6 +65,11 @@ namespace s3d
 		return U"WebP"_sv;
 	}
 
+	ImageFormat WebPEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::WebP;
+	}
+
 	const Array<String>& WebPEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"webp" };

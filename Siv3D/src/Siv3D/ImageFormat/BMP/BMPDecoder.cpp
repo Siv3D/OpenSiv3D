@@ -20,6 +20,11 @@ namespace s3d
 		return U"BMP"_sv;
 	}
 
+	ImageFormat BMPDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::BMP;
+	}
+
 	bool BMPDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 signature[] = { 0x42, 0x4d };
@@ -32,11 +37,6 @@ namespace s3d
 		static const Array<String> extensions = { U"bmp" };
 
 		return extensions;
-	}
-
-	ImageFormat BMPDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::BMP;
 	}
 
 	Optional<ImageInfo> BMPDecoder::getImageInfo(const FilePathView path) const

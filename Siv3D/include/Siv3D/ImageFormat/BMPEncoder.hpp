@@ -24,6 +24,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief BMP 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::BMP`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief BMP 形式のファイルに想定される拡張子一覧 `{ U"bmp" }` を返します。
 		/// @return 配列 `{ U"bmp" }` 
 		[[nodiscard]]

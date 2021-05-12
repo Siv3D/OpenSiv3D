@@ -27,6 +27,11 @@ namespace s3d
 		return U"JPEG"_sv;
 	}
 
+	ImageFormat JPEGEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::JPEG;
+	}
+
 	const Array<String>& JPEGEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"jpg", U"jpeg" };

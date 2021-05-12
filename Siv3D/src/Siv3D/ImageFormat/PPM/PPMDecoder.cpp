@@ -378,6 +378,11 @@ namespace s3d
 		return U"PPM"_sv;
 	}
 
+	ImageFormat PPMDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::PPM;
+	}
+
 	bool PPMDecoder::isHeader(const uint8(&)[16]) const
 	{
 		return false;
@@ -388,11 +393,6 @@ namespace s3d
 		static const Array<String> extensions = { U"ppm", U"pgm", U"pbm", U"pnm" };
 
 		return extensions;
-	}
-
-	ImageFormat PPMDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::PPM;
 	}
 
 	Optional<ImageInfo> PPMDecoder::getImageInfo(const FilePathView path) const

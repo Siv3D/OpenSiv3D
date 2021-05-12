@@ -25,6 +25,11 @@ namespace s3d
 		return U"JPEG"_sv;
 	}
 
+	ImageFormat JPEGDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::JPEG;
+	}
+
 	bool JPEGDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 JFIF_SIGN0[] = { 0xFF, 0xD8, 0xFF, 0xE0 };
@@ -41,11 +46,6 @@ namespace s3d
 		static const Array<String> extensions = { U"jpg", U"jpeg" };
 
 		return extensions;
-	}
-
-	ImageFormat JPEGDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::JPEG;
 	}
 
 	Optional<ImageInfo> JPEGDecoder::getImageInfo(const FilePathView path) const

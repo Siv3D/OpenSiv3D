@@ -27,6 +27,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief JPEG 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::JPEG`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief JPEG 形式のファイルに想定される拡張子一覧 `{ U"jpg", U"jpeg" }` を返します。
 		/// @return 配列 `{ U"jpg", U"jpeg" }`
 		[[nodiscard]]

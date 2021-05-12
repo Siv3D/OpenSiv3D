@@ -25,6 +25,11 @@ namespace s3d
 		return U"WebP"_sv;
 	}
 
+	ImageFormat WebPDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::WebP;
+	}
+
 	bool WebPDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 riff[] = { 'R', 'I', 'F', 'F' };
@@ -39,11 +44,6 @@ namespace s3d
 		static const Array<String> extensions = { U"webp" };
 
 		return extensions;
-	}
-
-	ImageFormat WebPDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::WebP;
 	}
 
 	Optional<ImageInfo> WebPDecoder::getImageInfo(const FilePathView path) const

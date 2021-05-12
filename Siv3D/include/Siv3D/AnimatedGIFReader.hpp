@@ -16,14 +16,22 @@
 
 namespace s3d
 {
+	/// @brief GIF アニメーションの読み込み
 	class AnimatedGIFReader
 	{
 	public:
 
+		/// @brief 
+		SIV3D_NODISCARD_CXX20
 		AnimatedGIFReader();
 
+		/// @brief 
+		/// @param path 
+		SIV3D_NODISCARD_CXX20
 		explicit AnimatedGIFReader(FilePathView path);
 
+		/// @brief 
+		/// @param reader 
 		SIV3D_NODISCARD_CXX20
 		explicit AnimatedGIFReader(IReader&& reader);
 

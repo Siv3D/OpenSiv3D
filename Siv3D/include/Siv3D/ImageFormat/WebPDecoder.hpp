@@ -24,6 +24,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief WebP 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::WebP`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief WebP 形式の先頭データであるかを返します。
 		/// @param bytes データの先頭 16 バイト
 		/// @return WebP 形式と推測される場合 true, それ以外の場合は false
@@ -34,11 +39,6 @@ namespace s3d
 		/// @return 配列 `{ U"webp" }`
 		[[nodiscard]]
 		const Array<String>& possibleExtensions() const override;
-
-		/// @brief WebP 形式を示す ImageFormat を返します。
-		/// @return `ImageFormat::WebP`
-		[[nodiscard]]
-		ImageFormat imageFormat() const noexcept override;
 
 		/// @brief WebP 形式の画像ファイルから画像情報を取得します。
 		/// @param path 画像ファイルのパス

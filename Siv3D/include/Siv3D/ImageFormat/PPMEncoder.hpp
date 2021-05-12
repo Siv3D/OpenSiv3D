@@ -28,6 +28,11 @@ namespace s3d
 		[[nodiscard]]
 		StringView name() const override;
 
+		/// @brief PPM 形式を示す ImageFormat を返します。
+		/// @return `ImageFormat::PPM`
+		[[nodiscard]]
+		ImageFormat imageFormat() const noexcept override;
+
 		/// @brief PPM 形式のファイルに想定される拡張子一覧 `{ U"ppm", U"pgm", U"pbm", U"pnm" }` を返します。
 		/// @return 配列 `{ U"ppm", U"pgm", U"pbm", U"pnm" }`
 		[[nodiscard]]

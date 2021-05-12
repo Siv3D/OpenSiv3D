@@ -231,6 +231,11 @@ namespace s3d
 		return U"PPM"_sv;
 	}
 
+	ImageFormat PPMEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::PPM;
+	}
+
 	const Array<String>& PPMEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"ppm", U"pgm", U"pbm", U"pnm" };

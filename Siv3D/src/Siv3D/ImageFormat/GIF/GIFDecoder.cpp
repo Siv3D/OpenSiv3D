@@ -35,6 +35,11 @@ namespace s3d
 		return U"GIF"_sv;
 	}
 
+	ImageFormat GIFDecoder::imageFormat() const noexcept
+	{
+		return ImageFormat::GIF;
+	}
+
 	bool GIFDecoder::isHeader(const uint8(&bytes)[16]) const
 	{
 		static constexpr uint8 GIF_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
@@ -49,11 +54,6 @@ namespace s3d
 		static const Array<String> extensions = { U"gif" };
 
 		return extensions;
-	}
-
-	ImageFormat GIFDecoder::imageFormat() const noexcept
-	{
-		return ImageFormat::GIF;
 	}
 
 	Optional<ImageInfo> GIFDecoder::getImageInfo(const FilePathView path) const

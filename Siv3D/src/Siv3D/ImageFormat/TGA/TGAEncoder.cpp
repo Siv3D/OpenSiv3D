@@ -22,6 +22,11 @@ namespace s3d
 		return U"TGA"_sv;
 	}
 
+	ImageFormat TGAEncoder::imageFormat() const noexcept
+	{
+		return ImageFormat::TGA;
+	}
+
 	const Array<String>& TGAEncoder::possibleExtensions() const
 	{
 		static const Array<String> extensions = { U"tga" };
