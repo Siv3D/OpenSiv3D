@@ -64,7 +64,7 @@ namespace s3d
 			return Save(wave, encoderName, path);
 		}
 
-		bool Save(const Wave& wave, const String& encoderName, const FilePathView path)
+		bool Save(const Wave& wave, const StringView encoderName, const FilePathView path)
 		{
 			return SIV3D_ENGINE(AudioEncoder)->save(wave, encoderName, path);
 		}
@@ -74,7 +74,7 @@ namespace s3d
 			return Encode(wave, String(detail::ToString(format)), writer);
 		}
 
-		bool Encode(const Wave& wave, const String& encoderName, IWriter& writer)
+		bool Encode(const Wave& wave, const StringView encoderName, IWriter& writer)
 		{
 			return SIV3D_ENGINE(AudioEncoder)->encode(wave, encoderName, writer);
 		}
@@ -84,14 +84,14 @@ namespace s3d
 			return Encode(wave, String(detail::ToString(format)));
 		}
 
-		Blob Encode(const Wave& wave, const String& encoderName)
+		Blob Encode(const Wave& wave, const StringView encoderName)
 		{
 			return SIV3D_ENGINE(AudioEncoder)->encode(wave, encoderName);
 		}
 
-		bool Add(std::unique_ptr<IAudioEncoder>&& Encoder)
+		bool Add(std::unique_ptr<IAudioEncoder>&& encoder)
 		{
-			return SIV3D_ENGINE(AudioEncoder)->add(std::move(Encoder));
+			return SIV3D_ENGINE(AudioEncoder)->add(std::move(encoder));
 		}
 
 		void Remove(const StringView name)

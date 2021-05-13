@@ -30,9 +30,26 @@ namespace s3d
 			return SIV3D_ENGINE(AudioDecoder)->decode(reader, path, audioFormat);
 		}
 
+		Wave Decode(const FilePathView path, const StringView decoderName)
+		{
+			BinaryReader reader{ path };
+
+			if (not reader)
+			{
+				return{};
+			}
+
+			return SIV3D_ENGINE(AudioDecoder)->decode(reader, decoderName);
+		}
+
 		Wave Decode(IReader& reader, const AudioFormat audioFormat)
 		{
 			return SIV3D_ENGINE(AudioDecoder)->decode(reader, {}, audioFormat);
+		}
+
+		Wave Decode(IReader& reader, const StringView decoderName)
+		{
+			return SIV3D_ENGINE(AudioDecoder)->decode(reader, decoderName);
 		}
 
 		bool Add(std::unique_ptr<IAudioDecoder>&& decoder)

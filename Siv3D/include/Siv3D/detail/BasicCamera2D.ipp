@@ -37,12 +37,12 @@ namespace s3d
 		return m_scale;
 	}
 
-	inline constexpr RectF BasicCamera2D::getRegion(const Size renderTargetSize) const
+	inline constexpr RectF BasicCamera2D::getRegion(const Size renderTargetSize) const noexcept
 	{
 		return{ (m_center - ((renderTargetSize * 0.5) / m_scale)), (renderTargetSize / m_scale) };
 	}
 
-	inline constexpr Mat3x2 BasicCamera2D::getMat3x2(const Size renderTargetSize) const
+	inline constexpr Mat3x2 BasicCamera2D::getMat3x2(const Size renderTargetSize) const noexcept
 	{
 		return Mat3x2::Scale(m_scale)
 			.translated((renderTargetSize * 0.5) - m_scale * m_center);

@@ -34,6 +34,8 @@ namespace s3d
 
 		virtual Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) = 0;
 
+		virtual Wave decode(IReader& reader, StringView decoderName) = 0;
+
 		virtual bool add(std::unique_ptr<IAudioDecoder>&& decoder) = 0;
 
 		virtual void remove(StringView name) = 0;

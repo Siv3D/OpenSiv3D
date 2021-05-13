@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief バイナリデータ
 	class Blob
 	{
 	public:

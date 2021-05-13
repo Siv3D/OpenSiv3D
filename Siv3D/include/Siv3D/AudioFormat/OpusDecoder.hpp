@@ -19,7 +19,7 @@ namespace s3d
 	{
 	public:
 
-		/// @brief デコーダの対応形式 `U"Opus"` を返します。
+		/// @brief デコーダの名前 `U"Opus"` を返します。
 		/// @return 文字列 `U"Opus"`
 		[[nodiscard]]
 		StringView name() const override;

@@ -29,6 +29,8 @@ namespace s3d
 
 		Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) override;
 
+		Wave decode(IReader& reader, StringView decoderName) override;
+
 		bool add(std::unique_ptr<IAudioDecoder>&& decoder) override;
 
 		void remove(StringView name) override;
@@ -42,5 +44,7 @@ namespace s3d
 		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(AudioFormat imageFormat) const;
 
 		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(const IReader& reader, FilePathView pathHint) const;
+
+		Array<std::unique_ptr<IAudioDecoder>>::const_iterator findDecoder(StringView encoderName) const;
 	};
 }

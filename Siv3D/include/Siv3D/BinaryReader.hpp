@@ -24,11 +24,13 @@ namespace s3d
 	public:
 
 		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		BinaryReader();
 
 		/// @brief ファイルを開きます。
 		/// @param path ファイルパス
 		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
+		SIV3D_NODISCARD_CXX20
 		explicit BinaryReader(FilePathView path, OpenMode openMode = {});
 
 		/// @brief lookahead をサポートしているかを返します。
@@ -121,8 +123,6 @@ namespace s3d
 		[[nodiscard]]
 		const FilePath& path() const noexcept;
 
-		//[[nodiscard]] ByteArray readAll();
-	
 	private:
 
 		class BinaryReaderDetail;

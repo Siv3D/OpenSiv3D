@@ -23,7 +23,7 @@ namespace s3d
 		/// @brief デフォルトのエンコード品質 (60)
 		static constexpr int32 DefaultQuality = 60;
 		
-		/// @brief エンコーダの対応形式 `U"OggVorbis"` を返します。
+		/// @brief エンコーダの名前 `U"OggVorbis"` を返します。
 		/// @return 文字列 `U"OggVorbis"`
 		[[nodiscard]]
 		StringView name() const override;

@@ -20,7 +20,7 @@ namespace s3d
 	{
 	public:
 
-		/// @brief デコーダの対応形式 `U"OggVorbis"` を返します。
+		/// @brief デコーダの名前 `U"OggVorbis"` を返します。
 		/// @return 文字列 `U"OggVorbis"`
 		[[nodiscard]]
 		StringView name() const override;

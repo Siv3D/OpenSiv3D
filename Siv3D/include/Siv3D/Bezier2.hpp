@@ -19,6 +19,7 @@
 
 namespace s3d
 {
+	/// @brief 二次ベジェ曲線
 	struct Bezier2
 	{
 		Vec2 p0;

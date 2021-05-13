@@ -65,28 +65,6 @@ namespace s3d
 
 	class Camera2D : public BasicCamera2D
 	{
-	protected:
-
-		double m_targetScale = BasicCamera2D::m_scale;
-		
-		double m_scaleChangeVelocity = 0.0;
-
-		Vec2 m_targetCenter = BasicCamera2D::m_center;
-		
-		Vec2 m_positionChangeVelocity = Vec2::Zero();
-
-		Optional<Point> m_grabPos;
-		
-		Optional<std::pair<Point, Vec2>> m_pointedScale;
-
-		Camera2DParameters m_parameters;
-
-		void updateWheel(const SizeF& sceneSize);
-
-		void updateControls(const double deltaTime);
-
-		void updateMouse(const double deltaTime);
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -109,6 +87,28 @@ namespace s3d
 		void update(double deltaTime = Scene::DeltaTime(), SizeF sceneSize = Graphics2D::GetRenderTargetSize());
 
 		void draw(const ColorF& color = Palette::White) const;
+
+	protected:
+
+		double m_targetScale = BasicCamera2D::m_scale;
+
+		double m_scaleChangeVelocity = 0.0;
+
+		Vec2 m_targetCenter = BasicCamera2D::m_center;
+
+		Vec2 m_positionChangeVelocity = Vec2::Zero();
+
+		Optional<Point> m_grabPos;
+
+		Optional<std::pair<Point, Vec2>> m_pointedScale;
+
+		Camera2DParameters m_parameters;
+
+		void updateWheel(const SizeF& sceneSize);
+
+		void updateControls(const double deltaTime);
+
+		void updateMouse(const double deltaTime);
 	};
 }
 

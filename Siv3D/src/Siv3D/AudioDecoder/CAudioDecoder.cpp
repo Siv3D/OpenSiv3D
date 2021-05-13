@@ -54,6 +54,20 @@ namespace s3d
 		return (*it)->decode(reader, pathHint);
 	}
 
+	Wave CAudioDecoder::decode(IReader& reader, const StringView decoderName)
+	{
+		LOG_SCOPED_TRACE(U"CAudioDecoder::decode({})"_fmt(decoderName));
+
+		const auto it = findDecoder(decoderName);
+
+		if (it == m_decoders.end())
+		{
+			return{};
+		}
+
+		return (*it)->decode(reader, {});
+	}
+
 	bool CAudioDecoder::add(std::unique_ptr<IAudioDecoder>&& decoder)
 	{
 		const StringView name = decoder->name();
@@ -142,6 +156,19 @@ namespace s3d
 				{
 					return it;
 				}
+			}
+		}
+
+		return m_decoders.end();
+	}
+
+	Array<std::unique_ptr<IAudioDecoder>>::const_iterator CAudioDecoder::findDecoder(const StringView encoderName) const
+	{
+		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+		{
+			if ((*it)->name() == encoderName)
+			{
+				return it;
 			}
 		}
 

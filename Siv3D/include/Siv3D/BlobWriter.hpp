@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief バイナリデータ書き出し
 	class BlobWriter : public IWriter
 	{
 	public:

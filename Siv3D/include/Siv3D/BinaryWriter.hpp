@@ -24,11 +24,13 @@ namespace s3d
 	public:
 
 		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		BinaryWriter();
 
 		/// @brief ファイルを開きます。
 		/// @param path ファイルパス
 		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
+		SIV3D_NODISCARD_CXX20
 		explicit BinaryWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc);
 
 		/// @brief ファイルを開きます。

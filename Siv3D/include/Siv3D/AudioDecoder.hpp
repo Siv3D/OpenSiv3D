@@ -18,16 +18,45 @@ namespace s3d
 {
 	namespace AudioDecoder
 	{
+		/// @brief 音声ファイルをデコードして、Wave を作成します。
+		/// @param path 音声ファイルのパス
+		/// @param audioFormat 音声のフォーマット。不明の場合は `AudioFormat::Unknown`
+		/// @return 作成した Wave
 		[[nodiscard]]
 		Wave Decode(FilePathView path, AudioFormat audioFormat);
 
+		/// @brief 音声ファイルをデコードして、Wave を作成します。
+		/// @param path 音声ファイルのパス
+		/// @param decoderName 使用するデコーダの名前
+		/// @return 作成した Wave
+		[[nodiscard]]
+		Wave Decode(FilePathView path, StringView decoderName);
+
+		/// @brief 音声データをデコードして、Wave を作成します。
+		/// @param reader 音声データの IReader インタフェース
+		/// @param audioFormat 音声のフォーマット。不明の場合は `AudioFormat::Unknown`
+		/// @return 作成した Wave
 		[[nodiscard]]
 		Wave Decode(IReader& reader, AudioFormat audioFormat);
 
+		/// @brief 音声データをデコードして、Wave を作成します。
+		/// @param reader 音声データの IReader インタフェース
+		/// @param decoderName 使用するデコーダの名前
+		/// @return 作成した Wave
+		[[nodiscard]]
+		Wave Decode(IReader& reader, StringView decoderName);
+
+		/// @brief エンジンに新しいカスタム音声デコーダを追加します。
+		/// @param decoder 追加するデコーダ
+		/// @return 追加に成功した場合 true, それ以外の場合は false
 		bool Add(std::unique_ptr<IAudioDecoder>&& decoder);
 
+		/// @brief エンジンから音声デコーダを削除します。
+		/// @param name 音声デコーダの名前
 		void Remove(StringView name);
 
+		/// @brief エンジンに登録されている音声デコーダの一覧を返します。
+		/// @return エンジンに登録されている音声デコーダの一覧
 		[[nodiscard]]
 		const Array<std::unique_ptr<IAudioDecoder>>& Enum();
 	}

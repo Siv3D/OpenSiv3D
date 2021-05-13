@@ -24,31 +24,43 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		BigFloat();
 		
 		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		SIV3D_NODISCARD_CXX20
 		BigFloat(SignedInt i);
 		
 		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		SIV3D_NODISCARD_CXX20
 		BigFloat(UnsignedInt i);
 		
 		SIV3D_CONCEPT_FLOATING_POINT
+		SIV3D_NODISCARD_CXX20
 		BigFloat(Float f);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(int64 f);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(uint64 f);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(long double f);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(const BigInt& number);
 		
+		SIV3D_NODISCARD_CXX20
 		explicit BigFloat(std::string_view number);
 		
+		SIV3D_NODISCARD_CXX20
 		explicit BigFloat(StringView number);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(const BigFloat& other);
 		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(BigFloat&& other) noexcept;
 		
 		~BigFloat();

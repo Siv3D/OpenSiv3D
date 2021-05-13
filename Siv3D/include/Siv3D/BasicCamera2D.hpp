@@ -22,14 +22,9 @@ namespace s3d
 	/// @brief 基本 2D カメラクラス
 	class BasicCamera2D
 	{
-	protected:
-
-		Vec2 m_center = Vec2{ 0, 0 };
-
-		double m_scale = 1.0;
-
 	public:
 
+		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		BasicCamera2D() = default;
 
@@ -39,26 +34,48 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr BasicCamera2D(Vec2 center, double scale = 1.0) noexcept;
 
+		/// @brief カメラが見る中心座標を設定します。
+		/// @param center カメラが見る中心座標
 		constexpr void setCenter(Vec2 center) noexcept;
 
+		/// @brief カメラが見ている中心座標を返します。
+		/// @return カメラが見ている中心座標
 		[[nodiscard]]
 		constexpr const Vec2& getCenter() const noexcept;
 
+		/// @brief カメラのズームアップ倍率を設定します。
+		/// @param scale カメラのズームアップ倍率
 		constexpr void setScale(double scale) noexcept;
 
+		/// @brief カメラのズームアップ倍率を返します。
+		/// @return カメラのズームアップ倍率
 		[[nodiscard]]
 		constexpr double getScale() const noexcept;
 
+		/// @brief カメラに映っている領域を返します。
+		/// @param renderTargetSize 現在のレンダーターゲットのサイズ（ピクセル）
+		/// @return カメラに映っている領域
 		[[nodiscard]]
-		constexpr RectF getRegion(Size renderTargetSize = Graphics2D::GetRenderTargetSize()) const;
+		constexpr RectF getRegion(Size renderTargetSize = Graphics2D::GetRenderTargetSize()) const noexcept;
 
+		/// @brief 現在のカメラの設定から座標変換行列を作成します。
+		/// @param renderTargetSize 現在のレンダーターゲットのサイズ（ピクセル）
+		/// @return 現在のカメラの設定から作成された座標変換行列
 		[[nodiscard]]
-		constexpr Mat3x2 getMat3x2(Size renderTargetSize = Graphics2D::GetRenderTargetSize()) const;
+		constexpr Mat3x2 getMat3x2(Size renderTargetSize = Graphics2D::GetRenderTargetSize()) const noexcept;
 
 		/// @brief 現在のカメラの設定から Transformer2D を作成します。
 		/// @return 現在のカメラの設定から作成された Transformer2D
 		[[nodiscard]]
 		Transformer2D createTransformer() const;
+
+	protected:
+
+		/// @brief カメラが見ている中心座標
+		Vec2 m_center = Vec2{ 0, 0 };
+
+		/// @brief カメラのズームアップ倍率
+		double m_scale = 1.0;
 	};
 }
 

@@ -16,14 +16,17 @@
 
 namespace s3d
 {
+	/// @brief アセットハンドル
+	/// @tparam AssetType アセットのタグ
 	template <class AssetType>
-	struct AssetHandle
+	class AssetHandle
 	{
 	public:
 
+		/// @brief アセット ID ラッパー型
 		using AssetIDWrapperType = AssetIDWrapper<AssetHandle>;
 
-		/// @brief アセットの ID の型
+		/// @brief アセット ID 型
 		using IDType = typename AssetIDWrapperType::IDType;
 
 		SIV3D_NODISCARD_CXX20
