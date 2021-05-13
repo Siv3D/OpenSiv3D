@@ -18,7 +18,7 @@ Library | Version
 [Easing Equations](http://robertpenner.com/easing/) | 
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [easyexif](https://github.com/mayanklahiri/easyexif) | 
-[fmt](https://github.com/fmtlib/fmt) | 7.1.0
+[fmt](https://github.com/fmtlib/fmt) | 7.1.3
 [FreeType](https://www.freetype.org/) | 2.10.4
 [gif_load](https://github.com/hidefromkgb/gif_load) | 
 [GIFLIB](http://giflib.sourceforge.net/) | 5.2.1
