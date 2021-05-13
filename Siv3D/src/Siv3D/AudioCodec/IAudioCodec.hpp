@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/IReader.hpp>
+# include <Siv3D/IWriter.hpp>
 
 namespace s3d
 {
@@ -26,6 +27,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual Wave decode(IReader& reader) = 0;
+		virtual Wave decode(IReader& reader, AudioFormat audioFormat) = 0;
+
+		virtual bool encode(const Wave& wave, IWriter& writer, AudioFormat audioFormat) = 0;
 	};
 }

@@ -52,9 +52,9 @@ namespace s3d
 		static const Array<FileFilter> SaveWaveFilters =
 		{
 			FileFilter::WAVE(),
-			FileFilter::MP3(),
+			//FileFilter::MP3(),
 			FileFilter::OggVorbis(),
-			FileFilter::Opus(),
+			//FileFilter::Opus(),
 		};
 	}
 

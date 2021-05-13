@@ -30,9 +30,15 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CAudioCodec::init()");
 	}
 
-	Wave CAudioCodec::decode(IReader&)
+	Wave CAudioCodec::decode(IReader&, AudioFormat)
 	{
 		// do nothing
 		return{};
+	}
+
+	bool CAudioCodec::encode(const Wave& , IWriter&, AudioFormat)
+	{
+		// do nothing
+		return(false);
 	}
 }

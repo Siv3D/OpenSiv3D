@@ -24,6 +24,8 @@ namespace s3d
 
 		void init() override;
 	
-		Wave decode(IReader& reader) override;
+		Wave decode(IReader& reader, AudioFormat audioFormat) override;
+		
+		bool encode(const Wave& wave, IWriter& writer, AudioFormat audioFormat) override;
 	};
 }

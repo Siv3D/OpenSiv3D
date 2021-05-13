@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/AudioCodec/IAudioCodec.hpp>
+# include <Siv3D/Windows/Windows.hpp>
+# include "MF_Functions.hpp"
 
 namespace s3d
 {
@@ -24,6 +26,20 @@ namespace s3d
 
 		void init() override;
 	
-		Wave decode(IReader& reader) override;
+		Wave decode(IReader& reader, AudioFormat audioFormat) override;
+		
+		bool encode(const Wave& wave, IWriter& writer, AudioFormat audioFormat) override;
+
+	private:
+
+		HINSTANCE m_MF = nullptr;
+
+		HINSTANCE m_MFRW = nullptr;
+
+		HINSTANCE m_MFplat = nullptr;
+
+		MF_Functions m_functions;
+
+		HRESULT configureAudioStream(ComPtr<IMFSourceReader>& pReader, ComPtr<IMFMediaType>& ppPCMAudio);
 	};
 }

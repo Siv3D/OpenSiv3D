@@ -32,6 +32,7 @@
 # include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
+# include <Siv3D/AudioCodec/IAudioCodec.hpp>
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
 # include <Siv3D/AudioEncoder/IAudioEncoder.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>

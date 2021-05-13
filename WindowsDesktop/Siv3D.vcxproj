@@ -29,6 +29,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AACDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\MP3Decoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OpusDecoder.hpp" />
@@ -764,6 +766,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\CTexture_GL4.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\GL4Texture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\MFRenderStream.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\MF_Functions.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryReader\BinaryReaderDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryWriter\BinaryWriterDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.hpp" />
@@ -1396,6 +1400,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Texture\GL4\GL4Texture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\AudioCodecFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC\AACDecoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\MP3\MP3Decoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryReader\BinaryReaderDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\BinaryWriter\BinaryWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ChildProcess\ChildProcessDetail.cpp" />

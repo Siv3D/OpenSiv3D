@@ -1123,6 +1123,15 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec">
       <UniqueIdentifier>{75fb679b-49b9-4a7f-9758-82827df508f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat">
+      <UniqueIdentifier>{ce1ca1ee-d13d-49fc-8f24-2c705ff82a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\MP3">
+      <UniqueIdentifier>{5335ecb2-11b8-4968-a75a-6dd114485bf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC">
+      <UniqueIdentifier>{757b1ce8-5e2c-4ce9-a02d-179839fae7bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5226,6 +5235,18 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\MF_Functions.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\MFRenderStream.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\MP3Decoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AACDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7171,6 +7192,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\MP3\MP3Decoder.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC\AACDecoder.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

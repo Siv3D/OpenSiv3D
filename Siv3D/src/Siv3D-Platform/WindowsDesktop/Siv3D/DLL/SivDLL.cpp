@@ -34,7 +34,7 @@ namespace s3d
 
 			if (not hModule)
 			{
-				throw EngineError(U"Failed to load `{}`"_fmt(Unicode::FromWstring(library)));
+				throw EngineError{ U"Failed to load `{}`"_fmt(Unicode::FromWstring(library)) };
 			}
 
 			return hModule;
@@ -42,16 +42,18 @@ namespace s3d
 
 		void UnloadSystemLibrary(HMODULE& library)
 		{
-			if (library)
+			if (not library)
 			{
-				::FreeLibrary(library);
-				
-				library = nullptr;
+				return;
 			}
+			
+			::FreeLibrary(library);
+				
+			library = nullptr;
 		}
 
 		GetFunctionNoThrow::GetFunctionNoThrow(HMODULE _module, const char* name)
-			: p(static_cast<const void*>(::GetProcAddress(_module, name)))
+			: p{ static_cast<const void*>(::GetProcAddress(_module, name)) }
 		{
 			LOG_TRACE(U"DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = \"{}\") p = {}"_fmt(Unicode::Widen(name), p));
 		}
@@ -63,7 +65,7 @@ namespace s3d
 
 			if (not p)
 			{
-				throw EngineError(U"Failed to get function: `{}`"_fmt(Unicode::Widen(name)));
+				throw EngineError{ U"Failed to get function: `{}`"_fmt(Unicode::Widen(name)) };
 			}
 		}
 	}
