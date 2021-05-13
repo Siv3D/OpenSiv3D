@@ -1117,6 +1117,12 @@
     <Filter Include="src\Siv3D\ImageFormat\TIFF">
       <UniqueIdentifier>{84c26e90-fb50-401d-af0d-f78c8dfe4556}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioCodec">
+      <UniqueIdentifier>{1fc334fe-5f2d-4012-bc00-6d0737c5b664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec">
+      <UniqueIdentifier>{75fb679b-49b9-4a7f-9758-82827df508f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5214,6 +5220,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2DParameters.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioCodec\IAudioCodec.hpp">
+      <Filter>src\Siv3D\AudioCodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7153,6 +7165,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TIFF\TIFFDecoder.cpp">
       <Filter>src\Siv3D\ImageFormat\TIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\AudioCodecFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec\CAudioCodec.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioCodec</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

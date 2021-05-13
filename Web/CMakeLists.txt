@@ -36,6 +36,8 @@ endif()
 add_library(
   OpenSiv3D_Web STATIC
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Siv3DMain.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/AudioCodecFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/CAudioCodec.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ChildProcess/ChildProcessDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Clipboard/CClipboard.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Common/OpenGL.cpp
