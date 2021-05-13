@@ -19,7 +19,7 @@
 
 namespace s3d
 {
-	/// @brief 基本 2D カメラクラス
+	/// @brief 2D カメラの基本クラス
 	class BasicCamera2D
 	{
 	public:
@@ -29,8 +29,8 @@ namespace s3d
 		BasicCamera2D() = default;
 
 		/// @brief 指定した設定で 2D カメラを作成します。
-		/// @param center カメラが見ている中心座標
-		/// @param scale カメラのズームアップ倍率
+		/// @param center カメラが見ている中心座標の初期設定
+		/// @param scale カメラのズーム倍率の初期設定
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr BasicCamera2D(Vec2 center, double scale = 1.0) noexcept;
 
@@ -44,11 +44,11 @@ namespace s3d
 		constexpr const Vec2& getCenter() const noexcept;
 
 		/// @brief カメラのズームアップ倍率を設定します。
-		/// @param scale カメラのズームアップ倍率
+		/// @param scale カメラのズーム倍率
 		constexpr void setScale(double scale) noexcept;
 
 		/// @brief カメラのズームアップ倍率を返します。
-		/// @return カメラのズームアップ倍率
+		/// @return カメラのズーム倍率
 		[[nodiscard]]
 		constexpr double getScale() const noexcept;
 
@@ -74,7 +74,7 @@ namespace s3d
 		/// @brief カメラが見ている中心座標
 		Vec2 m_center = Vec2{ 0, 0 };
 
-		/// @brief カメラのズームアップ倍率
+		/// @brief カメラのズーム倍率
 		double m_scale = 1.0;
 	};
 }

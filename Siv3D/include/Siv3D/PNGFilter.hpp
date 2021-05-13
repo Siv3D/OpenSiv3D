@@ -17,17 +17,17 @@ namespace s3d
 {
 	enum class PNGFilter
 	{
-		None_ = 0x08,
+		None_	= 0x08,
 
-		Sub = 0x10,
+		Sub		= 0x10,
 
-		Up = 0x20,
+		Up		= 0x20,
 
-		Avg = 0x40,
+		Avg		= 0x40,
 
-		Paeth = 0x80,
+		Paeth	= 0x80,
 
-		Default = None_ | Sub | Up | Avg | Paeth,
+		Default = (None_ | Sub | Up | Avg | Paeth),
 	};
 	DEFINE_BITMASK_OPERATORS(PNGFilter);
 }

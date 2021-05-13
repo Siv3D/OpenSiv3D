@@ -990,6 +990,8 @@
 
 # include <Siv3D/BasicCamera2D.hpp>
 
+# include <Siv3D/CameraControl.hpp>
+# include <Siv3D/Camera2DParameters.hpp>
 # include <Siv3D/Camera2D.hpp>
 
 //////////////////////////////////////////////////

@@ -53,6 +53,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Blob.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Camera2DParameters.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CameraControl.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CascadeClassifier.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ChildProcess.hpp" />
@@ -87,6 +89,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Blob.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BlobWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2DParameters.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circular.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ConstantBuffer.ipp" />

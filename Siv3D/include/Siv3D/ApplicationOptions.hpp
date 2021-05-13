@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 
 namespace s3d
 {
@@ -17,7 +18,7 @@ namespace s3d
 	struct EngineOption
 	{
 		/// @brief デバッグヒープマネージャ (Windows のみ)
-		enum class DebugHeap
+		enum class DebugHeap : uint8
 		{
 			/// @brief 有効
 			Yes,
@@ -27,7 +28,7 @@ namespace s3d
 		};
 
 		/// @brief レンダラー
-		enum class Renderer
+		enum class Renderer : uint8
 		{
 			/// @brief デフォルト
 			PlatformDefault = 0,
@@ -49,7 +50,7 @@ namespace s3d
 		};
 
 		/// @brief Direct3D 11 ドライバーの種類 (Windows 版)
-		enum class D3D11Driver
+		enum class D3D11Driver : uint8
 		{
 			/// @brief ハードウェア
 			Hardware,
