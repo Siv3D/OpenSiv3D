@@ -49,6 +49,8 @@ namespace s3d
 		{
 			params.wheelScaleFactor = 1.125;
 		}
+		
+		return params;
 	}
 
 	inline Camera2DParameters Camera2DParameters::Default()

@@ -777,6 +777,10 @@
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
+		2C533722264D64BA00CE0F1B /* IAudioCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */; };
+		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
+		2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */; };
+		2C533729264D64DF00CE0F1B /* CAudioCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */; };
 		2C53C33225613B540072831A /* SivLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33125613B540072831A /* SivLine.cpp */; };
 		2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33425613B6A0072831A /* SivCircle.cpp */; };
 		2C53C33825613B740072831A /* SivEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33725613B740072831A /* SivEllipse.cpp */; };
@@ -2309,6 +2313,13 @@
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
 		2C531EA624BA0CEA00378977 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../Siv3D/lib/macOS/zlib/libz.a; sourceTree = "<group>"; };
+		2C53371D264D648300CE0F1B /* Camera2DParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera2DParameters.hpp; sourceTree = "<group>"; };
+		2C53371E264D648400CE0F1B /* CameraControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraControl.hpp; sourceTree = "<group>"; };
+		2C53371F264D649800CE0F1B /* Camera2DParameters.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera2DParameters.ipp; sourceTree = "<group>"; };
+		2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAudioCodec.hpp; sourceTree = "<group>"; };
+		2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAudioCodec.cpp; sourceTree = "<group>"; };
+		2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioCodecFactory.cpp; sourceTree = "<group>"; };
+		2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAudioCodec.hpp; sourceTree = "<group>"; };
 		2C53C33125613B540072831A /* SivLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine.cpp; sourceTree = "<group>"; };
 		2C53C33425613B6A0072831A /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2C53C33725613B740072831A /* SivEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEllipse.cpp; sourceTree = "<group>"; };
@@ -4768,6 +4779,7 @@
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
+				2C533720264D64BA00CE0F1B /* AudioCodec */,
 				2CC584542646DC5800C33E9F /* AudioDecoder */,
 				2CC5844E2646DC5800C33E9F /* AudioEncoder */,
 				2CC58468264771F100C33E9F /* AudioFormat */,
@@ -6057,6 +6069,24 @@
 			path = zlib;
 			sourceTree = "<group>";
 		};
+		2C533720264D64BA00CE0F1B /* AudioCodec */ = {
+			isa = PBXGroup;
+			children = (
+				2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */,
+			);
+			path = AudioCodec;
+			sourceTree = "<group>";
+		};
+		2C533723264D64DF00CE0F1B /* AudioCodec */ = {
+			isa = PBXGroup;
+			children = (
+				2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */,
+				2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */,
+				2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */,
+			);
+			path = AudioCodec;
+			sourceTree = "<group>";
+		};
 		2C53C33025613B540072831A /* Line */ = {
 			isa = PBXGroup;
 			children = (
@@ -7139,6 +7169,8 @@
 				2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */,
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
 				2CAAA71F25E7FD0200C014D7 /* Camera2D.hpp */,
+				2C53371D264D648300CE0F1B /* Camera2DParameters.hpp */,
+				2C53371E264D648400CE0F1B /* CameraControl.hpp */,
 				2C4AEF52262C44D600D36CFC /* CascadeClassifier.hpp */,
 				2CAAA88B25E7FD0300C014D7 /* Char.hpp */,
 				2CE8D13926160FD300C75FBB /* ChildProcess.hpp */,
@@ -7493,6 +7525,7 @@
 				2CAAA83225E7FD0200C014D7 /* BoolArray.ipp */,
 				2CAAA7C025E7FD0200C014D7 /* Byte.ipp */,
 				2CAAA83125E7FD0200C014D7 /* Camera2D.ipp */,
+				2C53371F264D649800CE0F1B /* Camera2DParameters.ipp */,
 				2CAAA79F25E7FD0200C014D7 /* Char.ipp */,
 				2CAAA80625E7FD0200C014D7 /* Circle.ipp */,
 				2CAAA7D525E7FD0200C014D7 /* Circular.ipp */,
@@ -8189,6 +8222,7 @@
 			isa = PBXGroup;
 			children = (
 				2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */,
+				2C533723264D64DF00CE0F1B /* AudioCodec */,
 				2CE8D13D2616107200C75FBB /* ChildProcess */,
 				2CFB7DB9262AB4D800169B97 /* Clipboard */,
 				2CF21D09249FAA8F00C864C9 /* Common */,
@@ -8626,6 +8660,7 @@
 				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
 				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
+				2C533729264D64DF00CE0F1B /* CAudioCodec.hpp in Headers */,
 				2C2AA39A26009C74003F3EBC /* b2_draw.h in Headers */,
 				2C794B9E25C5A61900034D81 /* EffectData.hpp in Headers */,
 				2C48BF7B25D41C0D00A93CE3 /* BitmapGlyphCache.hpp in Headers */,
@@ -9153,6 +9188,7 @@
 				2C95665D264546F700539B85 /* defselement.h in Headers */,
 				2CFC214A25F739B400C51D0D /* hb-set.h in Headers */,
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
+				2C533722264D64BA00CE0F1B /* IAudioCodec.hpp in Headers */,
 				2C47B36824DD9789008D83BE /* IResource.hpp in Headers */,
 				2C9566F52645626000539B85 /* mz_strm_os.h in Headers */,
 				2C956668264546F700539B85 /* element.h in Headers */,
@@ -9388,6 +9424,7 @@
 				2C834DBD248805D4006208B8 /* regerror.c in Sources */,
 				2C47B49A24DD97F2008D83BE /* muParserCallback.cpp in Sources */,
 				2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */,
+				2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */,
 				2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */,
 				2C13C9C225BD29FC0054B968 /* lzio.c in Sources */,
 				2CC5843126461D9900C33E9F /* SivAnimatedGIFReader.cpp in Sources */,
@@ -9942,6 +9979,7 @@
 				2C13C8C725B8FA9D0054B968 /* DetourNavMeshQuery.cpp in Sources */,
 				2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */,
 				2C834D9A248805D4006208B8 /* regexec.c in Sources */,
+				2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */,
 				2C794AB725C3DEE400034D81 /* SivMD5.cpp in Sources */,
 				2C68508B24B768A800B98A7F /* SivDateTime_macOS_Linux.cpp in Sources */,
 				2C47B2FF24DD9789008D83BE /* MathParserDetail.cpp in Sources */,
@@ -10276,7 +10314,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fvisibility-inlines-hidden",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -10342,7 +10383,10 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fvisibility-inlines-hidden",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
