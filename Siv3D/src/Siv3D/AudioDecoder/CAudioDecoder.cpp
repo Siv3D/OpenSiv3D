@@ -43,7 +43,10 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<WMADecoder>());
 		m_decoders.push_back(std::make_unique<FLACDecoder>());
 	# elif SIV3D_PLATFORM(MACOS)
-
+		m_decoders.push_back(std::make_unique<MP3Decoder>());
+		m_decoders.push_back(std::make_unique<AACDecoder>());
+		m_decoders.push_back(std::make_unique<AIFFDecoder>());
+		m_decoders.push_back(std::make_unique<FLACDecoder>());
 	# elif SIV3D_PLATFORM(LINUX)
 
 	# elif SIV3D_PLATFORM(WEB)

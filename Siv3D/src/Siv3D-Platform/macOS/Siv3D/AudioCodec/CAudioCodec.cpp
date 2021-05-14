@@ -12,6 +12,7 @@
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CAudioCodec.hpp"
+# include "AudioFileDecoder.hpp"
 
 namespace s3d
 {
@@ -40,5 +41,17 @@ namespace s3d
 	{
 		// do nothing
 		return(false);
+	}
+
+	Wave CAudioCodec::decode(const FilePathView path, AudioFormat)
+	{
+		detail::AudioFileDecoder decoder;
+		
+		if (not decoder.init(FilePath{ path }))
+		{
+			return{};
+		}
+		
+		return decoder.load();
 	}
 }

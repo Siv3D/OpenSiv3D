@@ -40,7 +40,8 @@ namespace s3d
 			FileFilter::WMA(),
 			FileFilter::FLAC(),
 		# elif SIV3D_PLATFORM(MACOS)
-
+			FileFilter::AIFF(),
+			FileFilter::FLAC(),
 		# elif SIV3D_PLATFORM(LINUX)
 
 		# elif SIV3D_PLATFORM(WEB)

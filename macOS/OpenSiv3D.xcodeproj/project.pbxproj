@@ -781,6 +781,12 @@
 		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
 		2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */; };
 		2C533729264D64DF00CE0F1B /* CAudioCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */; };
+		2C533730264E0BDB00CE0F1B /* AudioFileDecoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53372F264E0BDB00CE0F1B /* AudioFileDecoder.hpp */; };
+		2C533732264E0E9700CE0F1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C533731264E0E9700CE0F1B /* AudioToolbox.framework */; };
+		2C53373E264E0EE600CE0F1B /* AACDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533735264E0EE600CE0F1B /* AACDecoder.cpp */; };
+		2C533740264E0EE600CE0F1B /* AIFFDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533739264E0EE600CE0F1B /* AIFFDecoder.cpp */; };
+		2C533741264E0EE600CE0F1B /* FLACDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53373B264E0EE600CE0F1B /* FLACDecoder.cpp */; };
+		2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53373D264E0EE600CE0F1B /* MP3Decoder.cpp */; };
 		2C53C33225613B540072831A /* SivLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33125613B540072831A /* SivLine.cpp */; };
 		2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33425613B6A0072831A /* SivCircle.cpp */; };
 		2C53C33825613B740072831A /* SivEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33725613B740072831A /* SivEllipse.cpp */; };
@@ -2320,6 +2326,17 @@
 		2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAudioCodec.cpp; sourceTree = "<group>"; };
 		2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioCodecFactory.cpp; sourceTree = "<group>"; };
 		2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAudioCodec.hpp; sourceTree = "<group>"; };
+		2C53372A264E0B6A00CE0F1B /* MP3Decoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MP3Decoder.hpp; sourceTree = "<group>"; };
+		2C53372B264E0B6A00CE0F1B /* WMADecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WMADecoder.hpp; sourceTree = "<group>"; };
+		2C53372C264E0B6A00CE0F1B /* FLACDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FLACDecoder.hpp; sourceTree = "<group>"; };
+		2C53372D264E0B6A00CE0F1B /* AIFFDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AIFFDecoder.hpp; sourceTree = "<group>"; };
+		2C53372E264E0B6A00CE0F1B /* AACDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AACDecoder.hpp; sourceTree = "<group>"; };
+		2C53372F264E0BDB00CE0F1B /* AudioFileDecoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFileDecoder.hpp; sourceTree = "<group>"; };
+		2C533731264E0E9700CE0F1B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2C533735264E0EE600CE0F1B /* AACDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AACDecoder.cpp; sourceTree = "<group>"; };
+		2C533739264E0EE600CE0F1B /* AIFFDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIFFDecoder.cpp; sourceTree = "<group>"; };
+		2C53373B264E0EE600CE0F1B /* FLACDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FLACDecoder.cpp; sourceTree = "<group>"; };
+		2C53373D264E0EE600CE0F1B /* MP3Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MP3Decoder.cpp; sourceTree = "<group>"; };
 		2C53C33125613B540072831A /* SivLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine.cpp; sourceTree = "<group>"; };
 		2C53C33425613B6A0072831A /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2C53C33725613B740072831A /* SivEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEllipse.cpp; sourceTree = "<group>"; };
@@ -3447,6 +3464,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C533732264E0E9700CE0F1B /* AudioToolbox.framework in Frameworks */,
 				2CFF582025F7C0B500B660AD /* AVFoundation.framework in Frameworks */,
 				2CFF582225F7C0E100B660AD /* CoreMedia.framework in Frameworks */,
 				2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */,
@@ -4003,6 +4021,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C533731264E0E9700CE0F1B /* AudioToolbox.framework */,
 				2C44C0712649615100A5E72A /* libtiff.a */,
 				2C8A2518264905F000A87808 /* libopusfile.a */,
 				2CC584A62649027F00C33E9F /* libopus.a */,
@@ -6080,11 +6099,55 @@
 		2C533723264D64DF00CE0F1B /* AudioCodec */ = {
 			isa = PBXGroup;
 			children = (
+				2C53372F264E0BDB00CE0F1B /* AudioFileDecoder.hpp */,
 				2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */,
 				2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */,
 				2C533726264D64DF00CE0F1B /* CAudioCodec.hpp */,
 			);
 			path = AudioCodec;
+			sourceTree = "<group>";
+		};
+		2C533733264E0EE600CE0F1B /* AudioFormat */ = {
+			isa = PBXGroup;
+			children = (
+				2C533734264E0EE600CE0F1B /* AAC */,
+				2C533738264E0EE600CE0F1B /* AIFF */,
+				2C53373A264E0EE600CE0F1B /* FLAC */,
+				2C53373C264E0EE600CE0F1B /* MP3 */,
+			);
+			path = AudioFormat;
+			sourceTree = "<group>";
+		};
+		2C533734264E0EE600CE0F1B /* AAC */ = {
+			isa = PBXGroup;
+			children = (
+				2C533735264E0EE600CE0F1B /* AACDecoder.cpp */,
+			);
+			path = AAC;
+			sourceTree = "<group>";
+		};
+		2C533738264E0EE600CE0F1B /* AIFF */ = {
+			isa = PBXGroup;
+			children = (
+				2C533739264E0EE600CE0F1B /* AIFFDecoder.cpp */,
+			);
+			path = AIFF;
+			sourceTree = "<group>";
+		};
+		2C53373A264E0EE600CE0F1B /* FLAC */ = {
+			isa = PBXGroup;
+			children = (
+				2C53373B264E0EE600CE0F1B /* FLACDecoder.cpp */,
+			);
+			path = FLAC;
+			sourceTree = "<group>";
+		};
+		2C53373C264E0EE600CE0F1B /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				2C53373D264E0EE600CE0F1B /* MP3Decoder.cpp */,
+			);
+			path = MP3;
 			sourceTree = "<group>";
 		};
 		2C53C33025613B540072831A /* Line */ = {
@@ -7918,12 +7981,17 @@
 		2CC58465264771C700C33E9F /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C53372E264E0B6A00CE0F1B /* AACDecoder.hpp */,
+				2C53372D264E0B6A00CE0F1B /* AIFFDecoder.hpp */,
+				2C53372C264E0B6A00CE0F1B /* FLACDecoder.hpp */,
+				2C53372A264E0B6A00CE0F1B /* MP3Decoder.hpp */,
 				2CC584752648242500C33E9F /* OggVorbisDecoder.hpp */,
 				2CC584762648242500C33E9F /* OggVorbisEncoder.hpp */,
 				2CC584902648FDF700C33E9F /* OpusDecoder.hpp */,
 				2CC584912648FDF700C33E9F /* OpusEncoder.hpp */,
 				2CC58467264771C700C33E9F /* WAVEDecoder.hpp */,
 				2CC58466264771C700C33E9F /* WAVEEncoder.hpp */,
+				2C53372B264E0B6A00CE0F1B /* WMADecoder.hpp */,
 			);
 			path = AudioFormat;
 			sourceTree = "<group>";
@@ -8223,6 +8291,7 @@
 			children = (
 				2CF21D13249FAA8F00C864C9 /* Siv3DMain.cpp */,
 				2C533723264D64DF00CE0F1B /* AudioCodec */,
+				2C533733264E0EE600CE0F1B /* AudioFormat */,
 				2CE8D13D2616107200C75FBB /* ChildProcess */,
 				2CFB7DB9262AB4D800169B97 /* Clipboard */,
 				2CF21D09249FAA8F00C864C9 /* Common */,
@@ -8850,6 +8919,7 @@
 				2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */,
 				2C43C8BB25C837F100D6D613 /* t1tables.h in Headers */,
 				2C8CA3B0261594A000BABD2D /* decode.h in Headers */,
+				2C533730264E0BDB00CE0F1B /* AudioFileDecoder.hpp in Headers */,
 				2CF21D1F249FAA8F00C864C9 /* OpenGL.hpp in Headers */,
 				2C48BF7725D41C0D00A93CE3 /* IGlyphCache.hpp in Headers */,
 				2C13C9C625BD29FC0054B968 /* lauxlib.h in Headers */,
@@ -9447,6 +9517,7 @@
 				2C34780F25DA95A100071EEF /* SivPrint.cpp in Sources */,
 				2C47B36F24DD9789008D83BE /* SivError.cpp in Sources */,
 				2C794B3725C3DFC200034D81 /* xxhash.c in Sources */,
+				2C53373E264E0EE600CE0F1B /* AACDecoder.cpp in Sources */,
 				2C794B8D25C5A5BF00034D81 /* SivTexturedQuad.cpp in Sources */,
 				2C47B32424DD9789008D83BE /* SivFormatUtility.cpp in Sources */,
 				2C47B35824DD9789008D83BE /* CProfiler.cpp in Sources */,
@@ -9511,6 +9582,7 @@
 				2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C13C9C025BD29FC0054B968 /* loslib.c in Sources */,
+				2C533740264E0EE600CE0F1B /* AIFFDecoder.cpp in Sources */,
 				2C13C6F325B458350054B968 /* SivSubdivision2D.cpp in Sources */,
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
@@ -9587,6 +9659,7 @@
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
+				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2C794B3B25C3DFC200034D81 /* pool.c in Sources */,
 				2C956655264546F700539B85 /* svgelement.cpp in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
@@ -9737,6 +9810,7 @@
 				2C9566C82645626000539B85 /* mz_strm_zlib.c in Sources */,
 				2C39ECA92564030E0021DF34 /* GL4Renderer2DCommand.cpp in Sources */,
 				2C47B34024DD9789008D83BE /* Siv3DEngine.cpp in Sources */,
+				2C533741264E0EE600CE0F1B /* FLACDecoder.cpp in Sources */,
 				2C47B36B24DD9789008D83BE /* SivThreading.cpp in Sources */,
 				2CC5847B2648244400C33E9F /* OggVorbisDecoder.cpp in Sources */,
 				2C794AB625C3DEE400034D81 /* SivMD5Value.cpp in Sources */,

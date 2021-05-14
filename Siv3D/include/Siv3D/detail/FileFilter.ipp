@@ -125,7 +125,8 @@ namespace s3d
 				U"wma",
 				U"flac"
 		# elif SIV3D_PLATFORM(MACOS)
-
+				U"aiff",
+				U"flac"
 		# elif SIV3D_PLATFORM(LINUX)
 
 		# elif SIV3D_PLATFORM(WEB)
