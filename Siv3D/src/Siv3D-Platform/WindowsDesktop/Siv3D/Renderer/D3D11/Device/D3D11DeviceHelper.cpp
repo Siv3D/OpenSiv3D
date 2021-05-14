@@ -88,6 +88,8 @@ namespace s3d::detail
 		ComPtr<ID3D11Device> pDevice;
 		ComPtr<ID3D11DeviceContext> pDeviceContext;
 
+		LOG_TRACE(U"D3D11CreateDevice()");
+
 		HRESULT hr = pD3D11CreateDevice(adapter.pAdapter.Get(),
 			D3D_DRIVER_TYPE_UNKNOWN,
 			nullptr,
@@ -103,6 +105,8 @@ namespace s3d::detail
 		{
 		# if defined(SIV3D_USE_DIRECT3D11_3) || defined(SIV3D_USE_DIRECT3D11_4) 
 
+			LOG_TRACE(U"D3D11CreateDevice()");
+
 			// DirectX 11.1 ランタイムは D3D_FEATURE_LEVEL_12_x を認識しないので、除外してやり直す
 			hr = pD3D11CreateDevice(adapter.pAdapter.Get(),
 				D3D_DRIVER_TYPE_UNKNOWN,
@@ -117,6 +121,8 @@ namespace s3d::detail
 
 			if (hr == E_INVALIDARG)
 			{
+				LOG_TRACE(U"D3D11CreateDevice()");
+
 				// DirectX 11.0 ランタイムは D3D_FEATURE_LEVEL_11_1 を認識しないので、除外してやり直す
 				hr = pD3D11CreateDevice(adapter.pAdapter.Get(),
 					D3D_DRIVER_TYPE_UNKNOWN,
@@ -173,6 +179,8 @@ namespace s3d::detail
 		{
 			pDevice.Reset();
 			pDeviceContext.Reset();
+
+			LOG_TRACE(U"D3D11CreateDevice()");
 
 			D3D_FEATURE_LEVEL returnedFeatureLevel;
 			hr = pD3D11CreateDevice(adapter.pAdapter.Get(),

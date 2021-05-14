@@ -52,7 +52,9 @@ namespace s3d
 
 	private:
 
-		ComPtr<ISpVoice> m_voice;
+		mutable bool m_initialized = false;
+
+		mutable ComPtr<ISpVoice> m_voice;
 
 		HashTable<LanguageCode, ComPtr<ISpObjectToken>> m_tokenTable;
 
@@ -61,6 +63,8 @@ namespace s3d
 		double m_volume = 1.0;
 
 		double m_speed = 1.0;
+
+		void initVoice() const;
 
 		bool loadLanguage(LanguageCode languageCode);
 	};

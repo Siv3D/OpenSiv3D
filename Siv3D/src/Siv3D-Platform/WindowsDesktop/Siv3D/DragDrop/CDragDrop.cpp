@@ -720,15 +720,19 @@ namespace s3d
 
 		detail::DropTarget* p = new detail::DropTarget(m_hWnd);
 
+		LOG_TRACE(U"QueryInterface(IID_IDropTarget)");
+
 		if (FAILED(p->QueryInterface(IID_IDropTarget, (void**)&m_pDropTarget)))
 		{
 			p->Release();
-			throw EngineError(U"DropTarget::QueryInterface() failed");
+			throw EngineError{ U"DropTarget::QueryInterface() failed" };
 		}
+
+		LOG_TRACE(U"RegisterDragDrop()");
 
 		if (FAILED(::RegisterDragDrop(m_hWnd, m_pDropTarget)))
 		{
-			throw EngineError(U"RegisterDragDrop() failed");
+			throw EngineError{ U"RegisterDragDrop() failed" };
 		}
 
 		m_pDropTarget->Release();

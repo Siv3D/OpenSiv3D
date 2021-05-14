@@ -89,20 +89,16 @@ namespace s3d
 	void CTextToSpeech::init()
 	{
 		LOG_SCOPED_TRACE(U"CTextToSpeech::init()");
-
-		if (FAILED(::CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void**)&m_voice)))
-		{
-			LOG_WARNING(U"⚠️ TextToSpeech unavailable");
-		}
-		else
-		{
-			LOG_INFO(U"ℹ️ TextToSpeech available");
-		}
 	}
 
 	bool CTextToSpeech::hasLanguage(const LanguageCode languageCode)
 	{
-		if (!m_voice)
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
 		{
 			return false;
 		}
@@ -122,7 +118,12 @@ namespace s3d
 
 	bool CTextToSpeech::speak(const StringView text, LanguageCode languageCode)
 	{
-		if (!m_voice)
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
 		{
 			return false;
 		}
@@ -132,7 +133,7 @@ namespace s3d
 			languageCode = m_defaultLanguageCode;
 		}
 
-		if (!hasLanguage(languageCode))
+		if (not hasLanguage(languageCode))
 		{
 			if (FAILED(m_voice->SetVoice(nullptr)))
 			{
@@ -164,7 +165,12 @@ namespace s3d
 
 	bool CTextToSpeech::isSpeaking() const
 	{
-		if (!m_voice)
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
 		{
 			return false;
 		}
@@ -181,7 +187,12 @@ namespace s3d
 
 	void CTextToSpeech::pause()
 	{
-		if (!m_voice)
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
 		{
 			return;
 		}
@@ -191,7 +202,12 @@ namespace s3d
 
 	void CTextToSpeech::resume()
 	{
-		if (!m_voice)
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
 		{
 			return;
 		}
@@ -201,12 +217,19 @@ namespace s3d
 
 	void CTextToSpeech::setVolume(const double volume)
 	{
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
+		{
+			return;
+		}
+
 		m_volume = Math::Saturate(volume);
 
-		if (m_voice)
-		{
-			m_voice->SetVolume(detail::ConvertVolume(volume));
-		}
+		m_voice->SetVolume(detail::ConvertVolume(volume));
 	}
 
 	double CTextToSpeech::getVolume() const
@@ -216,17 +239,42 @@ namespace s3d
 
 	void CTextToSpeech::setSpeed(const double speed)
 	{
+		if (not m_initialized)
+		{
+			initVoice();
+		}
+
+		if (not m_voice)
+		{
+			return;
+		}
+
 		m_speed = Clamp(speed, 0.0, 2.0);
 
-		if (m_voice)
-		{
-			m_voice->SetRate(detail::ConvertSpeed(speed));
-		}
+		m_voice->SetRate(detail::ConvertSpeed(speed));
 	}
 
 	double CTextToSpeech::getSpeed() const
 	{
 		return m_speed;
+	}
+
+	void CTextToSpeech::initVoice() const
+	{
+		assert(not m_initialized);
+
+		LOG_SCOPED_TRACE(U"CTextToSpeech::initVoice()");
+
+		m_initialized = true;
+
+		if (FAILED(::CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void**)&m_voice)))
+		{
+			LOG_WARNING(U"⚠️ TextToSpeech unavailable");
+		}
+		else
+		{
+			LOG_INFO(U"ℹ️ TextToSpeech available");
+		}
 	}
 
 	bool CTextToSpeech::loadLanguage(const LanguageCode languageCode)

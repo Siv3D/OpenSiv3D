@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Resource/IResource.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
@@ -84,7 +85,18 @@ namespace s3d
 		SIV3D_ENGINE(Gamepad)->init();
 		SIV3D_ENGINE(TextToSpeech)->init();
 		SIV3D_ENGINE(Clipboard)->init();
-		SIV3D_ENGINE(DragDrop)->init();
+		AsyncTask<bool> threadDragDrop{ []()
+			{
+				try
+				{
+					SIV3D_ENGINE(DragDrop)->init();
+				}
+				catch (const EngineError&)
+				{
+					return false;
+				}
+				return true;
+			}};
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();
 		SIV3D_ENGINE(AudioEncoder)->init();
@@ -95,6 +107,11 @@ namespace s3d
 		SIV3D_ENGINE(GUI)->init();
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(Effect)->init();
+
+		if (not threadDragDrop.get())
+		{
+			throw EngineError{ U"SIV3D_ENGINE(DragDrop)->init(): failed" };
+		}
 	}
 
 	bool CSystem::update()
