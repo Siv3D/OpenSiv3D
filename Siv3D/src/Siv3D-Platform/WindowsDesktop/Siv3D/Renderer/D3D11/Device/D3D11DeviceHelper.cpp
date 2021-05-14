@@ -166,7 +166,7 @@ namespace s3d::detail
 		else if (requestedFeatureLevel > adapter.maxLevel)
 		{
 			LOG_FAIL(U"❌ - adapterInfo.maxLevel ({}) does not meet requestedFeatureLevel requirments ({})"_fmt(
-				detail::ToString(adapter.maxLevel), detail::ToString(requestedFeatureLevel.value())));
+				detail::ToString(adapter.maxLevel), detail::ToString(*requestedFeatureLevel)));
 			return false;
 		}
 		else
@@ -188,7 +188,7 @@ namespace s3d::detail
 
 			if (SUCCEEDED(hr) && (returnedFeatureLevel == requestedFeatureLevel))
 			{
-				adapter.selectedLevel = requestedFeatureLevel.value();
+				adapter.selectedLevel = *requestedFeatureLevel;
 			}
 			else
 			{

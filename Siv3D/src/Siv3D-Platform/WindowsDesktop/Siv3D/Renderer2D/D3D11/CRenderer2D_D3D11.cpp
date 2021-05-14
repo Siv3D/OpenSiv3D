@@ -723,8 +723,8 @@ namespace s3d
 	{
 		if (vs && (not vs->isEmpty()))
 		{
-			m_currentCustomVS = vs.value();
-			m_commandManager.pushCustomVS(vs.value());
+			m_currentCustomVS = *vs;
+			m_commandManager.pushCustomVS(*vs);
 		}
 		else
 		{
@@ -736,8 +736,8 @@ namespace s3d
 	{
 		if (ps && (not ps->isEmpty()))
 		{
-			m_currentCustomPS = ps.value();
-			m_commandManager.pushCustomPS(ps.value());
+			m_currentCustomPS = *ps;
+			m_commandManager.pushCustomPS(*ps);
 		}
 		else
 		{

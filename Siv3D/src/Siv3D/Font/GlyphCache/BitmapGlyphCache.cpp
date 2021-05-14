@@ -173,7 +173,7 @@ namespace s3d
 				penPositions << penPos;
 				xAdvances << xAdvance;
 				penPos.x += xAdvance;
-				currentLineWidth = (penPos.x - penPos.x);
+				currentLineWidth = (penPos.x - basePos.x);
 
 				// エリア外
 				if (maxLines <= lineIndex)

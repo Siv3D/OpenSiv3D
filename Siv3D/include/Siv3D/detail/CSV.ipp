@@ -52,7 +52,7 @@ namespace s3d
 	{
 		if (const auto item = getItem(row, column))
 		{
-			return ParseOpt<Type>(item.value());
+			return ParseOpt<Type>(*item);
 		}
 
 		return none;

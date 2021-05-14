@@ -563,7 +563,7 @@ namespace s3d
 		}
 		else
 		{
-			Point pt[4], dp = Point(0, 0);
+			Point pt[4];
 			double dx = (p0.x - p1.x)*INV_XY_ONE, dy = (p1.y - p0.y)*INV_XY_ONE;
 			double r = dx * dx + dy * dy;
 			int i, oddThickness = thickness & 1;
@@ -571,6 +571,7 @@ namespace s3d
 
 			if (fabs(r) > DBL_EPSILON)
 			{
+				Point dp{ 0, 0 };
 				r = (thickness + static_cast<double>(oddThickness) * XY_ONE * 0.5) / std::sqrt(r);
 				dp.x = cvRound2(dy * r);
 				dp.y = cvRound2(dx * r);

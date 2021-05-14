@@ -138,9 +138,9 @@ namespace s3d
 		return m_width * m_height;
 	}
 
-	inline uint32 Image::size_bytes() const noexcept
+	inline size_t Image::size_bytes() const noexcept
 	{
-		return stride() * m_height;
+		return (static_cast<size_t>(stride()) * m_height);
 	}
 
 	inline bool Image::isEmpty() const noexcept

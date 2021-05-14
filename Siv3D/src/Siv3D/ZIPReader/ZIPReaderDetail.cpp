@@ -94,7 +94,6 @@ namespace s3d
 		::mz_zip_reader_set_progress_cb(m_reader, &option, detail::ExtractProgressCallback);
 		::mz_zip_reader_set_overwrite_cb(m_reader, &option, detail::ExtractOverwriteCallback);
 
-		const std::string archivePathC = Unicode::Narrow(path);
 		{
 			int32 err = MZ_OK;
 			
@@ -110,6 +109,7 @@ namespace s3d
 			}
 			else
 			{
+				const std::string archivePathC = Unicode::Narrow(path);
 				err = ::mz_zip_reader_open_file(m_reader, archivePathC.c_str());
 			}
 
@@ -207,12 +207,11 @@ namespace s3d
 			return false;
 		}
 
-		const std::string patternC = Unicode::Narrow(pattern);
-		const std::string targetDirectoryC = Unicode::Narrow(targetDirectory);
 		int32 err = MZ_OK;
 
 		if (pattern)
 		{
+			const std::string patternC = Unicode::Narrow(pattern);
 			::mz_zip_reader_set_pattern(m_reader, patternC.c_str(), 1);
 		}
 		else
@@ -220,6 +219,7 @@ namespace s3d
 			::mz_zip_reader_set_pattern(m_reader, "*", 1);
 		}
 
+		const std::string targetDirectoryC = Unicode::Narrow(targetDirectory);
 		err = ::mz_zip_reader_save_all(m_reader, targetDirectoryC.c_str());
 
 		if (err == MZ_END_OF_LIST)
@@ -284,11 +284,6 @@ namespace s3d
 		if (err != MZ_OK)
 		{
 			LOG_FAIL(U"ZIPReader::extractToMemory(): Failed to save buffer");
-			return{};
-		}
-
-		if (err != MZ_OK)
-		{
 			return{};
 		}
 

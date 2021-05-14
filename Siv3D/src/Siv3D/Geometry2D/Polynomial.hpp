@@ -415,7 +415,7 @@ namespace s3d
 				
 				if (root)
 				{
-					roots.push_back(root.value());
+					roots.push_back(*root);
 				}
 			}
 			else
@@ -431,7 +431,7 @@ namespace s3d
 
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 
 					// find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
@@ -441,7 +441,7 @@ namespace s3d
 
 						if (root)
 						{
-							roots.push_back(root.value());
+							roots.push_back(*root);
 						}
 					}
 
@@ -450,7 +450,7 @@ namespace s3d
 					
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 				}
 				else
@@ -460,7 +460,7 @@ namespace s3d
 
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 				}
 			}

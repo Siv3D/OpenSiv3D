@@ -351,10 +351,7 @@ namespace s3d
 
 				_TIFFfree(bufR);
 			}
-		}
-		else if (samplesPerSample == 4)
-		{
-			if (samplesPerSample == 3)
+			else if (samplesPerSample == 4)
 			{
 				uint8* const bufR = static_cast<uint8*>(_TIFFmalloc(scanlineSize * 4));
 				uint8* const bufG = bufR + scanlineSize;

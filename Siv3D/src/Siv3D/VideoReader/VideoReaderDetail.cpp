@@ -205,7 +205,7 @@ namespace s3d
 
 	size_t VideoReader::VideoReaderDetail::getCurrentFrameIndex() const noexcept
 	{
-		return m_info.readPos;
+		return static_cast<size_t>(m_info.readPos);
 	}
 
 	double VideoReader::VideoReaderDetail::getPosSec() const

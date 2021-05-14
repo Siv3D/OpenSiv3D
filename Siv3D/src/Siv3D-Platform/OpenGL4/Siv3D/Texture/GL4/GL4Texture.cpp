@@ -65,6 +65,10 @@ namespace s3d
 	}
 
 	GL4Texture::GL4Texture(Dynamic, const Size& size, const void* pData, const uint32, const TextureFormat& format, const TextureDesc desc)
+		: m_size{ size }
+		, m_format{ format }
+		, m_textureDesc{ desc }
+		, m_type{ TextureType::Dynamic }
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -75,10 +79,6 @@ namespace s3d
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 		}
 
-		m_size			= size;
-		m_format		= format;
-		m_textureDesc	= desc;
-		m_type			= TextureType::Dynamic;
 		m_initialized	= true;
 	}
 

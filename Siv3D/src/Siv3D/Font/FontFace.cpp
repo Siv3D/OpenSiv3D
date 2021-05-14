@@ -31,7 +31,7 @@ namespace s3d
 			{
 				// unsupported format
 			}
-			else if (error)
+			else
 			{
 				// failed to open or load
 			}
@@ -57,7 +57,7 @@ namespace s3d
 			{
 				// unsupported format
 			}
-			else if (error)
+			else
 			{
 				// failed to open or load
 			}

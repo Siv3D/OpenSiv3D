@@ -27,7 +27,7 @@ namespace s3d
 			if (transformCursor)
 			{
 				m_oldCursorTransform = getCursorTransform();
-				setCursorTransform(transform * m_oldCursorTransform.value());
+				setCursorTransform(transform * *m_oldCursorTransform);
 			}
 		}
 		else

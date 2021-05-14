@@ -18,7 +18,7 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		static int32 GetFourCC(StringView extension)
+		static int32 GetFourCC(const StringView extension)
 		{
 			if (extension == U"wmv")
 			{

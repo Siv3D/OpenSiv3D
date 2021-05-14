@@ -174,7 +174,7 @@ namespace s3d
 		/// @remark `(stride() * height())` です。
 		/// @return 画像のデータサイズ（バイト）
 		[[nodiscard]]
-		uint32 size_bytes() const noexcept;
+		size_t size_bytes() const noexcept;
 
 		[[nodiscard]]
 		bool isEmpty() const noexcept;

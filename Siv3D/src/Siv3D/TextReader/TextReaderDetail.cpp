@@ -46,7 +46,7 @@ namespace s3d
 		m_info =
 		{
 			.fullPath	= FileSystem::FullPath(path),
-			.encoding	= encoding ? encoding.value() : Unicode::GetTextEncoding(*m_reader),
+			.encoding	= encoding ? *encoding : Unicode::GetTextEncoding(*m_reader),
 			.isOpen		= true
 		};
 
@@ -80,7 +80,7 @@ namespace s3d
 		m_info =
 		{
 			.fullPath	= {},
-			.encoding	= encoding ? encoding.value() : Unicode::GetTextEncoding(*m_reader),
+			.encoding	= encoding ? *encoding : Unicode::GetTextEncoding(*m_reader),
 			.isOpen		= true
 		};
 

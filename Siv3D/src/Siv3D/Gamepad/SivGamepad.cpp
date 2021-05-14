@@ -66,7 +66,7 @@ namespace s3d
 		{
 			if (const Optional<int32> povDegree = SIV3D_ENGINE(Gamepad)->povDegree(playerIndex))
 			{
-				return detail::Get8Direction(povDegree.value());
+				return detail::Get8Direction(*povDegree);
 			}
 
 			return none;

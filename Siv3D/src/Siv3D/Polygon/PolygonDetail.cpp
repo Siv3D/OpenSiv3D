@@ -673,16 +673,19 @@ namespace s3d
 
 		polygon_t in;
 		{
-			for (size_t i = 0; i < src.outer().size(); ++i)
+			auto& in_outer = in.outer();
+			const auto& src_outer = src.outer();
+
+			for (size_t i = 0; i < src_outer.size(); ++i)
 			{
-				in.outer().push_back(src.outer()[src.outer().size() - i - 1]);
+				in_outer.push_back(src_outer[src_outer.size() - i - 1]);
 			}
 
 			if (src.outer().size() >= 2)
 			{
-				in.outer().push_back(src.outer()[src.outer().size() - 1]);
+				in_outer.push_back(src_outer[src_outer.size() - 1]);
 
-				in.outer().push_back(src.outer()[src.outer().size() - 2]);
+				in_outer.push_back(src_outer[src_outer.size() - 2]);
 			}
 		}
 
@@ -741,16 +744,19 @@ namespace s3d
 
 		polygon_t in;
 		{
-			for (size_t i = 0; i < src.outer().size(); ++i)
+			auto& in_outer = in.outer();
+			const auto& src_outer = src.outer();
+
+			for (size_t i = 0; i < src_outer.size(); ++i)
 			{
-				in.outer().push_back(src.outer()[src.outer().size() - i - 1]);
+				in_outer.push_back(src_outer[src_outer.size() - i - 1]);
 			}
 
 			if (src.outer().size() >= 2)
 			{
-				in.outer().push_back(src.outer()[src.outer().size() - 1]);
+				in_outer.push_back(src_outer[src_outer.size() - 1]);
 
-				in.outer().push_back(src.outer()[src.outer().size() - 2]);
+				in_outer.push_back(src_outer[src_outer.size() - 2]);
 			}
 		}
 
@@ -1077,11 +1083,12 @@ namespace s3d
 
 		polygon_t in;
 		{
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
-			in.outer().push_back(p(0));
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
+			auto& outer = in.outer();
+			outer.push_back(p(2));
+			outer.push_back(p(1));
+			outer.push_back(p(0));
+			outer.push_back(p(2));
+			outer.push_back(p(1));
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
@@ -1119,11 +1126,12 @@ namespace s3d
 
 		polygon_t in;
 		{
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
-			in.outer().push_back(p(0));
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
+			auto& outer = in.outer();
+			outer.push_back(p(2));
+			outer.push_back(p(1));
+			outer.push_back(p(0));
+			outer.push_back(p(2));
+			outer.push_back(p(1));
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
@@ -1164,12 +1172,13 @@ namespace s3d
 
 		polygon_t in;
 		{
-			in.outer().push_back(p(3));
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
-			in.outer().push_back(p(0));
-			in.outer().push_back(p(3));
-			in.outer().push_back(p(2));
+			auto& outer = in.outer();
+			outer.push_back(p(3));
+			outer.push_back(p(2));
+			outer.push_back(p(1));
+			outer.push_back(p(0));
+			outer.push_back(p(3));
+			outer.push_back(p(2));
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
@@ -1207,12 +1216,13 @@ namespace s3d
 
 		polygon_t in;
 		{
-			in.outer().push_back(p(3));
-			in.outer().push_back(p(2));
-			in.outer().push_back(p(1));
-			in.outer().push_back(p(0));
-			in.outer().push_back(p(3));
-			in.outer().push_back(p(2));
+			auto& outer = in.outer();
+			outer.push_back(p(3));
+			outer.push_back(p(2));
+			outer.push_back(p(1));
+			outer.push_back(p(0));
+			outer.push_back(p(3));
+			outer.push_back(p(2));
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;

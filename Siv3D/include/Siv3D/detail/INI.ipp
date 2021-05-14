@@ -171,7 +171,7 @@ namespace s3d
 	{
 		if (const auto value = getValueOpt(section, name))
 		{
-			return ParseOpt<Type>(value.value());
+			return ParseOpt<Type>(*value);
 		}
 
 		return none;

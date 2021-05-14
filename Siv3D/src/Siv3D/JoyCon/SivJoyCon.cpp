@@ -203,9 +203,10 @@ namespace s3d
 				};
 
 				// SL, SR
-				RectF{ base.tl().movedBy(0.15, 2.0), Vec2{ 0.3, 11.33 } }.draw(defaultButtonColor);
-				RoundRect{ base.tl().movedBy(0.0, 3.5), Vec2{ 0.3, 1.2 }, 0.1 }.draw(buttonColor2(joycon.buttonSR, guide.buttonSR));
-				RoundRect{ base.tl().movedBy(0.0, 9.4), Vec2{ 0.3, 1.2 }, 0.1 }.draw(buttonColor2(joycon.buttonSL, guide.buttonSL));
+				const auto tl = base.tl();
+				RectF{ tl.movedBy(0.15, 2.0), Vec2{ 0.3, 11.33 } }.draw(defaultButtonColor);
+				RoundRect{ tl.movedBy(0.0, 3.5), Vec2{ 0.3, 1.2 }, 0.1 }.draw(buttonColor2(joycon.buttonSR, guide.buttonSR));
+				RoundRect{ tl.movedBy(0.0, 9.4), Vec2{ 0.3, 1.2 }, 0.1 }.draw(buttonColor2(joycon.buttonSL, guide.buttonSL));
 			}
 		}
 	}
@@ -258,7 +259,7 @@ namespace s3d
 	bool JoyCon::isConnected() const noexcept
 	{
 		return (m_joyconType != JoyConType::Invalid) && m_gamepadUserIndex
-			&& Gamepad(m_gamepadUserIndex.value()).isConnected();
+			&& Gamepad(*m_gamepadUserIndex).isConnected();
 	}
 
 	JoyCon::operator bool() const noexcept
@@ -283,7 +284,7 @@ namespace s3d
 			return none;
 		}
 
-		return Gamepad(m_gamepadUserIndex.value()).povD8();
+		return Gamepad(*m_gamepadUserIndex).povD8();
 	}
 
 	const JoyCon& JoyCon::drawShadowAt(const Vec2& center, const double _size, const double angle, const bool covered, const double offset, const double blurRadius, const double spread, const ColorF& color) const

@@ -578,7 +578,7 @@ namespace s3d
 
 		if (const auto path = Dialog::SaveImage())
 		{
-			return save(path.value());
+			return save(*path);
 		}
 		else
 		{

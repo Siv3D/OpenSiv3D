@@ -141,7 +141,7 @@ namespace s3d
 	{
 		if (const auto opt = getOptInt64())
 		{
-			return static_cast<Int>(opt.value());
+			return static_cast<Int>(*opt);
 		}
 
 		return none;
@@ -152,7 +152,7 @@ namespace s3d
 	{
 		if (const auto opt = getOptDouble())
 		{
-			return static_cast<Float>(opt.value());
+			return static_cast<Float>(*opt);
 		}
 
 		return none;
@@ -163,7 +163,7 @@ namespace s3d
 	{
 		if (const auto opt = getOptString())
 		{
-			return static_cast<Type>(opt.value());
+			return static_cast<Type>(*opt);
 		}
 
 		return none;

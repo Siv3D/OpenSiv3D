@@ -1,4 +1,4 @@
-//-----------------------------------------------
+Ôªø//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -107,7 +107,7 @@ namespace s3d
 				}
 			}
 
-			// í«â¡ÇÃâ¸çsï™
+			// ËøΩÂä†„ÅÆÊîπË°åÂàÜ
 			m_lines.emplace_back();
 		}
 	}
@@ -125,7 +125,7 @@ namespace s3d
 	{
 		std::lock_guard lock{ m_mutex };
 
-		// Ç†Ç”ÇÍÇΩÉÅÉbÉZÅ[ÉWÇÃèúãé
+		// „ÅÇ„Åµ„Çå„Åü„É°„ÉÉ„Çª„Éº„Ç∏„ÅÆÈô§Âéª
 		trimMessages();
 
 		if ((m_lines.size() == 1)
@@ -135,9 +135,8 @@ namespace s3d
 			return;
 		}
 
-		// ï`âÊ
+		// ÊèèÁîª
 		{
-			constexpr Vec2 BitmapFontShadowOffset{ 0.85, 0.85 };
 			const double maxWidth = GetMaxWidth();
 			const Font& font = m_font->textFont;
 			const int32 fontHeight = font.height();
@@ -148,6 +147,8 @@ namespace s3d
 
 			if (font.method() == FontMethod::Bitmap)
 			{
+				constexpr Vec2 BitmapFontShadowOffset{ 0.85, 0.85 };
+
 				for (const auto& putText : m_puts)
 				{
 					const DrawableText dtext = font(putText.text);
@@ -198,11 +199,11 @@ namespace s3d
 				{
 					const size_t layout = m_layouts[i];
 					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
-					const RectF area{ pos, maxWidth, 65536 };
 					const DrawableText& dtext = m_drawableTexts[i];
 
 					if (dtext.text)
 					{
+						const RectF area{ pos, maxWidth, 65536 };
 						dtext.draw(area.movedBy(BitmapFontShadowOffset), Palette::Black);
 						dtext.draw(area, Palette::White);
 					}
@@ -255,11 +256,11 @@ namespace s3d
 				{
 					const size_t layout = m_layouts[i];
 					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
-					const RectF area{ pos, maxWidth, 65536 };
 					const DrawableText& dtext = m_drawableTexts[i];
 
 					if (dtext.text)
 					{
+						const RectF area{ pos, maxWidth, 65536 };
 						dtext.draw(TextStyle::CustomShader, area);
 					}
 
@@ -309,7 +310,7 @@ namespace s3d
 	{
 		const size_t maxLines = getMaxLines();
 
-		// í¥âﬂÉÅÉbÉZÅ[ÉWÇÃçÌèú
+		// Ë∂ÖÈÅé„É°„ÉÉ„Çª„Éº„Ç∏„ÅÆÂâäÈô§
 		{
 			if (maxLines < m_lines.size())
 			{
@@ -318,7 +319,7 @@ namespace s3d
 			}
 		}
 
-		// äeÉÅÉbÉZÅ[ÉWÇÃçsêîåvéZ
+		// ÂêÑ„É°„ÉÉ„Çª„Éº„Ç∏„ÅÆË°åÊï∞Ë®àÁÆó
 		{
 			m_layouts.resize(m_lines.size());
 			m_drawableTexts.resize(m_lines.size());
@@ -331,7 +332,7 @@ namespace s3d
 			}
 		}
 
-		// í¥âﬂÇ∑ÇÈçsÇä‹ÇﬁÉÅÉbÉZÅ[ÉWÇÃçÌèú
+		// Ë∂ÖÈÅé„Åô„ÇãË°å„ÇíÂê´„ÇÄ„É°„ÉÉ„Çª„Éº„Ç∏„ÅÆÂâäÈô§
 		if (2 <= m_lines.size())
 		{
 			size_t num_lines = 0;

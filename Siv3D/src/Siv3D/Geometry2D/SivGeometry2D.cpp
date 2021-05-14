@@ -707,20 +707,25 @@ namespace s3d
 
 			Array<double> res;
 
-			if (c == 0.0) {
+			if (c == 0.0)
+			{
 				res << 0.0;
 
-				if (const auto opt = SolveLinearEquation(a, b)) {
-					for (const double x : opt.value()) {
+				if (const auto opt = SolveLinearEquation(a, b))
+				{
+					for (const double x : *opt)
+					{
 						res << x;
 					}
 				}
 			}
-			else if (std::abs(d) <= 1e-12) {
+			else if (std::abs(d) <= 1e-12)
+			{
 				const double x = -0.5 * b / a;
 				res << x;
 			}
-			else if (-1e12 < d) {
+			else if (-1e12 < d)
+			{
 				double x1, x2, t;
 
 				if (0.0 < b) t = -b - std::sqrt(Max(0.0, d));
@@ -739,13 +744,17 @@ namespace s3d
 		}
 
 		// ax^4 + bx^2 + c = 0
-		[[nodiscard]] Optional<Array<double>> SolveBiquadraticEquation(double a, double b, double c)
+		[[nodiscard]]
+		Optional<Array<double>> SolveBiquadraticEquation(double a, double b, double c)
 		{
 			Array<double> res;
 
-			if (const auto opt = SolveQuadraticEquation(a, b, c)) {
-				for (const double x : opt.value()) {
-					if (-1e-12 < x) {
+			if (const auto opt = SolveQuadraticEquation(a, b, c))
+			{
+				for (const double x : *opt)
+				{
+					if (-1e-12 < x)
+					{
 						const double sqrt_x = std::sqrt(Max(0.0, x));
 						res << sqrt_x << -sqrt_x;
 					}
@@ -759,33 +768,39 @@ namespace s3d
 		}
 
 		// x^3 + px + q = 0
-		[[nodiscard]] Optional<Array<double>> SolveCubicEquation(double p, double q)
+		[[nodiscard]]
+		Optional<Array<double>> SolveCubicEquation(double p, double q)
 		{
 			Array<double> res;
 
-			if (fabs(q) < 1e-12) { // x^3 + px = 0 <=> x = 0, x^2 = -p
+			if (fabs(q) < 1e-12)
+			{ // x^3 + px = 0 <=> x = 0, x^2 = -p
 				res << 0;
 
-				if (0 <= -p) {
+				if (0 <= -p)
+				{
 					res << std::sqrt(-p) << -std::sqrt(-p);
 				}
 			}
-			else if (p == 0) { // x^3 + q = 0 <=> x = cbrt(-q)
+			else if (p == 0)
+			{ // x^3 + q = 0 <=> x = cbrt(-q)
 				res << cbrt(-q);
 			}
-			else {
-
+			else
+			{
 				const double
 					p_third = p / 3,
 					q_half = 0.5 * q,
 					d = q_half * q_half + p_third * p_third * p_third;
 
-				if (fabs(d) < 1e-12) {
+				if (fabs(d) < 1e-12)
+				{
 					const double tmp = cbrt(q_half);
 
 					res << -2 * tmp << tmp;
 				}
-				else if (0 < d) {
+				else if (0 < d)
+				{
 					const double
 						d_sqrt = std::sqrt(d),
 						u = cbrt(-q_half + d_sqrt),
@@ -793,7 +808,8 @@ namespace s3d
 
 					res << u + v;
 				}
-				else {
+				else
+				{
 					const double
 						r = 2.0 * std::sqrt(-p_third),
 						arg = std::arg(std::complex<double>(-q, 2 * std::sqrt(-d))) / 3;
@@ -807,10 +823,12 @@ namespace s3d
 
 					double x3;
 
-					if (x1 != 0 && x2 != 0) {
+					if (x1 != 0 && x2 != 0)
+					{
 						x3 = -q / (x1 * x2);
 					}
-					else {
+					else
+					{
 						x3 = -x1 - x2;
 					}
 
@@ -824,14 +842,19 @@ namespace s3d
 		}
 
 		// x^3 + ax^2 + bx + c = 0
-		[[nodiscard]] Optional<Array<double>> SolveCubicEquation(double a, double b, double c) {
+		[[nodiscard]]
+		Optional<Array<double>> SolveCubicEquation(double a, double b, double c)
+		{
 			Array<double> res;
 
 			// x^3 + ax^2 + bx = 0
-			if (fabs(c) < 1e-12) {
+			if (fabs(c) < 1e-12)
+			{
 				res << 0.0;
-				if (const auto opt = SolveQuadraticEquation(1, a, b)) {
-					for (const double x : opt.value()) {
+				if (const auto opt = SolveQuadraticEquation(1, a, b))
+				{
+					for (const double x : *opt)
+					{
 						res << x;
 					}
 				}
@@ -841,11 +864,13 @@ namespace s3d
 				p = fma(-a / 3, a, b),
 				q = fma(fma(a / 13.5, a, -b / 3), a, c);
 
-			const auto opt = SolveCubicEquation(p, q);
-
-			//少なくとも1つの実数解を持つ
-			for (const double x : opt.value()) {
-				res << fma(-a, 1.0 / 3, x);
+			if (const auto opt = SolveCubicEquation(p, q))
+			{
+				//少なくとも1つの実数解を持つ
+				for (const double x : *opt)
+				{
+					res << fma(-a, 1.0 / 3, x);
+				}
 			}
 
 			res.sort();
@@ -873,8 +898,10 @@ namespace s3d
 			{
 				res << 0.0;
 
-				if (const auto opt = SolveCubicEquation(p, q)) {
-					for (const double x : opt.value()) {
+				if (const auto opt = SolveCubicEquation(p, q))
+				{
+					for (const double x : *opt)
+					{
 						res << x;
 					}
 				}
@@ -883,18 +910,24 @@ namespace s3d
 			{
 				const double t = SolveCubicEquation(-p, -4 * r, 4 * p * r - q * q).value()[0];
 
-				if (-1e-12 < t - p) {
+				if (-1e-12 < t - p)
+				{
 					const double
 						m = std::sqrt(Max(0.0, t - p)),
 						n = -0.5 * q / m;
 
-					if (const auto opt = SolveQuadraticEquation(1.0, m, fma(0.5, t, n))) {
-						for (const double x : opt.value()) {
+					if (const auto opt = SolveQuadraticEquation(1.0, m, fma(0.5, t, n)))
+					{
+						for (const double x : *opt)
+						{
 							res << x;
 						}
 					}
-					if (const auto opt = SolveQuadraticEquation(1.0, -m, fma(0.5, t, -n))) {
-						for (const double x : opt.value()) {
+
+					if (const auto opt = SolveQuadraticEquation(1.0, -m, fma(0.5, t, -n)))
+					{
+						for (const double x : *opt)
+						{
 							res << x;
 						}
 					}
@@ -919,8 +952,10 @@ namespace s3d
 
 			Array<double> res;
 
-			if (const auto opt = SolveQuarticEquation(p, q, r)) {
-				for (const double x : opt.value()) {
+			if (const auto opt = SolveQuarticEquation(p, q, r))
+			{
+				for (const double x : *opt)
+				{
 					res << fma(-0.25, a, x);
 				}
 			}
@@ -2107,7 +2142,7 @@ namespace s3d
 
 			if (const auto opt = detail::SolveQuadraticEquation(a2, b2, c2))
 			{
-				for (const double x : opt.value())
+				for (const double x : *opt)
 				{
 					if ((-1e-12 < x) && x < (1 + 1e-12))
 					{
@@ -2154,7 +2189,7 @@ namespace s3d
 
 			if (const auto opt = detail::SolveCubicEquation(t[0], t[1], t[2], t[3]))
 			{
-				for (const double x : opt.value())
+				for (const double x : *opt)
 				{
 					if ((-1e-12 < x)
 						&& (x < 1 + 1e-12))
@@ -2200,7 +2235,7 @@ namespace s3d
 
 					if (not point->hasNaN())
 					{
-						results << point.value();
+						results << *point;
 					}
 				}
 			}
@@ -2213,7 +2248,7 @@ namespace s3d
 
 					if (not point->hasNaN())
 					{
-						results << point.value();
+						results << *point;
 					}
 				}
 			}
@@ -2334,7 +2369,7 @@ namespace s3d
 
 					if (not point->hasNaN())
 					{
-						results << point.value();
+						results << *point;
 					}
 				}
 			}
@@ -2366,7 +2401,7 @@ namespace s3d
 
 					if (not point->hasNaN())
 					{
-						results << point.value();
+						results << *point;
 					}
 				}
 			}
@@ -2414,7 +2449,7 @@ namespace s3d
 
 						if (not point->hasNaN())
 						{
-							results << point.value();
+							results << *point;
 						}
 					}
 				}
@@ -2422,7 +2457,7 @@ namespace s3d
 				// 四分円
 				if (const auto& points = IntersectAt(a, Circle{ center, b.r }))
 				{
-					for (const auto& point : points.value())
+					for (const auto& point : *points)
 					{
 						if (Intersect(point, RectF{ Arg::center(0.5 * (begin + center)), b.r }))
 						{
@@ -2465,7 +2500,7 @@ namespace s3d
 
 						if (not point->hasNaN())
 						{
-							results << point.value();
+							results << *point;
 						}
 					}
 				}
@@ -2483,7 +2518,7 @@ namespace s3d
 
 					if (not point->hasNaN())
 					{
-						results << point.value();
+						results << *point;
 					}
 				}
 			}
@@ -2520,7 +2555,7 @@ namespace s3d
 
 					if (not at->hasNaN())
 					{
-						results.push_back(at.value());
+						results.push_back(*at);
 					}
 				}
 			}
@@ -2699,7 +2734,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, b.side(i)))
 				{
-					for (const auto& point : points.value())
+					for (const auto& point : *points)
 					{
 						results << point;
 					}
@@ -2727,7 +2762,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(b.side(i), a))
 				{
-					for (const Vec2& point : points.value())
+					for (const Vec2& point : *points)
 					{
 						results << point;
 					}
@@ -2765,7 +2800,7 @@ namespace s3d
 
 				if (const auto& points = IntersectAt(line, a))
 				{
-					for (const Vec2& point : points.value())
+					for (const Vec2& point : *points)
 					{
 						results << point;
 					}
@@ -2785,7 +2820,7 @@ namespace s3d
 				// 四分円
 				if (const auto& points = IntersectAt(a, Circle{ center, b.r }))
 				{
-					for (const Vec2& point : points.value())
+					for (const Vec2& point : *points)
 					{
 						if (Intersect(point, RectF{ Arg::center(0.5 * (center + rectPoints[i])), b.r }))
 						{
@@ -2820,7 +2855,7 @@ namespace s3d
 				{
 					if (const auto& points = a.intersectsAt(Line{ inner[i], inner[(i + 1) % inner_size] }))
 					{
-						results.append(points.value());
+						results.append(*points);
 					}
 				}
 			}
@@ -2833,7 +2868,7 @@ namespace s3d
 			{
 				if (const auto& points = a.intersectsAt(Line{ outer[i], outer[(i + 1) % outer_size] }))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -2859,7 +2894,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, Line{ pPoints[i], pPoints[i + 1] }))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -2889,7 +2924,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(b.side(i), a))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -2909,7 +2944,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(b.side(i), a))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -2935,7 +2970,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, Line{ pPoints[i], pPoints[i + 1] }))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3062,7 +3097,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(intersections.value());
+					results.append(*intersections);
 				}
 			}
 
@@ -3099,7 +3134,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(intersections.value());
+					results.append(*intersections);
 				}
 			}
 
@@ -3128,7 +3163,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3157,7 +3192,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3186,7 +3221,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3215,7 +3250,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3251,7 +3286,7 @@ namespace s3d
 
 					if (at.has_value())
 					{
-						results.append(at.value());
+						results.append(*at);
 					}
 				}
 			}
@@ -3306,7 +3341,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, b.side(i)))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3331,7 +3366,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, b.side(i)))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3368,7 +3403,7 @@ namespace s3d
 
 				if (const auto& points = IntersectAt(a, Line{ begin + vs[index], end + vs[(index + 2) % 4] }))
 				{
-					for (const Vec2& point : points.value())
+					for (const Vec2& point : *points)
 					{
 						results << point;
 					}
@@ -3377,7 +3412,7 @@ namespace s3d
 				// 四分円
 				if (const auto& points = IntersectAt(a, Circle{ center, b.r }))
 				{
-					for (const Vec2& point : points.value())
+					for (const Vec2& point : *points)
 					{
 						if (RectF{ Arg::center(0.5 * (begin + center)), b.r }.contains(point))
 						{
@@ -3418,7 +3453,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(intersections.value());
+					results.append(*intersections);
 				}
 			}
 
@@ -3434,7 +3469,7 @@ namespace s3d
 					{
 						hasIntersection = true;
 
-						results.append(intersections.value());
+						results.append(*intersections);
 					}
 				}
 			}
@@ -3467,7 +3502,7 @@ namespace s3d
 				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
 					at.has_value())
 				{
-					results.append(at.value());
+					results.append(*at);
 				}
 			}
 
@@ -3520,7 +3555,7 @@ namespace s3d
 
 			if (const auto opt = detail::SolveQuarticEquation(t1, t2, t3, t4, t5))
 			{
-				for (const double x : opt.value())
+				for (const double x : *opt)
 				{
 					if (1.0 < std::abs(x))
 					{
@@ -3568,7 +3603,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, b.side(i)))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3593,7 +3628,7 @@ namespace s3d
 			{
 				if (const auto& points = IntersectAt(a, b.side(i)))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3625,12 +3660,12 @@ namespace s3d
 
 				if (const auto& points = IntersectAt(a, Line{ begin + vs[i], end + vs[(i + 2) % 4] }))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 
 				if (const auto& points = IntersectAt(a, Circle{ center, b.r }))
 				{
-					for (const auto& point : points.value())
+					for (const auto& point : *points)
 					{
 						if (Intersect(RectF{ Arg::center(0.5 * (begin + center)), b.r }, point))
 						{
@@ -3695,7 +3730,7 @@ namespace s3d
 				{
 					if (const auto& points = a.intersectsAt(Line{ inner[i], inner[(i + 1) % inner_size] }))
 					{
-						results.append(points.value());
+						results.append(*points);
 					}
 				}
 			}
@@ -3708,7 +3743,7 @@ namespace s3d
 			{
 				if (const auto& points = a.intersectsAt(Line{ outer[i], outer[(i + 1) % outer_size] }))
 				{
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3740,7 +3775,7 @@ namespace s3d
 				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
 					at.has_value())
 				{
-					results.append(at.value());
+					results.append(*at);
 				}
 			}
 
@@ -3766,7 +3801,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3795,7 +3830,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3829,7 +3864,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3858,7 +3893,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3890,7 +3925,7 @@ namespace s3d
 				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
 					at.has_value())
 				{
-					results.append(at.value());
+					results.append(*at);
 				}
 			}
 
@@ -3917,7 +3952,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3951,7 +3986,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -3985,7 +4020,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -4019,7 +4054,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -4087,7 +4122,7 @@ namespace s3d
 				{
 					if (const auto& points = IntersectAt(line, roundRects[(index + 1) % 2]))
 					{
-						results.append(points.value());
+						results.append(*points);
 					}
 				}
 			}
@@ -4099,7 +4134,7 @@ namespace s3d
 				{
 					if (const auto& points = IntersectAt(Circle{ inner[0][indexA], a.r }, Circle{ inner[1][indexB], b.r }))
 					{
-						for (const Vec2& point : points.value())
+						for (const Vec2& point : *points)
 						{
 							// 四分円上にあるか
 							if (Intersect(point, RectF{ Arg::center(0.5 * (inner[0][indexA] + outer[0][indexA])), a.r })
@@ -4143,7 +4178,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -4173,7 +4208,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					results.append(points.value());
+					results.append(*points);
 				}
 			}
 
@@ -4200,7 +4235,7 @@ namespace s3d
 				if (const auto at = IntersectAt(Line{ pPoints[i], pPoints[i + 1] }, a);
 					at.has_value())
 				{
-					results.append(at.value());
+					results.append(*at);
 				}
 			}
 
@@ -4537,7 +4572,7 @@ namespace s3d
 
 			if (const auto opt = detail::SolveCubicEquation(t1, t2, t3, t4))
 			{
-				for (const double x : opt.value())
+				for (const double x : *opt)
 				{
 					if ((-1e-12 < x) && (x < 1 + 1e-12))
 					{
@@ -4651,7 +4686,7 @@ namespace s3d
 
 			if (const auto opt = detail::SolveLinearEquation(t1, t2))
 			{
-				for (const double x : opt.value())
+				for (const double x : *opt)
 				{
 					if ((-1e-12 < x) && (x < 1 + 1e-12))
 					{
@@ -5416,7 +5451,7 @@ namespace s3d
 
 		if (const auto opt = detail::SolveQuadraticEquation(3 * a1, 2 * b1, c1))
 		{
-			for (const double t : opt.value())
+			for (const double t : *opt)
 			{
 				if (InRange(t, 0.0, 1.0))
 				{
@@ -5434,7 +5469,7 @@ namespace s3d
 
 		if (const auto opt = detail::SolveQuadraticEquation(3 * a2, 2 * b2, c2))
 		{
-			for (const double t : opt.value())
+			for (const double t : *opt)
 			{
 				if (InRange(t, 0.0, 1.0))
 				{

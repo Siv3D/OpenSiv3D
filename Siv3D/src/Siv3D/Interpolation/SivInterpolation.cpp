@@ -33,7 +33,7 @@ namespace s3d
 			// 速度を maxSpeed に制限
 			if (maxSpeed)
 			{
-				const ValueType maxChange = maxSpeed.value() * smoothTime;
+				const ValueType maxChange = (*maxSpeed * smoothTime);
 				
 				if constexpr (std::is_arithmetic_v<VectorType>)
 				{

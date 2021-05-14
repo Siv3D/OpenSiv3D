@@ -49,7 +49,7 @@ namespace s3d
 
 		if (const auto path = Dialog::SaveWave())
 		{
-			return save(path.value());
+			return save(*path);
 		}
 		else
 		{

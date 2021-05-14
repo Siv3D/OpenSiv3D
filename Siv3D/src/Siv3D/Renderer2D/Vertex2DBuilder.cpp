@@ -1047,7 +1047,7 @@ namespace s3d
 			{
 				buf2.push_back(buffer.front());
 
-				const size_t count = (buffer.size() - 1 + 1);
+				const size_t count = buffer.size();
 
 				for (size_t i = 1; i < count; ++i)
 				{
@@ -1182,7 +1182,7 @@ namespace s3d
 
 			if (offset)
 			{
-				const Float2 v = offset.value();
+				const Float2 v = *offset;
 				Vertex2D* pDst = pVertex;
 
 				for (Vertex2D::IndexType i = 0; i < vertexSize; ++i)
@@ -1197,7 +1197,7 @@ namespace s3d
 			}
 
 			{
-				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize - 1 + 1);
+				const Vertex2D::IndexType count = static_cast<Vertex2D::IndexType>(newSize);
 
 				for (Vertex2D::IndexType k = 0; k < count; ++k)
 				{
@@ -1347,7 +1347,7 @@ namespace s3d
 
 			if (offset)
 			{
-				const Float2 v = offset.value();
+				const Float2 v = *offset;
 				Vertex2D* pDst = pVertex;
 
 				for (Vertex2D::IndexType i = 0; i < vertexSize; ++i)
@@ -1520,7 +1520,7 @@ namespace s3d
 
 			if (offset)
 			{
-				const Float2 v = offset.value();
+				const Float2 v = *offset;
 				Vertex2D* pDst = pVertex;
 
 				for (Vertex2D::IndexType i = 0; i < vertexSize; ++i)
@@ -1776,7 +1776,7 @@ namespace s3d
 
 			if (offset)
 			{
-				const Float2 v = offset.value();
+				const Float2 v = *offset;
 				Vertex2D* pDst = pVertex;
 
 				for (Vertex2D::IndexType i = 0; i < vertexSize; ++i)
@@ -1823,7 +1823,7 @@ namespace s3d
 
 				if (offset)
 				{
-					const Float2 _offset = offset.value();
+					const Float2 _offset = *offset;
 
 					while (pSrc != pSrcEnd)
 					{

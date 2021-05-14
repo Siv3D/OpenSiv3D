@@ -463,7 +463,7 @@ namespace s3d
 
 			if (_width)
 			{
-				width = _width.value();
+				width = *_width;
 			}
 			else
 			{
@@ -485,7 +485,7 @@ namespace s3d
 
 			if (_width)
 			{
-				width = _width.value();
+				width = *_width;
 			}
 			else
 			{
@@ -581,7 +581,7 @@ namespace s3d
 			{
 				if (_itemWidth)
 				{
-					itemWidth = _itemWidth.value();
+					itemWidth = *_itemWidth;
 				}
 				else
 				{
@@ -606,7 +606,7 @@ namespace s3d
 			{
 				if (_itemWidth)
 				{
-					itemWidth = _itemWidth.value();
+					itemWidth = *_itemWidth;
 				}
 				else
 				{
@@ -637,7 +637,7 @@ namespace s3d
 			{
 				if (_itemWidth)
 				{
-					itemWidth = _itemWidth.value();
+					itemWidth = *_itemWidth;
 				}
 				else
 				{
@@ -921,10 +921,10 @@ namespace s3d
 					}
 				}
 
-				if (maxChars && text.text.size() > maxChars.value())
+				if (maxChars && (text.text.size() > *maxChars))
 				{
-					text.text.resize(maxChars.value());
-					text.cursorPos = std::min(text.cursorPos, maxChars.value());
+					text.text.resize(*maxChars);
+					text.cursorPos = Min(text.cursorPos, *maxChars);
 				}
 
 				if (text.text != previousText)

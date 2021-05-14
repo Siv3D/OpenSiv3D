@@ -75,7 +75,7 @@ namespace s3d
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Image{ path.value() };
+				return Image{ *path };
 			}
 			else
 			{
@@ -87,7 +87,7 @@ namespace s3d
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Texture{ path.value() };
+				return Texture{ *path };
 			}
 			else
 			{
@@ -99,7 +99,7 @@ namespace s3d
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Texture{ path.value(), desc };
+				return Texture{ *path, desc };
 			}
 			else
 			{
@@ -111,7 +111,7 @@ namespace s3d
 		{
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
 			{
-				return Wave{ path.value() };
+				return Wave{ *path };
 			}
 			else
 			{

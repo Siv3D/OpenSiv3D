@@ -71,7 +71,7 @@ namespace s3d
 	bool ProController::isConnected() const
 	{
 		return (m_proControllerType != ProControllerType::Invalid) && m_gamepadUserIndex
-			&& Gamepad(m_gamepadUserIndex.value()).isConnected();
+			&& Gamepad(*m_gamepadUserIndex).isConnected();
 	}
 
 	ProController::operator bool() const
@@ -86,7 +86,7 @@ namespace s3d
 			return none;
 		}
 
-		return Gamepad(m_gamepadUserIndex.value()).povD8();
+		return Gamepad(*m_gamepadUserIndex).povD8();
 	}
 
 	Vec2 ProController::LStick() const
@@ -96,7 +96,7 @@ namespace s3d
 			return{ 0.0, 0.0 };
 		}
 
-		const auto gamepad = Gamepad(m_gamepadUserIndex.value());
+		const auto gamepad = Gamepad(*m_gamepadUserIndex);
 
 		if (gamepad.axes.size() < 4)
 		{
@@ -120,7 +120,7 @@ namespace s3d
 			return{ 0.0, 0.0 };
 		}
 
-		const auto gamepad = Gamepad(m_gamepadUserIndex.value());
+		const auto gamepad = Gamepad(*m_gamepadUserIndex);
 
 		if (gamepad.axes.size() < 4)
 		{

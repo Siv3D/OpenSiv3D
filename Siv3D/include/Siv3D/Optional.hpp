@@ -113,11 +113,11 @@ namespace s3d
 
 					if constexpr (std::is_same_v<Type, char32>)
 					{
-						return output << opt << String(1, value.value());
+						return output << opt << String(1, *value);
 					}
 					else
 					{
-						return output << opt << value.value();
+						return output << opt << *value;
 					}
 				}
 				else
@@ -134,7 +134,7 @@ namespace s3d
 			{
 				formatData.string.append(U"(Optional)"_sv);
 
-				Formatter(formatData, value.value());
+				Formatter(formatData, *value);
 			}
 			else
 			{
