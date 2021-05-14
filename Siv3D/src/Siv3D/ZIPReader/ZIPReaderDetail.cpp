@@ -115,6 +115,7 @@ namespace s3d
 
 		# else
 
+			const std::string archivePathC = Unicode::Narrow(path);
 			err = ::mz_zip_reader_open_file(m_reader, archivePathC.c_str());
 
 		# endif
