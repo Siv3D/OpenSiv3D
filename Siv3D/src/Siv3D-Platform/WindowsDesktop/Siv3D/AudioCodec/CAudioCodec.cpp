@@ -1,4 +1,4 @@
-//-----------------------------------------------
+ï»¿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -210,14 +210,14 @@ namespace s3d
 
 		if (FAILED(hr))
 		{
-			return Wave();
+			return{};
 		}
 
 		ComPtr<IMFSourceReader> pSourceReader;
 
 		if (FAILED(m_functions.p_MFCreateSourceReaderFromByteStream(bs, nullptr, &pSourceReader)))
 		{
-			//LOG_FAIL(L"fail: MFCreateSourceReaderFromByteStream");
+			LOG_FAIL(U"âœ– CAudioCodec::decode(): MFCreateSourceReaderFromByteStream");
 			return{};
 		}
 
@@ -225,7 +225,7 @@ namespace s3d
 
 		if (FAILED(configureAudioStream(pSourceReader, pAudioType)))
 		{
-			//LOG_FAIL(L"fail: configureAudioStream (‘Î‰ž‚µ‚Ä‚¢‚È‚¢ƒI[ƒfƒBƒIƒtƒH[ƒ}ƒbƒg‚Å‚·)");
+			LOG_FAIL(U"âœ– CAudioCodec::decode(): configureAudioStream (å¯¾å¿œã—ã¦ã„ãªã„ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã§ã™)");
 			pMFReaderStream->Release();
 			return{};
 		}

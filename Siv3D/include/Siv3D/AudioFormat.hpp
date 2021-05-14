@@ -35,6 +35,15 @@ namespace s3d
 		/// @brief Opus
 		Opus,
 
+		/// @brief WMA
+		WMA,
+
+		/// @brief AIFF
+		AIFF,
+
+		/// @brief FLAC
+		FLAC,
+
 		/// @brief 指定しない（データと拡張子から判断）
 		Unspecified = Unknown,
 	};

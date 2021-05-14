@@ -83,6 +83,16 @@ namespace s3d
 		return{ U"AAC",{ U"m4a" } };
 	}
 
+	inline FileFilter FileFilter::AIFF()
+	{
+		return{ U"AIFF",{ U"aif", U"aiff", U"aifc" } };
+	}
+
+	inline FileFilter FileFilter::FLAC()
+	{
+		return{ U"FLAC",{ U"flac" } };
+	}
+
 	inline FileFilter FileFilter::MP3()
 	{
 		return{ U"MP3",{ U"mp3" } };
@@ -103,9 +113,25 @@ namespace s3d
 		return{ U"WAVE",{ U"wav" } };
 	}
 
+	inline FileFilter FileFilter::WMA()
+	{
+		return{ U"WMA",{ U"wma" } };
+	}
+
 	inline FileFilter FileFilter::AllAudioFiles()
 	{
-		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg", U"opus" } };
+		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg", U"opus",
+		# if SIV3D_PLATFORM(WINDOWS)
+				U"wma",
+				U"flac"
+		# elif SIV3D_PLATFORM(MACOS)
+
+		# elif SIV3D_PLATFORM(LINUX)
+
+		# elif SIV3D_PLATFORM(WEB)
+
+		# endif
+		} };
 	}
 
 	inline FileFilter FileFilter::CSV()

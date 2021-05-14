@@ -65,6 +65,12 @@ namespace s3d
 		static FileFilter AAC();
 
 		[[nodiscard]]
+		static FileFilter AIFF();
+
+		[[nodiscard]]
+		static FileFilter FLAC();
+
+		[[nodiscard]]
 		static FileFilter MP3();
 
 		[[nodiscard]]
@@ -75,6 +81,9 @@ namespace s3d
 
 		[[nodiscard]]
 		static FileFilter WAVE();
+
+		[[nodiscard]]
+		static FileFilter WMA();
 
 		[[nodiscard]]
 		static FileFilter AllAudioFiles();

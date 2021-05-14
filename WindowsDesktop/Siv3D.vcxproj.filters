@@ -1132,6 +1132,15 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC">
       <UniqueIdentifier>{757b1ce8-5e2c-4ce9-a02d-179839fae7bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\WMA">
+      <UniqueIdentifier>{cbd6710e-649e-4bc6-b5d3-15ca0a6e2772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AIFF">
+      <UniqueIdentifier>{b6ac5c83-201e-49e8-9ede-4ebf57f4299f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\FLAC">
+      <UniqueIdentifier>{4551329a-7e5b-483f-8f49-ccbc9036aaea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5247,6 +5256,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AACDecoder.hpp">
       <Filter>include\Siv3D\AudioFoarmat</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\WMADecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AIFFDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\FLACDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7198,6 +7216,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC\AACDecoder.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AAC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\WMA\WMADecoder.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\WMA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AIFF\AIFFDecoder.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\AIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\FLAC\FLACDecoder.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\FLAC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

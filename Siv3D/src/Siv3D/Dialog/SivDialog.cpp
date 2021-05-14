@@ -36,6 +36,16 @@ namespace s3d
 			FileFilter::AAC(),
 			FileFilter::OggVorbis(),
 			FileFilter::Opus(),
+		# if SIV3D_PLATFORM(WINDOWS)
+			FileFilter::WMA(),
+			FileFilter::FLAC(),
+		# elif SIV3D_PLATFORM(MACOS)
+
+		# elif SIV3D_PLATFORM(LINUX)
+
+		# elif SIV3D_PLATFORM(WEB)
+
+		# endif
 		};
 
 		static const Array<FileFilter> SaveImageFilters =
