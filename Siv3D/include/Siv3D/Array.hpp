@@ -377,11 +377,11 @@ namespace s3d
 		/// @return *this
 		Array& fill(const value_type& value);
 
-		/// @brief 指定した条件を満たす要素だけを集めた配列を返します。
+		/// @brief 指定した条件を満たす要素だけを集めた新しい配列を返します。
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
 		/// @remark 結果において、要素の前後関係は維持されます。
-		/// @return 指定した条件を満たす要素を集めた配列
+		/// @return 指定した条件を満たす要素を集めた新しい配列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		Array filter(Fty f) const;
@@ -399,10 +399,11 @@ namespace s3d
 		[[nodiscard]]
 		bool includes(const value_type& value) const;
 
-		/// @brief 
-		/// @tparam Fty 
-		/// @param f 
-		/// @return 
+		/// @brief 指定した条件を満たす要素があるかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @remark `.any(f)` と同じです。
+		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool includes_if(Fty f) const;
@@ -428,10 +429,10 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		auto map(Fty f) const;
 
-		/// @brief 
-		/// @tparam Fty 
-		/// @param f 
-		/// @return 
+		/// @brief 条件を満たす要素が存在しないかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 条件を満たす要素数が 0 個の場合 true, それ以外の場合は false
 		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool none(Fty f = Identity) const;

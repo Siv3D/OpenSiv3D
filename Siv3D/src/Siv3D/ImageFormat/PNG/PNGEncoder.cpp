@@ -163,9 +163,9 @@ namespace s3d
 
 		::png_set_write_fn(png_ptr, &writer, PngWriteCallbackIWriter, nullptr);
 
-		const png_uint_32 width = image.width();
+		const png_uint_32 width = static_cast<png_uint_32>(image.width());
 
-		const png_uint_32 height = image.height();
+		const png_uint_32 height = static_cast<png_uint_32>(image.height());
 
 		::png_set_IHDR(png_ptr, info_ptr, width, height, 16, PNG_COLOR_TYPE_GRAY, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
@@ -270,9 +270,9 @@ namespace s3d
 
 		::png_set_write_fn(png_ptr, &blob, PngWriteCallbackBlob, nullptr);
 
-		const png_uint_32 width = image.width();
+		const png_uint_32 width = static_cast<png_uint_32>(image.width());
 
-		const png_uint_32 height = image.height();
+		const png_uint_32 height = static_cast<png_uint_32>(image.height());
 
 		::png_set_IHDR(png_ptr, info_ptr, width, height, 16, PNG_COLOR_TYPE_GRAY, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 

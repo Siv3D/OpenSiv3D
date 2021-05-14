@@ -107,4 +107,10 @@ namespace s3d
 	{
 		return ((reinterpret_cast<std::uintptr_t>(p) % alignment) == 0);
 	}
+
+	template <class Type>
+	inline void AlignedDeleter<Type>::operator() (Type* p)
+	{
+		AlignedDelete(p);
+	}
 }

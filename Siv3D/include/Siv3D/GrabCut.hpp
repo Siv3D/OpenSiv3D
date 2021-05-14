@@ -28,6 +28,7 @@ namespace s3d
 		Background,
 	};
 
+	/// @brief 画像からの背景抽出
 	class GrabCut
 	{
 	public:

@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	/// @brief QR コードの読み取り
 	class QRScanner
 	{
 	public:
@@ -25,8 +26,14 @@ namespace s3d
 
 		~QRScanner();
 
+		/// @brief 画像中の QR コードを検出してスキャンします。
+		/// @param image 画像
+		/// @return スキャン結果
 		QRContent scanOne(const Image& image);
 
+		/// @brief 画像中の QR コードを複数検出してスキャンします。
+		/// @param image 画像
+		/// @return スキャン結果の一覧
 		Array<QRContent> scan(const Image& image);
 
 	private:

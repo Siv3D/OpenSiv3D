@@ -398,6 +398,10 @@ namespace s3d
 		[[nodiscard]]
 		DrawableText operator()(const Args& ... args) const;
 
+		/// @brief テキスト描画用の標準ピクセルシェーダを返します。
+		/// @param method フォントのレンダリング方式
+		/// @param hasColor カラー情報をもつフォント（カラー絵文字など）であるか
+		/// @return 指定した設定でのテキスト描画用の標準ピクセルシェーダ
 		[[nodiscard]]
 		static const PixelShader& GetPixelShader(FontMethod method, bool hasColor = false);
 	};

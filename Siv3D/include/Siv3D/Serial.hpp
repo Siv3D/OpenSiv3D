@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief シリアル通信
 	class Serial
 	{
 	public:

@@ -142,9 +142,15 @@ namespace s3d
 		std::shared_ptr<MathParserDetail> pImpl;
 	};
 
+	/// @brief 数式を評価してその結果を返します。
+	/// @param expression 数式
+	/// @return 数式を評価した結果。エラーの場合は `Math::NaN`
 	[[nodiscard]]
 	double Eval(StringView expression);
 
+	/// @brief 数式を評価してその結果を返します。
+	/// @param expression 数式
+	/// @return 数式を評価した結果。エラーの場合は none
 	[[nodiscard]]
 	Optional<double> EvalOpt(StringView expression);
 }

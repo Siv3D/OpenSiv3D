@@ -27,6 +27,7 @@ namespace s3d
 		FileAction action;
 	};
 
+	/// @brief ディレクトリの監視
 	class DirectoryWatcher
 	{
 	public:

@@ -36,105 +36,60 @@ namespace s3d
 		inline void AlignedFree(void* const p) noexcept;
 	}
 
-	/// <summary>
-	/// アライメントを考慮して、指定した型のためのメモリ領域を確保します。
-	/// </summary>
-	/// <param name="n">
-	/// 要素数。デフォルトは 1
-	/// </param>
-	/// <remarks>
-	/// 確保したポインタは AlignedFree() で解放する必要があります。
-	/// </remarks>
-	/// <returns>
-	/// 確保したメモリ領域の先頭ポインタ
-	/// </returns>
+	/// @brief アライメントを考慮して、指定した型のためのメモリ領域を確保します。
+	/// @tparam Type メモリを確保するオブジェクトの型
+	/// @param n 要素数。デフォルトは 1
+	/// @remark 確保したポインタは `AlignedFree()` で解放する必要があります。
+	/// @return 確保したメモリ領域の先頭ポインタ
 	template <class Type, size_t Alignment = alignof(Type)>
 	[[nodiscard]]
 	inline Type* AlignedMalloc(size_t n = 1);
 
-	/// <summary>
-	/// AlignedMalloc() で確保したメモリ領域を解放します。
-	/// Deallocates the space previously allocated by AlignedMalloc(),
-	/// </summary>
-	/// <param name="p">
-	/// 解放するメモリ領域の先頭ポインタ
-	/// Pointer to the memory to deallocate
-	/// </param>
-	/// <remarks>
-	/// p が nullptr の場合は何も起こりません。
-	/// The function accepts and does nothing with the null pointer.
-	/// </remarks>
-	/// <returns>
-	/// なし
-	/// (none)
-	/// </returns>
+	/// @brief AlignedMalloc() で確保したメモリ領域を解放します。| Deallocates the space previously allocated by AlignedMalloc()
+	/// @param p 解放するメモリ領域の先頭ポインタ | Pointer to the memory to deallocate
+	/// @remark p が nullptr の場合は何も起こりません。| The function accepts and does nothing with the null pointer.
 	inline void AlignedFree(void* const p);
 
-	/// <summary>
-	/// アライメントを考慮して、指定した型のためのメモリ領域を確保します。
-	/// </summary>
-	/// <param name="args">
-	/// コンストラクタ引数
-	/// </param>
-	/// <remarks>
-	/// 確保したポインタは AlignedDelete() で解放する必要があります。
-	/// </remarks>
-	/// <returns>
-	/// 確保したメモリ領域の先頭ポインタ
-	/// </returns>
+	/// @brief アライメントを考慮して、指定した型のためのメモリ領域を確保し、オブジェクトを構築します。
+	/// @tparam Type 構築するオブジェクト
+	/// @tparam ...Args コンストラクタ引数の型
+	/// @param ...args コンストラクタ引数
+	/// @remark 確保したポインタは `AlignedDelete()` で解放する必要があります。
+	/// @return 確保したメモリ領域の先頭ポインタ
 	template <class Type, class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>* = nullptr>
 	[[nodiscard]]
 	inline Type* AlignedNew(Args&&... args);
 
-	/// <summary>
-	/// AlignedNew() で確保したメモリ領域を解放します。
-	/// </summary>
-	/// <param name="p">
-	/// 解放するメモリ領域の先頭ポインタ
-	/// </param>
-	/// <remarks>
-	/// p が nullptr の場合は何も起こりません。
-	/// </remarks>
-	/// <returns>
-	/// なし
-	/// </returns>
+	/// @brief `AlignedNew()` で確保したオブジェクトを破棄し、メモリ領域を解放します。
+	/// @tparam Type オブジェクトの型
+	/// @param p 解放するメモリ領域の先頭ポインタ
+	/// @remark p が nullptr の場合は何も起こりません。
 	template <class Type>
 	inline void AlignedDelete(Type* const p);
 
-	/// <summary>
-	/// ポインタがアライメントされているかを返します。
-	/// </summary>
-	/// <param name="p">
-	/// アライメントを調べるポインタ
-	/// </param>
-	/// <param name="alignment">
-	/// アライメント（バイト）
-	/// </param>
-	/// <returns>
-	/// アライメントされている場合 true, それ以外の場合は false
-	/// </returns>
+	/// @brief ポインタが指定したサイズにアライメントされているかを返します。
+	/// @param p アライメントを調べるポインタ
+	/// @param alignment アライメントのサイズ（バイト）
+	/// @return 指定したサイズにアライメントされている場合 true, それ以外の場合は false
 	[[nodiscard]]
 	inline bool IsAligned(const void* p, size_t alignment) noexcept;
 
-	/// <summary>
-	/// アライメントを考慮したデリータ
-	/// </summary>
+	/// @brief アライメントを考慮したデリータ
+	/// @tparam Type オブジェクトの型
 	template <class Type>
 	struct AlignedDeleter
 	{
-		void operator()(Type* p)
-		{
-			AlignedDelete(p);
-		}
+		void operator()(Type* p);
 	};
 
-	/// <summary>
-	/// 明示的なアライメントの指定が必要な型であるかを判定します。
-	/// </summary>
+	/// @brief 明示的なアライメントの指定が必要な型であるかを判定します。
+	/// @tparam Type オブジェクトの型
 	template <class Type>
 	struct IsOverAligned
 		: std::bool_constant<(alignof(Type) > Platform::MinAlignment)> {};
 
+	/// @brief 明示的なアライメントの指定が必要な型であるかを示します。
+	/// @tparam Type オブジェクトの型
 	template <class Type>
 	constexpr bool IsOverAligned_v = IsOverAligned<Type>::value;
 }
