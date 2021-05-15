@@ -99,7 +99,7 @@ namespace s3d
 		{
 			if (not detail::ExtractEngineFonts())
 			{
-				throw EngineError(U"CFont::init(): Failed to extract font files");
+				throw EngineError{ U"CFont::init(): Failed to extract font files" };
 			}
 		}
 

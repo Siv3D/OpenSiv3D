@@ -51,7 +51,7 @@ Resource(engine/texture/box-shadow/8.png)
 //
 //	Sound Font
 //
-Resource(engine/soundfont/GMGSx.sf2.txt)
+Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 
 //////////////////////////////////////////////////////
 //

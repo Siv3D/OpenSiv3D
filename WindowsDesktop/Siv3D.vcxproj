@@ -944,6 +944,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemLog.hpp" />
@@ -1724,6 +1726,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Spline2D\SivSpline2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\String\Levenshtein.cpp" />

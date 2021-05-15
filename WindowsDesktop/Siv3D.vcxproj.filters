@@ -1141,6 +1141,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\AudioFormat\FLAC">
       <UniqueIdentifier>{4551329a-7e5b-483f-8f49-ccbc9036aaea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SoundFont">
+      <UniqueIdentifier>{5ee76235-bc0d-43a5-8a78-387d70cb8d78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5271,6 +5274,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd_errors.h">
       <Filter>src\ThirdParty\zstd</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7231,6 +7240,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_common.c">
       <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
