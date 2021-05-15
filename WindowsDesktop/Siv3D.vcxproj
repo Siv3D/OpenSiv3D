@@ -1364,8 +1364,8 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\threading.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_deps.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_errors.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_trace.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\hist.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_internal.h" />
@@ -1377,14 +1377,16 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm_geartab.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_ddict.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_decompress_block.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_decompress_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\cover.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zdict.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd_errors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\ConstantBuffer\GL4\ConstantBufferDetail_GL4.cpp" />
