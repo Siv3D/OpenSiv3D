@@ -662,6 +662,8 @@ add_library(
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 
+  ../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp
+
   ../Siv3D/src/ThirdParty/zstd/common/debug.c
   ../Siv3D/src/ThirdParty/zstd/common/entropy_common.c
   ../Siv3D/src/ThirdParty/zstd/common/error_private.c
