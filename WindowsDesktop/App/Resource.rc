@@ -48,6 +48,10 @@ Resource(engine/texture/box-shadow/64.png)
 Resource(engine/texture/box-shadow/32.png)
 Resource(engine/texture/box-shadow/16.png)
 Resource(engine/texture/box-shadow/8.png)
+//
+//	Sound Font
+//
+Resource(engine/soundfont/GMGSx.sf2.txt)
 
 //////////////////////////////////////////////////////
 //
