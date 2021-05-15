@@ -79,6 +79,10 @@ jobs:
         with:
           path: Dependencies/boost_1_73_0/boost
           key: ${{ env.cache-name }}
+
+      - name: Prebuild emscripten ports
+        run: |
+          embuilder.py build ogg vorbis libpng
   
       - name: Build project
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
