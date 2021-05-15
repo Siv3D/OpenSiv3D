@@ -33,6 +33,7 @@
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
 # include <Siv3D/AudioEncoder/IAudioEncoder.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
@@ -76,6 +77,21 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CSystem::init2()");
 
+		const bool d3d11 = (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
+			|| g_applicationOptions.renderer == EngineOption::Renderer::Direct3D11);
+
+		AsyncTask<bool> threadRenderer;
+		if (d3d11)
+		{
+			SIV3D_ENGINE(Renderer)->init();
+			threadRenderer = CreateAsyncTask([]()
+				{
+					try { dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer))->init2(); }
+					catch (const EngineError&) { return false; }
+					return true;
+				});
+		}
+
 		SIV3D_ENGINE(ImageDecoder)->init();
 		SIV3D_ENGINE(ImageEncoder)->init();
 		SIV3D_ENGINE(Cursor)->init();
@@ -87,20 +103,26 @@ namespace s3d
 		SIV3D_ENGINE(Clipboard)->init();
 		AsyncTask<bool> threadDragDrop{ []()
 			{
-				try
-				{
-					SIV3D_ENGINE(DragDrop)->init();
-				}
-				catch (const EngineError&)
-				{
-					return false;
-				}
+				try { SIV3D_ENGINE(DragDrop)->init(); }
+				catch (const EngineError&) { return false; }
 				return true;
 			}};
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();
 		SIV3D_ENGINE(AudioEncoder)->init();
-		SIV3D_ENGINE(Renderer)->init();
+
+		if (d3d11)
+		{
+			if (not threadRenderer.get())
+			{
+				throw EngineError{ U"SIV3D_ENGINE(Renderer)->init2(): failed" };
+			}
+		}
+		else
+		{
+			SIV3D_ENGINE(Renderer)->init();
+		}
+
 		SIV3D_ENGINE(Renderer2D)->init();
 		SIV3D_ENGINE(ScreenCapture)->init();
 		SIV3D_ENGINE(Font)->init();

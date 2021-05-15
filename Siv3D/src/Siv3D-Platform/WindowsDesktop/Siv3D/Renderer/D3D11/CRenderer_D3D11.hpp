@@ -98,6 +98,8 @@ namespace s3d
 		// Windows
 		//
 
+		void init2();
+
 		ID3D11Device* getDevice() const;
 
 		ID3D11DeviceContext* getContext() const;

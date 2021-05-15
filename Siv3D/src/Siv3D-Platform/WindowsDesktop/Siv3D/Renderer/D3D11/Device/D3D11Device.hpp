@@ -23,12 +23,16 @@ namespace s3d
 	{
 	private:
 
+		bool m_hasDebugLayer = false;
+
+		PFN_D3D11_CREATE_DEVICE m_pD3D11CreateDevice = nullptr;
+
 		ComPtr<IDXGIFactory2> m_DXGIFactory2;
 		
 		ComPtr<IDXGIFactory5> m_DXGIFactory5;
 
 		Array<D3D11Adapter> m_adapters;
-		
+
 		D3D_FEATURE_LEVEL m_WARPFeatureLevel = D3D_FEATURE_LEVEL_10_1;
 		
 		D3D_FEATURE_LEVEL m_referenceFeatureLevel = D3D_FEATURE_LEVEL_10_1;
@@ -40,6 +44,8 @@ namespace s3d
 		D3D11Device();
 
 		~D3D11Device();
+
+		void init();
 
 		[[nodiscard]]
 		IDXGIFactory2* getDXGIFactory2() const noexcept;
