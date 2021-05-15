@@ -1,0 +1,4 @@
+﻿Made by LRIKI (https://twitter.com/lriki8)
+- Source files: https://github.com/lriki/Siv3D-PixelArt
+- This work features an adaptation of Siv3D-kun, (c) 2015 Siv3D, licensed under a CC BY-NC: http://creativecommons.org/licenses/by-nc/4.0/
+- WOLF RPG Editor 規格のキャラチップ素材です。
