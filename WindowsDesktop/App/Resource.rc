@@ -48,10 +48,6 @@ Resource(engine/texture/box-shadow/64.png)
 Resource(engine/texture/box-shadow/32.png)
 Resource(engine/texture/box-shadow/16.png)
 Resource(engine/texture/box-shadow/8.png)
-//
-//	Sound Font
-//
-Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 
 //////////////////////////////////////////////////////
 //
@@ -78,6 +74,10 @@ Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
 Resource(engine/font/fontawesome/fontawesome-brands.otf.zstdcmp)
 Resource(engine/font/fontawesome/fontawesome-solid.otf.zstdcmp)
 Resource(engine/font/materialdesignicons/materialdesignicons-webfont.ttf.zstdcmp)
+//
+//	Sound Font
+//
+Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 
 //////////////////////////////////////////////////////
 //

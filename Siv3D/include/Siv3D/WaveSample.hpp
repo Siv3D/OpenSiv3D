@@ -76,6 +76,8 @@ namespace s3d
 
 		constexpr WaveSample& operator =(WaveSampleS16 sample) noexcept;
 
+		constexpr WaveSample& operator *=(float s) noexcept;
+
 		constexpr WaveSample& set(float mono) noexcept;
 
 		constexpr WaveSample& set(float _left, float _right) noexcept;

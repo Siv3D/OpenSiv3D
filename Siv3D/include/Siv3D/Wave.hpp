@@ -131,6 +131,12 @@ namespace s3d
 
 		void fillZero();
 
+		void swapLR() noexcept;
+
+		void removeSilenceFromBeginning();
+
+		void removeSilenceFromEnd();
+
 		bool save(FilePathView path, AudioFormat format = AudioFormat::WAVE) const;
 
 		[[nodiscard]]

@@ -48,7 +48,7 @@ namespace s3d
 
 				if (not existsInResource)
 				{
-					LOG_ERROR(U"✖ Engine soundfont `{0}` not found"_fmt(fontResourcePath));
+					LOG_INFO(U"Engine soundfont `{0}` not found"_fmt(fontResourcePath));
 					return false;
 				}
 
@@ -81,10 +81,7 @@ namespace s3d
 
 		// エンジンサウンドフォントの展開
 		{
-			if (not detail::ExtractEngineSoundFonts())
-			{
-				throw EngineError{ U"CSoundFont::init(): Failed to extract soundfont files" };
-			}
+			m_hasGMGSx = detail::ExtractEngineSoundFonts();
 		}
 	}
 }

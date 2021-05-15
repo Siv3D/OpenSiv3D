@@ -158,6 +158,54 @@ namespace s3d
 		m_data.fill(WaveSample::Zero());
 	}
 
+	inline void Wave::swapLR() noexcept
+	{
+		for (auto& sample : m_data)
+		{
+			sample.swapChannel();
+		}
+	}
+
+	inline void Wave::removeSilenceFromBeginning()
+	{
+		size_t count = 0;
+
+		for (auto it = m_data.begin(); it != m_data.end(); ++it)
+		{
+			if (it->left || it->right)
+			{
+				break;
+			}
+
+			++count;
+		}
+
+		if (2 <= count)
+		{
+			m_data.pop_front_N(count - 1);
+		}
+	}
+
+	inline void Wave::removeSilenceFromEnd()
+	{
+		size_t count = 0;
+
+		for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+		{
+			if (it->left || it->right)
+			{
+				break;
+			}
+
+			++count;
+		}
+
+		if (2 <= count)
+		{
+			m_data.pop_back_N(count - 1);
+		}
+	}
+
 	template <class Iterator>
 	inline void Wave::assign(Iterator first, Iterator last)
 	{

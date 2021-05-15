@@ -24,6 +24,12 @@ namespace s3d
 		createFromFile(path);
 	}
 
+	inline Blob::Blob(IReader& reader)
+		: m_data(reader.size())
+	{
+		reader.read(m_data.data(), m_data.size());
+	}
+
 	inline Blob::Blob(const void* src, const size_t sizeBytes)
 		: m_data(static_cast<const Byte*>(src), (static_cast<const Byte*>(src) + sizeBytes)) {}
 

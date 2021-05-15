@@ -103,6 +103,13 @@ namespace s3d
 		return (*this = sample.asWaveSample());
 	}
 
+	inline constexpr WaveSample& WaveSample::operator *=(const float s) noexcept
+	{
+		left *= s;
+		right *= s;
+		return *this;
+	}
+
 	inline constexpr WaveSample& WaveSample::set(const float mono) noexcept
 	{
 		left	= mono;

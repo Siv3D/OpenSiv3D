@@ -26,5 +26,6 @@ namespace s3d
 
 	private:
 
+		bool m_hasGMGSx = false;
 	};
 }

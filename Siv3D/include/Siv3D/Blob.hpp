@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "Byte.hpp"
+# include "IReader.hpp"
 # include "MD5Value.hpp"
 
 namespace s3d
@@ -45,6 +46,9 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		explicit Blob(FilePathView path);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Blob(IReader& reader);
 
 		SIV3D_NODISCARD_CXX20
 		Blob(const void* src, size_t sizeBytes);
