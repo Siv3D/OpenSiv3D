@@ -11,6 +11,7 @@
 
 # pragma once
 # include "ISoundFont.hpp"
+# include <Siv3D/SoundFont.hpp>
 
 namespace s3d
 {
@@ -24,8 +25,14 @@ namespace s3d
 
 		void init() override;
 
+		Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::samplingRate_<uint32> samplingRate) override;
+
+		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate, const Duration& tail) override;
+
 	private:
 
 		bool m_hasGMGSx = false;
+
+		std::unique_ptr<SoundFont> m_GMGSx;
 	};
 }

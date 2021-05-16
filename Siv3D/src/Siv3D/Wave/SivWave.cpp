@@ -14,6 +14,8 @@
 # include <Siv3D/AudioEncoder.hpp>
 # include <Siv3D/Dialog.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/SoundFont/ISoundFont.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
 # include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
 
@@ -27,6 +29,14 @@ namespace s3d
 	Wave::Wave(IReader&& reader, const AudioFormat format)
 	{
 		*this = AudioDecoder::Decode(reader, format);
+	}
+
+	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+		: Wave{ instrument, key, duration, SecondsF{ 0.5 }, velocity, samplingRate } {}
+
+	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+	{
+		*this = SIV3D_ENGINE(SoundFont)->render(instrument, key, noteOn, noteOff, velocity, samplingRate);
 	}
 
 	void Wave::swapLR() noexcept

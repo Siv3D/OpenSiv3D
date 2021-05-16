@@ -17,6 +17,7 @@
 # include "AudioFormat.hpp"
 # include "WAVEFormat.hpp"
 # include "WaveSample.hpp"
+# include "GMInstrument.hpp"
 # include "AudioLoopTiming.hpp"
 
 namespace s3d
@@ -100,6 +101,12 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
+
+		SIV3D_NODISCARD_CXX20
+		Wave(GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+
+		SIV3D_NODISCARD_CXX20
+		Wave(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
 
 		Wave& operator =(const Array<value_type>& other);
 

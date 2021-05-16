@@ -11,10 +11,13 @@
 
 # include <Siv3D/Optional.hpp>
 # include "SoundFontDetail.hpp"
+
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 # define TSF_IMPLEMENTATION
 # include <ThirdParty/TinySoundFont/tsf.h>
 #define TML_IMPLEMENTATION
 # include <ThirdParty/TinySoundFont/tml.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
