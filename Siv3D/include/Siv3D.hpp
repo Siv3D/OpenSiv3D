@@ -593,10 +593,13 @@
 
 # include <Siv3D/Point.hpp>
 
+// 2 次元ベクトル | 2D vector
 # include <Siv3D/Vector2D.hpp>
 
+// 3 次元ベクトル | 3D vector
 # include <Siv3D/Vector3D.hpp>
 
+// 4 次元ベクトル | 4D vector
 # include <Siv3D/Vector4D.hpp>
 
 # include <Siv3D/CommonFloat.hpp>
@@ -623,6 +626,7 @@
 // 3x3 行列 | 3x3 matrix
 # include <Siv3D/Mat3x3.hpp>
 
+// 2D 図形コレクション | 2D shape collection
 # include <Siv3D/2DShapes.hpp>
 
 // 線のスタイル | Line style
@@ -679,6 +683,8 @@
 // 2D 形状コレクション | 2D shapes collection
 # include <Siv3D/Shape2D.hpp>
 
+# include <Siv3D/Buffer2D.hpp>
+
 // 2D 幾何 | 2D geometry processing
 # include <Siv3D/Geometry2D.hpp>
 
@@ -700,16 +706,16 @@
 // 擬似乱数発生器 | Pseudorandom Number Generator
 # include <Siv3D/PRNG.hpp>
 
-// 乱数の分布 | Random Number Distribution
+// 乱数の分布 | Random number distribution
 # include <Siv3D/Distribution.hpp>
 
-// 離散確率分布 | Discrete Probability Distribution
+// 離散確率分布 | Discrete probability distribution
 # include <Siv3D/DiscreteDistribution.hpp>
 
-// 乱数 | Random Number
+// 乱数 | Random number
 # include <Siv3D/Random.hpp>
 
-// シャッフル | Random Shuffle
+// シャッフル | Random shuffle
 # include <Siv3D/Shuffle.hpp>
 
 // ランダムな Point の作成 | Random Point generation
@@ -736,7 +742,7 @@
 //
 //////////////////////////////////////////////////
 
-// 環境変数 | Environment Variable
+// 環境変数 | Environment variable
 # include <Siv3D/EnvironmentVariable.hpp>
 
 // コマンドライン引数 | Command-line arguments
@@ -820,14 +826,20 @@
 
 # include <Siv3D/ImageROI.hpp>
 
+// 背景抽出
+# include <Siv3D/GrabCut.hpp>
+
+//////////////////////////////////////////////////
+//
+//	画像形式 | Image encoding
+//
+//////////////////////////////////////////////////
+
 # include <Siv3D/IImageDecoder.hpp>
 # include <Siv3D/IImageEncoder.hpp>
 
 # include <Siv3D/ImageEncoder.hpp>
 # include <Siv3D/ImageDecoder.hpp>
-
-//# include <Siv3D/ImageFormat/DDSDecoder.hpp>
-//# include <Siv3D/ImageFormat/DDSEncoder.hpp>
 
 # include <Siv3D/PNGFilter.hpp>
 # include <Siv3D/ImageFormat/PNGDecoder.hpp>
@@ -835,9 +847,7 @@
 
 # include <Siv3D/ImageFormat/JPEGDecoder.hpp>
 # include <Siv3D/ImageFormat/JPEGEncoder.hpp>
-
-//# include <Siv3D/ImageFormat/JPEG2000Decoder.hpp>
-//# include <Siv3D/ImageFormat/JPEG2000Encoder.hpp>
+# include <Siv3D/Exif.hpp>
 
 # include <Siv3D/ImageFormat/BMPDecoder.hpp>
 # include <Siv3D/ImageFormat/BMPEncoder.hpp>
@@ -864,6 +874,23 @@
 // SVG 画像 | SVG image
 # include <Siv3D/SVG.hpp>
 
+// アニメーション　GIF の読み込み
+# include <Siv3D/AnimatedGIFReader.hpp>
+
+// アニメーション GIF の書き出し
+# include <Siv3D/AnimatedGIFWriter.hpp>
+
+//# include <Siv3D/ImageFormat/DDSDecoder.hpp>
+//# include <Siv3D/ImageFormat/DDSEncoder.hpp>
+//# include <Siv3D/ImageFormat/JPEG2000Decoder.hpp>
+//# include <Siv3D/ImageFormat/JPEG2000Encoder.hpp>
+
+//////////////////////////////////////////////////
+//
+//	QR コード | QR code
+//
+//////////////////////////////////////////////////
+
 // QR コードの誤り訂正レベル | QR error correction
 # include <Siv3D/QRErrorCorrection.hpp>
 
@@ -873,8 +900,10 @@
 // QR コード | QR code
 # include <Siv3D/QR.hpp>
 
+// QR コードのデータ | QR code content
 # include <Siv3D/QRContent.hpp>
 
+// QR コード検出 | QR code scanner
 # include <Siv3D/QRScanner.hpp>
 
 //////////////////////////////////////////////////
@@ -891,36 +920,110 @@
 
 //////////////////////////////////////////////////
 //
+//	音声処理 | Audio processing
+//
+//////////////////////////////////////////////////
+
+// 音声波形のサンプル
+# include <Siv3D/WaveSample.hpp>
+
+// 音声波形
+# include <Siv3D/Wave.hpp>
+
+//////////////////////////////////////////////////
+//
+//	音声形式 | Audio encoding
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/AudioFormat.hpp>
+# include <Siv3D/IAudioDecoder.hpp>
+# include <Siv3D/IAudioEncoder.hpp>
+# include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/AudioEncoder.hpp>
+# include <Siv3D/WAVEFormat.hpp>
+# include <Siv3D/AudioFormat/WAVEDecoder.hpp>
+# include <Siv3D/AudioFormat/WAVEEncoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
+# include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
+# include <Siv3D/AudioFormat/OpusDecoder.hpp>
+# include <Siv3D/AudioFormat/OpusEncoder.hpp>
+# include <Siv3D/AudioFormat/AACDecoder.hpp>
+# include <Siv3D/AudioFormat/AIFFDecoder.hpp>
+# include <Siv3D/AudioFormat/FLACDecoder.hpp>
+# include <Siv3D/AudioFormat/MIDIDecoder.hpp>
+# include <Siv3D/AudioFormat/MP3Decoder.hpp>
+# include <Siv3D/AudioFormat/WMADecoder.hpp>
+
+//////////////////////////////////////////////////
+//
+//	MIDI | MIDI
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/GMInstrument.hpp>
+
+# include <Siv3D/PianoKey.hpp>
+
+# include <Siv3D/MIDINote.hpp>
+
+// サウンドフォント | Sound font
+# include <Siv3D/SoundFont.hpp>
+
+//////////////////////////////////////////////////
+//
 //	入力デバイス | Input device
 //
 //////////////////////////////////////////////////
 
-// マウスカーソルのスタイル | Mouse Cursor Style
+// マウスカーソルのスタイル | Mouse cursor style
 # include <Siv3D/CursorStyle.hpp>
 
-// マウスカーソル | Mouse Cursor
+// マウスカーソル | Mouse cursor
 # include <Siv3D/Cursor.hpp>
 
 # include <Siv3D/InputDevice.hpp>
 
 # include <Siv3D/InputGroups.hpp>
 
+// キーボード | Keyboard
 # include <Siv3D/Keyboard.hpp>
 
 // マウス | Mouse
 # include <Siv3D/Mouse.hpp>
 
-
+// ゲームパッドの情報 | Gamepad information
 # include <Siv3D/GamepadInfo.hpp>
+
+// ゲームパッド | Gamepad
 # include <Siv3D/Gamepad.hpp>
+
+// Joy-Con | Joy-Con
 # include <Siv3D/JoyCon.hpp>
+
+// Pro コントローラー | Pro-Controller
 # include <Siv3D/ProController.hpp>
 
-
+// デッドゾーン | Deadzone
 # include <Siv3D/DeadZone.hpp>
+
+// XInput コントローラの振動 | XInput controller vibration 
 # include <Siv3D/XInputVibration.hpp>
+
+// XInput コントローラ | XInput controller
 # include <Siv3D/XInput.hpp>
 
+//////////////////////////////////////////////////
+//
+//	Web カメラ | Webcam
+//
+//////////////////////////////////////////////////
+
+// Web カメラの情報 | Webcam information
+# include <Siv3D/WebcamInfo.hpp>
+
+// Web カメラ | Webcam
+# include <Siv3D/Webcam.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -988,10 +1091,18 @@
 // 2D 座標変換スコープ | 2D Transformation Scope
 # include <Siv3D/Transformer2D.hpp>
 
+//////////////////////////////////////////////////
+//
+//	2D カメラコントロール | 2D Camera
+//
+//////////////////////////////////////////////////
+
 # include <Siv3D/BasicCamera2D.hpp>
 
 # include <Siv3D/CameraControl.hpp>
+
 # include <Siv3D/Camera2DParameters.hpp>
+
 # include <Siv3D/Camera2D.hpp>
 
 //////////////////////////////////////////////////
@@ -1036,6 +1147,7 @@
 
 # include <Siv3D/TextureDesc.hpp>
 
+// テクスチャ | Texture
 # include <Siv3D/Texture.hpp>
 
 # include <Siv3D/TextureRegion.hpp>
@@ -1051,6 +1163,7 @@
 
 # include <Siv3D/DynamicTexture.hpp>
 
+# include <Siv3D/VideoTexture.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1077,80 +1190,96 @@
 
 //////////////////////////////////////////////////
 //
-//	未分類
+//	GUI | GUI
 //
 //////////////////////////////////////////////////
 
-# include <Siv3D/IEffect.hpp>
-
-# include <Siv3D/Effect.hpp>
-
-# include <Siv3D/Buffer2D.hpp>
-
-# include <Siv3D/SceneManager.hpp>
-# include <Siv3D/ScreenCapture.hpp>
-
+// 簡易的な GUI | Simple GUI widgets
 # include <Siv3D/SimpleGUI.hpp>
 
-# include <Siv3D/VideoTexture.hpp>
-# include <Siv3D/GrabCut.hpp>
-# include <Siv3D/Exif.hpp>
-
-# include <Siv3D/WaveSample.hpp>
-# include <Siv3D/GMInstrument.hpp>
-# include <Siv3D/PianoKey.hpp>
-# include <Siv3D/Wave.hpp>
-# include <Siv3D/MIDINote.hpp>
-# include <Siv3D/SoundFont.hpp>
-
-# include <Siv3D/AudioFormat.hpp>
-# include <Siv3D/IAudioDecoder.hpp>
-# include <Siv3D/IAudioEncoder.hpp>
-# include <Siv3D/AudioDecoder.hpp>
-# include <Siv3D/AudioEncoder.hpp>
-# include <Siv3D/WAVEFormat.hpp>
-# include <Siv3D/AudioFormat/WAVEDecoder.hpp>
-# include <Siv3D/AudioFormat/WAVEEncoder.hpp>
-# include <Siv3D/AudioFormat/OggVorbisDecoder.hpp>
-# include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
-# include <Siv3D/AudioFormat/OpusDecoder.hpp>
-# include <Siv3D/AudioFormat/OpusEncoder.hpp>
-# include <Siv3D/AudioFormat/AACDecoder.hpp>
-# include <Siv3D/AudioFormat/AIFFDecoder.hpp>
-# include <Siv3D/AudioFormat/FLACDecoder.hpp>
-# include <Siv3D/AudioFormat/MIDIDecoder.hpp>
-# include <Siv3D/AudioFormat/MP3Decoder.hpp>
-# include <Siv3D/AudioFormat/WMADecoder.hpp>
-
-# include <Siv3D/SerialPortInfo.hpp>
-# include <Siv3D/Serial.hpp>
-
-# include <Siv3D/Pipe.hpp>
-# include <Siv3D/ChildProcess.hpp>
-
-# include <Siv3D/WebcamInfo.hpp>
-# include <Siv3D/Webcam.hpp>
-
-
+// テキストの入力処理方式
 # include <Siv3D/TextInputMode.hpp>
+
+// テキスト入力 | Text input
 # include <Siv3D/TextInput.hpp>
 
+//////////////////////////////////////////////////
+//
+//	トースト通知 | Toast notification
+//
+//////////////////////////////////////////////////
 
-# include <Siv3D/Clipboard.hpp>
+# include <Siv3D/ToastNotificationItem.hpp>
+
+# include <Siv3D/ToastNotificationState.hpp>
+
+# include <Siv3D/ToastNotification.hpp>
+
+//////////////////////////////////////////////////
+//
+//	エフェクト | Effect
+//
+//////////////////////////////////////////////////
+
+// エフェクト基本クラス | Effect base class
+# include <Siv3D/IEffect.hpp>
+
+// エフェクト | Effect
+# include <Siv3D/Effect.hpp>
+
+//////////////////////////////////////////////////
+//
+//	シリアル通信 | Serial communication
+//
+//////////////////////////////////////////////////
+
+// シリアルポートの情報 | Serial port information
+# include <Siv3D/SerialPortInfo.hpp>
+
+// シリアル通信 | Serial communication
+# include <Siv3D/Serial.hpp>
+
+//////////////////////////////////////////////////
+//
+//	ダイアログ | Dialog
+//
+//////////////////////////////////////////////////
+
+// ファイルダイアログ | File dialog
 # include <Siv3D/Dialog.hpp>
+
+// ファイル拡張子フィルタ | File extension filter
 # include <Siv3D/FileFilter.hpp>
 
+//////////////////////////////////////////////////
+//
+//	電源の状態 | Power status
+//
+//////////////////////////////////////////////////
+
+// 電源の接続状態 | AC line status
 # include <Siv3D/ACLineStatus.hpp>
+
+// バッテリーの残量 | Battery status
 # include <Siv3D/BatteryStatus.hpp>
+
+// 電源の状態 | Power status
 # include <Siv3D/PowerStatus.hpp>
 
+//////////////////////////////////////////////////
+//
+//	文章読み上げ | Text to speech
+//
+//////////////////////////////////////////////////
+
+// 言語コード | Language code
 # include <Siv3D/LanguageCode.hpp>
+
+// 文章読み上げ | Text to speech
 # include <Siv3D/TextToSpeech.hpp>
+
+// 文章読み上げオブジェクト | Text to speech object
 # include <Siv3D/Say.hpp>
-
-# include <Siv3D/AnimatedGIFReader.hpp>
-# include <Siv3D/AnimatedGIFWriter.hpp>
-
 
 //////////////////////////////////////////////////
 //
@@ -1158,10 +1287,19 @@
 //
 //////////////////////////////////////////////////
 
+// ドラッグするアイテムの種類
 # include <Siv3D/DragItemType.hpp>
+
+// ドラッグの状態
 # include <Siv3D/DragStatus.hpp>
+
+// ドロップされたファイルパスの情報
 # include <Siv3D/DroppedFilePath.hpp>
+
+// ドロップされたテキストの情報
 # include <Siv3D/DroppedText.hpp>
+
+// ドラッグ＆ドロップ | Drag & drop
 # include <Siv3D/DragDrop.hpp>
 
 //////////////////////////////////////////////////
@@ -1222,6 +1360,27 @@
 
 // アプリケーションの設定 | Application configuration
 # include <Siv3D/ApplicationOptions.hpp>
+
+//////////////////////////////////////////////////
+//
+//	未分類
+//
+//////////////////////////////////////////////////
+
+// シーン遷移管理 | Scene transition manager
+# include <Siv3D/SceneManager.hpp>
+
+// スクリーンキャプチャ | Screen capture
+# include <Siv3D/ScreenCapture.hpp>
+
+// パイプ通信 | Interprocess communication (Pipe)
+# include <Siv3D/Pipe.hpp>
+
+// 子プロセス | Child process
+# include <Siv3D/ChildProcess.hpp>
+
+// クリップボード | Clipboard
+# include <Siv3D/Clipboard.hpp>
 
 //////////////////////////////////////////////////
 //

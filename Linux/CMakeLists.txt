@@ -68,6 +68,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Texture/TextureFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/TextInput/CTextInput.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Time/SivTime.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ToastNotification/CToastNotification.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/WebcamInfo/SivWebcamInfo.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Window/CWindow.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Window/WindowFactory.cpp
@@ -381,6 +382,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
+  ../Siv3D/src/Siv3D/ToastNotification/SivToastNotification.cpp
+  ../Siv3D/src/Siv3D/ToastNotification/ToastNotificationFactory.cpp
   ../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
   ../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp

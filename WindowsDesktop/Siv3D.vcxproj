@@ -581,6 +581,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotification.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotificationItem.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotificationState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
@@ -821,6 +824,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\CTexture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture2DDesc.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ToastNotification\CToastNotification.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\CWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\DPIAwareness.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Window\TouchFeedback.hpp" />
@@ -961,6 +965,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\Null\CTexture_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\TextureCommon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ToastNotification\IToastNotification.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Unicode\UnicodeUtility.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\CUserAction.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\IUSerAction.hpp" />
@@ -1480,6 +1485,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\D3D11\D3D11Texture2DDesc.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Texture\TextureFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Time\SivTime.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\ToastNotification\CToastNotification.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Unicode\SivUnicode_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\WebcamInfo\SivWebcamInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Windows\SivWindows.cpp" />
@@ -1766,6 +1772,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\SivTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\SivToastNotification.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\ToastNotificationFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />

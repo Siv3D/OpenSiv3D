@@ -11,18 +11,19 @@
 
 # pragma once
 # include "Common.hpp"
-# include "DragItemType.hpp"
-# include "PointVector.hpp"
+# include "String.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
-	/// @brief ドラッグの状態
-	struct DragStatus
+	struct ToastNotificationItem
 	{
-		/// @brief ドラッグしているアイテムの種類
-		DragItemType itemType;
+		String title;
 
-		/// @brief ドラッグ中のカーソルの位置（クライアント座標）
-		Point cursorPos;
+		String message;
+
+		FilePath imagePath;
+
+		Array<String> actions;
 	};
 }

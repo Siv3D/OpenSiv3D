@@ -37,6 +37,7 @@ namespace s3d
 	class ISiv3DTextToSpeech;
 	class ISiv3DClipboard;
 	class ISiv3DDragDrop;
+	class ISiv3DToastNotification;
 	class ISiv3DSoundFont;
 	class ISiv3DAudioCodec;
 	class ISiv3DAudioDecoder;
@@ -81,6 +82,7 @@ namespace s3d
 			Siv3DComponent<ISiv3DTextToSpeech>,
 			Siv3DComponent<ISiv3DClipboard>,
 			Siv3DComponent<ISiv3DDragDrop>,
+			Siv3DComponent<ISiv3DToastNotification>,
 			Siv3DComponent<ISiv3DSoundFont>,
 			Siv3DComponent<ISiv3DAudioCodec>,
 			Siv3DComponent<ISiv3DAudioDecoder>,

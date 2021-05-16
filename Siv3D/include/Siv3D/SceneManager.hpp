@@ -124,7 +124,7 @@ namespace s3d
 		SceneManager<State_t, Data_t>* m_manager;
 	};
 
-	/// @brief シーン管理
+	/// @brief シーン遷移管理
 	/// @tparam State シーンを区別するキーの型
 	/// @tparam Data シーン間で共有するデータの型
 	template <class State, class Data = void>
