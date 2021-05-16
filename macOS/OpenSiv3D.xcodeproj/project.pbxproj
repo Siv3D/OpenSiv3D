@@ -2385,6 +2385,8 @@
 		2C5043FC2651335E00E36D08 /* binary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = binary.hpp; sourceTree = "<group>"; };
 		2C5043FD2651335E00E36D08 /* version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
 		2C5043FE2651335E00E36D08 /* specialize.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = specialize.hpp; sourceTree = "<group>"; };
+		2C5043FF2651364800E36D08 /* MemoryWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryWriter.hpp; sourceTree = "<group>"; };
+		2C5044002651365A00E36D08 /* MemoryWriter.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryWriter.ipp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -2679,7 +2681,6 @@
 		2C834D88248805D4006208B8 /* iso8859_4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iso8859_4.c; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2C8A2518264905F000A87808 /* libopusfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopusfile.a; path = ../Siv3D/lib/macOS/opus/libopusfile.a; sourceTree = "<group>"; };
-		2C8CA399261585BD00BABD2D /* BlobWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlobWriter.hpp; sourceTree = "<group>"; };
 		2C8CA39A261585D200BABD2D /* PPMEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMEncoder.hpp; sourceTree = "<group>"; };
 		2C8CA39B261585D200BABD2D /* PPMDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMDecoder.hpp; sourceTree = "<group>"; };
 		2C8CA39C261585DA00BABD2D /* WebPDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebPDecoder.hpp; sourceTree = "<group>"; };
@@ -2688,7 +2689,6 @@
 		2C8CA3A02615863C00BABD2D /* WebPDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebPDecoder.cpp; sourceTree = "<group>"; };
 		2C8CA3A22615863C00BABD2D /* PPMDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMDecoder.cpp; sourceTree = "<group>"; };
 		2C8CA3A32615863C00BABD2D /* PPMEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMEncoder.cpp; sourceTree = "<group>"; };
-		2C8CA3A82615865700BABD2D /* BlobWriter.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlobWriter.ipp; sourceTree = "<group>"; };
 		2C8CA3A92615948F00BABD2D /* WebPMethod.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebPMethod.hpp; sourceTree = "<group>"; };
 		2C8CA3AB261594A000BABD2D /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		2C8CA3AC261594A000BABD2D /* encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encode.h; sourceTree = "<group>"; };
@@ -7447,7 +7447,6 @@
 				2CAAA87D25E7FD0300C014D7 /* BitmapGlyph.hpp */,
 				2CAAA85F25E7FD0300C014D7 /* BlendState.hpp */,
 				2CAAA78125E7FD0200C014D7 /* Blob.hpp */,
-				2C8CA399261585BD00BABD2D /* BlobWriter.hpp */,
 				2C4A289B25F4FAC300FEACE4 /* BorderType.hpp */,
 				2C4A286F25EA610B00FEACE4 /* Buffer2D.hpp */,
 				2CAAA83525E7FD0200C014D7 /* Byte.hpp */,
@@ -7613,6 +7612,7 @@
 				2CC584372646313C00C33E9F /* MemoryMappedFileView.hpp */,
 				2C95667A264561D900539B85 /* MemoryReader.hpp */,
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
+				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
@@ -7810,7 +7810,6 @@
 				2CAAA7F925E7FD0200C014D7 /* BinaryWriter.ipp */,
 				2CAAA7D225E7FD0200C014D7 /* BlendState.ipp */,
 				2CAAA7BD25E7FD0200C014D7 /* Blob.ipp */,
-				2C8CA3A82615865700BABD2D /* BlobWriter.ipp */,
 				2CAAA83225E7FD0200C014D7 /* BoolArray.ipp */,
 				2CAAA7C025E7FD0200C014D7 /* Byte.ipp */,
 				2CAAA83125E7FD0200C014D7 /* Camera2D.ipp */,
@@ -7897,6 +7896,7 @@
 				2CAAA79325E7FD0200C014D7 /* Memory.ipp */,
 				2C95667D2645620A00539B85 /* MemoryReader.ipp */,
 				2C4AEF5B262C469600D36CFC /* MemoryViewReader.ipp */,
+				2C5044002651365A00E36D08 /* MemoryWriter.ipp */,
 				2CAAA7FB25E7FD0200C014D7 /* MicrosecClock.ipp */,
 				2CAAA7B525E7FD0200C014D7 /* MillisecClock.ipp */,
 				2CAAA82E25E7FD0200C014D7 /* MultiPolygon.ipp */,
