@@ -36,6 +36,7 @@ namespace s3d
 			FileFilter::AAC(),
 			FileFilter::OggVorbis(),
 			FileFilter::Opus(),
+			FileFilter::MIDI(),
 		# if SIV3D_PLATFORM(WINDOWS)
 			FileFilter::WMA(),
 			FileFilter::FLAC(),

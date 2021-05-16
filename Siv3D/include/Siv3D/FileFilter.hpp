@@ -69,6 +69,9 @@ namespace s3d
 
 		[[nodiscard]]
 		static FileFilter FLAC();
+		
+		[[nodiscard]]
+		static FileFilter MIDI();
 
 		[[nodiscard]]
 		static FileFilter MP3();
