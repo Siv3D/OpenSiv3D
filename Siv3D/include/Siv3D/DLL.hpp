@@ -89,12 +89,12 @@ namespace s3d
 			template <class Type>
 			operator Type() const noexcept
 			{
-				return static_cast<Type>(p);
+				return reinterpret_cast<Type>(p);
 			}
 
 		private:
 
-			const void* p;
+			void* p;
 		};
 
 		class GetFunction
@@ -107,12 +107,12 @@ namespace s3d
 			template <class Type>
 			operator Type() const noexcept
 			{
-				return static_cast<Type>(p);
+				return reinterpret_cast<Type>(p);
 			}
 
 		private:
 
-			const void* p;
+			void* p;
 		};
 	}
 }

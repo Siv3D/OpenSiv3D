@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/AudioCodec/IAudioCodec.hpp>
-# include <mpg123/mpg123.h>
+# include <mpg123.h>
 
 namespace s3d
 {
@@ -55,5 +55,7 @@ namespace s3d
 		bool m_libmpg123Available = false;
 
 		void loadMPG123();
+
+		Wave decodeMP3(IReader& reader);
 	};
 }
