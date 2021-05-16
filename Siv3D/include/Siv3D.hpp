@@ -1101,6 +1101,7 @@
 # include <Siv3D/PianoKey.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/MIDINote.hpp>
+# include <Siv3D/SoundFont.hpp>
 
 # include <Siv3D/AudioFormat.hpp>
 # include <Siv3D/IAudioDecoder.hpp>

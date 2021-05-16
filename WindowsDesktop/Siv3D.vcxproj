@@ -545,6 +545,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SpecialFolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp" />
@@ -947,6 +948,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SVG\SVGDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemLog.hpp" />
@@ -1351,6 +1353,8 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tml.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\xxHash\xxhash.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zlib\zconf.h" />
@@ -1728,6 +1732,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Spline2D\SivSpline2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp" />

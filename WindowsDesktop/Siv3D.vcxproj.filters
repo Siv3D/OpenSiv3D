@@ -1144,6 +1144,9 @@
     <Filter Include="src\Siv3D\SoundFont">
       <UniqueIdentifier>{5ee76235-bc0d-43a5-8a78-387d70cb8d78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\TinySoundFont">
+      <UniqueIdentifier>{24d8c2cd-11de-4623-b204-faa6ec247579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5283,6 +5286,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MIDINote.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontDetail.hpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tml.h">
+      <Filter>src\ThirdParty\TinySoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h">
+      <Filter>src\ThirdParty\TinySoundFont</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7248,6 +7263,12 @@
       <Filter>src\Siv3D\SoundFont</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontDetail.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp">
       <Filter>src\Siv3D\SoundFont</Filter>
     </ClCompile>
   </ItemGroup>

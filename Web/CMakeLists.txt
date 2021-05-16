@@ -342,6 +342,8 @@ add_library(
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
   ../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp
+  ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp
+  ../Siv3D/src/Siv3D/SoundFont/SoundFontDetail.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
