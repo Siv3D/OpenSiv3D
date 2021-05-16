@@ -14,6 +14,9 @@
 
 namespace s3d
 {
+	/// @brief 再帰的に処理する
+	using Recursive			= YesNo<struct Recursive_tag>;
+
 	/// @brief 妥当性をチェックする
 	using SkipValidation	= YesNo<struct SkipValidation_tag>;
 	

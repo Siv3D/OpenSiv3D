@@ -112,7 +112,7 @@ namespace s3d
 			return result;
 		}
 
-		static void DirectoryContentsRecursive(FilePath directory, Array<FilePath>& paths, const bool recursive)
+		static void DirectoryContentsRecursive(FilePath directory, Array<FilePath>& paths, const Recursive recursive)
 		{
 			directory = NormalizePath(directory, true);
 
@@ -137,7 +137,7 @@ namespace s3d
 
 						if (recursive)
 						{
-							DirectoryContentsRecursive(paths.back(), paths, true);
+							DirectoryContentsRecursive(paths.back(), paths, Recursive::Yes);
 						}
 					}
 				}
@@ -589,7 +589,7 @@ namespace s3d
 			return detail::FiletimeToTime(fad.ftLastAccessTime);
 		}
 
-		Array<FilePath> DirectoryContents(const FilePathView path, const bool recursive)
+		Array<FilePath> DirectoryContents(const FilePathView path, const Recursive recursive)
 		{
 			Array<FilePath> paths;
 

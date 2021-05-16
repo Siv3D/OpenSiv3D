@@ -636,7 +636,7 @@ namespace s3d
 			return detail::ToDateTime(s.st_atimespec);
 		}
 	
-		Array<FilePath> DirectoryContents(const FilePathView path, const bool recursive)
+		Array<FilePath> DirectoryContents(const FilePathView path, const Recursive recursive)
 		{
 			Array<FilePath> paths;
 			

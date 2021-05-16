@@ -17,6 +17,7 @@
 # include "Array.hpp"
 # include "SpecialFolder.hpp"
 # include "CopyOption.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -133,7 +134,7 @@ namespace s3d
 		Optional<DateTime> AccessTime(FilePathView path);
 
 		[[nodiscard]]
-		Array<FilePath> DirectoryContents(FilePathView path, bool recursive = true);
+		Array<FilePath> DirectoryContents(FilePathView path, Recursive recursive = Recursive::Yes);
 
 		[[nodiscard]]
 		const FilePath& InitialDirectory() noexcept;
