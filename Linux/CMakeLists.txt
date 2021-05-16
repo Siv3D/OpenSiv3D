@@ -43,7 +43,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/AudioCodecFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/CAudioCodec.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioFormat/AAC/AACDecoder.cpp
-  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/MP3/MP3Decoder.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioFormat/MP3/MP3Decoder.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ChildProcess/ChildProcessDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Clipboard/CClipboard.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Common/OpenGL.cpp
