@@ -8,6 +8,7 @@ Library | Version
 [Boost](https://www.boost.org/) | 1.73.0
 [Box2D](https://github.com/erincatto/box2d) | 2.4.1
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.6
+[cereal](https://github.com/USCiLab/cereal) | 
 [concaveman-cpp](https://github.com/sadaszewski/concaveman-cpp) | 
 [cpptoml](https://github.com/skystrife/cpptoml) | v0.1.1
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
@@ -63,6 +64,7 @@ Library | Version
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [TinySoundFont](https://github.com/schellingb/TinySoundFont) | 
 [TinyXML-2](https://github.com/leethomason/tinyxml2) | 8.0.0
+[WinToast](https://github.com/mohabouje/WinToast) | 
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
 [zlib](https://www.zlib.net/) | 1.2.11

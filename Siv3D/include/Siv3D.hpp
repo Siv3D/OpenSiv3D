@@ -1382,6 +1382,8 @@
 // クリップボード | Clipboard
 # include <Siv3D/Clipboard.hpp>
 
+# include <Siv3D/Serialization.hpp>
+
 //////////////////////////////////////////////////
 //
 //	プラットフォーム | Platforms
