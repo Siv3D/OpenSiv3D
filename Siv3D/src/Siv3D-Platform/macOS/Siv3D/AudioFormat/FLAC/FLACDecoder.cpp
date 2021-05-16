@@ -61,9 +61,7 @@ namespace s3d
 		{
 			const FilePath tmpPath = FileSystem::UniqueFilePath();
 
-			Blob blob(reader.size());
-			
-			reader.read(blob.data(), blob.size());
+			Blob blob{ reader };
 			
 			if (not blob.save(tmpPath))
 			{

@@ -777,6 +777,11 @@
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */; };
+		2C5043C626512B3C00E36D08 /* CToastNotification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5043C426512B3C00E36D08 /* CToastNotification.hpp */; };
+		2C5043C726512B3C00E36D08 /* CToastNotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043C526512B3C00E36D08 /* CToastNotification.cpp */; };
+		2C5043CC26512B6000E36D08 /* IToastNotification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5043C926512B6000E36D08 /* IToastNotification.hpp */; };
+		2C5043CD26512B6000E36D08 /* SivToastNotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043CA26512B6000E36D08 /* SivToastNotification.cpp */; };
+		2C5043CE26512B6000E36D08 /* ToastNotificationFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043CB26512B6000E36D08 /* ToastNotificationFactory.cpp */; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
 		2C533722264D64BA00CE0F1B /* IAudioCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */; };
 		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
@@ -2329,6 +2334,14 @@
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
 		2C5043BC2650EE5F00E36D08 /* MIDIDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDIDecoder.hpp; sourceTree = "<group>"; };
 		2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIDecoder.cpp; sourceTree = "<group>"; };
+		2C5043C026512B1900E36D08 /* ToastNotificationItem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ToastNotificationItem.hpp; sourceTree = "<group>"; };
+		2C5043C126512B1900E36D08 /* ToastNotification.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ToastNotification.hpp; sourceTree = "<group>"; };
+		2C5043C226512B1A00E36D08 /* ToastNotificationState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ToastNotificationState.hpp; sourceTree = "<group>"; };
+		2C5043C426512B3C00E36D08 /* CToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CToastNotification.hpp; sourceTree = "<group>"; };
+		2C5043C526512B3C00E36D08 /* CToastNotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CToastNotification.cpp; sourceTree = "<group>"; };
+		2C5043C926512B6000E36D08 /* IToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IToastNotification.hpp; sourceTree = "<group>"; };
+		2C5043CA26512B6000E36D08 /* SivToastNotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivToastNotification.cpp; sourceTree = "<group>"; };
+		2C5043CB26512B6000E36D08 /* ToastNotificationFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToastNotificationFactory.cpp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -4967,6 +4980,7 @@
 				2C794B8625C5A5BF00034D81 /* TextureRegion */,
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
+				2C5043C826512B6000E36D08 /* ToastNotification */,
 				2C4A485C2636543200BDCBA2 /* TOMLReader */,
 				2C53C33C25613B8A0072831A /* Triangle */,
 				2C794B7925C4FDA000034D81 /* Twitter */,
@@ -6114,6 +6128,25 @@
 				2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */,
 			);
 			path = MIDI;
+			sourceTree = "<group>";
+		};
+		2C5043C326512B3C00E36D08 /* ToastNotification */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043C426512B3C00E36D08 /* CToastNotification.hpp */,
+				2C5043C526512B3C00E36D08 /* CToastNotification.cpp */,
+			);
+			path = ToastNotification;
+			sourceTree = "<group>";
+		};
+		2C5043C826512B6000E36D08 /* ToastNotification */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043C926512B6000E36D08 /* IToastNotification.hpp */,
+				2C5043CA26512B6000E36D08 /* SivToastNotification.cpp */,
+				2C5043CB26512B6000E36D08 /* ToastNotificationFactory.cpp */,
+			);
+			path = ToastNotification;
 			sourceTree = "<group>";
 		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
@@ -7579,6 +7612,9 @@
 				2CAAA6FA25E7FD0200C014D7 /* Threading.hpp */,
 				2CAAA71E25E7FD0200C014D7 /* Time.hpp */,
 				2CAAA83625E7FD0200C014D7 /* Timer.hpp */,
+				2C5043C126512B1900E36D08 /* ToastNotification.hpp */,
+				2C5043C026512B1900E36D08 /* ToastNotificationItem.hpp */,
+				2C5043C226512B1A00E36D08 /* ToastNotificationState.hpp */,
 				2C4A485A2636540100BDCBA2 /* TOMLReader.hpp */,
 				2CAAA8A525E7FD0300C014D7 /* Transformer2D.hpp */,
 				2CAAA89125E7FD0300C014D7 /* Transition.hpp */,
@@ -8379,6 +8415,7 @@
 				2C4AEF6F262C4E8200D36CFC /* TextToSpeech */,
 				2C47B5B524E76A20008D83BE /* Texture */,
 				2CF21D03249FAA8F00C864C9 /* Time */,
+				2C5043C326512B3C00E36D08 /* ToastNotification */,
 				2C0FBD7026297CB90050E354 /* WebcamInfo */,
 				2CF21D0C249FAA8F00C864C9 /* Window */,
 			);
@@ -8760,6 +8797,7 @@
 				2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */,
 				2C423222242B155E00A16BCA /* glfw3.h in Headers */,
 				2C5337DC2650BB5500CE0F1B /* tml.h in Headers */,
+				2C5043CC26512B6000E36D08 /* IToastNotification.hpp in Headers */,
 				2C47B34924DD9789008D83BE /* CWindow_Null.hpp in Headers */,
 				2C47B6D924EAC84B008D83BE /* AssetHandleManager.hpp in Headers */,
 				2C13C8BC25B8FA9D0054B968 /* DetourAssert.h in Headers */,
@@ -9115,6 +9153,7 @@
 				2C43C89725C837F100D6D613 /* svotval.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C2AA38C26009C74003F3EBC /* b2_mouse_joint.h in Headers */,
+				2C5043C626512B3C00E36D08 /* CToastNotification.hpp in Headers */,
 				2C48BEE525CFB8C500A93CE3 /* Scanline.h in Headers */,
 				2C9566C72645626000539B85 /* mz_compat.h in Headers */,
 				2C27AA10257D37BB00756617 /* tinycolormap.hpp in Headers */,
@@ -9712,6 +9751,7 @@
 				2C47B2F924DD9789008D83BE /* LicenseManagerFactory.cpp in Sources */,
 				2C9566832645623300539B85 /* SivZIPReader.cpp in Sources */,
 				2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */,
+				2C5043C726512B3C00E36D08 /* CToastNotification.cpp in Sources */,
 				2CFB7DCE262AF32400169B97 /* CDragDrop.cpp in Sources */,
 				2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */,
 				2CFB7DBD262AB4D800169B97 /* CClipboard.mm in Sources */,
@@ -9862,6 +9902,7 @@
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
 				2C427FEB26286C8C00106F19 /* SivProController.cpp in Sources */,
 				2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */,
+				2C5043CD26512B6000E36D08 /* SivToastNotification.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
 				2C533795264F5AA200CE0F1B /* zstd_ldm.c in Sources */,
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
@@ -9875,6 +9916,7 @@
 				2C2AA3AC26009C74003F3EBC /* b2_distance.cpp in Sources */,
 				2C13C8D025B8FA9D0054B968 /* DetourNode.cpp in Sources */,
 				2C2AA39226009C74003F3EBC /* b2_math.cpp in Sources */,
+				2C5043CE26512B6000E36D08 /* ToastNotificationFactory.cpp in Sources */,
 				2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */,
 				2C13C8B425B8FA9D0054B968 /* RecastMeshDetail.cpp in Sources */,
 				2C47B6D224EAC82A008D83BE /* CShader_Null.cpp in Sources */,
