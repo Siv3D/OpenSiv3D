@@ -618,7 +618,7 @@
 # include <Siv3D/Cylindrical.hpp>
 
 // 球面座標
-# include <Siv3D/Spherical.hpp> // [Siv3D ToDo]
+# include <Siv3D/Spherical.hpp>
 
 // 3x2 行列 | 3x2 matrix
 # include <Siv3D/Mat3x2.hpp>
