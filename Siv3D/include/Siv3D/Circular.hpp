@@ -76,6 +76,9 @@ namespace s3d
 		Vec2 fastToVec2() const noexcept;
 
 		[[nodiscard]]
+		position_type toPosition() const noexcept;
+
+		[[nodiscard]]
 		operator position_type() const noexcept;
 
 		[[nodiscard]]

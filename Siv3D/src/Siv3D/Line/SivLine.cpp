@@ -11,6 +11,7 @@
 
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Hash.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Math.hpp>
@@ -43,6 +44,14 @@ namespace s3d
 			return (std::abs(x) < 1e-10);
 		}
 	}
+
+	Line::Line(const value_type x0, const value_type y0, Arg::angle_<value_type> angle, const value_type length) noexcept
+		: begin{ x0, y0 }
+		, end{ begin + Circular{ length, angle.value() } } {}
+
+	Line::Line(const position_type origin, Arg::angle_<value_type> angle, const value_type length) noexcept
+		: begin{ origin }
+		, end{ origin + Circular{ length, angle.value() } } {}
 
 	RectF Line::boundingRect() const noexcept
 	{

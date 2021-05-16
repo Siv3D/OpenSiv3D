@@ -23,6 +23,8 @@ namespace s3d::Arg
 
 	SIV3D_NAMED_PARAMETER(r);					// Circular
 	SIV3D_NAMED_PARAMETER(theta);				// Circular
+	SIV3D_NAMED_PARAMETER(phi);					// Cylindrical
+	SIV3D_NAMED_PARAMETER(y);					// Cylindrical
 
 	SIV3D_NAMED_PARAMETER(angle);				// Line
 	SIV3D_NAMED_PARAMETER(direction);			// Line

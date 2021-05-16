@@ -11,6 +11,7 @@
 
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Shape2D.hpp>
+# include <Siv3D/FastMath.hpp>
 # include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Mat3x2.hpp>

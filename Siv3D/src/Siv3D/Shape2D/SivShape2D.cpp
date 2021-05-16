@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Shape2D.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/Mat3x2.hpp>
@@ -96,7 +97,7 @@ namespace s3d
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			*pPos++ += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
+			*pPos++ += Circular{ r, angle + i * (Math::TwoPi / n) }.toFloat2();
 		}
 
 		Array<TriangleIndex> indices(n - 2);

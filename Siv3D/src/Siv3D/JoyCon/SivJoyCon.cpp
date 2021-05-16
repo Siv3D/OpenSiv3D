@@ -13,6 +13,7 @@
 
 # include <Siv3D/JoyCon.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Shape2D.hpp>
 # include <Siv3D/Transformer2D.hpp>

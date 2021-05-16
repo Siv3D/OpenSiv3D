@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/MultiPolygon.hpp>
+# include <Siv3D/FastMath.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>

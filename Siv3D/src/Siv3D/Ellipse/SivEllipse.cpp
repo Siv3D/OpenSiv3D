@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Mouse.hpp>

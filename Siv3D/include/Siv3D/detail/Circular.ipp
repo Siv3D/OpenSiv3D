@@ -48,19 +48,19 @@ namespace s3d
 	template <class Float, int32 Oclock>
 	inline typename CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::operator +(const position_type v) const noexcept
 	{
-		return (toVec2() + v);
+		return (toPosition() + v);
 	}
 
 	template <class Float, int32 Oclock>
 	inline typename CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::operator -(const position_type v) const noexcept
 	{
-		return (toVec2() - v);
+		return (toPosition() - v);
 	}
 
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock> CircularBase<Float, Oclock>::rotated(const value_type angle) const noexcept
 	{
-		return CircularBase(*this).rotate(angle);
+		return CircularBase{ *this }.rotate(angle);
 	}
 
 	template <class Float, int32 Oclock>
@@ -100,9 +100,17 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
+	inline CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::toPosition() const noexcept
+	{
+		return{ (std::sin(theta + Clock()) * r),
+				(-std::cos(theta + Clock()) * r) };
+	}
+
+	template <class Float, int32 Oclock>
 	inline CircularBase<Float, Oclock>::operator position_type() const noexcept
 	{
-		return toVec2();
+		return{ (std::sin(theta + Clock()) * r),
+				(-std::cos(theta + Clock()) * r) };
 	}
 
 	template <class Float, int32 Oclock>

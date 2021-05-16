@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/LineString.hpp>
@@ -35,6 +36,11 @@ namespace s3d
 			return{ (p0.x + (p1.x - p0.x) * c), (p0.y + (p1.y - p0.y) * c) };
 		}
 	}
+
+	Triangle::Triangle(const value_type sides, const value_type angle) noexcept
+		: p0{ Circular(Math::InvSqrt3 * sides, angle) }
+		, p1{ Circular(Math::InvSqrt3 * sides, 2.0 * Math::OneThirdPi + angle) }
+		, p2{ Circular(Math::InvSqrt3 * sides, 4.0 * Math::OneThirdPi + angle) } {}
 
 	Triangle Triangle::stretched(const value_type size) const noexcept
 	{

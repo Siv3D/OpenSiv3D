@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/SimpleGUI.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Mouse.hpp>

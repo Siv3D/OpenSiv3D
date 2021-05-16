@@ -11,6 +11,7 @@
 
 # include "CGUI.hpp"
 # include <Siv3D/Step2D.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/EngineLog.hpp>
 

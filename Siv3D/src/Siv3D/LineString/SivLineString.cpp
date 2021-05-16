@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/LineString.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Spline.hpp>
 # include <Siv3D/Spline2D.hpp>
 # include <Siv3D/Math.hpp>
