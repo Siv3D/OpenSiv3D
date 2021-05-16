@@ -107,6 +107,10 @@ namespace s3d
 
 		RectF drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
+		/// @brief 中心位置を指定してテクスチャの一部分を描画します。
+		/// @param pos 描画する中心の座標
+		/// @param diffuse 描画時に乗算する色
+		/// @return テクスチャが描画された領域
 		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 
 		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;

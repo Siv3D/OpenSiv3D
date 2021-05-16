@@ -364,6 +364,9 @@ namespace s3d
 
 		//const Circle& overwriteArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
 
+		/// @brief 円を描きます。
+		/// @param color 円の色
+		/// @return *this
 		const Circle& draw(const ColorF& color = Palette::White) const;
 
 		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;

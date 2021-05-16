@@ -25,6 +25,8 @@ namespace s3d
 	struct TexturedQuad;
 	struct TexturedRoundRect;
 
+	/// @brief テクスチャ
+	/// @reamrk 描画できる画像です。
 	class Texture : public AssetHandle<Texture>
 	{
 	public:
@@ -105,6 +107,11 @@ namespace s3d
 
 		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
+		/// @brief 左上位置を指定してテクスチャを描画します。
+		/// @param x 描画を開始する左上の X 座標
+		/// @param y 描画を開始する左上の Y 座標
+		/// @param diffuse 描画時に乗算する色
+		/// @return テクスチャが描画された領域
 		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
 		RectF draw(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
@@ -200,6 +207,9 @@ namespace s3d
 		[[nodiscard]]
 		TextureRegion scaled(Vec2 s) const;
 
+		/// @brief 長辺が指定したサイズになるようリサイズした TextureRegion を返します。
+		/// @param size 長辺のサイズ
+		/// @return 長辺が指定したサイズになるようリサイズした TextureRegion
 		[[nodiscard]]
 		TextureRegion resized(double size) const;
 

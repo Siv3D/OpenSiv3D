@@ -139,7 +139,9 @@ namespace s3d
 		};
 	}
 
+	/// @brief 画面にテキストをデバッグ出力するオブジェクトです。`<<` で値を送ります。
 	inline constexpr auto Print = detail::Print_impl{};
 
+	/// @brief `Print` でデバッグ出力した内容をクリアします。
 	void ClearPrint();
 }

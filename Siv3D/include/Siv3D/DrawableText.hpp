@@ -275,6 +275,10 @@ namespace s3d
 
 		RectF drawAt(double x, double y, const ColorF& color = Palette::White) const;
 
+		/// @brief 中心位置を指定してテキストを描画します。
+		/// @param pos 描画する中心の座標
+		/// @param color テキストの色
+		/// @return テキストが描画された領域
 		RectF drawAt(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;
 
 		RectF drawAt(double size, double x, double y, const ColorF& color = Palette::White) const;
