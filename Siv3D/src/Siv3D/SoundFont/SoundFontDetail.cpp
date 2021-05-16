@@ -225,7 +225,7 @@ namespace s3d
 		const size_t tailSamples = detail::CalculateSamples(tail, Arg::samplingRate = samplingRate);
 
 		Blob blob{ reader };
-		tml_message* midi = ::tml_load_memory(blob.data(), blob.size());
+		tml_message* midi = ::tml_load_memory(blob.data(), static_cast<int32>(blob.size()));
 		{
 			if (not midi)
 			{
