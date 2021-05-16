@@ -851,6 +851,15 @@
 		2C5337C5264F5AA200CE0F1B /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C533785264F5AA200CE0F1B /* error_private.c */; };
 		2C5337C6264F5AA200CE0F1B /* zstd_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C533786264F5AA200CE0F1B /* zstd_errors.h */; };
 		2C5337C7264F5AA200CE0F1B /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C533787264F5AA200CE0F1B /* zstd.h */; };
+		2C5337D02650BAF000CE0F1B /* SoundFontDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5337C92650BAF000CE0F1B /* SoundFontDetail.hpp */; };
+		2C5337D12650BAF000CE0F1B /* CSoundFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5337CA2650BAF000CE0F1B /* CSoundFont.hpp */; };
+		2C5337D22650BAF000CE0F1B /* ISoundFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5337CB2650BAF000CE0F1B /* ISoundFont.hpp */; };
+		2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5337CC2650BAF000CE0F1B /* SoundFontFactory.cpp */; };
+		2C5337D42650BAF000CE0F1B /* SoundFontDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5337CD2650BAF000CE0F1B /* SoundFontDetail.cpp */; };
+		2C5337D52650BAF000CE0F1B /* CSoundFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5337CE2650BAF000CE0F1B /* CSoundFont.cpp */; };
+		2C5337D62650BAF000CE0F1B /* SivSoundFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5337CF2650BAF000CE0F1B /* SivSoundFont.cpp */; };
+		2C5337DC2650BB5500CE0F1B /* tml.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5337DA2650BB5500CE0F1B /* tml.h */; };
+		2C5337DD2650BB5500CE0F1B /* tsf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5337DB2650BB5500CE0F1B /* tsf.h */; };
 		2C53C33225613B540072831A /* SivLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33125613B540072831A /* SivLine.cpp */; };
 		2C53C33525613B6B0072831A /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33425613B6A0072831A /* SivCircle.cpp */; };
 		2C53C33825613B740072831A /* SivEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C33725613B740072831A /* SivEllipse.cpp */; };
@@ -2403,6 +2412,17 @@
 		2C533785264F5AA200CE0F1B /* error_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
 		2C533786264F5AA200CE0F1B /* zstd_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
 		2C533787264F5AA200CE0F1B /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
+		2C5337C92650BAF000CE0F1B /* SoundFontDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundFontDetail.hpp; sourceTree = "<group>"; };
+		2C5337CA2650BAF000CE0F1B /* CSoundFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CSoundFont.hpp; sourceTree = "<group>"; };
+		2C5337CB2650BAF000CE0F1B /* ISoundFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ISoundFont.hpp; sourceTree = "<group>"; };
+		2C5337CC2650BAF000CE0F1B /* SoundFontFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundFontFactory.cpp; sourceTree = "<group>"; };
+		2C5337CD2650BAF000CE0F1B /* SoundFontDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundFontDetail.cpp; sourceTree = "<group>"; };
+		2C5337CE2650BAF000CE0F1B /* CSoundFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSoundFont.cpp; sourceTree = "<group>"; };
+		2C5337CF2650BAF000CE0F1B /* SivSoundFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSoundFont.cpp; sourceTree = "<group>"; };
+		2C5337D72650BB2000CE0F1B /* MIDINote.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDINote.hpp; sourceTree = "<group>"; };
+		2C5337D82650BB3700CE0F1B /* SoundFont.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SoundFont.hpp; sourceTree = "<group>"; };
+		2C5337DA2650BB5500CE0F1B /* tml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tml.h; sourceTree = "<group>"; };
+		2C5337DB2650BB5500CE0F1B /* tsf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tsf.h; sourceTree = "<group>"; };
 		2C53C33125613B540072831A /* SivLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine.cpp; sourceTree = "<group>"; };
 		2C53C33425613B6A0072831A /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2C53C33725613B740072831A /* SivEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEllipse.cpp; sourceTree = "<group>"; };
@@ -4456,6 +4476,7 @@
 				2CF962F725A7F9AB006F55C9 /* SplineLib */,
 				2C4397852535DDF300F6AECD /* stb */,
 				2C27AA0D257D37BB00756617 /* tinycolormap */,
+				2C5337D92650BB5500CE0F1B /* TinySoundFont */,
 				2C4AEF842635CACB00D36CFC /* tinyxml */,
 				2C6106E124DB04E300BDEF72 /* xxHash */,
 				2C531EA124BA00EB00378977 /* zlib */,
@@ -4924,6 +4945,7 @@
 				2C47B6CC24EAC82A008D83BE /* Shader */,
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
+				2C5337C82650BAF000CE0F1B /* SoundFont */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
 				2C47B2C724DD9789008D83BE /* String */,
 				2C47B27E24DD9789008D83BE /* StringView */,
@@ -6257,6 +6279,29 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		2C5337C82650BAF000CE0F1B /* SoundFont */ = {
+			isa = PBXGroup;
+			children = (
+				2C5337C92650BAF000CE0F1B /* SoundFontDetail.hpp */,
+				2C5337CA2650BAF000CE0F1B /* CSoundFont.hpp */,
+				2C5337CB2650BAF000CE0F1B /* ISoundFont.hpp */,
+				2C5337CC2650BAF000CE0F1B /* SoundFontFactory.cpp */,
+				2C5337CD2650BAF000CE0F1B /* SoundFontDetail.cpp */,
+				2C5337CE2650BAF000CE0F1B /* CSoundFont.cpp */,
+				2C5337CF2650BAF000CE0F1B /* SivSoundFont.cpp */,
+			);
+			path = SoundFont;
+			sourceTree = "<group>";
+		};
+		2C5337D92650BB5500CE0F1B /* TinySoundFont */ = {
+			isa = PBXGroup;
+			children = (
+				2C5337DA2650BB5500CE0F1B /* tml.h */,
+				2C5337DB2650BB5500CE0F1B /* tsf.h */,
+			);
+			path = TinySoundFont;
+			sourceTree = "<group>";
+		};
 		2C53C33025613B540072831A /* Line */ = {
 			isa = PBXGroup;
 			children = (
@@ -7401,6 +7446,7 @@
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
+				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
 				2CAAA83725E7FD0200C014D7 /* Monitor.hpp */,
 				2CAAA78825E7FD0200C014D7 /* Mouse.hpp */,
@@ -7488,6 +7534,7 @@
 				2CAAA8AB25E7FD0300C014D7 /* SIMD.hpp */,
 				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
+				2C5337D82650BB3700CE0F1B /* SoundFont.hpp */,
 				2CAAA72E25E7FD0200C014D7 /* SpecialFolder.hpp */,
 				2CAAA77525E7FD0200C014D7 /* Spherical.hpp */,
 				2CAAA70925E7FD0200C014D7 /* Spline.hpp */,
@@ -8699,6 +8746,7 @@
 				2CFF9F6324A46481000B5A17 /* osmesa_context.h in Headers */,
 				2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */,
 				2C423222242B155E00A16BCA /* glfw3.h in Headers */,
+				2C5337DC2650BB5500CE0F1B /* tml.h in Headers */,
 				2C47B34924DD9789008D83BE /* CWindow_Null.hpp in Headers */,
 				2C47B6D924EAC84B008D83BE /* AssetHandleManager.hpp in Headers */,
 				2C13C8BC25B8FA9D0054B968 /* DetourAssert.h in Headers */,
@@ -8822,6 +8870,7 @@
 				2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */,
 				2C834D9B248805D4006208B8 /* regint.h in Headers */,
 				2C48BF6A25D41C0D00A93CE3 /* agg_curves.h in Headers */,
+				2C5337DD2650BB5500CE0F1B /* tsf.h in Headers */,
 				2C6390EE2536C5460030F18E /* MetalBackBuffer.hpp in Headers */,
 				2C4AEF77262C4E8300D36CFC /* TTS.hpp in Headers */,
 				2C13C8C825B8FA9D0054B968 /* DetourMath.h in Headers */,
@@ -8923,6 +8972,7 @@
 				2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */,
 				2C43C8B325C837F100D6D613 /* fterrdef.h in Headers */,
 				2C427FD72628436F00106F19 /* CGamepad.hpp in Headers */,
+				2C5337D02650BAF000CE0F1B /* SoundFontDetail.hpp in Headers */,
 				2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */,
 				2C43C89025C837F000D6D613 /* ftpsprop.h in Headers */,
 				2CFC212725F7065200C51D0D /* ShapePainting.hpp in Headers */,
@@ -9007,6 +9057,7 @@
 				2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */,
 				2C47B49424DD97F2008D83BE /* muParser.h in Headers */,
 				2C44C066264960D400A5E72A /* tiffio.hxx in Headers */,
+				2C5337D12650BAF000CE0F1B /* CSoundFont.hpp in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
 				2C2AA37A26009C74003F3EBC /* b2_dynamic_tree.h in Headers */,
 				2C48BF0325CFB8C500A93CE3 /* arithmetics.hpp in Headers */,
@@ -9146,6 +9197,7 @@
 				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
 				2C47B6E024EAC88E008D83BE /* IConstantBufferDetail.hpp in Headers */,
 				2C13C9D025BD29FC0054B968 /* lfunc.h in Headers */,
+				2C5337D22650BAF000CE0F1B /* ISoundFont.hpp in Headers */,
 				2C2AA3AE26009C74003F3EBC /* b2_edge_shape.h in Headers */,
 				2CC584A02648FE2A00C33E9F /* opus_multistream.h in Headers */,
 				2C47B33524DD9789008D83BE /* TextReaderDetail.hpp in Headers */,
@@ -9538,6 +9590,7 @@
 				2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */,
 				2C48BEDB25CFB8C500A93CE3 /* contour-combiners.cpp in Sources */,
 				2CAAA8B525E7FD3100C014D7 /* SivPutText.cpp in Sources */,
+				2C5337D42650BAF000CE0F1B /* SoundFontDetail.cpp in Sources */,
 				2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */,
 				2C13C9D525BD29FC0054B968 /* ltm.c in Sources */,
 				2C834DA4248805D4006208B8 /* utf32_be.c in Sources */,
@@ -9596,6 +9649,7 @@
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
+				2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */,
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
@@ -9682,6 +9736,7 @@
 				2C34780E25DA95A100071EEF /* CPrint.cpp in Sources */,
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
+				2C5337D62650BAF000CE0F1B /* SivSoundFont.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
 				2C5337A0264F5AA200CE0F1B /* fse_compress.c in Sources */,
@@ -9725,6 +9780,7 @@
 				2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */,
 				2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */,
 				2C4A286B25EA60EB00FEACE4 /* ScreenCaptureFactory.cpp in Sources */,
+				2C5337D52650BAF000CE0F1B /* CSoundFont.cpp in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
 				2C956672264546F700539B85 /* document.cpp in Sources */,
 				2C834DC0248805D4006208B8 /* reggnu.c in Sources */,
