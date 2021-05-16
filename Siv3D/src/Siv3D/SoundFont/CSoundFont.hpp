@@ -29,6 +29,8 @@ namespace s3d
 
 		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate, const Duration& tail) override;
 
+		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate, const Duration& tail) override;
+
 	private:
 
 		bool m_hasGMGSx = false;

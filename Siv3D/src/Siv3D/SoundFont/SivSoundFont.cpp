@@ -62,7 +62,7 @@ namespace s3d
 		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(FilePathView path, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(const FilePathView path, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
 	{
 		std::array<Array<MIDINote>, 16> midiScore;
 		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
@@ -74,9 +74,33 @@ namespace s3d
 		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
 	{
 		midiScore.fill({});
 		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
+	}
+
+	Wave SoundFont::renderMIDI(IReader& reader, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	{
+		std::array<Array<MIDINote>, 16> midiScore;
+		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+	}
+
+	Wave SoundFont::renderMIDI(IReader& reader, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	{
+		std::array<Array<MIDINote>, 16> midiScore;
+		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+	}
+
+	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	{
+		midiScore.fill({});
+		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+	}
+
+	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	{
+		midiScore.fill({});
+		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
 	}
 }

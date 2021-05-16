@@ -126,4 +126,25 @@ namespace s3d
 
 		return m_GMGSx->renderMIDI(path, midiScore, tail, samplingRate);
 	}
+
+	Wave CSoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	{
+		if (not m_hasGMGSx)
+		{
+			return{};
+		}
+
+		if (not m_GMGSx)
+		{
+			const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
+			m_GMGSx = std::make_unique<SoundFont>(standardSoundFont);
+
+			if (not m_GMGSx)
+			{
+				return{};
+			}
+		}
+
+		return m_GMGSx->renderMIDI(reader, midiScore, tail, samplingRate);
+	}
 }

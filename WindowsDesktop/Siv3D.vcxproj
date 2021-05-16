@@ -32,6 +32,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AACDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\AIFFDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\FLACDecoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\MIDIDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\MP3Decoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\OggVorbisEncoder.hpp" />
@@ -1505,6 +1506,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\AudioEncoderFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\CAudioEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioEncoder\SivAudioEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MIDI\MIDIDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\OggVorbis\OggVorbisEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusDecoder.cpp" />

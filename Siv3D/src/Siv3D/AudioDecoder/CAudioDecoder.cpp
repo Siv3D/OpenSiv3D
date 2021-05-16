@@ -21,6 +21,7 @@
 # include <Siv3D/AudioFormat/WMADecoder.hpp>
 # include <Siv3D/AudioFormat/AIFFDecoder.hpp>
 # include <Siv3D/AudioFormat/FLACDecoder.hpp>
+# include <Siv3D/AudioFormat/MIDIDecoder.hpp>
 
 namespace s3d
 {
@@ -36,6 +37,7 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<WAVEDecoder>());
 		m_decoders.push_back(std::make_unique<OggVorbisDecoder>());
 		m_decoders.push_back(std::make_unique<OpusDecoder>());
+		m_decoders.push_back(std::make_unique<MIDIDecoder>());
 
 	# if SIV3D_PLATFORM(WINDOWS)
 		m_decoders.push_back(std::make_unique<MP3Decoder>());

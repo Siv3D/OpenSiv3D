@@ -30,5 +30,7 @@ namespace s3d
 		virtual Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::samplingRate_<uint32> samplingRate) = 0;
 
 		virtual Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate, const Duration& tail) = 0;
+
+		virtual Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate, const Duration& tail) = 0;
 	};
 }

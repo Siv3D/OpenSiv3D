@@ -93,6 +93,11 @@ namespace s3d
 		return{ U"FLAC",{ U"flac" } };
 	}
 
+	inline FileFilter FileFilter::MIDI()
+	{
+		return{ U"MIDI",{ U"mid" } };
+	}
+
 	inline FileFilter FileFilter::MP3()
 	{
 		return{ U"MP3",{ U"mp3" } };
@@ -120,7 +125,7 @@ namespace s3d
 
 	inline FileFilter FileFilter::AllAudioFiles()
 	{
-		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg", U"opus",
+		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg", U"opus", U"mid",
 		# if SIV3D_PLATFORM(WINDOWS)
 				U"wma",
 				U"flac"

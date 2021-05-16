@@ -1147,6 +1147,9 @@
     <Filter Include="src\ThirdParty\TinySoundFont">
       <UniqueIdentifier>{24d8c2cd-11de-4623-b204-faa6ec247579}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\MIDI">
+      <UniqueIdentifier>{8ab48fef-aec5-45a1-a3e0-3adf08d83e11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5298,6 +5301,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h">
       <Filter>src\ThirdParty\TinySoundFont</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat\MIDIDecoder.hpp">
+      <Filter>include\Siv3D\AudioFoarmat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7270,6 +7276,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp">
       <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MIDI\MIDIDecoder.cpp">
+      <Filter>src\Siv3D\AudioFormat\MIDI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1115,6 +1115,12 @@
 # include <Siv3D/AudioFormat/OggVorbisEncoder.hpp>
 # include <Siv3D/AudioFormat/OpusDecoder.hpp>
 # include <Siv3D/AudioFormat/OpusEncoder.hpp>
+# include <Siv3D/AudioFormat/AACDecoder.hpp>
+# include <Siv3D/AudioFormat/AIFFDecoder.hpp>
+# include <Siv3D/AudioFormat/FLACDecoder.hpp>
+# include <Siv3D/AudioFormat/MIDIDecoder.hpp>
+# include <Siv3D/AudioFormat/MP3Decoder.hpp>
+# include <Siv3D/AudioFormat/WMADecoder.hpp>
 
 # include <Siv3D/SerialPortInfo.hpp>
 # include <Siv3D/Serial.hpp>

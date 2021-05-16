@@ -44,6 +44,9 @@ namespace s3d
 		/// @brief FLAC
 		FLAC,
 
+		/// @brief MIDI
+		MIDI,
+
 		/// @brief 指定しない（データと拡張子から判断）
 		Unspecified = Unknown,
 	};

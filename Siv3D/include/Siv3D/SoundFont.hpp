@@ -57,6 +57,18 @@ namespace s3d
 		[[nodiscard]]
 		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
 
+		[[nodiscard]]
+		Wave renderMIDI(IReader& reader, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+
+		[[nodiscard]]
+		Wave renderMIDI(IReader& reader, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+
+		[[nodiscard]]
+		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+
+		[[nodiscard]]
+		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+
 	private:
 
 		class SoundFontDetail;

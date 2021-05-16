@@ -34,6 +34,8 @@ namespace s3d
 
 		Wave renderMIDI(FilePathView path, Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
 
+		Wave renderMIDI(IReader& reader, Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
+
 	private:
 
 		bool load(const Blob& blob);
