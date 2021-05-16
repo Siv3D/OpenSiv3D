@@ -10,10 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/HashTable.hpp>
 # include <Siv3D/ToastNotification/IToastNotification.hpp>
 
 namespace s3d
 {
+	struct ToastState
+	{
+		NotificationID id = -1;
+
+		ToastNotificationState state = ToastNotificationState::_None;
+
+		Optional<size_t> action;
+	};
+
 	class CToastNotification final : public ISiv3DToastNotification
 	{
 	public:
@@ -40,5 +50,18 @@ namespace s3d
 
 	private:
 
+		bool m_available = false;
+
+		Optional<bool> m_initialized;
+
+		HashTable<NotificationID, size_t> m_toastIDTable;
+
+		HashTable<size_t, ToastState> m_toasts;
+
+		size_t m_indexCount = 0;
+
+		std::mutex m_mutex;
+
+		bool setup();
 	};
 }
