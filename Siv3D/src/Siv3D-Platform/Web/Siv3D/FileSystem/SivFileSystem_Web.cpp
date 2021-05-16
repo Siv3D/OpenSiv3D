@@ -187,7 +187,7 @@ namespace s3d
 
 			const static Array<FilePath> g_resourceFilePaths = []()
 			{
-				Array<FilePath> paths = FileSystem::DirectoryContents(U"resources/", true);
+				Array<FilePath> paths = FileSystem::DirectoryContents(U"resources/", Recursive::Yes);
 
 				paths.remove_if(FileSystem::IsDirectory);
 				

@@ -379,7 +379,7 @@ namespace s3d
 			{
 				const FilePath resourcePath = FileSystem::ModulePath() + U"/Contents/Resources/";
 
-				Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, true);
+				Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, Recursive::Yes);
 
 				paths.remove_if(FileSystem::IsDirectory);
 				
