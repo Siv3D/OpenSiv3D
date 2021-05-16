@@ -177,9 +177,9 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyphIndex(m_handle->id(), ch);
 	}
 
-	Array<GlyphCluster> Font::getGlyphClusters(const StringView s, const bool useFallback) const
+	Array<GlyphCluster> Font::getGlyphClusters(const StringView s, const UseFallback useFallback) const
 	{
-		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s, useFallback);
+		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s, useFallback.getBool());
 	}
 
 	GlyphInfo Font::getGlyphInfo(const char32 ch) const
@@ -317,7 +317,7 @@ namespace s3d
 		return{ *this, std::move(text) };
 	}
 
-	const PixelShader& Font::GetPixelShader(const FontMethod method, const bool hasColor)
+	const PixelShader& Font::GetPixelShader(const FontMethod method, const HasColor hasColor)
 	{
 		return SIV3D_ENGINE(Font)->getFontShader(method, hasColor);
 	}

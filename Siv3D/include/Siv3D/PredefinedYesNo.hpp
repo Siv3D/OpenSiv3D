@@ -17,6 +17,12 @@ namespace s3d
 	/// @brief 再帰的に処理する
 	using Recursive			= YesNo<struct Recursive_tag>;
 
+	/// @brief やり直しを許可する
+	using AllowUndo			= YesNo<struct AllowUndo_tag>;
+
+	/// @brief 固定されている
+	using Fixed				= YesNo<struct Fixed_tag>;
+
 	/// @brief 妥当性をチェックする
 	using SkipValidation	= YesNo<struct SkipValidation_tag>;
 	
@@ -85,4 +91,16 @@ namespace s3d
 
 	/// @brief アルファチャンネルを持つ
 	using HasAlpha			= YesNo<struct HasAlpha_tag>;
+
+	/// @brief 中心にそろえる
+	using Centering			= YesNo<struct Centering_tag>;
+
+	/// @brief フォールバックを使う
+	using UseFallback		= YesNo<struct UseFallback_tag>;
+
+	/// @brief 色がある
+	using HasColor			= YesNo<struct HasColor_tag>;
+	
+	/// @brief ヘッダを持つ
+	using HasHeader			= YesNo<struct HasHeader_tag>;
 }

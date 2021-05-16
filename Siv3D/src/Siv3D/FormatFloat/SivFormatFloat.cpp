@@ -22,7 +22,7 @@ namespace s3d
 		constexpr int FormatFlags = DoubleToStringConverter::UNIQUE_ZERO |
 			DoubleToStringConverter::EMIT_POSITIVE_EXPONENT_SIGN;
 
-		String FormatFloat(const double value, const int32 decimalPlace, const bool fixed)
+		String FormatFloat(const double value, const int32 decimalPlace, const Fixed fixed)
 		{
 			DoubleToStringConverter conv(FormatFlags, "inf", "nan", 'e', -324, 309, 0, 0);
 
@@ -64,7 +64,7 @@ namespace s3d
 			}
 		}
 
-		size_t FormatFloat(char32(&dst)[FormatFloatBufferSize], const double value, int32 decimalPlace, const bool fixed)
+		size_t FormatFloat(char32(&dst)[FormatFloatBufferSize], const double value, int32 decimalPlace, const Fixed fixed)
 		{
 			DoubleToStringConverter conv(FormatFlags, "inf", "nan", 'e', -324, 309, 0, 0);
 

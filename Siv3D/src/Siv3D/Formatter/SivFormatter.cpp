@@ -97,7 +97,7 @@ namespace s3d
 	void Formatter(FormatData& formatData, const double value)
 	{
 		char32 buf[detail::FormatFloatBufferSize];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, false);
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, Fixed::No);
 		formatData.string.append(buf, len);
 	}
 

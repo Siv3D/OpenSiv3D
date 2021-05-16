@@ -156,7 +156,7 @@ th,td{
 		pImpl->writeRaw(U"</ol>\n");
 	}
 
-	void HTMLWriter::writeTable(const Grid<String>& items, const bool hasHeader)
+	void HTMLWriter::writeTable(const Grid<String>& items, const HasHeader hasHeader)
 	{
 		pImpl->writeRaw(U"<table>\n");
 		{
@@ -177,7 +177,7 @@ th,td{
 				pImpl->writeRaw(U"</tr>\n");
 			}
 
-			for (size_t y = hasHeader; y < items.height(); ++y)
+			for (size_t y = hasHeader.getBool(); y < items.height(); ++y)
 			{
 				pImpl->writeRaw(U"<tr>\n");
 				{

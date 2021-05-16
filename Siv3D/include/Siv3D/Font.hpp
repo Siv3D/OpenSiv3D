@@ -195,7 +195,7 @@ namespace s3d
 		/// @param useFallback フォールバックフォントを使用するか
 		/// @return 文字列に対応するグリフクラスター
 		[[nodiscard]]
-		Array<GlyphCluster> getGlyphClusters(StringView s, bool useFallback = true) const;
+		Array<GlyphCluster> getGlyphClusters(StringView s, UseFallback useFallback = UseFallback::Yes) const;
 
 		/// @brief 指定した文字のグリフ情報を返します。
 		/// @param ch 文字
@@ -403,6 +403,6 @@ namespace s3d
 		/// @param hasColor カラー情報をもつフォント（カラー絵文字など）であるか
 		/// @return 指定した設定でのテキスト描画用の標準ピクセルシェーダ
 		[[nodiscard]]
-		static const PixelShader& GetPixelShader(FontMethod method, bool hasColor = false);
+		static const PixelShader& GetPixelShader(FontMethod method, HasColor hasColor = HasColor::No);
 	};
 }

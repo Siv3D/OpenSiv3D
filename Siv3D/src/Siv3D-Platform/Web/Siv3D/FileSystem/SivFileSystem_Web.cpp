@@ -521,7 +521,7 @@ namespace s3d
 			return (error.value() == 0);
 		}
 
-		bool Remove(const FilePathView path, const bool allowUndo)
+		bool Remove(const FilePathView path, const AllowUndo allowUndo)
 		{
 			if (not path)
 			{

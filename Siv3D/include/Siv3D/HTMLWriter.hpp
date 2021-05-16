@@ -19,6 +19,7 @@
 # include "ColorHSV.hpp"
 # include "Optional.hpp"
 # include "Unspecified.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -56,7 +57,7 @@ namespace s3d
 
 		void writeOrderedList(const Array<String>& items);
 
-		void writeTable(const Grid<String>& items, bool hasHeader = false);
+		void writeTable(const Grid<String>& items, HasHeader hasHeader = HasHeader::No);
 
 		void writeLine(int32 thickness = 2, const Color& color = Color(223, 226, 229));
 

@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "Format.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -49,7 +50,7 @@ namespace s3d
 	/// @return 
 	SIV3D_CONCEPT_FLOATING_POINT_
 	[[nodiscard]]
-	inline String ThousandsSeparate(Float value, int32 decimalPlace = 3, bool fixed = false, StringView separator = U","_sv);
+	inline String ThousandsSeparate(Float value, int32 decimalPlace = 3, Fixed fixed = Fixed::No, StringView separator = U","_sv);
 }
 
 # include "detail/FormatUtility.ipp"

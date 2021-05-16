@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "String.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {

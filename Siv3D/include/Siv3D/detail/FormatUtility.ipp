@@ -35,7 +35,7 @@ namespace s3d
 	}
 
 	SIV3D_CONCEPT_FLOATING_POINT_
-	inline String ThousandsSeparate(const Float value, const int32 decimalPlace, const bool fixed, const StringView separator)
+	inline String ThousandsSeparate(const Float value, const int32 decimalPlace, const Fixed fixed, const StringView separator)
 	{
 		return detail::ThousandsSeparateFloat(fixed ? ToFixed(value, decimalPlace) : ToString(value, decimalPlace), separator);
 	}

@@ -126,6 +126,6 @@ namespace s3d
 
 		virtual Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) = 0;
 	
-		virtual const PixelShader& getFontShader(FontMethod method, bool hasColor) const = 0;
+		virtual const PixelShader& getFontShader(FontMethod method, HasColor hasColor) const = 0;
 	};
 }

@@ -29,7 +29,7 @@ namespace s3d
 		PixelShader colorfFont;
 
 		[[nodiscard]]
-		const PixelShader& getFontShader(const FontMethod method, const bool hasColor) noexcept
+		const PixelShader& getFontShader(const FontMethod method, const HasColor hasColor) noexcept
 		{
 			if (hasColor)
 			{
@@ -170,6 +170,6 @@ namespace s3d
 		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
 
 
-		const PixelShader& getFontShader(FontMethod method, bool hasColor) const override;
+		const PixelShader& getFontShader(FontMethod method, HasColor hasColor) const override;
 	};
 }

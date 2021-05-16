@@ -349,7 +349,7 @@ namespace s3d
 	RectF CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
-		const bool hasColor = font->getProperty().hasColor;
+		const HasColor hasColor{ font->getProperty().hasColor };
 
 		if (textStyle.customShader)
 		{
@@ -365,7 +365,7 @@ namespace s3d
 	bool CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
-		const bool hasColor = font->getProperty().hasColor;
+		const HasColor hasColor{ font->getProperty().hasColor };
 
 		if (textStyle.customShader)
 		{
@@ -381,7 +381,7 @@ namespace s3d
 	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
-		const bool hasColor = font->getProperty().hasColor;
+		const HasColor hasColor{ font->getProperty().hasColor };
 
 		if (textStyle.customShader)
 		{
@@ -397,7 +397,7 @@ namespace s3d
 	RectF CFont::drawFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
-		const bool hasColor = font->getProperty().hasColor;
+		const HasColor hasColor{ font->getProperty().hasColor };
 		
 		if (textStyle.customShader)
 		{
@@ -413,7 +413,7 @@ namespace s3d
 	RectF CFont::drawBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];
-		const bool hasColor = font->getProperty().hasColor;
+		const HasColor hasColor{ font->getProperty().hasColor };
 		
 		if (textStyle.customShader)
 		{
@@ -580,7 +580,7 @@ namespace s3d
 		return{};
 	}
 
-	const PixelShader& CFont::getFontShader(const FontMethod method, const bool hasColor) const
+	const PixelShader& CFont::getFontShader(const FontMethod method, const HasColor hasColor) const
 	{
 		return m_shaders->getFontShader(method, hasColor);
 	}

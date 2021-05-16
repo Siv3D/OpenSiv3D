@@ -165,9 +165,9 @@ namespace s3d
 
 		bool Copy(FilePathView from, FilePathView to, CopyOption copyOption = CopyOption::Default);
 
-		bool Remove(FilePathView path, bool allowUndo = false);
+		bool Remove(FilePathView path, AllowUndo allowUndo = AllowUndo::No);
 
-		bool RemoveContents(FilePathView path, bool allowUndo = false);
+		bool RemoveContents(FilePathView path, AllowUndo allowUndo = AllowUndo::No);
 
 		bool Rename(FilePathView from, FilePathView to);
 	}

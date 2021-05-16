@@ -76,7 +76,7 @@ namespace s3d
 			SIV3D_ENGINE(Window)->minimize();
 		}
 
-		bool ResizeVirtual(const Size size, const bool centering)
+		bool ResizeVirtual(const Size size, const s3d::Centering centering)
 		{
 			if ((not InRange(size.x, 1, 8192))
 				|| (not InRange(size.y, 1, 8192)))
@@ -107,7 +107,7 @@ namespace s3d
 			return true;
 		}
 
-		bool ResizeActual(const Size size, const bool centering)
+		bool ResizeActual(const Size size, const s3d::Centering centering)
 		{
 			if ((not InRange(size.x, 1, 8192))
 				|| (not InRange(size.y, 1, 8192)))
