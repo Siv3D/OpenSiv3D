@@ -2387,6 +2387,10 @@
 		2C5043FE2651335E00E36D08 /* specialize.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = specialize.hpp; sourceTree = "<group>"; };
 		2C5043FF2651364800E36D08 /* MemoryWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryWriter.hpp; sourceTree = "<group>"; };
 		2C5044002651365A00E36D08 /* MemoryWriter.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryWriter.ipp; sourceTree = "<group>"; };
+		2C504401265157E800E36D08 /* RandomVec3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomVec3.hpp; sourceTree = "<group>"; };
+		2C504402265157E800E36D08 /* RandomVec4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomVec4.hpp; sourceTree = "<group>"; };
+		2C5044032651581200E36D08 /* RandomVec3.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomVec3.ipp; sourceTree = "<group>"; };
+		2C5044042651581200E36D08 /* RandomVec4.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomVec4.ipp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -7671,6 +7675,8 @@
 				2CAAA76525E7FD0200C014D7 /* RandomColor.hpp */,
 				2CAAA85025E7FD0300C014D7 /* RandomPoint.hpp */,
 				2CAAA85B25E7FD0300C014D7 /* RandomVec2.hpp */,
+				2C504401265157E800E36D08 /* RandomVec3.hpp */,
+				2C504402265157E800E36D08 /* RandomVec4.hpp */,
 				2CAAA76625E7FD0200C014D7 /* RasterizerState.hpp */,
 				2CAAA74E25E7FD0200C014D7 /* RDTSCClock.hpp */,
 				2CAAA74525E7FD0200C014D7 /* Rect.hpp */,
@@ -7918,6 +7924,8 @@
 				2CAAA80125E7FD0200C014D7 /* RandomColor.ipp */,
 				2CAAA7CE25E7FD0200C014D7 /* RandomPoint.ipp */,
 				2CAAA7D425E7FD0200C014D7 /* RandomVec2.ipp */,
+				2C5044032651581200E36D08 /* RandomVec3.ipp */,
+				2C5044042651581200E36D08 /* RandomVec4.ipp */,
 				2CAAA7FF25E7FD0200C014D7 /* RasterizerState.ipp */,
 				2CAAA7EF25E7FD0200C014D7 /* RDTSCClock.ipp */,
 				2CAAA7F425E7FD0200C014D7 /* Rect.ipp */,
