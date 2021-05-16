@@ -76,7 +76,19 @@ namespace s3d
 
 		constexpr WaveSample& operator =(WaveSampleS16 sample) noexcept;
 
+		[[nodiscard]]
+		constexpr WaveSample operator *(float s) const noexcept;
+
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		friend constexpr WaveSample operator *(Float s, WaveSample v) noexcept
+		{
+			return (v * static_cast<float>(s));
+		}
+
 		constexpr WaveSample& operator *=(float s) noexcept;
+
+		constexpr void clear() noexcept;
 
 		constexpr WaveSample& set(float mono) noexcept;
 
@@ -87,6 +99,10 @@ namespace s3d
 		constexpr WaveSample& set(WaveSampleS16 sample) noexcept;
 
 		constexpr void swapChannel() noexcept;
+
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		constexpr WaveSample lerp(WaveSample other, Float f) const noexcept;
 
 		[[nodiscard]]
 		constexpr WaveSampleS16 asWaveSampleS16() const noexcept;

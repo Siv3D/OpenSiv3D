@@ -29,6 +29,90 @@ namespace s3d
 		*this = AudioDecoder::Decode(reader, format);
 	}
 
+	void Wave::swapLR() noexcept
+	{
+		for (auto& sample : m_data)
+		{
+			sample.swapChannel();
+		}
+	}
+
+	void Wave::removeSilenceFromBeginning()
+	{
+		size_t count = 0;
+
+		for (auto it = m_data.begin(); it != m_data.end(); ++it)
+		{
+			if (it->left || it->right)
+			{
+				break;
+			}
+
+			++count;
+		}
+
+		if (2 <= count)
+		{
+			m_data.pop_front_N(count - 1);
+		}
+	}
+
+	void Wave::removeSilenceFromEnd()
+	{
+		size_t count = 0;
+
+		for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+		{
+			if (it->left || it->right)
+			{
+				break;
+			}
+
+			++count;
+		}
+
+		if (2 <= count)
+		{
+			m_data.pop_back_N(count - 1);
+		}
+	}
+
+	void Wave::fadeIn(size_t samples) noexcept
+	{
+		if (not m_data)
+		{
+			return;
+		}
+
+		samples = Min(samples, m_data.size());
+
+		const float delta = (1.0f / samples);
+		WaveSample* pDst = m_data.data();
+
+		for (size_t i = 0; i < samples; ++i)
+		{
+			*pDst++ *= (delta * i);
+		}
+	}
+
+	void Wave::fadeOut(size_t samples) noexcept
+	{
+		if (not m_data)
+		{
+			return;
+		}
+
+		samples = Min(samples, m_data.size());
+
+		const float delta = (1.0f / samples);
+		WaveSample* pDst = &m_data.back();
+
+		for (size_t i = 0; i < samples; ++i)
+		{
+			*pDst-- *= (delta * i);
+		}
+	}
+
 	bool Wave::save(const FilePathView path, const AudioFormat format) const
 	{
 		return AudioEncoder::Save(*this, format, path);

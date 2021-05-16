@@ -103,11 +103,22 @@ namespace s3d
 		return (*this = sample.asWaveSample());
 	}
 
+	inline constexpr WaveSample WaveSample::operator *(const float s) const noexcept
+	{
+		return{ (left * s), (right * s) };
+	}
+
 	inline constexpr WaveSample& WaveSample::operator *=(const float s) noexcept
 	{
 		left *= s;
 		right *= s;
 		return *this;
+	}
+
+	constexpr void WaveSample::clear() noexcept
+	{
+		left	= 0.0f;
+		right	= 0.0f;
 	}
 
 	inline constexpr WaveSample& WaveSample::set(const float mono) noexcept
@@ -141,6 +152,12 @@ namespace s3d
 		auto t	= left;
 		left	= right;
 		right	= t;
+	}
+
+	SIV3D_CONCEPT_FLOATING_POINT_
+	constexpr WaveSample WaveSample::lerp(const WaveSample other, const Float f) const noexcept
+	{
+		return{ (left + (other.left - left) * static_cast<float>(f)), (right + (other.right - right) * static_cast<float>(f)) };
 	}
 
 	inline constexpr WaveSampleS16 WaveSample::asWaveSampleS16() const noexcept

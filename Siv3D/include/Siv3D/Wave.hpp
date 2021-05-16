@@ -137,6 +137,10 @@ namespace s3d
 
 		void removeSilenceFromEnd();
 
+		void fadeIn(size_t samples) noexcept;
+
+		void fadeOut(size_t samples) noexcept;
+
 		bool save(FilePathView path, AudioFormat format = AudioFormat::WAVE) const;
 
 		[[nodiscard]]
