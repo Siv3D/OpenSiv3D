@@ -112,7 +112,7 @@ namespace s3d
 	}
 
 	template <class Float>
-	inline CylindricalBase<Float>::position_type CylindricalBase<Float>::toPosition() const noexcept
+	inline typename CylindricalBase<Float>::position_type CylindricalBase<Float>::toPosition() const noexcept
 	{
 		return{ (r * std::cos(phi)), y, (r * std::sin(phi)) };
 	}

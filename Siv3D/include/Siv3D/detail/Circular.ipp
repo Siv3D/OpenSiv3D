@@ -100,7 +100,7 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
-	inline CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::toPosition() const noexcept
+	inline typename CircularBase<Float, Oclock>::position_type CircularBase<Float, Oclock>::toPosition() const noexcept
 	{
 		return{ (std::sin(theta + Clock()) * r),
 				(-std::cos(theta + Clock()) * r) };

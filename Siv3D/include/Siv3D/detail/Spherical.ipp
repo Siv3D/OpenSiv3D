@@ -74,13 +74,13 @@ namespace s3d
 	}
 
 	template <class Float>
-	inline SphericalBase<Float>::position_type SphericalBase<Float>::operator +(const position_type v) const noexcept
+	inline typename SphericalBase<Float>::position_type SphericalBase<Float>::operator +(const position_type v) const noexcept
 	{
 		return (toPosition() + v);
 	}
 
 	template <class Float>
-	inline SphericalBase<Float>::position_type SphericalBase<Float>::operator -(const position_type v) const noexcept
+	inline typename SphericalBase<Float>::position_type SphericalBase<Float>::operator -(const position_type v) const noexcept
 	{
 		return (toPosition() - v);
 	}
@@ -116,7 +116,7 @@ namespace s3d
 	}
 
 	template <class Float>
-	inline SphericalBase<Float>::position_type SphericalBase<Float>::toPosition() const noexcept
+	inline typename SphericalBase<Float>::position_type SphericalBase<Float>::toPosition() const noexcept
 	{
 		const auto s = std::sin(theta);
 		return{ (r * s * std::cos(phi)), (r * std::cos(theta)), (r * s * std::sin(phi)) };

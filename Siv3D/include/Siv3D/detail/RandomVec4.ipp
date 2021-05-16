@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	Vec4 RandomVec4(
+	inline Vec4 RandomVec4(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
 		const std::pair<double, double>& zMinMax,
@@ -23,7 +23,7 @@ namespace s3d
 	}
 	
 	SIV3D_CONCEPT_URBG_
-	Vec4 RandomVec4(
+	inline Vec4 RandomVec4(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
 		const std::pair<double, double>& zMinMax,
@@ -37,13 +37,13 @@ namespace s3d
 		};
 	}
 
-	Vec4 RandomVec4(const double xMax, const double yMax, const double zMax, const double wMax)
+	inline Vec4 RandomVec4(const double xMax, const double yMax, const double zMax, const double wMax)
 	{
 		return RandomVec4(xMax, yMax, zMax, wMax, GetDefaultRNG());
 	}
 
 	SIV3D_CONCEPT_URBG_
-	Vec4 RandomVec4(const double xMax, const double yMax, const double zMax, const double wMax, URBG&& urbg)
+	inline Vec4 RandomVec4(const double xMax, const double yMax, const double zMax, const double wMax, URBG&& urbg)
 	{
 		return{
 			RandomClosed(0.0, xMax, std::forward<URBG>(urbg)),
