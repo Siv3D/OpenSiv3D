@@ -776,6 +776,7 @@
 		2C4AEF882635CACB00D36CFC /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4AEF862635CACB00D36CFC /* tinyxml2.h */; };
 		2C4CBE5624370FFA00F8B7A6 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4CBE5224370FFA00F8B7A6 /* glew.h */; };
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
 		2C533722264D64BA00CE0F1B /* IAudioCodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */; };
 		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
@@ -2326,6 +2327,8 @@
 		2C4AEF862635CACB00D36CFC /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
 		2C4CBE5224370FFA00F8B7A6 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		2C4CBE582437100100F8B7A6 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glew.c; sourceTree = "<group>"; };
+		2C5043BC2650EE5F00E36D08 /* MIDIDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDIDecoder.hpp; sourceTree = "<group>"; };
+		2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIDecoder.cpp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -6105,6 +6108,14 @@
 			path = GLEW;
 			sourceTree = "<group>";
 		};
+		2C5043BD2650EE7B00E36D08 /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043BE2650EE7B00E36D08 /* MIDIDecoder.cpp */,
+			);
+			path = MIDI;
+			sourceTree = "<group>";
+		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
 			isa = PBXGroup;
 			children = (
@@ -8037,6 +8048,7 @@
 				2C53372E264E0B6A00CE0F1B /* AACDecoder.hpp */,
 				2C53372D264E0B6A00CE0F1B /* AIFFDecoder.hpp */,
 				2C53372C264E0B6A00CE0F1B /* FLACDecoder.hpp */,
+				2C5043BC2650EE5F00E36D08 /* MIDIDecoder.hpp */,
 				2C53372A264E0B6A00CE0F1B /* MP3Decoder.hpp */,
 				2CC584752648242500C33E9F /* OggVorbisDecoder.hpp */,
 				2CC584762648242500C33E9F /* OggVorbisEncoder.hpp */,
@@ -8052,6 +8064,7 @@
 		2CC58468264771F100C33E9F /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C5043BD2650EE7B00E36D08 /* MIDI */,
 				2CC584772648244400C33E9F /* OggVorbis */,
 				2CC584922648FE1100C33E9F /* Opus */,
 				2CC58469264771F100C33E9F /* WAVE */,
@@ -10012,6 +10025,7 @@
 				2C9567012645849400539B85 /* SivZlib.cpp in Sources */,
 				2C53378C264F5AA200CE0F1B /* zstd_compress_superblock.c in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
+				2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
