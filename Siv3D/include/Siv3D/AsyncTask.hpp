@@ -68,7 +68,7 @@ namespace s3d
 	/// @return 作成された非同期処理のタスク
 	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
 	[[nodiscard]]
-	inline auto CreateAsyncTask(Fty&& f, Args&&... args);
+	inline auto Async(Fty&& f, Args&&... args);
 }
 
 # include "detail/AsyncTask.ipp"
