@@ -11,20 +11,20 @@
 
 # pragma once
 # include "Common.hpp"
-# include "BlobWriter.hpp"
+# include "IWriter.hpp"
 
 namespace s3d
 {
 	/// @brief バイナリデータ書き出し
-	class BlobWriter : public IWriter
+	class MemoryWriter : public IWriter
 	{
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		BlobWriter() = default;
+		MemoryWriter() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit BlobWriter(Arg::reserve_<size_t> resrveSizeBytes);
+		explicit MemoryWriter(Arg::reserve_<size_t> resrveSizeBytes);
 
 		[[nodiscard]]
 		bool isOpen() const noexcept override;
@@ -66,4 +66,4 @@ namespace s3d
 	};
 }
 
-# include "detail/BlobWriter.ipp"
+# include "detail/MemoryWriter.ipp"

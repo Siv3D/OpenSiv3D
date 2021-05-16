@@ -11,7 +11,7 @@
 
 # include <Siv3D/AudioFormat/OpusEncoder.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include <Siv3D/BlobWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/EngineLog.hpp>
 
@@ -88,7 +88,7 @@ namespace s3d
 
 	//Blob OpusEncoder::encode(const Wave& wave, const int32 bitrate) const
 	//{
-	//	BlobWriter writer;
+	//	MemoryWriter writer;
 
 	//	if (not encode(wave, writer, bitrate))
 	//	{

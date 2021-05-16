@@ -11,7 +11,7 @@
 
 # include <Siv3D/ImageFormat/PPMEncoder.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include <Siv3D/BlobWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
 
@@ -298,7 +298,7 @@ namespace s3d
 
 	Blob PPMEncoder::encode(const Image& image, PPMType format) const
 	{
-		BlobWriter writer;
+		MemoryWriter writer;
 		
 		if (not encode(image, writer, format))
 		{

@@ -13,44 +13,44 @@
 
 namespace s3d
 {
-	inline BlobWriter::BlobWriter(const Arg::reserve_<size_t> resrveSizeBytes)
+	inline MemoryWriter::MemoryWriter(const Arg::reserve_<size_t> resrveSizeBytes)
 		: m_blob{ resrveSizeBytes } {}
 
-	inline bool BlobWriter::isOpen() const noexcept
+	inline bool MemoryWriter::isOpen() const noexcept
 	{
 		return true;
 	}
 
-	inline BlobWriter::operator bool() const noexcept
+	inline MemoryWriter::operator bool() const noexcept
 	{
 		return true;
 	}
 
-	inline int64 BlobWriter::size() const
+	inline int64 MemoryWriter::size() const
 	{
 		return m_blob.size();
 	}
 
-	inline int64 BlobWriter::getPos() const
+	inline int64 MemoryWriter::getPos() const
 	{
 		return m_writePos;
 	}
 
-	inline bool BlobWriter::setPos(const int64 pos)
+	inline bool MemoryWriter::setPos(const int64 pos)
 	{
 		m_writePos = pos;
 
 		return true;
 	}
 
-	inline int64 BlobWriter::seekToEnd()
+	inline int64 MemoryWriter::seekToEnd()
 	{
 		m_writePos = m_blob.size();
 
 		return m_writePos;
 	}
 
-	inline int64 BlobWriter::write(const void* src, const int64 sizeBytes)
+	inline int64 MemoryWriter::write(const void* src, const int64 sizeBytes)
 	{
 		assert(src || (sizeBytes == 0));
 
@@ -83,32 +83,32 @@ namespace s3d
 	}
 
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
-	inline bool BlobWriter::write(const TriviallyCopyable& src)
+	inline bool MemoryWriter::write(const TriviallyCopyable& src)
 	{
 		return (write(std::addressof(src), sizeof(TriviallyCopyable)) == sizeof(TriviallyCopyable));
 	}
 
-	inline Blob BlobWriter::retrieve()
+	inline Blob MemoryWriter::retrieve()
 	{
 		return std::move(m_blob);
 	}
 
-	inline const Blob& BlobWriter::getBlob() const noexcept
+	inline const Blob& MemoryWriter::getBlob() const noexcept
 	{
 		return m_blob;
 	}
 
-	inline void BlobWriter::reserve(const size_t sizeBytes)
+	inline void MemoryWriter::reserve(const size_t sizeBytes)
 	{
 		m_blob.reserve(sizeBytes);
 	}
 
-	inline void BlobWriter::clear()
+	inline void MemoryWriter::clear()
 	{
 		m_blob.clear();
 	}
 
-	inline void BlobWriter::release()
+	inline void MemoryWriter::release()
 	{
 		m_blob.release();
 	}

@@ -11,7 +11,7 @@
 
 # include <Siv3D/ImageFormat/WebPEncoder.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include <Siv3D/BlobWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
 
@@ -189,7 +189,7 @@ namespace s3d
 
 	Blob WebPEncoder::encode(const Image& image, const Lossless lossless, const double quality, const WebPMethod method) const
 	{
-		BlobWriter writer;
+		MemoryWriter writer;
 
 		if (not encode(image, writer, lossless, quality, method))
 		{

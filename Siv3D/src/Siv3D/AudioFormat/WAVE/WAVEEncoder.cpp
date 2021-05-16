@@ -11,7 +11,7 @@
 
 # include <Siv3D/AudioFormat/WAVEEncoder.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include <Siv3D/BlobWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "WAVEHeader.hpp"
@@ -219,7 +219,7 @@ namespace s3d
 
 	Blob WAVEEncoder::encode(const Wave& wave, const WAVEFormat format) const
 	{
-		BlobWriter writer;
+		MemoryWriter writer;
 
 		if (not encode(wave, writer, format))
 		{

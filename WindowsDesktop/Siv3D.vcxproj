@@ -93,7 +93,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BinaryWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BlendState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Blob.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\BlobWriter.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\MemoryWriter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2DParameters.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
@@ -311,7 +311,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5Value.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\BlobWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMappedFile.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMappedFileView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp" />

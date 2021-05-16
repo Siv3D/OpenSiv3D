@@ -168,8 +168,8 @@ namespace s3d
 
 CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::BinaryReader>)
-CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::BlobWriter>)
+CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::MemoryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::MemoryReader>)
 
 CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::BinaryReader>, s3d::Serializer<s3d::BinaryWriter>)
-CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::MemoryReader>, s3d::Serializer<s3d::BlobWriter>)
+CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::MemoryReader>, s3d::Serializer<s3d::MemoryWriter>)
