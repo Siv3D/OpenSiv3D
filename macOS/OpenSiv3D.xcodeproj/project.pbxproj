@@ -2342,6 +2342,49 @@
 		2C5043C926512B6000E36D08 /* IToastNotification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IToastNotification.hpp; sourceTree = "<group>"; };
 		2C5043CA26512B6000E36D08 /* SivToastNotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivToastNotification.cpp; sourceTree = "<group>"; };
 		2C5043CB26512B6000E36D08 /* ToastNotificationFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToastNotificationFactory.cpp; sourceTree = "<group>"; };
+		2C5043CF2651334300E36D08 /* Serialization.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serialization.hpp; sourceTree = "<group>"; };
+		2C5043D12651335E00E36D08 /* access.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = access.hpp; sourceTree = "<group>"; };
+		2C5043D32651335E00E36D08 /* base_class.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = base_class.hpp; sourceTree = "<group>"; };
+		2C5043D42651335E00E36D08 /* unordered_map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = unordered_map.hpp; sourceTree = "<group>"; };
+		2C5043D52651335E00E36D08 /* boost_variant.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = boost_variant.hpp; sourceTree = "<group>"; };
+		2C5043D62651335E00E36D08 /* utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utility.hpp; sourceTree = "<group>"; };
+		2C5043D72651335E00E36D08 /* bitset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bitset.hpp; sourceTree = "<group>"; };
+		2C5043D82651335E00E36D08 /* array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = array.hpp; sourceTree = "<group>"; };
+		2C5043D92651335E00E36D08 /* polymorphic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = polymorphic.hpp; sourceTree = "<group>"; };
+		2C5043DA2651335E00E36D08 /* vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
+		2C5043DB2651335E00E36D08 /* map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = map.hpp; sourceTree = "<group>"; };
+		2C5043DC2651335E00E36D08 /* complex.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = complex.hpp; sourceTree = "<group>"; };
+		2C5043DD2651335E00E36D08 /* tuple.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tuple.hpp; sourceTree = "<group>"; };
+		2C5043DE2651335E00E36D08 /* queue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = queue.hpp; sourceTree = "<group>"; };
+		2C5043DF2651335E00E36D08 /* list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = list.hpp; sourceTree = "<group>"; };
+		2C5043E02651335E00E36D08 /* forward_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = forward_list.hpp; sourceTree = "<group>"; };
+		2C5043E12651335E00E36D08 /* variant.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = variant.hpp; sourceTree = "<group>"; };
+		2C5043E22651335E00E36D08 /* atomic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = atomic.hpp; sourceTree = "<group>"; };
+		2C5043E32651335E00E36D08 /* functional.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = functional.hpp; sourceTree = "<group>"; };
+		2C5043E42651335E00E36D08 /* optional.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = optional.hpp; sourceTree = "<group>"; };
+		2C5043E52651335E00E36D08 /* set.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = set.hpp; sourceTree = "<group>"; };
+		2C5043E62651335E00E36D08 /* valarray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = valarray.hpp; sourceTree = "<group>"; };
+		2C5043E72651335E00E36D08 /* string.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = string.hpp; sourceTree = "<group>"; };
+		2C5043E92651335E00E36D08 /* pair_associative_container.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pair_associative_container.hpp; sourceTree = "<group>"; };
+		2C5043EA2651335E00E36D08 /* chrono.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = chrono.hpp; sourceTree = "<group>"; };
+		2C5043EB2651335E00E36D08 /* deque.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = deque.hpp; sourceTree = "<group>"; };
+		2C5043EC2651335E00E36D08 /* stack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stack.hpp; sourceTree = "<group>"; };
+		2C5043ED2651335E00E36D08 /* memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory.hpp; sourceTree = "<group>"; };
+		2C5043EE2651335E00E36D08 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
+		2C5043EF2651335E00E36D08 /* unordered_set.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = unordered_set.hpp; sourceTree = "<group>"; };
+		2C5043F02651335E00E36D08 /* macros.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = macros.hpp; sourceTree = "<group>"; };
+		2C5043F12651335E00E36D08 /* cereal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cereal.hpp; sourceTree = "<group>"; };
+		2C5043F32651335E00E36D08 /* static_object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = static_object.hpp; sourceTree = "<group>"; };
+		2C5043F42651335E00E36D08 /* polymorphic_impl_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = polymorphic_impl_fwd.hpp; sourceTree = "<group>"; };
+		2C5043F52651335E00E36D08 /* traits.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = traits.hpp; sourceTree = "<group>"; };
+		2C5043F62651335E00E36D08 /* polymorphic_impl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = polymorphic_impl.hpp; sourceTree = "<group>"; };
+		2C5043F72651335E00E36D08 /* helpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
+		2C5043F82651335E00E36D08 /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
+		2C5043FA2651335E00E36D08 /* adapters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = adapters.hpp; sourceTree = "<group>"; };
+		2C5043FB2651335E00E36D08 /* portable_binary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = portable_binary.hpp; sourceTree = "<group>"; };
+		2C5043FC2651335E00E36D08 /* binary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = binary.hpp; sourceTree = "<group>"; };
+		2C5043FD2651335E00E36D08 /* version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
+		2C5043FE2651335E00E36D08 /* specialize.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = specialize.hpp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -6149,6 +6192,87 @@
 			path = ToastNotification;
 			sourceTree = "<group>";
 		};
+		2C5043D02651335E00E36D08 /* cereal */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043D12651335E00E36D08 /* access.hpp */,
+				2C5043D22651335E00E36D08 /* types */,
+				2C5043F02651335E00E36D08 /* macros.hpp */,
+				2C5043F12651335E00E36D08 /* cereal.hpp */,
+				2C5043F22651335E00E36D08 /* details */,
+				2C5043F92651335E00E36D08 /* archives */,
+				2C5043FD2651335E00E36D08 /* version.hpp */,
+				2C5043FE2651335E00E36D08 /* specialize.hpp */,
+			);
+			path = cereal;
+			sourceTree = "<group>";
+		};
+		2C5043D22651335E00E36D08 /* types */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043D32651335E00E36D08 /* base_class.hpp */,
+				2C5043D42651335E00E36D08 /* unordered_map.hpp */,
+				2C5043D52651335E00E36D08 /* boost_variant.hpp */,
+				2C5043D62651335E00E36D08 /* utility.hpp */,
+				2C5043D72651335E00E36D08 /* bitset.hpp */,
+				2C5043D82651335E00E36D08 /* array.hpp */,
+				2C5043D92651335E00E36D08 /* polymorphic.hpp */,
+				2C5043DA2651335E00E36D08 /* vector.hpp */,
+				2C5043DB2651335E00E36D08 /* map.hpp */,
+				2C5043DC2651335E00E36D08 /* complex.hpp */,
+				2C5043DD2651335E00E36D08 /* tuple.hpp */,
+				2C5043DE2651335E00E36D08 /* queue.hpp */,
+				2C5043DF2651335E00E36D08 /* list.hpp */,
+				2C5043E02651335E00E36D08 /* forward_list.hpp */,
+				2C5043E12651335E00E36D08 /* variant.hpp */,
+				2C5043E22651335E00E36D08 /* atomic.hpp */,
+				2C5043E32651335E00E36D08 /* functional.hpp */,
+				2C5043E42651335E00E36D08 /* optional.hpp */,
+				2C5043E52651335E00E36D08 /* set.hpp */,
+				2C5043E62651335E00E36D08 /* valarray.hpp */,
+				2C5043E72651335E00E36D08 /* string.hpp */,
+				2C5043E82651335E00E36D08 /* concepts */,
+				2C5043EA2651335E00E36D08 /* chrono.hpp */,
+				2C5043EB2651335E00E36D08 /* deque.hpp */,
+				2C5043EC2651335E00E36D08 /* stack.hpp */,
+				2C5043ED2651335E00E36D08 /* memory.hpp */,
+				2C5043EE2651335E00E36D08 /* common.hpp */,
+				2C5043EF2651335E00E36D08 /* unordered_set.hpp */,
+			);
+			path = types;
+			sourceTree = "<group>";
+		};
+		2C5043E82651335E00E36D08 /* concepts */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043E92651335E00E36D08 /* pair_associative_container.hpp */,
+			);
+			path = concepts;
+			sourceTree = "<group>";
+		};
+		2C5043F22651335E00E36D08 /* details */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043F32651335E00E36D08 /* static_object.hpp */,
+				2C5043F42651335E00E36D08 /* polymorphic_impl_fwd.hpp */,
+				2C5043F52651335E00E36D08 /* traits.hpp */,
+				2C5043F62651335E00E36D08 /* polymorphic_impl.hpp */,
+				2C5043F72651335E00E36D08 /* helpers.hpp */,
+				2C5043F82651335E00E36D08 /* util.hpp */,
+			);
+			path = details;
+			sourceTree = "<group>";
+		};
+		2C5043F92651335E00E36D08 /* archives */ = {
+			isa = PBXGroup;
+			children = (
+				2C5043FA2651335E00E36D08 /* adapters.hpp */,
+				2C5043FB2651335E00E36D08 /* portable_binary.hpp */,
+				2C5043FC2651335E00E36D08 /* binary.hpp */,
+			);
+			path = archives;
+			sourceTree = "<group>";
+		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
 			isa = PBXGroup;
 			children = (
@@ -6768,6 +6892,7 @@
 			isa = PBXGroup;
 			children = (
 				2C0F89EC249E3945008B9220 /* Catch2 */,
+				2C5043D02651335E00E36D08 /* cereal */,
 				2C46837824590D8D000006C0 /* EnumBitmask */,
 				2C6898112436064900C36C25 /* fmt */,
 				2C0A4D7A256A1807002A4B5E /* nanoflann */,
@@ -7569,6 +7694,7 @@
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
 				2C2AA2B125FF8918003F3EBC /* Serial.hpp */,
+				2C5043CF2651334300E36D08 /* Serialization.hpp */,
 				2C2AA2B225FF8918003F3EBC /* SerialPortInfo.hpp */,
 				2CAAA86625E7FD0300C014D7 /* Shader.hpp */,
 				2CAAA89A25E7FD0300C014D7 /* ShaderCommon.hpp */,
