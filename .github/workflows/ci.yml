@@ -32,6 +32,7 @@ jobs:
         sudo apt install libgif-dev
         sudo apt install libglu1-mesa-dev
         sudo apt install libharfbuzz-dev
+        sudo apt install libmpg123-dev
         sudo apt install libopencv-dev
         sudo apt install libopus-dev
         sudo apt install libopusfile-dev

@@ -42,6 +42,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Siv3DMain.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/AudioCodecFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/CAudioCodec.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioFormat/AAC/AACDecoder.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/MP3/MP3Decoder.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/ChildProcess/ChildProcessDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Clipboard/CClipboard.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Common/OpenGL.cpp
@@ -75,6 +77,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Console/CConsole.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Date/SivDate_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DateTime/SivDateTime_macOS_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DLL/SivDLL.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/EnvironmentVariable/SivEnvironmentVariable.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Gamepad/CGamepad.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Keyboard/CKeyboard.cpp
