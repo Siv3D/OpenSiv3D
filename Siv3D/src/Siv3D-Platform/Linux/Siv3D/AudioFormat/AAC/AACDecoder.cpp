@@ -10,8 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/AudioFormat/AACDecoder.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include <Siv3D/AudioCodec/IAudioCodec.hpp>
+# include <Siv3D/AudioCodec/CAudioCodec.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -51,16 +52,38 @@ namespace s3d
 
 	Wave AACDecoder::decode(const FilePathView path) const
 	{
-		return IAudioDecoder::decode(path);
+		if (auto p = dynamic_cast<CAudioCodec*>(SIV3D_ENGINE(AudioCodec)))
+		{
+			return p->decode(path, AudioFormat::AAC);
+		}
+		
+		return{};
 	}
 
-	Wave AACDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave AACDecoder::decode(IReader& reader, const FilePathView path) const
 	{
-		if (not reader.isOpen())
+		if (path)
 		{
-			return{};
+			return decode(path);
 		}
+		else
+		{
+			const FilePath tmpPath = FileSystem::UniqueFilePath();
 
-		return SIV3D_ENGINE(AudioCodec)->decode(reader, AudioFormat::AAC);
+			Blob blob(reader.size());
+			
+			reader.read(blob.data(), blob.size());
+			
+			if (not blob.save(tmpPath))
+			{
+				return{};
+			}
+			
+			const Wave result = decode(tmpPath);
+			
+			FileSystem::Remove(tmpPath);
+			
+			return result;
+		}
 	}
 }

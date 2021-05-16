@@ -28,6 +28,9 @@ jobs:
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt update
         sudo apt install ninja-build
+        sudo apt install libavcodec-dev
+        sudo apt install libavformat-dev
+        sudo apt install libavutil-dev
         sudo apt install libboost-dev
         sudo apt install libgif-dev
         sudo apt install libglu1-mesa-dev
@@ -36,6 +39,7 @@ jobs:
         sudo apt install libopencv-dev
         sudo apt install libopus-dev
         sudo apt install libopusfile-dev
+        sudo apt install libswresample-dev
         sudo apt install libtiff-dev
         sudo apt install libturbojpeg0-dev
         sudo apt install libvorbis-dev

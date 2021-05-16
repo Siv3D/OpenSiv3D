@@ -28,6 +28,12 @@ namespace s3d
 		Wave decode(IReader& reader, AudioFormat audioFormat) override;
 		
 		bool encode(const Wave& wave, IWriter& writer, AudioFormat audioFormat) override;
+		
+		//
+		//	Linux
+		//
+		
+		Wave decode(FilePathView path, AudioFormat audioFormat);
 
 	private:
 

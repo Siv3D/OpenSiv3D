@@ -100,7 +100,22 @@ namespace s3d
 					lt.tm_min,
 					lt.tm_sec,
 					static_cast<int32>(tv.tv_nsec / (1'000'000))};
-		}		
+		}
+
+		[[nodiscard]]
+		static String ToUniqueFileName(const uint64 value)
+		{
+			constexpr char32 hex[] = U"0123456789abcdef";
+			
+			String name(19, U'-');
+			
+			for (size_t i = 0; i < 16; ++i)
+			{
+				name[i + (i / 4)] = hex[(value >> (i * 4)) & 0xF];
+			}
+			
+			return name;
+		}
 
 		[[nodiscard]]
 		inline constexpr std::filesystem::copy_options ToCopyOptions(const CopyOption copyOption) noexcept
@@ -488,6 +503,35 @@ namespace s3d
 			assert(FromEnum(folder) < static_cast<int32>(std::size(detail::init::g_specialFolderPaths)));
 
 			return detail::init::g_specialFolderPaths[FromEnum(folder)];
+		}
+
+		FilePath TemporaryDirectoryPath()
+		{
+			return (GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/");
+		}
+
+		FilePath UniqueFilePath(const FilePathView directory)
+		{
+			HardwareRNG rng;
+			UniformDistribution<uint64> ud(0, UINT64_MAX);
+			
+			FilePath directoryPath(directory);
+			
+			if ((not directoryPath.isEmpty())
+				&& (not directoryPath.ends_with(U'/')))
+			{
+				directoryPath.push_back(U'/');
+			}
+			
+			for (uint64 n = ud(rng);; ++n)
+			{
+				const FilePath path = directoryPath + detail::ToUniqueFileName(n) + U".tmp";
+				
+				if (not Exists(path))
+				{
+					return path;
+				}
+			}
 		}
 
 		bool CreateDirectories(const FilePathView path)

@@ -59,6 +59,9 @@ target_link_libraries(Siv3DTest PRIVATE
   -ldl
   -lGL
   -lX11
+  -lavcodec
+  -lavformat
+  -lavutil
   -lfreetype
   -lglib-2.0
   -lgobject-2.0
@@ -75,6 +78,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopus
   -lopusfile
   -lpng
+  -lswresample
   -ltiff
   -lturbojpeg
 	-lvorbis
