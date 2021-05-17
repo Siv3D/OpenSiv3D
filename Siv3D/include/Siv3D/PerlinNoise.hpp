@@ -15,6 +15,7 @@
 # include "Concepts.hpp"
 # include "PointVector.hpp"
 # include "Random.hpp"
+# include "Noise.hpp"
 
 namespace s3d
 {
@@ -48,7 +49,94 @@ namespace s3d
 		value_type noise2D(value_type x, value_type y) const noexcept;
 
 		[[nodiscard]]
+		value_type noise2D(Vector2D<value_type> xy) const noexcept;
+
+		[[nodiscard]]
 		value_type noise3D(value_type x, value_type y, value_type z) const noexcept;
+
+		[[nodiscard]]
+		value_type noise3D(Vector3D<value_type> xyz) const noexcept;
+
+
+		[[nodiscard]]
+		value_type noise1D_01(value_type x) const noexcept;
+
+		[[nodiscard]]
+		value_type noise2D_01(value_type x, value_type y) const noexcept;
+
+		[[nodiscard]]
+		value_type noise2D_01(Vector2D<value_type> xy) const noexcept;
+
+		[[nodiscard]]
+		value_type noise3D_01(value_type x, value_type y, value_type z) const noexcept;
+
+		[[nodiscard]]
+		value_type noise3D_01(Vector3D<value_type> xyz) const noexcept;
+
+
+		[[nodiscard]]
+		value_type octave1D(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type octave1D_01(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D_01(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D_01(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D_01(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D_01(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type normalizedOctave1D(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type normalizedOctave1D_01(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D_01(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D_01(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D_01(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D_01(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
 
 		[[nodiscard]]
 		constexpr const state_type& serialize() const noexcept;

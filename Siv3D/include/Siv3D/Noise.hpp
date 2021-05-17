@@ -21,6 +21,12 @@ namespace s3d
 		SIV3D_CONCEPT_FLOATING_POINT
 		inline constexpr Float MaxAmplitude(size_t octaves, Float persistence = 0.5) noexcept;
 
+		SIV3D_CONCEPT_FLOATING_POINT
+		inline constexpr Float To01(Float x) noexcept;
+
+		SIV3D_CONCEPT_FLOATING_POINT
+		inline constexpr Float To01Clamp(Float x) noexcept;
+
 		template <class Noise, class Float = typename Noise::value_type>
 		inline auto Octave1D(const Noise& noise, Float x, size_t octaves, Float persistence = 0.5) noexcept;
 
@@ -29,27 +35,6 @@ namespace s3d
 
 		template <class Noise, class Float = typename Noise::value_type>
 		inline auto Octave3D(const Noise& noise, Float x, Float y, Float z, size_t octaves, Float persistence = 0.5) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave2D(const Noise& noise, Vector2D<Float> xy, size_t octaves, Float persistence = 0.5) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave3D(const Noise& noise, Vector3D<Float> xyz, size_t octaves, Float persistence = 0.5) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave1D0_1(const Noise& noise, Float x, size_t octaves) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave2D0_1(const Noise& noise, Float x, Float y, size_t octaves) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave3D0_1(const Noise& noise, Float x, Float y, Float z, size_t octaves) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave2D0_1(const Noise& noise, Vector2D<Float> xy, size_t octaves) noexcept;
-
-		template <class Noise, class Float = typename Noise::value_type>
-		inline auto Octave3D0_1(const Noise& noise, Vector3D<Float> xyz, size_t octaves) noexcept;
 	}
 }
 

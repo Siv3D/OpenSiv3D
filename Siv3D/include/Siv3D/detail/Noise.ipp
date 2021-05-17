@@ -31,6 +31,27 @@ namespace s3d
 			return result;
 		}
 
+		SIV3D_CONCEPT_FLOATING_POINT_
+		inline constexpr Float To01(const Float x) noexcept
+		{
+			return (x * Float(0.5) + Float(0.5));
+		}
+
+		SIV3D_CONCEPT_FLOATING_POINT_
+		inline constexpr Float To01Clamp(const Float x) noexcept
+		{
+			if (x <= Float(-1.0))
+			{
+				return Float(0.0);
+			}
+			else if (Float(1.0) <= x)
+			{
+				return Float(1.0);
+			}
+
+			return (x * Float(0.5) + Float(0.5));
+		}
+
 		template <class Noise, class Float>
 		inline auto Octave1D(const Noise& noise, Float x, const size_t octaves, const Float persistence) noexcept
 		{
@@ -83,48 +104,6 @@ namespace s3d
 			}
 
 			return result;
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave2D(const Noise& noise, const Vector2D<Float> xy, const size_t octaves, const Float persistence) noexcept
-		{
-			return Octave2D(noise, xy.x, xy.y, octaves, persistence);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave3D(const Noise& noise, const Vector3D<Float> xyz, const size_t octaves, const Float persistence) noexcept
-		{
-			return Octave3D(noise, xyz.x, xyz.y, xyz.z, octaves, persistence);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave1D0_1(const Noise& noise, const Float x, const size_t octaves) noexcept
-		{
-			return ((Octave1D(noise, x, octaves, 0.5) * 0.5) + 0.5);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave2D0_1(const Noise& noise, const Float x, const Float y, const size_t octaves) noexcept
-		{
-			return ((Octave2D(noise, x, y, octaves, 0.5) * 0.5) + 0.5);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave3D0_1(const Noise& noise, const Float x, const Float y, const Float z, const size_t octaves) noexcept
-		{
-			return ((Octave3D(noise, x, y, z, octaves, 0.5) * 0.5) + 0.5);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave2D0_1(const Noise& noise, const Vector2D<Float> xy, const size_t octaves) noexcept
-		{
-			return Octave2D0_1(noise, xy.x, xy.y, octaves, 0.5);
-		}
-
-		template <class Noise, class Float>
-		inline auto Octave3D0_1(const Noise& noise, const Vector3D<Float> xyz, const size_t octaves) noexcept
-		{
-			return Octave3D0_1(noise, xyz.x, xyz.y, xyz.z, octaves, 0.5);
 		}
 	}
 }

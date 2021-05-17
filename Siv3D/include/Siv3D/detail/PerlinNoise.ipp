@@ -62,7 +62,7 @@ namespace s3d
 	{
 		return noise3D(x,
 			static_cast<value_type>(0.34567890123456789012),
-			static_cast<value_type>(0.12345678901234567890)); // for entropy
+			static_cast<value_type>(0.12345678901234567890)); // arbitrary number for entropy
 	}
 
 	template <class Float>
@@ -70,7 +70,13 @@ namespace s3d
 	{
 		return noise3D(x,
 			y,
-			static_cast<value_type>(0.12345678901234567890)); // for entropy
+			static_cast<value_type>(0.12345678901234567890)); // arbitrary number for entropy
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise2D(const Vector2D<value_type> xy) const noexcept
+	{
+		return noise2D(xy.x, xy.y);
 	}
 
 	template <class Float>
@@ -120,6 +126,168 @@ namespace s3d
 
 		return Lerp(r0, r1, w);
 	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise3D(const Vector3D<value_type> xyz) const noexcept
+	{
+		return noise3D(xyz.x, xyz.y, xyz.z);
+	}
+
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise1D_01(const value_type x) const noexcept
+	{
+		return Noise::To01(noise1D(x));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise2D_01(const value_type x, const value_type y) const noexcept
+	{
+		return Noise::To01(noise2D(x, y));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise2D_01(const Vector2D<value_type> xy) const noexcept
+	{
+		return noise2D_01(xy.x, xy.y);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise3D_01(const value_type x, const value_type y, const value_type z) const noexcept
+	{
+		return Noise::To01(noise3D(x, y, z));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::noise3D_01(const Vector3D<value_type> xyz) const noexcept
+	{
+		return noise3D_01(xyz.x, xyz.y, xyz.z);
+	}
+
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave1D(const value_type x, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::Octave1D(*this, x, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave2D(const value_type x, const value_type y, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::Octave2D(*this, x, y, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave2D(const Vector2D<value_type> xy, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return octave2D(xy.x, xy.y, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave3D(const value_type x, const value_type y, const value_type z, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::Octave3D(*this, x, y, z, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave3D(const Vector3D<value_type> xyz, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return octave3D(xyz.x, xyz.y, xyz.z, octaves, persistence);
+	}
+
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave1D_01(const value_type x, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01Clamp(octave1D(x, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave2D_01(const value_type x, const value_type y, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01Clamp(octave2D(x, y, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave2D_01(const Vector2D<value_type> xy, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return octave2D_01(xy.x, xy.y, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave3D_01(const value_type x, const value_type y, const value_type z, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01Clamp(octave3D(x, y, z, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::octave3D_01(const Vector3D<value_type> xyz, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return octave3D_01(xyz.x, xyz.y, xyz.z, octaves, persistence);
+	}
+
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave1D(const value_type x, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return (octave1D(x, octaves, persistence) / Noise::MaxAmplitude(octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave2D(const value_type x, const value_type y, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return (octave2D(x, y, octaves, persistence) / Noise::MaxAmplitude(octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave2D(const Vector2D<value_type> xy, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return normalizedOctave2D(xy.x, xy.y, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave3D(const value_type x, const value_type y, const value_type z, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return (octave3D(x, y, z, octaves, persistence) / Noise::MaxAmplitude(octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave3D(const Vector3D<value_type> xyz, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return normalizedOctave3D(xyz.x, xyz.y, xyz.z, octaves, persistence);
+	}
+
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave1D_01(const value_type x, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01(normalizedOctave1D(x, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave2D_01(const value_type x, const value_type y, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01(normalizedOctave2D(x, y, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave2D_01(const Vector2D<value_type> xy, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return normalizedOctave2D_01(xy.x, xy.y, octaves, persistence);
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave3D_01(const value_type x, const value_type y, const value_type z, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return Noise::To01(normalizedOctave3D(x, y, z, octaves, persistence));
+	}
+
+	template <class Float>
+	inline typename BasicPerlinNoise<Float>::value_type BasicPerlinNoise<Float>::normalizedOctave3D_01(const Vector3D<value_type> xyz, const int32 octaves, const value_type persistence) const noexcept
+	{
+		return normalizedOctave3D_01(xyz.x, xyz.y, xyz.z, octaves, persistence);
+	}
+
 
 	template <class Float>
 	inline constexpr const typename BasicPerlinNoise<Float>::state_type& BasicPerlinNoise<Float>::serialize() const noexcept
