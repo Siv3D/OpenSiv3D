@@ -59,24 +59,16 @@ namespace s3d
 	public:
 
 		template <class ...Args>
-		Serializer(Args&& ... args)
-			: cereal::OutputArchive<Serializer<Writer>, cereal::AllowEmptyClassElision>(this)
-			, m_writer(std::make_shared<Writer>(std::forward<Args>(args)...)) {}
+		SIV3D_NODISCARD_CXX20
+		Serializer(Args&& ... args);
 
-		void saveBinary(const void* data, const size_t size)
-		{
-			const size_t writtenSize = static_cast<size_t>(m_writer->write(data, size));
+		void saveBinary(const void* data, size_t size);
 
-			if (writtenSize != size)
-			{
-				throw cereal::Exception("Failed to write " + std::to_string(size) + " bytes to output stream! Wrote " + std::to_string(writtenSize));
-			}
-		}
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
-		Writer& getWriter()
-		{
-			return *std::dynamic_pointer_cast<Writer>(m_writer);
-		}
+		[[nodiscard]]
+		std::shared_ptr<Writer> operator ->();
 
 	private:
 
@@ -89,82 +81,24 @@ namespace s3d
 	public:
 
 		template <class ...Args>
-		Deserializer(Args&& ... args)
-			: cereal::InputArchive<Deserializer<Reader>, cereal::AllowEmptyClassElision>(this)
-			, m_reader(std::make_shared<Reader>(std::forward<Args>(args)...)) {}
+		SIV3D_NODISCARD_CXX20
+		Deserializer(Args&& ... args);
 
-		void loadBinary(void* const data, const size_t size)
-		{
-			const size_t readSize = static_cast<size_t>(m_reader->read(data, size));
+		void loadBinary(void* const data, size_t size);
 
-			if (readSize != size)
-			{
-				throw cereal::Exception("Failed to read " + std::to_string(size) + " bytes from input stream! Read " + std::to_string(readSize));
-			}
-		}
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
-		Reader& getReader()
-		{
-			return *std::dynamic_pointer_cast<Reader>(m_reader);
-		}
+		[[nodiscard]]
+		std::shared_ptr<Reader> operator ->();
 
 	private:
 
 		std::shared_ptr<IReader> m_reader;
 	};
-
-	//////////////////////////////////////////////////////
-	//
-	//	arithmetic types
-	//
-	template <class Type, class Writer, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	inline void SIV3D_SERIALIZE_SAVE(Serializer<Writer>& archive, const Type& value)
-	{
-		archive.saveBinary(std::addressof(value), sizeof(value));
-	}
-
-	template <class Type, class Reader, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	inline void SIV3D_SERIALIZE_LOAD(Deserializer<Reader>& archive, Type& value)
-	{
-		archive.loadBinary(std::addressof(value), sizeof(value));
-	}
-
-	//////////////////////////////////////////////////////
-	//
-	//	cereal::NameValuePair
-	//
-	template <class Archive, class Type>
-	inline void SIV3D_SERIALIZE(Archive& archive, cereal::NameValuePair<Type>& value)
-	{
-		archive(value.value);
-	}
-
-	//////////////////////////////////////////////////////
-	//
-	//	cereal::SizeTag
-	//
-	template <class Archive, class Type>
-	inline void SIV3D_SERIALIZE(Archive& archive, cereal::SizeTag<Type>& value)
-	{
-		archive(value.size);
-	}
-
-	//////////////////////////////////////////////////////
-	//
-	//	cereal::BinaryData
-	//
-	template <class Type, class Writer>
-	inline void SIV3D_SERIALIZE_SAVE(Serializer<Writer>& archive, const cereal::BinaryData<Type>& value)
-	{
-		archive.saveBinary(value.data, static_cast<size_t>(value.size));
-	}
-
-	template <class Type, class Reader>
-	inline void SIV3D_SERIALIZE_LOAD(Deserializer<Reader>& archive, cereal::BinaryData<Type>& value)
-	{
-		archive.loadBinary(value.data, static_cast<size_t>(value.size));
-	}
 }
+
+# include "detail/Serialization.ipp"
 
 CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::BinaryReader>)
