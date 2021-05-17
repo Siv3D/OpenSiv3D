@@ -24,7 +24,7 @@ namespace s3d
 
 		String text;
 
-		Array<GlyphCluster> cluster;
+		Array<GlyphCluster> clusters;
 
 		DrawableText() = default;
 
@@ -308,6 +308,32 @@ namespace s3d
 		RectF drawBaseAt(const TextStyle& textStyle, double size, double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF drawBaseAt(const TextStyle& textStyle, double size, const Vec2& pos, const ColorF& color = Palette::White) const;
+
+
+		void paint(Image& dst, double x, double y, const Color& color = Palette::White) const;
+
+		void paint(Image& dst, const Vec2& pos, const Color& color = Palette::White) const;
+
+		void stamp(Image& dst, double x, double y, const Color& color = Palette::White) const;
+
+		void stamp(Image& dst, const Vec2& pos, const Color& color = Palette::White) const;
+
+		void overwrite(Image& dst, double x, double y) const;
+
+		void overwrite(Image& dst, const Vec2& pos) const;
+
+
+		void paintAt(Image& dst, double x, double y, const Color& color = Palette::White) const;
+
+		void paintAt(Image& dst, const Vec2& pos, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, double x, double y, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, const Vec2& pos, const Color& color = Palette::White) const;
+
+		void overwriteAt(Image& dst, double x, double y) const;
+
+		void overwriteAt(Image& dst, const Vec2& pos) const;
 	};
 
 	template <class ... Args>

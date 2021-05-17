@@ -10,24 +10,108 @@
 //-----------------------------------------------
 
 # include <Siv3D/DrawableText.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		void RenderToImage(const size_t mode, const DrawableText& drawableText, Image& dst, const Vec2& pos, const Color& color)
+		{
+			const Font& font = drawableText.font;
+			const auto& clusters = drawableText.clusters;
+			const auto& text = drawableText.text;
+
+			const double spaceWidth = font.spaceWidth();
+			const int32 height = font.height();
+			const double lineHeightScale = 1.0;
+			const double scale = 1.0;
+			const Vec2 basePos{ pos };
+			Vec2 penPos{ basePos };
+			int32 lineCount = 1;
+
+			for (const auto& cluster : clusters)
+			{
+				const char32 ch = text[cluster.pos];
+
+				if (IsControl(ch))
+				{
+					switch (ch)
+					{
+					case U'\t':
+						penPos.x += (spaceWidth * scale * 4);
+						break;
+					case U'\n':
+						penPos.x = basePos.x;
+						penPos.y += (height * scale * lineHeightScale);
+						++lineCount;
+						break;
+					default:
+						break;
+					}
+
+					continue;
+				}
+
+				if (cluster.fontIndex != 0)
+				{
+					//const size_t fallbackIndex = (cluster.fontIndex - 1);
+					//RectF rect;
+					//
+					//if (usebasePos)
+					//{
+					//	rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+					//		cluster, penPos, size, textStyle, color, lineHeightScale);
+					//}
+					//else
+					//{
+					//	rect = SIV3D_ENGINE(Font)->drawBaseFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
+					//		cluster, penPos.movedBy(0, prop.ascender * scale), size, textStyle, color, lineHeightScale);
+					//}
+					//
+					//penPos.x += rect.w;
+					continue;
+				}
+
+				BitmapGlyph glyph = font.renderBitmapByGlyphIndex(cluster.glyphIndex);
+				{
+					const Vec2 posOffset = glyph.getOffset(scale);
+					const Vec2 drawPos = (penPos + posOffset);
+
+					if (mode == 0) // paint
+					{
+						glyph.image.paint(dst, Math::Round(drawPos).asPoint(), color);
+					}
+					else if (mode == 1) // stamp
+					{
+						glyph.image.stamp(dst, Math::Round(drawPos).asPoint(), color);
+					}
+					else // overwrite
+					{
+						glyph.image.overwrite(dst, Math::Round(drawPos).asPoint());
+					}
+				}
+
+				penPos.x += (glyph.xAdvance * scale);
+			}
+		}
+	}
+
 	DrawableText::DrawableText(const Font& _font, const String& _text)
 		: font{ _font }
 		, text{ _text }
-		, cluster{ font.getGlyphClusters(text) } {}
+		, clusters{ font.getGlyphClusters(text) } {}
 
 	DrawableText::DrawableText(const Font& _font, String&& _text)
 		: font{ _font }
 		, text{ std::move(_text) }
-		, cluster{ font.getGlyphClusters(text) } {}
+		, clusters{ font.getGlyphClusters(text) } {}
 
 	Array<double> DrawableText::getXAdvances() const
 	{
-		return SIV3D_ENGINE(Font)->getXAdvances(font.id(), text, cluster);
+		return SIV3D_ENGINE(Font)->getXAdvances(font.id(), text, clusters);
 	}
 
 	RectF DrawableText::region(const double x, const double y) const
@@ -92,7 +176,7 @@ namespace s3d
 
 	RectF DrawableText::region(const double size, const Vec2 pos) const
 	{
-		return SIV3D_ENGINE(Font)->region(font.id(), text, cluster, pos, size, 1.0);
+		return SIV3D_ENGINE(Font)->region(font.id(), text, clusters, pos, size, 1.0);
 	}
 
 	RectF DrawableText::region(const double size, const Arg::topLeft_<Vec2> topLeft) const
@@ -157,7 +241,7 @@ namespace s3d
 
 	RectF DrawableText::regionBase(const double size, const Vec2 pos) const
 	{
-		return SIV3D_ENGINE(Font)->regionBase(font.id(), text, cluster, pos, size, 1.0);
+		return SIV3D_ENGINE(Font)->regionBase(font.id(), text, clusters, pos, size, 1.0);
 	}
 
 	RectF DrawableText::regionAt(const double x, const double y) const
@@ -391,7 +475,7 @@ namespace s3d
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return SIV3D_ENGINE(Font)->draw(font.id(), text, cluster, pos, size, textStyle, color, 1.0);
+		return SIV3D_ENGINE(Font)->draw(font.id(), text, clusters, pos, size, textStyle, color, 1.0);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::topLeft_<Vec2> topLeft, const ColorF& color) const
@@ -441,7 +525,7 @@ namespace s3d
 
 	bool DrawableText::draw(const TextStyle& textStyle, const double size, const RectF& area, const ColorF& color) const
 	{
-		return SIV3D_ENGINE(Font)->draw(font.id(), text, cluster, area, size, textStyle, color, 1.0);
+		return SIV3D_ENGINE(Font)->draw(font.id(), text, clusters, area, size, textStyle, color, 1.0);
 	}
 
 	RectF DrawableText::drawBase(const double x, const double y, const ColorF& color) const
@@ -526,7 +610,7 @@ namespace s3d
 
 	RectF DrawableText::drawBase(const TextStyle& textStyle, const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return SIV3D_ENGINE(Font)->drawBase(font.id(), text, cluster, pos, size, textStyle, color, 1.0);
+		return SIV3D_ENGINE(Font)->drawBase(font.id(), text, clusters, pos, size, textStyle, color, 1.0);
 	}
 
 	RectF DrawableText::drawBase(const TextStyle& textStyle, const double size, const Arg::left_<Vec2> left, const ColorF& color) const
@@ -630,5 +714,77 @@ namespace s3d
 		const double drawPosX = (pos.x - (rect.w * 0.5));
 
 		return drawBase(textStyle, size, Vec2{ drawPosX, pos.y }, color);
+	}
+
+	void DrawableText::paint(Image& dst, const double x, const double y, const Color& color) const
+	{
+		paint(dst, Vec2{ x, y }, color);
+	}
+
+	void DrawableText::paint(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		detail::RenderToImage(0, *this, dst, pos, color);
+	}
+
+	void DrawableText::stamp(Image& dst, const double x, const double y, const Color& color) const
+	{
+		stamp(dst, Vec2{ x, y }, color);
+	}
+
+	void DrawableText::stamp(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		detail::RenderToImage(1, *this, dst, pos, color);
+	}
+
+	void DrawableText::overwrite(Image& dst, const double x, const double y) const
+	{
+		overwrite(dst, Vec2{ x, y });
+	}
+
+	void DrawableText::overwrite(Image& dst, const Vec2& pos) const
+	{
+		detail::RenderToImage(2, *this, dst, pos, Palette::White);
+	}
+
+	void DrawableText::paintAt(Image& dst, const double x, const double y, const Color& color) const
+	{
+		paintAt(dst, Vec2{ x, y }, color);
+	}
+
+	void DrawableText::paintAt(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		const RectF rect = region(font.fontSize(), Vec2{ 0, 0 });
+
+		const Vec2 drawPos = (pos - rect.center());
+
+		detail::RenderToImage(0, *this, dst, drawPos, color);
+	}
+
+	void DrawableText::stampAt(Image& dst, const double x, const double y, const Color& color) const
+	{
+		stampAt(dst, Vec2{ x, y }, color);
+	}
+
+	void DrawableText::stampAt(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		const RectF rect = region(font.fontSize(), Vec2{ 0, 0 });
+
+		const Vec2 drawPos = (pos - rect.center());
+
+		detail::RenderToImage(1, *this, dst, drawPos, color);
+	}
+
+	void DrawableText::overwriteAt(Image& dst, const double x, const double y) const
+	{
+		overwriteAt(dst, Vec2{ x, y });
+	}
+
+	void DrawableText::overwriteAt(Image& dst, const Vec2& pos) const
+	{
+		const RectF rect = region(font.fontSize(), Vec2{ 0, 0 });
+
+		const Vec2 drawPos = (pos - rect.center());
+
+		detail::RenderToImage(2, *this, dst, drawPos, Palette::White);
 	}
 }

@@ -586,14 +586,14 @@ namespace s3d
 							pDst->r = static_cast<uint8>((255 * pDst->r * dstBlend + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255));
 							pDst->g = static_cast<uint8>((255 * pDst->g * dstBlend + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255));
 							pDst->b = static_cast<uint8>((255 * pDst->b * dstBlend + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255));
-							pDst->a = 255;
+							pDst->a = Max(pSrc->a, pDst->a);
 						}
 						else
 						{
 							pDst->r = static_cast<uint8>((globalSrcRed * pSrc->r) / 255);
 							pDst->g = static_cast<uint8>((globalSrcGreen * pSrc->g) / 255);
 							pDst->b = static_cast<uint8>((globalSrcBlue * pSrc->b) / 255);
-							pDst->a = 255;
+							pDst->a = Max(pSrc->a, pDst->a);
 						}
 
 						++pSrc;
