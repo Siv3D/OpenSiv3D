@@ -2445,6 +2445,42 @@ namespace s3d
 		ImagePainting::Paint(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
 	}
 
+	void Image::stamp(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		stamp(dst, Point{ x, y }, color);
+	}
+
+	void Image::stamp(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (this == &dst)
+		{
+			return;
+		}
+
+		const Image& src = *this;
+		const int32 dstXBegin = Max(pos.x, 0);
+		const int32 dstYBegin = Max(pos.y, 0);
+		const int32 dstXEnd = Min(pos.x + src.width(), dst.width());
+		const int32 dstYEnd = Min(pos.y + src.height(), dst.height());
+		const int32 writeWidth = (dstXEnd - dstXBegin);
+		const int32 writeHeight = (dstYEnd - dstYBegin);
+
+		if ((writeWidth <= 0) || (writeHeight <= 0))
+		{
+			return;
+		}
+
+		const int32 srcXBegin = Max(0, -pos.x);
+		const int32 srcYBegin = Max(0, -pos.y);
+
+		const Color* pSrc = &src[srcYBegin][srcXBegin];
+		Color* pDst = &dst[dstYBegin][dstXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+		ImagePainting::Stamp(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+	}
+
 	void Image::overwrite(Image& dst, const int32 x, const int32 y) const
 	{
 		overwrite(dst, Point{ x, y });
@@ -2473,21 +2509,12 @@ namespace s3d
 
 		const int32 srcXBegin = Max(0, -pos.x);
 		const int32 srcYBegin = Max(0, -pos.y);
-
 		const Color* pSrc = &src[srcYBegin][srcXBegin];
 		Color* pDst = &dst[dstYBegin][dstXBegin];
-		{
-			const int32 srcWidth = src.width();
-			const int32 dstWidth = dst.width();
-			const size_t stride_bytes = (writeWidth * sizeof(Color));
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
 
-			for (int32 y = 0; y < writeHeight; ++y)
-			{
-				std::memcpy(pDst, pSrc, stride_bytes);
-				pSrc += srcWidth;
-				pDst += dstWidth;
-			}
-		}
+		ImagePainting::Overwrite(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth);
 	}
 
 	ImageROI Image::operator ()(const int32 x, const int32 y, const int32 w, const int32 h)

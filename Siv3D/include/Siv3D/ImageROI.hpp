@@ -60,11 +60,11 @@ namespace s3d
 
 		//ImageROI& spread(int32 horizontal, int32 vertical);
 
-		//ImageROI& blur(int32 size, BorderType borderType = BorderType::Reflect_101);
+		ImageROI& blur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
-		//ImageROI& blur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
+		ImageROI& blur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 
-		//ImageROI& medianBlur(int32 apertureSize);
+		ImageROI& medianBlur(int32 apertureSize);
 
 		ImageROI& gaussianBlur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
@@ -72,17 +72,21 @@ namespace s3d
 
 		//ImageROI& bilateralFilter(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101);
 
-		//ImageROI& dilate(int32 iterations = 1);
+		ImageROI& dilate(int32 iterations = 1);
 
-		//ImageROI& erode(int32 iterations = 1);
+		ImageROI& erode(int32 iterations = 1);
 
-		//void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 
-		//void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+		void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
 
-		//void overwrite(Image& dst, int32 x, int32 y) const;
+		void stamp(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 
-		//void overwrite(Image& dst, Point pos) const;
+		void stamp(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwrite(Image& dst, int32 x, int32 y) const;
+
+		void overwrite(Image& dst, Point pos) const;
 	};
 
 	struct ImageConstROI
@@ -100,12 +104,16 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
-		//void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 
-		//void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+		void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
 
-		//void overwrite(Image& dst, int32 x, int32 y) const;
+		void stamp(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 
-		//void overwrite(Image& dst, Point pos) const;
+		void stamp(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwrite(Image& dst, int32 x, int32 y) const;
+
+		void overwrite(Image& dst, Point pos) const;
 	};
 }

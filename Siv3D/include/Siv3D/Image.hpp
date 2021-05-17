@@ -545,6 +545,10 @@ namespace s3d
 
 		void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
 
+		void stamp(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void stamp(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;

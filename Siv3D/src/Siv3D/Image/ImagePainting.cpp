@@ -495,6 +495,159 @@ namespace s3d
 			Paint_Reference(pSrc, pDst, width, height, srcWidth, dstWidth, color);
 		}
 
+		void Stamp_Reference(const Color* pSrc, Color* pDst,
+			const int32 width, const int32 height, const int32 srcWidth, const int32 dstWidth, const Color color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+			const uint32 globalSrcRed = color.r;
+			const uint32 globalSrcGreen = color.g;
+			const uint32 globalSrcBlue = color.b;
+			const uint32 globalSrcAlpha = color.a;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a;
+						const uint32 dstAlpha = pDst->a;
+
+						if (srcAlpha == 255)
+						{
+							*pDst = *pSrc;
+						}
+						else if (dstAlpha == 0)
+						{
+							*pDst = *pSrc;
+						}
+						else
+						{
+							const uint32 dstBlend = (255 - srcAlpha);
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + pSrc->r * srcAlpha) / 255);
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + pSrc->g * srcAlpha) / 255);
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + pSrc->b * srcAlpha) / 255);
+							pDst->a = Max(pSrc->a, pDst->a);
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.r == 255 && color.g == 255 && color.b == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = (pSrc->a * globalSrcAlpha);
+						const uint32 dstBlend = (255 * 255) - srcAlpha;
+						const uint32 dstAlpha = pDst->a;
+
+						if (dstAlpha == 0)
+						{
+							pDst->r = pSrc->r;
+							pDst->g = pSrc->g;
+							pDst->b = pSrc->b;
+							pDst->a = static_cast<uint8>(srcAlpha / 255);
+						}
+						else
+						{
+							pDst->r = static_cast<uint8>((pDst->r * dstBlend + pSrc->r * srcAlpha) / (255 * 255));
+							pDst->g = static_cast<uint8>((pDst->g * dstBlend + pSrc->g * srcAlpha) / (255 * 255));
+							pDst->b = static_cast<uint8>((pDst->b * dstBlend + pSrc->b * srcAlpha) / (255 * 255));
+							pDst->a = static_cast<uint8>(Max((srcAlpha / 255), dstAlpha));
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.a == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a;
+
+						if (srcAlpha != 255)
+						{
+							const uint32 dstBlend = 255 - srcAlpha;
+							pDst->r = static_cast<uint8>((255 * pDst->r * dstBlend + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255));
+							pDst->g = static_cast<uint8>((255 * pDst->g * dstBlend + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255));
+							pDst->b = static_cast<uint8>((255 * pDst->b * dstBlend + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255));
+							pDst->a = 255;
+						}
+						else
+						{
+							pDst->r = static_cast<uint8>((globalSrcRed * pSrc->r) / 255);
+							pDst->g = static_cast<uint8>((globalSrcGreen * pSrc->g) / 255);
+							pDst->b = static_cast<uint8>((globalSrcBlue * pSrc->b) / 255);
+							pDst->a = 255;
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstBlend = (255 * 255) - srcAlpha;
+						const uint32 dstAlpha = pDst->a;
+
+						pDst->r = static_cast<uint8>((255 * pDst->r * dstBlend + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255 * 255));
+						pDst->g = static_cast<uint8>((255 * pDst->g * dstBlend + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255 * 255));
+						pDst->b = static_cast<uint8>((255 * pDst->b * dstBlend + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255 * 255));
+						pDst->a = static_cast<uint8>(Max((srcAlpha / 255), dstAlpha));
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		void Stamp(const Color* pSrc, Color* pDst,
+			const int32 width, const int32 height, const int32 srcWidth, const int32 dstWidth, const Color color)
+		{
+			Stamp_Reference(pSrc, pDst, width, height, srcWidth, dstWidth, color);
+		}
+
+		void Overwrite(const Color* pSrc, Color* pDst,
+			const int32 width, const int32 height, const int32 srcWidth, const int32 dstWidth)
+		{
+			const size_t stride_bytes = (width * sizeof(Color));
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				std::memcpy(pDst, pSrc, stride_bytes);
+				pSrc += srcWidth;
+				pDst += dstWidth;
+			}
+		}
+
 		static void WritePaintBufferReference(
 			Color* dst,
 			const uint32* offsets,

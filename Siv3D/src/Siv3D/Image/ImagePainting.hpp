@@ -18,5 +18,11 @@ namespace s3d
 	{
 		void Paint(const Color* pSrc, Color* pDst,
 			int32 width, int32 height, int32 srcWidth, int32 dstWidth, Color color);
+
+		void Stamp(const Color* pSrc, Color* pDst,
+			int32 width, int32 height, int32 srcWidth, int32 dstWidth, Color color);
+
+		void Overwrite(const Color* pSrc, Color* pDst,
+			int32 width, int32 height, int32 srcWidth, int32 dstWidth);
 	}
 }
