@@ -3419,6 +3419,11 @@
 		2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
 		2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChildProcessDetail.hpp; sourceTree = "<group>"; };
 		2CE8D1412616107200C75FBB /* ChildProcessDetail.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChildProcessDetail.mm; sourceTree = "<group>"; };
+		2CE94FA22652483900440C6C /* FFTResult.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFTResult.hpp; sourceTree = "<group>"; };
+		2CE94FA32652483900440C6C /* FFT.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFT.hpp; sourceTree = "<group>"; };
+		2CE94FA42652484400440C6C /* Microphone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Microphone.hpp; sourceTree = "<group>"; };
+		2CE94FA52652484400440C6C /* MessageBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageBox.hpp; sourceTree = "<group>"; };
+		2CE94FA62652485800440C6C /* Serialization.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serialization.ipp; sourceTree = "<group>"; };
 		2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Exif.hpp; sourceTree = "<group>"; };
 		2CEC7DC025FA4DC200704B99 /* SivExif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivExif.cpp; sourceTree = "<group>"; };
 		2CEC7DC325FA4DD900704B99 /* exif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exif.cpp; sourceTree = "<group>"; };
@@ -7513,6 +7518,8 @@
 				2CAAA77925E7FD0200C014D7 /* Error.hpp */,
 				2CEC7DBE25FA4DAE00704B99 /* Exif.hpp */,
 				2CAAA72925E7FD0200C014D7 /* FastMath.hpp */,
+				2CE94FA32652483900440C6C /* FFT.hpp */,
+				2CE94FA22652483900440C6C /* FFTResult.hpp */,
 				2CAAA6F825E7FD0200C014D7 /* FileAction.hpp */,
 				2CFB7DB4262AB49D00169B97 /* FileFilter.hpp */,
 				2CAAA73A25E7FD0200C014D7 /* FileSystem.hpp */,
@@ -7617,7 +7624,9 @@
 				2C95667A264561D900539B85 /* MemoryReader.hpp */,
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
+				2CE94FA52652484400440C6C /* MessageBox.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
+				2CE94FA42652484400440C6C /* Microphone.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
@@ -7943,6 +7952,7 @@
 				2CAAA7E525E7FD0200C014D7 /* ScopedRenderStates2D.ipp */,
 				2CAAA7A225E7FD0200C014D7 /* ScopeGuard.ipp */,
 				2C2AA2D125FFA51D003F3EBC /* Serial.ipp */,
+				2CE94FA62652485800440C6C /* Serialization.ipp */,
 				2CAAA7A925E7FD0200C014D7 /* ShaderCommon.ipp */,
 				2CAAA7DD25E7FD0200C014D7 /* ShaderStage.ipp */,
 				2CAAA7F625E7FD0200C014D7 /* Shape2D.ipp */,
