@@ -87,6 +87,18 @@ namespace s3d
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;
+
+		void paintAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void paintAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwriteAt(Image& dst, int32 x, int32 y) const;
+
+		void overwriteAt(Image& dst, Point pos) const;
 	};
 
 	struct ImageConstROI
@@ -115,5 +127,17 @@ namespace s3d
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;
+
+		void paintAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void paintAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwriteAt(Image& dst, int32 x, int32 y) const;
+
+		void overwriteAt(Image& dst, Point pos) const;
 	};
 }

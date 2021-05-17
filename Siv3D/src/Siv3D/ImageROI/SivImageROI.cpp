@@ -235,22 +235,22 @@ namespace s3d
 
 	void ImageROI::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
 	{
-		paint(dst, Point{ x, y });
+		paint(dst, Point{ x, y }, color);
 	}
 
 	void ImageROI::paint(Image& dst, const Point& pos, const Color& color) const
 	{
-		ImageConstROI{ *this }.paint(dst, pos);
+		ImageConstROI{ *this }.paint(dst, pos, color);
 	}
 
 	void ImageROI::stamp(Image& dst, const int32 x, const int32 y, const Color& color) const
 	{
-		stamp(dst, Point{ x, y });
+		stamp(dst, Point{ x, y }, color);
 	}
 
 	void ImageROI::stamp(Image& dst, const Point& pos, const Color& color) const
 	{
-		ImageConstROI{ *this }.stamp(dst, pos);
+		ImageConstROI{ *this }.stamp(dst, pos, color);
 	}
 
 	void ImageROI::overwrite(Image& dst, const int32 x, const int32 y) const
@@ -261,6 +261,36 @@ namespace s3d
 	void ImageROI::overwrite(Image& dst, const Point pos) const
 	{
 		ImageConstROI{ *this }.overwrite(dst, pos);
+	}
+
+	void ImageROI::paintAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paintAt(dst, Point{ x, y }, color);
+	}
+
+	void ImageROI::paintAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		paint(dst, (pos - (region.size / 2)), color);
+	}
+
+	void ImageROI::stampAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		stampAt(dst, Point{ x, y }, color);
+	}
+
+	void ImageROI::stampAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		stamp(dst, (pos - (region.size / 2)), color);
+	}
+
+	void ImageROI::overwriteAt(Image& dst, const int32 x, const int32 y) const
+	{
+		overwriteAt(dst, Point{ x, y });
+	}
+
+	void ImageROI::overwriteAt(Image& dst, const Point pos) const
+	{
+		overwrite(dst, (pos - (region.size / 2)));
 	}
 
 	ImageConstROI::ImageConstROI(const ImageROI& imageROI) noexcept
@@ -278,7 +308,7 @@ namespace s3d
 
 	void ImageConstROI::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
 	{
-		paint(dst, Point{ x, y });
+		paint(dst, Point{ x, y }, color);
 	}
 
 	void ImageConstROI::paint(Image& dst, const Point& pos, const Color& color) const
@@ -312,7 +342,7 @@ namespace s3d
 
 	void ImageConstROI::stamp(Image& dst, const int32 x, const int32 y, const Color& color) const
 	{
-		stamp(dst, Point{ x, y });
+		stamp(dst, Point{ x, y }, color);
 	}
 
 	void ImageConstROI::stamp(Image& dst, const Point& pos, const Color& color) const
@@ -376,5 +406,35 @@ namespace s3d
 		const int32 dstWidth = dst.width();
 
 		ImagePainting::Overwrite(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth);
+	}
+
+	void ImageConstROI::paintAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paintAt(dst, Point{ x, y }, color);
+	}
+
+	void ImageConstROI::paintAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		paint(dst, (pos - (region.size / 2)), color);
+	}
+
+	void ImageConstROI::stampAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		stampAt(dst, Point{ x, y }, color);
+	}
+
+	void ImageConstROI::stampAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		stamp(dst, (pos - (region.size / 2)), color);
+	}
+
+	void ImageConstROI::overwriteAt(Image& dst, const int32 x, const int32 y) const
+	{
+		overwriteAt(dst, Point{ x, y });
+	}
+
+	void ImageConstROI::overwriteAt(Image& dst, const Point pos) const
+	{
+		overwrite(dst, (pos - (region.size / 2)));
 	}
 }

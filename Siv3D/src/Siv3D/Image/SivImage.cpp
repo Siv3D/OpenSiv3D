@@ -2371,6 +2371,11 @@ namespace s3d
 		return image;
 	}
 
+	Image Image::rotated(const double angle, const Color& background) const
+	{
+		return warpAffine(Mat3x2::Rotate(angle, size() * 0.5), background);
+	}
+
 	Image Image::warpPerspective(const Quad& quad, const Color& background) const
 	{
 		if (isEmpty())
@@ -2515,6 +2520,36 @@ namespace s3d
 		const int32 dstWidth = dst.width();
 
 		ImagePainting::Overwrite(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth);
+	}
+
+	void Image::paintAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paintAt(dst, Point{ x, y, }, color);
+	}
+
+	void Image::paintAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		paint(dst, (pos - (size() / 2)), color);
+	}
+
+	void Image::stampAt(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		stampAt(dst, Point{ x, y, }, color);
+	}
+
+	void Image::stampAt(Image& dst, const Point& pos, const Color& color) const
+	{
+		stamp(dst, (pos - (size() / 2)), color);
+	}
+
+	void Image::overwriteAt(Image& dst, const int32 x, const int32 y) const
+	{
+		overwriteAt(dst, Point{ x, y, });
+	}
+
+	void Image::overwriteAt(Image& dst, const Point pos) const
+	{
+		overwrite(dst, (pos - (size() / 2)));
 	}
 
 	ImageROI Image::operator ()(const int32 x, const int32 y, const int32 w, const int32 h)

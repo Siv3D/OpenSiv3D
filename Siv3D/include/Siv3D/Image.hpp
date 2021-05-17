@@ -539,6 +539,9 @@ namespace s3d
 		Image warpAffine(const Mat3x2& mat, const Color& background = Color{ 0, 0 }) const;
 
 		[[nodiscard]]
+		Image rotated(double angle, const Color& background = Color{ 0, 0 }) const;
+
+		[[nodiscard]]
 		Image warpPerspective(const Quad& quad, const Color& background = Color{ 0, 0 }) const;
 
 		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
@@ -552,6 +555,18 @@ namespace s3d
 		void overwrite(Image& dst, int32 x, int32 y) const;
 
 		void overwrite(Image& dst, Point pos) const;
+
+		void paintAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void paintAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void stampAt(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwriteAt(Image& dst, int32 x, int32 y) const;
+
+		void overwriteAt(Image& dst, Point pos) const;
 
 		[[nodiscard]]
 		ImageROI operator ()(int32 x, int32 y, int32 w, int32 h);
