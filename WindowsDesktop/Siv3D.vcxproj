@@ -233,6 +233,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SaturatedLinework.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SevenSegment.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FFT.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FFTResult.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileAction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
@@ -318,6 +320,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMappedFileView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryViewReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Microphone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MIDINote.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />

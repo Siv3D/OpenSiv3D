@@ -1383,6 +1383,10 @@
 # include <Siv3D/Clipboard.hpp>
 
 # include <Siv3D/Serialization.hpp>
+# include <Siv3D/FFTResult.hpp>
+# include <Siv3D/FFT.hpp>
+# include <Siv3D/Microphone.hpp>
+# include <Siv3D/MessageBox.hpp>
 
 //////////////////////////////////////////////////
 //
