@@ -983,6 +983,8 @@
 		2C7DE5D7261379E900D7F031 /* GIFEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
 		2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7DE5DB26137A3B00D7F031 /* liblibgif.a */; };
+		2C8046122653FE0100CE7C3E /* SivMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8046112653FE0100CE7C3E /* SivMessageBox.cpp */; };
+		2C8046152653FEA000CE7C3E /* SivMessageBox_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */; };
 		2C8333A826441F7100AEECC7 /* SivGeoJSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8333A726441F7100AEECC7 /* SivGeoJSON.cpp */; };
 		2C834D8A248805D4006208B8 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D4F248805D4006208B8 /* unicode.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C834D8B248805D4006208B8 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D50248805D4006208B8 /* big5.c */; };
@@ -2626,6 +2628,10 @@
 		2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GIFEncoder.cpp; sourceTree = "<group>"; };
 		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
 		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
+		2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageBoxResult.hpp; sourceTree = "<group>"; };
+		2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageBoxStyle.hpp; sourceTree = "<group>"; };
+		2C8046112653FE0100CE7C3E /* SivMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMessageBox.cpp; sourceTree = "<group>"; };
+		2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivMessageBox_macOS.mm; sourceTree = "<group>"; };
 		2C8333A526441F5900AEECC7 /* GeoJSON.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GeoJSON.hpp; sourceTree = "<group>"; };
 		2C8333A726441F7100AEECC7 /* SivGeoJSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeoJSON.cpp; sourceTree = "<group>"; };
 		2C834D4F248805D4006208B8 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
@@ -4977,6 +4983,7 @@
 				2C794AB225C3DEE400034D81 /* MD5Value */,
 				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
 				2CC584392646317400C33E9F /* MemoryMappedFileView */,
+				2C8046102653FE0100CE7C3E /* MessageBox */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C13C6F725B458760054B968 /* MultiPolygon */,
@@ -7133,6 +7140,22 @@
 			path = libgif;
 			sourceTree = "<group>";
 		};
+		2C8046102653FE0100CE7C3E /* MessageBox */ = {
+			isa = PBXGroup;
+			children = (
+				2C8046112653FE0100CE7C3E /* SivMessageBox.cpp */,
+			);
+			path = MessageBox;
+			sourceTree = "<group>";
+		};
+		2C8046132653FEA000CE7C3E /* MessageBox */ = {
+			isa = PBXGroup;
+			children = (
+				2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */,
+			);
+			path = MessageBox;
+			sourceTree = "<group>";
+		};
 		2C8333A626441F7100AEECC7 /* GeoJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -7625,6 +7648,8 @@
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
 				2CE94FA52652484400440C6C /* MessageBox.hpp */,
+				2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */,
+				2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CE94FA42652484400440C6C /* Microphone.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
@@ -8548,6 +8573,7 @@
 				2CFB7DCA262AF32400169B97 /* DragDrop */,
 				2CF21CFF249FAA8F00C864C9 /* FileSystem */,
 				2C43964E2535DCEA00F6AECD /* FreestandingMessageBox */,
+				2C8046132653FEA000CE7C3E /* MessageBox */,
 				2CF2AF8D25543A7F00E81D12 /* Monitor */,
 				2CFB7DDF262B0F0A00169B97 /* PowerStatus */,
 				2CF21CF7249FAA8F00C864C9 /* Renderer */,
@@ -10319,6 +10345,7 @@
 				2C13C8C725B8FA9D0054B968 /* DetourNavMeshQuery.cpp in Sources */,
 				2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */,
 				2C834D9A248805D4006208B8 /* regexec.c in Sources */,
+				2C8046152653FEA000CE7C3E /* SivMessageBox_macOS.mm in Sources */,
 				2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */,
 				2C794AB725C3DEE400034D81 /* SivMD5.cpp in Sources */,
 				2C68508B24B768A800B98A7F /* SivDateTime_macOS_Linux.cpp in Sources */,
@@ -10345,6 +10372,7 @@
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2CC5845E2646DC5800C33E9F /* SivAudioEncoder.cpp in Sources */,
 				2CAAA8BF25E7FDB200C014D7 /* SivEmoji.cpp in Sources */,
+				2C8046122653FE0100CE7C3E /* SivMessageBox.cpp in Sources */,
 				2C95666A264546F700539B85 /* geometryelement.cpp in Sources */,
 				2C2AA37126009C74003F3EBC /* b2_island.cpp in Sources */,
 				2CBB4C2F25FB47D2007BEAB4 /* SivVideoWriter.cpp in Sources */,

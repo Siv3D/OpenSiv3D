@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,30 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <iostream>
+# include <Siv3D/MessageBox.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 
 namespace s3d
 {
-	namespace detail
-	{
-		static void ShowFreestandingMessageBox(const StringView text)
-		{
-			// [Siv3D ToDo]
-			std::cout << text << '\n';
-		}
-	}
-
 	namespace FreestandingMessageBox
 	{
 		void ShowInfo(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text);
+			System::MessageBoxOK(U"Application Error", text, MessageBoxStyle::Info);
 		}
 
 		void ShowError(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text);
+			System::MessageBoxOK(U"Application Error", text, MessageBoxStyle::Error);
 		}
 	}
 }
