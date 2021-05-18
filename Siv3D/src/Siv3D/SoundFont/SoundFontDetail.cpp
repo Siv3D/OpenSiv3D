@@ -147,7 +147,6 @@ namespace s3d
 
 						if (on)
 						{
-							LOG_TRACE(U"on");
 							if (not tmpNotes[ch][key])
 							{
 								tmpNotes[ch][key] = posSample;
@@ -155,7 +154,6 @@ namespace s3d
 						}
 						else
 						{
-							LOG_TRACE(U"off");
 							if (tmpNotes[ch][key])
 							{
 								MIDINote midiNote;

@@ -1,7 +1,7 @@
 
-# Third-Party Libraries Used in OpenSiv3D
+# Open Source Software used in OpenSiv3D
 
-Library | Version
+Name | Version
 --- | ---
 [Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2
 [Anti-Grain Geometry](http://agg.sourceforge.net/antigrain.com/index.html) | 2.4
@@ -20,11 +20,13 @@ Library | Version
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [easyexif](https://github.com/mayanklahiri/easyexif) | 
 [fmt](https://github.com/fmtlib/fmt) | 7.1.3
+[Font Awesome Free](https://github.com/FortAwesome/Font-Awesome) | 5.15.2
 [FreeType](https://www.freetype.org/) | 2.10.4
 [gif_load](https://github.com/hidefromkgb/gif_load) | 
 [GIFLIB](http://giflib.sourceforge.net/) | 5.2.1
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
+[GMGSx.sf2](http://www.synthfont.com/) | 3.3.2
 [HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 2.7.4
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
@@ -37,12 +39,16 @@ Library | Version
 [libwebp](https://developers.google.com/speed/webp) | 1.2.0
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.0.1
+[M+ Fonts](https://mplus-fonts.osdn.jp/) | 063a
+[Material Design Icons](https://github.com/Templarian/MaterialDesign) | v5.9.55
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
 [nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
+[Noto CJK](https://github.com/googlefonts/noto-cjk) | v20201206
+[Noto Emoji](https://github.com/googlefonts/noto-emoji) | 13.1
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
 [Opus](https://opus-codec.org/downloads/) | 1.3.1
