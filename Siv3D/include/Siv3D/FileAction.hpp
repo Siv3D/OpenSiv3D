@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief ファイルの操作
-	enum class FileAction: uint32
+	enum class FileAction: uint8
 	{
 		/// @brief 不明な操作
 		Unknown,

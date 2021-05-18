@@ -16,7 +16,7 @@
 namespace s3d
 {
 	/// @brief ファイルのオープンモード
-	enum class OpenMode : uint32
+	enum class OpenMode : uint8
 	{
 		/// @brief 新規作成
 		Trunc			= 1 << 1,

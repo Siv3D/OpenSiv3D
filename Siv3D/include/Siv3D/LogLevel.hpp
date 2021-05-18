@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief 出力されるログの詳細度
-	enum class LogLevel : uint32
+	enum class LogLevel : uint8
 	{
 		/// @brief リリースモード
 		Release,

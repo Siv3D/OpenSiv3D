@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief マウスカーソルの形状
-	enum class CursorStyle : uint32
+	enum class CursorStyle : uint8
 	{
 		/// @brief 矢印
 		Arrow,

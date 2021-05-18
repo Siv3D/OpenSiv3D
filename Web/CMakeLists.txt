@@ -264,6 +264,7 @@ add_library(
   ../Siv3D/src/Siv3D/MD5Value/SivMD5Value.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFileView/SivMemoryMappedFileView.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
+  ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp

@@ -14,35 +14,16 @@
 
 namespace s3d
 {
-	enum class TexturePixelFormat : uint8
+	enum class MessageBoxStyle : uint8
 	{
-		Unknown,
+		Default,
 
-		// 32-bit
-		R8G8B8A8_Unorm,
+		Info,
 
-		// 32-bit
-		R8G8B8A8_Unorm_SRGB,
+		Warning,
 
-		// 32-bit
-		R16G16_Float,
+		Error,
 
-		// 32-bit
-		R32_Float,
-
-		// 32-bit
-		R10G10B10A2_Unorm,
-
-		// 32-bit
-		R11G11B10_UFloat,
-
-		// 64-bit
-		R16G16B16A16_Float,
-
-		// 64-bit
-		R32G32_Float,
-
-		// 128-bit
-		R32G32B32A32_Float,
+		Question,
 	};
 }

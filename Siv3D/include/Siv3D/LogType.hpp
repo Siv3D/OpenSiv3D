@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class LogType : uint32
+	enum class LogType : uint8
 	{
 		Error,		// Release
 

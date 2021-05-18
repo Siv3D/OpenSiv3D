@@ -16,7 +16,7 @@ namespace s3d
 {
 	/// @brief 特殊フォルダ
 	/// @remark `FileSystem::GetFolderPath()` で使用します。
-	enum class SpecialFolder : uint32
+	enum class SpecialFolder : uint8
 	{
 		/// @brief デスクトップ
 		Desktop,

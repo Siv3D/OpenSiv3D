@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class BorderType : uint32
+	enum class BorderType : uint8
 	{
 		Replicate,
 

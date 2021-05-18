@@ -26,8 +26,8 @@ namespace s3d
 
 	struct FormatData;
 
-	enum class LogLevel : uint32;
-	enum class LogType : uint32;
+	enum class LogLevel : uint8;
+	enum class LogType : uint8;
 
 	struct Point;
 	using Size = Point;
@@ -45,6 +45,6 @@ namespace s3d
 	class Image;
 
 
-	enum class WindowStyle : uint32;
+	enum class WindowStyle : uint8;
 	struct WindowState;
 }

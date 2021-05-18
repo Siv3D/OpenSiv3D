@@ -19,7 +19,7 @@
 
 namespace s3d
 {
-	enum class JSONValueType : uint32
+	enum class JSONValueType : uint8
 	{
 		Empty,
 

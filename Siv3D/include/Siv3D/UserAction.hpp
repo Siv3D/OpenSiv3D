@@ -20,7 +20,7 @@ namespace s3d
 	/// @remark Constants used for System::SetTerminationTriggers(), System::GetTerminationTriggers(), and System::GetUserActions()
 	namespace UserAction
 	{
-		enum Flag : uint32
+		enum Flag : uint8
 		{
 			/// @brief アプリケーションウィドウの閉じるボタンを押す操作です。 | The user has clicked the close button of the application window.
 			CloseButtonClicked = 0b000001u,

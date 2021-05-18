@@ -1,6 +1,8 @@
 
 # Open Source Software used in OpenSiv3D
 
+The license information will be shown by pressing F1 key while running Siv3D application.
+
 Name | Version
 --- | ---
 [Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2

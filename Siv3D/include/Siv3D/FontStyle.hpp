@@ -16,7 +16,7 @@
 namespace s3d
 {
 	/// @brief フォントのスタイル
-	enum class FontStyle : uint32
+	enum class FontStyle : uint8
 	{
 		/// @brief デフォルト
 		Default = 0x0,

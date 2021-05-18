@@ -17,7 +17,7 @@ namespace s3d
 {
 	struct Icon
 	{
-		enum class Type : uint32
+		enum class Type : uint8
 		{
 			Awesome,
 

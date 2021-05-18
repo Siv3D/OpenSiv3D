@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief テクスチャの設定
-	enum class TextureDesc : uint32
+	enum class TextureDesc : uint8
 	{
 		/// @brief ミップマップなし
 		Unmipped,

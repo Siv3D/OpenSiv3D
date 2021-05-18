@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	enum class DeadZoneIndex : uint32
+	enum class DeadZoneIndex : uint8
 	{
 		LefTrigger,
 

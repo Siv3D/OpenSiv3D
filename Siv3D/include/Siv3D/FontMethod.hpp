@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief フォントの描画方式
-	enum class FontMethod : uint32
+	enum class FontMethod : uint8
 	{
 		/// @brief ビットマップ（デフォルト）
 		/// @remark 利点: 文字キャッシュの生成が高速。正確な字形をレンダリングできる

@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief ウィンドウスタイル
-	enum class WindowStyle : uint32
+	enum class WindowStyle : uint8
 	{
 		/// @brief サイズ変更できない枠付きのウィンドウ
 		Fixed,

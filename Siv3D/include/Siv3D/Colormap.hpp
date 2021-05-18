@@ -17,7 +17,7 @@ namespace s3d
 {
 	/// @brief カラーマップの種類
 	/// @remark https://github.com/yuki-koyama/tinycolormap
-	enum class ColormapType : uint32
+	enum class ColormapType : uint8
 	{
 		Parula,
 

@@ -322,6 +322,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryViewReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxResult.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Microphone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MIDINote.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
@@ -1714,6 +1716,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFileView\SivMemoryMappedFileView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />

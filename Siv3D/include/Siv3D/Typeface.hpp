@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class Typeface : uint32
+	enum class Typeface : uint8
 	{
 		CJK_Regular_JP,
 		CJK_Regular_KR,

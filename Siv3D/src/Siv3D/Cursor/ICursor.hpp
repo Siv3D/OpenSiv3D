@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	enum class CursorStyle : uint32;
+	enum class CursorStyle : uint8;
 	struct Mat3x2;
 	class Image;
 
