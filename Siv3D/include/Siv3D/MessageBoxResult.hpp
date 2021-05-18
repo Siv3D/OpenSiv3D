@@ -23,7 +23,5 @@ namespace s3d
 		Yes,
 
 		No,
-
-		Ignored,
 	};
 }

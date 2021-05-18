@@ -19,28 +19,52 @@ namespace s3d
 {
 	namespace System
 	{
-		/// @brief 「OK」というボタンを持つメッセージボックスを表示する。
+		/// @brief 「OK」ボタンを持つメッセージボックスを表示する。
 		/// @param text 本文
 		/// @param style スタイル
-		/// @return ユーザのアクション
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK`
 		MessageBoxResult MessageBoxOK(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
-		/// @brief 「OK」というボタンを持つメッセージボックスを表示する。
+		/// @brief 「OK」ボタンを持つメッセージボックスを表示する。
 		/// @param title メッセージボックスのタイトル
 		/// @param text 本文
 		/// @param style スタイル
-		/// @return ユーザのアクション
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK`
 		MessageBoxResult MessageBoxOK(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
+		/// @brief 「OK」「キャンセル」ボタンを持つメッセージボックスを表示する。
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK` または `MessageBoxResult::Cancel`
 		[[nodiscard]]
 		MessageBoxResult MessageBoxOKCancel(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
+		/// @brief 「OK」「キャンセル」ボタンを持つメッセージボックスを表示する。
+		/// @param title メッセージボックスのタイトル
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK` または `MessageBoxResult::Cancel`
 		[[nodiscard]]
 		MessageBoxResult MessageBoxOKCancel(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
+		/// @brief 「はい」「いいえ」ボタンを持つメッセージボックスを表示する。
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すまで制御を返しません。
+		/// @return `MessageBoxResult::Yes` または `MessageBoxResult::No`
 		[[nodiscard]]
 		MessageBoxResult MessageBoxYesNo(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
+		/// @brief 「はい」「いいえ」ボタンを持つメッセージボックスを表示する。
+		/// @param title メッセージボックスのタイトル
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すまで制御を返しません。
+		/// @return `MessageBoxResult::Yes` または `MessageBoxResult::No`
 		[[nodiscard]]
 		MessageBoxResult MessageBoxYesNo(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 	}

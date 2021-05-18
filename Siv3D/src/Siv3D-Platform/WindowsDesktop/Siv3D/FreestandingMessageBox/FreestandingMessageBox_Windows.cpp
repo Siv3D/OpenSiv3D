@@ -29,12 +29,12 @@ namespace s3d
 	{
 		void ShowInfo(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text, (MB_OK | MB_ICONINFORMATION));
+			detail::ShowFreestandingMessageBox(text, (MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL));
 		}
 
 		void ShowError(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text, (MB_OK | MB_ICONERROR));
+			detail::ShowFreestandingMessageBox(text, (MB_OK | MB_ICONERROR | MB_SYSTEMMODAL));
 		}
 	}
 }
