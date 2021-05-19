@@ -639,7 +639,7 @@ namespace s3d
 	Rect CRenderer2D_Metal::getScissorRect() const
 	{
 		// [Siv3D ToDo]
-		return{ 0 };
+		return Rect{ 0 };
 	}
 
 	void CRenderer2D_Metal::setViewport(const Optional<Rect>&)

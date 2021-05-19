@@ -2,55 +2,55 @@
 
 void Main()
 {
-	// 背景を水色にする
+	// Set background color to sky blue
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
 
-	// 大きさ 60 のフォントを用意
+	// Create a new font
 	const Font font{ 60 };
 	
-	// カラー絵文字フォントを用意
+	// Create a new emoji font
 	const Font emojiFont{ 60, Typeface::ColorEmoji };
 	
-	// カラー絵文字を font に追加
+	// Set emojiFont as a fallback
 	font.addFallback(emojiFont);
 
-	// 画像を読み込む
+	// Create a texture from an image file
 	const Texture texture{ U"example/windmill.png" };
 
-	// 絵文字のテクスチャを用意
+	// Create a texture from an emoji
 	const Texture emoji{ U"🐈"_emoji };
 
-	// 絵文字の座標
+	// Coordinates of the emoji
 	Vec2 emojiPos{ 300, 150 };
 
-	// テキストをデバッグ表示
+	// Print a text
 	Print << U"Push [A] key";
 
 	while (System::Update())
 	{
-		// 画像を (200, 200) の位置に描く
+		// Draw a texture
 		texture.draw(200, 200);
 
-		// テキストを画面の中心に描く
+		// Put a text in the middle of the screen
 		font(U"Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
 
-		// 大きさをアニメーションさせて表示する
+		// Draw a texture with animated size
 		emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(emojiPos);
 
-		// マウスカーソルに追従する半透明の赤い円を描く
+		// Draw a red transparent circle that follows the mouse cursor
 		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1, 0, 0, 0.5 });
 
-		// [A] キーが押されたら
+		// When [A] key is down
 		if (KeyA.down())
 		{
-			// あいさつをランダムに選んでデバッグ表示する
+			// Print a randomly selected text
 			Print << Sample({ U"Hello!", U"こんにちは", U"你好", U"안녕하세요?" });
 		}
 
-		// ボタンが押されたら
+		// When [Button] is pushed
 		if (SimpleGUI::Button(U"Button", Vec2{ 640, 40 }))
 		{
-			// 絵文字の座標を画面内のランダムな位置に移動する
+			// Move the coordinates to a random position in the screen
 			emojiPos = RandomVec2(Scene::Rect());
 		}
 	}

@@ -3473,6 +3473,8 @@
 		2CF962F825A7F9AB006F55C9 /* Splines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Splines.cpp; sourceTree = "<group>"; };
 		2CF962F925A7F9AB006F55C9 /* Splines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splines.h; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
+		2CFB61A826555FE3002F4F47 /* ScopedViewport2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport2D.hpp; sourceTree = "<group>"; };
+		2CFB61A926555FF9002F4F47 /* ScopedViewport2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport2D.ipp; sourceTree = "<group>"; };
 		2CFB7DA3262A669C00169B97 /* TextInput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextInput.hpp; sourceTree = "<group>"; };
 		2CFB7DA4262A669C00169B97 /* TextInputMode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextInputMode.hpp; sourceTree = "<group>"; };
 		2CFB7DA6262A66B900169B97 /* CTextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextInput.hpp; sourceTree = "<group>"; };
@@ -7730,6 +7732,7 @@
 				2CAAA6FC25E7FD0200C014D7 /* ScopedColorMul2D.hpp */,
 				2CAAA77A25E7FD0200C014D7 /* ScopedCustomShader2D.hpp */,
 				2CAAA73925E7FD0200C014D7 /* ScopedRenderStates2D.hpp */,
+				2CFB61A826555FE3002F4F47 /* ScopedViewport2D.hpp */,
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
@@ -7975,6 +7978,7 @@
 				2CAAA81725E7FD0200C014D7 /* ScopedColorMul2D.ipp */,
 				2CAAA7B925E7FD0200C014D7 /* ScopedCustomShader2D.ipp */,
 				2CAAA7E525E7FD0200C014D7 /* ScopedRenderStates2D.ipp */,
+				2CFB61A926555FF9002F4F47 /* ScopedViewport2D.ipp */,
 				2CAAA7A225E7FD0200C014D7 /* ScopeGuard.ipp */,
 				2C2AA2D125FFA51D003F3EBC /* Serial.ipp */,
 				2CE94FA62652485800440C6C /* Serialization.ipp */,
