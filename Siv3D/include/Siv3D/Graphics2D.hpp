@@ -52,6 +52,17 @@ namespace s3d
 		[[nodiscard]]
 		SamplerState GetSamplerState(ShaderStage shaderStage = ShaderStage::Pixel, uint32 slot = 0);
 
+		/// @brief シザー矩形を設定します。
+		/// @param rect シザー矩形
+		/// @remark シザー矩形は RasterizerState で scissorEnable を true にすることで有効になります。
+		void SetScissorRect(const Rect& rect);
+
+		[[nodiscard]]
+		Rect GetScissorRect();
+
+		[[nodiscard]]
+		Optional<Rect> GetViewport();
+
 		/// @brief 
 		/// @return 
 		[[nodiscard]]
@@ -81,6 +92,9 @@ namespace s3d
 		/// @return 
 		[[nodiscard]]
 		Size GetRenderTargetSize();
+
+		/// @brief 現在までの 2D 描画を実行します。
+		//void Flush();
 
 		/// @brief 頂点情報を設定せずに 2D 三角形を描画します。
 		/// @remark 頂点シェーダを使って、各三角形に適切な頂点情報を与える必要があります。

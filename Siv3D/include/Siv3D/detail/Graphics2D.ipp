@@ -27,6 +27,8 @@ namespace s3d
 
 			void SetSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& samplerState);
 
+			void SetViewport(const Optional<Rect>& viewport);
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);

@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
@@ -80,6 +81,10 @@ namespace s3d
 
 		PSSamplerState7,
 
+		ScissorRect,
+
+		Viewport,
+
 		SetVS,
 
 		SetPS,
@@ -144,6 +149,8 @@ namespace s3d
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default2D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
+		Array<Rect> m_scissorRects					= { Rect{0} };
+		Array<Optional<Rect>> m_viewports			= { none };
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
@@ -159,6 +166,8 @@ namespace s3d
 		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSSamplerStates;
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplerStates;
+		Rect m_currentScissorRect					= m_scissorRects.front();
+		Optional<Rect> m_currentViewport			= m_viewports.front();
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 		Mat3x2 m_currentLocalTransform				= Mat3x2::Identity();
@@ -213,6 +222,14 @@ namespace s3d
 		void pushPSSamplerState(const SamplerState& state, uint32 slot);
 		const SamplerState& getPSSamplerState(uint32 slot, uint32 index) const;
 		const SamplerState& getPSCurrentSamplerState(uint32 slot) const;
+
+		void pushScissorRect(const Rect& state);
+		const Rect& getScissorRect(uint32 index) const;
+		const Rect& getCurrentScissorRect() const;
+
+		void pushViewport(const Optional<Rect>& state);
+		const Optional<Rect>& getViewport(uint32 index) const;
+		const Optional<Rect>& getCurrentViewport() const;
 
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);

@@ -709,6 +709,26 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_D3D11::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
+
+	void CRenderer2D_D3D11::setViewport(const Optional<Rect>& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+
+	Optional<Rect> CRenderer2D_D3D11::getViewport() const
+	{
+		return m_commandManager.getCurrentViewport();
+	}
+
 	Optional<VertexShader> CRenderer2D_D3D11::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -930,6 +950,46 @@ namespace s3d
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
 					pRenderer->getSamplerState().setPS(slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case D3D11Renderer2DCommandType::ScissorRect:
+				{
+					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
+					pRenderer->getRasterizerState().setScissorRect(scissorRect);
+					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
+					break;
+				}
+			case D3D11Renderer2DCommandType::Viewport:
+				{
+					const auto& viewport = m_commandManager.getViewport(command.index);
+					D3D11_VIEWPORT vp;
+					vp.MinDepth = 0.0f;
+					vp.MaxDepth = 1.0f;
+
+					if (viewport)
+					{
+						vp.TopLeftX	= static_cast<float>(viewport->x);
+						vp.TopLeftY	= static_cast<float>(viewport->y);
+						vp.Width	= static_cast<float>(viewport->w);
+						vp.Height	= static_cast<float>(viewport->h);
+					}
+					else
+					{
+						vp.TopLeftX = 0;
+						vp.TopLeftY = 0;
+						vp.Width	= static_cast<float>(currentRenderTargetSize.x);
+						vp.Height	= static_cast<float>(currentRenderTargetSize.y);
+					}
+
+					m_context->RSSetViewports(1, &vp);
+
+					screenMat = Mat3x2::Screen(vp.Width, vp.Height);
+					const Mat3x2 matrix = (transform * screenMat);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+
+					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(index,
+						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
 					break;
 				}
 			case D3D11Renderer2DCommandType::SetVS:

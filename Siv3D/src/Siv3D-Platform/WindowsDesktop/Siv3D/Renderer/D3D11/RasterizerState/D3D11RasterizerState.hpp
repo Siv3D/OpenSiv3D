@@ -18,6 +18,8 @@
 
 namespace s3d
 {
+	struct Rect;
+
 	class D3D11RasterizerState
 	{
 	private:
@@ -41,5 +43,7 @@ namespace s3d
 		D3D11RasterizerState(const D3D11Device& device);
 
 		void set(const RasterizerState& state);
+
+		void setScissorRect(const Rect& scissorRect);
 	};
 }

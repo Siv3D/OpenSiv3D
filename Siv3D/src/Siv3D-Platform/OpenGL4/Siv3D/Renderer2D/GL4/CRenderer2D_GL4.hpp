@@ -197,6 +197,15 @@ namespace s3d
 		void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) override;
 
 
+		void setScissorRect(const Rect& rect) override;
+
+		Rect getScissorRect() const override;
+
+		void setViewport(const Optional<Rect>& viewport) override;
+
+		Optional<Rect> getViewport() const override;
+
+
 		Optional<VertexShader> getCustomVS() const override;
 
 		Optional<PixelShader> getCustomPS() const override;

@@ -223,6 +223,26 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::setScissorRect(const Rect&)
+	{
+		// do nothing
+	}
+
+	Rect CRenderer2D_Null::getScissorRect() const
+	{
+		return Rect{ 0 };
+	}
+
+	void CRenderer2D_Null::setViewport(const Optional<Rect>&)
+	{
+		// do nothing
+	}
+
+	Optional<Rect> CRenderer2D_Null::getViewport() const
+	{
+		return none;
+	}
+
 	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
 	{
 		return none;

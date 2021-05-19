@@ -721,6 +721,26 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GL4::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_GL4::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
+
+	void CRenderer2D_GL4::setViewport(const Optional<Rect>& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+
+	Optional<Rect> CRenderer2D_GL4::getViewport() const
+	{
+		return m_commandManager.getCurrentViewport();
+	}
+
 	Optional<VertexShader> CRenderer2D_GL4::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -938,6 +958,41 @@ namespace s3d
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
 					pRenderer->getSamplerState().setPS(slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case GL4Renderer2DCommandType::ScissorRect:
+				{
+					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
+					::glScissor(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
+					break;
+				}
+			case GL4Renderer2DCommandType::Viewport:
+				{
+					const auto& viewport = m_commandManager.getViewport(command.index);
+					Rect rect;
+
+					if (viewport)
+					{
+						rect = *viewport;
+					}
+					else
+					{
+						rect.x = 0;
+						rect.y = 0;
+						rect.w = currentRenderTargetSize.x;
+						rect.h = currentRenderTargetSize.y;
+					}
+
+					::glViewport(rect.x, rect.y, rect.w, rect.h);
+
+					screenMat = Mat3x2::Screen(rect.w, rect.h);
+					const Mat3x2 matrix = (transform * screenMat);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
+
+					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
+						rect.x, rect.y, rect.w, rect.h));
 					break;
 				}
 			case GL4Renderer2DCommandType::SetVS:

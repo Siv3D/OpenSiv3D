@@ -631,6 +631,28 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_Metal::setScissorRect(const Rect&)
+	{
+		// [Siv3D ToDo]
+	}
+
+	Rect CRenderer2D_Metal::getScissorRect() const
+	{
+		// [Siv3D ToDo]
+		return{ 0 };
+	}
+
+	void CRenderer2D_Metal::setViewport(const Optional<Rect>&)
+	{
+		// [Siv3D ToDo]
+	}
+
+	Optional<Rect> CRenderer2D_Metal::getViewport() const
+	{
+		// [Siv3D ToDo]
+		return none;
+	}
+
 	Optional<VertexShader> CRenderer2D_Metal::getCustomVS() const
 	{
 		return m_currentCustomVS;

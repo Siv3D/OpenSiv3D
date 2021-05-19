@@ -49,6 +49,9 @@ namespace s3d
 				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
 			}
 
+			m_scissorRects			= { m_scissorRects.back() };
+			m_viewports				= { m_viewports.back() };
+
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
 			m_combinedTransforms	= { m_combinedTransforms.back() };
@@ -60,6 +63,7 @@ namespace s3d
 		{
 			m_reservedVSs.clear();
 			m_reservedPSs.clear();
+			m_reservedTextures.clear();
 		}
 
 		// Begin a new frame
@@ -92,6 +96,12 @@ namespace s3d
 				m_commands.emplace_back(command, 0);
 				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.front();
 			}
+
+			m_commands.emplace_back(GL4Renderer2DCommandType::ScissorRect, 0);
+			m_currentScissorRect = m_scissorRects.front();
+
+			m_commands.emplace_back(GL4Renderer2DCommandType::Viewport, 0);
+			m_currentViewport = m_viewports.front();
 
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -172,6 +182,18 @@ namespace s3d
 				m_commands.emplace_back(command, static_cast<uint32>(m_psSamplerStates[i].size()));
 				m_psSamplerStates[i].push_back(m_currentPSSamplerStates[i]);
 			}
+		}
+
+		if (m_changes.has(GL4Renderer2DCommandType::ScissorRect))
+		{
+			m_commands.emplace_back(GL4Renderer2DCommandType::ScissorRect, static_cast<uint32>(m_scissorRects.size()));
+			m_scissorRects.push_back(m_currentScissorRect);
+		}
+
+		if (m_changes.has(GL4Renderer2DCommandType::Viewport))
+		{
+			m_commands.emplace_back(GL4Renderer2DCommandType::Viewport, static_cast<uint32>(m_viewports.size()));
+			m_viewports.push_back(m_currentViewport);
 		}
 
 		if (m_changes.has(GL4Renderer2DCommandType::SetVS))
@@ -494,6 +516,82 @@ namespace s3d
 		assert(slot < SamplerState::MaxSamplerCount);
 
 		return m_currentPSSamplerStates[slot];
+	}
+
+	void GL4Renderer2DCommandManager::pushScissorRect(const Rect & state)
+	{
+		constexpr auto command = GL4Renderer2DCommandType::ScissorRect;
+		auto& current = m_currentScissorRect;
+		auto& buffer = m_scissorRects;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Rect& GL4Renderer2DCommandManager::getScissorRect(const uint32 index) const
+	{
+		return m_scissorRects[index];
+	}
+
+	const Rect& GL4Renderer2DCommandManager::getCurrentScissorRect() const
+	{
+		return m_currentScissorRect;
+	}
+
+	void GL4Renderer2DCommandManager::pushViewport(const Optional<Rect>& state)
+	{
+		constexpr auto command = GL4Renderer2DCommandType::Viewport;
+		auto& current = m_currentViewport;
+		auto& buffer = m_viewports;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Optional<Rect>& GL4Renderer2DCommandManager::getViewport(const uint32 index) const
+	{
+		return m_viewports[index];
+	}
+
+	const Optional<Rect>& GL4Renderer2DCommandManager::getCurrentViewport() const
+	{
+		return m_currentViewport;
 	}
 
 	void GL4Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)

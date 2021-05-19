@@ -123,6 +123,15 @@ namespace s3d
 		virtual void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) = 0;
 
 
+		virtual void setScissorRect(const Rect& rect) = 0;
+
+		virtual Rect getScissorRect() const = 0;
+
+		virtual void setViewport(const Optional<Rect>& viewport) = 0;
+
+		virtual Optional<Rect> getViewport() const = 0;
+
+
 		virtual Optional<VertexShader> getCustomVS() const = 0;
 
 		virtual Optional<PixelShader> getCustomPS() const = 0;

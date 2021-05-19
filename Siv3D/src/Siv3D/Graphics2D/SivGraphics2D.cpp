@@ -43,6 +43,21 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer2D)->getSamplerState(shaderStage, slot);
 		}
 
+		void SetScissorRect(const Rect& rect)
+		{
+			SIV3D_ENGINE(Renderer2D)->setScissorRect(rect);
+		}
+
+		Rect GetScissorRect()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getScissorRect();
+		}
+
+		Optional<Rect> GetViewport()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getViewport();
+		}
+
 		Optional<VertexShader> GetCustomVertexShader()
 		{
 			return SIV3D_ENGINE(Renderer2D)->getCustomVS();
@@ -72,6 +87,11 @@ namespace s3d
 		{
 			// [Siv3D ToDo]
 			return Scene::Size();
+		}
+
+		void Flush()
+		{
+			//SIV3D_ENGINE(Renderer)->flush();
 		}
 
 		void DrawTriangles(const uint32 count)
@@ -104,6 +124,11 @@ namespace s3d
 			void SetSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& samplerState)
 			{
 				SIV3D_ENGINE(Renderer2D)->setSamplerState(shaderStage, slot, samplerState);
+			}
+
+			void SetViewport(const Optional<Rect>& viewport)
+			{
+				SIV3D_ENGINE(Renderer2D)->setViewport(viewport);
 			}
 
 			void SetCustomVertexShader(const Optional<VertexShader>& vs)

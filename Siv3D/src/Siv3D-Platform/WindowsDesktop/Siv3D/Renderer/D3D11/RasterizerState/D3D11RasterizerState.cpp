@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/2DShapes.hpp>
 # include "D3D11RasterizerState.hpp"
 
 namespace s3d
@@ -39,6 +40,13 @@ namespace s3d
 		m_context->RSSetState(it->second.Get());
 
 		m_currentState = state;
+	}
+
+	void D3D11RasterizerState::setScissorRect(const Rect& scissorRect)
+	{
+		D3D11_RECT r{ scissorRect.x, scissorRect.y, scissorRect.x + scissorRect.w, scissorRect.y + scissorRect.h };
+
+		m_context->RSSetScissorRects(1, &r);
 	}
 
 	D3D11RasterizerState::StateList::iterator D3D11RasterizerState::create(const RasterizerState& state)
