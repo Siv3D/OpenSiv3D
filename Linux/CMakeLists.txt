@@ -2,9 +2,10 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Linux CXX C)
 find_package(PkgConfig)
 find_package(Boost 1.71.0 REQUIRED)
-pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED freetype2 gl glib-2.0 libpng libturbojpeg opencv4 x11 zlib)
+pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED freetype2 gl glib-2.0 gtk+-3.0 libpng libturbojpeg opencv4 x11 zlib)
 
 message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "[info] SIV3D_THIRD_PARTY_INCLUDE_DIRS: ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}")
 
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1 -D_GLFW_X11")
