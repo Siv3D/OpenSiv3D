@@ -30,6 +30,9 @@ namespace s3d
 	enum class LogType : uint8;
 
 	struct Point;
+
+	/// @brief 2 次元のサイズベクトル（成分が int32 型）
+	/// @remark Point 型と同じです。
 	using Size = Point;
 
 	/// @brief 2 次元のベクトル

@@ -364,7 +364,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Vector2D<Type> Vector2D<Type>::setLength(const value_type _length) const noexcept
+	inline Vector2D<Type> Vector2D<Type>::withLength(const value_type _length) const noexcept
 	{
 		if (const value_type len = length())
 		{
@@ -375,7 +375,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Vector2D<Type>& Vector2D<Type>::setLengthSelf(const value_type _length) noexcept
+	inline Vector2D<Type>& Vector2D<Type>::setLength(const value_type _length) noexcept
 	{
 		if (const value_type len = length())
 		{

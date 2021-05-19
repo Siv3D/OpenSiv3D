@@ -15,12 +15,16 @@
 
 namespace s3d
 {
+	/// @brief ライセンス情報
 	struct LicenseInfo
 	{
+		/// @brief 見出し
 		String title;
 
+		/// @brief コピーライト表示
 		String copyright;
 
+		/// @brief 説明文
 		String text;
 	};
 }

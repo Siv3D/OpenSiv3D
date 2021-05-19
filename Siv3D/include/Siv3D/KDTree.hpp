@@ -55,6 +55,8 @@ namespace s3d
 		};
 	}
 
+	/// @brief kd-tree
+	/// @tparam DatasetAdapter kd-tree 用のアダプタ型
 	template <class DatasetAdapter>
 	class KDTree
 	{

@@ -273,6 +273,11 @@ namespace s3d
 
 		RectF drawBase(const TextStyle& textStyle, double size, Arg::right_<Vec2> right, const ColorF& color = Palette::White) const;
 
+		/// @brief 中心位置を指定してテキストを描画します。
+		/// @param x 描画する中心の X 座標
+		/// @param y 描画する中心の Y 座標
+		/// @param color テキストの色
+		/// @return テキストが描画された領域
 		RectF drawAt(double x, double y, const ColorF& color = Palette::White) const;
 
 		/// @brief 中心位置を指定してテキストを描画します。

@@ -74,7 +74,7 @@ namespace s3d
 		String& m_ref;
 	};
 
-	/// @brief INI 形式の設定ファイルの読み書き
+	/// @brief INI 形式のデータの読み書き
 	class INI
 	{
 	public:

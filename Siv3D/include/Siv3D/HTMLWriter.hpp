@@ -23,6 +23,7 @@
 
 namespace s3d
 {
+	/// @brief HTML 文書の書き出し
 	class HTMLWriter
 	{
 	public:

@@ -85,6 +85,8 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool isEmpty() const noexcept;
 
+		/// @brief 範囲の値を配列に変換します。
+		/// @return 配列
 		[[nodiscard]]
 		Array<Point> asArray() const;
 

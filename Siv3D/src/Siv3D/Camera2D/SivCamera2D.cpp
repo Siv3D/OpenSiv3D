@@ -72,9 +72,9 @@ namespace s3d
 			const Vec2 leftOffset = (normalDirection * 10);
 
 			const Vec2 p0 = delta;
-			const Vec2 p1 = direction.setLength(radius * 1.2) - leftOffset;
-			const Vec2 p2 = direction.setLength(radius * 1.8);
-			const Vec2 p3 = direction.setLength(radius * 1.2) + leftOffset;
+			const Vec2 p1 = direction.withLength(radius * 1.2) - leftOffset;
+			const Vec2 p2 = direction.withLength(radius * 1.8);
+			const Vec2 p3 = direction.withLength(radius * 1.2) + leftOffset;
 
 			Quad{ p1, p2, p3, p0 }.moveBy(m_grabPos.value()).draw(color);
 		}

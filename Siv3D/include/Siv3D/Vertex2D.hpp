@@ -18,6 +18,7 @@ namespace s3d
 	/// @brief 2D 図形の基本頂点データ
 	struct alignas(16) Vertex2D
 	{
+		/// @brief 2D 描画のインデックス配列に使われる型
 		using IndexType = uint16;
 
 		/// @brief 位置

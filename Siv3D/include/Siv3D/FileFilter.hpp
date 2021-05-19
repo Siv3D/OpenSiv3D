@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	/// @brief ファイル拡張子のフィルタ
 	struct FileFilter
 	{
 		String name;

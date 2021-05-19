@@ -23,7 +23,8 @@ namespace s3d
 	struct TextureRegion;
 	struct TexturedQuad;
 
-	/// @brief 長方形 (double)
+	/// @brief 長方形 (成分が double 型)
+	/// @remark
 	///
 	///  pos, tl()    top()     tr()
 	///        +-----------------+

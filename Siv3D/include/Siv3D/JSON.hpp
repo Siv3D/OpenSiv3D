@@ -180,6 +180,7 @@ namespace s3d
 		JSONIterationProxy m_end;
 	};
 
+	/// @brief JSON 形式のデータの読み書き
 	class JSON
 	{
 	public:

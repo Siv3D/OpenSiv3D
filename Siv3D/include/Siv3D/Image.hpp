@@ -338,6 +338,10 @@ namespace s3d
 
 		bool applyAlphaFromRChannel(FilePathView alpha);
 
+		/// @brief 画像をファイルに保存します。
+		/// @param path 保存するファイルパス
+		/// @param format 保存時のフォーマット。`ImageFormat::Unspecified` の場合拡張子から判断
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(FilePathView path, ImageFormat format = ImageFormat::Unspecified) const;
 
 		[[nodiscard]]

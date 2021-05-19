@@ -39,13 +39,19 @@ namespace s3d
 		[[nodiscard]]
 		bool isValid() const;
 
+		/// @brief 子プロセスが実行中であるかを返します。
+		/// @return 実行中である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isRunning();
 
+		/// @brief 子プロセスが終了するまで待機します。
 		void wait();
 
+		/// @brief 子プロセスを強制終了します。
 		void terminate();
 
+		/// @brief 子プロセスの終了コードを取得します。
+		/// @return 子プロセスの終了コード。取得に失敗した場合 none
 		[[nodiscard]]
 		Optional<int32> getExitCode();
 

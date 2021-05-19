@@ -19,6 +19,7 @@
 
 namespace s3d
 {
+	/// @brief CSV 形式のデータの読み書き
 	class CSV
 	{
 	public:

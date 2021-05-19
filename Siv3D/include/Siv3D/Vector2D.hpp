@@ -201,9 +201,9 @@ namespace s3d
 		constexpr value_type distanceFromSq(Vector2D v) const noexcept;
 
 		[[nodiscard]]
-		Vector2D setLength(value_type _length) const noexcept;
+		Vector2D withLength(value_type _length) const noexcept;
 
-		Vector2D& setLengthSelf(value_type _length) noexcept;
+		Vector2D& setLength(value_type _length) noexcept;
 
 		[[nodiscard]]
 		Vector2D limitLength(value_type maxLength) const noexcept;
