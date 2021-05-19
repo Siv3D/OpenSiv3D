@@ -174,6 +174,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates2D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serialization.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp" />
@@ -544,6 +545,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedColorMul2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp" />

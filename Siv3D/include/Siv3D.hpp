@@ -1067,29 +1067,32 @@
 
 # include <Siv3D/Graphics2D.hpp>
 
-// ブレンドステート | Blend State
+// ブレンドステート | Blend state
 # include <Siv3D/BlendState.hpp>
 
-// ラスタライザーステート | Rasterizer State
+// ラスタライザーステート | Rasterizer state
 # include <Siv3D/RasterizerState.hpp>
 
-// 深度ステンシルステート | Depth Stencil State
+// 深度ステンシルステート | Depth stencil state
 # include <Siv3D/DepthStencilState.hpp>
 
-// サンプラーステート | Sampler State
+// サンプラーステート | Sampler state
 # include <Siv3D/SamplerState.hpp>
 
-// 色乗算スコープ | Color Multiplication Scope
+// 色乗算スコープ | Color multiplication scope
 # include <Siv3D/ScopedColorMul2D.hpp>
 
-// 色加算スコープ | Color Addition Scope
+// 色加算スコープ | Color addition scope
 # include <Siv3D/ScopedColorAdd2D.hpp>
 
-// レンダーステートスコープ | Render States Scope
+// レンダーステートスコープ | Render states scope
 # include <Siv3D/ScopedRenderStates2D.hpp>
 
-// 2D 座標変換スコープ | 2D Transformation Scope
+// 2D 座標変換スコープ | 2D Transformation scope
 # include <Siv3D/Transformer2D.hpp>
+
+// 2D ビューポートスコープ | 2D Viewport scope
+# include <Siv3D/ScopedViewport2D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1114,25 +1117,25 @@
 // シェーダ | Shader
 # include <Siv3D/Shader.hpp>
 
-// シェーダステージ | Shader Stage
+// シェーダステージ | Shader stage
 # include <Siv3D/ShaderStage.hpp>
 
-// 定数バッファバインディング | Constant Buffer Binding
+// 定数バッファバインディング | Constant buffer binding
 # include <Siv3D/ConstantBufferBinding.hpp>
 
-// 頂点シェーダ | Vertex Shader
+// 頂点シェーダ | Vertex shader
 # include <Siv3D/VertexShader.hpp>
 
-// ピクセルシェーダ | Pixel/Fragment Shader
+// ピクセルシェーダ | Pixel/Fragment shader
 # include <Siv3D/PixelShader.hpp>
 
-// シェーダユーティリティ | Shader Utilities
+// シェーダユーティリティ | Shader utilities
 # include <Siv3D/ShaderCommon.hpp>
 
-// 定数バッファ | Constant Buffer
+// 定数バッファ | Constant buffer
 # include <Siv3D/ConstantBuffer.hpp>
 
-// 2D シェーダスコープ | 2D Shader Scope
+// 2D シェーダスコープ | 2D shader scope
 # include <Siv3D/ScopedCustomShader2D.hpp>
 
 //////////////////////////////////////////////////
