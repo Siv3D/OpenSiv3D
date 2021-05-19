@@ -274,6 +274,9 @@ namespace s3d
 
 		void resize(Size size, const value_type& value);
 
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
+		auto operator >>(Fty f) const;
+
 		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool all(Fty f = Identity) const;

@@ -647,6 +647,22 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
+	inline auto Grid<Type, Allocator>::operator >>(Fty f) const
+	{
+		using ResultType = std::remove_cvref_t<decltype(f(m_data[0]))>;
+
+		if constexpr (std::is_same_v<ResultType, void>)
+		{
+			each(f);
+		}
+		else
+		{
+			return map(f);
+		}
+	}
+
+	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
 	inline bool Grid<Type, Allocator>::all(Fty f) const
 	{
@@ -844,7 +860,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
 	inline auto Grid<Type, Allocator>::map(Fty f) const
 	{
-		using ResultType = std::decay_t<std::invoke_result_t<Fty, Type>>;
+		using ResultType = std::remove_cvref_t<decltype(f(m_data[0]))>;
 
 		Array<ResultType> new_grid(Arg::reserve = (m_width * m_height));
 

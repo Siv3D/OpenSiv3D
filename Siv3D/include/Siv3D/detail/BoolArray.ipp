@@ -204,7 +204,7 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		auto operator >>(Fty f) const
 		{
-			using Ret = std::invoke_result_t<Fty, bool>;
+			using Ret = std::remove_cvref_t<decltype(f((*this)[0]))>;
 
 			if constexpr (std::is_same_v<Ret, void>)
 			{
@@ -499,7 +499,7 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, bool>>* = nullptr>
 		auto map(Fty f) const
 		{
-			Array<std::decay_t<std::invoke_result_t<Fty, bool>>> new_array(Arg::reserve = size());
+			Array<std::remove_cvref_t<decltype(f((*this)[0]))>> new_array(Arg::reserve = size());
 
 			for (const auto& v : *this)
 			{
