@@ -798,7 +798,7 @@ namespace
 		SL_ASSERT(sIn >= 0.0 && sIn <= 1.0);
 		const double maxS = 1.0 - 1e-6;
 
-		double skLast = sIn;
+		//double skLast = sIn;
 		double sk = sIn;
 
 		double dk = len(Position(spline, sk) - p);
@@ -846,7 +846,7 @@ namespace
 
 			maxJump *= 0.5;    // reduce on a schedule -- helps binary search back towards a jump that is valid.
 
-			skLast = sk;
+			//skLast = sk;
 		}
 
 		(*tOut) = sk;
@@ -1969,7 +1969,7 @@ namespace
 		SL_ASSERT(sIn >= 0.0 && sIn <= 1.0);
 		const double maxS = 1.0 - 1e-6;
 
-		double skLast = sIn;
+		//double skLast = sIn;
 		double sk = sIn;
 
 		double dk = len(Position(spline, sk) - p);
@@ -2017,7 +2017,7 @@ namespace
 
 			maxJump *= 0.5;    // reduce on a schedule -- helps binary search back towards a jump that is valid.
 
-			skLast = sk;
+			//skLast = sk;
 		}
 
 		(*tOut) = sk;

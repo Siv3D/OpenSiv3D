@@ -28,13 +28,13 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
-	bool CTextToSpeech::hasLanguage(const LanguageCode languageCode)
+	bool CTextToSpeech::hasLanguage(const LanguageCode)
 	{
 		// [Siv3D ToDo]
 		return(false);
 	}
 
-	void CTextToSpeech::setDefaultLanguage(const LanguageCode languageCode)
+	void CTextToSpeech::setDefaultLanguage(const LanguageCode)
 	{
 		// [Siv3D ToDo]
 	}
@@ -45,7 +45,7 @@ namespace s3d
 		return(LanguageCode::Unspecified);
 	}
 
-	bool CTextToSpeech::speak(const StringView text, const LanguageCode languageCode)
+	bool CTextToSpeech::speak(const StringView, const LanguageCode)
 	{
 		// [Siv3D ToDo]
 		return(false);
@@ -67,7 +67,7 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
-	void CTextToSpeech::setVolume(const double volume)
+	void CTextToSpeech::setVolume(const double)
 	{
 		// [Siv3D ToDo]
 	}
@@ -78,7 +78,7 @@ namespace s3d
 		return(1.0);
 	}
 
-	void CTextToSpeech::setSpeed(const double speed)
+	void CTextToSpeech::setSpeed(const double)
 	{
 		// [Siv3D ToDo]
 	}

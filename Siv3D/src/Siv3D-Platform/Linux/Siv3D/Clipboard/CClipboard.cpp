@@ -73,7 +73,7 @@ namespace s3d
 		::glfwSetClipboardString(m_window, text.narrow().c_str());
 	}
 
-	void CClipboard::setImage(const Image& image)
+	void CClipboard::setImage(const Image&)
 	{
 		// [Siv3D ToDo]
 	}
