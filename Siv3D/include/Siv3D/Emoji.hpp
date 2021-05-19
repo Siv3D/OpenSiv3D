@@ -31,6 +31,12 @@ namespace s3d
 		Emoji() = default;
 
 		SIV3D_NODISCARD_CXX20
+		explicit Emoji(const char32* emoji) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		explicit Emoji(StringView emoji) noexcept;
+
+		SIV3D_NODISCARD_CXX20
 		explicit Emoji(String emoji) noexcept;
 
 		[[nodiscard]]

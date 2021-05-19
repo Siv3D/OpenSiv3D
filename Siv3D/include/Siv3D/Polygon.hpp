@@ -25,6 +25,8 @@ namespace s3d
 	struct Buffer2D;
 	struct Mat3x2;
 
+	/// @brief 多角形
+	/// @remark 穴を持つこともできます
 	class Polygon
 	{
 	private:
@@ -33,22 +35,31 @@ namespace s3d
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		Polygon();
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(const Polygon& polygon);
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(Polygon&& polygon) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(const Vec2* outer, size_t size, Array<Array<Vec2>> holes = {}, SkipValidation skipValidation = SkipValidation::No);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Polygon(const Array<Vec2>& outer, Array<Array<Vec2>> holes = {}, SkipValidation skipValidation = SkipValidation::No);
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(const Array<Vec2>& outer, const Array<TriangleIndex>& indices, const RectF& boundingRect, SkipValidation skipValidation = SkipValidation::No);
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(const Array<Vec2>& outer, Array<Array<Vec2>> holes, const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const RectF& boundingRect, SkipValidation skipValidation = SkipValidation::No);
 
+		SIV3D_NODISCARD_CXX20
 		explicit Polygon(std::initializer_list<Vec2> outer, SkipValidation skipValidation = SkipValidation::No);
 
+		SIV3D_NODISCARD_CXX20
 		Polygon(const Shape2D& shape);
 
 		~Polygon();

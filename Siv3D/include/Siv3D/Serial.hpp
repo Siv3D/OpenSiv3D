@@ -54,8 +54,10 @@ namespace s3d
 			Hardware
 		};
 
+		SIV3D_NODISCARD_CXX20
 		Serial();
 
+		SIV3D_NODISCARD_CXX20
 		explicit Serial(StringView port, int32 baudrate = 9600,
 			ByteSize byteSize = ByteSize::EightBits, Parity parity = Parity::None_,
 			StopBits stopBits = StopBits::One, FlowControl flowControl = FlowControl::None_);

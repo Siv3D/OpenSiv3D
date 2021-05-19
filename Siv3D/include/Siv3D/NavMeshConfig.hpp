@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief ナビメッシュの設定
 	struct NavMeshConfig
 	{
 		double cellSize	= 1.0;
@@ -27,6 +28,8 @@ namespace s3d
 
 		double agentMaxClimb = 0.9;
 
+		/// @brief エージェントの半径
+		/// @remark これより狭い経路を通過できません
 		double agentRadius = 0.25;
 
 		[[nodiscard]]

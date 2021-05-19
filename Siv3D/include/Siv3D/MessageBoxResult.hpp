@@ -14,14 +14,19 @@
 
 namespace s3d
 {
+	/// @brief メッセージボックスの結果
 	enum class MessageBoxResult : uint8
 	{
+		/// @brief [OK] が押された
 		OK,
 
+		/// @brief [キャンセル] が押されたか、メッセージボックスが閉じられた
 		Cancel,
 
+		/// @brief [はい] が押された
 		Yes,
 
+		/// @brief [いいえ] が押された
 		No,
 	};
 }

@@ -110,7 +110,7 @@ namespace s3d
 		return m_available;
 	}
 
-	NotificationID CToastNotification::show(const ToastNotificationItem& item)
+	ToastNotificationID CToastNotification::show(const ToastNotificationItem& item)
 	{
 		if (not setup())
 		{
@@ -130,7 +130,7 @@ namespace s3d
 		}
 
 		WinToast::WinToastError error = WinToast::NoError;
-		const NotificationID id = WinToast::instance()->showToast(templ, std::make_unique<ToastHandler>(m_indexCount), &error);
+		const ToastNotificationID id = WinToast::instance()->showToast(templ, std::make_unique<ToastHandler>(m_indexCount), &error);
 		if (id != -1)
 		{
 			std::lock_guard lock{ m_mutex };
@@ -148,7 +148,7 @@ namespace s3d
 		return id;
 	}
 
-	ToastNotificationState CToastNotification::getState(NotificationID id)
+	ToastNotificationState CToastNotification::getState(ToastNotificationID id)
 	{
 		if (!m_initialized.has_value() || !m_initialized.value())
 		{
@@ -176,7 +176,7 @@ namespace s3d
 		return it->second.state;
 	}
 
-	Optional<size_t> CToastNotification::getAction(NotificationID id)
+	Optional<size_t> CToastNotification::getAction(ToastNotificationID id)
 	{
 		if (!m_initialized.has_value() || !m_initialized.value())
 		{
@@ -204,7 +204,7 @@ namespace s3d
 		return it->second.action;
 	}
 
-	void CToastNotification::hide(NotificationID id)
+	void CToastNotification::hide(ToastNotificationID id)
 	{
 		if (!m_initialized.has_value() || !m_initialized.value())
 		{

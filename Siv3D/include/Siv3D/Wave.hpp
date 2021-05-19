@@ -22,6 +22,8 @@
 
 namespace s3d
 {
+	/// @brief 音声波形データ
+	/// @remark `WaveSample` の配列です。
 	class Wave
 	{
 	public:

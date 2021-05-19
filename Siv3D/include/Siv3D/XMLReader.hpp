@@ -70,6 +70,7 @@ namespace s3d
 		std::unique_ptr<XMLElementDetail> m_detail;
 	};
 
+	/// @brief XML の読み込み
 	class XMLReader : public XMLElement
 	{
 	public:

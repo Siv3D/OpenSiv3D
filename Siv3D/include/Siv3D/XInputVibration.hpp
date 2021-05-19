@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	/// @brief XInput コントローラのバイブレーション設定
 	struct XInputVibration
 	{
 		double leftMotor = 0.0;

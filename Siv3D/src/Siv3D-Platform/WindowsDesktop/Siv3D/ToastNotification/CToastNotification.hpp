@@ -17,7 +17,7 @@ namespace s3d
 {
 	struct ToastState
 	{
-		NotificationID id = -1;
+		ToastNotificationID id = -1;
 
 		ToastNotificationState state = ToastNotificationState::_None;
 
@@ -36,13 +36,13 @@ namespace s3d
 
 		bool isAvailable() const override;
 
-		NotificationID show(const ToastNotificationItem& item) override;
+		ToastNotificationID show(const ToastNotificationItem& item) override;
 
-		ToastNotificationState getState(NotificationID id) override;
+		ToastNotificationState getState(ToastNotificationID id) override;
 
-		Optional<size_t> getAction(NotificationID id) override;
+		Optional<size_t> getAction(ToastNotificationID id) override;
 
-		void hide(NotificationID id) override;
+		void hide(ToastNotificationID id) override;
 
 		void clear() override;
 
@@ -54,7 +54,7 @@ namespace s3d
 
 		Optional<bool> m_initialized;
 
-		HashTable<NotificationID, size_t> m_toastIDTable;
+		HashTable<ToastNotificationID, size_t> m_toastIDTable;
 
 		HashTable<size_t, ToastState> m_toasts;
 

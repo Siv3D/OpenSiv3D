@@ -28,6 +28,8 @@ namespace s3d
 
 	namespace System
 	{
+		/// @brief 利用可能な Web カメラの一覧を返します。
+		/// @return 利用可能な Web カメラの一覧
 		[[nodiscard]]
 		Array<WebcamInfo> EnumerateWebcams();
 	}

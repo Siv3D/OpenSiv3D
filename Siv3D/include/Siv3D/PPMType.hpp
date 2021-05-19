@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	/// @brief PPM 画像の保存形式
 	enum class PPMType : uint8
 	{
 		P1,

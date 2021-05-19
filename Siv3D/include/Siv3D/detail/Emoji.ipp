@@ -13,6 +13,12 @@
 
 namespace s3d
 {
-	inline Emoji::Emoji(String _codePoints) noexcept
-		: codePoints{ std::move(_codePoints) } {}
+	inline Emoji::Emoji(const char32* emoji) noexcept
+		: codePoints{ emoji } {}
+
+	inline Emoji::Emoji(const StringView emoji) noexcept
+		: codePoints{ emoji } {}
+
+	inline Emoji::Emoji(String emoji) noexcept
+		: codePoints{ std::move(emoji) } {}
 }

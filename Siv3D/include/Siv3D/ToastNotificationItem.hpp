@@ -16,14 +16,19 @@
 
 namespace s3d
 {
+	/// @brief トースト通知の設定
 	struct ToastNotificationItem
 	{
+		/// @brief 通知のタイトル
 		String title;
 
+		/// @brief 通知するメッセージ
 		String message;
 
+		/// @brief 表示する画像のファイルパス
 		FilePath imagePath;
 
+		/// @brief ユーザの選択肢
 		Array<String> actions;
 	};
 }

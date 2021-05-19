@@ -46,7 +46,11 @@ namespace s3d
 		/// @return 作成した Wave
 		[[nodiscard]]
 		Wave decode(FilePathView path) const override;
-		
+
+		/// @brief MIDI 形式の音声ファイルをデコードして Wave と譜面データを作成します。
+		/// @param path 音声ファイルのパス
+		/// @param midiScore 譜面データの格納先
+		/// @return 作成した Wave
 		[[nodiscard]]
 		Wave decode(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore) const;
 
@@ -57,6 +61,11 @@ namespace s3d
 		[[nodiscard]]
 		Wave decode(IReader& reader, FilePathView pathHint = {}) const override;
 
+		/// @brief IDI 形式の音声データをデコードして Wave と譜面データを作成します。
+		/// @param reader 音声データの IReader インタフェース
+		/// @param midiScore 譜面データの格納先
+		/// @param pathHint ファイルパス（オプション）
+		/// @return 作成した Wave
 		[[nodiscard]]
 		Wave decode(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, FilePathView pathHint = {}) const;
 	};

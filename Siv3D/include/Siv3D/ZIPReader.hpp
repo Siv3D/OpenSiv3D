@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief ZIP アーカイブファイルの読み込み
 	class ZIPReader
 	{
 	public:

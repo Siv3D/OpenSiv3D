@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	using NotificationID = int64;
+	using ToastNotificationID = int64;
 
 # if SIV3D_PLATFORM(WINDOWS)
 
@@ -25,18 +25,20 @@ namespace s3d
 	{
 		namespace ToastNotification
 		{
+			/// @brief トースト通知が可能な OS であるかを返します。
+			/// @return トースト通知が可能な場合 true, それ以外の場合は false
 			[[nodiscard]]
 			bool IsAvailable();
 
-			NotificationID Show(const ToastNotificationItem& item);
+			ToastNotificationID Show(const ToastNotificationItem& item);
 
 			[[nodiscard]]
-			ToastNotificationState GetState(NotificationID id);
+			ToastNotificationState GetState(ToastNotificationID id);
 
 			[[nodiscard]]
-			Optional<size_t> GetAction(NotificationID id);
+			Optional<size_t> GetAction(ToastNotificationID id);
 
-			void Hide(NotificationID id);
+			void Hide(ToastNotificationID id);
 
 			void Clear();
 		}

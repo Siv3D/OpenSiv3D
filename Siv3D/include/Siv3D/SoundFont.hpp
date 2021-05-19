@@ -18,10 +18,12 @@
 
 namespace s3d
 {
+	/// @brief サウンドフォント
 	class SoundFont
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		SoundFont() = default;
 
 		SIV3D_NODISCARD_CXX20

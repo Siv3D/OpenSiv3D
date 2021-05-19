@@ -14,12 +14,16 @@
 
 namespace s3d
 {
+	/// @brief MIDI ノート
 	struct MIDINote
 	{
+		/// @brief キー（音の高さ）
 		uint32 key;
 
+		/// @brief ノート・オンの時刻（ミリ秒）
 		int32 startMillisec;
 
+		/// @brief ノート・オンからノート・オフまでの時間（ミリ秒）
 		int32 lengthMillisec;
 	};
 }

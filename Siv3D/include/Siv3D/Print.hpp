@@ -135,6 +135,9 @@ namespace s3d
 				return buf;
 			}
 
+			/// @brief `Print` で使われるフォントを変更します。
+			/// @param font 新しいフォント
+			/// @return フォントの変更に成功した場合 true, それ以外の場合は false
 			bool setFont(const Font& font) const;
 		};
 	}

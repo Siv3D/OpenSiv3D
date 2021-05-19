@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	/// @brief Pro コントローラ用の Gamepad アダプタ
 	class ProController
 	{
 	public:

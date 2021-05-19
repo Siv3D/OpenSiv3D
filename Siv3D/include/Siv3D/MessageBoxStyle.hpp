@@ -14,16 +14,22 @@
 
 namespace s3d
 {
+	/// @brief メッセージボックスのスタイル
 	enum class MessageBoxStyle : uint8
 	{
+		/// @brief 通常のスタイル
 		Default,
 
+		/// @brief 情報を伝えるスタイル
 		Info,
 
+		/// @brief 警告を伝えるスタイル
 		Warning,
 
+		/// @brief 深刻なエラーを伝えるスタイル
 		Error,
 
+		/// @brief クエスチョンマークのスタイル
 		Question,
 	};
 }

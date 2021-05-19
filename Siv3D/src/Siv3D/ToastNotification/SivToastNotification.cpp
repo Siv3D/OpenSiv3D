@@ -26,22 +26,22 @@ namespace s3d
 				return SIV3D_ENGINE(ToastNotification)->isAvailable();
 			}
 
-			NotificationID Show(const ToastNotificationItem& item)
+			ToastNotificationID Show(const ToastNotificationItem& item)
 			{
 				return SIV3D_ENGINE(ToastNotification)->show(item);
 			}
 
-			ToastNotificationState GetState(const NotificationID id)
+			ToastNotificationState GetState(const ToastNotificationID id)
 			{
 				return SIV3D_ENGINE(ToastNotification)->getState(id);
 			}
 
-			Optional<size_t> GetAction(const NotificationID id)
+			Optional<size_t> GetAction(const ToastNotificationID id)
 			{
 				return SIV3D_ENGINE(ToastNotification)->getAction(id);
 			}
 
-			void Hide(const NotificationID id)
+			void Hide(const ToastNotificationID id)
 			{
 				SIV3D_ENGINE(ToastNotification)->hide(id);
 			}

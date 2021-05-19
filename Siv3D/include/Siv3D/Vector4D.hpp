@@ -16,6 +16,8 @@
 
 namespace s3d
 {
+	/// @brief 4 次元のベクトル
+	/// @tparam Type ベクトルの要素の型
 	template <class Type>
 	struct Vector4D
 	{

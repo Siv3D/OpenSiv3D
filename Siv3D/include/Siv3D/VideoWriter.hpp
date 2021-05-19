@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief 動画ファイルの書き出し
 	class VideoWriter
 	{
 	public:

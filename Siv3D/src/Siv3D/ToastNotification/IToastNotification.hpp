@@ -27,13 +27,13 @@ namespace s3d
 
 		virtual bool isAvailable() const = 0;
 
-		virtual NotificationID show(const ToastNotificationItem& item) = 0;
+		virtual ToastNotificationID show(const ToastNotificationItem& item) = 0;
 
-		virtual ToastNotificationState getState(NotificationID id) = 0;
+		virtual ToastNotificationState getState(ToastNotificationID id) = 0;
 
-		virtual Optional<size_t> getAction(NotificationID id) = 0;
+		virtual Optional<size_t> getAction(ToastNotificationID id) = 0;
 
-		virtual void hide(NotificationID id) = 0;
+		virtual void hide(ToastNotificationID id) = 0;
 
 		virtual void clear() = 0;
 

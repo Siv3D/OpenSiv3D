@@ -35,7 +35,7 @@ namespace s3d
 		/// @param label ボタンに書かれるテキスト
 		/// @param pos ボタンの左上の座標
 		/// @param width ボタンの幅。`unspecified` の場合はテキストに合わせて自動で決定
-		/// @param enabled ボタンを有効にするか
+		/// @param enabled ボタンの操作を有効にするか
 		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool Button(const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
@@ -43,8 +43,8 @@ namespace s3d
 		/// @brief ボタンを表示します。
 		/// @param label ボタンに書かれるテキスト
 		/// @param center ボタンの中心の座標
-		/// @param width ボタンの幅。`unspecified` の場合はテキストに合わせて自動で決定
-		/// @param enabled ボタンを有効にするか
+		/// @param width ボタンの幅（ピクセル）。`unspecified` の場合はテキストに合わせて自動で決定
+		/// @param enabled ボタンの操作を有効にするか
 		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
@@ -55,12 +55,44 @@ namespace s3d
 		[[nodiscard]]
 		RectF SliderRegionAt(const Vec2& center, double labelWidth = 80.0, double sliderWidth = 120.0);
 
+		/// @brief スライダーを表示します。（値の範囲は [0.0, 1.0]）
+		/// @param value スライダーで操作する値
+		/// @param pos スライダーの左上の座標
+		/// @param sliderWidth スライダーの幅（ピクセル）
+		/// @param enabled スライダーの操作を有効にするか
+		/// @return スライダーが操作された場合 true, それ以外の場合は false
 		bool Slider(double& value, const Vec2& pos, double sliderWidth = 120.0, bool enabled = true);
 
+		/// @brief スライダーを表示します。
+		/// @param value スライダーで操作する値
+		/// @param min 値の最小値
+		/// @param max 値の最大値
+		/// @param pos スライダーの左上の座標
+		/// @param sliderWidth スライダーの幅（ピクセル）
+		/// @param enabled スライダーの操作を有効にするか
+		/// @return スライダーが操作された場合 true, それ以外の場合は false
 		bool Slider(double& value, double min, double max, const Vec2& pos, double sliderWidth = 120.0, bool enabled = true);
 
+		/// @brief テキスト付きのスライダーを表示します。（値の範囲は [0.0, 1.0]）
+		/// @param label スライダーの左に表示するテキスト
+		/// @param value スライダーで操作する値
+		/// @param pos スライダーの左上の座標
+		/// @param labelWidth テキスト領域の幅（ピクセル）
+		/// @param sliderWidth スライダーの幅（ピクセル）
+		/// @param enabled スライダーの操作を有効にするか
+		/// @return スライダーが操作された場合 true, それ以外の場合は false
 		bool Slider(const String& label, double& value, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
+		/// @brief テキスト付きのスライダーを表示します。
+		/// @param label スライダーの左に表示するテキスト
+		/// @param value スライダーで操作する値
+		/// @param min 値の最小値
+		/// @param max 値の最大値
+		/// @param pos スライダーの左上の座標
+		/// @param labelWidth テキスト領域の幅（ピクセル）
+		/// @param sliderWidth ライダーの幅（ピクセル）
+		/// @param enabled スライダーの操作を有効にするか
+		/// @return スライダーが操作された場合 true, それ以外の場合は false
 		bool Slider(const String& label, double& value, double min, double max, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
 		bool SliderAt(double& value, const Vec2& center, double sliderWidth = 120.0, bool enabled = true);

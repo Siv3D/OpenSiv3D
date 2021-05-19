@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief Web カメラ
 	class Webcam
 	{
 	public:

@@ -19,12 +19,15 @@
 
 namespace s3d
 {
+	/// @brief Perlin Noise 生成器
+	/// @tparam Float 出力結果の型
 	template <class Float>
 	class BasicPerlinNoise
 	{
 	public:
 
 		using state_type = std::array<uint8, 256>;
+		
 		using value_type = Float;
 
 		SIV3D_NODISCARD_CXX20

@@ -1304,6 +1304,18 @@
 
 //////////////////////////////////////////////////
 //
+//	メッセージボックス | Message box
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/MessageBoxResult.hpp>
+
+# include <Siv3D/MessageBoxStyle.hpp>
+
+# include <Siv3D/MessageBox.hpp>
+
+//////////////////////////////////////////////////
+//
 //	2D 物理演算 | 2D Physics
 //
 //////////////////////////////////////////////////
@@ -1386,9 +1398,6 @@
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFT.hpp>
 # include <Siv3D/Microphone.hpp>
-# include <Siv3D/MessageBoxResult.hpp>
-# include <Siv3D/MessageBoxStyle.hpp>
-# include <Siv3D/MessageBox.hpp>
 
 //////////////////////////////////////////////////
 //
