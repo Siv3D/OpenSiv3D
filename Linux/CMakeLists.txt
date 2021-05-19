@@ -642,6 +642,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/muparser/muParserTest.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserTokenReader.cpp
 
+  ../Siv3D/src/ThirdParty/nativefiledialog-extended/nfd_gtk.cpp
+
   ../Siv3D/src/ThirdParty/Oniguruma/ascii.c
   ../Siv3D/src/ThirdParty/Oniguruma/big5.c
   ../Siv3D/src/ThirdParty/Oniguruma/cp1251.c

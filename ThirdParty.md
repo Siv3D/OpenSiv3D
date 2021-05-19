@@ -48,6 +48,7 @@ Name | Version
 [msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
+[Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 
 [nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
 [Noto CJK](https://github.com/googlefonts/noto-cjk) | v20201206
 [Noto Emoji](https://github.com/googlefonts/noto-emoji) | 13.1
