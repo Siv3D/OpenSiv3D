@@ -32,25 +32,25 @@ namespace s3d
 		return false;
 	}
 
-	NotificationID CToastNotification::show(const ToastNotificationItem&)
+	ToastNotificationID CToastNotification::show(const ToastNotificationItem&)
 	{
 		// [Siv3D ToDo]
 		return(0);
 	}
 
-	ToastNotificationState CToastNotification::getState(NotificationID)
+	ToastNotificationState CToastNotification::getState(ToastNotificationID)
 	{
 		// [Siv3D ToDo]
 		return(ToastNotificationState::_None);
 	}
 
-	Optional<size_t> CToastNotification::getAction(NotificationID)
+	Optional<size_t> CToastNotification::getAction(ToastNotificationID)
 	{
 		// [Siv3D ToDo]
 		return(none);
 	}
 
-	void CToastNotification::hide(NotificationID)
+	void CToastNotification::hide(ToastNotificationID)
 	{
 		// [Siv3D ToDo]
 	}

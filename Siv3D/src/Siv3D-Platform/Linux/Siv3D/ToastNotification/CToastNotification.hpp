@@ -26,13 +26,13 @@ namespace s3d
 
 		bool isAvailable() const override;
 
-		NotificationID show(const ToastNotificationItem& item) override;
+		ToastNotificationID show(const ToastNotificationItem& item) override;
 
-		ToastNotificationState getState(NotificationID id) override;
+		ToastNotificationState getState(ToastNotificationID id) override;
 
-		Optional<size_t> getAction(NotificationID id) override;
+		Optional<size_t> getAction(ToastNotificationID id) override;
 
-		void hide(NotificationID id) override;
+		void hide(ToastNotificationID id) override;
 
 		void clear() override;
 
