@@ -17,7 +17,7 @@ namespace s3d
 	Webcam::Webcam()
 		: pImpl{ std::make_shared<WebcamDetail>() } {}
 
-	Webcam::Webcam(const size_t cameraIndex, const StartImmediately startImmediately)
+	Webcam::Webcam(const uint32 cameraIndex, const StartImmediately startImmediately)
 		: Webcam{}
 	{
 		if (not pImpl->open(cameraIndex))
@@ -31,7 +31,7 @@ namespace s3d
 		}
 	}
 
-	Webcam::Webcam(const size_t cameraIndex, const Size& targetResolution, const StartImmediately startImmediately)
+	Webcam::Webcam(const uint32 cameraIndex, const Size& targetResolution, const StartImmediately startImmediately)
 		: Webcam{}
 	{
 		if (not pImpl->open(cameraIndex))
@@ -88,7 +88,7 @@ namespace s3d
 		return pImpl->isActive();
 	}
 
-	size_t Webcam::cameraIndex() const
+	uint32 Webcam::cameraIndex() const
 	{
 		return pImpl->cameraIndex();
 	}

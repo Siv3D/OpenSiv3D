@@ -71,7 +71,7 @@ namespace s3d
 		close();
 	}
 
-	bool Webcam::WebcamDetail::open(const size_t cameraIndex)
+	bool Webcam::WebcamDetail::open(const uint32 cameraIndex)
 	{
 		LOG_SCOPED_TRACE(U"Webcam::WebcamDetail::open(cameraIndex = {})"_fmt(cameraIndex));
 
@@ -154,7 +154,7 @@ namespace s3d
 		return m_thread.joinable();
 	}
 
-	size_t Webcam::WebcamDetail::cameraIndex() const
+	uint32 Webcam::WebcamDetail::cameraIndex() const
 	{
 		return m_cameraIndex;
 	}

@@ -34,10 +34,10 @@ namespace s3d
 		Webcam();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Webcam(size_t cameraIndex, StartImmediately startImmediately = StartImmediately::No);
+		explicit Webcam(uint32 cameraIndex, StartImmediately startImmediately = StartImmediately::No);
 
 		SIV3D_NODISCARD_CXX20
-		Webcam(size_t cameraIndex, const Size& targetResolution, StartImmediately startImmediately = StartImmediately::No);
+		Webcam(uint32 cameraIndex, const Size& targetResolution, StartImmediately startImmediately = StartImmediately::No);
 
 		~Webcam();
 
@@ -67,7 +67,7 @@ namespace s3d
 		bool isActive() const;
 
 		[[nodiscard]]
-		size_t cameraIndex() const;
+		uint32 cameraIndex() const;
 
 		[[nodiscard]]
 		Size getResolution() const;

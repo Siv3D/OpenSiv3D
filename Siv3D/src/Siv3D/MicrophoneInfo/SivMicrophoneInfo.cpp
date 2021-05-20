@@ -11,7 +11,9 @@
 
 # include <Siv3D/MicrophoneInfo.hpp>
 # include <Siv3D/EngineLog.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 # include <ThirdParty/rtaudio/RtAudio.h>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -27,8 +29,6 @@ namespace s3d
 
 			Array<MicrophoneInfo> results;
 
-			uint32 deviceIndex = 0;
-
 			for (uint32 i = 0; i < num_devices; ++i)
 			{
 				const auto info = device.getDeviceInfo(i);
@@ -41,8 +41,7 @@ namespace s3d
 				const String name = Unicode::FromUTF8(info.name);
 				const Array<uint32> sampleRates(info.sampleRates.begin(), info.sampleRates.end());
 
-				results.push_back(MicrophoneInfo{ deviceIndex, name, sampleRates, info.preferredSampleRate });
-				++deviceIndex;
+				results.push_back(MicrophoneInfo{ i, name, sampleRates, info.preferredSampleRate });
 			}
 
 			return results;

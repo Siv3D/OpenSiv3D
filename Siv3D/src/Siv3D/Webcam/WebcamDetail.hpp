@@ -23,7 +23,7 @@ namespace s3d
 
 		~WebcamDetail();
 
-		bool open(size_t cameraIndex);
+		bool open(uint32 cameraIndex);
 
 		void close();
 
@@ -33,7 +33,7 @@ namespace s3d
 
 		bool isActive() const;
 
-		size_t cameraIndex() const;
+		uint32 cameraIndex() const;
 
 		Size getResolution() const;
 
@@ -49,7 +49,7 @@ namespace s3d
 
 		cv::VideoCapture m_capture;
 
-		size_t m_cameraIndex = 0;
+		uint32 m_cameraIndex = 0;
 
 		std::thread m_thread;
 

@@ -17,10 +17,13 @@ namespace s3d
 	Microphone::Microphone()
 		: pImpl{ std::make_shared<MicrophoneDetail>() } {}
 
-	Microphone::Microphone(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate, size_t bufferLength, Loop loop, StartImmediately startImmediately)
+	Microphone::Microphone(const Duration& duration, const Loop loop, const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, duration, loop, startImmediately } {}
+
+	Microphone::Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const Duration& duration, const Loop loop, const StartImmediately startImmediately)
 		: Microphone{}
 	{
-		if (not pImpl->open(deviceIndex, sampleRate, bufferLength, loop, startImmediately))
+		if (not pImpl->open(deviceIndex, sampleRate, duration, loop))
 		{
 			return;
 		}
@@ -31,10 +34,21 @@ namespace s3d
 		}
 	}
 
-	Microphone::~Microphone()
+	Microphone::Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const size_t bufferLength, const Loop loop, const StartImmediately startImmediately)
+		: Microphone{}
 	{
-		// do nothing
+		if (not pImpl->open(deviceIndex, sampleRate, bufferLength, loop))
+		{
+			return;
+		}
+
+		if (startImmediately)
+		{
+			pImpl->start();
+		}
 	}
+
+	Microphone::~Microphone() {}
 
 	Optional<Microphone::Permission> Microphone::getPermission() const
 	{
@@ -42,9 +56,43 @@ namespace s3d
 		return Microphone::Permission::Allowed;
 	}
 
-	bool Microphone::open(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate, const size_t bufferLength, const Loop loop, const StartImmediately startImmediately)
+	bool Microphone::open(const Duration& duration, const Loop loop, const StartImmediately startImmediately)
 	{
-		return pImpl->open(deviceIndex, sampleRate, bufferLength, loop, startImmediately);
+		return open(unspecified, unspecified, duration, loop, startImmediately);
+	}
+
+	bool Microphone::open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const Duration& duration, const Loop loop, const StartImmediately startImmediately)
+	{
+		if (not pImpl->open(deviceIndex, sampleRate, duration, loop))
+		{
+			return false;
+		}
+
+		if (startImmediately)
+		{
+			return pImpl->start();
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	bool Microphone::open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const size_t bufferLength, const Loop loop, const StartImmediately startImmediately)
+	{
+		if (not pImpl->open(deviceIndex, sampleRate, bufferLength, loop))
+		{
+			return false;
+		}
+
+		if (startImmediately)
+		{
+			return pImpl->start();
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 	void Microphone::close()
@@ -67,12 +115,17 @@ namespace s3d
 		return pImpl->start();
 	}
 
-	bool Microphone::isActive() const
+	void Microphone::stop()
 	{
-		return pImpl->isActive();
+		pImpl->stop();
 	}
 
-	size_t Microphone::microphoneIndex() const
+	bool Microphone::isRecording() const
+	{
+		return pImpl->isRecording();
+	}
+
+	uint32 Microphone::microphoneIndex() const
 	{
 		return pImpl->microphoneIndex();
 	}

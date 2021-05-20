@@ -122,6 +122,9 @@ namespace s3d
 		[[nodiscard]]
 		static constexpr WaveSample Max() noexcept;
 	};
+
+	static_assert(sizeof(WaveSampleS16) == 4);
+	static_assert(sizeof(WaveSample) == 8);
 }
 
 # include "detail/WaveSample.ipp"

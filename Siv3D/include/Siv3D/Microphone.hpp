@@ -38,14 +38,24 @@ namespace s3d
 		Microphone();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Microphone(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		explicit Microphone(const Duration& duration, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, const Duration& duration = SecondsF{ 5.0 }, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, size_t bufferLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		~Microphone();
 
 		[[nodiscard]]
 		Optional<Permission> getPermission() const;
 
-		bool open(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		bool open(const Duration& duration, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+
+		bool open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, const Duration& duration = SecondsF{ 5.0 }, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+
+		bool open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		void close();
 
@@ -57,11 +67,13 @@ namespace s3d
 
 		bool start();
 
-		[[nodiscard]]
-		bool isActive() const;
+		void stop();
 
 		[[nodiscard]]
-		size_t microphoneIndex() const;
+		bool isRecording() const;
+
+		[[nodiscard]]
+		uint32 microphoneIndex() const;
 
 		[[nodiscard]]
 		uint32 getSampleRate() const;
