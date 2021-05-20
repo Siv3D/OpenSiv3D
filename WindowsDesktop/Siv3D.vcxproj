@@ -530,7 +530,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\RecordingFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectF.hpp" />

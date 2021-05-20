@@ -1031,8 +1031,6 @@
 //
 //////////////////////////////////////////////////
 
-# include <Siv3D/RecordingFormat.hpp>
-
 # include <Siv3D/MicrophoneInfo.hpp>
 
 # include <Siv3D/Microphone.hpp>

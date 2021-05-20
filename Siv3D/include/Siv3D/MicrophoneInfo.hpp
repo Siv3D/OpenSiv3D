@@ -23,6 +23,11 @@ namespace s3d
 
 		/// @brief 名前
 		String name;
+
+		/// @brief 対応するサンプルレート
+		Array<uint32> sampleRates;
+
+		uint32 preferredSampleRate;
 	};
 
 	namespace System

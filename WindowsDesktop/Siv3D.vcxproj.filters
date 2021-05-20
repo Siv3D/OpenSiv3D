@@ -5526,9 +5526,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MicrophoneInfo.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\RecordingFormat.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

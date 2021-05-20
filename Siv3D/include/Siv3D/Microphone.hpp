@@ -12,7 +12,6 @@
 # pragma once
 # include <memory>
 # include "Common.hpp"
-# include "RecordingFormat.hpp"
 
 namespace s3d
 {
