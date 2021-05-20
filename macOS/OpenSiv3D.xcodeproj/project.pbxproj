@@ -933,6 +933,7 @@
 		2C65277926561B57003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
+		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
 		2C68508824B768A800B98A7F /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68507824B768A800B98A7F /* CLogger.hpp */; };
 		2C68508924B768A800B98A7F /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507924B768A800B98A7F /* CLogger.cpp */; };
 		2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */; };
@@ -2570,10 +2571,10 @@
 		2C6391082539CF820030F18E /* MetalSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalSamplerState.hpp; sourceTree = "<group>"; };
 		2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSamplerState.mm; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
-		2C65277626561B33003427EB /* RecordingFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RecordingFormat.hpp; sourceTree = "<group>"; };
 		2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophoneInfo.cpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
+		2C65277F265621DF003427EB /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -3574,6 +3575,7 @@
 			files = (
 				2C533732264E0E9700CE0F1B /* AudioToolbox.framework in Frameworks */,
 				2CFF582025F7C0B500B660AD /* AVFoundation.framework in Frameworks */,
+				2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */,
 				2CFF582225F7C0E100B660AD /* CoreMedia.framework in Frameworks */,
 				2CA1A884240BA55100ED4230 /* libSiv3D.a in Frameworks */,
 				2C47E59924AF3C7B0060E8A7 /* libboost_filesystem.a in Frameworks */,
@@ -4129,6 +4131,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C65277F265621DF003427EB /* CoreAudio.framework */,
 				2C533731264E0E9700CE0F1B /* AudioToolbox.framework */,
 				2C44C0712649615100A5E72A /* libtiff.a */,
 				2C8A2518264905F000A87808 /* libopusfile.a */,
@@ -7743,7 +7746,6 @@
 				2C504402265157E800E36D08 /* RandomVec4.hpp */,
 				2CAAA76625E7FD0200C014D7 /* RasterizerState.hpp */,
 				2CAAA74E25E7FD0200C014D7 /* RDTSCClock.hpp */,
-				2C65277626561B33003427EB /* RecordingFormat.hpp */,
 				2CAAA74525E7FD0200C014D7 /* Rect.hpp */,
 				2CAAA6ED25E7FD0200C014D7 /* RectanglePacking.hpp */,
 				2CAAA74325E7FD0200C014D7 /* RectF.hpp */,
