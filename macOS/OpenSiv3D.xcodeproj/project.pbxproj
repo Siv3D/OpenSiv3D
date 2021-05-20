@@ -930,6 +930,9 @@
 		2C6391052539BE6E0030F18E /* MetalPixelShader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6391042539BE6E0030F18E /* MetalPixelShader.mm */; };
 		2C63910A2539CF830030F18E /* MetalSamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6391082539CF820030F18E /* MetalSamplerState.hpp */; };
 		2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */; };
+		2C65277926561B57003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */; };
+		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
+		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C68508824B768A800B98A7F /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68507824B768A800B98A7F /* CLogger.hpp */; };
 		2C68508924B768A800B98A7F /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507924B768A800B98A7F /* CLogger.cpp */; };
 		2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */; };
@@ -2566,6 +2569,11 @@
 		2C6391042539BE6E0030F18E /* MetalPixelShader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalPixelShader.mm; sourceTree = "<group>"; };
 		2C6391082539CF820030F18E /* MetalSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalSamplerState.hpp; sourceTree = "<group>"; };
 		2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSamplerState.mm; sourceTree = "<group>"; };
+		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
+		2C65277626561B33003427EB /* RecordingFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RecordingFormat.hpp; sourceTree = "<group>"; };
+		2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophoneInfo.cpp; sourceTree = "<group>"; };
+		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
+		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -4548,6 +4556,7 @@
 				2CBEBCAD2629D15F0077DDBF /* quirc */,
 				2C13C89525B8FA9D0054B968 /* RecastDetour */,
 				2C794AB825C3DEFC00034D81 /* RFC1321 */,
+				2C65277A26561B7D003427EB /* rtaudio */,
 				2C2AA2BA25FF894D003F3EBC /* serial */,
 				2CF962F725A7F9AB006F55C9 /* SplineLib */,
 				2C4397852535DDF300F6AECD /* stb */,
@@ -6814,6 +6823,23 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2C65277726561B57003427EB /* MicrophoneInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */,
+			);
+			path = MicrophoneInfo;
+			sourceTree = "<group>";
+		};
+		2C65277A26561B7D003427EB /* rtaudio */ = {
+			isa = PBXGroup;
+			children = (
+				2C65277B26561B7D003427EB /* RtAudio.cpp */,
+				2C65277C26561B7D003427EB /* RtAudio.h */,
+			);
+			path = rtaudio;
+			sourceTree = "<group>";
+		};
 		2C68507624B768A800B98A7F /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -6828,6 +6854,7 @@
 				2C68507724B768A800B98A7F /* Logger */,
 				2CC5843F2646319400C33E9F /* MemoryMappedFile */,
 				2CC584422646319400C33E9F /* MemoryMappedFileView */,
+				2C65277726561B57003427EB /* MicrophoneInfo */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
 				2CB7D4EB2556E247007EB42E /* Mouse */,
 				2C68508024B768A800B98A7F /* System */,
@@ -7654,6 +7681,7 @@
 				2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */,
 				2CAAA75E25E7FD0200C014D7 /* Meta.hpp */,
 				2CE94FA42652484400440C6C /* Microphone.hpp */,
+				2C65277526561B26003427EB /* MicrophoneInfo.hpp */,
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
@@ -7715,6 +7743,7 @@
 				2C504402265157E800E36D08 /* RandomVec4.hpp */,
 				2CAAA76625E7FD0200C014D7 /* RasterizerState.hpp */,
 				2CAAA74E25E7FD0200C014D7 /* RDTSCClock.hpp */,
+				2C65277626561B33003427EB /* RecordingFormat.hpp */,
 				2CAAA74525E7FD0200C014D7 /* Rect.hpp */,
 				2CAAA6ED25E7FD0200C014D7 /* RectanglePacking.hpp */,
 				2CAAA74325E7FD0200C014D7 /* RectF.hpp */,
@@ -9533,6 +9562,7 @@
 				2C68508824B768A800B98A7F /* CLogger.hpp in Headers */,
 				2CC584852648246900C33E9F /* vorbisfile.h in Headers */,
 				2C43C89F25C837F100D6D613 /* svfntfmt.h in Headers */,
+				2C65277E26561B7D003427EB /* RtAudio.h in Headers */,
 				2C48BF7325D41C0D00A93CE3 /* BitmapGlyphRenderer.hpp in Headers */,
 				2CC5843226461D9900C33E9F /* AnimatedGIFReaderDetail.hpp in Headers */,
 				2C9566E32645626000539B85 /* zlib.h in Headers */,
@@ -9933,6 +9963,7 @@
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
+				2C65277926561B57003427EB /* SivMicrophoneInfo.cpp in Sources */,
 				2C2AA3A326009C74003F3EBC /* b2_collision.cpp in Sources */,
 				2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */,
 				2CFE19A82555B23C005826A1 /* SivKeyboard.cpp in Sources */,
@@ -10243,6 +10274,7 @@
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
+				2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */,
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C956677264546F700539B85 /* parser.cpp in Sources */,
