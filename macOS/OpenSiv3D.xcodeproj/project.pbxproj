@@ -930,10 +930,10 @@
 		2C6391052539BE6E0030F18E /* MetalPixelShader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6391042539BE6E0030F18E /* MetalPixelShader.mm */; };
 		2C63910A2539CF830030F18E /* MetalSamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6391082539CF820030F18E /* MetalSamplerState.hpp */; };
 		2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */; };
-		2C65277926561B57003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
+		2C6527832656B3C1003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */; };
 		2C68508824B768A800B98A7F /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68507824B768A800B98A7F /* CLogger.hpp */; };
 		2C68508924B768A800B98A7F /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507924B768A800B98A7F /* CLogger.cpp */; };
 		2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */; };
@@ -2571,10 +2571,10 @@
 		2C6391082539CF820030F18E /* MetalSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalSamplerState.hpp; sourceTree = "<group>"; };
 		2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSamplerState.mm; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
-		2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophoneInfo.cpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		2C65277F265621DF003427EB /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophoneInfo.cpp; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -4998,6 +4998,7 @@
 				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
 				2CC584392646317400C33E9F /* MemoryMappedFileView */,
 				2C8046102653FE0100CE7C3E /* MessageBox */,
+				2C6527812656B3C1003427EB /* MicrophoneInfo */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C13C6F725B458760054B968 /* MultiPolygon */,
@@ -6826,14 +6827,6 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
-		2C65277726561B57003427EB /* MicrophoneInfo */ = {
-			isa = PBXGroup;
-			children = (
-				2C65277826561B57003427EB /* SivMicrophoneInfo.cpp */,
-			);
-			path = MicrophoneInfo;
-			sourceTree = "<group>";
-		};
 		2C65277A26561B7D003427EB /* rtaudio */ = {
 			isa = PBXGroup;
 			children = (
@@ -6841,6 +6834,14 @@
 				2C65277C26561B7D003427EB /* RtAudio.h */,
 			);
 			path = rtaudio;
+			sourceTree = "<group>";
+		};
+		2C6527812656B3C1003427EB /* MicrophoneInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */,
+			);
+			path = MicrophoneInfo;
 			sourceTree = "<group>";
 		};
 		2C68507624B768A800B98A7F /* Siv3D */ = {
@@ -6857,7 +6858,6 @@
 				2C68507724B768A800B98A7F /* Logger */,
 				2CC5843F2646319400C33E9F /* MemoryMappedFile */,
 				2CC584422646319400C33E9F /* MemoryMappedFileView */,
-				2C65277726561B57003427EB /* MicrophoneInfo */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
 				2CB7D4EB2556E247007EB42E /* Mouse */,
 				2C68508024B768A800B98A7F /* System */,
@@ -9860,6 +9860,7 @@
 				2C2AA37226009C74003F3EBC /* b2_mouse_joint.cpp in Sources */,
 				2C47B32524DD9789008D83BE /* SivBinaryWriter.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
+				2C6527832656B3C1003427EB /* SivMicrophoneInfo.cpp in Sources */,
 				2CDD4F45260A3F7100A51D68 /* P2PivotJoint.cpp in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
 				2C4AEF58262C44F800D36CFC /* SivCascadeClassifier.cpp in Sources */,
@@ -9965,7 +9966,6 @@
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
-				2C65277926561B57003427EB /* SivMicrophoneInfo.cpp in Sources */,
 				2C2AA3A326009C74003F3EBC /* b2_collision.cpp in Sources */,
 				2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */,
 				2CFE19A82555B23C005826A1 /* SivKeyboard.cpp in Sources */,
