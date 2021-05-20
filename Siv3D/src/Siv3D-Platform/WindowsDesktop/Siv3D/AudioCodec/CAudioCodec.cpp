@@ -23,10 +23,10 @@ namespace s3d
 		static Wave WriteWaveData(IMFSourceReader* pReader, IMFMediaType* pAudioType)
 		{
 			const uint32 channel = ::MFGetAttributeUINT32(pAudioType, MF_MT_AUDIO_NUM_CHANNELS, 0);
-			const uint32 samplingRate = ::MFGetAttributeUINT32(pAudioType, MF_MT_AUDIO_SAMPLES_PER_SECOND, 0);
+			const uint32 sampleRate = ::MFGetAttributeUINT32(pAudioType, MF_MT_AUDIO_SAMPLES_PER_SECOND, 0);
 
 			Wave wave;
-			wave.setSamplingRate(samplingRate);
+			wave.setSampleRate(sampleRate);
 
 			HRESULT hr = S_OK;
 			ComPtr<IMFSample> pSample;

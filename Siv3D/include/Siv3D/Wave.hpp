@@ -42,40 +42,40 @@ namespace s3d
 		using reverse_iterator			= base_type::reverse_iterator;
 		using const_reverse_iterator	= base_type::const_reverse_iterator;
 
-		static constexpr uint32 MinSamplingRate		= 4'000;
+		static constexpr uint32 MinSampleRate		= 4'000;
 
-		static constexpr uint32 DefaultSamplingRate	= 44'100;
+		static constexpr uint32 DefaultSampleRate	= 44'100;
 
-		static constexpr uint32 MaxSamplingRate		= 192'000;
+		static constexpr uint32 MaxSamlpeRate		= 192'000;
 
 		SIV3D_NODISCARD_CXX20
 		Wave() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc = allocator_type{}) noexcept;
+		explicit Wave(Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc = allocator_type{}) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Wave(size_t count, const value_type& value, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		Wave(size_t count, const value_type& value, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
-		Wave(const Duration& duration, const value_type& value, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		Wave(const Duration& duration, const value_type& value, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(size_t count, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		explicit Wave(size_t count, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 		
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(const Duration& duration, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		explicit Wave(const Duration& duration, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 
 		template <class Iterator>
-		Wave(Iterator first, Iterator last, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		Wave(Iterator first, Iterator last, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
-		Wave(size_t count, Arg::generator_<Fty> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		Wave(size_t count, Arg::generator_<Fty> generator, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
-		Wave(const Duration& duration, Arg::generator_<Fty> generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		Wave(const Duration& duration, Arg::generator_<Fty> generator, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		SIV3D_NODISCARD_CXX20
 		Wave(const Wave& samples);
@@ -87,16 +87,16 @@ namespace s3d
 		Wave(Wave&& samples) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Wave(std::initializer_list<value_type> init, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate, const allocator_type& alloc = allocator_type{});
+		Wave(std::initializer_list<value_type> init, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate, const allocator_type& alloc = allocator_type{});
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(const Array<value_type>& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		explicit Wave(const Array<value_type>& samples, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(Array<value_type>&& samples, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate) noexcept;
+		explicit Wave(Array<value_type>&& samples, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		explicit Wave(Arg::reserve_<size_type> size, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		explicit Wave(Arg::reserve_<size_type> size, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		SIV3D_NODISCARD_CXX20
 		explicit Wave(FilePathView path, AudioFormat format = AudioFormat::Unspecified);
@@ -105,10 +105,10 @@ namespace s3d
 		explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		SIV3D_NODISCARD_CXX20
-		Wave(GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		Wave(GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		SIV3D_NODISCARD_CXX20
-		Wave(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		Wave(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		Wave& operator =(const Array<value_type>& other);
 
@@ -125,9 +125,9 @@ namespace s3d
 		operator const Array<value_type>& () const noexcept;
 
 		[[nodiscard]]
-		uint32 samplingRate() const noexcept;
+		uint32 sampleRate() const noexcept;
 
-		void setSamplingRate(uint32 samplingRate) noexcept;
+		void setSampleRate(uint32 sampleRate) noexcept;
 
 		[[nodiscard]]
 		size_t samples() const noexcept;
@@ -364,16 +364,16 @@ namespace s3d
 		Wave slice(size_t index, size_t length) const;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
-		static Wave Generate(size_t count, Fty generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		static Wave Generate(size_t count, Fty generator, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>* = nullptr>
-		static Wave Generate(const Duration& duration, Fty generator, Arg::samplingRate_<uint32> samplingRate = DefaultSamplingRate);
+		static Wave Generate(const Duration& duration, Fty generator, Arg::sampleRate_<uint32> sampleRate = DefaultSampleRate);
 
 	private:
 
 		base_type m_data;
 
-		uint32 m_samplingRate = DefaultSamplingRate;
+		uint32 m_sampleRate = DefaultSampleRate;
 	};
 }
 

@@ -18,6 +18,8 @@
 
 namespace s3d
 {
+	class Wave;
+
 	/// @brief マイク
 	class Microphone
 	{
@@ -36,14 +38,14 @@ namespace s3d
 		Microphone();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Microphone(const Optional<size_t> deviceIndex, Optional<uint32> sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		explicit Microphone(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		~Microphone();
 
 		[[nodiscard]]
 		Optional<Permission> getPermission() const;
 
-		bool open(const Optional<size_t> deviceIndex, Optional<uint32> sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		bool open(const Optional<size_t>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, size_t bufferLength = DefaultBuffreLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		void close();
 
@@ -76,14 +78,14 @@ namespace s3d
 		[[nodiscard]]
 		size_t posSample() const;
 
-		[[nodiscard]]
-		double mean(const Duration& duration = SecondsF{ 0.02 }) const;
+		//[[nodiscard]]
+		//double mean(const Duration& duration = SecondsF{ 0.02 }) const;
 
-		[[nodiscard]]
-		double rootMeanSquare(const Duration& duration = SecondsF{ 0.02 }) const;
+		//[[nodiscard]]
+		//double rootMeanSquare(const Duration& duration = SecondsF{ 0.02 }) const;
 
-		[[nodiscard]]
-		double peak(const Duration& duration = SecondsF{ 0.02 }) const;
+		//[[nodiscard]]
+		//double peak(const Duration& duration = SecondsF{ 0.02 }) const;
 
 		//void fft(FFTResult& result, FFTSampleLength sampleLength = FFTSampleLength::Default) const;
 

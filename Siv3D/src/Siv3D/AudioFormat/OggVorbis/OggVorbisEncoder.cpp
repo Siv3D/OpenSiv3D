@@ -70,7 +70,7 @@ namespace s3d
 
 		::vorbis_info_init(&vi);
 
-		if (::vorbis_encode_init_vbr(&vi, 2, wave.samplingRate(), quality == 0 ? -0.1f : 0.01f * quality) != 0)
+		if (::vorbis_encode_init_vbr(&vi, 2, wave.sampleRate(), quality == 0 ? -0.1f : 0.01f * quality) != 0)
 		{
 			return false;
 		}

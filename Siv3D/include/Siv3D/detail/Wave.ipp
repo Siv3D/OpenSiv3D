@@ -15,52 +15,52 @@ namespace s3d
 {
 	namespace detail
 	{
-		inline constexpr size_t CalculateSamples(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate)
+		inline constexpr size_t CalculateSamples(const Duration& duration, const Arg::sampleRate_<uint32> sampleRate)
 		{
 			if (duration.count() <= 0.0)
 			{
 				return 0;
 			}
 
-			return static_cast<size_t>(duration.count() * samplingRate.value());
+			return static_cast<size_t>(duration.count() * sampleRate.value());
 		}
 	}
 
-	inline Wave::Wave(const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc) noexcept
+	inline Wave::Wave(const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc) noexcept
 		: m_data(alloc)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const size_t count, const value_type& value, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+	inline Wave::Wave(const size_t count, const value_type& value, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
 		: m_data(count, value, alloc)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const Duration& duration, const value_type& value, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
-		: m_data(detail::CalculateSamples(duration, samplingRate), value, alloc)
-		, m_samplingRate{ *samplingRate } {}
+	inline Wave::Wave(const Duration& duration, const value_type& value, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
+		: m_data(detail::CalculateSamples(duration, sampleRate), value, alloc)
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const size_t count, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+	inline Wave::Wave(const size_t count, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
 		: m_data(count, alloc)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
-		: m_data(detail::CalculateSamples(duration, samplingRate), alloc)
-		, m_samplingRate{ *samplingRate } {}
+	inline Wave::Wave(const Duration& duration, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
+		: m_data(detail::CalculateSamples(duration, sampleRate), alloc)
+		, m_sampleRate{ *sampleRate } {}
 
 	template <class Iterator>
-	inline Wave::Wave(Iterator first, Iterator last, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+	inline Wave::Wave(Iterator first, Iterator last, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
 		: m_data(first, last, alloc)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
-	inline Wave::Wave(const size_t count, Arg::generator_<Fty> generator, const Arg::samplingRate_<uint32> samplingRate)
+	inline Wave::Wave(const size_t count, Arg::generator_<Fty> generator, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		*this = Generate(count, generator.value(), samplingRate);
+		*this = Generate(count, generator.value(), sampleRate);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
-	inline Wave::Wave(const Duration& duration, Arg::generator_<Fty> generator, const Arg::samplingRate_<uint32> samplingRate)
+	inline Wave::Wave(const Duration& duration, Arg::generator_<Fty> generator, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		*this = Generate(duration, generator.value(), samplingRate);
+		*this = Generate(duration, generator.value(), sampleRate);
 	}
 
 	inline Wave::Wave(const Wave& samples)
@@ -72,21 +72,21 @@ namespace s3d
 	inline Wave::Wave(Wave&& samples) noexcept
 		: m_data(std::move(samples.m_data)) {}
 
-	inline Wave::Wave(std::initializer_list<value_type> init, const Arg::samplingRate_<uint32> samplingRate, const allocator_type& alloc)
+	inline Wave::Wave(std::initializer_list<value_type> init, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
 		: m_data(init, alloc)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const Array<value_type>& samples, const Arg::samplingRate_<uint32> samplingRate)
+	inline Wave::Wave(const Array<value_type>& samples, const Arg::sampleRate_<uint32> sampleRate)
 		: m_data(samples)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(Array<value_type>&& samples, const Arg::samplingRate_<uint32> samplingRate) noexcept
+	inline Wave::Wave(Array<value_type>&& samples, const Arg::sampleRate_<uint32> sampleRate) noexcept
 		: m_data(std::move(samples))
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
-	inline Wave::Wave(const Arg::reserve_<size_type> size, const Arg::samplingRate_<uint32> samplingRate)
+	inline Wave::Wave(const Arg::reserve_<size_type> size, const Arg::sampleRate_<uint32> sampleRate)
 		: m_data(size)
-		, m_samplingRate{ *samplingRate } {}
+		, m_sampleRate{ *sampleRate } {}
 
 	inline Wave& Wave::operator =(const Array<value_type>& other)
 	{
@@ -105,7 +105,7 @@ namespace s3d
 	inline Wave& Wave::operator =(const Wave& other)
 	{
 		m_data = other.m_data;
-		m_samplingRate = other.m_samplingRate;
+		m_sampleRate = other.m_sampleRate;
 
 		return *this;
 	}
@@ -113,7 +113,7 @@ namespace s3d
 	inline Wave& Wave::operator =(Wave&& other) noexcept
 	{
 		m_data = std::move(other.m_data);
-		m_samplingRate = other.m_samplingRate;
+		m_sampleRate = other.m_sampleRate;
 
 		return *this;
 	}
@@ -128,14 +128,14 @@ namespace s3d
 		return m_data;
 	}
 
-	inline uint32 Wave::samplingRate() const noexcept
+	inline uint32 Wave::sampleRate() const noexcept
 	{
-		return m_samplingRate;
+		return m_sampleRate;
 	}
 
-	inline void Wave::setSamplingRate(const uint32 samplingRate) noexcept
+	inline void Wave::setSampleRate(const uint32 sampleRate) noexcept
 	{
-		m_samplingRate = samplingRate;
+		m_sampleRate = sampleRate;
 	}
 
 	inline size_t Wave::samples() const noexcept
@@ -150,7 +150,7 @@ namespace s3d
 
 	inline double Wave::lengthSec() const noexcept
 	{
-		return static_cast<double>(size()) / m_samplingRate;
+		return static_cast<double>(size()) / m_sampleRate;
 	}
 
 	inline void Wave::fillZero()
@@ -564,16 +564,16 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
-	Wave Wave::Generate(const size_t count, Fty generator, const Arg::samplingRate_<uint32> samplingRate)
+	Wave Wave::Generate(const size_t count, Fty generator, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		Wave newWave(count, samplingRate);
+		Wave newWave(count, sampleRate);
 
 		if (not newWave)
 		{
 			return newWave;
 		}
 
-		const double ir = (1.0 / newWave.samplingRate());
+		const double ir = (1.0 / newWave.sampleRate());
 		WaveSample* pDst = newWave.data();
 
 		for (size_t i = 0; i < count; ++i)
@@ -585,9 +585,9 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>
-	Wave Wave::Generate(const Duration& duration, Fty generator, const Arg::samplingRate_<uint32> samplingRate)
+	Wave Wave::Generate(const Duration& duration, Fty generator, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		return Generate(detail::CalculateSamples(duration, samplingRate), generator, samplingRate);
+		return Generate(detail::CalculateSamples(duration, sampleRate), generator, sampleRate);
 	}
 }
 

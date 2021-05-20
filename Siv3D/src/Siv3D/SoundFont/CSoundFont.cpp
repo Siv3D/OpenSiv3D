@@ -85,7 +85,7 @@ namespace s3d
 		}
 	}
 
-	Wave CSoundFont::render(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+	Wave CSoundFont::render(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		if (not m_hasGMGSx)
 		{
@@ -103,10 +103,10 @@ namespace s3d
 			}
 		}
 
-		return m_GMGSx->render(instrument, key, noteOn, noteOff, velocity, samplingRate);
+		return m_GMGSx->render(instrument, key, noteOn, noteOff, velocity, sampleRate);
 	}
 
-	Wave CSoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave CSoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		if (not m_hasGMGSx)
 		{
@@ -124,10 +124,10 @@ namespace s3d
 			}
 		}
 
-		return m_GMGSx->renderMIDI(path, midiScore, tail, samplingRate);
+		return m_GMGSx->renderMIDI(path, midiScore, tail, sampleRate);
 	}
 
-	Wave CSoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave CSoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		if (not m_hasGMGSx)
 		{
@@ -145,6 +145,6 @@ namespace s3d
 			}
 		}
 
-		return m_GMGSx->renderMIDI(reader, midiScore, tail, samplingRate);
+		return m_GMGSx->renderMIDI(reader, midiScore, tail, sampleRate);
 	}
 }

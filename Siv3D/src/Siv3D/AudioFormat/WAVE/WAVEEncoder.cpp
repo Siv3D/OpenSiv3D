@@ -79,7 +79,7 @@ namespace s3d
 		const uint16 bitsWidth = format == WAVEFormat::StereoUint8 ? 1
 			: format == WAVEFormat::StereoSint16 ? 2 : 4;
 		const uint16 channels = 2;
-		const uint32 sampleRate = wave.samplingRate();
+		const uint32 sampleRate = wave.sampleRate();
 		const size_t waveSize = wave.size() * channels * bitsWidth;
 
 		const uint32 headerSize = sizeof(RiffHeader) + sizeof(ChunkHeader) + sizeof(FormatHeader) + sizeof(ChunkHeader);

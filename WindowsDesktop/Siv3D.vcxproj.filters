@@ -1183,6 +1183,12 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo">
       <UniqueIdentifier>{45642170-79af-47f6-ad19-1996cdaabff9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Microphone">
+      <UniqueIdentifier>{c566475b-0964-467c-829a-66286115db2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone">
+      <UniqueIdentifier>{33d28f50-9ead-4981-9b30-cad6a135a04f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5526,6 +5532,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MicrophoneInfo.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone\MicrophoneDetail.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7522,6 +7531,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo\SivMicrophoneInfo.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone\MicrophoneDetail.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

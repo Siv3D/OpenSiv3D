@@ -45,31 +45,31 @@ namespace s3d
 		explicit operator bool() const noexcept;
 
 		[[nodiscard]]
-		Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff = SecondsF{ 1.0 }, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+		Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff = SecondsF{ 1.0 }, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 		[[nodiscard]]
-		Wave renderMIDI(FilePathView path, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+		Wave renderMIDI(FilePathView path, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate, const Duration& tail = SecondsF{ 0.5 });
 
 		[[nodiscard]]
-		Wave renderMIDI(FilePathView path, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+		Wave renderMIDI(FilePathView path, const Duration& tail, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 		[[nodiscard]]
-		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate, const Duration& tail = SecondsF{ 0.5 });
 
 		[[nodiscard]]
-		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+		Wave renderMIDI(FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 		[[nodiscard]]
-		Wave renderMIDI(IReader& reader, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+		Wave renderMIDI(IReader& reader, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate, const Duration& tail = SecondsF{ 0.5 });
 
 		[[nodiscard]]
-		Wave renderMIDI(IReader& reader, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+		Wave renderMIDI(IReader& reader, const Duration& tail, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 		[[nodiscard]]
-		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, const Duration& tail = SecondsF{ 0.5 });
+		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate, const Duration& tail = SecondsF{ 0.5 });
 
 		[[nodiscard]]
-		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate);
+		Wave renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 	private:
 

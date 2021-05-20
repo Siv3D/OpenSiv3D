@@ -177,7 +177,7 @@ namespace s3d
 			return{};
 		}
 
-		Wave wave(samples, Arg::samplingRate = (vi->rate ? static_cast<uint32>(vi->rate) : Wave::DefaultSamplingRate));
+		Wave wave(samples, Arg::sampleRate = (vi->rate ? static_cast<uint32>(vi->rate) : Wave::DefaultSampleRate));
 		constexpr int32 BufferSize = 4096;
 		std::array<char, BufferSize> buffer;
 		WaveSample* pDst = wave.data();

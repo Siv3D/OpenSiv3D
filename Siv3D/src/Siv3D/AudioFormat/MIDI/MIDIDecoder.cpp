@@ -44,22 +44,22 @@ namespace s3d
 	Wave MIDIDecoder::decode(const FilePathView path) const
 	{
 		std::array<Array<MIDINote>, 16> _unused;
-		return SIV3D_ENGINE(SoundFont)->renderMIDI(path, _unused, Wave::DefaultSamplingRate, SecondsF{ 0.5 });
+		return SIV3D_ENGINE(SoundFont)->renderMIDI(path, _unused, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 
 	Wave MIDIDecoder::decode(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore) const
 	{
-		return SIV3D_ENGINE(SoundFont)->renderMIDI(path, midiScore, Wave::DefaultSamplingRate, SecondsF{ 0.5 });
+		return SIV3D_ENGINE(SoundFont)->renderMIDI(path, midiScore, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 
 	Wave MIDIDecoder::decode(IReader& reader, const FilePathView pathHint) const
 	{
 		std::array<Array<MIDINote>, 16> _unused;
-		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, _unused, Wave::DefaultSamplingRate, SecondsF{ 0.5 });
+		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, _unused, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 
 	Wave MIDIDecoder::decode(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const FilePathView pathHint) const
 	{
-		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, midiScore, Wave::DefaultSamplingRate, SecondsF{ 0.5 });
+		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, midiScore, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 }

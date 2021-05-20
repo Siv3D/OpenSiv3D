@@ -70,7 +70,7 @@ namespace s3d
 	//		return false;
 	//	}
 
-	//	//const int32 inputRate = wave.samplingRate();
+	//	//const int32 inputRate = wave.sampleRate();
 	//	//int32 coding_rate;
 	//	//if (inputRate > 24000)coding_rate = 48000;
 	//	//else if (inputRate > 16000)coding_rate = 24000;

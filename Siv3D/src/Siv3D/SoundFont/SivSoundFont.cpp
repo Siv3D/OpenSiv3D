@@ -51,56 +51,56 @@ namespace s3d
 		return pImpl->isOpen();
 	}
 
-	Wave SoundFont::render(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::render(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		return pImpl->render(instrument, key, noteOn, noteOff, velocity, samplingRate, 0.0);
+		return pImpl->render(instrument, key, noteOn, noteOff, velocity, sampleRate, 0.0);
 	}
 
-	Wave SoundFont::renderMIDI(const FilePathView path, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave SoundFont::renderMIDI(const FilePathView path, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		std::array<Array<MIDINote>, 16> midiScore;
-		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(path, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(const FilePathView path, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(const FilePathView path, const Duration& tail, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		std::array<Array<MIDINote>, 16> midiScore;
-		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(path, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave SoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		midiScore.fill({});
-		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(path, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		midiScore.fill({});
-		return pImpl->renderMIDI(path, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(path, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(IReader& reader, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave SoundFont::renderMIDI(IReader& reader, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		std::array<Array<MIDINote>, 16> midiScore;
-		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(reader, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(IReader& reader, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(IReader& reader, const Duration& tail, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		std::array<Array<MIDINote>, 16> midiScore;
-		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(reader, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::samplingRate_<uint32> samplingRate, const Duration& tail)
+	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
 		midiScore.fill({});
-		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(reader, sampleRate, tail, midiScore);
 	}
 
-	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::samplingRate_<uint32> samplingRate)
+	Wave SoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Duration& tail, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		midiScore.fill({});
-		return pImpl->renderMIDI(reader, samplingRate, tail, midiScore);
+		return pImpl->renderMIDI(reader, sampleRate, tail, midiScore);
 	}
 }

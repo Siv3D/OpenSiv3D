@@ -31,12 +31,12 @@ namespace s3d
 		*this = AudioDecoder::Decode(reader, format);
 	}
 
-	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
-		: Wave{ instrument, key, duration, SecondsF{ 0.5 }, velocity, samplingRate } {}
+	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+		: Wave{ instrument, key, duration, SecondsF{ 0.5 }, velocity, sampleRate } {}
 
-	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		*this = SIV3D_ENGINE(SoundFont)->render(instrument, key, noteOn, noteOff, velocity, samplingRate);
+		*this = SIV3D_ENGINE(SoundFont)->render(instrument, key, noteOn, noteOff, velocity, sampleRate);
 	}
 
 	void Wave::swapLR() noexcept

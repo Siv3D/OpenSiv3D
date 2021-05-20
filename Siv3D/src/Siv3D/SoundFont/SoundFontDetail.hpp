@@ -30,11 +30,11 @@ namespace s3d
 
 		bool isOpen() const noexcept;
 
-		Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::samplingRate_<uint32> samplingRate, double globalGain);
+		Wave render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::sampleRate_<uint32> sampleRate, double globalGain);
 
-		Wave renderMIDI(FilePathView path, Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
+		Wave renderMIDI(FilePathView path, Arg::sampleRate_<uint32> _sampleRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
 
-		Wave renderMIDI(IReader& reader, Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
+		Wave renderMIDI(IReader& reader, Arg::sampleRate_<uint32> _sampleRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore);
 
 	private:
 

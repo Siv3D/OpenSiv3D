@@ -110,7 +110,7 @@ namespace s3d
 		const uint32 size_bytes = chunkHeader.chunkSize;
 		const size_t num_samples = size_bytes / (formatHeader.channels * (formatHeader.bitsWidth / 8));
 
-		Wave wave(num_samples, Arg::samplingRate = formatHeader.samplerate);
+		Wave wave(num_samples, Arg::sampleRate = formatHeader.samplerate);
 
 		if (formatHeader.bitsWidth == 8 && formatHeader.channels == 1)
 		{

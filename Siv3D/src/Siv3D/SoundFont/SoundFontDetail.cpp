@@ -57,20 +57,20 @@ namespace s3d
 		return (m_font != nullptr);
 	}
 
-	Wave SoundFont::SoundFontDetail::render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::samplingRate_<uint32> samplingRate, double globalGain)
+	Wave SoundFont::SoundFontDetail::render(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::sampleRate_<uint32> sampleRate, double globalGain)
 	{
 		if (not m_font)
 		{
 			return{};
 		}
 
-		const size_t noteOnSamples = detail::CalculateSamples(noteOn, samplingRate);
-		const size_t noteOffSamples = detail::CalculateSamples(noteOff, samplingRate);
+		const size_t noteOnSamples = detail::CalculateSamples(noteOn, sampleRate);
+		const size_t noteOffSamples = detail::CalculateSamples(noteOff, sampleRate);
 		const size_t samples = (noteOnSamples + noteOffSamples);
 
-		Wave wave{ samples, samplingRate };
+		Wave wave{ samples, sampleRate };
 
-		::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, static_cast<int32>(*samplingRate), static_cast<float>(globalGain));
+		::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, static_cast<int32>(*sampleRate), static_cast<float>(globalGain));
 
 		::tsf_note_on(m_font, FromEnum(instrument), key, static_cast<float>(velocity));
 
@@ -82,7 +82,7 @@ namespace s3d
 
 			::tsf_render_float(m_font, &wave[noteOnSamples].left, static_cast<int32>(noteOffSamples), 0);
 
-			const size_t fadeOutSamples = Min<size_t>((*samplingRate / 10), noteOffSamples);
+			const size_t fadeOutSamples = Min<size_t>((*sampleRate / 10), noteOffSamples);
 
 			wave.fadeOut(fadeOutSamples);
 		}
@@ -94,15 +94,15 @@ namespace s3d
 		return wave;
 	}
 
-	Wave SoundFont::SoundFontDetail::renderMIDI(const FilePathView path, const Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore)
+	Wave SoundFont::SoundFontDetail::renderMIDI(const FilePathView path, const Arg::sampleRate_<uint32> _sampleRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore)
 	{
 		if (not m_font)
 		{
 			return{};
 		}
 
-		const uint32 samplingRate = *_samplingRate;
-		const size_t tailSamples = detail::CalculateSamples(tail, Arg::samplingRate = samplingRate);
+		const uint32 sampleRate = *_sampleRate;
+		const size_t tailSamples = detail::CalculateSamples(tail, Arg::sampleRate = sampleRate);
 
 		tml_message* midi = ::tml_load_filename(path.narrow().c_str());
 		{
@@ -112,10 +112,10 @@ namespace s3d
 			}
 
 			::tsf_channel_set_bank_preset(m_font, 9, 128, 0);
-			::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, samplingRate, 0.0f);
+			::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, sampleRate, 0.0f);
 		}
 
-		Wave result(Arg::samplingRate = samplingRate);
+		Wave result(Arg::sampleRate = sampleRate);
 		{
 			size_t timeMillisec = 0;
 
@@ -124,7 +124,7 @@ namespace s3d
 				timeMillisec = currentMessage->time;
 			}
 
-			const size_t reserveSamples = ((timeMillisec + tailSamples + 100) * samplingRate / 1000);
+			const size_t reserveSamples = ((timeMillisec + tailSamples + 100) * sampleRate / 1000);
 			result.reserve(reserveSamples);
 		}
 
@@ -137,7 +137,7 @@ namespace s3d
 			{
 				constexpr int32 SampleBlock = TSF_RENDER_EFFECTSAMPLEBLOCK;
 
-				for (timeMillisec += SampleBlock * (1000.0 / samplingRate); currentMessage && (timeMillisec >= currentMessage->time); currentMessage = currentMessage->next)
+				for (timeMillisec += SampleBlock * (1000.0 / sampleRate); currentMessage && (timeMillisec >= currentMessage->time); currentMessage = currentMessage->next)
 				{
 					if ((currentMessage->type == 0x80) || (currentMessage->type == 0x90))
 					{
@@ -201,7 +201,7 @@ namespace s3d
 				::tsf_render_float(m_font, &result[currentSize].left, static_cast<int32>(tailSamples), 0);
 			}
 
-			const size_t fadeOutSamples = (samplingRate / 10);
+			const size_t fadeOutSamples = (sampleRate / 10);
 			result.fadeOut(fadeOutSamples);
 		}
 
@@ -212,15 +212,15 @@ namespace s3d
 	}
 
 
-	Wave SoundFont::SoundFontDetail::renderMIDI(IReader& reader, const Arg::samplingRate_<uint32> _samplingRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore)
+	Wave SoundFont::SoundFontDetail::renderMIDI(IReader& reader, const Arg::sampleRate_<uint32> _sampleRate, const Duration& tail, std::array<Array<MIDINote>, 16>& midiScore)
 	{
 		if (not m_font)
 		{
 			return{};
 		}
 
-		const uint32 samplingRate = *_samplingRate;
-		const size_t tailSamples = detail::CalculateSamples(tail, Arg::samplingRate = samplingRate);
+		const uint32 sampleRate = *_sampleRate;
+		const size_t tailSamples = detail::CalculateSamples(tail, Arg::sampleRate = sampleRate);
 
 		Blob blob{ reader };
 		tml_message* midi = ::tml_load_memory(blob.data(), static_cast<int32>(blob.size()));
@@ -231,10 +231,10 @@ namespace s3d
 			}
 
 			::tsf_channel_set_bank_preset(m_font, 9, 128, 0);
-			::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, samplingRate, 0.0f);
+			::tsf_set_output(m_font, TSF_STEREO_INTERLEAVED, sampleRate, 0.0f);
 		}
 
-		Wave result(Arg::samplingRate = samplingRate);
+		Wave result(Arg::sampleRate = sampleRate);
 		{
 			size_t timeMillisec = 0;
 
@@ -243,7 +243,7 @@ namespace s3d
 				timeMillisec = currentMessage->time;
 			}
 
-			const size_t reserveSamples = ((timeMillisec + tailSamples + 100) * samplingRate / 1000);
+			const size_t reserveSamples = ((timeMillisec + tailSamples + 100) * sampleRate / 1000);
 			result.reserve(reserveSamples);
 		}
 
@@ -256,7 +256,7 @@ namespace s3d
 			{
 				constexpr int32 SampleBlock = TSF_RENDER_EFFECTSAMPLEBLOCK;
 
-				for (timeMillisec += SampleBlock * (1000.0 / samplingRate); currentMessage && (timeMillisec >= currentMessage->time); currentMessage = currentMessage->next)
+				for (timeMillisec += SampleBlock * (1000.0 / sampleRate); currentMessage && (timeMillisec >= currentMessage->time); currentMessage = currentMessage->next)
 				{
 					if ((currentMessage->type == 0x80) || (currentMessage->type == 0x90))
 					{
@@ -320,7 +320,7 @@ namespace s3d
 				::tsf_render_float(m_font, &result[currentSize].left, static_cast<int32>(tailSamples), 0);
 			}
 
-			const size_t fadeOutSamples = (samplingRate / 10);
+			const size_t fadeOutSamples = (sampleRate / 10);
 			result.fadeOut(fadeOutSamples);
 		}
 

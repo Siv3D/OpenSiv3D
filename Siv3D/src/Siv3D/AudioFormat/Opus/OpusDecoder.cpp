@@ -143,7 +143,7 @@ namespace s3d
 			}
 		}
 
-		wave.setSamplingRate(head->input_sample_rate);
+		wave.setSampleRate(head->input_sample_rate);
 
 		::op_free(of);
 

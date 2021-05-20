@@ -222,7 +222,7 @@ namespace s3d
 
 			Wave load()
 			{
-				Wave wave(m_duration, Arg::samplingRate = static_cast<uint32>(m_out_sample_rate));
+				Wave wave(m_duration, Arg::sampleRate = static_cast<uint32>(m_out_sample_rate));
 
 				while (0 <= av_read_frame(m_format_context, m_packet))
 				{
@@ -543,7 +543,7 @@ namespace s3d
 				if (ret == MPG123_NEW_FORMAT)
 				{
 					p_mpg123_getformat(m, &rate, &channels, &enc);
-					wave.setSamplingRate(static_cast<uint32>(rate));
+					wave.setSampleRate(static_cast<uint32>(rate));
 				}
 				
 				if (outc + bytes > (wave.size() * sizeof(WaveSampleS16)))
