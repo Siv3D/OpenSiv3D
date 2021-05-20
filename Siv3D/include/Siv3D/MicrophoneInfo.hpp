@@ -16,22 +16,20 @@
 
 namespace s3d
 {
-	/// @brief Web カメラの情報
-	struct WebcamInfo
+	/// @brief マイクの情報
+	struct MicrophoneInfo
 	{
-		uint32 cameraIndex = 0;
+		uint32 microphoneIndex = 0;
 
 		/// @brief 名前
 		String name;
-
-		String uniqueName;
 	};
 
 	namespace System
 	{
-		/// @brief 利用可能な Web カメラの一覧を返します。
-		/// @return 利用可能な Web カメラの一覧
+		/// @brief 利用可能なマイクの一覧を返します。
+		/// @return 利用可能なマイクの一覧
 		[[nodiscard]]
-		Array<WebcamInfo> EnumerateWebcams();
+		Array<MicrophoneInfo> EnumerateMicrophones();
 	}
 }

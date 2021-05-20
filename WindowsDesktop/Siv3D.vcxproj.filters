@@ -1180,6 +1180,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox">
       <UniqueIdentifier>{889a22f3-b2e0-4586-90b1-3c7b519b3d7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo">
+      <UniqueIdentifier>{45642170-79af-47f6-ad19-1996cdaabff9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5520,6 +5523,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MicrophoneInfo.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RecordingFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7513,6 +7522,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo\SivMicrophoneInfo.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

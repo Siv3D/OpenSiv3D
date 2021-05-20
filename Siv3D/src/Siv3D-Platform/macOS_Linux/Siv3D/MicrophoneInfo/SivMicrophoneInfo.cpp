@@ -9,23 +9,16 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include <memory>
-# include "Common.hpp"
-# include "RecordingFormat.hpp"
+# include <Siv3D/MicrophoneInfo.hpp>
 
 namespace s3d
 {
-	/// @brief マイク
-	class Microphone
+	namespace System
 	{
-	public:
-
-
-	private:
-
-		class MicrophoneDetail;
-
-		std::shared_ptr<MicrophoneDetail> pImpl;
-	};
+		Array<MicrophoneInfo> EnumerateMicrophones()
+		{
+			// [Siv3D ToDo]
+			return{};
+		}
+	}
 }
