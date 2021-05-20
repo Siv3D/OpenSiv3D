@@ -1180,14 +1180,17 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox">
       <UniqueIdentifier>{889a22f3-b2e0-4586-90b1-3c7b519b3d7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo">
-      <UniqueIdentifier>{45642170-79af-47f6-ad19-1996cdaabff9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\Microphone">
       <UniqueIdentifier>{c566475b-0964-467c-829a-66286115db2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone">
       <UniqueIdentifier>{33d28f50-9ead-4981-9b30-cad6a135a04f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\rtaudio">
+      <UniqueIdentifier>{42ea5e62-a960-48af-902f-af3531a80d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MicrophoneInfo">
+      <UniqueIdentifier>{245a6353-62cc-419a-99a6-5921b988dc0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -5535,6 +5538,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone\MicrophoneDetail.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rtaudio\RtAudio.h">
+      <Filter>src\ThirdParty\rtaudio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7529,14 +7535,17 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo\SivMicrophoneInfo.cpp">
-      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\MicrophoneInfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp">
       <Filter>src\Siv3D\Microphone</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone\MicrophoneDetail.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\rtaudio\RtAudio.cpp">
+      <Filter>src\ThirdParty\rtaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MicrophoneInfo\SivMicrophoneInfo.cpp">
+      <Filter>src\Siv3D\MicrophoneInfo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
