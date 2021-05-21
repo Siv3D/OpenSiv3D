@@ -1195,6 +1195,54 @@
     <Filter Include="src\Siv3D\FFT">
       <UniqueIdentifier>{0f6cdb10-8947-43a5-aa93-d4abf4a55889}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\soloud">
+      <UniqueIdentifier>{bc39c547-c7c1-4846-be2e-4e04310e5173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\include">
+      <UniqueIdentifier>{80ed9314-eeaa-4161-9458-28af6f8cdb6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src">
+      <UniqueIdentifier>{7d39299d-dcb7-4b2f-beab-d3967eeb7276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource">
+      <UniqueIdentifier>{8fbcf5d3-fdb7-4b29-8f25-cd3473bb07fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\backend">
+      <UniqueIdentifier>{3820c4a0-1873-4fb6-a231-c3648fc920a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\core">
+      <UniqueIdentifier>{563d3ea3-3c86-4f19-af9b-6c372e25554a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\filter">
+      <UniqueIdentifier>{3f1e8dc2-af0f-426f-9685-094ea507d5e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\ay">
+      <UniqueIdentifier>{5f4ee7aa-5637-49a2-aba8-acd2d5bd738f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\monotone">
+      <UniqueIdentifier>{082d7fe0-dd61-401f-9be4-bf29bdd2f668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\noise">
+      <UniqueIdentifier>{10743afe-c013-443e-a508-6484e59e80f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\sfxr">
+      <UniqueIdentifier>{646a04a5-6cb7-4d33-9375-868c50b89197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\speech">
+      <UniqueIdentifier>{2c01561a-63da-4ff0-97da-900ccc9e117b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\tedsid">
+      <UniqueIdentifier>{ae28ae69-9251-420e-886e-349cf8c6c6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\vic">
+      <UniqueIdentifier>{636c6fb6-b485-4a63-b756-ca290e21a655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\vizsn">
+      <UniqueIdentifier>{ba62ad81-e882-4efe-b869-aacb6f97788d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\soloud\src\audiosource\wav">
+      <UniqueIdentifier>{65a6b342-7625-47cb-a977-c51851a38f6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5556,6 +5604,165 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\FFT\IFFT.hpp">
       <Filter>src\Siv3D\FFT</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_ay.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_bassboostfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_biquadresonantfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_bus.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_c.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_dcremovalfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_echofilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_eqfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_error.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fader.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fft.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fftfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file_hack_off.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file_hack_on.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_filter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_flangerfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_freeverbfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_internal.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_lofifilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_misc.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_monotone.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_noise.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_openmpt.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_queue.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_robotizefilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_sfxr.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_speech.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_tedsid.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_thread.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_vic.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_vizsn.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_wav.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_waveshaperfilter.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_wavstream.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\zx7decompress.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_audiosource.h">
+      <Filter>src\ThirdParty\soloud\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\darray.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\klatt.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\resonator.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\tts.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\sid.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\tedsid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\ted.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\tedsid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_flac.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_mp3.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_wav.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\stb_vorbis.h">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\miniaudio.h">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7574,5 +7781,232 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp">
       <Filter>src\Siv3D\FFT</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\soloud_ay.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\monotone\soloud_monotone.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\monotone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\noise\soloud_noise.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\sfxr\soloud_sfxr.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\sfxr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\darray.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\klatt.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\resonator.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\soloud_speech.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\tts.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\sid.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\tedsid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\soloud_tedsid.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\tedsid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\ted.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\tedsid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\vic\soloud_vic.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\vic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\vizsn\soloud_vizsn.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\vizsn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_impl.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\soloud_wav.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\soloud_wavstream.cpp">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\stb_vorbis.c">
+      <Filter>src\ThirdParty\soloud\src\audiosource\wav</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\alsa\soloud_alsa.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\coreaudio\soloud_coreaudio.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\jack\soloud_jack.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\soloud_miniaudio.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\nosound\soloud_nosound.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\null\soloud_null.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\openal\soloud_openal.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\openal\soloud_openal_dll.c">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\opensles\soloud_opensles.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\oss\soloud_oss.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\portaudio\soloud_portaudio.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\portaudio\soloud_portaudio_dll.c">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl1.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl1_dll.c">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl2.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl2_dll.c">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl2_static\soloud_sdl2_static.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl_static\soloud_sdl_static.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\vita_homebrew\soloud_vita_homebrew.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\wasapi\soloud_wasapi.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\winmm\soloud_winmm.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\xaudio2\soloud_xaudio2.cpp">
+      <Filter>src\ThirdParty\soloud\src\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_audiosource.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_bus.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_3d.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_basicops.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_faderops.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_filterops.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_getters.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_setters.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_voicegroup.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_voiceops.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fader.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fft.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fft_lut.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_file.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_filter.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_misc.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_queue.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_thread.cpp">
+      <Filter>src\ThirdParty\soloud\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_bassboostfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_biquadresonantfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_dcremovalfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_echofilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_eqfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_fftfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_flangerfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_freeverbfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_lofifilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_robotizefilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp">
+      <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">
+      <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </None>
   </ItemGroup>
 </Project>

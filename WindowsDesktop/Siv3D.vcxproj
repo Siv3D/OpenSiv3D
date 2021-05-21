@@ -1419,6 +1419,59 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\serial\impl\win.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\serial\serial.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\serial\v8stdint.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_audiosource.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_ay.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_bassboostfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_biquadresonantfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_bus.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_c.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_dcremovalfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_echofilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_eqfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_error.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fader.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fft.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_fftfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file_hack_off.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_file_hack_on.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_filter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_flangerfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_freeverbfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_internal.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_lofifilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_misc.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_monotone.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_noise.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_openmpt.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_queue.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_robotizefilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_sfxr.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_speech.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_tedsid.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_thread.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_vic.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_vizsn.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_wav.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_waveshaperfilter.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_wavstream.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\zx7decompress.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\darray.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\klatt.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\resonator.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\tts.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\sid.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\ted.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_flac.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_mp3.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_wav.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\stb_vorbis.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\miniaudio.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
@@ -2112,6 +2165,80 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\list_ports\list_ports_win.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\serial\impl\win.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\serial\serial.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\soloud_ay.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\monotone\soloud_monotone.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\noise\soloud_noise.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\sfxr\soloud_sfxr.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\darray.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\klatt.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\resonator.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\soloud_speech.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\tts.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\sid.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\soloud_tedsid.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\tedsid\ted.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\vic\soloud_vic.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\vizsn\soloud_vizsn.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\dr_impl.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\soloud_wav.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\soloud_wavstream.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\wav\stb_vorbis.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\alsa\soloud_alsa.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\coreaudio\soloud_coreaudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\jack\soloud_jack.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\soloud_miniaudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\nosound\soloud_nosound.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\null\soloud_null.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\openal\soloud_openal.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\openal\soloud_openal_dll.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\opensles\soloud_opensles.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\oss\soloud_oss.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\portaudio\soloud_portaudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\portaudio\soloud_portaudio_dll.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl2_static\soloud_sdl2_static.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl1.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl1_dll.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl\soloud_sdl2_dll.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\sdl_static\soloud_sdl_static.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\vita_homebrew\soloud_vita_homebrew.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\wasapi\soloud_wasapi.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\winmm\soloud_winmm.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\backend\xaudio2\soloud_xaudio2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_audiosource.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_bus.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_3d.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_basicops.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_faderops.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_filterops.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_getters.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_setters.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_voicegroup.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_core_voiceops.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fader.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fft.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_fft_lut.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_file.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_filter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_misc.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_queue.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_thread.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_bassboostfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_biquadresonantfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_dcremovalfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_echofilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_eqfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_fftfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_flangerfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_freeverbfilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_lofifilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_robotizefilter.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.cpp" />
@@ -2144,6 +2271,9 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\fastcover.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -2180,13 +2310,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\opencv;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\soloud/include;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
     <OutDir>..\Siv3D\lib\Windows\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\soloud/include;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_73_0;$(IncludePath)</IncludePath>
     <OutDir>..\Siv3D\lib\Windows\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
@@ -2199,7 +2329,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_XAUDIO2;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat />
@@ -2225,7 +2355,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_XAUDIO2;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

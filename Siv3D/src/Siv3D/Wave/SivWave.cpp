@@ -21,6 +21,43 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		// https://stackoverflow.com/a/55112294
+		inline constexpr size_t DeinterleaveIndex(const size_t i, const size_t length) noexcept
+		{
+			const size_t mid = (length - length / 2);
+
+			if (i < mid)
+			{
+				return (i * 2);
+			}
+
+			return ((i - mid) * 2 + 1);
+		}
+
+		template <class Type>
+		inline void Deinterleave(Type* arr, const size_t length) noexcept
+		{
+			if (length <= 1)
+			{
+				return;
+			}
+
+			for (size_t i = 1; i < length; ++i)
+			{
+				size_t k = DeinterleaveIndex(i, length);
+
+				while (k < i)
+				{
+					k = DeinterleaveIndex(k, length);
+				}
+
+				std::swap(arr[i], arr[k]);
+			}
+		}
+	}
+
 	Wave::Wave(const FilePathView path, const AudioFormat format)
 	{
 		*this = AudioDecoder::Decode(path, format);
@@ -32,7 +69,7 @@ namespace s3d
 	}
 
 	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
-		: Wave{ instrument, key, duration, SecondsF{ 0.5 }, velocity, sampleRate } {}
+		: Wave{ instrument, key, duration, SecondsF{ 1.0 }, velocity, sampleRate } {}
 
 	Wave::Wave(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
@@ -121,6 +158,11 @@ namespace s3d
 		{
 			*pDst-- *= (delta * i);
 		}
+	}
+
+	void Wave::deinterleave() noexcept
+	{
+		detail::Deinterleave(&m_data[0].left, m_data.size() * 2);
 	}
 
 	bool Wave::save(const FilePathView path, const AudioFormat format) const

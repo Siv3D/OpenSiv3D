@@ -69,6 +69,7 @@ Name | Version
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | 0.7.2
 [Sol2](https://github.com/ThePhD/sol2) | v3.2.2
+[SoLoud](https://github.com/jarikomppa/soloud) | 
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
