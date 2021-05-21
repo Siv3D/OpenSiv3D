@@ -56,6 +56,7 @@ Name | Version
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
 [Opus](https://opus-codec.org/downloads/) | 1.3.1
 [opusfile](https://opus-codec.org/downloads/) | 0.12
+[pffft](https://bitbucket.org/jpommier/pffft/src/master/) | 
 [plutovg](https://github.com/sammycage/plutovg) | 
 [qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
 [Quirc](https://github.com/dlbeer/quirc) | 

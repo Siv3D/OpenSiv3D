@@ -1189,6 +1189,9 @@
     <Filter Include="src\Siv3D\MicrophoneInfo">
       <UniqueIdentifier>{245a6353-62cc-419a-99a6-5921b988dc0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\pffft">
+      <UniqueIdentifier>{ca9ba113-1041-4379-95b4-f814fd8cc883}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5541,6 +5544,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FFTSampleLength.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\pffft\pffft.h">
+      <Filter>src\ThirdParty\pffft</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7546,6 +7552,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail.cpp">
       <Filter>src\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\pffft\pffft.c">
+      <Filter>src\ThirdParty\pffft</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

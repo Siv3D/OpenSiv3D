@@ -697,6 +697,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/Oniguruma/utf32_le.c
   ../Siv3D/src/ThirdParty/Oniguruma/utf8.c
 
+  ../Siv3D/src/ThirdParty/pffft/pffft.c
+
   ../Siv3D/src/ThirdParty/plutovg/plutovg-blend.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-dash.c
   ../Siv3D/src/ThirdParty/plutovg/plutovg-geometry.c
