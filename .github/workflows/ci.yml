@@ -28,6 +28,7 @@ jobs:
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt update
         sudo apt install ninja-build
+        sudo apt install libasound2-dev
         sudo apt install libavcodec-dev
         sudo apt install libavformat-dev
         sudo apt install libavutil-dev

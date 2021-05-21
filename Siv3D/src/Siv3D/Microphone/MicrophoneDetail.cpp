@@ -62,7 +62,7 @@ namespace s3d
 			return false;
 		}
 
-		const uint32 nChannels = info.inputChannels;
+		const uint32 nChannels = Min(info.inputChannels, 2u);
 		const bool isF32 = !!(info.nativeFormats & RTAUDIO_FLOAT32);
 		const bool isS16 = !!(info.nativeFormats & RTAUDIO_SINT16);
 
@@ -72,11 +72,11 @@ namespace s3d
 			return false;
 		}
 
-		if ((nChannels != 1) && (nChannels != 2))
-		{
-			LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support {} ch input"_fmt(nChannels));
-			return false;
-		}
+		//if ((nChannels != 1) && (nChannels != 2))
+		//{
+		//	LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support {} ch input"_fmt(nChannels));
+		//	return false;
+		//}
 
 		RtAudio::StreamParameters iParams;
 		iParams.deviceId = m_microphoneIndex;
@@ -169,7 +169,7 @@ namespace s3d
 			m_sampleRate = info.preferredSampleRate;
 		}
 
-		const uint32 nChannels = info.inputChannels;
+		const uint32 nChannels = Min(info.inputChannels, 2u);
 		const bool isF32 = !!(info.nativeFormats & RTAUDIO_FLOAT32);
 		const bool isS16 = !!(info.nativeFormats & RTAUDIO_SINT16);
 
@@ -179,11 +179,11 @@ namespace s3d
 			return false;
 		}
 
-		if ((nChannels != 1) && (nChannels != 2))
-		{
-			LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support {} ch input"_fmt(nChannels));
-			return false;
-		}
+		//if ((nChannels != 1) && (nChannels != 2))
+		//{
+		//	LOG_FAIL(U"❌ Microphone: OpenSiv3D does not support {} ch input"_fmt(nChannels));
+		//	return false;
+		//}
 
 		RtAudio::StreamParameters iParams;
 		iParams.deviceId = m_microphoneIndex;

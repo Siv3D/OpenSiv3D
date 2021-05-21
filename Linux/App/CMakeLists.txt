@@ -55,14 +55,13 @@ target_include_directories(Siv3DTest PRIVATE
   )
 target_link_libraries(Siv3DTest PRIVATE
   ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
-  -lpthread
-  -ldl
-  -lGL
-  -lX11
+  -lasound
   -lavcodec
   -lavformat
   -lavutil
+  -ldl
   -lfreetype
+  -lGL
   -lglib-2.0
   -lgobject-2.0
   -lgif
@@ -79,6 +78,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopencv_videoio
   -lopus
   -lopusfile
+  -lpthread
   -lpng
   -lswresample
   -ltiff
@@ -87,6 +87,7 @@ target_link_libraries(Siv3DTest PRIVATE
 	-lvorbisenc
 	-lvorbisfile
   -lwebp
+  -lX11
   -lXft
   )
 

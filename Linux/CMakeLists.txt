@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Linux CXX C)
 find_package(PkgConfig)
 find_package(Boost 1.71.0 REQUIRED)
-pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED libavcodec libavformat libavutil freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng libswresample libtiff-4 libturbojpeg vorbis libwebp x11 xft zlib)
+pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED alsa libavcodec libavformat libavutil freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng libswresample libtiff-4 libturbojpeg vorbis libwebp x11 xft zlib)
 
 message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "[info] SIV3D_THIRD_PARTY_INCLUDE_DIRS: ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}")
@@ -17,7 +17,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -fPIC -msse4.1 -D_GLFW_X11 -DMUPARSER_STATIC -D_UNICODE")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -fPIC -msse4.1 -D__LINUX_ALSA__ -D_GLFW_X11 -DMUPARSER_STATIC -D_UNICODE")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -274,6 +274,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MemoryMappedFileView/SivMemoryMappedFileView.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
+  ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
+  ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
   ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
@@ -730,6 +732,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/RecastDetour/RecastMeshDetail.cpp
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRasterization.cpp
   ../Siv3D/src/ThirdParty/RecastDetour/RecastRegion.cpp
+
+  ../Siv3D/src/ThirdParty/rtaudio/RtAudio.cpp
 
   ../Siv3D/src/ThirdParty/serial/impl/list_ports/list_ports_linux.cc
   ../Siv3D/src/ThirdParty/serial/impl/unix.cc
