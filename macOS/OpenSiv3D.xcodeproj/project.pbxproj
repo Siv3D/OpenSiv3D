@@ -920,6 +920,13 @@
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
 		2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */; };
 		2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */; };
+		2C636D8C2657A0BF00AF029F /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8A2657A0BF00AF029F /* pffft.c */; };
+		2C636D8D2657A0BF00AF029F /* pffft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8B2657A0BF00AF029F /* pffft.h */; };
+		2C636D942657A0DC00AF029F /* SivFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8F2657A0DC00AF029F /* SivFFT.cpp */; };
+		2C636D952657A0DC00AF029F /* IFFT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D902657A0DC00AF029F /* IFFT.hpp */; };
+		2C636D962657A0DC00AF029F /* FFTFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D912657A0DC00AF029F /* FFTFactory.cpp */; };
+		2C636D972657A0DC00AF029F /* CFFT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D922657A0DC00AF029F /* CFFT.hpp */; };
+		2C636D982657A0DC00AF029F /* CFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D932657A0DC00AF029F /* CFFT.cpp */; };
 		2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6390E325367EE40030F18E /* ConstantBufferDetail_GL4.cpp */; };
 		2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6390E425367EE40030F18E /* ConstantBufferDetail_GL4.hpp */; };
 		2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6390E825367F020030F18E /* ConstantBufferDetailFactory.cpp */; };
@@ -2564,6 +2571,13 @@
 		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
 		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
 		2C636D8826577C1300AF029F /* FFTSampleLength.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFTSampleLength.hpp; sourceTree = "<group>"; };
+		2C636D8A2657A0BF00AF029F /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
+		2C636D8B2657A0BF00AF029F /* pffft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pffft.h; sourceTree = "<group>"; };
+		2C636D8F2657A0DC00AF029F /* SivFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFFT.cpp; sourceTree = "<group>"; };
+		2C636D902657A0DC00AF029F /* IFFT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IFFT.hpp; sourceTree = "<group>"; };
+		2C636D912657A0DC00AF029F /* FFTFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTFactory.cpp; sourceTree = "<group>"; };
+		2C636D922657A0DC00AF029F /* CFFT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFFT.hpp; sourceTree = "<group>"; };
+		2C636D932657A0DC00AF029F /* CFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFFT.cpp; sourceTree = "<group>"; };
 		2C6390E325367EE40030F18E /* ConstantBufferDetail_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_GL4.cpp; sourceTree = "<group>"; };
 		2C6390E425367EE40030F18E /* ConstantBufferDetail_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_GL4.hpp; sourceTree = "<group>"; };
 		2C6390E825367F020030F18E /* ConstantBufferDetailFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetailFactory.cpp; sourceTree = "<group>"; };
@@ -4561,6 +4575,7 @@
 				2C47B47224DD97F1008D83BE /* muparser */,
 				2C794AA825C3DE2700034D81 /* nlohmann */,
 				2C834D4E248805D4006208B8 /* Oniguruma */,
+				2C636D892657A0BF00AF029F /* pffft */,
 				2C0A4D522566A855002A4B5E /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
 				2CBEBCAD2629D15F0077DDBF /* quirc */,
@@ -4962,6 +4977,7 @@
 				2C47B27824DD9789008D83BE /* EngineLog */,
 				2C47B2E624DD9789008D83BE /* Error */,
 				2CEC7DBF25FA4DC200704B99 /* Exif */,
+				2C636D8E2657A0DC00AF029F /* FFT */,
 				2C47B28224DD9789008D83BE /* FileSystem */,
 				2C48BF3925D41C0D00A93CE3 /* Font */,
 				2C47B2BB24DD9789008D83BE /* FormatFloat */,
@@ -6770,6 +6786,27 @@
 				2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */,
 			);
 			path = Microphone;
+			sourceTree = "<group>";
+		};
+		2C636D892657A0BF00AF029F /* pffft */ = {
+			isa = PBXGroup;
+			children = (
+				2C636D8A2657A0BF00AF029F /* pffft.c */,
+				2C636D8B2657A0BF00AF029F /* pffft.h */,
+			);
+			path = pffft;
+			sourceTree = "<group>";
+		};
+		2C636D8E2657A0DC00AF029F /* FFT */ = {
+			isa = PBXGroup;
+			children = (
+				2C636D8F2657A0DC00AF029F /* SivFFT.cpp */,
+				2C636D902657A0DC00AF029F /* IFFT.hpp */,
+				2C636D912657A0DC00AF029F /* FFTFactory.cpp */,
+				2C636D922657A0DC00AF029F /* CFFT.hpp */,
+				2C636D932657A0DC00AF029F /* CFFT.cpp */,
+			);
+			path = FFT;
 			sourceTree = "<group>";
 		};
 		2C6390E125367EE40030F18E /* ConstantBuffer */ = {
@@ -9212,6 +9249,7 @@
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
 				2C44C06A264960D400A5E72A /* tiff.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
+				2C636D972657A0DC00AF029F /* CFFT.hpp in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
@@ -9577,6 +9615,7 @@
 				2C48BF7425D41C0D00A93CE3 /* SDFGlyphRenderer.hpp in Headers */,
 				2C13C9BF25BD29FC0054B968 /* lopcodes.h in Headers */,
 				2C47B31D24DD9789008D83BE /* ICursor.hpp in Headers */,
+				2C636D952657A0DC00AF029F /* IFFT.hpp in Headers */,
 				2C43C89A25C837F100D6D613 /* svkern.h in Headers */,
 				2C48BF7E25D41C0D00A93CE3 /* CFont.hpp in Headers */,
 				2C43C88B25C837F000D6D613 /* ftobjs.h in Headers */,
@@ -9602,6 +9641,7 @@
 				2C956668264546F700539B85 /* element.h in Headers */,
 				2C68509124B768A800B98A7F /* CConsole.hpp in Headers */,
 				2C42323D242B155E00A16BCA /* cocoa_joystick.h in Headers */,
+				2C636D8D2657A0BF00AF029F /* pffft.h in Headers */,
 				2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */,
 				2C5337B1264F5AA200CE0F1B /* xxhash.h in Headers */,
 				2C956675264546F700539B85 /* graphicselement.h in Headers */,
@@ -9928,6 +9968,7 @@
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
+				2C636D982657A0DC00AF029F /* CFFT.cpp in Sources */,
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
 				2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */,
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
@@ -9951,6 +9992,7 @@
 				2C27A9F0256E359400756617 /* GL4SamplerState.cpp in Sources */,
 				2CDD4F42260A3F7100A51D68 /* P2DistanceJoint.cpp in Sources */,
 				2C834DB3248805D4006208B8 /* iso8859_3.c in Sources */,
+				2C636D942657A0DC00AF029F /* SivFFT.cpp in Sources */,
 				2C27A9ED256E359400756617 /* GL4RasterizerState.cpp in Sources */,
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
 				2C533799264F5AA200CE0F1B /* zstd_lazy.c in Sources */,
@@ -10335,6 +10377,7 @@
 				2C8333A826441F7100AEECC7 /* SivGeoJSON.cpp in Sources */,
 				2C2AA35626009C74003F3EBC /* b2_chain_circle_contact.cpp in Sources */,
 				2C47B31F24DD9789008D83BE /* CursorFactory.cpp in Sources */,
+				2C636D962657A0DC00AF029F /* FFTFactory.cpp in Sources */,
 				2C956661264546F700539B85 /* styledelement.cpp in Sources */,
 				2C13C9C825BD29FC0054B968 /* lcorolib.c in Sources */,
 				2C2AA3A726009C74003F3EBC /* b2_dynamic_tree.cpp in Sources */,
@@ -10379,6 +10422,7 @@
 				2C5337A9264F5AA200CE0F1B /* zstd_ddict.c in Sources */,
 				2C60AE81248158A500277281 /* vendor_id.cpp in Sources */,
 				2C53C34725613BB00072831A /* Triangulation.cpp in Sources */,
+				2C636D8C2657A0BF00AF029F /* pffft.c in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2C834DB2248805D4006208B8 /* iso8859_9.c in Sources */,
 				2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */,
