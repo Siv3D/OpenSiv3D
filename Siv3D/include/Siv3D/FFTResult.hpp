@@ -10,3 +10,17 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "Array.hpp"
+
+namespace s3d
+{
+	struct FFTResult
+	{
+		Array<float> buffer;
+
+		double resolution = 0.0;
+
+		uint32 sampleRate = 0;
+	};
+}

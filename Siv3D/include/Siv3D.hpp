@@ -1409,6 +1409,7 @@
 
 # include <Siv3D/Serialization.hpp>
 # include <Siv3D/FFTResult.hpp>
+# include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/FFT.hpp>
 
 //////////////////////////////////////////////////

@@ -10,3 +10,39 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "FFTResult.hpp"
+# include "FFTSampleLength.hpp"
+
+namespace s3d
+{
+	class Wave;
+
+	namespace FFT
+	{
+		//void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTimeSec = Scene::DeltaTime());
+
+		/// @brief FFT を実行します。
+		/// @param result 結果の出力先
+		/// @param wave 入力の波形
+		/// @param pos 波形中の再生位置（サンプル）
+		/// @param sampleLength FFT サンプル数
+		void Analyze(FFTResult& result, const Wave& wave, uint32 pos, FFTSampleLength sampleLength = FFTSampleLength::Default);
+
+		/// @brief FFT を実行します。
+		/// @param result 結果の出力先
+		/// @param wave 入力の波形
+		/// @param pos 波形中の再生位置（サンプル）
+		/// @param sampleRate 入力波形のサンプリングレート
+		/// @param sampleLength FFT サンプル数
+		void Analyze(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
+
+		/// @brief FFT を実行します。
+		/// @param result 結果の出力先
+		/// @param input 入力の波形
+		/// @param length 入力波形の長さ
+		/// @param sampleRate 入力波形のサンプリングレート
+		/// @param sampleLength FFT サンプル数
+		void Analyze(FFTResult& result, const float* input, uint32 length, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
+	}
+}
