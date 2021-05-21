@@ -917,6 +917,9 @@
 		2C60AE96248158A500277281 /* sysctl_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE64248158A500277281 /* sysctl_darwin.cpp */; };
 		2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C6106E224DB04E300BDEF72 /* xxhash.h */; };
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
+		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
+		2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */; };
+		2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */; };
 		2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6390E325367EE40030F18E /* ConstantBufferDetail_GL4.cpp */; };
 		2C6390E625367EE40030F18E /* ConstantBufferDetail_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6390E425367EE40030F18E /* ConstantBufferDetail_GL4.hpp */; };
 		2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6390E825367F020030F18E /* ConstantBufferDetailFactory.cpp */; };
@@ -2557,6 +2560,10 @@
 		2C60AE64248158A500277281 /* sysctl_darwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sysctl_darwin.cpp; sourceTree = "<group>"; };
 		2C6106E224DB04E300BDEF72 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem_macOS.mm; sourceTree = "<group>"; };
+		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
+		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
+		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
+		2C636D8826577C1300AF029F /* FFTSampleLength.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFTSampleLength.hpp; sourceTree = "<group>"; };
 		2C6390E325367EE40030F18E /* ConstantBufferDetail_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_GL4.cpp; sourceTree = "<group>"; };
 		2C6390E425367EE40030F18E /* ConstantBufferDetail_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_GL4.hpp; sourceTree = "<group>"; };
 		2C6390E825367F020030F18E /* ConstantBufferDetailFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetailFactory.cpp; sourceTree = "<group>"; };
@@ -4998,6 +5005,7 @@
 				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
 				2CC584392646317400C33E9F /* MemoryMappedFileView */,
 				2C8046102653FE0100CE7C3E /* MessageBox */,
+				2C636D8126577BFE00AF029F /* Microphone */,
 				2C6527812656B3C1003427EB /* MicrophoneInfo */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
@@ -6754,6 +6762,16 @@
 			path = xxHash;
 			sourceTree = "<group>";
 		};
+		2C636D8126577BFE00AF029F /* Microphone */ = {
+			isa = PBXGroup;
+			children = (
+				2C636D8226577BFE00AF029F /* SivMicrophone.cpp */,
+				2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */,
+				2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */,
+			);
+			path = Microphone;
+			sourceTree = "<group>";
+		};
 		2C6390E125367EE40030F18E /* ConstantBuffer */ = {
 			isa = PBXGroup;
 			children = (
@@ -7575,6 +7593,7 @@
 				2CAAA72925E7FD0200C014D7 /* FastMath.hpp */,
 				2CE94FA32652483900440C6C /* FFT.hpp */,
 				2CE94FA22652483900440C6C /* FFTResult.hpp */,
+				2C636D8826577C1300AF029F /* FFTSampleLength.hpp */,
 				2CAAA6F825E7FD0200C014D7 /* FileAction.hpp */,
 				2CFB7DB4262AB49D00169B97 /* FileFilter.hpp */,
 				2CAAA73A25E7FD0200C014D7 /* FileSystem.hpp */,
@@ -9358,6 +9377,7 @@
 				2C43C89725C837F100D6D613 /* svotval.h in Headers */,
 				2C47B6D324EAC82A008D83BE /* IShader.hpp in Headers */,
 				2C2AA38C26009C74003F3EBC /* b2_mouse_joint.h in Headers */,
+				2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */,
 				2C5043C626512B3C00E36D08 /* CToastNotification.hpp in Headers */,
 				2C48BEE525CFB8C500A93CE3 /* Scanline.h in Headers */,
 				2C9566C72645626000539B85 /* mz_compat.h in Headers */,
@@ -9899,6 +9919,7 @@
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
 				2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */,
+				2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C13C9C025BD29FC0054B968 /* loslib.c in Sources */,
 				2C533740264E0EE600CE0F1B /* AIFFDecoder.cpp in Sources */,
@@ -10065,6 +10086,7 @@
 				2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */,
 				2C60AE77248158A500277281 /* instruction_set.cpp in Sources */,
 				2C13C8CC25B8FA9D0054B968 /* DetourAssert.cpp in Sources */,
+				2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
 				2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */,
 				2C53379E264F5AA200CE0F1B /* zstd_opt.c in Sources */,
