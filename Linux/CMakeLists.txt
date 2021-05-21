@@ -8,7 +8,7 @@ message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "[info] SIV3D_THIRD_PARTY_INCLUDE_DIRS: ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}")
 
 set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1 -D_GLFW_X11")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1 -D_GLFW_X11 -DWITH_ALSA")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -17,7 +17,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -fPIC -msse4.1 -D__LINUX_ALSA__ -D_GLFW_X11 -DMUPARSER_STATIC -D_UNICODE")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -fPIC -msse4.1 -D__LINUX_ALSA__ -D_GLFW_X11 -DMUPARSER_STATIC -D_UNICODE -DWITH_ALSA")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -743,6 +743,76 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/serial/impl/list_ports/list_ports_linux.cc
   ../Siv3D/src/ThirdParty/serial/impl/unix.cc
   ../Siv3D/src/ThirdParty/serial/serial.cc
+
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/monotone/soloud_monotone.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/noise/soloud_noise.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/sfxr/soloud_sfxr.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/darray.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/klatt.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/resonator.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/soloud_speech.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/tts.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/sid.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/soloud_tedsid.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/ted.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/vic/soloud_vic.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/vizsn/soloud_vizsn.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/dr_impl.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wav.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wavstream.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/stb_vorbis.c
+  ../Siv3D/src/ThirdParty/soloud/src/backend/alsa/soloud_alsa.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/coreaudio/soloud_coreaudio.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/jack/soloud_jack.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/miniaudio/soloud_miniaudio.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/nosound/soloud_nosound.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/null/soloud_null.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal_dll.c
+  ../Siv3D/src/ThirdParty/soloud/src/backend/opensles/soloud_opensles.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/oss/soloud_oss.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio_dll.c
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1_dll.c
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
+  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_audiosource.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_bus.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_3d.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_basicops.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_faderops.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_filterops.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_getters.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_setters.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voicegroup.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voiceops.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fader.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft_lut.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_file.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_filter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_misc.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_queue.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/core/soloud_thread.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_bassboostfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_biquadresonantfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_dcremovalfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_echofilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_eqfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_fftfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_flangerfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_freeverbfilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_lofifilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_robotizefilter.cpp
+  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_waveshaperfilter.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 

@@ -1216,9 +1216,6 @@
     <Filter Include="src\ThirdParty\soloud\src\filter">
       <UniqueIdentifier>{3f1e8dc2-af0f-426f-9685-094ea507d5e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ThirdParty\soloud\src\audiosource\ay">
-      <UniqueIdentifier>{5f4ee7aa-5637-49a2-aba8-acd2d5bd738f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\ThirdParty\soloud\src\audiosource\monotone">
       <UniqueIdentifier>{082d7fe0-dd61-401f-9be4-bf29bdd2f668}</UniqueIdentifier>
     </Filter>
@@ -5718,18 +5715,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\include\soloud_audiosource.h">
       <Filter>src\ThirdParty\soloud\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.h">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.h">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.h">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.h">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\darray.h">
       <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
     </ClInclude>
@@ -7780,21 +7765,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp">
       <Filter>src\Siv3D\FFT</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\chipplayer.cpp">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndbuffer.cpp">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndchip.cpp">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\sndrender.cpp">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\ay\soloud_ay.cpp">
-      <Filter>src\ThirdParty\soloud\src\audiosource\ay</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\monotone\soloud_monotone.cpp">
       <Filter>src\ThirdParty\soloud\src\audiosource\monotone</Filter>
