@@ -33,6 +33,7 @@
 # include <Siv3D/AudioCodec/IAudioCodec.hpp>
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
 # include <Siv3D/AudioEncoder/IAudioEncoder.hpp>
+# include <Siv3D/FFT/IFFT.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
@@ -87,6 +88,7 @@ namespace s3d
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();
 		SIV3D_ENGINE(AudioEncoder)->init();
+		SIV3D_ENGINE(FFT)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
 		SIV3D_ENGINE(ScreenCapture)->init();

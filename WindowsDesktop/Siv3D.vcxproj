@@ -921,6 +921,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Empty\CEmpty.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Empty\IEmpty.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\FFT\CFFT.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\FFT\IFFT.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont_Headless.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\EmojiData.hpp" />
@@ -1633,6 +1635,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineLog\SivEngineLog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\FFTFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont_Headless.cpp" />

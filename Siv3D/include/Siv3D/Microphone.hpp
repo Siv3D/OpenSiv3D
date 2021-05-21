@@ -15,10 +15,12 @@
 # include "Optional.hpp"
 # include "Unspecified.hpp"
 # include "PredefinedYesNo.hpp"
+# include "FFTSampleLength.hpp"
 
 namespace s3d
 {
 	class Wave;
+	struct FFTResult;
 
 	/// @brief マイク
 	class Microphone
@@ -38,13 +40,19 @@ namespace s3d
 		Microphone();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Microphone(const Duration& duration, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		explicit Microphone(StartImmediately startImmediately);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Microphone(const Duration& duration, StartImmediately startImmediately);
+
+		SIV3D_NODISCARD_CXX20
+		Microphone(const Duration& duration, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		SIV3D_NODISCARD_CXX20
 		explicit Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate = unspecified, const Duration& duration = SecondsF{ 5.0 }, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, size_t bufferLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
+		Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, size_t bufferLength, Loop loop = Loop::Yes, StartImmediately startImmediately = StartImmediately::No);
 
 		~Microphone();
 
@@ -99,7 +107,7 @@ namespace s3d
 		[[nodiscard]]
 		double peak(const Duration& duration = SecondsF{ 0.02 }) const;
 
-		//void fft(FFTResult& result, FFTSampleLength sampleLength = FFTSampleLength::Default) const;
+		void fft(FFTResult& result, FFTSampleLength sampleLength = FFTSampleLength::Default) const;
 
 	private:
 

@@ -11,12 +11,20 @@
 
 # include <Siv3D/Microphone.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/FFTResult.hpp>
+# include <Siv3D/FFT.hpp>
 # include <Siv3D/Microphone/MicrophoneDetail.hpp>
 
 namespace s3d
 {
 	Microphone::Microphone()
 		: pImpl{ std::make_shared<MicrophoneDetail>() } {}
+
+	Microphone::Microphone(const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, SecondsF{ 5.0 }, Loop::Yes, startImmediately } {}
+
+	Microphone::Microphone(const Duration& duration, const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, duration, Loop::Yes, startImmediately } {}
 
 	Microphone::Microphone(const Duration& duration, const Loop loop, const StartImmediately startImmediately)
 		: Microphone{ unspecified, unspecified, duration, loop, startImmediately } {}
@@ -282,5 +290,10 @@ namespace s3d
 		}
 
 		return max;
+	}
+
+	void Microphone::fft(FFTResult& result, const FFTSampleLength sampleLength) const
+	{
+		FFT::Analyze(result, getBuffer(), posSample(), sampleLength);
 	}
 }

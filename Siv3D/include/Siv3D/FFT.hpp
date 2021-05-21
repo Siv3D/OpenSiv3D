@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "FFTResult.hpp"
 # include "FFTSampleLength.hpp"
+# include "WaveSample.hpp"
 
 namespace s3d
 {
@@ -27,7 +28,7 @@ namespace s3d
 		/// @param wave 入力の波形
 		/// @param pos 波形中の再生位置（サンプル）
 		/// @param sampleLength FFT サンプル数
-		void Analyze(FFTResult& result, const Wave& wave, uint32 pos, FFTSampleLength sampleLength = FFTSampleLength::Default);
+		void Analyze(FFTResult& result, const Wave& wave, size_t pos, FFTSampleLength sampleLength = FFTSampleLength::Default);
 
 		/// @brief FFT を実行します。
 		/// @param result 結果の出力先
@@ -35,7 +36,7 @@ namespace s3d
 		/// @param pos 波形中の再生位置（サンプル）
 		/// @param sampleRate 入力波形のサンプリングレート
 		/// @param sampleLength FFT サンプル数
-		void Analyze(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
+		void Analyze(FFTResult& result, const Array<WaveSampleS16>& wave, size_t pos, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
 
 		/// @brief FFT を実行します。
 		/// @param result 結果の出力先
@@ -43,6 +44,6 @@ namespace s3d
 		/// @param length 入力波形の長さ
 		/// @param sampleRate 入力波形のサンプリングレート
 		/// @param sampleLength FFT サンプル数
-		void Analyze(FFTResult& result, const float* input, uint32 length, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
+		void Analyze(FFTResult& result, const float* input, size_t length, uint32 sampleRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
 	}
 }

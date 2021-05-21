@@ -182,6 +182,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/Exif/SivExif.cpp
+  ../Siv3D/src/Siv3D/FFT/CFFT.cpp
+  ../Siv3D/src/Siv3D/FFT/FFTFactory.cpp
+  ../Siv3D/src/Siv3D/FFT/SivFFT.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/CFont_Headless.cpp
