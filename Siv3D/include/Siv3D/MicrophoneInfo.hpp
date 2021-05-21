@@ -19,6 +19,7 @@ namespace s3d
 	/// @brief マイクの情報
 	struct MicrophoneInfo
 	{
+		/// @brief `Microphone` の初期化に使うデバイス番号
 		uint32 microphoneIndex = 0;
 
 		/// @brief 名前
@@ -27,6 +28,7 @@ namespace s3d
 		/// @brief 対応するサンプルレート
 		Array<uint32> sampleRates;
 
+		/// @brief 推奨サンプルレート
 		uint32 preferredSampleRate;
 	};
 

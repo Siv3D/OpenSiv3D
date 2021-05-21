@@ -21,7 +21,7 @@ namespace s3d
 		: pImpl{ std::make_shared<MicrophoneDetail>() } {}
 
 	Microphone::Microphone(const StartImmediately startImmediately)
-		: Microphone{ unspecified, unspecified, SecondsF{ 5.0 }, Loop::Yes, startImmediately } {}
+		: Microphone{ unspecified, unspecified, DefaultBufferDuration, Loop::Yes, startImmediately } {}
 
 	Microphone::Microphone(const Duration& duration, const StartImmediately startImmediately)
 		: Microphone{ unspecified, unspecified, duration, Loop::Yes, startImmediately } {}
@@ -63,6 +63,16 @@ namespace s3d
 	{
 		// [Siv3D ToDo]
 		return Microphone::Permission::Allowed;
+	}
+
+	bool Microphone::open(const StartImmediately startImmediately)
+	{
+		return open(unspecified, unspecified, DefaultBufferDuration, Loop::Yes, startImmediately);
+	}
+
+	bool Microphone::open(const Duration& duration, const StartImmediately startImmediately)
+	{
+		return open(unspecified, unspecified, duration, Loop::Yes, startImmediately);
 	}
 
 	bool Microphone::open(const Duration& duration, const Loop loop, const StartImmediately startImmediately)

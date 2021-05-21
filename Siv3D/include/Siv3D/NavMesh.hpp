@@ -33,21 +33,21 @@ namespace s3d
 		/// @param polygon ナビメッシュ用の地形データ
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Polygon& polygon, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Polygon& polygon, const NavMeshConfig& config = {});
 
 		/// @brief Polygon から 2D のナビメッシュを構築します。
 		/// @param polygon ナビメッシュ用の地形データ
 		/// @param areaIDs 各三角形のエリア ID, 指定しない場合のデフォルト値は 63
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Polygon& polygon, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Polygon& polygon, const Array<uint8>& areaIDs, const NavMeshConfig& config = {});
 
 		/// @brief 頂点配列とインデックス配列から 2D のナビメッシュを構築します。
 		/// @param vertices ナビメッシュ用の地形データの頂点配列
 		/// @param indices ナビメッシュ用の地形データのインデックス配列
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config = {});
 
 		/// @brief 頂点配列とインデックス配列から 2D のナビメッシュを構築します。
 		/// @param vertices ナビメッシュ用の地形データの頂点配列
@@ -55,14 +55,14 @@ namespace s3d
 		/// @param areaIDs 各三角形のエリア ID, 指定しない場合のデフォルト値は 63
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = {});
 
 		/// @brief 頂点配列とインデックス配列から 3D のナビメッシュを構築します。
 		/// @param vertices ナビメッシュ用の地形データの頂点配列
 		/// @param indices ナビメッシュ用の地形データのインデックス配列
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config = {});
 
 		/// @brief 頂点配列とインデックス配列から 3D のナビメッシュを構築します。
 		/// @param vertices ナビメッシュ用の地形データの頂点配列
@@ -70,7 +70,7 @@ namespace s3d
 		/// @param areaIDs 各三角形のエリア ID, 指定しない場合のデフォルト値は 63
 		/// @param config ナビメッシュの設定
 		/// @return ナビメッシュの構築に成功した場合 true, それ以外の場合は false
-		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
+		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = {});
 
 		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
 		/// @param start 出発地点の座標

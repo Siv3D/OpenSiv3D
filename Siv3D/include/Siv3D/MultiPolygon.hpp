@@ -16,6 +16,7 @@
 
 namespace s3d
 {
+	/// @brief Polygon の集合
 	class MultiPolygon
 	{
 	public:

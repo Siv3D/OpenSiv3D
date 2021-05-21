@@ -31,11 +31,5 @@ namespace s3d
 		/// @brief エージェントの半径
 		/// @remark これより狭い経路を通過できません
 		double agentRadius = 0.25;
-
-		[[nodiscard]]
-		static constexpr NavMeshConfig Default() noexcept
-		{
-			return NavMeshConfig{};
-		}
 	};
 }

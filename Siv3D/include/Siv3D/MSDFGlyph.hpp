@@ -16,8 +16,10 @@
 
 namespace s3d
 {
+	/// @brief MSDF 用グリフ
 	struct MSDFGlyph : GlyphInfo
 	{
+		/// @brief MSDF 画像
 		Image image;
 	};
 }

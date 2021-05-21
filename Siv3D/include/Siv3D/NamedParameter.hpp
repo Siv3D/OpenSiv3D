@@ -18,6 +18,9 @@
 
 namespace s3d
 {
+	/// @brief 名前付き変数作成クラス
+	/// @tparam Tag タグ名
+	/// @tparam Type 変数の値の型
 	template <class Tag, class Type>
 	class NamedParameter
 	{
