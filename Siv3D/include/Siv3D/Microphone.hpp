@@ -90,14 +90,14 @@ namespace s3d
 		[[nodiscard]]
 		size_t posSample() const;
 
-		//[[nodiscard]]
-		//double mean(const Duration& duration = SecondsF{ 0.02 }) const;
+		[[nodiscard]]
+		double mean(const Duration& duration = SecondsF{ 0.02 }) const;
 
-		//[[nodiscard]]
-		//double rootMeanSquare(const Duration& duration = SecondsF{ 0.02 }) const;
+		[[nodiscard]]
+		double rootMeanSquare(const Duration& duration = SecondsF{ 0.02 }) const;
 
-		//[[nodiscard]]
-		//double peak(const Duration& duration = SecondsF{ 0.02 }) const;
+		[[nodiscard]]
+		double peak(const Duration& duration = SecondsF{ 0.02 }) const;
 
 		//void fft(FFTResult& result, FFTSampleLength sampleLength = FFTSampleLength::Default) const;
 
