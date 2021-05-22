@@ -45,5 +45,9 @@ namespace s3d::Arg
 
 	SIV3D_NAMED_PARAMETER(code);				// XMLReader
 
-	SIV3D_NAMED_PARAMETER(sampleRate);		// Wave
+	SIV3D_NAMED_PARAMETER(sampleRate);			// Wave
+
+
+	SIV3D_NAMED_PARAMETER(loopBegin);			// Audio
+	SIV3D_NAMED_PARAMETER(loopEnd);				// Audio
 }

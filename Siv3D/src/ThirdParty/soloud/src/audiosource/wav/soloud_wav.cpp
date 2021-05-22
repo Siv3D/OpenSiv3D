@@ -22,6 +22,17 @@ freely, subject to the following restrictions:
    distribution.
 */
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -112,11 +123,14 @@ namespace SoLoud
 		mBaseSamplerate = (float)decoder.sampleRate;
 		mSampleCount = (unsigned int)samples;
 		mChannels = decoder.channels;
-
+		//-----------------------------------------------
+		//
+		//	[Siv3D]
+		//
 		unsigned int i, j, k;
+		float* tmp = new float[512 * MAX_CHANNELS];
 		for (i = 0; i < mSampleCount; i += 512)
 		{
-			float tmp[512 * MAX_CHANNELS];
 			unsigned int blockSize = (mSampleCount - i) > 512 ? 512 : mSampleCount - i;
 			drwav_read_pcm_frames_f32(&decoder, blockSize, tmp);
 			for (j = 0; j < blockSize; j++)
@@ -127,7 +141,10 @@ namespace SoLoud
 				}
 			}
 		}
+		delete[] tmp;
 		drwav_uninit(&decoder);
+		//
+		//-----------------------------------------------
 
 		return SO_NO_ERROR;
 	}
@@ -200,11 +217,14 @@ namespace SoLoud
 		mSampleCount = (unsigned int)samples;
 		mChannels = decoder.channels;
 		drmp3_seek_to_pcm_frame(&decoder, 0); 
-
+		//-----------------------------------------------
+		//
+		//	[Siv3D]
+		//
 		unsigned int i, j, k;
+		float* tmp = new float[512 * MAX_CHANNELS];
 		for (i = 0; i<mSampleCount; i += 512)
 		{
-			float tmp[512 * MAX_CHANNELS];
 			unsigned int blockSize = (mSampleCount - i) > 512 ? 512 : mSampleCount - i;
 			drmp3_read_pcm_frames_f32(&decoder, blockSize, tmp);
 			for (j = 0; j < blockSize; j++) 
@@ -215,8 +235,10 @@ namespace SoLoud
 				}
 			}
 		}
+		delete[] tmp;
 		drmp3_uninit(&decoder);
-
+		//
+		//-----------------------------------------------
 		return SO_NO_ERROR;
 	}
 
@@ -242,11 +264,14 @@ namespace SoLoud
 		mSampleCount = (unsigned int)samples;
 		mChannels = decoder->channels;
 		drflac_seek_to_pcm_frame(decoder, 0);
-
+		//-----------------------------------------------
+		//
+		//	[Siv3D]
+		//
 		unsigned int i, j, k;
+		float* tmp = new float[512 * MAX_CHANNELS];
 		for (i = 0; i < mSampleCount; i += 512)
 		{
-			float tmp[512 * MAX_CHANNELS];
 			unsigned int blockSize = (mSampleCount - i) > 512 ? 512 : mSampleCount - i;
 			drflac_read_pcm_frames_f32(decoder, blockSize, tmp);
 			for (j = 0; j < blockSize; j++)
@@ -257,8 +282,10 @@ namespace SoLoud
 				}
 			}
 		}
+		delete[] tmp;
 		drflac_close(decoder);
-
+		//
+		//-----------------------------------------------
 		return SO_NO_ERROR;
 	}
 

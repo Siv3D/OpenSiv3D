@@ -12,8 +12,6 @@
 #ifndef MZ_H
 #define MZ_H
 
-# define _CRT_SECURE_NO_WARNINGS
-
 # define HAVE_LIBCOMP
 # define HAVE_ZLIB
 # define HAVE_STDINT_H

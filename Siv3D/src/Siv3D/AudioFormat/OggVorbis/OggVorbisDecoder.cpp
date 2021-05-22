@@ -282,7 +282,7 @@ namespace s3d
 			return{};
 		}
 
-		int64 loopstart = 0, looplength = 0;
+		uint64 loopstart = 0, looplength = 0;
 		char** ptr = vf.vc->user_comments;
 
 		while (*ptr)
@@ -293,11 +293,11 @@ namespace s3d
 			{
 				if (tag[0] == U"LOOPSTART")
 				{
-					loopstart = ParseOr<int64>(tag[1], 0);
+					loopstart = ParseOr<uint64>(tag[1], 0);
 				}
 				else if (tag[0] == U"LOOPLENGTH")
 				{
-					looplength = ParseOr<int64>(tag[1], 0);
+					looplength = ParseOr<uint64>(tag[1], 0);
 				}
 			}
 

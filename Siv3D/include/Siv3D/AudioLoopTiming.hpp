@@ -18,9 +18,9 @@ namespace s3d
 	struct AudioLoopTiming
 	{
 		/// @brief ループ始点サンプル位置
-		int64 beginPos = 0;
+		uint64 beginPos = 0;
 
 		/// @brief ループ終点サンプル位置。0 の場合はループ無し
-		int64 endPos = 0;
+		uint64 endPos = 0;
 	};
 }

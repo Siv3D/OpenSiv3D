@@ -2,7 +2,6 @@ root = true
 
 [*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
 charset = utf-8-bom
-end_of_line = lf
 insert_final_newline = true
 indent_size = 4
 indent_style = tab
