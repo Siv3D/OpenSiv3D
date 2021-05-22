@@ -22,18 +22,6 @@ namespace s3d
 {
 	class CFont_Headless final : public ISiv3DFont
 	{
-	private:
-
-		FT_Library m_freeType = nullptr;
-
-		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
-
-		std::unique_ptr<EmojiData> m_defaultEmoji;
-
-		Array<std::unique_ptr<IconData>> m_defaultIcons;
-
-		std::unique_ptr<PixelShader> m_emptyPixelShader;
-
 	public:
 
 		CFont_Headless();
@@ -141,5 +129,17 @@ namespace s3d
 		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
 	
 		const PixelShader& getFontShader(FontMethod method, HasColor hasColor) const override;
+
+	private:
+
+		FT_Library m_freeType = nullptr;
+
+		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
+		std::unique_ptr<EmojiData> m_defaultEmoji;
+
+		Array<std::unique_ptr<IconData>> m_defaultIcons;
+
+		std::unique_ptr<PixelShader> m_emptyPixelShader;
 	};
 }

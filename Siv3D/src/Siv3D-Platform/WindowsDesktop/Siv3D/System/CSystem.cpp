@@ -26,7 +26,6 @@
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Gamepad/IGamepad.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
-# include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
 # include <Siv3D/ToastNotification/IToastNotification.hpp>
@@ -35,6 +34,8 @@
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
 # include <Siv3D/AudioEncoder/IAudioEncoder.hpp>
 # include <Siv3D/FFT/IFFT.hpp>
+# include <Siv3D/Audio/IAudio.hpp>
+# include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
@@ -102,7 +103,6 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(XInput)->init();
 		SIV3D_ENGINE(Gamepad)->init();
-		SIV3D_ENGINE(TextToSpeech)->init();
 		SIV3D_ENGINE(Clipboard)->init();
 		AsyncTask<bool> threadDragDrop{ []()
 			{
@@ -116,6 +116,8 @@ namespace s3d
 		SIV3D_ENGINE(AudioDecoder)->init();
 		SIV3D_ENGINE(AudioEncoder)->init();
 		SIV3D_ENGINE(FFT)->init();
+		SIV3D_ENGINE(Audio)->init();
+		SIV3D_ENGINE(TextToSpeech)->init();
 
 		if (d3d11)
 		{

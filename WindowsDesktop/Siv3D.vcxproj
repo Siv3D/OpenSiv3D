@@ -26,6 +26,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GamepadInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GeoJSON.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GlobalAudio.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Glyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphCluster.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphIndex.hpp" />
@@ -902,6 +904,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\CAudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioEncoder\IAudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEHeader.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioBus.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\CAudio.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\BigIntDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.hpp" />
@@ -1633,6 +1639,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\Opus\OpusEncoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEEncoder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\CAudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />

@@ -1240,6 +1240,9 @@
     <Filter Include="src\ThirdParty\soloud\src\audiosource\wav">
       <UniqueIdentifier>{65a6b342-7625-47cb-a977-c51851a38f6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Audio">
+      <UniqueIdentifier>{12cc1a72-12cb-40b3-ba88-a91a6f35ef98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5748,6 +5751,24 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\miniaudio.h">
       <Filter>src\ThirdParty\soloud\src\backend</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\GlobalAudio.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\CAudio.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioData.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioBus.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7972,6 +7993,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp">
       <Filter>src\ThirdParty\soloud\src\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioFactory.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\CAudio.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioData.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

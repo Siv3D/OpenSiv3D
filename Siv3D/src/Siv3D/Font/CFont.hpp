@@ -51,18 +51,6 @@ namespace s3d
 
 	class CFont final : public ISiv3DFont
 	{
-	private:
-
-		FT_Library m_freeType = nullptr;
-
-		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
-
-		std::unique_ptr<FontShader> m_shaders;
-
-		std::unique_ptr<EmojiData> m_defaultEmoji;
-
-		Array<std::unique_ptr<IconData>> m_defaultIcons;
-
 	public:
 
 		CFont();
@@ -171,5 +159,17 @@ namespace s3d
 
 
 		const PixelShader& getFontShader(FontMethod method, HasColor hasColor) const override;
+
+	private:
+
+		FT_Library m_freeType = nullptr;
+
+		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
+		std::unique_ptr<FontShader> m_shaders;
+
+		std::unique_ptr<EmojiData> m_defaultEmoji;
+
+		Array<std::unique_ptr<IconData>> m_defaultIcons;
 	};
 }
