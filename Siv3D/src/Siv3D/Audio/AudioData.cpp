@@ -15,6 +15,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include "AudioData.hpp"
 # include <ThirdParty/soloud/include/soloud_wav.h>
+# include <ThirdParty/soloud/include/soloud_wavstream.h>
 
 namespace s3d
 {
@@ -44,6 +45,7 @@ namespace s3d
 	}
 
 	AudioData::AudioData(Wave&& wave, const Optional<AudioLoopTiming>& loop)
+		: m_loop{ loop.has_value() }
 	{
 		// m_wave 準備
 		{
@@ -72,6 +74,7 @@ namespace s3d
 
 		if (loop)
 		{
+			m_loopTiming = *loop;
 			m_audioSource->setLooping(true);
 			m_audioSource->setLoopPoint(static_cast<double>(loop->beginPos) / m_sampleRate);
 		}
@@ -80,15 +83,40 @@ namespace s3d
 	}
 
 	AudioData::AudioData(const FilePathView path)
+		: m_isStreaming{ true }
 	{
+		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
-		//m_initialized = true;
+		if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
+		{
+			return;
+		}
+
+		m_sampleRate	= static_cast<uint32>(source->mBaseSamplerate);
+		m_lengthSample	= source->mSampleCount;
+		m_audioSource	= std::move(source);
+		m_initialized	= true;
 	}
 
-	AudioData::AudioData(FilePathView path, uint64 loopBegin)
+	AudioData::AudioData(const FilePathView path, const uint64 loopBegin)
+		: m_isStreaming{ true }
 	{
+		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
-		//m_initialized = true;
+		if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
+		{
+			return;
+		}
+
+		m_sampleRate	= static_cast<uint32>(source->mBaseSamplerate);
+		m_lengthSample	= source->mSampleCount;
+		m_audioSource	= std::move(source);
+
+		m_loopTiming	= { loopBegin, 0 };
+		m_audioSource->setLooping(true);
+		m_audioSource->setLoopPoint(static_cast<float>(static_cast<double>(loopBegin) / m_sampleRate));
+
+		m_initialized	= true;
 	}
 
 	AudioData::~AudioData() {}

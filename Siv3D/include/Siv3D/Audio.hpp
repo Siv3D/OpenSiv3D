@@ -25,10 +25,13 @@ namespace s3d
 	{
 	public:
 
+		/// @brief ストリーミング再生を指定するフラグ
 		static constexpr struct FileStreaming {} Stream{};
 
+		/// @brief バスの最大数
 		static constexpr size_t MaxBusCount = 4;
 
+		/// @brief フィルターの最大数
 		static constexpr size_t MaxFilterCount = 8;
 
 		/// @brief デフォルトコンストラクタ
@@ -167,6 +170,7 @@ namespace s3d
 		/// @brief 
 		/// @param  
 		/// @param path 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path);
 
@@ -174,6 +178,7 @@ namespace s3d
 		/// @param  
 		/// @param path 
 		/// @param loop 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Loop loop);
 
@@ -181,6 +186,7 @@ namespace s3d
 		/// @param  
 		/// @param path 
 		/// @param loopBegin 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
@@ -211,19 +217,74 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
-		/// @brief 
+		/// @brief デストラクタ
 		virtual ~Audio();
 
+		/// @brief ストリーミングオーディオであるかを返します。
+		/// @return ストリーミングオーディオである場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isStreaming() const;
 
+		/// @brief オーディオのサンプリングレートを返します。
+		/// @return オーディオのサンプリングレート
 		[[nodiscard]]
 		uint32 sampleRate() const;
 
+		/// @brief オーディオの長さ（サンプル）を返します。
+		/// @return オーディオの長さ（サンプル）
 		[[nodiscard]]
 		size_t samples() const;
 
+		/// @brief オーディオの長さ（秒）を返します。
+		/// @return オーディオの長さ（秒）
 		[[nodiscard]]
 		double lengthSec() const;
+
+		/// @brief 再生位置（サンプル）を返します。
+		/// @return 再生位置（サンプル）
+		[[nodiscard]]
+		int64 posSample() const;
+
+		/// @brief 再生位置（秒）を返します。
+		/// @return 再生位置（秒）
+		[[nodiscard]]
+		double posSec() const;
+
+		/// @brief ループを含め再生したサンプル数の累計を返します。
+		/// @return 再生したサンプル数の累計
+		[[nodiscard]]
+		int64 samplesPlayed() const;
+
+		/// @brief オーディオが再生中であるかを返します。
+		/// @return オーディオが再生中の場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPlaying() const;
+
+		/// @brief オーディオが一時停止中であるかを返します。
+		/// @return オーディオが一時停止中の場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPaused() const;
+
+		/// @brief 新しく再生したときにループが有効になるかを返します。
+		/// @return 新しく再生したときにループが有効になる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isLoop() const;
+
+		/// @brief ループ再生する場合のループ範囲を返します。
+		/// @return ループ再生する場合のループ範囲
+		[[nodiscard]]
+		AudioLoopTiming getLoopTiming() const;
+
+		/// @brief 新しく再生するときのループの有無を設定します。
+		/// @param loop ループの有無
+		void setLoop(bool loop);
+
+		/// @brief 新しくループ再生するときのループ開始位置（サンプル）を設定します。
+		/// @param loopBegin ループ開始位置（サンプル）
+		void setLoopPoint(uint64 loopBegin);
+
+		/// @brief 新しくループ再生するときのループ開始位置（秒）を設定します。
+		/// @param loopBegin ループ開始位置（秒）
+		void setLoopPoint(const Duration& loopBegin);
 	};
 }
