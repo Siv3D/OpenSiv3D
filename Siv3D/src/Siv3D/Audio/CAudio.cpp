@@ -16,6 +16,21 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static String ToInfo(const std::unique_ptr<AudioData>& audio)
+		{
+			const uint32 sampleRate = audio->sampleRate();
+			const uint32 samples = audio->samples();
+
+			return U"(sampleRate: {0}Hz, samples: {1} ({2:.1f}s), loopTiming: {3}, {4}, isStreaming: {5})"_fmt(
+				sampleRate, samples,
+				(static_cast<double>(samples) / sampleRate),
+				audio->loopTiming().beginPos, audio->loopTiming().endPos, audio->isStreaming());
+		}
+	}
+
 	CAudio::CAudio() {}
 
 	CAudio::~CAudio()
@@ -68,6 +83,12 @@ namespace s3d
 				throw EngineError{ U"Failed to initialize audio engine" };
 			}
 
+			LOG_INFO(U"🎧 Audio backend: {0} (channel count: {1}, sample rate: {2}, buffer size: {3})"_fmt(
+				Unicode::Widen(m_soloud->getBackendString()),
+				m_soloud->getBackendChannels(),
+				m_soloud->getBackendSamplerate(),
+				m_soloud->getBackendBufferSize()));
+
 			m_soloud->setVisualizationEnable(true);
 		}
 
@@ -88,26 +109,57 @@ namespace s3d
 
 	Audio::IDType CAudio::create(Wave&& wave, const Optional<AudioLoopTiming>& loop)
 	{
-		// [Siv3D ToDo]
-		return(Audio::IDType::NullAsset());
+		// Audio を作成
+		auto audio = std::make_unique<AudioData>(std::move(wave), loop);
+
+		if (not audio->isInitialized()) // もし作成に失敗していたら
+		{
+			return Audio::IDType::NullAsset();
+		}
+
+		const String info = detail::ToInfo(audio);
+
+		// Audio を管理に登録
+		return m_audios.add(std::move(audio), info);
 	}
 
 	Audio::IDType CAudio::create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd)
 	{
-		// [Siv3D ToDo]
-		return(Audio::IDType::NullAsset());
+		const uint64 loopBeginSample = static_cast<uint64>(loopBegin.count() * wave.sampleRate());
+		const uint64 loopEndSample = static_cast<uint64>(loopEnd.count() * wave.sampleRate());
+		return create(std::move(wave), AudioLoopTiming{ loopBeginSample, loopEndSample });
 	}
 
-	Audio::IDType CAudio::createStreamingNonLoop(FilePathView path)
+	Audio::IDType CAudio::createStreamingNonLoop(const FilePathView path)
 	{
-		// [Siv3D ToDo]
-		return(Audio::IDType::NullAsset());
+		// Audio を作成
+		auto audio = std::make_unique<AudioData>(path);
+
+		if (not audio->isInitialized()) // もし作成に失敗していたら
+		{
+			return Audio::IDType::NullAsset();
+		}
+
+		const String info = detail::ToInfo(audio);
+
+		// Audio を管理に登録
+		return m_audios.add(std::move(audio), info);
 	}
 
-	Audio::IDType CAudio::createStreamingLoop(FilePathView path, uint64 loopBegin)
+	Audio::IDType CAudio::createStreamingLoop(const FilePathView path, const uint64 loopBegin)
 	{
-		// [Siv3D ToDo]
-		return(Audio::IDType::NullAsset());
+		// Audio を作成
+		auto audio = std::make_unique<AudioData>(path, loopBegin);
+
+		if (not audio->isInitialized()) // もし作成に失敗していたら
+		{
+			return Audio::IDType::NullAsset();
+		}
+
+		const String info = detail::ToInfo(audio);
+
+		// Audio を管理に登録
+		return m_audios.add(std::move(audio), info);
 	}
 
 	void CAudio::release(const Audio::IDType handleID)

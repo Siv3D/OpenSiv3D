@@ -28,12 +28,28 @@ namespace s3d
 
 		explicit AudioData(Null);
 
+		AudioData(Wave&& wave, const Optional<AudioLoopTiming>& loop);
+
 		AudioData(FilePathView path);
+
+		AudioData(FilePathView path, uint64 loopBegin);
 
 		~AudioData();
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
+
+		[[nodiscard]]
+		uint32 sampleRate() const noexcept;
+
+		[[nodiscard]]
+		uint32 samples() const noexcept;
+
+		[[nodiscard]]
+		const AudioLoopTiming& loopTiming() const noexcept;
+
+		[[nodiscard]]
+		bool isStreaming() const noexcept;
 
 	private:
 
