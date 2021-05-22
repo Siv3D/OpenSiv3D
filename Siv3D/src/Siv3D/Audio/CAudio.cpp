@@ -86,6 +86,30 @@ namespace s3d
 		}
 	}
 
+	Audio::IDType CAudio::create(Wave&& wave, const Optional<AudioLoopTiming>& loop)
+	{
+		// [Siv3D ToDo]
+		return(Audio::IDType::NullAsset());
+	}
+
+	Audio::IDType CAudio::create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd)
+	{
+		// [Siv3D ToDo]
+		return(Audio::IDType::NullAsset());
+	}
+
+	Audio::IDType CAudio::createStreamingNonLoop(FilePathView path)
+	{
+		// [Siv3D ToDo]
+		return(Audio::IDType::NullAsset());
+	}
+
+	Audio::IDType CAudio::createStreamingLoop(FilePathView path, uint64 loopBegin)
+	{
+		// [Siv3D ToDo]
+		return(Audio::IDType::NullAsset());
+	}
+
 	void CAudio::release(const Audio::IDType handleID)
 	{
 		m_audios.erase(handleID);

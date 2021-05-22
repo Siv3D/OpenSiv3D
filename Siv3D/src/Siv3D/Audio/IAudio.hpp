@@ -25,7 +25,13 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		//virtual Audio::IDType create() = 0;
+		virtual Audio::IDType create(Wave&& wave, const Optional<AudioLoopTiming>& loop) = 0;
+
+		virtual Audio::IDType create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd) = 0;
+
+		virtual Audio::IDType createStreamingNonLoop(FilePathView path) = 0;
+
+		virtual Audio::IDType createStreamingLoop(FilePathView path, uint64 loopBegin) = 0;
 
 		virtual void release(Audio::IDType handleID) = 0;
 	};

@@ -27,6 +27,14 @@ namespace s3d
 
 		void init() override;
 
+		Audio::IDType create(Wave&& wave, const Optional<AudioLoopTiming>& loop) override;
+
+		Audio::IDType create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd) override;
+
+		Audio::IDType createStreamingNonLoop(FilePathView path) override;
+
+		Audio::IDType createStreamingLoop(FilePathView path, uint64 loopBegin) override;
+
 		void release(Audio::IDType handleID) override;
 
 	private:
