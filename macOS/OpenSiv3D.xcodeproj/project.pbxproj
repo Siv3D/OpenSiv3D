@@ -877,6 +877,14 @@
 		2C53C34825613BB00072831A /* Triangulation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34325613BAF0072831A /* Triangulation.hpp */; };
 		2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C34425613BAF0072831A /* PolygonDetail.cpp */; };
 		2C53C34C25613BD40072831A /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34B25613BCC0072831A /* earcut.hpp */; };
+		2C5DD438265979F100282CE2 /* AudioFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD430265979F100282CE2 /* AudioFactory.cpp */; };
+		2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD431265979F100282CE2 /* CAudio.cpp */; };
+		2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD432265979F100282CE2 /* AudioData.cpp */; };
+		2C5DD43B265979F100282CE2 /* AudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5DD433265979F100282CE2 /* AudioBus.hpp */; };
+		2C5DD43C265979F100282CE2 /* IAudio.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5DD434265979F100282CE2 /* IAudio.hpp */; };
+		2C5DD43D265979F200282CE2 /* CAudio.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5DD435265979F100282CE2 /* CAudio.hpp */; };
+		2C5DD43E265979F200282CE2 /* SivAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD436265979F100282CE2 /* SivAudio.cpp */; };
+		2C5DD43F265979F200282CE2 /* AudioData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5DD437265979F100282CE2 /* AudioData.hpp */; };
 		2C60AE71248158A500277281 /* frequency_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE33248158A400277281 /* frequency_darwin.cpp */; };
 		2C60AE72248158A500277281 /* frequency_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE34248158A400277281 /* frequency_windows.cpp */; };
 		2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE35248158A400277281 /* frequency_non_windows_non_darwin.cpp */; };
@@ -2633,6 +2641,16 @@
 		2C53C34325613BAF0072831A /* Triangulation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangulation.hpp; sourceTree = "<group>"; };
 		2C53C34425613BAF0072831A /* PolygonDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonDetail.cpp; sourceTree = "<group>"; };
 		2C53C34B25613BCC0072831A /* earcut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
+		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
+		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
+		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
+		2C5DD431265979F100282CE2 /* CAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAudio.cpp; sourceTree = "<group>"; };
+		2C5DD432265979F100282CE2 /* AudioData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioData.cpp; sourceTree = "<group>"; };
+		2C5DD433265979F100282CE2 /* AudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioBus.hpp; sourceTree = "<group>"; };
+		2C5DD434265979F100282CE2 /* IAudio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAudio.hpp; sourceTree = "<group>"; };
+		2C5DD435265979F100282CE2 /* CAudio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAudio.hpp; sourceTree = "<group>"; };
+		2C5DD436265979F100282CE2 /* SivAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudio.cpp; sourceTree = "<group>"; };
+		2C5DD437265979F100282CE2 /* AudioData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioData.hpp; sourceTree = "<group>"; };
 		2C60AE23248158A400277281 /* cpu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu.hpp; sourceTree = "<group>"; };
 		2C60AE24248158A400277281 /* gpu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gpu.hpp; sourceTree = "<group>"; };
 		2C60AE25248158A400277281 /* pci.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pci.hpp; sourceTree = "<group>"; };
@@ -5173,6 +5191,7 @@
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
+				2C5DD42F265979F100282CE2 /* Audio */,
 				2C533720264D64BA00CE0F1B /* AudioCodec */,
 				2CC584542646DC5800C33E9F /* AudioDecoder */,
 				2CC5844E2646DC5800C33E9F /* AudioEncoder */,
@@ -6825,6 +6844,21 @@
 			path = Earcut;
 			sourceTree = "<group>";
 		};
+		2C5DD42F265979F100282CE2 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				2C5DD430265979F100282CE2 /* AudioFactory.cpp */,
+				2C5DD431265979F100282CE2 /* CAudio.cpp */,
+				2C5DD432265979F100282CE2 /* AudioData.cpp */,
+				2C5DD433265979F100282CE2 /* AudioBus.hpp */,
+				2C5DD434265979F100282CE2 /* IAudio.hpp */,
+				2C5DD435265979F100282CE2 /* CAudio.hpp */,
+				2C5DD436265979F100282CE2 /* SivAudio.cpp */,
+				2C5DD437265979F100282CE2 /* AudioData.hpp */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		2C60AE22248158A400277281 /* infoware */ = {
 			isa = PBXGroup;
 			children = (
@@ -8165,6 +8199,7 @@
 				2CAAA71225E7FD0200C014D7 /* AssetID.hpp */,
 				2CAAA86425E7FD0300C014D7 /* AssetIDWrapper.hpp */,
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
+				2C5DD42D265979CA00282CE2 /* Audio.hpp */,
 				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
 				2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */,
 				2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */,
@@ -8272,6 +8307,7 @@
 				2C427FD22628435000106F19 /* GamepadInfo.hpp */,
 				2C8333A526441F5900AEECC7 /* GeoJSON.hpp */,
 				2CAAA89525E7FD0300C014D7 /* Geometry2D.hpp */,
+				2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */,
 				2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */,
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
 				2CAAA8AC25E7FD0300C014D7 /* GlyphIndex.hpp */,
@@ -9668,6 +9704,7 @@
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
 				2C794B5D25C4083400034D81 /* CTexture_Metal.hpp in Headers */,
 				2C794B7825C4FD8D00034D81 /* CAssetMonitor.hpp in Headers */,
+				2C5DD43D265979F200282CE2 /* CAudio.hpp in Headers */,
 				2C5337AC264F5AA200CE0F1B /* zstd_decompress_internal.h in Headers */,
 				2C636E462657F7D300AF029F /* soloud_openmpt.h in Headers */,
 				2C47B33B24DD9789008D83BE /* SystemMisc.hpp in Headers */,
@@ -9930,6 +9967,7 @@
 				2C8CA3B0261594A000BABD2D /* decode.h in Headers */,
 				2C533730264E0BDB00CE0F1B /* AudioFileDecoder.hpp in Headers */,
 				2CF21D1F249FAA8F00C864C9 /* OpenGL.hpp in Headers */,
+				2C5DD43C265979F100282CE2 /* IAudio.hpp in Headers */,
 				2C48BF7725D41C0D00A93CE3 /* IGlyphCache.hpp in Headers */,
 				2C13C9C625BD29FC0054B968 /* lauxlib.h in Headers */,
 				2C39ECAA2564030E0021DF34 /* GL4Renderer2DCommand.hpp in Headers */,
@@ -9970,6 +10008,7 @@
 				2C4AEF61262C480800D36CFC /* CEmpty.hpp in Headers */,
 				2C47B6F524EAC8D9008D83BE /* CRenderer2D_GL4.hpp in Headers */,
 				2C956653264546F700539B85 /* paintelement.h in Headers */,
+				2C5DD43F265979F200282CE2 /* AudioData.hpp in Headers */,
 				2C43C8AB25C837F100D6D613 /* fterrors.h in Headers */,
 				2C43C88F25C837F000D6D613 /* ftgloadr.h in Headers */,
 				2C2AA35C26009C74003F3EBC /* b2_edge_circle_contact.h in Headers */,
@@ -10290,6 +10329,7 @@
 				2C9566E32645626000539B85 /* zlib.h in Headers */,
 				2C636E5A2657F7D300AF029F /* soloud_echofilter.h in Headers */,
 				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
+				2C5DD43B265979F100282CE2 /* AudioBus.hpp in Headers */,
 				2CFB7DD3262AF33C00169B97 /* IDragDrop.hpp in Headers */,
 				2C13C9CE25BD29FC0054B968 /* lua.h in Headers */,
 				2C43C88225C837F000D6D613 /* psaux.h in Headers */,
@@ -10587,6 +10627,7 @@
 				2C48BEDB25CFB8C500A93CE3 /* contour-combiners.cpp in Sources */,
 				2CAAA8B525E7FD3100C014D7 /* SivPutText.cpp in Sources */,
 				2C5337D42650BAF000CE0F1B /* SoundFontDetail.cpp in Sources */,
+				2C5DD43E265979F200282CE2 /* SivAudio.cpp in Sources */,
 				2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */,
 				2C13C9D525BD29FC0054B968 /* ltm.c in Sources */,
 				2C834DA4248805D4006208B8 /* utf32_be.c in Sources */,
@@ -10967,6 +11008,7 @@
 				2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */,
 				2C48BEE125CFB8C500A93CE3 /* rasterization.cpp in Sources */,
 				2C48BF6B25D41C0D00A93CE3 /* BitmapGlyphRenderer.cpp in Sources */,
+				2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */,
 				2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */,
 				2C636EB02657F7D300AF029F /* tts.cpp in Sources */,
 				2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */,
@@ -11018,6 +11060,7 @@
 				2C48BEF825CFB8C500A93CE3 /* Contour.cpp in Sources */,
 				2C2AA35A26009C74003F3EBC /* b2_weld_joint.cpp in Sources */,
 				2C42321B242B155E00A16BCA /* monitor.c in Sources */,
+				2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */,
 				2C834DAE248805D4006208B8 /* euc_kr.c in Sources */,
 				2C2AA38D26009C74003F3EBC /* b2_draw.cpp in Sources */,
 				2C47B34524DD9789008D83BE /* SivFormatter.cpp in Sources */,
@@ -11189,6 +11232,7 @@
 				2C794B5325C407E700034D81 /* SivImageProcessing.cpp in Sources */,
 				2C473B182545415300CF864D /* SivInterpolation.cpp in Sources */,
 				2C0A4D75256A177D002A4B5E /* SivShape2D.cpp in Sources */,
+				2C5DD438265979F100282CE2 /* AudioFactory.cpp in Sources */,
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,
 				2C636E742657F7D300AF029F /* soloud_core_basicops.cpp in Sources */,
 				2C13C8DB25B8FB170054B968 /* SivBezier2.cpp in Sources */,
@@ -11497,6 +11541,7 @@
 					_UNICODE,
 					MSDFGEN_USE_CPP11,
 					WITH_MINIAUDIO,
+					WITH_NOSOUND,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -11568,6 +11613,7 @@
 					_UNICODE,
 					MSDFGEN_USE_CPP11,
 					WITH_MINIAUDIO,
+					WITH_NOSOUND,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
