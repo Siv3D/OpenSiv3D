@@ -1243,6 +1243,9 @@
     <Filter Include="src\Siv3D\Audio">
       <UniqueIdentifier>{12cc1a72-12cb-40b3-ba88-a91a6f35ef98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\GlobalAudio">
+      <UniqueIdentifier>{91f770ce-69ea-4b3b-96cd-6452ce00fbb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8005,6 +8008,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioData.cpp">
       <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\GlobalAudio\SivGlobalAudio.cpp">
+      <Filter>src\Siv3D\GlobalAudio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -95,6 +95,17 @@ namespace s3d
 		void fadeSpeed(Audio::IDType handleID, double speed, const Duration& time) override;
 
 
+		size_t getActiveVoiceCount() override;
+
+		void fadeGlobalVolume(double volume, const Duration& time) override;
+
+		void getGlobalSamples(Array<float>& samples) override;
+
+		void getGlobalFFT(Array<float>& result) override;
+
+		void getBusSamples(size_t busIndex, Array<float>& samples) override;
+
+		void getBusFFT(size_t busIndex, Array<float>& result) override;
 
 		SoLoud::Bus& getBus(size_t busIndex) override;
 

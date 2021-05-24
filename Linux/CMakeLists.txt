@@ -218,6 +218,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/GamepadInfo/SivGamepadInfo.cpp
   ../Siv3D/src/Siv3D/GeoJSON/SivGeoJSON.cpp
   ../Siv3D/src/Siv3D/Geometry2D/SivGeometry2D.cpp
+  ../Siv3D/src/Siv3D/GlobalAudio/SivGlobalAudio.cpp
   ../Siv3D/src/Siv3D/GrabCut/GrabCutDetail.cpp
   ../Siv3D/src/Siv3D/GrabCut/SivGrabCut.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp

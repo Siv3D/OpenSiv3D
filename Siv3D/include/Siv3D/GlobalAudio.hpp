@@ -12,15 +12,40 @@
 # pragma once
 # include "Common.hpp"
 # include "Duration.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
 	namespace GlobalAudio
 	{
-		void FadeVolume(double volume, const Duraton& time);
+		size_t GetActiveVoiceCount();
 
-		void FadePan(double pan, const Duraton& time);
+		void FadeVolume(double volume, const Duration& time);
 
-		void FadeSpeed(double speed, const Duraton& time);
+		Array<float> GetSamples();
+
+		void GetSamples(Array<float>& samples);
+
+		Array<float> GetFFT();
+
+		void GetFFT(Array<float>& result);
+
+
+		Array<float> GetBusSamples(size_t busIndex);
+
+		void GetBusSamples(size_t busIndex, Array<float>& samples);
+
+		Array<float> GetBusFFT(size_t busIndex);
+
+		void GetBusFFT(size_t busIndex, Array<float>& result);
+
+
+		//void SetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance);
+
+		//void SetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance);
+	
+		//void SetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay);
+
+		//void SetReverbFilter(size_t busIndex, size_t filterIndex, double mode, double roomSize, double damp, double width);
 	}
 }

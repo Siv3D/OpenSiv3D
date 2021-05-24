@@ -332,7 +332,7 @@ namespace s3d
 		{
 			m_handle = SIV3D_ENGINE(Audio)->getBus(m_busIndex)
 				.play(*m_audioSource,
-					0.0f,
+					static_cast<float>(m_reservedSetting.volume),
 					static_cast<float>(m_reservedSetting.pan), true);
 
 			if (m_reservedSetting.pos.count() != 0.0)
@@ -344,8 +344,6 @@ namespace s3d
 			{
 				m_pSoloud->setRelativePlaySpeed(m_handle, static_cast<float>(m_reservedSetting.speed));
 			}
-
-			m_pSoloud->fadeVolume(m_handle, m_reservedSetting.volume, 0.0);
 
 			if (isPlaying)
 			{

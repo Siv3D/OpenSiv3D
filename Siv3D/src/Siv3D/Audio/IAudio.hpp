@@ -100,6 +100,17 @@ namespace s3d
 		virtual void fadeSpeed(Audio::IDType handleID, double speed, const Duration& time) = 0;
 
 
+		virtual size_t getActiveVoiceCount() = 0;
+
+		virtual void fadeGlobalVolume(double volume, const Duration& time) = 0;
+
+		virtual void getGlobalSamples(Array<float>& samples) = 0;
+
+		virtual void getGlobalFFT(Array<float>& result) = 0;
+
+		virtual void getBusSamples(size_t busIndex, Array<float>& samples) = 0;
+
+		virtual void getBusFFT(size_t busIndex, Array<float>& result) = 0;
 
 		virtual SoLoud::Bus& getBus(size_t busIndex) = 0;
 	};

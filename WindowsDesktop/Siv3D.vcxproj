@@ -1726,6 +1726,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GeoJSON\SivGeoJSON.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\GlobalAudio\SivGlobalAudio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\SivGrabCut.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp" />

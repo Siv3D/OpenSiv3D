@@ -37,19 +37,6 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CAudio::~CAudio()");
 
-		//if (m_soloud)
-		//{
-		//	// 再生中の音声をフェードアウト
-		//	if (m_soloud->getActiveVoiceCount())
-		//	{
-		//		constexpr SecondsF FadeOutTime{ 0.3 };
-
-		//		m_soloud->fadeGlobalVolume(0.0f, FadeOutTime.count());
-		//		
-		//		System::Sleep(FadeOutTime);
-		//	}
-		//}
-
 		m_audios.destroy();
 
 		for (auto& bus : m_buses)
@@ -59,9 +46,6 @@ namespace s3d
 
 		if (m_soloud)
 		{
-			LOG_TRACE(U"m_soloud->stopAll()");
-			m_soloud->stopAll();
-
 			LOG_TRACE(U"m_soloud->deinit()");
 			m_soloud->deinit();
 
@@ -310,6 +294,79 @@ namespace s3d
 	}
 
 
+	size_t CAudio::getActiveVoiceCount()
+	{
+		return m_soloud->getActiveVoiceCount();
+	}
+
+	void CAudio::fadeGlobalVolume(const double volume, const Duration& time)
+	{
+		m_soloud->fadeGlobalVolume(static_cast<float>(volume), time.count());
+	}
+
+	void CAudio::getGlobalSamples(Array<float>& samples)
+	{
+		if (const float* p = m_soloud->getWave())
+		{
+			samples.assign(p, p + 256);
+		}
+		else
+		{
+			samples.clear();
+		}
+	}
+
+	void CAudio::getGlobalFFT(Array<float>& result)
+	{
+		if (const float* p = m_soloud->calcFFT())
+		{
+			result.assign(p, p + 256);
+		}
+		else
+		{
+			result.clear();
+		}
+	}
+
+	void CAudio::getBusSamples(const size_t busIndex, Array<float>& samples)
+	{
+		samples.clear();
+
+		if (Audio::MaxBusCount <= busIndex)
+		{
+			return;
+		}
+		
+		if (not m_buses[busIndex])
+		{
+			return;
+		}
+
+		if (const float* p = m_buses[busIndex]->getBus().getWave())
+		{
+			samples.assign(p, p + 256);
+		}
+	}
+
+	void CAudio::getBusFFT(const size_t busIndex, Array<float>& result)
+	{
+		result.clear();
+
+		if (Audio::MaxBusCount <= busIndex)
+		{
+			return;
+		}
+
+		if (not m_buses[busIndex])
+		{
+			return;
+		}
+
+		if (const float* p = m_buses[busIndex]->getBus().calcFFT())
+		{
+			result.assign(p, p + 256);
+		}
+	}
 
 	SoLoud::Bus& CAudio::getBus(const size_t busIndex)
 	{
