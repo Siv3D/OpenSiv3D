@@ -368,15 +368,45 @@ namespace s3d
 		}
 	}
 
-	SoLoud::Bus& CAudio::getBus(const size_t busIndex)
+	void CAudio::clearFilter(const size_t busIndex, const size_t filterIndex)
+	{
+		if (not m_buses[busIndex])
+		{
+			return;
+		}
+
+		getBus(busIndex).clearFilter(filterIndex);
+	}
+
+	void CAudio::setLowPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
+	{
+		getBus(busIndex).setLowPassFilter(filterIndex, cutoffFrequency, resonance, wet);
+	}
+
+	void CAudio::setHighPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
+	{
+		getBus(busIndex).setHighPassFilter(filterIndex, cutoffFrequency, resonance, wet);
+	}
+
+	void CAudio::setEchoFilter(const size_t busIndex, const size_t filterIndex, const double delay, const double decay, const double wet)
+	{
+		getBus(busIndex).setEchoFilter(filterIndex, delay, decay, wet);
+	}
+
+	void CAudio::setReverbFilter(const size_t busIndex, const size_t filterIndex, const bool freeze, const double roomSize, const double damp, const double width, const double wet)
+	{
+		getBus(busIndex).setReverbFilter(filterIndex, freeze, roomSize, damp, width, wet);
+	}
+
+	AudioBus& CAudio::getBus(const size_t busIndex)
 	{
 		assert(busIndex < Audio::MaxBusCount);
 
 		if (not m_buses[busIndex])
 		{
-			m_buses[busIndex] = std::make_unique<AudioBus>(*m_soloud);
+			m_buses[busIndex] = std::make_unique<AudioBus>(m_soloud.get());
 		}
 
-		return m_buses[busIndex]->getBus();
+		return *m_buses[busIndex];
 	}
 }

@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# include <array>
+# include <memory>
 # include <Siv3D/Common.hpp>
 # include <ThirdParty/soloud/include/soloud.h>
 
@@ -19,21 +21,27 @@ namespace s3d
 	{
 	public:
 
-		explicit AudioBus(SoLoud::Soloud& soloud)
-		{
-			m_bus.setVisualizationEnable(true);
-			
-			m_handle = soloud.play(m_bus);
-		}
+		SIV3D_NODISCARD_CXX20
+		explicit AudioBus(SoLoud::Soloud* soloud);
 
-		SoLoud::Bus& getBus() noexcept
-		{
-			return m_bus;
-		}
+		[[nodiscard]]
+		SoLoud::Bus& getBus() noexcept;
+
+		void clearFilter(size_t filterIndex);
+
+		void setLowPassFilter(size_t filterIndex, double cutoffFrequency, double resonance, double wet);
+
+		void setHighPassFilter(size_t filterIndex, double cutoffFrequency, double resonance, double wet);
+
+		void setEchoFilter(size_t filterIndex, double delay, double decay, double wet);
+
+		void setReverbFilter(size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet);
 
 	private:
 
 		SoLoud::Bus m_bus;
+
+		SoLoud::Soloud* m_pSoloud = nullptr;
 
 		SoLoud::handle m_handle = 0;
 

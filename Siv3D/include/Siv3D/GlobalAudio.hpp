@@ -18,34 +18,41 @@ namespace s3d
 {
 	namespace GlobalAudio
 	{
+		[[nodiscard]]
 		size_t GetActiveVoiceCount();
 
 		void FadeVolume(double volume, const Duration& time);
 
+		[[nodiscard]]
 		Array<float> GetSamples();
 
 		void GetSamples(Array<float>& samples);
 
+		[[nodiscard]]
 		Array<float> GetFFT();
 
 		void GetFFT(Array<float>& result);
 
 
+		[[nodiscard]]
 		Array<float> GetBusSamples(size_t busIndex);
 
 		void GetBusSamples(size_t busIndex, Array<float>& samples);
 
+		[[nodiscard]]
 		Array<float> GetBusFFT(size_t busIndex);
 
 		void GetBusFFT(size_t busIndex, Array<float>& result);
 
 
-		//void SetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance);
+		void ClearFilter(size_t busIndex, size_t filterIndex);
 
-		//void SetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance);
+		void SetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
+
+		void SetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 	
-		//void SetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay);
+		void SetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
 
-		//void SetReverbFilter(size_t busIndex, size_t filterIndex, double mode, double roomSize, double damp, double width);
+		void SetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
 	}
 }

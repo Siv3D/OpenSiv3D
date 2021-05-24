@@ -120,29 +120,29 @@ namespace s3d
 			}
 		}
 
-		//Audio OpenAudio(const FilePathView defaultPath, const StringView title)
-		//{
-		//	if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
-		//	{
-		//		return Audio{ path.value() };
-		//	}
-		//	else
-		//	{
-		//		return{};
-		//	}
-		//}
+		Audio OpenAudio(const FilePathView defaultPath, const StringView title)
+		{
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			{
+				return Audio{ *path };
+			}
+			else
+			{
+				return{};
+			}
+		}
 
-		//Audio OpenAudio(const Arg::loop_<bool> loop, const FilePathView defaultPath, const StringView title)
-		//{
-		//	if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
-		//	{
-		//		return Audio{ path.value(), loop };
-		//	}
-		//	else
-		//	{
-		//		return{};
-		//	}
-		//}
+		Audio OpenAudio(Audio::FileStreaming, const FilePathView defaultPath, const StringView title)
+		{
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			{
+				return Audio{ Audio::Stream, *path };
+			}
+			else
+			{
+				return{};
+			}
+		}
 
 		Optional<FilePath> SaveImage(const FilePathView defaultPath, const StringView title)
 		{

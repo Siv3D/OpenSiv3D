@@ -13,11 +13,6 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Audio.hpp>
 
-namespace SoLoud
-{
-	class Bus;
-}
-
 namespace s3d
 {
 	class AudioBus;
@@ -112,6 +107,16 @@ namespace s3d
 
 		virtual void getBusFFT(size_t busIndex, Array<float>& result) = 0;
 
-		virtual SoLoud::Bus& getBus(size_t busIndex) = 0;
+		virtual void clearFilter(size_t busIndex, size_t filterIndex) = 0;
+
+		virtual void setLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet) = 0;
+
+		virtual void setHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet) = 0;
+
+		virtual void setEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet) = 0;
+
+		virtual void setReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet) = 0;
+
+		virtual AudioBus& getBus(size_t busIndex) = 0;
 	};
 }

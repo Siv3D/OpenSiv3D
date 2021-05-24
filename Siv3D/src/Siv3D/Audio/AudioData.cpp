@@ -215,7 +215,7 @@ namespace s3d
 		{
 			m_busIndex = static_cast<uint32>(busIndex);
 
-			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex)
+			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex).getBus()
 				.play(*m_audioSource,
 					static_cast<float>(m_reservedSetting.volume),
 					static_cast<float>(m_reservedSetting.pan), true);
@@ -246,7 +246,7 @@ namespace s3d
 		{
 			m_busIndex = static_cast<uint32>(busIndex);
 
-			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex)
+			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex).getBus()
 				.play(*m_audioSource,
 					0.0f,
 					static_cast<float>(m_reservedSetting.pan), true);
@@ -330,7 +330,7 @@ namespace s3d
 		m_handle = 0;
 
 		{
-			m_handle = SIV3D_ENGINE(Audio)->getBus(m_busIndex)
+			m_handle = SIV3D_ENGINE(Audio)->getBus(m_busIndex).getBus()
 				.play(*m_audioSource,
 					static_cast<float>(m_reservedSetting.volume),
 					static_cast<float>(m_reservedSetting.pan), true);

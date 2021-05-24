@@ -107,7 +107,17 @@ namespace s3d
 
 		void getBusFFT(size_t busIndex, Array<float>& result) override;
 
-		SoLoud::Bus& getBus(size_t busIndex) override;
+		void clearFilter(size_t busIndex, size_t filterIndex) override;
+
+		void setLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet) override;
+
+		void setHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet) override;
+
+		void setEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet) override;
+
+		void setReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet) override;
+
+		AudioBus& getBus(size_t busIndex) override;
 
 	private:
 
