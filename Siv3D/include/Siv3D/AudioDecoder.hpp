@@ -18,6 +18,12 @@ namespace s3d
 {
 	namespace AudioDecoder
 	{
+		[[nodiscard]]
+		AudioFormat GetAudioFormat(FilePathView path);
+
+		[[nodiscard]]
+		AudioFormat GetAudioFormat(IReader& reader);
+
 		/// @brief 音声ファイルをデコードして、Wave を作成します。
 		/// @param path 音声ファイルのパス
 		/// @param audioFormat 音声のフォーマット。不明の場合は `AudioFormat::Unknown`

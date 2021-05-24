@@ -27,6 +27,8 @@ namespace s3d
 
 		void init() override;
 
+		AudioFormat getAudioFormat(IReader& reader) override;
+
 		Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) override;
 
 		Wave decode(IReader& reader, StringView decoderName) override;

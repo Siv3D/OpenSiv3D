@@ -11,7 +11,7 @@
 
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include <Siv3D/System.hpp>
+# include <Siv3D/AudioDecoder.hpp>
 # include "CAudio.hpp"
 
 namespace s3d
@@ -116,6 +116,16 @@ namespace s3d
 
 	Audio::IDType CAudio::createStreamingNonLoop(const FilePathView path)
 	{
+		// ストリーミングに対応しない形式の場合のフォールバック
+		if (const AudioFormat format = AudioDecoder::GetAudioFormat(path);
+			(format != AudioFormat::WAVE)
+			&& (format != AudioFormat::MP3)
+			&& (format != AudioFormat::OggVorbis)
+			&& (format != AudioFormat::FLAC))
+		{
+			return create(Wave{ path }, none);
+		}
+
 		// Audio を作成
 		auto audio = std::make_unique<AudioData>(m_soloud.get(), path);
 
@@ -132,6 +142,16 @@ namespace s3d
 
 	Audio::IDType CAudio::createStreamingLoop(const FilePathView path, const uint64 loopBegin)
 	{
+		// ストリーミングに対応しない形式の場合のフォールバック
+		if (const AudioFormat format = AudioDecoder::GetAudioFormat(path);
+			(format != AudioFormat::WAVE)
+			&& (format != AudioFormat::MP3)
+			&& (format != AudioFormat::OggVorbis)
+			&& (format != AudioFormat::FLAC))
+		{
+			return create(Wave{ path }, AudioLoopTiming{ loopBegin, 0 });
+		}
+
 		// Audio を作成
 		auto audio = std::make_unique<AudioData>(m_soloud.get(), path, loopBegin);
 

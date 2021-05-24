@@ -57,6 +57,37 @@ namespace s3d
 	# endif
 	}
 
+	AudioFormat CAudioDecoder::getAudioFormat(IReader& reader)
+	{
+		if (not reader.isOpen())
+		{
+			return AudioFormat::Unknown;
+		}
+
+		if (not reader.supportsLookahead())
+		{
+			return AudioFormat::Unknown;
+		}
+
+		uint8 header[48] = {};
+		constexpr int64 MinimumAudioHeaderSize = 16;
+
+		if (reader.lookahead(header, sizeof(header)) < MinimumAudioHeaderSize)
+		{
+			return AudioFormat::Unknown;
+		}
+
+		for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
+		{
+			if ((*it)->isHeader(header))
+			{
+				return it->get()->audioFormat();
+			}
+		}
+
+		return AudioFormat::Unknown;
+	}
+
 	Wave CAudioDecoder::decode(IReader& reader, const FilePathView pathHint, const AudioFormat imageFormat)
 	{
 		LOG_SCOPED_TRACE(U"CAudioDecoder::decode()");

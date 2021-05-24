@@ -18,6 +18,23 @@ namespace s3d
 {
 	namespace AudioDecoder
 	{
+		AudioFormat GetAudioFormat(const FilePathView path)
+		{
+			BinaryReader reader{ path };
+
+			if (not reader)
+			{
+				return AudioFormat::Unknown;
+			}
+
+			return SIV3D_ENGINE(AudioDecoder)->getAudioFormat(reader);
+		}
+
+		AudioFormat GetAudioFormat(IReader& reader)
+		{
+			return SIV3D_ENGINE(AudioDecoder)->getAudioFormat(reader);
+		}
+
 		Wave Decode(const FilePathView path, const AudioFormat audioFormat)
 		{
 			BinaryReader reader{ path };

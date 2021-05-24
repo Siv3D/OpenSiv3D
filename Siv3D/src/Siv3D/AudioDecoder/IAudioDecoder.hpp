@@ -30,6 +30,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
+		virtual AudioFormat getAudioFormat(IReader& reader) = 0;
+
 		//virtual Optional<AudioInfo> getAudioInfo(IReader& reader, FilePathView pathHint, AudioFormat imageFormat) = 0;
 
 		virtual Wave decode(IReader& reader, FilePathView pathHint, AudioFormat audioFormat) = 0;
