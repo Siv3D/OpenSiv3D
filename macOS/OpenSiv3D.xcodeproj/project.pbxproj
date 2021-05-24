@@ -1372,6 +1372,7 @@
 		2CC7D4B225FA3A9200289963 /* SivVideoTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4AF25FA3A9100289963 /* SivVideoTexture.cpp */; };
 		2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */; };
 		2CDD2FC3265B9E7900E09591 /* SivGlobalAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD2FC2265B9E7900E09591 /* SivGlobalAudio.cpp */; };
+		2CDD2FC5265BE55200E09591 /* AudioBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD2FC4265BE55200E09591 /* AudioBus.cpp */; };
 		2CDD4F30260A3F7100A51D68 /* P2WorldDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F10260A3F7100A51D68 /* P2WorldDetail.cpp */; };
 		2CDD4F31260A3F7100A51D68 /* P2Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F11260A3F7100A51D68 /* P2Shape.cpp */; };
 		2CDD4F32260A3F7100A51D68 /* P2ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F12260A3F7100A51D68 /* P2ContactListener.cpp */; };
@@ -3666,6 +3667,7 @@
 		2CC7D4AF25FA3A9100289963 /* SivVideoTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoTexture.cpp; sourceTree = "<group>"; };
 		2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoTextureDetail.cpp; sourceTree = "<group>"; };
 		2CDD2FC2265B9E7900E09591 /* SivGlobalAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGlobalAudio.cpp; sourceTree = "<group>"; };
+		2CDD2FC4265BE55200E09591 /* AudioBus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioBus.cpp; sourceTree = "<group>"; };
 		2CDD4F0C260A3F5700A51D68 /* P2Body.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Body.ipp; sourceTree = "<group>"; };
 		2CDD4F0E260A3F5700A51D68 /* P2Collision.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Collision.ipp; sourceTree = "<group>"; };
 		2CDD4F10260A3F7100A51D68 /* P2WorldDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2WorldDetail.cpp; sourceTree = "<group>"; };
@@ -6850,6 +6852,7 @@
 		2C5DD42F265979F100282CE2 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2CDD2FC4265BE55200E09591 /* AudioBus.cpp */,
 				2C5DD430265979F100282CE2 /* AudioFactory.cpp */,
 				2C5DD431265979F100282CE2 /* CAudio.cpp */,
 				2C5DD432265979F100282CE2 /* AudioData.cpp */,
@@ -11122,6 +11125,7 @@
 				2C9566FC2645846C00539B85 /* SivHTMLWriter.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
 				2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */,
+				2CDD2FC5265BE55200E09591 /* AudioBus.cpp in Sources */,
 				2C48BF8425D41C0D00A93CE3 /* FontFactory.cpp in Sources */,
 				2C423241242B155E00A16BCA /* cocoa_window.m in Sources */,
 				2C13C9AA25BD29FC0054B968 /* loadlib.c in Sources */,
