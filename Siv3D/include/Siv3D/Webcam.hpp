@@ -46,7 +46,7 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Permission> getPermission() const;
 
-		bool open(size_t cameraIndex);
+		bool open(uint32 cameraIndex);
 
 		void close();
 

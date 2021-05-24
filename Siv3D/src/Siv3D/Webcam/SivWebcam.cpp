@@ -58,7 +58,7 @@ namespace s3d
 		return Webcam::Permission::Allowed;
 	}
 
-	bool Webcam::open(const size_t cameraIndex)
+	bool Webcam::open(const uint32 cameraIndex)
 	{
 		return pImpl->open(cameraIndex);
 	}

@@ -37,25 +37,25 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CAudio::~CAudio()");
 
-		if (m_soloud)
-		{
-			// 再生中の音声をフェードアウト
-			if (m_soloud->getActiveVoiceCount())
-			{
-				constexpr SecondsF FadeOutTime{ 0.3 };
+		//if (m_soloud)
+		//{
+		//	// 再生中の音声をフェードアウト
+		//	if (m_soloud->getActiveVoiceCount())
+		//	{
+		//		constexpr SecondsF FadeOutTime{ 0.3 };
 
-				m_soloud->fadeGlobalVolume(0.0f, FadeOutTime.count());
-				
-				System::Sleep(FadeOutTime);
-			}
-		}
+		//		m_soloud->fadeGlobalVolume(0.0f, FadeOutTime.count());
+		//		
+		//		System::Sleep(FadeOutTime);
+		//	}
+		//}
+
+		m_audios.destroy();
 
 		for (auto& bus : m_buses)
 		{
 			bus.reset();
 		}
-
-		m_audios.destroy();
 
 		if (m_soloud)
 		{
@@ -95,7 +95,7 @@ namespace s3d
 		// null Audio を管理に登録
 		{
 			// null Font を作成
-			auto nullAudio = std::make_unique<AudioData>(AudioData::Null{});
+			auto nullAudio = std::make_unique<AudioData>(AudioData::Null{}, m_soloud.get());
 
 			if (not nullAudio->isInitialized()) // もし作成に失敗していたら
 			{
@@ -110,7 +110,7 @@ namespace s3d
 	Audio::IDType CAudio::create(Wave&& wave, const Optional<AudioLoopTiming>& loop)
 	{
 		// Audio を作成
-		auto audio = std::make_unique<AudioData>(std::move(wave), loop);
+		auto audio = std::make_unique<AudioData>(m_soloud.get(), std::move(wave), loop);
 
 		if (not audio->isInitialized()) // もし作成に失敗していたら
 		{
@@ -133,7 +133,7 @@ namespace s3d
 	Audio::IDType CAudio::createStreamingNonLoop(const FilePathView path)
 	{
 		// Audio を作成
-		auto audio = std::make_unique<AudioData>(path);
+		auto audio = std::make_unique<AudioData>(m_soloud.get(), path);
 
 		if (not audio->isInitialized()) // もし作成に失敗していたら
 		{
@@ -149,7 +149,7 @@ namespace s3d
 	Audio::IDType CAudio::createStreamingLoop(const FilePathView path, const uint64 loopBegin)
 	{
 		// Audio を作成
-		auto audio = std::make_unique<AudioData>(path, loopBegin);
+		auto audio = std::make_unique<AudioData>(m_soloud.get(), path, loopBegin);
 
 		if (not audio->isInitialized()) // もし作成に失敗していたら
 		{
@@ -165,5 +165,161 @@ namespace s3d
 	void CAudio::release(const Audio::IDType handleID)
 	{
 		m_audios.erase(handleID);
+	}
+
+	bool CAudio::isStreaming(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->isStreaming();
+	}
+
+	uint32 CAudio::sampleRate(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->sampleRate();
+	}
+
+	size_t CAudio::samples(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->samples();
+	}
+
+	int64 CAudio::samplesPlayed(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->samplesPlayed();
+	}
+
+	bool CAudio::isActive(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->isActive();
+	}
+
+	bool CAudio::isPlaying(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->isPlaying();
+	}
+
+	bool CAudio::isPaused(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->isPaused();
+	}
+
+	bool CAudio::isLoop(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->isLoop();
+	}
+
+	AudioLoopTiming CAudio::getLoopTiming(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->loopTiming();
+	}
+
+	void CAudio::setLoop(const Audio::IDType handleID, const bool loop)
+	{
+		m_audios[handleID]->setLoop(loop);
+	}
+
+	void CAudio::setLoopPoint(const Audio::IDType handleID, const Duration& loopBegin)
+	{
+		m_audios[handleID]->setLoopPoint(loopBegin);
+	}
+
+	void CAudio::play(const Audio::IDType handleID, const size_t busIndex)
+	{
+		m_audios[handleID]->play(busIndex);
+	}
+
+	void CAudio::play(const Audio::IDType handleID, const size_t busIndex, const Duration& duration)
+	{
+		m_audios[handleID]->play(busIndex, duration);
+	}
+
+	void CAudio::pause(const Audio::IDType handleID)
+	{
+		m_audios[handleID]->pause();
+	}
+
+	void CAudio::pause(const Audio::IDType handleID, const Duration& duration)
+	{
+		m_audios[handleID]->pause(duration);
+	}
+
+	void CAudio::stop(const Audio::IDType handleID)
+	{
+		m_audios[handleID]->stop();
+	}
+
+	void CAudio::stop(const Audio::IDType handleID, const Duration& duration)
+	{
+		m_audios[handleID]->stop(duration);
+	}
+
+
+
+	double CAudio::posSec(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->posSec();
+	}
+
+	void CAudio::seekTo(const Audio::IDType handleID, const Duration& pos)
+	{
+		m_audios[handleID]->seekTo(pos);
+	}
+
+	double CAudio::getVolume(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->getVolume();
+	}
+
+	void CAudio::setVolume(const Audio::IDType handleID, const double volume)
+	{
+		m_audios[handleID]->setVolume(volume);
+	}
+
+	void CAudio::fadeVolume(const Audio::IDType handleID, const double volume, const Duration& time)
+	{
+		m_audios[handleID]->fadeVolume(volume, time);
+	}
+
+	double CAudio::getPan(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->getPan();
+	}
+
+	void CAudio::setPan(const Audio::IDType handleID, const double pan)
+	{
+		m_audios[handleID]->setPan(pan);
+	}
+
+	void CAudio::fadePan(const Audio::IDType handleID, const double pan, const Duration& time)
+	{
+		m_audios[handleID]->fadePan(pan, time);
+	}
+
+	double CAudio::getSpeed(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->getSpeed();
+	}
+
+	void CAudio::setSpeed(const Audio::IDType handleID, const double speed)
+	{
+		m_audios[handleID]->setSpeed(speed);
+	}
+
+	void CAudio::fadeSpeed(const Audio::IDType handleID, const double speed, const Duration& time)
+	{
+		m_audios[handleID]->fadeSpeed(speed, time);
+	}
+
+
+
+	SoLoud::Bus& CAudio::getBus(const size_t busIndex)
+	{
+		assert(busIndex < Audio::MaxBusCount);
+
+		if (not m_buses[busIndex])
+		{
+			m_buses[busIndex] = std::make_unique<AudioBus>(*m_soloud);
+		}
+
+		return m_buses[busIndex]->getBus();
 	}
 }

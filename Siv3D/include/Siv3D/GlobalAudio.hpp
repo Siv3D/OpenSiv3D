@@ -11,11 +11,16 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
 	namespace GlobalAudio
 	{
+		void FadeVolume(double volume, const Duraton& time);
 
+		void FadePan(double pan, const Duraton& time);
+
+		void FadeSpeed(double speed, const Duraton& time);
 	}
 }

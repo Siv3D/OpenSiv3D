@@ -14,12 +14,14 @@
 # include <Siv3D/Math.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "AudioData.hpp"
+# include "AudioBus.hpp"
 # include <ThirdParty/soloud/include/soloud_wav.h>
 # include <ThirdParty/soloud/include/soloud_wavstream.h>
 
 namespace s3d
 {
-	AudioData::AudioData(Null)
+	AudioData::AudioData(Null, SoLoud::Soloud* pSoloud)
+		: m_pSoloud{ pSoloud }
 	{
 		// m_wave 準備
 		{
@@ -44,8 +46,9 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	AudioData::AudioData(Wave&& wave, const Optional<AudioLoopTiming>& loop)
-		: m_loop{ loop.has_value() }
+	AudioData::AudioData(SoLoud::Soloud* pSoloud, Wave&& wave, const Optional<AudioLoopTiming>& loop)
+		: m_pSoloud{ pSoloud }
+		, m_loop{ loop.has_value() }
 	{
 		// m_wave 準備
 		{
@@ -82,8 +85,9 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	AudioData::AudioData(const FilePathView path)
-		: m_isStreaming{ true }
+	AudioData::AudioData(SoLoud::Soloud* pSoloud, const FilePathView path)
+		: m_pSoloud{ pSoloud }
+		, m_isStreaming{ true }
 	{
 		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
@@ -98,8 +102,9 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	AudioData::AudioData(const FilePathView path, const uint64 loopBegin)
-		: m_isStreaming{ true }
+	AudioData::AudioData(SoLoud::Soloud* pSoloud, const FilePathView path, const uint64 loopBegin)
+		: m_pSoloud{ pSoloud }
+		, m_isStreaming{ true }
 	{
 		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
@@ -144,5 +149,288 @@ namespace s3d
 	bool AudioData::isStreaming() const noexcept
 	{
 		return m_isStreaming;
+	}
+
+	int64 AudioData::samplesPlayed() const
+	{
+		if (not m_handle)
+		{
+			return 0;
+		}
+
+		return static_cast<int64>(m_pSoloud->getStreamTime(m_handle) * m_sampleRate);
+	}
+	
+	bool AudioData::isActive() const
+	{
+		return m_pSoloud->isValidVoiceHandle(m_handle);
+	}
+
+	bool AudioData::isPlaying() const
+	{
+		if (not m_handle)
+		{
+			return false;
+		}
+
+		return (m_pSoloud->isValidVoiceHandle(m_handle)
+			&& (m_pSoloud->getPause(m_handle) == false));
+	}
+
+	bool AudioData::isPaused() const
+	{
+		if (not m_handle)
+		{
+			return false;
+		}
+
+		return m_pSoloud->getPause(m_handle);
+	}
+
+	bool AudioData::isLoop() const
+	{
+		return m_loop;
+	}
+
+	void AudioData::setLoop(const bool loop)
+	{
+		if (loop == m_loop)
+		{
+			return;
+		}
+
+		m_audioSource->setLooping(loop);
+		m_loop = loop;
+	}
+	
+	void AudioData::setLoopPoint(const Duration& loopBegin)
+	{
+		m_audioSource->setLoopPoint(loopBegin.count());
+		m_loopTiming.beginPos = static_cast<uint64>(loopBegin.count() / m_sampleRate);
+	}
+
+	void AudioData::play(const size_t busIndex)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle)) // 初回の再生
+		{
+			m_busIndex = static_cast<uint32>(busIndex);
+
+			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex)
+				.play(*m_audioSource,
+					static_cast<float>(m_reservedSetting.volume),
+					static_cast<float>(m_reservedSetting.pan), true);
+
+			if (m_reservedSetting.pos.count() != 0.0)
+			{
+				m_pSoloud->seek(m_handle, m_reservedSetting.pos.count());
+			}
+
+			if (m_reservedSetting.speed != 1.0)
+			{
+				m_pSoloud->setRelativePlaySpeed(m_handle, static_cast<float>(m_reservedSetting.speed));
+			}
+
+			m_pSoloud->setPause(m_handle, false);
+
+			m_reservedSetting = {};
+		}
+		else if (m_pSoloud->getPause(m_handle)) // Pause の終了
+		{
+			m_pSoloud->setPause(m_handle, false);
+		}
+	}
+
+	void AudioData::play(const size_t busIndex, const Duration& duration)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle)) // 初回の再生
+		{
+			m_busIndex = static_cast<uint32>(busIndex);
+
+			m_handle = SIV3D_ENGINE(Audio)->getBus(busIndex)
+				.play(*m_audioSource,
+					0.0f,
+					static_cast<float>(m_reservedSetting.pan), true);
+			
+			if (m_reservedSetting.pos.count() != 0.0)
+			{
+				m_pSoloud->seek(m_handle, m_reservedSetting.pos.count());
+			}
+	
+			if (m_reservedSetting.speed != 1.0)
+			{
+				m_pSoloud->setRelativePlaySpeed(m_handle, static_cast<float>(m_reservedSetting.speed));
+			}
+			
+			m_pSoloud->fadeVolume(m_handle, 1.0f, duration.count());
+
+			m_pSoloud->setPause(m_handle, false);
+
+			m_reservedSetting = {};
+		}
+		else if (m_pSoloud->getPause(m_handle)) // Pause の終了
+		{
+			m_pSoloud->setVolume(m_handle, 0.0f);
+
+			m_pSoloud->fadeVolume(m_handle, 1.0f, duration.count());
+			
+			m_pSoloud->setPause(m_handle, false);
+		}
+	}
+
+	void AudioData::pause()
+	{
+		m_pSoloud->setPause(m_handle, true);
+	}
+
+	void AudioData::pause(const Duration& duration)
+	{
+		m_pSoloud->fadeVolume(m_handle, 0.0f, duration.count());
+		m_pSoloud->schedulePause(m_handle, duration.count());
+	}
+
+	void AudioData::stop()
+	{
+		m_pSoloud->stop(m_handle);
+		m_handle = 0;
+	}
+
+	void AudioData::stop(const Duration& duration)
+	{
+		m_pSoloud->fadeVolume(m_handle, 0.0f, duration.count());
+		m_pSoloud->scheduleStop(m_handle, duration.count());
+	}
+
+
+	double AudioData::posSec() const
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			return m_reservedSetting.pos.count();
+		}
+
+		return m_pSoloud->getStreamPosition(m_handle);
+	}
+
+	void AudioData::seekTo(const Duration& pos)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			m_reservedSetting.pos = pos;
+			return;
+		}
+
+		const bool isPlaying = (m_pSoloud->getPause(m_handle) == false);
+
+		m_reservedSetting.volume	= m_pSoloud->getVolume(m_handle);
+		m_reservedSetting.pan		= m_pSoloud->getPan(m_handle);
+		m_reservedSetting.speed		= m_pSoloud->getRelativePlaySpeed(m_handle);
+		m_reservedSetting.pos		= pos;
+
+		m_pSoloud->stop(m_handle);
+		m_handle = 0;
+
+		{
+			m_handle = SIV3D_ENGINE(Audio)->getBus(m_busIndex)
+				.play(*m_audioSource,
+					0.0f,
+					static_cast<float>(m_reservedSetting.pan), true);
+
+			if (m_reservedSetting.pos.count() != 0.0)
+			{
+				m_pSoloud->seek(m_handle, m_reservedSetting.pos.count());
+			}
+
+			if (m_reservedSetting.speed != 1.0)
+			{
+				m_pSoloud->setRelativePlaySpeed(m_handle, static_cast<float>(m_reservedSetting.speed));
+			}
+
+			m_pSoloud->fadeVolume(m_handle, m_reservedSetting.volume, 0.0);
+
+			if (isPlaying)
+			{
+				m_pSoloud->setPause(m_handle, false);
+			}
+
+			m_reservedSetting = {};
+		}
+	}
+
+	double AudioData::getVolume() const
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			return m_reservedSetting.volume;
+		}
+
+		return m_pSoloud->getVolume(m_handle);
+	}
+
+	void AudioData::setVolume(const double volume)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			m_reservedSetting.volume = volume;
+			return;
+		}
+
+		m_pSoloud->setVolume(m_handle, static_cast<float>(volume));
+	}
+
+	void AudioData::fadeVolume(const double volume, const Duration& time)
+	{
+		m_pSoloud->fadeVolume(m_handle, static_cast<float>(volume), time.count());
+	}
+
+	double AudioData::getPan() const
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			return m_reservedSetting.pan;
+		}
+
+		return m_pSoloud->getPan(m_handle);
+	}
+
+	void AudioData::setPan(const double pan)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			m_reservedSetting.pan = pan;
+			return;
+		}
+
+		m_pSoloud->setPan(m_handle, static_cast<float>(pan));
+	}
+
+	void AudioData::fadePan(const double pan, const Duration& time)
+	{
+		m_pSoloud->fadePan(m_handle, static_cast<float>(pan), time.count());
+	}
+
+	double AudioData::getSpeed() const
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			return m_reservedSetting.speed;
+		}
+
+		return m_pSoloud->getRelativePlaySpeed(m_handle);
+	}
+
+	void AudioData::setSpeed(const double speed)
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			m_reservedSetting.speed = speed;
+			return;
+		}
+
+		m_pSoloud->setRelativePlaySpeed(m_handle, static_cast<float>(speed));
+	}
+
+	void AudioData::fadeSpeed(const double speed, const Duration& time)
+	{
+		m_pSoloud->fadeRelativePlaySpeed(m_handle, static_cast<float>(speed), time.count());
 	}
 }

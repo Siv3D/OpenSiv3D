@@ -146,22 +146,195 @@ namespace s3d
 
 	Audio::~Audio() {}
 
-	/*
-
-	bool Font::addFallback(const Font& font) const
+	bool Audio::isStreaming() const
 	{
-		if (not font)
+		return SIV3D_ENGINE(Audio)->isStreaming(m_handle->id());
+	}
+
+	uint32 Audio::sampleRate() const
+	{
+		return SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+	}
+
+	size_t Audio::samples() const
+	{
+		return SIV3D_ENGINE(Audio)->samples(m_handle->id());
+	}
+
+	double Audio::lengthSec() const
+	{
+		const size_t samples = SIV3D_ENGINE(Audio)->samples(m_handle->id());
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+
+		if (sampleRate == 0)
 		{
-			LOG_FAIL(U"Font::addFallback() failed (font is empty)");
-			return false;
+			return 0.0;
 		}
 
-		return SIV3D_ENGINE(Font)->addFallbackFont(m_handle->id(), font.m_handle);
+		return (static_cast<double>(samples) / sampleRate);
 	}
 
-	const String& Font::familyName() const
+	int64 Audio::samplesPlayed() const
 	{
-		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).familiyName;
+		return SIV3D_ENGINE(Audio)->samplesPlayed(m_handle->id());
 	}
-	*/
+
+	bool Audio::isActive() const
+	{
+		return SIV3D_ENGINE(Audio)->isActive(m_handle->id());
+	}
+
+	bool Audio::isPlaying() const
+	{
+		return SIV3D_ENGINE(Audio)->isPlaying(m_handle->id());
+	}
+
+	bool Audio::isPaused() const
+	{
+		return SIV3D_ENGINE(Audio)->isPaused(m_handle->id());
+	}
+
+	bool Audio::isLoop() const
+	{
+		return SIV3D_ENGINE(Audio)->isLoop(m_handle->id());
+	}
+
+	AudioLoopTiming Audio::getLoopTiming() const
+	{
+		return SIV3D_ENGINE(Audio)->getLoopTiming(m_handle->id());
+	}
+
+	void Audio::setLoop(const bool loop) const
+	{
+		SIV3D_ENGINE(Audio)->setLoop(m_handle->id(), loop);
+	}
+
+	void Audio::setLoopPoint(const uint64 loopBegin) const
+	{
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+		const double loopBeginSec = (static_cast<double>(loopBegin) / sampleRate);
+
+		SIV3D_ENGINE(Audio)->setLoopPoint(m_handle->id(), SecondsF{ loopBeginSec });
+	}
+
+	void Audio::setLoopPoint(const Duration& loopBegin) const
+	{
+		SIV3D_ENGINE(Audio)->setLoopPoint(m_handle->id(), Max(loopBegin, SecondsF{ 0.0 }));
+	}
+
+	void Audio::play(const size_t busIndex) const
+	{
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex);
+	}
+
+	void Audio::play(const Duration& duration, const size_t busIndex) const
+	{
+		play(busIndex, duration);
+	}
+
+	void Audio::play(const size_t busIndex, const Duration& duration) const
+	{
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex, duration);
+	}
+
+	void Audio::pause() const
+	{
+		SIV3D_ENGINE(Audio)->pause(m_handle->id());
+	}
+
+	void Audio::pause(const Duration& duration) const
+	{
+		SIV3D_ENGINE(Audio)->pause(m_handle->id(), duration);
+	}
+
+	void Audio::stop() const
+	{
+		SIV3D_ENGINE(Audio)->stop(m_handle->id());
+	}
+
+	void Audio::stop(const Duration& duration) const
+	{
+		SIV3D_ENGINE(Audio)->stop(m_handle->id(), duration);
+	}
+
+
+	int64 Audio::posSample() const
+	{
+		const double posSec = SIV3D_ENGINE(Audio)->posSec(m_handle->id());
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+
+		return static_cast<int64>(posSec * sampleRate);
+	}
+
+	double Audio::posSec() const
+	{
+		return SIV3D_ENGINE(Audio)->posSec(m_handle->id());
+	}
+
+	void Audio::seekSamples(const size_t posSample) const
+	{
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+
+		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), SecondsF{ (static_cast<double>(posSample) / sampleRate) });
+	}
+
+	void Audio::seekTime(const double posSec) const
+	{
+		seekTime(SecondsF{ posSec });
+	}
+
+	void Audio::seekTime(const Duration& pos) const
+	{
+		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), Max(pos, SecondsF{ 0.0 }));
+	}
+
+	double Audio::getVolume() const
+	{
+		return SIV3D_ENGINE(Audio)->getVolume(m_handle->id());
+	}
+
+	void Audio::setVolume(const double volume) const
+	{
+		SIV3D_ENGINE(Audio)->setVolume(m_handle->id(), volume);
+	}
+
+	void Audio::fadeVolume(const double volume, const Duration& time) const
+	{
+		SIV3D_ENGINE(Audio)->fadeVolume(m_handle->id(), volume, time);
+	}
+
+	double Audio::getPan() const
+	{
+		return SIV3D_ENGINE(Audio)->getPan(m_handle->id());
+	}
+
+	void Audio::setPan(const double pan) const
+	{
+		SIV3D_ENGINE(Audio)->setPan(m_handle->id(), Clamp(pan, -1.0, 1.0));
+	}
+
+	void Audio::fadePan(const double pan, const Duration& time) const
+	{
+		SIV3D_ENGINE(Audio)->fadePan(m_handle->id(), Clamp(pan, -1.0, 1.0), time);
+	}
+
+	double Audio::getSpeed() const
+	{
+		return SIV3D_ENGINE(Audio)->getSpeed(m_handle->id());
+	}
+
+	void Audio::setSpeed(const double speed) const
+	{
+		SIV3D_ENGINE(Audio)->setSpeed(m_handle->id(), speed);
+	}
+
+	void Audio::fadeSpeed(const double speed, const Duration& time) const
+	{
+		SIV3D_ENGINE(Audio)->fadeSpeed(m_handle->id(), speed, time);
+	}
+
+	void Audio::setSpeedBySemitone(const int32 semitone) const
+	{
+		setSpeed(std::exp2(semitone / 12.0));
+	}
 }

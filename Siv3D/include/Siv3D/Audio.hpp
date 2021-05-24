@@ -240,20 +240,16 @@ namespace s3d
 		[[nodiscard]]
 		double lengthSec() const;
 
-		/// @brief 再生位置（サンプル）を返します。
-		/// @return 再生位置（サンプル）
-		[[nodiscard]]
-		int64 posSample() const;
-
-		/// @brief 再生位置（秒）を返します。
-		/// @return 再生位置（秒）
-		[[nodiscard]]
-		double posSec() const;
-
 		/// @brief ループを含め再生したサンプル数の累計を返します。
 		/// @return 再生したサンプル数の累計
 		[[nodiscard]]
 		int64 samplesPlayed() const;
+
+		/// @brief オーディオがアクティブであるかを返します。
+		/// @remark 再生して、stop していないオーディオはアクティブです。
+		/// @return オーディオがアクティブな場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isActive() const;
 
 		/// @brief オーディオが再生中であるかを返します。
 		/// @return オーディオが再生中の場合 true, それ以外の場合は false
@@ -277,14 +273,75 @@ namespace s3d
 
 		/// @brief 新しく再生するときのループの有無を設定します。
 		/// @param loop ループの有無
-		void setLoop(bool loop);
+		void setLoop(bool loop) const;
 
 		/// @brief 新しくループ再生するときのループ開始位置（サンプル）を設定します。
 		/// @param loopBegin ループ開始位置（サンプル）
-		void setLoopPoint(uint64 loopBegin);
+		void setLoopPoint(uint64 loopBegin) const;
 
 		/// @brief 新しくループ再生するときのループ開始位置（秒）を設定します。
 		/// @param loopBegin ループ開始位置（秒）
-		void setLoopPoint(const Duration& loopBegin);
+		void setLoopPoint(const Duration& loopBegin) const;
+
+		void play(size_t busIndex = 0) const;
+
+		void play(const Duration& duration, size_t busIndex = 0) const;
+
+		void play(size_t busIndex, const Duration& duration) const;
+
+		void pause() const;
+
+		void pause(const Duration& duration) const;
+
+		void stop() const;
+
+		void stop(const Duration& duration) const;
+
+		//void playOneShot(size_t busIndex = 0) const;
+
+		//void pauseAllShots() const;
+
+		//void resumeAllShots() const;
+
+		//void stopAllShots() const;
+
+		/// @brief 再生位置（サンプル）を返します。
+		/// @return 再生位置（サンプル）
+		[[nodiscard]]
+		int64 posSample() const;
+
+		/// @brief 再生位置（秒）を返します。
+		/// @return 再生位置（秒）
+		[[nodiscard]]
+		double posSec() const;
+
+		void seekSamples(size_t posSample) const;
+
+		void seekTime(double posSec) const;
+
+		void seekTime(const Duration& pos) const;
+
+		[[nodiscard]]
+		double getVolume() const;
+
+		void setVolume(double volume) const;
+
+		void fadeVolume(double volume, const Duration& time) const;
+
+		[[nodiscard]]
+		double getPan() const;
+
+		void setPan(double pan) const;
+
+		void fadePan(double pan, const Duration& time) const;
+
+		[[nodiscard]]
+		double getSpeed() const;
+
+		void setSpeed(double speed) const;
+
+		void fadeSpeed(double speed, const Duration& time) const;
+
+		void setSpeedBySemitone(int32 semitone) const;
 	};
 }

@@ -15,12 +15,28 @@
 
 namespace s3d
 {
-	struct AudioBus
+	class AudioBus
 	{
-		SoLoud::Bus bus;
+	public:
 
-		SoLoud::handle handle = 0;
+		explicit AudioBus(SoLoud::Soloud& soloud)
+		{
+			m_bus.setVisualizationEnable(true);
+			
+			m_handle = soloud.play(m_bus);
+		}
 
-		std::array<std::unique_ptr<SoLoud::Filter>, 8> filters;
+		SoLoud::Bus& getBus() noexcept
+		{
+			return m_bus;
+		}
+
+	private:
+
+		SoLoud::Bus m_bus;
+
+		SoLoud::handle m_handle = 0;
+
+		std::array<std::unique_ptr<SoLoud::Filter>, 8> m_filters;
 	};
 }
