@@ -1371,6 +1371,7 @@
 		2CC7D4B125FA3A9200289963 /* VideoTextureDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7D4AE25FA3A9100289963 /* VideoTextureDetail.hpp */; };
 		2CC7D4B225FA3A9200289963 /* SivVideoTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4AF25FA3A9100289963 /* SivVideoTexture.cpp */; };
 		2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */; };
+		2CDD2FC3265B9E7900E09591 /* SivGlobalAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD2FC2265B9E7900E09591 /* SivGlobalAudio.cpp */; };
 		2CDD4F30260A3F7100A51D68 /* P2WorldDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F10260A3F7100A51D68 /* P2WorldDetail.cpp */; };
 		2CDD4F31260A3F7100A51D68 /* P2Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F11260A3F7100A51D68 /* P2Shape.cpp */; };
 		2CDD4F32260A3F7100A51D68 /* P2ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDD4F12260A3F7100A51D68 /* P2ContactListener.cpp */; };
@@ -3664,6 +3665,7 @@
 		2CC7D4AE25FA3A9100289963 /* VideoTextureDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VideoTextureDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4AF25FA3A9100289963 /* SivVideoTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVideoTexture.cpp; sourceTree = "<group>"; };
 		2CC7D4B025FA3A9100289963 /* VideoTextureDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoTextureDetail.cpp; sourceTree = "<group>"; };
+		2CDD2FC2265B9E7900E09591 /* SivGlobalAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGlobalAudio.cpp; sourceTree = "<group>"; };
 		2CDD4F0C260A3F5700A51D68 /* P2Body.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Body.ipp; sourceTree = "<group>"; };
 		2CDD4F0E260A3F5700A51D68 /* P2Collision.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = P2Collision.ipp; sourceTree = "<group>"; };
 		2CDD4F10260A3F7100A51D68 /* P2WorldDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2WorldDetail.cpp; sourceTree = "<group>"; };
@@ -5247,6 +5249,7 @@
 				2C427FE12628439B00106F19 /* GamepadInfo */,
 				2C8333A626441F7100AEECC7 /* GeoJSON */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
+				2CDD2FC1265B9E7900E09591 /* GlobalAudio */,
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
 				2C4A287425EB468600FEACE4 /* GUI */,
@@ -9109,6 +9112,14 @@
 			path = VideoTexture;
 			sourceTree = "<group>";
 		};
+		2CDD2FC1265B9E7900E09591 /* GlobalAudio */ = {
+			isa = PBXGroup;
+			children = (
+				2CDD2FC2265B9E7900E09591 /* SivGlobalAudio.cpp */,
+			);
+			path = GlobalAudio;
+			sourceTree = "<group>";
+		};
 		2CDD4F0B260A3F5700A51D68 /* detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -11153,6 +11164,7 @@
 				2C956659264546F700539B85 /* maskelement.cpp in Sources */,
 				2CF21D21249FAA8F00C864C9 /* WindowFactory.cpp in Sources */,
 				2C47B32924DD9789008D83BE /* SivStringView.cpp in Sources */,
+				2CDD2FC3265B9E7900E09591 /* SivGlobalAudio.cpp in Sources */,
 				2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */,
 				2C48BED925CFB8C500A93CE3 /* msdf-error-correction.cpp in Sources */,
 				2C423248242B155E00A16BCA /* xkb_unicode.c in Sources */,
