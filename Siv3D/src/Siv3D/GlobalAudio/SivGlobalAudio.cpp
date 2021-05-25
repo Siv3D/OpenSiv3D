@@ -56,35 +56,35 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->getGlobalFFT(result);
 		}
 
-		Array<float> GetBusSamples(const size_t busIndex)
+		Array<float> BusGetSamples(const size_t busIndex)
 		{
 			Array<float> result;
 
-			GetBusSamples(busIndex, result);
+			BusGetSamples(busIndex, result);
 
 			return result;
 		}
 
-		void GetBusSamples(const size_t busIndex, Array<float>& samples)
+		void BusGetSamples(const size_t busIndex, Array<float>& samples)
 		{
 			SIV3D_ENGINE(Audio)->getBusSamples(busIndex, samples);
 		}
 
-		Array<float> GetBusFFT(size_t busIndex)
+		Array<float> BusGetBFFT(size_t busIndex)
 		{
 			Array<float> result;
 
-			GetBusFFT(busIndex, result);
+			BusGetFFT(busIndex, result);
 
 			return result;
 		}
 
-		void GetBusFFT(const size_t busIndex, Array<float>& result)
+		void BusGetFFT(const size_t busIndex, Array<float>& result)
 		{
 			SIV3D_ENGINE(Audio)->getBusFFT(busIndex, result);
 		}
 
-		void ClearFilter(const size_t busIndex, const size_t filterIndex)
+		void BusClearFilter(const size_t busIndex, const size_t filterIndex)
 		{
 			if ((Audio::MaxBusCount <= busIndex)
 				|| (Audio::MaxFilterCount <= filterIndex))
@@ -95,7 +95,7 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->clearFilter(busIndex, filterIndex);
 		}
 
-		void SetLowPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
+		void BusSetLowPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
 		{
 			if ((Audio::MaxBusCount <= busIndex)
 				|| (Audio::MaxFilterCount <= filterIndex))
@@ -106,7 +106,7 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->setLowPassFilter(busIndex, filterIndex, cutoffFrequency, resonance, wet);
 		}
 
-		void SetHighPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
+		void BusSetHighPassFilter(const size_t busIndex, const size_t filterIndex, const double cutoffFrequency, const double resonance, const double wet)
 		{
 			if ((Audio::MaxBusCount <= busIndex)
 				|| (Audio::MaxFilterCount <= filterIndex))
@@ -117,7 +117,7 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->setHighPassFilter(busIndex, filterIndex, cutoffFrequency, resonance, wet);
 		}
 
-		void SetEchoFilter(const size_t busIndex, const size_t filterIndex, const double delay, const double decay, const double wet)
+		void BusSetEchoFilter(const size_t busIndex, const size_t filterIndex, const double delay, const double decay, const double wet)
 		{
 			if ((Audio::MaxBusCount <= busIndex)
 				|| (Audio::MaxFilterCount <= filterIndex))
@@ -128,7 +128,7 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->setEchoFilter(busIndex, filterIndex, delay, decay, wet);
 		}
 
-		void SetReverbFilter(const size_t busIndex, const size_t filterIndex, const bool freeze, const double roomSize, const double damp, const double width, const double wet)
+		void BusSetReverbFilter(const size_t busIndex, const size_t filterIndex, const bool freeze, const double roomSize, const double damp, const double width, const double wet)
 		{
 			if ((Audio::MaxBusCount <= busIndex)
 				|| (Audio::MaxFilterCount <= filterIndex))

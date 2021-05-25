@@ -33,26 +33,24 @@ namespace s3d
 
 		void GetFFT(Array<float>& result);
 
+		[[nodiscard]]
+		Array<float> BusGetSamples(size_t busIndex);
+
+		void BusGetSamples(size_t busIndex, Array<float>& samples);
 
 		[[nodiscard]]
-		Array<float> GetBusSamples(size_t busIndex);
+		Array<float> BusGetFFT(size_t busIndex);
 
-		void GetBusSamples(size_t busIndex, Array<float>& samples);
+		void BusGetFFT(size_t busIndex, Array<float>& result);
 
-		[[nodiscard]]
-		Array<float> GetBusFFT(size_t busIndex);
+		void BusClearFilter(size_t busIndex, size_t filterIndex);
 
-		void GetBusFFT(size_t busIndex, Array<float>& result);
+		void BusSetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 
-
-		void ClearFilter(size_t busIndex, size_t filterIndex);
-
-		void SetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
-
-		void SetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
+		void BusSetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 	
-		void SetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
+		void BusSetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
 
-		void SetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
+		void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
 	}
 }
