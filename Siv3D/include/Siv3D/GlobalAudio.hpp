@@ -18,11 +18,27 @@ namespace s3d
 {
 	namespace GlobalAudio
 	{
+		/// @brief 再生中のオーディオとバスの合計数を返します。
+		/// @return 再生中のオーディオとバスの合計数
 		[[nodiscard]]
 		size_t GetActiveVoiceCount();
 
+		/// @brief 最終出力の音量の設定を返します。
+		/// @return 最終出力の音量の設定 [0.0, 1.0]
+		[[nodiscard]]
+		double GetVolume();
+
+		/// @brief 最終出力の音量を変更します。
+		/// @param volume 音量 [0.0, 1.0]
+		void SetVolume(double volume);
+
+		/// @brief 最終出力の音量をフェードさせて変更します。
+		/// @param volume 音量 [0.0, 1.0]
+		/// @param time フェードの時間
 		void FadeVolume(double volume, const Duration& time);
 
+		/// @brief 最終出力に入力された直近 256 サンプルを取得します。
+		/// @return 最終出力に入力された直近 256 サンプル
 		[[nodiscard]]
 		Array<float> GetSamples();
 

@@ -101,6 +101,10 @@ namespace s3d
 
 		size_t getActiveVoiceCount() override;
 
+		double getGlobalVolume() override;
+
+		void setGlobalVolume(double volume) override;
+
 		void fadeGlobalVolume(double volume, const Duration& time) override;
 
 		void getGlobalSamples(Array<float>& samples) override;

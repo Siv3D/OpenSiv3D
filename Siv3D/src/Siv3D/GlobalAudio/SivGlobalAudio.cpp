@@ -23,6 +23,16 @@ namespace s3d
 			return SIV3D_ENGINE(Audio)->getActiveVoiceCount();
 		}
 
+		double GetVolume()
+		{
+			return SIV3D_ENGINE(Audio)->getGlobalVolume();
+		}
+
+		void SetVolume(double volume)
+		{
+			SIV3D_ENGINE(Audio)->setGlobalVolume(volume);
+		}
+
 		void FadeVolume(const double volume, const Duration& time)
 		{
 			SIV3D_ENGINE(Audio)->fadeGlobalVolume(volume, Max(time, SecondsF(0.0)));

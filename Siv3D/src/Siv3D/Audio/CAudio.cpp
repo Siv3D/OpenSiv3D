@@ -329,6 +329,16 @@ namespace s3d
 		return m_soloud->getActiveVoiceCount();
 	}
 
+	double CAudio::getGlobalVolume()
+	{
+		return m_soloud->getGlobalVolume();
+	}
+
+	void CAudio::setGlobalVolume(double volume)
+	{
+		m_soloud->setGlobalVolume(static_cast<float>(volume));
+	}
+
 	void CAudio::fadeGlobalVolume(const double volume, const Duration& time)
 	{
 		m_soloud->fadeGlobalVolume(static_cast<float>(volume), time.count());

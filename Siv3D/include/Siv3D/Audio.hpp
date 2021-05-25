@@ -170,7 +170,8 @@ namespace s3d
 		/// @brief 
 		/// @param  
 		/// @param path 
-		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path);
 
@@ -178,7 +179,8 @@ namespace s3d
 		/// @param  
 		/// @param path 
 		/// @param loop 
-		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Loop loop);
 
@@ -186,7 +188,8 @@ namespace s3d
 		/// @param  
 		/// @param path 
 		/// @param loopBegin 
-		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
@@ -321,6 +324,8 @@ namespace s3d
 
 		void seekTime(const Duration& pos) const;
 
+		/// @brief ループ再生された回数を返します。
+		/// @return ループ再生された回数
 		[[nodiscard]]
 		size_t loopCount() const;
 
@@ -347,6 +352,11 @@ namespace s3d
 
 		void setSpeedBySemitone(int32 semitone) const;
 
+		/// @brief 音声波形のサンプルデータにアクセスします。
+		/// @param channel 左チャンネルの場合 0, 右チャンネルの場合 1
+		/// @remark ストリーミング再生の場合は利用できません。
+		/// @return 指定したチャンネルの音声波形データの先頭ポインタ。ストリーミング再生の場合は nullptr
+		[[nodiscard]]
 		const float* getSamples(size_t channel) const;
 	};
 }

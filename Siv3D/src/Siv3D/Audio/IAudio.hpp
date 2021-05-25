@@ -101,6 +101,10 @@ namespace s3d
 
 		virtual size_t getActiveVoiceCount() = 0;
 
+		virtual double getGlobalVolume() = 0;
+
+		virtual void setGlobalVolume(double volume) = 0;
+
 		virtual void fadeGlobalVolume(double volume, const Duration& time) = 0;
 
 		virtual void getGlobalSamples(Array<float>& samples) = 0;
