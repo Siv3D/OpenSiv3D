@@ -45,7 +45,7 @@ namespace s3d
 	Audio::Audio() {}
 
 	Audio::Audio(Wave&& wave)
-		: Audio{ std::move(wave), Loop::Yes } {}
+		: Audio{ std::move(wave), Loop::No } {}
 
 	Audio::Audio(Wave&& wave, const Loop loop)
 		:Audio{ std::move(wave), (loop ? Optional<AudioLoopTiming>{{ 0, 0 }} : none) } {}
