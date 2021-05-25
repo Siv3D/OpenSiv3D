@@ -76,6 +76,8 @@ namespace s3d
 
 		void seekTo(Audio::IDType handleID, const Duration& pos) override;
 
+		size_t getLoopCount(Audio::IDType handleID) override;
+
 		double getVolume(Audio::IDType handleID) override;
 
 		void setVolume(Audio::IDType handleID, double volume) override;
@@ -94,6 +96,8 @@ namespace s3d
 
 		void fadeSpeed(Audio::IDType handleID, double speed, const Duration& time) override;
 
+		const float* getSamples(Audio::IDType handleID, size_t channel) override;
+
 
 		size_t getActiveVoiceCount() override;
 
@@ -106,6 +110,12 @@ namespace s3d
 		void getBusSamples(size_t busIndex, Array<float>& samples) override;
 
 		void getBusFFT(size_t busIndex, Array<float>& result) override;
+
+		double getBusVolume(size_t busIndex) override;
+
+		void setBusVolume(size_t busIndex, double volume) override;
+
+		void fadeBusVolume(size_t busIndex, double volume, const Duration& time) override;
 
 		void clearFilter(size_t busIndex, size_t filterIndex) override;
 

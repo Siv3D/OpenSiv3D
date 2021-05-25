@@ -268,6 +268,11 @@ namespace s3d
 		m_audios[handleID]->seekTo(pos);
 	}
 
+	size_t CAudio::getLoopCount(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->getLoopCount();
+	}
+
 	double CAudio::getVolume(const Audio::IDType handleID)
 	{
 		return m_audios[handleID]->getVolume();
@@ -311,6 +316,11 @@ namespace s3d
 	void CAudio::fadeSpeed(const Audio::IDType handleID, const double speed, const Duration& time)
 	{
 		m_audios[handleID]->fadeSpeed(speed, time);
+	}
+
+	const float* CAudio::getSamples(const Audio::IDType handleID, const size_t channel)
+	{
+		return m_audios[handleID]->getSamples(channel);
 	}
 
 
@@ -386,6 +396,26 @@ namespace s3d
 		{
 			result.assign(p, p + 256);
 		}
+	}
+
+	double CAudio::getBusVolume(const size_t busIndex)
+	{
+		if (not m_buses[busIndex])
+		{
+			return 0.0;
+		}
+
+		return m_buses[busIndex]->getVolume();
+	}
+
+	void CAudio::setBusVolume(const size_t busIndex, const double volume)
+	{
+		getBus(busIndex).setVolume(volume);
+	}
+
+	void CAudio::fadeBusVolume(const size_t busIndex, const double volume, const Duration& time)
+	{
+		getBus(busIndex).fadeVolume(volume, time);
 	}
 
 	void CAudio::clearFilter(const size_t busIndex, const size_t filterIndex)

@@ -25,7 +25,7 @@ namespace s3d
 
 		void FadeVolume(const double volume, const Duration& time)
 		{
-			SIV3D_ENGINE(Audio)->fadeGlobalVolume(volume, Max(time, Duration{ 0.0 }));
+			SIV3D_ENGINE(Audio)->fadeGlobalVolume(volume, Max(time, SecondsF(0.0)));
 		}
 
 		Array<float> GetSamples()
@@ -70,7 +70,7 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->getBusSamples(busIndex, samples);
 		}
 
-		Array<float> BusGetBFFT(size_t busIndex)
+		Array<float> BusGetFFT(size_t busIndex)
 		{
 			Array<float> result;
 
@@ -82,6 +82,36 @@ namespace s3d
 		void BusGetFFT(const size_t busIndex, Array<float>& result)
 		{
 			SIV3D_ENGINE(Audio)->getBusFFT(busIndex, result);
+		}
+
+		double BusGetVolume(const size_t busIndex)
+		{
+			if (Audio::MaxBusCount <= busIndex)
+			{
+				return 0.0;
+			}
+
+			return SIV3D_ENGINE(Audio)->getBusVolume(busIndex);
+		}
+
+		void BusSetVolume(const size_t busIndex, const double volume)
+		{
+			if (Audio::MaxBusCount <= busIndex)
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Audio)->setBusVolume(busIndex, volume);
+		}
+
+		void BusFadeVolume(const size_t busIndex, const double volume, const Duration& time)
+		{
+			if (Audio::MaxBusCount <= busIndex)
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Audio)->fadeBusVolume(busIndex, volume, time);
 		}
 
 		void BusClearFilter(const size_t busIndex, const size_t filterIndex)

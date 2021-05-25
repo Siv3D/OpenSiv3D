@@ -76,6 +76,8 @@ namespace s3d
 
 		virtual void seekTo(Audio::IDType handleID, const Duration& pos) = 0;
 
+		virtual size_t getLoopCount(Audio::IDType handleID) = 0;
+
 		virtual double getVolume(Audio::IDType handleID) = 0;
 
 		virtual void setVolume(Audio::IDType handleID, double volume) = 0;
@@ -94,6 +96,8 @@ namespace s3d
 
 		virtual void fadeSpeed(Audio::IDType handleID, double speed, const Duration& time) = 0;
 
+		virtual const float* getSamples(Audio::IDType handleID, size_t channel) = 0;
+
 
 		virtual size_t getActiveVoiceCount() = 0;
 
@@ -106,6 +110,12 @@ namespace s3d
 		virtual void getBusSamples(size_t busIndex, Array<float>& samples) = 0;
 
 		virtual void getBusFFT(size_t busIndex, Array<float>& result) = 0;
+
+		virtual double getBusVolume(size_t busIndex) = 0;
+
+		virtual void setBusVolume(size_t busIndex, double volume) = 0;
+
+		virtual void fadeBusVolume(size_t busIndex, double volume, const Duration& time) = 0;
 
 		virtual void clearFilter(size_t busIndex, size_t filterIndex) = 0;
 

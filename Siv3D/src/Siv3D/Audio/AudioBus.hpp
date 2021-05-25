@@ -13,6 +13,7 @@
 # include <array>
 # include <memory>
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Duration.hpp>
 # include <ThirdParty/soloud/include/soloud.h>
 
 namespace s3d
@@ -26,6 +27,12 @@ namespace s3d
 
 		[[nodiscard]]
 		SoLoud::Bus& getBus() noexcept;
+
+		double getVolume();
+
+		void setVolume(double volume);
+
+		void fadeVolume(double volume, const Duration& time);
 
 		void clearFilter(size_t filterIndex);
 

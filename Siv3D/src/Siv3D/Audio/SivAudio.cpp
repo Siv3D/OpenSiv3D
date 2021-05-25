@@ -285,7 +285,12 @@ namespace s3d
 
 	void Audio::seekTime(const Duration& pos) const
 	{
-		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), Max(pos, SecondsF{ 0.0 }));
+		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), Max(pos, SecondsF(0.0)));
+	}
+
+	size_t Audio::loopCount() const
+	{
+		return SIV3D_ENGINE(Audio)->getLoopCount(m_handle->id());
 	}
 
 	double Audio::getVolume() const
@@ -336,5 +341,15 @@ namespace s3d
 	void Audio::setSpeedBySemitone(const int32 semitone) const
 	{
 		setSpeed(std::exp2(semitone / 12.0));
+	}
+
+	const float* Audio::getSamples(const size_t channel) const
+	{
+		if (2 <= channel)
+		{
+			return nullptr;
+		}
+
+		return SIV3D_ENGINE(Audio)->getSamples(m_handle->id(), channel);
 	}
 }

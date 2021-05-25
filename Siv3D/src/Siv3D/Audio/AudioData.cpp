@@ -354,6 +354,16 @@ namespace s3d
 		}
 	}
 
+	size_t AudioData::getLoopCount() const
+	{
+		if (not m_pSoloud->isValidVoiceHandle(m_handle))
+		{
+			return 0;
+		}
+
+		return m_pSoloud->getLoopCount(m_handle);
+	}
+
 	double AudioData::getVolume() const
 	{
 		if (not m_pSoloud->isValidVoiceHandle(m_handle))
@@ -430,5 +440,24 @@ namespace s3d
 	void AudioData::fadeSpeed(const double speed, const Duration& time)
 	{
 		m_pSoloud->fadeRelativePlaySpeed(m_handle, static_cast<float>(speed), time.count());
+	}
+
+	const float* AudioData::getSamples(const size_t channel) const
+	{
+		if (m_isStreaming)
+		{
+			return nullptr;
+		}
+
+		const float* pSrc = &m_wave[0].left;
+
+		if (channel == 0)
+		{
+			return pSrc;
+		}
+		else
+		{
+			return (pSrc + m_lengthSample);
+		}
 	}
 }

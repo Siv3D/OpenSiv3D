@@ -30,6 +30,21 @@ namespace s3d
 		return m_bus;
 	}
 
+	double AudioBus::getVolume()
+	{
+		return m_pSoloud->getVolume(m_handle);
+	}
+
+	void AudioBus::setVolume(const double volume)
+	{
+		m_pSoloud->setVolume(m_handle, static_cast<float>(volume));
+	}
+
+	void AudioBus::fadeVolume(const double volume, const Duration& time)
+	{
+		m_pSoloud->fadeVolume(m_handle, static_cast<float>(volume), time.count());
+	}
+
 	void AudioBus::clearFilter(const size_t filterIndex)
 	{
 		if (not m_filters[filterIndex])

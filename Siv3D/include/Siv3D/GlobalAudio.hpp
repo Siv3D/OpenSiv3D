@@ -43,12 +43,19 @@ namespace s3d
 
 		void BusGetFFT(size_t busIndex, Array<float>& result);
 
+		[[nodiscard]]
+		double BusGetVolume(size_t busIndex);
+
+		void BusSetVolume(size_t busIndex, double volume);
+
+		void BusFadeVolume(size_t busIndex, double volume, const Duration& time);
+
 		void BusClearFilter(size_t busIndex, size_t filterIndex);
 
 		void BusSetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 
 		void BusSetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
-	
+
 		void BusSetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
 
 		void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);

@@ -322,6 +322,9 @@ namespace s3d
 		void seekTime(const Duration& pos) const;
 
 		[[nodiscard]]
+		size_t loopCount() const;
+
+		[[nodiscard]]
 		double getVolume() const;
 
 		void setVolume(double volume) const;
@@ -343,5 +346,7 @@ namespace s3d
 		void fadeSpeed(double speed, const Duration& time) const;
 
 		void setSpeedBySemitone(int32 semitone) const;
+
+		const float* getSamples(size_t channel) const;
 	};
 }

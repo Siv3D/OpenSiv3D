@@ -91,6 +91,9 @@ namespace s3d
 		void seekTo(const Duration& pos);
 
 		[[nodiscard]]
+		size_t getLoopCount() const;
+
+		[[nodiscard]]
 		double getVolume() const;
 
 		void setVolume(double volume);
@@ -104,11 +107,15 @@ namespace s3d
 
 		void fadePan(double pan, const Duration& time);
 
+		[[nodiscard]]
 		double getSpeed() const;
 
 		void setSpeed(double speed);
 
 		void fadeSpeed(double speed, const Duration& time);
+
+		[[nodiscard]]
+		const float* getSamples(size_t channel) const;
 
 	private:
 
