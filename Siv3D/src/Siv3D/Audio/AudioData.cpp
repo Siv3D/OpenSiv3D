@@ -300,6 +300,65 @@ namespace s3d
 		m_pSoloud->scheduleStop(m_handle, duration.count());
 	}
 
+	void AudioData::playOneShot(const size_t busIndex, const double volume, const double pan, const double speed)
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+		const SoLoud::handle shotHandle = SIV3D_ENGINE(Audio)->getBus(busIndex).getBus()
+			.play(*m_audioSource,
+				static_cast<float>(volume),
+				static_cast<float>(pan), false);
+
+		if (speed != 1.0)
+		{
+			m_pSoloud->setRelativePlaySpeed(shotHandle, static_cast<float>(speed));
+		}
+
+		m_pSoloud->setPause(shotHandle, false);
+
+		m_shotHandles << shotHandle;
+	}
+
+	void AudioData::pauseAllShots()
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->setPause(shotHandle, true);
+		}
+	}
+
+	void AudioData::resumeAllShots()
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->setPause(shotHandle, false);
+		}
+	}
+
+	void AudioData::stopAllShots()
+	{
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->stop(shotHandle);
+		}
+
+		m_shotHandles.clear();
+	}
+
 
 	double AudioData::posSec() const
 	{

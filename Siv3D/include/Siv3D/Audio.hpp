@@ -288,25 +288,29 @@ namespace s3d
 
 		void play(size_t busIndex = 0) const;
 
-		void play(const Duration& duration, size_t busIndex = 0) const;
+		void play(const Duration& fadeTime, size_t busIndex = 0) const;
 
-		void play(size_t busIndex, const Duration& duration) const;
+		void play(size_t busIndex, const Duration& fadeTime) const;
 
 		void pause() const;
 
-		void pause(const Duration& duration) const;
+		void pause(const Duration& fadeTime) const;
 
 		void stop() const;
 
-		void stop(const Duration& duration) const;
+		void stop(const Duration& fadeTime) const;
 
-		//void playOneShot(size_t busIndex = 0) const;
+		void playOneShot(size_t busIndex = 0, double volume = 1.0, double pan = 0.0, double speed = 1.0) const;
 
-		//void pauseAllShots() const;
+		void pauseAllShots() const;
 
-		//void resumeAllShots() const;
+		//void pauseAllShots(const Duration& fadeTime) const;
 
-		//void stopAllShots() const;
+		void resumeAllShots() const;
+
+		void stopAllShots() const;
+
+		//void stopAllShots(const Duration& fadeTime) const;
 
 		/// @brief 再生位置（サンプル）を返します。
 		/// @return 再生位置（サンプル）

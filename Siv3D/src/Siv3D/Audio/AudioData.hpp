@@ -82,8 +82,13 @@ namespace s3d
 
 		void stop(const Duration& duration);
 
+		void playOneShot(size_t busIndex, double volume, double pan, double speed);
 
+		void pauseAllShots();
 
+		void resumeAllShots();
+
+		void stopAllShots();
 
 		[[nodiscard]]
 		double posSec() const;

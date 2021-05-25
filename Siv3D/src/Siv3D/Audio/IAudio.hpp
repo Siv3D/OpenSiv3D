@@ -72,6 +72,15 @@ namespace s3d
 		virtual void stop(Audio::IDType handleID, const Duration& duration) = 0;
 
 
+		virtual void playOneShot(Audio::IDType handleID, size_t busIndex, double volume, double pan, double speed) = 0;
+
+		virtual void pauseAllShots(Audio::IDType handleID) = 0;
+
+		virtual void resumeAllShots(Audio::IDType handleID) = 0;
+
+		virtual void stopAllShots(Audio::IDType handleID) = 0;
+
+
 		virtual double posSec(Audio::IDType handleID) = 0;
 
 		virtual void seekTo(Audio::IDType handleID, const Duration& pos) = 0;

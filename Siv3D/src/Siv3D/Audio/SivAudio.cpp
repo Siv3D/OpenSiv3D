@@ -227,14 +227,14 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex);
 	}
 
-	void Audio::play(const Duration& duration, const size_t busIndex) const
+	void Audio::play(const Duration& fadeTime, const size_t busIndex) const
 	{
-		play(busIndex, duration);
+		play(busIndex, fadeTime);
 	}
 
-	void Audio::play(const size_t busIndex, const Duration& duration) const
+	void Audio::play(const size_t busIndex, const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex, duration);
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex, fadeTime);
 	}
 
 	void Audio::pause() const
@@ -242,9 +242,9 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->pause(m_handle->id());
 	}
 
-	void Audio::pause(const Duration& duration) const
+	void Audio::pause(const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->pause(m_handle->id(), duration);
+		SIV3D_ENGINE(Audio)->pause(m_handle->id(), fadeTime);
 	}
 
 	void Audio::stop() const
@@ -252,11 +252,30 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->stop(m_handle->id());
 	}
 
-	void Audio::stop(const Duration& duration) const
+	void Audio::stop(const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->stop(m_handle->id(), duration);
+		SIV3D_ENGINE(Audio)->stop(m_handle->id(), fadeTime);
 	}
 
+	void Audio::playOneShot(const size_t busIndex, const double volume, const double pan, const double speed) const
+	{
+		SIV3D_ENGINE(Audio)->playOneShot(m_handle->id(), busIndex, volume, pan, speed);
+	}
+
+	void Audio::pauseAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->pauseAllShots(m_handle->id());
+	}
+
+	void Audio::resumeAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->resumeAllShots(m_handle->id());
+	}
+
+	void Audio::stopAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->stopAllShots(m_handle->id());
+	}
 
 	int64 Audio::posSample() const
 	{

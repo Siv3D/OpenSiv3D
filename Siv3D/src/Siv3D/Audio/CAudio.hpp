@@ -72,6 +72,15 @@ namespace s3d
 		void stop(Audio::IDType handleID, const Duration& duration) override;
 
 
+		void playOneShot(Audio::IDType handleID, size_t busIndex, double volume, double pan, double speed) override;
+
+		void pauseAllShots(Audio::IDType handleID) override;
+
+		void resumeAllShots(Audio::IDType handleID) override;
+
+		void stopAllShots(Audio::IDType handleID) override;
+
+
 		double posSec(Audio::IDType handleID) override;
 
 		void seekTo(Audio::IDType handleID, const Duration& pos) override;

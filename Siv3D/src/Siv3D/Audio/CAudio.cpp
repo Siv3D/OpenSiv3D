@@ -256,6 +256,26 @@ namespace s3d
 		m_audios[handleID]->stop(duration);
 	}
 
+	void CAudio::playOneShot(const Audio::IDType handleID, const size_t busIndex, const double volume, const double pan, const double speed)
+	{
+		m_audios[handleID]->playOneShot(busIndex, volume, pan, speed);
+	}
+
+	void CAudio::pauseAllShots(const Audio::IDType handleID)
+	{
+		m_audios[handleID]->pauseAllShots();
+	}
+
+	void CAudio::resumeAllShots(const Audio::IDType handleID)
+	{
+		m_audios[handleID]->resumeAllShots();
+	}
+
+	void CAudio::stopAllShots(const Audio::IDType handleID)
+	{
+		m_audios[handleID]->stopAllShots();
+	}
+
 
 
 	double CAudio::posSec(const Audio::IDType handleID)
