@@ -66,11 +66,27 @@ namespace s3d
 				static_cast<float>(cutoffFrequency),
 				static_cast<float>(resonance));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 		}
 		else if (auto p = dynamic_cast<SoLoud::BiquadResonantFilter*>(m_filters[filterIndex].get()))
 		{
 			p->setParams(SoLoud::BiquadResonantFilter::LOWPASS,
 				static_cast<float>(cutoffFrequency),
+				static_cast<float>(resonance));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::TYPE,
+				SoLoud::BiquadResonantFilter::LOWPASS);
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::FREQUENCY,
+				static_cast<float>(cutoffFrequency));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::RESONANCE,
 				static_cast<float>(resonance));
 		}
 		else
@@ -82,13 +98,12 @@ namespace s3d
 				static_cast<float>(cutoffFrequency),
 				static_cast<float>(resonance));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 		}
-
-		m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 
 		m_pSoloud->setFilterParameter(m_handle,
 			static_cast<uint32>(filterIndex),
-			SoLoud::FreeverbFilter::WET,
+			SoLoud::BiquadResonantFilter::WET,
 			static_cast<float>(wet));
 	}
 
@@ -101,11 +116,27 @@ namespace s3d
 				static_cast<float>(cutoffFrequency),
 				static_cast<float>(resonance));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 		}
 		else if (auto p = dynamic_cast<SoLoud::BiquadResonantFilter*>(m_filters[filterIndex].get()))
 		{
 			p->setParams(SoLoud::BiquadResonantFilter::HIGHPASS,
 				static_cast<float>(cutoffFrequency),
+				static_cast<float>(resonance));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::TYPE,
+				SoLoud::BiquadResonantFilter::HIGHPASS);
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::FREQUENCY,
+				static_cast<float>(cutoffFrequency));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::BiquadResonantFilter::RESONANCE,
 				static_cast<float>(resonance));
 		}
 		else
@@ -117,18 +148,19 @@ namespace s3d
 				static_cast<float>(cutoffFrequency),
 				static_cast<float>(resonance));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 		}
-
-		m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 
 		m_pSoloud->setFilterParameter(m_handle,
 			static_cast<uint32>(filterIndex),
-			SoLoud::FreeverbFilter::WET,
+			SoLoud::BiquadResonantFilter::WET,
 			static_cast<float>(wet));
 	}
 
-	void AudioBus::setEchoFilter(const size_t filterIndex, const double delay, const double decay, const double wet)
+	void AudioBus::setEchoFilter(const size_t filterIndex, double delay, const double decay, const double wet)
 	{
+		delay = Max(delay, 0.0001);
+
 		if (not m_filters[filterIndex])
 		{
 			auto filter = std::make_unique<SoLoud::EchoFilter>();
@@ -158,7 +190,7 @@ namespace s3d
 
 		m_pSoloud->setFilterParameter(m_handle,
 			static_cast<uint32>(filterIndex),
-			SoLoud::FreeverbFilter::WET,
+			SoLoud::EchoFilter::WET,
 			static_cast<float>(wet));
 	}
 
@@ -173,6 +205,35 @@ namespace s3d
 				static_cast<float>(damp),
 				static_cast<float>(width));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
+		}
+		else if (auto p = dynamic_cast<SoLoud::FreeverbFilter*>(m_filters[filterIndex].get()))
+		{
+			p->setParams(
+				freeze,
+				static_cast<float>(roomSize),
+				static_cast<float>(damp),
+				static_cast<float>(width));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::FreeverbFilter::FREEZE,
+				freeze);
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::FreeverbFilter::ROOMSIZE,
+				static_cast<float>(roomSize));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::FreeverbFilter::DAMP,
+				static_cast<float>(damp));
+
+			m_pSoloud->setFilterParameter(m_handle,
+				static_cast<uint32>(filterIndex),
+				SoLoud::FreeverbFilter::WIDTH,
+				static_cast<float>(width));
 		}
 		else
 		{
@@ -185,9 +246,8 @@ namespace s3d
 				static_cast<float>(damp),
 				static_cast<float>(width));
 			m_filters[filterIndex] = std::move(filter);
+			m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 		}
-
-		m_bus.setFilter(static_cast<uint32>(filterIndex), m_filters[filterIndex].get());
 
 		m_pSoloud->setFilterParameter(m_handle,
 			static_cast<uint32>(filterIndex),
