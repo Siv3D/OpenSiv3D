@@ -303,6 +303,10 @@ namespace s3d
 				return Image();
 			}
 
+			const int64 pixelDataBytes = size.x * size.y * byteSizeOfPixel;
+
+			reader.setPos(reader.size() - pixelDataBytes);
+
 			Image image(size);
 
 			uint8* data = image.dataAsUint8();
@@ -333,13 +337,17 @@ namespace s3d
 		{
 			const uint32 maxValue = ReadNum(reader);
 
-			const uint32 byteSizeOfPixel = RequiredBytes(maxValue);
+			const uint32 byteSizeOfColor = RequiredBytes(maxValue);
 
-			if (byteSizeOfPixel != 1)
+			if (byteSizeOfColor != 1)
 			{
 				//LOG_ERROR(L"PNM形式では輝度の最大値は255までしか扱えません");
 				return Image();
 			}
+
+			const int64 pixelDataBytes = size.x * size.y * byteSizeOfColor * 3;
+
+			reader.setPos(reader.size() - pixelDataBytes);
 
 			Image image(size);
 
