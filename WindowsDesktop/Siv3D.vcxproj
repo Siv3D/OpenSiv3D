@@ -906,6 +906,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\WAVEHeader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioBus.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioResourceHolder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\CAudio.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />

@@ -5772,6 +5772,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioBus.hpp">
       <Filter>src\Siv3D\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioResourceHolder.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

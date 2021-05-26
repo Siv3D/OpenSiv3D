@@ -12,6 +12,7 @@
 # include <Siv3D/Audio/IAudio.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "AudioData.hpp"
 # include "AudioBus.hpp"
@@ -91,10 +92,35 @@ namespace s3d
 	{
 		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
+	# if SIV3D_PLATFORM(WINDOWS)
+		
+		if (FileSystem::IsResource(path))
+		{
+			m_resource = AudioResourceHolder{ path };
+
+			if (SoLoud::SO_NO_ERROR != source->loadMem(
+				static_cast<const unsigned char*>(m_resource.data()),
+				static_cast<uint32>(m_resource.size()), false, false))
+			{
+				return;
+			}
+		}
+		else
+		{
+			if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
+			{
+				return;
+			}
+		}
+
+	# else
+		
 		if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
 		{
 			return;
 		}
+
+	# endif
 
 		m_sampleRate	= static_cast<uint32>(source->mBaseSamplerate);
 		m_lengthSample	= source->mSampleCount;
@@ -108,10 +134,35 @@ namespace s3d
 	{
 		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
+	# if SIV3D_PLATFORM(WINDOWS)
+		
+		if (FileSystem::IsResource(path))
+		{
+			m_resource = AudioResourceHolder{ path };
+
+			if (SoLoud::SO_NO_ERROR != source->loadMem(
+				static_cast<const unsigned char*>(m_resource.data()),
+				static_cast<uint32>(m_resource.size()), false, false))
+			{
+				return;
+			}
+		}
+		else
+		{
+			if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
+			{
+				return;
+			}
+		}
+
+	# else
+		
 		if (SoLoud::SO_NO_ERROR != source->load(path.narrow().c_str()))
 		{
 			return;
 		}
+
+	# endif
 
 		m_sampleRate	= static_cast<uint32>(source->mBaseSamplerate);
 		m_lengthSample	= source->mSampleCount;

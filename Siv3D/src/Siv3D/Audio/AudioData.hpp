@@ -14,6 +14,7 @@
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
+# include "AudioResourceHolder.hpp"
 # include <ThirdParty/soloud/include/soloud.h>
 
 namespace s3d
@@ -129,6 +130,12 @@ namespace s3d
 		const float* getSamples(size_t channel) const;
 
 	private:
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		AudioResourceHolder m_resource;
+
+	# endif
 
 		std::unique_ptr<SoLoud::AudioSource> m_audioSource;
 
