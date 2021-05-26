@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Duration.hpp"
 # include "Array.hpp"
+# include "FFTResult.hpp"
 
 namespace s3d
 {
@@ -51,9 +52,9 @@ namespace s3d
 		void GetSamples(Array<float>& samples);
 
 		[[nodiscard]]
-		Array<float> GetFFT();
+		FFTResult GetFFT();
 
-		void GetFFT(Array<float>& result);
+		void GetFFT(FFTResult& result);
 
 		[[nodiscard]]
 		Array<float> BusGetSamples(size_t busIndex);
@@ -61,9 +62,9 @@ namespace s3d
 		void BusGetSamples(size_t busIndex, Array<float>& samples);
 
 		[[nodiscard]]
-		Array<float> BusGetFFT(size_t busIndex);
+		FFTResult BusGetFFT(size_t busIndex);
 
-		void BusGetFFT(size_t busIndex, Array<float>& result);
+		void BusGetFFT(size_t busIndex, FFTResult& result);
 
 		[[nodiscard]]
 		double BusGetVolume(size_t busIndex);

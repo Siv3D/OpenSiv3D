@@ -16,6 +16,7 @@
 namespace s3d
 {
 	class AudioBus;
+	struct FFTResult;
 
 	class SIV3D_NOVTABLE ISiv3DAudio
 	{
@@ -128,11 +129,11 @@ namespace s3d
 
 		virtual void getGlobalSamples(Array<float>& samples) = 0;
 
-		virtual void getGlobalFFT(Array<float>& result) = 0;
+		virtual void getGlobalFFT(FFTResult& result) = 0;
 
 		virtual void getBusSamples(size_t busIndex, Array<float>& samples) = 0;
 
-		virtual void getBusFFT(size_t busIndex, Array<float>& result) = 0;
+		virtual void getBusFFT(size_t busIndex, FFTResult& result) = 0;
 
 		virtual double getBusVolume(size_t busIndex) = 0;
 

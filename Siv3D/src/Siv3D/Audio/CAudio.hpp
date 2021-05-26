@@ -128,11 +128,11 @@ namespace s3d
 
 		void getGlobalSamples(Array<float>& samples) override;
 
-		void getGlobalFFT(Array<float>& result) override;
+		void getGlobalFFT(FFTResult& result) override;
 
 		void getBusSamples(size_t busIndex, Array<float>& samples) override;
 
-		void getBusFFT(size_t busIndex, Array<float>& result) override;
+		void getBusFFT(size_t busIndex, FFTResult& result) override;
 
 		double getBusVolume(size_t busIndex) override;
 

@@ -12,16 +12,18 @@
 # pragma once
 # include "Common.hpp"
 # include "FFTResult.hpp"
+# include "Scene.hpp"
 # include "FFTSampleLength.hpp"
 # include "WaveSample.hpp"
 
 namespace s3d
 {
 	class Wave;
+	class Audio;
 
 	namespace FFT
 	{
-		//void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTimeSec = Scene::DeltaTime());
+		void Analyze(FFTResult& result, const Audio& audio, FFTSampleLength sampleLength = FFTSampleLength::Default, double offsetTimeSec = Scene::DeltaTime());
 
 		/// @brief FFT を実行します。
 		/// @param result 結果の出力先

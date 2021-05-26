@@ -62,16 +62,16 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->getGlobalSamples(samples);
 		}
 
-		Array<float> GetFFT()
+		FFTResult GetFFT()
 		{
-			Array<float> result;
+			FFTResult result;
 
 			GetFFT(result);
 
 			return result;
 		}
 
-		void GetFFT(Array<float>& result)
+		void GetFFT(FFTResult& result)
 		{
 			SIV3D_ENGINE(Audio)->getGlobalFFT(result);
 		}
@@ -90,16 +90,16 @@ namespace s3d
 			SIV3D_ENGINE(Audio)->getBusSamples(busIndex, samples);
 		}
 
-		Array<float> BusGetFFT(size_t busIndex)
+		FFTResult BusGetFFT(size_t busIndex)
 		{
-			Array<float> result;
+			FFTResult result;
 
 			BusGetFFT(busIndex, result);
 
 			return result;
 		}
 
-		void BusGetFFT(const size_t busIndex, Array<float>& result)
+		void BusGetFFT(const size_t busIndex, FFTResult& result)
 		{
 			SIV3D_ENGINE(Audio)->getBusFFT(busIndex, result);
 		}

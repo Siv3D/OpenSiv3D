@@ -11,6 +11,8 @@
 
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/FFTResult.hpp>
+# include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/AudioDecoder.hpp>
 # include "CAudio.hpp"
 
@@ -401,15 +403,23 @@ namespace s3d
 		}
 	}
 
-	void CAudio::getGlobalFFT(Array<float>& result)
+	void CAudio::getGlobalFFT(FFTResult& result)
 	{
+		result.buffer.clear();
+		result.resolution = 0.0;
+		result.sampleRate = 0;
+
 		if (const float* p = m_soloud->calcFFT())
 		{
-			result.assign(p, p + 256);
-		}
-		else
-		{
-			result.clear();
+			const uint32 sampleRate = m_soloud->mSamplerate;
+			result.buffer.assign(p, p + 256);
+			result.resolution = static_cast<double>(sampleRate) / (256 << static_cast<int32>(FFTSampleLength::SL512));
+			result.sampleRate = sampleRate;
+
+			for (auto& x : result.buffer)
+			{
+				x *= 0.25f;
+			}
 		}
 	}
 
@@ -433,9 +443,11 @@ namespace s3d
 		}
 	}
 
-	void CAudio::getBusFFT(const size_t busIndex, Array<float>& result)
+	void CAudio::getBusFFT(const size_t busIndex, FFTResult& result)
 	{
-		result.clear();
+		result.buffer.clear();
+		result.resolution = 0.0;
+		result.sampleRate = 0;
 
 		if (Audio::MaxBusCount <= busIndex)
 		{
@@ -449,7 +461,15 @@ namespace s3d
 
 		if (const float* p = m_buses[busIndex]->getBus().calcFFT())
 		{
-			result.assign(p, p + 256);
+			const uint32 sampleRate = static_cast<uint32>(m_buses[busIndex]->getBus().mBaseSamplerate);
+			result.buffer.assign(p, p + 256);
+			result.resolution = static_cast<double>(sampleRate) / (256 << static_cast<int32>(FFTSampleLength::SL512));
+			result.sampleRate = sampleRate;
+
+			for (auto& x : result.buffer)
+			{
+				x *= 0.25f;
+			}
 		}
 	}
 
