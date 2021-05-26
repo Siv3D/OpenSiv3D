@@ -154,14 +154,14 @@ namespace s3d
 					writer.write(c);
 				}
 
-				uint8 c = 0;
-				for (uint8 i = 128; x < image.width(); ++x, i >>= 1)
+				if (x < image.width())
 				{
-					c += binarize(image[y][x]) ? i : 0;
-				}
+					uint8 c = 0;
+					for (uint8 i = 128; x < image.width(); ++x, i >>= 1)
+					{
+						c += binarize(image[y][x]) ? i : 0;
+					}
 
-				if (1 <= image.width())
-				{
 					writer.write(c);
 				}
 			}
