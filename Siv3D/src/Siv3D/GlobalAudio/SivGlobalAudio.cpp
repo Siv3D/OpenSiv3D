@@ -23,6 +23,16 @@ namespace s3d
 			return SIV3D_ENGINE(Audio)->getActiveVoiceCount();
 		}
 
+		void PauseAll()
+		{
+			SIV3D_ENGINE(Audio)->globalPause();
+		}
+
+		void ResumeAll()
+		{
+			SIV3D_ENGINE(Audio)->globalResume();
+		}
+
 		double GetVolume()
 		{
 			return SIV3D_ENGINE(Audio)->getGlobalVolume();

@@ -86,9 +86,15 @@ namespace s3d
 
 		void pauseAllShots();
 
+		void pauseAllShots(const Duration& fadeTime);
+
 		void resumeAllShots();
 
+		void resumeAllShots(const Duration& fadeTime);
+
 		void stopAllShots();
+
+		void stopAllShots(const Duration& fadeTime);
 
 		[[nodiscard]]
 		double posSec() const;

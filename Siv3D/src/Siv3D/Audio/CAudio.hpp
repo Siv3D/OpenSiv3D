@@ -76,9 +76,15 @@ namespace s3d
 
 		void pauseAllShots(Audio::IDType handleID) override;
 
+		void pauseAllShots(Audio::IDType handleID, const Duration& fadeTime) override;
+
 		void resumeAllShots(Audio::IDType handleID) override;
 
+		void resumeAllShots(Audio::IDType handleID, const Duration& fadeTime) override;
+
 		void stopAllShots(Audio::IDType handleID) override;
+
+		void stopAllShots(Audio::IDType handleID, const Duration& fadeTime) override;
 
 
 		double posSec(Audio::IDType handleID) override;
@@ -109,6 +115,10 @@ namespace s3d
 
 
 		size_t getActiveVoiceCount() override;
+
+		void globalPause() override;
+
+		void globalResume() override;
 
 		double getGlobalVolume() override;
 

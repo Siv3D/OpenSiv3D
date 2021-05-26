@@ -76,9 +76,15 @@ namespace s3d
 
 		virtual void pauseAllShots(Audio::IDType handleID) = 0;
 
+		virtual void pauseAllShots(Audio::IDType handleID, const Duration& fadeTime) = 0;
+
 		virtual void resumeAllShots(Audio::IDType handleID) = 0;
 
+		virtual void resumeAllShots(Audio::IDType handleID, const Duration& fadeTime) = 0;
+
 		virtual void stopAllShots(Audio::IDType handleID) = 0;
+
+		virtual void stopAllShots(Audio::IDType handleID, const Duration& fadeTime) = 0;
 
 
 		virtual double posSec(Audio::IDType handleID) = 0;
@@ -109,6 +115,10 @@ namespace s3d
 
 
 		virtual size_t getActiveVoiceCount() = 0;
+
+		virtual void globalPause() = 0;
+
+		virtual void globalResume() = 0;
 
 		virtual double getGlobalVolume() = 0;
 

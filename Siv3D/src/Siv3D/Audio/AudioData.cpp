@@ -336,6 +336,20 @@ namespace s3d
 		}
 	}
 
+	void AudioData::pauseAllShots(const Duration& fadeTime)
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->fadeVolume(shotHandle, 0.0f, fadeTime.count());
+			m_pSoloud->schedulePause(shotHandle, fadeTime.count());
+		}
+	}
+
 	void AudioData::resumeAllShots()
 	{
 		m_shotHandles.remove_if([=](auto handle)
@@ -349,6 +363,21 @@ namespace s3d
 		}
 	}
 
+	void AudioData::resumeAllShots(const Duration& fadeTime)
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->setVolume(shotHandle, 0.0f);
+			m_pSoloud->fadeVolume(shotHandle, 1.0f, fadeTime.count());
+			m_pSoloud->setPause(shotHandle, false);
+		}
+	}
+
 	void AudioData::stopAllShots()
 	{
 		for (const auto& shotHandle : m_shotHandles)
@@ -357,6 +386,20 @@ namespace s3d
 		}
 
 		m_shotHandles.clear();
+	}
+
+	void AudioData::stopAllShots(const Duration& fadeTime)
+	{
+		m_shotHandles.remove_if([=](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
+
+		for (const auto& shotHandle : m_shotHandles)
+		{
+			m_pSoloud->fadeVolume(shotHandle, 0.0f, fadeTime.count());
+			m_pSoloud->scheduleStop(shotHandle, fadeTime.count());
+		}
 	}
 
 

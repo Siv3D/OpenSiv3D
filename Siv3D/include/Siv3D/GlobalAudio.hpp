@@ -23,6 +23,12 @@ namespace s3d
 		[[nodiscard]]
 		size_t GetActiveVoiceCount();
 
+		/// @brief すべてのアクティブな Audio を一時停止します。
+		void PauseAll();
+
+		/// @brief 一時停止しているすべてのアクティブな Audio を再開します。
+		void ResumeAll();
+
 		/// @brief 最終出力の音量の設定を返します。
 		/// @return 最終出力の音量の設定 [0.0, 1.0]
 		[[nodiscard]]
@@ -37,8 +43,8 @@ namespace s3d
 		/// @param time フェードの時間
 		void FadeVolume(double volume, const Duration& time);
 
-		/// @brief 最終出力に入力された直近 256 サンプルを取得します。
-		/// @return 最終出力に入力された直近 256 サンプル
+		/// @brief 最終出力の直近 256 サンプルを取得します。
+		/// @return 最終出力の直近 256 サンプル
 		[[nodiscard]]
 		Array<float> GetSamples();
 

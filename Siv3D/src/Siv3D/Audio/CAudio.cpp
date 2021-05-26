@@ -266,14 +266,29 @@ namespace s3d
 		m_audios[handleID]->pauseAllShots();
 	}
 
+	void CAudio::pauseAllShots(Audio::IDType handleID, const Duration& fadeTime)
+	{
+		m_audios[handleID]->pauseAllShots(fadeTime);
+	}
+
 	void CAudio::resumeAllShots(const Audio::IDType handleID)
 	{
 		m_audios[handleID]->resumeAllShots();
 	}
 
+	void CAudio::resumeAllShots(Audio::IDType handleID, const Duration& fadeTime)
+	{
+		m_audios[handleID]->resumeAllShots(fadeTime);
+	}
+
 	void CAudio::stopAllShots(const Audio::IDType handleID)
 	{
 		m_audios[handleID]->stopAllShots();
+	}
+
+	void CAudio::stopAllShots(Audio::IDType handleID, const Duration& fadeTime)
+	{
+		m_audios[handleID]->stopAllShots(fadeTime);
 	}
 
 
@@ -347,6 +362,16 @@ namespace s3d
 	size_t CAudio::getActiveVoiceCount()
 	{
 		return m_soloud->getActiveVoiceCount();
+	}
+
+	void CAudio::globalPause()
+	{
+		m_soloud->setPauseAll(true);
+	}
+
+	void CAudio::globalResume()
+	{
+		m_soloud->setPauseAll(false);
 	}
 
 	double CAudio::getGlobalVolume()

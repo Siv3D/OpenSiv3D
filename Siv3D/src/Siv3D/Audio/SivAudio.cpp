@@ -267,14 +267,29 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->pauseAllShots(m_handle->id());
 	}
 
+	void Audio::pauseAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->pauseAllShots(m_handle->id(), fadeTime);
+	}
+
 	void Audio::resumeAllShots() const
 	{
 		SIV3D_ENGINE(Audio)->resumeAllShots(m_handle->id());
 	}
 
+	void Audio::resumeAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->resumeAllShots(m_handle->id(), fadeTime);
+	}
+
 	void Audio::stopAllShots() const
 	{
 		SIV3D_ENGINE(Audio)->stopAllShots(m_handle->id());
+	}
+
+	void Audio::stopAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->stopAllShots(m_handle->id(), fadeTime);
 	}
 
 	int64 Audio::posSample() const

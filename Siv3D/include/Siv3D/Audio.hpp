@@ -304,13 +304,15 @@ namespace s3d
 
 		void pauseAllShots() const;
 
-		//void pauseAllShots(const Duration& fadeTime) const;
+		void pauseAllShots(const Duration& fadeTime) const;
 
 		void resumeAllShots() const;
 
+		void resumeAllShots(const Duration& fadeTime) const;
+
 		void stopAllShots() const;
 
-		//void stopAllShots(const Duration& fadeTime) const;
+		void stopAllShots(const Duration& fadeTime) const;
 
 		/// @brief 再生位置（サンプル）を返します。
 		/// @return 再生位置（サンプル）
