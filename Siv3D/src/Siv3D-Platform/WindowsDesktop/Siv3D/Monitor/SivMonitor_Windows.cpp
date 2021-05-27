@@ -32,7 +32,7 @@ namespace s3d
 			{
 				g_pGetDpiForMonitor = nullptr;
 
-				if (HMODULE shcore = DLL::LoadSystemLibraryNoThrow(L"Shcore.dll"))
+				if (LibraryHandle shcore = DLL::LoadSystemLibraryNoThrow(L"Shcore.dll"))
 				{
 					decltype(GetDpiForMonitor)* pGetDpiForMonitor = DLL::GetFunctionNoThrow(shcore, "GetDpiForMonitor");
 					*g_pGetDpiForMonitor = pGetDpiForMonitor;

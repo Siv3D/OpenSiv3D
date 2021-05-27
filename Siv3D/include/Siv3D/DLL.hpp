@@ -19,25 +19,27 @@
 
 namespace s3d
 {
+	using LibraryHandle = HMODULE;
+
 	namespace DLL
 	{
 		[[nodiscard]]
-		HMODULE LoadSystemLibraryNoThrow(const wchar_t* library);
+		LibraryHandle LoadSystemLibraryNoThrow(const wchar_t* library);
 
 		[[nodiscard]]
-		HMODULE LoadSystemLibrary(const wchar_t* library);
+		LibraryHandle LoadSystemLibrary(const wchar_t* library);
 
 		[[nodiscard]]
-		HMODULE Load(StringView path);
+		LibraryHandle Load(StringView path);
 
-		void Unload(HMODULE& library);
+		void Unload(LibraryHandle& library);
 
 		class GetFunctionNoThrow
 		{
 		public:
 
 			SIV3D_NODISCARD_CXX20
-			GetFunctionNoThrow(HMODULE _module, const char* name);
+			GetFunctionNoThrow(LibraryHandle _module, const char* name);
 
 			template <class Type>
 			operator Type() const noexcept
@@ -55,7 +57,7 @@ namespace s3d
 		public:
 
 			SIV3D_NODISCARD_CXX20
-			GetFunction(HMODULE _module, const char* name);
+			GetFunction(LibraryHandle _module, const char* name);
 
 			template <class Type>
 			operator Type() const noexcept
@@ -102,7 +104,7 @@ namespace s3d
 
 		private:
 
-			LibraryHandle p;
+			void* p;
 		};
 
 		class GetFunction
@@ -120,7 +122,7 @@ namespace s3d
 
 		private:
 
-			LibraryHandle p;
+			void* p;
 		};
 	}
 }

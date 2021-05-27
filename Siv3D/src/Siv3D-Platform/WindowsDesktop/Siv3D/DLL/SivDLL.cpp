@@ -19,18 +19,18 @@ namespace s3d
 {
 	namespace DLL
 	{
-		HMODULE LoadSystemLibraryNoThrow(const wchar_t* library)
+		LibraryHandle LoadSystemLibraryNoThrow(const wchar_t* library)
 		{
 			LOG_TRACE(U"DLL::LoadSystemLibraryNoThrow(\"{}\")"_fmt(Unicode::FromWstring(library)));
 
 			return ::LoadLibraryExW(library, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 		}
 
-		HMODULE LoadSystemLibrary(const wchar_t* library)
+		LibraryHandle LoadSystemLibrary(const wchar_t* library)
 		{
 			LOG_TRACE(U"DLL::LoadSystemLibrary(\"{}\")"_fmt(Unicode::FromWstring(library)));
 
-			const HMODULE hModule = ::LoadLibraryExW(library, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+			const LibraryHandle hModule = ::LoadLibraryExW(library, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 			if (not hModule)
 			{
@@ -40,14 +40,14 @@ namespace s3d
 			return hModule;
 		}
 
-		HMODULE Load(const StringView path)
+		LibraryHandle Load(const StringView path)
 		{
 			LOG_TRACE(U"DLL::Load(\"path = `{}`\")"_fmt(path));
 
 			return ::LoadLibraryW(path.toWstr().c_str());
 		}
 
-		void Unload(HMODULE& library)
+		void Unload(LibraryHandle& library)
 		{
 			if (not library)
 			{
@@ -59,13 +59,13 @@ namespace s3d
 			library = nullptr;
 		}
 
-		GetFunctionNoThrow::GetFunctionNoThrow(HMODULE _module, const char* name)
+		GetFunctionNoThrow::GetFunctionNoThrow(LibraryHandle _module, const char* name)
 			: p{ static_cast<const void*>(::GetProcAddress(_module, name)) }
 		{
 			LOG_TRACE(U"DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = \"{}\") p = {}"_fmt(Unicode::Widen(name), p));
 		}
 
-		GetFunction::GetFunction(HMODULE _module, const char* name)
+		GetFunction::GetFunction(LibraryHandle _module, const char* name)
 			: p(static_cast<const void*>(::GetProcAddress(_module, name)))
 		{
 			LOG_TRACE(U"DLL::GetFunction::GetFunction(name = \"{}\") p = {}"_fmt(Unicode::Widen(name), p));

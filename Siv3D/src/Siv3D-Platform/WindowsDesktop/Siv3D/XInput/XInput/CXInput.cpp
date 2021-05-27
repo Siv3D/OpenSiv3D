@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "CXInput.hpp"
-# include <Siv3D/DLL.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d

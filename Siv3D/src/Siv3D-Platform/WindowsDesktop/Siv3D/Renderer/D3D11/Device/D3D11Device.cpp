@@ -23,11 +23,11 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"D3D11Device::D3D11Device()");
 
 		// d3d11.dll から D3D11CreateDevice() を取得
-		HMODULE moduleD3D11 = DLL::LoadSystemLibrary(L"d3d11.dll");
+		LibraryHandle moduleD3D11 = DLL::LoadSystemLibrary(L"d3d11.dll");
 		m_pD3D11CreateDevice = DLL::GetFunction(moduleD3D11, "D3D11CreateDevice");
 
 		// dxgi.dll から　CreateDXGIFactory1() を取得
-		HMODULE moduleDXGI = DLL::LoadSystemLibrary(L"dxgi.dll");
+		LibraryHandle moduleDXGI = DLL::LoadSystemLibrary(L"dxgi.dll");
 		decltype(CreateDXGIFactory1)* pCreateDXGIFactory1 = DLL::GetFunction(moduleDXGI, "CreateDXGIFactory1");
 
 		// D3D11_CREATE_DEVICE_DEBUG が使えるかのチェック

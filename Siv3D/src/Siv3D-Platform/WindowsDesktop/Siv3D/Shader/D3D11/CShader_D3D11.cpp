@@ -12,7 +12,6 @@
 # include "CShader_D3D11.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include <Siv3D/DLL.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/ConstantBuffer/D3D11/ConstantBufferDetail_D3D11.hpp>

@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Blob.hpp>
+# include <Siv3D/DLL.hpp>
 # include <Siv3D/Shader.hpp>
 # include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/Shader/IShader.hpp>
@@ -36,7 +37,7 @@ namespace s3d
 		ID3D11DeviceContext* m_context	= nullptr;
 
 		// HLSL コンパイラ用の DLL (d3dcompiler_47.dll)
-		HMODULE m_d3dcompiler			= nullptr;
+		LibraryHandle m_d3dcompiler		= nullptr;
 
 		// D3DCompile2() 関数
 		decltype(D3DCompile2)* p_D3DCompile2 = nullptr;

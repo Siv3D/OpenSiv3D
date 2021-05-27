@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/AudioCodec/IAudioCodec.hpp>
 # include <Siv3D/Windows/Windows.hpp>
+# include <Siv3D/DLL.hpp>
 # include "MF_Functions.hpp"
 
 namespace s3d
@@ -32,11 +33,11 @@ namespace s3d
 
 	private:
 
-		HINSTANCE m_MF = nullptr;
+		LibraryHandle m_MF = nullptr;
 
-		HINSTANCE m_MFRW = nullptr;
+		LibraryHandle m_MFRW = nullptr;
 
-		HINSTANCE m_MFplat = nullptr;
+		LibraryHandle m_MFplat = nullptr;
 
 		MF_Functions m_functions;
 

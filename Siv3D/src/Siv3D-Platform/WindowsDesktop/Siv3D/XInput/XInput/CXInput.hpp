@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/DLL.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/XInput/XInputState.hpp>
@@ -54,7 +55,7 @@ namespace s3d
 
 	private:
 
-		HINSTANCE m_xInput = nullptr;
+		LibraryHandle m_xInput = nullptr;
 
 		decltype(XInputGetState)* p_XInputGetState = nullptr;
 

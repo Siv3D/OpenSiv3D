@@ -48,7 +48,7 @@ namespace s3d::detail
 		}
 
 		// Windows 8.1-
-		if (const HMODULE shcore = DLL::LoadSystemLibraryNoThrow(L"shcore.dll"))
+		if (LibraryHandle shcore = DLL::LoadSystemLibraryNoThrow(L"shcore.dll"))
 		{
 			decltype(SetProcessDpiAwareness)* p_SetProcessDpiAwareness = DLL::GetFunctionNoThrow(shcore, "SetProcessDpiAwareness");
 
@@ -60,7 +60,7 @@ namespace s3d::detail
 				return;
 			}
 
-			::FreeLibrary(shcore);
+			DLL::Unload(shcore);
 		}
 
 		// Windows Vista-

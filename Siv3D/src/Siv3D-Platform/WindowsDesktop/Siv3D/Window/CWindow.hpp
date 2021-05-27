@@ -13,6 +13,7 @@
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Window.hpp>
+# include <Siv3D/DLL.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Optional.hpp>
 
@@ -27,7 +28,7 @@ namespace s3d
 		std::wstring m_windowClassName;
 		HDEVNOTIFY m_deviceNotificationHandle = nullptr;
 
-		HMODULE m_user32 = nullptr;
+		LibraryHandle m_user32 = nullptr;
 		decltype(GetSystemMetricsForDpi)* m_pGetSystemMetricsForDpi = nullptr;
 		decltype(AdjustWindowRectExForDpi)* m_pAdjustWindowRectExForDpi = nullptr;
 
