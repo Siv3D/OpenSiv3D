@@ -50,8 +50,13 @@ namespace s3d
 		[[nodiscard]]
 		Audio OpenAudio(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief ダイアログから音声ファイルを選択し、ストリーミング再生する Audio を作成します。
+		/// @param f `Audio::Stream`
+		/// @param defaultPath ダイアログのデフォルトディレクトリ
+		/// @param title ダイアログのタイトル
+		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
 		[[nodiscard]]
-		Audio OpenAudio(Audio::FileStreaming, FilePathView defaultPath = U"", StringView title = U"");
+		Audio OpenAudio(Audio::FileStreaming f, FilePathView defaultPath = U"", StringView title = U"");
 
 		[[nodiscard]]
 		Optional<FilePath> SaveImage(FilePathView defaultPath = U"", StringView title = U"");

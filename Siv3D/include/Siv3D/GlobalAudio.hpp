@@ -49,22 +49,32 @@ namespace s3d
 		/// @return 最終出力の直近 256 サンプル
 		[[nodiscard]]
 		Array<float> GetSamples();
-
+		
+		/// @brief 最終出力の直近 256 サンプルを取得します。
+		/// @param samples 最終出力の直近 256 サンプルを格納する配列
 		void GetSamples(Array<float>& samples);
 
 		[[nodiscard]]
 		FFTResult GetFFT();
 
+		/// @brief 最終出力の直近 256 サンプルでの FFT 結果を取得します。
+		/// @return FFT 結果の格納先
 		void GetFFT(FFTResult& result);
 
 		[[nodiscard]]
 		Array<float> BusGetSamples(size_t busIndex);
 
+		/// @brief 指定したバスの直近 256 サンプルを取得します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param samples 指定したバスの直近 256 サンプルを格納する配列
 		void BusGetSamples(size_t busIndex, Array<float>& samples);
 
 		[[nodiscard]]
 		FFTResult BusGetFFT(size_t busIndex);
 
+		/// @brief 指定したバスの直近 256 サンプルでの FFT 結果を取得します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param result FFT 結果の格納先
 		void BusGetFFT(size_t busIndex, FFTResult& result);
 
 		[[nodiscard]]

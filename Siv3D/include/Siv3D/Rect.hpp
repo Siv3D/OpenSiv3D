@@ -223,137 +223,137 @@ namespace s3d
 		constexpr Rect(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param topCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topCenter_<position_type> _center, value_type _size) noexcept;
+		constexpr Rect(Arg::topCenter_<position_type> topCenter, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param topCenter 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topCenter_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param topCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topCenter_<position_type> _center, size_type _size) noexcept;
+		constexpr Rect(Arg::topCenter_<position_type> topCenter, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param topRight 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topRight_<position_type> topLeft, value_type _size) noexcept;
+		constexpr Rect(Arg::topRight_<position_type> topRight, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param topRight 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topRight_<position_type> topLeft, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param topRight 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::topRight_<position_type> topLeft, size_type _size) noexcept;
+		constexpr Rect(Arg::topRight_<position_type> topRight, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param rightCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::rightCenter_<position_type> _center, value_type _size) noexcept;
+		constexpr Rect(Arg::rightCenter_<position_type> rightCenter, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param rightCenter 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::rightCenter_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::rightCenter_<position_type> rightCenter, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param rightCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::rightCenter_<position_type> _center, size_type _size) noexcept;
+		constexpr Rect(Arg::rightCenter_<position_type> rightCenter, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomRight 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomRight_<position_type> topLeft, value_type _size) noexcept;
+		constexpr Rect(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomRight 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomRight_<position_type> topLeft, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomRight 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomRight_<position_type> topLeft, size_type _size) noexcept;
+		constexpr Rect(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param bottomCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomCenter_<position_type> _center, value_type _size) noexcept;
+		constexpr Rect(Arg::bottomCenter_<position_type> bottomCenter, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param bottomCenter 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomCenter_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param bottomCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomCenter_<position_type> _center, size_type _size) noexcept;
+		constexpr Rect(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomLeft 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomLeft_<position_type> topLeft, value_type _size) noexcept;
+		constexpr Rect(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomLeft 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param topLeft 
+		/// @param bottomLeft 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::bottomLeft_<position_type> topLeft, size_type _size) noexcept;
+		constexpr Rect(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param leftCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::leftCenter_<position_type> _center, value_type _size) noexcept;
+		constexpr Rect(Arg::leftCenter_<position_type> leftCenter, value_type _size) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param leftCenter 
 		/// @param _w 
 		/// @param _h 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::leftCenter_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr Rect(Arg::leftCenter_<position_type> leftCenter, value_type _w, value_type _h) noexcept;
 
 		/// @brief 
-		/// @param _center 
+		/// @param leftCenter 
 		/// @param _size 
 		SIV3D_NODISCARD_CXX20
-		constexpr Rect(Arg::leftCenter_<position_type> _center, size_type _size) noexcept;
+		constexpr Rect(Arg::leftCenter_<position_type> leftCenter, size_type _size) noexcept;
 
 		[[nodiscard]]
 		friend constexpr bool operator ==(const Rect& lhs, const Rect& rhs) noexcept

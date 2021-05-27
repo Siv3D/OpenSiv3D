@@ -337,9 +337,9 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->setVolume(m_handle->id(), volume);
 	}
 
-	void Audio::fadeVolume(const double volume, const Duration& time) const
+	void Audio::fadeVolume(const double volume, const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->fadeVolume(m_handle->id(), volume, time);
+		SIV3D_ENGINE(Audio)->fadeVolume(m_handle->id(), volume, fadeTime);
 	}
 
 	double Audio::getPan() const
@@ -352,9 +352,9 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->setPan(m_handle->id(), Clamp(pan, -1.0, 1.0));
 	}
 
-	void Audio::fadePan(const double pan, const Duration& time) const
+	void Audio::fadePan(const double pan, const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->fadePan(m_handle->id(), Clamp(pan, -1.0, 1.0), time);
+		SIV3D_ENGINE(Audio)->fadePan(m_handle->id(), Clamp(pan, -1.0, 1.0), fadeTime);
 	}
 
 	double Audio::getSpeed() const
@@ -367,9 +367,9 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->setSpeed(m_handle->id(), speed);
 	}
 
-	void Audio::fadeSpeed(const double speed, const Duration& time) const
+	void Audio::fadeSpeed(const double speed, const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->fadeSpeed(m_handle->id(), speed, time);
+		SIV3D_ENGINE(Audio)->fadeSpeed(m_handle->id(), speed, fadeTime);
 	}
 
 	void Audio::setSpeedBySemitone(const int32 semitone) const

@@ -467,6 +467,10 @@ namespace s3d
 
 		const LineString& draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 連続した線分を描画します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const LineString& draw(double thickness, const ColorF& color = Palette::White) const;
 
 		const LineString& draw(double thickness, const Array<ColorF>& colors) const;

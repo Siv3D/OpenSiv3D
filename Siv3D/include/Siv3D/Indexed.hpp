@@ -21,6 +21,12 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr auto IndexedRef(Type&& iterable);
 
+	/// @brief インデックスと組で各要素にアクセスできるループを作成するユーティリティ関数 
+	/// @tparam Type 
+	/// @tparam It 
+	/// @tparam  
+	/// @param iterable 
+	/// @return 
 	template <class Type, class It = decltype(std::cbegin(std::declval<Type>())), class = decltype(std::cend(std::declval<Type>()))>
 	[[nodiscard]]
 	inline constexpr auto Indexed(Type&& iterable);

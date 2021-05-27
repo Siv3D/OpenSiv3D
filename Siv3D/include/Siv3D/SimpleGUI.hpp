@@ -123,6 +123,13 @@ namespace s3d
 		[[nodiscard]]
 		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
 
+		/// @brief チェックボックスを表示します。
+		/// @param checked チェックボックスで操作する bool 値
+		/// @param label チェックボックスの右横に表示するテキスト
+		/// @param pos チェックボックスの左上の座標
+		/// @param width チェックボックス領域の幅（ピクセル）
+		/// @param enabled チェックボックスの操作を有効にするか
+		/// @return チェックボックスが操作された場合 true, それ以外の場合は false
 		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
 		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
