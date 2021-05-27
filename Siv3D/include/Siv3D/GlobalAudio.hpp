@@ -14,6 +14,7 @@
 # include "Duration.hpp"
 # include "Array.hpp"
 # include "FFTResult.hpp"
+# include "AudioGroup.hpp"
 
 namespace s3d
 {
@@ -84,5 +85,15 @@ namespace s3d
 		void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
 
 		void BusSetPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift);
+
+		AudioGroup CreateGroup(const Array<Audio>& audios);
+
+		void PauseGroup(uint32 groupHandle);
+
+		void ResumeGroup(uint32 groupHandle);
+
+		void StopGroup(uint32 groupHandle);
+
+		void DestroyGroup(const AudioGroup& group);
 	}
 }

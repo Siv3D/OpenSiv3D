@@ -70,7 +70,7 @@ namespace s3d
 
 		CustomFilterInstance(CustomFilter* aParent);
 
-		virtual void filter(float* aBuffer, unsigned int aSamples, unsigned int aBufferSize, unsigned int aChannels, float aSamplerate, SoLoud::time aTime) override
+		virtual void filter(float* aBuffer, unsigned int aSamples, unsigned int, unsigned int, float, SoLoud::time aTime) override
 		{
 			updateParams(aTime);
 
@@ -143,7 +143,7 @@ namespace s3d
 			return names[aParamIndex];
 		}
 
-		virtual unsigned int getParamType(unsigned int aParamIndex) override
+		virtual unsigned int getParamType(unsigned int) override
 		{
 			return FLOAT_PARAM;
 		}
@@ -223,6 +223,11 @@ namespace s3d
 	SoLoud::Bus& AudioBus::getBus() noexcept
 	{
 		return m_bus;
+	}
+
+	void AudioBus::annexSoundHandle(const SoLoud::handle handle)
+	{
+		m_bus.annexSound(handle);
 	}
 
 	double AudioBus::getVolume()

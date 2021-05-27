@@ -13,6 +13,11 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Audio.hpp>
 
+namespace SoLoud
+{
+	class Soloud;
+}
+
 namespace s3d
 {
 	class AudioBus;
@@ -72,6 +77,9 @@ namespace s3d
 		virtual void stop(Audio::IDType handleID) = 0;
 
 		virtual void stop(Audio::IDType handleID, const Duration& duration) = 0;
+
+
+		virtual uint32 createAudioGroup(const Array<Audio::IDType>& handleIDs, Array<uint32>& handles) = 0;
 
 
 		virtual void playOneShot(Audio::IDType handleID, size_t busIndex, double volume, double pan, double speed) = 0;
@@ -155,6 +163,8 @@ namespace s3d
 		virtual void setPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift) = 0;
 
 		virtual AudioBus& getBus(size_t busIndex) = 0;
+
+		virtual SoLoud::Soloud& getSoloud() = 0;
 
 		virtual const SoundTouchFunctions* getSoundTouchFunctions() const noexcept = 0;
 	};

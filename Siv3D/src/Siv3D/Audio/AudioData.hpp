@@ -97,6 +97,8 @@ namespace s3d
 
 		void stopAllShots(const Duration& fadeTime);
 
+		SoLoud::handle makeHandle();
+
 		[[nodiscard]]
 		double posSec() const;
 

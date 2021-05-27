@@ -28,6 +28,8 @@ namespace s3d
 		[[nodiscard]]
 		SoLoud::Bus& getBus() noexcept;
 
+		void annexSoundHandle(SoLoud::handle handle);
+
 		double getVolume();
 
 		void setVolume(double volume);

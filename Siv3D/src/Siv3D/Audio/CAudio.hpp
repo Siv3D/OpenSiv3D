@@ -74,6 +74,9 @@ namespace s3d
 		void stop(Audio::IDType handleID, const Duration& duration) override;
 
 
+		uint32 createAudioGroup(const Array<Audio::IDType>& handleIDs, Array<uint32>& handles) override;
+
+
 		void playOneShot(Audio::IDType handleID, size_t busIndex, double volume, double pan, double speed) override;
 
 		void pauseAllShots(Audio::IDType handleID) override;
@@ -155,6 +158,8 @@ namespace s3d
 		void setPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift) override;
 
 		AudioBus& getBus(size_t busIndex) override;
+
+		SoLoud::Soloud& getSoloud() override;
 
 		const SoundTouchFunctions* getSoundTouchFunctions() const noexcept override;
 

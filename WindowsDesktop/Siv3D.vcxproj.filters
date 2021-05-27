@@ -1246,6 +1246,9 @@
     <Filter Include="src\Siv3D\GlobalAudio">
       <UniqueIdentifier>{91f770ce-69ea-4b3b-96cd-6452ce00fbb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioGroup">
+      <UniqueIdentifier>{55e2fd3f-1d7c-4e05-b9cd-770ddac9eafb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5778,6 +5781,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\SoundTouchFunctions.hpp">
       <Filter>src\Siv3D\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioGroup.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioGroup\AudioGroupDetail.hpp">
+      <Filter>src\Siv3D\AudioGroup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8020,6 +8029,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioBus.cpp">
       <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioGroup\AudioGroupDetail.cpp">
+      <Filter>src\Siv3D\AudioGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioGroup\SivAudioGroup.cpp">
+      <Filter>src\Siv3D\AudioGroup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

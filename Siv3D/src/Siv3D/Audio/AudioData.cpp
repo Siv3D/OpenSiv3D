@@ -454,6 +454,12 @@ namespace s3d
 	}
 
 
+	SoLoud::handle AudioData::makeHandle()
+	{
+		return m_pSoloud->play(*m_audioSource, -1.0f, 0.0f, true);
+	}
+
+
 	double AudioData::posSec() const
 	{
 		if (not m_pSoloud->isValidVoiceHandle(m_handle))

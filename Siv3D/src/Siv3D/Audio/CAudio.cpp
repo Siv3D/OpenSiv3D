@@ -387,6 +387,25 @@ namespace s3d
 	}
 
 
+	uint32 CAudio::createAudioGroup(const Array<Audio::IDType>& handleIDs, Array<uint32>& handles)
+	{
+		handles.clear();
+
+		SoLoud::handle groupHandle = m_soloud->createVoiceGroup();
+
+		for (const auto& handleID : handleIDs)
+		{
+			const SoLoud::handle handle = m_audios[handleID]->makeHandle();
+
+			m_soloud->addVoiceToGroup(groupHandle, handle);
+			
+			handles << handle;
+		}
+
+		return groupHandle;
+	}
+
+
 
 	double CAudio::posSec(const Audio::IDType handleID)
 	{
@@ -631,6 +650,11 @@ namespace s3d
 		}
 
 		return *m_buses[busIndex];
+	}
+
+	SoLoud::Soloud& CAudio::getSoloud()
+	{
+		return *m_soloud;
 	}
 
 	const SoundTouchFunctions* CAudio::getSoundTouchFunctions() const noexcept
