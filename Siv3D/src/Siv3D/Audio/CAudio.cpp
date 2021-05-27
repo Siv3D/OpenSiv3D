@@ -57,22 +57,14 @@ namespace s3d
 			m_soloud.reset();
 		}
 
-	# if SIV3D_PLATFORM(WINDOWS)
+	# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
 
 		if (m_soundTouch)
 		{
-			::FreeLibrary(m_soundTouch);
+			DLL::Unload(m_soundTouch);
 			m_soundTouch = nullptr;
 		}
 
-	# elif SIV3D_PLATFORM(MACOS)
-
-		if (m_soundTouch)
-		{
-			DLL::UnloadLibrary(m_soundTouch);
-			m_soundTouch = nullptr;
-		}
-		
 	# else
 
 
@@ -117,7 +109,7 @@ namespace s3d
 
 	# if SIV3D_PLATFORM(WINDOWS)
 
-		m_soundTouch = ::LoadLibraryW(L"dll/soundtouch/SoundTouch_x64.dll");
+		m_soundTouch = DLL::Load(U"dll/soundtouch/SoundTouch_x64.dll");
 
 		if (m_soundTouch)
 		{
@@ -142,7 +134,7 @@ namespace s3d
 
 	# elif SIV3D_PLATFORM(MACOS)
 		
-		m_soundTouch = DLL::LoadLibrary(Resource(U"engine/lib/soundtouch/libSoundTouch.dylib").narrow().c_str());
+		m_soundTouch = DLL::Load(Resource(U"engine/lib/soundtouch/libSoundTouch.dylib"));
 
 		if (m_soundTouch)
 		{

@@ -317,6 +317,8 @@ namespace s3d
 	CAudioCodec::~CAudioCodec()
 	{
 		LOG_SCOPED_TRACE(U"CAudioCodec::~CAudioCodec()");
+
+		DLL::Unload(m_mpg123);
 	}
 
 	void CAudioCodec::init()
@@ -375,7 +377,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CAudioCodec::loadMPG123()");
 
-		m_mpg123 = DLL::LoadLibrary("libmpg123.so");
+		m_mpg123 = DLL::Load(U"libmpg123.so");
 		
 		if (not m_mpg123)
 		{

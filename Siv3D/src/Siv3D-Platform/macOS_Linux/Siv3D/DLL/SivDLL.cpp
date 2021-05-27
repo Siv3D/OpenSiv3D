@@ -18,11 +18,11 @@ namespace s3d
 {
 	namespace DLL
 	{
-		void* LoadLibrary(const char* path)
+		void* Load(const StringVire path)
 		{
-			LOG_TRACE(U"DLL::LoadLibrary(path = `{}`)"_fmt(Unicode::Widen(path)));
+			LOG_TRACE(U"DLL::Load(path = `{}`)"_fmt(path));
 
-			return ::dlopen(path, RTLD_LOCAL | RTLD_LAZY);
+			return ::dlopen(path.narrow().c_str(), RTLD_LOCAL | RTLD_LAZY);
 		}
 
 		GetFunctionNoThrow::GetFunctionNoThrow(void* module, const char* name)

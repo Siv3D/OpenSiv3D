@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "StringView.hpp"
 
 # if SIV3D_PLATFORM(WINDOWS)
 
@@ -26,7 +27,10 @@ namespace s3d
 		[[nodiscard]]
 		HMODULE LoadSystemLibrary(const wchar_t* library);
 
-		void UnloadSystemLibrary(HMODULE& library);
+		[[nodiscard]]
+		HMODULE Load(StringView path);
+
+		void Unload(HMODULE& library);
 
 		class GetFunctionNoThrow
 		{
@@ -77,9 +81,9 @@ namespace s3d
 	namespace DLL
 	{
 		[[nodiscard]]
-		void* LoadLibrary(const char* path);
+		void* Load(StringVire path);
 	
-		void UnloadLibrary(void* library);
+		void Unload(void* library);
 
 		class GetFunctionNoThrow
 		{

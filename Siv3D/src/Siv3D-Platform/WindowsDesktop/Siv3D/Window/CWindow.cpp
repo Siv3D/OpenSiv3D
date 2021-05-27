@@ -229,7 +229,7 @@ namespace s3d
 		const BOOL b = ::UnregisterClassW(m_windowClassName.c_str(), m_hInstance);
 		LOG_VERBOSE(U"UnregisterClassW() -> {}"_fmt(!!b));
 
-		DLL::UnloadSystemLibrary(m_user32);
+		DLL::Unload(m_user32);
 	}
 
 	void CWindow::update()

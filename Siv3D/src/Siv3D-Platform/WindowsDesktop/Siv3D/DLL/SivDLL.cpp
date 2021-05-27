@@ -40,7 +40,14 @@ namespace s3d
 			return hModule;
 		}
 
-		void UnloadSystemLibrary(HMODULE& library)
+		HMODULE Load(const StringView path)
+		{
+			LOG_TRACE(U"DLL::Load(\"path = `{}`\")"_fmt(path));
+
+			return ::LoadLibraryW(path.toWstr().c_str());
+		}
+
+		void Unload(HMODULE& library)
 		{
 			if (not library)
 			{

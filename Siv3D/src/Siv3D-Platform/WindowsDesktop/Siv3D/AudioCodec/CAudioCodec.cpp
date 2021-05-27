@@ -127,9 +127,9 @@ namespace s3d
 			m_functions.p_MFShutdown();
 		}
 
-		DLL::UnloadSystemLibrary(m_MFplat);
-		DLL::UnloadSystemLibrary(m_MFRW);
-		DLL::UnloadSystemLibrary(m_MF);
+		DLL::Unload(m_MFplat);
+		DLL::Unload(m_MFRW);
+		DLL::Unload(m_MF);
 	}
 
 	void CAudioCodec::init()
