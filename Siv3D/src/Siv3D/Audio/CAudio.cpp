@@ -59,11 +59,7 @@ namespace s3d
 
 	# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
 
-		if (m_soundTouch)
-		{
-			DLL::Unload(m_soundTouch);
-			m_soundTouch = nullptr;
-		}
+		DLL::Unload(m_soundTouch);
 
 	# else
 

@@ -15,7 +15,7 @@
 # include "AudioData.hpp"
 # include "AudioBus.hpp"
 # include "SoundTouchFunctions.hpp"
-# include <Siv3D/Windows/Windows.hpp>
+# include <Siv3D/DLL.hpp>
 
 namespace s3d
 {
@@ -172,7 +172,7 @@ namespace s3d
 
 	# else
 
-		void* m_soundTouch = nullptr;
+		LibraryHandle m_soundTouch = nullptr;
 
 	# endif
 

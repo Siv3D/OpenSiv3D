@@ -879,7 +879,7 @@
 		2C53C34C25613BD40072831A /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34B25613BCC0072831A /* earcut.hpp */; };
 		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
 		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
-		2C5C6795265F27FF00FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6794265F27FF00FAA651 /* SivDLL.cpp */; };
+		2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6797265F315500FAA651 /* SivDLL.cpp */; };
 		2C5DD438265979F100282CE2 /* AudioFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD430265979F100282CE2 /* AudioFactory.cpp */; };
 		2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD431265979F100282CE2 /* CAudio.cpp */; };
 		2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD432265979F100282CE2 /* AudioData.cpp */; };
@@ -2648,7 +2648,7 @@
 		2C53C34B25613BCC0072831A /* earcut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
-		2C5C6794265F27FF00FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
+		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
 		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
 		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
@@ -5235,7 +5235,6 @@
 				2C47B27224DD9789008D83BE /* DateTime */,
 				2CFB7DD6262B06CA00169B97 /* Dialog */,
 				2C13C8EE25B95AE70054B968 /* DirectoryWatcher */,
-				2C5C6793265F27FF00FAA651 /* DLL */,
 				2CFB7DCF262AF33C00169B97 /* DragDrop */,
 				2C48C14925D41C9D00A93CE3 /* DrawableText */,
 				2C47B2E224DD9789008D83BE /* Duration */,
@@ -6856,13 +6855,12 @@
 			path = Earcut;
 			sourceTree = "<group>";
 		};
-		2C5C6793265F27FF00FAA651 /* DLL */ = {
+		2C5C6796265F315500FAA651 /* DLL */ = {
 			isa = PBXGroup;
 			children = (
-				2C5C6794265F27FF00FAA651 /* SivDLL.cpp */,
+				2C5C6797265F315500FAA651 /* SivDLL.cpp */,
 			);
-			name = DLL;
-			path = "../Siv3D-Platform/macOS/Siv3D/DLL";
+			path = DLL;
 			sourceTree = "<group>";
 		};
 		2C5DD42F265979F100282CE2 /* Audio */ = {
@@ -7581,6 +7579,7 @@
 				2C68508524B768A800B98A7F /* Console */,
 				2C68507E24B768A800B98A7F /* Date */,
 				2C68507C24B768A800B98A7F /* DateTime */,
+				2C5C6796265F315500FAA651 /* DLL */,
 				2C8E717B24C7458800CECCAE /* EnvironmentVariable */,
 				2C427FD32628436F00106F19 /* Gamepad */,
 				2CFE199E2555B221005826A1 /* Keyboard */,
@@ -10951,7 +10950,7 @@
 				2C5043CD26512B6000E36D08 /* SivToastNotification.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
 				2C533795264F5AA200CE0F1B /* zstd_ldm.c in Sources */,
-				2C5C6795265F27FF00FAA651 /* SivDLL.cpp in Sources */,
+				2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */,
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
 				2C48BEFC25CFB8C500A93CE3 /* save-bmp.cpp in Sources */,
 				2C47B37024DD9789008D83BE /* ImageDecoderFactory.cpp in Sources */,

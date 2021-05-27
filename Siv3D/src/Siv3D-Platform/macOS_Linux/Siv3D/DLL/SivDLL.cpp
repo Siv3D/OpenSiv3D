@@ -18,20 +18,32 @@ namespace s3d
 {
 	namespace DLL
 	{
-		void* Load(const StringVire path)
+		LibraryHandle Load(const StringView path)
 		{
 			LOG_TRACE(U"DLL::Load(path = `{}`)"_fmt(path));
 
 			return ::dlopen(path.narrow().c_str(), RTLD_LOCAL | RTLD_LAZY);
 		}
+	
+		void Unload(LibraryHandle& library)
+		{
+			LOG_TRACE(U"DLL::Unload()");
+			
+			if (library)
+			{
+				::dlclose(library);
+			}
+			
+			library = nullptr;
+		}
 
-		GetFunctionNoThrow::GetFunctionNoThrow(void* module, const char* name)
+		GetFunctionNoThrow::GetFunctionNoThrow(LibraryHandle module, const char* name)
 			: p{ reinterpret_cast<void*>(::dlsym(module, name)) }
 		{
 			LOG_TRACE(U"DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `{}`) p = {}"_fmt(Unicode::Widen(name), p));
 		}
 
-		GetFunction::GetFunction(void* module, const char* name)
+		GetFunction::GetFunction(LibraryHandle module, const char* name)
 			: p{ reinterpret_cast<void*>(::dlsym(module, name)) }
 		{
 			LOG_TRACE(U"DLL::GetFunction::GetFunction(name = `{}`) p = {}"_fmt(Unicode::Widen(name), p));
