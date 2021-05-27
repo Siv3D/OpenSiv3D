@@ -12,12 +12,18 @@
 # include <algorithm>
 # include <string>
 # include <vector>
-# include <gio/gio.h>
+# include <fstream>
+//# include <gio/gio.h>
 # include <Siv3D/PowerStatus.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
+	/*
+	// [Siv3D ToDo]
+	// ・時間がかかりすぎる（> 20ms）
+	// ・ACLineStatus  が不正確
+
 	namespace detail
 	{
 		const char* NAME_UPower = "org.freedesktop.UPower";
@@ -43,7 +49,7 @@ namespace s3d
 			bool ret = get_property(_proxy, _property_name, _format, _dest);
 			if (ret == false)
 			{
-				LOG_FAIL(U"❌ PowerStatus: Failed to get UPower device property ({})."_fmt(Unicode::Widen(_property_name)));
+				//LOG_FAIL(U"❌ PowerStatus: Failed to get UPower device property ({})."_fmt(Unicode::Widen(_property_name)));
 			}
 			return ret;
 		}
@@ -66,7 +72,7 @@ namespace s3d
 			conn = g_bus_get_sync(G_BUS_TYPE_SYSTEM, nullptr, &error);
 			if (conn == nullptr)
 			{
-				LOG_FAIL(U"❌ PowerStatus: Failed to get d-bus connection.");
+				//LOG_FAIL(U"❌ PowerStatus: Failed to get d-bus connection.");
 				return;
 			}
 
@@ -74,25 +80,25 @@ namespace s3d
 				NAME_UPower, OBJECT_UPower, INTERFACE_UPower, nullptr, &error);
 			if (proxy == nullptr)
 			{
-				LOG_FAIL(U"❌ PowerStatus: Failed to get d-bus proxy.");
+				//LOG_FAIL(U"❌ PowerStatus: Failed to get d-bus proxy.");
 				return;
 			}
 
 			variant = g_dbus_proxy_get_cached_property(proxy, "DaemonVersion");
 			if (variant == nullptr)
 			{
-				LOG_FAIL(U"❌ PowerStatus: Failed to get UPower properties.");
+				//LOG_FAIL(U"❌ PowerStatus: Failed to get UPower properties.");
 				return;
 			}
 			g_variant_get(variant, "s", &s);
 			g_variant_unref(variant);
-			LOG_INFO(U"ℹ️  PowerStatus: UPower daemon version {}"_fmt(Unicode::Widen(s)));
+			//LOG_INFO(U"ℹ️  PowerStatus: UPower daemon version {}"_fmt(Unicode::Widen(s)));
 
 			variant = g_dbus_proxy_call_sync(proxy, "EnumerateDevices", nullptr,
 				G_DBUS_CALL_FLAGS_NONE, -1, nullptr, &error);
 			if (variant == nullptr)
 			{
-				LOG_FAIL(U"❌ PowerStatus: Failed to enumerate power supply devices.");
+				//LOG_FAIL(U"❌ PowerStatus: Failed to enumerate power supply devices.");
 				return;
 			}
 			g_variant_get(variant, "(ao)", &iter);
@@ -173,4 +179,111 @@ namespace s3d
 			return status;
 		}
 	}
+	*/
+
+	namespace detail
+	{
+		[[nodiscard]]
+		static Optional<int32> ReadInt(const char* path)
+		{
+			std::ifstream ifs{ path };
+
+			if (not ifs)
+			{
+				return none;
+			}
+
+			int32 value;
+
+			if (ifs >> value)
+			{
+				return value;
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		[[nodiscard]]
+		static Optional<std::string> ReadString(const char* path)
+		{
+			std::ifstream ifs{ path };
+
+			if (not ifs)
+			{
+				return none;
+			}
+
+			std::string value;
+
+			if (ifs >> value)
+			{
+				return value;
+			}
+			else
+			{
+				return none;
+			}
+		}
+	}
+
+	namespace System
+	{
+		PowerStatus GetPowerStatus()
+		{
+			PowerStatus status;
+			status.battery = BatteryStatus::NoBattery;
+			bool hasBattery = false;
+
+			if (auto value = detail::ReadInt("/sys/class/power_supply/AC/online"))
+			{
+				status.ac = (*value == 1) ? ACLineStatus::Online : ACLineStatus::Offline;
+			}
+			else if (auto value = detail::ReadInt("/sys/class/power_supply/ac/online"))
+			{
+				status.ac = (*value == 1) ? ACLineStatus::Online : ACLineStatus::Offline;
+			}
+
+			if (auto value = detail::ReadString("/sys/class/power_supply/battery/status"))
+			{
+				hasBattery = true;
+				status.charging = (*value == "Charging");
+
+				if (auto capacity = detail::ReadInt("/sys/class/power_supply/battery/capacity"))
+				{
+					status.batteryLifePercent = capacity;
+				}
+			}
+			else if (auto value = detail::ReadString("/sys/class/power_supply/BAT0/status"))
+			{
+				hasBattery = true;
+				status.charging = (*value == "Charging");
+
+				if (auto capacity = detail::ReadInt("/sys/class/power_supply/BAT0/capacity"))
+				{
+					status.batteryLifePercent = capacity;
+				}
+			}
+
+			if (hasBattery)
+			{
+				if (status.batteryLifePercent)
+				{
+					const int32 percent = *status.batteryLifePercent;
+
+					status.battery = percent <+ 5 ? BatteryStatus::Critical
+					: percent <= 33 ? BatteryStatus::Low
+					: percent <= 66 ? BatteryStatus::Middle
+					: BatteryStatus::High;
+				}
+				else
+				{
+					status.battery = BatteryStatus::Unknown;
+				}
+			}
+
+			return status;
+		}
+	}	
 }
