@@ -11,6 +11,7 @@
 
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/AudioDecoder.hpp>
@@ -64,6 +65,14 @@ namespace s3d
 			m_soundTouch = nullptr;
 		}
 
+	# elif SIV3D_PLATFORM(MACOS)
+
+		if (m_soundTouch)
+		{
+			DLL::UnloadLibrary(m_soundTouch);
+			m_soundTouch = nullptr;
+		}
+		
 	# else
 
 
@@ -131,8 +140,32 @@ namespace s3d
 			}
 		}
 
-	# else
+	# elif SIV3D_PLATFORM(MACOS)
+		
+		m_soundTouch = DLL::LoadLibrary(Resource(U"engine/lib/soundtouch/libSoundTouch.dylib").narrow().c_str());
 
+		if (m_soundTouch)
+		{
+			m_soundTouchAvailable = true;
+
+			try
+			{
+				m_soundTouchFunctions.p_soundtouch_createInstance = DLL::GetFunction(m_soundTouch, "soundtouch_createInstance");
+				m_soundTouchFunctions.p_soundtouch_destroyInstance = DLL::GetFunction(m_soundTouch, "soundtouch_destroyInstance");
+				m_soundTouchFunctions.p_soundtouch_setPitchSemiTones = DLL::GetFunction(m_soundTouch, "soundtouch_setPitchSemiTones");
+				m_soundTouchFunctions.p_soundtouch_setChannels = DLL::GetFunction(m_soundTouch, "soundtouch_setChannels");
+				m_soundTouchFunctions.p_soundtouch_setSampleRate = DLL::GetFunction(m_soundTouch, "soundtouch_setSampleRate");
+				m_soundTouchFunctions.p_soundtouch_putSamples = DLL::GetFunction(m_soundTouch, "soundtouch_putSamples");
+				m_soundTouchFunctions.p_soundtouch_receiveSamples = DLL::GetFunction(m_soundTouch, "soundtouch_receiveSamples");
+				m_soundTouchFunctions.p_soundtouch_numSamples = DLL::GetFunction(m_soundTouch, "soundtouch_numSamples");
+			}
+			catch (const EngineError&)
+			{
+				m_soundTouchAvailable = false;
+			}
+		}
+		
+	# else
 
 
 

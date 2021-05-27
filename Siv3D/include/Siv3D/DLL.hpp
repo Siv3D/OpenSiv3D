@@ -78,6 +78,8 @@ namespace s3d
 	{
 		[[nodiscard]]
 		void* LoadLibrary(const char* path);
+	
+		void UnloadLibrary(void* library);
 
 		class GetFunctionNoThrow
 		{
