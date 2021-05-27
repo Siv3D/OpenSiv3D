@@ -17,6 +17,7 @@ namespace s3d
 {
 	class AudioBus;
 	struct FFTResult;
+	struct SoundTouchFunctions;
 
 	class SIV3D_NOVTABLE ISiv3DAudio
 	{
@@ -151,6 +152,10 @@ namespace s3d
 
 		virtual void setReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet) = 0;
 
+		virtual void setPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift) = 0;
+
 		virtual AudioBus& getBus(size_t busIndex) = 0;
+
+		virtual const SoundTouchFunctions* getSoundTouchFunctions() const noexcept = 0;
 	};
 }

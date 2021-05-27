@@ -14,6 +14,8 @@
 # include "IAudio.hpp"
 # include "AudioData.hpp"
 # include "AudioBus.hpp"
+# include "SoundTouchFunctions.hpp"
+# include <Siv3D/Windows/Windows.hpp>
 
 namespace s3d
 {
@@ -150,7 +152,11 @@ namespace s3d
 
 		void setReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet) override;
 
+		void setPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift) override;
+
 		AudioBus& getBus(size_t busIndex) override;
+
+		const SoundTouchFunctions* getSoundTouchFunctions() const noexcept override;
 
 	private:
 
@@ -159,5 +165,19 @@ namespace s3d
 		std::array<std::unique_ptr<AudioBus>, Audio::MaxBusCount> m_buses;
 
 		AssetHandleManager<Audio::IDType, AudioData> m_audios{ U"Audio" };
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		HINSTANCE m_soundTouch = nullptr;
+
+	# else
+
+		void* m_soundTouch = nullptr;
+
+	# endif
+
+		bool m_soundTouchAvailable = false;
+
+		SoundTouchFunctions m_soundTouchFunctions;
 	};
 }

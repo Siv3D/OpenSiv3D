@@ -1537,6 +1537,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.)-"
 },
 
 {
+UR"-(SoundTouch)-",
+
+UR"-(Copyright (c) Olli Parviainen)-",
+
+UR"-(SoundTouch is released under LGPL v2.1:
+This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License version 2.1 as published by the Free Software Foundation.
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+See LGPL v2.1 full license text (https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html) for details.)-"
+},
+
+{
 UR"-(The Parallel Hashmap)-",
 
 UR"-(Copyright (c) 2019, Gregory Popovitch - greg7mdp@gmail.com)-",

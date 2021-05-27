@@ -44,6 +44,8 @@ namespace s3d
 
 		void setReverbFilter(size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet);
 
+		void setPitchShiftFilter(size_t filterIndex, double pitchShift);
+
 	private:
 
 		SoLoud::Bus m_bus;

@@ -82,5 +82,7 @@ namespace s3d
 		void BusSetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
 
 		void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
+
+		void BusSetPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift);
 	}
 }

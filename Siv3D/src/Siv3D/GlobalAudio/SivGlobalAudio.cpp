@@ -188,5 +188,16 @@ namespace s3d
 
 			SIV3D_ENGINE(Audio)->setReverbFilter(busIndex, filterIndex, freeze, roomSize, damp, width, wet);
 		}
+		
+		void BusSetPitchShiftFilter(const size_t busIndex, const size_t filterIndex, const double pitchShift)
+		{
+			if ((Audio::MaxBusCount <= busIndex)
+				|| (Audio::MaxFilterCount <= filterIndex))
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Audio)->setPitchShiftFilter(busIndex, filterIndex, pitchShift);
+		}
 	}
 }

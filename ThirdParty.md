@@ -70,6 +70,7 @@ Name | Version
 [simde](https://github.com/nemequ/simde) | 0.7.2
 [Sol2](https://github.com/ThePhD/sol2) | v3.2.2
 [SoLoud](https://github.com/jarikomppa/soloud) | 
+[SoundTouch](https://gitlab.com/soundtouch/soundtouch) | 2.1.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2

@@ -909,6 +909,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioResourceHolder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\CAudio.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\SoundTouchFunctions.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\BigIntDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CacheDirectory\CacheDirectory.hpp" />

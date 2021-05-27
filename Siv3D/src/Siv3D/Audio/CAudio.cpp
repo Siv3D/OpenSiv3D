@@ -14,6 +14,7 @@
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/DLL.hpp>
 # include "CAudio.hpp"
 
 namespace s3d
@@ -54,6 +55,19 @@ namespace s3d
 			LOG_TRACE(U"m_soloud.reset()");
 			m_soloud.reset();
 		}
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		if (m_soundTouch)
+		{
+			::FreeLibrary(m_soundTouch);
+			m_soundTouch = nullptr;
+		}
+
+	# else
+
+
+	# endif
 	}
 
 	void CAudio::init()
@@ -90,6 +104,45 @@ namespace s3d
 
 			// 管理に登録
 			m_audios.setNullData(std::move(nullAudio));
+		}
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		m_soundTouch = ::LoadLibraryW(L"dll/soundtouch/SoundTouch_x64.dll");
+
+		if (m_soundTouch)
+		{
+			m_soundTouchAvailable = true;
+
+			try
+			{
+				m_soundTouchFunctions.p_soundtouch_createInstance = DLL::GetFunction(m_soundTouch, "soundtouch_createInstance");
+				m_soundTouchFunctions.p_soundtouch_destroyInstance = DLL::GetFunction(m_soundTouch, "soundtouch_destroyInstance");
+				m_soundTouchFunctions.p_soundtouch_setPitchSemiTones = DLL::GetFunction(m_soundTouch, "soundtouch_setPitchSemiTones");
+				m_soundTouchFunctions.p_soundtouch_setChannels = DLL::GetFunction(m_soundTouch, "soundtouch_setChannels");
+				m_soundTouchFunctions.p_soundtouch_setSampleRate = DLL::GetFunction(m_soundTouch, "soundtouch_setSampleRate");
+				m_soundTouchFunctions.p_soundtouch_putSamples = DLL::GetFunction(m_soundTouch, "soundtouch_putSamples");
+				m_soundTouchFunctions.p_soundtouch_receiveSamples = DLL::GetFunction(m_soundTouch, "soundtouch_receiveSamples");
+				m_soundTouchFunctions.p_soundtouch_numSamples = DLL::GetFunction(m_soundTouch, "soundtouch_numSamples");
+			}
+			catch (const EngineError&)
+			{
+				m_soundTouchAvailable = false;
+			}
+		}
+
+	# else
+
+
+
+
+
+
+	# endif
+
+		if (m_soundTouchAvailable)
+		{
+			LOG_INFO(U"ℹ️ SoundTouch is available");
 		}
 	}
 
@@ -523,6 +576,11 @@ namespace s3d
 		getBus(busIndex).setReverbFilter(filterIndex, freeze, roomSize, damp, width, wet);
 	}
 
+	void CAudio::setPitchShiftFilter(const size_t busIndex, const size_t filterIndex, const double pitchShift)
+	{
+		getBus(busIndex).setPitchShiftFilter(filterIndex, pitchShift);
+	}
+
 	AudioBus& CAudio::getBus(const size_t busIndex)
 	{
 		assert(busIndex < Audio::MaxBusCount);
@@ -533,5 +591,15 @@ namespace s3d
 		}
 
 		return *m_buses[busIndex];
+	}
+
+	const SoundTouchFunctions* CAudio::getSoundTouchFunctions() const noexcept
+	{
+		if (not m_soundTouchAvailable)
+		{
+			return nullptr;
+		}
+
+		return &m_soundTouchFunctions;
 	}
 }
