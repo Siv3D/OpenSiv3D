@@ -28,15 +28,15 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
-		//ImageROI& negate();
+		ImageROI& negate();
 
-		//ImageROI& grayscale();
+		ImageROI& grayscale();
 
-		//ImageROI& sepia(int32 level = 25);
+		ImageROI& sepia();
 
-		//ImageROI& posterize(int32 level);
+		ImageROI& posterize(int32 level);
 
-		//ImageROI& brighten(int32 level);
+		ImageROI& brighten(int32 level);
 
 		//ImageROI& mirror();
 

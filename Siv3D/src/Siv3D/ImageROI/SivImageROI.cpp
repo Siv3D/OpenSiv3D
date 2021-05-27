@@ -77,6 +77,109 @@ namespace s3d
 		return (not region.hasArea());
 	}
 
+	ImageROI& ImageROI::negate()
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			Color* p = pLine;
+
+			for (int32 x = 0; x < region.w; ++x)
+			{
+				*p = ~*p;
+				++p;
+			}
+
+			pLine += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::grayscale()
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			Color* p = pLine;
+
+			for (int32 x = 0; x < region.w; ++x)
+			{
+				const uint8 gray = p->grayscale0_255();
+				p->r = gray;
+				p->g = gray;
+				p->b = gray;
+				++p;
+			}
+
+			pLine += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::brighten(const int32 level)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		if (level < 0)
+		{
+			for (int32 y = 0; y < region.h; ++y)
+			{
+				Color* p = pLine;
+
+				for (int32 x = 0; x < region.w; ++x)
+				{
+					p->r = static_cast<uint8>(Max(static_cast<int32>(p->r) + level, 0));
+					p->g = static_cast<uint8>(Max(static_cast<int32>(p->g) + level, 0));
+					p->b = static_cast<uint8>(Max(static_cast<int32>(p->b) + level, 0));
+					++p;
+				}
+
+				pLine += imageWidth;
+			}
+		}
+		else if (level > 0)
+		{
+			for (int32 y = 0; y < region.h; ++y)
+			{
+				Color* p = pLine;
+
+				for (int32 x = 0; x < region.w; ++x)
+				{
+					p->r = static_cast<uint8>(Min(static_cast<int32>(p->r) + level, 255));
+					p->g = static_cast<uint8>(Min(static_cast<int32>(p->g) + level, 255));
+					p->b = static_cast<uint8>(Min(static_cast<int32>(p->b) + level, 255));
+					++p;
+				}
+
+				pLine += imageWidth;
+			}
+		}
+
+		return *this;
+	}
+
 	ImageROI& ImageROI::blur(const int32 size, const BorderType borderType)
 	{
 		return blur(size, size, borderType);

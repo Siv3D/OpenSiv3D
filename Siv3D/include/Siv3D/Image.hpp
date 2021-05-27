@@ -379,10 +379,10 @@ namespace s3d
 		[[nodiscard]]
 		Image grayscaled() const;
 
-		Image& sepia(int32 level = 25);
+		Image& sepia();
 
 		[[nodiscard]]
-		Image sepiaed(int32 level = 25) const;
+		Image sepiaed() const;
 
 		Image& posterize(int32 level);
 

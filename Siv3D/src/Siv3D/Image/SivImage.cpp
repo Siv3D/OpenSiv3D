@@ -57,12 +57,15 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static Color MakeSepia(Color color, const double levr, const double levg, const double levb) noexcept
+		static Color MakeSepia(Color color) noexcept
 		{
-			const double y = ((0.299 * color.r) + (0.587 * color.g) + (0.114 * color.b));
-			color.r = Color::ToUint8(levr + y);
-			color.g = Color::ToUint8(levg + y);
-			color.b = Color::ToUint8(levb + y);
+			const double tr = Min(((0.393 * color.r) + (0.769 * color.g) + (0.189 * color.b)), 255.0);
+			const double tg = Min(((0.349 * color.r) + (0.686 * color.g) + (0.168 * color.b)), 255.0);
+			const double tb = Min(((0.272 * color.r) + (0.534 * color.g) + (0.131 * color.b)), 255.0);
+
+			color.r = static_cast<uint8>(tr);
+			color.g = static_cast<uint8>(tg);
+			color.b = static_cast<uint8>(tb);
 			return color;
 		}
 
@@ -720,7 +723,7 @@ namespace s3d
 		}
 	}
 
-	Image& Image::sepia(const int32 level)
+	Image& Image::sepia()
 	{
 		// 1. パラメータチェック
 		{
@@ -732,21 +735,16 @@ namespace s3d
 
 		// 2. 処理
 		{
-			const double levn = Clamp(level, 0, 255);
-			const double levr = 0.956 * levn;
-			const double levg = 0.274 * levn;
-			const double levb = -1.108 * levn;
-
 			for (auto& pixel : m_data)
 			{
-				pixel = detail::MakeSepia(pixel, levr, levg, levb);
+				pixel = detail::MakeSepia(pixel);
 			}
 		}
 
 		return *this;
 	}
 
-	Image Image::sepiaed(const int32 level) const
+	Image Image::sepiaed() const
 	{
 		// 1. パラメータチェック
 		{
@@ -760,14 +758,9 @@ namespace s3d
 		{
 			Image image{ *this };
 
-			const double levn = Clamp(level, 0, 255);
-			const double levr = 0.956 * levn;
-			const double levg = 0.274 * levn;
-			const double levb = -1.108 * levn;
-
 			for (auto& pixel : image)
 			{
-				pixel = detail::MakeSepia(pixel, levr, levg, levb);
+				pixel = detail::MakeSepia(pixel);
 			}
 
 			return image;
@@ -2670,5 +2663,62 @@ namespace s3d
 	MultiPolygon Image::grayscaleToPolygonsCentered(const uint32 threshold, const AllowHoles allowHoles) const
 	{
 		return grayscaleToPolygons(threshold, allowHoles).movedBy(-size() * 0.5);
+	}
+
+	ImageROI& ImageROI::sepia()
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			Color* p = pLine;
+
+			for (int32 x = 0; x < region.w; ++x)
+			{
+				*p = detail::MakeSepia(*p);
+				++p;
+			}
+
+			pLine += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::posterize(const int32 level)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		uint8 colorTable[256];
+		detail::InitPosterizeTable(level, colorTable);
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			Color* p = pLine;
+
+			for (int32 x = 0; x < region.w; ++x)
+			{
+				p->r = colorTable[p->r];
+				p->g = colorTable[p->g];
+				p->b = colorTable[p->b];
+				++p;
+			}
+
+			pLine += imageWidth;
+		}
+
+		return *this;
 	}
 }
