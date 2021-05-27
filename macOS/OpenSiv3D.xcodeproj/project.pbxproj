@@ -286,6 +286,9 @@
 		2C39ECB12564033C0021DF34 /* Vertex2DBuilder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C39ECAE2564033C0021DF34 /* Vertex2DBuilder.hpp */; };
 		2C39ECB4256406FA0021DF34 /* MetalRenderer2DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C39ECB2256406FA0021DF34 /* MetalRenderer2DCommand.hpp */; };
 		2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C39ECB3256406FA0021DF34 /* MetalRenderer2DCommand.cpp */; };
+		2C3C8387265FCD76008D68CF /* AudioGroupDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3C8384265FCD76008D68CF /* AudioGroupDetail.cpp */; };
+		2C3C8388265FCD76008D68CF /* SivAudioGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3C8385265FCD76008D68CF /* SivAudioGroup.cpp */; };
+		2C3C8389265FCD76008D68CF /* AudioGroupDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3C8386265FCD76008D68CF /* AudioGroupDetail.hpp */; };
 		2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DB242B155E00A16BCA /* cocoa_joystick.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C42321B242B155E00A16BCA /* monitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DD242B155E00A16BCA /* monitor.c */; };
 		2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DE242B155E00A16BCA /* cocoa_init.m */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -1938,6 +1941,10 @@
 		2C39ECAE2564033C0021DF34 /* Vertex2DBuilder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vertex2DBuilder.hpp; sourceTree = "<group>"; };
 		2C39ECB2256406FA0021DF34 /* MetalRenderer2DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRenderer2DCommand.hpp; sourceTree = "<group>"; };
 		2C39ECB3256406FA0021DF34 /* MetalRenderer2DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MetalRenderer2DCommand.cpp; sourceTree = "<group>"; };
+		2C3C8382265FCD5E008D68CF /* AudioGroup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioGroup.hpp; sourceTree = "<group>"; };
+		2C3C8384265FCD76008D68CF /* AudioGroupDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioGroupDetail.cpp; sourceTree = "<group>"; };
+		2C3C8385265FCD76008D68CF /* SivAudioGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioGroup.cpp; sourceTree = "<group>"; };
+		2C3C8386265FCD76008D68CF /* AudioGroupDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioGroupDetail.hpp; sourceTree = "<group>"; };
 		2C4231DB242B155E00A16BCA /* cocoa_joystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_joystick.m; sourceTree = "<group>"; };
 		2C4231DD242B155E00A16BCA /* monitor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monitor.c; sourceTree = "<group>"; };
 		2C4231DE242B155E00A16BCA /* cocoa_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_init.m; sourceTree = "<group>"; };
@@ -4737,6 +4744,16 @@
 			path = Addon;
 			sourceTree = "<group>";
 		};
+		2C3C8383265FCD76008D68CF /* AudioGroup */ = {
+			isa = PBXGroup;
+			children = (
+				2C3C8384265FCD76008D68CF /* AudioGroupDetail.cpp */,
+				2C3C8385265FCD76008D68CF /* SivAudioGroup.cpp */,
+				2C3C8386265FCD76008D68CF /* AudioGroupDetail.hpp */,
+			);
+			path = AudioGroup;
+			sourceTree = "<group>";
+		};
 		2C4231D9242B155E00A16BCA /* GLFW */ = {
 			isa = PBXGroup;
 			children = (
@@ -5206,6 +5223,7 @@
 				2CC584542646DC5800C33E9F /* AudioDecoder */,
 				2CC5844E2646DC5800C33E9F /* AudioEncoder */,
 				2CC58468264771F100C33E9F /* AudioFormat */,
+				2C3C8383265FCD76008D68CF /* AudioGroup */,
 				2C794AAC25C3DE7800034D81 /* Base64 */,
 				2C13C8D725B8FB170054B968 /* Bezier2 */,
 				2C13C8D925B8FB170054B968 /* Bezier3 */,
@@ -8226,6 +8244,7 @@
 				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
 				2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */,
 				2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */,
+				2C3C8382265FCD5E008D68CF /* AudioGroup.hpp */,
 				2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */,
 				2CAAA8A725E7FD0300C014D7 /* Base64.hpp */,
 				2CAAA73D25E7FD0200C014D7 /* BasicCamera2D.hpp */,
@@ -10290,6 +10309,7 @@
 				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
 				2C2AA39926009C74003F3EBC /* b2_growable_stack.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
+				2C3C8389265FCD76008D68CF /* AudioGroupDetail.hpp in Headers */,
 				2C13C9A925BD29FC0054B968 /* lopnames.h in Headers */,
 				2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */,
 				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
@@ -11052,6 +11072,7 @@
 				2C9566ED2645626000539B85 /* mz_strm_buf.c in Sources */,
 				2C47B49724DD97F2008D83BE /* muParser.cpp in Sources */,
 				2C47B32824DD9789008D83BE /* SivColor.cpp in Sources */,
+				2C3C8387265FCD76008D68CF /* AudioGroupDetail.cpp in Sources */,
 				2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */,
 				2C636EB32657F7D300AF029F /* darray.cpp in Sources */,
 				2C48BEE025CFB8C500A93CE3 /* equation-solver.cpp in Sources */,
@@ -11300,6 +11321,7 @@
 				2C60AE8A248158A500277281 /* displays_windows.cpp in Sources */,
 				2CF21D18249FAA8F00C864C9 /* CCursor.mm in Sources */,
 				2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */,
+				2C3C8388265FCD76008D68CF /* SivAudioGroup.cpp in Sources */,
 				2C636E822657F7D300AF029F /* soloud_sdl2.cpp in Sources */,
 				2C636EB72657F7D300AF029F /* ted.cpp in Sources */,
 				2CEC7DDA25FA527700704B99 /* BMPEncoder.cpp in Sources */,
