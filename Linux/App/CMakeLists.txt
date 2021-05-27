@@ -80,6 +80,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lopusfile
   -lpthread
   -lpng
+  -lSoundTouch
   -lswresample
   -ltiff
   -lturbojpeg

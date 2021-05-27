@@ -153,11 +153,30 @@ namespace s3d
 			}
 		}
 		
-	# else
+	# elif SIV3D_PLATFORM(LINUX)
 
+		m_soundTouch = DLL::Load(U"libSoundTouch.so");
 
+		if (m_soundTouch)
+		{
+			m_soundTouchAvailable = true;
 
-
+			try
+			{
+				m_soundTouchFunctions.p_soundtouch_createInstance = soundtouch_createInstance;
+				m_soundTouchFunctions.p_soundtouch_destroyInstance = soundtouch_destroyInstance;
+				m_soundTouchFunctions.p_soundtouch_setPitchSemiTones = soundtouch_setPitchSemiTones;
+				m_soundTouchFunctions.p_soundtouch_setChannels = soundtouch_setChannels;
+				m_soundTouchFunctions.p_soundtouch_setSampleRate = soundtouch_setSampleRate;
+				m_soundTouchFunctions.p_soundtouch_putSamples = soundtouch_putSamples;
+				m_soundTouchFunctions.p_soundtouch_receiveSamples = soundtouch_receiveSamples;
+				m_soundTouchFunctions.p_soundtouch_numSamples = soundtouch_numSamples;
+			}
+			catch (const EngineError&)
+			{
+				m_soundTouchAvailable = false;
+			}
+		}
 
 	# endif
 

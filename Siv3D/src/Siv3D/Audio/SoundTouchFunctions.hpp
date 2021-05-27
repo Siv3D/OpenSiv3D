@@ -18,7 +18,7 @@ extern "C"
 	void soundtouch_destroyInstance(void* h);
 	void soundtouch_setPitchSemiTones(void* h, float newPitch);
 	void soundtouch_setChannels(void* h, unsigned int numChannels);
-	void soundtouch_setSampleRate(void* h, unsigned int srate);
+	void soundtouch_setSampleRate(void* h, unsigned int sampleRate);
 	void soundtouch_putSamples(void* h, const float* samples, unsigned int numSamples);
 	unsigned int soundtouch_receiveSamples(void* h, float* outBuffer,unsigned int maxSamples);
 	unsigned int soundtouch_numSamples(void* h);
