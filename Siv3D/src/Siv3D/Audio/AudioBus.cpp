@@ -40,7 +40,7 @@ namespace s3d
 
 		void* m_rightHandle = nullptr;
 
-		void updatePerChannel(HANDLE handle, float* samples, const uint32 length)
+		void updatePerChannel(void* handle, float* samples, const uint32 length)
 		{
 			if (not m_functions)
 			{

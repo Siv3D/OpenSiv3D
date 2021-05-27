@@ -877,6 +877,8 @@
 		2C53C34825613BB00072831A /* Triangulation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34325613BAF0072831A /* Triangulation.hpp */; };
 		2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C34425613BAF0072831A /* PolygonDetail.cpp */; };
 		2C53C34C25613BD40072831A /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34B25613BCC0072831A /* earcut.hpp */; };
+		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
+		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
 		2C5DD438265979F100282CE2 /* AudioFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD430265979F100282CE2 /* AudioFactory.cpp */; };
 		2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD431265979F100282CE2 /* CAudio.cpp */; };
 		2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD432265979F100282CE2 /* AudioData.cpp */; };
@@ -2643,6 +2645,8 @@
 		2C53C34325613BAF0072831A /* Triangulation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangulation.hpp; sourceTree = "<group>"; };
 		2C53C34425613BAF0072831A /* PolygonDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonDetail.cpp; sourceTree = "<group>"; };
 		2C53C34B25613BCC0072831A /* earcut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
+		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
+		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
 		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
@@ -6853,14 +6857,16 @@
 			isa = PBXGroup;
 			children = (
 				2CDD2FC4265BE55200E09591 /* AudioBus.cpp */,
+				2C5DD432265979F100282CE2 /* AudioData.cpp */,
 				2C5DD430265979F100282CE2 /* AudioFactory.cpp */,
 				2C5DD431265979F100282CE2 /* CAudio.cpp */,
-				2C5DD432265979F100282CE2 /* AudioData.cpp */,
-				2C5DD433265979F100282CE2 /* AudioBus.hpp */,
-				2C5DD434265979F100282CE2 /* IAudio.hpp */,
-				2C5DD435265979F100282CE2 /* CAudio.hpp */,
 				2C5DD436265979F100282CE2 /* SivAudio.cpp */,
+				2C5DD433265979F100282CE2 /* AudioBus.hpp */,
 				2C5DD437265979F100282CE2 /* AudioData.hpp */,
+				2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */,
+				2C5DD435265979F100282CE2 /* CAudio.hpp */,
+				2C5DD434265979F100282CE2 /* IAudio.hpp */,
+				2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -10151,6 +10157,7 @@
 				2C43C89E25C837F100D6D613 /* svgxval.h in Headers */,
 				2C48BEDF25CFB8C500A93CE3 /* Vector2.h in Headers */,
 				2C39ECB4256406FA0021DF34 /* MetalRenderer2DCommand.hpp in Headers */,
+				2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */,
 				2C2AA3AD26009C74003F3EBC /* b2_contact_manager.h in Headers */,
 				2C5337A1264F5AA200CE0F1B /* zstd_fast.h in Headers */,
 				2C2AA38926009C74003F3EBC /* b2_circle_shape.h in Headers */,
@@ -10273,6 +10280,7 @@
 				2C2AA39926009C74003F3EBC /* b2_growable_stack.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
 				2C13C9A925BD29FC0054B968 /* lopnames.h in Headers */,
+				2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */,
 				2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */,
 				2C533791264F5AA200CE0F1B /* zstd_opt.h in Headers */,
 				2C0A4D5125669350002A4B5E /* Renderer2DCommon.hpp in Headers */,
