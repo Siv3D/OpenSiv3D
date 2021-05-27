@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# if defined(_WIN32)
+
 # ifndef NOMINMAX
 #	define	NOMINMAX
 # endif
@@ -38,3 +40,5 @@ namespace s3d
 		String GetLastErrorMessage();
 	}
 }
+
+# endif
