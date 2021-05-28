@@ -15,6 +15,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapes.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\2DShapesFwd.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ACLineStatus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AdaptiveThresholdMethod.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Addon.hpp" />
@@ -314,10 +315,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Line.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Line3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LuaScript.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x3.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Mat4x4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5Value.hpp" />
@@ -339,6 +342,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMeshConfig.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OBB.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
@@ -502,6 +506,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Pipe.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Plane.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PNGFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
@@ -526,6 +531,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\QRMode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\QRScanner.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Quaternion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp" />
@@ -533,6 +539,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec3.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Ray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
@@ -567,6 +574,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SpecialFolder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spline2D.hpp" />
@@ -607,6 +615,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Triangle3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TriangleIndex.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Typeface.hpp" />

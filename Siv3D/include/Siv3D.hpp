@@ -696,6 +696,48 @@
 
 //////////////////////////////////////////////////
 //
+//	3D 図形 | 3D Geometry
+//
+//////////////////////////////////////////////////
+
+// 4x4 行列
+// 4x4 matrix
+# include <Siv3D/Mat4x4.hpp> // [Siv3D ToDo]
+
+// クォータニオン
+// Quaternion
+# include <Siv3D/Quaternion.hpp> // [Siv3D ToDo]
+
+// レイ
+// Ray
+# include <Siv3D/Ray.hpp> // [Siv3D ToDo]
+
+// 3D 線分
+// 3D Line segment
+# include <Siv3D/Line3D.hpp> // [Siv3D ToDo]
+
+// 3D 三角形
+// 3D Triangle
+# include <Siv3D/Triangle3D.hpp> // [Siv3D ToDo]
+
+// 軸平行境界ボックス (AABB)
+// Axis Aligned Bounding Box (AABB)
+# include <Siv3D/AABB.hpp> // [Siv3D ToDo]
+
+// 有向境界ボックス (OBB)
+// Oriented Bounding Box (OBB)
+# include <Siv3D/OBB.hpp> // [Siv3D ToDo]
+
+// 球
+// Sphere
+# include <Siv3D/Sphere.hpp> // [Siv3D ToDo]
+
+// 平面
+// Plane
+# include <Siv3D/Plane.hpp> // [Siv3D ToDo]
+
+//////////////////////////////////////////////////
+//
 //	乱数と分布 | Random and Distribution
 //
 //////////////////////////////////////////////////
