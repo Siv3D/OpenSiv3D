@@ -49,6 +49,8 @@ namespace s3d
 	inline SIMD_Float4& SIMD_Float4::operator =(const aligned_float4 other) noexcept
 	{
 		vec = other;
+		
+		return *this;
 	}
 
 	inline SIMD_Float4 SIMD_Float4::operator +() const noexcept
