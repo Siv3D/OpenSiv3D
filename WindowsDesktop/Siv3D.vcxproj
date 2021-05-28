@@ -570,6 +570,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shuffle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
@@ -700,6 +701,11 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\variant.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\vector.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\version.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXCollision.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXColors.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMath.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXPackedVector.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\sal.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\EnumBitmask\EnumBitmask.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
@@ -2291,6 +2297,12 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXCollision.inl" />
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathConvert.inl" />
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathMatrix.inl" />
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathMisc.inl" />
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathVector.inl" />
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXPackedVector.inl" />
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

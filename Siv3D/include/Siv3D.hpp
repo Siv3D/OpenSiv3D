@@ -529,7 +529,7 @@
 # include <Siv3D/Spline.hpp>
 
 // SIMD 演算 | SIMD
-//# include <Siv3D/SIMDMath.hpp>
+# include <Siv3D/SIMDMath.hpp>
 
 // 半精度浮動小数点数 | Half-precision floating-point
 # include <Siv3D/HalfFloat.hpp>

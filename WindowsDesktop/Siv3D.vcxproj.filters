@@ -1249,6 +1249,9 @@
     <Filter Include="src\Siv3D\AudioGroup">
       <UniqueIdentifier>{55e2fd3f-1d7c-4e05-b9cd-770ddac9eafb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\DirectXMath">
+      <UniqueIdentifier>{cdf8ec3e-9302-4f64-9c28-ff31caeb5eb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5814,6 +5817,24 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMath.h">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXPackedVector.h">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXCollision.h">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXColors.h">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\DirectXMath\sal.h">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8067,6 +8088,24 @@
   <ItemGroup>
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">
       <Filter>src\ThirdParty\soloud\src\audiosource\speech</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathConvert.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathMatrix.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathMisc.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathVector.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXPackedVector.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXCollision.inl">
+      <Filter>include\ThirdParty\DirectXMath</Filter>
     </None>
   </ItemGroup>
 </Project>
