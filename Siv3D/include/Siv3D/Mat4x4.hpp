@@ -10,3 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+# include "SIMD_Float4.hpp"
+
+namespace s3d
+{
+	struct alignas(16) Mat4x4
+	{
+		SIMD_Float4 r[4];
+
+
+
+
+	};
+}
+
+# include "detail/Mat4x4.ipp"

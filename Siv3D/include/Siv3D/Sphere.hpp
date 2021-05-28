@@ -10,3 +10,19 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Sphere
+	{
+		Vec3 center;
+
+		double r;
+
+
+	};
+}
+
+# include "detail/Sphere.ipp"

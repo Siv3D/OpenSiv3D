@@ -10,3 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct AABB
+	{
+		Vec3 center;
+
+		Vec3 size;
+
+
+
+	};
+}
+
+# include "detail/AABB.ipp"

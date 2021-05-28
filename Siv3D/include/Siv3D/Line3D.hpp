@@ -10,3 +10,19 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Line3D
+	{
+		Vec3 begin;
+
+		Vec3 end;
+
+
+	};
+}
+
+# include "detail/Line3D.ipp"

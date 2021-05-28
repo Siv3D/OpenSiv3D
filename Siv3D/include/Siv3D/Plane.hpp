@@ -10,3 +10,17 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Plane
+	{
+		SIMD_Float4 value;
+
+
+	};
+}
+
+# include "detail/Plane.ipp"

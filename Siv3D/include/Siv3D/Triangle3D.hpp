@@ -10,3 +10,21 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Triangle3D
+	{
+		Vec3 p0;
+
+		Vec3 p1;
+		
+		Vec3 p2;
+
+
+	};
+}
+
+# include "detail/Triangle3D.ipp"

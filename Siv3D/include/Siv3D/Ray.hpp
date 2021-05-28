@@ -10,3 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Ray
+	{
+		Vec3 origin;
+
+		Vec3 direction;
+
+
+
+	};
+}
+
+# include "detail/Ray.ipp"

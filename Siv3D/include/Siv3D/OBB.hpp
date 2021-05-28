@@ -10,3 +10,22 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct OBB
+	{
+		Vec3 center;
+
+		Vec3 size;
+
+		Quaternion orientation;
+
+
+
+	};
+}
+
+# include "detail/OBB.ipp"
