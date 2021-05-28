@@ -43,7 +43,7 @@ namespace s3d
 	inline SIMD_Float4::SIMD_Float4(const Vec4 v) noexcept
 		: vec{ DirectX::XMVectorSet(static_cast<float>(v.x), static_cast<float>(v.y), static_cast<float>(v.z), static_cast<float>(v.w)) } {}
 
-	inline constexpr SIMD_Float4::SIMD_Float4(const aligned_float4 _vec) noexcept
+	inline SIMD_Float4::SIMD_Float4(const aligned_float4 _vec) noexcept
 		: vec{ _vec } {}
 
 	inline SIMD_Float4& SIMD_Float4::operator =(const aligned_float4 other) noexcept
@@ -51,7 +51,7 @@ namespace s3d
 		vec = other;
 	}
 
-	inline constexpr SIMD_Float4 SIMD_Float4::operator +() const noexcept
+	inline SIMD_Float4 SIMD_Float4::operator +() const noexcept
 	{
 		return vec;
 	}

@@ -51,14 +51,14 @@ namespace s3d
 		SIMD_Float4(Vec4 v) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr SIMD_Float4(aligned_float4 _vec) noexcept;
+		SIMD_Float4(aligned_float4 _vec) noexcept;
 
 		SIMD_Float4& operator =(const SIMD_Float4&) = default;
 
 		SIMD_Float4& SIV3D_VECTOR_CALL operator =(aligned_float4 other) noexcept;
 
 		[[nodiscard]]
-		constexpr SIMD_Float4 SIV3D_VECTOR_CALL operator +() const noexcept;
+		SIMD_Float4 SIV3D_VECTOR_CALL operator +() const noexcept;
 
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL operator -() const noexcept;
