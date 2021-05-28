@@ -17,6 +17,11 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4459)
 # include <ThirdParty/DirectXMath/DirectXMath.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
+ # if !SIV3D_PLATFORM(WINDOWS)
+    # undef __in
+    # undef __out
+# endif
+
 namespace s3d
 {
 #if defined(_XM_SSE_INTRINSICS_) && !defined(_XM_NO_INTRINSICS_)

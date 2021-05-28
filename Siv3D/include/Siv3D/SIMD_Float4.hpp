@@ -100,7 +100,7 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		constexpr SIV3D_VECTOR_CALL operator aligned_float4() const noexcept;
+		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept;
 
 		[[nodiscard]]
 		Float4 SIV3D_VECTOR_CALL toFloat4() const noexcept;
@@ -138,19 +138,25 @@ namespace s3d
 		float SIV3D_VECTOR_CALL length() const noexcept;
 
 		[[nodiscard]]
-		SIMD_Float4 SIV3D_VECTOR_CALL fastReciprocal() const noexcept;
+		float SIV3D_VECTOR_CALL lengthSq() const noexcept;
 
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL reciprocal() const noexcept;
 
 		[[nodiscard]]
+		SIMD_Float4 SIV3D_VECTOR_CALL fastReciprocal() const noexcept;
+
+		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL sqrt() const noexcept;
 
 		[[nodiscard]]
-		SIMD_Float4 SIV3D_VECTOR_CALL fastRsqrt() const noexcept;
+		SIMD_Float4 SIV3D_VECTOR_CALL fastSqrt() const noexcept;
 
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL rsqrt() const noexcept;
+
+		[[nodiscard]]
+		SIMD_Float4 SIV3D_VECTOR_CALL fastRsqrt() const noexcept;
 
 		[[nodiscard]]
 		Float2 SIV3D_VECTOR_CALL xy() const noexcept;

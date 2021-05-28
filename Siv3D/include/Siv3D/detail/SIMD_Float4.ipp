@@ -49,7 +49,7 @@ namespace s3d
 	inline SIMD_Float4& SIMD_Float4::operator =(const aligned_float4 other) noexcept
 	{
 		vec = other;
-		
+
 		return *this;
 	}
 
@@ -63,77 +63,216 @@ namespace s3d
 		return DirectX::XMVectorNegate(vec);
 	}
 
-	/*
-	SIMD_Float4 operator +(SIMD_Float4 v) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator +(const SIMD_Float4 v) const noexcept
+	{
+		return DirectX::XMVectorAdd(vec, v);
+	}
 
-	SIMD_Float4 operator -(SIMD_Float4 v) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator -(const SIMD_Float4 v) const noexcept
+	{
+		return DirectX::XMVectorSubtract(vec, v);
+	}
 
-	SIMD_Float4 operator *(float s) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator *(const float s) const noexcept
+	{
+		return DirectX::XMVectorScale(vec, s);
+	}
 
-	SIMD_Float4 operator *(SIMD_Float4 v) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator *(const SIMD_Float4 v) const noexcept
+	{
+		return DirectX::XMVectorMultiply(vec, v);
+	}
 
-	SIMD_Float4 operator /(float s) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator /(const float s) const noexcept
+	{
+		return DirectX::XMVectorDivide(vec, DirectX::XMVectorReplicate(s));
+	}
 
-	SIMD_Float4 operator /(SIMD_Float4 v) const noexcept;
+	inline SIMD_Float4 SIMD_Float4::operator /(const SIMD_Float4 v) const noexcept
+	{
+		return DirectX::XMVectorDivide(vec, v);
+	}
 
-	SIMD_Float4& operator +=(SIMD_Float4 v) noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator +=(const SIMD_Float4 v) noexcept
+	{
+		vec = DirectX::XMVectorAdd(vec, v);
 
-	SIMD_Float4& operator -=(SIMD_Float4 v) noexcept;
+		return *this;
+	}
 
-	SIMD_Float4& operator *=(float s) noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator -=(const SIMD_Float4 v) noexcept
+	{
+		vec = DirectX::XMVectorSubtract(vec, v);
 
-	SIMD_Float4& operator *=(SIMD_Float4 v) noexcept;
+		return *this;
+	}
 
-	SIMD_Float4& operator /=(float s) noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator *=(const float s) noexcept
+	{
+		vec = DirectX::XMVectorScale(vec, s);
 
-	SIMD_Float4& operator /=(SIMD_Float4 v) noexcept;
+		return *this;
+	}
 
-	constexpr operator aligned_float4() const noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator *=(const SIMD_Float4 v) noexcept
+	{
+		vec = DirectX::XMVectorMultiply(vec, v);
 
-	Float4 toFloat4() const noexcept;
+		return *this;
+	}
 
-	float elem(size_t index) const noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator /=(const float s) noexcept
+	{
+		vec = DirectX::XMVectorDivide(vec, DirectX::XMVectorReplicate(s));
 
-	float getX() const noexcept;
+		return *this;
+	}
 
-	float getY() const noexcept;
+	inline SIMD_Float4& SIMD_Float4::operator /=(const SIMD_Float4 v) noexcept
+	{
+		vec = DirectX::XMVectorDivide(vec, v);
 
-	float getZ() const noexcept;
+		return *this;
+	}
 
-	float getW() const noexcept;
+	inline SIMD_Float4::operator aligned_float4() const noexcept
+	{
+		return vec;
+	}
 
-	void setX(float x) noexcept;
+	inline Float4 SIMD_Float4::toFloat4() const noexcept
+	{
+		DirectX::XMFLOAT4A t;
 
-	void setY(float y) noexcept;
+		DirectX::XMStoreFloat4A(&t, vec);
 
-	void setZ(float z) noexcept;
+		return{ t.x, t.y, t.z, t.w };
+	}
 
-	void setW(float w) noexcept;
+	inline float SIMD_Float4::elem(const size_t index) const noexcept
+	{
+		return DirectX::XMVectorGetByIndex(vec, index);
+	}
 
-	bool isZero() const noexcept;
+	inline float SIMD_Float4::getX() const noexcept
+	{
+		return DirectX::XMVectorGetX(vec);
+	}
 
-	bool hasNaN() const noexcept;
+	inline float SIMD_Float4::getY() const noexcept
+	{
+		return DirectX::XMVectorGetY(vec);
+	}
 
-	float length() const noexcept;
+	inline float SIMD_Float4::getZ() const noexcept
+	{
+		return DirectX::XMVectorGetZ(vec);
+	}
 
-	SIMD_Float4 fastReciprocal() const noexcept;
+	inline float SIMD_Float4::getW() const noexcept
+	{
+		return DirectX::XMVectorGetW(vec);
+	}
 
-	SIMD_Float4 reciprocal() const noexcept;
+	inline void SIMD_Float4::setX(const float x) noexcept
+	{
+		vec = DirectX::XMVectorSetX(vec, x);
+	}
 
-	SIMD_Float4 sqrt() const noexcept;
+	inline void SIMD_Float4::setY(const float y) noexcept
+	{
+		vec = DirectX::XMVectorSetY(vec, y);
+	}
 
-	SIMD_Float4 fastRsqrt() const noexcept;
+	inline void SIMD_Float4::setZ(const float z) noexcept
+	{
+		vec = DirectX::XMVectorSetZ(vec, z);
+	}
 
-	SIMD_Float4 rsqrt() const noexcept;
+	inline void SIMD_Float4::setW(const float w) noexcept
+	{
+		vec = DirectX::XMVectorSetW(vec, w);
+	}
 
-	Float2 xy() const noexcept;
+	inline bool SIMD_Float4::isZero() const noexcept
+	{
+		return DirectX::XMVector4Equal(vec, DirectX::XMVectorZero());
+	}
 
-	Float3 xyz() const noexcept;
+	inline bool SIMD_Float4::hasNaN() const noexcept
+	{
+		return DirectX::XMVector4IsNaN(vec);
+	}
 
-	SIMD_Float4 Zero() noexcept;
+	inline float SIMD_Float4::length() const noexcept
+	{
+		return DirectX::XMVectorGetX(DirectX::XMVector4Length(vec));
+	}
 
-	SIMD_Float4 One() noexcept;
+	inline float SIMD_Float4::lengthSq() const noexcept
+	{
+		return DirectX::XMVectorGetX(DirectX::XMVector4LengthSq(vec));
+	}
 
-	SIMD_Float4 All(float value = 1.0f) noexcept;
-	*/
+	inline SIMD_Float4 SIMD_Float4::reciprocal() const noexcept
+	{
+		return DirectX::XMVectorReciprocal(vec);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::fastReciprocal() const noexcept
+	{
+		return DirectX::XMVectorReciprocalEst(vec);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::sqrt() const noexcept
+	{
+		return DirectX::XMVectorSqrt(vec);
+	}
+	inline SIMD_Float4 SIMD_Float4::fastSqrt() const noexcept
+	{
+		return DirectX::XMVectorSqrtEst(vec);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::rsqrt() const noexcept
+	{
+		return DirectX::XMVectorReciprocalSqrt(vec);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::fastRsqrt() const noexcept
+	{
+		return DirectX::XMVectorReciprocalSqrtEst(vec);
+	}
+
+	inline Float2 SIMD_Float4::xy() const noexcept
+	{
+		DirectX::XMFLOAT4A t;
+
+		DirectX::XMStoreFloat4A(&t, vec);
+
+		return{ t.x, t.y };
+	}
+
+	inline Float3 SIMD_Float4::xyz() const noexcept
+	{
+		DirectX::XMFLOAT4A t;
+
+		DirectX::XMStoreFloat4A(&t, vec);
+
+		return{ t.x, t.y, t.z };
+	}
+
+	inline SIMD_Float4 SIMD_Float4::Zero() noexcept
+	{
+		return DirectX::XMVectorZero();
+	}
+
+	inline SIMD_Float4 SIMD_Float4::One() noexcept
+	{
+		return DirectX::XMVectorReplicate(1.0f);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::All(const float value) noexcept
+	{
+		return DirectX::XMVectorReplicate(value);
+	}
 }
