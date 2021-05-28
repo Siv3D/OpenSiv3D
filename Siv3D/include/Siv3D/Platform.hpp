@@ -238,14 +238,11 @@
 
 	# define SIV3D_NOVTABLE __declspec(novtable)
 
-	# define SIV3D_VECTOR_CALL __vectorcall
-
 # else
 
 	# define SIV3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)
 	# define SIV3D_DISABLE_MSVC_WARNINGS_POP()
 	# define SIV3D_NOVTABLE
-	# define SIV3D_VECTOR_CALL
 
 # endif
 

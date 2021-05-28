@@ -82,8 +82,6 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const String& s);
 
-	void Formatter(FormatData& formatData, __m128 value);
-
 # if __cpp_lib_three_way_comparison
 
 	void Formatter(FormatData& formatData, std::strong_ordering value);

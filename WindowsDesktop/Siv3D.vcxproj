@@ -184,6 +184,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shuffle.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SIMD_Float4.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spherical.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spline.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spline2D.ipp" />
@@ -571,6 +572,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shuffle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
@@ -1892,6 +1894,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SIMDMath\SivSIMDMath.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp" />

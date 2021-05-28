@@ -1252,6 +1252,9 @@
     <Filter Include="include\ThirdParty\DirectXMath">
       <UniqueIdentifier>{cdf8ec3e-9302-4f64-9c28-ff31caeb5eb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SIMDMath">
+      <UniqueIdentifier>{6d52d5a2-a07e-4fda-b860-8ce87fd59379}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5835,6 +5838,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SIMD_Float4.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8083,6 +8092,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioGroup\SivAudioGroup.cpp">
       <Filter>src\Siv3D\AudioGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SIMDMath\SivSIMDMath.cpp">
+      <Filter>src\Siv3D\SIMDMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

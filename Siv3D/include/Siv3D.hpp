@@ -535,7 +535,7 @@
 # include <Siv3D/HalfFloat.hpp>
 
 // SIMD 対応 Float4 | SIMD Float4
-//# include <Siv3D/SIMD_Float4.hpp>
+# include <Siv3D/SIMD_Float4.hpp>
 
 // 数式パーサ | Math parser
 # include <Siv3D/MathParser.hpp>
