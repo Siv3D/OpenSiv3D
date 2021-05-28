@@ -1518,6 +1518,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C063D2726612A3400368BEE /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
+		2C063D2826612A3400368BEE /* OBB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OBB.hpp; sourceTree = "<group>"; };
+		2C063D2926612A3400368BEE /* Line3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Line3D.hpp; sourceTree = "<group>"; };
+		2C063D2A26612A3400368BEE /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
+		2C063D2B26612A3500368BEE /* Quaternion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quaternion.hpp; sourceTree = "<group>"; };
+		2C063D2C26612A3500368BEE /* AABB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AABB.hpp; sourceTree = "<group>"; };
+		2C063D2D26612A3500368BEE /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
+		2C063D2E26612A3500368BEE /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
+		2C063D2F26612A3500368BEE /* SIMDMath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SIMDMath.hpp; sourceTree = "<group>"; };
+		2C063D3026612A3500368BEE /* Triangle3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle3D.hpp; sourceTree = "<group>"; };
+		2C063D3226612A4F00368BEE /* DirectXMathConvert.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathConvert.inl; sourceTree = "<group>"; };
+		2C063D3326612A4F00368BEE /* DirectXCollision.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXCollision.inl; sourceTree = "<group>"; };
+		2C063D3426612A4F00368BEE /* DirectXMathMisc.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathMisc.inl; sourceTree = "<group>"; };
+		2C063D3526612A4F00368BEE /* DirectXPackedVector.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXPackedVector.inl; sourceTree = "<group>"; };
+		2C063D3626612A4F00368BEE /* DirectXCollision.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXCollision.h; sourceTree = "<group>"; };
+		2C063D3726612A4F00368BEE /* DirectXMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXMath.h; sourceTree = "<group>"; };
+		2C063D3826612A4F00368BEE /* DirectXColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXColors.h; sourceTree = "<group>"; };
+		2C063D3926612A4F00368BEE /* sal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sal.h; sourceTree = "<group>"; };
+		2C063D3A26612A4F00368BEE /* DirectXMathVector.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathVector.inl; sourceTree = "<group>"; };
+		2C063D3B26612A4F00368BEE /* DirectXPackedVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXPackedVector.h; sourceTree = "<group>"; };
+		2C063D3C26612A4F00368BEE /* DirectXMathMatrix.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathMatrix.inl; sourceTree = "<group>"; };
 		2C0848A22557C0F200C9838C /* SivInputGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputGroup.cpp; sourceTree = "<group>"; };
 		2C0848A42557C0F200C9838C /* SivInputCombination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInputCombination.cpp; sourceTree = "<group>"; };
 		2C0A4D4E25669320002A4B5E /* SivLineString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLineString.cpp; sourceTree = "<group>"; };
@@ -3907,6 +3928,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C063D3126612A4F00368BEE /* DirectXMath */ = {
+			isa = PBXGroup;
+			children = (
+				2C063D3226612A4F00368BEE /* DirectXMathConvert.inl */,
+				2C063D3326612A4F00368BEE /* DirectXCollision.inl */,
+				2C063D3426612A4F00368BEE /* DirectXMathMisc.inl */,
+				2C063D3526612A4F00368BEE /* DirectXPackedVector.inl */,
+				2C063D3626612A4F00368BEE /* DirectXCollision.h */,
+				2C063D3726612A4F00368BEE /* DirectXMath.h */,
+				2C063D3826612A4F00368BEE /* DirectXColors.h */,
+				2C063D3926612A4F00368BEE /* sal.h */,
+				2C063D3A26612A4F00368BEE /* DirectXMathVector.inl */,
+				2C063D3B26612A4F00368BEE /* DirectXPackedVector.h */,
+				2C063D3C26612A4F00368BEE /* DirectXMathMatrix.inl */,
+			);
+			path = DirectXMath;
+			sourceTree = "<group>";
+		};
 		2C0848A12557C0F200C9838C /* InputGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -7687,6 +7726,7 @@
 			children = (
 				2C0F89EC249E3945008B9220 /* Catch2 */,
 				2C5043D02651335E00E36D08 /* cereal */,
+				2C063D3126612A4F00368BEE /* DirectXMath */,
 				2C46837824590D8D000006C0 /* EnumBitmask */,
 				2C6898112436064900C36C25 /* fmt */,
 				2C0A4D7A256A1807002A4B5E /* nanoflann */,
@@ -8228,6 +8268,7 @@
 			children = (
 				2CAAA74B25E7FD0200C014D7 /* 2DShapes.hpp */,
 				2CAAA86925E7FD0300C014D7 /* 2DShapesFwd.hpp */,
+				2C063D2C26612A3500368BEE /* AABB.hpp */,
 				2CFB7DDD262B0EF900169B97 /* ACLineStatus.hpp */,
 				2C9FFD4225F605E8000723D8 /* AdaptiveThresholdMethod.hpp */,
 				2CAAA6E725E7FD0200C014D7 /* Addon.hpp */,
@@ -8409,6 +8450,7 @@
 				2CAAA84D25E7FD0300C014D7 /* LicenseInfo.hpp */,
 				2CAAA86825E7FD0300C014D7 /* LicenseManager.hpp */,
 				2CAAA87125E7FD0300C014D7 /* Line.hpp */,
+				2C063D2926612A3400368BEE /* Line3D.hpp */,
 				2CAAA85125E7FD0300C014D7 /* LineString.hpp */,
 				2CAAA74425E7FD0200C014D7 /* LineStyle.hpp */,
 				2CAAA6EE25E7FD0200C014D7 /* Logger.hpp */,
@@ -8417,6 +8459,7 @@
 				2CAAA84A25E7FD0300C014D7 /* LuaScript.hpp */,
 				2CAAA72F25E7FD0200C014D7 /* Mat3x2.hpp */,
 				2CFF581025F79C9800B660AD /* Mat3x3.hpp */,
+				2C063D2726612A3400368BEE /* Mat4x4.hpp */,
 				2CAAA78225E7FD0200C014D7 /* MatchResults.hpp */,
 				2CAAA78425E7FD0200C014D7 /* Math.hpp */,
 				2CAAA77625E7FD0200C014D7 /* MathConstants.hpp */,
@@ -8449,6 +8492,7 @@
 				2CAAA88525E7FD0300C014D7 /* None.hpp */,
 				2CAAA8AF25E7FD0300C014D7 /* NonNull.hpp */,
 				2CAAA71425E7FD0200C014D7 /* Number.hpp */,
+				2C063D2826612A3400368BEE /* OBB.hpp */,
 				2CAAA75825E7FD0200C014D7 /* OffsetCircular.hpp */,
 				2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */,
 				2CAAA8AE25E7FD0300C014D7 /* OpenMode.hpp */,
@@ -8465,6 +8509,7 @@
 				2CE8D13826160FD200C75FBB /* Pipe.hpp */,
 				2CAAA86325E7FD0300C014D7 /* PixelShader.hpp */,
 				2CAAA83E25E7FD0200C014D7 /* PlaceHolder.hpp */,
+				2C063D2A26612A3400368BEE /* Plane.hpp */,
 				2CAAA76125E7FD0200C014D7 /* Platform.hpp */,
 				2CAAA8B025E7FD0300C014D7 /* PNGFilter.hpp */,
 				2CAAA74A25E7FD0200C014D7 /* Point.hpp */,
@@ -8488,6 +8533,7 @@
 				2CAAA6E825E7FD0200C014D7 /* QRMode.hpp */,
 				2CBEBCA32629D1110077DDBF /* QRScanner.hpp */,
 				2CAAA84125E7FD0200C014D7 /* Quad.hpp */,
+				2C063D2B26612A3500368BEE /* Quaternion.hpp */,
 				2CAAA78325E7FD0200C014D7 /* Random.hpp */,
 				2CAAA76525E7FD0200C014D7 /* RandomColor.hpp */,
 				2CAAA85025E7FD0300C014D7 /* RandomPoint.hpp */,
@@ -8495,6 +8541,7 @@
 				2C504401265157E800E36D08 /* RandomVec3.hpp */,
 				2C504402265157E800E36D08 /* RandomVec4.hpp */,
 				2CAAA76625E7FD0200C014D7 /* RasterizerState.hpp */,
+				2C063D2D26612A3500368BEE /* Ray.hpp */,
 				2CAAA74E25E7FD0200C014D7 /* RDTSCClock.hpp */,
 				2CAAA74525E7FD0200C014D7 /* Rect.hpp */,
 				2CAAA6ED25E7FD0200C014D7 /* RectanglePacking.hpp */,
@@ -8526,10 +8573,12 @@
 				2CAAA75C25E7FD0200C014D7 /* Shape2D.hpp */,
 				2CAAA77825E7FD0200C014D7 /* Shuffle.hpp */,
 				2CAAA8AB25E7FD0300C014D7 /* SIMD.hpp */,
+				2C063D2F26612A3500368BEE /* SIMDMath.hpp */,
 				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
 				2C5337D82650BB3700CE0F1B /* SoundFont.hpp */,
 				2CAAA72E25E7FD0200C014D7 /* SpecialFolder.hpp */,
+				2C063D2E26612A3500368BEE /* Sphere.hpp */,
 				2CAAA77525E7FD0200C014D7 /* Spherical.hpp */,
 				2CAAA70925E7FD0200C014D7 /* Spline.hpp */,
 				2CAAA87F25E7FD0300C014D7 /* Spline2D.hpp */,
@@ -8569,6 +8618,7 @@
 				2CAAA8A525E7FD0300C014D7 /* Transformer2D.hpp */,
 				2CAAA89125E7FD0300C014D7 /* Transition.hpp */,
 				2CAAA74925E7FD0200C014D7 /* Triangle.hpp */,
+				2C063D3026612A3500368BEE /* Triangle3D.hpp */,
 				2CAAA83925E7FD0200C014D7 /* TriangleIndex.hpp */,
 				2CAAA85D25E7FD0300C014D7 /* Twitter.hpp */,
 				2CAAA75025E7FD0200C014D7 /* Typeface.hpp */,
@@ -11412,6 +11462,7 @@
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
+					"-Wno-unknown-pragmas",
 				);
 			};
 			name = Debug;
@@ -11481,6 +11532,7 @@
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
+					"-Wno-unknown-pragmas",
 				);
 			};
 			name = Release;
