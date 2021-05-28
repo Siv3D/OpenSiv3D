@@ -295,6 +295,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
   ../Siv3D/src/Siv3D/NavMesh/NavMeshDetail.cpp
   ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
+  ../Siv3D/src/Siv3D/Network/CNetwork.cpp
+  ../Siv3D/src/Siv3D/Network/NetworkFactory.cpp
   ../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp

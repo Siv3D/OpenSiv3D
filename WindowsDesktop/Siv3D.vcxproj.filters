@@ -1255,6 +1255,9 @@
     <Filter Include="src\Siv3D\SIMDMath">
       <UniqueIdentifier>{6d52d5a2-a07e-4fda-b860-8ce87fd59379}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Network">
+      <UniqueIdentifier>{0cf78f67-5d91-4c8a-a629-c21c4e06435c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5871,6 +5874,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\XMLReader.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8122,6 +8131,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SIMDMath\SivSIMDMath.cpp">
       <Filter>src\Siv3D\SIMDMath</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp">
+      <Filter>src\Siv3D\Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
