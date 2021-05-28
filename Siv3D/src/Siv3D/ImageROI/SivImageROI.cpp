@@ -13,7 +13,6 @@
 # include <Siv3D/OpenCV_Bridge.hpp>
 # include <Siv3D/Image/ImagePainting.hpp>
 
-# include <Siv3D/Print.hpp>
 namespace s3d
 {
 	namespace detail
@@ -175,6 +174,173 @@ namespace s3d
 
 				pLine += imageWidth;
 			}
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::mirror()
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* p = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			std::reverse(p, p + region.w);
+			p += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::flip()
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLineFrom = &imageRef[region.y][region.x];
+		Color* pLineTo = &imageRef[region.y + region.h - 1][region.x];
+
+		for (int32 y = 0; y < (region.h / 2); ++y)
+		{
+			std::swap_ranges(pLineFrom, pLineFrom + region.w, pLineTo);
+			pLineFrom += imageWidth;
+			pLineTo -= imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::rotate180()
+	{
+		mirror();
+
+		flip();
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::threshold(const uint8 threshold, const InvertColor invertColor)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const size_t imageWidth = imageRef.width();
+			Color* pLine = &imageRef[region.y][region.x];
+			const double thresholdF = (threshold / 255.0);
+
+			if (invertColor)
+			{
+				for (int32 y = 0; y < region.h; ++y)
+				{
+					Color* p = pLine;
+
+					for (int32 x = 0; x < region.w; ++x)
+					{
+						if (thresholdF < p->grayscale())
+						{
+							p->setRGB(0);
+						}
+						else
+						{
+							p->setRGB(255);
+						}
+
+						++p;
+					}
+
+					pLine += imageWidth;
+				}
+			}
+			else 
+			{
+				for (int32 y = 0; y < region.h; ++y)
+				{
+					Color* p = pLine;
+
+					for (int32 x = 0; x < region.w; ++x)
+					{
+						if (thresholdF < p->grayscale())
+						{
+							p->setRGB(255);
+						}
+						else
+						{
+							p->setRGB(0);
+						}
+
+						++p;
+					}
+
+					pLine += imageWidth;
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::mosaic(const int32 size)
+	{
+		return mosaic(size, size);
+	}
+
+	ImageROI& ImageROI::spread(const int32 size)
+	{
+		return spread(size, size);
+	}
+
+	ImageROI& ImageROI::spread(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 0) || (vertical <= 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp{ region.size };
+			DefaultRNG rng{ 12345 };
+
+			UniformIntDistribution<int32> hu{ -horizontal, horizontal };
+			UniformIntDistribution<int32> vu{ -vertical, vertical };
+
+			Color* pDst = tmp.data();
+
+			for (int32 y = region.y; y < static_cast<int32>(region.y + region.h); ++y)
+			{
+				for (int32 x = region.x; x < static_cast<int32>(region.x + region.w); ++x)
+				{
+					const int32 xOffset = hu(rng);
+					const int32 yOffset = vu(rng);
+					*pDst++ = imageRef.getPixel(x + xOffset, y + yOffset, ImageAddressMode::Mirror);
+				}
+			}
+
+			tmp.overwrite(imageRef, region.pos);
 		}
 
 		return *this;

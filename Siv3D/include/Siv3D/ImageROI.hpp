@@ -12,10 +12,12 @@
 # pragma once
 # include "Common.hpp"
 # include "2DShapes.hpp"
-# include "Image.hpp"
+# include "BorderType.hpp"
 
 namespace s3d
 {
+	class Image;
+
 	struct ImageROI
 	{
 		Image& imageRef;
@@ -38,27 +40,27 @@ namespace s3d
 
 		ImageROI& brighten(int32 level);
 
-		//ImageROI& mirror();
+		ImageROI& mirror();
 
-		//ImageROI& flip();
+		ImageROI& flip();
 
-		//ImageROI& rotate180();
+		ImageROI& rotate180();
 
-		//ImageROI& gammaCorrect(double gamma);
+		ImageROI& gammaCorrect(double gamma);
 
-		//ImageROI& threshold(uint8 threshold, InvertColor invertColor = InvertColor::No);
+		ImageROI& threshold(uint8 threshold, InvertColor invertColor = InvertColor::No);
 
 		//ImageROI& threshold_Otsu(InvertColor invertColor = InvertColor::No);
 
 		//ImageROI& adaptiveThreshold(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No);
 
-		//ImageROI& mosaic(int32 size);
+		ImageROI& mosaic(int32 size);
 
-		//ImageROI& mosaic(int32 horizontal, int32 vertical);
+		ImageROI& mosaic(int32 horizontal, int32 vertical);
 
-		//ImageROI& spread(int32 size);
+		ImageROI& spread(int32 size);
 
-		//ImageROI& spread(int32 horizontal, int32 vertical);
+		ImageROI& spread(int32 horizontal, int32 vertical);
 
 		ImageROI& blur(int32 size, BorderType borderType = BorderType::Reflect_101);
 

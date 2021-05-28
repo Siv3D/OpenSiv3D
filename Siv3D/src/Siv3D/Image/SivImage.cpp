@@ -905,24 +905,13 @@ namespace s3d
 
 		// 2. 処理
 		{
-			const int32 h = m_height;
-			const int32 w = m_width;
-			const int32 wHalf = (m_width / 2);
-			Color* line = m_data.data();
+			const size_t imageWidth = m_width;
+			Color* p = m_data.data();
 
-			for (int32 y = 0; y < h; ++y)
+			for (uint32 y = 0; y < m_height; ++y)
 			{
-				Color* lineA = line;
-				Color* lineB = line + w - 1;;
-
-				for (int32 x = 0; x < wHalf; ++x)
-				{
-					std::swap(*lineA, *lineB);
-					++lineA;
-					--lineB;
-				}
-
-				line += w;
+				std::reverse(p, p + imageWidth);
+				p += imageWidth;
 			}
 		}
 
@@ -972,23 +961,17 @@ namespace s3d
 			}
 		}
 
-		// 2. 処理
+		// 2. 処理A
 		{
-			const int32 h = m_height;
-			const size_t stride_bytes = stride();
+			const size_t imageWidth = m_width;
+			Color* pLineFrom = data();
+			Color* pLineTo = pLineFrom + (imageWidth * (m_height - 1));
 
-			Array<Color> line(m_width);
-			Color* lineU = m_data.data();
-			Color* lineB = lineU + m_width * (h - 1);
-
-			for (int32 y = 0; y < h / 2; ++y)
+			for (uint32 y = 0; y < (m_height / 2); ++y)
 			{
-				std::memcpy(line.data(), lineU, stride_bytes);
-				std::memcpy(lineU, lineB, stride_bytes);
-				std::memcpy(lineB, line.data(), stride_bytes);
-
-				lineU += m_width;
-				lineB -= m_width;
+				std::swap_ranges(pLineFrom, pLineFrom + imageWidth, pLineTo);
+				pLineFrom += imageWidth;
+				pLineTo -= imageWidth;
 			}
 		}
 
@@ -1255,11 +1238,11 @@ namespace s3d
 				{
 					if (thresholdF < pDst->grayscale())
 					{
-						pDst->setRGB(255);
+						pDst->setRGB(0);
 					}
 					else
 					{
-						pDst->setRGB(0);
+						pDst->setRGB(255);
 					}
 
 					++pDst;
@@ -1271,11 +1254,11 @@ namespace s3d
 				{
 					if (thresholdF < pDst->grayscale())
 					{
-						pDst->setRGB(0);
+						pDst->setRGB(255);
 					}
 					else
 					{
-						pDst->setRGB(255);
+						pDst->setRGB(0);
 					}
 
 					++pDst;
@@ -1310,11 +1293,11 @@ namespace s3d
 				{
 					if (thresholdF < pDst->grayscale())
 					{
-						pDst->setRGB(255);
+						pDst->setRGB(0);
 					}
 					else
 					{
-						pDst->setRGB(0);
+						pDst->setRGB(255);
 					}
 
 					++pDst;
@@ -1326,11 +1309,11 @@ namespace s3d
 				{
 					if (thresholdF < pDst->grayscale())
 					{
-						pDst->setRGB(0);
+						pDst->setRGB(255);
 					}
 					else
 					{
-						pDst->setRGB(255);
+						pDst->setRGB(0);
 					}
 
 					++pDst;
@@ -2717,6 +2700,88 @@ namespace s3d
 			}
 
 			pLine += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::gammaCorrect(const double gamma)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		uint8 colorTable[256];
+		detail::InitGammmaTable(gamma, colorTable);
+
+		const size_t imageWidth = imageRef.width();
+		Color* pLine = &imageRef[region.y][region.x];
+
+		for (int32 y = 0; y < region.h; ++y)
+		{
+			Color* p = pLine;
+
+			for (int32 x = 0; x < region.w; ++x)
+			{
+				p->r = colorTable[p->r];
+				p->g = colorTable[p->g];
+				p->b = colorTable[p->b];
+				++p;
+			}
+
+			pLine += imageWidth;
+		}
+
+		return *this;
+	}
+
+	ImageROI& ImageROI::mosaic(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal <= 1) || (vertical <= 1))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const uint32 xPiece = (region.w / horizontal);
+			const uint32 yPiece = (region.h / vertical);
+			uint32 yP = 0, xP = 0;
+
+			for (yP = 0; yP < yPiece; ++yP)
+			{
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(region.x + xP * horizontal, region.y + yP * vertical, horizontal, vertical);
+					detail::FillRect(imageRef, rc, detail::GetAverage(imageRef, rc));
+				}
+
+				const Rect rc(region.x + xP * horizontal, region.y + yP * vertical, region.w - xP * horizontal, vertical);
+				detail::FillRect(imageRef, rc, detail::GetAverage(imageRef, rc));
+			}
+
+			if (yP * vertical < region.h)
+			{
+				const int32 tY = region.h - yP * vertical;
+
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(region.x + xP * horizontal, region.y + yP * vertical, horizontal, tY);
+					detail::FillRect(imageRef, rc, detail::GetAverage(imageRef, rc));
+				}
+
+				const Rect rc(region.x + xP * horizontal, region.y + yP * vertical, region.w - xP * horizontal, tY);
+				detail::FillRect(imageRef, rc, detail::GetAverage(imageRef, rc));
+			}
 		}
 
 		return *this;
