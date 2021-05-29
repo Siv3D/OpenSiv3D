@@ -21,6 +21,9 @@ namespace s3d
 		aligned_float4 vec;
 
 		SIV3D_NODISCARD_CXX20
+		SIMD_Float4() = default;
+
+		SIV3D_NODISCARD_CXX20
 		explicit SIMD_Float4(float xyzw) noexcept;
 
 		SIV3D_NODISCARD_CXX20
@@ -42,11 +45,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		SIMD_Float4(const Vector3D<U>& xyz, W w) noexcept;
 
-		template <class U>
 		SIV3D_NODISCARD_CXX20
 		SIMD_Float4(Float4 v) noexcept;
 
-		template <class U>
 		SIV3D_NODISCARD_CXX20
 		SIMD_Float4(Vec4 v) noexcept;
 
@@ -172,7 +173,55 @@ namespace s3d
 
 		[[nodiscard]]
 		static SIMD_Float4 SIV3D_VECTOR_CALL All(float value = 1.0f) noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const SIMD_Float4& value)
+		{
+			return output << value.toFloat4();
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, SIMD_Float4& value)
+		{
+			Float4 t;
+			input >> t;
+			value = SIMD_Float4{ t };
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const SIMD_Float4& value)
+		{
+			Formatter(formatData, value.vec);
+		}
 	};
 }
 
 # include "detail/SIMD_Float4.ipp"
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::SIMD_Float4, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::SIMD_Float4& value, FormatContext& ctx)
+	{
+		const s3d::Float4 v = value.toFloat4();
+
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {}, {})", v.x, v.y, v.z, v.w);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, v.x, v.y, v.z, v.w);
+		}
+	}
+};

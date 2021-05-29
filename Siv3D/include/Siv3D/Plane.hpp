@@ -19,7 +19,11 @@ namespace s3d
 	{
 		SIMD_Float4 value;
 
-
+		[[nodiscard]]
+		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept
+		{
+			return value.vec;
+		}
 	};
 }
 

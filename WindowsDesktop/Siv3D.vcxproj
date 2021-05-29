@@ -1818,6 +1818,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x3\SivMat3x3.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mat4x4\SivMat4x4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\MathParserDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\SivMathParser.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5Value\SivMD5Value.cpp" />

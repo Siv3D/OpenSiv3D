@@ -35,11 +35,9 @@ namespace s3d
 	inline SIMD_Float4::SIMD_Float4(const Vector3D<U>& xyz, const W w) noexcept
 		: vec{ DirectX::XMVectorSet(static_cast<float>(xyz.x), static_cast<float>(xyz.y), static_cast<float>(xyz.z), static_cast<float>(w)) } {}
 
-	template <class U>
 	inline SIMD_Float4::SIMD_Float4(const Float4 v) noexcept
 		: vec{ DirectX::XMVectorSet(v.x, v.y, v.z, v.w) } {}
 
-	template <class U>
 	inline SIMD_Float4::SIMD_Float4(const Vec4 v) noexcept
 		: vec{ DirectX::XMVectorSet(static_cast<float>(v.x), static_cast<float>(v.y), static_cast<float>(v.z), static_cast<float>(v.w)) } {}
 

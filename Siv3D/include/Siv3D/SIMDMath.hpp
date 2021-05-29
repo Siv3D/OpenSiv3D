@@ -14,6 +14,10 @@
 # include "FormatData.hpp"
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4459)
+# if SIV3D_INTRINSIC(SSE)
+    # define _XM_SSE4_INTRINSICS_
+# endif
+
 # include <ThirdParty/DirectXMath/DirectXMath.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 

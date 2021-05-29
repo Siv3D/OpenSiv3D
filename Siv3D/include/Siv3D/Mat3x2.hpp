@@ -84,7 +84,7 @@ namespace s3d
 		constexpr float determinant() const noexcept;
 
 		[[nodiscard]]
-		Mat3x2 inversed() const noexcept;
+		Mat3x2 inverse() const noexcept;
 
 		constexpr void setProduct(const Mat3x2& a, const Mat3x2& b) noexcept;
 

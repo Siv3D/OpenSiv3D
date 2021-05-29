@@ -18,9 +18,13 @@ namespace s3d
 {
 	struct alignas(16) Quaternion
 	{
-		SIMD_Float4 vec = { 0.0f, 0.0f, 0.0f, 1.0f };
+		SIMD_Float4 value = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-
+		[[nodiscard]]
+		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept
+		{
+			return value.vec;
+		}
 	};
 }
 

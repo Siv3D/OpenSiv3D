@@ -124,7 +124,7 @@ namespace s3d
 			auto [s, viewRect]	= SIV3D_ENGINE(Renderer)->getLetterboxComposition();
 			m_transformScreen	= Mat3x2::Scale(s).translated(viewRect.pos);
 			m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
-			m_transformAllInv	= m_transformAll.inversed();
+			m_transformAllInv	= m_transformAll.inverse();
 		}
 
 		{
@@ -183,7 +183,7 @@ namespace s3d
 
 		m_transformLocal	= matrix;
 		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
-		m_transformAllInv	= m_transformAll.inversed();
+		m_transformAllInv	= m_transformAll.inverse();
 
 		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
 		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);
@@ -203,7 +203,7 @@ namespace s3d
 
 		m_transformLocal	= matrix;
 		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
-		m_transformAllInv	= m_transformAll.inversed();
+		m_transformAllInv	= m_transformAll.inverse();
 
 		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
 		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);
@@ -223,7 +223,7 @@ namespace s3d
 
 		m_transformScreen	= matrix;
 		m_transformAll		= (m_transformLocal * m_transformCamera * m_transformScreen);
-		m_transformAllInv	= m_transformAll.inversed();
+		m_transformAllInv	= m_transformAll.inverse();
 
 		m_state.vec2.previous	= m_transformAllInv.transformPoint(m_state.raw.previous);
 		m_state.vec2.current	= m_transformAllInv.transformPoint(m_state.raw.current);

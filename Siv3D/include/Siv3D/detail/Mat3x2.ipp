@@ -119,7 +119,7 @@ namespace s3d
 		return (_11 * _22) - (_12 * _21);
 	}
 
-	inline Mat3x2 Mat3x2::inversed() const noexcept
+	inline Mat3x2 Mat3x2::inverse() const noexcept
 	{
 		const float det = determinant();
 		assert(det != 0.0f);

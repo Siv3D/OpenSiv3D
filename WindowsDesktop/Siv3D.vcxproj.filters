@@ -1258,6 +1258,9 @@
     <Filter Include="src\Siv3D\Network">
       <UniqueIdentifier>{0cf78f67-5d91-4c8a-a629-c21c4e06435c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Mat4x4">
+      <UniqueIdentifier>{cb04878a-cf66-4df1-ad18-879746a10bbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8137,6 +8140,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp">
       <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mat4x4\SivMat4x4.cpp">
+      <Filter>src\Siv3D\Mat4x4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

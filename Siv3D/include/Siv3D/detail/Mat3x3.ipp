@@ -32,7 +32,7 @@ namespace s3d
 			- (_11 * _23 * _32));
 	}
 
-	inline Mat3x3 Mat3x3::inversed() const noexcept
+	inline Mat3x3 Mat3x3::inverse() const noexcept
 	{
 		const float invdet = (1.0f / determinant());
 
