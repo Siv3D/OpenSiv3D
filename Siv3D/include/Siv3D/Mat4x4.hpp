@@ -142,10 +142,8 @@ namespace s3d
 		[[nodiscard]]
 		Float3 SIV3D_VECTOR_CALL transformPoint(Float3 pos) const noexcept;
 
-		[[nodiscard]]
 		void SIV3D_VECTOR_CALL transformPoints(Float3* pOutputStream, const Float3* pInputStream, size_t vectorCount) const noexcept;
 
-		[[nodiscard]]
 		void SIV3D_VECTOR_CALL transformPoints(Float3* pOutputStream, size_t outputStrideBytes,
 			const Float3* pInputStream, size_t inputStrideBytes, size_t vectorCount) const noexcept;
 
@@ -206,10 +204,10 @@ namespace s3d
 		friend inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)
 		{
 			return output << CharType('(')
-				<< SIMD_Float4{ value.value[0] } << CharType(',')
-				<< SIMD_Float4{ value.value[1] } << CharType(',')
-				<< SIMD_Float4{ value.value[2] } << CharType(',')
-				<< SIMD_Float4{ value.value[3] } << CharType(')');
+				<< SIMD_Float4{ value.value.r[0] } << CharType(',')
+				<< SIMD_Float4{ value.value.r[1] } << CharType(',')
+				<< SIMD_Float4{ value.value.r[2] } << CharType(',')
+				<< SIMD_Float4{ value.value.r[3] } << CharType(')');
 		}
 
 		template <class CharType>

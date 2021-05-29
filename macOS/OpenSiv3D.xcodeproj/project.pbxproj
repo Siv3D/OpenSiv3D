@@ -1091,6 +1091,7 @@
 		2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508424B768A800B98A7F /* BinaryReaderDetail.cpp */; };
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
+		2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C711CF026629EFD0018D38D /* SivMat4x4.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3100,6 +3101,7 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
@@ -5576,6 +5578,7 @@
 				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
 				2CFF581225F79CC200B660AD /* Mat3x3 */,
+				2C711CEF26629EFD0018D38D /* Mat4x4 */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
 				2C794AB425C3DEE400034D81 /* MD5 */,
 				2C794AB225C3DEE400034D81 /* MD5Value */,
@@ -7994,6 +7997,14 @@
 				2C6898142436064900C36C25 /* format.h */,
 			);
 			path = fmt;
+			sourceTree = "<group>";
+		};
+		2C711CEF26629EFD0018D38D /* Mat4x4 */ = {
+			isa = PBXGroup;
+			children = (
+				2C711CF026629EFD0018D38D /* SivMat4x4.cpp */,
+			);
+			path = Mat4x4;
 			sourceTree = "<group>";
 		};
 		2C794AA325C257C000034D81 /* Metal */ = {
@@ -11215,6 +11226,7 @@
 				2C423253242B19D100A16BCA /* egl_context.c in Sources */,
 				2CFB7DA9262A66BA00169B97 /* CTextInput.cpp in Sources */,
 				2C636E792657F7D300AF029F /* soloud_xaudio2.cpp in Sources */,
+				2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */,
 				2C47B6E224EAC88E008D83BE /* ConstantBufferDetail_Null.cpp in Sources */,
 				2C636E9D2657F7D300AF029F /* stb_vorbis.c in Sources */,
 				2C47B34624DD9789008D83BE /* SivVector4D.cpp in Sources */,
@@ -11741,6 +11753,7 @@
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
+					"-Wno-unknown-pragmas",
 				);
 			};
 			name = Debug;
@@ -11812,6 +11825,7 @@
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
+					"-Wno-unknown-pragmas",
 				);
 			};
 			name = Release;
