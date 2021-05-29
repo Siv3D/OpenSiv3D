@@ -18,7 +18,7 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_GLFW=3 --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_GLFW=3 -s USE_SDL=2 --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_FREETYPE=1 -s USE_HARFBUZZ=1 -s USE_OGG=1 -s USE_VORBIS=1")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
 
@@ -75,6 +75,9 @@ target_link_libraries(Siv3DTest PRIVATE
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/turbojpeg/libturbojpeg.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/giflib/libgif.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/webp/libwebp.a
+	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopusfile.a
+	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopus.a
+	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/tiff/libtiff.a
   )
 
 

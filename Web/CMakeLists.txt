@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(OpenSiv3D_Web CXX C)
 
 set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -12,7 +12,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DMUPARSER_STATIC -D_UNICODE")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -36,7 +36,7 @@ endif()
 add_library(
   OpenSiv3D_Web STATIC
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Siv3DMain.cpp
-  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Audio/SoundTouchFunctions.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Audio/NullSoundTouchFunctions.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/AudioCodecFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/CAudioCodec.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioFormat/AAC/AACDecoder.cpp
@@ -808,12 +808,13 @@ target_include_directories(
   ../Siv3D/include
   ../Siv3D/include/ThirdParty
   ../Siv3D/src
-  ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/Web
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/OpenGLES3
   ../Siv3D/src/ThirdParty
   ../Siv3D/src/ThirdParty/freetype
+  ../Siv3D/src/ThirdParty/soloud/include
   ../Siv3D/src/ThirdParty-prebuilt
   ../Dependencies/boost_1_73_0
-  ${LIBSIV3D_INCLUDE_DIRS}
+  ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
   )
