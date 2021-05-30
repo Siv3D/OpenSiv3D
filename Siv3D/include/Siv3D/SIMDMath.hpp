@@ -13,13 +13,20 @@
 # include "Common.hpp"
 # include "FormatData.hpp"
 
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4459)
 # if SIV3D_INTRINSIC(SSE)
     # define _XM_SSE4_INTRINSICS_
 # endif
 
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+# endif
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4459)
 # include <ThirdParty/DirectXMath/DirectXMath.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
 
  # if !SIV3D_PLATFORM(WINDOWS)
     # undef __in

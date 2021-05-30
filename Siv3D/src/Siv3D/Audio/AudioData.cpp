@@ -353,10 +353,7 @@ namespace s3d
 
 	void AudioData::playOneShot(const size_t busIndex, const double volume, const double pan, const double speed)
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
+		clearInvalidShots();
 
 		const SoLoud::handle shotHandle = SIV3D_ENGINE(Audio)->getBus(busIndex).getBus()
 			.play(*m_audioSource,
@@ -375,11 +372,7 @@ namespace s3d
 
 	void AudioData::pauseAllShots()
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
-
+		clearInvalidShots();
 
 		for (const auto& shotHandle : m_shotHandles)
 		{
@@ -389,10 +382,7 @@ namespace s3d
 
 	void AudioData::pauseAllShots(const Duration& fadeTime)
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
+		clearInvalidShots();
 
 		for (const auto& shotHandle : m_shotHandles)
 		{
@@ -403,10 +393,7 @@ namespace s3d
 
 	void AudioData::resumeAllShots()
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
+		clearInvalidShots();
 
 		for (const auto& shotHandle : m_shotHandles)
 		{
@@ -416,10 +403,7 @@ namespace s3d
 
 	void AudioData::resumeAllShots(const Duration& fadeTime)
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
+		clearInvalidShots();
 
 		for (const auto& shotHandle : m_shotHandles)
 		{
@@ -441,10 +425,7 @@ namespace s3d
 
 	void AudioData::stopAllShots(const Duration& fadeTime)
 	{
-		m_shotHandles.remove_if([=](auto handle)
-			{
-				return (not m_pSoloud->isValidVoiceHandle(handle));
-			});
+		clearInvalidShots();
 
 		for (const auto& shotHandle : m_shotHandles)
 		{
@@ -618,5 +599,13 @@ namespace s3d
 		{
 			return (pSrc + m_lengthSample);
 		}
+	}
+
+	void AudioData::clearInvalidShots()
+	{
+		m_shotHandles.remove_if([this](auto handle)
+			{
+				return (not m_pSoloud->isValidVoiceHandle(handle));
+			});
 	}
 }

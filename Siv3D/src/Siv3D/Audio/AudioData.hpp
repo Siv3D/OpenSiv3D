@@ -174,5 +174,7 @@ namespace s3d
 		Array<SoLoud::handle> m_shotHandles;
 
 		bool m_initialized = false;
+
+		void clearInvalidShots();
 	};
 }
