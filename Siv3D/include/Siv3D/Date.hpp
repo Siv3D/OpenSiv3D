@@ -126,7 +126,6 @@ namespace s3d
 
 	# if __cpp_impl_three_way_comparison
 
-		[[nodiscard]]
 		friend constexpr auto operator <=>(const Date&, const Date&) = default;
 
 	# else
