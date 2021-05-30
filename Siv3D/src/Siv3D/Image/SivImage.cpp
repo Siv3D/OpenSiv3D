@@ -2753,9 +2753,9 @@ namespace s3d
 
 		// 2. 処理
 		{
-			const uint32 xPiece = (region.w / horizontal);
-			const uint32 yPiece = (region.h / vertical);
-			uint32 yP = 0, xP = 0;
+			const int32 xPiece = (region.w / horizontal);
+			const int32 yPiece = (region.h / vertical);
+			int32 yP = 0, xP = 0;
 
 			for (yP = 0; yP < yPiece; ++yP)
 			{

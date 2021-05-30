@@ -229,7 +229,7 @@ namespace s3d
 
 		RectF draw(const TextStyle& textStyle, double size, Arg::leftCenter_<Vec2> leftCenter, const ColorF& color = Palette::White) const;
 
-		RectF draw(const TextStyle & textStyle, double size, Arg::center_<Vec2> center, const ColorF & color = Palette::White) const;
+		RectF draw(const TextStyle& textStyle, double size, Arg::center_<Vec2> center, const ColorF & color = Palette::White) const;
 
 		bool draw(const TextStyle& textStyle, double size, const RectF& area, const ColorF& color = Palette::White) const;
 
