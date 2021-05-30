@@ -129,11 +129,16 @@ namespace s3d
 
 		void SIV3D_VECTOR_CALL setW(float w) noexcept;
 
+		void SIV3D_VECTOR_CALL set(float x, float y, float z, float w) noexcept;
+
 		[[nodiscard]]
 		bool SIV3D_VECTOR_CALL isZero() const noexcept;
 
 		[[nodiscard]]
 		bool SIV3D_VECTOR_CALL hasNaN() const noexcept;
+
+		[[nodiscard]]
+		bool SIV3D_VECTOR_CALL hasInf() const noexcept;
 
 		[[nodiscard]]
 		float SIV3D_VECTOR_CALL length() const noexcept;

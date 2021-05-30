@@ -192,6 +192,11 @@ namespace s3d
 		vec = DirectX::XMVectorSetW(vec, w);
 	}
 
+	inline void SIMD_Float4::set(const float x, const float y, const float z, const float w) noexcept
+	{
+		vec = DirectX::XMVectorSet(x, y, z, w);
+	}
+
 	inline bool SIMD_Float4::isZero() const noexcept
 	{
 		return DirectX::XMVector4Equal(vec, DirectX::XMVectorZero());
@@ -200,6 +205,11 @@ namespace s3d
 	inline bool SIMD_Float4::hasNaN() const noexcept
 	{
 		return DirectX::XMVector4IsNaN(vec);
+	}
+
+	inline bool SIMD_Float4::hasInf() const noexcept
+	{
+		return DirectX::XMVector4IsInfinite(vec);
 	}
 
 	inline float SIMD_Float4::length() const noexcept
