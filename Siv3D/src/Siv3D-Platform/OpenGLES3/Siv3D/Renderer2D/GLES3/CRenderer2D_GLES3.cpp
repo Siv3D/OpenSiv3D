@@ -21,7 +21,7 @@
 # include <Siv3D/Shader/GLES3/CShader_GLES3.hpp>
 # include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
-/*
+/*/
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -724,6 +724,26 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GLES3::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_GLES3::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
+
+	void CRenderer2D_GLES3::setViewport(const Optional<Rect>& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+
+	Optional<Rect> CRenderer2D_GLES3::getViewport() const
+	{
+		return m_commandManager.getCurrentViewport();
+	}
+
 	Optional<VertexShader> CRenderer2D_GLES3::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -738,8 +758,8 @@ namespace s3d
 	{
 		if (vs && (not vs->isEmpty()))
 		{
-			m_currentCustomVS = vs.value();
-			m_commandManager.pushCustomVS(vs.value());
+			m_currentCustomVS = *vs;
+			m_commandManager.pushCustomVS(*vs);
 		}
 		else
 		{
@@ -751,8 +771,8 @@ namespace s3d
 	{
 		if (ps && (not ps->isEmpty()))
 		{
-			m_currentCustomPS = ps.value();
-			m_commandManager.pushCustomPS(ps.value());
+			m_currentCustomPS = *ps;
+			m_commandManager.pushCustomPS(*ps);
 		}
 		else
 		{
@@ -794,7 +814,6 @@ namespace s3d
 	{
 		return *m_boxShadowTexture;
 	}
-
 
 	void CRenderer2D_GLES3::flush()
 	{
@@ -893,13 +912,13 @@ namespace s3d
 			case GLES3Renderer2DCommandType::ColorMul:
 				{
 					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
-					// LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
 					break;
 				}
 			case GLES3Renderer2DCommandType::ColorAdd:
 				{
 					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
-					// LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
 					break;
 				}
 			case GLES3Renderer2DCommandType::BlendState:
@@ -944,6 +963,41 @@ namespace s3d
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
 					pRenderer->getSamplerState().setPS(slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case GLES3Renderer2DCommandType::ScissorRect:
+				{
+					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
+					::glScissor(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
+					break;
+				}
+			case GLES3Renderer2DCommandType::Viewport:
+				{
+					const auto& viewport = m_commandManager.getViewport(command.index);
+					Rect rect;
+
+					if (viewport)
+					{
+						rect = *viewport;
+					}
+					else
+					{
+						rect.x = 0;
+						rect.y = 0;
+						rect.w = currentRenderTargetSize.x;
+						rect.h = currentRenderTargetSize.y;
+					}
+
+					::glViewport(rect.x, rect.y, rect.w, rect.h);
+
+					screenMat = Mat3x2::Screen(rect.w, rect.h);
+					const Mat3x2 matrix = (transform * screenMat);
+					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
+
+					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
+						rect.x, rect.y, rect.w, rect.h));
 					break;
 				}
 			case GLES3Renderer2DCommandType::SetVS:

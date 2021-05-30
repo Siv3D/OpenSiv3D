@@ -41,4 +41,9 @@ namespace s3d
 		// do nothing
 		return(false);
 	}
+
+	Wave CAudioCodec::decode(const FilePathView path, const AudioFormat audioFormat)
+	{
+		return{};
+	}	
 }
