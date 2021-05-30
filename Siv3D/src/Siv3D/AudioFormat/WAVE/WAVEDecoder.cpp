@@ -50,7 +50,7 @@ namespace s3d
 
 		if (!reader.read(riffHeader))
 		{
-			return Wave();
+			return{};
 		}
 
 		if (!detail::MemEqual(riffHeader.riff, detail::RIFF_SIGN)

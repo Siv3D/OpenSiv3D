@@ -12,9 +12,16 @@
 # include "GlyphRenderer.hpp"
 # include "../FreeType.hpp"
 
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wdeprecated-enum-enum-conversion"
+# endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include "agg/agg_curves.h"
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
 
 namespace s3d
 {
