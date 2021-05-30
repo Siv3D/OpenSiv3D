@@ -74,8 +74,6 @@ namespace s3d
 
 			IReader* m_pReader = nullptr;
 
-			int64 m_pointer = 0;
-
 			static tsize_t read(thandle_t fd, tdata_t buf, tsize_t size)
 			{
 				TiffStream* ts = static_cast<TiffStream*>(fd);

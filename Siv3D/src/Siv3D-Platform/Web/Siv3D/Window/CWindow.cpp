@@ -250,7 +250,7 @@ namespace s3d
 		::glfwGetFramebufferSize(m_window, &m_state.frameBufferSize.x, &m_state.frameBufferSize.y);
 
 		// scaling
-		float xScale, yScale;
+		float xScale = 1.0f, yScale = 1.0f;
 		// [Siv3DWeb ToDo]
 		// ::glfwGetWindowContentScale(m_window, &xScale, &yScale);
 		m_state.scaling = Max(xScale, yScale);

@@ -15,6 +15,7 @@
 # ifdef __clang__
 #	pragma clang diagnostic push
 #	pragma clang diagnostic ignored "-Wdeprecated-copy"
+#	pragma clang diagnostic ignored "-Wunused-parameter"
 # endif
 # include <boost/process/child.hpp>
 # include <boost/process/pipe.hpp>

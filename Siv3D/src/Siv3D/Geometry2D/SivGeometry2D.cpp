@@ -23,6 +23,11 @@
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Polygon/PolygonDetail.hpp>
 
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wunused-parameter"
+#	pragma clang diagnostic ignored "-Wdeprecated-copy-with-user-provided-copy"
+# endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
@@ -40,6 +45,9 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
 
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 # include <ThirdParty/concaveman-cpp/concaveman.h>
