@@ -240,9 +240,9 @@ namespace s3d
 
 		const double ig = 1.0 / gamma;
 
-		return{ static_cast<uint8>(std::pow(r / 255.0, ig)),
-				static_cast<uint8>(std::pow(g / 255.0, ig)),
-				static_cast<uint8>(std::pow(b / 255.0, ig)),
+		return{ static_cast<uint8>(255 * std::pow(r / 255.0, ig)),
+				static_cast<uint8>(255 * std::pow(g / 255.0, ig)),
+				static_cast<uint8>(255 * std::pow(b / 255.0, ig)),
 				a };
 	}
 
