@@ -35,7 +35,6 @@ namespace s3d
 			const int32 pos = Max(static_cast<int32>(audio.posSample()) + samples / 2 + offset, 0);
 			const int32 begin = Max(static_cast<int32>(pos) - 1 - samples, 0);
 			const int32 end = Min(begin + samples, static_cast<int32>(audio.samples()));
-			const int32 fillCount = (end - begin);
 
 			Array<float> inputs(samples);
 

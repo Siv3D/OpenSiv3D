@@ -17,6 +17,10 @@
 # include "Image.hpp"
 # include "2DShapes.hpp"
 
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wdeprecated-anon-enum-enum-conversion"
+# endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/core.hpp>
 # include <opencv2/imgproc.hpp>
@@ -24,6 +28,9 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
 # include <opencv2/videoio.hpp>
 # include <opencv2/objdetect.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
 
 namespace s3d
 {

@@ -11,8 +11,16 @@
 
 # pragma once
 # include <Siv3D/ChildProcess.hpp>
+
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wdeprecated-copy"
+# endif
 # include <boost/process/child.hpp>
 # include <boost/process/pipe.hpp>
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
 
 namespace s3d
 {
