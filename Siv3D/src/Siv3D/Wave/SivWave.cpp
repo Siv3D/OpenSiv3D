@@ -76,15 +76,17 @@ namespace s3d
 		*this = SIV3D_ENGINE(SoundFont)->render(instrument, key, noteOn, noteOff, velocity, sampleRate);
 	}
 
-	void Wave::swapLR() noexcept
+	Wave& Wave::swapLR() noexcept
 	{
 		for (auto& sample : m_data)
 		{
 			sample.swapChannel();
 		}
+
+		return *this;
 	}
 
-	void Wave::removeSilenceFromBeginning()
+	Wave& Wave::removeSilenceFromBeginning()
 	{
 		size_t count = 0;
 
@@ -102,9 +104,11 @@ namespace s3d
 		{
 			m_data.pop_front_N(count - 1);
 		}
+
+		return *this;
 	}
 
-	void Wave::removeSilenceFromEnd()
+	Wave& Wave::removeSilenceFromEnd()
 	{
 		size_t count = 0;
 
@@ -122,13 +126,15 @@ namespace s3d
 		{
 			m_data.pop_back_N(count - 1);
 		}
+
+		return *this;
 	}
 
-	void Wave::fadeIn(size_t samples) noexcept
+	Wave& Wave::fadeIn(size_t samples) noexcept
 	{
 		if (not m_data)
 		{
-			return;
+			return *this;
 		}
 
 		samples = Min(samples, m_data.size());
@@ -140,13 +146,15 @@ namespace s3d
 		{
 			*pDst++ *= (delta * i);
 		}
+
+		return *this;
 	}
 
-	void Wave::fadeOut(size_t samples) noexcept
+	Wave& Wave::fadeOut(size_t samples) noexcept
 	{
 		if (not m_data)
 		{
-			return;
+			return *this;
 		}
 
 		samples = Min(samples, m_data.size());
@@ -158,6 +166,8 @@ namespace s3d
 		{
 			*pDst-- *= (delta * i);
 		}
+
+		return *this;
 	}
 
 	void Wave::deinterleave() noexcept

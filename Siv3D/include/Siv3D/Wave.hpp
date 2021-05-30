@@ -140,15 +140,15 @@ namespace s3d
 
 		void fillZero();
 
-		void swapLR() noexcept;
+		Wave& swapLR() noexcept;
 
-		void removeSilenceFromBeginning();
+		Wave& removeSilenceFromBeginning();
 
-		void removeSilenceFromEnd();
+		Wave& removeSilenceFromEnd();
 
-		void fadeIn(size_t samples) noexcept;
+		Wave& fadeIn(size_t samples) noexcept;
 
-		void fadeOut(size_t samples) noexcept;
+		Wave& fadeOut(size_t samples) noexcept;
 
 		void deinterleave() noexcept;
 
