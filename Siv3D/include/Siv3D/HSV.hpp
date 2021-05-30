@@ -79,6 +79,8 @@ namespace s3d
 		[[nodiscard]]
 		const double* getPointer() const noexcept;
 
+		constexpr HSV& operator =(const HSV&) = default;
+
 		[[nodiscard]]
 		constexpr HSV operator +(const HSV& hsv) const noexcept;
 

@@ -65,6 +65,8 @@ namespace s3d
 		[[nodiscard]]
 		const value_type* getPointer() const noexcept;
 
+		constexpr Vector2D& operator =(const Vector2D&) = default;
+
 		[[nodiscard]]
 		constexpr Vector2D operator +() const noexcept;
 

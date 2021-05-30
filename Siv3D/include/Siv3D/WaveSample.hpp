@@ -25,6 +25,8 @@ namespace s3d
 
 		WaveSampleS16() = default;
 
+		WaveSampleS16(const WaveSampleS16&) = default;
+
 		explicit constexpr WaveSampleS16(int16 mono) noexcept;
 
 		constexpr WaveSampleS16(int16 _left, int16 _right) noexcept;
@@ -63,6 +65,8 @@ namespace s3d
 		float right;
 
 		WaveSample() = default;
+
+		WaveSample(const WaveSample&) = default;
 
 		explicit constexpr WaveSample(float mono) noexcept;
 

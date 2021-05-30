@@ -67,6 +67,8 @@ namespace s3d
 		[[nodiscard]]
 		const value_type* getPointer() const noexcept;
 
+		constexpr Point& operator =(const Point&) = default;
+
 		[[nodiscard]]
 		constexpr Point operator +() const noexcept;
 
