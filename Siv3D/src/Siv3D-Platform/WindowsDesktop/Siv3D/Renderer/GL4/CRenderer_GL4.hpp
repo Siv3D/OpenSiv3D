@@ -86,6 +86,8 @@ namespace s3d
 
 		std::pair<float, RectF> getLetterboxComposition() const noexcept override;
 
+		void updateSceneSize() override;
+
 		//
 		// GL4
 		//

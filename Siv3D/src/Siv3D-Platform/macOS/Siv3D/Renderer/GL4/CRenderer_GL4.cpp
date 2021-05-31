@@ -242,6 +242,11 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
+	void CRenderer_GL4::updateSceneSize()
+	{
+		m_backBuffer->updateSceneSize();
+	}
+
 	GL4BlendState& CRenderer_GL4::getBlendState() noexcept
 	{
 		return *m_blendState;

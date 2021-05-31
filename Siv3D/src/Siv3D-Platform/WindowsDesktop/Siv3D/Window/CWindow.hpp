@@ -39,6 +39,8 @@ namespace s3d
 		uint32 m_dpi = USER_DEFAULT_SCREEN_DPI;
 		Size m_border = Size(0, 0);
 		Size m_targetWindowPos = Point(0, 0);
+		RECT m_storedWindowRect = { 0, 0, 0, 0 }; // フルスクリーンからウィンドウモードに復帰するときのウィンドウサイズ
+		bool m_toggleFullscreenRequest = false;
 
 		int32 getSystemMetrics(int32 index) const;
 
@@ -82,6 +84,7 @@ namespace s3d
 
 		void setMinimumFrameBufferSize(const Size& size) override;
 
+		void setFullscreen(bool fullscreen) override;
 
 
 		void onResize(bool minimized, bool maximized);
@@ -99,5 +102,7 @@ namespace s3d
 		void onEnterSizeMove();
 
 		void onExitSizeMove();
+
+		void requestToggleFullscreen();
 	};
 }

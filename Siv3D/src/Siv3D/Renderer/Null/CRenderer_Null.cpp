@@ -127,4 +127,9 @@ namespace s3d
 	{
 		return{ 1, { 0, 0, 0, 0 } };
 	}
+
+	void CRenderer_Null::updateSceneSize()
+	{
+		// do nothing
+	}
 }

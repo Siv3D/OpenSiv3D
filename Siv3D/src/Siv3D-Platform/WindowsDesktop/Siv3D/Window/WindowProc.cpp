@@ -58,7 +58,7 @@ namespace s3d
 			{
 				if ((wParam == VK_RETURN) && (lParam & (1 << 29))) // Alt + Enter
 				{
-					//Siv3DEngine::Get<ISiv3DWindow>()->requestToggleFullscreen();
+					dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->requestToggleFullscreen();
 					return 0;
 				}
 

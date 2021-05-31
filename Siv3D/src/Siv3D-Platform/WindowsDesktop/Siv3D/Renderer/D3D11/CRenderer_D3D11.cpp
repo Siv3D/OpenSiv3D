@@ -170,6 +170,11 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
+	void CRenderer_D3D11::updateSceneSize()
+	{
+		m_backBuffer->updateSceneSize();
+	}
+
 
 
 	ID3D11Device* CRenderer_D3D11::getDevice() const

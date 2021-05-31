@@ -63,8 +63,6 @@ namespace s3d
 
 		Image m_screenCaptureImage;
 
-		void updateSceneSize();
-
 	public:
 
 		GL4BackBuffer();
@@ -137,6 +135,8 @@ namespace s3d
 
 		[[nodiscard]]
 		const Size& getBackBufferSize() const noexcept;
+
+		void updateSceneSize();
 
 		[[nodiscard]]
 		std::pair<float, RectF> getLetterboxComposition() const noexcept;

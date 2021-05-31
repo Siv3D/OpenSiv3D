@@ -58,5 +58,7 @@ namespace s3d
 		bool resizeByFrameBufferSize(const Size& size) override;
 
 		void setMinimumFrameBufferSize(const Size& size) override;
+
+		void setFullscreen(bool fullscreen) override;
 	};
 }

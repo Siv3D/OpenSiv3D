@@ -295,16 +295,6 @@ namespace s3d
 		return m_sceneSize;
 	}
 
-	const D3D11InternalTexture2D& D3D11BackBuffer::getSceneBuffer() const noexcept
-	{
-		return m_sceneBuffers.scene;
-	}
-
-	void D3D11BackBuffer::unbindAllRenderTargets()
-	{
-		m_context->OMSetRenderTargets(0, nullptr, nullptr);
-	}
-
 	void D3D11BackBuffer::updateSceneSize()
 	{
 		if (m_sceneResizeMode == ResizeMode::Actual)
@@ -315,6 +305,16 @@ namespace s3d
 		{
 			setSceneBufferSize(Window::GetState().virtualSize);
 		}
+	}
+
+	const D3D11InternalTexture2D& D3D11BackBuffer::getSceneBuffer() const noexcept
+	{
+		return m_sceneBuffers.scene;
+	}
+
+	void D3D11BackBuffer::unbindAllRenderTargets()
+	{
+		m_context->OMSetRenderTargets(0, nullptr, nullptr);
 	}
 
 	void D3D11BackBuffer::setRenderTarget(const D3D11InternalTexture2D& texture)

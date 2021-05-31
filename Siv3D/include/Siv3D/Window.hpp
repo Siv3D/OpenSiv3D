@@ -122,6 +122,8 @@ namespace s3d
 		/// @brief ウィンドウを手動でリサイズするときの最小サイズを実サイズ基準で設定します。
 		/// @param size 設定するサイズ（ピクセル）
 		void SetMinimumFrameBufferSize(Size size);
+
+		void SetFullscreen(bool fullscreen);
 	}
 }
 

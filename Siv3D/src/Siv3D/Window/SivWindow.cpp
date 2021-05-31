@@ -142,5 +142,10 @@ namespace s3d
 		{
 			SIV3D_ENGINE(Window)->setMinimumFrameBufferSize(size);
 		}
+
+		void SetFullscreen(const bool fullscreen)
+		{
+			SIV3D_ENGINE(Window)->setFullscreen(fullscreen);
+		}
 	}
 }

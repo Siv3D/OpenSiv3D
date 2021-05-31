@@ -65,5 +65,7 @@ namespace s3d
 		virtual const ColorF& getLetterboxColor() const noexcept = 0;
 
 		virtual std::pair<float, RectF> getLetterboxComposition() const noexcept = 0;
+
+		virtual void updateSceneSize() = 0;
 	};
 }

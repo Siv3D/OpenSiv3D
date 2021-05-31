@@ -241,6 +241,11 @@ namespace s3d
 		::glfwSetWindowSizeLimits(m_window, size.x, size.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
 	}
 
+	void CWindow::setFullscreen(const bool fullscreen)
+	{
+		// [Siv3D ToDo]
+	}
+
 	void CWindow::updateState()
 	{
 		// frameBufferSize

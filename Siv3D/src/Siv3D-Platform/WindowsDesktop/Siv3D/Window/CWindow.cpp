@@ -15,6 +15,7 @@
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
@@ -59,6 +60,7 @@ namespace s3d
 			}
 		}
 
+		[[nodiscard]]
 		inline constexpr uint32 GetWindowStyleFlags(const WindowStyle style) noexcept
 		{
 			switch (style)
@@ -73,14 +75,67 @@ namespace s3d
 			}
 		}
 
+		[[nodiscard]]
 		inline constexpr Rect ToRect(const RECT& rect) noexcept
 		{
 			return Rect(rect.left, rect.top, (rect.right - rect.left), (rect.bottom - rect.top));
 		}
 
+		[[nodiscard]]
 		inline constexpr double GetScaling(uint32 dpi) noexcept
 		{
 			return (static_cast<double>(dpi) / USER_DEFAULT_SCREEN_DPI);
+		}
+
+		[[nodiscard]]
+		static uint32 GetBaseWindowStyle(const WindowStyle style) noexcept
+		{
+			switch (style)
+			{
+			case WindowStyle::Fixed:
+				return WS_OVERLAPPEDWINDOW & ~(WS_MAXIMIZEBOX | WS_THICKFRAME);
+			case WindowStyle::Frameless:
+				return WS_POPUP | WS_VISIBLE | WS_MINIMIZEBOX;
+			case WindowStyle::Sizable:
+			default:
+				return WS_OVERLAPPEDWINDOW;
+			}
+		}
+
+		[[nodiscard]]
+		static Size SetFullscreen(HWND hWnd, RECT& storedWindowRect, const uint32 baseWindowStyle)
+		{
+			Size result{ 0, 0 };
+
+			::GetWindowRect(hWnd, &storedWindowRect);
+			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
+
+			DEVMODE devMode = {};
+			devMode.dmSize = sizeof(DEVMODE);
+			::EnumDisplaySettingsW(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
+
+			const RECT fullscreenWindowRect = {
+				devMode.dmPosition.x,
+				devMode.dmPosition.y,
+				devMode.dmPosition.x + static_cast<LONG>(devMode.dmPelsWidth),
+				devMode.dmPosition.y + static_cast<LONG>(devMode.dmPelsHeight)
+			};
+
+			result.set(static_cast<int32>(devMode.dmPelsWidth), static_cast<int32>(devMode.dmPelsHeight));
+	
+			::SetWindowPos(
+				hWnd,
+				HWND_TOPMOST,
+				fullscreenWindowRect.left,
+				fullscreenWindowRect.top,
+				fullscreenWindowRect.right,
+				fullscreenWindowRect.bottom,
+				SWP_FRAMECHANGED | SWP_NOACTIVATE);
+
+			::ShowWindow(hWnd, SW_MAXIMIZE);
+			::ValidateRect(hWnd, nullptr); // disable WM_PAINT
+
+			return result;
 		}
 	}
 
@@ -233,6 +288,13 @@ namespace s3d
 
 	void CWindow::update()
 	{
+		if (m_toggleFullscreenRequest)
+		{
+			setFullscreen(not m_state.fullscreen);
+
+			m_toggleFullscreenRequest = false;
+		}
+
 		if constexpr (SIV3D_BUILD(DEBUG))
 		{
 			setWindowTitle(m_title);
@@ -409,6 +471,47 @@ namespace s3d
 		m_state.minFrameBufferSize = size;
 	}
 
+	void CWindow::setFullscreen(const bool fullscreen)
+	{
+		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {})"_fmt(fullscreen));
+
+		if (fullscreen == m_state.fullscreen)
+		{
+			return;
+		}
+
+		if (m_state.fullscreen == false) // 現在ウィンドウモード
+		{
+			[[maybe_unused]] const Size size = detail::SetFullscreen(m_hWnd, m_storedWindowRect, detail::GetBaseWindowStyle(m_state.style)); // フルスクリーンモードに
+		}
+		else
+		{
+			const Size size{
+				(m_storedWindowRect.right - m_storedWindowRect.left),
+				(m_storedWindowRect.bottom - m_storedWindowRect.top) };
+
+			::SetWindowLongW(m_hWnd, GWL_STYLE, detail::GetBaseWindowStyle(m_state.style));
+			::SetWindowPos(
+				m_hWnd,
+				HWND_NOTOPMOST,
+				m_storedWindowRect.left,
+				m_storedWindowRect.top,
+				size.x,
+				size.y,
+				(SWP_FRAMECHANGED | SWP_NOACTIVATE));
+
+			::ShowWindow(m_hWnd, SW_NORMAL);
+			::ValidateRect(m_hWnd, nullptr); // disable WM_PAINT
+		}
+
+		m_state.fullscreen = fullscreen;
+
+		if (Scene::GetResizeMode() != ResizeMode::Keep)
+		{
+			SIV3D_ENGINE(Renderer)->updateSceneSize();
+		}
+	}
+
 	void CWindow::onResize(const bool minimized, const bool maximized)
 	{
 		LOG_TRACE(U"CWindow::onResize(minimized = {}, maximized = {})"_fmt(minimized, maximized));
@@ -531,6 +634,11 @@ namespace s3d
 	void CWindow::onExitSizeMove()
 	{
 		m_state.sizeMove = false;
+	}
+
+	void CWindow::requestToggleFullscreen()
+	{
+		m_toggleFullscreenRequest = true;
 	}
 
 	int32 CWindow::getSystemMetrics(const int32 index) const

@@ -69,8 +69,6 @@ namespace s3d
 		// 全てのレンダーターゲットを解除
 		void unbindAllRenderTargets();
 
-		void updateSceneSize();
-
 		void setRenderTarget(const D3D11InternalTexture2D& texture);
 
 	public:
@@ -155,6 +153,8 @@ namespace s3d
 
 		[[nodiscard]]
 		const Size& getSceneBufferSize() const noexcept;
+
+		void updateSceneSize();
 
 		const D3D11InternalTexture2D& getSceneBuffer() const noexcept;
 	};

@@ -188,6 +188,11 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
+	void CRenderer_GL4::updateSceneSize()
+	{
+		// [Siv3D ToDo]
+	}
+
 	id<MTLDevice> CRenderer_Metal::getDevice() const
 	{
 		return m_device;
