@@ -188,7 +188,7 @@ namespace s3d
 		return m_backBuffer->getLetterboxComposition();
 	}
 
-	void CRenderer_GL4::updateSceneSize()
+	void CRenderer_Metal::updateSceneSize()
 	{
 		// [Siv3D ToDo]
 	}
