@@ -23,9 +23,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void ErrorCallback(int error, const char* description)
+		static void ErrorCallback(const int error, const char* description)
 		{
-			std::cout << "Error: " << description << '\n';
+			std::cout << U"Error: {}. "_fmt(error) << description << '\n';
 		}
 	}
 
@@ -47,14 +47,12 @@ namespace s3d
 		
 		::glfwSetErrorCallback(detail::ErrorCallback);
 
-		//::glfwInitHint(GLFW_COCOA_CHDIR_RESOURCES, GLFW_FALSE);
-		
 		if (!::glfwInit())
 		{
 			throw EngineError(U"glfwInit() failed");
 		}
 		
-		// OpenGL 4.1
+		// OpenGL ES 3.0
 		::glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 		::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
@@ -93,11 +91,6 @@ namespace s3d
 		::glfwPollEvents();
 		
 		updateState();
-		
-		if (::glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown | UserAction::EscapeKeyDown);
-		}
 
 		if (::glfwWindowShouldClose(m_window))
 		{
@@ -178,7 +171,7 @@ namespace s3d
 		// 	::glfwSetWindowAttrib(m_window, GLFW_RESIZABLE, GLFW_FALSE);
 		// 	::glfwSetWindowAttrib(m_window, GLFW_DECORATED, GLFW_FALSE);
 		// }
-		
+
 		m_state.style = style;
 	}
 
@@ -238,10 +231,15 @@ namespace s3d
 
 	void CWindow::setMinimumFrameBufferSize(const Size& size)
 	{
-		LOG_TRACE(U"CWindow::setMinimumFrameBufferSize(size = {})"_fmt(size));
+		LOG_TRACE(U"CWindow::setMinimumFrameBufferSize({})"_fmt(size));
 		
 		m_state.minFrameBufferSize = size;
 		::glfwSetWindowSizeLimits(m_window, size.x, size.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
+	}
+	
+	void CWindow::setFullscreen(const bool fullscreen)
+	{
+		// [Siv3D ToDo]
 	}
 
 	void CWindow::updateState()

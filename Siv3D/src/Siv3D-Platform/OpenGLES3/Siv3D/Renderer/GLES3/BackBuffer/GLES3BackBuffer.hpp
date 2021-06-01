@@ -17,6 +17,7 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Image.hpp>
 # include <ThirdParty/EnumBitmask/EnumBitmask.hpp>
 # include "GLES3InternalTexture2D.hpp"
 
@@ -60,7 +61,7 @@ namespace s3d
 
 		TextureFilter m_sceneTextureFilter	= Scene::DefaultTextureFilter;
 
-		void updateSceneSize();
+		Image m_screenCaptureImage;
 
 	public:
 
@@ -75,6 +76,10 @@ namespace s3d
 		void unbind();
 
 		void updateFromSceneBuffer();
+
+		void capture();
+
+		const Image& getScreenCapture() const;
 
 		//////////////////////////////////////////////////
 		//
@@ -130,6 +135,8 @@ namespace s3d
 
 		[[nodiscard]]
 		const Size& getBackBufferSize() const noexcept;
+
+		void updateSceneSize();
 
 		[[nodiscard]]
 		std::pair<float, RectF> getLetterboxComposition() const noexcept;

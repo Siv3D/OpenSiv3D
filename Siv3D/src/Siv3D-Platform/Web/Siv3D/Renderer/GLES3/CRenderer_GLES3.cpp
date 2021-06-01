@@ -91,7 +91,7 @@ namespace s3d
 
 		GLint maxUniformSize = 0, maxUniformBindings = 0;
 		::glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &maxUniformSize);
-		::glGetIntegerv(GL_MAX_UNIFORM_BUFFER_BINDINGS, &maxUniformBindings);
+		::glGetIntegerv(GL_MAX_UNIFORM_BUFFER_BINDINGS, &maxUniformBindings);		
 
 		LOG_INFO(U"renderer: {}"_fmt(renderer));
 		LOG_INFO(U"vendor: {}"_fmt(vendor));
@@ -106,11 +106,13 @@ namespace s3d
 		m_blendState		= std::make_unique<GLES3BlendState>();
 		m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
 		m_samplerState		= std::make_unique<GLES3SamplerState>();
-
+		
 		pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
-		
+
 		SIV3D_ENGINE(Shader)->init();
+
+		clear();
 	}
 
 	StringView CRenderer_GLES3::getName() const
@@ -122,7 +124,7 @@ namespace s3d
 	void CRenderer_GLES3::clear()
 	{
 		m_backBuffer->clear(GLES3ClearTarget::BackBuffer | GLES3ClearTarget::Scene);
-
+		
 		const auto& windowState = SIV3D_ENGINE(Window)->getState();
 
 		if (const Size frameBufferSize = windowState.frameBufferSize; 
@@ -203,14 +205,12 @@ namespace s3d
 
 	void CRenderer_GLES3::captureScreenshot()
 	{
-		// [Siv3D ToDo]
+		m_backBuffer->capture();
 	}
 
 	const Image& CRenderer_GLES3::getScreenCapture() const
 	{
-		// [Siv3D ToDo]
-		static const Image emptyImage{};
-		return emptyImage;
+		return m_backBuffer->getScreenCapture();
 	}
 
 	void CRenderer_GLES3::setSceneResizeMode(const ResizeMode resizeMode)
@@ -266,6 +266,11 @@ namespace s3d
 	std::pair<float, RectF> CRenderer_GLES3::getLetterboxComposition() const noexcept
 	{
 		return m_backBuffer->getLetterboxComposition();
+	}
+
+	void CRenderer_GLES3::updateSceneSize()
+	{
+		m_backBuffer->updateSceneSize();
 	}
 
 	GLES3BlendState& CRenderer_GLES3::getBlendState() noexcept
