@@ -14,7 +14,7 @@
 
 # define SIMDE_ENABLE_NATIVE_ALIASES
 
-# if SIV3D_PLATFORM(WEB)
+# if SIV3D_PLATFORM(WEB) && !SIV3D_INTRINSIC(SSE)
 
 # include <ThirdParty/simde/x86/sse.h>
 # include <ThirdParty/simde/x86/sse2.h>

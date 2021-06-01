@@ -84,7 +84,8 @@
 
 # elif SIV3D_PLATFORM(WEB)
 
-	// do nothing
+	# undef  SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE
+	# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	0
 
 # else
 
