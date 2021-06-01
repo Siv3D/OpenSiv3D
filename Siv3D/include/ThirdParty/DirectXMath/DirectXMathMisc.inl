@@ -1930,7 +1930,9 @@ inline XMVECTOR XM_CALLCONV XMColorSRGBToRGB(FXMVECTOR srgb) noexcept
 
 inline bool XMVerifyCPUSupport() noexcept
 {
-#if defined(_XM_SSE_INTRINSICS_) && !defined(_XM_NO_INTRINSICS_)
+#if SIV3D_PLATFORM(WEB)
+    return true;
+#elif defined(_XM_SSE_INTRINSICS_) && !defined(_XM_NO_INTRINSICS_)
     int CPUInfo[4] = { -1 };
 #if defined(__clang__) || defined(__GNUC__)
     __cpuid(0, CPUInfo[0], CPUInfo[1], CPUInfo[2], CPUInfo[3]);
