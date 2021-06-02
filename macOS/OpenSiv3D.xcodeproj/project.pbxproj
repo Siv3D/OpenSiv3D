@@ -935,6 +935,9 @@
 		2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE63248158A500277281 /* sysctl_non_darwin.cpp */; };
 		2C60AE96248158A500277281 /* sysctl_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE64248158A500277281 /* sysctl_darwin.cpp */; };
 		2C60F91C2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */; };
+		2C60F9212667F0E300FFAA68 /* SivMillisecClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F91E2667F0E300FFAA68 /* SivMillisecClock.cpp */; };
+		2C60F9222667F0E300FFAA68 /* SivMicrosecClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F9202667F0E300FFAA68 /* SivMicrosecClock.cpp */; };
+		2C60F9252667F0F500FFAA68 /* SivRDTSCClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */; };
 		2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C6106E224DB04E300BDEF72 /* xxhash.h */; };
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
@@ -2934,6 +2937,9 @@
 		2C60AE63248158A500277281 /* sysctl_non_darwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sysctl_non_darwin.cpp; sourceTree = "<group>"; };
 		2C60AE64248158A500277281 /* sysctl_darwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sysctl_darwin.cpp; sourceTree = "<group>"; };
 		2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader2D.cpp; sourceTree = "<group>"; };
+		2C60F91E2667F0E300FFAA68 /* SivMillisecClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMillisecClock.cpp; sourceTree = "<group>"; };
+		2C60F9202667F0E300FFAA68 /* SivMicrosecClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrosecClock.cpp; sourceTree = "<group>"; };
+		2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRDTSCClock.cpp; sourceTree = "<group>"; };
 		2C6106E224DB04E300BDEF72 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem_macOS.mm; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
@@ -5583,6 +5589,8 @@
 				2C8046102653FE0100CE7C3E /* MessageBox */,
 				2C636D8126577BFE00AF029F /* Microphone */,
 				2C6527812656B3C1003427EB /* MicrophoneInfo */,
+				2C60F91F2667F0E300FFAA68 /* MicrosecClock */,
+				2C60F91D2667F0E300FFAA68 /* MillisecClock */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C13C6F725B458760054B968 /* MultiPolygon */,
@@ -5605,6 +5613,7 @@
 				2CBEBCA62629D1460077DDBF /* QRScanner */,
 				2C53C33925613B7F0072831A /* Quad */,
 				2C47B2D024DD9789008D83BE /* Random */,
+				2C60F9232667F0F500FFAA68 /* RDTSCClock */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
 				2C13C8DF25B9141D0054B968 /* RectF */,
 				2C47B25D24DD9789008D83BE /* RegExp */,
@@ -7376,6 +7385,30 @@
 				2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */,
 			);
 			path = ScopedCustomShader2D;
+			sourceTree = "<group>";
+		};
+		2C60F91D2667F0E300FFAA68 /* MillisecClock */ = {
+			isa = PBXGroup;
+			children = (
+				2C60F91E2667F0E300FFAA68 /* SivMillisecClock.cpp */,
+			);
+			path = MillisecClock;
+			sourceTree = "<group>";
+		};
+		2C60F91F2667F0E300FFAA68 /* MicrosecClock */ = {
+			isa = PBXGroup;
+			children = (
+				2C60F9202667F0E300FFAA68 /* SivMicrosecClock.cpp */,
+			);
+			path = MicrosecClock;
+			sourceTree = "<group>";
+		};
+		2C60F9232667F0F500FFAA68 /* RDTSCClock */ = {
+			isa = PBXGroup;
+			children = (
+				2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */,
+			);
+			path = RDTSCClock;
 			sourceTree = "<group>";
 		};
 		2C6106E124DB04E300BDEF72 /* xxHash */ = {
@@ -10952,6 +10985,7 @@
 				2C95666F264546F700539B85 /* element.cpp in Sources */,
 				2CEC7DD725FA527700704B99 /* JPEGEncoder.cpp in Sources */,
 				2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */,
+				2C60F9212667F0E300FFAA68 /* SivMillisecClock.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
@@ -10977,6 +11011,7 @@
 				2C47B30824DD9789008D83BE /* SivIntFormatter.cpp in Sources */,
 				2C2AA36A26009C74003F3EBC /* b2_edge_circle_contact.cpp in Sources */,
 				2CFB7DD8262B06CA00169B97 /* SivDialog.cpp in Sources */,
+				2C60F9222667F0E300FFAA68 /* SivMicrosecClock.cpp in Sources */,
 				2C47B31924DD9789008D83BE /* UnicodeUtility.cpp in Sources */,
 				2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */,
 				2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */,
@@ -11160,6 +11195,7 @@
 				2C636E762657F7D300AF029F /* soloud_core_getters.cpp in Sources */,
 				2C636EA22657F7D300AF029F /* soloud_wav.cpp in Sources */,
 				2C956662264546F700539B85 /* gelement.cpp in Sources */,
+				2C60F9252667F0F500FFAA68 /* SivRDTSCClock.cpp in Sources */,
 				2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */,
 				2C13C9B525BD29FC0054B968 /* lundump.c in Sources */,
 				2CC584632646DC5800C33E9F /* CAudioDecoder.cpp in Sources */,
