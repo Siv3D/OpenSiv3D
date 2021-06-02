@@ -13,7 +13,7 @@
 # include <memory>
 # include "Common.hpp"
 # include "Byte.hpp"
-# include "StringView.hpp"
+# include "String.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d

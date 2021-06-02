@@ -12,6 +12,7 @@
 # pragma once
 # include <fstream>
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/String.hpp>
 # include <Siv3D/NonNull.hpp>
 
 namespace s3d

@@ -17,19 +17,4 @@ namespace s3d
 	{
 		return (Time::GetMicrosec() - m_start);
 	}
-
-	inline void MicrosecClock::log() const
-	{
-		Logger(Microseconds{ us() });
-	}
-
-	inline void MicrosecClock::console() const
-	{
-		Console(Microseconds{ us() });
-	}
-
-	inline void MicrosecClock::print() const
-	{
-		Print(Microseconds{ us() });
-	}
 }

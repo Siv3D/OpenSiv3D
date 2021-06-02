@@ -12,12 +12,12 @@
 # pragma once
 # include "Common.hpp"
 # include "IReader.hpp"
-# include "String.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
 	/// @brief テキストファイルのエンコーディング形式
-	enum class TextEncoding
+	enum class TextEncoding : uint8
 	{
 		/// @brief 不明なエンコーティング
 		Unknown,

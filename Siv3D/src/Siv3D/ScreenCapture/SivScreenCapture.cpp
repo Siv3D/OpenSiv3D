@@ -36,7 +36,7 @@ namespace s3d
 
 		void RequestCurrentFrame()
 		{
-			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(FilePath{});
+			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(FilePath());
 		}
 
 		bool HasNewFrame()

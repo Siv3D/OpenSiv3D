@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/String.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/NonNull.hpp>
 

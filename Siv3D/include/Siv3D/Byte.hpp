@@ -10,10 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
-# include <type_traits>
 # include <functional>
 # include "Common.hpp"
-# include "FormatData.hpp"
+# include "Concepts.hpp"
 
 namespace s3d
 {
@@ -64,6 +63,8 @@ namespace s3d
 
 namespace s3d
 {
+	struct FormatData;
+
 	void Formatter(FormatData& formatData, const Byte& value);
 
 	std::ostream& operator <<(std::ostream& output, const Byte& value);

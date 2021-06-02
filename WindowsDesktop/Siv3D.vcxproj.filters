@@ -1264,6 +1264,15 @@
     <Filter Include="src\Siv3D\ScopedCustomShader2D">
       <UniqueIdentifier>{861a8222-241c-407f-935f-e3ab6f9f9961}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MillisecClock">
+      <UniqueIdentifier>{358088f4-4388-4cb4-9004-f91c67d3da49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MicrosecClock">
+      <UniqueIdentifier>{1c236c87-bf35-486c-8fe1-d7c1436ac78d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RDTSCClock">
+      <UniqueIdentifier>{85bb24d9-30b7-4c80-aa5b-58eecbf91131}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8140,6 +8149,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader2D\SivScopedCustomShader2D.cpp">
       <Filter>src\Siv3D\ScopedCustomShader2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MillisecClock\SivMillisecClock.cpp">
+      <Filter>src\Siv3D\MillisecClock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MicrosecClock\SivMicrosecClock.cpp">
+      <Filter>src\Siv3D\MicrosecClock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RDTSCClock\SivRDTSCClock.cpp">
+      <Filter>src\Siv3D\RDTSCClock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

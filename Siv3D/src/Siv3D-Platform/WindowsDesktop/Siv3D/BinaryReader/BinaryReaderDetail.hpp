@@ -13,6 +13,7 @@
 # include <fstream>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/String.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/NonNull.hpp>
 

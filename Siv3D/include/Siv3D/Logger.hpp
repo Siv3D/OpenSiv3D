@@ -12,6 +12,7 @@
 # pragma once
 # include <memory>
 # include "Common.hpp"
+# include "Format.hpp"
 # include "Formatter.hpp"
 
 namespace s3d

@@ -13,11 +13,14 @@
 # include <memory>
 # include "Common.hpp"
 # include "IWriter.hpp"
-# include "String.hpp"
+# include "StringView.hpp"
 # include "OpenMode.hpp"
 
 namespace s3d
 {
+	class String;
+	using FilePath = String;
+
 	/// @brief 書き込み用バイナリファイル
 	class BinaryWriter : public IWriter
 	{

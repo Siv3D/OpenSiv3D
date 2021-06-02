@@ -13,9 +13,6 @@
 # include "Common.hpp"
 # include "Time.hpp"
 # include "Duration.hpp"
-# include "Logger.hpp"
-# include "Console.hpp"
-# include "Print.hpp"
 
 namespace s3d
 {

@@ -28,7 +28,7 @@ namespace s3d
 
 			SIV3D_NODISCARD_CXX20
 			explicit constexpr DecimalPlaces(int32 v) noexcept
-				: value(v) {}
+				: value{ v } {}
 		};
 
 		SIV3D_NODISCARD_CXX20

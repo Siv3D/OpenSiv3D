@@ -11,10 +11,6 @@
 
 # pragma once
 
-# if SIV3D_PLATFORM(WEB)
-#	include <emscripten.h>
-# endif
-
 namespace s3d
 {
 	namespace Platform
@@ -53,20 +49,5 @@ namespace s3d
 	inline uint64 RDTSCClock::cycles() const noexcept
 	{
 		return (Platform::Rdtsc() - m_start);
-	}
-
-	inline void RDTSCClock::log() const
-	{
-		Logger(cycles(), U"cycles"_sv);
-	}
-
-	inline void RDTSCClock::console() const
-	{
-		Console(cycles(), U"cycles"_sv);
-	}
-
-	inline void RDTSCClock::print() const
-	{
-		Print(cycles(), U"cycles"_sv);
 	}
 }

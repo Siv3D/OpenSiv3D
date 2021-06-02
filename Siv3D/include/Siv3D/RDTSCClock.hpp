@@ -11,19 +11,18 @@
 
 # pragma once
 # include "Common.hpp"
-# include "Time.hpp"
-# include "Duration.hpp"
-# include "Logger.hpp"
-# include "Console.hpp"
-# include "Print.hpp"
 # if SIV3D_PLATFORM(WINDOWS)
 #	include <intrin.h>
+# endif
+# if SIV3D_PLATFORM(WEB)
+#	include <emscripten.h>
 # endif
 
 namespace s3d
 {
 	namespace Platform
 	{
+		[[nodiscard]]
 		inline uint64 Rdtsc() noexcept;
 	}
 

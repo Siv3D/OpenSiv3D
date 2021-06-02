@@ -1826,6 +1826,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MicrophoneInfo\SivMicrophoneInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MicrosecClock\SivMicrosecClock.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MillisecClock\SivMillisecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
@@ -1880,6 +1882,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Random\SivRandom.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RDTSCClock\SivRDTSCClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RectanglePacking\SivRectanglePacking.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RectF\SivRectF.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rect\SivRect.cpp" />

@@ -13,11 +13,14 @@
 # include <memory>
 # include "Common.hpp"
 # include "IReader.hpp"
-# include "String.hpp"
+# include "StringView.hpp"
 # include "OpenMode.hpp"
 
 namespace s3d
 {
+	class String;
+	using FilePath = String;
+
 	/// @brief 読み込み用バイナリファイル
 	class BinaryReader : public IReader
 	{
