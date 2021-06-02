@@ -16,10 +16,8 @@ Module.preRun = [
       }
     }
     
-    global.Module = {
-      canvas: {
-        style: {}
-      }
+    Module.canvas = {
+      style: {}
     }
   }
 ]
