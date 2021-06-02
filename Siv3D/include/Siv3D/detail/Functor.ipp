@@ -55,9 +55,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) == std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x == x)
 		{
-			return (std::forward<Type>(x) == std::forward<Type>(x));
+			return (x == x);
 		}
 	};
 
@@ -103,9 +103,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) != std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x != x)
 		{
-			return (std::forward<Type>(x) != std::forward<Type>(x));
+			return (x != x);
 		}
 	};
 
@@ -151,9 +151,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) < std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x < x)
 		{
-			return (std::forward<Type>(x) < std::forward<Type>(x));
+			return (x < x);
 		}
 	};
 
@@ -199,9 +199,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) <= std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x <= x)
 		{
-			return (std::forward<Type>(x) <= std::forward<Type>(x));
+			return (x <= x);
 		}
 	};
 
@@ -247,9 +247,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) > std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x > x)
 		{
-			return (std::forward<Type>(x) > std::forward<Type>(x));
+			return (x > x);
 		}
 	};
 
@@ -295,9 +295,9 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(Type&& x) const noexcept(noexcept(std::forward<Type>(x) >= std::forward<Type>(x)))
+		constexpr auto operator()(const Type& x) const noexcept(x >= x)
 		{
-			return (std::forward<Type>(x) >= std::forward<Type>(x));
+			return (x >= x);
 		}
 	};
 

@@ -77,7 +77,7 @@ namespace s3d
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 
-		return ImageInfo{ ImageFormat::WebP, pixelFormat, Size{ width, height }, false };
+		return ImageInfo{ Size{ width, height }, ImageFormat::WebP, pixelFormat, false };
 	}
 
 	Image WebPDecoder::decode(const FilePathView path) const

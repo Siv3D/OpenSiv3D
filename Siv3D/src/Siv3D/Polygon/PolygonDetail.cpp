@@ -875,7 +875,7 @@ namespace s3d
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				const auto& resultHole = result.inners()[i];
+				const auto resultHole = result.inners()[i];
 
 				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
@@ -915,7 +915,7 @@ namespace s3d
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				const auto& resultHole = result.inners()[i];
+				const auto resultHole = result.inners()[i];
 
 				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
@@ -1306,7 +1306,7 @@ namespace s3d
 
 				for (size_t i = 0; i < num_holes; ++i)
 				{
-					const auto& resultHole = result.inners()[i];
+					const auto resultHole = result.inners()[i];
 
 					holes[i].assign(resultHole.begin(), resultHole.end());
 				}
@@ -1386,7 +1386,7 @@ namespace s3d
 
 				for (size_t i = 0; i < num_holes; ++i)
 				{
-					const auto& resultHole = result.inners()[i];
+					const auto resultHole = result.inners()[i];
 
 					holes[i].assign(resultHole.begin(), resultHole.end());
 				}

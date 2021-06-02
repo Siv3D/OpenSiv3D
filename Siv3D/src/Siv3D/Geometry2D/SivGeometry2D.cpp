@@ -1151,7 +1151,6 @@ namespace s3d
 		{
 			const Vec2 ab = a.end - a.begin;
 			const Vec2 ac = b.center - a.begin;
-			const Vec2 bc = b.center - a.end;
 			const double e = ac.dot(ab);
 			const double rr = b.r * b.r;
 
@@ -1164,6 +1163,7 @@ namespace s3d
 
 			if (e >= f)
 			{
+				const Vec2 bc = b.center - a.end;
 				return bc.dot(bc) <= rr;
 			}
 

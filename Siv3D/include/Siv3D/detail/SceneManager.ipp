@@ -164,7 +164,7 @@ namespace s3d
 			{
 				return true;
 			}
-			else if (not init(m_first.value()))
+			else if (not init(*m_first))
 			{
 				return false;
 			}

@@ -126,7 +126,7 @@ namespace s3d
 			pixelFormat = ImagePixelFormat::R8G8B8;
 		}
 
-		return ImageInfo{ ImageFormat::PNG, pixelFormat, Size(width, height), false };
+		return ImageInfo{ Size{ width, height }, ImageFormat::PNG, pixelFormat, false };
 	}
 
 	Image PNGDecoder::decode(const FilePathView path) const

@@ -198,11 +198,11 @@ namespace s3d
 				for (size_t i = 0; i < m_lines.size(); ++i)
 				{
 					const size_t layout = m_layouts[i];
-					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 					const DrawableText& dtext = m_drawableTexts[i];
 
 					if (dtext.text)
 					{
+						const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 						const RectF area{ pos, maxWidth, 65536 };
 						dtext.draw(area.movedBy(BitmapFontShadowOffset), Palette::Black);
 						dtext.draw(area, Palette::White);
@@ -255,11 +255,11 @@ namespace s3d
 				for (size_t i = 0; i < m_lines.size(); ++i)
 				{
 					const size_t layout = m_layouts[i];
-					const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 					const DrawableText& dtext = m_drawableTexts[i];
 
 					if (dtext.text)
 					{
+						const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 						const RectF area{ pos, maxWidth, 65536 };
 						dtext.draw(TextStyle::CustomShader, area);
 					}

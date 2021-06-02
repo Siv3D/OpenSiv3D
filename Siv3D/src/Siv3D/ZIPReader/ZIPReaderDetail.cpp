@@ -105,7 +105,7 @@ namespace s3d
 
 				err = ::mz_zip_reader_open_buffer(m_reader,
 					const_cast<uint8*>(static_cast<const std::uint8_t*>(m_resource.data())),
-					static_cast<int32>(m_resource.size()), false);
+					static_cast<int32>(m_resource.size()), 0);
 			}
 			else
 			{

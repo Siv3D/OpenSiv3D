@@ -379,7 +379,7 @@ namespace s3d
 		{
 			if (auto variance = PopulationVariance(first, last, mu))
 			{
-				return std::sqrt(variance.value());
+				return std::sqrt(*variance);
 			}
 			else
 			{
@@ -403,7 +403,7 @@ namespace s3d
 		{
 			if (auto variance = Variance(first, last, xbar))
 			{
-				return std::sqrt(variance.value());
+				return std::sqrt(*variance);
 			}
 			else
 			{

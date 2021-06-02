@@ -380,10 +380,7 @@ namespace s3d
 			{
 				for (auto& formatEtc : m_formatEtcs)
 				{
-					if (formatEtc.ptd)
-					{
-						::CoTaskMemFree(formatEtc.ptd);
-					}
+					::CoTaskMemFree(formatEtc.ptd);
 				}
 			}
 

@@ -400,7 +400,7 @@ namespace s3d
 		{
 			auto filter = std::make_unique<SoLoud::FreeverbFilter>();
 			filter->setParams(
-				freeze,
+				static_cast<float>(freeze),
 				static_cast<float>(roomSize),
 				static_cast<float>(damp),
 				static_cast<float>(width));
@@ -410,7 +410,7 @@ namespace s3d
 		else if (auto p = dynamic_cast<SoLoud::FreeverbFilter*>(m_filters[filterIndex].get()))
 		{
 			p->setParams(
-				freeze,
+				static_cast<float>(freeze),
 				static_cast<float>(roomSize),
 				static_cast<float>(damp),
 				static_cast<float>(width));
@@ -418,7 +418,7 @@ namespace s3d
 			m_pSoloud->setFilterParameter(m_handle,
 				static_cast<uint32>(filterIndex),
 				SoLoud::FreeverbFilter::FREEZE,
-				freeze);
+				static_cast<float>(freeze));
 
 			m_pSoloud->setFilterParameter(m_handle,
 				static_cast<uint32>(filterIndex),
@@ -441,7 +441,7 @@ namespace s3d
 
 			auto filter = std::make_unique<SoLoud::FreeverbFilter>();
 			filter->setParams(
-				freeze,
+				static_cast<float>(freeze),
 				static_cast<float>(roomSize),
 				static_cast<float>(damp),
 				static_cast<float>(width));

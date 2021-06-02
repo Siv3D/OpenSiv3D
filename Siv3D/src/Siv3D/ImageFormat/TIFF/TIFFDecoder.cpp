@@ -240,7 +240,7 @@ namespace s3d
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 		const Size size{ width, height };
 
-		return ImageInfo{ ImageFormat::GIF, pixelFormat, size, false };
+		return ImageInfo{ size, ImageFormat::GIF, pixelFormat, false };
 	}
 
 	Image TIFFDecoder::decode(const FilePathView path) const

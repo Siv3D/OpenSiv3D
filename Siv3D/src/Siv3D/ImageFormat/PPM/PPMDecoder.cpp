@@ -455,7 +455,7 @@ namespace s3d
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8;
 
-		return ImageInfo{ ImageFormat::PPM, pixelFormat, size, false };
+		return ImageInfo{ size, ImageFormat::PPM, pixelFormat, false };
 	}
 
 	Image PPMDecoder::decode(const FilePathView path) const

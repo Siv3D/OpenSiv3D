@@ -64,7 +64,7 @@ namespace s3d
 			pixelFormat = ImagePixelFormat::R8G8B8X8;
 		}
 
-		return ImageInfo{ ImageFormat::BMP, pixelFormat, size, false };
+		return ImageInfo{ size, ImageFormat::BMP, pixelFormat, false };
 	}
 
 	Image BMPDecoder::decode(const FilePathView path) const

@@ -29,7 +29,7 @@ Name | Version
 [GIFLIB](http://giflib.sourceforge.net/) | 5.2.1
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
-[GMGSx.sf2](http://www.synthfont.com/) | 3.3.2
+[GMGSx.sf2](http://www.synthfont.com/) | 
 [HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 2.7.4
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 

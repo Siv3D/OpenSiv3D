@@ -108,7 +108,7 @@ namespace s3d
 			const int32 width = (buf[9] << 8) + buf[10];
 			const int32 height = (buf[7] << 8) + buf[8];
 
-			return ImageInfo{ ImageFormat::JPEG, ImagePixelFormat::R8G8B8, Size{ width, height }, false };
+			return ImageInfo{ Size{ width, height }, ImageFormat::JPEG, ImagePixelFormat::R8G8B8, false };
 		}
 
 		return none;

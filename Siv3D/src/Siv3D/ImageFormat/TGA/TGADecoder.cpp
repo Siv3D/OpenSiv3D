@@ -69,7 +69,7 @@ namespace s3d
 			}
 		}
 
-		return ImageInfo{ ImageFormat::TGA, pixelFormat, size, false };
+		return ImageInfo{ size, ImageFormat::TGA, pixelFormat, false };
 	}
 
 	Image TGADecoder::decode(const FilePathView path) const

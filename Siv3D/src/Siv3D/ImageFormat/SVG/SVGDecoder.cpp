@@ -71,7 +71,7 @@ namespace s3d
 		const int32 width = static_cast<int32>(std::ceil(document->width()));
 		const int32 height = static_cast<int32>(std::ceil(document->height()));
 
-		return ImageInfo{ ImageFormat::SVG, ImagePixelFormat::R8G8B8A8, Size{ width, height }, false };
+		return ImageInfo{ Size{ width, height }, ImageFormat::SVG, ImagePixelFormat::R8G8B8A8, false };
 	}
 
 	Image SVGDecoder::decode(const FilePathView path) const

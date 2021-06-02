@@ -21,7 +21,7 @@ namespace s3d
 			size_t len;
 			errno_t err = _wdupenv_s(&pValue, &len, name.toWstr().c_str());
 			
-			if (err || (!not pValue))
+			if (err || (not pValue))
 			{
 				return{};
 			}

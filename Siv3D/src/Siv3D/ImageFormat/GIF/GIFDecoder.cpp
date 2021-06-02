@@ -77,7 +77,7 @@ namespace s3d
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
 
-		return ImageInfo{ ImageFormat::GIF, pixelFormat, size, false };
+		return ImageInfo{ size, ImageFormat::GIF, pixelFormat, false };
 	}
 
 	Image GIFDecoder::decode(const FilePathView path) const

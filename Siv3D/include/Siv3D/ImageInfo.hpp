@@ -19,14 +19,14 @@ namespace s3d
 	/// @brief 画像ファイルの情報
 	struct ImageInfo
 	{
+		/// @brief 画像のサイズ
+		Size size = Size{ 0, 0 };
+
 		/// @brief 画像のエンコード形式
 		ImageFormat imageFormat = ImageFormat::Unknown;
 
 		/// @brief ピクセルの保存形式
 		ImagePixelFormat pixelFormat = ImagePixelFormat::Unknown;
-
-		/// @brief 画像のサイズ
-		Size size = Size{ 0, 0 };
 
 		/// @brief アニメーションの有無
 		bool isAnimated = false;

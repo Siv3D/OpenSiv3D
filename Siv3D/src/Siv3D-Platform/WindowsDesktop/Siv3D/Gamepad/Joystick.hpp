@@ -77,7 +77,7 @@ namespace s3d::detail
 		int32 objectCount = 0;
 		IDirectInputDevice8W* device = nullptr;
 		DWORD index = 0;
-		GUID guid;
+		GUID guid = {};
 	};
 
 	struct GLFWjoystick
