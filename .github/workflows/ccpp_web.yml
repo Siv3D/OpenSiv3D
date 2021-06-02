@@ -167,7 +167,7 @@ jobs:
 
       - name: Test project
         working-directory: Web/App
-        run: node Siv3DTest.js
+        run: node --experimental-wasm-simd Siv3DTest.js
 
   build-app:
     needs: build
