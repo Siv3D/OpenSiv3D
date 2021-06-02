@@ -51,6 +51,11 @@ jobs:
         config:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+            output-file: 'libSiv3D.a'
+          - name: wasm-simd
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: '-msimd128 -msse4.2'
             output-file: 'libSiv3D.a'
     container: 
       image: ${{ matrix.config.container }}
@@ -88,7 +93,9 @@ jobs:
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         working-directory: Web/build
         run: |
-          emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --parallel 4
 
       - name: Bundle output
@@ -115,6 +122,10 @@ jobs:
         config:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+          # - name: wasm-simd
+          #  container: 'emscripten/emsdk:2.0.22'
+          #  cmake-cflags: '-msimd128 -msse4.2'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -149,12 +160,14 @@ jobs:
         if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
-          emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On ..
+          emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build .
 
       - name: Test project
         working-directory: Web/App
-        run: node Siv3DTest.js
+        run: node --experimental-wasm-simd Siv3DTest.js
 
   build-app:
     needs: build
@@ -163,6 +176,10 @@ jobs:
         config:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+          - name: wasm-simd
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: '-msimd128 -msse4.2'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -201,7 +218,9 @@ jobs:
         if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
-          emcmake cmake -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake-config }} ..
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build .
 
       - name: Save Bundles
@@ -210,31 +229,44 @@ jobs:
           name: Siv3DTest-${{ matrix.config.name }}
           path: Web/App/Siv3DTest.*
 
-  deploy:
+  pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
     needs: build
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
     steps:
-      - name: Restore Bundles
-        uses: actions/download-artifact@v2
-        with:
-          name: OpenSiv3D-Bundles
-          path: .
       - name: Create release
-        id: create_release
+        id: create-release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+
+  deploy:
+    needs: pre-deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+          - name: wasm-simd
+    steps:
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+      
       - name: Upload Release Asset (zip)
         id: upload-release-asset-zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
           asset_path: OpenSiv3D.zip
           asset_name: OpenSiv3D.zip
           asset_content_type: application/zip
@@ -244,7 +276,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.pre-deploy.outputs.upload_url }}
           asset_path: OpenSiv3D.tgz
           asset_name: OpenSiv3D.tgz
           asset_content_type: application/gzip
@@ -256,12 +288,21 @@ jobs:
 
     steps:
       - name: Create Destination Folders
-        run: mkdir -p Dest/v6-wasm-app
+        run: |
+          mkdir -p Dest/v6-wasm-app
+          mkdir -p Dest/v6-wasm-simd-app
+
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
         with:
           name: Siv3DTest-wasm
           path: Dest/v6-wasm-app
+
+      - name: Place Siv3D Apps (wasm-simd)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm-simd
+          path: Dest/v6-wasm-simd-app
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

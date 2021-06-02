@@ -28,11 +28,12 @@ namespace s3d
 			YesNo,
 		};
 
-		extern "C" s3d::MessageBoxResult s3dShowMessageBox(const char* message, MessageBoxButtons type);
+		__attribute__((import_name("siv3dShowMessageBox")))
+		extern "C" s3d::MessageBoxResult siv3dShowMessageBox(const char* message, MessageBoxButtons type);
 
 		MessageBoxResult ShowMessageBox_Web(const StringView title, const StringView text, MessageBoxStyle style, MessageBoxButtons buttons)
 		{
-			return s3dShowMessageBox(text.narrow().c_str(), buttons);
+			return siv3dShowMessageBox(text.narrow().c_str(), buttons);
 		}
 	}
 

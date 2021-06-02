@@ -2108,6 +2108,11 @@ XXH_PUBLIC_API XXH64_hash_t XXH64_hashFromCanonical(const XXH64_canonical_t* src
 #    define XXH_unlikely(x) (x)
 #endif
 
+// FIXME: emscripten's <emmintrin.h> requires that <emmintrin.h> is included in c++ linkage
+#if defined (__cplusplus)
+}
+#endif    
+    
 #if defined(__GNUC__)
 #  if defined(__AVX2__)
 #    include <immintrin.h>
@@ -2121,6 +2126,10 @@ XXH_PUBLIC_API XXH64_hash_t XXH64_hashFromCanonical(const XXH64_canonical_t* src
 #elif defined(_MSC_VER)
 #  include <intrin.h>
 #endif
+
+#if defined (__cplusplus)
+extern "C" {
+#endif    
 
 /*
  * One goal of XXH3 is to make it fast on both 32-bit and 64-bit, while

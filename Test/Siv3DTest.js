@@ -15,5 +15,9 @@ Module.preRun = [
         return [];
       }
     }
+    
+    Module.canvas = {
+      style: {}
+    }
   }
 ]
