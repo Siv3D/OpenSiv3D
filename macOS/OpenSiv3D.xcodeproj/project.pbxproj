@@ -3106,6 +3106,8 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
+		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
 		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
@@ -4112,6 +4114,7 @@
 				2C063DD42661426000368BEE /* Quaternion.ipp */,
 				2C063D792661426000368BEE /* Random.ipp */,
 				2C063DD02661426000368BEE /* RandomColor.ipp */,
+				2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */,
 				2C063D902661426000368BEE /* RandomPoint.ipp */,
 				2C063D9A2661426000368BEE /* RandomVec2.ipp */,
 				2C063D9D2661426000368BEE /* RandomVec3.ipp */,
@@ -8832,6 +8835,7 @@
 				2C063D2B26612A3500368BEE /* Quaternion.hpp */,
 				2CAAA78325E7FD0200C014D7 /* Random.hpp */,
 				2CAAA76525E7FD0200C014D7 /* RandomColor.hpp */,
+				2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */,
 				2CAAA85025E7FD0300C014D7 /* RandomPoint.hpp */,
 				2CAAA85B25E7FD0300C014D7 /* RandomVec2.hpp */,
 				2C504401265157E800E36D08 /* RandomVec3.hpp */,
