@@ -20,7 +20,7 @@
 
 # include <emscripten/html5.h>
 
-extern "C" void s3dSetCursorStyle(const char* style);
+extern "C" void siv3dSetCursorStyle(const char* style);
 
 namespace s3d
 {
@@ -129,7 +129,7 @@ namespace s3d
 			{
 				m_currentCursor = m_requestedCursor;
 				
-				::s3dSetCursorStyle(m_currentCursor.narrow().c_str());
+				::siv3dSetCursorStyle(m_currentCursor.narrow().c_str());
 			}
 
 			m_requestedCursor = m_defaultCursor;

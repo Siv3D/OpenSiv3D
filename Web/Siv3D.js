@@ -33,10 +33,11 @@ mergeInto(LibraryManager.library, {
     },
     glfwGetMonitorContentScale__sig: "viii",
 
-    s3dSetCursorStyle: function(style) {
+    siv3dSetCursorStyle: function(style) {
         const styleText = UTF8ToString(style);
         Module["canvas"].style.cursor = styleText;
     },
+    siv3dSetCursorStyle__sig: "vi",
 
     s3dSetCursorStyle__sig: "vi"
 })
