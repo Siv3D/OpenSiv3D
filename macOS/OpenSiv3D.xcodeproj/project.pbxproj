@@ -934,6 +934,7 @@
 		2C60AE94248158A500277281 /* cpuid_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE62248158A500277281 /* cpuid_windows.cpp */; };
 		2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE63248158A500277281 /* sysctl_non_darwin.cpp */; };
 		2C60AE96248158A500277281 /* sysctl_darwin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60AE64248158A500277281 /* sysctl_darwin.cpp */; };
+		2C60F91C2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */; };
 		2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C6106E224DB04E300BDEF72 /* xxhash.h */; };
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
@@ -1552,7 +1553,6 @@
 		2C063D452661426000368BEE /* Indexed.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Indexed.ipp; sourceTree = "<group>"; };
 		2C063D462661426000368BEE /* InputCombination.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputCombination.ipp; sourceTree = "<group>"; };
 		2C063D472661426000368BEE /* FormatBool.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FormatBool.ipp; sourceTree = "<group>"; };
-		2C063D482661426000368BEE /* VertexShader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexShader.ipp; sourceTree = "<group>"; };
 		2C063D492661426000368BEE /* Distribution.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Distribution.ipp; sourceTree = "<group>"; };
 		2C063D4A2661426000368BEE /* Memory.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.ipp; sourceTree = "<group>"; };
 		2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorAdd2D.ipp; sourceTree = "<group>"; };
@@ -1599,7 +1599,6 @@
 		2C063D742661426000368BEE /* Shuffle.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shuffle.ipp; sourceTree = "<group>"; };
 		2C063D752661426000368BEE /* Error.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.ipp; sourceTree = "<group>"; };
 		2C063D762661426000368BEE /* Window.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.ipp; sourceTree = "<group>"; };
-		2C063D772661426000368BEE /* ScopedCustomShader2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader2D.ipp; sourceTree = "<group>"; };
 		2C063D782661426000368BEE /* OBB.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OBB.ipp; sourceTree = "<group>"; };
 		2C063D792661426000368BEE /* Random.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Random.ipp; sourceTree = "<group>"; };
 		2C063D7A2661426000368BEE /* Math.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.ipp; sourceTree = "<group>"; };
@@ -1639,7 +1638,6 @@
 		2C063D9D2661426000368BEE /* RandomVec3.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomVec3.ipp; sourceTree = "<group>"; };
 		2C063D9E2661426000368BEE /* AssetIDWrapper.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetIDWrapper.ipp; sourceTree = "<group>"; };
 		2C063D9F2661426000368BEE /* Color.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color.ipp; sourceTree = "<group>"; };
-		2C063DA02661426000368BEE /* PixelShader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelShader.ipp; sourceTree = "<group>"; };
 		2C063DA12661426000368BEE /* PoissonDisk2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PoissonDisk2D.ipp; sourceTree = "<group>"; };
 		2C063DA22661426000368BEE /* FastMath.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastMath.ipp; sourceTree = "<group>"; };
 		2C063DA32661426000368BEE /* Mat3x3.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.ipp; sourceTree = "<group>"; };
@@ -2935,6 +2933,7 @@
 		2C60AE62248158A500277281 /* cpuid_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpuid_windows.cpp; sourceTree = "<group>"; };
 		2C60AE63248158A500277281 /* sysctl_non_darwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sysctl_non_darwin.cpp; sourceTree = "<group>"; };
 		2C60AE64248158A500277281 /* sysctl_darwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sysctl_darwin.cpp; sourceTree = "<group>"; };
+		2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader2D.cpp; sourceTree = "<group>"; };
 		2C6106E224DB04E300BDEF72 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem_macOS.mm; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
@@ -4098,7 +4097,6 @@
 				2C063D652661426000368BEE /* Parse.ipp */,
 				2C063D602661426000368BEE /* Periodic.ipp */,
 				2C063D882661426000368BEE /* PerlinNoise.ipp */,
-				2C063DA02661426000368BEE /* PixelShader.ipp */,
 				2C063DF82661426000368BEE /* Plane.ipp */,
 				2C063DBF2661426000368BEE /* Point.ipp */,
 				2C063DA12661426000368BEE /* PoissonDisk2D.ipp */,
@@ -4126,7 +4124,6 @@
 				2C063DC92661426000368BEE /* SceneManager.ipp */,
 				2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */,
 				2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */,
-				2C063D772661426000368BEE /* ScopedCustomShader2D.ipp */,
 				2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */,
 				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
@@ -4173,7 +4170,6 @@
 				2C063DB12661426000368BEE /* Vector3D.ipp */,
 				2C063E012661426000368BEE /* Vector4D.ipp */,
 				2C063DE52661426000368BEE /* Vertex2D.ipp */,
-				2C063D482661426000368BEE /* VertexShader.ipp */,
 				2C063D712661426000368BEE /* Wave.ipp */,
 				2C063DE12661426000368BEE /* WaveSample.ipp */,
 				2C063D762661426000368BEE /* Window.ipp */,
@@ -5618,6 +5614,7 @@
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
 				2C4AEF7C263582E700D36CFC /* Say */,
 				2C47B2D424DD9789008D83BE /* Scene */,
+				2C60F91A2667DBCB00FFAA68 /* ScopedCustomShader2D */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C2AA2B325FF8933003F3EBC /* Serial */,
 				2C2AA2D226009585003F3EBC /* SerialPortInfo */,
@@ -7371,6 +7368,14 @@
 				2C60AE64248158A500277281 /* sysctl_darwin.cpp */,
 			);
 			path = detail;
+			sourceTree = "<group>";
+		};
+		2C60F91A2667DBCB00FFAA68 /* ScopedCustomShader2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C60F91B2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp */,
+			);
+			path = ScopedCustomShader2D;
 			sourceTree = "<group>";
 		};
 		2C6106E124DB04E300BDEF72 /* xxHash */ = {
@@ -10771,6 +10776,7 @@
 				2C48BF8325D41C0D00A93CE3 /* SivFont.cpp in Sources */,
 				2C2AA37326009C74003F3EBC /* b2_circle_contact.cpp in Sources */,
 				2C5337A4264F5AA200CE0F1B /* divsufsort.c in Sources */,
+				2C60F91C2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp in Sources */,
 				2C5337B5264F5AA200CE0F1B /* entropy_common.c in Sources */,
 				2C47B32724DD9789008D83BE /* SivPoint.cpp in Sources */,
 				2C48BEE825CFB8C500A93CE3 /* edge-coloring.cpp in Sources */,

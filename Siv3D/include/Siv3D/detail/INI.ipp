@@ -13,6 +13,8 @@
 
 namespace s3d
 {
+	inline INI::INI() {}
+
 	inline INI::INI(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		load(path, encoding);
