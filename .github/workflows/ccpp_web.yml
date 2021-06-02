@@ -123,9 +123,9 @@ jobs:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: ''
-          - name: wasm-simd
-            container: 'emscripten/emsdk:2.0.22'
-            cmake-cflags: '-msimd128 -msse4.2'
+          # - name: wasm-simd
+          #  container: 'emscripten/emsdk:2.0.22'
+          #  cmake-cflags: '-msimd128 -msse4.2'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
