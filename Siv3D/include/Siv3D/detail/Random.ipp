@@ -50,17 +50,6 @@ namespace s3d
 		}
 	}
 
-	inline Duration Random(const Duration& min, const Duration& max) noexcept
-	{
-		return Random(min, max, GetDefaultRNG());
-	}
-
-	SIV3D_CONCEPT_URBG_
-	inline Duration Random(const Duration& min, const Duration& max, URBG&& urbg) noexcept
-	{
-		return Duration{ Random(min.count(), max.count(), std::forward<URBG>(urbg)) };
-	}
-
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Arithmetic Random(const Arithmetic max)
 	{
@@ -76,17 +65,6 @@ namespace s3d
 	inline Arithmetic Random(const Arithmetic max, URBG&& urbg)
 	{
 		return Random<Arithmetic>(0, max, std::forward<URBG>(urbg));
-	}
-
-	inline Duration Random(const Duration& max) noexcept
-	{
-		return Random(max, GetDefaultRNG());
-	}
-
-	SIV3D_CONCEPT_URBG_
-	inline Duration Random(const Duration& max, URBG&& urbg) noexcept
-	{
-		return Duration{ Random(max.count(), std::forward<URBG>(urbg)) };
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_

@@ -14,6 +14,7 @@
 # include "Common.hpp"
 # include "Optional.hpp"
 # include "Unspecified.hpp"
+# include "Duration.hpp"
 # include "PredefinedYesNo.hpp"
 # include "FFTSampleLength.hpp"
 

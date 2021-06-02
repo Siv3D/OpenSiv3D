@@ -14,7 +14,6 @@
 # include "Concepts.hpp"
 # include "SMFT.hpp"
 # include "Distribution.hpp"
-# include "Duration.hpp"
 
 namespace s3d
 {
@@ -71,17 +70,6 @@ namespace s3d
 	[[nodiscard]]
 	inline Arithmetic Random(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-	/// @brief 現在のスレッドの乱数エンジンを用いて、min 以上 max 以下の範囲の時間を生成して返します。
-	/// @param min 生成する時間の最小値
-	/// @param max 生成する時間の最大値
-	/// @return 生成されたランダムな時間
-	[[nodiscard]]
-	inline Duration Random(const Duration& min, const Duration& max) noexcept;
-
-	SIV3D_CONCEPT_URBG
-	[[nodiscard]]
-	inline Duration Random(const Duration& min, const Duration& max, URBG&& urbg) noexcept;
-
 	/// @brief 現在のスレッドの乱数エンジンを用いて、0 以上 max 以下の範囲の乱数を生成して返します。
 	/// @tparam Arithmetic 生成する乱数の型
 	/// @param max 生成する乱数の最大値
@@ -97,16 +85,6 @@ namespace s3d
 # endif
 	[[nodiscard]]
 	inline Arithmetic Random(Arithmetic max, URBG&& urbg);
-
-	/// @brief 現在のスレッドの乱数エンジンを用いて、0 以上 max 以下の範囲の時間を生成して返します。
-	/// @param max 生成する時間の最大値
-	/// @return 生成されたランダムな時間
-	[[nodiscard]]
-	inline Duration Random(const Duration& max) noexcept;
-
-	SIV3D_CONCEPT_URBG
-	[[nodiscard]]
-	inline Duration Random(const Duration& max, URBG&& urbg) noexcept;
 
 	/// @brief 現在のスレッドの乱数エンジンを用いて、min より大きく max 未満の範囲の乱数を生成して返します。
 	/// @tparam Arithmetic 生成する乱数の型

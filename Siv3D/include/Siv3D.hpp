@@ -760,6 +760,8 @@
 // シャッフル | Random shuffle
 # include <Siv3D/Shuffle.hpp>
 
+# include <Siv3D/RandomDuration.hpp>
+
 // ランダムな Point の作成 | Random Point generation
 # include <Siv3D/RandomPoint.hpp>
 
