@@ -55,7 +55,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x == x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x == x))
 		{
 			return (x == x);
 		}
@@ -103,7 +103,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x != x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x != x))
 		{
 			return (x != x);
 		}
@@ -151,7 +151,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x < x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x < x))
 		{
 			return (x < x);
 		}
@@ -199,7 +199,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x <= x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x <= x))
 		{
 			return (x <= x);
 		}
@@ -247,7 +247,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x > x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x > x))
 		{
 			return (x > x);
 		}
@@ -295,7 +295,7 @@ namespace s3d::detail
 	{
 		template <class Type>
 		[[nodiscard]]
-		constexpr auto operator()(const Type& x) const noexcept(x >= x)
+		constexpr auto operator()(const Type& x) const noexcept(noexcept(x >= x))
 		{
 			return (x >= x);
 		}
