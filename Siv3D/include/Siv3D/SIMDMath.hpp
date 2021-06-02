@@ -31,6 +31,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
  # if !SIV3D_PLATFORM(WINDOWS)
     # undef __in
     # undef __out
+    # undef __valid
 # endif
 
 namespace s3d
