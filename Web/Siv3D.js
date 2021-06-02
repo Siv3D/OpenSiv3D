@@ -57,4 +57,78 @@ mergeInto(LibraryManager.library, {
         return 4; /* MessageBoxSelection.None */
     },
     siv3dShowMessageBox__sig: "iii",
+
+    //
+    // DragDrop Support
+    //
+    siv3dRegisterDragEnter: function(ptr) {
+        Module["canvas"].ondragenter = function (e) {
+            e.preventDefault();
+
+            const types = e.dataTransfer.types;
+
+            if (types.length > 0) {
+                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0);
+            }        
+        };
+    },
+    siv3dRegisterDragEnter__sig: "vi",
+
+    siv3dRegisterDragUpdate: function(ptr) {
+        Module["canvas"].ondragover = function (e) {
+            e.preventDefault();
+            {{{ makeDynCall('v', 'ptr') }}}();
+        };
+    },
+    siv3dRegisterDragUpdate__sig: "vi",
+
+    siv3dRegisterDragExit: function(ptr) {
+        Module["canvas"].ondragexit = function (e) {
+            e.preventDefault();
+            {{{ makeDynCall('v', 'ptr') }}}();
+        };
+    },
+    siv3dRegisterDragExit__sig: "vi",
+
+    $s3dDragDropFileReader: null,
+    siv3dRegisterDragDrop: function(ptr) {
+        Module["canvas"].ondrop = function (e) {
+            e.preventDefault();
+
+            const items = e.dataTransfer.items;
+
+            if (items.length == 0) {
+                return;
+            }
+
+            if (items[0].kind === 'text') {
+                items[0].getAsString(function(str) {
+                    const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);
+                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr);
+                    Module["_free"](strPtr);
+                })            
+            } else if (items[0].kind === 'file') {
+                const file = items[0].getAsFile();
+
+                if (!s3dDragDropFileReader) {
+                    s3dDragDropFileReader = new FileReader();
+                }
+
+                const filePath = `/tmp/${file.name}`;
+
+                s3dDragDropFileReader.addEventListener("load", function onLoaded() {
+                    FS.writeFile(filePath, new Uint8Array(s3dDragDropFileReader.result));
+
+                    const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
+                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr);
+
+                    s3dDragDropFileReader.removeEventListener("load", onLoaded);
+                });
+
+                s3dDragDropFileReader.readAsArrayBuffer(file);              
+            }
+        };
+    },
+    siv3dRegisterDragDrop__sig: "vi",
+    siv3dRegisterDragDrop__deps: [ "$s3dDragDropFileReader", "$FS" ],
 })

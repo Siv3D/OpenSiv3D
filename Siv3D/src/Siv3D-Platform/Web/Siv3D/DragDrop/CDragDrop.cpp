@@ -17,6 +17,11 @@
 
 extern "C"
 {
+	extern void siv3dRegisterDragEnter(void(*callback)(bool));
+	extern void siv3dRegisterDragUpdate(void(*callback)());
+	extern void siv3dRegisterDragExit(void(*callback)());
+	extern void siv3dRegisterDragDrop(void(*callback)(const char*));
+
 	using namespace s3d;
 
 	CDragDrop* pDragDrop = nullptr;
@@ -71,6 +76,11 @@ namespace s3d
 	void CDragDrop::init()
 	{
 		LOG_SCOPED_TRACE(U"CDragDrop::init()");
+
+		::siv3dRegisterDragEnter(&::s3d_DraggingEntered);
+		::siv3dRegisterDragUpdate(&::s3d_DraggingUpdated);
+		::siv3dRegisterDragExit(&::s3d_DraggingExited);
+		::siv3dRegisterDragDrop(&::s3d_ItemDropped);
 	}
 
 
