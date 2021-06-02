@@ -39,5 +39,22 @@ mergeInto(LibraryManager.library, {
     },
     siv3dSetCursorStyle__sig: "vi",
 
-    s3dSetCursorStyle__sig: "vi"
+    //
+    // MessageBox
+    //
+    siv3dShowMessageBox: function(messagePtr, type) {
+        const message = UTF8ToString(messagePtr);
+
+        if (type === 0) {
+            /* MessageBoxButtons.OK */
+            window.alert(message);
+            return 0; /* MessageBoxResult.OK */
+        } else if (type === 1) {
+            /* MessageBoxButtons.OKCancel */
+            return window.confirm(message) ? 0 /* MessageBoxResult.OK */ : 1 /* MessageBoxResult.Cancel */;
+        }
+
+        return 4; /* MessageBoxSelection.None */
+    },
+    siv3dShowMessageBox__sig: "iii",
 })
