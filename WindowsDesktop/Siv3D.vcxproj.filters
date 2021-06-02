@@ -1261,6 +1261,9 @@
     <Filter Include="src\Siv3D\Mat4x4">
       <UniqueIdentifier>{cb04878a-cf66-4df1-ad18-879746a10bbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScopedCustomShader2D">
+      <UniqueIdentifier>{861a8222-241c-407f-935f-e3ab6f9f9961}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5637,9 +5640,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Plane.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5719,9 +5719,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedCustomShader2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates2D.ipp">
@@ -5860,9 +5857,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vertex2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Wave.ipp">
@@ -8143,6 +8137,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat4x4\SivMat4x4.cpp">
       <Filter>src\Siv3D\Mat4x4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader2D\SivScopedCustomShader2D.cpp">
+      <Filter>src\Siv3D\ScopedCustomShader2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

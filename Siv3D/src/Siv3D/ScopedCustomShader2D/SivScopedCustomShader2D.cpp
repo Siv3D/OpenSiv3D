@@ -9,23 +9,25 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/ScopedCustomShader2D.hpp>
 
 namespace s3d
 {
-	inline ScopedCustomShader2D::ScopedCustomShader2D(const VertexShader& vs)
+	ScopedCustomShader2D::ScopedCustomShader2D() {}
+
+	ScopedCustomShader2D::ScopedCustomShader2D(const VertexShader& vs)
 		: m_oldVS{ Graphics2D::GetCustomVertexShader() }
 	{
 		Graphics2D::Internal::SetCustomVertexShader(vs);
 	}
 
-	inline ScopedCustomShader2D::ScopedCustomShader2D(const PixelShader& ps)
+	ScopedCustomShader2D::ScopedCustomShader2D(const PixelShader& ps)
 		: m_oldPS{ Graphics2D::GetCustomPixelShader() }
 	{
 		Graphics2D::Internal::SetCustomPixelShader(ps);
 	}
 
-	inline ScopedCustomShader2D::ScopedCustomShader2D(const VertexShader& vs, const PixelShader& ps)
+	ScopedCustomShader2D::ScopedCustomShader2D(const VertexShader& vs, const PixelShader& ps)
 		: m_oldVS{ Graphics2D::GetCustomVertexShader() }
 		, m_oldPS{ Graphics2D::GetCustomPixelShader() }
 	{
@@ -33,7 +35,7 @@ namespace s3d
 		Graphics2D::Internal::SetCustomPixelShader(ps);
 	}
 
-	inline ScopedCustomShader2D::ScopedCustomShader2D(const PixelShader& ps, const VertexShader& vs)
+	ScopedCustomShader2D::ScopedCustomShader2D(const PixelShader& ps, const VertexShader& vs)
 		: m_oldVS(Graphics2D::GetCustomVertexShader())
 		, m_oldPS(Graphics2D::GetCustomPixelShader())
 	{
@@ -41,20 +43,20 @@ namespace s3d
 		Graphics2D::Internal::SetCustomPixelShader(ps);
 	}
 
-	inline ScopedCustomShader2D::ScopedCustomShader2D(ScopedCustomShader2D&& other) noexcept
+	ScopedCustomShader2D::ScopedCustomShader2D(ScopedCustomShader2D&& other) noexcept
 	{
 		m_oldVS = other.m_oldVS;
 		m_oldPS = other.m_oldPS;
 		other.clear();
 	}
 
-	inline ScopedCustomShader2D::~ScopedCustomShader2D()
+	ScopedCustomShader2D::~ScopedCustomShader2D()
 	{
 		m_oldVS.then(Graphics2D::Internal::SetCustomVertexShader);
 		m_oldPS.then(Graphics2D::Internal::SetCustomPixelShader);
 	}
 
-	//inline ScopedCustomShader2D& ScopedCustomShader2D::operator =(ScopedCustomShader2D&& other) noexcept
+	//ScopedCustomShader2D& ScopedCustomShader2D::operator =(ScopedCustomShader2D&& other) noexcept
 	//{
 	//	if ((not m_oldVS) && other.m_oldVS)
 	//	{
@@ -71,7 +73,7 @@ namespace s3d
 	//	return *this;
 	//}
 
-	inline void ScopedCustomShader2D::clear() noexcept
+	void ScopedCustomShader2D::clear() noexcept
 	{
 		m_oldVS.reset();
 		m_oldPS.reset();

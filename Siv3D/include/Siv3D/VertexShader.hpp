@@ -47,5 +47,3 @@ namespace s3d
 		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
-
-# include "detail/VertexShader.ipp"

@@ -13,8 +13,6 @@
 
 namespace s3d
 {
-	inline INI::INI() {}
-
 	inline INI::INI(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		load(path, encoding);
@@ -62,50 +60,6 @@ namespace s3d
 	inline bool INI::hasSection(const SectionView section) const
 	{
 		return m_keyIndices.contains(section);
-	}
-
-	inline const INISection& INI::getSection(const SectionView section) const
-	{
-		if (auto it = m_keyIndices.find(section);
-			it != m_keyIndices.end())
-		{
-			return m_sections[it->second.first];
-		}
-		else
-		{
-			return m_emptySection;
-		}
-	}
-
-	inline bool INI::hasValue(const SectionView section, const NameView name) const
-	{
-		if (auto itSection = m_keyIndices.find(section);
-			itSection != m_keyIndices.end()) // Section が存在
-		{
-			return itSection->second.second.contains(name);
-		}
-
-		return false;
-	}
-
-	inline const String& INI::getValue(const SectionView section, const NameView name) const
-	{
-		if (auto itSection = m_keyIndices.find(section);
-			itSection != m_keyIndices.end()) // Section が存在
-		{
-			const auto& value = itSection->second;
-			const size_t sectionIndex = value.first;
-
-			if (auto itKey = value.second.find(name);
-				itKey != value.second.end()) // Key が存在
-			{
-				const size_t keyIndex = itKey->second;
-
-				return m_sections[sectionIndex].keys[keyIndex].value;
-			}
-		}
-
-		return m_emptyValue;
 	}
 
 	inline bool INI::hasGlobalValue(const NameView name) const

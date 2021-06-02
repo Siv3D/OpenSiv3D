@@ -1749,35 +1749,5 @@ namespace s3d
 			sum += ((p0.x - p3.x) * (p0.y + p3.y));
 			return (sum < 0);
 		}
-
-		inline bool IsClockwise(const Array<Point>& points) noexcept
-		{
-			return detail::IsClockwise(points.data(), points.size());
-		}
-
-		inline bool IsClockwise(const Point* points, const size_t size) noexcept
-		{
-			return detail::IsClockwise(points, size);
-		}
-
-		inline bool IsClockwise(const Array<Float2>& points) noexcept
-		{
-			return detail::IsClockwise(points.data(), points.size());
-		}
-
-		inline bool IsClockwise(const Float2* points, const size_t size) noexcept
-		{
-			return detail::IsClockwise(points, size);
-		}
-
-		inline bool IsClockwise(const Array<Vec2>& points) noexcept
-		{
-			return detail::IsClockwise(points.data(), points.size());
-		}
-
-		inline bool IsClockwise(const Vec2* points, const size_t size) noexcept
-		{
-			return detail::IsClockwise(points, size);
-		}
 	}
 }

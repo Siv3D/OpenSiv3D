@@ -57,4 +57,24 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Shader)->getBinaryVS(m_handle->id());
 	}
+
+	VertexShader VertexShader::HLSL(const FilePathView path, const StringView entryPoint)
+	{
+		return VertexShader{ path, entryPoint, {} };
+	}
+
+	VertexShader VertexShader::GLSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return VertexShader{ path, {}, bindings };
+	}
+
+	VertexShader VertexShader::MSL(const StringView entryPoint, const FilePathView path)
+	{
+		return VertexShader{ path, entryPoint, {} };
+	}
+
+	VertexShader VertexShader::ESSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return VertexShader{ path, {}, bindings };
+	}
 }

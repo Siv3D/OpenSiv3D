@@ -2673,22 +2673,22 @@ namespace s3d
 		/// @param points 頂点配列
 		/// @return 時計回りである場合 true, それ以外の場合は false
 		[[nodiscard]]
-		inline bool IsClockwise(const Array<Point>& points) noexcept;
+		bool IsClockwise(const Array<Point>& points) noexcept;
 
 		[[nodiscard]]
-		inline bool IsClockwise(const Point* points, size_t size) noexcept;
+		bool IsClockwise(const Point* points, size_t size) noexcept;
 
 		[[nodiscard]]
-		inline bool IsClockwise(const Array<Float2>& points) noexcept;
+		bool IsClockwise(const Array<Float2>& points) noexcept;
 
 		[[nodiscard]]
-		inline bool IsClockwise(const Float2* points, size_t size) noexcept;
+		bool IsClockwise(const Float2* points, size_t size) noexcept;
 
 		[[nodiscard]]
-		inline bool IsClockwise(const Array<Vec2>& points) noexcept;
+		bool IsClockwise(const Array<Vec2>& points) noexcept;
 
 		[[nodiscard]]
-		inline bool IsClockwise(const Vec2* points, size_t size) noexcept;
+		bool IsClockwise(const Vec2* points, size_t size) noexcept;
 
 		//////////////////////////////////////////////////
 		//

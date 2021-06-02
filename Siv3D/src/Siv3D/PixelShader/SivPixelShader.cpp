@@ -57,4 +57,24 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Shader)->getBinaryPS(m_handle->id());
 	}
+
+	PixelShader PixelShader::HLSL(const FilePathView path, const StringView entryPoint)
+	{
+		return PixelShader{ path, entryPoint, {} };
+	}
+
+	PixelShader PixelShader::GLSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return PixelShader{ path, {}, bindings };
+	}
+
+	PixelShader PixelShader::MSL(const StringView entryPoint, const FilePathView path)
+	{
+		return PixelShader{ path, entryPoint, {} };
+	}
+
+	PixelShader PixelShader::ESSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		return PixelShader{ path, {}, bindings };
+	}
 }

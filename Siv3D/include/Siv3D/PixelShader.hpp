@@ -47,6 +47,3 @@ namespace s3d
 		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
-
-# include "detail/PixelShader.ipp"
-

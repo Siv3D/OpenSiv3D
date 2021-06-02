@@ -67,6 +67,50 @@ namespace s3d
 		return true;
 	}
 
+	const INISection& INI::getSection(const SectionView section) const
+	{
+		if (auto it = m_keyIndices.find(section);
+			it != m_keyIndices.end())
+		{
+			return m_sections[it->second.first];
+		}
+		else
+		{
+			return m_emptySection;
+		}
+	}
+
+	bool INI::hasValue(const SectionView section, const NameView name) const
+	{
+		if (auto itSection = m_keyIndices.find(section);
+			itSection != m_keyIndices.end()) // Section が存在
+		{
+			return itSection->second.second.contains(name);
+		}
+
+		return false;
+	}
+
+	const String& INI::getValue(const SectionView section, const NameView name) const
+	{
+		if (auto itSection = m_keyIndices.find(section);
+			itSection != m_keyIndices.end()) // Section が存在
+		{
+			const auto& value = itSection->second;
+			const size_t sectionIndex = value.first;
+
+			if (auto itKey = value.second.find(name);
+				itKey != value.second.end()) // Key が存在
+			{
+				const size_t keyIndex = itKey->second;
+
+				return m_sections[sectionIndex].keys[keyIndex].value;
+			}
+		}
+
+		return m_emptyValue;
+	}
+
 	void INI::addSection(const SectionView section)
 	{
 		if (hasSection(section))

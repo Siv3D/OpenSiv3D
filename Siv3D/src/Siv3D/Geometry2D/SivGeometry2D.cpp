@@ -5115,6 +5115,42 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	IsClockwise
+		//
+		//////////////////////////////////////////////////
+
+		bool IsClockwise(const Array<Point>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		bool IsClockwise(const Point* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
+		}
+
+		bool IsClockwise(const Array<Float2>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		bool IsClockwise(const Float2* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
+		}
+
+		bool IsClockwise(const Array<Vec2>& points) noexcept
+		{
+			return detail::IsClockwise(points.data(), points.size());
+		}
+
+		bool IsClockwise(const Vec2* points, const size_t size) noexcept
+		{
+			return detail::IsClockwise(points, size);
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	BoundingRect
 		//
 		//////////////////////////////////////////////////

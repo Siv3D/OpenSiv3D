@@ -361,6 +361,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Scene/FrameTimer.cpp
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
+  ../Siv3D/src/Siv3D/ScopedCustomShader2D/SivScopedCustomShader2D.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
