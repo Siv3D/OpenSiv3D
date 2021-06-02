@@ -118,6 +118,10 @@
 #include <cpuid.h>
 #endif
 
+#if SIV3D_PLATFORM(WEB) && !SIV3D_INTRINSIC(SSE)
+#define _MM_FROUND_NO_EXC SIMDE_MM_FROUND_NO_EXC
+#else
+
 #ifdef _XM_SSE_INTRINSICS_
 #include <xmmintrin.h>
 #include <emmintrin.h>
@@ -139,6 +143,7 @@
 #include <arm64_neon.h>
 #else
 #include <arm_neon.h>
+#endif
 #endif
 #endif
 #endif // !_XM_NO_INTRINSICS_

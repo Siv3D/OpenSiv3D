@@ -36,7 +36,7 @@ namespace s3d
 
 	GLES3BackBuffer::~GLES3BackBuffer()
 	{
-
+		// do nothing
 	}
 
 	void GLES3BackBuffer::clear(const GLES3ClearTarget clearTargets)
@@ -90,6 +90,36 @@ namespace s3d
 		pRenderer2D->drawFullScreenTriangle(m_sceneTextureFilter);
 
 		::glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void GLES3BackBuffer::capture()
+	{
+		if (m_screenCaptureImage.size() != m_sceneSize)
+		{
+			m_screenCaptureImage.resize(m_sceneSize);
+		}
+
+		if (m_sampleCount == 1)
+		{
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getTexture());
+			{
+				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		else
+		{
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.resolved->getTexture());
+			{
+				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+	}
+
+	const Image& GLES3BackBuffer::getScreenCapture() const
+	{
+		return m_screenCaptureImage;
 	}
 
 	//////////////////////////////////////////////////
