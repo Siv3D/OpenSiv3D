@@ -15,5 +15,11 @@ Module.preRun = [
         return [];
       }
     }
+    
+    global.Module = {
+      canvas: {
+        style: {}
+      }
+    }
   }
 ]
