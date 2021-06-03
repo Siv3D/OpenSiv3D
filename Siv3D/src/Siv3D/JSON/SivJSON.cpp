@@ -43,8 +43,6 @@ namespace s3d
 		{
 			nlohmann::detail::iteration_proxy_value<nlohmann::json::iterator> it;
 
-			JSONIterationProxyDetail() = default;
-
 			explicit JSONIterationProxyDetail(nlohmann::detail::iteration_proxy_value<nlohmann::json::iterator> _it)
 				: it{ _it } {}
 		};

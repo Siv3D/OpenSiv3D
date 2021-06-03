@@ -778,28 +778,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wav.cpp
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wavstream.cpp
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/stb_vorbis.c
-  ../Siv3D/src/ThirdParty/soloud/src/backend/alsa/soloud_alsa.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/coreaudio/soloud_coreaudio.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/jack/soloud_jack.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/miniaudio/soloud_miniaudio.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/nosound/soloud_nosound.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/null/soloud_null.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal_dll.c
-  ../Siv3D/src/ThirdParty/soloud/src/backend/opensles/soloud_opensles.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/oss/soloud_oss.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio_dll.c
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1_dll.c
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
-  ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud.cpp
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud_audiosource.cpp
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud_bus.cpp

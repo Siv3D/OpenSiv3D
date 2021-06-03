@@ -70,6 +70,6 @@ namespace s3d
 
 		DynamicTexture m_texture;
 
-		BufferImage m_buffer = { .backgroundColor = Color{ 0, 0 } };
+		BufferImage m_buffer = { .image = {}, .backgroundColor = Color{ 0, 0 } };
 	};
 }
