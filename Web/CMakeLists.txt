@@ -377,7 +377,7 @@ add_library(
   ../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
-  # ../Siv3D/src/Siv3D/String/Levenshtein.cpp
+  ../Siv3D/src/Siv3D/String/Levenshtein.cpp
   ../Siv3D/src/Siv3D/StringView/SivStringView.cpp
   ../Siv3D/src/Siv3D/Subdivision2D/SivSubdivision2D.cpp
   ../Siv3D/src/Siv3D/SVG/SivSVG.cpp
