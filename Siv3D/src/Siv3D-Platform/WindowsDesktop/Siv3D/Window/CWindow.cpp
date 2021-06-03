@@ -103,13 +103,14 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static Size SetFullscreen(HWND hWnd, RECT& storedWindowRect, const uint32 baseWindowStyle)
+		static Size SetFullscreen(HWND hWnd, size_t monitorIndex, RECT& storedWindowRect, const uint32 baseWindowStyle)
 		{
 			Size result{ 0, 0 };
 
 			::GetWindowRect(hWnd, &storedWindowRect);
 			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
+			/*
 			DEVMODE devMode = {};
 			devMode.dmSize = sizeof(DEVMODE);
 			::EnumDisplaySettingsW(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
@@ -122,14 +123,24 @@ namespace s3d
 			};
 
 			result.set(static_cast<int32>(devMode.dmPelsWidth), static_cast<int32>(devMode.dmPelsHeight));
-	
+			*/
+			const Array<Monitor> monitors = System::EnumerateMonitors();
+
+			if (monitors.size() <= monitorIndex)
+			{
+				monitorIndex = System::GetCurrentMonitorIndex();
+			}
+
+			const Rect fullscreenRect = monitors[monitorIndex].displayRect;
+			result = fullscreenRect.size;
+
 			::SetWindowPos(
 				hWnd,
 				HWND_TOPMOST,
-				fullscreenWindowRect.left,
-				fullscreenWindowRect.top,
-				fullscreenWindowRect.right,
-				fullscreenWindowRect.bottom,
+				fullscreenRect.x,
+				fullscreenRect.y,
+				(fullscreenRect.x + fullscreenRect.w),
+				(fullscreenRect.y + fullscreenRect.h),
 				SWP_FRAMECHANGED | SWP_NOACTIVATE);
 
 			::ShowWindow(hWnd, SW_MAXIMIZE);
@@ -290,7 +301,7 @@ namespace s3d
 	{
 		if (m_toggleFullscreenRequest)
 		{
-			setFullscreen(not m_state.fullscreen);
+			setFullscreen(not m_state.fullscreen, System::GetCurrentMonitorIndex());
 
 			m_toggleFullscreenRequest = false;
 		}
@@ -471,9 +482,9 @@ namespace s3d
 		m_state.minFrameBufferSize = size;
 	}
 
-	void CWindow::setFullscreen(const bool fullscreen)
+	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex)
 	{
-		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {})"_fmt(fullscreen));
+		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
 
 		if (fullscreen == m_state.fullscreen)
 		{
@@ -482,7 +493,7 @@ namespace s3d
 
 		if (m_state.fullscreen == false) // 現在ウィンドウモード
 		{
-			[[maybe_unused]] const Size size = detail::SetFullscreen(m_hWnd, m_storedWindowRect, detail::GetBaseWindowStyle(m_state.style)); // フルスクリーンモードに
+			[[maybe_unused]] const Size size = detail::SetFullscreen(m_hWnd, monitorIndex, m_storedWindowRect, detail::GetBaseWindowStyle(m_state.style)); // フルスクリーンモードに
 		}
 		else
 		{

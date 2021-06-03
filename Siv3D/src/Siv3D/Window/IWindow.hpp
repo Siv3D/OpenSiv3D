@@ -50,6 +50,6 @@ namespace s3d
 
 		virtual void setMinimumFrameBufferSize(const Size& size) = 0;
 
-		virtual void setFullscreen(bool fullscreen) = 0;
+		virtual void setFullscreen(bool fullscreen, size_t monitorIndex) = 0;
 	};
 }

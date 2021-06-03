@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Formatter.hpp"
+# include "Monitor.hpp"
 # include "PointVector.hpp"
 # include "StringView.hpp"
 # include "WindowStyle.hpp"
@@ -123,7 +124,7 @@ namespace s3d
 		/// @param size 設定するサイズ（ピクセル）
 		void SetMinimumFrameBufferSize(Size size);
 
-		void SetFullscreen(bool fullscreen);
+		void SetFullscreen(bool fullscreen, size_t monitorIndex = System::GetCurrentMonitorIndex());
 	}
 }
 

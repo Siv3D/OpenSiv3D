@@ -99,8 +99,8 @@ namespace s3d
 		LOG_TRACE(U"CWindow_Null::setMinimumFrameBufferSize(size = {})"_fmt(size));
 	}
 
-	void CWindow_Null::setFullscreen(const bool fullscreen)
+	void CWindow_Null::setFullscreen(const bool fullscreen, const size_t monitorIndex)
 	{
-		LOG_TRACE(U"CWindow_Null::setFullscreen(fullscreen = {})"_fmt(fullscreen));
+		LOG_TRACE(U"CWindow_Null::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
 	}
 }
