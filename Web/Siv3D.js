@@ -1,4 +1,18 @@
 mergeInto(LibraryManager.library, {
+    //
+    // GamePads
+    //
+    siv3dGetJoystickInfo: function(joystickId) {
+        return GLFW.joys[joystickId].id;
+    },
+    siv3dGetJoystickInfo__sig: "iiiii",
+
+    glfwGetJoystickHats: function () {
+        // Not supported.
+        return 0;
+    },
+    glfwGetJoystickHats__sig: "iii",
+
     glfwGetKeysSiv3D: function (windowid) {
         const window = GLFW.WindowFromId(windowid);
         if (!window) return 0;
@@ -10,6 +24,9 @@ mergeInto(LibraryManager.library, {
     },
     glfwGetKeysSiv3D__sig: "ii",
 
+    //
+    // Monitors
+    //
     glfwGetMonitorInfo_Siv3D: function(handle, displayID, xpos, ypos, w, h) {
         setValue(displayID, 1, 'i32');
         setValue(xpos, 0, 'i32');
@@ -90,7 +107,7 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRegisterDragExit__sig: "vi",
 
-    $s3dDragDropFileReader: null,
+    $siv3dDragDropFileReader: null,
     siv3dRegisterDragDrop: function(ptr) {
         Module["canvas"].ondrop = function (e) {
             e.preventDefault();
@@ -110,25 +127,25 @@ mergeInto(LibraryManager.library, {
             } else if (items[0].kind === 'file') {
                 const file = items[0].getAsFile();
 
-                if (!s3dDragDropFileReader) {
-                    s3dDragDropFileReader = new FileReader();
+                if (!siv3dDragDropFileReader) {
+                    siv3dDragDropFileReader = new FileReader();
                 }
 
                 const filePath = `/tmp/${file.name}`;
 
-                s3dDragDropFileReader.addEventListener("load", function onLoaded() {
-                    FS.writeFile(filePath, new Uint8Array(s3dDragDropFileReader.result));
+                siv3dDragDropFileReader.addEventListener("load", function onLoaded() {
+                    FS.writeFile(filePath, new Uint8Array(siv3dDragDropFileReader.result));
 
                     const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
                     {{{ makeDynCall('vi', 'ptr') }}}(namePtr);
 
-                    s3dDragDropFileReader.removeEventListener("load", onLoaded);
+                    siv3dDragDropFileReader.removeEventListener("load", onLoaded);
                 });
 
-                s3dDragDropFileReader.readAsArrayBuffer(file);              
+                siv3dDragDropFileReader.readAsArrayBuffer(file);              
             }
         };
     },
     siv3dRegisterDragDrop__sig: "vi",
-    siv3dRegisterDragDrop__deps: [ "$s3dDragDropFileReader", "$FS" ],
+    siv3dRegisterDragDrop__deps: [ "$siv3dDragDropFileReader", "$FS" ],
 })
