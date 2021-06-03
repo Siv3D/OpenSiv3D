@@ -52,6 +52,7 @@ namespace s3d
             if (bool shouldContinue = PseudoThreadExecute(*__p.get(), _Index()); not shouldContinue) 
             {
                 ::emscripten_clear_interval(nativeHandle->m_IntervalID);
+                nativeHandle->m_IntervalID = 0;
                 return;          
             }
 
@@ -112,7 +113,7 @@ namespace s3d
 
         bool joinable() const
         {
-            return false;
+            return m_NativeHandle && m_NativeHandle->m_IntervalID != 0;
         }
 
         void join()
