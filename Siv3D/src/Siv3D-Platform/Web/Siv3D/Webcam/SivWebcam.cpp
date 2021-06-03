@@ -34,12 +34,12 @@ namespace s3d
 	Webcam::Webcam(const uint32 cameraIndex, const Size& targetResolution, const StartImmediately startImmediately)
 		: Webcam{}
 	{
+		pImpl->setResolution(targetResolution);
+
 		if (not pImpl->open(cameraIndex))
 		{
 			return;
 		}
-
-		pImpl->setResolution(targetResolution);
 
 		if (startImmediately)
 		{

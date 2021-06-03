@@ -148,4 +148,83 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRegisterDragDrop__sig: "vi",
     siv3dRegisterDragDrop__deps: [ "$siv3dDragDropFileReader", "$FS" ],
+
+    //
+    // WebCamera/Movie Support
+    //
+    $videoElements: [],
+
+    siv3dOpenVideo: function(fileName) {
+
+    },
+    siv3dOpenVideo__sig: "vi",
+
+    siv3dOpenCamera: function(width, height, callback, callbackArg) {
+        const constraint = {
+            video: { width, height },
+            audio: false
+        };
+
+        navigator.mediaDevices.getUserMedia(constraint).then(
+            stream => {
+                const video = document.createElement("video");
+
+                video.addEventListener('loadedmetadata', function onLoaded() {
+                    const idx = GL.getNewId(videoElements);
+
+                    video.removeEventListener('loadedmetadata', onLoaded);
+                    videoElements[idx] = video;
+
+                    if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+                });
+
+                video.srcObject = stream;                      
+            }
+        ).catch(_ => {
+            if (callback) {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
+        })
+    },
+    siv3dOpenCamera__sig: "viiii",
+    siv3dOpenCamera__deps: ["$videoElements"],
+
+    siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
+        const video = videoElements[idx];
+        GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, video);
+    },
+    siv3dCaptureVideoFrame__sig: "viiiiiiiii",
+    siv3dCaptureVideoFrame__deps: ["$videoElements"],
+
+    siv3dQueryVideoPlaybackedTime: function(idx) {
+        const video = videoElements[idx];
+        return video.currentTime;
+    },
+    siv3dQueryVideoPlaybackedTime__sig: "di",
+    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+
+    siv3dPlayVideo: function(idx) {
+        const video = videoElements[idx];
+        video.play();
+    },
+    siv3dPlayVideo__sig: "vi",
+    siv3dPlayVideo__deps: ["$videoElements"],
+
+    siv3dStopVideo: function(idx) {
+        const video = videoElements[idx];
+
+        let stream = video.srcObject;
+        let tracks = stream.getTracks();
+      
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+    },
+    siv3dStopVideo__sig: "vi",
+    siv3dStopVideo__deps: ["$videoElements"],
+
+    siv3dDestroyVideo: function(idx) {
+        _siv3dStopVideo(idx);
+        delete videoElements[idx];
+    },
+    siv3dDestroyVideo__sig: "vi",
+    siv3dDestroyVideo__deps: ["$videoElements"],
 })

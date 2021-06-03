@@ -11,64 +11,22 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
 # include "WebcamDetail.hpp"
 
 namespace s3d
 {
-	namespace detail
+
+	Webcam::WebcamDetail::WebcamDetail() 
 	{
-		void CopyFrame(const cv::Mat_<cv::Vec3b>& src, Image& dst)
-		{
-			const size_t num_pixels = dst.num_pixels();
-			const uint8* pSrc = src.data;
-			uint8* pDst = dst.dataAsUint8();
-
-			if (num_pixels % 4 == 0)
-			{
-				const size_t count = (num_pixels / 4);
-
-				for (size_t i = 0; i < count; ++i)
-				{
-					pDst[2] = pSrc[0];
-					pDst[1] = pSrc[1];
-					pDst[0] = pSrc[2];
-
-					pDst[6] = pSrc[3];
-					pDst[5] = pSrc[4];
-					pDst[4] = pSrc[5];
-
-					pDst[10] = pSrc[6];
-					pDst[9] = pSrc[7];
-					pDst[8] = pSrc[8];
-
-					pDst[14] = pSrc[9];
-					pDst[13] = pSrc[10];
-					pDst[12] = pSrc[11];
-
-					pDst += 16;
-					pSrc += 12;
-				}
-			}
-			else
-			{
-				for (size_t i = 0; i < num_pixels; ++i)
-				{
-					pDst[2] = pSrc[0];
-					pDst[1] = pSrc[1];
-					pDst[0] = pSrc[2];
-
-					pDst += 4;
-					pSrc += 3;
-				}
-			}
-		}
+		::glGenFramebuffers(1, &m_copyFrameBuffer);
+		m_frameBufferUnpackers.resize(2);
 	}
-
-	Webcam::WebcamDetail::WebcamDetail() {}
 
 	Webcam::WebcamDetail::~WebcamDetail()
 	{
 		close();
+		::glDeleteFramebuffers(1, &m_copyFrameBuffer);
 	}
 
 	bool Webcam::WebcamDetail::open(const uint32 cameraIndex)
@@ -77,24 +35,20 @@ namespace s3d
 
 		close();
 
-		if (not m_capture.open(static_cast<int32>(cameraIndex)))
+		m_abort = false;
+
+		m_capture.setResolution(m_captureResolution);
+
+		if (not m_capture.open())
 		{
-			LOG_ERROR(U"cv::VideoCapture::oepn({}) failed"_fmt(cameraIndex));
+			LOG_ERROR(U"cv::VideoCapture::open({}) failed"_fmt(cameraIndex));
 			
 			return false;
 		}
 
-		LOG_INFO(U"cv::VideoCapture::oepn({}) succeeded"_fmt(cameraIndex));
+		LOG_INFO(U"cv::VideoCapture::open({}) succeeded"_fmt(cameraIndex));
 
 		m_cameraIndex = cameraIndex;
-
-		{
-			m_captureResolution.set(
-				static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_WIDTH)),
-				static_cast<int32>(m_capture.get(cv::CAP_PROP_FRAME_HEIGHT)));
-			
-			m_image = Image{ m_captureResolution, Color{ 255 } };
-		}
 
 		return true;
 	}
@@ -115,7 +69,6 @@ namespace s3d
 
 		m_thread.join();
 		{
-			m_abort = false;
 			m_capture.release();
 			m_cameraIndex = 0;
 			m_newFrameCount = 0;
@@ -143,7 +96,12 @@ namespace s3d
 
 		// キャプチャスレッドを起動
 		{
-			m_thread = std::thread{ Run, std::ref(*this) };
+			m_thread = PseudoThread{ Run, std::ref(*this) };
+
+			for (auto& unpacker : m_frameBufferUnpackers)
+			{
+				unpacker.resize(m_captureResolution);
+			}
 
 			return true;
 		}
@@ -166,7 +124,8 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::setResolution(const Size& resolution)
 	{
-		if (not m_capture.isOpened())
+		// BUGBUG: Web 版では open 前でなければ解像度変更ができない
+		if (m_capture.isOpened())
 		{
 			return false;
 		}
@@ -177,32 +136,13 @@ namespace s3d
 			return false;
 		}
 
-		// すでに同じ解像度が設定されている
-		if (resolution == m_captureResolution)
-		{
-			return true;
-		}
+		m_captureResolution = resolution;
 
-		if ((not m_capture.set(cv::CAP_PROP_FRAME_WIDTH, resolution.x))
-			|| (not m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, resolution.y)))
-		{
-			m_capture.set(cv::CAP_PROP_FRAME_WIDTH, m_captureResolution.x);
-			m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, m_captureResolution.y);
-			return false;
-		}
-		else
-		{
-			m_capture >> m_frame;
-			m_captureResolution.set(m_frame.cols, m_frame.rows);
-			m_image = Image{ m_captureResolution, Color{ 255 } };
-			return (m_captureResolution == resolution);
-		}
+		return true;
 	}
 
 	bool Webcam::WebcamDetail::hasNewFrame()
 	{
-		std::lock_guard lock{ m_imageMutex };
-
 		return (0 < m_newFrameCount);
 	}
 
@@ -213,11 +153,16 @@ namespace s3d
 			return false;
 		}
 
+		auto& selectedUnpacker = m_frameBufferUnpackers[m_totalFrameCount % 2];
+
+		if (!selectedUnpacker.hasFinishedUnpack())
+		{
+			return false;
+		}
+
 		image.resize(m_captureResolution);
 		{
-			std::lock_guard lock{ m_imageMutex };
-
-			std::memcpy(image.data(), m_image.data(), image.size_bytes());
+			selectedUnpacker.readPixels(image);
 
 			m_newFrameCount = 0;
 		}
@@ -232,41 +177,51 @@ namespace s3d
 			return false;
 		}
 
+		auto textureManager = static_cast<CTexture_GLES3*>(Siv3DEngine::Get<ISiv3DTexture>());
+
 		{
-			std::lock_guard lock{ m_imageMutex };
+			::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_capturedFrameBuffer);
+			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_copyFrameBuffer);
+			::glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureManager->getTexture(texture.id()), 0);
+			
+			::glBlitFramebuffer(
+				0, 0, m_captureResolution.x, m_captureResolution.y,
+				0, 0, texture.width(), texture.height(),
+				GL_COLOR_BUFFER_BIT, GL_NEAREST
+			);
 
-			const bool result = texture.fill(m_image);
+			::glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
 
-			m_newFrameCount = 0;
-
-			return result;
+			::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		}
+
+		m_newFrameCount = 0;
+
+		return true;
 	}
 	
-	void Webcam::WebcamDetail::Run(WebcamDetail& webcam)
+	bool Webcam::WebcamDetail::Run(WebcamDetail& webcam)
 	{
 		auto& capture = webcam.m_capture;
 
-		while (not webcam.m_abort)
+		if (webcam.m_abort)
 		{
-			if (not capture.grab())
-			{
-				System::Sleep(5);
-				continue;
-			}
-
-			if (not capture.retrieve(webcam.m_frame))
-			{
-				continue;
-			}
-
-			{
-				std::lock_guard lock{ webcam.m_imageMutex };
-
-				detail::CopyFrame(webcam.m_frame, webcam.m_image);
-
-				++webcam.m_newFrameCount;
-			}
+			return false;
 		}
+
+		if (capture.grab())
+		{
+			auto capturedFrameBuffer = capture.capture();
+			auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
+
+			selectedUnpacker.startUnpack(capturedFrameBuffer);
+
+			webcam.m_capturedFrameBuffer = capturedFrameBuffer;
+			webcam.m_newFrameCount++;
+			webcam.m_totalFrameCount++;
+		}
+
+		return true;
 	}
 }
