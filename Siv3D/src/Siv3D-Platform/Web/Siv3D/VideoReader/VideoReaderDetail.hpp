@@ -11,7 +11,10 @@
 
 # pragma once
 # include <Siv3D/VideoReader.hpp>
-# include <Siv3D/OpenCV_Bridge.hpp>
+# include <Siv3D/VideoCapture/VideoCapture.hpp>
+# include <Siv3D/VideoCapture/FrameBufferUnpacker.hpp>
+# include <Siv3D/PseudoThread/PseudoThread.hpp>
+# include <GLES3/gl3.h>
 
 namespace s3d
 {
@@ -19,9 +22,7 @@ namespace s3d
 	{
 		int32 index = -1;
 
-		cv::Mat mat;
-
-		Image image;
+		FrameBufferUnpacker unpacker;
 	};
 
 	class VideoReader::VideoReaderDetail
@@ -34,11 +35,13 @@ namespace s3d
 
 		std::future<void> m_task;
 
+		PseudoThread m_thread;
+
 		/////
 		// m_mutex で管理するデータ
 		struct Shared
 		{
-			cv::VideoCapture capture;
+			WebCameraCapture capture;
 
 			int32 readPos = 0;
 
@@ -70,7 +73,7 @@ namespace s3d
 
 		} m_info;
 
-		void run();
+		bool run();
 
 	public:
 

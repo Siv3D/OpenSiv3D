@@ -40,7 +40,7 @@ namespace s3d
 		// TODO: カメラのデフォルトの解像度も取得したい
 		m_capture.setResolution(m_captureResolution);
 
-		if (not m_capture.open())
+		if (not m_capture.openCamera())
 		{
 			LOG_ERROR(U"cv::VideoCapture::open({}) failed"_fmt(cameraIndex));
 			

@@ -23,13 +23,25 @@ namespace s3d
 
         ~WebCameraCapture();
 
-        bool open();
+        bool openCamera();
+
+        bool openVideo(FilePathView filepath);
+
+        void play();
+
+        void seek(double time);
 
         void stop();
 
         void release();
     
         void setResolution(const Size& resolution);
+
+        Size getResolution() const;
+
+        double getFPS() const;
+
+        double getDuration() const;
 
         bool grab();
     
@@ -45,6 +57,10 @@ namespace s3d
 
         Size m_captureResolution = { 0, 0 };
 
+        double m_playbackFPS = 0.0;
+
+        double m_videoDuration = 0.0;
+
         GLuint m_videoElementID = 0;
 
         GLuint m_videoBufferTexture = 0;
@@ -52,5 +68,7 @@ namespace s3d
         GLuint m_videoBufferFrameBuffer = 0;
 
         double m_lastFrameCapturedTime = 0.0;
+
+        bool m_shouldAutoPlay = false;
     };
 }

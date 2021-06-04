@@ -10,7 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Fwd.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/Image.hpp>
 # include <GLES3/gl3.h>
+# include <webgl/webgl2.h>
 
 namespace s3d
 {

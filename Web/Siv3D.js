@@ -154,10 +154,25 @@ mergeInto(LibraryManager.library, {
     //
     $videoElements: [],
 
-    siv3dOpenVideo: function(fileName) {
+    siv3dOpenVideo: function(fileName, callback, callbackArg) {
+        const videoData = FS.readFile(UTF8ToString(fileName), "binary");
+        const blob = new Blob(videoData, { type: "video" });
 
+        const video = document.createElement("video");
+
+        video.addEventListener('loadedmetadata', function onLoaded() {
+            const idx = GL.getNewId(videoElements);
+
+            video.removeEventListener('loadedmetadata', onLoaded);
+            videoElements[idx] = video;
+
+            if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        });
+
+        video.src = URL.createObjectURL(blob);
     },
     siv3dOpenVideo__sig: "vi",
+    siv3dOpenVideo__deps: [ "$FS", "$videoElements" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
@@ -201,6 +216,30 @@ mergeInto(LibraryManager.library, {
     siv3dQueryVideoPlaybackedTime__sig: "di",
     siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
 
+    siv3dSetVideoPlaybackedTime: function(idx, time) {
+        const video = videoElements[idx];
+        video.currentTime = time;
+    },
+    siv3dQueryVideoPlaybackedTime__sig: "vid",
+    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+
+    siv3dQueryVideoDuration: function(idx) {
+        const video = videoElements[idx];
+        return video.duration;
+    },
+    siv3dQueryVideoPlaybackedTime__sig: "di",
+    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+
+    siv3dQueryVideoPreference: function(idx, width, height, fps) {
+        const video = videoElements[idx];
+
+        setValue(width, video.videoWidth, 'i32');
+        setValue(height, video.videoHeight, 'i32');
+        setValue(height, 29.7, 'double');
+    },
+    siv3dQueryVideoPlaybackedTime__sig: "viiii",
+    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+
     siv3dPlayVideo: function(idx) {
         const video = videoElements[idx];
         video.play();
@@ -223,10 +262,16 @@ mergeInto(LibraryManager.library, {
 
     siv3dDestroyVideo: function(idx) {
         _siv3dStopVideo(idx);
+
+        const video = videoElements[idx];
+        if (!!video.src) {
+            URL.revokeObjectURL(src);
+        }
+
         delete videoElements[idx];
     },
     siv3dDestroyVideo__sig: "vi",
-    siv3dDestroyVideo__deps: ["$videoElements"],
+    siv3dDestroyVideo__deps: ["$videoElements", "siv3dStopVideo"],
 
     //
     // User Action Emulation
