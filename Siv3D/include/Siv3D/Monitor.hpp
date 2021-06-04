@@ -36,6 +36,8 @@ namespace s3d
 
 		/// @brief タスクバーなどを除いた利用可能な領域の位置とサイズ
 		Rect workArea = Rect{ 0 };
+		
+		Size fullscreenResolution = Size{ 0, 0 };
 
 		/// @brief メインディスプレイであるか
 		bool isPrimary = false;

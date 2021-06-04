@@ -21,6 +21,7 @@ namespace s3d
 		output += U"displayDeviceName: " + displayDeviceName + U"\n";
 		output += U"displayRect: {}\n"_fmt(displayRect);
 		output += U"workArea: {}\n"_fmt(workArea);
+		output += U"fullscreenResolution: {}\n"_fmt(fullscreenResolution);
 
 		if (sizeMillimeter)
 		{

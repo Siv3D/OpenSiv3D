@@ -28,6 +28,7 @@ namespace s3d
 		String m_actualTitle = String(SIV3D_BUILD(DEBUG) ? U"Siv3D App (Debug Build)"_sv : Window::DefaultTitle);
 
 		WindowState m_state;
+		Rect m_storedWindowRect = { 0, 0, 0, 0 };
 		
 		void updateState();
 		

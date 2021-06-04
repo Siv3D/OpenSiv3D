@@ -47,7 +47,7 @@ namespace s3d
 					::glfwGetMonitorPhysicalSize(monitor, &pw, &ph);
 					if (pw > 0 && ph > 0)
 					{
-						sizeMillimeter = Size(pw, ph);
+						sizeMillimeter = Size{ pw, ph };
 					}
 				}
 
@@ -58,6 +58,16 @@ namespace s3d
 					if (const double scale = Max(xscale, yscale); scale > 0.0)
 					{
 						scaling = scale;
+	
+						xPos = static_cast<int32>(xPos * scale);
+						yPos = static_cast<int32>(yPos * scale);
+						width = static_cast<int32>(width * scale);
+						height = static_cast<int32>(height * scale);
+						
+						wx = static_cast<int32>(wx * scale);
+						wy = static_cast<int32>(wy * scale);
+						ww = static_cast<int32>(ww * scale);
+						wh = static_cast<int32>(wh * scale);
 					}
 				}
 				
@@ -71,18 +81,31 @@ namespace s3d
 						}
 					}
 				}
+				
+				Size fullscreenResolution{ 0, 0 };
+				{
+					int32 numModes = 0;
+					if (const GLFWvidmode* vidModes = ::glfwGetVideoModes(monitor, &numModes))
+					{
+						if (numModes)
+						{
+							fullscreenResolution.set(vidModes[numModes - 1].width, vidModes[numModes - 1].height);
+						}
+					}
+				}
 
 				const Monitor info =
 				{
-					.name				= Unicode::Widen(::glfwGetMonitorName(monitor)),
-					.id					= Format(displayID),
-					.displayDeviceName	= Format(unitNumber),
-					.displayRect		= Rect(xPos, yPos, width, height),
-					.workArea			= Rect(wx, wy, ww, wh),
-					.isPrimary			= (i == 0),
-					.sizeMillimeter		= sizeMillimeter,
-					.scaling			= scaling,
-					.refreshRate		= refreshRate,
+					.name					= Unicode::Widen(::glfwGetMonitorName(monitor)),
+					.id						= Format(displayID),
+					.displayDeviceName		= Format(unitNumber),
+					.displayRect			= Rect{ xPos, yPos, width, height },
+					.workArea				= Rect{ wx, wy, ww, wh },
+					.fullscreenResolution	= fullscreenResolution,
+					.isPrimary				= (i == 0),
+					.sizeMillimeter			= sizeMillimeter,
+					.scaling				= scaling,
+					.refreshRate			= refreshRate,
 				};
 				
 				results.push_back(info);
