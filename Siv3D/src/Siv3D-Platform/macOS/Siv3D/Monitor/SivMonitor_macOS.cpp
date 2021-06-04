@@ -64,10 +64,10 @@ namespace s3d
 						width = static_cast<int32>(width * scale);
 						height = static_cast<int32>(height * scale);
 						
-						wx = static_cast<int32>(wx * scale);
-						wy = static_cast<int32>(wy * scale);
-						ww = static_cast<int32>(ww * scale);
-						wh = static_cast<int32>(wh * scale);
+						//wx = static_cast<int32>(wx * scale);
+						//wy = static_cast<int32>(wy * scale);
+						//ww = static_cast<int32>(ww * scale);
+						//wh = static_cast<int32>(wh * scale);
 					}
 				}
 				
