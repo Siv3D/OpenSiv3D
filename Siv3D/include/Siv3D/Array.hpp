@@ -25,6 +25,7 @@
 # include "Format.hpp"
 # include "FormatLiteral.hpp"
 # include "Shuffle.hpp"
+# include "KahanSummation.hpp"
 # include "PredefinedNamedParameter.hpp"
 
 namespace s3d
@@ -33,79 +34,47 @@ namespace s3d
 	/// @tparam Type 要素の型
 	/// @tparam Allocator アロケータ
 	template <class Type, class Allocator = std::allocator<Type>>
-	class Array : protected std::vector<Type, Allocator>
+	class Array
 	{
-	private:
-
-		using base_type = std::vector<Type, Allocator>;
-
 	public:
 
+		using container_type			= std::vector<Type, Allocator>;
+
 		/// @brief 配列の要素の型
-		using value_type				= typename base_type::value_type;
+		using value_type				= typename container_type::value_type;
 
 		/// @brief 要素のポインタ型
-		using pointer					= typename base_type::pointer;
+		using pointer					= typename container_type::pointer;
 		
 		/// @brief 要素の const ポインタ型
-		using const_pointer				= typename base_type::const_pointer;
+		using const_pointer				= typename container_type::const_pointer;
 		
 		/// @brief 要素の参照型
-		using reference					= typename base_type::reference;
+		using reference					= typename container_type::reference;
 		
 		/// @brief 要素の const 参照型
-		using const_reference			= typename base_type::const_reference;
+		using const_reference			= typename container_type::const_reference;
 		
 		/// @brief イテレータ型
-		using iterator					= typename base_type::iterator;
+		using iterator					= typename container_type::iterator;
 		
 		/// @brief const イテレータ型
-		using const_iterator			= typename base_type::const_iterator;
+		using const_iterator			= typename container_type::const_iterator;
 		
 		/// @brief リバース・イテレータ型
-		using reverse_iterator			= typename base_type::reverse_iterator;
+		using reverse_iterator			= typename container_type::reverse_iterator;
 		
 		/// @brief const リバース・イテレータ型
-		using const_reverse_iterator	= typename base_type::const_reverse_iterator;
+		using const_reverse_iterator	= typename container_type::const_reverse_iterator;
 		
 		/// @brief 要素の個数を表現する型
-		using size_type					= typename base_type::size_type;
+		using size_type					= typename container_type::size_type;
 		
 		/// @brief 2 つの要素間の距離を表現する型
-		using difference_type			= typename base_type::difference_type;
+		using difference_type			= typename container_type::difference_type;
 		
 		/// @brief アロケータの型
-		using allocator_type			= typename base_type::allocator_type;
-
-		using base_type::vector;
-		using base_type::operator=;
-		using base_type::assign;
-		using base_type::get_allocator;
-		using base_type::front;
-		using base_type::back;
-		using base_type::data;
-		using base_type::begin;
-		using base_type::end;
-		using base_type::cbegin;
-		using base_type::cend;
-		using base_type::rbegin;
-		using base_type::rend;
-		using base_type::crbegin;
-		using base_type::crend;
-		using base_type::empty;
-		using base_type::size;
-		using base_type::max_size;
-		using base_type::reserve;
-		using base_type::capacity;
-		using base_type::shrink_to_fit;
-		using base_type::clear;
-		using base_type::insert;
-		using base_type::emplace;
-		using base_type::erase;
-		using base_type::push_back;
-		using base_type::emplace_back;
-		using base_type::pop_back;
-		using base_type::resize;
+		using allocator_type			= typename container_type::allocator_type;
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
@@ -120,6 +89,73 @@ namespace s3d
 		/// @param other ムーブする配列
 		SIV3D_NODISCARD_CXX20
 		Array(Array&&) = default;
+
+		/// @brief 
+		/// @param other 
+		SIV3D_NODISCARD_CXX20
+		Array(const container_type& other);
+
+		/// @brief 
+		/// @param other 
+		SIV3D_NODISCARD_CXX20
+		Array(container_type&& other);
+
+		/// @brief 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		explicit Array(const Allocator& alloc) noexcept;
+
+		/// @brief 
+		/// @param count 
+		/// @param value 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(size_type count, const value_type& value, const Allocator& alloc = Allocator());
+
+		/// @brief 
+		/// @param count 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		explicit Array(size_type count, const Allocator& alloc = Allocator());
+
+		/// @brief 
+		/// @tparam Iterator 
+		/// @param first 
+		/// @param last 
+		/// @param alloc 
+		template <class Iterator>
+		SIV3D_NODISCARD_CXX20
+		Array(Iterator first, Iterator last, const Allocator& alloc = Allocator());
+
+		/// @brief 
+		/// @param other 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(const Array& other, const Allocator& alloc);
+
+		/// @brief 
+		/// @param other 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(Array&& other, const Allocator& alloc);
+
+		/// @brief 
+		/// @param other 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(const container_type& other, const Allocator& alloc);
+
+		/// @brief 
+		/// @param other 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(container_type&& other, const Allocator& alloc);
+
+		/// @brief 
+		/// @param ilist 
+		/// @param alloc 
+		SIV3D_NODISCARD_CXX20
+		Array(std::initializer_list<value_type> ilist, const Allocator& alloc = Allocator());
 
 		/// @brief `asArray()` を持つ型から配列を作成します。
 		/// @tparam ArrayIsh `asArray()` を持つ型
@@ -159,9 +195,110 @@ namespace s3d
 		/// @return *this
 		Array& operator =(Array&&) = default;
 
-		/// @brief 他の配列と要素を入れ替えます。
-		/// @param other 入れ替える配列
-		void swap(Array& other) noexcept;
+		Array& operator =(const container_type& other);
+
+		Array& operator =(container_type&& other);
+
+		Array& operator=(std::initializer_list<value_type> ilist);
+
+		template <class ArrayIsh, std::enable_if_t<Meta::HasAsArray<ArrayIsh>::value>* = nullptr>
+		Array& operator=(const ArrayIsh& a);
+
+		Array& assign(size_type count, const value_type & value);
+
+		template <class Iterator>
+		Array& assign(Iterator first, Iterator last);
+
+		Array& assign(std::initializer_list<value_type> ilist);
+
+		[[nodiscard]]
+		allocator_type get_allocator() const noexcept;
+
+		[[nodiscard]]
+		const container_type& getContainer() const noexcept;
+
+		[[nodiscard]]
+		operator container_type() const noexcept;
+
+		/// @brief 要素にアクセスします。
+		/// @param index 要素へのインデックス
+		/// @throw std::out_of_range 範囲外アクセスの場合 throw
+		/// @return 要素への参照
+		const value_type& at(size_t index) const;
+
+		/// @brief 要素にアクセスします。
+		/// @param index 要素へのインデックス
+		/// @return 要素への参照
+		value_type& at(size_t index);
+
+		/// @brief 要素にアクセスします。
+		/// @param index 要素へのインデックス
+		/// @return 要素への参照
+		[[nodiscard]]
+		const value_type& operator[](size_t index) const;
+
+		/// @brief 要素にアクセスします。
+		/// @param index 要素へのインデックス
+		/// @return 要素への参照
+		[[nodiscard]]
+		value_type& operator[](size_t index);
+
+		[[nodiscard]]
+		reference front();
+
+		[[nodiscard]]
+		const_reference front() const;
+
+		[[nodiscard]]
+		reference back();
+
+		[[nodiscard]]
+		const_reference back() const;
+
+		[[nodiscard]]
+		value_type* data() noexcept;
+
+		[[nodiscard]]
+		const value_type* data() const noexcept;
+
+		[[nodiscard]]
+		iterator begin() noexcept;
+
+		[[nodiscard]]
+		iterator end() noexcept;
+
+		[[nodiscard]]
+		const_iterator begin() const noexcept;
+
+		[[nodiscard]]
+		const_iterator end() const noexcept;
+
+		[[nodiscard]]
+		const_iterator cbegin() const noexcept;
+
+		[[nodiscard]]
+		const_iterator cend() const noexcept;
+
+		[[nodiscard]]
+		reverse_iterator rbegin() noexcept;
+
+		[[nodiscard]]
+		reverse_iterator rend() noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator rbegin() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator rend() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator crbegin() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator crend() const noexcept;
+
+		[[nodiscard]]
+		bool empty() const noexcept;
 
 		/// @brief 配列が空であるかを返します。
 		/// @return 配列が空である場合 true, それ以外の場合は false
@@ -172,6 +309,56 @@ namespace s3d
 		/// @return 配列が要素を持っている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
+
+		[[nodiscard]]
+		size_type size() const noexcept;
+
+		[[nodiscard]]
+		size_type max_size() const noexcept;
+
+		void reserve(size_type new_cap);
+
+		[[nodiscard]]
+		size_type capacity() const noexcept;
+
+		void shrink_to_fit();
+
+		void clear() noexcept;
+
+		iterator insert(const_iterator pos, const value_type& value);
+
+		iterator insert(const_iterator pos, value_type&& value);
+
+		iterator insert(const_iterator pos, size_type count, const value_type& value);
+
+		template <class Iterator>
+		iterator insert(const_iterator pos, Iterator first, Iterator last);
+
+		iterator insert(const_iterator pos, std::initializer_list<value_type> ilist);
+
+		template <class... Args>
+		iterator emplace(const_iterator pos, Args&&... args);
+
+		iterator erase(const_iterator pos);
+
+		iterator erase(const_iterator first, const_iterator last);
+
+		void push_back(const value_type& value);
+
+		void push_back(value_type&& value);
+
+		template <class... Args>
+		reference emplace_back(Args&&... args);
+
+		void pop_back();
+
+		void resize(size_type count);
+
+		void resize(size_type count, const value_type& value);
+
+		/// @brief 他の配列と要素を入れ替えます。
+		/// @param other 入れ替える配列
+		void swap(Array& other) noexcept;
 
 		/// @brief 配列の要素を全て消去し、メモリも解放します。
 		void release();
@@ -201,29 +388,6 @@ namespace s3d
 		/// @param n 削除する個数
 		/// @remark n が `size()` より多い場合は全ての要素を削除します。
 		void pop_back_N(size_t n);
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @return 要素への参照
-		[[nodiscard]]
-		const value_type& operator[](size_t index) const;
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @return 要素への参照
-		[[nodiscard]]
-		value_type& operator[](size_t index);
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @throw std::out_of_range 範囲外アクセスの場合 throw
-		/// @return 要素への参照
-		const value_type& at(size_t index) const;
-
-		/// @brief 要素にアクセスします。
-		/// @param index 要素へのインデックス
-		/// @return 要素への参照
-		value_type& at(size_t index);
 
 		/// @brief 配列の末尾に要素を追加します。
 		/// @param value 追加する値
@@ -908,6 +1072,10 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
 		[[nodiscard]]
 		static Array IndexedGenerate(size_type size, Fty indexedGenerator);
+
+	private:
+
+		container_type m_container;
 	};
 
 	template <class Type, class Allocator>

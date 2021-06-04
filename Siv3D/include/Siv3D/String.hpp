@@ -133,7 +133,7 @@ namespace s3d
 		String& assign(Iterator first, Iterator last);
 		
 		[[nodiscard]]
-		allocator_type get_allocator() const;
+		allocator_type get_allocator() const noexcept;
 
 		String& operator <<(value_type ch);
 

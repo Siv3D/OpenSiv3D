@@ -227,7 +227,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline String::allocator_type String::get_allocator() const
+	inline String::allocator_type String::get_allocator() const noexcept
 	{
 		return m_string.get_allocator();
 	}

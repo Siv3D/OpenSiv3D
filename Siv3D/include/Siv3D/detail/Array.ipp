@@ -10,10 +10,54 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../KahanSummation.hpp"
 
 namespace s3d
 {
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const container_type& other)
+		: m_container(other) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(container_type&& other)
+		: m_container(std::move(other)) {}
+
+	template<class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const Allocator& alloc) noexcept
+		: m_container(alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const size_type count, const value_type& value, const Allocator& alloc)
+		: m_container(count, value, alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const size_type count, const Allocator& alloc)
+		: m_container(count, alloc) {}
+
+	template <class Type, class Allocator>
+	template <class Iterator>
+	inline Array<Type, Allocator>::Array(Iterator first, Iterator last, const Allocator& alloc)
+		: m_container(first, last, alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const Array& other, const Allocator& alloc)
+		: m_container(other.m_container, alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(Array&& other, const Allocator& alloc)
+		: m_container(std::move(other.m_container), alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(const container_type& other, const Allocator& alloc)
+		: m_container(other, alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(container_type&& other, const Allocator& alloc)
+		: m_container(std::move(other), alloc) {}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::Array(std::initializer_list<value_type> ilist, const Allocator& alloc)
+		: m_container(ilist, alloc) {}
+
 	template <class Type, class Allocator>
 	template <class ArrayIsh, std::enable_if_t<Meta::HasAsArray<ArrayIsh>::value>*>
 	inline Array<Type, Allocator>::Array(ArrayIsh&& a)
@@ -38,21 +82,356 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline void Array<Type, Allocator>::swap(Array& other) noexcept
+	inline Array<Type, Allocator>& Array<Type, Allocator>::operator =(const container_type& other)
 	{
-		base_type::swap(other);
+		m_container = other;
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::operator =(container_type&& other)
+	{
+		m_container = std::move(other);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::operator =(std::initializer_list<value_type> ilist)
+	{
+		m_container = ilist;
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class ArrayIsh, std::enable_if_t<Meta::HasAsArray<ArrayIsh>::value>*>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::operator =(const ArrayIsh& a)
+	{
+		return operator =(a.asArray());
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::assign(const size_type count, const value_type& value)
+	{
+		m_container.assign(count, value);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	template <class Iterator>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::assign(Iterator first, Iterator last)
+	{
+		m_container.assign(first, last);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>& Array<Type, Allocator>::assign(std::initializer_list<value_type> ilist)
+	{
+		m_container.assign(ilist);
+
+		return *this;
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::allocator_type Array<Type, Allocator>::get_allocator() const noexcept
+	{
+		return m_container.get_allocator();
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Array<Type, Allocator>::container_type& Array<Type, Allocator>::getContainer() const noexcept
+	{
+		return m_container;
+	}
+
+	template <class Type, class Allocator>
+	inline Array<Type, Allocator>::operator typename Array<Type, Allocator>::container_type() const noexcept
+	{
+		return m_container;
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index) const
+	{
+		return m_container.at(index);
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index)
+	{
+		return m_container.at(index);
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index) const
+	{
+		return m_container[index];
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index)
+	{
+		return m_container[index];
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::reference Array<Type, Allocator>::front()
+	{
+		return m_container.front();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reference Array<Type, Allocator>::front() const
+	{
+		return m_container.front();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::reference Array<Type, Allocator>::back()
+	{
+		return m_container.back();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reference Array<Type, Allocator>::back() const
+	{
+		return m_container.back();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::value_type* Array<Type, Allocator>::data() noexcept
+	{
+		return m_container.data();
+	}
+
+	template <class Type, class Allocator>
+	inline const typename Array<Type, Allocator>::value_type* Array<Type, Allocator>::data() const noexcept
+	{
+		return m_container.data();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::begin() noexcept
+	{
+		return m_container.begin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::end() noexcept
+	{
+		return m_container.end();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_iterator Array<Type, Allocator>::begin() const noexcept
+	{
+		return m_container.begin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_iterator Array<Type, Allocator>::end() const noexcept
+	{
+		return m_container.end();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_iterator Array<Type, Allocator>::cbegin() const noexcept
+	{
+		return m_container.cbegin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_iterator Array<Type, Allocator>::cend() const noexcept
+	{
+		return m_container.cend();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::reverse_iterator Array<Type, Allocator>::rbegin() noexcept
+	{
+		return m_container.rbegin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::reverse_iterator Array<Type, Allocator>::rend() noexcept
+	{
+		return m_container.rend();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reverse_iterator Array<Type, Allocator>::rbegin() const noexcept
+	{
+		return m_container.rbegin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reverse_iterator Array<Type, Allocator>::rend() const noexcept
+	{
+		return m_container.rend();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reverse_iterator Array<Type, Allocator>::crbegin() const noexcept
+	{
+		return m_container.crbegin();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::const_reverse_iterator Array<Type, Allocator>::crend() const noexcept
+	{
+		return m_container.crend();
+	}
+
+	template <class Type, class Allocator>
+	inline bool Array<Type, Allocator>::empty() const noexcept
+	{
+		return m_container.empty();
 	}
 
 	template <class Type, class Allocator>
 	inline bool Array<Type, Allocator>::isEmpty() const noexcept
 	{
-		return base_type::empty();
+		return m_container.empty();
 	}
 
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator>::operator bool() const noexcept
 	{
-		return (not base_type::empty());
+		return (not m_container.empty());
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::size_type Array<Type, Allocator>::size() const noexcept
+	{
+		return m_container.size();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::size_type Array<Type, Allocator>::max_size() const noexcept
+	{
+		return m_container.max_size();
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::reserve(const size_type new_cap)
+	{
+		m_container.reserve(new_cap);
+	}
+
+	template<class Type, class Allocator>
+	inline typename Array<Type, Allocator>::size_type Array<Type, Allocator>::capacity() const noexcept
+	{
+		return m_container.capacity();
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::shrink_to_fit()
+	{
+		m_container.shrink_to_fit();
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::clear() noexcept
+	{
+		m_container.clear();
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::insert(const_iterator pos, const value_type& value)
+	{
+		return m_container.insert(pos, value);
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::insert(const_iterator pos, value_type&& value)
+	{
+		return m_container.insert(pos, std::move(value));
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::insert(const_iterator pos, size_type count, const value_type& value)
+	{
+		return m_container.insert(pos, count, value);
+	}
+
+	template <class Type, class Allocator>
+	template <class Iterator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::insert(const_iterator pos, Iterator first, Iterator last)
+	{
+		return m_container.insert(pos, first, last);
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::insert(const_iterator pos, std::initializer_list<value_type> ilist)
+	{
+		return m_container.insert(pos, ilist);
+	}
+
+	template <class Type, class Allocator>
+	template <class... Args>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::emplace(const_iterator pos, Args&&... args)
+	{
+		return m_container.emplace(pos, std::forward<Args>(args)...);
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::erase(const_iterator pos)
+	{
+		return m_container.erase(pos);
+	}
+
+	template <class Type, class Allocator>
+	inline typename Array<Type, Allocator>::iterator Array<Type, Allocator>::erase(const_iterator first, const_iterator last)
+	{
+		return m_container.erase(first, last);
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::push_back(const value_type& value)
+	{
+		m_container.push_back(value);
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::push_back(value_type&& value)
+	{
+		m_container.push_back(std::move(value));
+	}
+
+	template <class Type, class Allocator>
+	template <class... Args>
+	inline typename Array<Type, Allocator>::reference Array<Type, Allocator>::emplace_back(Args&&... args)
+	{
+		return m_container.emplace_back(std::forward<Args>(args)...);
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::pop_back()
+	{
+		m_container.pop_back();
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::resize(const size_type count)
+	{
+		m_container.resize(count);
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::resize(const size_type count, const value_type& value)
+	{
+		m_container.resize(count, value);
+	}
+
+	template <class Type, class Allocator>
+	inline void Array<Type, Allocator>::swap(Array& other) noexcept
+	{
+		m_container.swap(other.m_container);
 	}
 
 	template <class Type, class Allocator>
@@ -68,7 +447,7 @@ namespace s3d
 	{
 		static_assert(std::is_trivially_copyable_v<value_type>, "Array::size_bytes(): value_type must be trivially copyable.");
 
-		return size() * sizeof(value_type);
+		return (size() * sizeof(value_type));
 	}
 
 	template <class Type, class Allocator>
@@ -102,30 +481,6 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index) const
-	{
-		return base_type::operator[](index);
-	}
-
-	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::operator[](const size_t index)
-	{
-		return base_type::operator[](index);
-	}
-
-	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index) const
-	{
-		return base_type::at(index);
-	}
-
-	template <class Type, class Allocator>
-	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::at(const size_t index)
-	{
-		return base_type::at(index);
-	}
-
-	template <class Type, class Allocator>
 	inline Array<Type, Allocator>& Array<Type, Allocator>::operator <<(const value_type& value)
 	{
 		push_back(value);
@@ -136,7 +491,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator>& Array<Type, Allocator>::operator <<(value_type&& value)
 	{
-		push_back(std::forward<value_type>(value));
+		push_back(std::move(value));
 
 		return *this;
 	}
