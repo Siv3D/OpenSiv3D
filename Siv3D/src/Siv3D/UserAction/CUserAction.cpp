@@ -36,7 +36,7 @@ namespace s3d
 
 	bool CUserAction::terminationTriggered() noexcept
 	{
-		m_previousUserActions = m_currentUserActions.exchange(UserAction::None);
+		m_previousUserActions = m_currentUserActions.exchange(UserAction::NoAction);
 
 		if (const uint32 triggerdActions = (m_previousUserActions & (UserAction::SystemExitCalled | m_terminationTriggers)))
 		{

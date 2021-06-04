@@ -20,7 +20,7 @@ namespace s3d
 	{
 	private:
 
-		std::atomic<uint32> m_currentUserActions = { UserAction::None };
+		std::atomic<uint32> m_currentUserActions = { UserAction::NoAction };
 
 		uint32 m_previousUserActions = 0;
 

@@ -268,9 +268,16 @@ namespace s3d
 			{
 				SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown | UserAction::EscapeKeyDown);
 			}
-			else if (m_allInputs)
+			else
 			{
-				SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown);
+				for (const auto& input : m_allInputs)
+				{
+					if (input.down())
+					{
+						SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::AnyKeyDown);
+						break;
+					}
+				}
 			}
 		}
 	}

@@ -14,10 +14,10 @@
 namespace s3d
 {
 	/// @brief ファイルコピー時の動作
-	enum class CopyOption
+	enum class CopyOption : uint8
 	{
 		/// @brief ファイル名が既に使われていた場合、コピーを失敗させる。 | Report an error when the file already exists.
-		None,
+		Default,
 
 		/// @brief ファイル名が既に使われていた場合、エラーを発生させずにスキップする。 | Keep the existing file, without reporting an error.
 		SkipExisting,
@@ -27,8 +27,5 @@ namespace s3d
 
 		/// @brief ファイルが既に存在する場合、コピーするファイルが新しければ上書きする。 | Replace the existing file only if it is older than the file being copied.
 		UpdateExisting,
-
-		/// @brief デフォルトの動作 (None)
-		Default = None,
 	};
 }
