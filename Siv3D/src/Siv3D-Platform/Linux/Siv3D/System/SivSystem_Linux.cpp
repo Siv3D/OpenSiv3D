@@ -9,11 +9,68 @@
 //
 //-----------------------------------------------
 
+# include <fcntl.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <unistd.h>
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static bool Run(const char* program, char* argv[])
+		{
+			sigset_t set, oldset;
+			sigemptyset(&set);
+			sigaddset(&set, SIGCHLD);
+			sigprocmask(SIG_BLOCK, &set, &oldset);
+
+			pid_t pid;
+			if (pid = fork(); pid == 0)
+			{
+				if (not fork())
+				{
+					close(0);
+					open("/dev/null", O_RDONLY);
+					close(1);
+					open("/dev/null", O_WRONLY);
+					close(2);
+					open("/dev/null", O_WRONLY);
+
+					setsid();
+
+					execv(program, argv);
+					_exit(0);
+				}
+				else
+				{
+					_exit(0);
+				}
+			}
+			else if (pid < 0)
+			{
+				sigprocmask(SIG_SETMASK, &oldset, 0);
+				return false;
+			}
+
+			int status = 0;
+			while (waitpid(pid, &status, 0) < 0)
+			{
+				if (errno != EINTR)
+				{
+					sigprocmask(SIG_SETMASK, &oldset, 0);
+					return false;
+				}
+			}
+
+			sigprocmask(SIG_SETMASK, &oldset, 0);
+			return true;
+		}	
+	}
+
 	namespace System
 	{
 		bool LaunchBrowser(const FilePathView _url)
@@ -24,6 +81,11 @@ namespace s3d
 
 			if (not isWebPage)
 			{
+				if (not FileSystem::IsFile(_url))
+				{
+					return false;
+				}
+
 				const String extension = FileSystem::Extension(_url);
 				const bool isHTML = (extension == U"html") || (extension == U"htm");
 
@@ -35,17 +97,9 @@ namespace s3d
 				url = FileSystem::FullPath(_url);
 			}
 
-			if (std::system("which xdg-open >/dev/null 2>&1") != 0)
-			{
-				// xdg-open command not found
-				return false;
-			}
-
-			String command = U"xdg-open ";
-			command += (U'\"' + url + U'\"');
-			command += U" >/dev/null 2>&1";
-
-			return (std::system(command.narrow().c_str()) == 0);
+			std::string urlc = url.narrow();
+			char* argv[] = { (char*)"xdg-open", urlc.data(), nullptr };
+			return detail::Run("/usr/bin/xdg-open", argv);
 		}
 	}
 }
