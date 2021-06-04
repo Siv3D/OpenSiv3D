@@ -37,16 +37,18 @@ namespace s3d
 		ID3D11DeviceContext* m_context	= nullptr;
 
 		// HLSL コンパイラ用の DLL (d3dcompiler_47.dll)
-		LibraryHandle m_d3dcompiler		= nullptr;
-
 		// D3DCompile2() 関数
-		decltype(D3DCompile2)* p_D3DCompile2 = nullptr;
+		mutable LibraryHandle m_d3dcompiler = nullptr;
+		mutable Optional<bool> m_D3DCompile2Available;
+		mutable decltype(D3DCompile2)* p_D3DCompile2 = nullptr;
 
 		// VS の管理
 		AssetHandleManager<VertexShader::IDType, D3D11VertexShader> m_vertexShaders{ U"VertexShader" };
 
 		// PS の管理
 		AssetHandleManager<PixelShader::IDType, D3D11PixelShader> m_pixelShaders{ U"PixelShader" };
+
+		void loadD3DCompile2() const;
 
 		[[nodiscard]]
 		Blob compileHLSLFromFile(FilePathView path, ShaderStage stage, StringView entryPoint, Platform::Windows::HLSLCompileOption flags = Platform::Windows::HLSLCompileOption::Default) const;

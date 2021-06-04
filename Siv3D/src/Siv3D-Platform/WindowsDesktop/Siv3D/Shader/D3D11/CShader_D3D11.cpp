@@ -70,33 +70,6 @@ namespace s3d
 		m_device	= pRenderer->getDevice();
 		m_context	= pRenderer->getContext();
 
-		// HLSL コンパイラをロード
-		{
-			// HLSL コンパイラ用の DLL をロード
-			m_d3dcompiler = DLL::LoadSystemLibraryNoThrow(L"d3dcompiler_47.dll");
-
-			if (m_d3dcompiler) // ロードに成功 (Windows 8.1 以降か、最新の D3D ランタイムをインストールした Windows 7 ならここ）
-			{
-				LOG_INFO(U"`d3dcompiler_47.dll` found");
-
-				// D3DCompile2() 関数を見つける
-				p_D3DCompile2 = DLL::GetFunctionNoThrow(m_d3dcompiler, "D3DCompile2");
-
-				if (p_D3DCompile2) // もし D3DCompile2() 関数が見つかったら
-				{
-					LOG_INFO(U"HLSL compiler is available");
-				}
-				else // もし見つからなかったら
-				{
-					LOG_WARNING(U"HLSL compiler is not available");
-				}
-			}
-			else // ロードに失敗
-			{
-				LOG_INFO(U"`d3dcompiler_47.dll` not found. HLSL compiler is not available");
-			}
-		}
-
 	# if 0
 
 		// エンジン用 HLSL シェーダをコンパイル
@@ -290,8 +263,15 @@ namespace s3d
 
 	bool CShader_D3D11::hasHLSLCompiler() const noexcept
 	{
+		if (not m_D3DCompile2Available.has_value())
+		{
+			loadD3DCompile2();
+		}
+
+		assert(m_D3DCompile2Available.has_value());
+
 		// D3DCompile2 関数が利用できるなら true
-		return (p_D3DCompile2 != nullptr);
+		return *m_D3DCompile2Available;
 	}
 
 	void CShader_D3D11::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
@@ -312,6 +292,44 @@ namespace s3d
 		m_context->PSSetConstantBuffers(slot, 1, pCB->getBufferPtr());
 	}
 
+
+	void CShader_D3D11::loadD3DCompile2() const
+	{
+		LOG_SCOPED_TRACE(U"CShader_D3D11::loadD3DCompile2()");
+
+		// HLSL コンパイラをロード
+		{
+			// HLSL コンパイラ用の DLL をロード
+			m_d3dcompiler = DLL::LoadSystemLibraryNoThrow(L"d3dcompiler_47.dll");
+
+			if (m_d3dcompiler) // ロードに成功 (Windows 8.1 以降か、最新の D3D ランタイムをインストールした Windows 7 ならここ）
+			{
+				LOG_INFO(U"`d3dcompiler_47.dll` found");
+
+				// D3DCompile2() 関数を見つける
+				p_D3DCompile2 = DLL::GetFunctionNoThrow(m_d3dcompiler, "D3DCompile2");
+
+				if (p_D3DCompile2) // もし D3DCompile2() 関数が見つかったら
+				{
+					LOG_INFO(U"HLSL compiler is available");
+
+					m_D3DCompile2Available = true;
+				}
+				else // もし見つからなかったら
+				{
+					LOG_WARNING(U"HLSL compiler is not available");
+
+					m_D3DCompile2Available = false;
+				}
+			}
+			else // ロードに失敗
+			{
+				LOG_INFO(U"`d3dcompiler_47.dll` not found. HLSL compiler is not available");
+
+				m_D3DCompile2Available = false;
+			}
+		}
+	}
 
 	Blob CShader_D3D11::compileHLSLFromFile(const FilePathView path, const ShaderStage stage, const StringView entryPoint, const Platform::Windows::HLSLCompileOption flags) const
 	{
