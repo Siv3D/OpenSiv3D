@@ -13,20 +13,13 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/ScreenCapture.hpp>
+# include <Siv3D/Keyboard.hpp>
 # include "IScreenCapture.hpp"
 
 namespace s3d
 {
 	class CScreenCapture final : public ISiv3DScreenCapture
 	{
-	private:
-
-		FilePath m_screenshotDirectory;
-
-		Array<FilePath> m_requestedPaths;
-
-		bool m_hasNewFrame = false;
-		
 	public:
 
 		CScreenCapture();
@@ -46,5 +39,17 @@ namespace s3d
 		bool hasNewFrame() const override;
 
 		const Image& receiveScreenCapture() const override;
+
+		void setScreenshotShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys) override;
+
+	private:
+
+		FilePath m_screenshotDirectory;
+
+		Array<FilePath> m_requestedPaths;
+
+		Array<InputGroup> m_screenshotShortcutKeys = { KeyPrintScreen, KeyF12 };
+
+		bool m_hasNewFrame = false;
 	};
 }

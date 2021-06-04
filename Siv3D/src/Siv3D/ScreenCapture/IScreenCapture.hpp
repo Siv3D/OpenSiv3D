@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/InputGroups.hpp>
 
 namespace s3d
 {
@@ -35,5 +37,7 @@ namespace s3d
 		virtual bool hasNewFrame() const = 0;
 
 		virtual const Image& receiveScreenCapture() const = 0;
+
+		virtual void setScreenshotShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys) = 0;
 	};
 }

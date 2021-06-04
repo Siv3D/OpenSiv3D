@@ -60,5 +60,10 @@ namespace s3d
 		{
 			return texture.fill(SIV3D_ENGINE(ScreenCapture)->receiveScreenCapture());
 		}
+
+		void SetShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys)
+		{
+			SIV3D_ENGINE(ScreenCapture)->setScreenshotShortcutKeys(screenshotShortcutKeys);
+		}
 	}
 }

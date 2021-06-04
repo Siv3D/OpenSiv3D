@@ -11,8 +11,10 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "DateTime.hpp"
+# include "InputGroups.hpp"
 
 namespace s3d
 {
@@ -61,5 +63,10 @@ namespace s3d
 		/// @remark DynamicTexture はスクリーンショットと同じ解像度か、空でなければこの関数は失敗します。
 		/// @return メモリ上に新しいスクリーンショットが保存されていて、そのスクリーンショットの書き込みに成功した場合 true, それ以外の場合は false
 		bool GetFrame(DynamicTexture& texture);
+
+		/// @brief スクリーンショットのショートカットキーを設定します。
+		/// @remark デフォルトでは `{ KeyPrintScreen, KeyF12 }` です。
+		/// @param screenshotShortcutKeys スクリーンショットのショートカットキー
+		void SetShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys);
 	}
 }

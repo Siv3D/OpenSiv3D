@@ -26,7 +26,7 @@ namespace s3d
 
 		template <class ...Args>
 		SIV3D_NODISCARD_CXX20
-		explicit InputGroup(const Args&... args)
+		InputGroup(const Args&... args)
 		{
 			append(args...);
 		}

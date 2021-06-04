@@ -48,13 +48,20 @@ namespace s3d
 		m_hasNewFrame = false;
 
 		// スクリーンショットのショートカットに対応
+		if (not m_requestedPaths)
 		{
 			bool captureKeyDown = false;
-			captureKeyDown |= ((KeyControl + KeyCommand).pressed() && Key4.down());
-			captureKeyDown |= KeyPrintScreen.down();
 
-			if (captureKeyDown
-				&& m_requestedPaths.isEmpty())
+			for (const auto& inputGroup : m_screenshotShortcutKeys)
+			{
+				if (inputGroup.down())
+				{
+					captureKeyDown = true;
+					break;
+				}
+			}
+
+			if (captureKeyDown)
 			{
 				ScreenCapture::SaveCurrentFrame();
 			}
@@ -111,5 +118,10 @@ namespace s3d
 	const Image& CScreenCapture::receiveScreenCapture() const
 	{
 		return SIV3D_ENGINE(Renderer)->getScreenCapture();
+	}
+
+	void CScreenCapture::setScreenshotShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys)
+	{
+		m_screenshotShortcutKeys = screenshotShortcutKeys;
 	}
 }
