@@ -45,6 +45,12 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Quaternion(aligned_float4 _vec) noexcept;
 
+		Quaternion& operator =(const Quaternion&) = default;
+
+		Quaternion& SIV3D_VECTOR_CALL operator =(aligned_float4 other) noexcept;
+
+		Quaternion& SIV3D_VECTOR_CALL operator =(SIMD_Float4 other) noexcept;
+
 		[[nodiscard]]
 		Quaternion SIV3D_VECTOR_CALL operator *(Quaternion q) const noexcept;
 

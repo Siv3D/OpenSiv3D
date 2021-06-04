@@ -1,5 +1,4 @@
-﻿#include "..\Quaternion.hpp"
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -30,6 +29,20 @@ namespace s3d
 
 	inline Quaternion::Quaternion(const aligned_float4 _vec) noexcept
 		: value{ _vec } {}
+
+	inline Quaternion& Quaternion::operator =(const aligned_float4 other) noexcept
+	{
+		value = other;
+
+		return *this;
+	}
+
+	inline Quaternion& Quaternion::operator =(const SIMD_Float4 other) noexcept
+	{
+		value = other;
+
+		return *this;
+	}
 
 	inline Quaternion Quaternion::operator *(const Quaternion q) const noexcept
 	{
