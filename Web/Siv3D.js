@@ -367,4 +367,87 @@ mergeInto(LibraryManager.library, {
     },
     siv3dSaveDialog__sig: "v",
     siv3dSaveDialog__deps: [ "$siv3dSaveFileBufferWritePos", "$siv3dDefaultSaveFileName" ],
+
+    //
+    // TextInput
+    //
+    $siv3dTextInputElement: null,
+
+    siv3dInitTextInput: function() {
+        const textInput = document.createElement("input");
+        textInput.type = "text";
+        textInput.style.position = "absolute";
+        textInput.style.zIndex = -2;
+        textInput.autocomplete = false;
+
+        const maskDiv = document.createElement("div");
+        maskDiv.style.background = "white";
+        maskDiv.style.position = "absolute";
+        maskDiv.style.width = "100%";
+        maskDiv.style.height = "100%";
+        maskDiv.style.zIndex = -1;
+
+        /**
+         * @type { HTMLCanvasElement }
+         */
+        const canvas = Module["canvas"];
+
+        canvas.parentNode.prepend(textInput);
+        canvas.parentNode.prepend(maskDiv);
+
+        siv3dTextInputElement = textInput;
+    },
+    siv3dInitTextInput__sig: "v",
+    siv3dInitTextInput__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dRegisterTextInputCallback: function(callback) {
+        siv3dTextInputElement.addEventListener('input', function (e) {
+            if (e.inputType == "insertText") {
+                if (e.data) {
+                    for (let i = 0; i < e.data.length; i++) {
+                        const codePoint = e.data.charCodeAt(i);
+                        {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                    }
+                }
+            }    
+        });
+        siv3dTextInputElement.addEventListener('compositionend', function (e) {
+            for (let i = 0; i < e.data.length; i++) {
+                const codePoint = e.data.charCodeAt(i);
+                {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+            }
+        });
+    },
+    siv3dRegisterTextInputCallback__sig: "vi",
+    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dRegisterTextInputMarkedCallback: function(callback) {
+        siv3dTextInputElement.addEventListener('compositionupdate', function (e) {
+            const strPtr = allocate(intArrayFromString(e.data), 'i8', ALLOC_NORMAL);
+            {{{ makeDynCall('vi', 'callback') }}}(strPtr);
+            Module["_free"](strPtr);
+        })
+        siv3dTextInputElement.addEventListener('compositionend', function (e) {
+            {{{ makeDynCall('vi', 'callback') }}}(0);
+        });
+    },
+    siv3dRegisterTextInputMarkedCallback__sig: "vi",
+    siv3dRegisterTextInputMarkedCallback__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dRequestTextInputFocus: function(isFocusRequired) {
+        const isFocusRequiredBool = isFocusRequired != 0;
+
+        if (isFocusRequiredBool) {
+            siv3dRegisterUserAction(function () {
+                siv3dTextInputElement.value = ""
+                siv3dTextInputElement.focus();
+            });
+        } else {
+            siv3dRegisterUserAction(function () {
+                siv3dTextInputElement.blur();
+            });
+        }
+    },
+    siv3dRequestTextInputFocus__sig: "vi",
+    siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
 })

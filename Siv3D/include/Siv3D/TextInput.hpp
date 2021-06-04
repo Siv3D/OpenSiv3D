@@ -52,5 +52,14 @@ namespace s3d
 			const ColorF& textColor = ColorF{ 0.0 });
 	}
 
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web::TextInput
+	{
+		void RequestEnableIME();
+		
+		void RequestDisableIME();
+	}
+
 # endif
 }
