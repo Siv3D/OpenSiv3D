@@ -25,6 +25,11 @@ extern "C"
 	{
 		pTextInput->onHaveMarkedText(text);
 	}
+
+	extern void siv3dInitTextInput();
+	extern void siv3dRegisterTextInputCallback(void (*cb)(uint32));
+	extern void siv3dRegisterTextInputMarkedCallback(void (*cb)(const char* text));
+	extern void siv3dRequestTextInputFocus(bool isFocusRequired);
 }
 
 namespace s3d
@@ -45,10 +50,9 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::init()");
 
-		if (GLFWwindow* glfwWindow = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle()))
-		{
-			::glfwSetCharCallback(glfwWindow, OnCharacterInput);
-		}
+		::siv3dInitTextInput();
+		::siv3dRegisterTextInputCallback(OnCharacterInput);
+		::siv3dRegisterTextInputMarkedCallback(s3d_OnHaveMarkedText);
 	}
 	
 	void CTextInput::update()
@@ -96,6 +100,14 @@ namespace s3d
 				m_backSpacePress.restart();
 			}
 		}
+
+		if (m_requestedDisablingIME && not m_requestedEnablingIME)
+		{
+			::siv3dRequestTextInputFocus(false);
+		}
+
+		m_requestedDisablingIME = false;
+		m_requestedEnablingIME = false;
 	}
 	
 	void CTextInput::pushChar(const uint32 ch)
@@ -115,9 +127,17 @@ namespace s3d
 		return m_markedText;
 	}
 	
-	void CTextInput::enableIME(bool)
+	void CTextInput::enableIME(bool enabled)
 	{
-		
+		if (enabled) 
+		{
+			::siv3dRequestTextInputFocus(enabled);
+			m_requestedEnablingIME = true;
+		}
+		else
+		{
+			m_requestedDisablingIME = true;
+		}	
 	}
 	
 	std::pair<int32, int32> CTextInput::getCursorIndex() const
@@ -148,7 +168,7 @@ namespace s3d
 		}
 	}
 
-	void CTextInput::OnCharacterInput(GLFWwindow*, const uint32 codePoint)
+	void CTextInput::OnCharacterInput(uint32 codePoint)
 	{
 		SIV3D_ENGINE(TextInput)->pushChar(codePoint);
 	}

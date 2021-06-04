@@ -11,13 +11,35 @@ Module.preRun = [
     // Mock Implementations 
     //
     global.navigator = {
-      getGamepads: function() {
-        return [];
-      }
+      getGamepads() { return []; }
+    }
+
+    global.window = {
+      addEventListener() {},
+      removeEventListener() {}
+    }
+
+    global.document = {
+      createElement() { 
+        return { 
+          style: {},
+          addEventListener() {},
+          removeEventListener() {},
+        };
+      }, 
     }
     
     Module.canvas = {
-      style: {}
+      style: {},
+      parentNode: {
+        prepend() {}
+      },
+      addEventListener() {},
+      removeEventListener() {},
+    }
+
+    global.FileReader = class {
+      constructor() {}
     }
   }
 ]

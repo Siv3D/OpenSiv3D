@@ -70,7 +70,11 @@ namespace s3d
 		Stopwatch m_tabPress;
 		
 		Stopwatch m_backSpacePress;
+
+		bool m_requestedEnablingIME = false;
+
+		bool m_requestedDisablingIME = false;
 		
-		static void OnCharacterInput(GLFWwindow*, uint32 codePoint);
+		static void OnCharacterInput(uint32 codePoint);
 	};
 }

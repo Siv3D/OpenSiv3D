@@ -51,4 +51,11 @@ namespace s3d
 		/// @brief クリップボードの内容を消去します。
 		void Clear();
 	}
+
+# if SIV3D_PLATFORM(WEB)
+	namespace Platform::Web::Clipboard 
+	{
+		std::future<String> GetText();
+	}
+# endif
 }

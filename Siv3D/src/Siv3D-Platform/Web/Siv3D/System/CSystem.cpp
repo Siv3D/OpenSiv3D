@@ -33,6 +33,7 @@
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
 # include <Siv3D/AudioEncoder/IAudioEncoder.hpp>
 # include <Siv3D/FFT/IFFT.hpp>
+# include <Siv3D/Audio/IAudio.hpp>
 # include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
@@ -49,6 +50,18 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		__attribute__((import_name("siv3dStartUserActionHook")))
+		extern void siv3dStartUserActionHook();
+
+		__attribute__((import_name("siv3dStopUserActionHook")))
+		extern void siv3dStopUserActionHook();
+
+		__attribute__((import_name("siv3dInitDialog")))
+		extern void siv3dInitDialog();
+	}
+
 	CSystem::CSystem()
 	{
 
@@ -57,6 +70,8 @@ namespace s3d
 	CSystem::~CSystem()
 	{
 		LOG_SCOPED_TRACE(U"CSystem::~CSystem()");
+
+		detail::siv3dStopUserActionHook();
 
 		SystemMisc::Destroy();
 		SystemLog::Final();
@@ -88,6 +103,7 @@ namespace s3d
 		SIV3D_ENGINE(AudioDecoder)->init();
 		SIV3D_ENGINE(AudioEncoder)->init();
 		SIV3D_ENGINE(FFT)->init();
+		SIV3D_ENGINE(Audio)->init();
 		SIV3D_ENGINE(TextToSpeech)->init();
 		SIV3D_ENGINE(Renderer)->init();
 		SIV3D_ENGINE(Renderer2D)->init();
@@ -96,6 +112,9 @@ namespace s3d
 		SIV3D_ENGINE(GUI)->init();
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(Effect)->init();
+
+		detail::siv3dStartUserActionHook();
+		detail::siv3dInitDialog();
 	}
 
 	bool CSystem::update()

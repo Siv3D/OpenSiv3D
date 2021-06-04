@@ -64,4 +64,41 @@ namespace s3d
 		[[nodiscard]]
 		Optional<FilePath> SaveWave(FilePathView defaultPath = U"", StringView title = U"");
 	}
+
+	
+# if SIV3D_PLATFORM(WEB)
+
+ 	namespace Platform::Web::Dialog 
+	{
+		[[nodiscard]]
+		std::future<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Array<FilePath>> OpenFiles(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Image> OpenImage(FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Texture> OpenTexture(FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Texture> OpenTexture(TextureDesc desc, FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Wave> OpenWave(FilePathView defaultPath = U"", StringView title = U"");
+
+		[[nodiscard]]
+		std::future<Audio> OpenAudio(FilePathView defaultPath = U"", StringView title = U"");
+
+		/// @brief ダイアログから音声ファイルを選択し、ストリーミング再生する Audio を作成します。
+		/// @param f `Audio::Stream`
+		/// @param defaultPath ダイアログのデフォルトディレクトリ
+		/// @param title ダイアログのタイトル
+		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
+		[[nodiscard]]
+		std::future<Audio> OpenAudio(Audio::FileStreaming f, FilePathView defaultPath = U"", StringView title = U"");
+    }
+
+# endif
 }

@@ -889,10 +889,18 @@ namespace s3d
 					text.cursorStopwatch.restart();
 					text.leftPressStopwatch.reset();
 					text.rightPressStopwatch.reset();
+
+				# if SIV3D_PLATFORM(WEB)
+					Platform::Web::TextInput::RequestEnableIME();		
+				# endif
 				}
 				else
 				{
 					text.active = false;
+
+				# if SIV3D_PLATFORM(WEB)
+					Platform::Web::TextInput::RequestDisableIME();		
+				# endif
 				}
 			}
 
@@ -936,6 +944,10 @@ namespace s3d
 				if (const String raw = TextInput::GetRawInput(); raw.includes(U'\r') || raw.includes(U'\t'))
 				{
 					text.active = false;
+
+				# if SIV3D_PLATFORM(WEB)					
+					Platform::Web::TextInput::RequestDisableIME();					
+				# endif
 				}
 
 				if ((0 < text.cursorPos) && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && text.leftPressStopwatch > SecondsF(0.06))))

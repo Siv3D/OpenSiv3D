@@ -23,6 +23,9 @@
 # include <ThirdParty/simde/x86/sse4.1.h>
 # include <ThirdParty/simde/x86/sse4.2.h>
 
+# define _mm_malloc(__size, __align) memalign((__align), (__size))
+# define _mm_free free
+
 # else
 
 # if __has_include(<xmmintrin.h>)
