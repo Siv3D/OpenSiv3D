@@ -1075,6 +1075,7 @@
 		2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508424B768A800B98A7F /* BinaryReaderDetail.cpp */; };
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
+		2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */; };
 		2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C711CF026629EFD0018D38D /* SivMat4x4.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
@@ -3066,6 +3067,7 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
 		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
@@ -5575,6 +5577,7 @@
 				2C47B28424DD9789008D83BE /* QR */,
 				2CBEBCA62629D1460077DDBF /* QRScanner */,
 				2C53C33925613B7F0072831A /* Quad */,
+				2C6E35F5266A366C005EA869 /* Quaternion */,
 				2C47B2D024DD9789008D83BE /* Random */,
 				2C60F9232667F0F500FFAA68 /* RDTSCClock */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
@@ -7858,6 +7861,14 @@
 				2C6898142436064900C36C25 /* format.h */,
 			);
 			path = fmt;
+			sourceTree = "<group>";
+		};
+		2C6E35F5266A366C005EA869 /* Quaternion */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */,
+			);
+			path = Quaternion;
 			sourceTree = "<group>";
 		};
 		2C711CEF26629EFD0018D38D /* Mat4x4 */ = {
@@ -10931,6 +10942,7 @@
 				2C47B5B124E7670A008D83BE /* CTexture_Null.cpp in Sources */,
 				2C6390FF2539BB690030F18E /* CShader_Metal.mm in Sources */,
 				2C48BF0025CFB8C500A93CE3 /* shape-description.cpp in Sources */,
+				2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */,
 				2C47B30024DD9789008D83BE /* SivMathParser.cpp in Sources */,
 				2C636E6F2657F7D300AF029F /* soloud_core_setters.cpp in Sources */,
 				2C2AA3AB26009C74003F3EBC /* b2_time_of_impact.cpp in Sources */,
