@@ -71,7 +71,7 @@ namespace s3d
  	namespace Platform::Web::Dialog 
 	{
 		[[nodiscard]]
-        std::future<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
+		std::future<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
 
 		[[nodiscard]]
 		std::future<Array<FilePath>> OpenFiles(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
