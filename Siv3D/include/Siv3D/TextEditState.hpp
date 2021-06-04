@@ -26,6 +26,12 @@ namespace s3d
 
 		Stopwatch leftPressStopwatch, rightPressStopwatch, cursorStopwatch;
 
+	# if SIV3D_PLATFORM(WEB)
+
+		std::future<String> pendingClipboardText;
+
+	# endif
+
 		SIV3D_NODISCARD_CXX20
 		TextEditState() = default;
 

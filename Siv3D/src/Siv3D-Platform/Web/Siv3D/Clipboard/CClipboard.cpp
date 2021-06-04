@@ -47,17 +47,9 @@ namespace s3d
 
 	bool CClipboard::getText(String& text)
 	{
-		detail::siv3dGetClipboardText(&OnGetClipboardText, this);
+		text.clear();
 
-		if (m_clibboardTexts.size() > 0)
-		{
-			text = m_clibboardTexts.front();
-			m_clibboardTexts.pop_front();
-		}
-		else
-		{
-			text.clear();
-		}
+		// [Siv3D ToDo]
 		
 		return (not text.isEmpty());
 	}
@@ -92,7 +84,7 @@ namespace s3d
 
 	void CClipboard::clear()
 	{
-		// [Siv3D ToDo]
+		setText(U"");
 	}
 
 	void CClipboard::OnGetClipboardText(char* text, void* userData)
