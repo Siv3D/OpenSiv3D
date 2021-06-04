@@ -125,15 +125,15 @@ namespace s3d
 	{
 		std::lock_guard lock{ m_mutex };
 
-		// あふれたメッセージの除去
-		trimMessages();
-
 		if ((m_lines.size() == 1)
-			&& m_lines.isEmpty()
+			&& m_lines.front().isEmpty()
 			&& m_puts.isEmpty())
 		{
 			return;
 		}
+
+		// あふれたメッセージの除去
+		trimMessages();
 
 		// 描画
 		{
