@@ -18,6 +18,10 @@ Module.preRun = [
       addEventListener() {},
       removeEventListener() {}
     }
+
+    global.document = {
+      createElement() { return {}; }
+    }
     
     Module.canvas = {
       style: {},
