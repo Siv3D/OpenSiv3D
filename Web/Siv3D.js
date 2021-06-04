@@ -272,4 +272,99 @@ mergeInto(LibraryManager.library, {
     },
     siv3dStopUserActionHook__sig: "v",
     siv3dStopUserActionHook__deps: [ "$siv3dUserActionHookCallBack" ],
+
+    //
+    // Dialog Support
+    //
+    $siv3dInputElement: null,
+    $siv3dDialogFileReader: null,
+    $siv3dDownloadLink: null,
+
+    siv3dInitDialog: function() {
+        siv3dInputElement = document.createElement("input");
+        siv3dInputElement.type = "file";
+
+        siv3dDialogFileReader = new FileReader();
+
+        siv3dSaveFileBuffer = new Uint8Array(16*1024 /* 16KB */)
+        siv3dDownloadLink = document.createElement("a");
+
+        TTY.register(FS.makedev(20, 0), { put_char: siv3dWriteSaveFileBuffer, flush: siv3dFlushSaveFileBuffer });
+        FS.mkdev('/dev/save', FS.makedev(20, 0));
+    },
+    siv3dInitDialog__sig: "v",
+    siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dWriteSaveFileBuffer", "$siv3dFlushSaveFileBuffer", "$siv3dSaveFileBuffer", "$siv3dDownloadLink", "$TTY", "$FS" ],
+
+    siv3dOpenDialog: function(filterStr, callback, futurePtr) {
+        siv3dInputElement.accept = UTF8ToString(filterStr);
+        siv3dInputElement.oninput = function(e) {
+            const files = e.target.files;
+
+            if (files.length < 1) {
+                {{{ makeDynCall('vii', 'callback') }}}(0, futurePtr);
+                return;
+            }
+
+            const file = files[0];
+            const filePath = `/tmp/${file.name}`;
+
+            siv3dDialogFileReader.addEventListener("load", function onLoaded() {
+                FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
+
+                const namePtr = allocate(intArrayFromString(filePath), 'i8', ALLOC_NORMAL);
+                {{{ makeDynCall('vii', 'callback') }}}(namePtr, futurePtr);
+
+                siv3dDialogFileReader.removeEventListener("load", onLoaded);
+            });
+
+            siv3dDialogFileReader.readAsArrayBuffer(file);         
+        };
+
+        siv3dRegisterUserAction(function() {
+            siv3dInputElement.click();
+        });
+    },
+    siv3dOpenDialog__sig: "vii",
+    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+
+    $siv3dSaveFileBuffer: null, 
+    $siv3dSaveFileBufferWritePos: 0,
+    $siv3dDefaultSaveFileName: null,
+
+    $siv3dWriteSaveFileBuffer: function(tty, chr) {       
+        if (siv3dSaveFileBufferWritePos >= siv3dSaveFileBuffer.length) {
+            const newBuffer = new Uint8Array(siv3dSaveFileBuffer.length * 2);
+            newBuffer.set(siv3dSaveFileBuffer);
+            siv3dSaveFileBuffer = newBuffer;
+        }
+
+        siv3dSaveFileBuffer[siv3dSaveFileBufferWritePos] = chr;
+        siv3dSaveFileBufferWritePos++;
+    },
+    $siv3dWriteSaveFileBuffer__deps: [ "$siv3dSaveFileBuffer", "$siv3dSaveFileBufferWritePos" ], 
+    $siv3dFlushSaveFileBuffer: function(tty) {
+        if (siv3dSaveFileBufferWritePos == 0) {
+            return;
+        }
+
+        const data = siv3dSaveFileBuffer.subarray(0, siv3dSaveFileBufferWritePos);
+        const blob = new Blob([ data ], { type: "application/octet-stream" });
+
+        siv3dDownloadLink.href = URL.createObjectURL(blob);
+        siv3dDownloadLink.download = siv3dDefaultSaveFileName;
+
+        siv3dRegisterUserAction(function() {
+            siv3dDownloadLink.click();         
+        });
+
+        siv3dSaveFileBufferWritePos = 0;
+    },
+    $siv3dWriteSaveFileBuffer__deps: [ "$siv3dSaveFileBuffer", "$siv3dSaveFileBufferWritePos", "$siv3dRegisterUserAction", "$siv3dDefaultSaveFileName", "$siv3dDownloadLink" ], 
+
+    siv3dSaveDialog: function(str) {
+        siv3dDefaultSaveFileName = UTF8ToString(str);
+        siv3dSaveFileBufferWritePos = 0;
+    },
+    siv3dSaveDialog__sig: "v",
+    siv3dSaveDialog__deps: [ "$siv3dSaveFileBufferWritePos", "$siv3dDefaultSaveFileName" ],
 })

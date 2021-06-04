@@ -57,6 +57,9 @@ namespace s3d
 
 		__attribute__((import_name("siv3dStopUserActionHook")))
 		extern void siv3dStopUserActionHook();
+
+		__attribute__((import_name("siv3dInitDialog")))
+		extern void siv3dInitDialog();
 	}
 
 	CSystem::CSystem()
@@ -111,6 +114,7 @@ namespace s3d
 		SIV3D_ENGINE(Effect)->init();
 
 		detail::siv3dStartUserActionHook();
+		detail::siv3dInitDialog();
 	}
 
 	bool CSystem::update()
