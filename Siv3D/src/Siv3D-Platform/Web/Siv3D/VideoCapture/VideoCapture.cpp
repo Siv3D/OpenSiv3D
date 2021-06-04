@@ -11,7 +11,7 @@
 
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include "WebCameraCapture.hpp"
+# include "VideoCapture.hpp"
 
 namespace s3d
 {

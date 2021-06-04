@@ -13,7 +13,7 @@
 # include <Siv3D/Webcam.hpp>
 # include <Siv3D/PseudoThread/PseudoThread.hpp>
 # include <Siv3D/VideoCapture/FrameBufferUnpacker.hpp>
-# include <Siv3D/VideoCapture/WebCameraCapture.hpp>
+# include <Siv3D/VideoCapture/VideoCapture.hpp>
 
 namespace s3d
 {

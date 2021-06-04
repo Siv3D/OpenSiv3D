@@ -69,7 +69,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ToastNotification/CToastNotification.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Webcam/SivWebcam.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Webcam/WebcamDetail.cpp
-  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoCapture/WebCameraCapture.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoCapture/VideoCapture.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/WebcamInfo/SivWebcamInfo.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Window/CWindow.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Window/WindowFactory.cpp
