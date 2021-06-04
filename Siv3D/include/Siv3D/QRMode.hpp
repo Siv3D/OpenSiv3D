@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief 
-	enum class QRMode
+	enum class QRMode : uint8
 	{
 		/// @brief 無効なデータ
 		Invalid,

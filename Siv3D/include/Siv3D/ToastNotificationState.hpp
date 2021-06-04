@@ -14,9 +14,9 @@
 
 namespace s3d
 {
-	enum class ToastNotificationState
+	enum class ToastNotificationState : uint8
 	{
-		_None,
+		None_,
 
 		Shown,
 

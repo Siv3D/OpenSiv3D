@@ -19,7 +19,7 @@ namespace s3d
 	{
 		ToastNotificationID id = -1;
 
-		ToastNotificationState state = ToastNotificationState::_None;
+		ToastNotificationState state = ToastNotificationState::None_;
 
 		Optional<size_t> action;
 	};

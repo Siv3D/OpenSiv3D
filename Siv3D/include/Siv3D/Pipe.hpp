@@ -16,7 +16,7 @@ namespace s3d
 {
 	enum class Pipe : uint8
 	{
-		_None,
+		None_,
 
 		StdIn,
 

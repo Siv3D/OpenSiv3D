@@ -37,7 +37,7 @@ namespace s3d
 	struct TOMLTableMember;
 	class TOMLReader;
 
-	enum class TOMLValueType
+	enum class TOMLValueType : uint8
 	{
 		Empty,
 	

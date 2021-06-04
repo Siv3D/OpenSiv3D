@@ -16,7 +16,7 @@
 namespace s3d
 {
 	/// @brief PNG 圧縮時のフィルタ
-	enum class PNGFilter
+	enum class PNGFilter : int32
 	{
 		None_	= 0x08,
 

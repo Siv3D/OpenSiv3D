@@ -23,11 +23,11 @@ namespace s3d
 			{ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }	// leap year
 		};
 
-		inline constexpr int32 GetDayOfWeek(const int32 year, const int32 month, const int32 day) noexcept
+		inline constexpr uint8 GetDayOfWeek(const int32 year, const int32 month, const int32 day) noexcept
 		{
-			return ((month == 1 || month == 2) ?
+			return static_cast<uint8>(((month == 1 || month == 2) ?
 				((year - 1) + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400 + (13 * (month + 12) + 8) / 5 + day) % 7
-				: (year + year / 4 - year / 100 + year / 400 + (13 * month + 8) / 5 + day) % 7);
+				: (year + year / 4 - year / 100 + year / 400 + (13 * month + 8) / 5 + day) % 7));
 		}
 
 		inline constexpr int32 YearsToDays(const int32 years)

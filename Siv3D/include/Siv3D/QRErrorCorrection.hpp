@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief QR コードの誤り訂正レベル
-	enum class QRErrorCorrection
+	enum class QRErrorCorrection : uint8
 	{
 		/// @brief 約 7%
 		Low,

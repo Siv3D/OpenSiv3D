@@ -26,7 +26,7 @@ namespace s3d
 
 		switch (pipe)
 		{
-		case Pipe::_None:
+		case Pipe::None_:
 			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir);
 			break;
 		case Pipe::StdIn:

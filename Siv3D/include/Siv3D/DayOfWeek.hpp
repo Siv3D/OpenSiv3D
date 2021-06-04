@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief 曜日 | Day of week
-	enum class DayOfWeek
+	enum class DayOfWeek : uint8
 	{
 		/// @brief 日曜日 | Sunday
 		Sunday,

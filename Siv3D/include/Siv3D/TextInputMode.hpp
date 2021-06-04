@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	enum class TextInputMode
+	enum class TextInputMode : uint32
 	{
 		DenyControl		= 0x00,
 

@@ -19,7 +19,7 @@ namespace s3d
 	enum class DeadZoneType : uint8
 	{
 		/// @brief デッドゾーンなし
-		_None,
+		None_,
 
 		/// @brief 軸独立
 		Independent,
@@ -38,7 +38,7 @@ namespace s3d
 		double maxValue = 1.0;
 
 		/// @brief デッドゾーンの計算方式
-		DeadZoneType type = DeadZoneType::_None;
+		DeadZoneType type = DeadZoneType::None_;
 
 		[[nodiscard]]
 		constexpr double operator ()(double value) const noexcept;

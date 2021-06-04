@@ -23,7 +23,7 @@ namespace s3d
 	{
 	public:
 
-		enum class ByteSize
+		enum class ByteSize : uint8
 		{
 			FiveBits	= 5,
 			SixBits		= 6,
@@ -31,7 +31,7 @@ namespace s3d
 			EightBits	= 8
 		};
 
-		enum class Parity
+		enum class Parity : uint8
 		{
 			None_	= 0,
 			Odd		= 1,
@@ -40,14 +40,14 @@ namespace s3d
 			Space	= 4
 		};
 
-		enum StopBits
+		enum StopBits : uint8
 		{
 			One				= 1,
 			Two				= 2,
 			OnePointFive
 		};
 
-		enum class FlowControl
+		enum class FlowControl : uint8
 		{
 			None_,
 			Software,

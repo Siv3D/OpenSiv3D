@@ -105,7 +105,7 @@ namespace s3d
 
 		Vec2 v{ gamepad.axes[0], gamepad.axes[1] };
 
-		if (m_LStickDeadZone.type == DeadZoneType::_None)
+		if (m_LStickDeadZone.type == DeadZoneType::None_)
 		{
 			return v;
 		}
@@ -129,7 +129,7 @@ namespace s3d
 
 		Vec2 v{ gamepad.axes[2], gamepad.axes[3] };
 
-		if (m_RStickDeadZone.type == DeadZoneType::_None)
+		if (m_RStickDeadZone.type == DeadZoneType::None_)
 		{
 			return v;
 		}

@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief シェーダステージ
-	enum class ShaderStage
+	enum class ShaderStage : uint8
 	{
 		/// @brief 頂点シェーダ
 		Vertex,

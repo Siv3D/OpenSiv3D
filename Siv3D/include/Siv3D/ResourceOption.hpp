@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	enum class ResourceOption
+	enum class ResourceOption : uint8
 	{
 		File,
 

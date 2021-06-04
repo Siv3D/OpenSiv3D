@@ -19,7 +19,7 @@ namespace s3d
 	enum class CameraControl : uint8
 	{
 		/// @brief 手動操作無し
-		_None		= 0,
+		None_		= 0,
 
 		/// @brief WASD キーによる上下左右移動
 		WASDKeys	= 0b0001,

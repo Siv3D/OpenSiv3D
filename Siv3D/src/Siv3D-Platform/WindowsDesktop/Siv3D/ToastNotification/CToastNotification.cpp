@@ -145,13 +145,13 @@ namespace s3d
 	{
 		if (not isAvailable())
 		{
-			return ToastNotificationState::_None;
+			return ToastNotificationState::None_;
 		}
 
 		if ((not m_initialized.has_value())
 			|| (not *m_initialized))
 		{
-			return ToastNotificationState::_None;
+			return ToastNotificationState::None_;
 		}
 
 		std::lock_guard lock(m_mutex);
@@ -160,7 +160,7 @@ namespace s3d
 
 		if (itTable == m_toastIDTable.end())
 		{
-			return ToastNotificationState::_None;
+			return ToastNotificationState::None_;
 		}
 
 		const size_t index = itTable->second;
@@ -169,7 +169,7 @@ namespace s3d
 
 		if (it == m_toasts.end())
 		{
-			return ToastNotificationState::_None;
+			return ToastNotificationState::None_;
 		}
 
 		return it->second.state;

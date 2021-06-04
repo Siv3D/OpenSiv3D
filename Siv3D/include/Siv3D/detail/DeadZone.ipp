@@ -15,7 +15,7 @@ namespace s3d
 {
 	inline constexpr double DeadZone::operator ()(double value) const noexcept
 	{
-		if (type == DeadZoneType::_None)
+		if (type == DeadZoneType::None_)
 		{
 			return value;
 		}
@@ -38,7 +38,7 @@ namespace s3d
 
 	inline Vec2 DeadZone::operator ()(double x, double y) const noexcept
 	{
-		if (type == DeadZoneType::_None)
+		if (type == DeadZoneType::None_)
 		{
 			return{ x, y };
 		}

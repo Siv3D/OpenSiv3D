@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief WAVE の保存形式
-	enum class WAVEFormat
+	enum class WAVEFormat : uint8
 	{
 		/// @brief 8bit ステレオ
 		StereoUint8,

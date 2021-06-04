@@ -229,7 +229,7 @@ namespace s3d
 
 		enum class TransitionState
 		{
-			None,
+			None_,
 
 			FadeIn,
 
@@ -239,7 +239,7 @@ namespace s3d
 
 			FadeInOut,
 
-		} m_transitionState = TransitionState::None;
+		} m_transitionState = TransitionState::None_;
 
 		Stopwatch m_stopwatch;
 

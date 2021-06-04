@@ -41,7 +41,7 @@ namespace s3d
 	ToastNotificationState CToastNotification::getState(ToastNotificationID)
 	{
 		// [Siv3D ToDo]
-		return(ToastNotificationState::_None);
+		return(ToastNotificationState::None_);
 	}
 
 	Optional<size_t> CToastNotification::getAction(ToastNotificationID)

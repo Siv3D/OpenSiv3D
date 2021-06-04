@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief アルファベットの大文字・小文字
-	enum class LetterCase
+	enum class LetterCase : uint8
 	{
 		/// @brief 小文字
 		Lower,

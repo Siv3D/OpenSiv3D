@@ -29,7 +29,7 @@ namespace s3d
 		ChildProcess(FilePathView path, Pipe pipe);
 
 		SIV3D_NODISCARD_CXX20
-		ChildProcess(FilePathView path, StringView command = U"", Pipe pipe = Pipe::_None);
+		ChildProcess(FilePathView path, StringView command = U"", Pipe pipe = Pipe::None_);
 
 		~ChildProcess();
 

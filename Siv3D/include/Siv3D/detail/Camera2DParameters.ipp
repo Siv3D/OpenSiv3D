@@ -70,6 +70,6 @@ namespace s3d
 
 	inline Camera2DParameters Camera2DParameters::NoControl()
 	{
-		return Make(CameraControl::_None);
+		return Make(CameraControl::None_);
 	}
 }

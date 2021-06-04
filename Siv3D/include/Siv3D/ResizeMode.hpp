@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// @brief シーンの自動リサイズモード
-	enum class ResizeMode
+	enum class ResizeMode : uint8
 	{
 		/// @brief シーンのサイズをウィンドウの実サイズに合わせる
 		Actual,
