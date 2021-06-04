@@ -11,7 +11,6 @@
 
 # pragma once
 # include <Siv3D/Webcam.hpp>
-# include <Siv3D/Math.hpp>
 # include <Siv3D/PseudoThread/PseudoThread.hpp>
 # include "FrameBufferUnpacker.hpp"
 # include "WebCameraCapture.hpp"

@@ -11,7 +11,6 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
-# include <Siv3D/Point.hpp>
 # include <GLES3/gl3.h>
 
 namespace s3d
