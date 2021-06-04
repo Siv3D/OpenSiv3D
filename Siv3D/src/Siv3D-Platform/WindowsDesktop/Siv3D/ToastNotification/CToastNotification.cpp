@@ -86,32 +86,25 @@ namespace s3d
 	void CToastNotification::init()
 	{
 		LOG_SCOPED_TRACE(U"CToastNotification::init()");
-
-		m_available = WinToast::isCompatible();
-
-		if (m_available)
-		{
-			LOG_INFO(U"ℹ️ ToastNotification is available");
-		}
-		else
-		{
-			LOG_INFO(U"ℹ️ ToastNotification is not available");
-		}
-
-		const std::wstring appName = FileSystem::BaseName(FileSystem::ModulePath()).toWstr();
-		WinToast::instance()->setAppName(appName);
-
-		const auto aumi = WinToast::configureAUMI(L"Siv3D", appName, L"app");
-		WinToast::instance()->setAppUserModelId(aumi);
 	}
 
 	bool CToastNotification::isAvailable() const
 	{
-		return m_available;
+		if (not m_available2.has_value())
+		{
+			checkAvailability();
+		}
+
+		return *m_available2;
 	}
 
 	ToastNotificationID CToastNotification::show(const ToastNotificationItem& item)
 	{
+		if (not isAvailable())
+		{
+			return -1;
+		}
+
 		if (not setup())
 		{
 			return -1;
@@ -150,7 +143,13 @@ namespace s3d
 
 	ToastNotificationState CToastNotification::getState(ToastNotificationID id)
 	{
-		if (!m_initialized.has_value() || !m_initialized.value())
+		if (not isAvailable())
+		{
+			return ToastNotificationState::_None;
+		}
+
+		if ((not m_initialized.has_value())
+			|| (not *m_initialized))
 		{
 			return ToastNotificationState::_None;
 		}
@@ -178,7 +177,13 @@ namespace s3d
 
 	Optional<size_t> CToastNotification::getAction(ToastNotificationID id)
 	{
-		if (!m_initialized.has_value() || !m_initialized.value())
+		if (not isAvailable())
+		{
+			return none;
+		}
+
+		if ((not m_initialized.has_value())
+			|| (not *m_initialized))
 		{
 			return none;
 		}
@@ -206,7 +211,13 @@ namespace s3d
 
 	void CToastNotification::hide(ToastNotificationID id)
 	{
-		if (!m_initialized.has_value() || !m_initialized.value())
+		if (not isAvailable())
+		{
+			return;
+		}
+
+		if ((not m_initialized.has_value())
+			|| (not *m_initialized))
 		{
 			return;
 		}
@@ -241,7 +252,14 @@ namespace s3d
 
 	void CToastNotification::clear()
 	{
-		if (!m_initialized.has_value() || !m_initialized.value())
+		if ((not m_available2)
+			|| (not *m_available2))
+		{
+			return;
+		}
+
+		if ((not m_initialized.has_value())
+			|| (not *m_initialized))
 		{
 			return;
 		}
@@ -268,6 +286,26 @@ namespace s3d
 		}
 	}
 
+	void CToastNotification::checkAvailability() const
+	{
+		LOG_SCOPED_TRACE(U"CToastNotification::checkAvailability()");
+
+		assert(not m_available2.has_value());
+
+		if (const bool available = WinToast::isCompatible())
+		{
+			LOG_INFO(U"ℹ️ ToastNotification is available");
+
+			m_available2 = true;
+		}
+		else
+		{
+			LOG_INFO(U"ℹ️ ToastNotification is not available");
+
+			m_available2 = false;
+		}
+	}
+
 	bool CToastNotification::setup()
 	{
 		if (m_initialized.has_value())
@@ -275,16 +313,17 @@ namespace s3d
 			return *m_initialized;
 		}
 
-		if (!m_available)
-		{
-			m_initialized = false;
+		LOG_SCOPED_TRACE(U"CToastNotification::setup()");
 
-			return false;
-		}
+		const std::wstring appName = FileSystem::BaseName(FileSystem::ModulePath()).toWstr();
+		WinToast::instance()->setAppName(appName);
+
+		const auto aumi = WinToast::configureAUMI(L"Siv3D", appName, L"app");
+		WinToast::instance()->setAppUserModelId(aumi);
 
 		WinToast::WinToastError error = WinToast::NoError;
 
-		if (!WinToast::instance()->initialize(&error))
+		if (not WinToast::instance()->initialize(&error))
 		{
 			m_initialized = false;
 		}

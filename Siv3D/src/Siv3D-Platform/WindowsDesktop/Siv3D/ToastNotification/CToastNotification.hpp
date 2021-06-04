@@ -50,7 +50,7 @@ namespace s3d
 
 	private:
 
-		bool m_available = false;
+		mutable Optional<bool> m_available2;
 
 		Optional<bool> m_initialized;
 
@@ -61,6 +61,8 @@ namespace s3d
 		size_t m_indexCount = 0;
 
 		std::mutex m_mutex;
+
+		void checkAvailability() const;
 
 		bool setup();
 	};
