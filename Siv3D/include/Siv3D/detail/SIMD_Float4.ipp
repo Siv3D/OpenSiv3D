@@ -251,6 +251,18 @@ namespace s3d
 		return DirectX::XMVectorReciprocalSqrtEst(vec);
 	}
 
+	inline SIMD_Float4& SIMD_Float4::normalize() noexcept
+	{
+		vec = DirectX::XMVector4Normalize(vec);
+
+		return *this;
+	}
+
+	inline SIMD_Float4 SIMD_Float4::normalized() const noexcept
+	{
+		return DirectX::XMVector4Normalize(vec);
+	}
+
 	inline Float2 SIMD_Float4::xy() const noexcept
 	{
 		DirectX::XMFLOAT4A t;

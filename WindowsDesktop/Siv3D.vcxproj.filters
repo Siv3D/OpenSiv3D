@@ -1273,6 +1273,9 @@
     <Filter Include="src\Siv3D\RDTSCClock">
       <UniqueIdentifier>{85bb24d9-30b7-4c80-aa5b-58eecbf91131}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Quaternion">
+      <UniqueIdentifier>{fa70e347-6051-497f-ae63-4ce2ea1726ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8104,6 +8107,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RDTSCClock\SivRDTSCClock.cpp">
       <Filter>src\Siv3D\RDTSCClock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quaternion\SivQuaternion.cpp">
+      <Filter>src\Siv3D\Quaternion</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

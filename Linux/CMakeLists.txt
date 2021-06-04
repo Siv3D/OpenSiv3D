@@ -345,6 +345,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/QRScanner/QRScannerDetail.cpp
   ../Siv3D/src/Siv3D/QRScanner/SivQRScanner.cpp
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
+  ../Siv3D/src/Siv3D/Quaternion/SivQuaternion.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
   ../Siv3D/src/Siv3D/RDTSCClock/SivRDTSCClock.cpp
   ../Siv3D/src/Siv3D/Rect/SivRect.cpp

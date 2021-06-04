@@ -45,17 +45,22 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Quaternion(aligned_float4 _vec) noexcept;
 
-		[[nodiscard]] Quaternion SIV3D_VECTOR_CALL operator *(const Quaternion& q) const noexcept;
+		[[nodiscard]]
+		Quaternion SIV3D_VECTOR_CALL operator *(Quaternion q) const noexcept;
 
-		Quaternion& SIV3D_VECTOR_CALL operator *=(const Quaternion& q) noexcept;
-
-		[[nodiscard]] Float3 operator *(const Float3& v) const noexcept;
+		Quaternion& SIV3D_VECTOR_CALL operator *=(Quaternion q) noexcept;
 
 		[[nodiscard]]
-		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept
+		Float3 SIV3D_VECTOR_CALL operator *(Float3 v) const noexcept;
+
+		[[nodiscard]]
+		friend Float3 SIV3D_VECTOR_CALL operator *(Float3 v, Quaternion q) noexcept
 		{
-			return value.vec;
+			return (q * v);
 		}
+
+		[[nodiscard]]
+		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept;
 
 		[[nodiscard]]
 		Float4 SIV3D_VECTOR_CALL toFloat4() const noexcept;
@@ -118,10 +123,10 @@ namespace s3d
 		std::pair<Float3, float> SIV3D_VECTOR_CALL toAxisAngle() const noexcept;
 
 		[[nodiscard]]
-		static constexpr Quaternion SIV3D_VECTOR_CALL Identity() noexcept;
+		static Quaternion SIV3D_VECTOR_CALL Identity() noexcept;
 
 		[[nodiscard]]
-		static constexpr Quaternion SIV3D_VECTOR_CALL Zero() noexcept;
+		static Quaternion SIV3D_VECTOR_CALL Zero() noexcept;
 
 		template <class X, class Y, class Z>
 		[[nodiscard]]
@@ -129,15 +134,63 @@ namespace s3d
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		static Quaternion SIV3D_VECTOR_CALL RotationNormal(const Float3& normalAxis, Arithmetic angle);
+		static Quaternion SIV3D_VECTOR_CALL RotationNormal(Float3 normalAxis, Arithmetic angle) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
-		static Quaternion SIV3D_VECTOR_CALL RotationAxis(const Float3& axis, Arithmetic angle);
+		static Quaternion SIV3D_VECTOR_CALL RotationAxis(Float3 axis, Arithmetic angle) noexcept;
 
 		[[nodiscard]]
-		static Quaternion SIV3D_VECTOR_CALL Rotate(Mat4x4 m);
+		static Quaternion SIV3D_VECTOR_CALL Rotate(const Mat4x4& m) noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quaternion& value)
+		{
+			return output << value.toFloat4();
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Quaternion& value)
+		{
+			Float4 t;
+			input >> t;
+			value = SIMD_Float4{ t };
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const Quaternion& value)
+		{
+			Formatter(formatData, value.value);
+		}
 	};
 }
 
 # include "detail/Quaternion.ipp"
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Quaternion, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::Quaternion& value, FormatContext& ctx)
+	{
+		const s3d::Float4 v = value.toFloat4();
+
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {}, {})", v.x, v.y, v.z, v.w);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, v.x, v.y, v.z, v.w);
+		}
+	}
+};

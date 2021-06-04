@@ -95,7 +95,7 @@ namespace s3d
 		SIMD_Float4& SIV3D_VECTOR_CALL operator /=(SIMD_Float4 v) noexcept;
 
 		[[nodiscard]]
-		friend SIMD_Float4 SIV3D_VECTOR_CALL operator *(float s, const SIMD_Float4& v) noexcept
+		friend SIMD_Float4 SIV3D_VECTOR_CALL operator *(float s, SIMD_Float4 v) noexcept
 		{
 			return (v * s);
 		}
@@ -163,6 +163,11 @@ namespace s3d
 
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL fastRsqrt() const noexcept;
+
+		SIMD_Float4& SIV3D_VECTOR_CALL normalize() noexcept;
+
+		[[nodiscard]]
+		SIMD_Float4 SIV3D_VECTOR_CALL normalized() const noexcept;
 
 		[[nodiscard]]
 		Float2 SIV3D_VECTOR_CALL xy() const noexcept;
