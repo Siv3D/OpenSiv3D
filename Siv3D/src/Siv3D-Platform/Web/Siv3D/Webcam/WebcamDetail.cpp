@@ -37,6 +37,7 @@ namespace s3d
 
 		m_abort = false;
 
+		// TODO: カメラのデフォルトの解像度も取得したい
 		m_capture.setResolution(m_captureResolution);
 
 		if (not m_capture.open())
@@ -83,11 +84,6 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::start()
 	{
-		if (not m_capture.isOpened())
-		{
-			return false;
-		}
-
 		// すでに start 後の場合は何もしない
 		if (m_thread.joinable())
 		{
@@ -207,7 +203,15 @@ namespace s3d
 
 		if (webcam.m_abort)
 		{
+			// false を返して疑似スレッド終了
 			return false;
+		}
+
+		if (not capture.isOpened())
+		{
+			// isOpen != true でなくても start できる代わりに、
+			// ここで open チェック
+			return true;
 		}
 
 		if (capture.grab())
