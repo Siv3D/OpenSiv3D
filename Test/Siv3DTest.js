@@ -23,17 +23,19 @@ Module.preRun = [
       createElement() { 
         return { 
           style: {},
-          parentNode: {
-            prepend() {}
-          }
+          addEventListener() {},
+          removeEventListener() {},
         };
-      }
+      }, 
     }
     
     Module.canvas = {
       style: {},
+      parentNode: {
+        prepend() {}
+      },
       addEventListener() {},
-      removeEventListener() {}
+      removeEventListener() {},
     }
 
     global.FileReader = class {
