@@ -110,20 +110,6 @@ namespace s3d
 			::GetWindowRect(hWnd, &storedWindowRect);
 			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
-			/*
-			DEVMODE devMode = {};
-			devMode.dmSize = sizeof(DEVMODE);
-			::EnumDisplaySettingsW(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
-
-			const RECT fullscreenWindowRect = {
-				devMode.dmPosition.x,
-				devMode.dmPosition.y,
-				devMode.dmPosition.x + static_cast<LONG>(devMode.dmPelsWidth),
-				devMode.dmPosition.y + static_cast<LONG>(devMode.dmPelsHeight)
-			};
-
-			result.set(static_cast<int32>(devMode.dmPelsWidth), static_cast<int32>(devMode.dmPelsHeight));
-			*/
 			const Array<Monitor> monitors = System::EnumerateMonitors();
 
 			if (monitors.size() <= monitorIndex)

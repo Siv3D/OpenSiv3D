@@ -57,6 +57,8 @@ namespace s3d
 				monitor->workArea.w = (monitorInfo.rcWork.right - monitorInfo.rcWork.left);
 				monitor->workArea.h = (monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
 
+				monitor->fullscreenResolution = monitor->displayRect.size;
+
 				if (*g_pGetDpiForMonitor)
 				{
 					uint32 dpiX = 0, dpiY = 0;
