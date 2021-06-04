@@ -58,7 +58,9 @@ namespace s3d
 
 	inline Float3 Quaternion::operator *(const Float3 v) const noexcept
 	{
-		DirectX::XMVector3Rotate(SIMD_Float4{ v, 0.0f }, value);
+		const SIMD_Float4 result = DirectX::XMVector3Rotate(SIMD_Float4{ v, 0.0f }, value);
+
+		return result.xyz();
 	}
 
 	inline Quaternion::operator aligned_float4() const noexcept
