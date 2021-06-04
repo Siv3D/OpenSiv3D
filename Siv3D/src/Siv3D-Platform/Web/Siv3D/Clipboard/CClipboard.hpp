@@ -41,6 +41,8 @@ namespace s3d
 
 	private:
 
-		GLFWwindow* m_window = nullptr;
+		static void OnGetClipboardText(char* text, void* userData);
+
+		Array<String> m_clibboardTexts;
 	};
 }

@@ -369,6 +369,36 @@ mergeInto(LibraryManager.library, {
     siv3dSaveDialog__deps: [ "$siv3dSaveFileBufferWritePos", "$siv3dDefaultSaveFileName" ],
 
     //
+    // Clipboard
+    //
+    siv3dSetClipboardText: function(ctext) {
+        const text = UTF8ToString(ctext);
+        
+        siv3dRegisterUserAction(function () {
+            navigator.clipboard.writeText(text);
+        });
+    },
+    siv3dSetClipboardText__sig: "vi",
+    siv3dSetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
+
+    siv3dGetClipboardText: function(callback, promise) {
+        siv3dRegisterUserAction(function () {
+            navigator.clipboard.readText()
+            .then(str => {
+                const strPtr = allocate(intArrayFromString(str), 'i8', ALLOC_NORMAL);       
+                {{{ makeDynCall('vii', 'callback') }}}(strPtr, promise);
+                Module["_free"](strPtr);
+            })
+            .catch(e => {
+                {{{ makeDynCall('vii', 'callback') }}}(0, promise);
+            })
+        });
+        
+    },
+    siv3dGetClipboardText__sig: "vii",
+    siv3dGetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
+
+    //
     // TextInput
     //
     $siv3dTextInputElement: null,
