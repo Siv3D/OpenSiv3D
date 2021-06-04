@@ -117,6 +117,12 @@ namespace s3d
 		[[nodiscard]]
 		static Shape2D Arrow(const Line& line, double width, const Vec2& headSize);
 
+		[[nodiscard]]
+		static Shape2D DoubleArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize);
+
+		[[nodiscard]]
+		static Shape2D DoubleArrow(const Line& line, double width, const Vec2& headSize);
+
 		/// @brief ひし形を作成します。
 		/// @param w ひし形の幅
 		/// @param h ひし形の高さ

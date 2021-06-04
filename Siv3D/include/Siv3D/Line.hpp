@@ -219,6 +219,8 @@ namespace s3d
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
 
+		const Line& drawDoubleArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
+
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line& value)

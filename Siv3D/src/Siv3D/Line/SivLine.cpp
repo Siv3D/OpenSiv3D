@@ -227,6 +227,13 @@ namespace s3d
 		return *this;
 	}
 
+	const Line& Line::drawDoubleArrow(const double width, const Vec2& headSize, const ColorF& color) const
+	{
+		Shape2D::DoubleArrow(begin, end, width, headSize).draw(color);
+
+		return *this;
+	}
+
 	void Line::_Formatter(FormatData& formatData, const Line& value)
 	{
 		formatData.string.append(U"(("_sv);

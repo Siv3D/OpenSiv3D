@@ -204,6 +204,51 @@ namespace s3d
 		return Arrow(line.begin, line.end, width, headSize);
 	}
 
+	Shape2D Shape2D::DoubleArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize)
+	{
+		const double length = to.distanceFrom(from);
+
+		if ((length == 0.0)
+			|| (width <= 0.0)
+			|| (headSize.x <= 0.0)
+			|| (headSize.y <= 0.0))
+		{
+			return{};
+		}
+
+		const double clampedRatio = (Min(headSize.y * 2, length) / (headSize.y * 2));
+		const Float2 direction = ((to - from) / length);
+		const Float2 normalDirection{ direction.y, -direction.x };
+		const Float2 leftOffset = (normalDirection * static_cast<float>(width) * 0.5f);
+		const Float2 clampedHeadSize = (clampedRatio * headSize);
+		const Float2 gutterOffset = (direction * clampedHeadSize.y);
+		const Float2 edgeOffset = (normalDirection * clampedHeadSize.x * 0.5f);
+
+		Array<Float2> vertices(10);
+		{
+			Float2* pPos = vertices.data();
+			pPos[0] = (from + leftOffset + gutterOffset);
+			pPos[1] = (to + leftOffset - gutterOffset);
+			pPos[2] = (to + leftOffset - gutterOffset + edgeOffset);
+			pPos[3] = to;
+			pPos[4] = (to - leftOffset - gutterOffset - edgeOffset);
+			pPos[5] = (to - leftOffset - gutterOffset);
+			pPos[6] = (from - leftOffset + gutterOffset);
+			pPos[7] = (from - leftOffset + gutterOffset - edgeOffset);
+			pPos[8] = from;
+			pPos[9] = (from + leftOffset + gutterOffset + edgeOffset);
+		}
+
+		Array<TriangleIndex> indices = { {8, 9, 7}, {0, 1, 6}, {6, 1, 5}, {3, 4, 2} };
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::DoubleArrow(const Line& line, double width, const Vec2& headSize)
+	{
+		return DoubleArrow(line.begin, line.end, width, headSize);
+	}
+
 	Shape2D Shape2D::Rhombus(const double w, const double h, const Vec2& center, const double angle)
 	{
 		if ((w <= 0.0)
