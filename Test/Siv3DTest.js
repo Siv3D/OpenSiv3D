@@ -11,13 +11,18 @@ Module.preRun = [
     // Mock Implementations 
     //
     global.navigator = {
-      getGamepads: function() {
-        return [];
-      }
+      getGamepads() { return []; }
+    }
+
+    global.window = {
+      addEventListener() {},
+      removeEventListener() {}
     }
     
     Module.canvas = {
-      style: {}
+      style: {},
+      addEventListener() {},
+      removeEventListener() {}
     }
   }
 ]
