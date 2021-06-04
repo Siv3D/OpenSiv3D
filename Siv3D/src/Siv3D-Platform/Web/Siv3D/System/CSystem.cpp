@@ -50,6 +50,15 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		__attribute__((import_name("siv3dStartUserActionHook")))
+		extern void siv3dStartUserActionHook();
+
+		__attribute__((import_name("siv3dStopUserActionHook")))
+		extern void siv3dStopUserActionHook();
+	}
+
 	CSystem::CSystem()
 	{
 
@@ -58,6 +67,8 @@ namespace s3d
 	CSystem::~CSystem()
 	{
 		LOG_SCOPED_TRACE(U"CSystem::~CSystem()");
+
+		detail::siv3dStopUserActionHook();
 
 		SystemMisc::Destroy();
 		SystemLog::Final();
@@ -98,6 +109,8 @@ namespace s3d
 		SIV3D_ENGINE(GUI)->init();
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(Effect)->init();
+
+		detail::siv3dStartUserActionHook();
 	}
 
 	bool CSystem::update()

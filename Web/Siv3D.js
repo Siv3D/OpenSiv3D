@@ -227,4 +227,49 @@ mergeInto(LibraryManager.library, {
     },
     siv3dDestroyVideo__sig: "vi",
     siv3dDestroyVideo__deps: ["$videoElements"],
+
+    //
+    // User Action Emulation
+    //
+    $siv3dHasUserActionTriggered: false,
+    $siv3dPendingUserActions: [],
+
+    $siv3dTriggerUserAction: function() {
+        for (let action of siv3dPendingUserActions) {
+            action();
+        }
+
+        siv3dPendingUserActions.splice(0);
+        siv3dHasUserActionTriggered = false;
+    },
+    $siv3dTriggerUserAction__deps: [ "$siv3dPendingUserActions" ],
+
+    $siv3dRegisterUserAction: function(func) {
+        siv3dPendingUserActions.push(func);
+    },
+    $siv3dRegisterUserAction__deps: [ "$siv3dPendingUserActions" ],
+
+    $siv3dUserActionHookCallBack: function() {
+        if (!siv3dHasUserActionTriggered) {
+            setTimeout(siv3dTriggerUserAction, 30);
+            siv3dHasUserActionTriggered = true;
+        }
+    },
+    $siv3dUserActionHookCallBack__deps: [ "$siv3dHasUserActionTriggered", "$siv3dTriggerUserAction" ],
+
+    siv3dStartUserActionHook: function() {
+        Module["canvas"].addEventListener('touchstart', siv3dUserActionHookCallBack);
+        Module["canvas"].addEventListener('mousedown', siv3dUserActionHookCallBack);
+        window.addEventListener('keydown', siv3dUserActionHookCallBack);
+    },
+    siv3dStartUserActionHook__sig: "v",
+    siv3dStartUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dHasUserActionTriggered" ],
+
+    siv3dStopUserActionHook: function() {
+        Module["canvas"].removeEventListener('touchstart', siv3dUserActionHookCallBack);
+        Module["canvas"].removeEventListener('mousedown', siv3dUserActionHookCallBack);
+        window.removeEventListener('keydown', siv3dUserActionHookCallBack);
+    },
+    siv3dStopUserActionHook__sig: "v",
+    siv3dStopUserActionHook__deps: [ "$siv3dUserActionHookCallBack" ],
 })
