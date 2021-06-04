@@ -20,7 +20,11 @@ Module.preRun = [
     }
 
     global.document = {
-      createElement() { return {}; }
+      createElement() { 
+        return { 
+          style: {} 
+        };
+      }
     }
     
     Module.canvas = {
