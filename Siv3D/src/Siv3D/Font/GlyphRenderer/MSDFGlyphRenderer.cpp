@@ -117,16 +117,22 @@ namespace s3d
 			Image image(imageWidth, imageHeight, Color{ 0, 0, 0, 255 });
 			Color* pDst = image.data();
 
+			const float* pLine = bitmap(0, imageHeight - 1);
+			const size_t stride = (3 * imageWidth);
+
 			for (int32 y = (imageHeight - 1); y >= 0; --y)
 			{
+				const float* pSrc = pLine;
+
 				for (int32 x = 0; x < imageWidth; ++x)
 				{
-					const auto& pixel = bitmap(x, y);
-					pDst->r = static_cast<uint8>(Clamp(int32(pixel[0] * 0x100), 0, 255));
-					pDst->g = static_cast<uint8>(Clamp(int32(pixel[1] * 0x100), 0, 255));
-					pDst->b = static_cast<uint8>(Clamp(int32(pixel[2] * 0x100), 0, 255));
+					pDst->r = static_cast<uint8>(Clamp(int32(*pSrc++ * 0x100), 0, 255));
+					pDst->g = static_cast<uint8>(Clamp(int32(*pSrc++ * 0x100), 0, 255));
+					pDst->b = static_cast<uint8>(Clamp(int32(*pSrc++ * 0x100), 0, 255));
 					++pDst;
 				}
+
+				pLine -= stride;
 			}
 
 			return image;
