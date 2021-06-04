@@ -22,7 +22,10 @@ Module.preRun = [
     global.document = {
       createElement() { 
         return { 
-          style: {} 
+          style: {},
+          parentNode: {
+            prepend() {}
+          }
         };
       }
     }
