@@ -33,11 +33,11 @@ namespace s3d
 
 	private:
 
-		LibraryHandle m_MF = nullptr;
+		LibraryHandle m_MFplat = nullptr;
+
+		//LibraryHandle m_MF = nullptr;
 
 		LibraryHandle m_MFRW = nullptr;
-
-		LibraryHandle m_MFplat = nullptr;
 
 		MF_Functions m_functions;
 

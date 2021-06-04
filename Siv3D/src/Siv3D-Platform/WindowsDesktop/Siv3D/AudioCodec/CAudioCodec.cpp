@@ -127,57 +127,51 @@ namespace s3d
 			m_functions.p_MFShutdown();
 		}
 
-		DLL::Unload(m_MFplat);
 		DLL::Unload(m_MFRW);
-		DLL::Unload(m_MF);
+		//DLL::Unload(m_MF);
+		DLL::Unload(m_MFplat);
 	}
 
 	void CAudioCodec::init()
 	{
 		LOG_SCOPED_TRACE(U"CAudioCodec::init()");
 
+		//
+		//	Mfplat
+		//
 		m_MFplat	= DLL::LoadSystemLibrary(L"Mfplat.dll");
-		m_MF		= DLL::LoadSystemLibrary(L"Mf.dll");
-		m_MFRW		= DLL::LoadSystemLibrary(L"Mfreadwrite.dll");
-
-		m_functions.p_MFStartup		= DLL::GetFunction(m_MFplat, "MFStartup");
-		m_functions.p_MFShutdown	= DLL::GetFunction(m_MFplat, "MFShutdown");
+		m_functions.p_MFStartup							= DLL::GetFunction(m_MFplat, "MFStartup");
+		m_functions.p_MFShutdown						= DLL::GetFunction(m_MFplat, "MFShutdown");
+		//m_functions.p_MFCreateSourceResolver			= DLL::GetFunction(m_MFplat, "MFCreateSourceResolver");
+		m_functions.p_MFCreateAttributes				= DLL::GetFunction(m_MFplat, "MFCreateAttributes");
+		m_functions.p_MFCreateMediaType					= DLL::GetFunction(m_MFplat, "MFCreateMediaType");
+		m_functions.p_MFCreateAsyncResult				= DLL::GetFunction(m_MFplat, "MFCreateAsyncResult");
+		m_functions.p_MFInvokeCallback					= DLL::GetFunction(m_MFplat, "MFInvokeCallback");
+		//m_functions.p_MFCreateMemoryBuffer				= DLL::GetFunction(m_MFplat, "MFCreateMemoryBuffer");
+		//m_functions.p_MFCreateSample					= DLL::GetFunction(m_MFplat, "MFCreateSample");
+		//m_functions.p_MFFrameRateToAverageTimePerFrame	= DLL::GetFunction(m_MFplat, "MFFrameRateToAverageTimePerFrame");
 
 		//
 		//	Mf
 		//
-		m_functions.p_MFCreateTranscodeTopology = DLL::GetFunction(m_MF, "MFCreateTranscodeTopology");
-
-		//
-		//	Mfplat
-		//
-		m_functions.p_MFCreateSourceResolver = DLL::GetFunction(m_MFplat, "MFCreateSourceResolver");
-		m_functions.p_MFCreateAttributes = DLL::GetFunction(m_MFplat, "MFCreateAttributes");
-		m_functions.p_MFCreateMediaType = DLL::GetFunction(m_MFplat, "MFCreateMediaType");
-		m_functions.p_MFCreateAsyncResult = DLL::GetFunction(m_MFplat, "MFCreateAsyncResult");
-		m_functions.p_MFInvokeCallback = DLL::GetFunction(m_MFplat, "MFInvokeCallback");
-		m_functions.p_MFCreateMemoryBuffer = DLL::GetFunction(m_MFplat, "MFCreateMemoryBuffer");
-		m_functions.p_MFCreateSample = DLL::GetFunction(m_MFplat, "MFCreateSample");
-		m_functions.p_MFFrameRateToAverageTimePerFrame = DLL::GetFunction(m_MFplat, "MFFrameRateToAverageTimePerFrame");
-
-		//
-		//	MF
-		//
-		m_functions.p_MFCreateMediaSession = DLL::GetFunction(m_MF, "MFCreateMediaSession");
-		m_functions.p_MFCreateTranscodeProfile = DLL::GetFunction(m_MF, "MFCreateTranscodeProfile");
-		m_functions.p_MFTranscodeGetAudioOutputAvailableTypes = DLL::GetFunction(m_MF, "MFTranscodeGetAudioOutputAvailableTypes");
-		m_functions.p_MFGetService = DLL::GetFunction(m_MF, "MFGetService");
-		m_functions.p_MFCreateTopology = DLL::GetFunction(m_MF, "MFCreateTopology");
-		m_functions.p_MFCreateTopologyNode = DLL::GetFunction(m_MF, "MFCreateTopologyNode");
-		m_functions.p_MFCreateAudioRendererActivate = DLL::GetFunction(m_MF, "MFCreateAudioRendererActivate");
-		m_functions.p_MFCreateVideoRendererActivate = DLL::GetFunction(m_MF, "MFCreateVideoRendererActivate");
+		//m_MF = DLL::LoadSystemLibrary(L"Mf.dll");
+		//m_functions.p_MFCreateTranscodeTopology					= DLL::GetFunction(m_MF, "MFCreateTranscodeTopology");
+		//m_functions.p_MFCreateMediaSession						= DLL::GetFunction(m_MF, "MFCreateMediaSession");
+		//m_functions.p_MFCreateTranscodeProfile					= DLL::GetFunction(m_MF, "MFCreateTranscodeProfile");
+		//m_functions.p_MFTranscodeGetAudioOutputAvailableTypes	= DLL::GetFunction(m_MF, "MFTranscodeGetAudioOutputAvailableTypes");
+		//m_functions.p_MFGetService								= DLL::GetFunction(m_MF, "MFGetService");
+		//m_functions.p_MFCreateTopology							= DLL::GetFunction(m_MF, "MFCreateTopology");
+		//m_functions.p_MFCreateTopologyNode						= DLL::GetFunction(m_MF, "MFCreateTopologyNode");
+		//m_functions.p_MFCreateAudioRendererActivate				= DLL::GetFunction(m_MF, "MFCreateAudioRendererActivate");
+		//m_functions.p_MFCreateVideoRendererActivate				= DLL::GetFunction(m_MF, "MFCreateVideoRendererActivate");
 
 		//
 		//	Mfreadwrite
 		//
-		m_functions.p_MFCreateSourceReaderFromURL = DLL::GetFunction(m_MFRW, "MFCreateSourceReaderFromURL");
-		m_functions.p_MFCreateSourceReaderFromByteStream = DLL::GetFunction(m_MFRW, "MFCreateSourceReaderFromByteStream");
-		m_functions.p_MFCreateSinkWriterFromURL = DLL::GetFunction(m_MFRW, "MFCreateSinkWriterFromURL");
+		m_MFRW = DLL::LoadSystemLibrary(L"Mfreadwrite.dll");
+		//m_functions.p_MFCreateSourceReaderFromURL			= DLL::GetFunction(m_MFRW, "MFCreateSourceReaderFromURL");
+		m_functions.p_MFCreateSourceReaderFromByteStream	= DLL::GetFunction(m_MFRW, "MFCreateSourceReaderFromByteStream");
+		//m_functions.p_MFCreateSinkWriterFromURL				= DLL::GetFunction(m_MFRW, "MFCreateSinkWriterFromURL");
 
 		if (FAILED(m_functions.p_MFStartup(MF_VERSION, 0)))
 		{
