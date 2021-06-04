@@ -204,7 +204,7 @@ namespace s3d
 		return Arrow(line.begin, line.end, width, headSize);
 	}
 
-	Shape2D Shape2D::DoubleArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize)
+	Shape2D Shape2D::DoubleHeadedArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize)
 	{
 		const double length = to.distanceFrom(from);
 
@@ -244,9 +244,9 @@ namespace s3d
 		return{ std::move(vertices), std::move(indices) };
 	}
 
-	Shape2D Shape2D::DoubleArrow(const Line& line, double width, const Vec2& headSize)
+	Shape2D Shape2D::DoubleHeadedArrow(const Line& line, double width, const Vec2& headSize)
 	{
-		return DoubleArrow(line.begin, line.end, width, headSize);
+		return DoubleHeadedArrow(line.begin, line.end, width, headSize);
 	}
 
 	Shape2D Shape2D::Rhombus(const double w, const double h, const Vec2& center, const double angle)

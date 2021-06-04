@@ -60,6 +60,15 @@ namespace s3d
 		: begin{ x0, y0 }
 		, end{ begin + direction.value() } {}
 
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic X0, Concept::Arithmetic Y0>
+# else
+	template <class X0, class Y0, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>>>*>
+# endif
+	inline constexpr Line::Line(const X0 x0, const Y0 y0, const Arg::direction_<position_type> direction) noexcept
+		: begin{ static_cast<value_type>(x0), static_cast<value_type>(y0) }
+		, end{ begin + direction.value() } {}
+
 	inline constexpr Line::Line(const position_type origin, const Arg::direction_<position_type> direction) noexcept
 		: begin{ origin }
 		, end{ origin + direction.value() } {}

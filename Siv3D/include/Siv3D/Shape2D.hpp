@@ -117,11 +117,22 @@ namespace s3d
 		[[nodiscard]]
 		static Shape2D Arrow(const Line& line, double width, const Vec2& headSize);
 
+		/// @brief 両端にアローヘッドを持つ矢印を作成します。
+		/// @param from 矢印の始点の座標
+		/// @param to 矢印の終点の座標
+		/// @param width 矢印の幅（ピクセル）
+		/// @param headSize 矢印の先端部分のサイズ（ピクセル）
+		/// @return 作成した形状
 		[[nodiscard]]
-		static Shape2D DoubleArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize);
+		static Shape2D DoubleHeadedArrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize);
 
+		/// @brief 両端にアローヘッドを持つ矢印を作成します。
+		/// @param line 矢印の始点と終点を表す線分
+		/// @param width 矢印の幅（ピクセル）
+		/// @param headSize 矢印の先端部分のサイズ（ピクセル）
+		/// @return 作成した形状
 		[[nodiscard]]
-		static Shape2D DoubleArrow(const Line& line, double width, const Vec2& headSize);
+		static Shape2D DoubleHeadedArrow(const Line& line, double width, const Vec2& headSize);
 
 		/// @brief ひし形を作成します。
 		/// @param w ひし形の幅

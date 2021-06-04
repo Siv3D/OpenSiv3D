@@ -44,6 +44,7 @@ namespace s3d
 	# else
 		template <class X0, class Y0, class X1, class Y1, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>, std::is_arithmetic<X1>, std::is_arithmetic<Y1>>>* = nullptr>
 	# endif
+		SIV3D_NODISCARD_CXX20
 		constexpr Line(X0 x0, Y0 y0, X1 x1, Y1 y1) noexcept;
 
 		SIV3D_NODISCARD_CXX20
@@ -54,6 +55,7 @@ namespace s3d
 	# else
 		template <class X1, class Y1, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X1>, std::is_arithmetic<Y1>>>* = nullptr>
 	# endif
+		SIV3D_NODISCARD_CXX20
 		constexpr Line(position_type p0, X1 x1, Y1 y1) noexcept;
 
 		SIV3D_NODISCARD_CXX20
@@ -64,6 +66,7 @@ namespace s3d
 	# else
 		template <class X0, class Y0, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>>>* = nullptr>
 	# endif
+		SIV3D_NODISCARD_CXX20
 		constexpr Line(X0 x0, Y0 y0, position_type p1) noexcept;
 
 		SIV3D_NODISCARD_CXX20
@@ -71,6 +74,14 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Line(value_type x0, value_type y0, Arg::direction_<position_type> direction) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic X0, Concept::Arithmetic Y0>
+	# else
+		template <class X0, class Y0, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X0>, std::is_arithmetic<Y0>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		constexpr Line(X0 x0, Y0 y0, Arg::direction_<position_type> direction) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Line(position_type origin, Arg::direction_<position_type> direction) noexcept;
@@ -219,7 +230,7 @@ namespace s3d
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
 
-		const Line& drawDoubleArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
+		const Line& drawDoubleHeadedArrow(double width = 1.0, const Vec2& headSize = Vec2{ 5.0, 5.0 }, const ColorF& color = Palette::White) const;
 
 
 		template <class CharType>
