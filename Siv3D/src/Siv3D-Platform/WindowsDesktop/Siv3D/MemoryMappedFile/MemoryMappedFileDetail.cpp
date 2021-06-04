@@ -136,7 +136,7 @@ namespace s3d
 			m_mapHandle, FILE_MAP_WRITE, static_cast<uint64>(internalOffset) >> 32,
 			internalOffset & 0xffFFffFF, offset - internalOffset + mappingSize));
 
-		if (!pData)
+		if (pData == nullptr)
 		{
 			return;
 		}
@@ -155,7 +155,7 @@ namespace s3d
 
 	void MemoryMappedFile::MemoryMappedFileDetail::unmap()
 	{
-		if (!m_mapView)
+		if (m_mapView == nullptr)
 		{
 			return;
 		}

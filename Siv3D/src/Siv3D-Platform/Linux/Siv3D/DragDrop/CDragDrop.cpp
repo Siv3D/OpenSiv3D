@@ -115,7 +115,7 @@ namespace s3d
 
 	Optional<DragStatus> CDragDrop::dragOver() const
 	{
-		if (!m_dragOver)
+		if (not m_dragOver)
 		{
 			return none;
 		}

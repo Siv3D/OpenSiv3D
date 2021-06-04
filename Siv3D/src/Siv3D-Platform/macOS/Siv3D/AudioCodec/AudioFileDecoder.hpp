@@ -192,7 +192,7 @@ namespace s3d
 						return 0;
 					}
 					
-					if (!numFrames)
+					if (numFrames == 0)
 					{
 						break;
 					}

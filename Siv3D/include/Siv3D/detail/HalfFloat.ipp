@@ -68,7 +68,7 @@ namespace s3d
 					result = 0x7C00U; // INF
 				}
 			}
-			else if (!iValue)
+			else if (iValue == 0)
 			{
 				result = 0;
 			}

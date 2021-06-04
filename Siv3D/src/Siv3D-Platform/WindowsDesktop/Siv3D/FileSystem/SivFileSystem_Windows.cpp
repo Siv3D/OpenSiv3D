@@ -656,7 +656,7 @@ namespace s3d
 
 		bool ChangeCurrentDirectory(const FilePathView path)
 		{
-			if (!IsDirectory(path))
+			if (not IsDirectory(path))
 			{
 				return false;
 			}

@@ -62,7 +62,7 @@ namespace s3d
 
 			while (1 == reader.read(&c, 1))
 			{
-				if (!IsWhiteSpace(c))
+				if (not IsWhiteSpace(c))
 				{
 					//空白以外の文字を読んだら一つ戻って帰る
 					reader.setPos(reader.getPos() - 1);
@@ -120,7 +120,7 @@ namespace s3d
 					continue;
 				}
 
-				if (!expectHeight)
+				if (not expectHeight)
 				{
 					size.x = size.x * 10 + (c - '0');
 				}

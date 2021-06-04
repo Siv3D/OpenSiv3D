@@ -61,7 +61,7 @@ namespace s3d
 
 	bool OggVorbisEncoder::encode(const Wave& wave, IWriter& writer, const int32 quality, const AudioLoopTiming& loopTiming) const
 	{
-		if (!wave || !writer.isOpen())
+		if ((not wave) || (not writer.isOpen()))
 		{
 			return false;
 		}

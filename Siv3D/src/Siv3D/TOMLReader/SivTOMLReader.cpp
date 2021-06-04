@@ -323,7 +323,7 @@ namespace s3d
 
 	Optional<int64> TOMLValue::getOptInt64() const
 	{
-		if (!isNumber())
+		if (not isNumber())
 		{
 			return none;
 		}
@@ -345,7 +345,7 @@ namespace s3d
 
 	Optional<double> TOMLValue::getOptDouble() const
 	{
-		if (!isNumber())
+		if (not isNumber())
 		{
 			return none;
 		}
@@ -359,7 +359,8 @@ namespace s3d
 
 	Optional<bool> TOMLValue::getOptBool() const
 	{
-		if (!isBool()) {
+		if (not isBool())
+		{
 			return none;
 		}
 
@@ -514,7 +515,7 @@ namespace s3d
 
 	Optional<String> TOMLValue::getOptString() const
 	{
-		if (!isString())
+		if (not isString())
 		{
 			return none;
 		}
@@ -546,7 +547,7 @@ namespace s3d
 
 	Optional<Date> TOMLValue::getOptDate() const
 	{
-		if (!isDate())
+		if (not isDate())
 		{
 			return none;
 		}
@@ -620,7 +621,7 @@ namespace s3d
 
 	Optional<DateTime> TOMLValue::getOptDateTime() const
 	{
-		if (!isDateTime())
+		if (not isDateTime())
 		{
 			return none;
 		}
@@ -713,7 +714,7 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const TOMLReader& reader)
 	{
-		if (!reader.isEmpty())
+		if (reader)
 		{
 			Formatter(formatData, static_cast<TOMLValue>(reader));
 		}

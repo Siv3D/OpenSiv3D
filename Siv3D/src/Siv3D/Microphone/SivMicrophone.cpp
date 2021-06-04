@@ -176,7 +176,7 @@ namespace s3d
 
 	double Microphone::mean(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}
@@ -218,7 +218,7 @@ namespace s3d
 
 	double Microphone::rootMeanSquare(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}
@@ -260,7 +260,7 @@ namespace s3d
 
 	double Microphone::peak(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}

@@ -37,7 +37,7 @@ namespace s3d
 		static constexpr uint8 OPUS_SIGN[] = { 'O', 'p', 'u', 's' };
 		const bool isOgg = (std::memcmp(bytes, OGG_SIGN, sizeof(OGG_SIGN)) == 0);
 
-		if (!isOgg)
+		if (not isOgg)
 		{
 			return false;
 		}

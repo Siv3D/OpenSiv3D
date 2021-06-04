@@ -93,7 +93,7 @@ namespace s3d
 		{
 			const int32 count = rect.area();
 
-			if (!count)
+			if (count == 0)
 			{
 				return Color{ 0 };
 			}

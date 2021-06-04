@@ -67,7 +67,7 @@ namespace s3d
 
 	void HTMLWriter::HTMLWriterDetail::writeRaw(const StringView view)
 	{
-		if (!m_textWriter.isOpen())
+		if (not m_textWriter.isOpen())
 		{
 			return;
 		}

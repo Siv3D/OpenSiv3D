@@ -280,7 +280,7 @@ namespace s3d
 
 	Optional<int32> JoyCon::povD8() const noexcept
 	{
-		if (!m_gamepadUserIndex)
+		if (not m_gamepadUserIndex.has_value())
 		{
 			return none;
 		}

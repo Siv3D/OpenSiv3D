@@ -29,7 +29,7 @@ namespace s3d
 		{
 			Type to;
 
-			if (!(std::wistringstream{ s.toWstr() } >> to))
+			if (not(std::wistringstream{ s.toWstr() } >> to))
 			{
 				throw ParseError(U"Parse<{}>(\"{}\") failed"_fmt(Demangle(typeid(Type).name()), s));
 			}
@@ -91,7 +91,7 @@ namespace s3d
 		{
 			Type to;
 
-			if (!(std::wistringstream{ s.toWstr() } >> to))
+			if (not(std::wistringstream{ s.toWstr() } >> to))
 			{
 				return none;
 			}

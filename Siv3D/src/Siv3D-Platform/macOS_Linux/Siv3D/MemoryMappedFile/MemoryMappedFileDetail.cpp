@@ -160,7 +160,7 @@ namespace s3d
 
 	void MemoryMappedFile::MemoryMappedFileDetail::unmap()
 	{
-		if (!m_mapView)
+		if (m_mapView == nullptr)
 		{
 			return;
 		}

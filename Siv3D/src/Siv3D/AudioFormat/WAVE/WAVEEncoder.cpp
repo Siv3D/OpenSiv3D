@@ -71,7 +71,7 @@ namespace s3d
 
 	bool WAVEEncoder::encode(const Wave& wave, IWriter& writer, const WAVEFormat format) const
 	{
-		if (!wave || !writer.isOpen())
+		if ((not wave) || (not writer.isOpen()))
 		{
 			return false;
 		}

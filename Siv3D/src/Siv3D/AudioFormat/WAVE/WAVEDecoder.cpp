@@ -48,13 +48,13 @@ namespace s3d
 	{
 		RiffHeader riffHeader;
 
-		if (!reader.read(riffHeader))
+		if (not reader.read(riffHeader))
 		{
 			return{};
 		}
 
-		if (!detail::MemEqual(riffHeader.riff, detail::RIFF_SIGN)
-			|| !detail::MemEqual(riffHeader.type, detail::WAVE_SIGN))
+		if ((not detail::MemEqual(riffHeader.riff, detail::RIFF_SIGN))
+			|| (not detail::MemEqual(riffHeader.type, detail::WAVE_SIGN)))
 		{
 			return{};
 		}
@@ -63,7 +63,7 @@ namespace s3d
 
 		for (;;)
 		{
-			if (!reader.read(chunkHeader))
+			if (not reader.read(chunkHeader))
 			{
 				return{};
 			}
@@ -80,7 +80,7 @@ namespace s3d
 
 		FormatHeader formatHeader;
 
-		if (!reader.read(formatHeader))
+		if (not reader.read(formatHeader))
 		{
 			return Wave();
 		}
@@ -92,7 +92,7 @@ namespace s3d
 
 		for (;;)
 		{
-			if (!reader.read(chunkHeader))
+			if (not reader.read(chunkHeader))
 			{
 				return Wave();
 			}

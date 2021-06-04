@@ -77,7 +77,7 @@ namespace s3d
 						text.erase(text.begin() + cursorPos);
 					}
 				}
-				else if (!IsControl(ch))
+				else if (not IsControl(ch))
 				{
 					text.insert(text.begin() + cursorPos, ch);
 					++cursorPos;

@@ -22,7 +22,7 @@ namespace s3d
 	{
 		static bool SetFilters(const ComPtr<IFileDialog>& fileDialog, const Array<FileFilter>& filters)
 		{
-			if (!filters)
+			if (not filters)
 			{
 				return true;
 			}
@@ -66,7 +66,7 @@ namespace s3d
 
 		static bool SetDefaultPath(const ComPtr<IFileDialog>& fileDialog, const FilePathView defaultPath)
 		{
-			if (!defaultPath)
+			if (not defaultPath)
 			{
 				return true;
 			}
@@ -102,12 +102,12 @@ namespace s3d
 				return none;
 			}
 
-			if (!detail::SetFilters(fileOpenDialog, filters))
+			if (not detail::SetFilters(fileOpenDialog, filters))
 			{
 				return none;
 			}
 
-			if (!detail::SetDefaultPath(fileOpenDialog, defaultPath))
+			if (not detail::SetDefaultPath(fileOpenDialog, defaultPath))
 			{
 				return none;
 			}
@@ -160,12 +160,12 @@ namespace s3d
 				return{};
 			}
 
-			if (!detail::SetFilters(fileOpenDialog, filters))
+			if (not detail::SetFilters(fileOpenDialog, filters))
 			{
 				return{};
 			}
 
-			if (!detail::SetDefaultPath(fileOpenDialog, defaultPath))
+			if (not detail::SetDefaultPath(fileOpenDialog, defaultPath))
 			{
 				return{};
 			}
@@ -260,12 +260,12 @@ namespace s3d
 				return none;
 			}
 
-			if (!detail::SetFilters(fileSaveDialog, filters))
+			if (not detail::SetFilters(fileSaveDialog, filters))
 			{
 				return none;
 			}
 
-			if (!detail::SetDefaultPath(fileSaveDialog, defaultPath))
+			if (not detail::SetDefaultPath(fileSaveDialog, defaultPath))
 			{
 				return none;
 			}

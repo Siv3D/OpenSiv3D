@@ -103,7 +103,7 @@ namespace s3d
 		static constexpr uint8 OPUS_SIGN[] = { 'O', 'p', 'u', 's' };
 		const bool isOgg = (std::memcmp(bytes, OGG_SIGN, sizeof(OGG_SIGN)) == 0);
 
-		if (!isOgg)
+		if (not isOgg)
 		{
 			return false;
 		}
@@ -156,7 +156,7 @@ namespace s3d
 
 		vorbis_info* vi = ::ov_info(&vf, -1);
 
-		if (!vi)
+		if (not vi)
 		{
 			::ov_clear(&vf);
 			return{};
@@ -275,7 +275,7 @@ namespace s3d
 
 		vorbis_info* vi = ::ov_info(&vf, -1);
 
-		if (!vi)
+		if (not vi)
 		{
 			::ov_clear(&vf);
 

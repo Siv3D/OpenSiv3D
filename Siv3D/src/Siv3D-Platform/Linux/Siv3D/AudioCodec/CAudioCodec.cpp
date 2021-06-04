@@ -351,7 +351,7 @@ namespace s3d
 		{
 			detail::AACDecoder decoder;
 
-			if (!decoder.init(FilePath{ path }))
+			if (not decoder.init(FilePath{ path }))
 			{
 				LOG_FAIL(U"AACDecoder: init() failed.\n");
 				return{};
@@ -404,7 +404,7 @@ namespace s3d
 		p_mpg123_close = DLL::GetFunctionNoThrow(m_mpg123, "mpg123_close");
 		p_mpg123_info = DLL::GetFunctionNoThrow(m_mpg123, "mpg123_info");
 		
-		if (!(p_mpg123_init && p_mpg123_new && p_mpg123_delete && p_mpg123_exit && p_mpg123_param
+		if (not(p_mpg123_init && p_mpg123_new && p_mpg123_delete && p_mpg123_exit && p_mpg123_param
 			&& p_mpg123_rates && p_mpg123_format && p_mpg123_open_feed && p_mpg123_feed
 			&& p_mpg123_decode_frame && p_mpg123_getformat && p_mpg123_scan && p_mpg123_length
 			&& p_mpg123_open && p_mpg123_open_handle && p_mpg123_replace_reader_handle
@@ -425,7 +425,7 @@ namespace s3d
 
 	Wave CAudioCodec::decodeMP3(IReader& reader)
 	{
-		if (!m_libmpg123Available)
+		if (not m_libmpg123Available)
 		{
 			return{};
 		}
