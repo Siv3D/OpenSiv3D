@@ -14,6 +14,9 @@
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/UserAction.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/Monitor.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -236,9 +239,47 @@ namespace s3d
 		::glfwSetWindowSizeLimits(m_window, size.x, size.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
 	}
 	
-	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex)
+	void CWindow::setFullscreen(const bool fullscreen, size_t monitorIndex)
 	{
-		// [Siv3D ToDo]
+		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
+
+		if (fullscreen == m_state.fullscreen)
+		{
+			return;
+		}
+		
+		if (m_state.fullscreen == false) // 現在ウィンドウモード
+		{
+			const auto monitors = System::EnumerateMonitors();
+			
+			if (monitors.size() <= monitorIndex)
+			{
+				monitorIndex = System::GetCurrentMonitorIndex();
+			}
+
+			::glfwGetWindowPos(m_window, &m_storedWindowRect.x, &m_storedWindowRect.y);
+			::glfwGetWindowSize(m_window, &m_storedWindowRect.w, &m_storedWindowRect.h);
+			
+			const Size fullscreenResolution = monitors[monitorIndex].fullscreenResolution;
+			
+			int32 numMonitors;
+			if (GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors))
+			{
+				::glfwSetWindowMonitor(m_window, monitors[monitorIndex], 0, 0, fullscreenResolution.x, fullscreenResolution.y, GLFW_DONT_CARE);
+			}
+		}
+		else
+		{
+			::glfwSetWindowMonitor(m_window, nullptr, m_storedWindowRect.x, m_storedWindowRect.y,
+								   m_storedWindowRect.w, m_storedWindowRect.h, GLFW_DONT_CARE);
+		}
+		
+		m_state.fullscreen = fullscreen;
+
+		if (Scene::GetResizeMode() != ResizeMode::Keep)
+		{
+			SIV3D_ENGINE(Renderer)->updateSceneSize();
+		}
 	}
 
 	void CWindow::updateState()

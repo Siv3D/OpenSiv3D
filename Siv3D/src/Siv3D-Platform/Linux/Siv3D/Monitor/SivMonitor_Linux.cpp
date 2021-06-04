@@ -72,19 +72,32 @@ namespace s3d
 					}
 				}
 
+				Size fullscreenResolution{ 0, 0 };
+				{
+					int32 numModes = 0;
+					if (const GLFWvidmode* vidModes = ::glfwGetVideoModes(monitor, &numModes))
+					{
+						if (numModes)
+						{
+							fullscreenResolution.set(vidModes[numModes - 1].width, vidModes[numModes - 1].height);
+						}
+					}
+				}
+
 				const String name = Unicode::Widen(::glfwGetMonitorName(monitor));
 
 				const Monitor info =
 				{
-					.name				= name,
-					.id					= Format(displayID),
-					.displayDeviceName	= name,
-					.displayRect		= Rect(xPos, yPos, width, height),
-					.workArea			= Rect(wx, wy, ww, wh),
-					.isPrimary			= (i == 0),
-					.sizeMillimeter		= sizeMillimeter,
-					.scaling			= scaling,
-					.refreshRate		= refreshRate,
+					.name					= name,
+					.id						= Format(displayID),
+					.displayDeviceName		= name,
+					.displayRect			= Rect(xPos, yPos, width, height),
+					.workArea				= Rect(wx, wy, ww, wh),
+					.fullscreenResolution	= fullscreenResolution,
+					.isPrimary				= (i == 0),
+					.sizeMillimeter			= sizeMillimeter,
+					.scaling				= scaling,
+					.refreshRate			= refreshRate,
 				};
 
 				results.push_back(info);
