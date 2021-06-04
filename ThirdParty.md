@@ -46,7 +46,7 @@ Name | Version
 [Material Design Icons](https://github.com/Templarian/MaterialDesign) | v5.9.55
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
-[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
+[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.9
 [muparser](https://github.com/beltoforion/muparser) | 2.3.2
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.3.2
 [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 
