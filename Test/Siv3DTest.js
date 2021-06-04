@@ -29,7 +29,7 @@ Module.preRun = [
       removeEventListener() {}
     }
 
-    class FileReader {
+    global.FileReader = class {
       constructor() {}
     }
   }
