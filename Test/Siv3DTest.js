@@ -28,5 +28,9 @@ Module.preRun = [
       addEventListener() {},
       removeEventListener() {}
     }
+
+    class FileReader {
+      constructor() {}
+    }
   }
 ]
