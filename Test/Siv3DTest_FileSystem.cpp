@@ -114,7 +114,7 @@ TEST_CASE("FileSystem::Copy()")
 		const FilePath targetFile = FileSystem::CurrentDirectory() + U"test/runtime/filesystem/empty.txt";
 
 		REQUIRE(FileSystem::Exists(targetFile) == false);
-		REQUIRE(FileSystem::Copy(U"test/text/empty.txt", targetFile, CopyOption::None) == true);
+		REQUIRE(FileSystem::Copy(U"test/text/empty.txt", targetFile, CopyOption::Default) == true);
 		REQUIRE(FileSystem::Exists(targetFile) == true);
 		REQUIRE(FileSystem::Remove(targetFile) == true);
 	}
@@ -124,7 +124,7 @@ TEST_CASE("FileSystem::Copy()")
 		const FilePath targetDirectory = FileSystem::CurrentDirectory() + U"test/runtime/filesystem/text/";
 
 		REQUIRE(FileSystem::Exists(targetDirectory) == false);
-		REQUIRE(FileSystem::Copy(U"test/text/", targetDirectory, CopyOption::None) == true);
+		REQUIRE(FileSystem::Copy(U"test/text/", targetDirectory, CopyOption::Default) == true);
 		REQUIRE(FileSystem::Exists(targetDirectory) == true);
 		REQUIRE(FileSystem::Size(U"test/text/") == FileSystem::Size(targetDirectory));
 		REQUIRE(FileSystem::Remove(targetDirectory) == true);
@@ -138,7 +138,7 @@ TEST_CASE("FileSystem::Remove()")
 		const FilePath targetFile = FileSystem::CurrentDirectory() + U"test/runtime/filesystem/remove/empty.txt";
 
 		REQUIRE(FileSystem::Exists(targetFile) == false);
-		REQUIRE(FileSystem::Copy(U"test/text/empty.txt", targetFile, CopyOption::None) == true);
+		REQUIRE(FileSystem::Copy(U"test/text/empty.txt", targetFile, CopyOption::Default) == true);
 		REQUIRE(FileSystem::Exists(targetFile) == true);
 		REQUIRE(FileSystem::Remove(targetFile) == true);
 		REQUIRE(FileSystem::Exists(targetFile) == false);
@@ -149,7 +149,7 @@ TEST_CASE("FileSystem::Remove()")
 		const FilePath targetDirectory = FileSystem::CurrentDirectory() + U"test/runtime/filesystem/remove/text/";
 
 		REQUIRE(FileSystem::Exists(targetDirectory) == false);
-		REQUIRE(FileSystem::Copy(U"test/text/", targetDirectory, CopyOption::None) == true);
+		REQUIRE(FileSystem::Copy(U"test/text/", targetDirectory, CopyOption::Default) == true);
 		REQUIRE(FileSystem::Exists(targetDirectory) == true);
 		REQUIRE(FileSystem::Size(U"test/text/") == FileSystem::Size(targetDirectory));
 		REQUIRE(FileSystem::Remove(targetDirectory) == true);

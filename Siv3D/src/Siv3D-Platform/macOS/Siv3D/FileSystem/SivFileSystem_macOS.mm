@@ -773,7 +773,7 @@ namespace s3d
 			
 			if (detail::Exists(to))
 			{
-				if (copyOption == CopyOption::None)
+				if (copyOption == CopyOption::Default)
 				{
 					return false;
 				}
