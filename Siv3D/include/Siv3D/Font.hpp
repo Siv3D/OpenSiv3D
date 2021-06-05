@@ -23,6 +23,7 @@
 # include "MSDFGlyph.hpp"
 # include "FontMethod.hpp"
 # include "Typeface.hpp"
+# include "TextStyle.hpp"
 # include "Glyph.hpp"
 # include "PixelShader.hpp"
 # include "PredefinedYesNo.hpp"
@@ -400,9 +401,10 @@ namespace s3d
 
 		/// @brief テキスト描画用の標準ピクセルシェーダを返します。
 		/// @param method フォントのレンダリング方式
+		/// @param type テキストのスタイル
 		/// @param hasColor カラー情報をもつフォント（カラー絵文字など）であるか
 		/// @return 指定した設定でのテキスト描画用の標準ピクセルシェーダ
 		[[nodiscard]]
-		static const PixelShader& GetPixelShader(FontMethod method, HasColor hasColor = HasColor::No);
+		static const PixelShader& GetPixelShader(FontMethod method, TextStyle::Type type = TextStyle::Type::Default, HasColor hasColor = HasColor::No);
 	};
 }

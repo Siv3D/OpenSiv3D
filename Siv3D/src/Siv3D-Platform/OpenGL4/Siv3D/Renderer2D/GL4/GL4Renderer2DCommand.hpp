@@ -158,7 +158,7 @@ namespace s3d
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<Rect> m_scissorRects					= { Rect{0} };
 		Array<Optional<Rect>> m_viewports			= { none };
-		Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.0f, 0.0f, 0.0f }, Float4::All(0.0f), Float4::All(0.0f) } };
+		Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.5f, 0.0f, 0.0f }, Float4{ 0.0f, 0.0f, 0.0f, 1.0f }, Float4{ 0.0f, 0.0f, 0.0f, 0.5f } } };
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };

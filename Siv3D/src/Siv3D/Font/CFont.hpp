@@ -23,29 +23,21 @@ namespace s3d
 {
 	struct FontShader
 	{
-		PixelShader bitmapFont;
-		PixelShader sdfFont;
-		PixelShader msdfFont;
-		PixelShader colorfFont;
+		PixelShader shaders[10];
 
 		[[nodiscard]]
-		const PixelShader& getFontShader(const FontMethod method, const HasColor hasColor) noexcept
+		const PixelShader& getFontShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor) noexcept
 		{
 			if (hasColor)
 			{
-				return colorfFont;
+				return shaders[1];
 			}
-
-			switch (method)
+			else if (method == FontMethod::Bitmap)
 			{
-			case FontMethod::Bitmap:
-			default:
-				return bitmapFont;
-			case FontMethod::SDF:
-				return sdfFont;
-			case FontMethod::MSDF:
-				return msdfFont;
+				return shaders[0];
 			}
+			
+			return shaders[2 + (FromEnum(method) - 1) * 4 + FromEnum(type)];
 		}
 	};
 
@@ -158,7 +150,7 @@ namespace s3d
 		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
 
 
-		const PixelShader& getFontShader(FontMethod method, HasColor hasColor) const override;
+		const PixelShader& getFontShader(FontMethod method, TextStyle::Type type, HasColor hasColor) const override;
 
 	private:
 
@@ -166,7 +158,7 @@ namespace s3d
 
 		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
 
-		std::unique_ptr<FontShader> m_shaders;
+		std::unique_ptr<FontShader> m_shader;
 
 		std::unique_ptr<EmojiData> m_defaultEmoji;
 

@@ -101,8 +101,26 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont")
 				.save(U"engine/shader/d3d11/sdffont.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Outline")
+				.save(U"engine/shader/d3d11/sdffont_outline.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Shadow")
+				.save(U"engine/shader/d3d11/sdffont_shadow.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_OutlineShadow")
+				.save(U"engine/shader/d3d11/sdffont_outlineshadow.ps");
+
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont")
 				.save(U"engine/shader/d3d11/msdffont.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Outline")
+				.save(U"engine/shader/d3d11/msdffont_outline.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Shadow")
+				.save(U"engine/shader/d3d11/msdffont_shadow.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_OutlineShadow")
+				.save(U"engine/shader/d3d11/msdffont_outlineshadow.ps");
 
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFPrint")
 				.save(U"engine/shader/d3d11/msdfprint.ps");

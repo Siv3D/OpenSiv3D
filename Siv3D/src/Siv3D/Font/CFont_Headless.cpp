@@ -505,7 +505,7 @@ namespace s3d
 		return{};
 	}
 
-	const PixelShader& CFont_Headless::getFontShader(FontMethod, HasColor) const
+	const PixelShader& CFont_Headless::getFontShader(FontMethod, TextStyle::Type, HasColor) const
 	{
 		return *m_emptyPixelShader;
 	}

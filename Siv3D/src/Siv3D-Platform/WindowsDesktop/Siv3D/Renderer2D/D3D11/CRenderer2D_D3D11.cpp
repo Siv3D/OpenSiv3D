@@ -993,7 +993,7 @@ namespace s3d
 					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
 					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
-					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(index,
+					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(command.index,
 						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
 					break;
 				}

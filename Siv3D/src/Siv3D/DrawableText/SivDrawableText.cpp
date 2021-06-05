@@ -290,122 +290,122 @@ namespace s3d
 
 	RectF DrawableText::draw(const double x, const double y, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), Vec2{ x, y }, color);
+		return draw(TextStyle::Default(), font.fontSize(), Vec2{x, y}, color);
 	}
 
 	RectF DrawableText::draw(const Vec2& pos, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), pos, color);
+		return draw(TextStyle::Default(), font.fontSize(), pos, color);
 	}
 
 	RectF DrawableText::draw(const Arg::topLeft_<Vec2> topLeft, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), topLeft, color);
+		return draw(TextStyle::Default(), font.fontSize(), topLeft, color);
 	}
 
 	RectF DrawableText::draw(const Arg::topCenter_<Vec2> topCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), topCenter, color);
+		return draw(TextStyle::Default(), font.fontSize(), topCenter, color);
 	}
 
 	RectF DrawableText::draw(const Arg::topRight_<Vec2> topRight, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), topRight, color);
+		return draw(TextStyle::Default(), font.fontSize(), topRight, color);
 	}
 
 	RectF DrawableText::draw(const Arg::rightCenter_<Vec2> rightCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), rightCenter, color);
+		return draw(TextStyle::Default(), font.fontSize(), rightCenter, color);
 	}
 
 	RectF DrawableText::draw(const Arg::bottomRight_<Vec2> bottomRight, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), bottomRight, color);
+		return draw(TextStyle::Default(), font.fontSize(), bottomRight, color);
 	}
 
 	RectF DrawableText::draw(const Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), bottomCenter, color);
+		return draw(TextStyle::Default(), font.fontSize(), bottomCenter, color);
 	}
 
 	RectF DrawableText::draw(const Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), bottomLeft, color);
+		return draw(TextStyle::Default(), font.fontSize(), bottomLeft, color);
 	}
 
 	RectF DrawableText::draw(const Arg::leftCenter_<Vec2> leftCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), leftCenter, color);
+		return draw(TextStyle::Default(), font.fontSize(), leftCenter, color);
 	}
 
 	RectF DrawableText::draw(const Arg::center_<Vec2> center, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), center, color);
+		return draw(TextStyle::Default(), font.fontSize(), center, color);
 	}
 
 	bool DrawableText::draw(const RectF& area, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, font.fontSize(), area, color);
+		return draw(TextStyle::Default(), font.fontSize(), area, color);
 	}
 
 	RectF DrawableText::draw(const double size, const double x, const double y, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, Vec2{ x, y }, color);
+		return draw(TextStyle::Default(), size, Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, pos, color);
+		return draw(TextStyle::Default(), size, pos, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::topLeft_<Vec2> topLeft, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, topLeft, color);
+		return draw(TextStyle::Default(), size, topLeft, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::topCenter_<Vec2> topCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, topCenter, color);
+		return draw(TextStyle::Default(), size, topCenter, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::topRight_<Vec2> topRight, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, topRight, color);
+		return draw(TextStyle::Default(), size, topRight, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::rightCenter_<Vec2> rightCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, rightCenter, color);
+		return draw(TextStyle::Default(), size, rightCenter, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::bottomRight_<Vec2> bottomRight, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, bottomRight, color);
+		return draw(TextStyle::Default(), size, bottomRight, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, bottomCenter, color);
+		return draw(TextStyle::Default(), size, bottomCenter, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, bottomLeft, color);
+		return draw(TextStyle::Default(), size, bottomLeft, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::leftCenter_<Vec2> leftCenter, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, leftCenter, color);
+		return draw(TextStyle::Default(), size, leftCenter, color);
 	}
 
 	RectF DrawableText::draw(const double size, const Arg::center_<Vec2> center, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, center, color);
+		return draw(TextStyle::Default(), size, center, color);
 	}
 
 	bool DrawableText::draw(const double size, const RectF& area, const ColorF& color) const
 	{
-		return draw(TextStyle::Default, size, area, color);
+		return draw(TextStyle::Default(), size, area, color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double x, const double y, const ColorF& color) const
@@ -530,52 +530,52 @@ namespace s3d
 
 	RectF DrawableText::drawBase(const double x, const double y, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, font.fontSize(), Vec2{ x, y }, color);
+		return drawBase(TextStyle::Default(), font.fontSize(), Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawBase(const Vec2& pos, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, font.fontSize(), pos, color);
+		return drawBase(TextStyle::Default(), font.fontSize(), pos, color);
 	}
 
 	RectF DrawableText::drawBase(const Arg::left_<Vec2> left, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, font.fontSize(), left, color);
+		return drawBase(TextStyle::Default(), font.fontSize(), left, color);
 	}
 
 	RectF DrawableText::drawBase(const Arg::center_<Vec2> center, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, font.fontSize(), center, color);
+		return drawBase(TextStyle::Default(), font.fontSize(), center, color);
 	}
 
 	RectF DrawableText::drawBase(const Arg::right_<Vec2> right, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, font.fontSize(), right, color);
+		return drawBase(TextStyle::Default(), font.fontSize(), right, color);
 	}
 
 	RectF DrawableText::drawBase(const double size, const double x, const double y, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, size, Vec2{ x, y }, color);
+		return drawBase(TextStyle::Default(), size, Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawBase(const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, size, pos, color);
+		return drawBase(TextStyle::Default(), size, pos, color);
 	}
 
 	RectF DrawableText::drawBase(const double size, const Arg::left_<Vec2> left, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, size, left, color);
+		return drawBase(TextStyle::Default(), size, left, color);
 	}
 
 	RectF DrawableText::drawBase(const double size, const Arg::center_<Vec2> center, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, size, center, color);
+		return drawBase(TextStyle::Default(), size, center, color);
 	}
 
 	RectF DrawableText::drawBase(const double size, const Arg::right_<Vec2> right, const ColorF& color) const
 	{
-		return drawBase(TextStyle::Default, size, right, color);
+		return drawBase(TextStyle::Default(), size, right, color);
 	}
 
 	RectF DrawableText::drawBase(const TextStyle& textStyle, const double x, const double y, const ColorF& color) const
@@ -630,22 +630,22 @@ namespace s3d
 
 	RectF DrawableText::drawAt(const double x, const double y, const ColorF& color) const
 	{
-		return drawAt(TextStyle::Default, font.fontSize(), Vec2{ x, y }, color);
+		return drawAt(TextStyle::Default(), font.fontSize(), Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawAt(const Vec2& pos, const ColorF& color) const
 	{
-		return drawAt(TextStyle::Default, font.fontSize(), pos, color);
+		return drawAt(TextStyle::Default(), font.fontSize(), pos, color);
 	}
 
 	RectF DrawableText::drawAt(const double size, const double x, const double y, const ColorF& color) const
 	{
-		return drawAt(TextStyle::Default, size, Vec2{ x, y }, color);
+		return drawAt(TextStyle::Default(), size, Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawAt(const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return drawAt(TextStyle::Default, size, pos, color);
+		return drawAt(TextStyle::Default(), size, pos, color);
 	}
 
 	RectF DrawableText::drawAt(const TextStyle& textStyle, const double x, const double y, const ColorF& color) const
@@ -674,22 +674,22 @@ namespace s3d
 
 	RectF DrawableText::drawBaseAt(const double x, const double y, const ColorF& color) const
 	{
-		return drawBaseAt(TextStyle::Default, font.fontSize(), Vec2{ x, y }, color);
+		return drawBaseAt(TextStyle::Default(), font.fontSize(), Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawBaseAt(const Vec2& pos, const ColorF& color) const
 	{
-		return drawBaseAt(TextStyle::Default, font.fontSize(), pos, color);
+		return drawBaseAt(TextStyle::Default(), font.fontSize(), pos, color);
 	}
 
 	RectF DrawableText::drawBaseAt(const double size, const double x, const double y, const ColorF& color) const
 	{
-		return drawBaseAt(TextStyle::Default, size, Vec2{ x, y }, color);
+		return drawBaseAt(TextStyle::Default(), size, Vec2{ x, y }, color);
 	}
 
 	RectF DrawableText::drawBaseAt(const double size, const Vec2& pos, const ColorF& color) const
 	{
-		return drawBaseAt(TextStyle::Default, size, pos, color);
+		return drawBaseAt(TextStyle::Default(), size, pos, color);
 	}
 
 	RectF DrawableText::drawBaseAt(const TextStyle& textStyle, const double x, const double y, const ColorF& color) const

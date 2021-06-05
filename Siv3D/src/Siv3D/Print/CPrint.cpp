@@ -223,31 +223,31 @@ namespace s3d
 					switch (putText.alignement)
 					{
 					case 0:
-						dtext.drawAt(TextStyle::CustomShader, pos);
+						dtext.drawAt(TextStyle::CustomShader(), pos);
 						break;
 					case 1:
-						dtext.draw(TextStyle::CustomShader, Arg::topLeft = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::topLeft = pos);
 						break;
 					case 2:
-						dtext.draw(TextStyle::CustomShader, Arg::topCenter = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::topCenter = pos);
 						break;
 					case 3:
-						dtext.draw(TextStyle::CustomShader, Arg::topRight = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::topRight = pos);
 						break;
 					case 4:
-						dtext.draw(TextStyle::CustomShader, Arg::rightCenter = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::rightCenter = pos);
 						break;
 					case 5:
-						dtext.draw(TextStyle::CustomShader, Arg::bottomRight = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::bottomRight = pos);
 						break;
 					case 6:
-						dtext.draw(TextStyle::CustomShader, Arg::bottomCenter = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::bottomCenter = pos);
 						break;
 					case 7:
-						dtext.draw(TextStyle::CustomShader, Arg::bottomLeft = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::bottomLeft = pos);
 						break;
 					case 8:
-						dtext.draw(TextStyle::CustomShader, Arg::leftCenter = pos);
+						dtext.draw(TextStyle::CustomShader(), Arg::leftCenter = pos);
 						break;
 					}
 				}
@@ -261,7 +261,7 @@ namespace s3d
 					{
 						const Point pos{ basePos.x, basePos.y + (lineOffset * fontHeight) };
 						const RectF area{ pos, maxWidth, 65536 };
-						dtext.draw(TextStyle::CustomShader, area);
+						dtext.draw(TextStyle::CustomShader(), area);
 					}
 
 					lineOffset += layout;

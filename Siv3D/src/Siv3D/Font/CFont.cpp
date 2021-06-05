@@ -67,31 +67,74 @@ namespace s3d
 
 		// フォント用シェーダ
 		{
-			m_shaders = std::make_unique<FontShader>();
+			m_shader = std::make_unique<FontShader>();
 
-			m_shaders->bitmapFont	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
+			// Bitmap Font
+			m_shader->shaders[0]	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
 									| ESSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-			m_shaders->sdfFont		= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
-									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-			m_shaders->msdfFont		= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
-									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
-			m_shaders->colorfFont	= HLSL{ Resource(U"engine/shader/d3d11/texture.ps") }
+
+			// Color Bitmap Font
+			m_shader->shaders[1]	= HLSL{ Resource(U"engine/shader/d3d11/texture.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } }
 									| ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-			if ((not m_shaders->bitmapFont)
-				|| (not m_shaders->sdfFont)
-				|| (not m_shaders->msdfFont)
-				|| (not m_shaders->colorfFont))
+			// SDF Font
+			m_shader->shaders[2]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// SDF Font (Outline)
+			m_shader->shaders[3]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outline.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// SDF Font (Shadow)
+			m_shader->shaders[4]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_shadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// SDF Font (Outline + Shadow)
+			m_shader->shaders[5]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outlineshadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// MSDF Font
+			m_shader->shaders[6]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// MSDF Font (Outline)
+			m_shader->shaders[7]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outline.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// MSDF Font (Shadow)
+			m_shader->shaders[8]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_shadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			// MSDF Font (Outline + Shadow)
+			m_shader->shaders[9]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outlineshadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
+
+			for (const auto& shader : m_shader->shaders)
 			{
-				throw EngineError(U"CFont::init(): Failed to load font shaders");
+				if (not shader)
+				{
+					throw EngineError{ U"CFont::init(): Failed to load font shaders" };
+				}
 			}
 		}
 
@@ -351,13 +394,24 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		const HasColor hasColor{ font->getProperty().hasColor };
 
-		if (textStyle.customShader)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
-			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
@@ -367,13 +421,24 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		const HasColor hasColor{ font->getProperty().hasColor };
 
-		if (textStyle.customShader)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
-			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
@@ -383,13 +448,24 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		const HasColor hasColor{ font->getProperty().hasColor };
 
-		if (textStyle.customShader)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
-			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
 			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
@@ -399,13 +475,24 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		const HasColor hasColor{ font->getProperty().hasColor };
 		
-		if (textStyle.customShader)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
 			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
-			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
 			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
@@ -415,13 +502,24 @@ namespace s3d
 		const auto& font = m_fonts[handleID];
 		const HasColor hasColor{ font->getProperty().hasColor };
 		
-		if (textStyle.customShader)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
 			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 		else
 		{
-			ScopedCustomShader2D ps{ m_shaders->getFontShader(font->getMethod(), hasColor) };
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
 			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
 	}
@@ -580,8 +678,8 @@ namespace s3d
 		return{};
 	}
 
-	const PixelShader& CFont::getFontShader(const FontMethod method, const HasColor hasColor) const
+	const PixelShader& CFont::getFontShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor) const
 	{
-		return m_shaders->getFontShader(method, hasColor);
+		return m_shader->getFontShader(method, type, hasColor);
 	}
 }

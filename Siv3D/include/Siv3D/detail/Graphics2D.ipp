@@ -29,6 +29,8 @@ namespace s3d
 
 			void SetViewport(const Optional<Rect>& viewport);
 
+			void SetSDFParameters(const std::array<Float4, 3>& params);
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);

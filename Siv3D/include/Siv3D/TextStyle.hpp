@@ -16,21 +16,35 @@ namespace s3d
 {
 	struct TextStyle
 	{
-		struct Parameters
+		Float4 param = { 0.5f, 0.5f, 0.0f, 0.0f };
+
+		Float4 outlineColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+		Float4 shadowColor = { 0.0f, 0.0f, 0.0f, 0.5f };
+
+		enum class Type : uint8
 		{
-			bool customShader;
-		};
+			Default,
+			Outline,
+			Shadow,
+			OutlineShadow,
+			CustomShader,
+		} type = Type::Default;
 
-		bool customShader = false;
+		[[nodiscard]]
+		static constexpr TextStyle Default() noexcept;
 
-		constexpr TextStyle() = default;
+		[[nodiscard]]
+		static constexpr TextStyle CustomShader() noexcept;
 
-		SIV3D_NODISCARD_CXX20
-		constexpr TextStyle(const Parameters& params) noexcept;
+		[[nodiscard]]
+		static constexpr TextStyle Outline(double p0, double p1, const ColorF& color) noexcept;
 
-		static constexpr Parameters Default{ false };
+		[[nodiscard]]
+		static constexpr TextStyle Shadow(const Vec2& offset, const ColorF& color) noexcept;
 
-		static constexpr Parameters CustomShader{ true };
+		[[nodiscard]]
+		static constexpr TextStyle OutlineShadow(double p0, double p1, const ColorF& outlineColor, const Vec2& offset, const ColorF& shadowColor) noexcept;
 	};
 }
 
