@@ -85,6 +85,8 @@ namespace s3d
 
 		Viewport,
 
+		SDFParams,
+
 		SetVS,
 
 		SetPS,
@@ -151,6 +153,7 @@ namespace s3d
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<Rect> m_scissorRects					= { Rect{0} };
 		Array<Optional<Rect>> m_viewports			= { none };
+		Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.0f, 0.0f, 0.0f }, Float4::All(0.0f), Float4::All(0.0f) } };
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
@@ -168,6 +171,7 @@ namespace s3d
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplerStates;
 		Rect m_currentScissorRect					= m_scissorRects.front();
 		Optional<Rect> m_currentViewport			= m_viewports.front();
+		std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.front();
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 		Mat3x2 m_currentLocalTransform				= Mat3x2::Identity();
@@ -230,6 +234,10 @@ namespace s3d
 		void pushViewport(const Optional<Rect>& state);
 		const Optional<Rect>& getViewport(uint32 index) const;
 		const Optional<Rect>& getCurrentViewport() const;
+
+		void pushSDFParameters(const std::array<Float4, 3>& state);
+		const std::array<Float4, 3>& getSDFParameters(uint32 index) const;
+		const std::array<Float4, 3>& getCurrentSDFParameters() const;
 
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);

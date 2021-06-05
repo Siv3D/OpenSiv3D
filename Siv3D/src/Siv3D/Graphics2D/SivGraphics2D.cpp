@@ -58,6 +58,11 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer2D)->getViewport();
 		}
 
+		void SetSDFParameters(const std::array<Float4, 3>& params)
+		{
+			SIV3D_ENGINE(Renderer2D)->setSDFParameters(params);
+		}
+
 		Optional<VertexShader> GetCustomVertexShader()
 		{
 			return SIV3D_ENGINE(Renderer2D)->getCustomVS();

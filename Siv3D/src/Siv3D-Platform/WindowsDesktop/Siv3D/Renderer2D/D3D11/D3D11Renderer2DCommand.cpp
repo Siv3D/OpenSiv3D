@@ -46,11 +46,12 @@ namespace s3d
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
-				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
+				m_psSamplerStates[i] = { m_psSamplerStates[i].back() };
 			}
 
 			m_scissorRects		= { m_scissorRects.back() };
 			m_viewports			= { m_viewports.back() };
+			m_sdfParams			= { m_sdfParams.back() };
 
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
@@ -102,6 +103,9 @@ namespace s3d
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::Viewport, 0);
 			m_currentViewport = m_viewports.front();
+
+			m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, 0);
+			m_currentSDFParams = m_sdfParams.front();
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -194,6 +198,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(D3D11Renderer2DCommandType::Viewport, static_cast<uint32>(m_viewports.size()));
 			m_viewports.push_back(m_currentViewport);
+		}
+
+		if (m_changes.has(D3D11Renderer2DCommandType::SDFParams))
+		{
+			m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
+			m_sdfParams.push_back(m_currentSDFParams);
 		}
 
 		if (m_changes.has(D3D11Renderer2DCommandType::SetVS))
@@ -593,6 +603,45 @@ namespace s3d
 	{
 		return m_currentViewport;
 	}
+
+	void D3D11Renderer2DCommandManager::pushSDFParameters(const std::array<Float4, 3>& state)
+	{
+		constexpr auto command = D3D11Renderer2DCommandType::SDFParams;
+		auto& current = m_currentSDFParams;
+		auto& buffer = m_sdfParams;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const std::array<Float4, 3>& D3D11Renderer2DCommandManager::getSDFParameters(const uint32 index) const
+	{
+		return m_sdfParams[index];
+	}
+
+	const std::array<Float4, 3>& D3D11Renderer2DCommandManager::getCurrentSDFParameters() const
+	{
+		return m_currentSDFParams;
+	}
+
 
 	void D3D11Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)
 	{

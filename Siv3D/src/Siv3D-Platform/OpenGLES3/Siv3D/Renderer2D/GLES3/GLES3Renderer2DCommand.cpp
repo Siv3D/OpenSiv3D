@@ -46,7 +46,7 @@ namespace s3d
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
-				m_vsSamplerStates[i] = { m_vsSamplerStates[i].back() };
+				m_psSamplerStates[i] = { m_psSamplerStates[i].back() };
 			}
 
 			m_scissorRects			= { m_scissorRects.back() };

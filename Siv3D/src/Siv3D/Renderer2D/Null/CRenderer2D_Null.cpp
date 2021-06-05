@@ -243,6 +243,11 @@ namespace s3d
 		return none;
 	}
 
+	void CRenderer2D_Null::setSDFParameters(const std::array<Float4, 3>&)
+	{
+		// do nothing
+	}
+
 	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
 	{
 		return none;

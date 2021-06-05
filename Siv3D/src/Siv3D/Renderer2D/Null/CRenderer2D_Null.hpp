@@ -116,6 +116,8 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
+		void setSDFParameters(const std::array<Float4, 3>& params) override;
+
 
 		Optional<VertexShader> getCustomVS() const override;
 

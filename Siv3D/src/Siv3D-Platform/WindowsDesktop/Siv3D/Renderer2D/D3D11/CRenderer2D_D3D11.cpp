@@ -729,6 +729,11 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
+	void CRenderer2D_D3D11::setSDFParameters(const std::array<Float4, 3>& params)
+	{
+		m_commandManager.pushSDFParameters(params);
+	}
+
 	Optional<VertexShader> CRenderer2D_D3D11::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -990,6 +995,15 @@ namespace s3d
 
 					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(index,
 						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
+					break;
+				}
+			case D3D11Renderer2DCommandType::SDFParams:
+				{
+					const auto& sdfParams = m_commandManager.getSDFParameters(command.index);
+					m_psConstants2D->sdfParam		= sdfParams[0];
+					m_psConstants2D->sdfOuterColor	= sdfParams[1];
+					m_psConstants2D->sdfShadowColor	= sdfParams[2];
+					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(sdfParams));
 					break;
 				}
 			case D3D11Renderer2DCommandType::SetVS:

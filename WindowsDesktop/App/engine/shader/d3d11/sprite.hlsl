@@ -64,7 +64,8 @@ cbuffer PSConstants2D : register(b0)
 {
 	float4 g_colorAdd;
 	float4 g_sdfParam;
-	float4 g_internal;
+	float4 g_sdfOutlineColor;
+	float4 g_sdfShadowColor;
 }
 
 //
@@ -131,7 +132,7 @@ float4 PS_SDFFont(s3d::PSInput input) : SV_TARGET
 {
 	const float d = g_texture0.Sample(g_sampler0, input.uv).a;
 
-	const float td = (d - 0.5);
+	const float td = (d - g_sdfParam.x);
 	const float textAlpha = saturate(td / fwidth(td) + 0.5);
 
 	input.color.a *= textAlpha;
@@ -148,7 +149,7 @@ float4 PS_MSDFFont(s3d::PSInput input) : SV_TARGET
 	const float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
 	const float d = s3d::median(s.r, s.g, s.b);
 
-	const float td = (d - 0.5);
+	const float td = (d - g_sdfParam.x);
 	const float textAlpha = saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
 
 	input.color.a *= textAlpha;

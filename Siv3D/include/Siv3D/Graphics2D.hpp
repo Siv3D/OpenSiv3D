@@ -63,6 +63,8 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Rect> GetViewport();
 
+		void SetSDFParameters(const std::array<Float4, 3>& params);
+
 		/// @brief 
 		/// @return 
 		[[nodiscard]]
