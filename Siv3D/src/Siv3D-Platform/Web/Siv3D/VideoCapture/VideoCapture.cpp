@@ -35,6 +35,9 @@ namespace s3d
         __attribute__((import_name("siv3dQueryVideoDuration")))
 		extern double siv3dQueryVideoDuration(GLuint elementID);
 
+        __attribute__((import_name("siv3dQueryVideoEnded")))
+		extern bool siv3dQueryVideoEnded(GLuint elementID);
+
         __attribute__((import_name("siv3dQueryVideoPreference")))
 		extern void siv3dQueryVideoPreference(GLuint elementID, int* width, int* height, double* fps);
 
@@ -54,6 +57,8 @@ namespace s3d
 
     WebCameraCapture::WebCameraCapture()
     {
+        LOG_TRACE(U"cv::VideoCapture stub constructor...");
+
         ::glGenTextures(1, &m_videoBufferTexture);
         ::glBindTexture(GL_TEXTURE_2D, m_videoBufferTexture);
         {
@@ -100,7 +105,11 @@ namespace s3d
 
     void WebCameraCapture::release()
     {
-        detail::siv3dDestroyVideo(m_videoElementID);
+        if (m_videoElementID != 0)
+        {
+            detail::siv3dDestroyVideo(m_videoElementID);
+        }
+
         m_videoElementID = 0;
     }
 
@@ -166,11 +175,10 @@ namespace s3d
         auto& webcam = *static_cast<WebCameraCapture*>(userData);
 
         webcam.m_videoElementID = elementID;
-        webcam.prepareBuffers();
-
         webcam.m_videoDuration = detail::siv3dQueryVideoDuration(elementID);
 
         detail::siv3dQueryVideoPreference(elementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &webcam.m_playbackFPS);
+        webcam.prepareBuffers();
 
         if (webcam.m_shouldAutoPlay)
         {

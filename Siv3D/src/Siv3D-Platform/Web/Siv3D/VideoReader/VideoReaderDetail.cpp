@@ -55,22 +55,14 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"VideoReaderDetail::close()");
 
 		// スレッドを終了
-		if (m_task.valid())
 		{
-			{
-				std::lock_guard guard(m_mutex);
-				m_shared.stop = true;
-			}
-
-			// ブロック解除を通知
-			m_cv.notify_one();
-
-			m_task.get();
+			// std::lock_guard guard(m_mutex);
+			m_shared.stop = true;
 		}
 
 		m_shared.capture.release();
-		m_shared = {};
-		m_info = {};
+		// m_shared = {};
+		// m_info = {};
 	}
 
 	bool VideoReader::VideoReaderDetail::run()
@@ -87,11 +79,18 @@ namespace s3d
 			m_info.frameCount = static_cast<size_t>(m_shared.capture.getDuration() * m_info.fps);
 			m_info.isOpen = true;
 
+			m_shared.frame.unpacker.resize(m_info.resolution);
+
 			LOG_INFO(U"ℹ️ VideoReader: file `{0}` opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
 				m_info.fullPath, m_info.resolution, m_info.fps, m_info.frameCount));
 		}
 
-		std::unique_lock ul(m_mutex);
+		if (m_shared.ready) 
+		{
+			return true;
+		}
+
+		// std::unique_lock ul(m_mutex);
 
 		if (not m_shared.reachedEnd)
 		{
@@ -113,12 +112,6 @@ namespace s3d
 
 		//LOG_TEST(U"## info ## m_shared.ready = true;");
 
-		ul.unlock();
-		m_cv.notify_one();
-		ul.lock();
-
-		m_cv.wait(ul, [this]() { return (m_shared.stop) || (m_shared.ready == false); });
-
 		return not m_shared.stop;
 	}
 	
@@ -136,27 +129,22 @@ namespace s3d
 			return false;
 		}
 
-		if (m_shared.frame.unpacker.hasFinishedUnpack())
+		if (!m_shared.ready || !m_shared.frame.unpacker.hasFinishedUnpack())
 		{
 			return false;
 		}
 
 		{
-			std::unique_lock ul(m_mutex);
-
-			m_cv.wait(ul, [this]() { return m_shared.ready; });
+			// std::unique_lock ul(m_mutex);
 
 			if (m_shared.frame.index == m_info.readPos)
 			{
 				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
-
 				m_shared.frame.unpacker.readPixels(image);
 				++m_info.readPos;
 				m_shared.ready = false;
 				//LOG_TEST(U"## info ## m_shared.ready = false;");
 
-				ul.unlock();
-				m_cv.notify_one();
 				return true;
 			}
 			else
@@ -164,24 +152,17 @@ namespace s3d
 				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} not found in buffer"_fmt(m_info.readPos));
 
 				m_shared.readPos = m_info.readPos;
-				m_shared.capture.seek(m_info.readPos * m_info.fps);
+				m_shared.capture.seek(m_info.readPos / m_info.fps);
 				m_shared.reachedEnd = false;
 				m_shared.ready = false;
 				//LOG_TEST(U"## info ## m_shared.ready = false;");
 				//LOG_TEST(U"## info ## REQUESTING frame {}"_fmt(m_shared.readPos));
-
-				ul.unlock();
-				m_cv.notify_one();
-				ul.lock();
-				m_cv.wait(ul, [this]() { return m_shared.ready; });
 
 				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
 				m_shared.frame.unpacker.readPixels(image);
 				++m_info.readPos;
 				m_shared.ready = false;
 
-				ul.unlock();
-				m_cv.notify_one();
 				return true;
 			}
 		}

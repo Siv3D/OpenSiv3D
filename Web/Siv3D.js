@@ -154,11 +154,21 @@ mergeInto(LibraryManager.library, {
     //
     $videoElements: [],
 
-    siv3dOpenVideo: function(fileName, callback, callbackArg) {
-        const videoData = FS.readFile(UTF8ToString(fileName), "binary");
-        const blob = new Blob(videoData, { type: "video" });
-
+    $siv3dOpenVideoStream: function(filename, callback, callbackArg) {
+        const videoData = FS.readFile(UTF8ToString(fileName));
+        const media_source = new MediaSource();
+       
         const video = document.createElement("video");
+        video.muted = true;
+        video.autoplay = true;
+
+        media_source.addEventListener('sourceopen', function() {
+            const source_buffer = media_source.addSourceBuffer('video/mp4');
+			source_buffer.addEventListener("updateend", function () {
+                media_source.endOfStream()
+            });
+			source_buffer.appendBuffer(videoData)
+        });
 
         video.addEventListener('loadedmetadata', function onLoaded() {
             const idx = GL.getNewId(videoElements);
@@ -169,9 +179,29 @@ mergeInto(LibraryManager.library, {
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
         });
 
-        video.src = URL.createObjectURL(blob);
+        video.src = URL.createObjectURL(media_source);
     },
-    siv3dOpenVideo__sig: "vi",
+
+    siv3dOpenVideo: function(fileName, callback, callbackArg) {
+        const videoData = FS.readFile(UTF8ToString(fileName));
+        const videoBlob = new Blob([ videoData ], { type: "video/mp4" });
+       
+        const video = document.createElement("video");
+        video.muted = true;
+        video.autoplay = true;
+
+        video.addEventListener('loadedmetadata', function onLoaded() {
+            const idx = GL.getNewId(videoElements);
+
+            video.removeEventListener('loadedmetadata', onLoaded);
+            videoElements[idx] = video;
+
+            if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        });
+
+        video.src = URL.createObjectURL(videoBlob);
+    },
+    siv3dOpenVideo__sig: "viii",
     siv3dOpenVideo__deps: [ "$FS", "$videoElements" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
@@ -220,22 +250,29 @@ mergeInto(LibraryManager.library, {
         const video = videoElements[idx];
         video.currentTime = time;
     },
-    siv3dQueryVideoPlaybackedTime__sig: "vid",
-    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+    siv3dSetVideoPlaybackedTime__sig: "vid",
+    siv3dSetVideoPlaybackedTime__deps: ["$videoElements"],
 
     siv3dQueryVideoDuration: function(idx) {
         const video = videoElements[idx];
         return video.duration;
     },
-    siv3dQueryVideoPlaybackedTime__sig: "di",
-    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+    siv3dQueryVideoDuration__sig: "di",
+    siv3dQueryVideoDuration__deps: ["$videoElements"],
+
+    siv3dQueryVideoEnded: function(idx) {
+        const video = videoElements[idx];
+        return video.ended;
+    },
+    siv3dQueryVideoEnded__sig: "ii",
+    siv3dQueryVideoEnded__deps: ["$videoElements"],
 
     siv3dQueryVideoPreference: function(idx, width, height, fps) {
         const video = videoElements[idx];
 
         setValue(width, video.videoWidth, 'i32');
         setValue(height, video.videoHeight, 'i32');
-        setValue(height, 29.7, 'double');
+        setValue(fps, 29.7, 'double');
     },
     siv3dQueryVideoPlaybackedTime__sig: "viiii",
     siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],

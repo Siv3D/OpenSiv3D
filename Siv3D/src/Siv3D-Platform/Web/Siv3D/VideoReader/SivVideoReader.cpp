@@ -10,12 +10,16 @@
 //-----------------------------------------------
 
 # include <Siv3D/VideoReader.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/VideoReader/VideoReaderDetail.hpp>
 
 namespace s3d
 {
 	VideoReader::VideoReader()
-		: pImpl{ std::make_shared<VideoReaderDetail>() } {}
+		: pImpl{ std::make_shared<VideoReaderDetail>() } 
+		{
+			LOG_TRACE(U"videoReader constructor...");
+		}
 
 	VideoReader::VideoReader(const FilePathView path)
 		: VideoReader{}
