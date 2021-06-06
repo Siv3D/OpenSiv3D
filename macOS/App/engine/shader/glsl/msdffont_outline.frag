@@ -55,14 +55,17 @@ void main()
 	vec3 s = texture(Texture0, UV).rgb;
 	float d = median(s.r, s.g, s.b);
 
-	float td = (d - 0.5);
-	float textAlpha = (td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5);
+	float od = (d - g_sdfParam.y);
+	float outlineAlpha = clamp(od * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
-	vec2 shadowOffset = vec2(0.875, 0.875) / size;
-	vec3 s2 = texture(Texture0, UV - shadowOffset).rgb;
-	float d2 = median(s2.r, s2.g, s2.b);
-	float sd = (d2 - 0.5);
-	float shadowAlpha = (sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5);
+	float td = (d - g_sdfParam.x);
+	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
-	FragColor = sqrt(vec4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha)));
+	float baseAlpha = (outlineAlpha - textAlpha);
+
+	vec4 color;
+	color.rgb = mix(g_sdfOutlineColor.rgb, Color.rgb, textAlpha);
+	color.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
+
+	FragColor = (color + g_colorAdd);
 }
