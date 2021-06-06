@@ -20,44 +20,6 @@ namespace s3d
 {
     class PseudoThread
     {
-        struct ThreadStruct
-        {
-            long m_IntervalID;
-            bool m_Aborted = false;
-        };
-
-        std::shared_ptr<ThreadStruct> m_NativeHandle;
-
-        template <class _Fp, class ..._Args, size_t ..._Indices>
-        static inline bool PseudoThreadExecute(std::tuple<std::shared_ptr<ThreadStruct>, _Fp, _Args...>& __t, std::index_sequence<_Indices...>)
-        {
-            return std::invoke(std::move(std::get<1>(__t)), std::move(std::get<_Indices + 2>(__t))...);
-        }
-
-        template <class _Fp>
-        static void PseudoThreadProxy(void* __vp)
-        {
-            // _Fp = tuple< unique_ptr<__thread_struct>, Functor, Args...>
-            std::unique_ptr<_Fp> __p(static_cast<_Fp*>(__vp));
-            using _Index = typename std::make_index_sequence<std::tuple_size<_Fp>::value - 2>;
-
-            auto nativeHandle = std::get<0>(*__p);
-
-            if (nativeHandle->m_Aborted)
-            {
-                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
-                return;            
-            }
-            
-            if (bool shouldContinue = PseudoThreadExecute(*__p.get(), _Index()); not shouldContinue) 
-            {
-                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
-                nativeHandle->m_IntervalID = 0;
-                return;          
-            }
-
-            __p.release();
-        }
     public:  
         PseudoThread() = default; 
 
@@ -125,5 +87,46 @@ namespace s3d
         {
             m_NativeHandle = nullptr;
         }  
+
+    private:
+
+        struct ThreadStruct
+        {
+            long m_IntervalID;
+            bool m_Aborted = false;
+        };
+
+        std::shared_ptr<ThreadStruct> m_NativeHandle;
+
+        template <class _Fp, class ..._Args, size_t ..._Indices>
+        static inline bool PseudoThreadExecute(std::tuple<std::shared_ptr<ThreadStruct>, _Fp, _Args...>& __t, std::index_sequence<_Indices...>)
+        {
+            return std::invoke(std::move(std::get<1>(__t)), std::move(std::get<_Indices + 2>(__t))...);
+        }
+
+        template <class _Fp>
+        static void PseudoThreadProxy(void* __vp)
+        {
+            // _Fp = tuple< unique_ptr<__thread_struct>, Functor, Args...>
+            std::unique_ptr<_Fp> __p(static_cast<_Fp*>(__vp));
+            using _Index = typename std::make_index_sequence<std::tuple_size<_Fp>::value - 2>;
+
+            auto nativeHandle = std::get<0>(*__p);
+
+            if (nativeHandle->m_Aborted)
+            {
+                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
+                return;            
+            }
+            
+            if (bool shouldContinue = PseudoThreadExecute(*__p.get(), _Index()); not shouldContinue) 
+            {
+                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
+                nativeHandle->m_IntervalID = 0;
+                return;          
+            }
+
+            __p.release();
+        }
     };
 }
