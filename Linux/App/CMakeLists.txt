@@ -59,6 +59,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lavcodec
   -lavformat
   -lavutil
+  -lcurl
   -ldl
   -lfreetype
   -lGL
