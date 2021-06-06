@@ -47,15 +47,15 @@ void main()
 
 	float od = (d - g_sdfParam.y);
 	float outlineAlpha = clamp(od / fwidth(od) + 0.5, 0.0, 1.0);
-	vec4 outlineColor = vec4(g_sdfOutlineColor.rgb, g_sdfOutlineColor.a * outlineAlpha);
 
 	float td = (d - g_sdfParam.x);
 	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
-	vec4 textColor = vec4(Color.rgb, Color.a * textAlpha);
+
+	float baseAlpha = (outlineAlpha - textAlpha);
 
 	vec4 color;
-	color.rgb = mix(outlineColor.rgb, textColor.rgb, textAlpha);
-	color.a = max(outlineColor.a, textColor.a);
+	color.rgb = mix(g_sdfOutlineColor.rgb, Color.rgb, textAlpha);
+	color.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
 
 	FragColor = (color + g_colorAdd);
 }

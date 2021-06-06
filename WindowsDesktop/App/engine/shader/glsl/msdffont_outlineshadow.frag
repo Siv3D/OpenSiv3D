@@ -41,15 +41,25 @@ layout(std140) uniform PSConstants2D
 //
 //	Functions
 //
+float median(float r, float g, float b)
+{
+	return max(min(r, g), min(max(r, g), b));
+}
+
 void main()
 {
-	float d = texture(Texture0, UV).a;
+	vec2 size = textureSize(Texture0, 0);
+	const float pxRange = 4.0;
+	vec2 msdfUnit = (pxRange / size);
+
+	vec3 s = texture(Texture0, UV).rgb;
+	float d = median(s.r, s.g, s.b);
 
 	float od = (d - g_sdfParam.y);
-	float outlineAlpha = clamp(od / fwidth(od) + 0.5, 0.0, 1.0);
+	float outlineAlpha = clamp(od * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
 	float td = (d - g_sdfParam.x);
-	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
 	float baseAlpha = (outlineAlpha - textAlpha);
 
@@ -58,12 +68,12 @@ void main()
 	textColor.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
 
 
-	vec2 size = textureSize(Texture0, 0);
 	vec2 shadowOffset = (g_sdfParam.zw / size);
-	float d2 = texture(Texture0, UV - shadowOffset).a;
+	vec3 s2 = texture(Texture0, UV - shadowOffset).rgb;
+	float d2 = median(s2.r, s2.g, s2.b);
 
-	float sd = (d2 - g_sdfParam.y);
-	float shadowAlpha = clamp(sd / fwidth(sd) + 0.5, 0.0, 1.0);
+	float sd = (d2 - 0.5);
+	float shadowAlpha = clamp(sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 	float sBase = shadowAlpha * (1.0 - textColor.a);
 
 	vec4 color;
