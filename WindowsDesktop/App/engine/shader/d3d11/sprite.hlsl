@@ -370,13 +370,13 @@ float4 PS_MSDFPrint(s3d::PSInput input) : SV_TARGET
 	const float d = s3d::median(s.r, s.g, s.b);
 
 	const float td = (d - 0.5);
-	const float textAlpha = (td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
+	const float textAlpha = sqrt(saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5));
 
 	const float2 shadowOffset = float2(0.875, 0.875) / size;
 	const float3 s2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).rgb;
 	const float d2 = s3d::median(s2.r, s2.g, s2.b);
 	const float sd = (d2 - 0.5);
-	const float shadowAlpha = (sd * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
+	const float shadowAlpha = sqrt(saturate(sd * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5));
 
-	return sqrt(float4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha)));
+	return float4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
 }
