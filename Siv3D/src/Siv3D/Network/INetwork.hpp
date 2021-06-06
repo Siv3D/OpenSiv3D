@@ -21,5 +21,7 @@ namespace s3d
 		static ISiv3DNetwork* Create();
 
 		virtual ~ISiv3DNetwork() = default;
+
+		virtual void init() = 0;
 	};
 }

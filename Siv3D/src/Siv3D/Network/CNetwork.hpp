@@ -22,7 +22,10 @@ namespace s3d
 
 		~CNetwork() override;
 
+		void init() override;
+
 	private:
 
+		bool m_curlInitialized = false;
 	};
 }

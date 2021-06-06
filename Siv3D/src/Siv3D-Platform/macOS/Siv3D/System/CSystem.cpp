@@ -28,6 +28,7 @@
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
 # include <Siv3D/ToastNotification/IToastNotification.hpp>
+# include <Siv3D/Network/INetwork.hpp>
 # include <Siv3D/SoundFont/ISoundFont.hpp>
 # include <Siv3D/AudioCodec/IAudioCodec.hpp>
 # include <Siv3D/AudioDecoder/IAudioDecoder.hpp>
@@ -84,6 +85,7 @@ namespace s3d
 		SIV3D_ENGINE(Clipboard)->init();
 		SIV3D_ENGINE(DragDrop)->init();
 		SIV3D_ENGINE(ToastNotification)->init();
+		SIV3D_ENGINE(Network)->init();
 		SIV3D_ENGINE(SoundFont)->init();
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();
