@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0475DC266CDF4100936095 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0475DB266CDF4100936095 /* libcurl.tbd */; };
 		2C063D412661407800368BEE /* SivSIMDMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C063D402661407700368BEE /* SivSIMDMath.cpp */; };
 		2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A22557C0F200C9838C /* SivInputGroup.cpp */; };
 		2C0848A62557C0F200C9838C /* SivInputCombination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0848A42557C0F200C9838C /* SivInputCombination.cpp */; };
@@ -1509,6 +1510,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0475DB266CDF4100936095 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		2C063D2726612A3400368BEE /* Mat4x4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.hpp; sourceTree = "<group>"; };
 		2C063D2826612A3400368BEE /* OBB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OBB.hpp; sourceTree = "<group>"; };
 		2C063D2926612A3400368BEE /* Line3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Line3D.hpp; sourceTree = "<group>"; };
@@ -3881,6 +3883,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0475DC266CDF4100936095 /* libcurl.tbd in Frameworks */,
 				2C533732264E0E9700CE0F1B /* AudioToolbox.framework in Frameworks */,
 				2CFF582025F7C0B500B660AD /* AVFoundation.framework in Frameworks */,
 				2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */,
@@ -4668,6 +4671,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C0475DB266CDF4100936095 /* libcurl.tbd */,
 				2C65277F265621DF003427EB /* CoreAudio.framework */,
 				2C533731264E0E9700CE0F1B /* AudioToolbox.framework */,
 				2C44C0712649615100A5E72A /* libtiff.a */,
