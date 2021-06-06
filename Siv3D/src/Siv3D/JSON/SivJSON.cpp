@@ -823,22 +823,32 @@ namespace s3d
 
 	String JSON::format(const char32 space, const size_t spaceCount) const
 	{
-		if (not m_isValid)
-		{
-			return U"(Invalid JSON)";
-		}
-
-		return Unicode::FromUTF8(m_detail->get().dump(static_cast<int>(spaceCount), static_cast<char>(space)));
+		return Unicode::FromUTF8(formatUTF8(space, spaceCount));
 	}
 
 	String JSON::formatMinimum() const
 	{
+		return Unicode::FromUTF8(formatUTF8Minimum());
+	}
+
+	std::string JSON::formatUTF8(const char32 space, const size_t spaceCount) const
+	{
 		if (not m_isValid)
 		{
-			return U"(Invalid JSON)";
+			return{};
 		}
 
-		return Unicode::FromUTF8(m_detail->get().dump());
+		return m_detail->get().dump(static_cast<int>(spaceCount), static_cast<char>(space));
+	}
+
+	std::string JSON::formatUTF8Minimum() const
+	{
+		if (not m_isValid)
+		{
+			return{};
+		}
+
+		return m_detail->get().dump();
 	}
 
 	bool JSON::save(const FilePathView path) const

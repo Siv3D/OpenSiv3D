@@ -416,6 +416,12 @@ namespace s3d
 		[[nodiscard]]
 		String formatMinimum() const;
 
+		[[nodiscard]]
+		std::string formatUTF8(char32 space = U' ', size_t spaceCount = 2) const;
+
+		[[nodiscard]]
+		std::string formatUTF8Minimum() const;
+
 		bool save(FilePathView path) const;
 
 		bool saveMinimum(FilePathView path) const;
