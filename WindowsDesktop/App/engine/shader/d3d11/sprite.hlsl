@@ -159,7 +159,9 @@ float4 PS_SDFFont_Outline(s3d::PSInput input) : SV_TARGET
 	const float textAlpha = saturate(td / fwidth(td) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
-	const float4 color = lerp(outlineColor, textColor, textAlpha);
+	float4 color;
+	color.rgb = lerp(outlineColor.rgb, textColor.rgb, textAlpha);
+	color.a = max(outlineColor.a, textColor.a);
 
 	return (color + g_colorAdd);
 }
@@ -169,7 +171,7 @@ float4 PS_SDFFont_Shadow(s3d::PSInput input) : SV_TARGET
 {
 	const float d = g_texture0.Sample(g_sampler0, input.uv).a;
 
-	const float td = (d - g_sdfParam.x);
+	const float td = (d - 0.5);
 	const float textAlpha = saturate(td / fwidth(td) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
@@ -177,11 +179,18 @@ float4 PS_SDFFont_Shadow(s3d::PSInput input) : SV_TARGET
 	const float2 shadowOffset = (g_sdfParam.zw / size);
 	const float d2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).a;
 
-	const float sd = (d2 - g_sdfParam.x);
+	const float sd = (d2 - 0.5);
 	const float shadowAlpha = saturate(sd / fwidth(sd) + 0.5);
-	const float4 shadow = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
+	const float4 shadowColor = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
 
-	return (lerp(shadow, textColor, textAlpha) + g_colorAdd);
+	float4 color = textColor;
+	if (0.0 < shadowAlpha)
+	{
+		color.rgb = lerp(shadowColor.rgb, textColor.rgb, textAlpha);
+		color.a = max(shadowColor.a, textColor.a);
+	}
+
+	return (color + g_colorAdd);
 }
 
 
@@ -197,17 +206,25 @@ float4 PS_SDFFont_OutlineShadow(s3d::PSInput input) : SV_TARGET
 	const float textAlpha = saturate(td / fwidth(td) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
-	const float4 color = lerp(outlineColor, textColor, textAlpha);
+	float4 color;
+	color.rgb = lerp(outlineColor.rgb, textColor.rgb, textAlpha);
+	color.a = max(outlineColor.a, textColor.a);
 
 	float2 size; g_texture0.GetDimensions(size.x, size.y);
 	const float2 shadowOffset = (g_sdfParam.zw / size);
 	const float d2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).a;
 
-	const float sd = (d2 - 0.5);
+	const float sd = (d2 - g_sdfParam.y);
 	const float shadowAlpha = saturate(sd / fwidth(sd) + 0.5);
-	const float4 shadow = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
+	const float4 shadowColor = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
 
-	return (lerp(shadow, color, color.a) + g_colorAdd);
+	if (0.0 < shadowAlpha)
+	{
+		color.rgb = lerp(shadowColor.rgb, color.rgb, color.a);
+		color.a = max(shadowColor.a, color.a);
+	}
+
+	return (color + g_colorAdd);
 }
 
 
@@ -246,7 +263,9 @@ float4 PS_MSDFFont_Outline(s3d::PSInput input) : SV_TARGET
 	const float textAlpha = saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
-	const float4 color = lerp(outlineColor, textColor, textAlpha);
+	float4 color;
+	color.rgb = lerp(outlineColor.rgb, textColor.rgb, textAlpha);
+	color.a = max(outlineColor.a, textColor.a);
 
 	return (color + g_colorAdd);
 }
@@ -261,7 +280,7 @@ float4 PS_MSDFFont_Shadow(s3d::PSInput input) : SV_TARGET
 	const float3 s = g_texture0.Sample(g_sampler0, input.uv).rgb;
 	const float d = s3d::median(s.r, s.g, s.b);
 
-	const float td = (d - g_sdfParam.x);
+	const float td = (d - 0.5);
 	const float textAlpha = saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
@@ -269,11 +288,18 @@ float4 PS_MSDFFont_Shadow(s3d::PSInput input) : SV_TARGET
 	const float3 s2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).rgb;
 	const float d2 = s3d::median(s2.r, s2.g, s2.b);
 
-	const float sd = (d2 - g_sdfParam.x);
+	const float sd = (d2 - 0.5);
 	const float shadowAlpha = saturate(sd * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
-	const float4 shadow = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
+	const float4 shadowColor = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
 
-	return (lerp(shadow, textColor, textAlpha) + g_colorAdd);
+	float4 color = textColor;
+	if (0.0 < shadowAlpha)
+	{
+		color.rgb = lerp(shadowColor.rgb, textColor.rgb, textAlpha);
+		color.a = max(shadowColor.a, textColor.a);
+	}
+
+	return (color + g_colorAdd);
 }
 
 
@@ -294,17 +320,25 @@ float4 PS_MSDFFont_OutlineShadow(s3d::PSInput input) : SV_TARGET
 	const float textAlpha = saturate(td * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
 	const float4 textColor = float4(input.color.rgb, input.color.a * textAlpha);
 
-	const float4 color = lerp(outlineColor, textColor, textAlpha);
+	float4 color;
+	color.rgb = lerp(outlineColor.rgb, textColor.rgb, textAlpha);
+	color.a = max(outlineColor.a, textColor.a);
 
 	const float2 shadowOffset = (g_sdfParam.zw / size);
 	const float3 s2 = g_texture0.Sample(g_sampler0, input.uv - shadowOffset).rgb;
 	const float d2 = s3d::median(s2.r, s2.g, s2.b);
 
-	const float sd = (d2 - 0.5);
+	const float sd = (d2 - g_sdfParam.y);
 	const float shadowAlpha = saturate(sd * dot(msdfUnit, 0.5 / fwidth(input.uv)) + 0.5);
-	const float4 shadow = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
+	const float4 shadowColor = float4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
 
-	return (lerp(shadow, color, color.a) + g_colorAdd);
+	if (0.0 < shadowAlpha)
+	{
+		color.rgb = lerp(shadowColor.rgb, color.rgb, color.a);
+		color.a = max(shadowColor.a, color.a);
+	}
+
+	return (color + g_colorAdd);
 }
 
 

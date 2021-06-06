@@ -89,19 +89,19 @@ namespace s3d
 
 			// SDF Font (Outline)
 			m_shader->shaders[3]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outline.ps") }
-									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
 									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// SDF Font (Shadow)
 			m_shader->shaders[4]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_shadow.ps") }
-									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
 									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// SDF Font (Outline + Shadow)
 			m_shader->shaders[5]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outlineshadow.ps") }
-									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
 									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 

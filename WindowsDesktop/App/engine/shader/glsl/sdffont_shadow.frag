@@ -47,8 +47,22 @@ void main()
 
 	float td = (d - 0.5);
 	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+	vec4 textColor = vec4(Color.rgb, Color.a * textAlpha);
 
-	vec4 color = vec4(Color.rgb, Color.a * textAlpha);
+	vec2 size = textureSize(Texture0, 0);
+	vec2 shadowOffset = (g_sdfParam.zw / size);
+	float d2 = texture(Texture0, UV - shadowOffset).a;
+
+	float sd = (d2 - 0.5);
+	float shadowAlpha = clamp(sd / fwidth(sd) + 0.5, 0.0, 1.0);
+	vec4 shadowColor = vec4(g_sdfShadowColor.rgb, g_sdfShadowColor.a * shadowAlpha);
+
+	vec4 color = textColor;
+	if (0.0 < shadowAlpha)
+	{
+		color.rgb = mix(shadowColor.rgb, textColor.rgb, textAlpha);
+		color.a = max(shadowColor.a, textColor.a);
+	}
 
 	FragColor = (color + g_colorAdd);
 }

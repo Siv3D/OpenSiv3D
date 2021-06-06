@@ -45,10 +45,17 @@ void main()
 {
 	float d = texture(Texture0, UV).a;
 
-	float td = (d - 0.5);
-	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+	float od = (d - g_sdfParam.y);
+	float outlineAlpha = clamp(od / fwidth(od) + 0.5, 0.0, 1.0);
+	vec4 outlineColor = vec4(g_sdfOutlineColor.rgb, g_sdfOutlineColor.a * outlineAlpha);
 
-	vec4 color = vec4(Color.rgb, Color.a * textAlpha);
+	float td = (d - g_sdfParam.x);
+	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+	vec4 textColor = vec4(Color.rgb, Color.a * textAlpha);
+
+	vec4 color;
+	color.rgb = mix(outlineColor.rgb, textColor.rgb, textAlpha);
+	color.a = max(outlineColor.a, textColor.a);
 
 	FragColor = (color + g_colorAdd);
 }

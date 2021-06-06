@@ -55,7 +55,7 @@ void main()
 	vec3 s = texture(Texture0, UV).rgb;
 	float d = median(s.r, s.g, s.b);
 
-	float td = (d - g_sdfParam.x);
+	float td = (d - 0.5);
 	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
 	vec4 color = vec4(Color.rgb, Color.a * textAlpha);
