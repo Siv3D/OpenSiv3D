@@ -653,7 +653,7 @@ namespace s3d
 		return none;
 	}
 
-	void CRenderCRenderer2D_Metaler2D_D3D11::setSDFParameters(const std::array<Float4, 3>&)
+	void CRenderer2D_Metal::setSDFParameters(const std::array<Float4, 3>&)
 	{
 		// [Siv3D ToDo]
 	}
