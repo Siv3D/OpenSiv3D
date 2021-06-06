@@ -19,6 +19,7 @@
 # endif
 
 # pragma comment (linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+# pragma comment (lib, "crypt32")
 # pragma comment (lib, "dinput8")
 # pragma comment (lib, "dwmapi")
 # pragma comment (lib, "dxguid")
@@ -28,6 +29,8 @@
 # pragma comment (lib, "Shlwapi")
 # pragma comment (lib, "version")
 # pragma comment (lib, "winmm")
+# pragma comment (lib, "Ws2_32")
+# pragma comment (lib, "curl/libcurl" SIV3D_DEBUG_LIB_POSTFIX(-d))
 # pragma comment (lib, "freetype/freetype" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "glew/glew32s" SIV3D_DEBUG_LIB_POSTFIX(d))
 # pragma comment (lib, "harfbuzz/harfbuzz" SIV3D_DEBUG_LIB_POSTFIX(_d))

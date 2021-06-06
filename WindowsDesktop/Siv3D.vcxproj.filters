@@ -1276,6 +1276,9 @@
     <Filter Include="src\Siv3D\Quaternion">
       <UniqueIdentifier>{fa70e347-6051-497f-ae63-4ce2ea1726ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty-prebuilt\curl">
+      <UniqueIdentifier>{295fb2f6-2e59-418e-941f-2cd2d6dd4cc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5894,6 +5897,36 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RandomDuration.ipp">
       <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\easy.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\mprintf.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\multi.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\options.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\stdcheaders.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\system.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\typecheck-gcc.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\urlapi.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\curl.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\curlver.h">
+      <Filter>src\ThirdParty-prebuilt\curl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

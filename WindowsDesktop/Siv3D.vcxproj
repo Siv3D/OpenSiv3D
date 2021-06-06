@@ -1077,6 +1077,16 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\XInput\Null\CXInput_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\XInput\XInputState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ZIPReader\ZIPReaderDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\curl.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\curlver.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\easy.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\mprintf.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\multi.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\options.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\stdcheaders.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\system.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\typecheck-gcc.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\urlapi.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-blob.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-buffer.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\harfbuzz\hb-common.h" />
