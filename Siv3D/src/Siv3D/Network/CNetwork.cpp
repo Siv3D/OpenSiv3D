@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -14,7 +14,7 @@
 # include <Siv3D/Error.hpp>
 
 # define CURL_STATICLIB
-# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(WEB)
 #	include <ThirdParty-prebuilt/curl/curl.h>
 # else
 #	include <curl/curl.h>
