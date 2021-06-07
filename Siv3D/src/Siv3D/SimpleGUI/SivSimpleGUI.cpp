@@ -923,12 +923,37 @@ namespace s3d
 				# endif
 					)
 				{
+
+				# if SIV3D_PLATFORM(WEB)
+
+					if (!text.pendingClipboardText.valid())
+					{
+						text.pendingClipboardText = Platform::Web::Clipboard::GetText();
+					}
+
+				# else
+
 					if (String paste; Clipboard::GetText(paste))
 					{
 						text.text.insert(text.cursorPos, paste);
 						text.cursorPos += paste.size();
 					}
+
+				# endif
+
 				}
+
+			# if SIV3D_PLATFORM(WEB)
+
+				if (text.pendingClipboardText.valid() && text.pendingClipboardText.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+				{
+					String paste = text.pendingClipboardText.get();
+
+					text.text.insert(text.cursorPos, paste);
+					text.cursorPos += paste.size();
+				}
+
+			# endif
 
 				if (maxChars && (text.text.size() > *maxChars))
 				{

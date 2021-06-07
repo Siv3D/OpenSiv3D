@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -40,7 +40,7 @@ namespace s3d
 		// TODO: カメラのデフォルトの解像度も取得したい
 		m_capture.setResolution(m_captureResolution);
 
-		if (not m_capture.open())
+		if (not m_capture.openCamera())
 		{
 			LOG_ERROR(U"cv::VideoCapture::open({}) failed"_fmt(cameraIndex));
 			
@@ -92,7 +92,7 @@ namespace s3d
 
 		// キャプチャスレッドを起動
 		{
-			m_thread = PseudoThread{ Run, std::ref(*this) };
+			m_thread = PseudoThread{ std::chrono::milliseconds(30), Run, std::ref(*this) };
 
 			for (auto& unpacker : m_frameBufferUnpackers)
 			{
@@ -216,7 +216,7 @@ namespace s3d
 
 		if (capture.grab())
 		{
-			auto capturedFrameBuffer = capture.capture();
+			auto capturedFrameBuffer = capture.retrieve();
 			auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
 
 			selectedUnpacker.startUnpack(capturedFrameBuffer);

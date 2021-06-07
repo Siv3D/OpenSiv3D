@@ -154,10 +154,55 @@ mergeInto(LibraryManager.library, {
     //
     $videoElements: [],
 
-    siv3dOpenVideo: function(fileName) {
+    $siv3dOpenVideoStream: function(filename, callback, callbackArg) {
+        const videoData = FS.readFile(UTF8ToString(fileName));
+        const media_source = new MediaSource();
+       
+        const video = document.createElement("video");
+        video.muted = true;
+        video.autoplay = true;
 
+        media_source.addEventListener('sourceopen', function() {
+            const source_buffer = media_source.addSourceBuffer('video/mp4');
+			source_buffer.addEventListener("updateend", function () {
+                media_source.endOfStream()
+            });
+			source_buffer.appendBuffer(videoData)
+        });
+
+        video.addEventListener('loadedmetadata', function onLoaded() {
+            const idx = GL.getNewId(videoElements);
+
+            video.removeEventListener('loadedmetadata', onLoaded);
+            videoElements[idx] = video;
+
+            if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        });
+
+        video.src = URL.createObjectURL(media_source);
     },
-    siv3dOpenVideo__sig: "vi",
+
+    siv3dOpenVideo: function(fileName, callback, callbackArg) {
+        const videoData = FS.readFile(UTF8ToString(fileName));
+        const videoBlob = new Blob([ videoData ], { type: "video/mp4" });
+       
+        const video = document.createElement("video");
+        video.muted = true;
+        video.autoplay = true;
+
+        video.addEventListener('loadedmetadata', function onLoaded() {
+            const idx = GL.getNewId(videoElements);
+
+            video.removeEventListener('loadedmetadata', onLoaded);
+            videoElements[idx] = video;
+
+            if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        });
+
+        video.src = URL.createObjectURL(videoBlob);
+    },
+    siv3dOpenVideo__sig: "viii",
+    siv3dOpenVideo__deps: [ "$FS", "$videoElements" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
@@ -187,6 +232,20 @@ mergeInto(LibraryManager.library, {
     siv3dOpenCamera__sig: "viiii",
     siv3dOpenCamera__deps: ["$videoElements"],
 
+    siv3dRegisterVideoTimeUpdateCallback: function(idx, callback, callbackArg) {
+        const video = videoElements[idx];
+
+        if (callback) {
+            video.ontimeupdate = function() {
+                {{{ makeDynCall('vi', 'callback') }}}(callbackArg);
+            }
+        } else {
+            video.ontimeupdate = null;
+        }
+    },
+    siv3dRegisterVideoTimeUpdateCallback__sig: "viii",
+    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements" ], 
+
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
         GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, video);
@@ -201,6 +260,37 @@ mergeInto(LibraryManager.library, {
     siv3dQueryVideoPlaybackedTime__sig: "di",
     siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
 
+    siv3dSetVideoPlaybackedTime: function(idx, time) {
+        const video = videoElements[idx];
+        video.currentTime = time;
+    },
+    siv3dSetVideoPlaybackedTime__sig: "vid",
+    siv3dSetVideoPlaybackedTime__deps: ["$videoElements"],
+
+    siv3dQueryVideoDuration: function(idx) {
+        const video = videoElements[idx];
+        return video.duration;
+    },
+    siv3dQueryVideoDuration__sig: "di",
+    siv3dQueryVideoDuration__deps: ["$videoElements"],
+
+    siv3dQueryVideoEnded: function(idx) {
+        const video = videoElements[idx];
+        return video.ended;
+    },
+    siv3dQueryVideoEnded__sig: "ii",
+    siv3dQueryVideoEnded__deps: ["$videoElements"],
+
+    siv3dQueryVideoPreference: function(idx, width, height, fps) {
+        const video = videoElements[idx];
+
+        setValue(width, video.videoWidth, 'i32');
+        setValue(height, video.videoHeight, 'i32');
+        setValue(fps, 29.7, 'double');
+    },
+    siv3dQueryVideoPlaybackedTime__sig: "viiii",
+    siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
+
     siv3dPlayVideo: function(idx) {
         const video = videoElements[idx];
         video.play();
@@ -210,23 +300,23 @@ mergeInto(LibraryManager.library, {
 
     siv3dStopVideo: function(idx) {
         const video = videoElements[idx];
-
-        let stream = video.srcObject;
-        let tracks = stream.getTracks();
-      
-        tracks.forEach(function(track) {
-            track.stop();
-        });
+        video.pause();
     },
     siv3dStopVideo__sig: "vi",
     siv3dStopVideo__deps: ["$videoElements"],
 
     siv3dDestroyVideo: function(idx) {
         _siv3dStopVideo(idx);
+
+        const video = videoElements[idx];
+        if (!!video.src) {
+            URL.revokeObjectURL(src);
+        }
+
         delete videoElements[idx];
     },
     siv3dDestroyVideo__sig: "vi",
-    siv3dDestroyVideo__deps: ["$videoElements"],
+    siv3dDestroyVideo__deps: ["$videoElements", "siv3dStopVideo"],
 
     //
     // User Action Emulation

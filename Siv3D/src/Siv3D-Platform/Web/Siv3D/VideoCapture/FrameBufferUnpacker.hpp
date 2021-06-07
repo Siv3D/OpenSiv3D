@@ -10,7 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Fwd.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Image.hpp>
 # include <GLES3/gl3.h>
+# include <webgl/webgl2.h>
 
 namespace s3d
 {
@@ -80,7 +85,7 @@ namespace s3d
             }
 
             image.resize(m_BufferSize);
-
+          
             ::glBindBuffer(GL_PIXEL_PACK_BUFFER, m_pixelBuffer);
             {	
                 ::glGetBufferSubData(GL_PIXEL_PACK_BUFFER, 0, m_BufferSize.x * m_BufferSize.y * 4, image.data());	
