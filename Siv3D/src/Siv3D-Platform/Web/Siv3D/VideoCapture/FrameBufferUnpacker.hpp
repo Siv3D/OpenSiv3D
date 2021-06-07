@@ -23,8 +23,6 @@ namespace s3d
     {
         FrameBufferUnpacker()
         {
-            LOG_TRACE(U"unpacker constructor...");
-
             ::glGenBuffers(1, &m_pixelBuffer);
         }
 

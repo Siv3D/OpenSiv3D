@@ -18,7 +18,7 @@ namespace s3d
 	VideoReader::VideoReader()
 		: pImpl{ std::make_shared<VideoReaderDetail>() } 
 		{
-			LOG_TRACE(U"videoReader constructor...");
+		
 		}
 
 	VideoReader::VideoReader(const FilePathView path)

@@ -61,8 +61,6 @@ namespace s3d
 
     WebCameraCapture::WebCameraCapture()
     {
-        LOG_TRACE(U"cv::VideoCapture stub constructor...");
-
         ::glGenTextures(1, &m_videoBufferTexture);
         ::glBindTexture(GL_TEXTURE_2D, m_videoBufferTexture);
         {
