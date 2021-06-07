@@ -73,8 +73,7 @@ namespace s3d
 				}
 			}
 
-			if (auto result = Get(url, headers, static_cast<IWriter&>(writer));
-				(not result.isInvalid()))
+			if (auto result = Get(url, headers, static_cast<IWriter&>(writer)))
 			{
 				return result;
 			}
@@ -86,8 +85,7 @@ namespace s3d
 
 		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, MemoryWriter& writer)
 		{
-			if (auto result = Get(url, headers, static_cast<IWriter&>(writer));
-				(not result.isInvalid()))
+			if (auto result = Get(url, headers, static_cast<IWriter&>(writer)))
 			{
 				return result;
 			}
@@ -158,8 +156,7 @@ namespace s3d
 				}
 			}
 
-			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer));
-				(not result.isInvalid()))
+			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer)))
 			{
 				return result;
 			}
@@ -171,8 +168,7 @@ namespace s3d
 
 		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, MemoryWriter& writer)
 		{
-			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer));
-				(not result.isInvalid()))
+			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer)))
 			{
 				return result;
 			}
