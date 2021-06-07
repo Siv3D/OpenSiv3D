@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -45,7 +45,7 @@ namespace s3d
 			.isOpen		= false,
 		};
 
-		m_thread = PseudoThread(&VideoReaderDetail::run, this);
+		m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, this);
 
 		return true;
 	}

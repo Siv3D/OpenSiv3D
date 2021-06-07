@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -92,7 +92,7 @@ namespace s3d
 
 		// キャプチャスレッドを起動
 		{
-			m_thread = PseudoThread{ Run, std::ref(*this) };
+			m_thread = PseudoThread{ std::chrono::milliseconds(30), Run, std::ref(*this) };
 
 			for (auto& unpacker : m_frameBufferUnpackers)
 			{

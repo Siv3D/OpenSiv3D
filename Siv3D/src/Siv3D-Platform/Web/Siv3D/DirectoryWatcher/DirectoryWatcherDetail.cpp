@@ -29,7 +29,7 @@ namespace s3d
 
 		m_buffer.resize(EventBufferSize);
 
-		m_thread = PseudoThread(DirectoryWatcherDetail::watch, this);
+		m_thread = PseudoThread(std::chrono::milliseconds(100), DirectoryWatcherDetail::watch, this);
 
 		m_isActive = (true);
 	}

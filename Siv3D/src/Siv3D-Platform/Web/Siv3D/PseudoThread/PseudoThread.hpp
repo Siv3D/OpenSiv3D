@@ -13,6 +13,7 @@
 
 # include <tuple>
 # include <memory>
+# include <chrono>
 # include <functional>
 # include <emscripten/html5.h>
 
@@ -20,25 +21,57 @@ namespace s3d
 {
     class PseudoThread
     {
-    public:  
+    public:
+        /** 
+         * @brief スレッドを起動する関数 (pthread_create) の型
+         */
+        using ThreadLaunchFunction = long (*)(bool (*functionPointer)(void*), void* userData);
+
+        /** 
+         * @brief スレッドを終了する関数 (pthread_create) の型
+         */
+        using ThreadTerminateFunction = void (*)(long threadHandle);
+
         PseudoThread() = default; 
 
         template <class _Fp, class ..._Args>
-        PseudoThread(_Fp&& __f, _Args&&... __args) : 
-            m_NativeHandle(std::make_shared<ThreadStruct>())
+        PseudoThread(std::chrono::microseconds interval, _Fp&& __f, _Args&&... __args) : 
+            m_ThreadContext(std::make_shared<ThreadStruct>())
         {
             // libcxx の thread を参考に実装
             using _Gp = std::tuple<std::shared_ptr<ThreadStruct>, typename std::decay<_Fp>::type, typename std::decay<_Args>::type...>;
             std::unique_ptr<_Gp> __p(
-                new _Gp(m_NativeHandle,
+                new _Gp(m_ThreadContext,
                         std::forward<_Fp>(__f),
                         std::forward<_Args>(__args)...));
 
-            auto intervalID = ::emscripten_set_interval(&PseudoThreadProxy<_Gp>, 50, __p.get());
+            auto intervalID = ::emscripten_set_interval(&PseudoThreadProxy<_Gp>, interval.count(), __p.get());
             
             if (intervalID > 0) 
             {
-                std::get<0>(*__p)->m_IntervalID = intervalID;
+                std::get<0>(*__p)->nativeHandle = intervalID;
+                std::get<0>(*__p)->terminateThread = &::emscripten_clear_interval;
+                __p.release();
+            }
+        }
+
+        template <class _Fp, class ..._Args>
+        PseudoThread(ThreadLaunchFunction createThread, ThreadTerminateFunction terminateThread, _Fp&& __f, _Args&&... __args) : 
+            m_ThreadContext(std::make_shared<ThreadStruct>())
+        {
+            // libcxx の thread を参考に実装
+            using _Gp = std::tuple<std::shared_ptr<ThreadStruct>, typename std::decay<_Fp>::type, typename std::decay<_Args>::type...>;
+            std::unique_ptr<_Gp> __p(
+                new _Gp(m_ThreadContext,
+                        std::forward<_Fp>(__f),
+                        std::forward<_Args>(__args)...));
+
+            auto intervalID = createThread(&PseudoThreadProxy<_Gp>, __p.get());
+            
+            if (intervalID > 0) 
+            {
+                std::get<0>(*__p)->nativeHandle = intervalID;
+                std::get<0>(*__p)->terminateThread = &terminateThread;
                 __p.release();
             }
         }
@@ -48,34 +81,34 @@ namespace s3d
 
         PseudoThread(PseudoThread&& p)
         {
-            m_NativeHandle = p.m_NativeHandle;
-            p.m_NativeHandle = nullptr;
+            m_ThreadContext = p.m_ThreadContext;
+            p.m_ThreadContext = nullptr;
         }  
 
         PseudoThread& operator=(PseudoThread&& p)
         {
-            if (m_NativeHandle)
+            if (m_ThreadContext)
             {
-                m_NativeHandle->m_Aborted = true;
+                m_ThreadContext->aborted = true;
             }
 
-            m_NativeHandle = p.m_NativeHandle;
-            p.m_NativeHandle = nullptr;
+            m_ThreadContext = p.m_ThreadContext;
+            p.m_ThreadContext = nullptr;
 
             return *this;
         }  
 
         ~PseudoThread()
         {
-            if (m_NativeHandle.get() != nullptr)
+            if (m_ThreadContext.get() != nullptr)
             {
-                m_NativeHandle->m_Aborted = true;
+                m_ThreadContext->aborted = true;
             }
         }   
 
         bool joinable() const
         {
-            return m_NativeHandle && m_NativeHandle->m_IntervalID != 0;
+            return m_ThreadContext && m_ThreadContext->nativeHandle != 0;
         }
 
         void join()
@@ -85,18 +118,20 @@ namespace s3d
 
         void detach()
         {
-            m_NativeHandle = nullptr;
+            m_ThreadContext = nullptr;
         }  
 
     private:
 
         struct ThreadStruct
         {
-            long m_IntervalID;
-            bool m_Aborted = false;
+            long nativeHandle;
+            bool aborted = false;
+
+            ThreadTerminateFunction terminateThread;
         };
 
-        std::shared_ptr<ThreadStruct> m_NativeHandle;
+        std::shared_ptr<ThreadStruct> m_ThreadContext;
 
         template <class _Fp, class ..._Args, size_t ..._Indices>
         static inline bool PseudoThreadExecute(std::tuple<std::shared_ptr<ThreadStruct>, _Fp, _Args...>& __t, std::index_sequence<_Indices...>)
@@ -111,18 +146,18 @@ namespace s3d
             std::unique_ptr<_Fp> __p(static_cast<_Fp*>(__vp));
             using _Index = typename std::make_index_sequence<std::tuple_size<_Fp>::value - 2>;
 
-            auto nativeHandle = std::get<0>(*__p);
+            auto threadContext = std::get<0>(*__p);
 
-            if (nativeHandle->m_Aborted)
+            if (threadContext->aborted)
             {
-                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
+                threadContext->terminateThread(threadContext->nativeHandle);
                 return;            
             }
             
             if (bool shouldContinue = PseudoThreadExecute(*__p.get(), _Index()); not shouldContinue) 
             {
-                ::emscripten_clear_interval(nativeHandle->m_IntervalID);
-                nativeHandle->m_IntervalID = 0;
+                threadContext->terminateThread(threadContext->nativeHandle);
+                threadContext->nativeHandle = 0;
                 return;          
             }
 
