@@ -119,6 +119,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
+  ../Siv3D/src/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
+  ../Siv3D/src/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
   ../Siv3D/src/Siv3D/Audio/AudioBus.cpp
   ../Siv3D/src/Siv3D/Audio/AudioData.cpp
   ../Siv3D/src/Siv3D/Audio/AudioFactory.cpp
@@ -231,6 +233,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
   ../Siv3D/src/Siv3D/HTMLWriter/HTMLWriterDetail.cpp
   ../Siv3D/src/Siv3D/HTMLWriter/SivHTMLWriter.cpp
+  ../Siv3D/src/Siv3D/HTTPResponse/SivHTTPResponse.cpp
   ../Siv3D/src/Siv3D/Icon/SivIcon.cpp
   ../Siv3D/src/Siv3D/Image/ImagePainting.cpp
   ../Siv3D/src/Siv3D/Image/ShapePainting.cpp
@@ -376,6 +379,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/SIMDMath/SivSIMDMath.cpp
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
+  ../Siv3D/src/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
   ../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontDetail.cpp

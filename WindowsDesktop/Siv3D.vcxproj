@@ -27,6 +27,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AsyncHTTPTask.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp" />
@@ -336,6 +337,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPAsyncStatus.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPProgress.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPResponse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioEncoder.hpp" />
@@ -582,6 +586,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleHTTP.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SpecialFolder.hpp" />
@@ -636,6 +641,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\UnicodeConverter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UniqueResource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unspecified.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\URL.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\URLView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UserAction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Utility.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VariableSpeedStopwatch.hpp" />
@@ -924,6 +931,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioCodec\IAudioCodec.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\IAudioDecoder.hpp" />
@@ -1667,6 +1675,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\SivAudioDecoder.cpp" />
@@ -1779,6 +1789,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\HTMLWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTTPResponse\SivHTTPResponse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\CImageDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageDecoder\ImageDecoderFactory.cpp" />
@@ -1924,6 +1935,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SIMDMath\SivSIMDMath.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleHTTP\SivSimpleHTTP.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontDetail.cpp" />

@@ -1279,6 +1279,15 @@
     <Filter Include="src\ThirdParty-prebuilt\curl">
       <UniqueIdentifier>{295fb2f6-2e59-418e-941f-2cd2d6dd4cc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AsyncHTTPTask">
+      <UniqueIdentifier>{bd53cfce-9170-49fa-a2aa-ed67898c9a56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\HTTPResponse">
+      <UniqueIdentifier>{211b1ffb-07fb-4e69-913c-db60ef428e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SimpleHTTP">
+      <UniqueIdentifier>{d058bb4f-600b-4e3c-8072-066c1f0dc8b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5928,6 +5937,30 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty-prebuilt\curl\curlver.h">
       <Filter>src\ThirdParty-prebuilt\curl</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\URL.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\URLView.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AsyncHTTPTask.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPAsyncStatus.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPProgress.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPResponse.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleHTTP.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.hpp">
+      <Filter>src\Siv3D\AsyncHTTPTask</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8143,6 +8176,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Quaternion\SivQuaternion.cpp">
       <Filter>src\Siv3D\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.cpp">
+      <Filter>src\Siv3D\AsyncHTTPTask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleHTTP\SivSimpleHTTP.cpp">
+      <Filter>src\Siv3D\SimpleHTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTTPResponse\SivHTTPResponse.cpp">
+      <Filter>src\Siv3D\HTTPResponse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp">
+      <Filter>src\Siv3D\AsyncHTTPTask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
