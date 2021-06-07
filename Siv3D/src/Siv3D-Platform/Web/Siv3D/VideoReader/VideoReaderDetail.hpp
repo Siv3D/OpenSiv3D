@@ -23,6 +23,8 @@ namespace s3d
 		int32 index = -1;
 
 		FrameBufferUnpacker unpacker;
+
+		bool ready = false;
 	};
 
 	class VideoReader::VideoReaderDetail
@@ -49,9 +51,9 @@ namespace s3d
 
 			bool stop = false;
 
-			MatFrame frame;
+			Array<MatFrame> frame;
 
-			bool ready = false;
+			static constexpr uint32 bufferedFramesNum = 3;
 
 		} m_shared;
 		//
@@ -71,7 +73,11 @@ namespace s3d
 
 			bool isOpen = false;
 
+			bool isReady = false;
+
 		} m_info;
+
+		int32 m_ReadFrames = 0;
 
 		bool run();
 

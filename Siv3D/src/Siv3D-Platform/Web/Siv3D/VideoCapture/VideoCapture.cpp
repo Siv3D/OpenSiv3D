@@ -18,6 +18,7 @@ namespace s3d
 	namespace detail
 	{
 		using siv3dOpenCameraCallback = void(*)(GLuint elementID, void* userData);
+		using siv3dVideoTimeUpdateCallback = void(*)(void* userData);
 		using siv3dPlayVideoCallback = void(*)(void* userData);
 
         __attribute__((import_name("siv3dOpenVideo")))
@@ -25,6 +26,9 @@ namespace s3d
 
 		__attribute__((import_name("siv3dOpenCamera")))
 		extern void siv3dOpenCamera(int width, int height, siv3dOpenCameraCallback callback, void* callbackArg);
+
+        __attribute__((import_name("siv3dRegisterVideoTimeUpdateCallback")))
+        extern void siv3dRegisterVideoTimeUpdateCallback(GLuint elementID, siv3dVideoTimeUpdateCallback callback, void* callbackArg);
 
 		__attribute__((import_name("siv3dQueryVideoPlaybackedTime")))
 		extern double siv3dQueryVideoPlaybackedTime(GLuint elementID);
@@ -93,9 +97,19 @@ namespace s3d
         return true;
     }
 
+    void WebCameraCapture::play()
+    {
+        detail::siv3dPlayVideo(m_videoElementID);
+    }
+
     void WebCameraCapture::seek(double time)
     {
         detail::siv3dSetVideoPlaybackedTime(m_videoElementID, time);
+    }
+
+    double WebCameraCapture::tell() const
+    {
+       return m_lastCapturedFrameTime;
     }
 
     void WebCameraCapture::stop()
@@ -107,6 +121,7 @@ namespace s3d
     {
         if (m_videoElementID != 0)
         {
+            // detail::siv3dRegisterVideoTimeUpdateCallback(m_videoElementID, nullptr, nullptr);
             detail::siv3dDestroyVideo(m_videoElementID);
         }
 
@@ -135,24 +150,13 @@ namespace s3d
 
     bool WebCameraCapture::grab()
     {
-        if (m_videoDuration != 0.0)
-        {
-            // 有限の長さの時 (動画再生) では動画の長さと比較
-            auto currentPlaybackedTime = detail::siv3dQueryVideoPlaybackedTime(m_videoElementID);
-            return (m_videoDuration - currentPlaybackedTime) > 0.005;
-        }
-        else
-        {
-            // 無限の長さの時 (ウェブカメラ) では前回のフレーム取得時刻と比較
-            auto currentPlaybackedTime = detail::siv3dQueryVideoPlaybackedTime(m_videoElementID);
-            return (currentPlaybackedTime - m_lastFrameCapturedTime) > 0.001;
-        }
+        auto hasNewFrame = m_hasNewFrame;
+        m_hasNewFrame = false;
+        return hasNewFrame;
     }
 
-    GLuint WebCameraCapture::capture()
+    void WebCameraCapture::capture()
     {
-        m_lastFrameCapturedTime = detail::siv3dQueryVideoPlaybackedTime(m_videoElementID);
-
         ::glBindTexture(GL_TEXTURE_2D, m_videoBufferTexture);
         {
             detail::siv3dCaptureVideoFrame(
@@ -161,13 +165,21 @@ namespace s3d
                 0, GL_RGBA, GL_UNSIGNED_BYTE, m_videoElementID);
         }
         ::glBindTexture(GL_TEXTURE_2D, 0);
+    }
 
+    GLuint WebCameraCapture::retrieve() const
+    {
         return m_videoBufferFrameBuffer;
     }
 
     bool WebCameraCapture::isOpened() const
     {
         return m_videoElementID != 0;
+    }
+
+    bool WebCameraCapture::isReachedEnd() const
+    {
+        return detail::siv3dQueryVideoEnded(m_videoElementID);
     }
 
     void WebCameraCapture::OnOpened(GLuint elementID, void* userData)
@@ -180,10 +192,23 @@ namespace s3d
         detail::siv3dQueryVideoPreference(elementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &webcam.m_playbackFPS);
         webcam.prepareBuffers();
 
+        // detail::siv3dRegisterVideoTimeUpdateCallback(elementID, WebCameraCapture::OnUpdated, &webcam);
+
         if (webcam.m_shouldAutoPlay)
         {
             detail::siv3dPlayVideo(elementID);
         }
+    } 
+
+    void WebCameraCapture::OnUpdated(void* userData)
+    {
+        auto& webcam = *static_cast<WebCameraCapture*>(userData);
+
+        webcam.capture();
+        webcam.m_hasNewFrame = true;
+
+        double currentTime =  detail::siv3dQueryVideoPlaybackedTime(webcam.m_videoElementID);
+        webcam.m_lastCapturedFrameTime = currentTime;
     } 
 
     void WebCameraCapture::prepareBuffers()

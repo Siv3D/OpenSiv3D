@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -26,7 +26,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"VideoReaderDetail::open()");
 
-		close();
+		// close();
 
 		const bool result = m_shared.capture.openVideo(path);
 
@@ -42,8 +42,15 @@ namespace s3d
 			// .fps		= videoFPS,
 			.readPos	= 0,
 			// .frameCount	= static_cast<size_t>(frameCount),
-			.isOpen		= false,
+			.isOpen		= true,
 		};
+
+		m_shared.frame.resize(Shared::bufferedFramesNum);
+
+		for (uint32 i = 0; i < Shared::bufferedFramesNum; ++i)
+		{
+			m_shared.frame[i].ready = false;
+		}
 
 		m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, this);
 
@@ -57,7 +64,7 @@ namespace s3d
 		// スレッドを終了
 		{
 			// std::lock_guard guard(m_mutex);
-			m_shared.stop = true;
+			m_thread.kill();
 		}
 
 		m_shared.capture.release();
@@ -72,43 +79,44 @@ namespace s3d
 			return true;
 		}
 
-		if (not m_info.isOpen)
+		if (not m_info.isReady)
 		{
 			m_info.resolution = m_shared.capture.getResolution();
 			m_info.fps = m_shared.capture.getFPS();
 			m_info.frameCount = static_cast<size_t>(m_shared.capture.getDuration() * m_info.fps);
-			m_info.isOpen = true;
+			m_info.isReady = true;
 
-			m_shared.frame.unpacker.resize(m_info.resolution);
+			for (auto& frame : m_shared.frame)
+			{
+				frame.unpacker.resize(m_info.resolution);
+			}
 
+			m_shared.capture.play();
+			
 			LOG_INFO(U"ℹ️ VideoReader: file `{0}` opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
 				m_info.fullPath, m_info.resolution, m_info.fps, m_info.frameCount));
-		}
-
-		if (m_shared.ready) 
-		{
-			return true;
 		}
 
 		// std::unique_lock ul(m_mutex);
 
 		if (not m_shared.reachedEnd)
 		{
-			if (m_shared.capture.grab())
-			{
-				auto frame = m_shared.capture.capture();
-				m_shared.frame.unpacker.startUnpack(frame);
-				m_shared.frame.index = m_shared.readPos++;
-				//LOG_TEST(U"## info ## retrieved frame {} to buffer"_fmt(m_shared.frame.index));
-			}
-			else
-			{
-				m_shared.reachedEnd = true;
-				//LOG_TEST(U"## info ## m_shared.reachedEnd = true;");
-			}
-		}
+			auto& frame = m_shared.frame[m_shared.readPos % Shared::bufferedFramesNum];
 
-		m_shared.ready = true;
+			if (!frame.ready)
+			{
+				m_shared.capture.capture();
+				auto frameBuffer = m_shared.capture.retrieve();
+				frame.unpacker.startUnpack(frameBuffer);
+				// frame.index = static_cast<int32>(m_shared.capture.tell() * m_info.fps);
+				frame.index = m_shared.readPos++;
+				frame.ready = true;
+			}
+			
+			//LOG_TEST(U"## info ## m_shared.reachedEnd = true;");
+			
+			m_shared.reachedEnd = m_shared.capture.isReachedEnd();
+		}
 
 		//LOG_TEST(U"## info ## m_shared.ready = true;");
 
@@ -129,41 +137,58 @@ namespace s3d
 			return false;
 		}
 
-		if (!m_shared.ready || !m_shared.frame.unpacker.hasFinishedUnpack())
-		{
-			return false;
-		}
+		auto& frameToRead = m_shared.frame[m_ReadFrames % Shared::bufferedFramesNum];
 
 		{
 			// std::unique_lock ul(m_mutex);
 
-			if (m_shared.frame.index == m_info.readPos)
+			if (frameToRead.index == m_info.readPos)
 			{
 				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
-				m_shared.frame.unpacker.readPixels(image);
-				++m_info.readPos;
-				m_shared.ready = false;
-				//LOG_TEST(U"## info ## m_shared.ready = false;");
+				if (!frameToRead.ready || !frameToRead.unpacker.hasFinishedUnpack())
+				{
+					return false;
+				}
 
+				frameToRead.unpacker.readPixels(image);
+				frameToRead.ready = false;
+
+				++m_info.readPos;
+				++m_ReadFrames;
+			
+				//LOG_TEST(U"## info ## m_shared.ready = false;");
 				return true;
 			}
 			else
 			{
-				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} not found in buffer"_fmt(m_info.readPos));
+				bool frameCaptured = false;
 
-				m_shared.readPos = m_info.readPos;
+				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} not found in buffer"_fmt(m_info.readPos));
+				if (frameToRead.ready && frameToRead.unpacker.hasFinishedUnpack())
+				{
+					frameToRead.unpacker.readPixels(image);
+					frameCaptured = true;
+				}
+				
 				m_shared.capture.seek(m_info.readPos / m_info.fps);
+				m_shared.capture.play();
+
+				for (uint32 i = 0; i < Shared::bufferedFramesNum; ++i)
+				{
+					m_shared.frame[i].ready = false;
+				}
+				
+				m_shared.readPos = m_info.readPos;
 				m_shared.reachedEnd = false;
-				m_shared.ready = false;
+
+				m_ReadFrames = m_info.readPos;
+				
 				//LOG_TEST(U"## info ## m_shared.ready = false;");
 				//LOG_TEST(U"## info ## REQUESTING frame {}"_fmt(m_shared.readPos));
 
 				//LOG_TEST(U"## info ## getFrmae(): targetBufferIndex {} found in buffer"_fmt(m_info.readPos));
-				m_shared.frame.unpacker.readPixels(image);
-				++m_info.readPos;
-				m_shared.ready = false;
 
-				return true;
+				return frameCaptured;
 			}
 		}
 	}
@@ -215,7 +240,7 @@ namespace s3d
 
 	bool VideoReader::VideoReaderDetail::reachedEnd() const noexcept
 	{
-		return (m_info.readPos == static_cast<int32>(m_info.frameCount));
+		return m_shared.reachedEnd;
 	}
 
 	const FilePath& VideoReader::VideoReaderDetail::path() const noexcept

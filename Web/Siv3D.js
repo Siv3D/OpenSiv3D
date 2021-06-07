@@ -232,6 +232,20 @@ mergeInto(LibraryManager.library, {
     siv3dOpenCamera__sig: "viiii",
     siv3dOpenCamera__deps: ["$videoElements"],
 
+    siv3dRegisterVideoTimeUpdateCallback: function(idx, callback, callbackArg) {
+        const video = videoElements[idx];
+
+        if (callback) {
+            video.ontimeupdate = function() {
+                {{{ makeDynCall('vi', 'callback') }}}(callbackArg);
+            }
+        } else {
+            video.ontimeupdate = null;
+        }
+    },
+    siv3dRegisterVideoTimeUpdateCallback__sig: "viii",
+    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements" ], 
+
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
         GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, video);
@@ -286,13 +300,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dStopVideo: function(idx) {
         const video = videoElements[idx];
-
-        let stream = video.srcObject;
-        let tracks = stream.getTracks();
-      
-        tracks.forEach(function(track) {
-            track.stop();
-        });
+        video.pause();
     },
     siv3dStopVideo__sig: "vi",
     siv3dStopVideo__deps: ["$videoElements"],

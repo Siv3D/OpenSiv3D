@@ -216,7 +216,7 @@ namespace s3d
 
 		if (capture.grab())
 		{
-			auto capturedFrameBuffer = capture.capture();
+			auto capturedFrameBuffer = capture.retrieve();
 			auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
 
 			selectedUnpacker.startUnpack(capturedFrameBuffer);
