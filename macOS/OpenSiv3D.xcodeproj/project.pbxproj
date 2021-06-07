@@ -2869,6 +2869,7 @@
 		2C5C0F11266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncHTTPTaskDetail.cpp; sourceTree = "<group>"; };
 		2C5C0F16266DFF46009C430B /* SivHTTPResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHTTPResponse.cpp; sourceTree = "<group>"; };
 		2C5C0F19266DFF5B009C430B /* SivSimpleHTTP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleHTTP.cpp; sourceTree = "<group>"; };
+		2C5C0F1B266E00A9009C430B /* HTTPStatusCode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPStatusCode.hpp; sourceTree = "<group>"; };
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
@@ -8593,6 +8594,7 @@
 				2C5C0F09266DFEF2009C430B /* HTTPAsyncStatus.hpp */,
 				2C5C0F0A266DFEF2009C430B /* HTTPProgress.hpp */,
 				2C5C0F08266DFEF2009C430B /* HTTPResponse.hpp */,
+				2C5C0F1B266E00A9009C430B /* HTTPStatusCode.hpp */,
 				2CAAA70E25E7FD0200C014D7 /* IAddon.hpp */,
 				2CC5844C26464AFB00C33E9F /* IAudioDecoder.hpp */,
 				2CC5844D26464AFB00C33E9F /* IAudioEncoder.hpp */,
