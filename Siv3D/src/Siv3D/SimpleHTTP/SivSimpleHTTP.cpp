@@ -10,113 +10,235 @@
 //-----------------------------------------------
 
 # include <Siv3D/Common.hpp>
-# include <Siv3D/HTTPResponse.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/String.hpp>
-# include <Siv3D/Parse.hpp>
+# include <Siv3D/SimpleHTTP.hpp>
+# include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
+
+# define CURL_STATICLIB
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(WEB)
+#	include <ThirdParty-prebuilt/curl/curl.h>
+# else
+#	include <curl/curl.h>
+# endif
 
 namespace s3d
 {
-	HTTPResponse::HTTPResponse(const std::string& response)
+	namespace detail
 	{
-		const size_t statusLineEnd = response.find(U'\n');
+		static size_t WriteCallback(const char* ptr, const size_t size, const size_t nmemb, IWriter* pWriter)
 		{
-			if (statusLineEnd == std::string::npos)
-			{
-				return;
-			}
+			const size_t size_bytes = (size * nmemb);
 
-			m_statusLine = Unicode::Widen(std::string_view(response.data(), (statusLineEnd + 1)));
+			pWriter->write(ptr, size_bytes);
+
+			return size_bytes;
 		}
 
+		static size_t HeaderCallback(const char* buffer, const size_t size, const size_t nitems, std::string* userData)
 		{
-			// Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
-			if (not m_statusLine.starts_with(U"HTTP"))
-			{
-				return;
-			}
+			const size_t size_bytes = (size * nitems);
 
-			const Array<String> elements = m_statusLine.split(U' ');
+			userData->append(buffer, size_bytes);
 
-			if (elements.size() < 2)
-			{
-				return;
-			}
-
-			m_statusCode = HTTPStatusCode{ ParseOr<uint32>(elements[1], 0) };
-		}
-
-		const size_t headerEnd = response.find("\r\n\r\n", statusLineEnd, 4);
-		{
-			if (headerEnd == std::string::npos)
-			{
-				return;
-			}
-
-			const std::string_view view(response.data() + (statusLineEnd + 1),
-				(headerEnd + 2) - (statusLineEnd + 1));
-			m_header = Unicode::Widen(view);
+			return size_bytes;
 		}
 	}
 
-	HTTPStatusCode HTTPResponse::getStatusCode() const noexcept
+	namespace SimpleHTTP
 	{
-		return m_statusCode;
-	}
+		HTTPResponse Save(const URLView url, const FilePathView filePath)
+		{
+			return Get(url, {}, filePath);
+		}
 
-	const String& HTTPResponse::getStatusLine() const noexcept
-	{
-		return m_statusLine;
-	}
+		HTTPResponse Load(const URLView url, MemoryWriter& writer)
+		{
+			return Get(url, {}, writer);
+		}
 
-	const String& HTTPResponse::getHeader() const noexcept
-	{
-		return m_header;
-	}
+		HTTPResponse Load(const URLView url, IWriter& writer)
+		{
+			return Get(url, {}, writer);
+		}
 
-	HTTPResponse::operator bool() const noexcept
-	{
-		return (not isInvalid());
-	}
+		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, const FilePathView filePath)
+		{
+			BinaryWriter writer{ filePath };
+			{
+				if (not writer)
+				{
+					return{};
+				}
+			}
 
-	bool HTTPResponse::isInvalid() const noexcept
-	{
-		return (FromEnum(m_statusCode) < 100)
-			|| (600 <= FromEnum(m_statusCode));
-	}
+			if (auto result = Get(url, headers, static_cast<IWriter&>(writer));
+				(not result.isInvalid()))
+			{
+				return result;
+			}
 
-	bool HTTPResponse::isInformational() const noexcept
-	{
-		return InRange(FromEnum(m_statusCode), 100u, 199u);
-	}
+			writer.close();
+			FileSystem::Remove(filePath);
+			return{};
+		}
 
-	bool HTTPResponse::isSuccessful() const noexcept
-	{
-		return InRange(FromEnum(m_statusCode), 200u, 299u);
-	}
+		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, MemoryWriter& writer)
+		{
+			if (auto result = Get(url, headers, static_cast<IWriter&>(writer));
+				(not result.isInvalid()))
+			{
+				return result;
+			}
 
-	bool HTTPResponse::isRedirection() const noexcept
-	{
-		return InRange(FromEnum(m_statusCode), 300u, 399u);
-	}
+			writer.clear();
+			return{};
+		}
 
-	bool HTTPResponse::isClientError() const noexcept
-	{
-		return InRange(FromEnum(m_statusCode), 400u, 499u);
-	}
+		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, IWriter& writer)
+		{
+			if (not writer.isOpen())
+			{
+				return{};
+			}
 
-	bool HTTPResponse::isServerError() const noexcept
-	{
-		return InRange(FromEnum(m_statusCode), 500u, 599u);
-	}
+			::CURL* curl = ::curl_easy_init();
+			{
+				if (not curl)
+				{
+					return{};
+				}
+			}
 
-	bool HTTPResponse::isOK() const noexcept
-	{
-		return (m_statusCode == HTTPStatusCode::OK);
-	}
+			// ヘッダの追加
+			::curl_slist* header_slist = nullptr;
+			{
+				for (auto [key, value] : headers)
+				{
+					const std::string header = (key.toUTF8() + ": " + value.toUTF8());
+					header_slist = ::curl_slist_append(header_slist, header.c_str());
+				}
+			}
 
-	bool HTTPResponse::isNotFound() const noexcept
-	{
-		return (m_statusCode == HTTPStatusCode::NotFound);
+			const std::string urlUTF8 = Unicode::ToUTF8(url);
+			::curl_easy_setopt(curl, ::CURLOPT_URL, urlUTF8.c_str());
+			::curl_easy_setopt(curl, ::CURLOPT_FOLLOWLOCATION, 1L);
+			::curl_easy_setopt(curl, ::CURLOPT_HTTPHEADER, header_slist);
+			::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteCallback);
+			::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &writer);
+
+			// レスポンスヘッダーの設定
+			std::string responseHeader;
+			{
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderCallback);
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+			}
+
+			const ::CURLcode result = ::curl_easy_perform(curl);
+			::curl_easy_cleanup(curl);
+			::curl_slist_free_all(header_slist);
+
+			if (result != ::CURLE_OK)
+			{
+				LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(result));
+				return{};
+			}
+
+			return HTTPResponse{ responseHeader };
+		}
+
+		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
+		{
+			BinaryWriter writer{ filePath };
+			{
+				if (not writer)
+				{
+					return{};
+				}
+			}
+
+			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer));
+				(not result.isInvalid()))
+			{
+				return result;
+			}
+
+			writer.close();
+			FileSystem::Remove(filePath);
+			return{};
+		}
+
+		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, MemoryWriter& writer)
+		{
+			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer));
+				(not result.isInvalid()))
+			{
+				return result;
+			}
+
+			writer.clear();
+			return{};
+		}
+
+		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, IWriter& writer)
+		{
+			if (not writer.isOpen())
+			{
+				return{};
+			}
+
+			::CURL* curl = ::curl_easy_init();
+			{
+				if (not curl)
+				{
+					return{};
+				}
+			}
+
+			// ヘッダの追加
+			::curl_slist* header_slist = nullptr;
+			{
+				for (auto [key, value] : headers)
+				{
+					const std::string header = (key.toUTF8() + ": " + value.toUTF8());
+					header_slist = ::curl_slist_append(header_slist, header.c_str());
+				}
+			}
+
+			const std::string urlUTF8 = Unicode::ToUTF8(url);
+			::curl_easy_setopt(curl, ::CURLOPT_URL, urlUTF8.c_str());
+			::curl_easy_setopt(curl, ::CURLOPT_FOLLOWLOCATION, 1L);
+			::curl_easy_setopt(curl, ::CURLOPT_HTTPHEADER, header_slist);
+			::curl_easy_setopt(curl, ::CURLOPT_POST, 1L);
+			::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDS, const_cast<char*>(static_cast<const char*>(src)));
+			::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDSIZE, static_cast<long>(size));
+			::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteCallback);
+			::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &writer);
+
+			// レスポンスヘッダーの設定
+			std::string responseHeader;
+			{
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderCallback);
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+			}
+
+			const ::CURLcode result = ::curl_easy_perform(curl);
+			::curl_easy_cleanup(curl);
+			::curl_slist_free_all(header_slist);
+
+			if (result != ::CURLE_OK)
+			{
+				LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(result));
+				return{};
+			}
+
+			return HTTPResponse{ responseHeader };
+		}
+
+		AsyncHTTPTask SaveAsync(const URLView url, const FilePathView filePath)
+		{
+			return AsyncHTTPTask{ url, filePath };
+		}
 	}
 }
