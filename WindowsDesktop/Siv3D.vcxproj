@@ -932,6 +932,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioCodec\IAudioCodec.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.hpp" />
@@ -1676,6 +1678,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp" />

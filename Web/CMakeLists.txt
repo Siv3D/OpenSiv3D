@@ -116,6 +116,8 @@ add_library(
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/AnimatedGIFWriterDetail.cpp
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/SivAnimatedGIFWriter.cpp
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
+  ../Siv3D/src/Siv3D/Asset/AssetFactory.cpp
+  ../Siv3D/src/Siv3D/Asset/CAsset.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
   ../Siv3D/src/Siv3D/Audio/AudioBus.cpp

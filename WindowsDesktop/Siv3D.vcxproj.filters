@@ -1288,6 +1288,9 @@
     <Filter Include="src\Siv3D\SimpleHTTP">
       <UniqueIdentifier>{d058bb4f-600b-4e3c-8072-066c1f0dc8b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Asset">
+      <UniqueIdentifier>{f28c125a-80bd-4914-99de-9421ad68aac1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5964,6 +5967,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HTTPStatusCode.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8191,6 +8200,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp">
       <Filter>src\Siv3D\AsyncHTTPTask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
