@@ -35,7 +35,7 @@ namespace s3d
         PseudoThread() = default; 
 
         template <class _Fp, class ..._Args>
-        PseudoThread(std::chrono::microseconds interval, _Fp&& __f, _Args&&... __args) : 
+        PseudoThread(std::chrono::milliseconds interval, _Fp&& __f, _Args&&... __args) : 
             m_ThreadContext(std::make_shared<ThreadStruct>())
         {
             // libcxx の thread を参考に実装
@@ -100,10 +100,7 @@ namespace s3d
 
         ~PseudoThread()
         {
-            if (m_ThreadContext.get() != nullptr)
-            {
-                m_ThreadContext->aborted = true;
-            }
+            kill();
         }   
 
         bool joinable() const
@@ -120,6 +117,14 @@ namespace s3d
         {
             m_ThreadContext = nullptr;
         }  
+
+        void kill()
+        {
+            if (m_ThreadContext.get() != nullptr)
+            {
+                m_ThreadContext->aborted = true;
+            }
+        }
 
     private:
 
