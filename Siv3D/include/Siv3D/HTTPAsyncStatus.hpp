@@ -10,3 +10,26 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+
+namespace s3d
+{
+	/// @brief ダウンロードの進行状況
+	enum class HTTPAsyncStatus : uint8
+	{
+		/// @brief ダウンロードするものが無い
+		None_,
+
+		/// @brief ダウンロード中
+		Downloading,
+
+		/// @brief ダウンロード失敗
+		Failed,
+
+		/// @brief ダウンロードがキャンセルされた
+		Canceled,
+
+		/// @brief ダウンロード完了
+		Succeeded,
+	};
+}
