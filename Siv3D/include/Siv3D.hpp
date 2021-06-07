@@ -827,6 +827,7 @@
 
 # include <Siv3D/URL.hpp>
 # include <Siv3D/URLView.hpp>
+# include <Siv3D/HTTPStatusCode.hpp>
 # include <Siv3D/HTTPResponse.hpp>
 # include <Siv3D/HTTPAsyncStatus.hpp>
 # include <Siv3D/HTTPProgress.hpp>

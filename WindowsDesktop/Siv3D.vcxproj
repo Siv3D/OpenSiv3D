@@ -340,6 +340,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HTTPAsyncStatus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HTTPProgress.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HTTPResponse.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPStatusCode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioEncoder.hpp" />

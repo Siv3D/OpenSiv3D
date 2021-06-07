@@ -5961,6 +5961,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.hpp">
       <Filter>src\Siv3D\AsyncHTTPTask</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTTPStatusCode.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
