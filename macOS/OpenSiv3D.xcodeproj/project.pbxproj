@@ -882,6 +882,11 @@
 		2C53C34825613BB00072831A /* Triangulation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34325613BAF0072831A /* Triangulation.hpp */; };
 		2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C34425613BAF0072831A /* PolygonDetail.cpp */; };
 		2C53C34C25613BD40072831A /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34B25613BCC0072831A /* earcut.hpp */; };
+		2C5C0F12266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F0F266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp */; };
+		2C5C0F13266DFF2A009C430B /* SivAsyncHTTPTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F10266DFF2A009C430B /* SivAsyncHTTPTask.cpp */; };
+		2C5C0F14266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F11266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp */; };
+		2C5C0F17266DFF46009C430B /* SivHTTPResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F16266DFF46009C430B /* SivHTTPResponse.cpp */; };
+		2C5C0F1A266DFF5B009C430B /* SivSimpleHTTP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F19266DFF5B009C430B /* SivSimpleHTTP.cpp */; };
 		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
 		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
 		2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6797265F315500FAA651 /* SivDLL.cpp */; };
@@ -2852,6 +2857,18 @@
 		2C53C34325613BAF0072831A /* Triangulation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangulation.hpp; sourceTree = "<group>"; };
 		2C53C34425613BAF0072831A /* PolygonDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonDetail.cpp; sourceTree = "<group>"; };
 		2C53C34B25613BCC0072831A /* earcut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
+		2C5C0F07266DFEE5009C430B /* AsyncHTTPTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsyncHTTPTask.hpp; sourceTree = "<group>"; };
+		2C5C0F08266DFEF2009C430B /* HTTPResponse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPResponse.hpp; sourceTree = "<group>"; };
+		2C5C0F09266DFEF2009C430B /* HTTPAsyncStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPAsyncStatus.hpp; sourceTree = "<group>"; };
+		2C5C0F0A266DFEF2009C430B /* HTTPProgress.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPProgress.hpp; sourceTree = "<group>"; };
+		2C5C0F0B266DFEFB009C430B /* SimpleHTTP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleHTTP.hpp; sourceTree = "<group>"; };
+		2C5C0F0C266DFF06009C430B /* URLView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = URLView.hpp; sourceTree = "<group>"; };
+		2C5C0F0D266DFF06009C430B /* URL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = URL.hpp; sourceTree = "<group>"; };
+		2C5C0F0F266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AsyncHTTPTaskDetail.hpp; sourceTree = "<group>"; };
+		2C5C0F10266DFF2A009C430B /* SivAsyncHTTPTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAsyncHTTPTask.cpp; sourceTree = "<group>"; };
+		2C5C0F11266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncHTTPTaskDetail.cpp; sourceTree = "<group>"; };
+		2C5C0F16266DFF46009C430B /* SivHTTPResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHTTPResponse.cpp; sourceTree = "<group>"; };
+		2C5C0F19266DFF5B009C430B /* SivSimpleHTTP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleHTTP.cpp; sourceTree = "<group>"; };
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
@@ -5464,6 +5481,7 @@
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
+				2C5C0F0E266DFF2A009C430B /* AsyncHTTPTask */,
 				2C5DD42F265979F100282CE2 /* Audio */,
 				2C533720264D64BA00CE0F1B /* AudioCodec */,
 				2CC584542646DC5800C33E9F /* AudioDecoder */,
@@ -5527,6 +5545,7 @@
 				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
 				2C9566F72645846C00539B85 /* HTMLWriter */,
+				2C5C0F15266DFF46009C430B /* HTTPResponse */,
 				2CAAA8C825E7FDE800C014D7 /* Icon */,
 				2C47B28824DD9789008D83BE /* Image */,
 				2C47B2E824DD9789008D83BE /* ImageDecoder */,
@@ -5601,6 +5620,7 @@
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2C063D3F2661407700368BEE /* SIMDMath */,
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
+				2C5C0F18266DFF5B009C430B /* SimpleHTTP */,
 				2C5337C82650BAF000CE0F1B /* SoundFont */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
 				2C47B2C724DD9789008D83BE /* String */,
@@ -7127,6 +7147,32 @@
 			path = Earcut;
 			sourceTree = "<group>";
 		};
+		2C5C0F0E266DFF2A009C430B /* AsyncHTTPTask */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C0F0F266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp */,
+				2C5C0F10266DFF2A009C430B /* SivAsyncHTTPTask.cpp */,
+				2C5C0F11266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp */,
+			);
+			path = AsyncHTTPTask;
+			sourceTree = "<group>";
+		};
+		2C5C0F15266DFF46009C430B /* HTTPResponse */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C0F16266DFF46009C430B /* SivHTTPResponse.cpp */,
+			);
+			path = HTTPResponse;
+			sourceTree = "<group>";
+		};
+		2C5C0F18266DFF5B009C430B /* SimpleHTTP */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C0F19266DFF5B009C430B /* SivSimpleHTTP.cpp */,
+			);
+			path = SimpleHTTP;
+			sourceTree = "<group>";
+		};
 		2C5C6796265F315500FAA651 /* DLL */ = {
 			isa = PBXGroup;
 			children = (
@@ -8414,6 +8460,7 @@
 				2CAAA76025E7FD0200C014D7 /* AssetHandle.hpp */,
 				2CAAA71225E7FD0200C014D7 /* AssetID.hpp */,
 				2CAAA86425E7FD0300C014D7 /* AssetIDWrapper.hpp */,
+				2C5C0F07266DFEE5009C430B /* AsyncHTTPTask.hpp */,
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
 				2C5DD42D265979CA00282CE2 /* Audio.hpp */,
 				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
@@ -8543,6 +8590,9 @@
 				2CAAA8A125E7FD0300C014D7 /* HeterogeneousLookupHelper.hpp */,
 				2CAAA77025E7FD0200C014D7 /* HSV.hpp */,
 				2C9566F62645844100539B85 /* HTMLWriter.hpp */,
+				2C5C0F09266DFEF2009C430B /* HTTPAsyncStatus.hpp */,
+				2C5C0F0A266DFEF2009C430B /* HTTPProgress.hpp */,
+				2C5C0F08266DFEF2009C430B /* HTTPResponse.hpp */,
 				2CAAA70E25E7FD0200C014D7 /* IAddon.hpp */,
 				2CC5844C26464AFB00C33E9F /* IAudioDecoder.hpp */,
 				2CC5844D26464AFB00C33E9F /* IAudioEncoder.hpp */,
@@ -8711,6 +8761,7 @@
 				2CAAA8AB25E7FD0300C014D7 /* SIMD.hpp */,
 				2C063D2F26612A3500368BEE /* SIMDMath.hpp */,
 				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
+				2C5C0F0B266DFEFB009C430B /* SimpleHTTP.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
 				2C5337D82650BB3700CE0F1B /* SoundFont.hpp */,
 				2CAAA72E25E7FD0200C014D7 /* SpecialFolder.hpp */,
@@ -8764,6 +8815,8 @@
 				2CAAA89425E7FD0300C014D7 /* UnicodeConverter.hpp */,
 				2CAAA86B25E7FD0300C014D7 /* UniqueResource.hpp */,
 				2CAAA73525E7FD0200C014D7 /* Unspecified.hpp */,
+				2C5C0F0D266DFF06009C430B /* URL.hpp */,
+				2C5C0F0C266DFF06009C430B /* URLView.hpp */,
 				2CAAA75225E7FD0200C014D7 /* UserAction.hpp */,
 				2CAAA70525E7FD0200C014D7 /* Utility.hpp */,
 				2CAAA76F25E7FD0200C014D7 /* VariableSpeedStopwatch.hpp */,
@@ -10267,6 +10320,7 @@
 				2C13C9D825BD29FC0054B968 /* lundump.h in Headers */,
 				2C956658264546F700539B85 /* geometryelement.h in Headers */,
 				2C43C8A425C837F100D6D613 /* svttglyf.h in Headers */,
+				2C5C0F12266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp in Headers */,
 				2C48BEDD25CFB8C500A93CE3 /* ShapeDistanceFinder.hpp in Headers */,
 				2C13C9C925BD29FC0054B968 /* lstring.h in Headers */,
 				2C47B31624DD9789008D83BE /* ILogger.hpp in Headers */,
@@ -10590,6 +10644,7 @@
 				2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */,
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
 				2C636E6A2657F7D300AF029F /* soloud_fader.cpp in Sources */,
+				2C5C0F1A266DFF5B009C430B /* SivSimpleHTTP.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
 				2C48BF7225D41C0D00A93CE3 /* GlyphRenderer.cpp in Sources */,
 				2C47B37924DD9789008D83BE /* SivINI.cpp in Sources */,
@@ -10737,6 +10792,7 @@
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
+				2C5C0F17266DFF46009C430B /* SivHTTPResponse.cpp in Sources */,
 				2C636D982657A0DC00AF029F /* CFFT.cpp in Sources */,
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
 				2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */,
@@ -10752,6 +10808,7 @@
 				2C60AE76248158A500277281 /* instruction_set_windows.cpp in Sources */,
 				2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */,
 				2C47B36924DD9789008D83BE /* ResourceFactory.cpp in Sources */,
+				2C5C0F14266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp in Sources */,
 				2C68508924B768A800B98A7F /* CLogger.cpp in Sources */,
 				2C2AA35D26009C74003F3EBC /* b2_body.cpp in Sources */,
 				2C636E932657F7D300AF029F /* soloud_fftfilter.cpp in Sources */,
@@ -11216,6 +11273,7 @@
 				2CA0EE1D260E3B4D004269AF /* P2MouseJoint.cpp in Sources */,
 				2C4AEF7B262C4E8300D36CFC /* TTS.mm in Sources */,
 				2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */,
+				2C5C0F13266DFF2A009C430B /* SivAsyncHTTPTask.cpp in Sources */,
 				2C5337AF264F5AA200CE0F1B /* zstd_decompress_block.c in Sources */,
 				2C2AA35B26009C74003F3EBC /* b2_chain_polygon_contact.cpp in Sources */,
 				2C34780D25DA95A100071EEF /* PrintFactory.cpp in Sources */,
