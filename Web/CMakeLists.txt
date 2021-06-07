@@ -53,6 +53,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
@@ -122,8 +124,8 @@ add_library(
   ../Siv3D/src/Siv3D/Asset/CAsset.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
-  ../Siv3D/src/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
-  ../Siv3D/src/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
+  # ../Siv3D/src/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
+  # ../Siv3D/src/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
   ../Siv3D/src/Siv3D/Audio/AudioBus.cpp
   ../Siv3D/src/Siv3D/Audio/AudioData.cpp
   ../Siv3D/src/Siv3D/Audio/AudioFactory.cpp
