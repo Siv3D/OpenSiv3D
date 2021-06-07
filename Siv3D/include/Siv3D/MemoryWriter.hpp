@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "IWriter.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
