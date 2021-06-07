@@ -10,3 +10,10 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "StringView.hpp"
+
+namespace s3d
+{
+	using URLView = StringView;
+}
