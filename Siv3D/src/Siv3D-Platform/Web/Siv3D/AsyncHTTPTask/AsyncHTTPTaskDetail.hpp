@@ -56,28 +56,26 @@ namespace s3d
 
 		void updateProgress(int64 dlTotal, int64 dlNow, int64 ulTotal, int64 ulNow);
 
+		void updateResponseStatus(std::string_view response);
+
 		[[nodiscard]]
 		bool isAborted() const;
 
 	private:
 
-		HTTPResponse run();
+		void run(FilePathView path);
 
 		////
 		//
 		std::mutex m_mutex;
 
 		HTTPProgress m_progress_internal;
+
+		int m_wgetHandle = 0;
 		//
 		////
 
 		URL m_url;
-
-		std::atomic<bool> m_abort = false;
-
-		BinaryWriter m_writer;
-
-		AsyncTask<HTTPResponse> m_task;
 
 		HTTPResponse m_response;
 	};

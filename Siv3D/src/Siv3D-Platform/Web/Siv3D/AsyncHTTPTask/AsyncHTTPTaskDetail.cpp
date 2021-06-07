@@ -14,45 +14,33 @@
 # include <Siv3D/FileSystem.hpp>
 # include "AsyncHTTPTaskDetail.hpp"
 
-# define CURL_STATICLIB
-# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(WEB)
-#	include <ThirdParty-prebuilt/curl/curl.h>
-# else
-#	include <curl/curl.h>
-# endif
+# include <emscripten/emscripten.h>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static size_t WriteAsyncCallback(const char* ptr, const size_t size, const size_t nmemb, IWriter* pWriter)
+		static void OnLoadCallBack(unsigned requestID, void* userData, const char* locatedFileName)
 		{
-			const size_t size_bytes = (size * nmemb);
+			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			pWriter->write(ptr, size_bytes);
-
-			return size_bytes;
+			httpTask.updateResponseStatus("HTTP/1.1 200 Ok");
+			httpTask.setStatus(HTTPAsyncStatus::Succeeded);
 		}
 
-		static size_t HeaderAsyncCallback(const char* buffer, const size_t size, const size_t nitems, std::string* userData)
+		static void OnErrorCallback(unsigned requestID, void* userData, int statusCode)
 		{
-			const size_t size_bytes = (size * nitems);
+			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			userData->append(buffer, size_bytes);
-
-			return size_bytes;
+			httpTask.updateResponseStatus(U"HTTP/1.1 {} Unknown"_fmt(statusCode).toUTF8());
+			httpTask.setStatus(HTTPAsyncStatus::Failed);
 		}
 
-		static int ProgressCallback(AsyncHTTPTaskDetail* progress, const curl_off_t dlTotal, const curl_off_t dlNow, const curl_off_t ulTotal, const curl_off_t ulNow)
+		static void ProgressCallback(unsigned requestID, void* userData, int percentComplete)
 		{
-			progress->updateProgress(dlTotal, dlNow, ulTotal, ulNow);
+			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			if (progress->isAborted())
-			{
-				return CURLE_ABORTED_BY_CALLBACK;
-			}
-
-			return 0;
+			httpTask.updateProgress(0, percentComplete, 0, 0);
 		}
 	}
 
@@ -61,18 +49,14 @@ namespace s3d
 	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const FilePathView path)
 		: m_url{ url }
 	{
-		m_writer.open(path);
-
-		m_task = Async(&AsyncHTTPTaskDetail::run, this);
+		run(path);
 	}
 
 	AsyncHTTPTaskDetail::~AsyncHTTPTaskDetail()
 	{
 		if (getStatus() == HTTPAsyncStatus::Downloading)
 		{
-			m_abort = true;
-
-			m_task.wait();
+			cancel();
 		}
 	}
 
@@ -83,26 +67,22 @@ namespace s3d
 
 	bool AsyncHTTPTaskDetail::isReady()
 	{
-		return m_task.isReady();
+		return m_progress_internal.status == HTTPAsyncStatus::Succeeded;
 	}
 
 	void AsyncHTTPTaskDetail::cancel()
 	{
-		if (m_task.valid())
+		if (m_wgetHandle != 0)
 		{
-			m_abort = true;
+			::emscripten_async_wget2_abort(m_wgetHandle);
+			m_wgetHandle = 0;
 
-			m_task.wait();
+			m_progress_internal.status = HTTPAsyncStatus::Canceled;
 		}
 	}
 
 	const HTTPResponse& AsyncHTTPTaskDetail::getResponse()
 	{
-		if (m_task.isReady())
-		{
-			m_response = m_task.get();
-		}
-
 		return m_response;
 	}
 
@@ -147,74 +127,23 @@ namespace s3d
 
 	bool AsyncHTTPTaskDetail::isAborted() const
 	{
-		return m_abort;
+		return m_progress_internal.status == HTTPAsyncStatus::Canceled;
 	}
 
-	HTTPResponse AsyncHTTPTaskDetail::run()
+	void AsyncHTTPTaskDetail::updateResponseStatus(std::string_view response)
 	{
-		if (not m_writer)
-		{
-			setStatus(HTTPAsyncStatus::Failed);
-			return{};
-		}
+		m_response = HTTPResponse(std::string(response));
+	}
 
-		::CURL* curl = ::curl_easy_init();
-		{
-			if (not curl)
-			{
-				setStatus(HTTPAsyncStatus::Failed);
-				m_writer.close();
-				return{};
-			}
-		}
-
+	void AsyncHTTPTaskDetail::run(FilePathView path)
+	{
 		setStatus(HTTPAsyncStatus::Downloading);
 
 		const std::string urlUTF8 = m_url.toUTF8();
-		::curl_easy_setopt(curl, ::CURLOPT_URL, urlUTF8.c_str());
-		::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteAsyncCallback);
-		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &m_writer);
-		::curl_easy_setopt(curl, ::CURLOPT_XFERINFOFUNCTION, detail::ProgressCallback);
-		::curl_easy_setopt(curl, ::CURLOPT_XFERINFODATA, this);
-		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
 
-		// レスポンスヘッダーの設定
-		std::string responseHeader;
-		{
-			::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderAsyncCallback);
-			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
-		}
-
-		const ::CURLcode result = ::curl_easy_perform(curl);
-
-		// ...
-
-		::curl_easy_cleanup(curl);
-
-		const FilePath saveFilePath = m_writer.path();
-
-		m_writer.close();
-
-		if (result != ::CURLE_OK)
-		{
-			LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(result));
-
-			if (result == ::CURLE_ABORTED_BY_CALLBACK)
-			{
-				setStatus(HTTPAsyncStatus::Canceled);
-			}
-			else
-			{
-				setStatus(HTTPAsyncStatus::Failed);
-			}
-
-			FileSystem::Remove(saveFilePath);
-
-			return{};
-		}
-
-		setStatus(HTTPAsyncStatus::Succeeded);
-
-		return HTTPResponse{ responseHeader };
+		m_wgetHandle = ::emscripten_async_wget2(
+			urlUTF8.c_str(), path.toUTF8().c_str(), 
+			"GET", "", 
+			this, detail::OnLoadCallBack, detail::OnErrorCallback, detail::ProgressCallback);
 	}
 }
