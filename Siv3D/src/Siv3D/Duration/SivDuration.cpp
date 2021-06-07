@@ -164,7 +164,8 @@ namespace s3d
 
 				if (ch == U'\'')
 				{
-					if (format[i + 1] == U'\'')
+					if (((i + 1) < format.length()) &&
+						(format[i + 1] == U'\''))
 					{
 						result.push_back(U'\'');
 
