@@ -11,6 +11,30 @@
 //
 //-----------------------------------------------
 				
+//
+//	VSInput
+//
+layout(location = 0) in vec2 VertexPosition;
+layout(location = 1) in vec2 VertexUV;
+layout(location = 2) in vec4 VertexColor;
+
+//
+//	VSOutput
+//
+out vec4 Color;
+out vec2 UV;
+
+//
+//	Siv3D Functions
+//
+vec4 s3d_Transform2D(const vec2 pos, const vec4 t[2])
+{
+	return vec4(t[0].zw + (pos.x * t[0].xy) + (pos.y * t[1].xy), t[1].zw);
+}
+
+//
+//	Constant Buffer
+//
 layout(std140) uniform VSConstants2D
 {
 	vec4 g_transform[2];
@@ -18,31 +42,13 @@ layout(std140) uniform VSConstants2D
 };
 
 //
-// VSInput
+//	Functions
 //
-layout(location = 0) in vec2 VertexPosition;
-layout(location = 1) in vec2 VertexUV;
-layout(location = 2) in vec4 VertexColor;
-
-//
-// VSOutput
-//
-out vec4 Color;
-out vec2 UV;
-
-vec4 StandardTransform(const vec2 pos)
-{
-	vec4 result;
-	result.xy = g_transform[0].zw + pos.x * g_transform[0].xy + pos.y * g_transform[1].xy;
-	result.zw = g_transform[1].zw;
-	return result;
-}
-		
 void main()
 {
-	gl_Position = StandardTransform(VertexPosition);
+	gl_Position = s3d_Transform2D(VertexPosition, g_transform);
 
-	Color = VertexColor * g_colorMul;
+	Color = (VertexColor * g_colorMul);
 	
 	UV = VertexUV;
 }

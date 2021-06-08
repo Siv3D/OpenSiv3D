@@ -570,4 +570,17 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRequestTextInputFocus__sig: "vi",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
+
+    //
+    // Misc
+    //
+    siv3dLaunchBrowser: function(url) {
+        const urlString = UTF8ToString(url);
+        
+        siv3dRegisterUserAction(function () {
+            window.open(urlString, '_blank')
+        });
+    },
+    siv3dLaunchBrowser__sig: "vi",
+    siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
 })

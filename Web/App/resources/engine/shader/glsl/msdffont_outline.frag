@@ -43,11 +43,31 @@ layout(std140) uniform PSConstants2D
 //
 //	Functions
 //
+float median(float r, float g, float b)
+{
+	return max(min(r, g), min(max(r, g), b));
+}
+
 void main()
 {
-	float textAlpha = texture(Texture0, UV).a;
+	vec2 size = vec2(textureSize(Texture0, 0));
+	const float pxRange = 4.0;
+	vec2 msdfUnit = (pxRange / size);
 
-	vec4 color = vec4(Color.rgb, Color.a * textAlpha);
+	vec3 s = texture(Texture0, UV).rgb;
+	float d = median(s.r, s.g, s.b);
+
+	float od = (d - g_sdfParam.y);
+	float outlineAlpha = clamp(od * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
+
+	float td = (d - g_sdfParam.x);
+	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
+
+	float baseAlpha = (outlineAlpha - textAlpha);
+
+	vec4 color;
+	color.rgb = mix(g_sdfOutlineColor.rgb, Color.rgb, textAlpha);
+	color.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
 
 	FragColor = (color + g_colorAdd);
 }

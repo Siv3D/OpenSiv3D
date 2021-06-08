@@ -14,9 +14,15 @@
 precision mediump float;
 
 //
-// PSInput
+//	Textures
+//
+uniform sampler2D Texture0;
+
+//
+//	PSInput
 //
 in vec4 Color;
+in vec2 UV;
 
 //
 //	PSOutput
@@ -39,5 +45,19 @@ layout(std140) uniform PSConstants2D
 //
 void main()
 {
-	FragColor = (Color + g_colorAdd);
+	float d = texture(Texture0, UV).a;
+
+	float od = (d - g_sdfParam.y);
+	float outlineAlpha = clamp(od / fwidth(od) + 0.5, 0.0, 1.0);
+
+	float td = (d - g_sdfParam.x);
+	float textAlpha = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+
+	float baseAlpha = (outlineAlpha - textAlpha);
+
+	vec4 color;
+	color.rgb = mix(g_sdfOutlineColor.rgb, Color.rgb, textAlpha);
+	color.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
+
+	FragColor = (color + g_colorAdd);
 }

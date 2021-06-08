@@ -66,7 +66,7 @@ namespace s3d
 
 	private:
 
-		enum class TextureType
+		enum class TextureType : uint8
 		{
 			// 通常テクスチャ
 			// [メインテクスチャ]<-[シェーダ・リソース・ビュー]

@@ -21,8 +21,8 @@ uniform sampler2D Texture0;
 //
 //	PSInput
 //
-in vec4 Color;
-in vec2 UV;
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 UV;
 
 //
 //	PSOutput
@@ -58,13 +58,26 @@ void main()
 	float d = median(s.r, s.g, s.b);
 
 	float td = (d - 0.5);
-	float textAlpha = sqrt(clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0));
+	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
 
-	vec2 shadowOffset = vec2(0.875, 0.875) / size;
+	vec2 shadowOffset = (g_sdfParam.zw / size);
 	vec3 s2 = texture(Texture0, UV - shadowOffset).rgb;
 	float d2 = median(s2.r, s2.g, s2.b);
-	float sd = (d2 - 0.5);
-	float shadowAlpha = sqrt(clamp(sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0));
 
-	FragColor = vec4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
+	float sd = (d2 - 0.5);
+	float shadowAlpha = clamp(sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
+	float sBase = shadowAlpha * (1.0 - textAlpha);
+
+	vec4 color;
+	if (textAlpha == 0.0)
+	{
+		color.rgb = g_sdfShadowColor.rgb;
+	}
+	else
+	{
+		color.rgb = mix(Color.rgb, g_sdfShadowColor.rgb, sBase);
+	}
+	color.a = (sBase * g_sdfShadowColor.a) + (textAlpha * Color.a);
+
+	FragColor = (color + g_colorAdd);
 }

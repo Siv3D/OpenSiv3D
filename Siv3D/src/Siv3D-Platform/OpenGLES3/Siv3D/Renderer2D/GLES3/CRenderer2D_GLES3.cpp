@@ -917,13 +917,13 @@ namespace s3d
 			case GLES3Renderer2DCommandType::ColorMul:
 				{
 					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
-					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_vsConstants2D->colorMul));
 					break;
 				}
 			case GLES3Renderer2DCommandType::ColorAdd:
 				{
 					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
-					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_psConstants2D->colorAdd));
 					break;
 				}
 			case GLES3Renderer2DCommandType::BlendState:
@@ -1026,6 +1026,7 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -1043,6 +1044,7 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
