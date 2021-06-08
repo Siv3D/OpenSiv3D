@@ -187,7 +187,11 @@ namespace s3d
         webcam.m_videoElementID = elementID;
         webcam.m_videoDuration = detail::siv3dQueryVideoDuration(elementID);
 
-        detail::siv3dQueryVideoPreference(elementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &webcam.m_playbackFPS);
+        alignas(8) double playbackFPS;
+
+        detail::siv3dQueryVideoPreference(elementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &playbackFPS);
+        webcam.m_playbackFPS = playbackFPS;
+
         webcam.prepareBuffers();
 
         // detail::siv3dRegisterVideoTimeUpdateCallback(elementID, WebCameraCapture::OnUpdated, &webcam);
