@@ -232,7 +232,7 @@ namespace s3d
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
-			const auto command = ToEnum<GLES3Renderer2DCommandType>(FromEnum(GLES3Renderer2DCommandType::PSTexture0) + i);
+			const volatile auto command = ToEnum<GLES3Renderer2DCommandType>(FromEnum(GLES3Renderer2DCommandType::PSTexture0) + i);
 
 			if (m_changes.has(command))
 			{
