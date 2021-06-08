@@ -12,18 +12,25 @@
 //-----------------------------------------------
 
 precision mediump float;
+
+//
+//	Textures
+//
 uniform sampler2D Texture0;
 
 //
-// PSInput
+//	PSInput
 //
 in vec2 UV;
 		
 //
-// PSOutput
+//	PSOutput
 //
 layout(location = 0) out vec4 FragColor;
 
+//
+//	Functions
+//
 void main()
 {
 	FragColor = texture(Texture0, UV);
