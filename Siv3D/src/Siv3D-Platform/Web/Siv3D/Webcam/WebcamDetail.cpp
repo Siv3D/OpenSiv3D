@@ -33,7 +33,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"Webcam::WebcamDetail::open(cameraIndex = {})"_fmt(cameraIndex));
 
-		close();
+		// close();
 
 		m_abort = false;
 
@@ -73,7 +73,7 @@ namespace s3d
 			m_capture.release();
 			m_cameraIndex = 0;
 			m_newFrameCount = 0;
-			m_captureResolution.set(0, 0);
+			// m_captureResolution.set(0, 0);
 		}
 	}
 
@@ -214,17 +214,15 @@ namespace s3d
 			return true;
 		}
 
-		if (capture.grab())
-		{
-			auto capturedFrameBuffer = capture.retrieve();
-			auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
+		capture.capture();
+		auto capturedFrameBuffer = capture.retrieve();
+		auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
 
-			selectedUnpacker.startUnpack(capturedFrameBuffer);
+		selectedUnpacker.startUnpack(capturedFrameBuffer);
 
-			webcam.m_capturedFrameBuffer = capturedFrameBuffer;
-			webcam.m_newFrameCount++;
-			webcam.m_totalFrameCount++;
-		}
+		webcam.m_capturedFrameBuffer = capturedFrameBuffer;
+		webcam.m_newFrameCount++;
+		webcam.m_totalFrameCount++;
 
 		return true;
 	}
