@@ -16,6 +16,12 @@ namespace s3d
 {
 	namespace System
 	{
+		namespace detail
+		{
+			__attribute__((import_name("siv3dLaunchBrowser")))
+			void siv3dLaunchBrowser(const char* url);
+		}
+
 		bool LaunchBrowser(const FilePathView _url)
 		{
 			String url{ _url };
@@ -35,17 +41,8 @@ namespace s3d
 				url = FileSystem::FullPath(_url);
 			}
 
-			if (std::system("which xdg-open >/dev/null 2>&1") != 0)
-			{
-				// xdg-open command not found
-				return false;
-			}
-
-			String command = U"xdg-open ";
-			command += (U'\"' + url + U'\"');
-			command += U" >/dev/null 2>&1";
-
-			return (std::system(command.narrow().c_str()) == 0);
+			detail::siv3dLaunchBrowser(url.toUTF8().c_str());
+			return true;
 		}
 	}
 }
