@@ -1026,6 +1026,7 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -1043,6 +1044,7 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
