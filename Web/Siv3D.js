@@ -232,6 +232,11 @@ mergeInto(LibraryManager.library, {
     siv3dOpenCamera__sig: "viiii",
     siv3dOpenCamera__deps: ["$videoElements"],
 
+    siv3dQueryCameraAvailability: function () {
+        return !!navigator.getUserMedia;
+    },
+    siv3dQueryCameraAvailability__sig: "iv",
+
     siv3dRegisterVideoTimeUpdateCallback: function(idx, callback, callbackArg) {
         const video = videoElements[idx];
 
@@ -570,6 +575,11 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRequestTextInputFocus__sig: "vi",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
+
+    //
+    // Notification
+    //
+
 
     //
     // Misc

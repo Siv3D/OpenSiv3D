@@ -16,6 +16,11 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		__attribute__((import_name("siv3dQueryCameraAvailability")))
+		extern bool siv3dQueryCameraAvailability();
+	}
 
 	Webcam::WebcamDetail::WebcamDetail() 
 	{
@@ -80,6 +85,24 @@ namespace s3d
 	bool Webcam::WebcamDetail::isOpen()
 	{
 		return m_capture.isOpened();
+	}
+
+	Optional<Webcam::Permission> Webcam::WebcamDetail::getPermission() const
+	{
+		if (m_capture.isOpened())
+		{
+			return Webcam::Permission::Allowed;
+		}
+		if (m_capture.hasError())
+		{
+			return Webcam::Permission::Denied;
+		}
+		else if (!detail::siv3dQueryCameraAvailability())
+		{
+			return Webcam::Permission::Denied;
+		}
+
+		return none;
 	}
 
 	bool Webcam::WebcamDetail::start()

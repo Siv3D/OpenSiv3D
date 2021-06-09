@@ -29,6 +29,8 @@ namespace s3d
 
 		void close();
 
+		Optional<Webcam::Permission> getPermission() const;
+
 		bool isOpen();
 
 		bool start();

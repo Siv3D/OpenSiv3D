@@ -53,6 +53,8 @@ namespace s3d
 
         bool isOpened() const;
 
+        bool hasError() const;
+
         bool isReachedEnd() const;
 
     private:
@@ -75,9 +77,11 @@ namespace s3d
 
         GLuint m_videoBufferFrameBuffer = 0;
 
+        double m_lastCapturedFrameTime = 0.0;
+
         bool m_hasNewFrame = false;
 
-        double m_lastCapturedFrameTime = 0.0;
+        bool m_hasError = false;
 
         bool m_shouldAutoPlay = false;
     };

@@ -124,6 +124,7 @@ namespace s3d
         }
 
         m_videoElementID = 0;
+        m_hasError = false;
     }
 
     void WebCameraCapture::setResolution(const Size& resolution)
@@ -175,6 +176,11 @@ namespace s3d
         return m_videoElementID != 0;
     }
 
+    bool WebCameraCapture::hasError() const
+    {
+        return m_hasError;
+    }
+
     bool WebCameraCapture::isReachedEnd() const
     {
         return detail::siv3dQueryVideoEnded(m_videoElementID);
@@ -183,6 +189,12 @@ namespace s3d
     void WebCameraCapture::OnOpened(GLuint elementID, void* userData)
     {
         auto& webcam = *static_cast<WebCameraCapture*>(userData);
+
+        if (elementID == 0)
+        {
+            webcam.m_hasError = true;
+            return;
+        }
 
         webcam.m_videoElementID = elementID;
         webcam.m_videoDuration = detail::siv3dQueryVideoDuration(elementID);
