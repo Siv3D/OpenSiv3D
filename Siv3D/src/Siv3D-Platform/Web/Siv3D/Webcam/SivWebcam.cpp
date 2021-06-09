@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Webcam.hpp>
-# include <Siv3D/Webcam/WebcamDetail.hpp>
+# include "WebcamDetail.hpp"
 
 namespace s3d
 {
@@ -54,8 +54,7 @@ namespace s3d
 
 	Optional<Webcam::Permission> Webcam::getPermission() const
 	{
-		// [Siv3D ToDo]
-		return Webcam::Permission::Allowed;
+		return pImpl->getPermission();
 	}
 
 	bool Webcam::open(const uint32 cameraIndex)

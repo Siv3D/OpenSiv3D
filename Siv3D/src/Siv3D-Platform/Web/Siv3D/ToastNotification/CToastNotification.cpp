@@ -14,6 +14,28 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		using siv3dCreateNotificationCallback = void(*)(CToastNotification::Notification::IDType idx, void* userData);
+		using siv3dNotificationEventCallback = void(*)(CToastNotification::Notification::IDType idx, ToastNotificationState state, void* userData);
+
+		__attribute__((import_name("siv3dInitNotification")))
+		extern void siv3dInitNotification();
+
+		__attribute__((import_name("siv3dCreateNotification")))
+		extern CToastNotification::Notification::IDType siv3dCreateNotification(const char* title, const char* body, size_t actionsNum, const char* const* actions, siv3dCreateNotificationCallback callback, void* userData);
+
+		__attribute__((import_name("siv3dRegisterNotificationCallback")))
+		extern void siv3dRegisterNotificationCallback(CToastNotification::Notification::IDType idx, siv3dNotificationEventCallback callback, void* userData);
+
+		__attribute__((import_name("siv3dCloseNotification")))
+		extern void siv3dCloseNotification(CToastNotification::Notification::IDType idx);
+
+		__attribute__((import_name("siv3dQueryNotificationAvailability")))
+		extern bool siv3dQueryNotificationAvailability();
+
+	}
+
 	CToastNotification::CToastNotification() {}
 
 	CToastNotification::~CToastNotification()
@@ -24,24 +46,39 @@ namespace s3d
 	void CToastNotification::init()
 	{
 		LOG_SCOPED_TRACE(U"CToastNotification::init()");
+
+		detail::siv3dInitNotification();
 	}
 
 	bool CToastNotification::isAvailable() const
 	{
-		// [Siv3D ToDo]
-		return false;
+		return detail::siv3dQueryNotificationAvailability();
 	}
 
-	ToastNotificationID CToastNotification::show(const ToastNotificationItem&)
+	ToastNotificationID CToastNotification::show(const ToastNotificationItem& item)
 	{
-		// [Siv3D ToDo]
-		return(0);
+		const auto& title = item.title.toUTF8();
+		const auto& message = item.message.toUTF8();
+
+		const auto& actions = item.actions.map([](const auto& item) { return item.toUTF8(); });
+		const auto& actionsCptr = actions.map([](const auto& item) { return item.c_str(); });
+
+		return detail::siv3dCreateNotification(
+			title.c_str(), message.c_str(), 
+			actions.size(), actionsCptr.data(), 
+			&CToastNotification::OnCreateNotification, this);
 	}
 
-	ToastNotificationState CToastNotification::getState(ToastNotificationID)
+	ToastNotificationState CToastNotification::getState(ToastNotificationID idx)
 	{
-		// [Siv3D ToDo]
-		return(ToastNotificationState::None_);
+		auto it = m_notifications.find(idx);
+
+		if (it == m_notifications.end())
+		{
+			return(ToastNotificationState::None_);
+		}
+
+		return it->second.state;
 	}
 
 	Optional<size_t> CToastNotification::getAction(ToastNotificationID)
@@ -50,18 +87,46 @@ namespace s3d
 		return(none);
 	}
 
-	void CToastNotification::hide(ToastNotificationID)
+	void CToastNotification::hide(ToastNotificationID idx)
 	{
-		// [Siv3D ToDo]
+		detail::siv3dCloseNotification(idx);
 	}
 
 	void CToastNotification::clear()
 	{
-		// [Siv3D ToDo]
+		for (auto [ key, state ] : m_notifications)
+		{
+			detail::siv3dCloseNotification(key);
+		}
+
+		m_notifications.clear();
 	}
 
-	void CToastNotification::onStateUpdate(size_t, ToastNotificationState, const Optional<int32>&)
+	void CToastNotification::onStateUpdate(size_t idx, ToastNotificationState state, const Optional<int32>&)
 	{
-		// [Siv3D ToDo]
+		auto it = m_notifications.find(idx);
+
+		if (it == m_notifications.end())
+		{
+			return;
+		}
+
+		it->second.state = state;
+	}
+
+	void CToastNotification::OnStateUpdate(Notification::IDType idx, ToastNotificationState state, void* userData)
+	{
+		auto& notification = *static_cast<CToastNotification*>(userData);
+
+		notification.onStateUpdate(static_cast<size_t>(idx), state, none);
+	}
+
+	void CToastNotification::OnCreateNotification(Notification::IDType idx, void* userData)
+	{
+		auto& notification = *static_cast<CToastNotification*>(userData);
+
+		notification.m_notifications[idx] = Notification{};
+
+		detail::siv3dRegisterNotificationCallback(idx, &CToastNotification::OnStateUpdate, &notification);
 	}
 }

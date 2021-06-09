@@ -41,5 +41,10 @@ Module.preRun = [
     global.FileReader = class {
       constructor() {}
     }
+
+    global.Notification = {
+      permission: "granted",
+      requestPermission() {}
+    }
   }
 ]

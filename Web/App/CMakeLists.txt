@@ -64,22 +64,44 @@ target_include_directories(Siv3DTest PRIVATE
   "../../Siv3D/include"
   "../../Siv3D/include/ThirdParty"
   )
-target_link_libraries(Siv3DTest PRIVATE
-  ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
-  ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_objdetect.a
-  ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_photo.a
-  ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_imgproc.a
-  ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_core.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/harfbuzz/libharfbuzz.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/freetype/libfreetype.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/turbojpeg/libturbojpeg.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/giflib/libgif.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/webp/libwebp.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopusfile.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopus.a
-	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/tiff/libtiff.a
-  )
 
+if (${CMAKE_EXE_LINKER_FLAGS} MATCHES "-pthread")
+
+  target_link_libraries(Siv3DTest PRIVATE
+    ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opencv/libopencv_objdetect.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opencv/libopencv_photo.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opencv/libopencv_imgproc.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opencv/libopencv_core.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/harfbuzz/libharfbuzz.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/freetype/libfreetype.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/turbojpeg/libturbojpeg.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/giflib/libgif.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/webp/libwebp.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opus/libopusfile.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opus/libopus.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/tiff/libtiff.a
+    )
+
+else ()
+
+  target_link_libraries(Siv3DTest PRIVATE
+    ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_objdetect.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_photo.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_imgproc.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_core.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/harfbuzz/libharfbuzz.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/freetype/libfreetype.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/turbojpeg/libturbojpeg.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/giflib/libgif.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/webp/libwebp.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopusfile.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopus.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/tiff/libtiff.a
+    )
+
+endif ()
 
 if(BUILD_TESTING)
 enable_testing()

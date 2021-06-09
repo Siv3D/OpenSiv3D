@@ -232,6 +232,11 @@ mergeInto(LibraryManager.library, {
     siv3dOpenCamera__sig: "viiii",
     siv3dOpenCamera__deps: ["$videoElements"],
 
+    siv3dQueryCameraAvailability: function () {
+        return !!navigator.getUserMedia;
+    },
+    siv3dQueryCameraAvailability__sig: "iv",
+
     siv3dRegisterVideoTimeUpdateCallback: function(idx, callback, callbackArg) {
         const video = videoElements[idx];
 
@@ -570,6 +575,80 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRequestTextInputFocus__sig: "vi",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
+
+    //
+    // Notification
+    //
+    $siv3dNotifications: [],
+
+    siv3dInitNotification: function() {
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+    },
+    siv3dInitNotification__sig: "v",
+
+    siv3dCreateNotification: function(title, body, actionsNum, actionTexts, callback, callbackArg) {
+        if (!window.Notification && Notification.permission !== "granted") {
+            {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
+            return 0;
+        }
+
+        const idx = GL.getNewId(siv3dNotifications);
+
+        const titleText = UTF8ToString(title);
+        const bodyText = UTF8ToString(body);
+        let actions = [];
+
+        for (i = 0; i < actionsNum; i++) {
+            const textPtr = getValue(actionTexts + i * 4, "i32");
+            const actionText = UTF8ToString(textPtr);
+
+            actions.push({ title: actionText, action: actionText });
+        }
+
+        siv3dRegisterUserAction(function () {
+            siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions })
+            {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        }); 
+
+        return idx;
+    },
+    siv3dCreateNotification__sig: "iiiiiii",
+    siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications" ],
+
+    siv3dRegisterNotificationCallback: function(id, callback, callbackArg) {
+        const notificattion = siv3dNotifications[id];
+
+        notificattion.onclick = function() {
+            {{{ makeDynCall('viii', 'callback') }}}(id, 1 /* ToastNotificationState.Activated */, callbackArg);
+        }
+        notificattion.onshow = function() {
+            {{{ makeDynCall('viii', 'callback') }}}(id, 2 /* ToastNotificationState.Shown */, callbackArg);
+        }
+        notificattion.onclose = function() {
+            {{{ makeDynCall('viii', 'callback') }}}(id, 5 /* ToastNotificationState.TimedOut */, callbackArg);
+        }
+        notificattion.onerror = function() {
+            {{{ makeDynCall('viii', 'callback') }}}(id, 6 /* ToastNotificationState.Error */, callbackArg);
+        }
+    },
+    siv3dRegisterNotificationCallback__sig: "viii",
+    siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications" ],
+
+    siv3dCloseNotification: function(id) {
+        const notificattion = siv3dNotifications[id];
+        notificattion.close();
+
+        delete siv3dNotifications[id];
+    },
+    siv3dCloseNotification__sig: "vi",
+    siv3dCloseNotification__deps: [ "$siv3dNotifications" ],
+
+    siv3dQueryNotificationAvailability: function() {
+        return Notification.permission === "granted";
+    },
+    siv3dQueryNotificationAvailability__sig: "iv",
 
     //
     // Misc

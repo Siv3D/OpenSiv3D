@@ -44,5 +44,30 @@ namespace s3d
 		}
 	}
 
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web
+	{
+		namespace Notification
+		{
+			/// @brief トースト通知が可能な OS であるかを返します。
+			/// @return トースト通知が可能な場合 true, それ以外の場合は false
+			[[nodiscard]]
+			bool IsAvailable();
+
+			ToastNotificationID Show(const ToastNotificationItem& item);
+
+			[[nodiscard]]
+			ToastNotificationState GetState(ToastNotificationID id);
+
+			[[nodiscard]]
+			Optional<size_t> GetAction(ToastNotificationID id);
+
+			void Hide(ToastNotificationID id);
+
+			void Clear();
+		}
+	}
+
 # endif
 }
