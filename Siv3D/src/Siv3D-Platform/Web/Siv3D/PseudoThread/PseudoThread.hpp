@@ -141,7 +141,7 @@ namespace s3d
         template <class _Fp, class ..._Args, size_t ..._Indices>
         static inline bool PseudoThreadExecute(std::tuple<std::shared_ptr<ThreadStruct>, _Fp, _Args...>& __t, std::index_sequence<_Indices...>)
         {
-            return std::invoke(std::move(std::get<1>(__t)), std::move(std::get<_Indices + 2>(__t))...);
+            return std::invoke(std::ref(std::get<1>(__t)), std::ref(std::get<_Indices + 2>(__t))...);
         }
 
         template <class _Fp>
