@@ -673,7 +673,7 @@ mergeInto(LibraryManager.library, {
             "es-ES": 1034
         };
         
-        const voices = speechSynthesis.getVoices();
+        const voices = window.speechSynthesis.getVoices();
         let listBufferPtr = Module["_malloc"](voices.length * 4 * 2);
 
         setValue(returnPtr, voices.length, "i32");
