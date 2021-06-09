@@ -31,16 +31,16 @@ mergeInto(LibraryManager.library, {
         setValue(displayID, 1, 'i32');
         setValue(xpos, 0, 'i32');
         setValue(ypos, 0, 'i32');
-        setValue(w, 0, 'i32');
-        setValue(h, 0, 'i32');
+        setValue(w, window.screen.width, 'i32');
+        setValue(h, window.screen.height, 'i32');
     },
     glfwGetMonitorInfo_Siv3D__sig: "viiiiiiiiiii",
 
     glfwGetMonitorWorkarea: function(handle, wx, wy, ww, wh) {
         setValue(wx, 0, 'i32');
         setValue(wy, 0, 'i32');
-        setValue(ww, 1280, 'i32');
-        setValue(wh, 720, 'i32');
+        setValue(ww, window.screen.availWidth, 'i32');
+        setValue(wh, window.screen.availHeight, 'i32');
     },
     glfwGetMonitorWorkarea__sig: "viiiii",
 

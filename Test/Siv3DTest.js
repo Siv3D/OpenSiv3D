@@ -19,7 +19,8 @@ Module.preRun = [
       removeEventListener() {},
       speechSynthesis: {
         getVoices() { return []; }
-      }
+      },
+      screen: {}
     }
 
     global.document = {
