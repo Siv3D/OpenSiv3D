@@ -16,7 +16,10 @@ Module.preRun = [
 
     global.window = {
       addEventListener() {},
-      removeEventListener() {}
+      removeEventListener() {},
+      speechSynthesis: {
+        getVoices() { return []; }
+      }
     }
 
     global.document = {
