@@ -1483,6 +1483,18 @@
 
 //////////////////////////////////////////////////
 //
+//	実験的なライブラリ | Exmperimental library
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Experimental/MiniScene.hpp>
+# include <Siv3D/Experimental/SevenSegment.hpp>
+# include <Siv3D/Experimental/SaturatedLinework.hpp>
+# include <Siv3D/Experimental/InputIcon.hpp>
+# include <Siv3D/Experimental/PlayingCard.hpp>
+
+//////////////////////////////////////////////////
+//
 //	プラットフォーム | Platforms
 //
 //////////////////////////////////////////////////
