@@ -18,19 +18,32 @@
 # include <Siv3D/EngineLog.hpp>
 # include "CCursor.hpp"
 
-# include <emscripten/html5.h>
-
-extern "C" void siv3dSetCursorStyle(const char* style);
-
 namespace s3d
 {
 	namespace detail
 	{	
+		__attribute__((import_name("siv3dSetCursorStyle")))
+		extern void siv3dSetCursorStyle(const char* style);
+
+		__attribute__((import_name("siv3dRegisterTouchCallback")))
+		extern void siv3dRegisterTouchCallback();
+
+		__attribute__((import_name("siv3dUnregisterTouchCallback")))
+		extern void siv3dUnregisterTouchCallback();
+
+		__attribute__((import_name("siv3dGetPrimaryTouchPoint")))
+		extern int siv3dGetPrimaryTouchPoint(double* posX, double* posY);
+
 		[[nodiscard]]
 		static Point GetScreenPos(GLFWwindow* window)
 		{
 			double clientX, clientY;
-			::glfwGetCursorPos(window, &clientX, &clientY);
+
+			if (siv3dGetPrimaryTouchPoint(&clientX, &clientY) == 0)
+			{
+				::glfwGetCursorPos(window, &clientX, &clientY);
+			}
+			
 			return{ static_cast<int32>(clientX), static_cast<int32>(clientY) };
 		}
 
@@ -38,7 +51,12 @@ namespace s3d
 		static Vec2 GetClientCursorPos(GLFWwindow* window)
 		{
 			double clientX, clientY;
-			::glfwGetCursorPos(window, &clientX, &clientY);
+
+			if (siv3dGetPrimaryTouchPoint(&clientX, &clientY) == 0)
+			{
+				::glfwGetCursorPos(window, &clientX, &clientY);
+			}
+			
 			return{ clientX, clientY };
 		}
 
@@ -66,6 +84,8 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CCursor::~CCursor()");
 
 		m_customCursors.clear();
+
+		detail::siv3dUnregisterTouchCallback();
 	}
 
 	void CCursor::init()
@@ -100,6 +120,8 @@ namespace s3d
 		m_currentCursor		= m_systemCursors[FromEnum(CursorStyle::Arrow)];
 		m_defaultCursor		= m_currentCursor;
 		m_requestedCursor	= m_defaultCursor;
+
+		detail::siv3dRegisterTouchCallback();
 	}
 
 	bool CCursor::update()
@@ -129,7 +151,7 @@ namespace s3d
 			{
 				m_currentCursor = m_requestedCursor;
 				
-				::siv3dSetCursorStyle(m_currentCursor.narrow().c_str());
+				detail::siv3dSetCursorStyle(m_currentCursor.narrow().c_str());
 			}
 
 			m_requestedCursor = m_defaultCursor;
