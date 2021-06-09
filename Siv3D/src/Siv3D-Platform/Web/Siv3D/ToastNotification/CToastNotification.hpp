@@ -11,12 +11,21 @@
 
 # pragma once
 # include <Siv3D/ToastNotification/IToastNotification.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 
 namespace s3d
 {
 	class CToastNotification final : public ISiv3DToastNotification
 	{
 	public:
+
+		struct Notification 
+		{
+		public:
+			using IDType = int32;
+
+			ToastNotificationState state = ToastNotificationState::None_;
+		};
 
 		CToastNotification();
 
@@ -40,5 +49,10 @@ namespace s3d
 
 	private:
 
+		static void OnStateUpdate(Notification::IDType idx, ToastNotificationState state, void* userData);
+
+		static void OnCreateNotification(Notification::IDType idx, void* userData);
+
+		HashTable<Notification::IDType, Notification> m_notifications;
 	};
 }
