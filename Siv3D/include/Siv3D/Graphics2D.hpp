@@ -35,13 +35,13 @@ namespace s3d
 		[[nodiscard]]
 		Float4 GetColorAdd();
 
-		/// @brief 
-		/// @return 
+		/// @brief 現在適用されているブレンドステートを返します。
+		/// @return 現在適用されているブレンドステート
 		[[nodiscard]]
 		BlendState GetBlendState();
 
-		/// @brief 
-		/// @return 
+		/// @brief 現在適用されているラスタライザーステートを返します。
+		/// @return 現在適用されているラスタライザーステート
 		[[nodiscard]]
 		RasterizerState GetRasterizerState();
 

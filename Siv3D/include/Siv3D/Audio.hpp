@@ -38,8 +38,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Audio();
 
-		/// @brief 
-		/// @param wave 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(Wave&& wave);
 

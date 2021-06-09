@@ -95,7 +95,7 @@ namespace s3d
 		inline constexpr Color Lawngreen			{ 124, 252,   0 };
 		inline constexpr Color Chartreuse			{ 127, 255,   0 };
 		inline constexpr Color Greenyellow			{ 173, 255,  47 };
-		inline constexpr Color Lime				{   0, 255,   0 };
+		inline constexpr Color Lime					{   0, 255,   0 };
 		inline constexpr Color Limegreen			{  50, 205,  50 };
 		inline constexpr Color Yellowgreen			{ 154, 205,  50 };
 		inline constexpr Color Darkolivegreen		{  85, 107,  47 };
