@@ -596,18 +596,18 @@ mergeInto(LibraryManager.library, {
 
         const idx = GL.getNewId(siv3dNotifications);
 
-        siv3dRegisterUserAction(async function () {
-            const titleText = UTF8ToString(title);
-            const bodyText = UTF8ToString(body);
-            let actions = [];
+        const titleText = UTF8ToString(title);
+        const bodyText = UTF8ToString(body);
+        let actions = [];
 
-            for (i = 0; i < actionsNum; i++) {
-                const textPtr = getValue(actionTexts + i * 4, "i32");
-                const actionText = UTF8ToString(textPtr);
+        for (i = 0; i < actionsNum; i++) {
+            const textPtr = getValue(actionTexts + i * 4, "i32");
+            const actionText = UTF8ToString(textPtr);
 
-                actions.push({ title: actionText, action: actionText });
-            }
-   
+            actions.push({ title: actionText, action: actionText });
+        }
+
+        siv3dRegisterUserAction(function () {
             siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions })
             {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
         }); 

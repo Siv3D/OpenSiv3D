@@ -53,5 +53,43 @@ namespace s3d
 		}
 	}
 
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web
+	{
+		namespace Notification
+		{
+			bool IsAvailable()
+			{
+				return SIV3D_ENGINE(ToastNotification)->isAvailable();
+			}
+
+			ToastNotificationID Show(const ToastNotificationItem& item)
+			{
+				return SIV3D_ENGINE(ToastNotification)->show(item);
+			}
+
+			ToastNotificationState GetState(const ToastNotificationID id)
+			{
+				return SIV3D_ENGINE(ToastNotification)->getState(id);
+			}
+
+			Optional<size_t> GetAction(const ToastNotificationID id)
+			{
+				return SIV3D_ENGINE(ToastNotification)->getAction(id);
+			}
+
+			void Hide(const ToastNotificationID id)
+			{
+				SIV3D_ENGINE(ToastNotification)->hide(id);
+			}
+
+			void Clear()
+			{
+				SIV3D_ENGINE(ToastNotification)->clear();
+			}
+		}
+	}
+
 # endif
 }
