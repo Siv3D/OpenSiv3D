@@ -39,6 +39,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Audio/NullSoundTouchFunctions.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/AudioCodecFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/CAudioCodec.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioDecoder/SivAudioDecoder.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioFormat/AAC/AACDecoder.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioFormat/MP3/MP3Decoder.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ChildProcess/ChildProcessDetail.cpp

@@ -66,4 +66,15 @@ namespace s3d
 		[[nodiscard]]
 		const Array<std::unique_ptr<IAudioDecoder>>& Enum();
 	}
+
+# if SIV3D_PLATFORM(WEB)
+
+ 	namespace Platform::Web::AudioDecoder
+	{
+		void DecodeFromFile(const FilePath& path, std::promise<Wave> p);
+		
+		std::future<Wave> DecodeFromFile(const FilePath& path);
+	}
+
+# endif
 }

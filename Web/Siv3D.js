@@ -31,16 +31,16 @@ mergeInto(LibraryManager.library, {
         setValue(displayID, 1, 'i32');
         setValue(xpos, 0, 'i32');
         setValue(ypos, 0, 'i32');
-        setValue(w, 0, 'i32');
-        setValue(h, 0, 'i32');
+        setValue(w, window.screen.width, 'i32');
+        setValue(h, window.screen.height, 'i32');
     },
     glfwGetMonitorInfo_Siv3D__sig: "viiiiiiiiiii",
 
     glfwGetMonitorWorkarea: function(handle, wx, wy, ww, wh) {
         setValue(wx, 0, 'i32');
         setValue(wy, 0, 'i32');
-        setValue(ww, 1280, 'i32');
-        setValue(wh, 720, 'i32');
+        setValue(ww, window.screen.availWidth, 'i32');
+        setValue(wh, window.screen.availHeight, 'i32');
     },
     glfwGetMonitorWorkarea__sig: "viiiii",
 
@@ -324,6 +324,67 @@ mergeInto(LibraryManager.library, {
     siv3dDestroyVideo__deps: ["$videoElements", "siv3dStopVideo"],
 
     //
+    // MultiTouch Support
+    //
+    $siv3dActiveTouches: [],
+    
+    $siv3dOnTouchStart: function(e) {
+        siv3dActiveTouches = Array.from(e.touches);
+        e.preventDefault();
+    },
+
+    $siv3dOnTouchEnd: function(e) {
+        siv3dActiveTouches = Array.from(e.touches);
+        e.preventDefault();
+    },
+
+    $siv3dOnTouchMove: function(e) {
+        siv3dActiveTouches = Array.from(e.touches);
+        e.preventDefault();
+    },
+
+    siv3dRegisterTouchCallback: function() {
+        Module["canvas"].addEventListener("touchstart", siv3dOnTouchStart);
+        Module["canvas"].addEventListener("touchmove", siv3dOnTouchMove);
+    },
+    siv3dRegisterTouchCallback__sig: "v",
+    siv3dRegisterTouchCallback__deps: [ "$siv3dOnTouchMove", "$siv3dOnTouchStart", "$siv3dActiveTouches" ],
+
+    siv3dUnregisterTouchCallback: function() {
+        Module["canvas"].removeEventListener("touchstart", siv3dOnTouchStart);
+        Module["canvas"].removeEventListener("touchmove", siv3dOnTouchMove);
+    },
+    siv3dUnregisterTouchCallback__sig: "v",
+    siv3dUnregisterTouchCallback__deps: [ "$siv3dOnTouchMove", "$siv3dOnTouchStart" ],
+
+    siv3dGetPrimaryTouchPoint: function(pX, pY) {
+        if (siv3dActiveTouches.length > 0) {
+            const touch = siv3dActiveTouches[0];
+
+            const rect = Module["canvas"].getBoundingClientRect();
+            const cw = Module["canvas"].width;
+            const ch = Module["canvas"].height;
+
+            const scrollX = ((typeof window.scrollX !== 'undefined') ? window.scrollX : window.pageXOffset);
+            const scrollY = ((typeof window.scrollY !== 'undefined') ? window.scrollY : window.pageYOffset);
+
+            let adjustedX = touch.pageX - (scrollX + rect.left);
+            let adjustedY = touch.pageY - (scrollY + rect.top);
+  
+            adjustedX = adjustedX * (cw / rect.width);
+            adjustedY = adjustedY * (ch / rect.height);
+            
+            setValue(pX, adjustedX, 'double');
+            setValue(pY, adjustedY, 'double');
+            return 1;
+        } else {
+            return 0;
+        }
+    },
+    siv3dGetPrimaryTouchPoint__sig: "iii",
+    siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches" ],
+
+    //
     // User Action Emulation
     //
     $siv3dHasUserActionTriggered: false,
@@ -464,6 +525,48 @@ mergeInto(LibraryManager.library, {
     siv3dSaveDialog__deps: [ "$siv3dSaveFileBufferWritePos", "$siv3dDefaultSaveFileName" ],
 
     //
+    // Audio Support
+    //
+    siv3dDecodeAudioFromFile: function(filePath, callback, arg) {
+        const path = UTF8ToString(filePath, 1024);
+        const fileBytes = FS.readFile(path);
+
+        const onSuccess = function(decoded) {
+            const leftDataBuffer = Module["_malloc"](decoded.length * 4);
+            HEAPF32.set(decoded.getChannelData(0), leftDataBuffer>>2);
+
+            let rightDataBuffer;
+            
+            if (decoded.numberOfChannels >= 2) {
+                rightDataBuffer = Module["_malloc"](decoded.length * 4);
+                HEAPF32.set(decoded.getChannelData(1), rightDataBuffer>>2);
+            } else {
+                rightDataBuffer = leftDataBuffer;
+            }
+
+            HEAP32[(arg>>2)+0] = leftDataBuffer;
+            HEAP32[(arg>>2)+1] = rightDataBuffer;
+            HEAPU32[(arg>>2)+2] = decoded.sampleRate;
+            HEAPU32[(arg>>2)+3] = decoded.length;
+
+            {{{ makeDynCall('vi', 'callback') }}}(arg);
+        };
+
+        const onFailure = function() {
+            HEAP32[(arg>>2)+0] = 0;
+            HEAP32[(arg>>2)+1] = 0;
+            HEAPU32[(arg>>2)+2] = 0;
+            HEAPU32[(arg>>2)+3] = 0;
+
+            {{{ makeDynCall('vi', 'callback') }}}(arg);
+        }
+
+        Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
+    },
+    siv3dDecodeAudioFromFile__sig: "vii",
+    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS" ],
+
+    //
     // Clipboard
     //
     siv3dSetClipboardText: function(ctext) {
@@ -600,7 +703,7 @@ mergeInto(LibraryManager.library, {
         const bodyText = UTF8ToString(body);
         let actions = [];
 
-        for (i = 0; i < actionsNum; i++) {
+        for (let i = 0; i < actionsNum; i++) {
             const textPtr = getValue(actionTexts + i * 4, "i32");
             const actionText = UTF8ToString(textPtr);
 
@@ -649,6 +752,92 @@ mergeInto(LibraryManager.library, {
         return Notification.permission === "granted";
     },
     siv3dQueryNotificationAvailability__sig: "iv",
+
+    //
+    // TextToSpeech
+    //
+    siv3dEnumerateAvailableTextToSpeechLanguages: function(returnPtr) {
+        const LanguageNameToLanguageCodeList = {
+            "ar-SA": 1025,
+            "zh-CN": 2052,
+            "zh-HK": 3076,
+            "zh-TW": 1028,
+            "en-AU": 3081,
+            "en-GB": 2057,
+            "en-US": 1033,
+            "fr-FR": 1036,
+            "de-DE": 1031,
+            "hi-IN": 1081,
+            "it-IT": 1040,
+            "ja-JP": 1041,
+            "ko-KR": 1042,
+            "pt-BR": 1046,
+            "ru-RU": 1049,
+            "es-ES": 1034
+        };
+        
+        const voices = window.speechSynthesis.getVoices();
+        let listBufferPtr = Module["_malloc"](voices.length * 4 * 2);
+
+        setValue(returnPtr, voices.length, "i32");
+        setValue(returnPtr + 4, listBufferPtr, "i32");
+
+        for(let i = 0; i < voices.length; i++) {
+            const languageCode = LanguageNameToLanguageCodeList[voices[i].lang];
+             
+            setValue(listBufferPtr + 0, languageCode, "i32");
+            setValue(listBufferPtr + 4, voices[i].default, "i32");
+
+            listBufferPtr += 8;
+        }
+    },
+    siv3dEnumerateAvailableTextToSpeechLanguages__sig: "vi",
+
+    siv3dStartTextToSpeechLanguages: function(textPtr, rate, volume, languageCode) {
+        const LanguageCodeToLanguageNameList = {
+            1025: "ar-SA",
+            2052: "zh-CN",
+            3076: "zh-HK",
+            1028: "zh-TW",
+            3081: "en-AU",
+            2057: "en-GB",
+            1033: "en-US",
+            1036: "fr-FR",
+            1031: "de-DE",
+            1081: "hi-IN",
+            1040: "it-IT",
+            1041: "ja-JP",
+            1042: "ko-KR",
+            1046: "pt-BR",
+            1049: "ru-RU",
+            1034: "es-ES"
+        };
+        const text = UTF8ToString(textPtr);
+
+        const speechUtter = new SpeechSynthesisUtterance(text);
+
+        speechUtter.lang = LanguageCodeToLanguageNameList[languageCode];
+        speechUtter.rate = rate;
+        speechUtter.volume = volume;
+
+        window.speechSynthesis.speak(speechUtter);
+    },
+    siv3dStartTextToSpeechLanguages__sig: "viiii",
+
+    siv3dIsSpeakingTextToSpeechLanguages: function() {
+        return window.speechSynthesis.speaking;
+    },
+    siv3dIsSpeakingTextToSpeechLanguages__sig: "iv",
+
+    siv3dPauseTextToSpeechLanguages: function() {
+        window.speechSynthesis.pause();
+    },
+    siv3dPauseTextToSpeechLanguages__sig: "v",
+
+    siv3dResumeTextToSpeechLanguages: function() {
+        window.speechSynthesis.resume();
+    },
+    siv3dResumeTextToSpeechLanguages__sig: "v",
 
     //
     // Misc

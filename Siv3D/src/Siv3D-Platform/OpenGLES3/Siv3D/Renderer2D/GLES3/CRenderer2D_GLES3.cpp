@@ -1093,14 +1093,15 @@ namespace s3d
 					{
 						::glActiveTexture(GL_TEXTURE0 + slot);
 						::glBindTexture(GL_TEXTURE_2D, 0);
+						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
 						::glActiveTexture(GL_TEXTURE0 + slot);
 						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
-					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}

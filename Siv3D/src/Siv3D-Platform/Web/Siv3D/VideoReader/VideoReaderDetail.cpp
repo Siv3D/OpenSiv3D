@@ -52,7 +52,7 @@ namespace s3d
 			m_shared.frame[i].ready = false;
 		}
 
-		m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, this);
+		m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, std::ref(*this) );
 
 		return true;
 	}

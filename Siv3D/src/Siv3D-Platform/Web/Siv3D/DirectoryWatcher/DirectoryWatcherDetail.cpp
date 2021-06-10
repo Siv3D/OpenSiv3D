@@ -74,7 +74,7 @@ namespace s3d
 		return m_targetDirectory;
 	}
 
-	bool DirectoryWatcher::DirectoryWatcherDetail::watch(DirectoryWatcherDetail* watcher)
+	bool DirectoryWatcher::DirectoryWatcherDetail::watch(DirectoryWatcherDetail* const watcher)
 	{
 		if (not watcher->init())
 		{

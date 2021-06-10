@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/TextToSpeech/ITextToSpeech.hpp>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {
@@ -47,6 +48,14 @@ namespace s3d
 		double getSpeed() const override;
 
 	private:
+
+		Array<LanguageCode> m_AvailableLanguages;
+
+		LanguageCode m_DefaultLanguage;
+
+		double m_Speed = 1.0;
+
+		double m_Volume = 1.0;
 
 	};
 }

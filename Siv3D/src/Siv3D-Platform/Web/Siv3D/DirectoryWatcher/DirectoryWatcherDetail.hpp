@@ -66,7 +66,7 @@ namespace s3d
 		
 		Array<FileChange> m_fileChanges;	
 
-		static bool watch(DirectoryWatcherDetail* watcher);
+		static bool watch(DirectoryWatcherDetail* const watcher);
 
 		bool init();
 

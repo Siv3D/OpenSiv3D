@@ -13,6 +13,8 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
+# include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/PseudoThread/PseudoThread.hpp>
 
 namespace s3d
 {
@@ -94,6 +96,22 @@ namespace s3d
 				delete result;
 			}
 
+			void OnOpenWaveDialogClosed(char* fileName, std::promise<Wave>* result)
+			{
+				if (fileName == 0)
+				{
+					result->set_value(Wave{});
+				}
+				else
+				{
+					auto path = Unicode::Widen(fileName);
+					Platform::Web::AudioDecoder::DecodeFromFile(path, std::move(*result));
+				}
+
+				delete fileName;
+				delete result;
+			}
+
 			void OnOpenAudioDialogClosed(char* fileName, std::promise<Audio>* result)
 			{
 				if (fileName == 0)
@@ -103,7 +121,27 @@ namespace s3d
 				else
 				{
 					auto path = Unicode::Widen(fileName);
-					// AudioProcessing::DecodeAudioFromFile(path, std::move(*result));
+					auto waveFuture = Platform::Web::AudioDecoder::DecodeFromFile(path);
+
+					PseudoThread futureResolver
+					{ 
+						std::chrono::milliseconds(30),
+
+						[](std::promise<Audio>& promise, std::future<Wave>& future) 
+						{
+							if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+							{
+								promise.set_value(Audio { future.get() });
+								return false;
+							}
+
+							return true;
+						}, 
+
+						std::move(*result), std::move(waveFuture) 
+					};
+
+					futureResolver.detach();
 				}
 
 				delete fileName;
@@ -148,7 +186,7 @@ namespace s3d
 
 		std::future<Wave> OpenWave(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Wave>({ FileFilter::AllAudioFiles() });
+			return detail::siv3dOpenDialog<Wave>({ FileFilter::AllAudioFiles() }, &detail::OnOpenWaveDialogClosed);
 		}
 
 		std::future<Audio> OpenAudio(FilePathView defaultPath, StringView title)
