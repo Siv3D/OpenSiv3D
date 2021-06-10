@@ -1091,13 +1091,14 @@ namespace s3d
 					{
 						ID3D11ShaderResourceView* nullAttach[1] = { nullptr };
 						m_context->PSSetShaderResources(slot, 1, nullAttach);
+						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
 						m_context->PSSetShaderResources(slot, 1, pTexture->getSRVPtr(textureID));
+						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 					
-					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}

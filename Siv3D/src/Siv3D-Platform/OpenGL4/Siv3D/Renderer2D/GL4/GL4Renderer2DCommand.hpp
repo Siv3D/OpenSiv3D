@@ -109,7 +109,10 @@ namespace s3d
 		PSTexture6,
 
 		PSTexture7,
+
+		SIZE_,
 	};
+	static_assert(FromEnum(GL4Renderer2DCommandType::SIZE_) < 64);
 
 	struct GL4Renderer2DCommand
 	{

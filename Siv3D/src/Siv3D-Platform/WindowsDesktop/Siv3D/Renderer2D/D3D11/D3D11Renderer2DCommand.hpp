@@ -110,7 +110,10 @@ namespace s3d
 		PSTexture6,
 
 		PSTexture7,
+
+		SIZE_,
 	};
+	static_assert(FromEnum(D3D11Renderer2DCommandType::SIZE_) < 64);
 
 	struct D3D11Renderer2DCommand
 	{

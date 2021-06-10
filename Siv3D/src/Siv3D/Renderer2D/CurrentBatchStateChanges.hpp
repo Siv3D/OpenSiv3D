@@ -30,14 +30,14 @@ namespace s3d
 	{
 	private:
 
-		uint32 m_states = 0;
+		uint64 m_states = 0;
 
 	public:
 
 		[[nodiscard]]
 		bool has(const Enum command) const noexcept
 		{
-			return ((m_states & (0x1 << FromEnum(command))) != 0);
+			return ((m_states & (0x1ull << FromEnum(command))) != 0);
 		}
 
 		[[nodiscard]]
@@ -48,12 +48,12 @@ namespace s3d
 
 		void set(const Enum command) noexcept
 		{
-			m_states |= (0x1u << FromEnum(command));
+			m_states |= (0x1ull << FromEnum(command));
 		}
 
 		void clear(const Enum command) noexcept
 		{
-			m_states &= ~(0x1u << FromEnum(command));
+			m_states &= ~(0x1ull << FromEnum(command));
 		}
 
 		void clear() noexcept
