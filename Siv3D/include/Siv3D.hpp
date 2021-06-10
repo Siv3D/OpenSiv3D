@@ -333,9 +333,6 @@
 // プロファイラー | Profiler
 # include <Siv3D/Profiler.hpp>
 
-// 時間の測定 | Time profiler
-//# include <Siv3D/TimeProfiler.hpp> // [Siv3D ToDo]
-
 // 処理にかかった時間の測定 | Clock counter in milliseconds
 # include <Siv3D/MillisecClock.hpp>
 
@@ -344,6 +341,9 @@
 
 // Clock counter in CPU clocks | 処理にかかった CPU サイクル数の測定
 # include <Siv3D/RDTSCClock.hpp>
+
+// 時間の測定 | Time profiler
+# include <Siv3D/TimeProfiler.hpp>
 
 //////////////////////////////////////////////////
 //

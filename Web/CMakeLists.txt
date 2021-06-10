@@ -420,6 +420,7 @@ add_library(
   ../Siv3D/src/Siv3D/TextWriter/SivTextWriter.cpp
   ../Siv3D/src/Siv3D/TextWriter/TextWriterDetail.cpp  
   ../Siv3D/src/Siv3D/Threading/SivThreading.cpp
+  ../Siv3D/src/Siv3D/TimeProfiler/SivTimeProfiler.cpp
   ../Siv3D/src/Siv3D/ToastNotification/SivToastNotification.cpp
   ../Siv3D/src/Siv3D/ToastNotification/ToastNotificationFactory.cpp
   ../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp

@@ -627,6 +627,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotification.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ToastNotificationItem.hpp" />
@@ -1978,6 +1979,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\SivTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\SivToastNotification.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\ToastNotificationFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />

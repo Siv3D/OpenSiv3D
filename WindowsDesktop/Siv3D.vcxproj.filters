@@ -1294,6 +1294,9 @@
     <Filter Include="src\Siv3D\SimpleAnimation">
       <UniqueIdentifier>{8aa4ea87-3a2b-463b-b7ea-437b567c3492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TimeProfiler">
+      <UniqueIdentifier>{a3b843d4-493b-45dc-8a56-cc44f611c382}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5985,6 +5988,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleAnimation.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8221,6 +8227,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleAnimation\SivSimpleAnimation.cpp">
       <Filter>src\Siv3D\SimpleAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp">
+      <Filter>src\Siv3D\TimeProfiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
