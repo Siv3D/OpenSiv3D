@@ -1430,6 +1430,7 @@
 		2CEC7DE225FA5DE300704B99 /* TGAEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DDF25FA5DE300704B99 /* TGAEncoder.cpp */; };
 		2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */; };
 		2CEC7DE425FA5DE300704B99 /* TGAHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */; };
+		2CED6E532671CA0D000FE5B8 /* SivSimpleAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
 		2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */; };
 		2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */; };
@@ -3796,6 +3797,10 @@
 		2CEC7DDF25FA5DE300704B99 /* TGAEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TGAEncoder.cpp; sourceTree = "<group>"; };
 		2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TGADecoder.cpp; sourceTree = "<group>"; };
 		2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TGAHeader.hpp; sourceTree = "<group>"; };
+		2CED6E4E2671C9BD000FE5B8 /* EasingAB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EasingAB.hpp; sourceTree = "<group>"; };
+		2CED6E4F2671C9D0000FE5B8 /* EasingAB.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EasingAB.ipp; sourceTree = "<group>"; };
+		2CED6E502671C9E5000FE5B8 /* SimpleAnimation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleAnimation.hpp; sourceTree = "<group>"; };
+		2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleAnimation.cpp; sourceTree = "<group>"; };
 		2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RendererFactory.mm; sourceTree = "<group>"; };
 		2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_GL4.hpp; sourceTree = "<group>"; };
 		2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer_GL4.cpp; sourceTree = "<group>"; };
@@ -3978,6 +3983,7 @@
 		2C063D422661426000368BEE /* detail */ = {
 			isa = PBXGroup;
 			children = (
+				2CED6E4F2671C9D0000FE5B8 /* EasingAB.ipp */,
 				2C063D8E2661426000368BEE /* AABB.ipp */,
 				2C063DE02661426000368BEE /* Addon.ipp */,
 				2C063DB62661426000368BEE /* Allocator.ipp */,
@@ -5484,11 +5490,11 @@
 		2C47B23524DD9789008D83BE /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C5C0F1C266E6991009C430B /* Asset */,
 				2C378CA2251E492B00D4B14B /* Addon */,
 				2CC5842726461D9900C33E9F /* AnimatedGIFReader */,
 				2CC5842B26461D9900C33E9F /* AnimatedGIFWriter */,
 				2C47B2BF24DD9789008D83BE /* ApplicationOptions */,
+				2C5C0F1C266E6991009C430B /* Asset */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
 				2C5C0F0E266DFF2A009C430B /* AsyncHTTPTask */,
@@ -5629,6 +5635,7 @@
 				2C47B6CC24EAC82A008D83BE /* Shader */,
 				2C0A4D73256A177D002A4B5E /* Shape2D */,
 				2C063D3F2661407700368BEE /* SIMDMath */,
+				2CED6E512671CA0D000FE5B8 /* SimpleAnimation */,
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
 				2C5C0F18266DFF5B009C430B /* SimpleHTTP */,
 				2C5337C82650BAF000CE0F1B /* SoundFont */,
@@ -8554,6 +8561,7 @@
 				2CAAA89725E7FD0300C014D7 /* Duration.hpp */,
 				2CAAA88725E7FD0300C014D7 /* DynamicTexture.hpp */,
 				2CAAA84F25E7FD0300C014D7 /* Easing.hpp */,
+				2CED6E4E2671C9BD000FE5B8 /* EasingAB.hpp */,
 				2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */,
 				2CAAA72D25E7FD0200C014D7 /* Effect.hpp */,
 				2CAAA71925E7FD0200C014D7 /* Ellipse.hpp */,
@@ -8782,6 +8790,7 @@
 				2C063D3D2661404600368BEE /* SIMD_Float4.hpp */,
 				2CAAA8AB25E7FD0300C014D7 /* SIMD.hpp */,
 				2C063D2F26612A3500368BEE /* SIMDMath.hpp */,
+				2CED6E502671C9E5000FE5B8 /* SimpleAnimation.hpp */,
 				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
 				2C5C0F0B266DFEFB009C430B /* SimpleHTTP.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
@@ -9406,6 +9415,14 @@
 				2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */,
 			);
 			path = TGA;
+			sourceTree = "<group>";
+		};
+		2CED6E512671CA0D000FE5B8 /* SimpleAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */,
+			);
+			path = SimpleAnimation;
 			sourceTree = "<group>";
 		};
 		2CF21CF5249FAA8F00C864C9 /* macOS */ = {
@@ -11098,6 +11115,7 @@
 				2C0FBD6D262978100050E354 /* SivWebcam.cpp in Sources */,
 				2C68508D24B768A800B98A7F /* SivSystem_macOS_Linux.cpp in Sources */,
 				2C47B36C24DD9789008D83BE /* SivCPUInfo.cpp in Sources */,
+				2CED6E532671CA0D000FE5B8 /* SivSimpleAnimation.cpp in Sources */,
 				2C4396502535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp in Sources */,
 				2C834DAD248805D4006208B8 /* koi8.c in Sources */,
 				2C636E6E2657F7D300AF029F /* soloud_fft.cpp in Sources */,
