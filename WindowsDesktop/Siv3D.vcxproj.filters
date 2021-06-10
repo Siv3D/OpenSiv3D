@@ -1291,6 +1291,9 @@
     <Filter Include="src\Siv3D\Asset">
       <UniqueIdentifier>{f28c125a-80bd-4914-99de-9421ad68aac1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SimpleAnimation">
+      <UniqueIdentifier>{8aa4ea87-3a2b-463b-b7ea-437b567c3492}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5979,6 +5982,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\EasingAB.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleAnimation.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8212,6 +8218,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp">
       <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleAnimation\SivSimpleAnimation.cpp">
+      <Filter>src\Siv3D\SimpleAnimation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

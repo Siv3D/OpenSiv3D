@@ -515,8 +515,7 @@
 
 # include <Siv3D/EasingAB.hpp>
 
-// イージング ユーティリティ | Easing utility
-//# include <Siv3D/EasingController.hpp>
+# include <Siv3D/SimpleAnimation.hpp>
 
 // トランジション | Transition
 # include <Siv3D/Transition.hpp>

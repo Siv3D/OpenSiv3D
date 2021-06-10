@@ -383,6 +383,7 @@ add_library(
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp
   ../Siv3D/src/Siv3D/SIMDMath/SivSIMDMath.cpp
+  ../Siv3D/src/Siv3D/SimpleAnimation/SivSimpleAnimation.cpp
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
   ../Siv3D/src/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
   ../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp
