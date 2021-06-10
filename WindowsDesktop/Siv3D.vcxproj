@@ -123,6 +123,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Distribution.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Duration.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Easing.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\EasingAB.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Effect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Ellipse.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DroppedText.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\EasingAB.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EdgePreservingFilterType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />

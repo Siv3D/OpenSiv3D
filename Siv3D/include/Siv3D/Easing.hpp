@@ -57,21 +57,21 @@ namespace s3d
 
 	template <class Type>
 	[[nodiscard]]
-	inline constexpr Type EaseIn(double f(double), const Type& start, const Type& end, double t);
+	inline constexpr auto EaseIn(double f(double), const Type& start, const Type& end, double t);
 
 	[[nodiscard]]
 	inline constexpr double EaseOut(double f(double), double t) noexcept;
 
 	template <class Type>
 	[[nodiscard]]
-	inline constexpr Type EaseOut(double f(double), const Type& start, const Type& end, double t);
+	inline constexpr auto EaseOut(double f(double), const Type& start, const Type& end, double t);
 
 	[[nodiscard]]
 	inline constexpr double EaseInOut(double f(double), double t) noexcept;
 
 	template <class Type>
 	[[nodiscard]]
-	inline constexpr Type EaseInOut(double f(double), const Type& start, const Type& end, double t);
+	inline constexpr auto EaseInOut(double f(double), const Type& start, const Type& end, double t);
 
 
 	[[nodiscard]]

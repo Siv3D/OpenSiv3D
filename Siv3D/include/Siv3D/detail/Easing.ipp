@@ -171,7 +171,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Type EaseIn(double f(double), const Type& start, const Type& end, const double t)
+	inline constexpr auto EaseIn(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, f(t));
 	}
@@ -183,7 +183,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Type EaseOut(double f(double), const Type& start, const Type& end, const double t)
+	inline constexpr auto EaseOut(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, EaseOut(f, t));
 	}
@@ -195,7 +195,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Type EaseInOut(double f(double), const Type& start, const Type& end, const double t)
+	inline constexpr auto EaseInOut(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, EaseInOut(f, t));
 	}

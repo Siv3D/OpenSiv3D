@@ -513,6 +513,8 @@
 // イージング関数 | Easing
 # include <Siv3D/Easing.hpp>
 
+# include <Siv3D/EasingAB.hpp>
+
 // イージング ユーティリティ | Easing utility
 //# include <Siv3D/EasingController.hpp>
 

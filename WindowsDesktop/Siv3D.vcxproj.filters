@@ -5973,6 +5973,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp">
       <Filter>src\Siv3D\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\EasingAB.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\EasingAB.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
