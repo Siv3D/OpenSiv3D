@@ -912,13 +912,13 @@ namespace s3d
 			case GL4Renderer2DCommandType::ColorMul:
 				{
 					m_vsConstants2D->colorMul = m_commandManager.getColorMul(command.index);
-					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_cbSprite0->colorMul));
+					LOG_COMMAND(U"ColorMul[{}] {}"_fmt(command.index, m_vsConstants2D->colorMul));
 					break;
 				}
 			case GL4Renderer2DCommandType::ColorAdd:
 				{
 					m_psConstants2D->colorAdd = m_commandManager.getColorAdd(command.index);
-					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_cbSprite1->colorAdd));
+					LOG_COMMAND(U"ColorAdd[{}] {}"_fmt(command.index, m_psConstants2D->colorAdd));
 					break;
 				}
 			case GL4Renderer2DCommandType::BlendState:
@@ -1086,14 +1086,15 @@ namespace s3d
 					{
 						::glActiveTexture(GL_TEXTURE0 + slot);
 						::glBindTexture(GL_TEXTURE_2D, 0);
+						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
 						::glActiveTexture(GL_TEXTURE0 + slot);
 						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
-					LOG_COMMAND(U"PSTexture{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			}
