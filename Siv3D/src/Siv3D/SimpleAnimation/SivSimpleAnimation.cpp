@@ -34,6 +34,13 @@ namespace s3d
 		return *this;
 	}
 
+	SimpleAnimation& SimpleAnimation::setLoop(const SecondsF& loopEnd)
+	{
+		m_loopTiming.first = 0.0;
+		m_loopTiming.second = loopEnd.count();
+		return *this;
+	}
+
 	SimpleAnimation& SimpleAnimation::setLoop(const SecondsF& loopBegin, const SecondsF& loopEnd)
 	{
 		m_loopTiming.first = loopBegin.count();

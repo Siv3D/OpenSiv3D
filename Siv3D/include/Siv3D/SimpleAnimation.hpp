@@ -34,6 +34,8 @@ namespace s3d
 
 		SimpleAnimation& set(StringView name, const KeyFrame& a, const KeyFrame& b, double func(double) = Easing::Linear);
 
+		SimpleAnimation& setLoop(const SecondsF& loopEnd);
+
 		SimpleAnimation& setLoop(const SecondsF& loopBegin, const SecondsF& loopEnd);
 
 		[[nodiscard]]
