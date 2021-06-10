@@ -14,6 +14,7 @@
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/Console.hpp>
 # include <Siv3D/Print.hpp>
 
 namespace s3d
@@ -141,7 +142,7 @@ namespace s3d
 		data.beginNS = 0;
 	}
 
-	void TimeProfiler::log()
+	void TimeProfiler::log() const
 	{
 		Array<std::pair<String, Data>> ordered;
 		size_t maxLabelLength = 0;
@@ -164,7 +165,32 @@ namespace s3d
 		}
 	}
 
-	void TimeProfiler::print()
+	void TimeProfiler::console() const
+	{
+		Array<std::pair<String, Data>> ordered;
+		size_t maxLabelLength = 0;
+		getData(ordered, maxLabelLength);
+
+		Console(U'[', m_name, U']');
+		Console(String(maxLabelLength, U' '), U" |  min   |  med   | 95 ptl |  max   |");
+		Array<uint32> sorted;
+
+		for (const auto& data : ordered)
+		{
+			sorted.assign(data.second.buffer.begin(), data.second.buffer.end());
+			sorted.sort();
+			const uint64 min = sorted.front();
+			const uint64 med = sorted[sorted.size() / 2];
+			const uint64 max95 = sorted[static_cast<size_t>(sorted.size() * 0.95)];
+			const uint64 max = sorted.back();
+
+			Console(data.first.rpadded(maxLabelLength), U" | ", detail::NsToString(min).rpad(6), U" | ", detail::NsToString(med).rpad(6), U" | ", detail::NsToString(max95).rpad(6), U" | ", detail::NsToString(max).rpad(6), U" |");
+		}
+
+		Console(); // 改行
+	}
+
+	void TimeProfiler::print() const
 	{
 		Array<std::pair<String, Data>> ordered;
 		size_t maxLabelLength = 0;
@@ -187,7 +213,7 @@ namespace s3d
 		}
 	}
 
-	void TimeProfiler::getData(Array<std::pair<String, Data>>& ordered, size_t& maxLabelLength)
+	void TimeProfiler::getData(Array<std::pair<String, Data>>& ordered, size_t& maxLabelLength) const
 	{
 		for (const auto& data : m_data)
 		{

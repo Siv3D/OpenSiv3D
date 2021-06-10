@@ -29,9 +29,11 @@ namespace s3d
 
 		void end(StringView name);
 
-		void log();
+		void log() const;
 
-		void print();
+		void console() const;
+
+		void print() const;
 
 	private:
 
@@ -52,6 +54,6 @@ namespace s3d
 
 		HashTable<String, Data> m_data;
 
-		void getData(Array<std::pair<String, Data>>& ordered, size_t& maxLabelLength);
+		void getData(Array<std::pair<String, Data>>& ordered, size_t& maxLabelLength) const;
 	};
 }
