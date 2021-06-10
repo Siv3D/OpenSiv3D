@@ -1431,6 +1431,7 @@
 		2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC7DE025FA5DE300704B99 /* TGADecoder.cpp */; };
 		2CEC7DE425FA5DE300704B99 /* TGAHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CEC7DE125FA5DE300704B99 /* TGAHeader.hpp */; };
 		2CED6E532671CA0D000FE5B8 /* SivSimpleAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */; };
+		2CED6E5726720244000FE5B8 /* SivTimeProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CED6E5626720244000FE5B8 /* SivTimeProfiler.cpp */; };
 		2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */; };
 		2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */; };
 		2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */; };
@@ -3801,6 +3802,8 @@
 		2CED6E4F2671C9D0000FE5B8 /* EasingAB.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EasingAB.ipp; sourceTree = "<group>"; };
 		2CED6E502671C9E5000FE5B8 /* SimpleAnimation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleAnimation.hpp; sourceTree = "<group>"; };
 		2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleAnimation.cpp; sourceTree = "<group>"; };
+		2CED6E5426720229000FE5B8 /* TimeProfiler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TimeProfiler.hpp; sourceTree = "<group>"; };
+		2CED6E5626720244000FE5B8 /* SivTimeProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimeProfiler.cpp; sourceTree = "<group>"; };
 		2CF21CF8249FAA8F00C864C9 /* RendererFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RendererFactory.mm; sourceTree = "<group>"; };
 		2CF21CFA249FAA8F00C864C9 /* CRenderer_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_GL4.hpp; sourceTree = "<group>"; };
 		2CF21CFB249FAA8F00C864C9 /* CRenderer_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer_GL4.cpp; sourceTree = "<group>"; };
@@ -5657,6 +5660,7 @@
 				2C794B8625C5A5BF00034D81 /* TextureRegion */,
 				2C47B24F24DD9789008D83BE /* TextWriter */,
 				2C47B2DE24DD9789008D83BE /* Threading */,
+				2CED6E5526720244000FE5B8 /* TimeProfiler */,
 				2C5043C826512B6000E36D08 /* ToastNotification */,
 				2C4A485C2636543200BDCBA2 /* TOMLReader */,
 				2C53C33C25613B8A0072831A /* Triangle */,
@@ -8828,6 +8832,7 @@
 				2CAAA77C25E7FD0200C014D7 /* TextWriter.hpp */,
 				2CAAA6FA25E7FD0200C014D7 /* Threading.hpp */,
 				2CAAA71E25E7FD0200C014D7 /* Time.hpp */,
+				2CED6E5426720229000FE5B8 /* TimeProfiler.hpp */,
 				2CAAA83625E7FD0200C014D7 /* Timer.hpp */,
 				2C5043C126512B1900E36D08 /* ToastNotification.hpp */,
 				2C5043C026512B1900E36D08 /* ToastNotificationItem.hpp */,
@@ -9423,6 +9428,14 @@
 				2CED6E522671CA0D000FE5B8 /* SivSimpleAnimation.cpp */,
 			);
 			path = SimpleAnimation;
+			sourceTree = "<group>";
+		};
+		2CED6E5526720244000FE5B8 /* TimeProfiler */ = {
+			isa = PBXGroup;
+			children = (
+				2CED6E5626720244000FE5B8 /* SivTimeProfiler.cpp */,
+			);
+			path = TimeProfiler;
 			sourceTree = "<group>";
 		};
 		2CF21CF5249FAA8F00C864C9 /* macOS */ = {
@@ -11019,6 +11032,7 @@
 				2CDD4F37260A3F7100A51D68 /* P2PivotJointDetail.cpp in Sources */,
 				2C834DB6248805D4006208B8 /* onig_init.c in Sources */,
 				2C9FFE9525F66DCA000723D8 /* ImagePainting.cpp in Sources */,
+				2CED6E5726720244000FE5B8 /* SivTimeProfiler.cpp in Sources */,
 				2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */,
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
