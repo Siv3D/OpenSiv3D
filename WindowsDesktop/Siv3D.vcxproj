@@ -169,6 +169,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InputGroup.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Int128.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Interpolation.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\IPv4Address.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IReader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ISteadyClock.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\IWriter.ipp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\InputGroup.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InputGroups.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InterpolationAlgorithm.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IPv4Address.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ISteadyClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
@@ -1835,6 +1837,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Int128\SivInt128.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Interpolation\SivInterpolation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormatter\SivIntFormatter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\IPv4Address\SivIPv4Address.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSON\SivJSON.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp" />

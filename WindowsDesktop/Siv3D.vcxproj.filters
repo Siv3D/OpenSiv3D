@@ -1297,6 +1297,9 @@
     <Filter Include="src\Siv3D\TimeProfiler">
       <UniqueIdentifier>{a3b843d4-493b-45dc-8a56-cc44f611c382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\IPv4Address">
+      <UniqueIdentifier>{84dbd56f-e925-4ed0-9eda-3fe795dfdb65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5991,6 +5994,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IPv4Address.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\IPv4Address.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8230,6 +8239,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp">
       <Filter>src\Siv3D\TimeProfiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\IPv4Address\SivIPv4Address.cpp">
+      <Filter>src\Siv3D\IPv4Address</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

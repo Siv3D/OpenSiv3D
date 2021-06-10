@@ -820,6 +820,8 @@
 // Twitter | Twitter
 # include <Siv3D/Twitter.hpp>
 
+# include <Siv3D/IPv4Address.hpp>
+
 //////////////////////////////////////////////////
 //
 //	HTTP 通信 | HTTP communication
