@@ -64,4 +64,15 @@ namespace s3d
 		[[nodiscard]]
 		EngineOption::Renderer GetRendererType();
 	}
+
+# if SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web::System
+	{
+		/// @brief ゲームループごとに呼ばれる関数を登録します
+		[[noreturn]] 
+		void SetMainLoop(std::function<void()> mainLoop);
+	}
+
+# endif
 }

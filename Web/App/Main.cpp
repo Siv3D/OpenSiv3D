@@ -16,16 +16,6 @@ void Main()
 
 SIV3D_SET(EngineOption::Renderer::WebGL2)
 
-void RunMainLoop(void* arg)
-{
-	static_cast<const std::function<void()>*>(arg)->operator()();
-}
-
-void SetMainLoop(std::function<void()> mainLoop)
-{
-	emscripten_set_main_loop_arg(RunMainLoop, reinterpret_cast<void*>(&mainLoop), 0, 1);
-}
-
 void Main()
 {
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
@@ -33,7 +23,7 @@ void Main()
 	Window::SetStyle(WindowStyle::Sizable);
 	Window::Resize(1280, 720);
 
-	SetMainLoop([&]() 
+	Platform::Web::System::SetMainLoop([&]() 
 	{
 		System::Update();
 
