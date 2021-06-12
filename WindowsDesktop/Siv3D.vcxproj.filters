@@ -6015,6 +6015,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\stduuid\uuid.h">
       <Filter>src\ThirdParty\stduuid</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\UUID.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

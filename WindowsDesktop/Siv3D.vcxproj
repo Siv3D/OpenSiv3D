@@ -274,6 +274,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\UnicodeConverter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility_detail.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\UUID.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector3D.ipp" />

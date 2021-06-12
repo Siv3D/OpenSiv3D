@@ -16,7 +16,7 @@
 #include <numeric>
 #include <atomic>
 
-# if  __has_include(<span>)
+# if defined(__cpp_lib_span) && __has_include(<span>)
 #	include <span>
 # else
 #   include <gsl/span>
