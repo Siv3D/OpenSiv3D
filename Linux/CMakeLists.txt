@@ -428,6 +428,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/UnicodeConverter/SivUnicodeConverter.cpp
   ../Siv3D/src/Siv3D/UserAction/CUserAction.cpp
   ../Siv3D/src/Siv3D/UserAction/UserActionFactory.cpp
+  ../Siv3D/src/Siv3D/UUID/SivUUID.cpp
   ../Siv3D/src/Siv3D/Vector2D/SivVector2D.cpp
   ../Siv3D/src/Siv3D/Vector3D/SivVector3D.cpp
   ../Siv3D/src/Siv3D/Vector4D/SivVector4D.cpp

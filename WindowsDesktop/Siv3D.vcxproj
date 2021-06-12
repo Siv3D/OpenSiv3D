@@ -1535,6 +1535,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\soloud\src\backend\miniaudio\miniaudio.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\stduuid\uuid.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
@@ -1994,6 +1995,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\UnicodeUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UserAction\CUserAction.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UserAction\UserActionFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\UUID\SivUUID.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
@@ -2341,6 +2343,15 @@
     <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathMisc.inl" />
     <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXMathVector.inl" />
     <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXPackedVector.inl" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_algorithm" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_assert" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_byte" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_util" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\multi_span" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\pointers" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\span" />
+    <None Include="..\Siv3D\src\ThirdParty\gsl\string_span" />
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

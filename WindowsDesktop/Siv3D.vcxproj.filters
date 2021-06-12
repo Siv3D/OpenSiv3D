@@ -1300,6 +1300,15 @@
     <Filter Include="src\Siv3D\IPv4Address">
       <UniqueIdentifier>{84dbd56f-e925-4ed0-9eda-3fe795dfdb65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\UUID">
+      <UniqueIdentifier>{cbfc11c1-9854-4174-92ef-47b8f70444ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\stduuid">
+      <UniqueIdentifier>{3ce79076-f7c0-45b7-b9d1-2ec982dcc828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\gsl">
+      <UniqueIdentifier>{31c8e05a-69b5-46c9-90fa-612db6801dac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6003,6 +6012,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\UUID.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\stduuid\uuid.h">
+      <Filter>src\ThirdParty\stduuid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8246,6 +8258,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\IPv4Address\SivIPv4Address.cpp">
       <Filter>src\Siv3D\IPv4Address</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\UUID\SivUUID.cpp">
+      <Filter>src\Siv3D\UUID</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">
@@ -8268,6 +8283,33 @@
     </None>
     <None Include="..\Siv3D\include\ThirdParty\DirectXMath\DirectXCollision.inl">
       <Filter>include\ThirdParty\DirectXMath</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_assert">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_byte">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_util">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\multi_span">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\pointers">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\span">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\string_span">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl">
+      <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_algorithm">
+      <Filter>src\ThirdParty\gsl</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -12,11 +12,22 @@
 # pragma once
 # include <array>
 # include "Common.hpp"
+# include "StringView.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
 	struct UUID
 	{
 		std::array<uint8, 16> data{};
+
+		[[nodiscard]]
+		static UUID Generate();
+
+		[[nodiscard]]
+		static UUID FromRNG();
+
+		[[nodiscard]]
+		static Optional<UUID> Parse(StringView uuid);
 	};
 }

@@ -30,6 +30,7 @@ Name | Version
 [GLEW](https://github.com/nigels-com/glew) | 2.2.0
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [GMGSx.sf2](http://www.synthfont.com/) | 
+[GSL](https://github.com/microsoft/GSL) | 
 [HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 2.7.4
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
@@ -75,6 +76,7 @@ Name | Version
 [SoundTouch](https://gitlab.com/soundtouch/soundtouch) | 2.1.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
+[stduuid](https://github.com/mariusbancila/stduuid) | 
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [TinySoundFont](https://github.com/schellingb/TinySoundFont) | 
