@@ -950,6 +950,8 @@
 		2C60F9252667F0F500FFAA68 /* SivRDTSCClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */; };
 		2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C6106E224DB04E300BDEF72 /* xxhash.h */; };
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
+		2C62196526750F3A0088B175 /* SivUUID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C62196426750F3A0088B175 /* SivUUID.cpp */; };
+		2C62197226750F6A0088B175 /* uuid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C62197126750F6A0088B175 /* uuid.h */; };
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
 		2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */; };
 		2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */; };
@@ -2954,6 +2956,18 @@
 		2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRDTSCClock.cpp; sourceTree = "<group>"; };
 		2C6106E224DB04E300BDEF72 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem_macOS.mm; sourceTree = "<group>"; };
+		2C62196226750F220088B175 /* UUID.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UUID.hpp; sourceTree = "<group>"; };
+		2C62196426750F3A0088B175 /* SivUUID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUUID.cpp; sourceTree = "<group>"; };
+		2C62196726750F550088B175 /* gsl_util */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_util; sourceTree = "<group>"; };
+		2C62196826750F550088B175 /* gsl_assert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_assert; sourceTree = "<group>"; };
+		2C62196926750F550088B175 /* span */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = span; sourceTree = "<group>"; };
+		2C62196A26750F550088B175 /* gsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl; sourceTree = "<group>"; };
+		2C62196B26750F550088B175 /* pointers */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pointers; sourceTree = "<group>"; };
+		2C62196C26750F550088B175 /* gsl_algorithm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_algorithm; sourceTree = "<group>"; };
+		2C62196D26750F550088B175 /* gsl_byte */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_byte; sourceTree = "<group>"; };
+		2C62196E26750F550088B175 /* multi_span */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multi_span; sourceTree = "<group>"; };
+		2C62196F26750F550088B175 /* string_span */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_span; sourceTree = "<group>"; };
+		2C62197126750F6A0088B175 /* uuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid.h; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
 		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
 		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
@@ -5135,6 +5149,7 @@
 				2C4CBE4E24370FFA00F8B7A6 /* GL */,
 				2C4CBE572437100100F8B7A6 /* GLEW */,
 				2C4231D9242B155E00A16BCA /* GLFW */,
+				2C62196626750F550088B175 /* gsl */,
 				2C60AE22248158A400277281 /* infoware */,
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
 				2C13C95E25BD29FC0054B968 /* lua */,
@@ -5156,6 +5171,7 @@
 				2C636D992657F7D200AF029F /* soloud */,
 				2CF962F725A7F9AB006F55C9 /* SplineLib */,
 				2C4397852535DDF300F6AECD /* stb */,
+				2C62197026750F6A0088B175 /* stduuid */,
 				2C27AA0D257D37BB00756617 /* tinycolormap */,
 				2C5337D92650BB5500CE0F1B /* TinySoundFont */,
 				2C4AEF842635CACB00D36CFC /* tinyxml */,
@@ -5674,6 +5690,7 @@
 				2C47B26524DD9789008D83BE /* Unicode */,
 				2C47B28024DD9789008D83BE /* UnicodeConverter */,
 				2C47B2A324DD9789008D83BE /* UserAction */,
+				2C62196326750F3A0088B175 /* UUID */,
 				2C47B23624DD9789008D83BE /* Vector2D */,
 				2C47B2EE24DD9789008D83BE /* Vector3D */,
 				2C47B2AA24DD9789008D83BE /* Vector4D */,
@@ -7473,6 +7490,38 @@
 			path = xxHash;
 			sourceTree = "<group>";
 		};
+		2C62196326750F3A0088B175 /* UUID */ = {
+			isa = PBXGroup;
+			children = (
+				2C62196426750F3A0088B175 /* SivUUID.cpp */,
+			);
+			path = UUID;
+			sourceTree = "<group>";
+		};
+		2C62196626750F550088B175 /* gsl */ = {
+			isa = PBXGroup;
+			children = (
+				2C62196726750F550088B175 /* gsl_util */,
+				2C62196826750F550088B175 /* gsl_assert */,
+				2C62196926750F550088B175 /* span */,
+				2C62196A26750F550088B175 /* gsl */,
+				2C62196B26750F550088B175 /* pointers */,
+				2C62196C26750F550088B175 /* gsl_algorithm */,
+				2C62196D26750F550088B175 /* gsl_byte */,
+				2C62196E26750F550088B175 /* multi_span */,
+				2C62196F26750F550088B175 /* string_span */,
+			);
+			path = gsl;
+			sourceTree = "<group>";
+		};
+		2C62197026750F6A0088B175 /* stduuid */ = {
+			isa = PBXGroup;
+			children = (
+				2C62197126750F6A0088B175 /* uuid.h */,
+			);
+			path = stduuid;
+			sourceTree = "<group>";
+		};
 		2C636D8126577BFE00AF029F /* Microphone */ = {
 			isa = PBXGroup;
 			children = (
@@ -8862,6 +8911,7 @@
 				2C5C0F0C266DFF06009C430B /* URLView.hpp */,
 				2CAAA75225E7FD0200C014D7 /* UserAction.hpp */,
 				2CAAA70525E7FD0200C014D7 /* Utility.hpp */,
+				2C62196226750F220088B175 /* UUID.hpp */,
 				2CAAA76F25E7FD0200C014D7 /* VariableSpeedStopwatch.hpp */,
 				2CAAA75B25E7FD0200C014D7 /* Vector2D.hpp */,
 				2CAAA73725E7FD0200C014D7 /* Vector3D.hpp */,
@@ -10141,6 +10191,7 @@
 				2C4A287C25EB468600FEACE4 /* IGUI.hpp in Headers */,
 				2C43C8BC25C837F100D6D613 /* ftimage.h in Headers */,
 				2CF21D1C249FAA8F00C864C9 /* CSystem.hpp in Headers */,
+				2C62197226750F6A0088B175 /* uuid.h in Headers */,
 				2C48BEEE25CFB8C500A93CE3 /* Shape.h in Headers */,
 				2C439F472419D686001154C2 /* format-inl.h in Headers */,
 				2C13C8C325B8FA9D0054B968 /* DetourStatus.h in Headers */,
@@ -11070,6 +11121,7 @@
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
 				2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */,
+				2C62196526750F3A0088B175 /* SivUUID.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
 				2C47B5B124E7670A008D83BE /* CTexture_Null.cpp in Sources */,
