@@ -21,6 +21,24 @@ namespace s3d
 	{
 	public:
 
+		enum class Variant
+		{
+			NCS,
+			RFC,
+			Microsoft,
+			Reserved,
+		};
+
+		enum class Version
+		{
+			Nil,
+			TimeBased,
+			DCE,
+			NameBasedMD5,
+			Random,
+			NameBasedSHA1,
+		};
+
 		using value_type = uint8;
 
 		SIV3D_NODISCARD_CXX20
@@ -39,28 +57,34 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool isNil() const noexcept;
 
-		//variant
+		[[nodiscard]]
+		Variant variant() const noexcept;
 
-		//version
+		[[nodiscard]]
+		Version version() const noexcept;
+
+		[[nodiscard]]
+		String toStr() const;
 
 		void swap(UUID& other);
 
-		//String toStr() const;
+		[[nodiscard]]
+		size_t hash() const noexcept;
 
 		[[nodiscard]]
-		friend constexpr bool operator ==(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator ==(const UUID& lhs, const UUID& rhs) noexcept
 		{
 			return (lhs.m_data == rhs.m_data);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator !=(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator !=(const UUID& lhs, const UUID& rhs) noexcept
 		{
 			return (lhs.m_data != rhs.m_data);
 		}
 
 		[[nodiscard]]
-		friend constexpr bool operator <(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator <(const UUID& lhs, const UUID& rhs) noexcept
 		{
 			return (lhs.m_data < rhs.m_data);
 		}
@@ -77,10 +101,59 @@ namespace s3d
 		[[nodiscard]]
 		static Optional<UUID> Parse(StringView uuid);
 
+		friend void Formatter(FormatData& formatData, const UUID& value)
+		{
+			formatData.string.append(value.toStr());
+		}
+
 	private:
 
 		std::array<uint8, 16> m_data{};
 	};
 }
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::UUID& value, FormatContext& ctx)
+	{
+		const s3d::String s = value.toStr();
+		const basic_string_view<s3d::char32> sv(s.data(), s.size());
+
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), sv);
+		}
+		else
+		{
+			const std::u32string format = (U"{:" + tag + U'}');
+			return format_to(ctx.out(), format, sv);
+		}
+	}
+};
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+template <>
+struct std::hash<s3d::UUID>
+{
+	[[nodiscard]]
+	size_t operator()(const s3d::UUID& value) const noexcept
+	{
+		return value.hash();
+	}
+};
 
 # include "detail/UUID.ipp"

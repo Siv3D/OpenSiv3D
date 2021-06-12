@@ -42,4 +42,9 @@ namespace s3d
 	{
 		m_data.swap(other.m_data);
 	}
+
+	inline size_t UUID::hash() const noexcept
+	{
+		return Hash::FNV1a(m_data);
+	}
 }
