@@ -64,7 +64,13 @@ namespace s3d
 		Version version() const noexcept;
 
 		[[nodiscard]]
-		String toStr() const;
+		std::string to_string() const;
+
+		[[nodiscard]]
+		String str() const;
+
+		[[nodiscard]]
+		constexpr const std::array<value_type, 16>& getData() const noexcept;
 
 		void swap(UUID& other);
 
@@ -93,7 +99,34 @@ namespace s3d
 		static UUID Generate();
 
 		[[nodiscard]]
-		static UUID FromRNG();
+		static UUID GenerateFromRNG(DefaultRNG& rng = GetDefaultRNG());
+
+		[[nodiscard]]
+		static UUID GenerateFromName(const UUID& namespaceUUID, const std::string& s);
+
+		[[nodiscard]]
+		static UUID GenerateFromName(const UUID& namespaceUUID, const String& s);
+
+		[[nodiscard]]
+		static UUID Nil();
+
+		[[nodiscard]]
+		static UUID NamespaceDNS() noexcept;
+
+		[[nodiscard]]
+		static UUID NamespaceURL() noexcept;
+
+		[[nodiscard]]
+		static UUID NamespaceOID() noexcept;
+
+		[[nodiscard]]
+		static UUID NamespaceX500() noexcept;
+
+		[[nodiscard]]
+		static bool IsValid(std::string_view uuid);
+
+		[[nodiscard]]
+		static bool IsValid(StringView uuid);
 
 		[[nodiscard]]
 		static Optional<UUID> Parse(std::string_view uuid);
@@ -101,14 +134,20 @@ namespace s3d
 		[[nodiscard]]
 		static Optional<UUID> Parse(StringView uuid);
 
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const UUID& value)
+		{
+			return (output << value.str());
+		}
+
 		friend void Formatter(FormatData& formatData, const UUID& value)
 		{
-			formatData.string.append(value.toStr());
+			formatData.string.append(value.str());
 		}
 
 	private:
 
-		std::array<uint8, 16> m_data{};
+		std::array<value_type, 16> m_data{};
 	};
 }
 
@@ -125,7 +164,7 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
 	template <class FormatContext>
 	auto format(const s3d::UUID& value, FormatContext& ctx)
 	{
-		const s3d::String s = value.toStr();
+		const s3d::String s = value.str();
 		const basic_string_view<s3d::char32> sv(s.data(), s.size());
 
 		if (tag.empty())
@@ -140,12 +179,6 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
 	}
 };
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
 template <>
 struct std::hash<s3d::UUID>
 {
@@ -155,5 +188,8 @@ struct std::hash<s3d::UUID>
 		return value.hash();
 	}
 };
+
+template <>
+inline void std::swap(s3d::UUID& a, s3d::UUID& b) noexcept;
 
 # include "detail/UUID.ipp"

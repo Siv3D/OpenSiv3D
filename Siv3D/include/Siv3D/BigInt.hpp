@@ -824,10 +824,10 @@ namespace s3d
 		explicit operator BigFloat() const;
 
 		[[nodiscard]]
-		std::string stdStr() const;
+		std::string to_string() const;
 
 		[[nodiscard]]
-		std::wstring stdWstr() const;
+		std::wstring to_wstring() const;
 
 		[[nodiscard]]
 		String str() const;

@@ -603,7 +603,7 @@ namespace s3d
 		return this->pImpl->data.convert_to<long double>();
 	}
 
-	std::string BigFloat::stdStr() const
+	std::string BigFloat::to_string() const
 	{
 		std::string result = pImpl->data.str(0, std::ios_base::fixed);
 
@@ -628,7 +628,7 @@ namespace s3d
 		return result;
 	}
 
-	std::wstring BigFloat::stdWstr() const
+	std::wstring BigFloat::to_wstring() const
 	{
 		const std::string str = pImpl->data.str();
 
@@ -637,7 +637,7 @@ namespace s3d
 
 	String BigFloat::str() const
 	{
-		const std::string t = stdStr();
+		const std::string t = to_string();
 
 		return String(t.begin(), t.end());
 	}

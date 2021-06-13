@@ -30,7 +30,7 @@ namespace s3d
 		constexpr bool isPrivate() const noexcept;
 
 		[[nodiscard]]
-		String toStr() const;
+		String str() const;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;

@@ -764,12 +764,12 @@ namespace s3d
 		return asBigFloat();
 	}
 
-	std::string BigInt::stdStr() const
+	std::string BigInt::to_string() const
 	{
 		return pImpl->data.str();
 	}
 
-	std::wstring BigInt::stdWstr() const
+	std::wstring BigInt::to_wstring() const
 	{
 		const std::string str = pImpl->data.str();
 
@@ -778,7 +778,8 @@ namespace s3d
 
 	String BigInt::str() const
 	{
-		const std::string t = stdStr();
+		const std::string t = to_string();
+
 		return String(t.begin(), t.end());
 	}
 

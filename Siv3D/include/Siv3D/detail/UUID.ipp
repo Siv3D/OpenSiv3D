@@ -38,6 +38,11 @@ namespace s3d
 		return true;
 	}
 
+	inline constexpr const std::array<UUID::value_type, 16>& UUID::getData() const noexcept
+	{
+		return m_data;
+	}
+
 	inline void UUID::swap(UUID& other)
 	{
 		m_data.swap(other.m_data);
@@ -47,4 +52,10 @@ namespace s3d
 	{
 		return Hash::FNV1a(m_data);
 	}
+}
+
+template <>
+void std::swap(s3d::UUID& a, s3d::UUID& b) noexcept
+{
+	a.swap(b);
 }
