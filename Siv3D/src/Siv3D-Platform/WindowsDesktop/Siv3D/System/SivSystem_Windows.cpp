@@ -56,15 +56,17 @@ namespace s3d
 
 		bool ShowInFileManager(const FilePathView path)
 		{
-			if (FileSystem::IsFile(path))
+			const FilePath fullPath = FileSystem::FullPath(path);
+
+			if (FileSystem::IsFile(fullPath))
 			{
-				const String param = U"/select," + FileSystem::FullPath(path).replace(U'/', U'\\');
+				const String param = U"/select," + fullPath.replaced(U'/', U'\\');
 
 				return (reinterpret_cast<int64>(::ShellExecuteW(nullptr, L"open", L"explorer.exe", param.toWstr().c_str(), nullptr, SW_SHOWNORMAL)) > 32);
 			}
-			else if (FileSystem::IsDirectory(path))
+			else if (FileSystem::IsDirectory(fullPath))
 			{
-				return (reinterpret_cast<int64>(::ShellExecuteW(nullptr, L"explore", path.toWstr().c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32);
+				return (reinterpret_cast<int64>(::ShellExecuteW(nullptr, L"explore", fullPath.toWstr().c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32);
 			}
 
 			return false;
