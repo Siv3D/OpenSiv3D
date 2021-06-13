@@ -53,5 +53,21 @@ namespace s3d
 
 			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, L"open", url.toWstr().c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
 		}
+
+		bool ShowInFileManager(const FilePathView path)
+		{
+			if (FileSystem::IsFile(path))
+			{
+				const String param = U"/select," + FileSystem::FullPath(path).replace(U'/', U'\\');
+
+				return (reinterpret_cast<int64>(::ShellExecuteW(nullptr, L"open", L"explorer.exe", param.toWstr().c_str(), nullptr, SW_SHOWNORMAL)) > 32);
+			}
+			else if (FileSystem::IsDirectory(path))
+			{
+				return (reinterpret_cast<int64>(::ShellExecuteW(nullptr, L"explore", path.toWstr().c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32);
+			}
+
+			return false;
+		}
 	}
 }

@@ -57,6 +57,8 @@ namespace s3d
 		/// @return オープンに成功した場合 true, それ以外の場合は false
 		bool LaunchBrowser(FilePathView url);
 
+		bool ShowInFileManager(FilePathView path);
+
 		/// @brief レンダラーの設定を返します。
 		/// @return レンダラーの設定
 		[[nodiscard]]
