@@ -1309,6 +1309,18 @@
     <Filter Include="src\ThirdParty\gsl">
       <UniqueIdentifier>{31c8e05a-69b5-46c9-90fa-612db6801dac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\Wintab">
+      <UniqueIdentifier>{203e2b28-59dd-42ec-9423-6c43f2f46317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Pentablet">
+      <UniqueIdentifier>{fd5f0ed5-96a9-42a0-8b86-70c256171db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Pentablet\Null">
+      <UniqueIdentifier>{574aac01-a242-4f7c-9658-57b542acd5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet">
+      <UniqueIdentifier>{a665fa75-df94-42ec-9cf0-2eb5373d8984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6018,6 +6030,24 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\UUID.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\MSGPACK.H">
+      <Filter>src\ThirdParty\Wintab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\PKTDEF.H">
+      <Filter>src\ThirdParty\Wintab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\WINTAB.H">
+      <Filter>src\ThirdParty\Wintab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Pentablet.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.hpp">
+      <Filter>src\Siv3D\Pentablet\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\IPentablet.hpp">
+      <Filter>src\Siv3D\Pentablet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8266,6 +8296,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Shader\SivShader_D3D11.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.cpp">
+      <Filter>src\Siv3D\Pentablet\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\SivPentablet.cpp">
+      <Filter>src\Siv3D\Pentablet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\PentabletFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,7 @@
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Gamepad/IGamepad.hpp>
+# include <Siv3D/Pentablet/IPentablet.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>

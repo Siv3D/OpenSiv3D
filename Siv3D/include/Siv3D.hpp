@@ -1085,6 +1085,8 @@
 // XInput コントローラ | XInput controller
 # include <Siv3D/XInput.hpp>
 
+# include <Siv3D/Pentablet.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Web カメラ | Webcam

@@ -33,6 +33,7 @@ namespace s3d
 	class ISiv3DMouse;
 	class ISiv3DXInput;
 	class ISiv3DGamepad;
+	class ISiv3DPentablet;
 	class ISiv3DTextInput;
 	class ISiv3DClipboard;
 	class ISiv3DDragDrop;
@@ -82,6 +83,7 @@ namespace s3d
 			Siv3DComponent<ISiv3DMouse>,
 			Siv3DComponent<ISiv3DXInput>,
 			Siv3DComponent<ISiv3DGamepad>,
+			Siv3DComponent<ISiv3DPentablet>,
 			Siv3DComponent<ISiv3DTextInput>,
 			Siv3DComponent<ISiv3DClipboard>,
 			Siv3DComponent<ISiv3DDragDrop>,

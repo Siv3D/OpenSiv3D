@@ -425,6 +425,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Pentablet.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImagePixelFormat.hpp" />
@@ -1033,6 +1034,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\IPentablet.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2BodyDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2ContactListener.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2DistanceJointDetail.hpp" />
@@ -1541,6 +1544,9 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\MSGPACK.H" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\PKTDEF.H" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Wintab\WINTAB.H" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\xxHash\xxhash.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zlib\zconf.h" />
@@ -1630,6 +1636,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\MessageBox\SivMessageBox_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Monitor\SivMonitor_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mouse\CMouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\PentabletFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\PowerStatus\SivPowerStatus.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommand.cpp" />
@@ -1879,6 +1886,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\SivPentablet.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Body.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2BodyDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Circle.cpp" />
