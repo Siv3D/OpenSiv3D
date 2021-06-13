@@ -894,6 +894,11 @@
 		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
 		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
 		2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6797265F315500FAA651 /* SivDLL.cpp */; };
+		2C5CD8CB26761A6A004E290F /* PentabletFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CD8CA26761A6A004E290F /* PentabletFactory.cpp */; };
+		2C5CD8D226761A92004E290F /* SivPentablet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CD8CD26761A91004E290F /* SivPentablet.cpp */; };
+		2C5CD8D326761A92004E290F /* CPentablet_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5CD8CF26761A91004E290F /* CPentablet_Null.hpp */; };
+		2C5CD8D426761A92004E290F /* CPentablet_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */; };
+		2C5CD8D526761A92004E290F /* IPentablet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5CD8D126761A91004E290F /* IPentablet.hpp */; };
 		2C5D9DD3266159CD00D81870 /* NetworkFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */; };
 		2C5D9DD4266159CD00D81870 /* CNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D9DD0266159CD00D81870 /* CNetwork.cpp */; };
 		2C5D9DD5266159CD00D81870 /* INetwork.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5D9DD1266159CD00D81870 /* INetwork.hpp */; };
@@ -2887,6 +2892,12 @@
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
 		2C5CD8C72675E43E004E290F /* UUID.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UUID.ipp; sourceTree = "<group>"; };
+		2C5CD8C826761A47004E290F /* Pentablet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pentablet.hpp; sourceTree = "<group>"; };
+		2C5CD8CA26761A6A004E290F /* PentabletFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PentabletFactory.cpp; sourceTree = "<group>"; };
+		2C5CD8CD26761A91004E290F /* SivPentablet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPentablet.cpp; sourceTree = "<group>"; };
+		2C5CD8CF26761A91004E290F /* CPentablet_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPentablet_Null.hpp; sourceTree = "<group>"; };
+		2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPentablet_Null.cpp; sourceTree = "<group>"; };
+		2C5CD8D126761A91004E290F /* IPentablet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPentablet.hpp; sourceTree = "<group>"; };
 		2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkFactory.cpp; sourceTree = "<group>"; };
 		2C5D9DD0266159CD00D81870 /* CNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CNetwork.cpp; sourceTree = "<group>"; };
 		2C5D9DD1266159CD00D81870 /* INetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = INetwork.hpp; sourceTree = "<group>"; };
@@ -5631,6 +5642,7 @@
 				2C47B24B24DD9789008D83BE /* ParseBool */,
 				2C47B28624DD9789008D83BE /* ParseFloat */,
 				2C47B25B24DD9789008D83BE /* ParseInt */,
+				2C5CD8CC26761A91004E290F /* Pentablet */,
 				2CDD4F0F260A3F7100A51D68 /* Physics2D */,
 				2C47B6C924EAC818008D83BE /* PixelShader */,
 				2C47B27A24DD9789008D83BE /* Point */,
@@ -7238,6 +7250,33 @@
 			path = DLL;
 			sourceTree = "<group>";
 		};
+		2C5CD8C926761A6A004E290F /* Pentablet */ = {
+			isa = PBXGroup;
+			children = (
+				2C5CD8CA26761A6A004E290F /* PentabletFactory.cpp */,
+			);
+			path = Pentablet;
+			sourceTree = "<group>";
+		};
+		2C5CD8CC26761A91004E290F /* Pentablet */ = {
+			isa = PBXGroup;
+			children = (
+				2C5CD8CD26761A91004E290F /* SivPentablet.cpp */,
+				2C5CD8CE26761A91004E290F /* Null */,
+				2C5CD8D126761A91004E290F /* IPentablet.hpp */,
+			);
+			path = Pentablet;
+			sourceTree = "<group>";
+		};
+		2C5CD8CE26761A91004E290F /* Null */ = {
+			isa = PBXGroup;
+			children = (
+				2C5CD8CF26761A91004E290F /* CPentablet_Null.hpp */,
+				2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */,
+			);
+			path = Null;
+			sourceTree = "<group>";
+		};
 		2C5D9DCE266159CD00D81870 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -7898,6 +7937,7 @@
 				2CC584422646319400C33E9F /* MemoryMappedFileView */,
 				2CF2AF8725542C5900E81D12 /* Monitor */,
 				2CB7D4EB2556E247007EB42E /* Mouse */,
+				2C5CD8C926761A6A004E290F /* Pentablet */,
 				2C68508024B768A800B98A7F /* System */,
 				2C68507A24B768A800B98A7F /* Unicode */,
 				2CB749EB261F52C200D31274 /* XInput */,
@@ -8535,6 +8575,7 @@
 		2CAAA6E625E7FD0200C014D7 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C5CD8C826761A47004E290F /* Pentablet.hpp */,
 				2CAAA74B25E7FD0200C014D7 /* 2DShapes.hpp */,
 				2CAAA86925E7FD0300C014D7 /* 2DShapesFwd.hpp */,
 				2C063D2C26612A3500368BEE /* AABB.hpp */,
@@ -10252,6 +10293,7 @@
 				2C533794264F5AA200CE0F1B /* zstd_compress_literals.h in Headers */,
 				2C4AEF882635CACB00D36CFC /* tinyxml2.h in Headers */,
 				2C636E512657F7D300AF029F /* soloud_fader.h in Headers */,
+				2C5CD8D526761A92004E290F /* IPentablet.hpp in Headers */,
 				2C47B5B324E7670A008D83BE /* ITexture.hpp in Headers */,
 				2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */,
 				2C53379B264F5AA200CE0F1B /* zstd_compress_superblock.h in Headers */,
@@ -10415,6 +10457,7 @@
 				2CC5845F2646DC5800C33E9F /* CAudioDecoder.hpp in Headers */,
 				2C48BF7525D41C0D00A93CE3 /* GlyphCacheCommon.hpp in Headers */,
 				2C48BF6E25D41C0D00A93CE3 /* MSDFGlyphRenderer.hpp in Headers */,
+				2C5CD8D326761A92004E290F /* CPentablet_Null.hpp in Headers */,
 				2C13C8B625B8FA9D0054B968 /* DetourNavMeshQuery.h in Headers */,
 				2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */,
 				2CFE19A92555B23C005826A1 /* IKeyboard.hpp in Headers */,
@@ -11181,6 +11224,7 @@
 				2C60AE86248158A500277281 /* kernel_info_non_windows.cpp in Sources */,
 				2C9566BF2645626000539B85 /* mz_strm_os_posix.c in Sources */,
 				2C13C9D225BD29FC0054B968 /* lparser.c in Sources */,
+				2C5CD8D426761A92004E290F /* CPentablet_Null.cpp in Sources */,
 				2C13C9B625BD29FC0054B968 /* lctype.c in Sources */,
 				2C47B33C24DD9789008D83BE /* SystemLog.cpp in Sources */,
 				2C5337C5264F5AA200CE0F1B /* error_private.c in Sources */,
@@ -11234,6 +11278,7 @@
 				2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */,
 				2C48BEE125CFB8C500A93CE3 /* rasterization.cpp in Sources */,
 				2C48BF6B25D41C0D00A93CE3 /* BitmapGlyphRenderer.cpp in Sources */,
+				2C5CD8D226761A92004E290F /* SivPentablet.cpp in Sources */,
 				2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */,
 				2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */,
 				2C636EB02657F7D300AF029F /* tts.cpp in Sources */,
@@ -11373,6 +11418,7 @@
 				2C13C9C825BD29FC0054B968 /* lcorolib.c in Sources */,
 				2C2AA3A726009C74003F3EBC /* b2_dynamic_tree.cpp in Sources */,
 				2C48BF6D25D41C0D00A93CE3 /* OutlineGlyphRenderer.cpp in Sources */,
+				2C5CD8CB26761A6A004E290F /* PentabletFactory.cpp in Sources */,
 				2CC584612646DC5800C33E9F /* SivAudioDecoder.cpp in Sources */,
 				2C2AA38E26009C74003F3EBC /* b2_timer.cpp in Sources */,
 				2C956659264546F700539B85 /* maskelement.cpp in Sources */,
