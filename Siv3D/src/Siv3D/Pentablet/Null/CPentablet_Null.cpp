@@ -33,4 +33,14 @@ namespace s3d
 	{
 
 	}
+
+	bool CPentablet_Null::isAvailable()
+	{
+		return false;
+	}
+
+	const PentabletState& CPentablet_Null::getState()
+	{
+		return nullState;
+	}
 }

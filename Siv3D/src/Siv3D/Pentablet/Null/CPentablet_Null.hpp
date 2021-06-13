@@ -27,7 +27,12 @@ namespace s3d
 
 		void update() override;
 
+		bool isAvailable() override;
+
+		const PentabletState& getState() override;
+
 	private:
 
+		PentabletState nullState;
 	};
 }

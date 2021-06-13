@@ -10,12 +10,12 @@
 //-----------------------------------------------
 
 # include <Siv3D/ApplicationOptions.hpp>
-# include <Siv3D/Pentablet/Null/CPentablet_Null.hpp>
+# include <Siv3D/Pentablet/Pentablet/CPentablet.hpp>
 
 namespace s3d
 {
 	ISiv3DPentablet* ISiv3DPentablet::Create()
 	{
-		return new CPentablet_Null;
+		return new CPentablet;
 	}
 }

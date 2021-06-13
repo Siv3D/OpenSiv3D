@@ -1321,6 +1321,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet">
       <UniqueIdentifier>{a665fa75-df94-42ec-9cf0-2eb5373d8984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\Pentablet">
+      <UniqueIdentifier>{414abcb4-a4a2-4e51-a573-69603994a4ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6048,6 +6051,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\IPentablet.hpp">
       <Filter>src\Siv3D\Pentablet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\Pentablet\CPentablet.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\Pentablet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8305,6 +8311,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\PentabletFactory.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\Pentablet\CPentablet.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Pentablet\Pentablet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

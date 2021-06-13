@@ -25,6 +25,7 @@
 # include <Siv3D/Mouse/IMouse.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/Gamepad/IGamepad.hpp>
+# include <Siv3D/Pentablet/IPentablet.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
 # include <Siv3D/Clipboard/IClipboard.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
@@ -104,6 +105,7 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->init();
 		SIV3D_ENGINE(XInput)->init();
 		SIV3D_ENGINE(Gamepad)->init();
+		SIV3D_ENGINE(Pentablet)->init();
 		SIV3D_ENGINE(Clipboard)->init();
 		AsyncTask<bool> threadDragDrop{ []()
 			{
@@ -182,6 +184,7 @@ namespace s3d
 		SIV3D_ENGINE(Mouse)->update();
 		SIV3D_ENGINE(XInput)->update(onDeviceChange);
 		SIV3D_ENGINE(Gamepad)->update();
+		SIV3D_ENGINE(Pentablet)->update();
 		SIV3D_ENGINE(TextInput)->update();
 		SIV3D_ENGINE(DragDrop)->update();
 		SIV3D_ENGINE(Effect)->update();
