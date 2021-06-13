@@ -128,6 +128,7 @@ namespace s3d
 			}
 
 			::wsprintfW(context.lcName, L"Siv3D Wintab %p", ::GetModuleHandleW(nullptr));
+			context.lcOptions	|= CXO_SYSTEM;
 			context.lcPktData	= PACKETDATA;
 			context.lcPktMode	= PACKETMODE;
 			context.lcMoveMask	= PACKETDATA;
