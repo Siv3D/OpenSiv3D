@@ -8264,6 +8264,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\UUID\SivUUID.cpp">
       <Filter>src\Siv3D\UUID</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Shader\SivShader_D3D11.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">

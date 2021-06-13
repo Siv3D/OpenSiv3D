@@ -103,5 +103,8 @@ namespace s3d
 
 		// HLSL シェーダコンパイラが利用可能かを返す
 		bool hasHLSLCompiler() const noexcept;
+
+		// HLSL ファイルをコンパイルしてコンパイル結果をファイルに保存
+		bool compileHLSLToFile(FilePathView hlslFilePath, FilePathView toFilePath, ShaderStage stage, StringView entryPoint, Platform::Windows::HLSLCompileOption flags) const;
 	};
 }

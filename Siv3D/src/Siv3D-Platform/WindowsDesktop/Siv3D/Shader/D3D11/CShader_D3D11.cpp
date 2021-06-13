@@ -292,6 +292,18 @@ namespace s3d
 		return *m_D3DCompile2Available;
 	}
 
+	bool CShader_D3D11::compileHLSLToFile(const FilePathView hlslFilePath, const FilePathView toFilePath, const ShaderStage stage, const StringView entryPoint, const Platform::Windows::HLSLCompileOption flags) const
+	{
+		const Blob blob = compileHLSLFromFile(hlslFilePath, stage, entryPoint, flags);
+
+		if (not blob)
+		{
+			return false;
+		}
+
+		return blob.save(toFilePath);
+	}
+
 	void CShader_D3D11::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		assert(slot < D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT);

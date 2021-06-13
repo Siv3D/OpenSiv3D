@@ -12,6 +12,8 @@
 # pragma once
 # include <ThirdParty/EnumBitmask/EnumBitmask.hpp>
 # include "Common.hpp"
+# include "StringView.hpp"
+# include "ShaderStage.hpp"
 
 namespace s3d
 {
@@ -33,11 +35,11 @@ namespace s3d
 		};
 		DEFINE_BITMASK_OPERATORS(HLSLCompileOption);
 
-		//// HLSL コンパイラが利用可能かを調べる
-		//bool IsHLSLCompilerAvailable() noexcept;
+		// HLSL コンパイラが利用可能かを調べる
+		bool IsHLSLCompilerAvailable() noexcept;
 
-		//// HLSL ファイルをコンパイルしてコンパイル結果をファイルに保存
-		//bool CompileHLSLToFile(const FilePath& hlslFilePath, const FilePath& toFilePath, ShaderStage stage, const String& entryPoint, uint32 flags = HLSLCompileOption::Default);
+		// HLSL ファイルをコンパイルしてコンパイル結果をファイルに保存
+		bool CompileHLSLToFile(FilePathView hlslFilePath, FilePathView toFilePath, ShaderStage stage, StringView entryPoint, HLSLCompileOption flags = HLSLCompileOption::Default);
 	}
 
 # endif
