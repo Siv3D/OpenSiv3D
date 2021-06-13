@@ -102,10 +102,10 @@ namespace s3d
 		static UUID GenerateFromRNG(DefaultRNG& rng = GetDefaultRNG());
 
 		[[nodiscard]]
-		static UUID GenerateFromName(const UUID& namespaceUUID, const std::string& s);
+		static UUID GenerateFromName(const UUID& namespaceUUID, const std::string& name);
 
 		[[nodiscard]]
-		static UUID GenerateFromName(const UUID& namespaceUUID, const String& s);
+		static UUID GenerateFromName(const UUID& namespaceUUID, const String& name);
 
 		[[nodiscard]]
 		static UUID Nil();
