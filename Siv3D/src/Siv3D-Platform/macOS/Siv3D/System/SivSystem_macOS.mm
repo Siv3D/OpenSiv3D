@@ -72,5 +72,27 @@ namespace s3d
 				return detail::MacOS_OpenHTMLInBrowser(FileSystem::FullPath(_url).narrow().c_str());
 			}
 		}
+	
+		bool ShowInFileManager(const FilePathView path)
+		{
+			const FilePath fullPath = FileSystem::FullPath(path);
+			
+			if (not FileSystem::Exists(fullPath))
+			{
+				return false;
+			}
+			
+			const std::string pathUTF8 = "file:" + fullPath.toUTF8();
+			
+			@autoreleasepool
+			{
+				NSString* url = [NSString stringWithUTF8String:pathUTF8.c_str()];
+				NSURL* ns_url = [NSURL URLWithString:url];
+				NSArray *fileURLs = [NSArray arrayWithObjects:ns_url, nil];
+				[[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:fileURLs];
+			}
+			
+			return true;
+		}
 	}
 }
