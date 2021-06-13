@@ -2886,6 +2886,7 @@
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
+		2C5CD8C72675E43E004E290F /* UUID.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UUID.ipp; sourceTree = "<group>"; };
 		2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkFactory.cpp; sourceTree = "<group>"; };
 		2C5D9DD0266159CD00D81870 /* CNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CNetwork.cpp; sourceTree = "<group>"; };
 		2C5D9DD1266159CD00D81870 /* INetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = INetwork.hpp; sourceTree = "<group>"; };
@@ -4193,6 +4194,7 @@
 				2C063D5D2661426000368BEE /* UnicodeConverter.ipp */,
 				2C063D562661426000368BEE /* Utility_detail.ipp */,
 				2C063DF12661426000368BEE /* Utility.ipp */,
+				2C5CD8C72675E43E004E290F /* UUID.ipp */,
 				2C063DDD2661426000368BEE /* VariableSpeedStopwatch.ipp */,
 				2C063DC32661426000368BEE /* Vector2D.ipp */,
 				2C063DB12661426000368BEE /* Vector3D.ipp */,
