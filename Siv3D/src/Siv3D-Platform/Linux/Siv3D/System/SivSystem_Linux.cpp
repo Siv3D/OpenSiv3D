@@ -97,9 +97,21 @@ namespace s3d
 				url = FileSystem::FullPath(_url);
 			}
 
-			std::string urlc = url.narrow();
+			std::string urlc = url.toUTF8();
 			char* argv[] = { (char*)"xdg-open", urlc.data(), nullptr };
 			return detail::Run("/usr/bin/xdg-open", argv);
+		}
+
+		bool ShowInFileManager(const FilePathView path)
+		{
+			if (not FileSystem::Exists(path))
+			{
+				return false;
+			}
+
+			std::string pathc = path.toUTF8();
+			char* argv[] = { (char*)"nautilus", pathc.data(), nullptr };
+			return detail::Run("/usr/bin/nautilus", argv);
 		}
 	}
 }
