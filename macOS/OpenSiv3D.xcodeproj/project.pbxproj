@@ -899,6 +899,11 @@
 		2C5CD8D326761A92004E290F /* CPentablet_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5CD8CF26761A91004E290F /* CPentablet_Null.hpp */; };
 		2C5CD8D426761A92004E290F /* CPentablet_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */; };
 		2C5CD8D526761A92004E290F /* IPentablet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5CD8D126761A91004E290F /* IPentablet.hpp */; };
+		2C5D0C162677C91C00A713D9 /* IAssetDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5D0C132677C91B00A713D9 /* IAssetDetail.hpp */; };
+		2C5D0C172677C91C00A713D9 /* IAssetDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D0C142677C91C00A713D9 /* IAssetDetail.cpp */; };
+		2C5D0C182677C91C00A713D9 /* SivAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D0C152677C91C00A713D9 /* SivAsset.cpp */; };
+		2C5D0C1D2677C93C00A713D9 /* SivFontAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D0C1A2677C93B00A713D9 /* SivFontAssetData.cpp */; };
+		2C5D0C1E2677C93C00A713D9 /* SivFontAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D0C1C2677C93C00A713D9 /* SivFontAsset.cpp */; };
 		2C5D9DD3266159CD00D81870 /* NetworkFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */; };
 		2C5D9DD4266159CD00D81870 /* CNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D9DD0266159CD00D81870 /* CNetwork.cpp */; };
 		2C5D9DD5266159CD00D81870 /* INetwork.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5D9DD1266159CD00D81870 /* INetwork.hpp */; };
@@ -2899,6 +2904,11 @@
 		2C5CD8CF26761A91004E290F /* CPentablet_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPentablet_Null.hpp; sourceTree = "<group>"; };
 		2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPentablet_Null.cpp; sourceTree = "<group>"; };
 		2C5CD8D126761A91004E290F /* IPentablet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPentablet.hpp; sourceTree = "<group>"; };
+		2C5D0C132677C91B00A713D9 /* IAssetDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAssetDetail.hpp; sourceTree = "<group>"; };
+		2C5D0C142677C91C00A713D9 /* IAssetDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IAssetDetail.cpp; sourceTree = "<group>"; };
+		2C5D0C152677C91C00A713D9 /* SivAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAsset.cpp; sourceTree = "<group>"; };
+		2C5D0C1A2677C93B00A713D9 /* SivFontAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFontAssetData.cpp; sourceTree = "<group>"; };
+		2C5D0C1C2677C93C00A713D9 /* SivFontAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFontAsset.cpp; sourceTree = "<group>"; };
 		2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkFactory.cpp; sourceTree = "<group>"; };
 		2C5D9DD0266159CD00D81870 /* CNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CNetwork.cpp; sourceTree = "<group>"; };
 		2C5D9DD1266159CD00D81870 /* INetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = INetwork.hpp; sourceTree = "<group>"; };
@@ -5592,6 +5602,8 @@
 				2C636D8E2657A0DC00AF029F /* FFT */,
 				2C47B28224DD9789008D83BE /* FileSystem */,
 				2C48BF3925D41C0D00A93CE3 /* Font */,
+				2C5D0C1B2677C93C00A713D9 /* FontAsset */,
+				2C5D0C192677C93B00A713D9 /* FontAssetData */,
 				2C47B2BB24DD9789008D83BE /* FormatFloat */,
 				2C47B29524DD9789008D83BE /* FormatInt */,
 				2C47B2A824DD9789008D83BE /* Formatter */,
@@ -7245,8 +7257,11 @@
 			children = (
 				2C5C0F1D266E6991009C430B /* AssetFactory.cpp */,
 				2C5C0F1E266E6991009C430B /* CAsset.cpp */,
-				2C5C0F1F266E6991009C430B /* IAsset.hpp */,
+				2C5D0C142677C91C00A713D9 /* IAssetDetail.cpp */,
+				2C5D0C152677C91C00A713D9 /* SivAsset.cpp */,
 				2C5C0F20266E6991009C430B /* CAsset.hpp */,
+				2C5C0F1F266E6991009C430B /* IAsset.hpp */,
+				2C5D0C132677C91B00A713D9 /* IAssetDetail.hpp */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -7284,6 +7299,22 @@
 				2C5CD8D026761A91004E290F /* CPentablet_Null.cpp */,
 			);
 			path = Null;
+			sourceTree = "<group>";
+		};
+		2C5D0C192677C93B00A713D9 /* FontAssetData */ = {
+			isa = PBXGroup;
+			children = (
+				2C5D0C1A2677C93B00A713D9 /* SivFontAssetData.cpp */,
+			);
+			path = FontAssetData;
+			sourceTree = "<group>";
+		};
+		2C5D0C1B2677C93C00A713D9 /* FontAsset */ = {
+			isa = PBXGroup;
+			children = (
+				2C5D0C1C2677C93C00A713D9 /* SivFontAsset.cpp */,
+			);
+			path = FontAsset;
 			sourceTree = "<group>";
 		};
 		2C5D9DCE266159CD00D81870 /* Network */ = {
@@ -10540,6 +10571,7 @@
 				2CDD4F4B260A3F7100A51D68 /* P2WheelJointDetail.hpp in Headers */,
 				2C43C8C525C837F100D6D613 /* ftbdf.h in Headers */,
 				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
+				2C5D0C162677C91C00A713D9 /* IAssetDetail.hpp in Headers */,
 				2C2AA39926009C74003F3EBC /* b2_growable_stack.h in Headers */,
 				2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */,
 				2C3C8389265FCD76008D68CF /* AudioGroupDetail.hpp in Headers */,
@@ -10858,6 +10890,7 @@
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
 				2C5337BA264F5AA200CE0F1B /* xxhash.c in Sources */,
 				2CC584952648FE1100C33E9F /* OpusDecoder.cpp in Sources */,
+				2C5D0C172677C91C00A713D9 /* IAssetDetail.cpp in Sources */,
 				2C13C9A225BD29FC0054B968 /* liolib.c in Sources */,
 				2C636E9B2657F7D300AF029F /* soloud_vic.cpp in Sources */,
 				2C47B35524DD9789008D83BE /* ProfilerFactory.cpp in Sources */,
@@ -10943,6 +10976,7 @@
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2C834DB8248805D4006208B8 /* cp1251.c in Sources */,
 				2C2AA2B825FF8933003F3EBC /* SivSerial.cpp in Sources */,
+				2C5D0C1D2677C93C00A713D9 /* SivFontAssetData.cpp in Sources */,
 				2C47B37324DD9789008D83BE /* CImageDecoder.cpp in Sources */,
 				2C834DAA248805D4006208B8 /* iso8859_16.c in Sources */,
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
@@ -11174,6 +11208,7 @@
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
 				2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */,
 				2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */,
+				2C5D0C1E2677C93C00A713D9 /* SivFontAsset.cpp in Sources */,
 				2C533793264F5AA200CE0F1B /* zstd_compress_sequences.c in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
 				2C636E752657F7D300AF029F /* soloud_thread.cpp in Sources */,
@@ -11288,6 +11323,7 @@
 				2CDD4F3F260A3F7100A51D68 /* P2LineString.cpp in Sources */,
 				2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */,
 				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
+				2C5D0C182677C91C00A713D9 /* SivAsset.cpp in Sources */,
 				2CAAA8C625E7FDCC00C014D7 /* EmojiData.cpp in Sources */,
 				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
