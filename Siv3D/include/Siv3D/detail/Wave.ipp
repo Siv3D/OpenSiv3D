@@ -64,13 +64,19 @@ namespace s3d
 	}
 
 	inline Wave::Wave(const Wave& samples)
-		: m_data(samples.begin(), samples.end()) {}
+		: m_data(samples.begin(), samples.end())
+		, m_sampleRate{ samples.m_sampleRate } {}
 
 	inline Wave::Wave(const Wave& samples, const allocator_type& alloc)
-		: m_data(samples.begin(), samples.end(), alloc) {}
+		: m_data(samples.begin(), samples.end(), alloc)
+		, m_sampleRate{ samples.m_sampleRate } {}
 
 	inline Wave::Wave(Wave&& samples) noexcept
-		: m_data(std::move(samples.m_data)) {}
+		: m_data(std::move(samples.m_data))
+		, m_sampleRate{ samples.m_sampleRate }
+	{
+		samples.m_sampleRate = Wave::DefaultSampleRate;
+	}
 
 	inline Wave::Wave(std::initializer_list<value_type> init, const Arg::sampleRate_<uint32> sampleRate, const allocator_type& alloc)
 		: m_data(init, alloc)
