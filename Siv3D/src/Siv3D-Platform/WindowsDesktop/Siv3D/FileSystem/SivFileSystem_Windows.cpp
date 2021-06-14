@@ -707,6 +707,13 @@ namespace s3d
 			}
 		}
 
+		FilePath RelativePath(const FilePathView path, const FilePathView start)
+		{
+			const fs::path relativePath = fs::relative(detail::ToPath(path), detail::ToPath(start));
+			
+			return detail::NormalizePath(Unicode::FromWstring(relativePath.wstring()));
+		}
+
 		bool CreateDirectories(const FilePathView path)
 		{
 			if (not path)
@@ -796,6 +803,34 @@ namespace s3d
 
 			return (::SHFileOperationW(&fileOption) == 0)
 				&& (not fileOption.fAnyOperationsAborted);
+		}
+
+		bool RemoveContents(const FilePathView path, const AllowUndo allowUndo)
+		{
+			if (not IsDirectory(path))
+			{
+				return false;
+			}
+
+			return Remove(path + U"\\*", allowUndo);
+		}
+
+		bool Rename(const FilePathView from, const FilePathView to)
+		{
+			if ((not from) || (not to))
+			{
+				return false;
+			}
+
+			if (IsResourcePath(from) || IsResourcePath(to))
+			{
+				return false;
+			}
+
+			std::error_code error;
+			std::filesystem::rename(detail::ToPath(from), detail::ToPath(to), error);
+
+			return (error.value() == 0);
 		}
 	}
 }
