@@ -12,7 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "Optional.hpp"
 # include "SIMD_Float4.hpp"
+# include "Triangle3D.hpp"
 
 namespace s3d
 {
@@ -43,26 +45,27 @@ namespace s3d
 		Ray(Float3 _origin, X ndx, Y ndy, Z ndz) noexcept;
 
 		[[nodiscard]]
-		Vec3 SIV3D_VECTOR_CALL point_at(double distance) const noexcept
-		{
-			return (origin.xyz() + (distance * direction.xyz()));
-		}
+		Float3 SIV3D_VECTOR_CALL getOrigin() const noexcept;
 
-		Ray& SIV3D_VECTOR_CALL setOrigin(Float3 _origin) noexcept
-		{
-			origin.set(_origin.x, _origin.y, _origin.z, 0.0f);
-		}
-
-		Ray& SIV3D_VECTOR_CALL setDirection(Float3 _direction) noexcept
-		{
-			direction.set(_direction.x, _direction.y, _direction.z, 0.0f);
-		}
+		Ray& SIV3D_VECTOR_CALL setOrigin(Float3 _origin) noexcept;
 
 		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(const Triangle3D& triangle) const;
+		Float3 SIV3D_VECTOR_CALL getDirection() const noexcept;
+
+		Ray& SIV3D_VECTOR_CALL setDirection(Float3 _direction) noexcept;
+		
+		[[nodiscard]]
+		Float3 SIV3D_VECTOR_CALL point_at(float distance) const noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		Vec3 SIV3D_VECTOR_CALL point_at(Arithmetic distance) const noexcept;
 
 		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(const Plane& plane) const;
+		Optional<float> SIV3D_VECTOR_CALL intersects(Triangle3D triangle) const;
+
+		[[nodiscard]]
+		Optional<float> SIV3D_VECTOR_CALL intersects(Plane plane) const;
 
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Sphere& sphere) const;
@@ -72,7 +75,57 @@ namespace s3d
 
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const OBB& obb) const;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)
+		{
+			return output << CharType('(')
+				<< value.origin << CharType(',') << CharType(' ')
+				<< value.direction << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Ray& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.origin >> unused
+				>> value.direction >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Ray& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Ray& value);
 	};
 }
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Ray, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::Ray& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.origin, value.direction);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.origin, value.direction);
+		}
+	}
+};
 
 # include "detail/Ray.ipp"

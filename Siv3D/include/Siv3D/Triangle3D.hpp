@@ -17,11 +17,11 @@ namespace s3d
 {
 	struct Triangle3D
 	{
-		Vec3 p0;
+		SIMD_Float4 p0;
 
-		Vec3 p1;
-		
-		Vec3 p2;
+		SIMD_Float4 p1;
+
+		SIMD_Float4 p2;
 
 
 	};

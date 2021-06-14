@@ -58,6 +58,8 @@ namespace s3d
 
 		SIMD_Float4& SIV3D_VECTOR_CALL operator =(aligned_float4 other) noexcept;
 
+		SIMD_Float4& SIV3D_VECTOR_CALL operator =(Float3 other) noexcept;
+
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL operator +() const noexcept;
 
@@ -102,6 +104,9 @@ namespace s3d
 
 		[[nodiscard]]
 		SIV3D_VECTOR_CALL operator aligned_float4() const noexcept;
+
+		[[nodiscard]]
+		SIV3D_VECTOR_CALL operator Float3() const noexcept;
 
 		[[nodiscard]]
 		Float4 SIV3D_VECTOR_CALL toFloat4() const noexcept;
