@@ -2907,6 +2907,9 @@
 		2C5DA71E26779E65002C9E0A /* Geometry3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry3D.hpp; sourceTree = "<group>"; };
 		2C5DA71F26779E7A002C9E0A /* TCPClient.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TCPClient.hpp; sourceTree = "<group>"; };
 		2C5DA72026779E7A002C9E0A /* TCPServer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TCPServer.hpp; sourceTree = "<group>"; };
+		2C5DA7212677A999002C9E0A /* FontAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FontAsset.hpp; sourceTree = "<group>"; };
+		2C5DA7222677A999002C9E0A /* FontAssetData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FontAssetData.hpp; sourceTree = "<group>"; };
+		2C5DA7232677A999002C9E0A /* Asset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Asset.hpp; sourceTree = "<group>"; };
 		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
 		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
@@ -8600,6 +8603,7 @@
 				2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */,
 				2CAAA6F625E7FD0200C014D7 /* ApplicationOptions.hpp */,
 				2CAAA73025E7FD0200C014D7 /* Array.hpp */,
+				2C5DA7232677A999002C9E0A /* Asset.hpp */,
 				2CAAA76025E7FD0200C014D7 /* AssetHandle.hpp */,
 				2CAAA71225E7FD0200C014D7 /* AssetID.hpp */,
 				2CAAA86425E7FD0300C014D7 /* AssetIDWrapper.hpp */,
@@ -8698,6 +8702,8 @@
 				2CAAA89825E7FD0300C014D7 /* FloatRect.hpp */,
 				2C9FFD4325F605F7000723D8 /* FloodFillConnectivity.hpp */,
 				2CAAA83D25E7FD0200C014D7 /* Font.hpp */,
+				2C5DA7212677A999002C9E0A /* FontAsset.hpp */,
+				2C5DA7222677A999002C9E0A /* FontAssetData.hpp */,
 				2CAAA89325E7FD0300C014D7 /* FontMethod.hpp */,
 				2CAAA6F325E7FD0200C014D7 /* FontStyle.hpp */,
 				2CAAA89C25E7FD0300C014D7 /* Format.hpp */,
