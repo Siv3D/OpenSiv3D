@@ -26,6 +26,9 @@ namespace s3d
 		Quaternion() = default;
 
 		SIV3D_NODISCARD_CXX20
+		Quaternion(const Quaternion&) = default;
+
+		SIV3D_NODISCARD_CXX20
 		Quaternion(float x, float y, float z, float w) noexcept;
 
 		template <class X, class Y, class Z, class W>

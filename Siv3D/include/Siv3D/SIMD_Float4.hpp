@@ -24,6 +24,9 @@ namespace s3d
 		SIMD_Float4() = default;
 
 		SIV3D_NODISCARD_CXX20
+		SIMD_Float4(const SIMD_Float4&) = default;
+
+		SIV3D_NODISCARD_CXX20
 		explicit SIMD_Float4(float xyzw) noexcept;
 
 		SIV3D_NODISCARD_CXX20
