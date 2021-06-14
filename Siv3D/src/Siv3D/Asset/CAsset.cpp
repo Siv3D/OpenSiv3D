@@ -91,18 +91,18 @@ namespace s3d
 
 		IAsset* pAsset = it->second.get();
 
-		//if (not pAsset->isPreloaded())
-		//{
+		if (not pAsset->isFinished())
+		{
 		//	if (pAsset->isLoadingAsync())
 		//	{
 		//		return nullptr;
 		//	}
 
-		//	if (not pAsset->preload())
-		//	{
-		//		return nullptr;
-		//	}
-		//}
+			if (not pAsset->load())
+			{
+				return nullptr;
+			}
+		}
 
 		return pAsset;
 	}

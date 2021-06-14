@@ -10,3 +10,41 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "Asset.hpp"
+# include "Font.hpp"
+
+namespace s3d
+{
+	struct FontAssetData : IAsset
+	{
+		FontMethod fontMethod = FontMethod::Bitmap;
+		
+		int32 fontSize = 0;
+		
+		FilePath path;
+		
+		size_t faceIndex = 0;
+		
+		Typeface typeface = Typeface::Regular;
+
+		FontStyle style = FontStyle::Default;
+
+		Font font;
+
+		std::function<bool(FontAssetData&)> onLoad = DefaultLoad;
+		
+		SIV3D_NODISCARD_CXX20
+		FontAssetData();
+
+		SIV3D_NODISCARD_CXX20
+		FontAssetData(FontMethod _fontMethod, int32 _fontSize, FilePathView _path, size_t _faceIndex, FontStyle _style);
+
+		SIV3D_NODISCARD_CXX20
+		FontAssetData(FontMethod _fontMethod, int32 _fontSize, Typeface _typeface, FontStyle _tyle);
+
+		bool load() override;
+
+		static bool DefaultLoad(FontAssetData& asset);
+	};
+}

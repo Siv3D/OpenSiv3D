@@ -38,13 +38,19 @@ namespace s3d
 		static constexpr TextStyle CustomShader() noexcept;
 
 		[[nodiscard]]
-		static constexpr TextStyle Outline(double p0, double p1, const ColorF& color) noexcept;
+		static constexpr TextStyle Outline(double p, const ColorF& color) noexcept;
+
+		[[nodiscard]]
+		static constexpr TextStyle Outline(double inner, double outer, const ColorF& color) noexcept;
 
 		[[nodiscard]]
 		static constexpr TextStyle Shadow(const Vec2& offset, const ColorF& color) noexcept;
+		
+		[[nodiscard]]
+		static constexpr TextStyle OutlineShadow(double p, const ColorF& outlineColor, const Vec2& offset, const ColorF& shadowColor) noexcept;
 
 		[[nodiscard]]
-		static constexpr TextStyle OutlineShadow(double p0, double p1, const ColorF& outlineColor, const Vec2& offset, const ColorF& shadowColor) noexcept;
+		static constexpr TextStyle OutlineShadow(double inner, double outer, const ColorF& outlineColor, const Vec2& offset, const ColorF& shadowColor) noexcept;
 	};
 }
 

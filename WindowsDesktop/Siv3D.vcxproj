@@ -950,6 +950,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetMonitor\IAssetMonitor.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAssetDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioCodec\IAudioCodec.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.hpp" />
@@ -1705,6 +1706,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\IAssetDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp" />
@@ -1782,6 +1785,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\FFTFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAssetData\SivFontAssetData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAsset\SivFontAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont_Headless.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\EmojiData.cpp" />

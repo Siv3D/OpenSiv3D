@@ -124,6 +124,8 @@ add_library(
   ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
   ../Siv3D/src/Siv3D/Asset/AssetFactory.cpp
   ../Siv3D/src/Siv3D/Asset/CAsset.cpp
+  ../Siv3D/src/Siv3D/Asset/IAssetDetail.cpp
+  ../Siv3D/src/Siv3D/Asset/SivAsset.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/AssetMonitorFactory.cpp
   ../Siv3D/src/Siv3D/AssetMonitor/CAssetMonitor.cpp
   # ../Siv3D/src/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
@@ -222,6 +224,8 @@ add_library(
   ../Siv3D/src/Siv3D/Font/FontFactory.cpp
   ../Siv3D/src/Siv3D/Font/IconData.cpp
   ../Siv3D/src/Siv3D/Font/SivFont.cpp
+  ../Siv3D/src/Siv3D/FontAsset/SivFontAsset.cpp
+  ../Siv3D/src/Siv3D/FontAssetData/SivFontAssetData.cpp
   ../Siv3D/src/Siv3D/FormatFloat/SivFormatFloat.cpp
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp

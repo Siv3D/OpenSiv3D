@@ -1327,6 +1327,12 @@
     <Filter Include="src\Siv3D\Ray">
       <UniqueIdentifier>{0857e93b-8655-4487-80df-d22dfbd7fafb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\FontAsset">
+      <UniqueIdentifier>{d849b925-047d-4dca-8307-cc8da364b4db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\FontAssetData">
+      <UniqueIdentifier>{52b71547-bbc1-4403-99bb-383e134134b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6075,6 +6081,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FontAsset.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAssetDetail.hpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8338,6 +8347,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Ray\SivRay.cpp">
       <Filter>src\Siv3D\Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAsset\SivFontAsset.cpp">
+      <Filter>src\Siv3D\FontAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAssetData\SivFontAssetData.cpp">
+      <Filter>src\Siv3D\FontAssetData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\IAssetDetail.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
