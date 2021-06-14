@@ -613,6 +613,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp" />
