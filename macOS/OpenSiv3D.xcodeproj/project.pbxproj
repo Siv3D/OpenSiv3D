@@ -2904,6 +2904,9 @@
 		2C5D9DD1266159CD00D81870 /* INetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = INetwork.hpp; sourceTree = "<group>"; };
 		2C5D9DD2266159CD00D81870 /* CNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CNetwork.hpp; sourceTree = "<group>"; };
 		2C5DA71C267793BC002C9E0A /* SivRay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRay.cpp; sourceTree = "<group>"; };
+		2C5DA71E26779E65002C9E0A /* Geometry3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry3D.hpp; sourceTree = "<group>"; };
+		2C5DA71F26779E7A002C9E0A /* TCPClient.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TCPClient.hpp; sourceTree = "<group>"; };
+		2C5DA72026779E7A002C9E0A /* TCPServer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TCPServer.hpp; sourceTree = "<group>"; };
 		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
 		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
@@ -8586,7 +8589,6 @@
 		2CAAA6E625E7FD0200C014D7 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C5CD8C826761A47004E290F /* Pentablet.hpp */,
 				2CAAA74B25E7FD0200C014D7 /* 2DShapes.hpp */,
 				2CAAA86925E7FD0300C014D7 /* 2DShapesFwd.hpp */,
 				2C063D2C26612A3500368BEE /* AABB.hpp */,
@@ -8713,6 +8715,7 @@
 				2C427FD22628435000106F19 /* GamepadInfo.hpp */,
 				2C8333A526441F5900AEECC7 /* GeoJSON.hpp */,
 				2CAAA89525E7FD0300C014D7 /* Geometry2D.hpp */,
+				2C5DA71E26779E65002C9E0A /* Geometry3D.hpp */,
 				2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */,
 				2C4A288E25F3C0C700FEACE4 /* Glyph.hpp */,
 				2CAAA87425E7FD0300C014D7 /* GlyphCluster.hpp */,
@@ -8831,6 +8834,7 @@
 				2CAAA88A25E7FD0300C014D7 /* ParseBool.hpp */,
 				2CAAA8A925E7FD0300C014D7 /* ParseFloat.hpp */,
 				2CAAA75925E7FD0200C014D7 /* ParseInt.hpp */,
+				2C5CD8C826761A47004E290F /* Pentablet.hpp */,
 				2CAAA89E25E7FD0300C014D7 /* Periodic.hpp */,
 				2CAAA84725E7FD0200C014D7 /* PerlinNoise.hpp */,
 				2C44C07426496C7C00A5E72A /* PianoKey.hpp */,
@@ -8923,6 +8927,8 @@
 				2CAAA78725E7FD0200C014D7 /* Subdivision2D.hpp */,
 				2CAAA8B125E7FD0300C014D7 /* SVG.hpp */,
 				2CAAA74C25E7FD0200C014D7 /* System.hpp */,
+				2C5DA71F26779E7A002C9E0A /* TCPClient.hpp */,
+				2C5DA72026779E7A002C9E0A /* TCPServer.hpp */,
 				2CFB7DB1262AA6A900169B97 /* TextEditState.hpp */,
 				2CAAA74025E7FD0200C014D7 /* TextEncoding.hpp */,
 				2CFB7DA3262A669C00169B97 /* TextInput.hpp */,
