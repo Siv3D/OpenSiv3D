@@ -1134,6 +1134,28 @@
 
 # include <Siv3D/AssetHandle.hpp>
 
+# include <Siv3D/Asset.hpp>
+
+//# include <Siv3D/AudioAssetData.hpp>
+
+//# include <Siv3D/AudioAsset.hpp>
+
+//# include <Siv3D/TextureAssetData.hpp>
+
+//# include <Siv3D/TextureAsset.hpp>
+
+# include <Siv3D/FontAssetData.hpp>
+
+# include <Siv3D/FontAsset.hpp>
+
+//# include <Siv3D/VertexShaderAssetData.hpp>
+
+//# include <Siv3D/VertexShaderAsset.hpp>
+
+//# include <Siv3D/PixelShaderAssetData.hpp>
+
+//# include <Siv3D/PixelShaderAsset.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ナビメッシュ | Navigation mesh

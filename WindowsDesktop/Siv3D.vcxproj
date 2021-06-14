@@ -24,6 +24,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ApplicationOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetID.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetIDWrapper.hpp" />
@@ -321,6 +322,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloodFillConnectivity.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Font.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FontAsset.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FontAssetData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FontMethod.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FontStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp" />
