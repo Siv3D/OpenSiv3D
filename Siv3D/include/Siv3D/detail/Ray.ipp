@@ -47,6 +47,8 @@ namespace s3d
 	inline Ray& Ray::setDirection(const Float3 _direction) noexcept
 	{
 		direction.set(_direction.x, _direction.y, _direction.z, 0.0f);
+		
+		return *this;
 	}
 
 	inline Float3 Ray::point_at(const float distance) const noexcept

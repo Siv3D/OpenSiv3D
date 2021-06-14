@@ -903,6 +903,7 @@
 		2C5D9DD4266159CD00D81870 /* CNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D9DD0266159CD00D81870 /* CNetwork.cpp */; };
 		2C5D9DD5266159CD00D81870 /* INetwork.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5D9DD1266159CD00D81870 /* INetwork.hpp */; };
 		2C5D9DD6266159CD00D81870 /* CNetwork.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5D9DD2266159CD00D81870 /* CNetwork.hpp */; };
+		2C5DA71D267793BC002C9E0A /* SivRay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DA71C267793BC002C9E0A /* SivRay.cpp */; };
 		2C5DD438265979F100282CE2 /* AudioFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD430265979F100282CE2 /* AudioFactory.cpp */; };
 		2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD431265979F100282CE2 /* CAudio.cpp */; };
 		2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DD432265979F100282CE2 /* AudioData.cpp */; };
@@ -2902,6 +2903,7 @@
 		2C5D9DD0266159CD00D81870 /* CNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CNetwork.cpp; sourceTree = "<group>"; };
 		2C5D9DD1266159CD00D81870 /* INetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = INetwork.hpp; sourceTree = "<group>"; };
 		2C5D9DD2266159CD00D81870 /* CNetwork.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CNetwork.hpp; sourceTree = "<group>"; };
+		2C5DA71C267793BC002C9E0A /* SivRay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRay.cpp; sourceTree = "<group>"; };
 		2C5DD42D265979CA00282CE2 /* Audio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		2C5DD42E265979D300282CE2 /* GlobalAudio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlobalAudio.hpp; sourceTree = "<group>"; };
 		2C5DD430265979F100282CE2 /* AudioFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFactory.cpp; sourceTree = "<group>"; };
@@ -5657,6 +5659,7 @@
 				2C53C33925613B7F0072831A /* Quad */,
 				2C6E35F5266A366C005EA869 /* Quaternion */,
 				2C47B2D024DD9789008D83BE /* Random */,
+				2C5DA71B267793BC002C9E0A /* Ray */,
 				2C60F9232667F0F500FFAA68 /* RDTSCClock */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
 				2C13C8DF25B9141D0054B968 /* RectF */,
@@ -7286,6 +7289,14 @@
 				2C5D9DD2266159CD00D81870 /* CNetwork.hpp */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		2C5DA71B267793BC002C9E0A /* Ray */ = {
+			isa = PBXGroup;
+			children = (
+				2C5DA71C267793BC002C9E0A /* SivRay.cpp */,
+			);
+			path = Ray;
 			sourceTree = "<group>";
 		};
 		2C5DD42F265979F100282CE2 /* Audio */ = {
@@ -10808,6 +10819,7 @@
 				2C794B4E25C407A800034D81 /* SivTextureFormat.cpp in Sources */,
 				2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */,
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
+				2C5DA71D267793BC002C9E0A /* SivRay.cpp in Sources */,
 				2C636E6A2657F7D300AF029F /* soloud_fader.cpp in Sources */,
 				2C5C0F1A266DFF5B009C430B /* SivSimpleHTTP.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
