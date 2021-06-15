@@ -152,6 +152,11 @@ namespace s3d
 
 	void CPentablet::update()
 	{
+		if (not m_wintabAvailable)
+		{
+			return;
+		}
+
 		const int32 queueSize = p_WTQueueSizeGet(m_hCtx);
 		m_packetsBuffer.resize(queueSize);
 
