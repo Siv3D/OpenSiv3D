@@ -55,7 +55,7 @@ namespace s3d
 				TextureFormat::R32G32B32A32_Float,
 			};
 
-			LOG_INFO(U"4x MSAA support:");
+			String logText = U"4x MSAA support:\n";
 
 			for (size_t i = 1; i < formats.size(); ++i)
 			{
@@ -66,13 +66,16 @@ namespace s3d
 					DXGI_FORMAT(dxgiFormat), 4, &quality)) && (0 < quality))
 				{
 					m_multiSampleAvailable[i] = true;
-					LOG_INFO(U"{} ✔"_fmt(name));
+					logText += (U"{} ✔\n"_fmt(name));
 				}
 				else
 				{
-					LOG_INFO(U"{} ✘"_fmt(name));
+					logText += (U"{} ✘\n"_fmt(name));
 				}
 			}
+
+			logText.pop_back();
+			LOG_INFO(logText);
 		}
 
 		// null Texture を管理に登録
