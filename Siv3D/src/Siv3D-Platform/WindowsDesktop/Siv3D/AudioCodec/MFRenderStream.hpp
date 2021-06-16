@@ -1,4 +1,4 @@
-//-----------------------------------------------
+ï»¿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -21,7 +21,7 @@
 
 namespace s3d
 {
-	// Ql
+	// å‚è€ƒ
 	//	http://d.hatena.ne.jp/shiku_otomiya/20130913/p1
 	//	http://d.hatena.ne.jp/shiku_otomiya/20130914/p1
 	//	https://github.com/easyfungames/u4.4.4/tree/09e4225291f64f3543bde9e1a049ff92d1825297/Engine/Plugins/Media/WmfMedia/Source/WmfMedia/Private/Wmf
@@ -223,7 +223,7 @@ namespace s3d
 			//LOG_TEST(L"~MFReaderStream: done");
 		}
 
-		//IUnknown‚Ì‹@”\‚ğÀ‘•‚·‚é
+		//IUnknownã®æ©Ÿèƒ½ã‚’å®Ÿè£…ã™ã‚‹
 		STDMETHODIMP QueryInterface(REFIID riid, void **ppv)
 		{
 			return NonDelegatingQueryInterface(riid, ppv);
@@ -262,7 +262,7 @@ namespace s3d
 			return QISearch(this, QITab, riid, ppv);
 		}
 
-		//IMFByteStream‚ÌÀ‘•
+		//IMFByteStreamã®å®Ÿè£…
 		STDMETHODIMP GetCapabilities(DWORD *pdwCapabilities)
 		{
 			if (!pdwCapabilities)
@@ -474,7 +474,7 @@ namespace s3d
 
 
 	protected:
-		//“à•”ƒƒbƒNƒIƒuƒWƒFƒNƒg
+		//å†…éƒ¨ãƒ­ãƒƒã‚¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		class CLockStream {
 		public:
 			CLockStream(MFReaderStream *obj) : m_obj(obj) { ::EnterCriticalSection(&obj->m_vCSStream); }
@@ -491,7 +491,7 @@ namespace s3d
 			MFReaderStream *m_obj;
 		};
 
-		//”ñ“¯Šúˆ—ƒAƒCƒeƒ€‚Ì’è‹`
+		//éåŒæœŸå‡¦ç†ã‚¢ã‚¤ãƒ†ãƒ ã®å®šç¾©
 		typedef struct _AsyncItem {
 			IMFAsyncResult *lpResult;
 			BYTE *pbBuffer;
@@ -552,19 +552,19 @@ namespace s3d
 			return 0;
 		}
 
-		inline bool IsValidStream(void) const { return m_reader->isOpen(); } //ƒXƒgƒŠ[ƒ€‚ª—LŒø‚©‚Ç‚¤‚©
-		inline bool IsValidThread(void) const { return m_hAsyncThread != NULL; } //ƒXƒŒƒbƒh‚ª—LŒø‚©‚Ç‚¤‚©
+		inline bool IsValidStream(void) const { return m_reader->isOpen(); } //ã‚¹ãƒˆãƒªãƒ¼ãƒ ãŒæœ‰åŠ¹ã‹ã©ã†ã‹
+		inline bool IsValidThread(void) const { return m_hAsyncThread != NULL; } //ã‚¹ãƒ¬ãƒƒãƒ‰ãŒæœ‰åŠ¹ã‹ã©ã†ã‹
 
 	private:
 
-		uint64_t m_ullStreamPos = 0; //ƒXƒgƒŠ[ƒ€ˆÊ’u
-		CRITICAL_SECTION m_vCSStream; //ƒXƒgƒŠ[ƒ€“¯Šúƒnƒ“ƒhƒ‹
+		uint64_t m_ullStreamPos = 0; //ã‚¹ãƒˆãƒªãƒ¼ãƒ ä½ç½®
+		CRITICAL_SECTION m_vCSStream; //ã‚¹ãƒˆãƒªãƒ¼ãƒ åŒæœŸãƒãƒ³ãƒ‰ãƒ«
 
-		HANDLE m_hAsyncThread = nullptr; //”ñ“¯Šúˆ—ƒXƒŒƒbƒh
-		HANDLE m_hThreadEvent = nullptr; //ƒXƒŒƒbƒhƒCƒxƒ“ƒg
-		CRITICAL_SECTION m_vCSQueue; //ƒLƒ…[ƒAƒCƒeƒ€“¯Šúƒnƒ“ƒhƒ‹
-		dequeAsyncItem m_dequeWorkItem; //–¢ˆ—ƒAƒCƒeƒ€ƒLƒ…[
-		dequeAsyncItem m_dequeDoneItem; //ˆ—Ï‚İƒAƒCƒeƒ€ƒLƒ…[
-		IMFAttributes *m_lpAttributes = nullptr; //‘®«’lŠÇ—
+		HANDLE m_hAsyncThread = nullptr; //éåŒæœŸå‡¦ç†ã‚¹ãƒ¬ãƒƒãƒ‰
+		HANDLE m_hThreadEvent = nullptr; //ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¤ãƒ™ãƒ³ãƒˆ
+		CRITICAL_SECTION m_vCSQueue; //ã‚­ãƒ¥ãƒ¼ã‚¢ã‚¤ãƒ†ãƒ åŒæœŸãƒãƒ³ãƒ‰ãƒ«
+		dequeAsyncItem m_dequeWorkItem; //æœªå‡¦ç†ã‚¢ã‚¤ãƒ†ãƒ ã‚­ãƒ¥ãƒ¼
+		dequeAsyncItem m_dequeDoneItem; //å‡¦ç†æ¸ˆã¿ã‚¢ã‚¤ãƒ†ãƒ ã‚­ãƒ¥ãƒ¼
+		IMFAttributes *m_lpAttributes = nullptr; //å±æ€§å€¤ç®¡ç†
 	};
 }

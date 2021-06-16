@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/FormatLiteral.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Monitor.hpp>
 # include <Siv3D/Scene.hpp>
@@ -178,7 +179,7 @@ namespace s3d
 		m_hInstance = ::GetModuleHandleW(nullptr);
 		
 		// WindowClass の名前を生成
-		m_windowClassName = L"Siv3D App";//FileSystem::ModulePath().toWstr();
+		m_windowClassName = FileSystem::ModulePath().toWstr();
 
 		// WindowClass を登録
 		detail::RegisterWindowClass(m_hInstance, m_windowClassName.c_str());
@@ -215,7 +216,7 @@ namespace s3d
 			const uint32 windowStyleFlags = detail::GetWindowStyleFlags(m_state.style);
 			const Rect windowRect = adjustWindowRect(pos, m_state.frameBufferSize, windowStyleFlags);
 
-			LOG_VERBOSE(U"CreateWindowExW()");
+			LOG_TRACE(U"CreateWindowExW()");
 			m_hWnd = ::CreateWindowExW(
 				0,
 				m_windowClassName.c_str(),
@@ -236,11 +237,11 @@ namespace s3d
 			break;
 		}
 
+		LOG_TRACE(U"ShowWindow()");
+		::ShowWindow(m_hWnd, SW_SHOW);
+
 		// Disable touch feedback visualization that causes frame rate drops
 		detail::DisableTouchFeedbackVisualization(m_hWnd, m_user32);
-
-		LOG_VERBOSE(U"ShowWindow()");
-		::ShowWindow(m_hWnd, SW_SHOW);
 
 		// DBT_DEVICEARRIVAL, DBT_DEVICEREMOVECOMPLETE が送られるようにする
 		{
