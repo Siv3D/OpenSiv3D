@@ -163,6 +163,8 @@ namespace s3d
 
 		const SoundTouchFunctions* getSoundTouchFunctions() const noexcept override;
 
+		bool supportsPitchShift() const noexcept override;
+
 	private:
 
 		std::unique_ptr<SoLoud::Soloud> m_soloud;
@@ -171,15 +173,7 @@ namespace s3d
 
 		AssetHandleManager<Audio::IDType, AudioData> m_audios{ U"Audio" };
 
-	# if SIV3D_PLATFORM(WINDOWS)
-
-		HINSTANCE m_soundTouch = nullptr;
-
-	# else
-
 		LibraryHandle m_soundTouch = nullptr;
-
-	# endif
 
 		bool m_soundTouchAvailable = false;
 

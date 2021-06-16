@@ -666,4 +666,9 @@ namespace s3d
 
 		return &m_soundTouchFunctions;
 	}
+
+	bool CAudio::supportsPitchShift() const noexcept
+	{
+		return m_soundTouchAvailable;
+	}
 }

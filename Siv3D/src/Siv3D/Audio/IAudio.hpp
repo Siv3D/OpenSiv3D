@@ -167,5 +167,7 @@ namespace s3d
 		virtual SoLoud::Soloud& getSoloud() = 0;
 
 		virtual const SoundTouchFunctions* getSoundTouchFunctions() const noexcept = 0;
+
+		virtual bool supportsPitchShift() const noexcept = 0;
 	};
 }

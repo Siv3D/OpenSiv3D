@@ -199,5 +199,10 @@ namespace s3d
 
 			SIV3D_ENGINE(Audio)->setPitchShiftFilter(busIndex, filterIndex, pitchShift);
 		}
+
+		bool SupportsPitchShift()
+		{
+			return SIV3D_ENGINE(Audio)->supportsPitchShift();
+		}
 	}
 }

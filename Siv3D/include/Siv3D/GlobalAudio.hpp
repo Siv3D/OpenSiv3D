@@ -96,14 +96,9 @@ namespace s3d
 
 		void BusSetPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift);
 
-		AudioGroup CreateGroup(const Array<Audio>& audios);
-
-		void PauseGroup(uint32 groupHandle);
-
-		void ResumeGroup(uint32 groupHandle);
-
-		void StopGroup(uint32 groupHandle);
-
-		void DestroyGroup(const AudioGroup& group);
+		/// @brief ピッチシフトフィルタが利用できるかを返します。
+		/// @return ピッチシフトフィルタを利用できる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool SupportsPitchShift();
 	}
 }
