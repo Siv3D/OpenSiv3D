@@ -11,7 +11,7 @@
 
 | Platform           | Version    | Date       | Requirements                  |
 |:------------------:|:----------:|:----------:|:------------------------------|
-| Windows            | **0.6.0**  | ?? ?? 2021 | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.9<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| Windows            | **0.6.0**  | ?? ?? 2021 | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | **0.6.0**  | ?? ?? 2021 | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible graphics card |
 | Linux              | **0.6.0*** | ?? ?? 2021 | - GCC 9.3.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible graphics card |
 | Web (experimental) | **0.6.0*** | ?? ?? 2021 | - Emscripten 2.0.22 or newer<br>- Brower with WebAssembly and WebGL2 support |

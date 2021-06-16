@@ -51,6 +51,7 @@ namespace s3d
 		decltype(WTQueueSizeGet)* p_WTQueueSizeGet = nullptr;
 		decltype(WTPacketsGet)* p_WTPacketsGet = nullptr;
 
+		bool m_initialized = false;
 		bool m_wintabAvailable = false;
 
 		AXIS m_pressureCaps = {};
@@ -60,5 +61,7 @@ namespace s3d
 		AXIS m_twistCaps = {};
 
 		PentabletState m_state;
+
+		void init2();
 	};
 }
