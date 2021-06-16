@@ -107,14 +107,8 @@ namespace s3d
 		SIV3D_ENGINE(Gamepad)->init();
 		SIV3D_ENGINE(Pentablet)->init();
 		SIV3D_ENGINE(Clipboard)->init();
-		AsyncTask<bool> threadDragDrop{ []()
-			{
-				try { SIV3D_ENGINE(DragDrop)->init(); }
-				catch (const EngineError&) { return false; }
-				return true;
-			}};
+		SIV3D_ENGINE(DragDrop)->init();
 		SIV3D_ENGINE(ToastNotification)->init();
-		SIV3D_ENGINE(Network)->init();
 		SIV3D_ENGINE(SoundFont)->init();
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();
@@ -142,10 +136,7 @@ namespace s3d
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(Effect)->init();
 
-		if (not threadDragDrop.get())
-		{
-			throw EngineError{ U"SIV3D_ENGINE(DragDrop)->init(): failed" };
-		}
+		LOG_INFO(U"✅ Siv3D engine has initialized");
 	}
 
 	bool CSystem::update()

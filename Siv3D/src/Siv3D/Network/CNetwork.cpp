@@ -42,6 +42,11 @@ namespace s3d
 
 	void CNetwork::init()
 	{
+		if (m_curlInitialized)
+		{
+			return;
+		}
+
 		LOG_SCOPED_TRACE(U"CNetwork::init()");
 
 # if not SIV3D_PLATFORM(WEB)
@@ -51,8 +56,8 @@ namespace s3d
 			throw EngineError{ U"curl_global_init() failed" };
 		}
 
-		m_curlInitialized = true;
-
 # endif
+
+		m_curlInitialized = true;
 	}
 }

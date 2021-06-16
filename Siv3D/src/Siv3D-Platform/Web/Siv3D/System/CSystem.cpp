@@ -101,7 +101,6 @@ namespace s3d
 		SIV3D_ENGINE(Clipboard)->init();
 		SIV3D_ENGINE(DragDrop)->init();
 		SIV3D_ENGINE(ToastNotification)->init();
-		SIV3D_ENGINE(Network)->init();
 		SIV3D_ENGINE(SoundFont)->init();
 		SIV3D_ENGINE(AudioCodec)->init();
 		SIV3D_ENGINE(AudioDecoder)->init();

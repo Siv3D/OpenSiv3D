@@ -15,6 +15,8 @@
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Network/INetwork.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 # define CURL_STATICLIB
 # if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(WEB)
@@ -50,21 +52,29 @@ namespace s3d
 	{
 		HTTPResponse Save(const URLView url, const FilePathView filePath)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			return Get(url, {}, filePath);
 		}
 
 		HTTPResponse Load(const URLView url, MemoryWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			return Get(url, {}, writer);
 		}
 
 		HTTPResponse Load(const URLView url, IWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			return Get(url, {}, writer);
 		}
 
 		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, const FilePathView filePath)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			BinaryWriter writer{ filePath };
 			{
 				if (not writer)
@@ -85,6 +95,8 @@ namespace s3d
 
 		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, MemoryWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			if (auto result = Get(url, headers, static_cast<IWriter&>(writer)))
 			{
 				return result;
@@ -96,6 +108,8 @@ namespace s3d
 
 		HTTPResponse Get(const URLView url, const HashTable<String, String>& headers, IWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			if (not writer.isOpen())
 			{
 				return{};
@@ -148,6 +162,8 @@ namespace s3d
 
 		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			BinaryWriter writer{ filePath };
 			{
 				if (not writer)
@@ -168,6 +184,8 @@ namespace s3d
 
 		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, MemoryWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			if (auto result = Post(url, headers, src, size, static_cast<IWriter&>(writer)))
 			{
 				return result;
@@ -179,6 +197,8 @@ namespace s3d
 
 		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, IWriter& writer)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			if (not writer.isOpen())
 			{
 				return{};
@@ -234,6 +254,8 @@ namespace s3d
 
 		AsyncHTTPTask SaveAsync(const URLView url, const FilePathView filePath)
 		{
+			SIV3D_ENGINE(Network)->init();
+
 			return AsyncHTTPTask{ url, filePath };
 		}
 	}
