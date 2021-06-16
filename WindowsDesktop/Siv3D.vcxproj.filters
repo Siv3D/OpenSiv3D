@@ -1333,6 +1333,9 @@
     <Filter Include="src\Siv3D\FontAssetData">
       <UniqueIdentifier>{52b71547-bbc1-4403-99bb-383e134134b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\Obfuscate">
+      <UniqueIdentifier>{55d6dbaa-5fcd-4d4d-a020-202958bad5f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6083,6 +6086,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAssetDetail.hpp">
       <Filter>src\Siv3D\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Obfuscate\obfuscate.h">
+      <Filter>include\ThirdParty\Obfuscate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

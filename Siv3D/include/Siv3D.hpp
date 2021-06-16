@@ -213,6 +213,9 @@
 // 正規表現 | Regular expression
 # include <Siv3D/RegExp.hpp>
 
+// 実行ファイルに埋める文字列の難読化 | String literal obfuscation
+# include <Siv3D/Obfuscation.hpp>
+
 //////////////////////////////////////////////////
 //
 //	文字列フォーマット | Formatting
