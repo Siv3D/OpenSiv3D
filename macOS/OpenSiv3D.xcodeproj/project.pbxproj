@@ -3146,6 +3146,8 @@
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
 		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
+		2C74C042267A46560031C9E0 /* obfuscate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obfuscate.h; sourceTree = "<group>"; };
+		2C74C043267A466D0031C9E0 /* Obfuscation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Obfuscation.hpp; sourceTree = "<group>"; };
 		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
@@ -8071,6 +8073,7 @@
 				2C46837824590D8D000006C0 /* EnumBitmask */,
 				2C6898112436064900C36C25 /* fmt */,
 				2C0A4D7A256A1807002A4B5E /* nanoflann */,
+				2C74C040267A46560031C9E0 /* Obfuscate */,
 				2C4564C92479193600DB01F0 /* parallel_hashmap */,
 				2CE18685249CC7A900ADD14A /* scope-guard */,
 				2C9D1077249A3D680096DA03 /* SMFT */,
@@ -8104,6 +8107,14 @@
 				2C711CF026629EFD0018D38D /* SivMat4x4.cpp */,
 			);
 			path = Mat4x4;
+			sourceTree = "<group>";
+		};
+		2C74C040267A46560031C9E0 /* Obfuscate */ = {
+			isa = PBXGroup;
+			children = (
+				2C74C042267A46560031C9E0 /* obfuscate.h */,
+			);
+			path = Obfuscate;
 			sourceTree = "<group>";
 		};
 		2C794AA325C257C000034D81 /* Metal */ = {
@@ -8861,6 +8872,7 @@
 				2CAAA8AF25E7FD0300C014D7 /* NonNull.hpp */,
 				2CAAA71425E7FD0200C014D7 /* Number.hpp */,
 				2C063D2826612A3400368BEE /* OBB.hpp */,
+				2C74C043267A466D0031C9E0 /* Obfuscation.hpp */,
 				2CAAA75825E7FD0200C014D7 /* OffsetCircular.hpp */,
 				2C4A289C25F4FACC00FEACE4 /* OpenCV_Bridge.hpp */,
 				2CAAA8AE25E7FD0300C014D7 /* OpenMode.hpp */,
