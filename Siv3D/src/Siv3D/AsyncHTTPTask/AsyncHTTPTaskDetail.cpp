@@ -88,7 +88,7 @@ namespace s3d
 
 	void AsyncHTTPTaskDetail::cancel()
 	{
-		if (m_task.valid())
+		if (m_task.isValid())
 		{
 			m_abort = true;
 

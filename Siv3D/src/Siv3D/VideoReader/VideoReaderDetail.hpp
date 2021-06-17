@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/VideoReader.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
 
@@ -32,7 +33,7 @@ namespace s3d
 
 		std::condition_variable m_cv;
 
-		std::future<void> m_task;
+		AsyncTask<void> m_task;
 
 		/////
 		// m_mutex で管理するデータ

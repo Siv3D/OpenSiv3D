@@ -50,8 +50,15 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit AsyncTask(Fty&& f, Args&&... args);
 
-		/// @brief 非同期処理のタスクが完了しているかを返します。
-		/// @return 非同期処理のタスクが完了している場合 true, それ以外の場合は false
+		/// @brief 非同期処理を持っているかを返します。
+		/// @remark `get()` を呼ぶと、非同期処理を持たない状態に戻ります。
+		/// @return 非同期処理を持っている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isValid() const noexcept;
+
+		/// @brief タスクが完了した非同期処理を持っていて、結果をすぐに返せる状態であるかを返します。
+		/// @remark `get()` を呼ぶと、非同期処理を持たない状態に戻ります。
+		/// @return タスクが完了した非同期処理を持っていて、結果をすぐに返せる状態である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isReady() const;
 	};

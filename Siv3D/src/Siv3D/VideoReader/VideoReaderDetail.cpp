@@ -53,7 +53,7 @@ namespace s3d
 		LOG_INFO(U"ℹ️ VideoReader: file `{0}` opened (resolution: {1}, fps: {2}, frameCount: {3})"_fmt(
 			path, m_info.resolution, m_info.fps, m_info.frameCount));
 
-		m_task = std::async(std::launch::async, &VideoReaderDetail::run, this);
+		m_task = Async(&VideoReaderDetail::run, this);
 
 		return true;
 	}
@@ -63,7 +63,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"VideoReaderDetail::close()");
 
 		// スレッドを終了
-		if (m_task.valid())
+		if (m_task.isValid())
 		{
 			{
 				std::lock_guard guard(m_mutex);

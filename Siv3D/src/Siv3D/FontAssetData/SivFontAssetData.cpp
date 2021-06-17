@@ -69,7 +69,7 @@ namespace s3d
 
 	void FontAssetData::wait()
 	{
-		if (m_task.valid())
+		if (m_task.isValid())
 		{
 			m_task.get();
 		}

@@ -19,6 +19,12 @@ namespace s3d
 		: std::future<Type>(std::async(std::launch::async, std::forward<Fty>(f), std::forward<Args>(args)...)) {}
 
 	template <class Type>
+	inline bool AsyncTask<Type>::isValid() const noexcept
+	{
+		return base_type::valid();
+	}
+
+	template <class Type>
 	inline bool AsyncTask<Type>::isReady() const
 	{
 		return base_type::valid()
