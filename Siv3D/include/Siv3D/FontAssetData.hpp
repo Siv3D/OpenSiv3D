@@ -32,7 +32,7 @@ namespace s3d
 
 		Font font;
 
-		std::function<bool(FontAssetData&)> onLoad = DefaultLoad;
+		std::function<bool(FontAssetData&, const String&)> onLoad = DefaultLoad;
 
 		std::function<void(FontAssetData&)> onRelease = DefaultRelease;
 
@@ -45,11 +45,11 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		FontAssetData(FontMethod _fontMethod, int32 _fontSize, Typeface _typeface, FontStyle _tyle);
 
-		bool load() override;
+		bool load(const String& hint) override;
 
 		void release() override;
 
-		static bool DefaultLoad(FontAssetData& asset);
+		static bool DefaultLoad(FontAssetData& asset, const String& hint);
 
 		static void DefaultRelease(FontAssetData& asset);
 	};

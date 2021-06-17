@@ -48,7 +48,7 @@ namespace s3d
 			}
 		case WM_SETFOCUS:
 			{
-				LOG_TRACE(U"WM_SETFOCUS");
+				LOG_VERBOSE(U"WM_SETFOCUS");
 
 				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(true);
 				
@@ -70,7 +70,7 @@ namespace s3d
 			}
 		case WM_KILLFOCUS:
 			{
-				LOG_TRACE(U"WM_KILLFOCUS");
+				LOG_VERBOSE(U"WM_KILLFOCUS");
 
 				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(false);
 
@@ -78,7 +78,7 @@ namespace s3d
 			}
 		case WM_KEYDOWN:
 			{
-				LOG_TRACE(U"WM_KEYDOWN");
+				LOG_VERBOSE(U"WM_KEYDOWN");
 
 				break;
 			}
@@ -149,7 +149,7 @@ namespace s3d
 			}
 		case WM_CHAR:
 			{
-				LOG_TRACE(U"WM_CHAR");
+				LOG_VERBOSE(U"WM_CHAR");
 
 				if (auto p = SIV3D_ENGINE(TextInput))
 				{
@@ -160,7 +160,7 @@ namespace s3d
 			}
 		case WM_UNICHAR:
 			{
-				LOG_TRACE(U"WM_UNICHAR");
+				LOG_VERBOSE(U"WM_UNICHAR");
 
 				if (wParam == UNICODE_NOCHAR)
 				{
@@ -176,7 +176,7 @@ namespace s3d
 			}
 		case WM_DEVICECHANGE:
 			{
-				LOG_TRACE(U"WM_DEVICECHANGE {:#X}"_fmt(wParam));
+				LOG_VERBOSE(U"WM_DEVICECHANGE {:#X}"_fmt(wParam));
 
 				if (wParam == DBT_DEVICEARRIVAL)
 				{

@@ -45,6 +45,8 @@ namespace s3d
 
 		virtual bool isRegistered(AssetType assetType, AssetNameView name) const = 0;
 
+		virtual bool load(AssetType assetType, AssetNameView name, const String& hint) = 0;
+
 		virtual void release(AssetType assetType, AssetNameView name) = 0;
 
 		virtual void releaseAll(AssetType assetType) = 0;

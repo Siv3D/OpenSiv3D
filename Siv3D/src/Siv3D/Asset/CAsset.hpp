@@ -32,6 +32,8 @@ namespace s3d
 
 		bool isRegistered(AssetType assetType, AssetNameView name) const override;
 
+		bool load(AssetType assetType, AssetNameView name, const String& hint) override;
+
 		void release(AssetType assetType, AssetNameView name) override;
 
 		void releaseAll(AssetType assetType) override;

@@ -41,6 +41,10 @@ namespace s3d
 		[[nodiscard]]
 		static bool IsRegistered(AssetNameView name);
 
+		static bool Load(AssetNameView name, const String& preloadText = U"");
+
+		//static void LoadAsync(AssetNameView name, StringView preloadText = U"");
+
 		static void Release(AssetNameView name);
 
 		static void ReleaseAll();

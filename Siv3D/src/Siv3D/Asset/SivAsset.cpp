@@ -27,19 +27,19 @@ namespace s3d
 		return pImpl->getState();
 	}
 
+	bool IAsset::isUninitialized() const
+	{
+		const AssetState state = pImpl->getState();
+
+		return (state == AssetState::Uninitialized);
+	}
+
 	bool IAsset::isFinished() const
 	{
 		const AssetState state = pImpl->getState();
 
 		return ((state == AssetState::Loaded)
 			|| (state == AssetState::Failed));
-	}
-
-	bool IAsset::isUninitialized() const
-	{
-		const AssetState state = pImpl->getState();
-
-		return (state == AssetState::Uninitialized);
 	}
 
 	bool IAsset::isLoaded() const

@@ -51,7 +51,7 @@ namespace s3d
 		bool preload(const FontData & font, StringView s) override;
 
 		[[nodiscard]]
-		const Texture& getTexture() const noexcept override;
+		const Texture& getTexture() noexcept override;
 
 		[[nodiscard]]
 		TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) override;
@@ -63,13 +63,17 @@ namespace s3d
 
 		static constexpr int32 DefaultBuffer = 2;
 
-		[[nodiscard]]
-		bool prerender(const FontData& font, const Array<GlyphCluster>& clusters);
-
 		HashTable<GlyphIndex, GlyphCache> m_glyphTable;
 
 		DynamicTexture m_texture;
 
+		bool m_hasDirty = false;
+
 		BufferImage m_buffer = { .image = {}, .backgroundColor = Color{ 0, 0 } };
+
+		[[nodiscard]]
+		bool prerender(const FontData& font, const Array<GlyphCluster>& clusters);
+
+		void updateTexture();
 	};
 }

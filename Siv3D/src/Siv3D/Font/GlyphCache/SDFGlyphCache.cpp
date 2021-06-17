@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/System.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "SDFGlyphCache.hpp"
@@ -22,6 +23,7 @@ namespace s3d
 		{
 			return RectF{ 0 };
 		}
+		updateTexture();
 
 		const auto& prop = font.getProperty();
 		const double scale = (size / prop.fontPixelSize);
@@ -100,6 +102,8 @@ namespace s3d
 		{
 			// do tnohing
 		}
+		updateTexture();
+
 		const double dotXAdvance = m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance;
 		const Vec2 areaBottomRight = area.br();
 
@@ -278,6 +282,7 @@ namespace s3d
 		{
 			return RectF{ 0 };
 		}
+		updateTexture();
 
 		const auto& prop = font.getProperty();
 		const double scale = (size / prop.fontPixelSize);
@@ -463,8 +468,10 @@ namespace s3d
 		return prerender(font, font.getGlyphClusters(s, false));
 	}
 
-	const Texture& SDFGlyphCache::getTexture() const noexcept
+	const Texture& SDFGlyphCache::getTexture() noexcept
 	{
+		updateTexture();
+
 		return m_texture;
 	}
 
@@ -474,6 +481,7 @@ namespace s3d
 		{
 			return{};
 		}
+		updateTexture();
 
 		const auto& cache = m_glyphTable.find(glyphIndex)->second;
 		return m_texture(cache.textureRegionLeft, cache.textureRegionTop, cache.textureRegionWidth, cache.textureRegionHeight);
@@ -492,8 +500,6 @@ namespace s3d
 
 	bool SDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
 	{
-		bool hasDirty = false;
-
 		if (m_glyphTable.empty())
 		{
 			const SDFGlyph glyph = font.renderSDFByGlyphIndex(0, m_buffer.bufferWidth);
@@ -503,7 +509,7 @@ namespace s3d
 				return false;
 			}
 
-			hasDirty = true;
+			m_hasDirty = true;
 		}
 
 		for (const auto& cluster : clusters)
@@ -525,14 +531,26 @@ namespace s3d
 				return false;
 			}
 
-			hasDirty = true;
+			m_hasDirty = true;
 		}
 
-		if (hasDirty)
+		// texture content can be updated in a different thread
+		if (System::GetRendererType() == EngineOption::Renderer::Direct3D11)
 		{
-			m_texture.fill(m_buffer.image);
+			updateTexture();
 		}
 
 		return true;
+	}
+
+	void SDFGlyphCache::updateTexture()
+	{
+		if (not m_hasDirty)
+		{
+			return;
+		}
+
+		m_texture.fill(m_buffer.image);
+		m_hasDirty = false;
 	}
 }

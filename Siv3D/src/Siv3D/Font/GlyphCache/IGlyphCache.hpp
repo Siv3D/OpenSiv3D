@@ -49,7 +49,7 @@ namespace s3d
 		virtual bool preload(const FontData& font, StringView s) = 0;
 
 		[[nodiscard]]
-		virtual const Texture& getTexture() const noexcept = 0;
+		virtual const Texture& getTexture() noexcept = 0;
 
 		[[nodiscard]]
 		virtual TextureRegion getTextureRegion(const FontData& font, GlyphIndex glyphIndex) = 0;

@@ -50,7 +50,7 @@ namespace s3d
 
 		virtual ~IAsset();
 
-		virtual bool load() = 0;
+		virtual bool load(const String& hint = {}) = 0;
 
 		virtual void release() = 0;
 
@@ -58,12 +58,12 @@ namespace s3d
 		AssetState getState() const;
 
 		[[nodiscard]]
+		bool isUninitialized() const;
+
+		[[nodiscard]]
 		bool isFinished() const;
 
 	protected:
-
-		[[nodiscard]]
-		bool isUninitialized() const;
 
 		[[nodiscard]]
 		bool isLoaded() const;

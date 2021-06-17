@@ -28,11 +28,11 @@ namespace s3d
 		, typeface{ _typeface }
 		, style{ _style } {}
 
-	bool FontAssetData::load()
+	bool FontAssetData::load(const String& hint)
 	{
 		if (isUninitialized())
 		{
-			if (onLoad(*this))
+			if (onLoad(*this, hint))
 			{
 				setState(AssetState::Loaded);
 			}
@@ -52,12 +52,17 @@ namespace s3d
 			return;
 		}
 
+		//if (isAsyncLoading())
+		//{
+		//	wait();
+		//}
+
 		onRelease(*this);
 
 		setState(AssetState::Uninitialized);
 	}
 
-	bool FontAssetData::DefaultLoad(FontAssetData& asset)
+	bool FontAssetData::DefaultLoad(FontAssetData& asset, const String& hint)
 	{
 		if (asset.font)
 		{
@@ -73,7 +78,14 @@ namespace s3d
 			asset.font = Font{ asset.fontMethod, asset.fontSize, asset.typeface, asset.style };
 		}
 
-		return static_cast<bool>(asset.font);
+		if (not asset.font)
+		{
+			return false;
+		}
+
+		asset.font.preload(hint);
+
+		return true;
 	}
 
 	void FontAssetData::DefaultRelease(FontAssetData& asset)

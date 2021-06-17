@@ -55,13 +55,13 @@ namespace s3d
 
 		if (assetList.contains(name))
 		{
-			LOG_FAIL(U"❌ {}Asset: Asset Name \"{}\" is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_FAIL(U"❌ {}Asset: Asset Name `{}` is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
 			return false;
 		}
 
 		auto it = assetList.emplace(name, std::move(asset));
 
-		LOG_TRACE(U"ℹ️ {}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_TRACE(U"ℹ️ {}Asset: Asset `{}` registered"_fmt(detail::GetAssetTypeName(assetType), name));
 
 		//if (result.first.value()->getParameter().loadAsync)
 		//{
@@ -84,7 +84,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(U"❌ CAsset::getAsset(): Unregistered {}Asset \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
+			//LOG_FAIL_ONCE(U"❌ CAsset::getAsset(): Unregistered {}Asset `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return nullptr;
 		}
 
@@ -111,6 +111,20 @@ namespace s3d
 		return m_assetLists[FromEnum(assetType)].contains(name);
 	}
 
+	bool CAsset::load(AssetType assetType, AssetNameView name, const String& hint)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::load(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return false;
+		}
+
+		return it->second->load(hint);
+	}
+
 	void CAsset::release(const AssetType assetType, const AssetNameView name)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
@@ -118,17 +132,13 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
+			//LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return;
 		}
 
-		IAsset* pAsset = it->second.get();
+		it->second->release();
 
-		//pAsset->wait();
-
-		pAsset->release();
-
-		LOG_TRACE(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_TRACE(U"ℹ️ {}Asset: `{}` released"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)
@@ -141,7 +151,7 @@ namespace s3d
 
 			asset->release();
 
-			LOG_TRACE(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_TRACE(U"ℹ️ {}Asset: `{}` released"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 	}
 
@@ -152,19 +162,15 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
+			//LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return;
 		}
 
-		IAsset* pAsset = it->second.get();
-
-		//pAsset->wait();
-
-		pAsset->release();
+		it->second->release();
 
 		assetList.erase(it);
 
-		LOG_TRACE(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_TRACE(U"ℹ️ {}Asset: `{}` unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::unregisterAll(const AssetType assetType)
@@ -177,7 +183,7 @@ namespace s3d
 
 			asset->release();
 
-			LOG_TRACE(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_TRACE(U"ℹ️ {}Asset: `{}` unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
 		assetList.clear();
