@@ -9,8 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/EngineLog.hpp>
 # include "CAsset.hpp"
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -42,11 +44,22 @@ namespace s3d
 	CAsset::~CAsset()
 	{
 		LOG_SCOPED_TRACE(U"CAsset::~CAsset()");
+
+		SIV3D_ENGINE(Texture)->updateAsyncTextureLoad(Largest<size_t>);
+
+		// wait for all
+		for (auto& assetList : m_assetLists)
+		{
+			for (auto& asset : assetList)
+			{
+				asset.second->wait();
+			}
+		}
 	}
 
 	void CAsset::update()
 	{
-		// [Siv3D ToDo]
+		SIV3D_ENGINE(Texture)->updateAsyncTextureLoad(4);
 	}
 
 	bool CAsset::registerAsset(const AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset)
