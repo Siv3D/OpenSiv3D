@@ -550,7 +550,15 @@ namespace s3d
 			return;
 		}
 
-		m_texture.fill(m_buffer.image);
+		if (m_texture.size() == m_buffer.image.size())
+		{
+			m_texture.fill(m_buffer.image);
+		}
+		else
+		{
+			m_texture = DynamicTexture{ m_buffer.image };
+		}
+
 		m_hasDirty = false;
 	}
 }

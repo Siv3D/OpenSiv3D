@@ -22,6 +22,7 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		explicit FontAsset(AssetNameView name);
 
 		static bool Register(const AssetName& name, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
@@ -43,7 +44,12 @@ namespace s3d
 
 		static bool Load(AssetNameView name, const String& preloadText = U"");
 
-		//static void LoadAsync(AssetNameView name, StringView preloadText = U"");
+		static void LoadAsync(AssetNameView name, const String& preloadText = U"");
+
+		static void Wait(AssetNameView name);
+
+		[[nodiscard]]
+		static bool IsReady(AssetNameView name);
 
 		static void Release(AssetNameView name);
 
@@ -53,6 +59,7 @@ namespace s3d
 
 		static void UnregisterAll();
 
+		[[nodiscard]]
 		static HashTable<AssetName, AssetState> Enumerate();
 	};
 }

@@ -15,9 +15,8 @@ namespace s3d
 {
 	IAsset::IAssetDetail::IAssetDetail() {}
 
-	IAsset::IAssetDetail::IAssetDetail(const LoadOption loadOption, const Array<String>& tags)
-		: m_loadOption{ loadOption }
-		, m_tags{ tags } {}
+	IAsset::IAssetDetail::IAssetDetail(const Array<String>& tags)
+		: m_tags{ tags } {}
 
 	IAsset::IAssetDetail::~IAssetDetail() {}
 

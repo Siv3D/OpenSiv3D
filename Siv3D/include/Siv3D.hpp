@@ -1137,6 +1137,8 @@
 
 # include <Siv3D/AssetHandle.hpp>
 
+# include <Siv3D/AssetState.hpp>
+
 # include <Siv3D/Asset.hpp>
 
 //# include <Siv3D/AudioAssetData.hpp>

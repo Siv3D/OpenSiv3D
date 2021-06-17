@@ -35,14 +35,42 @@ namespace s3d
 			if (onLoad(*this, hint))
 			{
 				setState(AssetState::Loaded);
+				return true;
 			}
 			else
 			{
 				setState(AssetState::Failed);
+				return false;
 			}
 		}
 
+		if (isAsyncLoading())
+		{
+			wait();
+		}
+
 		return isLoaded();
+	}
+
+	void FontAssetData::loadAsync(const String& hint)
+	{
+		if (isUninitialized())
+		{
+			setState(AssetState::AsyncLoading);
+
+			m_task = Async([this, hint = hint]()
+				{
+					setState(onLoad(*this, hint) ? AssetState::Loaded : AssetState::Failed);
+				});
+		}
+	}
+
+	void FontAssetData::wait()
+	{
+		if (m_task.valid())
+		{
+			m_task.get();
+		}
 	}
 
 	void FontAssetData::release()
@@ -52,10 +80,10 @@ namespace s3d
 			return;
 		}
 
-		//if (isAsyncLoading())
-		//{
-		//	wait();
-		//}
+		if (isAsyncLoading())
+		{
+			wait();
+		}
 
 		onRelease(*this);
 

@@ -34,6 +34,12 @@ namespace s3d
 
 		bool load(AssetType assetType, AssetNameView name, const String& hint) override;
 
+		void loadAsync(AssetType assetType, AssetNameView name, const String& hint) override;
+
+		void wait(AssetType assetType, AssetNameView name) override;
+
+		bool isReady(AssetType assetType, AssetNameView name) override;
+
 		void release(AssetType assetType, AssetNameView name) override;
 
 		void releaseAll(AssetType assetType) override;

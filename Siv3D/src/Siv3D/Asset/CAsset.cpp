@@ -59,20 +59,9 @@ namespace s3d
 			return false;
 		}
 
-		auto it = assetList.emplace(name, std::move(asset));
+		assetList.emplace(name, std::move(asset));
 
 		LOG_TRACE(U"ℹ️ {}Asset: Asset `{}` registered"_fmt(detail::GetAssetTypeName(assetType), name));
-
-		//if (result.first.value()->getParameter().loadAsync)
-		//{
-		//	result.first.value()->preloadAsync();
-
-		//	return true;
-		//}
-		//else if (result.first.value()->getParameter().loadImmediately)
-		//{
-		//	return result.first.value()->preload();
-		//}
 
 		return true;
 	}
@@ -92,10 +81,10 @@ namespace s3d
 
 		if (not pAsset->isFinished())
 		{
-		//	if (pAsset->isLoadingAsync())
-		//	{
-		//		return nullptr;
-		//	}
+			if (pAsset->isAsyncLoading())
+			{
+				return nullptr;
+			}
 
 			if (not pAsset->load())
 			{
@@ -111,7 +100,7 @@ namespace s3d
 		return m_assetLists[FromEnum(assetType)].contains(name);
 	}
 
-	bool CAsset::load(AssetType assetType, AssetNameView name, const String& hint)
+	bool CAsset::load(const AssetType assetType, const AssetNameView name, const String& hint)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
@@ -123,6 +112,48 @@ namespace s3d
 		}
 
 		return it->second->load(hint);
+	}
+
+	void CAsset::loadAsync(const AssetType assetType, const AssetNameView name, const String& hint)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::loadAsync(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
+
+		it->second->loadAsync(hint);
+	}
+
+	void CAsset::wait(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::wait(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
+
+		it->second->wait();
+	}
+
+	bool CAsset::isReady(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::isReady(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return false;
+		}
+
+		return it->second->isFinished();
 	}
 
 	void CAsset::release(const AssetType assetType, const AssetNameView name)
@@ -147,8 +178,6 @@ namespace s3d
 
 		for (auto&&[name, asset] : assetList)
 		{
-			//asset.second->wait();
-
 			asset->release();
 
 			LOG_TRACE(U"ℹ️ {}Asset: `{}` released"_fmt(detail::GetAssetTypeName(assetType), name));
@@ -179,8 +208,6 @@ namespace s3d
 
 		for (auto&& [name, asset] : assetList)
 		{
-			//asset.second->wait();
-
 			asset->release();
 
 			LOG_TRACE(U"ℹ️ {}Asset: `{}` unregistered"_fmt(detail::GetAssetTypeName(assetType), name));

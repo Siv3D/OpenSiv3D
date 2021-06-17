@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Asset.hpp"
 # include "Font.hpp"
+# include "AsyncTask.hpp"
 
 namespace s3d
 {
@@ -47,10 +48,18 @@ namespace s3d
 
 		bool load(const String& hint) override;
 
+		void loadAsync(const String& hint) override;
+
+		void wait() override;
+
 		void release() override;
 
 		static bool DefaultLoad(FontAssetData& asset, const String& hint);
 
 		static void DefaultRelease(FontAssetData& asset);
+
+	private:
+
+		AsyncTask<void> m_task;
 	};
 }

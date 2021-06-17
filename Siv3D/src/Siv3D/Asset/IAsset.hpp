@@ -47,6 +47,12 @@ namespace s3d
 
 		virtual bool load(AssetType assetType, AssetNameView name, const String& hint) = 0;
 
+		virtual void loadAsync(AssetType assetType, AssetNameView name, const String& hint) = 0;
+
+		virtual void wait(AssetType assetType, AssetNameView name) = 0;
+
+		virtual bool isReady(AssetType assetType, AssetNameView name) = 0;
+
 		virtual void release(AssetType assetType, AssetNameView name) = 0;
 
 		virtual void releaseAll(AssetType assetType) = 0;

@@ -17,8 +17,8 @@ namespace s3d
 	IAsset::IAsset()
 		: pImpl{ std::make_shared<IAssetDetail>() } {}
 
-	IAsset::IAsset(LoadOption loadOption, const Array<String>& tags)
-		: pImpl{ std::make_shared<IAssetDetail>(loadOption, tags) } {}
+	IAsset::IAsset(const Array<String>& tags)
+		: pImpl{ std::make_shared<IAssetDetail>(tags) } {}
 
 	IAsset::~IAsset() {}
 
@@ -27,11 +27,9 @@ namespace s3d
 		return pImpl->getState();
 	}
 
-	bool IAsset::isUninitialized() const
+	bool IAsset::isAsyncLoading() const
 	{
-		const AssetState state = pImpl->getState();
-
-		return (state == AssetState::Uninitialized);
+		return (pImpl->getState() == AssetState::AsyncLoading);
 	}
 
 	bool IAsset::isFinished() const
@@ -42,11 +40,14 @@ namespace s3d
 			|| (state == AssetState::Failed));
 	}
 
+	bool IAsset::isUninitialized() const
+	{
+		return (pImpl->getState() == AssetState::Uninitialized);
+	}
+
 	bool IAsset::isLoaded() const
 	{
-		const AssetState state = pImpl->getState();
-
-		return (state == AssetState::Loaded);
+		return (pImpl->getState() == AssetState::Loaded);
 	}
 
 	void IAsset::setState(const AssetState state)

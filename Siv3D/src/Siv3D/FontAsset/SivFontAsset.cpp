@@ -81,6 +81,21 @@ namespace s3d
 		return SIV3D_ENGINE(Asset)->load(AssetType::Font, name, preloadText);
 	}
 
+	void FontAsset::LoadAsync(AssetNameView name, const String& preloadText)
+	{
+		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Font, name, preloadText);
+	}
+
+	void FontAsset::Wait(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->wait(AssetType::Font, name);
+	}
+
+	bool FontAsset::IsReady(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->isReady(AssetType::Font, name);
+	}
+
 	void FontAsset::Release(const AssetNameView name)
 	{
 		SIV3D_ENGINE(Asset)->release(AssetType::Font, name);

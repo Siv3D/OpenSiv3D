@@ -20,7 +20,7 @@ namespace s3d
 
 		IAssetDetail();
 
-		IAssetDetail(LoadOption loadOption, const Array<String>& tags);
+		explicit IAssetDetail(const Array<String>& tags);
 
 		~IAssetDetail();
 
@@ -31,10 +31,8 @@ namespace s3d
 
 	private:
 
-		LoadOption m_loadOption = LoadOption::Default;
-
 		Array<String> m_tags;
 
-		AssetState m_state = AssetState::Uninitialized;
+		std::atomic<AssetState> m_state = AssetState::Uninitialized;
 	};
 }
