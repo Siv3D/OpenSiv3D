@@ -29,6 +29,9 @@ namespace s3d
 
 		void setState(AssetState state);
 
+		[[nodiscard]]
+		const Array<AssetTag>& getTags() const;
+
 	private:
 
 		Array<String> m_tags;

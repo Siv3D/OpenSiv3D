@@ -39,6 +39,20 @@ namespace s3d
 	
 		static bool Register(const AssetName& name, std::unique_ptr<FontAssetData>&& data);
 
+
+		static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, FontMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+
+
 		[[nodiscard]]
 		static bool IsRegistered(AssetNameView name);
 
@@ -60,6 +74,6 @@ namespace s3d
 		static void UnregisterAll();
 
 		[[nodiscard]]
-		static HashTable<AssetName, AssetState> Enumerate();
+		static HashTable<AssetName, AssetInfo> Enumerate();
 	};
 }

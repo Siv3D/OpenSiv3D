@@ -216,9 +216,9 @@ namespace s3d
 		assetList.clear();
 	}
 
-	HashTable<AssetName, AssetState> CAsset::enumerate(const AssetType assetType)
+	HashTable<AssetName, AssetInfo> CAsset::enumerate(const AssetType assetType)
 	{
-		HashTable<AssetName, AssetState> result;
+		HashTable<AssetName, AssetInfo> result;
 
 		auto& assetList = m_assetLists[FromEnum(assetType)];
 
@@ -226,7 +226,7 @@ namespace s3d
 
 		for (auto&& [name, asset] : assetList)
 		{
-			result.emplace(name, asset->getState());
+			result.emplace(name, AssetInfo{ asset->getState(), asset->getTags() });
 		}
 
 		return result;

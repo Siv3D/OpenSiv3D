@@ -71,6 +71,40 @@ namespace s3d
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Font, name, std::move(data));
 	}
 
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, path, 0, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, path, faceIndex, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const Typeface typeface, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, typeface, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
+	{
+		return Register(nameAndTags, fontMethod, fontSize, path, 0, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	{
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, path, faceIndex, style, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
+	{
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, typeface, style, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
+	}
+
 	bool FontAsset::IsRegistered(const AssetNameView name)
 	{
 		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Font, name);
@@ -116,7 +150,7 @@ namespace s3d
 		SIV3D_ENGINE(Asset)->unregisterAll(AssetType::Font);
 	}
 
-	HashTable<AssetName, AssetState> FontAsset::Enumerate()
+	HashTable<AssetName, AssetInfo> FontAsset::Enumerate()
 	{
 		return SIV3D_ENGINE(Asset)->enumerate(AssetType::Font);
 	}

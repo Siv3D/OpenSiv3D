@@ -15,15 +15,17 @@ namespace s3d
 {
 	FontAssetData::FontAssetData() {}
 
-	FontAssetData::FontAssetData(const FontMethod _fontMethod, const int32 _fontSize, const FilePathView _path, const size_t _faceIndex, const FontStyle _style)
-		: fontMethod{ _fontMethod }
+	FontAssetData::FontAssetData(const FontMethod _fontMethod, const int32 _fontSize, const FilePathView _path, const size_t _faceIndex, const FontStyle _style, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, fontMethod{ _fontMethod }
 		, fontSize{ _fontSize }
 		, path{ _path }
 		, faceIndex{ _faceIndex }
 		, style{ _style } {}
 
-	FontAssetData::FontAssetData(const FontMethod _fontMethod, const int32 _fontSize, const Typeface _typeface, const FontStyle _style)
-		: fontMethod{ _fontMethod }
+	FontAssetData::FontAssetData(const FontMethod _fontMethod, const int32 _fontSize, const Typeface _typeface, const FontStyle _style, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, fontMethod{ _fontMethod }
 		, fontSize{ _fontSize }
 		, typeface{ _typeface }
 		, style{ _style } {}

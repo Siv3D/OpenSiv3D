@@ -61,6 +61,6 @@ namespace s3d
 
 		virtual void unregisterAll(AssetType assetType) = 0;
 
-		virtual HashTable<AssetName, AssetState> enumerate(AssetType assetType) = 0;
+		virtual HashTable<AssetName, AssetInfo> enumerate(AssetType assetType) = 0;
 	};
 }

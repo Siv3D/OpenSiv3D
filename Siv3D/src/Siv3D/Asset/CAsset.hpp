@@ -48,7 +48,7 @@ namespace s3d
 
 		void unregisterAll(AssetType assetType) override;
 
-		HashTable<AssetName, AssetState> enumerate(AssetType assetType) override;
+		HashTable<AssetName, AssetInfo> enumerate(AssetType assetType) override;
 
 	private:
 

@@ -41,10 +41,10 @@ namespace s3d
 		FontAssetData();
 
 		SIV3D_NODISCARD_CXX20
-		FontAssetData(FontMethod _fontMethod, int32 _fontSize, FilePathView _path, size_t _faceIndex, FontStyle _style);
+		FontAssetData(FontMethod _fontMethod, int32 _fontSize, FilePathView _path, size_t _faceIndex, FontStyle _style, const Array<AssetTag>& tags = {});
 
 		SIV3D_NODISCARD_CXX20
-		FontAssetData(FontMethod _fontMethod, int32 _fontSize, Typeface _typeface, FontStyle _tyle);
+		FontAssetData(FontMethod _fontMethod, int32 _fontSize, Typeface _typeface, FontStyle _tyle, const Array<AssetTag>& tags = {});
 
 		bool load(const String& hint) override;
 

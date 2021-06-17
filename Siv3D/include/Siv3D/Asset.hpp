@@ -14,17 +14,10 @@
 # include "String.hpp"
 # include "Array.hpp"
 # include "AssetState.hpp"
+# include "AssetInfo.hpp"
 
 namespace s3d
 {
-	/// @brief アセット名
-	using AssetName = String;
-
-	using AssetNameView = StringView;
-
-	/// @brief アセットタグ名
-	using AssetTag = String;
-
 	class IAsset
 	{
 	public:
@@ -45,6 +38,9 @@ namespace s3d
 
 		[[nodiscard]]
 		AssetState getState() const;
+
+		[[nodiscard]]
+		const Array<AssetTag>& getTags() const;
 
 		[[nodiscard]]
 		bool isAsyncLoading() const;

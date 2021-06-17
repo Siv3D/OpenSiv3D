@@ -29,4 +29,9 @@ namespace s3d
 	{
 		m_state = state;
 	}
+
+	const Array<AssetTag>& IAsset::IAssetDetail::getTags() const
+	{
+		return m_tags;
+	}
 }

@@ -27,6 +27,11 @@ namespace s3d
 		return pImpl->getState();
 	}
 
+	const Array<AssetTag>& IAsset::getTags() const
+	{
+		return pImpl->getTags();
+	}
+
 	bool IAsset::isAsyncLoading() const
 	{
 		return (pImpl->getState() == AssetState::AsyncLoading);
