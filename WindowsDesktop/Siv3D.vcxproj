@@ -31,6 +31,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AsyncHTTPTask.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioAsset.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioAssetData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
@@ -530,6 +532,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PianoKey.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Pipe.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PixelShaderAsset.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PixelShaderAssetData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Plane.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
@@ -628,6 +632,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextToSpeech.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureAssetData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp" />
@@ -670,6 +675,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\VertexShaderAsset.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\VertexShaderAssetData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp" />
