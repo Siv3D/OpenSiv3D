@@ -22,29 +22,34 @@ namespace s3d
 
 	IAsset::~IAsset() {}
 
+	AssetState IAsset::getState() const
+	{
+		return pImpl->getState();
+	}
+
 	bool IAsset::isFinished() const
 	{
-		const State state = pImpl->getState();
+		const AssetState state = pImpl->getState();
 
-		return ((state == State::Loaded)
-			|| (state == State::Failed));
+		return ((state == AssetState::Loaded)
+			|| (state == AssetState::Failed));
 	}
 
 	bool IAsset::isUninitialized() const
 	{
-		const State state = pImpl->getState();
+		const AssetState state = pImpl->getState();
 
-		return (state == State::Uninitialized);
+		return (state == AssetState::Uninitialized);
 	}
 
 	bool IAsset::isLoaded() const
 	{
-		const State state = pImpl->getState();
+		const AssetState state = pImpl->getState();
 
-		return (state == State::Loaded);
+		return (state == AssetState::Loaded);
 	}
 
-	void IAsset::setState(const State state)
+	void IAsset::setState(const AssetState state)
 	{
 		pImpl->setState(state);
 	}

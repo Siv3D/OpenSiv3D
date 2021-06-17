@@ -32,6 +32,16 @@ namespace s3d
 
 		bool isRegistered(AssetType assetType, AssetNameView name) const override;
 
+		void release(AssetType assetType, AssetNameView name) override;
+
+		void releaseAll(AssetType assetType) override;
+
+		void unregister(AssetType assetType, AssetNameView name) override;
+
+		void unregisterAll(AssetType assetType) override;
+
+		HashTable<AssetName, AssetState> enumerate(AssetType assetType) override;
+
 	private:
 
 		std::array<HashTable<String, std::unique_ptr<IAsset>>, 5> m_assetLists;

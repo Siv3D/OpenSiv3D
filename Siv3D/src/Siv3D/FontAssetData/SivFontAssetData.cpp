@@ -34,15 +34,27 @@ namespace s3d
 		{
 			if (onLoad(*this))
 			{
-				setState(State::Loaded);
+				setState(AssetState::Loaded);
 			}
 			else
 			{
-				setState(State::Failed);
+				setState(AssetState::Failed);
 			}
 		}
 
 		return isLoaded();
+	}
+
+	void FontAssetData::release()
+	{
+		if (isUninitialized())
+		{
+			return;
+		}
+
+		onRelease(*this);
+
+		setState(AssetState::Uninitialized);
 	}
 
 	bool FontAssetData::DefaultLoad(FontAssetData& asset)
@@ -62,5 +74,10 @@ namespace s3d
 		}
 
 		return static_cast<bool>(asset.font);
+	}
+
+	void FontAssetData::DefaultRelease(FontAssetData& asset)
+	{
+		asset.font.release();
 	}
 }

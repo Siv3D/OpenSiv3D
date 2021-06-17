@@ -21,12 +21,12 @@ namespace s3d
 
 	IAsset::IAssetDetail::~IAssetDetail() {}
 
-	IAsset::State IAsset::IAssetDetail::getState() const
+	AssetState IAsset::IAssetDetail::getState() const
 	{
 		return m_state;
 	}
 
-	void IAsset::IAssetDetail::setState(const State state)
+	void IAsset::IAssetDetail::setState(const AssetState state)
 	{
 		m_state = state;
 	}

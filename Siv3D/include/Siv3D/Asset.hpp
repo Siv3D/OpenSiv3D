@@ -24,9 +24,20 @@ namespace s3d
 	/// @brief アセットタグ名
 	using AssetTag = String;
 
-	enum class LoadOption
+	enum class LoadOption : uint8
 	{
 		Default,
+	};
+
+	enum class AssetState : uint8
+	{
+		Uninitialized,
+
+		//PreloadingAsync,
+
+		Loaded,
+
+		Failed,
 	};
 
 	class IAsset
@@ -41,21 +52,15 @@ namespace s3d
 
 		virtual bool load() = 0;
 
+		virtual void release() = 0;
+
+		[[nodiscard]]
+		AssetState getState() const;
+
 		[[nodiscard]]
 		bool isFinished() const;
 
 	protected:
-
-		enum class State
-		{
-			Uninitialized,
-
-			//PreloadingAsync,
-
-			Loaded,
-
-			Failed,
-		};
 
 		[[nodiscard]]
 		bool isUninitialized() const;
@@ -63,7 +68,7 @@ namespace s3d
 		[[nodiscard]]
 		bool isLoaded() const;
 
-		void setState(State state);
+		void setState(AssetState state);
 
 	private:
 

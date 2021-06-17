@@ -25,9 +25,9 @@ namespace s3d
 		~IAssetDetail();
 
 		[[nodiscard]]
-		State getState() const;
+		AssetState getState() const;
 
-		void setState(State state);
+		void setState(AssetState state);
 
 	private:
 
@@ -35,6 +35,6 @@ namespace s3d
 
 		Array<String> m_tags;
 
-		State m_state = State::Uninitialized;
+		AssetState m_state = AssetState::Uninitialized;
 	};
 }

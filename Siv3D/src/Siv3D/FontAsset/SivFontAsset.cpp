@@ -75,4 +75,29 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Font, name);
 	}
+
+	void FontAsset::Release(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->release(AssetType::Font, name);
+	}
+
+	void FontAsset::ReleaseAll()
+	{
+		SIV3D_ENGINE(Asset)->releaseAll(AssetType::Font);
+	}
+
+	void FontAsset::Unregister(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->unregister(AssetType::Font, name);
+	}
+
+	void FontAsset::UnregisterAll()
+	{
+		SIV3D_ENGINE(Asset)->unregisterAll(AssetType::Font);
+	}
+
+	HashTable<AssetName, AssetState> FontAsset::Enumerate()
+	{
+		return SIV3D_ENGINE(Asset)->enumerate(AssetType::Font);
+	}
 }

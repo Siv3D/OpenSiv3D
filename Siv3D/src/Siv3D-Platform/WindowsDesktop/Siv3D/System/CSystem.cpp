@@ -46,6 +46,7 @@
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/GUI/IGUI.hpp>
 # include <Siv3D/Print/IPrint.hpp>
+# include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
 # include <Siv3D/System/SystemLog.hpp>
@@ -170,6 +171,7 @@ namespace s3d
 		SIV3D_ENGINE(Scene)->update();
 		SIV3D_ENGINE(Window)->update();
 		SIV3D_ENGINE(Renderer)->clear();
+		SIV3D_ENGINE(Asset)->update();
 		SIV3D_ENGINE(Cursor)->update();
 		SIV3D_ENGINE(Keyboard)->update();
 		SIV3D_ENGINE(Mouse)->update();

@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Asset.hpp>
+# include <Siv3D/HashTable.hpp>
 
 namespace s3d
 {
@@ -43,5 +44,15 @@ namespace s3d
 		virtual IAsset* getAsset(AssetType assetType, AssetNameView name) = 0;
 
 		virtual bool isRegistered(AssetType assetType, AssetNameView name) const = 0;
+
+		virtual void release(AssetType assetType, AssetNameView name) = 0;
+
+		virtual void releaseAll(AssetType assetType) = 0;
+
+		virtual void unregister(AssetType assetType, AssetNameView name) = 0;
+
+		virtual void unregisterAll(AssetType assetType) = 0;
+
+		virtual HashTable<AssetName, AssetState> enumerate(AssetType assetType) = 0;
 	};
 }

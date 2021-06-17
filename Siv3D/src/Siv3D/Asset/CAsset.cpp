@@ -80,7 +80,6 @@ namespace s3d
 	IAsset* CAsset::getAsset(const AssetType assetType, const AssetNameView name)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
-
 		const auto it = assetList.find(name);
 
 		if (it == assetList.end())
@@ -109,8 +108,94 @@ namespace s3d
 
 	bool CAsset::isRegistered(const AssetType assetType, const AssetNameView name) const
 	{
-		const auto& assetList = m_assetLists[FromEnum(assetType)];
+		return m_assetLists[FromEnum(assetType)].contains(name);
+	}
 
-		return assetList.contains(name);
+	void CAsset::release(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
+
+		IAsset* pAsset = it->second.get();
+
+		//pAsset->wait();
+
+		pAsset->release();
+
+		LOG_TRACE(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+	}
+
+	void CAsset::releaseAll(const AssetType assetType)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+
+		for (auto&&[name, asset] : assetList)
+		{
+			//asset.second->wait();
+
+			asset->release();
+
+			LOG_TRACE(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+		}
+	}
+
+	void CAsset::unregister(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
+
+		IAsset* pAsset = it->second.get();
+
+		//pAsset->wait();
+
+		pAsset->release();
+
+		assetList.erase(it);
+
+		LOG_TRACE(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+	}
+
+	void CAsset::unregisterAll(const AssetType assetType)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+
+		for (auto&& [name, asset] : assetList)
+		{
+			//asset.second->wait();
+
+			asset->release();
+
+			LOG_TRACE(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+		}
+
+		assetList.clear();
+	}
+
+	HashTable<AssetName, AssetState> CAsset::enumerate(const AssetType assetType)
+	{
+		HashTable<AssetName, AssetState> result;
+
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+
+		result.reserve(assetList.size());
+
+		for (auto&& [name, asset] : assetList)
+		{
+			result.emplace(name, asset->getState());
+		}
+
+		return result;
 	}
 }

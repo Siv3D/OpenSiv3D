@@ -14,6 +14,7 @@
 # include "Asset.hpp"
 # include "Font.hpp"
 # include "FontAssetData.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
@@ -39,5 +40,15 @@ namespace s3d
 
 		[[nodiscard]]
 		static bool IsRegistered(AssetNameView name);
+
+		static void Release(AssetNameView name);
+
+		static void ReleaseAll();
+
+		static void Unregister(AssetNameView name);
+
+		static void UnregisterAll();
+
+		static HashTable<AssetName, AssetState> Enumerate();
 	};
 }

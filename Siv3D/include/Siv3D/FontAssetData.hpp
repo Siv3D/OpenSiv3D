@@ -33,7 +33,9 @@ namespace s3d
 		Font font;
 
 		std::function<bool(FontAssetData&)> onLoad = DefaultLoad;
-		
+
+		std::function<void(FontAssetData&)> onRelease = DefaultRelease;
+
 		SIV3D_NODISCARD_CXX20
 		FontAssetData();
 
@@ -45,6 +47,10 @@ namespace s3d
 
 		bool load() override;
 
+		void release() override;
+
 		static bool DefaultLoad(FontAssetData& asset);
+
+		static void DefaultRelease(FontAssetData& asset);
 	};
 }
