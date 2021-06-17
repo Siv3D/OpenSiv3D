@@ -11,6 +11,7 @@
 
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/AsyncTask.hpp>
 
 namespace s3d::Platform::Web::AudioDecoder
 {
@@ -79,10 +80,10 @@ namespace s3d::Platform::Web::AudioDecoder
         }
     }
 
-    std::future<Wave> DecodeFromFile(const FilePath& path)
+    AsyncTask<Wave> DecodeFromFile(const FilePath& path)
     {
         std::promise<Wave> promise;
-        auto future = promise.get_future();
+        AsyncTask<Wave> future { promise.get_future() };
 
         DecodeFromFile(path, std::move(promise));
         return future;

@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Wave.hpp"
 # include "IAudioDecoder.hpp"
+# include "AsyncTask.hpp"
 
 namespace s3d
 {
@@ -73,7 +74,7 @@ namespace s3d
 	{
 		void DecodeFromFile(const FilePath& path, std::promise<Wave> p);
 		
-		std::future<Wave> DecodeFromFile(const FilePath& path);
+		AsyncTask<Wave> DecodeFromFile(const FilePath& path);
 	}
 
 # endif

@@ -127,9 +127,9 @@ namespace s3d
 					{ 
 						std::chrono::milliseconds(30),
 
-						[](std::promise<Audio>& promise, std::future<Wave>& future) 
+						[](std::promise<Audio>& promise, AsyncTask<Wave>& future) 
 						{
-							if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+							if (future.isReady())
 							{
 								promise.set_value(Audio { future.get() });
 								return false;
@@ -162,34 +162,34 @@ namespace s3d
 			}
 		}
 
-		std::future<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters, FilePathView defaultPath, StringView)
+		AsyncTask<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters, FilePathView defaultPath, StringView)
 		{
 			return detail::siv3dOpenDialog<Optional<FilePath>>(filters);
 		}
 
 
 
-		std::future<Image> OpenImage(FilePathView defaultPath, StringView title)
+		AsyncTask<Image> OpenImage(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialog<Image>({ FileFilter::AllImageFiles() });
 		}
 
-		std::future<Texture> OpenTexture(FilePathView defaultPath, StringView title)
+		AsyncTask<Texture> OpenTexture(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialog<Texture>({ FileFilter::AllImageFiles() });
 		}
 
-		std::future<Texture> OpenTexture(const TextureDesc desc, FilePathView defaultPath, StringView title)
+		AsyncTask<Texture> OpenTexture(const TextureDesc desc, FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialog<Texture>({ FileFilter::AllImageFiles() });
 		}
 
-		std::future<Wave> OpenWave(FilePathView defaultPath, StringView title)
+		AsyncTask<Wave> OpenWave(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialog<Wave>({ FileFilter::AllAudioFiles() }, &detail::OnOpenWaveDialogClosed);
 		}
 
-		std::future<Audio> OpenAudio(FilePathView defaultPath, StringView title)
+		AsyncTask<Audio> OpenAudio(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialog<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
 		}
