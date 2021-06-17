@@ -29,7 +29,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		PixelShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 
-		//virtual ~PixelShader();
+		virtual ~PixelShader();
 
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;

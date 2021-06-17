@@ -42,16 +42,15 @@ namespace s3d
 		}
 	}
 
-	PixelShader::PixelShader()
-	{
-		// do nothing
-	}
+	PixelShader::PixelShader() {}
 
 	PixelShader::PixelShader(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Shader)->createPSFromFile(path, entryPoint, bindings)) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
+
+	PixelShader::~PixelShader() {}
 
 	const Blob& PixelShader::getBinary() const noexcept
 	{

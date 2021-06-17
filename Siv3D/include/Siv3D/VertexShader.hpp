@@ -29,7 +29,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		VertexShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 
-		//virtual ~VertexShader();
+		virtual ~VertexShader();
 
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;

@@ -44,11 +44,7 @@ namespace s3d
 		}
 	}
 
-	Font::Font()
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>() }
-	{
-		SIV3D_ENGINE(AssetMonitor)->created();
-	}
+	Font::Font() {}
 
 	Font::Font(const int32 fontSize, const FilePathView path, const FontStyle style)
 		: Font{ FontMethod::Bitmap, fontSize, path, 0, style } {}
@@ -74,10 +70,7 @@ namespace s3d
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Font::~Font()
-	{
-
-	}
+	Font::~Font() {}
 
 	bool Font::addFallback(const Font& font) const
 	{
