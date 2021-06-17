@@ -91,7 +91,7 @@ namespace s3d
 
 	void CDragDrop::update()
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		if (m_acceptFilePath)
 		{
@@ -116,14 +116,14 @@ namespace s3d
 
 	void CDragDrop::acceptFilePaths(const bool accept)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_acceptFilePath = accept;
 	}
 
 	void CDragDrop::acceptText(const bool accept)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_acceptText = accept;
 	}
@@ -177,7 +177,7 @@ namespace s3d
 
 	void CDragDrop::internal_entered(const bool isFilePath, const Point& pos)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		if ((!m_acceptFilePath && isFilePath)
 			|| (!m_acceptText && !isFilePath))
@@ -194,21 +194,21 @@ namespace s3d
 
 	void CDragDrop::internal_updated(const Point& pos)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_internal.dragOverPos = pos;
 	}
 
 	void CDragDrop::internal_exited()
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_internal.dragOver = false;
 	}
 
 	void CDragDrop::internal_textDropped(const String& text, const Point& pos)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_internal.dragOver = false;
 		
@@ -217,7 +217,7 @@ namespace s3d
 
 	void CDragDrop::internal_filePathsDropped(const Array<FilePath>& paths, const Point& pos)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
+		std::lock_guard resourceGuard{ m_mutex };
 		
 		m_internal.dragOver = false;
 		

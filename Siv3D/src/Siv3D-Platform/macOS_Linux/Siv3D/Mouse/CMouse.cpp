@@ -46,7 +46,7 @@ namespace s3d
 	void CMouse::update()
 	{
 		{
-			std::lock_guard lock(m_buttonMutex);
+			std::lock_guard lock{ m_buttonMutex };
 			
 			for (uint32 i = 0; i < InputState::MouseButtonCount; ++i)
 			{
@@ -64,7 +64,7 @@ namespace s3d
 		}
 
 		{
-			std::lock_guard<std::mutex> lock(m_scrollMutex);
+			std::lock_guard lock{ m_scrollMutex };
 			
 			m_scroll = std::exchange(m_scrollInternal, Vec2{ 0, 0 });
 		}
@@ -120,7 +120,7 @@ namespace s3d
 
 	void CMouse::onMouseButtonUpdated(const int32 index, const bool pressed)
 	{
-		std::lock_guard lock(m_buttonMutex);
+		std::lock_guard lock{ m_buttonMutex };
 		
 		auto& state = m_buttonsInternal[index];
 		
@@ -149,7 +149,7 @@ namespace s3d
 
 	void CMouse::onScroll(const double x, const double y)
 	{
-		std::lock_guard lock(m_scrollMutex);
+		std::lock_guard lock{ m_scrollMutex };
 		
 		m_scrollInternal.moveBy(x, y);
 	}

@@ -77,7 +77,7 @@ namespace s3d
 
 		{
 			const Point lastClientPos = detail::GetCursorClientPos(m_hWnd);
-			std::lock_guard lock(m_clientPosBufferMutex);
+			std::lock_guard lock{ m_clientPosBufferMutex };
 			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), lastClientPos);
 		
 			POINT screenPos;
@@ -126,7 +126,7 @@ namespace s3d
 		{
 			const uint64 time = Time::GetMicrosec();
 	
-			std::lock_guard lock(m_clientPosBufferMutex);
+			std::lock_guard lock{ m_clientPosBufferMutex };
 
 			auto it = m_clientPosBuffer.begin();
 
@@ -425,7 +425,7 @@ namespace s3d
 		}
 
 		{
-			std::lock_guard lock(m_clientPosBufferMutex);
+			std::lock_guard lock{ m_clientPosBufferMutex };
 
 			if (m_clientPosBuffer.back().second != newPosRaw)
 			{

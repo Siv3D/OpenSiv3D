@@ -74,8 +74,12 @@ namespace s3d
 		[[nodiscard]]
 		bool isReady() const;
 
+		/// @brief タスクが完了した非同期処理の結果を返します。
+		/// @remark タスクが完了していない場合は、完了まで待機します。
+		/// @return タスクが完了した非同期処理の結果
 		Type get();
 
+		/// @brief 非同期処理のタスク完了を待ちます。
 		void wait() const;
 
 		template <class Rep, class Period>

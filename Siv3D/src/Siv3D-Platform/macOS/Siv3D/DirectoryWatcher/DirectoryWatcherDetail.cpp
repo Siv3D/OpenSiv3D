@@ -99,7 +99,7 @@ namespace s3d
 
 	void DirectoryWatcher::DirectoryWatcherDetail::retrieveChanges(Array<FileChange>& fileChanges)
 	{
-		std::lock_guard lock(m_changesMutex);
+		std::lock_guard lock{ m_changesMutex };
 
 		fileChanges.assign(m_fileChanges.begin(), m_fileChanges.end());
 
@@ -108,7 +108,7 @@ namespace s3d
 
 	void DirectoryWatcher::DirectoryWatcherDetail::clearChanges()
 	{
-		std::lock_guard lock(m_changesMutex);
+		std::lock_guard lock{ m_changesMutex };
 
 		m_fileChanges.clear();
 	}
@@ -135,7 +135,7 @@ namespace s3d
 		char32_t buffer[2048];
 		CFArrayRef eventPathArray = (CFArrayRef)paths;
 		
-		std::lock_guard lock(m_changesMutex);
+		std::lock_guard lock{ m_changesMutex };
 		
 		for (size_t i = 0; i < eventCount; ++i)
 		{

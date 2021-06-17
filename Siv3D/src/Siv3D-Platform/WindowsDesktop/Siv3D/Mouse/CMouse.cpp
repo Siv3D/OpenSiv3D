@@ -59,7 +59,7 @@ namespace s3d
 
 			if (i == 0)
 			{
-				std::lock_guard lock(m_touchMutex);
+				std::lock_guard lock{ m_touchMutex };
 
 				pressed |= m_primaryTouchPos.has_value();
 			}
@@ -68,7 +68,7 @@ namespace s3d
 		}
 
 		{
-			std::lock_guard lock(m_scrollMutex);
+			std::lock_guard lock{ m_scrollMutex };
 
 			m_scroll = std::exchange(m_scrollInternal, Vec2{ 0, 0 });
 		}
@@ -129,14 +129,14 @@ namespace s3d
 
 	void CMouse::onScroll(const double x, const double y)
 	{
-		std::lock_guard lock(m_scrollMutex);
+		std::lock_guard lock{ m_scrollMutex };
 
 		m_scrollInternal.moveBy(x, y);
 	}
 
 	void CMouse::onTouchInput(const Array<TOUCHINPUT>& touchInputs)
 	{
-		std::lock_guard lock(m_touchMutex);
+		std::lock_guard lock{ m_touchMutex };
 
 		for (size_t i = 0; i < touchInputs.size(); ++i)
 		{
@@ -170,7 +170,7 @@ namespace s3d
 
 	Optional<Point> CMouse::getPrimaryTouchPos()
 	{
-		std::lock_guard lock(m_touchMutex);
+		std::lock_guard lock{ m_touchMutex };
 
 		return m_primaryTouchPos;
 	}

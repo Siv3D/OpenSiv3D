@@ -55,7 +55,7 @@ namespace s3d
 
 	void DirectoryWatcher::DirectoryWatcherDetail::retrieveChanges(Array<FileChange>& fileChanges)
 	{
-		std::lock_guard lock(m_changesMutex);
+		std::lock_guard lock{ m_changesMutex };
 
 		fileChanges.assign(m_fileChanges.begin(), m_fileChanges.end());
 
@@ -64,7 +64,7 @@ namespace s3d
 
 	void DirectoryWatcher::DirectoryWatcherDetail::clearChanges()
 	{
-		std::lock_guard lock(m_changesMutex);
+		std::lock_guard lock{ m_changesMutex };
 
 		m_fileChanges.clear();
 	}
@@ -256,7 +256,7 @@ namespace s3d
 			}
 
 			{
-				std::lock_guard lock(m_changesMutex);
+				std::lock_guard lock{ m_changesMutex };
 				m_fileChanges.push_back(FileChange{ std::move(event_path), action });
 			}
 		}

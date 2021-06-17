@@ -58,7 +58,7 @@ namespace s3d
 	void CTextInput::update()
 	{
 		{
-			std::lock_guard<std::mutex> lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 			
 			m_chars = m_internalChars;
 			
@@ -68,7 +68,7 @@ namespace s3d
 		const bool hadMarkedText = !m_markedText.isEmpty();
 		bool haveMarkedText;
 		{
-			std::lock_guard<std::mutex> lock(m_mutexMarkedText);
+			std::lock_guard lock{ m_mutexMarkedText };
 			
 			m_markedText = m_internalMarkedText;
 			
@@ -112,7 +112,7 @@ namespace s3d
 	
 	void CTextInput::pushChar(const uint32 ch)
 	{
-		std::lock_guard<std::mutex> lock(m_mutex);
+		std::lock_guard lock{ m_mutex };
 		
 		m_internalChars.push_back(static_cast<char32>(ch));
 	}
@@ -154,7 +154,7 @@ namespace s3d
 
 	void CTextInput::onHaveMarkedText(const char* text)
 	{
-		std::lock_guard<std::mutex> lock(m_mutexMarkedText);
+		std::lock_guard lock{ m_mutexMarkedText };
 		
 		m_haveMarkedText = (text != nullptr);
 		

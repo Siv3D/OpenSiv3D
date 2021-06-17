@@ -56,7 +56,7 @@ namespace s3d
 		[[nodiscard]]
 		Data* operator [](const IDType id)
 		{
-			std::lock_guard lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 
 			return m_data[id].get();
 		}
@@ -64,7 +64,7 @@ namespace s3d
 		[[nodiscard]]
 		IDType add(std::unique_ptr<Data>&& data, [[maybe_unused]] const String& info = U"")
 		{
-			std::lock_guard lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 
 			if (++m_idCount == IDType::InvalidID)
 			{
@@ -112,7 +112,7 @@ namespace s3d
 				return;
 			}
 
-			std::lock_guard lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 
 			const auto it = m_data.find(id);
 
@@ -127,7 +127,7 @@ namespace s3d
 
 		void destroy()
 		{
-			std::lock_guard lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 
 			for (const auto& data : m_data)
 			{

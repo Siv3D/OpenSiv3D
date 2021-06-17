@@ -154,7 +154,7 @@ namespace s3d
 			return ToastNotificationState::None_;
 		}
 
-		std::lock_guard lock(m_mutex);
+		std::lock_guard lock{ m_mutex };
 
 		const auto itTable = m_toastIDTable.find(id);
 
@@ -188,7 +188,7 @@ namespace s3d
 			return none;
 		}
 
-		std::lock_guard lock(m_mutex);
+		std::lock_guard lock{ m_mutex };
 
 		const auto itTable = m_toastIDTable.find(id);
 
@@ -223,7 +223,7 @@ namespace s3d
 		}
 
 		{
-			std::lock_guard lock(m_mutex);
+			std::lock_guard lock{ m_mutex };
 
 			const auto itTable = m_toastIDTable.find(id);
 
@@ -269,7 +269,7 @@ namespace s3d
 
 	void CToastNotification::onStateUpdate(size_t index, ToastNotificationState state, const Optional<int32>& option)
 	{
-		std::lock_guard lock(m_mutex);
+		std::lock_guard lock{ m_mutex };
 
 		auto it = m_toasts.find(index);
 

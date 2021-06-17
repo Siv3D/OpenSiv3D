@@ -49,7 +49,7 @@ namespace s3d
 		const String text = U"{}: {}"_fmt(timeStamp, logTypeName) + s + U'\n';
 		const std::wstring output = text.toWstr();
 
-		std::lock_guard lock(m_mutex);
+		std::lock_guard lock{ m_mutex };
 		{
 			::OutputDebugStringW(output.c_str());
 		}

@@ -90,6 +90,6 @@ namespace s3d
 	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>*>
 	inline auto Async(Fty&& f, Args&&... args)
 	{
-		return AsyncTask<std::invoke_result_t<std::decay_t<Fty>, std::decay_t<Args>...>>(std::forward<Fty>(f), std::forward<Args>(args)...);
+		return AsyncTask<std::invoke_result_t<std::decay_t<Fty>, std::decay_t<Args>...>>{ std::forward<Fty>(f), std::forward<Args>(args)... };
 	}
 }
