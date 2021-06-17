@@ -2149,6 +2149,8 @@
 		2C2AA34E26009C74003F3EBC /* b2_distance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2_distance.cpp; sourceTree = "<group>"; };
 		2C2AA34F26009C74003F3EBC /* b2_contact_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2_contact_manager.h; sourceTree = "<group>"; };
 		2C2AA35026009C74003F3EBC /* b2_edge_shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2_edge_shape.h; sourceTree = "<group>"; };
+		2C2D5BEC267B722E00EF5696 /* AssetState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetState.hpp; sourceTree = "<group>"; };
+		2C2D5BED267B723E00EF5696 /* AssetInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetInfo.hpp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -8649,6 +8651,8 @@
 				2CAAA76025E7FD0200C014D7 /* AssetHandle.hpp */,
 				2CAAA71225E7FD0200C014D7 /* AssetID.hpp */,
 				2CAAA86425E7FD0300C014D7 /* AssetIDWrapper.hpp */,
+				2C2D5BED267B723E00EF5696 /* AssetInfo.hpp */,
+				2C2D5BEC267B722E00EF5696 /* AssetState.hpp */,
 				2C5C0F07266DFEE5009C430B /* AsyncHTTPTask.hpp */,
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
 				2C5DD42D265979CA00282CE2 /* Audio.hpp */,
