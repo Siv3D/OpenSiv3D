@@ -34,7 +34,5 @@ namespace s3d
 	private:
 
 		bool m_hasGMGSx = false;
-
-		std::unique_ptr<SoundFont> m_GMGSx;
 	};
 }

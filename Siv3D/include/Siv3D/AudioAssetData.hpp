@@ -25,6 +25,18 @@ namespace s3d
 
 		bool streaming = false;
 
+		GMInstrument instrument = GMInstrument::Piano1;
+
+		uint8 key = 0;
+		
+		Duration noteOn{ 0.0 };
+		
+		Duration noteOff{ 0.0 };
+		
+		double velocity = 1.0;
+		
+		uint32 sampleRate = Wave::DefaultSampleRate;
+
 		Audio audio;
 
 		std::function<bool(AudioAssetData&, const String&)> onLoad = DefaultLoad;
@@ -34,11 +46,17 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		AudioAssetData();
 
-		//SIV3D_NODISCARD_CXX20
-		//AudioAssetData(AudioMethod _fontMethod, int32 _fontSize, FilePathView _path, size_t _faceIndex, AudioStyle _style, const Array<AssetTag>& tags = {});
+		SIV3D_NODISCARD_CXX20
+		AudioAssetData(FilePathView path, const Optional<AudioLoopTiming>& loopTiming, const Array<AssetTag>& tags = {});
 
-		//SIV3D_NODISCARD_CXX20
-		//AudioAssetData(AudioMethod _fontMethod, int32 _fontSize, Typeface _typeface, AudioStyle _tyle, const Array<AssetTag>& tags = {});
+		SIV3D_NODISCARD_CXX20
+		AudioAssetData(Audio::FileStreaming, FilePathView path, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
+		AudioAssetData(Audio::FileStreaming, FilePathView path, Arg::loopBegin_<uint64>, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
+		AudioAssetData(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::sampleRate_<uint32> sampleRate, const Array<AssetTag>& tags = {});
 
 		bool load(const String& hint) override;
 

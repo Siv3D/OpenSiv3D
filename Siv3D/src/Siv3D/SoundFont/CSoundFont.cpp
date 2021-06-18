@@ -92,18 +92,16 @@ namespace s3d
 			return{};
 		}
 
-		if (not m_GMGSx)
-		{
-			const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
-			m_GMGSx = std::make_unique<SoundFont>(standardSoundFont);
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
 
-			if (not m_GMGSx)
-			{
-				return{};
-			}
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
+		{
+			return{};
 		}
 
-		return m_GMGSx->render(instrument, key, noteOn, noteOff, velocity, sampleRate);
+		return soundFont.render(instrument, key, noteOn, noteOff, velocity, sampleRate);
 	}
 
 	Wave CSoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
@@ -113,18 +111,16 @@ namespace s3d
 			return{};
 		}
 
-		if (not m_GMGSx)
-		{
-			const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
-			m_GMGSx = std::make_unique<SoundFont>(standardSoundFont);
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
 
-			if (not m_GMGSx)
-			{
-				return{};
-			}
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
+		{
+			return{};
 		}
 
-		return m_GMGSx->renderMIDI(path, midiScore, tail, sampleRate);
+		return soundFont.renderMIDI(path, midiScore, tail, sampleRate);
 	}
 
 	Wave CSoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
@@ -134,17 +130,15 @@ namespace s3d
 			return{};
 		}
 
-		if (not m_GMGSx)
-		{
-			const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
-			m_GMGSx = std::make_unique<SoundFont>(standardSoundFont);
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
 
-			if (not m_GMGSx)
-			{
-				return{};
-			}
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
+		{
+			return{};
 		}
 
-		return m_GMGSx->renderMIDI(reader, midiScore, tail, sampleRate);
+		return soundFont.renderMIDI(reader, midiScore, tail, sampleRate);
 	}
 }

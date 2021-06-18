@@ -124,7 +124,7 @@ namespace s3d
 
 	Audio::Audio(FileStreaming, const FilePathView path, const Loop loop)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(
-			((loop ? SIV3D_ENGINE(Audio)->createStreamingNonLoop(path) : SIV3D_ENGINE(Audio)->createStreamingLoop(path, 0)))) }
+			((loop ? SIV3D_ENGINE(Audio)->createStreamingLoop(path, 0) : SIV3D_ENGINE(Audio)->createStreamingNonLoop(path)))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}

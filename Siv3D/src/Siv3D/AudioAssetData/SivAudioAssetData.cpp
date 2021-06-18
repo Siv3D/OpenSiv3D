@@ -15,37 +15,30 @@ namespace s3d
 {
 	AudioAssetData::AudioAssetData() {}
 
-	//AudioAssetData::AudioAssetData(const FilePathView _path, const StringView _entryPoint, const Array<ConstantBufferBinding>& _bindings, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, path{ _path }
-	//	, entryPoint{ _entryPoint }
-	//	, bindings{ _bindings } {}
+	AudioAssetData::AudioAssetData(const FilePathView _path, const Optional<AudioLoopTiming>& _loopTiming, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ _path }
+		, loopTiming{ loopTiming } {}
 
-	//AudioAssetData::AudioAssetData(const HLSL& hlsl, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, path{ hlsl.path }
-	//	, entryPoint{ hlsl.entryPoint } {}
+	AudioAssetData::AudioAssetData(Audio::FileStreaming, const FilePathView _path, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ _path }
+		, streaming{ true } {}
 
-	//AudioAssetData::AudioAssetData(const GLSL& glsl, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, path{ glsl.path }
-	//	, bindings{ glsl.bindings } {}
+	AudioAssetData::AudioAssetData(Audio::FileStreaming, const FilePathView _path, const Arg::loopBegin_<uint64> _loopBegin, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ _path }
+		, loopTiming{ AudioLoopTiming{ *_loopBegin, 0 } }
+		, streaming{ true } {}
 
-	//AudioAssetData::AudioAssetData(const MSL& msl, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, path{ msl.path }
-	//	, entryPoint{ msl.entryPoint } {}
-
-	//AudioAssetData::AudioAssetData(const ESSL& essl, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, path{ essl.path }
-	//	, bindings{ essl.bindings } {}
-
-	//AudioAssetData::AudioAssetData(const ShaderGroup& shaderGroup, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//{
-	//	std::tie(path, entryPoint, bindings) = shaderGroup.getParameters();
-	//}
+	AudioAssetData::AudioAssetData(const GMInstrument _instrument, const uint8 _key, const Duration& _noteOn, const Duration& _noteOff, const double _velocity, Arg::sampleRate_<uint32> _sampleRate, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, instrument{ _instrument }
+		, key{ _key }
+		, noteOn{ _noteOn }
+		, noteOff{ _noteOff }
+		, velocity{ _velocity }
+		, sampleRate{ *_sampleRate } {}
 
 	bool AudioAssetData::load(const String& hint)
 	{
@@ -109,38 +102,43 @@ namespace s3d
 		setState(AssetState::Uninitialized);
 	}
 
-	//bool AudioAssetData::DefaultLoad(AudioAssetData& asset, const String&)
-	//{
-	//	if (asset.ps)
-	//	{
-	//		return true;
-	//	}
+	bool AudioAssetData::DefaultLoad(AudioAssetData& asset, const String&)
+	{
+		if (asset.audio)
+		{
+			return true;
+		}
 
-	//	if (const auto renderer = System::GetRendererType();
-	//		renderer == EngineOption::Renderer::Direct3D11)
-	//	{
-	//		asset.ps = HLSL{ asset.path, asset.entryPoint };
-	//	}
-	//	else if (renderer == EngineOption::Renderer::OpenGL)
-	//	{
-	//		asset.ps = GLSL{ asset.path, asset.bindings };
-	//	}
-	//	else if (renderer == EngineOption::Renderer::Metal)
-	//	{
-	//		asset.ps = MSL{ asset.path, asset.entryPoint };
-	//	}
-	//	else if (renderer == EngineOption::Renderer::WebGL2)
-	//	{
-	//		asset.ps = ESSL{ asset.path, asset.bindings };
-	//	}
+		if (asset.path)
+		{
+			if (asset.streaming)
+			{
+				if (asset.loopTiming)
+				{
+					asset.audio = Audio{ Audio::Stream, asset.path, Arg::loopBegin = asset.loopTiming->beginPos };
+				}
+				else
+				{
+					asset.audio = Audio{ Audio::Stream, asset.path };
+				}
+			}
+			else
+			{
+				asset.audio = Audio{ asset.path, asset.loopTiming };
+			}
+		}
+		else
+		{
+			asset.audio = Audio{ asset.instrument, asset.key, asset.noteOn, asset.noteOff, asset.velocity, asset.sampleRate };
+		}
 
-	//	if (not asset.ps)
-	//	{
-	//		return false;
-	//	}
+		if (not asset.audio)
+		{
+			return false;
+		}
 
-	//	return true;
-	//}
+		return true;
+	}
 
 	void AudioAssetData::DefaultRelease(AudioAssetData& asset)
 	{
