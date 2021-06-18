@@ -11,6 +11,7 @@
 
 # include "CTexture_GL4.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/System.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
 
@@ -51,9 +52,49 @@ namespace s3d
 		}
 	}
 
-	void CTexture_GL4::updateAsyncTextureLoad(const size_t)
+	void CTexture_GL4::updateAsyncTextureLoad(const size_t maxUpdate)
 	{
-		// [Siv3D ToDo]
+		if (not isMainThread())
+		{
+			return;
+		}
+
+		// 終了時は即座に全消去
+		if (maxUpdate == Largest<size_t>)
+		{
+			std::lock_guard lock{ m_requestsMutex };
+
+			for (auto& request : m_requests)
+			{
+				request.waiting.get() = false;
+			}
+
+			m_requests.clear();
+
+			return;
+		}
+
+		std::lock_guard lock{ m_requestsMutex };
+
+		const size_t loadCount = Min(maxUpdate, m_requests.size());
+
+		for (size_t i = 0; i < loadCount; ++i)
+		{
+			auto& request = m_requests[i];
+
+			if (*request.pMipmaps)
+			{
+				request.idResult.get() = createMipped(*request.pImage, *request.pMipmaps, *request.pDesc);
+			}
+			else
+			{
+				request.idResult.get() = createUnmipped(*request.pImage, *request.pDesc);
+			}
+
+			request.waiting.get() = false;
+		}
+
+		m_requests.pop_front_N(loadCount);
 	}
 
 	Texture::IDType CTexture_GL4::createUnmipped(const Image& image, const TextureDesc desc)
@@ -63,10 +104,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		//if (not isMainThread())
-		//{
-		//	return pushRequest(image, Array<Image>(), desc);
-		//}
+		// OpenGL は異なるスレッドで Texture を作成できないので、実際の作成は updateAsyncTextureLoad() にさせる 
+		if (not isMainThread())
+		{
+			return pushRequest(image, {}, desc);
+		}
 
 		auto texture = std::make_unique<GL4Texture>(image, desc);
 
@@ -86,10 +128,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		//if (not isMainThread())
-		//{
-		//	return pushRequest(image, mips, desc);
-		//}
+		// OpenGL は異なるスレッドで Texture を作成できないので、実際の作成は updateAsyncTextureLoad() にさせる 
+		if (not isMainThread())
+		{
+			return pushRequest(image, mips, desc);
+		}
 
 		auto texture = std::make_unique<GL4Texture>(image, mips, desc);
 
@@ -181,5 +224,30 @@ namespace s3d
 	GLuint CTexture_GL4::getFrameBuffer(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getFrameBuffer();
+	}
+
+	bool CTexture_GL4::isMainThread() const noexcept
+	{
+		return (std::this_thread::get_id() == m_mainThreadID);
+	}
+
+	Texture::IDType CTexture_GL4::pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	{
+		std::atomic<bool> waiting = true;
+
+		Texture::IDType result = Texture::IDType::NullAsset();
+		{
+			std::lock_guard lock{ m_requestsMutex };
+
+			m_requests.push_back(Request{ &image, &mipmaps, &desc, std::ref(result), std::ref(waiting) });
+		}
+
+		// [Siv3D ToDo] conditional_variable を使う
+		while (waiting)
+		{
+			System::Sleep(3);
+		}
+
+		return result;
 	}
 }
