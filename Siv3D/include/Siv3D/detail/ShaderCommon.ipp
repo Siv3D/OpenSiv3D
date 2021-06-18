@@ -242,4 +242,31 @@ namespace s3d
 
 		return{};
 	}
+
+	inline std::tuple<FilePath, String, Array<ConstantBufferBinding>> ShaderGroup::getParameters() const
+	{
+		if (const auto renderer = System::GetRendererType();
+			renderer == EngineOption::Renderer::Direct3D11)
+		{
+			assert(m_hlsl);
+			return{ m_hlsl->path, m_hlsl->entryPoint, {} };
+		}
+		else if (renderer == EngineOption::Renderer::OpenGL)
+		{
+			assert(m_glsl);
+			return{ m_glsl->path, {}, m_glsl->bindings };
+		}
+		else if (renderer == EngineOption::Renderer::Metal)
+		{
+			assert(m_msl);
+			return{ m_msl->path, m_msl->entryPoint, {} };
+		}
+		else if (renderer == EngineOption::Renderer::WebGL2)
+		{
+			assert(m_essl);
+			return{ m_essl->path, {}, m_essl->bindings };
+		}
+
+		return{};
+	}
 }

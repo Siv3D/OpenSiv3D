@@ -162,6 +162,9 @@ namespace s3d
 		[[nodiscard]]
 		operator PixelShader() const;
 
+		[[nodiscard]]
+		std::tuple<FilePath, String, Array<ConstantBufferBinding>> getParameters() const;
+
 	private:
 
 		Optional<HLSL> m_hlsl;

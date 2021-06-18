@@ -441,6 +441,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Vector3D/SivVector3D.cpp
   ../Siv3D/src/Siv3D/Vector4D/SivVector4D.cpp
   ../Siv3D/src/Siv3D/VertexShader/SivVertexShader.cpp
+  ../Siv3D/src/Siv3D/VertexShaderAsset/SivVertexShaderAsset.cpp
+  ../Siv3D/src/Siv3D/VertexShaderAssetData/SivVertexShaderAssetData.cpp
   ../Siv3D/src/Siv3D/VideoReader/SivVideoReader.cpp
   ../Siv3D/src/Siv3D/VideoReader/VideoReaderDetail.cpp
   ../Siv3D/src/Siv3D/VideoWriter/SivVideoWriter.cpp

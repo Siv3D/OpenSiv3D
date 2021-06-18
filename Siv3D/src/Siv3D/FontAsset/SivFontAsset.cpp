@@ -20,9 +20,9 @@ namespace s3d
 		[[nodiscard]]
 		static Font FromAsset(const IAsset* asset)
 		{
-			if (const FontAssetData* fontAssetData = dynamic_cast<const FontAssetData*>(asset))
+			if (const FontAssetData* assetData = dynamic_cast<const FontAssetData*>(asset))
 			{
-				return fontAssetData->font;
+				return assetData->font;
 			}
 
 			return{};
@@ -110,12 +110,12 @@ namespace s3d
 		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Font, name);
 	}
 
-	bool FontAsset::Load(AssetNameView name, const String& preloadText)
+	bool FontAsset::Load(const AssetNameView name, const String& preloadText)
 	{
 		return SIV3D_ENGINE(Asset)->load(AssetType::Font, name, preloadText);
 	}
 
-	void FontAsset::LoadAsync(AssetNameView name, const String& preloadText)
+	void FontAsset::LoadAsync(const AssetNameView name, const String& preloadText)
 	{
 		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Font, name, preloadText);
 	}

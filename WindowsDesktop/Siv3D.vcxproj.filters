@@ -1336,6 +1336,12 @@
     <Filter Include="include\ThirdParty\Obfuscate">
       <UniqueIdentifier>{55d6dbaa-5fcd-4d4d-a020-202958bad5f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\VertexShaderAssetData">
+      <UniqueIdentifier>{587a2b40-6024-4e02-bfee-9bb66e1c29c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\VertexShaderAsset">
+      <UniqueIdentifier>{6e0df857-c650-422e-b30f-ec49f9842072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8392,6 +8398,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp">
       <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShaderAsset\SivVertexShaderAsset.cpp">
+      <Filter>src\Siv3D\VertexShaderAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShaderAssetData\SivVertexShaderAssetData.cpp">
+      <Filter>src\Siv3D\VertexShaderAssetData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

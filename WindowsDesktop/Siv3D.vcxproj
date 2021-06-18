@@ -2034,6 +2034,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShaderAssetData\SivVertexShaderAssetData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShaderAsset\SivVertexShaderAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VertexShader\SivVertexShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\SivVideoReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoReader\VideoReaderDetail.cpp" />
