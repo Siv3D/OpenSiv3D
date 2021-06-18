@@ -1342,6 +1342,12 @@
     <Filter Include="src\Siv3D\VertexShaderAsset">
       <UniqueIdentifier>{6e0df857-c650-422e-b30f-ec49f9842072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\PixelShaderAsset">
+      <UniqueIdentifier>{1ba7cbef-eab5-4455-af56-7919aad80272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PixelShaderAssetData">
+      <UniqueIdentifier>{a1f3c086-dc0d-4bf3-a81f-5b3caf0c82f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8404,6 +8410,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\VertexShaderAssetData\SivVertexShaderAssetData.cpp">
       <Filter>src\Siv3D\VertexShaderAssetData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PixelShaderAssetData\SivPixelShaderAssetData.cpp">
+      <Filter>src\Siv3D\PixelShaderAssetData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PixelShaderAsset\SivPixelShaderAsset.cpp">
+      <Filter>src\Siv3D\PixelShaderAsset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

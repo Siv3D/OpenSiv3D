@@ -122,6 +122,11 @@ namespace s3d
 		return Register(nameAndTags.name, std::move(data));
 	}
 
+	bool VertexShaderAsset::IsRegistered(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::VertexShader, name);
+	}
+
 	bool VertexShaderAsset::Load(const AssetNameView name)
 	{
 		return SIV3D_ENGINE(Asset)->load(AssetType::VertexShader, name, {});

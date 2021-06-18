@@ -346,6 +346,8 @@ add_library(
   ../Siv3D/src/Siv3D/Physics2D/P2World.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2WorldDetail.cpp
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
+  ../Siv3D/src/Siv3D/PixelShaderAsset/SivPixelShaderAsset.cpp
+  ../Siv3D/src/Siv3D/PixelShaderAssetData/SivPixelShaderAssetData.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
