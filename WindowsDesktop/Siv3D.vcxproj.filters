@@ -1354,6 +1354,12 @@
     <Filter Include="src\Siv3D\AudioAssetData">
       <UniqueIdentifier>{fcffd320-31e4-41dd-8df1-02572a7aafee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextureAssetData">
+      <UniqueIdentifier>{fd7e97aa-0516-4e28-b864-27b923cb31c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TextureAsset">
+      <UniqueIdentifier>{e52266da-3907-4ec8-bce1-1a47989fdf86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6135,6 +6141,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioAsset.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureAsset.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8428,6 +8437,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioAssetData\SivAudioAssetData.cpp">
       <Filter>src\Siv3D\AudioAssetData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureAssetData\SivTextureAssetData.cpp">
+      <Filter>src\Siv3D\TextureAssetData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureAsset\SivTextureAsset.cpp">
+      <Filter>src\Siv3D\TextureAsset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

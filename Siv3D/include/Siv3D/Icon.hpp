@@ -29,6 +29,9 @@ namespace s3d
 		uint32 code = 0;
 
 		SIV3D_NODISCARD_CXX20
+		Icon() = default;
+
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr Icon(uint32 _code) noexcept;
 
 		SIV3D_NODISCARD_CXX20
