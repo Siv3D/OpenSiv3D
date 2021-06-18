@@ -32,78 +32,80 @@ namespace s3d
 	TextureAsset::TextureAsset(const AssetNameView name)
 		: Texture{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Texture, name)) } {}
 
-	//bool TextureAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const TextureStyle style)
-	//{
-	//	return Register(name, TextureMethod::Bitmap, fontSize, path, 0, style);
-	//}
+	bool TextureAsset::Register(const AssetName& name, const FilePathView path, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc);
 
-	//bool TextureAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const size_t faceIndex, const TextureStyle style)
-	//{
-	//	return Register(name, TextureMethod::Bitmap, fontSize, path, faceIndex, style);
-	//}
+		return Register(name, std::move(data));
+	}
 
-	//bool TextureAsset::Register(const AssetName& name, const int32 fontSize, const Typeface typeface, const TextureStyle style)
-	//{
-	//	return Register(name, TextureMethod::Bitmap, fontSize, typeface, style);
-	//}
+	bool TextureAsset::Register(const AssetName& name, const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
 
-	//bool TextureAsset::Register(const AssetName& name, const TextureMethod fontMethod, const int32 fontSize, const FilePathView path, const TextureStyle style)
-	//{
-	//	return Register(name, fontMethod, fontSize, path, 0, style);
-	//}
+		return Register(name, std::move(data));
+	}
 
-	//bool TextureAsset::Register(const AssetName& name, const TextureMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const TextureStyle style)
-	//{
-	//	std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(fontMethod, fontSize, path, faceIndex, style);
-	//
-	//	return Register(name, std::move(data));
-	//}
+	bool TextureAsset::Register(const AssetName& name, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
 
-	//bool TextureAsset::Register(const AssetName& name, const TextureMethod fontMethod, const int32 fontSize, const Typeface typeface, const TextureStyle style)
-	//{
-	//	std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(fontMethod, fontSize, typeface, style);
+		return Register(name, std::move(data));
+	}
 
-	//	return Register(name, std::move(data));
-	//}
+	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(emoji, desc);
+
+		return Register(name, std::move(data));
+	}
+
+	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const int32 size, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(icon, size, desc);
+
+		return Register(name, std::move(data));
+	}
 
 	bool TextureAsset::Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Texture, name, std::move(data));
 	}
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const TextureStyle style)
-	//{
-	//	return Register(nameAndTags, TextureMethod::Bitmap, fontSize, path, 0, style);
-	//}
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView path, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc, nameAndTags.tags);
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const size_t faceIndex, const TextureStyle style)
-	//{
-	//	return Register(nameAndTags, TextureMethod::Bitmap, fontSize, path, faceIndex, style);
-	//}
+		return Register(nameAndTags.name, std::move(data));
+	}
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const Typeface typeface, const TextureStyle style)
-	//{
-	//	return Register(nameAndTags, TextureMethod::Bitmap, fontSize, typeface, style);
-	//}
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView rgb, const FilePathView alpha, TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const TextureMethod fontMethod, const int32 fontSize, const FilePathView path, const TextureStyle style)
-	//{
-	//	return Register(nameAndTags, fontMethod, fontSize, path, 0, style);
-	//}
+		return Register(nameAndTags.name, std::move(data));
+	}
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const TextureMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const TextureStyle style)
-	//{
-	//	std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(fontMethod, fontSize, path, faceIndex, style, nameAndTags.tags);
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
 
-	//	return Register(nameAndTags.name, std::move(data));
-	//}
+		return Register(nameAndTags.name, std::move(data));
+	}
 
-	//bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const TextureMethod fontMethod, const int32 fontSize, const Typeface typeface, const TextureStyle style)
-	//{
-	//	std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(fontMethod, fontSize, typeface, style, nameAndTags.tags);
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Emoji& emoji, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(emoji, desc, nameAndTags.tags);
 
-	//	return Register(nameAndTags.name, std::move(data));
-	//}
+		return Register(nameAndTags.name, std::move(data));
+	}
+
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Icon& icon, const int32 size, const TextureDesc desc)
+	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(icon, size, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
+	}
 
 	bool TextureAsset::IsRegistered(const AssetNameView name)
 	{

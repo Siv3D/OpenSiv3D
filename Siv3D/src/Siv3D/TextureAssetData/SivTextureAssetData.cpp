@@ -15,20 +15,33 @@ namespace s3d
 {
 	TextureAssetData::TextureAssetData() {}
 
-	//TextureAssetData::TextureAssetData(const TextureMethod _fontMethod, const int32 _fontSize, const FilePathView _path, const size_t _faceIndex, const TextureStyle _style, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, fontMethod{ _fontMethod }
-	//	, fontSize{ _fontSize }
-	//	, path{ _path }
-	//	, faceIndex{ _faceIndex }
-	//	, style{ _style } {}
+	TextureAssetData::TextureAssetData(const FilePathView _path, const TextureDesc _desc, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ _path }
+		, desc{ _desc } {}
 
-	//TextureAssetData::TextureAssetData(const TextureMethod _fontMethod, const int32 _fontSize, const Typeface _typeface, const TextureStyle _style, const Array<AssetTag>& tags)
-	//	: IAsset{ tags }
-	//	, fontMethod{ _fontMethod }
-	//	, fontSize{ _fontSize }
-	//	, typeface{ _typeface }
-	//	, style{ _style } {}
+	TextureAssetData::TextureAssetData(const FilePathView rgb, const FilePathView alpha, const TextureDesc _desc, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ rgb }
+		, secondaryPath{ alpha }
+		, desc{ _desc } {}
+
+	TextureAssetData::TextureAssetData(const Color& rgb, const FilePathView alpha, TextureDesc _desc, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, secondaryPath{ alpha }
+		, rgbColor{ rgb }
+		, desc{ _desc } {}
+
+	TextureAssetData::TextureAssetData(const Emoji& _emoji, const TextureDesc _desc, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, emoji{ _emoji }
+		, desc{ _desc } {}
+
+	TextureAssetData::TextureAssetData(const Icon& _icon, const int32 _size, const TextureDesc _desc, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, icon{ _icon }
+		, iconSize{ _size }
+		, desc{ _desc } {}
 
 	bool TextureAssetData::load(const String& hint)
 	{
@@ -99,11 +112,28 @@ namespace s3d
 			return true;
 		}
 
-		// [Siv3D ToDo]
+		if (asset.path)
 		{
-
-
-
+			if (asset.secondaryPath)
+			{
+				asset.texture = Texture{ asset.path, asset.secondaryPath, asset.desc };
+			}
+			else
+			{
+				asset.texture = Texture{ asset.path, asset.desc };
+			}
+		}
+		else if (asset.secondaryPath)
+		{
+			asset.texture = Texture{ asset.rgbColor, asset.secondaryPath };
+		}
+		else if (asset.emoji.codePoints)
+		{
+			asset.texture = Texture{ asset.emoji, asset.desc };
+		}
+		else if (asset.icon.code)
+		{
+			asset.texture = Texture{ asset.icon, asset.iconSize, asset.desc };
 		}
 
 		if (not asset.texture)

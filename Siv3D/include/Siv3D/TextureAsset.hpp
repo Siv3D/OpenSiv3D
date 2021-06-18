@@ -25,32 +25,28 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit TextureAsset(AssetNameView name);
 
-		//static bool Register(const AssetName& name, int32 fontSize, FilePathView path, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetName& name, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetName& name, int32 fontSize, FilePathView path, size_t faceIndex, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetName& name, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetName& name, int32 fontSize, Typeface typeface = Typeface::Regular, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetName& name, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetName& name, TextureMethod fontMethod, int32 fontSize, FilePathView path, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
-		//static bool Register(const AssetName& name, TextureMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, TextureStyle style = TextureStyle::Default);
-
-		//static bool Register(const AssetName& name, TextureMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetName& name, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
 
 		static bool Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data);
 
 
-		//static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, FilePathView path, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetNameAndTags& nameAndTags, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, FilePathView path, size_t faceIndex, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetNameAndTags& nameAndTags, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, Typeface typeface = Typeface::Regular, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetNameAndTags& nameAndTags, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool Register(const AssetNameAndTags& nameAndTags, TextureMethod fontMethod, int32 fontSize, FilePathView path, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetNameAndTags& nameAndTags, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
-		//static bool Register(const AssetNameAndTags& nameAndTags, TextureMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, TextureStyle style = TextureStyle::Default);
-
-		//static bool Register(const AssetNameAndTags& nameAndTags, TextureMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, TextureStyle style = TextureStyle::Default);
+		static bool Register(const AssetNameAndTags& nameAndTags, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
 
 
 		[[nodiscard]]

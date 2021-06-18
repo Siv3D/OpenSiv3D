@@ -44,11 +44,20 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		TextureAssetData();
 
-		//SIV3D_NODISCARD_CXX20
-		//TextureAssetData(TextureMethod _fontMethod, int32 _fontSize, FilePathView _path, size_t _faceIndex, TextureStyle _style, const Array<AssetTag>& tags = {});
+		SIV3D_NODISCARD_CXX20
+		TextureAssetData(FilePathView path, TextureDesc desc = TextureDesc::Unmipped, const Array<AssetTag>& tags = {});
 
-		//SIV3D_NODISCARD_CXX20
-		//TextureAssetData(TextureMethod _fontMethod, int32 _fontSize, Typeface _typeface, TextureStyle _tyle, const Array<AssetTag>& tags = {});
+		SIV3D_NODISCARD_CXX20
+		TextureAssetData(FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
+		TextureAssetData(const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
+		TextureAssetData(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
+		TextureAssetData(const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Mipped, const Array<AssetTag>& tags = {});
 
 		bool load(const String& hint) override;
 
