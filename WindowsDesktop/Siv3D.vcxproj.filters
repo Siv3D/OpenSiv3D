@@ -1348,6 +1348,12 @@
     <Filter Include="src\Siv3D\PixelShaderAssetData">
       <UniqueIdentifier>{a1f3c086-dc0d-4bf3-a81f-5b3caf0c82f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AudioAsset">
+      <UniqueIdentifier>{90dcd774-81d1-4137-9d82-23b9cdf4dcea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioAssetData">
+      <UniqueIdentifier>{fcffd320-31e4-41dd-8df1-02572a7aafee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8416,6 +8422,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShaderAsset\SivPixelShaderAsset.cpp">
       <Filter>src\Siv3D\PixelShaderAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioAsset\SivAudioAsset.cpp">
+      <Filter>src\Siv3D\AudioAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioAssetData\SivAudioAssetData.cpp">
+      <Filter>src\Siv3D\AudioAssetData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

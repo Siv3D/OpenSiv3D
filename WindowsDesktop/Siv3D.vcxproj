@@ -1720,6 +1720,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\AsyncHTTPTaskDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AsyncHTTPTask\SivAsyncHTTPTask.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioAssetData\SivAudioAssetData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioAsset\SivAudioAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\AudioDecoderFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\CAudioDecoder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioDecoder\SivAudioDecoder.cpp" />
