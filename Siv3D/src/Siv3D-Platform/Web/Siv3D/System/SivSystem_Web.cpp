@@ -11,6 +11,7 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <emscripten.h>
 
 namespace s3d
 {
@@ -43,6 +44,36 @@ namespace s3d
 
 			detail::siv3dLaunchBrowser(url.toUTF8().c_str());
 			return true;
+		}
+	}
+
+	namespace Platform::Web::System
+	{
+		namespace detail
+		{
+			void RunMainLoop(void* userData)
+			{
+				const auto* mainLoop = static_cast<const std::function<void()>*>(userData);
+				mainLoop->operator()();
+			}
+		}
+
+		void SetMainLoop(std::function<void()> mainLoop)
+		{
+			/*
+				emscripten_set_main_loop を呼ぶと
+				JavaScript の例外を使って大域脱出が行われる。
+			
+				そのため、この関数の処理が戻ってくることはない上、
+				スタックメモリのアンワインド処理も行われないため、
+				Main 関数でラムダ式による変数の参照キャプチャを行なったり、
+				この関数で mainLoop へのポインタを束縛したりしても
+				メモリの領域外アクセスにはならない
+
+				(ただし、アプリを閉じたときに Main 関数の変数のデストラクタが呼ばれることもないので
+				注意が必要である)
+			*/
+			::emscripten_set_main_loop_arg(&detail::RunMainLoop, &mainLoop, 0, 1);
 		}
 	}
 }

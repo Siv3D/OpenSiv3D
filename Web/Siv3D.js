@@ -467,7 +467,7 @@ mergeInto(LibraryManager.library, {
             siv3dDialogFileReader.addEventListener("load", function onLoaded() {
                 FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
 
-                const namePtr = allocate(intArrayFromString(filePath), 'i8', ALLOC_NORMAL);
+                const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
                 {{{ makeDynCall('vii', 'callback') }}}(namePtr, futurePtr);
 
                 siv3dDialogFileReader.removeEventListener("load", onLoaded);
@@ -583,7 +583,7 @@ mergeInto(LibraryManager.library, {
         siv3dRegisterUserAction(function () {
             navigator.clipboard.readText()
             .then(str => {
-                const strPtr = allocate(intArrayFromString(str), 'i8', ALLOC_NORMAL);       
+                const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
                 {{{ makeDynCall('vii', 'callback') }}}(strPtr, promise);
                 Module["_free"](strPtr);
             })
@@ -651,7 +651,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dRegisterTextInputMarkedCallback: function(callback) {
         siv3dTextInputElement.addEventListener('compositionupdate', function (e) {
-            const strPtr = allocate(intArrayFromString(e.data), 'i8', ALLOC_NORMAL);
+            const strPtr = allocate(intArrayFromString(e.data), ALLOC_NORMAL);
             {{{ makeDynCall('vi', 'callback') }}}(strPtr);
             Module["_free"](strPtr);
         })
