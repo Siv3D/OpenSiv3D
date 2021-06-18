@@ -266,6 +266,10 @@
 		2C2AA3AC26009C74003F3EBC /* b2_distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA34E26009C74003F3EBC /* b2_distance.cpp */; };
 		2C2AA3AD26009C74003F3EBC /* b2_contact_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA34F26009C74003F3EBC /* b2_contact_manager.h */; };
 		2C2AA3AE26009C74003F3EBC /* b2_edge_shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA35026009C74003F3EBC /* b2_edge_shape.h */; };
+		2C2D5BFA267C61BC00EF5696 /* SivVertexShaderAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5BF7267C61BC00EF5696 /* SivVertexShaderAssetData.cpp */; };
+		2C2D5BFB267C61BC00EF5696 /* SivVertexShaderAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5BF9267C61BC00EF5696 /* SivVertexShaderAsset.cpp */; };
+		2C2D5C00267C61CE00EF5696 /* SivPixelShaderAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5BFD267C61CE00EF5696 /* SivPixelShaderAssetData.cpp */; };
+		2C2D5C01267C61CE00EF5696 /* SivPixelShaderAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5BFF267C61CE00EF5696 /* SivPixelShaderAsset.cpp */; };
 		2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477F525D510EB00071EEF /* CFont_Headless.cpp */; };
 		2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3477F625D510EB00071EEF /* CFont_Headless.hpp */; };
 		2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */; };
@@ -2151,6 +2155,18 @@
 		2C2AA35026009C74003F3EBC /* b2_edge_shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2_edge_shape.h; sourceTree = "<group>"; };
 		2C2D5BEC267B722E00EF5696 /* AssetState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetState.hpp; sourceTree = "<group>"; };
 		2C2D5BED267B723E00EF5696 /* AssetInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetInfo.hpp; sourceTree = "<group>"; };
+		2C2D5BEE267C614D00EF5696 /* AudioAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioAsset.hpp; sourceTree = "<group>"; };
+		2C2D5BEF267C614D00EF5696 /* AudioAssetData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioAssetData.hpp; sourceTree = "<group>"; };
+		2C2D5BF0267C615B00EF5696 /* PixelShaderAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelShaderAsset.hpp; sourceTree = "<group>"; };
+		2C2D5BF1267C615B00EF5696 /* PixelShaderAssetData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelShaderAssetData.hpp; sourceTree = "<group>"; };
+		2C2D5BF2267C617300EF5696 /* TextureAssetData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureAssetData.hpp; sourceTree = "<group>"; };
+		2C2D5BF3267C617300EF5696 /* TextureAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureAsset.hpp; sourceTree = "<group>"; };
+		2C2D5BF4267C617D00EF5696 /* VertexShaderAssetData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexShaderAssetData.hpp; sourceTree = "<group>"; };
+		2C2D5BF5267C617D00EF5696 /* VertexShaderAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexShaderAsset.hpp; sourceTree = "<group>"; };
+		2C2D5BF7267C61BC00EF5696 /* SivVertexShaderAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVertexShaderAssetData.cpp; sourceTree = "<group>"; };
+		2C2D5BF9267C61BC00EF5696 /* SivVertexShaderAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVertexShaderAsset.cpp; sourceTree = "<group>"; };
+		2C2D5BFD267C61CE00EF5696 /* SivPixelShaderAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPixelShaderAssetData.cpp; sourceTree = "<group>"; };
+		2C2D5BFF267C61CE00EF5696 /* SivPixelShaderAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPixelShaderAsset.cpp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -5046,6 +5062,38 @@
 			path = collision;
 			sourceTree = "<group>";
 		};
+		2C2D5BF6267C61BC00EF5696 /* VertexShaderAssetData */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5BF7267C61BC00EF5696 /* SivVertexShaderAssetData.cpp */,
+			);
+			path = VertexShaderAssetData;
+			sourceTree = "<group>";
+		};
+		2C2D5BF8267C61BC00EF5696 /* VertexShaderAsset */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5BF9267C61BC00EF5696 /* SivVertexShaderAsset.cpp */,
+			);
+			path = VertexShaderAsset;
+			sourceTree = "<group>";
+		};
+		2C2D5BFC267C61CE00EF5696 /* PixelShaderAssetData */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5BFD267C61CE00EF5696 /* SivPixelShaderAssetData.cpp */,
+			);
+			path = PixelShaderAssetData;
+			sourceTree = "<group>";
+		};
+		2C2D5BFE267C61CE00EF5696 /* PixelShaderAsset */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5BFF267C61CE00EF5696 /* SivPixelShaderAsset.cpp */,
+			);
+			path = PixelShaderAsset;
+			sourceTree = "<group>";
+		};
 		2C3477F925DA94C100071EEF /* CacheDirectory */ = {
 			isa = PBXGroup;
 			children = (
@@ -5669,6 +5717,8 @@
 				2C5CD8CC26761A91004E290F /* Pentablet */,
 				2CDD4F0F260A3F7100A51D68 /* Physics2D */,
 				2C47B6C924EAC818008D83BE /* PixelShader */,
+				2C2D5BFE267C61CE00EF5696 /* PixelShaderAsset */,
+				2C2D5BFC267C61CE00EF5696 /* PixelShaderAssetData */,
 				2C47B27A24DD9789008D83BE /* Point */,
 				2C53C33F25613BAF0072831A /* Polygon */,
 				2C47B4A324E16B8F008D83BE /* PrimeNumber */,
@@ -5734,6 +5784,8 @@
 				2C47B2EE24DD9789008D83BE /* Vector3D */,
 				2C47B2AA24DD9789008D83BE /* Vector4D */,
 				2C47B6D424EAC834008D83BE /* VertexShader */,
+				2C2D5BF8267C61BC00EF5696 /* VertexShaderAsset */,
+				2C2D5BF6267C61BC00EF5696 /* VertexShaderAssetData */,
 				2CFF581625F7C02400B660AD /* VideoReader */,
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
 				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
@@ -8656,6 +8708,8 @@
 				2C5C0F07266DFEE5009C430B /* AsyncHTTPTask.hpp */,
 				2CAAA89225E7FD0300C014D7 /* AsyncTask.hpp */,
 				2C5DD42D265979CA00282CE2 /* Audio.hpp */,
+				2C2D5BEE267C614D00EF5696 /* AudioAsset.hpp */,
+				2C2D5BEF267C614D00EF5696 /* AudioAssetData.hpp */,
 				2CC5844A26464AEC00C33E9F /* AudioDecoder.hpp */,
 				2CC5844926464AEB00C33E9F /* AudioEncoder.hpp */,
 				2CC5844B26464AEC00C33E9F /* AudioFormat.hpp */,
@@ -8893,6 +8947,8 @@
 				2C44C07426496C7C00A5E72A /* PianoKey.hpp */,
 				2CE8D13826160FD200C75FBB /* Pipe.hpp */,
 				2CAAA86325E7FD0300C014D7 /* PixelShader.hpp */,
+				2C2D5BF0267C615B00EF5696 /* PixelShaderAsset.hpp */,
+				2C2D5BF1267C615B00EF5696 /* PixelShaderAssetData.hpp */,
 				2CAAA83E25E7FD0200C014D7 /* PlaceHolder.hpp */,
 				2C063D2A26612A3400368BEE /* Plane.hpp */,
 				2CAAA76125E7FD0200C014D7 /* Platform.hpp */,
@@ -8990,6 +9046,8 @@
 				2CAAA71025E7FD0200C014D7 /* TextStyle.hpp */,
 				2C4AEF66262C4E1000D36CFC /* TextToSpeech.hpp */,
 				2CAAA84325E7FD0200C014D7 /* Texture.hpp */,
+				2C2D5BF3267C617300EF5696 /* TextureAsset.hpp */,
+				2C2D5BF2267C617300EF5696 /* TextureAssetData.hpp */,
 				2CAAA85825E7FD0300C014D7 /* TexturedCircle.hpp */,
 				2CAAA73425E7FD0200C014D7 /* TextureDesc.hpp */,
 				2CAAA6F425E7FD0200C014D7 /* TexturedQuad.hpp */,
@@ -9032,6 +9090,8 @@
 				2CAAA78025E7FD0200C014D7 /* Version.hpp */,
 				2CAAA6F525E7FD0200C014D7 /* Vertex2D.hpp */,
 				2CAAA87B25E7FD0300C014D7 /* VertexShader.hpp */,
+				2C2D5BF5267C617D00EF5696 /* VertexShaderAsset.hpp */,
+				2C2D5BF4267C617D00EF5696 /* VertexShaderAssetData.hpp */,
 				2CFF581525F7C00E00B660AD /* VideoReader.hpp */,
 				2CC7D4AC25FA3A7E00289963 /* VideoTexture.hpp */,
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
@@ -10890,6 +10950,7 @@
 				2C47B37224DD9789008D83BE /* SivImageDecoder.cpp in Sources */,
 				2C13C8C425B8FA9D0054B968 /* DetourCommon.cpp in Sources */,
 				2C48BF8025D41C0D00A93CE3 /* FontFace.cpp in Sources */,
+				2C2D5BFA267C61BC00EF5696 /* SivVertexShaderAssetData.cpp in Sources */,
 				2C47B5B724E76A20008D83BE /* TextureFactory.cpp in Sources */,
 				2C427FDE2628438A00106F19 /* SivGamepad.cpp in Sources */,
 				2C5D9DD3266159CD00D81870 /* NetworkFactory.cpp in Sources */,
@@ -11100,6 +11161,7 @@
 				2C48BEE225CFB8C500A93CE3 /* EdgeHolder.cpp in Sources */,
 				2CA0EE1E260E3B4D004269AF /* P2MouseJointDetail.cpp in Sources */,
 				2C47B36024DD9789008D83BE /* SivImageEncoder.cpp in Sources */,
+				2C2D5C01267C61CE00EF5696 /* SivPixelShaderAsset.cpp in Sources */,
 				2C2AA36126009C74003F3EBC /* b2_contact_solver.cpp in Sources */,
 				2C2AA3A326009C74003F3EBC /* b2_collision.cpp in Sources */,
 				2C427FE32628439B00106F19 /* SivGamepadInfo.cpp in Sources */,
@@ -11321,6 +11383,7 @@
 				2CED6E532671CA0D000FE5B8 /* SivSimpleAnimation.cpp in Sources */,
 				2C4396502535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp in Sources */,
 				2C834DAD248805D4006208B8 /* koi8.c in Sources */,
+				2C2D5BFB267C61BC00EF5696 /* SivVertexShaderAsset.cpp in Sources */,
 				2C636E6E2657F7D300AF029F /* soloud_fft.cpp in Sources */,
 				2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */,
 				2C956656264546F700539B85 /* symbolelement.cpp in Sources */,
@@ -11510,6 +11573,7 @@
 				2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */,
 				2C636E722657F7D300AF029F /* soloud_queue.cpp in Sources */,
 				2C636EA12657F7D300AF029F /* dr_impl.cpp in Sources */,
+				2C2D5C00267C61CE00EF5696 /* SivPixelShaderAssetData.cpp in Sources */,
 				2C834DA0248805D4006208B8 /* regcomp.c in Sources */,
 				2C13C9C525BD29FC0054B968 /* lmem.c in Sources */,
 				2C47B31E24DD9789008D83BE /* SivCursor.cpp in Sources */,
