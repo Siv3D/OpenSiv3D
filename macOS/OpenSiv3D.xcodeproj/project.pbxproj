@@ -272,6 +272,8 @@
 		2C2D5C01267C61CE00EF5696 /* SivPixelShaderAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5BFF267C61CE00EF5696 /* SivPixelShaderAsset.cpp */; };
 		2C2D5C06267C67C600EF5696 /* SivAudioAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C03267C67C600EF5696 /* SivAudioAssetData.cpp */; };
 		2C2D5C07267C67C600EF5696 /* SivAudioAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C05267C67C600EF5696 /* SivAudioAsset.cpp */; };
+		2C2D5C0C267CF16500EF5696 /* SivTextureAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C09267CF16400EF5696 /* SivTextureAsset.cpp */; };
+		2C2D5C0D267CF16500EF5696 /* SivTextureAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C0B267CF16500EF5696 /* SivTextureAssetData.cpp */; };
 		2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477F525D510EB00071EEF /* CFont_Headless.cpp */; };
 		2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3477F625D510EB00071EEF /* CFont_Headless.hpp */; };
 		2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */; };
@@ -2171,6 +2173,8 @@
 		2C2D5BFF267C61CE00EF5696 /* SivPixelShaderAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPixelShaderAsset.cpp; sourceTree = "<group>"; };
 		2C2D5C03267C67C600EF5696 /* SivAudioAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioAssetData.cpp; sourceTree = "<group>"; };
 		2C2D5C05267C67C600EF5696 /* SivAudioAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioAsset.cpp; sourceTree = "<group>"; };
+		2C2D5C09267CF16400EF5696 /* SivTextureAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureAsset.cpp; sourceTree = "<group>"; };
+		2C2D5C0B267CF16500EF5696 /* SivTextureAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureAssetData.cpp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -5114,6 +5118,22 @@
 			path = AudioAsset;
 			sourceTree = "<group>";
 		};
+		2C2D5C08267CF16400EF5696 /* TextureAsset */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5C09267CF16400EF5696 /* SivTextureAsset.cpp */,
+			);
+			path = TextureAsset;
+			sourceTree = "<group>";
+		};
+		2C2D5C0A267CF16500EF5696 /* TextureAssetData */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5C0B267CF16500EF5696 /* SivTextureAssetData.cpp */,
+			);
+			path = TextureAssetData;
+			sourceTree = "<group>";
+		};
 		2C3477F925DA94C100071EEF /* CacheDirectory */ = {
 			isa = PBXGroup;
 			children = (
@@ -5786,6 +5806,8 @@
 				2C47B29124DD9789008D83BE /* TextReader */,
 				2C4AEF68262C4E2900D36CFC /* TextToSpeech */,
 				2C47B5AB24E7670A008D83BE /* Texture */,
+				2C2D5C08267CF16400EF5696 /* TextureAsset */,
+				2C2D5C0A267CF16500EF5696 /* TextureAssetData */,
 				2C794B8425C5A5BE00034D81 /* TexturedCircle */,
 				2C794B8825C5A5BF00034D81 /* TexturedQuad */,
 				2C794B8225C5A5BE00034D81 /* TexturedRoundRect */,
@@ -11467,6 +11489,7 @@
 				2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */,
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
+				2C2D5C0C267CF16500EF5696 /* SivTextureAsset.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
 				2CBEBCB62629D15F0077DDBF /* decode.c in Sources */,
 				2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */,
@@ -11648,6 +11671,7 @@
 				2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */,
 				2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */,
 				2C47B30924DD9789008D83BE /* TextWriterDetail.cpp in Sources */,
+				2C2D5C0D267CF16500EF5696 /* SivTextureAssetData.cpp in Sources */,
 				2C48BEF425CFB8C500A93CE3 /* sdf-error-estimation.cpp in Sources */,
 				2C636E732657F7D300AF029F /* soloud_core_faderops.cpp in Sources */,
 				2CC7D4AB25F8D86A00289963 /* GrabCutDetail.cpp in Sources */,
