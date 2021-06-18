@@ -70,7 +70,7 @@ namespace s3d
 		BufferImage m_buffer = {};
 
 		[[nodiscard]]
-		bool prerender(const FontData& font, const Array<GlyphCluster>& clusters);
+		bool prerender(const FontData& font, const Array<GlyphCluster>& clusters, bool isMainFont);
 
 		void updateTexture();
 	};

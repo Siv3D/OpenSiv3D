@@ -20,7 +20,7 @@ namespace s3d
 {
 	RectF BitmapGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		if (not prerender(font, clusters))
+		if (not prerender(font, clusters, true))
 		{
 			return RectF{ 0 };
 		}
@@ -92,14 +92,14 @@ namespace s3d
 
 	bool BitmapGlyphCache::draw(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, const double size, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		if (not prerender(font, clusters))
+		if (not prerender(font, clusters, true))
 		{
 			return false;
 		}
 
 		// 「.」のグリフ
 		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false);
-		if (not prerender(font, dotGlyphCluster))
+		if (not prerender(font, dotGlyphCluster, true))
 		{
 			// do tnohing
 		}
@@ -279,7 +279,7 @@ namespace s3d
 
 	RectF BitmapGlyphCache::drawFallback(const FontData& font, const GlyphCluster& cluster, const bool usebasePos, const Vec2& pos, const double size, const ColorF& color, const double lineHeightScale)
 	{
-		if (not prerender(font, { cluster }))
+		if (not prerender(font, { cluster }, false))
 		{
 			return RectF{ 0 };
 		}
@@ -323,7 +323,7 @@ namespace s3d
 
 	Array<double> BitmapGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters)
 	{
-		if (not prerender(font, clusters))
+		if (not prerender(font, clusters, true))
 		{
 			return{};
 		}
@@ -368,7 +368,7 @@ namespace s3d
 
 	double BitmapGlyphCache::xAdvanceFallback(const FontData& font, const GlyphCluster& cluster)
 	{
-		if (not prerender(font, { cluster }))
+		if (not prerender(font, { cluster }, false))
 		{
 			return 0.0;
 		}
@@ -379,7 +379,7 @@ namespace s3d
 
 	RectF BitmapGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		if (not prerender(font, clusters))
+		if (not prerender(font, clusters, true))
 		{
 			return RectF{ 0 };
 		}
@@ -431,7 +431,7 @@ namespace s3d
 
 	RectF BitmapGlyphCache::regionFallback(const FontData& font, const GlyphCluster& cluster, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)
 	{
-		if (not prerender(font, { cluster }))
+		if (not prerender(font, { cluster }, false))
 		{
 			return RectF{ 0 };
 		}
@@ -465,7 +465,7 @@ namespace s3d
 
 	bool BitmapGlyphCache::preload(const FontData& font, const StringView s)
 	{
-		return prerender(font, font.getGlyphClusters(s, false));
+		return prerender(font, font.getGlyphClusters(s, false), true);
 	}
 
 	const Texture& BitmapGlyphCache::getTexture() noexcept
@@ -477,7 +477,7 @@ namespace s3d
 
 	TextureRegion BitmapGlyphCache::getTextureRegion(const FontData& font, const GlyphIndex glyphIndex)
 	{
-		if (not prerender(font, { GlyphCluster{ .glyphIndex = glyphIndex } }))
+		if (not prerender(font, { GlyphCluster{ .glyphIndex = glyphIndex } }, true))
 		{
 			return{};
 		}
@@ -492,7 +492,7 @@ namespace s3d
 		return 0;
 	}
 
-	bool BitmapGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters)
+	bool BitmapGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters, const bool isMainFont)
 	{
 		if (m_glyphTable.empty())
 		{
@@ -508,6 +508,11 @@ namespace s3d
 
 		for (const auto& cluster : clusters)
 		{
+			if (isMainFont && (cluster.fontIndex != 0))
+			{
+				continue;
+			}
+
 			if (m_glyphTable.contains(cluster.glyphIndex))
 			{
 				continue;
