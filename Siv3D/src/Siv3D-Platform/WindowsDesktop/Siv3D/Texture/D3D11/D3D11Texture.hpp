@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Grid.hpp>
 # include <Siv3D/ColorHSV.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Common/D3D11.hpp>
@@ -35,6 +36,24 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		D3D11Texture(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Texture(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
+
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
 
@@ -55,6 +74,23 @@ namespace s3d
 		bool fill(ID3D11DeviceContext* context, const void* src, uint32 stride, bool wait);
 
 		bool fillRegion(ID3D11DeviceContext* context, const void* src, uint32 stride, const Rect& rect, bool wait);
+
+		// レンダーテクスチャを指定した色でクリアする
+		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
+
+		// レンダーテクスチャの内容を Image にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<float>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float2>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Grid<Float4>& image);
+
+		void resolveMSRT(ID3D11DeviceContext* context);
 
 	private:
 
