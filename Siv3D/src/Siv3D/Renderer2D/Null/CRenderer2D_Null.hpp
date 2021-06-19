@@ -147,5 +147,8 @@ namespace s3d
 		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
 	
 		const Texture& getBoxShadowTexture() const noexcept override;
+
+
+		void flush() override;
 	};
 }

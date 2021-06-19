@@ -314,4 +314,9 @@ namespace s3d
 	{
 		return *m_emptyTexture;
 	}
+
+	void CRenderer2D_Null::flush()
+	{
+		// do nothing
+	}
 }

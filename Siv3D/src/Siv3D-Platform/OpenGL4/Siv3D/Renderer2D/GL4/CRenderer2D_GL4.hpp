@@ -237,11 +237,11 @@ namespace s3d
 
 		const Texture& getBoxShadowTexture() const noexcept override;
 
+		void flush() override;
+
 		//
 		// OpenGL
 		//
-
-		void flush();
 
 		void drawFullScreenTriangle(TextureFilter textureFilter);
 	};

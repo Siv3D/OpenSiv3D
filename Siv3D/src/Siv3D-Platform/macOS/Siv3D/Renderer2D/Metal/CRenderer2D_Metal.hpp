@@ -193,6 +193,7 @@ namespace s3d
 		//
 		// Metal
 		//
+		void flush() override;
 
 		void flush(id<MTLCommandBuffer> commandBuffer);
 

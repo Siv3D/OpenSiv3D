@@ -232,12 +232,11 @@ namespace s3d
 
 		const Texture& getBoxShadowTexture() const noexcept override;
 
+		void flush() override;
 
 		//
 		// D3D11
 		//
-
-		void flush();
 
 		void drawFullScreenTriangle(TextureFilter textureFilter);
 	};

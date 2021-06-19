@@ -163,5 +163,8 @@ namespace s3d
 
 
 		virtual const Texture& getBoxShadowTexture() const noexcept = 0;
+
+
+		virtual void flush() = 0;
 	};
 }

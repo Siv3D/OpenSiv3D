@@ -739,6 +739,11 @@ namespace s3d
 		return *m_boxShadowTexture;
 	}
 
+	void CRenderer2D_Metal::flush()
+	{
+		// [Siv3D ToDo]
+	}
+
 	void CRenderer2D_Metal::flush(id<MTLCommandBuffer> commandBuffer)
 	{
 		ScopeGuard cleanUp = [this]()

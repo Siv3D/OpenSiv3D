@@ -116,7 +116,7 @@ namespace s3d
 
 		void Flush()
 		{
-			//SIV3D_ENGINE(Renderer2D)->flush();
+			SIV3D_ENGINE(Renderer2D)->flush();
 		}
 
 		void DrawTriangles(const uint32 count)
