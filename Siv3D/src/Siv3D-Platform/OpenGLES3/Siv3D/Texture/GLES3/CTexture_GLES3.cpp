@@ -11,6 +11,7 @@
 
 # include "CTexture_GLES3.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/System.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
 
@@ -51,9 +52,49 @@ namespace s3d
 		}
 	}
 
-	void CTexture_GLES3::updateAsyncTextureLoad(const size_t)
+	void CTexture_GLES3::updateAsyncTextureLoad(const size_t maxUpdate)
 	{
-		// [Siv3D ToDo]
+		if (not isMainThread())
+		{
+			return;
+		}
+
+		// 終了時は即座に全消去
+		if (maxUpdate == Largest<size_t>)
+		{
+			std::lock_guard lock{ m_requestsMutex };
+
+			for (auto& request : m_requests)
+			{
+				request.waiting.get() = false;
+			}
+
+			m_requests.clear();
+
+			return;
+		}
+
+		std::lock_guard lock{ m_requestsMutex };
+
+		const size_t loadCount = Min(maxUpdate, m_requests.size());
+
+		for (size_t i = 0; i < loadCount; ++i)
+		{
+			auto& request = m_requests[i];
+
+			if (*request.pMipmaps)
+			{
+				request.idResult.get() = createMipped(*request.pImage, *request.pMipmaps, *request.pDesc);
+			}
+			else
+			{
+				request.idResult.get() = createUnmipped(*request.pImage, *request.pDesc);
+			}
+
+			request.waiting.get() = false;
+		}
+
+		m_requests.pop_front_N(loadCount);
 	}
 
 	Texture::IDType CTexture_GLES3::createUnmipped(const Image& image, const TextureDesc desc)
@@ -63,10 +104,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		//if (not isMainThread())
-		//{
-		//	return pushRequest(image, Array<Image>(), desc);
-		//}
+		// OpenGL は異なるスレッドで Texture を作成できないので、実際の作成は updateAsyncTextureLoad() にさせる 
+		if (not isMainThread())
+		{
+			return pushRequest(image, {}, desc);
+		}
 
 		auto texture = std::make_unique<GLES3Texture>(image, desc);
 
@@ -86,10 +128,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		//if (not isMainThread())
-		//{
-		//	return pushRequest(image, mips, desc);
-		//}
+		// OpenGL は異なるスレッドで Texture を作成できないので、実際の作成は updateAsyncTextureLoad() にさせる 
+		if (not isMainThread())
+		{
+			return pushRequest(image, mips, desc);
+		}
 
 		auto texture = std::make_unique<GLES3Texture>(image, mips, desc);
 
@@ -130,7 +173,42 @@ namespace s3d
 		}
 
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
+	}
 
+	Texture::IDType CTexture_GLES3::createRT(const Size& size, const TextureFormat& format)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GLES3::createRT(const Image& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GLES3::createRT(const Grid<float>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GLES3::createRT(const Grid<Float2>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GLES3::createRT(const Grid<Float4>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GLES3::createMSRT(const Size& size, const TextureFormat& format)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
 	}
 
 	void CTexture_GLES3::release(const Texture::IDType handleID)
@@ -181,5 +259,30 @@ namespace s3d
 	GLuint CTexture_GLES3::getFrameBuffer(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getFrameBuffer();
+	}
+
+	bool CTexture_GLES3::isMainThread() const noexcept
+	{
+		return (std::this_thread::get_id() == m_mainThreadID);
+	}
+
+	Texture::IDType CTexture_GLES3::pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	{
+		std::atomic<bool> waiting = true;
+
+		Texture::IDType result = Texture::IDType::NullAsset();
+		{
+			std::lock_guard lock{ m_requestsMutex };
+
+			m_requests.push_back(Request{ &image, &mipmaps, &desc, std::ref(result), std::ref(waiting) });
+		}
+
+		// [Siv3D ToDo] conditional_variable を使う
+		while (waiting)
+		{
+			System::Sleep(3);
+		}
+
+		return result;
 	}
 }

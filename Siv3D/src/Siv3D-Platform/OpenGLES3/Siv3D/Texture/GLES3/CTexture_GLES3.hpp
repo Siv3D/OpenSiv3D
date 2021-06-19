@@ -19,11 +19,6 @@ namespace s3d
 {
 	class CTexture_GLES3 final : public ISiv3DTexture
 	{
-	private:
-
-		// Texture の管理
-		AssetHandleManager<Texture::IDType, GLES3Texture> m_textures{ U"Texture" };
-
 	public:
 
 		CTexture_GLES3();
@@ -41,6 +36,18 @@ namespace s3d
 		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
 
 		Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
+
+		Texture::IDType createRT(const Size& size, const TextureFormat& format) override;
+
+		Texture::IDType createRT(const Image& image) override;
+
+		Texture::IDType createRT(const Grid<float>& image) override;
+
+		Texture::IDType createRT(const Grid<Float2>& image) override;
+
+		Texture::IDType createRT(const Grid<Float4>& image) override;
+
+		Texture::IDType createMSRT(const Size& size, const TextureFormat& format) override;
 
 		void release(Texture::IDType handleID) override;
 
@@ -65,5 +72,38 @@ namespace s3d
 		GLuint getTexture(Texture::IDType handleID);
 
 		GLuint getFrameBuffer(Texture::IDType handleID);
+
+	private:
+
+		// Texture の管理
+		AssetHandleManager<Texture::IDType, GLES3Texture> m_textures{ U"Texture" };
+
+		const std::thread::id m_mainThreadID = std::this_thread::get_id();
+
+		/////////////////////////////////
+		//
+		std::mutex m_requestsMutex;
+
+		struct Request
+		{
+			const Image* pImage = nullptr;
+
+			const Array<Image>* pMipmaps = nullptr;
+
+			const TextureDesc* pDesc = nullptr;
+
+			std::reference_wrapper<Texture::IDType> idResult;
+
+			std::reference_wrapper<std::atomic<bool>> waiting;
+		};
+
+		Array<Request> m_requests;
+		//
+		/////////////////////////////////
+
+		[[nodiscard]]
+		bool isMainThread() const noexcept;
+
+		Texture::IDType pushRequest(const Image& image, const Array<Image>& mipmaps, TextureDesc desc);
 	};
 }
