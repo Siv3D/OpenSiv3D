@@ -308,6 +308,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
+  ../Siv3D/src/Siv3D/MSRenderTexture/SivMSRenderTexture.cpp
   ../Siv3D/src/Siv3D/MultiPolygon/SivMultiPolygon.cpp
   ../Siv3D/src/Siv3D/NavMesh/NavMeshDetail.cpp
   ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
@@ -374,6 +375,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Renderer/Null/CRenderer_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Null/CRenderer2D_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Vertex2DBuilder.cpp
+  ../Siv3D/src/Siv3D/RenderTexture/SivRenderTexture.cpp
   ../Siv3D/src/Siv3D/Resource/ResourceFactory.cpp
   ../Siv3D/src/Siv3D/Resource/SivResource.cpp
   ../Siv3D/src/Siv3D/RoundRect/SivRoundRect.cpp

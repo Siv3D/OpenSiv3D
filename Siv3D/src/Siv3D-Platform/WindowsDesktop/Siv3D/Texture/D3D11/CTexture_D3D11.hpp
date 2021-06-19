@@ -55,6 +55,18 @@ namespace s3d
 
 		Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
 
+		Texture::IDType createRT(const Size& size, const TextureFormat& format) override;
+
+		Texture::IDType createRT(const Image& image) override;
+
+		Texture::IDType createRT(const Grid<float>& image) override;
+
+		Texture::IDType createRT(const Grid<Float2>& image) override;
+
+		Texture::IDType createRT(const Grid<Float4>& image) override;
+
+		Texture::IDType createMSRT(const Size& size, const TextureFormat& format) override;
+
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;

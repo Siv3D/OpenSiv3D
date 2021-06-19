@@ -33,6 +33,18 @@ namespace s3d
 
 		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
 
+		virtual Texture::IDType createRT(const Size& size, const TextureFormat& format) = 0;
+
+		virtual Texture::IDType createRT(const Image& image) = 0;
+
+		virtual Texture::IDType createRT(const Grid<float>& image) = 0;
+
+		virtual Texture::IDType createRT(const Grid<Float2>& image) = 0;
+
+		virtual Texture::IDType createRT(const Grid<Float4>& image) = 0;
+
+		virtual Texture::IDType createMSRT(const Size& size, const TextureFormat& format) = 0;
+
 		virtual void release(Texture::IDType handleID) = 0;
 
 		virtual Size getSize(Texture::IDType handleID) = 0;

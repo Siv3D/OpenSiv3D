@@ -1294,6 +1294,10 @@
 
 # include <Siv3D/VideoTexture.hpp>
 
+# include <Siv3D/RenderTexture.hpp>
+
+# include <Siv3D/MSRenderTexture.hpp>
+
 //////////////////////////////////////////////////
 //
 //	フォント | Font

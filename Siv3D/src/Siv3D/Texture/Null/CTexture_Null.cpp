@@ -50,6 +50,36 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
+	Texture::IDType CTexture_Null::createRT(const Size&, const TextureFormat&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createRT(const Image&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createRT(const Grid<float>&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createRT(const Grid<Float2>&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createRT(const Grid<Float4>&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Null::createMSRT(const Size&, const TextureFormat&)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
 	void CTexture_Null::release(Texture::IDType)
 	{
 		// do nothing

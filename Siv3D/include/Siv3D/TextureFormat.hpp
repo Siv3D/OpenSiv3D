@@ -23,8 +23,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TextureFormat() = default;
 
+		SIV3D_NODISCARD_CXX20
 		constexpr TextureFormat(TexturePixelFormat value) noexcept;
 
 		[[nodiscard]]

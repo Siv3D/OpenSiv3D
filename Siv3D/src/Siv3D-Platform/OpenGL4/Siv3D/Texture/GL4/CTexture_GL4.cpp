@@ -173,7 +173,42 @@ namespace s3d
 		}
 
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
+	}
 
+	Texture::IDType CTexture_GL4::createRT(const Size& size, const TextureFormat& format)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GL4::createRT(const Image& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GL4::createRT(const Grid<float>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GL4::createRT(const Grid<Float2>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GL4::createRT(const Grid<Float4>& image)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
+	}
+
+	Texture::IDType CTexture_GL4::createMSRT(const Size& size, const TextureFormat& format)
+	{
+		// [Siv3D ToDo]
+		return(Texture::IDType::NullAsset());
 	}
 
 	void CTexture_GL4::release(const Texture::IDType handleID)

@@ -424,6 +424,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MSDFGlyph.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MSRenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MultiPolygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMeshConfig.hpp" />
@@ -575,6 +576,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectF.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RegExp.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ResourceOption.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
@@ -1903,6 +1905,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MultiPolygon\SivMultiPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp" />
@@ -1969,6 +1972,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Null\CRenderer2D_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Vertex2DBuilder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Renderer\Null\CRenderer_Null.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\ResourceFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />

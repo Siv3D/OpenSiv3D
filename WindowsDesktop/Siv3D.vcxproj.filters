@@ -1360,6 +1360,12 @@
     <Filter Include="src\Siv3D\TextureAsset">
       <UniqueIdentifier>{e52266da-3907-4ec8-bce1-1a47989fdf86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\RenderTexture">
+      <UniqueIdentifier>{d4aeb91f-ab24-49dc-a49e-a9c0d1c1db98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MSRenderTexture">
+      <UniqueIdentifier>{3b06e456-57ad-480e-94b7-3451ddff12a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6144,6 +6150,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureAsset.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MSRenderTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8443,6 +8455,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextureAsset\SivTextureAsset.cpp">
       <Filter>src\Siv3D\TextureAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp">
+      <Filter>src\Siv3D\RenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp">
+      <Filter>src\Siv3D\MSRenderTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
