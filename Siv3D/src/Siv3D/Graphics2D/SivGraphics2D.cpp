@@ -40,6 +40,11 @@ namespace s3d
 
 		SamplerState GetSamplerState(const ShaderStage shaderStage, const uint32 slot)
 		{
+			if (SamplerState::MaxSamplerCount <= slot)
+			{
+				return SamplerState::Default2D;
+			}
+
 			return SIV3D_ENGINE(Renderer2D)->getSamplerState(shaderStage, slot);
 		}
 
@@ -89,9 +94,29 @@ namespace s3d
 			return Scene::Size();
 		}
 
+		void SetVSTexture(const uint32 slot, const Optional<Texture>& texture)
+		{
+			if (SamplerState::MaxSamplerCount <= slot)
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Renderer2D)->setVSTexture(slot, texture);
+		}
+
+		void SetPSTexture(const uint32 slot, const Optional<Texture>& texture)
+		{
+			if (SamplerState::MaxSamplerCount <= slot)
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Renderer2D)->setPSTexture(slot, texture);
+		}
+
 		void Flush()
 		{
-			//SIV3D_ENGINE(Renderer)->flush();
+			//SIV3D_ENGINE(Renderer2D)->flush();
 		}
 
 		void DrawTriangles(const uint32 count)
@@ -123,6 +148,11 @@ namespace s3d
 
 			void SetSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& samplerState)
 			{
+				if (SamplerState::MaxSamplerCount <= slot)
+				{
+					return;
+				}
+
 				SIV3D_ENGINE(Renderer2D)->setSamplerState(shaderStage, slot, samplerState);
 			}
 

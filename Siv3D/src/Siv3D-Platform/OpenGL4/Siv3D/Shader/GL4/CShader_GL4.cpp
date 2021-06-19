@@ -143,8 +143,12 @@ namespace s3d
 
 	void CShader_GL4::setVS(const VertexShader::IDType handleID)
 	{
-		const GLuint vsProgram = m_vertexShaders[handleID]->getProgram();
+		const auto& vertexShader = m_vertexShaders[handleID];
+
+		const GLuint vsProgram = vertexShader->getProgram();
 		::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgram);
+
+		vertexShader->setVSSamplerUniform();
 	}
 
 	void CShader_GL4::setPS(const PixelShader::IDType handleID)

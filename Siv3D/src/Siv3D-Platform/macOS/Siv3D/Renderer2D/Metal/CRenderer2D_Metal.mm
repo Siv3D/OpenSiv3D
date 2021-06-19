@@ -719,6 +719,16 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_Metal::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		// [Siv3D ToDo]
+	}
+
+	void CRenderer2D_Metal::setPSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		// [Siv3D ToDo]
+	}
+
 	void CRenderer2D_Metal::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);

@@ -154,6 +154,11 @@ namespace s3d
 		virtual float getMaxScaling() const noexcept = 0;
 
 
+		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+
 		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
 
 

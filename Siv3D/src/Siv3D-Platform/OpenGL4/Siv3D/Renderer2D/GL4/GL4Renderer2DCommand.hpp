@@ -94,6 +94,22 @@ namespace s3d
 
 		SetConstantBuffer,
 
+		VSTexture0,
+
+		VSTexture1,
+
+		VSTexture2,
+
+		VSTexture3,
+
+		VSTexture4,
+
+		VSTexture5,
+
+		VSTexture6,
+
+		VSTexture7,
+
 		PSTexture0,
 
 		PSTexture1,
@@ -167,6 +183,7 @@ namespace s3d
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 		Array<__m128> m_constants;
 		Array<GL4ConstantBufferCommand> m_constantBufferCommands;
+		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 
 		// current
@@ -186,6 +203,7 @@ namespace s3d
 		Mat3x2 m_currentCameraTransform				= Mat3x2::Identity();
 		Mat3x2 m_currentCombinedTransform			= Mat3x2::Identity();
 		float m_currentMaxScaling					= 1.0f;
+		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 
 		// reserved
@@ -268,6 +286,11 @@ namespace s3d
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		GL4ConstantBufferCommand& getConstantBuffer(uint32 index);
 		const __m128* getConstantBufferPtr(uint32 offset) const;
+
+		void pushVSTextureUnbind(uint32 slot);
+		void pushVSTexture(uint32 slot, const Texture& texture);
+		const Texture::IDType& getVSTexture(uint32 slot, uint32 index) const;
+		const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& getCurrentVSTextures() const;
 
 		void pushPSTextureUnbind(uint32 slot);
 		void pushPSTexture(uint32 slot, const Texture& texture);

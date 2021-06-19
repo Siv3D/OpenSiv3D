@@ -31,14 +31,19 @@ namespace s3d
 		Graphics2D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
 	}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerStateInfo& samplerStateInfo)
+	{
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos)
 	{
 		for (const auto& samplerStateInfo : samplerStateInfos)
 		{
-			const SamplerStateInfo s{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
-
-			m_oldSamplerStateInfos.push_back(s);
-
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
 			Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
 		}
 	}
@@ -59,6 +64,29 @@ namespace s3d
 		Graphics2D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
 	}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldBlendState{ Graphics2D::GetBlendState() }
+	{
+		Graphics2D::Internal::SetBlendState(blendState);
+		
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldBlendState{ Graphics2D::GetBlendState() }
+	{
+		Graphics2D::Internal::SetBlendState(blendState);
+
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState)
 		: ScopedRenderStates2D{ blendState, rasterizerState } {}
 
@@ -70,11 +98,46 @@ namespace s3d
 		Graphics2D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
 	}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldRasterizerState{ Graphics2D::GetRasterizerState() }
+	{
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldRasterizerState{ Graphics2D::GetRasterizerState() }
+	{
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const BlendState& blendState)
 		: ScopedRenderStates2D{ blendState, samplerState } {}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, samplerStateInfos } {}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState)
 		: ScopedRenderStates2D{ rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ rasterizerState, samplerStateInfos } {}
 
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerState& samplerState)
 		: m_oldBlendState{ Graphics2D::GetBlendState() }
@@ -86,20 +149,77 @@ namespace s3d
 		Graphics2D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
 	}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldBlendState{ Graphics2D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics2D::GetRasterizerState() }
+	{
+		Graphics2D::Internal::SetBlendState(blendState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldBlendState{ Graphics2D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics2D::GetRasterizerState() }
+	{
+		Graphics2D::Internal::SetBlendState(blendState);
+		Graphics2D::Internal::SetRasterizerState(rasterizerState);
+
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics2D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics2D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerState& samplerState, const RasterizerState& rasterizerState)
 		: ScopedRenderStates2D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfos } {}
 
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerState& samplerState)
 		: ScopedRenderStates2D{ blendState, rasterizerState, samplerState } {}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerStateInfo& samplerStateInfo)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfos } {}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerState& samplerState, const BlendState& blendState)
 		: ScopedRenderStates2D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfos } {}
 
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const BlendState& blendState, const RasterizerState& rasterizerState)
 		: ScopedRenderStates2D{ blendState, rasterizerState, samplerState } {}
 
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfos } {}
+
 	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState)
 		: ScopedRenderStates2D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates2D::ScopedRenderStates2D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates2D{ blendState, rasterizerState, samplerStateInfos } {}
 
 	inline ScopedRenderStates2D::ScopedRenderStates2D(ScopedRenderStates2D&& other) noexcept
 	{

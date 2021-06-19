@@ -807,6 +807,30 @@ namespace s3d
 		return m_commandManager.getCurrentMaxScaling();
 	}
 
+	void CRenderer2D_GL4::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commandManager.pushVSTexture(slot, texture.value());
+		}
+		else
+		{
+			m_commandManager.pushVSTextureUnbind(slot);
+		}
+	}
+
+	void CRenderer2D_GL4::setPSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commandManager.pushPSTexture(slot, texture.value());
+		}
+		else
+		{
+			m_commandManager.pushPSTextureUnbind(slot);
+		}
+	}
+
 	void CRenderer2D_GL4::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
@@ -1068,6 +1092,33 @@ namespace s3d
 					
 					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
 						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
+					break;
+				}
+			case GL4Renderer2DCommandType::VSTexture0:
+			case GL4Renderer2DCommandType::VSTexture1:
+			case GL4Renderer2DCommandType::VSTexture2:
+			case GL4Renderer2DCommandType::VSTexture3:
+			case GL4Renderer2DCommandType::VSTexture4:
+			case GL4Renderer2DCommandType::VSTexture5:
+			case GL4Renderer2DCommandType::VSTexture6:
+			case GL4Renderer2DCommandType::VSTexture7:
+				{
+					const uint32 slot = (FromEnum(command.type) - FromEnum(GL4Renderer2DCommandType::VSTexture0));
+					const auto& textureID = m_commandManager.getVSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
+						::glBindTexture(GL_TEXTURE_2D, 0);
+						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
+					}
+					else
+					{
+						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
+						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
+					}
+
 					break;
 				}
 			case GL4Renderer2DCommandType::PSTexture0:

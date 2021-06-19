@@ -295,6 +295,16 @@ namespace s3d
 		return 1.0f;
 	}
 
+	void CRenderer2D_Null::setVSTexture(uint32, const Optional<Texture>&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::setPSTexture(uint32, const Optional<Texture>&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::setConstantBuffer(ShaderStage, uint32, const ConstantBufferBase&, const float*, uint32)
 	{
 		// do nothing

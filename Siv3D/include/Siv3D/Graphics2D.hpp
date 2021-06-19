@@ -18,6 +18,7 @@
 # include "ShaderStage.hpp"
 # include "VertexShader.hpp"
 # include "PixelShader.hpp"
+# include "Texture.hpp"
 # include "ConstantBuffer.hpp"
 # include "Mat3x2.hpp"
 
@@ -93,8 +94,18 @@ namespace s3d
 		[[nodiscard]]
 		Size GetRenderTargetSize();
 
+		/// @brief 2D 描画の頂点シェーダのテクスチャスロットにテクスチャをアタッチします。
+		/// @param slot スロット。最大 (SamplerState::MaxSamplerCount - 1)
+		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
+		void SetVSTexture(uint32 slot, const Optional<Texture>& texture);
+
+		/// @brief 2D 描画のピクセルシェーダのテクスチャスロットにテクスチャをアタッチします。
+		/// @param slot スロット。最大 (SamplerState::MaxSamplerCount - 1)
+		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
+		void SetPSTexture(uint32 slot, const Optional<Texture>& texture);
+
 		/// @brief 現在までの 2D 描画を実行します。
-		//void Flush();
+		void Flush();
 
 		/// @brief 頂点情報を設定せずに 2D 三角形を描画します。
 		/// @remark 頂点シェーダを使って、各三角形に適切な頂点情報を与える必要があります。
