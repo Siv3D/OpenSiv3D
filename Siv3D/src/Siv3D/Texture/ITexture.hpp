@@ -60,5 +60,18 @@ namespace s3d
 		virtual bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) = 0;
 
 		virtual bool fillRegion(Texture::IDType handleID, const void* src, uint32 stride, const Rect& rect, bool wait) = 0;
+	
+
+		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
+
+		virtual void readRT(Texture::IDType handleID, Image& image) = 0;
+
+		virtual void readRT(Texture::IDType handleID, Grid<float>& image) = 0;
+
+		virtual void readRT(Texture::IDType handleID, Grid<Float2>& image) = 0;
+
+		virtual void readRT(Texture::IDType handleID, Grid<Float4>& image) = 0;
+
+		virtual void resolveMSRT(Texture::IDType handleID) = 0;
 	};
 }

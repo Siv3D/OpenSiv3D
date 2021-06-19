@@ -10,3 +10,36 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "RenderTexture.hpp"
+
+namespace s3d
+{
+	class MSRenderTexture : public RenderTexture
+	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		MSRenderTexture();
+
+		SIV3D_NODISCARD_CXX20
+		MSRenderTexture(uint32 width, uint32 height, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+
+		SIV3D_NODISCARD_CXX20
+		explicit MSRenderTexture(const Size& size, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+
+		SIV3D_NODISCARD_CXX20
+		MSRenderTexture(uint32 width, uint32 height, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+
+		SIV3D_NODISCARD_CXX20
+		MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+
+		// レンダリングされたマルチサンプルテクスチャを通常のテクスチャに resolve し、描画可能にする
+		void resolve() const;
+
+		void clear(const ColorF& color) const;
+
+		// TextureFormat::R8G8B8A8_Unorm のみサポート
+		void readAsImage(Image& image) const;
+	};
+}

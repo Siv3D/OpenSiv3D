@@ -119,4 +119,34 @@ namespace s3d
 	{
 		return false;
 	}
+
+	void CTexture_Null::clearRT(Texture::IDType, const ColorF&)
+	{
+
+	}
+
+	void CTexture_Null::readRT(Texture::IDType, Image&)
+	{
+
+	}
+
+	void CTexture_Null::readRT(Texture::IDType, Grid<float>&)
+	{
+
+	}
+
+	void CTexture_Null::readRT(Texture::IDType, Grid<Float2>&)
+	{
+
+	}
+
+	void CTexture_Null::readRT(Texture::IDType, Grid<Float4>&)
+	{
+
+	}
+
+	void CTexture_Null::resolveMSRT(Texture::IDType)
+	{
+
+	}
 }

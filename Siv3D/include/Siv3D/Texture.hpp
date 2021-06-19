@@ -260,8 +260,28 @@ namespace s3d
 
 		struct MSRender {};
 
+		SIV3D_NODISCARD_CXX20
 		Texture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
+		SIV3D_NODISCARD_CXX20
 		Texture(Dynamic, const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc);
+	
+		SIV3D_NODISCARD_CXX20
+		Texture(Render, const Size& size, const TextureFormat& format);
+
+		SIV3D_NODISCARD_CXX20
+		Texture(Render, const Image& image);
+
+		SIV3D_NODISCARD_CXX20
+		Texture(Render, const Grid<float>& image);
+
+		SIV3D_NODISCARD_CXX20
+		Texture(Render, const Grid<Float2>& image);
+
+		SIV3D_NODISCARD_CXX20
+		Texture(Render, const Grid<Float4>& image);
+
+		SIV3D_NODISCARD_CXX20
+		Texture(MSRender, const Size& size, const TextureFormat& format);
 	};
 }

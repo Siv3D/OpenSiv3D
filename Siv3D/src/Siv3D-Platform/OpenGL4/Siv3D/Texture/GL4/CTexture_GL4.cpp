@@ -251,6 +251,36 @@ namespace s3d
 		return m_textures[handleID]->fillRegion(src, stride, rect, wait);
 	}
 
+	void CTexture_GL4::clearRT(Texture::IDType handleID, const ColorF& color)
+	{
+
+	}
+
+	void CTexture_GL4::readRT(Texture::IDType handleID, Image& image)
+	{
+
+	}
+
+	void CTexture_GL4::readRT(Texture::IDType handleID, Grid<float>& image)
+	{
+
+	}
+
+	void CTexture_GL4::readRT(Texture::IDType handleID, Grid<Float2>& image)
+	{
+
+	}
+
+	void CTexture_GL4::readRT(Texture::IDType handleID, Grid<Float4>& image)
+	{
+
+	}
+
+	void CTexture_GL4::resolveMSRT(Texture::IDType handleID)
+	{
+
+	}
+
 	GLuint CTexture_GL4::getTexture(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getTexture();

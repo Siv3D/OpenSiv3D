@@ -124,4 +124,36 @@ namespace s3d
 	{
 		return false;
 	}
+
+
+
+	void CTexture_Metal::clearRT(Texture::IDType handleID, const ColorF& color)
+	{
+
+	}
+
+	void CTexture_Metal::readRT(Texture::IDType handleID, Image& image)
+	{
+
+	}
+
+	void CTexture_Metal::readRT(Texture::IDType handleID, Grid<float>& image)
+	{
+
+	}
+
+	void CTexture_Metal::readRT(Texture::IDType handleID, Grid<Float2>& image)
+	{
+
+	}
+
+	void CTexture_Metal::readRT(Texture::IDType handleID, Grid<Float4>& image)
+	{
+
+	}
+
+	void CTexture_Metal::resolveMSRT(Texture::IDType handleID)
+	{
+
+	}
 }

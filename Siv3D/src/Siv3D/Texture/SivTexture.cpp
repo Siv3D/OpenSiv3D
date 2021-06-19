@@ -623,4 +623,40 @@ namespace s3d
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
+
+	Texture::Texture(Render, const Size& size, const TextureFormat& format)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(size, format)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(Render, const Image& image)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(Render, const Grid<float>& image)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(Render, const Grid<Float2>& image)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(Render, const Grid<Float4>& image)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Texture::Texture(MSRender, const Size& size, const TextureFormat& format)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createMSRT(size, format)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
 }
