@@ -55,6 +55,36 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
+	Texture::IDType CTexture_Metal::createRT(const Size& size, const TextureFormat& format)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createRT(const Image& image)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createRT(const Grid<float>& image)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createRT(const Grid<Float2>& image)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createRT(const Grid<Float4>& image)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
+	Texture::IDType CTexture_Metal::createMSRT(const Size& size, const TextureFormat& format)
+	{
+		return Texture::IDType::NullAsset();
+	}
+
 	void CTexture_Metal::release(Texture::IDType handleID)
 	{
 

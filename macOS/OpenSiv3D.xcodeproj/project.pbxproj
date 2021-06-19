@@ -274,6 +274,8 @@
 		2C2D5C07267C67C600EF5696 /* SivAudioAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C05267C67C600EF5696 /* SivAudioAsset.cpp */; };
 		2C2D5C0C267CF16500EF5696 /* SivTextureAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C09267CF16400EF5696 /* SivTextureAsset.cpp */; };
 		2C2D5C0D267CF16500EF5696 /* SivTextureAssetData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C0B267CF16500EF5696 /* SivTextureAssetData.cpp */; };
+		2C2D5C12267E467C00EF5696 /* SivMSRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C11267E467C00EF5696 /* SivMSRenderTexture.cpp */; };
+		2C2D5C15267E468800EF5696 /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D5C14267E468800EF5696 /* SivRenderTexture.cpp */; };
 		2C3477F725D510EB00071EEF /* CFont_Headless.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477F525D510EB00071EEF /* CFont_Headless.cpp */; };
 		2C3477F825D510EB00071EEF /* CFont_Headless.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3477F625D510EB00071EEF /* CFont_Headless.hpp */; };
 		2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */; };
@@ -2175,6 +2177,10 @@
 		2C2D5C05267C67C600EF5696 /* SivAudioAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAudioAsset.cpp; sourceTree = "<group>"; };
 		2C2D5C09267CF16400EF5696 /* SivTextureAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureAsset.cpp; sourceTree = "<group>"; };
 		2C2D5C0B267CF16500EF5696 /* SivTextureAssetData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureAssetData.cpp; sourceTree = "<group>"; };
+		2C2D5C0E267E465200EF5696 /* MSRenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MSRenderTexture.hpp; sourceTree = "<group>"; };
+		2C2D5C0F267E466500EF5696 /* RenderTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderTexture.hpp; sourceTree = "<group>"; };
+		2C2D5C11267E467C00EF5696 /* SivMSRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMSRenderTexture.cpp; sourceTree = "<group>"; };
+		2C2D5C14267E468800EF5696 /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
 		2C3477F525D510EB00071EEF /* CFont_Headless.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFont_Headless.cpp; sourceTree = "<group>"; };
 		2C3477F625D510EB00071EEF /* CFont_Headless.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CFont_Headless.hpp; sourceTree = "<group>"; };
 		2C3477FA25DA94C100071EEF /* CacheDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheDirectory.cpp; sourceTree = "<group>"; };
@@ -5134,6 +5140,22 @@
 			path = TextureAssetData;
 			sourceTree = "<group>";
 		};
+		2C2D5C10267E467C00EF5696 /* MSRenderTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5C11267E467C00EF5696 /* SivMSRenderTexture.cpp */,
+			);
+			path = MSRenderTexture;
+			sourceTree = "<group>";
+		};
+		2C2D5C13267E468800EF5696 /* RenderTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D5C14267E468800EF5696 /* SivRenderTexture.cpp */,
+			);
+			path = RenderTexture;
+			sourceTree = "<group>";
+		};
 		2C3477F925DA94C100071EEF /* CacheDirectory */ = {
 			isa = PBXGroup;
 			children = (
@@ -5749,6 +5771,7 @@
 				2C60F91D2667F0E300FFAA68 /* MillisecClock */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
+				2C2D5C10267E467C00EF5696 /* MSRenderTexture */,
 				2C13C6F725B458760054B968 /* MultiPolygon */,
 				2C13C88E25B8FA840054B968 /* NavMesh */,
 				2C5D9DCE266159CD00D81870 /* Network */,
@@ -5780,6 +5803,7 @@
 				2C47B25D24DD9789008D83BE /* RegExp */,
 				2C47B24624DD9789008D83BE /* Renderer */,
 				2C47B28A24DD9789008D83BE /* Renderer2D */,
+				2C2D5C13267E468800EF5696 /* RenderTexture */,
 				2C47B2DA24DD9789008D83BE /* Resource */,
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
 				2C4AEF7C263582E700D36CFC /* Say */,
@@ -8965,6 +8989,7 @@
 				2CAAA83725E7FD0200C014D7 /* Monitor.hpp */,
 				2CAAA78825E7FD0200C014D7 /* Mouse.hpp */,
 				2CAAA87E25E7FD0300C014D7 /* MSDFGlyph.hpp */,
+				2C2D5C0E267E465200EF5696 /* MSRenderTexture.hpp */,
 				2CAAA72525E7FD0200C014D7 /* MultiPolygon.hpp */,
 				2CAAA72425E7FD0200C014D7 /* NamedParameter.hpp */,
 				2CAAA85A25E7FD0300C014D7 /* NavMesh.hpp */,
@@ -9033,6 +9058,7 @@
 				2CAAA6ED25E7FD0200C014D7 /* RectanglePacking.hpp */,
 				2CAAA74325E7FD0200C014D7 /* RectF.hpp */,
 				2CAAA8A825E7FD0300C014D7 /* RegExp.hpp */,
+				2C2D5C0F267E466500EF5696 /* RenderTexture.hpp */,
 				2CAAA88F25E7FD0300C014D7 /* ResizeMode.hpp */,
 				2CAAA8AD25E7FD0300C014D7 /* Resource.hpp */,
 				2CAAA78A25E7FD0200C014D7 /* ResourceOption.hpp */,
@@ -11092,6 +11118,7 @@
 				2C0A4D4F25669320002A4B5E /* SivLineString.cpp in Sources */,
 				2C48BF7625D41C0D00A93CE3 /* SDFGlyphCache.cpp in Sources */,
 				2C636E772657F7D300AF029F /* soloud_core_3d.cpp in Sources */,
+				2C2D5C12267E467C00EF5696 /* SivMSRenderTexture.cpp in Sources */,
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
 				2C2AA38F26009C74003F3EBC /* b2_block_allocator.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
@@ -11377,6 +11404,7 @@
 				2C13C9CD25BD29FC0054B968 /* lbaselib.c in Sources */,
 				2C636E6C2657F7D300AF029F /* soloud.cpp in Sources */,
 				2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */,
+				2C2D5C15267E468800EF5696 /* SivRenderTexture.cpp in Sources */,
 				2C2AA3A426009C74003F3EBC /* b2_collide_edge.cpp in Sources */,
 				2C2AA3AC26009C74003F3EBC /* b2_distance.cpp in Sources */,
 				2C13C8D025B8FA9D0054B968 /* DetourNode.cpp in Sources */,
