@@ -1369,6 +1369,27 @@
     <Filter Include="src\Siv3D\EngineOptions">
       <UniqueIdentifier>{cea80915-b2d6-4576-99cf-14046e25ea19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Script">
+      <UniqueIdentifier>{c3ed5ac8-fee6-4166-ba8e-e60931d2da8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Renderer3D">
+      <UniqueIdentifier>{5b8df744-8149-4ad9-afbd-1c34b11b56d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Renderer3D\Null">
+      <UniqueIdentifier>{b62af1e7-53f9-4fe9-be21-61a0c47da4ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D">
+      <UniqueIdentifier>{8f49ec85-6a9c-48a9-a302-c4cbc81bb2b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D">
+      <UniqueIdentifier>{046f7930-d4f0-4c1e-8dda-10d5dbbf990c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11">
+      <UniqueIdentifier>{0ad23207-3953-4975-a8d7-3cda25a39c44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4">
+      <UniqueIdentifier>{d8bb90d9-9a02-4bd9-9bfc-8ee4cf658ed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6165,6 +6186,24 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\IRenderer3D.hpp">
+      <Filter>src\Siv3D\Renderer3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\Null\CRenderer3D_Null.hpp">
+      <Filter>src\Siv3D\Renderer3D\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\CRenderer3D_D3D11.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\CRenderer3D_GL4.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8476,6 +8515,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp">
       <Filter>src\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptFactory.cpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\CScript.cpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer3D\Null\CRenderer3D_Null.cpp">
+      <Filter>src\Siv3D\Renderer3D\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\Renderer3DFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\CRenderer3D_D3D11.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\CRenderer3D_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

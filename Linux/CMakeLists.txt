@@ -62,6 +62,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/GL4/CRenderer_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/RendererFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer2D/Renderer2DFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer3D/Renderer3DFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Resource/CResource.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Resource/SivResource_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Shader/ShaderFactory.cpp
@@ -104,6 +105,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/CRenderer2D_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Renderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Vertex2DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer3D/GL4/CRenderer3D_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/CShader_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/PixelShader/GL4PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/VertexShader/GL4VertexShader.cpp
@@ -376,6 +378,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Renderer/Null/CRenderer_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Null/CRenderer2D_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Vertex2DBuilder.cpp
+  ../Siv3D/src/Siv3D/Renderer3D/Null/CRenderer3D_Null.cpp
   ../Siv3D/src/Siv3D/RenderTexture/SivRenderTexture.cpp
   ../Siv3D/src/Siv3D/Resource/ResourceFactory.cpp
   ../Siv3D/src/Siv3D/Resource/SivResource.cpp
@@ -390,6 +393,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
+  ../Siv3D/src/Siv3D/Script/CScript.cpp
+  ../Siv3D/src/Siv3D/Script/ScriptFactory.cpp
   ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
   ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
   ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
