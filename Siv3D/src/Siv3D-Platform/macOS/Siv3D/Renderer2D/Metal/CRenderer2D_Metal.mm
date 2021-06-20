@@ -729,6 +729,17 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
+	void CRenderer2D_Metal::setRenderTarget(const Optional<RenderTexture>& rt)
+	{
+		// [Siv3D ToDo]
+	}
+
+	Optional<RenderTexture> CRenderer2D_Metal::getRenderTarget() const
+	{
+		// [Siv3D ToDo]
+		return(none);
+	}
+
 	void CRenderer2D_Metal::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);

@@ -39,9 +39,9 @@ namespace s3d
 
 			void SetCameraTransform(const Mat3x2& transform);
 
+			void SetRenderTarget(const Optional<RenderTexture>& rt);
+			
 			void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
-		
-			//void SetRenderTarget(const Optional<RenderTexture>& rt);
 		}
 
 		template <class Type>

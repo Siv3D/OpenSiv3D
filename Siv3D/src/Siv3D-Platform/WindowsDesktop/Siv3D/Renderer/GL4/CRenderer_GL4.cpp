@@ -182,6 +182,10 @@ namespace s3d
 		m_backBuffer->updateSceneSize();
 	}
 
+	GL4BackBuffer& CRenderer_GL4::getBackBuffer() noexcept
+	{
+		return *m_backBuffer;
+	}
 
 	GL4BlendState& CRenderer_GL4::getBlendState() noexcept
 	{

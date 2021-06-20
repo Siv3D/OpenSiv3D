@@ -312,6 +312,16 @@ namespace s3d
 		return m_sceneBuffers.scene;
 	}
 
+	void D3D11BackBuffer::setRenderTargetToScene()
+	{
+		setRenderTarget(m_sceneBuffers.scene);
+	}
+
+	void D3D11BackBuffer::setRenderTarget(ID3D11RenderTargetView* const rtv)
+	{
+		bindRenderTarget(rtv);
+	}
+
 	void D3D11BackBuffer::unbindAllRenderTargets()
 	{
 		m_context->OMSetRenderTargets(0, nullptr, nullptr);

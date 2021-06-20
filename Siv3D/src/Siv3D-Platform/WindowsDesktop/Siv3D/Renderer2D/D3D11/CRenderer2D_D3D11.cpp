@@ -819,6 +819,56 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::setRenderTarget(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+			const Texture::IDType textureID = rt->id();
+
+			// バインドされていたら解除
+			{
+				{
+					const auto& currentPSTextures = m_commandManager.getCurrentPSTextures();
+
+					for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+					{
+						if (currentPSTextures[slot] == textureID)
+						{
+							m_commandManager.pushPSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+
+				{
+					const auto& currentVSTextures = m_commandManager.getCurrentVSTextures();
+
+					for (uint32 slot = 0; slot < currentVSTextures.size(); ++slot)
+					{
+						if (currentVSTextures[slot] == textureID)
+						{
+							m_commandManager.pushVSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+			}
+
+			if (hasChanged)
+			{
+				m_commandManager.flush();
+			}
+		}
+
+		m_commandManager.pushRT(rt);
+	}
+
+	Optional<RenderTexture> CRenderer2D_D3D11::getRenderTarget() const
+	{
+		return m_commandManager.getCurrentRT();
+	}
+
 	void CRenderer2D_D3D11::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
@@ -1028,6 +1078,26 @@ namespace s3d
 					m_psConstants2D->sdfOuterColor	= sdfParams[1];
 					m_psConstants2D->sdfShadowColor	= sdfParams[2];
 					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(sdfParams));
+					break;
+				}
+			case D3D11Renderer2DCommandType::SetRT:
+				{
+					const auto& rt = m_commandManager.getRT(command.index);
+					
+					if (rt) // [カスタム RenderTexture]
+					{
+						ID3D11RenderTargetView* const rtv = pTexture->getRTV(rt->id());
+						pRenderer->getBackBuffer().setRenderTarget(rtv);
+						
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+					}
+					else // [シーン]
+					{
+						pRenderer->getBackBuffer().setRenderTargetToScene();
+						
+						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
+					}
+
 					break;
 				}
 			case D3D11Renderer2DCommandType::SetVS:

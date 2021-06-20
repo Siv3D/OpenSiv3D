@@ -53,6 +53,7 @@ namespace s3d
 			m_scissorRects		= { m_scissorRects.back() };
 			m_viewports			= { m_viewports.back() };
 			m_sdfParams			= { m_sdfParams.back() };
+			m_RTs				= { m_RTs.back() };
 
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
@@ -107,6 +108,9 @@ namespace s3d
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, 0);
 			m_currentSDFParams = m_sdfParams.front();
+
+			m_commands.emplace_back(D3D11Renderer2DCommandType::SetRT, 0);
+			m_currentRT = m_RTs.front();
 
 			m_commands.emplace_back(D3D11Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -215,6 +219,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
 			m_sdfParams.push_back(m_currentSDFParams);
+		}
+
+		if (m_changes.has(D3D11Renderer2DCommandType::SetRT))
+		{
+			m_commands.emplace_back(D3D11Renderer2DCommandType::SetRT, static_cast<uint32>(m_RTs.size()));
+			m_RTs.push_back(m_currentRT);
 		}
 
 		if (m_changes.has(D3D11Renderer2DCommandType::SetVS))
@@ -1084,5 +1094,43 @@ namespace s3d
 	const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& D3D11Renderer2DCommandManager::getCurrentPSTextures() const
 	{
 		return m_currentPSTextures;
+	}
+
+	void D3D11Renderer2DCommandManager::pushRT(const Optional<RenderTexture>& rt)
+	{
+		constexpr auto command = D3D11Renderer2DCommandType::SetRT;
+		auto& current = m_currentRT;
+		auto& buffer = m_RTs;
+
+		if (!m_changes.has(command))
+		{
+			if (rt != current)
+			{
+				current = rt;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (rt == buffer.back())
+			{
+				current = rt;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = rt;
+			}
+		}
+	}
+
+	const Optional<RenderTexture>& D3D11Renderer2DCommandManager::getRT(const uint32 index) const
+	{
+		return m_RTs[index];
+	}
+
+	const Optional<RenderTexture>& D3D11Renderer2DCommandManager::getCurrentRT() const
+	{
+		return m_currentRT;
 	}
 }

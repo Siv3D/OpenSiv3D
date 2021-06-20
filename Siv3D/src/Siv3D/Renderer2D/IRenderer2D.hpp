@@ -26,6 +26,7 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mat3x2.hpp>
 
@@ -157,6 +158,11 @@ namespace s3d
 		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
 
 		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+
+		virtual void setRenderTarget(const Optional<RenderTexture>& rt) = 0;
+
+		virtual Optional<RenderTexture> getRenderTarget() const = 0;
 
 
 		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;

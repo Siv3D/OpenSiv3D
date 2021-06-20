@@ -305,6 +305,16 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::setRenderTarget(const Optional<RenderTexture>&)
+	{
+
+	}
+
+	Optional<RenderTexture> CRenderer2D_Null::getRenderTarget() const
+	{
+		return none;
+	}
+
 	void CRenderer2D_Null::setConstantBuffer(ShaderStage, uint32, const ConstantBufferBase&, const float*, uint32)
 	{
 		// do nothing

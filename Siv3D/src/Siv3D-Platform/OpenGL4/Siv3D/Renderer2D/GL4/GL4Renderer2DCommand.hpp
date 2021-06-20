@@ -23,6 +23,7 @@
 # include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 
@@ -85,6 +86,8 @@ namespace s3d
 		Viewport,
 
 		SDFParams,
+
+		SetRT,
 
 		SetVS,
 
@@ -178,6 +181,7 @@ namespace s3d
 		Array<Rect> m_scissorRects					= { Rect{0} };
 		Array<Optional<Rect>> m_viewports			= { none };
 		Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.5f, 0.0f, 0.0f }, Float4{ 0.0f, 0.0f, 0.0f, 1.0f }, Float4{ 0.0f, 0.0f, 0.0f, 0.5f } } };
+		Array<Optional<RenderTexture>> m_RTs		= { none };
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
@@ -197,6 +201,7 @@ namespace s3d
 		Rect m_currentScissorRect					= m_scissorRects.front();
 		Optional<Rect> m_currentViewport			= m_viewports.front();
 		std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.front();
+		Optional<RenderTexture> m_currentRT			= m_RTs.front();
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 		Mat3x2 m_currentLocalTransform				= Mat3x2::Identity();
@@ -296,5 +301,9 @@ namespace s3d
 		void pushPSTexture(uint32 slot, const Texture& texture);
 		const Texture::IDType& getPSTexture(uint32 slot, uint32 index) const;
 		const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& getCurrentPSTextures() const;
+
+		void pushRT(const Optional<RenderTexture>& rt);
+		const Optional<RenderTexture>& getRT(uint32 index) const;
+		const Optional<RenderTexture>& getCurrentRT() const;
 	};
 }

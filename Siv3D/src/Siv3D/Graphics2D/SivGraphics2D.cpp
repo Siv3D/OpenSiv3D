@@ -186,6 +186,11 @@ namespace s3d
 				SIV3D_ENGINE(Renderer2D)->setCameraTransform(transform);
 			}
 
+			void SetRenderTarget(const Optional<RenderTexture>& rt)
+			{
+				SIV3D_ENGINE(Renderer2D)->setRenderTarget(rt);
+			}
+
 			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 			{
 				SIV3D_ENGINE(Renderer2D)->setConstantBuffer(stage, slot, buffer, data, num_vectors);

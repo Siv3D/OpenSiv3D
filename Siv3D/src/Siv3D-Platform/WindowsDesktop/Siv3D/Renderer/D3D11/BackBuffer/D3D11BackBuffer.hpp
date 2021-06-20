@@ -157,5 +157,10 @@ namespace s3d
 		void updateSceneSize();
 
 		const D3D11InternalTexture2D& getSceneBuffer() const noexcept;
+
+
+		void setRenderTargetToScene();
+
+		void setRenderTarget(ID3D11RenderTargetView* const rtv);
 	};
 }

@@ -87,6 +87,7 @@ namespace s3d
 		//
 		// GL4
 		//
+		GL4BackBuffer& getBackBuffer() noexcept;
 
 		GL4BlendState& getBlendState() noexcept;
 

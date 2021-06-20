@@ -19,6 +19,7 @@
 # include "VertexShader.hpp"
 # include "PixelShader.hpp"
 # include "Texture.hpp"
+# include "RenderTexture.hpp"
 # include "ConstantBuffer.hpp"
 # include "Mat3x2.hpp"
 
