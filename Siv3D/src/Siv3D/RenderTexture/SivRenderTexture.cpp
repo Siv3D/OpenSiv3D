@@ -19,13 +19,13 @@ namespace s3d
 		: Texture{} {}
 
 	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format)
-		: RenderTexture{ width, height, format }
+		: RenderTexture{ Size{ width, height }, format }
 	{
 		clear(color);
 	}
 
 	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format)
-		: RenderTexture{ size.x, size.y, format }
+		: RenderTexture{ size, format }
 	{
 		clear(color);
 	}

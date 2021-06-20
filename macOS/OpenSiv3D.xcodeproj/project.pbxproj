@@ -3177,6 +3177,8 @@
 		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
+		2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
+		2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.ipp; sourceTree = "<group>"; };
 		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2C74C042267A46560031C9E0 /* obfuscate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obfuscate.h; sourceTree = "<group>"; };
 		2C74C043267A466D0031C9E0 /* Obfuscation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Obfuscation.hpp; sourceTree = "<group>"; };
@@ -4217,6 +4219,7 @@
 				2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */,
 				2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */,
 				2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */,
+				2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */,
 				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
 				2C063DB92661426000368BEE /* Serial.ipp */,
@@ -9072,6 +9075,7 @@
 				2CAAA6FC25E7FD0200C014D7 /* ScopedColorMul2D.hpp */,
 				2CAAA77A25E7FD0200C014D7 /* ScopedCustomShader2D.hpp */,
 				2CAAA73925E7FD0200C014D7 /* ScopedRenderStates2D.hpp */,
+				2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */,
 				2CFB61A826555FE3002F4F47 /* ScopedViewport2D.hpp */,
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,

@@ -25,14 +25,14 @@ namespace s3d
 		: RenderTexture{ RenderTexture::MSRender{}, size, format } {}
 
 	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format)
-		: MSRenderTexture{ width, height, format }
+		: MSRenderTexture{ Size{ width, height }, format }
 	{
 		clear(color);
 		resolve();
 	}
 
 	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format)
-		: MSRenderTexture{ size.x, size.y, format }
+		: MSRenderTexture{ size, format }
 	{
 		clear(color);
 		resolve();
