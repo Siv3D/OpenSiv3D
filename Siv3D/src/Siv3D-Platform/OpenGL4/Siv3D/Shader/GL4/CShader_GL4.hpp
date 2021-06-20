@@ -24,16 +24,6 @@ namespace s3d
 {
 	class CShader_GL4 final : public ISiv3DShader
 	{
-	private:
-
-		// VS の管理
-		AssetHandleManager<VertexShader::IDType, GL4VertexShader> m_vertexShaders{ U"VertexShader" };
-
-		// PS の管理
-		AssetHandleManager<PixelShader::IDType, GL4PixelShader> m_pixelShaders{ U"PixelShader" };
-
-		GLuint m_pipeline = 0;
-
 	public:
 
 		CShader_GL4();
@@ -72,6 +62,21 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
 
+		const PixelShader& getEnginePS(EnginePS ps) const override;
+
 		void usePipeline();
+
+	private:
+
+		// VS の管理
+		AssetHandleManager<VertexShader::IDType, GL4VertexShader> m_vertexShaders{ U"VertexShader" };
+
+		// PS の管理
+		AssetHandleManager<PixelShader::IDType, GL4PixelShader> m_pixelShaders{ U"PixelShader" };
+
+		// Shader:: 用の内部シェーダ
+		Array<PixelShader> m_enginePSs;
+
+		GLuint m_pipeline = 0;
 	};
 }

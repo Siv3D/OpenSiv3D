@@ -33,7 +33,13 @@ namespace s3d
 			m_pipeline = 0;
 		}
 
+		// エンジン PS を破棄
+		m_enginePSs.clear();
+
+		// PS の管理を破棄
 		m_pixelShaders.destroy();
+
+		// VS の管理を破棄
 		m_vertexShaders.destroy();
 	}
 
@@ -181,6 +187,11 @@ namespace s3d
 	{
 		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, slot);
 		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
+	}
+
+	const PixelShader& CShader_GL4::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
 	}
 
 	void CShader_GL4::usePipeline()

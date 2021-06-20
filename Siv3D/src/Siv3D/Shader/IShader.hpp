@@ -18,6 +18,13 @@
 
 namespace s3d
 {
+	enum class EnginePS
+	{
+		Copy,
+		
+		GaussianBlur_9,
+	};
+
 	class SIV3D_NOVTABLE ISiv3DShader
 	{
 	public:
@@ -51,5 +58,8 @@ namespace s3d
 		virtual void setConstantBufferVS(uint32 slot, const ConstantBufferBase& cb) = 0;
 
 		virtual void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) = 0;
+
+
+		virtual const PixelShader& getEnginePS(EnginePS ps) const = 0;
 	};
 }

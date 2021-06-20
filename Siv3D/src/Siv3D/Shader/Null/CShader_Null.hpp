@@ -18,10 +18,6 @@ namespace s3d
 {
 	class CShader_Null final : public ISiv3DShader
 	{
-	private:
-
-		Blob m_emptyBinary;
-
 	public:
 
 		CShader_Null();
@@ -53,5 +49,13 @@ namespace s3d
 		void setConstantBufferVS(uint32 slot, const ConstantBufferBase& cb) override;
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
+
+		const PixelShader& getEnginePS(EnginePS ps) const override;
+
+	private:
+
+		Blob m_emptyBinary;
+
+		std::unique_ptr<PixelShader> m_emptyPS;
 	};
 }

@@ -13,6 +13,8 @@
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/TextReader.hpp>
+# include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/ConstantBuffer/D3D11/ConstantBufferDetail_D3D11.hpp>
 
@@ -58,7 +60,14 @@ namespace s3d
 	CShader_D3D11::~CShader_D3D11()
 	{
 		LOG_SCOPED_TRACE(U"CShader_D3D11::~CShader_D3D11()");
+
+		// エンジン PS を破棄
+		m_enginePSs.clear();
+
+		// PS の管理を破棄
 		m_pixelShaders.destroy();
+
+		// VS の管理を破棄
 		m_vertexShaders.destroy();
 	}
 
@@ -125,7 +134,13 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFPrint")
 				.save(U"engine/shader/d3d11/msdfprint.ps");
 
-			throw EngineError(U"Engine shaders have compiled. Please rebuild the project.");
+			compileHLSLFromFile(U"engine/shader/d3d11/copy.hlsl", ShaderStage::Pixel, U"PS")
+				.save(U"engine/shader/d3d11/copy.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
+				.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
+
+			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}
 
 	# endif
@@ -137,7 +152,7 @@ namespace s3d
 
 			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null VertexShader initialization failed");
+				throw EngineError{ U"Null VertexShader initialization failed" };
 			}
 
 			// 管理に登録
@@ -151,11 +166,22 @@ namespace s3d
 
 			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null PixelShader initialization failed");
+				throw EngineError{ U"Null PixelShader initialization failed" };
 			}
 
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
+		}
+
+		// エンジン PS をロード
+		{
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/copy.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_9.ps") };
+
+			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_D3D11::m_enginePSs initialization failed" };
+			}
 		}
 	}
 
@@ -320,6 +346,11 @@ namespace s3d
 		const auto pCB = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb._detail());
 
 		m_context->PSSetConstantBuffers(slot, 1, pCB->getBufferPtr());
+	}
+
+	const PixelShader& CShader_D3D11::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
 	}
 
 

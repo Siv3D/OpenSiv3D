@@ -23,11 +23,13 @@ namespace s3d
 	CShader_Null::~CShader_Null()
 	{
 		LOG_SCOPED_TRACE(U"CShader_Null::~CShader_Null()");
+
+		m_emptyPS.reset();
 	}
 
 	void CShader_Null::init()
 	{
-		// do nothing
+		m_emptyPS = std::make_unique<PixelShader>();
 	}
 
 	VertexShader::IDType CShader_Null::createVSFromFile(FilePathView, StringView, const Array<ConstantBufferBinding>&)
@@ -88,5 +90,10 @@ namespace s3d
 	void CShader_Null::setConstantBufferPS(const uint32, const ConstantBufferBase&)
 	{
 		// do nothing
+	}
+
+	const PixelShader& CShader_Null::getEnginePS(const EnginePS) const
+	{
+		return *m_emptyPS;
 	}
 }

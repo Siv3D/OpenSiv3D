@@ -26,6 +26,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_Metal::~CShader_Metal()");
 
+		m_emptyPS.reset();
+
 		m_pixelShaders.destroy();
 		m_vertexShaders.destroy();
 	}
@@ -66,6 +68,8 @@ namespace s3d
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
+
+		m_emptyPS = std::make_unique<PixelShader>();
 	}
 
 	VertexShader::IDType CShader_Metal::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>&)
@@ -148,6 +152,12 @@ namespace s3d
 	const Blob& CShader_Metal::getBinaryPS(const PixelShader::IDType handleID)
 	{
 		return m_pixelShaders[handleID]->getBinary();
+	}
+
+	const PixelShader& CShader_Null::getEnginePS(const EnginePS) const
+	{
+		// [Siv3D ToDo]
+		return *m_emptyPS;
 	}
 
 	id<MTLFunction> CShader_Metal::getFunctionVS(const VertexShader::IDType handleID)

@@ -27,19 +27,6 @@ namespace s3d
 
 	class CShader_Metal final : public ISiv3DShader
 	{
-	private:
-
-		CRenderer_Metal* pRenderer = nullptr;
-		id<MTLDevice> m_device = nil;
-		
-		id<MTLLibrary> m_defaultLibrary = nil;
-		
-		// VS の管理
-		AssetHandleManager<VertexShader::IDType, MetalVertexShader> m_vertexShaders{ U"VertexShader" };
-
-		// PS の管理
-		AssetHandleManager<PixelShader::IDType, MetalPixelShader> m_pixelShaders{ U"PixelShader" };
-
 	public:
 
 		CShader_Metal();
@@ -76,10 +63,27 @@ namespace s3d
 		void setConstantBufferVS(uint32 slot, const ConstantBufferBase& cb) override {}
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override {}
+
+		const PixelShader& getEnginePS(EnginePS ps) const override;
 		
 		
 		id<MTLFunction> getFunctionVS(VertexShader::IDType handleID);
 		
 		id<MTLFunction> getFunctionPS(PixelShader::IDType handleID);
+
+	private:
+
+		CRenderer_Metal* pRenderer = nullptr;
+		id<MTLDevice> m_device = nil;
+		
+		id<MTLLibrary> m_defaultLibrary = nil;
+		
+		// VS の管理
+		AssetHandleManager<VertexShader::IDType, MetalVertexShader> m_vertexShaders{ U"VertexShader" };
+
+		// PS の管理
+		AssetHandleManager<PixelShader::IDType, MetalPixelShader> m_pixelShaders{ U"PixelShader" };
+
+		std::unique_ptr<PixelShader> m_emptyPS;
 	};
 }
