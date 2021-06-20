@@ -13,6 +13,8 @@
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
 
@@ -54,7 +56,7 @@ namespace s3d
 
 			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null VertexShader initialization failed");
+				throw EngineError{ U"Null VertexShader initialization failed" };
 			}
 
 			// 管理に登録
@@ -68,18 +70,29 @@ namespace s3d
 
 			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null PixelShader initialization failed");
+				throw EngineError{ U"Null PixelShader initialization failed" };
 			}
 
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
+		// エンジン PS をロード
+		{
+			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
+			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+
+			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_GL4::m_enginePSs initialization failed" };
+			}
+		}
+
 		::glGenProgramPipelines(1, &m_pipeline);
 
 		if (not m_pipeline)
 		{
-			throw EngineError(U"glGenProgramPipelines() failed");
+			throw EngineError{ U"glGenProgramPipelines() failed" };
 		}
 	}
 

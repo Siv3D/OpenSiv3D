@@ -45,6 +45,8 @@ Resource(engine/shader/glsl/msdffont_outlineshadow.frag)
 Resource(engine/shader/glsl/msdfprint.frag)
 Resource(engine/shader/glsl/fullscreen_triangle.vert)
 Resource(engine/shader/glsl/fullscreen_triangle.frag)
+Resource(engine/shader/glsl/copy.frag)
+Resource(engine/shader/glsl/gaussian_blur_9.frag)
 //
 //	Fonts
 //

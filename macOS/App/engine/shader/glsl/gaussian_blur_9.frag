@@ -36,30 +36,26 @@ layout(std140) uniform PSConstants2D
 	vec4 g_sdfParam;
 	vec4 g_sdfOutlineColor;
 	vec4 g_sdfShadowColor;
-	vec4 g_internal;
+	vec2 g_pixelSize;
+	vec2 g_direction;
 };
 
 //
 //	Functions
 //
-float median(float r, float g, float b)
-{
-	return max(min(r, g), min(max(r, g), b));
-}
-
 void main()
 {
-	vec2 size = textureSize(Texture0, 0);
-	const float pxRange = 4.0;
-	vec2 msdfUnit = (pxRange / size);
+	//
+	// http://rastergrid.com/blog/2010/09/efficient-gaussian-blur-with-linear-sampling/
+	//
+	vec2 offset1 = 1.38461538461538 * g_direction;
+	vec2 offset2 = 3.23076923076923 * g_direction;
 
-	vec3 s = texture(Texture0, UV).rgb;
-	float d = median(s.r, s.g, s.b);
+	vec4 color = texture(Texture0, UV) * 0.227027027027027;
+	color += texture(Texture0, UV + (offset1 * g_pixelSize)) * 0.316216216216216;
+	color += texture(Texture0, UV - (offset1 * g_pixelSize)) * 0.316216216216216;
+	color += texture(Texture0, UV + (offset2 * g_pixelSize)) * 0.070270270270270;
+	color += texture(Texture0, UV - (offset2 * g_pixelSize)) * 0.070270270270270;
 
-	float td = (d - 0.5);
-	float textAlpha = clamp(td * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
-
-	vec4 color = vec4(Color.rgb, Color.a * textAlpha);
-
-	FragColor = (color + g_colorAdd);
+	FragColor = color;
 }
