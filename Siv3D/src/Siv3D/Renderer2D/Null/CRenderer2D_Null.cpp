@@ -248,6 +248,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::setInternalPSConstants(const Float4&)
+	{
+		// do nothing
+	}
+
 	Optional<VertexShader> CRenderer2D_Null::getCustomVS() const
 	{
 		return none;

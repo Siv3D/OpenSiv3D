@@ -134,6 +134,8 @@ namespace s3d
 
 		virtual void setSDFParameters(const std::array<Float4, 3>& params) = 0;
 
+		virtual void setInternalPSConstants(const Float4& value) = 0;
+
 
 		virtual Optional<VertexShader> getCustomVS() const = 0;
 

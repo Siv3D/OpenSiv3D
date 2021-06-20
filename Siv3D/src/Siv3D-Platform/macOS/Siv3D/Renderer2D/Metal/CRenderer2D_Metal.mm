@@ -658,6 +658,11 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
+	void CRenderer2D_Metal::setInternalPSConstants(const Float4& value)
+	{
+		// [Siv3D ToDo]
+	}
+
 	Optional<VertexShader> CRenderer2D_Metal::getCustomVS() const
 	{
 		return m_currentCustomVS;

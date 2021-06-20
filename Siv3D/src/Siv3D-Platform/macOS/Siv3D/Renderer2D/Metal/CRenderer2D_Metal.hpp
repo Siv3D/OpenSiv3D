@@ -160,6 +160,8 @@ namespace s3d
 
 		void setSDFParameters(const std::array<Float4, 3>& params) override;
 
+		void setInternalPSConstants(const Float4& value) override;
+
 
 		Optional<VertexShader> getCustomVS() const override;
 

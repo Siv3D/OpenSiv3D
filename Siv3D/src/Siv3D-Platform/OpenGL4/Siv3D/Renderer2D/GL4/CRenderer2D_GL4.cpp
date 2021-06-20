@@ -746,6 +746,11 @@ namespace s3d
 		m_commandManager.pushSDFParameters(params);
 	}
 
+	void CRenderer2D_GL4::setInternalPSConstants(const Float4& value)
+	{
+		m_commandManager.pushInternalPSConstants(value);
+	}
+
 	Optional<VertexShader> CRenderer2D_GL4::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -1081,6 +1086,13 @@ namespace s3d
 					m_psConstants2D->sdfOuterColor	= sdfParams[1];
 					m_psConstants2D->sdfShadowColor	= sdfParams[2];
 					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(sdfParams));
+					break;
+				}
+			case GL4Renderer2DCommandType::InternalPSConstants:
+				{
+					const auto& internalPSConstants = m_commandManager.getInternalPSConstants(command.index);
+					m_psConstants2D->internal = internalPSConstants;
+					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(internalPSConstants));
 					break;
 				}
 			case GL4Renderer2DCommandType::SetRT:

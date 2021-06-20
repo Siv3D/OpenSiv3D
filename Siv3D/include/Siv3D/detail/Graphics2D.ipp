@@ -31,6 +31,8 @@ namespace s3d
 
 			void SetSDFParameters(const std::array<Float4, 3>& params);
 
+			void SetInternalPSConstants(const Float4& value);
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);

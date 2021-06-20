@@ -88,6 +88,8 @@ namespace s3d
 
 		SDFParams,
 
+		InternalPSConstants,
+
 		SetRT,
 
 		SetVS,
@@ -176,6 +178,7 @@ namespace s3d
 		Array<Rect> m_scissorRects					= { Rect{0} };
 		Array<Optional<Rect>> m_viewports			= { none };
 		Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.5f, 0.0f, 0.0f }, Float4{ 0.0f, 0.0f, 0.0f, 1.0f }, Float4{ 0.0f, 0.0f, 0.0f, 0.5f } } };
+		Array<Float4> m_internalPSConstants			= { Float4(0.0f, 0.0f, 0.0f, 0.0f) };
 		Array<Optional<RenderTexture>> m_RTs		= { none };
 		Array<VertexShader::IDType> m_VSs;	
 		Array<PixelShader::IDType> m_PSs;
@@ -196,6 +199,7 @@ namespace s3d
 		Rect m_currentScissorRect					= m_scissorRects.front();
 		Optional<Rect> m_currentViewport			= m_viewports.front();
 		std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.front();
+		Float4 m_currentInternalPSConstants			= m_internalPSConstants.front();
 		Optional<RenderTexture> m_currentRT			= m_RTs.front();
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
@@ -264,6 +268,9 @@ namespace s3d
 		void pushSDFParameters(const std::array<Float4, 3>& state);
 		const std::array<Float4, 3>& getSDFParameters(uint32 index) const;
 		const std::array<Float4, 3>& getCurrentSDFParameters() const;
+
+		void pushInternalPSConstants(const Float4& value);
+		const Float4& getInternalPSConstants(uint32 index) const;
 
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);

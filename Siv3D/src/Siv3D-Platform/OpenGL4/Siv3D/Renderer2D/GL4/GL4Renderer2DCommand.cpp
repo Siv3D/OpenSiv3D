@@ -53,6 +53,7 @@ namespace s3d
 			m_scissorRects			= { m_scissorRects.back() };
 			m_viewports				= { m_viewports.back() };
 			m_sdfParams				= { m_sdfParams.back() };
+			m_internalPSConstants	= { m_internalPSConstants.back() };
 			m_RTs					= { m_RTs.back() };
 
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
@@ -108,6 +109,9 @@ namespace s3d
 
 			m_commands.emplace_back(GL4Renderer2DCommandType::SDFParams, 0);
 			m_currentSDFParams = m_sdfParams.front();
+
+			m_commands.emplace_back(GL4Renderer2DCommandType::InternalPSConstants, 0);
+			m_currentInternalPSConstants = m_internalPSConstants.front();
 
 			m_commands.emplace_back(GL4Renderer2DCommandType::SetRT, 0);
 			m_currentRT = m_RTs.front();
@@ -219,6 +223,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(GL4Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
 			m_sdfParams.push_back(m_currentSDFParams);
+		}
+
+		if (m_changes.has(GL4Renderer2DCommandType::InternalPSConstants))
+		{
+			m_commands.emplace_back(GL4Renderer2DCommandType::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
+			m_internalPSConstants.push_back(m_currentInternalPSConstants);
 		}
 
 		if (m_changes.has(GL4Renderer2DCommandType::SetRT))
@@ -672,6 +682,39 @@ namespace s3d
 	const std::array<Float4, 3>& GL4Renderer2DCommandManager::getCurrentSDFParameters() const
 	{
 		return m_currentSDFParams;
+	}
+
+	void GL4Renderer2DCommandManager::pushInternalPSConstants(const Float4& value)
+	{
+		constexpr auto command = GL4Renderer2DCommandType::InternalPSConstants;
+		auto& current = m_currentInternalPSConstants;
+		auto& buffer = m_internalPSConstants;
+
+		if (not m_changes.has(command))
+		{
+			if (value != current)
+			{
+				current = value;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (value == buffer.back())
+			{
+				current = value;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = value;
+			}
+		}
+	}
+
+	const Float4& GL4Renderer2DCommandManager::getInternalPSConstants(uint32 index) const
+	{
+		return m_internalPSConstants[index];
 	}
 
 	void GL4Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)

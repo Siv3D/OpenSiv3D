@@ -31,6 +31,8 @@ namespace s3d
 		Float4 sdfOuterColor{ 0.0f, 0.0f, 0.0f, 1.0f };
 
 		Float4 sdfShadowColor{ 0.0f, 0.0f, 0.0f, 0.5f };
+
+		Float4 internal{ 0.0f, 0.0f, 0.0f, 0.0f };
 	};
 
 	struct BatchInfo2D

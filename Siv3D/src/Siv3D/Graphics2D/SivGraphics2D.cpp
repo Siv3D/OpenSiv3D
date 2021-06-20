@@ -177,6 +177,11 @@ namespace s3d
 				SIV3D_ENGINE(Renderer2D)->setSDFParameters(params);
 			}
 
+			void SetInternalPSConstants(const Float4& value)
+			{
+				SIV3D_ENGINE(Renderer2D)->setInternalPSConstants(value);
+			}
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs)
 			{
 				SIV3D_ENGINE(Renderer2D)->setCustomVS(vs);
