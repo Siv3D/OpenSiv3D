@@ -12,7 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
+# include "2DShapes.hpp"
 # include "Graphics2D.hpp"
+# include "Scene.hpp"
 
 namespace s3d
 {

@@ -14,9 +14,25 @@
 # include "Common.hpp"
 # include "StringView.hpp"
 # include "ShaderStage.hpp"
+# include "RenderTexture.hpp"
 
 namespace s3d
 {
+	namespace Shader
+	{
+		void Copy(const TextureRegion& from, RenderTexture& to);
+
+		void Downsample(const TextureRegion& from, RenderTexture& to);
+
+		void GaussianBlurH(const TextureRegion& from, RenderTexture& to);
+
+		void GaussianBlurV(const TextureRegion& from, RenderTexture& to);
+
+		void GaussianBlur(const TextureRegion& from, RenderTexture& to, const Vec2& direction);
+
+		void GaussianBlur(const TextureRegion& from, RenderTexture& internalBuffer, RenderTexture& to);
+	}
+
 # if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows
