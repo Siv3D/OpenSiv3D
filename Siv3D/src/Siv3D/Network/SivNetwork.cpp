@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/Network.hpp>
+
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) 
+
 # define _WINSOCK_DEPRECATED_NO_WARNINGS
 # define _WIN32_WINNT _WIN32_WINNT_WIN10
 # include <ThirdParty/asio/asio.hpp>
@@ -41,3 +44,48 @@ namespace s3d
 		}
 	}
 }
+
+# else
+
+# include <sys/types.h>
+# include <ifaddrs.h>
+# include <arpa/inet.h>
+
+namespace s3d
+{
+	namespace Network
+	{
+		Array<IPv4Address> EnumerateIPV4Addresses()
+		{
+			Array<IPv4Address> results;
+
+			std::string ip;
+			struct ifaddrs* ifaddr = nullptr;
+			struct ifaddrs* ifa = nullptr;
+
+			if (getifaddrs(&ifaddr) == 0)
+			{
+				for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
+				{
+					if (ifa->ifa_addr == NULL)
+					{
+						continue;
+					}
+
+					if (ifa->ifa_addr->sa_family == AF_INET)
+					{
+						struct sockaddr_in* sa = (struct sockaddr_in *)ifa->ifa_addr;
+						ip = inet_ntoa(sa->sin_addr);
+						results << IPv4Address(ip);
+					}
+				}
+
+				freeifaddrs(ifaddr);
+			}
+
+			return results;
+		}
+	}
+}
+
+# endif
