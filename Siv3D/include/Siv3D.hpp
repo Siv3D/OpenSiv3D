@@ -1220,6 +1220,8 @@
 // 2D ビューポートスコープ | 2D Viewport scope
 # include <Siv3D/ScopedViewport2D.hpp>
 
+# include <Siv3D/ScopedRenderTarget2D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	2D カメラコントロール | 2D Camera

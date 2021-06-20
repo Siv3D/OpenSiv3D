@@ -93,6 +93,11 @@ namespace s3d
 		/// @brief 
 		/// @return 
 		[[nodiscard]]
+		Optional<RenderTexture> GetRenderTarget();
+
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
 		Size GetRenderTargetSize();
 
 		/// @brief 2D 描画の頂点シェーダのテクスチャスロットにテクスチャをアタッチします。

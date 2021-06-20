@@ -238,6 +238,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorAdd2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates2D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopeGuard.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp" />
@@ -589,6 +590,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedColorMul2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />

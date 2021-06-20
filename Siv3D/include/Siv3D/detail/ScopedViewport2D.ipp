@@ -39,7 +39,7 @@ namespace s3d
 
 	inline ScopedViewport2D::ScopedViewport2D(ScopedViewport2D&& other) noexcept
 	{
-		m_oldViewport = other.m_oldViewport;
+		m_oldViewport = std::move(other.m_oldViewport);
 		other.clear();
 	}
 

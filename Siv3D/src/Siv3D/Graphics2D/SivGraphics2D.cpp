@@ -88,10 +88,21 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer2D)->getMaxScaling();
 		}
 
+		Optional<RenderTexture> GetRenderTarget()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getRenderTarget();
+		}
+
 		Size GetRenderTargetSize()
 		{
-			// [Siv3D ToDo]
-			return Scene::Size();
+			if (const auto rt = SIV3D_ENGINE(Renderer2D)->getRenderTarget())
+			{
+				return rt->size();
+			}
+			else
+			{
+				return Scene::Size();
+			}
 		}
 
 		void SetVSTexture(const uint32 slot, const Optional<Texture>& texture)
