@@ -66,6 +66,7 @@ cbuffer PSConstants2D : register(b0)
 	float4 g_sdfParam;
 	float4 g_sdfOutlineColor;
 	float4 g_sdfShadowColor;
+	float4 g_internal;
 }
 
 cbuffer PSHomography : register(b1)
