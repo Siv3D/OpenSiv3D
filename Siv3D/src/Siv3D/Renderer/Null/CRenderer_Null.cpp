@@ -60,6 +60,16 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_Null::setVSyncEnabled(bool)
+	{
+		// do nothing
+	}
+
+	bool CRenderer_Null::isVSyncEnabled() const
+	{
+		return false;
+	}
+
 	void CRenderer_Null::captureScreenshot()
 	{
 		// do nothing

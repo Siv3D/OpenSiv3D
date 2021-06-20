@@ -105,11 +105,26 @@ namespace s3d
 
 	bool CRenderer_GL4::present()
 	{
-		//wglSwapIntervalEXT(0);
-
 		m_wglContext.swapBuffers();
 
 		return true;
+	}
+
+	void CRenderer_GL4::setVSyncEnabled(const bool enabled)
+	{
+		if (m_vSyncEnabled == enabled)
+		{
+			return;
+		}
+
+		m_vSyncEnabled = enabled;
+
+		wglSwapIntervalEXT(static_cast<int32>(m_vSyncEnabled));
+	}
+
+	bool CRenderer_GL4::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
 	}
 
 	void CRenderer_GL4::captureScreenshot()

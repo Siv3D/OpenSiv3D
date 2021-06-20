@@ -107,12 +107,22 @@ namespace s3d
 
 	bool CRenderer_D3D11::present()
 	{
-		if (not m_swapChain->present())
+		if (not m_swapChain->present(m_vSyncEnabled))
 		{
 			return false;
 		}
 
 		return true;
+	}
+
+	void CRenderer_D3D11::setVSyncEnabled(const bool enabled)
+	{
+		m_vSyncEnabled = enabled;
+	}
+
+	bool CRenderer_D3D11::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
 	}
 
 	void CRenderer_D3D11::setSceneResizeMode(const ResizeMode resizeMode)

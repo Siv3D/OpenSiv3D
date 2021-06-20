@@ -1366,6 +1366,9 @@
     <Filter Include="src\Siv3D\MSRenderTexture">
       <UniqueIdentifier>{3b06e456-57ad-480e-94b7-3451ddff12a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Graphics">
+      <UniqueIdentifier>{a4a2e9aa-eee8-49f8-8f43-a2877267286d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8467,6 +8470,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp">
       <Filter>src\Siv3D\MSRenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\SivGraphics.cpp">
+      <Filter>src\Siv3D\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

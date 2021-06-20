@@ -121,6 +121,16 @@ namespace s3d
 		return true;
 	}
 
+	void CRenderer_Metal::setVSyncEnabled(const bool enabled)
+	{
+		m_vSyncEnabled = enabled;
+	}
+
+	bool CRenderer_Metal::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
+	}
+
 	void CRenderer_Metal::captureScreenshot()
 	{
 		// [Siv3D ToDo]

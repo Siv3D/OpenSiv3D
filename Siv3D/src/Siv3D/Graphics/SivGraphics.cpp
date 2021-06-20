@@ -9,18 +9,22 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
+# include <Siv3D/Graphics.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Graphics
 	{
-		inline constexpr uint32 DefaultSampleCount = 4;
+		void SetVSyncEnabled(const bool enabled)
+		{
+			return SIV3D_ENGINE(Renderer)->setVSyncEnabled(enabled);
+		}
 
-		void SetVSyncEnabled(bool enabled);
-
-		[[nodiscard]]
-		bool IsVSyncEnabled();
+		bool IsVSyncEnabled()
+		{
+			return SIV3D_ENGINE(Renderer)->isVSyncEnabled();
+		}
 	}
 }

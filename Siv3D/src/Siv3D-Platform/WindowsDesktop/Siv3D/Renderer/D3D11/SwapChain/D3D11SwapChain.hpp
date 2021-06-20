@@ -35,8 +35,6 @@ namespace s3d
 
 		Rect m_previousWindowBounds		= Rect(0);
 
-		Optional<double> m_targetFrameRateHz;
-
 		uint64 m_lastPresentTime = 0;
 
 		void updateDisplayInfo();
@@ -54,15 +52,15 @@ namespace s3d
 		~D3D11SwapChain();
 
 		[[nodiscard]]
-		bool present();
+		bool present(bool vSync);
 
 		[[nodiscard]]
 		double getDisplayFrequency() const noexcept;
 
-		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
+		//void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
-		[[nodiscard]]
-		const Optional<double>& getTargetFrameRateHz() const noexcept;
+		//[[nodiscard]]
+		//const Optional<double>& getTargetFrameRateHz() const noexcept;
 
 		[[nodiscard]]
 		IDXGISwapChain1* getSwapChain1() const noexcept;

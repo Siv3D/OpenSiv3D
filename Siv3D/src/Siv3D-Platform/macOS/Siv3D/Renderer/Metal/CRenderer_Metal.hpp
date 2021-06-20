@@ -43,6 +43,8 @@ namespace s3d
 		std::unique_ptr<MetalBackBuffer> m_backBuffer;
 		std::unique_ptr<MetalSamplerState> m_samplerState;
 
+		bool m_vSyncEnabled = true;
+
 	public:
 
 		CRenderer_Metal();
@@ -60,6 +62,10 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
+
+		void setVSyncEnabled(bool enabled);
+
+		bool isVSyncEnabled() const;
 
 		void captureScreenshot() override;
 	

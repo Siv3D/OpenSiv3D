@@ -40,6 +40,10 @@ namespace s3d
 
 		virtual bool present() = 0;
 
+		virtual void setVSyncEnabled(bool enabled) = 0;
+
+		virtual bool isVSyncEnabled() const = 0;
+
 		virtual void captureScreenshot() = 0;
 
 		virtual const Image& getScreenCapture() const = 0;

@@ -109,7 +109,7 @@ namespace s3d
 
 	}
 
-	bool D3D11SwapChain::present()
+	bool D3D11SwapChain::present(const bool vSync)
 	{
 		if (const Rect windowBounds = Window::GetState().bounds;
 			windowBounds != m_previousWindowBounds)
@@ -119,8 +119,8 @@ namespace s3d
 			m_previousWindowBounds = windowBounds;
 		}
 
-		const bool vSync = (not m_targetFrameRateHz.has_value())
-			|| ((30.0 <= m_targetFrameRateHz) && (AbsDiff(m_targetFrameRateHz.value(), m_displayFrequency) <= 3.0));
+		//const bool vSync = (not m_targetFrameRateHz.has_value())
+		//	|| ((30.0 <= m_targetFrameRateHz) && (AbsDiff(m_targetFrameRateHz.value(), m_displayFrequency) <= 3.0));
 
 		return vSync ? presentVSync() : presentNonVSync();
 	}
@@ -130,15 +130,15 @@ namespace s3d
 		return m_displayFrequency;
 	}
 
-	void D3D11SwapChain::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
-	{
-		m_targetFrameRateHz = targetFrameRateHz;
-	}
+	//void D3D11SwapChain::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
+	//{
+	//	m_targetFrameRateHz = targetFrameRateHz;
+	//}
 
-	const Optional<double>& D3D11SwapChain::getTargetFrameRateHz() const noexcept
-	{
-		return m_targetFrameRateHz;
-	}
+	//const Optional<double>& D3D11SwapChain::getTargetFrameRateHz() const noexcept
+	//{
+	//	return m_targetFrameRateHz;
+	//}
 
 	IDXGISwapChain1* D3D11SwapChain::getSwapChain1() const noexcept
 	{
@@ -226,6 +226,7 @@ namespace s3d
 
 	bool D3D11SwapChain::presentNonVSync()
 	{
+		/*
 		const double targetRefreshRateHz = m_targetFrameRateHz.value();
 		const double targetRefreshPeriodMillisec = (1000.0 / targetRefreshRateHz);
 		const double displayRefreshPeriodMillisec = detail::GetDisplayRefreshPeriodMillisec();
@@ -254,6 +255,7 @@ namespace s3d
 
 			::timeEndPeriod(1);
 		}
+		*/
 
 		const HRESULT hr = m_swapChain1->Present(0, 0);
 
@@ -272,7 +274,7 @@ namespace s3d
 			return false;
 		}
 
-		m_lastPresentTime = counter.QuadPart;
+		//m_lastPresentTime = counter.QuadPart;
 
 		return true;
 	}

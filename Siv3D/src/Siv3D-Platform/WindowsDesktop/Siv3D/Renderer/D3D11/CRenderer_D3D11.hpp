@@ -50,6 +50,8 @@ namespace s3d
 
 		std::unique_ptr<D3D11ScreenCapture> m_screenCapture;
 
+		bool m_vSyncEnabled = true;
+
 	public:
 
 		CRenderer_D3D11();
@@ -67,6 +69,10 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
+
+		void setVSyncEnabled(bool enabled);
+
+		bool isVSyncEnabled() const;
 
 		void captureScreenshot() override;
 

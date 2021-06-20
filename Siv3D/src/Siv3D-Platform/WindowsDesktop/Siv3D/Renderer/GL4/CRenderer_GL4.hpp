@@ -42,6 +42,8 @@ namespace s3d
 		
 		std::unique_ptr<GL4SamplerState> m_samplerState;
 
+		bool m_vSyncEnabled = true;
+
 	public:
 
 		CRenderer_GL4();
@@ -59,6 +61,10 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
+
+		void setVSyncEnabled(bool enabled);
+
+		bool isVSyncEnabled() const;
 
 		void captureScreenshot() override;
 

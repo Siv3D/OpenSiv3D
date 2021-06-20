@@ -1836,6 +1836,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\GrabCutDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GrabCut\SivGrabCut.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\SivGraphics.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\CGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\GUIFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp" />
