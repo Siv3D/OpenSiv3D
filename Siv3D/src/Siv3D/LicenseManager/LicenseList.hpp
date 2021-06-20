@@ -685,7 +685,8 @@ UR"-(This software is based in part on the work of the Independent JPEG Group.)-
 {
 UR"-(libjpeg-turbo)-",
 
-UR"-(Copyright (c) 2009-2020 D. R. Commander. All Rights Reserved.)-",
+UR"-(Copyright (C)2009-2021 D. R. Commander. All Rights Reserved.
+Copyright (C)2015 Viktor Szathmáry. All Rights Reserved.)-",
 
 UR"-(Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

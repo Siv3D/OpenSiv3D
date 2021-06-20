@@ -37,7 +37,7 @@ Name | Version
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libcurl](https://github.com/curl/curl) | 7.77.0
-[libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.0.6
+[libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.1.0
 [libogg](https://xiph.org/downloads/) | 1.3.4
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
 [libtiff](http://www.simplesystems.org/libtiff/) | v4.3.0
