@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Cursor/CCursor.hpp>
 # include <Siv3D/Cursor/CCursor_Null.hpp>
 
@@ -17,7 +17,7 @@ namespace s3d
 {
 	ISiv3DCursor* ISiv3DCursor::Create()
 	{
-		if (g_applicationOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CCursor_Null;
 		}

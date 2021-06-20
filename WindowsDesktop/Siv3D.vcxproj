@@ -22,7 +22,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\ApplicationOptions.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\EngineOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
@@ -1716,7 +1716,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFReader\SivAnimatedGIFReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\ApplicationOptions\SivApplicationOptions.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
@@ -1796,6 +1795,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Empty\CEmpty.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Empty\EmptyFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineLog\SivEngineLog.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\EngineOptions\SivEngineOptions.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Error\SivError.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp" />

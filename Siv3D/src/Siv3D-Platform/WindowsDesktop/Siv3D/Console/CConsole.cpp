@@ -11,7 +11,7 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/EngineLog.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include "CConsole.hpp"
 

@@ -67,7 +67,7 @@ namespace s3d
 		};
 	};
 
-	struct ApplicationOptions
+	struct EngineOptions
 	{
 		EngineOption::DebugHeap debugHeap		= EngineOption::DebugHeap::No;
 
@@ -83,7 +83,7 @@ namespace s3d
 		int SetEngineOption(EngineOption::D3D11Driver) noexcept;
 	}
 
-	extern ApplicationOptions g_applicationOptions;
+	extern EngineOptions g_engineOptions;
 }
 
 # define SIV3D_COMBINE_(X,Y) X##Y

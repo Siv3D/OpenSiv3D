@@ -16,7 +16,7 @@
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Monitor.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
@@ -50,7 +50,7 @@ namespace s3d
 			throw EngineError(U"glfwInit() failed");
 		}
 		
-		const bool useMetal =  (g_applicationOptions.renderer == EngineOption::Renderer::Metal);
+		const bool useMetal =  (g_engineOptions.renderer == EngineOption::Renderer::Metal);
 
 		if (useMetal)
 		{

@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Shader/Null/CShader_Null.hpp>
 # include <Siv3D/Shader/GL4/CShader_GL4.hpp>
 # include <Siv3D/Shader/Metal/CShader_Metal.hpp>
@@ -18,16 +18,16 @@ namespace s3d
 {
 	ISiv3DShader* ISiv3DShader::Create()
 	{
-		if (g_applicationOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CShader_Null;
 		}
-		else if (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
-			|| g_applicationOptions.renderer == EngineOption::Renderer::OpenGL)
+		else if (g_engineOptions.renderer == EngineOption::Renderer::PlatformDefault
+			|| g_engineOptions.renderer == EngineOption::Renderer::OpenGL)
 		{
 			return new CShader_GL4;
 		}
-		else if (g_applicationOptions.renderer == EngineOption::Renderer::Metal)
+		else if (g_engineOptions.renderer == EngineOption::Renderer::Metal)
 		{
 			return new CShader_Metal;
 		}

@@ -9,29 +9,29 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 
 namespace s3d
 {
-	ApplicationOptions g_applicationOptions;
+	EngineOptions g_engineOptions;
 
 	namespace detail
 	{
 		int SetEngineOption(const EngineOption::DebugHeap value) noexcept
 		{
-			g_applicationOptions.debugHeap = value;
+			g_engineOptions.debugHeap = value;
 			return 0;
 		}
 
 		int SetEngineOption(const EngineOption::Renderer value) noexcept
 		{
-			g_applicationOptions.renderer = value;
+			g_engineOptions.renderer = value;
 			return 0;
 		}
 
 		int SetEngineOption(const EngineOption::D3D11Driver value) noexcept
 		{
-			g_applicationOptions.d3d11Driver = value;
+			g_engineOptions.d3d11Driver = value;
 			return 0;
 		}
 	}

@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Texture/Null/CTexture_Null.hpp>
 # include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
 
@@ -17,7 +17,7 @@ namespace s3d
 {
 	ISiv3DTexture* ISiv3DTexture::Create()
 	{
-		if (g_applicationOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CTexture_Null;
 		}

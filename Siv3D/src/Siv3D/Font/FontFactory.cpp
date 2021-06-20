@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include "CFont.hpp"
 # include "CFont_Headless.hpp"
 
@@ -17,7 +17,7 @@ namespace s3d
 {
 	ISiv3DFont* ISiv3DFont::Create()
 	{
-		if (g_applicationOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CFont_Headless;
 		}

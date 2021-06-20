@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.hpp>
 # include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
@@ -17,12 +17,12 @@ namespace s3d
 {
 	IConstantBufferDetail* IConstantBufferDetail::Create(const size_t size)
 	{
-		if (g_applicationOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new ConstantBufferDetail_Null(size);
 		}
-		else if (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
-			|| g_applicationOptions.renderer == EngineOption::Renderer::WebGL2)
+		else if (g_engineOptions.renderer == EngineOption::Renderer::PlatformDefault
+			|| g_engineOptions.renderer == EngineOption::Renderer::WebGL2)
 		{
 			return new ConstantBufferDetail_GLES3(size);
 		}

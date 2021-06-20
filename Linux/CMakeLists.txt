@@ -117,7 +117,6 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/AnimatedGIFReader/SivAnimatedGIFReader.cpp
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/AnimatedGIFWriterDetail.cpp
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/SivAnimatedGIFWriter.cpp
-  ../Siv3D/src/Siv3D/ApplicationOptions/SivApplicationOptions.cpp
   ../Siv3D/src/Siv3D/Asset/AssetFactory.cpp
   ../Siv3D/src/Siv3D/Asset/CAsset.cpp
   ../Siv3D/src/Siv3D/Asset/IAssetDetail.cpp
@@ -197,6 +196,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Empty/CEmpty.cpp
   ../Siv3D/src/Siv3D/Empty/EmptyFactory.cpp
   ../Siv3D/src/Siv3D/EngineLog/SivEngineLog.cpp
+  ../Siv3D/src/Siv3D/EngineOptions/SivEngineOptions.cpp
   ../Siv3D/src/Siv3D/Error/SivError.cpp
   ../Siv3D/src/Siv3D/Exif/SivExif.cpp
   ../Siv3D/src/Siv3D/FFT/CFFT.cpp

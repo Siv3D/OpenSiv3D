@@ -12,7 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Duration.hpp"
-# include "ApplicationOptions.hpp"
+# include "EngineOptions.hpp"
 
 namespace s3d
 {

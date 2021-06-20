@@ -16,7 +16,7 @@
 # include <Siv3D/ResizeMode.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/TextureFilter.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 
 namespace s3d
 {

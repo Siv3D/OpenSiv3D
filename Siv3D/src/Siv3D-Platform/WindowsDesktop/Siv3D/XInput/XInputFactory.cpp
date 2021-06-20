@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/ApplicationOptions.hpp>
 # include <Siv3D/XInput/XInput/CXInput.hpp>
 
 namespace s3d

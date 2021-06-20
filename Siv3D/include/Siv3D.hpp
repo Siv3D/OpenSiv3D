@@ -1501,12 +1501,12 @@
 
 //////////////////////////////////////////////////
 //
-//	アプリケーション設定 | Application configuration
+//	エンジン設定 | Engine configuration
 //
 //////////////////////////////////////////////////
 
-// アプリケーションの設定 | Application configuration
-# include <Siv3D/ApplicationOptions.hpp>
+//　エンジンの設定 | Engine configuration
+# include <Siv3D/EngineOptions.hpp>
 
 //////////////////////////////////////////////////
 //

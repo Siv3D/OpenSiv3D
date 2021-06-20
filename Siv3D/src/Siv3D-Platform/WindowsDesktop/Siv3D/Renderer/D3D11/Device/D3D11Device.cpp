@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/DLL.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Unspecified.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "D3D11Device.hpp"
@@ -86,7 +86,7 @@ namespace s3d
 				}
 
 				deviceInfo = detail::CreateDevice(m_pD3D11CreateDevice, m_adapters,
-					g_applicationOptions.d3d11Driver, unspecified, deviceFlag,
+					g_engineOptions.d3d11Driver, unspecified, deviceFlag,
 					m_WARPFeatureLevel, m_referenceFeatureLevel);
 
 				if (deviceInfo)

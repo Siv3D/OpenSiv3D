@@ -12,7 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Optional.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "D3D11Adapter.hpp"
 # include "D3D11DeviceInfo.hpp"

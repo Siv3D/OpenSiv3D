@@ -15,7 +15,7 @@
 # include <Siv3D/Format.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
-# include <Siv3D/ApplicationOptions.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/System/CSystem.hpp>
@@ -268,7 +268,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	if constexpr (SIV3D_BUILD(DEBUG))
 	{
 		if (g_isDebuggerPresent &&
-			(g_applicationOptions.debugHeap == EngineOption::DebugHeap::Yes))
+			(g_engineOptions.debugHeap == EngineOption::DebugHeap::Yes))
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 		}

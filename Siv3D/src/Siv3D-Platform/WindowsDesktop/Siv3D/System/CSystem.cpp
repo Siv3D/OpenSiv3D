@@ -84,8 +84,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CSystem::init2()");
 
-		const bool d3d11 = (g_applicationOptions.renderer == EngineOption::Renderer::PlatformDefault
-			|| g_applicationOptions.renderer == EngineOption::Renderer::Direct3D11);
+		const bool d3d11 = (g_engineOptions.renderer == EngineOption::Renderer::PlatformDefault
+			|| g_engineOptions.renderer == EngineOption::Renderer::Direct3D11);
 
 		AsyncTask<bool> threadRenderer;
 		if (d3d11)
