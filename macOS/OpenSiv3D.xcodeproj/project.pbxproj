@@ -1109,6 +1109,7 @@
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
 		2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */; };
+		2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A5267F133C00A8F68C /* SivGraphics.cpp */; };
 		2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C711CF026629EFD0018D38D /* SivMat4x4.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
@@ -3179,6 +3180,7 @@
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
 		2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
 		2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.ipp; sourceTree = "<group>"; };
+		2C7091A5267F133C00A8F68C /* SivGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics.cpp; sourceTree = "<group>"; };
 		2C711CF026629EFD0018D38D /* SivMat4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat4x4.cpp; sourceTree = "<group>"; };
 		2C74C042267A46560031C9E0 /* obfuscate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obfuscate.h; sourceTree = "<group>"; };
 		2C74C043267A466D0031C9E0 /* Obfuscation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Obfuscation.hpp; sourceTree = "<group>"; };
@@ -5733,6 +5735,7 @@
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
 				2CDD2FC1265B9E7900E09591 /* GlobalAudio */,
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
+				2C7091A4267F133C00A8F68C /* Graphics */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
 				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
@@ -8224,6 +8227,14 @@
 				2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */,
 			);
 			path = Quaternion;
+			sourceTree = "<group>";
+		};
+		2C7091A4267F133C00A8F68C /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				2C7091A5267F133C00A8F68C /* SivGraphics.cpp */,
+			);
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 		2C711CEF26629EFD0018D38D /* Mat4x4 */ = {
@@ -11653,6 +11664,7 @@
 				2C636E722657F7D300AF029F /* soloud_queue.cpp in Sources */,
 				2C636EA12657F7D300AF029F /* dr_impl.cpp in Sources */,
 				2C2D5C00267C61CE00EF5696 /* SivPixelShaderAssetData.cpp in Sources */,
+				2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */,
 				2C834DA0248805D4006208B8 /* regcomp.c in Sources */,
 				2C13C9C525BD29FC0054B968 /* lmem.c in Sources */,
 				2C47B31E24DD9789008D83BE /* SivCursor.cpp in Sources */,
