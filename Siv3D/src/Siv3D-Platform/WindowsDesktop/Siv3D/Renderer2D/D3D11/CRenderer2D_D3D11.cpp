@@ -804,7 +804,7 @@ namespace s3d
 	{
 		if (texture)
 		{
-			m_commandManager.pushVSTexture(slot, texture.value());
+			m_commandManager.pushVSTexture(slot, *texture);
 		}
 		else
 		{
@@ -816,7 +816,7 @@ namespace s3d
 	{
 		if (texture)
 		{
-			m_commandManager.pushPSTexture(slot, texture.value());
+			m_commandManager.pushPSTexture(slot, *texture);
 		}
 		else
 		{

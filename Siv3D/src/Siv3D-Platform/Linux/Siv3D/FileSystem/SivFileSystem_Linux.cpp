@@ -103,21 +103,6 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static String ToUniqueFileName(const uint64 value)
-		{
-			constexpr char32 hex[] = U"0123456789abcdef";
-			
-			String name(19, U'-');
-			
-			for (size_t i = 0; i < 16; ++i)
-			{
-				name[i + (i / 4)] = hex[(value >> (i * 4)) & 0xF];
-			}
-			
-			return name;
-		}
-
-		[[nodiscard]]
 		inline constexpr std::filesystem::copy_options ToCopyOptions(const CopyOption copyOption) noexcept
 		{
 			switch (copyOption)

@@ -37,9 +37,9 @@ namespace s3d
 
 		bool present() override;
 
-		void setVSyncEnabled(bool enabled);
+		void setVSyncEnabled(bool enabled) override;
 
-		bool isVSyncEnabled() const;
+		bool isVSyncEnabled() const override;
 
 		void captureScreenshot() override;
 

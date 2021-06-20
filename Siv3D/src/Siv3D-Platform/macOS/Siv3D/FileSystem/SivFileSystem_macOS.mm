@@ -97,22 +97,7 @@ namespace s3d
 					lt.tm_sec,
 					static_cast<int32>(tv.tv_nsec / (1'000'000))};
 		}
-		
-		[[nodiscard]]
-		static String ToUniqueFileName(const uint64 value)
-		{
-			constexpr char32 hex[] = U"0123456789abcdef";
-			
-			String name(19, U'-');
-			
-			for (size_t i = 0; i < 16; ++i)
-			{
-				name[i + (i / 4)] = hex[(value >> (i * 4)) & 0xF];
-			}
-			
-			return name;
-		}
-	
+
 		[[nodiscard]]
 		static std::string MacOS_FullPath(const char* _path, bool isRelative)
 		{
