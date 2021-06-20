@@ -85,6 +85,7 @@ target_link_libraries(Siv3DTest PRIVATE
   -lswresample
   -ltiff
   -lturbojpeg
+  -luuid
 	-lvorbis
 	-lvorbisenc
 	-lvorbisfile

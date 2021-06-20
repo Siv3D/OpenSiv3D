@@ -158,16 +158,16 @@ namespace s3d
 
 		FilePath UniqueFilePath(const FilePathView directory)
 		{
+			if (FileSystem::IsFile(directory))
+			{
+				return{};
+			}
+
 			FilePath directoryPath{ directory };
 
 			if (directoryPath && (not directoryPath.ends_with(U'/')))
 			{
 				directoryPath.push_back(U'/');
-			}
-
-			if (not FileSystem::IsDirectory(directory))
-			{
-				return{};
 			}
 
 			for (;;)
