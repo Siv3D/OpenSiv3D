@@ -510,30 +510,6 @@ namespace s3d
 			return (GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/");
 		}
 
-		FilePath UniqueFilePath(const FilePathView directory)
-		{
-			HardwareRNG rng;
-			UniformDistribution<uint64> ud(0, UINT64_MAX);
-			
-			FilePath directoryPath(directory);
-			
-			if ((not directoryPath.isEmpty())
-				&& (not directoryPath.ends_with(U'/')))
-			{
-				directoryPath.push_back(U'/');
-			}
-			
-			for (uint64 n = ud(rng);; ++n)
-			{
-				const FilePath path = directoryPath + detail::ToUniqueFileName(n) + U".tmp";
-				
-				if (not Exists(path))
-				{
-					return path;
-				}
-			}
-		}
-
 		bool CreateDirectories(const FilePathView path)
 		{
 			if (not path)

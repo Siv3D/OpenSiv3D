@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/UUID.hpp>
 
 namespace s3d
 {
@@ -153,6 +154,31 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		FilePath UniqueFilePath(const FilePathView directory)
+		{
+			FilePath directoryPath{ directory };
+
+			if (directoryPath && (not directoryPath.ends_with(U'/')))
+			{
+				directoryPath.push_back(U'/');
+			}
+
+			if (not FileSystem::IsDirectory(directory))
+			{
+				return{};
+			}
+
+			for (;;)
+			{
+				const FilePath path = (directoryPath + UUID::Generate().str() + U".tmp");
+
+				if (not Exists(path))
+				{
+					return path;
+				}
+			}
 		}
 	}
 }

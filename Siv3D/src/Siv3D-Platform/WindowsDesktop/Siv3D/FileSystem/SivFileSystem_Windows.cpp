@@ -14,10 +14,10 @@
 # include <Siv3D/Time.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include <Siv3D/FormatUtility.hpp>
-# include <Siv3D/Windows/Windows.hpp>
-# include <Shlobj.h>
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Windows/Windows.hpp>
+# include <Shlobj.h>
 
 namespace s3d
 {
@@ -674,37 +674,6 @@ namespace s3d
 		FilePath TemporaryDirectoryPath()
 		{
 			return GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/";
-		}
-
-		FilePath UniqueFilePath(const FilePathView directory)
-		{
-			FilePath directoryPath{ directory };
-
-			if (directoryPath && (not directoryPath.ends_with(U'/')))
-			{
-				directoryPath.push_back(U'/');
-			}
-
-			if (not FileSystem::IsDirectory(directory))
-			{
-				return{};
-			}
-
-			const uint32 time = static_cast<uint32>(Time::GetSecSinceEpoch());
-			const String prefix = directoryPath + Pad(ToHex(time), { 8, U'0' }) + U'-';
-			uint32 randomValue = HardwareRNG{}();
-
-			for (;;)
-			{
-				const FilePath path = (prefix + Pad(ToHex(randomValue), { 8, U'0' }) + U".tmp");
-
-				if (detail::GetStatus(path).type() == fs::file_type::not_found)
-				{
-					return path;
-				}
-
-				++randomValue;
-			}
 		}
 
 		FilePath RelativePath(const FilePathView path, const FilePathView start)
