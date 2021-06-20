@@ -827,6 +827,7 @@
 
 # include <Siv3D/IPv4Address.hpp>
 
+# include <Siv3D/Network.hpp>
 
 //////////////////////////////////////////////////
 //

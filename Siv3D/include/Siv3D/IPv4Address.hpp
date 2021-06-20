@@ -37,6 +37,9 @@ namespace s3d
 		explicit constexpr IPv4Address(const std::array<value_type, 4>& ipv4) noexcept;
 
 		SIV3D_NODISCARD_CXX20
+		explicit IPv4Address(std::string_view ipv4);
+
+		SIV3D_NODISCARD_CXX20
 		explicit IPv4Address(StringView ipv4);
 
 		constexpr bool isLoopback() const noexcept;
