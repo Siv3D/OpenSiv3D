@@ -298,6 +298,7 @@
 		2C36F84A267F93F700691B1C /* ScriptFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F846267F93F700691B1C /* ScriptFactory.cpp */; };
 		2C36F84B267F93F700691B1C /* IScript.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C36F847267F93F700691B1C /* IScript.hpp */; };
 		2C36F84C267F93F700691B1C /* CScript.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C36F848267F93F700691B1C /* CScript.hpp */; };
+		2C36F84F267F9EB700691B1C /* SivNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F84E267F9EB700691B1C /* SivNetwork.cpp */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -2215,6 +2216,8 @@
 		2C36F846267F93F700691B1C /* ScriptFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptFactory.cpp; sourceTree = "<group>"; };
 		2C36F847267F93F700691B1C /* IScript.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IScript.hpp; sourceTree = "<group>"; };
 		2C36F848267F93F700691B1C /* CScript.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CScript.hpp; sourceTree = "<group>"; };
+		2C36F84D267F9E9F00691B1C /* Network.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Network.hpp; sourceTree = "<group>"; };
+		2C36F84E267F9EB700691B1C /* SivNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivNetwork.cpp; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -7521,10 +7524,11 @@
 		2C5D9DCE266159CD00D81870 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */,
 				2C5D9DD0266159CD00D81870 /* CNetwork.cpp */,
-				2C5D9DD1266159CD00D81870 /* INetwork.hpp */,
+				2C5D9DCF266159CD00D81870 /* NetworkFactory.cpp */,
+				2C36F84E267F9EB700691B1C /* SivNetwork.cpp */,
 				2C5D9DD2266159CD00D81870 /* CNetwork.hpp */,
+				2C5D9DD1266159CD00D81870 /* INetwork.hpp */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -9087,6 +9091,7 @@
 				2CAAA72425E7FD0200C014D7 /* NamedParameter.hpp */,
 				2CAAA85A25E7FD0300C014D7 /* NavMesh.hpp */,
 				2CAAA72725E7FD0200C014D7 /* NavMeshConfig.hpp */,
+				2C36F84D267F9E9F00691B1C /* Network.hpp */,
 				2CAAA85C25E7FD0300C014D7 /* Noise.hpp */,
 				2CAAA88525E7FD0300C014D7 /* None.hpp */,
 				2CAAA8AF25E7FD0300C014D7 /* NonNull.hpp */,
@@ -11356,6 +11361,7 @@
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2C956655264546F700539B85 /* svgelement.cpp in Sources */,
+				2C36F84F267F9EB700691B1C /* SivNetwork.cpp in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
 				2C48BF8825D41C0D00A93CE3 /* FontData.cpp in Sources */,
 				2CEC7DD625FA527700704B99 /* PNGDecoder.cpp in Sources */,
@@ -12155,6 +12161,7 @@
 					"../Siv3D/src/Siv3D-Platform/macOS_Linux",
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
+					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
 					"../Siv3D/src/ThirdParty-prebuilt",
 					../Dependencies/boost_1_73_0,
@@ -12228,6 +12235,7 @@
 					"../Siv3D/src/Siv3D-Platform/macOS_Linux",
 					"../Siv3D/src/Siv3D-Platform/OpenGL4",
 					../Siv3D/src/ThirdParty,
+					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
 					"../Siv3D/src/ThirdParty-prebuilt",
 					../Dependencies/boost_1_73_0,
