@@ -154,7 +154,7 @@ namespace s3d
 		return m_pixelShaders[handleID]->getBinary();
 	}
 
-	const PixelShader& CShader_Null::getEnginePS(const EnginePS) const
+	const PixelShader& CShader_Metal::getEnginePS(const EnginePS) const
 	{
 		// [Siv3D ToDo]
 		return *m_emptyPS;
