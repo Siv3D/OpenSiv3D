@@ -29,11 +29,11 @@ namespace s3d
 
 			if constexpr (SIV3D_BUILD(DEBUG))
 			{
-				LOG_INFO(U"ℹ️ Siv3D Engine (" SIV3D_VERSION U") " SIV3D_PLATFORM_NAME U" [Debug build]");
+				LOG_INFO(U"ℹ️ Siv3D Engine (" SIV3D_VERSION_STRING U") " SIV3D_PLATFORM_NAME U" [Debug build]");
 			}
 			else
 			{
-				LOG_INFO(U"ℹ️ Siv3D Engine (" SIV3D_VERSION U") " SIV3D_PLATFORM_NAME U" [Release build]");
+				LOG_INFO(U"ℹ️ Siv3D Engine (" SIV3D_VERSION_STRING U") " SIV3D_PLATFORM_NAME U" [Release build]");
 			}
 			
 			{

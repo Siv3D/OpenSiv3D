@@ -50,7 +50,7 @@ namespace s3d
 		FilePath Engine()
 		{
 			return FileSystem::GetFolderPath(SpecialFolder::LocalAppData)
-				+ U"Siv3D/" SIV3D_VERSION U"/";
+				+ U"Siv3D/" SIV3D_VERSION_STRING U"/";
 		}
 
 		FilePath Apps(const StringView applicationName)

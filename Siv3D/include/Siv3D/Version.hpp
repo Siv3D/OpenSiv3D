@@ -10,13 +10,24 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Types.hpp"
 
-/// @biref ライブラリのバージョンの文字列 | Library version string
-# define SIV3D_VERSION	U"0.6.0dev"
+/// @biref ライブラリのメジャーバージョン | Library major version
+# define SIV3D_VERSION_MAJOR			0
 
-namespace s3d
-{
-	/// @brief ライブラリのバージョン番号 | Library version number
-	inline constexpr uint32 Siv3DVersion = 200'060'000u;
-}
+/// @biref ライブラリのマイナーバージョン | Library minor version
+# define SIV3D_VERSION_MINOR			6
+
+/// @biref ライブラリのリビジョンバージョン | Library revision version
+# define SIV3D_VERSION_REVISION			0
+
+/// @biref プレリリースタグ | Pre-release tag
+# define SIV3D_VERSION_PRERELEASE_TAG	U"dev"
+
+/// @biref ライブラリのバージョン | Library version
+# define SIV3D_VERSION			((SIV3D_VERSION_MAJOR * 100 * 100) + (SIV3D_VERSION_MINOR * 100) + (SIV3D_VERSION_REVISION))
+
+/// @biref ライブラリのバージョンの文字列 | Library version
+# define SIV3D_VERSION_STRING	U"0.6.0" SIV3D_VERSION_PRERELEASE_TAG
+
+/// @biref ライブラリのバージョン名 | Library version name
+# define SIV3D_VERSION_NAME		U"Siv3D July 2021"
