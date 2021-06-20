@@ -287,6 +287,7 @@
 		2C34780F25DA95A100071EEF /* SivPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C34780A25DA95A100071EEF /* SivPrint.cpp */; };
 		2C34781025DA95A100071EEF /* CPrint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34780B25DA95A100071EEF /* CPrint.hpp */; };
 		2C34781125DA95A100071EEF /* IPrint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34780C25DA95A100071EEF /* IPrint.hpp */; };
+		2C36F832267F859000691B1C /* SivShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F831267F859000691B1C /* SivShader.cpp */; };
 		2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA3251E492B00D4B14B /* SivAddon.cpp */; };
 		2C378CAA251E492B00D4B14B /* CAddon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C378CA5251E492B00D4B14B /* CAddon.hpp */; };
 		2C378CAB251E492B00D4B14B /* AddonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C378CA6251E492B00D4B14B /* AddonFactory.cpp */; };
@@ -2193,6 +2194,7 @@
 		2C34780A25DA95A100071EEF /* SivPrint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPrint.cpp; sourceTree = "<group>"; };
 		2C34780B25DA95A100071EEF /* CPrint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPrint.hpp; sourceTree = "<group>"; };
 		2C34780C25DA95A100071EEF /* IPrint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPrint.hpp; sourceTree = "<group>"; };
+		2C36F831267F859000691B1C /* SivShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShader.cpp; sourceTree = "<group>"; };
 		2C378CA3251E492B00D4B14B /* SivAddon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAddon.cpp; sourceTree = "<group>"; };
 		2C378CA4251E492B00D4B14B /* IAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAddon.hpp; sourceTree = "<group>"; };
 		2C378CA5251E492B00D4B14B /* CAddon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAddon.hpp; sourceTree = "<group>"; };
@@ -6509,8 +6511,9 @@
 		2C47B6CC24EAC82A008D83BE /* Shader */ = {
 			isa = PBXGroup;
 			children = (
-				2C47B6CD24EAC82A008D83BE /* Null */,
+				2C36F831267F859000691B1C /* SivShader.cpp */,
 				2C47B6D024EAC82A008D83BE /* IShader.hpp */,
+				2C47B6CD24EAC82A008D83BE /* Null */,
 			);
 			path = Shader;
 			sourceTree = "<group>";
@@ -11336,6 +11339,7 @@
 				2C60AE89248158A500277281 /* displays_default_blank.cpp in Sources */,
 				2C2AA36426009C74003F3EBC /* b2_polygon_circle_contact.cpp in Sources */,
 				2C2AA2B725FF8933003F3EBC /* SerialDetail.cpp in Sources */,
+				2C36F832267F859000691B1C /* SivShader.cpp in Sources */,
 				2C2AA36326009C74003F3EBC /* b2_pulley_joint.cpp in Sources */,
 				2C47B37524DD9789008D83BE /* SivVector3D.cpp in Sources */,
 				2C13C8BE25B8FA9D0054B968 /* RecastLayers.cpp in Sources */,
