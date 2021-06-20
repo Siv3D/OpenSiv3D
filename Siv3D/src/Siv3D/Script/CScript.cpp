@@ -10,8 +10,20 @@
 //-----------------------------------------------
 
 # include "CScript.hpp"
+# include <Siv3D/Error.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
+	CScript::CScript() {}
 
+	CScript::~CScript()
+	{
+		LOG_SCOPED_TRACE(U"CScript::~CScript()");
+	}
+
+	void CScript::init()
+	{
+		LOG_SCOPED_TRACE(U"CScript::init()");
+	}
 }

@@ -14,6 +14,8 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -35,6 +37,8 @@ namespace s3d
 	void CRenderer_Null::init()
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_Null::init()");
+
+		SIV3D_ENGINE(Shader)->init();
 
 		clear();
 	}

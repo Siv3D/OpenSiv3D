@@ -50,12 +50,14 @@ namespace s3d
 	class ISiv3DTexture;
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
+	class ISiv3DRenderer3D;
 	class ISiv3DScreenCapture;
 	class ISiv3DFont;
 	class ISiv3DGUI;
 	class ISiv3DPrint;
 	class ISiv3DAsset;
 	class ISiv3DEffect;
+	class ISiv3DScript;
 	class ISiv3DAddon;
 
 	class Siv3DEngine
@@ -100,12 +102,14 @@ namespace s3d
 			Siv3DComponent<ISiv3DTexture>,
 			Siv3DComponent<ISiv3DShader>,
 			Siv3DComponent<ISiv3DRenderer2D>,
+			Siv3DComponent<ISiv3DRenderer3D>,
 			Siv3DComponent<ISiv3DScreenCapture>,
 			Siv3DComponent<ISiv3DFont>,
 			Siv3DComponent<ISiv3DGUI>,
 			Siv3DComponent<ISiv3DPrint>,
 			Siv3DComponent<ISiv3DAsset>,
 			Siv3DComponent<ISiv3DEffect>,
+			Siv3DComponent<ISiv3DScript>,
 			Siv3DComponent<ISiv3DAddon>> m_components;
 
 	public:

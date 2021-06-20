@@ -18,6 +18,12 @@ namespace s3d
 	{
 	public:
 
+		CScript();
+
+		~CScript() override;
+
+		void init() override;
+
 	private:
 
 	};

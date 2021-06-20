@@ -21,5 +21,7 @@ namespace s3d
 		static ISiv3DScript* Create();
 
 		virtual ~ISiv3DScript() = default;
+
+		virtual void init() = 0;
 	};
 }
