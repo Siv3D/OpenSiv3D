@@ -22,6 +22,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
@@ -628,6 +630,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SVG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPError.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
@@ -1108,6 +1111,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemLog.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemMisc.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\TCPClientDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\TCPServerDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\ITextInput.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextReader\TextReaderDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\ITextToSpeech.hpp" />
@@ -2028,6 +2033,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemLog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemMisc.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\TCPClientDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\TCPServerDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\SivTextInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\TextInputFactory.cpp" />

@@ -1390,6 +1390,12 @@
     <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4">
       <UniqueIdentifier>{d8bb90d9-9a02-4bd9-9bfc-8ee4cf658ed1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TCPClient">
+      <UniqueIdentifier>{29875566-3c7b-4199-9204-6102618e5227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TCPServer">
+      <UniqueIdentifier>{ae29cf12-3d0f-4cd0-859b-bfd6d58f25b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6207,6 +6213,21 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPError.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\TCPServerDetail.hpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\TCPClientDetail.hpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8539,6 +8560,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp">
       <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\TCPServerDetail.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\TCPClientDetail.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

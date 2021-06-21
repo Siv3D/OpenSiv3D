@@ -45,6 +45,9 @@ namespace s3d
 		constexpr bool isLoopback() const noexcept;
 
 		[[nodiscard]]
+		std::string to_string() const;
+
+		[[nodiscard]]
 		String str() const;
 
 		[[nodiscard]]

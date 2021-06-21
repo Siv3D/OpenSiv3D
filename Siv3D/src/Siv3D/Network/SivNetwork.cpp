@@ -14,7 +14,13 @@
 # if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) 
 
 # define _WINSOCK_DEPRECATED_NO_WARNINGS
-# define _WIN32_WINNT _WIN32_WINNT_WIN10
+# ifndef _WIN32_WINNT
+#	define	_WIN32_WINNT _WIN32_WINNT_WIN8
+# endif
+# ifndef NTDDI_VERSION
+#	define	NTDDI_VERSION NTDDI_WIN8
+# endif
+# define  ASIO_STANDALONE
 # include <ThirdParty/asio/asio.hpp>
 
 namespace s3d

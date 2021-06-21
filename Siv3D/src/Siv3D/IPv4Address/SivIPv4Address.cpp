@@ -48,6 +48,11 @@ namespace s3d
 		}
 	}
 
+	std::string IPv4Address::to_string() const
+	{
+		return str().toUTF8();
+	}
+
 	String IPv4Address::str() const
 	{
 		return Format(m_data[0], U'.', m_data[1], U'.', m_data[2], U'.', m_data[3]);

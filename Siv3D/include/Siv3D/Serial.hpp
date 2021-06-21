@@ -115,12 +115,16 @@ namespace s3d
 
 		bool waitForChange();
 
+		[[nodiscard]]
 		bool getCTS();
 
+		[[nodiscard]]
 		bool getDSR();
 
+		[[nodiscard]]
 		bool getRI();
 
+		[[nodiscard]]
 		bool getCD();
 
 	private:

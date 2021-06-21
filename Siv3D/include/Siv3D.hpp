@@ -835,6 +835,8 @@
 //
 //////////////////////////////////////////////////
 
+# include <Siv3D/TCPError.hpp>
+
 # include <Siv3D/TCPServer.hpp>
 
 # include <Siv3D/TCPClient.hpp>
