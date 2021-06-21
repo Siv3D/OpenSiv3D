@@ -27,7 +27,7 @@ namespace s3d
 {
 	namespace Network
 	{
-		Array<IPv4Address> EnumerateIPV4Addresses()
+		Array<IPv4Address> EnumerateIPv4Addresses()
 		{
 			asio::io_service io_service;
 			asio::ip::tcp::resolver resolver{ io_service };
@@ -61,7 +61,7 @@ namespace s3d
 {
 	namespace Network
 	{
-		Array<IPv4Address> EnumerateIPV4Addresses()
+		Array<IPv4Address> EnumerateIPv4Addresses()
 		{
 			Array<IPv4Address> results;
 

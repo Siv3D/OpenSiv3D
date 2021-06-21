@@ -32,7 +32,7 @@ namespace s3d
 
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
-			m_io_service_thread = std::async([=] { m_io_service->run(); });
+			m_io_service_thread = Async([this] { m_io_service->run(); });
 		}
 
 		if (m_isConnected)

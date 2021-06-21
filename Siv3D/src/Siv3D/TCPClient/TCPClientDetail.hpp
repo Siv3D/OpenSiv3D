@@ -101,12 +101,12 @@ namespace s3d
 
 				if (!m_isSending)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 					m_receivedBuffer.clear();
 					m_streamBuffer.consume(m_streamBuffer.size());
 				}
@@ -132,7 +132,7 @@ namespace s3d
 
 			size_t available()
 			{
-				std::lock_guard lock(m_mutexReceivedBuffer);
+				std::lock_guard lock{ m_mutexReceivedBuffer };
 
 				return m_receivedBuffer.size();
 			}
@@ -171,7 +171,7 @@ namespace s3d
 				const size_t size = m_streamBuffer.size();
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() + size > maxBufferSize)
 					{
@@ -200,7 +200,7 @@ namespace s3d
 
 				if (!m_isActive)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 					return;
 				}
@@ -217,7 +217,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					if (!m_sendingBuffer.empty())
 					{
@@ -244,7 +244,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (size > m_receivedBuffer.size())
 					{
@@ -270,7 +270,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -296,7 +296,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -324,7 +324,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					m_sendingBuffer.emplace_back(static_cast<const Byte*>(data), static_cast<const Byte*>(data) + size);
 
@@ -349,7 +349,7 @@ namespace s3d
 
 		std::unique_ptr<asio::ip::tcp::acceptor> m_acceptor;
 
-		std::future<void> m_io_service_thread;
+		AsyncTask<void> m_io_service_thread;
 
 		std::shared_ptr<detail::ClientSession> m_session;
 

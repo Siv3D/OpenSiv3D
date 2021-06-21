@@ -19,6 +19,6 @@ namespace s3d
 	namespace Network
 	{
 		[[nodiscard]]
-		Array<IPv4Address> EnumerateIPV4Addresses();
+		Array<IPv4Address> EnumerateIPv4Addresses();
 	}
 }
