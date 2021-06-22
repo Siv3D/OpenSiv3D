@@ -61,6 +61,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer2D/Renderer2DFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer3D/Renderer3DFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Resource/CResource.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Resource/SivResource_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Shader/ShaderFactory.cpp
@@ -108,6 +109,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Renderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Vertex2DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/CRenderer3D_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/CShader_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/PixelShader/GLES3PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/VertexShader/GLES3VertexShader.cpp
@@ -320,6 +322,7 @@ add_library(
   ../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp
   ../Siv3D/src/Siv3D/Network/CNetwork.cpp
   ../Siv3D/src/Siv3D/Network/NetworkFactory.cpp
+  ../Siv3D/src/Siv3D/Network/SivNetwork.cpp
   ../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
@@ -381,6 +384,7 @@ add_library(
   ../Siv3D/src/Siv3D/Renderer/Null/CRenderer_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Null/CRenderer2D_Null.cpp
   ../Siv3D/src/Siv3D/Renderer2D/Vertex2DBuilder.cpp
+  ../Siv3D/src/Siv3D/Renderer3D/Null/CRenderer3D_Null.cpp
   ../Siv3D/src/Siv3D/RenderTexture/SivRenderTexture.cpp
   ../Siv3D/src/Siv3D/Resource/ResourceFactory.cpp
   ../Siv3D/src/Siv3D/Resource/SivResource.cpp
@@ -395,6 +399,8 @@ add_library(
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
+  ../Siv3D/src/Siv3D/Script/CScript.cpp
+  ../Siv3D/src/Siv3D/Script/ScriptFactory.cpp
   ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
   ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
   ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
@@ -420,6 +426,10 @@ add_library(
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
   ../Siv3D/src/Siv3D/System/SystemMisc.cpp
+  ../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp
+  ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
+  ../Siv3D/src/Siv3D/TCPServer/SivTCPServer.cpp
+  ../Siv3D/src/Siv3D/TCPServer/TCPServerDetail.cpp
   ../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp
   ../Siv3D/src/Siv3D/TextInput/SivTextInput.cpp
   ../Siv3D/src/Siv3D/TextInput/TextInputFactory.cpp
@@ -858,6 +868,7 @@ target_include_directories(
   ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/OpenGLES3
   ../Siv3D/src/ThirdParty
+  ../Siv3D/src/ThirdParty/asio
   ../Siv3D/src/ThirdParty/freetype
   ../Siv3D/src/ThirdParty/soloud/include
   ../Siv3D/src/ThirdParty-prebuilt

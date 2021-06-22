@@ -38,6 +38,8 @@ namespace s3d
 		
 		std::unique_ptr<GLES3SamplerState> m_samplerState;
 
+		bool m_vSyncEnabled = true;
+
 	public:
 
 		CRenderer_GLES3();
@@ -55,6 +57,10 @@ namespace s3d
 		void flush() override;
 
 		bool present() override;
+
+		void setVSyncEnabled(bool enabled) override;
+
+		bool isVSyncEnabled() const override;
 
 		void captureScreenshot() override;
 
@@ -87,6 +93,7 @@ namespace s3d
 		//
 		// GLES3
 		//
+		GLES3BackBuffer& getBackBuffer() noexcept;
 
 		GLES3BlendState& getBlendState() noexcept;
 

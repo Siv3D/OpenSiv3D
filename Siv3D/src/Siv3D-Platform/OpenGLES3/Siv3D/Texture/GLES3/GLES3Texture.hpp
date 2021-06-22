@@ -35,6 +35,18 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		GLES3Texture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
+		GLES3Texture(Render, const Size& size, const TextureFormat& format, TextureDesc desc);
+
+		GLES3Texture(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
+
+		GLES3Texture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+
+		GLES3Texture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+
+		GLES3Texture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+
+		GLES3Texture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
+
 		~GLES3Texture();
 
 		[[nodiscard]]
@@ -63,6 +75,23 @@ namespace s3d
 		bool fill(const void* src, uint32 stride, bool wait);
 
 		bool fillRegion(const void* src, uint32 stride, const Rect& rect, bool wait);
+
+		// レンダーテクスチャを指定した色でクリアする
+		void clearRT(const ColorF& color);
+
+		// レンダーテクスチャの内容を Image にコピーする
+		void readRT(Image& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<float>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float2>& image);
+
+		// レンダーテクスチャの内容を Grid にコピーする
+		void readRT(Grid<Float4>& image);
+
+		void resolveMSRT();
 
 	private:
 

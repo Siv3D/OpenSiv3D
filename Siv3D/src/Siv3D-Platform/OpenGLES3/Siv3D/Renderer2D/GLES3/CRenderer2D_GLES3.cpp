@@ -749,6 +749,11 @@ namespace s3d
 		m_commandManager.pushSDFParameters(params);
 	}
 
+	void CRenderer2D_GLES3::setInternalPSConstants(const Float4& value)
+	{
+		m_commandManager.pushInternalPSConstants(value);
+	}
+
 	Optional<VertexShader> CRenderer2D_GLES3::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -814,7 +819,7 @@ namespace s3d
 	{
 		if (texture)
 		{
-			m_commandManager.pushVSTexture(slot, texture.value());
+			m_commandManager.pushVSTexture(slot, *texture);
 		}
 		else
 		{
@@ -826,12 +831,62 @@ namespace s3d
 	{
 		if (texture)
 		{
-			m_commandManager.pushPSTexture(slot, texture.value());
+			m_commandManager.pushPSTexture(slot, *texture);
 		}
 		else
 		{
 			m_commandManager.pushPSTextureUnbind(slot);
 		}
+	}
+
+	void CRenderer2D_GLES3::setRenderTarget(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+			const Texture::IDType textureID = rt->id();
+
+			// バインドされていたら解除
+			{
+				{
+					const auto& currentPSTextures = m_commandManager.getCurrentPSTextures();
+
+					for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+					{
+						if (currentPSTextures[slot] == textureID)
+						{
+							m_commandManager.pushPSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+
+				{
+					const auto& currentVSTextures = m_commandManager.getCurrentVSTextures();
+
+					for (uint32 slot = 0; slot < currentVSTextures.size(); ++slot)
+					{
+						if (currentVSTextures[slot] == textureID)
+						{
+							m_commandManager.pushVSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+			}
+
+			if (hasChanged)
+			{
+				m_commandManager.flush();
+			}
+		}
+
+		m_commandManager.pushRT(rt);
+	}
+
+	Optional<RenderTexture> CRenderer2D_GLES3::getRenderTarget() const
+	{
+		return m_commandManager.getCurrentRT();
 	}
 
 	void CRenderer2D_GLES3::setConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
@@ -1036,6 +1091,33 @@ namespace s3d
 					m_psConstants2D->sdfOuterColor	= sdfParams[1];
 					m_psConstants2D->sdfShadowColor	= sdfParams[2];
 					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(sdfParams));
+					break;
+				}
+			case GLES3Renderer2DCommandType::InternalPSConstants:
+				{
+					const auto& internalPSConstants = m_commandManager.getInternalPSConstants(command.index);
+					m_psConstants2D->internal = internalPSConstants;
+					LOG_COMMAND(U"SDFParams[{}] "_fmt(command.index) + Format(internalPSConstants));
+					break;
+				}
+			case GLES3Renderer2DCommandType::SetRT:
+				{
+					const auto& rt = m_commandManager.getRT(command.index);
+					
+					if (rt) // [カスタム RenderTexture]
+					{
+						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
+						
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+					}
+					else // [シーン]
+					{
+						pRenderer->getBackBuffer().bindSceneBuffer();
+						
+						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
+					}
+
 					break;
 				}
 			case GLES3Renderer2DCommandType::SetVS:

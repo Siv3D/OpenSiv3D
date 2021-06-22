@@ -13,6 +13,8 @@
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
@@ -27,7 +29,13 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_GLES3::~CShader_GLES3()");
 
+		// エンジン PS を破棄
+		m_enginePSs.clear();
+
+		// PS の管理を破棄
 		m_pixelShaders.destroy();
+
+		// VS の管理を破棄
 		m_vertexShaders.destroy();
 	}
 
@@ -42,7 +50,7 @@ namespace s3d
 
 			if (not nullVertexShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null VertexShader initialization failed");
+				throw EngineError{ U"Null VertexShader initialization failed" };
 			}
 
 			// 管理に登録
@@ -56,11 +64,22 @@ namespace s3d
 
 			if (not nullPixelShader->isInitialized()) // もし作成に失敗していたら
 			{
-				throw EngineError(U"Null PixelShader initialization failed");
+				throw EngineError{ U"Null PixelShader initialization failed" };
 			}
 
 			// 管理に登録
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
+		}
+
+		// エンジン PS をロード
+		{
+			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
+			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+
+			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_GLES3::m_enginePSs initialization failed" };
+			}
 		}
 	}
 
@@ -160,6 +179,11 @@ namespace s3d
 		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
+	const PixelShader& CShader_GLES3::getEnginePS(const EnginePS ps) const
+	{
+		return m_enginePSs[FromEnum(ps)];
+	}
+
 	void CShader_GLES3::usePipeline()
 	{
 		auto vertexShader = m_vertexShaders[m_currentVS]->getShader();
@@ -172,8 +196,6 @@ namespace s3d
 		{
 			m_vertexShaders[m_currentVS]->bindUniformBlocks(program);
 			m_pixelShaders[m_currentPS]->bindUniformBlocks(program);
-
-			LOG_INFO(U"Program cache not hit!");
 		}
 
 		::glUseProgram(program);

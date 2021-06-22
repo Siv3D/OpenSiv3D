@@ -53,6 +53,8 @@ namespace s3d
 			m_scissorRects			= { m_scissorRects.back() };
 			m_viewports				= { m_viewports.back() };
 			m_sdfParams				= { m_sdfParams.back() };
+			m_internalPSConstants	= { m_internalPSConstants.back() };
+			m_RTs					= { m_RTs.back() };
 
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
@@ -107,6 +109,12 @@ namespace s3d
 
 			m_commands.emplace_back(GLES3Renderer2DCommandType::SDFParams, 0);
 			m_currentSDFParams = m_sdfParams.front();
+
+			m_commands.emplace_back(GLES3Renderer2DCommandType::InternalPSConstants, 0);
+			m_currentInternalPSConstants = m_internalPSConstants.front();
+
+			m_commands.emplace_back(GLES3Renderer2DCommandType::SetRT, 0);
+			m_currentRT = m_RTs.front();
 
 			m_commands.emplace_back(GLES3Renderer2DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -215,6 +223,18 @@ namespace s3d
 		{
 			m_commands.emplace_back(GLES3Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
 			m_sdfParams.push_back(m_currentSDFParams);
+		}
+
+		if (m_changes.has(GLES3Renderer2DCommandType::InternalPSConstants))
+		{
+			m_commands.emplace_back(GLES3Renderer2DCommandType::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
+			m_internalPSConstants.push_back(m_currentInternalPSConstants);
+		}
+
+		if (m_changes.has(GLES3Renderer2DCommandType::SetRT))
+		{
+			m_commands.emplace_back(GLES3Renderer2DCommandType::SetRT, static_cast<uint32>(m_RTs.size()));
+			m_RTs.push_back(m_currentRT);
 		}
 
 		if (m_changes.has(GLES3Renderer2DCommandType::SetVS))
@@ -664,6 +684,39 @@ namespace s3d
 		return m_currentSDFParams;
 	}
 
+	void GLES3Renderer2DCommandManager::pushInternalPSConstants(const Float4& value)
+	{
+		constexpr auto command = GLES3Renderer2DCommandType::InternalPSConstants;
+		auto& current = m_currentInternalPSConstants;
+		auto& buffer = m_internalPSConstants;
+
+		if (not m_changes.has(command))
+		{
+			if (value != current)
+			{
+				current = value;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (value == buffer.back())
+			{
+				current = value;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = value;
+			}
+		}
+	}
+
+	const Float4& GLES3Renderer2DCommandManager::getInternalPSConstants(uint32 index) const
+	{
+		return m_internalPSConstants[index];
+	}
+
 	void GLES3Renderer2DCommandManager::pushStandardVS(const VertexShader::IDType& id)
 	{
 		constexpr auto command = GLES3Renderer2DCommandType::SetVS;
@@ -1083,5 +1136,43 @@ namespace s3d
 	const std::array<Texture::IDType, SamplerState::MaxSamplerCount>& GLES3Renderer2DCommandManager::getCurrentPSTextures() const
 	{
 		return m_currentPSTextures;
+	}
+
+	void GLES3Renderer2DCommandManager::pushRT(const Optional<RenderTexture>& rt)
+	{
+		constexpr auto command = GLES3Renderer2DCommandType::SetRT;
+		auto& current = m_currentRT;
+		auto& buffer = m_RTs;
+
+		if (!m_changes.has(command))
+		{
+			if (rt != current)
+			{
+				current = rt;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (rt == buffer.back())
+			{
+				current = rt;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = rt;
+			}
+		}
+	}
+
+	const Optional<RenderTexture>& GLES3Renderer2DCommandManager::getRT(const uint32 index) const
+	{
+		return m_RTs[index];
+	}
+
+	const Optional<RenderTexture>& GLES3Renderer2DCommandManager::getCurrentRT() const
+	{
+		return m_currentRT;
 	}
 }
