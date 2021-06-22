@@ -1571,8 +1571,8 @@
 
 # if SIV3D_PLATFORM(WEB)
 
-	# define SIV3D_MAINLOOP_BEGIN
-	# define SIV3D_MAINLOOP_END
+	# define SIV3D_MAINLOOP_BEGIN	s3d::Platform::Web::System::SetMainLoop([&] { s3d::System::Update();
+	# define SIV3D_MAINLOOP_END		});
 
 # else
 
