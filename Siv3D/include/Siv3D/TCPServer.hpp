@@ -27,7 +27,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		TCPServer();
 
-		SIV3D_NODISCARD_CXX20
 		~TCPServer();
 
 		void startAccept(uint16 port);

@@ -59,12 +59,14 @@ namespace s3d
 		/// @brief テキストファイルをオープンします。
 		/// @param path ファイルパス
 		/// @param encoding テキストのエンコーディング形式
+		SIV3D_NODISCARD_CXX20
 		TextWriter(FilePathView path, TextEncoding encoding);
 
 		/// @brief テキストファイルをオープンします。
 		/// @param path ファイルパス
 		/// @param openMode ファイルのオープンモード
 		/// @param encoding テキストのエンコーディング形式
+		SIV3D_NODISCARD_CXX20
 		explicit TextWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM);
 	
 		/// @brief テキストファイルをオープンします。

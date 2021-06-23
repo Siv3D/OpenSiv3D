@@ -23,8 +23,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		CascadeClassifier();
 
+		SIV3D_NODISCARD_CXX20
 		explicit CascadeClassifier(FilePathView path);
 
 		~CascadeClassifier();
@@ -35,6 +37,7 @@ namespace s3d
 
 		bool isOpen() const;
 
+		[[nodiscard]]
 		explicit operator bool() const;
 
 		[[nodiscard]]

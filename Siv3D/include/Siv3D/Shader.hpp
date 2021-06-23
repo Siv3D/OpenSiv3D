@@ -52,6 +52,7 @@ namespace s3d
 		DEFINE_BITMASK_OPERATORS(HLSLCompileOption);
 
 		// HLSL コンパイラが利用可能かを調べる
+		[[nodiscard]]
 		bool IsHLSLCompilerAvailable() noexcept;
 
 		// HLSL ファイルをコンパイルしてコンパイル結果をファイルに保存

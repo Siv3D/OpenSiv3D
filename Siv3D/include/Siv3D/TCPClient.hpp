@@ -26,7 +26,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		TCPClient();
 
-		SIV3D_NODISCARD_CXX20
 		~TCPClient();
 
 		bool connect(const IPv4Address& ip, uint16 port);

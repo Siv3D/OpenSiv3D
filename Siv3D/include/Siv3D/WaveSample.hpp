@@ -23,12 +23,16 @@ namespace s3d
 
 		int16 right;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSampleS16() = default;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSampleS16(const WaveSampleS16&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr WaveSampleS16(int16 mono) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		constexpr WaveSampleS16(int16 _left, int16 _right) noexcept;
 
 		constexpr WaveSampleS16& set(int16 mono) noexcept;
@@ -64,14 +68,19 @@ namespace s3d
 
 		float right;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSample() = default;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSample(const WaveSample&) = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr WaveSample(float mono) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		constexpr WaveSample(float _left, float _right) noexcept;
 
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr WaveSample(WaveSampleS16 sample) noexcept;
 
 		constexpr WaveSample& operator =(const WaveSample& sample) = default;

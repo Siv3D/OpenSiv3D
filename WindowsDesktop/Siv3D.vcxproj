@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Audio.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Font.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Glyph.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
@@ -354,6 +355,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GlyphInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GMInstrument.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GrabCut.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\GrabCutClass.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\GradientNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />

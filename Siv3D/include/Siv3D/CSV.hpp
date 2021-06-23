@@ -24,13 +24,17 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		CSV() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit CSV(FilePathView path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		explicit CSV(Reader&& reader, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
+		SIV3D_NODISCARD_CXX20
 		explicit CSV(std::unique_ptr<IReader>&& reader, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");
 
 		bool load(FilePathView path, StringView separators = U",", StringView quotes = U"\"", StringView escapes = U"\\");

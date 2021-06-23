@@ -28,6 +28,7 @@ namespace s3d
 
 		using result_type = size_t;
 
+		SIV3D_NODISCARD_CXX20
 		DiscreteDistribution() = default;
 
 		SIV3D_NODISCARD_CXX20

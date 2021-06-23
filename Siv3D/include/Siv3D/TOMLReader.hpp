@@ -64,8 +64,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLTableIterator() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLTableIterator(const detail::TOMLTableIteratorDetail&);
 
 		TOMLTableIterator operator ++();
@@ -90,23 +92,17 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLTableView() = default;
 		
-		TOMLTableView(const TOMLTableIterator& begin, const TOMLTableIterator& end) noexcept
-			: m_begin(begin)
-			, m_end(end) {}
+		SIV3D_NODISCARD_CXX20
+		TOMLTableView(const TOMLTableIterator& begin, const TOMLTableIterator& end) noexcept;
 
 		[[nodiscard]]
-		TOMLTableIterator begin() const
-		{
-			return m_begin;
-		}
+		TOMLTableIterator begin() const noexcept;
 
 		[[nodiscard]]
-		TOMLTableIterator end() const
-		{
-			return m_end;
-		}
+		TOMLTableIterator end() const noexcept;
 
 	private:
 
@@ -117,8 +113,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLArrayIterator() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLArrayIterator(const detail::TOMLArrayIteratorDetail&);
 
 		TOMLArrayIterator operator ++();
@@ -145,23 +143,17 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLArrayView() = default;
 		
-		TOMLArrayView(const TOMLArrayIterator& begin, const TOMLArrayIterator& end) noexcept
-			: m_begin(begin)
-			, m_end(end) {}
+		SIV3D_NODISCARD_CXX20
+		TOMLArrayView(const TOMLArrayIterator& begin, const TOMLArrayIterator& end) noexcept;
 
 		[[nodiscard]]
-		TOMLArrayIterator begin() const
-		{
-			return m_begin;
-		}
+		TOMLArrayIterator begin() const noexcept;
 
 		[[nodiscard]]
-		TOMLArrayIterator end() const
-		{
-			return m_end;
-		}
+		TOMLArrayIterator end() const noexcept;
 
 		[[nodiscard]]
 		TOMLValue operator [](size_t index) const;
@@ -175,8 +167,10 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLTableArrayIterator() = default;
 		
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLTableArrayIterator(const detail::TOMLTableArrayIteratorDetail&);
 		
 		TOMLTableArrayIterator operator ++();
@@ -203,23 +197,17 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLTableArrayView() = default;
 
-		TOMLTableArrayView(const TOMLTableArrayIterator& begin, const TOMLTableArrayIterator& end) noexcept
-			: m_begin(begin)
-			, m_end(end) {}
+		SIV3D_NODISCARD_CXX20
+		TOMLTableArrayView(const TOMLTableArrayIterator& begin, const TOMLTableArrayIterator& end) noexcept;
 
 		[[nodiscard]]
-		TOMLTableArrayIterator begin() const
-		{
-			return m_begin;
-		}
+		TOMLTableArrayIterator begin() const noexcept;
 
 		[[nodiscard]]
-		TOMLTableArrayIterator end() const
-		{
-			return m_end;
-		}
+		TOMLTableArrayIterator end() const noexcept;
 
 		[[nodiscard]]
 		TOMLValue operator [](size_t index) const;
@@ -233,30 +221,23 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLValue() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLValue(const detail::TOMLValueDetail&);
 
 		template <class Type>
 		[[nodiscard]]
-		Type get() const
-		{
-			return getOpt<Type>().value_or(Type());
-		}
+		Type get() const;
 
 		template <class Type, class U>
 		[[nodiscard]]
-		Type getOr(U&& defaultValue) const
-		{
-			return getOpt<Type>().value_or(std::forward<U>(defaultValue));
-		}
+		Type getOr(U&& defaultValue) const;
 
 		template <class Type>
 		[[nodiscard]]
-		Optional<Type> getOpt() const
-		{
-			return getOpt_<Type>();
-		}
+		Optional<Type> getOpt() const;
 
 # if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS)
 
@@ -351,32 +332,13 @@ namespace s3d
 		std::shared_ptr<detail::TOMLValueDetail> m_detail = nullptr;
 
 		template <class Type, std::enable_if_t<std::is_integral_v<Type> && !std::is_same_v<bool, std::decay_t<Type>>>* = nullptr>
-		Optional<Type> getOpt_() const
-		{
-			if (auto&& tmp = getOpt<int64>())
-			{
-				return static_cast<Type>(tmp.value());
-			}
-			
-			return none;
-		}
+		Optional<Type> getOpt_() const;
 
 		template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
-		Optional<Type> getOpt_() const
-		{
-			if (auto&& tmp = getOpt<double>())
-			{
-				return static_cast<Type>(tmp.value());
-			}
-
-			return none;
-		}
+		Optional<Type> getOpt_() const;
 
 		template <class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
-		Optional<Type> getOpt_() const
-		{
-			return ParseOpt<Type>(getString());
-		}
+		Optional<Type> getOpt_() const;
 
 		Optional<String> getOptString() const;
 
@@ -417,27 +379,25 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TOMLReader() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLReader(FilePathView path);
 
+		SIV3D_NODISCARD_CXX20
 		explicit TOMLReader(std::unique_ptr<IReader>&& reader);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
-		explicit TOMLReader(Reader&& reader)
-		{
-			open(std::make_unique<Reader>(std::forward<Reader>(reader)));
-		}
+		SIV3D_NODISCARD_CXX20
+		explicit TOMLReader(Reader&& reader);
 
 		bool open(FilePathView path);
 
 		bool open(std::unique_ptr<IReader>&& reader);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
-		bool open(Reader&& reader)
-		{
-			return open(std::make_unique<Reader>(std::forward<Reader>(reader)));
-		}
+		bool open(Reader&& reader);
 
 		void close();
 
@@ -447,48 +407,6 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 	};
-
-	template <>
-	[[nodiscard]]
-	inline Optional<String> TOMLValue::getOpt<String>() const
-	{
-		return getOptString();
-	}
-
-	template <>
-	[[nodiscard]]
-	inline Optional<int64> TOMLValue::getOpt<int64>() const
-	{
-		return getOptInt64();
-	}
-
-	template <>
-	[[nodiscard]]
-	inline Optional<double> TOMLValue::getOpt<double>() const
-	{
-		return getOptDouble();
-	}
-
-	template <>
-	[[nodiscard]]
-	inline Optional<bool> TOMLValue::getOpt<bool>() const
-	{
-		return getOptBool();
-	}
-
-	template <>
-	[[nodiscard]]
-	inline Optional<Date> TOMLValue::getOpt<Date>() const
-	{
-		return getOptDate();
-	}
-
-	template <>
-	[[nodiscard]]
-	inline Optional<DateTime> TOMLValue::getOpt<DateTime>() const
-	{
-		return getOptDateTime();
-	}
 
 	void Formatter(FormatData& formatData, const TOMLValue& value);
 

@@ -52,6 +52,7 @@ namespace s3d
 
 		void clearChanges();
 
+		[[nodiscard]]
 		FilePath directory() const;
 
 	private:

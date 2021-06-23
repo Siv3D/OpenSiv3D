@@ -24,10 +24,12 @@ namespace s3d
 
 		/// @brief エフェクトグループを作成します。
 		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		SIV3D_NODISCARD_CXX20
 		Effect(double maxLifeTimeSec = 10.0);
 
 		/// @brief エフェクトグループを作成します。
 		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		SIV3D_NODISCARD_CXX20
 		Effect(const Duration& maxLifeTimeSec);
 
 		/// @brief デストラクタ

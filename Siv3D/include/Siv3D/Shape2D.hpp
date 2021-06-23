@@ -29,11 +29,13 @@ namespace s3d
 	public:
 
 		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		Shape2D();
 
 		/// @brief 頂点配列と頂点インデックスから多角形を作成します。
 		/// @param vertices 頂点配列
 		/// @param indices 頂点インデックス
+		SIV3D_NODISCARD_CXX20
 		Shape2D(Array<Float2> vertices, Array<TriangleIndex> indices);
 
 		/// @brief デストラクタ

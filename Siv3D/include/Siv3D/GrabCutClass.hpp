@@ -11,23 +11,17 @@
 
 # pragma once
 # include "Common.hpp"
-# include "GlyphInfo.hpp"
-# include "TextureRegion.hpp"
 
 namespace s3d
 {
-	struct Glyph : GlyphInfo
+	enum class GrabCutClass : uint8
 	{
-		TextureRegion texture;
+		Foreground,
 
-		char32 codePoint = U'\0';
+		PossibleForeground,
 
-		SIV3D_NODISCARD_CXX20
-		Glyph() = default;
+		PossibleBackground,
 
-		SIV3D_NODISCARD_CXX20
-		explicit Glyph(const GlyphInfo& glyphInfo);
+		Background,
 	};
 }
-
-# include "detail/Glyph.ipp"

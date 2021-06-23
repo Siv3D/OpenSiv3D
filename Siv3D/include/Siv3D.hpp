@@ -907,6 +907,8 @@
 
 # include <Siv3D/ImageROI.hpp>
 
+# include <Siv3D/GrabCutClass.hpp>
+
 // 背景抽出
 # include <Siv3D/GrabCut.hpp>
 

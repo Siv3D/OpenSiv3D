@@ -14,20 +14,10 @@
 # include "Common.hpp"
 # include "2DShapes.hpp"
 # include "Grid.hpp"
+# include "GrabCutClass.hpp"
 
 namespace s3d
 {
-	enum class GrabCutClass : uint8
-	{
-		Foreground,
-		
-		PossibleForeground,
-		
-		PossibleBackground,
-		
-		Background,
-	};
-
 	/// @brief 画像からの背景抽出
 	class GrabCut
 	{

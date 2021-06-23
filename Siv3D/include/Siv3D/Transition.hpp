@@ -20,6 +20,7 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		explicit constexpr Transition(const Duration& inDuration = SecondsF(0.2), const Duration& outDuration = SecondsF(0.1), double initialValue = 0.0) noexcept;
 
 		constexpr void update(bool in, double deltaSec = Scene::DeltaTime());

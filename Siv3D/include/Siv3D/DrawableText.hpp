@@ -26,10 +26,13 @@ namespace s3d
 
 		Array<GlyphCluster> clusters;
 
+		SIV3D_NODISCARD_CXX20
 		DrawableText() = default;
 
+		SIV3D_NODISCARD_CXX20
 		DrawableText(const Font& _font, const String& _text);
 
+		SIV3D_NODISCARD_CXX20
 		DrawableText(const Font& _font, String&& _text);
 
 		[[nodiscard]]

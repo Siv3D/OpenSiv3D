@@ -28,8 +28,10 @@ namespace s3d
 			double value;
 		};
 
+		SIV3D_NODISCARD_CXX20
 		SimpleAnimation() = default;
 
+		SIV3D_NODISCARD_CXX20
 		explicit SimpleAnimation(ISteadyClock* pSteadyClock);
 
 		SimpleAnimation& set(StringView name, const KeyFrame& a, const KeyFrame& b, double func(double) = Easing::Linear);
