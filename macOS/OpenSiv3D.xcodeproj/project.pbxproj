@@ -3191,6 +3191,14 @@
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
 		2C65277F265621DF003427EB /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophoneInfo.cpp; sourceTree = "<group>"; };
+		2C66842326836E4B00F7089A /* VertexShader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexShader.ipp; sourceTree = "<group>"; };
+		2C66842426836E4B00F7089A /* Texture.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.ipp; sourceTree = "<group>"; };
+		2C66842526836E4B00F7089A /* DynamicTexture.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicTexture.ipp; sourceTree = "<group>"; };
+		2C66842626836E4B00F7089A /* MSRenderTexture.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MSRenderTexture.ipp; sourceTree = "<group>"; };
+		2C66842726836E4B00F7089A /* RenderTexture.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderTexture.ipp; sourceTree = "<group>"; };
+		2C66842826836E4B00F7089A /* PixelShader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelShader.ipp; sourceTree = "<group>"; };
+		2C66842926836E4C00F7089A /* Audio.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.ipp; sourceTree = "<group>"; };
+		2C66842A26836E4C00F7089A /* Font.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Font.ipp; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -4120,6 +4128,7 @@
 				2C063DFF2661426000368BEE /* AssetID.ipp */,
 				2C063D9E2661426000368BEE /* AssetIDWrapper.ipp */,
 				2C063D542661426000368BEE /* AsyncTask.ipp */,
+				2C66842926836E4C00F7089A /* Audio.ipp */,
 				2C063DAC2661426000368BEE /* BasicCamera2D.ipp */,
 				2C063DDC2661426000368BEE /* Bezier2.ipp */,
 				2C063DD12661426000368BEE /* Bezier3.ipp */,
@@ -4149,6 +4158,7 @@
 				2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */,
 				2C063D492661426000368BEE /* Distribution.ipp */,
 				2C063D5A2661426000368BEE /* Duration.ipp */,
+				2C66842526836E4B00F7089A /* DynamicTexture.ipp */,
 				2C063D922661426000368BEE /* Easing.ipp */,
 				2CED6E4F2671C9D0000FE5B8 /* EasingAB.ipp */,
 				2C063DA72661426000368BEE /* Effect.ipp */,
@@ -4162,6 +4172,7 @@
 				2C063DB52661426000368BEE /* FloatingPoint.ipp */,
 				2C063DEF2661426000368BEE /* FloatQuad.ipp */,
 				2C063D592661426000368BEE /* FloatRect.ipp */,
+				2C66842A26836E4C00F7089A /* Font.ipp */,
 				2C063D472661426000368BEE /* FormatBool.ipp */,
 				2C063DAB2661426000368BEE /* FormatData.ipp */,
 				2C063D8C2661426000368BEE /* FormatFloat.ipp */,
@@ -4222,6 +4233,7 @@
 				2C063D632661426000368BEE /* MemoryWriter.ipp */,
 				2C063DCA2661426000368BEE /* MicrosecClock.ipp */,
 				2C063D732661426000368BEE /* MillisecClock.ipp */,
+				2C66842626836E4B00F7089A /* MSRenderTexture.ipp */,
 				2C063E042661426000368BEE /* MultiPolygon.ipp */,
 				2C063D992661426000368BEE /* Noise.ipp */,
 				2C063E002661426000368BEE /* Number.ipp */,
@@ -4232,6 +4244,7 @@
 				2C063D652661426000368BEE /* Parse.ipp */,
 				2C063D602661426000368BEE /* Periodic.ipp */,
 				2C063D882661426000368BEE /* PerlinNoise.ipp */,
+				2C66842826836E4B00F7089A /* PixelShader.ipp */,
 				2C063DF82661426000368BEE /* Plane.ipp */,
 				2C063DBF2661426000368BEE /* Point.ipp */,
 				2C063DA12661426000368BEE /* PoissonDisk2D.ipp */,
@@ -4252,6 +4265,7 @@
 				2C063DC22661426000368BEE /* Rect.ipp */,
 				2C063DB42661426000368BEE /* RectF.ipp */,
 				2C063D642661426000368BEE /* RegExp.ipp */,
+				2C66842726836E4B00F7089A /* RenderTexture.ipp */,
 				2C063D6C2661426000368BEE /* Resource.ipp */,
 				2C063DD82661426000368BEE /* RoundRect.ipp */,
 				2C063D912661426000368BEE /* Sample.ipp */,
@@ -4290,6 +4304,7 @@
 				2C063DB82661426000368BEE /* TextEncoding.ipp */,
 				2C063D502661426000368BEE /* TextReader.ipp */,
 				2C063DF32661426000368BEE /* TextStyle.ipp */,
+				2C66842426836E4B00F7089A /* Texture.ipp */,
 				2C063DA42661426000368BEE /* TextureDesc.ipp */,
 				2C063DF42661426000368BEE /* TextureFormat.ipp */,
 				2C063D702661426000368BEE /* TextWriter.ipp */,
@@ -4310,6 +4325,7 @@
 				2C063DB12661426000368BEE /* Vector3D.ipp */,
 				2C063E012661426000368BEE /* Vector4D.ipp */,
 				2C063DE52661426000368BEE /* Vertex2D.ipp */,
+				2C66842326836E4B00F7089A /* VertexShader.ipp */,
 				2C063D712661426000368BEE /* Wave.ipp */,
 				2C063DE12661426000368BEE /* WaveSample.ipp */,
 				2C063D762661426000368BEE /* Window.ipp */,
