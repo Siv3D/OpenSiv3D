@@ -209,6 +209,8 @@ namespace s3d
 
 		void setSDFParameters(const std::array<Float4, 3>& params) override;
 
+		void setInternalPSConstants(const Float4& value) override;
+
 
 		Optional<VertexShader> getCustomVS() const override;
 
@@ -233,6 +235,11 @@ namespace s3d
 		void setVSTexture(uint32 slot, const Optional<Texture>& texture) override;
 
 		void setPSTexture(uint32 slot, const Optional<Texture>& texture) override;
+
+
+		void setRenderTarget(const Optional<RenderTexture>& rt) override;
+
+		Optional<RenderTexture> getRenderTarget() const override;
 
 
 		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;

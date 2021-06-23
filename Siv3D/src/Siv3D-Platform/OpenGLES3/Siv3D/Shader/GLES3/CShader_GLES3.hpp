@@ -25,20 +25,6 @@ namespace s3d
 {
 	class CShader_GLES3 final : public ISiv3DShader
 	{
-	private:
-
-		// VS の管理
-		AssetHandleManager<VertexShader::IDType, GLES3VertexShader> m_vertexShaders{ U"VertexShader" };
-
-		// PS の管理
-		AssetHandleManager<PixelShader::IDType, GLES3PixelShader> m_pixelShaders{ U"PixelShader" };
-
-		VertexShader::IDType m_currentVS;
-		PixelShader::IDType m_currentPS;
-
-		// シェーダプログラム (VS と PS のペア) の管理
-		ShaderPipeline m_pipeline;
-
 	public:
 
 		CShader_GLES3();
@@ -77,6 +63,26 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
 
+		const PixelShader& getEnginePS(EnginePS ps) const override;
+
 		void usePipeline();
+
+	private:
+
+		// VS の管理
+		AssetHandleManager<VertexShader::IDType, GLES3VertexShader> m_vertexShaders{ U"VertexShader" };
+
+		// PS の管理
+		AssetHandleManager<PixelShader::IDType, GLES3PixelShader> m_pixelShaders{ U"PixelShader" };
+
+		// Shader:: 用の内部シェーダ
+		Array<PixelShader> m_enginePSs;
+
+		VertexShader::IDType m_currentVS;
+		
+		PixelShader::IDType m_currentPS;
+
+		// シェーダプログラム (VS と PS のペア) の管理
+		ShaderPipeline m_pipeline;
 	};
 }

@@ -73,6 +73,8 @@ namespace s3d
 
 		void bindSceneBuffer();
 
+		void bindFrameBuffer(GLuint frameBuffer);
+
 		void unbind();
 
 		void updateFromSceneBuffer();
@@ -151,5 +153,8 @@ namespace s3d
 
 		[[nodiscard]]
 		const Size& getSceneBufferSize() const noexcept;
+
+
+
 	};
 }

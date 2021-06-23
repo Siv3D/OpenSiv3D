@@ -60,7 +60,7 @@ void main()
 	textColor.a = baseAlpha * g_sdfOutlineColor.a + textAlpha * Color.a;
 
 
-	vec2 size = textureSize(Texture0, 0);
+	vec2 size = vec2(textureSize(Texture0, 0));
 	vec2 shadowOffset = (g_sdfParam.zw / size);
 	float d2 = texture(Texture0, UV - shadowOffset).a;
 

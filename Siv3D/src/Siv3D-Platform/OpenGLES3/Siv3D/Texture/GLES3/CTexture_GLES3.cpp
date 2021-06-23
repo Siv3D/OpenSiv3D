@@ -177,38 +177,120 @@ namespace s3d
 
 	Texture::IDType CTexture_GLES3::createRT(const Size& size, const TextureFormat& format)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if ((size.x <= 0) || (size.y <= 0))
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, size, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	Texture::IDType CTexture_GLES3::createRT(const Image& image)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	Texture::IDType CTexture_GLES3::createRT(const Grid<float>& image)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32_Float;
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	Texture::IDType CTexture_GLES3::createRT(const Grid<Float2>& image)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32_Float;
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	Texture::IDType CTexture_GLES3::createRT(const Grid<Float4>& image)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if (not image)
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	Texture::IDType CTexture_GLES3::createMSRT(const Size& size, const TextureFormat& format)
 	{
-		// [Siv3D ToDo]
-		return(Texture::IDType::NullAsset());
+		if ((size.x <= 0) || (size.y <= 0))
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::MSRender{}, size, format, desc);
+
+		if (not texture->isInitialized())
+		{
+			return Texture::IDType::NullAsset();
+		}
+
+		const String info = U"(type: MSRender, size:{0}x{1}, format: {2})"_fmt(size.x, size.y, texture->getFormat().name());
+		return m_textures.add(std::move(texture), info);
 	}
 
 	void CTexture_GLES3::release(const Texture::IDType handleID)
@@ -249,6 +331,36 @@ namespace s3d
 	bool CTexture_GLES3::fillRegion(const Texture::IDType handleID, const void* src, const uint32 stride, const Rect& rect, const bool wait)
 	{
 		return m_textures[handleID]->fillRegion(src, stride, rect, wait);
+	}
+
+	void CTexture_GLES3::clearRT(const Texture::IDType handleID, const ColorF& color)
+	{
+		m_textures[handleID]->clearRT(color);
+	}
+
+	void CTexture_GLES3::readRT(const Texture::IDType handleID, Image& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+
+	void CTexture_GLES3::readRT(const Texture::IDType handleID, Grid<float>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+
+	void CTexture_GLES3::readRT(const Texture::IDType handleID, Grid<Float2>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+
+	void CTexture_GLES3::readRT(const Texture::IDType handleID, Grid<Float4>& image)
+	{
+		m_textures[handleID]->readRT(image);
+	}
+
+	void CTexture_GLES3::resolveMSRT(const Texture::IDType handleID)
+	{
+		m_textures[handleID]->resolveMSRT();
 	}
 
 	GLuint CTexture_GLES3::getTexture(const Texture::IDType handleID)

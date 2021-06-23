@@ -50,7 +50,7 @@ namespace s3d
 
 	EngineOption::Renderer CRenderer_GLES3::getRendererType() const noexcept
 	{
-		return EngineOption::Renderer::WebGL2;
+		return EngineOption::Renderer::OpenGL;
 	}	
 
 	void CRenderer_GLES3::init()
@@ -156,51 +156,31 @@ namespace s3d
 
 	bool CRenderer_GLES3::present()
 	{
-		const bool vSync = true;
+		::glfwSwapBuffers(m_window);
 		
-		if (vSync)
-		{
-			::glfwSwapBuffers(m_window);
-		}
-		else
-		{
-			/*
-			const double targetRefreshRateHz = m_targetFrameRateHz.value();
-			const double targetRefreshPeriodMillisec = (1000.0 / targetRefreshRateHz);
-			*/
-			::glfwSwapBuffers(m_window);
-			/*
-			double timeToSleepMillisec;
-			double countMillisec;
-			
-			do
-			{
-				countMillisec = (Time::GetMicrosec() / 1000.0);
-				const double timeSinceFlipMillisec = countMillisec - m_lastFlipTimeMillisec;
-				
-				timeToSleepMillisec = (targetRefreshPeriodMillisec - timeSinceFlipMillisec);
-				
-				if (timeToSleepMillisec > 0.0)
-				{
-					::usleep(static_cast<uint32>(std::floor(timeToSleepMillisec) * 1000));
-				}
-			} while (timeToSleepMillisec > 0.0);
-			
-			m_lastFlipTimeMillisec = countMillisec;
-			 */
-		}
-		/*
-		if (m_sceneTexture.hasCaptureRequest())
-		{
-			m_sceneTexture.capture();
-		}
-		*/
 		if constexpr (SIV3D_BUILD(DEBUG))
 		{
 			//CheckGLError();
 		}
-		
+
 		return true;
+	}
+
+	void CRenderer_GLES3::setVSyncEnabled(const bool enabled)
+	{
+		if (m_vSyncEnabled == enabled)
+		{
+			return;
+		}
+
+		m_vSyncEnabled = enabled;
+
+		::glfwSwapInterval(static_cast<int32>(m_vSyncEnabled));
+	}
+
+	bool CRenderer_GLES3::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
 	}
 
 	void CRenderer_GLES3::captureScreenshot()
@@ -271,6 +251,11 @@ namespace s3d
 	void CRenderer_GLES3::updateSceneSize()
 	{
 		m_backBuffer->updateSceneSize();
+	}
+
+	GLES3BackBuffer& CRenderer_GLES3::getBackBuffer() noexcept
+	{
+		return *m_backBuffer;
 	}
 
 	GLES3BlendState& CRenderer_GLES3::getBlendState() noexcept
