@@ -310,6 +310,11 @@ namespace s3d
 		return{ *this, std::move(text) };
 	}
 
+	void Font::swap(Font& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
+
 	const PixelShader& Font::GetPixelShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor)
 	{
 		return SIV3D_ENGINE(Font)->getFontShader(method, type, hasColor);

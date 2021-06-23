@@ -110,7 +110,12 @@ namespace s3d
 
 		/// @brief このエフェクトグループ内の全てのエフェクトを、経過時間に関わらず消去します。
 		void clear() const;
+
+		void swap(Effect& other) noexcept;
 	};
 }
+
+template <>
+inline void std::swap(s3d::Effect& a, s3d::Effect& b) noexcept;
 
 # include "detail/Effect.ipp"

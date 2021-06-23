@@ -129,4 +129,9 @@ namespace s3d
 	{
 		SIV3D_ENGINE(Effect)->clear(m_handle->id());
 	}
+
+	void Effect::swap(Effect& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
 }

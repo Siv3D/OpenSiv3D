@@ -62,6 +62,8 @@ namespace s3d
 		// TextureFormat::R32G32B32A32_Float のみサポート
 		void read(Grid<Float4>& image) const;
 
+		void swap(RenderTexture& other) noexcept;
+
 	protected:
 
 		struct MSRender {};
@@ -70,3 +72,8 @@ namespace s3d
 		RenderTexture(MSRender, const Size& size, const TextureFormat& format);
 	};
 }
+
+template <>
+inline void std::swap(s3d::RenderTexture& a, s3d::RenderTexture& b) noexcept;
+
+# include "detail/RenderTexture.ipp"

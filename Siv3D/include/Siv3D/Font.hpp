@@ -399,6 +399,8 @@ namespace s3d
 		[[nodiscard]]
 		DrawableText operator()(const Args& ... args) const;
 
+		void swap(Font& other) noexcept;
+
 		/// @brief テキスト描画用の標準ピクセルシェーダを返します。
 		/// @param method フォントのレンダリング方式
 		/// @param type テキストのスタイル
@@ -408,3 +410,8 @@ namespace s3d
 		static const PixelShader& GetPixelShader(FontMethod method, TextStyle::Type type = TextStyle::Type::Default, HasColor hasColor = HasColor::No);
 	};
 }
+
+template <>
+inline void std::swap(s3d::Font& a, s3d::Font& b) noexcept;
+
+# include "detail/Font.ipp"

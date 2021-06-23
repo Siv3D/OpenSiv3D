@@ -110,4 +110,9 @@ namespace s3d
 
 		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), image.data(), image.stride(), rect, false);
 	}
+
+	void DynamicTexture::swap(DynamicTexture& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
 }

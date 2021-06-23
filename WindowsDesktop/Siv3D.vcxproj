@@ -22,8 +22,16 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Audio.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicTexture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Font.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />

@@ -34,6 +34,8 @@ namespace s3d
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;
 
+		void swap(VertexShader& other) noexcept;
+
 		[[nodiscard]]
 		static VertexShader HLSL(FilePathView path, StringView entryPoint = U"VS");
 
@@ -47,3 +49,8 @@ namespace s3d
 		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
+
+template <>
+inline void std::swap(s3d::VertexShader& a, s3d::VertexShader& b) noexcept;
+
+# include "detail/VertexShader.ipp"

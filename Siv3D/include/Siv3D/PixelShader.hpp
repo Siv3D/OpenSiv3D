@@ -34,6 +34,8 @@ namespace s3d
 		[[nodiscard]]
 		const Blob& getBinary() const noexcept;
 
+		void swap(PixelShader& other) noexcept;
+
 		[[nodiscard]]
 		static PixelShader HLSL(FilePathView path, StringView entryPoint = U"PS");
 
@@ -47,3 +49,8 @@ namespace s3d
 		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	};
 }
+
+template <>
+inline void std::swap(s3d::PixelShader& a, s3d::PixelShader& b) noexcept;
+
+# include "detail/PixelShader.ipp"

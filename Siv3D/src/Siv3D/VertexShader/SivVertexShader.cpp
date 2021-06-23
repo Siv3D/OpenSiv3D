@@ -57,6 +57,11 @@ namespace s3d
 		return SIV3D_ENGINE(Shader)->getBinaryVS(m_handle->id());
 	}
 
+	void VertexShader::swap(VertexShader& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
+
 	VertexShader VertexShader::HLSL(const FilePathView path, const StringView entryPoint)
 	{
 		return VertexShader{ path, entryPoint, {} };

@@ -407,5 +407,12 @@ namespace s3d
 		/// @return 指定したチャンネルの音声波形データの先頭ポインタ。ストリーミング再生の場合は nullptr
 		[[nodiscard]]
 		const float* getSamples(size_t channel) const;
+
+		void swap(Audio& other) noexcept;
 	};
 }
+
+template <>
+inline void std::swap(s3d::Audio& a, s3d::Audio& b) noexcept;
+
+# include "detail/Audio.ipp"

@@ -38,3 +38,9 @@ namespace s3d
 		add(std::make_unique<AnonymousEffect>(f));
 	}
 }
+
+template <>
+inline void std::swap(s3d::Effect& a, s3d::Effect& b) noexcept
+{
+	a.swap(b);
+}

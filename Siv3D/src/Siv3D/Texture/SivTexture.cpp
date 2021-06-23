@@ -612,6 +612,11 @@ namespace s3d
 		};
 	}
 
+	void Texture::swap(Texture& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
+
 	Texture::Texture(Dynamic, const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createDynamic(size, pData, stride, format, desc)) }
 	{

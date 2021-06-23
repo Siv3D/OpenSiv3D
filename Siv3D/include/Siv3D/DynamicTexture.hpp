@@ -57,5 +57,12 @@ namespace s3d
 		bool fillIfNotBusy(const Image& image);
 
 		bool fillRegionIfNotBusy(const Image& image, const Rect& rect);
+
+		void swap(DynamicTexture& other) noexcept;
 	};
 }
+
+template <>
+inline void std::swap(s3d::DynamicTexture& a, s3d::DynamicTexture& b) noexcept;
+
+# include "detail/DynamicTexture.ipp"

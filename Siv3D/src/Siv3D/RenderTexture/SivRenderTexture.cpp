@@ -77,4 +77,9 @@ namespace s3d
 	{
 		SIV3D_ENGINE(Texture)->readRT(m_handle->id(), image);
 	}
+
+	void RenderTexture::swap(RenderTexture& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
 }

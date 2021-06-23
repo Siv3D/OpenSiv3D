@@ -41,5 +41,12 @@ namespace s3d
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image) const;
+
+		void swap(MSRenderTexture& other) noexcept;
 	};
 }
+
+template <>
+inline void std::swap(s3d::MSRenderTexture& a, s3d::MSRenderTexture& b) noexcept;
+
+# include "detail/MSRenderTexture.ipp"

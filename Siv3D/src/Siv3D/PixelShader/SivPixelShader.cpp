@@ -57,6 +57,11 @@ namespace s3d
 		return SIV3D_ENGINE(Shader)->getBinaryPS(m_handle->id());
 	}
 
+	void PixelShader::swap(PixelShader& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
+
 	PixelShader PixelShader::HLSL(const FilePathView path, const StringView entryPoint)
 	{
 		return PixelShader{ path, entryPoint, {} };

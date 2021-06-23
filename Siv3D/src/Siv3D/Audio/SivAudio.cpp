@@ -386,4 +386,9 @@ namespace s3d
 
 		return SIV3D_ENGINE(Audio)->getSamples(m_handle->id(), channel);
 	}
+
+	void Audio::swap(Audio& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
+	}
 }

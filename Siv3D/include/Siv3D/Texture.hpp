@@ -252,6 +252,8 @@ namespace s3d
 		[[nodiscard]]
 		TexturedRoundRect rounded(double x, double y, double w, double h, double r) const;
 
+		void swap(Texture& other) noexcept;
+
 	protected:
 
 		struct Dynamic {};
@@ -285,3 +287,8 @@ namespace s3d
 		Texture(MSRender, const Size& size, const TextureFormat& format);
 	};
 }
+
+template <>
+inline void std::swap(s3d::Texture& a, s3d::Texture& b) noexcept;
+
+# include "detail/Texture.ipp"
