@@ -3199,6 +3199,8 @@
 		2C66842826836E4B00F7089A /* PixelShader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelShader.ipp; sourceTree = "<group>"; };
 		2C66842926836E4C00F7089A /* Audio.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Audio.ipp; sourceTree = "<group>"; };
 		2C66842A26836E4C00F7089A /* Font.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Font.ipp; sourceTree = "<group>"; };
+		2C66842B2683810800F7089A /* GrabCutClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCutClass.hpp; sourceTree = "<group>"; };
+		2C66842C2683811800F7089A /* Glyph.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Glyph.ipp; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -4183,6 +4185,7 @@
 				2C063D962661426000368BEE /* FormatUtility.ipp */,
 				2C063DEC2661426000368BEE /* Functor.ipp */,
 				2C063D5C2661426000368BEE /* Geometry2D.ipp */,
+				2C66842C2683811800F7089A /* Glyph.ipp */,
 				2C063DE32661426000368BEE /* GlyphInfo.ipp */,
 				2C063DFC2661426000368BEE /* Graphics2D.ipp */,
 				2C063DC12661426000368BEE /* Grid.ipp */,
@@ -9029,6 +9032,7 @@
 				2CAAA6EC25E7FD0200C014D7 /* GlyphInfo.hpp */,
 				2C44C07326496C7C00A5E72A /* GMInstrument.hpp */,
 				2CC7D4A425F8D85500289963 /* GrabCut.hpp */,
+				2C66842B2683810800F7089A /* GrabCutClass.hpp */,
 				2CAAA86F25E7FD0300C014D7 /* GradientNoise.hpp */,
 				2CAAA72C25E7FD0200C014D7 /* Graphics.hpp */,
 				2CAAA71A25E7FD0200C014D7 /* Graphics2D.hpp */,
