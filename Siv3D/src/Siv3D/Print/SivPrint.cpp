@@ -88,6 +88,11 @@ namespace s3d
 
 			return true;
 		}
+
+		const Font& Print_impl::getFont() const
+		{
+			return SIV3D_ENGINE(Print)->getFont();
+		}
 	}
 
 	void ClearPrint()

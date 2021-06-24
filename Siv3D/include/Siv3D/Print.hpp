@@ -139,6 +139,9 @@ namespace s3d
 			/// @param font 新しいフォント
 			/// @return フォントの変更に成功した場合 true, それ以外の場合は false
 			bool setFont(const Font& font) const;
+
+			[[nodiscard]]
+			const Font& getFont() const;
 		};
 	}
 

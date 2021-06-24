@@ -301,6 +301,11 @@ namespace s3d
 		m_reachedMaxLines = false;
 	}
 
+	const Font& CPrint::getFont() const
+	{
+		return m_font->textFont;
+	}
+
 	void CPrint::showUnhandledEditingText(const StringView text)
 	{
 		m_unhandledEditingtext = text;

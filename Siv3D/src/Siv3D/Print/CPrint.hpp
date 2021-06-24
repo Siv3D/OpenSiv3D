@@ -59,6 +59,8 @@ namespace s3d
 
 		void setFont(const Font& font) override;
 
+		const Font& getFont() const override;
+
 		void showUnhandledEditingText(StringView text) override;
 
 	private:

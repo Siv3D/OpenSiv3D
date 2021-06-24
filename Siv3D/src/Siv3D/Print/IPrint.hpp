@@ -38,6 +38,8 @@ namespace s3d
 
 		virtual void setFont(const Font& font) = 0;
 
+		virtual const Font& getFont() const = 0;
+
 		virtual void showUnhandledEditingText(StringView text) = 0;
 	};
 }
