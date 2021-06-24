@@ -1110,6 +1110,14 @@
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
 		2C6527832656B3C1003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */; };
 		2C6684312684E98700F7089A /* SivProfilerStat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684302684E98700F7089A /* SivProfilerStat.cpp */; };
+		2C6684492685050B00F7089A /* SivCircleEmitter2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C66843C2685050B00F7089A /* SivCircleEmitter2D.cpp */; };
+		2C66844A2685050B00F7089A /* SivPolygonEmitter2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C66843E2685050B00F7089A /* SivPolygonEmitter2D.cpp */; };
+		2C66844B2685050B00F7089A /* ParticleSystem2DDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6684402685050B00F7089A /* ParticleSystem2DDetail.hpp */; };
+		2C66844C2685050B00F7089A /* ParticleSystem2DDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684412685050B00F7089A /* ParticleSystem2DDetail.cpp */; };
+		2C66844D2685050B00F7089A /* SivParticleSystem2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684422685050B00F7089A /* SivParticleSystem2D.cpp */; };
+		2C66844E2685050B00F7089A /* SivArcEmitter2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684442685050B00F7089A /* SivArcEmitter2D.cpp */; };
+		2C66844F2685050B00F7089A /* SivParticle2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684462685050B00F7089A /* SivParticle2D.cpp */; };
+		2C6684502685050B00F7089A /* SivRectEmitter2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684482685050B00F7089A /* SivRectEmitter2D.cpp */; };
 		2C68508824B768A800B98A7F /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68507824B768A800B98A7F /* CLogger.hpp */; };
 		2C68508924B768A800B98A7F /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507924B768A800B98A7F /* CLogger.cpp */; };
 		2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */; };
@@ -3205,6 +3213,23 @@
 		2C66842D268460E300F7089A /* xchar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xchar.h; sourceTree = "<group>"; };
 		2C66842E2684E96A00F7089A /* ProfilerStat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProfilerStat.hpp; sourceTree = "<group>"; };
 		2C6684302684E98700F7089A /* SivProfilerStat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProfilerStat.cpp; sourceTree = "<group>"; };
+		2C668432268504CB00F7089A /* IEmitter2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IEmitter2D.hpp; sourceTree = "<group>"; };
+		2C668433268504CB00F7089A /* ArcEmitter2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcEmitter2D.hpp; sourceTree = "<group>"; };
+		2C668434268504CB00F7089A /* CircleEmitter2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CircleEmitter2D.hpp; sourceTree = "<group>"; };
+		2C668435268504CB00F7089A /* ParticleSystem2DParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem2DParameters.hpp; sourceTree = "<group>"; };
+		2C668436268504CB00F7089A /* ParticleSystem2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem2D.hpp; sourceTree = "<group>"; };
+		2C668437268504CB00F7089A /* Emission2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Emission2D.hpp; sourceTree = "<group>"; };
+		2C668438268504CB00F7089A /* Particle2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Particle2D.hpp; sourceTree = "<group>"; };
+		2C668439268504CB00F7089A /* PolygonEmitter2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PolygonEmitter2D.hpp; sourceTree = "<group>"; };
+		2C66843A268504CC00F7089A /* RectEmitter2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RectEmitter2D.hpp; sourceTree = "<group>"; };
+		2C66843C2685050B00F7089A /* SivCircleEmitter2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircleEmitter2D.cpp; sourceTree = "<group>"; };
+		2C66843E2685050B00F7089A /* SivPolygonEmitter2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPolygonEmitter2D.cpp; sourceTree = "<group>"; };
+		2C6684402685050B00F7089A /* ParticleSystem2DDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem2DDetail.hpp; sourceTree = "<group>"; };
+		2C6684412685050B00F7089A /* ParticleSystem2DDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem2DDetail.cpp; sourceTree = "<group>"; };
+		2C6684422685050B00F7089A /* SivParticleSystem2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParticleSystem2D.cpp; sourceTree = "<group>"; };
+		2C6684442685050B00F7089A /* SivArcEmitter2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivArcEmitter2D.cpp; sourceTree = "<group>"; };
+		2C6684462685050B00F7089A /* SivParticle2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParticle2D.cpp; sourceTree = "<group>"; };
+		2C6684482685050B00F7089A /* SivRectEmitter2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRectEmitter2D.cpp; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -5786,6 +5811,7 @@
 				2C378CA2251E492B00D4B14B /* Addon */,
 				2CC5842726461D9900C33E9F /* AnimatedGIFReader */,
 				2CC5842B26461D9900C33E9F /* AnimatedGIFWriter */,
+				2C6684432685050B00F7089A /* ArcEmitter2D */,
 				2C5C0F1C266E6991009C430B /* Asset */,
 				2C47B6D724EAC84B008D83BE /* AssetHandleManager */,
 				2C794B7025C4FD8D00034D81 /* AssetMonitor */,
@@ -5813,6 +5839,7 @@
 				2C4AEF53262C44F800D36CFC /* CascadeClassifier */,
 				2CE8D13A2616100D00C75FBB /* ChildProcess */,
 				2C53C33325613B6A0072831A /* Circle */,
+				2C66843B2685050B00F7089A /* CircleEmitter2D */,
 				2CFB7DBE262AB4EA00169B97 /* Clipboard */,
 				2C47B27C24DD9789008D83BE /* Color */,
 				2C27AA0A257D379700756617 /* Colormap */,
@@ -5904,6 +5931,8 @@
 				2C47B24B24DD9789008D83BE /* ParseBool */,
 				2C47B28624DD9789008D83BE /* ParseFloat */,
 				2C47B25B24DD9789008D83BE /* ParseInt */,
+				2C6684452685050B00F7089A /* Particle2D */,
+				2C66843F2685050B00F7089A /* ParticleSystem2D */,
 				2C5CD8CC26761A91004E290F /* Pentablet */,
 				2CDD4F0F260A3F7100A51D68 /* Physics2D */,
 				2C47B6C924EAC818008D83BE /* PixelShader */,
@@ -5911,6 +5940,7 @@
 				2C2D5BFC267C61CE00EF5696 /* PixelShaderAssetData */,
 				2C47B27A24DD9789008D83BE /* Point */,
 				2C53C33F25613BAF0072831A /* Polygon */,
+				2C66843D2685050B00F7089A /* PolygonEmitter2D */,
 				2C47B4A324E16B8F008D83BE /* PrimeNumber */,
 				2C34780725DA95A000071EEF /* Print */,
 				2C427FE926286C8C00106F19 /* ProController */,
@@ -5925,6 +5955,7 @@
 				2C5DA71B267793BC002C9E0A /* Ray */,
 				2C60F9232667F0F500FFAA68 /* RDTSCClock */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
+				2C6684472685050B00F7089A /* RectEmitter2D */,
 				2C13C8DF25B9141D0054B968 /* RectF */,
 				2C47B25D24DD9789008D83BE /* RegExp */,
 				2C47B24624DD9789008D83BE /* Renderer */,
@@ -8224,6 +8255,56 @@
 			path = ProfilerStat;
 			sourceTree = "<group>";
 		};
+		2C66843B2685050B00F7089A /* CircleEmitter2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C66843C2685050B00F7089A /* SivCircleEmitter2D.cpp */,
+			);
+			path = CircleEmitter2D;
+			sourceTree = "<group>";
+		};
+		2C66843D2685050B00F7089A /* PolygonEmitter2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C66843E2685050B00F7089A /* SivPolygonEmitter2D.cpp */,
+			);
+			path = PolygonEmitter2D;
+			sourceTree = "<group>";
+		};
+		2C66843F2685050B00F7089A /* ParticleSystem2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6684402685050B00F7089A /* ParticleSystem2DDetail.hpp */,
+				2C6684412685050B00F7089A /* ParticleSystem2DDetail.cpp */,
+				2C6684422685050B00F7089A /* SivParticleSystem2D.cpp */,
+			);
+			path = ParticleSystem2D;
+			sourceTree = "<group>";
+		};
+		2C6684432685050B00F7089A /* ArcEmitter2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6684442685050B00F7089A /* SivArcEmitter2D.cpp */,
+			);
+			path = ArcEmitter2D;
+			sourceTree = "<group>";
+		};
+		2C6684452685050B00F7089A /* Particle2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6684462685050B00F7089A /* SivParticle2D.cpp */,
+			);
+			path = Particle2D;
+			sourceTree = "<group>";
+		};
+		2C6684472685050B00F7089A /* RectEmitter2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6684482685050B00F7089A /* SivRectEmitter2D.cpp */,
+			);
+			path = RectEmitter2D;
+			sourceTree = "<group>";
+		};
 		2C68507624B768A800B98A7F /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -8914,6 +8995,7 @@
 				2CAAA74225E7FD0200C014D7 /* Allocator.hpp */,
 				2CC5842226461D5900C33E9F /* AnimatedGIFReader.hpp */,
 				2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */,
+				2C668433268504CB00F7089A /* ArcEmitter2D.hpp */,
 				2CAAA73025E7FD0200C014D7 /* Array.hpp */,
 				2C5DA7232677A999002C9E0A /* Asset.hpp */,
 				2CAAA76025E7FD0200C014D7 /* AssetHandle.hpp */,
@@ -8954,6 +9036,7 @@
 				2CAAA88B25E7FD0300C014D7 /* Char.hpp */,
 				2CE8D13926160FD300C75FBB /* ChildProcess.hpp */,
 				2CAAA77425E7FD0200C014D7 /* Circle.hpp */,
+				2C668434268504CB00F7089A /* CircleEmitter2D.hpp */,
 				2CAAA85925E7FD0300C014D7 /* Circular.hpp */,
 				2CFB7DB5262AB49D00169B97 /* Clipboard.hpp */,
 				2CAAA86525E7FD0300C014D7 /* Color.hpp */,
@@ -9000,6 +9083,7 @@
 				2CFC212325F7063800C51D0D /* EdgePreservingFilterType.hpp */,
 				2CAAA72D25E7FD0200C014D7 /* Effect.hpp */,
 				2CAAA71925E7FD0200C014D7 /* Ellipse.hpp */,
+				2C668437268504CB00F7089A /* Emission2D.hpp */,
 				2CAAA71D25E7FD0200C014D7 /* Emoji.hpp */,
 				2CAAA83425E7FD0200C014D7 /* Endian.hpp */,
 				2CAAA70625E7FD0200C014D7 /* EngineLog.hpp */,
@@ -9068,6 +9152,7 @@
 				2CC5844D26464AFB00C33E9F /* IAudioEncoder.hpp */,
 				2CAAA6EB25E7FD0200C014D7 /* Icon.hpp */,
 				2CAAA72A25E7FD0200C014D7 /* IEffect.hpp */,
+				2C668432268504CB00F7089A /* IEmitter2D.hpp */,
 				2CAAA8A025E7FD0300C014D7 /* IImageDecoder.hpp */,
 				2CAAA84625E7FD0200C014D7 /* IImageEncoder.hpp */,
 				2CAAA89B25E7FD0300C014D7 /* Image.hpp */,
@@ -9161,6 +9246,9 @@
 				2CAAA88A25E7FD0300C014D7 /* ParseBool.hpp */,
 				2CAAA8A925E7FD0300C014D7 /* ParseFloat.hpp */,
 				2CAAA75925E7FD0200C014D7 /* ParseInt.hpp */,
+				2C668438268504CB00F7089A /* Particle2D.hpp */,
+				2C668436268504CB00F7089A /* ParticleSystem2D.hpp */,
+				2C668435268504CB00F7089A /* ParticleSystem2DParameters.hpp */,
 				2C5CD8C826761A47004E290F /* Pentablet.hpp */,
 				2CAAA89E25E7FD0300C014D7 /* Periodic.hpp */,
 				2CAAA84725E7FD0200C014D7 /* PerlinNoise.hpp */,
@@ -9177,6 +9265,7 @@
 				2CAAA73F25E7FD0200C014D7 /* PointVector.hpp */,
 				2CAAA72B25E7FD0200C014D7 /* PoissonDisk2D.hpp */,
 				2CAAA76225E7FD0200C014D7 /* Polygon.hpp */,
+				2C668439268504CB00F7089A /* PolygonEmitter2D.hpp */,
 				2CAAA70225E7FD0200C014D7 /* PolygonFailureType.hpp */,
 				2C7DE5D0261379B600D7F031 /* PolygonGlyph.hpp */,
 				2CFB7DDC262B0EF900169B97 /* PowerStatus.hpp */,
@@ -9208,6 +9297,7 @@
 				2CAAA74E25E7FD0200C014D7 /* RDTSCClock.hpp */,
 				2CAAA74525E7FD0200C014D7 /* Rect.hpp */,
 				2CAAA6ED25E7FD0200C014D7 /* RectanglePacking.hpp */,
+				2C66843A268504CC00F7089A /* RectEmitter2D.hpp */,
 				2CAAA74325E7FD0200C014D7 /* RectF.hpp */,
 				2CAAA8A825E7FD0300C014D7 /* RegExp.hpp */,
 				2C2D5C0F267E466500EF5696 /* RenderTexture.hpp */,
@@ -10985,6 +11075,7 @@
 				2C95665D264546F700539B85 /* defselement.h in Headers */,
 				2C636E502657F7D300AF029F /* soloud_speech.h in Headers */,
 				2CFC214A25F739B400C51D0D /* hb-set.h in Headers */,
+				2C66844B2685050B00F7089A /* ParticleSystem2DDetail.hpp in Headers */,
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
 				2C5337AB264F5AA200CE0F1B /* zstd_decompress_block.h in Headers */,
 				2C533722264D64BA00CE0F1B /* IAudioCodec.hpp in Headers */,
@@ -11219,6 +11310,7 @@
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
 				2C5337BA264F5AA200CE0F1B /* xxhash.c in Sources */,
 				2CC584952648FE1100C33E9F /* OpusDecoder.cpp in Sources */,
+				2C66844D2685050B00F7089A /* SivParticleSystem2D.cpp in Sources */,
 				2C5D0C172677C91C00A713D9 /* IAssetDetail.cpp in Sources */,
 				2C13C9A225BD29FC0054B968 /* liolib.c in Sources */,
 				2C636E9B2657F7D300AF029F /* soloud_vic.cpp in Sources */,
@@ -11239,6 +11331,7 @@
 				2C834D98248805D4006208B8 /* unicode_fold1_key.c in Sources */,
 				2C834DBD248805D4006208B8 /* regerror.c in Sources */,
 				2C47B49A24DD97F2008D83BE /* muParserCallback.cpp in Sources */,
+				2C6684502685050B00F7089A /* SivRectEmitter2D.cpp in Sources */,
 				2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */,
 				2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */,
 				2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */,
@@ -11284,6 +11377,7 @@
 				2C5DD43E265979F200282CE2 /* SivAudio.cpp in Sources */,
 				2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */,
 				2C13C9D525BD29FC0054B968 /* ltm.c in Sources */,
+				2C6684492685050B00F7089A /* SivCircleEmitter2D.cpp in Sources */,
 				2C834DA4248805D4006208B8 /* utf32_be.c in Sources */,
 				2C48BEF925CFB8C500A93CE3 /* render-sdf.cpp in Sources */,
 				2C636E902657F7D300AF029F /* soloud_eqfilter.cpp in Sources */,
@@ -11706,6 +11800,7 @@
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2C53379C264F5AA200CE0F1B /* zstd_compress_literals.c in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
+				2C66844A2685050B00F7089A /* SivPolygonEmitter2D.cpp in Sources */,
 				2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */,
 				2CB7D4E92556E230007EB42E /* SivMouse.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
@@ -11751,7 +11846,9 @@
 				2C834D8E248805D4006208B8 /* unicode_fold2_key.c in Sources */,
 				2C48BEF725CFB8C500A93CE3 /* edge-selectors.cpp in Sources */,
 				2C794B9D25C5A61900034D81 /* EffectFactory.cpp in Sources */,
+				2C66844F2685050B00F7089A /* SivParticle2D.cpp in Sources */,
 				2C13C8CD25B8FA9D0054B968 /* RecastAlloc.cpp in Sources */,
+				2C66844E2685050B00F7089A /* SivArcEmitter2D.cpp in Sources */,
 				2CC5843426461D9900C33E9F /* SivAnimatedGIFWriter.cpp in Sources */,
 				2C834DBA248805D4006208B8 /* regenc.c in Sources */,
 				2C48BF6C25D41C0D00A93CE3 /* SDFGlyphRenderer.cpp in Sources */,
@@ -11782,6 +11879,7 @@
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C956677264546F700539B85 /* parser.cpp in Sources */,
+				2C66844C2685050B00F7089A /* ParticleSystem2DDetail.cpp in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
 				2C9566FC2645846C00539B85 /* SivHTMLWriter.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
