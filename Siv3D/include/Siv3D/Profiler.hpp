@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "ProfilerStat.hpp"
 
 namespace s3d
 {
@@ -25,5 +26,8 @@ namespace s3d
 		/// @brief アセットを毎フレーム連続して作成した場合の警告の ON / OFF を設定します。
 		/// @param enbaled 警告を有効にするか
 		void EnableAssetCreationWarning(bool enbaled);
+
+		[[nodiscard]]
+		const ProfilerStat& GetStat();
 	}
 }

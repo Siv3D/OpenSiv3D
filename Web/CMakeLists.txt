@@ -367,6 +367,7 @@ add_library(
   ../Siv3D/src/Siv3D/Profiler/CProfiler.cpp
   ../Siv3D/src/Siv3D/Profiler/ProfilerFactory.cpp
   ../Siv3D/src/Siv3D/Profiler/SivProfiler.cpp
+  ../Siv3D/src/Siv3D/ProfilerStat/SivProfilerStat.cpp
   ../Siv3D/src/Siv3D/PutText/SivPutText.cpp
   ../Siv3D/src/Siv3D/QR/SivQR.cpp
   ../Siv3D/src/Siv3D/QRScanner/QRScannerDetail.cpp

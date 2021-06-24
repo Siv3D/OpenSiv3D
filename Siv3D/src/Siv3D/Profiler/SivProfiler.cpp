@@ -27,5 +27,10 @@ namespace s3d
 		{
 			SIV3D_ENGINE(AssetMonitor)->setWarningEnabled(enbaled);
 		}
+
+		const ProfilerStat& GetStat()
+		{
+			return SIV3D_ENGINE(Profiler)->getStat();
+		}
 	}
 }

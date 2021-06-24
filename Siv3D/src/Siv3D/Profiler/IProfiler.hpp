@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/ProfilerStat.hpp>
 
 namespace s3d
 {
@@ -33,5 +34,7 @@ namespace s3d
 		virtual int32 getFPS() const noexcept = 0;
 
 		virtual String getSimpleStatistics() const = 0;
+
+		virtual const ProfilerStat& getStat() const = 0;
 	};
 }

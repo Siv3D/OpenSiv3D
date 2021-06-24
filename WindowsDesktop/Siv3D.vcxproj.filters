@@ -1396,6 +1396,9 @@
     <Filter Include="src\Siv3D\TCPServer">
       <UniqueIdentifier>{ae29cf12-3d0f-4cd0-859b-bfd6d58f25b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ProfilerStat">
+      <UniqueIdentifier>{3f81c27b-4db5-4859-8366-56d24010adf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6261,6 +6264,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\xchar.h">
       <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProfilerStat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8605,6 +8611,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp">
       <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ProfilerStat\SivProfilerStat.cpp">
+      <Filter>src\Siv3D\ProfilerStat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

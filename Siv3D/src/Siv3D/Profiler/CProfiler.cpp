@@ -15,6 +15,7 @@
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Time.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/GlobalAudio.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -45,6 +46,16 @@ namespace s3d
 				m_fpsTimestampMillisec = timestampMillisec;
 			}
 		}
+
+		// Stat
+		{
+			m_stat.drawCalls = 0;
+			m_stat.triangleCount = 0;
+			m_stat.activeVoice = static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
+			m_stat.textureCount = 0;
+			m_stat.fontCount = 0;
+			m_stat.audioCount = 0;
+		}
 	}
 
 	void CProfiler::endFrame()
@@ -67,5 +78,10 @@ namespace s3d
 			state.frameBufferSize.x, state.frameBufferSize.y,
 			state.virtualSize.x, state.virtualSize.y,
 			sceneSize.x, sceneSize.y);
+	}
+
+	const ProfilerStat& CProfiler::getStat() const
+	{
+		return m_stat;
 	}
 }

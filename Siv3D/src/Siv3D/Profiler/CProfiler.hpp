@@ -16,17 +16,6 @@ namespace s3d
 {
 	class CProfiler final : public ISiv3DProfiler
 	{
-	private:
-
-		//
-		// FPS
-		//
-		int32 m_fpsCount = 0;
-
-		int32 m_currentFPS = 1;
-
-		int64 m_fpsTimestampMillisec = 0;
-
 	public:
 
 		void init() override;
@@ -38,5 +27,23 @@ namespace s3d
 		int32 getFPS() const noexcept override;
 
 		String getSimpleStatistics() const override;
+
+		const ProfilerStat& getStat() const override;
+
+	private:
+
+		//
+		//	FPS
+		//
+		int32 m_fpsCount = 0;
+
+		int32 m_currentFPS = 1;
+
+		int64 m_fpsTimestampMillisec = 0;
+
+		//
+		//	Stat
+		//
+		ProfilerStat m_stat;
 	};
 }
