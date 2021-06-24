@@ -23,7 +23,7 @@ Name | Version
 [Easing Equations](http://robertpenner.com/easing/) | 
 [EnumBitmask](https://github.com/Reputeless/EnumBitmask) | v1.0
 [easyexif](https://github.com/mayanklahiri/easyexif) | 
-[fmt](https://github.com/fmtlib/fmt) | 7.1.3
+[fmt](https://github.com/fmtlib/fmt) | 8.0.0
 [Font Awesome Free](https://github.com/FortAwesome/Font-Awesome) | 5.15.2
 [FreeType](https://www.freetype.org/) | 2.10.4
 [gif_load](https://github.com/hidefromkgb/gif_load) | 

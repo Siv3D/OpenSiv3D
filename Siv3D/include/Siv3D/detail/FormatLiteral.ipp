@@ -15,9 +15,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		struct FormatHelper : fmt::basic_string_view<char32>
+		struct FormatHelper : std::u32string_view
 		{
-			using fmt::basic_string_view<char32>::basic_string_view;
+			using std::u32string_view::u32string_view;
 
 			/// @brief フォーマット指定子 `{}` を含む文字列リテラルへ、変換する値を渡します。
 			/// @tparam ...Args 変換する値の型

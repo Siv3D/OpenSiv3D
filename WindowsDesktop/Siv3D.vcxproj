@@ -771,6 +771,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\core.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\xchar.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\lua\lauxlib.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\lua\lua.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\lua\luaconf.h" />
