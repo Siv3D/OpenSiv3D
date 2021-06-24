@@ -27,6 +27,8 @@ namespace s3d
 
 		void updateAsyncTextureLoad(size_t maxUpdate) override;
 
+		size_t getTextureCount() const override;
+
 		Texture::IDType createUnmipped(const Image& image, TextureDesc desc) override;
 
 		Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) override;

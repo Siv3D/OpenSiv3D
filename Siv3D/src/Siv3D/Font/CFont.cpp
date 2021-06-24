@@ -169,6 +169,11 @@ namespace s3d
 		}
 	}
 
+	size_t CFont::getFontCount() const
+	{
+		return m_fonts.size();
+	}
+
 	Font::IDType CFont::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 		// Font を作成

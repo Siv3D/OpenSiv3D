@@ -28,6 +28,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
+		virtual size_t getFontCount() const = 0;
+
 		virtual Font::IDType create(FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style) = 0;
 
 		virtual Font::IDType create(Typeface typeface, FontMethod fontMethod, int32 fontSize, FontStyle style) = 0;

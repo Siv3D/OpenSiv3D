@@ -105,6 +105,9 @@ namespace s3d
 		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
 		Array<Float2> m_buffer;
 
+
+		Renderer2DStat m_stat;
+
 	public:
 
 		CRenderer2D_D3D11();
@@ -112,6 +115,10 @@ namespace s3d
 		~CRenderer2D_D3D11() override;
 
 		void init() override;
+
+		void update() override;
+
+		const Renderer2DStat& getStat() const override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 

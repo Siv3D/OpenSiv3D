@@ -167,6 +167,12 @@ namespace s3d
 		{
 			return m_data.cend();
 		}
+
+		[[nodiscard]]
+		size_t size() const noexcept
+		{
+			return m_data.size();
+		}
 	};
 }
 

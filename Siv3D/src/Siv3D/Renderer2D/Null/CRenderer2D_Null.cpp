@@ -32,6 +32,16 @@ namespace s3d
 		m_emptyTexture = std::make_unique<Texture>();
 	}
 
+	void CRenderer2D_Null::update()
+	{
+		m_stat = {};
+	}
+
+	const Renderer2DStat& CRenderer2D_Null::getStat() const
+	{
+		return m_stat;
+	}
+
 	void CRenderer2D_Null::addLine(const LineStyle&, const Float2&, const Float2&, float, const Float4(&)[2])
 	{
 		// do nothing

@@ -51,6 +51,8 @@ namespace s3d
 
 		void init() override;
 
+		size_t getFontCount() const override;
+
 		Font::IDType create(FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
 
 		Font::IDType create(Typeface typeface, FontMethod fontMethod, int32 fontSize, FontStyle style) override;

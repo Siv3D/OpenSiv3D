@@ -18,6 +18,10 @@
 # include <Siv3D/GlobalAudio.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/Audio/IAudio.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "CProfiler.hpp"
 
@@ -49,11 +53,15 @@ namespace s3d
 
 		// Stat
 		{
-			m_stat.drawCalls = 0;
-			m_stat.triangleCount = 0;
-			m_stat.textureCount = 0;
-			m_stat.fontCount = 0;
-			m_stat.audioCount = 0;
+			{
+				const auto stat = SIV3D_ENGINE(Renderer2D)->getStat();
+				m_stat.drawCalls = stat.drawCalls;
+				m_stat.triangleCount = stat.triangleCount;
+			}
+
+			m_stat.textureCount = SIV3D_ENGINE(Texture)->getTextureCount();
+			m_stat.fontCount = SIV3D_ENGINE(Font)->getFontCount();
+			m_stat.audioCount = SIV3D_ENGINE(Audio)->getAudioCount();
 			m_stat.activeVoice = static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
 		}
 	}

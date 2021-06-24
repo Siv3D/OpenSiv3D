@@ -104,6 +104,11 @@ namespace s3d
 		// do nothing
 	}
 
+	size_t CTexture_D3D11::getTextureCount() const
+	{
+		return m_textures.size();
+	}
+
 	Texture::IDType CTexture_D3D11::createUnmipped(const Image& image, const TextureDesc desc)
 	{
 		if (not image)

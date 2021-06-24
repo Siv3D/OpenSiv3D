@@ -35,6 +35,12 @@ namespace s3d
 	struct FloatRect;
 	struct ColorF;
 
+	struct Renderer2DStat
+	{
+		uint32 drawCalls = 0;
+		uint32 triangleCount = 0;
+	};
+
 	class SIV3D_NOVTABLE ISiv3DRenderer2D
 	{
 	public:
@@ -44,6 +50,10 @@ namespace s3d
 		virtual ~ISiv3DRenderer2D() = default;
 
 		virtual void init() = 0;
+
+		virtual void update() = 0;
+
+		virtual const Renderer2DStat& getStat() const = 0;
 
 		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 

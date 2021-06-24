@@ -30,6 +30,11 @@ namespace s3d
 		// do nothing
 	}
 
+	size_t CTexture_Null::getTextureCount() const
+	{
+		return 0;
+	}
+
 	Texture::IDType CTexture_Null::createUnmipped(const Image&, TextureDesc)
 	{
 		return Texture::IDType::NullAsset();

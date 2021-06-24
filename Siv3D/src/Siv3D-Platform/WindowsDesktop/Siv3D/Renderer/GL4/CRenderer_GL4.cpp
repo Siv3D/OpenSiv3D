@@ -86,6 +86,8 @@ namespace s3d
 				::Sleep(100);
 			}
 		}
+
+		pRenderer2D->update();
 	}
 
 	void CRenderer_GL4::flush()

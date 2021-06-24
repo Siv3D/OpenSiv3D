@@ -29,6 +29,8 @@ namespace s3d
 
 		void init() override;
 
+		size_t getAudioCount() const override;
+
 		Audio::IDType create(Wave&& wave, const Optional<AudioLoopTiming>& loop) override;
 
 		Audio::IDType create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd) override;

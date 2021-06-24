@@ -96,6 +96,11 @@ namespace s3d
 		m_emptyPixelShader = std::make_unique<PixelShader>();
 	}
 
+	size_t CFont_Headless::getFontCount() const
+	{
+		return m_fonts.size();
+	}
+
 	Font::IDType CFont_Headless::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
 		// Font を作成

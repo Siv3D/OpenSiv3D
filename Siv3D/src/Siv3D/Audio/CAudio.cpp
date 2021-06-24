@@ -186,6 +186,11 @@ namespace s3d
 		}
 	}
 
+	size_t CAudio::getAudioCount() const
+	{
+		return m_audios.size();
+	}
+
 	Audio::IDType CAudio::create(Wave&& wave, const Optional<AudioLoopTiming>& loop)
 	{
 		// Audio を作成

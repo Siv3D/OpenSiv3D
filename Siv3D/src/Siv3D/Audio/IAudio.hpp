@@ -34,6 +34,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
+		virtual size_t getAudioCount() const = 0;
+
 		virtual Audio::IDType create(Wave&& wave, const Optional<AudioLoopTiming>& loop) = 0;
 
 		virtual Audio::IDType create(Wave&& wave, const Duration& loopBegin, const Duration& loopEnd) = 0;

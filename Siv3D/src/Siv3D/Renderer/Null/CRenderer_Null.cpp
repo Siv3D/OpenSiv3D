@@ -15,6 +15,8 @@
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Renderer2D/Null/CRenderer2D_Null.hpp>
+# include <Siv3D/Texture/Null/CTexture_Null.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -40,6 +42,9 @@ namespace s3d
 
 		SIV3D_ENGINE(Shader)->init();
 
+		pTexture = dynamic_cast<CTexture_Null*>(SIV3D_ENGINE(Texture));
+		pRenderer2D = dynamic_cast<CRenderer2D_Null*>(SIV3D_ENGINE(Renderer2D));
+
 		clear();
 	}
 
@@ -51,7 +56,7 @@ namespace s3d
 
 	void CRenderer_Null::clear()
 	{
-		// do nothing
+		pRenderer2D->update();
 	}
 
 	void CRenderer_Null::flush()

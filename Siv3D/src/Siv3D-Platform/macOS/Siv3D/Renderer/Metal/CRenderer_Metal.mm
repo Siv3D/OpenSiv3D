@@ -99,6 +99,7 @@ namespace s3d
 			}
 		}
 		
+		pRenderer2D->update();
 		pRenderer2D->begin();
 	}
 

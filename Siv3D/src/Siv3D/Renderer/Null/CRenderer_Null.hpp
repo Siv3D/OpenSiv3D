@@ -15,9 +15,15 @@
 
 namespace s3d
 {
+	class CRenderer2D_Null;
+	class CTexture_Null;
+
 	class CRenderer_Null final : public ISiv3DRenderer
 	{
 	private:
+
+		CRenderer2D_Null* pRenderer2D = nullptr;
+		CTexture_Null* pTexture = nullptr;
 
 	public:
 

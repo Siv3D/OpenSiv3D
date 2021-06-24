@@ -35,6 +35,12 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
+	size_t CTexture_Metal::getTextureCount() const
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
 	Texture::IDType CTexture_Metal::createUnmipped(const Image& image, TextureDesc desc)
 	{
 		return(Texture::IDType::NullAsset());

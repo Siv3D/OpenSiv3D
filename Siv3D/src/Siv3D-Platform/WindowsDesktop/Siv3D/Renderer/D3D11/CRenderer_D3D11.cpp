@@ -85,6 +85,8 @@ namespace s3d
 		{
 			m_backBuffer->setBackBufferSize(frameBufferSize);
 		}
+
+		pRenderer2D->update();
 	}
 
 	void CRenderer_D3D11::flush()

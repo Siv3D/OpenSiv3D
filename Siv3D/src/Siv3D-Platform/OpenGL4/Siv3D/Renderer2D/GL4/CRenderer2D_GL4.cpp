@@ -143,6 +143,16 @@ namespace s3d
 		CheckOpenGLError();
 	}
 
+	void CRenderer2D_GL4::update()
+	{
+		m_stat = {};
+	}
+
+	const Renderer2DStat& CRenderer2D_GL4::getStat() const
+	{
+		return m_stat;
+	}
+
 	void CRenderer2D_GL4::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildLine(style, m_bufferCreator, begin, end, thickness, colors, getMaxScaling()))

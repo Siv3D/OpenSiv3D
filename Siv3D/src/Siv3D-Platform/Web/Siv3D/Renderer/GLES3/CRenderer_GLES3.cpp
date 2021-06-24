@@ -136,7 +136,9 @@ namespace s3d
 			{
 				// sleep
 			}
-		}	
+		}
+
+		pRenderer2D->update();
 	}
 
 	void CRenderer_GLES3::flush()

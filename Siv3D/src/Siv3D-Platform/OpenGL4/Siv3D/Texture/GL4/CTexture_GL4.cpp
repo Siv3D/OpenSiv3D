@@ -97,6 +97,11 @@ namespace s3d
 		m_requests.pop_front_N(loadCount);
 	}
 
+	size_t CTexture_GL4::getTextureCount() const
+	{
+		return m_textures.size();
+	}
+
 	Texture::IDType CTexture_GL4::createUnmipped(const Image& image, const TextureDesc desc)
 	{
 		if (not image)

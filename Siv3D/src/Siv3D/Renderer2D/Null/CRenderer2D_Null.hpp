@@ -17,10 +17,6 @@ namespace s3d
 {
 	class CRenderer2D_Null final : public ISiv3DRenderer2D
 	{
-	private:
-
-		std::unique_ptr<Texture> m_emptyTexture;
-
 	public:
 
 		CRenderer2D_Null();
@@ -28,6 +24,10 @@ namespace s3d
 		~CRenderer2D_Null() override;
 
 		void init() override;
+
+		void update() override;
+
+		const Renderer2DStat& getStat() const override;
 
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 
@@ -157,5 +157,11 @@ namespace s3d
 
 
 		void flush() override;
+
+	private:
+
+		std::unique_ptr<Texture> m_emptyTexture;
+
+		Renderer2DStat m_stat;
 	};
 }

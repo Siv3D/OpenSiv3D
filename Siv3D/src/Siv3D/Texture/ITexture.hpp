@@ -25,6 +25,8 @@ namespace s3d
 
 		virtual void updateAsyncTextureLoad(size_t maxUpdate) = 0;
 
+		virtual size_t getTextureCount() const = 0;
+
 		virtual Texture::IDType createUnmipped(const Image& image, TextureDesc desc) = 0;
 
 		virtual Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
