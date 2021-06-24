@@ -1109,6 +1109,7 @@
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
 		2C6527832656B3C1003427EB /* SivMicrophoneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6527822656B3C1003427EB /* SivMicrophoneInfo.cpp */; };
+		2C6684312684E98700F7089A /* SivProfilerStat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6684302684E98700F7089A /* SivProfilerStat.cpp */; };
 		2C68508824B768A800B98A7F /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68507824B768A800B98A7F /* CLogger.hpp */; };
 		2C68508924B768A800B98A7F /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507924B768A800B98A7F /* CLogger.cpp */; };
 		2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */; };
@@ -3202,6 +3203,8 @@
 		2C66842B2683810800F7089A /* GrabCutClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCutClass.hpp; sourceTree = "<group>"; };
 		2C66842C2683811800F7089A /* Glyph.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Glyph.ipp; sourceTree = "<group>"; };
 		2C66842D268460E300F7089A /* xchar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xchar.h; sourceTree = "<group>"; };
+		2C66842E2684E96A00F7089A /* ProfilerStat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProfilerStat.hpp; sourceTree = "<group>"; };
+		2C6684302684E98700F7089A /* SivProfilerStat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProfilerStat.cpp; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -5912,6 +5915,7 @@
 				2C34780725DA95A000071EEF /* Print */,
 				2C427FE926286C8C00106F19 /* ProController */,
 				2C47B2C124DD9789008D83BE /* Profiler */,
+				2C66842F2684E98700F7089A /* ProfilerStat */,
 				2CAAA8B325E7FD3100C014D7 /* PutText */,
 				2C47B28424DD9789008D83BE /* QR */,
 				2CBEBCA62629D1460077DDBF /* QRScanner */,
@@ -8212,6 +8216,14 @@
 			path = MicrophoneInfo;
 			sourceTree = "<group>";
 		};
+		2C66842F2684E98700F7089A /* ProfilerStat */ = {
+			isa = PBXGroup;
+			children = (
+				2C6684302684E98700F7089A /* SivProfilerStat.cpp */,
+			);
+			path = ProfilerStat;
+			sourceTree = "<group>";
+		};
 		2C68507624B768A800B98A7F /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -9175,6 +9187,7 @@
 				2CAAA86225E7FD0300C014D7 /* PRNG.hpp */,
 				2C427FE526286C6800106F19 /* ProController.hpp */,
 				2CAAA8A325E7FD0300C014D7 /* Profiler.hpp */,
+				2C66842E2684E96A00F7089A /* ProfilerStat.hpp */,
 				2CAAA8B225E7FD0300C014D7 /* PutText.hpp */,
 				2CAAA84225E7FD0200C014D7 /* QR.hpp */,
 				2CBEBCA42629D1120077DDBF /* QRContent.hpp */,
@@ -11252,6 +11265,7 @@
 				2CFB7DD5262AF33C00169B97 /* SivDragDrop.cpp in Sources */,
 				2C34780F25DA95A100071EEF /* SivPrint.cpp in Sources */,
 				2C636E6D2657F7D300AF029F /* soloud_audiosource.cpp in Sources */,
+				2C6684312684E98700F7089A /* SivProfilerStat.cpp in Sources */,
 				2C5C0F21266E6991009C430B /* AssetFactory.cpp in Sources */,
 				2C636EB62657F7D300AF029F /* soloud_speech.cpp in Sources */,
 				2C47B36F24DD9789008D83BE /* SivError.cpp in Sources */,
