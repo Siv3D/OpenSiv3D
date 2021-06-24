@@ -19,9 +19,6 @@ namespace s3d
 		using siv3dCreateNotificationCallback = void(*)(CToastNotification::Notification::IDType idx, void* userData);
 		using siv3dNotificationEventCallback = void(*)(CToastNotification::Notification::IDType idx, ToastNotificationState state, void* userData);
 
-		__attribute__((import_name("siv3dInitNotification")))
-		extern void siv3dInitNotification();
-
 		__attribute__((import_name("siv3dCreateNotification")))
 		extern CToastNotification::Notification::IDType siv3dCreateNotification(const char* title, const char* body, size_t actionsNum, const char* const* actions, siv3dCreateNotificationCallback callback, void* userData);
 
@@ -31,9 +28,8 @@ namespace s3d
 		__attribute__((import_name("siv3dCloseNotification")))
 		extern void siv3dCloseNotification(CToastNotification::Notification::IDType idx);
 
-		__attribute__((import_name("siv3dQueryNotificationAvailability")))
-		extern bool siv3dQueryNotificationAvailability();
-
+		__attribute__((import_name("siv3dQueryNotificationPermission")))
+		extern CToastNotification::NotificationPermission siv3dQueryNotificationPermission();
 	}
 
 	CToastNotification::CToastNotification() {}
@@ -46,13 +42,11 @@ namespace s3d
 	void CToastNotification::init()
 	{
 		LOG_SCOPED_TRACE(U"CToastNotification::init()");
-
-		detail::siv3dInitNotification();
 	}
 
 	bool CToastNotification::isAvailable() const
 	{
-		return detail::siv3dQueryNotificationAvailability();
+		return detail::siv3dQueryNotificationPermission() == NotificationPermission::Granted;
 	}
 
 	ToastNotificationID CToastNotification::show(const ToastNotificationItem& item)

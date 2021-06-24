@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Optional.hpp"
+# include "AsyncTask.hpp"
 # include "ToastNotificationItem.hpp"
 # include "ToastNotificationState.hpp"
 
@@ -54,6 +55,8 @@ namespace s3d
 			/// @return トースト通知が可能な場合 true, それ以外の場合は false
 			[[nodiscard]]
 			bool IsAvailable();
+
+			AsyncTask<bool> RequestPermission();
 
 			ToastNotificationID Show(const ToastNotificationItem& item);
 

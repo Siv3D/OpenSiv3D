@@ -27,6 +27,15 @@ namespace s3d
 			ToastNotificationState state = ToastNotificationState::None_;
 		};
 
+		enum class NotificationPermission
+		{
+			Default,
+
+			Granted,
+
+			Denied
+		};
+
 		CToastNotification();
 
 		~CToastNotification() override;

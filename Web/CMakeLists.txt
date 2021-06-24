@@ -72,6 +72,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextInput/CTextInput.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Time/SivTime.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ToastNotification/CToastNotification.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ToastNotification/SivToastNotification.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoReader/SivVideoReader.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoReader/VideoReaderDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Webcam/SivWebcam.cpp
