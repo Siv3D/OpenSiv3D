@@ -30,6 +30,8 @@ namespace s3d
 
 		double spaceWidth = 0;
 
+		int32 indentSize = 8;
+
 		FontStyle style = FontStyle::Default;
 
 		int16 ascender = 0;

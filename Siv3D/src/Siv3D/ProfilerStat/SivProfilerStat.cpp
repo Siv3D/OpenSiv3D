@@ -16,11 +16,11 @@ namespace s3d
 {
 	void ProfilerStat::print() const
 	{
-		Print << U"Draw calls:\t\t\t\t" << drawCalls;
+		Print << U"Draw calls:\t\t\t" << drawCalls;
 		Print << U"Triangle count:\t\t" << triangleCount;
-		Print << U"Active voice:\t\t\t" << activeVoice;
 		Print << U"Texture count:\t\t" << textureCount;
-		Print << U"Font count:\t\t\t\t" << fontCount;
-		Print << U"Audio count:\t\t\t" << audioCount;
+		Print << U"Font count:\t\t\t" << fontCount;
+		Print << U"Audio count:\t\t" << audioCount;
+		Print << U"Active voice:\t\t" << activeVoice;
 	}
 }

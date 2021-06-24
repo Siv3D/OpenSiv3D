@@ -51,10 +51,10 @@ namespace s3d
 		{
 			m_stat.drawCalls = 0;
 			m_stat.triangleCount = 0;
-			m_stat.activeVoice = static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
 			m_stat.textureCount = 0;
 			m_stat.fontCount = 0;
 			m_stat.audioCount = 0;
+			m_stat.activeVoice = static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
 		}
 	}
 

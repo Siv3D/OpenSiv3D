@@ -20,13 +20,13 @@ namespace s3d
 
 		uint32 triangleCount = 0;
 
-		uint32 activeVoice = 0;
-
 		uint32 textureCount = 0;
 
 		uint32 fontCount = 0;
 
 		uint32 audioCount = 0;
+
+		uint32 activeVoice = 0;
 
 		void print() const;
 	};

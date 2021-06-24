@@ -37,6 +37,8 @@ namespace s3d
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
 
+		void setIndentSize(int32 indentSize) noexcept;
+
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
 		

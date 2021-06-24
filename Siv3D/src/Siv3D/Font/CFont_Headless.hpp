@@ -38,6 +38,8 @@ namespace s3d
 
 		bool addFallbackFont(Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font) override;
 
+		void setIndentSize(Font::IDType handleID, int32 indentSize) override;
+
 		const FontFaceProperty& getProperty(Font::IDType handleID) override;
 
 		FontMethod getMethod(Font::IDType handleID) override;

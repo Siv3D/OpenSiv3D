@@ -149,6 +149,15 @@ namespace s3d
 		[[nodiscard]]
 		double spaceWidth() const;
 
+		/// @brief インデントに含まれるスペースの数を返します。
+		/// @return インデントに含まれるスペースの数
+		[[nodiscard]]
+		int32 indentSize() const;
+
+		/// @brief インデントに含まれるスペースの数を設定します。
+		/// @param indentSize インデントに含まれるスペースの数
+		void setIndentSize(int32 indentSize) const;
+
 		/// @brief レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白を設定します。 
 		/// @param thickness 
 		/// @remark デフォルト値は 2 です。

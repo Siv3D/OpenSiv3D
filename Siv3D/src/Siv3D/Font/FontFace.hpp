@@ -48,6 +48,8 @@ namespace s3d
 		[[nodiscard]]
 		FT_Face getFT_Face() const noexcept;
 
+		void setIndentSize(int32 indentSize) noexcept;
+
 		[[nodiscard]]
 		const FontFaceProperty& getProperty() const noexcept;
 

@@ -36,6 +36,8 @@ namespace s3d
 
 		virtual bool addFallbackFont(Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font) = 0;
 
+		virtual void setIndentSize(Font::IDType handleID, int32 indentSize) = 0;
+
 		virtual const FontFaceProperty& getProperty(Font::IDType handleID) = 0;
 
 		virtual FontMethod getMethod(Font::IDType handleID) = 0;

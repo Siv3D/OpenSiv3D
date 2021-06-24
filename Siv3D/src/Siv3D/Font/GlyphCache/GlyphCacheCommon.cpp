@@ -13,9 +13,9 @@
 
 namespace s3d
 {
-	double GetTabAdvance(const double spaceWidth, const double scale, const double baseX, const double currentX)
+	double GetTabAdvance(const double spaceWidth, const double scale, const double baseX, const double currentX, const int32 indentSize)
 	{
-		const double maxTabWidth = (spaceWidth * scale * 4);
+		const double maxTabWidth = (spaceWidth * scale * indentSize);
 		const double newX = baseX + static_cast<int32>(((currentX + maxTabWidth) - baseX) / maxTabWidth) * maxTabWidth;
 		return (newX - currentX);
 	}
@@ -31,7 +31,7 @@ namespace s3d
 		{
 		case U'\t':
 			{
-				penPos.x += GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x);
+				penPos.x += GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x, prop.indentSize);
 				break;
 			}
 		case U'\n':

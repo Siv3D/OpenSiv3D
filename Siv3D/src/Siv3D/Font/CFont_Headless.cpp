@@ -131,6 +131,11 @@ namespace s3d
 		return m_fonts[handleID]->addFallbackFont(font);
 	}
 
+	void CFont_Headless::setIndentSize(const Font::IDType handleID, const int32 indentSize)
+	{
+		m_fonts[handleID]->setIndentSize(indentSize);
+	}
+
 	const FontFaceProperty& CFont_Headless::getProperty(const Font::IDType handleID)
 	{
 		return m_fonts[handleID]->getProperty();

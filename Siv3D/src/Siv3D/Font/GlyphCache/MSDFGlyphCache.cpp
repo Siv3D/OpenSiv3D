@@ -139,7 +139,7 @@ namespace s3d
 				{
 					if (ch == U'\t')
 					{
-						xAdvance = GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x);
+						xAdvance = GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x, prop.indentSize);
 					}
 					else
 					{

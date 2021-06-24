@@ -78,6 +78,11 @@ namespace s3d
 		return m_face;
 	}
 
+	void FontFace::setIndentSize(const int32 indentSize) noexcept
+	{
+		m_property.indentSize = indentSize;
+	}
+
 	const FontFaceProperty& FontFace::getProperty() const noexcept
 	{
 		return m_property;

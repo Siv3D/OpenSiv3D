@@ -49,7 +49,7 @@ namespace s3d
 	};
 
 	[[nodiscard]]
-	double GetTabAdvance(double spaceWidth, double scale, double baseX, double currentX);
+	double GetTabAdvance(double spaceWidth, double scale, double baseX, double currentX, int32 indentSize);
 
 	[[nodiscard]]
 	bool ProcessControlCharacter(char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, double scale, double lineHeightScale, const FontFaceProperty& prop);
