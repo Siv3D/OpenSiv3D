@@ -74,6 +74,42 @@ namespace s3d
 		return{ (x0 + pos), (x1 + pos), (x2 + pos) };
 	}
 
+	Circle Triangle::getCircumscribedCircle() const noexcept
+	{
+		const double x0 = p0.x;
+		const double y0 = p0.y;
+		const double x1 = p1.x;
+		const double y1 = p1.y;
+		const double x2 = p2.x;
+		const double y2 = p2.y;
+		const double x0_2 = (x0 * x0);
+		const double y0_2 = (y0 * y0);
+		const double x1_2 = (x1 * x1);
+		const double y1_2 = (y1 * y1);
+		const double x2_2 = (x2 * x2);
+		const double y2_2 = (y2 * y2);
+		const double c = 2 * ((x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0));
+		const Vec2 center
+		{
+			((y2 - y0) * (x1_2 - x0_2 + y1_2 - y0_2) + (y0 - y1) * (x2_2 - x0_2 + y2_2 - y0_2)) / c,
+			((x0 - x2) * (x1_2 - x0_2 + y1_2 - y0_2) + (x1 - x0) * (x2_2 - x0_2 + y2_2 - y0_2)) / c
+		};
+
+		return{ center, center.distanceFrom(p0) };
+	}
+
+	Circle Triangle::getInscribedCircle() const noexcept
+	{
+		const double d0 = p2.distanceFrom(p1);
+		const double d1 = p0.distanceFrom(p2);
+		const double d2 = p1.distanceFrom(p0);
+		const double perimeter = (d0 + d1 + d2);
+		const Vec2 center{ (d0 * p0 + d1 * p1 + d2 * p2) / perimeter };
+		const double area2 = std::abs((p0.x - p2.x) * (p1.y - p0.y) - (p0.x - p1.x) * (p2.y - p0.y));
+
+		return{ center, (area2 / perimeter) };
+	}
+
 	LineString Triangle::outline(const CloseRing closeRing) const
 	{
 		if (closeRing)

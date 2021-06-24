@@ -191,6 +191,12 @@ namespace s3d
 		constexpr RectF boundingRect() const noexcept;
 
 		[[nodiscard]]
+		Circle getCircumscribedCircle() const noexcept;
+
+		[[nodiscard]]
+		Circle getInscribedCircle() const noexcept;
+
+		[[nodiscard]]
 		Polygon calculateBuffer(double distance) const;
 
 		[[nodiscard]]
