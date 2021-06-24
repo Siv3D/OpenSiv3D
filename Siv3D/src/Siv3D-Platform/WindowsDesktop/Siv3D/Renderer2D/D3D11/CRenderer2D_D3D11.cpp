@@ -964,6 +964,9 @@ namespace s3d
 
 					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 					batchInfo.startIndexLocation += indexCount;
+					
+					++m_stat.drawCalls;
+					m_stat.triangleCount += (indexCount / 3);
 
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
@@ -982,6 +985,9 @@ namespace s3d
 						m_context->IASetInputLayout(nullptr);
 
 						m_context->Draw(draw, 0);
+
+						++m_stat.drawCalls;
+						m_stat.triangleCount += (draw / 3);
 
 						m_batches.setBuffers();
 						m_context->IASetInputLayout(m_inputLayout.Get());
@@ -1279,6 +1285,9 @@ namespace s3d
 			m_context->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
 			m_context->IASetInputLayout(nullptr);
 			m_context->Draw(3, 0);
+
+			++m_stat.drawCalls;
+			m_stat.triangleCount += 1;
 		}
 
 		//Siv3DEngine::Get<ISiv3DProfiler>()->reportDrawcalls(1, 1);

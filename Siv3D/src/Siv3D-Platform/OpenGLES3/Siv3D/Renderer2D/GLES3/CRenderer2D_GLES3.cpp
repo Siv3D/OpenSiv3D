@@ -978,6 +978,9 @@ namespace s3d
 					::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation));
 					batchInfo.startIndexLocation += indexCount;
 
+					++m_stat.drawCalls;
+					m_stat.triangleCount += (indexCount / 3);
+
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
 				}
@@ -994,6 +997,9 @@ namespace s3d
 						{
 							::glBindBuffer(GL_ARRAY_BUFFER, 0);
 							::glDrawArrays(GL_TRIANGLES, 0, draw);
+
+							++m_stat.drawCalls;
+							m_stat.triangleCount += (draw / 3);
 						}
 						::glBindVertexArray(0);
 
@@ -1291,6 +1297,9 @@ namespace s3d
 				{
 					::glBindBuffer(GL_ARRAY_BUFFER, 0);
 					::glDrawArrays(GL_TRIANGLES, 0, 3);
+
+					++m_stat.drawCalls;
+					m_stat.triangleCount += 1;
 				}
 				::glBindVertexArray(0);
 			}
