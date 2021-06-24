@@ -3201,6 +3201,7 @@
 		2C66842A26836E4C00F7089A /* Font.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Font.ipp; sourceTree = "<group>"; };
 		2C66842B2683810800F7089A /* GrabCutClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCutClass.hpp; sourceTree = "<group>"; };
 		2C66842C2683811800F7089A /* Glyph.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Glyph.ipp; sourceTree = "<group>"; };
+		2C66842D268460E300F7089A /* xchar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xchar.h; sourceTree = "<group>"; };
 		2C68507824B768A800B98A7F /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
 		2C68507924B768A800B98A7F /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
 		2C68507B24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode_macOS_Linux.cpp; sourceTree = "<group>"; };
@@ -8327,9 +8328,10 @@
 		2C6898112436064900C36C25 /* fmt */ = {
 			isa = PBXGroup;
 			children = (
-				2C6898122436064900C36C25 /* ostream.h */,
 				2C6898132436064900C36C25 /* core.h */,
 				2C6898142436064900C36C25 /* format.h */,
+				2C6898122436064900C36C25 /* ostream.h */,
+				2C66842D268460E300F7089A /* xchar.h */,
 			);
 			path = fmt;
 			sourceTree = "<group>";
