@@ -1399,6 +1399,24 @@
     <Filter Include="src\Siv3D\ProfilerStat">
       <UniqueIdentifier>{3f81c27b-4db5-4859-8366-56d24010adf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\CircleEmitter2D">
+      <UniqueIdentifier>{c88fba88-73f0-43ba-9f0d-b5726bc3705d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ArcEmitter2D">
+      <UniqueIdentifier>{fdc8d6ba-b70d-4f99-ad9a-ee9eee277ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RectEmitter2D">
+      <UniqueIdentifier>{64e09429-3eff-45e1-926b-5ee1ee423c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PolygonEmitter2D">
+      <UniqueIdentifier>{544c26a9-23b9-47ee-ba97-f9b4df7bca10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Particle2D">
+      <UniqueIdentifier>{22ebdee8-db18-41e9-b902-f50da367299c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ParticleSystem2D">
+      <UniqueIdentifier>{d9065819-4ccf-492a-93ef-b7f86940bfda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6267,6 +6285,36 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ProfilerStat.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Particle2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Emission2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IEmitter2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\CircleEmitter2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ArcEmitter2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RectEmitter2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PolygonEmitter2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2DParameters.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.hpp">
+      <Filter>src\Siv3D\ParticleSystem2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8614,6 +8662,27 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ProfilerStat\SivProfilerStat.cpp">
       <Filter>src\Siv3D\ProfilerStat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CircleEmitter2D\SivCircleEmitter2D.cpp">
+      <Filter>src\Siv3D\CircleEmitter2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ArcEmitter2D\SivArcEmitter2D.cpp">
+      <Filter>src\Siv3D\ArcEmitter2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PolygonEmitter2D\SivPolygonEmitter2D.cpp">
+      <Filter>src\Siv3D\PolygonEmitter2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RectEmitter2D\SivRectEmitter2D.cpp">
+      <Filter>src\Siv3D\RectEmitter2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Particle2D\SivParticle2D.cpp">
+      <Filter>src\Siv3D\Particle2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\SivParticleSystem2D.cpp">
+      <Filter>src\Siv3D\ParticleSystem2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.cpp">
+      <Filter>src\Siv3D\ParticleSystem2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

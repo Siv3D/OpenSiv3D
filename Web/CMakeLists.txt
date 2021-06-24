@@ -124,6 +124,7 @@ add_library(
   ../Siv3D/src/Siv3D/AnimatedGIFReader/SivAnimatedGIFReader.cpp
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/AnimatedGIFWriterDetail.cpp
   ../Siv3D/src/Siv3D/AnimatedGIFWriter/SivAnimatedGIFWriter.cpp
+  ../Siv3D/src/Siv3D/ArcEmitter2D/SivArcEmitter2D.cpp
   ../Siv3D/src/Siv3D/Asset/AssetFactory.cpp
   ../Siv3D/src/Siv3D/Asset/CAsset.cpp
   ../Siv3D/src/Siv3D/Asset/IAssetDetail.cpp
@@ -170,6 +171,7 @@ add_library(
   ../Siv3D/src/Siv3D/CascadeClassifier/SivCascadeClassifier.cpp
   ../Siv3D/src/Siv3D/ChildProcess/SivChildProcess.cpp
   ../Siv3D/src/Siv3D/Circle/SivCircle.cpp
+  ../Siv3D/src/Siv3D/CircleEmitter2D/SivCircleEmitter2D.cpp
   ../Siv3D/src/Siv3D/Clipboard/ClipboardFactory.cpp
   ../Siv3D/src/Siv3D/Clipboard/SivClipboard.cpp
   ../Siv3D/src/Siv3D/Color/SivColor.cpp
@@ -327,6 +329,9 @@ add_library(
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
   ../Siv3D/src/Siv3D/ParseInt/SivParseInt.cpp
+  ../Siv3D/src/Siv3D/Particle2D/SivParticle2D.cpp
+  ../Siv3D/src/Siv3D/ParticleSystem2D/ParticleSystem2DDetail.cpp
+  ../Siv3D/src/Siv3D/ParticleSystem2D/SivParticleSystem2D.cpp
   ../Siv3D/src/Siv3D/Pentablet/Null/CPentablet_Null.cpp
   ../Siv3D/src/Siv3D/Pentablet/SivPentablet.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Body.cpp
@@ -359,6 +364,7 @@ add_library(
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
   ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
+  ../Siv3D/src/Siv3D/PolygonEmitter2D/SivPolygonEmitter2D.cpp
   ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Print/CPrint.cpp
   ../Siv3D/src/Siv3D/Print/PrintFactory.cpp
@@ -379,6 +385,7 @@ add_library(
   ../Siv3D/src/Siv3D/RDTSCClock/SivRDTSCClock.cpp
   ../Siv3D/src/Siv3D/Rect/SivRect.cpp
   ../Siv3D/src/Siv3D/RectanglePacking/SivRectanglePacking.cpp
+  ../Siv3D/src/Siv3D/RectEmitter2D/SivRectEmitter2D.cpp
   ../Siv3D/src/Siv3D/RectF/SivRectF.cpp
   ../Siv3D/src/Siv3D/RegExp/RegExpDetail.cpp
   ../Siv3D/src/Siv3D/RegExp/SivRegExp.cpp

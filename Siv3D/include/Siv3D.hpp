@@ -1369,6 +1369,32 @@
 
 //////////////////////////////////////////////////
 //
+//	2D パーティクルシステム | 2D Particle System
+//
+//////////////////////////////////////////////////
+
+// 2D パーティクルシステム | 2D Particle system (Particle)
+# include <Siv3D/Particle2D.hpp>
+
+# include <Siv3D/Emission2D.hpp>
+
+# include <Siv3D/IEmitter2D.hpp>
+
+# include <Siv3D/CircleEmitter2D.hpp>
+
+# include <Siv3D/ArcEmitter2D.hpp>
+
+# include <Siv3D/RectEmitter2D.hpp>
+
+# include <Siv3D/PolygonEmitter2D.hpp>
+
+# include <Siv3D/ParticleSystem2DParameters.hpp>
+
+// 2D パーティクルシステム | 2D Particle system (System)
+# include <Siv3D/ParticleSystem2D.hpp>
+
+//////////////////////////////////////////////////
+//
 //	シリアル通信 | Serial communication
 //
 //////////////////////////////////////////////////

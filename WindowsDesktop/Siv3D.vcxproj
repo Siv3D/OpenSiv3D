@@ -22,6 +22,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ArcEmitter2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CircleEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Audio.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Font.ipp" />
@@ -33,6 +35,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Emission2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineOptions.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
@@ -370,6 +373,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IImageEncoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageAddressMode.hpp" />
@@ -448,6 +452,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Particle2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2DParameters.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Pentablet.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
@@ -557,6 +564,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PoissonDisk2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PolygonEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PolygonFailureType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PolygonGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp" />
@@ -589,6 +597,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RectEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectF.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RegExp.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
@@ -1075,6 +1084,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\IPentablet.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2BodyDetail.hpp" />
@@ -1743,6 +1753,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFReader\SivAnimatedGIFReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ArcEmitter2D\SivArcEmitter2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\AssetMonitorFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AssetMonitor\CAssetMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
@@ -1788,6 +1799,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\CascadeClassifier\CascadeClassifierDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CascadeClassifier\SivCascadeClassifier.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ChildProcess\SivChildProcess.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CircleEmitter2D\SivCircleEmitter2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp" />
@@ -1946,6 +1958,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Particle2D\SivParticle2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\SivParticleSystem2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\SivPentablet.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Body.cpp" />
@@ -1975,6 +1990,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShaderAsset\SivPixelShaderAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PolygonEmitter2D\SivPolygonEmitter2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp" />
@@ -1997,6 +2013,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Ray\SivRay.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RDTSCClock\SivRDTSCClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RectanglePacking\SivRectanglePacking.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RectEmitter2D\SivRectEmitter2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RectF\SivRectF.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rect\SivRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RegExp\RegExpDetail.cpp" />
