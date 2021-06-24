@@ -140,7 +140,7 @@ namespace s3d
 				{
 					if (ch == U'\t')
 					{
-						xAdvance = Min((prop.spaceWidth * scale * 4), (areaBottomRight.x - penPos.x));
+						xAdvance = GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x);
 					}
 					else
 					{

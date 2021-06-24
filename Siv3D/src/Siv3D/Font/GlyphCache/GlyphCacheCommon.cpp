@@ -13,6 +13,13 @@
 
 namespace s3d
 {
+	double GetTabAdvance(const double spaceWidth, const double scale, const double baseX, const double currentX)
+	{
+		const double maxTabWidth = (spaceWidth * scale * 4);
+		const double newX = baseX + static_cast<int32>(((currentX + maxTabWidth) - baseX) / maxTabWidth) * maxTabWidth;
+		return (newX - currentX);
+	}
+
 	bool ProcessControlCharacter(const char32 ch, Vec2& penPos, int32& line, const Vec2& basePos, const double scale, const double lineHeightScale, const FontFaceProperty& prop)
 	{
 		if (not IsControl(ch))
@@ -23,8 +30,10 @@ namespace s3d
 		switch (ch)
 		{
 		case U'\t':
-			penPos.x += (prop.spaceWidth * scale * 4);
-			break;
+			{
+				penPos.x += GetTabAdvance(prop.spaceWidth, scale, basePos.x, penPos.x);
+				break;
+			}
 		case U'\n':
 			penPos.x = basePos.x;
 			penPos.y += (prop.height() * scale * lineHeightScale);
