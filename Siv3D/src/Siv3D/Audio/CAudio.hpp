@@ -168,15 +168,15 @@ namespace s3d
 		bool supportsPitchShift() const noexcept override;
 
 
-		void speakKlat(StringView text, const KlatTTSParameters& param) override;
+		void speakKlatt(StringView text, const KlattTTSParameters& param) override;
 
-		bool isSpeakingKlat() override;
+		bool isSpeakingKlatt() override;
 
-		void pauseKlat() override;
+		void pauseKlatt() override;
 
-		void resumeKlat() override;
+		void resumeKlatt() override;
 
-		void stopKlat() override;
+		void stopKlatt() override;
 
 	private:
 

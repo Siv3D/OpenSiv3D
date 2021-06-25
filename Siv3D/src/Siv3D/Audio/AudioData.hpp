@@ -14,7 +14,7 @@
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
-# include <Siv3D/KlatTTSParameters.hpp>
+# include <Siv3D/KlattTTSParameters.hpp>
 # include "AudioResourceHolder.hpp"
 # include <ThirdParty/soloud/include/soloud.h>
 
@@ -38,7 +38,7 @@ namespace s3d
 
 		AudioData(SoLoud::Soloud* pSoloud, FilePathView path, uint64 loopBegin);
 
-		AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, StringView text, const KlatTTSParameters& param);
+		AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, StringView text, const KlattTTSParameters& param);
 
 		~AudioData();
 

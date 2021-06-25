@@ -15,7 +15,7 @@
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/AudioDecoder.hpp>
-# include <Siv3D/KlatTTSParameters.hpp>
+# include <Siv3D/KlattTTSParameters.hpp>
 # include <Siv3D/DLL.hpp>
 # include "CAudio.hpp"
 
@@ -681,7 +681,7 @@ namespace s3d
 	}
 
 
-	void CAudio::speakKlat(const StringView text, const KlatTTSParameters& param)
+	void CAudio::speakKlatt(const StringView text, const KlattTTSParameters& param)
 	{
 		m_speech = std::make_unique<AudioData>(AudioData::TextToSpeech{}, m_soloud.get(), text, param);
 		
@@ -690,7 +690,7 @@ namespace s3d
 		m_speech->setSpeed(param.speed);
 	}
 	
-	bool CAudio::isSpeakingKlat()
+	bool CAudio::isSpeakingKlatt()
 	{
 		if (not m_speech)
 		{
@@ -700,7 +700,7 @@ namespace s3d
 		return m_speech->isPlaying();
 	}
 	
-	void CAudio::pauseKlat()
+	void CAudio::pauseKlatt()
 	{
 		if (not m_speech)
 		{
@@ -710,7 +710,7 @@ namespace s3d
 		m_speech->pause();
 	}
 	
-	void CAudio::resumeKlat()
+	void CAudio::resumeKlatt()
 	{
 		if (not m_speech)
 		{
@@ -720,7 +720,7 @@ namespace s3d
 		m_speech->play(0);
 	}
 	
-	void CAudio::stopKlat()
+	void CAudio::stopKlatt()
 	{
 		if (not m_speech)
 		{

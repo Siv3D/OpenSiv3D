@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	enum class KlatWaveform : uint8
+	enum class KlattWaveform : uint8
 	{
 		Saw,
 		
@@ -31,7 +31,7 @@ namespace s3d
 		Warble,
 	};
 
-	struct KlatTTSParameters
+	struct KlattTTSParameters
 	{
 		int32 baseFrequency = 1330;
 
@@ -41,6 +41,6 @@ namespace s3d
 
 		double speed = 1.0;
 
-		KlatWaveform waveform = KlatWaveform::Square;
+		KlattWaveform waveform = KlattWaveform::Square;
 	};
 }

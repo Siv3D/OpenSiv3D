@@ -12,13 +12,13 @@
 # pragma once
 # include "Common.hpp"
 # include "StringView.hpp"
-# include "KlatTTSParameters.hpp"
+# include "KlattTTSParameters.hpp"
 
 namespace s3d
 {
-	namespace KlatTTS
+	namespace KlattTTS
 	{
-		void Speak(StringView text, const KlatTTSParameters& params = {});
+		void Speak(StringView text, const KlattTTSParameters& params = {});
 
 		[[nodiscard]]
 		bool IsSpeaking();

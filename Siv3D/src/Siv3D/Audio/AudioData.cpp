@@ -176,7 +176,7 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	AudioData::AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, const StringView text, const KlatTTSParameters& param)
+	AudioData::AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, const StringView text, const KlattTTSParameters& param)
 		: m_pSoloud{ pSoloud }
 	{
 		std::unique_ptr<SoLoud::Speech> source = std::make_unique<SoLoud::Speech>();
