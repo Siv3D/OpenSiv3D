@@ -79,7 +79,10 @@ namespace s3d
 		{
 			const size_t mipCount = (CalculateMipCount(src.width(), src.height()) - 1);
 
-			assert(1u <= mipCount);
+			if (mipCount < 1)
+			{
+				return{};
+			}
 
 			Array<Image> mipImages(mipCount);
 

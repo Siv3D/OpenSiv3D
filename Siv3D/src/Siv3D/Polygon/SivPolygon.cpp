@@ -101,7 +101,7 @@ namespace s3d
 	Polygon::Polygon(Polygon&& polygon) noexcept
 		: pImpl{ std::move(polygon.pImpl) }
 	{
-
+		polygon.pImpl = std::make_unique<PolygonDetail>();
 	}
 
 	Polygon::Polygon(const Vec2* outer, const size_t size, Array<Array<Vec2>> holes, const SkipValidation skipValidation)

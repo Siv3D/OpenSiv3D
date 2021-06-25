@@ -134,6 +134,10 @@ namespace s3d
 
 		void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 
+		void addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
+			ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
+			ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc) override;
+
 
 		Float4 getColorMul() const override;
 

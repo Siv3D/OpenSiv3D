@@ -576,6 +576,13 @@ namespace s3d
 
 	}
 
+	void CRenderer2D_Metal::addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
+		ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
+		ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc)
+	{
+
+	}
+
 
 	Float4 CRenderer2D_Metal::getColorMul() const
 	{

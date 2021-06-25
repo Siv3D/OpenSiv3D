@@ -29,6 +29,8 @@
 # include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Particle2D.hpp>
+# include <Siv3D/ParticleSystem2DParameters.hpp>
 
 namespace s3d
 {
@@ -110,6 +112,10 @@ namespace s3d
 		virtual void addTexturedRoundRect(const Texture& texture, const FloatRect& rect, float w, float h, float r, const FloatRect& uvRect, const Float4& color) = 0;
 
 		virtual void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) = 0;
+
+		virtual void addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
+			ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
+			ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc) = 0;
 
 
 		virtual Float4 getColorMul() const = 0;

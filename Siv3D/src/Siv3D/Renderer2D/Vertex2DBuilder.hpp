@@ -20,6 +20,8 @@
 # include <Siv3D/LineStyle.hpp>
 # include <Siv3D/YesNo.hpp>
 # include <Siv3D/PredefinedYesNo.hpp>
+# include <Siv3D/Particle2D.hpp>
+# include <Siv3D/ParticleSystem2DParameters.hpp>
 # include "Vertex2DBufferPointer.hpp"
 
 namespace s3d
@@ -135,5 +137,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Vertex2D::IndexType BuildTexturedVertices(const BufferCreatorFunc& bufferCreator, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles);
+
+		[[nodiscard]]
+		Vertex2D::IndexType BuildTexturedParticles(const BufferCreatorFunc& bufferCreator, const Array<Particle2D>& particles,
+			const ParticleSystem2DParameters::SizeOverLifeTimeFunc& sizeOverLifeTimeFunc, const ParticleSystem2DParameters::ColorOverLifeTimeFunc& colorOverLifeTimeFunc);
 	}
 }

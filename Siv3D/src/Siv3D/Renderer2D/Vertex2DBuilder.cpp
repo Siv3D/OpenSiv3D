@@ -2402,5 +2402,55 @@ namespace s3d
 
 			return indexSize;
 		}
+
+		Vertex2D::IndexType BuildTexturedParticles(const BufferCreatorFunc& bufferCreator, const Array<Particle2D>& particles,
+			const ParticleSystem2DParameters::SizeOverLifeTimeFunc& sizeOverLifeTimeFunc, const ParticleSystem2DParameters::ColorOverLifeTimeFunc& colorOverLifeTimeFunc)
+		{
+			const Vertex2D::IndexType vertexSize = static_cast<Vertex2D::IndexType>(particles.size() * 4);
+			const Vertex2D::IndexType indexSize = static_cast<Vertex2D::IndexType>(particles.size() * 6);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			for (const auto& particle : particles)
+			{
+				const float size = sizeOverLifeTimeFunc(particle.startSize, particle.startLifeTime, particle.remainingLifeTime);
+				const Float4 color = colorOverLifeTimeFunc(particle.startColor, particle.startLifeTime, particle.remainingLifeTime);
+
+				const float size_half = (size * 0.5f);
+				const float cx = particle.position.x;
+				const float cy = particle.position.y;
+
+				const float x = size_half;
+				const auto [s, c] = FastMath::SinCos(particle.rotation);
+				const float xc = x * c;
+				const float xs = x * s;
+
+				pVertex[0].set({ -xc + xs + cx, -xs - xc + cy }, 0.0f, 0.0f, color);
+				pVertex[1].set({ xc + xs + cx, xs - xc + cy }, 1.0f, 0.0f, color);
+				pVertex[2].set({ -xc - xs + cx, -xs + xc + cy }, 0.0f, 1.0f, color);
+				pVertex[3].set({ xc - xs + cx, xs + xc + cy }, 1.0f, 1.0f, color);
+				pVertex += 4;
+			}
+
+			{
+				Vertex2D::IndexType indexBase = indexOffset;
+
+				for (Vertex2D::IndexType n = 0; n < particles.size(); ++n)
+				{
+					for (Vertex2D::IndexType i = 0; i < 6; ++i)
+					{
+						*pIndex++ = (indexBase + detail::RectIndexTable[i]);
+					}
+
+					indexBase += 4;
+				}
+			}
+
+			return indexSize;
+		}
 	}
 }

@@ -10,3 +10,15 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "PointVector.hpp"
+
+namespace s3d
+{
+	struct Emission2D
+	{
+		Vec2 position;
+		
+		Vec2 velocity;
+	};
+}

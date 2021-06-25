@@ -182,6 +182,13 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addTexturedParticles(const Texture&, const Array<Particle2D>&,
+		ParticleSystem2DParameters::SizeOverLifeTimeFunc,
+		ParticleSystem2DParameters::ColorOverLifeTimeFunc)
+	{
+		// do nothing
+	}
+
 
 	Float4 CRenderer2D_Null::getColorMul() const
 	{

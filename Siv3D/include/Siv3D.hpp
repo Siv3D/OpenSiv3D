@@ -1373,10 +1373,10 @@
 //
 //////////////////////////////////////////////////
 
+# include <Siv3D/Emission2D.hpp>
+
 // 2D パーティクルシステム | 2D Particle system (Particle)
 # include <Siv3D/Particle2D.hpp>
-
-# include <Siv3D/Emission2D.hpp>
 
 # include <Siv3D/IEmitter2D.hpp>
 

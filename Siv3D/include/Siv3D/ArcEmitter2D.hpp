@@ -10,3 +10,27 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "IEmitter2D.hpp"
+
+namespace s3d
+{
+	struct ArcEmitter2D : IEmitter2D
+	{
+		double sourceRadius = 5.0;
+		
+		double r = 20.0;
+		
+		double direction = 0;
+		
+		double angle = 45;
+		
+		bool randomDirection = false;
+		
+		bool fromShell = false;
+
+		Emission2D emit(const Vec2& emitterPosition, double startSpeed) override;
+
+		void drawDebug(const Vec2& emitterPosition) const override;
+	};
+}
