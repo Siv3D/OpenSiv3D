@@ -984,6 +984,7 @@
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
 		2C62196526750F3A0088B175 /* SivUUID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C62196426750F3A0088B175 /* SivUUID.cpp */; };
 		2C62197226750F6A0088B175 /* uuid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C62197126750F6A0088B175 /* uuid.h */; };
+		2C631E8A2685D03F00166A8E /* SivKlattTTS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E892685D03F00166A8E /* SivKlattTTS.cpp */; };
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
 		2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */; };
 		2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */; };
@@ -3071,6 +3072,9 @@
 		2C62196F26750F550088B175 /* string_span */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_span; sourceTree = "<group>"; };
 		2C62197126750F6A0088B175 /* uuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid.h; sourceTree = "<group>"; };
 		2C631E80268598CB00166A8E /* ParticleSystem2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem2D.ipp; sourceTree = "<group>"; };
+		2C631E862685D02300166A8E /* KlattTTS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KlattTTS.hpp; sourceTree = "<group>"; };
+		2C631E872685D02300166A8E /* KlattTTSParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KlattTTSParameters.hpp; sourceTree = "<group>"; };
+		2C631E892685D03F00166A8E /* SivKlattTTS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivKlattTTS.cpp; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
 		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
 		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
@@ -5907,6 +5911,7 @@
 				2C427FE626286C8100106F19 /* JoyCon */,
 				2C48BF3625CFB92900A93CE3 /* JSON */,
 				2CFE19A32555B23C005826A1 /* Keyboard */,
+				2C631E882685D03F00166A8E /* KlattTTS */,
 				2C47B23824DD9789008D83BE /* LicenseManager */,
 				2C53C33025613B540072831A /* Line */,
 				2C0A4D4D25669320002A4B5E /* LineString */,
@@ -7892,6 +7897,14 @@
 			path = stduuid;
 			sourceTree = "<group>";
 		};
+		2C631E882685D03F00166A8E /* KlattTTS */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E892685D03F00166A8E /* SivKlattTTS.cpp */,
+			);
+			path = KlattTTS;
+			sourceTree = "<group>";
+		};
 		2C636D8126577BFE00AF029F /* Microphone */ = {
 			isa = PBXGroup;
 			children = (
@@ -9187,6 +9200,8 @@
 				2CAAA89D25E7FD0300C014D7 /* KahanSummation.hpp */,
 				2CAAA71B25E7FD0200C014D7 /* KDTree.hpp */,
 				2CAAA70125E7FD0200C014D7 /* Keyboard.hpp */,
+				2C631E862685D02300166A8E /* KlattTTS.hpp */,
+				2C631E872685D02300166A8E /* KlattTTSParameters.hpp */,
 				2C4AEF65262C4E1000D36CFC /* LanguageCode.hpp */,
 				2CAAA70D25E7FD0200C014D7 /* LetterCase.hpp */,
 				2CAAA84D25E7FD0300C014D7 /* LicenseInfo.hpp */,
@@ -11402,6 +11417,7 @@
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
 				2C2AA38F26009C74003F3EBC /* b2_block_allocator.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
+				2C631E8A2685D03F00166A8E /* SivKlattTTS.cpp in Sources */,
 				2C834DB8248805D4006208B8 /* cp1251.c in Sources */,
 				2C2AA2B825FF8933003F3EBC /* SivSerial.cpp in Sources */,
 				2C5D0C1D2677C93C00A713D9 /* SivFontAssetData.cpp in Sources */,
