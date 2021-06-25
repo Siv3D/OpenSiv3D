@@ -1417,6 +1417,9 @@
     <Filter Include="src\Siv3D\ParticleSystem2D">
       <UniqueIdentifier>{d9065819-4ccf-492a-93ef-b7f86940bfda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\KlatTTS">
+      <UniqueIdentifier>{3f3736a2-15e3-4652-a81a-b57367321291}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6318,6 +6321,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KlatTTS.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KlatTTSParameters.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8686,6 +8695,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.cpp">
       <Filter>src\Siv3D\ParticleSystem2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\KlatTTS\SivKlatTTS.cpp">
+      <Filter>src\Siv3D\KlatTTS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ namespace s3d
 	class AudioBus;
 	struct FFTResult;
 	struct SoundTouchFunctions;
+	struct KlatTTSParameters;
 
 	class SIV3D_NOVTABLE ISiv3DAudio
 	{
@@ -171,5 +172,17 @@ namespace s3d
 		virtual const SoundTouchFunctions* getSoundTouchFunctions() const noexcept = 0;
 
 		virtual bool supportsPitchShift() const noexcept = 0;
+
+
+
+		virtual void speakKlat(StringView text, const KlatTTSParameters& param) = 0;
+
+		virtual bool isSpeakingKlat() = 0;
+
+		virtual void pauseKlat() = 0;
+
+		virtual void resumeKlat() = 0;
+
+		virtual void stopKlat() = 0;
 	};
 }

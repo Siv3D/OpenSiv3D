@@ -167,6 +167,17 @@ namespace s3d
 
 		bool supportsPitchShift() const noexcept override;
 
+
+		void speakKlat(StringView text, const KlatTTSParameters& param) override;
+
+		bool isSpeakingKlat() override;
+
+		void pauseKlat() override;
+
+		void resumeKlat() override;
+
+		void stopKlat() override;
+
 	private:
 
 		std::unique_ptr<SoLoud::Soloud> m_soloud;
@@ -180,5 +191,7 @@ namespace s3d
 		bool m_soundTouchAvailable = false;
 
 		SoundTouchFunctions m_soundTouchFunctions;
+
+		std::unique_ptr<AudioData> m_speech;
 	};
 }

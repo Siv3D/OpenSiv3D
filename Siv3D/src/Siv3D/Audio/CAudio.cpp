@@ -15,6 +15,7 @@
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFTSampleLength.hpp>
 # include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/KlatTTSParameters.hpp>
 # include <Siv3D/DLL.hpp>
 # include "CAudio.hpp"
 
@@ -40,6 +41,8 @@ namespace s3d
 	CAudio::~CAudio()
 	{
 		LOG_SCOPED_TRACE(U"CAudio::~CAudio()");
+
+		m_speech.reset();
 
 		m_audios.destroy();
 
@@ -675,5 +678,55 @@ namespace s3d
 	bool CAudio::supportsPitchShift() const noexcept
 	{
 		return m_soundTouchAvailable;
+	}
+
+
+	void CAudio::speakKlat(const StringView text, const KlatTTSParameters& param)
+	{
+		m_speech = std::make_unique<AudioData>(AudioData::TextToSpeech{}, m_soloud.get(), text, param);
+		
+		m_speech->play(0);
+		
+		m_speech->setSpeed(param.speed);
+	}
+	
+	bool CAudio::isSpeakingKlat()
+	{
+		if (not m_speech)
+		{
+			return false;
+		}
+
+		return m_speech->isPlaying();
+	}
+	
+	void CAudio::pauseKlat()
+	{
+		if (not m_speech)
+		{
+			return;
+		}
+
+		m_speech->pause();
+	}
+	
+	void CAudio::resumeKlat()
+	{
+		if (not m_speech)
+		{
+			return;
+		}
+
+		m_speech->play(0);
+	}
+	
+	void CAudio::stopKlat()
+	{
+		if (not m_speech)
+		{
+			return;
+		}
+
+		m_speech->stop();
 	}
 }

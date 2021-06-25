@@ -3541,15 +3541,15 @@ namespace s3d
 			// 交点になるか
 			const auto IsIntersection = [a2, b2, x2, y2](const Vec2& v)
 			{
-				const double t = Square(v.x - x2) / Square(a2) + Square(v.y - y2) / Square(b2);
+				const double t = Math::Square(v.x - x2) / Math::Square(a2) + Math::Square(v.y - y2) / Math::Square(b2);
 				return (std::abs(t - 1) < 1e-8);
 			};
 
 			const double
-				u1 = Square(a1 / a2) - Square(b1 / b2),
-				u2 = 2.0 * a1 / Square(a2) * (x1 - x2),
-				u3 = Square(x1 - x2) / Square(a2) + Square(y1 - y2) / Square(b2) + Square(b1 / b2) - 1,
-				u4 = -2.0 * b1 / Square(b2) * (y1 - y2);
+				u1 = Math::Square(a1 / a2) - Math::Square(b1 / b2),
+				u2 = 2.0 * a1 / Math::Square(a2) * (x1 - x2),
+				u3 = Math::Square(x1 - x2) / Math::Square(a2) + Math::Square(y1 - y2) / Math::Square(b2) + Math::Square(b1 / b2) - 1,
+				u4 = -2.0 * b1 / Math::Square(b2) * (y1 - y2);
 
 			// t1 x^4 + t2 x^3 + t3 x^2 + t4 x + t5 = 0
 			// を満たす x (|x| ≤ 1) が存在すれば
@@ -3570,7 +3570,7 @@ namespace s3d
 						continue;
 					}
 
-					const double y = std::sqrt(1 - Square(x));
+					const double y = std::sqrt(1 - Math::Square(x));
 
 					Vec2 v1{ x, y }, v2{ x, -y };
 
@@ -5061,14 +5061,14 @@ namespace s3d
 				t3 = -x1 + x2,
 				t4 = -y1 + y2,
 
-				a1 = Square(t1) + Square(t2),
+				a1 = Math::Square(t1) + Math::Square(t2),
 				b1 = 2 * (t1 * t3 + t2 * t4),
-				c1 = Square(t3) + Square(t4),
+				c1 = Math::Square(t3) + Math::Square(t4),
 
 				a1_sqrt = std::sqrt(a1),
 
 				u1 = 0.5 * b1 / a1,
-				u2 = -Square(u1) + c1 / a1;
+				u2 = -Math::Square(u1) + c1 / a1;
 
 			auto F = [a1_sqrt, u2](double x)
 			{

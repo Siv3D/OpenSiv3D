@@ -18,6 +18,7 @@
 # include "AudioBus.hpp"
 # include <ThirdParty/soloud/include/soloud_wav.h>
 # include <ThirdParty/soloud/include/soloud_wavstream.h>
+# include <ThirdParty/soloud/include/soloud_speech.h>
 
 namespace s3d
 {
@@ -173,6 +174,30 @@ namespace s3d
 		m_audioSource->setLoopPoint(static_cast<float>(static_cast<double>(loopBegin) / m_sampleRate));
 
 		m_initialized	= true;
+	}
+
+	AudioData::AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, const StringView text, const KlatTTSParameters& param)
+		: m_pSoloud{ pSoloud }
+	{
+		std::unique_ptr<SoLoud::Speech> source = std::make_unique<SoLoud::Speech>();
+
+		String input{ text };
+		input.remove_if([](char32 c) { return (not IsASCII(c)); });
+
+		if (SoLoud::SO_NO_ERROR != source->setText(input.toUTF8().c_str()))
+		{
+			return;
+		}
+
+		source->setParams(param.baseFrequency,
+			static_cast<float>(param.baseSpeed),
+			static_cast<float>(param.declination),
+			KLATT_WAVEFORM(param.waveform));
+
+		m_sampleRate = static_cast<uint32>(source->mBaseSamplerate);
+		m_lengthSample = m_sampleRate;
+		m_audioSource = std::move(source);
+		m_initialized = true;
 	}
 
 	AudioData::~AudioData() {}

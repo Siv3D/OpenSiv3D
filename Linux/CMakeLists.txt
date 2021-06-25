@@ -289,6 +289,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/JSON/SivJSON.cpp
   ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
   ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
+  ../Siv3D/src/Siv3D/KlatTTS/SivKlatTTS.cpp
   ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
   ../Siv3D/src/Siv3D/LicenseManager/LicenseManagerFactory.cpp
   ../Siv3D/src/Siv3D/LicenseManager/SivLicenseManager.cpp

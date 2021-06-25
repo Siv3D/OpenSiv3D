@@ -1447,6 +1447,8 @@
 // 文章読み上げオブジェクト | Text to speech object
 # include <Siv3D/Say.hpp>
 
+# include <Siv3D/KlatTTS.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ドラッグ & ドロップ | Drag & drop
