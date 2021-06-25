@@ -1420,6 +1420,9 @@
     <Filter Include="src\Siv3D\KlattTTS">
       <UniqueIdentifier>{3f3736a2-15e3-4652-a81a-b57367321291}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Line3D">
+      <UniqueIdentifier>{afa30fcb-c60c-4f6d-a975-c1bfd4f5d2f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8701,6 +8704,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\KlattTTS\SivKlattTTS.cpp">
       <Filter>src\Siv3D\KlattTTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line3D\SivLine3D.cpp">
+      <Filter>src\Siv3D\Line3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
