@@ -9,20 +9,14 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include <Siv3D/Common.hpp>
+# include <Siv3D/Graphics3D.hpp>
+# include <Siv3D/Renderer3D/IRenderer3D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	class SIV3D_NOVTABLE ISiv3DRenderer3D
+	namespace Graphics3D
 	{
-	public:
 
-		static ISiv3DRenderer3D* Create();
-
-		virtual ~ISiv3DRenderer3D() = default;
-
-		virtual void init() = 0;
-
-	};
+	}
 }

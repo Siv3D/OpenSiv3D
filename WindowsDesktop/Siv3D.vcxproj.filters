@@ -1423,6 +1423,9 @@
     <Filter Include="src\Siv3D\Line3D">
       <UniqueIdentifier>{afa30fcb-c60c-4f6d-a975-c1bfd4f5d2f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Graphics3D">
+      <UniqueIdentifier>{c06b741a-38ba-4b32-82b9-a0171b706fd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6333,6 +6336,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\KlattTTS.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Renderer3DCommand.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Vertex3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Graphics3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8707,6 +8719,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Line3D\SivLine3D.cpp">
       <Filter>src\Siv3D\Line3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Renderer3DCommand.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics3D\SivGraphics3D.cpp">
+      <Filter>src\Siv3D\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

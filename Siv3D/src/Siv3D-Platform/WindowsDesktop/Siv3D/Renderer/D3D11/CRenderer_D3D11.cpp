@@ -17,6 +17,7 @@
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/Renderer2D/D3D11/CRenderer2D_D3D11.hpp>
+# include <Siv3D/Renderer3D/D3D11/CRenderer3D_D3D11.hpp>
 # include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -42,6 +43,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer_D3D11::init()");
 
 		pRenderer2D = dynamic_cast<CRenderer2D_D3D11*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = dynamic_cast<CRenderer3D_D3D11*>(SIV3D_ENGINE(Renderer3D));
 		
 		m_device = std::make_unique<D3D11Device>();
 	}
@@ -91,6 +93,8 @@ namespace s3d
 
 	void CRenderer_D3D11::flush()
 	{
+		pRenderer3D->flush();
+
 		pRenderer2D->flush();
 
 		m_backBuffer->updateFromSceneBuffer();

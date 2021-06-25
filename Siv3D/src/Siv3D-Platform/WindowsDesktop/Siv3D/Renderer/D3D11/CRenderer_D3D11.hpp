@@ -25,6 +25,7 @@
 namespace s3d
 {
 	class CRenderer2D_D3D11;
+	class CRenderer3D_D3D11;
 	class CTexture_D3D11;
 
 	class CRenderer_D3D11 final : public ISiv3DRenderer
@@ -32,6 +33,7 @@ namespace s3d
 	private:
 
 		CRenderer2D_D3D11* pRenderer2D = nullptr;
+		CRenderer3D_D3D11* pRenderer3D = nullptr;
 		CTexture_D3D11* pTexture = nullptr;
 
 		std::unique_ptr<D3D11Device> m_device;

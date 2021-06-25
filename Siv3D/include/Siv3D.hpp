@@ -1570,6 +1570,10 @@
 # include <Siv3D/FFT.hpp>
 # include <Siv3D/UUID.hpp>
 
+
+# include <Siv3D/Vertex3D.hpp>
+# include <Siv3D/Graphics3D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	実験的なライブラリ | Exmperimental library
