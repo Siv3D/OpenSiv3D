@@ -58,6 +58,8 @@ namespace s3d
 		TextureDesc getDesc(Texture::IDType handleID) override;
 
 		TextureFormat getFormat(Texture::IDType handleID) override;
+
+		bool hasDepth(Texture::IDType handleID) override;
 				
 		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
 

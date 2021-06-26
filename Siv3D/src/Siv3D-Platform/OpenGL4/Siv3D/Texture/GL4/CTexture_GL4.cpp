@@ -318,6 +318,12 @@ namespace s3d
 		return m_textures[handleID]->getFormat();
 	}
 
+	bool CTexture_GL4::hasDepth(const Texture::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
 	bool CTexture_GL4::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
 	{
 		return m_textures[handleID]->fill(color, wait);

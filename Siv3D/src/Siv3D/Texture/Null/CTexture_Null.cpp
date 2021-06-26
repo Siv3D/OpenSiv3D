@@ -105,6 +105,11 @@ namespace s3d
 		return TextureFormat::Unknown;
 	}
 
+	bool CTexture_Null::hasDepth(Texture::IDType)
+	{
+		return false;
+	}
+
 	bool CTexture_Null::fill(Texture::IDType, const ColorF&, bool)
 	{
 		return false;

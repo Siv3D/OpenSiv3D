@@ -22,6 +22,11 @@ namespace s3d
 			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
 		}
 
+		void Flush()
+		{
+			SIV3D_ENGINE(Renderer3D)->flush();
+		}
+
 		namespace Internal
 		{
 			void SetRenderTarget(const Optional<RenderTexture>& rt)

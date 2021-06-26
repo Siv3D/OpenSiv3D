@@ -82,6 +82,9 @@ namespace s3d
 		bool isSDF() const;
 
 		[[nodiscard]]
+		bool hasDepth() const;
+
+		[[nodiscard]]
 		Rect region(int32 x, int32 y) const;
 
 		[[nodiscard]]

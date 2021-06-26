@@ -123,6 +123,11 @@ namespace s3d
 		return detail::IsSDF(SIV3D_ENGINE(Texture)->getDesc(m_handle->id()));
 	}
 
+	bool Texture::hasDepth() const
+	{
+		return SIV3D_ENGINE(Texture)->hasDepth(m_handle->id());
+	}
+
 	Rect Texture::region(const int32 x, const int32 y) const
 	{
 		return{ x, y, size() };

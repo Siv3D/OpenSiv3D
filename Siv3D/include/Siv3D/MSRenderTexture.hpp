@@ -26,7 +26,13 @@ namespace s3d
 		MSRenderTexture(uint32 width, uint32 height, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
+		MSRenderTexture(uint32 width, uint32 height, HasDepth hasDepth);
+
+		SIV3D_NODISCARD_CXX20
 		explicit MSRenderTexture(const Size& size, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
+
+		SIV3D_NODISCARD_CXX20
+		explicit MSRenderTexture(const Size& size, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
 		MSRenderTexture(uint32 width, uint32 height, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);

@@ -20,6 +20,9 @@ namespace s3d
 	{
 		void SetCameraTransform(const Mat4x4& matrix);
 
+		/// @brief 現在までの 3D 描画を実行します。
+		void Flush();
+
 		namespace Internal
 		{
 			void SetRenderTarget(const Optional<RenderTexture>& rt);

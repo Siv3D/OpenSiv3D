@@ -55,6 +55,8 @@ namespace s3d
 
 		virtual TextureFormat getFormat(Texture::IDType handleID) = 0;
 
+		virtual bool hasDepth(Texture::IDType handleID) = 0;
+
 		virtual bool fill(Texture::IDType handleID, const ColorF& color, bool wait) = 0;
 
 		virtual bool fillRegion(Texture::IDType handleID, const ColorF& color, const Rect& rect) = 0;

@@ -111,6 +111,11 @@ namespace s3d
 		return(TextureFormat::Unknown);
 	}
 
+	bool CTexture_Metal::hasDepth(Texture::IDType handleID)
+	{
+		return false;
+	}
+
 	bool CTexture_Metal::fill(Texture::IDType, const ColorF&, bool)
 	{
 		return false;

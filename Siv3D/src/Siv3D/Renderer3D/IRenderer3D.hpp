@@ -36,5 +36,8 @@ namespace s3d
 		virtual void setRenderTarget(const Optional<RenderTexture>& rt) {}
 
 		virtual Optional<RenderTexture> getRenderTarget() const { return none; }
+
+
+		virtual void flush() {}
 	};
 }

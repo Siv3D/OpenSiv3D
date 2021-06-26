@@ -93,7 +93,7 @@ namespace s3d
 
 		Optional<RenderTexture> getRenderTarget() const override;
 
-		void flush();
+		void flush() override;
 
 
 	private:

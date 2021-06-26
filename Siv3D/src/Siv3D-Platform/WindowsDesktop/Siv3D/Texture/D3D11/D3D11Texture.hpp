@@ -61,6 +61,9 @@ namespace s3d
 		const D3D11Texture2DDesc& getDesc() const noexcept;
 
 		[[nodiscard]]
+		bool hasDepth() const noexcept;
+
+		[[nodiscard]]
 		ID3D11ShaderResourceView** getSRVPtr();
 
 		[[nodiscard]]

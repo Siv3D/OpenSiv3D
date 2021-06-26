@@ -515,6 +515,11 @@ namespace s3d
 		return m_desc;
 	}
 
+	bool D3D11Texture::hasDepth() const noexcept
+	{
+		return m_hasDepth;
+	}
+
 	ID3D11ShaderResourceView** D3D11Texture::getSRVPtr()
 	{
 		return m_shaderResourceView.GetAddressOf();

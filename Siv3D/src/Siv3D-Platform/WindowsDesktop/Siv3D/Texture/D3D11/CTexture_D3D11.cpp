@@ -319,6 +319,11 @@ namespace s3d
 		return m_textures[handleID]->getDesc().format;
 	}
 
+	bool CTexture_D3D11::hasDepth(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->hasDepth();
+	}
+
 	bool CTexture_D3D11::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
 	{
 		return m_textures[handleID]->fill(m_context, color, wait);
