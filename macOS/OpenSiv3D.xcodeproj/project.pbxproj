@@ -3095,6 +3095,7 @@
 		2C631E9D268704D200166A8E /* SivMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMesh.cpp; sourceTree = "<group>"; };
 		2C631E9F268704D200166A8E /* CMesh_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMesh_Null.cpp; sourceTree = "<group>"; };
 		2C631EA0268704D200166A8E /* CMesh_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMesh_Null.hpp; sourceTree = "<group>"; };
+		2C631EA5268781B400166A8E /* DepthStencilState.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencilState.ipp; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
 		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
 		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
@@ -4211,6 +4212,7 @@
 				2C063DE82661426000368BEE /* DateTime.ipp */,
 				2C063DAA2661426000368BEE /* DeadZone.ipp */,
 				2C063D432661426000368BEE /* Demangle.ipp */,
+				2C631EA5268781B400166A8E /* DepthStencilState.ipp */,
 				2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */,
 				2C063D492661426000368BEE /* Distribution.ipp */,
 				2C063D5A2661426000368BEE /* Duration.ipp */,
