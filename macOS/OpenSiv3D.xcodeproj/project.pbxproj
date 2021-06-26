@@ -985,6 +985,14 @@
 		2C62196526750F3A0088B175 /* SivUUID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C62196426750F3A0088B175 /* SivUUID.cpp */; };
 		2C62197226750F6A0088B175 /* uuid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C62197126750F6A0088B175 /* uuid.h */; };
 		2C631E8A2685D03F00166A8E /* SivKlattTTS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E892685D03F00166A8E /* SivKlattTTS.cpp */; };
+		2C631E8D2687042500166A8E /* SivLine3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E8C2687042500166A8E /* SivLine3D.cpp */; };
+		2C631E962687048C00166A8E /* CMesh_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C631E942687048C00166A8E /* CMesh_GL4.hpp */; };
+		2C631E972687048C00166A8E /* CMesh_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E952687048C00166A8E /* CMesh_GL4.cpp */; };
+		2C631E9A268704B300166A8E /* MeshFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E99268704B300166A8E /* MeshFactory.cpp */; };
+		2C631EA1268704D200166A8E /* IMesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C631E9C268704D200166A8E /* IMesh.hpp */; };
+		2C631EA2268704D200166A8E /* SivMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E9D268704D200166A8E /* SivMesh.cpp */; };
+		2C631EA3268704D200166A8E /* CMesh_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E9F268704D200166A8E /* CMesh_Null.cpp */; };
+		2C631EA4268704D200166A8E /* CMesh_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C631EA0268704D200166A8E /* CMesh_Null.hpp */; };
 		2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8226577BFE00AF029F /* SivMicrophone.cpp */; };
 		2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */; };
 		2C636D8726577BFE00AF029F /* MicrophoneDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */; };
@@ -3075,6 +3083,18 @@
 		2C631E862685D02300166A8E /* KlattTTS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KlattTTS.hpp; sourceTree = "<group>"; };
 		2C631E872685D02300166A8E /* KlattTTSParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KlattTTSParameters.hpp; sourceTree = "<group>"; };
 		2C631E892685D03F00166A8E /* SivKlattTTS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivKlattTTS.cpp; sourceTree = "<group>"; };
+		2C631E8C2687042500166A8E /* SivLine3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine3D.cpp; sourceTree = "<group>"; };
+		2C631E8E2687043800166A8E /* Graphics3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics3D.hpp; sourceTree = "<group>"; };
+		2C631E8F2687044600166A8E /* Vertex3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vertex3D.hpp; sourceTree = "<group>"; };
+		2C631E902687045700166A8E /* BasicCamera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicCamera3D.hpp; sourceTree = "<group>"; };
+		2C631E912687046500166A8E /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
+		2C631E942687048C00166A8E /* CMesh_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMesh_GL4.hpp; sourceTree = "<group>"; };
+		2C631E952687048C00166A8E /* CMesh_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMesh_GL4.cpp; sourceTree = "<group>"; };
+		2C631E99268704B300166A8E /* MeshFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshFactory.cpp; sourceTree = "<group>"; };
+		2C631E9C268704D200166A8E /* IMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMesh.hpp; sourceTree = "<group>"; };
+		2C631E9D268704D200166A8E /* SivMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMesh.cpp; sourceTree = "<group>"; };
+		2C631E9F268704D200166A8E /* CMesh_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMesh_Null.cpp; sourceTree = "<group>"; };
+		2C631EA0268704D200166A8E /* CMesh_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMesh_Null.hpp; sourceTree = "<group>"; };
 		2C636D8226577BFE00AF029F /* SivMicrophone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMicrophone.cpp; sourceTree = "<group>"; };
 		2C636D8326577BFE00AF029F /* MicrophoneDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail.cpp; sourceTree = "<group>"; };
 		2C636D8426577BFE00AF029F /* MicrophoneDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail.hpp; sourceTree = "<group>"; };
@@ -5914,6 +5934,7 @@
 				2C631E882685D03F00166A8E /* KlattTTS */,
 				2C47B23824DD9789008D83BE /* LicenseManager */,
 				2C53C33025613B540072831A /* Line */,
+				2C631E8B2687042500166A8E /* Line3D */,
 				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
 				2CFF581225F79CC200B660AD /* Mat3x3 */,
@@ -5923,6 +5944,7 @@
 				2C794AB225C3DEE400034D81 /* MD5Value */,
 				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
 				2CC584392646317400C33E9F /* MemoryMappedFileView */,
+				2C631E9B268704D200166A8E /* Mesh */,
 				2C8046102653FE0100CE7C3E /* MessageBox */,
 				2C636D8126577BFE00AF029F /* Microphone */,
 				2C6527812656B3C1003427EB /* MicrophoneInfo */,
@@ -7905,6 +7927,58 @@
 			path = KlattTTS;
 			sourceTree = "<group>";
 		};
+		2C631E8B2687042500166A8E /* Line3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E8C2687042500166A8E /* SivLine3D.cpp */,
+			);
+			path = Line3D;
+			sourceTree = "<group>";
+		};
+		2C631E922687048C00166A8E /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E932687048C00166A8E /* GL4 */,
+			);
+			path = Mesh;
+			sourceTree = "<group>";
+		};
+		2C631E932687048C00166A8E /* GL4 */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E942687048C00166A8E /* CMesh_GL4.hpp */,
+				2C631E952687048C00166A8E /* CMesh_GL4.cpp */,
+			);
+			path = GL4;
+			sourceTree = "<group>";
+		};
+		2C631E98268704B300166A8E /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E99268704B300166A8E /* MeshFactory.cpp */,
+			);
+			path = Mesh;
+			sourceTree = "<group>";
+		};
+		2C631E9B268704D200166A8E /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E9C268704D200166A8E /* IMesh.hpp */,
+				2C631E9D268704D200166A8E /* SivMesh.cpp */,
+				2C631E9E268704D200166A8E /* Null */,
+			);
+			path = Mesh;
+			sourceTree = "<group>";
+		};
+		2C631E9E268704D200166A8E /* Null */ = {
+			isa = PBXGroup;
+			children = (
+				2C631E9F268704D200166A8E /* CMesh_Null.cpp */,
+				2C631EA0268704D200166A8E /* CMesh_Null.hpp */,
+			);
+			path = Null;
+			sourceTree = "<group>";
+		};
 		2C636D8126577BFE00AF029F /* Microphone */ = {
 			isa = PBXGroup;
 			children = (
@@ -9030,6 +9104,7 @@
 				2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */,
 				2CAAA8A725E7FD0300C014D7 /* Base64.hpp */,
 				2CAAA73D25E7FD0200C014D7 /* BasicCamera2D.hpp */,
+				2C631E902687045700166A8E /* BasicCamera3D.hpp */,
 				2CFB7DDE262B0EF900169B97 /* BatteryStatus.hpp */,
 				2CAAA70025E7FD0200C014D7 /* BetterGradientNoise.hpp */,
 				2CAAA76E25E7FD0200C014D7 /* Bezier2.hpp */,
@@ -9149,6 +9224,7 @@
 				2CAAA86F25E7FD0300C014D7 /* GradientNoise.hpp */,
 				2CAAA72C25E7FD0200C014D7 /* Graphics.hpp */,
 				2CAAA71A25E7FD0200C014D7 /* Graphics2D.hpp */,
+				2C631E8E2687043800166A8E /* Graphics3D.hpp */,
 				2CAAA74825E7FD0200C014D7 /* Grid.hpp */,
 				2CAAA74F25E7FD0200C014D7 /* HalfFloat.hpp */,
 				2CAAA71C25E7FD0200C014D7 /* HardwareRNG.hpp */,
@@ -9229,6 +9305,7 @@
 				2C95667A264561D900539B85 /* MemoryReader.hpp */,
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
+				2C631E912687046500166A8E /* Mesh.hpp */,
 				2CE94FA52652484400440C6C /* MessageBox.hpp */,
 				2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */,
 				2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */,
@@ -9420,6 +9497,7 @@
 				2CAAA72225E7FD0200C014D7 /* Vector4D.hpp */,
 				2CAAA78025E7FD0200C014D7 /* Version.hpp */,
 				2CAAA6F525E7FD0200C014D7 /* Vertex2D.hpp */,
+				2C631E8F2687044600166A8E /* Vertex3D.hpp */,
 				2CAAA87B25E7FD0300C014D7 /* VertexShader.hpp */,
 				2C2D5BF5267C617D00EF5696 /* VertexShaderAsset.hpp */,
 				2C2D5BF4267C617D00EF5696 /* VertexShaderAssetData.hpp */,
@@ -10051,6 +10129,7 @@
 				2CFB7DCA262AF32400169B97 /* DragDrop */,
 				2CF21CFF249FAA8F00C864C9 /* FileSystem */,
 				2C43964E2535DCEA00F6AECD /* FreestandingMessageBox */,
+				2C631E98268704B300166A8E /* Mesh */,
 				2C8046132653FEA000CE7C3E /* MessageBox */,
 				2CF2AF8D25543A7F00E81D12 /* Monitor */,
 				2CFB7DDF262B0F0A00169B97 /* PowerStatus */,
@@ -10166,6 +10245,7 @@
 			isa = PBXGroup;
 			children = (
 				2C6390E125367EE40030F18E /* ConstantBuffer */,
+				2C631E922687048C00166A8E /* Mesh */,
 				2C47B6E424EAC8D9008D83BE /* Renderer */,
 				2C47B6EB24EAC8D9008D83BE /* Renderer2D */,
 				2C36F836267F939200691B1C /* Renderer3D */,
@@ -10681,6 +10761,7 @@
 				2C43C88925C837F000D6D613 /* tttypes.h in Headers */,
 				2C47B31324DD9789008D83BE /* RegExpDetail.hpp in Headers */,
 				2C47B6F324EAC8D9008D83BE /* GL4InternalTexture2D.hpp in Headers */,
+				2C631EA4268704D200166A8E /* CMesh_Null.hpp in Headers */,
 				2CDD4F36260A3F7100A51D68 /* P2SliderJointDetail.hpp in Headers */,
 				2C47B30224DD9789008D83BE /* BigFloatDetail.hpp in Headers */,
 				2C47B33024DD9789008D83BE /* CRenderer2D_Null.hpp in Headers */,
@@ -10742,6 +10823,7 @@
 				2C48BEE325CFB8C500A93CE3 /* msdf-edge-artifact-patcher.h in Headers */,
 				2C13C9D425BD29FC0054B968 /* ltable.h in Headers */,
 				2C43C87A25C837F000D6D613 /* ftbbox.h in Headers */,
+				2C631E962687048C00166A8E /* CMesh_GL4.hpp in Headers */,
 				2CFB7DCD262AF32400169B97 /* CDragDrop.hpp in Headers */,
 				2C68508E24B768A800B98A7F /* BinaryReaderDetail.hpp in Headers */,
 				2C427FDD2628438A00106F19 /* GamepadState.hpp in Headers */,
@@ -11060,6 +11142,7 @@
 				2C5337C7264F5AA200CE0F1B /* zstd.h in Headers */,
 				2C43C8BF25C837F100D6D613 /* ftglyph.h in Headers */,
 				2C48BEFD25CFB8C500A93CE3 /* Contour.h in Headers */,
+				2C631EA1268704D200166A8E /* IMesh.hpp in Headers */,
 				2C439F88241DCEA9001154C2 /* bignum.h in Headers */,
 				2C4442A12427AA7C00557D51 /* miniutf.hpp in Headers */,
 				2C0A4D622566A855002A4B5E /* plutovg.h in Headers */,
@@ -11466,6 +11549,7 @@
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
 				2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */,
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
+				2C631E8D2687042500166A8E /* SivLine3D.cpp in Sources */,
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
 				2C794B9C25C5A61900034D81 /* SivEffect.cpp in Sources */,
@@ -11641,6 +11725,7 @@
 				2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
 				2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */,
+				2C631EA2268704D200166A8E /* SivMesh.cpp in Sources */,
 				2C53379E264F5AA200CE0F1B /* zstd_opt.c in Sources */,
 				2C2D5C06267C67C600EF5696 /* SivAudioAssetData.cpp in Sources */,
 				2CDD4F43260A3F7100A51D68 /* P2Line.cpp in Sources */,
@@ -11664,6 +11749,7 @@
 				2C636E752657F7D300AF029F /* soloud_thread.cpp in Sources */,
 				2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */,
 				2C636EBD2657F7D300AF029F /* soloud_monotone.cpp in Sources */,
+				2C631EA3268704D200166A8E /* CMesh_Null.cpp in Sources */,
 				2C834DA6248805D4006208B8 /* iso8859_6.c in Sources */,
 				2CBFAD3626806236009957F7 /* SivTCPServer.cpp in Sources */,
 				2C13C9A425BD29FC0054B968 /* lstate.c in Sources */,
@@ -11876,6 +11962,7 @@
 				2C47B30B24DD9789008D83BE /* SivTextWriter.cpp in Sources */,
 				2C53C34525613BB00072831A /* SivPolygon.cpp in Sources */,
 				2CFF581A25F7C02500B660AD /* VideoReaderDetail.cpp in Sources */,
+				2C631E972687048C00166A8E /* CMesh_GL4.cpp in Sources */,
 				2C53C33E25613B8A0072831A /* SivTriangle.cpp in Sources */,
 				2C9566C12645626000539B85 /* mz_strm_pkcrypt.c in Sources */,
 				2C636EAD2657F7D300AF029F /* soloud_sfxr.cpp in Sources */,
@@ -12050,6 +12137,7 @@
 				2C47B33D24DD9789008D83BE /* SystemFactory.cpp in Sources */,
 				2CC5845E2646DC5800C33E9F /* SivAudioEncoder.cpp in Sources */,
 				2CAAA8BF25E7FDB200C014D7 /* SivEmoji.cpp in Sources */,
+				2C631E9A268704B300166A8E /* MeshFactory.cpp in Sources */,
 				2C8046122653FE0100CE7C3E /* SivMessageBox.cpp in Sources */,
 				2C95666A264546F700539B85 /* geometryelement.cpp in Sources */,
 				2C2AA37126009C74003F3EBC /* b2_island.cpp in Sources */,

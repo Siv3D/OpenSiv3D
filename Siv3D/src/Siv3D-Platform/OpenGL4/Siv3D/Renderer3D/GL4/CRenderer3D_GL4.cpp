@@ -14,9 +14,9 @@
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
-# include <Siv3D/Shader/GL4/CShader_GL4.hpp>
-# include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
+//# include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
+//# include <Siv3D/Shader/GL4/CShader_GL4.hpp>
+//# include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
 
 namespace s3d
 {
@@ -33,9 +33,9 @@ namespace s3d
 		
 		// 各種ポインタを保存
 		{
-			pRenderer	= dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-			pShader		= dynamic_cast<CShader_GL4*>(SIV3D_ENGINE(Shader)); assert(pShader);
-			pTexture	= dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+			//pRenderer	= dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+			//pShader		= dynamic_cast<CShader_GL4*>(SIV3D_ENGINE(Shader)); assert(pShader);
+			//pTexture	= dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture)); assert(pTexture);
 		}
 	}
 }
