@@ -67,7 +67,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_D3D11:");
 			m_standardPS = std::make_unique<D3D11StandardPS3D>();
-			m_standardPS->forward = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"PS" };
+			m_standardPS->forwardShape = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"PS_Shape" };
+			m_standardPS->forwardTexture = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"PS_Texture" };
 			
 			if (not m_standardPS->setup())
 			{
@@ -77,10 +78,10 @@ namespace s3d
 
 		// 標準 InputLayout を作成
 		{
-			const D3D11_INPUT_ELEMENT_DESC layout[4] = {
+			const D3D11_INPUT_ELEMENT_DESC layout[3] = {
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "NORMAL"  , 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TANGENT" , 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				//{ "TANGENT" , 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
@@ -101,7 +102,7 @@ namespace s3d
 
 		if (not m_currentCustomPS)
 		{
-			m_commandManager.pushStandardPS(m_standardPS->forwardID);
+			m_commandManager.pushStandardPS(m_standardPS->forwardShapeID);
 		}
 
 		m_commandManager.pushMesh(mesh);
@@ -109,7 +110,27 @@ namespace s3d
 		const uint32 startIndex = 0;
 		const uint32 indexCount = static_cast<uint32>(mesh.num_triangles() * 3);
 		const uint32 instanceCount = 1;
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
+	}
 
+	void CRenderer3D_D3D11::addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color)
+	{
+		if (not m_currentCustomVS)
+		{
+			m_commandManager.pushStandardVS(m_standardVS->forwardID);
+		}
+
+		if (not m_currentCustomPS)
+		{
+			m_commandManager.pushStandardPS(m_standardPS->forwardTextureID);
+		}
+
+		m_commandManager.pushMesh(mesh);
+		m_commandManager.pushPSTexture(0, texture);
+
+		const uint32 startIndex = 0;
+		const uint32 indexCount = static_cast<uint32>(mesh.num_triangles() * 3);
+		const uint32 instanceCount = 1;
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}
 
@@ -194,6 +215,37 @@ namespace s3d
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
+
+			case D3D11Renderer3DCommandType::VSSamplerState0:
+			case D3D11Renderer3DCommandType::VSSamplerState1:
+			case D3D11Renderer3DCommandType::VSSamplerState2:
+			case D3D11Renderer3DCommandType::VSSamplerState3:
+			case D3D11Renderer3DCommandType::VSSamplerState4:
+			case D3D11Renderer3DCommandType::VSSamplerState5:
+			case D3D11Renderer3DCommandType::VSSamplerState6:
+			case D3D11Renderer3DCommandType::VSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer3DCommandType::VSSamplerState0);
+					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setVS(slot, samplerState);
+					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case D3D11Renderer3DCommandType::PSSamplerState0:
+			case D3D11Renderer3DCommandType::PSSamplerState1:
+			case D3D11Renderer3DCommandType::PSSamplerState2:
+			case D3D11Renderer3DCommandType::PSSamplerState3:
+			case D3D11Renderer3DCommandType::PSSamplerState4:
+			case D3D11Renderer3DCommandType::PSSamplerState5:
+			case D3D11Renderer3DCommandType::PSSamplerState6:
+			case D3D11Renderer3DCommandType::PSSamplerState7:
+				{
+					const uint32 slot = FromEnum(command.type) - FromEnum(D3D11Renderer3DCommandType::PSSamplerState0);
+					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
+					pRenderer->getSamplerState().setPS(slot, samplerState);
+					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
 			case D3D11Renderer3DCommandType::SetRT:
 				{
 					const auto& rt = m_commandManager.getRT(command.index);
@@ -254,6 +306,59 @@ namespace s3d
 					m_vsConstants3D->worldToProjected = cameraTransform;
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+
+			case D3D11Renderer3DCommandType::VSTexture0:
+			case D3D11Renderer3DCommandType::VSTexture1:
+			case D3D11Renderer3DCommandType::VSTexture2:
+			case D3D11Renderer3DCommandType::VSTexture3:
+			case D3D11Renderer3DCommandType::VSTexture4:
+			case D3D11Renderer3DCommandType::VSTexture5:
+			case D3D11Renderer3DCommandType::VSTexture6:
+			case D3D11Renderer3DCommandType::VSTexture7:
+				{
+					const uint32 slot = (FromEnum(command.type) - FromEnum(D3D11Renderer3DCommandType::VSTexture0));
+					const auto& textureID = m_commandManager.getVSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						ID3D11ShaderResourceView* nullAttach[1] = { nullptr };
+						m_context->VSSetShaderResources(slot, 1, nullAttach);
+						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
+					}
+					else
+					{
+						m_context->VSSetShaderResources(slot, 1, pTexture->getSRVPtr(textureID));
+						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
+					}
+					
+					break;
+				}
+			case D3D11Renderer3DCommandType::PSTexture0:
+			case D3D11Renderer3DCommandType::PSTexture1:
+			case D3D11Renderer3DCommandType::PSTexture2:
+			case D3D11Renderer3DCommandType::PSTexture3:
+			case D3D11Renderer3DCommandType::PSTexture4:
+			case D3D11Renderer3DCommandType::PSTexture5:
+			case D3D11Renderer3DCommandType::PSTexture6:
+			case D3D11Renderer3DCommandType::PSTexture7:
+				{
+					const uint32 slot = (FromEnum(command.type) - FromEnum(D3D11Renderer3DCommandType::PSTexture0));
+					const auto& textureID = m_commandManager.getPSTexture(slot, command.index);
+
+					if (textureID.isInvalid())
+					{
+						ID3D11ShaderResourceView* nullAttach[1] = { nullptr };
+						m_context->PSSetShaderResources(slot, 1, nullAttach);
+						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
+					}
+					else
+					{
+						m_context->PSSetShaderResources(slot, 1, pTexture->getSRVPtr(textureID));
+						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
+					}
+					
 					break;
 				}
 			case D3D11Renderer3DCommandType::SetMesh:

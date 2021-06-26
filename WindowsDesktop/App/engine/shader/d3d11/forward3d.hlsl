@@ -12,8 +12,8 @@
 //
 //	Textures
 //
-//Texture2D		g_texture0 : register(t0);
-//SamplerState	g_sampler0 : register(s0);
+Texture2D		g_texture0 : register(t0);
+SamplerState	g_sampler0 : register(s0);
 
 namespace s3d
 {
@@ -24,7 +24,6 @@ namespace s3d
 	{
 		float4 position : POSITION;
 		float3 normal : NORMAL;
-		float4 tangent : TANGENT0;
 		float2 uv : TEXCOORD0;
 	};
 
@@ -37,8 +36,7 @@ namespace s3d
 		float3 worldPosition : TEXCOORD0;
 		float4 color : TEXCOORD1;
 		float2 uv : TEXCOORD2;
-		float4 tangent : TEXCOORD3;
-		float3 normal : TEXCOORD4;
+		float3 normal : TEXCOORD3;
 	};
 }
 
@@ -70,15 +68,18 @@ s3d::PSInput VS(s3d::VSInput input)
 	result.worldPosition	= worldPosition.xyz;
 	result.color			= g_diffuse;
 	result.uv				= input.uv;
-	result.tangent			= input.tangent;
 	result.normal			= mul(input.normal, (float3x3)g_localToWorld);
 	return result;
 }
 
-float4 PS(s3d::PSInput input) : SV_TARGET
+float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 {
-	float4 color = input.color;
-	//color.rgb = input.worldPosition.xyz / 10;
+	return input.color;
+}
 
-	return color;
+float4 PS_Texture(s3d::PSInput input) : SV_TARGET
+{
+	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+
+	return (texColor * input.color);
 }

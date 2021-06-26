@@ -24,8 +24,6 @@ namespace s3d
 
 		Float3 normal;
 
-		Float4 tangent;
-
 		Float2 tex;
 
 		//constexpr void set(float x, float y, Float4 _color) noexcept;

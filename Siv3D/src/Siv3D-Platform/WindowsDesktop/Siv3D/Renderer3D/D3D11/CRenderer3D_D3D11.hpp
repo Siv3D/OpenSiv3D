@@ -44,15 +44,18 @@ namespace s3d
 
 	struct D3D11StandardPS3D
 	{
-		PixelShader forward;
+		PixelShader forwardShape;
+		PixelShader forwardTexture;
 
-		PixelShader::IDType forwardID;
+		PixelShader::IDType forwardShapeID;
+		PixelShader::IDType forwardTextureID;
 
 		bool setup()
 		{
-			const bool result = !!forward;
+			const bool result = forwardShape && forwardTexture;
 
-			forwardID = forward.id();
+			forwardShapeID = forwardShape.id();
+			forwardTextureID = forwardTexture.id();
 
 			return result;
 		}
@@ -81,6 +84,8 @@ namespace s3d
 		void init() override;
 
 		void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) override;
+
+		void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) override;
 
 		void setCameraTransform(const Mat4x4& matrix) override;
 

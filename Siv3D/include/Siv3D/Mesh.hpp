@@ -19,6 +19,10 @@
 
 namespace s3d
 {
+	struct AABB;
+	struct Sphere;
+	class Texture;
+
 	class Mesh : public AssetHandle<Mesh>
 	{
 	public:
@@ -29,13 +33,33 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Mesh(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices);
 
+		SIV3D_NODISCARD_CXX20
+		explicit Mesh(const AABB& aabb);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Mesh(const Sphere& sphere, uint32 quality = 12);
+
 		virtual ~Mesh();
 
 		[[nodiscard]]
 		size_t num_triangles() const;
 
+		void draw(const ColorF& color = Palette::White) const;
+
+		void draw(double x, double y, double z, const ColorF& color = Palette::White) const;
+
 		void draw(const Vec3& pos, const ColorF& color = Palette::White) const;
 
 		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
+
+
+
+		void draw(const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(double x, double y, double z, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(const Vec3& pos, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 	};
 }

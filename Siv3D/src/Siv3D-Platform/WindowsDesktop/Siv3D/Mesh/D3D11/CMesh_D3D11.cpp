@@ -39,10 +39,10 @@ namespace s3d
 		{
 			const Array<Vertex3D> vertices =
 			{
-				Vertex3D{.pos = { -8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 0.0f, 0.0f } },
-				Vertex3D{.pos = {  8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 1.0f, 0.0f } },
-				Vertex3D{.pos = { -8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 0.0f, 1.0f } },
-				Vertex3D{.pos = {  8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 1.0f, 1.0f } },
+				Vertex3D{ .pos = { -8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
+				Vertex3D{ .pos = {  8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
+				Vertex3D{ .pos = { -8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+				Vertex3D{ .pos = {  8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
 			};
 			const Array<Vertex3D::IndexType> indices =
 			{
