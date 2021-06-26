@@ -26,6 +26,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CircleEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Audio.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\DepthStencilState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Font.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Glyph.ipp" />

@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/RenderTexture.hpp>
 
 namespace s3d
 {
@@ -31,5 +32,9 @@ namespace s3d
 		virtual void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) {}
 
 		virtual void setCameraTransform(const Mat4x4& matrix) {}
+
+		virtual void setRenderTarget(const Optional<RenderTexture>& rt) {}
+
+		virtual Optional<RenderTexture> getRenderTarget() const { return none; }
 	};
 }

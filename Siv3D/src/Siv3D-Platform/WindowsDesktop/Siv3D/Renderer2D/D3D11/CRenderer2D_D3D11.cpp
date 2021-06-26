@@ -944,6 +944,7 @@ namespace s3d
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
 
 		pRenderer->getBackBuffer().bindRenderTarget(pRenderer->getBackBuffer().getSceneBuffer().getRTV());;
+		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
 
 		BatchInfo2D batchInfo;
 
@@ -1291,6 +1292,7 @@ namespace s3d
 				SamplerState::ClampLinear : SamplerState::ClampNearest;
 			pRenderer->getSamplerState().setPS(0, samplerState);
 			pRenderer->getBlendState().set(BlendState::Opaque);
+			pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
 			pRenderer->getRasterizerState().set(RasterizerState::Default2D);
 		}
 		

@@ -122,11 +122,17 @@ namespace s3d
 		// [ステージング・テクスチャ]
 		ComPtr<ID3D11Texture2D> m_stagingTexture;
 
+		// [デプス・ステンシル・テクスチャ]
+		ComPtr<ID3D11Texture2D> m_depthStencilTexture;
+
 		// [レンダー・ターゲット・ビュー]
 		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 
 		// [シェーダ・リソース・ビュー]
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
+
+		// [デプス・ステンシル・ビュー]
+		ComPtr<ID3D11DepthStencilView> m_depthStencilView;
 
 		D3D11Texture2DDesc m_desc;
 

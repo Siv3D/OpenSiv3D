@@ -15,13 +15,39 @@ namespace s3d
 {
 	D3D11DepthStencilState::D3D11DepthStencilState(const D3D11Device& device)
 		: m_device{ device.getDevice() }
-		, m_context{ device.getContext() }
+		, m_context{ device.getContext() } {}
+
+	void D3D11DepthStencilState::set(const DepthStencilState& state)
+	{
+		if (state == m_currentState)
+		{
+			return;
+		}
+
+		auto it = m_states.find(state);
+
+		if (it == m_states.end())
+		{
+			it = create(state);
+
+			if (it == m_states.end())
+			{
+				return;
+			}
+		}
+
+		m_context->OMSetDepthStencilState(it->second.Get(), 0);
+
+		m_currentState = state;
+	}
+
+	D3D11DepthStencilState::StateList::iterator D3D11DepthStencilState::create(const DepthStencilState& state)
 	{
 		const D3D11_DEPTH_STENCIL_DESC desc =
 		{
-			.DepthEnable					= false,
-			.DepthWriteMask					= D3D11_DEPTH_WRITE_MASK_ZERO,
-			.DepthFunc						= D3D11_COMPARISON_GREATER,
+			.DepthEnable					= state.depthEnable,
+			.DepthWriteMask					= D3D11_DEPTH_WRITE_MASK(state.depthWriteEnable),
+			.DepthFunc						= D3D11_COMPARISON_FUNC(state.depthFunc),
 			.StencilEnable					= false,
 			.StencilReadMask				= 0xFF,
 			.StencilWriteMask				= 0xFF,
@@ -41,11 +67,18 @@ namespace s3d
 				}
 		};
 
-		if (FAILED(m_device->CreateDepthStencilState(&desc, &m_state)))
+		ComPtr<ID3D11DepthStencilState> depthStencilState;
+
+		if (FAILED(m_device->CreateDepthStencilState(&desc, &depthStencilState)))
 		{
-			return;
+			return m_states.end();
 		}
 
-		m_context->OMSetDepthStencilState(m_state.Get(), 0);
+		if (m_states.size() >= 1024)
+		{
+			m_states.clear();
+		}
+
+		return m_states.emplace(state, std::move(depthStencilState)).first;
 	}
 }

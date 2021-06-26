@@ -224,6 +224,11 @@ namespace s3d
 		return *m_rasterizerState;
 	}
 
+	D3D11DepthStencilState& CRenderer_D3D11::getDepthStencilState() noexcept
+	{
+		return *m_depthStencilState;
+	}
+
 	D3D11SamplerState& CRenderer_D3D11::getSamplerState() noexcept
 	{
 		return *m_samplerState;

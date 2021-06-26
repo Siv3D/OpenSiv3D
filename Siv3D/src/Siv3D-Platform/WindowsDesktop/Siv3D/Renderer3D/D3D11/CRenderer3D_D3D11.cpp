@@ -139,6 +139,56 @@ namespace s3d
 		m_commandManager.pushCameraTransform(matrix);
 	}
 
+	void CRenderer3D_D3D11::setRenderTarget(const Optional<RenderTexture>& rt)
+	{
+		if (rt)
+		{
+			bool hasChanged = false;
+			const Texture::IDType textureID = rt->id();
+
+			// バインドされていたら解除
+			{
+				{
+					const auto& currentPSTextures = m_commandManager.getCurrentPSTextures();
+
+					for (uint32 slot = 0; slot < currentPSTextures.size(); ++slot)
+					{
+						if (currentPSTextures[slot] == textureID)
+						{
+							m_commandManager.pushPSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+
+				{
+					const auto& currentVSTextures = m_commandManager.getCurrentVSTextures();
+
+					for (uint32 slot = 0; slot < currentVSTextures.size(); ++slot)
+					{
+						if (currentVSTextures[slot] == textureID)
+						{
+							m_commandManager.pushVSTextureUnbind(slot);
+							hasChanged = true;
+						}
+					}
+				}
+			}
+
+			if (hasChanged)
+			{
+				m_commandManager.flush();
+			}
+		}
+
+		m_commandManager.pushRT(rt);
+	}
+
+	Optional<RenderTexture> CRenderer3D_D3D11::getRenderTarget() const
+	{
+		return m_commandManager.getCurrentRT();
+	}
+
 	void CRenderer3D_D3D11::flush()
 	{
 		ScopeGuard cleanUp = [this]()

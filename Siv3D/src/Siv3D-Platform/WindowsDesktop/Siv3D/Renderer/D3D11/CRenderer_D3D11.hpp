@@ -120,6 +120,8 @@ namespace s3d
 
 		D3D11RasterizerState& getRasterizerState() noexcept;
 
+		D3D11DepthStencilState& getDepthStencilState() noexcept;
+
 		D3D11SamplerState& getSamplerState() noexcept;
 	};
 }

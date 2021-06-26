@@ -12,11 +12,17 @@
 # pragma once
 # include "Common.hpp"
 # include "Mat4x4.hpp"
+# include "RenderTexture.hpp"
 
 namespace s3d
 {
 	namespace Graphics3D
 	{
 		void SetCameraTransform(const Mat4x4& matrix);
+
+		namespace Internal
+		{
+			void SetRenderTarget(const Optional<RenderTexture>& rt);
+		}
 	}
 }

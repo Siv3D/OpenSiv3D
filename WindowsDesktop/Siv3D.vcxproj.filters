@@ -6381,6 +6381,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.hpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\DepthStencilState.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">

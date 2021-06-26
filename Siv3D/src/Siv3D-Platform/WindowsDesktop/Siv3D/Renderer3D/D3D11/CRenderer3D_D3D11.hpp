@@ -89,6 +89,10 @@ namespace s3d
 
 		void setCameraTransform(const Mat4x4& matrix) override;
 
+		void setRenderTarget(const Optional<RenderTexture>& rt) override;
+
+		Optional<RenderTexture> getRenderTarget() const override;
+
 		void flush();
 
 
