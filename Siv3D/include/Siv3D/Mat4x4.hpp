@@ -74,6 +74,24 @@ namespace s3d
 		Mat4x4& SIV3D_VECTOR_CALL operator /=(float s) noexcept;
 
 		[[nodiscard]]
+		friend bool operator ==(const Mat4x4& lhs, const Mat4x4& rhs) noexcept
+		{
+			return DirectX::XMVector4Equal(lhs.value.r[0], rhs.value.r[0])
+				&& DirectX::XMVector4Equal(lhs.value.r[1], rhs.value.r[1])
+				&& DirectX::XMVector4Equal(lhs.value.r[2], rhs.value.r[2])
+				&& DirectX::XMVector4Equal(lhs.value.r[3], rhs.value.r[3]);
+		}
+
+		[[nodiscard]]
+		friend bool operator !=(const Mat4x4& lhs, const Mat4x4& rhs) noexcept
+		{
+			return DirectX::XMVector4NotEqual(lhs.value.r[0], rhs.value.r[0])
+				|| DirectX::XMVector4NotEqual(lhs.value.r[1], rhs.value.r[1])
+				|| DirectX::XMVector4NotEqual(lhs.value.r[2], rhs.value.r[2])
+				|| DirectX::XMVector4NotEqual(lhs.value.r[3], rhs.value.r[3]);
+		}
+
+		[[nodiscard]]
 		friend Mat4x4 SIV3D_VECTOR_CALL operator *(float s, const Mat4x4& v) noexcept
 		{
 			return (s * v.value);

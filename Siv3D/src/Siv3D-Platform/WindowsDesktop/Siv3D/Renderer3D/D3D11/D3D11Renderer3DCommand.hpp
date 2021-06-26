@@ -13,9 +13,13 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/HashTable.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/RenderTexture.hpp>
+# include <Siv3D/VertexShader.hpp>
+# include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Mesh.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 
@@ -25,11 +29,21 @@ namespace s3d
 	{
 		Null,
 
+		Draw,
+
 		BlendState,
 
 		RasterizerState,
 
 		SetRT,
+
+		SetVS,
+
+		SetPS,
+
+		CameraTransform,
+
+		SetMesh,
 
 		SIZE_,
 	};
@@ -42,6 +56,15 @@ namespace s3d
 		uint32 index = 0;
 	};
 
+	struct D3D11Draw3DCommand
+	{
+		uint32 startIndex = 0;
+		
+		uint32 indexCount = 0;
+
+		uint32 instanceCount = 0;
+	};
+
 	class D3D11Renderer3DCommandManager
 	{
 	private:
@@ -51,7 +74,10 @@ namespace s3d
 		CurrentBatchStateChanges<D3D11Renderer3DCommandType> m_changes;
 
 		//// buffer
-		//Array<D3D11DrawCommand> m_draws;
+		Array<D3D11Draw3DCommand> m_draws;
+		Array<Mat4x4> m_drawLocalToWorlds;
+		Array<Float4> m_drawDiffuses;
+
 		//Array<uint32> m_nullDraws;
 		//Array<Float4> m_colorMuls					= { Float4{ 1.0f, 1.0f, 1.0f, 1.0f } };
 		//Array<Float4> m_colorAdds					= { Float4{ 0.0f, 0.0f, 0.0f, 0.0f } };
@@ -64,13 +90,15 @@ namespace s3d
 		//Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.5f, 0.0f, 0.0f }, Float4{ 0.0f, 0.0f, 0.0f, 1.0f }, Float4{ 0.0f, 0.0f, 0.0f, 0.5f } } };
 		//Array<Float4> m_internalPSConstants			= { Float4(0.0f, 0.0f, 0.0f, 0.0f) };
 		Array<Optional<RenderTexture>> m_RTs		= { none };
-		//Array<VertexShader::IDType> m_VSs;	
-		//Array<PixelShader::IDType> m_PSs;
+		Array<VertexShader::IDType> m_VSs;	
+		Array<PixelShader::IDType> m_PSs;
+		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
 		//Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
 		//Array<__m128> m_constants;
 		//Array<D3D11ConstantBufferCommand> m_constantBufferCommands;
 		//std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		//std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
+		Array<Mesh::IDType> m_meshes;
 
 		//// current
 		//D3D11DrawCommand m_currentDraw;
@@ -85,19 +113,21 @@ namespace s3d
 		//std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.front();
 		//Float4 m_currentInternalPSConstants			= m_internalPSConstants.front();
 		Optional<RenderTexture> m_currentRT			= m_RTs.front();
-		//VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
-		//PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
+		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
+		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 		//Mat3x2 m_currentLocalTransform				= Mat3x2::Identity();
-		//Mat3x2 m_currentCameraTransform				= Mat3x2::Identity();
+		Mat4x4 m_currentCameraTransform				= Mat4x4::Identity();
 		//Mat3x2 m_currentCombinedTransform			= Mat3x2::Identity();
 		//float m_currentMaxScaling					= 1.0f;
 		//std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		//std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
+		Mesh::IDType m_currentMesh;
 
-		//// reserved
-		//HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
-		//HashTable<PixelShader::IDType, PixelShader> m_reservedPSs;
+		// reserved
+		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
+		HashTable<PixelShader::IDType, PixelShader> m_reservedPSs;
 		//HashTable<Texture::IDType, Texture> m_reservedTextures;
+		HashTable<Mesh::IDType, Mesh> m_reservedMeshes;
 
 	public:
 
@@ -111,8 +141,10 @@ namespace s3d
 
 		//void pushUpdateBuffers(uint32 batchIndex);
 
-		//void pushDraw(Vertex2D::IndexType indexCount);
-		//const D3D11DrawCommand& getDraw(uint32 index) const noexcept;
+		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
+		const D3D11Draw3DCommand& getDraw(uint32 index) const noexcept;
+		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
+		const Float4& getDrawDiffuse(uint32 index) const noexcept;
 
 		//void pushNullVertices(uint32 count);
 		//uint32 getNullDraw(uint32 index) const noexcept;
@@ -156,19 +188,20 @@ namespace s3d
 		//void pushInternalPSConstants(const Float4& value);
 		//const Float4& getInternalPSConstants(uint32 index) const;
 
-		//void pushStandardVS(const VertexShader::IDType& id);
-		//void pushCustomVS(const VertexShader& vs);
-		//const VertexShader::IDType& getVS(uint32 index) const;
+		void pushStandardVS(const VertexShader::IDType& id);
+		void pushCustomVS(const VertexShader& vs);
+		const VertexShader::IDType& getVS(uint32 index) const;
 
-		//void pushStandardPS(const PixelShader::IDType& id);
-		//void pushCustomPS(const PixelShader& ps);
-		//const PixelShader::IDType& getPS(uint32 index) const;
+		void pushStandardPS(const PixelShader::IDType& id);
+		void pushCustomPS(const PixelShader& ps);
+		const PixelShader::IDType& getPS(uint32 index) const;
 
 		//void pushLocalTransform(const Mat3x2& local);
 		//const Mat3x2& getCurrentLocalTransform() const;
 
-		//void pushCameraTransform(const Mat3x2& camera);
-		//const Mat3x2& getCurrentCameraTransform() const;
+		void pushCameraTransform(const Mat4x4& state);
+		const Mat4x4& getCurrentCameraTransform() const;
+		const Mat4x4& getCameraTransform(uint32 index) const;
 
 		//const Mat3x2& getCombinedTransform(uint32 index) const;
 		//const Mat3x2& getCurrentCombinedTransform() const;
@@ -191,5 +224,9 @@ namespace s3d
 		void pushRT(const Optional<RenderTexture>& rt);
 		const Optional<RenderTexture>& getRT(uint32 index) const;
 		const Optional<RenderTexture>& getCurrentRT() const;
+
+		void pushMesh(const Mesh& mesh);
+		const Mesh::IDType& getMesh(uint32 index) const;
+		const Mesh::IDType& getCurrentMesh() const;
 	};
 }

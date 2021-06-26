@@ -56,6 +56,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/DragDrop/CDragDrop.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/FileSystem/SivFileSystem_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Mesh/MeshFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/MessageBox/SivMessageBox_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Monitor/SivMonitor_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/PowerStatus/SivPowerStatus.cpp
@@ -96,12 +97,13 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Unicode/SivUnicode_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/XInput/XInputFactory.cpp
 
+  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Mesh/GL4/CMesh_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/BackBuffer/GL4BackBuffer.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/BackBuffer/GL4InternalTexture2D.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/BlendState/GL4BlendState.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/RasterizerState/GL4RasterizerState.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer/GL4/SamplerState/GL4SamplerState.cpp
-  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/CRenderer2D_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Renderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Vertex2DBatch.cpp
@@ -242,6 +244,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/GrabCut/SivGrabCut.cpp
   ../Siv3D/src/Siv3D/Graphics/SivGraphics.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
+  ../Siv3D/src/Siv3D/Graphics3D/SivGraphics3D.cpp
   ../Siv3D/src/Siv3D/GUI/CGUI.cpp
   ../Siv3D/src/Siv3D/GUI/GUIFactory.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
@@ -306,6 +309,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MD5Value/SivMD5Value.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFileView/SivMemoryMappedFileView.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
+  ../Siv3D/src/Siv3D/Mesh/Null/CMesh_Null.cpp
+  ../Siv3D/src/Siv3D/Mesh/SivMesh.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
   ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
   ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp

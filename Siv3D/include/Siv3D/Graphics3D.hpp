@@ -11,11 +11,12 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Mat4x4.hpp"
 
 namespace s3d
 {
 	namespace Graphics3D
 	{
-
+		void SetCameraTransform(const Mat4x4& matrix);
 	}
 }

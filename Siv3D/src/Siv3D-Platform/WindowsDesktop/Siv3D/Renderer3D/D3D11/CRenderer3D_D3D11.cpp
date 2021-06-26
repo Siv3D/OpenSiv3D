@@ -20,11 +20,7 @@
 # include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
 # include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
-
-
-
-# include <Siv3D/Cylindrical.hpp>
-# include <Siv3D/Periodic.hpp>
+# include <Siv3D/Mesh/D3D11/CMesh_D3D11.hpp>
 
 //*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -34,208 +30,6 @@
 
 namespace s3d
 {
-	class alignas(16) BasicCamera3D
-	{
-	public:
-
-		static constexpr double DefaultNearClip = 0.1;
-
-		BasicCamera3D() = default;
-
-		BasicCamera3D(const BasicCamera3D&) = default;
-
-		BasicCamera3D& operator=(const BasicCamera3D&) = default;
-
-		BasicCamera3D(BasicCamera3D&&) = default;
-
-		BasicCamera3D& operator=(BasicCamera3D&&) = default;
-
-		BasicCamera3D(const Size& sceneSize, double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept
-			: m_sceneSize{ sceneSize }
-			, m_verticalFOV{ verticalFOV }
-			, m_nearClip{ nearClip }
-			, m_eyePosition{ eyePosition }
-			, m_focusPosition{ focusPosition }
-			, m_upDirection{ upDirection }
-		{
-			updateProj();
-			updateView();
-			updateViewProj();
-		}
-
-		virtual ~BasicCamera3D() = default;
-
-		void setSceneSize(const Size& sceneSize)
-		{
-			m_sceneSize = sceneSize;
-
-			updateProj();
-			updateViewProj();
-		}
-
-		void setProjection(const Size& sceneSize, double verticalFOV, double nearClip = DefaultNearClip) noexcept
-		{
-			m_sceneSize = sceneSize;
-			m_verticalFOV = verticalFOV;
-			m_nearClip = nearClip;
-
-			updateProj();
-			updateViewProj();
-		}
-
-		void setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }) noexcept
-		{
-			m_eyePosition = eyePosition;
-			m_focusPosition = focusPosition;
-			m_upDirection = upDirection;
-
-			updateView();
-			updateViewProj();
-		}
-
-		[[nodiscard]]
-		const Size& getSceneSize() const noexcept
-		{
-			return m_sceneSize;
-		}
-
-		[[nodiscard]]
-		double getVerticlaFOV() const noexcept
-		{
-			return m_verticalFOV;
-		}
-
-		[[nodiscard]]
-		double getNearClip() const noexcept
-		{
-			return m_nearClip;
-		}
-
-		[[nodiscard]]
-		const Vec3& getEyePosition() const noexcept
-		{
-			return m_eyePosition;
-		}
-
-		[[nodiscard]]
-		const Vec3& getFocusPosition() const noexcept
-		{
-			return m_focusPosition;
-		}
-
-		[[nodiscard]]
-		const Vec3& getUpDirection() const noexcept
-		{
-			return m_upDirection;
-		}
-
-		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getProj() const noexcept
-		{
-			return m_proj;
-		}
-
-		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getView() const noexcept
-		{
-			return m_view;
-		}
-
-		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getViewProj() const noexcept
-		{
-			return m_viewProj;
-		}
-
-		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getMat4x4() const noexcept
-		{
-			return m_viewProj;
-		}
-
-		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getInvViewProj() const noexcept
-		{
-			return m_invViewProj;
-		}
-
-		[[nodiscard]]
-		Float3 worldToScreenPoint(const Float3& pos) const noexcept
-		{
-			Float3 v = SIMD_Float4{ DirectX::XMVector3TransformCoord(SIMD_Float4{ pos, 0.0f }, m_viewProj) }.xyz();
-			v.x += 1.0f;
-			v.y += 1.0f;
-			v.x *= 0.5f * m_sceneSize.x;
-			v.y *= 0.5f;
-			v.y = 1.0f - v.y;
-			v.y *= m_sceneSize.y;
-			return v;
-		}
-
-		[[nodiscard]]
-		Float3 screenToWorldPoint(const Float2& pos, float depth) const noexcept;
-
-		//[[nodiscard]]
-		//Ray screenToRay(const Vec2& pos) const noexcept;
-
-	protected:
-
-		Mat4x4 m_proj = Mat4x4::Identity();
-
-		Mat4x4 m_view = Mat4x4::Identity();
-
-		Mat4x4 m_viewProj = Mat4x4::Identity();
-
-		Mat4x4 m_invViewProj = Mat4x4::Identity();
-
-		//
-		// Proj
-		//
-		Size m_sceneSize = Scene::Size();
-
-		double m_verticalFOV = 30_deg;
-
-		double m_nearClip = DefaultNearClip;
-
-		//
-		// View
-		//
-		Vec3 m_eyePosition = Vec3{ 0, 4, -4 };
-
-		Vec3 m_focusPosition = Vec3{ 0, 0, 0 };
-
-		Vec3 m_upDirection = Vec3{ 0, 1, 0 };
-
-		void updateProj() noexcept
-		{
-			const double g = (1.0 / std::tan(m_verticalFOV * 0.5));
-			const double s = (static_cast<double>(m_sceneSize.x) / m_sceneSize.y);
-			constexpr float e = 0.000001f;
-
-			m_proj = Mat4x4{
-				static_cast<float>(g / s), 0.0f, 0.0f, 0.0f,
-				0.0f, static_cast<float>(g), 0.0f, 0.0f,
-				0.0f, 0.0f, e, 1.0f,
-				0.0f, 0.0f, static_cast<float>(m_nearClip * (1.0 - e)), 0.0f
-			};
-		}
-
-		void updateView() noexcept
-		{
-			const SIMD_Float4 eyePosition{ m_eyePosition, 0.0f };
-			const SIMD_Float4 focusPosition{ m_focusPosition, 0.0f };
-			const SIMD_Float4 upDirection{ m_upDirection, 0.0f };
-			m_view = DirectX::XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
-		}
-
-		void updateViewProj() noexcept
-		{
-			m_viewProj = (m_view * m_proj);
-			m_invViewProj = m_viewProj.inverse();
-		}
-	};
-
-
 	CRenderer3D_D3D11::CRenderer3D_D3D11() {}
 
 	CRenderer3D_D3D11::~CRenderer3D_D3D11()
@@ -252,6 +46,7 @@ namespace s3d
 			pRenderer	= dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
 			pShader		= dynamic_cast<CShader_D3D11*>(SIV3D_ENGINE(Shader)); assert(pShader);
 			pTexture	= dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+			pMesh		= dynamic_cast<CMesh_D3D11*>(SIV3D_ENGINE(Mesh)); assert(pMesh);
 			m_device	= pRenderer->getDevice(); assert(m_device);
 			m_context	= pRenderer->getContext(); assert(m_context);
 		}
@@ -295,87 +90,41 @@ namespace s3d
 				throw EngineError{ U"ID3D11Device::CreateInputLayout() failed" };
 			}
 		}
-
-		// テスト用描画データ
-		{
-			// Vertex Buffer
-			{
-				const D3D11_BUFFER_DESC desc =
-				{
-					.ByteWidth				= (sizeof(Vertex3D) * TestBuffer::VertexBufferSize),
-					.Usage					= D3D11_USAGE_DYNAMIC,
-					.BindFlags				= D3D11_BIND_VERTEX_BUFFER,
-					.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE,
-					.MiscFlags				= 0,
-					.StructureByteStride	= 0, 
-				};
-
-				if (FAILED(m_device->CreateBuffer(&desc, nullptr, &m_testBuffer.vertexBuffer)))
-				{
-					throw EngineError{ U"ID3D11Device::CreateBuffer() failed" };
-				}
-			}
-
-			// Index Buffer
-			{
-				const D3D11_BUFFER_DESC desc =
-				{
-					.ByteWidth				= (sizeof(Vertex3D::IndexType) * TestBuffer::IndexBufferSize),
-					.Usage					= D3D11_USAGE_DYNAMIC,
-					.BindFlags				= D3D11_BIND_INDEX_BUFFER,
-					.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE,
-					.MiscFlags				= 0,
-					.StructureByteStride	= 0,
-				};
-
-				if (FAILED(m_device->CreateBuffer(&desc, nullptr, &m_testBuffer.indexBuffer)))
-				{
-					throw EngineError{ U"ID3D11Device::CreateBuffer() failed" };
-				}
-			}
-
-			// Update VB
-			{
-				D3D11_MAP mapType = D3D11_MAP_WRITE_DISCARD;
-				D3D11_MAPPED_SUBRESOURCE res;
-
-				if (SUCCEEDED(m_context->Map(m_testBuffer.vertexBuffer.Get(), 0, mapType, 0, &res)))
-				{
-					if (Vertex3D* const p = static_cast<Vertex3D*>(res.pData))
-					{
-						p[0] = Vertex3D{ .pos = { -10.0f, 0.0f,  10.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 0.0f, 0.0f } };
-						p[1] = Vertex3D{ .pos = {  10.0f, 0.0f,  10.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 1.0f, 0.0f } };
-						p[2] = Vertex3D{ .pos = { -10.0f, 0.0f, -10.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tangent = Float4{ 0, 0, 0, 0}, .tex = { 0.0f, 1.0f } };
-					}
-					m_context->Unmap(m_testBuffer.vertexBuffer.Get(), 0);
-				}
-			}
-
-			// Update IB
-			{
-				D3D11_MAP mapType = D3D11_MAP_WRITE_DISCARD;
-				D3D11_MAPPED_SUBRESOURCE res;
-
-				if (SUCCEEDED(m_context->Map(m_testBuffer.indexBuffer.Get(), 0, mapType, 0, &res)))
-				{
-					if (Vertex3D::IndexType* const p = static_cast<Vertex3D::IndexType*>(res.pData))
-					{
-						p[0] = 0;
-						p[1] = 1;
-						p[2] = 2;
-					}
-					m_context->Unmap(m_testBuffer.indexBuffer.Get(), 0);
-				}
-			}
-		}
 	}
 
+	void CRenderer3D_D3D11::addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color)
+	{
+		if (not m_currentCustomVS)
+		{
+			m_commandManager.pushStandardVS(m_standardVS->forwardID);
+		}
+
+		if (not m_currentCustomPS)
+		{
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
+		}
+
+		m_commandManager.pushMesh(mesh);
+
+		const uint32 startIndex = 0;
+		const uint32 indexCount = static_cast<uint32>(mesh.num_triangles() * 3);
+		const uint32 instanceCount = 1;
+
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
+	}
+
+	void CRenderer3D_D3D11::setCameraTransform(const Mat4x4& matrix)
+	{
+		m_commandManager.pushCameraTransform(matrix);
+	}
 
 	void CRenderer3D_D3D11::flush()
 	{
 		ScopeGuard cleanUp = [this]()
 		{
 			m_commandManager.reset();
+			m_currentCustomVS.reset();
+			m_currentCustomPS.reset();
 		};
 
 		m_commandManager.flush();
@@ -383,10 +132,6 @@ namespace s3d
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
 		pShader->setConstantBufferPS(0, m_psConstants3D.base());
-
-		// [Siv3D ToDo: remove]
-		pShader->setVS(m_standardVS->forwardID);
-		pShader->setPS(m_standardPS->forwardID);
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 
@@ -397,22 +142,10 @@ namespace s3d
 			m_context->RSSetViewports(1, &viewport);
 		}
 
-		//Mat3x2 transform = Mat3x2::Identity();
-		//Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
-
 		pRenderer->getBackBuffer().setRenderTargetToScene();
 
 		LOG_COMMAND(U"----");
-
-		{
-			ID3D11Buffer* const pBuf[1] = { m_testBuffer.vertexBuffer.Get() };
-			const UINT stride = sizeof(Vertex3D);
-			const UINT offset = 0;
-			m_context->IASetVertexBuffers(0, 1, pBuf, &stride, &offset);
-
-			constexpr auto indexFormat = ((sizeof(Vertex3D::IndexType) == 2) ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT);
-			m_context->IASetIndexBuffer(m_testBuffer.indexBuffer.Get(), indexFormat, 0);
-		}
+		uint32 instanceIndex = 0;
 
 		for (const auto& command : m_commandManager.getCommands())
 		{
@@ -421,6 +154,30 @@ namespace s3d
 			case D3D11Renderer3DCommandType::Null:
 				{
 					LOG_COMMAND(U"Null");
+					break;
+				}
+			case D3D11Renderer3DCommandType::Draw:
+				{
+					const D3D11Draw3DCommand& draw = m_commandManager.getDraw(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = draw.startIndex;
+					const uint32 instanceCount = draw.instanceCount;
+
+					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
+					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
+					m_vsConstants3D->localToWorld = localToWorld;
+					m_vsConstants3D->diffuse = diffuse;
+
+					m_vsConstants3D._update_if_dirty();
+					m_psConstants3D._update_if_dirty();
+					m_context->DrawIndexed(indexCount, startIndexLocation, 0);
+					
+					instanceIndex += instanceCount;
+
+					//++m_stat.drawCalls;
+					//m_stat.triangleCount += (indexCount / 3);
+
+					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
 				}
 			case D3D11Renderer3DCommandType::BlendState:
@@ -457,23 +214,66 @@ namespace s3d
 
 					break;
 				}
+			case D3D11Renderer3DCommandType::SetVS:
+				{
+					const auto& vsID = m_commandManager.getVS(command.index);
+
+					if (vsID == VertexShader::IDType::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+						LOG_COMMAND(U"SetVS[{}]: null"_fmt(command.index));
+					}
+					else
+					{
+						pShader->setVS(vsID);
+						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
+					}
+
+					break;
+				}
+			case D3D11Renderer3DCommandType::SetPS:
+				{
+					const auto& psID = m_commandManager.getPS(command.index);
+
+					if (psID == PixelShader::IDType::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+						LOG_COMMAND(U"SetPS[{}]: null"_fmt(command.index));
+					}
+					else
+					{
+						pShader->setPS(psID);
+						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
+					}
+
+					break;
+				}
+			case D3D11Renderer3DCommandType::CameraTransform:
+				{
+					const Mat4x4& cameraTransform = m_commandManager.getCameraTransform(command.index);
+					m_vsConstants3D->worldToProjected = cameraTransform;
+
+					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+			case D3D11Renderer3DCommandType::SetMesh:
+				{
+					const auto& meshID = m_commandManager.getMesh(command.index);
+
+					if (meshID == Mesh::IDType::InvalidValue())
+					{
+						;// [Siv3D ToDo] set null
+						LOG_COMMAND(U"SetMesh[{}]: null"_fmt(command.index));
+					}
+					else
+					{
+						pMesh->bindMeshToContext(meshID);
+						LOG_COMMAND(U"SetMesh[{}]: {}"_fmt(command.index, meshID.value()));
+					}
+
+					break;
+				}
 			}
-		}
-
-		// test draw
-		{
-			constexpr double verticlaFOV = 30_deg;
-			constexpr Vec3 focusPosition(0, 0, 0);
-			Vec3 eyePosition(0, 10, 0);
-			BasicCamera3D camera{ Scene::Size(), verticlaFOV, eyePosition, focusPosition };
-			eyePosition = Cylindrical{ 20, Scene::Time() * 30_deg, 8 + Periodic::Sine0_1(SecondsF{4}) * 8 };
-			camera.setView(eyePosition, focusPosition);
-			camera.setSceneSize(Scene::Size());
-			m_vsConstants3D->viewProjectionMatrix = camera.getViewProj();
-
-			m_vsConstants3D._update_if_dirty();
-			m_psConstants3D._update_if_dirty();
-			m_context->DrawIndexed(3, 0, 0);
 		}
 	}
 }

@@ -1572,6 +1572,8 @@
 
 
 # include <Siv3D/Vertex3D.hpp>
+# include <Siv3D/BasicCamera3D.hpp>
+# include <Siv3D/Mesh.hpp>
 # include <Siv3D/Graphics3D.hpp>
 
 //////////////////////////////////////////////////

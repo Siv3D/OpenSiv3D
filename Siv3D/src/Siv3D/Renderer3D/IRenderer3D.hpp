@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Mesh.hpp>
 
 namespace s3d
 {
@@ -24,5 +25,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
+		virtual void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) {}
+
+		virtual void setCameraTransform(const Mat4x4& matrix) {}
 	};
 }

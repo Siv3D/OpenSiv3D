@@ -49,6 +49,7 @@ namespace s3d
 	class ISiv3DRenderer;
 	class ISiv3DTexture;
 	class ISiv3DShader;
+	class ISiv3DMesh;
 	class ISiv3DRenderer2D;
 	class ISiv3DRenderer3D;
 	class ISiv3DScreenCapture;
@@ -101,6 +102,7 @@ namespace s3d
 			Siv3DComponent<ISiv3DRenderer>,
 			Siv3DComponent<ISiv3DTexture>,
 			Siv3DComponent<ISiv3DShader>,
+			Siv3DComponent<ISiv3DMesh>,
 			Siv3DComponent<ISiv3DRenderer2D>,
 			Siv3DComponent<ISiv3DRenderer3D>,
 			Siv3DComponent<ISiv3DScreenCapture>,

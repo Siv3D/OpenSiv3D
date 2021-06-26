@@ -9,17 +9,19 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Graphics3D.hpp>
-# include <Siv3D/Renderer3D/IRenderer3D.hpp>
-# include <Siv3D/Common/Siv3DEngine.hpp>
+# include "CMesh_Null.hpp"
+# include <Siv3D/Error.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
-	namespace Graphics3D
+	CMesh_Null::CMesh_Null()
 	{
-		void SetCameraTransform(const Mat4x4& matrix)
-		{
-			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
-		}
+		// do nothing
+	}
+
+	CMesh_Null::~CMesh_Null()
+	{
+		LOG_SCOPED_TRACE(U"CMesh_Null::~CMesh_Null()");
 	}
 }

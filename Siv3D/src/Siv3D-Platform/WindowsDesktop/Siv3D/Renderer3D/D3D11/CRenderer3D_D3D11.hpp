@@ -24,6 +24,7 @@ namespace s3d
 	class CRenderer_D3D11;
 	class CShader_D3D11;
 	class CTexture_D3D11;
+	class CMesh_D3D11;
 
 	struct D3D11StandardVS3D
 	{
@@ -59,8 +60,9 @@ namespace s3d
 
 	struct VSConstants3D
 	{
-		Mat4x4 viewProjectionMatrix = Mat4x4::Identity();
-		Mat4x4 worldMatrix = Mat4x4::Identity();
+		Mat4x4 localToWorld = Mat4x4::Identity();
+		Mat4x4 worldToProjected = Mat4x4::Identity();
+		Float4 diffuse = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	struct PSConstants3D
@@ -78,6 +80,10 @@ namespace s3d
 
 		void init() override;
 
+		void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) override;
+
+		void setCameraTransform(const Mat4x4& matrix) override;
+
 		void flush();
 
 
@@ -86,6 +92,7 @@ namespace s3d
 		CRenderer_D3D11* pRenderer = nullptr;
 		CShader_D3D11* pShader = nullptr;
 		CTexture_D3D11* pTexture = nullptr;
+		CMesh_D3D11* pMesh = nullptr;
 		ID3D11Device* m_device = nullptr;
 		ID3D11DeviceContext* m_context = nullptr;
 
@@ -99,13 +106,7 @@ namespace s3d
 
 		D3D11Renderer3DCommandManager m_commandManager;
 
-		struct TestBuffer
-		{
-			static constexpr uint32 VertexBufferSize = 3;
-			static constexpr uint32 IndexBufferSize = 3;
-
-			ComPtr<ID3D11Buffer> vertexBuffer;
-			ComPtr<ID3D11Buffer> indexBuffer;
-		} m_testBuffer;
+		Optional<VertexShader> m_currentCustomVS;
+		Optional<PixelShader> m_currentCustomPS;
 	};
 }

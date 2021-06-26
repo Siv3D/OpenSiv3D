@@ -47,8 +47,9 @@ namespace s3d
 //
 cbuffer VSConstants3D : register(b0)
 {
-	row_major float4x4 g_viewProjectionMatrix;
-	row_major float4x4 g_worldMatrix;
+	row_major float4x4 g_localToWorld;
+	row_major float4x4 g_worldToProjected;
+	float4 g_diffuse;
 }
 
 cbuffer PSConstants3D : register(b0)
@@ -63,21 +64,21 @@ s3d::PSInput VS(s3d::VSInput input)
 {
 	s3d::PSInput result;
 
-	const float4 worldPosition = mul(input.position, g_worldMatrix);
+	const float4 worldPosition = mul(input.position, g_localToWorld);
 
-	result.position			= mul(worldPosition, g_viewProjectionMatrix);
+	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;
-	result.color			= float4(1, 1, 1, 1);
+	result.color			= g_diffuse;
 	result.uv				= input.uv;
 	result.tangent			= input.tangent;
-	result.normal			= input.normal;
+	result.normal			= mul(input.normal, (float3x3)g_localToWorld);
 	return result;
 }
 
 float4 PS(s3d::PSInput input) : SV_TARGET
 {
 	float4 color = input.color;
-	color.rgb = input.worldPosition.xyz / 10;
+	//color.rgb = input.worldPosition.xyz / 10;
 
 	return color;
 }

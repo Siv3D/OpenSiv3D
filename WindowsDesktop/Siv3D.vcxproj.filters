@@ -1426,6 +1426,21 @@
     <Filter Include="src\Siv3D\Graphics3D">
       <UniqueIdentifier>{c06b741a-38ba-4b32-82b9-a0171b706fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Mesh">
+      <UniqueIdentifier>{884891f3-ff90-4c73-8a78-cf78c4e65b1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Mesh\Null">
+      <UniqueIdentifier>{0bf1ae73-5278-422b-a046-d0d48abfb541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh">
+      <UniqueIdentifier>{87e6ac86-4b65-43c2-9dd6-9f9047f7c765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11">
+      <UniqueIdentifier>{f11d1123-befc-4774-8daf-f46a75889e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Mesh">
+      <UniqueIdentifier>{0b083c79-dea5-476f-a6e7-60b22ff90c4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6345,6 +6360,27 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Mesh.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mesh\IMesh.hpp">
+      <Filter>src\Siv3D\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.hpp">
+      <Filter>src\Siv3D\Mesh\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\CMesh_D3D11.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\D3D11Mesh.hpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8725,6 +8761,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics3D\SivGraphics3D.cpp">
       <Filter>src\Siv3D\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\SivMesh.cpp">
+      <Filter>src\Siv3D\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.cpp">
+      <Filter>src\Siv3D\Mesh\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\MeshFactory.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\D3D11Mesh.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\CMesh_D3D11.cpp">
+      <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
