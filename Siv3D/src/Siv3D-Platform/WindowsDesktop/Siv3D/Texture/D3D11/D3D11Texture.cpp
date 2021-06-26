@@ -26,6 +26,7 @@ namespace s3d
 			D3D11_USAGE_IMMUTABLE,
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
+		, m_type{ TextureType::Default }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
@@ -50,7 +51,6 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Default;
 		m_initialized = true;
 	}
 
@@ -63,6 +63,7 @@ namespace s3d
 			D3D11_USAGE_IMMUTABLE,
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
+		, m_type{ TextureType::Default }
 	{
 		Array<D3D11_SUBRESOURCE_DATA> initData(m_desc.mipLevels);
 		{
@@ -95,7 +96,6 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Default;
 		m_initialized = true;
 	}
 
@@ -108,6 +108,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
+		, m_type{ TextureType::Dynamic }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
@@ -146,11 +147,10 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Dynamic;
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ size,
 			format,
 			desc,
@@ -159,6 +159,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::Render }
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -193,11 +194,18 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Render;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ image.size(),
 			format,
 			desc,
@@ -206,6 +214,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::Render }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
@@ -241,11 +250,18 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Render;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ image.size(),
 			format,
 			desc,
@@ -254,6 +270,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::Render }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(float)), 0 };
@@ -289,11 +306,18 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Render;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ image.size(),
 			format,
 			desc,
@@ -302,6 +326,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::Render }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(Float2)), 0 };
@@ -337,11 +362,18 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Render;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ image.size(),
 			format,
 			desc,
@@ -350,6 +382,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::Render }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(Float4)), 0 };
@@ -385,11 +418,18 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::Render;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	D3D11Texture::D3D11Texture(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc)
+	D3D11Texture::D3D11Texture(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_desc{ size,
 			format,
 			desc,
@@ -398,6 +438,7 @@ namespace s3d
 			D3D11_USAGE_DEFAULT,
 			D3D11_BIND_RENDER_TARGET,
 			0, 0 }
+		, m_type{ TextureType::MSRender }
 	{
 		// [マルチ・サンプルテクスチャ] を作成
 		{
@@ -452,7 +493,14 @@ namespace s3d
 			}
 		}
 
-		m_type = TextureType::MSRender;
+		if (hasDepth)
+		{
+			if (not initDepthStencilTexture(device))
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
@@ -475,6 +523,11 @@ namespace s3d
 	ID3D11RenderTargetView* D3D11Texture::getRTV()
 	{
 		return m_renderTargetView.Get();
+	}
+
+	ID3D11DepthStencilView* D3D11Texture::getDSV()
+	{
+		return m_depthStencilView.Get();
 	}
 
 	bool D3D11Texture::fill(ID3D11DeviceContext* context, const ColorF& color, const bool wait)
@@ -629,6 +682,11 @@ namespace s3d
 		const Float4 clearColor = (m_desc.isSRGB() ? color.gamma(1.0 / 2.2).toFloat4() : color.toFloat4());
 
 		context->ClearRenderTargetView(m_renderTargetView.Get(), clearColor.getPointer());
+
+		if (m_depthStencilView)
+		{
+			context->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 0.0f, 0);
+		}
 	}
 
 	void D3D11Texture::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image)
@@ -969,5 +1027,49 @@ namespace s3d
 
 		context->ResolveSubresource(m_texture.Get(), 0,
 			m_multiSampledTexture.Get(), 0, DXGI_FORMAT(m_desc.format.DXGIFormat()));
+	}
+
+	bool D3D11Texture::initDepthStencilTexture(ID3D11Device* device)
+	{
+		assert(not m_hasDepth);
+		assert(not m_depthStencilTexture);
+		assert(not m_depthStencilView);
+		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
+
+		{
+			D3D11_TEXTURE2D_DESC descDepth{};
+			descDepth.Width				= m_desc.size.x;
+			descDepth.Height			= m_desc.size.y;
+			descDepth.MipLevels			= 1;
+			descDepth.ArraySize			= 1;
+			descDepth.Format			= DXGI_FORMAT_D32_FLOAT;
+			descDepth.SampleDesc		= { m_desc.multisampleCount, m_desc.multismapleQuality };
+			descDepth.Usage				= D3D11_USAGE_DEFAULT;
+			descDepth.BindFlags			= D3D11_BIND_DEPTH_STENCIL;
+			descDepth.CPUAccessFlags	= 0;
+			descDepth.MiscFlags			= 0;
+
+			if (FAILED(device->CreateTexture2D(&descDepth, nullptr, &m_depthStencilTexture)))
+			{
+				LOG_FAIL(U"ID3D11Device::CreateTexture2D() (depth - stencil) failed");
+				return false;
+			}
+		}
+
+		{
+			D3D11_DEPTH_STENCIL_VIEW_DESC descDSV{};
+			descDSV.Format				= DXGI_FORMAT_D32_FLOAT;
+			descDSV.ViewDimension		= D3D11_DSV_DIMENSION_TEXTURE2DMS;
+			descDSV.Texture2D.MipSlice	= 0;
+
+			if (FAILED(device->CreateDepthStencilView(m_depthStencilTexture.Get(), &descDSV, &m_depthStencilView)))
+			{
+				LOG_FAIL(U"ID3D11Device::CreateDepthStencilView() failed");
+				return false;
+			}
+		}
+
+		m_hasDepth = true;
+		return true;
 	}
 }

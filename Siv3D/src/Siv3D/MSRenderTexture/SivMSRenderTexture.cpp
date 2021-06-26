@@ -18,21 +18,21 @@ namespace s3d
 	MSRenderTexture::MSRenderTexture()
 		: RenderTexture{} {}
 
-	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const TextureFormat& format)
-		: MSRenderTexture{ Size{ width, height }, format } {}
+	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const TextureFormat& format, const HasDepth hasDepth)
+		: MSRenderTexture{ Size{ width, height }, format, hasDepth } {}
 
-	MSRenderTexture::MSRenderTexture(const Size& size, const TextureFormat& format)
-		: RenderTexture{ RenderTexture::MSRender{}, size, format } {}
+	MSRenderTexture::MSRenderTexture(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
+		: RenderTexture{ RenderTexture::MSRender{}, size, format, hasDepth } {}
 
-	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format)
-		: MSRenderTexture{ Size{ width, height }, format }
+	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
+		: MSRenderTexture{ Size{ width, height }, format, hasDepth }
 	{
 		clear(color);
 		resolve();
 	}
 
-	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format)
-		: MSRenderTexture{ size, format }
+	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
+		: MSRenderTexture{ size, format, hasDepth }
 	{
 		clear(color);
 		resolve();

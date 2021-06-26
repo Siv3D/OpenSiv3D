@@ -175,7 +175,7 @@ namespace s3d
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_D3D11::createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -183,7 +183,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, size, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -194,7 +194,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Image& image)
+	Texture::IDType CTexture_D3D11::createRT(const Image& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -203,7 +203,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -214,7 +214,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Grid<float>& image)
+	Texture::IDType CTexture_D3D11::createRT(const Grid<float>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -223,7 +223,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32_Float;
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -234,7 +234,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Grid<Float2>& image)
+	Texture::IDType CTexture_D3D11::createRT(const Grid<Float2>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -243,7 +243,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32_Float;
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -254,7 +254,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Grid<Float4>& image)
+	Texture::IDType CTexture_D3D11::createRT(const Grid<Float4>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -263,7 +263,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -274,7 +274,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createMSRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_D3D11::createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if (not m_multiSampleAvailable[FromEnum(format.value())]) // もし 4x MSAA がサポートされていなければ
 		{
@@ -288,7 +288,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::MSRender{}, m_device, size, format, desc);
+		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::MSRender{}, m_device, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -377,5 +377,10 @@ namespace s3d
 	ID3D11RenderTargetView* CTexture_D3D11::getRTV(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getRTV();
+	}
+
+	ID3D11DepthStencilView* CTexture_D3D11::getDSV(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDSV();
 	}
 }

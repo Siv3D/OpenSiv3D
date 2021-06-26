@@ -1137,13 +1137,13 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						ID3D11RenderTargetView* const rtv = pTexture->getRTV(rt->id());
-						pRenderer->getBackBuffer().setRenderTarget(rtv);
+						pRenderer->getBackBuffer().bindToContext(rtv, nullptr);
 						
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().setRenderTargetToScene();
+						pRenderer->getBackBuffer().bindSceneToContext(false);
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}

@@ -22,7 +22,7 @@
 # include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 # include <Siv3D/Mesh/D3D11/CMesh_D3D11.hpp>
 
-//*
+/*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
 /*/
 #	define LOG_COMMAND(...) ((void)0)
@@ -213,7 +213,8 @@ namespace s3d
 			m_context->RSSetViewports(1, &viewport);
 		}
 
-		pRenderer->getBackBuffer().setRenderTargetToScene();
+		pRenderer->getBackBuffer().bindSceneToContext(true);
+		pRenderer->getDepthStencilState().set(DepthStencilState::Default3D);
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -303,13 +304,14 @@ namespace s3d
 					if (rt)
 					{
 						ID3D11RenderTargetView* const rtv = pTexture->getRTV(rt->id());
-						pRenderer->getBackBuffer().setRenderTarget(rtv);
+						ID3D11DepthStencilView* const dsv = pTexture->getDSV(rt->id());
+						pRenderer->getBackBuffer().bindToContext(rtv, dsv);
 
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else
 					{
-						pRenderer->getBackBuffer().setRenderTargetToScene();
+						pRenderer->getBackBuffer().bindSceneToContext(true);
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}

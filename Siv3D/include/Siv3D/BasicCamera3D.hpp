@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "Scene.hpp"
 # include "Ray.hpp"
 # include "Mat4x4.hpp"
 
@@ -152,8 +153,8 @@ namespace s3d
 		[[nodiscard]]
 		Float3 screenToWorldPoint(const Float2& pos, float depth) const noexcept;
 
-		//[[nodiscard]]
-		//Ray screenToRay(const Vec2& pos) const noexcept;
+		[[nodiscard]]
+		Ray screenToRay(const Vec2& pos) const noexcept;
 
 	protected:
 

@@ -37,22 +37,22 @@ namespace s3d
 		D3D11Texture(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(Render, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(Render, ID3D11Device* device, const Image& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(Render, ID3D11Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(Render, ID3D11Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(Render, ID3D11Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Texture(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc);
+		D3D11Texture(MSRender, ID3D11Device* device, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
@@ -65,6 +65,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ID3D11RenderTargetView* getRTV();
+
+		[[nodiscard]]
+		ID3D11DepthStencilView* getDSV();
 
 		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
@@ -138,6 +141,10 @@ namespace s3d
 
 		TextureType m_type = TextureType::Default;
 
+		bool m_hasDepth = false;
+
 		bool m_initialized = false;
+
+		bool initDepthStencilTexture(ID3D11Device* device);
 	};
 }

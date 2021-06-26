@@ -61,32 +61,32 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_Metal::createRT(const Size& size, const TextureFormat& format, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createRT(const Image& image)
+	Texture::IDType CTexture_Metal::createRT(const Image& image, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createRT(const Grid<float>& image)
+	Texture::IDType CTexture_Metal::createRT(const Grid<float>& image, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createRT(const Grid<Float2>& image)
+	Texture::IDType CTexture_Metal::createRT(const Grid<Float2>& image, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createRT(const Grid<Float4>& image)
+	Texture::IDType CTexture_Metal::createRT(const Grid<Float4>& image, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Metal::createMSRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_Metal::createMSRT(const Size& size, const TextureFormat& format, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}

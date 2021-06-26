@@ -103,4 +103,7 @@ namespace s3d
 	
 	/// @brief ヘッダを持つ
 	using HasHeader			= YesNo<struct HasHeader_tag>;
+
+	/// @brief 深度バッファを持つ
+	using HasDepth			= YesNo<struct HasDepth_tag>;
 }

@@ -180,7 +180,7 @@ namespace s3d
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	Texture::IDType CTexture_GLES3::createRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_GLES3::createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -199,7 +199,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GLES3::createRT(const Image& image)
+	Texture::IDType CTexture_GLES3::createRT(const Image& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -219,7 +219,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GLES3::createRT(const Grid<float>& image)
+	Texture::IDType CTexture_GLES3::createRT(const Grid<float>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -239,7 +239,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GLES3::createRT(const Grid<Float2>& image)
+	Texture::IDType CTexture_GLES3::createRT(const Grid<Float2>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -259,7 +259,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GLES3::createRT(const Grid<Float4>& image)
+	Texture::IDType CTexture_GLES3::createRT(const Grid<Float4>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -279,7 +279,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GLES3::createMSRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_GLES3::createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{

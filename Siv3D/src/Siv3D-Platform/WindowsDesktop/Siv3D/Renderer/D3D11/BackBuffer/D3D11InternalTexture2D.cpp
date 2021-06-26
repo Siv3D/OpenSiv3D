@@ -31,7 +31,7 @@ namespace s3d
 		return m_size;
 	}
 
-	void D3D11InternalTexture2D::clear(ID3D11DeviceContext* context, const ColorF color)
+	void D3D11InternalTexture2D::clear(ID3D11DeviceContext* context, const ColorF& color)
 	{
 		if (isEmpty())
 		{
@@ -41,6 +41,11 @@ namespace s3d
 		const Float4 rgba = color.toFloat4();
 		
 		context->ClearRenderTargetView(m_renderTargetView.Get(), rgba.getPointer());
+
+		if (m_depthStencilView)
+		{
+			context->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 0.0f, 0);
+		}
 	}
 
 	void D3D11InternalTexture2D::copyTo(ID3D11DeviceContext* context, D3D11InternalTexture2D& dst)
@@ -69,6 +74,49 @@ namespace s3d
 		m_size = Size{ 0, 0 };
 	}
 
+	bool D3D11InternalTexture2D::hasDepthStencil() const noexcept
+	{
+		return m_hasDepthStencil;
+	}
+
+	void D3D11InternalTexture2D::initDepthStencil(ID3D11Device* device)
+	{
+		assert(not m_hasDepthStencil);
+
+		{
+			D3D11_TEXTURE2D_DESC descDepth{};
+			descDepth.Width				= m_size.x;
+			descDepth.Height			= m_size.y;
+			descDepth.MipLevels			= 1;
+			descDepth.ArraySize			= 1;
+			descDepth.Format			= DXGI_FORMAT_D32_FLOAT;
+			descDepth.SampleDesc		= m_sampleDesc;
+			descDepth.Usage				= D3D11_USAGE_DEFAULT;
+			descDepth.BindFlags			= D3D11_BIND_DEPTH_STENCIL;
+			descDepth.CPUAccessFlags	= 0;
+			descDepth.MiscFlags			= 0;
+
+			if (FAILED(device->CreateTexture2D(&descDepth, nullptr, &m_depthStencilTexture)))
+			{
+				throw EngineError{ U"ID3D11Device::CreateTexture2D() (depth-stencil) failed" };
+			}
+		}
+
+		{
+			D3D11_DEPTH_STENCIL_VIEW_DESC descDSV{};
+			descDSV.Format				= DXGI_FORMAT_D32_FLOAT;
+			descDSV.ViewDimension		= D3D11_DSV_DIMENSION_TEXTURE2DMS;
+			descDSV.Texture2D.MipSlice	= 0;
+
+			if (FAILED(device->CreateDepthStencilView(m_depthStencilTexture.Get(), &descDSV, &m_depthStencilView)))
+			{
+				throw EngineError{ U"ID3D11Device::CreateDepthStencilView() failed" };
+			}
+		}
+
+		m_hasDepthStencil = true;
+	}
+
 	ID3D11ShaderResourceView* const* D3D11InternalTexture2D::getSRVPtr() const noexcept
 	{
 		return m_shaderResourceView.GetAddressOf();
@@ -82,6 +130,11 @@ namespace s3d
 	ID3D11Texture2D* D3D11InternalTexture2D::getTexture() const noexcept
 	{
 		return m_texture.Get();
+	}
+
+	ID3D11DepthStencilView* D3D11InternalTexture2D::getDSV() const noexcept
+	{
+		return m_depthStencilView.Get();
 	}
 
 	[[nodiscard]]
@@ -133,31 +186,38 @@ namespace s3d
 			0);
 
 		D3D11InternalTexture2D texture;
-
-		if (FAILED(device->CreateTexture2D(&desc, nullptr, &texture.m_texture)))
+		texture.m_sampleDesc = desc.SampleDesc;
 		{
-			throw EngineError(U"ID3D11Device::CreateTexture2D() failed");
+			{
+				if (FAILED(device->CreateTexture2D(&desc, nullptr, &texture.m_texture)))
+				{
+					throw EngineError{ U"ID3D11Device::CreateTexture2D() failed" };
+				}
+			}
+
+			{
+				const CD3D11_RENDER_TARGET_VIEW_DESC rtDesc(
+					((sampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS),
+					desc.Format);
+
+				if (FAILED(device->CreateRenderTargetView(texture.m_texture.Get(), &rtDesc, &texture.m_renderTargetView)))
+				{
+					throw EngineError{ U"ID3D11Device::CreateRenderTargetView() failed" };
+				}
+			}
+
+			{
+				const CD3D11_SHADER_RESOURCE_VIEW_DESC srvDesc(
+					texture.m_texture.Get(),
+					((sampleCount == 1) ? D3D11_SRV_DIMENSION_TEXTURE2D : D3D11_SRV_DIMENSION_TEXTURE2DMS),
+					desc.Format);
+
+				if (FAILED(device->CreateShaderResourceView(texture.m_texture.Get(), &srvDesc, &texture.m_shaderResourceView)))
+				{
+					throw EngineError{ U"ID3D11Device::CreateShaderResourceView() failed" };
+				}
+			}
 		}
-
-		const CD3D11_RENDER_TARGET_VIEW_DESC rtDesc(
-			((sampleCount == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS),
-			desc.Format);
-
-		if (FAILED(device->CreateRenderTargetView(texture.m_texture.Get(), &rtDesc, &texture.m_renderTargetView)))
-		{
-			throw EngineError(U"ID3D11Device::CreateRenderTargetView() failed");
-		}
-
-		const CD3D11_SHADER_RESOURCE_VIEW_DESC srvDesc(
-			texture.m_texture.Get(),
-			((sampleCount == 1) ? D3D11_SRV_DIMENSION_TEXTURE2D : D3D11_SRV_DIMENSION_TEXTURE2DMS),
-			desc.Format);
-
-		if (FAILED(device->CreateShaderResourceView(texture.m_texture.Get(), &srvDesc, &texture.m_shaderResourceView)))
-		{
-			throw EngineError(U"ID3D11Device::CreateShaderResourceView() failed");
-		}
-
 		texture.m_size = size;
 
 		return texture;

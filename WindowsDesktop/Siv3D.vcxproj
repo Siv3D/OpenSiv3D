@@ -1805,6 +1805,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\CAudio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\BasicCamera3D\SivBasicCamera3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp" />

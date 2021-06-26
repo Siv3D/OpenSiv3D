@@ -23,28 +23,34 @@ namespace s3d
 		RenderTexture();
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDpeth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm);
+		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDpeth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const TextureFormat& format);
+		RenderTexture(uint32 width, uint32 height, const TextureFormat& format, HasDepth hasDpeth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Size& size, const TextureFormat& format);
+		RenderTexture(uint32 width, uint32 height, HasDepth hasDpeth);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Image& image);
+		RenderTexture(const Size& size, const TextureFormat& format, HasDepth hasDpeth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<float>& image);
+		RenderTexture(const Size& size, HasDepth hasDpeth);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float2>& image);
+		RenderTexture(const Image& image, HasDepth hasDpeth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float4>& image);
+		RenderTexture(const Grid<float>& image, HasDepth hasDpeth = HasDepth::No);
+
+		SIV3D_NODISCARD_CXX20
+		RenderTexture(const Grid<Float2>& image, HasDepth hasDpeth = HasDepth::No);
+
+		SIV3D_NODISCARD_CXX20
+		RenderTexture(const Grid<Float4>& image, HasDepth hasDpeth = HasDepth::No);
 
 		virtual ~RenderTexture();
 
@@ -69,7 +75,7 @@ namespace s3d
 		struct MSRender {};
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(MSRender, const Size& size, const TextureFormat& format);
+		RenderTexture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth);
 	};
 }
 

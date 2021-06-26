@@ -1441,6 +1441,9 @@
     <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Mesh">
       <UniqueIdentifier>{0b083c79-dea5-476f-a6e7-60b22ff90c4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\BasicCamera3D">
+      <UniqueIdentifier>{3c3c1725-20b8-4bb0-b3db-8cc84bd667f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -8782,6 +8785,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BasicCamera3D\SivBasicCamera3D.cpp">
+      <Filter>src\Siv3D\BasicCamera3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

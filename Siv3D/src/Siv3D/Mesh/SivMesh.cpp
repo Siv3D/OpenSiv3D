@@ -123,6 +123,16 @@ namespace s3d
 				}
 			}
 
+			if (not sphere.center.isZero())
+			{
+				const Float3 offset = sphere.center;
+
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += offset;
+				}
+			}
+
 			return vertices;
 		}
 

@@ -31,9 +31,6 @@ namespace s3d
 
 		/// @brief Signed Distance Field
 		SDF,
-
-		/// @brief 3D 用のテクスチャのデフォルト [ミップマップあり、sRGB]
-		For3D = MippedSRGB,
 	};
 }
 

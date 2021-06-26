@@ -27,7 +27,17 @@ namespace s3d
 
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 
+		// [デプス・ステンシル・テクスチャ]
+		ComPtr<ID3D11Texture2D> m_depthStencilTexture;
+
+		// [デプス・ステンシル・ビュー]
+		ComPtr<ID3D11DepthStencilView> m_depthStencilView;
+
 		Size m_size = Size{ 0, 0 };
+
+		DXGI_SAMPLE_DESC m_sampleDesc = { 1, 0 };
+
+		bool m_hasDepthStencil = false;
 
 	public:
 
@@ -40,13 +50,18 @@ namespace s3d
 		[[nodiscard]]
 		const Size& size() const noexcept;
 
-		void clear(ID3D11DeviceContext* context, const ColorF color);
+		void clear(ID3D11DeviceContext* context, const ColorF& color);
 
 		void copyTo(ID3D11DeviceContext* context, D3D11InternalTexture2D& dst);
 
 		void resolveTo(ID3D11DeviceContext* context, D3D11InternalTexture2D& dst);
 
 		void reset();
+
+		[[nodiscard]]
+		bool hasDepthStencil() const noexcept;
+
+		void initDepthStencil(ID3D11Device* device);
 
 		[[nodiscard]]
 		ID3D11ShaderResourceView* const* getSRVPtr() const noexcept;
@@ -56,6 +71,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ID3D11Texture2D* getTexture() const noexcept;
+
+		[[nodiscard]]
+		ID3D11DepthStencilView* getDSV() const noexcept;
 
 		[[nodiscard]]
 		static D3D11InternalTexture2D GetTextureFromSwapChain(ID3D11Device* device, IDXGISwapChain1* swapChain1);

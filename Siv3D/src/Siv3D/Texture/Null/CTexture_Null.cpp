@@ -55,32 +55,32 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Size&, const TextureFormat&)
+	Texture::IDType CTexture_Null::createRT(const Size&, const TextureFormat&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Image&)
+	Texture::IDType CTexture_Null::createRT(const Image&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<float>&)
+	Texture::IDType CTexture_Null::createRT(const Grid<float>&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<Float2>&)
+	Texture::IDType CTexture_Null::createRT(const Grid<Float2>&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<Float4>&)
+	Texture::IDType CTexture_Null::createRT(const Grid<Float4>&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createMSRT(const Size&, const TextureFormat&)
+	Texture::IDType CTexture_Null::createMSRT(const Size&, const TextureFormat&, const HasDepth)
 	{
 		return Texture::IDType::NullAsset();
 	}
