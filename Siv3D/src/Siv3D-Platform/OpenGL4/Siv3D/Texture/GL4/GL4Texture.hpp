@@ -59,9 +59,6 @@ namespace s3d
 		GLuint getFrameBuffer() const noexcept;
 
 		[[nodiscard]]
-		GLuint getDepthBuffer() const noexcept;
-
-		[[nodiscard]]
 		Size getSize() const noexcept;
 
 		[[nodiscard]]
@@ -132,8 +129,8 @@ namespace s3d
 		// [resolved フレームバッファ]
 		GLuint m_resolvedFrameBuffer = 0;
 
-		// [デプスバッファ]
-		GLuint m_depthBuffer = 0;
+		// [デプステクスチャ]
+		GLuint m_depthTexture = 0;
 
 		Size m_size = { 0, 0 };
 

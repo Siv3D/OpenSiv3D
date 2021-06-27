@@ -383,11 +383,6 @@ namespace s3d
 		return m_textures[handleID]->getFrameBuffer();
 	}
 
-	GLuint CTexture_GL4::getDepthBuffer(const Texture::IDType handleID)
-	{
-		return m_textures[handleID]->getDepthBuffer();
-	}
-
 	bool CTexture_GL4::isMainThread() const noexcept
 	{
 		return (std::this_thread::get_id() == m_mainThreadID);

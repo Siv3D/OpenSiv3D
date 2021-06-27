@@ -374,10 +374,11 @@ namespace s3d
 
 	GL4Texture::~GL4Texture()
 	{
-		// [デプスバッファ] を破棄
-		if (m_depthBuffer)
+		// [デプステクスチャ] を破棄
+		if (m_depthTexture)
 		{
-			::glDeleteRenderbuffers(1, &m_depthBuffer);
+			::glDeleteTextures(1, &m_depthTexture);
+			m_depthTexture = 0;
 		}
 
 		// [resolved フレームバッファ] を破棄
@@ -422,11 +423,6 @@ namespace s3d
 	GLuint GL4Texture::getFrameBuffer() const noexcept
 	{
 		return m_frameBuffer;
-	}
-
-	GLuint GL4Texture::getDepthBuffer() const noexcept
-	{
-		return m_depthBuffer;
 	}
 
 	Size GL4Texture::getSize() const noexcept
@@ -580,15 +576,8 @@ namespace s3d
 				p->getDepthStencilState().set(DepthStencilState::Default3D);
 			}
 
-			//LOG_TEST(U"###3");
-			//CheckOpenGLError();
-
 			::glClearDepth(0.0);
 			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			//LOG_TEST(U"###4");
-			//CheckOpenGLError();
-			//LOG_TEST(U"###5");
 		}
 		else
 		{
@@ -708,6 +697,7 @@ namespace s3d
 
 	bool GL4Texture::initDepthBuffer()
 	{
+		/*
 		assert(not m_hasDepth);
 		assert(not m_depthBuffer);
 		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
@@ -721,6 +711,54 @@ namespace s3d
 			::glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, m_size.x, m_size.y);
 
 			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthBuffer);
+		
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_ERROR(U"not complete!");
+				return false;
+			}
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		m_hasDepth = true;
+
+		return true;
+		*/
+
+		assert(not m_hasDepth);
+		assert(not m_depthTexture);
+		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
+
+		// [デプステクスチャ] を作成
+		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+
+		if (m_type == TextureType::Render)
+		{
+			::glGenTextures(1, &m_depthTexture);
+			::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
+				GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
+
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
+				return false;
+			}
+		}
+		else
+		{
+			::glGenTextures(1, &m_depthTexture);
+			::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
+			::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
+		
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
+				return false;
+			}
 		}
 		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
