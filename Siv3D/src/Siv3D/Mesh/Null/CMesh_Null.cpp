@@ -24,4 +24,23 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CMesh_Null::~CMesh_Null()");
 	}
+
+	void CMesh_Null::init()
+	{
+		LOG_SCOPED_TRACE(U"CMesh_Null::init()");
+	}
+	
+	Mesh::IDType CMesh_Null::create(const Array<Vertex3D>&, const Array<Vertex3D::IndexType>&)
+	{
+		return Mesh::IDType::NullAsset();
+	}
+
+	void CMesh_Null::release(Mesh::IDType) {}
+	
+	size_t CMesh_Null::getIndexCount(Mesh::IDType)
+	{
+		return 0;
+	}
+
+	void CMesh_Null::bindMeshToContext(Mesh::IDType) {}
 }

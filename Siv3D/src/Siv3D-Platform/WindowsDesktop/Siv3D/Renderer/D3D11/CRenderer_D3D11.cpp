@@ -16,10 +16,10 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/D3D11/CRenderer2D_D3D11.hpp>
 # include <Siv3D/Renderer3D/D3D11/CRenderer3D_D3D11.hpp>
 # include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
-# include <Siv3D/Mesh/D3D11/CMesh_D3D11.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -69,11 +69,7 @@ namespace s3d
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
-
-		if (auto p = dynamic_cast<CMesh_D3D11*>(SIV3D_ENGINE(Mesh)))
-		{
-			p->init();
-		}
+		SIV3D_ENGINE(Mesh)->init();
 
 		m_device->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	
 	}

@@ -1140,7 +1140,7 @@ namespace s3d
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
 						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
 						
-						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{

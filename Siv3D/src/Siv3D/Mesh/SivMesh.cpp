@@ -137,7 +137,7 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static Array<Vertex3D::IndexType> GenerateSphereIndices(const Sphere& sphere, const uint32 _quality)
+		static Array<Vertex3D::IndexType> GenerateSphereIndices(const uint32 _quality)
 		{
 			const uint32 quality = Clamp(_quality, 4u, 100u);
 			const uint32 HDIV = quality; // 半球分割数
@@ -210,7 +210,7 @@ namespace s3d
 	}
 
 	Mesh::Mesh(const Sphere& sphere, const uint32 quality)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(detail::GenerateSphereVertices(sphere, quality), detail::GenerateSphereIndices(sphere, quality))) }
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(detail::GenerateSphereVertices(sphere, quality), detail::GenerateSphereIndices(quality))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}

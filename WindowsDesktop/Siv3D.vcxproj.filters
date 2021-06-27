@@ -1444,6 +1444,9 @@
     <Filter Include="src\Siv3D\BasicCamera3D">
       <UniqueIdentifier>{3c3c1725-20b8-4bb0-b3db-8cc84bd667f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4">
+      <UniqueIdentifier>{6e84a280-98d6-422b-927f-763692d7aeb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6381,9 +6384,6 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\D3D11Mesh.hpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.hpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DepthStencilState.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -6395,6 +6395,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\Renderer3DCommon.hpp">
       <Filter>src\Siv3D\Renderer3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\GL4Mesh.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -8792,14 +8798,17 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11\CMesh_D3D11.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Mesh\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.cpp">
-      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\BasicCamera3D\SivBasicCamera3D.cpp">
       <Filter>src\Siv3D\BasicCamera3D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\GL4Renderer3DCommand.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\CMesh_GL4.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\GL4Mesh.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

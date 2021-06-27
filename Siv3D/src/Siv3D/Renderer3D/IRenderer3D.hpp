@@ -43,66 +43,66 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual const Renderer3DStat& getStat() const { static Renderer3DStat s; return s; }
+		virtual const Renderer3DStat& getStat() const = 0;
 
-		virtual void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) {}
+		virtual void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) = 0;
 
-		virtual void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) {}
-
-
-		virtual BlendState getBlendState() const { return BlendState::Default; }
-
-		virtual RasterizerState getRasterizerState() const { return RasterizerState::Default3D; }
-
-		virtual DepthStencilState getDepthStencilState() const { return DepthStencilState::Default3D; }
-
-		virtual SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const { return SamplerState::Default3D; }
-
-		virtual void setBlendState(const BlendState& state) {}
-
-		virtual void setRasterizerState(const RasterizerState& state) {}
-
-		virtual void setDepthStencilState(const DepthStencilState& state) {}
-
-		virtual void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) {}
+		virtual void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) = 0;
 
 
-		virtual void setScissorRect(const Rect& rect) {}
+		virtual BlendState getBlendState() const = 0;
 
-		virtual Rect getScissorRect() const { return Rect{ 0 }; }
+		virtual RasterizerState getRasterizerState() const = 0;
 
-		virtual void setViewport(const Optional<Rect>& viewport) {}
+		virtual DepthStencilState getDepthStencilState() const = 0;
 
-		virtual Optional<Rect> getViewport() const { return none; }
+		virtual SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const = 0;
 
+		virtual void setBlendState(const BlendState& state) = 0;
 
-		virtual Optional<VertexShader> getCustomVS() const { return none; }
+		virtual void setRasterizerState(const RasterizerState& state) = 0;
 
-		virtual Optional<PixelShader> getCustomPS() const { return none; }
+		virtual void setDepthStencilState(const DepthStencilState& state) = 0;
 
-		virtual void setCustomVS(const Optional<VertexShader>& vs) {}
-
-		virtual void setCustomPS(const Optional<PixelShader>& ps) {}
-
-
-		virtual const Mat4x4& getCameraTransform() const { static Mat4x4 m = Mat4x4::Identity(); return m; }
-
-		virtual void setCameraTransform(const Mat4x4& matrix) {}
+		virtual void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) = 0;
 
 
-		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) {}
+		virtual void setScissorRect(const Rect& rect) = 0;
 
-		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) {}
+		virtual Rect getScissorRect() const = 0;
 
+		virtual void setViewport(const Optional<Rect>& viewport) = 0;
 
-		virtual void setRenderTarget(const Optional<RenderTexture>& rt) {}
-
-		virtual Optional<RenderTexture> getRenderTarget() const { return none; }
-
-
-		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) {}
+		virtual Optional<Rect> getViewport() const = 0;
 
 
-		virtual void flush() {}
+		virtual Optional<VertexShader> getCustomVS() const = 0;
+
+		virtual Optional<PixelShader> getCustomPS() const = 0;
+
+		virtual void setCustomVS(const Optional<VertexShader>& vs) = 0;
+
+		virtual void setCustomPS(const Optional<PixelShader>& ps) = 0;
+
+
+		virtual const Mat4x4& getCameraTransform() const = 0;
+
+		virtual void setCameraTransform(const Mat4x4& matrix) = 0;
+
+
+		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+		virtual void setPSTexture(uint32 slot, const Optional<Texture>& texture) = 0;
+
+
+		virtual void setRenderTarget(const Optional<RenderTexture>& rt) = 0;
+
+		virtual Optional<RenderTexture> getRenderTarget() const = 0;
+
+
+		virtual void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) = 0;
+
+
+		virtual void flush() = 0;
 	};
 }

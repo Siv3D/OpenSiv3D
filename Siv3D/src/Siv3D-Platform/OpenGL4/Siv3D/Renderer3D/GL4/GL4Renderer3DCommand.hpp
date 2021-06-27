@@ -186,6 +186,7 @@ namespace s3d
 		Array<GL4ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
+		Array<Mesh::IDType> m_meshes;
 
 		// current
 		BlendState m_currentBlendState				= m_blendStates.back();

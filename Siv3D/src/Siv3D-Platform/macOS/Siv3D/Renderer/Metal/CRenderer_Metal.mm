@@ -17,6 +17,7 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/Metal/CRenderer2D_Metal.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # import <QuartzCore/CAMetalLayer.h>
@@ -72,6 +73,7 @@ namespace s3d
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
+		SIV3D_ENGINE(Mesh)->init();
 		
 		clear();
 	}

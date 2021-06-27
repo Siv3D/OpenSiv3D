@@ -27,7 +27,7 @@ namespace s3d
 
 		~CMesh_D3D11() override;
 
-		void init();
+		void init() override;
 
 		Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) override;
 

@@ -94,6 +94,11 @@ namespace s3d
 		}
 	}
 
+	const Renderer3DStat& CRenderer3D_D3D11::getStat() const
+	{
+		return m_stat;
+	}
+
 	void CRenderer3D_D3D11::addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color)
 	{
 		if (not m_currentCustomVS)

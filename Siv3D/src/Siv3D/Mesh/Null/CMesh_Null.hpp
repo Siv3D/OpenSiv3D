@@ -17,12 +17,23 @@ namespace s3d
 {
 	class CMesh_Null final : public ISiv3DMesh
 	{
-	private:
-
 	public:
 
 		CMesh_Null();
 
 		~CMesh_Null() override;
+
+		virtual void init() override;
+	
+		Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) override;
+
+		void release(Mesh::IDType handleID) override;
+
+		size_t getIndexCount(Mesh::IDType handleID) override;
+
+		void bindMeshToContext(Mesh::IDType handleID) override;
+
+	private:
+
 	};
 }

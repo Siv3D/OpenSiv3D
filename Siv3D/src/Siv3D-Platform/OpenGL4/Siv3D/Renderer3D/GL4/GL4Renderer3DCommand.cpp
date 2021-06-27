@@ -13,13 +13,13 @@
 
 namespace s3d
 {
-	/*
 	GL4Renderer3DCommandManager::GL4Renderer3DCommandManager()
 	{
-		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
-		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default3D });
+		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default3D });
 		m_vsTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 		m_psTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
+		m_meshes = { Mesh::IDType::InvalidValue() };
 
 		reset();
 	}
@@ -35,11 +35,13 @@ namespace s3d
 		// clear buffers
 		{
 			m_draws.clear();
-			m_nullDraws.clear();
-			m_colorMuls			= { m_colorMuls.back() };
-			m_colorAdds			= { m_colorAdds.back() };
-			m_blendStates		= { m_blendStates.back() };
-			m_rasterizerStates	= { m_rasterizerStates.back() };
+			m_drawLocalToWorlds.clear();
+			m_drawDiffuses.clear();
+
+			//	m_nullDraws.clear();
+			m_blendStates = { m_blendStates.back() };
+			m_rasterizerStates = { m_rasterizerStates.back() };
+			m_depthStencilStates = { m_depthStencilStates.back() };
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
@@ -51,15 +53,14 @@ namespace s3d
 				m_psSamplerStates[i] = { m_psSamplerStates[i].back() };
 			}
 
-			m_scissorRects			= { m_scissorRects.back() };
-			m_viewports				= { m_viewports.back() };
-			m_sdfParams				= { m_sdfParams.back() };
-			m_internalPSConstants	= { m_internalPSConstants.back() };
-			m_RTs					= { m_RTs.back() };
+			m_scissorRects = { m_scissorRects.back() };
+			m_viewports = { m_viewports.back() };
+			//	m_sdfParams				= { m_sdfParams.back() };
+			m_RTs = { m_RTs.back() };
 
-			m_VSs					= { VertexShader::IDType::InvalidValue() };
-			m_PSs					= { PixelShader::IDType::InvalidValue() };
-			m_combinedTransforms	= { m_combinedTransforms.back() };
+			m_VSs = { VertexShader::IDType::InvalidValue() };
+			m_PSs = { PixelShader::IDType::InvalidValue() };
+			m_cameraTransforms = { m_cameraTransforms.back() };
 			m_constants.clear();
 			m_constantBufferCommands.clear();
 		}
@@ -69,24 +70,22 @@ namespace s3d
 			m_reservedVSs.clear();
 			m_reservedPSs.clear();
 			m_reservedTextures.clear();
+			m_reservedMeshes.clear();
 		}
 
 		// Begin a new frame
 		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::SetBuffers, 0);
-			m_commands.emplace_back(GL4Renderer3DCommandType::UpdateBuffers, 0);
+			//	m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
+			//	m_commands.emplace_back(GL4Renderer2DCommandType::UpdateBuffers, 0);
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::BlendState, 0);
 			m_currentBlendState = m_blendStates.front();
 
-			m_commands.emplace_back(GL4Renderer3DCommandType::ColorMul, 0);
-			m_currentColorMul = m_colorMuls.front();
-
-			m_commands.emplace_back(GL4Renderer3DCommandType::ColorAdd, 0);
-			m_currentColorAdd = m_colorAdds.front();
-
 			m_commands.emplace_back(GL4Renderer3DCommandType::RasterizerState, 0);
 			m_currentRasterizerState = m_rasterizerStates.front();
+
+			m_commands.emplace_back(GL4Renderer3DCommandType::DepthStencilState, 0);
+			m_currentDepthStencilState = m_depthStencilStates.front();
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
@@ -108,11 +107,8 @@ namespace s3d
 			m_commands.emplace_back(GL4Renderer3DCommandType::Viewport, 0);
 			m_currentViewport = m_viewports.front();
 
-			m_commands.emplace_back(GL4Renderer3DCommandType::SDFParams, 0);
-			m_currentSDFParams = m_sdfParams.front();
-
-			m_commands.emplace_back(GL4Renderer3DCommandType::InternalPSConstants, 0);
-			m_currentInternalPSConstants = m_internalPSConstants.front();
+			//	m_commands.emplace_back(GL4Renderer2DCommandType::SDFParams, 0);
+			//	m_currentSDFParams = m_sdfParams.front();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetRT, 0);
 			m_currentRT = m_RTs.front();
@@ -123,8 +119,8 @@ namespace s3d
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetPS, 0);
 			m_currentPS = PixelShader::IDType::InvalidValue();
 
-			m_commands.emplace_back(GL4Renderer3DCommandType::Transform, 0);
-			m_currentCombinedTransform = m_combinedTransforms.front();
+			m_commands.emplace_back(GL4Renderer3DCommandType::CameraTransform, 0);
+			m_currentCameraTransform = m_cameraTransforms.front();
 
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -145,34 +141,29 @@ namespace s3d
 				}
 				m_currentPSTextures.fill(Texture::IDType::InvalidValue());
 			}
+
+			{
+				const auto command = GL4Renderer3DCommandType::SetMesh;
+				m_meshes = { Mesh::IDType::InvalidValue() };
+				m_commands.emplace_back(command, 0);
+				m_currentMesh = Mesh::IDType::InvalidValue();
+			}
 		}
 	}
 
 	void GL4Renderer3DCommandManager::flush()
 	{
-		if (m_currentDraw.indexCount)
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::Draw, static_cast<uint32>(m_draws.size()));
-			m_draws.push_back(m_currentDraw);
-			m_currentDraw.indexCount = 0;
-		}
+		//if (m_currentDraw.indexCount)
+		//{
+		//	m_commands.emplace_back(GL4Renderer2DCommandType::Draw, static_cast<uint32>(m_draws.size()));
+		//	m_draws.push_back(m_currentDraw);
+		//	m_currentDraw.indexCount = 0;
+		//}
 
-		if (m_changes.has(GL4Renderer3DCommandType::SetBuffers))
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::SetBuffers, 0);
-		}
-
-		if (m_changes.has(GL4Renderer3DCommandType::ColorMul))
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::ColorMul, static_cast<uint32>(m_colorMuls.size()));
-			m_colorMuls.push_back(m_currentColorMul);
-		}
-
-		if (m_changes.has(GL4Renderer3DCommandType::ColorAdd))
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::ColorAdd, static_cast<uint32>(m_colorAdds.size()));
-			m_colorAdds.push_back(m_currentColorAdd);
-		}
+		//if (m_changes.has(GL4Renderer2DCommandType::SetBuffers))
+		//{
+		//	m_commands.emplace_back(GL4Renderer2DCommandType::SetBuffers, 0);
+		//}
 
 		if (m_changes.has(GL4Renderer3DCommandType::BlendState))
 		{
@@ -184,6 +175,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(GL4Renderer3DCommandType::RasterizerState, static_cast<uint32>(m_rasterizerStates.size()));
 			m_rasterizerStates.push_back(m_currentRasterizerState);
+		}
+
+		if (m_changes.has(GL4Renderer3DCommandType::DepthStencilState))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::DepthStencilState, static_cast<uint32>(m_depthStencilStates.size()));
+			m_depthStencilStates.push_back(m_currentDepthStencilState);
 		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -220,17 +217,11 @@ namespace s3d
 			m_viewports.push_back(m_currentViewport);
 		}
 
-		if (m_changes.has(GL4Renderer3DCommandType::SDFParams))
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
-			m_sdfParams.push_back(m_currentSDFParams);
-		}
-
-		if (m_changes.has(GL4Renderer3DCommandType::InternalPSConstants))
-		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
-			m_internalPSConstants.push_back(m_currentInternalPSConstants);
-		}
+		//if (m_changes.has(GL4Renderer2DCommandType::SDFParams))
+		//{
+		//	m_commands.emplace_back(GL4Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
+		//	m_sdfParams.push_back(m_currentSDFParams);
+		//}
 
 		if (m_changes.has(GL4Renderer3DCommandType::SetRT))
 		{
@@ -250,10 +241,10 @@ namespace s3d
 			m_PSs.push_back(m_currentPS);
 		}
 
-		if (m_changes.has(GL4Renderer3DCommandType::Transform))
+		if (m_changes.has(GL4Renderer3DCommandType::CameraTransform))
 		{
-			m_commands.emplace_back(GL4Renderer3DCommandType::Transform, static_cast<uint32>(m_combinedTransforms.size()));
-			m_combinedTransforms.push_back(m_currentCombinedTransform);
+			m_commands.emplace_back(GL4Renderer3DCommandType::CameraTransform, static_cast<uint32>(m_cameraTransforms.size()));
+			m_cameraTransforms.push_back(m_currentCameraTransform);
 		}
 
 		if (m_changes.has(GL4Renderer3DCommandType::SetConstantBuffer))
@@ -273,7 +264,7 @@ namespace s3d
 			}
 		}
 
-		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		for (int32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
 			const auto command = ToEnum<GL4Renderer3DCommandType>(FromEnum(GL4Renderer3DCommandType::PSTexture0) + i);
 
@@ -284,6 +275,12 @@ namespace s3d
 			}
 		}
 
+		if (m_changes.has(GL4Renderer3DCommandType::SetMesh))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetMesh, static_cast<uint32>(m_meshes.size()));
+			m_meshes.push_back(m_currentMesh);
+		}
+
 		m_changes.clear();
 	}
 
@@ -292,120 +289,61 @@ namespace s3d
 		return m_commands;
 	}
 
-	void GL4Renderer3DCommandManager::pushUpdateBuffers(const uint32 batchIndex)
+	void GL4Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const Mat4x4* mat, const Float4* color, const uint32 instanceCount)
 	{
-		flush();
+		// [Siv3D ToDo]
+		assert(instanceCount == 1);
 
-		m_commands.emplace_back(GL4Renderer3DCommandType::UpdateBuffers, batchIndex);
-	}
-
-	void GL4Renderer3DCommandManager::pushDraw(const Vertex2D::IndexType indexCount)
-	{
 		if (m_changes.hasStateChange())
 		{
 			flush();
 		}
 
-		m_currentDraw.indexCount += indexCount;
+		m_commands.emplace_back(GL4Renderer3DCommandType::Draw, static_cast<uint32>(m_draws.size()));
+		m_draws.push_back({ startIndex, indexCount, instanceCount });
+		m_drawLocalToWorlds.push_back(*mat);
+		m_drawDiffuses.push_back(*color);
+		m_changes.set(GL4Renderer3DCommandType::Draw);
 	}
 
-	const GL4DrawCommand& GL4Renderer3DCommandManager::getDraw(const uint32 index) const noexcept
+	//void GL4Renderer2DCommandManager::pushUpdateBuffers(const uint32 batchIndex)
+	//{
+	//	flush();
+
+	//	m_commands.emplace_back(GL4Renderer2DCommandType::UpdateBuffers, batchIndex);
+	//}
+
+	const GL4Draw3DCommand& GL4Renderer3DCommandManager::getDraw(const uint32 index) const noexcept
 	{
 		return m_draws[index];
 	}
 
-	void GL4Renderer3DCommandManager::pushNullVertices(const uint32 count)
+	const Mat4x4& GL4Renderer3DCommandManager::getDrawLocalToWorld(const uint32 index) const noexcept
 	{
-		if (m_changes.hasStateChange())
-		{
-			flush();
-		}
-
-		m_commands.emplace_back(GL4Renderer3DCommandType::DrawNull, static_cast<uint32>(m_nullDraws.size()));
-		m_nullDraws.push_back(count);
-		m_changes.set(GL4Renderer3DCommandType::DrawNull);
+		return m_drawLocalToWorlds[index];
 	}
 
-	uint32 GL4Renderer3DCommandManager::getNullDraw(const uint32 index) const noexcept
+	const Float4& GL4Renderer3DCommandManager::getDrawDiffuse(const uint32 index) const noexcept
 	{
-		return m_nullDraws[index];
+		return m_drawDiffuses[index];
 	}
 
-	void GL4Renderer3DCommandManager::pushColorMul(const Float4 & color)
-	{
-		constexpr auto command = GL4Renderer3DCommandType::ColorMul;
-		auto& current = m_currentColorMul;
-		auto& buffer = m_colorMuls;
+	//void GL4Renderer2DCommandManager::pushNullVertices(const uint32 count)
+	//{
+	//	if (m_changes.hasStateChange())
+	//	{
+	//		flush();
+	//	}
 
-		if (not m_changes.has(command))
-		{
-			if (color != current)
-			{
-				current = color;
-				m_changes.set(command);
-			}
-		}
-		else
-		{
-			if (color == buffer.back())
-			{
-				current = color;
-				m_changes.clear(command);
-			}
-			else
-			{
-				current = color;
-			}
-		}
-	}
+	//	m_commands.emplace_back(GL4Renderer2DCommandType::DrawNull, static_cast<uint32>(m_nullDraws.size()));
+	//	m_nullDraws.push_back(count);
+	//	m_changes.set(GL4Renderer2DCommandType::DrawNull);
+	//}
 
-	const Float4& GL4Renderer3DCommandManager::getColorMul(const uint32 index) const
-	{
-		return m_colorMuls[index];
-	}
-
-	const Float4& GL4Renderer3DCommandManager::getCurrentColorMul() const
-	{
-		return m_currentColorMul;
-	}
-
-	void GL4Renderer3DCommandManager::pushColorAdd(const Float4& color)
-	{
-		constexpr auto command = GL4Renderer3DCommandType::ColorAdd;
-		auto& current = m_currentColorAdd;
-		auto& buffer = m_colorAdds;
-
-		if (not m_changes.has(command))
-		{
-			if (color != current)
-			{
-				current = color;
-				m_changes.set(command);
-			}
-		}
-		else
-		{
-			if (color == buffer.back())
-			{
-				current = color;
-				m_changes.clear(command);
-			}
-			else
-			{
-				current = color;
-			}
-		}
-	}
-
-	const Float4& GL4Renderer3DCommandManager::getColorAdd(const uint32 index) const
-	{
-		return m_colorAdds[index];
-	}
-
-	const Float4& GL4Renderer3DCommandManager::getCurrentColorAdd() const
-	{
-		return m_currentColorAdd;
-	}
+	//uint32 GL4Renderer2DCommandManager::getNullDraw(const uint32 index) const noexcept
+	//{
+	//	return m_nullDraws[index];
+	//}
 
 	void GL4Renderer3DCommandManager::pushBlendState(const BlendState& state)
 	{
@@ -481,6 +419,44 @@ namespace s3d
 	const RasterizerState& GL4Renderer3DCommandManager::getCurrentRasterizerState() const
 	{
 		return m_currentRasterizerState;
+	}
+
+	void GL4Renderer3DCommandManager::pushDepthStencilState(const DepthStencilState& state)
+	{
+		constexpr auto command = GL4Renderer3DCommandType::DepthStencilState;
+		auto& current = m_currentDepthStencilState;
+		auto& buffer = m_depthStencilStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const DepthStencilState& GL4Renderer3DCommandManager::getDepthStencilState(const uint32 index) const
+	{
+		return m_depthStencilStates[index];
+	}
+
+	const DepthStencilState& GL4Renderer3DCommandManager::getCurrentDepthStencilState() const
+	{
+		return m_currentDepthStencilState;
 	}
 
 	void GL4Renderer3DCommandManager::pushVSSamplerState(const SamplerState& state, const uint32 slot)
@@ -571,7 +547,7 @@ namespace s3d
 		return m_currentPSSamplerStates[slot];
 	}
 
-	void GL4Renderer3DCommandManager::pushScissorRect(const Rect & state)
+	void GL4Renderer3DCommandManager::pushScissorRect(const Rect& state)
 	{
 		constexpr auto command = GL4Renderer3DCommandType::ScissorRect;
 		auto& current = m_currentScissorRect;
@@ -647,76 +623,44 @@ namespace s3d
 		return m_currentViewport;
 	}
 
-	void GL4Renderer3DCommandManager::pushSDFParameters(const std::array<Float4, 3>& state)
-	{
-		constexpr auto command = GL4Renderer3DCommandType::SDFParams;
-		auto& current = m_currentSDFParams;
-		auto& buffer = m_sdfParams;
+	//void GL4Renderer2DCommandManager::pushSDFParameters(const std::array<Float4, 3>& state)
+	//{
+	//	constexpr auto command = GL4Renderer2DCommandType::SDFParams;
+	//	auto& current = m_currentSDFParams;
+	//	auto& buffer = m_sdfParams;
 
-		if (not m_changes.has(command))
-		{
-			if (state != current)
-			{
-				current = state;
-				m_changes.set(command);
-			}
-		}
-		else
-		{
-			if (state == buffer.back())
-			{
-				current = state;
-				m_changes.clear(command);
-			}
-			else
-			{
-				current = state;
-			}
-		}
-	}
+	//	if (not m_changes.has(command))
+	//	{
+	//		if (state != current)
+	//		{
+	//			current = state;
+	//			m_changes.set(command);
+	//		}
+	//	}
+	//	else
+	//	{
+	//		if (state == buffer.back())
+	//		{
+	//			current = state;
+	//			m_changes.clear(command);
+	//		}
+	//		else
+	//		{
+	//			current = state;
+	//		}
+	//	}
+	//}
 
-	const std::array<Float4, 3>& GL4Renderer3DCommandManager::getSDFParameters(const uint32 index) const
-	{
-		return m_sdfParams[index];
-	}
+	//const std::array<Float4, 3>& GL4Renderer2DCommandManager::getSDFParameters(const uint32 index) const
+	//{
+	//	return m_sdfParams[index];
+	//}
 
-	const std::array<Float4, 3>& GL4Renderer3DCommandManager::getCurrentSDFParameters() const
-	{
-		return m_currentSDFParams;
-	}
+	//const std::array<Float4, 3>& GL4Renderer2DCommandManager::getCurrentSDFParameters() const
+	//{
+	//	return m_currentSDFParams;
+	//}
 
-	void GL4Renderer3DCommandManager::pushInternalPSConstants(const Float4& value)
-	{
-		constexpr auto command = GL4Renderer3DCommandType::InternalPSConstants;
-		auto& current = m_currentInternalPSConstants;
-		auto& buffer = m_internalPSConstants;
-
-		if (not m_changes.has(command))
-		{
-			if (value != current)
-			{
-				current = value;
-				m_changes.set(command);
-			}
-		}
-		else
-		{
-			if (value == buffer.back())
-			{
-				current = value;
-				m_changes.clear(command);
-			}
-			else
-			{
-				current = value;
-			}
-		}
-	}
-
-	const Float4& GL4Renderer3DCommandManager::getInternalPSConstants(uint32 index) const
-	{
-		return m_internalPSConstants[index];
-	}
 
 	void GL4Renderer3DCommandManager::pushStandardVS(const VertexShader::IDType& id)
 	{
@@ -846,101 +790,42 @@ namespace s3d
 		return m_PSs[index];
 	}
 
-	void GL4Renderer3DCommandManager::pushLocalTransform(const Mat3x2& local)
+	void GL4Renderer3DCommandManager::pushCameraTransform(const Mat4x4& state)
 	{
-		constexpr auto command = GL4Renderer3DCommandType::Transform;
-		auto& currentLocal = m_currentLocalTransform;
-		auto& currentCombined = m_currentCombinedTransform;
-		auto& buffer = m_combinedTransforms;
-		const Mat3x2 combinedTransform = local * m_currentCameraTransform;
+		constexpr auto command = GL4Renderer3DCommandType::CameraTransform;
+		auto& current = m_currentCameraTransform;
+		auto& buffer = m_cameraTransforms;
 
 		if (not m_changes.has(command))
 		{
-			if (local != currentLocal)
+			if (state != current)
 			{
-				currentLocal = local;
-				currentCombined = combinedTransform;
-				m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
+				current = state;
 				m_changes.set(command);
 			}
 		}
 		else
 		{
-			if (combinedTransform == buffer.back())
+			if (state == buffer.back())
 			{
-				currentLocal = local;
-				currentCombined = combinedTransform;
+				current = state;
 				m_changes.clear(command);
 			}
 			else
 			{
-				currentLocal = local;
-				currentCombined = combinedTransform;
+				current = state;
 			}
-
-			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
 		}
 	}
 
-	const Mat3x2& GL4Renderer3DCommandManager::getCurrentLocalTransform() const
-	{
-		return m_currentLocalTransform;
-	}
-
-	void GL4Renderer3DCommandManager::pushCameraTransform(const Mat3x2& camera)
-	{
-		constexpr auto command = GL4Renderer3DCommandType::Transform;
-		auto& currentCamera = m_currentCameraTransform;
-		auto& currentCombined = m_currentCombinedTransform;
-		auto& buffer = m_combinedTransforms;
-		const Mat3x2 combinedTransform = m_currentLocalTransform * camera;
-
-		if (not m_changes.has(command))
-		{
-			if (camera != currentCamera)
-			{
-				currentCamera = camera;
-				currentCombined = combinedTransform;
-				m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-				m_changes.set(command);
-			}
-		}
-		else
-		{
-			if (combinedTransform == buffer.back())
-			{
-				currentCamera = camera;
-				currentCombined = combinedTransform;
-				m_changes.clear(command);
-			}
-			else
-			{
-				currentCamera = camera;
-				currentCombined = combinedTransform;
-			}
-
-			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-		}
-	}
-
-	const Mat3x2& GL4Renderer3DCommandManager::getCurrentCameraTransform() const
+	const Mat4x4& GL4Renderer3DCommandManager::getCurrentCameraTransform() const
 	{
 		return m_currentCameraTransform;
 	}
 
-	const Mat3x2& GL4Renderer3DCommandManager::getCombinedTransform(const uint32 index) const
+	const Mat4x4& GL4Renderer3DCommandManager::getCameraTransform(const uint32 index) const
 	{
-		return m_combinedTransforms[index];
-	}
-
-	const Mat3x2& GL4Renderer3DCommandManager::getCurrentCombinedTransform() const
-	{
-		return m_currentCombinedTransform;
-	}
-
-	float GL4Renderer3DCommandManager::getCurrentMaxScaling() const noexcept
-	{
-		return m_currentMaxScaling;
+		return m_cameraTransforms[index];
 	}
 
 	void GL4Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
@@ -952,20 +837,20 @@ namespace s3d
 		const uint32 offset = static_cast<uint32>(m_constants.size());
 		m_constants.insert(m_constants.end(), pData, (pData + num_vectors));
 
-		GL4ConstantBufferCommand cb
+		GL4ConstantBuffer3DCommand cb
 		{
-			.stage			= stage,
-			.slot			= slot,
-			.offset			= offset,
-			.num_vectors	= num_vectors,
-			.cbBase			= buffer
+			.stage = stage,
+			.slot = slot,
+			.offset = offset,
+			.num_vectors = num_vectors,
+			.cbBase = buffer
 		};
 
 		m_constantBufferCommands.push_back(cb);
 		m_changes.set(command);
 	}
 
-	GL4ConstantBufferCommand& GL4Renderer3DCommandManager::getConstantBuffer(const uint32 index)
+	GL4ConstantBuffer3DCommand& GL4Renderer3DCommandManager::getConstantBuffer(const uint32 index)
 	{
 		return m_constantBufferCommands[index];
 	}
@@ -1176,5 +1061,53 @@ namespace s3d
 	{
 		return m_currentRT;
 	}
-	*/
+
+	void GL4Renderer3DCommandManager::pushMesh(const Mesh& mesh)
+	{
+		const auto id = mesh.id();
+		constexpr auto command = GL4Renderer3DCommandType::SetMesh;
+		auto& current = m_currentMesh;
+		auto& buffer = m_meshes;
+
+		if (not m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+
+				if (not m_reservedMeshes.contains(id))
+				{
+					m_reservedMeshes.emplace(id, mesh);
+				}
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+
+				if (not m_reservedMeshes.contains(id))
+				{
+					m_reservedMeshes.emplace(id, mesh);
+				}
+			}
+		}
+	}
+
+	const Mesh::IDType& GL4Renderer3DCommandManager::getMesh(const uint32 index) const
+	{
+		return m_meshes[index];
+	}
+
+	const Mesh::IDType& GL4Renderer3DCommandManager::getCurrentMesh() const
+	{
+		return m_currentMesh;
+	}
 }

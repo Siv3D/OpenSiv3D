@@ -84,7 +84,7 @@ namespace s3d
 
 			{
 				::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(uint32) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
+				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(Vertex2D::IndexType) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
 			}
 		}
 		::glBindVertexArray(0);

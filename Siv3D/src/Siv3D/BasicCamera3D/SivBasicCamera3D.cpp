@@ -33,4 +33,32 @@ namespace s3d
 
 		return Ray{ m_eyePosition, (rayEnd - m_eyePosition).normalized() };
 	}
+
+	void BasicCamera3D::updateProj() noexcept
+	{
+		const double g = (1.0 / std::tan(m_verticalFOV * 0.5));
+		const double s = (static_cast<double>(m_sceneSize.x) / m_sceneSize.y);
+		constexpr float e = 0.000001f;
+
+		m_proj = Mat4x4{
+			static_cast<float>(g / s), 0.0f, 0.0f, 0.0f,
+			0.0f, static_cast<float>(g), 0.0f, 0.0f,
+			0.0f, 0.0f, e, 1.0f,
+			0.0f, 0.0f, static_cast<float>(m_nearClip * (1.0 - e)), 0.0f
+		};
+	}
+
+	void BasicCamera3D::updateView() noexcept
+	{
+		const SIMD_Float4 eyePosition{ m_eyePosition, 0.0f };
+		const SIMD_Float4 focusPosition{ m_focusPosition, 0.0f };
+		const SIMD_Float4 upDirection{ m_upDirection, 0.0f };
+		m_view = DirectX::XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
+	}
+
+	void BasicCamera3D::updateViewProj() noexcept
+	{
+		m_viewProj = (m_view * m_proj);
+		m_invViewProj = m_viewProj.inverse();
+	}
 }

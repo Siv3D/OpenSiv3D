@@ -23,12 +23,14 @@ namespace s3d
 
 		virtual ~ISiv3DMesh() = default;
 
-		virtual Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) { return Mesh::IDType::NullAsset(); }
+		virtual void init() = 0;
+
+		virtual Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) = 0;
 	
-		virtual void release(Mesh::IDType handleID) {}
+		virtual void release(Mesh::IDType handleID) = 0;
 
-		virtual size_t getIndexCount(Mesh::IDType handleID) { return 0; }
+		virtual size_t getIndexCount(Mesh::IDType handleID) = 0;
 
-		virtual void bindMeshToContext(Mesh::IDType handleID) {}
+		virtual void bindMeshToContext(Mesh::IDType handleID) = 0;
 	};
 }

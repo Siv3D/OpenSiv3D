@@ -18,6 +18,7 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/GL4/CRenderer2D_GL4.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -85,6 +86,7 @@ namespace s3d
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
+		SIV3D_ENGINE(Mesh)->init();
 		
 		clear();
 	}
