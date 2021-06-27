@@ -155,6 +155,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/AudioGroup/AudioGroupDetail.cpp
   ../Siv3D/src/Siv3D/AudioGroup/SivAudioGroup.cpp
   ../Siv3D/src/Siv3D/Base64/SivBase64.cpp
+  ../Siv3D/src/Siv3D/BasicCamera3D/SivBasicCamera3D.cpp
   ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp
   ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
