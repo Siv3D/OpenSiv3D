@@ -18,6 +18,10 @@
 # include "Common.hpp"
 # include "Utility.hpp"
 
+# ifdef Always
+#	undef Always
+# endif
+
 namespace s3d
 {
 	enum class DepthFunc : uint8
