@@ -1137,6 +1137,13 @@
 		2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508424B768A800B98A7F /* BinaryReaderDetail.cpp */; };
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
+		2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */; };
+		2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */; };
+		2C6C781F268895BB00B3C44A /* Renderer3DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */; };
+		2C6C7822268895E300B3C44A /* GL4Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C7820268895E200B3C44A /* GL4Mesh.cpp */; };
+		2C6C7823268895E300B3C44A /* GL4Mesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C7821268895E200B3C44A /* GL4Mesh.hpp */; };
+		2C6C782626889B2B00B3C44A /* SivBasicCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782526889B2B00B3C44A /* SivBasicCamera3D.cpp */; };
+		2C6C782926889B9C00B3C44A /* SivGraphics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */; };
 		2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */; };
 		2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A5267F133C00A8F68C /* SivGraphics.cpp */; };
 		2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A9267F480700A8F68C /* SivEngineOptions.cpp */; };
@@ -3270,6 +3277,14 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C6C78192688957700B3C44A /* Graphics3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics3D.ipp; sourceTree = "<group>"; };
+		2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer3DCommand.hpp; sourceTree = "<group>"; };
+		2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer3DCommand.cpp; sourceTree = "<group>"; };
+		2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Renderer3DCommon.hpp; sourceTree = "<group>"; };
+		2C6C7820268895E200B3C44A /* GL4Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Mesh.cpp; sourceTree = "<group>"; };
+		2C6C7821268895E200B3C44A /* GL4Mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Mesh.hpp; sourceTree = "<group>"; };
+		2C6C782526889B2B00B3C44A /* SivBasicCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBasicCamera3D.cpp; sourceTree = "<group>"; };
+		2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics3D.cpp; sourceTree = "<group>"; };
 		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
@@ -4244,6 +4259,7 @@
 				2C66842C2683811800F7089A /* Glyph.ipp */,
 				2C063DE32661426000368BEE /* GlyphInfo.ipp */,
 				2C063DFC2661426000368BEE /* Graphics2D.ipp */,
+				2C6C78192688957700B3C44A /* Graphics3D.ipp */,
 				2C063DC12661426000368BEE /* Grid.ipp */,
 				2C063DBB2661426000368BEE /* HalfFloat.ipp */,
 				2C063DF92661426000368BEE /* HardwareRNG.ipp */,
@@ -5319,8 +5335,10 @@
 		2C36F837267F939200691B1C /* GL4 */ = {
 			isa = PBXGroup;
 			children = (
-				2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */,
 				2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */,
+				2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */,
+				2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */,
+				2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */,
 			);
 			path = GL4;
 			sourceTree = "<group>";
@@ -5328,8 +5346,9 @@
 		2C36F83C267F93D700691B1C /* Renderer3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C36F83D267F93D700691B1C /* Null */,
 				2C36F840267F93D700691B1C /* IRenderer3D.hpp */,
+				2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */,
+				2C36F83D267F93D700691B1C /* Null */,
 			);
 			path = Renderer3D;
 			sourceTree = "<group>";
@@ -5853,6 +5872,7 @@
 				2CC58468264771F100C33E9F /* AudioFormat */,
 				2C3C8383265FCD76008D68CF /* AudioGroup */,
 				2C794AAC25C3DE7800034D81 /* Base64 */,
+				2C6C782426889B2B00B3C44A /* BasicCamera3D */,
 				2C13C8D725B8FB170054B968 /* Bezier2 */,
 				2C13C8D925B8FB170054B968 /* Bezier3 */,
 				2C47B24324DD9789008D83BE /* BigFloat */,
@@ -5911,6 +5931,7 @@
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C7091A4267F133C00A8F68C /* Graphics */,
 				2C0A4D82256A18A1002A4B5E /* Graphics2D */,
+				2C6C782726889B9C00B3C44A /* Graphics3D */,
 				2C4A287425EB468600FEACE4 /* GUI */,
 				2C47B26924DD9789008D83BE /* Hash */,
 				2C9566F72645846C00539B85 /* HTMLWriter */,
@@ -7948,8 +7969,10 @@
 		2C631E932687048C00166A8E /* GL4 */ = {
 			isa = PBXGroup;
 			children = (
-				2C631E942687048C00166A8E /* CMesh_GL4.hpp */,
 				2C631E952687048C00166A8E /* CMesh_GL4.cpp */,
+				2C6C7820268895E200B3C44A /* GL4Mesh.cpp */,
+				2C631E942687048C00166A8E /* CMesh_GL4.hpp */,
+				2C6C7821268895E200B3C44A /* GL4Mesh.hpp */,
 			);
 			path = GL4;
 			sourceTree = "<group>";
@@ -8518,6 +8541,22 @@
 				2C66842D268460E300F7089A /* xchar.h */,
 			);
 			path = fmt;
+			sourceTree = "<group>";
+		};
+		2C6C782426889B2B00B3C44A /* BasicCamera3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6C782526889B2B00B3C44A /* SivBasicCamera3D.cpp */,
+			);
+			path = BasicCamera3D;
+			sourceTree = "<group>";
+		};
+		2C6C782726889B9C00B3C44A /* Graphics3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */,
+			);
+			path = Graphics3D;
 			sourceTree = "<group>";
 		};
 		2C6E35F5266A366C005EA869 /* Quaternion */ = {
@@ -10588,6 +10627,7 @@
 				2CA0EE1F260E3B4D004269AF /* P2MouseJointDetail.hpp in Headers */,
 				2C13C9A025BD29FC0054B968 /* lzio.h in Headers */,
 				2C43C8B825C837F100D6D613 /* tttags.h in Headers */,
+				2C6C781F268895BB00B3C44A /* Renderer3DCommon.hpp in Headers */,
 				2C439F89241DCEA9001154C2 /* fast-dtoa.h in Headers */,
 				2C43C87625C837F000D6D613 /* ftcolor.h in Headers */,
 				2CFC214D25F739B400C51D0D /* hb-common.h in Headers */,
@@ -10622,6 +10662,7 @@
 				2C13C99F25BD29FC0054B968 /* luaconf.h in Headers */,
 				2C47B33924DD9789008D83BE /* SystemLog.hpp in Headers */,
 				2CDD4F40260A3F7100A51D68 /* P2Common.hpp in Headers */,
+				2C6C7823268895E300B3C44A /* GL4Mesh.hpp in Headers */,
 				2C43C8A325C837F100D6D613 /* svcid.h in Headers */,
 				2C95665E264546F700539B85 /* markerelement.h in Headers */,
 				2C636EBB2657F7D300AF029F /* sid.h in Headers */,
@@ -10694,6 +10735,7 @@
 				2C9566CC2645626000539B85 /* mz_os.h in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
 				2C9566F32645626000539B85 /* mz_strm_mem.h in Headers */,
+				2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */,
 				2C47B2FD24DD9789008D83BE /* LicenseList.hpp in Headers */,
 				2C13C8D625B8FAF80054B968 /* Polynomial.hpp in Headers */,
 				2C13C8C125B8FA9D0054B968 /* RecastAssert.h in Headers */,
@@ -11582,6 +11624,7 @@
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
 				2C533799264F5AA200CE0F1B /* zstd_lazy.c in Sources */,
 				2C8CA3A72615863C00BABD2D /* PPMEncoder.cpp in Sources */,
+				2C6C782926889B9C00B3C44A /* SivGraphics3D.cpp in Sources */,
 				2C2AA37426009C74003F3EBC /* b2_prismatic_joint.cpp in Sources */,
 				2C834DB0248805D4006208B8 /* iso8859_13.c in Sources */,
 				2C834D8A248805D4006208B8 /* unicode.c in Sources */,
@@ -11793,6 +11836,7 @@
 				2C13C9CD25BD29FC0054B968 /* lbaselib.c in Sources */,
 				2C636E6C2657F7D300AF029F /* soloud.cpp in Sources */,
 				2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */,
+				2C6C782626889B2B00B3C44A /* SivBasicCamera3D.cpp in Sources */,
 				2C2D5C15267E468800EF5696 /* SivRenderTexture.cpp in Sources */,
 				2C2AA3A426009C74003F3EBC /* b2_collide_edge.cpp in Sources */,
 				2C2AA3AC26009C74003F3EBC /* b2_distance.cpp in Sources */,
@@ -11896,6 +11940,7 @@
 				2C47B32824DD9789008D83BE /* SivColor.cpp in Sources */,
 				2C3C8387265FCD76008D68CF /* AudioGroupDetail.cpp in Sources */,
 				2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */,
+				2C6C7822268895E300B3C44A /* GL4Mesh.cpp in Sources */,
 				2C636EB32657F7D300AF029F /* darray.cpp in Sources */,
 				2C48BEE025CFB8C500A93CE3 /* equation-solver.cpp in Sources */,
 				2CDD4F49260A3F7100A51D68 /* P2SliderJoint.cpp in Sources */,
@@ -12162,6 +12207,7 @@
 				2C13C9CF25BD29FC0054B968 /* ldebug.c in Sources */,
 				2C834DA3248805D4006208B8 /* regtrav.c in Sources */,
 				2C47B31524DD9789008D83BE /* SivRegExp.cpp in Sources */,
+				2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */,
 				2C48BF7925D41C0D00A93CE3 /* BitmapGlyphCache.cpp in Sources */,
 				2C60AE75248158A500277281 /* instruction_set_darwin.cpp in Sources */,
 				2C636EB22657F7D300AF029F /* klatt.cpp in Sources */,

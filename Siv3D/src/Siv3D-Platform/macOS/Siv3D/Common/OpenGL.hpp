@@ -11,9 +11,7 @@
 
 # pragma once
 # include <ThirdParty/GL/glew.h>
-# define GLFW_EXPOSE_NATIVE_COCOA
 # include <ThirdParty/GLFW/glfw3.h>
-# include <ThirdParty/GLFW/glfw3native.h>
 
 namespace s3d
 {

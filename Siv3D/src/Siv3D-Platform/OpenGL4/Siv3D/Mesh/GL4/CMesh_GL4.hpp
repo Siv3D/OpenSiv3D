@@ -12,7 +12,6 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Mesh/IMesh.hpp>
-# include <Siv3D/Renderer/D3D11/CRenderer_D3D11.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "GL4Mesh.hpp"
 
@@ -26,7 +25,7 @@ namespace s3d
 
 		~CMesh_GL4() override;
 
-		void init();
+		void init() override;
 
 		Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) override;
 

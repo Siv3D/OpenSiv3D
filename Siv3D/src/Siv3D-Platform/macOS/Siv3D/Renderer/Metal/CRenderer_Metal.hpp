@@ -15,6 +15,8 @@
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
+# define GLFW_EXPOSE_NATIVE_COCOA
+# include <ThirdParty/GLFW/glfw3native.h>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Renderer/Metal/BackBuffer/MetalBackBuffer.hpp>
 # include <Siv3D/Renderer/Metal/SamplerState/MetalSamplerState.hpp>
