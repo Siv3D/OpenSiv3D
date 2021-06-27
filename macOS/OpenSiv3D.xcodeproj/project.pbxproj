@@ -1147,6 +1147,7 @@
 		2C6C782D2688C4AC00B3C44A /* GL4DepthStencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782B2688C4AC00B3C44A /* GL4DepthStencilState.cpp */; };
 		2C6C782E2688C4AC00B3C44A /* GL4DepthStencilState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C782C2688C4AC00B3C44A /* GL4DepthStencilState.hpp */; };
 		2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */; };
+		2C6EEB102688ECD0002E220A /* SivScopedCustomShader3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EEB0F2688ECD0002E220A /* SivScopedCustomShader3D.cpp */; };
 		2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A5267F133C00A8F68C /* SivGraphics.cpp */; };
 		2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A9267F480700A8F68C /* SivEngineOptions.cpp */; };
 		2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C711CF026629EFD0018D38D /* SivMat4x4.cpp */; };
@@ -3293,6 +3294,12 @@
 		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
+		2C6EEB092688EC95002E220A /* ScopedRenderTarget3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget3D.hpp; sourceTree = "<group>"; };
+		2C6EEB0A2688EC95002E220A /* ScopedCustomShader3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader3D.hpp; sourceTree = "<group>"; };
+		2C6EEB0B2688EC95002E220A /* ScopedViewport3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport3D.hpp; sourceTree = "<group>"; };
+		2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport3D.ipp; sourceTree = "<group>"; };
+		2C6EEB0D2688ECB0002E220A /* ScopedRenderTarget3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget3D.ipp; sourceTree = "<group>"; };
+		2C6EEB0F2688ECD0002E220A /* SivScopedCustomShader3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader3D.cpp; sourceTree = "<group>"; };
 		2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
 		2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.ipp; sourceTree = "<group>"; };
 		2C7091A5267F133C00A8F68C /* SivGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics.cpp; sourceTree = "<group>"; };
@@ -4358,7 +4365,9 @@
 				2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */,
 				2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */,
 				2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */,
+				2C6EEB0D2688ECB0002E220A /* ScopedRenderTarget3D.ipp */,
 				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
+				2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
 				2C063DB92661426000368BEE /* Serial.ipp */,
 				2C063DB22661426000368BEE /* Serialization.ipp */,
@@ -6025,6 +6034,7 @@
 				2C4AEF7C263582E700D36CFC /* Say */,
 				2C47B2D424DD9789008D83BE /* Scene */,
 				2C60F91A2667DBCB00FFAA68 /* ScopedCustomShader2D */,
+				2C6EEB0E2688ECD0002E220A /* ScopedCustomShader3D */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C36F844267F93F700691B1C /* Script */,
 				2C2AA2B325FF8933003F3EBC /* Serial */,
@@ -8583,6 +8593,14 @@
 			path = Quaternion;
 			sourceTree = "<group>";
 		};
+		2C6EEB0E2688ECD0002E220A /* ScopedCustomShader3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C6EEB0F2688ECD0002E220A /* SivScopedCustomShader3D.cpp */,
+			);
+			path = ScopedCustomShader3D;
+			sourceTree = "<group>";
+		};
 		2C7091A4267F133C00A8F68C /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -9464,9 +9482,12 @@
 				2CAAA87725E7FD0300C014D7 /* ScopedColorAdd2D.hpp */,
 				2CAAA6FC25E7FD0200C014D7 /* ScopedColorMul2D.hpp */,
 				2CAAA77A25E7FD0200C014D7 /* ScopedCustomShader2D.hpp */,
+				2C6EEB0A2688EC95002E220A /* ScopedCustomShader3D.hpp */,
 				2CAAA73925E7FD0200C014D7 /* ScopedRenderStates2D.hpp */,
 				2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */,
+				2C6EEB092688EC95002E220A /* ScopedRenderTarget3D.hpp */,
 				2CFB61A826555FE3002F4F47 /* ScopedViewport2D.hpp */,
+				2C6EEB0B2688EC95002E220A /* ScopedViewport3D.hpp */,
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
@@ -11820,6 +11841,7 @@
 				2C2AA35E26009C74003F3EBC /* b2_contact.cpp in Sources */,
 				2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
+				2C6EEB102688ECD0002E220A /* SivScopedCustomShader3D.cpp in Sources */,
 				2CFB7DB0262A66D100169B97 /* SivTextInput.cpp in Sources */,
 				2C48BF0625CFB8C500A93CE3 /* save-tiff.cpp in Sources */,
 				2CBEBCB52629D15F0077DDBF /* identify.c in Sources */,
