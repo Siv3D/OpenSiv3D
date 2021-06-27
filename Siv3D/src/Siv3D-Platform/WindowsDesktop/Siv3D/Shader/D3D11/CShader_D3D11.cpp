@@ -140,6 +140,15 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
 				.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Vertex, U"VS")
+				.save(U"engine/shader/d3d11/forward3d.vs");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Shape")
+				.save(U"engine/shader/d3d11/forward3d_shape.ps");
+
+			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Texture")
+				.save(U"engine/shader/d3d11/forward3d_texture.ps");
+
 			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}
 

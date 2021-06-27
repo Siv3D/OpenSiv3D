@@ -28,127 +28,48 @@ namespace s3d
 
 		BasicCamera3D(const BasicCamera3D&) = default;
 
-		BasicCamera3D(const Size& sceneSize, double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept
-			: m_sceneSize{ sceneSize }
-			, m_verticalFOV{ verticalFOV }
-			, m_nearClip{ nearClip }
-			, m_eyePosition{ eyePosition }
-			, m_focusPosition{ focusPosition }
-			, m_upDirection{ upDirection }
-		{
-			updateProj();
-			updateView();
-			updateViewProj();
-		}
+		BasicCamera3D(const Size& sceneSize, double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept;
 
 		virtual ~BasicCamera3D() = default;
 
-		void setSceneSize(const Size& sceneSize)
-		{
-			m_sceneSize = sceneSize;
+		void setSceneSize(const Size& sceneSize) noexcept;
 
-			updateProj();
-			updateViewProj();
-		}
+		void setProjection(const Size& sceneSize, double verticalFOV, double nearClip = DefaultNearClip) noexcept;
 
-		void setProjection(const Size& sceneSize, double verticalFOV, double nearClip = DefaultNearClip) noexcept
-		{
-			m_sceneSize = sceneSize;
-			m_verticalFOV = verticalFOV;
-			m_nearClip = nearClip;
-
-			updateProj();
-			updateViewProj();
-		}
-
-		void setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }) noexcept
-		{
-			m_eyePosition = eyePosition;
-			m_focusPosition = focusPosition;
-			m_upDirection = upDirection;
-
-			updateView();
-			updateViewProj();
-		}
+		void setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }) noexcept;
 
 		[[nodiscard]]
-		const Size& getSceneSize() const noexcept
-		{
-			return m_sceneSize;
-		}
+		const Size& getSceneSize() const noexcept;
 
 		[[nodiscard]]
-		double getVerticlaFOV() const noexcept
-		{
-			return m_verticalFOV;
-		}
+		double getVerticlaFOV() const noexcept;
 
 		[[nodiscard]]
-		double getNearClip() const noexcept
-		{
-			return m_nearClip;
-		}
+		double getNearClip() const noexcept;
 
 		[[nodiscard]]
-		const Vec3& getEyePosition() const noexcept
-		{
-			return m_eyePosition;
-		}
+		const Vec3& getEyePosition() const noexcept;
 
 		[[nodiscard]]
-		const Vec3& getFocusPosition() const noexcept
-		{
-			return m_focusPosition;
-		}
+		const Vec3& getFocusPosition() const noexcept;
 
 		[[nodiscard]]
-		const Vec3& getUpDirection() const noexcept
-		{
-			return m_upDirection;
-		}
+		const Vec3& getUpDirection() const noexcept;
 
 		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getProj() const noexcept
-		{
-			return m_proj;
-		}
+		const Mat4x4& SIV3D_VECTOR_CALL getProj() const noexcept;
 
 		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getView() const noexcept
-		{
-			return m_view;
-		}
+		const Mat4x4& SIV3D_VECTOR_CALL getView() const noexcept;
 
 		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getViewProj() const noexcept
-		{
-			return m_viewProj;
-		}
+		const Mat4x4& SIV3D_VECTOR_CALL getViewProj() const noexcept;
 
 		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getMat4x4() const noexcept
-		{
-			return m_viewProj;
-		}
+		const Mat4x4& SIV3D_VECTOR_CALL getInvViewProj() const noexcept;
 
 		[[nodiscard]]
-		const Mat4x4& SIV3D_VECTOR_CALL getInvViewProj() const noexcept
-		{
-			return m_invViewProj;
-		}
-
-		[[nodiscard]]
-		Float3 worldToScreenPoint(const Float3& pos) const noexcept
-		{
-			Float3 v = SIMD_Float4{ DirectX::XMVector3TransformCoord(SIMD_Float4{ pos, 0.0f }, m_viewProj) }.xyz();
-			v.x += 1.0f;
-			v.y += 1.0f;
-			v.x *= 0.5f * m_sceneSize.x;
-			v.y *= 0.5f;
-			v.y = 1.0f - v.y;
-			v.y *= m_sceneSize.y;
-			return v;
-		}
+		Float3 worldToScreenPoint(const Float3& pos) const noexcept;
 
 		[[nodiscard]]
 		Float3 screenToWorldPoint(const Float2& pos, float depth) const noexcept;
@@ -191,3 +112,5 @@ namespace s3d
 		void updateViewProj() noexcept;
 	};
 }
+
+# include "detail/BasicCamera3D.ipp"

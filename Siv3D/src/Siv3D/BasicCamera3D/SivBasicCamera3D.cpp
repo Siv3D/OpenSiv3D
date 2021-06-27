@@ -13,6 +13,59 @@
 
 namespace s3d
 {
+	BasicCamera3D::BasicCamera3D(const Size& sceneSize, const double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection, const double nearClip) noexcept
+		: m_sceneSize{ sceneSize }
+		, m_verticalFOV{ verticalFOV }
+		, m_nearClip{ nearClip }
+		, m_eyePosition{ eyePosition }
+		, m_focusPosition{ focusPosition }
+		, m_upDirection{ upDirection }
+	{
+		updateProj();
+		updateView();
+		updateViewProj();
+	}
+
+	void BasicCamera3D::setSceneSize(const Size& sceneSize) noexcept
+	{
+		m_sceneSize = sceneSize;
+
+		updateProj();
+		updateViewProj();
+	}
+
+	void BasicCamera3D::setProjection(const Size& sceneSize, const double verticalFOV, const double nearClip) noexcept
+	{
+		m_sceneSize = sceneSize;
+		m_verticalFOV = verticalFOV;
+		m_nearClip = nearClip;
+
+		updateProj();
+		updateViewProj();
+	}
+
+	void BasicCamera3D::setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection) noexcept
+	{
+		m_eyePosition = eyePosition;
+		m_focusPosition = focusPosition;
+		m_upDirection = upDirection;
+
+		updateView();
+		updateViewProj();
+	}
+
+	Float3 BasicCamera3D::worldToScreenPoint(const Float3& pos) const noexcept
+	{
+		Float3 v = SIMD_Float4{ DirectX::XMVector3TransformCoord(SIMD_Float4{ pos, 0.0f }, m_viewProj) }.xyz();
+		v.x += 1.0f;
+		v.y += 1.0f;
+		v.x *= 0.5f * m_sceneSize.x;
+		v.y *= 0.5f;
+		v.y = 1.0f - v.y;
+		v.y *= m_sceneSize.y;
+		return v;
+	}
+
 	Float3 BasicCamera3D::screenToWorldPoint(const Float2& pos, const float depth) const noexcept
 	{
 		Float3 v{ pos, depth };

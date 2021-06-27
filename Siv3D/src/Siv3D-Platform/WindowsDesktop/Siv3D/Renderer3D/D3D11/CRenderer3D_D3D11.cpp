@@ -56,7 +56,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_D3D11:");
 			m_standardVS = std::make_unique<D3D11StandardVS3D>();
-			m_standardVS->forward = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"VS" };
+			m_standardVS->forward = HLSL{ Resource(U"engine/shader/d3d11/forward3d.vs") };
 			
 			if (not m_standardVS->setup())
 			{
@@ -68,8 +68,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_D3D11:");
 			m_standardPS = std::make_unique<D3D11StandardPS3D>();
-			m_standardPS->forwardShape = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"PS_Shape" };
-			m_standardPS->forwardTexture = HLSL{ U"engine/shader/d3d11/forward3d.hlsl", U"PS_Texture" };
+			m_standardPS->forwardShape = HLSL{ Resource(U"engine/shader/d3d11/forward3d_shape.ps") };
+			m_standardPS->forwardTexture = HLSL{ Resource(U"engine/shader/d3d11/forward3d_texture.ps") };
 			
 			if (not m_standardPS->setup())
 			{
