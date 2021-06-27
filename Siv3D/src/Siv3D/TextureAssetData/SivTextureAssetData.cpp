@@ -34,14 +34,14 @@ namespace s3d
 
 	TextureAssetData::TextureAssetData(const Emoji& _emoji, const TextureDesc _desc, const Array<AssetTag>& tags)
 		: IAsset{ tags }
-		, emoji{ _emoji }
-		, desc{ _desc } {}
+		, desc{ _desc }
+		, emoji{ _emoji }{}
 
 	TextureAssetData::TextureAssetData(const Icon& _icon, const int32 _size, const TextureDesc _desc, const Array<AssetTag>& tags)
 		: IAsset{ tags }
+		, desc{ _desc }
 		, icon{ _icon }
-		, iconSize{ _size }
-		, desc{ _desc } {}
+		, iconSize{ _size }{}
 
 	bool TextureAssetData::load(const String& hint)
 	{
