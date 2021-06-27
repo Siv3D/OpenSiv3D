@@ -1144,6 +1144,8 @@
 		2C6C7823268895E300B3C44A /* GL4Mesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C7821268895E200B3C44A /* GL4Mesh.hpp */; };
 		2C6C782626889B2B00B3C44A /* SivBasicCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782526889B2B00B3C44A /* SivBasicCamera3D.cpp */; };
 		2C6C782926889B9C00B3C44A /* SivGraphics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */; };
+		2C6C782D2688C4AC00B3C44A /* GL4DepthStencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C782B2688C4AC00B3C44A /* GL4DepthStencilState.cpp */; };
+		2C6C782E2688C4AC00B3C44A /* GL4DepthStencilState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C782C2688C4AC00B3C44A /* GL4DepthStencilState.hpp */; };
 		2C6E35F7266A366C005EA869 /* SivQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */; };
 		2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A5267F133C00A8F68C /* SivGraphics.cpp */; };
 		2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A9267F480700A8F68C /* SivEngineOptions.cpp */; };
@@ -3285,6 +3287,8 @@
 		2C6C7821268895E200B3C44A /* GL4Mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Mesh.hpp; sourceTree = "<group>"; };
 		2C6C782526889B2B00B3C44A /* SivBasicCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBasicCamera3D.cpp; sourceTree = "<group>"; };
 		2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics3D.cpp; sourceTree = "<group>"; };
+		2C6C782B2688C4AC00B3C44A /* GL4DepthStencilState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4DepthStencilState.cpp; sourceTree = "<group>"; };
+		2C6C782C2688C4AC00B3C44A /* GL4DepthStencilState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4DepthStencilState.hpp; sourceTree = "<group>"; };
 		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
@@ -6780,6 +6784,7 @@
 			children = (
 				2C47B6E624EAC8D9008D83BE /* BackBuffer */,
 				2C27A9E2256E359400756617 /* BlendState */,
+				2C6C782A2688C4AC00B3C44A /* DepthStencilState */,
 				2C27A9E5256E359400756617 /* RasterizerState */,
 				2C27A9E8256E359400756617 /* SamplerState */,
 			);
@@ -8557,6 +8562,15 @@
 				2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */,
 			);
 			path = Graphics3D;
+			sourceTree = "<group>";
+		};
+		2C6C782A2688C4AC00B3C44A /* DepthStencilState */ = {
+			isa = PBXGroup;
+			children = (
+				2C6C782B2688C4AC00B3C44A /* GL4DepthStencilState.cpp */,
+				2C6C782C2688C4AC00B3C44A /* GL4DepthStencilState.hpp */,
+			);
+			path = DepthStencilState;
 			sourceTree = "<group>";
 		};
 		2C6E35F5266A366C005EA869 /* Quaternion */ = {
@@ -10576,6 +10590,7 @@
 				2C13C8BC25B8FA9D0054B968 /* DetourAssert.h in Headers */,
 				2C43C8A025C837F100D6D613 /* svbdf.h in Headers */,
 				2C0FBD6E262978100050E354 /* WebcamDetail.hpp in Headers */,
+				2C6C782E2688C4AC00B3C44A /* GL4DepthStencilState.hpp in Headers */,
 				2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */,
 				2C47B30A24DD9789008D83BE /* TextWriterDetail.hpp in Headers */,
 				2C42321D242B155E00A16BCA /* internal.h in Headers */,
@@ -11717,6 +11732,7 @@
 				2C427FDF2628438A00106F19 /* GamepadFactory.cpp in Sources */,
 				2C98D0E125158AC000904E67 /* FrameCounter.cpp in Sources */,
 				2C95665A264546F700539B85 /* canvas.cpp in Sources */,
+				2C6C782D2688C4AC00B3C44A /* GL4DepthStencilState.cpp in Sources */,
 				2C95666E264546F700539B85 /* layoutcontext.cpp in Sources */,
 				2C2AA39126009C74003F3EBC /* b2_settings.cpp in Sources */,
 				2C9566CE2645626000539B85 /* mz_zip_rw.c in Sources */,
