@@ -47,6 +47,9 @@ namespace s3d
 
 			/// @brief WebGL
 			WebGL2 = 5,
+
+			/// @brief WebGL
+			WebGPU = 6,
 		};
 
 		/// @brief Direct3D 11 ドライバーの種類 (Windows 版)
