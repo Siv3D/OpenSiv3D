@@ -951,6 +951,7 @@ namespace s3d
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
 		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
+		pRenderer->getBackBuffer().bindSceneToContext(false);
 
 		BatchInfo2D batchInfo;
 
@@ -1145,7 +1146,7 @@ namespace s3d
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneBuffer();
+						pRenderer->getBackBuffer().bindSceneToContext(false);
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}

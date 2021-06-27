@@ -27,6 +27,8 @@ namespace s3d
 
 		Size m_size = Size{ 0, 0 };
 
+		bool m_hasDepth = false;
+
 	public:
 
 		GL4InternalTexture2D() = default;
@@ -43,6 +45,11 @@ namespace s3d
 		const Size& size() const noexcept;
 
 		void clear(ColorF color);
+
+		[[nodiscard]]
+		bool hasDepth() const noexcept;
+
+		void initDepth();
 
 		[[nodiscard]]
 		GLuint getFrameBuffer() const noexcept;

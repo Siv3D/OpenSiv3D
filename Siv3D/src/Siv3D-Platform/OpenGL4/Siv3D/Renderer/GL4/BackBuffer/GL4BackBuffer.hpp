@@ -71,7 +71,7 @@ namespace s3d
 
 		void clear(GL4ClearTarget clearTargets);
 
-		void bindSceneBuffer();
+		void bindSceneToContext(bool useDepth);
 
 		void bindToScene(GLuint frameBuffer);
 

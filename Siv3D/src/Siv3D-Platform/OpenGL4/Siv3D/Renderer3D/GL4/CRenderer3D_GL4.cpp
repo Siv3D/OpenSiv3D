@@ -470,7 +470,7 @@ namespace s3d
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneBuffer();
+						pRenderer->getBackBuffer().bindSceneToContext(true);
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}

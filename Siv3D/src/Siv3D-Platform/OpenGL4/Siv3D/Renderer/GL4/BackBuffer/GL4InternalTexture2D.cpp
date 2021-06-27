@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "GL4InternalTexture2D.hpp"
+# include <Siv3D/Renderer/GL4/CRenderer_GL4.hpp>
 
 namespace s3d
 {
@@ -56,7 +57,33 @@ namespace s3d
 			static_cast<float>(color.g),
 			static_cast<float>(color.b),
 			1.0f);
-		::glClear(GL_COLOR_BUFFER_BIT);
+
+		if (m_hasDepth)
+		{
+			if (auto p = dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)))
+			{
+				p->getDepthStencilState().set(DepthStencilState::Default3D);
+			}
+
+			::glClearDepth(0.0);
+			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+		else
+		{
+			::glClear(GL_COLOR_BUFFER_BIT);
+		}
+	}
+
+	bool GL4InternalTexture2D::hasDepth() const noexcept
+	{
+		return m_hasDepth;
+	}
+
+	void GL4InternalTexture2D::initDepth()
+	{
+		// [Siv3D ToDo]
+
+		m_hasDepth = true;
 	}
 
 	GLuint GL4InternalTexture2D::getFrameBuffer() const noexcept

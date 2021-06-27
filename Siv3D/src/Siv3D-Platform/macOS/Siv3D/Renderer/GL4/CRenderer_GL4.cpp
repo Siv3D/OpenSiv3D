@@ -20,6 +20,7 @@
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/GL4/CRenderer2D_GL4.hpp>
+# include <Siv3D/Renderer3D/GL4/CRenderer3D_GL4.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -44,6 +45,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer_GL4::init()");
 		
 		pRenderer2D = dynamic_cast<CRenderer2D_GL4*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = dynamic_cast<CRenderer3D_GL4*>(SIV3D_ENGINE(Renderer3D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		::glfwMakeContextCurrent(m_window);
@@ -118,9 +120,9 @@ namespace s3d
 
 	void CRenderer_GL4::flush()
 	{
-		// Scene に 2D 描画
+		// Scene に 3D, 2D 描画
 		{
-			m_backBuffer->bindSceneBuffer();
+			pRenderer3D->flush();
 			pRenderer2D->flush();
 			m_backBuffer->unbind();
 		}

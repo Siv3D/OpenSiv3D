@@ -58,7 +58,7 @@ namespace s3d
 		}
 	}
 
-	void GL4BackBuffer::bindSceneBuffer()
+	void GL4BackBuffer::bindSceneToContext(bool useDepth)
 	{
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
 	}

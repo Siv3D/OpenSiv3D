@@ -25,11 +25,14 @@
 
 namespace s3d
 {
+	class CRenderer3D_GL4;
+
 	class CRenderer_GL4 final : public ISiv3DRenderer
 	{
 	private:
 
 		CRenderer2D_GL4* pRenderer2D = nullptr;
+		CRenderer3D_GL4* pRenderer3D = nullptr;
 		CTexture_GL4* pTexture = nullptr;
 		HWND m_hWnd = nullptr;
 
