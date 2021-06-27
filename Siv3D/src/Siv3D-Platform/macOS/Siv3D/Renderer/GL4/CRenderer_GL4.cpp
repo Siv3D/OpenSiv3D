@@ -244,6 +244,11 @@ namespace s3d
 		return *m_rasterizerState;
 	}
 
+	GL4DepthStencilState& CRenderer_GL4::getDepthStencilState() noexcept
+	{
+		return *m_depthStencilState;
+	}
+
 	GL4SamplerState& CRenderer_GL4::getSamplerState() noexcept
 	{
 		return *m_samplerState;

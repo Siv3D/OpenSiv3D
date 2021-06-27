@@ -17,6 +17,7 @@
 # include <Siv3D/Renderer/GL4/BackBuffer/GL4BackBuffer.hpp>
 # include <Siv3D/Renderer/GL4/BlendState/GL4BlendState.hpp>
 # include <Siv3D/Renderer/GL4/RasterizerState/GL4RasterizerState.hpp>
+# include <Siv3D/Renderer/GL4/DepthStencilState/GL4DepthStencilState.hpp>
 # include <Siv3D/Renderer/GL4/SamplerState/GL4SamplerState.hpp>
 # include <Siv3D/Texture/GL4/CTexture_GL4.hpp>
 
@@ -35,6 +36,8 @@ namespace s3d
 		std::unique_ptr<GL4BlendState> m_blendState;
 
 		std::unique_ptr<GL4RasterizerState> m_rasterizerState;
+
+		std::unique_ptr<GL4DepthStencilState> m_depthStencilState;
 		
 		std::unique_ptr<GL4SamplerState> m_samplerState;
 
@@ -98,6 +101,8 @@ namespace s3d
 		GL4BlendState& getBlendState() noexcept;
 
 		GL4RasterizerState& getRasterizerState() noexcept;
+
+		GL4DepthStencilState& getDepthStencilState() noexcept;
 
 		GL4SamplerState& getSamplerState() noexcept;
 	};
