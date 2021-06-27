@@ -87,14 +87,61 @@ namespace s3d
 
 		void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) override;
 
+
+		BlendState getBlendState() const override;
+
+		RasterizerState getRasterizerState() const override;
+
+		DepthStencilState getDepthStencilState() const override;
+
+		SamplerState getSamplerState(ShaderStage shaderStage, uint32 slot) const override;
+
+		void setBlendState(const BlendState& state) override;
+
+		void setRasterizerState(const RasterizerState& state) override;
+
+		void setDepthStencilState(const DepthStencilState& state) override;
+
+		void setSamplerState(ShaderStage shaderStage, uint32 slot, const SamplerState& state) override;
+
+
+		void setScissorRect(const Rect& rect) override;
+
+		Rect getScissorRect() const override;
+
+		void setViewport(const Optional<Rect>& viewport) override;
+
+		Optional<Rect> getViewport() const override;
+
+
+		Optional<VertexShader> getCustomVS() const override;
+
+		Optional<PixelShader> getCustomPS() const override;
+
+		void setCustomVS(const Optional<VertexShader>& vs) override;
+
+		void setCustomPS(const Optional<PixelShader>& ps) override;
+
+
+		const Mat4x4& getCameraTransform() const override;
+
 		void setCameraTransform(const Mat4x4& matrix) override;
+
+
+		void setVSTexture(uint32 slot, const Optional<Texture>& texture) override;
+
+		void setPSTexture(uint32 slot, const Optional<Texture>& texture) override;
+
 
 		void setRenderTarget(const Optional<RenderTexture>& rt) override;
 
 		Optional<RenderTexture> getRenderTarget() const override;
 
-		void flush() override;
 
+		void setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors) override;
+
+
+		void flush() override;
 
 	private:
 

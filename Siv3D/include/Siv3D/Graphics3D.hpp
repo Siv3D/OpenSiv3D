@@ -69,6 +69,9 @@ namespace s3d
 		Optional<PixelShader> GetCustomPixelShader();
 
 		[[nodiscard]]
+		const Mat4x4& GetCameraTransform();
+
+		[[nodiscard]]
 		Optional<RenderTexture> GetRenderTarget();
 		
 		[[nodiscard]]

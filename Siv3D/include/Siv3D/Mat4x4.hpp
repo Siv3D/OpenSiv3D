@@ -23,6 +23,9 @@ namespace s3d
 		DirectX::XMMATRIX value;
 
 		SIV3D_NODISCARD_CXX20
+		Mat4x4() = default;
+
+		SIV3D_NODISCARD_CXX20
 		Mat4x4(DirectX::XMMATRIX m) noexcept;
 
 		SIV3D_NODISCARD_CXX20

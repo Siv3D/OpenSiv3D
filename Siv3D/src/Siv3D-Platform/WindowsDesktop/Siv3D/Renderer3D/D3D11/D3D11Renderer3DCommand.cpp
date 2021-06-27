@@ -61,8 +61,8 @@ namespace s3d
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms		= { m_cameraTransforms.back() };
-		//	m_constants.clear();
-		//	m_constantBufferCommands.clear();
+			m_constants.clear();
+			m_constantBufferCommands.clear();
 		}
 
 		// clear reserves
@@ -247,11 +247,11 @@ namespace s3d
 			m_cameraTransforms.push_back(m_currentCameraTransform);
 		}
 
-		//if (m_changes.has(D3D11Renderer2DCommandType::SetConstantBuffer))
-		//{
-		//	assert(not m_constantBufferCommands.isEmpty());
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
-		//}
+		if (m_changes.has(D3D11Renderer3DCommandType::SetConstantBuffer))
+		{
+			assert(not m_constantBufferCommands.isEmpty());
+			m_commands.emplace_back(D3D11Renderer3DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
+		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
@@ -828,37 +828,37 @@ namespace s3d
 		return m_cameraTransforms[index];
 	}
 
-	//void D3D11Renderer2DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::SetConstantBuffer;
+	void D3D11Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+	{
+		constexpr auto command = D3D11Renderer3DCommandType::SetConstantBuffer;
 
-	//	flush();
-	//	const __m128* pData = reinterpret_cast<const __m128*>(data);
-	//	const uint32 offset = static_cast<uint32>(m_constants.size());
-	//	m_constants.insert(m_constants.end(), pData, (pData + num_vectors));
+		flush();
+		const __m128* pData = reinterpret_cast<const __m128*>(data);
+		const uint32 offset = static_cast<uint32>(m_constants.size());
+		m_constants.insert(m_constants.end(), pData, (pData + num_vectors));
 
-	//	D3D11ConstantBufferCommand cb
-	//	{
-	//		.stage			= stage,
-	//		.slot			= slot,
-	//		.offset			= offset,
-	//		.num_vectors	= num_vectors,
-	//		.cbBase			= buffer
-	//	};
+		D3D11ConstantBuffer3DCommand cb
+		{
+			.stage			= stage,
+			.slot			= slot,
+			.offset			= offset,
+			.num_vectors	= num_vectors,
+			.cbBase			= buffer
+		};
 
-	//	m_constantBufferCommands.push_back(cb);
-	//	m_changes.set(command);
-	//}
+		m_constantBufferCommands.push_back(cb);
+		m_changes.set(command);
+	}
 
-	//D3D11ConstantBufferCommand& D3D11Renderer2DCommandManager::getConstantBuffer(const uint32 index)
-	//{
-	//	return m_constantBufferCommands[index];
-	//}
+	D3D11ConstantBuffer3DCommand& D3D11Renderer3DCommandManager::getConstantBuffer(const uint32 index)
+	{
+		return m_constantBufferCommands[index];
+	}
 
-	//const __m128* D3D11Renderer2DCommandManager::getConstantBufferPtr(const uint32 offset) const
-	//{
-	//	return (m_constants.data() + offset);
-	//}
+	const __m128* D3D11Renderer3DCommandManager::getConstantBufferPtr(const uint32 offset) const
+	{
+		return (m_constants.data() + offset);
+	}
 
 	void D3D11Renderer3DCommandManager::pushVSTextureUnbind(const uint32 slot)
 	{

@@ -21,6 +21,7 @@
 # include <Siv3D/Shader/D3D11/CShader_D3D11.hpp>
 # include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
 # include <Siv3D/Mesh/D3D11/CMesh_D3D11.hpp>
+# include <Siv3D/ConstantBuffer/D3D11/ConstantBufferDetail_D3D11.hpp>
 
 /*
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -134,9 +135,148 @@ namespace s3d
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}
 
+	BlendState CRenderer3D_D3D11::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
+	}
+
+	RasterizerState CRenderer3D_D3D11::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	DepthStencilState CRenderer3D_D3D11::getDepthStencilState() const
+	{
+		return m_commandManager.getCurrentDepthStencilState();
+	}
+
+	SamplerState CRenderer3D_D3D11::getSamplerState(const ShaderStage shaderStage, const uint32 slot) const
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			return m_commandManager.getVSCurrentSamplerState(slot);
+		}
+		else
+		{
+			return m_commandManager.getPSCurrentSamplerState(slot);
+		}
+	}
+
+	void CRenderer3D_D3D11::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	void CRenderer3D_D3D11::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	void CRenderer3D_D3D11::setDepthStencilState(const DepthStencilState& state)
+	{
+		m_commandManager.pushDepthStencilState(state);
+	}
+
+	void CRenderer3D_D3D11::setSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& state)
+	{
+		if (shaderStage == ShaderStage::Vertex)
+		{
+			m_commandManager.pushVSSamplerState(state, slot);
+		}
+		else
+		{
+			m_commandManager.pushPSSamplerState(state, slot);
+		}
+	}
+
+	void CRenderer3D_D3D11::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer3D_D3D11::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
+
+	void CRenderer3D_D3D11::setViewport(const Optional<Rect>& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+
+	Optional<Rect> CRenderer3D_D3D11::getViewport() const
+	{
+		return m_commandManager.getCurrentViewport();
+	}
+
+	Optional<VertexShader> CRenderer3D_D3D11::getCustomVS() const
+	{
+		return m_currentCustomVS;
+	}
+
+	Optional<PixelShader> CRenderer3D_D3D11::getCustomPS() const
+	{
+		return m_currentCustomPS;
+	}
+
+	void CRenderer3D_D3D11::setCustomVS(const Optional<VertexShader>& vs)
+	{
+		if (vs && (not vs->isEmpty()))
+		{
+			m_currentCustomVS = *vs;
+			m_commandManager.pushCustomVS(*vs);
+		}
+		else
+		{
+			m_currentCustomVS.reset();
+		}
+	}
+
+	void CRenderer3D_D3D11::setCustomPS(const Optional<PixelShader>& ps)
+	{
+		if (ps && (not ps->isEmpty()))
+		{
+			m_currentCustomPS = *ps;
+			m_commandManager.pushCustomPS(*ps);
+		}
+		else
+		{
+			m_currentCustomPS.reset();
+		}
+	}
+
+	const Mat4x4& CRenderer3D_D3D11::getCameraTransform() const
+	{
+		return m_commandManager.getCurrentCameraTransform();
+	}
+
 	void CRenderer3D_D3D11::setCameraTransform(const Mat4x4& matrix)
 	{
 		m_commandManager.pushCameraTransform(matrix);
+	}
+
+	void CRenderer3D_D3D11::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commandManager.pushVSTexture(slot, *texture);
+		}
+		else
+		{
+			m_commandManager.pushVSTextureUnbind(slot);
+		}
+	}
+
+	void CRenderer3D_D3D11::setPSTexture(const uint32 slot, const Optional<Texture>& texture)
+	{
+		if (texture)
+		{
+			m_commandManager.pushPSTexture(slot, *texture);
+		}
+		else
+		{
+			m_commandManager.pushPSTextureUnbind(slot);
+		}
 	}
 
 	void CRenderer3D_D3D11::setRenderTarget(const Optional<RenderTexture>& rt)
@@ -187,6 +327,11 @@ namespace s3d
 	Optional<RenderTexture> CRenderer3D_D3D11::getRenderTarget() const
 	{
 		return m_commandManager.getCurrentRT();
+	}
+
+	void CRenderer3D_D3D11::setConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors)
+	{
+		m_commandManager.pushConstantBuffer(stage, slot, buffer, data, num_vectors);
 	}
 
 	void CRenderer3D_D3D11::flush()
@@ -399,6 +544,31 @@ namespace s3d
 					m_vsConstants3D->worldToProjected = cameraTransform;
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+			case D3D11Renderer3DCommandType::SetConstantBuffer:
+				{
+					auto& cb = m_commandManager.getConstantBuffer(command.index);
+					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
+
+					if (cb.num_vectors)
+					{
+						const ConstantBufferDetail_D3D11* cbd = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb.cbBase._detail());
+
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							m_context->VSSetConstantBuffers(cb.slot, 1, cbd->getBufferPtr());
+						}
+						else if (cb.stage == ShaderStage::Pixel)
+						{
+							m_context->PSSetConstantBuffers(cb.slot, 1, cbd->getBufferPtr());
+						}
+
+						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+					}
+
+					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
+						command.index, FromEnum(cb.stage), cb.slot, cb.offset, cb.num_vectors));
 					break;
 				}
 

@@ -19,6 +19,8 @@
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/DepthStencilState.hpp>
 # include <Siv3D/RenderTexture.hpp>
+# include <Siv3D/ShaderStage.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/2DShapes.hpp>
@@ -84,6 +86,8 @@ namespace s3d
 
 		CameraTransform,
 
+		SetConstantBuffer,
+
 		VSTexture0,
 
 		VSTexture1,
@@ -138,6 +142,16 @@ namespace s3d
 		uint32 instanceCount = 0;
 	};
 
+	struct D3D11ConstantBuffer3DCommand
+	{
+		ShaderStage stage = ShaderStage::Vertex;
+		uint32 slot = 0;
+		uint32 offset = 0;
+		uint32 num_vectors = 0;
+		uint32 cbBaseIndex = 0;
+		ConstantBufferBase cbBase;
+	};
+
 	class D3D11Renderer3DCommandManager
 	{
 	private:
@@ -164,8 +178,8 @@ namespace s3d
 		Array<VertexShader::IDType> m_VSs;	
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
-		//Array<__m128> m_constants;
-		//Array<D3D11ConstantBufferCommand> m_constantBufferCommands;
+		Array<__m128> m_constants;
+		Array<D3D11ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 		Array<Mesh::IDType> m_meshes;
@@ -255,9 +269,9 @@ namespace s3d
 		const Mat4x4& getCurrentCameraTransform() const;
 		const Mat4x4& getCameraTransform(uint32 index) const;
 
-		//void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
-		//D3D11ConstantBufferCommand& getConstantBuffer(uint32 index);
-		//const __m128* getConstantBufferPtr(uint32 offset) const;
+		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
+		D3D11ConstantBuffer3DCommand& getConstantBuffer(uint32 index);
+		const __m128* getConstantBufferPtr(uint32 offset) const;
 
 		void pushVSTextureUnbind(uint32 slot);
 		void pushVSTexture(uint32 slot, const Texture& texture);
