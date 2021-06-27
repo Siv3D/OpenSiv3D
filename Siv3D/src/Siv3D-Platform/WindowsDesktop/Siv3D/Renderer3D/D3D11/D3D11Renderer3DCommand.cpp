@@ -264,7 +264,7 @@ namespace s3d
 			}
 		}
 
-		for (int32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
 			const auto command = ToEnum<D3D11Renderer3DCommandType>(FromEnum(D3D11Renderer3DCommandType::PSTexture0) + i);
 
