@@ -350,6 +350,11 @@ namespace s3d
 
 		m_commandManager.flush();
 
+		if (not m_commandManager.hasDraw())
+		{
+			return;
+		}
+
 		m_context->IASetInputLayout(m_inputLayout.Get());
 		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
 		pShader->setConstantBufferPS(0, m_psConstants3D.base());

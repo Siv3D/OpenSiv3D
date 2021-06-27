@@ -219,6 +219,8 @@ namespace s3d
 
 		void flush();
 
+		bool hasDraw() const noexcept;
+
 		const Array<GL4Renderer3DCommand>& getCommands() const noexcept;
 
 		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);

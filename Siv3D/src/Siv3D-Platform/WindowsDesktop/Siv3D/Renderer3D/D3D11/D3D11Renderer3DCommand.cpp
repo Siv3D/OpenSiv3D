@@ -284,6 +284,11 @@ namespace s3d
 		m_changes.clear();
 	}
 
+	bool D3D11Renderer3DCommandManager::hasDraw() const noexcept
+	{
+		return (not m_draws.isEmpty());
+	}
+
 	const Array<D3D11Renderer3DCommand>& D3D11Renderer3DCommandManager::getCommands() const noexcept
 	{
 		return m_commands;

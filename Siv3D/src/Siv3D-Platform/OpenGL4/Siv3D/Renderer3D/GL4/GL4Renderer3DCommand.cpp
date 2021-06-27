@@ -284,6 +284,11 @@ namespace s3d
 		m_changes.clear();
 	}
 
+	bool GL4Renderer3DCommandManager::hasDraw() const noexcept
+	{
+		return (not m_draws.isEmpty());
+	}
+
 	const Array<GL4Renderer3DCommand>& GL4Renderer3DCommandManager::getCommands() const noexcept
 	{
 		return m_commands;

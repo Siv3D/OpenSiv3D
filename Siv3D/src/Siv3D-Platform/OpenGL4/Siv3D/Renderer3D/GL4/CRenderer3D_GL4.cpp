@@ -330,6 +330,11 @@ namespace s3d
 
 		m_commandManager.flush();
 
+		if (not m_commandManager.hasDraw())
+		{
+			return;
+		}
+
 		pShader->usePipeline();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
