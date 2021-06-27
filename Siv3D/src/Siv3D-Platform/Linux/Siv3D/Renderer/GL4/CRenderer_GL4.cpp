@@ -106,6 +106,7 @@ namespace s3d
 		m_backBuffer		= std::make_unique<GL4BackBuffer>();
 		m_blendState		= std::make_unique<GL4BlendState>();
 		m_rasterizerState	= std::make_unique<GL4RasterizerState>();
+		m_depthStencilState = std::make_unique<GL4DepthStencilState>();
 		m_samplerState		= std::make_unique<GL4SamplerState>();
 		
 		pTexture = dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture));
