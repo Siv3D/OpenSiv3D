@@ -63,7 +63,7 @@ namespace s3d
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
 	}
 
-	void GL4BackBuffer::bindFrameBuffer(const GLuint frameBuffer)
+	void GL4BackBuffer::bindToScene(const GLuint frameBuffer)
 	{
 		::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	}

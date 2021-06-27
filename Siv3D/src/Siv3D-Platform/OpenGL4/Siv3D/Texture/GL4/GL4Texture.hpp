@@ -35,17 +35,17 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		GL4Texture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
-		GL4Texture(Render, const Size& size, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(Render, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		GL4Texture(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(Render, const Image& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		GL4Texture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		GL4Texture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		GL4Texture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		GL4Texture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
+		GL4Texture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		~GL4Texture();
 
@@ -59,6 +59,9 @@ namespace s3d
 		GLuint getFrameBuffer() const noexcept;
 
 		[[nodiscard]]
+		GLuint getDepthBuffer() const noexcept;
+
+		[[nodiscard]]
 		Size getSize() const noexcept;
 
 		[[nodiscard]]
@@ -66,6 +69,9 @@ namespace s3d
 
 		[[nodiscard]]
 		TextureFormat getFormat() const noexcept;
+
+		[[nodiscard]]
+		bool hasDepth() const noexcept;
 
 		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(const ColorF& color, bool wait);
@@ -126,6 +132,9 @@ namespace s3d
 		// [resolved フレームバッファ]
 		GLuint m_resolvedFrameBuffer = 0;
 
+		// [デプスバッファ]
+		GLuint m_depthBuffer = 0;
+
 		Size m_size = { 0, 0 };
 
 		TextureFormat m_format = TextureFormat::Unknown;
@@ -134,6 +143,10 @@ namespace s3d
 
 		TextureType m_type = TextureType::Default;
 
+		bool m_hasDepth = false;
+
 		bool m_initialized = false;
+
+		bool initDepthBuffer();
 	};
 }

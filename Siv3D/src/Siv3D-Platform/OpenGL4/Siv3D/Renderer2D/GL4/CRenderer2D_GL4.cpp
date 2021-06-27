@@ -950,6 +950,7 @@ namespace s3d
 
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
+		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
 
 		BatchInfo2D batchInfo;
 
@@ -1138,8 +1139,8 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
-						
+						pRenderer->getBackBuffer().bindToScene(frameBuffer);
+
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]

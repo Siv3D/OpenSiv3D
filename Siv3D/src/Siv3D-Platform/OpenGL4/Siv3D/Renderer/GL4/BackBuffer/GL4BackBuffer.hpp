@@ -73,7 +73,7 @@ namespace s3d
 
 		void bindSceneBuffer();
 
-		void bindFrameBuffer(GLuint frameBuffer);
+		void bindToScene(GLuint frameBuffer);
 
 		void unbind();
 

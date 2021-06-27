@@ -943,7 +943,7 @@ namespace s3d
 		Mat3x2 transform = Mat3x2::Identity();
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
 
-		pRenderer->getBackBuffer().bindRenderTarget(pRenderer->getBackBuffer().getSceneBuffer().getRTV());;
+		pRenderer->getBackBuffer().bindSceneToContext(false);
 		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
 
 		BatchInfo2D batchInfo;

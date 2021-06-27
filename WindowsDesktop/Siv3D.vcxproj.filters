@@ -1447,6 +1447,9 @@
     <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4">
       <UniqueIdentifier>{6e84a280-98d6-422b-927f-763692d7aeb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState">
+      <UniqueIdentifier>{997cc44d-fb58-468c-a9b3-21f53c1a5211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6402,6 +6405,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\GL4Mesh.hpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState\GL4DepthStencilState.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8809,6 +8815,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4\GL4Mesh.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Mesh\GL4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState\GL4DepthStencilState.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

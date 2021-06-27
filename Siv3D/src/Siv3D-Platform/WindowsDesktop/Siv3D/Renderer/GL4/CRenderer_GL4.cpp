@@ -55,6 +55,7 @@ namespace s3d
 		m_backBuffer		= std::make_unique<GL4BackBuffer>();
 		m_blendState		= std::make_unique<GL4BlendState>();
 		m_rasterizerState	= std::make_unique<GL4RasterizerState>();
+		m_depthStencilState = std::make_unique<GL4DepthStencilState>();
 		m_samplerState		= std::make_unique<GL4SamplerState>();
 
 		pTexture = dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture));
@@ -214,6 +215,11 @@ namespace s3d
 	GL4RasterizerState& CRenderer_GL4::getRasterizerState() noexcept
 	{
 		return *m_rasterizerState;
+	}
+
+	GL4DepthStencilState& CRenderer_GL4::getDepthStencilState() noexcept
+	{
+		return *m_depthStencilState;
 	}
 
 	GL4SamplerState& CRenderer_GL4::getSamplerState() noexcept

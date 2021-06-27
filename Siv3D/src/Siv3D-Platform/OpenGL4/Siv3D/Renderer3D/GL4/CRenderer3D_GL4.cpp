@@ -393,7 +393,7 @@ namespace s3d
 			case GL4Renderer3DCommandType::DepthStencilState:
 				{
 					const auto& depthStencilState = m_commandManager.getDepthStencilState(command.index);
-					//pRenderer->getDepthStencilState().set(depthStencilState);
+					pRenderer->getDepthStencilState().set(depthStencilState);
 					LOG_COMMAND(U"DepthStencilState[{}]"_fmt(command.index));
 					break;
 				}
@@ -464,7 +464,7 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
+						pRenderer->getBackBuffer().bindToScene(frameBuffer);
 						
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}

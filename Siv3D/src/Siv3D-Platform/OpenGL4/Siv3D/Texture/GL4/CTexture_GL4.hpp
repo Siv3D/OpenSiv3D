@@ -89,6 +89,8 @@ namespace s3d
 
 		GLuint getFrameBuffer(Texture::IDType handleID);
 
+		GLuint getDepthBuffer(Texture::IDType handleID);
+
 	private:
 
 		// Texture の管理

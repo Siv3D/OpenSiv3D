@@ -32,7 +32,7 @@ layout(location = 0) out vec4 FragColor;
 //
 //	Constant Buffer
 //
-layout(std140) uniform PSConstants2D
+layout(std140) uniform PSConstants3D
 {
 	vec4 g_placeholder;
 };
