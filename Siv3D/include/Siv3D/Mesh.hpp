@@ -50,6 +50,10 @@ namespace s3d
 
 		void draw(const Vec3& pos, const ColorF& color = Palette::White) const;
 
+		void draw(double x, double y, double z, const Quaternion& rotation, const ColorF& color = Palette::White) const;
+
+		void draw(const Vec3& pos, const Quaternion& rotation, const ColorF& color = Palette::White) const;
+
 		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 
@@ -59,6 +63,10 @@ namespace s3d
 		void draw(double x, double y, double z, const Texture& texture, const ColorF& color = Palette::White) const;
 
 		void draw(const Vec3& pos, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(double x, double y, double z, const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(const Vec3& pos, const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
 
 		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 	};

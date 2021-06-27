@@ -68,6 +68,8 @@ namespace s3d
 		[[nodiscard]]
 		Optional<PixelShader> GetCustomPixelShader();
 
+		void SetCameraTransform(const Mat4x4& matrix);
+
 		[[nodiscard]]
 		const Mat4x4& GetCameraTransform();
 

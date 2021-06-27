@@ -22,13 +22,15 @@ namespace s3d
 	{
 	public:
 
+		static constexpr double DefaultVerticalFOV = 30_deg;
+
 		static constexpr double DefaultNearClip = 0.1;
 
 		BasicCamera3D() = default;
 
 		BasicCamera3D(const BasicCamera3D&) = default;
 
-		BasicCamera3D(const Size& sceneSize, double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept;
+		explicit BasicCamera3D(const Size& sceneSize, double verticalFOV = DefaultVerticalFOV, const Vec3& eyePosition = Vec3{ 0, 4, -4 }, const Vec3& focusPosition = Vec3{ 0, 0, 0 }, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept;
 
 		virtual ~BasicCamera3D() = default;
 
@@ -92,7 +94,7 @@ namespace s3d
 		//
 		Size m_sceneSize = Scene::Size();
 
-		double m_verticalFOV = 30_deg;
+		double m_verticalFOV = DefaultVerticalFOV;
 
 		double m_nearClip = DefaultNearClip;
 

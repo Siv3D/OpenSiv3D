@@ -1575,6 +1575,9 @@
 # include <Siv3D/BasicCamera3D.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Graphics3D.hpp>
+# include <Siv3D/ScopedViewport3D.hpp>
+# include <Siv3D/ScopedRenderTarget3D.hpp>
+# include <Siv3D/ScopedCustomShader3D.hpp>
 
 //////////////////////////////////////////////////
 //

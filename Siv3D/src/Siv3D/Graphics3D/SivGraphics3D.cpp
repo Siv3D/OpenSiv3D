@@ -68,6 +68,11 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer3D)->getCustomPS();
 		}
 
+		void SetCameraTransform(const Mat4x4& matrix)
+		{
+			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
+		}
+
 		const Mat4x4& GetCameraTransform()
 		{
 			return SIV3D_ENGINE(Renderer3D)->getCameraTransform();
@@ -155,11 +160,6 @@ namespace s3d
 			void SetCustomPixelShader(const Optional<PixelShader>& ps)
 			{
 				SIV3D_ENGINE(Renderer3D)->setCustomPS(ps);
-			}
-
-			void SetCameraTransform(const Mat4x4& matrix)
-			{
-				SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
 			}
 
 			void SetRenderTarget(const Optional<RenderTexture>& rt)

@@ -1450,6 +1450,9 @@
     <Filter Include="src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState">
       <UniqueIdentifier>{997cc44d-fb58-468c-a9b3-21f53c1a5211}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScopedCustomShader3D">
+      <UniqueIdentifier>{5c410fd4-5d8f-4094-b857-49dd3759aa9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6411,6 +6414,21 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BasicCamera3D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget3D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport3D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8821,6 +8839,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState\GL4DepthStencilState.cpp">
       <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer\GL4\DepthStencilState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader3D\SivScopedCustomShader3D.cpp">
+      <Filter>src\Siv3D\ScopedCustomShader3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

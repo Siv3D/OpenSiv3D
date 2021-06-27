@@ -31,8 +31,6 @@ namespace s3d
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
 
-			void SetCameraTransform(const Mat4x4& matrix);
-
 			void SetRenderTarget(const Optional<RenderTexture>& rt);
 
 			void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
