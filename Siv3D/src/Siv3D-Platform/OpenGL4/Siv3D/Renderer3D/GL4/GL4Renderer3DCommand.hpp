@@ -29,7 +29,7 @@
 
 namespace s3d
 {
-	enum class D3D11Renderer3DCommandType : uint32
+	enum class GL4Renderer3DCommandType : uint32
 	{
 		Null,
 
@@ -123,64 +123,69 @@ namespace s3d
 
 		SIZE_,
 	};
-	static_assert(FromEnum(D3D11Renderer3DCommandType::SIZE_) < 64);
+	static_assert(FromEnum(GL4Renderer3DCommandType::SIZE_) < 64);
 
-	struct D3D11Renderer3DCommand
+	struct GL4Renderer3DCommand
 	{
-		D3D11Renderer3DCommandType type = D3D11Renderer3DCommandType::Null;
+		GL4Renderer3DCommandType type = GL4Renderer3DCommandType::Null;
 
 		uint32 index = 0;
+		
+		GL4Renderer3DCommand() = default;
+		
+		constexpr GL4Renderer3DCommand(GL4Renderer3DCommandType _type, uint32 _index) noexcept
+			: type(_type)
+			, index(_index) {}
 	};
 
-	struct D3D11Draw3DCommand
+	struct GL4Draw3DCommand
 	{
 		uint32 startIndex = 0;
-		
+
 		uint32 indexCount = 0;
 
 		uint32 instanceCount = 0;
 	};
 
-	struct D3D11ConstantBuffer3DCommand
+	struct GL4ConstantBuffer3DCommand
 	{
-		ShaderStage stage = ShaderStage::Vertex;
-		uint32 slot = 0;
-		uint32 offset = 0;
-		uint32 num_vectors = 0;
-		uint32 cbBaseIndex = 0;
+		ShaderStage stage	= ShaderStage::Vertex;
+		uint32 slot			= 0;
+		uint32 offset		= 0;
+		uint32 num_vectors	= 0;
+		uint32 cbBaseIndex	= 0;
 		ConstantBufferBase cbBase;
 	};
 
-	class D3D11Renderer3DCommandManager
+	class GL4Renderer3DCommandManager
 	{
 	private:
 
 		// commands
-		Array<D3D11Renderer3DCommand> m_commands;
-		CurrentBatchStateChanges<D3D11Renderer3DCommandType> m_changes;
+		Array<GL4Renderer3DCommand> m_commands;
+		CurrentBatchStateChanges<GL4Renderer3DCommandType> m_changes;
 
 		// buffer
-		Array<D3D11Draw3DCommand> m_draws;
+		Array<GL4Draw3DCommand> m_draws;
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<Float4> m_drawDiffuses;
 		Array<BlendState> m_blendStates				= { BlendState::Default };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
-		Array<DepthStencilState> m_depthStencilStates	= { DepthStencilState::Default3D };
+		Array<DepthStencilState> m_depthStencilStates = { DepthStencilState::Default3D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;
 		Array<Rect> m_scissorRects					= { Rect{0} };
 		Array<Optional<Rect>> m_viewports			= { none };
 		//Array<std::array<Float4, 3>> m_sdfParams	= { { Float4{ 0.5f, 0.5f, 0.0f, 0.0f }, Float4{ 0.0f, 0.0f, 0.0f, 1.0f }, Float4{ 0.0f, 0.0f, 0.0f, 0.5f } } };
 		Array<Optional<RenderTexture>> m_RTs		= { none };
-		Array<VertexShader::IDType> m_VSs;	
+		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
 		Array<__m128> m_constants;
-		Array<D3D11ConstantBuffer3DCommand> m_constantBufferCommands;
+		Array<GL4ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
-		Array<Mesh::IDType> m_meshes;
 
 		// current
 		BlendState m_currentBlendState				= m_blendStates.back();
@@ -207,16 +212,16 @@ namespace s3d
 
 	public:
 
-		D3D11Renderer3DCommandManager();
+		GL4Renderer3DCommandManager();
 
 		void reset();
 
 		void flush();
 
-		const Array<D3D11Renderer3DCommand>& getCommands() const noexcept;
+		const Array<GL4Renderer3DCommand>& getCommands() const noexcept;
 
 		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
-		const D3D11Draw3DCommand& getDraw(uint32 index) const noexcept;
+		const GL4Draw3DCommand& getDraw(uint32 index) const noexcept;
 		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
 		const Float4& getDrawDiffuse(uint32 index) const noexcept;
 
@@ -268,7 +273,7 @@ namespace s3d
 		const Mat4x4& getCameraTransform(uint32 index) const;
 
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
-		D3D11ConstantBuffer3DCommand& getConstantBuffer(uint32 index);
+		GL4ConstantBuffer3DCommand& getConstantBuffer(uint32 index);
 		const __m128* getConstantBufferPtr(uint32 offset) const;
 
 		void pushVSTextureUnbind(uint32 slot);

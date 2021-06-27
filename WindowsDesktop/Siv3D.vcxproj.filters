@@ -6390,6 +6390,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics3D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\GL4Renderer3DCommand.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\Renderer3DCommon.hpp">
+      <Filter>src\Siv3D\Renderer3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8791,6 +8797,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\BasicCamera3D\SivBasicCamera3D.cpp">
       <Filter>src\Siv3D\BasicCamera3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\GL4Renderer3DCommand.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

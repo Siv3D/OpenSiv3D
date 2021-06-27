@@ -14,8 +14,8 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ConstantBuffer.hpp>
-# include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Renderer3D/IRenderer3D.hpp>
+# include <Siv3D/Renderer3D/Renderer3DCommon.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "D3D11Renderer3DCommand.hpp"
 
@@ -59,18 +59,6 @@ namespace s3d
 
 			return result;
 		}
-	};
-
-	struct VSConstants3D
-	{
-		Mat4x4 localToWorld = Mat4x4::Identity();
-		Mat4x4 worldToProjected = Mat4x4::Identity();
-		Float4 diffuse = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
-	};
-
-	struct PSConstants3D
-	{
-		Float4 placeholder{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	class CRenderer3D_D3D11 final : public ISiv3DRenderer3D

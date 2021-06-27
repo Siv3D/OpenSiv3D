@@ -108,6 +108,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Renderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer2D/GL4/GL4Vertex2DBatch.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer3D/GL4/CRenderer3D_GL4.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Renderer3D/GL4/GL4Renderer3DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/CShader_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/PixelShader/GL4PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/VertexShader/GL4VertexShader.cpp
