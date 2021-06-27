@@ -17,10 +17,6 @@ namespace s3d
 {
 	namespace Graphics3D
 	{
-		void SetCameraTransform(const Mat4x4& matrix)
-		{
-			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
-		}
 
 		void Flush()
 		{
@@ -29,6 +25,11 @@ namespace s3d
 
 		namespace Internal
 		{
+			void SetCameraTransform(const Mat4x4& matrix)
+			{
+				SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
+			}
+
 			void SetRenderTarget(const Optional<RenderTexture>& rt)
 			{
 				SIV3D_ENGINE(Renderer3D)->setRenderTarget(rt);

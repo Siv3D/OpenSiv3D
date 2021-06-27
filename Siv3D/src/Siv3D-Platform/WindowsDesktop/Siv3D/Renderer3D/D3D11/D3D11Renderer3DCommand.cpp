@@ -39,10 +39,9 @@ namespace s3d
 			m_drawDiffuses.clear();
 
 		//	m_nullDraws.clear();
-		//	m_colorMuls			= { m_colorMuls.back() };
-		//	m_colorAdds			= { m_colorAdds.back() };
 			m_blendStates		= { m_blendStates.back() };
 			m_rasterizerStates	= { m_rasterizerStates.back() };
+			m_depthStencilStates = { m_depthStencilStates.back() };
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
@@ -54,16 +53,14 @@ namespace s3d
 				m_psSamplerStates[i] = { m_psSamplerStates[i].back() };
 			}
 
-		//	m_scissorRects			= { m_scissorRects.back() };
-		//	m_viewports				= { m_viewports.back() };
+			m_scissorRects			= { m_scissorRects.back() };
+			m_viewports				= { m_viewports.back() };
 		//	m_sdfParams				= { m_sdfParams.back() };
-		//	m_internalPSConstants	= { m_internalPSConstants.back() };
 			m_RTs					= { m_RTs.back() };
 
 			m_VSs					= { VertexShader::IDType::InvalidValue() };
 			m_PSs					= { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms		= { m_cameraTransforms.back() };
-		//	m_combinedTransforms	= { m_combinedTransforms.back() };
 		//	m_constants.clear();
 		//	m_constantBufferCommands.clear();
 		}
@@ -81,17 +78,14 @@ namespace s3d
 		//	m_commands.emplace_back(D3D11Renderer2DCommandType::SetBuffers, 0);
 		//	m_commands.emplace_back(D3D11Renderer2DCommandType::UpdateBuffers, 0);
 
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ColorMul, 0);
-		//	m_currentColorMul = m_colorMuls.front();
-
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ColorAdd, 0);
-		//	m_currentColorAdd = m_colorAdds.front();
-
 			m_commands.emplace_back(D3D11Renderer3DCommandType::BlendState, 0);
 			m_currentBlendState = m_blendStates.front();
 
 			m_commands.emplace_back(D3D11Renderer3DCommandType::RasterizerState, 0);
 			m_currentRasterizerState = m_rasterizerStates.front();
+
+			m_commands.emplace_back(D3D11Renderer3DCommandType::DepthStencilState, 0);
+			m_currentDepthStencilState = m_depthStencilStates.front();
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
@@ -107,17 +101,14 @@ namespace s3d
 				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.front();
 			}
 
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ScissorRect, 0);
-		//	m_currentScissorRect = m_scissorRects.front();
+			m_commands.emplace_back(D3D11Renderer3DCommandType::ScissorRect, 0);
+			m_currentScissorRect = m_scissorRects.front();
 
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::Viewport, 0);
-		//	m_currentViewport = m_viewports.front();
+			m_commands.emplace_back(D3D11Renderer3DCommandType::Viewport, 0);
+			m_currentViewport = m_viewports.front();
 
 		//	m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, 0);
 		//	m_currentSDFParams = m_sdfParams.front();
-
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::InternalPSConstants, 0);
-		//	m_currentInternalPSConstants = m_internalPSConstants.front();
 
 			m_commands.emplace_back(D3D11Renderer3DCommandType::SetRT, 0);
 			m_currentRT = m_RTs.front();
@@ -130,9 +121,6 @@ namespace s3d
 
 			m_commands.emplace_back(D3D11Renderer3DCommandType::CameraTransform, 0);
 			m_currentCameraTransform = m_cameraTransforms.front();
-
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::Transform, 0);
-		//	m_currentCombinedTransform = m_combinedTransforms.front();
 
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -177,18 +165,6 @@ namespace s3d
 		//	m_commands.emplace_back(D3D11Renderer2DCommandType::SetBuffers, 0);
 		//}
 
-		//if (m_changes.has(D3D11Renderer2DCommandType::ColorMul))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ColorMul, static_cast<uint32>(m_colorMuls.size()));
-		//	m_colorMuls.push_back(m_currentColorMul);
-		//}
-
-		//if (m_changes.has(D3D11Renderer2DCommandType::ColorAdd))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ColorAdd, static_cast<uint32>(m_colorAdds.size()));
-		//	m_colorAdds.push_back(m_currentColorAdd);
-		//}
-
 		if (m_changes.has(D3D11Renderer3DCommandType::BlendState))
 		{
 			m_commands.emplace_back(D3D11Renderer3DCommandType::BlendState, static_cast<uint32>(m_blendStates.size()));
@@ -199,6 +175,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(D3D11Renderer3DCommandType::RasterizerState, static_cast<uint32>(m_rasterizerStates.size()));
 			m_rasterizerStates.push_back(m_currentRasterizerState);
+		}
+
+		if (m_changes.has(D3D11Renderer3DCommandType::DepthStencilState))
+		{
+			m_commands.emplace_back(D3D11Renderer3DCommandType::DepthStencilState, static_cast<uint32>(m_depthStencilStates.size()));
+			m_depthStencilStates.push_back(m_currentDepthStencilState);
 		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -223,28 +205,22 @@ namespace s3d
 			}
 		}
 
-		//if (m_changes.has(D3D11Renderer2DCommandType::ScissorRect))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::ScissorRect, static_cast<uint32>(m_scissorRects.size()));
-		//	m_scissorRects.push_back(m_currentScissorRect);
-		//}
+		if (m_changes.has(D3D11Renderer3DCommandType::ScissorRect))
+		{
+			m_commands.emplace_back(D3D11Renderer3DCommandType::ScissorRect, static_cast<uint32>(m_scissorRects.size()));
+			m_scissorRects.push_back(m_currentScissorRect);
+		}
 
-		//if (m_changes.has(D3D11Renderer2DCommandType::Viewport))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::Viewport, static_cast<uint32>(m_viewports.size()));
-		//	m_viewports.push_back(m_currentViewport);
-		//}
+		if (m_changes.has(D3D11Renderer3DCommandType::Viewport))
+		{
+			m_commands.emplace_back(D3D11Renderer3DCommandType::Viewport, static_cast<uint32>(m_viewports.size()));
+			m_viewports.push_back(m_currentViewport);
+		}
 
 		//if (m_changes.has(D3D11Renderer2DCommandType::SDFParams))
 		//{
 		//	m_commands.emplace_back(D3D11Renderer2DCommandType::SDFParams, static_cast<uint32>(m_sdfParams.size()));
 		//	m_sdfParams.push_back(m_currentSDFParams);
-		//}
-
-		//if (m_changes.has(D3D11Renderer2DCommandType::InternalPSConstants))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::InternalPSConstants, static_cast<uint32>(m_internalPSConstants.size()));
-		//	m_internalPSConstants.push_back(m_currentInternalPSConstants);
 		//}
 
 		if (m_changes.has(D3D11Renderer3DCommandType::SetRT))
@@ -270,12 +246,6 @@ namespace s3d
 			m_commands.emplace_back(D3D11Renderer3DCommandType::CameraTransform, static_cast<uint32>(m_cameraTransforms.size()));
 			m_cameraTransforms.push_back(m_currentCameraTransform);
 		}
-
-		//if (m_changes.has(D3D11Renderer2DCommandType::Transform))
-		//{
-		//	m_commands.emplace_back(D3D11Renderer2DCommandType::Transform, static_cast<uint32>(m_combinedTransforms.size()));
-		//	m_combinedTransforms.push_back(m_currentCombinedTransform);
-		//}
 
 		//if (m_changes.has(D3D11Renderer2DCommandType::SetConstantBuffer))
 		//{
@@ -343,16 +313,6 @@ namespace s3d
 	//	m_commands.emplace_back(D3D11Renderer2DCommandType::UpdateBuffers, batchIndex);
 	//}
 
-	//void D3D11Renderer2DCommandManager::pushDraw(const Vertex2D::IndexType indexCount)
-	//{
-	//	if (m_changes.hasStateChange())
-	//	{
-	//		flush();
-	//	}
-
-	//	m_currentDraw.indexCount += indexCount;
-	//}
-
 	const D3D11Draw3DCommand& D3D11Renderer3DCommandManager::getDraw(const uint32 index) const noexcept
 	{
 		return m_draws[index];
@@ -383,82 +343,6 @@ namespace s3d
 	//uint32 D3D11Renderer2DCommandManager::getNullDraw(const uint32 index) const noexcept
 	//{
 	//	return m_nullDraws[index];
-	//}
-
-	//void D3D11Renderer2DCommandManager::pushColorMul(const Float4& color)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::ColorMul;
-	//	auto& current = m_currentColorMul;
-	//	auto& buffer = m_colorMuls;
-
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (color != current)
-	//		{
-	//			current = color;
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (color == buffer.back())
-	//		{
-	//			current = color;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			current = color;
-	//		}
-	//	}
-	//}
-
-	//const Float4& D3D11Renderer2DCommandManager::getColorMul(const uint32 index) const
-	//{
-	//	return m_colorMuls[index];
-	//}
-
-	//const Float4& D3D11Renderer2DCommandManager::getCurrentColorMul() const
-	//{
-	//	return m_currentColorMul;
-	//}
-
-	//void D3D11Renderer2DCommandManager::pushColorAdd(const Float4& color)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::ColorAdd;
-	//	auto& current = m_currentColorAdd;
-	//	auto& buffer = m_colorAdds;
-
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (color != current)
-	//		{
-	//			current = color;
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (color == buffer.back())
-	//		{
-	//			current = color;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			current = color;
-	//		}
-	//	}
-	//}
-
-	//const Float4& D3D11Renderer2DCommandManager::getColorAdd(const uint32 index) const
-	//{
-	//	return m_colorAdds[index];
-	//}
-
-	//const Float4& D3D11Renderer2DCommandManager::getCurrentColorAdd() const
-	//{
-	//	return m_currentColorAdd;
 	//}
 
 	void D3D11Renderer3DCommandManager::pushBlendState(const BlendState& state)
@@ -535,6 +419,44 @@ namespace s3d
 	const RasterizerState& D3D11Renderer3DCommandManager::getCurrentRasterizerState() const
 	{
 		return m_currentRasterizerState;
+	}
+
+	void D3D11Renderer3DCommandManager::pushDepthStencilState(const DepthStencilState& state)
+	{
+		constexpr auto command = D3D11Renderer3DCommandType::DepthStencilState;
+		auto& current = m_currentDepthStencilState;
+		auto& buffer = m_depthStencilStates;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const DepthStencilState& D3D11Renderer3DCommandManager::getDepthStencilState(const uint32 index) const
+	{
+		return m_depthStencilStates[index];
+	}
+
+	const DepthStencilState& D3D11Renderer3DCommandManager::getCurrentDepthStencilState() const
+	{
+		return m_currentDepthStencilState;
 	}
 
 	void D3D11Renderer3DCommandManager::pushVSSamplerState(const SamplerState& state, const uint32 slot)
@@ -625,81 +547,81 @@ namespace s3d
 		return m_currentPSSamplerStates[slot];
 	}
 
-	//void D3D11Renderer2DCommandManager::pushScissorRect(const Rect& state)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::ScissorRect;
-	//	auto& current = m_currentScissorRect;
-	//	auto& buffer = m_scissorRects;
+	void D3D11Renderer3DCommandManager::pushScissorRect(const Rect& state)
+	{
+		constexpr auto command = D3D11Renderer3DCommandType::ScissorRect;
+		auto& current = m_currentScissorRect;
+		auto& buffer = m_scissorRects;
 
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (state != current)
-	//		{
-	//			current = state;
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (state == buffer.back())
-	//		{
-	//			current = state;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			current = state;
-	//		}
-	//	}
-	//}
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
 
-	//const Rect& D3D11Renderer2DCommandManager::getScissorRect(const uint32 index) const
-	//{
-	//	return m_scissorRects[index];
-	//}
+	const Rect& D3D11Renderer3DCommandManager::getScissorRect(const uint32 index) const
+	{
+		return m_scissorRects[index];
+	}
 
-	//const Rect& D3D11Renderer2DCommandManager::getCurrentScissorRect() const
-	//{
-	//	return m_currentScissorRect;
-	//}
+	const Rect& D3D11Renderer3DCommandManager::getCurrentScissorRect() const
+	{
+		return m_currentScissorRect;
+	}
 
-	//void D3D11Renderer2DCommandManager::pushViewport(const Optional<Rect>& state)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::Viewport;
-	//	auto& current = m_currentViewport;
-	//	auto& buffer = m_viewports;
+	void D3D11Renderer3DCommandManager::pushViewport(const Optional<Rect>& state)
+	{
+		constexpr auto command = D3D11Renderer3DCommandType::Viewport;
+		auto& current = m_currentViewport;
+		auto& buffer = m_viewports;
 
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (state != current)
-	//		{
-	//			current = state;
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (state == buffer.back())
-	//		{
-	//			current = state;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			current = state;
-	//		}
-	//	}
-	//}
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
 
-	//const Optional<Rect>& D3D11Renderer2DCommandManager::getViewport(const uint32 index) const
-	//{
-	//	return m_viewports[index];
-	//}
+	const Optional<Rect>& D3D11Renderer3DCommandManager::getViewport(const uint32 index) const
+	{
+		return m_viewports[index];
+	}
 
-	//const Optional<Rect>& D3D11Renderer2DCommandManager::getCurrentViewport() const
-	//{
-	//	return m_currentViewport;
-	//}
+	const Optional<Rect>& D3D11Renderer3DCommandManager::getCurrentViewport() const
+	{
+		return m_currentViewport;
+	}
 
 	//void D3D11Renderer2DCommandManager::pushSDFParameters(const std::array<Float4, 3>& state)
 	//{
@@ -737,39 +659,6 @@ namespace s3d
 	//const std::array<Float4, 3>& D3D11Renderer2DCommandManager::getCurrentSDFParameters() const
 	//{
 	//	return m_currentSDFParams;
-	//}
-
-	//void D3D11Renderer2DCommandManager::pushInternalPSConstants(const Float4& value)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::InternalPSConstants;
-	//	auto& current = m_currentInternalPSConstants;
-	//	auto& buffer = m_internalPSConstants;
-
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (value != current)
-	//		{
-	//			current = value;
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (value == buffer.back())
-	//		{
-	//			current = value;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			current = value;
-	//		}
-	//	}
-	//}
-
-	//const Float4& D3D11Renderer2DCommandManager::getInternalPSConstants(uint32 index) const
-	//{
-	//	return m_internalPSConstants[index];
 	//}
 
 
@@ -938,103 +827,6 @@ namespace s3d
 	{
 		return m_cameraTransforms[index];
 	}
-
-	//void D3D11Renderer2DCommandManager::pushLocalTransform(const Mat3x2& local)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::Transform;
-	//	auto& currentLocal = m_currentLocalTransform;
-	//	auto& currentCombined = m_currentCombinedTransform;
-	//	auto& buffer = m_combinedTransforms;
-	//	const Mat3x2 combinedTransform = local * m_currentCameraTransform;
-
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (local != currentLocal)
-	//		{
-	//			currentLocal = local;
-	//			currentCombined = combinedTransform;
-	//			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (combinedTransform == buffer.back())
-	//		{
-	//			currentLocal = local;
-	//			currentCombined = combinedTransform;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			currentLocal = local;
-	//			currentCombined = combinedTransform;
-	//		}
-
-	//		m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-	//	}
-	//}
-
-	//const Mat3x2& D3D11Renderer2DCommandManager::getCurrentLocalTransform() const
-	//{
-	//	return m_currentLocalTransform;
-	//}
-
-	//void D3D11Renderer2DCommandManager::pushCameraTransform(const Mat3x2& camera)
-	//{
-	//	constexpr auto command = D3D11Renderer2DCommandType::Transform;
-	//	auto& currentCamera = m_currentCameraTransform;
-	//	auto& currentCombined = m_currentCombinedTransform;
-	//	auto& buffer = m_combinedTransforms;
-	//	const Mat3x2 combinedTransform = m_currentLocalTransform * camera;
-
-	//	if (not m_changes.has(command))
-	//	{
-	//		if (camera != currentCamera)
-	//		{
-	//			currentCamera = camera;
-	//			currentCombined = combinedTransform;
-	//			m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-	//			m_changes.set(command);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (combinedTransform == buffer.back())
-	//		{
-	//			currentCamera = camera;
-	//			currentCombined = combinedTransform;
-	//			m_changes.clear(command);
-	//		}
-	//		else
-	//		{
-	//			currentCamera = camera;
-	//			currentCombined = combinedTransform;
-	//		}
-
-	//		m_currentMaxScaling = detail::CalculateMaxScaling(combinedTransform);
-	//	}
-	//}
-
-	//const Mat3x2& D3D11Renderer2DCommandManager::getCurrentCameraTransform() const
-	//{
-	//	return m_currentCameraTransform;
-	//}
-
-	//const Mat3x2& D3D11Renderer2DCommandManager::getCombinedTransform(const uint32 index) const
-	//{
-	//	return m_combinedTransforms[index];
-	//}
-
-	//const Mat3x2& D3D11Renderer2DCommandManager::getCurrentCombinedTransform() const
-	//{
-	//	return m_currentCombinedTransform;
-	//}
-
-	//float D3D11Renderer2DCommandManager::getCurrentMaxScaling() const noexcept
-	//{
-	//	return m_currentMaxScaling;
-	//}
 
 	//void D3D11Renderer2DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	//{

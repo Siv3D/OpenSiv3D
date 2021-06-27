@@ -214,7 +214,6 @@ namespace s3d
 		}
 
 		pRenderer->getBackBuffer().bindSceneToContext(true);
-		pRenderer->getDepthStencilState().set(DepthStencilState::Default3D);
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -266,6 +265,13 @@ namespace s3d
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
+			case D3D11Renderer3DCommandType::DepthStencilState:
+				{
+					const auto& depthStencilState = m_commandManager.getDepthStencilState(command.index);
+					pRenderer->getDepthStencilState().set(depthStencilState);
+					LOG_COMMAND(U"DepthStencilState[{}]"_fmt(command.index));
+					break;
+				}
 
 			case D3D11Renderer3DCommandType::VSSamplerState0:
 			case D3D11Renderer3DCommandType::VSSamplerState1:
@@ -295,6 +301,41 @@ namespace s3d
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
 					pRenderer->getSamplerState().setPS(slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
+					break;
+				}
+			case D3D11Renderer3DCommandType::ScissorRect:
+				{
+					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
+					pRenderer->getRasterizerState().setScissorRect(scissorRect);
+					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
+					break;
+				}
+			case D3D11Renderer3DCommandType::Viewport:
+				{
+					const auto& viewport = m_commandManager.getViewport(command.index);
+					D3D11_VIEWPORT vp;
+					vp.MinDepth = 0.0f;
+					vp.MaxDepth = 1.0f;
+
+					if (viewport)
+					{
+						vp.TopLeftX	= static_cast<float>(viewport->x);
+						vp.TopLeftY	= static_cast<float>(viewport->y);
+						vp.Width	= static_cast<float>(viewport->w);
+						vp.Height	= static_cast<float>(viewport->h);
+					}
+					else
+					{
+						vp.TopLeftX = 0;
+						vp.TopLeftY = 0;
+						vp.Width	= static_cast<float>(currentRenderTargetSize.x);
+						vp.Height	= static_cast<float>(currentRenderTargetSize.y);
+					}
+
+					m_context->RSSetViewports(1, &vp);
+
+					LOG_COMMAND(U"Viewport[{}] (TopLeftX = {}, TopLeftY = {}, Width = {}, Height = {}, MinDepth = {}, MaxDepth = {})"_fmt(command.index,
+						vp.TopLeftX, vp.TopLeftY, vp.Width, vp.Height, vp.MinDepth, vp.MaxDepth));
 					break;
 				}
 			case D3D11Renderer3DCommandType::SetRT:
