@@ -697,34 +697,6 @@ namespace s3d
 
 	bool GL4Texture::initDepthBuffer()
 	{
-		/*
-		assert(not m_hasDepth);
-		assert(not m_depthBuffer);
-		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
-
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-		{
-			::glGenRenderbuffers(1, &m_depthBuffer);
-
-			::glBindRenderbuffer(GL_RENDERBUFFER, m_depthBuffer);
-	
-			::glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, m_size.x, m_size.y);
-
-			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthBuffer);
-		
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			{
-				LOG_ERROR(U"not complete!");
-				return false;
-			}
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-		m_hasDepth = true;
-
-		return true;
-		*/
-
 		assert(not m_hasDepth);
 		assert(not m_depthTexture);
 		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));

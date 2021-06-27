@@ -21,11 +21,18 @@ namespace s3d
 	{
 	private:
 
+		// [フレームバッファ]
 		GLuint m_frameBuffer = 0;
 		
+		// [メインテクスチャ]
 		GLuint m_texture = 0;
 
+		// [デプステクスチャ]
+		GLuint m_depthTexture = 0;
+
 		Size m_size = Size{ 0, 0 };
+
+		uint32 m_sampleCount = 1;
 
 		bool m_hasDepth = false;
 

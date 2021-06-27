@@ -16,12 +16,21 @@ namespace s3d
 {
 	GL4InternalTexture2D::~GL4InternalTexture2D()
 	{
+		// [デプステクスチャ] を破棄
+		if (m_depthTexture)
+		{
+			::glDeleteTextures(1, &m_depthTexture);
+			m_depthTexture = 0;
+		}
+
+		// [メインテクスチャ] を破棄
 		if (m_texture)
 		{
 			::glDeleteTextures(1, &m_texture);
 			m_texture = 0;
 		}
 
+		// [フレームバッファ] を破棄
 		if (m_frameBuffer)
 		{
 			::glDeleteFramebuffers(1, &m_frameBuffer);
@@ -81,7 +90,36 @@ namespace s3d
 
 	void GL4InternalTexture2D::initDepth()
 	{
-		// [Siv3D ToDo]
+		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+		{
+			if (m_sampleCount == 1)
+			{
+				::glGenTextures(1, &m_depthTexture);
+				::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
+					GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
+
+				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+				{
+					throw EngineError{ U"GL4InternalTexture2D::initDepth() failed" };
+				}
+			}
+			else
+			{
+				::glGenTextures(1, &m_depthTexture);
+				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
+				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_sampleCount, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
+				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
+
+				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+				{
+					throw EngineError{ U"GL4InternalTexture2D::initDepth() failed" };
+				}
+			}
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		m_hasDepth = true;
 	}
@@ -144,6 +182,7 @@ namespace s3d
 
 		p->m_frameBuffer	= frameBuffer;
 		p->m_texture		= texture;
+		p->m_sampleCount	= sampleCount;
 		p->m_size			= size;
 
 		return p;
