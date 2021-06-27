@@ -75,6 +75,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/WebGPU/CRenderer_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer2D/Renderer2DFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer3D/Renderer3DFactory.cpp
@@ -1096,6 +1097,7 @@ target_include_directories(
   ../Siv3D/src/Siv3D-Platform/Web
   ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/OpenGLES3
+  ../Siv3D/src/Siv3D-Platform/WebGPU
   ../Siv3D/src/ThirdParty
   ../Siv3D/src/ThirdParty/asio
   ../Siv3D/src/ThirdParty/freetype

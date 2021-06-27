@@ -12,6 +12,7 @@
 # include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Texture/Null/CTexture_Null.hpp>
 # include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
+# include <Siv3D/Texture/WebGPU/CTexture_WebGPU.hpp>
 
 namespace s3d
 {
@@ -19,6 +20,11 @@ namespace s3d
 	{
 		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
+			return new CTexture_Null;
+		}
+		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
+		{
+			// return new CTexture_WebGPU;
 			return new CTexture_Null;
 		}
 		else

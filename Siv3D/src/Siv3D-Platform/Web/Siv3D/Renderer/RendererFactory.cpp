@@ -12,6 +12,7 @@
 # include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Renderer/Null/CRenderer_Null.hpp>
 # include <Siv3D/Renderer/GLES3/CRenderer_GLES3.hpp>
+# include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 
 namespace s3d
 {
@@ -20,6 +21,10 @@ namespace s3d
 		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CRenderer_Null;
+		}
+		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
+		{
+			return new CRenderer_WebGPU;
 		}
 		else
 		{
