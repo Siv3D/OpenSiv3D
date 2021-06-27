@@ -27,6 +27,12 @@
 
 namespace s3d
 {
+	struct Renderer3DStat
+	{
+		uint32 drawCalls = 0;
+		uint32 triangleCount = 0;
+	};
+
 	class SIV3D_NOVTABLE ISiv3DRenderer3D
 	{
 	public:
@@ -36,6 +42,8 @@ namespace s3d
 		virtual ~ISiv3DRenderer3D() = default;
 
 		virtual void init() = 0;
+
+		virtual const Renderer3DStat& getStat() const { static Renderer3DStat s; return s; }
 
 		virtual void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) {}
 
