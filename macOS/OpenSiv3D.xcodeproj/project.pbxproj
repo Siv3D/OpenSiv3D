@@ -3289,6 +3289,7 @@
 		2C6C782826889B9C00B3C44A /* SivGraphics3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics3D.cpp; sourceTree = "<group>"; };
 		2C6C782B2688C4AC00B3C44A /* GL4DepthStencilState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4DepthStencilState.cpp; sourceTree = "<group>"; };
 		2C6C782C2688C4AC00B3C44A /* GL4DepthStencilState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4DepthStencilState.hpp; sourceTree = "<group>"; };
+		2C6C782F2688D59600B3C44A /* BasicCamera3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicCamera3D.ipp; sourceTree = "<group>"; };
 		2C6E35F6266A366C005EA869 /* SivQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuaternion.cpp; sourceTree = "<group>"; };
 		2C6EE5EB2667FFDE00019531 /* RandomDuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.hpp; sourceTree = "<group>"; };
 		2C6EE5EC2667FFF200019531 /* RandomDuration.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandomDuration.ipp; sourceTree = "<group>"; };
@@ -4206,6 +4207,7 @@
 				2C063D542661426000368BEE /* AsyncTask.ipp */,
 				2C66842926836E4C00F7089A /* Audio.ipp */,
 				2C063DAC2661426000368BEE /* BasicCamera2D.ipp */,
+				2C6C782F2688D59600B3C44A /* BasicCamera3D.ipp */,
 				2C063DDC2661426000368BEE /* Bezier2.ipp */,
 				2C063DD12661426000368BEE /* Bezier3.ipp */,
 				2C063E022661426000368BEE /* BigFloat.ipp */,
