@@ -56,6 +56,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Mesh/MeshFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp

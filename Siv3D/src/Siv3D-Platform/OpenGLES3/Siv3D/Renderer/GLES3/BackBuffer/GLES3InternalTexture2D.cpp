@@ -96,7 +96,7 @@ namespace s3d
 			{
 				::glGenTextures(1, &m_depthTexture);
 				::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
-				::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
+				::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y, 0,
 					GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
@@ -110,7 +110,7 @@ namespace s3d
 			{
 				::glGenTextures(1, &m_depthTexture);
 				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
-				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_sampleCount, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
+				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_sampleCount, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y, GL_FALSE);
 				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
 
 				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -156,7 +156,7 @@ namespace s3d
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-			::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
 			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			{
 				return nullptr;

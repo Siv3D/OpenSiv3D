@@ -64,8 +64,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS3D>();
-			m_standardPS->forwardShape = GLSL{ Resource(U"engine/shader/glsl/forward3d_shape.frag"), { { U"PSConstants3D", 0 } } };
-			m_standardPS->forwardTexture = GLSL{ Resource(U"engine/shader/glsl/forward3d_texture.frag"), { { U"PSConstants3D", 0 } } };
+			m_standardPS->forwardShape = ESSL{ Resource(U"engine/shader/glsl/forward3d_shape.frag"), { { U"PSConstants3D", 0 } } };
+			m_standardPS->forwardTexture = ESSL{ Resource(U"engine/shader/glsl/forward3d_texture.frag"), { { U"PSConstants3D", 0 } } };
 
 			if (not m_standardPS->setup())
 			{
@@ -371,7 +371,7 @@ namespace s3d
 					m_psConstants3D._update_if_dirty();
 
 					constexpr Vertex3D::IndexType* pBase = 0;
-					::glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation), 0);
+					::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation));
 
 					instanceIndex += instanceCount;
 
@@ -494,6 +494,7 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -511,6 +512,7 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
+						pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
