@@ -47,7 +47,7 @@ namespace s3d
 
 #else
     
-    using aligned_float4 = __vector4;
+    using aligned_float4 = DirectX::__vector4;
 
 #endif
 
