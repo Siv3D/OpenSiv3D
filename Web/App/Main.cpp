@@ -14,7 +14,11 @@ void Main()
 
 # else
 
+# if defined(SIV3D_WEBGPU_BACKEND)
+SIV3D_SET(EngineOption::Renderer::WebGPU)
+# else
 SIV3D_SET(EngineOption::Renderer::WebGL2)
+# endif
 
 void Main()
 {
