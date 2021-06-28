@@ -58,12 +58,17 @@ namespace s3d
 		}
 	}
 
-	void GLES3BackBuffer::bindSceneBuffer()
+	void GLES3BackBuffer::bindSceneToContext(const bool useDepth)
 	{
+		if (useDepth && (not m_sceneBuffers.scene->hasDepth()))
+		{
+			m_sceneBuffers.scene->initDepth();
+		}
+
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
 	}
 
-	void GLES3BackBuffer::bindFrameBuffer(const GLuint frameBuffer)
+	void GLES3BackBuffer::bindToScene(const GLuint frameBuffer)
 	{
 		::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	}

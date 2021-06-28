@@ -71,9 +71,9 @@ namespace s3d
 
 		void clear(GLES3ClearTarget clearTargets);
 
-		void bindSceneBuffer();
+		void bindSceneToContext(bool useDepth);
 
-		void bindFrameBuffer(GLuint frameBuffer);
+		void bindToScene(GLuint frameBuffer);
 
 		void unbind();
 

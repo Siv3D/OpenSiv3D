@@ -17,16 +17,20 @@
 # include <Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.hpp>
 # include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
 # include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
+# include <Siv3D/Renderer/GLES3/DepthStencilState/GLES3DepthStencilState.hpp>
 # include <Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.hpp>
 # include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
 
 namespace s3d
 {
+	class CRenderer3D_GLES3;
+
 	class CRenderer_GLES3 final : public ISiv3DRenderer
 	{
 	private:
 		
 		CRenderer2D_GLES3* pRenderer2D = nullptr;
+		CRenderer3D_GLES3* pRenderer3D = nullptr;
 		CTexture_GLES3* pTexture = nullptr;
 		GLFWwindow* m_window = nullptr;
 
@@ -35,6 +39,8 @@ namespace s3d
 		std::unique_ptr<GLES3BlendState> m_blendState;
 
 		std::unique_ptr<GLES3RasterizerState> m_rasterizerState;
+
+		std::unique_ptr<GLES3DepthStencilState> m_depthStencilState;
 		
 		std::unique_ptr<GLES3SamplerState> m_samplerState;
 
@@ -98,6 +104,8 @@ namespace s3d
 		GLES3BlendState& getBlendState() noexcept;
 
 		GLES3RasterizerState& getRasterizerState() noexcept;
+
+		GLES3DepthStencilState& getDepthStencilState() noexcept;
 
 		GLES3SamplerState& getSamplerState() noexcept;
 	};

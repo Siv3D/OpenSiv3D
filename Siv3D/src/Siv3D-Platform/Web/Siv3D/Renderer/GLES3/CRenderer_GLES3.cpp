@@ -18,7 +18,9 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.hpp>
+# include <Siv3D/Renderer3D/GLES3/CRenderer3D_GLES3.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -58,6 +60,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer_GLES3::init()");
 		
 		pRenderer2D = dynamic_cast<CRenderer2D_GLES3*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = dynamic_cast<CRenderer3D_GLES3*>(SIV3D_ENGINE(Renderer3D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		::glfwMakeContextCurrent(m_window);
@@ -105,12 +108,14 @@ namespace s3d
 		m_backBuffer		= std::make_unique<GLES3BackBuffer>();
 		m_blendState		= std::make_unique<GLES3BlendState>();
 		m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
+		m_depthStencilState = std::make_unique<GLES3DepthStencilState>();
 		m_samplerState		= std::make_unique<GLES3SamplerState>();
 		
 		pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
+		SIV3D_ENGINE(Mesh)->init();
 
 		clear();
 	}
@@ -136,16 +141,14 @@ namespace s3d
 			{
 				// sleep
 			}
-		}
-
-		pRenderer2D->update();
+		}	
 	}
 
 	void CRenderer_GLES3::flush()
 	{
-		// Scene に 2D 描画
+		// Scene に 3D, 2D 描画
 		{
-			m_backBuffer->bindSceneBuffer();
+			pRenderer3D->flush();
 			pRenderer2D->flush();
 			m_backBuffer->unbind();
 		}
@@ -268,6 +271,11 @@ namespace s3d
 	GLES3RasterizerState& CRenderer_GLES3::getRasterizerState() noexcept
 	{
 		return *m_rasterizerState;
+	}
+
+	GLES3DepthStencilState& CRenderer_GLES3::getDepthStencilState() noexcept
+	{
+		return *m_depthStencilState;
 	}
 
 	GLES3SamplerState& CRenderer_GLES3::getSamplerState() noexcept
