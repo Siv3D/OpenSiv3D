@@ -688,7 +688,7 @@ namespace s3d
 			m_commandManager.pushPSTexture(0, texture);
 			m_commandManager.pushDraw(indexCount);
 		}
-	}	
+	}
 
 	Float4 CRenderer2D_GLES3::getColorMul() const
 	{
@@ -955,6 +955,8 @@ namespace s3d
 
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
+		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
+		pRenderer->getBackBuffer().bindSceneToContext(false);
 
 		BatchInfo2D batchInfo;
 
@@ -1143,13 +1145,13 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
-						
-						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+						pRenderer->getBackBuffer().bindToScene(frameBuffer);
+
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneBuffer();
+						pRenderer->getBackBuffer().bindSceneToContext(false);
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}

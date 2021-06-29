@@ -188,7 +188,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, size, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -208,7 +208,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -228,7 +228,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32_Float;
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -248,7 +248,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32_Float;
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -268,7 +268,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -287,7 +287,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::MSRender{}, size, format, desc);
+		auto texture = std::make_unique<GLES3Texture>(GLES3Texture::MSRender{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -320,8 +320,7 @@ namespace s3d
 
 	bool CTexture_GLES3::hasDepth(const Texture::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_textures[handleID]->hasDepth();
 	}
 
 	bool CTexture_GLES3::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)

@@ -13,6 +13,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
+# include <Siv3D/Renderer/GLES3/CRenderer_GLES3.hpp>
 
 namespace s3d
 {
@@ -82,7 +83,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(Render, const Size& size, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(Render, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ size }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -115,10 +116,18 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(Render, const Image& image, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(Render, const Image& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -152,10 +161,18 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(Render, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(Render, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -189,10 +206,18 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(Render, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(Render, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -226,10 +251,18 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(Render, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(Render, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -263,10 +296,18 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
-	GLES3Texture::GLES3Texture(MSRender, const Size& size, const TextureFormat& format, const TextureDesc desc)
+	GLES3Texture::GLES3Texture(MSRender, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ size }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -320,11 +361,26 @@ namespace s3d
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
+		if (hasDepth)
+		{
+			if (not initDepthBuffer())
+			{
+				return;
+			}
+		}
+
 		m_initialized = true;
 	}
 
 	GLES3Texture::~GLES3Texture()
 	{
+		// [デプステクスチャ] を破棄
+		if (m_depthTexture)
+		{
+			::glDeleteTextures(1, &m_depthTexture);
+			m_depthTexture = 0;
+		}
+
 		// [resolved フレームバッファ] を破棄
 		if (m_resolvedFrameBuffer)
 		{
@@ -382,6 +438,11 @@ namespace s3d
 	TextureFormat GLES3Texture::getFormat() const noexcept
 	{
 		return m_format;
+	}
+
+	bool GLES3Texture::hasDepth() const noexcept
+	{
+		return m_hasDepth;
 	}
 
 	bool GLES3Texture::fill(const ColorF& color, bool)
@@ -507,7 +568,21 @@ namespace s3d
 			static_cast<float>(color.g),
 			static_cast<float>(color.b),
 			static_cast<float>(color.a));
-		::glClear(GL_COLOR_BUFFER_BIT);
+
+		if (m_hasDepth)
+		{
+			if (auto p = dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer)))
+			{
+				p->getDepthStencilState().set(DepthStencilState::Default3D);
+			}
+
+			::glClearDepth(0.0);
+			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+		else
+		{
+			::glClear(GL_COLOR_BUFFER_BIT);
+		}
 
 		//::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -618,5 +693,49 @@ namespace s3d
 
 		::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	}
+
+	bool GLES3Texture::initDepthBuffer()
+	{
+		assert(not m_hasDepth);
+		assert(not m_depthTexture);
+		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
+
+		// [デプステクスチャ] を作成
+		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+
+		if (m_type == TextureType::Render)
+		{
+			::glGenTextures(1, &m_depthTexture);
+			::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
+				GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
+
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
+				return false;
+			}
+		}
+		else
+		{
+			::glGenTextures(1, &m_depthTexture);
+			::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
+			::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
+			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
+		
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
+				return false;
+			}
+		}
+		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		m_hasDepth = true;
+
+		return true;
 	}
 }

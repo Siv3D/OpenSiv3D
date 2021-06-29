@@ -21,11 +21,20 @@ namespace s3d
 	{
 	private:
 
+		// [フレームバッファ]
 		GLuint m_frameBuffer = 0;
 		
+		// [メインテクスチャ]
 		GLuint m_texture = 0;
 
+		// [デプステクスチャ]
+		GLuint m_depthTexture = 0;
+
 		Size m_size = Size{ 0, 0 };
+
+		uint32 m_sampleCount = 1;
+
+		bool m_hasDepth = false;
 
 	public:
 
@@ -43,6 +52,11 @@ namespace s3d
 		const Size& size() const noexcept;
 
 		void clear(ColorF color);
+
+		[[nodiscard]]
+		bool hasDepth() const noexcept;
+
+		void initDepth();
 
 		[[nodiscard]]
 		GLuint getFrameBuffer() const noexcept;

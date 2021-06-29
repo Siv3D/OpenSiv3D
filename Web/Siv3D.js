@@ -684,12 +684,20 @@ mergeInto(LibraryManager.library, {
     //
     $siv3dNotifications: [],
 
-    siv3dInitNotification: function() {
-        if (Notification.permission !== "granted") {
-            Notification.requestPermission();
+    siv3dRequestNotificationPermission: function(callback, callbackArg) {
+        if (Notification.permission === "granted") {
+            {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
+        } else {
+            Notification.requestPermission().then(function(v) {
+                if (v === "granted") {
+                    {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
+                } else {
+                    {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
+                }
+            });
         }
     },
-    siv3dInitNotification__sig: "v",
+    siv3dRequestNotificationPermission__sig: "vii",
 
     siv3dCreateNotification: function(title, body, actionsNum, actionTexts, callback, callbackArg) {
         if (!window.Notification && Notification.permission !== "granted") {
@@ -748,10 +756,15 @@ mergeInto(LibraryManager.library, {
     siv3dCloseNotification__sig: "vi",
     siv3dCloseNotification__deps: [ "$siv3dNotifications" ],
 
-    siv3dQueryNotificationAvailability: function() {
-        return Notification.permission === "granted";
+    siv3dQueryNotificationPermission: function() {
+        const status = {
+            "default": 0,
+            "granted": 1,
+            "denied": 2
+        };
+        return status[Notification.permission];
     },
-    siv3dQueryNotificationAvailability__sig: "iv",
+    siv3dQueryNotificationPermission__sig: "iv",
 
     //
     // TextToSpeech

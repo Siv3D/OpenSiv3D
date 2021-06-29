@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(OpenSiv3D_Web CXX C)
 
 set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -DWITH_SDL2_STATIC -DWITH_NOSOUND -D_XM_SSE4_INTRINSICS_")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -12,11 +12,19 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND -D_XM_SSE4_INTRINSICS_")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
+
+if (NOT ${CMAKE_C_FLAGS} MATCHES "-msimd128")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XM_NO_INTRINSICS_")
+endif ()
+
+if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_XM_NO_INTRINSICS_")
+endif ()
 
 if (NOT CMAKE_CONFIGURATION_TYPES AND 
     NOT CMAKE_NO_BUILD_TYPE AND
@@ -42,6 +50,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioDecoder/SivAudioDecoder.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioFormat/AAC/AACDecoder.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioFormat/MP3/MP3Decoder.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ChildProcess/ChildProcessDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Clipboard/CClipboard.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Common/OpenGL.cpp
@@ -54,9 +64,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Mesh/MeshFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
-  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/AsyncHTTPTaskDetail.cpp
-  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AsyncHTTPTask/SivAsyncHTTPTask.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
@@ -72,6 +81,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextInput/CTextInput.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Time/SivTime.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ToastNotification/CToastNotification.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ToastNotification/SivToastNotification.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoReader/SivVideoReader.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/VideoReader/VideoReaderDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Webcam/SivWebcam.cpp
@@ -100,16 +110,20 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Unicode/SivUnicode_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/XInput/XInputFactory.cpp
 
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Mesh/GLES3/CMesh_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Mesh/GLES3/GLES3Mesh.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BackBuffer/GLES3InternalTexture2D.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/DepthStencilState/GLES3DepthStencilState.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.cpp
-  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Renderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Vertex2DBatch.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/CRenderer3D_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/GLES3Renderer3DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/CShader_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/PixelShader/GLES3PixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/VertexShader/GLES3VertexShader.cpp
@@ -156,6 +170,7 @@ add_library(
   ../Siv3D/src/Siv3D/AudioGroup/AudioGroupDetail.cpp
   ../Siv3D/src/Siv3D/AudioGroup/SivAudioGroup.cpp
   ../Siv3D/src/Siv3D/Base64/SivBase64.cpp
+  ../Siv3D/src/Siv3D/BasicCamera3D/SivBasicCamera3D.cpp
   ../Siv3D/src/Siv3D/Bezier2/SivBezier2.cpp
   ../Siv3D/src/Siv3D/Bezier3/SivBezier3.cpp
   ../Siv3D/src/Siv3D/BigFloat/SivBigFloat.cpp
@@ -247,6 +262,7 @@ add_library(
   ../Siv3D/src/Siv3D/GrabCut/SivGrabCut.cpp
   ../Siv3D/src/Siv3D/Graphics/SivGraphics.cpp
   ../Siv3D/src/Siv3D/Graphics2D/SivGraphics2D.cpp
+  ../Siv3D/src/Siv3D/Graphics3D/SivGraphics3D.cpp
   ../Siv3D/src/Siv3D/GUI/CGUI.cpp
   ../Siv3D/src/Siv3D/GUI/GUIFactory.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
@@ -311,6 +327,8 @@ add_library(
   ../Siv3D/src/Siv3D/MD5Value/SivMD5Value.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFileView/SivMemoryMappedFileView.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
+  ../Siv3D/src/Siv3D/Mesh/Null/CMesh_Null.cpp
+  ../Siv3D/src/Siv3D/Mesh/SivMesh.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
   ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
   ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
@@ -406,6 +424,7 @@ add_library(
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
   ../Siv3D/src/Siv3D/ScopedCustomShader2D/SivScopedCustomShader2D.cpp
+  ../Siv3D/src/Siv3D/ScopedCustomShader3D/SivScopedCustomShader3D.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
