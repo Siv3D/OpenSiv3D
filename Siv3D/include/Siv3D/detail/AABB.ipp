@@ -57,7 +57,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic X, Concept::Arithmetic Y, Concept::Arithmetic Z, Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic D>
 # else
-	template <class X, class Y, class Z, class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<Z>, std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>*>
+	template <class X, class Y, class Z, class W, class H, class D, std::enable_if_t<std::conjunction_v<std::is_arithmetic<X>, std::is_arithmetic<Y>, std::is_arithmetic<Z>, std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>*>
 # endif
 	inline constexpr AABB::AABB(const X cx, const Y cy, const Z cz, const W _w, const H _h, const D _d) noexcept
 		: center{ static_cast<double>(cx), static_cast<double>(cy), static_cast<double>(cz) }
@@ -91,7 +91,7 @@ namespace s3d
 # if __cpp_lib_concepts
 	template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic D>
 # else
-	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>*>
+	template <class W, class H, class D, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>*>
 # endif
 	inline constexpr AABB::AABB(const Vec3& _center, const W _w, const H _h, const D _d) noexcept
 		: center{ _center }

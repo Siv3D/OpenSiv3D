@@ -1155,6 +1155,9 @@
 		2C768DB6268C4CA300A02CF5 /* CPrimitiveMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */; };
 		2C768DB7268C4CA300A02CF5 /* IPrimitiveMesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */; };
 		2C768DB8268C4CA300A02CF5 /* CPrimitiveMesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */; };
+		2C768DBB268C67BC00A02CF5 /* SivAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DBA268C67BC00A02CF5 /* SivAABB.cpp */; };
+		2C768DBE268C67C900A02CF5 /* SivPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DBD268C67C900A02CF5 /* SivPlane.cpp */; };
+		2C768DC1268C67D500A02CF5 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC0268C67D500A02CF5 /* SivSphere.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3319,6 +3322,9 @@
 		2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPrimitiveMesh.cpp; sourceTree = "<group>"; };
 		2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPrimitiveMesh.hpp; sourceTree = "<group>"; };
 		2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPrimitiveMesh.hpp; sourceTree = "<group>"; };
+		2C768DBA268C67BC00A02CF5 /* SivAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivAABB.cpp; sourceTree = "<group>"; };
+		2C768DBD268C67C900A02CF5 /* SivPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPlane.cpp; sourceTree = "<group>"; };
+		2C768DC0268C67D500A02CF5 /* SivSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSphere.cpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -5881,6 +5887,7 @@
 		2C47B23524DD9789008D83BE /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C768DB9268C67BC00A02CF5 /* AABB */,
 				2C378CA2251E492B00D4B14B /* Addon */,
 				2CC5842726461D9900C33E9F /* AnimatedGIFReader */,
 				2CC5842B26461D9900C33E9F /* AnimatedGIFWriter */,
@@ -6016,6 +6023,7 @@
 				2C47B6C924EAC818008D83BE /* PixelShader */,
 				2C2D5BFE267C61CE00EF5696 /* PixelShaderAsset */,
 				2C2D5BFC267C61CE00EF5696 /* PixelShaderAssetData */,
+				2C768DBC268C67C900A02CF5 /* Plane */,
 				2C47B27A24DD9789008D83BE /* Point */,
 				2C53C33F25613BAF0072831A /* Polygon */,
 				2C66843D2685050B00F7089A /* PolygonEmitter2D */,
@@ -6058,6 +6066,7 @@
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
 				2C5C0F18266DFF5B009C430B /* SimpleHTTP */,
 				2C5337C82650BAF000CE0F1B /* SoundFont */,
+				2C768DBF268C67D500A02CF5 /* Sphere */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
 				2C47B2C724DD9789008D83BE /* String */,
 				2C47B27E24DD9789008D83BE /* StringView */,
@@ -8654,6 +8663,30 @@
 				2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */,
 			);
 			path = PrimitiveMesh;
+			sourceTree = "<group>";
+		};
+		2C768DB9268C67BC00A02CF5 /* AABB */ = {
+			isa = PBXGroup;
+			children = (
+				2C768DBA268C67BC00A02CF5 /* SivAABB.cpp */,
+			);
+			path = AABB;
+			sourceTree = "<group>";
+		};
+		2C768DBC268C67C900A02CF5 /* Plane */ = {
+			isa = PBXGroup;
+			children = (
+				2C768DBD268C67C900A02CF5 /* SivPlane.cpp */,
+			);
+			path = Plane;
+			sourceTree = "<group>";
+		};
+		2C768DBF268C67D500A02CF5 /* Sphere */ = {
+			isa = PBXGroup;
+			children = (
+				2C768DC0268C67D500A02CF5 /* SivSphere.cpp */,
+			);
+			path = Sphere;
 			sourceTree = "<group>";
 		};
 		2C794AA325C257C000034D81 /* Metal */ = {
@@ -11606,6 +11639,7 @@
 				2C636E772657F7D300AF029F /* soloud_core_3d.cpp in Sources */,
 				2C2D5C12267E467C00EF5696 /* SivMSRenderTexture.cpp in Sources */,
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
+				2C768DBB268C67BC00A02CF5 /* SivAABB.cpp in Sources */,
 				2C2AA38F26009C74003F3EBC /* b2_block_allocator.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2C631E8A2685D03F00166A8E /* SivKlattTTS.cpp in Sources */,
@@ -11787,6 +11821,7 @@
 				2C9566CE2645626000539B85 /* mz_zip_rw.c in Sources */,
 				2C423250242B155E00A16BCA /* window.c in Sources */,
 				2C47B6F424EAC8D9008D83BE /* GL4BackBuffer.cpp in Sources */,
+				2C768DC1268C67D500A02CF5 /* SivSphere.cpp in Sources */,
 				2C48BEEF25CFB8C500A93CE3 /* Scanline.cpp in Sources */,
 				2CE8D13C2616100E00C75FBB /* SivChildProcess.cpp in Sources */,
 				2CF2AF8925542C5900E81D12 /* SivMonitor_macOS_Linux.cpp in Sources */,
@@ -12024,6 +12059,7 @@
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C2D5C0C267CF16500EF5696 /* SivTextureAsset.cpp in Sources */,
 				2C378CA8251E492B00D4B14B /* SivAddon.cpp in Sources */,
+				2C768DBE268C67C900A02CF5 /* SivPlane.cpp in Sources */,
 				2CBEBCB62629D15F0077DDBF /* decode.c in Sources */,
 				2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */,
 				2CC5845D2646DC5800C33E9F /* CAudioEncoder.cpp in Sources */,

@@ -17,7 +17,7 @@ namespace s3d
 		: center{ 0.0, 0.0, 0.0 }
 		, r{ _r } {}
 
-	SIV3D_CONCEPT_ARITHMETIC
+	SIV3D_CONCEPT_ARITHMETIC_
 	inline constexpr Sphere::Sphere(const Arithmetic _r) noexcept
 		: center{ 0.0, 0.0, 0.0 }
 		, r{ static_cast<double>(_r) } {}
@@ -35,7 +35,7 @@ namespace s3d
 		: center{ _center }
 		, r{ _r } {}
 
-	SIV3D_CONCEPT_ARITHMETIC
+	SIV3D_CONCEPT_ARITHMETIC_
 	inline constexpr Sphere::Sphere(const Vec3& _center, const Arithmetic _r) noexcept
 		: center{ _center }
 		, r{ static_cast<double>(_r) } {}
