@@ -14,11 +14,11 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/PointVector.hpp>
-# include <Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.hpp>
+# include <Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.hpp>
 # include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
 # include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
 # include <Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.hpp>
-# include <Siv3D/Texture/GLES3/CTexture_GLES3.hpp>
+# include <Siv3D/Texture/WebGPU/CTexture_WebGPU.hpp>
 
 # include <webgpu/webgpu_cpp.h>
 
@@ -28,11 +28,11 @@ namespace s3d
 	{
 	private:
 		
-		CRenderer2D_GLES3* pRenderer2D = nullptr;
-		CTexture_GLES3* pTexture = nullptr;
+		CRenderer2D_WebGPU* pRenderer2D = nullptr;
+		CTexture_WebGPU* pTexture = nullptr;
 		GLFWwindow* m_window = nullptr;
 
-		std::unique_ptr<GLES3BackBuffer> m_backBuffer;
+		std::unique_ptr<WebGPUBackBuffer> m_backBuffer;
 
 		std::unique_ptr<GLES3BlendState> m_blendState;
 
@@ -42,7 +42,7 @@ namespace s3d
 
 		bool m_vSyncEnabled = true;
 
-        wgpu::Instance m_instance;
+        // wgpu::Instance m_instance;
 
         wgpu::Device m_device;
 
@@ -103,7 +103,7 @@ namespace s3d
 		//
 		// GLES3
 		//
-		GLES3BackBuffer& getBackBuffer() noexcept;
+		WebGPUBackBuffer& getBackBuffer() noexcept;
 
 		GLES3BlendState& getBlendState() noexcept;
 

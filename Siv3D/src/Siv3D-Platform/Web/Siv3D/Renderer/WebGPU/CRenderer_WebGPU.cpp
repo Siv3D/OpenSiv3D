@@ -18,7 +18,7 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
-# include <Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.hpp>
+# include <Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 # include <emscripten/html5_webgpu.h>
@@ -59,11 +59,11 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_WebGPU::init()");
 		
-		pRenderer2D = dynamic_cast<CRenderer2D_GLES3*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer2D = dynamic_cast<CRenderer2D_WebGPU*>(SIV3D_ENGINE(Renderer2D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		m_device = wgpu::Device { ::emscripten_webgpu_get_device() };
-        m_instance = wgpu::CreateInstance();
+        // m_instance = wgpu::CreateInstance();
 		
         wgpu::SurfaceDescriptorFromCanvasHTMLSelector canvasDescripter;
         canvasDescripter.selector = "canvas";
@@ -73,7 +73,8 @@ namespace s3d
             .nextInChain = &canvasDescripter
         };
 
-        wgpu::Surface surface = m_instance.CreateSurface(&surfaceDescripter);
+		wgpu::Instance dummyInstance;
+        wgpu::Surface surface = dummyInstance.CreateSurface(&surfaceDescripter);
 
         const Vec2 frameBufferSize = SIV3D_ENGINE(Window)->getState().frameBufferSize;
 
@@ -90,7 +91,7 @@ namespace s3d
 
 		m_queue = m_device.GetQueue();
 
-		// m_backBuffer		= std::make_unique<GLES3BackBuffer>();
+		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device);
 		// m_blendState		= std::make_unique<GLES3BlendState>();
 		// m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
 		// m_samplerState		= std::make_unique<GLES3SamplerState>();
@@ -131,6 +132,8 @@ namespace s3d
 
 	void CRenderer_WebGPU::flush()
 	{
+		auto commamdEncoder = m_device.CreateCommandEncoder();
+
 		// // Scene に 2D 描画
 		// {
 		// 	m_backBuffer->bindSceneBuffer();
@@ -162,20 +165,17 @@ namespace s3d
 				.colorAttachments = &colorAttachment
 			};
 
-			auto commamdEncoder = m_device.CreateCommandEncoder();
-
+			auto pass = commamdEncoder.BeginRenderPass(&descripter);
 			{
-				auto pass = commamdEncoder.BeginRenderPass(&descripter);
-
-				// m_backBuffer->updateFromSceneBuffer();
-				pass.EndPass();
+				m_backBuffer->updateFromSceneBuffer(pass);
 			}
-			
-			auto commands = commamdEncoder.Finish();
-			commamdEncoder.Release();
-			
-			m_queue.Submit(1, &commands);
+			pass.EndPass();
 		}
+
+		auto commands = commamdEncoder.Finish();
+		commamdEncoder.Release();
+			
+		m_queue.Submit(1, &commands);
 	}
 
 	bool CRenderer_WebGPU::present()
@@ -277,7 +277,7 @@ namespace s3d
 		m_backBuffer->updateSceneSize();
 	}
 
-	GLES3BackBuffer& CRenderer_WebGPU::getBackBuffer() noexcept
+	WebGPUBackBuffer& CRenderer_WebGPU::getBackBuffer() noexcept
 	{
 		return *m_backBuffer;
 	}

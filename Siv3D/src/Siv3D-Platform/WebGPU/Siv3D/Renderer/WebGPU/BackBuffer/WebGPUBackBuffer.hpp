@@ -43,7 +43,7 @@ namespace s3d
 
 		CRenderer2D_WebGPU* pRenderer2D	= nullptr;
 
-		uint32 m_sampleCount			= 1; // Graphics::DefaultSampleCount;
+		uint32 m_sampleCount			= Graphics::DefaultSampleCount;
 
 		ResizeMode m_sceneResizeMode	= Scene::DefaultResizeMode;
 
@@ -67,11 +67,13 @@ namespace s3d
 
 		wgpu::Device m_device;
 
-        wgpu::SwapChain m_swapChain;
+		wgpu::Sampler m_sampler;
+
+		wgpu::BindGroup m_uniform;
 
 	public:
 
-		WebGPUBackBuffer(const wgpu::Device& device, const wgpu::SwapChain& swapChain);
+		WebGPUBackBuffer(const wgpu::Device& device);
 
 		~WebGPUBackBuffer();
 
@@ -83,7 +85,7 @@ namespace s3d
 
 		void unbind();
 
-		void updateFromSceneBuffer();
+		void updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass);
 
 		void capture();
 

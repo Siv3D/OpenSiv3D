@@ -15,15 +15,15 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/ColorHSV.hpp>
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class WebGPUInternalTexture2D
 	{
 	private:
 
-		GLuint m_frameBuffer = 0;
-		
-		GLuint m_texture = 0;
+		wgpu::Texture m_texture = nullptr;
 
 		Size m_size = Size{ 0, 0 };
 
@@ -42,15 +42,10 @@ namespace s3d
 		[[nodiscard]]
 		const Size& size() const noexcept;
 
-		void clear(ColorF color);
+		[[nodiscard]]
+		wgpu::TextureView getTextureView() const noexcept;
 
 		[[nodiscard]]
-		GLuint getFrameBuffer() const noexcept;
-
-		[[nodiscard]]
-		GLuint getTexture() const noexcept;
-
-		[[nodiscard]]
-		static std::unique_ptr<WebGPUInternalTexture2D> CreateRenderTargetTexture2D(Size size, uint32 sampleCount = 1);
+		static std::unique_ptr<WebGPUInternalTexture2D> CreateRenderTargetTexture2D(const wgpu::Device& device, Size size, uint32 sampleCount = 1);
 	};
 }

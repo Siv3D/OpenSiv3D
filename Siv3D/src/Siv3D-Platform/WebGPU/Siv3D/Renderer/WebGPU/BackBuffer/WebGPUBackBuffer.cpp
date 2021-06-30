@@ -18,9 +18,8 @@
 
 namespace s3d
 {
-	WebGPUBackBuffer::WebGPUBackBuffer(const wgpu::Device& device, const wgpu::SwapChain& swapChain)
+	WebGPUBackBuffer::WebGPUBackBuffer(const wgpu::Device& device)
 		: m_device(device)
-		, m_swapChain(swapChain)
 	{
 		LOG_SCOPED_TRACE(U"WebGPUBackBuffer::WebGPUBackBuffer()");
 
@@ -28,14 +27,42 @@ namespace s3d
 
 		m_sceneSize = Window::GetState().virtualSize;
 
-		m_sceneBuffers.scene = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_sceneSize, m_sampleCount);
+		m_sceneBuffers.scene = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize, m_sampleCount);
 
 		if (m_sampleCount > 1)
 		{
-			m_sceneBuffers.resolved = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_sceneSize);
+			m_sceneBuffers.resolved = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize);
 		}
 
 		clear(WebGPUClearTarget::All);
+
+		wgpu::SamplerDescriptor desc
+		{
+			.magFilter = wgpu::FilterMode::Linear,
+			.minFilter = wgpu::FilterMode::Linear
+		};
+
+		m_sampler = m_device.CreateSampler(&desc);
+
+		wgpu::BindGroupEntry uniformEntries[] =
+		{
+			{
+				.binding = 0,
+				.sampler = m_sampler,
+			},
+			{
+				.binding = 1,
+				.textureView = m_sceneBuffers.scene->getTextureView()
+			}
+		};
+
+		// wgpu::BindGroupDescriptor uniformDesc
+		// {
+		// 	.entries = uniformEntries,
+		// 	.entryCount = 2
+		// };
+
+		// m_uniform = m_device.CreateBindGroup(&uniformDesc);
 	}
 
 	WebGPUBackBuffer::~WebGPUBackBuffer()
@@ -47,69 +74,22 @@ namespace s3d
 	{
 		if (clearTargets & WebGPUClearTarget::BackBuffer)
 		{
-			wgpu::RenderPassColorAttachment colorAttachment
-			{
-				.loadOp = wgpu::LoadOp::Clear,
-				.storeOp = wgpu::StoreOp::Store,
-				.clearColor = 
-				{
-					.r = static_cast<double>(m_letterboxColor.r),
-					.g = static_cast<double>(m_letterboxColor.g),
-					.b = static_cast<double>(m_letterboxColor.b),
-					.a = 1.0
-				}
-			};
-
-			wgpu::RenderPassDescriptor descripter
-			{
-				.colorAttachmentCount = 1,
-				.colorAttachments = &colorAttachment
-			};
+			//
 		}
 
 		if (clearTargets & WebGPUClearTarget::Scene)
 		{
-			m_sceneBuffers.scene->clear(m_backgroundColor);
+			// m_sceneBuffers.scene->clear(m_backgroundColor);
 		}
 	}
 
-	void WebGPUBackBuffer::bindSceneBuffer()
+	void WebGPUBackBuffer::updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass)
 	{
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
-	}
+		
 
-	void WebGPUBackBuffer::bindFrameBuffer(const GLuint frameBuffer)
-	{
-		::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-	}
+		// pRenderer2D->drawFullScreenTriangle(m_sceneTextureFilter);
 
-	void WebGPUBackBuffer::unbind()
-	{
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	void WebGPUBackBuffer::updateFromSceneBuffer()
-	{
-		if (m_sampleCount == 1)
-		{
-			::glActiveTexture(GL_TEXTURE0);
-			::glBindTexture(GL_TEXTURE_2D, m_sceneBuffers.scene->getTexture());
-		}
-		else
-		{
-			::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
-			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_sceneBuffers.resolved->getFrameBuffer());
-			::glBlitFramebuffer(0, 0, m_sceneSize.x, m_sceneSize.y, 0, 0, m_sceneSize.x, m_sceneSize.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-			::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-
-			::glActiveTexture(GL_TEXTURE0);
-			::glBindTexture(GL_TEXTURE_2D, m_sceneBuffers.resolved->getTexture());
-		}
-
-		pRenderer2D->drawFullScreenTriangle(m_sceneTextureFilter);
-
-		::glBindTexture(GL_TEXTURE_2D, 0);
+	
 	}
 
 	void WebGPUBackBuffer::capture()
@@ -121,19 +101,19 @@ namespace s3d
 
 		if (m_sampleCount == 1)
 		{
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getTexture());
-			{
-				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getTexture());
+			// {
+			// 	::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
+			// }
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 		else
 		{
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.resolved->getTexture());
-			{
-				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.resolved->getTexture());
+			// {
+			// 	::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
+			// }
+			// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 	}
 
@@ -281,13 +261,33 @@ namespace s3d
 		{
 			m_sceneBuffers = {};
 
-			m_sceneBuffers.scene = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_sceneSize, m_sampleCount);
+			m_sceneBuffers.scene = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize, m_sampleCount);
 
 			if (m_sampleCount > 1)
 			{
-				m_sceneBuffers.resolved = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_sceneSize);
+				m_sceneBuffers.resolved = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize);
 			}
 		}
+
+		wgpu::BindGroupEntry uniformEntries[] =
+		{
+			{
+				.binding = 0,
+				.sampler = m_sampler,
+			},
+			{
+				.binding = 1,
+				.textureView = m_sceneBuffers.scene->getTextureView()
+			}
+		};
+
+		wgpu::BindGroupDescriptor uniformDesc
+		{
+			.entries = uniformEntries,
+			.entryCount = 2
+		};
+
+		m_uniform = m_device.CreateBindGroup(&uniformDesc);
 
 		clear(WebGPUClearTarget::All);
 	}
