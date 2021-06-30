@@ -1453,6 +1453,9 @@
     <Filter Include="src\Siv3D\ScopedCustomShader3D">
       <UniqueIdentifier>{5c410fd4-5d8f-4094-b857-49dd3759aa9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\PrimitiveMesh">
+      <UniqueIdentifier>{44ad157b-e81f-4f96-b603-b4d86381a76d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6435,6 +6438,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates3D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\PrimitiveMesh\CPrimitiveMesh.hpp">
+      <Filter>src\Siv3D\PrimitiveMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\PrimitiveMesh\IPrimitiveMesh.hpp">
+      <Filter>src\Siv3D\PrimitiveMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8848,6 +8857,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ScopedCustomShader3D\SivScopedCustomShader3D.cpp">
       <Filter>src\Siv3D\ScopedCustomShader3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PrimitiveMesh\CPrimitiveMesh.cpp">
+      <Filter>src\Siv3D\PrimitiveMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PrimitiveMesh\PrimitiveMeshFactory.cpp">
+      <Filter>src\Siv3D\PrimitiveMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

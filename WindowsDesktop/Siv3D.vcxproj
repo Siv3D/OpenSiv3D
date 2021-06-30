@@ -1125,6 +1125,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Physics2D\P2WorldDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\PrimitiveMesh\CPrimitiveMesh.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\PrimitiveMesh\IPrimitiveMesh.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\IPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
@@ -2037,6 +2039,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\Triangulation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PrimeNumber\SivPrimeNumber.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PrimitiveMesh\CPrimitiveMesh.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PrimitiveMesh\PrimitiveMeshFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />

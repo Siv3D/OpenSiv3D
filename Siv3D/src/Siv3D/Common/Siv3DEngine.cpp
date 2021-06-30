@@ -51,6 +51,7 @@
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/GUI/IGUI.hpp>
 # include <Siv3D/Print/IPrint.hpp>
+# include <Siv3D/PrimitiveMesh/IPrimitiveMesh.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Script/IScript.hpp>

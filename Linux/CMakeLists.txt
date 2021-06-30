@@ -372,6 +372,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Polygon/Triangulation.cpp
   ../Siv3D/src/Siv3D/PolygonEmitter2D/SivPolygonEmitter2D.cpp
   ../Siv3D/src/Siv3D/PrimeNumber/SivPrimeNumber.cpp
+  ../Siv3D/src/Siv3D/PrimitiveMesh/CPrimitiveMesh.cpp
+  ../Siv3D/src/Siv3D/PrimitiveMesh/PrimitiveMeshFactory.cpp
   ../Siv3D/src/Siv3D/Print/CPrint.cpp
   ../Siv3D/src/Siv3D/Print/PrintFactory.cpp
   ../Siv3D/src/Siv3D/Print/SivPrint.cpp
