@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include "CPrimitiveMesh.hpp"
+# include <Siv3D/AABB.hpp>
+# include <Siv3D/Sphere.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -24,5 +26,44 @@ namespace s3d
 	void CPrimitiveMesh::init()
 	{
 		LOG_SCOPED_TRACE(U"CPrimitiveMesh::init()");
+
+		m_meshes.reserve(9);
+		{
+			Array<Vertex3D> vertices =
+			{
+				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
+				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
+				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			};
+			m_meshes << Mesh{ vertices, { 0,1,2, 2,1,3 } };
+		}
+		{
+			Array<Vertex3D> vertices =
+			{
+				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
+				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
+				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+
+				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
+				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
+				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },		
+			};
+			m_meshes << Mesh{ vertices, { 0,1,2, 2,1,3, 4,5,6, 6,5,7 } };
+		}
+		m_meshes << Mesh{ AABB{ {0,0,0}, {1,1,1} } };
+		m_meshes << Mesh{ Sphere{{0,0,0}, 1}, 24 };
+		m_meshes << Mesh{};
+		m_meshes << Mesh{};
+		m_meshes << Mesh{};
+		m_meshes << Mesh{};
+		m_meshes << Mesh{};
+	}
+
+	const Mesh& CPrimitiveMesh::getMesh(const PrimitiveMeshType meshType) const noexcept
+	{
+		return m_meshes[FromEnum(meshType)];
 	}
 }

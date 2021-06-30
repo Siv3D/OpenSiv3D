@@ -131,6 +131,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
 
+  ../Siv3D/src/Siv3D/AABB/SivAABB.cpp
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
@@ -380,6 +381,7 @@ add_library(
   ../Siv3D/src/Siv3D/PixelShader/SivPixelShader.cpp
   ../Siv3D/src/Siv3D/PixelShaderAsset/SivPixelShaderAsset.cpp
   ../Siv3D/src/Siv3D/PixelShaderAssetData/SivPixelShaderAssetData.cpp
+  ../Siv3D/src/Siv3D/Plane/SivPlane.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
@@ -446,6 +448,7 @@ add_library(
   ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontDetail.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp
+  ../Siv3D/src/Siv3D/Sphere/SivSphere.cpp
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp

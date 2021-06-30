@@ -14,6 +14,29 @@
 
 namespace s3d
 {
+	enum class PrimitiveMeshType
+	{
+		OneSidedPlane,
+
+		TwoSidedPlane,
+
+		Box1,
+
+		Sphere,
+
+		Disc,
+
+		Cylinder,
+
+		Capsule,
+
+		Torus,
+
+		Hemisphere,
+	};
+
+	class Mesh;
+
 	class SIV3D_NOVTABLE ISiv3DPrimitiveMesh
 	{
 	public:
@@ -23,5 +46,7 @@ namespace s3d
 		virtual ~ISiv3DPrimitiveMesh() = default;
 
 		virtual void init() = 0;
+
+		virtual const Mesh& getMesh(PrimitiveMeshType meshType) const noexcept = 0;
 	};
 }

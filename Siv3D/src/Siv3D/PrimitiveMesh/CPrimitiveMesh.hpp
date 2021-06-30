@@ -11,6 +11,7 @@
 
 # pragma once
 # include "IPrimitiveMesh.hpp"
+# include <Siv3D/Mesh.hpp>
 
 namespace s3d
 {
@@ -24,7 +25,10 @@ namespace s3d
 
 		void init() override;
 
+		const Mesh& getMesh(PrimitiveMeshType meshType) const noexcept;
+
 	private:
 
+		Array<Mesh> m_meshes;
 	};
 }
