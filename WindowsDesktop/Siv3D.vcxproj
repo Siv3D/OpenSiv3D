@@ -36,6 +36,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
@@ -625,6 +626,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport2D.hpp" />
