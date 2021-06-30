@@ -22,6 +22,8 @@
 # include "WebGPURenderer2DCommand.hpp"
 # include "WebGPUVertex2DBatch.hpp"
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class CRenderer_WebGPU;
@@ -83,6 +85,8 @@ namespace s3d
 		CRenderer_WebGPU* pRenderer = nullptr;
 		CShader_WebGPU* pShader = nullptr;
 		CTexture_WebGPU* pTexture = nullptr;
+
+		wgpu::Device* m_device = nullptr;
 
 		std::unique_ptr<WebGPUStandardVS2D> m_standardVS;
 		std::unique_ptr<WebGPUStandardPS2D> m_standardPS;
@@ -263,6 +267,6 @@ namespace s3d
 		// OpenGL
 		//
 
-		void drawFullScreenTriangle(TextureFilter textureFilter);
+		void drawFullScreenTriangle(const wgpu::RenderPassEncoder& pass, TextureFilter textureFilter);
 	};
 }

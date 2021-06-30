@@ -11,6 +11,7 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.hpp>
+# include <Siv3D/Shader/WebGPU/CShader_WebGPU.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "WebGPUBackBuffer.hpp"
 
@@ -24,6 +25,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"WebGPUBackBuffer::WebGPUBackBuffer()");
 
 		pRenderer2D = dynamic_cast<CRenderer2D_WebGPU*>(SIV3D_ENGINE(Renderer2D));
+		pShader = dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
 
 		m_sceneSize = Window::GetState().virtualSize;
 
@@ -34,8 +36,6 @@ namespace s3d
 			m_sceneBuffers.resolved = WebGPUInternalTexture2D::CreateRenderTargetTexture2D(m_device, m_sceneSize);
 		}
 
-		clear(WebGPUClearTarget::All);
-
 		wgpu::SamplerDescriptor desc
 		{
 			.magFilter = wgpu::FilterMode::Linear,
@@ -44,25 +44,19 @@ namespace s3d
 
 		m_sampler = m_device.CreateSampler(&desc);
 
-		wgpu::BindGroupEntry uniformEntries[] =
+		m_uniforms = Array<wgpu::BindGroupEntry>
 		{
+			wgpu::BindGroupEntry
 			{
 				.binding = 0,
 				.sampler = m_sampler,
 			},
+			wgpu::BindGroupEntry
 			{
 				.binding = 1,
 				.textureView = m_sceneBuffers.scene->getTextureView()
 			}
 		};
-
-		// wgpu::BindGroupDescriptor uniformDesc
-		// {
-		// 	.entries = uniformEntries,
-		// 	.entryCount = 2
-		// };
-
-		// m_uniform = m_device.CreateBindGroup(&uniformDesc);
 	}
 
 	WebGPUBackBuffer::~WebGPUBackBuffer()
@@ -70,26 +64,35 @@ namespace s3d
 		// do nothing
 	}
 
-	void WebGPUBackBuffer::clear(const WebGPUClearTarget clearTargets)
+	wgpu::RenderPassEncoder WebGPUBackBuffer::begin(const wgpu::CommandEncoder& encoder)
 	{
-		if (clearTargets & WebGPUClearTarget::BackBuffer)
+		wgpu::RenderPassColorAttachment colorAttachment
 		{
-			//
-		}
+			.view = m_sceneBuffers.scene->getTextureView(),
+			.loadOp = wgpu::LoadOp::Clear,
+			.storeOp = wgpu::StoreOp::Store,
+			.clearColor = 
+			{
+				.r = m_backgroundColor.r,
+				.g = m_backgroundColor.g,
+				.b = m_backgroundColor.b,
+				.a = m_backgroundColor.a,
+			}
+		};
 
-		if (clearTargets & WebGPUClearTarget::Scene)
+		wgpu::RenderPassDescriptor descripter
 		{
-			// m_sceneBuffers.scene->clear(m_backgroundColor);
-		}
+			.colorAttachmentCount = 1,
+			.colorAttachments = &colorAttachment
+		};
+
+		return encoder.BeginRenderPass(&descripter);
 	}
 
 	void WebGPUBackBuffer::updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass)
 	{
-		
-
-		// pRenderer2D->drawFullScreenTriangle(m_sceneTextureFilter);
-
-	
+		pShader->setUniform(m_uniforms);
+		pRenderer2D->drawFullScreenTriangle(pass, m_sceneTextureFilter);
 	}
 
 	void WebGPUBackBuffer::capture()
@@ -269,27 +272,19 @@ namespace s3d
 			}
 		}
 
-		wgpu::BindGroupEntry uniformEntries[] =
+		m_uniforms = Array<wgpu::BindGroupEntry>
 		{
+			wgpu::BindGroupEntry
 			{
 				.binding = 0,
 				.sampler = m_sampler,
 			},
+			wgpu::BindGroupEntry
 			{
 				.binding = 1,
 				.textureView = m_sceneBuffers.scene->getTextureView()
 			}
 		};
-
-		wgpu::BindGroupDescriptor uniformDesc
-		{
-			.entries = uniformEntries,
-			.entryCount = 2
-		};
-
-		m_uniform = m_device.CreateBindGroup(&uniformDesc);
-
-		clear(WebGPUClearTarget::All);
 	}
 
 	const Size& WebGPUBackBuffer::getSceneBufferSize() const noexcept

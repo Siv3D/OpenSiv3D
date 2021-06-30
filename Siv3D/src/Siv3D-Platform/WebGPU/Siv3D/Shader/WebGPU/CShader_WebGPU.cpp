@@ -16,6 +16,7 @@
 # include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 # include <Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.hpp>
 
 namespace s3d
@@ -42,6 +43,9 @@ namespace s3d
 	void CShader_WebGPU::init()
 	{
 		LOG_SCOPED_TRACE(U"CShader_WebGPU::init()");
+
+		auto pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		m_device = pRenderer->getDevice();
 
 		// null VS を管理に登録
 		{
@@ -73,13 +77,13 @@ namespace s3d
 
 		// エンジン PS をロード
 		{
-			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
-			m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+			// m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
+			// m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
 
-			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
-			{
-				throw EngineError{ U"CShader_WebGPU::m_enginePSs initialization failed" };
-			}
+			// if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			// {
+			// 	throw EngineError{ U"CShader_WebGPU::m_enginePSs initialization failed" };
+			// }
 		}
 	}
 
@@ -98,7 +102,7 @@ namespace s3d
 	VertexShader::IDType CShader_WebGPU::createVSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
 	{
 		// VS を作成
-		auto vertexShader = std::make_unique<WebGPUVertexShader>(source, bindings);
+		auto vertexShader = std::make_unique<WebGPUVertexShader>(*m_device, source, bindings);
 
 		if (not vertexShader->isInitialized()) // もし作成に失敗していたら
 		{
@@ -124,7 +128,7 @@ namespace s3d
 	PixelShader::IDType CShader_WebGPU::createPSFromSource(const StringView source, const StringView, const Array<ConstantBufferBinding>& bindings)
 	{
 		// PS を作成
-		auto pixelShader = std::make_unique<WebGPUPixelShader>(source, bindings);
+		auto pixelShader = std::make_unique<WebGPUPixelShader>(*m_device, source, bindings);
 
 		if (not pixelShader->isInitialized()) // もし作成に失敗していたら
 		{
@@ -184,20 +188,47 @@ namespace s3d
 		return m_enginePSs[FromEnum(ps)];
 	}
 
-	void CShader_WebGPU::usePipeline()
+	void CShader_WebGPU::usePipeline(const wgpu::Device& device, const wgpu::RenderPassEncoder& encoder, wgpu::RenderPipelineDescriptor2& desc)
 	{
-		auto vertexShader = m_vertexShaders[m_currentVS]->getShader();
-		auto pixelShader = m_pixelShaders[m_currentPS]->getShader();
+		desc.vertex = wgpu::VertexState
+		{
+			.module = m_vertexShaders[m_currentVS]->getShaderModule(),
+			.entryPoint = "main"
+		};
 
-		auto state = m_pipeline.linkShaders(vertexShader, pixelShader);
+		wgpu::ColorTargetState cts
+		{
+			.format = wgpu::TextureFormat::BGRA8Unorm
+		};
+
+		wgpu::FragmentState fragState
+		{
+			.module = m_pixelShaders[m_currentPS]->getShaderModule(),
+			.entryPoint = "main",
+			.targetCount = 1,
+			.targets = &cts
+		};
+
+		desc.fragment = &fragState;
+
+		auto state = m_pipeline.linkShaders(device, desc);
 		auto program = state.shaderProgram;
 
-		if (not state.cacheHit && program)
+		wgpu::BindGroupDescriptor uniformDesc
 		{
-			m_vertexShaders[m_currentVS]->bindUniformBlocks(program);
-			m_pixelShaders[m_currentPS]->bindUniformBlocks(program);
-		}
+			.layout = program.GetBindGroupLayout(0),
+			.entries = m_uniforms.data(),
+			.entryCount = m_uniforms.size()
+		};
 
-		::glUseProgram(program);
+		auto m_uniform = device.CreateBindGroup(&uniformDesc);
+
+		encoder.SetPipeline(program);
+		encoder.SetBindGroup(0, m_uniform);
+	}
+
+	void CShader_WebGPU::setUniform(const Array<wgpu::BindGroupEntry>& uniforms)
+	{
+		m_uniforms = uniforms;
 	}
 }

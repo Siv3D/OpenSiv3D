@@ -15,6 +15,8 @@
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/ConstantBufferBinding.hpp>
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class WebGPUPixelShader
@@ -23,7 +25,7 @@ namespace s3d
 
 		Blob m_binary;
 
-		GLuint m_pixelShader = 0;
+		wgpu::ShaderModule m_pixelShader = nullptr;
 
 		Array<ConstantBufferBinding> m_constantBufferBindings;
 		Array<std::pair<uint32, GLint>> m_textureIndices;
@@ -42,7 +44,7 @@ namespace s3d
 
 		explicit WebGPUPixelShader(Null);
 
-		explicit WebGPUPixelShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
+		explicit WebGPUPixelShader(const wgpu::Device& device, const StringView source, const Array<ConstantBufferBinding>& bindings);
 
 		~WebGPUPixelShader();
 
@@ -50,10 +52,6 @@ namespace s3d
 
 		const Blob& getBinary() const noexcept;
 
-		GLint getShader() const;
-
-		void bindUniformBlocks(GLuint program);
-
-		void setPSSamplerUniforms();
+		wgpu::ShaderModule getShaderModule() const;
 	};
 }

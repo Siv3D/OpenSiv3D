@@ -110,5 +110,7 @@ namespace s3d
 		GLES3RasterizerState& getRasterizerState() noexcept;
 
 		GLES3SamplerState& getSamplerState() noexcept;
+
+		wgpu::Device* getDevice();
 	};
 }

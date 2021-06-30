@@ -67,83 +67,85 @@ namespace s3d
 		pShader		= dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader)); assert(pShader);
 		pTexture	= dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture)); assert(pTexture);
 
+		m_device = pRenderer->getDevice();
+
 		// 標準 VS をロード
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS2D>();
-			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
-			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {} };
-			if (not m_standardVS->setup())
-			{
-				throw EngineError(U"CRenderer2D_WebGPU::m_standardVS initialization failed");
-			}
+			// m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.vert.wgsl"), {} };
+			// if (not m_standardVS->setup())
+			// {
+			// 	throw EngineError(U"CRenderer2D_WebGPU::m_standardVS initialization failed");
+			// }
 		}
 
 		// 標準 PS をロード
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_WebGPU:");
 			m_standardPS = std::make_unique<WebGPUStandardPS2D>();
-			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {} };
-			if (not m_standardPS->setup())
-			{
-				throw EngineError(U"CRenderer2D_WebGPU::m_standardPS initialization failed");
-			}
+			// m_standardPS->shape					= ESSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.frag.wgsl"), {} };
+			// if (not m_standardPS->setup())
+			// {
+			// 	throw EngineError(U"CRenderer2D_WebGPU::m_standardPS initialization failed");
+			// }
 		}
 
 		// Batch 管理を初期化
-		{
-			for (auto &batch : m_batches)
-			{
-				if (not batch.init())
-				{
-					throw EngineError(U"WebGPUVertex2DBatch::init() failed");
-				}
-			}
-		}
+		// {
+		// 	for (auto &batch : m_batches)
+		// 	{
+		// 		if (not batch.init())
+		// 		{
+		// 			throw EngineError(U"WebGPUVertex2DBatch::init() failed");
+		// 		}
+		// 	}
+		// }
 
 		// バッファ作成関数を作成
-		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
-		{
-			return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
-		};
+		// m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		// {
+		// 	return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
+		// };
 
 		// シャドウ画像を作成
-		{
-			const Image boxShadowImage{ Resource(U"engine/texture/box-shadow/256.png") };
+		// {
+		// 	const Image boxShadowImage{ Resource(U"engine/texture/box-shadow/256.png") };
 
-			const Array<Image> boxShadowImageMips =
-			{
-				Image{ Resource(U"engine/texture/box-shadow/128.png") },
-				Image{ Resource(U"engine/texture/box-shadow/64.png") },
-				Image{ Resource(U"engine/texture/box-shadow/32.png") },
-				Image{ Resource(U"engine/texture/box-shadow/16.png") },
-				Image{ Resource(U"engine/texture/box-shadow/8.png") },
-			};
+		// 	const Array<Image> boxShadowImageMips =
+		// 	{
+		// 		Image{ Resource(U"engine/texture/box-shadow/128.png") },
+		// 		Image{ Resource(U"engine/texture/box-shadow/64.png") },
+		// 		Image{ Resource(U"engine/texture/box-shadow/32.png") },
+		// 		Image{ Resource(U"engine/texture/box-shadow/16.png") },
+		// 		Image{ Resource(U"engine/texture/box-shadow/8.png") },
+		// 	};
 
-			m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
+		// 	m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
 
-			if (m_boxShadowTexture->isEmpty())
-			{
-				throw EngineError(U"Failed to create a box-shadow texture");
-			}
-		}
+		// 	if (m_boxShadowTexture->isEmpty())
+		// 	{
+		// 		throw EngineError(U"Failed to create a box-shadow texture");
+		// 	}
+		// }
 
 		// full screen triangle
-		{
-			::glGenVertexArrays(1, &m_vertexArray);
-			::glBindVertexArray(m_vertexArray);
+		// {
+		// 	::glGenVertexArrays(1, &m_vertexArray);
+		// 	::glBindVertexArray(m_vertexArray);
 
-			::glGenSamplers(1, &m_sampler);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		}
+		// 	::glGenSamplers(1, &m_sampler);
+		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		// }
 
-		CheckOpenGLError();
+		// CheckOpenGLError();
 	}
 
 	void CRenderer2D_WebGPU::update()
@@ -943,7 +945,7 @@ namespace s3d
 
 		m_commandManager.flush();
 
-		pShader->usePipeline();
+		// pShader->usePipeline();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
@@ -1168,7 +1170,7 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
-						pShader->usePipeline();
+						// pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -1186,7 +1188,7 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
-						pShader->usePipeline();
+						// pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
@@ -1283,48 +1285,49 @@ namespace s3d
 		++m_drawCount;
 	}
 
-	void CRenderer2D_WebGPU::drawFullScreenTriangle(const TextureFilter textureFilter)
+	void CRenderer2D_WebGPU::drawFullScreenTriangle(const wgpu::RenderPassEncoder& pass, const TextureFilter textureFilter)
 	{
 		// view port
 		{
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			auto [s, viewRect] = pRenderer->getLetterboxComposition();
-			::glViewport(
-				static_cast<int32>(viewRect.x),
-				static_cast<int32>(viewRect.y),
-				static_cast<int32>(viewRect.w),
-				static_cast<int32>(viewRect.h));
+
+			pass.SetViewport(
+				// viewRect.x,
+				// viewRect.y,
+				// viewRect.w,
+				// viewRect.h,
+				0.0f,
+				0.0f,
+				1280.0f,
+				720.0f,
+				0.0f,
+				1.0f
+			);
 		}
 
 		// render states
 		{
-			const bool linearFilter = (textureFilter == TextureFilter::Linear);
-			::glBindSampler(0, m_sampler);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
-		
-			pRenderer->getBlendState().set(BlendState::Opaque);
-			pRenderer->getRasterizerState().set(RasterizerState::Default2D);
 			pShader->setVS(m_standardVS->fullscreen_triangle.id());
 			pShader->setPS(m_standardPS->fullscreen_triangle.id());
 		}
 
 		// draw fullscreen-triangle
 		{
-			pShader->usePipeline();
+			wgpu::RenderPipelineDescriptor2 desc2
 			{
-				::glBindVertexArray(m_vertexArray);
+				.primitive =
 				{
-					::glBindBuffer(GL_ARRAY_BUFFER, 0);
-					::glDrawArrays(GL_TRIANGLES, 0, 3);
-
-					++m_stat.drawCalls;
-					m_stat.triangleCount += 1;
+					.topology = wgpu::PrimitiveTopology::TriangleList
 				}
-				::glBindVertexArray(0);
+			};
+
+			pShader->usePipeline(*m_device, pass, desc2);
+			{
+				pass.Draw(3);
+
+				++m_stat.drawCalls;
+				m_stat.triangleCount += 1;
 			}
 		}
-
-		CheckOpenGLError();
 	}
 }

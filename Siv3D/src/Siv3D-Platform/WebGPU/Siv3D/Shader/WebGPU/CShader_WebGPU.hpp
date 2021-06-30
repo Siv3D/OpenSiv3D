@@ -21,6 +21,8 @@
 # include "PixelShader/WebGPUPixelShader.hpp"
 # include "ShaderPipeline/WebGPUShaderPipeline.hpp"
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class CShader_WebGPU final : public ISiv3DShader
@@ -65,7 +67,9 @@ namespace s3d
 
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		void usePipeline();
+		void usePipeline(const wgpu::Device& device, const wgpu::RenderPassEncoder& encoder, wgpu::RenderPipelineDescriptor2& desc);
+
+		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 
 	private:
 
@@ -83,6 +87,10 @@ namespace s3d
 		PixelShader::IDType m_currentPS;
 
 		// シェーダプログラム (VS と PS のペア) の管理
-		ShaderPipeline m_pipeline;
+		WebGPUShaderPipeline m_pipeline;
+
+		Array<wgpu::BindGroupEntry> m_uniforms;
+
+		wgpu::Device* m_device;
 	};
 }

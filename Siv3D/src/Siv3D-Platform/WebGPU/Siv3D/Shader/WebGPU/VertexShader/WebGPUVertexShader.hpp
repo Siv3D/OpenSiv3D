@@ -15,6 +15,8 @@
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/ConstantBufferBinding.hpp>
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class WebGPUVertexShader
@@ -23,7 +25,7 @@ namespace s3d
 
 		Blob m_binary;
 
-		GLuint m_vertexShader = 0;
+		wgpu::ShaderModule m_vertexShader = nullptr;
 
 		Array<ConstantBufferBinding> m_constantBufferBindings;
 
@@ -41,7 +43,7 @@ namespace s3d
 
 		explicit WebGPUVertexShader(Null);
 
-		explicit WebGPUVertexShader(const StringView source, const Array<ConstantBufferBinding>& bindings);
+		explicit WebGPUVertexShader(const wgpu::Device& device, const StringView source, const Array<ConstantBufferBinding>& bindings);
 
 		~WebGPUVertexShader();
 
@@ -49,8 +51,6 @@ namespace s3d
 
 		const Blob& getBinary() const noexcept;
 
-		GLuint getShader() const;
-
-		void bindUniformBlocks(GLuint program);
+		wgpu::ShaderModule getShaderModule() const;
 	};
 }

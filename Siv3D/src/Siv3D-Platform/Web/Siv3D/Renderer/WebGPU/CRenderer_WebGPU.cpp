@@ -99,7 +99,7 @@ namespace s3d
 		// pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
 		// pTexture->init();
 
-		// SIV3D_ENGINE(Shader)->init();
+		SIV3D_ENGINE(Shader)->init();
 
 		clear();
 	}
@@ -114,18 +114,18 @@ namespace s3d
 	{
 		// m_backBuffer->clear(GLES3ClearTarget::BackBuffer | GLES3ClearTarget::Scene);
 		
-		// const auto& windowState = SIV3D_ENGINE(Window)->getState();
+		const auto& windowState = SIV3D_ENGINE(Window)->getState();
 
-		// if (const Size frameBufferSize = windowState.frameBufferSize; 
-		// 	(frameBufferSize != m_backBuffer->getBackBufferSize()))
-		// {
-		// 	m_backBuffer->setBackBufferSize(frameBufferSize);
+		if (const Size frameBufferSize = windowState.frameBufferSize; 
+			(frameBufferSize != m_backBuffer->getBackBufferSize()))
+		{
+			m_backBuffer->setBackBufferSize(frameBufferSize);
 
-		// 	if (windowState.sizeMove)
-		// 	{
-		// 		// sleep
-		// 	}
-		// }
+			if (windowState.sizeMove)
+			{
+				// sleep
+			}
+		}
 
 		// pRenderer2D->update();
 	}
@@ -134,12 +134,15 @@ namespace s3d
 	{
 		auto commamdEncoder = m_device.CreateCommandEncoder();
 
-		// // Scene に 2D 描画
-		// {
-		// 	m_backBuffer->bindSceneBuffer();
+		// Scene に 2D 描画
+		{
+			auto pass = m_backBuffer->begin(commamdEncoder);
+
 		// 	pRenderer2D->flush();
 		// 	m_backBuffer->unbind();
-		// }
+
+			pass.EndPass();
+		}
 
 		// ウィンドウに Scene を描画
 		{
@@ -295,5 +298,10 @@ namespace s3d
 	GLES3SamplerState& CRenderer_WebGPU::getSamplerState() noexcept
 	{
 		return *m_samplerState;
+	}
+
+	wgpu::Device* CRenderer_WebGPU::getDevice()
+	{
+		return &m_device;
 	}
 }

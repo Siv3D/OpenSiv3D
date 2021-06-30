@@ -51,17 +51,17 @@ namespace s3d
 		
 		wgpu::TextureDescriptor desc
 		{
-			.usage = wgpu::TextureUsage::OutputAttachment,
+			.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled,
 			.dimension = wgpu::TextureDimension::e2D,
 			.size = 
 			{
-				.width = static_cast<uint32_t>(size.x),
-				.height = static_cast<uint32_t>(size.y),
+				.width = 1280u, // static_cast<uint32_t>(size.x),
+				.height = 720u, // static_cast<uint32_t>(size.y),
 				.depthOrArrayLayers = 1
 			},
 			.format = wgpu::TextureFormat::RGBA8Unorm,
 			.mipLevelCount = 1,
-			.sampleCount = sampleCount
+			.sampleCount = 1 // sampleCount
 		};
 
 		texture = device.CreateTexture(&desc);

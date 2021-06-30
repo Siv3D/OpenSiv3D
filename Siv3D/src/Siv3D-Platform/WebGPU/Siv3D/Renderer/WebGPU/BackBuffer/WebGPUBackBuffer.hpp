@@ -36,12 +36,15 @@ namespace s3d
 	DEFINE_BITMASK_OPERATORS(WebGPUClearTarget);
 
 	class CRenderer2D_WebGPU;
+	class CShader_WebGPU;
 
 	class WebGPUBackBuffer
 	{
 	private:
 
 		CRenderer2D_WebGPU* pRenderer2D	= nullptr;
+
+		CShader_WebGPU* pShader = nullptr;
 
 		uint32 m_sampleCount			= Graphics::DefaultSampleCount;
 
@@ -69,7 +72,7 @@ namespace s3d
 
 		wgpu::Sampler m_sampler;
 
-		wgpu::BindGroup m_uniform;
+		Array<wgpu::BindGroupEntry> m_uniforms;
 
 	public:
 
@@ -77,7 +80,7 @@ namespace s3d
 
 		~WebGPUBackBuffer();
 
-		void clear(WebGPUClearTarget clearTargets);
+		wgpu::RenderPassEncoder begin(const wgpu::CommandEncoder& encoder);
 
 		void bindSceneBuffer();
 
