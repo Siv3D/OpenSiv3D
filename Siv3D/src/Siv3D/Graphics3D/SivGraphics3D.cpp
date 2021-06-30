@@ -11,6 +11,7 @@
 
 # include <Siv3D/Graphics3D.hpp>
 # include <Siv3D/Scene.hpp>
+# include <Siv3D/BasicCamera3D.hpp>
 # include <Siv3D/Renderer3D/IRenderer3D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -71,6 +72,11 @@ namespace s3d
 		void SetCameraTransform(const Mat4x4& matrix)
 		{
 			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
+		}
+
+		void SetCameraTransform(const BasicCamera3D& camera3D)
+		{
+			SIV3D_ENGINE(Renderer3D)->setCameraTransform(camera3D.getMat4x4());
 		}
 
 		const Mat4x4& GetCameraTransform()

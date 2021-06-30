@@ -25,6 +25,8 @@
 
 namespace s3d
 {
+	class BasicCamera3D;
+
 	namespace Graphics3D
 	{
 		/// @brief 現在適用されているブレンドステートを返します。
@@ -69,6 +71,8 @@ namespace s3d
 		Optional<PixelShader> GetCustomPixelShader();
 
 		void SetCameraTransform(const Mat4x4& matrix);
+
+		void SetCameraTransform(const BasicCamera3D& camera3D);
 
 		[[nodiscard]]
 		const Mat4x4& GetCameraTransform();

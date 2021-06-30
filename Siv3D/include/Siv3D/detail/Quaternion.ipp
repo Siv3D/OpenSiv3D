@@ -214,4 +214,22 @@ namespace s3d
 	{
 		return DirectX::XMQuaternionRotationAxis(SIMD_Float4{ axis, 0.0f }, static_cast<float>(angle));
 	}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Quaternion Quaternion::RotateX(const Arithmetic angle) noexcept
+	{
+		return DirectX::XMQuaternionRotationNormal(DirectX::g_XMIdentityR0, static_cast<float>(angle));
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Quaternion Quaternion::RotateY(const Arithmetic angle) noexcept
+	{
+		return DirectX::XMQuaternionRotationNormal(DirectX::g_XMIdentityR1, static_cast<float>(angle));
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Quaternion Quaternion::RotateZ(const Arithmetic angle) noexcept
+	{
+		return DirectX::XMQuaternionRotationNormal(DirectX::g_XMIdentityR2, static_cast<float>(angle));
+	}
 }

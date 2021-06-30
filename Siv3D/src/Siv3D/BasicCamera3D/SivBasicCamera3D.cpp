@@ -26,6 +26,11 @@ namespace s3d
 		updateViewProj();
 	}
 
+	Mat4x4 BasicCamera3D::getMat4x4() const
+	{
+		return m_viewProj;
+	}
+
 	void BasicCamera3D::setSceneSize(const Size& sceneSize) noexcept
 	{
 		m_sceneSize = sceneSize;

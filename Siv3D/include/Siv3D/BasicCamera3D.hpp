@@ -34,6 +34,9 @@ namespace s3d
 
 		virtual ~BasicCamera3D() = default;
 
+		[[nodiscard]]
+		virtual Mat4x4 getMat4x4() const;
+
 		void setSceneSize(const Size& sceneSize) noexcept;
 
 		void setProjection(const Size& sceneSize, double verticalFOV, double nearClip = DefaultNearClip) noexcept;

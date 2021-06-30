@@ -149,6 +149,18 @@ namespace s3d
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL RotationAxis(Float3 axis, Arithmetic angle) noexcept;
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		static Quaternion SIV3D_VECTOR_CALL RotateX(Arithmetic angle) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		static Quaternion SIV3D_VECTOR_CALL RotateY(Arithmetic angle) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		static Quaternion SIV3D_VECTOR_CALL RotateZ(Arithmetic angle) noexcept;
+
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL Rotate(const Mat4x4& m) noexcept;
 
