@@ -1151,6 +1151,10 @@
 		2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A5267F133C00A8F68C /* SivGraphics.cpp */; };
 		2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7091A9267F480700A8F68C /* SivEngineOptions.cpp */; };
 		2C711CF126629EFE0018D38D /* SivMat4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C711CF026629EFD0018D38D /* SivMat4x4.cpp */; };
+		2C768DB5268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DB1268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp */; };
+		2C768DB6268C4CA300A02CF5 /* CPrimitiveMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */; };
+		2C768DB7268C4CA300A02CF5 /* IPrimitiveMesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */; };
+		2C768DB8268C4CA300A02CF5 /* CPrimitiveMesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3309,6 +3313,12 @@
 		2C74C042267A46560031C9E0 /* obfuscate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obfuscate.h; sourceTree = "<group>"; };
 		2C74C043267A466D0031C9E0 /* Obfuscation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Obfuscation.hpp; sourceTree = "<group>"; };
 		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
+		2C768DAE268C4C6800A02CF5 /* ScopedRenderStates3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates3D.hpp; sourceTree = "<group>"; };
+		2C768DAF268C4C8000A02CF5 /* ScopedRenderStates3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates3D.ipp; sourceTree = "<group>"; };
+		2C768DB1268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrimitiveMeshFactory.cpp; sourceTree = "<group>"; };
+		2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPrimitiveMesh.cpp; sourceTree = "<group>"; };
+		2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPrimitiveMesh.hpp; sourceTree = "<group>"; };
+		2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPrimitiveMesh.hpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -4364,6 +4374,7 @@
 				2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */,
 				2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */,
 				2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */,
+				2C768DAF268C4C8000A02CF5 /* ScopedRenderStates3D.ipp */,
 				2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */,
 				2C6EEB0D2688ECB0002E220A /* ScopedRenderTarget3D.ipp */,
 				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
@@ -6009,6 +6020,7 @@
 				2C53C33F25613BAF0072831A /* Polygon */,
 				2C66843D2685050B00F7089A /* PolygonEmitter2D */,
 				2C47B4A324E16B8F008D83BE /* PrimeNumber */,
+				2C768DB0268C4CA300A02CF5 /* PrimitiveMesh */,
 				2C34780725DA95A000071EEF /* Print */,
 				2C427FE926286C8C00106F19 /* ProController */,
 				2C47B2C124DD9789008D83BE /* Profiler */,
@@ -8633,6 +8645,17 @@
 			path = Obfuscate;
 			sourceTree = "<group>";
 		};
+		2C768DB0268C4CA300A02CF5 /* PrimitiveMesh */ = {
+			isa = PBXGroup;
+			children = (
+				2C768DB1268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp */,
+				2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */,
+				2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */,
+				2C768DB4268C4CA300A02CF5 /* CPrimitiveMesh.hpp */,
+			);
+			path = PrimitiveMesh;
+			sourceTree = "<group>";
+		};
 		2C794AA325C257C000034D81 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
@@ -9484,6 +9507,7 @@
 				2CAAA77A25E7FD0200C014D7 /* ScopedCustomShader2D.hpp */,
 				2C6EEB0A2688EC95002E220A /* ScopedCustomShader3D.hpp */,
 				2CAAA73925E7FD0200C014D7 /* ScopedRenderStates2D.hpp */,
+				2C768DAE268C4C6800A02CF5 /* ScopedRenderStates3D.hpp */,
 				2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */,
 				2C6EEB092688EC95002E220A /* ScopedRenderTarget3D.hpp */,
 				2CFB61A826555FE3002F4F47 /* ScopedViewport2D.hpp */,
@@ -10727,6 +10751,7 @@
 				2C2AA39626009C74003F3EBC /* b2_world.h in Headers */,
 				2C48BEEB25CFB8C500A93CE3 /* edge-selectors.h in Headers */,
 				2C43C8A525C837F100D6D613 /* svpostnm.h in Headers */,
+				2C768DB7268C4CA300A02CF5 /* IPrimitiveMesh.hpp in Headers */,
 				2C47B33A24DD9789008D83BE /* ISystem.hpp in Headers */,
 				2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */,
 				2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */,
@@ -10797,6 +10822,7 @@
 				2C636E582657F7D300AF029F /* soloud_tedsid.h in Headers */,
 				2C2AA37D26009C74003F3EBC /* box2d.h in Headers */,
 				2C5337C4264F5AA200CE0F1B /* zstd_internal.h in Headers */,
+				2C768DB8268C4CA300A02CF5 /* CPrimitiveMesh.hpp in Headers */,
 				2C43C87225C837F000D6D613 /* mac-support.h in Headers */,
 				2C47B35624DD9789008D83BE /* IProfiler.hpp in Headers */,
 				2C48BEE925CFB8C500A93CE3 /* bitmap-interpolation.hpp in Headers */,
@@ -11902,6 +11928,7 @@
 				2C533741264E0EE600CE0F1B /* FLACDecoder.cpp in Sources */,
 				2C47B36B24DD9789008D83BE /* SivThreading.cpp in Sources */,
 				2CC5847B2648244400C33E9F /* OggVorbisDecoder.cpp in Sources */,
+				2C768DB5268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp in Sources */,
 				2C794AB625C3DEE400034D81 /* SivMD5Value.cpp in Sources */,
 				2C36F83B267F939200691B1C /* CRenderer3D_GL4.cpp in Sources */,
 				2C4AEF76262C4E8300D36CFC /* CTextToSpeech.mm in Sources */,
@@ -12213,6 +12240,7 @@
 				2C956667264546F700539B85 /* paintelement.cpp in Sources */,
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
+				2C768DB6268C4CA300A02CF5 /* CPrimitiveMesh.cpp in Sources */,
 				2C8CA3A52615863C00BABD2D /* WebPDecoder.cpp in Sources */,
 				2C9566FB2645846C00539B85 /* HTMLWriterDetail.cpp in Sources */,
 				2C4CBE592437100100F8B7A6 /* glew.c in Sources */,
