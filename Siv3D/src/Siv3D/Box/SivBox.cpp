@@ -17,6 +17,26 @@
 
 namespace s3d
 {
+	bool Box::intersects(const Box& box) const noexcept
+	{
+		if (std::abs(center.x - box.center.x) > ((size.x + box.size.x) * 0.5))
+		{
+			return false;
+		}
+
+		if (std::abs(center.y - box.center.y) > ((size.y + box.size.y) * 0.5))
+		{
+			return false;
+		}
+
+		if (std::abs(center.z - box.center.z) > ((size.z + box.size.z) * 0.5))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	void Box::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)

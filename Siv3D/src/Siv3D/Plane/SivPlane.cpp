@@ -20,24 +20,24 @@ namespace s3d
 	void Plane::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
-			.draw(Mat4x4::Scale(Float3{ size.x, 0.0f, size.y }).translated(center), color);
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), color);
 	}
 
 	void Plane::draw(const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
-			.draw(Mat4x4::Scale(Float3{ size.x, 0.0f, size.y }).translated(center), texture, color);
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), texture, color);
 	}
 
 	void Plane::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
-			.draw(Mat4x4::Scale(Float3{ size.x, 0.0f, size.y }).rotated(rotation).translated(center), color);
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), color);
 	}
 
 	void Plane::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
-			.draw(Mat4x4::Scale(Float3{ size.x, 0.0f, size.y }).rotated(rotation).translated(center), texture, color);
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), texture, color);
 	}
 }

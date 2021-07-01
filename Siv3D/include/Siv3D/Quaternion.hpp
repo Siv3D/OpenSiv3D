@@ -43,7 +43,7 @@ namespace s3d
 		explicit Quaternion(const Mat4x4& m) noexcept;
 		
 		SIV3D_NODISCARD_CXX20
-		Quaternion(Float4 _vec) noexcept;
+		explicit Quaternion(Float4 _vec) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		Quaternion(aligned_float4 _vec) noexcept;

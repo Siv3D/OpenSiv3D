@@ -235,7 +235,7 @@
 # include <Siv3D/FormatData.hpp>
 
 // フォーマット関数 | Formatter
-# include <Siv3D/Formatter.hpp> // [Siv3D ToDo]
+# include <Siv3D/Formatter.hpp>
 
 // 文字列フォーマット | Format
 # include <Siv3D/Format.hpp>
@@ -706,11 +706,11 @@
 
 // 4x4 行列
 // 4x4 matrix
-# include <Siv3D/Mat4x4.hpp> // [Siv3D ToDo]
+# include <Siv3D/Mat4x4.hpp>
 
 // クォータニオン
 // Quaternion
-# include <Siv3D/Quaternion.hpp> // [Siv3D ToDo]
+# include <Siv3D/Quaternion.hpp>
 
 // 3D 線分
 // 3D Line segment
@@ -735,6 +735,8 @@
 // 平面
 // Plane
 # include <Siv3D/Plane.hpp> // [Siv3D ToDo]
+
+# include <Siv3D/InfinitePlane.hpp> // [Siv3D ToDo]
 
 // レイ
 // Ray
@@ -1012,6 +1014,18 @@
 
 // 音声波形
 # include <Siv3D/Wave.hpp>
+
+//////////////////////////////////////////////////
+//
+//	FFT | FFT
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/FFTResult.hpp>
+
+# include <Siv3D/FFTSampleLength.hpp>
+
+# include <Siv3D/FFT.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1565,11 +1579,7 @@
 # include <Siv3D/Clipboard.hpp>
 
 # include <Siv3D/Serialization.hpp>
-# include <Siv3D/FFTResult.hpp>
-# include <Siv3D/FFTSampleLength.hpp>
-# include <Siv3D/FFT.hpp>
 # include <Siv3D/UUID.hpp>
-
 
 # include <Siv3D/Vertex3D.hpp>
 # include <Siv3D/BasicCamera3D.hpp>

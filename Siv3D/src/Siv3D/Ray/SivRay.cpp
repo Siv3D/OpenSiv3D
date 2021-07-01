@@ -11,6 +11,7 @@
 
 # include <Siv3D/Ray.hpp>
 # include <Siv3D/Sphere.hpp>
+# include <Siv3D/Plane.hpp>
 # include <Siv3D/Box.hpp>
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/FormatFloat.hpp>
@@ -108,6 +109,11 @@ namespace s3d
 		}
 
 		return none;
+	}
+
+	Optional<float> Ray::intersects(const Plane& plane) const
+	{
+		return intersects(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
 	}
 
 	Optional<float> Ray::intersects(const Box& aabb) const
@@ -265,6 +271,11 @@ namespace s3d
 		{
 			return none;
 		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Plane& plane) const
+	{
+		return intersectsAt(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
 	}
 
 	Optional<Float3> Ray::intersectsAt(const Box& aabb) const

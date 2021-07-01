@@ -12,6 +12,8 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "Sphere.hpp"
+# include "Box.hpp"
 # include "DiscreteDistribution.hpp"
 
 namespace s3d
@@ -141,6 +143,27 @@ namespace s3d
 	SIV3D_CONCEPT_URBG
 	[[nodiscard]]
 	inline Vec3 RandomVec3(double xMax, double yMax, double zMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Box& box);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Box& box, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Sphere& sphere);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Sphere& sphere, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3on(const Sphere& sphere);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3on(const Sphere& sphere, URBG&& urbg);
 }
 
 # include "detail/RandomVec3.ipp"

@@ -16,6 +16,8 @@
 
 namespace s3d
 {
+	struct Box;
+
 	/// @brief 3 次元のベクトル
 	/// @tparam Type ベクトルの要素の型
 	template <class Type>
@@ -168,15 +170,10 @@ namespace s3d
 
 		constexpr Vector3D& moveBy(Vector3D v) noexcept;
 		
-		//[[nodiscard]]
-		//Vector3D clamped(const AABB& aabb) const noexcept;
+		[[nodiscard]]
+		Vector3D clamped(const Box& box) const noexcept;
 
-		//Vector3D& clamp(const AABB& aabb) noexcept;
-
-		//[[nodiscard]]
-		//Vector3D clamped(const OBB& obb) const noexcept;
-
-		//Vector3D& clamp(const OBB& obb) noexcept;
+		Vector3D& clamp(const Box& box) noexcept;
 
 		[[nodiscard]]
 		constexpr value_type dot(Vector3D v) const noexcept;

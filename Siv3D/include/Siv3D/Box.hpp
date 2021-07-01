@@ -103,6 +103,10 @@ namespace s3d
 		constexpr Box(const Vec3& _center, const Vec3& _size) noexcept;
 
 
+		[[nodiscard]]
+		bool intersects(const Box& box) const noexcept;
+
+
 		void draw(const ColorF& color = Palette::White) const;
 		
 		void draw(const Texture& texture, const ColorF& color = Palette::White) const;

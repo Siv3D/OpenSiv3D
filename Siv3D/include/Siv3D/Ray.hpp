@@ -19,8 +19,8 @@
 namespace s3d
 {
 	struct Triangle3D;
-	struct Plane;
 	struct Sphere;
+	struct Plane;
 	struct Box;
 	struct OrientedBox;
 
@@ -64,11 +64,11 @@ namespace s3d
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Triangle3D& triangle) const;
 
-		//[[nodiscard]]
-		//Optional<float> SIV3D_VECTOR_CALL intersects(Plane plane) const;
-
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Sphere& sphere) const;
+
+		[[nodiscard]]
+		Optional<float> SIV3D_VECTOR_CALL intersects(const Plane& plane) const;
 
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Box& aabb) const;
@@ -80,11 +80,11 @@ namespace s3d
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Triangle3D& triangle) const;
 
-		//[[nodiscard]]
-		//Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(Plane plane) const;
-
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Sphere& sphere) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Plane& plane) const;
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Box& aabb) const;

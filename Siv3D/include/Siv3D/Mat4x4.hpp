@@ -12,9 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
-# include "Quaternion.hpp"
-//# include "Plane.hpp"
 # include "SIMD_Float4.hpp"
+# include "Quaternion.hpp"
+# include "InfinitePlane.hpp"
 
 namespace s3d
 {
@@ -215,11 +215,11 @@ namespace s3d
 		[[nodiscard]]
 		static Mat4x4 SIV3D_VECTOR_CALL Rotate(Quaternion quaternion) noexcept;
 
-		//[[nodiscard]]
-		//static Mat4x4 SIV3D_VECTOR_CALL Reflect(Plane plane) noexcept;
+		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Reflect(InfinitePlane plane) noexcept;
 
-		//[[nodiscard]]
-		//static Mat4x4 SIV3D_VECTOR_CALL Shadow(Plane plane, Float3 lightPos) noexcept;
+		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Shadow(InfinitePlane plane, Float3 lightPos) noexcept;
 
 		template <class CharType>
 		friend inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat4x4& value)

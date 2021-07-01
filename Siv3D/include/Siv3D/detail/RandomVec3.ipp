@@ -232,4 +232,44 @@ namespace s3d
 			RandomClosed(0.0, zMax, std::forward<URBG>(urbg)),
 		};
 	}
+
+	inline Vec3 RandomVec3(const Box& box)
+	{
+		return RandomVec3(box, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Vec3 RandomVec3(const Box& box, URBG&& urbg)
+	{
+		return RandomVec3(
+			{ (box.center.x - box.size.x * 0.5), (box.center.x + box.size.x * 0.5) },
+			{ (box.center.y - box.size.y * 0.5), (box.center.y + box.size.y * 0.5) },
+			{ (box.center.z - box.size.z * 0.5), (box.center.z + box.size.z * 0.5) },
+			std::forward<URBG>(urbg)
+		);
+	}
+
+	inline Vec3 RandomVec3(const Sphere& sphere)
+	{
+		return RandomVec3(sphere, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Vec3 RandomVec3(const Sphere& sphere, URBG&& urbg)
+	{
+		return (RandomVec3insideUnitSphere(std::forward<URBG>(urbg)) * sphere.r)
+			+ sphere.center;
+	}
+
+	inline Vec3 RandomVec3on(const Sphere& sphere)
+	{
+		return RandomVec3on(sphere, GetDefaultRNG());
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline Vec3 RandomVec3on(const Sphere& sphere, URBG&& urbg)
+	{
+		return (RandomVec3onUnitSphere(std::forward<URBG>(urbg)) * sphere.r)
+			+ sphere.center;
+	}
 }

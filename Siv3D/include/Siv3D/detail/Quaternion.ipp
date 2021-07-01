@@ -33,14 +33,12 @@ namespace s3d
 	inline Quaternion& Quaternion::operator =(const aligned_float4 other) noexcept
 	{
 		value = other;
-
 		return *this;
 	}
 
 	inline Quaternion& Quaternion::operator =(const SIMD_Float4 other) noexcept
 	{
 		value = other;
-
 		return *this;
 	}
 
