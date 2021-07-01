@@ -17,4 +17,9 @@ namespace s3d
 	{
 		return{ 0, 0, 0 };
 	}
+
+	inline constexpr TriangleIndex32 TriangleIndex32::Zero() noexcept
+	{
+		return{ 0, 0, 0 };
+	}
 }

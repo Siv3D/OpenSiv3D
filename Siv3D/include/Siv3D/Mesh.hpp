@@ -19,6 +19,7 @@
 
 namespace s3d
 {
+	struct MeshData;
 	struct Box;
 	struct Sphere;
 	class Texture;
@@ -31,13 +32,7 @@ namespace s3d
 		Mesh();
 
 		SIV3D_NODISCARD_CXX20
-		Mesh(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices);
-
-		SIV3D_NODISCARD_CXX20
-		explicit Mesh(const Box& aabb);
-
-		SIV3D_NODISCARD_CXX20
-		explicit Mesh(const Sphere& sphere, uint32 quality = 12);
+		explicit Mesh(const MeshData& meshData);
 
 		virtual ~Mesh();
 

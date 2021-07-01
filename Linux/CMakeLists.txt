@@ -316,6 +316,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
   ../Siv3D/src/Siv3D/Mesh/Null/CMesh_Null.cpp
   ../Siv3D/src/Siv3D/Mesh/SivMesh.cpp
+  ../Siv3D/src/Siv3D/MeshData/SivMeshData.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
   ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
   ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp

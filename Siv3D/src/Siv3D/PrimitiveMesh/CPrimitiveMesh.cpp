@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CPrimitiveMesh.hpp"
+# include <Siv3D/MeshData.hpp>
 # include <Siv3D/Box.hpp>
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/EngineLog.hpp>
@@ -28,33 +29,10 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CPrimitiveMesh::init()");
 
 		m_meshes.reserve(9);
-		{
-			Array<Vertex3D> vertices =
-			{
-				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
-				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
-				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
-				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
-			};
-			m_meshes << Mesh{ vertices, { 0,1,2, 2,1,3 } };
-		}
-		{
-			Array<Vertex3D> vertices =
-			{
-				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
-				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
-				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
-				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
-
-				{ .pos = {  0.5f, 0.0f,  0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
-				{ .pos = { -0.5f, 0.0f,  0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
-				{ .pos = {  0.5f, 0.0f, -0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
-				{ .pos = { -0.5f, 0.0f, -0.5f }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },		
-			};
-			m_meshes << Mesh{ vertices, { 0,1,2, 2,1,3, 4,5,6, 6,5,7 } };
-		}
-		m_meshes << Mesh{ Box{ {0,0,0}, {1,1,1} } };
-		m_meshes << Mesh{ Sphere{{0,0,0}, 1}, 24 };
+		m_meshes << Mesh{ MeshData::OneSidedPlane({0,0,0}, {1.0f,1.0f}) };
+		m_meshes << Mesh{ MeshData::TwoSidedPlane({0,0,0}, {1.0f,1.0f}) };
+		m_meshes << Mesh{ MeshData::Box({0,0,0}, {1,1,1}) };
+		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1, 24) };
 		m_meshes << Mesh{};
 		m_meshes << Mesh{};
 		m_meshes << Mesh{};

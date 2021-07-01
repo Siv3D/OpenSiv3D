@@ -19,22 +19,9 @@
 
 namespace s3d
 {
-	Shape2D::Shape2D()
-	{
-		// do nothing
-	}
-
 	Shape2D::Shape2D(Array<Float2> vertices, Array<TriangleIndex> indices)
 		: m_vertices{ std::move(vertices) }
-		, m_indices{ std::move(indices) }
-	{
-
-	}
-
-	Shape2D::~Shape2D()
-	{
-		// do nothing
-	}
+		, m_indices{ std::move(indices) } {}
 
 	Shape2D Shape2D::Cross(const double r, const double width, const Vec2& center, const double angle)
 	{

@@ -14,9 +14,12 @@
 
 namespace s3d
 {
-	GLES3Mesh::GLES3Mesh(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices)
+	GLES3Mesh::GLES3Mesh(const MeshData& meshData)
+		: GLES3Mesh{ meshData.vertices, meshData.indices } {}
+
+	GLES3Mesh::GLES3Mesh(const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices)
 		: m_vertexCount{ static_cast<uint32>(vertices.size()) }
-		, m_indexCount{ static_cast<uint32>(indices.size()) }
+		, m_indexCount{ static_cast<uint32>(indices.size() * 3) }
 		, m_vertexStride{ sizeof(Vertex3D) }
 	{
 		::glGenVertexArrays(1, &m_vao);
@@ -42,7 +45,7 @@ namespace s3d
 
 			{
 				::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(Vertex3D::IndexType) * m_indexCount), indices.data(), GL_DYNAMIC_DRAW);
+				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(TriangleIndex32::value_type) * m_indexCount), indices.data(), GL_DYNAMIC_DRAW);
 			}
 		}
 		::glBindVertexArray(0);

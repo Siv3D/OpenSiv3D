@@ -34,6 +34,26 @@ namespace s3d
 		[[nodiscard]] 
 		static constexpr TriangleIndex Zero() noexcept;
 	};
+
+	/// @brief 三角形を構成する頂点インデックス
+	struct TriangleIndex32
+	{
+		using value_type = uint32;
+
+		/// @brief 頂点 0
+		value_type i0;
+
+		/// @brief 頂点 1
+		value_type i1;
+
+		/// @brief 頂点 2
+		value_type i2;
+
+		/// @brief すべてのインデックス値が 0 の TriangleIndex を返します。
+		/// @return すべてのインデックス値が 0 の TriangleIndex
+		[[nodiscard]]
+		static constexpr TriangleIndex32 Zero() noexcept;
+	};
 }
 
 # include "detail/TriangleIndex.ipp"

@@ -30,16 +30,13 @@ namespace s3d
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
-		Shape2D();
+		Shape2D() = default;
 
 		/// @brief 頂点配列と頂点インデックスから多角形を作成します。
 		/// @param vertices 頂点配列
 		/// @param indices 頂点インデックス
 		SIV3D_NODISCARD_CXX20
 		Shape2D(Array<Float2> vertices, Array<TriangleIndex> indices);
-
-		/// @brief デストラクタ
-		~Shape2D();
 
 		/// @brief × の形状を作成します。
 		/// @param r 基準となる円の半径（ピクセル）

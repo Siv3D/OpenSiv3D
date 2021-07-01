@@ -446,6 +446,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryViewReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mesh.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MeshData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxResult.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxStyle.hpp" />
@@ -1983,6 +1984,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFileView\SivMemoryMappedFileView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\SivMeshData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\SivMesh.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox.cpp" />

@@ -25,8 +25,8 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) = 0;
-	
+		virtual Mesh::IDType create(const MeshData& meshData) = 0;
+
 		virtual void release(Mesh::IDType handleID) = 0;
 
 		virtual size_t getIndexCount(Mesh::IDType handleID) = 0;

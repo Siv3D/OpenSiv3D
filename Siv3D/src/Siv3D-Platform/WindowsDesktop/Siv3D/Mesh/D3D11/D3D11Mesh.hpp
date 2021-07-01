@@ -13,6 +13,8 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex3D.hpp>
+# include <Siv3D/TriangleIndex.hpp>
+# include <Siv3D/MeshData.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 
 namespace s3d
@@ -22,7 +24,10 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices);
+		explicit D3D11Mesh(ID3D11Device* device, const MeshData& meshData);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices);
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;

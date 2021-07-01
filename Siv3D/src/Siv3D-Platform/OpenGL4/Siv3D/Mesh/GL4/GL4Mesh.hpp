@@ -13,6 +13,8 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex3D.hpp>
+# include <Siv3D/TriangleIndex.hpp>
+# include <Siv3D/MeshData.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
 
 namespace s3d
@@ -22,7 +24,10 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		GL4Mesh(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices);
+		explicit GL4Mesh(const MeshData& meshData);
+
+		SIV3D_NODISCARD_CXX20
+		GL4Mesh(const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices);
 
 		~GL4Mesh();
 

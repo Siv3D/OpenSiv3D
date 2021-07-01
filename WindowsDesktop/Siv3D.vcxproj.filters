@@ -1465,6 +1465,9 @@
     <Filter Include="src\Siv3D\Box">
       <UniqueIdentifier>{08f8bfe4-19a7-4199-9196-161a0259ebd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MeshData">
+      <UniqueIdentifier>{dbafab1c-6795-489d-8e51-6aaed2b0d79f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6459,6 +6462,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InfinitePlane.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MeshData.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8887,6 +8893,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Box\SivBox.cpp">
       <Filter>src\Siv3D\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\SivMeshData.cpp">
+      <Filter>src\Siv3D\MeshData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

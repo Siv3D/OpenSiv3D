@@ -27,7 +27,7 @@ namespace s3d
 
 		void init() override;
 
-		Mesh::IDType create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices) override;
+		Mesh::IDType create(const MeshData& meshData) override;
 
 		void release(Mesh::IDType handleID) override;
 

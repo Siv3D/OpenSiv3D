@@ -14,9 +14,12 @@
 
 namespace s3d
 {
-	D3D11Mesh::D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices)
+	D3D11Mesh::D3D11Mesh(ID3D11Device* device, const MeshData& meshData)
+		: D3D11Mesh{ device, meshData.vertices, meshData.indices } {}
+
+	D3D11Mesh::D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices)
 		: m_vertexCount{ static_cast<uint32>(vertices.size()) }
-		, m_indexCount{ static_cast<uint32>(indices.size()) }
+		, m_indexCount{ static_cast<uint32>(indices.size() * 3) }
 		, m_vertexStride{ sizeof(Vertex3D) }
 	{
 		// Vertex Buffer
@@ -42,7 +45,7 @@ namespace s3d
 		{
 			const D3D11_BUFFER_DESC desc =
 			{
-				.ByteWidth				= (sizeof(Vertex3D::IndexType) * m_indexCount),
+				.ByteWidth				= (sizeof(TriangleIndex32::value_type) * m_indexCount),
 				.Usage					= D3D11_USAGE_IMMUTABLE,
 				.BindFlags				= D3D11_BIND_INDEX_BUFFER,
 				.CPUAccessFlags			= 0,

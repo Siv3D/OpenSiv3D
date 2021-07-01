@@ -11,6 +11,7 @@
 
 # include "CMesh_GL4.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/MeshData.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -33,20 +34,8 @@ namespace s3d
 
 		// null Mesh を管理に登録
 		{
-			const Array<Vertex3D> vertices =
-			{
-				Vertex3D{.pos = { -8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
-				Vertex3D{.pos = {  8.0f, 0.0f,  8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
-				Vertex3D{.pos = { -8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
-				Vertex3D{.pos = {  8.0f, 0.0f, -8.0f }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
-			};
-			const Array<Vertex3D::IndexType> indices =
-			{
-				0, 1, 2, 2, 1, 3
-			};
-
 			// null Mesh を作成
-			auto nullMesh = std::make_unique<GL4Mesh>(vertices, indices);
+			auto nullMesh = std::make_unique<GL4Mesh>(MeshData::TwoSidedPlane(Float3{ 0,0,0 }, Float2{ 16.0f, 16.0f }));
 
 			if (not nullMesh->isInitialized()) // もし作成に失敗していたら
 			{
@@ -58,21 +47,21 @@ namespace s3d
 		}
 	}
 
-	Mesh::IDType CMesh_GL4::create(const Array<Vertex3D>& vertices, const Array<Vertex3D::IndexType>& indices)
+	Mesh::IDType CMesh_GL4::create(const MeshData& meshData)
 	{
-		if ((not vertices) || (not indices))
+		if ((not meshData.vertices) || (not meshData.indices))
 		{
 			return Mesh::IDType::NullAsset();
 		}
 
-		auto mesh = std::make_unique<GL4Mesh>(vertices, indices);
+		auto mesh = std::make_unique<GL4Mesh>(meshData);
 
 		if (not mesh->isInitialized())
 		{
 			return Mesh::IDType::NullAsset();
 		}
 
-		const String info = U"(type: Default, vertex count:{0}, index count: {1})"_fmt(vertices.size(), indices.size());
+		const String info = U"(type: Default, vertex count:{0}, triangle count: {1})"_fmt(meshData.vertices.size(), meshData.indices.size());
 		return m_meshes.add(std::move(mesh), info);
 	}
 
