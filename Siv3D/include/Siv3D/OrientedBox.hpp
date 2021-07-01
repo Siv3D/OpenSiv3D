@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	struct OBB
+	struct OrientedBox
 	{
 		Vec3 center;
 
@@ -29,4 +29,4 @@ namespace s3d
 	};
 }
 
-# include "detail/OBB.ipp"
+# include "detail/OrientedBox.ipp"

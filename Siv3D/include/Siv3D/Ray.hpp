@@ -21,8 +21,8 @@ namespace s3d
 	struct Triangle3D;
 	struct Plane;
 	struct Sphere;
-	struct AABB;
-	struct OBB;
+	struct Box;
+	struct OrientedBox;
 
 	struct Ray
 	{
@@ -71,10 +71,10 @@ namespace s3d
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Sphere& sphere) const;
 
 		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(const AABB& aabb) const;
+		Optional<float> SIV3D_VECTOR_CALL intersects(const Box& aabb) const;
 
 		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(const OBB& obb) const;
+		Optional<float> SIV3D_VECTOR_CALL intersects(const OrientedBox& obb) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)

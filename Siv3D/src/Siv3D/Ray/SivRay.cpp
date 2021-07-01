@@ -11,8 +11,8 @@
 
 # include <Siv3D/Ray.hpp>
 # include <Siv3D/Sphere.hpp>
-# include <Siv3D/AABB.hpp>
-# include <Siv3D/OBB.hpp>
+# include <Siv3D/Box.hpp>
+# include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
@@ -110,7 +110,7 @@ namespace s3d
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const AABB& aabb) const
+	Optional<float> Ray::intersects(const Box& aabb) const
 	{
 		using namespace DirectX;
 
@@ -169,7 +169,7 @@ namespace s3d
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const OBB& obb) const
+	Optional<float> Ray::intersects(const OrientedBox& obb) const
 	{
 		using namespace DirectX;
 

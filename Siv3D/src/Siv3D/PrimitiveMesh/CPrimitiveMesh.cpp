@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include "CPrimitiveMesh.hpp"
-# include <Siv3D/AABB.hpp>
+# include <Siv3D/Box.hpp>
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/EngineLog.hpp>
 
@@ -53,7 +53,7 @@ namespace s3d
 			};
 			m_meshes << Mesh{ vertices, { 0,1,2, 2,1,3, 4,5,6, 6,5,7 } };
 		}
-		m_meshes << Mesh{ AABB{ {0,0,0}, {1,1,1} } };
+		m_meshes << Mesh{ Box{ {0,0,0}, {1,1,1} } };
 		m_meshes << Mesh{ Sphere{{0,0,0}, 1}, 24 };
 		m_meshes << Mesh{};
 		m_meshes << Mesh{};

@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Mesh.hpp>
-# include <Siv3D/AABB.hpp>
+# include <Siv3D/Box.hpp>
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/FastMath.hpp>
 # include <Siv3D/Math.hpp>
@@ -35,7 +35,7 @@ namespace s3d
 		};
 
 		[[nodiscard]]
-		static Array<Vertex3D> GenerateAABBVertices(const AABB& aabb)
+		static Array<Vertex3D> GenerateBoxVertices(const Box& aabb)
 		{
 			const Float3 s = aabb.size * 0.5;
 
@@ -203,8 +203,8 @@ namespace s3d
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Mesh::Mesh(const AABB& aabb)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(detail::GenerateAABBVertices(aabb), detail::BoxIndices)) }
+	Mesh::Mesh(const Box& aabb)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(detail::GenerateBoxVertices(aabb), detail::BoxIndices)) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}

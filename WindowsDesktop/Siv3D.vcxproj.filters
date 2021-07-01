@@ -1456,14 +1456,14 @@
     <Filter Include="src\Siv3D\PrimitiveMesh">
       <UniqueIdentifier>{44ad157b-e81f-4f96-b603-b4d86381a76d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\AABB">
-      <UniqueIdentifier>{859ae625-ef09-4e17-9a6c-6aa02644d06e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\Sphere">
       <UniqueIdentifier>{e27027a5-d232-4344-8edc-87984a6fe7c5}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Siv3D\Plane">
       <UniqueIdentifier>{68a4ed71-02a5-4e50-9f1b-d182a7ffe1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Box">
+      <UniqueIdentifier>{08f8bfe4-19a7-4199-9196-161a0259ebd8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -5442,7 +5442,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\AABB.hpp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\Box.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Line3D.hpp">
@@ -5451,7 +5451,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat4x4.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\OBB.hpp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\OrientedBox.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Plane.hpp">
@@ -5487,7 +5487,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\AABB.ipp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Box.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Addon.ipp">
@@ -5820,7 +5820,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Number.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OBB.ipp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OrientedBox.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OffsetCircular.ipp">
@@ -8873,14 +8873,14 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\PrimitiveMesh\PrimitiveMeshFactory.cpp">
       <Filter>src\Siv3D\PrimitiveMesh</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\AABB\SivAABB.cpp">
-      <Filter>src\Siv3D\AABB</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Sphere\SivSphere.cpp">
       <Filter>src\Siv3D\Sphere</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Plane\SivPlane.cpp">
       <Filter>src\Siv3D\Plane</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Box\SivBox.cpp">
+      <Filter>src\Siv3D\Box</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

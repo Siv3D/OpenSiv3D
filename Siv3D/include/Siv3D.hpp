@@ -722,11 +722,11 @@
 
 // 軸平行境界ボックス (AABB)
 // Axis Aligned Bounding Box (AABB)
-# include <Siv3D/AABB.hpp> // [Siv3D ToDo]
+# include <Siv3D/Box.hpp> // [Siv3D ToDo]
 
 // 有向境界ボックス (OBB)
 // Oriented Bounding Box (OBB)
-# include <Siv3D/OBB.hpp> // [Siv3D ToDo]
+# include <Siv3D/OrientedBox.hpp> // [Siv3D ToDo]
 
 // 球
 // Sphere
