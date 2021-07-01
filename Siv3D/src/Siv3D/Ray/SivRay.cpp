@@ -241,6 +241,56 @@ namespace s3d
 		return none;
 	}
 
+	Optional<Float3> Ray::intersectsAt(const Triangle3D& triangle) const
+	{
+		float dist;
+
+		if (DirectX::TriangleTests::Intersects(origin, direction, triangle.p0, triangle.p1, triangle.p2, dist))
+		{
+			return point_at(dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Sphere& sphere) const
+	{
+		if (const auto dist = intersects(sphere))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Box& aabb) const
+	{
+		if (const auto dist = intersects(aabb))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const OrientedBox& obb) const
+	{
+		if (const auto dist = intersects(obb))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
 	//
 	//
 	///////////////////////////////////////////////////////////////

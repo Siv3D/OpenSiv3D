@@ -76,6 +76,22 @@ namespace s3d
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const OrientedBox& obb) const;
 
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Triangle3D& triangle) const;
+
+		//[[nodiscard]]
+		//Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(Plane plane) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Sphere& sphere) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Box& aabb) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const OrientedBox& obb) const;
+
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)
 		{
