@@ -1158,6 +1158,7 @@
 		2C768DBE268C67C900A02CF5 /* SivPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DBD268C67C900A02CF5 /* SivPlane.cpp */; };
 		2C768DC1268C67D500A02CF5 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC0268C67D500A02CF5 /* SivSphere.cpp */; };
 		2C768DC7268D8E4D00A02CF5 /* SivBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */; };
+		2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3327,6 +3328,8 @@
 		2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBox.cpp; sourceTree = "<group>"; };
 		2C768DC8268E18F400A02CF5 /* InfinitePlane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.hpp; sourceTree = "<group>"; };
 		2C768DC9268E190B00A02CF5 /* InfinitePlane.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.ipp; sourceTree = "<group>"; };
+		2C768DCA268E28E000A02CF5 /* MeshData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshData.hpp; sourceTree = "<group>"; };
+		2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMeshData.cpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -6004,6 +6007,7 @@
 				2CC5843B2646317400C33E9F /* MemoryMappedFile */,
 				2CC584392646317400C33E9F /* MemoryMappedFileView */,
 				2C631E9B268704D200166A8E /* Mesh */,
+				2C768DCB268E28F800A02CF5 /* MeshData */,
 				2C8046102653FE0100CE7C3E /* MessageBox */,
 				2C636D8126577BFE00AF029F /* Microphone */,
 				2C6527812656B3C1003427EB /* MicrophoneInfo */,
@@ -8692,6 +8696,14 @@
 			path = Box;
 			sourceTree = "<group>";
 		};
+		2C768DCB268E28F800A02CF5 /* MeshData */ = {
+			isa = PBXGroup;
+			children = (
+				2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */,
+			);
+			path = MeshData;
+			sourceTree = "<group>";
+		};
 		2C794AA325C257C000034D81 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
@@ -9441,6 +9453,7 @@
 				2C4AEF5A262C467C00D36CFC /* MemoryViewReader.hpp */,
 				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
 				2C631E912687046500166A8E /* Mesh.hpp */,
+				2C768DCA268E28E000A02CF5 /* MeshData.hpp */,
 				2CE94FA52652484400440C6C /* MessageBox.hpp */,
 				2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */,
 				2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */,
@@ -11654,6 +11667,7 @@
 				2C47B34B24DD9789008D83BE /* SivTextEncoding.cpp in Sources */,
 				2C4AEF7E263582E700D36CFC /* SivSay.cpp in Sources */,
 				2C423258242B19ED00A16BCA /* posix_thread.c in Sources */,
+				2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */,
 				2CFF581C25F7C02500B660AD /* SivVideoReader.cpp in Sources */,
 				2C636E942657F7D300AF029F /* soloud_robotizefilter.cpp in Sources */,
 				2C47B32E24DD9789008D83BE /* SivImage.cpp in Sources */,
