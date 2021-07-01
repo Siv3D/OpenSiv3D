@@ -140,14 +140,18 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).indentSize;
 	}
 
-	void Font::setIndentSize(const int32 indentSize) const
+	const Font& Font::setIndentSize(const int32 indentSize) const
 	{
 		SIV3D_ENGINE(Font)->setIndentSize(m_handle->id(), indentSize);
+
+		return *this;
 	}
 
-	void Font::setBufferThickness(const int32 thickness) const
+	const Font& Font::setBufferThickness(const int32 thickness) const
 	{
 		SIV3D_ENGINE(Font)->setBufferThickness(m_handle->id(), thickness);
+
+		return *this;
 	}
 
 	int32 Font::getBufferThickness() const

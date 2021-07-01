@@ -65,9 +65,11 @@ namespace s3d
 		return (not hasEffects());
 	}
 
-	void Effect::add(std::unique_ptr<IEffect>&& effect) const
+	const Effect& Effect::add(std::unique_ptr<IEffect>&& effect) const
 	{
 		SIV3D_ENGINE(Effect)->add(m_handle->id(), std::move(effect));
+
+		return *this;
 	}
 
 	bool Effect::hasEffects() const
@@ -95,9 +97,11 @@ namespace s3d
 		SIV3D_ENGINE(Effect)->resume(m_handle->id());
 	}
 
-	void Effect::setSpeed(const double speed) const
+	const Effect& Effect::setSpeed(const double speed) const
 	{
 		SIV3D_ENGINE(Effect)->setSpeed(m_handle->id(), speed);
+
+		return *this;
 	}
 
 	double Effect::getSpeed() const
@@ -105,9 +109,11 @@ namespace s3d
 		return SIV3D_ENGINE(Effect)->getSpeed(m_handle->id());
 	}
 
-	void Effect::setMaxLifeTime(const double maxLifeTimeSec)
+	const Effect& Effect::setMaxLifeTime(const double maxLifeTimeSec)
 	{
 		SIV3D_ENGINE(Effect)->setMaxLifeTime(m_handle->id(), maxLifeTimeSec);
+
+		return *this;
 	}
 
 	void Effect::setMaxLifeTime(const Duration& maxLifeTimeSec)

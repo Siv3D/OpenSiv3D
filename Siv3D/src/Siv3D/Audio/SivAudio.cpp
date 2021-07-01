@@ -332,14 +332,18 @@ namespace s3d
 		return SIV3D_ENGINE(Audio)->getVolume(m_handle->id());
 	}
 
-	void Audio::setVolume(const double volume) const
+	const Audio& Audio::setVolume(const double volume) const
 	{
 		SIV3D_ENGINE(Audio)->setVolume(m_handle->id(), volume);
+
+		return *this;
 	}
 
-	void Audio::fadeVolume(const double volume, const Duration& fadeTime) const
+	const Audio& Audio::fadeVolume(const double volume, const Duration& fadeTime) const
 	{
 		SIV3D_ENGINE(Audio)->fadeVolume(m_handle->id(), volume, fadeTime);
+
+		return *this;
 	}
 
 	double Audio::getPan() const
@@ -347,14 +351,18 @@ namespace s3d
 		return SIV3D_ENGINE(Audio)->getPan(m_handle->id());
 	}
 
-	void Audio::setPan(const double pan) const
+	const Audio& Audio::setPan(const double pan) const
 	{
 		SIV3D_ENGINE(Audio)->setPan(m_handle->id(), Clamp(pan, -1.0, 1.0));
+
+		return *this;
 	}
 
-	void Audio::fadePan(const double pan, const Duration& fadeTime) const
+	const Audio& Audio::fadePan(const double pan, const Duration& fadeTime) const
 	{
 		SIV3D_ENGINE(Audio)->fadePan(m_handle->id(), Clamp(pan, -1.0, 1.0), fadeTime);
+
+		return *this;
 	}
 
 	double Audio::getSpeed() const
@@ -362,19 +370,23 @@ namespace s3d
 		return SIV3D_ENGINE(Audio)->getSpeed(m_handle->id());
 	}
 
-	void Audio::setSpeed(const double speed) const
+	const Audio& Audio::setSpeed(const double speed) const
 	{
 		SIV3D_ENGINE(Audio)->setSpeed(m_handle->id(), speed);
+
+		return *this;
 	}
 
-	void Audio::fadeSpeed(const double speed, const Duration& fadeTime) const
+	const Audio& Audio::fadeSpeed(const double speed, const Duration& fadeTime) const
 	{
 		SIV3D_ENGINE(Audio)->fadeSpeed(m_handle->id(), speed, fadeTime);
+
+		return *this;
 	}
 
-	void Audio::setSpeedBySemitone(const int32 semitone) const
+	const Audio& Audio::setSpeedBySemitone(const int32 semitone) const
 	{
-		setSpeed(std::exp2(semitone / 12.0));
+		return setSpeed(std::exp2(semitone / 12.0));
 	}
 
 	const float* Audio::getSamples(const size_t channel) const

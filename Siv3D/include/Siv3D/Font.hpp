@@ -156,13 +156,15 @@ namespace s3d
 
 		/// @brief インデントに含まれるスペースの数を設定します。
 		/// @param indentSize インデントに含まれるスペースの数
-		void setIndentSize(int32 indentSize) const;
+		/// @return *this
+		const Font& setIndentSize(int32 indentSize) const;
 
 		/// @brief レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白を設定します。 
 		/// @param thickness 
 		/// @remark デフォルト値は 2 です。
 		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
-		void setBufferThickness(int32 thickness) const;
+		/// @return *this
+		const Font& setBufferThickness(int32 thickness) const;
 
 		/// @brief  レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白を返します。
 		/// @return レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白

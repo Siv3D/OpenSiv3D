@@ -37,21 +37,21 @@ namespace s3d
 
 		/// @brief エフェクトグループに新しいエフェクトを追加します
 		/// @param effect 追加するエフェクト
-		void add(std::unique_ptr<IEffect>&& effect) const;
+		const Effect& add(std::unique_ptr<IEffect>&& effect) const;
 
 		/// @brief エフェクトグループに新しいエフェクトを追加します
 		/// @tparam IEffectType 追加するエフェクトの型
 		/// @tparam ...Args コンストラクタ引数の型
 		/// @param ...args コンストラクタ引数
 		template <class IEffectType, class... Args, std::enable_if_t<std::is_base_of_v<IEffect, IEffectType>>* = nullptr>
-		void add(Args&&... args) const;
+		const Effect& add(Args&&... args) const;
 
 		/// @brief エフェクトグループに新しいエフェクトを追加します
 		/// @remark 関数オブジェクトは double 型を受け取り bool 型を返す必要があります。
 		/// @tparam Fty エフェクト（関数オブジェクト）の型
 		/// @param f エフェクトの関数オブジェクト
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, double>>* = nullptr>
-		void add(Fty f) const;
+		const Effect& add(Fty f) const;
 
 		/// @brief エフェクトグループがアクティブなエフェクトを持っているかを返します。
 		/// @remark `Effect::hasEffects()` と同じ結果を返します。
@@ -87,7 +87,7 @@ namespace s3d
 
 		/// @brief このエフェクトグループの時間経過の速さを、実時間に対する倍率 (2.0 で 2 倍早く経過）で設定します。
 		/// @param speed 時間経過の速さ
-		void setSpeed(double speed) const;
+		const Effect& setSpeed(double speed) const;
 
 		/// @brief このエフェクトグループの時間経過の速さを返します。
 		/// @return 時間経過の速さ
@@ -96,7 +96,7 @@ namespace s3d
 
 		/// @brief このエフェクトグループでのエフェクトの最大継続時間（秒）を設定します。
 		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
-		void setMaxLifeTime(double maxLifeTimeSec);
+		const Effect& setMaxLifeTime(double maxLifeTimeSec);
 
 		/// @brief このエフェクトグループでのエフェクトの最大継続時間（秒）を設定します。
 		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）

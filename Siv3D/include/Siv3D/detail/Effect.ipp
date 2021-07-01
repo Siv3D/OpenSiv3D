@@ -14,13 +14,13 @@
 namespace s3d
 {
 	template <class IEffectType, class... Args, std::enable_if_t<std::is_base_of_v<IEffect, IEffectType>>*>
-	inline void Effect::add(Args&&... args) const
+	inline const Effect& Effect::add(Args&&... args) const
 	{
-		add(std::make_unique<IEffectType>(std::forward<Args>(args)...));
+		return add(std::make_unique<IEffectType>(std::forward<Args>(args)...));
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, double>>*>
-	inline void Effect::add(Fty f) const
+	inline const Effect& Effect::add(Fty f) const
 	{
 		struct AnonymousEffect : IEffect
 		{
@@ -35,7 +35,7 @@ namespace s3d
 			}
 		};
 
-		add(std::make_unique<AnonymousEffect>(f));
+		return add(std::make_unique<AnonymousEffect>(f));
 	}
 }
 

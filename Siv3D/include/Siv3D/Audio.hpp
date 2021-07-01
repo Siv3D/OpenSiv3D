@@ -366,12 +366,14 @@ namespace s3d
 
 		/// @brief 音量 [0.0, 1.0] を設定します。
 		/// @param volume 音量 [0.0, 1.0]
-		void setVolume(double volume) const;
+		/// @return *this
+		const Audio& setVolume(double volume) const;
 
 		/// @brief 指定した時間をかけて目標の音量に変更します。
 		/// @param volume 目標の音量 [0.0, 1.0]
 		/// @param fadeTime フェード時間
-		void fadeVolume(double volume, const Duration& fadeTime) const;
+		/// @return *this
+		const Audio& fadeVolume(double volume, const Duration& fadeTime) const;
 
 		/// @brief パンの設定 [-1.0, 1.0] を返します。
 		/// @return パンの設定 [-1.0, 1.0]
@@ -380,12 +382,14 @@ namespace s3d
 
 		/// @brief パン [-1.0, 1.0] を設定します。
 		/// @param pan パン [-1.0, 1.0]. -1.0 が左、0.0 が中央、1.0 が右
-		void setPan(double pan) const;
+		/// @return *this
+		const Audio& setPan(double pan) const;
 
 		/// @brief 指定した時間をかけて目標のパンに変更します。
 		/// @param pan パン [-1.0, 1.0]. -1.0 が左、0.0 が中央、1.0 が右
 		/// @param fadeTime フェード時間
-		void fadePan(double pan, const Duration& fadeTime) const;
+		/// @return *this
+		const Audio& fadePan(double pan, const Duration& fadeTime) const;
 
 		/// @brief スピードの設定を返します。
 		/// @return スピードの設定
@@ -395,11 +399,12 @@ namespace s3d
 		/// @brief スピード（再生速度の倍率）を設定します。
 		/// @param speed スピード（再生速度の倍率）
 		/// @remark スピードが上下すると音の高さも上下します。
-		void setSpeed(double speed) const;
+		/// @return *this
+		const Audio& setSpeed(double speed) const;
 
-		void fadeSpeed(double speed, const Duration& fadeTime) const;
+		const Audio& fadeSpeed(double speed, const Duration& fadeTime) const;
 
-		void setSpeedBySemitone(int32 semitone) const;
+		const Audio& setSpeedBySemitone(int32 semitone) const;
 
 		/// @brief 音声波形のサンプルデータにアクセスします。
 		/// @param channel 左チャンネルの場合 0, 右チャンネルの場合 1
