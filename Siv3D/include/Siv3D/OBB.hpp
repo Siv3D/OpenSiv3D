@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "Quaternion.hpp"
 
 namespace s3d
 {

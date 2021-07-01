@@ -62,10 +62,10 @@ namespace s3d
 		Vec3 SIV3D_VECTOR_CALL point_at(Arithmetic distance) const noexcept;
 
 		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(Triangle3D triangle) const;
+		Optional<float> SIV3D_VECTOR_CALL intersects(const Triangle3D& triangle) const;
 
-		[[nodiscard]]
-		Optional<float> SIV3D_VECTOR_CALL intersects(Plane plane) const;
+		//[[nodiscard]]
+		//Optional<float> SIV3D_VECTOR_CALL intersects(Plane plane) const;
 
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Sphere& sphere) const;

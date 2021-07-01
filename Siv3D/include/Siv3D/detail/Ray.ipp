@@ -61,18 +61,4 @@ namespace s3d
 	{
 		return ((distance * direction.xyz()) + origin.xyz());
 	}
-
-	inline Optional<float> Ray::intersects(const Triangle3D triangle) const
-	{
-		float dist;
-
-		if (DirectX::TriangleTests::Intersects(origin, direction, triangle.p0, triangle.p1, triangle.p2, dist))
-		{
-			return dist;
-		}
-		else
-		{
-			return none;
-		}
-	}
 }
