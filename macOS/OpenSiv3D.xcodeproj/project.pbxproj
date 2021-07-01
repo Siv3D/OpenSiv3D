@@ -3325,6 +3325,8 @@
 		2C768DC3268D8E1800A02CF5 /* OrientedBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OrientedBox.hpp; sourceTree = "<group>"; };
 		2C768DC4268D8E2B00A02CF5 /* Box.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Box.ipp; sourceTree = "<group>"; };
 		2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBox.cpp; sourceTree = "<group>"; };
+		2C768DC8268E18F400A02CF5 /* InfinitePlane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.hpp; sourceTree = "<group>"; };
+		2C768DC9268E190B00A02CF5 /* InfinitePlane.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.ipp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -4305,6 +4307,7 @@
 				2C063D872661426000368BEE /* ImageProcessing.ipp */,
 				2C063D452661426000368BEE /* Indexed.ipp */,
 				2C063DAE2661426000368BEE /* InfiniteList.ipp */,
+				2C768DC9268E190B00A02CF5 /* InfinitePlane.ipp */,
 				2C063DBA2661426000368BEE /* INI.ipp */,
 				2C063D552661426000368BEE /* Input.ipp */,
 				2C063D462661426000368BEE /* InputCombination.ipp */,
@@ -9388,6 +9391,7 @@
 				2C0E224225F5265B002DD8C7 /* ImageROI.hpp */,
 				2CAAA86E25E7FD0300C014D7 /* Indexed.hpp */,
 				2CAAA73B25E7FD0200C014D7 /* InfiniteList.hpp */,
+				2C768DC8268E18F400A02CF5 /* InfinitePlane.hpp */,
 				2CAAA75125E7FD0200C014D7 /* INI.hpp */,
 				2CAAA89025E7FD0300C014D7 /* Input.hpp */,
 				2CAAA86D25E7FD0300C014D7 /* InputCombination.hpp */,
