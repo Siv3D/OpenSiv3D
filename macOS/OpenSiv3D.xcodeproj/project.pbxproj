@@ -1138,6 +1138,10 @@
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
 		2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C695D51268EDDB400970FB3 /* par_shapes.h */; };
+		2C695D7E268F579700970FB3 /* MeshUtility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C695D7C268F579600970FB3 /* MeshUtility.hpp */; };
+		2C695D7F268F579700970FB3 /* MeshUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D7D268F579600970FB3 /* MeshUtility.cpp */; };
+		2C695D86268F57C900970FB3 /* SivDisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D83268F57C900970FB3 /* SivDisc.cpp */; };
+		2C695D87268F57C900970FB3 /* SivCylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D85268F57C900970FB3 /* SivCylinder.cpp */; };
 		2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */; };
 		2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */; };
 		2C6C781F268895BB00B3C44A /* Renderer3DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */; };
@@ -3287,6 +3291,13 @@
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2C695D51268EDDB400970FB3 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
+		2C695D7B268F575E00970FB3 /* NormalComputation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NormalComputation.hpp; sourceTree = "<group>"; };
+		2C695D7C268F579600970FB3 /* MeshUtility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MeshUtility.hpp; sourceTree = "<group>"; };
+		2C695D7D268F579600970FB3 /* MeshUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshUtility.cpp; sourceTree = "<group>"; };
+		2C695D80268F57AC00970FB3 /* Disc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disc.hpp; sourceTree = "<group>"; };
+		2C695D81268F57AC00970FB3 /* Cylinder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cylinder.hpp; sourceTree = "<group>"; };
+		2C695D83268F57C900970FB3 /* SivDisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDisc.cpp; sourceTree = "<group>"; };
+		2C695D85268F57C900970FB3 /* SivCylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCylinder.cpp; sourceTree = "<group>"; };
 		2C6C78192688957700B3C44A /* Graphics3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics3D.ipp; sourceTree = "<group>"; };
 		2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer3DCommand.hpp; sourceTree = "<group>"; };
 		2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer3DCommand.cpp; sourceTree = "<group>"; };
@@ -5941,9 +5952,11 @@
 				2C47B2E024DD9789008D83BE /* CPUInfo */,
 				2C794AC125C3DF9100034D81 /* CSV */,
 				2C47B26B24DD9789008D83BE /* Cursor */,
+				2C695D84268F57C900970FB3 /* Cylinder */,
 				2C47B27224DD9789008D83BE /* DateTime */,
 				2CFB7DD6262B06CA00169B97 /* Dialog */,
 				2C13C8EE25B95AE70054B968 /* DirectoryWatcher */,
+				2C695D82268F57C900970FB3 /* Disc */,
 				2CFB7DCF262AF33C00169B97 /* DragDrop */,
 				2C48C14925D41C9D00A93CE3 /* DrawableText */,
 				2C47B2E224DD9789008D83BE /* Duration */,
@@ -8599,6 +8612,22 @@
 			path = par_shapes;
 			sourceTree = "<group>";
 		};
+		2C695D82268F57C900970FB3 /* Disc */ = {
+			isa = PBXGroup;
+			children = (
+				2C695D83268F57C900970FB3 /* SivDisc.cpp */,
+			);
+			path = Disc;
+			sourceTree = "<group>";
+		};
+		2C695D84268F57C900970FB3 /* Cylinder */ = {
+			isa = PBXGroup;
+			children = (
+				2C695D85268F57C900970FB3 /* SivCylinder.cpp */,
+			);
+			path = Cylinder;
+			sourceTree = "<group>";
+		};
 		2C6C782426889B2B00B3C44A /* BasicCamera3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -8710,6 +8739,8 @@
 		2C768DCB268E28F800A02CF5 /* MeshData */ = {
 			isa = PBXGroup;
 			children = (
+				2C695D7D268F579600970FB3 /* MeshUtility.cpp */,
+				2C695D7C268F579600970FB3 /* MeshUtility.hpp */,
 				2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */,
 			);
 			path = MeshData;
@@ -9304,6 +9335,7 @@
 				2CAAA8A225E7FD0300C014D7 /* CSV.hpp */,
 				2CAAA6F025E7FD0200C014D7 /* Cursor.hpp */,
 				2CAAA84B25E7FD0300C014D7 /* CursorStyle.hpp */,
+				2C695D81268F57AC00970FB3 /* Cylinder.hpp */,
 				2CAAA77225E7FD0200C014D7 /* Cylindrical.hpp */,
 				2CAAA77F25E7FD0200C014D7 /* Date.hpp */,
 				2CAAA6F125E7FD0200C014D7 /* DateTime.hpp */,
@@ -9313,6 +9345,7 @@
 				2CAAA76A25E7FD0200C014D7 /* DepthStencilState.hpp */,
 				2CFB7DB3262AB49C00169B97 /* Dialog.hpp */,
 				2CAAA6FF25E7FD0200C014D7 /* DirectoryWatcher.hpp */,
+				2C695D80268F57AC00970FB3 /* Disc.hpp */,
 				2CAAA87625E7FD0300C014D7 /* DiscreteDistribution.hpp */,
 				2CAAA70A25E7FD0200C014D7 /* DisplayResolution.hpp */,
 				2CAAA87825E7FD0300C014D7 /* Distribution.hpp */,
@@ -9486,6 +9519,7 @@
 				2CAAA85C25E7FD0300C014D7 /* Noise.hpp */,
 				2CAAA88525E7FD0300C014D7 /* None.hpp */,
 				2CAAA8AF25E7FD0300C014D7 /* NonNull.hpp */,
+				2C695D7B268F575E00970FB3 /* NormalComputation.hpp */,
 				2CAAA71425E7FD0200C014D7 /* Number.hpp */,
 				2C74C043267A466D0031C9E0 /* Obfuscation.hpp */,
 				2CAAA75825E7FD0200C014D7 /* OffsetCircular.hpp */,
@@ -10964,6 +10998,7 @@
 				2C39ECAA2564030E0021DF34 /* GL4Renderer2DCommand.hpp in Headers */,
 				2C5337B6264F5AA200CE0F1B /* threading.h in Headers */,
 				2C43C8C725C837F100D6D613 /* ft2build.h in Headers */,
+				2C695D7E268F579700970FB3 /* MeshUtility.hpp in Headers */,
 				2CDD4F4E260A3F7100A51D68 /* P2PivotJointDetail.hpp in Headers */,
 				2CF21D15249FAA8F00C864C9 /* CRenderer_GL4.hpp in Headers */,
 				2C834DAC248805D4006208B8 /* oniggnu.h in Headers */,
@@ -11575,6 +11610,7 @@
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
 				2CC5843326461D9900C33E9F /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2CDD4F35260A3F7100A51D68 /* P2WheelJointDetail.cpp in Sources */,
+				2C695D87268F57C900970FB3 /* SivCylinder.cpp in Sources */,
 				2C47B6FB24EAC98A008D83BE /* ShaderFactory.mm in Sources */,
 				2C6390ED2536C5460030F18E /* MetalBackBuffer.mm in Sources */,
 				2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */,
@@ -11821,6 +11857,7 @@
 				2C34780E25DA95A100071EEF /* CPrint.cpp in Sources */,
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
+				2C695D86268F57C900970FB3 /* SivDisc.cpp in Sources */,
 				2C5337D62650BAF000CE0F1B /* SivSoundFont.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
@@ -11859,6 +11896,7 @@
 				2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */,
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
+				2C695D7F268F579700970FB3 /* MeshUtility.cpp in Sources */,
 				2C9566EE2645626000539B85 /* mz_strm_split.c in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
 				2CB749F7261F52E200D31274 /* SivXInput.cpp in Sources */,
