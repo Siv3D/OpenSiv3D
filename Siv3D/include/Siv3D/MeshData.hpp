@@ -35,10 +35,10 @@ namespace s3d
 		bool computeNormals(NormalComputation normalComputation = NormalComputation::Default);
 
 		[[nodiscard]]
-		Sphere computeBoundingSphere() const;
+		s3d::Sphere computeBoundingSphere() const;
 
 		[[nodiscard]]
-		Box computeBoundingBox() const;
+		s3d::Box computeBoundingBox() const;
 
 		[[nodiscard]]
 		static MeshData OneSidedPlane(Float2 size);
