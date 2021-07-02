@@ -1468,6 +1468,9 @@
     <Filter Include="src\Siv3D\MeshData">
       <UniqueIdentifier>{dbafab1c-6795-489d-8e51-6aaed2b0d79f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\par_shapes">
+      <UniqueIdentifier>{5bcf371f-f564-4a10-93a0-b2997e2da94e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6464,6 +6467,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\MeshData.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\par_shapes\par_shapes.h">
+      <Filter>src\ThirdParty\par_shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

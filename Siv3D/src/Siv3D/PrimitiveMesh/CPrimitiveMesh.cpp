@@ -32,7 +32,7 @@ namespace s3d
 		m_meshes << Mesh{ MeshData::OneSidedPlane({0,0,0}, {1.0f,1.0f}) };
 		m_meshes << Mesh{ MeshData::TwoSidedPlane({0,0,0}, {1.0f,1.0f}) };
 		m_meshes << Mesh{ MeshData::Box({0,0,0}, {1,1,1}) };
-		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1, 24) };
+		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1, 20) };
 		m_meshes << Mesh{};
 		m_meshes << Mesh{};
 		m_meshes << Mesh{};

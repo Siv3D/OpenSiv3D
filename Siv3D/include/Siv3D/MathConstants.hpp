@@ -183,16 +183,22 @@ namespace s3d
 		inline namespace MathLiterals
 		{
 			[[nodiscard]] 
-			inline constexpr double operator ""_pi(long double x);
+			inline constexpr double operator ""_pi(long double x) noexcept;
 
 			[[nodiscard]]
-			inline constexpr double operator ""_pi(unsigned long long x);
+			inline constexpr double operator ""_pi(unsigned long long x) noexcept;
 
 			[[nodiscard]]
-			inline constexpr double operator ""_deg(long double deg);
+			inline constexpr double operator ""_deg(long double deg) noexcept;
 
 			[[nodiscard]]
-			inline constexpr double operator ""_deg(unsigned long long deg);
+			inline constexpr double operator ""_deg(unsigned long long deg) noexcept;
+
+			[[nodiscard]]
+			inline constexpr float operator ""_degF(long double deg) noexcept;
+
+			[[nodiscard]]
+			inline constexpr float operator ""_degF(unsigned long long deg) noexcept;
 		}
 	}
 }

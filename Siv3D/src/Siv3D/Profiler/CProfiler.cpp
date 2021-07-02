@@ -59,10 +59,10 @@ namespace s3d
 				m_stat.triangleCount = stat.triangleCount;
 			}
 
-			m_stat.textureCount = SIV3D_ENGINE(Texture)->getTextureCount();
-			m_stat.fontCount = SIV3D_ENGINE(Font)->getFontCount();
-			m_stat.audioCount = SIV3D_ENGINE(Audio)->getAudioCount();
-			m_stat.activeVoice = static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
+			m_stat.textureCount	= static_cast<uint32>(SIV3D_ENGINE(Texture)->getTextureCount());
+			m_stat.fontCount	= static_cast<uint32>(SIV3D_ENGINE(Font)->getFontCount());
+			m_stat.audioCount	= static_cast<uint32>(SIV3D_ENGINE(Audio)->getAudioCount());
+			m_stat.activeVoice	= static_cast<uint32>(GlobalAudio::GetActiveVoiceCount());
 		}
 	}
 

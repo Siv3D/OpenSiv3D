@@ -17,24 +17,34 @@ namespace s3d
 	{
 		inline namespace MathLiterals
 		{
-			inline constexpr double operator ""_pi(const long double x)
+			inline constexpr double operator ""_pi(const long double x) noexcept
 			{
 				return static_cast<double>(x * Math::Pi);
 			}
 
-			inline constexpr double operator ""_pi(const unsigned long long x)
+			inline constexpr double operator ""_pi(const unsigned long long x) noexcept
 			{
 				return static_cast<double>(x * Math::Pi);
 			}
 
-			inline constexpr double operator ""_deg(const long double deg)
+			inline constexpr double operator ""_deg(const long double deg) noexcept
 			{
 				return static_cast<double>(deg * Math::Pi / 180);
 			}
 
-			inline constexpr double operator ""_deg(const unsigned long long deg)
+			inline constexpr double operator ""_deg(const unsigned long long deg) noexcept
 			{
 				return static_cast<double>(deg * Math::Pi / 180);
+			}
+
+			inline constexpr float operator ""_degF(const long double deg) noexcept
+			{
+				return static_cast<float>(deg * Math::Pi / 180);
+			}
+
+			inline constexpr float operator ""_degF(const unsigned long long deg) noexcept
+			{
+				return static_cast<float>(deg * Math::Pi / 180);
 			}
 		}
 	}
