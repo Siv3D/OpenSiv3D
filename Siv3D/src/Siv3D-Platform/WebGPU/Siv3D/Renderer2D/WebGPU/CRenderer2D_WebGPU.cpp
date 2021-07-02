@@ -978,6 +978,8 @@ namespace s3d
 				}
 			case WebGPURenderer2DCommandType::Draw:
 				{
+					pShader->usePipelineWithStandardVertexLayout(pass);
+
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
@@ -1160,7 +1162,6 @@ namespace s3d
 					else
 					{
 						pShader->setVS(vsID);
-						// pShader->usePipeline();
 						LOG_COMMAND(U"SetVS[{}]: {}"_fmt(command.index, vsID.value()));
 					}
 
@@ -1178,7 +1179,6 @@ namespace s3d
 					else
 					{
 						pShader->setPS(psID);
-						// pShader->usePipeline();
 						LOG_COMMAND(U"SetPS[{}]: {}"_fmt(command.index, psID.value()));
 					}
 
@@ -1295,15 +1295,7 @@ namespace s3d
 
 		// draw fullscreen-triangle
 		{
-			wgpu::RenderPipelineDescriptor2 desc2
-			{
-				.primitive =
-				{
-					.topology = wgpu::PrimitiveTopology::TriangleList
-				}
-			};
-
-			pShader->usePipeline(*m_device, pass, desc2);
+			pShader->usePipeline(pass);
 			{
 				pass.Draw(3);
 

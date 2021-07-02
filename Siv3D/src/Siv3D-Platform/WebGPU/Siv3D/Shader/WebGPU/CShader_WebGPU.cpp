@@ -85,6 +85,8 @@ namespace s3d
 			// 	throw EngineError{ U"CShader_WebGPU::m_enginePSs initialization failed" };
 			// }
 		}
+
+		m_pipeline.init(*m_device);
 	}
 
 	VertexShader::IDType CShader_WebGPU::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
@@ -188,43 +190,48 @@ namespace s3d
 		return m_enginePSs[FromEnum(ps)];
 	}
 
-	void CShader_WebGPU::usePipeline(const wgpu::Device& device, const wgpu::RenderPassEncoder& encoder, wgpu::RenderPipelineDescriptor2& desc)
+	wgpu::ShaderModule CShader_WebGPU::getShaderModuleVS(VertexShader::IDType handleID)
 	{
-		desc.vertex = wgpu::VertexState
-		{
-			.module = m_vertexShaders[m_currentVS]->getShaderModule(),
-			.entryPoint = "main"
-		};
+		return m_vertexShaders[handleID]->getShaderModule();
+	}
 
-		wgpu::ColorTargetState cts
-		{
-			.format = wgpu::TextureFormat::BGRA8Unorm
-		};
+	wgpu::ShaderModule CShader_WebGPU::getShaderModulePS(PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getShaderModule();
+	}
 
-		wgpu::FragmentState fragState
-		{
-			.module = m_pixelShaders[m_currentPS]->getShaderModule(),
-			.entryPoint = "main",
-			.targetCount = 1,
-			.targets = &cts
-		};
-
-		desc.fragment = &fragState;
-
-		auto state = m_pipeline.linkShaders(device, desc);
-		auto program = state.shaderProgram;
+	void CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass)
+	{
+		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, RasterizerState::Default2D, {});
 
 		wgpu::BindGroupDescriptor uniformDesc
 		{
-			.layout = program.GetBindGroupLayout(0),
+			.layout = pipeline.GetBindGroupLayout(0),
 			.entries = m_uniforms.data(),
 			.entryCount = m_uniforms.size()
 		};
 
-		auto m_uniform = device.CreateBindGroup(&uniformDesc);
+		auto m_uniform = m_device->CreateBindGroup(&uniformDesc);
 
-		encoder.SetPipeline(program);
-		encoder.SetBindGroup(0, m_uniform);
+		pass.SetPipeline(pipeline);
+		pass.SetBindGroup(0, m_uniform);
+	}
+
+	void CShader_WebGPU::usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass)
+	{
+		auto pipeline = m_pipeline.getPipelineWithStandardVertexLayout(m_currentVS, m_currentPS, RasterizerState::Default2D);
+
+		wgpu::BindGroupDescriptor uniformDesc
+		{
+			.layout = pipeline.GetBindGroupLayout(0),
+			.entries = m_uniforms.data(),
+			.entryCount = m_uniforms.size()
+		};
+
+		auto m_uniform = m_device->CreateBindGroup(&uniformDesc);
+
+		pass.SetPipeline(pipeline);
+		pass.SetBindGroup(0, m_uniform);
 	}
 
 	void CShader_WebGPU::setUniform(const Array<wgpu::BindGroupEntry>& uniforms)

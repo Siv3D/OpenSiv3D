@@ -141,6 +141,7 @@ namespace s3d
 	void WebGPUVertex2DBatch::setBuffers(const wgpu::RenderPassEncoder& pass)
 	{
 		pass.SetVertexBuffer(0, m_vertexBuffer, m_vertexArrayWritePos);
+		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32, m_indexArrayWritePos);
 	}
 
 	BatchInfo2D WebGPUVertex2DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)

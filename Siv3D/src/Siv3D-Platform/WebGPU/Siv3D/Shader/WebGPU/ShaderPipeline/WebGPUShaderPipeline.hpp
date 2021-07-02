@@ -9,7 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Common/OpenGL.hpp>
+# pragma once
+# include <Siv3D/VertexShader.hpp>
+# include <Siv3D/PixelShader.hpp>
+# include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <tuple>
 
@@ -17,68 +20,51 @@
 
 namespace s3d
 {
+	class CShader_WebGPU;
+
+	struct WebGPUVertexAttribute
+	{
+		Array<wgpu::VertexAttribute> attributes;
+
+		uint32 stride = 0;
+	};
+
 	class WebGPUShaderPipeline
 	{
-	public:
-
-		using ShaderType = wgpu::ShaderModule;
-		using ShaderPipelineType = wgpu::RenderPipeline;
-
-		struct PipelineState
-		{	
-			ShaderPipelineType shaderProgram;
-			bool cacheHit;
-		};
-
-		struct ShaderSet
-		{
-			ShaderType vertexShader;
-			ShaderType pixelShader;
-
-			[[nodiscard]]
-			friend bool operator==(ShaderSet lhs, ShaderSet rhs)
-			{
-				return lhs.vertexShader.Get() == rhs.vertexShader.Get() && lhs.pixelShader.Get() == rhs.pixelShader.Get();
-			}
-
-			[[nodiscard]]
-			friend bool operator!=(ShaderSet lhs, ShaderSet rhs)
-			{
-				return !(lhs == rhs);
-			}
-		};
-
 	private:
-		
-		HashTable<ShaderSet, ShaderPipelineType> m_pipelines;
 
-		bool hasCachedShaderPipeline(ShaderType vertexShader, ShaderType pixelShader) const;
+		using WebGPUVertexAttributeHash = size_t;
+
+		using KeyType = std::tuple<VertexShader::IDType, PixelShader::IDType, RasterizerState, WebGPUVertexAttributeHash>;
+		
+		HashTable<KeyType, wgpu::RenderPipeline> m_pipelines;
+
+		WebGPUVertexAttribute m_standardVertexAttributes;
+
+		wgpu::Device m_device = nullptr;
+
+		CShader_WebGPU* pShader = nullptr;
 
 	public:
 		
+		WebGPUShaderPipeline();
+
 		~WebGPUShaderPipeline();
 
-		PipelineState linkShaders(const wgpu::Device& device, const wgpu::RenderPipelineDescriptor2& desc);
+		void init(const wgpu::Device& device);
+
+		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute);
+
+		wgpu::RenderPipeline getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState);
 	};
 }
 
 template <>
-struct std::hash<s3d::WebGPUShaderPipeline::ShaderSet>
+struct std::hash<s3d::WebGPUVertexAttribute>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::WebGPUShaderPipeline::ShaderSet& value) const noexcept
+	size_t operator()(const s3d::WebGPUVertexAttribute& value) const noexcept
 	{
-		struct 
-		{
-			WGPUShaderModule vertexShader;
-			WGPUShaderModule fragmentShader;	
-		} 
-		hashed
-		{
-			.vertexShader = value.pixelShader.Get(),
-			.fragmentShader = value.vertexShader.Get()
-		};
-
-		return s3d::Hash::FNV1a(hashed);
+		return s3d::Hash::FNV1a(value.attributes.data(), sizeof(wgpu::VertexAttribute) * value.attributes.size());
 	}
 };

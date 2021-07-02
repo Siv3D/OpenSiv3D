@@ -67,9 +67,15 @@ namespace s3d
 
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		void usePipeline(const wgpu::Device& device, const wgpu::RenderPassEncoder& encoder, wgpu::RenderPipelineDescriptor2& desc);
+		void usePipeline(const wgpu::RenderPassEncoder& pass);
+
+		void usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass);
 
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
+
+		wgpu::ShaderModule getShaderModuleVS(VertexShader::IDType handleID);
+
+		wgpu::ShaderModule getShaderModulePS(PixelShader::IDType handleID);
 
 	private:
 
@@ -85,6 +91,8 @@ namespace s3d
 		VertexShader::IDType m_currentVS;
 		
 		PixelShader::IDType m_currentPS;
+
+		wgpu::RenderPipeline m_currentPipeline;
 
 		// シェーダプログラム (VS と PS のペア) の管理
 		WebGPUShaderPipeline m_pipeline;
