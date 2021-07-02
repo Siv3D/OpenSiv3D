@@ -14,6 +14,8 @@
 # include "Array.hpp"
 # include "Vertex3D.hpp"
 # include "TriangleIndex.hpp"
+# include "Sphere.hpp"
+# include "Box.hpp"
 
 namespace s3d
 {
@@ -28,6 +30,14 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices);
+
+		//bool computeNormals();
+
+		[[nodiscard]]
+		Sphere computeBoundingSphere() const;
+
+		[[nodiscard]]
+		Box computeBoundingBox() const;
 
 		[[nodiscard]]
 		static MeshData OneSidedPlane(Float2 size);
@@ -62,14 +72,29 @@ namespace s3d
 		[[nodiscard]]
 		static MeshData SubdividedSphere(Float3 center, double r, uint32 subdivisions = 2);
 
-		//[[nodiscard]]
-		//static MeshData Disc(Float3 center, double r, uint32 quality = 24);
+		[[nodiscard]]
+		static MeshData Disc(double r, uint32 quality = 24);
+
+		[[nodiscard]]
+		static MeshData Disc(Float3 center, double r, uint32 quality = 24);
+
+		[[nodiscard]]
+		static MeshData Cylinder(double r, double h, uint32 quality = 24);
+
+		[[nodiscard]]
+		static MeshData Cylinder(Float3 center, double r, double h, uint32 quality = 24);
 
 		//[[nodiscard]]
-		//static MeshData Cylinder();
+		//static MeshData Cone();
+
+		//[[nodiscard]]
+		//static MeshData Pyramid();
 
 		//[[nodiscard]]
 		//static MeshData Capsule();
+
+		//[[nodiscard]]
+		//static MeshData FromPolygon();
 
 		[[nodiscard]]
 		static MeshData Torus(double radius, double tubeRadius, uint32 ringQuality = 24, uint32 tubeQuality = 12);
@@ -78,10 +103,10 @@ namespace s3d
 		static MeshData Torus(Float3 center, double radius, double tubeRadius, uint32 ringQuality = 24, uint32 tubeQuality = 12);
 
 		[[nodiscard]]
-		static MeshData Hemisphere(double r, uint32 phiQuality, uint32 thetaQuality);
+		static MeshData Hemisphere(double r, uint32 phiQuality, uint32 thetaQuality = 12);
 
 		[[nodiscard]]
-		static MeshData Hemisphere(Float3 center, double r, uint32 phiQuality, uint32 thetaQuality);
+		static MeshData Hemisphere(Float3 center, double r, uint32 phiQuality, uint32 thetaQuality = 12);
 
 		[[nodiscard]]
 		static MeshData Tetrahedron(double size);

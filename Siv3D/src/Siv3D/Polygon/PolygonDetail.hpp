@@ -86,7 +86,7 @@ namespace s3d
 
 		Vec2 centroid() const;
 
-		Polygon calculateConvexHull() const;
+		Polygon computeConvexHull() const;
 
 		Polygon calculateBuffer(double distance) const;
 

@@ -100,4 +100,28 @@ namespace s3d
 	inline constexpr Box::Box(const Vec3& _center, const Vec3& _size) noexcept
 		: center{ _center }
 		, size{ _size } {}
+
+	inline constexpr Box& Box::setPos(const double cx, const double cy, const double cz) noexcept
+	{
+		center.set(cx, cy, cz);
+		return *this;
+	}
+
+	inline constexpr Box& Box::setPos(const Vec3& _center) noexcept
+	{
+		center.set(_center);
+		return *this;
+	}
+
+	inline constexpr Box& Box::setSize(const double w, const double h, const double d) noexcept
+	{
+		size.set(w, h, d);
+		return *this;
+	}
+
+	inline constexpr Box& Box::setSize(const Vec3& _size) noexcept
+	{
+		size.set(_size);
+		return *this;
+	}
 }

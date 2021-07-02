@@ -396,7 +396,7 @@ namespace s3d
 		LineString& scaleAt(Vec2 pos, Vec2 s);
 
 		[[nodiscard]]
-		RectF calculateBoundingRect() const noexcept;
+		RectF computeBoundingRect() const noexcept;
 		
 		[[nodiscard]]
 		LineString simplified(double maxDistance = 2.0, CloseRing closeRing = CloseRing::No) const;
@@ -424,7 +424,7 @@ namespace s3d
 		LineString extractLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		Array<Vec2> calculateNormals(CloseRing closeRing = CloseRing::No) const;
+		Array<Vec2> computeNormals(CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;

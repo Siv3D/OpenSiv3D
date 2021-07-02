@@ -28,16 +28,14 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CPrimitiveMesh::init()");
 
-		m_meshes.reserve(9);
+		m_meshes.reserve(7);
 		m_meshes << Mesh{ MeshData::OneSidedPlane({0,0,0}, {1.0f,1.0f}) };
 		m_meshes << Mesh{ MeshData::TwoSidedPlane({0,0,0}, {1.0f,1.0f}) };
 		m_meshes << Mesh{ MeshData::Box({0,0,0}, {1,1,1}) };
-		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1, 20) };
-		m_meshes << Mesh{};
-		m_meshes << Mesh{};
-		m_meshes << Mesh{};
-		m_meshes << Mesh{};
-		m_meshes << Mesh{};
+		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1.0, 20) };
+		m_meshes << Mesh{ MeshData::Disc({0,0,0}, 1.0, 40) };
+		m_meshes << Mesh{ MeshData::Cylinder({0,0,0}, 1.0, 1.0, 40) };
+		m_meshes << Mesh{ MeshData::Hemisphere({0,0,0}, 1.0, 40, 20) };
 	}
 
 	const Mesh& CPrimitiveMesh::getMesh(const PrimitiveMeshType meshType) const noexcept

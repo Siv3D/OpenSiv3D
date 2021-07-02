@@ -103,6 +103,15 @@ namespace s3d
 		constexpr Box(const Vec3& _center, const Vec3& _size) noexcept;
 
 
+		constexpr Box& setPos(double cx, double cy, double cz) noexcept;
+
+		constexpr Box& setPos(const Vec3& _center) noexcept;
+
+		constexpr Box& setSize(double w, double h, double d) noexcept;
+
+		constexpr Box& setSize(const Vec3& _size) noexcept;
+
+
 		[[nodiscard]]
 		bool intersects(const Box& box) const noexcept;
 

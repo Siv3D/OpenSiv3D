@@ -376,7 +376,7 @@ namespace s3d
 		MultiPolygon& scaleAt(Vec2 pos, Vec2 s);
 
 		[[nodiscard]]
-		RectF calculateBoundingRect() const noexcept;
+		RectF computeBoundingRect() const noexcept;
 
 		[[nodiscard]]
 		MultiPolygon simplified(double maxDistance = 2.0) const;

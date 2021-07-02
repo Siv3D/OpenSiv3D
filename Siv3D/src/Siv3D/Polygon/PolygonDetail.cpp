@@ -651,7 +651,7 @@ namespace s3d
 		return centroid;
 	}
 
-	Polygon Polygon::PolygonDetail::calculateConvexHull() const
+	Polygon Polygon::PolygonDetail::computeConvexHull() const
 	{
 		CWOpenRing result;
 

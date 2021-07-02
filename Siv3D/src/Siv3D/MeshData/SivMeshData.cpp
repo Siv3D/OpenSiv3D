@@ -14,6 +14,8 @@
 # include <Siv3D/FastMath.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/ScopeGuard.hpp>
+# include <Siv3D/SIMD_Float4.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 # define PAR_SHAPES_IMPLEMENTATION
 # define PAR_SHAPES_T uint32_t
@@ -121,6 +123,55 @@ namespace s3d
 	MeshData::MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices)
 		: vertices{ std::move(_vertices) }
 		, indices{ std::move(_indices) } {}
+
+	//bool MeshData::computeNormals()
+	//{
+
+	//}
+
+	Sphere MeshData::computeBoundingSphere() const
+	{
+		if (not vertices)
+		{
+			return s3d::Sphere{ 0 };
+		}
+
+		DirectX::BoundingSphere sphere;
+
+		DirectX::BoundingSphere::CreateFromPoints(
+			sphere,
+			vertices.size(),
+			static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+			sizeof(Vertex3D)
+		);
+
+		return{
+			{ sphere.Center.x, sphere.Center.y, sphere.Center.z },
+			sphere.Radius
+		};
+	}
+
+	Box MeshData::computeBoundingBox() const
+	{
+		if (not vertices)
+		{
+			return s3d::Box{ 0 };
+		}
+
+		DirectX::BoundingBox box;
+
+		DirectX::BoundingBox::CreateFromPoints(
+			box,
+			vertices.size(),
+			static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+			sizeof(Vertex3D)
+		);
+
+		return{
+			{ box.Center.x, box.Center.y, box.Center.z },
+			{ (box.Extents.x * 2.0), (box.Extents.y * 2.0), (box.Extents.z * 2.0) }
+		};
+	}
 
 	MeshData MeshData::OneSidedPlane(const Float2 size)
 	{
@@ -297,13 +348,13 @@ namespace s3d
 					++pDst;
 				}
 			}
-		}
 
-		if (not center.isZero())
-		{
-			for (auto& vertex : vertices)
+			if (not center.isZero())
 			{
-				vertex.pos += center;
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += center;
+				}
 			}
 		}
 
@@ -350,6 +401,208 @@ namespace s3d
 
 		ScopeGuard guard = [mesh]() { par_shapes_free_mesh(mesh); };
 		return{ detail::ToVertices(*mesh, center), detail::ToIndices(*mesh) };
+	}
+
+	MeshData MeshData::Disc(const double r, const uint32 quality)
+	{
+		return Disc(Float3::Zero(), r, quality);
+	}
+
+	MeshData MeshData::Disc(const Float3 center, const double r, uint32 quality)
+	{
+		quality = Max(quality, 3u);
+
+		const uint32 triangleCount = quality;
+		const uint32 vertexCount = (1 + (quality + 1));
+		const float rf = static_cast<float>(r);
+
+		Array<Vertex3D> vertices(vertexCount);
+		{
+			constexpr Float3 normal{ 0, 1, 0 };
+			const float angleDelta = (Math::TwoPiF / quality);
+			Vertex3D* pDst = vertices.data();
+
+			pDst->pos.set(0.0f, 0.0f, 0.0f);
+			pDst->normal = normal;
+			pDst->tex.set(0.5f, 0.5f);
+			++pDst;
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float angle = (angleDelta * i);
+				const float s = std::sin(angle);
+				const float c = std::cos(angle);
+
+				pDst->pos.set((s * rf), 0, (c * rf));
+				pDst->normal = normal;
+				pDst->tex.set(s * 0.5f + 0.5f, c * -0.5f + 0.5f);
+				++pDst;
+			}
+
+			if (not center.isZero())
+			{
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += center;
+				}
+			}
+		}
+
+		Array<TriangleIndex32> indices(triangleCount);
+		{
+			TriangleIndex32* pDst = indices.data();
+
+			for (uint32 i = 0; i < triangleCount; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = (i + 1);
+				pDst->i2 = (i + 2);
+				++pDst;
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	MeshData MeshData::Cylinder(const double r, const double h, const uint32 quality)
+	{
+		return Cylinder(Float3::Zero(), r, h, quality);
+	}
+
+	MeshData MeshData::Cylinder(const Float3 center, const double r, const double h, uint32 quality)
+	{
+		quality = Max(quality, 3u);
+
+		const uint32 discTriangleCount = quality;
+		const uint32 discVertexCount = (1 + (quality + 1));
+		const uint32 sideTriangleCount = (quality * 2);
+		const uint32 sideVertexCount = ((quality + 1) * 2);
+		const uint32 vertexCount = (discVertexCount * 2 + sideVertexCount);
+		const uint32 triangleCount = (discTriangleCount * 2 + sideTriangleCount);
+
+		const float rf = static_cast<float>(r);
+
+		Array<std::pair<float, float>> scs(quality + 1);
+		{
+			const float deltaAngle = (Math::TwoPiF / quality);
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float angle = (deltaAngle * i);
+				scs[i] = { std::sin(angle), std::cos(angle) };
+			}
+		}
+
+		Array<Vertex3D> vertices(vertexCount);
+		{
+			constexpr Float3 normalTop{ 0,1,0 };
+			constexpr Float3 normalBottom{ 0,-1,0 };
+			const float hu = static_cast<float>(h * 0.5);
+			const float hb = static_cast<float>(-h * 0.5);
+			const float uDelta = (1.0f / quality);
+
+			Vertex3D* pDst0 = vertices.data();
+			Vertex3D* pDst1 = vertices.data() + discVertexCount;
+			Vertex3D* pDst2 = vertices.data() + discVertexCount + sideVertexCount;
+
+			{
+				pDst0->pos.set(0.0f, hu, 0.0f);
+				pDst0->normal = normalTop;
+				pDst0->tex.set(0.5f, 0.5f);
+				++pDst0;
+			}
+
+			{
+				pDst2->pos.set(0.0f, hb, 0.0f);
+				pDst2->normal = normalBottom;
+				pDst2->tex.set(0.5f, 0.5f);
+				++pDst2;
+			}
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float s = scs[i].first;
+				const float c = scs[i].second;
+				const float px = s * rf;
+				const float pz = c * rf;
+
+				pDst0->pos.set(px, hu, pz);
+				pDst0->normal = normalTop;
+				pDst0->tex.set(s * 0.5f + 0.5f, c * -0.5f + 0.5f);
+				++pDst0;
+
+				pDst2->pos.set(px, hb, pz);
+				pDst2->normal = normalBottom;
+				pDst2->tex.set(s * 0.5f + 0.5f, c * -0.5f + 0.5f);
+				++pDst2;
+			}
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float s = scs[quality - i].first;
+				const float c = scs[quality - i].second;
+				const float px = s * rf;
+				const float pz = c * rf;
+
+				pDst1->pos.set(px, hu, pz);
+				pDst1->normal.set(s, 0.0f, c);
+				pDst1->tex.set((uDelta * i), 0.0f);
+				++pDst1;
+
+				pDst1->pos.set(px, hb, pz);
+				pDst1->normal.set(s, 0.0f, c);
+				pDst1->tex.set((uDelta * i), 1.0f);
+				++pDst1;
+			}
+
+			if (not center.isZero())
+			{
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += center;
+				}
+			}
+		}
+
+		Array<TriangleIndex32> indices(triangleCount);
+		{
+			const uint32 sideBaseIndex = discVertexCount;
+
+			TriangleIndex32* pDst = indices.data();
+
+			for (uint32 i = 0; i < discTriangleCount; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = (i + 1);
+				pDst->i2 = (i + 2);
+				++pDst;
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				pDst->i0 = (sideBaseIndex + i * 2);
+				pDst->i1 = (sideBaseIndex + i * 2 + 2);
+				pDst->i2 = (sideBaseIndex + i * 2 + 1);
+				++pDst;
+
+				pDst->i0 = (sideBaseIndex + i * 2 + 1);
+				pDst->i1 = (sideBaseIndex + i * 2 + 2);
+				pDst->i2 = (sideBaseIndex + i * 2 + 3);
+				++pDst;
+			}
+
+			const uint32 bottomDiscBaseIndex = discVertexCount + sideVertexCount;
+
+			for (uint32 i = 0; i < discTriangleCount; ++i)
+			{
+				pDst->i0 = bottomDiscBaseIndex;
+				pDst->i1 = (bottomDiscBaseIndex + i + 2);
+				pDst->i2 = (bottomDiscBaseIndex + i + 1);
+				++pDst;
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
 	}
 
 	MeshData MeshData::Torus(const double radius, const double tubeRadius, const uint32 ringQuality, const uint32 tubeQuality)

@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	RectF MultiPolygon::calculateBoundingRect() const noexcept
+	RectF MultiPolygon::computeBoundingRect() const noexcept
 	{
 		if (isEmpty())
 		{

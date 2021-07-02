@@ -28,10 +28,6 @@ namespace s3d
 
 		Cylinder,
 
-		Capsule,
-
-		Torus,
-
 		Hemisphere,
 	};
 

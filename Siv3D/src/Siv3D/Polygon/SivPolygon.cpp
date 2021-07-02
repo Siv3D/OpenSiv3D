@@ -400,9 +400,9 @@ namespace s3d
 		return pImpl->centroid();
 	}
 
-	Polygon Polygon::calculateConvexHull() const
+	Polygon Polygon::computeConvexHull() const
 	{
-		return pImpl->calculateConvexHull();
+		return pImpl->computeConvexHull();
 	}
 
 	Polygon Polygon::calculateBuffer(const double distance) const

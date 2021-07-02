@@ -775,7 +775,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline RectF LineString::calculateBoundingRect() const noexcept
+	inline RectF LineString::computeBoundingRect() const noexcept
 	{
 		return Geometry2D::BoundingRect(*this);
 	}

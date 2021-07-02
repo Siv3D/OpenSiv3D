@@ -360,7 +360,7 @@ namespace s3d
 		return points;
 	}
 
-	Array<Vec2> LineString::calculateNormals(const CloseRing closeRing) const
+	Array<Vec2> LineString::computeNormals(const CloseRing closeRing) const
 	{
 		Array<Vec2> normals(size());
 
