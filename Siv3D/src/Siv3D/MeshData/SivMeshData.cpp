@@ -9,14 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/MeshData.hpp>
-# include <Siv3D/Math.hpp>
-# include <Siv3D/FastMath.hpp>
-# include <Siv3D/MathConstants.hpp>
-# include <Siv3D/ScopeGuard.hpp>
-# include <Siv3D/SIMD_Float4.hpp>
-# include <Siv3D/EngineLog.hpp>
-
+# include <Siv3D/Common.hpp>
 # define PAR_SHAPES_IMPLEMENTATION
 # define PAR_SHAPES_T uint32_t
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4018)
@@ -32,6 +25,13 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# include <Siv3D/MeshData.hpp>
+# include <Siv3D/Math.hpp>
+# include <Siv3D/FastMath.hpp>
+# include <Siv3D/MathConstants.hpp>
+# include <Siv3D/ScopeGuard.hpp>
+# include <Siv3D/SIMD_Float4.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
