@@ -1583,6 +1583,7 @@
 
 # include <Siv3D/Vertex3D.hpp>
 # include <Siv3D/BasicCamera3D.hpp>
+# include <Siv3D/NormalComputation.hpp>
 # include <Siv3D/MeshData.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Graphics3D.hpp>

@@ -32,6 +32,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include "MeshUtility.hpp"
 
 namespace s3d
 {
@@ -118,16 +119,51 @@ namespace s3d
 
 			return indices;
 		}
+
+		bool ComputeNormals(const Array<Float3>& positions, const Array<TriangleIndex32>& indices, Array<Float3>& normals, const NormalComputation normalComputation)
+		{
+			const uint32* pIndices = &indices.front().i0;
+
+			const DirectX::XMFLOAT3* pPositions = static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(positions.data()));
+			
+			DirectX::XMFLOAT3* pNormals = static_cast<DirectX::XMFLOAT3*>(static_cast<void*>(normals.data()));
+
+			return MeshUtility::ComputeNormals(pIndices, indices.size(), pPositions, positions.size(), MeshUtility::CNORM_FLAGS(FromEnum(normalComputation)), pNormals);
+		}
 	}
 
 	MeshData::MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices)
 		: vertices{ std::move(_vertices) }
 		, indices{ std::move(_indices) } {}
 
-	//bool MeshData::computeNormals()
-	//{
+	bool MeshData::computeNormals(const NormalComputation normalComputation)
+	{
+		if ((not vertices) || (not indices))
+		{
+			return false;
+		}
 
-	//}
+		const Array<Float3> positions = vertices.map([](const Vertex3D& v) {return v.pos; });
+		Array<Float3> outNormals(vertices.size());
+
+		if (not detail::ComputeNormals(positions, indices, outNormals, normalComputation))
+		{
+			return false;
+		}
+
+		{
+			Vertex3D* pDst = vertices.data();
+			Vertex3D* const pDstEnd = pDst + vertices.size();
+			const Float3* pSrc = outNormals.data();
+
+			while (pDst != pDstEnd)
+			{
+				(pDst++)->normal = *pSrc++;
+			}
+		}
+
+		return true;
+	}
 
 	Sphere MeshData::computeBoundingSphere() const
 	{

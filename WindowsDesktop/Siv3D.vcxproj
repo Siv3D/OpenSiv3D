@@ -462,6 +462,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMeshConfig.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\NormalComputation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OrientedBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
@@ -1107,6 +1108,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseList.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MathParser\MathParserDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\MeshData\MeshUtility.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mesh\IMesh.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail.hpp" />
@@ -1985,6 +1987,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFileView\SivMemoryMappedFileView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\MeshUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\SivMeshData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\SivMesh.cpp" />

@@ -16,6 +16,7 @@
 # include "TriangleIndex.hpp"
 # include "Sphere.hpp"
 # include "Box.hpp"
+# include "NormalComputation.hpp"
 
 namespace s3d
 {
@@ -31,7 +32,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices);
 
-		//bool computeNormals();
+		bool computeNormals(NormalComputation normalComputation = NormalComputation::Default);
 
 		[[nodiscard]]
 		Sphere computeBoundingSphere() const;
@@ -95,6 +96,9 @@ namespace s3d
 
 		//[[nodiscard]]
 		//static MeshData FromPolygon();
+
+		//[[nodiscard]]
+		//static MeshData Grid();
 
 		[[nodiscard]]
 		static MeshData Torus(double radius, double tubeRadius, uint32 ringQuality = 24, uint32 tubeQuality = 12);
