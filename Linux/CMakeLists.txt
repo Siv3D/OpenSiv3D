@@ -190,9 +190,11 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Cursor/CCursor_Null.cpp
   ../Siv3D/src/Siv3D/Cursor/CursorFactory.cpp
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
+  ../Siv3D/src/Siv3D/Cylinder/SivCylinder.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
   ../Siv3D/src/Siv3D/Dialog/SivDialog.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
+  ../Siv3D/src/Siv3D/Disc/SivDisc.cpp
   ../Siv3D/src/Siv3D/DragDrop/DragDropFactory.cpp
   ../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp
   ../Siv3D/src/Siv3D/DrawableText/SivDrawableText.cpp

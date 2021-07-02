@@ -738,6 +738,10 @@
 
 # include <Siv3D/InfinitePlane.hpp> // [Siv3D ToDo]
 
+# include <Siv3D/Disc.hpp>
+
+# include <Siv3D/Cylinder.hpp>
+
 // レイ
 // Ray
 # include <Siv3D/Ray.hpp> // [Siv3D ToDo]

@@ -213,106 +213,334 @@ namespace s3d
 		: ScopedRenderStates3D{ depthStencilState, samplerStateInfos } {}
 
 
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+	}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, samplerState } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerState& samplerState)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldSamplerStateInfos{ { ShaderStage::Pixel, 0, Graphics3D::GetSamplerState(ShaderStage::Pixel, 0) } }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
+	}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ rasterizerState, samplerState } {}
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ rasterizerState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, depthStencilState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const DepthStencilState& depthStencilState, const SamplerState& samplerState)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+		, m_oldSamplerStateInfos{ { ShaderStage::Pixel, 0, Graphics3D::GetSamplerState(ShaderStage::Pixel, 0) } }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+		Graphics3D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
+	}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerState& samplerState)
-	//	: m_oldBlendState{ Graphics3D::GetBlendState() }
-	//	, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
-	//	, m_oldSamplerStateInfos{ { ShaderStage::Pixel, 0, Graphics3D::GetSamplerState(ShaderStage::Pixel, 0) } }
-	//{
-	//	Graphics3D::Internal::SetBlendState(blendState);
-	//	Graphics3D::Internal::SetRasterizerState(rasterizerState);
-	//	Graphics3D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
-	//}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const DepthStencilState& depthStencilState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo)
-	//	: m_oldBlendState{ Graphics3D::GetBlendState() }
-	//	, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
-	//{
-	//	Graphics3D::Internal::SetBlendState(blendState);
-	//	Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
 
-	//	const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
-	//	m_oldSamplerStateInfos.push_back(old);
-	//	Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
-	//}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const DepthStencilState& depthStencilState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos)
-	//	: m_oldBlendState{ Graphics3D::GetBlendState() }
-	//	, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
-	//{
-	//	Graphics3D::Internal::SetBlendState(blendState);
-	//	Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
 
-	//	for (const auto& samplerStateInfo : samplerStateInfos)
-	//	{
-	//		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
-	//		m_oldSamplerStateInfos.push_back(old);
-	//		Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
-	//	}
-	//}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerState& samplerState, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerState& samplerState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerState& samplerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const SamplerStateInfo& samplerStateInfo, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfo } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerStateInfo& samplerStateInfo)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfos } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerState& samplerState, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, depthStencilState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const BlendState& blendState, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerState& samplerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const SamplerStateInfo& samplerStateInfo)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState, const RasterizerState& rasterizerState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, depthStencilState } {}
 
-	//inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState, const BlendState& blendState)
-	//	: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const SamplerState& samplerState)
+		: m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+		, m_oldSamplerStateInfos{ { ShaderStage::Pixel, 0, Graphics3D::GetSamplerState(ShaderStage::Pixel, 0) } }
+	{
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+		Graphics3D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
+	}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerState& samplerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerState& samplerState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfos } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, depthStencilState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const BlendState& blendState, const SamplerState& samplerState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const BlendState& blendState, const SamplerStateInfo& samplerStateInfo)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const BlendState& blendState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfos } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, depthStencilState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, const SamplerState& samplerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, const SamplerStateInfo& samplerStateInfo)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfos } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const SamplerState& samplerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const SamplerState& samplerState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const SamplerStateInfo& samplerStateInfo, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const DepthStencilState& depthStencilState, const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfos } {}
+
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const BlendState& blendState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const DepthStencilState& depthStencilState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerState } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerState } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const BlendState& blendState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const DepthStencilState& depthStencilState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfo } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const SamplerStateInfo& samplerStateInfo, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfo } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const BlendState& blendState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, rasterizerState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const DepthStencilState& depthStencilState, const BlendState& blendState)
+		: ScopedRenderStates3D{ blendState, depthStencilState, samplerStateInfos } {}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const Array<SamplerStateInfo>& samplerStateInfos, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState)
+		: ScopedRenderStates3D{ rasterizerState, depthStencilState, samplerStateInfos } {}
+
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const SamplerState& samplerState)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+		, m_oldSamplerStateInfos{ { ShaderStage::Pixel, 0, Graphics3D::GetSamplerState(ShaderStage::Pixel, 0) } }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+		Graphics3D::Internal::SetSamplerState(ShaderStage::Pixel, 0, samplerState);
+	}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const SamplerStateInfo& samplerStateInfo)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+
+		const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+		m_oldSamplerStateInfos.push_back(old);
+		Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+	}
+
+	inline ScopedRenderStates3D::ScopedRenderStates3D(const BlendState& blendState, const RasterizerState& rasterizerState, const DepthStencilState& depthStencilState, const Array<SamplerStateInfo>& samplerStateInfos)
+		: m_oldBlendState{ Graphics3D::GetBlendState() }
+		, m_oldRasterizerState{ Graphics3D::GetRasterizerState() }
+		, m_oldDepthStencilState{ Graphics3D::GetDepthStencilState() }
+	{
+		Graphics3D::Internal::SetBlendState(blendState);
+		Graphics3D::Internal::SetRasterizerState(rasterizerState);
+		Graphics3D::Internal::SetDepthStencilState(depthStencilState);
+
+		for (const auto& samplerStateInfo : samplerStateInfos)
+		{
+			const SamplerStateInfo old{ samplerStateInfo.shaderStage, samplerStateInfo.slot, Graphics3D::GetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot) };
+			m_oldSamplerStateInfos.push_back(old);
+			Graphics3D::Internal::SetSamplerState(samplerStateInfo.shaderStage, samplerStateInfo.slot, samplerStateInfo.state);
+		}
+	}
+
+
 
 	inline ScopedRenderStates3D::ScopedRenderStates3D(ScopedRenderStates3D&& other) noexcept
 	{
