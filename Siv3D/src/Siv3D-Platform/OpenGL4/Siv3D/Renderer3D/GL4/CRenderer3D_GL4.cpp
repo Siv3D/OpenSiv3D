@@ -365,7 +365,7 @@ namespace s3d
 					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
 					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
 					m_vsConstants3D->localToWorld = localToWorld.transposed();
-					m_vsConstants3D->diffuse = diffuse;
+					m_psConstants3D->diffuseColor = diffuse;
 
 					m_vsConstants3D._update_if_dirty();
 					m_psConstants3D._update_if_dirty();

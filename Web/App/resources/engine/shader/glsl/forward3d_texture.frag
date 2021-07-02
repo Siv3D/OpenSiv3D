@@ -36,7 +36,7 @@ layout(location = 0) out vec4 FragColor;
 //
 layout(std140) uniform PSConstants3D
 {
-	vec4 g_placeholder;
+	vec4 g_diffuseColor;
 };
 
 //
@@ -46,5 +46,5 @@ void main()
 {
 	vec4 texColor = texture(Texture0, UV);
 
-	FragColor = (texColor * Color);
+	FragColor = (Color * g_diffuseColor * texColor);
 }

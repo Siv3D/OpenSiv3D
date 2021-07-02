@@ -20,11 +20,10 @@ namespace s3d
 	{
 		Mat4x4 localToWorld = Mat4x4::Identity();
 		Mat4x4 worldToProjected = Mat4x4::Identity();
-		Float4 diffuse = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	struct PSConstants3D
 	{
-		Float4 placeholder{ 1.0f, 1.0f, 1.0f, 1.0f };
+		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 }

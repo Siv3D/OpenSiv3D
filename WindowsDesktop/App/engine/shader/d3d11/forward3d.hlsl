@@ -47,12 +47,11 @@ cbuffer VSConstants3D : register(b0)
 {
 	row_major float4x4 g_localToWorld;
 	row_major float4x4 g_worldToProjected;
-	float4 g_diffuse;
 }
 
 cbuffer PSConstants3D : register(b0)
 {
-	float4 g_placeholderPS;
+	float4 g_diffuseColor;
 }
 
 //
@@ -66,7 +65,7 @@ s3d::PSInput VS(s3d::VSInput input)
 
 	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;
-	result.color			= g_diffuse;
+	result.color			= float4(1.0, 1.0, 1.0, 1.0);
 	result.uv				= input.uv;
 	result.normal			= mul(input.normal, (float3x3)g_localToWorld);
 	return result;
@@ -74,12 +73,12 @@ s3d::PSInput VS(s3d::VSInput input)
 
 float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 {
-	return input.color;
+	return (input.color * g_diffuseColor);
 }
 
 float4 PS_Texture(s3d::PSInput input) : SV_TARGET
 {
 	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
 
-	return (texColor * input.color);
+	return (input.color * g_diffuseColor * texColor);
 }

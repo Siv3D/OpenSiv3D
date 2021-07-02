@@ -29,7 +29,7 @@ layout(location = 0) out vec4 FragColor;
 //
 layout(std140) uniform PSConstants3D
 {
-	vec4 g_placeholder;
+	vec4 g_diffuseColor;
 };
 
 //
@@ -37,5 +37,5 @@ layout(std140) uniform PSConstants3D
 //
 void main()
 {
-	FragColor = Color;
+	FragColor = (Color * g_diffuseColor);
 }

@@ -57,7 +57,7 @@ namespace s3d
 			{
 				std::string log(logLen + 1, '\0');
 				::glGetShaderInfoLog(m_vertexShader, logLen, &logLen, &log[0]);
-				LOG_FAIL(U"❌ Vertex shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
+				LOG_FAIL(U"❌ Vertex shader compilation failed: " + Unicode::Widen(log));
 			}	
 
             if (status == GL_FALSE) {

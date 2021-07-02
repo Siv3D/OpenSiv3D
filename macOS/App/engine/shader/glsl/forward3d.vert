@@ -37,7 +37,6 @@ layout(std140) uniform VSConstants3D
 {
 	mat4x4 g_localToWorld;
 	mat4x4 g_worldToProjected;
-	vec4   g_diffuse;
 };
 
 //
@@ -49,7 +48,7 @@ void main()
 
 	gl_Position		= worldPosition * g_worldToProjected;
 	WorldPosition	= worldPosition.xyz;
-	Color			= g_diffuse;
+	Color			= vec4(1, 1, 1, 1);
 	UV				= VertexUV;
 	Normal			= VertexNormal * mat3x3(g_localToWorld);
 }
