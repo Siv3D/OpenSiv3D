@@ -1137,6 +1137,7 @@
 		2C68508F24B768A800B98A7F /* BinaryReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508424B768A800B98A7F /* BinaryReaderDetail.cpp */; };
 		2C68509024B768A800B98A7F /* CConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C68508624B768A800B98A7F /* CConsole.cpp */; };
 		2C68509124B768A800B98A7F /* CConsole.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C68508724B768A800B98A7F /* CConsole.hpp */; };
+		2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C695D51268EDDB400970FB3 /* par_shapes.h */; };
 		2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */; };
 		2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */; };
 		2C6C781F268895BB00B3C44A /* Renderer3DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */; };
@@ -3285,6 +3286,7 @@
 		2C6898122436064900C36C25 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
 		2C6898132436064900C36C25 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2C6898142436064900C36C25 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C695D51268EDDB400970FB3 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
 		2C6C78192688957700B3C44A /* Graphics3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics3D.ipp; sourceTree = "<group>"; };
 		2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer3DCommand.hpp; sourceTree = "<group>"; };
 		2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer3DCommand.cpp; sourceTree = "<group>"; };
@@ -5539,6 +5541,7 @@
 				2C47B47224DD97F1008D83BE /* muparser */,
 				2C794AA825C3DE2700034D81 /* nlohmann */,
 				2C834D4E248805D4006208B8 /* Oniguruma */,
+				2C695D50268EDDB400970FB3 /* par_shapes */,
 				2C636D892657A0BF00AF029F /* pffft */,
 				2C0A4D522566A855002A4B5E /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
@@ -8588,6 +8591,14 @@
 			path = fmt;
 			sourceTree = "<group>";
 		};
+		2C695D50268EDDB400970FB3 /* par_shapes */ = {
+			isa = PBXGroup;
+			children = (
+				2C695D51268EDDB400970FB3 /* par_shapes.h */,
+			);
+			path = par_shapes;
+			sourceTree = "<group>";
+		};
 		2C6C782426889B2B00B3C44A /* BasicCamera3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -11158,6 +11169,7 @@
 				2C636EAF2657F7D300AF029F /* darray.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C636E7A2657F7D300AF029F /* miniaudio.h in Headers */,
+				2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2C9FFE9425F66DCA000723D8 /* ImagePainting.hpp in Headers */,
 				2CB7D4EA2556E230007EB42E /* IMouse.hpp in Headers */,
