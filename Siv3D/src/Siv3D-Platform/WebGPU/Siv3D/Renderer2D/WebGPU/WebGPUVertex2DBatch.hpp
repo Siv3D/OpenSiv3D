@@ -18,6 +18,8 @@
 # include <Siv3D/Renderer2D/Renderer2DCommon.hpp>
 # include "WebGPURenderer2DCommand.hpp"
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class WebGPUVertex2DBatch
@@ -37,12 +39,10 @@ namespace s3d
 			}
 		};
 
-		GLuint m_vao = 0;
-
-		GLuint m_vertexBuffer = 0;
+		wgpu::Buffer m_vertexBuffer = nullptr;
 		uint32 m_vertexBufferWritePos = 0;
 
-		GLuint m_indexBuffer = 0;
+		wgpu::Buffer m_indexBuffer = nullptr;
 		uint32 m_indexBufferWritePos = 0;
 
 		Array<Vertex2D> m_vertexArray;
@@ -71,7 +71,7 @@ namespace s3d
 		~WebGPUVertex2DBatch();
 
 		[[nodiscard]]
-		bool init();
+		bool init(const wgpu::Device& device);
 
 		[[nodiscard]]
 		Vertex2DBufferPointer requestBuffer(uint16 vertexSize, uint32 indexSize, WebGPURenderer2DCommandManager& commandManager);
@@ -81,9 +81,9 @@ namespace s3d
 
 		void reset();
 
-		void setBuffers();
+		void setBuffers(const wgpu::RenderPassEncoder& pass);
 
 		[[nodiscard]]
-		BatchInfo2D updateBuffers(size_t batchIndex);
+		BatchInfo2D updateBuffers(const wgpu::Device& device, size_t batchIndex);
 	};
 }

@@ -43,20 +43,6 @@ namespace s3d
 		//	full screen triangle
 		//
 		//////////////////////////////////////////////////
-
-		if (m_sampler)
-		{
-			::glDeleteSamplers(1, &m_sampler);
-			m_sampler = 0;
-		}
-
-		if (m_vertexArray)
-		{
-			::glDeleteVertexArrays(1, &m_vertexArray);
-			m_vertexArray = 0;
-		}
-
-		CheckOpenGLError();
 	}
 
 	void CRenderer2D_WebGPU::init()
@@ -73,19 +59,19 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS2D>();
-			// m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/wgsl/sprite.vert.wgsl"), { { U"VSConstants2D", 0 } } };
 			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.vert.wgsl"), {} };
-			// if (not m_standardVS->setup())
-			// {
-			// 	throw EngineError(U"CRenderer2D_WebGPU::m_standardVS initialization failed");
-			// }
+			if (not m_standardVS->setup())
+			{
+				throw EngineError(U"CRenderer2D_WebGPU::m_standardVS initialization failed");
+			}
 		}
 
 		// 標準 PS をロード
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_WebGPU:");
 			m_standardPS = std::make_unique<WebGPUStandardPS2D>();
-			// m_standardPS->shape					= ESSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/wgsl/shape.frag.wgsl"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
@@ -97,21 +83,21 @@ namespace s3d
 		}
 
 		// Batch 管理を初期化
-		// {
-		// 	for (auto &batch : m_batches)
-		// 	{
-		// 		if (not batch.init())
-		// 		{
-		// 			throw EngineError(U"WebGPUVertex2DBatch::init() failed");
-		// 		}
-		// 	}
-		// }
+		{
+			for (auto &batch : m_batches)
+			{
+				if (not batch.init(*m_device))
+				{
+					throw EngineError(U"WebGPUVertex2DBatch::init() failed");
+				}
+			}
+		}
 
 		// バッファ作成関数を作成
-		// m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
-		// {
-		// 	return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
-		// };
+		m_bufferCreator = [this](Vertex2D::IndexType vertexSize, Vertex2D::IndexType indexSize)
+		{
+			return m_batches[m_drawCount % 2].requestBuffer(vertexSize, indexSize, m_commandManager);
+		};
 
 		// シャドウ画像を作成
 		// {
@@ -933,6 +919,10 @@ namespace s3d
 
 	void CRenderer2D_WebGPU::flush()
 	{
+	}
+
+	void CRenderer2D_WebGPU::flush(const wgpu::RenderPassEncoder& pass)
+	{
 		WebGPUVertex2DBatch& batch = m_batches[m_drawCount % 2];
 
 		ScopeGuard cleanUp = [this, &batch]()
@@ -948,7 +938,7 @@ namespace s3d
 		// pShader->usePipeline();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
-		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
+		pass.SetViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
 		Mat3x2 transform = Mat3x2::Identity();
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
@@ -980,7 +970,7 @@ namespace s3d
 				}
 			case WebGPURenderer2DCommandType::UpdateBuffers:
 				{
-					batchInfo = batch.updateBuffers(command.index);
+					batchInfo = batch.updateBuffers(*m_device, command.index);
 
 					LOG_COMMAND(U"UpdateBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
 						command.index, batchInfo.indexCount, batchInfo.startIndexLocation, batchInfo.baseVertexLocation));
@@ -994,10 +984,10 @@ namespace s3d
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfo.startIndexLocation;
-					// const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
-					constexpr Vertex2D::IndexType* pBase = 0;
+					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
 
-					::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (pBase + startIndexLocation));
+					pass.DrawIndexed(indexCount, 1, startIndexLocation, baseVertexLocation);
+
 					batchInfo.startIndexLocation += indexCount;
 
 					++m_stat.drawCalls;
@@ -1015,17 +1005,17 @@ namespace s3d
 
 					// draw null vertex buffer
 					{
-						::glBindVertexArray(m_vertexArray);
-						{
-							::glBindBuffer(GL_ARRAY_BUFFER, 0);
-							::glDrawArrays(GL_TRIANGLES, 0, draw);
+						// ::glBindVertexArray(m_vertexArray);
+						// {
+						// 	::glBindBuffer(GL_ARRAY_BUFFER, 0);
+						// 	::glDrawArrays(GL_TRIANGLES, 0, draw);
 
-							++m_stat.drawCalls;
-							m_stat.triangleCount += (draw / 3);
-						}
-						::glBindVertexArray(0);
+						// 	++m_stat.drawCalls;
+						// 	m_stat.triangleCount += (draw / 3);
+						// }
+						// ::glBindVertexArray(0);
 
-						batch.setBuffers();
+						batch.setBuffers(pass);
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
@@ -1090,7 +1080,7 @@ namespace s3d
 			case WebGPURenderer2DCommandType::ScissorRect:
 				{
 					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
-					::glScissor(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+					pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
 					break;
 				}
@@ -1111,7 +1101,7 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
-					::glViewport(rect.x, rect.y, rect.w, rect.h);
+					pass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = (transform * screenMat);
@@ -1213,7 +1203,7 @@ namespace s3d
 					{
 						const ConstantBufferDetail_WebGPU* cbd = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb.cbBase._detail());
 						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
-						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
+						// ::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
 					}
 					
@@ -1235,14 +1225,14 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
-						::glBindTexture(GL_TEXTURE_2D, 0);
+						// ::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
+						// ::glBindTexture(GL_TEXTURE_2D, 0);
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
-						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						// ::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
+						// ::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -1262,14 +1252,14 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						::glActiveTexture(GL_TEXTURE0 + slot);
-						::glBindTexture(GL_TEXTURE_2D, 0);
+						// ::glActiveTexture(GL_TEXTURE0 + slot);
+						// ::glBindTexture(GL_TEXTURE_2D, 0);
 						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						::glActiveTexture(GL_TEXTURE0 + slot);
-						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						// ::glActiveTexture(GL_TEXTURE0 + slot);
+						// ::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
 						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -1277,10 +1267,6 @@ namespace s3d
 				}
 			}
 		}
-
-		::glBindVertexArray(0);
-
-		CheckOpenGLError();
 
 		++m_drawCount;
 	}
@@ -1292,14 +1278,10 @@ namespace s3d
 			auto [s, viewRect] = pRenderer->getLetterboxComposition();
 
 			pass.SetViewport(
-				// viewRect.x,
-				// viewRect.y,
-				// viewRect.w,
-				// viewRect.h,
-				0.0f,
-				0.0f,
-				1280.0f,
-				720.0f,
+				viewRect.x,
+				viewRect.y,
+				viewRect.w,
+				viewRect.h,
 				0.0f,
 				1.0f
 			);

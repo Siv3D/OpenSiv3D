@@ -42,52 +42,36 @@ namespace s3d
 	{
 		if (m_indexBuffer)
 		{
-			::glDeleteBuffers(1, &m_indexBuffer);
-			m_indexBuffer = 0;
+			m_indexBuffer.Release();
 		}
 
 		if (m_vertexBuffer)
 		{
-			::glDeleteBuffers(1, &m_vertexBuffer);
-			m_vertexBuffer = 0;
-		}
-
-		if (m_vao)
-		{
-			::glDeleteVertexArrays(1, &m_vao);
-			m_vao = 0;
+			m_vertexBuffer.Release();
 		}
 	}
 
-	bool WebGPUVertex2DBatch::init()
+	bool WebGPUVertex2DBatch::init(const wgpu::Device& device)
 	{
-		::glGenVertexArrays(1, &m_vao);
-		::glGenBuffers(1, &m_vertexBuffer);
-		::glGenBuffers(1, &m_indexBuffer);
-
-		::glBindVertexArray(m_vao);
 		{
+			wgpu::BufferDescriptor indexBufferDescripter
 			{
-				::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-				::glBufferData(GL_ARRAY_BUFFER, (sizeof(Vertex2D) * VertexBufferSize), nullptr, GL_DYNAMIC_DRAW);
-			}
+				.size = sizeof(uint32) * InitialIndexArraySize,
+				.usage = wgpu::BufferUsage::Index
+			};
 
-			{
-				::glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 32, (const GLubyte*)0);	// Vertex2D::pos
-				::glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 32, (const GLubyte*)8);	// Vertex2D::tex
-				::glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 32, (const GLubyte*)16);	// Vertex2D::color
-
-				::glEnableVertexAttribArray(0);
-				::glEnableVertexAttribArray(1);
-				::glEnableVertexAttribArray(2);
-			}
-
-			{
-				::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(uint32) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
-			}
+			m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 		}
-		::glBindVertexArray(0);
+
+		{
+			wgpu::BufferDescriptor vertexBufferDescripter
+			{
+				.size = sizeof(Vertex2D) * InitialVertexArraySize,
+				.usage = wgpu::BufferUsage::Vertex
+			};
+
+			m_vertexBuffer = device.CreateBuffer(&vertexBufferDescripter);
+		}
 
 		return true;
 	}
@@ -152,16 +136,14 @@ namespace s3d
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
-		m_vertexBufferWritePos = 0;
 	}
 
-	void WebGPUVertex2DBatch::setBuffers()
+	void WebGPUVertex2DBatch::setBuffers(const wgpu::RenderPassEncoder& pass)
 	{
-		::glBindVertexArray(m_vao);
-		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		pass.SetVertexBuffer(0, m_vertexBuffer, m_vertexArrayWritePos);
 	}
 
-	BatchInfo2D WebGPUVertex2DBatch::updateBuffers(const size_t batchIndex)
+	BatchInfo2D WebGPUVertex2DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)
 	{
 		assert(batchIndex < m_batches.size());
 
@@ -174,9 +156,6 @@ namespace s3d
 			indexArrayReadPos += m_batches[i].indexPos;
 		}
 
-		::glBindVertexArray(m_vao);
-		::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-
 		BatchInfo2D batchInfo;
 		const auto& currentBatch = m_batches[batchIndex];
 
@@ -188,16 +167,21 @@ namespace s3d
 			if (VertexBufferSize < (m_vertexBufferWritePos + vertexSize))
 			{
 				m_vertexBufferWritePos = 0;
-				::glBufferData(GL_ARRAY_BUFFER, (sizeof(Vertex2D) * VertexBufferSize), nullptr, GL_DYNAMIC_DRAW);
+
+				wgpu::BufferDescriptor vertexBufferDescripter
+				{
+					.size = sizeof(Vertex2D) * VertexBufferSize,
+					.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::MapWrite
+				};
+				
+				m_vertexBuffer = device.CreateBuffer(&vertexBufferDescripter);
 			}
 
-			void* const pDst = ::glMapBufferRange(GL_ARRAY_BUFFER, sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			void* const pDst = m_vertexBuffer.GetMappedRange(sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize);
 			{
 				std::memcpy(pDst, pSrc, sizeof(Vertex2D) * vertexSize);
 			}
-			::glUnmapBuffer(GL_ARRAY_BUFFER);
+			m_vertexBuffer.Unmap();
 
 			batchInfo.baseVertexLocation = m_vertexBufferWritePos;
 			m_vertexBufferWritePos += vertexSize;
@@ -211,16 +195,21 @@ namespace s3d
 			if (IndexBufferSize < (m_indexBufferWritePos + indexSize))
 			{
 				m_indexBufferWritePos = 0;
-				::glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(Vertex2D::IndexType) * IndexBufferSize), nullptr, GL_DYNAMIC_DRAW);
+
+				wgpu::BufferDescriptor indexBufferDescripter
+				{
+					.size = sizeof(uint32) * InitialIndexArraySize,
+					.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::MapWrite
+				};
+
+				m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 			}
 
-			void* const pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			void* const pDst = m_indexBuffer.GetMappedRange(sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize);
 			{
 				std::memcpy(pDst, pSrc, (sizeof(Vertex2D::IndexType) * indexSize));
 			}
-			::glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+			m_indexBuffer.Unmap();
 
 			batchInfo.indexCount = indexSize;
 			batchInfo.startIndexLocation = m_indexBufferWritePos;

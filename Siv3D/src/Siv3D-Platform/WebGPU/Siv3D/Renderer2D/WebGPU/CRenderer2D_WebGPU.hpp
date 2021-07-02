@@ -263,6 +263,8 @@ namespace s3d
 
 		void flush() override;
 
+		void flush(const wgpu::RenderPassEncoder& pass);
+
 		//
 		// OpenGL
 		//
