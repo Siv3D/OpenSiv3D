@@ -45,12 +45,12 @@ namespace s3d
                 },
                 {
                     .format = wgpu::VertexFormat::Float32x2,
-                    .offset = 4,
+                    .offset = 8,
                     .shaderLocation = 1
                 },
                 {
                     .format = wgpu::VertexFormat::Float32x4,
-                    .offset = 8,
+                    .offset = 16,
                     .shaderLocation = 2
                 }
             },

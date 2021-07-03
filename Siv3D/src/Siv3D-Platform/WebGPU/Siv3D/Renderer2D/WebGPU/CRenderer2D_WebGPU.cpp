@@ -74,12 +74,12 @@ namespace s3d
 			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/wgsl/shape.frag.wgsl"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
-			// m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->texture				= ESSL{ Resource(U"engine/shader/wgsl/texture.frag.wgsl"), { { U"PSConstants2D", 0 } } };
 			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.frag.wgsl"), {} };
-			// if (not m_standardPS->setup())
-			// {
-			// 	throw EngineError(U"CRenderer2D_WebGPU::m_standardPS initialization failed");
-			// }
+			if (not m_standardPS->setup())
+			{
+				// throw EngineError(U"CRenderer2D_WebGPU::m_standardPS initialization failed");
+			}
 		}
 
 		// Batch 管理を初期化
@@ -935,8 +935,6 @@ namespace s3d
 
 		m_commandManager.flush();
 
-		// pShader->usePipeline();
-
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		pass.SetViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
@@ -963,7 +961,7 @@ namespace s3d
 				}
 			case WebGPURenderer2DCommandType::SetBuffers:
 				{
-					// do nothing
+					batch.setBuffers(pass);
 
 					LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
 					break;
@@ -978,10 +976,10 @@ namespace s3d
 				}
 			case WebGPURenderer2DCommandType::Draw:
 				{
-					pShader->usePipelineWithStandardVertexLayout(pass);
-
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
+
+					pShader->usePipelineWithStandardVertexLayout(pass);
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
@@ -995,7 +993,7 @@ namespace s3d
 					++m_stat.drawCalls;
 					m_stat.triangleCount += (indexCount / 3);
 
-					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}, baseVertexLocation = {}"_fmt(command.index, indexCount, startIndexLocation, baseVertexLocation));
 					break;
 				}
 			case WebGPURenderer2DCommandType::DrawNull:
@@ -1017,7 +1015,7 @@ namespace s3d
 						// }
 						// ::glBindVertexArray(0);
 
-						batch.setBuffers(pass);
+						// batch.setBuffers(pass);
 					}
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
@@ -1038,14 +1036,14 @@ namespace s3d
 			case WebGPURenderer2DCommandType::BlendState:
 				{
 					const auto& blendState = m_commandManager.getBlendState(command.index);
-					pRenderer->getBlendState().set(blendState);
+					// pRenderer->getBlendState().set(blendState);
 					LOG_COMMAND(U"BlendState[{}]"_fmt(command.index));
 					break;
 				}
 			case WebGPURenderer2DCommandType::RasterizerState:
 				{
 					const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
-					pRenderer->getRasterizerState().set(rasterizerState);
+					// pRenderer->getRasterizerState().set(rasterizerState);
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
@@ -1060,7 +1058,7 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::VSSamplerState0);
 					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
-					pRenderer->getSamplerState().setVS(slot, samplerState);
+					// pRenderer->getSamplerState().setVS(slot, samplerState);
 					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
@@ -1075,14 +1073,19 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::PSSamplerState0);
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
-					pRenderer->getSamplerState().setPS(slot, samplerState);
+					// pRenderer->getSamplerState().setPS(slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
 			case WebGPURenderer2DCommandType::ScissorRect:
 				{
 					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
-					pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+
+					if (scissorRect.hasArea())
+					{
+						pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+					}
+
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
 					break;
 				}
@@ -1107,8 +1110,8 @@ namespace s3d
 
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = (transform * screenMat);
-					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
 						rect.x, rect.y, rect.w, rect.h));
@@ -1136,16 +1139,16 @@ namespace s3d
 					
 					if (rt) // [カスタム RenderTexture]
 					{
-						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
+						// const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						// pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
 						
-						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+						// LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneBuffer();
+						// pRenderer->getBackBuffer().bindSceneBuffer();
 						
-						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
+						// LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
 					break;
@@ -1188,8 +1191,8 @@ namespace s3d
 				{
 					transform = m_commandManager.getCombinedTransform(command.index);
 					const Mat3x2 matrix = (transform * screenMat);
-					m_vsConstants2D->transform[0].set(matrix._11, -matrix._12, matrix._31, -matrix._32);
-					m_vsConstants2D->transform[1].set(matrix._21, -matrix._22, 0.0f, 1.0f);
+					m_vsConstants2D->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_vsConstants2D->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Transform[{}] {}"_fmt(command.index, matrix));
 					break;

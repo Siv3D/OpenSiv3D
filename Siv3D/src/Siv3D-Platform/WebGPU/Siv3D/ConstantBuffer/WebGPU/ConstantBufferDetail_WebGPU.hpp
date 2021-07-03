@@ -14,15 +14,21 @@
 # include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/ConstantBuffer/IConstantBufferDetail.hpp>
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class ConstantBufferDetail_WebGPU final : public IConstantBufferDetail
 	{
 	private:
 
+		mutable wgpu::Device m_device;
+
 		size_t m_bufferSize = 0;
 
-		mutable GLuint m_uniformBuffer = 0;
+		mutable wgpu::Buffer m_uniformBuffer = nullptr;
+
+		bool init() const;
 
 	public:
 
@@ -32,6 +38,6 @@ namespace s3d
 
 		bool update(const void* data, size_t size) override;
 
-		GLuint getHandle() const;
+		wgpu::Buffer getHandle() const;
 	};
 }

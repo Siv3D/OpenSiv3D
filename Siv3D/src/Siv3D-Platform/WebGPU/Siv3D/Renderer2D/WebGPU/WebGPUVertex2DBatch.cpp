@@ -56,8 +56,8 @@ namespace s3d
 		{
 			wgpu::BufferDescriptor indexBufferDescripter
 			{
-				.size = sizeof(uint32) * InitialIndexArraySize,
-				.usage = wgpu::BufferUsage::Index
+				.size = sizeof(Vertex2D::IndexType) * InitialIndexArraySize,
+				.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::CopyDst
 			};
 
 			m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
@@ -67,7 +67,7 @@ namespace s3d
 			wgpu::BufferDescriptor vertexBufferDescripter
 			{
 				.size = sizeof(Vertex2D) * InitialVertexArraySize,
-				.usage = wgpu::BufferUsage::Vertex
+				.usage = wgpu::BufferUsage::Vertex | wgpu::BufferUsage::CopyDst
 			};
 
 			m_vertexBuffer = device.CreateBuffer(&vertexBufferDescripter);
@@ -136,12 +136,18 @@ namespace s3d
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
+
+		m_vertexBufferWritePos = 0;
+		m_indexBufferWritePos = 0;
 	}
 
 	void WebGPUVertex2DBatch::setBuffers(const wgpu::RenderPassEncoder& pass)
 	{
-		pass.SetVertexBuffer(0, m_vertexBuffer, m_vertexArrayWritePos);
-		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32, m_indexArrayWritePos);
+		// pass.SetVertexBuffer(0, m_vertexBuffer, sizeof(Vertex2D) * m_vertexBufferWritePos);
+		// pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos);
+
+		pass.SetVertexBuffer(0, m_vertexBuffer);
+		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16);
 	}
 
 	BatchInfo2D WebGPUVertex2DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)
@@ -172,17 +178,19 @@ namespace s3d
 				wgpu::BufferDescriptor vertexBufferDescripter
 				{
 					.size = sizeof(Vertex2D) * VertexBufferSize,
-					.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::MapWrite
+					.usage = wgpu::BufferUsage::Vertex | wgpu::BufferUsage::CopyDst
 				};
 				
 				m_vertexBuffer = device.CreateBuffer(&vertexBufferDescripter);
 			}
 
-			void* const pDst = m_vertexBuffer.GetMappedRange(sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize);
-			{
-				std::memcpy(pDst, pSrc, sizeof(Vertex2D) * vertexSize);
-			}
-			m_vertexBuffer.Unmap();
+			device.GetQueue().WriteBuffer(m_vertexBuffer, sizeof(Vertex2D) * m_vertexBufferWritePos, pSrc, sizeof(Vertex2D) * vertexSize);
+
+			// void* const pDst = m_vertexBuffer.GetMappedRange(sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * vertexSize);
+			// {
+			// 	std::memcpy(pDst, pSrc, sizeof(Vertex2D) * vertexSize);
+			// }
+			// m_vertexBuffer.Unmap();
 
 			batchInfo.baseVertexLocation = m_vertexBufferWritePos;
 			m_vertexBufferWritePos += vertexSize;
@@ -199,18 +207,20 @@ namespace s3d
 
 				wgpu::BufferDescriptor indexBufferDescripter
 				{
-					.size = sizeof(uint32) * InitialIndexArraySize,
-					.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::MapWrite
+					.size = sizeof(Vertex2D::IndexType) * IndexBufferSize,
+					.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::CopyDst
 				};
 
 				m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 			}
 
-			void* const pDst = m_indexBuffer.GetMappedRange(sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize);
-			{
-				std::memcpy(pDst, pSrc, (sizeof(Vertex2D::IndexType) * indexSize));
-			}
-			m_indexBuffer.Unmap();
+			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(Vertex2D::IndexType) * indexSize);
+
+			// void* const pDst = m_indexBuffer.GetMappedRange(sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize);
+			// {
+			// 	std::memcpy(pDst, pSrc, (sizeof(Vertex2D::IndexType) * indexSize));
+			// }
+			// m_indexBuffer.Unmap();
 
 			batchInfo.indexCount = indexSize;
 			batchInfo.startIndexLocation = m_indexBufferWritePos;

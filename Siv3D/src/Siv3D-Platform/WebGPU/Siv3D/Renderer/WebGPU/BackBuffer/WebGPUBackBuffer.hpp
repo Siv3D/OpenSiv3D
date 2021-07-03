@@ -82,12 +82,6 @@ namespace s3d
 
 		wgpu::RenderPassEncoder begin(const wgpu::CommandEncoder& encoder);
 
-		void bindSceneBuffer();
-
-		void bindFrameBuffer(GLuint frameBuffer);
-
-		void unbind();
-
 		void updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass);
 
 		void capture();

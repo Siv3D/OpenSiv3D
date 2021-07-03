@@ -46,12 +46,10 @@ namespace s3d
 
 		m_uniforms = Array<wgpu::BindGroupEntry>
 		{
-			wgpu::BindGroupEntry
 			{
 				.binding = 0,
 				.sampler = m_sampler,
 			},
-			wgpu::BindGroupEntry
 			{
 				.binding = 1,
 				.textureView = m_sceneBuffers.scene->getTextureView()

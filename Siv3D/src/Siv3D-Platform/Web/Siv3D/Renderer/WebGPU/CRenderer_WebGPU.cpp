@@ -127,7 +127,7 @@ namespace s3d
 			}
 		}
 
-		// pRenderer2D->update();
+		pRenderer2D->update();
 	}
 
 	void CRenderer_WebGPU::flush()
@@ -138,8 +138,7 @@ namespace s3d
 		{
 			auto pass = m_backBuffer->begin(commamdEncoder);
 
-		// 	pRenderer2D->flush();
-		// 	m_backBuffer->unbind();
+			pRenderer2D->flush(pass);
 
 			pass.EndPass();
 		}

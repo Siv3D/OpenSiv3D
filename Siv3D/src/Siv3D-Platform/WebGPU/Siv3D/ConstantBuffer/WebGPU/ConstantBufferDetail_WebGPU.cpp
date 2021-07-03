@@ -11,45 +11,64 @@
 
 # include "ConstantBufferDetail_WebGPU.hpp"
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 
 namespace s3d
 {
 	ConstantBufferDetail_WebGPU::ConstantBufferDetail_WebGPU(const size_t size)
 		: m_bufferSize(size)
 	{
-
 	}
 
 	ConstantBufferDetail_WebGPU::~ConstantBufferDetail_WebGPU()
 	{
 		if (m_uniformBuffer)
 		{
-			::glDeleteBuffers(1, &m_uniformBuffer);
-			m_uniformBuffer = 0;
+			m_uniformBuffer.Release();
 		}
+	}
+
+	bool ConstantBufferDetail_WebGPU::init() const
+	{
+		CRenderer_WebGPU* const pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
+
+		m_device = *pRenderer->getDevice();
+
+		if (not m_device)
+		{
+			return false;
+		}
+
+		wgpu::BufferDescriptor desc
+		{
+			.size = m_bufferSize,
+			.usage = wgpu::BufferUsage::CopyDst | wgpu::BufferUsage::Uniform
+		};
+
+		m_uniformBuffer = m_device.CreateBuffer(&desc);
+
+		return true;
 	}
 
 	bool ConstantBufferDetail_WebGPU::update(const void* const data, const size_t size)
 	{
 		if (not m_uniformBuffer)
 		{
-			::glGenBuffers(1, &m_uniformBuffer);
+			init();
 		}
 
 		assert(size <= m_bufferSize);
 
-		::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBuffer);
-		::glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
-		::glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		m_device.GetQueue().WriteBuffer(m_uniformBuffer, 0, data, size);
 
 		return true;
 	}
 
-	GLuint ConstantBufferDetail_WebGPU::getHandle() const
+	wgpu::Buffer ConstantBufferDetail_WebGPU::getHandle() const
 	{
 		if (not m_uniformBuffer)
 		{
-			::glGenBuffers(1, &m_uniformBuffer);
+			init();
 		}
 
 		return m_uniformBuffer;

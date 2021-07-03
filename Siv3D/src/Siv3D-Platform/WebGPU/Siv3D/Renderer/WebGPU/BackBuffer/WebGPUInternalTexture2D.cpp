@@ -55,11 +55,11 @@ namespace s3d
 			.dimension = wgpu::TextureDimension::e2D,
 			.size = 
 			{
-				.width = 1280u, // static_cast<uint32_t>(size.x),
-				.height = 720u, // static_cast<uint32_t>(size.y),
+				.width = static_cast<uint32_t>(size.x),
+				.height = static_cast<uint32_t>(size.y),
 				.depthOrArrayLayers = 1
 			},
-			.format = wgpu::TextureFormat::RGBA8Unorm,
+			.format = wgpu::TextureFormat::BGRA8Unorm,
 			.mipLevelCount = 1,
 			.sampleCount = 1 // sampleCount
 		};

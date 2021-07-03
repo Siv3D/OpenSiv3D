@@ -94,10 +94,14 @@ namespace s3d
 
 		wgpu::RenderPipeline m_currentPipeline;
 
+		wgpu::Buffer m_currentVSConstants;
+
+		wgpu::Buffer m_currentPSConstants;
+
+		Array<wgpu::BindGroupEntry> m_currentUniforms;
+
 		// シェーダプログラム (VS と PS のペア) の管理
 		WebGPUShaderPipeline m_pipeline;
-
-		Array<wgpu::BindGroupEntry> m_uniforms;
 
 		wgpu::Device* m_device;
 	};
