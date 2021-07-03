@@ -12,6 +12,7 @@
 # include <iostream>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/System/ISystem.hpp>
+# include <Siv3D/MessageBox.hpp>
 # include <Siv3D/Error.hpp>
 
 void Main();
@@ -38,6 +39,8 @@ int main(int argc, char* argv[])
 	}
 	catch (const Error& error)
 	{
+		System::MessageBoxOK(error.what());
+		
 		std::cout << error << '\n';
 		return -1;
 	}
