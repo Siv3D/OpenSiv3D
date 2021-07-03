@@ -144,6 +144,7 @@ add_library(
 
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUInternalTexture2D.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPURenderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPUVertex2DBatch.cpp
