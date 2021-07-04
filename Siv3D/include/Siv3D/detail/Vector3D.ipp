@@ -101,7 +101,7 @@ namespace s3d
 	template <class Type>
 	inline constexpr Vector3D<Type> Vector3D<Type>::operator -(const Vector3D v) const noexcept
 	{
-		return{ (x - v.x), (y - v.y), (z + v.z) };
+		return{ (x - v.x), (y - v.y), (z - v.z) };
 	}
 
 	template <class Type>

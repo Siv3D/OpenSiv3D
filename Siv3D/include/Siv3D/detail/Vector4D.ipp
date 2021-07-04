@@ -142,7 +142,7 @@ namespace s3d
 	template <class Type>
 	inline constexpr Vector4D<Type> Vector4D<Type>::operator -(const Vector4D v) const noexcept
 	{
-		return{ (x - v.x), (y - v.y), (z + v.z), (w + v.w) };
+		return{ (x - v.x), (y - v.y), (z - v.z), (w - v.w) };
 	}
 
 	template <class Type>
