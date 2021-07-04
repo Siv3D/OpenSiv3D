@@ -52,6 +52,11 @@ namespace s3d
 
 	Mesh::~Mesh() {}
 
+	size_t Mesh::num_vertices() const
+	{
+		return SIV3D_ENGINE(Mesh)->getVertexCount(m_handle->id());
+	}
+
 	size_t Mesh::num_triangles() const
 	{
 		return (SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()) / 3);

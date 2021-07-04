@@ -87,7 +87,7 @@ namespace s3d
 
 	Ray BasicCamera3D::screenToRay(const Vec2& pos) const noexcept
 	{
-		const Vec3 rayEnd = screenToWorldPoint(pos, 0.000005f);
+		const Vec3 rayEnd = screenToWorldPoint(pos, 0.1f);
 
 		return Ray{ m_eyePosition, (rayEnd - m_eyePosition).normalized() };
 	}

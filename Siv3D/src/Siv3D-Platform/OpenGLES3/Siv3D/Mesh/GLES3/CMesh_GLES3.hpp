@@ -31,6 +31,8 @@ namespace s3d
 
 		void release(Mesh::IDType handleID) override;
 
+		size_t getVertexCount(Mesh::IDType handleID) override;
+
 		size_t getIndexCount(Mesh::IDType handleID) override;
 
 		void bindMeshToContext(Mesh::IDType handleID) override;

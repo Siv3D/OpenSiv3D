@@ -37,6 +37,9 @@ namespace s3d
 		virtual ~Mesh();
 
 		[[nodiscard]]
+		size_t num_vertices() const;
+
+		[[nodiscard]]
 		size_t num_triangles() const;
 
 		void draw(const ColorF& color = Palette::White) const;

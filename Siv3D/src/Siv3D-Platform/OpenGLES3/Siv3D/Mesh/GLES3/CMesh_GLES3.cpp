@@ -70,6 +70,11 @@ namespace s3d
 		m_meshes.erase(handleID);
 	}
 
+	size_t CMesh_GLES3::getVertexCount(const Mesh::IDType handleID)
+	{
+		return m_meshes[handleID]->getVertexCount();
+	}
+
 	size_t CMesh_GLES3::getIndexCount(const Mesh::IDType handleID)
 	{
 		return m_meshes[handleID]->getIndexCount();

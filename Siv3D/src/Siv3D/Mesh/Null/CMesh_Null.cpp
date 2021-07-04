@@ -36,7 +36,12 @@ namespace s3d
 	}
 
 	void CMesh_Null::release(Mesh::IDType) {}
-	
+		
+	size_t CMesh_Null::getVertexCount(Mesh::IDType)
+	{
+		return 0;
+	}
+
 	size_t CMesh_Null::getIndexCount(Mesh::IDType)
 	{
 		return 0;

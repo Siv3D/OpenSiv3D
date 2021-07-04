@@ -29,6 +29,8 @@ namespace s3d
 
 		virtual void release(Mesh::IDType handleID) = 0;
 
+		virtual size_t getVertexCount(Mesh::IDType handleID) = 0;
+
 		virtual size_t getIndexCount(Mesh::IDType handleID) = 0;
 
 		virtual void bindMeshToContext(Mesh::IDType handleID) = 0;
