@@ -31,9 +31,9 @@ namespace s3d
 		return m_stat;
 	}
 
-	void CRenderer3D_Null::addMesh(const Mesh&, const Mat4x4&, const Float4&) {}
+	void CRenderer3D_Null::addMesh(uint32, uint32, const Mesh&, const Mat4x4&, const Float4&) {}
 
-	void CRenderer3D_Null::addTexturedMesh(const Mesh&, const Texture&, const Mat4x4&, const Float4&) {}
+	void CRenderer3D_Null::addTexturedMesh(uint32, uint32, const Mesh&, const Texture&, const Mat4x4&, const Float4&) {}
 
 	BlendState CRenderer3D_Null::getBlendState() const
 	{

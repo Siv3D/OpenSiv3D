@@ -79,7 +79,7 @@ namespace s3d
 		return m_stat;
 	}
 
-	void CRenderer3D_GL4::addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color)
+	void CRenderer3D_GL4::addMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -93,13 +93,11 @@ namespace s3d
 
 		m_commandManager.pushMesh(mesh);
 
-		const uint32 startIndex = 0;
-		const uint32 indexCount = static_cast<uint32>(mesh.num_triangles() * 3);
 		const uint32 instanceCount = 1;
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}
 
-	void CRenderer3D_GL4::addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color)
+	void CRenderer3D_GL4::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -114,8 +112,6 @@ namespace s3d
 		m_commandManager.pushMesh(mesh);
 		m_commandManager.pushPSTexture(0, texture);
 
-		const uint32 startIndex = 0;
-		const uint32 indexCount = static_cast<uint32>(mesh.num_triangles() * 3);
 		const uint32 instanceCount = 1;
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}

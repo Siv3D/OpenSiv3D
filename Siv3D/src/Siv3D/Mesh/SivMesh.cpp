@@ -89,7 +89,11 @@ namespace s3d
 
 	void Mesh::draw(const Mat4x4& mat, const ColorF& color) const
 	{
-		SIV3D_ENGINE(Renderer3D)->addMesh(*this, mat, color.toFloat4());
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, color.toFloat4());
 	}
 
 
@@ -120,6 +124,81 @@ namespace s3d
 
 	void Mesh::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
 	{
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(*this, texture, mat, color.toFloat4());
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, color.toFloat4());
+	}
+
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Translate(x, y, z), color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Vec3& pos, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Translate(pos), color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const Quaternion& rotation, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Rotate(rotation).translated(x, y, z), color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Vec3& pos, const Quaternion& rotation, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Rotate(rotation).translated(pos), color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Mat4x4& mat, const ColorF& color) const
+	{
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, color.toFloat4());
+	}
+
+
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Texture& texture, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), texture, color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const Texture& texture, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Translate(x, y, z), texture, color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Vec3& pos, const Texture& texture, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Translate(pos), texture, color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Rotate(rotation).translated(x, y, z), texture, color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Vec3& pos, const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	{
+		drawSubset(startTriangle, triangleCount, Mat4x4::Rotate(rotation).translated(pos), texture, color);
+	}
+
+	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, color.toFloat4());
 	}
 }

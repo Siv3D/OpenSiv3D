@@ -67,5 +67,33 @@ namespace s3d
 		void draw(const Vec3& pos, const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
 
 		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, double x, double y, double z, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Vec3& pos, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, double x, double y, double z, const Quaternion& rotation, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Vec3& pos, const Quaternion& rotation, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Mat4x4& mat, const ColorF& color = Palette::White) const;
+
+
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, double x, double y, double z, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Vec3& pos, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, double x, double y, double z, const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Vec3& pos, const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
 	};
 }

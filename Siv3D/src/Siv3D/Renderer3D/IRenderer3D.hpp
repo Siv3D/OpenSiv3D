@@ -45,9 +45,9 @@ namespace s3d
 
 		virtual const Renderer3DStat& getStat() const = 0;
 
-		virtual void addMesh(const Mesh& mesh, const Mat4x4& mat, const Float4& color) = 0;
+		virtual void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color) = 0;
 
-		virtual void addTexturedMesh(const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) = 0;
+		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) = 0;
 
 
 		virtual BlendState getBlendState() const = 0;
