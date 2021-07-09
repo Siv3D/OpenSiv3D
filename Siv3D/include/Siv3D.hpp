@@ -1590,6 +1590,7 @@
 # include <Siv3D/NormalComputation.hpp>
 # include <Siv3D/MeshData.hpp>
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/DynamicMesh.hpp>
 # include <Siv3D/Graphics3D.hpp>
 # include <Siv3D/ScopedRenderStates3D.hpp>
 # include <Siv3D/ScopedViewport3D.hpp>

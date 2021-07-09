@@ -199,6 +199,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp
   ../Siv3D/src/Siv3D/DrawableText/SivDrawableText.cpp
   ../Siv3D/src/Siv3D/Duration/SivDuration.cpp
+  ../Siv3D/src/Siv3D/DynamicMesh/SivDynamicMesh.cpp
   ../Siv3D/src/Siv3D/DynamicTexture/SivDynamicTexture.cpp
   ../Siv3D/src/Siv3D/Effect/CEffect.cpp
   ../Siv3D/src/Siv3D/Effect/EffectData.cpp

@@ -95,5 +95,12 @@ namespace s3d
 
 		void drawSubset(uint32 startTriangle, uint32 triangleCount, const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 
+
+		void swap(Mesh& other) noexcept;
 	};
 }
+
+template <>
+inline void std::swap(s3d::Mesh& a, s3d::Mesh& b) noexcept;
+
+# include "detail/Mesh.ipp"

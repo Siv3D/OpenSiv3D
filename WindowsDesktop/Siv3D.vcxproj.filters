@@ -1477,6 +1477,9 @@
     <Filter Include="src\Siv3D\Cylinder">
       <UniqueIdentifier>{ae0028c0-21e0-473a-9116-2481f80e2400}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DynamicMesh">
+      <UniqueIdentifier>{c46e6bb3-86d5-43bc-ad55-46fe1b4d7182}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6489,6 +6492,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Disc.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DynamicMesh.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicMesh.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mesh.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8929,6 +8941,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Disc\SivDisc.cpp">
       <Filter>src\Siv3D\Disc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DynamicMesh\SivDynamicMesh.cpp">
+      <Filter>src\Siv3D\DynamicMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

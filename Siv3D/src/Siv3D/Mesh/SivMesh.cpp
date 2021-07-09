@@ -163,6 +163,8 @@ namespace s3d
 
 		const uint32 indexCount = (triangleCount * 3);
 
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
 		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, color.toFloat4());
 	}
 
@@ -199,6 +201,14 @@ namespace s3d
 
 		const uint32 indexCount = (triangleCount * 3);
 
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
 		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, color.toFloat4());
+	}
+
+
+	void Mesh::swap(Mesh& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
 	}
 }
