@@ -53,7 +53,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS3D>();
-			m_standardVS->forward = GLSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSConstants3D", 0 } } };
+			m_standardVS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSConstants3D", 0 } } };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError{ U"CRenderer3D_GLES3::m_standardVS initialization failed" };
