@@ -41,7 +41,7 @@ namespace s3d
             m_BufferSize = bufferSize;
 
             ::glBindBuffer(GL_PIXEL_PACK_BUFFER, m_pixelBuffer);
-            ::glBufferData(GL_PIXEL_PACK_BUFFER, bufferSize.x * bufferSize.y * 4, nullptr, GL_DYNAMIC_READ);
+            ::glBufferData(GL_PIXEL_PACK_BUFFER, bufferSize.x * bufferSize.y * 4, nullptr, GL_STREAM_READ);
         }
 
         bool hasFinishedUnpack() const
@@ -51,7 +51,7 @@ namespace s3d
                 return false;	
             }
 
-            auto waitResult = ::glClientWaitSync(m_pixelReadSync, GL_SYNC_FLUSH_COMMANDS_BIT, 0);
+            auto waitResult = ::glClientWaitSync(m_pixelReadSync, 0, 0);
             auto unpackFinished = waitResult == GL_CONDITION_SATISFIED || waitResult == GL_ALREADY_SIGNALED;
 
             return unpackFinished;
@@ -64,10 +64,10 @@ namespace s3d
             {
                 ::glPixelStorei(0x9240 /*GL_UNPACK_FLIP_Y_WEBGL*/, GL_TRUE);
                 ::glReadPixels(0, 0, m_BufferSize.x, m_BufferSize.y, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-                ::glPixelStorei(0x9240 /*GL_UNPACK_FLIP_Y_WEBGL*/, GL_FALSE);				
+                ::glPixelStorei(0x9240 /*GL_UNPACK_FLIP_Y_WEBGL*/, GL_FALSE);
             }
-            ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
             ::glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+            ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
             if (m_pixelReadSync)
             {
@@ -79,11 +79,6 @@ namespace s3d
 
         void readPixels(Image& image) const
         {
-            if (not hasFinishedUnpack())
-            {
-                return;
-            }
-
             image.resize(m_BufferSize);
           
             ::glBindBuffer(GL_PIXEL_PACK_BUFFER, m_pixelBuffer);

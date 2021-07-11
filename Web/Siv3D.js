@@ -189,6 +189,7 @@ mergeInto(LibraryManager.library, {
         const video = document.createElement("video");
         video.muted = true;
         video.autoplay = true;
+        video.playsInline = true;
 
         video.addEventListener('loadedmetadata', function onLoaded() {
             const idx = GL.getNewId(videoElements);
@@ -202,7 +203,7 @@ mergeInto(LibraryManager.library, {
         video.src = URL.createObjectURL(videoBlob);
     },
     siv3dOpenVideo__sig: "viii",
-    siv3dOpenVideo__deps: [ "$FS", "$videoElements" ],
+    siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
@@ -298,7 +299,12 @@ mergeInto(LibraryManager.library, {
 
     siv3dPlayVideo: function(idx) {
         const video = videoElements[idx];
-        video.play();
+        
+        video.play().catch(() =>
+            siv3dRegisterUserAction(function() {
+                video.play();
+            })
+        );
     },
     siv3dPlayVideo__sig: "vi",
     siv3dPlayVideo__deps: ["$videoElements"],
