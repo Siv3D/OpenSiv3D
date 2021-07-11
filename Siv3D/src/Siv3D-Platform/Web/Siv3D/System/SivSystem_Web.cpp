@@ -73,7 +73,8 @@ namespace s3d
 				(ただし、アプリを閉じたときに Main 関数の変数のデストラクタが呼ばれることもないので
 				注意が必要である)
 			*/
-			::emscripten_set_main_loop_arg(&detail::RunMainLoop, &mainLoop, 0, 1);
+			static std::function<void()> g_mainLoop = mainLoop;
+			::emscripten_set_main_loop_arg(&detail::RunMainLoop, &g_mainLoop, 0, 1);
 		}
 	}
 }

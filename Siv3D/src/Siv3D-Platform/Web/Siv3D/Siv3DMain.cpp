@@ -12,6 +12,7 @@
 # include <iostream>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/System/ISystem.hpp>
+# include <Siv3D/MessageBox.hpp>
 # include <Siv3D/Error.hpp>
 
 void Main();
@@ -19,7 +20,27 @@ void Main();
 namespace s3d::detail::init
 {
 	void InitCommandLines(int argc, char** argv);
+
 	void InitModulePath(const char* arg);
+}
+
+extern "C" int InitSiv3D()
+{
+	using namespace s3d;
+
+	try
+	{
+		SIV3D_ENGINE(System)->init();
+	}
+	catch (const Error& error)
+	{
+		System::MessageBoxOK(error.what());
+		
+		std::cout << error << '\n';
+		return -1;
+	}
+
+	return 0;
 }
 
 int main(int argc, char* argv[])
@@ -32,13 +53,8 @@ int main(int argc, char* argv[])
 
 	Siv3DEngine engine;
 	
-	try
+	if (InitSiv3D() != 0)
 	{
-		SIV3D_ENGINE(System)->init();
-	}
-	catch (const Error& error)
-	{
-		std::cout << error << '\n';
 		return -1;
 	}
 
