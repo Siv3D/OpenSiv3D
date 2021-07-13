@@ -57,6 +57,7 @@ namespace s3d
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_D3D11:");
 			m_standardVS = std::make_unique<D3D11StandardVS3D>();
 			m_standardVS->forward = HLSL{ Resource(U"engine/shader/d3d11/forward3d.vs") };
+			m_standardVS->line3D = HLSL{ Resource(U"engine/shader/d3d11/line3d.vs") };
 			
 			if (not m_standardVS->setup())
 			{
@@ -70,6 +71,7 @@ namespace s3d
 			m_standardPS = std::make_unique<D3D11StandardPS3D>();
 			m_standardPS->forwardShape = HLSL{ Resource(U"engine/shader/d3d11/forward3d_shape.ps") };
 			m_standardPS->forwardTexture = HLSL{ Resource(U"engine/shader/d3d11/forward3d_texture.ps") };
+			m_standardPS->line3D = HLSL{ Resource(U"engine/shader/d3d11/line3d.ps") };
 			
 			if (not m_standardPS->setup())
 			{
@@ -87,7 +89,21 @@ namespace s3d
 			};
 
 			const Blob& binary = m_standardVS->forward.getBinary();
-			if (FAILED(m_device->CreateInputLayout(layout, static_cast<UINT>(std::size(layout)), binary.data(), binary.size(), &m_inputLayout)))
+			if (FAILED(m_device->CreateInputLayout(layout, static_cast<UINT>(std::size(layout)), binary.data(), binary.size(), &m_inputLayoutDefault)))
+			{
+				throw EngineError{ U"ID3D11Device::CreateInputLayout() failed" };
+			}
+		}
+
+		// Line3D 用 InputLayout を作成
+		{
+			const D3D11_INPUT_ELEMENT_DESC layout[2] = {
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,		0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR"  ,  0, DXGI_FORMAT_R32G32B32A32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+
+			const Blob& binary = m_standardVS->line3D.getBinary();
+			if (FAILED(m_device->CreateInputLayout(layout, static_cast<UINT>(std::size(layout)), binary.data(), binary.size(), &m_inputLayoutLine3D)))
 			{
 				throw EngineError{ U"ID3D11Device::CreateInputLayout() failed" };
 			}
@@ -135,6 +151,12 @@ namespace s3d
 		const uint32 instanceCount = 1;
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}
+
+	void CRenderer3D_D3D11::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
+	{
+
+	}
+
 
 	BlendState CRenderer3D_D3D11::getBlendState() const
 	{
@@ -351,7 +373,7 @@ namespace s3d
 			return;
 		}
 
-		m_context->IASetInputLayout(m_inputLayout.Get());
+		m_context->IASetInputLayout(m_inputLayoutDefault.Get());
 		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
 		pShader->setConstantBufferPS(0, m_psConstants3D.base());
 

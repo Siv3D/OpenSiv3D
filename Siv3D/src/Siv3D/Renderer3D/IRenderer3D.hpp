@@ -49,6 +49,8 @@ namespace s3d
 
 		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) = 0;
 
+		virtual void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) = 0;
+
 
 		virtual BlendState getBlendState() const = 0;
 

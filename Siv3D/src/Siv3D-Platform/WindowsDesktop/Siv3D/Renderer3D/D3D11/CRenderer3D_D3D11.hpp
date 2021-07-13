@@ -29,14 +29,17 @@ namespace s3d
 	struct D3D11StandardVS3D
 	{
 		VertexShader forward;
+		VertexShader line3D;
 
 		VertexShader::IDType forwardID;
+		VertexShader::IDType line3DID;
 
 		bool setup()
 		{
-			const bool result = !!forward;
+			const bool result = forward && line3D;
 
-			forwardID = forward.id();
+			forwardID	= forward.id();
+			line3DID	= line3D.id();
 
 			return result;
 		}
@@ -46,16 +49,19 @@ namespace s3d
 	{
 		PixelShader forwardShape;
 		PixelShader forwardTexture;
+		PixelShader line3D;
 
 		PixelShader::IDType forwardShapeID;
 		PixelShader::IDType forwardTextureID;
+		PixelShader::IDType line3DID;
 
 		bool setup()
 		{
-			const bool result = forwardShape && forwardTexture;
+			const bool result = forwardShape && forwardTexture && line3D;
 
 			forwardShapeID = forwardShape.id();
 			forwardTextureID = forwardTexture.id();
+			line3DID = line3D.id();
 
 			return result;
 		}
@@ -76,6 +82,8 @@ namespace s3d
 		void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color) override;
 
 		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) override;
+
+		void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) override;
 
 
 		BlendState getBlendState() const override;
@@ -148,7 +156,8 @@ namespace s3d
 		ConstantBuffer<VSConstants3D> m_vsConstants3D;
 		ConstantBuffer<PSConstants3D> m_psConstants3D;
 
-		ComPtr<ID3D11InputLayout> m_inputLayout;
+		ComPtr<ID3D11InputLayout> m_inputLayoutDefault;
+		ComPtr<ID3D11InputLayout> m_inputLayoutLine3D;
 
 		D3D11Renderer3DCommandManager m_commandManager;
 

@@ -116,6 +116,12 @@ namespace s3d
 		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
 	}
 
+	void CRenderer3D_GL4::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
+	{
+		// [Siv3D ToDo]
+	}
+
+
 	BlendState CRenderer3D_GL4::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();

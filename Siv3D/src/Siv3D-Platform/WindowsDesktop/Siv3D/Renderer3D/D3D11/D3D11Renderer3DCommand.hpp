@@ -119,6 +119,8 @@ namespace s3d
 
 		PSTexture7,
 
+		InputLayout,
+
 		SetMesh,
 
 		SIZE_,
@@ -151,6 +153,13 @@ namespace s3d
 		ConstantBufferBase cbBase;
 	};
 
+	enum class D3D11InputLayout3D
+	{
+		Mesh,
+
+		Line3D,
+	};
+
 	class D3D11Renderer3DCommandManager
 	{
 	private:
@@ -180,6 +189,7 @@ namespace s3d
 		Array<D3D11ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
+		Array<D3D11InputLayout3D> m_inputLayouts	= { D3D11InputLayout3D::Mesh };
 		Array<Mesh::IDType> m_meshes;
 
 		// current
@@ -197,6 +207,7 @@ namespace s3d
 		Mat4x4 m_currentCameraTransform				= Mat4x4::Identity();
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
+		D3D11InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
 		Mesh::IDType m_currentMesh;
 
 		// reserved

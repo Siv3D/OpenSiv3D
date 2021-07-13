@@ -149,6 +149,12 @@ namespace s3d
 			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Texture")
 				.save(U"engine/shader/d3d11/forward3d_texture.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Vertex, U"VS")
+				.save(U"engine/shader/d3d11/line3d.vs");
+			
+			compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Pixel, U"PS")
+				.save(U"engine/shader/d3d11/line3d.ps");
+
 			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}
 
