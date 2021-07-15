@@ -12,6 +12,9 @@
 # include <Siv3D/Line3D.hpp>
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Graphics2D.hpp>
+# include <Siv3D/Renderer3D/IRenderer3D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+
 
 namespace s3d
 {
@@ -45,5 +48,17 @@ namespace s3d
 		const Line3D line = toScreen(vp);
 
 		return{ line.begin.xy(), line.end.xy() };
+	}
+
+	void Line3D::draw(const ColorF& color) const
+	{
+		const Float4 rgba = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { rgba, rgba });
+	}
+
+	void Line3D::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { colorBegin.toFloat4(), colorEnd.toFloat4() });
 	}
 }

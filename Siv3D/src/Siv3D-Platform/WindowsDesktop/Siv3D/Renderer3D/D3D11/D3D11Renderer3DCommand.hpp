@@ -26,6 +26,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
+# include <Siv3D/Renderer3D/VertexLine3D.hpp>
 
 namespace s3d
 {
@@ -33,7 +34,11 @@ namespace s3d
 	{
 		Null,
 
+		UpdateLine3DBuffers,
+
 		Draw,
+
+		DrawLine3D,
 
 		BlendState,
 
@@ -79,6 +84,8 @@ namespace s3d
 
 		SetRT,
 
+		InputLayout,
+
 		SetVS,
 
 		SetPS,
@@ -119,8 +126,6 @@ namespace s3d
 
 		PSTexture7,
 
-		InputLayout,
-
 		SetMesh,
 
 		SIZE_,
@@ -141,6 +146,11 @@ namespace s3d
 		uint32 indexCount = 0;
 
 		uint32 instanceCount = 0;
+	};
+
+	struct D3D11DrawLine3DCommand
+	{
+		uint32 indexCount = 0;
 	};
 
 	struct D3D11ConstantBuffer3DCommand
@@ -170,6 +180,7 @@ namespace s3d
 
 		// buffer
 		Array<D3D11Draw3DCommand> m_draws;
+		Array<D3D11DrawLine3DCommand> m_drawLine3Ds;
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<Float4> m_drawDiffuses;
@@ -193,6 +204,7 @@ namespace s3d
 		Array<Mesh::IDType> m_meshes;
 
 		// current
+		D3D11DrawLine3DCommand m_currentDrawLine3D;
 		BlendState m_currentBlendState				= m_blendStates.back();
 		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
 		DepthStencilState m_currentDepthStencilState	= m_depthStencilStates.back();
@@ -228,10 +240,15 @@ namespace s3d
 
 		const Array<D3D11Renderer3DCommand>& getCommands() const noexcept;
 
+		void pushUpdateLine3DBuffers(uint32 batchIndex);
+
 		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
 		const D3D11Draw3DCommand& getDraw(uint32 index) const noexcept;
 		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
 		const Float4& getDrawDiffuse(uint32 index) const noexcept;
+
+		void pushDrawLine3D(VertexLine3D::IndexType indexCount);
+		const D3D11DrawLine3DCommand& getDrawLine3D(uint32 index) const noexcept;
 
 		//void pushNullVertices(uint32 count);
 		//uint32 getNullDraw(uint32 index) const noexcept;
@@ -268,6 +285,10 @@ namespace s3d
 		//const std::array<Float4, 3>& getSDFParameters(uint32 index) const;
 		//const std::array<Float4, 3>& getCurrentSDFParameters() const;
 
+		void pushInputLayout(D3D11InputLayout3D state);
+		const D3D11InputLayout3D& getInputLayout(uint32 index) const;
+		const D3D11InputLayout3D& getCurrentInputLayout() const;
+
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);
 		const VertexShader::IDType& getVS(uint32 index) const;
@@ -298,6 +319,7 @@ namespace s3d
 		const Optional<RenderTexture>& getRT(uint32 index) const;
 		const Optional<RenderTexture>& getCurrentRT() const;
 
+		void pushMeshUnbind();
 		void pushMesh(const Mesh& mesh);
 		const Mesh::IDType& getMesh(uint32 index) const;
 		const Mesh::IDType& getCurrentMesh() const;

@@ -983,6 +983,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommand.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Vertex2DBatch.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\CRenderer3D_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Line3DBatch.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Renderer3DCommand.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\BackBuffer\D3D11BackBuffer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\BackBuffer\D3D11InternalTexture2D.hpp" />
@@ -1152,6 +1153,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\IRenderer3D.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\Null\CRenderer3D_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\Renderer3DCommon.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\VertexLine3D.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer\IRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer\Null\CRenderer_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Resource\IResource.hpp" />
@@ -1750,6 +1752,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\D3D11\D3D11Vertex2DBatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer2D\Renderer2DFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\CRenderer3D_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Line3DBatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Renderer3DCommand.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\Renderer3DFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer\D3D11\BackBuffer\D3D11BackBuffer.cpp" />

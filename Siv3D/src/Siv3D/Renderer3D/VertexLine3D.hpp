@@ -12,27 +12,25 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/PointVector.hpp>
-# include <Siv3D/Mat4x4.hpp>
+# include <Siv3D/Vertex3D.hpp>
 
 namespace s3d
 {
-	struct VSConstants3D
+	struct VertexLine3D
 	{
-		Mat4x4 localToWorld = Mat4x4::Identity();
-		Mat4x4 worldToProjected = Mat4x4::Identity();
+		Float3 pos;
+
+		Float4 color;
+
+		using IndexType = Vertex3D::IndexType;
 	};
 
-	struct PSConstants3D
+	struct VertexLine3DBufferPointer
 	{
-		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
-	};
+		VertexLine3D* pVertex;
 
-	struct BatchInfoLine3D
-	{
-		uint32 indexCount = 0;
+		VertexLine3D::IndexType* pIndex;
 
-		uint32 startIndexLocation = 0;
-
-		uint32 baseVertexLocation = 0;
+		VertexLine3D::IndexType indexOffset;
 	};
 }

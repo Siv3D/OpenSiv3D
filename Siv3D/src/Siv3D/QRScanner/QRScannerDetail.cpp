@@ -124,7 +124,7 @@ namespace s3d
 			if (not err)
 			{
 				content.version = qdata.version;
-				content.ec = ToEnum<QRErrorCorrection>(qdata.ecc_level);
+				content.ec = ToEnum<QRErrorCorrection>(static_cast<uint8>(qdata.ecc_level));
 
 				const void* pData = static_cast<const void*>(qdata.payload);
 				const std::string_view view(static_cast<const char*>(pData), qdata.payload_len);

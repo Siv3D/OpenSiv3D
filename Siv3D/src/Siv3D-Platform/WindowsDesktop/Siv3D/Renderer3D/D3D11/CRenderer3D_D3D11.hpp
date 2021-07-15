@@ -18,6 +18,7 @@
 # include <Siv3D/Renderer3D/Renderer3DCommon.hpp>
 # include <Siv3D/Common/D3D11.hpp>
 # include "D3D11Renderer3DCommand.hpp"
+# include "D3D11Line3DBatch.hpp"
 
 namespace s3d
 {
@@ -160,6 +161,8 @@ namespace s3d
 		ComPtr<ID3D11InputLayout> m_inputLayoutLine3D;
 
 		D3D11Renderer3DCommandManager m_commandManager;
+
+		D3D11Line3DBatch m_line3DBatch;
 
 		Optional<VertexShader> m_currentCustomVS;
 		Optional<PixelShader> m_currentCustomPS;

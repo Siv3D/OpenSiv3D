@@ -50,6 +50,10 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Line asLine() const noexcept;
+
+		void draw(const ColorF& color = Palette::White) const;
+
+		void draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
 	};
 }
 

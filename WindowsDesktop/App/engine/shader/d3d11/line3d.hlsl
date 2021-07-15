@@ -54,7 +54,7 @@ s3d::PSInput VS(s3d::VSInput input)
 {
 	s3d::PSInput result;
 
-	const float4 worldPosition = mul(input.position, g_localToWorld);
+	const float4 worldPosition = input.position;
 
 	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;

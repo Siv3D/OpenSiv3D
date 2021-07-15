@@ -108,6 +108,11 @@ namespace s3d
 				throw EngineError{ U"ID3D11Device::CreateInputLayout() failed" };
 			}
 		}
+
+		if (not m_line3DBatch.init(m_device, m_context))
+		{
+			throw EngineError{ U"D3D11Line3DBatch::init() failed" };
+		}
 	}
 
 	const Renderer3DStat& CRenderer3D_D3D11::getStat() const
@@ -127,6 +132,7 @@ namespace s3d
 			m_commandManager.pushStandardPS(m_standardPS->forwardShapeID);
 		}
 
+		m_commandManager.pushInputLayout(D3D11InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 
 		const uint32 instanceCount = 1;
@@ -145,6 +151,7 @@ namespace s3d
 			m_commandManager.pushStandardPS(m_standardPS->forwardTextureID);
 		}
 
+		m_commandManager.pushInputLayout(D3D11InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 		m_commandManager.pushPSTexture(0, texture);
 
@@ -154,7 +161,21 @@ namespace s3d
 
 	void CRenderer3D_D3D11::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
 	{
+		constexpr VertexLine3D::IndexType vertexSize = 2, indexSize = 2;
+		auto [pVertex, pIndex, indexOffset] = m_line3DBatch.requestBuffer(vertexSize, indexSize, m_commandManager);
 
+		pVertex[0].pos = begin;
+		pVertex[1].pos = end;
+
+		pVertex[0].color = colors[0];
+		pVertex[1].color = colors[1];
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = (indexOffset + 1);
+
+		m_commandManager.pushMeshUnbind();
+		m_commandManager.pushInputLayout(D3D11InputLayout3D::Line3D);
+		m_commandManager.pushDrawLine3D(indexSize);
 	}
 
 
@@ -361,6 +382,7 @@ namespace s3d
 	{
 		ScopeGuard cleanUp = [this]()
 		{
+			m_line3DBatch.reset();
 			m_commandManager.reset();
 			m_currentCustomVS.reset();
 			m_currentCustomPS.reset();
@@ -373,7 +395,6 @@ namespace s3d
 			return;
 		}
 
-		m_context->IASetInputLayout(m_inputLayoutDefault.Get());
 		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
 		pShader->setConstantBufferPS(0, m_psConstants3D.base());
 
@@ -388,6 +409,10 @@ namespace s3d
 
 		pRenderer->getBackBuffer().bindSceneToContext(true);
 
+		BatchInfoLine3D batchInfoLine3D;
+		VertexShader::IDType vsID = m_standardVS->forwardID;
+		PixelShader::IDType psID = m_standardPS->forwardShapeID;
+
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
 
@@ -398,6 +423,14 @@ namespace s3d
 			case D3D11Renderer3DCommandType::Null:
 				{
 					LOG_COMMAND(U"Null");
+					break;
+				}
+			case D3D11Renderer3DCommandType::UpdateLine3DBuffers:
+				{
+					batchInfoLine3D = m_line3DBatch.updateBuffers(command.index);
+
+					LOG_COMMAND(U"UpdateLine3DBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+						command.index, batchInfoLine3D.indexCount, batchInfoLine3D.startIndexLocation, batchInfoLine3D.baseVertexLocation));
 					break;
 				}
 			case D3D11Renderer3DCommandType::Draw:
@@ -422,6 +455,39 @@ namespace s3d
 					//m_stat.triangleCount += (indexCount / 3);
 
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					break;
+				}
+			case D3D11Renderer3DCommandType::DrawLine3D:
+				{
+					m_line3DBatch.setBuffers();
+
+					pShader->setVS(m_standardVS->line3DID);
+					pShader->setPS(m_standardPS->line3DID);
+
+					m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+					const D3D11DrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = batchInfoLine3D.startIndexLocation;
+					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
+					assert(indexCount != 0);
+
+					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+					batchInfoLine3D.startIndexLocation += indexCount;
+
+					m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+				
+					if (vsID != VertexShader::IDType::InvalidValue())
+					{
+						pShader->setVS(vsID);
+					}
+
+					if (psID != PixelShader::IDType::InvalidValue())
+					{
+						pShader->setPS(psID);
+					}
+
+					LOG_COMMAND(U"DrawLine3D[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
 				}
 			case D3D11Renderer3DCommandType::BlendState:
@@ -532,9 +598,25 @@ namespace s3d
 
 					break;
 				}
+			case D3D11Renderer3DCommandType::InputLayout:
+				{
+					const auto& inputLayout = m_commandManager.getInputLayout(command.index);
+					
+					if (inputLayout == D3D11InputLayout3D::Mesh)
+					{
+						m_context->IASetInputLayout(m_inputLayoutDefault.Get());
+					}
+					else // D3D11InputLayout3D::Line3D
+					{
+						m_context->IASetInputLayout(m_inputLayoutLine3D.Get());
+					}
+
+					LOG_COMMAND(U"InputLayout[{}] {}"_fmt(command.index, FromEnum(inputLayout)));
+					break;
+				}
 			case D3D11Renderer3DCommandType::SetVS:
 				{
-					const auto& vsID = m_commandManager.getVS(command.index);
+					vsID = m_commandManager.getVS(command.index);
 
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
@@ -551,7 +633,7 @@ namespace s3d
 				}
 			case D3D11Renderer3DCommandType::SetPS:
 				{
-					const auto& psID = m_commandManager.getPS(command.index);
+					psID = m_commandManager.getPS(command.index);
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{
