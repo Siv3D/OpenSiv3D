@@ -152,6 +152,8 @@ namespace s3d
 
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
+
+		m_vertexBufferWritePos = 0;
 	}
 
 	void GLES3Line3DBatch::setBuffers()

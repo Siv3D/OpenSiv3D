@@ -433,10 +433,10 @@ namespace s3d
 					const GLES3DrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfoLine3D.startIndexLocation;
-					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
+					// const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
 					constexpr VertexLine3D::IndexType* pBase = 0;
 
-					::glDrawElementsBaseVertex(GL_LINES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation), baseVertexLocation);
+					::glDrawElements(GL_LINES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation));
 					batchInfoLine3D.startIndexLocation += indexCount;
 
 					if (vsID != VertexShader::IDType::InvalidValue())
