@@ -905,7 +905,7 @@ namespace s3d
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
-		String replaced_if(Fty f, const value_type newChar) const&&;
+		String replaced_if(Fty f, const value_type newChar) const&;
 
 		/// <summary>
 		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
