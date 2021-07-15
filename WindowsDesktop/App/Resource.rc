@@ -6,6 +6,7 @@
 //
 //////////////////////////////////////////////////////
 DefineResource(100, ICON, icon.ico)
+
 //
 //	Shaders
 //
@@ -57,14 +58,18 @@ Resource(engine/shader/glsl/line3d.vert)
 Resource(engine/shader/glsl/forward3d_shape.frag)
 Resource(engine/shader/glsl/forward3d_texture.frag)
 Resource(engine/shader/glsl/line3d.frag)
+
 //
 //	Fonts
 //
 Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
+//Resource(engine/font/noto-cjk/NotoSansJP-Regular.otf.zstdcmp)
+
 //
 //	Monochrome Emoji
 //
 Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
+
 //
 //	Box-shadow Textures
 //
@@ -80,6 +85,7 @@ Resource(engine/texture/box-shadow/8.png)
 //	Siv3D Engine Optional Resources (Can be removed if not required)
 //
 //////////////////////////////////////////////////////
+
 //
 //	Fonts
 //
@@ -90,16 +96,19 @@ Resource(engine/font/mplus/mplus-1p-medium.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-bold.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-heavy.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-black.ttf.zstdcmp)
+
 //
 //	Color Emoji
 //
 Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
+
 //
 //	Icons
 //
 Resource(engine/font/fontawesome/fontawesome-brands.otf.zstdcmp)
 Resource(engine/font/fontawesome/fontawesome-solid.otf.zstdcmp)
 Resource(engine/font/materialdesignicons/materialdesignicons-webfont.ttf.zstdcmp)
+
 //
 //	Sound Font
 //

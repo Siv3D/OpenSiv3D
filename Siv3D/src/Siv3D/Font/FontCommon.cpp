@@ -28,9 +28,10 @@ namespace s3d
 			bool required = false;
 		};
 
-		static constexpr std::array<EngineFontResource, 13> EngineFontResources =
+		static constexpr std::array<EngineFontResource, 14> EngineFontResources =
 		{ {
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, true },
+			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, false },
+			{ U"noto-cjk/NotoSansJP-Regular.otf"_sv, false },
 			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, true },
 			{ U"noto-emoji/NotoColorEmoji.ttf"_sv, false },
 			{ U"mplus/mplus-1p-thin.ttf"_sv, false },
@@ -94,34 +95,44 @@ namespace s3d
 			return true;
 		}
 
-		static const std::array<TypefaceInfo, 17> EngineTypefaceList =
+		static const std::array<Array<TypefaceInfo>, 17> EngineTypefaceList =
 		{ {
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 },
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 },
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 2 },
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 3 },
-			{ U"noto-cjk/NotoSansCJK-Regular.ttc", 4 },
-			{ U"noto-emoji/NotoEmoji-Regular.ttf", 0 },
-			{ U"noto-emoji/NotoColorEmoji.ttf", 0 },
-			{ U"mplus/mplus-1p-thin.ttf", 0 },
-			{ U"mplus/mplus-1p-light.ttf", 0},
-			{ U"mplus/mplus-1p-regular.ttf", 0 },
-			{ U"mplus/mplus-1p-medium.ttf", 0 },
-			{ U"mplus/mplus-1p-bold.ttf", 0 },
-			{ U"mplus/mplus-1p-heavy.ttf", 0 },
-			{ U"mplus/mplus-1p-black.ttf", 0 },
-			{ U"fontawesome/fontawesome-solid.otf", 0 },
-			{ U"fontawesome/fontawesome-brands.otf", 0 },
-			{ U"materialdesignicons/materialdesignicons-webfont.ttf", 0 },
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 2 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 3 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 4 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-emoji/NotoEmoji-Regular.ttf", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-emoji/NotoColorEmoji.ttf", 0 }},
+			{{ U"mplus/mplus-1p-thin.ttf", 0 }},
+			{{ U"mplus/mplus-1p-light.ttf", 0}},
+			{{ U"mplus/mplus-1p-regular.ttf", 0 }},
+			{{ U"mplus/mplus-1p-medium.ttf", 0 }},
+			{{ U"mplus/mplus-1p-bold.ttf", 0 }},
+			{{ U"mplus/mplus-1p-heavy.ttf", 0 }},
+			{{ U"mplus/mplus-1p-black.ttf", 0 }},
+			{{ U"fontawesome/fontawesome-solid.otf", 0 }},
+			{{ U"fontawesome/fontawesome-brands.otf", 0 }},
+			{{ U"materialdesignicons/materialdesignicons-webfont.ttf", 0 }},
 		} };
 
 		TypefaceInfo GetTypefaceInfo(const Typeface typeface)
 		{
-			const FilePath fontCacheDirectory = CacheDirectory::Engine() + U"font/";
+			const FilePath fontCacheDirectory = (CacheDirectory::Engine() + U"font/");
 
-			TypefaceInfo info = EngineTypefaceList[FromEnum(typeface)];
+			TypefaceInfo info;
 
-			info.path.insert(0, fontCacheDirectory);
+			for (const auto& font : EngineTypefaceList[FromEnum(typeface)])
+			{
+				info = font;
+
+				info.path.insert(0, fontCacheDirectory);
+
+				if (FileSystem::Exists(info.path))
+				{
+					break;
+				}
+			}
 
 			return info;
 		}
