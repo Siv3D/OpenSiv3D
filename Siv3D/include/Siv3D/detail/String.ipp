@@ -1180,7 +1180,7 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
-	inline String String::replaced_if(Fty f, const value_type newChar)&
+	inline String String::replaced_if(Fty f, const value_type newChar)&&
 	{
 		replace_if(f, newChar);
 

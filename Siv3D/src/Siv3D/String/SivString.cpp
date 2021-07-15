@@ -84,7 +84,7 @@ namespace s3d
 	String String::expandTabs(const size_t tabSize) const
 	{
 		const size_t tabCount = count(value_type('\t'));
-		const size_t new_size = m_string.length() + (tabCount * tabSize);
+		const size_t new_size = m_string.length() + (tabCount * (tabSize - 1));
 
 		String result(new_size, value_type('\0'));
 
