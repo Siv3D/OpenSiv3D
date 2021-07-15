@@ -26,6 +26,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
+# include <Siv3D/Renderer3D/VertexLine3D.hpp>
 
 namespace s3d
 {
@@ -33,7 +34,11 @@ namespace s3d
 	{
 		Null,
 
+		UpdateLine3DBuffers,
+
 		Draw,
+
+		DrawLine3D,
 
 		BlendState,
 
@@ -78,6 +83,8 @@ namespace s3d
 		Viewport,
 
 		SetRT,
+
+		InputLayout,
 
 		SetVS,
 
@@ -147,6 +154,11 @@ namespace s3d
 		uint32 instanceCount = 0;
 	};
 
+	struct GLES3DrawLine3DCommand
+	{
+		uint32 indexCount = 0;
+	};
+
 	struct GLES3ConstantBuffer3DCommand
 	{
 		ShaderStage stage	= ShaderStage::Vertex;
@@ -155,6 +167,13 @@ namespace s3d
 		uint32 num_vectors	= 0;
 		uint32 cbBaseIndex	= 0;
 		ConstantBufferBase cbBase;
+	};
+
+	enum class GLES3InputLayout3D
+	{
+		Mesh,
+
+		Line3D,
 	};
 
 	class GLES3Renderer3DCommandManager
@@ -167,6 +186,7 @@ namespace s3d
 
 		// buffer
 		Array<GLES3Draw3DCommand> m_draws;
+		Array<GLES3DrawLine3DCommand> m_drawLine3Ds;
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<Float4> m_drawDiffuses;
@@ -186,9 +206,11 @@ namespace s3d
 		Array<GLES3ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
+		Array<GLES3InputLayout3D> m_inputLayouts	= { GLES3InputLayout3D::Mesh };
 		Array<Mesh::IDType> m_meshes;
 
 		// current
+		GLES3DrawLine3DCommand m_currentDrawLine3D;
 		BlendState m_currentBlendState				= m_blendStates.back();
 		RasterizerState m_currentRasterizerState	= m_rasterizerStates.back();
 		DepthStencilState m_currentDepthStencilState	= m_depthStencilStates.back();
@@ -203,6 +225,7 @@ namespace s3d
 		Mat4x4 m_currentCameraTransform				= Mat4x4::Identity();
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
+		GLES3InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
 		Mesh::IDType m_currentMesh;
 
 		// reserved
@@ -223,10 +246,15 @@ namespace s3d
 
 		const Array<GLES3Renderer3DCommand>& getCommands() const noexcept;
 
+		void pushUpdateLine3DBuffers(uint32 batchIndex);
+
 		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
 		const GLES3Draw3DCommand& getDraw(uint32 index) const noexcept;
 		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
 		const Float4& getDrawDiffuse(uint32 index) const noexcept;
+
+		void pushDrawLine3D(VertexLine3D::IndexType indexCount);
+		const GLES3DrawLine3DCommand& getDrawLine3D(uint32 index) const noexcept;
 
 		//void pushNullVertices(uint32 count);
 		//uint32 getNullDraw(uint32 index) const noexcept;
@@ -263,6 +291,10 @@ namespace s3d
 		//const std::array<Float4, 3>& getSDFParameters(uint32 index) const;
 		//const std::array<Float4, 3>& getCurrentSDFParameters() const;
 
+		void pushInputLayout(GLES3InputLayout3D state);
+		const GLES3InputLayout3D& getInputLayout(uint32 index) const;
+		const GLES3InputLayout3D& getCurrentInputLayout() const;
+
 		void pushStandardVS(const VertexShader::IDType& id);
 		void pushCustomVS(const VertexShader& vs);
 		const VertexShader::IDType& getVS(uint32 index) const;
@@ -293,6 +325,7 @@ namespace s3d
 		const Optional<RenderTexture>& getRT(uint32 index) const;
 		const Optional<RenderTexture>& getCurrentRT() const;
 
+		void pushMeshUnbind();
 		void pushMesh(const Mesh& mesh);
 		const Mesh::IDType& getMesh(uint32 index) const;
 		const Mesh::IDType& getCurrentMesh() const;
