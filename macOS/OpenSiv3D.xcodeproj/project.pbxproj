@@ -1114,6 +1114,10 @@
 		2C6391052539BE6E0030F18E /* MetalPixelShader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6391042539BE6E0030F18E /* MetalPixelShader.mm */; };
 		2C63910A2539CF830030F18E /* MetalSamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6391082539CF820030F18E /* MetalSamplerState.hpp */; };
 		2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */; };
+		2C63A9C326A02B7B00D13501 /* SivDynamicMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9C226A02B7B00D13501 /* SivDynamicMesh.cpp */; };
+		2C63A9C526A02BAE00D13501 /* VertexLine3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9C426A02BAE00D13501 /* VertexLine3D.hpp */; };
+		2C63A9C826A02BD000D13501 /* GL4Line3DBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */; };
+		2C63A9C926A02BD000D13501 /* GL4Line3DBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
@@ -3241,6 +3245,13 @@
 		2C6391042539BE6E0030F18E /* MetalPixelShader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalPixelShader.mm; sourceTree = "<group>"; };
 		2C6391082539CF820030F18E /* MetalSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalSamplerState.hpp; sourceTree = "<group>"; };
 		2C63910B2539D0BE0030F18E /* MetalSamplerState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSamplerState.mm; sourceTree = "<group>"; };
+		2C63A9BE26A02B4200D13501 /* DynamicMesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicMesh.hpp; sourceTree = "<group>"; };
+		2C63A9BF26A02B6600D13501 /* DynamicMesh.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicMesh.ipp; sourceTree = "<group>"; };
+		2C63A9C026A02B6600D13501 /* Mesh.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.ipp; sourceTree = "<group>"; };
+		2C63A9C226A02B7B00D13501 /* SivDynamicMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDynamicMesh.cpp; sourceTree = "<group>"; };
+		2C63A9C426A02BAE00D13501 /* VertexLine3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexLine3D.hpp; sourceTree = "<group>"; };
+		2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Line3DBatch.cpp; sourceTree = "<group>"; };
+		2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Line3DBatch.hpp; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
@@ -4278,6 +4289,7 @@
 				2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */,
 				2C063D492661426000368BEE /* Distribution.ipp */,
 				2C063D5A2661426000368BEE /* Duration.ipp */,
+				2C63A9BF26A02B6600D13501 /* DynamicMesh.ipp */,
 				2C66842526836E4B00F7089A /* DynamicTexture.ipp */,
 				2C063D922661426000368BEE /* Easing.ipp */,
 				2CED6E4F2671C9D0000FE5B8 /* EasingAB.ipp */,
@@ -4354,6 +4366,7 @@
 				2C063D8A2661426000368BEE /* MemoryReader.ipp */,
 				2C063D692661426000368BEE /* MemoryViewReader.ipp */,
 				2C063D632661426000368BEE /* MemoryWriter.ipp */,
+				2C63A9C026A02B6600D13501 /* Mesh.ipp */,
 				2C063DCA2661426000368BEE /* MicrosecClock.ipp */,
 				2C063D732661426000368BEE /* MillisecClock.ipp */,
 				2C66842626836E4B00F7089A /* MSRenderTexture.ipp */,
@@ -5387,8 +5400,10 @@
 			isa = PBXGroup;
 			children = (
 				2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */,
+				2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */,
 				2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */,
 				2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */,
+				2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */,
 				2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */,
 			);
 			path = GL4;
@@ -5399,6 +5414,7 @@
 			children = (
 				2C36F840267F93D700691B1C /* IRenderer3D.hpp */,
 				2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */,
+				2C63A9C426A02BAE00D13501 /* VertexLine3D.hpp */,
 				2C36F83D267F93D700691B1C /* Null */,
 			);
 			path = Renderer3D;
@@ -5960,6 +5976,7 @@
 				2CFB7DCF262AF33C00169B97 /* DragDrop */,
 				2C48C14925D41C9D00A93CE3 /* DrawableText */,
 				2C47B2E224DD9789008D83BE /* Duration */,
+				2C63A9C126A02B7B00D13501 /* DynamicMesh */,
 				2CAAA8B625E7FD4A00C014D7 /* DynamicTexture */,
 				2C794B9125C5A61900034D81 /* Effect */,
 				2C53C33625613B740072831A /* Ellipse */,
@@ -8405,6 +8422,14 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2C63A9C126A02B7B00D13501 /* DynamicMesh */ = {
+			isa = PBXGroup;
+			children = (
+				2C63A9C226A02B7B00D13501 /* SivDynamicMesh.cpp */,
+			);
+			path = DynamicMesh;
+			sourceTree = "<group>";
+		};
 		2C65277A26561B7D003427EB /* rtaudio */ = {
 			isa = PBXGroup;
 			children = (
@@ -9357,6 +9382,7 @@
 				2CFB7DC7262AF31000169B97 /* DroppedFilePath.hpp */,
 				2CFB7DC9262AF31000169B97 /* DroppedText.hpp */,
 				2CAAA89725E7FD0300C014D7 /* Duration.hpp */,
+				2C63A9BE26A02B4200D13501 /* DynamicMesh.hpp */,
 				2CAAA88725E7FD0300C014D7 /* DynamicTexture.hpp */,
 				2CAAA84F25E7FD0300C014D7 /* Easing.hpp */,
 				2CED6E4E2671C9BD000FE5B8 /* EasingAB.hpp */,
@@ -10796,6 +10822,7 @@
 				2C48BF0125CFB8C500A93CE3 /* Bitmap.h in Headers */,
 				2CDD4F48260A3F7100A51D68 /* P2BodyDetail.hpp in Headers */,
 				2C636E562657F7D300AF029F /* soloud_c.h in Headers */,
+				2C63A9C926A02BD000D13501 /* GL4Line3DBatch.hpp in Headers */,
 				2C636E622657F7D300AF029F /* soloud_wavstream.h in Headers */,
 				2C48BF0925CFB8C500A93CE3 /* msdfgen.h in Headers */,
 				2C48BEDA25CFB8C500A93CE3 /* edge-segments.h in Headers */,
@@ -11322,6 +11349,7 @@
 				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
 				2C4397922536163000F6AECD /* GL4PixelShader.hpp in Headers */,
 				2C43C8C125C837F100D6D613 /* ftbitmap.h in Headers */,
+				2C63A9C526A02BAE00D13501 /* VertexLine3D.hpp in Headers */,
 				2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */,
 				2C2AA39826009C74003F3EBC /* b2_wheel_joint.h in Headers */,
 				2CBEBCB72629D15F0077DDBF /* quirc.h in Headers */,
@@ -11786,6 +11814,7 @@
 				2C27A9ED256E359400756617 /* GL4RasterizerState.cpp in Sources */,
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
 				2C533799264F5AA200CE0F1B /* zstd_lazy.c in Sources */,
+				2C63A9C326A02B7B00D13501 /* SivDynamicMesh.cpp in Sources */,
 				2C8CA3A72615863C00BABD2D /* PPMEncoder.cpp in Sources */,
 				2C6C782926889B9C00B3C44A /* SivGraphics3D.cpp in Sources */,
 				2C2AA37426009C74003F3EBC /* b2_prismatic_joint.cpp in Sources */,
@@ -12312,6 +12341,7 @@
 				2C47B36724DD9789008D83BE /* SivScene.cpp in Sources */,
 				2C5C0F22266E6991009C430B /* CAsset.cpp in Sources */,
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,
+				2C63A9C826A02BD000D13501 /* GL4Line3DBatch.cpp in Sources */,
 				2C47B6F224EAC8D9008D83BE /* GL4InternalTexture2D.cpp in Sources */,
 				2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */,
 				2C4A287225EA612400FEACE4 /* SivBuffer2D.cpp in Sources */,
