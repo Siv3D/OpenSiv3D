@@ -99,8 +99,11 @@ namespace s3d
 		//[[nodiscard]]
 		//static MeshData FromPolygon();
 
-		//[[nodiscard]]
-		//static MeshData Grid();
+		[[nodiscard]]
+		static MeshData Grid(Float2 sizeXZ, int32 gridX, int32 gridZ, Float2 uvScale = { 1.0f, 1.0f }, Float2 uvOffset = { 0.0f, 0.0f });
+
+		[[nodiscard]]
+		static MeshData Grid(Float3 center, Float2 sizeXZ, int32 gridX, int32 gridZ, Float2 uvScale = { 1.0f, 1.0f }, Float2 uvOffset = { 0.0f, 0.0f });
 
 		[[nodiscard]]
 		static MeshData Torus(double radius, double tubeRadius, uint32 ringQuality = 24, uint32 tubeQuality = 12);

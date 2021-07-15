@@ -656,6 +656,76 @@ namespace s3d
 		return{ std::move(vertices), std::move(indices) };
 	}
 
+	MeshData MeshData::Grid(const Float2 sizeXZ, const int32 gridX, const int32 gridZ, const Float2 uvScale, const Float2 uvOffset)
+	{
+		return Grid(Float3::Zero(), sizeXZ, gridX, gridZ, uvScale, uvOffset);
+	}
+
+	MeshData MeshData::Grid(const Float3 center, const Float2 sizeXZ, int32 gridX, int32 gridZ, const Float2 uvScale, const Float2 uvOffset)
+	{
+		if ((not InRange(gridX, 1, 1024))
+			|| (not InRange(gridZ, 1, 1024)))
+		{
+			return{};
+		}
+
+		const size_t vertexCount = (gridX + 1) * (gridZ + 1);
+		Array<Vertex3D> vertices(vertexCount);
+		{
+			Vertex3D* pDst = vertices.data();
+
+			for (int32 iz = 0; iz < (gridZ + 1); ++iz)
+			{
+				const float z = -(iz - gridZ * 0.5f) / gridZ * sizeXZ.y;
+
+				for (int32 ix = 0; ix < (gridX + 1); ++ix)
+				{
+					const float x = (ix - gridX * 0.5f) / gridX * sizeXZ.x;
+					pDst->pos.set(x, 0.0f, z);
+					pDst->normal.set(0.0f, 1.0f, 0.0f);
+					pDst->tex.set(
+						static_cast<float>(ix) / gridX * uvScale.x + uvOffset.x,
+						static_cast<float>(iz) / gridZ * uvScale.y + uvOffset.y);
+					++pDst;
+				}
+			}
+
+			if (not center.isZero())
+			{
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += center;
+				}
+			}
+		}
+
+		const size_t triangleCount = (gridX * gridZ * 2);
+		Array<TriangleIndex32> indices(triangleCount);
+		{
+			TriangleIndex32* pDst = indices.data();
+
+			for (int32 iz = 0; iz < gridZ; ++iz)
+			{
+				for (int32 ix = 0; ix < gridX; ++ix)
+				{
+					const Vertex3D::IndexType baseIndex = (iz * (gridX + 1) + ix);
+
+					pDst->i0 = baseIndex;
+					pDst->i1 = (baseIndex + 1);
+					pDst->i2 = (baseIndex + (gridX + 1));
+					++pDst;
+
+					pDst->i0 = (baseIndex + (gridX + 1));
+					pDst->i1 = (baseIndex + 1);
+					pDst->i2 = (baseIndex + (gridX + 2));
+					++pDst;
+				}
+			}
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
 	MeshData MeshData::Torus(const double radius, const double tubeRadius, const uint32 ringQuality, const uint32 tubeQuality)
 	{
 		return Torus(Float3::Zero(), radius, tubeRadius, ringQuality, tubeQuality);
