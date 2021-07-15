@@ -165,6 +165,21 @@ namespace s3d
 		return true;
 	}
 
+	MeshData& MeshData::flipTriangles() noexcept
+	{
+		for (auto& vertex : vertices)
+		{
+			vertex.normal = -vertex.normal;
+		}
+
+		for (auto& triangle : indices)
+		{
+			std::swap(triangle.i1, triangle.i2);
+		}
+
+		return *this;
+	}
+
 	Sphere MeshData::computeBoundingSphere() const
 	{
 		if (not vertices)

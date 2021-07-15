@@ -34,6 +34,8 @@ namespace s3d
 
 		bool computeNormals(NormalComputation normalComputation = NormalComputation::Default);
 
+		MeshData& flipTriangles() noexcept;
+
 		[[nodiscard]]
 		s3d::Sphere computeBoundingSphere() const;
 
@@ -107,10 +109,10 @@ namespace s3d
 		static MeshData Torus(Float3 center, double radius, double tubeRadius, uint32 ringQuality = 24, uint32 tubeQuality = 12);
 
 		[[nodiscard]]
-		static MeshData Hemisphere(double r, uint32 phiQuality, uint32 thetaQuality = 12);
+		static MeshData Hemisphere(double r, uint32 phiQuality = 24, uint32 thetaQuality = 12);
 
 		[[nodiscard]]
-		static MeshData Hemisphere(Float3 center, double r, uint32 phiQuality, uint32 thetaQuality = 12);
+		static MeshData Hemisphere(Float3 center, double r, uint32 phiQuality = 24, uint32 thetaQuality = 12);
 
 		[[nodiscard]]
 		static MeshData Tetrahedron(double size);
