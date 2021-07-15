@@ -921,7 +921,7 @@ namespace s3d
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
-		String replaced_if(Fty f, const value_type newChar)&;
+		String replaced_if(Fty f, const value_type newChar)&&;
 
 		/// <summary>
 		/// 文字列を反転します。
