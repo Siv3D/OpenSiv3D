@@ -18,7 +18,7 @@ namespace s3d
 {
 	struct VertexLine3D
 	{
-		Float3 pos;
+		Float4 pos;
 
 		Float4 color;
 

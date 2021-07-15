@@ -6507,6 +6507,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer3D\VertexLine3D.hpp">
       <Filter>src\Siv3D\Renderer3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\GL4Line3DBatch.hpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8953,6 +8956,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11\D3D11Line3DBatch.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Renderer3D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4\GL4Line3DBatch.cpp">
+      <Filter>src\Siv3D-Platform\OpenGL4\Siv3D\Renderer3D\GL4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

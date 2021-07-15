@@ -54,6 +54,8 @@ namespace s3d
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_GL4:");
 			m_standardVS = std::make_unique<GL4StandardVS3D>();
 			m_standardVS->forward = GLSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSConstants3D", 0 } } };
+			m_standardVS->line3D = GLSL{ Resource(U"engine/shader/glsl/line3d.vert"), { { U"VSConstants3D", 0 } } };
+
 			if (not m_standardVS->setup())
 			{
 				throw EngineError{ U"CRenderer3D_GL4::m_standardVS initialization failed" };
@@ -66,11 +68,17 @@ namespace s3d
 			m_standardPS = std::make_unique<GL4StandardPS3D>();
 			m_standardPS->forwardShape = GLSL{ Resource(U"engine/shader/glsl/forward3d_shape.frag"), { { U"PSConstants3D", 0 } } };
 			m_standardPS->forwardTexture = GLSL{ Resource(U"engine/shader/glsl/forward3d_texture.frag"), { { U"PSConstants3D", 0 } } };
+			m_standardPS->line3D = GLSL{ Resource(U"engine/shader/glsl/line3d.frag"), { { U"PSConstants3D", 0 } } };
 
 			if (not m_standardPS->setup())
 			{
 				throw EngineError{ U"CRenderer3D_GL4::m_standardPS initialization failed" };
 			}
+		}
+
+		if (not m_line3DBatch.init())
+		{
+			throw EngineError{ U"GL4Line3DBatch::init() failed" };
 		}
 	}
 
@@ -91,6 +99,7 @@ namespace s3d
 			m_commandManager.pushStandardPS(m_standardPS->forwardShapeID);
 		}
 
+		m_commandManager.pushInputLayout(GL4InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 
 		const uint32 instanceCount = 1;
@@ -109,6 +118,7 @@ namespace s3d
 			m_commandManager.pushStandardPS(m_standardPS->forwardTextureID);
 		}
 
+		m_commandManager.pushInputLayout(GL4InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 		m_commandManager.pushPSTexture(0, texture);
 
@@ -118,7 +128,21 @@ namespace s3d
 
 	void CRenderer3D_GL4::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
 	{
-		// [Siv3D ToDo]
+		constexpr VertexLine3D::IndexType vertexSize = 2, indexSize = 2;
+		auto [pVertex, pIndex, indexOffset] = m_line3DBatch.requestBuffer(vertexSize, indexSize, m_commandManager);
+
+		pVertex[0].pos = Float4{ begin, 1.0f };
+		pVertex[1].pos = Float4{ end, 1.0f };
+
+		pVertex[0].color = colors[0];
+		pVertex[1].color = colors[1];
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = (indexOffset + 1);
+
+		m_commandManager.pushMeshUnbind();
+		m_commandManager.pushInputLayout(GL4InputLayout3D::Line3D);
+		m_commandManager.pushDrawLine3D(indexSize);
 	}
 
 
@@ -325,6 +349,7 @@ namespace s3d
 	{
 		ScopeGuard cleanUp = [this]()
 		{
+			m_line3DBatch.reset();
 			m_commandManager.reset();
 			m_currentCustomVS.reset();
 			m_currentCustomPS.reset();
@@ -345,6 +370,10 @@ namespace s3d
 		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
 		pShader->setConstantBufferPS(0, m_psConstants3D.base());
 
+		BatchInfoLine3D batchInfoLine3D;
+		VertexShader::IDType vsID = m_standardVS->forwardID;
+		PixelShader::IDType psID = m_standardPS->forwardShapeID;
+
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
 
@@ -355,6 +384,14 @@ namespace s3d
 			case GL4Renderer3DCommandType::Null:
 				{
 					LOG_COMMAND(U"Null");
+					break;
+				}
+			case GL4Renderer3DCommandType::UpdateLine3DBuffers:
+				{
+					batchInfoLine3D = m_line3DBatch.updateBuffers(command.index);
+
+					LOG_COMMAND(U"UpdateLine3DBuffers[{}] BatchInfo(indexCount = {}, startIndexLocation = {}, baseVertexLocation = {})"_fmt(
+						command.index, batchInfoLine3D.indexCount, batchInfoLine3D.startIndexLocation, batchInfoLine3D.baseVertexLocation));
 					break;
 				}
 			case GL4Renderer3DCommandType::Draw:
@@ -381,6 +418,38 @@ namespace s3d
 					//m_stat.triangleCount += (indexCount / 3);
 
 					LOG_COMMAND(U"Draw[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
+					break;
+				}
+			case GL4Renderer3DCommandType::DrawLine3D:
+				{
+					m_line3DBatch.setBuffers();
+
+					pShader->setVS(m_standardVS->line3DID);
+					pShader->setPS(m_standardPS->line3DID);
+
+					m_vsConstants3D._update_if_dirty();
+					m_psConstants3D._update_if_dirty();
+
+					const GL4DrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
+					const uint32 indexCount = draw.indexCount;
+					const uint32 startIndexLocation = batchInfoLine3D.startIndexLocation;
+					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
+					constexpr VertexLine3D::IndexType* pBase = 0;
+
+					::glDrawElementsBaseVertex(GL_LINES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation), baseVertexLocation);
+					batchInfoLine3D.startIndexLocation += indexCount;
+
+					if (vsID != VertexShader::IDType::InvalidValue())
+					{
+						pShader->setVS(vsID);
+					}
+
+					if (psID != PixelShader::IDType::InvalidValue())
+					{
+						pShader->setPS(psID);
+					}
+
+					LOG_COMMAND(U"DrawLine3D[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;
 				}
 			case GL4Renderer3DCommandType::BlendState:
@@ -484,9 +553,18 @@ namespace s3d
 
 					break;
 				}
+			case GL4Renderer3DCommandType::InputLayout:
+				{
+					[[maybe_unused]] const auto& inputLayout = m_commandManager.getInputLayout(command.index);
+
+					// do nothing
+
+					LOG_COMMAND(U"InputLayout[{}] {}"_fmt(command.index, FromEnum(inputLayout)));
+					break;
+				}
 			case GL4Renderer3DCommandType::SetVS:
 				{
-					const auto& vsID = m_commandManager.getVS(command.index);
+					vsID = m_commandManager.getVS(command.index);
 
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
@@ -503,7 +581,7 @@ namespace s3d
 				}
 			case GL4Renderer3DCommandType::SetPS:
 				{
-					const auto& psID = m_commandManager.getPS(command.index);
+					psID = m_commandManager.getPS(command.index);
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{

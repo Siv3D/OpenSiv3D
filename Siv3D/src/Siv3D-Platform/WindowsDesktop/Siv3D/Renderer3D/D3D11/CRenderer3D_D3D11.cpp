@@ -98,7 +98,7 @@ namespace s3d
 		// Line3D 用 InputLayout を作成
 		{
 			const D3D11_INPUT_ELEMENT_DESC layout[2] = {
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,		0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "COLOR"  ,  0, DXGI_FORMAT_R32G32B32A32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
@@ -164,8 +164,8 @@ namespace s3d
 		constexpr VertexLine3D::IndexType vertexSize = 2, indexSize = 2;
 		auto [pVertex, pIndex, indexOffset] = m_line3DBatch.requestBuffer(vertexSize, indexSize, m_commandManager);
 
-		pVertex[0].pos = begin;
-		pVertex[1].pos = end;
+		pVertex[0].pos = Float4{ begin, 1.0f };
+		pVertex[1].pos = Float4{ end, 1.0f };
 
 		pVertex[0].color = colors[0];
 		pVertex[1].color = colors[1];
@@ -472,6 +472,8 @@ namespace s3d
 					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
 					assert(indexCount != 0);
 
+					m_vsConstants3D._update_if_dirty();
+					m_psConstants3D._update_if_dirty();
 					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 					batchInfoLine3D.startIndexLocation += indexCount;
 

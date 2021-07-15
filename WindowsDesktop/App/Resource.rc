@@ -53,8 +53,10 @@ Resource(engine/shader/glsl/fullscreen_triangle.frag)
 Resource(engine/shader/glsl/copy.frag)
 Resource(engine/shader/glsl/gaussian_blur_9.frag)
 Resource(engine/shader/glsl/forward3d.vert)
+Resource(engine/shader/glsl/line3d.vert)
 Resource(engine/shader/glsl/forward3d_shape.frag)
 Resource(engine/shader/glsl/forward3d_texture.frag)
+Resource(engine/shader/glsl/line3d.frag)
 //
 //	Fonts
 //

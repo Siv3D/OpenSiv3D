@@ -93,7 +93,7 @@ namespace s3d
 			}
 
 			const size_t newVertexArraySize = detail::CalculateNewArraySize(m_vertexArray.size(), vertexArrayWritePosTarget);
-			LOG_TRACE(U"ℹ️ Resized D3D11SpriteBatch::m_vertexArray (size: {} -> {})"_fmt(m_vertexArray.size(), newVertexArraySize));
+			LOG_TRACE(U"ℹ️ Resized D3D11Line3DBatch::m_vertexArray (size: {} -> {})"_fmt(m_vertexArray.size(), newVertexArraySize));
 			m_vertexArray.resize(newVertexArraySize);
 		}
 
@@ -107,7 +107,7 @@ namespace s3d
 			}
 
 			const size_t newIndexArraySize = detail::CalculateNewArraySize(m_indexArray.size(), indexArrayWritePosTarget);
-			LOG_TRACE(U"ℹ️ Resized D3D11SpriteBatch::m_indexArray (size: {} -> {})"_fmt(m_indexArray.size(), newIndexArraySize));
+			LOG_TRACE(U"ℹ️ Resized D3D11Line3DBatch::m_indexArray (size: {} -> {})"_fmt(m_indexArray.size(), newIndexArraySize));
 			m_indexArray.resize(newIndexArraySize);
 		}
 
