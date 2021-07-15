@@ -45,7 +45,7 @@ namespace s3d
                         std::forward<_Fp>(__f),
                         std::forward<_Args>(__args)...));
 
-            auto intervalID = ::emscripten_set_interval(&PseudoThreadProxy<_Gp>, interval.count(), __p.get());
+            auto intervalID = ::emscripten_set_interval(&PseudoThreadProxyVoid<_Gp>, interval.count(), __p.get());
             
             if (intervalID > 0) 
             {
@@ -71,7 +71,7 @@ namespace s3d
             if (intervalID > 0) 
             {
                 std::get<0>(*__p)->nativeHandle = intervalID;
-                std::get<0>(*__p)->terminateThread = &terminateThread;
+                std::get<0>(*__p)->terminateThread = terminateThread;
                 __p.release();
             }
         }
@@ -145,7 +145,33 @@ namespace s3d
         }
 
         template <class _Fp>
-        static void PseudoThreadProxy(void* __vp)
+        static bool PseudoThreadProxy(void* __vp)
+        {
+            // _Fp = tuple< unique_ptr<__thread_struct>, Functor, Args...>
+            std::unique_ptr<_Fp> __p(static_cast<_Fp*>(__vp));
+            using _Index = typename std::make_index_sequence<std::tuple_size<_Fp>::value - 2>;
+
+            auto threadContext = std::get<0>(*__p);
+
+            if (threadContext->aborted)
+            {
+                threadContext->terminateThread(threadContext->nativeHandle);
+                return false;            
+            }
+            
+            if (bool shouldContinue = PseudoThreadExecute(*__p.get(), _Index()); not shouldContinue) 
+            {
+                threadContext->terminateThread(threadContext->nativeHandle);
+                threadContext->nativeHandle = 0;
+                return false;          
+            }
+
+            __p.release();
+            return true;
+        }
+
+        template <class _Fp>
+        static void PseudoThreadProxyVoid(void* __vp)
         {
             // _Fp = tuple< unique_ptr<__thread_struct>, Functor, Args...>
             std::unique_ptr<_Fp> __p(static_cast<_Fp*>(__vp));
