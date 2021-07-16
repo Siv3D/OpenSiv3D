@@ -45,8 +45,8 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 
-add_library(
-  OpenSiv3D_Web STATIC
+
+set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Siv3DMain.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Audio/NullSoundTouchFunctions.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/AudioCodec/AudioCodecFactory.cpp
@@ -588,7 +588,21 @@ add_library(
   ../Siv3D/src/Siv3D/ZIPReader/SivZIPReader.cpp
   ../Siv3D/src/Siv3D/ZIPReader/ZIPReaderDetail.cpp
   ../Siv3D/src/Siv3D/Zlib/SivZlib.cpp
+)
 
+if (${SIV3D_ENABLE_SHARED_LIB})
+
+include(cmake/BuildThirdParty.cmake)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
+set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
+
+else ()
+
+set(SIV3D_SOURCES
+  ${SIV3D_SOURCES}
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
   ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
@@ -959,15 +973,21 @@ add_library(
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/divsufsort.c
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
-  )
+)
+
+endif ()
+
+add_library(
+  OpenSiv3D_Web STATIC
+  ${SIV3D_SOURCES}
+)
 
 set_target_properties(OpenSiv3D_Web 
   PROPERTIES 
     OUTPUT_NAME "Siv3D"
 )
 
-target_include_directories(
-  OpenSiv3D_Web
+include_directories(
   PUBLIC
   ../Siv3D/include
   ../Siv3D/include/ThirdParty
