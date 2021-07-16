@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/MeshData.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
+# include <functional>
 
 namespace s3d
 {
@@ -87,12 +88,6 @@ namespace s3d
 			_In_ size_t trailingUnused,
 			_In_reads_opt_(nVerts) const uint32_t* vertexRemap,
 			_Out_writes_bytes_((nVerts - trailingUnused)* stride) void* vbout) noexcept;
-
-		bool ReorderIB(
-			_Inout_updates_all_(nFaces * 3) uint32_t* ib, _In_ size_t nFaces,
-			_In_reads_(nFaces) const uint32_t* faceRemap) noexcept;
-
-
 
 		//
 		//
