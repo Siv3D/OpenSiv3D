@@ -36,6 +36,8 @@ namespace s3d
 
 		MeshData& flipTriangles() noexcept;
 
+		MeshData& weld(std::function<bool(const Vertex3D&, const Vertex3D&)> weldTest);
+
 		[[nodiscard]]
 		s3d::Sphere computeBoundingSphere() const;
 

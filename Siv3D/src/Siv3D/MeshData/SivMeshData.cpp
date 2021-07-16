@@ -32,6 +32,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/HashTable.hpp>
 # include "MeshUtility.hpp"
 
 namespace s3d
@@ -69,31 +70,143 @@ namespace s3d
 				const float* pSrcNormal = mesh.normals;
 				const float* pSrcTex = mesh.tcoords;
 
-				if (pSrcTex)
+				if (pSrcNormal)
 				{
-					for (int32 i = 0; i < mesh.npoints; ++i)
+					if (pSrcTex)
 					{
-						pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
-						pDst->normal.set(pSrcNormal[0], pSrcNormal[2], -pSrcNormal[1]);
-						pDst->tex.set(pSrcTex[0], pSrcTex[1]);
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
+							pDst->normal.set(pSrcNormal[0], pSrcNormal[2], -pSrcNormal[1]);
+							pDst->tex.set(pSrcTex[0], pSrcTex[1]);
 
-						++pDst;
-						pSrcPoints += 3;
-						pSrcNormal += 3;
-						pSrcTex += 2;
+							++pDst;
+							pSrcPoints += 3;
+							pSrcNormal += 3;
+							pSrcTex += 2;
+						}
+					}
+					else
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
+							pDst->normal.set(pSrcNormal[0], pSrcNormal[2], -pSrcNormal[1]);
+							pDst->tex.set(0.0f, 0.0f);
+
+							++pDst;
+							pSrcPoints += 3;
+							pSrcNormal += 3;
+						}
 					}
 				}
 				else
 				{
-					for (int32 i = 0; i < mesh.npoints; ++i)
+					if (pSrcTex)
 					{
-						pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
-						pDst->normal.set(pSrcNormal[0], pSrcNormal[2], -pSrcNormal[1]);
-						pDst->tex.set(0.0f, 0.0f);
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
+							pDst->normal.set(0.0f, 1.0f, 0.0f);
+							pDst->tex.set(pSrcTex[0], pSrcTex[1]);
 
-						++pDst;
-						pSrcPoints += 3;
-						pSrcNormal += 3;
+							++pDst;
+							pSrcPoints += 3;
+							pSrcTex += 2;
+						}
+					}
+					else
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[2], -pSrcPoints[1]);
+							pDst->normal.set(0.0f, 1.0f, 0.0f);
+							pDst->tex.set(0.0f, 0.0f);
+
+							++pDst;
+							pSrcPoints += 3;
+						}
+					}
+				}
+			}
+
+			if (not center.isZero())
+			{
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += center;
+				}
+			}
+
+			return vertices;
+		}
+
+		[[nodiscard]]
+		Array<Vertex3D> ToVertices2(const par_shapes_mesh& mesh, const Float3 center)
+		{
+			Array<Vertex3D> vertices(mesh.npoints);
+			{
+				Vertex3D* pDst = vertices.data();
+				const float* pSrcPoints = mesh.points;
+				const float* pSrcNormal = mesh.normals;
+				const float* pSrcTex = mesh.tcoords;
+
+				if (pSrcNormal)
+				{
+					if (pSrcTex)
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[1], pSrcPoints[2]);
+							pDst->normal.set(pSrcNormal[0], pSrcNormal[1], pSrcNormal[2]);
+							pDst->tex.set(pSrcTex[0], pSrcTex[1]);
+
+							++pDst;
+							pSrcPoints += 3;
+							pSrcNormal += 3;
+							pSrcTex += 2;
+						}
+					}
+					else
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[1], pSrcPoints[2]);
+							pDst->normal.set(pSrcNormal[0], pSrcNormal[1], pSrcNormal[2]);
+							pDst->tex.set(0.0f, 0.0f);
+
+							++pDst;
+							pSrcPoints += 3;
+							pSrcNormal += 3;
+						}
+					}
+				}
+				else
+				{
+					if (pSrcTex)
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[1], pSrcPoints[2]);
+							pDst->normal.set(0.0f, 1.0f, 0.0f);
+							pDst->tex.set(pSrcTex[0], pSrcTex[1]);
+
+							++pDst;
+							pSrcPoints += 3;
+							pSrcTex += 2;
+						}
+					}
+					else
+					{
+						for (int32 i = 0; i < mesh.npoints; ++i)
+						{
+							pDst->pos.set(pSrcPoints[0], pSrcPoints[1], pSrcPoints[2]);
+							pDst->normal.set(0.0f, 1.0f, 0.0f);
+							pDst->tex.set(0.0f, 0.0f);
+
+							++pDst;
+							pSrcPoints += 3;
+						}
 					}
 				}
 			}
@@ -175,6 +288,87 @@ namespace s3d
 		for (auto& triangle : indices)
 		{
 			std::swap(triangle.i1, triangle.i2);
+		}
+
+		return *this;
+	}
+
+	MeshData& MeshData::weld(std::function<bool(const Vertex3D&, const Vertex3D&)> weldTest)
+	{
+		const size_t nFaces = indices.size();
+		const size_t nVerts = vertices.size();
+
+		Array<DirectX::XMFLOAT3> pos = vertices.map([](const Vertex3D& v)
+			{ return DirectX::XMFLOAT3{ v.pos.x, v.pos.y, v.pos.z }; });
+
+		auto preps = std::make_unique<Vertex3D::IndexType[]>(nVerts);
+		if (not MeshUtility::GenerateAdjacencyAndPointReps(&indices.front().i0, nFaces,
+			pos.data(), nVerts, 0.f, preps.get(), nullptr))
+		{
+			return *this;
+		}
+
+		Array<Vertex3D::IndexType> newIndices(nFaces * 3);
+		std::memcpy(newIndices.data(), indices.data(), sizeof(Vertex3D::IndexType) * nFaces * 3);
+		if (not MeshUtility::WeldVertices(newIndices.data(), nFaces, nVerts, preps.get(), nullptr,
+			[&](uint32 v0, uint32 v1) -> bool
+			{
+				return weldTest(vertices[v0], vertices[v1]);
+			}))
+		{
+			return *this;
+		}
+
+		Array<Vertex3D::IndexType> vertRemap(nVerts);
+		size_t trailingUnused = 0;
+		if (not MeshUtility::OptimizeVertices(newIndices.data(), nFaces, nVerts,
+			vertRemap.data(), &trailingUnused))
+		{
+			return *this;
+		}
+
+		// 頂点バッファの再構築
+		{
+			Array<Vertex3D> vb(nVerts - trailingUnused);
+			if (not MeshUtility::CompactVB(vertices.data(),
+				sizeof(Vertex3D),
+				nVerts, trailingUnused, vertRemap.data(), vb.data()))
+			{
+				return *this;
+			}
+
+			vertices.assign(vb.data(), vb.data() + (nVerts - trailingUnused));
+		}
+
+		// インデックスバッファの再構築
+		{
+			HashTable<Vertex3D::IndexType, Vertex3D::IndexType> table;
+			{
+				for (Vertex3D::IndexType i = 0; i < vertRemap.size(); ++i)
+				{
+					const uint32 t = vertRemap[i];
+
+					if (t == uint32(-1))
+					{
+						break;
+					}
+
+					table.emplace(t, i);
+				}
+			}
+
+			{
+				TriangleIndex32* pDst = indices.data();
+				const Vertex3D::IndexType* pSrc = newIndices.data();
+
+				for (size_t i = 0; i < nFaces; ++i)
+				{
+					pDst->i0 = table[*pSrc++];
+					pDst->i1 = table[*pSrc++];
+					pDst->i2 = table[*pSrc++];
+					++pDst;
+				}
+			}
 		}
 
 		return *this;
