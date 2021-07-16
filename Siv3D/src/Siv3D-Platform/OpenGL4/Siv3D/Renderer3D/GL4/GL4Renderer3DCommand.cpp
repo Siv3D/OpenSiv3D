@@ -64,6 +64,7 @@ namespace s3d
 			m_VSs = { VertexShader::IDType::InvalidValue() };
 			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms = { m_cameraTransforms.back() };
+			m_eyePositions = { m_eyePositions.back() };
 			m_constants.clear();
 			m_constantBufferCommands.clear();
 		}
@@ -84,42 +85,42 @@ namespace s3d
 			m_commands.emplace_back(GL4Renderer3DCommandType::UpdateLine3DBuffers, 0);
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::BlendState, 0);
-			m_currentBlendState = m_blendStates.front();
+			m_currentBlendState = m_blendStates.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::RasterizerState, 0);
-			m_currentRasterizerState = m_rasterizerStates.front();
+			m_currentRasterizerState = m_rasterizerStates.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::DepthStencilState, 0);
-			m_currentDepthStencilState = m_depthStencilStates.front();
+			m_currentDepthStencilState = m_depthStencilStates.back();
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
 				const auto command = ToEnum<GL4Renderer3DCommandType>(FromEnum(GL4Renderer3DCommandType::VSSamplerState0) + i);
 				m_commands.emplace_back(command, 0);
-				m_currentVSSamplerStates[i] = m_currentVSSamplerStates.front();
+				m_currentVSSamplerStates[i] = m_currentVSSamplerStates.back();
 			}
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
 				const auto command = ToEnum<GL4Renderer3DCommandType>(FromEnum(GL4Renderer3DCommandType::PSSamplerState0) + i);
 				m_commands.emplace_back(command, 0);
-				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.front();
+				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.back();
 			}
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::ScissorRect, 0);
-			m_currentScissorRect = m_scissorRects.front();
+			m_currentScissorRect = m_scissorRects.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::Viewport, 0);
-			m_currentViewport = m_viewports.front();
+			m_currentViewport = m_viewports.back();
 
 			//	m_commands.emplace_back(GL4Renderer2DCommandType::SDFParams, 0);
-			//	m_currentSDFParams = m_sdfParams.front();
+			//	m_currentSDFParams = m_sdfParams.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetRT, 0);
-			m_currentRT = m_RTs.front();
+			m_currentRT = m_RTs.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::InputLayout, 0);
-			m_currentInputLayout = m_inputLayouts.front();
+			m_currentInputLayout = m_inputLayouts.back();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -128,7 +129,10 @@ namespace s3d
 			m_currentPS = PixelShader::IDType::InvalidValue();
 
 			m_commands.emplace_back(GL4Renderer3DCommandType::CameraTransform, 0);
-			m_currentCameraTransform = m_cameraTransforms.front();
+			m_currentCameraTransform = m_cameraTransforms.back();
+
+			m_commands.emplace_back(GL4Renderer3DCommandType::EyePosition, 0);
+			m_currentEyePosition = m_eyePositions.back();
 
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -272,6 +276,12 @@ namespace s3d
 		{
 			assert(not m_constantBufferCommands.isEmpty());
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
+		}
+
+		if (m_changes.has(GL4Renderer3DCommandType::EyePosition))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::EyePosition, static_cast<uint32>(m_eyePositions.size()));
+			m_eyePositions.push_back(m_currentEyePosition);
 		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -913,6 +923,44 @@ namespace s3d
 	const Mat4x4& GL4Renderer3DCommandManager::getCameraTransform(const uint32 index) const
 	{
 		return m_cameraTransforms[index];
+	}
+
+	void GL4Renderer3DCommandManager::pushEyePosition(const Float3& state)
+	{
+		constexpr auto command = GL4Renderer3DCommandType::EyePosition;
+		auto& current = m_currentEyePosition;
+		auto& buffer = m_eyePositions;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getCurrentEyePosition() const
+	{
+		return m_currentEyePosition;
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getEyePosition(const uint32 index) const
+	{
+		return m_eyePositions[index];
 	}
 
 	void GL4Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)

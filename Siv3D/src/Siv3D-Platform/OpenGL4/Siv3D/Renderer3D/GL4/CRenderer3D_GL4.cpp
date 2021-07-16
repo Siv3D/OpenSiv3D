@@ -264,6 +264,7 @@ namespace s3d
 	void CRenderer3D_GL4::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 	{
 		m_commandManager.pushCameraTransform(matrix);
+		m_commandManager.pushEyePosition(eyePosition);
 	}
 
 	void CRenderer3D_GL4::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
@@ -602,6 +603,14 @@ namespace s3d
 					m_vsConstants3D->worldToProjected = (cameraTransform * Mat4x4::Scale(Float3{ 1.0f, -1.0f, 1.0f })).transposed();
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+			case GL4Renderer3DCommandType::EyePosition:
+				{
+					const Float3& eyePosition = m_commandManager.getEyePosition(command.index);
+					m_psConstants3D->eyePosition = Float4{ eyePosition, 0.0f };
+
+					LOG_COMMAND(U"EyePosition[{}] {}"_fmt(command.index, eyePosition));
 					break;
 				}
 			case GL4Renderer3DCommandType::SetConstantBuffer:

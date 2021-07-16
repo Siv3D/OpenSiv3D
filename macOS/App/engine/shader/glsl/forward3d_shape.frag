@@ -30,6 +30,7 @@ layout(location = 0) out vec4 FragColor;
 layout(std140) uniform PSConstants3D
 {
 	vec4 g_diffuseColor;
+	vec3 g_eyePosition;
 };
 
 //
