@@ -1032,7 +1032,7 @@ namespace s3d
 			_Inout_updates_all_(nFaces * 3) index_t* indices, size_t nFaces,
 			size_t nVerts, _In_reads_(nVerts) const uint32_t* pointRep,
 			_Out_writes_opt_(nVerts) uint32_t* vertexRemap,
-			const std::function<bool __cdecl(uint32_t v0, uint32_t v1)>& weldTest)
+			const std::function<bool(uint32_t v0, uint32_t v1)>& weldTest)
 		{
 			std::unique_ptr<uint32_t[]> temp(new (std::nothrow) uint32_t[nVerts * 2]);
 			if (!temp)
