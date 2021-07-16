@@ -25,6 +25,8 @@ namespace s3d
 	struct PSConstants3D
 	{
 		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+		Float4 eyePosition = Float4{ 0.0f, 0.0f, 0.0f, 0.0f };
 	};
 
 	struct BatchInfoLine3D

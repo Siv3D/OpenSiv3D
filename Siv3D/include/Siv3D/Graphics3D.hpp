@@ -70,7 +70,7 @@ namespace s3d
 		[[nodiscard]]
 		Optional<PixelShader> GetCustomPixelShader();
 
-		void SetCameraTransform(const Mat4x4& matrix);
+		void SetCameraTransform(const Mat4x4& matrix, const Float3& eyePosition);
 
 		void SetCameraTransform(const BasicCamera3D& camera3D);
 

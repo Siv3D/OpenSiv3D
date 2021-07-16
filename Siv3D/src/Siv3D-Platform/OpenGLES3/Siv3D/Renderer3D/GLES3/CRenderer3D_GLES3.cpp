@@ -231,7 +231,7 @@ namespace s3d
 		return m_commandManager.getCurrentCameraTransform();
 	}
 
-	void CRenderer3D_GLES3::setCameraTransform(const Mat4x4& matrix)
+	void CRenderer3D_GLES3::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 	{
 		m_commandManager.pushCameraTransform(matrix);
 	}

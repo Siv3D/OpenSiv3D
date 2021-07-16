@@ -89,7 +89,7 @@ namespace s3d
 
 		virtual const Mat4x4& getCameraTransform() const = 0;
 
-		virtual void setCameraTransform(const Mat4x4& matrix) = 0;
+		virtual void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) = 0;
 
 
 		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) = 0;

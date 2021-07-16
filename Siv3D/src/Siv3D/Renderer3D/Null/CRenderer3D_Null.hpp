@@ -70,7 +70,7 @@ namespace s3d
 
 		const Mat4x4& getCameraTransform() const override;
 
-		void setCameraTransform(const Mat4x4& matrix) override;
+		void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) override;
 
 
 		void setVSTexture(uint32 slot, const Optional<Texture>& texture) override;

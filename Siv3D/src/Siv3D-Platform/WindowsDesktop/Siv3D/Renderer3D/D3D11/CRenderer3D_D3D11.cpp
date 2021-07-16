@@ -294,9 +294,10 @@ namespace s3d
 		return m_commandManager.getCurrentCameraTransform();
 	}
 
-	void CRenderer3D_D3D11::setCameraTransform(const Mat4x4& matrix)
+	void CRenderer3D_D3D11::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 	{
 		m_commandManager.pushCameraTransform(matrix);
+		m_commandManager.pushEyePosition(eyePosition);
 	}
 
 	void CRenderer3D_D3D11::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
@@ -656,6 +657,14 @@ namespace s3d
 					m_vsConstants3D->worldToProjected = cameraTransform;
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+			case D3D11Renderer3DCommandType::EyePosition:
+				{
+					const Float3& eyePosition = m_commandManager.getEyePosition(command.index);
+					m_psConstants3D->eyePosition = Float4{ eyePosition, 0.0f };
+
+					LOG_COMMAND(U"EyePosition[{}] {}"_fmt(command.index, eyePosition));
 					break;
 				}
 			case D3D11Renderer3DCommandType::SetConstantBuffer:

@@ -51,7 +51,8 @@ cbuffer VSConstants3D : register(b0)
 
 cbuffer PSConstants3D : register(b0)
 {
-	float4 g_diffuseColor;
+	float4 g_diffuseColor: packoffset(c0);
+	float3 g_eyePosition : packoffset(c1);
 }
 
 //

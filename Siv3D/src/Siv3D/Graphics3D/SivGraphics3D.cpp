@@ -69,14 +69,14 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer3D)->getCustomPS();
 		}
 
-		void SetCameraTransform(const Mat4x4& matrix)
+		void SetCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 		{
-			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix);
+			SIV3D_ENGINE(Renderer3D)->setCameraTransform(matrix, eyePosition);
 		}
 
 		void SetCameraTransform(const BasicCamera3D& camera3D)
 		{
-			SIV3D_ENGINE(Renderer3D)->setCameraTransform(camera3D.getMat4x4());
+			SIV3D_ENGINE(Renderer3D)->setCameraTransform(camera3D.getMat4x4(), camera3D.getEyePosition());
 		}
 
 		const Mat4x4& GetCameraTransform()

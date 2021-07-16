@@ -99,7 +99,7 @@ namespace s3d
 		return m;
 	}
 
-	void CRenderer3D_Null::setCameraTransform(const Mat4x4&) {}
+	void CRenderer3D_Null::setCameraTransform(const Mat4x4&, const Float3&) {}
 
 	void CRenderer3D_Null::setVSTexture(uint32, const Optional<Texture>&) {}
 	
