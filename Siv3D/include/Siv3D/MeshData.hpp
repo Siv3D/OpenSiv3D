@@ -92,8 +92,11 @@ namespace s3d
 		//[[nodiscard]]
 		//static MeshData Cone();
 
-		//[[nodiscard]]
-		//static MeshData Pyramid();
+		[[nodiscard]]
+		static MeshData Pyramid(double w, double h);
+
+		[[nodiscard]]
+		static MeshData Pyramid(Float3 bottomCenter, double w, double h);
 
 		//[[nodiscard]]
 		//static MeshData Capsule();

@@ -60,6 +60,12 @@ namespace s3d
 			{20, 21, 22}, {22, 21, 23}
 		};
 
+		static const Array<TriangleIndex32> PyramidIndices
+		{
+			{0,1,2}, {3,4,5},
+			{6,7,8}, {9,10,11}
+		};
+
 		[[nodiscard]]
 		Array<Vertex3D> ToVertices(const par_shapes_mesh& mesh, const Float3 center)
 		{
@@ -465,9 +471,12 @@ namespace s3d
 			{ .pos = { -s.x, 0.0f, -s.y }, .normal = { 0.0f, -1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
 		};
 
-		for (auto& vertex : vertices)
+		if (not center.isZero())
 		{
-			vertex.pos += center;
+			for (auto& vertex : vertices)
+			{
+				vertex.pos += center;
+			}
 		}
 
 		return{ std::move(vertices), detail::TwoSidedPlaceIndices };
@@ -848,6 +857,50 @@ namespace s3d
 		}
 
 		return{ std::move(vertices), std::move(indices) };
+	}
+
+	MeshData MeshData::Pyramid(const double w, const double h)
+	{
+		return Pyramid(Float3::Zero(), w, h);
+	}
+
+	MeshData MeshData::Pyramid(const Float3 bottomCenter, const double w, const double h)
+	{
+		const float wh = static_cast<float>(w * 0.5);
+		const float hh = static_cast<float>(h);
+
+		Array<Vertex3D> vertices =
+		{
+			{ .pos = { -wh, 0.0f,  wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			{ .pos = {  wh, 0.0f,  wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+			{ .pos = { 0.0f, hh,  0.0f }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.5f, 0.0f } },
+
+			{ .pos = {  wh, 0.0f,  wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			{ .pos = {  wh, 0.0f, -wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+			{ .pos = { 0.0f, hh,  0.0f }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.5f, 0.0f } },
+
+			{ .pos = {  wh, 0.0f, -wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			{ .pos = { -wh, 0.0f, -wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+			{ .pos = { 0.0f, hh,  0.0f }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.5f, 0.0f } },
+
+			{ .pos = { -wh, 0.0f, -wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			{ .pos = { -wh, 0.0f,  wh }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
+			{ .pos = { 0.0f, hh,  0.0f }, .normal = { 0.0f, 0.0f, 0.0f }, .tex = { 0.5f, 0.0f } },
+		};
+
+		if (not bottomCenter.isZero())
+		{
+			for (auto& vertex : vertices)
+			{
+				vertex.pos += bottomCenter;
+			}
+		}
+
+		MeshData mesh{ std::move(vertices), detail::PyramidIndices };
+		
+		mesh.computeNormals();
+
+		return mesh;
 	}
 
 	MeshData MeshData::Grid(const Float2 sizeXZ, const int32 gridX, const int32 gridZ, const Float2 uvScale, const Float2 uvOffset)
