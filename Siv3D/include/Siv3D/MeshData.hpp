@@ -17,6 +17,7 @@
 # include "Sphere.hpp"
 # include "Box.hpp"
 # include "NormalComputation.hpp"
+# include "Quaternion.hpp"
 
 namespace s3d
 {
@@ -32,11 +33,23 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices);
 
-		bool computeNormals(NormalComputation normalComputation = NormalComputation::Default);
+		MeshData& computeNormals(NormalComputation normalComputation = NormalComputation::Default);
 
 		MeshData& flipTriangles() noexcept;
 
 		MeshData& weld(std::function<bool(const Vertex3D&, const Vertex3D&)> weldTest);
+
+		MeshData& scale(double s);
+
+		MeshData& scale(double sx, double sy, double sz);
+
+		MeshData& scale(Float3 s);
+
+		MeshData& translate(double x, double y, double z);
+
+		MeshData& translate(Float3 v);
+
+		MeshData& rotate(Quaternion quaternion);
 
 		[[nodiscard]]
 		s3d::Sphere computeBoundingSphere() const;
@@ -105,7 +118,13 @@ namespace s3d
 		//static MeshData Capsule();
 
 		//[[nodiscard]]
-		//static MeshData FromPolygon();
+		//static MeshData OneSidedPolygon();
+
+		//[[nodiscard]]
+		//static MeshData TwoSidedPolygon();
+
+		//[[nodiscard]]
+		//static MeshData ThickPolygon();
 
 		[[nodiscard]]
 		static MeshData Grid(Float2 sizeXZ, int32 gridX, int32 gridZ, Float2 uvScale = { 1.0f, 1.0f }, Float2 uvOffset = { 0.0f, 0.0f });

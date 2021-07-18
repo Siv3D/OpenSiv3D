@@ -33,6 +33,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/SIMD_Float4.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/HashTable.hpp>
+# include <Siv3D/Mat4x4.hpp>
 # include "MeshUtility.hpp"
 
 namespace s3d
@@ -255,11 +256,11 @@ namespace s3d
 		: vertices{ std::move(_vertices) }
 		, indices{ std::move(_indices) } {}
 
-	bool MeshData::computeNormals(const NormalComputation normalComputation)
+	MeshData& MeshData::computeNormals(const NormalComputation normalComputation)
 	{
 		if ((not vertices) || (not indices))
 		{
-			return false;
+			return *this;
 		}
 
 		const Array<Float3> positions = vertices.map([](const Vertex3D& v) {return v.pos; });
@@ -267,7 +268,7 @@ namespace s3d
 
 		if (not detail::ComputeNormals(positions, indices, outNormals, normalComputation))
 		{
-			return false;
+			return *this;
 		}
 
 		{
@@ -281,7 +282,7 @@ namespace s3d
 			}
 		}
 
-		return true;
+		return *this;
 	}
 
 	MeshData& MeshData::flipTriangles() noexcept
@@ -375,6 +376,65 @@ namespace s3d
 					++pDst;
 				}
 			}
+		}
+
+		return *this;
+	}
+
+	MeshData& MeshData::scale(const double s)
+	{
+		return scale(Float3::All(static_cast<float>(s)));
+	}
+
+	MeshData& MeshData::scale(const double sx, const double sy, const double sz)
+	{
+		return scale(Float3{ sx, sy, sz });
+	}
+
+	MeshData& MeshData::scale(const Float3 s)
+	{
+		for (auto& vertex : vertices)
+		{
+			vertex.pos *= s;
+		}
+
+		if ((s.x != s.y) || (s.x != s.z))
+		{
+			const Mat4x4 mat = Mat4x4::Scale(s);
+
+			mat.transformPoints(&vertices.front().normal, sizeof(Vertex3D),
+				&vertices.front().normal, sizeof(Vertex3D), vertices.size());
+
+			for (auto& vertex : vertices)
+			{
+				vertex.normal.normalize();
+			}
+		}
+
+		return *this;
+	}
+
+	MeshData& MeshData::translate(const double x, const double y, const double z)
+	{
+		return translate(Float3{ x, y, z });
+	}
+
+	MeshData& MeshData::translate(const Float3 v)
+	{
+		for (auto& vertex : vertices)
+		{
+			vertex.pos += v;
+		}
+
+		return *this;
+	}
+
+	MeshData& MeshData::rotate(const Quaternion quaternion)
+	{
+		for (auto& vertex : vertices)
+		{
+			vertex.pos = (quaternion * vertex.pos);
+			vertex.normal = (quaternion * vertex.normal);
 		}
 
 		return *this;
@@ -551,8 +611,10 @@ namespace s3d
 		const uint32 thetaQuality = quality;
 		const uint32 xCount = (phiQuality + 1);
 		const uint32 yCount = (thetaQuality + 1);
-		const uint32 vertexCount = (xCount * yCount);
-		const uint32 triangleCount = ((phiQuality * thetaQuality) * 2);
+		const uint32 vertexRemoved = 2;
+		const uint32 vertexCount = (xCount * yCount) - vertexRemoved;
+		const uint32 triangleRemoved = (phiQuality * 2);
+		const uint32 triangleCount = ((phiQuality * thetaQuality) * 2) - triangleRemoved;
 
 		Array<std::pair<float, float>> thetaSCs(yCount);
 		{
@@ -591,6 +653,12 @@ namespace s3d
 
 				for (uint32 x = 0; x < xCount; ++x)
 				{
+					if ((y == 0 && x == 0)
+						|| (y == (yCount - 1) && x == (xCount - 1)))
+					{
+						continue;
+					}
+
 					const float ps = phiSCs[x].first;
 					const float pc = phiSCs[x].second;
 					const Float3 normal{ (ts * pc), tc, (ts * ps) };
@@ -620,19 +688,44 @@ namespace s3d
 			{
 				const uint32 yBaseIndex = (xCount * y);
 
-				for (uint32 x = 0; x < phiQuality; ++x)
+				if (y == 0)
 				{
-					const uint32 baseIndex = (yBaseIndex + x);
+					for (uint32 x = 0; x < phiQuality; ++x)
+					{
+						const uint32 baseIndex = (yBaseIndex + x);
+						pDst->i0 = (baseIndex + xCount) - 1;
+						pDst->i1 = (baseIndex + 1) - 1;
+						pDst->i2 = (baseIndex + xCount + 1) - 1;
+						++pDst;
+					}
+				}
+				else if (y == (thetaQuality - 1))
+				{
+					for (uint32 x = 0; x < phiQuality; ++x)
+					{
+						const uint32 baseIndex = (yBaseIndex + x) - 1;
+						pDst->i0 = baseIndex;
+						pDst->i1 = (baseIndex + 1);
+						pDst->i2 = (baseIndex + xCount);
+						++pDst;
+					}
+				}
+				else
+				{
+					for (uint32 x = 0; x < phiQuality; ++x)
+					{
+						const uint32 baseIndex = (yBaseIndex + x) - 1;
 
-					pDst->i0 = baseIndex;
-					pDst->i1 = (baseIndex + 1);
-					pDst->i2 = (baseIndex + xCount);
-					++pDst;
+						pDst->i0 = baseIndex;
+						pDst->i1 = (baseIndex + 1);
+						pDst->i2 = (baseIndex + xCount);
+						++pDst;
 
-					pDst->i0 = (baseIndex + xCount);
-					pDst->i1 = (baseIndex + 1);
-					pDst->i2 = (baseIndex + xCount + 1);
-					++pDst;
+						pDst->i0 = (baseIndex + xCount);
+						pDst->i1 = (baseIndex + 1);
+						pDst->i2 = (baseIndex + xCount + 1);
+						++pDst;
+					}
 				}
 			}
 		}
