@@ -194,6 +194,13 @@ namespace s3d
 
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Scale(Arithmetic s, Float3 center) noexcept;
+
+		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Scale(Float3 s, Float3 center) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
 		static Mat4x4 SIV3D_VECTOR_CALL RotateX(Arithmetic angle) noexcept;
 
 		SIV3D_CONCEPT_ARITHMETIC
@@ -212,8 +219,15 @@ namespace s3d
 		[[nodiscard]]
 		static Mat4x4 SIV3D_VECTOR_CALL Rotate(Float3 axis, Arithmetic angle) noexcept;
 
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Rotate(Float3 axis, Arithmetic angle, Float3 center) noexcept;
+
 		[[nodiscard]]
 		static Mat4x4 SIV3D_VECTOR_CALL Rotate(Quaternion quaternion) noexcept;
+
+		[[nodiscard]]
+		static Mat4x4 SIV3D_VECTOR_CALL Rotate(Quaternion quaternion, Float3 center) noexcept;
 
 		[[nodiscard]]
 		static Mat4x4 SIV3D_VECTOR_CALL Reflect(InfinitePlane plane) noexcept;

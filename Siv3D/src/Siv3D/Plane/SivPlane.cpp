@@ -40,4 +40,16 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), texture, color);
 	}
+
+	void Plane::draw(const Mat4x4& mat, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), color);
+	}
+
+	void Plane::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), texture, color);
+	}
 }

@@ -40,4 +40,16 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw(Mat4x4::Scale(Float3{ r, 1, r }).rotated(rotation).translated(center), texture, color);
 	}
+
+	void Disc::draw(const Mat4x4& mat, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), color);
+	}
+
+	void Disc::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), texture, color);
+	}
 }

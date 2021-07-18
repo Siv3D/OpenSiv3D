@@ -40,4 +40,16 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw(Mat4x4::Scale(r).rotated(rotation).translated(center), texture, color);
 	}
+
+	void Sphere::draw(const Mat4x4& mat, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw((Mat4x4::Scale(r).translated(center) * mat), color);
+	}
+
+	void Sphere::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw((Mat4x4::Scale(r).translated(center) * mat), texture, color);
+	}
 }

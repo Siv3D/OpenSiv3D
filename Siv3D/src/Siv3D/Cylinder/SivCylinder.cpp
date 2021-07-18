@@ -40,4 +40,16 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(rotation).translated(center), texture, color);
 	}
+
+	void Cylinder::draw(const Mat4x4& mat, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw((Mat4x4::Scale(Float3{ r, h, r }).translated(center) * mat), color);
+	}
+
+	void Cylinder::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw((Mat4x4::Scale(Float3{ r, h, r }).translated(center) * mat), texture, color);
+	}
 }

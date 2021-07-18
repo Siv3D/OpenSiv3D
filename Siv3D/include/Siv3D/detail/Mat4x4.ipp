@@ -271,8 +271,7 @@ namespace s3d
 
 	inline Mat4x4 Mat4x4::Translate(const Float3 v) noexcept
 	{
-		return DirectX::XMMatrixTranslation(
-			static_cast<float>(v.x), static_cast<float>(v.y), static_cast<float>(v.z));
+		return DirectX::XMMatrixTranslation(v.x, v.y, v.z);
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
@@ -284,8 +283,24 @@ namespace s3d
 	
 	inline Mat4x4 Mat4x4::Scale(const Float3 s) noexcept
 	{
-		return DirectX::XMMatrixScaling(
-			static_cast<float>(s.x), static_cast<float>(s.y), static_cast<float>(s.z));
+		return DirectX::XMMatrixScaling(s.x, s.y, s.z);
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Mat4x4 Mat4x4::Scale(const Arithmetic s, const Float3 center) noexcept
+	{
+		const auto t0 = DirectX::XMMatrixTranslation(-center.x, -center.y, -center.z);
+		const auto r = DirectX::XMMatrixScalingFromVector(DirectX::XMVectorReplicate(static_cast<float>(s)));
+		const auto t1 = DirectX::XMMatrixTranslation(center.x, center.y, center.z);
+		return (t0 * r * t1);
+	}
+	
+	inline Mat4x4 Mat4x4::Scale(const Float3 s, const Float3 center) noexcept
+	{
+		const auto t0	= DirectX::XMMatrixTranslation(-center.x, -center.y, -center.z);
+		const auto r	= DirectX::XMMatrixScaling(s.x, s.y, s.z);
+		const auto t1	= DirectX::XMMatrixTranslation(center.x, center.y, center.z);
+		return (t0 * r * t1);
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
@@ -320,9 +335,27 @@ namespace s3d
 			SIMD_Float4{ axis, 0.0f }, static_cast<float>(angle));
 	}
 
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Mat4x4 Mat4x4::Rotate(const Float3 axis, const Arithmetic angle, const Float3 center) noexcept
+	{
+		const auto t0	= DirectX::XMMatrixTranslation(-center.x, -center.y, -center.z);
+		const auto r	= DirectX::XMMatrixRotationNormal(
+			SIMD_Float4{ axis, 0.0f }, static_cast<float>(angle));
+		const auto t1	= DirectX::XMMatrixTranslation(center.x, center.y, center.z);
+		return (t0 * r * t1);
+	}
+
 	inline Mat4x4 Mat4x4::Rotate(const Quaternion quaternion) noexcept
 	{
 		return DirectX::XMMatrixRotationQuaternion(quaternion);
+	}
+
+	inline Mat4x4 Mat4x4::Rotate(const Quaternion quaternion, const Float3 center) noexcept
+	{
+		const auto t0	= DirectX::XMMatrixTranslation(-center.x, -center.y, -center.z);
+		const auto r	= DirectX::XMMatrixRotationQuaternion(quaternion);
+		const auto t1	= DirectX::XMMatrixTranslation(center.x, center.y, center.z);
+		return (t0 * r * t1);
 	}
 
 	inline Mat4x4 Mat4x4::Reflect(const InfinitePlane plane) noexcept

@@ -60,4 +60,16 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
 			.draw(Mat4x4::Scale(size).rotated(rotation).translated(center), texture, color);
 	}
+
+	void Box::draw(const Mat4x4& mat, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).translated(center) * mat), color);
+	}
+
+	void Box::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).translated(center) * mat), texture, color);
+	}
 }

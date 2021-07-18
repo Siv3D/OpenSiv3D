@@ -18,6 +18,7 @@ namespace s3d
 {
 	class Texture;
 	struct Quaternion;
+	struct Mat4x4;
 
 	struct Disc
 	{
@@ -32,5 +33,9 @@ namespace s3d
 		void draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
 
 		void draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
+
+		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 	};
 }
