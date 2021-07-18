@@ -328,6 +328,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D/MicrosecClock/SivMicrosecClock.cpp
   ../Siv3D/src/Siv3D/MillisecClock/SivMillisecClock.cpp
+  ../Siv3D/src/Siv3D/Model/CModel.cpp
+  ../Siv3D/src/Siv3D/Model/ModelData.cpp
+  ../Siv3D/src/Siv3D/Model/ModelFactory.cpp
+  ../Siv3D/src/Siv3D/Model/SivModel.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp

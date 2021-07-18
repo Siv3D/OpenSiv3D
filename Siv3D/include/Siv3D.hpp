@@ -748,6 +748,14 @@
 
 # include <Siv3D/Geometry3D.hpp>
 
+
+# include <Siv3D/Material.hpp>
+
+# include <Siv3D/ModelMesh.hpp>
+
+# include <Siv3D/Model.hpp>
+
+
 //////////////////////////////////////////////////
 //
 //	乱数と分布 | Random and Distribution

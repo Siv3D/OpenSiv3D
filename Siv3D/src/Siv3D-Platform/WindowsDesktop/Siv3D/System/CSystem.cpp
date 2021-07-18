@@ -43,6 +43,7 @@
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Renderer3D/IRenderer3D.hpp>
 # include <Siv3D/ScreenCapture/IScreenCapture.hpp>
+# include <Siv3D/Model/IModel.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/GUI/IGUI.hpp>
@@ -135,6 +136,7 @@ namespace s3d
 		SIV3D_ENGINE(Renderer2D)->init();
 		SIV3D_ENGINE(Renderer3D)->init();
 		SIV3D_ENGINE(ScreenCapture)->init();
+		SIV3D_ENGINE(Model)->init();
 		SIV3D_ENGINE(Font)->init();
 		SIV3D_ENGINE(GUI)->init();
 		SIV3D_ENGINE(Print)->init();
