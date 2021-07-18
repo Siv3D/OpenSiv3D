@@ -859,6 +859,123 @@ namespace s3d
 		return{ std::move(vertices), std::move(indices) };
 	}
 
+	MeshData MeshData::Cone(const double r, const double h, const uint32 quality)
+	{
+		return Cone(Float3::Zero(), r, h, quality);
+	}
+
+	MeshData MeshData::Cone(const Float3 bottomCenter, const double r, const double h, uint32 quality)
+	{
+		quality = Max(quality, 3u);
+
+		const uint32 discTriangleCount = quality;
+		const uint32 discVertexCount = (1 + (quality + 1));
+		const uint32 sideTriangleCount = quality;
+		const uint32 sideVertexCount = ((quality + 1) * 2);
+		const uint32 vertexCount = (discVertexCount + sideVertexCount);
+		const uint32 triangleCount = (discTriangleCount + sideTriangleCount);
+
+		const float rf = static_cast<float>(r);
+		const float hf = static_cast<float>(h);
+
+		Array<std::pair<float, float>> scs(quality + 1);
+		{
+			const float deltaAngle = (Math::TwoPiF / quality);
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float angle = (deltaAngle * i);
+				scs[i] = { std::sin(angle), std::cos(angle) };
+			}
+		}
+
+		Array<Vertex3D> vertices(vertexCount);
+		{
+			constexpr Float3 normalBottom{ 0,-1,0 };
+			const float uDelta = (1.0f / quality);
+
+			Vertex3D* pDst0 = vertices.data();
+			Vertex3D* pDst1 = vertices.data() + discVertexCount;
+
+			{
+				pDst0->pos.set(0.0f, 0.0f, 0.0f);
+				pDst0->normal = normalBottom;
+				pDst0->tex.set(0.5f, 0.5f);
+				++pDst0;
+			}
+
+			const float deltaAngle = (Math::TwoPiF / quality);
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float s = scs[i].first;
+				const float c = scs[i].second;
+				const float px = s * rf;
+				const float pz = c * rf;
+
+				pDst0->pos.set(px, 0.0f, pz);
+				pDst0->normal = normalBottom;
+				pDst0->tex.set(s * 0.5f + 0.5f, c * -0.5f + 0.5f);
+				++pDst0;
+			}
+
+			for (uint32 i = 0; i <= quality; ++i)
+			{
+				const float s = scs[quality - i].first;
+				const float c = scs[quality - i].second;
+				const float px = s * rf;
+				const float pz = c * rf;
+
+				pDst1->pos.set(0.0f, hf, 0.0f);
+				pDst1->normal.set(0.0f, 0.0f, 0.0f);
+				pDst1->tex.set(0.5f, 0.5f);
+				++pDst1;
+
+				pDst1->pos.set(px, 0.0f, pz);
+				pDst1->normal.set(0.0f, 0.0f, 0.0f);
+				pDst1->tex.set(s * 0.5f + 0.5f, c * -0.5f + 0.5f);
+				++pDst1;
+			}
+
+			if (not bottomCenter.isZero())
+			{
+				for (auto& vertex : vertices)
+				{
+					vertex.pos += bottomCenter;
+				}
+			}
+		}
+
+		Array<TriangleIndex32> indices(triangleCount);
+		{
+			TriangleIndex32* pDst = indices.data();
+
+			for (uint32 i = 0; i < discTriangleCount; ++i)
+			{
+				pDst->i0 = 0;
+				pDst->i1 = (i + 2);
+				pDst->i2 = (i + 1);
+				++pDst;
+			}
+
+			const uint32 sideBaseIndex = discVertexCount;
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				pDst->i0 = (sideBaseIndex + i * 2 + 1);
+				pDst->i1 = (sideBaseIndex + i * 2 + 0);
+				pDst->i2 = (sideBaseIndex + i * 2 + 3);
+				++pDst;
+			}
+		}
+
+		MeshData meshData{ std::move(vertices), std::move(indices) };
+
+		meshData.computeNormals();
+
+		return meshData;
+	}
+
 	MeshData MeshData::Pyramid(const double w, const double h)
 	{
 		return Pyramid(Float3::Zero(), w, h);

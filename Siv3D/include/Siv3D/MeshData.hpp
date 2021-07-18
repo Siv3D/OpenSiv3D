@@ -89,8 +89,11 @@ namespace s3d
 		[[nodiscard]]
 		static MeshData Cylinder(Float3 center, double r, double h, uint32 quality = 24);
 
-		//[[nodiscard]]
-		//static MeshData Cone();
+		[[nodiscard]]
+		static MeshData Cone(double r, double h, uint32 quality = 24);
+
+		[[nodiscard]]
+		static MeshData Cone(Float3 bottomCenter, double r, double h, uint32 quality = 24);
 
 		[[nodiscard]]
 		static MeshData Pyramid(double w, double h);
