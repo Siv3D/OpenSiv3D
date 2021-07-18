@@ -1118,6 +1118,13 @@
 		2C63A9C526A02BAE00D13501 /* VertexLine3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9C426A02BAE00D13501 /* VertexLine3D.hpp */; };
 		2C63A9C826A02BD000D13501 /* GL4Line3DBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */; };
 		2C63A9C926A02BD000D13501 /* GL4Line3DBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */; };
+		2C63A9D626A4091F00D13501 /* ModelData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9CF26A4091F00D13501 /* ModelData.hpp */; };
+		2C63A9D726A4091F00D13501 /* CModel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9D026A4091F00D13501 /* CModel.hpp */; };
+		2C63A9D826A4091F00D13501 /* IModel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9D126A4091F00D13501 /* IModel.hpp */; };
+		2C63A9D926A4091F00D13501 /* ModelFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D226A4091F00D13501 /* ModelFactory.cpp */; };
+		2C63A9DA26A4091F00D13501 /* SivModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D326A4091F00D13501 /* SivModel.cpp */; };
+		2C63A9DB26A4091F00D13501 /* CModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D426A4091F00D13501 /* CModel.cpp */; };
+		2C63A9DC26A4091F00D13501 /* ModelData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D526A4091F00D13501 /* ModelData.cpp */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
@@ -3252,6 +3259,17 @@
 		2C63A9C426A02BAE00D13501 /* VertexLine3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexLine3D.hpp; sourceTree = "<group>"; };
 		2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Line3DBatch.cpp; sourceTree = "<group>"; };
 		2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Line3DBatch.hpp; sourceTree = "<group>"; };
+		2C63A9CA26A408F000D13501 /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+		2C63A9CB26A408F000D13501 /* ModelMesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelMesh.hpp; sourceTree = "<group>"; };
+		2C63A9CC26A408F000D13501 /* Material.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
+		2C63A9CD26A4090600D13501 /* Model.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.ipp; sourceTree = "<group>"; };
+		2C63A9CF26A4091F00D13501 /* ModelData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModelData.hpp; sourceTree = "<group>"; };
+		2C63A9D026A4091F00D13501 /* CModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CModel.hpp; sourceTree = "<group>"; };
+		2C63A9D126A4091F00D13501 /* IModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IModel.hpp; sourceTree = "<group>"; };
+		2C63A9D226A4091F00D13501 /* ModelFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFactory.cpp; sourceTree = "<group>"; };
+		2C63A9D326A4091F00D13501 /* SivModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivModel.cpp; sourceTree = "<group>"; };
+		2C63A9D426A4091F00D13501 /* CModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CModel.cpp; sourceTree = "<group>"; };
+		2C63A9D526A4091F00D13501 /* ModelData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelData.cpp; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
@@ -4369,6 +4387,7 @@
 				2C63A9C026A02B6600D13501 /* Mesh.ipp */,
 				2C063DCA2661426000368BEE /* MicrosecClock.ipp */,
 				2C063D732661426000368BEE /* MillisecClock.ipp */,
+				2C63A9CD26A4090600D13501 /* Model.ipp */,
 				2C66842626836E4B00F7089A /* MSRenderTexture.ipp */,
 				2C063E042661426000368BEE /* MultiPolygon.ipp */,
 				2C063D992661426000368BEE /* Noise.ipp */,
@@ -6046,6 +6065,7 @@
 				2C6527812656B3C1003427EB /* MicrophoneInfo */,
 				2C60F91F2667F0E300FFAA68 /* MicrosecClock */,
 				2C60F91D2667F0E300FFAA68 /* MillisecClock */,
+				2C63A9CE26A4091F00D13501 /* Model */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C2D5C10267E467C00EF5696 /* MSRenderTexture */,
@@ -8430,6 +8450,20 @@
 			path = DynamicMesh;
 			sourceTree = "<group>";
 		};
+		2C63A9CE26A4091F00D13501 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C63A9CF26A4091F00D13501 /* ModelData.hpp */,
+				2C63A9D026A4091F00D13501 /* CModel.hpp */,
+				2C63A9D126A4091F00D13501 /* IModel.hpp */,
+				2C63A9D226A4091F00D13501 /* ModelFactory.cpp */,
+				2C63A9D326A4091F00D13501 /* SivModel.cpp */,
+				2C63A9D426A4091F00D13501 /* CModel.cpp */,
+				2C63A9D526A4091F00D13501 /* ModelData.cpp */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2C65277A26561B7D003427EB /* rtaudio */ = {
 			isa = PBXGroup;
 			children = (
@@ -9511,6 +9545,7 @@
 				2CFF581025F79C9800B660AD /* Mat3x3.hpp */,
 				2C063D2726612A3400368BEE /* Mat4x4.hpp */,
 				2CAAA78225E7FD0200C014D7 /* MatchResults.hpp */,
+				2C63A9CC26A408F000D13501 /* Material.hpp */,
 				2CAAA78425E7FD0200C014D7 /* Math.hpp */,
 				2CAAA77625E7FD0200C014D7 /* MathConstants.hpp */,
 				2CAAA70325E7FD0200C014D7 /* MathParser.hpp */,
@@ -9533,6 +9568,8 @@
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
+				2C63A9CA26A408F000D13501 /* Model.hpp */,
+				2C63A9CB26A408F000D13501 /* ModelMesh.hpp */,
 				2CAAA83725E7FD0200C014D7 /* Monitor.hpp */,
 				2CAAA78825E7FD0200C014D7 /* Mouse.hpp */,
 				2CAAA87E25E7FD0300C014D7 /* MSDFGlyph.hpp */,
@@ -10886,6 +10923,7 @@
 				2CC5843526461D9900C33E9F /* GIFWriter.hpp in Headers */,
 				2C439F82241DCEA9001154C2 /* cached-powers.h in Headers */,
 				2C43C87725C837F000D6D613 /* ftmodapi.h in Headers */,
+				2C63A9D726A4091F00D13501 /* CModel.hpp in Headers */,
 				2C43C8B725C837F100D6D613 /* ftchapters.h in Headers */,
 				2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */,
 				2C834D9B248805D4006208B8 /* regint.h in Headers */,
@@ -11374,6 +11412,7 @@
 				2C956671264546F700539B85 /* clippathelement.h in Headers */,
 				2C5337C7264F5AA200CE0F1B /* zstd.h in Headers */,
 				2C43C8BF25C837F100D6D613 /* ftglyph.h in Headers */,
+				2C63A9D826A4091F00D13501 /* IModel.hpp in Headers */,
 				2C48BEFD25CFB8C500A93CE3 /* Contour.h in Headers */,
 				2C631EA1268704D200166A8E /* IMesh.hpp in Headers */,
 				2C439F88241DCEA9001154C2 /* bignum.h in Headers */,
@@ -11399,6 +11438,7 @@
 				2C9566E32645626000539B85 /* zlib.h in Headers */,
 				2C5D9DD5266159CD00D81870 /* INetwork.hpp in Headers */,
 				2C636E5A2657F7D300AF029F /* soloud_echofilter.h in Headers */,
+				2C63A9D626A4091F00D13501 /* ModelData.hpp in Headers */,
 				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
 				2C5DD43B265979F100282CE2 /* AudioBus.hpp in Headers */,
 				2CFB7DD3262AF33C00169B97 /* IDragDrop.hpp in Headers */,
@@ -11796,6 +11836,7 @@
 				2C60AE76248158A500277281 /* instruction_set_windows.cpp in Sources */,
 				2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */,
 				2C47B36924DD9789008D83BE /* ResourceFactory.cpp in Sources */,
+				2C63A9DA26A4091F00D13501 /* SivModel.cpp in Sources */,
 				2C5C0F14266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp in Sources */,
 				2C68508924B768A800B98A7F /* CLogger.cpp in Sources */,
 				2C2AA35D26009C74003F3EBC /* b2_body.cpp in Sources */,
@@ -11873,6 +11914,7 @@
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2C956655264546F700539B85 /* svgelement.cpp in Sources */,
+				2C63A9DC26A4091F00D13501 /* ModelData.cpp in Sources */,
 				2C36F84F267F9EB700691B1C /* SivNetwork.cpp in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
 				2C48BF8825D41C0D00A93CE3 /* FontData.cpp in Sources */,
@@ -12083,6 +12125,7 @@
 				2C47B31224DD9789008D83BE /* SivParseInt.cpp in Sources */,
 				2C47B35B24DD9789008D83BE /* SivString.cpp in Sources */,
 				2C95665C264546F700539B85 /* property.cpp in Sources */,
+				2C63A9DB26A4091F00D13501 /* CModel.cpp in Sources */,
 				2C0FBD6D262978100050E354 /* SivWebcam.cpp in Sources */,
 				2C68508D24B768A800B98A7F /* SivSystem_macOS_Linux.cpp in Sources */,
 				2C47B36C24DD9789008D83BE /* SivCPUInfo.cpp in Sources */,
@@ -12181,6 +12224,7 @@
 				2CBEBCAB2629D1460077DDBF /* SivQRScanner.cpp in Sources */,
 				2C48BEF825CFB8C500A93CE3 /* Contour.cpp in Sources */,
 				2C2AA35A26009C74003F3EBC /* b2_weld_joint.cpp in Sources */,
+				2C63A9D926A4091F00D13501 /* ModelFactory.cpp in Sources */,
 				2C42321B242B155E00A16BCA /* monitor.c in Sources */,
 				2C5DD439265979F100282CE2 /* CAudio.cpp in Sources */,
 				2C834DAE248805D4006208B8 /* euc_kr.c in Sources */,
