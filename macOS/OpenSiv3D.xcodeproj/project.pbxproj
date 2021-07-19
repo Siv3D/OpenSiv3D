@@ -1125,6 +1125,8 @@
 		2C63A9DA26A4091F00D13501 /* SivModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D326A4091F00D13501 /* SivModel.cpp */; };
 		2C63A9DB26A4091F00D13501 /* CModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D426A4091F00D13501 /* CModel.cpp */; };
 		2C63A9DC26A4091F00D13501 /* ModelData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D526A4091F00D13501 /* ModelData.cpp */; };
+		2C63A9E226A5320E00D13501 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */; };
+		2C63A9E326A5320E00D13501 /* tiny_obj_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
@@ -3260,7 +3262,6 @@
 		2C63A9C626A02BD000D13501 /* GL4Line3DBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Line3DBatch.cpp; sourceTree = "<group>"; };
 		2C63A9C726A02BD000D13501 /* GL4Line3DBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Line3DBatch.hpp; sourceTree = "<group>"; };
 		2C63A9CA26A408F000D13501 /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
-		2C63A9CB26A408F000D13501 /* ModelMesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelMesh.hpp; sourceTree = "<group>"; };
 		2C63A9CC26A408F000D13501 /* Material.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
 		2C63A9CD26A4090600D13501 /* Model.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.ipp; sourceTree = "<group>"; };
 		2C63A9CF26A4091F00D13501 /* ModelData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModelData.hpp; sourceTree = "<group>"; };
@@ -3270,6 +3271,10 @@
 		2C63A9D326A4091F00D13501 /* SivModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivModel.cpp; sourceTree = "<group>"; };
 		2C63A9D426A4091F00D13501 /* CModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CModel.cpp; sourceTree = "<group>"; };
 		2C63A9D526A4091F00D13501 /* ModelData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelData.cpp; sourceTree = "<group>"; };
+		2C63A9DD26A531F100D13501 /* ModelObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelObject.hpp; sourceTree = "<group>"; };
+		2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelMeshPart.hpp; sourceTree = "<group>"; };
+		2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
+		2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
@@ -5601,6 +5606,7 @@
 				2C4397852535DDF300F6AECD /* stb */,
 				2C62197026750F6A0088B175 /* stduuid */,
 				2C27AA0D257D37BB00756617 /* tinycolormap */,
+				2C63A9DF26A5320E00D13501 /* tinyobjloader */,
 				2C5337D92650BB5500CE0F1B /* TinySoundFont */,
 				2C4AEF842635CACB00D36CFC /* tinyxml */,
 				2C6106E124DB04E300BDEF72 /* xxHash */,
@@ -8464,6 +8470,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2C63A9DF26A5320E00D13501 /* tinyobjloader */ = {
+			isa = PBXGroup;
+			children = (
+				2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */,
+				2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */,
+			);
+			path = tinyobjloader;
+			sourceTree = "<group>";
+		};
 		2C65277A26561B7D003427EB /* rtaudio */ = {
 			isa = PBXGroup;
 			children = (
@@ -9569,7 +9584,8 @@
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
 				2C63A9CA26A408F000D13501 /* Model.hpp */,
-				2C63A9CB26A408F000D13501 /* ModelMesh.hpp */,
+				2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */,
+				2C63A9DD26A531F100D13501 /* ModelObject.hpp */,
 				2CAAA83725E7FD0200C014D7 /* Monitor.hpp */,
 				2CAAA78825E7FD0200C014D7 /* Mouse.hpp */,
 				2CAAA87E25E7FD0300C014D7 /* MSDFGlyph.hpp */,
@@ -11106,6 +11122,7 @@
 				2C43C8AB25C837F100D6D613 /* fterrors.h in Headers */,
 				2C43C88F25C837F000D6D613 /* ftgloadr.h in Headers */,
 				2C2AA35C26009C74003F3EBC /* b2_edge_circle_contact.h in Headers */,
+				2C63A9E326A5320E00D13501 /* tiny_obj_loader.h in Headers */,
 				2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */,
 				2C636EB52657F7D300AF029F /* resonator.h in Headers */,
 				2C5C0F23266E6991009C430B /* IAsset.hpp in Headers */,
@@ -11717,6 +11734,7 @@
 				2C47B34824DD9789008D83BE /* CWindow_Null.cpp in Sources */,
 				2C48BF8325D41C0D00A93CE3 /* SivFont.cpp in Sources */,
 				2C2AA37326009C74003F3EBC /* b2_circle_contact.cpp in Sources */,
+				2C63A9E226A5320E00D13501 /* tiny_obj_loader.cc in Sources */,
 				2C5337A4264F5AA200CE0F1B /* divsufsort.c in Sources */,
 				2C60F91C2667DBCB00FFAA68 /* SivScopedCustomShader2D.cpp in Sources */,
 				2C5337B5264F5AA200CE0F1B /* entropy_common.c in Sources */,

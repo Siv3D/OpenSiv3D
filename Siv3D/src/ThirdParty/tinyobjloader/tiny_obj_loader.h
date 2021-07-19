@@ -596,7 +596,7 @@ class ObjReader {
 bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
              std::vector<material_t> *materials, std::string *warn,
              std::string *err, const char *filename,
-             const char *mtl_basedir = NULL, bool triangulate = true,
+             const char *mtl_basedir = nullptr, bool triangulate = true,
              bool default_vcols_fallback = true);
 
 /// Loads .obj from a file with custom user callback.
@@ -606,9 +606,9 @@ bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
 /// Returns warning message into `warn`, and error message into `err`
 /// See `examples/callback_api/` for how to use this function.
 bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
-                         void *user_data = NULL,
-                         MaterialReader *readMatFn = NULL,
-                         std::string *warn = NULL, std::string *err = NULL);
+                         void *user_data = nullptr,
+                         MaterialReader *readMatFn = nullptr,
+                         std::string *warn = nullptr, std::string *err = nullptr);
 
 /// Loads object from a std::istream, uses `readMatFn` to retrieve
 /// std::istream for materials.
@@ -617,7 +617,7 @@ bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
 bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
              std::vector<material_t> *materials, std::string *warn,
              std::string *err, std::istream *inStream,
-             MaterialReader *readMatFn = NULL, bool triangulate = true,
+             MaterialReader *readMatFn = nullptr, bool triangulate = true,
              bool default_vcols_fallback = true);
 
 /// Loads materials into std::map
