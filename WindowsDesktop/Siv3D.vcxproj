@@ -461,7 +461,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MicrophoneInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MIDINote.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Model.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\ModelMesh.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ModelMeshPart.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ModelObject.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MSDFGlyph.hpp" />
@@ -1649,6 +1650,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\stb\stb_truetype.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\stduuid\uuid.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinycolormap\tinycolormap.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
@@ -2491,6 +2493,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_robotizefilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\WinToast\wintoastlib.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\debug.c" />

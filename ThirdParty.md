@@ -83,6 +83,7 @@ Name | Version
 [stduuid](https://github.com/mariusbancila/stduuid) | 
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
+[tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) | 
 [TinySoundFont](https://github.com/schellingb/TinySoundFont) | 
 [TinyXML-2](https://github.com/leethomason/tinyxml2) | 8.0.0
 [WinToast](https://github.com/mohabouje/WinToast) | 

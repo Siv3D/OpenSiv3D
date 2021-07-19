@@ -11,6 +11,9 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Array.hpp"
+# include "ModelObject.hpp"
+# include "Material.hpp"
 # include "AssetHandle.hpp"
 # include "StringView.hpp"
 
@@ -28,6 +31,11 @@ namespace s3d
 
 		virtual ~Model();
 
+		[[nodiscard]]
+		const Array<ModelObject>& objects() const noexcept;
+
+		[[nodiscard]]
+		const Array<Material>& materials() const noexcept;
 
 		void swap(Model& other) noexcept;
 	};

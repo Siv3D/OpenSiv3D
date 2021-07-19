@@ -11,17 +11,16 @@
 
 # pragma once
 # include "Common.hpp"
-# include "Material.hpp"
-# include "Mesh.hpp"
+# include "Array.hpp"
+# include "String.hpp"
+# include "ModelMeshPart.hpp"
 
 namespace s3d
 {
-	struct ModelMesh
+	struct ModelObject
 	{
 		String name;
 
-		Mesh mesh;
-
-		Material material;
+		Array<ModelMeshPart> parts;
 	};
 }

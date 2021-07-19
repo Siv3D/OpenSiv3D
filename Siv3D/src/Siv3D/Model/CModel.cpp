@@ -62,4 +62,14 @@ namespace s3d
 	{
 		m_models.erase(handleID);
 	}
+
+	const Array<ModelObject>& CModel::getObjects(const Model::IDType handleID)
+	{
+		return m_models[handleID]->getObjects();
+	}
+
+	const Array<Material>& CModel::getMaterials(const Model::IDType handleID)
+	{
+		return m_models[handleID]->getMaterials();
+	}
 }

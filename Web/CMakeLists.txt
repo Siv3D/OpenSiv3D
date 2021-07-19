@@ -867,6 +867,8 @@ add_library(
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 
+  ../Siv3D/src/ThirdParty/tinyobjloader/tiny_obj_loader.cc
+
   ../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp
 
   ../Siv3D/src/ThirdParty/zstd/common/debug.c

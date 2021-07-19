@@ -1483,6 +1483,9 @@
     <Filter Include="src\Siv3D\Model">
       <UniqueIdentifier>{a9b900b1-b97d-4fab-a25e-2f7359dab4d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\tinyobjloader">
+      <UniqueIdentifier>{fc549440-04cc-4ae4-bb65-f21c95de4c6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6519,7 +6522,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Model.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\ModelMesh.hpp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\ModelMeshPart.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Model.ipp">
@@ -6533,6 +6536,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Model\ModelData.hpp">
       <Filter>src\Siv3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.h">
+      <Filter>src\ThirdParty\tinyobjloader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ModelObject.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -8995,6 +9004,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\ModelData.cpp">
       <Filter>src\Siv3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.cc">
+      <Filter>src\ThirdParty\tinyobjloader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

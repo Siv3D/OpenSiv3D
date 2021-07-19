@@ -31,6 +31,10 @@ namespace s3d
 
 		void release(Model::IDType handleID) override;
 
+		const Array<ModelObject>& getObjects(Model::IDType handleID) override;
+
+		const Array<Material>& getMaterials(Model::IDType handleID) override;
+
 	private:
 
 		// Model の管理

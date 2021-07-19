@@ -751,8 +751,8 @@
 
 # include <Siv3D/Material.hpp>
 
-# include <Siv3D/ModelMesh.hpp>
-
+# include <Siv3D/ModelMeshPart.hpp>
+# include <Siv3D/ModelObject.hpp>
 # include <Siv3D/Model.hpp>
 
 

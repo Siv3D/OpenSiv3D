@@ -28,5 +28,9 @@ namespace s3d
 		virtual Model::IDType create(FilePathView path) = 0;
 
 		virtual void release(Model::IDType handleID) = 0;
+
+		virtual const Array<ModelObject>& getObjects(Model::IDType handleID) = 0;
+
+		virtual const Array<Material>& getMaterials(Model::IDType handleID) = 0;
 	};
 }

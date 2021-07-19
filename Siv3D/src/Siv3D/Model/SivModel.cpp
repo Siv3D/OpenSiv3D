@@ -52,6 +52,16 @@ namespace s3d
 
 	Model::~Model() {}
 
+	const Array<ModelObject>& Model::objects() const noexcept
+	{
+		return SIV3D_ENGINE(Model)->getObjects(m_handle->id());
+	}
+
+	const Array<Material>& Model::materials() const noexcept
+	{
+		return SIV3D_ENGINE(Model)->getMaterials(m_handle->id());
+	}
+
 	void Model::swap(Model& other) noexcept
 	{
 		m_handle.swap(other.m_handle);

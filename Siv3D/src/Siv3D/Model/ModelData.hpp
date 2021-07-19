@@ -12,6 +12,8 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/StringView.hpp>
+# include <Siv3D/ModelObject.hpp>
+# include <Siv3D/Material.hpp>
 
 namespace s3d
 {
@@ -30,7 +32,17 @@ namespace s3d
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
 
+		[[nodiscard]]
+		const Array<ModelObject>& getObjects() const noexcept;
+
+		[[nodiscard]]
+		const Array<Material>& getMaterials() const noexcept;
+
 	private:
+
+		Array<ModelObject> m_objects;
+
+		Array<Material> m_materials;
 
 		bool m_initialized = false;
 	};

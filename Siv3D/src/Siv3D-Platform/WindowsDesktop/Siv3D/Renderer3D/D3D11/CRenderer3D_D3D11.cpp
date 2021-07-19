@@ -408,8 +408,6 @@ namespace s3d
 			m_context->RSSetViewports(1, &viewport);
 		}
 
-		pRenderer->getBackBuffer().bindSceneToContext(true);
-
 		BatchInfoLine3D batchInfoLine3D;
 		VertexShader::IDType vsID = m_standardVS->forwardID;
 		PixelShader::IDType psID = m_standardPS->forwardShapeID;
