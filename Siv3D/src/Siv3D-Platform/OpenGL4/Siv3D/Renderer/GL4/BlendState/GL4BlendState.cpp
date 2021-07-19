@@ -82,6 +82,18 @@ namespace s3d
 			}
 		}
 
+		if (state.alphaToCoverageEnable != m_currentState.alphaToCoverageEnable)
+		{
+			if (state.alphaToCoverageEnable)
+			{
+				::glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+			}
+			else
+			{
+				::glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+			}
+		}
+
 		if (state.writeR != m_currentState.writeR
 			|| state.writeG != m_currentState.writeG
 			|| state.writeB != m_currentState.writeB
