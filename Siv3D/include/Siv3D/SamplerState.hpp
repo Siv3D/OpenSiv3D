@@ -78,6 +78,8 @@ namespace s3d
 
 		static constexpr uint32 MaxSamplerCount = 8;
 
+		static constexpr uint32 DefaultMaxAnisotropy = 4;
+
 		using storage_type = std::array<uint32, 6>;
 
 		TextureAddressMode addressU : 4 = TextureAddressMode::Clamp;

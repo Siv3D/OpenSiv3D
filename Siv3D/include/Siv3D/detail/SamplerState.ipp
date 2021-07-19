@@ -77,7 +77,7 @@ namespace s3d
 							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear },
 
 			SamplerState{ TextureAddressMode::Repeat, TextureAddressMode::Repeat, TextureAddressMode::Repeat,
-							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, 16 },
+							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, DefaultMaxAnisotropy },
 
 
 			SamplerState{ TextureAddressMode::Mirror, TextureAddressMode::Mirror, TextureAddressMode::Mirror,
@@ -87,7 +87,7 @@ namespace s3d
 							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear },
 
 			SamplerState{ TextureAddressMode::Mirror, TextureAddressMode::Mirror, TextureAddressMode::Mirror,
-							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, 16 },
+							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, DefaultMaxAnisotropy },
 
 
 			SamplerState{ TextureAddressMode::Clamp, TextureAddressMode::Clamp, TextureAddressMode::Clamp,
@@ -97,7 +97,7 @@ namespace s3d
 							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear },
 
 			SamplerState{ TextureAddressMode::Clamp, TextureAddressMode::Clamp, TextureAddressMode::Clamp,
-							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, 16 },
+							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, DefaultMaxAnisotropy },
 
 
 			SamplerState{ TextureAddressMode::Border, TextureAddressMode::Border, TextureAddressMode::Border,
@@ -107,7 +107,7 @@ namespace s3d
 							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear },
 
 			SamplerState{ TextureAddressMode::Border, TextureAddressMode::Border, TextureAddressMode::Border,
-							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, 16 },
+							TextureFilter::Linear, TextureFilter::Linear, TextureFilter::Linear, DefaultMaxAnisotropy },
 		};
 
 		*this = PredefinedStates[FromEnum(predefined)];

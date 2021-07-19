@@ -416,3 +416,7 @@ gmon.out
 **/App/*.html
 **/App/AS_DEBUG/
 **/App/Screenshot/
+
+# exmaple Wavefront .obj files
+!**/example/obj/
+!**/example/obj/*.obj
