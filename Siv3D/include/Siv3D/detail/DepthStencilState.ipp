@@ -45,9 +45,10 @@ namespace s3d
 
 	inline constexpr DepthStencilState::DepthStencilState(const Predefined predefined) noexcept
 	{
-		constexpr DepthStencilState PredefinedStates[2] =
+		constexpr DepthStencilState PredefinedStates[3] =
 		{
 			DepthStencilState{ false, false, DepthFunc::Always },	// Disbaled
+			DepthStencilState{ true, false, DepthFunc::GreaterEqual },	// DepthTest
 			DepthStencilState{ true, true, DepthFunc::GreaterEqual },	// DepthTestWrite
 		};
 

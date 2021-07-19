@@ -16,7 +16,17 @@ namespace s3d
 	GLES3Renderer2DCommandManager::GLES3Renderer2DCommandManager()
 	{
 		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			m_currentVSSamplerStates[i] = m_vsSamplerStates[i].back();
+		}
+		
 		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default2D });
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			m_currentPSSamplerStates[i] = m_psSamplerStates[i].back();
+		}
+
 		m_vsTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 		m_psTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 

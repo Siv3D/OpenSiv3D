@@ -45,6 +45,8 @@ namespace s3d
 		{
 			Disbaled,
 
+			DepthTest,
+
 			DepthTestWrite,
 		};
 
@@ -81,6 +83,9 @@ namespace s3d
 
 		/// @remark DepthStencilState{ false, false, DepthFunc::Always }
 		static const Predefined Disbaled = Predefined::Disbaled;
+
+		/// @remark DepthStencilState{ true, false, DepthFunc::GreaterEqual }
+		static const Predefined DepthTest = Predefined::DepthTest;
 
 		/// @remark DepthStencilState{ true, true, DepthFunc::GreaterEqual }
 		static const Predefined DepthTestWrite = Predefined::DepthTestWrite;

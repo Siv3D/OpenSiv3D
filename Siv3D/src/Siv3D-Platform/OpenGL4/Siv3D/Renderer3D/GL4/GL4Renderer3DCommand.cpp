@@ -16,7 +16,17 @@ namespace s3d
 	GL4Renderer3DCommandManager::GL4Renderer3DCommandManager()
 	{
 		m_vsSamplerStates.fill(Array<SamplerState>{ SamplerState::Default3D });
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			m_currentVSSamplerStates[i] = m_vsSamplerStates[i].back();
+		}
+
 		m_psSamplerStates.fill(Array<SamplerState>{ SamplerState::Default3D });
+		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
+		{
+			m_currentPSSamplerStates[i] = m_psSamplerStates[i].back();
+		}
+
 		m_vsTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 		m_psTextures.fill(Array<Texture::IDType>{ Texture::IDType::InvalidValue()});
 		m_meshes = { Mesh::IDType::InvalidValue() };

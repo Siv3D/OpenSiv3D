@@ -71,7 +71,7 @@ namespace s3d
 			
 			Default2D = ClampLinear,
 			
-			Default3D = ClampAniso,
+			Default3D = RepeatAniso,
 		};
 
 	public:
