@@ -1,0 +1,8 @@
+[blacksmith]
+[crystal1]
+[crystal2]
+[crystal3]
+[mill]
+[pine]
+[tree]
+https://quaternius.com/
