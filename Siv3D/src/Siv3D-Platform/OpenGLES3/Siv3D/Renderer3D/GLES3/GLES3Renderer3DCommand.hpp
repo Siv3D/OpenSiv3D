@@ -92,6 +92,8 @@ namespace s3d
 
 		CameraTransform,
 
+		EyePosition,
+
 		SetConstantBuffer,
 
 		VSTexture0,
@@ -190,7 +192,7 @@ namespace s3d
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<Float4> m_drawDiffuses;
-		Array<BlendState> m_blendStates				= { BlendState::Default };
+		Array<BlendState> m_blendStates				= { BlendState::Default3D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
 		Array<DepthStencilState> m_depthStencilStates = { DepthStencilState::Default3D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
@@ -202,6 +204,7 @@ namespace s3d
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
+		Array<Float3> m_eyePositions				= { Float3{ 0.0f, 0.0f, 0.0f } };
 		Array<__m128> m_constants;
 		Array<GLES3ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
@@ -216,13 +219,14 @@ namespace s3d
 		DepthStencilState m_currentDepthStencilState	= m_depthStencilStates.back();
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSSamplerStates;
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplerStates;
-		Rect m_currentScissorRect					= m_scissorRects.front();
-		Optional<Rect> m_currentViewport			= m_viewports.front();
-		//std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.front();
-		Optional<RenderTexture> m_currentRT			= m_RTs.front();
+		Rect m_currentScissorRect					= m_scissorRects.back();
+		Optional<Rect> m_currentViewport			= m_viewports.back();
+		//std::array<Float4, 3> m_currentSDFParams	= m_sdfParams.back();
+		Optional<RenderTexture> m_currentRT			= m_RTs.back();
 		VertexShader::IDType m_currentVS			= VertexShader::IDType::InvalidValue();
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
-		Mat4x4 m_currentCameraTransform				= Mat4x4::Identity();
+		Mat4x4 m_currentCameraTransform				= m_cameraTransforms.back();
+		Float3 m_currentEyePosition					= m_eyePositions.back();
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		GLES3InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
@@ -306,6 +310,10 @@ namespace s3d
 		void pushCameraTransform(const Mat4x4& state);
 		const Mat4x4& getCurrentCameraTransform() const;
 		const Mat4x4& getCameraTransform(uint32 index) const;
+
+		void pushEyePosition(const Float3& state);
+		const Float3& getCurrentEyePosition() const;
+		const Float3& getEyePosition(uint32 index) const;
 
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		GLES3ConstantBuffer3DCommand& getConstantBuffer(uint32 index);
