@@ -1,0 +1,12 @@
+# Blender MTL File: 'Crystal1.blend'
+# Material Count: 1
+
+newmtl Purple
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.108579 0.053576 0.389513
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
