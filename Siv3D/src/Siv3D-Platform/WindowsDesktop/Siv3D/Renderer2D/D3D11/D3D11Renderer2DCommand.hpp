@@ -171,7 +171,7 @@ namespace s3d
 		Array<uint32> m_nullDraws;
 		Array<Float4> m_colorMuls					= { Float4{ 1.0f, 1.0f, 1.0f, 1.0f } };
 		Array<Float4> m_colorAdds					= { Float4{ 0.0f, 0.0f, 0.0f, 0.0f } };
-		Array<BlendState> m_blendStates				= { BlendState::Default };
+		Array<BlendState> m_blendStates				= { BlendState::Default2D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default2D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_psSamplerStates;

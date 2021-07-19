@@ -80,7 +80,7 @@ namespace s3d
 			m_standardVertexDescriptor.layouts[0].stride = 32;
 		}
 		
-		add(standardVS.sprite.id(), standardPS.shape.id(), MTLPixelFormatRGBA8Unorm, sampleCount, BlendState::Default);
+		add(standardVS.sprite.id(), standardPS.shape.id(), MTLPixelFormatRGBA8Unorm, sampleCount, BlendState::Default2D);
 		add(standardVS.fullscreen_triangle.id(), standardPS.fullscreen_triangle.id(), swapchainFormat, 1, BlendState::Opaque);
 	}
 

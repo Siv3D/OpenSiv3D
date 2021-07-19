@@ -86,10 +86,12 @@ namespace s3d
 		{
 			if (state.alphaToCoverageEnable)
 			{
+				::glEnable(GL_MULTISAMPLE);
 				::glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 			}
 			else
 			{
+				::glDisable(GL_MULTISAMPLE);
 				::glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 			}
 		}

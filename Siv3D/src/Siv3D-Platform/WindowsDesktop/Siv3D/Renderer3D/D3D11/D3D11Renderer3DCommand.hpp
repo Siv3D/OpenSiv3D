@@ -186,7 +186,7 @@ namespace s3d
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<Float4> m_drawDiffuses;
-		Array<BlendState> m_blendStates				= { BlendState::Default };
+		Array<BlendState> m_blendStates				= { BlendState::Default3D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
 		Array<DepthStencilState> m_depthStencilStates	= { DepthStencilState::Default3D };
 		std::array<Array<SamplerState>, SamplerState::MaxSamplerCount> m_vsSamplerStates;

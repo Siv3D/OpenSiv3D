@@ -21,7 +21,7 @@ namespace s3d
 	{
 	private:
 
-		BlendState m_currentState = BlendState::Default;
+		BlendState m_currentState = BlendState::Default2D;
 
 	public:
 

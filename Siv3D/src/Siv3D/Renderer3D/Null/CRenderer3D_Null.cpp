@@ -39,7 +39,7 @@ namespace s3d
 
 	BlendState CRenderer3D_Null::getBlendState() const
 	{
-		return BlendState::Default;
+		return BlendState::Default3D;
 	}
 
 	RasterizerState CRenderer3D_Null::getRasterizerState() const

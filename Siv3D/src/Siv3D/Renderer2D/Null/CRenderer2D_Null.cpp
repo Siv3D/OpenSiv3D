@@ -212,7 +212,7 @@ namespace s3d
 
 	BlendState CRenderer2D_Null::getBlendState() const
 	{
-		return BlendState::Default;
+		return BlendState::Default2D;
 	}
 
 	RasterizerState CRenderer2D_Null::getRasterizerState() const

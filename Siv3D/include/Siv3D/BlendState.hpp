@@ -93,7 +93,11 @@ namespace s3d
 
 			Multiplicative2X,
 
-			Default = NonPremultiplied,
+			OpaqueAlphaToCoverage,
+
+			Default2D = NonPremultiplied,
+
+			Default3D = Opaque,
 		};
 
 	public:
@@ -180,9 +184,17 @@ namespace s3d
 		/// @remark BlendState{ true, Blend::DestColor, Blend::SrcColor, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		static constexpr Predefined Multiplicative2X = Predefined::Multiplicative2X;
 
+		/// @brief Alpha to Coverage
+		/// @remark BlendState{ false, .alphaToCoverageEnable = true }	
+		static constexpr Predefined OpaqueAlphaToCoverage = Predefined::OpaqueAlphaToCoverage;
+
 		/// @brief デフォルトのブレンド
 		/// @remark BlendState{ true }	
-		static constexpr Predefined Default = Predefined::Default;
+		static constexpr Predefined Default2D = Predefined::Default2D;
+
+		/// @brief デフォルトのブレンド
+		/// @remark BlendState{ false }
+		static constexpr Predefined Default3D = Predefined::Default3D;
 	};
 	static_assert(sizeof(BlendState) == sizeof(BlendState::storage_type));
 }

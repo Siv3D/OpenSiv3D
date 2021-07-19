@@ -143,7 +143,7 @@ namespace s3d
 			const Point basePos{ PosOffset.x, PosOffset.y - (m_reachedMaxLines ? (fontHeight / 2 + Padding) : 0) };
 			size_t lineOffset = 0;
 
-			ScopedRenderStates2D rb{ BlendState::Default, RasterizerState::Default2D, SamplerState::Default2D };
+			ScopedRenderStates2D rb{ BlendState::Default2D, RasterizerState::Default2D, SamplerState::Default2D };
 
 			if (font.method() == FontMethod::Bitmap)
 			{
