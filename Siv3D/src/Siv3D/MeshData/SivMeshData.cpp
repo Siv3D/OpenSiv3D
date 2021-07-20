@@ -484,21 +484,31 @@ namespace s3d
 		};
 	}
 
-	MeshData MeshData::OneSidedPlane(const Float2 size)
+	MeshData MeshData::OneSidedPlane(const double size, const Float2 uvScale, const Float2 uvOffset)
 	{
-		return OneSidedPlane(Float3::Zero(), size);
+		return OneSidedPlane(Float3::Zero(), Float2::All(static_cast<float>(size)), uvScale, uvOffset);
 	}
 
-	MeshData MeshData::OneSidedPlane(const Float3 center, const Float2 size)
+	MeshData MeshData::OneSidedPlane(const Float3 center, const double size, const Float2 uvScale, const Float2 uvOffset)
+	{
+		return OneSidedPlane(center, Float2::All(static_cast<float>(size)), uvScale, uvOffset);
+	}
+
+	MeshData MeshData::OneSidedPlane(const Float2 size, const Float2 uvScale, const Float2 uvOffset)
+	{
+		return OneSidedPlane(Float3::Zero(), size, uvScale, uvOffset);
+	}
+
+	MeshData MeshData::OneSidedPlane(const Float3 center, const Float2 size, const Float2 uvScale, const Float2 uvOffset)
 	{
 		const Float2 s = (size * 0.5f);
 
 		Array<Vertex3D> vertices =
 		{
-			{ .pos = { -s.x, 0.0f,  s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 0.0f } },
-			{ .pos = {  s.x, 0.0f,  s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 0.0f } },
-			{ .pos = { -s.x, 0.0f, -s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0f, 1.0f } },
-			{ .pos = {  s.x, 0.0f, -s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 1.0f, 1.0f } },
+			{ .pos = { -s.x, 0.0f,  s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = uvOffset },
+			{ .pos = {  s.x, 0.0f,  s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { (uvOffset.x + uvScale.x), 0.0f } },
+			{ .pos = { -s.x, 0.0f, -s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = { 0.0, (uvOffset.y + uvScale.y) } },
+			{ .pos = {  s.x, 0.0f, -s.y }, .normal = { 0.0f, 1.0f, 0.0f }, .tex = (uvOffset + uvScale) },
 		};
 
 		for (auto& vertex : vertices)
@@ -507,6 +517,16 @@ namespace s3d
 		}
 
 		return{ std::move(vertices), detail::OneSidedPlaceIndices };
+	}
+
+	MeshData MeshData::TwoSidedPlane(const double size)
+	{
+		return TwoSidedPlane(Float3::Zero(), Float2::All(static_cast<float>(size)));
+	}
+
+	MeshData MeshData::TwoSidedPlane(const Float3 center, const double size)
+	{
+		return TwoSidedPlane(center, Float2::All(static_cast<float>(size)));
 	}
 
 	MeshData MeshData::TwoSidedPlane(const Float2 size)

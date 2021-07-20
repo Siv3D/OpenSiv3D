@@ -58,10 +58,22 @@ namespace s3d
 		s3d::Box computeBoundingBox() const;
 
 		[[nodiscard]]
-		static MeshData OneSidedPlane(Float2 size);
+		static MeshData OneSidedPlane(double size, Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
 
 		[[nodiscard]]
-		static MeshData OneSidedPlane(Float3 center, Float2 size);
+		static MeshData OneSidedPlane(Float3 center, double size, Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
+
+		[[nodiscard]]
+		static MeshData OneSidedPlane(Float2 size, Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
+
+		[[nodiscard]]
+		static MeshData OneSidedPlane(Float3 center, Float2 size, Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
+
+		[[nodiscard]]
+		static MeshData TwoSidedPlane(double size);
+
+		[[nodiscard]]
+		static MeshData TwoSidedPlane(Float3 center, double size);
 
 		[[nodiscard]]
 		static MeshData TwoSidedPlane(Float2 size);
