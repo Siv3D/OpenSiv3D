@@ -118,6 +118,11 @@ namespace s3d
 		return detail::IsMipped(SIV3D_ENGINE(Texture)->getDesc(m_handle->id()));
 	}
 
+	bool Texture::srgbSampling() const
+	{
+		return SIV3D_ENGINE(Texture)->getFormat(m_handle->id()).isSRGB();
+	}
+
 	bool Texture::isSDF() const
 	{
 		return detail::IsSDF(SIV3D_ENGINE(Texture)->getDesc(m_handle->id()));

@@ -83,77 +83,81 @@ namespace s3d
 
 		// エンジン用 HLSL シェーダをコンパイル
 		{
-			compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Vertex, U"VS")
-				.save(U"engine/shader/d3d11/fullscreen_triangle.vs");
+			//compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Vertex, U"VS")
+			//	.save(U"engine/shader/d3d11/fullscreen_triangle.vs");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/fullscreen_triangle.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/fullscreen_triangle.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/fullscreen_triangle.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Vertex, U"VS")
-				.save(U"engine/shader/d3d11/sprite.vs");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Vertex, U"VS")
+			//	.save(U"engine/shader/d3d11/sprite.vs");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
-				.save(U"engine/shader/d3d11/shape.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Shape")
+			//	.save(U"engine/shader/d3d11/shape.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SquareDot")
-				.save(U"engine/shader/d3d11/square_dot.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SquareDot")
+			//	.save(U"engine/shader/d3d11/square_dot.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_RoundDot")
-				.save(U"engine/shader/d3d11/round_dot.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_RoundDot")
+			//	.save(U"engine/shader/d3d11/round_dot.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Texture")
-				.save(U"engine/shader/d3d11/texture.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_Texture")
+			//	.save(U"engine/shader/d3d11/texture.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_BitmapFont")
-				.save(U"engine/shader/d3d11/bitmapfont.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_BitmapFont")
+			//	.save(U"engine/shader/d3d11/bitmapfont.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont")
-				.save(U"engine/shader/d3d11/sdffont.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont")
+			//	.save(U"engine/shader/d3d11/sdffont.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Outline")
-				.save(U"engine/shader/d3d11/sdffont_outline.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Outline")
+			//	.save(U"engine/shader/d3d11/sdffont_outline.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Shadow")
-				.save(U"engine/shader/d3d11/sdffont_shadow.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_Shadow")
+			//	.save(U"engine/shader/d3d11/sdffont_shadow.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_OutlineShadow")
-				.save(U"engine/shader/d3d11/sdffont_outlineshadow.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_SDFFont_OutlineShadow")
+			//	.save(U"engine/shader/d3d11/sdffont_outlineshadow.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont")
-				.save(U"engine/shader/d3d11/msdffont.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont")
+			//	.save(U"engine/shader/d3d11/msdffont.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Outline")
-				.save(U"engine/shader/d3d11/msdffont_outline.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Outline")
+			//	.save(U"engine/shader/d3d11/msdffont_outline.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Shadow")
-				.save(U"engine/shader/d3d11/msdffont_shadow.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_Shadow")
+			//	.save(U"engine/shader/d3d11/msdffont_shadow.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_OutlineShadow")
-				.save(U"engine/shader/d3d11/msdffont_outlineshadow.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFFont_OutlineShadow")
+			//	.save(U"engine/shader/d3d11/msdffont_outlineshadow.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFPrint")
-				.save(U"engine/shader/d3d11/msdfprint.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sprite.hlsl", ShaderStage::Pixel, U"PS_MSDFPrint")
+			//	.save(U"engine/shader/d3d11/msdfprint.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/copy.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/copy.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Vertex, U"VS")
+			//	.save(U"engine/shader/d3d11/forward3d.vs");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Shape")
+			//	.save(U"engine/shader/d3d11/forward3d_shape.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Vertex, U"VS")
-				.save(U"engine/shader/d3d11/forward3d.vs");
+			//compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Texture")
+			//	.save(U"engine/shader/d3d11/forward3d_texture.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Shape")
-				.save(U"engine/shader/d3d11/forward3d_shape.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Vertex, U"VS")
+			//	.save(U"engine/shader/d3d11/line3d.vs");
+			//
+			//compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/line3d.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS_Texture")
-				.save(U"engine/shader/d3d11/forward3d_texture.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/copy.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/copy.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Vertex, U"VS")
-				.save(U"engine/shader/d3d11/line3d.vs");
-			
-			compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/line3d.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
+
+			//compileHLSLFromFile(U"engine/shader/d3d11/linear_to_screen.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/linear_to_screen.ps");
+
 
 			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}
@@ -192,6 +196,7 @@ namespace s3d
 		{
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/copy.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_9.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/linear_to_screen.ps") };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{

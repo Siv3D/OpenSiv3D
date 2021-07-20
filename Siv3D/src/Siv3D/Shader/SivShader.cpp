@@ -116,5 +116,28 @@ namespace s3d
 			Shader::GaussianBlurH(from, internalBuffer);
 			Shader::GaussianBlurV(internalBuffer, to);
 		}
+
+		void LinearToScreen(const TextureRegion& src, const RectF& dst)
+		{
+			if (not src.texture.srgbSampling())
+			{
+				throw Error{ U"Shader::LinearToScreen(): src.texture sRGB sampling is disabled" };
+			}
+
+			const Vec2 pos = dst.pos;
+			const Vec2 scale = (dst.size / src.size);
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::LinearToScreen) };
+
+			if (scale == Vec2::One())
+			{
+				const ScopedRenderStates2D rs{ BlendState::Opaque, SamplerState::ClampNearest, RasterizerState::Default2D };
+				src.draw(pos);
+			}
+			else
+			{
+				const ScopedRenderStates2D rs{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
+				src.scaled(scale).draw(pos);
+			}
+		}
 	}
 }

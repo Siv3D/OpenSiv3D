@@ -23,6 +23,8 @@ namespace s3d
 		Copy,
 		
 		GaussianBlur_9,
+
+		LinearToScreen,
 	};
 
 	class SIV3D_NOVTABLE ISiv3DShader

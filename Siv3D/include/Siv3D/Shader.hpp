@@ -15,6 +15,8 @@
 # include "StringView.hpp"
 # include "ShaderStage.hpp"
 # include "RenderTexture.hpp"
+# include "Graphics2D.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -31,6 +33,8 @@ namespace s3d
 		void GaussianBlur(const TextureRegion& from, RenderTexture& to, const Vec2& direction);
 
 		void GaussianBlur(const TextureRegion& from, RenderTexture& internalBuffer, RenderTexture& to);
+
+		void LinearToScreen(const TextureRegion& src, const RectF& dst = RectF{ Graphics2D::GetRenderTargetSize() });
 	}
 
 # if SIV3D_PLATFORM(WINDOWS)

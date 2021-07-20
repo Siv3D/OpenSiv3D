@@ -79,6 +79,9 @@ namespace s3d
 		bool isMipped() const;
 
 		[[nodiscard]]
+		bool srgbSampling() const;
+
+		[[nodiscard]]
 		bool isSDF() const;
 
 		[[nodiscard]]
