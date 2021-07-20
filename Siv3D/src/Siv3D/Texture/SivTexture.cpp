@@ -435,7 +435,7 @@ namespace s3d
 
 	TextureRegion Texture::uv(const RectF& rect) const
 	{
-		return operator ()(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+		return uv(rect.x, rect.y, rect.w, rect.h);
 	}
 
 	TextureRegion Texture::mirrored() const
