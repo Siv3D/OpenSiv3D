@@ -43,9 +43,9 @@ namespace s3d
 				throw Error{ U"Shader::Copy(): from.texture == to" };
 			}
 
-			ScopedRenderTarget2D target{ to };
-			ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampNearest, RasterizerState::Default2D };
-			ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::Copy) };
+			const ScopedRenderTarget2D target{ to };
+			const ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampNearest, RasterizerState::Default2D };
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::Copy) };
 			from.draw();
 		}
 
@@ -66,9 +66,9 @@ namespace s3d
 				throw Error{ U"Shader::DownSample(): from.texture == to" };
 			}
 
-			ScopedRenderTarget2D target{ to };
-			ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
-			ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::Copy) };
+			const ScopedRenderTarget2D target{ to };
+			const ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::Copy) };
 			from.resized(to.size()).draw();
 		}
 
@@ -104,9 +104,9 @@ namespace s3d
 				throw Error{ U"Shader::GaussianBlur(): from.texture == to" };
 			}
 
-			ScopedRenderTarget2D target{ to };
-			ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
-			ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::GaussianBlur_9) };
+			const ScopedRenderTarget2D target{ to };
+			const ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::GaussianBlur_9) };
 			Graphics2D::Internal::SetInternalPSConstants(Float4{ Float2{ 1, 1 } / from.size * Float2{ from.uvRect.right - from.uvRect.left, from.uvRect.bottom - from.uvRect.top }, direction });
 			from.draw();
 		}
@@ -127,15 +127,17 @@ namespace s3d
 			const Vec2 pos = dst.pos;
 			const Vec2 scale = (dst.size / src.size);
 			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::LinearToScreen) };
+			BlendState bs = BlendState::Opaque;
+			bs.writeA = false;
 
 			if (scale == Vec2::One())
 			{
-				const ScopedRenderStates2D rs{ BlendState::Opaque, SamplerState::ClampNearest, RasterizerState::Default2D };
+				const ScopedRenderStates2D rs{ bs, SamplerState::ClampNearest, RasterizerState::Default2D };
 				src.draw(pos);
 			}
 			else
 			{
-				const ScopedRenderStates2D rs{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
+				const ScopedRenderStates2D rs{ bs, SamplerState::ClampLinear, RasterizerState::Default2D };
 				src.scaled(scale).draw(pos);
 			}
 		}
