@@ -20,9 +20,8 @@ uniform sampler2D Texture0;
 //	PSInput
 //
 layout(location = 0) in vec3 WorldPosition;
-layout(location = 1) in vec4 Color;
-layout(location = 2) in vec2 UV;
-layout(location = 3) in vec3 Normal;
+layout(location = 1) in vec2 UV;
+layout(location = 2) in vec3 Normal;
 
 //
 //	PSOutput
@@ -32,10 +31,14 @@ layout(location = 0) out vec4 FragColor;
 //
 //	Constant Buffer
 //
-layout(std140) uniform PSConstants3D
+layout(std140) uniform PSPerView
+{
+	vec3 g_eyePosition;
+};
+
+layout(std140) uniform PSPerMaterial
 {
 	vec4 g_diffuseColor;
-	vec3 g_eyePosition;
 };
 
 //
@@ -45,5 +48,5 @@ void main()
 {
 	vec4 texColor = texture(Texture0, UV);
 
-	FragColor = (Color * g_diffuseColor * texColor);
+	FragColor = (g_diffuseColor * texColor);
 }

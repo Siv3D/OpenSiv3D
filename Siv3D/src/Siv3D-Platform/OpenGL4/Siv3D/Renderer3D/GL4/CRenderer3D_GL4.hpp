@@ -151,8 +151,10 @@ namespace s3d
 		std::unique_ptr<GL4StandardVS3D> m_standardVS;
 		std::unique_ptr<GL4StandardPS3D> m_standardPS;
 
-		ConstantBuffer<VSConstants3D> m_vsConstants3D;
-		ConstantBuffer<PSConstants3D> m_psConstants3D;
+		ConstantBuffer<VSPerViewConstants3D> m_vsPerViewConstants;
+		ConstantBuffer<VSPerObjectConstants3D> m_vsPerObjectConstants;
+		ConstantBuffer<PSPerViewConstants3D> m_psPerViewConstants;
+		ConstantBuffer<PSPerMaterialConstants3D> m_psPerMaterialConstants;
 
 		GL4Renderer3DCommandManager m_commandManager;
 

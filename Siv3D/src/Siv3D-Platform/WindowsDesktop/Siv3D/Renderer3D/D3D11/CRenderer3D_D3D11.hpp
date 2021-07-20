@@ -154,8 +154,10 @@ namespace s3d
 		std::unique_ptr<D3D11StandardVS3D> m_standardVS;
 		std::unique_ptr<D3D11StandardPS3D> m_standardPS;
 
-		ConstantBuffer<VSConstants3D> m_vsConstants3D;
-		ConstantBuffer<PSConstants3D> m_psConstants3D;
+		ConstantBuffer<VSPerViewConstants3D> m_vsPerViewConstants;
+		ConstantBuffer<VSPerObjectConstants3D> m_vsPerObjectConstants;
+		ConstantBuffer<PSPerViewConstants3D> m_psPerViewConstants;
+		ConstantBuffer<PSPerMaterialConstants3D> m_psPerMaterialConstants;
 
 		ComPtr<ID3D11InputLayout> m_inputLayoutDefault;
 		ComPtr<ID3D11InputLayout> m_inputLayoutLine3D;

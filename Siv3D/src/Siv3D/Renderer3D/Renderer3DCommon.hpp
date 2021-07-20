@@ -16,17 +16,24 @@
 
 namespace s3d
 {
-	struct VSConstants3D
+	struct VSPerViewConstants3D // (VS slot-1)
 	{
-		Mat4x4 localToWorld = Mat4x4::Identity();
 		Mat4x4 worldToProjected = Mat4x4::Identity();
 	};
 
-	struct PSConstants3D
+	struct VSPerObjectConstants3D // (VS slot-2)
+	{
+		Mat4x4 localToWorld = Mat4x4::Identity();
+	};
+
+	struct PSPerViewConstants3D // (PS slot-1)
+	{
+		Float4 eyePosition = Float4{ 0.0f, 0.0f, 0.0f, 0.0f };
+	};
+
+	struct PSPerMaterialConstants3D // (PS slot-3)
 	{
 		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
-
-		Float4 eyePosition = Float4{ 0.0f, 0.0f, 0.0f, 0.0f };
 	};
 
 	struct BatchInfoLine3D

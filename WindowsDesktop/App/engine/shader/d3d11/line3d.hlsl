@@ -9,12 +9,6 @@
 //
 //-----------------------------------------------
 
-//
-//	Textures
-//
-Texture2D		g_texture0 : register(t0);
-SamplerState	g_sampler0 : register(s0);
-
 namespace s3d
 {
 	//
@@ -40,12 +34,10 @@ namespace s3d
 //
 //	Constant Buffer
 //
-cbuffer VSConstants3D : register(b0)
+cbuffer VSPerView : register(b1)
 {
-	row_major float4x4 g_localToWorld;
 	row_major float4x4 g_worldToProjected;
 }
-
 
 //
 //	Functions

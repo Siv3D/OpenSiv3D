@@ -396,8 +396,10 @@ namespace s3d
 			return;
 		}
 
-		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
-		pShader->setConstantBufferPS(0, m_psConstants3D.base());
+		pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
+		pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+		pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
+		pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 
@@ -441,11 +443,13 @@ namespace s3d
 
 					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
 					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
-					m_vsConstants3D->localToWorld = localToWorld;
-					m_psConstants3D->diffuseColor = diffuse;
+					m_vsPerObjectConstants->localToWorld = localToWorld;
+					m_psPerMaterialConstants->diffuseColor = diffuse;
 
-					m_vsConstants3D._update_if_dirty();
-					m_psConstants3D._update_if_dirty();
+					m_vsPerViewConstants._update_if_dirty();
+					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerViewConstants._update_if_dirty();
+					m_psPerMaterialConstants._update_if_dirty();
 					m_context->DrawIndexed(indexCount, startIndexLocation, 0);
 					
 					instanceIndex += instanceCount;
@@ -471,8 +475,10 @@ namespace s3d
 					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
 					assert(indexCount != 0);
 
-					m_vsConstants3D._update_if_dirty();
-					m_psConstants3D._update_if_dirty();
+					m_vsPerViewConstants._update_if_dirty();
+					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerViewConstants._update_if_dirty();
+					m_psPerMaterialConstants._update_if_dirty();
 					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 					batchInfoLine3D.startIndexLocation += indexCount;
 
@@ -652,7 +658,7 @@ namespace s3d
 			case D3D11Renderer3DCommandType::CameraTransform:
 				{
 					const Mat4x4& cameraTransform = m_commandManager.getCameraTransform(command.index);
-					m_vsConstants3D->worldToProjected = cameraTransform;
+					m_vsPerViewConstants->worldToProjected = cameraTransform;
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
 					break;
@@ -660,7 +666,7 @@ namespace s3d
 			case D3D11Renderer3DCommandType::EyePosition:
 				{
 					const Float3& eyePosition = m_commandManager.getEyePosition(command.index);
-					m_psConstants3D->eyePosition = Float4{ eyePosition, 0.0f };
+					m_psPerViewConstants->eyePosition = Float4{ eyePosition, 0.0f };
 
 					LOG_COMMAND(U"EyePosition[{}] {}"_fmt(command.index, eyePosition));
 					break;

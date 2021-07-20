@@ -30,10 +30,14 @@ out gl_PerVertex
 //
 //	Constant Buffer
 //
-layout(std140) uniform VSConstants3D
+layout(std140) uniform VSPerView
+{
+	mat4x4 g_worldToProjected;
+};
+
+layout(std140) uniform VSPerObject
 {
 	mat4x4 g_localToWorld;
-	mat4x4 g_worldToProjected;
 };
 
 //

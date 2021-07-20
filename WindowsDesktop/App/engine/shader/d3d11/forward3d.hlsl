@@ -34,25 +34,32 @@ namespace s3d
 	{
 		float4 position : SV_POSITION;
 		float3 worldPosition : TEXCOORD0;
-		float4 color : TEXCOORD1;
-		float2 uv : TEXCOORD2;
-		float3 normal : TEXCOORD3;
+		float2 uv : TEXCOORD1;
+		float3 normal : TEXCOORD2;
 	};
 }
 
 //
 //	Constant Buffer
 //
-cbuffer VSConstants3D : register(b0)
+cbuffer VSPerView : register(b1)
 {
-	row_major float4x4 g_localToWorld;
 	row_major float4x4 g_worldToProjected;
 }
 
-cbuffer PSConstants3D : register(b0)
+cbuffer VSPerObject : register(b2)
 {
-	float4 g_diffuseColor: packoffset(c0);
-	float3 g_eyePosition : packoffset(c1);
+	row_major float4x4 g_localToWorld;
+}
+
+cbuffer PSPerView : register(b1)
+{
+	float3 g_eyePosition;
+}
+
+cbuffer PSPerMaterial : register(b3)
+{
+	float4 g_diffuseColor;
 }
 
 //
@@ -66,7 +73,6 @@ s3d::PSInput VS(s3d::VSInput input)
 
 	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;
-	result.color			= float4(1.0, 1.0, 1.0, 1.0);
 	result.uv				= input.uv;
 	result.normal			= mul(input.normal, (float3x3)g_localToWorld);
 	return result;
@@ -74,12 +80,12 @@ s3d::PSInput VS(s3d::VSInput input)
 
 float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 {
-	return (input.color * g_diffuseColor);
+	return g_diffuseColor;
 }
 
 float4 PS_Texture(s3d::PSInput input) : SV_TARGET
 {
 	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
 
-	return (input.color * g_diffuseColor * texColor);
+	return (g_diffuseColor * texColor);
 }
