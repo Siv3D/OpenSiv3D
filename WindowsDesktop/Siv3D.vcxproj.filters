@@ -1486,6 +1486,9 @@
     <Filter Include="src\ThirdParty\tinyobjloader">
       <UniqueIdentifier>{fc549440-04cc-4ae4-bb65-f21c95de4c6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DebugCamera3D">
+      <UniqueIdentifier>{8a08da4d-e4f4-4466-90b8-1b81f6cc24b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6543,6 +6546,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ModelObject.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DebugCamera3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9007,6 +9013,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.cc">
       <Filter>src\ThirdParty\tinyobjloader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DebugCamera3D\SivDebugCamera3D.cpp">
+      <Filter>src\Siv3D\DebugCamera3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

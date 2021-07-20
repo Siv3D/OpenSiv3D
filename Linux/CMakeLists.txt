@@ -193,6 +193,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Cursor/SivCursor.cpp
   ../Siv3D/src/Siv3D/Cylinder/SivCylinder.cpp
   ../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp
+  ../Siv3D/src/Siv3D/DebugCamera3D/SivDebugCamera3D.cpp
   ../Siv3D/src/Siv3D/Dialog/SivDialog.cpp
   ../Siv3D/src/Siv3D/DirectoryWatcher/SivDirectoryWatcher.cpp
   ../Siv3D/src/Siv3D/Disc/SivDisc.cpp
