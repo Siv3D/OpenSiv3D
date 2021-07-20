@@ -1549,6 +1549,7 @@
 		2CF2AF8925542C5900E81D12 /* SivMonitor_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8825542C5900E81D12 /* SivMonitor_macOS_Linux.cpp */; };
 		2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */; };
 		2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */; };
+		2CF6C2BC26A6B9E90039467F /* SivDebugCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */; };
 		2CF962F025A7F953006F55C9 /* SivRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */; };
 		2CF962F325A7F95F006F55C9 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */; };
 		2CF962F625A7F987006F55C9 /* SivSpline2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F525A7F987006F55C9 /* SivSpline2D.cpp */; };
@@ -4110,6 +4111,8 @@
 		2CF2AF8825542C5900E81D12 /* SivMonitor_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS_Linux.cpp; sourceTree = "<group>"; };
 		2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor.cpp; sourceTree = "<group>"; };
 		2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS.cpp; sourceTree = "<group>"; };
+		2CF6C2B926A6B9CD0039467F /* DebugCamera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DebugCamera3D.hpp; sourceTree = "<group>"; };
+		2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDebugCamera3D.cpp; sourceTree = "<group>"; };
 		2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
 		2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2CF962F525A7F987006F55C9 /* SivSpline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSpline2D.cpp; sourceTree = "<group>"; };
@@ -5995,6 +5998,7 @@
 				2C47B26B24DD9789008D83BE /* Cursor */,
 				2C695D84268F57C900970FB3 /* Cylinder */,
 				2C47B27224DD9789008D83BE /* DateTime */,
+				2CF6C2BA26A6B9E90039467F /* DebugCamera3D */,
 				2CFB7DD6262B06CA00169B97 /* Dialog */,
 				2C13C8EE25B95AE70054B968 /* DirectoryWatcher */,
 				2C695D82268F57C900970FB3 /* Disc */,
@@ -9415,6 +9419,7 @@
 				2CAAA6F125E7FD0200C014D7 /* DateTime.hpp */,
 				2CAAA87025E7FD0300C014D7 /* DayOfWeek.hpp */,
 				2CB749E8261F524D00D31274 /* DeadZone.hpp */,
+				2CF6C2B926A6B9CD0039467F /* DebugCamera3D.hpp */,
 				2CAAA87325E7FD0300C014D7 /* Demangle.hpp */,
 				2CAAA76A25E7FD0200C014D7 /* DepthStencilState.hpp */,
 				2CFB7DB3262AB49C00169B97 /* Dialog.hpp */,
@@ -10553,6 +10558,14 @@
 				2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */,
 			);
 			path = Monitor;
+			sourceTree = "<group>";
+		};
+		2CF6C2BA26A6B9E90039467F /* DebugCamera3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */,
+			);
+			path = DebugCamera3D;
 			sourceTree = "<group>";
 		};
 		2CF962EE25A7F953006F55C9 /* RoundRect */ = {
@@ -12172,6 +12185,7 @@
 				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
 				2C5D0C182677C91C00A713D9 /* SivAsset.cpp in Sources */,
 				2CAAA8C625E7FDCC00C014D7 /* EmojiData.cpp in Sources */,
+				2CF6C2BC26A6B9E90039467F /* SivDebugCamera3D.cpp in Sources */,
 				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */,
