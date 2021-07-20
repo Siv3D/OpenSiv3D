@@ -29,6 +29,12 @@ namespace s3d
 
 			const int32 targetWidth = Max(src.width() / 2, 1);
 			const int32 targetHeight = Max(src.height() / 2, 1);
+			
+			if ((targetWidth <= 4) && (targetHeight <= 4))
+			{
+				return src.scaled(targetWidth, targetHeight, InterpolationAlgorithm::Area);
+			}
+			
 			Image result(targetWidth, targetHeight);
 			Color* pDst = result.data();
 
