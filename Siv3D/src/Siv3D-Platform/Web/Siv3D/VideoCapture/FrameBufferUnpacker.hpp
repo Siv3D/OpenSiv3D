@@ -75,6 +75,7 @@ namespace s3d
             }
 
             m_pixelReadSync = ::glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+            ::glFlush();
         }
 
         void readPixels(Image& image) const

@@ -15,6 +15,58 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		using CallbackDataStructure = std::tuple<bool (*)(void*), void*, long, long>;
+		using CallbackData = std::unique_ptr<CallbackDataStructure>;
+
+		void siv3dNop(long) {}
+
+		int siv3dRequestAnimationFrameLoopCallback(double time, void* userData)
+		{
+			CallbackData p 
+			{ 
+				static_cast<CallbackDataStructure*>(userData)
+			};
+
+			auto callback = std::get<0>(*p);
+			auto callbackData = std::get<1>(*p);
+			auto& lastCalled = std::get<2>(*p);
+			auto interval = std::get<3>(*p);
+
+			if (static_cast<long>(time) - lastCalled > interval)
+			{
+				lastCalled += interval;
+
+				auto shouldContinue = (*callback)(callbackData);
+
+				if (shouldContinue)
+				{
+					p.release();
+				}
+
+				return shouldContinue;
+			}
+
+			p.release();
+			return true;
+		}
+
+		template <long __interval>
+		long siv3dRegisterRequestAnimationFrameLoop(bool (*functionPointer)(void*), void* userData)
+		{
+			CallbackData p 
+			{ 
+				new CallbackDataStructure(functionPointer, userData, 0, __interval)
+			};
+
+			::emscripten_request_animation_frame_loop(&siv3dRequestAnimationFrameLoopCallback, p.get());
+			p.release();
+			
+			return 0x334;
+		}
+	}
+
 	VideoReader::VideoReaderDetail::VideoReaderDetail() {}
 
 	VideoReader::VideoReaderDetail::~VideoReaderDetail()
@@ -52,7 +104,8 @@ namespace s3d
 			m_shared.frame[i].ready = false;
 		}
 
-		m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, std::ref(*this) );
+		// m_thread = PseudoThread(std::chrono::milliseconds(30), &VideoReaderDetail::run, std::ref(*this) );
+		m_thread = PseudoThread(&detail::siv3dRegisterRequestAnimationFrameLoop<30>, &detail::siv3dNop, &VideoReaderDetail::run, std::ref(*this) );
 
 		return true;
 	}

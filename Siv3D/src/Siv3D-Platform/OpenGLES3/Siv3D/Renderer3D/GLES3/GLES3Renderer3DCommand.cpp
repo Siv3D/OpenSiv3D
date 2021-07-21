@@ -48,6 +48,8 @@ namespace s3d
 			m_drawLocalToWorlds.clear();
 			m_drawDiffuses.clear();
 
+			m_drawLine3Ds.clear();
+
 			//	m_nullDraws.clear();
 			m_blendStates = { m_blendStates.back() };
 			m_rasterizerStates = { m_rasterizerStates.back() };
@@ -67,10 +69,12 @@ namespace s3d
 			m_viewports = { m_viewports.back() };
 			//	m_sdfParams				= { m_sdfParams.back() };
 			m_RTs = { m_RTs.back() };
+			m_inputLayouts = { m_inputLayouts.back() };
 
 			m_VSs = { VertexShader::IDType::InvalidValue() };
 			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms = { m_cameraTransforms.back() };
+			m_eyePositions = { m_eyePositions.back() };
 			m_constants.clear();
 			m_constantBufferCommands.clear();
 		}
@@ -88,40 +92,45 @@ namespace s3d
 			//	m_commands.emplace_back(GLES3Renderer2DCommandType::SetBuffers, 0);
 			//	m_commands.emplace_back(GLES3Renderer2DCommandType::UpdateBuffers, 0);
 
+			m_commands.emplace_back(GLES3Renderer3DCommandType::UpdateLine3DBuffers, 0);
+
 			m_commands.emplace_back(GLES3Renderer3DCommandType::BlendState, 0);
-			m_currentBlendState = m_blendStates.front();
+			m_currentBlendState = m_blendStates.back();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::RasterizerState, 0);
-			m_currentRasterizerState = m_rasterizerStates.front();
+			m_currentRasterizerState = m_rasterizerStates.back();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::DepthStencilState, 0);
-			m_currentDepthStencilState = m_depthStencilStates.front();
+			m_currentDepthStencilState = m_depthStencilStates.back();
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
 				const auto command = ToEnum<GLES3Renderer3DCommandType>(FromEnum(GLES3Renderer3DCommandType::VSSamplerState0) + i);
 				m_commands.emplace_back(command, 0);
-				m_currentVSSamplerStates[i] = m_currentVSSamplerStates.front();
+				m_currentVSSamplerStates[i] = m_currentVSSamplerStates.back();
 			}
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 			{
 				const auto command = ToEnum<GLES3Renderer3DCommandType>(FromEnum(GLES3Renderer3DCommandType::PSSamplerState0) + i);
 				m_commands.emplace_back(command, 0);
-				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.front();
+				m_currentPSSamplerStates[i] = m_currentPSSamplerStates.back();
 			}
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::ScissorRect, 0);
-			m_currentScissorRect = m_scissorRects.front();
+			m_currentScissorRect = m_scissorRects.back();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::Viewport, 0);
-			m_currentViewport = m_viewports.front();
+			m_currentViewport = m_viewports.back();
 
 			//	m_commands.emplace_back(GLES3Renderer2DCommandType::SDFParams, 0);
-			//	m_currentSDFParams = m_sdfParams.front();
+			//	m_currentSDFParams = m_sdfParams.back();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::SetRT, 0);
-			m_currentRT = m_RTs.front();
+			m_currentRT = m_RTs.back();
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::InputLayout, 0);
+			m_currentInputLayout = m_inputLayouts.back();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::SetVS, 0);
 			m_currentVS = VertexShader::IDType::InvalidValue();
@@ -130,7 +139,10 @@ namespace s3d
 			m_currentPS = PixelShader::IDType::InvalidValue();
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::CameraTransform, 0);
-			m_currentCameraTransform = m_cameraTransforms.front();
+			m_currentCameraTransform = m_cameraTransforms.back();
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::EyePosition, 0);
+			m_currentEyePosition = m_eyePositions.back();
 
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -169,6 +181,13 @@ namespace s3d
 		//	m_draws.push_back(m_currentDraw);
 		//	m_currentDraw.indexCount = 0;
 		//}
+
+		if (m_currentDrawLine3D.indexCount)
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::DrawLine3D, static_cast<uint32>(m_drawLine3Ds.size()));
+			m_drawLine3Ds.push_back(m_currentDrawLine3D);
+			m_currentDrawLine3D.indexCount = 0;
+		}
 
 		//if (m_changes.has(GLES3Renderer2DCommandType::SetBuffers))
 		//{
@@ -233,6 +252,12 @@ namespace s3d
 		//	m_sdfParams.push_back(m_currentSDFParams);
 		//}
 
+		if (m_changes.has(GLES3Renderer3DCommandType::InputLayout))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::InputLayout, static_cast<uint32>(m_inputLayouts.size()));
+			m_inputLayouts.push_back(m_currentInputLayout);
+		}
+
 		if (m_changes.has(GLES3Renderer3DCommandType::SetRT))
 		{
 			m_commands.emplace_back(GLES3Renderer3DCommandType::SetRT, static_cast<uint32>(m_RTs.size()));
@@ -261,6 +286,12 @@ namespace s3d
 		{
 			assert(not m_constantBufferCommands.isEmpty());
 			m_commands.emplace_back(GLES3Renderer3DCommandType::SetConstantBuffer, static_cast<uint32>(m_constantBufferCommands.size()) - 1);
+		}
+
+		if (m_changes.has(GLES3Renderer3DCommandType::EyePosition))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::EyePosition, static_cast<uint32>(m_eyePositions.size()));
+			m_eyePositions.push_back(m_currentEyePosition);
 		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -296,12 +327,20 @@ namespace s3d
 
 	bool GLES3Renderer3DCommandManager::hasDraw() const noexcept
 	{
-		return (not m_draws.isEmpty());
+		return ((not m_draws.isEmpty())
+			|| (not m_drawLine3Ds.isEmpty()));
 	}
 
 	const Array<GLES3Renderer3DCommand>& GLES3Renderer3DCommandManager::getCommands() const noexcept
 	{
 		return m_commands;
+	}
+
+	void GLES3Renderer3DCommandManager::pushUpdateLine3DBuffers(uint32 batchIndex)
+	{
+		flush();
+
+		m_commands.emplace_back(GLES3Renderer3DCommandType::UpdateLine3DBuffers, batchIndex);
 	}
 
 	void GLES3Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const Mat4x4* mat, const Float4* color, const uint32 instanceCount)
@@ -341,6 +380,21 @@ namespace s3d
 	const Float4& GLES3Renderer3DCommandManager::getDrawDiffuse(const uint32 index) const noexcept
 	{
 		return m_drawDiffuses[index];
+	}
+
+	void GLES3Renderer3DCommandManager::pushDrawLine3D(VertexLine3D::IndexType indexCount)
+	{
+		if (m_changes.hasStateChange())
+		{
+			flush();
+		}
+
+		m_currentDrawLine3D.indexCount += indexCount;
+	}
+
+	const GLES3DrawLine3DCommand& GLES3Renderer3DCommandManager::getDrawLine3D(uint32 index) const noexcept
+	{
+		return m_drawLine3Ds[index];
 	}
 
 	//void GLES3Renderer2DCommandManager::pushNullVertices(const uint32 count)
@@ -677,6 +731,44 @@ namespace s3d
 	//}
 
 
+	void GLES3Renderer3DCommandManager::pushInputLayout(GLES3InputLayout3D state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::InputLayout;
+		auto& current = m_currentInputLayout;
+		auto& buffer = m_inputLayouts;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const GLES3InputLayout3D& GLES3Renderer3DCommandManager::getInputLayout(uint32 index) const
+	{
+		return m_inputLayouts[index];
+	}
+
+	const GLES3InputLayout3D& GLES3Renderer3DCommandManager::getCurrentInputLayout() const
+	{
+		return m_currentInputLayout;
+	}
+
 	void GLES3Renderer3DCommandManager::pushStandardVS(const VertexShader::IDType& id)
 	{
 		constexpr auto command = GLES3Renderer3DCommandType::SetVS;
@@ -841,6 +933,44 @@ namespace s3d
 	const Mat4x4& GLES3Renderer3DCommandManager::getCameraTransform(const uint32 index) const
 	{
 		return m_cameraTransforms[index];
+	}
+
+	void GLES3Renderer3DCommandManager::pushEyePosition(const Float3& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::EyePosition;
+		auto& current = m_currentEyePosition;
+		auto& buffer = m_eyePositions;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getCurrentEyePosition() const
+	{
+		return m_currentEyePosition;
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getEyePosition(const uint32 index) const
+	{
+		return m_eyePositions[index];
 	}
 
 	void GLES3Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
@@ -1075,6 +1205,35 @@ namespace s3d
 	const Optional<RenderTexture>& GLES3Renderer3DCommandManager::getCurrentRT() const
 	{
 		return m_currentRT;
+	}
+
+	void GLES3Renderer3DCommandManager::pushMeshUnbind()
+	{
+		const auto id = Mesh::IDType::InvalidValue();
+		const auto command = GLES3Renderer3DCommandType::SetMesh;
+		auto& current = m_currentMesh;
+		auto& buffer = m_meshes;
+
+		if (not m_changes.has(command))
+		{
+			if (id != current)
+			{
+				current = id;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (id == buffer.back())
+			{
+				current = id;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = id;
+			}
+		}
 	}
 
 	void GLES3Renderer3DCommandManager::pushMesh(const Mesh& mesh)

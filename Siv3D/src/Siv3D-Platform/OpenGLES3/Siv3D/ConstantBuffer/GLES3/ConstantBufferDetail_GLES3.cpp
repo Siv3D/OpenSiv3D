@@ -15,9 +15,9 @@
 namespace s3d
 {
 	ConstantBufferDetail_GLES3::ConstantBufferDetail_GLES3(const size_t size)
-		: m_bufferSize(size)
+		: m_bufferSize{ size }
 	{
-
+		// do nothing
 	}
 
 	ConstantBufferDetail_GLES3::~ConstantBufferDetail_GLES3()
