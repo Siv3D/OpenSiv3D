@@ -25,6 +25,7 @@
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/PhongMaterial.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 # include <Siv3D/Renderer3D/VertexLine3D.hpp>
 
@@ -191,7 +192,7 @@ namespace s3d
 		Array<GL4DrawLine3DCommand> m_drawLine3Ds;
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
-		Array<Float4> m_drawDiffuses;
+		Array<PhongMaterialInternal> m_drawPhongMaterials;
 		Array<BlendState> m_blendStates				= { BlendState::Default3D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
 		Array<DepthStencilState> m_depthStencilStates = { DepthStencilState::Default3D };
@@ -252,10 +253,10 @@ namespace s3d
 
 		void pushUpdateLine3DBuffers(uint32 batchIndex);
 
-		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
+		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const PhongMaterialInternal* material, uint32 instanceCount);
 		const GL4Draw3DCommand& getDraw(uint32 index) const noexcept;
 		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
-		const Float4& getDrawDiffuse(uint32 index) const noexcept;
+		const PhongMaterialInternal& getDrawPhongMaterial(uint32 index) const noexcept;
 
 		void pushDrawLine3D(VertexLine3D::IndexType indexCount);
 		const GL4DrawLine3DCommand& getDrawLine3D(uint32 index) const noexcept;

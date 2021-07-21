@@ -66,8 +66,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_GL4:");
 			m_standardPS = std::make_unique<GL4StandardPS3D>();
-			m_standardPS->forwardShape = GLSL{ Resource(U"engine/shader/glsl/forward3d_shape.frag"), { { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
-			m_standardPS->forwardTexture = GLSL{ Resource(U"engine/shader/glsl/forward3d_texture.frag"), { { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->forward = GLSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
 			m_standardPS->line3D = GLSL{ Resource(U"engine/shader/glsl/line3d.frag"), {} };
 
 			if (not m_standardPS->setup())
@@ -96,7 +95,7 @@ namespace s3d
 
 		if (not m_currentCustomPS)
 		{
-			m_commandManager.pushStandardPS(m_standardPS->forwardShapeID);
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
 		}
 
 		m_commandManager.pushInputLayout(GL4InputLayout3D::Mesh);
@@ -104,7 +103,7 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
 	}
 
 	void CRenderer3D_GL4::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material)
@@ -116,7 +115,7 @@ namespace s3d
 
 		if (not m_currentCustomPS)
 		{
-			m_commandManager.pushStandardPS(m_standardPS->forwardTextureID);
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
 		}
 
 		m_commandManager.pushInputLayout(GL4InputLayout3D::Mesh);
@@ -125,7 +124,7 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
 	}
 
 	void CRenderer3D_GL4::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
@@ -377,7 +376,7 @@ namespace s3d
 
 		BatchInfoLine3D batchInfoLine3D;
 		VertexShader::IDType vsID = m_standardVS->forwardID;
-		PixelShader::IDType psID = m_standardPS->forwardShapeID;
+		PixelShader::IDType psID = m_standardPS->forwardID;
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -407,9 +406,9 @@ namespace s3d
 					const uint32 instanceCount = draw.instanceCount;
 
 					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
-					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
+					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
 					m_vsPerObjectConstants->localToWorld = localToWorld.transposed();
-					m_psPerMaterialConstants->material.diffuseColor = diffuse;
+					m_psPerMaterialConstants->material = material;
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();

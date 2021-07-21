@@ -39,7 +39,7 @@ layout(std140) uniform PSPerView
 layout(std140) uniform PSPerMaterial
 {
 	vec3  g_amibientColor;
-	bool  g_hasTexture;
+	uint  g_hasTexture;
 	vec4  g_diffuseColor;
 	vec3  g_specularColor;
 	float g_shinness;
@@ -51,7 +51,12 @@ layout(std140) uniform PSPerMaterial
 //
 void main()
 {
-	vec4 texColor = texture(Texture0, UV);
+	vec4 color = g_diffuseColor;
+	
+	if (g_hasTexture == 1)
+	{
+		color *= texture(Texture0, UV);
+	}
 
-	FragColor = (g_diffuseColor * texColor);
+	FragColor = color;
 }
