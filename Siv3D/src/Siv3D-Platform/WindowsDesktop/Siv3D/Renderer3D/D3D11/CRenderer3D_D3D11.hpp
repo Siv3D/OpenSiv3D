@@ -48,20 +48,17 @@ namespace s3d
 
 	struct D3D11StandardPS3D
 	{
-		PixelShader forwardShape;
-		PixelShader forwardTexture;
+		PixelShader forward;
 		PixelShader line3D;
 
-		PixelShader::IDType forwardShapeID;
-		PixelShader::IDType forwardTextureID;
+		PixelShader::IDType forwardID;
 		PixelShader::IDType line3DID;
 
 		bool setup()
 		{
-			const bool result = forwardShape && forwardTexture && line3D;
+			const bool result = forward && line3D;
 
-			forwardShapeID = forwardShape.id();
-			forwardTextureID = forwardTexture.id();
+			forwardID = forward.id();
 			line3DID = line3D.id();
 
 			return result;

@@ -46,7 +46,7 @@ namespace s3d
 		{
 			m_draws.clear();
 			m_drawLocalToWorlds.clear();
-			m_drawDiffuses.clear();
+			m_drawPhongMaterials.clear();
 
 			m_drawLine3Ds.clear();
 
@@ -343,7 +343,7 @@ namespace s3d
 		m_commands.emplace_back(D3D11Renderer3DCommandType::UpdateLine3DBuffers, batchIndex);
 	}
 
-	void D3D11Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const Mat4x4* mat, const Float4* color, const uint32 instanceCount)
+	void D3D11Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const Mat4x4* mat, const PhongMaterialInternal* material, const uint32 instanceCount)
 	{
 		// [Siv3D ToDo]
 		assert(instanceCount == 1);
@@ -356,7 +356,7 @@ namespace s3d
 		m_commands.emplace_back(D3D11Renderer3DCommandType::Draw, static_cast<uint32>(m_draws.size()));
 		m_draws.push_back({ startIndex, indexCount, instanceCount });
 		m_drawLocalToWorlds.push_back(*mat);
-		m_drawDiffuses.push_back(*color);
+		m_drawPhongMaterials.push_back(*material);
 		m_changes.set(D3D11Renderer3DCommandType::Draw);
 	}
 
@@ -377,9 +377,9 @@ namespace s3d
 		return m_drawLocalToWorlds[index];
 	}
 
-	const Float4& D3D11Renderer3DCommandManager::getDrawDiffuse(const uint32 index) const noexcept
+	const PhongMaterialInternal& D3D11Renderer3DCommandManager::getDrawPhongMaterial(const uint32 index) const noexcept
 	{
-		return m_drawDiffuses[index];
+		return m_drawPhongMaterials[index];
 	}
 
 	void D3D11Renderer3DCommandManager::pushDrawLine3D(VertexLine3D::IndexType indexCount)

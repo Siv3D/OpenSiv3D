@@ -33,7 +33,7 @@ namespace s3d
 	struct PhongMaterialInternal
 	{
 		Float3 amibientColor = Float3{ 1.0f, 1.0f, 1.0f };
-		bool   hasTexture = false;
+		uint32 hasTexture = false;
 		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
 		Float3 specularColor = Float3{ 0.0f, 0.0f, 0.0f };
 		float  shinness = 128.0f;

@@ -93,7 +93,7 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ .diffuseColor = color });
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ .diffuseColor = color, .hasTexture = false });
 	}
 
 
@@ -128,7 +128,7 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ .diffuseColor = color });
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ .diffuseColor = color, .hasTexture = true });
 	}
 
 
@@ -165,7 +165,7 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ .diffuseColor = color });
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ .diffuseColor = color, .hasTexture = false });
 	}
 
 
@@ -203,7 +203,7 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ .diffuseColor = color });
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ .diffuseColor = color, .hasTexture = true });
 	}
 
 

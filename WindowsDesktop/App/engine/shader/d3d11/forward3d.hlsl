@@ -83,14 +83,14 @@ s3d::PSInput VS(s3d::VSInput input)
 	return result;
 }
 
-float4 PS_Shape(s3d::PSInput input) : SV_TARGET
+float4 PS(s3d::PSInput input) : SV_TARGET
 {
-	return g_diffuseColor;
-}
+	float4 color = g_diffuseColor;
 
-float4 PS_Texture(s3d::PSInput input) : SV_TARGET
-{
-	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+	if (g_hasTexture)
+	{
+		color *= g_texture0.Sample(g_sampler0, input.uv);
+	}
 
-	return (g_diffuseColor * texColor);
+	return color;
 }
