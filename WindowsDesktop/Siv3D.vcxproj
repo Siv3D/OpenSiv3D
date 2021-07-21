@@ -553,6 +553,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PhongMaterial.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Body.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\detail\P2Collision.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D\P2Body.hpp" />

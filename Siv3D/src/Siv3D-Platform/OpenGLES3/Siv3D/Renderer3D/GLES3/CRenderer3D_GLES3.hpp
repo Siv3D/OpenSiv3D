@@ -72,9 +72,9 @@ namespace s3d
 
 		const Renderer3DStat& getStat() const override;
 
-		void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color) override;
+		void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material) override;
 
-		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) override;
+		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material) override;
 
 
 		BlendState getBlendState() const override;

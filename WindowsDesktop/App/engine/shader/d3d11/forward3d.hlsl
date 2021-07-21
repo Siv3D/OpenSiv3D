@@ -59,7 +59,12 @@ cbuffer PSPerView : register(b1)
 
 cbuffer PSPerMaterial : register(b3)
 {
+	float3 g_amibientColor;
+	bool   g_hasTexture;
 	float4 g_diffuseColor;
+	float3 g_specularColor;
+	float  g_shinness;
+	float3 g_emission;
 }
 
 //

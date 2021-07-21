@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Mat4x4.hpp>
+# include <Siv3D/PhongMaterial.hpp>
 
 namespace s3d
 {
@@ -33,7 +34,7 @@ namespace s3d
 
 	struct PSPerMaterialConstants3D // (PS slot-3)
 	{
-		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
+		PhongMaterialInternal material;
 	};
 
 	struct BatchInfoLine3D

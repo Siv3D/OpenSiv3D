@@ -120,7 +120,7 @@ namespace s3d
 		return m_stat;
 	}
 
-	void CRenderer3D_D3D11::addMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color)
+	void CRenderer3D_D3D11::addMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -135,11 +135,12 @@ namespace s3d
 		m_commandManager.pushInputLayout(D3D11InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 
+		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
 	}
 
-	void CRenderer3D_D3D11::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color)
+	void CRenderer3D_D3D11::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -155,8 +156,9 @@ namespace s3d
 		m_commandManager.pushMesh(mesh);
 		m_commandManager.pushPSTexture(0, texture);
 
+		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &color, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
 	}
 
 	void CRenderer3D_D3D11::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
@@ -444,7 +446,7 @@ namespace s3d
 					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
 					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
 					m_vsPerObjectConstants->localToWorld = localToWorld;
-					m_psPerMaterialConstants->diffuseColor = diffuse;
+					m_psPerMaterialConstants->material.diffuseColor = diffuse;
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();

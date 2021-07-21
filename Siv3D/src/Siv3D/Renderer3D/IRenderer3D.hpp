@@ -24,6 +24,7 @@
 # include <Siv3D/ConstantBuffer.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Mat4x4.hpp>
+# include <Siv3D/PhongMaterial.hpp>
 
 namespace s3d
 {
@@ -45,9 +46,9 @@ namespace s3d
 
 		virtual const Renderer3DStat& getStat() const = 0;
 
-		virtual void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const Float4& color) = 0;
+		virtual void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material) = 0;
 
-		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const Float4& color) = 0;
+		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material) = 0;
 
 		virtual void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) = 0;
 

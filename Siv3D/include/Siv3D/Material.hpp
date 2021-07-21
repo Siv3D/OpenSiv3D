@@ -20,7 +20,7 @@ namespace s3d
 	{
 		String name;
 
-		ColorF ambient = ColorF{ 0.0 };
+		ColorF ambient = ColorF{ 1.0 };
 
 		ColorF diffuse = ColorF{ 1.0 };
 

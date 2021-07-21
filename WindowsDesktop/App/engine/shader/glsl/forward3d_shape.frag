@@ -33,7 +33,12 @@ layout(std140) uniform PSPerView
 
 layout(std140) uniform PSPerMaterial
 {
-	vec4 g_diffuseColor;
+	vec3  g_amibientColor;
+	bool  g_hasTexture;
+	vec4  g_diffuseColor;
+	vec3  g_specularColor;
+	float g_shinness;
+	vec3  g_emission;
 };
 
 //
