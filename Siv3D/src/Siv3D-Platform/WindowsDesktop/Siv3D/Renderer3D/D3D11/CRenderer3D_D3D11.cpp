@@ -399,6 +399,7 @@ namespace s3d
 
 		pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
 		pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+		pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
 		pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
 		pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
@@ -449,6 +450,7 @@ namespace s3d
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 					m_context->DrawIndexed(indexCount, startIndexLocation, 0);
@@ -478,6 +480,7 @@ namespace s3d
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 					m_context->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);

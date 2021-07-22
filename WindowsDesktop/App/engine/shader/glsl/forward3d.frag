@@ -31,6 +31,13 @@ layout(location = 0) out vec4 FragColor;
 //
 //	Constant Buffer
 //
+layout(std140) uniform PSPerFrame
+{
+	vec3 g_gloablAmbientColor;
+	vec3 g_sunColor;
+	vec3 g_sunDirection;
+};
+
 layout(std140) uniform PSPerView
 {
 	vec3 g_eyePosition;
@@ -43,20 +50,53 @@ layout(std140) uniform PSPerMaterial
 	vec4  g_diffuseColor;
 	vec3  g_specularColor;
 	float g_shininess;
-	vec3  g_emission;
+	vec3  g_emissionColor;
 };
 
 //
 //	Functions
 //
-void main()
+vec4 GetDiffuseColor(vec2 uv)
 {
-	vec4 color = g_diffuseColor;
-	
+	vec4 diffuseColor = g_diffuseColor;
+
 	if (g_hasTexture == 1)
 	{
-		color *= texture(Texture0, UV);
+		diffuseColor *= texture(Texture0, uv);
 	}
 
-	FragColor = color;
+	return diffuseColor;
+}
+
+vec3 CalculateDiffuseReflection(vec3 n, vec3 l, vec3 lightColor, vec3 diffuseColor, vec3 ambientColor)
+{
+	vec3 directColor = lightColor * max(dot(n, l), 0.0f);
+	return ((ambientColor + directColor) * diffuseColor);
+}
+
+vec3 CalculateSpecularReflection(vec3 n, vec3 h, float shininess, float nl, vec3 lightColor, vec3 specularColor)
+{
+	float highlight = pow(max(dot(n, h), 0.0f), shininess) * float(0.0f < nl);
+	return (lightColor * specularColor * highlight);
+}
+
+void main()
+{
+	vec3 lightColor		= g_sunColor;
+	vec3 lightDirection	= g_sunDirection;
+
+	vec3 n = normalize(Normal);
+	vec3 l = lightDirection;
+	vec4 diffuseColor = GetDiffuseColor(UV);
+	vec3 ambientColor = ((g_amibientColor * g_gloablAmbientColor) + g_emissionColor);
+
+	// Diffuse
+	vec3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
+
+	// Specular
+	vec3 v = normalize(g_eyePosition - WorldPosition);
+	vec3 h = normalize(v + lightDirection);
+	vec3 specularReflection = CalculateSpecularReflection(n, h, g_shininess, dot(n, l), lightColor, g_specularColor);
+
+	FragColor = vec4(diffuseReflection + specularReflection, diffuseColor.a);
 }

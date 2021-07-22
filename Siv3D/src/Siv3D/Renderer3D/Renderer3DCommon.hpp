@@ -27,6 +27,13 @@ namespace s3d
 		Mat4x4 localToWorld = Mat4x4::Identity();
 	};
 
+	struct PSPerFrameConstants3D // (PS slot-0)
+	{
+		Float4 gloablAmbientColor = Float4{ 1.0f, 1.0f, 1.0f, 0.0f };
+		Float4 sunColor = Float4{ 1.0f, 1.0f, 1.0f, 0.0f };
+		Float4 sunDirection = Float4{ 0.408248f, 0.408248f, -0.816497f, 0.0f }; // Float3{ 1, 1, -2 }.normalize()
+	};
+
 	struct PSPerViewConstants3D // (PS slot-1)
 	{
 		Float4 eyePosition = Float4{ 0.0f, 0.0f, 0.0f, 0.0f };

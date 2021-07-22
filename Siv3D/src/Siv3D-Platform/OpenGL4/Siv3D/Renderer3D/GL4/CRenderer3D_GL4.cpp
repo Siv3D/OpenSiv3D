@@ -66,7 +66,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_GL4:");
 			m_standardPS = std::make_unique<GL4StandardPS3D>();
-			m_standardPS->forward = GLSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->forward = GLSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
 			m_standardPS->line3D = GLSL{ Resource(U"engine/shader/glsl/line3d.frag"), {} };
 
 			if (not m_standardPS->setup())
@@ -371,6 +371,7 @@ namespace s3d
 
 		pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
 		pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+		pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
 		pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
 		pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
@@ -412,6 +413,7 @@ namespace s3d
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
@@ -435,6 +437,7 @@ namespace s3d
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 

@@ -52,6 +52,13 @@ cbuffer VSPerObject : register(b2)
 	row_major float4x4 g_localToWorld;
 }
 
+cbuffer PSPerFrame : register(b0)
+{
+	float3 g_gloablAmbientColor;
+	float3 g_sunColor;
+	float3 g_sunDirection;
+}
+
 cbuffer PSPerView : register(b1)
 {
 	float3 g_eyePosition;
@@ -60,11 +67,11 @@ cbuffer PSPerView : register(b1)
 cbuffer PSPerMaterial : register(b3)
 {
 	float3 g_amibientColor;
-	bool   g_hasTexture;
+	uint   g_hasTexture;
 	float4 g_diffuseColor;
 	float3 g_specularColor;
 	float  g_shininess;
-	float3 g_emission;
+	float3 g_emissionColor;
 }
 
 //
@@ -83,14 +90,47 @@ s3d::PSInput VS(s3d::VSInput input)
 	return result;
 }
 
-float4 PS(s3d::PSInput input) : SV_TARGET
+float4 GetDiffuseColor(float2 uv)
 {
-	float4 color = g_diffuseColor;
+	float4 diffuseColor = g_diffuseColor;
 
 	if (g_hasTexture)
 	{
-		color *= g_texture0.Sample(g_sampler0, input.uv);
+		diffuseColor *= g_texture0.Sample(g_sampler0, uv);
 	}
 
-	return color;
+	return diffuseColor;
+}
+
+float3 CalculateDiffuseReflection(float3 n, float3 l, float3 lightColor, float3 diffuseColor, float3 ambientColor)
+{
+	const float3 directColor = lightColor * saturate(dot(n, l));
+	return ((ambientColor + directColor) * diffuseColor);
+}
+
+float3 CalculateSpecularReflection(float3 n, float3 h, float shininess, float nl, float3 lightColor, float3 specularColor)
+{
+	const float highlight = pow(saturate(dot(n, h)), shininess) * float(0.0 < nl);
+	return (lightColor * specularColor * highlight);
+}
+
+float4 PS(s3d::PSInput input) : SV_TARGET
+{
+	const float3 lightColor		= g_sunColor;
+	const float3 lightDirection	= g_sunDirection;
+
+	const float3 n = normalize(input.normal);
+	const float3 l = lightDirection;
+	const float4 diffuseColor = GetDiffuseColor(input.uv);
+	const float3 ambientColor = ((g_amibientColor * g_gloablAmbientColor) + g_emissionColor);
+
+	// Diffuse
+	const float3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
+
+	// Specular
+	const float3 v = normalize(g_eyePosition - input.worldPosition);
+	const float3 h = normalize(v + lightDirection);
+	const float3 specularReflection = CalculateSpecularReflection(n, h, g_shininess, dot(n, l), lightColor, g_specularColor);
+
+	return float4(diffuseReflection + specularReflection, diffuseColor.a);
 }

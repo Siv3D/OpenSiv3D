@@ -153,6 +153,7 @@ namespace s3d
 
 		ConstantBuffer<VSPerViewConstants3D> m_vsPerViewConstants;
 		ConstantBuffer<VSPerObjectConstants3D> m_vsPerObjectConstants;
+		ConstantBuffer<PSPerFrameConstants3D> m_psPerFrameConstants;
 		ConstantBuffer<PSPerViewConstants3D> m_psPerViewConstants;
 		ConstantBuffer<PSPerMaterialConstants3D> m_psPerMaterialConstants;
 
